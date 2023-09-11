@@ -140,7 +140,7 @@ export default {
   .k-checkbox-description {
     color: var(--black-45, var(--kui-color-text, $kui-color-text));
     font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
-    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     line-height: var(--kui-line-height-30, $kui-line-height-30);
     padding-left: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
     padding-top: var(--spacing-xxs, var(--kui-space-20, kui-space-20));
