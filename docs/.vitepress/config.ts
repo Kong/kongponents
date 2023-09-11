@@ -106,13 +106,13 @@ export default defineConfig({
             { text: 'Typography', link: '/guide/styles/typography' },
             { text: 'Forms', link: '/guide/styles/forms' },
             { text: 'Utilities', link: '/guide/styles/utilities' },
-            { text: 'Standalone Usage', link: '/guide/styles/standalone-usage' },
           ]
         },
         {
           text: 'Migrations',
           collapsed: false,
           items: [
+            { text: 'Migrating to v9', link: '/guide/migrating-to-version-9' },
             { text: 'Migration to Vue 3', link: '/guide/vue-3-migration-guide' },
           ]
         },
@@ -131,8 +131,12 @@ export default defineConfig({
       { text: 'Guide', link: '/guide/', activeMatch: '/guide/' },
       { text: 'Components', link: '/components/alert', activeMatch: '/components/' },
       {
-        text: `v8.x`,
+        text: `v9-alpha`,
         items: [
+          {
+            text: 'v8.x',
+            link: 'https://kongponents.konghq.com',
+          },
           {
             text: 'v7.x',
             link: 'https://legacy.kongponents.konghq.com',

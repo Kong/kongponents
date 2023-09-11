@@ -77,7 +77,7 @@ import { computed, onMounted, ref, watch, nextTick } from 'vue'
 import type { Appearance, ButtonAppearance, DropdownItem, PopPlacements } from '@/types'
 import { AppearanceArray } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
-import Kooltip from '@/components/KTooltip/KTooltip.vue'
+import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KDropdownItem from './KDropdownItem.vue'
@@ -150,7 +150,7 @@ const emit = defineEmits<{
 
 const hidePopover = ref<boolean>(false)
 
-const tooltipComponent = computed(() => props.disabledTooltip ? Kooltip : 'div')
+const tooltipComponent = computed(() => props.disabledTooltip ? KTooltip : 'div')
 
 const defaultKPopAttributes = {
   hideCaret: true,

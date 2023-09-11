@@ -2,7 +2,7 @@
 
 ---
 
-[![Publish](https://github.com/Kong/kongponents/actions/workflows/publish.yml/badge.svg)](https://github.com/Kong/kongponents/actions/workflows/publish.yml)
+[![Publish](https://github.com/Kong/kongponents/actions/workflows/publish.yaml/badge.svg)](https://github.com/Kong/kongponents/actions/workflows/publish.yaml)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 Kongponents is a Vue component library of frequently needed UI elements. They were developed to solve [Kong's](https://konghq.com) application needs, but are generic enough to use in any web application.

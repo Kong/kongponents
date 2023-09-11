@@ -6,7 +6,6 @@ import './styles/styles.scss' // Import all styles
 export default {
   install: (app: App): void => {
     for (const key in components) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       app.component(key, components[key])
     }

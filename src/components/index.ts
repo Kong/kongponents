@@ -4,14 +4,12 @@
 // Renderless
 export { default as KClipboardProvider } from './KClipboardProvider'
 export { default as KComponent } from './KComponent'
-export { default as Komponent } from './KComponent' // Komponent alias (backwards-compatible with console warning)
 export { default as KToggle } from './KToggle'
 
 // Regular Kongponents (ensure you import from '*.vue` unless the component is "special" with an index.ts file, etc.)
 export { default as KAlert } from './KAlert/KAlert.vue'
 export { default as KBadge } from './KBadge/KBadge.vue'
 export { default as KBreadcrumbs } from './KBreadcrumbs/KBreadcrumbs.vue'
-export { default as Krumbs } from './Krumbs' // KBreadcrumbs alias (backwards-compatible with console warning)
 export { default as KButton } from './KButton/KButton.vue'
 export { default as KCard } from './KCard/KCard.vue'
 export { default as KCatalog } from './KCatalog/KCatalog.vue'
@@ -50,7 +48,6 @@ export { default as KTextArea } from './KTextArea/KTextArea.vue'
 export { default as KToaster } from './KToaster/KToaster.vue'
 export { default as ToastManager } from './KToaster/ToastManager'
 export { default as KTooltip } from './KTooltip/KTooltip.vue'
-export { default as Kooltip } from './Kooltip' // KTooltip alias (backwards-compatible with console warning)
 export { default as KTreeList } from './KTreeList/KTreeList.vue'
 export { default as KViewSwitcher } from './KViewSwitcher/KViewSwitcher.vue'
 export { default as KExternalLink } from './KExternalLink/KExternalLink.vue'

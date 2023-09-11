@@ -1,3 +1,50 @@
+# [9.0.0-alpha.1](https://github.com/Kong/kongponents/compare/v8.123.4...v9.0.0-alpha.1) (2023-09-11)
+
+
+### Bug Fixes
+
+* **release:** trigger release ([609a1b8](https://github.com/Kong/kongponents/commit/609a1b80efff216ae1001c4aee8d4bee1112b9c9))
+
+
+### Features
+
+* kongponents major reskin [KHCP-8873] ([19f7d46](https://github.com/Kong/kongponents/commit/19f7d46b51ae51341807bd4cd37fa2dffb55772a))
+
+
+### BREAKING CHANGES
+
+* Breaking style changes. Component removals. Deprecated prop removals. See
+https://kongponents.konghq.com/guide/migrating-to-version-9.html
+
+## [8.123.4](https://github.com/Kong/kongponents/compare/v8.123.3...v8.123.4) (2023-09-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency date-fns-tz to v2 ([#1712](https://github.com/Kong/kongponents/issues/1712)) ([35bb517](https://github.com/Kong/kongponents/commit/35bb517b0b66692bd9062f7333a630ffb0e263e3))
+* **deps:** update dependency uuid to v9 ([#1713](https://github.com/Kong/kongponents/issues/1713)) ([d9d2d6c](https://github.com/Kong/kongponents/commit/d9d2d6cab1148877be34551892bd095d4fddb2e1))
+
+## [8.123.3](https://github.com/Kong/kongponents/compare/v8.123.2...v8.123.3) (2023-09-08)
+
+
+### Bug Fixes
+
+* renovate config ([#1688](https://github.com/Kong/kongponents/issues/1688)) ([0e0ef2b](https://github.com/Kong/kongponents/commit/0e0ef2b06971c097e953c32f93c8fecf46f1ef96))
+
+## [8.123.2](https://github.com/Kong/kongponents/compare/v8.123.1...v8.123.2) (2023-09-07)
+
+
+### Bug Fixes
+
+* **deps:** update vitepress and vue-tsc ([#1679](https://github.com/Kong/kongponents/issues/1679)) ([c675a1a](https://github.com/Kong/kongponents/commit/c675a1a1c4de7ff5fd7103224f6bb100ec2d1066))
+
+## [8.123.1](https://github.com/Kong/kongponents/compare/v8.123.0...v8.123.1) (2023-09-07)
+
+
+### Bug Fixes
+
+* **multi-select:** optimize overflow detection for selected items container ([#1677](https://github.com/Kong/kongponents/issues/1677)) ([973fa81](https://github.com/Kong/kongponents/commit/973fa818f3d97925cb7e412aadc95af7c7500d0a))
+
 # [8.123.0](https://github.com/Kong/kongponents/compare/v8.122.9...v8.123.0) (2023-08-30)
 
 

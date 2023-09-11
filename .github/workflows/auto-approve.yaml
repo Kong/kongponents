@@ -1,5 +1,5 @@
 ---
-name: Dependabot auto-approve
+name: Renovate Bot dependency updates auto-merge
 
 permissions:
   pull-requests: write
@@ -8,19 +8,13 @@ permissions:
 on: pull_request_target
 
 jobs:
-  dependabot-autoapprove:
+  renovate-autoapprove:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' }}
+    if: ${{ github.actor == 'renovate[bot]' }}
     steps:
       - name: Approve a PR
         run: gh pr review --approve "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           # Use the bot account PAT to allow auto-approve and merge the PRs
-          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
-
-      - name: Enable auto-merge for Dependabot PRs
-        run: gh pr merge --auto --squash "$PR_URL"
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}

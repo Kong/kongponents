@@ -4,7 +4,7 @@ There are two ways to use Kongponents in your project: [globally register all Ko
 
 **Regardless of which method you choose** you will also need to import the Kongponents CSS into your project ([Vite](https://vitejs.dev/guide/build.html#library-mode) does not currently support CSS in JS when building in library mode).
 
-The easiest place to import the package styles is inside your Vue entry file (e.g. `main.ts`). For more examples of utilzing Kongponent styles, including importing the Sass and CSS variables and even scoping the styles, see [the other usage examples](/guide/styles/standalone-usage.html#css-and-sass-variables).
+The easiest place to import the package styles is inside your Vue entry file (e.g. `main.ts`).
 
 ## Vue Plugin
 

@@ -576,4 +576,23 @@ describe('KMultiselect', () => {
     cy.get('.k-multiselect-item').eq(3).should('contain.text', items[2].label)
     cy.get('.k-multiselect-item').eq(4).should('contain.text', items[4].label)
   })
+
+  it('should able to handle tons of items with no obvious lag', () => {
+    const items = Array.from(new Array(500)).map((_, i) => ({
+      label: `Item ${i}`,
+      value: `${i}`,
+      selected: i < 400,
+    }))
+
+    const startTime = Date.now()
+
+    mount(KMultiselect, {
+      props: {
+        testMode: true,
+        items,
+      },
+    }).then(() => {
+      expect(Date.now() - startTime).to.be.lessThan(3000)
+    })
+  })
 })
