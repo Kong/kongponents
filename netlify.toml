@@ -6,18 +6,7 @@
   base = "/"
   command = "yarn docs:build"
   publish = "docs/.vitepress/dist"
-  environment = { NODE_VERSION = "18.12.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
-
-# ##############################
-# 'main' branch
-# ##############################
-
-# 'main' branch context
-[context.main]
-  base = "/"
-  command = "yarn docs:build"
-  publish = "docs/.vitepress/dist"
-  environment = { NODE_VERSION = "18.12.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
+  environment = { NODE_VERSION = "18.17.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
 
 # ##############################
 # 'legacy' branch
@@ -28,4 +17,4 @@
   base = "/"
   command = "yarn docs:build"
   publish = "docs/.vitepress/dist"
-  environment = { NODE_VERSION = "18.12.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
+  environment = { NODE_VERSION = "18.17.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }

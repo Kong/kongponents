@@ -61,8 +61,7 @@ jobs:
 
       - name: Publish Package Preview
         id: package-preview
-        # Do not run for `alpha` or `beta` branches
-        if: github.event_name == 'pull_request' && github.actor != 'renovate[bot]' && !contains(github.head_ref || github.ref_name, 'alpha') && !contains(github.head_ref || github.ref_name, 'beta')
+        if: github.event_name == 'pull_request' && github.actor != 'renovate[bot]'
         run: |
           git config user.email "konnectx-engineers+kongponents-bot@konghq.com"
           git config user.name "Kong UI Bot"

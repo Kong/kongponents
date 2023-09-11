@@ -134,6 +134,10 @@ export default defineConfig({
         text: `v8.x`,
         items: [
           {
+            text: 'v9-alpha',
+            link: 'https://alpha--kongponents.netlify.app',
+          },
+          {
             text: 'v7.x',
             link: 'https://legacy.kongponents.konghq.com',
           },
