@@ -106,7 +106,7 @@
     "node-emoji": "^1.11.0",
     "picocolors": "^1.0.0",
     "postcss-cli": "^10.1.0",
-    "postcss-custom-properties": "^12.1.8",
+    "postcss-custom-properties": "^13.3.0",
     "postcss-html": "^1.5.0",
     "rimraf": "^5.0.1",
     "rollup-plugin-visualizer": "^5.9.0",
