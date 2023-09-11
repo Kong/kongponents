@@ -100,7 +100,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.5",
     "eslint-plugin-promise": "^6.0.1",
-    "eslint-plugin-vue": "^8.7.1",
+    "eslint-plugin-vue": "^9.17.0",
     "inquirer": "^8.2.4",
     "nanospinner": "^1.1.0",
     "node-emoji": "^1.11.0",
