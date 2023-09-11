@@ -77,7 +77,7 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/inquirer": "^9.0.3",
-    "@types/node": "^18.17.12",
+    "@types/node": "^18.17.13",
     "@types/node-emoji": "^1.8.2",
     "@types/sortablejs": "^1.15.2",
     "@types/uuid": "^9.0.3",
