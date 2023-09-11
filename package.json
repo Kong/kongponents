@@ -59,7 +59,7 @@
     "sortablejs": "^1.15.0",
     "swrv": "^1.0.0",
     "uuid": "^8.3.2",
-    "v-calendar": "^3.0.0-alpha.8",
+    "v-calendar": "3.0.0-alpha.8",
     "vue-draggable-next": "^2.1.1"
   },
   "peerDependencies": {
