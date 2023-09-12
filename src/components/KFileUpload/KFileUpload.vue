@@ -377,6 +377,7 @@ const resetInput = (): void => {
     left: 20px;
     pointer-events: none;
     position: absolute;
+    text-decoration: none;
 
     &.has-label {
       top: 40px;
