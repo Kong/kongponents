@@ -1,3 +1,11 @@
+# [9.0.0-alpha.3](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.2...v9.0.0-alpha.3) (2023-09-12)
+
+
+### Bug Fixes
+
+* **kfileupload:** underline ([06f0d76](https://github.com/Kong/kongponents/commit/06f0d76c11fdbb096203e704a3b83319631f66c0))
+* **kfileupload:** width ([96bfc4b](https://github.com/Kong/kongponents/commit/96bfc4bf9fc7c9123fdd1641f4b7240a50b6f51a))
+
 # [9.0.0-alpha.2](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.1...v9.0.0-alpha.2) (2023-09-12)
 
 
