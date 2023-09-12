@@ -8,7 +8,7 @@
       'clickable': isClickable
     } ]"
     :style="badgeCustomStyles"
-    :tabindex="hidden ? -1 : 0"
+    :tabindex="hidden ? -1 : isClickable ? 0 : undefined"
   >
     <component
       :is="truncationTooltip && (forceTooltip || isTruncated) ? 'KTooltip' : 'div'"
@@ -31,7 +31,7 @@
       class="k-badge-dismiss-button"
       data-testid="k-badge-dismiss-button"
       :is-rounded="shape === 'rounded'"
-      :tabindex="hidden ? -1 : 0"
+      :tabindex="hidden ? -1 : undefined"
       @click="handleDismiss"
       @click.stop
     >
