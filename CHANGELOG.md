@@ -1,3 +1,10 @@
+# [9.0.0-alpha.4](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.3...v9.0.0-alpha.4) (2023-09-12)
+
+
+### Bug Fixes
+
+* refactor reusable styles [KHCP-7735] ([#1676](https://github.com/Kong/kongponents/issues/1676)) ([ccb955f](https://github.com/Kong/kongponents/commit/ccb955f28500cd9a808824ffd3a9a058505e3ad7))
+
 ## [8.123.6](https://github.com/Kong/kongponents/compare/v8.123.5...v8.123.6) (2023-09-12)
 
 ### Bug Fixes
