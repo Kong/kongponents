@@ -139,7 +139,8 @@ jobs:
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
           PREVENT_PERCY_TESTS: ${{ secrets.PREVENT_PERCY_TESTS }}
-          PERCY_TARGET_BRANCH: main
+          # TODO: Change branch as branch name changes
+          PERCY_TARGET_BRANCH: alpha
         if: "${{ env.PREVENT_PERCY_TESTS != 'true' }}"
         run: |
           npx @percy/cli snapshot docs/.vitepress/dist/ --exclude "**/404.html"

@@ -1,10 +1,25 @@
-# [9.0.0-alpha.1](https://github.com/Kong/kongponents/compare/v8.123.4...v9.0.0-alpha.1) (2023-09-11)
+## [8.123.6](https://github.com/Kong/kongponents/compare/v8.123.5...v8.123.6) (2023-09-12)
+
+### Bug Fixes
+
+* **kfileupload:** underline ([06f0d76](https://github.com/Kong/kongponents/commit/06f0d76c11fdbb096203e704a3b83319631f66c0))
+* **kfileupload:** width ([96bfc4b](https://github.com/Kong/kongponents/commit/96bfc4bf9fc7c9123fdd1641f4b7240a50b6f51a))
+
+## [8.123.5](https://github.com/Kong/kongponents/compare/v8.123.4...v8.123.5) (2023-09-11)
+
+### Bug Fixes
+
+* **kfileupload:** underline ([06f0d76](https://github.com/Kong/kongponents/commit/06f0d76c11fdbb096203e704a3b83319631f66c0))
+* **kfileupload:** width ([96bfc4b](https://github.com/Kong/kongponents/commit/96bfc4bf9fc7c9123fdd1641f4b7240a50b6f51a))
+
+# [9.0.0-alpha.2](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.1...v9.0.0-alpha.2) (2023-09-12)
 
 
 ### Bug Fixes
 
-* **release:** trigger release ([609a1b8](https://github.com/Kong/kongponents/commit/609a1b80efff216ae1001c4aee8d4bee1112b9c9))
+* **kcodeblock:** dark theme styles not applying to slotted content ([#1719](https://github.com/Kong/kongponents/issues/1719)) ([5ca01ec](https://github.com/Kong/kongponents/commit/5ca01eca5e5b2054519415f65352d252049f3731))
 
+# [9.0.0-alpha.1](https://github.com/Kong/kongponents/compare/v8.123.4...v9.0.0-alpha.1) (2023-09-11)
 
 ### Features
 
@@ -15,6 +30,9 @@
 
 * Breaking style changes. Component removals. Deprecated prop removals. See
 https://kongponents.konghq.com/guide/migrating-to-version-9.html
+
+
+## [8.123.5](https://github.com/Kong/kongponents/compare/v8.123.4...v8.123.5) (2023-09-11)
 
 ## [8.123.4](https://github.com/Kong/kongponents/compare/v8.123.3...v8.123.4) (2023-09-11)
 

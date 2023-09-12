@@ -1,15 +1,16 @@
-[![Kong Kongponents](/docs/.vitepress/public/img/kongponents-logo.jpg?raw=true)][docsUrl]
 
----
+# Kongponents
+
+[![Kong Kongponents](/docs/public/img/kongponents-logo.jpg?raw=true)][docsUrl]
 
 [![Publish](https://github.com/Kong/kongponents/actions/workflows/publish.yaml/badge.svg)](https://github.com/Kong/kongponents/actions/workflows/publish.yaml)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/426d5e0a-fc41-4c1d-ba80-38417b614394/deploy-status?branch=main)](https://app.netlify.com/sites/kongponents/deploys)
 
 Kongponents is a Vue component library of frequently needed UI elements. They were developed to solve [Kong's](https://konghq.com) application needs, but are generic enough to use in any web application.
 
-## Documentation
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/426d5e0a-fc41-4c1d-ba80-38417b614394/deploy-status?branch=main)](https://app.netlify.com/sites/kongponents/deploys)
+## Documentation
 
 [Kongponents Docs][docsUrl] are powered by VitePress and the source can be viewed [here](docs/).
 
