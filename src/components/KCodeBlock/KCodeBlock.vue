@@ -891,29 +891,6 @@ $dark-focusColor: var(--green-500, $tmp-color-green-500);
   }
 }
 
-// TODO: This rule set should live in KButton.vue.
-.theme-dark .k-button {
-  background-color: $dark-backgroundColor;
-  border-color: var(--steel-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
-  color: var(--steel-300, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak));
-
-  &:hover {
-    background-color: var(--steel-400, $tmp-color-steel-400);
-    border-color: var(--steel-400, $tmp-color-steel-400);
-    color: $dark-backgroundColor;
-
-    &:disabled {
-      background-color: $dark-backgroundColor;
-    }
-  }
-
-  &.action-active {
-    background-color: var(--steel-300, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak));
-    border-color: var(--steel-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
-    color: $dark-backgroundColor;
-  }
-}
-
 .k-is-processing-icon {
   align-items: center;
   display: inline-flex;
@@ -1183,13 +1160,15 @@ $dark-focusColor: var(--green-500, $tmp-color-green-500);
 @import '@/styles/tmp-variables';
 @import '@/styles/functions';
 
+$dark-backgroundColor: var(--black-500, var(--kui-color-background-neutral-strongest, $kui-color-background-neutral-strongest));
+
 .k-code-block {
   .k-matched-term {
     color: var(--teal-500, var(--kui-color-text-decorative, $kui-color-text-decorative));
     font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
   }
 
-  .theme-dark .k-matched-term {
+  &.theme-dark .k-matched-term {
     color: var(--green-500, var(--kui-color-text-success, $kui-color-text-success));
   }
 
@@ -1227,7 +1206,9 @@ $dark-focusColor: var(--green-500, $tmp-color-green-500);
 
   // TODO: If and once KButton has `props.theme` support, these styles should live in KButton.vue.
   // TODO: Fix these styles not always providing a solid background color for the copy button allowing content to clip through it.
-  .theme-dark .k-button:not(.increase-specificity) {
+  &.theme-dark .k-button:not(.increase-specificity) {
+    background-color: $dark-backgroundColor;
+    border-color: var(--steel-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
     color: var(--steel-300, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak));
 
     @media (max-width: ($viewport-md - 1px)) {
@@ -1236,8 +1217,13 @@ $dark-focusColor: var(--green-500, $tmp-color-green-500);
     }
 
     &:hover {
-      background-color: $tmp-color-white-10;
-      border-color: var(--kui-color-border-transparent, $kui-color-border-transparent) !important;
+      background-color: var(--steel-400, $tmp-color-steel-400);
+      border-color: var(--steel-400, $tmp-color-steel-400);
+      color: $dark-backgroundColor;
+
+      &:disabled {
+        background-color: $dark-backgroundColor;
+      }
     }
 
     &:active,
@@ -1245,6 +1231,12 @@ $dark-focusColor: var(--green-500, $tmp-color-green-500);
       background-color: var(--steel-300, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak));
       border-color: var(--steel-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
       color: var(--black-500, var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest));
+    }
+
+    &.action-active {
+      background-color: var(--steel-300, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak));
+      border-color: var(--steel-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+      color: $dark-backgroundColor;
     }
   }
 }
