@@ -146,7 +146,7 @@ export default {
     padding-top: var(--spacing-xxs, var(--kui-space-20, kui-space-20));
   }
 
-  .disabled {
+  &.disabled {
     .k-checkbox-label {
       color: var(--KCheckboxDisabledChecked, var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)));
     }

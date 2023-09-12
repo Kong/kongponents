@@ -207,8 +207,11 @@ $background-color-card-disabled: var(--kui-color-background-neutral-weakest, $ku
     --KInputLabelFont: var(--kui-font-family-text, #{$kui-font-family-text});
     --KInputLabelMargin: var(--kui-space-0, #{$kui-space-0});
     --KInputLabelSize: var(--type-sm, var(--kui-font-size-30, #{$kui-font-size-30}));
-    display: inline !important;
     vertical-align: middle;
+
+    &.has-description {
+      display: inline !important;
+    }
   }
 
   &.disabled {

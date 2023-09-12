@@ -131,7 +131,7 @@
   appearance: none;
   background-color: var(--kui-color-background, $kui-color-background);
   border: var(--kui-border-width-10, $kui-border-width-10) solid
-    var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+    var(--KInputBorder, var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
   box-sizing: border-box;
   display: inline-block;
   padding: var(--kui-space-0, $kui-space-0);
@@ -146,7 +146,10 @@
     opacity: 1;
 
     &:hover {
-      border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+      border-color: var(
+        --KInputBorder,
+        var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak))
+      );
     }
   }
 }
@@ -154,10 +157,9 @@
 @mixin input-type-checkbox {
   @include input-checkbox-radio;
 
-  // background-color: red;
   border: none;
   border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-  color: var(--kui-color-text-primary, $kui-color-text-primary);
+  color: var(--KCheckboxPrimary, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
   height: 20px;
   margin: var(--kui-space-0, $kui-space-0) var(--kui-space-30, $kui-space-30) var(--kui-space-0, $kui-space-0)
     var(--kui-space-0, $kui-space-0);
@@ -166,7 +168,7 @@
 
   &:not(:checked) {
     border: var(--kui-border-width-10, $kui-border-width-10) solid
-      var(--kui-color-border-primary, $kui-color-border-primary);
+      var(--KCheckboxPrimary, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)));
   }
 
   &:checked {
@@ -174,34 +176,46 @@
     background-image: url("data:image/svg+xml,%3Csvg width='13' height='11' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.633 0L12 1.397 3.583 10 0 6.337 1.367 4.94l2.216 2.265z' fill='%23FFF' fill-rule='nonzero'/%3E%3C/svg%3E");
     background-position: center;
     background-repeat: no-repeat;
-    border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+    border-color: var(--KCheckboxPrimary, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)));
   }
 
   &:checked::-ms-check {
-    background-color: var(--kui-color-background-primary, $kui-color-background-primary);
+    background-color: var(
+      --KCheckboxPrimary,
+      var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary))
+    );
     border: var(--kui-border-width-10, $kui-border-width-10) solid
-      var(--kui-color-border-primary, $kui-color-border-primary);
+      var(--KCheckboxPrimary, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)));
     color: var(--kui-color-text-inverse, $kui-color-text-inverse);
   }
 
   &:hover,
   &:active {
-    border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+    border-color: var(--KCheckboxPrimary, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)));
   }
 
   &:focus {
-    border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+    border-color: var(--KCheckboxPrimary, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)));
     outline: none;
   }
 
   &:disabled:not(:checked) {
-    background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+    background-color: var(
+      --KInputCheckboxDisabled,
+      var(--grey-100, var(--kui-color-background-disabled, $kui-color-background-disabled))
+    );
     border: var(--kui-border-width-10, $kui-border-width-10) solid
-      var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+      var(
+        --KCheckboxDisabledChecked,
+        var(--grey-400, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak))
+      );
     border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
   }
   &:disabled:checked {
-    background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+    background-color: var(
+      --KCheckboxDisabledChecked,
+      var(--grey-400, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak))
+    );
   }
 }
 
@@ -210,9 +224,9 @@
 
   align-items: center;
   border: var(--kui-border-width-20, $kui-border-width-20) solid
-    var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+    var(--KInputBorder, var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
   border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
-  color: var(--kui-color-text-primary, $kui-color-text-primary);
+  color: var(--KRadioPrimary, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
   display: inline-flex;
   height: 20px;
   justify-content: center;
@@ -237,10 +251,16 @@
     }
 
     &:disabled {
-      border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+      border-color: var(
+        --KInputRadioDisabled,
+        var(--grey-400, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak))
+      );
 
       &:after {
-        background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+        background-color: var(
+          --KInputRadioDisabled,
+          var(--grey-400, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak))
+        );
       }
     }
   }
@@ -252,7 +272,10 @@
   }
 
   &:disabled {
-    background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+    background-color: var(
+      --KInputRadioDisabled,
+      var(--grey-200, var(--kui-color-background-disabled, $kui-color-background-disabled))
+    );
   }
 }
 
