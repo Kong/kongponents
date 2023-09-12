@@ -266,7 +266,7 @@ const resetInput = (): void => {
 
 .k-file-upload {
   position: relative;
-  width: 100 !important;
+  width: 100% !important;
   $kInputPaddingY: var(--kui-space-40, $kui-space-40);
   $kInputLabelMarginBottom: var(--KInputLabelMargin, var(--spacing-xs, var(--kui-space-40, $kui-space-40))); // matching KLabel margin bottom
   $kInputLabelLineHeight: var(--KInputLabelLineHeight, var(--type-lg, var(--kui-line-height-30, $kui-line-height-30))); // matching KLabel line height
