@@ -122,42 +122,38 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
-@import '@/styles/functions';
-
-.k-checkbox-label {
-  --KInputLabelWeight: var(--kui-font-weight-regular, #{$kui-font-weight-regular});
-  --KInputLabelLineHeight: var(--kui-line-height-30, #{$kui-line-height-30});
-  --KInputLabelFont: var(--kui-font-family-text, #{$kui-font-family-text});
-  --KInputLabelMargin: var(--kui-space-0, #{$kui-space-0});
-  --KInputLabelSize: var(--type-sm, var(--kui-font-size-30, #{$kui-font-size-30}));
-
-  vertical-align: middle;
-}
-
-.k-checkbox-description {
-  color: var(--black-45, var(--kui-color-text, $kui-color-text));
-  font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
-  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-  line-height: var(--kui-line-height-30, $kui-line-height-30);
-  padding-left: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
-  padding-top: var(--spacing-xxs, var(--kui-space-20, kui-space-20));
-}
-
-.disabled {
-  .k-checkbox-label {
-    color: var(--KCheckboxDisabledChecked, var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)));
-  }
-}
-</style>
-
-<style lang="scss">
-.k-checkbox-description {
-  font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);;
-}
+@import '@/styles/mixins';
 
 .k-checkbox {
+  .k-input {
+    @include input-type-checkbox;
+  }
+
+  .k-checkbox-label {
+    font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+    line-height: var(--kui-line-height-30, $kui-line-height-30);
+    margin: var(--kui-space-0, $kui-space-0);
+    vertical-align: middle;
+  }
+
+  .k-checkbox-description {
+    color: var(--black-45, var(--kui-color-text, $kui-color-text));
+    font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+    line-height: var(--kui-line-height-30, $kui-line-height-30);
+    padding-left: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+    padding-top: var(--spacing-xxs, var(--kui-space-20, kui-space-20));
+  }
+
+  &.disabled {
+    .k-checkbox-label {
+      color: var(--KCheckboxDisabledChecked, var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)));
+    }
+  }
+
   .k-checkbox-label.has-desc {
-    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);;
+    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
   }
   .has-desc {
     .label-tooltip {

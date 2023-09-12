@@ -131,7 +131,7 @@ Anything passed in to the default slot will replace the label prop text
     </div>
     <div>
       <KCheckbox v-model="slots2">
-        I agree to the <a href="#slots">privacy policy</a>.
+        I agree to the&nbsp;<a href="#slots">privacy policy</a>.
       </KCheckbox>
     </div>
   </template>

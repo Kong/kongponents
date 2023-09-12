@@ -1,3 +1,5 @@
+@import "@/styles/tmp-variables";
+
 /// Replace `$search` with `$replace` in `$string`
 /// @param {String} $string - Initial string
 /// @param {String} $search - Substring to replace
@@ -24,7 +26,9 @@
 @mixin input-default {
   background-color: var(--KInputBackground, var(--white, #ffffff));
   box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300, #e7e7ec)) !important;
-  transition: color 0.1s ease, box-shadow 0.1s ease;
+  transition:
+    color 0.1s ease,
+    box-shadow 0.1s ease;
 }
 
 @mixin input-focus {
@@ -36,19 +40,18 @@
 @mixin textarea-default {
   background-color: var(--KInputBackground, var(--white, #ffffff));
   box-shadow: none !important;
-  outline: 1px solid var(--KInputBorder, var(--grey-300, #e7e7ec)) !important;
-  transition: color 0.1s ease, box-shadow 0.1s ease;
+  transition:
+    color 0.1s ease,
+    box-shadow 0.1s ease;
 }
 
 @mixin textarea-hover {
   box-shadow: none !important;
-  outline: 1px solid var(--KInputHover, var(--blue-200, #bdd3f9)) !important;
   transition: all 0.1s ease;
 }
 
 @mixin textarea-focus {
   box-shadow: none !important;
-  outline: 1px solid var(--blue-400, #3972d5) !important;
   transition: all 0.1s ease;
 }
 
@@ -119,4 +122,296 @@
   position: absolute !important;
   white-space: nowrap !important;
   width: 1px !important;
+}
+
+@mixin input-checkbox-radio {
+  // Override browser defaults
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: var(--kui-color-background, $kui-color-background);
+  border: var(--kui-border-width-10, $kui-border-width-10) solid
+    var(--KInputBorder, var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
+  box-sizing: border-box;
+  display: inline-block;
+  padding: var(--kui-space-0, $kui-space-0);
+  -webkit-print-color-adjust: exact;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+
+  &:disabled {
+    opacity: 1;
+
+    &:hover {
+      border-color: var(
+        --KInputBorder,
+        var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak))
+      );
+    }
+  }
+}
+
+@mixin input-type-checkbox {
+  @include input-checkbox-radio;
+
+  border: none;
+  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+  color: var(--KCheckboxPrimary, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+  height: 20px;
+  margin: var(--kui-space-0, $kui-space-0) var(--kui-space-30, $kui-space-30) var(--kui-space-0, $kui-space-0)
+    var(--kui-space-0, $kui-space-0);
+  outline: none;
+  width: 20px;
+
+  &:not(:checked) {
+    border: var(--kui-border-width-10, $kui-border-width-10) solid
+      var(--KCheckboxPrimary, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)));
+  }
+
+  &:checked {
+    background-color: currentColor;
+    background-image: url("data:image/svg+xml,%3Csvg width='13' height='11' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.633 0L12 1.397 3.583 10 0 6.337 1.367 4.94l2.216 2.265z' fill='%23FFF' fill-rule='nonzero'/%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+    border-color: var(--KCheckboxPrimary, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)));
+  }
+
+  &:checked::-ms-check {
+    background-color: var(
+      --KCheckboxPrimary,
+      var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary))
+    );
+    border: var(--kui-border-width-10, $kui-border-width-10) solid
+      var(--KCheckboxPrimary, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)));
+    color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+  }
+
+  &:hover,
+  &:active {
+    border-color: var(--KCheckboxPrimary, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)));
+  }
+
+  &:focus {
+    border-color: var(--KCheckboxPrimary, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)));
+    outline: none;
+  }
+
+  &:disabled:not(:checked) {
+    background-color: var(
+      --KInputCheckboxDisabled,
+      var(--grey-100, var(--kui-color-background-disabled, $kui-color-background-disabled))
+    );
+    border: var(--kui-border-width-10, $kui-border-width-10) solid
+      var(
+        --KCheckboxDisabledChecked,
+        var(--grey-400, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak))
+      );
+    border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
+  }
+  &:disabled:checked {
+    background-color: var(
+      --KCheckboxDisabledChecked,
+      var(--grey-400, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak))
+    );
+  }
+}
+
+@mixin input-type-radio {
+  @include input-checkbox-radio;
+
+  align-items: center;
+  border: var(--kui-border-width-20, $kui-border-width-20) solid
+    var(--KInputBorder, var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
+  border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
+  color: var(--KRadioPrimary, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+  display: inline-flex;
+  height: 20px;
+  justify-content: center;
+  margin: var(--kui-space-0, $kui-space-0) var(--kui-space-30, $kui-space-30) var(--kui-space-0, $kui-space-0)
+    var(--kui-space-0, $kui-space-0);
+  width: 20px;
+
+  &:checked {
+    background-color: var(--kui-color-background, $kui-color-background);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border-color: currentColor;
+
+    &:after {
+      background-color: currentColor;
+      border-radius: 100%;
+      content: "";
+      display: flex;
+      height: 10px;
+      width: 10px;
+    }
+
+    &:disabled {
+      border-color: var(
+        --KInputRadioDisabled,
+        var(--grey-400, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak))
+      );
+
+      &:after {
+        background-color: var(
+          --KInputRadioDisabled,
+          var(--grey-400, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak))
+        );
+      }
+    }
+  }
+
+  // IE11
+  &:checked::-ms-check {
+    border: var(--kui-border-width-20, $kui-border-width-20) solid currentColor;
+    color: currentColor;
+  }
+
+  &:disabled {
+    background-color: var(
+      --KInputRadioDisabled,
+      var(--grey-200, var(--kui-color-background-disabled, $kui-color-background-disabled))
+    );
+  }
+}
+
+@mixin input-type-input {
+  &:not([type="checkbox"]):not([type="radio"]) {
+    border: none;
+    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+    box-sizing: border-box;
+    color: var(--KInputColor, var(--black-70, var(--kui-color-text, $kui-color-text)));
+    display: block;
+    font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+    line-height: var(--kui-line-height-40, $kui-line-height-40);
+    padding: var(--kui-space-40, $kui-space-40) var(--spacing-md, var(--kui-space-60, $kui-space-60));
+    width: 100%;
+    @include input-default;
+
+    &.k-input-small {
+      font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
+      padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40))
+        var(--spacing-sm, var(--kui-space-50, $kui-space-50));
+    }
+
+    &.k-input-large {
+      font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+      padding: var(--spacing-md, var(--kui-space-60, $kui-space-60))
+        var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+    }
+
+    &:hover {
+      @include input-hover;
+
+      &.k-input-large {
+        box-shadow: inset 0 0 0 2px var(--KInputHover, var(--blue-200, #bdd3f9)) !important;
+        transition: all $tmp-animation-timing-2 ease;
+      }
+    }
+
+    &:focus {
+      @include input-focus;
+
+      &.k-input-large {
+        box-shadow: inset 0 0 0 2px var(--KInputFocus, var(--blue-400, #3972d5)) !important;
+        transition: all $tmp-animation-timing-2 ease;
+      }
+    }
+
+    &:not([type="checkbox"]):not([type="radio"]):not([type="file"]):read-only {
+      @include input-readonly;
+    }
+
+    &:disabled {
+      @include input-disabled;
+    }
+
+    &:invalid,
+    &:-moz-submit-invalid,
+    &:-moz-ui-invalid {
+      box-shadow: none;
+    }
+
+    /* Browser Overrides */
+    &::placeholder {
+      color: var(--KInputPlaceholderColor, var(--black-45, var(--kui-color-text, $kui-color-text)));
+      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+      opacity: 1;
+    }
+
+    &::-ms-clear {
+      display: none;
+    }
+  }
+}
+
+// in new next major version support for overlay label will be removed
+// so this mixin is just holding the legacy code for a bit
+@mixin overlay-label-input {
+  position: relative;
+
+  .hovered:not(.readonly) {
+    color: var(--KInputHover, var(--blue-500, #1155cb));
+    transition: color $tmp-animation-timing-2 ease;
+  }
+
+  .focused:not(.readonly) {
+    color: var(--KInputFocus, var(--blue-500, #1155cb));
+    transition: color $tmp-animation-timing-2 ease;
+  }
+
+  .is-required {
+    color: var(--KLabelRequiredAsteriskColor, var(--KInputBorder, var(--grey-600, #3c4557)));
+    font-size: var(--kui-font-size-10, $kui-font-size-10);
+    font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+    margin-left: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
+  }
+
+  label {
+    background-color: var(--KInputBackground, var(--white, var(--kui-color-background, $kui-color-background)));
+    color: var(--KInputBorder, var(--grey-600, #3c4557));
+    display: inline-block;
+    font-size: var(--kui-font-size-10, $kui-font-size-10);
+    font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+    left: 13px;
+    line-height: 1;
+    margin-bottom: var(--kui-space-0, $kui-space-0);
+    padding: var(--kui-space-10, $kui-space-10) var(--kui-space-20, $kui-space-20);
+    position: absolute;
+    top: -8px;
+    transition: color $tmp-animation-timing-2 ease;
+    width: auto;
+    z-index: 1;
+
+    &.hovered:not(.readonly) {
+      color: var(--KInputHover, var(--blue-500, #1155cb));
+      transition: color $tmp-animation-timing-2 ease;
+
+      .is-required {
+        color: var(--KInputHover, var(--blue-500, #1155cb));
+      }
+    }
+
+    &.focused:not(.readonly) {
+      color: var(--KInputFocus, var(--blue-500, #1155cb));
+      transition: color $tmp-animation-timing-2 ease;
+
+      .is-required {
+        color: var(--KInputFocus, var(--blue-500, #1155cb));
+      }
+    }
+
+    &.disabled {
+      color: var(--grey-500, #6f7787);
+
+      .is-required {
+        color: var(--grey-500, #6f7787);
+      }
+    }
+  }
 }

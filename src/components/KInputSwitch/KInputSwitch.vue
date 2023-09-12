@@ -160,13 +160,19 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/variables';
-@import '@/styles/functions';
+@import '@/styles/tmp-variables';
 
-.k-switch,
-.k-input-switch {
+$kInputSwitchWidth: 44px;
+$kInputSwitchHeight: 24px;
+$kInputSwitchTransition: $tmp-animation-timing-2 linear;
+
+.k-switch {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
   position: relative;
 
-  .has-label-left + .kong-icon{
+  .has-label-left + .kong-icon {
     margin-left: var(--kui-space-40, $kui-space-40);
   }
 
@@ -178,6 +184,74 @@ export default {
   .kong-icon {
     top: 0;
     transform: translateX(-54px);
+  }
+
+  &.switch-with-icon .switch-control {
+    width: 48px;
+  }
+
+  &.switch-with-icon .kong-icon {
+    height: 20px;
+    left: 57px;
+    width: 22px;
+  }
+
+  &.switch-with-icon input:checked + .switch-control:after {
+    left: 26px;
+  }
+
+  .switch-control {
+    background-color: var(--KInputSwitchBackground, var(--grey-400, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak)));
+    border-radius: 12px;
+    display: block;
+    height: $kInputSwitchHeight;
+    margin-right: var(--kui-space-60, $kui-space-60);
+    position: relative;
+    transition: $kInputSwitchTransition;
+    width: $kInputSwitchWidth;
+
+    &.has-label-left {
+      margin-left: var(--kui-space-60, $kui-space-60);
+      margin-right: var(--kui-space-0, $kui-space-0);
+    }
+
+    // Toggle
+    &:after {
+      background-color: var(--white, var(--kui-color-background, $kui-color-background));
+      border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
+      content: "";
+      display: block;
+      height: 20px;
+      left: 2px;
+      position: absolute;
+      top: 2px;
+      transition: $kInputSwitchTransition;
+      width: 20px;
+    }
+  }
+
+  &[disabled]:not(:disabled) {
+    cursor: not-allowed;
+    .switch-control,
+    input {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+  }
+
+  // Hide default checkbox
+  input {
+    display: none;
+    &:checked + .switch-control {
+      background-color: var(--KInputSwitchOn, var(--green-500, $tmp-color-green-500));
+      &:after {
+        left: calc($kInputSwitchWidth / 2);
+      }
+    }
+  }
+
+  span {
+    color: var(--KInputSwitchLabel, var(--black-70, var(--kui-color-text, $kui-color-text)));
   }
 }
 </style>
