@@ -5,6 +5,7 @@
 <KCard>
   <template #body>
     <div class="vertical-spacing">Selected: {{ radioGroup }}</div>
+    <br />
     <div>
       <KRadio name="test" :selected-value="true" v-model="radioGroup">Boolean</KRadio>
       <KRadio name="test" selected-value="string" v-model="radioGroup">String</KRadio>
@@ -329,5 +330,9 @@ export default defineComponent({
 
 .k-radio {
   margin-right: 10px;
+}
+
+.vertical-spacing {
+  margin-bottom: $kui-space-40;
 }
 </style>

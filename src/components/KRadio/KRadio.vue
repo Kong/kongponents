@@ -163,11 +163,9 @@ const modifiedAttrs = computed(() => {
 </style>
 
 <style lang="scss">
-
 @import '@/styles/tmp-variables';
 @import '@/styles/mixins';
 
-$text-color-default: var(--black-45, var(--kui-color-text, $kui-color-text));
 $text-color-card: var(--kui-color-text, $kui-color-text);
 $border-color-card: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
 $background-color-card-checked: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
@@ -188,7 +186,7 @@ $background-color-card-disabled: var(--kui-color-background-neutral-weakest, $ku
 @mixin kRadioChecked {
   background-color: $background-color-card-checked;
   border-color: $border-color-card-checked;
-  box-shadow: 0px 4px 20px var(--black-10, $tmp-color-black-10);
+  box-shadow: 0px 4px 20px $tmp-color-black-10;
 }
 
 @mixin kRadioCheckedAndDisabled {
@@ -202,11 +200,11 @@ $background-color-card-disabled: var(--kui-color-background-neutral-weakest, $ku
   display: inline-block;
 
   .k-radio-label {
-    --KInputLabelWeight: var(--kui-font-weight-regular, #{$kui-font-weight-regular});
-    --KInputLabelLineHeight: var(--kui-line-height-30, #{$kui-line-height-30});
-    --KInputLabelFont: var(--kui-font-family-text, #{$kui-font-family-text});
-    --KInputLabelMargin: var(--kui-space-0, #{$kui-space-0});
-    --KInputLabelSize: var(--type-sm, var(--kui-font-size-30, #{$kui-font-size-30}));
+    font-family: var(--kui-font-family-text, $kui-font-family-text);
+    font-size: var(--kui-font-size-30, $kui-font-size-30);
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+    line-height: var(--kui-line-height-30, $kui-line-height-30);
+    margin: var(--kui-space-0, $kui-space-0);
     vertical-align: middle;
 
     &.has-description {
@@ -216,26 +214,25 @@ $background-color-card-disabled: var(--kui-color-background-neutral-weakest, $ku
 
   &.disabled {
     .k-radio-label {
-      color: var(--KInputRadioDisabled, var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)));
+      color: var(--kui-color-text-disabled, $kui-color-text-disabled);
     }
   }
 
   .k-radio-description {
-    color: $text-color-default;
-    font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    font-size: var(--kui-font-size-30, $kui-font-size-30);
     line-height: var(--kui-line-height-30, $kui-line-height-30);
-    padding-top: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
+    padding-top: var(--kui-space-20, $kui-space-20);
   }
 
   // default radio input styling
   &.k-radio-default {
     .k-radio-label:has(> .k-radio-description) {
-      --KInputLabelWeight: var(--kui-font-weight-semibold, #{$kui-font-weight-semibold});
+      font-weight: var(--kui-font-weight-semibold, #{$kui-font-weight-semibold});
     }
-
     .k-radio-description {
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-      padding-left: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+      padding-left: var(--kui-space-80, $kui-space-80);
     }
   }
 
@@ -243,7 +240,7 @@ $background-color-card-disabled: var(--kui-color-background-neutral-weakest, $ku
   &.k-radio-card {
     background-color: var(--kui-color-background, $kui-color-background);
     border: var(--kui-border-width-10, $kui-border-width-10) solid $border-color-card;
-    border-radius: var(--spacing-xxs, var(--kui-border-radius-20, $kui-border-radius-20));
+    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
     cursor: pointer;
 
     .k-input {
@@ -258,7 +255,7 @@ $background-color-card-disabled: var(--kui-color-background-neutral-weakest, $ku
       height: 100%;
       justify-content: center;
       // Apply padding to the label so the entire element is clickable
-      padding: var(--spacing-md, var(--kui-space-60, $kui-space-60));
+      padding: var(--kui-space-60, $kui-space-60);
       width: 100%;
     }
 
@@ -270,7 +267,7 @@ $background-color-card-disabled: var(--kui-color-background-neutral-weakest, $ku
 
     .k-radio-label {
       color: $text-color-card;
-      font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
+      font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
       text-align: center;
     }

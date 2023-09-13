@@ -235,18 +235,14 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss" scoped>
-
 @import '@/styles/tmp-variables';
 @import '@/styles/mixins';
 
 .k-prompt {
-  --KModalBottomMargin: var(--spacing-md, var(--kui-space-60, #{$kui-space-60}));
-
   :deep(.k-modal-dialog.modal-dialog) {
-    $kPromptModalPadding: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
-
+    $kPromptModalPadding: var(--kui-space-80, $kui-space-80);
     padding: $kPromptModalPadding;
-    padding-bottom: var(--spacing-md, var(--kui-space-60, $kui-space-60));
+    padding-bottom: var(--kui-space-60, $kui-space-60);
 
     .k-prompt-header {
       width: 100% !important;
@@ -269,7 +265,7 @@ onBeforeUnmount(() => {
 
     .divider {
       border: none;
-      border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+      border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
       /* subtract parents padding from margin to take full width of modal */
       margin: var(--kui-space-60, $kui-space-60) calc($kPromptModalPadding * -1) var(--kui-space-0, $kui-space-0);
     }
@@ -277,13 +273,13 @@ onBeforeUnmount(() => {
     .k-modal-content {
       .k-modal-header.modal-header {
         display: flex;
-        padding-bottom: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+        padding-bottom: var(--kui-space-40, $kui-space-40);
         width: 100%;
 
         .close-button .k-button {
           @include non-visual-button;
           margin-top: calc(-1 * var(--kui-space-40, $kui-space-40));
-          padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+          padding: var(--kui-space-40, $kui-space-40);
         }
       }
 
@@ -294,19 +290,19 @@ onBeforeUnmount(() => {
           width: 100% !important;
 
           .k-prompt-body-content {
-            color: var(--grey-600, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong));
-            font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+            color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+            font-size: var(--kui-font-size-40, $kui-font-size-40);
             line-height: var(--kui-line-height-40, $kui-line-height-40);
             max-height: v-bind('$props.maxHeight');
             overflow-x: hidden;
             overflow-y: auto;
-            padding-bottom: var(--spacing-md, var(--kui-space-60, $kui-space-60));
+            padding-bottom: var(--kui-space-60, $kui-space-60);
             text-align: start;
             white-space: normal; // in case inside KTable
             width: 100% !important;
 
             .k-prompt-confirm-text {
-              margin-top: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+              margin-top: var(--kui-space-80, $kui-space-80);
               width: 100% !important;
 
               .confirm-text {
