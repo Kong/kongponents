@@ -211,6 +211,14 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  /**
+   * The max-width of the modal. **Default: `500px`**.
+   */
+  maxWidth: {
+    type: String,
+    required: false,
+    default: '500px',
+  },
 })
 
 const emit = defineEmits<{
@@ -300,13 +308,11 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-
 @import '@/styles/tmp-variables';
-
 @import '@/styles/mixins';
 
 .k-modal-backdrop {
-  background-color: var(--KModalBackdrop, $tmp-color-backdrop);
+  background-color: $tmp-color-backdrop;
   inset: 0;
   position: fixed;
   z-index: 1100;
@@ -319,31 +325,34 @@ onUnmounted(() => {
 
 .k-modal {
   // use a var to ensure correct sizing of .k-modal-header-image
-  --KModalPadding: var(--spacing-xl, var(--kui-space-90, #{$kui-space-90}));
+  $k-modal-padding: var(--kui-space-90, $kui-space-90);
 
   .k-modal-dialog {
     background: var(--kui-color-background, $kui-color-background);
-    border: var(--KModalBorder, initial);
+    border: initial;
     border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-    box-shadow: 0px 0px 12px 0px var(--black-10, $tmp-color-black-10);
+    box-shadow: 0px 0px 12px 0px $tmp-color-black-10;
     margin: var(--kui-space-110, $kui-space-110) var(--kui-space-auto, $kui-space-auto);
-    max-width: var(--KModalMaxWidth, 500px);
     overflow: hidden;
-    padding: var(--KModalPadding);
+    padding: $k-modal-padding;
     position: relative;
     width: auto;
     z-index: 9999;
 
+    @media (min-width: $kui-breakpoint-phablet) {
+      max-width: v-bind('$props.maxWidth');
+    }
+
     .close-button {
       position: absolute;
-      right: var(--spacing-lg, 24px);
-      top: var(--spacing-lg, 24px);
+      right: 24px;
+      top: 24px;
       // 1 more than .k-modal-dialog
       z-index: 10000;
 
       .k-button {
         margin-top: calc(-1 * var(--kui-space-40, $kui-space-40));
-        padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+        padding: var(--kui-space-40, $kui-space-40);
         @include non-visual-button;
       }
     }
@@ -356,21 +365,21 @@ onUnmounted(() => {
 
     .k-modal-header-image {
       display: flex !important;
-      margin-bottom: var(--spacing-xl, var(--kui-space-90, $kui-space-90));
+      margin-bottom: var(--kui-space-90, $kui-space-90);
       /* stylelint-disable-next-line custom-property-no-missing-var-function */
-      margin-left: calc(#{var(--KModalPadding)} * -1);
+      margin-left: calc(#{$k-modal-padding} * -1);
       /* stylelint-disable-next-line custom-property-no-missing-var-function */
-      margin-right: calc(#{var(--KModalPadding)} * -1);
+      margin-right: calc(#{$k-modal-padding} * -1);
       /* stylelint-disable-next-line custom-property-no-missing-var-function */
-      margin-top: calc(#{var(--KModalPadding)} * -1);
+      margin-top: calc(#{$k-modal-padding} * -1);
     }
 
     .k-modal-header {
       align-items: center;
-      color: var(--KModalHeaderColor, var(--black-500, var(--kui-color-text, $kui-color-text)));
+      color: var(--kui-color-text, $kui-color-text);
       display: flex;
-      font-size: var(--KModalHeaderSize, var(--kui-font-size-60, $kui-font-size-60));
-      font-weight: var(--KModalHeaderWeight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
+      font-size: var(--kui-font-size-60, $kui-font-size-60);
+      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
       justify-content: flex-start;
       margin-bottom: var(--kui-space-80, $kui-space-80) !important;
 
@@ -398,11 +407,11 @@ onUnmounted(() => {
     }
 
     .k-modal-body {
-      color: var(--KModalColor, var(--grey-500, var(--black-500, var(--kui-color-text, $kui-color-text))));
+      color: var(--kui-color-text, $kui-color-text);
       flex: 1 1 auto;
-      font-size: var(--KModalFontSize, var(--kui-font-size-30, $kui-font-size-30));
+      font-size: var(--kui-font-size-30, $kui-font-size-30);
       line-height: var(--kui-line-height-30, $kui-line-height-30);
-      margin-bottom: var(--KModalBottomMargin, var(--spacing-lg, var(--kui-space-80, $kui-space-80)));
+      margin-bottom: var(--kui-space-80, $kui-space-80);
       position: relative;
 
       &.content-centered {

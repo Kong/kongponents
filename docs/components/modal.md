@@ -84,6 +84,10 @@ Text to display in content if not using slot.
 
 The alignment for the title and content. Supports `left`, `center` (default), or `right`.
 
+### maxWidth
+
+The `max-width` of the modal. Default `'500px'`
+
 ### actionButtonText
 
 Change the text content of the submit/proceed button.
@@ -319,7 +323,6 @@ Notice that even though we are using the `header-content` slot we still specify 
 | Variable               | Purpose                 |
 | :--------------------- | :---------------------- |
 | `--KModalBackdrop`     | Backgdrop color         |
-| `--KModalMaxWidth`     | Modal max width         |
 | `--KModalBorder`       | Modal border            |
 | `--KModalHeaderColor`  | Header text color       |
 | `--KModalHeaderSize`   | Header font size        |

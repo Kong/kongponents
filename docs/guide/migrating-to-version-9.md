@@ -37,7 +37,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KCodeBlock
 
-- Added new `maxHeight` prop to control the `max-height` of the code block
+- Added new `maxHeight` prop to control the `max-height` of the code block. Defaults to `none`.
 
 
 ### KCollapse
@@ -81,6 +81,8 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KModal
 
+- Added new `maxWidth` prop to control the `max-width` of the modal. Defaults to `500px`.
+
 
 ### KModalFullscreen
 
@@ -95,6 +97,8 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 
 ### KPrompt
+
+- Added new `maxHeight` prop to control the `max-height` of the prompt. Defaults to `400px`.
 
 
 ### Komponent

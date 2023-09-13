@@ -41,6 +41,10 @@ export default defineComponent({
 
 Tells the component whether or not to render the open prompt.
 
+### maxHeight
+
+The `max-height` of the prompt. Defaults to `400px`.
+
 ### title
 
 Text displayed in header if not using slot. If no title is provided, the prompt `type` is used.
@@ -239,12 +243,6 @@ There are 3 designated slots you can use to display content in the modal.
 
 - `@canceled` - Emitted when cancel/close button is clicked or the Escape key is pressed
 - `@proceed` - Emitted when action button is clicked or the Enter key is pressed
-
-## Theming
-
-| Variable             | Purpose                              |
-| :------------------- | :----------------------------------- |
-| `--KPromptMaxHeight` | Max height of body content in prompt |
 
 <script lang="ts">
 import { defineComponent } from 'vue'

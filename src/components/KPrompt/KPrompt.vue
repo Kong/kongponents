@@ -138,6 +138,14 @@ const props = defineProps({
     default: false,
   },
   /**
+   * The max-height of the prompt. **Default: `400px`**.
+   */
+  maxHeight: {
+    type: String,
+    required: false,
+    default: '400px',
+  },
+  /**
    * Use this prop to require a confirmation string be typed correctly
    * before the submit button will be enabled.
    */
@@ -289,17 +297,13 @@ onBeforeUnmount(() => {
             color: var(--grey-600, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong));
             font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
             line-height: var(--kui-line-height-40, $kui-line-height-40);
-            max-height: var(--KPromptMaxHeight, 300px);
+            max-height: v-bind('$props.maxHeight');
             overflow-x: hidden;
             overflow-y: auto;
             padding-bottom: var(--spacing-md, var(--kui-space-60, $kui-space-60));
             text-align: start;
             white-space: normal; // in case inside KTable
             width: 100% !important;
-
-            @media screen and (min-width: $kui-breakpoint-phablet) {
-              max-height: var(--KPromptMaxHeight, 500px);
-            }
 
             .k-prompt-confirm-text {
               margin-top: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
