@@ -540,8 +540,12 @@ export const appearances: AlertAppearanceRecord = {
     }
 
     &.info button.primary {
-      background-color: var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
-      color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
+      background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+      color: var(--kui-color-text-primary, $kui-color-text-primary);
+
+      &:hover {
+        background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
+      }
     }
 
     &.info button.outline {
