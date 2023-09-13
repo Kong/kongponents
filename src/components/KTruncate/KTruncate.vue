@@ -49,7 +49,7 @@
             @click="handleToggleClick"
           >
             <KIcon
-              :color="`var(--KTruncateCollapseIconColor, var(--blue-500, var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})))`"
+              :color="`var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})`"
               icon="chevronUp"
               :size="KUI_ICON_SIZE_10"
               title="Show less"
@@ -257,7 +257,6 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss" scoped>
-
 .k-truncate {
   align-items: flex-start;
   display: flex;
@@ -272,10 +271,13 @@ onBeforeUnmount(() => {
 
   .expand-trigger,
   .collapse-trigger {
-    --KButtonLink: var(--KTruncateToggleColor, var(--blue-500, var(--kui-color-text-primary, #{$kui-color-text-primary})));
-    --KButtonPrimaryBase: var(--KTruncateCollapseBackground, var(--blue-100, var(--kui-color-background-primary-weakest, #{$kui-color-background-primary-weakest})));
-    --KButtonPrimaryHover: var(--KTruncateCollapseHover, var(--blue-200, var(--kui-color-background-primary-weaker, #{$kui-color-background-primary-weaker})));
-    --KButtonPrimaryActive: var(--KTruncateCollapseHover, var(--blue-200, var(--kui-color-background-primary-weaker, #{$kui-color-background-primary-weaker})));
+    background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+    color: var(--kui-color-text-primary, $kui-color-text-primary);
+
+    &:hover,
+    &:active {
+      background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker) !important;
+    }
   }
 
   &.k-truncate-content {
@@ -295,7 +297,7 @@ onBeforeUnmount(() => {
     }
 
     .expand-trigger {
-      font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
+      font-size: var(--kui-font-size-20, $kui-font-size-20);
 
       &::before {
         content: '+';
@@ -303,14 +305,14 @@ onBeforeUnmount(() => {
       }
     }
     .collapse-trigger {
-      padding: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
+      padding: var(--kui-space-20, $kui-space-20);
 
       &:focus, &:active {
         box-shadow: none;
       }
 
       &:focus-within {
-        background-color: var(--KTruncateCollapseHover, var(--blue-200, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest)));
+        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
         outline: -webkit-focus-ring-color auto 1px;
       }
     }
@@ -332,7 +334,7 @@ onBeforeUnmount(() => {
     }
     .expand-trigger,
     .collapse-trigger {
-      font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
+      font-size: var(--kui-font-size-20, $kui-font-size-20);
     }
   }
 

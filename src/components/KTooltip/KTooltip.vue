@@ -99,14 +99,12 @@ const computedClass = computed((): string => {
 </script>
 
 <style lang="scss">
-
 .k-tooltip.k-popover {
-  --KPopColor: var(--KTooltipColor, var(--white, var(--kui-color-text-inverse, #{$kui-color-text-inverse})));
-  --KPopBackground: var(--KTooltipBackground, var(--black-400, var(--kui-color-background-neutral-stronger, #{$kui-color-background-neutral-stronger})));
-  --KPopBodySize: var(--type-sm, var(--kui-font-size-30, #{$kui-font-size-30}));
-  --KPopPaddingX: var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
-  --KPopPaddingY: var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
-  --KPopBorder: none;
+  background: var(--kui-color-background-neutral-stronger, $kui-color-background-neutral-stronger);
+  border: none;
+  color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+  font-size: var(--kui-font-size-30, $kui-font-size-30);
+  padding: var(--kui-space-40, $kui-space-40) var(--kui-space-40, $kui-space-40);
   pointer-events: none;
   z-index: 9999;
 }

@@ -273,7 +273,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-
 @import '@/styles/tmp-variables';
 
 .k-tree-draggable {
@@ -282,7 +281,7 @@ onMounted(() => {
   .child-drop-zone {
     // this is the height of the area you can drop an item in
     // to make it the child of another item
-    min-height: var(--KTreeListDropZoneHeight, $defaultDropZoneHeight);
+    min-height: $defaultDropZoneHeight;
   }
 
   // style while dragging an item
@@ -293,7 +292,7 @@ onMounted(() => {
     // the bar under the last child
     .has-no-children:last-of-type .child-drop-zone:last-of-type,
     &.has-no-children .child-drop-zone:last-of-type {
-      background-color: var(--KTreeListItemSelectedBorder, $tmp-color-teal-200);
+      background-color: $tmp-color-teal-200;
       border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
       margin-left: var(--kui-space-0, $kui-space-0);
       min-height: 4px;
@@ -318,9 +317,9 @@ onMounted(() => {
   }
 
   .k-tree-item-container {
-    $border: var(--KTreeListItemUnselectedBorder, var(--kui-color-border-disabled, $kui-color-border-disabled));
+    $border: var(--kui-color-border-disabled, $kui-color-border-disabled);
     $barLeft: -($bar);
-    $dropZoneHalved: calc(var(--KTreeListDropZoneHeight, $defaultDropZoneHeight) / 2);
+    $dropZoneHalved: calc(#{$defaultDropZoneHeight} / 2);
     margin: $dropZoneHalved 0 0 $dropZoneHalved;
     position: relative;
 
@@ -330,7 +329,7 @@ onMounted(() => {
       border-left: var(--kui-border-width-10, $kui-border-width-10) solid $border;
       border-radius: var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-0, $kui-border-radius-0) 5px;
       content: "";
-      height: calc(var(--KTreeListDropZoneHeight, $defaultDropZoneHeight) + 20px);
+      height: calc(#{$defaultDropZoneHeight} + 20px);
       left: $barLeft;
       position: absolute;
       top: calc($dropZoneHalved * -1);
@@ -343,11 +342,11 @@ onMounted(() => {
       height: 100%;
       left: $barLeft;
       position: absolute;
-      top: calc(var(--KTreeListDropZoneHeight, $defaultDropZoneHeight) + 2px);
+      top: calc(#{$defaultDropZoneHeight} + 2px);
       width: $bar;
     }
     &:first-child {
-      padding-top: var(--KTreeListDropZoneHeight, $defaultDropZoneHeight);
+      padding-top: $defaultDropZoneHeight;
     }
     &:last-child:after {
       display: none;

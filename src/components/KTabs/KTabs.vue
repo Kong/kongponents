@@ -98,12 +98,11 @@ watch(() => props.modelValue, (newTabHash) => {
 </script>
 
 <style lang="scss" scoped>
-
 @import '@/styles/tmp-variables';
 
 .k-tabs {
   ul {
-    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTabsBottomBorderColor, var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
+    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
     display: flex;
     font-size: var(--kui-font-size-50, $kui-font-size-50);
     line-height: var(--kui-line-height-50, $kui-line-height-50);
@@ -127,21 +126,21 @@ watch(() => props.modelValue, (newTabHash) => {
 
       .tab-link,
       .tab-link:not(.has-panels) :deep(> *) {
-        color: var(--KTabsColor, var(--black-45, var(--kui-color-text, $kui-color-text)));
+        color: var(--kui-color-text, $kui-color-text);
       }
 
       .tab-link.has-panels,
       .tab-link:not(.has-panels) :deep(> *) {
         display: inline-block;
-        padding: var(--spacing-md, var(--kui-space-60, $kui-space-60));
+        padding: var(--kui-space-60, $kui-space-60);
       }
 
       &:not(:first-of-type) {
-        margin-left: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+        margin-left: var(--kui-space-40, $kui-space-40);
       }
 
       &:not(:last-of-type) {
-        margin-right: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+        margin-right: var(--kui-space-40, $kui-space-40);
       }
 
       &:after {
@@ -158,8 +157,8 @@ watch(() => props.modelValue, (newTabHash) => {
       &:hover {
         .tab-link.has-panels,
         .tab-link:not(.has-panels) :deep(> *) {
-          border-bottom: var(--kui-border-width-30, $kui-border-width-30) solid var(--KTabBottomBorderColor, var(--teal-300, $tmp-color-aqua-50)); // teal-300 is now aqua-50
-          color: var(--KTabsActiveColor, var(--black-500, var(--kui-color-text, $kui-color-text)));
+          border-bottom: var(--kui-border-width-30, $kui-border-width-30) solid $tmp-color-aqua-50; // teal-300 is now aqua-50
+          color: var(--kui-color-text, $kui-color-text);
         }
       }
     }

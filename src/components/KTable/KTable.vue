@@ -985,7 +985,6 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 </script>
 
 <style lang="scss" scoped>
-
 @import '@/styles/tmp-variables';
 
 .k-table-wrapper {
@@ -1009,7 +1008,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
   th,
   td {
-    padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) var(--spacing-md, var(--kui-space-60, $kui-space-60));
+    padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
     vertical-align: middle;
     white-space: nowrap;
   }
@@ -1057,11 +1056,11 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
     th {
       font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-      padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) var(--spacing-md, var(--kui-space-60, $kui-space-60));
+      padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
       text-align: left;
 
       &.active-sort {
-        color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
+        color: var(--kui-color-text-primary, $kui-color-text-primary);
       }
 
       .sr-only {
@@ -1101,11 +1100,11 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
     }
 
     td {
-      color: var(--KTableColor, var(--black-70, var(--kui-color-text, $kui-color-text)));
+      color: var(--kui-color-text, $kui-color-text);
       white-space: nowrap;
 
       a {
-        color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
+        color: var(--kui-color-text-primary, $kui-color-text-primary);
         text-decoration: none;
         &:hover {
           text-decoration: underline;
@@ -1117,7 +1116,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
   // Variants
   &.has-hover {
      tbody tr:hover {
-      background-color: var(--KTableHover, var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest)));
+      background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
     }
   }
 
@@ -1153,7 +1152,6 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 </style>
 
 <style lang="scss">
-
 .k-table {
   thead {
     th {
@@ -1175,17 +1173,17 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
     td {
       button,
       .k-button {
-        margin-bottom: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs, var(--kui-space-40, $kui-space-40))));
-        margin-top: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs, var(--kui-space-40, $kui-space-40))));
+        margin-bottom: calc(-1 * var(--kui-space-40, $kui-space-40));
+        margin-top: calc(-1 * var(--kui-space-40, $kui-space-40));
       }
       .k-table-cell-title {
-        color: var(--grey-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
-        font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+        font-size: var(--kui-font-size-40, $kui-font-size-40);
         font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
       }
       .k-table-cell-description {
-        color: var(--grey-500, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong));
-        font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+        color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+        font-size: var(--kui-font-size-40, $kui-font-size-40);
         font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
       }
     }

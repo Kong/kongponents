@@ -57,7 +57,6 @@ const toggleView = (): void => {
 </script>
 
 <style lang="scss" scoped>
-
 @import '@/styles/tmp-variables';
 
 @import '@/styles/mixins';
@@ -65,12 +64,13 @@ const toggleView = (): void => {
 // Originally forked and modified from https://codepen.io/aaroniker/pen/dyoKeMP
 .view-switch-button {
   @include non-visual-button;
-  --KButtonPaddingY: var(--kui-space-30, #{$kui-space-30});
-  --KButtonPaddingX: var(--kui-space-30, #{$kui-space-30});
-  --KButtonSecondaryHover: var(--white, var(--kui-color-background, #{$kui-color-background}));
-  --KButtonSecondaryHoverBorder: var(--blue-300, var(--kui-color-border-primary-weak, #{$kui-color-border-primary-weak}));
-  --KButtonSecondaryFocus: none;
-  transform: scale(var(--scale, 1)) translateZ(0);
+  padding: var(--kui-space-30, $kui-space-30) var(--kui-space-30, $kui-space-30);
+  transform: scale(1) translateZ(0);
+
+  &:hover {
+    background-color: var(--kui-color-background, $kui-color-background) !important;
+    border-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak) !important;
+  }
 
   &.paused .icon i {
     animation-duration: 0s;
@@ -82,18 +82,24 @@ const toggleView = (): void => {
     width: 24px;
 
     i {
+      /* stylelint-disable-next-line custom-property-pattern */
       animation: var(--name, var(--dots-name, none)) var(--duration, var(--dots-duration, .5s)) var(--easing, var(--dots-easing, linear)) forwards var(--delay, var(--dots-delay, 0s));
-      background-color: var(--grey-500, var(--kui-color-background-neutral, $kui-color-background-neutral));
+      background-color: var(--kui-color-background-neutral, $kui-color-background-neutral);
       border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
       display: block;
+      // TODO: Disabling CSS custom property rules in this file for animations only
+      /* stylelint-disable */
       height: var(--height, 7px);
       left: var(--left, 4px);
       position: absolute;
       top: var(--top, 4px);
       transition: background-color $tmp-animation-timing-2 ease;
       width: var(--width, 7px);
+      /* stylelint-enable */
     }
 
+    // TODO: Disabling CSS custom property rules in this file for animations only
+    /* stylelint-disable */
     .dots i {
       &:nth-child(1) {
         --x-middle: -8px;
@@ -143,12 +149,15 @@ const toggleView = (): void => {
         --y-back-end: 0;
       }
     }
+    /* stylelint-enable */
 
+    // TODO: Disabling CSS custom property rules in this file for animations only
+    /* stylelint-disable */
     .lines {
       --name: var(--lines-name, none);
       --duration: var(--lines-duration, #{$tmp-animation-timing-2});
-      --easing: var(--lines-easing, linear);
-      --delay: var(--lines-delay, 0s);
+      --easing: linear;
+      --delay: 0s;
 
       i {
         --left: 9px;
@@ -164,8 +173,11 @@ const toggleView = (): void => {
         &:nth-child(4) { transform-origin: 100% 50%; }
       }
     }
+    /* stylelint-enable */
   }
 
+  // TODO: Disabling CSS custom property rules in this file for animations only
+  /* stylelint-disable */
   &.table {
     --dots-name: back;
     --lines-name: scale-down;
@@ -189,13 +201,15 @@ const toggleView = (): void => {
       &:nth-child(4) { transform-origin: 0 50%; }
     }
   }
+  /* stylelint-enable */
 }
 </style>
 
 <style lang="scss">
 // @keyframes animations need to be un-scoped
-
 .k-view-switcher {
+  // TODO: Disabling CSS custom property rules in this file for animations only
+  /* stylelint-disable */
   @keyframes move {
     50% { transform: translate(var(--x-middle, 0), var(--y-middle, 0)) scale(.4); }
     100% { transform: translate(var(--x-end, 0), var(--y-end, 0)) scale(.4); }
@@ -207,6 +221,7 @@ const toggleView = (): void => {
     50% { transform: translate(var(--x-back, 0), var(--y-back, 0)) scale(.5); }
     100% { transform: translate(var(--x-back-end, 0), var(--y-back-end, 0)) scale(1); }
   }
+  /* stylelint-enable */
 
   @keyframes scale {
     100% { transform: translateY(20%) translateZ(0) scaleX(1); }
