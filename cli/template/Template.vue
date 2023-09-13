@@ -14,3 +14,7 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+// TODO: Add a top-level wrapper class for component styles
+</style>
