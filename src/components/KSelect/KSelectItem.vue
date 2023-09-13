@@ -60,9 +60,9 @@ const handleClick = (e: MouseEvent): void => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 
 .k-select-item {
   list-style: none !important;

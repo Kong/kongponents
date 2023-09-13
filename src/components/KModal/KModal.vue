@@ -300,9 +300,9 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 @import '@/styles/mixins';
 
 .k-modal-backdrop {

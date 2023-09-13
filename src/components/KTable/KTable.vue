@@ -985,9 +985,9 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 
 .k-table-wrapper {
   overflow: auto;
@@ -1154,8 +1154,8 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
-@import '@/styles/functions';
+
+
 
 .k-table {
   thead {

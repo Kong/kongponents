@@ -64,7 +64,6 @@ const isHomePage = computed((): boolean => route.name === 'home')
 </script>
 
 <style lang="scss" scoped>
-@import './../styles/sandbox-variables';
   .sandbox-header {
     align-items: center;
     border-bottom: 1px solid lightgray;
@@ -73,7 +72,7 @@ const isHomePage = computed((): boolean => route.name === 'home')
     padding: 20px;
     width: 100%;
 
-    @media only screen and (min-width: $viewport-xl) {
+    @media only screen and (min-width: $kui-breakpoint-laptop) {
       border: none;
     }
 
@@ -81,13 +80,13 @@ const isHomePage = computed((): boolean => route.name === 'home')
       font-size: 18px;
       margin: 0;
 
-      @media only screen and (min-width: $viewport-md) {
+      @media only screen and (min-width: $kui-breakpoint-phablet) {
         font-size: 24px;
       }
     }
 
     .mobile-nav-container {
-      @media only screen and (min-width: $viewport-xl) {
+      @media only screen and (min-width: $kui-breakpoint-laptop) {
         display: none;
       }
     }
@@ -101,7 +100,7 @@ const isHomePage = computed((): boolean => route.name === 'home')
       display: none;
       min-width: 280px;
 
-      @media only screen and (min-width: $viewport-xl) {
+      @media only screen and (min-width: $kui-breakpoint-laptop) {
         display: block;
       }
     }
@@ -115,7 +114,7 @@ const isHomePage = computed((): boolean => route.name === 'home')
   min-height: 50vh;
   width: 100%;
 
-  @media only screen and (min-width: $viewport-xl) {
+  @media only screen and (min-width: $kui-breakpoint-laptop) {
     border: 1px solid lightgray;
     padding: 20px;
   }

@@ -114,8 +114,8 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-@import '@/styles/variables';
-@import '@/styles/functions';
+
+
 
 .k-skeleton-container {
   display: flex !important;

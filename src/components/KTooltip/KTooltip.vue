@@ -99,8 +99,8 @@ const computedClass = computed((): string => {
 </script>
 
 <style lang="scss">
-@import '@/styles/variables';
-@import '@/styles/functions';
+
+
 
 .k-tooltip.k-popover {
   --KPopColor: var(--KTooltipColor, var(--white, var(--kui-color-text-inverse, #{$kui-color-text-inverse})));

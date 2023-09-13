@@ -214,8 +214,8 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
+
+
 
 .k-dropdown-menu {
   width: fit-content;
@@ -223,9 +223,9 @@ onMounted(() => {
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 
 .k-popover.k-dropdown-popover {
   border: var(--kui-border-width-10, $kui-border-width-10) solid var(--black-10, $tmp-color-black-10);

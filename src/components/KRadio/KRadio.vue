@@ -163,7 +163,7 @@ const modifiedAttrs = computed(() => {
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
 @import '@/styles/mixins';
 

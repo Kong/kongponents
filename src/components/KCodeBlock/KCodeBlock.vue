@@ -741,9 +741,9 @@ async function copyCode(event: Event): Promise<void> {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 @import '@/styles/mixins';
 
 // shared
@@ -1156,9 +1156,9 @@ $dark-focusColor: var(--green-500, $tmp-color-green-500);
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 
 $dark-backgroundColor: var(--black-500, var(--kui-color-background-neutral-strongest, $kui-color-background-neutral-strongest));
 
@@ -1186,7 +1186,7 @@ $dark-backgroundColor: var(--black-500, var(--kui-color-background-neutral-stron
   // TODO: If and once KButton has `props.theme` support, these styles should live in KButton.vue.
   // TODO: Fix these styles not always providing a solid background color for the copy button allowing content to clip through it.
   .k-button:not(.increase-specificity) {
-    @media (min-width: $viewport-md) {
+    @media (min-width: $kui-breakpoint-phablet) {
       background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
       border-color: var(--kui-color-border-transparent, $kui-color-border-transparent);
     }
@@ -1211,7 +1211,7 @@ $dark-backgroundColor: var(--black-500, var(--kui-color-background-neutral-stron
     border-color: var(--steel-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
     color: var(--steel-300, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak));
 
-    @media (max-width: ($viewport-md - 1px)) {
+    @media (max-width: ($kui-breakpoint-phablet - 1px)) {
       background-color: var(--black-500, var(--kui-color-background-neutral-strongest, $kui-color-background-neutral-strongest));
       border-color: var(--steel-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
     }

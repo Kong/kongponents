@@ -7,8 +7,8 @@
 <script lang="ts" setup></script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
+
+
 
 .k-menu-item-divider {
   padding: var(--kui-space-0, $kui-space-0) var(--kui-space-70, $kui-space-70);

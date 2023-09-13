@@ -112,8 +112,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
+
+
 @import '@/styles/mixins';
 
 .k-breadcrumbs {

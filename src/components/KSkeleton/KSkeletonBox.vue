@@ -25,8 +25,8 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
+
+
 
 .box {
   animation: gradient 1s ease infinite;

@@ -27,9 +27,8 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 
 .k-step-spinner > svg {
   animation: rotate 2s linear infinite;

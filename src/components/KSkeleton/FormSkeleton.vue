@@ -48,8 +48,8 @@ import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
+
+
 
 .skeleton-form-wrapper {
   width: 100%;

@@ -515,8 +515,8 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-@import '@/styles/variables';
-@import '@/styles/functions';
+
+
 @import '@/styles/mixins';
 
 $timepicker-min-width: 360px;
@@ -669,9 +669,9 @@ $margin: var(--kui-space-30, $kui-space-30);
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 
 // v-calendar overrides
 .k-datetime-picker {

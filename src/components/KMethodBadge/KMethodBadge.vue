@@ -148,8 +148,8 @@ watch(() => props.modelValue, (value: boolean): void => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
+
+
 
 .k-method-badge {
   display: flex;

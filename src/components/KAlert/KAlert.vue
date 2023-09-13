@@ -299,9 +299,8 @@ export const appearances: AlertAppearanceRecord = {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 
 .k-alert {
   border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
@@ -506,9 +505,8 @@ export const appearances: AlertAppearanceRecord = {
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 
 .k-alert {
   button.close > .kong-icon {

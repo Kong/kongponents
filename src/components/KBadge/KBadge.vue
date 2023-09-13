@@ -227,9 +227,9 @@ watch(badgeText, () => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 @import '@/styles/mixins';
 
 .k-badge {
@@ -356,9 +356,8 @@ watch(badgeText, () => {
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 
 .k-badge {
   // default appearance colors local variables

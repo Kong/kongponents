@@ -153,8 +153,8 @@ watch(modelComputed, (newVal, oldVal) => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
+
+
 
 .k-collapse {
   width: 100% !important;
@@ -194,8 +194,8 @@ watch(modelComputed, (newVal, oldVal) => {
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
-@import '@/styles/functions';
+
+
 
 .k-collapse {
   .k-collapse-trigger {

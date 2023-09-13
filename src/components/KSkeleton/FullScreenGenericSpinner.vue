@@ -61,10 +61,10 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
 @import '@/styles/mixins';
-@import '@/styles/functions';
+
 
 .fullscreen-loading-container {
   @include fullscreen-loading-container;

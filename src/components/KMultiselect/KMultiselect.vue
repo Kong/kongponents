@@ -942,8 +942,8 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
+
+
 @import '@/styles/mixins';
 
 .k-multiselect {
@@ -1100,9 +1100,9 @@ onBeforeUnmount(() => {
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 @import '@/styles/mixins';
 
 // allows setting a maxHeight on the popover dropdown

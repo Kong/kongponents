@@ -75,9 +75,9 @@ const handleClick = (): void => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 
 .k-multiselect-item {
   margin-bottom: var(--kui-space-20, $kui-space-20);

@@ -31,8 +31,6 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
 
 .k-step-state-icon {
   .k-step-icon-primary {

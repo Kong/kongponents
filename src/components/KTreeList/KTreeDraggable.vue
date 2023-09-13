@@ -273,7 +273,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/functions';
+
 @import '@/styles/tmp-variables';
 
 .k-tree-draggable {

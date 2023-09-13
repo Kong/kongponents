@@ -84,7 +84,7 @@ const getPrevOffset = (): void => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 .pagination-offset-button-container {
   display: flex;
   margin-bottom: var(--kui-space-0, $kui-space-0) !important;

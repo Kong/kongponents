@@ -88,9 +88,9 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 
 .empty-state-wrapper {
   background-color: var(--KEmptyBackground, var(--white, var(--kui-color-background, $kui-color-background)));

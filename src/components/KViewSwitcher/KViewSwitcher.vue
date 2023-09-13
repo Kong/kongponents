@@ -57,9 +57,9 @@ const toggleView = (): void => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 @import '@/styles/mixins';
 
 // Originally forked and modified from https://codepen.io/aaroniker/pen/dyoKeMP

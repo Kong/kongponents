@@ -57,9 +57,8 @@ const labelStyle = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 
 .k-step {
   display: list-item;
@@ -118,8 +117,6 @@ const labelStyle = computed(() => {
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
-@import '@/styles/functions';
 
 .k-step {
   .k-step-label {

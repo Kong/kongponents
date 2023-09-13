@@ -65,8 +65,6 @@ const hasTooltip = computed((): boolean => !!(props.info || props.help || slots.
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
 
 .k-input-label {
   color: var(--kui-color-text, $kui-color-text);

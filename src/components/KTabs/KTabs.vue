@@ -98,9 +98,9 @@ watch(() => props.modelValue, (newTabHash) => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 
 .k-tabs {
   ul {

@@ -49,8 +49,8 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
+
+
 
 $borderColor: #e6e6e6;
 .skeleton-card-wrapper {

@@ -114,8 +114,8 @@ const handleClick = (evt: PointerEvent): void => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
+
+
 
 .k-segmented-control {
   display: flex !important;

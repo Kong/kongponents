@@ -204,9 +204,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 
 @mixin boxShadow($color, $whiteShadowSpread: 2px, $colorShadowSpread: 4px) {
   box-shadow: 0 0 0 $whiteShadowSpread var(--white, var(--kui-color-background, $kui-color-background)), 0 0 0 $colorShadowSpread $color;

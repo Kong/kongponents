@@ -159,9 +159,9 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
 
 <style lang="scss">
 // Must leave this block unscoped as it sometimes causes issues with slotted/nested styles
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 @import '@/styles/mixins';
 
 li.k-dropdown-item {

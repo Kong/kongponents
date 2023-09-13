@@ -228,9 +228,9 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 $kmodalfullscreen-viewport-md: 992px;
 $fullscreen-modal-padding: 64px;
 

@@ -757,10 +757,10 @@ const onPopoverOpen = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
 @import '@/styles/mixins';
-@import '@/styles/functions';
+
 
 .k-select {
   width: fit-content; // necessary for correct placement of popup
@@ -806,10 +806,10 @@ const onPopoverOpen = () => {
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
 @import '@/styles/mixins';
-@import '@/styles/functions';
+
 
 $chevronDownIconMargin: var(--kui-space-40, $kui-space-40);
 $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);

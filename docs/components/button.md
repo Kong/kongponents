@@ -266,7 +266,7 @@ look like.
 ```
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+
 
 .preview-code .preview div {
   display: flex;
@@ -288,7 +288,7 @@ look like.
   row-gap: 10px;
   column-gap: 10px;
 
-  @media screen and (min-width: $viewport-sm) {
+  @media screen and (min-width: $kui-breakpoint-mobile) {
     flex-direction: row;
   }
 }

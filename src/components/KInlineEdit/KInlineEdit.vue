@@ -125,9 +125,8 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 
 .k-inline-edit {
   --padding: var(--spacing-xxs, var(--kui-space-20, #{$kui-space-20})) var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));

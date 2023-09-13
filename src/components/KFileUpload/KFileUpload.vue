@@ -260,9 +260,8 @@ const resetInput = (): void => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 
 .k-file-upload {
   position: relative;

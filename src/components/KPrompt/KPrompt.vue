@@ -227,10 +227,10 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
 @import '@/styles/mixins';
-@import '@/styles/functions';
+
 
 .k-prompt {
   --KModalBottomMargin: var(--spacing-md, var(--kui-space-60, #{$kui-space-60}));

@@ -89,9 +89,9 @@ const proceed = (): void => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 
 .k-menu {
   background-color: var(--white, var(--kui-color-background, $kui-color-background));

@@ -444,9 +444,9 @@ export default defineComponent({
 
 <style lang="scss">
 // Must leave this block unscoped as it sometimes causes issues with slotted/nested styles
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 
 .k-popover {
   background-color: var(--KPopBackground, var(--white, var(--kui-color-background, $kui-color-background)));

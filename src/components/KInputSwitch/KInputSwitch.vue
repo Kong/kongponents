@@ -159,7 +159,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
 
 $kInputSwitchWidth: 44px;
