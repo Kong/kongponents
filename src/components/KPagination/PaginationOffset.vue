@@ -84,7 +84,6 @@ const getPrevOffset = (): void => {
 </script>
 
 <style lang="scss" scoped>
-
 .pagination-offset-button-container {
   display: flex;
   margin-bottom: var(--kui-space-0, $kui-space-0) !important;
@@ -92,18 +91,18 @@ const getPrevOffset = (): void => {
 
   .pagination-button {
     .pagination-arrow-icon {
-      color: var(--KPaginationColor, var(--blue-400, var(--kui-color-text-primary, $kui-color-text-primary)));
+      color: var(--kui-color-text-primary, $kui-color-text-primary);
 
       &.is-direction-disabled {
-        color: var(--KPaginationDisabledColor, var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-primary)))
+        color: var(--kui-color-text-neutral, $kui-color-text-primary);
       }
     }
 
     &.k-button {
       background-color: var(--kui-color-background, $kui-color-background);
-      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
       border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-      color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
       height: 34px;
       margin: var(--kui-space-0, $kui-space-0) var(--kui-space-30, $kui-space-30);
       padding: var(--kui-space-30, $kui-space-30);
@@ -111,24 +110,24 @@ const getPrevOffset = (): void => {
 
       &:focus,
       &:hover {
-        border-color: var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary));
+        border-color: var(--kui-color-border-primary, $kui-color-border-primary);
         border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-        color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
+        color: var(--kui-color-text-primary, $kui-color-text-primary);
       }
 
       &.disabled:focus,
       &.disabled:hover {
-        border-color: var(--grey-200, var(--kui-color-border, $kui-color-border));
+        border-color: var(--kui-color-border, $kui-color-border);
         box-shadow: none;
-        color: var(--black-45, var(--kui-color-text, $kui-color-text));
+        color: var(--kui-color-text, $kui-color-text);
         cursor: not-allowed;
       }
 
       &.active {
-        background-color: var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
-        border-color: var(--blue-200, var(--kui-color-border-primary-weak, $kui-color-border-primary-weak));
+        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+        border-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
         border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-        color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
+        color: var(--kui-color-text-primary, $kui-color-text-primary);
         outline: none;
       }
     }

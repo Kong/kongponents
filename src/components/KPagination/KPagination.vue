@@ -352,7 +352,6 @@ watch(pageCount, (newVal, oldVal) => {
 </script>
 
 <style lang="scss" scoped>
-
 .card-pagination-bar {
   align-items: center;
   display: flex;
@@ -361,7 +360,7 @@ watch(pageCount, (newVal, oldVal) => {
 }
 
 .pagination-text {
-  color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+  color: var(--kui-color-text-neutral, $kui-color-text-neutral);
   font-size: var(--kui-font-size-30, $kui-font-size-30);
   font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
   min-width: 115px;
@@ -372,10 +371,7 @@ watch(pageCount, (newVal, oldVal) => {
 }
 
 .page-size-select {
-  --KButtonLink: var(--KPaginationPageSizeColor, var(--kui-color-text-primary, #{$kui-color-text-primary}));
-  --KButtonOutlineBorder: var(--KPaginationPageSizeColor, var(--kui-color-border-primary, #{$kui-color-border-primary}));
-  --KButtonFontSize: var(--type-sm, var(--kui-font-size-30, #{$kui-font-size-30}));
-  color: var(--blue-400, var(--kui-color-text-primary, #{$kui-color-text-primary}));
+  color: var(--kui-color-text-primary, #{$kui-color-text-primary});
   font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
   line-height: var(--kui-line-height-30, $kui-line-height-30);
 }
@@ -394,9 +390,9 @@ watch(pageCount, (newVal, oldVal) => {
   .pagination-button {
     align-self: center;
     background-color: white;
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--KPaginationBorderColor, var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
     border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-    color: var(--KPaginationColor, var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral)));
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
     cursor: pointer;
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     font-weight: initial;
@@ -406,15 +402,15 @@ watch(pageCount, (newVal, oldVal) => {
     min-width: 32px;
 
     .pagination-arrow-icon {
-      color: var(--KPaginationColor, var(--blue-400, var(--kui-color-text-primary, $kui-color-text-primary)));
+      color: var(--kui-color-text-primary, $kui-color-text-primary);
 
       &.is-direction-disabled {
-        color: var(--KPaginationDisabledColor, var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-primary)))
+        color: var(--kui-color-text-neutral, $kui-color-text-primary);
       }
     }
 
      &:not(.square) {
-      background-color: var(--KPaginationBackgroundColor, var(--kui-color-background, $kui-color-background));
+      background-color: var(--kui-color-background, $kui-color-background);
     }
 
     a, div {
@@ -427,7 +423,7 @@ watch(pageCount, (newVal, oldVal) => {
 
     &.placeholder {
       align-items: center;
-      color: var(--KPaginationColor, var(--kui-color-text-neutral, $kui-color-text-neutral));
+      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
       cursor: initial;
       display: flex;
       justify-content: center;
@@ -435,15 +431,15 @@ watch(pageCount, (newVal, oldVal) => {
 
     &:focus:not(.placeholder),
     &:hover:not(.placeholder) {
-      border-color: var(--KPaginationActiveColor, var(--kui-color-border-primary, $kui-color-border-primary));
+      border-color: var(--kui-color-border-primary, $kui-color-border-primary);
       border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-      color: var(--KPaginationActiveColor, var(--kui-color-text-primary, $kui-color-text-primary));
+      color: var(--kui-color-text-primary, $kui-color-text-primary);
     }
 
     &.disabled:focus:not(.placeholder),
     &.disabled:hover:not(.placeholder) {
-      border-color: var(--grey-200, var(--kui-color-border, $kui-color-border));
-      color: var(--black-45, var(--kui-color-text, $kui-color-text));
+      border-color: var(--kui-color-border, $kui-color-border);
+      color: var(--kui-color-text, $kui-color-text);
     }
 
     &.disabled {
@@ -453,14 +449,14 @@ watch(pageCount, (newVal, oldVal) => {
     }
 
     &.active {
-      background-color: var(--KPaginationActiveBackgroundColor, var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest)));
-      border-color: var(--KPaginationActiveBorderColor, var(--blue-200, var(--kui-color-border-primary-weak, $kui-color-border-primary-weak)));
+      background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+      border-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
       border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-      color: var(--KPaginationActiveColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+      color: var(--kui-color-text-primary, $kui-color-text-primary);
       outline: none;
 
       a {
-        color: var(--KPaginationActiveColor, var(--kui-color-text-primary, $kui-color-text-primary));
+        color: var(--kui-color-text-primary, $kui-color-text-primary);
       }
     }
   }
