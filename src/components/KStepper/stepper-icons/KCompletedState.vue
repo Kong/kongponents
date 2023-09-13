@@ -36,14 +36,13 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-
 .k-step-state-icon {
   .k-step-icon-primary {
-    fill: var(--KStepCompletedColor, var(--kui-color-text-decorative, $kui-color-text-decorative));
+    fill: var(--kui-color-text-decorative, $kui-color-text-decorative);
   }
 
   .k-step-icon-secondary {
-    stroke: var(--KStepCompletedSecondaryColor, var(--kui-color-text-inverse, $kui-color-text-inverse));
+    stroke: var(--kui-color-text-inverse, $kui-color-text-inverse);
   }
 }
 </style>

@@ -41,10 +41,6 @@ const calcWidth = (cell: number, columns: number): SkeletonBoxWidth => {
 </script>
 
 <style lang="scss" scoped>
-
-$screen-lg: $kui-breakpoint-tablet;
-$screen-md: $kui-breakpoint-phablet;
-
 .skeleton-table-wrapper {
   overflow: hidden;
   width: 100%;
@@ -64,7 +60,7 @@ $screen-md: $kui-breakpoint-phablet;
       }
     }
 
-    @media only screen and (max-width: $screen-lg) {
+    @media only screen and (max-width: $kui-breakpoint-tablet) {
       .skeleton-cell {
         &:nth-of-type(n + 5) {
           display: none;
@@ -75,7 +71,7 @@ $screen-md: $kui-breakpoint-phablet;
         }
       }
     }
-    @media only screen and (max-width: $screen-md) {
+    @media only screen and (max-width: $kui-breakpoint-phablet) {
       .skeleton-cell {
         &:nth-of-type(n + 3) {
           display: none;

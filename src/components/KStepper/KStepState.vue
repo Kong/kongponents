@@ -48,7 +48,7 @@ const renderedComponent = computed(() => {
 
 <style lang="scss" scoped>
 .k-step-state {
-  background: var(--KStepBackgroundColor, var(--white, var(--kui-color-background, $kui-color-background)));
+  background: var(--kui-color-background, $kui-color-background);
   padding-left: var(--kui-space-50, $kui-space-50) !important;
   padding-right: var(--kui-space-50, $kui-space-50) !important;
 }
@@ -57,8 +57,8 @@ const renderedComponent = computed(() => {
 <style lang="scss">
 .k-step-state {
   .k-step-state-icon {
-    height: var(--KStepIconSize, 24px);
-    width: var(--KStepIconSize, 24px);
+    height: 24px;
+    width: 24px;
   }
 }
 </style>
