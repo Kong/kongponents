@@ -987,6 +987,7 @@ onBeforeUnmount(() => {
     }
 
     .hidden-selection-count {
+      line-height: var(--kui-line-height-30, $kui-line-height-30);
       margin-top: var(--kui-space-40, $kui-space-40) !important;
     }
 

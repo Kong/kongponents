@@ -239,7 +239,7 @@
       border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
 
       &:after {
-        background-color: vvar(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+        background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
       }
     }
   }
