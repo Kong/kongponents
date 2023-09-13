@@ -91,10 +91,6 @@ const handleCardClick = (evt: Event, item: CatalogItem): void => {
 
 <style lang="scss">
 .k-card-catalog-item.kong-card {
-  --KCardBorderRadius: var(--kui-border-radius-20, #{$kui-border-radius-20});
-  --KCardPaddingY: var(--spacing-lg, var(--kui-space-80, #{$kui-space-80}));
-  --KCardPaddingX: var(--spacing-md, var(--kui-space-60, #{$kui-space-60}));
-
   .k-card-body {
     display: flex;
     flex-direction: column;
@@ -103,11 +99,6 @@ const handleCardClick = (evt: Event, item: CatalogItem): void => {
     .description {
       flex-grow: 1;
     }
-  }
-
-  &:hover {
-    --KCardShadow: none;
-    --KCardBorder: var(--kui-border-width-10, #{$kui-border-width-10}) solid var(--blue-300, var(--kui-color-border-primary-weak, #{$kui-color-border-primary-weak}));
   }
 }
 </style>
