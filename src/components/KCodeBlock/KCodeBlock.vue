@@ -1136,11 +1136,11 @@ $dark-focusColor: $tmp-color-green-500;
 
 .k-line-is-highlighted-match::before {
   background-color: $tmp-color-black-20;
-  border-left: var(--kui-border-width-30, $kui-border-width-30) solid var(--KCodeBlockMatchHighlightColor, $light-focusColor);
+  border-left: var(--kui-border-width-30, $kui-border-width-30) solid $light-focusColor;
 }
 
 .theme-dark .k-line-is-highlighted-match::before {
-  border-left: var(--kui-border-width-30, $kui-border-width-30) solid var(--KCodeBlockMatchHighlightColor, $dark-focusColor);
+  border-left: var(--kui-border-width-30, $kui-border-width-30) solid $dark-focusColor;
 }
 
 .k-line-anchor:not([href]) {

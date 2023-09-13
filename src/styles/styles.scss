@@ -6,6 +6,6 @@
 :root {
   // Font weight
   body {
-    font-weight: var(--font-weight-normal, 400);
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   }
 }

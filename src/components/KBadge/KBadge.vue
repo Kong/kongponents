@@ -266,9 +266,9 @@ watch(badgeText, () => {
     }
   }
   &.k-badge-danger {
-    background-color: var(--KBadgeDangerBackground, var(--red-100, var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest)));
-    border-color: var(--KBadgeDangerBorder, var(--red-700, var(--kui-color-border-danger, $kui-color-border-danger)));
-    color: var(--KBadgeDangerColor, var(--red-700, var(--kui-color-text-danger, $kui-color-text-danger)));
+    background-color: var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest);
+    border-color: var(--kui-color-border-danger, $kui-color-border-danger);
+    color: var(--kui-color-text-danger, $kui-color-text-danger);
 
     &.is-bordered {
       border-style: solid;

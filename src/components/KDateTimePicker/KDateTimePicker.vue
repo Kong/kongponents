@@ -607,6 +607,7 @@ $margin: var(--kui-space-30, $kui-space-30);
         flex-direction: column !important;
 
         .timeframe-section-title {
+          color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
           font-size: var(--kui-font-size-30, $kui-font-size-30) !important;
           font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
           margin-bottom: var(--kui-space-20, $kui-space-20) !important;

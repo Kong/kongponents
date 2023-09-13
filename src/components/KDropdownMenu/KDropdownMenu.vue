@@ -223,7 +223,7 @@ onMounted(() => {
 @import '@/styles/tmp-variables';
 
 .k-popover.k-dropdown-popover {
-  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--black-10, $tmp-color-black-10);
+  border: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-black-10;
   margin-top: var(--kui-space-20, $kui-space-20) !important;
   padding: var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0);
 
