@@ -137,6 +137,32 @@ Allows controlling the processing state from outside the component. This allows 
 />
 ```
 
+### maxHeight
+
+* **Type**: `string`
+* **Required**: no
+* **Default**: `'none'`
+
+The `max-height` of the code block.
+
+<ClientOnly>
+  <KCodeBlock
+    id="code-block-max-height"
+    :code="code"
+    language="json"
+    max-height="200px"
+  />
+</ClientOnly>
+
+```html
+<KCodeBlock
+  id="code-block-max-height"
+  :code="code"
+  language="json"
+  max-height="200px"
+/>
+```
+
 ### query
 
 * **Type**: `string`
@@ -207,7 +233,7 @@ You might need to turn this off for sites that already constantly use the fragme
     :code="code"
     language="json"
     :show-line-number-links="true"
-    style="--KCodeBlockMaxHeight: 200px"
+    max-height="200px"
   />
 </ClientOnly>
 
@@ -355,7 +381,6 @@ function highlight({ preElement, codeElement, language, code }) {
 | `--KCodeBlockFontSize`            | `var(--type-xs)`          | Code block font size                                             |
 | `--KCodeBlockFontFamilyMono`      | `var(--font-family-mono)` | Code block font family                                           |
 | `--KCodeBlockTabSize`             | `2`                       | Tab size for code blocks                                         |
-| `--KCodeBlockMaxHeight`           | `none`                    | Max-height of the code block. Any overflow will be scrollable |
 
 ## Default shortcuts
 

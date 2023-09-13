@@ -37,6 +37,8 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KCodeBlock
 
+- Added new `maxHeight` prop to control the `max-height` of the code block
+
 
 ### KCollapse
 
