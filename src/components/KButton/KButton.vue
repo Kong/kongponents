@@ -208,22 +208,22 @@ export default {
 @import '@/styles/tmp-variables';
 
 @mixin boxShadow($color, $whiteShadowSpread: 2px, $colorShadowSpread: 4px) {
-  box-shadow: 0 0 0 $whiteShadowSpread var(--white, var(--kui-color-background, $kui-color-background)), 0 0 0 $colorShadowSpread $color;
+  box-shadow: 0 0 0 $whiteShadowSpread var(--kui-color-background, $kui-color-background), 0 0 0 $colorShadowSpread $color;
 }
 
 .k-button {
   align-items: center;
   border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
-  border-radius: var(--KButtonRadius, var(--kui-border-radius-20, $kui-border-radius-20));
-  color: var(--black-70, var(--kui-color-text, $kui-color-text));
+  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+  color: var(--kui-color-text, $kui-color-text);
   cursor: pointer;
   display: inline-flex;
-  font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
-  font-size: var(--KButtonFontSize, var(--type-md, var(--kui-font-size-30, $kui-font-size-30)));
+  font-family: var(--kui-font-family-text, $kui-font-family-text);
+  font-size: vvar(--kui-font-size-30, $kui-font-size-30);
   font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-  gap: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+  gap: var(--kui-space-40, $kui-space-40);
   line-height: var(--kui-line-height-30, $kui-line-height-30);
-  padding: var(--KButtonPaddingY, var(--spacing-sm, var(--kui-space-50, $kui-space-50))) var(--KButtonPaddingX, var(--spacing-lg, var(--kui-space-80, $kui-space-80)));
+  padding: var(--kui-space-50, $kui-space-50) var(--kui-space-80, $kui-space-80);
   position: relative;
   // Remove tap color highlight on mobile Safari
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
@@ -268,21 +268,21 @@ export default {
 
   /* Size Variations */
   &.small {
-    font-size: var(--KButtonFontSize, var(--kui-font-size-20, $kui-font-size-20));
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
     line-height: var(--kui-line-height-10, $kui-line-height-10);
-    padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40)) var(--spacing-md, var(--kui-space-60, $kui-space-60));
+    padding: var(--kui-space-40, $kui-space-40) var(--kui-space-60, $kui-space-60);
   }
 
   &.medium {
-    font-size: var(--KButtonFontSize, var(--type-md, var(--kui-font-size-40, $kui-font-size-40)));
-    line-height: var(--type-md, var(--kui-line-height-10, $kui-line-height-10));
-    padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+    font-size: var(--kui-font-size-40, $kui-font-size-40);
+    line-height: var(--kui-line-height-10, $kui-line-height-10);
+    padding: var(--kui-space-50, $kui-space-50) var(--kui-space-80, $kui-space-80);
   }
 
   &.large {
-    font-size: var(--KButtonFontSize, var(--type-md, var(--kui-font-size-40, $kui-font-size-40)));
-    line-height: var(--type-md, var(--kui-line-height-10, $kui-line-height-10));
-    padding: var(--spacing-md, var(--kui-space-60, $kui-space-60)) var(--spacing-xl, var(--kui-space-90, $kui-space-90));
+    font-size: var(--kui-font-size-40, $kui-font-size-40);
+    line-height: var(--kui-line-height-10, $kui-line-height-10);
+    padding: var(--kui-space-60, $kui-space-60) var(--kui-space-90, $kui-space-90);
   }
 
   /* class to add for dropdown caret */
@@ -301,107 +301,107 @@ export default {
 
   /* Appearance Variations */
   &.secondary {
-    background-color: var(--KButtonSecondaryBase, var(--blue-200, var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker)));
-    color: var(--KButtonSecondaryColor, var(--blue-600, var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger)));
+    background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
+    color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
     &:hover:not(:disabled) {
-      background-color: var(--KButtonSecondaryHover, var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak)));
+      background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
     }
     &:active {
-      background-color: var(--KButtonSecondaryActive, var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak)));
+      background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
     }
     &:focus {
-      @include boxShadow(var(--KButtonSecondaryBase, var(--blue-300, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak))));
+      @include boxShadow(var(--kui-color-background-primary-weak, $kui-color-background-primary-weak));
     }
     &:disabled,
     &[disabled] {
       // Use !important to override conflicting styles
-      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important;
-      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
+      background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) !important;
+      color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
     }
   }
 
   &.primary {
-    background-color: var(--KButtonPrimaryBase, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary)));
-    color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
+    background-color: var(--kui-color-background-primary, $kui-color-background-primary);
+    color: var(--kui-color-text-inverse, $kui-color-text-inverse);
     &:hover:not(:disabled) {
-      background-color: var(--KButtonPrimaryHover, var(--blue-600, var(--kui-color-background-primary-stronger, $kui-color-background-primary-stronger)));
+      background-color: var(--kui-color-background-primary-stronger, $kui-color-background-primary-stronger);
     }
     &:active {
-      background-color: var(--KButtonPrimaryActive, var(--kui-color-background-primary-stronger, $kui-color-background-primary-stronger));
+      background-color: var(--kui-color-background-primary-stronger, $kui-color-background-primary-stronger);
     }
     &:focus {
-      @include boxShadow(var(--KButtonPrimaryBase, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary))));
+      @include boxShadow(var(--kui-color-background-primary, $kui-color-background-primary));
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important;
-      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
+      background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) !important;
+      color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
     }
   }
 
   &.danger {
-    background-color: var(--KButtonDangerBase, var(--red-500, var(--kui-color-background-danger, $kui-color-background-danger)));
-    color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
+    background-color: var(--kui-color-background-danger, $kui-color-background-danger);
+    color: var(--kui-color-text-inverse, $kui-color-text-inverse);
     &:hover:not(:disabled) {
-      background-color: var(--KButtonDangerHover, var(--kui-color-background-danger-strong, rgba($kui-color-background-danger-strong, .85)));
+      background-color: var(--kui-color-background-danger-strong, rgba($kui-color-background-danger-strong, .85));
     }
     &:active {
-      background-color: var(--KButtonDangerActive, var(--red-700, var(--kui-color-background-danger-strong, $kui-color-background-danger-strong)));
+      background-color: var(--kui-color-background-danger-strong, $kui-color-background-danger-strong);
     }
     &:focus {
-      @include boxShadow(var(--KButtonDangerBase, var(--red-700, var(--kui-color-background-danger-strong, $kui-color-background-danger-strong))));
+      @include boxShadow(var(--kui-color-background-danger-strong, $kui-color-background-danger-strong));
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important;
-      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
+      background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) !important;
+      color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
     }
   }
 
   &.creation {
-    background-color: var(--KButtonCreationBase, var(--green-500, $tmp-color-green-500));
-    color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
+    background-color: $tmp-color-green-500;
+    color: var(--kui-color-text-inverse, $kui-color-text-inverse);
     &:hover:not(:disabled) {
-      background-color: var(--KButtonCreationHover, rgba($tmp-color-green-600, .85));
+      background-color: rgba($tmp-color-green-600, .85);
     }
     &:active {
-      background-color: var(--KButtonCreationActive, var(--green-600, $tmp-color-green-600));
+      background-color: $tmp-color-green-600;
     }
     &:focus {
-      @include boxShadow(var(--KButtonCreationBase, var(--green-600, $tmp-color-green-600)));
+      @include boxShadow($tmp-color-green-600);
     }
     &:disabled,
     &[disabled] {
-      background-color: var(--grey-300, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) !important;
-      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
+      background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) !important;
+      color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
     }
   }
 
   &.outline {
-    background-color: var(--white, var(--kui-color-background, $kui-color-background));
-    border-color: var(--KButtonOutlineBorder, var(--kui-color-border-primary, rgba($kui-color-border-primary, .4)));
-    color: var(--KButtonOutlineColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+    background-color: var(--kui-color-background, $kui-color-background);
+    border-color: var(--kui-color-border-primary, rgba($kui-color-border-primary, .4));
+    color: var(--kui-color-text-primary, $kui-color-text-primary);
     outline-style: inherit;
     &:hover:not(:disabled) {
-      border-color: var(--KButtonOutlineHoverBorder, var(--kui-color-border-primary, $kui-color-border-primary));
+      border-color: var(--kui-color-border-primary, $kui-color-border-primary);
     }
     &:active {
-      background-color: var(--KButtonOutlineActive, var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest)));
-      border-color: var(--KButtonOutlineActiveBorder, var(--kui-color-border-primary, $kui-color-border-primary));
+      background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+      border-color: var(--kui-color-border-primary, $kui-color-border-primary);
     }
     &:focus {
-      @include boxShadow(var(--KButtonOutlineBorder, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary))));
+      @include boxShadow(var(--kui-color-background-primary, $kui-color-background-primary));
     }
     &:disabled,
     &[disabled] {
-      border-color: var(--grey-400, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)) !important;
-      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
+      border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak) !important;
+      color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
     }
   }
 
   &.btn-link {
     background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-    color: var(--KButtonLink, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+    color: var(--kui-color-text-primary, $kui-color-text-primary);
     padding: var(--kui-space-0, $kui-space-0);
 
     &:hover:not(:disabled) {
@@ -424,18 +424,18 @@ export default {
 
     &:disabled,
     &[disabled] {
-      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
+      color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
     }
   }
 
   &.btn-link-danger {
     background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-    color: var(--KButtonLinkDanger, var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger)));
+    color: var(--kui-color-text-danger, $kui-color-text-danger);
     &:hover:not(:disabled) {
       text-decoration: underline;
     }
     &:focus {
-      @include boxShadow(var(--red-700, var(--kui-color-background-danger-strong, $kui-color-background-danger-strong)), 0, 2px);
+      @include boxShadow(var(--kui-color-background-danger-strong, $kui-color-background-danger-strong), 0, 2px);
     }
   }
 

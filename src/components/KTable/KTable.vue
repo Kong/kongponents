@@ -1055,7 +1055,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
     }
 
     th {
-      font-size: var(--KTableHeaderSize, var(--type-sm, var(--kui-font-size-20, $kui-font-size-20)));
+      font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
       padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) var(--spacing-md, var(--kui-space-60, $kui-space-60));
       text-align: left;
@@ -1096,7 +1096,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
       height: 44px;
 
       &:not(:last-of-type) {
-        border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTableBorder, var(--grey-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
+        border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       }
     }
 
