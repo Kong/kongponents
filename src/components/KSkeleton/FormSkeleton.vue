@@ -49,8 +49,6 @@ import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 
 <style lang="scss" scoped>
 
-
-
 .skeleton-form-wrapper {
   width: 100%;
   .skeleton-form-row {

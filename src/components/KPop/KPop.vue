@@ -447,7 +447,6 @@ export default defineComponent({
 
 @import '@/styles/tmp-variables';
 
-
 .k-popover {
   background-color: var(--KPopBackground, var(--white, var(--kui-color-background, $kui-color-background)));
   border: var(--kui-border-width-10, $kui-border-width-10) solid var(--KPopBorder, var(--black-10, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));

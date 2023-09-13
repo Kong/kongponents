@@ -761,7 +761,6 @@ const onPopoverOpen = () => {
 @import '@/styles/tmp-variables';
 @import '@/styles/mixins';
 
-
 .k-select {
   width: fit-content; // necessary for correct placement of popup
 
@@ -809,7 +808,6 @@ const onPopoverOpen = () => {
 
 @import '@/styles/tmp-variables';
 @import '@/styles/mixins';
-
 
 $chevronDownIconMargin: var(--kui-space-40, $kui-space-40);
 $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);

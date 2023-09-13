@@ -154,7 +154,6 @@ const showCardTitleWithStatus = computed((): boolean => useStatusHatLayout.value
 
 @import '@/styles/tmp-variables';
 
-
 .kong-card {
   background-color: var(--KCardBackground, var(--white, var(--kui-color-background, $kui-color-background)));
   border-radius: var(--KCardBorderRadius, var(--kui-border-radius-20, $kui-border-radius-20));
@@ -235,8 +234,6 @@ const showCardTitleWithStatus = computed((): boolean => useStatusHatLayout.value
 </style>
 
 <style lang="scss">
-
-
 
 .kong-card {
   .k-card-header {

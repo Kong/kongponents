@@ -148,7 +148,6 @@ const offsetTopValue = computed((): string => getSizeFromString(String(props.off
 
 @import '@/styles/tmp-variables';
 
-
 .k-slideout {
   --KCardPaddingY: var(--kui-space-90, #{$kui-space-90});
   --KCardPaddingX: var(--kui-space-110, #{$kui-space-110});

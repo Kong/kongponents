@@ -628,8 +628,6 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 
-
-
 .k-card-catalog {
   .k-card-catalog-title {
     color: var(--blue-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
@@ -652,8 +650,6 @@ onMounted(() => {
 </style>
 
 <style lang="scss">
-
-
 
 .k-card-catalog {
   $cardHeight: 181px;

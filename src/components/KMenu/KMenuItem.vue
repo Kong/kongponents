@@ -115,7 +115,6 @@ const toggleMenuItem = (): void => {
 
 <style lang="scss" scoped>
 
-
 @import '@/styles/mixins';
 
 .k-menu-item {

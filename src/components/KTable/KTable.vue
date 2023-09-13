@@ -988,7 +988,6 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
 @import '@/styles/tmp-variables';
 
-
 .k-table-wrapper {
   overflow: auto;
   width: 100%;
@@ -1154,8 +1153,6 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 </style>
 
 <style lang="scss">
-
-
 
 .k-table {
   thead {

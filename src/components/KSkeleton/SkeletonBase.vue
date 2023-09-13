@@ -23,7 +23,6 @@ import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 
 <style lang="scss" scoped>
 
-
 .skeleton-loader {
   width: 80%;
 }

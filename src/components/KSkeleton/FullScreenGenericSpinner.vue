@@ -65,7 +65,6 @@ onUnmounted(() => {
 @import '@/styles/tmp-variables';
 @import '@/styles/mixins';
 
-
 .fullscreen-loading-container {
   @include fullscreen-loading-container;
   .progress {

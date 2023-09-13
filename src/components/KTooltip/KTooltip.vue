@@ -100,8 +100,6 @@ const computedClass = computed((): string => {
 
 <style lang="scss">
 
-
-
 .k-tooltip.k-popover {
   --KPopColor: var(--KTooltipColor, var(--white, var(--kui-color-text-inverse, #{$kui-color-text-inverse})));
   --KPopBackground: var(--KTooltipBackground, var(--black-400, var(--kui-color-background-neutral-stronger, #{$kui-color-background-neutral-stronger})));

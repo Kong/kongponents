@@ -353,8 +353,6 @@ watch(pageCount, (newVal, oldVal) => {
 
 <style lang="scss" scoped>
 
-
-
 .card-pagination-bar {
   align-items: center;
   display: flex;

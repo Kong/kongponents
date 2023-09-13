@@ -149,8 +149,6 @@ watch(() => props.modelValue, (value: boolean): void => {
 
 <style lang="scss" scoped>
 
-
-
 .k-method-badge {
   display: flex;
   font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);

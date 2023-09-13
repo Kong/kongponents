@@ -1159,7 +1159,6 @@ $dark-focusColor: var(--green-500, $tmp-color-green-500);
 
 @import '@/styles/tmp-variables';
 
-
 $dark-backgroundColor: var(--black-500, var(--kui-color-background-neutral-strongest, $kui-color-background-neutral-strongest));
 
 .k-code-block {

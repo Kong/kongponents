@@ -43,8 +43,6 @@ const iconColor = computed((): string => isMouseOver.value ? `var(--KExternalLin
 
 <style lang="scss" scoped>
 
-
-
 .k-external-link {
   align-items: center;
   color: var(--KExternalLinkColor, var(--kui-color-text-primary, $kui-color-text-primary));

@@ -8,8 +8,6 @@
 
 <style lang="scss" scoped>
 
-
-
 .k-menu-item-divider {
   padding: var(--kui-space-0, $kui-space-0) var(--kui-space-70, $kui-space-70);
 

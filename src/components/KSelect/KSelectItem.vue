@@ -63,7 +63,6 @@ const handleClick = (e: MouseEvent): void => {
 
 @import '@/styles/tmp-variables';
 
-
 .k-select-item {
   list-style: none !important;
   margin-bottom: var(--kui-space-20, $kui-space-20);

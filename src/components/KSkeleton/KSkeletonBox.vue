@@ -26,8 +26,6 @@ defineProps({
 
 <style lang="scss" scoped>
 
-
-
 .box {
   animation: gradient 1s ease infinite;
   background: linear-gradient(

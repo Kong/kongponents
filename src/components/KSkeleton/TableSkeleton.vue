@@ -42,8 +42,6 @@ const calcWidth = (cell: number, columns: number): SkeletonBoxWidth => {
 
 <style lang="scss" scoped>
 
-
-
 $screen-lg: $kui-breakpoint-tablet;
 $screen-md: $kui-breakpoint-phablet;
 

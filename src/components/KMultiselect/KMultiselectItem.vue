@@ -78,7 +78,6 @@ const handleClick = (): void => {
 
 @import '@/styles/tmp-variables';
 
-
 .k-multiselect-item {
   margin-bottom: var(--kui-space-20, $kui-space-20);
 

@@ -101,7 +101,6 @@ watch(() => props.modelValue, (newTabHash) => {
 
 @import '@/styles/tmp-variables';
 
-
 .k-tabs {
   ul {
     border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTabsBottomBorderColor, var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));

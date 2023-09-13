@@ -50,8 +50,6 @@ defineProps({
 
 <style lang="scss" scoped>
 
-
-
 $borderColor: #e6e6e6;
 .skeleton-card-wrapper {
   display: flex;

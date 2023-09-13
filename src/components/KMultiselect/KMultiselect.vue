@@ -943,7 +943,6 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 
-
 @import '@/styles/mixins';
 
 .k-multiselect {

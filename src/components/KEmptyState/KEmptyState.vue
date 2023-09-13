@@ -91,7 +91,6 @@ defineProps({
 
 @import '@/styles/tmp-variables';
 
-
 .empty-state-wrapper {
   background-color: var(--KEmptyBackground, var(--white, var(--kui-color-background, $kui-color-background)));
   border-radius: var(--kui-border-radius-20, $kui-border-radius-20);

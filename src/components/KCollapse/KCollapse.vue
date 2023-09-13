@@ -154,8 +154,6 @@ watch(modelComputed, (newVal, oldVal) => {
 
 <style lang="scss" scoped>
 
-
-
 .k-collapse {
   width: 100% !important;
   .k-collapse-heading {
@@ -194,8 +192,6 @@ watch(modelComputed, (newVal, oldVal) => {
 </style>
 
 <style lang="scss">
-
-
 
 .k-collapse {
   .k-collapse-trigger {

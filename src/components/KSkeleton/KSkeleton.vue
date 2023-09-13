@@ -115,8 +115,6 @@ onMounted(() => {
 
 <style lang="scss">
 
-
-
 .k-skeleton-container {
   display: flex !important;
   flex-wrap: wrap !important;

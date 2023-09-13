@@ -92,7 +92,6 @@ const proceed = (): void => {
 
 @import '@/styles/tmp-variables';
 
-
 .k-menu {
   background-color: var(--white, var(--kui-color-background, $kui-color-background));
   border: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));

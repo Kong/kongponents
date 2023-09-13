@@ -258,8 +258,6 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 
-
-
 .k-truncate {
   align-items: flex-start;
   display: flex;

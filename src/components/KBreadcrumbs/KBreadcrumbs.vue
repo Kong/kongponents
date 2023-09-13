@@ -113,7 +113,6 @@ export default {
 
 <style lang="scss" scoped>
 
-
 @import '@/styles/mixins';
 
 .k-breadcrumbs {

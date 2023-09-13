@@ -115,8 +115,6 @@ const handleClick = (evt: PointerEvent): void => {
 
 <style lang="scss" scoped>
 
-
-
 .k-segmented-control {
   display: flex !important;
   gap: var(--KSegmentedControlGap, var(--kui-space-0, $kui-space-0));
