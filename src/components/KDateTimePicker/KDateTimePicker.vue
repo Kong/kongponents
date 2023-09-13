@@ -25,7 +25,7 @@
         <KIcon
           v-if="icon"
           class="calendar-icon"
-          :color="`var(--grey-500, var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL}))`"
+          :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
           icon="calendar"
           :size="KUI_ICON_SIZE_30"
         />
@@ -515,7 +515,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-
 @import '@/styles/mixins';
 
 $timepicker-min-width: 360px;
@@ -532,13 +531,11 @@ $margin: var(--kui-space-30, $kui-space-30);
   }
 
   .timepicker-input {
-    --KButtonOutlineColor: var(--grey-500, var(--kui-color-text-neutral, #{$kui-color-text-neutral}));
-    --KButtonOutlineActive: var(--white, var(--kui-color-background, #{$kui-color-background}));
     border: none;
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular); // token value change
     // Prevent overflowing the container
     max-width: 100%;
-    padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) !important;
+    padding: var(--kui-space-50, $kui-space-50) !important;
     // Styling button as input via mixin
     @include input-default;
 
@@ -559,7 +556,7 @@ $margin: var(--kui-space-30, $kui-space-30);
       @include input-focus;
     }
     .timepicker-display {
-      color: var(--black-70, var(--kui-color-text, $kui-color-text));
+      color: var(--kui-color-text, $kui-color-text);
       display: flex !important;
       flex-wrap: wrap;
       font-size: var(--kui-font-size-40, $kui-font-size-40) !important;
@@ -580,7 +577,7 @@ $margin: var(--kui-space-30, $kui-space-30);
     max-height: 90vh;
     max-width: 350px;
     overflow: hidden;
-    padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
+    padding: var(--kui-space-50, $kui-space-50);
 
     &[x-placement^=bottom] {
       margin-top: var(--kui-space-10, $kui-space-10);
@@ -612,7 +609,7 @@ $margin: var(--kui-space-30, $kui-space-30);
         .timeframe-section-title {
           font-size: var(--kui-font-size-30, $kui-font-size-30) !important;
           font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-          margin-bottom: var(--spacing-xs, var(--kui-space-20, $kui-space-20)) !important;
+          margin-bottom: var(--kui-space-20, $kui-space-20) !important;
           margin-top: var(--kui-space-40, $kui-space-40) !important;
         }
         .timeframe-buttons {
@@ -622,16 +619,16 @@ $margin: var(--kui-space-30, $kui-space-30);
           .timeframe-btn {
             // Only 2 of 3 columns will have a right margin; subtract margin / 2
             flex: 0 calc(33% - 3px);
-            font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
+            font-size: var(--kui-font-size-30, $kui-font-size-30);
             font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
             justify-content: center;
             margin-bottom: $margin;
             margin-right: $margin;
-            padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) var(--spacing-md, var(--kui-space-60, $kui-space-60));
+            padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
 
             &.selected-option {
-              background-color: var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary));
-              color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
+              background-color: var(--kui-color-background-primary, $kui-color-background-primary);
+              color: var(--kui-color-text-inverse, $kui-color-text-inverse);
               font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular); // token value change
             }
             &:nth-child(3n) {
@@ -647,7 +644,7 @@ $margin: var(--kui-space-30, $kui-space-30);
     }
 
     .k-popover-footer {
-      margin: var(--spacing-md, var(--kui-space-60, $kui-space-60)) auto var(--kui-space-0, $kui-space-0);
+      margin: var(--kui-space-60, $kui-space-60) auto var(--kui-space-0, $kui-space-0);
 
       .datetime-picker-footer-container {
         display: flex !important;
@@ -656,7 +653,7 @@ $margin: var(--kui-space-30, $kui-space-30);
         // Apply / Clear buttons
         // TODO these overrides should be applied to Kongponents button
         .action-btn {
-          padding: var(--kui-space-0, $kui-space-0) var(--spacing-md, var(--kui-space-60, $kui-space-60)) var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+          padding: var(--kui-space-0, $kui-space-0) var(--kui-space-60, $kui-space-60) var(--kui-space-40, $kui-space-40);
           &:focus {
             box-shadow: none;
           }
@@ -668,7 +665,6 @@ $margin: var(--kui-space-30, $kui-space-30);
 </style>
 
 <style lang="scss">
-
 @import '@/styles/tmp-variables';
 
 // v-calendar overrides
@@ -703,21 +699,21 @@ $margin: var(--kui-space-30, $kui-space-30);
     }
 
     .vc-highlights:has(.vcal-day-start, .vcal-day-end, .vcal-day-drag-start, .vcal-day-drag-end) + .vc-day-content {
-      color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
+      color: var(--kui-color-text-inverse, $kui-color-text-inverse);
     }
 
     .vc-nav-popover-container {
-      background-color: var(--white, var(--kui-color-background, $kui-color-background));
+      background-color: var(--kui-color-background, $kui-color-background);
       border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
       color: $text-color;
 
       .vc-nav-container {
         .vc-nav-arrow {
-          background-color: var(--white, var(--kui-color-background, $kui-color-background));
+          background-color: var(--kui-color-background, $kui-color-background);
 
           &:active,
           &:focus {
-            border: var(--kui-border-width-20, $kui-border-width-20) solid var(--white, $tmp-color-white); // token needed
+            border: var(--kui-border-width-20, $kui-border-width-20) solid $tmp-color-white; // token needed
           }
         }
         // Calendar year
@@ -725,12 +721,12 @@ $margin: var(--kui-space-30, $kui-space-30);
           color: $text-color;
 
           &:hover {
-            background-color: var(--white, var(--kui-color-background, $kui-color-background));
+            background-color: var(--kui-color-background, $kui-color-background);
             color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
           }
           &:active,
           &:focus {
-            border: var(--kui-border-width-20, $kui-border-width-20) solid var(--white, $tmp-color-white); // token needed
+            border: var(--kui-border-width-20, $kui-border-width-20) solid $tmp-color-white; // token needed
           }
         }
 
@@ -752,12 +748,12 @@ $margin: var(--kui-space-30, $kui-space-30);
             &.is-active {
               background-color: $selected-color;
               box-shadow: none;
-              color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
+              color: var(--kui-color-text-inverse, $kui-color-text-inverse);
               font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
             }
             // Disabled month
             &.is-disabled {
-              color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled));
+              color: var(--kui-color-text-disabled, $kui-color-text-disabled);
               cursor: not-allowed;
               opacity: 1;
             }
@@ -767,7 +763,7 @@ $margin: var(--kui-space-30, $kui-space-30);
     }
 
     .vc-time-picker {
-      border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--white, $tmp-color-white) !important; // token needed
+      border-top: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-white !important; // token needed
 
       &:last-of-type {
         padding-bottom: var(--kui-space-0, $kui-space-0);
@@ -792,7 +788,7 @@ $margin: var(--kui-space-30, $kui-space-30);
 
         .vc-title {
           color: $text-color;
-          font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+          font-size: var(--kui-font-size-40, $kui-font-size-40);
           &:hover,
           &:active {
             color: $text-color-darker;
@@ -801,7 +797,7 @@ $margin: var(--kui-space-30, $kui-space-30);
       }
       // Calendar content (weekday headings and full month)
       .vc-weeks {
-        margin-top: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
+        margin-top: var(--kui-space-50, $kui-space-50);
 
         .vc-weekday {
           color: $text-color;
@@ -856,12 +852,12 @@ $margin: var(--kui-space-30, $kui-space-30);
             &:focus {
               background-color: $selected-color;
               border-color: $selected-color;
-              color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
+              color: var(--kui-color-text-inverse, $kui-color-text-inverse);
             }
             &:active {
               background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
               border-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
-              color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
+              color: var(--kui-color-text-inverse, $kui-color-text-inverse);
             }
           }
         }
@@ -885,7 +881,7 @@ $margin: var(--kui-space-30, $kui-space-30);
       }
       .vc-day-content {
         &:hover {
-          background-color: var(--white, var(--kui-color-background, $kui-color-background));
+          background-color: var(--kui-color-background, $kui-color-background);
           border: var(--kui-border-width-20, $kui-border-width-20) solid $selected-color;
           color: $selected-color;
         }

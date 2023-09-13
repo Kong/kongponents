@@ -129,7 +129,7 @@ onMounted(() => {
 @import '@/styles/tmp-variables';
 
 .k-inline-edit {
-  --padding: var(--spacing-xxs, var(--kui-space-20, #{$kui-space-20})) var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
+  $inline-edit-padding: var(--kui-space-20, $kui-space-20) var(--kui-space-40, $kui-space-40);
   box-sizing: border-box;
 
   > :deep(div) {
@@ -141,27 +141,27 @@ onMounted(() => {
       border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
       border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
       line-height: 1.25;
-      margin-left: calc(-1 * var(--spacing-xs, var(--kui-space-40, $kui-space-40))); // align the left side of content
+      margin-left: calc(-1 * var(--kui-space-40, $kui-space-40)); // align the left side of content
       margin-top: var(--kui-space-0, $kui-space-0); // prevent a shift
       overflow: hidden;
-      padding: var(--padding);
+      padding: $inline-edit-padding;
       transition: background-color $tmp-animation-timing-2 ease;
       width: 100%;
     }
 
     &:hover > * {
-      background-color: var(--grey-200, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
+      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
     }
   }
 
   .k-input {
     display: inline-flex;
-    padding: var(--padding);
+    padding: $inline-edit-padding;
     width: 100%;
 
     &:focus,
     &:hover {
-      background-color: var(--white, var(--kui-color-background, $kui-color-background));
+      background-color: var(--kui-color-background, $kui-color-background);
     }
   }
 }

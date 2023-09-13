@@ -114,11 +114,10 @@ const toggleMenuItem = (): void => {
 </script>
 
 <style lang="scss" scoped>
-
 @import '@/styles/mixins';
 
 .k-menu-item {
-  color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+  color: var(--kui-color-text-neutral, $kui-color-text-neutral);
   font-size: var(--kui-font-size-20, $kui-font-size-20);
   font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   line-height: var(--kui-line-height-20, $kui-line-height-20);
@@ -130,13 +129,13 @@ const toggleMenuItem = (): void => {
 }
 
 .span-icon-container {
-  height: var(--spacing-lg, '24px');
+  height: 24px;
   margin-left: auto;
-  width: var(--spacing-lg, '24px');
+  width: 24px;
 }
 
 .title-dark {
-  color: var(--grey-600, var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest));
+  color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
 }
 
 .k-menu-item .menu-button {
@@ -145,12 +144,12 @@ const toggleMenuItem = (): void => {
   padding-left: var(--kui-space-70, $kui-space-70);
   padding-right: var(--kui-space-80, $kui-space-80);
   &:hover {
-    color: var(--grey-600, var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest));
+    color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
   }
 }
 
 .menu-content {
-  color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+  color: var(--kui-color-text-neutral, $kui-color-text-neutral);
   padding-left: var(--kui-space-70, $kui-space-70);
   padding-right: var(--kui-space-80, $kui-space-80);
   &.is-open {
@@ -163,14 +162,14 @@ const toggleMenuItem = (): void => {
 }
 
 .k-button.menu-button {
-  color: var(--KButtonOutlineColor, var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral)));
-  font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
+  color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+  font-family: var(--kui-font-family-text, $kui-font-family-text);
   font-size: var(--kui-font-size-20, $kui-font-size-20);
   font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular) !important;
   line-height: var(--kui-line-height-40, $kui-line-height-40);
   width: 100%;
   &:focus {
-    box-shadow: 0 0 0 1px var(--blue-200, var(--kui-color-border-primary-weaker, $kui-color-border-primary-weaker));
+    box-shadow: 0 0 0 1px var(--kui-color-border-primary-weaker, $kui-color-border-primary-weaker);
   }
 }
 

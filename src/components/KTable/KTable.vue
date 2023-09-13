@@ -1016,7 +1016,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
   thead {
     background-color: var(--kui-color-background, $kui-color-background);
-    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTableBorder, var(--grey-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
+    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     height: 60px;
     position: sticky;
     top: 0;
@@ -1136,12 +1136,12 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
     }
 
     tbody tr td:first-child {
-      border-left: var(--kui-border-width-20, $kui-border-width-20) solid var(--KTableBorder, var(--steel-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
+      border-left: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border, $kui-color-border);
     }
 
     &.has-hover {
       tbody tr:hover td:first-child {
-        border-left: var(--kui-border-width-20, $kui-border-width-20) solid var(--KTableBorder, var(--steel-300, $tmp-color-steel-300));
+        border-left: var(--kui-border-width-20, $kui-border-width-20) solid $tmp-color-steel-300;
       }
     }
   }

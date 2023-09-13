@@ -214,21 +214,18 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-
 .k-dropdown-menu {
   width: fit-content;
 }
 </style>
 
 <style lang="scss">
-
 @import '@/styles/tmp-variables';
 
 .k-popover.k-dropdown-popover {
   border: var(--kui-border-width-10, $kui-border-width-10) solid var(--black-10, $tmp-color-black-10);
   margin-top: var(--kui-space-20, $kui-space-20) !important;
-  --KPopPaddingY: var(--spacing-sm, var(--kui-space-50, #{$kui-space-50}));
-  --KPopPaddingX: var(--kui-space-0, #{$kui-space-0});
+  padding: var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0);
 
   ul {
     margin: var(--kui-space-0, $kui-space-0);
@@ -236,7 +233,7 @@ onMounted(() => {
   }
 
   a {
-    color: var(--black-70, var(--kui-color-text, $kui-color-text));
+    color: var(--kui-color-text, $kui-color-text);
     flex: 1;
 
     &:hover,
@@ -250,7 +247,7 @@ onMounted(() => {
 .selection-dropdown-menu {
   .dropdown-trigger .k-button {
     border: var(--kui-border-width-0, $kui-border-width-0);
-    color: var(--grey-600, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong));
+    color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
     white-space: nowrap;
 
     &:focus {
@@ -258,15 +255,12 @@ onMounted(() => {
     }
 
     &:active:disabled {
-      background-color: var(--white, var(--kui-color-background, $kui-color-background));
+      background-color: var(--kui-color-background, $kui-color-background);
     }
 
     &.is-active {
-      background-color: var(--grey-100, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
+      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
     }
-
-    // Set dropdown icon color
-    --KButtonOutlineColor: var(--grey-500, var(--kui-color-text-neutral, #{$kui-color-text-neutral}));
   }
 
   .k-popover.k-dropdown-popover {
@@ -278,7 +272,7 @@ onMounted(() => {
       }
 
       &.k-dropdown-selected-option {
-        background-color: var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
+        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
 
         .non-visual-button {
           font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium) !important;

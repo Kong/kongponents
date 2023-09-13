@@ -319,7 +319,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 @import '@/styles/mixins';
 
 .form-control, .k-input {
@@ -332,7 +331,7 @@ export default {
     // TODO: this block is repetitive and can be refactored into a mixin
     // input size medium
     $kInputMediumSizingY: var(--kui-space-40, $kui-space-40);
-    $kInputMediumSizingX: var(--spacing-md, var(--kui-space-60, $kui-space-60));
+    $kInputMediumSizingX: var(--kui-space-60, $kui-space-60);
     $kInputMediumIconSize: var(--kui-icon-size-50, $kui-icon-size-50);
 
     ~ .input-icon {
@@ -346,22 +345,22 @@ export default {
     }
 
     &.icon-start {
-      padding-left: calc($kInputMediumSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputMediumIconSize) !important; // account for icon offset and width
+      padding-left: calc($kInputMediumSizingX + var(--kui-space-40, $kui-space-40) + $kInputMediumIconSize) !important; // account for icon offset and width
       ~ .input-icon {
         left: $kInputMediumSizingX;
       }
     }
 
     &.icon-end {
-      padding-right: calc($kInputMediumSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputMediumIconSize) !important; // account for icon offset and width
+      padding-right: calc($kInputMediumSizingX + var(--kui-space-40, $kui-space-40) + $kInputMediumIconSize) !important; // account for icon offset and width
       ~ .input-icon {
         right: $kInputMediumSizingX;
       }
     }
 
     // input size small
-    $kInputSmallSizingY: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
-    $kInputSmallSizingX: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
+    $kInputSmallSizingY: var(--kui-space-40, $kui-space-40);
+    $kInputSmallSizingX: var(--kui-space-50, $kui-space-50);
     $kInputSmallIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
 
     &.k-input-small {
@@ -376,13 +375,13 @@ export default {
       }
 
       &.icon-start {
-        padding-left: calc($kInputSmallSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputSmallIconSize) !important; // account for icon offset and width
+        padding-left: calc($kInputSmallSizingX + var(--kui-space-40, $kui-space-40) + $kInputSmallIconSize) !important; // account for icon offset and width
         ~ .input-icon {
           left: $kInputSmallSizingX;
         }
       }
       &.icon-end {
-        padding-right: calc($kInputSmallSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputSmallIconSize) !important; // account for icon offset and width
+        padding-right: calc($kInputSmallSizingX + var(--kui-space-40, $kui-space-40) + $kInputSmallIconSize) !important; // account for icon offset and width
         ~ .input-icon {
           right: $kInputSmallSizingX;
         }
@@ -390,8 +389,8 @@ export default {
     }
 
     // input size large
-    $kInputLargeSizingY: var(--spacing-md, var(--kui-space-60, $kui-space-60));
-    $kInputLargeSizingX: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+    $kInputLargeSizingY: var(--kui-space-60, $kui-space-60);
+    $kInputLargeSizingX: var(--kui-space-80, $kui-space-80);
     $kInputLargeIconSize: var(--kui-icon-size-60, $kui-icon-size-60);
 
     &.k-input-large {
@@ -406,13 +405,13 @@ export default {
       }
 
       &.icon-start {
-        padding-left: calc($kInputLargeSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputLargeIconSize) !important; // account for icon offset and width
+        padding-left: calc($kInputLargeSizingX + var(--kui-space-40, $kui-space-40) + $kInputLargeIconSize) !important; // account for icon offset and width
         ~ .input-icon {
           left: $kInputLargeSizingX;
         }
       }
       &.icon-end {
-        padding-right: calc($kInputLargeSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputLargeIconSize) !important; // account for icon offset and width
+        padding-right: calc($kInputLargeSizingX + var(--kui-space-40, $kui-space-40) + $kInputLargeIconSize) !important; // account for icon offset and width
         ~ .input-icon {
           right: $kInputLargeSizingX;
         }
@@ -422,10 +421,10 @@ export default {
 }
 
 .help {
-  color: var(--black-45, var(--kui-color-text, $kui-color-text));
+  color: var(--kui-color-text, $kui-color-text);
   display: block;
-  font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
-  margin: var(--spacing-xs, var(--kui-space-40, $kui-space-40)) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
+  font-size: var(--kui-font-size-30, $kui-font-size-30);
+  margin: var(--kui-space-40, $kui-space-40) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
 }
 
 .input-icon {
@@ -441,7 +440,7 @@ export default {
 }
 
 .has-error {
-  color: var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger));
+  color: var(--kui-color-text-danger, $kui-color-text-danger);
   font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
 }
 
@@ -450,6 +449,7 @@ export default {
 
   input.k-input {
     -webkit-appearance: none;
+    appearance: none;
   }
 
   & .k-input-label-wrapper-large .has-error,
@@ -478,7 +478,7 @@ export default {
 
     label:not(.disabled):not(.readonly).hovered,
     label:not(.disabled):not(.readonly):hover {
-      color: var(--KInputHover, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+      color: var(--kui-color-text-primary, $kui-color-text-primary);
     }
   }
 
@@ -486,19 +486,19 @@ export default {
     .k-input,
     .k-input:hover,
     .k-input:focus {
-      box-shadow: inset 0 0 0 1.5px var(--KInputError, var(--red-500, #d44324)) !important;
+      box-shadow: inset 0 0 0 1.5px #d44324 !important;
       outline: none !important;
       transition: color $tmp-animation-timing-2 ease;
 
       &.k-input-large {
-        box-shadow: inset 0 0 0 2px var(--KInputError, var(--red-500, #d44324)) !important;
+        box-shadow: inset 0 0 0 2px #d44324 !important;
         transition: color $tmp-animation-timing-2 ease;
       }
     }
 
     .text-on-input {
       label {
-        color: var(--KInputError, var(--red-500, #d44324));
+        color: #d44324;
         transition: color $tmp-animation-timing-2 ease;
       }
 
@@ -506,7 +506,7 @@ export default {
       label:hover,
       label.focused,
       label:focus {
-        color: var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger)) !important;
+        color: var(--kui-color-text-danger, $kui-color-text-danger) !important;
       }
     }
   }

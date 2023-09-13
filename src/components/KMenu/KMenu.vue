@@ -89,20 +89,19 @@ const proceed = (): void => {
 </script>
 
 <style lang="scss" scoped>
-
 @import '@/styles/tmp-variables';
 
 .k-menu {
-  background-color: var(--white, var(--kui-color-background, $kui-color-background));
-  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
-  border-radius: var(--KCardBorderRadius, var(--kui-border-radius-20, $kui-border-radius-20));
+  background-color: var(--kui-color-background, $kui-color-background);
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
   padding-bottom: var(--kui-space-40, $kui-space-40);
   padding-top: var(--kui-space-50, $kui-space-50);
 }
 
 .clear-cta-button > :deep(button.k-button) {
   border: none;
-  color: var(--blue-300, $tmp-color-blue-300);
+  color: $tmp-color-blue-300;
   font-size: var(--kui-font-size-20, $kui-font-size-20);
   font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
   line-height: var(--kui-line-height-20, $kui-line-height-20);
@@ -112,14 +111,13 @@ const proceed = (): void => {
 
   &:active, &:hover {
     background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-    color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
+    color: var(--kui-color-text-primary, $kui-color-text-primary);
   }
 
   &:focus {
     background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
     box-shadow: none;
-    color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
+    color: var(--kui-color-text-primary, $kui-color-text-primary);
   }
 }
-
 </style>
