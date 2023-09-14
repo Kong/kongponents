@@ -241,112 +241,6 @@ Max width to apply truncation at. Works just like `width` property in CSS. Defau
 | :---------- | :---------------------------------------------------------- |
 | `dismissed` | When `dismissable` is true and you click the dismiss button |
 
-## Theming
-
-| Variable               | Purpose                       |
-| :--------------------- | :---------------------------- |
-| `--KBadgeBorderRadius` |                               |
-| `--KBadgeFontSize`     |                               |
-| `--KBadgeLineHeight`   |                               |
-| `--KBadgeMinWidth`     | Min width of badge text       |
-| `--KBadgeMaxWidth`     | Max width of badge text       |
-| `--KBadgeWidth`        | Width of badge text           |
-| `--KBadgePaddingY`     | Vertical top/bottom spacing   |
-| `--KBadgePaddingX`     | Horizontal left/right spacing |
-
-<!-- Color variables have been deprecated in favor of props and should not be added back to the docs. -->
-<!--
-| `--KBadgeSuccessColor`            | Text/dismiss icon color of badge        |
-| `--KBadgeSuccessButtonHoverColor` | Hover color of dismiss button           |
-| `--KBadgeSuccessBorder`           | Border of badge (default to background) |
-| `--KBadgeSuccessBackground`       | Background color of badge               |
-| `--KBadgeWarningColor`            |                                         |
-| `--KBadgeWarningButtonHoverColor` |                                         |
-| `--KBadgeWarningBorder`           |                                         |
-| `--KBadgeWarningBackground`       |                                         |
-| `--KBadgeInfoColor`               |                                         |
-| `--KBadgeInfoButtonHoverColor`    |                                         |
-| `--KBadgeInfoBorder`              |                                         |
-| `--KBadgeInfoBackground`          |                                         |
-| `--KBadgeDangerColor`             |                                         |
-| `--KBadgeDangerButtonHoverColor`  |                                         |
-| `--KBadgeDangerBorder`            |                                         |
-| `--KBadgeDangerBackground`        |                                         |
--->
-
-An example of theming a custom badge:
-
-> Note: We are scoping the overrides to a wrapper in this example
-
-<div class="KBadge-wrapper">
-  <KBadge
-    appearance="custom"
-    background-color="lightgrey"
-    border-color="grey"
-    color="grey"
-    is-bordered
-  >
-    <div>
-      <KIcon
-        icon="bot"
-        height="10"
-      />
-      <p>
-        ARTIFICIAL INTELLIGENCE
-      </p>
-    </div>
-  </KBadge>
-</div>
-
-```html
-<template>
-<div class="KBadge-wrapper">
-  <KBadge
-    appearance="custom"
-    background-color="lightgrey"
-    border-color="grey"
-    color="grey"
-    is-bordered
-  >
-    <div>
-      <KIcon
-        icon="bot"
-        height="10"
-      />
-      <p>
-        ARTIFICIAL INTELLIGENCE
-      </p>
-    </div>
-  </KBadge>
-</div>
-</template>
-
-<style>
-.KBadge-wrapper {
-  --KBadgeBorderRadius: 100px;
-  --KBadgeFontSize: 14px;
-  --KBadgePaddingX: 12px;
-  --KBadgePaddingY: 8px;
-  --KBadgeMaxWidth: auto;
-
-  div {
-    display: flex;
-    align-items: center;
-  }
-
-  p {
-    font-size: 12px;
-    margin: 0;
-  }
-
-  .kong-icon-bot {
-    height: 24px;
-    margin-right: 4px;
-  }
-}
-</style>
-```
-
 <script setup lang="ts">
 import { ref } from 'vue'
 
@@ -359,12 +253,6 @@ const testClick = () => {
 
 <style lang="scss">
 .KBadge-wrapper {
-  --KBadgeBorderRadius: 100px;
-  --KBadgeFontSize: 14px;
-  --KBadgePaddingX: 12px;
-  --KBadgePaddingY: 8px;
-  --KBadgeMaxWidth: auto;
-
   div {
     display: flex;
     align-items: center;

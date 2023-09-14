@@ -695,48 +695,6 @@ Fixes KAlert to the top of the container.
 </KAlert>
 ```
 
-## Theming
-
-| Variable                    | Purpose                          |
-| :-------------------------- | :------------------------------- |
-| `--KAlertInfoColor`         | Info variant text  color         |
-| `--KAlertInfoBorder`        | Info variant border              |
-| `--KAlertInfoBackground`    | Info variant background color    |
-| `--KAlertSuccessColor`      | Success variant text  color      |
-| `--KAlertSuccessBorder`     | Success variant border           |
-| `--KAlertSuccessBackground` | Success variant background color |
-| `--KAlertDangerColor`       | Danger variant text  color       |
-| `--KAlertDangerBorder`      | Danger variant border            |
-| `--KAlertDangerBackground`  | Danger variant background color  |
-| `--KAlertWarningColor`      | Warning variant text  color      |
-| `--KAlertWarningBorder`     | Warning variant border           |
-| `--KAlertWarningBackground` | Warning variant background color |
-
-\
-An Example of changing the success KAlert variant to lime instead of Kong's green might
-look like.
-
-> Note: We are scoping the overrides to a wrapper in this example
-
-<div class="alert-wrapper">
-  <KAlert appearance="success" alert-message="Im Lime" />
-</div>
-
-```html
-<template>
-  <div class="alert-wrapper">
-    <KAlert appearance="success" alert-message="Im Lime" />
-  </div>
-</template>
-
-<style>
-.alert-wrapper {
-  --KAlertSuccessBackground: lime;
-  --KAlertSuccessColor: forestgreen;
-}
-</style>
-```
-
 <script lang="ts">
 import { defineComponent } from 'vue'
 
@@ -770,11 +728,6 @@ export default defineComponent({
   &:not(:last-of-type) {
     margin-bottom: 16px;
   }
-}
-
-.alert-wrapper {
-  --KAlertSuccessBackground: lime;
-  --KAlertSuccessColor: forestgreen;
 }
 
 .vertical-spacing {

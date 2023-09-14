@@ -61,8 +61,8 @@ Styles to set when the input is active. Useful when styling the default state di
 </KComponent>
 
 <style>
-.decorated-text { 
-  font-style: italic; 
+.decorated-text {
+  font-style: italic;
 }
 </style>
 ```
@@ -126,10 +126,6 @@ An HTML element must be passed in the slot. An error will be thrown if not passe
 
 :::
 
-## Theming
-
-Reference [KInput theming](/components/input.html#theming). The input takes up 100% of its parent container.
-
 <script>
 export default {
   methods: {
@@ -141,7 +137,7 @@ export default {
 </script>
 
 <style>
-.decorated-text { 
-  font-style: italic; 
+.decorated-text {
+  font-style: italic;
 }
 </style>

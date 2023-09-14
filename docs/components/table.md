@@ -1563,34 +1563,6 @@ fetcher(payload) {
 }
 ```
 
-## Theming
-
-| Variable             | Purpose                        |
-| :------------------- | :----------------------------- |
-| `--KTableBorder`     | Sets cell border color         |
-| `--KTableColor`      | Font color                     |
-| `--KTableHover`      | Hover variant background color |
-| `--KTableHeaderSize` | Font size of header th         |
-
-\
-An Example of changing the hover background might look like.
-
-<div class="table-wrapper">
-  <KTable :headers="tableOptionsHeaders" :fetcher="tableOptionsFetcher" hasHover />
-</div>
-
-```html
-<template>
-  <KTable :fetcher="fetcher" :headers="headers" hasHover />
-</template>
-
-<style>
-:root {
-  --KTableHover: lavender;
-}
-</style>
-```
-
 <!-- The markdownlint disable below is necessary due to some syntax in the <script> tags - `yarn lint` will not pass without this -->
 <!-- markdownlint-disable MD011 MD037 -->
 
@@ -1998,14 +1970,6 @@ export default defineComponent({
     border: unset;
   }
 
-  tr.enabled:hover {
-    --KTableHover: #ccffe1;
-  }
-
-  tr.disabled:hover {
-    --KTableHover: #fff9e6;
-  }
-
   td.custom-layout-cell {
     display: flex;
 
@@ -2018,10 +1982,6 @@ export default defineComponent({
       max-width: 240px;
     }
   }
-}
-
-.table-wrapper {
-  --KTableHover: lavender;
 }
 
 .horizontal-spacing {

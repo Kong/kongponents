@@ -331,16 +331,6 @@ And another example:
 </template>
 ```
 
-## Theming
-
-| Variable                                       | Purpose                                                                                                                                                                    |
-| :--------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--KSkeletonFullScreenMargin`                  | Margin around full screen variant. Useful for when you want to show full screen loader under header or next to sidebar since the full screen component has fixed position. |
-| `--KSkeletonFullScreenProgressBackgroundColor` | Progress bar background color.                                                                                                                                             |
-| `--KSkeletonFullScreenProgressColor`           | Progress bar fill color.                                                                                                                                                   |
-| `--KSkeletonFullScreenSpinnerColor`            | Generic spinner icon fill color.                                                                                                                                           |
-| `--KSkeletonCardWidth`                         | Width of the card. Default is 33%                                                                                                                                          |
-
 ### Examples
 
 To reveal the header on this docs page during full page loader, click the button below.
@@ -416,13 +406,6 @@ export default defineComponent({
 </script>
 
 <style>
-.k-skeleton-full-screen-margin {
-  --KSkeletonFullScreenMargin: 58px 0 0;
-  --KSkeletonFullScreenProgressColor: grey;
-}
-.k-skeleton-modified {
-  --KSkeletonCardWidth: calc(33% - 16px);
-}
 .skeleton-header-container {
   width: 100%;
 }

@@ -734,25 +734,6 @@ export default defineComponent({
 </script>
 ```
 
-## Theming
-
-| Variable           | Purpose                         |
-| :----------------- | :------------------------------ |
-| `--KPopBackground` | Primary background color        |
-| `--KPopBorder`     | Primary border color            |
-| `--KPopBodySize`   | Font size of the body content   |
-| `--KPopColor`      | Text color of the content       |
-| `--KPopHeaderSize` | Font size of the header content |
-| `--KPopPaddingY`   | Vertical top/bottom spacing     |
-| `--KPopPaddingX`   | Horizontal left/right padding   |
-
-## Browser Compatibility
-
-::: warning
-For Internet Explorer 11 and below, the Popover component will not work due to `Node.contains` not being supported by the browser.
-You will have to manually polyfill this functionality if you choose to support IE11 or below.
-:::
-
 <style scoped>
 select {
   height: 38px;

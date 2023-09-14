@@ -243,41 +243,7 @@ When utilizing the `tooltip` slot, the `info` `KIcon` will be shown by default. 
 - `change` - Fired on change, returns the checked status of the checkbox.
 - `update:modelValue` - Fired on change, returns the checked status of the checkbox.
 
-## Theming
-
-| Variable                     | Purpose                                     |
-| :--------------------------- | :------------------------------------------ |
-| `--KCheckboxPrimary`         | KCheckbox checked background color          |
-| `--KCheckboxDisabled`        | KCheckbox disabled background color         |
-| `--KCheckboxDisabledChecked` | KCheckbox disabled checked background color |
-
-An Example of changing the background color of KCheckbox to `blueviolet` might look like:
-
-> Note: We are scoping the overrides to a wrapper in this example
-
-<div class="KCheckbox-wrapper">
-  <KCheckbox v-model="themeChecked"/>
-</div>
-
-```html
-<template>
-  <div class="KCheckbox-wrapper">
-    <KCheckbox v-model="checked"/>
-  </div>
-</template>
-
-<style>
-.KCheckbox-wrapper {
-  --KCheckboxPrimary: blueviolet;
-}
-</style>
-```
-
 <style lang="scss">
-.KCheckbox-wrapper {
-  --KCheckboxPrimary: blueviolet;
-}
-
 .vertical-spacing {
   margin-bottom: $kui-space-40;
 }

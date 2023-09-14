@@ -266,35 +266,6 @@ When utilizing the `tooltip` slot, the `info` `KIcon` will be shown by default. 
 - `change` - Fired on change, returns the checked status of the radio.
 - `update:modelValue` - Fired on change, returns the checked status of the radio.
 
-## Theming
-
-| Variable           | Purpose                                 |
-| :----------------- | :-------------------------------------- |
-| `--KRadioPrimary`  | Radio primary background & border color |
-| `--KRadioDisabled` | Radio disabled background color         |
-
-An Example of changing the background color of KRadio to lime might look like:
-
-> Note: We are scoping the overrides to a wrapper in this example
-
-<div class="KRadio-wrapper">
-  <KRadio v-model="themeChecked" :selected-value="true" />
-</div>
-
-```html
-<template>
-  <div class="KRadio-wrapper">
-    <KRadio v-model="checked" :selected-value="true" />
-  </div>
-</template>
-
-<style>
-.KRadio-wrapper {
-  --KRadioPrimary: lime;
-}
-</style>
-```
-
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 
@@ -324,10 +295,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.KRadio-wrapper {
-  --KRadioPrimary: lime;
-}
-
 .k-radio {
   margin-right: 10px;
 }

@@ -237,38 +237,6 @@ You can pass a `width` string for the entire tree. By default it will take the f
 </script>
 ```
 
-## Theming
-
-| Variable                              | Purpose                                                                                      |
-| :------------------------------------ | :------------------------------------------------------------------------------------------- |
-| `--KTreeListItemText`                 | Text color for the item name                                                                 |
-| `--KTreeListItemSelectedBorder`       | Border color of a selected item and color of indicator bar when dragging an item             |
-| `--KTreeListItemSelectedBackground`   | Background color of a selected item                                                          |
-| `--KTreeListItemUnselectedBorder`     | Border color of an unselected item and color of connecting line between parents and children |
-| `--KTreeListItemUnselectedBackground` | Background color of an unselected item                                                       |
-| `--KTreeListDropZoneHeight`           | Number of pixels between tree items                                                          |
-
-An example of changing the theming might look like this:
-
-<KTreeList class="themed-tree" :items="themeItems" />
-
-```html
-<template>
-  <KTreeList class="themed-tree" :items="items" />
-</template>
-
-<style>
-.themed-tree {
-  --KTreeListItemText: #473cfb;
-  --KTreeListItemSelectedBorder: #ffd68c;
-  --KTreeListItemSelectedBackground: #ffe6ba;
-  --KTreeListItemUnselectedBorder: #9396fc;
-  --KTreeListItemUnselectedBackground: #eaf4fb;
-  --KTreeListDropZoneHeight: 8px;
-}
-</style>
-```
-
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -505,14 +473,5 @@ const handleChildChange = (data) => {
 
 .slot-color-purple {
   color: #473cfb;
-}
-
-.themed-tree {
-  --KTreeListItemText: #473cfb;
-  --KTreeListItemSelectedBorder: #ffd68c;
-  --KTreeListItemSelectedBackground: #ffe6ba;
-  --KTreeListItemUnselectedBorder: #9396fc;
-  --KTreeListItemUnselectedBackground: #eaf4fb;
-  --KTreeListDropZoneHeight: 8px;
 }
 </style>

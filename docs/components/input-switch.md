@@ -193,59 +193,6 @@ To listen for changes to the `KInputSwitch` value, you can bind to the `@input`,
 </template>
 ```
 
-## Theming
-
-| Variable                   | Purpose                           |
-| :------------------------- | :-------------------------------- |
-| `--KInputSwitchBackground` | Switch off state background color |
-| `--KInputSwitchOn`         | Switch on background color        |
-| `--KInputSwitchLabel`      | Label font color                  |
-
-
-An Example of changing the success KInputSwitch on color to pink instead of Kong's primary blue might look like.
-
-> Note: We are scoping the overrides to a wrapper in this example
-
-<div class="switch-wrapper">
-  <KInputSwitch v-model="themeChecked" />
-</div>
-
-```html
-<template>
-  <div class="switch-wrapper">
-    <KInputSwitch v-model="checked" />
-  </div>
-</template>
-
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
-
-export default defineComponent({
-  setup () {
-    const checked = ref(true)
-
-    return {
-      checked,
-    }
-  }
-})
-</script>
-
-<style>
-.switch-wrapper {
-  --KInputSwitchOn: hotpink;
-  --KInputSwitchBackground: black;
-}
-</style>
-```
-
-<style lang="scss">
-.switch-wrapper {
-  --KInputSwitchOn: hotpink;
-  --KInputSwitchBackground: black;
-}
-</style>
-
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue'
 

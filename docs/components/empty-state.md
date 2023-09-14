@@ -228,48 +228,6 @@ A string denoting the secondary color of the icon to be displayed above the empt
 </KEmptyState>
 ```
 
-## Theming
-
-| Variable | Purpose
-|:-------- |:-------
-| `--KEmptyTitleColor`| Replaces title text color
-| `--KEmptyContentColor`| Replaces content text color
-| `--KEmptyBackground`| Replaces background color of the empty state
-
-An Example of what using theming might look like.
-
-<div class="custom-empty-state">
-  <KEmptyState cta-text="CTA button">
-    <template v-slot:title>Title</template>
-    <template v-slot:message>Message</template>
-  </KEmptyState>
-</div>
-
-```html
-<div class="custom-empty-state">
-  <KEmptyState cta-text="CTA button">
-    <template v-slot:title>EmptyState Title</template>
-    <template v-slot:message>EmptyState Message</template>
-  </KEmptyState>
-</div>
-
-<style scoped lang="scss">
-.custom-empty-state {
-  --KEmptyTitleColor: #556B2F;
-  --KEmptyContentColor: #C71585;
-  --KEmptyBackground: #FFF0F5;
-}
-</style>
-```
-
-<style scoped lang="scss">
-.custom-empty-state {
-  --KEmptyTitleColor: #556B2F;
-  --KEmptyContentColor: #C71585;
-  --KEmptyBackground: #FFF0F5;
-}
-</style>
-
 <script lang="ts">
 import { defineComponent } from 'vue'
 

@@ -368,20 +368,6 @@ function highlight({ preElement, codeElement, language, code }) {
 - **Type**: `string`
 - **Trigger**: Fired when the component’s internal query state is updated. This happens when the user finished typing (with a delay of a few hundred milliseconds to avoid repeatedly triggering computations while the user is still typing).
 
-## Theming
-
-
-| Variable                          | Default                   | Purpose                                                          |
-|:--------------------------------- |:------------------------- |:---------------------------------------------------------------- |
-| `--KCodeBlockBorderRadius`        | `5px`                     | Code block border radius                                         |
-| `--KCodeBlockFocusColor`          | `var(--blue-500)`         | General focus color                                              |
-| `--KCodeBlockMatchHighlightColor` | `var(--blue-500)`         | Current match highlight color                                    |
-| `--KCodeBlockColor`               | `var(--black-85)`         | Code block text color                                            |
-| `--KCodeBlockBackgroundColor`     | `var(--grey-100)`         | Code block background color                                      |
-| `--KCodeBlockFontSize`            | `var(--type-xs)`          | Code block font size                                             |
-| `--KCodeBlockFontFamilyMono`      | `var(--font-family-mono)` | Code block font family                                           |
-| `--KCodeBlockTabSize`             | `2`                       | Tab size for code blocks                                         |
-
 ## Default shortcuts
 
 This component has a few shortcuts for interacting with its search and filter features. All of them are scoped to the code block. When invoking them while focus is placed outside of a code block, their associated actions won’t trigger.
