@@ -53,7 +53,7 @@
 
     <KIcon
       v-if="enabledIcon && modelValue === true"
-      :color="`var(--white, var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE}))`"
+      :color="`var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE})`"
       icon="check"
     />
 

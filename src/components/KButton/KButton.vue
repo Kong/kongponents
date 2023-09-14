@@ -144,17 +144,17 @@ const buttonType = computed((): string => props.to ? 'router-link' : 'button')
 
 const iconColor = computed((): string => {
   if (props.disabled) {
-    return `var(--grey-400, var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK}))`
+    return `var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`
   } else if (['primary', 'danger', 'creation'].includes(props.appearance)) {
     return `var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE})`
   } else if (props.appearance === 'secondary') {
-    return `var(--KButtonSecondaryColor, var(--blue-600, var(--kui-color-text-primary-stronger, ${KUI_COLOR_TEXT_PRIMARY_STRONGER})))`
+    return `var(--kui-color-text-primary-stronger, ${KUI_COLOR_TEXT_PRIMARY_STRONGER})`
   } else if (props.appearance === 'outline') {
-    return `var(--KButtonOutlineColor, var(--blue-500, var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})))`
+    return `var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})`
   } else if (props.appearance === 'btn-link') {
-    return `var(--KButtonLink, var(--blue-500, var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})))`
+    return `var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})`
   } else if (props.appearance === 'btn-link-danger') {
-    return `var(--KButtonLinkDanger, var(--red-500, var(--kui-color-text-danger, ${KUI_COLOR_TEXT_DANGER})))`
+    return `var(--kui-color-text-danger, ${KUI_COLOR_TEXT_DANGER})`
   }
   return ''
 })

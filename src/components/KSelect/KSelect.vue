@@ -840,7 +840,7 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
     text-decoration: none;
 
     &:focus {
-      @include boxShadow(var(--KButtonOutlineBorder, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary))), 0, 2px);
+      @include boxShadow(var(--kui-color-background-primary, $kui-color-background-primary), 0, 2px);
     }
 
     .caret {

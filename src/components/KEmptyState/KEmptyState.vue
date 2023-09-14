@@ -10,7 +10,7 @@
         :class="{ 'warning-icon': isError }"
       >
         <KIcon
-          :color="isError ? iconColor || `var(--black-70, var(--kui-color-text-neutral-strongest, ${KUI_COLOR_TEXT_NEUTRAL_STRONGEST}))` : iconColor"
+          :color="isError ? iconColor || `var(--kui-color-text-neutral-strongest, ${KUI_COLOR_TEXT_NEUTRAL_STRONGEST})` : iconColor"
           :icon="icon ? icon : 'warning'"
           :secondary-color="isError ? iconSecondaryColor || 'currentColor' : iconSecondaryColor"
           :size="iconSize"

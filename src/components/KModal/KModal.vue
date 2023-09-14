@@ -236,10 +236,10 @@ const hasHeaderImage = computed((): boolean => {
 
 const dismissButtonColor = computed((): string => {
   if (props.dismissButtonTheme === 'light') {
-    return `var(--grey-400, var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK}))`
+    return `var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`
   }
 
-  return `var(--grey-600, var(--kui-color-text-neutral-stronger, ${KUI_COLOR_TEXT_NEUTRAL_STRONGER}))`
+  return `var(--kui-color-text-neutral-stronger, ${KUI_COLOR_TEXT_NEUTRAL_STRONGER})`
 })
 
 const handleKeydown = (e: any): void => {

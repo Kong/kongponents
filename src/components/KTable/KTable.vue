@@ -137,7 +137,7 @@
                   v-if="!disableSorting && !column.hideLabel && column.sortable"
                   aria-hidden="true"
                   class="caret"
-                  :color="`var(--KTableColor, var(--black-70, var(--kui-color-text, ${KUI_COLOR_TEXT})))`"
+                  :color="`var(--kui-color-text, ${KUI_COLOR_TEXT})`"
                   icon="chevronDown"
                   :size="KUI_ICON_SIZE_20"
                 />

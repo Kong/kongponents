@@ -29,7 +29,7 @@
         class="span-icon-container"
       >
         <KIcon
-          :color="`var(--grey-400, var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK}))`"
+          :color="`var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
           :icon="isOpen ? 'chevronUp' : 'chevronDown'"
           :size="KUI_ICON_SIZE_30"
         />

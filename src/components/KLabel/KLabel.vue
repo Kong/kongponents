@@ -13,7 +13,7 @@
       :test-mode="!!testMode || undefined"
     >
       <KIcon
-        :color="`var(--black-25, var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK}))`"
+        :color="`var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
         hide-title
         :icon="help ? 'help' : 'infoFilled'"
         :size="KUI_ICON_SIZE_30"
