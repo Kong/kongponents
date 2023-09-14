@@ -164,7 +164,7 @@ const handleClick = (): void => {
     }
 
     &:not(:disabled):hover {
-      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+      background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
       color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
     }
 

@@ -150,7 +150,7 @@ onMounted(() => {
     }
 
     &:hover > * {
-      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+      background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
     }
   }
 
