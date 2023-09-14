@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.0.0-alpha.4",
+  "version": "9.0.0-alpha.5",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -49,7 +49,7 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "@kong/icons": "^1.4.3",
+    "@kong/icons": "^1.5.0",
     "axios": "^0.27.2",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
