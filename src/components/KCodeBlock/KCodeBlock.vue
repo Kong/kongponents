@@ -1189,19 +1189,16 @@ $dark-backgroundColor: var(--kui-color-background-neutral-strongest, $kui-color-
   .k-button:not(.increase-specificity) {
     @media (min-width: $kui-breakpoint-phablet) {
       background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-      border-color: var(--kui-color-border-transparent, $kui-color-border-transparent);
     }
 
     &:hover {
       background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
-      border-color: var(--kui-color-border-transparent, $kui-color-border-transparent) !important;
     }
 
     &:active,
     &.action-active:hover,
     &:hover:active {
       background-color: var(--kui-color-background-neutral, $kui-color-background-neutral);
-      border-color: $tmp-color-steel-500;
       color: var(--kui-color-text-inverse, $kui-color-text-inverse);
     }
   }
