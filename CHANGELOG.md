@@ -1,3 +1,64 @@
+# [9.0.0-alpha.6](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.5...v9.0.0-alpha.6) (2023-09-14)
+
+
+### Bug Fixes
+
+* **kcodeblock:** dark theme styles not applying to slotted content ([#1723](https://github.com/Kong/kongponents/issues/1723)) ([082e4ca](https://github.com/Kong/kongponents/commit/082e4ca519917d2959c09ce244c405f8325da101))
+
+
+### Features
+
+* **style:** remove utility classes and css custom properties [KHCP-8877] ([#1725](https://github.com/Kong/kongponents/issues/1725)) ([4537d02](https://github.com/Kong/kongponents/commit/4537d02f24c348e8e11381cf8109bb159588ee10))
+
+
+### BREAKING CHANGES
+
+* **style:** Remove exported utility classes and CSS custom properties.
+
+* fix: trigger ci
+
+* fix: linting
+
+* chore: add comment
+
+* feat: remove css custom properties
+
+* feat: remove css custom properties
+
+* chore: theming
+
+* feat: remove css custom properties
+
+* feat: remove css custom properties
+
+* feat: remove css custom properties
+
+* feat: remove css custom properties
+
+* feat: remove css custom properties
+
+* feat: remove css custom properties
+
+* revert: add back theming styles
+
+* feat: remove css custom properties
+
+* feat: remove css custom properties
+
+* docs: remove theming and removed functionality
+
+* docs: remove unused component
+
+* feat: remove css custom properties
+
+* feat: remove css custom properties
+
+* fix: pagination button
+
+* fix: hover background colors
+
+* chore: remove config
+
 ## [8.123.7](https://github.com/Kong/kongponents/compare/v8.123.6...v8.123.7) (2023-09-13)
 
 ### Bug Fixes
