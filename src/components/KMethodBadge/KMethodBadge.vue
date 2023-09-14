@@ -92,44 +92,44 @@ const methodLabel = computed((): string => {
 const methodBadgeColors = computed((): Record<string, MethodBadgeColors> => {
   return {
     get: {
-      color: `var(--petrol-200, var(--kui-method-color-text-get, ${KUI_METHOD_COLOR_TEXT_GET}))`,
-      backgroundColor: `var(--petrol-100, var(--kui-method-color-background-get, ${KUI_METHOD_COLOR_BACKGROUND_GET}))`,
+      color: `var(--kui-method-color-text-get, ${KUI_METHOD_COLOR_TEXT_GET})`,
+      backgroundColor: `var(--kui-method-color-background-get, ${KUI_METHOD_COLOR_BACKGROUND_GET})`,
     },
     post: {
-      color: `var(--green-700, var(--kui-method-color-text-post, ${KUI_METHOD_COLOR_TEXT_POST}))`,
-      backgroundColor: `var(--green-100, var(--kui-method-color-background-post, ${KUI_METHOD_COLOR_BACKGROUND_POST}))`,
+      color: `var(--kui-method-color-text-post, ${KUI_METHOD_COLOR_TEXT_POST})`,
+      backgroundColor: `var(--kui-method-color-background-post, ${KUI_METHOD_COLOR_BACKGROUND_POST})`,
     },
     put: {
-      color: `var(--yellow-600, var(--kui-method-color-text-put, ${KUI_METHOD_COLOR_TEXT_PUT}))`,
-      backgroundColor: `var(--yellow-100, var(--kui-method-color-background-put, ${KUI_METHOD_COLOR_BACKGROUND_PUT}))`,
+      color: `var(--kui-method-color-text-put, ${KUI_METHOD_COLOR_TEXT_PUT})`,
+      backgroundColor: `var(--kui-method-color-background-put, ${KUI_METHOD_COLOR_BACKGROUND_PUT})`,
     },
     patch: {
-      color: `var(--teal-500, var(--kui-method-color-text-patch, ${KUI_METHOD_COLOR_TEXT_PATCH}))`,
-      backgroundColor: `var(--teal-100, var(--kui-method-color-background-patch, ${KUI_METHOD_COLOR_BACKGROUND_PATCH}))`,
+      color: `var(--kui-method-color-text-patch, ${KUI_METHOD_COLOR_TEXT_PATCH})`,
+      backgroundColor: `var(--kui-method-color-background-patch, ${KUI_METHOD_COLOR_BACKGROUND_PATCH})`,
     },
     delete: {
-      color: `var(--red-700, var(--kui-method-color-text-delete, ${KUI_METHOD_COLOR_TEXT_DELETE}))`,
-      backgroundColor: `var(--red-100, var(--kui-method-color-background-delete, ${KUI_METHOD_COLOR_BACKGROUND_DELETE}))`,
+      color: `var(--kui-method-color-text-delete, ${KUI_METHOD_COLOR_TEXT_DELETE})`,
+      backgroundColor: `var(--kui-method-color-background-delete, ${KUI_METHOD_COLOR_BACKGROUND_DELETE})`,
     },
     head: {
-      color: `var(--yellow-600, var(--kui-method-color-text-head, ${KUI_METHOD_COLOR_TEXT_HEAD}))`,
-      backgroundColor: `var(--yellow-200, var(--kui-method-color-background-head, ${KUI_METHOD_COLOR_BACKGROUND_HEAD}))`,
+      color: `var(--kui-method-color-text-head, ${KUI_METHOD_COLOR_TEXT_HEAD})`,
+      backgroundColor: `var(--kui-method-color-background-head, ${KUI_METHOD_COLOR_BACKGROUND_HEAD})`,
     },
     options: {
-      color: `var(--steel-700, var(--kui-method-color-text-options, ${KUI_METHOD_COLOR_TEXT_OPTIONS}))`,
-      backgroundColor: `var(--steel-200, var(--kui-method-color-background-options, ${KUI_METHOD_COLOR_BACKGROUND_OPTIONS}))`,
+      color: `var(--kui-method-color-text-options, ${KUI_METHOD_COLOR_TEXT_OPTIONS})`,
+      backgroundColor: `var(--kui-method-color-background-options, ${KUI_METHOD_COLOR_BACKGROUND_OPTIONS})`,
     },
     trace: {
-      color: `var(--white, var(--kui-method-color-text-trace, ${KUI_METHOD_COLOR_TEXT_TRACE}))`,
-      backgroundColor: `var(--steel-500, var(--kui-method-color-background-trace, ${KUI_METHOD_COLOR_BACKGROUND_TRACE}))`,
+      color: `var(--kui-method-color-text-trace, ${KUI_METHOD_COLOR_TEXT_TRACE})`,
+      backgroundColor: `var(--kui-method-color-background-trace, ${KUI_METHOD_COLOR_BACKGROUND_TRACE})`,
     },
     connect: {
-      color: `var(--purple-400, var(--kui-method-color-text-connect, ${KUI_METHOD_COLOR_TEXT_CONNECT}))`,
-      backgroundColor: `var(--purple-100, var(--kui-method-color-background-connect, ${KUI_METHOD_COLOR_BACKGROUND_CONNECT}))`,
+      color: `var(--kui-method-color-text-connect, ${KUI_METHOD_COLOR_TEXT_CONNECT})`,
+      backgroundColor: `var(--kui-method-color-background-connect, ${KUI_METHOD_COLOR_BACKGROUND_CONNECT})`,
     },
     custom: {
-      color: `var(--white, var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE}))`,
-      backgroundColor: `var(--steel-500, var(--kui-color-background-neutral-strong, ${KUI_COLOR_BACKGROUND_NEUTRAL_STRONG}))`,
+      color: `var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE})`,
+      backgroundColor: `var(--kui-color-background-neutral-strong, ${KUI_COLOR_BACKGROUND_NEUTRAL_STRONG})`,
     },
   }
 })
@@ -148,18 +148,14 @@ watch(() => props.modelValue, (value: boolean): void => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
-
 .k-method-badge {
   display: flex;
   font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
   justify-content: center;
 
   &.k-method-toggle {
-    padding: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
-    padding-left: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
-    --KInputSwitchLabel: v-bind('methodBadgeColors[method].color');
+    padding: var(--kui-space-20, $kui-space-20);
+    padding-left: var(--kui-space-50, $kui-space-50);
 
     :deep(.k-switch) {
       // disable pointer events to allow badge take care of toggling the value

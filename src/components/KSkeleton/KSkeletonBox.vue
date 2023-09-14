@@ -25,9 +25,6 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
-
 .box {
   animation: gradient 1s ease infinite;
   background: linear-gradient(
@@ -88,7 +85,6 @@ defineProps({
 
 <style lang="scss">
 // @keyframes animations need to be un-scoped
-
 .box {
   @keyframes gradient {
     0% {

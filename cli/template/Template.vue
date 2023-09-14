@@ -16,7 +16,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
-
+// TODO: Add a top-level wrapper class for component styles
 </style>

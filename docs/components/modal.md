@@ -84,6 +84,10 @@ Text to display in content if not using slot.
 
 The alignment for the title and content. Supports `left`, `center` (default), or `right`.
 
+### maxWidth
+
+The `max-width` of the modal. Default `'500px'`
+
 ### actionButtonText
 
 Change the text content of the submit/proceed button.
@@ -314,53 +318,6 @@ Notice that even though we are using the `header-content` slot we still specify 
 </KModal>
 ```
 
-## Theming
-
-| Variable               | Purpose                 |
-| :--------------------- | :---------------------- |
-| `--KModalBackdrop`     | Backgdrop color         |
-| `--KModalMaxWidth`     | Modal max width         |
-| `--KModalBorder`       | Modal border            |
-| `--KModalHeaderColor`  | Header text color       |
-| `--KModalHeaderSize`   | Header font size        |
-| `--KModalHeaderWeight` | Header font weight      |
-| `--KModalColor`        | Main content text color |
-| `--KModalFontSize`     | Main content text size  |
-
-An Example of changing the the colors of KModal might look like.
-> Note: We are scoping the overrides to a wrapper in this example
-
-<KButton @click="themeIsOpen = true">Open Modal</KButton>
-
-<div class="modal-wrapper">
-  <KModal
-    :isVisible="themeIsOpen"
-    title="Look Mah!"
-    content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan tincidunt velit ac vulputate. Aliquam turpis odio, elementum a hendrerit id, pellentesque quis ligula."
-    @canceled="themeIsOpen = false" />
-</div>
-
-```html
-<template>
-  <div class="modal-wrapper">
-    <KModal
-      class="modal-wrapper"
-      title="Look Mah!"
-      content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan tincidunt velit ac vulputate. Aliquam turpis odio, elementum a hendrerit id, pellentesque quis ligula."
-      :isVisible="isVisible"
-      @canceled="isVisible = false" />
-  </div>
-</template>
-
-<style>
-.modal-wrapper {
-  --KModalHeaderColor: red;
-  --KModalColor: blue;
-  --KModalBackdrop: rgba(94, 174, 255, .25);
-}
-</style>
-```
-
 <script lang="ts">
 import { defineComponent } from 'vue'
 
@@ -383,12 +340,6 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.modal-wrapper {
-  --KModalHeaderColor: red;
-  --KModalColor: blue;
-  --KModalBackdrop: rgba(94, 174, 255, .25);
-}
-
 .slot-image-content {
   height: 260px;
   width: 650px;

@@ -157,38 +157,3 @@ You can set the maximum width of a Tooltip with the `maxWidth` property. `maxWid
   </template>
 </KTooltip>
 ```
-
-## Theming
-
-| Variable               | Purpose          |
-| :--------------------- | :--------------- |
-| `--KTooltipBackground` | Background color |
-| `--KTooltipColor`      | Color of text    |
-
-Example:
-
-<KTooltip class="tooltip-blue" label="Video Games">
-  <KButton>themed tooltip</KButton>
-</KTooltip>
-
-```html
-<template>
-  <KTooltip class="tooltip-blue" label="Video Games">
-    <KButton class="primary">themed tooltip</KButton>
-  </KTooltip>
-</template>
-
-<style>
-.tooltip-blue {
-  --KTooltipBackground: blue;
-  --KTooltipColor: lightblue;
-}
-</style>
-```
-
-<style>
-.tooltip-blue {
-  --KTooltipBackground: blue;
-  --KTooltipColor: lightblue;
-}
-</style>

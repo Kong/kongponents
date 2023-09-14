@@ -30,7 +30,7 @@
             <KIcon
               class="selected-item-icon"
               :class="{ 'is-item-selected': item.selected }"
-              :color="item.selected ? 'currentColor' : `var(--grey-400, var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK}))`"
+              :color="item.selected ? 'currentColor' : `var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
               hide-title
               icon="lock"
               :size="KUI_ICON_SIZE_20"
@@ -75,9 +75,7 @@ const handleClick = (): void => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 
 .k-multiselect-item {
   margin-bottom: var(--kui-space-20, $kui-space-20);
@@ -92,16 +90,16 @@ const handleClick = (): void => {
 
   button {
     align-items: center;
-    background-color: var(--white, var(--kui-color-background, $kui-color-background));
+    background-color: var(--kui-color-background, $kui-color-background);
     border: none;
     border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-    color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
     display: flex;
-    font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
-    font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
+    font-family: var(--kui-font-family-text, $kui-font-family-text);
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
-    padding-left: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
+    padding-left: var(--kui-space-20, $kui-space-20);
     text-align: left;
     width: 100%;
 
@@ -119,7 +117,7 @@ const handleClick = (): void => {
     }
 
     .k-multiselect-item-label {
-      color: var(--grey-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+      color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
       font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
       line-height: var(--kui-line-height-30, $kui-line-height-30);
@@ -128,24 +126,24 @@ const handleClick = (): void => {
       word-break: break-word;
 
       :deep(.select-item-label) {
-        color: var(--grey-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
         font-size: var(--kui-font-size-30, $kui-font-size-30);
         font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-        margin-bottom: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
+        margin-bottom: var(--kui-space-20, $kui-space-20);
       }
 
       :deep(.select-item-desc) {
-        color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
-        font-size: var(--type-xs, var(--kui-font-size-50, $kui-font-size-50));
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+        font-size: var(--kui-font-size-50, $kui-font-size-50);
         font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
       }
     }
     .selected-item-icon {
-      height: var(--spacing-lg, 24px);
+      height: 24px;
 
       &.kong-icon.kong-icon-lock {
         height: 14px;
-        padding-left: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
+        padding-left: var(--kui-space-20, $kui-space-20);
       }
 
       &.is-item-selected {
@@ -154,25 +152,25 @@ const handleClick = (): void => {
     }
 
     .kong-icon:not(.selected-item-icon) {
-      margin-right: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
+      margin-right: var(--kui-space-50, $kui-space-50);
     }
 
     .k-multiselect-selected-icon-container {
-      height: var(--spacing-lg, '24px');
+      height: 24px;
       margin-bottom: var(--kui-space-auto, $kui-space-auto);
       margin-left:  var(--kui-space-auto, $kui-space-auto);
       margin-top:  var(--kui-space-auto, $kui-space-auto);
-      width: var(--spacing-lg, '24px');
+      width: 24px;
     }
 
     &:not(:disabled):hover {
-      background-color: var(--grey-100, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
-      color: var(--grey-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+      background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+      color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
     }
 
     &.selected {
-      background-color: var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
-      color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
+      background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+      color: var(--kui-color-text-primary, $kui-color-text-primary);
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     }
   }

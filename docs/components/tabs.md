@@ -318,52 +318,6 @@ export default defineComponent({
 </script>
 ```
 
-## Theming
-
-| Variable                   | Purpose                                     |
-| :------------------------- | :------------------------------------------ |
-| `--KTabsBottomBorderColor` | Border between the tabs and the tab content |
-| `--KTabBottomBorderColor`  | Border on the bottom of each tab            |
-| `--KTabsActiveColor`       | Active color of tab and underline           |
-| `--KTabsColor`             | Default text color of the tab items         |
-
-\
-An Example of changing the primary KButton variant to green instead of blue might
-look like.
-> Note: We are scoping the overrides to a wrapper in this example
-
-<div class="KTabs-wrapper">
-  <KTabs :tabs="tabs">
-    <template v-slot:tab1>
-      <p>Tab 1 content</p>
-    </template>
-    <template v-slot:tab2>
-      <p>Tab 2 content</p>
-    </template>
-  </KTabs>
-</div>
-
-```html
-<template>
-  <div class="KTabs-wrapper">
-    <KTabs :tabs="tabs">
-      <template v-slot:tab1>
-        <p>Tab 1 content</p>
-      </template>
-      <template v-slot:tab2>
-        <p>Tab 2 content</p>
-      </template>
-    </KTabs>
-  </div>
-</template>
-
-<style>
-.KTabs-wrapper {
-  --KTabsActiveColor: green;
-}
-</style>
-```
-
 <script>
 export default {
   data() {
@@ -399,11 +353,5 @@ export default {
 <style lang="scss" scoped>
 .horizontal-spacing {
   margin-right: $kui-space-40;
-}
-</style>
-
-<style lang="scss">
-.KTabs-wrapper {
-  --KTabsActiveColor: green;
 }
 </style>

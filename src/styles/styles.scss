@@ -1,18 +1,11 @@
 /*! KONGPONENTS_STYLES */
 // Do not remove the comment above - allows other apps to identify the style block
 
-@import "variables";
 @import "mixins";
-@import "functions";
-@import "typography";
-@import "utils";
 
 :root {
-  // Utilize mixin to bind CSS variables to the root element
-  @include kongponents-css-variables;
-
   // Font weight
   body {
-    font-weight: var(--font-weight-normal, 400);
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   }
 }

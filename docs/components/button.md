@@ -218,56 +218,7 @@ KButton supports using an icon either before the text or without text. If you ar
 </KButton>
 ```
 
-## Theming
-
-| Variable                       | Purpose                                    |
-| :----------------------------- | :----------------------------------------- |
-| `--KButtonPrimaryBase`         | Primary background                         |
-| `--KButtonPrimaryHover`        | Primary hover state                        |
-| `--KButtonPrimaryActive`       | Primary active state                       |
-| `--KButtonSecondaryBase`       | Secondary background                       |
-| `--KButtonSecondaryHover`      | Secondary hover state                      |
-| `--KButtonSecondaryActive`     | Secondary active state                     |
-| `--KButtonSecondaryFocus`      | Secondary focus box shadow color           |
-| `--KButtonDangerBase`          | Danger background                          |
-| `--KButtonDangerHover`         | Danger hover state                         |
-| `--KButtonDangerActive`        | Danger active state                        |
-| `--KButtonCreationBase`        | Creation background                        |
-| `--KButtonCreationHover`       | Creation hover state                       |
-| `--KButtonCreationActive`      | Creation active state                      |
-| `--KButtonOutlineColor`        | Outline text color                         |
-| `--KButtonOutlineBorder`       | Outline border                             |
-| `--KButtonOutlineHoverBorder`  | Outline hover state border                 |
-| `--KButtonOutlineActive`       | Outline active state                       |
-| `--KButtonOutlineActiveBorder` | Outline active state border                |
-| `--KButtonLink`                | Button link variant                        |
-| `--KButtonLinkDanger`          | Button Danger link variant                 |
-| `--KButtonPaddingY`            | Button vertical (top and bottom) padding   |
-| `--KButtonPaddingX`            | Button horizontal (left and right) padding |
-| `--KButtonRadius`              | Button corner radius                       |
-
-An Example of changing the primary KButton variant to purple instead of blue might
-look like.
-
-<KButton class="purple-button" appearance="primary">PURPLE!</KButton>
-
-```html
-<template>
-  <KButton class="purple-button" appearance="primary">PURPLE!</KButton>
-</template>
-
-<style>
-.purple-button {
-  --KButtonPrimaryBase: #494ca2;
-  --KButtonPrimaryHover: #6c6ebd;
-  --KButtonPrimaryActive: #3c3f86;
-}
-</style>
-```
-
 <style scoped lang="scss">
-@import '@/styles/variables';
-
 .preview-code .preview div {
   display: flex;
   flex-wrap: wrap;
@@ -276,11 +227,7 @@ look like.
     margin-bottom: 8px;
   }
 }
-.purple-button {
-  --KButtonPrimaryBase: #494ca2;
-  --KButtonPrimaryHover: #6c6ebd;
-  --KButtonPrimaryActive: #3c3f86;
-}
+
 .icon-prop-demo-section {
   display: flex;
   flex-direction: column;
@@ -288,7 +235,7 @@ look like.
   row-gap: 10px;
   column-gap: 10px;
 
-  @media screen and (min-width: $viewport-sm) {
+  @media screen and (min-width: $kui-breakpoint-mobile) {
     flex-direction: row;
   }
 }

@@ -253,45 +253,6 @@ Cards can be arranged with flex box.
 </KCard>
 ```
 
-## Theming
-
-| Variable              | Purpose                        |
-| :-------------------- | :----------------------------- |
-| `--KCardPaddingY`     | Vertical top/bottom spacing    |
-| `--KCardPaddingX`     | Horizontal left/right padding  |
-| `--KCardBorderRadius` |
-| `--KCardBorder`       | Replaces border size & color   |
-| `--KCardShadow`       | Replaces shadow size and color |
-| `--KCardBackground`   |
-
-\
-An Example of changing the background might look like.
-
-<div class="card-wrapper">
-  <KCard
-    title="Colorful Title"
-    body="Body Content"
-    hasShadow />
-</div>
-
-```html
-<template>
-  <KCard
-    title="Colorful Title"
-    body="Body Content"
-    hasShadow />
-</template>
-
-<style>
-:root {
-  --KCardBackground: lavender;
-  --KCardShadow: 0 4px 8px lavender;
-  --KCardBorder: 2px solid purple;
-  --KCardBorderRadius: 12px;
-}
-</style>
-```
-
 <style lang="scss">
 .borderless-cards {
   padding: 16px;
@@ -301,15 +262,11 @@ An Example of changing the background might look like.
     background: #fff;
   }
 }
-.card-wrapper {
-  --KCardBackground: lavender;
-  --KCardShadow: 0 4px 8px lavender;
-  --KCardBorder: 2px solid purple;
-  --KCardBorderRadius: 12px;
-}
+
 .horizontal-spacing {
   margin-right: $kui-space-40;
 }
+
 .card-flex-container {
   display: flex;
   flex-direction: row;

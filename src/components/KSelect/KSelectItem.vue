@@ -60,9 +60,7 @@ const handleClick = (e: MouseEvent): void => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 
 .k-select-item {
   list-style: none !important;
@@ -78,16 +76,16 @@ const handleClick = (e: MouseEvent): void => {
 
   button {
     align-items: center;
-    background-color: var(--white, var(--kui-color-background, $kui-color-background));
+    background-color: var(--kui-color-background, $kui-color-background);
     border: none;
     border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-    color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
     display: flex;
-    font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
-    font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
+    font-family: var(--kui-font-family-text, $kui-font-family-text);
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     line-height: var(--kui-line-height-40, $kui-line-height-40);
-    padding-left: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
+    padding-left: var(--kui-space-20, $kui-space-20);
     text-align: left;
     width: 100%;
 
@@ -104,7 +102,7 @@ const handleClick = (e: MouseEvent): void => {
     }
 
     .k-select-item-label {
-      color: var(--grey-600, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
+      color: var(--kui-color-text, $kui-color-text);
       font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
       line-height: var(--kui-line-height-30, $kui-line-height-30);
@@ -113,14 +111,14 @@ const handleClick = (e: MouseEvent): void => {
       width: auto;
 
       :deep(.select-item-label) {
-        color: var(--grey-600, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
+        color: var(--kui-color-text, $kui-color-text);
         font-size: var(--kui-font-size-30, $kui-font-size-30);
         font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
         margin-bottom: var(--kui-space-20, $kui-space-20);
       }
 
       :deep(.select-item-desc) {
-        color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
         font-size: var(--kui-font-size-30, $kui-font-size-30);
         font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
       }
@@ -131,7 +129,7 @@ const handleClick = (e: MouseEvent): void => {
     }
 
     .k-select-selected-icon-container {
-      color: var(--blue-200, $tmp-color-blue-200);
+      color: $tmp-color-blue-200;
       height: 24px;
       margin-bottom: var(--kui-space-auto, $kui-space-auto);
       margin-left: var(--kui-space-auto, $kui-space-auto);
@@ -148,18 +146,18 @@ const handleClick = (e: MouseEvent): void => {
     }
 
     &:not(:disabled):hover {
-      background-color: var(--grey-100, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
-      color: var(--grey-600, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong));
+      background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+      color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
     }
 
     &.selected {
-      background-color: var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
-      color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
+      background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+      color: var(--kui-color-text-primary, $kui-color-text-primary);
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     }
 
     &.danger {
-      color: var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger));
+      color: var(--kui-color-text-danger, $kui-color-text-danger);
     }
   }
 }

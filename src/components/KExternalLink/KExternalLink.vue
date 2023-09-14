@@ -38,26 +38,24 @@ const props = defineProps({
 const isHrefValid = computed((): boolean => !!isValidUrl(props.href))
 
 const isMouseOver = ref(false)
-const iconColor = computed((): string => isMouseOver.value ? `var(--KExternalLinkColorHover, var(--blue-600, var(--kui-color-text-primary-strong, ${KUI_COLOR_TEXT_PRIMARY_STRONG})))` : `var(--KExternalLinkColor, var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY}))`)
+const iconColor = computed((): string => isMouseOver.value ? `var(--kui-color-text-primary-strong, ${KUI_COLOR_TEXT_PRIMARY_STRONG})` : `var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})`)
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
 
 .k-external-link {
   align-items: center;
-  color: var(--KExternalLinkColor, var(--kui-color-text-primary, $kui-color-text-primary));
+  color: var(--kui-color-text-primary, $kui-color-text-primary);
   display: inline-flex;
   font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   text-decoration: none;
 
   &:hover {
-    color: var(--KExternalLinkColorHover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
+    color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
   }
 
   .kong-icon {
-    margin-left: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+    margin-left: var(--kui-space-40, $kui-space-40);
   }
 }
 </style>

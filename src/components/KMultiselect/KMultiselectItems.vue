@@ -71,12 +71,12 @@ const getGroupItems = (group: string) => props.items?.filter(item => item.group 
 }
 
 .k-multiselect-group-title {
-  color: var(--black-300, var(--kui-color-text, $kui-color-text));
+  color: var(--kui-color-text, $kui-color-text);
   display: block !important;
-  font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
+  font-size: var(--kui-font-size-20, $kui-font-size-20);
   font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-  margin-bottom: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
-  padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+  margin-bottom: var(--kui-space-20, $kui-space-20);
+  padding: var(--kui-space-40, $kui-space-40);
   text-transform: uppercase;
   user-select: none;
 }

@@ -68,18 +68,27 @@ $transition: all .3s;
   width: 100%;
 
   :deep(.k-alert) {
-    --KAlertInfoBorder: var(--blue-500, var(--kui-color-border-primary, #{$kui-color-border-primary}));
-    --KAlertSuccessBorder: var(--green-400, #{$tmp-color-green-400});
-    --KAlertWarningBorder: var(--yellow-300, #{$tmp-color-yellow-300});
-    --KAlertDangerBorder: var(--red-500, var(--kui-color-border-danger-weak, #{$kui-color-border-danger-weak}));
-    background-color: var(--white, var(--kui-color-background, $kui-color-background));
-    color: var(--black-70, var(--kui-color-text, $kui-color-text));
+    background-color: var(--kui-color-background, $kui-color-background);
+    color: var(--kui-color-text, $kui-color-text);
     display: flex;
     flex: 1;
     justify-content: space-between;
     margin-bottom: var(--kui-space-0, $kui-space-0);
     padding: var(--kui-space-60, $kui-space-60);
     text-align: left;
+
+    &.info {
+      border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+    }
+    &.success {
+      border-color: $tmp-color-green-400;
+    }
+    &.warning {
+      border-color: $tmp-color-yellow-300;
+    }
+    &.danger {
+      border-color: var(--kui-color-border-danger-weak, $kui-color-border-danger-weak);
+    }
 
     .close {
       order: 1;

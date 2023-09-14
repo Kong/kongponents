@@ -94,7 +94,7 @@
                 @keyup.enter="clearSelection"
               >
                 <KIcon
-                  :color="`var(--grey-500, var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL}))`"
+                  :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
                   icon="close"
                   :size="KUI_ICON_SIZE_20"
                   title="Clear all selections"
@@ -104,7 +104,7 @@
                 v-else
                 class="k-multiselect-chevron-icon"
                 :class="{ 'in-selection-box': selectedItems.length }"
-                :color="`var(--grey-500, var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL}))`"
+                :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
                 :icon="loading ? 'spinner' : 'chevronDown'"
                 :size="KUI_ICON_SIZE_30"
               />
@@ -942,8 +942,6 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
 @import '@/styles/mixins';
 
 .k-multiselect {
@@ -960,9 +958,6 @@ onBeforeUnmount(() => {
   }
 
   .k-multiselect-selections {
-    --KBadgeMaxWidth: 100px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     padding-left: var(--kui-space-60, $kui-space-60);
     padding-right: var(--kui-space-80, $kui-space-80);
@@ -992,8 +987,7 @@ onBeforeUnmount(() => {
     }
 
     .hidden-selection-count {
-      // match dismissable height
-      --KBadgeLineHeight: var(--kui-line-height-30, #{$kui-line-height-30});
+      line-height: var(--kui-line-height-30, $kui-line-height-30);
       margin-top: var(--kui-space-40, $kui-space-40) !important;
     }
 
@@ -1059,11 +1053,9 @@ onBeforeUnmount(() => {
       width: 100%;
 
       &.is-readonly {
-        // box-shadow: none !important;
-        // @include input-readonly;
-
         :deep(.k-input) {
-          &:not([type=checkbox]):not([type=radio]), .form-control:not([type=checkbox]):not([type=radio]) {
+          &:not([type=checkbox]):not([type=radio]),
+          .form-control:not([type=checkbox]):not([type=radio]) {
             background-color: var(--kui-color-background-transparent, $kui-color-background-transparent) !important;
           }
         }
@@ -1091,18 +1083,16 @@ onBeforeUnmount(() => {
 
   .k-multiselect-dropdown-footer-text {
     background-color: var(--kui-color-background, $kui-color-background);
-    border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+    border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-    padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+    padding: var(--kui-space-40, $kui-space-40);
     padding-bottom: var(--kui-space-0);
   }
 }
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 @import '@/styles/mixins';
 
 // allows setting a maxHeight on the popover dropdown
@@ -1119,7 +1109,7 @@ onBeforeUnmount(() => {
       }
 
       &.input-placeholder-dark::placeholder {
-        color: var(--KInputColor, var(--black-70, var(--kui-color-text, $kui-color-text))) !important;
+        color: var(--kui-color-text, $kui-color-text) !important;
       }
 
       input.k-input:not([type="checkbox"]):not([type="radio"]) {
@@ -1158,23 +1148,22 @@ onBeforeUnmount(() => {
     }
 
     &.k-multiselect-pop {
-      --KPopPaddingY: var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
-      --KPopPaddingX: var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
       border: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-black-10;
+      padding: var(--kui-space-40, $kui-space-40) var(--kui-space-40, $kui-space-40);
     }
 
     .k-multiselect-empty-item button,
     .k-multiselect-empty-item button:focus,
     .k-multiselect-empty-item button:hover {
-      color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
 
       .select-item-label {
-        color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
       }
     }
 
     a {
-      color: var(--black-70, var(--kui-color-text, $kui-color-text));
+      color: var(--kui-color-text, $kui-color-text);
       flex: 1;
 
       &:hover,

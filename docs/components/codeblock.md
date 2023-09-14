@@ -137,6 +137,32 @@ Allows controlling the processing state from outside the component. This allows 
 />
 ```
 
+### maxHeight
+
+* **Type**: `string`
+* **Required**: no
+* **Default**: `'none'`
+
+The `max-height` of the code block.
+
+<ClientOnly>
+  <KCodeBlock
+    id="code-block-max-height"
+    :code="code"
+    language="json"
+    max-height="200px"
+  />
+</ClientOnly>
+
+```html
+<KCodeBlock
+  id="code-block-max-height"
+  :code="code"
+  language="json"
+  max-height="200px"
+/>
+```
+
 ### query
 
 * **Type**: `string`
@@ -207,7 +233,7 @@ You might need to turn this off for sites that already constantly use the fragme
     :code="code"
     language="json"
     :show-line-number-links="true"
-    style="--KCodeBlockMaxHeight: 200px"
+    max-height="200px"
   />
 </ClientOnly>
 
@@ -341,21 +367,6 @@ function highlight({ preElement, codeElement, language, code }) {
 
 - **Type**: `string`
 - **Trigger**: Fired when the component’s internal query state is updated. This happens when the user finished typing (with a delay of a few hundred milliseconds to avoid repeatedly triggering computations while the user is still typing).
-
-## Theming
-
-
-| Variable                          | Default                   | Purpose                                                          |
-|:--------------------------------- |:------------------------- |:---------------------------------------------------------------- |
-| `--KCodeBlockBorderRadius`        | `5px`                     | Code block border radius                                         |
-| `--KCodeBlockFocusColor`          | `var(--blue-500)`         | General focus color                                              |
-| `--KCodeBlockMatchHighlightColor` | `var(--blue-500)`         | Current match highlight color                                    |
-| `--KCodeBlockColor`               | `var(--black-85)`         | Code block text color                                            |
-| `--KCodeBlockBackgroundColor`     | `var(--grey-100)`         | Code block background color                                      |
-| `--KCodeBlockFontSize`            | `var(--type-xs)`          | Code block font size                                             |
-| `--KCodeBlockFontFamilyMono`      | `var(--font-family-mono)` | Code block font family                                           |
-| `--KCodeBlockTabSize`             | `2`                       | Tab size for code blocks                                         |
-| `--KCodeBlockMaxHeight`           | `none`                    | Max-height of the code block. Any overflow will be scrollable |
 
 ## Default shortcuts
 

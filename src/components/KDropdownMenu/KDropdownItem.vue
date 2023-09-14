@@ -159,26 +159,26 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
 
 <style lang="scss">
 // Must leave this block unscoped as it sometimes causes issues with slotted/nested styles
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 @import '@/styles/mixins';
 
 li.k-dropdown-item {
   align-items: center;
   display: flex;
-  font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+  font-size: var(--kui-font-size-40, $kui-font-size-40);
   line-height: var(--kui-line-height-40, $kui-line-height-40);
   width: 100% !important;
 
   &:not(:first-of-type).has-divider {
-    $k-dropdown-item-divider-container-height: var(--spacing-lg, var(--kui-space-80, $kui-space-80)); // set to the same value as --spacing-lg without the units
+    $k-dropdown-item-divider-container-height: var(--kui-space-80, $kui-space-80); // set to the same value as --spacing-lg without the units
     $k-dropdown-item-divider-position: -13px; // this should be negative (<container-height> / 2 + 1)
     margin-top: $k-dropdown-item-divider-container-height;
     position: relative;
 
     &:before {
-      background: var(--grey-200, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
+      background: var(--kui-color-background-disabled, $kui-color-background-disabled);
       content: '';
       display: block;
       height: 1px;
@@ -189,30 +189,30 @@ li.k-dropdown-item {
   }
 
   svg {
-    margin-right: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
+    margin-right: var(--kui-space-50, $kui-space-50);
   }
 
   &:hover {
-    background-color: var(--grey-100, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
+    background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
   }
 
   .k-dropdown-item-trigger,
   // Override .btn-link styles
   .k-dropdown-item-trigger.btn-link {
-    color: var(--black-70, var(--kui-color-text, $kui-color-text));
+    color: var(--kui-color-text, $kui-color-text);
     line-height: var(--kui-line-height-40, $kui-line-height-40);
-    padding: var(--spacing-md, var(--kui-space-60, $kui-space-60)) var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+    padding: var(--kui-space-60, $kui-space-60) var(--kui-space-80, $kui-space-80);
     text-align: left;
     text-decoration: none;
     width: 100%;
 
     &:disabled,
     &.disabled {
-      color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
+      color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
       cursor: not-allowed !important;
 
       &:hover {
-        background-color: var(--grey-200, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest)) !important;
+        background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest) !important;
       }
     }
   }
@@ -234,11 +234,11 @@ li.k-dropdown-item {
   &.danger {
     button:not(:disabled),
     a:not(:disabled) {
-      color: var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger));
+      color: var(--kui-color-text-danger, $kui-color-text-danger);
       transition: all $tmp-animation-timing-2;
 
       &:hover {
-        color: var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger));
+        color: var(--kui-color-text-danger, $kui-color-text-danger);
       }
     }
   }

@@ -95,17 +95,7 @@ export default defineConfig({
           items: [
             { text: 'Getting Started', link: '/guide/' },
             { text: 'Usage', link: '/guide/usage' },
-          ]
-        },
-        {
-          text: 'Styles',
-          collapsed: false,
-          items: [
-            { text: 'Theming', link: '/guide/styles/theming' },
-            { text: 'Colors', link: '/guide/styles/colors' },
-            { text: 'Typography', link: '/guide/styles/typography' },
-            { text: 'Forms', link: '/guide/styles/forms' },
-            { text: 'Utilities', link: '/guide/styles/utilities' },
+            { text: 'Theming', link: '/guide/theming' },
           ]
         },
         {
@@ -121,7 +111,6 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: 'Setup', link: '/guide/contributing' },
-            { text: 'Adding Icons to KIcon', link: '/guide/adding-icons-to-kicon' },
           ]
         },
       ],

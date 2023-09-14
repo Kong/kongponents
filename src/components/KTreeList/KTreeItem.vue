@@ -71,8 +71,8 @@ const itemIcon = computed((): string => props.item.icon ? props.item.icon : 'doc
 const iconSecondaryColor = computed((): string | undefined => {
   if (itemIcon.value === 'documentList') {
     return props.item.selected
-      ? 'var(--KTreeListItemSelectedBorder, currentColor)'
-      : `var(--KTreeListItemUnselectedBorder, var(--kui-color-border-disabled, ${KUI_COLOR_BORDER_DISABLED}))`
+      ? 'currentColor'
+      : `var(--kui-color-border-disabled, ${KUI_COLOR_BORDER_DISABLED})`
   }
 
   return undefined
@@ -84,15 +84,15 @@ const handleClick = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/functions';
+
 @import '@/styles/tmp-variables';
 
 .k-tree-item {
   align-items: center;
-  background-color: var(--KTreeListItemUnselectedBackground, var(--kui-color-background, $kui-color-background));
-  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTreeListItemUnselectedBorder, var(--kui-color-border-disabled, $kui-color-border-disabled));
+  background-color: var(--kui-color-background, $kui-color-background);
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-disabled, $kui-color-border-disabled);
   border-radius: $kui-border-radius-40;
-  color: var(--KTreeListItemText, var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest));
+  color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
   display: flex;
   padding: var(--kui-space-20, $kui-space-20);
   text-decoration: none;
@@ -103,16 +103,16 @@ const handleClick = () => {
   }
 
   &.selected {
-    background-color: var(--KTreeListItemSelectedBackground, $tmp-color-teal-100);
-    border-color: var(--KTreeListItemSelectedBorder, $tmp-color-teal-200);
+    background-color: $tmp-color-teal-100;
+    border-color: $tmp-color-teal-200;
 
     .k-tree-item-icon { /** so we can use currentColor in script section */
-      color: var(--KTreeListItemSelectedBorder, $tmp-color-teal-200);
+      color: $tmp-color-teal-200;
     }
   }
 
   &:hover {
-    color: var(--KTreeListItemText, var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest));
+    color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
     cursor: grab;
   }
 

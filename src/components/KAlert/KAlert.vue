@@ -299,9 +299,8 @@ export const appearances: AlertAppearanceRecord = {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 
 .k-alert {
   border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
@@ -312,19 +311,19 @@ export const appearances: AlertAppearanceRecord = {
   word-break: break-word; // Word-wrapping in Safari
 
   a {
-    color: var(--blue-600, var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger));
+    color: var(--kui-color-text-primary, $kui-color-text-primary);
     text-decoration: underline;
   }
 
   & > div .k-alert-msg {
-    font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+    font-size: var(--kui-font-size-40, $kui-font-size-40);
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     line-height: var(--kui-line-height-40, $kui-line-height-40);
     margin-left: var(--kui-space-10, $kui-space-10);
     padding: var(--kui-space-10, $kui-space-10) var(--kui-space-0, $kui-space-0);
 
     &.k-alert-subtext {
-      font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
+      font-size: var(--kui-font-size-30, $kui-font-size-30);
     }
 
     p:last-of-type {
@@ -337,12 +336,12 @@ export const appearances: AlertAppearanceRecord = {
   }
 
   .k-alert-description-text {
-    color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
     display: block;
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     line-height: var(--kui-line-height-40, $kui-line-height-40);
-    padding-top: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
+    padding-top: var(--kui-space-20, $kui-space-20);
   }
 
   // Action Buttons
@@ -362,7 +361,7 @@ export const appearances: AlertAppearanceRecord = {
     cursor: pointer;
     opacity: 0.5;
     position: absolute;
-    right: var(--spacing-xs, 8px);
+    right: 8px;
     top: 0;
     transition: all $tmp-animation-timing-2 ease;
 
@@ -375,10 +374,10 @@ export const appearances: AlertAppearanceRecord = {
 
   // Sizes
    &.small {
-    padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+    padding: var(--kui-space-50, $kui-space-50) var(--kui-space-40, $kui-space-40);
 
     & > div .k-alert-msg {
-      font-size: var(--type-sm, var(--kui-font-size-20, $kui-font-size-20));
+      font-size: var(--kui-font-size-20, $kui-font-size-20);
     }
   }
   &.large {
@@ -386,7 +385,7 @@ export const appearances: AlertAppearanceRecord = {
     min-height: 80px;
 
     .k-alert-icon-container-large {
-      padding: var(--spacing-lg, var(--kui-space-80, $kui-space-80)) var(--kui-space-0, var(--kui-space-0, $kui-space-0));
+      padding: var(--kui-space-80, $kui-space-80) var(--kui-space-0, $kui-space-0);
     }
   }
 
@@ -428,27 +427,27 @@ export const appearances: AlertAppearanceRecord = {
 
   // Appearances - MUST FOLLOW VARIANTS
   &.info {
-    background-color: var(--KAlertInfoBackground, var(--blue-200, var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker)));
-    border-color: var(--KAlertInfoBorder, var(--blue-300, var(--kui-color-border-primary-weak, $kui-color-border-primary-weak)));
-    color: var(--KAlertInfoColor, var(--blue-600, var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger)));
+    background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
+    border-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
+    color: var(--kui-color-text-primary, $kui-color-text-primary);
   }
 
   &.success {
-    background-color: var(--KAlertSuccessBackground, var(--green-100, $tmp-color-green-100));
-    border-color: var(--KAlertSuccessBorder, var(--green-200, $tmp-color-green-200));
-    color: var(--KAlertSuccessColor, var(--green-700, $tmp-color-green-700));
+    background-color: $tmp-color-green-100;
+    border-color: $tmp-color-green-200;
+    color: $tmp-color-green-700;
   }
 
   &.danger {
-    background-color: var(--KAlertDangerBackground, var(--red-100, var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest)));
-    border-color: var(--KAlertDangerBorder, var(--red-300, var(--kui-color-border-danger-weaker, $kui-color-border-danger-weaker)));
-    color: var(--KAlertDangerColor, var(--red-700, var(--kui-color-text-danger, $kui-color-text-danger)));
+    background-color: var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest);
+    border-color: var(--kui-color-border-danger-weaker, $kui-color-border-danger-weaker);
+    color: var(--kui-color-text-danger, $kui-color-text-danger);
   }
 
   &.warning {
-    background-color: var(--KAlertWarningBackground, var(--yellow-100, $tmp-color-yellow-100));
-    border-color: var(--KAlertWarningBorder, var(--yellow-200, $tmp-color-yellow-200));
-    color: var(--KAlertWarningColor, var(--yellow-600, $tmp-color-yellow-600));
+    background-color: $tmp-color-yellow-100;
+    border-color: $tmp-color-yellow-200;
+    color: $tmp-color-yellow-600;
   }
 
   // Types - MUST FOLLOW APPEARANCES
@@ -459,8 +458,8 @@ export const appearances: AlertAppearanceRecord = {
   }
 
   &.is-banner {
-    background-color: var(--white, var(--kui-color-background, $kui-color-background));
-    color: var(--grey-600, var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest));
+    background-color: var(--kui-color-background, $kui-color-background);
+    color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
     padding: var(--kui-space-0, $kui-space-0);
 
     .k-alert-ellipse {
@@ -471,30 +470,30 @@ export const appearances: AlertAppearanceRecord = {
       width: 6px;
 
       &.info {
-        background-color: var(--blue-400, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak));
+        background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
       }
 
       &.success {
-        background-color: var(--green-400, $tmp-color-green-400);
+        background-color: $tmp-color-green-400;
       }
 
       &.warning {
-        background-color: var(--yellow-400, $tmp-color-yellow-400);
+        background-color: $tmp-color-yellow-400;
       }
 
       &.danger {
-        background-color: var(--red-400, var(--kui-color-background-danger-weak, $kui-color-background-danger-weak));
+        background-color: var(--kui-color-background-danger-weak, $kui-color-background-danger-weak);
       }
     }
 
     .button > div .k-alert-msg.k-alert-text {
-      font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+      font-size:var(--kui-font-size-40, $kui-font-size-40);
       line-height: var(--kui-line-height-40, $kui-line-height-40);
       padding-left: var(--kui-space-0, $kui-space-0);
     }
 
     & > div.k-alert-msg-text {
-      padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) var(--spacing-md, var(--kui-space-60, $kui-space-60));
+      padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
     }
   }
 }
@@ -506,26 +505,25 @@ export const appearances: AlertAppearanceRecord = {
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 
 .k-alert {
   button.close > .kong-icon {
     &.info svg {
-      stroke: var(--KAlertInfoColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+      stroke: var(--kui-color-text-primary, $kui-color-text-primary);
     }
 
     &.success svg {
-      stroke: var(--KAlertSuccessColor, var(--green-600, $tmp-color-green-600));
+      stroke: $tmp-color-green-600;
     }
 
     &.danger svg {
-      stroke: var(--KAlertDangerColor, var(--red-700, var(--kui-color-text-danger, $kui-color-text-danger)));
+      stroke: var(--kui-color-text-danger, $kui-color-text-danger);
     }
 
     &.warning svg {
-      stroke: var(--KAlertWarningColor, var(--yellow-500, $tmp-color-yellow-500));
+      stroke: $tmp-color-yellow-500;
     }
   }
 
@@ -537,72 +535,51 @@ export const appearances: AlertAppearanceRecord = {
       line-height: var(--kui-line-height-10, $kui-line-height-10);
 
       &:not(:first-of-type) {
-        margin-left: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
+        margin-left: var(--kui-space-50, $kui-space-50);
       }
     }
 
     &.info button.primary {
-      --KButtonPrimaryBase: var(--blue-500, var(--kui-color-background-primary, #{$kui-color-background-primary}));
-      --KButtonPrimaryHover: var(--blue-200, var(--kui-color-background-primary-weaker, #{$kui-color-background-primary-weaker}));
-      background-color: var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
-      color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
+      background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+      color: var(--kui-color-text-primary, $kui-color-text-primary);
+
+      &:hover {
+        background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
+      }
     }
 
     &.info button.outline {
-      --KButtonOutlineBorder: var(--blue-500, var(--kui-color-border-primary, #{$kui-color-border-primary}));
-      --KButtonOutlineHoverBorder: var(--blue-600, var(--kui-color-border-primary-strong, #{$kui-color-border-primary-strong}));
-      --KButtonOutlineActive: var(--blue-100, var(--kui-color-background-primary-weakest, #{$kui-color-background-primary-weakest}));
-      --KButtonOutlineActiveBorder: var(--blue-500, var(--kui-color-border-primary, #{$kui-color-border-primary}));
-      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--blue-400, var(--kui-color-border-primary-weak, $kui-color-border-primary-weak));
-      color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
+      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
+      color: var(--kui-color-text-primary, $kui-color-text-primary);
     }
 
     &.warning button.primary {
-      --KButtonPrimaryBase: var(--yellow-500, #{$tmp-color-yellow-500});
-      --KButtonPrimaryHover: var(--yellow-200, #{$tmp-color-yellow-200});
-      background-color: var(--yellow-100, $tmp-color-yellow-100);
-      color: var(--yellow-500, $tmp-color-yellow-500);
+      background-color: $tmp-color-yellow-100;
+      color: $tmp-color-yellow-500;
     }
 
     &.warning button.outline {
-      --KButtonOutlineBorder: var(--yellow-500, #{$tmp-color-yellow-500});
-      --KButtonOutlineHoverBorder: var(--yellow-500, #{$tmp-color-yellow-500});
-      --KButtonOutlineActive: var(--yellow-100, #{$tmp-color-yellow-100});
-      --KButtonOutlineActiveBorder: var(--yellow-500, #{$tmp-color-yellow-500});
-      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--yellow-300, $tmp-color-yellow-300);
-      color: var(--yellow-500, $tmp-color-yellow-500);
+      border: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-yellow-300;
+      color: $tmp-color-yellow-500;
     }
 
     &.success button.primary {
-      --KButtonPrimaryBase: var(--green-600, #{$tmp-color-green-600});
-      --KButtonPrimaryHover: var(--green-200, #{$tmp-color-green-200});
-      background-color: var(--green-100, $tmp-color-green-100);
-      color: var(--green-600, $tmp-color-green-600);
+      background-color: $tmp-color-green-100;
+      color: $tmp-color-green-600;
     }
 
     &.success button.outline {
-      --KButtonOutlineBorder: var(--green-600, #{$tmp-color-green-600});
-      --KButtonOutlineHoverBorder: var(--green-600, #{$tmp-color-green-600});
-      --KButtonOutlineActive: var(--green-100, #{$tmp-color-green-100});
-      --KButtonOutlineActiveBorder: var(--green-600, #{$tmp-color-green-600});
-      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--green-400, $tmp-color-green-400);
-      color: var(--green-600, $tmp-color-green-600);
+      border: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-green-400;
+      color: $tmp-color-green-600;
     }
 
     &.danger button.primary {
-      --KButtonPrimaryHover: var(--red-200, var(--kui-color-background-danger-weak, #{$kui-color-background-danger-weak}));
-      --KButtonPrimaryBase: var(--red-700, var(--kui-color-background-danger-strong, #{$kui-color-background-danger-strong}));
-      background-color: var(--red-100, var(--kui-color-background-danger-weakest, #{$kui-color-background-danger-weakest}));
-      color: var(--red-700, var(--kui-color-text-danger, $kui-color-text-danger));
+      background-color: var(--kui-color-background-danger-weakest, #{$kui-color-background-danger-weakest});
+      color: var(--kui-color-text-danger, $kui-color-text-danger);
     }
 
     &.danger button.outline {
-      --KButtonOutlineBorder: var(--red-700, var(--kui-color-border-danger-strong, #{$kui-color-border-danger-strong}));
-      --KButtonOutlineColor: var(--red-700, var(--kui-color-text-danger, #{$kui-color-text-danger}));
-      --KButtonOutlineHoverBorder: var(--red-700, var(--kui-color-border-danger-strong, #{$kui-color-border-danger-strong}));
-      --KButtonOutlineActive: var(--red-100, var(--kui-color-background-danger-weakest, #{$kui-color-background-danger-weakest}));
-      --KButtonOutlineActiveBorder: var(--red-700, var(--kui-color-border-danger-strong, #{$kui-color-border-danger-strong}));
-      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--red-500, var(--kui-color-border-danger-weak, $kui-color-border-danger-weak));
+      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-danger-weak, $kui-color-border-danger-weak);
     }
   }
 }

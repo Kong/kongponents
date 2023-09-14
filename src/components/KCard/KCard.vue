@@ -151,14 +151,13 @@ const showCardTitleWithStatus = computed((): boolean => useStatusHatLayout.value
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 
 .kong-card {
-  background-color: var(--KCardBackground, var(--white, var(--kui-color-background, $kui-color-background)));
-  border-radius: var(--KCardBorderRadius, var(--kui-border-radius-20, $kui-border-radius-20));
-  padding: var(--KCardPaddingY, var(--spacing-lg, var(--kui-space-80, $kui-space-80))) var(--KCardPaddingX, var(--spacing-lg, var(--kui-space-80, $kui-space-80)));
+  background-color: var(--kui-color-background, $kui-color-background);
+  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+  padding: var(--kui-space-80, $kui-space-80) var(--kui-space-80, $kui-space-80);
   transition: box-shadow $tmp-animation-timing-2 ease-in-out;
 
   &.noBorder {
@@ -166,16 +165,16 @@ const showCardTitleWithStatus = computed((): boolean => useStatusHatLayout.value
   }
 
   &.border {
-    border: var(--KCardBorder, var(--kui-border-width-10, $kui-border-width-10) solid var(--black-10, $tmp-color-black-10));
+    border: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-black-10;
     box-shadow: none;
   }
 
   &.borderTop {
-    border-top: var(--KCardBorder, var(--kui-border-width-10, $kui-border-width-10) solid var(--black-10, $tmp-color-black-10));
+    border-top: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-black-10;
   }
 
   &.hover:hover, &.kcard-shadow {
-    box-shadow: var(--KCardShadow, 0 4px 8px var(--black-10, $tmp-color-black-10));
+    box-shadow: 0 4px 8px $tmp-color-black-10;
   }
 
   .k-card-header {
@@ -190,17 +189,17 @@ const showCardTitleWithStatus = computed((): boolean => useStatusHatLayout.value
 
   .k-card-status-hat {
     align-items: center;
-    color: var(--grey-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+    color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
     display: flex;
-    font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
   }
 
   .k-card-title {
     margin-bottom: var(--kui-space-50, $kui-space-50) !important;
 
     h4 {
-      color: var(--KCardTitleColor, var(--kui-color-text, $kui-color-text));
-      font-size: var(--KCardTitleFontSize, var(--kui-font-size-60, $kui-font-size-60));
+      color: var(--kui-color-text, $kui-color-text);
+      font-size: var(--kui-font-size-60, $kui-font-size-60);
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
       margin: var(--kui-space-0, $kui-space-0);
       padding: var(--kui-space-0, $kui-space-0);
@@ -212,7 +211,7 @@ const showCardTitleWithStatus = computed((): boolean => useStatusHatLayout.value
   }
 
   .k-card-body {
-    color: var(--grey-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+    color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
     width: 100%;
@@ -222,7 +221,7 @@ const showCardTitleWithStatus = computed((): boolean => useStatusHatLayout.value
     display: flex !important;
 
     .k-table td, table td, :deep(.k-table) td {
-      font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+      font-size: var(--kui-font-size-40, $kui-font-size-40);
       line-height: var(--kui-line-height-40, $kui-line-height-40);
     }
   }
@@ -235,9 +234,6 @@ const showCardTitleWithStatus = computed((): boolean => useStatusHatLayout.value
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
-@import '@/styles/functions';
-
 .kong-card {
   .k-card-header {
     .k-button {

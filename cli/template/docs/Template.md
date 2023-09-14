@@ -51,30 +51,6 @@ Actual component using examplePropName
 
 - `@changed` - Emitted when...
 
-## Theming
-
-| Variable | Purpose
-|:-------- |:-------
-| `--{%%KONGPONENT_NAME%%}BorderColor`| {%%KONGPONENT_NAME%%} border color
-
-An Example of changing the border color of {%%KONGPONENT_NAME%%} to lime might look
-like:
-
-> Note: We are scoping the overrides to a wrapper in this example
-
-<template>
-  <div class="{%%KONGPONENT_NAME%%}-wrapper">
-    <{%%KONGPONENT_NAME%%} />
-  </div>
-</template>
-
-```html
-<template>
-  <div class="{%%KONGPONENT_NAME%%}-wrapper">
-    <{%%KONGPONENT_NAME%%} />
-  </div>
-</template>
-
 <script lang="ts">
 import { defineComponent } from 'vue'
 

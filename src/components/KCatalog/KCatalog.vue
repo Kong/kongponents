@@ -627,17 +627,14 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
-
 .k-card-catalog {
   .k-card-catalog-title {
-    color: var(--blue-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+    color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
   }
 
   .k-catalog-page {
     display: grid;
-    grid-gap: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+    grid-gap: var(--kui-space-80, $kui-space-80);
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
@@ -652,8 +649,6 @@ onMounted(() => {
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
-@import '@/styles/functions';
 
 .k-card-catalog {
   $cardHeight: 181px;

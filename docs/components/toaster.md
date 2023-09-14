@@ -79,9 +79,9 @@ The default argument passed to the toaster is the message.
 The Toaster uses the same appearance values as [KAlert](/components/alert) and are applied the same way.
 
 <KButton class="my-button" appearance="primary" @click="openNotification({'appearance': 'info', 'message':'This toaster has info appearance'})">Open Toaster</KButton>
-<KButton class="success my-button" appearance="primary" @click="openNotification({'appearance': 'success', 'message':'This toaster has success appearance'})">Open Toaster</KButton>
+<KButton class="success my-button" appearance="creation" @click="openNotification({'appearance': 'success', 'message':'This toaster has success appearance'})">Open Toaster</KButton>
 <KButton class="my-button" appearance="danger" @click="openNotification({'appearance': 'danger', 'message':'This toaster has danger appearance'})">Open Toaster</KButton>
-<KButton class="warning my-button" appearance="primary" @click="openNotification({'appearance': 'warning', 'message':'This toaster has warning appearance'})">Open Toaster</KButton>
+<KButton class="warning my-button" appearance="outline" @click="openNotification({'appearance': 'warning', 'message':'This toaster has warning appearance'})">Open Toaster</KButton>
 
 ```html
 <template>
@@ -234,15 +234,22 @@ export default defineComponent({
 .my-button {
   margin-right: 4px !important;
 }
+
 .success.k-button {
-  --KButtonPrimaryBase: #42d782;
-  --KButtonPrimaryHover: #84e5ae;
-  --KButtonPrimaryActive: #07a88d;
+  background-color: #42d782 !important;
+  &:hover,
+  &:active {
+    background-color: #84e5ae !important;
+  }
 }
+
 .warning.k-button {
-  --KButtonPrimaryBase: #ffd68c;
-  --KButtonPrimaryHover: #ffe6ba;
-  --KButtonPrimaryActive: #ffe6ba;
+  background-color: #ffd68c !important;
+  border-color: darken(#ffd68c, 5%) !important;
   color: $kui-color-text !important;
+  &:hover,
+  &:active {
+    background-color: #ffe6ba !important;
+  }
 }
 </style>

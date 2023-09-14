@@ -127,7 +127,7 @@
               @keyup.enter="clearSelection"
             >
               <KIcon
-                :color="`var(--grey-500, ${KUI_COLOR_TEXT_NEUTRAL})`"
+                :color="KUI_COLOR_TEXT_NEUTRAL"
                 icon="clear"
                 :size="KUI_ICON_SIZE_30"
               />
@@ -135,7 +135,7 @@
             <KIcon
               v-if="appearance === 'select'"
               :class="{ 'overlay-label-chevron': overlayLabel }"
-              :color="`var(--grey-500, ${KUI_COLOR_TEXT_NEUTRAL})`"
+              :color="KUI_COLOR_TEXT_NEUTRAL"
               icon="chevronDown"
               :size="KUI_ICON_SIZE_30"
             />
@@ -757,18 +757,16 @@ const onPopoverOpen = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
 @import '@/styles/tmp-variables';
 @import '@/styles/mixins';
-@import '@/styles/functions';
 
 .k-select {
   width: fit-content; // necessary for correct placement of popup
 
   .k-select-item-selection {
-    background-color: var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
+    background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
     border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-    color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
+    color: var(--kui-color-text-primary, $kui-color-text-primary);
     display: flex;
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     margin-bottom: var(--kui-space-30, $kui-space-30);
@@ -781,7 +779,7 @@ const onPopoverOpen = () => {
 
     .clear-selection-icon {
       @include non-visual-button;
-      color: var(--blue-200, $tmp-color-blue-200);
+      color: $tmp-color-blue-200;
       cursor: pointer !important;
       height: 24px;
       margin-bottom: var(--kui-space-auto, $kui-space-auto);
@@ -798,7 +796,7 @@ const onPopoverOpen = () => {
     content: "";
     display: inline-block;
     height: 0;
-    margin-left: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+    margin-left: var(--kui-space-40, $kui-space-40);
     vertical-align: middle;
     width: 0;
   }
@@ -806,16 +804,14 @@ const onPopoverOpen = () => {
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
 @import '@/styles/tmp-variables';
 @import '@/styles/mixins';
-@import '@/styles/functions';
 
 $chevronDownIconMargin: var(--kui-space-40, $kui-space-40);
 $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
 
 @mixin boxShadow($color, $whiteShadowSpred: 2px, $colorShadowSpread: 4px) {
-  box-shadow: 0 0 0 $whiteShadowSpred var(--white, var(--kui-color-background, $kui-color-background)), 0 0 0 $colorShadowSpread $color;
+  box-shadow: 0 0 0 $whiteShadowSpred var(--kui-color-background, $kui-color-background), 0 0 0 $colorShadowSpread $color;
 }
 
 // allows setting a maxHeight on the popover dropdown
@@ -840,11 +836,11 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
   }
 
   .k-button.btn-link {
-    padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+    padding: var(--kui-space-50, $kui-space-50) var(--kui-space-80, $kui-space-80);
     text-decoration: none;
 
     &:focus {
-      @include boxShadow(var(--KButtonOutlineBorder, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary))), 0, 2px);
+      @include boxShadow(var(--kui-color-background-primary, $kui-color-background-primary), 0, 2px);
     }
 
     .caret {
@@ -897,7 +893,7 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
     &.input-placeholder-dark {
       input {
         &::placeholder {
-          color: var(--KInputColor, var(--black-70, var(--kui-color-text, $kui-color-text))) !important;
+          color: var(--kui-color-text, $kui-color-text) !important;
         }
       }
     }
@@ -927,7 +923,7 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
 
     &input.k-input {
       height: 100%;
-      padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+      padding: var(--kui-space-40, $kui-space-40);
     }
 
     .kong-icon {
@@ -950,7 +946,7 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
 
     .custom-selected-item {
       display: inline-flex;
-      padding: var(--kui-space-40, $kui-space-40) var(--spacing-md, var(--kui-space-50, $kui-space-50));
+      padding: var(--kui-space-40, $kui-space-40) var(--kui-space-50, $kui-space-50);
       pointer-events: none;
       position: absolute;
       // offset chevron icon width and margin
@@ -961,7 +957,7 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
 
   div.k-select-input.select-input-container {
     align-items: center;
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
     border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
     cursor: pointer !important;
     display: flex;
@@ -978,18 +974,18 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
     }
 
     &:hover {
-      border-color: var(--KInputHover, var(--blue-200, var(--kui-color-border-primary-weaker, $kui-color-border-primary-weaker)));
+      border-color: var(--kui-color-border-primary-weaker, $kui-color-border-primary-weaker);
 
       .text-on-input label {
-        color: var(--KInputHover, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+        color: var(--kui-color-text-primary, $kui-color-text-primary);
       }
     }
 
     &.is-open {
-      border-color: var(--KInputFocus, var(--blue-400, var(--kui-color-border-primary-weak, $kui-color-border-primary-weak)));
+      border-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
 
       .text-on-input label {
-        color: var(--KInputHover, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+        color:var(--kui-color-text-primary, $kui-color-text-primary);
       }
     }
   }
@@ -1020,27 +1016,24 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
     }
 
     &.k-select-pop-button {
-      --KPopPaddingY: var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
-      --KPopPaddingX: var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
-      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+      padding: var(--kui-space-40, $kui-space-40) var(--kui-space-40, $kui-space-40);
     }
 
     &.k-select-pop-dropdown {
-      --KPopPaddingY: var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
-      --KPopPaddingX: var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
-      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+      padding: var(--kui-space-40, $kui-space-40) var(--kui-space-40, $kui-space-40);
     }
 
     &.k-select-pop-select {
-      --KPopPaddingY: var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
-      --KPopPaddingX: var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
-      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+      padding: var(--kui-space-40, #{$kui-space-40}) var(--kui-space-40, $kui-space-40);
     }
 
     .k-select-empty-item button,
     .k-select-empty-item button:focus,
     .k-select-empty-item button:hover {
-      color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
+      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
       font-style: italic;
     }
 
@@ -1059,7 +1052,7 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
     }
 
     a {
-      color: var(--black-70, var(--kui-color-text, $kui-color-text));
+      color: var(--kui-color-text, $kui-color-text);
       flex: 1;
 
       &:hover,
@@ -1105,9 +1098,9 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
 
     .k-select-dropdown-footer-text {
       background-color: var(--kui-color-background, $kui-color-background);
-      border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+      border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
       color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-      padding: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+      padding: var(--kui-space-40, $kui-space-40);
       padding-bottom: var(--kui-space-0, $kui-space-0);
     }
   }

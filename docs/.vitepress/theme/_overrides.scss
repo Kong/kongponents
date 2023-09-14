@@ -1,7 +1,10 @@
 // Theme overrides; all should be nested inside of the `.vp-doc` class
 .vp-doc {
+  /* stylelint-disable-next-line custom-property-pattern */
   --vp-custom-block-info-border: #003694;
-  --vp-custom-block-info-text: #1155cb;
+  /* stylelint-disable-next-line custom-property-pattern */
+  --vp-custom-block-info-text: var(--kui-color-text-primary, #{$kui-color-text-primary});
+  /* stylelint-disable-next-line custom-property-pattern */
   --vp-custom-block-info-bg: #f2f6fe;
 
   .kong-card li + li {

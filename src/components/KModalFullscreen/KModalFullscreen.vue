@@ -228,14 +228,13 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
+
 $kmodalfullscreen-viewport-md: 992px;
 $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-dialog {
-  background: var(--white, var(--kui-color-background, $kui-color-background));
+  background: var(--kui-color-background, $kui-color-background);
   bottom: 0;
   left: 0;
   padding-top: $fullscreen-modal-padding * 2;
@@ -262,22 +261,22 @@ $fullscreen-modal-padding: 64px;
 }
 
 .k-modal-fullscreen-header {
-  background-color: var(--white, var(--kui-color-background, $kui-color-background));
-  border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+  background-color: var(--kui-color-background, $kui-color-background);
+  border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-lg, var(--kui-space-80, $kui-space-80)) var(--kui-space-0, $kui-space-0);
+  padding: var(--kui-space-80, $kui-space-80) var(--kui-space-0, $kui-space-0);
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1009;
 
   .k-modal-fullscreen-header-description {
-    color: var(--KModalFullscreenHeaderColor, var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest));
+    color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
     display: flex;
     flex-direction: column;
-    font-size: var(--KModalFullscreenHeaderSize, var(--kui-font-size-60, $kui-font-size-60));
-    font-weight: var(--KModalFullscreenHeaderWeight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
+    font-size: var(--kui-font-size-60, $kui-font-size-60);
+    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
     justify-content: space-between;
 
     @media (min-width: $kui-breakpoint-phablet) {
@@ -288,14 +287,14 @@ $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-footer {
   align-items: center;
-  background-color: var(--white, var(--kui-color-background, $kui-color-background));
-  border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+  background-color: var(--kui-color-background, $kui-color-background);
+  border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
   bottom: 0;
   box-shadow: 0px 0px 20px var(black-10, $tmp-color-black-10);
   display: inline-flex;
   justify-content: space-between;
-  padding: var(--spacing-lg, var(--kui-space-80, $kui-space-80)) var(--kui-space-0, $kui-space-0);
-  padding-left: var(--spacing-xl, var(--kui-space-90, $kui-space-90));
+  padding: var(--kui-space-80, $kui-space-80) var(--kui-space-0, $kui-space-0);
+  padding-left: var(--kui-space-90, $kui-space-90);
   position: fixed;
   width: 100%;
   z-index: 1009;
@@ -304,7 +303,7 @@ $fullscreen-modal-padding: 64px;
 .k-modal-fullscreen-title {
   display: inline-flex;
   justify-content: center;
-  margin-bottom: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
+  margin-bottom: var(--kui-space-40, $kui-space-40);
   position: relative;
 
   @media (min-width: $kui-breakpoint-phablet) {
@@ -318,7 +317,7 @@ $fullscreen-modal-padding: 64px;
   display: inline-flex;
   justify-content: center;
   margin-left: var(--kui-space-50, $kui-space-50) !important;
-  margin-right: var(--spacing-xl, var(--kui-space-90, $kui-space-90));
+  margin-right: var(--kui-space-90, $kui-space-90);
 
   & button,
   & :deep(button) {
@@ -326,7 +325,7 @@ $fullscreen-modal-padding: 64px;
     font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
     height: 40px;
     line-height: var(--kui-line-height-20, $kui-line-height-20);
-    margin-left: var(--spacing-md, var(--kui-space-60, $kui-space-60));
+    margin-left: var(--kui-space-60, $kui-space-60);
   }
 
   @media (min-width: $kui-breakpoint-phablet) {
@@ -336,9 +335,9 @@ $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-body-header,
 .k-modal-fullscreen-body {
-  color: var(--KModalFullscreenColor, var(--black-500, var(--kui-color-text, $kui-color-text)));
-  padding-left: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
-  padding-right: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+  color: var(--kui-color-text, $kui-color-text);
+  padding-left: var(--kui-space-80, $kui-space-80);
+  padding-right: var(--kui-space-80, $kui-space-80);
 
   @media (min-width: $kui-breakpoint-phablet) {
     padding-left: 120px;
@@ -352,31 +351,31 @@ $fullscreen-modal-padding: 64px;
 }
 
 .k-modal-fullscreen-body {
-  padding-bottom: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+  padding-bottom: var(--kui-space-80, $kui-space-80);
   @media (min-width: $kui-breakpoint-phablet) {
     padding-bottom: $fullscreen-modal-padding;
   }
 }
 
 .k-modal-fullscreen-body-header {
-  margin-bottom: var(--spacing-xl, var(--kui-space-90, $kui-space-90));
+  margin-bottom: var(--kui-space-90, $kui-space-90);
   margin-top: $fullscreen-modal-padding;
   padding-bottom: var(--kui-space-0, $kui-space-0);
   padding-top: var(--kui-space-0, $kui-space-0);
 
   .body-header {
-    font-size: var(--type-xxxl, var(--kui-font-size-80, $kui-font-size-80));
+    font-size: var(--kui-font-size-80, $kui-font-size-80);
     font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-    line-height: var(--type-xxxl, var(--kui-line-height-80, $kui-line-height-80));
+    line-height: var(--kui-line-height-80, $kui-line-height-80);
     margin-bottom: calc(-1 * var(--kui-space-20, $kui-space-20));
   }
 
   .body-header-description {
-    color: var(--grey-600, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong));
+    color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
     font-size: var(--kui-font-size-30, $kui-font-size-30);
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-    line-height: var(--type-xl, var(--kui-line-height-30, $kui-line-height-30));
-    margin-top: var(--spacing-md, var(--kui-space-60, $kui-space-60));
+    line-height: var(--kui-line-height-30, $kui-line-height-30);
+    margin-top: var(--kui-space-60, $kui-space-60);
   }
 }
 
@@ -389,7 +388,7 @@ $fullscreen-modal-padding: 64px;
 }
 
 .header-content {
-  border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+  border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
   display: inline-block;
   line-height: var(--kui-line-height-40, $kui-line-height-40);
   margin-bottom: var(--kui-space-auto, $kui-space-auto) !important;
@@ -400,7 +399,7 @@ $fullscreen-modal-padding: 64px;
 .k-modal-fullscreen-action-buttons {
   button,
   :deep(button) {
-    margin-left: var(--spacing-md, var(--kui-space-60, $kui-space-60));
+    margin-left: var(--kui-space-60, $kui-space-60);
   }
 
   @media (min-width: $kui-breakpoint-phablet) {

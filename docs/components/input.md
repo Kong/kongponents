@@ -438,35 +438,6 @@ const clearSearch = () => {
 </style>
 ```
 
-## Theming
-
-| Variable                     | Purpose                          |
-| :--------------------------- | :------------------------------- |
-| `--KInputColor`              | Input text color                 |
-| `--KInputBorder`             | Input border / label color       |
-| `--KInputBackground`         | Input and label background color |
-| `--KInputHover`              | Input border / label hover color |
-| `--KInputFocus`              | Input border / label focus color |
-| `--KInputDisabledBackground` | Input disabled background color  |
-| `--KInputError`              | Input error border color         |
-| `--KInputPlaceholderColor`   | Placeholder text color           |
-
-An Example of changing the error border color of KInput to pink might look like:
-
-<KInput class="custom-input" has-error type="email" model-value="error" />
-
-```html
-<template>
-  <KInput class="custom-input" has-error type="email" model-value="error" />
-</template>
-
-<style>
-.custom-input {
-  --KInputError: hotpink;
-}
-</style>
-```
-
 <script lang="ts">
 import { defineComponent } from 'vue'
 
@@ -490,10 +461,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.custom-input {
-  --KInputError: hotpink;
-}
-
 .clear-search {
   &:hover {
     path, circle {

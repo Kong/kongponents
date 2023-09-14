@@ -220,42 +220,6 @@ We provide the `isCollapsed` Vue 'ref' and the `toggle()` function as slot props
 - `@toggled` - Emitted when the trigger is clicked
 - `@update:modelValue` - Emitted when the `modelValue` is changed
 
-## Theming
-
-| Variable                | Purpose                    |
-| :---------------------- | :------------------------- |
-| `KCollapseTriggerColor` | Color of trigger text/icon |
-
-An example of theming the collapse:
-
-> Note: We are scoping the overrides to a wrapper in this example
-
-<KCard>
-  <template #body>
-    <div class="k-collapse-wrapper">
-      <KCollapse trigger-label="View more info">
-        Can you see me now?
-      </KCollapse>
-    </div>
-  </template>
-</KCard>
-
-```html
-<template>
-  <div class="k-collapse-wrapper">
-    <KCollapse trigger-label="View more info">
-      Can you see me now?
-    </KCollapse>
-  </div>
-</template>
-
-<style lang="scss">
-.k-collapse-wrapper {
-  --KCollapseTriggerColor: red;
-}
-</style>
-```
-
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
@@ -281,11 +245,5 @@ export default defineComponent({
 
 .trigger-wrapper {
   display: flex !important;
-}
-</style>
-
-<style lang="scss">
-.k-collapse-wrapper {
-  --KCollapseTriggerColor: red;
 }
 </style>

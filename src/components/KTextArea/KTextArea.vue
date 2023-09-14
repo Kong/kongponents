@@ -229,7 +229,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
 @import '@/styles/mixins';
 
 .k-input-wrapper {
@@ -245,7 +244,8 @@ export default {
     @include input-type-input;
 
     -webkit-appearance: none;
-    font-family: var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text));
+    appearance: none;
+    font-family: var(--kui-font-family-text, $kui-font-family-text);
     font-size: var(--kui-font-size-40, $kui-font-size-40) !important;
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular) !important;
     line-height: var(--kui-line-height-40, $kui-line-height-40) !important;
@@ -278,12 +278,12 @@ export default {
   }
 
   .over-char-limit {
-    color: var(--red-600, var(--kui-color-text-danger, $kui-color-text-danger));
+    color: var(--kui-color-text-danger, $kui-color-text-danger);
   }
 
   .text-on-input {
     label.hovered, label:hover {
-      color: var(--KInputHover, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+      color: var(--kui-color-text-primary, $kui-color-text-primary);
     }
 
      @include overlay-label-input;
@@ -292,7 +292,7 @@ export default {
   &.input-error {
     textarea.k-input.form-control {
       box-shadow: none !important;
-      outline: 1px solid var(--red-500, #d44324) !important;
+      outline: 1px solid #d44324 !important;
       transition: color $tmp-animation-timing-2 ease;
     }
   }

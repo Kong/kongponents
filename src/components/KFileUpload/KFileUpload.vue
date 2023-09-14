@@ -260,16 +260,15 @@ const resetInput = (): void => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 
 .k-file-upload {
   position: relative;
   width: 100% !important;
   $kInputPaddingY: var(--kui-space-40, $kui-space-40);
-  $kInputLabelMarginBottom: var(--KInputLabelMargin, var(--spacing-xs, var(--kui-space-40, $kui-space-40))); // matching KLabel margin bottom
-  $kInputLabelLineHeight: var(--KInputLabelLineHeight, var(--type-lg, var(--kui-line-height-30, $kui-line-height-30))); // matching KLabel line height
+  $kInputLabelMarginBottom: var(--kui-space-40, $kui-space-40); // matching KLabel margin bottom
+  $kInputLabelLineHeight: var(--kui-line-height-30, $kui-line-height-30); // matching KLabel line height
   $kInputLineHeight: var(--kui-line-height-40, $kui-line-height-40); // matching KInput line height
 
   .k-file-upload-label {
@@ -315,7 +314,7 @@ const resetInput = (): void => {
     background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
     border: none;
     cursor: pointer;
-    height: var(--spacing-lg, '24px');
+    height: 24px;
     padding: var(--kui-space-30, $kui-space-30);
     position: absolute;
     right: 120px;
@@ -323,7 +322,7 @@ const resetInput = (): void => {
     &:hover,
     &:active {
       background-color: var(--kui-color-background-transparent, $kui-color-background-transparent) !important;
-      box-shadow: 0 0 0 2px var(--white, var(--kui-color-background, $kui-color-background)), 0 0 0 4px var(--KButtonPrimaryBase, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary)));
+      box-shadow: 0 0 0 2px var(--kui-color-background, $kui-color-background), 0 0 0 4px var(--kui-color-background-primary, $kui-color-background-primary);
     }
   }
 
@@ -339,7 +338,7 @@ const resetInput = (): void => {
   }
 
   .image-upload-description {
-    color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
+    color: var(--kui-color-text-primary, $kui-color-text-primary);
     cursor: pointer;
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     left: 40px;
@@ -372,7 +371,7 @@ const resetInput = (): void => {
   }
 
   .display-name {
-    color: var(--black-70, var(--kui-color-text, $kui-color-text));
+    color: var(--kui-color-text, $kui-color-text);
     cursor: pointer !important;
     left: 20px;
     pointer-events: none;

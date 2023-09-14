@@ -121,7 +121,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+
 @import '@/styles/mixins';
 
 .k-checkbox {
@@ -130,7 +130,7 @@ export default {
   }
 
   .k-checkbox-label {
-    font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
+    font-size: var(--kui-font-size-30, $kui-font-size-30);
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     line-height: var(--kui-line-height-30, $kui-line-height-30);
     margin: var(--kui-space-0, $kui-space-0);
@@ -138,17 +138,17 @@ export default {
   }
 
   .k-checkbox-description {
-    color: var(--black-45, var(--kui-color-text, $kui-color-text));
-    font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
+    color: var(--kui-color-text, $kui-color-text);
+    font-size: var(--kui-font-size-30, $kui-font-size-30);
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     line-height: var(--kui-line-height-30, $kui-line-height-30);
-    padding-left: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
-    padding-top: var(--spacing-xxs, var(--kui-space-20, kui-space-20));
+    padding-left: var(--kui-space-80, $kui-space-80);
+    padding-top: var(--kui-space-20, $kui-space-20);
   }
 
   &.disabled {
     .k-checkbox-label {
-      color: var(--KCheckboxDisabledChecked, var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled)));
+      color: var(--kui-color-text-disabled, $kui-color-text-disabled);
     }
   }
 

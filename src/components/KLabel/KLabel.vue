@@ -13,7 +13,7 @@
       :test-mode="!!testMode || undefined"
     >
       <KIcon
-        :color="`var(--black-25, var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK}))`"
+        :color="`var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
         hide-title
         :icon="help ? 'help' : 'infoFilled'"
         :size="KUI_ICON_SIZE_30"
@@ -65,23 +65,21 @@ const hasTooltip = computed((): boolean => !!(props.info || props.help || slots.
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
 
 .k-input-label {
   color: var(--kui-color-text, $kui-color-text);
   display: inline-flex;
-  font-family: var(--KInputLabelFont, var(--font-family-sans, var(--kui-font-family-text, $kui-font-family-text)));
-  font-size: var(--KInputLabelSize, var(--type-sm, var(--kui-font-size-30, $kui-font-size-30)));
-  font-weight: var(--KInputLabelWeight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
-  line-height: var(--KInputLabelLineHeight, var(--type-lg, var(--kui-line-height-30, $kui-line-height-30)));
-  margin-bottom: var(--KInputLabelMargin, var(--spacing-xs, var(--kui-space-40, $kui-space-40)));
+  font-family: var(--kui-font-family-text, $kui-font-family-text);
+  font-size: var(--kui-font-size-30, $kui-font-size-30);
+  font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+  line-height: var(--kui-line-height-30, $kui-line-height-30);
+  margin-bottom: var(--kui-space-40, $kui-space-40);
 
   .is-required {
-    color: var(--KLabelRequiredAsteriskColor, var(--KInputLabelColor, var(--kui-color-text, $kui-color-text)));
-    font-size: var(--KInputLabelSize, var(--type-sm, var(--kui-font-size-30, $kui-font-size-30)));
-    font-weight: var(--KInputLabelWeight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
-    margin-left: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
+    color: var(--kui-color-text, $kui-color-text);
+    font-size: var(--kui-font-size-30, $kui-font-size-30);
+    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+    margin-left: var(--kui-space-20, $kui-space-20);
   }
 
   .label-tooltip {
@@ -100,14 +98,14 @@ const hasTooltip = computed((): boolean => !!(props.info || props.help || slots.
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
 
       code {
-        background-color: var(--grey-500, var(--kui-color-background-neutral, $kui-color-background-neutral));
-        color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
+        background-color: var(--kui-color-background-neutral, $kui-color-background-neutral);
+        color: var(--kui-color-text-inverse, $kui-color-text-inverse);
       }
     }
   }
 
   .kong-icon {
-    margin-left: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
+    margin-left: var(--kui-space-20, $kui-space-20);
   }
 }
 </style>

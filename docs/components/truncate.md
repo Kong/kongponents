@@ -66,12 +66,12 @@ When this prop is set to `true`, the component applies different logic; truncati
 ```html
 <template>
   <KTruncate is-text-content :rows="3">
-    <p>A good design decision to apply text truncation would be 
-      when displaying a <b>large amount of textual content</b>, such as a list 
-      of articles or product descriptions, in a limited space, such as 
-      a mobile screen or a small widget. By truncating the text to a 
-      short summary, it is possible to present the information in a more 
-      organized and readable manner, allowing the user to quickly scan 
+    <p>A good design decision to apply text truncation would be
+      when displaying a <b>large amount of textual content</b>, such as a list
+      of articles or product descriptions, in a limited space, such as
+      a mobile screen or a small widget. By truncating the text to a
+      short summary, it is possible to present the information in a more
+      organized and readable manner, allowing the user to quickly scan
       and understand the main points of each item.</p>
       <p>The truncated text can also serve as a teaser, encouraging the user to click or tap to view the full content.</p>
   </KTruncate>
@@ -191,59 +191,7 @@ Example of using the `expand-trigger` and `collapse-trigger` slots for creating 
 </template>
 ```
 
-## Theming
-
-| Variable                        | Purpose                                   |
-| :------------------------------ | :---------------------------------------- |
-| `--KTruncateToggleColor`        | Toggle element text color                 |
-| `--KTruncateCollapseIconColor`  | Collapse toggle icon color                |
-| `--KTruncateCollapseBackground` | Collapse toggle background color          |
-| `--KTruncateCollapseHover`      | Collapse toggle background color on hover |
-
-An example of changing the border color of KTruncate to green might look
-like:
-
-<KCard>
-  <template v-slot:body>
-    <div class="KTruncate-wrapper">
-      <KTruncate>
-        <KBadge v-for="n in 25" :key="n" appearance="success">
-          Item {{ n }}
-        </KBadge>
-      </KTruncate>
-    </div>
-  </template>
-</KCard>
-
-```html
-<template>
-  <div class="KTruncate-wrapper">
-    <KTruncate>
-      <KBadge v-for="n in 25" :key="n" appearance="success">
-        Item {{ n }}
-      </KBadge>
-    </KTruncate>
-  </div>
-</template>
-
 <style lang="scss">
-.KTruncate-wrapper {
-  --KTruncateToggleColor: green;
-  --KTruncateCollapseIconColor: lightgreen;
-  --KTruncateCollapseBackground: green;
-  --KTruncateCollapseHover: seagreen;
-}
-</style>
-```
-
-<style lang="scss">
-.KTruncate-wrapper {
-  --KTruncateToggleColor: green;
-  --KTruncateCollapseIconColor: lightgreen;
-  --KTruncateCollapseBackground: green;
-  --KTruncateCollapseHover: seagreen;
-}
-
 .custom-trigger {
   color: blue;
   text-decoration: underline;

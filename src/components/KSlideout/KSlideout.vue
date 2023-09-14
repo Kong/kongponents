@@ -48,7 +48,7 @@
           @click="(event: any) => emit('close')"
         >
           <KIcon
-            :color="`var(--kui-color-text-neutral-stronger, ${KUI_COLOR_TEXT_NEUTRAL_STRONGER})`"
+            :color="KUI_COLOR_TEXT_NEUTRAL_STRONGER"
             icon="close"
             :size="KUI_ICON_SIZE_50"
           />
@@ -145,13 +145,12 @@ const offsetTopValue = computed((): string => getSizeFromString(String(props.off
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 
 .k-slideout {
-  --KCardPaddingY: var(--kui-space-90, #{$kui-space-90});
-  --KCardPaddingX: var(--kui-space-110, #{$kui-space-110});
+  :deep(.kong-card) {
+    padding: var(--kui-space-110, $kui-space-110) var(--kui-space-90, $kui-space-90);
+  }
 
   .k-slideout-header-content {
     display: flex;
@@ -161,7 +160,7 @@ const offsetTopValue = computed((): string => getSizeFromString(String(props.off
     }
     .k-slideout-main-title {
       .k-slideout-title {
-        color: var(--black-400, var(--kui-color-text-neutral, $kui-color-text-neutral));
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
         flex:1;
         font-size: var(--kui-font-size-40, $kui-font-size-40);
         font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
@@ -176,7 +175,7 @@ const offsetTopValue = computed((): string => getSizeFromString(String(props.off
     }
   }
   .panel {
-    background-color: var(--white, var(--kui-color-background, $kui-color-background));
+    background-color: var(--kui-color-background, $kui-color-background);
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -202,7 +201,7 @@ const offsetTopValue = computed((): string => getSizeFromString(String(props.off
       transition: $tmp-animation-timing-2 ease;
 
       &:focus{
-        box-shadow: 0 0 0 2px var(--KButtonOutlineBorder, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)))
+        box-shadow: 0 0 0 2px var(--kui-color-border-primary, $kui-color-border-primary);
       }
     }
 
@@ -220,7 +219,7 @@ const offsetTopValue = computed((): string => getSizeFromString(String(props.off
       transition: $tmp-animation-timing-2 ease;
 
       &:focus{
-        box-shadow: 0 0 0 2px var(--KButtonOutlineBorder, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)))
+        box-shadow: 0 0 0 2px var(--kui-color-border-primary, $kui-color-border-primary);
       }
     }
 
@@ -228,13 +227,15 @@ const offsetTopValue = computed((): string => getSizeFromString(String(props.off
       height: 100%;
       -ms-overflow-style: none;  // IE 10+
       scrollbar-width: none;  // Firefox
-      &::-webkit-scrollbar { display: none; }
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 }
 
   .panel-background {
-    background: var(--black-45, $tmp-color-black-45);
+    background: $tmp-color-black-45;
     bottom: 0;
     left: 0;
     position: fixed;
@@ -254,8 +255,8 @@ const offsetTopValue = computed((): string => getSizeFromString(String(props.off
   }
 
   .border-styles {
-    border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
-    box-shadow: -2px 0px 5px var(--black-5, $tmp-color-black-5);
+    border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+    box-shadow: -2px 0px 5px $tmp-color-black-5;
   }
 </style>
 

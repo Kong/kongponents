@@ -49,20 +49,17 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
-
 $borderColor: #e6e6e6;
 .skeleton-card-wrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-md, var(--kui-space-60, $kui-space-60));
+  gap: var(--kui-space-60, $kui-space-60);
   justify-content: space-between;
   width: 100%;
 }
 .skeleton-card-column {
-  margin-bottom: var(--spacing-md, var(--kui-space-60, $kui-space-60));
-  width: var(--KSkeletonCardWidth, calc(33% - var(--spacing-md, 16px)));
+  margin-bottom: var(--kui-space-60, $kui-space-60);
+  width: calc(33% - 16px);
 }
 .skeleton-card {
   border: var(--kui-border-width-10, $kui-border-width-10) solid $borderColor;
@@ -71,10 +68,10 @@ $borderColor: #e6e6e6;
   flex-direction: column;
   min-height: 324px;
   overflow: hidden;
-  padding: var(--spacing-md, var(--kui-space-60, $kui-space-60));
+  padding: var(--kui-space-60, $kui-space-60);
   .skeleton-card-header {
     display: flex;
-    margin-bottom: var(--spacing-md, var(--kui-space-60, $kui-space-60));
+    margin-bottom: var(--kui-space-60, $kui-space-60);
     width: 100%;
 
     .card-header-content-2 {
@@ -94,7 +91,7 @@ $borderColor: #e6e6e6;
     display: flex;
     justify-content: space-between;
     margin-top: var(--kui-space-auto, $kui-space-auto);
-    padding-top: var(--spacing-md, var(--kui-space-60, $kui-space-60));
+    padding-top: var(--kui-space-60, $kui-space-60);
     width: 100%;
   }
 }

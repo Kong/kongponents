@@ -27,16 +27,14 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 
 .k-step-spinner > svg {
   animation: rotate 2s linear infinite;
 
   circle {
     animation: dash 1.5s ease-in-out infinite;
-    stroke: var(--KStepPendingColor, var(--teal-300, var(--kui-color-text-decorative, $kui-color-text-decorative)));
+    stroke: var(--kui-color-text-decorative, $kui-color-text-decorative);
     stroke-linecap: round;
   }
 }

@@ -62,47 +62,7 @@ If true, icon won't be rendered.
 
 - `default` - link text
 
-## Theming
-
-| Variable                    | Purpose                           |
-| :-------------------------- | :-------------------------------- |
-| `--KExternalLinkColor`      | Text and icon color               |
-| `--KExternalLinkColorHover` | Text and icon color on mouse over |
-
-An Example of changing the text color of KExternalLink to red might look
-like:
-
-<KCard>
-  <template v-slot:body>
-    <div class="KExternalLink-wrapper">
-      <KExternalLink href="https://kongponents.konghq.com/">Kongponents</KExternalLink>
-    </div>
-  </template>
-</KCard>
-
-```html
-<template>
-  <div class="KExternalLink-wrapper">
-    <KExternalLink href="https://kongponents.konghq.com/">
-      Kongponents
-    </KExternalLink>
-  </div>
-</template>
-
 <style lang="scss">
-.KExternalLink-wrapper {
-  --KExternalLinkColor: red;
-  --KExternalLinkColorHover: brown;
-}
-</style>
-```
-
-<style lang="scss">
-.KExternalLink-wrapper {
-  --KExternalLinkColor: red;
-  --KExternalLinkColorHover: brown;
-}
-
 .horizontal-spacing {
   margin-right: $kui-space-40;
 }

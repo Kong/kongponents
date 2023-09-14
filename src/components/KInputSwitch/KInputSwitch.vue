@@ -53,7 +53,7 @@
 
     <KIcon
       v-if="enabledIcon && modelValue === true"
-      :color="`var(--white, var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE}))`"
+      :color="`var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE})`"
       icon="check"
     />
 
@@ -159,7 +159,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
 @import '@/styles/tmp-variables';
 
 $kInputSwitchWidth: 44px;
@@ -201,7 +200,7 @@ $kInputSwitchTransition: $tmp-animation-timing-2 linear;
   }
 
   .switch-control {
-    background-color: var(--KInputSwitchBackground, var(--grey-400, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak)));
+    background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
     border-radius: 12px;
     display: block;
     height: $kInputSwitchHeight;
@@ -217,7 +216,7 @@ $kInputSwitchTransition: $tmp-animation-timing-2 linear;
 
     // Toggle
     &:after {
-      background-color: var(--white, var(--kui-color-background, $kui-color-background));
+      background-color: var(--kui-color-background, $kui-color-background);
       border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
       content: "";
       display: block;
@@ -243,7 +242,7 @@ $kInputSwitchTransition: $tmp-animation-timing-2 linear;
   input {
     display: none;
     &:checked + .switch-control {
-      background-color: var(--KInputSwitchOn, var(--green-500, $tmp-color-green-500));
+      background-color: $tmp-color-green-500;
       &:after {
         left: calc($kInputSwitchWidth / 2);
       }
@@ -251,7 +250,7 @@ $kInputSwitchTransition: $tmp-animation-timing-2 linear;
   }
 
   span {
-    color: var(--KInputSwitchLabel, var(--black-70, var(--kui-color-text, $kui-color-text)));
+    color: var(--kui-color-text, $kui-color-text);
   }
 }
 </style>
