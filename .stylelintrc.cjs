@@ -34,6 +34,6 @@ module.exports = {
   ],
   rules: {
     'order/properties-alphabetical-order': true,
-    '@kong/design-tokens/use-proper-token': [true, {disableFix: true}]
+    '@kong/design-tokens/use-proper-token': true,
   }
 }
