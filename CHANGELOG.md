@@ -1,5 +1,10 @@
-# [9.0.0-alpha.4](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.3...v9.0.0-alpha.4) (2023-09-12)
+## [8.123.7](https://github.com/Kong/kongponents/compare/v8.123.6...v8.123.7) (2023-09-13)
 
+### Bug Fixes
+
+* **kcodeblock:** dark theme styles not applying to slotted content ([#1723](https://github.com/Kong/kongponents/issues/1723)) ([082e4ca](https://github.com/Kong/kongponents/commit/082e4ca519917d2959c09ce244c405f8325da101))
+
+## [8.123.6](https://github.com/Kong/kongponents/compare/v8.123.5...v8.123.6) (2023-09-12)
 
 ### Bug Fixes
 
