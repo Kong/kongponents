@@ -110,7 +110,7 @@
         @get-next-offset="getNextOffset"
         @get-prev-offset="getPrevOffset"
       />
-      <span
+      <div
         class="page-size-select"
         data-testid="page-size-dropdown"
       >
@@ -125,7 +125,7 @@
           width="205"
           @selected="updatePageSize"
         />
-      </span>
+      </div>
     </div>
   </nav>
 </template>
@@ -374,6 +374,10 @@ watch(pageCount, (newVal, oldVal) => {
   color: var(--kui-color-text-primary, #{$kui-color-text-primary});
   font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
   line-height: var(--kui-line-height-30, $kui-line-height-30);
+
+  :deep(.k-button) {
+    font-size: var(--kui-font-size-30, $kui-font-size-30);
+  }
 }
 
 .pagination-button-container {
