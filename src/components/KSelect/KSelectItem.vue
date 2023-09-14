@@ -102,7 +102,7 @@ const handleClick = (e: MouseEvent): void => {
     }
 
     .k-select-item-label {
-      color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+      color: var(--kui-color-text, $kui-color-text);
       font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
       line-height: var(--kui-line-height-30, $kui-line-height-30);
@@ -111,7 +111,7 @@ const handleClick = (e: MouseEvent): void => {
       width: auto;
 
       :deep(.select-item-label) {
-        color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+        color: var(--kui-color-text, $kui-color-text);
         font-size: var(--kui-font-size-30, $kui-font-size-30);
         font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
         margin-bottom: var(--kui-space-20, $kui-space-20);

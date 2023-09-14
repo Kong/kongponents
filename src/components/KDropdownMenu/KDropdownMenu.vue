@@ -263,6 +263,16 @@ onMounted(() => {
     }
   }
 
+  .dropdown-trigger .k-button.k-dropdown-btn {
+    svg {
+      fill: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+
+      path {
+        stroke: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+      }
+    }
+  }
+
   .k-popover.k-dropdown-popover {
     z-index: 10000 !important;
 

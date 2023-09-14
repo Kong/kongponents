@@ -178,7 +178,7 @@ li.k-dropdown-item {
     position: relative;
 
     &:before {
-      background: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+      background: var(--kui-color-background-disabled, $kui-color-background-disabled);
       content: '';
       display: block;
       height: 1px;
@@ -193,7 +193,7 @@ li.k-dropdown-item {
   }
 
   &:hover {
-    background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+    background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
   }
 
   .k-dropdown-item-trigger,
