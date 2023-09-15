@@ -1072,7 +1072,7 @@ $dark-focusColor: $tmp-color-green-500;
 
 .k-code-block-secondary-actions {
   display: flex;
-  gap: var(--kui-space-20, $kui-space-20);
+  gap: var(--kui-space-40, $kui-space-40);
   position: absolute;
   right: 16px;
   top: 8px;
