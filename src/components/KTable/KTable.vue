@@ -883,11 +883,11 @@ const getPrevOffsetHandler = (): void => {
 // if using standard pagination with hidePaginationWhenOptional
 //  - hide if total <= min pagesize
 // if using offset-based pagination with hidePaginationWhenOptional
-//  - hide if neither previous/next offset exists and current data set count is <= min pagesize
+//  - hide if neither previous/next offset exists and current data set count is < min pagesize
 const shouldShowPagination = computed((): boolean => {
   return !!(props.fetcher && !props.disablePagination &&
         !(props.paginationType !== 'offset' && props.hidePaginationWhenOptional && total.value <= props.paginationPageSizes[0]) &&
-        !(props.paginationType === 'offset' && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value && data.value.length <= props.paginationPageSizes[0]))
+        !(props.paginationType === 'offset' && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value && data.value.length < props.paginationPageSizes[0]))
 })
 
 const getTestIdString = (message: string): string => {
@@ -946,6 +946,8 @@ watch([query, page, pageSize], async (newData, oldData) => {
 
   if (newQuery !== oldQuery && newPage !== 1) {
     page.value = 1
+    offsets.value = [null]
+    offset.value = null
   }
 
   // don't revalidate until we have finished initializing and made initial fetch
