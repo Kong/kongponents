@@ -600,8 +600,8 @@ $margin: var(--kui-space-30, $kui-space-30);
       }
 
       .range-display {
-        margin: var(--kui-space-0, $kui-space-0) auto var(--kui-space-0, $kui-space-0);
         line-height: $kui-line-height-30;
+        margin: var(--kui-space-0, $kui-space-0) auto var(--kui-space-0, $kui-space-0);
       }
 
       .relative-periods-container {
@@ -774,8 +774,8 @@ $margin: var(--kui-space-30, $kui-space-30);
 
       // Force Date display and Time inputs to expand to full width
       .vc-time-header, .vc-time-select-group {
-        width: 100%;
         text-align: left;
+        width: 100%;
       }
       .vc-date .vc-weekday,
       .vc-date .vc-month,
@@ -790,16 +790,12 @@ $margin: var(--kui-space-30, $kui-space-30);
     }
 
     .vc-pane-container {
-      // Minimize top padding
       .vc-header {
+        // Minimize top padding
         margin: 0 !important;
         padding: var(--kui-space-10, $kui-space-10) var(--kui-space-60, $kui-space-60) var(--kui-space-0, $kui-space-0);
-      }
 
-      .vc-header {
         // Month + Year
-        margin-bottom: var(--kui-space-40, $kui-space-40);
-
         .vc-title {
           color: $text-color;
           font-size: var(--kui-font-size-40, $kui-font-size-40);
