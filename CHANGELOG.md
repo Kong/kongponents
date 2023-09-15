@@ -1,3 +1,10 @@
+# [9.0.0-alpha.7](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.6...v9.0.0-alpha.7) (2023-09-15)
+
+
+### Bug Fixes
+
+* **ktable:** reset offset when new query is issued ([#1727](https://github.com/Kong/kongponents/issues/1727)) ([3dfc03f](https://github.com/Kong/kongponents/commit/3dfc03fddf0c80dd9b638689b2824de3b39d7491))
+
 # [9.0.0-alpha.6](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.5...v9.0.0-alpha.6) (2023-09-14)
 
 
