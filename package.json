@@ -50,6 +50,7 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
+    "@kong-ui-public/analytics-utilities": "^0.7.2",
     "axios": "^0.27.2",
     "date-fns": "^2.29.3",
     "date-fns-tz": "^1.3.7",

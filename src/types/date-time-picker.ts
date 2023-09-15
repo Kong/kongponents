@@ -1,18 +1,9 @@
 import type { AnyElementOf } from '@/types/utils'
-
+import type { TimePeriod } from '@kong-ui-public/analytics-utilities'
 export interface TimeRange {
   start: Date | number,
   end: Date | number,
   timePeriodsKey?: string
-}
-
-export interface TimePeriod {
-  key: string // unique identifier
-  display: string
-  timeframeText: string
-  timeframeLength: () => string
-  start: () => Date
-  end: () => Date
 }
 
 export interface TimeFrameSection {
