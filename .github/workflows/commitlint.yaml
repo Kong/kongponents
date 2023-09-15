@@ -1,0 +1,21 @@
+name: Lint Commit Messages
+
+on:
+  pull_request:
+
+jobs:
+  commitlint:
+    if: ${{ github.actor != 'renovate[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # See https://github.com/wagoid/commitlint-github-action/issues/560
+      - name: Remove tsconfig
+        run: rm tsconfig.json
+
+      - uses: wagoid/commitlint-github-action@v5.4.3
+        with:
+          configFile: commitlint.config.cjs
