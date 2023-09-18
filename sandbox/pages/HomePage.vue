@@ -24,7 +24,7 @@
             :is-visible="isToggled.value"
             @close="toggle"
           >
-            <SandboxNav @router-link-click="toggle" />
+            <SandboxNavComponent @router-link-click="toggle" />
           </KSlideout>
         </div>
       </KToggle>
@@ -32,7 +32,7 @@
   </div>
   <div class="sandbox-layout">
     <div class="desktop-nav-container">
-      <SandboxNav />
+      <SandboxNavComponent />
     </div>
     <div class="sandbox-container">
       <div
@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import SandboxNav from '../components/SandboxNav.vue'
+import SandboxNavComponent from '../components/SandboxNavComponent.vue'
 import { KToggle, KButton, KSlideout, KIcon } from '@/components'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
