@@ -768,7 +768,7 @@ $grid-spacing: var(--kui-space-20, $kui-space-20);
 
     .vc-time-picker {
       // Hide grey top border above each Time input group
-      border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--white, $tmp-color-white) !important; // token needed
+      border-top: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-white !important; // token needed
 
       // Force Date display and Time inputs to expand to full width
       .vc-time-header, .vc-time-select-group {
