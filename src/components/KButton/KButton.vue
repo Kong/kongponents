@@ -67,26 +67,24 @@
 import type { PropType } from 'vue'
 import { computed, useSlots, useAttrs } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import type { ButtonAppearance, ButtonAppearanceRecord, ButtonSize, ButtonSizeRecord } from '@/types'
+import { type ButtonAppearance, ButtonAppearances, type ButtonSize, ButtonSizes } from '@/types'
 import {
   KUI_COLOR_TEXT_NEUTRAL_WEAK,
   KUI_COLOR_TEXT_INVERSE,
   KUI_COLOR_TEXT_PRIMARY_STRONGER,
-  KUI_COLOR_TEXT_PRIMARY,
-  KUI_COLOR_TEXT_DANGER,
   KUI_ICON_SIZE_30,
 } from '@kong/design-tokens'
 
 const props = defineProps({
   /**
     * Base styling of the button
-    * One of ['primary', 'secondary', 'danger', 'creation', 'outline', 'btn-link', 'btn-link-danger', 'action-active']
+    * One of ['primary', 'secondary', 'tertiary', 'danger']
     */
   appearance: {
     type: String as PropType<ButtonAppearance>,
     default: 'outline',
     validator: (value: ButtonAppearance): boolean => {
-      return Object.values(appearances).indexOf(value) !== -1
+      return Object.values(ButtonAppearances).indexOf(value) !== -1
     },
   },
   /**
@@ -97,7 +95,7 @@ const props = defineProps({
     type: String as PropType<ButtonSize>,
     default: 'medium',
     validator: (value: ButtonSize): boolean => {
-      return Object.values(sizes).indexOf(value) !== -1
+      return Object.values(ButtonSizes).indexOf(value) !== -1
     },
   },
   /**
@@ -111,19 +109,19 @@ const props = defineProps({
     type: String,
     default: 'button',
   },
-  showCaret: {
+  showCaret: { // TODO: remove this prop
     type: Boolean,
     default: false,
   },
-  caretColor: {
+  caretColor: { // TODO: remove this prop
     type: String,
     default: undefined,
   },
-  isRounded: {
+  isRounded: { // TODO: remove this prop
     type: Boolean,
     default: true,
   },
-  icon: {
+  icon: { // TODO: remove this prop
     type: String,
     default: '',
   },
@@ -149,12 +147,6 @@ const iconColor = computed((): string => {
     return `var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE})`
   } else if (props.appearance === 'secondary') {
     return `var(--kui-color-text-primary-stronger, ${KUI_COLOR_TEXT_PRIMARY_STRONGER})`
-  } else if (props.appearance === 'outline') {
-    return `var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})`
-  } else if (props.appearance === 'btn-link') {
-    return `var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})`
-  } else if (props.appearance === 'btn-link-danger') {
-    return `var(--kui-color-text-danger, ${KUI_COLOR_TEXT_DANGER})`
   }
   return ''
 })
@@ -180,24 +172,6 @@ const strippedAttrs = computed((): typeof attrs => {
 </script>
 
 <script lang="ts">
-
-export const appearances: ButtonAppearanceRecord = {
-  primary: 'primary',
-  secondary: 'secondary',
-  danger: 'danger',
-  creation: 'creation',
-  outline: 'outline',
-  btnLink: 'btn-link',
-  btnLinkDanger: 'btn-link-danger',
-  actionActive: 'action-active',
-}
-
-export const sizes: ButtonSizeRecord = {
-  small: 'small',
-  medium: 'medium',
-  large: 'large',
-}
-
 export default {
   inheritAttrs: false,
 }

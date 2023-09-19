@@ -1,5 +1,6 @@
 import { mount } from 'cypress/vue'
-import KAlert, { appearances } from '@/components/KAlert/KAlert.vue'
+import KAlert from '@/components/KAlert/KAlert.vue'
+import { AlertAppearances } from '@/types'
 import { h } from 'vue'
 
 const rendersCorrectVariant = (variant) => {
@@ -16,8 +17,8 @@ const rendersCorrectVariant = (variant) => {
 }
 
 describe('KAlert', () => {
-  // Loop through appearances
-  Object.keys(appearances).map(v => rendersCorrectVariant(v))
+  // Loop through AlertAppearances
+  Object.keys(AlertAppearances).map(v => rendersCorrectVariant(v))
 
   it('renders info variant when no appearance prop', () => {
     mount(KAlert, {

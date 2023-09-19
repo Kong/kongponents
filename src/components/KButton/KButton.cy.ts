@@ -1,5 +1,6 @@
 import { mount } from 'cypress/vue'
-import KButton, { appearances } from '@/components/KButton/KButton.vue'
+import KButton from '@/components/KButton/KButton.vue'
+import { ButtonAppearances } from '@/types'
 
 const rendersCorrectAppearance = (variant: string) => {
   it(`renders kbutton with the ${variant} appearance`, () => {
@@ -17,8 +18,8 @@ const rendersCorrectAppearance = (variant: string) => {
 }
 
 describe('KButton', () => {
-  // Loop through appearances
-  Object.values(appearances).map(a => rendersCorrectAppearance(a))
+  // Loop through ButtonAppearances
+  Object.values(ButtonAppearances).map(a => rendersCorrectAppearance(a))
 
   it('sets small class when size passed', () => {
     mount(KButton, {

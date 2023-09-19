@@ -130,7 +130,7 @@ import type { PropType } from 'vue'
 import { computed, useSlots } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import type { AlertAppearance, AlertDismissType, AlertAppearanceRecord, AlertSize, AlertType } from '@/types'
+import { type AlertAppearance, type AlertDismissType, type AlertSize, type AlertType, AlertAppearances } from '@/types'
 import { KUI_ICON_SIZE_20, KUI_ICON_SIZE_60 } from '@kong/design-tokens'
 
 defineProps({
@@ -240,7 +240,7 @@ defineProps({
     type: String as PropType<AlertAppearance>,
     default: 'info',
     validator: (value: AlertAppearance): boolean => {
-      return Object.values(appearances).includes(value)
+      return Object.values(AlertAppearances).includes(value)
     },
   },
   /**
@@ -286,15 +286,6 @@ const dismissAlert = (): void => {
 
 const proceed = (): void => {
   emit('proceed')
-}
-</script>
-
-<script lang="ts">
-export const appearances: AlertAppearanceRecord = {
-  info: 'info',
-  success: 'success',
-  danger: 'danger',
-  warning: 'warning',
 }
 </script>
 

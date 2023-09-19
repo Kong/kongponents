@@ -16,6 +16,10 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KAlert
 
+#### Constants, Types & Interfaces
+
+* `appearances` const is no longer exported by the KAlert component. Instead, you can import `AlertAppearances` from `@kong/kongponents` directly.
+
 
 ### KBadge
 
@@ -25,6 +29,15 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KButton
 
+#### Constants, Types & Interfaces
+
+* `appearances` and `sizes` constants are no longer exported by the KButton component. Instead, you can import `ButtonAppearances` and `ButtonSizes` from `@kong/kongponents` directly.
+
+#### Props
+
+#### Slots
+
+#### Events
 
 ### KCard
 
