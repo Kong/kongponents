@@ -524,7 +524,7 @@ onMounted(() => {
 @import '@/styles/mixins';
 
 $timepicker-min-width: 360px;
-$grid-spacing: var(--kui-space-20, $kui-space-20);
+$grid-spacing: var(--kui-space-30, $kui-space-30);
 
 .k-datetime-picker {
   max-width: 100%; // Prevent overflowing the container
