@@ -110,7 +110,7 @@
     "postcss-html": "^1.5.0",
     "rimraf": "^5.0.1",
     "rollup-plugin-visualizer": "^5.9.2",
-    "sass": "^1.66.1",
+    "sass": "^1.67.0",
     "semantic-release": "^21.1.1",
     "stylelint": "^15.10.3",
     "stylelint-config-html": "^1.1.0",
