@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.0.0-alpha.7",
+  "version": "9.0.0-alpha.8",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -49,17 +49,17 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "@kong/icons": "^1.5.0",
-    "@popperjs/core": "^2.11.8",
+    "@kong/icons": "^1.6.0",
     "axios": "^0.27.2",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
     "focus-trap": "^7.5.2",
     "focus-trap-vue": "^4.0.2",
     "popper.js": "^1.16.1",
+    "@popperjs/core": "^2.11.8",
     "sortablejs": "^1.15.0",
     "swrv": "^1.0.4",
-    "uuid": "^9.0.0",
+    "uuid": "^9.0.1",
     "v-calendar": "^3.0.3",
     "vue-draggable-next": "^2.2.1"
   },
@@ -69,20 +69,20 @@
     "vue-router": "^4.2.4"
   },
   "devDependencies": {
-    "@babel/types": "^7.22.17",
+    "@babel/types": "^7.22.19",
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-conventional": "^17.7.0",
     "@cypress/vite-dev-server": "^5.0.6",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
-    "@evilmartians/lefthook": "^1.4.10",
+    "@evilmartians/lefthook": "^1.4.11",
     "@kong/design-tokens": "^1.10.2",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/inquirer": "^9.0.3",
-    "@types/node": "^18.17.15",
+    "@types/node": "^18.17.16",
     "@types/node-emoji": "^1.8.2",
     "@types/sortablejs": "^1.15.2",
-    "@types/uuid": "^9.0.3",
+    "@types/uuid": "^9.0.4",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
     "@typescript-eslint/parser": "^6.7.0",
     "@vitejs/plugin-vue": "^4.3.4",
@@ -111,8 +111,8 @@
     "postcss-html": "^1.5.0",
     "rimraf": "^5.0.1",
     "rollup-plugin-visualizer": "^5.9.2",
-    "sass": "^1.66.1",
-    "semantic-release": "^21.1.1",
+    "sass": "^1.67.0",
+    "semantic-release": "^21.1.2",
     "stylelint": "^15.10.3",
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-recommended-scss": "^12.0.0",
@@ -124,7 +124,7 @@
     "vitepress": "^1.0.0-rc.13",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4",
-    "vue-tsc": "^1.8.10"
+    "vue-tsc": "^1.8.11"
   },
   "author": {
     "name": "Kong Inc.",
