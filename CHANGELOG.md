@@ -1,3 +1,10 @@
+# [9.0.0-alpha.9](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.8...v9.0.0-alpha.9) (2023-09-26)
+
+
+### Features
+
+* **datetimepicker:** update v-calendar dependency [MA-2030] ([#1728](https://github.com/Kong/kongponents/issues/1728)) ([cb8b7cb](https://github.com/Kong/kongponents/commit/cb8b7cb75559dca2874f39ce53af55e69bcd0584))
+
 # [9.0.0-alpha.8](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.7...v9.0.0-alpha.8) (2023-09-20)
 
 
