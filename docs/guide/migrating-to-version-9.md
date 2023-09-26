@@ -35,6 +35,15 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Props
 
+* `showCaret` prop is deprecated
+* `caretColor` prop is deprecated
+* `isRounded` prop is deprecated
+* `icon` prop is deprecated
+
+#### Slots
+
+* `icon` slot is deprecated (instead, you can use the new `before` and `after` slots)
+
 #### Slots
 
 #### Events
