@@ -118,7 +118,7 @@ describe('KDateTimePicker', () => {
     cy.getTestId(timepickerInput).should('exist')
     cy.getTestId(timepickerInput).click()
     cy.get('.vc-pane-container').should('exist')
-    cy.get('.vc-pane-container').find('.vc-time-select').should('not.exist')
+    cy.get('.vc-pane-container').find('.vc-time-picker').should('not.exist')
   })
 
   it('renders a single date and time picker', () => {
@@ -132,7 +132,7 @@ describe('KDateTimePicker', () => {
     cy.getTestId(timepickerInput).should('exist')
     cy.getTestId(timepickerInput).click()
     cy.get('.vc-pane-container').should('exist')
-    cy.get('.vc-pane-container').find('.vc-time-select').should('exist')
+    cy.get('.vc-pane-container').find('.vc-time-picker').should('exist')
     cy.getTestId(timepickerInput).find('.timepicker-display').should('contain.text', todayDateTimeString)
   })
 
@@ -152,7 +152,7 @@ describe('KDateTimePicker', () => {
     wrapper.should('exist')
     wrapper.getTestId(timepickerInput).should('exist')
     wrapper.getTestId(timepickerInput).click()
-    wrapper.get('.vc-pane-container .vc-time-select').should('exist')
+    wrapper.get('.vc-pane-container .vc-time-picker').should('exist')
   })
 
   it('displays a valid date when "Submit" is clicked', () => {

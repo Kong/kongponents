@@ -268,20 +268,26 @@ const emit = defineEmits<{
 
 // https://vcalendar.io/datepicker.html#model-config
 const modelConfig = { type: 'number' }
+
+// TODO: Resolve type issues in a cleaner fashion
 const calendarSelectAttributes = {
+  key: 'select-calendar',
   highlight: {
-    start: { class: 'vcal-day-start' },
-    base: { class: 'vcal-day-base' },
-    end: { class: 'vcal-day-end' },
+    start: { contentClass: 'vcal-day-start' },
+    base: { contentClass: 'vcal-day-base' },
+    end: { contentClass: 'vcal-day-end' },
   },
-}
+} as any
+
+// TODO: Resolve type issues in a cleaner fashion
 const calendarDragAttributes = {
+  key: 'select-drag',
   highlight: {
-    start: { class: 'vcal-day-drag-start' },
-    base: { class: 'vcal-day-drag-base' },
-    end: { class: 'vcal-day-drag-end' },
+    start: { contentClass: 'vcal-day-drag-start' },
+    base: { contentClass: 'vcal-day-drag-base' },
+    end: { contentClass: 'vcal-day-drag-end' },
   },
-}
+} as any
 
 const selectedCalendarRange = ref<TimeRange | Date | string>(props.modelValue)
 
@@ -518,7 +524,7 @@ onMounted(() => {
 @import '@/styles/mixins';
 
 $timepicker-min-width: 360px;
-$margin: var(--kui-space-30, $kui-space-30);
+$grid-spacing: var(--kui-space-30, $kui-space-30);
 
 .k-datetime-picker {
   max-width: 100%; // Prevent overflowing the container
@@ -594,6 +600,7 @@ $margin: var(--kui-space-30, $kui-space-30);
       }
 
       .range-display {
+        line-height: $kui-line-height-30;
         margin: var(--kui-space-0, $kui-space-0) auto var(--kui-space-0, $kui-space-0);
       }
 
@@ -614,17 +621,15 @@ $margin: var(--kui-space-30, $kui-space-30);
           margin-top: var(--kui-space-40, $kui-space-40) !important;
         }
         .timeframe-buttons {
-          display: flex !important;
-          flex-wrap: wrap;
+          column-gap: $grid-spacing;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          row-gap: $grid-spacing;
 
           .timeframe-btn {
-            // Only 2 of 3 columns will have a right margin; subtract margin / 2
-            flex: 0 calc(33% - 3px);
             font-size: var(--kui-font-size-30, $kui-font-size-30);
             font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
             justify-content: center;
-            margin-bottom: $margin;
-            margin-right: $margin;
             padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
 
             &.selected-option {
@@ -645,7 +650,7 @@ $margin: var(--kui-space-30, $kui-space-30);
     }
 
     .k-popover-footer {
-      margin: var(--kui-space-60, $kui-space-60) auto var(--kui-space-0, $kui-space-0);
+      margin: var(--kui-space-20, $kui-space-20) auto var(--kui-space-0, $kui-space-0);
 
       .datetime-picker-footer-container {
         display: flex !important;
@@ -654,7 +659,7 @@ $margin: var(--kui-space-30, $kui-space-30);
         // Apply / Clear buttons
         // TODO these overrides should be applied to Kongponents button
         .action-btn {
-          padding: var(--kui-space-0, $kui-space-0) var(--kui-space-60, $kui-space-60) var(--kui-space-40, $kui-space-40);
+          padding: var(--kui-space-40, $kui-space-40) var(--kui-space-60, $kui-space-60);
           &:focus {
             box-shadow: none;
           }
@@ -677,10 +682,8 @@ $margin: var(--kui-space-30, $kui-space-30);
 
   .vc-container {
     border: var(--kui-border-width-0, $kui-border-width-0);
+    width: 100%;
 
-    .vc-time-icon {
-      display: none;
-    }
     .vc-bordered {
       border: var(--kui-border-width-0, $kui-border-width-0);
     }
@@ -764,10 +767,30 @@ $margin: var(--kui-space-30, $kui-space-30);
     }
 
     .vc-time-picker {
+      // Hide grey top border above each Time input group
       border-top: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-white !important; // token needed
 
-      &:last-of-type {
-        padding-bottom: var(--kui-space-0, $kui-space-0);
+      // Force Date display and Time inputs to expand to full width
+      .vc-time-header, .vc-time-select-group {
+        background-color: white;
+        border: none;
+        text-align: left;
+        width: 100%;
+
+        .vc-base-select {
+          &:last-child {
+            margin-left: 2px;
+          }
+          select {
+            border: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-gray-weaker;
+            color: $text-color-darker;
+            margin: 0 3px;
+
+            &:hover {
+              background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+            }
+          }
+        }
       }
       .vc-date .vc-weekday,
       .vc-date .vc-month,
@@ -776,24 +799,32 @@ $margin: var(--kui-space-30, $kui-space-30);
       }
     }
 
+    // Hide clock icon preceeding Time inputs
+    .vc-time-select-group .vc-base-icon {
+      display: none;
+    }
+
     .vc-pane-container {
-      // Minimize top padding
-      .vc-arrows-container,
       .vc-header {
+        // Minimize top padding
+        margin: 0 !important;
         padding: var(--kui-space-10, $kui-space-10) var(--kui-space-60, $kui-space-60) var(--kui-space-0, $kui-space-0);
-      }
 
-      .vc-header {
         // Month + Year
-        margin-bottom: var(--kui-space-40, $kui-space-40);
-
         .vc-title {
+          background-color: white;
           color: $text-color;
           font-size: var(--kui-font-size-40, $kui-font-size-40);
+
           &:hover,
           &:active {
             color: $text-color-darker;
           }
+        }
+
+        // Previous / Next arrows
+        .vc-arrow {
+          background-color: white;
         }
       }
       // Calendar content (weekday headings and full month)

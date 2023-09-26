@@ -4,8 +4,5 @@
   ],
   "baseBranches": [
     "alpha"
-  ],
-  "ignoreDeps": [
-    "v-calendar"
   ]
 }

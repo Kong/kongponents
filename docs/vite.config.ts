@@ -15,7 +15,7 @@ export default defineConfig({
       // This just ensures the style import isn't impacted by the separate v-calendar alias below
       'v-calendar/dist/style.css': path.resolve(__dirname, '../node_modules/v-calendar/dist/style.css'),
       // We must alias `v-calendar` here for the docs build to specifically utilize the esm build
-      'v-calendar': path.resolve(__dirname, '../node_modules/v-calendar/dist/v-calendar.es.js'),
+      'v-calendar': path.resolve(__dirname, '../node_modules/v-calendar/dist/es/index.js'),
       // We must alias `@kong/design-tokens` imports to specifically utilize the esm build
       '@kong/design-tokens/tokens/scss/variables': path.resolve(__dirname, '../node_modules/@kong/design-tokens/dist/tokens/scss/variables.scss'),
       '@kong/design-tokens': path.resolve(__dirname, '../node_modules/@kong/design-tokens/dist/tokens/js/'),
