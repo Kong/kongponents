@@ -36,7 +36,7 @@ export default defineConfig({
     },
   },
   // TODO: Remove `alpha`
-  base: process.env.GITHUB_PAGES ? '/kongponents/alpha/' : '/',
+  base: process.env.USE_SANDBOX ? '/kongponents/alpha/' : '/',
   build: {
     lib: process.env.USE_SANDBOX
       ? undefined
