@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 export default createRouter({
-  history: createWebHistory('/kongponents/alpha'),
+  history: createWebHistory('/kongponents'),
   routes: [
     {
       path: '/',
