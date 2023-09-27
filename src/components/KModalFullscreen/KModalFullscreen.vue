@@ -162,7 +162,7 @@ const props = defineProps({
   */
   cancelButtonAppearance: {
     type: String as PropType<ButtonAppearance>,
-    default: 'outline',
+    default: 'secondary',
   },
   /**
   *  Pass the type of icon for the header on the left

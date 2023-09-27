@@ -434,7 +434,7 @@ There are 3 primary item types:
     >
       Button w/ action
       <KButton
-        appearance="btn-link"
+        appearance="tertiary"
         @click.stop="() => { actionClickHandler(); closeDropdown(); }"
       >
         <KIcon icon="trash" />

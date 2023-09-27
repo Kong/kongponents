@@ -12,7 +12,7 @@
       <KToggle v-slot="{ isToggled, toggle }">
         <div>
           <KButton
-            appearance="btn-link"
+            appearance="secondary"
             size="small"
             @click="toggle"
           >

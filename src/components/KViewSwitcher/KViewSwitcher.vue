@@ -1,6 +1,6 @@
 <template>
   <KButton
-    appearance="outline"
+    appearance="secondary"
     class="k-view-switcher view-switch-button"
     :class="[view, { paused: isPaused }]"
     :is-rounded="false"

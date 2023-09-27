@@ -17,27 +17,27 @@ The Button component can take 1 of 6 appearance values:
 
 - `primary`
 - `secondary`
-- `outline`
+- `secondary`
 - `danger`
 - `creation`
-- `btn-link`
+- `tertiary`
 
 <div class="spacing-container">
   <KButton appearance="primary">Primary</KButton>
   <KButton appearance="secondary">Secondary</KButton>
-  <KButton appearance="outline">Outline</KButton>
+  <KButton appearance="secondary">Outline</KButton>
   <KButton appearance="danger">Danger</KButton>
   <KButton appearance="creation">Creation</KButton>
-  <KButton appearance="btn-link">btn-link</KButton>
+  <KButton appearance="tertiary">tertiary</KButton>
 </div>
 
 ```html
 <KButton appearance="primary">Primary</KButton>
 <KButton appearance="secondary">Secondary</KButton>
-<KButton appearance="outline">Outline</KButton>
+<KButton appearance="secondary">Outline</KButton>
 <KButton appearance="danger">Danger</KButton>
 <KButton appearance="creation">Creation</KButton>
-<KButton appearance="btn-link">btn-link</KButton>
+<KButton appearance="tertiary">tertiary</KButton>
 ```
 
 ### size
@@ -65,14 +65,14 @@ We support `small`, `medium`, and `large` sizes, default to `medium`.
 Use this prop if you would like the KButton to display a dropdown caret to the right hand side.
 
 <KComponent :data="{ isActive: false}" v-slot="{ data }">
-  <KButton :appearance="data.isActive ? 'primary' : 'outline'" @click="data.isActive = !data.isActive" show-caret>I'm an {{ data.isActive ? 'active' : 'inactive' }} button</KButton>
+  <KButton :appearance="data.isActive ? 'primary' : 'secondary'" @click="data.isActive = !data.isActive" show-caret>I'm an {{ data.isActive ? 'active' : 'inactive' }} button</KButton>
 </KComponent>
 
 > The `KComponent` component is used in this example to create state.
 
 ```html
 <KComponent :data="{ isActive: false }" v-slot="{ data }">
-  <KButton :appearance="data.isActive ? 'primary' : 'outline'" @click="data.isActive = !data.isActive" show-caret>
+  <KButton :appearance="data.isActive ? 'primary' : 'secondary'" @click="data.isActive = !data.isActive" show-caret>
     I'm an {{ data.isActive ? 'active' : 'inactive' }} button
   </KButton>
 </KComponent>
@@ -134,12 +134,12 @@ coloring to the icon depending on the `disabled` state of the button.
 
 KButton can render either a `<a>` or `<router-link>` by simply passing the `to` prop. If it receives an object it will render a router link. If it receives a string it will render an HTML anchor tag
 
-<KButton :to="{path: '/'}" appearance="btn-link">Router Link!</KButton>
-<KButton to="http://google.com" appearance="btn-link">Anchor Link!</KButton>
+<KButton :to="{path: '/'}" appearance="tertiary">Router Link!</KButton>
+<KButton to="http://google.com" appearance="tertiary">Anchor Link!</KButton>
 
 ```html
-<KButton :to="{path: '/'}" appearance="btn-link">Router Link!</KButton>
-<KButton to="http://google.com" appearance="btn-link">Anchor Link!</KButton>
+<KButton :to="{path: '/'}" appearance="tertiary">Router Link!</KButton>
+<KButton to="http://google.com" appearance="tertiary">Anchor Link!</KButton>
 ```
 
 ### Disabled HTML Attribute
@@ -147,11 +147,11 @@ KButton can render either a `<a>` or `<router-link>` by simply passing the `to` 
 KButton also supports the disabled attribute with both Button and Anchor types.
 
 <KButton appearance="danger" disabled>Disabled Danger</KButton>
-<KButton to="http://google.com" appearance="btn-link" disabled>Disabled Native Anchor Link</KButton>
+<KButton to="http://google.com" appearance="tertiary" disabled>Disabled Native Anchor Link</KButton>
 
 ```html
 <KButton appearance="danger" disabled>Disabled Danger</KButton>
-<KButton to="http://google.com" appearance="btn-link" disabled>Disabled Native Anchor Link</KButton>
+<KButton to="http://google.com" appearance="tertiary" disabled>Disabled Native Anchor Link</KButton>
 ```
 
 :::warning NOTE

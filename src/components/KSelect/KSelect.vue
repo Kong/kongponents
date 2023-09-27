@@ -86,8 +86,7 @@
             <KButton
               :id="selectTextId"
               v-bind="modifiedAttrs"
-              appearance="btn-link"
-              :is-rounded="false"
+              appearance="secondary"
               :style="widthStyle"
               @keyup="(evt: any) => triggerFocus(evt, isToggled)"
             >
@@ -837,7 +836,7 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
     }
   }
 
-  .k-button.btn-link {
+  .k-button.tertiary {
     padding: var(--kui-space-50, $kui-space-50) var(--kui-space-80, $kui-space-80);
     text-decoration: none;
 
@@ -997,8 +996,8 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
   }
 
   .k-select-button {
-    .k-button.btn-link:hover,
-    &.k-button.btn-link:hover {
+    .k-button.tertiary:hover,
+    &.k-button.tertiary:hover {
       text-decoration: none;
     }
   }

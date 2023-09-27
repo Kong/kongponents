@@ -81,7 +81,7 @@ The Toaster uses the same appearance values as [KAlert](/components/alert) and a
 <KButton class="my-button" appearance="primary" @click="openNotification({'appearance': 'info', 'message':'This toaster has info appearance'})">Open Toaster</KButton>
 <KButton class="success my-button" appearance="creation" @click="openNotification({'appearance': 'success', 'message':'This toaster has success appearance'})">Open Toaster</KButton>
 <KButton class="my-button" appearance="danger" @click="openNotification({'appearance': 'danger', 'message':'This toaster has danger appearance'})">Open Toaster</KButton>
-<KButton class="warning my-button" appearance="outline" @click="openNotification({'appearance': 'warning', 'message':'This toaster has warning appearance'})">Open Toaster</KButton>
+<KButton class="warning my-button" appearance="secondary" @click="openNotification({'appearance': 'warning', 'message':'This toaster has warning appearance'})">Open Toaster</KButton>
 
 ```html
 <template>

@@ -143,7 +143,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     tag: KButton,
     onClick: handleClick,
     attrs: {
-      class: 'k-dropdown-item-trigger k-button btn-link',
+      class: 'k-dropdown-item-trigger k-button tertiary',
       disabled: props.disabled,
       isRounded: false,
     },
@@ -198,7 +198,7 @@ li.k-dropdown-item {
 
   .k-dropdown-item-trigger,
   // Override .btn-link styles
-  .k-dropdown-item-trigger.btn-link {
+  .k-dropdown-item-trigger.tertiary {
     color: var(--kui-color-text, $kui-color-text);
     line-height: var(--kui-line-height-40, $kui-line-height-40);
     padding: var(--kui-space-60, $kui-space-60) var(--kui-space-80, $kui-space-80);

@@ -99,13 +99,11 @@
 
       <div class="k-search-actions">
         <KButton
-          :appearance="isRegExpMode ? 'action-active' : 'outline'"
+          appearance="secondary"
           :aria-pressed="isRegExpMode"
           class="k-regexp-mode-button"
           data-testid="k-code-block-regexp-mode-button"
-          :is-rounded="false"
           size="small"
-          :title="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
           type="button"
           @click="toggleRegExpMode"
         >
@@ -115,14 +113,12 @@
         </KButton>
 
         <KButton
-          :appearance="isFilterMode ? 'action-active' : 'outline'"
+          appearance="secondary"
           :aria-pressed="isFilterMode"
           class="k-filter-mode-button"
           data-testid="k-code-block-filter-mode-button"
           icon="filter"
-          :is-rounded="false"
           size="small"
-          :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
           type="button"
           @click="toggleFilterMode"
         >
@@ -143,9 +139,7 @@
           class="k-previous-match-button"
           data-testid="k-code-block-previous-match-button"
           :disabled="matchingLineNumbers.length === 0 || isFilterMode"
-          :is-rounded="false"
           size="small"
-          title="Previous match (Shift+F3)"
           type="button"
           @click="jumpToPreviousMatch"
         >
@@ -166,9 +160,7 @@
           class="k-next-match-button"
           data-testid="k-code-block-next-match-button"
           :disabled="matchingLineNumbers.length === 0 || isFilterMode"
-          :is-rounded="false"
           size="small"
-          title="Next match (F3)"
           type="button"
           @click="jumpToNextMatch"
         >
@@ -252,12 +244,10 @@
       >
         <KButton
           v-if="showCopyButton"
-          appearance="outline"
+          appearance="secondary"
           class="k-code-block-copy-button"
           data-testid="k-code-block-copy-button"
-          :is-rounded="false"
           size="small"
-          :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
           type="button"
           @click="copyCode"
         >

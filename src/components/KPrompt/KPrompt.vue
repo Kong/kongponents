@@ -64,7 +64,7 @@
       <div class="k-prompt-action-buttons">
         <slot name="action-buttons">
           <KButton
-            appearance="outline"
+            appearance="secondary"
             class="k-prompt-cancel"
             @click="close"
           >

@@ -539,7 +539,7 @@ const proceed = (): void => {
       }
     }
 
-    &.info button.outline {
+    &.info button.secondary {
       border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
       color: var(--kui-color-text-primary, $kui-color-text-primary);
     }
@@ -549,7 +549,7 @@ const proceed = (): void => {
       color: $tmp-color-yellow-500;
     }
 
-    &.warning button.outline {
+    &.warning button.secondary {
       border: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-yellow-300;
       color: $tmp-color-yellow-500;
     }
@@ -559,7 +559,7 @@ const proceed = (): void => {
       color: $tmp-color-green-600;
     }
 
-    &.success button.outline {
+    &.success button.secondary {
       border: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-green-400;
       color: $tmp-color-green-600;
     }
@@ -569,7 +569,7 @@ const proceed = (): void => {
       color: var(--kui-color-text-danger, $kui-color-text-danger);
     }
 
-    &.danger button.outline {
+    &.danger button.secondary {
       border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-danger-weak, $kui-color-border-danger-weak);
     }
   }

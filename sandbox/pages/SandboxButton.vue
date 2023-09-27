@@ -476,7 +476,10 @@
       is-subtitle
       title="Legacy"
     />
-    <SandboxSectionComponent title="Icon Prop">
+    <SandboxSectionComponent
+      description="Using KIcon."
+      title="Icon Prop"
+    >
       <div class="horizontal-spacing">
         <KButton
           icon="chevronDown"

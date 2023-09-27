@@ -31,8 +31,7 @@
             <div>
               <KButton
                 v-if="label || icon"
-                :appearance="appearance === 'selectionMenu' ? 'outline' : buttonAppearance"
-                :caret-color="caretColor"
+                :appearance="appearance === 'selectionMenu' ? 'secondary' : buttonAppearance"
                 class="k-dropdown-btn"
                 data-testid="k-dropdown-btn"
                 :disabled="disabled"
@@ -41,6 +40,7 @@
                 {{ label }}
                 <KIcon
                   v-if="showCaret || appearance !== 'selectionMenu'"
+                  :color="caretColor"
                   icon="chevronDown"
                 />
               </KButton>

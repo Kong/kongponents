@@ -20,7 +20,7 @@
           :truncated-count="truncatedCount"
         >
           <KButton
-            appearance="btn-link"
+            appearance="tertiary"
             class="expand-trigger"
             @click="handleToggleClick"
           >
@@ -45,7 +45,6 @@
           <KButton
             appearance="primary"
             class="collapse-trigger"
-            is-rounded
             @click="handleToggleClick"
           >
             <KIcon
@@ -72,7 +71,7 @@
           name="expand-trigger"
         >
           <KButton
-            appearance="btn-link"
+            appearance="tertiary"
             class="expand-trigger"
             @click="handleToggleClick"
           >
@@ -86,7 +85,7 @@
           name="collapse-trigger"
         >
           <KButton
-            appearance="btn-link"
+            appearance="tertiary"
             class="collapse-trigger"
             @click="handleToggleClick"
           >
