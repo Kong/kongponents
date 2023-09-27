@@ -11,7 +11,6 @@
       :aria-expanded="isOpen && expandable || undefined"
       :aria-labelledby="menuItemId || undefined"
       class="menu-button"
-      :is-rounded="false"
       type="button"
       @click="toggleMenuItem"
     >

@@ -39,14 +39,20 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Props
 
+* some values `appearance` prop accepts were changed:
+  * `outline` is no longer supported (we suggest using `secondary` instead)
+  * `creation` is no longer supported
+  * `btn-link` is no longer accepted (we suggest using `tertiary` instead)
+  * `btn-link-danger` is no longer supported
+  * `action-active` is no longer supported
 * `showCaret` prop is removed
 * `caretColor` prop is removed
 * `isRounded` prop is removed
-* `icon` prop is removed
+* `icon` prop is removed (TODO: [beta])
 
 #### Slots
 
-* `icon` slot is removed (instead, you can use the new `before` and `after` slots)
+* `icon` slot is removed (TODO: [beta])
 
 #### Events
 

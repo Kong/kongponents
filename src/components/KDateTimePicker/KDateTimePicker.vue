@@ -109,7 +109,6 @@
             appearance="tertiary"
             class="action-btn"
             data-testid="k-datetime-picker-clear"
-            :is-rounded="false"
             size="medium"
             @click="clearSelection()"
           >

@@ -30,7 +30,6 @@
       :aria-hidden="hidden ? true : undefined"
       class="k-badge-dismiss-button"
       data-testid="k-badge-dismiss-button"
-      :is-rounded="shape === 'rounded'"
       :tabindex="hidden ? -1 : undefined"
       @click="handleDismiss"
       @click.stop

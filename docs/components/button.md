@@ -13,31 +13,25 @@ and configuration options.
 
 ### appearance
 
-The Button component can take 1 of 6 appearance values:
+The Button component can take 1 of 4 appearance values:
 
 - `primary`
 - `secondary`
-- `secondary`
-- `danger`
-- `creation`
 - `tertiary`
+- `danger`
 
 <div class="spacing-container">
   <KButton appearance="primary">Primary</KButton>
   <KButton appearance="secondary">Secondary</KButton>
-  <KButton appearance="secondary">Outline</KButton>
+  <KButton appearance="tertiary">Tertiary</KButton>
   <KButton appearance="danger">Danger</KButton>
-  <KButton appearance="creation">Creation</KButton>
-  <KButton appearance="tertiary">tertiary</KButton>
 </div>
 
 ```html
 <KButton appearance="primary">Primary</KButton>
 <KButton appearance="secondary">Secondary</KButton>
-<KButton appearance="secondary">Outline</KButton>
+<KButton appearance="tertiary">Tertiary</KButton>
 <KButton appearance="danger">Danger</KButton>
-<KButton appearance="creation">Creation</KButton>
-<KButton appearance="tertiary">tertiary</KButton>
 ```
 
 ### size
@@ -49,71 +43,34 @@ We support `small`, `medium`, and `large` sizes, default to `medium`.
 - `large`
 
 <div class="spacing-container">
-  <KButton appearance="secondary" size="small">Small</KButton>
-  <KButton appearance="secondary" size="medium">Medium</KButton>
-  <KButton appearance="secondary" size="large">Large</KButton>
+  <KButton size="large">Large</KButton>
+  <KButton size="medium">Medium</KButton>
+  <KButton size="small">Small</KButton>
 </div>
 
 ```html
-<KButton appearance="secondary" size="small">Small</KButton>
-<KButton appearance="secondary" size="medium">Medium</KButton>
-<KButton appearance="secondary" size="large">Large</KButton>
+<KButton size="large">Large</KButton>
+<KButton size="medium">Medium</KButton>
+<KButton size="small">Small</KButton>
 ```
 
-### showCaret
+### to
 
-Use this prop if you would like the KButton to display a dropdown caret to the right hand side.
+KButton can render either a `<a>` or `<router-link>` by simply passing the `to` prop. If it receives an object it will render a router link. If it receives a string it will render an HTML anchor tag
 
-<KComponent :data="{ isActive: false}" v-slot="{ data }">
-  <KButton :appearance="data.isActive ? 'primary' : 'secondary'" @click="data.isActive = !data.isActive" show-caret>I'm an {{ data.isActive ? 'active' : 'inactive' }} button</KButton>
-</KComponent>
-
-> The `KComponent` component is used in this example to create state.
+<KButton :to="{path: '/'}" appearance="tertiary">Router Link!</KButton>
+<KButton to="https://konghq.com/" appearance="tertiary">Anchor Link!</KButton>
 
 ```html
-<KComponent :data="{ isActive: false }" v-slot="{ data }">
-  <KButton :appearance="data.isActive ? 'primary' : 'secondary'" @click="data.isActive = !data.isActive" show-caret>
-    I'm an {{ data.isActive ? 'active' : 'inactive' }} button
-  </KButton>
-</KComponent>
-```
-
-### caretColor
-
-::: tip NOTE
-Use this prop in conjunction with the `showCaret` prop
-:::
-
-Use this prop to customize the color of the caret
-
-<KButton
-  caret-color="lightblue"
-  show-caret
->
-  Select Item
-</KButton>
-
-```html
-<KButton caret-color="lightblue" show-caret>
-  Select Item
-</KButton>
-```
-
-### isRounded
-
-The buttons are rounded by default. This can be disabled by setting `isRounded` prop to `false`.
-
-<div class="spacing-container">
-  <KButton appearance="primary" :isRounded="false">I'm a button</KButton>
-  <KButton appearance="primary" >I'm a button</KButton>
-</div>
-
-```html
-<KButton appearance="primary" :isRounded="false">I'm a button</KButton>
-<KButton appearance="primary" >I'm a button</KButton>
+<KButton :to="{path: '/'}" appearance="tertiary">Router Link!</KButton>
+<KButton to="https://konghq.com/" appearance="tertiary">Anchor Link!</KButton>
 ```
 
 ### icon
+
+:::warning NOTE
+This prop will be changed to boolean in beta stage of breaking change release.
+:::
 
 A string for the `KIcon` name to be displayed to the left of the button's content. Specifying a value for `icon` will automatically indicate that it should be visible.
 
@@ -130,63 +87,43 @@ coloring to the icon depending on the `disabled` state of the button.
 <KButton appearance="primary" icon="spinner" disabled>I'm a button</KButton>
 ```
 
-### to
-
-KButton can render either a `<a>` or `<router-link>` by simply passing the `to` prop. If it receives an object it will render a router link. If it receives a string it will render an HTML anchor tag
-
-<KButton :to="{path: '/'}" appearance="tertiary">Router Link!</KButton>
-<KButton to="http://google.com" appearance="tertiary">Anchor Link!</KButton>
-
-```html
-<KButton :to="{path: '/'}" appearance="tertiary">Router Link!</KButton>
-<KButton to="http://google.com" appearance="tertiary">Anchor Link!</KButton>
-```
-
 ### Disabled HTML Attribute
 
 KButton also supports the disabled attribute with both Button and Anchor types.
 
 <KButton appearance="danger" disabled>Disabled Danger</KButton>
-<KButton to="http://google.com" appearance="tertiary" disabled>Disabled Native Anchor Link</KButton>
+<KButton to="https://konghq.com/" appearance="tertiary" disabled>Disabled Native Anchor Link</KButton>
 
 ```html
 <KButton appearance="danger" disabled>Disabled Danger</KButton>
-<KButton to="http://google.com" appearance="tertiary" disabled>Disabled Native Anchor Link</KButton>
+<KButton to="https://konghq.com/" appearance="tertiary" disabled>Disabled Native Anchor Link</KButton>
 ```
-
-:::warning NOTE
-Should you need to use a KTooltip component on a KButton with `disabled` attribute, don't forget to wrap an additional tag around your KButton, like shown in the example below. Otherwise KTooltip won't be triggered since elements with `disabled` attribute don't trigger pointer events.
-:::
-
-<KCard>
-  <template #body>
-    <div class="spacing-container">
-      <KTooltip label="I won't pop up">
-        <KButton disabled>❌</KButton>
-      </KTooltip>
-      <KTooltip label="I will pop up">
-        <span>
-          <KButton disabled>✅</KButton>
-        </span>
-      </KTooltip>
-    </div>
-  </template>
-</KCard>
-
-```html
-<KTooltip label="I won't show up">
-  <KButton disabled>❌</KButton>
-</KTooltip>
-<KTooltip label="I will pop up">
-  <span>
-    <KButton disabled>✅</KButton>
-  </span>
-</KTooltip>
-```
-
 ## Slots
 
-### Icon
+### default
+
+KButton takes care of icon color, size and spacing as long as you use icons provided by [@kong/icons](https://www.npmjs.com/package/@kong/icons) package.
+
+<div class="spacing-container">
+  <KButton size="large">
+    <WorldIcon />
+    Button One
+  </KButton>
+  <KButton appearance="secondary">
+    Button Two
+    <ChevronDownIcon />
+  </KButton>
+  <!-- TODO: [beta] change this to icon prop -->
+  <KButton appearance="danger" size="small" class="button-icon">
+    <TrashIcon />
+  </KButton>
+</div>
+
+### icon
+
+:::warning NOTE
+This slot will be removed in beta stage of v9 release.
+:::
 
 KButton supports using an icon either before the text or without text. If you are using the slot you must maintain the icon color yourself when the button is enabled or disabled.
 
@@ -218,10 +155,15 @@ KButton supports using an icon either before the text or without text. If you ar
 </KButton>
 ```
 
+<script setup lang="ts">
+import { WorldIcon, ChevronDownIcon, TrashIcon } from '@kong/icons'
+</script>
+
 <style scoped lang="scss">
 .preview-code .preview div {
   display: flex;
   flex-wrap: wrap;
+
   .button {
     margin-right: 8px;
     margin-bottom: 8px;
@@ -239,10 +181,11 @@ KButton supports using an icon either before the text or without text. If you ar
     flex-direction: row;
   }
 }
+
 .spacing-container {
   display: flex;
   gap: $kui-space-40;
   flex-direction: row;
-  align-items: baseline;
+  align-items: flex-end;
 }
 </style>

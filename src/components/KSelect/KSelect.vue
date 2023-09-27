@@ -86,7 +86,7 @@
             <KButton
               :id="selectTextId"
               v-bind="modifiedAttrs"
-              appearance="secondary"
+              appearance="tertiary"
               :style="widthStyle"
               @keyup="(evt: any) => triggerFocus(evt, isToggled)"
             >

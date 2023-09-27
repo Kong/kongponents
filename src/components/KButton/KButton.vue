@@ -2,13 +2,12 @@
   <component
     :is="buttonType"
     class="k-button"
-    :class="[size, appearance, { 'icon-button': !slots.default && slots.icon /** TODO(beta): change this to be controlled by icon prop */ }]"
+    :class="[size, appearance, { 'icon-button': !slots.default && slots.icon /** TODO: [beta] change this to be controlled by icon prop */ }]"
     :disabled="disabled ? disabled : undefined"
     :type="type"
     v-bind="strippedAttrs"
   >
-    <slot />
-    <!-- TODO(beta): remove this slot -->
+    <!-- TODO: [beta] remove this slot -->
     <slot name="icon">
       <KIcon
         v-if="icon"
@@ -17,6 +16,7 @@
         :icon="icon"
       />
     </slot>
+    <slot />
   </component>
 </template>
 
@@ -25,7 +25,7 @@ import type { PropType } from 'vue'
 import { computed, useAttrs, useSlots } from 'vue'
 import { type ButtonAppearance, ButtonAppearances, type ButtonSize, ButtonSizes } from '@/types'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import { KUI_COLOR_TEXT_PRIMARY, KUI_COLOR_TEXT_INVERSE } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_PRIMARY, KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_DISABLED } from '@kong/design-tokens'
 
 const props = defineProps({
   /**
@@ -65,8 +65,8 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  // TODO(beta): turn this into boolean to control icon-only buttons
-  // TODO(beta): also add a validator to ensure it's a boolean
+  // TODO: [beta] turn this into boolean to control icon-only buttons
+  // TODO: [beta] also add a validator to ensure it's a boolean
   icon: {
     type: String,
     default: '',
@@ -93,13 +93,7 @@ const buttonType = computed((): string => {
 * which is greyed out and cannot be interacted with.
 */
 const strippedAttrs = computed((): typeof attrs => {
-  if (props.disabled !== undefined && props.disabled !== false) {
-    return attrs
-  }
-
   const modifiedAttrs = Object.assign({}, attrs)
-
-  delete modifiedAttrs.disabled
 
   if (props.to && typeof props.to === 'string') {
     modifiedAttrs.href = props.to
@@ -107,11 +101,21 @@ const strippedAttrs = computed((): typeof attrs => {
     modifiedAttrs.to = props.to
   }
 
+  if (props.disabled !== undefined && props.disabled !== false) {
+    return modifiedAttrs
+  }
+
+  delete modifiedAttrs.disabled
+
   return modifiedAttrs
 })
 
-// TODO(beta): remove this once once we remove the icon prop
+// TODO: [beta] remove this once once we remove the icon prop
 const kIconColor = computed((): string => {
+  if (props.disabled || strippedAttrs.value.disabled) {
+    return KUI_COLOR_TEXT_DISABLED
+  }
+
   if (props.appearance === 'secondary' || props.appearance === 'tertiary') {
     return KUI_COLOR_TEXT_PRIMARY
   }
@@ -203,8 +207,7 @@ export default {
 
     &:active {
       border-color: var(--kui-color-border-primary-strongest, $kui-color-border-primary-strongest);
-      // TODO: use kui-color-text-primary-strongest here?
-      color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+      color: var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest);
     }
 
     &:disabled, &[disabled] {
@@ -230,8 +233,7 @@ export default {
 
     &:active {
       background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
-      // TODO: use kui-color-text-primary-strongest here?
-      color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+      color: var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest);
     }
 
     &:disabled, &[disabled] {
@@ -274,14 +276,14 @@ export default {
       padding: var(--kui-space-40, $kui-space-40);
     }
 
-    // TODO(beta): remove :deep(.kong-icon) once once we remove the icon prop & slot
+    // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
     :deep(.kui-icon), :deep(.kong-icon) {
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       height: var(--kui-icon-size-50, $kui-icon-size-50) !important;
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       width: var(--kui-icon-size-50, $kui-icon-size-50) !important;
 
-      // TODO(beta): remove this once once we remove the icon prop & slot
+      // TODO: [beta] remove this once once we remove the icon prop & slot
       svg {
         /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
         height: var(--kui-icon-size-50, $kui-icon-size-50) !important;
@@ -300,14 +302,14 @@ export default {
       padding: var(--kui-space-30, $kui-space-30);
     }
 
-    // TODO(beta): remove :deep(.kong-icon) once once we remove the icon prop & slot
+    // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
     :deep(.kui-icon), :deep(.kong-icon) {
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
 
-      // TODO(beta): remove this once once we remove the icon prop & slot
+      // TODO: [beta] remove this once once we remove the icon prop & slot
       svg {
         /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
         height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
@@ -326,14 +328,14 @@ export default {
       padding: var(--kui-space-20, $kui-space-20);
     }
 
-    // TODO(beta): remove :deep(.kong-icon) once once we remove the icon prop & slot
+    // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
     :deep(.kui-icon), :deep(.kong-icon) {
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
 
-      // TODO(beta): remove this once once we remove the icon prop & slot
+      // TODO: [beta] remove this once once we remove the icon prop & slot
       svg {
         /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
         height: var(--kui-icon-size-30, $kui-icon-size-30) !important;

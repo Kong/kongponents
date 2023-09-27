@@ -3,7 +3,6 @@
     appearance="secondary"
     class="k-view-switcher view-switch-button"
     :class="[view, { paused: isPaused }]"
-    :is-rounded="false"
     size="small"
     :title="`Toggle to ${view === 'table' ? 'grid' : 'table'} view`"
     @click="toggleView"
