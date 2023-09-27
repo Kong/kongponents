@@ -35,21 +35,27 @@ export default defineConfig({
       },
     },
   },
+  // TODO: Remove `alpha`
+  base: process.env.GITHUB_PAGES ? '/kongponents/alpha/' : '/',
   build: {
-    lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
-      name: 'Kongponents',
-      fileName: (format) => `kongponents.${format}.js`,
-    },
+    lib: process.env.USE_SANDBOX
+      ? undefined
+      : {
+        entry: path.resolve(__dirname, 'src/index.ts'),
+        name: 'Kongponents',
+        fileName: (format) => `kongponents.${format}.js`,
+      },
     minify: true,
     sourcemap: !!process.env.BUILD_VISUALIZER,
     rollupOptions: {
-      external: ['vue', 'vue-router'],
+      external: process.env.USE_SANDBOX ? undefined : ['vue', 'vue-router'],
       output: {
-        globals: {
-          vue: 'Vue',
-          'vue-router': 'VueRouter',
-        },
+        globals: process.env.USE_SANDBOX
+          ? undefined
+          : {
+            vue: 'Vue',
+            'vue-router': 'VueRouter',
+          },
         exports: 'named',
       },
       plugins: [
