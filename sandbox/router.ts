@@ -6,6 +6,7 @@ export default createRouter({
     {
       path: '/',
       name: 'home',
+      alias: '/:pathMatch(.*)*',
       meta: { title: 'Kongponents Sandbox' },
       component: () => import('./pages/HomePage.vue'),
       children: [
