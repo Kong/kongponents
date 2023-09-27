@@ -631,6 +631,7 @@ function updateMatchingLineNumbers(): void {
     }
   }
 
+  currentLineIndex.value = null
   numberOfMatches.value = totalMatchingLineNumbers.length
   matchingLineNumbers.value = Array.from(new Set(totalMatchingLineNumbers))
 
