@@ -94,7 +94,7 @@ jobs:
             exit -1
           fi
 
-          npm_instructions="@$(echo ${pkg}|cut -d'@' -f2)@${tag}"
+          npm_instructions="yarn add @$(echo ${pkg}|cut -d'@' -f2)@${tag}"
 
           echo "npm_instructions<<EOF" >> $GITHUB_OUTPUT
           echo -e "$npm_instructions" >> $GITHUB_OUTPUT
