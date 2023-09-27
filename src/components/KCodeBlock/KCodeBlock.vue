@@ -1191,7 +1191,7 @@ $dark-backgroundColor: var(--kui-color-background-neutral-strongest, $kui-color-
       background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
     }
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
     }
 
@@ -1215,27 +1215,18 @@ $dark-backgroundColor: var(--kui-color-background-neutral-strongest, $kui-color-
       border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
     }
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: $tmp-color-steel-400;
       border-color: $tmp-color-steel-400;
       color: $dark-backgroundColor;
-
-      &:disabled {
-        background-color: $dark-backgroundColor;
-      }
     }
 
     &:active,
+    &.action-active:hover,
     &:hover:active {
       background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
       border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
       color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
-    }
-
-    &.action-active {
-      background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
-      border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-      color: $dark-backgroundColor;
     }
   }
 }
