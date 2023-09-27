@@ -1,41 +1,22 @@
 <template>
-  <a
-    v-if="typeof to === 'string'"
-    class="k-button"
-    :class="[size, appearance, { 'icon-button': !slots.default }]"
-    :disabled="disabled ? disabled : undefined"
-    :href="to"
-    :type="type"
-    v-bind="strippedAttrs"
-  >
-    <slot name="before" />
-
-    <slot />
-
-    <slot
-      v-if="!slots.before"
-      name="after"
-    />
-  </a>
-
   <component
     :is="buttonType"
-    v-else
     class="k-button"
-    :class="[size, appearance, { 'icon-button': !slots.default }]"
+    :class="[size, appearance, { 'icon-button': !slots.default && slots.icon /** TODO(beta): change this to be controlled by icon prop */ }]"
     :disabled="disabled ? disabled : undefined"
-    :to="to"
     :type="type"
     v-bind="strippedAttrs"
   >
-    <slot name="before" />
-
     <slot />
-
-    <slot
-      v-if="!slots.before"
-      name="after"
-    />
+    <!-- TODO(beta): remove this slot -->
+    <slot name="icon">
+      <KIcon
+        v-if="icon"
+        class="k-button-icon"
+        :color="kIconColor"
+        :icon="icon"
+      />
+    </slot>
   </component>
 </template>
 
@@ -43,6 +24,8 @@
 import type { PropType } from 'vue'
 import { computed, useAttrs, useSlots } from 'vue'
 import { type ButtonAppearance, ButtonAppearances, type ButtonSize, ButtonSizes } from '@/types'
+import KIcon from '@/components/KIcon/KIcon.vue'
+import { KUI_COLOR_TEXT_PRIMARY, KUI_COLOR_TEXT_INVERSE } from '@kong/design-tokens'
 
 const props = defineProps({
   /**
@@ -82,12 +65,26 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  // TODO(beta): turn this into boolean to control icon-only buttons
+  // TODO(beta): also add a validator to ensure it's a boolean
+  icon: {
+    type: String,
+    default: '',
+  },
 })
 
 const slots = useSlots()
 const attrs = useAttrs()
 
-const buttonType = computed((): string => props.to ? 'router-link' : 'button')
+const buttonType = computed((): string => {
+  if (props.to && typeof props.to === 'string') {
+    return 'a'
+  } else if (props.to) {
+    return 'router-link'
+  }
+
+  return 'button'
+})
 
 /**
 * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.
@@ -104,7 +101,22 @@ const strippedAttrs = computed((): typeof attrs => {
 
   delete modifiedAttrs.disabled
 
+  if (props.to && typeof props.to === 'string') {
+    modifiedAttrs.href = props.to
+  } else if (props.to) {
+    modifiedAttrs.to = props.to
+  }
+
   return modifiedAttrs
+})
+
+// TODO(beta): remove this once once we remove the icon prop
+const kIconColor = computed((): string => {
+  if (props.appearance === 'secondary' || props.appearance === 'tertiary') {
+    return KUI_COLOR_TEXT_PRIMARY
+  }
+
+  return KUI_COLOR_TEXT_INVERSE
 })
 </script>
 
@@ -123,20 +135,22 @@ export default {
   cursor: pointer;
   display: inline-flex;
   font-family: var(--kui-font-family-text, $kui-font-family-text);
-  font-size: var(--kui-font-size-30, $kui-font-size-30);
   font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
   gap: var(--kui-space-30, $kui-space-30);
-  line-height: var(--kui-line-height-30, $kui-line-height-30); // TODO: ask about this
   // Remove tap color highlight on mobile Safari
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   text-decoration: none;
   transition: all $tmp-animation-timing-2 ease-in-out; // TODO: add animation timing design token
+  user-select: none;
   vertical-align: middle;
   white-space: nowrap;
 
   &:focus, &:active {
-    box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
     outline: none;
+  }
+
+  &:focus-visible {
+    box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
   }
 
   &:disabled, &[disabled] {
@@ -156,12 +170,16 @@ export default {
     border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
     color: var(--kui-color-text-inverse, $kui-color-text-inverse);
 
-    &:hover:not(:disabled) {
+    &:hover:not(:disabled):not(:focus):not(:active) {
       background-color: var(--kui-color-background-primary-strong, $kui-color-background-primary-strong);
     }
 
-    &:focus, &:active {
+    &:focus {
       background-color: var(--kui-color-background-primary-stronger, $kui-color-background-primary-stronger);
+    }
+
+    &:active {
+      background-color: var(--kui-color-background-primary-strongest, $kui-color-background-primary-strongest);
     }
 
     &:disabled, &[disabled] {
@@ -175,13 +193,19 @@ export default {
     border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-primary, $kui-color-border-primary);
     color: var(--kui-color-text-primary, $kui-color-text-primary);
 
-    &:hover:not(:disabled) {
+    &:hover:not(:disabled):not(:focus):not(:active) {
       border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
       color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
     }
 
-    &:focus, &:active {
+    &:focus {
       border-color: var(--kui-color-border-primary-stronger, $kui-color-border-primary-stronger);
+      color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+    }
+
+    &:active {
+      border-color: var(--kui-color-border-primary-strongest, $kui-color-border-primary-strongest);
+      // TODO: use kui-color-text-primary-strongest here?
       color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
     }
 
@@ -196,13 +220,19 @@ export default {
     border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
     color: var(--kui-color-text-primary, $kui-color-text-primary);
 
-    &:hover:not(:disabled) {
+    &:hover:not(:disabled):not(:focus):not(:active) {
       background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
       color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
     }
 
-    &:focus, &:active {
+    &:focus {
       background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+      color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+    }
+
+    &:active {
+      background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
+      // TODO: use kui-color-text-primary-strongest here?
       color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
     }
 
@@ -217,12 +247,16 @@ export default {
     border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
     color: var(--kui-color-text-inverse, $kui-color-text-inverse);
 
-    &:hover:not(:disabled) {
+    &:hover:not(:disabled):not(:focus):not(:active) {
       background-color: var(--kui-color-background-danger-strong, $kui-color-background-danger-strong);
     }
 
-    &:focus, &:active {
+    &:focus {
       background-color: var(--kui-color-background-danger-stronger, $kui-color-background-danger-stronger);
+    }
+
+    &:active {
+      background-color: var(--kui-color-background-danger-strongest, $kui-color-background-danger-strongest);
     }
 
     &:disabled, &[disabled] {
@@ -234,47 +268,80 @@ export default {
   /* Sizes */
 
   &.large {
-    padding: var(--kui-space-40, $kui-space-40) var(--kui-space-60, $kui-space-60);
+    font-size: var(--kui-font-size-40, $kui-font-size-40);
+    line-height: var(--kui-line-height-40, $kui-line-height-40);
+    padding: var(--kui-space-40, $kui-space-40) var(--kui-space-50, $kui-space-50);
 
     &.icon-button {
       padding: var(--kui-space-40, $kui-space-40);
     }
 
-    :deep(.kui-icon) {
+    // TODO(beta): remove :deep(.kong-icon) once once we remove the icon prop & slot
+    :deep(.kui-icon), :deep(.kong-icon) {
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      height: var(--kui-font-size-50, $kui-font-size-50) !important;
+      height: var(--kui-icon-size-50, $kui-icon-size-50) !important;
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      width: var(--kui-font-size-50, $kui-font-size-50) !important;
+      width: var(--kui-icon-size-50, $kui-icon-size-50) !important;
+
+      // TODO(beta): remove this once once we remove the icon prop & slot
+      svg {
+        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+        height: var(--kui-icon-size-50, $kui-icon-size-50) !important;
+        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+        width: var(--kui-icon-size-50, $kui-icon-size-50) !important;
+      }
     }
   }
 
   &.medium {
-    padding: var(--kui-space-30, $kui-space-30) var(--kui-space-50, $kui-space-50);
+    font-size: var(--kui-font-size-30, $kui-font-size-30);
+    line-height: var(--kui-line-height-30, $kui-line-height-30);
+    padding: var(--kui-space-30, $kui-space-30) var(--kui-space-40, $kui-space-40);
 
     &.icon-button {
       padding: var(--kui-space-30, $kui-space-30);
     }
 
-    :deep(.kui-icon) {
+    // TODO(beta): remove :deep(.kong-icon) once once we remove the icon prop & slot
+    :deep(.kui-icon), :deep(.kong-icon) {
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      height: var(--kui-font-size-40, $kui-font-size-40) !important;
+      height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      width: var(--kui-font-size-40, $kui-font-size-40) !important;
+      width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+
+      // TODO(beta): remove this once once we remove the icon prop & slot
+      svg {
+        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+        height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+        width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+      }
     }
   }
 
   &.small {
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
     padding: var(--kui-space-20, $kui-space-20) var(--kui-space-30, $kui-space-30);
 
     &.icon-button {
       padding: var(--kui-space-20, $kui-space-20);
     }
 
-    :deep(.kui-icon) {
+    // TODO(beta): remove :deep(.kong-icon) once once we remove the icon prop & slot
+    :deep(.kui-icon), :deep(.kong-icon) {
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      height: var(--kui-font-size-30, $kui-font-size-30) !important;
+      height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      width: var(--kui-font-size-30, $kui-font-size-30) !important;
+      width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+
+      // TODO(beta): remove this once once we remove the icon prop & slot
+      svg {
+        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+        height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+        width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+      }
     }
   }
 }

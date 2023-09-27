@@ -37,9 +37,12 @@
                 data-testid="k-dropdown-btn"
                 :disabled="disabled"
                 :icon="icon"
-                :show-caret="showCaret || appearance === 'selectionMenu'"
               >
                 {{ label }}
+                <KIcon
+                  v-if="showCaret || appearance !== 'selectionMenu'"
+                  icon="chevronDown"
+                />
               </KButton>
             </div>
           </slot>

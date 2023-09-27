@@ -88,7 +88,6 @@
               v-bind="modifiedAttrs"
               appearance="btn-link"
               :is-rounded="false"
-              show-caret
               :style="widthStyle"
               @keyup="(evt: any) => triggerFocus(evt, isToggled)"
             >
@@ -97,6 +96,9 @@
                 name="selected-item-template"
               >
                 {{ selectButtonText }}
+                <KIcon
+                  icon="chevronDown"
+                />
               </slot>
             </KButton>
           </div>

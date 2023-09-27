@@ -29,24 +29,28 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KButton
 
+#### Structure
+
+* `icon-btn` class has been renamed to `icon-button`
+
 #### Constants, Types & Interfaces
 
-* `appearances` and `sizes` constants are no longer exported by the KButton component. Instead, you can import `ButtonAppearances` and `ButtonSizes` from `@kong/kongponents` directly.
+* `appearances` and `sizes` constants are no longer exported by the KButton component. Instead, you can import `ButtonAppearances` and `ButtonSizes` from `@kong/kongponents` directly
 
 #### Props
 
-* `showCaret` prop is deprecated
-* `caretColor` prop is deprecated
-* `isRounded` prop is deprecated
-* `icon` prop is deprecated
+* `showCaret` prop is removed
+* `caretColor` prop is removed
+* `isRounded` prop is removed
+* `icon` prop is removed
 
 #### Slots
 
-* `icon` slot is deprecated (instead, you can use the new `before` and `after` slots)
-
-#### Slots
+* `icon` slot is removed (instead, you can use the new `before` and `after` slots)
 
 #### Events
+
+No changes.
 
 ### KCard
 
