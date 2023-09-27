@@ -172,7 +172,7 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
     </template>
     <template v-slot:body-content>Get set up with the 2-step quickstart to see live data pushed through a gateway service within minutes.</template>
     <template v-slot:action-buttons>
-      <KButton appearance="btn-link" class="horizontal-spacing" @click="slottedIsOpen2 = false">Skip</KButton>
+      <KButton appearance="tertiary" class="horizontal-spacing" @click="slottedIsOpen2 = false">Skip</KButton>
       <KButton
         appearance="primary"
         @click="() => slottedIsOpen2 = false">Onboard me!</KButton>
@@ -200,7 +200,7 @@ Can be `dark` (default) or `light`. You might want to use this if displaying dar
   </template>
   <template v-slot:body-content>Get set up with the quickstart to see live data pushed through a gateway service within minutes.</template>
   <template v-slot:action-buttons>
-    <KButton appearance="btn-link" @click="isVisible = false">Skip</KButton>
+    <KButton appearance="tertiary" @click="isVisible = false">Skip</KButton>
     <KButton
       appearance="primary"
       @click="() => isVisible = false">Onboard me!</KButton>
@@ -237,7 +237,7 @@ There are 4 designated slots you can use to display content in the modal.
       </div>
     </template>
     <template v-slot:action-buttons>
-      <KButton appearance="btn-link" class="horizontal-spacing" @click="slottedIsOpen3 = false">Pass</KButton>
+      <KButton appearance="tertiary" class="horizontal-spacing" @click="slottedIsOpen3 = false">Pass</KButton>
       <KButton appearance="primary" @click="slottedIsOpen3 = false">I sure do!</KButton>
     </template>
   </KModal>
@@ -258,7 +258,7 @@ There are 4 designated slots you can use to display content in the modal.
       </div>
     </template>
     <template v-slot:action-buttons>
-      <KButton appearance="btn-link" @click="slottedIsOpen3 = false">Pass</KButton>
+      <KButton appearance="tertiary" @click="slottedIsOpen3 = false">Pass</KButton>
       <KButton appearance="primary" @click="slottedIsOpen3 = false">I sure do!</KButton>
     </template>
   </KModal>
@@ -293,7 +293,7 @@ Notice that even though we are using the `header-content` slot we still specify 
   </template>
   <template v-slot:body-content>Are you sure you want to delete this item? This action can not be undone.</template>
   <template v-slot:action-buttons>
-    <KButton appearance="outline" class="horizontal-spacing" @click="slottedIsOpen = false">Back</KButton>
+    <KButton appearance="secondary" class="horizontal-spacing" @click="slottedIsOpen = false">Back</KButton>
     <KButton appearance="danger" @click="slottedIsOpen = false">Delete</KButton>
   </template>
 </KModal>
@@ -312,7 +312,7 @@ Notice that even though we are using the `header-content` slot we still specify 
   </template>
   <template v-slot:body-content>Are you sure you want to delete this item? This action can not be undone.</template>
   <template v-slot:action-buttons>
-    <KButton appearance="outline" @click="slottedIsOpen = false">Back</KButton>
+    <KButton appearance="secondary" @click="slottedIsOpen = false">Back</KButton>
     <KButton appearance="danger" @click="slottedIsOpen = false">Delete</KButton>
   </template>
 </KModal>

@@ -290,10 +290,8 @@ Allows adding elements after the location of the copy button.
   >
     <template #secondary-actions>
       <KButton
-        appearance="outline"
+        appearance="secondary"
         size="small"
-        :is-rounded="false"
-        title="Copy as Kubernetes"
       >
         <KIcon
           color="currentColor"
@@ -315,10 +313,8 @@ Allows adding elements after the location of the copy button.
 >
   <template #secondary-actions>
     <KButton
-      appearance="outline"
+      appearance="secondary"
       size="small"
-      :is-rounded="false"
-      title="Copy as Kubernetes"
       @click="copyAsKubernetes"
     >
       <KIcon
@@ -373,7 +369,7 @@ function highlight({ preElement, codeElement, language, code }) {
 This component has a few shortcuts for interacting with its search and filter features. All of them are scoped to the code block. When invoking them while focus is placed outside of a code block, their associated actions won’t trigger.
 
 | Shortcut                             | Description             |
-|:------------------------------------ |:----------------------- |
+| :----------------------------------- | :---------------------- |
 | <kbd>Alt+F</kbd> or <kbd>Alt+G</kbd> | Toggles filter mode     |
 | <kbd>Alt+R</kbd>                     | Toggles RegExp mode     |
 | <kbd>Alt+C</kbd>                     | Copies the code         |

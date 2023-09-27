@@ -622,7 +622,7 @@ Fixes KAlert to the top of the container.
     </template>
     <template #actionButtons>
       <KButton appearance="secondary" size="small">🐈‍⬛</KButton>
-      <KButton appearance="creation" size="small">🐶</KButton>
+      <KButton size="small">🐶</KButton>
     </template>
   </KAlert>
 </div>
@@ -649,7 +649,7 @@ Fixes KAlert to the top of the container.
   </template>
   <template #actionButtons>
     <KButton appearance="secondary" size="small">🐈‍⬛</KButton>
-    <KButton appearance="creation" size="small">🐶</KButton>
+    <KButton size="small">🐶</KButton>
   </template>
 </KAlert>
 ```
