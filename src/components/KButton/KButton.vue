@@ -127,8 +127,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/tmp-variables';
-
 .k-button {
   align-items: center;
   border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
@@ -140,7 +138,7 @@ export default {
   // Remove tap color highlight on mobile Safari
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   text-decoration: none;
-  transition: all $tmp-animation-timing-2 ease-in-out; // TODO: add animation timing design token
+  transition: all var(--kui-animation-duration-20, $kui-animation-duration-20) ease-in-out;
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;
