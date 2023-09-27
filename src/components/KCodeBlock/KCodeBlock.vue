@@ -1186,7 +1186,7 @@ $dark-backgroundColor: var(--kui-color-background-neutral-strongest, $kui-color-
 
   // TODO: If and once KButton has `props.theme` support, these styles should live in KButton.vue.
   // TODO: Fix these styles not always providing a solid background color for the copy button allowing content to clip through it.
-  .k-button:not(.increase-specificity) {
+  &.theme-light .k-button:not(.increase-specificity) {
     @media (min-width: $kui-breakpoint-phablet) {
       background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
     }
