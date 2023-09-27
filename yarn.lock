@@ -1420,10 +1420,28 @@
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==
 
+"@types/linkify-it@*":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@types/linkify-it/-/linkify-it-3.0.3.tgz#15a0712296c5041733c79efe233ba17ae5a7587b"
+  integrity sha512-pTjcqY9E4nOI55Wgpz7eiI8+LzdYnw3qxXCfHyBDdPbYvbyLgWLJGh8EdPvqawwMK1Uo1794AUkkR38Fr0g+2g==
+
 "@types/lodash@^4.14.165":
   version "4.14.198"
   resolved "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.198.tgz#4d27465257011aedc741a809f1269941fa2c5d4c"
   integrity sha512-trNJ/vtMZYMLhfN45uLq4ShQSw0/S7xCTLLVM+WM1rmFpba/VS42jVUgaO3w/NOLiWR/09lnYk0yMaA/atdIsg==
+
+"@types/markdown-it@^13.0.1":
+  version "13.0.1"
+  resolved "https://registry.yarnpkg.com/@types/markdown-it/-/markdown-it-13.0.1.tgz#2f45bd54315f5db2d9bd909ec7fd4d994cf75df4"
+  integrity sha512-SUEb8Frsxs3D5Gg9xek6i6EG6XQ5s+O+ZdQzIPESZVZw3Pv3CPQfjCJBI+RgqZd1IBeu18S0Rn600qpPnEK37w==
+  dependencies:
+    "@types/linkify-it" "*"
+    "@types/mdurl" "*"
+
+"@types/mdurl@*":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@types/mdurl/-/mdurl-1.0.2.tgz#e2ce9d83a613bacf284c7be7d491945e39e1f8e9"
+  integrity sha512-eC4U9MlIcu2q0KQmXszyn5Akca/0jrQmwDRgpAMJai7qBWq4amIQhZyNau4VYGtCeALvW1/NtjzJJ567aZxfKA==
 
 "@types/minimist@^1.2.0", "@types/minimist@^1.2.2":
   version "1.2.2"
@@ -1455,7 +1473,7 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.18.39.tgz#aa39a1a87a40ef6098ee69689a1acb0c1b034832"
   integrity sha512-8q9ZexmdYYyc5/cfujaXb4YOucpQxAV4RMG0himLyDUOEr8Mr79VrqsFI+cQ2M2h89YIuy95lbxuYjxT4Hk4kQ==
 
-"@types/node@^18.17.16":
+"@types/node@^18.17.17":
   version "18.18.0"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.18.0.tgz#bd19d5133a6e5e2d0152ec079ac27c120e7f1763"
   integrity sha512-3xA4X31gHT1F1l38ATDIL9GpRLdwVhnEFC8Uikv5ZLlXATwrCYyPq7ZWHxzxc3J/30SUiwiYT+bQe0/XvKlWbw==
@@ -8637,13 +8655,14 @@ vite@^4.4.9:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vitepress@^1.0.0-rc.13:
-  version "1.0.0-rc.13"
-  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-1.0.0-rc.13.tgz#4073865d1ee319472f6d3e8e13d97b4714e0edd6"
-  integrity sha512-TnVydQOZE38rtXu9gHCb7EGdN03jTcmYkDdhCqox6+pfKYgiyfm1qk2Uy8BZatnM9wXpa64f+T5p30R8P/9Z+A==
+vitepress@^1.0.0-rc.14:
+  version "1.0.0-rc.20"
+  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-1.0.0-rc.20.tgz#a5570f929c52cef010da26039cf9122c11e160a1"
+  integrity sha512-CykMUJ8JLxLcGWek0ew3wln4RYbsOd1+0YzXITTpajggpynm2S331TNkJVOkHrMRc6GYe3y4pS40GfgcW0ZwAw==
   dependencies:
     "@docsearch/css" "^3.5.2"
     "@docsearch/js" "^3.5.2"
+    "@types/markdown-it" "^13.0.1"
     "@vue/devtools-api" "^6.5.0"
     "@vueuse/core" "^10.4.1"
     "@vueuse/integrations" "^10.4.1"
