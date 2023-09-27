@@ -1072,7 +1072,7 @@ $dark-focusColor: $tmp-color-green-500;
 
 .k-code-block-secondary-actions {
   display: flex;
-  gap: var(--kui-space-20, $kui-space-20);
+  gap: var(--kui-space-40, $kui-space-40);
   position: absolute;
   right: 16px;
   top: 8px;
@@ -1186,23 +1186,22 @@ $dark-backgroundColor: var(--kui-color-background-neutral-strongest, $kui-color-
 
   // TODO: If and once KButton has `props.theme` support, these styles should live in KButton.vue.
   // TODO: Fix these styles not always providing a solid background color for the copy button allowing content to clip through it.
-  .k-button:not(.increase-specificity) {
+  &.theme-light .k-button:not(.increase-specificity) {
     @media (min-width: $kui-breakpoint-phablet) {
       background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-      border-color: var(--kui-color-border-transparent, $kui-color-border-transparent);
     }
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
-      border-color: var(--kui-color-border-transparent, $kui-color-border-transparent) !important;
     }
 
     &:active,
     &.action-active:hover,
     &:hover:active {
-      background-color: var(--kui-color-background-neutral, $kui-color-background-neutral);
-      border-color: $tmp-color-steel-500;
-      color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+      &:not(:disabled) {
+        background-color: var(--kui-color-background-neutral, $kui-color-background-neutral);
+        color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+      }
     }
   }
 
@@ -1218,27 +1217,20 @@ $dark-backgroundColor: var(--kui-color-background-neutral-strongest, $kui-color-
       border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
     }
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: $tmp-color-steel-400;
       border-color: $tmp-color-steel-400;
       color: $dark-backgroundColor;
-
-      &:disabled {
-        background-color: $dark-backgroundColor;
-      }
     }
 
     &:active,
+    &.action-active:hover,
     &:hover:active {
-      background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
-      border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-      color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
-    }
-
-    &.action-active {
-      background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
-      border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-      color: $dark-backgroundColor;
+      &:not(:disabled) {
+        background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+        border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+        color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
+      }
     }
   }
 }
