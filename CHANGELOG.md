@@ -1,3 +1,12 @@
+# [9.0.0-alpha.10](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.9...v9.0.0-alpha.10) (2023-09-27)
+
+
+### Bug Fixes
+
+* **kbadge:** non-interactive badge being focusable ([#1720](https://github.com/Kong/kongponents/issues/1720)) ([fb63368](https://github.com/Kong/kongponents/commit/fb63368024600ec897caa986009caff776ef93dc))
+* **kcodeblock:** not resetting current match on query change ([#1721](https://github.com/Kong/kongponents/issues/1721)) ([05a8cf7](https://github.com/Kong/kongponents/commit/05a8cf7d227fa5a76b06d83f2b90de8d4bfaf7f3))
+* **kemptystate:** rendering empty cta element ([#1729](https://github.com/Kong/kongponents/issues/1729)) ([a203b8f](https://github.com/Kong/kongponents/commit/a203b8fb02094f5eb0d5ceefc6417e4f8e27ca07))
+
 # [9.0.0-alpha.9](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.8...v9.0.0-alpha.9) (2023-09-26)
 
 
