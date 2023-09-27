@@ -1,3 +1,10 @@
+# [9.0.0-alpha.11](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2023-09-27)
+
+
+### Bug Fixes
+
+* **kcodeblock:** buttons not being bordered in light theme ([#1722](https://github.com/Kong/kongponents/issues/1722)) ([7452696](https://github.com/Kong/kongponents/commit/74526963b1b84eb934f649468fd0c552a21706b3))
+
 # [9.0.0-alpha.10](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.9...v9.0.0-alpha.10) (2023-09-27)
 
 
