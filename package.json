@@ -35,6 +35,7 @@
     "create-kongponent": "node --experimental-specifier-resolution=node ./bin/index.js",
     "sandbox:dev": "cross-env USE_SANDBOX=true vite",
     "sandbox:build": "cross-env USE_SANDBOX=true vite build && shx cp sandbox/dist/index.html sandbox/dist/404.html",
+    "sandbox:build:netlify": "cross-env USE_SANDBOX=true USE_NETLIFY=true vite build && shx cp sandbox/dist/index.html sandbox/dist/404.html",
     "sandbox:preview": "cross-env USE_SANDBOX=true vite preview",
     "docs:build": "vitepress build docs",
     "docs:dev": "vitepress dev docs",

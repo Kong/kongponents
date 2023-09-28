@@ -35,7 +35,7 @@ export default defineConfig({
       },
     },
   },
-  base: process.env.USE_SANDBOX ? '/kongponents/' : '/',
+  base: process.env.USE_SANDBOX && !process.env.USE_NETLIFY ? '/kongponents/' : '/',
   build: {
     lib: process.env.USE_SANDBOX
       ? undefined
