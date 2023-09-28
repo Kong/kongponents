@@ -1,5 +1,7 @@
-# Remain empty
-
-# Ignore so that the build is always processed for the sandbox
 [build]
+  base = "/sandbox/"
+  command = "cd .. && yarn install --frozen-lockfile && yarn sandbox:build:netlify"
+  publish = "/sandbox/dist"
+  environment = { NODE_VERSION = "18.17.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
+  # Exit with code 1 so that the build is always processed for the sandbox
   ignore = "exit 1"
