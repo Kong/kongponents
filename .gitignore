@@ -18,3 +18,6 @@ docs/.vitepress/.temp
 docs/.vitepress/.cache
 docs/.vitepress/cache
 docs/.vitepress/dist
+
+# Ignore files in the GitHub Pages deploy previews
+pr-preview/
