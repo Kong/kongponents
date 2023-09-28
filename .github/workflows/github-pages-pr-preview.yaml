@@ -1,0 +1,53 @@
+name: Deploy Sandbox PR Preview to GitHub Pages
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      # Ensure previews are cleaned up when PR is closed
+      - closed
+    # TODO: Update branch name to beta when needed
+    branches:
+      - alpha
+
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Sandbox
+        env:
+          # Tell the script to use the sandbox directory
+          USE_SANDBOX: true
+        run: yarn sandbox:build
+
+      - name: Deploy Sandbox PR Preview to GitHub Pages
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: './sandbox/dist/'
+          # TODO: Update branch name to beta when needed
+          preview-branch: alpha
