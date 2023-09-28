@@ -133,6 +133,7 @@ export default {
 <style lang="scss" scoped>
 .k-button {
   align-items: center;
+  border: 0;
   border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
   cursor: pointer;
   display: inline-flex;
