@@ -67,7 +67,7 @@ jobs:
       - name: Generate target folder
         id: target-folder
         run: |
-          echo "pr-preview/pr-${{ github.event.number }}" >> $GITHUB_OUTPUT
+          echo "target-folder=pr-preview/pr-${{ github.event.number }}" >> $GITHUB_OUTPUT
 
       # TODO: Only run when PR is created; create separate step for when PR is closed to remove pr folder
       - name: Deploy Sandbox PR Preview to GitHub Pages
