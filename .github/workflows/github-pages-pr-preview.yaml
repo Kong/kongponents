@@ -81,7 +81,7 @@ jobs:
         with:
           # TODO: Update branch name to beta when needed
           branch: ${{ github.head_ref || github.ref_name }}
-          folder: ./sandbox/dist # The sandbox dist directory name
+          folder: sandbox/dist # The sandbox dist directory name
           target-folder: ${{ steps.target-folder.outputs.target-folder }}
           clean-exclude: pr-preview/ # Do not remove other PR preview builds
           force: true
