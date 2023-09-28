@@ -55,3 +55,4 @@ jobs:
           preview-branch: alpha
           umbrella-dir: pr-preview
           token: ${{ secrets.KONGPONENTS_BOT_PAT }}
+          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
