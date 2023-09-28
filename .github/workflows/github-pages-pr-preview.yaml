@@ -60,8 +60,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
         with:
           source-dir: './sandbox/dist/'
-          # TODO: Update branch name to beta when needed
-          preview-branch: alpha
+          preview-branch: ${{ github.head_ref || github.ref_name }}
           umbrella-dir: pr-preview
           token: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
