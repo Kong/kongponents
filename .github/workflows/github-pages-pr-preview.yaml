@@ -12,9 +12,7 @@ on:
     branches:
       - alpha
 
-concurrency:
-  group: preview-${{ github.ref }}
-  cancel-in-progress: true
+concurrency: preview-${{ github.ref }}
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -26,8 +24,6 @@ jobs:
   deploy-preview:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    env:
-      GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
     steps:
       - name: Checkout
@@ -49,10 +45,11 @@ jobs:
 
       - name: Deploy Sandbox PR Preview to GitHub Pages
         uses: rossjrw/pr-preview-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
         with:
           source-dir: './sandbox/dist/'
           # TODO: Update branch name to beta when needed
           preview-branch: alpha
           umbrella-dir: pr-preview
           token: ${{ secrets.KONGPONENTS_BOT_PAT }}
-          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
