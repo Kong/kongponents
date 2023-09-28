@@ -63,6 +63,9 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
+          # TODO: Update branch name to beta when needed
+          branch: alpha
           folder: './sandbox/dist' # The folder the action should deploy.
           clean-exclude: pr-preview/ # Do not remove other PR preview builds
           force: false
+          token: ${{ secrets.KONGPONENTS_BOT_PAT }}
