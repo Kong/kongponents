@@ -32,7 +32,7 @@ jobs:
       # - name: Remove sandbox preview comment
       #   uses: marocchino/sticky-pull-request-comment@v2
       #   with:
-      #     header: sandbox_pr_preview
+      #     header: pr-preview
       #     delete: true
       #     GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
@@ -53,7 +53,14 @@ jobs:
           USE_SANDBOX: true
         run: yarn sandbox:build
 
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          # Upload sandbox/dist directory
+          path: ./sandbox/dist
+
       - name: Deploy Sandbox PR Preview to GitHub Pages
+        id: pr-preview
         uses: rossjrw/pr-preview-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
@@ -67,7 +74,7 @@ jobs:
       #   if: ${{ steps.pr-preview.outputs.deployment-url != '' }}
       #   uses: marocchino/sticky-pull-request-comment@v2
       #   with:
-      #     header: sandbox_pr_preview
+      #     header: pr-preview
       #     message: |
       #       ## Sandbox Deploy Preview
 
