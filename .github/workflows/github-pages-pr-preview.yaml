@@ -29,12 +29,12 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      # - name: Remove sandbox preview comment
-      #   uses: marocchino/sticky-pull-request-comment@v2
-      #   with:
-      #     header: pr-preview
-      #     delete: true
-      #     GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+      - name: Remove sandbox preview comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: pr-preview
+          delete: true
+          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -53,32 +53,41 @@ jobs:
           USE_SANDBOX: true
         run: yarn sandbox:build
 
-      # - name: Upload artifact
-      #   uses: actions/upload-pages-artifact@v2
+      # - name: Deploy Sandbox PR Preview to GitHub Pages
+      #   id: pr-preview
+      #   uses: rossjrw/pr-preview-action@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
       #   with:
-      #     # Upload sandbox/dist directory
-      #     path: ./sandbox/dist
+      #     source-dir: ./sandbox/dist
+      #     preview-branch: ${{ github.head_ref || github.ref_name }}
+      #     umbrella-dir: pr-preview
+      #     token: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
+      - name: Generate target folder
+        id: target-folder
+        run: |
+          echo "pr-preview/pr-${{ github.event.number }}" >> $GITHUB_OUTPUT
+
+      # TODO: Only run when PR is created; create separate step for when PR is closed to remove pr folder
       - name: Deploy Sandbox PR Preview to GitHub Pages
         id: pr-preview
-        uses: rossjrw/pr-preview-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          source-dir: ./sandbox/dist
-          preview-branch: ${{ github.head_ref || github.ref_name }}
-          umbrella-dir: pr-preview
+          # TODO: Update branch name to beta when needed
+          branch: ${{ github.head_ref || github.ref_name }}
+          folder: ./sandbox/dist # The folder the action should deploy.
+          target-folder: ${{ steps.target-folder.outputs.target-folder }}
+          clean-exclude: pr-preview/ # Do not remove other PR preview builds
+          force: false
           token: ${{ secrets.KONGPONENTS_BOT_PAT }}
-          # TODO: Set to auto
-          action: deploy
 
-      # - name: Provide sandbox preview link
-      #   if: ${{ steps.pr-preview.outputs.deployment-url != '' }}
-      #   uses: marocchino/sticky-pull-request-comment@v2
-      #   with:
-      #     header: pr-preview
-      #     message: |
-      #       ## Sandbox Deploy Preview
+      - name: Provide sandbox preview link
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: pr-preview
+          message: |
+            ## Sandbox Deploy Preview
 
-      #       ${{ steps.pr-preview.outputs.deployment-url }}
-      #     GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+            https://kong.github.io/kongponents/${{ steps.target-folder.outputs.target-folder }}/
+          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
