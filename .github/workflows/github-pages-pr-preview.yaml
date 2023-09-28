@@ -53,11 +53,11 @@ jobs:
           USE_SANDBOX: true
         run: yarn sandbox:build
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          # Upload sandbox/dist directory
-          path: ./sandbox/dist
+      # - name: Upload artifact
+      #   uses: actions/upload-pages-artifact@v2
+      #   with:
+      #     # Upload sandbox/dist directory
+      #     path: ./sandbox/dist
 
       - name: Deploy Sandbox PR Preview to GitHub Pages
         id: pr-preview
@@ -66,9 +66,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
         with:
           source-dir: ./sandbox/dist
-          preview-branch: alpha # ${{ github.head_ref || github.ref_name }}
+          preview-branch: ${{ github.head_ref || github.ref_name }}
           umbrella-dir: pr-preview
           token: ${{ secrets.KONGPONENTS_BOT_PAT }}
+          # TODO: Set to auto
           action: deploy
 
       # - name: Provide sandbox preview link
