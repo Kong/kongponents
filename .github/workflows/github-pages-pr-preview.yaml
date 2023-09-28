@@ -64,15 +64,10 @@ jobs:
       #     umbrella-dir: pr-preview
       #     token: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-
-      # - name: Upload artifact
-      #   uses: actions/upload-pages-artifact@v2
-      #   with:
-      #     name: sandbox-assets
-      #     # Upload sandbox/dist directory
-      #     path: ./sandbox/dist
+      - name: Log dist contents
+        run:
+          |
+          ls -a sandbox/dist
 
       - name: Generate target folder path
         id: target-folder
