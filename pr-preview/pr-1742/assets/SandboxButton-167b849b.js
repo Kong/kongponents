@@ -1,0 +1,1 @@
+import{c as t}from"./KButton-a4a69627.js";import"./KMethodBadge.vue_vue_type_style_index_0_scoped_7163314d_lang-f7cf77a3.js";import{d as e,A as a,w as o,u as n,o as r,f as s}from"./index-d7edae6d.js";const d=e({__name:"SandboxButton",setup(c){return(p,u)=>(r(),a(n(t),{appearance:"danger"},{default:o(()=>[s(" Test button ")]),_:1}))}});export{d as default};
