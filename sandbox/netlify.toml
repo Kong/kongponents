@@ -1,1 +1,5 @@
 # Remain empty
+
+# Ignore so that the build is always processed for the sandbox
+[build]
+  ignore = "exit 1"
