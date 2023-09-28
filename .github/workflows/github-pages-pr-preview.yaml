@@ -37,7 +37,7 @@ jobs:
       #     GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Use Node.js
         uses: actions/setup-node@v3
@@ -54,13 +54,10 @@ jobs:
         run: yarn sandbox:build
 
       - name: Deploy Sandbox PR Preview to GitHub Pages
-        id: pr-preview
         uses: rossjrw/pr-preview-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
         with:
           source-dir: './sandbox/dist/'
-          preview-branch: ${{ github.head_ref || github.ref_name }}
+          preview-branch: alpha # ${{ github.head_ref || github.ref_name }}
           umbrella-dir: pr-preview
           token: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
