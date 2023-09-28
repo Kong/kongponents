@@ -64,14 +64,17 @@ jobs:
       #     umbrella-dir: pr-preview
       #     token: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          name: sandbox-assets
-          # Upload sandbox/dist directory
-          path: ./sandbox/dist
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
 
-      - name: Generate target folder
+      # - name: Upload artifact
+      #   uses: actions/upload-pages-artifact@v2
+      #   with:
+      #     name: sandbox-assets
+      #     # Upload sandbox/dist directory
+      #     path: ./sandbox/dist
+
+      - name: Generate target folder path
         id: target-folder
         run: |
           echo "target-folder=pr-preview/pr-${{ github.event.number }}" >> $GITHUB_OUTPUT
@@ -83,10 +86,10 @@ jobs:
         with:
           # TODO: Update branch name to beta when needed
           branch: ${{ github.head_ref || github.ref_name }}
-          folder: sandbox-assets # The artifact name
+          folder: ./sandbox/dist # The sandbox dist directory name
           target-folder: ${{ steps.target-folder.outputs.target-folder }}
           clean-exclude: pr-preview/ # Do not remove other PR preview builds
-          force: false
+          force: true
           token: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
       - name: Provide sandbox preview link
