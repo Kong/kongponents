@@ -29,12 +29,12 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Remove sandbox preview comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          header: sandbox_pr_preview
-          delete: true
-          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+      # - name: Remove sandbox preview comment
+      #   uses: marocchino/sticky-pull-request-comment@v2
+      #   with:
+      #     header: sandbox_pr_preview
+      #     delete: true
+      #     GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -65,13 +65,13 @@ jobs:
           umbrella-dir: pr-preview
           token: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
-      - name: Provide sandbox preview link
-        if: ${{ steps.pr-preview.outputs.deployment-url != '' }}
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          header: sandbox_pr_preview
-          message: |
-            ## Sandbox Deploy Preview
+      # - name: Provide sandbox preview link
+      #   if: ${{ steps.pr-preview.outputs.deployment-url != '' }}
+      #   uses: marocchino/sticky-pull-request-comment@v2
+      #   with:
+      #     header: sandbox_pr_preview
+      #     message: |
+      #       ## Sandbox Deploy Preview
 
-            ${{ steps.pr-preview.outputs.deployment-url }}
-          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
+      #       ${{ steps.pr-preview.outputs.deployment-url }}
+      #     GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
