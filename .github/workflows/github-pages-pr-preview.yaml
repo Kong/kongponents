@@ -56,7 +56,7 @@ jobs:
       - name: Deploy Sandbox PR Preview to GitHub Pages
         uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: './sandbox/dist/'
+          source-dir: './sandbox/dist'
           preview-branch: ${{ github.head_ref || github.ref_name }}
           umbrella-dir: pr-preview
           token: ${{ secrets.KONGPONENTS_BOT_PAT }}
