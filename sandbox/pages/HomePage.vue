@@ -41,10 +41,10 @@
       >
         <h2>Welcome to the Sandbox!</h2>
         <p>
-          The sandbox mode in Kongponents provides developers with a controlled environment to test and ensure that no styles from the docs app leak through into the component library. This feature guarantees that the components look and function as intended, without any external interference.
+          This sandbox (currently pointed to the <code>alpha</code> branch) provides users with a controlled environment to test and interact with components. This feature helps to guarantee that the components look and behave as intended, without external interference.
         </p>
         <p>
-          By using the sandbox mode, you can have confidence that components maintain their visual consistency, regardless of the context in which they are used.
+          By using the sandbox, you can verify that components maintain their visual consistency, regardless of the host app in which they are used.
         </p>
       </div>
       <router-view />
