@@ -65,3 +65,4 @@ jobs:
         with:
           folder: './sandbox/dist' # The folder the action should deploy.
           clean-exclude: pr-preview/ # Do not remove other PR preview builds
+          force: false

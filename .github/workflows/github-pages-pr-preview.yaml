@@ -18,7 +18,7 @@ concurrency:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -51,3 +51,5 @@ jobs:
           source-dir: './sandbox/dist/'
           # TODO: Update branch name to beta when needed
           preview-branch: alpha
+          umbrella-dir: pr-preview
+          token: ${{ secrets.KONGPONENTS_BOT_PAT }}
