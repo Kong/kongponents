@@ -69,6 +69,7 @@ jobs:
           preview-branch: alpha # ${{ github.head_ref || github.ref_name }}
           umbrella-dir: pr-preview
           token: ${{ secrets.KONGPONENTS_BOT_PAT }}
+          action: deploy
 
       # - name: Provide sandbox preview link
       #   if: ${{ steps.pr-preview.outputs.deployment-url != '' }}
