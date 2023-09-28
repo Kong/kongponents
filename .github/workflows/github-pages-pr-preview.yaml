@@ -57,7 +57,7 @@ jobs:
         uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: './sandbox/dist/'
-          preview-branch: alpha # ${{ github.head_ref || github.ref_name }}
+          preview-branch: ${{ github.head_ref || github.ref_name }}
           umbrella-dir: pr-preview
           token: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
