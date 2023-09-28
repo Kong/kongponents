@@ -72,5 +72,5 @@ jobs:
           message: |
             ## Sandbox Deploy Preview
 
-            <${{ steps.pr-preview.outputs.deployment-url }}>
+            ${{ steps.pr-preview.outputs.deployment-url }}
           GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
