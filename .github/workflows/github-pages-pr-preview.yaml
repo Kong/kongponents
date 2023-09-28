@@ -12,7 +12,9 @@ on:
     branches:
       - alpha
 
-concurrency: preview-${{ github.ref }}
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
