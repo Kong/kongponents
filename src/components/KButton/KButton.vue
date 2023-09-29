@@ -131,6 +131,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/* Component mixins */
+
 @mixin kButtonPrimaryAppearance {
   background-color: var(--kui-color-background-primary, $kui-color-background-primary);
   border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
@@ -154,8 +156,38 @@ export default {
   }
 }
 
+@mixin kButtonMediumSize {
+  font-size: var(--kui-font-size-30, $kui-font-size-30);
+  line-height: var(--kui-line-height-30, $kui-line-height-30);
+  padding: var(--kui-space-30, $kui-space-30) var(--kui-space-40, $kui-space-40);
+
+  &.icon-button {
+    padding: var(--kui-space-30, $kui-space-30);
+  }
+
+  // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
+  :deep(.kui-icon), :deep(.kong-icon) {
+    /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+    height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+    /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+    width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+
+    // TODO: [beta] remove this once once we remove the icon prop & slot
+    svg {
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+    }
+  }
+}
+
+/* Component styles */
+
 .k-button {
   @include kButtonPrimaryAppearance; // primary appearance is the default
+  @include kButtonMediumSize; // medium size is the default
+
   align-items: center;
   border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
   cursor: pointer;
@@ -299,29 +331,7 @@ export default {
   }
 
   &.medium {
-    font-size: var(--kui-font-size-30, $kui-font-size-30);
-    line-height: var(--kui-line-height-30, $kui-line-height-30);
-    padding: var(--kui-space-30, $kui-space-30) var(--kui-space-40, $kui-space-40);
-
-    &.icon-button {
-      padding: var(--kui-space-30, $kui-space-30);
-    }
-
-    // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
-    :deep(.kui-icon), :deep(.kong-icon) {
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
-
-      // TODO: [beta] remove this once once we remove the icon prop & slot
-      svg {
-        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-        height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
-        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-        width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
-      }
-    }
+    @include kButtonMediumSize;
   }
 
   &.small {
