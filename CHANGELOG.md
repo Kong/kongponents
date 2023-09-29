@@ -1,3 +1,15 @@
+# [9.0.0-alpha.12](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.11...v9.0.0-alpha.12) (2023-09-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.7.0 ([#1744](https://github.com/Kong/kongponents/issues/1744)) ([a36502b](https://github.com/Kong/kongponents/commit/a36502b48ffe3990dce67d3d055264b8e8e50073))
+
+
+### Reverts
+
+* update netlify build ([c13b8ad](https://github.com/Kong/kongponents/commit/c13b8ad3c9404b0b4eb272e4dc7fcc5d70685c42))
+
 # [9.0.0-alpha.11](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2023-09-27)
 
 
