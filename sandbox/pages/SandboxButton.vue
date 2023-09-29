@@ -89,6 +89,14 @@
       </div>
     </SandboxSectionComponent>
     <SandboxSectionComponent
+      description="Here we pass an invalid value to the appearance prop (see the error in the console) which the KButton handles by falling back to primary appearance."
+      title="invalid value"
+    >
+      <KButton appearance="outline">
+        Still Primary
+      </KButton>
+    </SandboxSectionComponent>
+    <SandboxSectionComponent
       title="size"
     >
       <template #description>
