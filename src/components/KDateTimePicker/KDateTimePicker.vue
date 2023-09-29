@@ -14,6 +14,7 @@
       @opened="state.hidePopover = false"
     >
       <KButton
+        appearance="tertiary"
         aria-role="input"
         class="timepicker-input"
         :class="{ 'set-min-width': hasTimePeriods }"

@@ -19,13 +19,12 @@
           name="expand-trigger"
           :truncated-count="truncatedCount"
         >
-          <KButton
-            appearance="tertiary"
+          <button
             class="expand-trigger"
             @click="handleToggleClick"
           >
             {{ truncatedCount }}
-          </KButton>
+          </button>
         </slot>
       </div>
     </div>
@@ -42,18 +41,13 @@
           :collapse="handleToggleClick"
           name="collapse-trigger"
         >
-          <KButton
-            appearance="primary"
+          <ChevronUpIcon
             class="collapse-trigger"
+            :color="KUI_COLOR_TEXT_PRIMARY"
+            role="button"
+            tabindex="0"
             @click="handleToggleClick"
-          >
-            <KIcon
-              :color="`var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})`"
-              icon="chevronUp"
-              :size="KUI_ICON_SIZE_10"
-              title="Show less"
-            />
-          </KButton>
+          />
         </slot>
       </div>
     </div>
@@ -72,7 +66,7 @@
         >
           <KButton
             appearance="tertiary"
-            class="expand-trigger"
+            size="small"
             @click="handleToggleClick"
           >
             Show more
@@ -86,7 +80,7 @@
         >
           <KButton
             appearance="tertiary"
-            class="collapse-trigger"
+            size="small"
             @click="handleToggleClick"
           >
             Show less
@@ -100,8 +94,8 @@
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount, ref, nextTick, computed } from 'vue'
 import useUtilities from '@/composables/useUtilities'
-import KIcon from '@/components/KIcon/KIcon.vue'
-import { KUI_COLOR_TEXT_PRIMARY, KUI_ICON_SIZE_10, KUI_SPACE_40 } from '@kong/design-tokens'
+import { ChevronUpIcon } from '@kong/icons'
+import { KUI_SPACE_40, KUI_COLOR_TEXT_PRIMARY } from '@kong/design-tokens'
 
 const { getSizeFromString } = useUtilities()
 
@@ -266,16 +260,48 @@ onBeforeUnmount(() => {
     align-items: flex-end !important;
     display: flex !important;
     height: 100% !important;
+
+    .expand-trigger {
+      border: 0;
+      border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
+      color: var(--kui-color-text-primary, $kui-color-text-primary);
+      font-size: var(--kui-font-size-10, $kui-font-size-10);
+      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+      padding: var(--kui-space-10, $kui-space-10);
+
+      &:focus, &:active {
+        outline: none;
+      }
+
+      &:focus-visible {
+        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+      }
+
+      &:hover {
+        color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+      }
+
+      &:focus {
+        color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+      }
+    }
   }
 
-  .expand-trigger,
   .collapse-trigger {
     background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-    color: var(--kui-color-text-primary, $kui-color-text-primary);
+    border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
+    cursor: pointer;
 
-    &:hover,
-    &:active {
-      background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker) !important;
+    &:focus-visible {
+      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+    }
+
+    &:hover {
+      background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
+    }
+
+    &:focus {
+      background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
     }
   }
 
@@ -296,11 +322,8 @@ onBeforeUnmount(() => {
     }
 
     .expand-trigger {
-      font-size: var(--kui-font-size-20, $kui-font-size-20);
-
       &::before {
         content: '+';
-        margin-right: -7px;
       }
     }
     .collapse-trigger {
@@ -330,10 +353,6 @@ onBeforeUnmount(() => {
       .k-truncate-container {
         display: block;
       }
-    }
-    .expand-trigger,
-    .collapse-trigger {
-      font-size: var(--kui-font-size-20, $kui-font-size-20);
     }
   }
 

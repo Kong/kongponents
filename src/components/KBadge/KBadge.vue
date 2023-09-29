@@ -25,22 +25,17 @@
         <slot />
       </div>
     </component>
-    <KButton
+
+    <CloseIcon
       v-if="dismissable"
       :aria-hidden="hidden ? true : undefined"
       class="k-badge-dismiss-button"
+      :color="color"
       data-testid="k-badge-dismiss-button"
       :tabindex="hidden ? -1 : undefined"
       @click="handleDismiss"
       @click.stop
-    >
-      <KIcon
-        :color="color"
-        icon="close"
-        :size="KUI_ICON_SIZE_10"
-        title="Remove"
-      />
-    </KButton>
+    />
   </div>
 </template>
 
@@ -54,6 +49,7 @@ import type { BadgeAppearance, BadgeShape } from '@/types'
 import { BadgeAppearances, BadgeShapes } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import { KUI_ICON_SIZE_10 } from '@kong/design-tokens'
+import { CloseIcon } from '@kong/icons'
 
 const { getSizeFromString } = useUtilities()
 
@@ -320,6 +316,7 @@ watch(badgeText, () => {
     border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
 
     .k-badge-dismiss-button {
+      border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
       border-bottom-left-radius: var(--kui-border-radius-0, $kui-border-radius-0);
       border-top-left-radius: var(--kui-border-radius-0, $kui-border-radius-0);
     }

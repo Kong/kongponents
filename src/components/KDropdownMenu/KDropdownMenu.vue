@@ -38,10 +38,9 @@
                 :icon="icon"
               >
                 {{ label }}
-                <KIcon
+                <ChevronDownIcon
                   v-if="showCaret || appearance !== 'selectionMenu'"
                   :color="caretColor"
-                  icon="chevronDown"
                 />
               </KButton>
             </div>
@@ -84,6 +83,7 @@ import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KDropdownItem from './KDropdownItem.vue'
+import { ChevronDownIcon } from '@kong/icons'
 
 const props = defineProps({
   appearance: {

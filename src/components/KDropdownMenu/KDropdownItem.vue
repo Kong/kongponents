@@ -165,6 +165,10 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
 @import '@/styles/mixins';
 
 li.k-dropdown-item {
+  .k-button {
+    justify-content: flex-start;
+  }
+
   align-items: center;
   display: flex;
   font-size: var(--kui-font-size-40, $kui-font-size-40);

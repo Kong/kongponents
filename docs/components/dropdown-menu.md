@@ -303,8 +303,9 @@ The trigger element for opening/closing the menu.
 <ClientOnly>
   <KDropdownMenu :items="deepClone(defaultItemsUnselected)">
     <template #default>
-        <KButton icon="chevronDown">
+        <KButton>
           Menu
+          <ChevronDownIcon />
         </KButton>
       </template>
   </KDropdownMenu>
@@ -313,8 +314,9 @@ The trigger element for opening/closing the menu.
 ```html
 <KDropdownMenu :items="items">
   <template #default>
-      <KButton icon="chevronDown">
+      <KButton>
         Menu
+        <ChevronDownIcon />
       </KButton>
     </template>
 </KDropdownMenu>
@@ -471,8 +473,12 @@ There are 3 primary item types:
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { ChevronDownIcon } from '@kong/icons'
 
 export default defineComponent({
+  components: {
+    ChevronDownIcon
+  },
   data () {
     return {
       selectedItem: {

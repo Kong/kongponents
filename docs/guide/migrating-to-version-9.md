@@ -16,13 +16,25 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KAlert
 
+#### Structure
+
 #### Constants, Types & Interfaces
 
 * `appearances` const is no longer exported by the KAlert component. Instead, you can import `AlertAppearances` from `@kong/kongponents` directly.
 
+#### Props
+
+#### Slots
 
 ### KBadge
 
+#### Structure
+
+#### Constants, Types & Interfaces
+
+#### Props
+
+#### Slots
 
 ### KBreadcrumbs
 

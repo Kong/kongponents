@@ -244,7 +244,7 @@
       >
         <KButton
           v-if="showCopyButton"
-          appearance="secondary"
+          appearance="tertiary"
           class="k-code-block-copy-button"
           data-testid="k-code-block-copy-button"
           size="small"
