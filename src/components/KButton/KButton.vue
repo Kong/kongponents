@@ -131,9 +131,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@mixin kButtonPrimaryAppearance {
+  background-color: var(--kui-color-background-primary, $kui-color-background-primary);
+  border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
+  color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+
+  &:hover:not(:disabled):not(:focus):not(:active) {
+    background-color: var(--kui-color-background-primary-strong, $kui-color-background-primary-strong);
+  }
+
+  &:focus {
+    background-color: var(--kui-color-background-primary-stronger, $kui-color-background-primary-stronger);
+  }
+
+  &:active {
+    background-color: var(--kui-color-background-primary-strongest, $kui-color-background-primary-strongest);
+  }
+
+  &:disabled, &[disabled] {
+    background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+    color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+  }
+}
+
 .k-button {
+  @include kButtonPrimaryAppearance; // primary appearance is the default
   align-items: center;
-  border: 0;
   border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
   cursor: pointer;
   display: inline-flex;
@@ -169,26 +192,7 @@ export default {
   /* Appearances */
 
   &.primary {
-    background-color: var(--kui-color-background-primary, $kui-color-background-primary);
-    border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
-    color: var(--kui-color-text-inverse, $kui-color-text-inverse);
-
-    &:hover:not(:disabled):not(:focus):not(:active) {
-      background-color: var(--kui-color-background-primary-strong, $kui-color-background-primary-strong);
-    }
-
-    &:focus {
-      background-color: var(--kui-color-background-primary-stronger, $kui-color-background-primary-stronger);
-    }
-
-    &:active {
-      background-color: var(--kui-color-background-primary-strongest, $kui-color-background-primary-strongest);
-    }
-
-    &:disabled, &[disabled] {
-      background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
-      color: var(--kui-color-text-disabled, $kui-color-text-disabled);
-    }
+    @include kButtonPrimaryAppearance;
   }
 
   &.secondary {
