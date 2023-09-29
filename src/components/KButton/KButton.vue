@@ -233,21 +233,25 @@ export default {
     color: var(--kui-color-text-primary, $kui-color-text-primary);
 
     &:hover:not(:disabled):not(:focus):not(:active) {
+      background-color: var(--kui-color-background, $kui-color-background);
       border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
       color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
     }
 
     &:focus {
+      background-color: var(--kui-color-background, $kui-color-background);
       border-color: var(--kui-color-border-primary-stronger, $kui-color-border-primary-stronger);
       color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
     }
 
     &:active {
+      background-color: var(--kui-color-background, $kui-color-background);
       border-color: var(--kui-color-border-primary-strongest, $kui-color-border-primary-strongest);
       color: var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest);
     }
 
     &:disabled, &[disabled] {
+      background-color: var(--kui-color-background, $kui-color-background);
       border-color: var(--kui-color-border-disabled, $kui-color-border-disabled);
       color: var(--kui-color-text-disabled, $kui-color-text-disabled);
     }
