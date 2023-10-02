@@ -120,7 +120,7 @@
     "shx": "^0.3.4",
     "stylelint": "^15.10.3",
     "stylelint-config-html": "^1.1.0",
-    "stylelint-config-recommended-scss": "^12.0.0",
+    "stylelint-config-recommended-scss": "^13.0.0",
     "stylelint-config-recommended-vue": "^1.5.0",
     "stylelint-order": "^6.0.3",
     "tsc-alias": "^1.8.8",
