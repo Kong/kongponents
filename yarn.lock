@@ -768,10 +768,10 @@
   resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.11.2.tgz#9f2f297dc947ba1097e9fcd08e2ba5c1d11db8ac"
   integrity sha512-0x1lLa1htkpGDVTIuf7nTL1z2XiiGGcW5tM5HdAVJktXGkaJqD7oJsGfhhI9SvCbt5O1z9lCfSCHINybL8Da9w==
 
-"@kong/icons@^1.7.1":
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.7.1.tgz#7ac3351333db71288bf6c8a7c98c974a950dab6c"
-  integrity sha512-mmONEOuwzS+dTkH+OcNzKwh0ysXqomk2yCCKxbljxU1LyFLAf15VOrwuvcEW1M8usjKACbl+9DGR5UJnlfjDeA==
+"@kong/icons@^1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.7.2.tgz#3ee7c07f8913f96a459744ebf820c303a1f43c06"
+  integrity sha512-BZfc9xpBwcgPQWyr2AGmJuh5xwN5EBwqkdUEt3R5YPygnouYy3CjFa/5iTfuGc8MIRp8awJ2n9DxgpzuCkLB5A==
 
 "@ljharb/through@^2.3.9":
   version "2.3.9"
