@@ -338,7 +338,7 @@ describe('KMultiselect', () => {
         testMode: true,
         autosuggest: true,
         collapsedContext: true,
-        selectedRowCount: 2,
+        selectedRowCount: 1,
         modelValue: selected,
         loading: false,
         items,
