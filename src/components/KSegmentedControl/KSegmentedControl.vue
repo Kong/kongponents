@@ -132,6 +132,10 @@ const handleClick = (evt: PointerEvent): void => {
       z-index: 1;
 
       &:hover:not(:disabled) {
+        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest) !important;
+      }
+
+      &:focus {
         background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
       }
     }

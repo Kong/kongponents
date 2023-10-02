@@ -122,7 +122,7 @@
           :placeholder="`${ currentPageSize } items per page`"
           position-fixed
           :test-mode="!!testMode || undefined"
-          width="205"
+          width="170"
           @selected="updatePageSize"
         />
       </div>
@@ -383,6 +383,7 @@ watch(pageCount, (newVal, oldVal) => {
 .pagination-button-container {
   display: flex;
   list-style: none;
+  padding: 0;
   text-align: center;
 
   a {

@@ -149,7 +149,7 @@ By default the `width` is set to `284px`.
     </KMenuItem>
   </template>
   <template v-slot:actionButton>
-    <KButton>Clear all the filters</KButton>
+    <KButton appearance="tertiary">Clear all the filters</KButton>
   </template>
 </KMenu>
 

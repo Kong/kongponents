@@ -99,7 +99,7 @@
 
       <div class="k-search-actions">
         <KButton
-          appearance="secondary"
+          appearance="tertiary"
           :aria-pressed="isRegExpMode"
           class="k-regexp-mode-button"
           data-testid="k-code-block-regexp-mode-button"
@@ -113,7 +113,7 @@
         </KButton>
 
         <KButton
-          appearance="secondary"
+          appearance="tertiary"
           :aria-pressed="isFilterMode"
           class="k-filter-mode-button"
           data-testid="k-code-block-filter-mode-button"
@@ -136,6 +136,7 @@
         </KButton>
 
         <KButton
+          appearance="tertiary"
           class="k-previous-match-button"
           data-testid="k-code-block-previous-match-button"
           :disabled="matchingLineNumbers.length === 0 || isFilterMode"
@@ -157,6 +158,7 @@
         </KButton>
 
         <KButton
+          appearance="tertiary"
           class="k-next-match-button"
           data-testid="k-code-block-next-match-button"
           :disabled="matchingLineNumbers.length === 0 || isFilterMode"

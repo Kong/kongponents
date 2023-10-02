@@ -29,6 +29,7 @@
 
       <slot name="actionButton">
         <KButton
+          appearance="tertiary"
           @click="proceed"
           @keyup.enter="proceed"
         />
