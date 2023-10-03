@@ -158,11 +158,12 @@ export default {
 
 @mixin kButtonMediumSize {
   font-size: var(--kui-font-size-30, $kui-font-size-30);
+  gap: var(--kui-space-30, $kui-space-30);
   line-height: var(--kui-line-height-30, $kui-line-height-30);
-  padding: var(--kui-space-30, $kui-space-30) var(--kui-space-40, $kui-space-40);
+  padding: var(--kui-space-20, $kui-space-20) var(--kui-space-40, $kui-space-40);
 
   &.icon-button {
-    padding: var(--kui-space-30, $kui-space-30);
+    padding: var(--kui-space-20, $kui-space-20);
   }
 
   // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
@@ -194,7 +195,6 @@ export default {
   display: inline-flex;
   font-family: var(--kui-font-family-text, $kui-font-family-text);
   font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-  gap: var(--kui-space-30, $kui-space-30);
   justify-content: center;
   // Remove tap color highlight on mobile Safari
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
@@ -311,11 +311,12 @@ export default {
 
   &.large {
     font-size: var(--kui-font-size-40, $kui-font-size-40);
+    gap: var(--kui-space-40, $kui-space-40);
     line-height: var(--kui-line-height-40, $kui-line-height-40);
-    padding: var(--kui-space-40, $kui-space-40) var(--kui-space-50, $kui-space-50);
+    padding: var(--kui-space-30, $kui-space-30) var(--kui-space-50, $kui-space-50);
 
     &.icon-button {
-      padding: var(--kui-space-40, $kui-space-40);
+      padding: var(--kui-space-30, $kui-space-30);
     }
 
     // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
@@ -340,12 +341,14 @@ export default {
   }
 
   &.small {
+    border-width: var(--kui-border-width-10, $kui-border-width-10);
     font-size: var(--kui-font-size-20, $kui-font-size-20);
+    gap: var(--kui-space-20, $kui-space-20);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
-    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-30, $kui-space-30);
+    padding: var(--kui-space-10, $kui-space-10) var(--kui-space-30, $kui-space-30);
 
     &.icon-button {
-      padding: var(--kui-space-20, $kui-space-20);
+      padding: var(--kui-space-10, $kui-space-10);
     }
 
     // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
