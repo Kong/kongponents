@@ -95,9 +95,7 @@
                 name="selected-item-template"
               >
                 {{ selectButtonText }}
-                <KIcon
-                  icon="chevronDown"
-                />
+                <ChevronDownIcon />
               </slot>
             </KButton>
           </div>
@@ -274,6 +272,7 @@ import {
   SelectAppearanceArray,
 } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { ChevronDownIcon } from '@kong/icons'
 
 export default {
   inheritAttrs: false,

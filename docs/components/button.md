@@ -114,7 +114,7 @@ KButton takes care of icon color, size and spacing as long as you use icons prov
     <ChevronDownIcon />
   </KButton>
   <!-- TODO: [beta] change this to icon prop -->
-  <KButton appearance="danger" size="small" class="button-icon">
+  <KButton appearance="danger" size="small" class="icon-button">
     <TrashIcon />
   </KButton>
 </div>
@@ -125,7 +125,9 @@ KButton takes care of icon color, size and spacing as long as you use icons prov
 This slot will be removed in beta stage of v9 release.
 :::
 
-KButton supports using an icon either before the text or without text. If you are using the slot you must maintain the icon color yourself when the button is enabled or disabled.
+KButton supports using an icon either before the text or without text. If you are using the KIcon component you must maintain the icon color yourself when the button is enabled or disabled.
+
+Using only this slot without the default slot will make button square (left and right padding = top and bottom).
 
 <div class="spacing-container">
   <KButton appearance="secondary">

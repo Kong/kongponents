@@ -9,7 +9,7 @@
       :appearance="getAppearance(option)"
       :disabled="getDisabled(option)"
       :name="option.value"
-      size="small"
+      size="medium"
       @click="handleClick"
     >
       <slot

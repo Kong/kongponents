@@ -186,6 +186,7 @@ export default {
 /* Component styles */
 
 .k-button {
+  $kButtonTransitionDurationTimingFunction: var(--kui-animation-duration-20, $kui-animation-duration-20) ease-in-out;
   @include kButtonPrimaryAppearance; // primary appearance is the default
   @include kButtonMediumSize; // medium size is the default
 
@@ -199,7 +200,7 @@ export default {
   // Remove tap color highlight on mobile Safari
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   text-decoration: none;
-  transition: all var(--kui-animation-duration-20, $kui-animation-duration-20) ease-in-out;
+  transition: background-color $kButtonTransitionDurationTimingFunction, color $kButtonTransitionDurationTimingFunction, border-color $kButtonTransitionDurationTimingFunction;
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;
@@ -341,6 +342,7 @@ export default {
   }
 
   &.small {
+    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
     border-width: var(--kui-border-width-10, $kui-border-width-10);
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     gap: var(--kui-space-20, $kui-space-20);

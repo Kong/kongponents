@@ -1011,7 +1011,7 @@ onBeforeUnmount(() => {
     .k-multiselect-chevron-icon {
       position: relative;
       right: 10px;
-      top: 11px;
+      top: 9px;
     }
 
     .k-multiselect-clear-icon {
@@ -1045,6 +1045,8 @@ onBeforeUnmount(() => {
 
     &.disabled {
       @include input-disabled;
+      background-color: transparent !important;
+      box-shadow: none !important;
     }
 
     .k-multiselect-input {
