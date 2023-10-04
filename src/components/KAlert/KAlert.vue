@@ -130,7 +130,8 @@ import type { PropType } from 'vue'
 import { computed, useSlots } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import { type AlertAppearance, type AlertDismissType, type AlertSize, type AlertType, AlertAppearances } from '@/types'
+import type { AlertAppearance, AlertDismissType, AlertSize, AlertType } from '@/types'
+import { AlertAppearances } from '@/types'
 import { KUI_ICON_SIZE_20, KUI_ICON_SIZE_60 } from '@kong/design-tokens'
 
 defineProps({

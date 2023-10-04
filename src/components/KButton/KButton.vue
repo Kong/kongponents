@@ -23,7 +23,8 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, useAttrs, useSlots } from 'vue'
-import { type ButtonAppearance, ButtonAppearances, type ButtonSize, ButtonSizes } from '@/types'
+import { ButtonAppearances, ButtonSizes } from '@/types'
+import type { ButtonAppearance, ButtonSize } from '@/types'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import { KUI_COLOR_TEXT_PRIMARY, KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_DISABLED } from '@kong/design-tokens'
 
