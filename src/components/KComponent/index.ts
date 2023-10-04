@@ -9,7 +9,6 @@ export default defineComponent({
       required: true,
     },
   },
-
   setup(props, { slots }) {
     const slotData = reactive(props.data)
 
