@@ -1,3 +1,10 @@
+# [9.0.0-alpha.17](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.16...v9.0.0-alpha.17) (2023-10-04)
+
+
+### Bug Fixes
+
+* **kcomponent, ktggle:** minor touchups [KHCP-8977] ([#1755](https://github.com/Kong/kongponents/issues/1755)) ([8182a1b](https://github.com/Kong/kongponents/commit/8182a1bf469b777f9a826e804fa235bbac9167f7))
+
 # [9.0.0-alpha.16](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.15...v9.0.0-alpha.16) (2023-10-04)
 
 
