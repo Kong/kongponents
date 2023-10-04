@@ -1,6 +1,6 @@
 # KToggle
 
-Provide toggle functionality to components.
+Provides toggle functionality to components.
 
 e.g.
 
@@ -194,14 +194,14 @@ them and placing them inside `KToggle`'s default slot.
 
 ```html
 <KToggle v-slot="{isToggled, toggle}">
-      <div>
-        <KButton @click="toggle">
-          {{ isToggled.value ? 'collapse' : 'expand' }}
-        </KButton>
-        <transition name="expand">
-          <KAlert v-if="isToggled.value" alertMessage="Every day, once a day, give yourself a present." />
-        </transition>
-      </div>
+  <div>
+    <KButton @click="toggle">
+      {{ isToggled.value ? 'collapse' : 'expand' }}
+    </KButton>
+    <transition name="expand">
+      <KAlert v-if="isToggled.value" alertMessage="Every day, once a day, give yourself a present." />
+    </transition>
+  </div>
 </KToggle>
 ```
 
