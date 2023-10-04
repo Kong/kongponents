@@ -39,7 +39,7 @@
               >
                 {{ label }}
                 <ChevronDownIcon
-                  v-if="showCaret || appearance !== 'selectionMenu'"
+                  v-if="showCaret || appearance === 'selectionMenu'"
                   :color="caretColor"
                 />
               </KButton>

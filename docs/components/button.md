@@ -102,7 +102,7 @@ KButton also supports the disabled attribute with both Button and Anchor types.
 
 ### default
 
-KButton takes care of icon color, size and spacing as long as you use icons provided by [@kong/icons](https://www.npmjs.com/package/@kong/icons) package.
+The default slot allows you to provide the button text as well as to slot in other button content such as an icon. KButton takes care of icon color, size and spacing as long as you use icons provided by [@kong/icons](https://www.npmjs.com/package/@kong/icons) package.
 
 <div class="spacing-container">
   <KButton size="large">
