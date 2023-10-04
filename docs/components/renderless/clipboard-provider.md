@@ -3,11 +3,11 @@
 `<KClipboardProvider />` Provide clipboard functionality to components.
 
 <KCard>
-  <template v-slot:body>
+  <template #body>
     <KInput :model-value="dataToCopy" @input="newValue => dataToCopy = newValue" type="text" class="vertical-spacing" />
     <KClipboardProvider v-slot="{ copyToClipboard }">
-      <KButton @click="() => { if (copyToClipboard(dataToCopy)) $toaster.open(`Copied: '${dataToCopy}'`) }">
-        copy to clipboard
+      <KButton @click="() => { if (copyToClipboard(dataToCopy)) alert(`Copied: '${dataToCopy}'`) }">
+        Copy to Clipboard
       </KButton>
     </KClipboardProvider>
   </template>
@@ -18,25 +18,19 @@
   <KInput :model-value="dataToCopy" @input="newValue => dataToCopy = newValue" type="text" />
   <KClipboardProvider v-slot="{ copyToClipboard }">
     <KButton @click="() => { if (copyToClipboard(dataToCopy)) alert(`Copied '${dataToCopy}'`) }">
-      copy to clipboard
+      Copy to Clipboard
     </KButton>
   </KClipboardProvider>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
 
-export default defineComponent({
-  setup() {
-    const dataToCopy = ref('copy this to the clipboard')
+const dataToCopy = ref('Copy this to the clipboard')
 
-    const alert = (msg: string): void => {
-      window.alert(msg)
-    }
-
-    return { dataToCopy, alert }
-  }
-})
+const alert = (msg: string): void => {
+  window.alert(msg)
+}
 </script>
 ```
 
@@ -46,24 +40,18 @@ export default defineComponent({
 
 ### Slot Props
 
-| Props             | Type     | Description                            |
-| :---------------- | :------- | :------------------------------------- |
-| `copyToClipboard` | Function | copy to clipboard `@returns {Boolean}` |
+| Props             | Type     | Description                             |
+| :---------------- | :------- | :-------------------------------------- |
+| `copyToClipboard` | Function | Copy to clipboard; `@returns {Boolean}` |
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
 
-export default defineComponent({
-  setup() {
-    const dataToCopy = ref('copy this to the clipboard')
+const dataToCopy = ref('Copy this to the clipboard')
 
-    const alert = (msg: string): void => {
-      window.alert(msg)
-    }
-
-    return { dataToCopy, alert }
-  }
-})
+const alert = (msg: string): void => {
+  window.alert(msg)
+}
 </script>
 
 <style lang="scss">
