@@ -99,9 +99,9 @@
     "cypress": "^13.2.0",
     "cypress-fail-fast": "^7.0.3",
     "cz-conventional-changelog": "3.3.0",
-    "eslint": "^8.49.0",
+    "eslint": "^8.50.0",
     "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-cypress": "^2.14.0",
+    "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-import": "^2.28.1",
     "eslint-plugin-n": "^16.1.0",
     "eslint-plugin-promise": "^6.1.1",
@@ -180,7 +180,7 @@
     "node": ">=v16.20.2"
   },
   "volta": {
-    "node": "18.17.1",
+    "node": "18.18.0",
     "yarn": "1.22.19"
   },
   "config": {
