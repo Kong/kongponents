@@ -9,11 +9,11 @@ e.g.
 - visible / not visible
 
 <KCard>
-  <template v-slot:body>
+  <template #body>
     <KToggle v-slot="{isToggled, toggle}">
-        <KButton @click="toggle">
-          {{ isToggled.value ? 'toggled' : 'not toggled' }}
-        </KButton>
+      <KButton @click="toggle">
+        {{ isToggled.value ? 'Toggled' : 'Not toggled' }}
+      </KButton>
     </KToggle>
   </template>
 </KCard>
@@ -21,7 +21,7 @@ e.g.
 ```html
 <KToggle v-slot="{isToggled, toggle}">
   <KButton @click="toggle">
-    {{ isToggled.value ? 'toggled' : 'not toggled' }}
+    {{ isToggled.value ? 'Toggled' : 'Not toggled' }}
   </KButton>
 </KToggle>
 ```
@@ -42,8 +42,8 @@ The toggled state that the component should begin with.
 
 | Props       | Type         | Description                     |
 | :---------- | :----------- | :------------------------------ |
-| `isToggled` | Ref(Boolean) | the component is toggled or not |
-| `toggle`    | Function     | function to toggle!             |
+| `isToggled` | Ref(Boolean) | The component is toggled or not |
+| `toggle`    | Function     | Function to toggle              |
 
 You can trigger the `toggle` function to switch the state in any way you'd like.
 For instance, here we are toggling the state on `mouseover` and toggling back on
@@ -56,7 +56,7 @@ For instance, here we are toggling the state on `mouseover` and toggling back on
         :style="{color: isToggled.value ? 'green' : 'red'}"
         @mouseover="toggle"
         @mouseout="toggle">
-        {{ isToggled.value ? 'yes' : 'no' }}
+        {{ isToggled.value ? 'Yes' : 'No' }}
       </div>
     </KToggle>
   </template>
@@ -65,7 +65,7 @@ For instance, here we are toggling the state on `mouseover` and toggling back on
 ```html
 <KToggle v-slot="{isToggled, toggle}" :toggled="true">
   <div :style="{color: isToggled.value ? 'green' : 'red'}" @mouseover="toggle" @mouseout="toggle">
-    {{ isToggled.value ? 'yes' : 'no' }}
+    {{ isToggled.value ? 'Yes' : 'No' }}
   </div>
 </KToggle>
 ```
@@ -79,7 +79,7 @@ For instance, here we are toggling the state on `mouseover` and toggling back on
 <KCard>
   <template v-slot:body>
     <KToggle v-slot="{ toggle }" @toggled="sayHello">
-      <KButton @click="toggle">keep clicking me</KButton>
+      <KButton @click="toggle">Keep clicking me</KButton>
     </KToggle>
   </template>
 </KCard>
@@ -87,22 +87,14 @@ For instance, here we are toggling the state on `mouseover` and toggling back on
 ```html
 <template>
   <KToggle v-slot="{ toggle }" @toggled="sayHello">
-    <KButton @click="toggle">keep clicking me</KButton>
+    <KButton @click="toggle">Keep clicking me</KButton>
   </KToggle>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  setup() {
-    const sayHello = (isToggled: boolean): void => {
-      alert('hello! the toggled is set to: ' + isToggled)
-    }
-
-    return { sayHello }
-  }
-})
+<script setup lang="ts">
+const sayHello = (isToggled: boolean): void => {
+  alert('Hello! The toggled is set to: ' + isToggled)
+}
 </script>
 ```
 
@@ -115,7 +107,7 @@ them and placing them inside `KToggle`'s default slot.
 
 <br/>
 <KCard>
-  <template v-slot:body>
+  <template #body>
     <KToggle v-slot="{ isToggled, toggle }">
       <div>
         <KButton @click="toggle">
@@ -151,7 +143,7 @@ them and placing them inside `KToggle`'s default slot.
     <KToggle v-slot="{isToggled, toggle}">
       <div>
         <KButton @click="toggle" class="vertical-spacing">
-          {{ isToggled.value ? 'collapse' : 'expand' }}
+          {{ isToggled.value ? 'Collapse' : 'Expand' }}
         </KButton>
         <KAlert
           v-if="isToggled.value"
@@ -165,7 +157,7 @@ them and placing them inside `KToggle`'s default slot.
 <KToggle v-slot="{isToggled, toggle}">
   <div>
     <KButton @click="toggle">
-      {{ isToggled.value ? 'collapse' : 'expand' }}
+      {{ isToggled.value ? 'Collapse' : 'Expand' }}
     </KButton>
     <KAlert v-if="isToggled.value" alertMessage="Every day, once a day, give yourself a present." />
   </div>
@@ -180,7 +172,7 @@ them and placing them inside `KToggle`'s default slot.
     <KToggle v-slot="{isToggled, toggle}">
       <div>
         <KButton @click="toggle" class="vertical-spacing">
-          {{ isToggled.value ? 'collapse' : 'expand' }}
+          {{ isToggled.value ? 'Collapse' : 'Expand' }}
         </KButton>
         <transition name="expand">
           <KAlert
@@ -196,7 +188,7 @@ them and placing them inside `KToggle`'s default slot.
 <KToggle v-slot="{isToggled, toggle}">
   <div>
     <KButton @click="toggle">
-      {{ isToggled.value ? 'collapse' : 'expand' }}
+      {{ isToggled.value ? 'Collapse' : 'Expand' }}
     </KButton>
     <transition name="expand">
       <KAlert v-if="isToggled.value" alertMessage="Every day, once a day, give yourself a present." />
@@ -205,18 +197,10 @@ them and placing them inside `KToggle`'s default slot.
 </KToggle>
 ```
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  setup() {
-    const sayHello = (isToggled: boolean): void => {
-      alert('hello! the toggled is set to: ' + isToggled)
-    }
-
-    return { sayHello }
-  }
-})
+<script setup lang="ts">
+const sayHello = (isToggled: boolean): void => {
+  alert('hello! the toggled is set to: ' + isToggled)
+}
 </script>
 
 <style>
