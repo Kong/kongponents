@@ -1,3 +1,10 @@
+# [9.0.0-alpha.16](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.15...v9.0.0-alpha.16) (2023-10-04)
+
+
+### Features
+
+* **kbutton:** component reskinning [KHCP-8970] ([#1730](https://github.com/Kong/kongponents/issues/1730)) ([f239b6d](https://github.com/Kong/kongponents/commit/f239b6dcc5d179a8313822058bab8e3e200f93a7))
+
 # [9.0.0-alpha.15](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.14...v9.0.0-alpha.15) (2023-10-03)
 
 
