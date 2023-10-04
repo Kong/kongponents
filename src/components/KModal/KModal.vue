@@ -188,7 +188,7 @@ const props = defineProps({
   */
   cancelButtonAppearance: {
     type: String as PropType<ButtonAppearance>,
-    default: 'outline',
+    default: 'secondary',
   },
   /**
   * Set to not render the cancel button

@@ -9,18 +9,18 @@ e.g.
 
 <KComponent :data="{ count: 0 }" v-slot="{ data }">
   <div>
-    <KButton size="small" appearance="outline" :isRounded="false" @click="data.count = data.count - 1">-</KButton>
+    <KButton size="small" appearance="secondary" :isRounded="false" @click="data.count = data.count - 1">-</KButton>
     {{ data.count }}
-    <KButton size="small" appearance="outline" :isRounded="false" @click="data.count = data.count + 1">+</KButton>
+    <KButton size="small" appearance="secondary" :isRounded="false" @click="data.count = data.count + 1">+</KButton>
   </div>
 </KComponent>
 
 ```html
 <KComponent :data="{ count: 0 }" v-slot="{ data }">
   <div>
-    <KButton size="small" appearance="outline" :isRounded="false" @click="data.count = data.count - 1">-</KButton>
+    <KButton size="small" appearance="secondary" :isRounded="false" @click="data.count = data.count - 1">-</KButton>
     {{ data.count }}
-    <KButton size="small" appearance="outline" :isRounded="false" @click="data.count = data.count + 1">+</KButton>
+    <KButton size="small" appearance="secondary" :isRounded="false" @click="data.count = data.count + 1">+</KButton>
   </div>
 </KComponent>
 ```

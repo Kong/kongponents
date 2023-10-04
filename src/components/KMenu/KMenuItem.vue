@@ -11,7 +11,6 @@
       :aria-expanded="isOpen && expandable || undefined"
       :aria-labelledby="menuItemId || undefined"
       class="menu-button"
-      :is-rounded="false"
       type="button"
       @click="toggleMenuItem"
     >
@@ -166,6 +165,7 @@ const toggleMenuItem = (): void => {
   font-family: var(--kui-font-family-text, $kui-font-family-text);
   font-size: var(--kui-font-size-20, $kui-font-size-20);
   font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular) !important;
+  justify-content: flex-start;
   line-height: var(--kui-line-height-40, $kui-line-height-40);
   width: 100%;
   &:focus {

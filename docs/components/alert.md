@@ -67,7 +67,6 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
 
 - `none` (default)
 - `icon`
-- `button`
 
 <div>
   <KAlert
@@ -82,14 +81,6 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
     :is-showing="dismissTypeIcon"
     @closed="dismissTypeIcon = false"
   />
-
-  <KAlert
-    alert-message="Alert with dismiss type as button"
-    type="banner"
-    dismiss-type="button"
-    :is-showing="dismissTypeBtn"
-    @closed="dismissTypeBtn = false"
-  />
 </div>
 
 ```html
@@ -102,14 +93,6 @@ KAlert allows for dismissal of the banner using an icon or button. An alert is n
 <KAlert
   alert-message="Info alert message that is dismissible"
   dismiss-type="icon"
-  :is-showing="isShowing"
-  @closed="isShowing = false"
-/>
-
-<KAlert
-  alert-message="Alert with dismiss type as button"
-  type="banner"
-  dismiss-type="button"
   :is-showing="isShowing"
   @closed="isShowing = false"
 />
@@ -134,21 +117,12 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   <KAlert
     :is-showing="infoIsOpen2"
     alert-message="I'm an alert"
-    dismiss-type="button"
     @closed="infoIsOpen2 = false"
   />
 
   <KAlert
     alert-message="I'm a banner type alert"
     type="banner"
-  />
-
-  <KAlert
-    :is-showing="infoIsOpen3"
-    alert-message="Alert with dismiss type as button"
-    type="banner"
-    dismiss-type="button"
-    @closed="infoIsOpen3 = false"
   />
 </div>
 
@@ -165,21 +139,12 @@ What color and purpose the Alert should be. Shares similar appearances to those 
 <KAlert
   :is-showing="isShowing"
   alert-message="I'm an alert"
-  dismiss-type="button"
   @closed="isShowing = false"
 />
 
 <KAlert
   alert-message="I'm a banner type alert"
   type="banner"
-/>
-
-<KAlert
-  :is-showing="isShowing"
-  alert-message="Alert with dismiss type as button"
-  type="banner"
-  dismiss-type="button"
-  @closed="isShowing = false"
 />
 ```
 
@@ -199,7 +164,6 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   <KAlert
     :is-showing="warningIsOpen2"
     alert-message="I'm an alert"
-    dismiss-type="button"
     appearance="warning"
     @closed="warningIsOpen2 = false"
   />
@@ -208,15 +172,6 @@ What color and purpose the Alert should be. Shares similar appearances to those 
     alert-message="I'm a banner type alert"
     type="banner"
     appearance="warning"
-  />
-
-  <KAlert
-    :is-showing="warningIsOpen3"
-    alert-message="Alert with dismiss type as button"
-    type="banner"
-    dismiss-type="button"
-    appearance="warning"
-    @closed="warningIsOpen3 = false"
   />
 </div>
 
@@ -237,7 +192,6 @@ What color and purpose the Alert should be. Shares similar appearances to those 
 <KAlert
   :is-showing="isShowing"
   alert-message="I'm an alert"
-  dismiss-type="button"
   appearance="warning"
   @closed="isShowing = false"
 />
@@ -246,15 +200,6 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   alert-message="I'm a banner type alert"
   type="banner"
   appearance="warning"
-/>
-
-<KAlert
-  :is-showing="isShowing"
-  alert-message="Alert with dismiss type as button"
-  type="banner"
-  dismiss-type="button"
-  appearance="warning"
-  @closed="isShowing = false"
 />
 ```
 
@@ -274,7 +219,6 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   <KAlert
     :is-showing="successIsOpen2"
     alert-message="I'm an alert"
-    dismiss-type="button"
     appearance="success"
     @closed="successIsOpen2 = false"
   />
@@ -283,15 +227,6 @@ What color and purpose the Alert should be. Shares similar appearances to those 
     alert-message="I'm a banner type alert"
     type="banner"
     appearance="success"
-  />
-
-  <KAlert
-    :is-showing="successIsOpen3"
-    alert-message="Alert with dismiss type as button"
-    type="banner"
-    dismiss-type="button"
-    appearance="success"
-    @closed="successIsOpen3 = false"
   />
 </div>
 
@@ -312,7 +247,6 @@ What color and purpose the Alert should be. Shares similar appearances to those 
 <KAlert
   :is-showing="isShowing"
   alert-message="I'm an alert"
-  dismiss-type="button"
   appearance="success"
   @closed="isShowing = false"
 />
@@ -321,15 +255,6 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   alert-message="I'm a banner type alert"
   type="banner"
   appearance="success"
-/>
-
-<KAlert
-  :is-showing="isShowing"
-  alert-message="Alert with dismiss type as button"
-  type="banner"
-  dismiss-type="button"
-  appearance="success"
-  @closed="isShowing = false"
 />
 ```
 
@@ -349,7 +274,6 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   <KAlert
     :is-showing="dangerIsOpen2"
     alert-message="I'm an alert"
-    dismiss-type="button"
     appearance="danger"
     @closed="dangerIsOpen2 = false"
   />
@@ -358,15 +282,6 @@ What color and purpose the Alert should be. Shares similar appearances to those 
     alert-message="I'm a banner type alert"
     type="banner"
     appearance="danger"
-  />
-
-  <KAlert
-    :is-showing="dangerIsOpen3"
-    alert-message="Alert with dismiss type as button"
-    type="banner"
-    dismiss-type="button"
-    appearance="danger"
-    @closed="dangerIsOpen3 = false"
   />
 </div>
 
@@ -387,7 +302,6 @@ What color and purpose the Alert should be. Shares similar appearances to those 
 <KAlert
   :is-showing="isShowing"
   alert-message="I'm an alert"
-  dismiss-type="button"
   appearance="danger"
   @closed="isShowing = false"
 />
@@ -396,15 +310,6 @@ What color and purpose the Alert should be. Shares similar appearances to those 
   alert-message="I'm a banner type alert"
   type="banner"
   appearance="danger"
-/>
-
-<KAlert
-  :is-showing="isShowing"
-  alert-message="Alert with dismiss type as button"
-  type="banner"
-  dismiss-type="button"
-  appearance="danger"
-  @closed="isShowing = false"
 />
 ```
 
@@ -458,7 +363,6 @@ Descriptive text to be displayed below the main alert content.
     icon="support"
     icon-color="darkorchid"
     type="banner"
-    dismiss-type="button"
     size="large"
     @closed="extraMsg = false"
   >
@@ -473,7 +377,6 @@ Descriptive text to be displayed below the main alert content.
   :is-showing="isShowing"
   alert-message="You’ve had 12 new mentions since you last logged in"
   description="across 3 services"
-  dismiss-type="button"
   type="banner"
   icon="support"
   icon-color="darkorchid"
@@ -603,7 +506,6 @@ Fixes KAlert to the top of the container.
 <div>
   <KAlert
     :is-showing="extraBtnSlot"
-    dismiss-type="button"
     size="large"
     appearance="success"
     @closed="extraBtnSlot = false"
@@ -622,7 +524,7 @@ Fixes KAlert to the top of the container.
     </template>
     <template #actionButtons>
       <KButton appearance="secondary" size="small">🐈‍⬛</KButton>
-      <KButton appearance="creation" size="small">🐶</KButton>
+      <KButton size="small">🐶</KButton>
     </template>
   </KAlert>
 </div>
@@ -630,7 +532,6 @@ Fixes KAlert to the top of the container.
 ```html
 <KAlert
   :is-showing="isShowing"
-  dismiss-type="button"
   size="large"
   appearance="success"
   @closed="isShowing = false"
@@ -649,7 +550,7 @@ Fixes KAlert to the top of the container.
   </template>
   <template #actionButtons>
     <KButton appearance="secondary" size="small">🐈‍⬛</KButton>
-    <KButton appearance="creation" size="small">🐶</KButton>
+    <KButton size="small">🐶</KButton>
   </template>
 </KAlert>
 ```

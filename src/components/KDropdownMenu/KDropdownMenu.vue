@@ -31,15 +31,17 @@
             <div>
               <KButton
                 v-if="label || icon"
-                :appearance="appearance === 'selectionMenu' ? 'outline' : buttonAppearance"
-                :caret-color="caretColor"
+                :appearance="appearance === 'selectionMenu' ? 'secondary' : buttonAppearance"
                 class="k-dropdown-btn"
                 data-testid="k-dropdown-btn"
                 :disabled="disabled"
                 :icon="icon"
-                :show-caret="showCaret || appearance === 'selectionMenu'"
               >
                 {{ label }}
+                <ChevronDownIcon
+                  v-if="showCaret || appearance === 'selectionMenu'"
+                  :color="caretColor"
+                />
               </KButton>
             </div>
           </slot>
@@ -81,6 +83,7 @@ import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KDropdownItem from './KDropdownItem.vue'
+import { ChevronDownIcon } from '@kong/icons'
 
 const props = defineProps({
   appearance: {

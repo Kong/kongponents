@@ -220,7 +220,7 @@ There are 3 designated slots you can use to display content in the modal.
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.
   </template>
   <template v-slot:action-buttons>
-    <KButton appearance="outline" @click="slotsIsOpen = false">Close</KButton>
+    <KButton appearance="secondary" @click="slotsIsOpen = false">Close</KButton>
   </template>
 </KPrompt>
 
@@ -234,7 +234,7 @@ There are 3 designated slots you can use to display content in the modal.
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.
   </template>
   <template v-slot:action-buttons>
-    <KButton appearance="outline" @click="slotsIsOpen = false">Close</KButton>
+    <KButton appearance="secondary" @click="slotsIsOpen = false">Close</KButton>
   </template>
 </KPrompt>
 ```

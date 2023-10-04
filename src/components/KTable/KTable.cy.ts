@@ -102,6 +102,96 @@ const options = {
  */
 
 describe('KTable', () => {
+  describe('states', () => {
+    it('displays an empty state when no data is available', () => {
+      mount(KTable, {
+        props: {
+          testMode: 'true',
+          fetcher: () => ({ data: [] }),
+          headers: options.headers,
+          pageSize: 4,
+        },
+      })
+
+      cy.get('.empty-state-wrapper').should('be.visible')
+    })
+
+    it('displays an empty state when no data is available (slot)', () => {
+      const emptySlotContent = 'Look mah! I am empty! (except testMode)'
+      const fetcher = () => new Promise(resolve => resolve({ data: [] }))
+      mount(KTable, {
+        props: {
+          testMode: 'true',
+          fetcher,
+          headers: options.headers,
+          pageSize: 4,
+        },
+        slots: {
+          'empty-state': () => h('span', {}, emptySlotContent),
+        },
+      })
+
+      cy.getTestId('k-table-empty-state').should('contain.text', emptySlotContent)
+    })
+
+    it('displays a loading skeletion when the "isLoading" prop is set to true"', () => {
+      mount(KTable, {
+        props: {
+          testMode: 'loading',
+          isLoading: true,
+        },
+      })
+
+      cy.get('.skeleton-table-wrapper').should('be.visible')
+    })
+
+    it('displays an error state when the "hasError" prop is set to true"', () => {
+      mount(KTable, {
+        props: {
+          testMode: 'true',
+          hasError: true,
+        },
+      })
+
+      cy.get('.empty-state-wrapper').should('be.visible')
+      cy.get('.is-error').should('be.visible')
+    })
+
+    it('displays an error state (slot)', () => {
+      const errorSlotContent = 'Look mah! I am erroneous! (except testMode)'
+      mount(KTable, {
+        props: {
+          testMode: 'true',
+          hasError: true,
+        },
+        slots: {
+          'error-state': () => h('span', {}, errorSlotContent),
+        },
+      })
+
+      cy.getTestId('k-table-error-state').should('contain.text', errorSlotContent)
+    })
+
+    it('displays a loading state and not an empty state when pending response', () => {
+      const slowFetcher = () => {
+        return new Promise((resolve) => setTimeout(resolve, 2500))
+      }
+
+      mount(KTable, {
+        props: {
+          testMode: 'loading',
+          fetcher: slowFetcher,
+          headers: options.headers,
+          cacheIdentifier: 'loading-test',
+          paginationPageSizes: [10, 20, 30, 40],
+        },
+      })
+
+      cy.get('.skeleton-table-wrapper').should('be.visible')
+      cy.get('.empty-state-wrapper').should('not.exist')
+    })
+  })
+
   describe('default', () => {
     it('renders link in action slot', () => {
       mount(KTable, {
@@ -176,7 +266,7 @@ describe('KTable', () => {
       cy.getTestId('k-select-input').click()
       cy.getTestId('k-select-item-1').click({ multiple: true, force: true })
       cy.getTestId('next-btn').find('a').click()
-      cy.get('.pagination-button.active').should('contain.text', 2 + '')
+      cy.get('.pagination-button').should('contain.text', 2 + '')
       cy.get('.k-table').find('tr').should('have.length', 4)
     })
 
@@ -285,7 +375,7 @@ describe('KTable', () => {
       })
 
       cy.getTestId('k-table-pagination').should('be.visible')
-      cy.getTestId('k-table-pagination').find('.kong-icon-chevronDown').click()
+      cy.getTestId('k-table-pagination').find('.kui-icon.chevron-down-icon').click()
       cy.get('.k-table').find('tr').should('have.length', 6)
       cy.get('.k-table').find('.kong-icon-chevronDown').last().click()
       cy.get('.k-table').find('td:nth-child(4)').first().should('has.text', 'Just now')
@@ -375,97 +465,6 @@ describe('KTable', () => {
   //     expect(evtTrigger).toHaveBeenNthCalledWith(3, expect.objectContaining({ type: 'mouseout' }), '517526354743085', 'cell')
   //   })
   // })
-
-  describe('states', () => {
-    it('displays an empty state when no data is available', () => {
-      const fetcher = () => new Promise(resolve => resolve({ data: [] }))
-      mount(KTable, {
-        props: {
-          testMode: 'true',
-          fetcher,
-          headers: options.headers,
-          pageSize: 4,
-        },
-      })
-
-      cy.get('.empty-state-wrapper').should('be.visible')
-    })
-
-    it('displays an empty state when no data is available (slot)', () => {
-      const emptySlotContent = 'Look mah! I am empty! (except testMode)'
-      const fetcher = () => new Promise(resolve => resolve({ data: [] }))
-      mount(KTable, {
-        props: {
-          testMode: 'true',
-          fetcher,
-          headers: options.headers,
-          pageSize: 4,
-        },
-        slots: {
-          'empty-state': () => h('span', {}, emptySlotContent),
-        },
-      })
-
-      cy.getTestId('k-table-empty-state').should('contain.text', emptySlotContent)
-    })
-
-    it('displays a loading skeletion when the "isLoading" prop is set to true"', () => {
-      mount(KTable, {
-        props: {
-          testMode: 'loading',
-          isLoading: true,
-        },
-      })
-
-      cy.get('.skeleton-table-wrapper').should('be.visible')
-    })
-
-    it('displays an error state when the "hasError" prop is set to true"', () => {
-      mount(KTable, {
-        props: {
-          testMode: 'true',
-          hasError: true,
-        },
-      })
-
-      cy.get('.empty-state-wrapper').should('be.visible')
-      cy.get('.is-error').should('be.visible')
-    })
-
-    it('displays an error state (slot)', () => {
-      const errorSlotContent = 'Look mah! I am erroneous! (except testMode)'
-      mount(KTable, {
-        props: {
-          testMode: 'true',
-          hasError: true,
-        },
-        slots: {
-          'error-state': () => h('span', {}, errorSlotContent),
-        },
-      })
-
-      cy.getTestId('k-table-error-state').should('contain.text', errorSlotContent)
-    })
-
-    it('displays a loading state and not an empty state when pending response', () => {
-      const slowFetcher = () => {
-        return new Promise((resolve) => setTimeout(resolve, 2500))
-      }
-
-      mount(KTable, {
-        props: {
-          testMode: 'loading',
-          fetcher: slowFetcher,
-          headers: options.headers,
-          cacheIdentifier: 'loading-test',
-          paginationPageSizes: [10, 20, 30, 40],
-        },
-      })
-
-      cy.get('.skeleton-table-wrapper').should('be.visible')
-      cy.get('.empty-state-wrapper').should('not.exist')
-    })
-  })
 
   describe('pagination', () => {
     it('displays pagination when fetcher provided', () => {

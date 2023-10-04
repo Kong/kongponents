@@ -24,6 +24,7 @@
           <component
             :is="item.disabledTooltipText ? 'KTooltip' : 'span'"
             v-if="item.disabled"
+            class="selected-icon-tooltip-wrapper"
             :label="item.disabledTooltipText ? item.disabledTooltipText : undefined"
             placement="left"
           >
@@ -161,6 +162,12 @@ const handleClick = (): void => {
       margin-left:  var(--kui-space-auto, $kui-space-auto);
       margin-top:  var(--kui-space-auto, $kui-space-auto);
       width: 24px;
+
+      .selected-icon-tooltip-wrapper {
+        align-items: center;
+        display: flex;
+        height: 100%;
+      }
     }
 
     &:not(:disabled):hover {

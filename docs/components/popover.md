@@ -558,7 +558,7 @@ Example:
     <div>Notifications</div>
   </template>
   <template v-slot:actions>
-    <KButton appearance="btn-link" size="small">Mark all as read</KButton>
+    <KButton appearance="tertiary" size="small">Mark all as read</KButton>
   </template>
   <template v-slot:content>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eleifend lorem ut ex tempus, a tincidunt elit hendrerit. Nunc eu ex vestibulum, consequat tellus sed, pharetra magna.
@@ -575,7 +575,7 @@ Example:
     <div>Notifications</div>
   </template>
   <template v-slot:actions>
-    <KButton appearance="btn-link" size="small">Mark all as read</KButton>
+    <KButton appearance="tertiary" size="small">Mark all as read</KButton>
   </template>
   <template v-slot:content>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eleifend lorem ut ex tempus, a tincidunt elit hendrerit. Nunc eu ex vestibulum, consequat tellus sed, pharetra magna.

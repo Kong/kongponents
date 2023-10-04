@@ -176,7 +176,7 @@ There are 6 designated slots you can use to display content in the fullscreen mo
   </template>
   <template #action-buttons>
     <KButton size="medium" @click="sampleIsOpen = false" class="button-spacing">Back</KButton>
-    <KButton appearance="creation" size="medium" @click="sampleIsOpen = false">Save</KButton>
+    <KButton size="medium" @click="sampleIsOpen = false">Save</KButton>
   </template>
   <div>
     <KStepper :steps="[
@@ -262,7 +262,7 @@ There are 6 designated slots you can use to display content in the fullscreen mo
   </template>
   <template #action-buttons>
     <KButton size="medium" @click="sampleIsOpen = false">Back</KButton>
-    <KButton appearance="creation" size="medium" @click="sampleIsOpen = false">Save</KButton>
+    <KButton size="medium" @click="sampleIsOpen = false">Save</KButton>
   </template>
   <div class="horizontal-spacing">
     <KInputSwitch v-model="checked" label="This plugin is enabled" class="display-items" />

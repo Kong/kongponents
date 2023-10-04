@@ -86,9 +86,7 @@
             <KButton
               :id="selectTextId"
               v-bind="modifiedAttrs"
-              appearance="btn-link"
-              :is-rounded="false"
-              show-caret
+              appearance="tertiary"
               :style="widthStyle"
               @keyup="(evt: any) => triggerFocus(evt, isToggled)"
             >
@@ -97,6 +95,7 @@
                 name="selected-item-template"
               >
                 {{ selectButtonText }}
+                <ChevronDownIcon />
               </slot>
             </KButton>
           </div>
@@ -273,6 +272,7 @@ import {
   SelectAppearanceArray,
 } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { ChevronDownIcon } from '@kong/icons'
 
 export default {
   inheritAttrs: false,
@@ -835,7 +835,7 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
     }
   }
 
-  .k-button.btn-link {
+  .k-button.tertiary {
     padding: var(--kui-space-50, $kui-space-50) var(--kui-space-80, $kui-space-80);
     text-decoration: none;
 
@@ -995,8 +995,8 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
   }
 
   .k-select-button {
-    .k-button.btn-link:hover,
-    &.k-button.btn-link:hover {
+    .k-button.tertiary:hover,
+    &.k-button.tertiary:hover {
       text-decoration: none;
     }
   }

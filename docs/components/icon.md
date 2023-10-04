@@ -18,7 +18,7 @@ The name of the icon. This required prop will only recognize icons from the foll
   <KToggle v-slot="{ isToggled, toggle }">
     <div>
       <KButton
-        appearance="outline"
+        appearance="secondary"
         @click="toggle"
         class="toggle-viewbox-button"
       >
@@ -54,7 +54,7 @@ The `State icons` do not support the `color` prop.
   <KToggle v-slot="{ isToggled, toggle }">
     <div>
       <KButton
-        appearance="outline"
+        appearance="secondary"
         class="toggle-viewbox-button"
         @click="toggle"
       >

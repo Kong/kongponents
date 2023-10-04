@@ -339,7 +339,7 @@ pre.emitted-value {
 }
 .image-with-label {
   .image-upload-icon.kong-icon {
-    top: 37px;
+    top: 37px !important;
   }
   .image-upload-description {
     top: 40px !important;

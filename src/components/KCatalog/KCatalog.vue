@@ -106,7 +106,7 @@
           <template #cta>
             <KButton
               v-if="emptyStateActionMessage"
-              :appearance="searchInput ? 'btn-link' : 'primary'"
+              :appearance="searchInput ? 'secondary' : 'primary'"
               :data-testid="getTestIdString(emptyStateActionMessage)"
               :icon="emptyStateActionButtonIcon"
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"

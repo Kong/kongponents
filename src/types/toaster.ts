@@ -1,5 +1,5 @@
 import type { AlertAppearance, AlertAppearanceRecord } from '@/types/alert'
-import { appearances } from '@/components/KAlert/KAlert.vue'
+import { AlertAppearances } from '@/types/alert'
 
 export interface Toast {
   key?: any // unique identifier of toaster
@@ -9,4 +9,4 @@ export interface Toast {
   timeoutMilliseconds?: number
 }
 
-export const toasterAppearances: AlertAppearanceRecord = appearances
+export const toasterAppearances: AlertAppearanceRecord = AlertAppearances

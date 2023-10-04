@@ -1021,7 +1021,7 @@ This example uses the [`KDropdownMenu`](/components/dropdown-menu) component as 
       <KDropdownMenu>
         <template #default>
           <KButton
-            appearance="btn-link"
+            appearance="tertiary"
             size="small"
           >
             <template #icon>
@@ -1066,7 +1066,7 @@ This example uses the [`KDropdownMenu`](/components/dropdown-menu) component as 
       <KDropdownMenu>
         <template #default>
           <KButton
-            appearance="btn-link"
+            appearance="tertiary"
             size="small"
           >
             <template #icon>

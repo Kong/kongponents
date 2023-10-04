@@ -130,7 +130,8 @@ import type { PropType } from 'vue'
 import { computed, useSlots } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import type { AlertAppearance, AlertDismissType, AlertAppearanceRecord, AlertSize, AlertType } from '@/types'
+import type { AlertAppearance, AlertDismissType, AlertSize, AlertType } from '@/types'
+import { AlertAppearances } from '@/types'
 import { KUI_ICON_SIZE_20, KUI_ICON_SIZE_60 } from '@kong/design-tokens'
 
 defineProps({
@@ -240,7 +241,7 @@ defineProps({
     type: String as PropType<AlertAppearance>,
     default: 'info',
     validator: (value: AlertAppearance): boolean => {
-      return Object.values(appearances).includes(value)
+      return Object.values(AlertAppearances).includes(value)
     },
   },
   /**
@@ -286,15 +287,6 @@ const dismissAlert = (): void => {
 
 const proceed = (): void => {
   emit('proceed')
-}
-</script>
-
-<script lang="ts">
-export const appearances: AlertAppearanceRecord = {
-  info: 'info',
-  success: 'success',
-  danger: 'danger',
-  warning: 'warning',
 }
 </script>
 
@@ -548,7 +540,7 @@ export const appearances: AlertAppearanceRecord = {
       }
     }
 
-    &.info button.outline {
+    &.info button.secondary {
       border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
       color: var(--kui-color-text-primary, $kui-color-text-primary);
     }
@@ -558,7 +550,7 @@ export const appearances: AlertAppearanceRecord = {
       color: $tmp-color-yellow-500;
     }
 
-    &.warning button.outline {
+    &.warning button.secondary {
       border: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-yellow-300;
       color: $tmp-color-yellow-500;
     }
@@ -568,7 +560,7 @@ export const appearances: AlertAppearanceRecord = {
       color: $tmp-color-green-600;
     }
 
-    &.success button.outline {
+    &.success button.secondary {
       border: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-green-400;
       color: $tmp-color-green-600;
     }
@@ -578,7 +570,7 @@ export const appearances: AlertAppearanceRecord = {
       color: var(--kui-color-text-danger, $kui-color-text-danger);
     }
 
-    &.danger button.outline {
+    &.danger button.secondary {
       border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-danger-weak, $kui-color-border-danger-weak);
     }
   }

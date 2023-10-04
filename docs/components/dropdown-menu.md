@@ -217,7 +217,7 @@ Use the `kpopAttributes` prop to configure the **KPop** [props](/components/popo
       >
         <template #default>
           <KButton
-            appearance="btn-link"
+            appearance="tertiary"
             size="small"
           >
             <template #icon>
@@ -249,7 +249,7 @@ Use the `kpopAttributes` prop to configure the **KPop** [props](/components/popo
     >
       <template #default>
         <KButton
-          appearance="btn-link"
+          appearance="tertiary"
           size="small"
         >
           <template #icon>
@@ -303,11 +303,9 @@ The trigger element for opening/closing the menu.
 <ClientOnly>
   <KDropdownMenu :items="deepClone(defaultItemsUnselected)">
     <template #default>
-        <KButton
-          show-caret
-          appearance="creation"
-        >
+        <KButton>
           Menu
+          <ChevronDownIcon />
         </KButton>
       </template>
   </KDropdownMenu>
@@ -316,11 +314,9 @@ The trigger element for opening/closing the menu.
 ```html
 <KDropdownMenu :items="items">
   <template #default>
-      <KButton
-        show-caret
-        appearance="creation"
-      >
+      <KButton>
         Menu
+        <ChevronDownIcon />
       </KButton>
     </template>
 </KDropdownMenu>
@@ -386,7 +382,7 @@ There are 3 primary item types:
       <KDropdownItem @click="clickHandler('Button clicked!')" class="dropdown-with-remove-action">
         Button w/ action
         <KButton
-          appearance="btn-link"
+          appearance="tertiary"
           @click.stop="() => { clickHandler('Button action clicked!'); closeDropdown() }"
         >
           <KIcon icon="trash" />
@@ -440,7 +436,7 @@ There are 3 primary item types:
     >
       Button w/ action
       <KButton
-        appearance="btn-link"
+        appearance="tertiary"
         @click.stop="() => { actionClickHandler(); closeDropdown(); }"
       >
         <KIcon icon="trash" />
@@ -477,8 +473,12 @@ There are 3 primary item types:
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { ChevronDownIcon } from '@kong/icons'
 
 export default defineComponent({
+  components: {
+    ChevronDownIcon
+  },
   data () {
     return {
       selectedItem: {

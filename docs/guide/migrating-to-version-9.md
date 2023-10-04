@@ -16,15 +16,59 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KAlert
 
+#### Structure
+
+#### Constants, Types & Interfaces
+
+* `appearances` const is no longer exported by the KAlert component. Instead, you can import `AlertAppearances` from `@kong/kongponents` directly.
+
+#### Props
+
+#### Slots
 
 ### KBadge
 
+#### Structure
+
+#### Constants, Types & Interfaces
+
+#### Props
+
+#### Slots
 
 ### KBreadcrumbs
 
 
 ### KButton
 
+#### Structure
+
+* `icon-btn` class has been renamed to `icon-button`
+
+#### Constants, Types & Interfaces
+
+* `appearances` and `sizes` constants are no longer exported by the KButton component. Instead, you can import `ButtonAppearances` and `ButtonSizes` from `@kong/kongponents` directly
+
+#### Props
+
+* some values `appearance` prop accepts were changed:
+  * `outline` is no longer supported (we suggest using `secondary` instead)
+  * `creation` is no longer supported
+  * `btn-link` is no longer accepted (we suggest using `tertiary` instead)
+  * `btn-link-danger` is no longer supported
+  * `action-active` is no longer supported
+* `showCaret` prop is removed
+* `caretColor` prop is removed
+* `isRounded` prop is removed
+* `icon` prop is removed (TODO: [beta])
+
+#### Slots
+
+* `icon` slot is removed (TODO: [beta])
+
+#### Events
+
+No changes.
 
 ### KCard
 

@@ -14,11 +14,11 @@
       @opened="state.hidePopover = false"
     >
       <KButton
+        appearance="tertiary"
         aria-role="input"
         class="timepicker-input"
         :class="{ 'set-min-width': hasTimePeriods }"
         data-testid="k-datetime-picker-input"
-        :is-rounded="false"
         size="large"
         :style="widthStyle"
       >
@@ -87,11 +87,10 @@
               <KButton
                 v-for="(timeFrame, itemIdx) in item.values"
                 :key="`time-${itemIdx}`"
-                appearance="outline"
+                appearance="secondary"
                 class="timeframe-btn"
                 :class="{ 'selected-option': timeFrame.key === state.selectedTimeframe.key }"
                 :data-testid="'select-timeframe-' + timeFrame.timeframeLength()"
-                :is-rounded="false"
                 size="medium"
                 @click="changeRelativeTimeframe(timeFrame)"
               >
@@ -108,21 +107,19 @@
         <div class="datetime-picker-footer-container">
           <KButton
             v-if="clearButton"
-            appearance="btn-link"
+            appearance="tertiary"
             class="action-btn"
             data-testid="k-datetime-picker-clear"
-            :is-rounded="false"
             size="medium"
             @click="clearSelection()"
           >
             Clear
           </KButton>
           <KButton
-            appearance="btn-link"
+            appearance="tertiary"
             class="action-btn"
             data-testid="k-datetime-picker-submit"
             :disabled="submitDisabled"
-            :is-rounded="false"
             size="medium"
             @click="submitTimeFrame()"
           >
