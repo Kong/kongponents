@@ -1347,7 +1347,12 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.18.32.tgz#8074f7106731f1a12ba993fe8bad86ee73905014"
   integrity sha512-Y6S38pFr04yb13qqHf8uk1nHE3lXgQ30WZbv1mLliV9pt0NjvqdWttLcrOYLnXbOafknVYRHZGoMSpR9UwfYow==
 
-"@types/node@^18.17.18", "@types/node@^18.17.5":
+"@types/node@^18.17.19":
+  version "18.18.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.18.3.tgz#e5188135fc2909b46530c798ef49be65083be3fd"
+  integrity sha512-0OVfGupTl3NBFr8+iXpfZ8NR7jfFO+P1Q+IO/q0wbo02wYkP5gy36phojeYWpLQ6WAMjl+VfmqUk2YbUfp0irA==
+
+"@types/node@^18.17.5":
   version "18.18.1"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.18.1.tgz#80b22f3df719f15c9736207980e95f35d01ec1aa"
   integrity sha512-3G42sxmm0fF2+Vtb9TJQpnjmP+uKlWvFa8KoEGquh4gqRmoUG/N0ufuhikw6HEsdG2G2oIKhog1GCTfz9v5NdQ==
@@ -8429,7 +8434,7 @@ vite@^4.4.9:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vitepress@^1.0.0-rc.15:
+vitepress@^1.0.0-rc.17:
   version "1.0.0-rc.20"
   resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-1.0.0-rc.20.tgz#a5570f929c52cef010da26039cf9122c11e160a1"
   integrity sha512-CykMUJ8JLxLcGWek0ew3wln4RYbsOd1+0YzXITTpajggpynm2S331TNkJVOkHrMRc6GYe3y4pS40GfgcW0ZwAw==
