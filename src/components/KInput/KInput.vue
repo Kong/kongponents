@@ -203,17 +203,17 @@ const getValue = (): string | number => {
   return currValue.value || modelValueChanged.value ? currValue.value : props.modelValue
 }
 
-const handleIconClick = (event: Event): void => {
-  if (isIconClickable.value) {
-    // call event listener callback function directly as a workaround
-    // adding 'icon:click' to emits will remove it from attributes so isIconClickable.value always returns false
-    const callback = attrs['onIcon:click']
+// const handleIconClick = (event: Event): void => {
+//   if (isIconClickable.value) {
+//     // call event listener callback function directly as a workaround
+//     // adding 'icon:click' to emits will remove it from attributes so isIconClickable.value always returns false
+//     const callback = attrs['onIcon:click']
 
-    if (typeof callback === 'function') {
-      callback(event)
-    }
-  }
-}
+//     if (typeof callback === 'function') {
+//       callback(event)
+//     }
+//   }
+// }
 
 onMounted(() => {
   if (icon.value && isIconClickable.value) {
