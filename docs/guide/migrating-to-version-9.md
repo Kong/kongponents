@@ -26,6 +26,8 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Slots
 
+#### Events
+
 ### KBadge
 
 #### Structure
@@ -81,7 +83,17 @@ No changes.
 
 ### KCodeBlock
 
-- Added new `maxHeight` prop to control the `max-height` of the code block. Defaults to `none`.
+#### Structure
+
+#### Constants, Types & Interfaces
+
+#### Props
+
+* New `maxHeight` prop to control the `max-height` of the code block. Defaults to `none`.
+
+#### Slots
+
+#### Events
 
 
 ### KCollapse
@@ -110,6 +122,15 @@ No changes.
 
 ### KInput
 
+#### Structure
+
+#### Constants, Types & Interfaces
+
+#### Props
+
+#### Slots
+
+#### Events
 
 ### KInputSwitch
 

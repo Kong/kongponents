@@ -35,6 +35,12 @@ export default createRouter({
           component: () => import('./pages/SandboxTabs.vue'),
         },
         {
+          path: 'input',
+          name: 'input',
+          meta: { title: 'Input Sandbox' },
+          component: () => import('./pages/SandboxInput.vue'),
+        },
+        {
           path: 'table',
           name: 'table',
           meta: { title: 'Table Sandbox' },
