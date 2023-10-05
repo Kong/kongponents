@@ -89,7 +89,7 @@ No changes.
 
 #### Props
 
-* New `maxHeight` prop to control the `max-height` of the code block. Defaults to `none`.
+* New `maxHeight` prop to control the `max-height` of the code block. Defaults to `none`
 
 #### Slots
 
@@ -124,13 +124,26 @@ No changes.
 
 #### Structure
 
+* `form-control` class is gone
+
 #### Constants, Types & Interfaces
+
+* `SizeArray` and `IconPositionArray` constants are no longer exported
+* `Size` and `IconPosition` types are no longer exported
 
 #### Props
 
+* `overlayLabel` prop is no longer supported
+* `size` prop is no longer supported
+* `iconPosition` prop is no longer supported
+
 #### Slots
 
+* `icon` slot is no longer supported. Instead, you can use new `before` and `after` slots
+
 #### Events
+
+No changes.
 
 ### KInputSwitch
 
@@ -146,7 +159,17 @@ No changes.
 
 ### KModal
 
-- Added new `maxWidth` prop to control the `max-width` of the modal. Defaults to `500px`.
+#### Structure
+
+#### Constants, Types & Interfaces
+
+#### Props
+
+* New `maxWidth` prop to control the `max-width` of the modal. Defaults to `500px`
+
+#### Slots
+
+#### Events
 
 
 ### KModalFullscreen
@@ -163,7 +186,16 @@ No changes.
 
 ### KPrompt
 
-- Added new `maxHeight` prop to control the `max-height` of the prompt. Defaults to `400px`.
+#### Constants, Types & Interfaces
+
+#### Props
+
+* New `maxHeight` prop to control the `max-height` of the prompt. Defaults to `400px`
+
+#### Slots
+
+#### Events
+
 
 
 ### Komponent

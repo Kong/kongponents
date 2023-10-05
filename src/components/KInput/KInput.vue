@@ -1,95 +1,34 @@
 <template>
   <div
     class="k-input-wrapper"
-    :class="[$attrs.class, {'input-error' : charLimitExceeded || hasError || String($attrs.class || '').includes('input-error')}]"
+    :class="[$attrs.class, {'input-error' : charLimitExceeded || hasError}]"
   >
-    <div
-      v-if="label && overlayLabel"
-      :class="`k-input-label-wrapper-${size}`"
+    <KLabel
+      v-if="label"
+      :for="inputId"
+      v-bind="labelAttributes"
+      :required="isRequired"
     >
-      <div class="text-on-input">
-        <label
-          v-bind="labelAttributes"
-          :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
-          :for="inputId"
-        >
-          <span>{{ strippedLabel }}</span>
-          <span
-            v-if="isRequired"
-            class="is-required"
-          >*</span>
-        </label>
-        <input
-          v-bind="modifiedAttrs"
-          :id="inputId"
-          :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
-          class="form-control k-input"
-          :class="{ [`k-input-${size}`]: size, [`has-icon icon-${iconPosition}`]: $slots['icon'] }"
-          :value="getValue()"
-          @blur="() => isFocused = false"
-          @focus="() => isFocused = true"
-          @input="handleInput"
-          @mouseenter="() => isHovered = true"
-          @mouseleave="() => isHovered = false"
-        >
-      </div>
-      <p
-        v-if="charLimitExceeded || hasError"
-        class="has-error"
-        :class="{ 'over-char-limit': charLimitExceeded }"
-      >
-        {{ charLimitExceededError || errorMessage }}
-      </p>
-    </div>
+      {{ strippedLabel }}
 
-    <div
-      v-else-if="label"
-      :class="`k-input-label-wrapper-${size}`"
-    >
-      <KLabel
-        :for="inputId"
-        v-bind="labelAttributes"
-        :required="isRequired"
+      <template
+        v-if="hasLabelTooltip"
+        #tooltip
       >
-        {{ strippedLabel }}
-
-        <template
-          v-if="hasLabelTooltip"
-          #tooltip
-        >
-          <slot name="label-tooltip" />
-        </template>
-      </KLabel>
-      <input
-        v-bind="modifiedAttrs"
-        :id="inputId"
-        :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
-        class="form-control k-input"
-        :class="{ [`k-input-${size}`]: size, [`has-icon icon-${iconPosition}`]: $slots['icon'] }"
-        :value="getValue()"
-        @input="handleInput"
-      >
-      <p
-        v-if="charLimitExceeded || hasError"
-        class="has-error"
-        :class="{ 'over-char-limit': charLimitExceeded }"
-      >
-        {{ charLimitExceededError || errorMessage }}
-      </p>
-    </div>
+        <slot name="label-tooltip" />
+      </template>
+    </KLabel>
 
     <input
-      v-else
       v-bind="modifiedAttrs"
       :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
-      class="form-control k-input"
-      :class="{ [`k-input-${size}`]: size, [`has-icon icon-${iconPosition}`]: $slots['icon'] }"
+      class="k-input"
       :value="getValue()"
       @input="handleInput"
     >
 
     <p
-      v-if="(charLimitExceeded || hasError) && !label"
+      v-if="charLimitExceeded || hasError"
       class="has-error"
       :class="{ 'over-char-limit': charLimitExceeded }"
     >
@@ -102,26 +41,13 @@
     >
       {{ help }}
     </p>
-
-    <div
-      v-if="$slots['icon']"
-      ref="icon"
-      class="input-icon"
-      :class="{ 'clickable': isIconClickable }"
-      :tabindex="isIconClickable ? 0 : -1"
-      @click="handleIconClick"
-      @keyup.enter="handleIconClick"
-    >
-      <slot name="icon" />
-    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import { computed, ref, watch, onMounted, useSlots, useAttrs } from 'vue'
-import type { IconPosition, Size, LabelAttributes, LimitExceededData } from '@/types'
-import { SizeArray, IconPositionArray } from '@/types'
+import type { LabelAttributes, LimitExceededData } from '@/types'
 import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
@@ -135,13 +61,6 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  /**
-     * Overlay the label on the input's border
-     */
-  overlayLabel: {
-    type: Boolean,
-    default: false,
-  },
   labelAttributes: {
     type: Object as PropType<LabelAttributes>,
     default: () => ({}),
@@ -149,11 +68,6 @@ const props = defineProps({
   help: {
     type: String,
     default: '',
-  },
-  size: {
-    type: String as PropType<Size>,
-    default: 'medium',
-    validator: (value: Size) => SizeArray.includes(value),
   },
   hasError: {
     type: Boolean,
@@ -169,14 +83,9 @@ const props = defineProps({
     // Ensure the characterLimit is greater than zero
     validator: (limit: number): boolean => limit > 0,
   },
-  iconPosition: {
-    type: String as PropType<IconPosition>,
-    default: 'start',
-    validator: (value: IconPosition) => IconPositionArray.includes(value),
-  },
   /**
-     * Test mode - for testing only, strips out generated ids
-     */
+  * Test mode - for testing only, strips out generated ids
+  */
   testMode: {
     type: Boolean,
     default: false,
@@ -191,16 +100,12 @@ const emit = defineEmits<{
 
 const currValue = ref<string>('') // We need this so that we don't lose the updated value on hover/blur event with label
 const modelValueChanged = ref<boolean>(false) // Determine if the original value was modified by the user
-const isFocused = ref<boolean>(false)
-const isHovered = ref<boolean>(false)
 const icon = ref<HTMLDivElement | null>(null)
 
 const { stripRequiredLabel } = useUtilities()
 const slots = useSlots()
 const attrs = useAttrs()
 
-const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
-const isReadonly = computed((): boolean => attrs?.readonly !== undefined && String(attrs?.readonly) !== 'false')
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
 const inputId = computed((): string => attrs.id ? String(attrs.id) : props.testMode ? 'test-input-id-1234' : uuidv4())
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
@@ -224,6 +129,11 @@ const modifiedAttrs = computed((): Record<string, any> => {
   // use @input in template for v-model support
   delete $attrs.input
   delete $attrs.onInput
+
+  // if label prop is passed, set the id to the input to associate the label using for attribute
+  if (props.label) {
+    $attrs.id = inputId.value
+  }
 
   return $attrs
 })

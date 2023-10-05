@@ -45,6 +45,10 @@
         disabled
         label="Disabled"
       />
+      <KInput
+        label="Readonly"
+        readonly
+      />
     </SandboxSectionComponent>
 
     <!-- Slots -->
