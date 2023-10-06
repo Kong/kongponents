@@ -1,3 +1,10 @@
+## [8.123.9](https://github.com/Kong/kongponents/compare/v8.123.8...v8.123.9) (2023-10-06)
+
+
+### Bug Fixes
+
+* **multiselect:** items can be removed from `modelValue` [MA-2104] ([#1757](https://github.com/Kong/kongponents/issues/1757)) ([d0b8878](https://github.com/Kong/kongponents/commit/d0b88785575f509cf77b544c47997c869bbb21a4))
+
 ## [8.123.8](https://github.com/Kong/kongponents/compare/v8.123.7...v8.123.8) (2023-09-15)
 
 
