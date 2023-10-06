@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-input-wrapper"
-    :class="[$attrs.class, { 'input-error' : charLimitExceeded || hasError }, { 'input-disabled': Object.keys($attrs).includes('disabled') }]"
+    :class="[$attrs.class, { 'input-error' : charLimitExceeded || hasError }]"
   >
     <KLabel
       v-if="label"
@@ -99,7 +99,7 @@ const props = defineProps({
   /**
   * Test mode - for testing only, strips out generated ids
   */
-  testMode: {
+  testMode: { // TODO: remove this prop
     type: Boolean,
     default: false,
   },
@@ -260,15 +260,6 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
   display: flex;
   flex-direction: column;
 
-  // this doesn't work in Firefox
-  &:has(.k-input:disabled) {
-    cursor: not-allowed;
-  }
-  // workaround for Firefox
-  &.input-disabled {
-    cursor: not-allowed;
-  }
-
   // error styles
   &.input-error {
     .k-input {
@@ -374,8 +365,7 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
   &:disabled {
     @include kInputDisabledRadOnly;
 
-    // need this to ensure user select is disabled
-    pointer-events: none;
+    cursor: not-allowed;
   }
 
   &:read-only {
