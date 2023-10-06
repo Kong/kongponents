@@ -1,3 +1,10 @@
+# [9.0.0-alpha.18](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.17...v9.0.0-alpha.18) (2023-10-06)
+
+
+### Bug Fixes
+
+* **multiselect:** items can be removed from `modelValue` [MA-2104] ([#1757](https://github.com/Kong/kongponents/issues/1757)) ([d0b8878](https://github.com/Kong/kongponents/commit/d0b88785575f509cf77b544c47997c869bbb21a4))
+
 # [9.0.0-alpha.17](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.16...v9.0.0-alpha.17) (2023-10-04)
 
 
