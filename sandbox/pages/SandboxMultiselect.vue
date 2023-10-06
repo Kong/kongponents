@@ -10,6 +10,12 @@
   <pre>
     {{ modelJson }}
   </pre>
+  <button
+    type="button"
+    @click="deselectItem"
+  >
+    Deselect Item
+  </button>
 </template>
 <script setup lang="ts">
 import { KMultiselect } from '@/components'
@@ -24,6 +30,10 @@ const onQueryChange = () => {
   setTimeout(() => {
     items.value = allItems.value.slice(5, 20)
   }, 100)
+}
+
+const deselectItem = () => {
+  selected.value = selected.value.filter((_item, idx) => idx !== 2)
 }
 
 const modelJson = computed(() => JSON.stringify(selected.value, undefined, 2))

@@ -595,4 +595,59 @@ describe('KMultiselect', () => {
       expect(Date.now() - startTime).to.be.lessThan(3000)
     })
   })
+
+  it('should reflect deleted items in the DOM', () => {
+    const allItems = [
+      { label: 'Label 1', value: 'label1' },
+      { label: 'Label 2', value: 'label2' },
+      { label: 'Label 3', value: 'label3' },
+      { label: 'Label 4', value: 'label4' },
+    ]
+
+    const currentItems = allItems.slice(0, 2)
+
+    mount(KMultiselect, {
+      props: {
+        testMode: true,
+        items: currentItems,
+        modelValue: ['label1', 'label2'],
+      },
+    }).then(({ wrapper }) => {
+      cy.get('.k-multiselect-input input').should('have.attr', 'placeholder', '2 items selected').then(() => {
+
+        // Remove 'label1'
+        wrapper.setProps({
+          modelValue: ['label2'],
+        }).then(() => {
+
+          cy.get('.k-multiselect-input input').should('have.attr', 'placeholder', '1 item selected').then(() => {
+
+            // Change the items; 'label2' is no longer in the list.
+            wrapper.setProps({
+              items: allItems.slice(2),
+            }).then(() => {
+
+              cy.get('.k-multiselect-input input').should('have.attr', 'placeholder', '1 item selected').then(() => {
+
+                // Select an additional item.
+                wrapper.setProps({
+                  modelValue: ['label2', 'label3'],
+                }).then(() => {
+                  cy.get('.k-multiselect-input input').should('have.attr', 'placeholder', '2 items selected').then(() => {
+
+                    // Remove 'label2' from the selection.
+                    wrapper.setProps({
+                      modelValue: ['label3'],
+                    }).then(() => {
+                      cy.get('.k-multiselect-input input').should('have.attr', 'placeholder', '1 item selected')
+                    })
+                  })
+                })
+              })
+            })
+          })
+        })
+      })
+    })
+  })
 })
