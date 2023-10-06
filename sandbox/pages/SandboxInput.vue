@@ -1,5 +1,5 @@
 <template>
-  <div class="kbutton-sandbox">
+  <div class="kinput-sandbox">
     <SandboxTitleComponent
       title="KInput"
     >
@@ -21,14 +21,76 @@
     <SandboxSectionComponent title="labelAttributes">
       <KInput label="Label" />
     </SandboxSectionComponent>
-    <SandboxSectionComponent title="help">
-      <KInput label="Label" />
+    <SandboxSectionComponent
+      title="help"
+    >
+      <div class="toggle-container">
+        <KToggle v-slot="{isToggled, toggle}">
+          <KInput
+            class="full-width-input"
+            :has-error="isToggled.value"
+            help="This is help text. When hasError is true, this text will be red."
+            label="Label"
+          />
+          <KButton
+            size="small"
+            @click="toggle"
+          >
+            Toggle error
+          </KButton>
+        </KToggle>
+      </div>
     </SandboxSectionComponent>
     <SandboxSectionComponent title="hasError">
-      <KInput label="Label" />
+      <KInput
+        has-error
+        label="Label"
+      />
     </SandboxSectionComponent>
-    <SandboxSectionComponent title="errorMessage">
-      <KInput label="Label" />
+    <SandboxSectionComponent
+      title="errorMessage"
+    >
+      <div class="toggle-container">
+        <KToggle v-slot="{isToggled, toggle}">
+          <KInput
+            class="full-width-input"
+            error-message="This is errorMessage."
+            :has-error="isToggled.value"
+            help="This is help text. When hasError is true, this text will be red. When hasError is true and errorMessage is set, this text will be replaced by the errorMessage."
+            label="Label"
+          />
+          <KButton
+            size="small"
+            @click="toggle"
+          >
+            Toggle error
+          </KButton>
+        </KToggle>
+      </div>
+    </SandboxSectionComponent>
+
+    <SandboxSectionComponent
+      title="characterLimit"
+    >
+      <div class="toggle-container">
+        <KToggle v-slot="{isToggled, toggle}">
+          <KInput
+            v-model="characterLimitModelValue"
+            :character-limit="67"
+            class="full-width-input"
+            error-message="This is errorMessage. When character limit is exceeded, this text will be replaced by character limit error message."
+            :has-error="isToggled.value"
+            help="This is help text. When hasError is true, this text will be red. When hasError is true and errorMessage is set, this text will be replaced by the errorMessage. When character limit is exceeded, errorMessage text will be replaced by character limit error message."
+            label="Label"
+          />
+          <KButton
+            size="small"
+            @click="toggle"
+          >
+            Toggle error
+          </KButton>
+        </KToggle>
+      </div>
     </SandboxSectionComponent>
 
     <!-- Attributes -->
@@ -38,14 +100,20 @@
     />
     <SandboxSectionComponent>
       <KInput
+        label="Placeholder"
+        placeholder="This input has a placeholder"
+      />
+      <KInput
         label="Required"
         required
       />
       <KInput
+        v-model="disabledModelValue"
         disabled
         label="Disabled"
       />
       <KInput
+        v-model="readOnlyModelValue"
         label="Readonly"
         readonly
       />
@@ -57,10 +125,47 @@
       title="Slots"
     />
     <SandboxSectionComponent title="before">
-      <KInput label="Label" />
+      <KInput label="Label">
+        <template #before>
+          <SearchIcon />
+        </template>
+      </KInput>
     </SandboxSectionComponent>
     <SandboxSectionComponent title="after">
-      <KInput label="Label" />
+      <KInput label="Label">
+        <template #after>
+          <CloseIcon />
+        </template>
+      </KInput>
+    </SandboxSectionComponent>
+    <SandboxSectionComponent title="before & after">
+      <KInput
+        label="Label"
+        placeholder="This input has a placeholder"
+      >
+        <template #before>
+          <SearchIcon @click.stop="onSlotContentClick('before')" />
+        </template>
+        <template #after>
+          <CloseIcon @click.stop="onSlotContentClick('after')" />
+        </template>
+      </KInput>
+    </SandboxSectionComponent>
+    <SandboxSectionComponent
+      description="before and after slots only render icons exported by @kong/icons library. If you provide other content, display: none; CSS rule will be aplied to it."
+      title="Invalid usage"
+    >
+      <pre>
+        {{ invalidIconSlotsUsage }}
+      </pre>
+      <KInput label="Label">
+        <template #before>
+          <span>my custom before</span>
+        </template>
+        <template #after>
+          <span>my custom after</span>
+        </template>
+      </KInput>
     </SandboxSectionComponent>
     <SandboxSectionComponent title="label-tooltip">
       <KInput label="Label" />
@@ -69,7 +174,43 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { KInput, KExternalLink } from '@/components'
+import { KInput, KExternalLink, KToggle, KButton } from '@/components'
+import { SearchIcon, CloseIcon } from '@kong/icons'
+
+const characterLimitModelValue = ref<string>('Type in 1 more character to see the character limit error message: ')
+const disabledModelValue = ref<string>('This input is disabled')
+const readOnlyModelValue = ref<string>('This input is read only')
+
+const invalidIconSlotsUsage = `
+<KInput label="Label">
+  <template #before>
+    <span>my custom before</span>
+  </template>
+  <template #after>
+    <span>my custom after</span>
+  </template>
+</KInput>
+`
+
+const onSlotContentClick = (slotName: string) => {
+  alert(`You clicked on ${slotName} slot content`)
+}
 </script>
+
+<style lang="scss" scoped>
+.kinput-sandbox {
+  .toggle-container {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: $kui-space-70;
+  }
+
+  .full-width-input {
+    width: 100%;
+  }
+}
+</style>

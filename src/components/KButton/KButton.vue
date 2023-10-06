@@ -132,6 +132,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/vars';
+
 /* Component mixins */
 
 @mixin kButtonPrimaryAppearance {
@@ -187,7 +189,6 @@ export default {
 /* Component styles */
 
 .k-button {
-  $kButtonTransitionDurationTimingFunction: var(--kui-animation-duration-20, $kui-animation-duration-20) ease-in-out;
   @include kButtonPrimaryAppearance; // primary appearance is the default
   @include kButtonMediumSize; // medium size is the default
 
@@ -201,7 +202,7 @@ export default {
   // Remove tap color highlight on mobile Safari
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   text-decoration: none;
-  transition: background-color $kButtonTransitionDurationTimingFunction, color $kButtonTransitionDurationTimingFunction, border-color $kButtonTransitionDurationTimingFunction;
+  transition: background-color $kongponentsTransitionDurationTimingFunction, color $kongponentsTransitionDurationTimingFunction, border-color $kongponentsTransitionDurationTimingFunction;
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;

@@ -124,7 +124,10 @@ No changes.
 
 #### Structure
 
-* `form-control` class is gone
+* `form-control` class is no longer present
+* `over-char-limit` class is no longer present
+* `has-error` class is no longer present
+* `help` class has been changed to `help-text`
 
 #### Constants, Types & Interfaces
 
