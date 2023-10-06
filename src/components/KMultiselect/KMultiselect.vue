@@ -461,15 +461,31 @@ const uniqueFilterStr = computed((): boolean => {
   return true
 })
 const popper = ref(null)
+
+// A clone of `props.items`, normalized.  May contain additional custom items that have been created.
 const unfilteredItems: Ref<MultiselectItem[]> = ref([])
+
+// A sorted version of the above.
 const sortedItems: Ref<MultiselectItem[]> = ref([])
+
+// An array of items.  May contain items that are not present in `unfilteredItems` if an item was selected, then the `items` prop was changed.
 const selectedItems = ref<MultiselectItem[]>([])
+
+// The items visible in the main part of the component.
 const visibleSelectedItemsStaging = ref<MultiselectItem[]>([])
+
+// The items in the "overflow" part of the component.
 const invisibleSelectedItemsStaging = ref<MultiselectItem[]>([])
+
+// A set of the values in the "overflow" part of the component.
 const invisibleSelectedItemsStagingSet = new Set<string>()
+
+// Used to store the results of the determination of which items are visible.
 const visibleSelectedItems = ref<MultiselectItem[]>([])
 const invisibleSelectedItems = ref<MultiselectItem[]>([])
+
 const hiddenItemsTooltip = computed(() => invisibleSelectedItems.value.map(item => item.label).join(', '))
+
 // state
 const initialFocusTriggered: Ref<boolean> = ref(false)
 const isHovered = ref(false)
@@ -639,6 +655,41 @@ const handleMultipleItemsSelect = (items: MultiselectItem[]) => {
   })
 
   stageSelections()
+}
+
+const handleMultipleItemsDeselect = (items: MultiselectItem[], restage = false) => {
+  const deselectedValues = new Set(items.map(anItem => anItem.value))
+
+  selectedItems.value = selectedItems.value.filter(anItem => !deselectedValues.has(anItem.value))
+  visibleSelectedItemsStaging.value = visibleSelectedItemsStaging.value.filter(anItem => !deselectedValues.has(anItem.value))
+  invisibleSelectedItemsStaging.value = invisibleSelectedItemsStaging.value.filter(anItem => !deselectedValues.has(anItem.value))
+
+  items.forEach(itemToDeselect => {
+    invisibleSelectedItemsStagingSet.delete(itemToDeselect.value)
+
+    // deselect item
+    itemToDeselect.selected = false
+    itemToDeselect.key = itemToDeselect.key?.replace(/-selected/gi, '')
+
+    // if some items are hidden grab the first hidden one and add it into the visible array
+    if (invisibleSelectedItemsStaging.value.length) {
+      const itemToShow = invisibleSelectedItemsStaging.value.pop()
+      if (itemToShow) {
+        visibleSelectedItemsStaging.value.push(itemToShow)
+        invisibleSelectedItemsStagingSet.delete(itemToShow.value)
+      }
+    }
+
+    // if it's an added item, remove it from list when it is deselected
+    if (props.enableItemCreation && itemToDeselect.custom) {
+      unfilteredItems.value = unfilteredItems.value.filter(anItem => anItem.value !== itemToDeselect.value)
+      emit('item:removed', itemToDeselect)
+    }
+  })
+
+  if (restage) {
+    stageSelections()
+  }
 }
 
 // handle item select/deselect from dropdown
@@ -856,11 +907,23 @@ watch(filteredItems, () => {
 // watch for programmatic changes to model
 watch(value, (newVal, oldVal) => {
   if (JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
-    const items = unfilteredItems.value.filter((item: MultiselectItem) => newVal.includes(item.value))
-    if (items.length) {
-      handleMultipleItemsSelect(items)
-    } else if (!newVal.length) {
+    if (!newVal.length) {
       clearSelection()
+      return
+    }
+
+    const previouslySelectedItems = new Set<string>(oldVal)
+    const currentlySelectedItems = new Set<string>(newVal)
+
+    const selectedAndPresentItems = unfilteredItems.value.filter((item: MultiselectItem) => currentlySelectedItems.has(item.value))
+    const deselectedItems = selectedItems.value.filter((item: MultiselectItem) => !currentlySelectedItems.has(item.value) && previouslySelectedItems.has(item.value))
+
+    if (deselectedItems.length) {
+      handleMultipleItemsDeselect(deselectedItems)
+    }
+
+    if (selectedAndPresentItems.length) {
+      handleMultipleItemsSelect(selectedAndPresentItems)
     }
   }
 })
