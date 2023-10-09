@@ -1,5 +1,9 @@
 # Icon
 
+::: danger DEPRECATED COMPONENT
+`KIcon` is deprecated and will be removed in `v9` of Kongponents. All icons will be sourced from [`@kong/icons`](https://github.com/Kong/icons), and all icon props will be removed in favor of slotting in an icon from `@kong/icons` or your icon library of choice.
+:::
+
 **KIcon** - Icon component for displaying SVG symbols. Currently Size, color and viewbox vary between icons, so the implementor must be mindful when using.
 
 <KIcon icon="dashboard" />
