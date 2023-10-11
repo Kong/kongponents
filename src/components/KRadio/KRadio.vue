@@ -227,7 +227,7 @@ $background-color-card-disabled: var(--kui-color-background-neutral-weakest, $ku
 
   // default radio input styling
   &.k-radio-default {
-    .k-radio-label:has(> .k-radio-description) {
+    .k-radio-label:has(.k-radio-description) {
       font-weight: var(--kui-font-weight-semibold, #{$kui-font-weight-semibold});
     }
     .k-radio-description {
