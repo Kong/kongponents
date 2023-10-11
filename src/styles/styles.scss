@@ -2,21 +2,11 @@
 // Do not remove the comment above - allows other apps to identify the style block
 
 @import "mixins";
-@import "vars";
+@import "transitions";
 
 :root {
   // Font weight
   body {
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   }
-}
-
-.kongponents-fade-transition-enter-active,
-.kongponents-fade-transition-leave-active {
-  transition: opacity $kongponentsTransitionDurTimingFunc;
-}
-
-.kongponents-fade-transition-enter-from,
-.kongponents-fade-transition-leave-to {
-  opacity: 0;
 }
