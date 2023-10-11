@@ -82,7 +82,9 @@ describe('KInput', () => {
     cy.get('.k-input-label .kong-icon-infoFilled').should('exist').and('be.visible')
   })
 
-  it.skip('renders label with required symbol when `required` attribute is set', () => { })
+  it.skip('renders label with required symbol when `required` attribute is set', () => {
+    // TODO: implement when KLabel component is reskinned
+  })
 
   it('renders help when value is passed', () => {
     const helpText = 'I am helpful'
@@ -108,7 +110,7 @@ describe('KInput', () => {
 
     cy.get('.k-input-wrapper .over-char-limit').should('not.exist')
     cy.get('.k-input-wrapper input.k-input').type(`This input has ${textCharCount} characters`)
-    cy.get('.k-input-wrapper.error .help-text').should('contain.text', `${textCharCount} / ${charLimit}`)
+    cy.get('.k-input-wrapper.has-error .help-text').should('contain.text', `${textCharCount} / ${charLimit}`)
   })
 
   it('reacts to text changes', () => {
@@ -130,7 +132,27 @@ describe('KInput', () => {
     })
   })
 
-  it.skip('renders before slot when passed', () => { })
+  it('renders before slot when passed', () => {
+    const beforeSlot = 'before-slot'
 
-  it.skip('renders after slot when passed', () => { })
+    mount(KInput, {
+      slots: {
+        before: `<span data-testid="${beforeSlot}">Before slot</span>`,
+      },
+    })
+
+    cy.get('.k-input-wrapper').find(`[data-testid="${beforeSlot}"]`).should('be.visible')
+  })
+
+  it('renders after slot when passed', () => {
+    const afterSlot = 'after-slot'
+
+    mount(KInput, {
+      slots: {
+        before: `<span data-testid="${afterSlot}">After slot</span>`,
+      },
+    })
+
+    cy.get('.k-input-wrapper').find(`[data-testid="${afterSlot}"]`).should('be.visible')
+  })
 })
