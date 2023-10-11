@@ -1,12 +1,11 @@
 /*! KONGPONENTS_STYLES */
 // Do not remove the comment above - allows other apps to identify the style block
 
-@import "mixins";
 @import "transitions";
 
 :root {
-  // Font weight
   body {
+    // font weight
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   }
 }

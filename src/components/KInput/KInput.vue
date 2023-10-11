@@ -244,8 +244,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/vars';
-
 /* Component variables */
 
 $kInputPaddingX: var(--kui-space-50, $kui-space-50);
