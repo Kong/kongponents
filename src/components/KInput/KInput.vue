@@ -58,8 +58,8 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue'
 import { computed, ref, watch, useSlots, useAttrs } from 'vue'
+import type { PropType } from 'vue'
 import type { LabelAttributes, LimitExceededData } from '@/types'
 import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
@@ -96,13 +96,6 @@ const props = defineProps({
     // Ensure the characterLimit is greater than zero
     validator: (limit: number): boolean => limit > 0,
   },
-  /**
-  * Test mode - for testing only, strips out generated ids
-  */
-  testMode: { // TODO: remove this prop
-    type: Boolean,
-    default: false,
-  },
 })
 
 const emit = defineEmits<{
@@ -119,7 +112,7 @@ const slots = useSlots()
 const attrs = useAttrs()
 
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
-const inputId = computed((): string => attrs.id ? String(attrs.id) : props.testMode ? 'test-input-id-1234' : uuidv4())
+const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
 
@@ -248,7 +241,7 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
 /* Component mixins */
 
 // shared styles between disabled and readonly states
-@mixin kInputDisabledRadOnly {
+@mixin kInputDisabledReadOnly {
   background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
   box-shadow: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled);
   color: var(--kui-color-text-disabled, $kui-color-text-disabled);
@@ -283,6 +276,7 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
+    // reset default margin from browser
     margin: 0;
     margin-top: var(--kui-space-40, $kui-space-40);
   }
@@ -299,9 +293,7 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
       :deep(>) {
         &:is(.kui-icon) {
           color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
-          /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
           height: $kInputIconSize;
-          /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
           width: $kInputIconSize;
         }
 
@@ -347,7 +339,7 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
   line-height: var(--kui-line-height-40, $kui-line-height-40);
   outline: none;
   padding: var(--kui-space-40, $kui-space-40) $kInputPaddingX;
-  transition: box-shadow $kongponentsTransitionDurationTimingFunction;
+  transition: box-shadow $kongponentsTransitionDurTimingFunc;
   width: 100%;
 
   &::placeholder {
@@ -363,13 +355,13 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
   }
 
   &:disabled {
-    @include kInputDisabledRadOnly;
+    @include kInputDisabledReadOnly;
 
     cursor: not-allowed;
   }
 
   &:read-only {
-    @include kInputDisabledRadOnly;
+    @include kInputDisabledReadOnly;
   }
 }
 </style>

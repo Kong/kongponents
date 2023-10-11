@@ -202,7 +202,7 @@ export default {
   // Remove tap color highlight on mobile Safari
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   text-decoration: none;
-  transition: background-color $kongponentsTransitionDurationTimingFunction, color $kongponentsTransitionDurationTimingFunction, border-color $kongponentsTransitionDurationTimingFunction;
+  transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, border-color $kongponentsTransitionDurTimingFunc;
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;

@@ -54,11 +54,11 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 #### Props
 
 * some values `appearance` prop accepts were changed:
-  * `outline` is no longer supported (we suggest using `secondary` instead)
-  * `creation` is no longer supported
+  * `outline` has been removed (we suggest using `secondary` instead)
+  * `creation` has been removed
   * `btn-link` is no longer accepted (we suggest using `tertiary` instead)
-  * `btn-link-danger` is no longer supported
-  * `action-active` is no longer supported
+  * `btn-link-danger` has been removed
+  * `action-active` has been removed
 * `showCaret` prop is removed
 * `caretColor` prop is removed
 * `isRounded` prop is removed
@@ -124,25 +124,26 @@ No changes.
 
 #### Structure
 
-* `form-control` class is no longer present
-* `over-char-limit` class is no longer present
-* `has-error` class is no longer present
+* `form-control` class has been removed
+* `over-char-limit` class has been removed
+* `has-error` class has been removed
 * `help` class has been changed to `help-text`
 
 #### Constants, Types & Interfaces
 
-* `SizeArray` and `IconPositionArray` constants are no longer exported
-* `Size` and `IconPosition` types are no longer exported
+* `SizeArray` and `IconPositionArray` constants have been removed
+* `Size` and `IconPosition` types have been removed
 
 #### Props
 
-* `overlayLabel` prop is no longer supported
-* `size` prop is no longer supported
-* `iconPosition` prop is no longer supported
+* `overlayLabel` prop has been removed
+* `size` prop has been removed (KInput only comes in 1 size now)
+* `iconPosition` prop has been removed
+* `testMode` prop has been removed
 
 #### Slots
 
-* `icon` slot is no longer supported. Instead, you can use new `before` and `after` slots
+* `icon` slot has been removed. Instead, you can use new `before` and `after` slots
 
 #### Events
 
