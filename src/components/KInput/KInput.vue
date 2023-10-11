@@ -297,14 +297,43 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
     position: relative;
 
     .before-content-wrapper, .after-content-wrapper {
+      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
 
-      :deep(.kui-icon) {
-        color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
+      // TODO: add note in docs mentioning appropriate size for slotted content
+      // enforce icon size exported by @kong/icons because it's defined by the design system
+      :deep(#{$kongponentsKongIconSelector}) {
         height: $kInputIconSize !important;
         width: $kInputIconSize !important;
+      }
+
+      :deep([role="button"]) {
+        &:not([disabled]) {
+          cursor: pointer;
+
+          &:focus, &:active {
+            outline: none;
+          }
+
+          &:hover {
+            color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
+          }
+
+          &:focus {
+            color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger) !important;
+          }
+
+          &:active {
+            color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest) !important;
+          }
+        }
+
+        &[disabled] {
+          color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
+          pointer-events: none;
+        }
       }
     }
 
@@ -320,13 +349,17 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
 
     &.has-before-content {
       .k-input {
-        padding-left: calc($kInputPaddingX * 2 + $kInputIconSize);
+        // if there is a before slot, add padding to the left of the input
+        // standard padding + icon size + space between icon and input
+        padding-left: calc($kInputPaddingX + $kInputIconSize + var(--kui-space-40, $kui-space-40));
       }
     }
 
     &.has-after-content {
       .k-input {
-        padding-right: calc($kInputPaddingX * 2 + $kInputIconSize);
+        // if there is a after slot, add padding to the right of the input
+        // standard padding + icon size + space between icon and input
+        padding-right: calc($kInputPaddingX + $kInputIconSize + var(--kui-space-40, $kui-space-40));
       }
     }
   }

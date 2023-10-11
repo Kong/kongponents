@@ -138,16 +138,23 @@
         </template>
       </KInput>
     </SandboxSectionComponent>
-    <SandboxSectionComponent title="before & after">
+    <SandboxSectionComponent
+      description="To make icon clickable you need to give it role=&quot;button&quot; attribute."
+      title="before & after"
+    >
       <KInput
         label="Label"
         placeholder="This input has a placeholder"
       >
         <template #before>
-          <SearchIcon @click.stop="onSlotContentClick('before')" />
+          <SearchIcon />
         </template>
         <template #after>
-          <CloseIcon @click.stop="onSlotContentClick('after')" />
+          <CloseIcon
+            role="button"
+            tabindex="0"
+            @click.stop="onSlotContentClick('after')"
+          />
         </template>
       </KInput>
     </SandboxSectionComponent>

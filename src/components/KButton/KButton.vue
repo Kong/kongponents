@@ -168,7 +168,8 @@ export default {
   }
 
   // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
-  :deep(.kui-icon), :deep(.kong-icon) {
+  // enforce icon size exported by @kong/icons because it's defined by the design system
+  :deep(#{$kongponentsKongIconSelector}), :deep(.kong-icon) {
     /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
     height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
     /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
@@ -321,7 +322,8 @@ export default {
     }
 
     // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
-    :deep(.kui-icon), :deep(.kong-icon) {
+    // enforce icon size exported by @kong/icons because it's defined by the design system
+    :deep(#{$kongponentsKongIconSelector}), :deep(.kong-icon) {
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       height: var(--kui-icon-size-50, $kui-icon-size-50) !important;
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
@@ -354,7 +356,8 @@ export default {
     }
 
     // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
-    :deep(.kui-icon), :deep(.kong-icon) {
+    // enforce icon size exported by @kong/icons because it's defined by the design system
+    :deep(#{$kongponentsKongIconSelector}), :deep(.kong-icon) {
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */

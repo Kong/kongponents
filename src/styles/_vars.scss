@@ -3,5 +3,9 @@ Shared SCSS variables that are used in Kongponents styles but are not exported.
 Each must start with `$kongponents` prefix to avoid conflicts with other libraries.
 */
 
+// icon selector exported by @kong/icons library
+// usage: :deep(#{$kongponentsKongIconSelector}) { ... }
+$kongponentsKongIconSelector: ".kui-icon";
+
 // transition duration and transition timing function
 $kongponentsTransitionDurTimingFunc: var(--kui-animation-duration-20, $kui-animation-duration-20) ease-in-out;
