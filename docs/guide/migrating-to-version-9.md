@@ -124,7 +124,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 * `over-char-limit` class has been removed
 * `has-error` class has been removed
 * `help` class has been changed to `help-text`
-* `input-error` class has been changed to `error`
+* `input-error` class has been changed to `has-error`
 
 #### Constants, Types & Interfaces
 

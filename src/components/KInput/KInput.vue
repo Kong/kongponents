@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-input-wrapper"
-    :class="[$attrs.class, { 'error' : charLimitExceeded || hasError }]"
+    :class="[$attrs.class, { 'has-error' : charLimitExceeded || hasError }]"
   >
     <KLabel
       v-if="label"
@@ -263,9 +263,10 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
 .k-input-wrapper {
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   // error styles
-  &.error {
+  &.has-error {
     .k-input {
       box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
 
@@ -318,15 +319,11 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
           }
 
           &:hover {
-            color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
+            color: var(--kui-color-text, $kui-color-text) !important;
           }
 
           &:focus {
-            color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger) !important;
-          }
-
-          &:active {
-            color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest) !important;
+            color: var(--kui-color-text, $kui-color-text) !important;
           }
         }
 

@@ -134,7 +134,10 @@
     <SandboxSectionComponent title="after">
       <KInput label="Label">
         <template #after>
-          <CloseIcon />
+          <CloseIcon
+            role="button"
+            tabindex="0"
+          />
         </template>
       </KInput>
     </SandboxSectionComponent>
@@ -160,6 +163,24 @@
     </SandboxSectionComponent>
     <SandboxSectionComponent title="label-tooltip">
       <KInput label="Label" />
+    </SandboxSectionComponent>
+    <SandboxTitleComponent
+      is-subtitle
+      title="Examples"
+    />
+    <SandboxSectionComponent
+      description="When using KInput and KButton side by side, you wanna use the large KButton. Positioning them is challenging though."
+      title="KInput and KButton"
+    >
+      <div class="input-and-button">
+        <KInput
+          help="Enter you favorite fruit."
+          label="Label"
+        />
+        <KButton size="large">
+          Submit
+        </KButton>
+      </div>
     </SandboxSectionComponent>
   </div>
 </template>
@@ -191,6 +212,12 @@ const onSlotContentClick = (slotName: string) => {
 
   .full-width-input {
     width: 100%;
+  }
+
+  .input-and-button {
+    align-items: flex-end;
+    display: flex;
+    gap: $kui-space-40;
   }
 }
 </style>

@@ -36,11 +36,7 @@ The Button component can take 1 of 4 appearance values:
 
 ### size
 
-We support `small`, `medium`, and `large` sizes, default to `medium`.
-
-- `small`
-- `medium`
-- `large`
+KButton comes in `small`, `medium`, and `large` sizes. Defaults to `medium`.
 
 <div class="spacing-container">
   <KButton size="large">Large</KButton>
@@ -69,7 +65,7 @@ KButton can render either a `<a>` or `<router-link>` by simply passing the `to` 
 ### icon
 
 :::warning NOTE
-This prop will be changed to boolean in beta stage of breaking change release.
+This prop will be changed to boolean in `beta` stage of breaking change release.
 :::
 
 A string for the `KIcon` name to be displayed to the left of the button's content. Specifying a value for `icon` will automatically indicate that it should be visible.
@@ -119,10 +115,18 @@ The default slot allows you to provide the button text as well as to slot in oth
   </KButton>
 </div>
 
+:::tip TIP
+Should you decide to use your own custom icon, you can use design tokens exported by the [@kong/design-tokens](https://www.npmjs.com/package/@kong/design-tokens) package to set icon size. For:
+
+- `large` KButton the recommended icon size is `$kui-icon-size-50` (also [exported as LESS and JavaScript variables](https://www.npmjs.com/package/@kong/design-tokens#token-formats))
+- `medium` KButton use `$kui-icon-size-40`
+- `small` KButton use `$kui-icon-size-30`
+:::
+
 ### icon
 
 :::warning NOTE
-This slot will be removed in beta stage of v9 release.
+This slot will be removed in `beta` stage of v9 release.
 :::
 
 KButton supports using an icon either before the text or without text. If you are using the KIcon component you must maintain the icon color yourself when the button is enabled or disabled.

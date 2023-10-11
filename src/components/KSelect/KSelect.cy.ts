@@ -120,7 +120,9 @@ describe('KSelect', () => {
     cy.get('.k-input-label .kong-icon-help').should('be.visible')
   })
 
-  it.skip('renders label with required symbol when `required` attribute is set', () => { })
+  it.skip('renders label with required symbol when `required` attribute is set', () => {
+    // TODO: implement when KLabel component is reskinned
+  })
 
   it('renders with correct appearance - select', () => {
     mount(KSelect, {
