@@ -151,22 +151,6 @@
         </template>
       </KInput>
     </SandboxSectionComponent>
-    <SandboxSectionComponent
-      description="before and after slots only render icons exported by @kong/icons library. If you provide other content, display: none; CSS rule will be aplied to it."
-      title="Invalid usage"
-    >
-      <pre>
-        {{ invalidIconSlotsUsage }}
-      </pre>
-      <KInput label="Label">
-        <template #before>
-          <span>my custom before</span>
-        </template>
-        <template #after>
-          <span>my custom after</span>
-        </template>
-      </KInput>
-    </SandboxSectionComponent>
     <SandboxSectionComponent title="label-tooltip">
       <KInput label="Label" />
     </SandboxSectionComponent>
@@ -183,17 +167,6 @@ import { SearchIcon, CloseIcon } from '@kong/icons'
 const characterLimitModelValue = ref<string>('Type in 1 more character to see the character limit error message: ')
 const disabledModelValue = ref<string>('This input is disabled')
 const readOnlyModelValue = ref<string>('This input is read only')
-
-const invalidIconSlotsUsage = `
-<KInput label="Label">
-  <template #before>
-    <span>my custom before</span>
-  </template>
-  <template #after>
-    <span>my custom after</span>
-  </template>
-</KInput>
-`
 
 const onSlotContentClick = (slotName: string) => {
   alert(`You clicked on ${slotName} slot content`)

@@ -290,16 +290,10 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
       top: 50%;
       transform: translateY(-50%);
 
-      :deep(>) {
-        &:is(.kui-icon) {
-          color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
-          height: $kInputIconSize;
-          width: $kInputIconSize;
-        }
-
-        &:not(.kui-icon) {
-          display: none;
-        }
+      :deep(.kui-icon) {
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
+        height: $kInputIconSize;
+        width: $kInputIconSize;
       }
     }
 
