@@ -46,14 +46,21 @@
       </div>
     </div>
 
-    <!-- one element for characters limit exceeded error message as well as errorMessage and help props -->
-    <!-- see the logic in helpText computed property -->
-    <p
-      v-if="helpText"
-      class="help-text"
+    <!-- use transition here so it's not flaky when the help text changes -->
+    <Transition
+      mode="out-in"
+      name="kongponents-fade-transition"
     >
-      {{ helpText }}
-    </p>
+      <!-- one element for characters limit exceeded error message as well as errorMessage and help props -->
+      <!-- see the logic in helpText computed property -->
+      <p
+        v-if="helpText"
+        :key="String(helpTextKey)"
+        class="help-text"
+      >
+        {{ helpText }}
+      </p>
+    </Transition>
   </div>
 </template>
 
@@ -106,6 +113,7 @@ const emit = defineEmits<{
 
 const currValue = ref<string>('') // We need this so that we don't lose the updated value on hover/blur event with label
 const modelValueChanged = ref<boolean>(false) // Determine if the original value was modified by the user
+const helpTextKey = ref<number>(0)
 
 const { stripRequiredLabel } = useUtilities()
 const slots = useSlots()
@@ -222,6 +230,11 @@ const getValue = (): string | number => {
   // Use the modelValue only if it was initialized to something and the value hasn't been changed
   return currValue.value || modelValueChanged.value ? currValue.value : props.modelValue
 }
+
+watch(helpText, () => {
+  // bump the key to trigger the transition
+  helpTextKey.value += 1
+})
 </script>
 
 <script lang="ts">
@@ -292,8 +305,8 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
 
       :deep(.kui-icon) {
         color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
-        height: $kInputIconSize;
-        width: $kInputIconSize;
+        height: $kInputIconSize !important;
+        width: $kInputIconSize !important;
       }
     }
 

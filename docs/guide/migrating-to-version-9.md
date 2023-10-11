@@ -68,10 +68,6 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 * `icon` slot is removed (TODO: [beta])
 
-#### Events
-
-No changes.
-
 ### KCard
 
 
@@ -144,10 +140,6 @@ No changes.
 #### Slots
 
 * `icon` slot has been removed. Instead, you can use new `before` and `after` slots
-
-#### Events
-
-No changes.
 
 ### KInputSwitch
 
