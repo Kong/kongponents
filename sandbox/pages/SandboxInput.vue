@@ -16,10 +16,7 @@
       title="Props"
     />
     <SandboxSectionComponent title="label">
-      <KInput
-        label="Label"
-        type="search"
-      />
+      <KInput label="Label" />
     </SandboxSectionComponent>
     <SandboxSectionComponent title="labelAttributes">
       <KInput label="Label" />
@@ -137,10 +134,7 @@
     <SandboxSectionComponent title="after">
       <KInput label="Label">
         <template #after>
-          <CloseIcon
-            role="button"
-            tabindex="0"
-          />
+          <KongIcon />
         </template>
       </KInput>
     </SandboxSectionComponent>
@@ -156,7 +150,7 @@
           <SearchIcon />
         </template>
         <template #after>
-          <CloseIcon
+          <CopyIcon
             role="button"
             tabindex="0"
             @click.stop="onSlotContentClick('after')"
@@ -191,7 +185,7 @@
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { KInput, KExternalLink, KToggle, KButton } from '@/components'
-import { SearchIcon, CloseIcon } from '@kong/icons'
+import { SearchIcon, KongIcon, CopyIcon } from '@kong/icons'
 
 const onSlotContentClick = (slotName: string) => {
   alert(`You clicked on ${slotName} slot content`)
