@@ -10,16 +10,15 @@
       v-bind="tooltipAttributes"
       class="label-tooltip"
       position-fixed
-      :test-mode="!!testMode || undefined"
     >
       <KIcon
         :color="`var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
         hide-title
-        :icon="help ? 'help' : 'infoFilled'"
+        icon="infoFilled"
         :size="KUI_ICON_SIZE_30"
       />
       <template #content>
-        <slot name="tooltip">{{ help || info }}</slot>
+        <slot name="tooltip">{{ info }}</slot>
       </template>
     </KTooltip>
   </label>
@@ -34,10 +33,6 @@ import type { TooltipAttributes } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
 const props = defineProps({
-  help: {
-    type: String,
-    default: '',
-  },
   info: {
     type: String,
     default: '',
@@ -50,18 +45,11 @@ const props = defineProps({
     type: Object as PropType<TooltipAttributes>,
     default: () => ({}),
   },
-  /**
-   * Test mode - for testing only, strips out generated ids
-   */
-  testMode: {
-    type: Boolean,
-    default: false,
-  },
 })
 
 const slots = useSlots()
 
-const hasTooltip = computed((): boolean => !!(props.info || props.help || slots.tooltip))
+const hasTooltip = computed((): boolean => !!(props.info || slots.tooltip))
 </script>
 
 <style lang="scss" scoped>
@@ -87,7 +75,6 @@ const hasTooltip = computed((): boolean => !!(props.info || props.help || slots.
     display: flex;
 
     :deep(.kong-icon) {
-      &.kong-icon-help,
       &.kong-icon-info {
         cursor: pointer;
         height: 16px;

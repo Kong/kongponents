@@ -49,7 +49,7 @@
       <KInput
         label="Label"
         :label-attributes="{
-          help: 'KLabel help prop.',
+          info: 'KLabel info prop.',
         }"
         required
       />
