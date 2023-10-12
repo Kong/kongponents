@@ -140,7 +140,11 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Slots
 
-* `icon` slot has been removed. Instead, you can use new `before` and `after` slots
+* `icon` slot has been removed. Instead, you can use new `before` and/or `after` slots
+
+#### Events
+
+* `icon:click` event has been removed. Instead, when using `before` and/or `after` slots, you can provide your custom click handlers bound to clicks on slotted content. See KInput's [slots](/components/input#after) for more details
 
 ### KInputSwitch
 

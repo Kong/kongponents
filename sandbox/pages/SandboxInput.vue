@@ -16,7 +16,10 @@
       title="Props"
     />
     <SandboxSectionComponent title="label">
-      <KInput label="Label" />
+      <KInput
+        label="Label"
+        type="search"
+      />
     </SandboxSectionComponent>
     <SandboxSectionComponent title="labelAttributes">
       <KInput label="Label" />
@@ -75,13 +78,13 @@
       <div class="toggle-container">
         <KToggle v-slot="{isToggled, toggle}">
           <KInput
-            v-model="characterLimitModelValue"
             :character-limit="67"
             class="full-width-input"
             error-message="This is errorMessage. When character limit is exceeded, this text will be replaced by character limit error message."
             :has-error="isToggled.value"
             help="This is help text. When hasError is true, this text will be red. When hasError is true and errorMessage is set, this text will be replaced by the errorMessage. When character limit is exceeded, errorMessage text will be replaced by character limit error message."
             label="Label"
+            model-value="Type in 1 more character to see the character limit error message: "
           />
           <KButton
             size="small"
@@ -108,13 +111,13 @@
         required
       />
       <KInput
-        v-model="disabledModelValue"
         disabled
         label="Disabled"
+        model-value="This input is disabled"
       />
       <KInput
-        v-model="readOnlyModelValue"
         label="Readonly"
+        model-value="This input is read only"
         readonly
       />
     </SandboxSectionComponent>
@@ -169,12 +172,11 @@
       title="Examples"
     />
     <SandboxSectionComponent
-      description="When using KInput and KButton side by side, you wanna use the large KButton. Positioning them is challenging though."
+      description="When using KInput and KButton side by side, you wanna use the large KButton. You might want to wrap them in a div and use flexbox to position them. Also, when using them side by side, it's recommended to not use the help text prop on KInput as that makes positioning challenging."
       title="KInput and KButton"
     >
       <div class="input-and-button">
         <KInput
-          help="Enter you favorite fruit."
           label="Label"
         />
         <KButton size="large">
@@ -186,15 +188,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { KInput, KExternalLink, KToggle, KButton } from '@/components'
 import { SearchIcon, CloseIcon } from '@kong/icons'
-
-const characterLimitModelValue = ref<string>('Type in 1 more character to see the character limit error message: ')
-const disabledModelValue = ref<string>('This input is disabled')
-const readOnlyModelValue = ref<string>('This input is read only')
 
 const onSlotContentClick = (slotName: string) => {
   alert(`You clicked on ${slotName} slot content`)

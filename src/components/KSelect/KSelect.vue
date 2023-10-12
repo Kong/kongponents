@@ -154,7 +154,6 @@
               }"
               :label="label && overlayLabel ? strippedLabel : undefined"
               :model-value="filterStr"
-              :overlay-label="overlayLabel"
               :placeholder="selectedItem && appearance === 'select' && !filterIsEnabled ? selectedItem.label : placeholderText"
               @blur="onInputBlur"
               @focus="onInputFocus"

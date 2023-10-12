@@ -67,27 +67,6 @@ The label for the select.
 <KSelect label="Cool label" :items="items" />
 ```
 
-### overlayLabel
-
-Enable this prop to overlay the label on the input element's border for `select` and `dropdown` appearances. Defaults to `false`.
-
-<ClientOnly>
-  <KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" />
-  <br/>
-  <KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" appearance="select" :items="deepClone(defaultItemsUnselect)" />
-  <br/>
-  <KSelect label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" />
-  <br/>
-  <KSelect label="Readonly" readonly placeholder="I'm readonly!" :overlay-label="true" :items="deepClone(defaultItemsUnselect)" />
-</ClientOnly>
-
-```html
-<KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" :items="items" />
-<KSelect label="Name" placeholder="I'm labelled!" :overlay-label="true" appearance="select" :items="items" />
-<KSelect label="Disabled" disabled placeholder="I'm disabled!" :overlay-label="true" :items="items" />
-<KSelect label="Readonly" readonly placeholder="I'm readonly!" :overlay-label="true" :items="items" />
-```
-
 ### labelAttributes
 
 Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop. This example shows using the `label-attributes` to set up a tooltip, see the [slot](#slots) section if you want to slot HTML into the tooltip rather than use plain text.

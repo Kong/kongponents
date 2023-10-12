@@ -121,6 +121,8 @@ Should you decide to use your own custom icon, you can use design tokens exporte
 - `large` KButton the recommended icon size is `$kui-icon-size-50` (also [exported as LESS and JavaScript variables](https://www.npmjs.com/package/@kong/design-tokens#token-formats))
 - `medium` KButton use `$kui-icon-size-40`
 - `small` KButton use `$kui-icon-size-30`
+
+We also recommend setting `color: currentColor;` on your custom-provided element to utilize default KButton styling for slotted content.
 :::
 
 ### icon
