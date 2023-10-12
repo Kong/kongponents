@@ -29,6 +29,12 @@ export default createRouter({
           component: () => import('./pages/SandboxCatalog.vue'),
         },
         {
+          path: 'label',
+          name: 'label',
+          meta: { title: 'Label Sandbox' },
+          component: () => import('./pages/SandboxLabel.vue'),
+        },
+        {
           path: 'tabs',
           name: 'tabs',
           meta: { title: 'Tabs Sandbox' },

@@ -3,6 +3,7 @@
     <component
       :is="isSubtitle ? 'h3' : 'h2'"
       class="title"
+      :class="{ 'subtitle': isSubtitle }"
     >
       {{ title }}
     </component>
@@ -51,6 +52,20 @@ const hasDescription = computed((): boolean => !!(props.description || slots.des
 
     & + .description {
       margin-top: $kui-space-50;
+    }
+
+    &.subtitle {
+      margin-left: $kui-space-50;
+      position: relative;
+
+      &::before {
+        bottom: 2px;
+        color: $kui-color-text-primary;
+        content: '#';
+        font-size: $kui-font-size-30;
+        left: -12px;
+        position: absolute;
+      }
     }
   }
 
