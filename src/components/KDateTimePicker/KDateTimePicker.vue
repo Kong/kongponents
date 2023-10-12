@@ -536,6 +536,7 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
   .timepicker-input {
     border: none;
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular); // token value change
+    justify-content: flex-start;
     // Prevent overflowing the container
     max-width: 100%;
     padding: var(--kui-space-50, $kui-space-50) !important;

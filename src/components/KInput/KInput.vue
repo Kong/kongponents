@@ -360,7 +360,7 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
   }
 
   &:focus {
-    @include inputFocus
+    @include inputFocus;
   }
 
   &:disabled {
@@ -380,7 +380,7 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
       }
 
       &:focus {
-        @include inputFocus
+        @include inputFocus;
       }
 
       &:disabled {
