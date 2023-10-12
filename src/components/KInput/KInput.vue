@@ -249,15 +249,6 @@ export default {
 $kInputPaddingX: var(--kui-space-50, $kui-space-50);
 $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
 
-/* Component mixins */
-
-// shared styles between disabled and readonly states
-@mixin kInputDisabledReadOnly {
-  background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
-  box-shadow: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled);
-  color: var(--kui-color-text-disabled, $kui-color-text-disabled);
-}
-
 /* Component styles */
 
 .k-input-wrapper {
@@ -303,7 +294,6 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
       top: 50%;
       transform: translateY(-50%);
 
-      // TODO: add note in docs mentioning appropriate size for slotted content
       // enforce icon size exported by @kong/icons because it's defined by the design system
       :deep(#{$kongponentsKongIconSelector}) {
         height: $kInputIconSize !important;
@@ -363,40 +353,40 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
 }
 
 .k-input {
-  background-color: var(--kui-color-background, $kui-color-background);
-  border: 0;
-  border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-  box-shadow: var(--kui-shadow-border, $kui-shadow-border);
-  color: var(--kui-color-text, $kui-color-text);
-  font-family: var(--kui-font-family-text, $kui-font-family-text);
-  font-size: var(--kui-font-size-30, $kui-font-size-30);
-  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-  line-height: var(--kui-line-height-40, $kui-line-height-40);
-  outline: none;
-  padding: var(--kui-space-40, $kui-space-40) $kInputPaddingX;
-  transition: box-shadow $kongponentsTransitionDurTimingFunc;
-  width: 100%;
-
-  &::placeholder {
-    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-  }
+  @include inputDefaults;
 
   &:hover {
-    box-shadow: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak);
+    @include inputHover;
   }
 
   &:focus {
-    box-shadow: var(--kui-shadow-border-primary, $kui-shadow-border-primary), var(--kui-shadow-focus, $kui-shadow-focus);
+    @include inputFocus
   }
 
   &:disabled {
-    @include kInputDisabledReadOnly;
-
-    cursor: not-allowed;
+    @include inputDisabled;
   }
 
   &:read-only {
-    @include kInputDisabledReadOnly;
+    @include inputReadOnly;
+
+    // by default type="file" is read-only so we need to apply default input styles to override read-only styles
+    &[type="file"] {
+      @include inputDefaults;
+      cursor: pointer;
+
+      &:hover {
+        @include inputHover;
+      }
+
+      &:focus {
+        @include inputFocus
+      }
+
+      &:disabled {
+        @include inputDisabled;
+      }
+    }
   }
 }
 </style>
