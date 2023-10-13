@@ -48,7 +48,7 @@ Use the `labelAttributes` prop to configure the KLabel's [props](/components/lab
 
 You can add `tooltipAttributes` to configure the KTooltip's [props](/components/tooltip)
 
-<KInput label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop', 'data-testid': 'test', tooltipAttributes: {
+<KInput label="Name" :label-attributes="{ info: 'I use the KLabel `info` prop', 'data-testid': 'test', tooltipAttributes: {
 maxWidth: '150px'
 } } "/>
 
@@ -56,7 +56,7 @@ maxWidth: '150px'
 <KInput
   label="Name"
   :label-attributes="{
-    help: 'I use the KLabel `help` prop',
+    info: 'I use the KLabel `info` prop',
     'data-testid': 'test'
     tooltipAttributes: {
         maxWidth: '150px'
@@ -147,7 +147,7 @@ You can pass any input attribute and it will get properly bound to the element.
 
 ### required
 
-KInput will display an asterisk next to the label to indicate a field is required if you set the `required` attribute and provide a `label` value. See KLabel's [`required`](/components/label#required) prop for more information.
+KInput will display a red dot next to the label to indicate a field is required if you set the `required` attribute and provide a `label` value. See KLabel's [`required`](/components/label#required) prop for more information.
 
 :::tip NOTE
 Text passed in for the `label` will automatically strip any trailing `*` when used with the `required` attribute to prevent duplicate visual indicators for required fields.
