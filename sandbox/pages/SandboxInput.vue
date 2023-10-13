@@ -159,7 +159,11 @@
       </KInput>
     </SandboxSectionComponent>
     <SandboxSectionComponent title="label-tooltip">
-      <KInput label="Label" />
+      <KInput label="Label">
+        <template #label-tooltip>
+          Brings all the <code>devs</code> to the yard
+        </template>
+      </KInput>
     </SandboxSectionComponent>
     <SandboxTitleComponent
       is-subtitle
