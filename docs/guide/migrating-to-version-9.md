@@ -142,7 +142,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Slots
 
-* `icon` slot has been removed. Instead, you can use new `before` and/or `after` slots
+* `icon` slot has been removed. Instead, you can use new `before` and/or `after` slots to provide icons on the left/right, inside the input
 
 #### Events
 

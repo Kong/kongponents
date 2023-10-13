@@ -65,7 +65,7 @@ KButton can render either a `<a>` or `<router-link>` by simply passing the `to` 
 ### icon
 
 :::warning NOTE
-This prop will be changed to boolean in `beta` stage of breaking change release.
+This prop will be changed to a `boolean` in the `9.0.0-beta.0` release.
 :::
 
 A string for the `KIcon` name to be displayed to the left of the button's content. Specifying a value for `icon` will automatically indicate that it should be visible.
@@ -116,19 +116,21 @@ The default slot allows you to provide the button text as well as to slot in oth
 </div>
 
 :::tip TIP
-Should you decide to use your own custom icon, you can use design tokens exported by the [@kong/design-tokens](https://www.npmjs.com/package/@kong/design-tokens) package to set icon size. For:
+When utilizing icons inside KButton, some sizes work better than others. You can use the `kui-icon-size-*` tokens exported by the [@kong/design-tokens](https://github.com/Kong/icons) package, or manually set the size.
 
-- `large` KButton the recommended icon size is `$kui-icon-size-50` (also [exported as LESS and JavaScript variables](https://www.npmjs.com/package/@kong/design-tokens#token-formats))
-- `medium` KButton use `$kui-icon-size-40`
-- `small` KButton use `$kui-icon-size-30`
+For utilizing icons in KButton not sourced from `@kong/icons`, we recommend the following dimensions given the button `size`:
 
-We also recommend setting `color: currentColor;` on your custom-provided element to utilize default KButton styling for slotted content.
+- `large`: `24px` or `kui-icon-size-50`
+- `medium`: `20px` or `kui-icon-size-40`
+- `small`: `16px` or `kui-icon-size-30`
+
+We also recommend setting the icon style `color` attribute to a value of `currentColor` to inherit the default KButton styling for slotted content.
 :::
 
 ### icon
 
 :::warning NOTE
-This slot will be removed in `beta` stage of v9 release.
+This slot will be removed in the `9.0.0-beta.0` release.
 :::
 
 KButton supports using an icon either before the text or without text. If you are using the KIcon component you must maintain the icon color yourself when the button is enabled or disabled.

@@ -1,6 +1,6 @@
 # Input
 
-KInput provides a wrapper around general `text` input's and provides specific styling and state treatments (error, focus, etc).
+KInput provides a wrapper around general `text` inputs and provides contextual styling and states (error, focus, etc).
 
 <KInput placeholder="Placeholder text" />
 
@@ -32,7 +32,7 @@ String to be used as the input label.
 <KInput label="Disabled" disabled placeholder="I'm disabled!" />
 ```
 
-If the label is omitted it can be handled with another component, like [KLabel](/components/label). This is meant to be used before KInput and will be styled appropriately.
+If the label prop is omitted, a label can be implemented with a standalone [KLabel](/components/label). If used separately, the KLabel should be used before KInput and will be styled appropriately.
 
 <KLabel for="my-input">Label</KLabel>
 <KInput id="my-input" type="text" placeholder="I have a label" />
@@ -44,7 +44,7 @@ If the label is omitted it can be handled with another component, like [KLabel](
 
 ### labelAttributes
 
-Use the `labelAttributes` prop to configure the KLabel's [props](/components/label) if using the `label` prop. This example shows using the `label-attributes` to set up a tooltip, see the [slot](#slots) section if you want to slot HTML into the tooltip rather than use plain text.
+Use the `labelAttributes` prop to configure the KLabel's [props](/components/label) if using the `label` prop. This example shows using the `label-attributes` to add a tooltip. See the [slot](#slots) section for details on slotting HTML content into the tooltip rather than plain text.
 
 You can add `tooltipAttributes` to configure the KTooltip's [props](/components/tooltip)
 
@@ -75,7 +75,7 @@ String to be displayed as help text.
 <KInput help="I can help with that." placeholder="Need help?" />
 ```
 
-If [`hasError`](#haserror) is true, this will be styled as error message.
+If [`hasError`](#haserror) is true, the `help` prop text will be styled as error message.
 
 <KInput has-error help="I can help with that." />
 
@@ -85,11 +85,11 @@ If [`hasError`](#haserror) is true, this will be styled as error message.
 
 ### hasError
 
-Boolean value to indicate whether the element has an error and should apply error styling. Defaults to `false`.
+Boolean to indicate whether the element is in an error state and should apply error styling. Defaults to `false`.
 
 ### errorMessage
 
-String to be displayed as error message if `hasError` prop is `true`. Will supersede `help` prop if both are present and `hasError` is `true`.
+String to be displayed as an error message if `hasError` prop is `true`. This prop will supersede the `help` prop if both have a value and `hasError` is `true`.
 
 <KInput has-error error-message="Service name should not contain '_'" help="Service name can be anything with only a few exceptions." />
 
@@ -109,10 +109,10 @@ Use this prop to specify a character limit for the input. See the [`@char-limit-
 
 The character counter will only display below the input if the `characterLimit` is exceeded.
 
-If the `characterLimit` is exceeded, the character counter below the KInput will override the display of a provided `help` and `errorMessage` props until the character count is within the acceptable range.
+If the `characterLimit` is exceeded, the character counter below the KInput will override the display of the provided `help` and `errorMessage` text until the character count is within the acceptable range.
 
 ::: tip
-You may also specify a native `maxlength` attribute on the KInput to actually limit the number of characters the user is allowed to type in the field. This will prevent the user from exceeding the character limit so the error state will not be shown.
+You may also specify a native `maxlength` attribute on the KInput to limit the number of characters the user is allowed to type in the field. This will prevent the user from exceeding the character limit so the error state will not be shown.
 
 <KInput :character-limit="10" maxlength="10" placeholder="Type..."/>
 
@@ -147,10 +147,10 @@ You can pass any input attribute and it will get properly bound to the element.
 
 ### required
 
-KInput will display a red dot to indicate a field is required if you set the `required` attribute and provide a `label`. See KLabel's [`required`](/components/label#required) prop for more information.
+KInput will display an asterisk next to the label to indicate a field is required if you set the `required` attribute and provide a `label` value. See KLabel's [`required`](/components/label#required) prop for more information.
 
 :::tip NOTE
-Text passed in for the `label` will automatically strip any trailing `*` when used with the `required` attribute to try to prevent duplicate visual indicators for required fields.
+Text passed in for the `label` will automatically strip any trailing `*` when used with the `required` attribute to prevent duplicate visual indicators for required fields.
 
 <KInput label="Name *" required />
 
@@ -161,7 +161,7 @@ Text passed in for the `label` will automatically strip any trailing `*` when us
 
 ### v-model
 
-KInput works as regular inputs do using `v-model` for data binding:
+KInput works with `v-model` for two-way data binding:
 
 <div class="input-container">
   <KInput class="horizontal-spacing" :label="vModelInput || 'empty'" v-model="vModelInput"/>
@@ -199,7 +199,7 @@ const clearMyInput = (): void => {
 
 ### before
 
-Use this slot for inserting icons before the input field.
+Use the `before` slot for inserting icons before the input field.
 
 <KInput placeholder="Search">
   <template #before>
@@ -215,12 +215,12 @@ Use this slot for inserting icons before the input field.
 </KInput>
 ```
 
-KInput takes care of icon color, size and spacing as long as you use icons provided by [@kong/icons](https://www.npmjs.com/package/@kong/icons) package.
+KInput takes care of icon color, size and spacing as long as you use icons sourced from [@kong/icons](https://github.com/Kong/icons) package.
 
 :::tip TIP
-Should you decide to use your own custom icon, you can use design tokens exported by the [@kong/design-tokens](https://www.npmjs.com/package/@kong/design-tokens) package to set icon size. The recommended icon size is `$kui-icon-size-40` (also [exported as LESS and JavaScript variables](https://www.npmjs.com/package/@kong/design-tokens#token-formats)).
+Should you decide to use your own custom icons, you can use design tokens exported by the [@kong/design-tokens](https://github.com/Kong/design-tokens) package to set icon size. The recommended icon size is `20px` or `kui-icon-size-40`.
 
-We also recommend setting `color: currentColor;` on your custom-provided element to utilize default KInput styling for slotted content.
+We also recommend setting the `color` attribute to `currentColor` to utilize default KInput styling for slotted content.
 :::
 
 ### after
