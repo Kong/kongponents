@@ -29,6 +29,12 @@ export default createRouter({
           component: () => import('./pages/SandboxCatalog.vue'),
         },
         {
+          path: 'dropdown',
+          name: 'dropdown',
+          meta: { title: 'Dropdown Sandbox' },
+          component: () => import('./pages/SandboxDropdown.vue'),
+        },
+        {
           path: 'input',
           name: 'input',
           meta: { title: 'Input Sandbox' },
