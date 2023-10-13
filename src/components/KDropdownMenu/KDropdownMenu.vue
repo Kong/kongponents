@@ -1,27 +1,25 @@
 <template>
   <div
-    class="k-dropdown k-dropdown-menu"
+    class="k-dropdown"
     :class="{ 'selection-dropdown-menu': appearance === 'selectionMenu' }"
   >
     <KToggle v-slot="{ toggle, isToggled }">
       <KPop
         v-bind="boundKPopAttributes"
-        data-testid="k-dropdown-menu-popover"
+        data-testid="dropdown-popover"
         :hide-popover="hidePopover"
         :on-popover-click="() => handleTriggerToggle(isToggled, toggle, false)"
-        :test-mode="!!testMode || undefined"
         @closed="() => handleTriggerToggle(isToggled, toggle, false)"
         @opened="() => handleTriggerToggle(isToggled, toggle, true)"
       >
         <component
           :is="tooltipComponent"
-          class="k-dropdown-trigger dropdown-trigger"
-          data-testid="k-dropdown-trigger"
+          class="dropdown-trigger"
+          data-testid="dropdown-trigger"
           :label="disabledTooltip"
           :max-width="!!disabledTooltip ? '240' : undefined"
           :position="!!disabledTooltip ? 'bottom' : undefined"
           :position-fixed="!!disabledTooltip ? true : undefined"
-          :test-mode="!!testMode || undefined"
         >
           <slot
             :is-open="isToggled.value"
@@ -32,12 +30,12 @@
               <KButton
                 v-if="label || icon"
                 :appearance="appearance === 'selectionMenu' ? 'secondary' : buttonAppearance"
-                class="k-dropdown-btn"
-                data-testid="k-dropdown-btn"
+                class="dropdown-trigger-button"
+                data-testid="dropdown-trigger-button"
                 :disabled="disabled"
                 :icon="icon"
               >
-                {{ label }}
+                {{ triggerText || label }}
                 <ChevronDownIcon
                   v-if="showCaret || appearance === 'selectionMenu'"
                   :color="caretColor"
@@ -48,8 +46,8 @@
         </component>
         <template #content>
           <ul
-            class="k-dropdown-list dropdown-list"
-            data-testid="k-dropdown-list"
+            class="dropdown-list"
+            data-testid="dropdown-list"
           >
             <slot
               :close-dropdown="handleCloseDropdown"
@@ -99,10 +97,11 @@ const props = defineProps({
     type: String,
     default: undefined,
   },
-  label: {
+  triggerText: {
     type: String,
     default: '',
   },
+  // TODO: [beta] remove this prop
   icon: {
     type: String,
     default: '',
@@ -137,12 +136,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  /**
-   * Test mode - for testing only, strips out generated ids
-   */
-  testMode: {
-    type: Boolean,
-    default: false,
+  // deprecated
+  label: {
+    type: String,
+    default: '',
   },
 })
 
@@ -217,7 +214,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.k-dropdown-menu {
+.k-dropdown {
   width: fit-content;
 }
 </style>

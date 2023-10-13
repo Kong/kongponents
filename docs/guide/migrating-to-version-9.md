@@ -100,6 +100,28 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KDropdownMenu
 
+#### Structure
+
+* `k-dropdown-menu` class has been removed
+* `k-dropdown-menu-popover` `testid` data attribute has been replaced with `dropdown-popover`
+* `k-dropdown-trigger` class has been removed
+* `k-dropdown-trigger` `testid` data attribute has been replaced with `dropdown-trigger`
+* `k-dropdown-btn` class has been replaced with `dropdown-trigger-button`
+* `k-dropdown-btn` `testid` data attribute has been replaced with `dropdown-trigger-button`
+* `k-dropdown-list` class has been removed
+* `k-dropdown-list` `testid` data attribute has been replaced with `dropdown-list`
+
+#### Constants, Types & Interfaces
+
+#### Props
+
+* `label` prop has been deprecated and replaced with `trigger-text`
+* `testMode` prop has been removed
+* `icon` prop is removed (TODO: [beta])
+
+#### Slots
+
+#### Events
 
 ### KEmptyState
 

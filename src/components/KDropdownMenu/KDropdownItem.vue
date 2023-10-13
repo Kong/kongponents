@@ -19,7 +19,6 @@
         class="k-dropdown-item-trigger-label"
         :title="label"
       >
-
         <slot>{{ label }}</slot>
       </span>
     </component>
