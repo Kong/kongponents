@@ -298,6 +298,8 @@ Fired when the text starts or stops exceeding the limit, returns an object:
 }
 ```
 
+### DOM events
+
 KInput allows you to listen to DOM events:
 
 <KComponent :data="{ myInput: 'hello' }" v-slot="{ data }">
