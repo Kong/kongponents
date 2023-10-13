@@ -98,7 +98,7 @@ KButton also supports the disabled attribute with both Button and Anchor types.
 
 ### default
 
-The default slot allows you to provide the button text as well as to slot in other button content such as an icon. KButton takes care of icon color, size and spacing as long as you use icons provided by [@kong/icons](https://www.npmjs.com/package/@kong/icons) package.
+The default slot allows you to provide the button text as well as to slot in other button content such as an icon. KButton takes care of icon color, size and spacing as long as you use icons provided by [@kong/icons](https://github.com/Kong/icons) package.
 
 <div class="spacing-container">
   <KButton size="large">
@@ -116,7 +116,7 @@ The default slot allows you to provide the button text as well as to slot in oth
 </div>
 
 :::tip TIP
-When utilizing icons inside KButton, some sizes work better than others. You can use the `kui-icon-size-*` tokens exported by the [@kong/design-tokens](https://github.com/Kong/icons) package, or manually set the size.
+When utilizing icons inside KButton, some sizes work better than others. You can use the `kui-icon-size-*` tokens exported by the [@kong/design-tokens](https://github.com/Kong/design-tokens) package, or manually set the size.
 
 For utilizing icons in KButton not sourced from `@kong/icons`, we recommend the following dimensions given the button `size`:
 
@@ -124,7 +124,7 @@ For utilizing icons in KButton not sourced from `@kong/icons`, we recommend the 
 - `medium`: `20px` or `kui-icon-size-40`
 - `small`: `16px` or `kui-icon-size-30`
 
-We also recommend setting the icon style `color` attribute to a value of `currentColor` to inherit the default KButton styling for slotted content.
+We also recommend setting the icon style `color` property to a value of `currentColor` to inherit the default KButton styling for slotted content.
 :::
 
 ### icon

@@ -197,9 +197,9 @@ const clearMyInput = (): void => {
 
 ## Slots
 
-### before
+### before and after
 
-Use the `before` slot for inserting icons before the input field.
+Use the `before` and `after` slots for inserting icons before and/or after the input field.
 
 <KInput placeholder="Search">
   <template #before>
@@ -215,21 +215,8 @@ Use the `before` slot for inserting icons before the input field.
 </KInput>
 ```
 
-KInput takes care of icon color, size and spacing as long as you use icons sourced from [@kong/icons](https://github.com/Kong/icons) package.
-
 :::tip TIP
-Should you decide to use your own custom icons, you can use design tokens exported by the [@kong/design-tokens](https://github.com/Kong/design-tokens) package to set icon size. The recommended icon size is `20px` or `kui-icon-size-40`.
-
-We also recommend setting the `color` attribute to `currentColor` to utilize default KInput styling for slotted content.
-:::
-
-### after
-
-Use this slot for inserting icons after the input field.
-
-:::tip TIP
-If you want to make an icon clickable, you can assign `role="button"` and appropriate `tabindex` attributes to that element and bind an event handler. KInput will take care of state styling (hover, active, disabled). 
-:::
+If you want to make an icon clickable, you can assign `role="button"` and appropriate `tabindex` attributes to that element and bind an event handler. KInput will take care of state styling (hover, active, disabled).
 
 <KInput model-value="b0490b53-4f47-410d-92b0-e76a3141c04d">
   <template #after>
@@ -256,6 +243,15 @@ If you want to make an icon clickable, you can assign `role="button"` and approp
   </template>
 </KInput>
 ```
+:::
+
+KInput takes care of icon color, size and spacing as long as you use icons sourced from [@kong/icons](https://github.com/Kong/icons) package.
+
+:::tip TIP
+Should you decide to use your own custom icons, you can use design tokens exported by the [@kong/design-tokens](https://github.com/Kong/design-tokens) package to set icon size. The recommended icon size is `20px` or `kui-icon-size-40`.
+
+We also recommend setting the icon style `color` property to a value of `currentColor` to utilize default KInput styling for slotted content.
+:::
 
 ### label-tooltip
 
@@ -267,20 +263,6 @@ If you want to utilize HTML in the input label's tooltip, use the slot.
 
 ```html
 <KInput label="My tooltip">
-  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
-</KInput>
-```
-
-:::tip NOTE
-When utilizing the `label-tooltip` slot, the `info` icon will be shown by default. To utilize the the `help` icon instead, set the `label-attributes` `help` property to any non-empty string value.
-:::
-
-<KInput label="My tooltip" :label-attributes="{ help: 'true' }">
-  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
-</KInput>
-
-```html
-<KInput label="My tooltip" :label-attributes="{ help: 'true' }">
   <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
 </KInput>
 ```
@@ -316,7 +298,7 @@ Fired when the text starts or stops exceeding the limit, returns an object:
 }
 ```
 
-KInput transparently binds to events:
+KInput allows you to listen to DOM events:
 
 <KComponent :data="{ myInput: 'hello' }" v-slot="{ data }">
   <div>
