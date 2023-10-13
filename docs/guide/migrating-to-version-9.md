@@ -26,6 +26,8 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Slots
 
+#### Events
+
 ### KBadge
 
 #### Structure
@@ -52,11 +54,11 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 #### Props
 
 * some values `appearance` prop accepts were changed:
-  * `outline` is no longer supported (we suggest using `secondary` instead)
-  * `creation` is no longer supported
+  * `outline` has been removed (we suggest using `secondary` instead)
+  * `creation` has been removed
   * `btn-link` is no longer accepted (we suggest using `tertiary` instead)
-  * `btn-link-danger` is no longer supported
-  * `action-active` is no longer supported
+  * `btn-link-danger` has been removed
+  * `action-active` has been removed
 * `showCaret` prop is removed
 * `caretColor` prop is removed
 * `isRounded` prop is removed
@@ -65,10 +67,6 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 #### Slots
 
 * `icon` slot is removed (TODO: [beta])
-
-#### Events
-
-No changes.
 
 ### KCard
 
@@ -81,7 +79,17 @@ No changes.
 
 ### KCodeBlock
 
-- Added new `maxHeight` prop to control the `max-height` of the code block. Defaults to `none`.
+#### Structure
+
+#### Constants, Types & Interfaces
+
+#### Props
+
+* New `maxHeight` prop to control the `max-height` of the code block. Defaults to `none`
+
+#### Slots
+
+#### Events
 
 
 ### KCollapse
@@ -110,6 +118,35 @@ No changes.
 
 ### KInput
 
+#### Structure
+
+* `form-control` class has been removed
+* `over-char-limit` class has been removed
+* `has-error` class has been removed
+* `help` class has been changed to `help-text`
+* `input-error` class has been changed to `has-error`
+
+#### Constants, Types & Interfaces
+
+* `SizeArray` and `IconPositionArray` constants have been removed
+* `Size` and `IconPosition` types have been removed
+* `help` property was removed from `LabelAttributes` interface (TODO: after KLabel is reskinned)
+
+#### Props
+
+* `overlayLabel` prop has been removed
+* `size` prop has been removed (KInput only comes in 1 size now)
+* `iconPosition` prop has been removed
+* `testMode` prop has been removed
+* `help` property was removed from `labelAttributes` prop (TODO: after KLabel is reskinned)
+
+#### Slots
+
+* `icon` slot has been removed. Instead, you can use new `before` and/or `after` slots to provide icons on the left/right, inside the input
+
+#### Events
+
+* `icon:click` event has been removed. Instead, when using `before` and/or `after` slots, you can provide your custom click handlers bound to clicks on slotted content. See KInput's [slots](/components/input#after) for more details
 
 ### KInputSwitch
 
@@ -125,7 +162,17 @@ No changes.
 
 ### KModal
 
-- Added new `maxWidth` prop to control the `max-width` of the modal. Defaults to `500px`.
+#### Structure
+
+#### Constants, Types & Interfaces
+
+#### Props
+
+* New `maxWidth` prop to control the `max-width` of the modal. Defaults to `500px`
+
+#### Slots
+
+#### Events
 
 
 ### KModalFullscreen
@@ -142,7 +189,16 @@ No changes.
 
 ### KPrompt
 
-- Added new `maxHeight` prop to control the `max-height` of the prompt. Defaults to `400px`.
+#### Constants, Types & Interfaces
+
+#### Props
+
+* New `maxHeight` prop to control the `max-height` of the prompt. Defaults to `400px`
+
+#### Slots
+
+#### Events
+
 
 
 ### Komponent

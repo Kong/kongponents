@@ -168,7 +168,8 @@ export default {
   }
 
   // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
-  :deep(.kui-icon), :deep(.kong-icon) {
+  // enforce icon size exported by @kong/icons because it's defined by the design system
+  :deep(#{$kongponentsKongIconSelector}), :deep(.kong-icon) {
     /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
     height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
     /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
@@ -187,7 +188,6 @@ export default {
 /* Component styles */
 
 .k-button {
-  $kButtonTransitionDurationTimingFunction: var(--kui-animation-duration-20, $kui-animation-duration-20) ease-in-out;
   @include kButtonPrimaryAppearance; // primary appearance is the default
   @include kButtonMediumSize; // medium size is the default
 
@@ -201,7 +201,7 @@ export default {
   // Remove tap color highlight on mobile Safari
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   text-decoration: none;
-  transition: background-color $kButtonTransitionDurationTimingFunction, color $kButtonTransitionDurationTimingFunction, border-color $kButtonTransitionDurationTimingFunction;
+  transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, border-color $kongponentsTransitionDurTimingFunc;
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;
@@ -322,7 +322,8 @@ export default {
     }
 
     // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
-    :deep(.kui-icon), :deep(.kong-icon) {
+    // enforce icon size exported by @kong/icons because it's defined by the design system
+    :deep(#{$kongponentsKongIconSelector}), :deep(.kong-icon) {
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       height: var(--kui-icon-size-50, $kui-icon-size-50) !important;
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
@@ -355,7 +356,8 @@ export default {
     }
 
     // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
-    :deep(.kui-icon), :deep(.kong-icon) {
+    // enforce icon size exported by @kong/icons because it's defined by the design system
+    :deep(#{$kongponentsKongIconSelector}), :deep(.kong-icon) {
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */

@@ -36,11 +36,7 @@ The Button component can take 1 of 4 appearance values:
 
 ### size
 
-We support `small`, `medium`, and `large` sizes, default to `medium`.
-
-- `small`
-- `medium`
-- `large`
+KButton comes in `small`, `medium`, and `large` sizes. Defaults to `medium`.
 
 <div class="spacing-container">
   <KButton size="large">Large</KButton>
@@ -69,7 +65,7 @@ KButton can render either a `<a>` or `<router-link>` by simply passing the `to` 
 ### icon
 
 :::warning NOTE
-This prop will be changed to boolean in beta stage of breaking change release.
+This prop will be changed to a `boolean` in the `9.0.0-beta.0` release.
 :::
 
 A string for the `KIcon` name to be displayed to the left of the button's content. Specifying a value for `icon` will automatically indicate that it should be visible.
@@ -102,7 +98,7 @@ KButton also supports the disabled attribute with both Button and Anchor types.
 
 ### default
 
-The default slot allows you to provide the button text as well as to slot in other button content such as an icon. KButton takes care of icon color, size and spacing as long as you use icons provided by [@kong/icons](https://www.npmjs.com/package/@kong/icons) package.
+The default slot allows you to provide the button text as well as to slot in other button content such as an icon. KButton takes care of icon color, size and spacing as long as you use icons provided by [@kong/icons](https://github.com/Kong/icons) package.
 
 <div class="spacing-container">
   <KButton size="large">
@@ -119,10 +115,22 @@ The default slot allows you to provide the button text as well as to slot in oth
   </KButton>
 </div>
 
+:::tip TIP
+When utilizing icons inside KButton, some sizes work better than others. You can use the `kui-icon-size-*` tokens exported by the [@kong/design-tokens](https://github.com/Kong/design-tokens) package, or manually set the size.
+
+For utilizing icons in KButton not sourced from `@kong/icons`, we recommend the following dimensions given the button `size`:
+
+- `large`: `24px` or `kui-icon-size-50`
+- `medium`: `20px` or `kui-icon-size-40`
+- `small`: `16px` or `kui-icon-size-30`
+
+We also recommend setting the icon style `color` property to a value of `currentColor` to inherit the default KButton styling for slotted content.
+:::
+
 ### icon
 
 :::warning NOTE
-This slot will be removed in beta stage of v9 release.
+This slot will be removed in the `9.0.0-beta.0` release.
 :::
 
 KButton supports using an icon either before the text or without text. If you are using the KIcon component you must maintain the icon color yourself when the button is enabled or disabled.

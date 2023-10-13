@@ -120,25 +120,8 @@ describe('KSelect', () => {
     cy.get('.k-input-label .kong-icon-help').should('be.visible')
   })
 
-  it('renders an asterisk when `overlayLabel` is true and `required` attr is set', () => {
-    const label = 'A label'
-    mount(KSelect, {
-      props: {
-        testMode: true,
-        label,
-        overlayLabel: true,
-        items: [{
-          label: 'Label 1',
-          value: 'label1',
-        }],
-      },
-      attrs: {
-        required: true,
-      },
-    })
-
-    cy.get('.text-on-input label').should('contain.text', label)
-    cy.get('.text-on-input  .is-required').should('exist')
+  it.skip('renders label with required symbol when `required` attribute is set', () => {
+    // TODO: implement when KLabel component is reskinned
   })
 
   it('renders with correct appearance - select', () => {

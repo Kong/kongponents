@@ -1,11 +1,4 @@
 import type { TooltipAttributes } from '@/types/label'
-import type { AnyElementOf } from '@/types/utils'
-
-export const SizeArray = ['small', 'medium', 'large'] as const
-export type Size = AnyElementOf<typeof SizeArray>
-
-export const IconPositionArray = ['start', 'end'] as const
-export type IconPosition = AnyElementOf<typeof IconPositionArray>
 
 export interface LabelAttributes {
   help?: string
@@ -16,7 +9,7 @@ export interface LabelAttributes {
 
 export interface LimitExceededData {
   value: string
-  length:number
+  length: number
   characterLimit: number
   limitExceeded: boolean
 }

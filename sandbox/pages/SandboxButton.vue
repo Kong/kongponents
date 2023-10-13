@@ -691,7 +691,6 @@ const test = () => {
     align-items: flex-end;
     display: flex;
     gap: $kui-space-50;
-    margin-bottom: $kui-space-70;
   }
 }
 </style>

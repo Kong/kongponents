@@ -69,5 +69,11 @@ const hasDescription = computed((): boolean => !!(props.description || slots.des
       max-width: 700px
     }
   }
+
+  .section-content {
+    :deep(> *:not(:last-of-type)) {
+      margin-bottom: $kui-space-70;
+    }
+  }
 }
 </style>

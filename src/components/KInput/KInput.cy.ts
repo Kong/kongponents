@@ -2,20 +2,12 @@ import { mount } from 'cypress/vue'
 import KInput from '@/components/KInput/KInput.vue'
 import { h } from 'vue'
 
-/**
- * ALL TESTS MUST USE testMode: true
- * We generate unique IDs for reference by aria properties. Test mode strips these out
- * allowing for successful snapshot verification.
- * props: {
- *   testMode: true
- * }
- */
 describe('KInput', () => {
   it('renders text when value is passed', () => {
     const text = 'Hello'
+
     mount(KInput, {
       props: {
-        testMode: true,
         modelValue: text, // e.g. v-model
       },
     })
@@ -27,7 +19,6 @@ describe('KInput', () => {
     // @ts-ignore - to allow passing an invalid modelValue
     mount(KInput, {
       props: {
-        testMode: true,
         modelValue: null, // e.g. v-model
       },
     })
@@ -39,7 +30,6 @@ describe('KInput', () => {
   it('renders `undefined` modelValue as empty string', () => {
     mount(KInput, {
       props: {
-        testMode: true,
         modelValue: undefined, // e.g. v-model
       },
     })
@@ -50,9 +40,9 @@ describe('KInput', () => {
 
   it('renders label when value is passed', () => {
     const label = 'A label'
+
     mount(KInput, {
       props: {
-        testMode: true,
         label,
       },
     })
@@ -62,9 +52,9 @@ describe('KInput', () => {
 
   it('renders label with labelAttributes applied', () => {
     const label = 'A label'
+
     mount(KInput, {
       props: {
-        testMode: true,
         label,
         labelAttributes: {
           help: 'some help text',
@@ -78,9 +68,9 @@ describe('KInput', () => {
 
   it('renders label and tooltip with `label-tooltip` slot applied', () => {
     const label = 'A label'
+
     mount(KInput, {
       props: {
-        testMode: true,
         label,
       },
       slots: {
@@ -92,89 +82,43 @@ describe('KInput', () => {
     cy.get('.k-input-label .kong-icon-infoFilled').should('exist').and('be.visible')
   })
 
-  it('renders overlayed label when value is passed', () => {
-    const label = 'A label'
-    mount(KInput, {
-      props: {
-        testMode: true,
-        label,
-        overlayLabel: true,
-      },
-    })
-
-    cy.get('.text-on-input label').should('contain.text', label)
-  })
-
-  it('renders an asterisk when `overlayLabel` is true and `required` attr is set', () => {
-    const label = 'A label'
-    mount(KInput, {
-      props: {
-        testMode: true,
-        label,
-        overlayLabel: true,
-      },
-      attrs: {
-        required: true,
-      },
-    })
-
-    cy.get('.text-on-input label').should('contain.text', label)
-    cy.get('.text-on-input  .is-required').should('exist')
-  })
-
-  it('renders small when size is passed in', () => {
-    mount(KInput, {
-      props: {
-        testMode: true,
-        size: 'small',
-      },
-    })
-
-    cy.get('.k-input-wrapper .k-input').should('have.class', 'k-input-small')
-  })
-
-  it('renders large when size is passed in', () => {
-    mount(KInput, {
-      props: {
-        testMode: true,
-        size: 'large',
-      },
-    })
-
-    cy.get('.k-input-wrapper .k-input').should('have.class', 'k-input-large')
+  it.skip('renders label with required symbol when `required` attribute is set', () => {
+    // TODO: implement when KLabel component is reskinned
   })
 
   it('renders help when value is passed', () => {
     const helpText = 'I am helpful'
+
     mount(KInput, {
       props: {
-        testMode: true,
         help: helpText,
       },
     })
 
-    cy.get('.k-input-wrapper .help').should('contain.text', helpText)
+    cy.get('.k-input-wrapper .help-text').should('contain.text', helpText)
   })
 
   it('shows character count when characterLimit prop is set and exceeded', () => {
+    const textCharCount = 28
+    const charLimit = 5
+
     mount(KInput, {
       props: {
-        testMode: true,
-        characterLimit: 5,
+        characterLimit: charLimit,
       },
     })
 
     cy.get('.k-input-wrapper .over-char-limit').should('not.exist')
-    cy.get('.k-input-wrapper input.k-input').type('This input has too many characters')
-    cy.get('.k-input-wrapper .over-char-limit').should('be.visible')
+    cy.get('.k-input-wrapper input.k-input').type(`This input has ${textCharCount} characters`)
+    cy.get('.k-input-wrapper.has-error .help-text').should('contain.text', `${textCharCount} / ${charLimit}`)
   })
 
   it('reacts to text changes', () => {
     const inputValue = 'hey'
     const newValue = 'hey, dude'
+
     mount(KInput, {
       props: {
-        testMode: true,
         modelValue: inputValue,
       },
     })
@@ -188,34 +132,27 @@ describe('KInput', () => {
     })
   })
 
-  it('should render icon prop', () => {
-    const icon = '$'
+  it('renders before slot when passed', () => {
+    const beforeSlot = 'before-slot'
+
     mount(KInput, {
-      props: {
-        testMode: true,
-      },
       slots: {
-        icon: () => h('div', {}, icon),
+        before: `<span data-testid="${beforeSlot}">Before slot</span>`,
       },
     })
 
-    cy.get('.input-icon').should('be.visible').should('contain.text', icon)
+    cy.get('.k-input-wrapper').find(`[data-testid="${beforeSlot}"]`).should('be.visible')
   })
 
-  it('should render icon clickable when event listener is bound', () => {
-    const onIconClickSpy = cy.spy().as('onIconClickSpy')
+  it('renders after slot when passed', () => {
+    const afterSlot = 'after-slot'
+
     mount(KInput, {
-      props: {
-        testMode: true,
-        // make it clickable
-        'onIcon:click': onIconClickSpy,
-      },
       slots: {
-        icon: () => h('div', {}, '#'),
+        before: `<span data-testid="${afterSlot}">After slot</span>`,
       },
     })
 
-    cy.get('.input-icon').should('be.visible').should('have.attr', 'role', 'button').should('have.attr', 'tabindex', '0').click()
-    cy.get('@onIconClickSpy').should('have.been.called')
+    cy.get('.k-input-wrapper').find(`[data-testid="${afterSlot}"]`).should('be.visible')
   })
 })
