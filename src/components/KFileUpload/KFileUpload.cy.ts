@@ -11,7 +11,7 @@ describe('KFileUpload', () => {
       },
     })
 
-    cy.get('.k-input-label').should('contain.text', text)
+    cy.get('.k-label').should('contain.text', text)
   })
 
   it('remove-button should not exist if there is no selected file', () => {
@@ -42,13 +42,13 @@ describe('KFileUpload', () => {
         testMode: true,
         label: labelText,
         labelAttributes: {
-          help: 'random text',
+          info: 'random text',
         },
       },
     })
 
-    cy.get('.k-input-label').should('contain.text', labelText)
-    cy.get('.k-input-label .kong-icon-help').should('be.visible')
+    cy.get('.k-label').should('contain.text', labelText)
+    cy.get('.k-label .tooltip-trigger-icon').should('be.visible')
   })
 
   it('does not render cancel button, if removable is false', () => {

@@ -122,7 +122,7 @@ const attrs = useAttrs()
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
 const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
-const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
+const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({

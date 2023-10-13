@@ -86,7 +86,7 @@ const labelStyle = computed(() => {
       padding-top: var(--kui-space-50, $kui-space-50);
       text-align: center;
 
-      :deep(.k-input-label) {
+      :deep(.k-label) {
         color: var(--kui-color-text-neutral, $kui-color-text-neutral);
         font-size: var(--kui-font-size-40, $kui-font-size-40);
         font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
@@ -121,7 +121,7 @@ const labelStyle = computed(() => {
 <style lang="scss">
 .k-step {
   .k-step-label {
-    &.error .k-input-label {
+    &.error .k-label {
       color: var(--kui-color-text-danger, $kui-color-text-danger);
     }
   }
