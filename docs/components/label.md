@@ -1,6 +1,6 @@
 # Label
 
-KLabel provides a wrapper around general `label` tags.
+KLabel provides a wrapper around the native HTML `label` element.
 
 <KLabel>Input title</KLabel>
 

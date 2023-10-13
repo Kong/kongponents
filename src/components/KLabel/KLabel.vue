@@ -50,6 +50,12 @@ const hasTooltip = computed((): boolean => !!(props.info || slots.tooltip))
 </script>
 
 <style lang="scss" scoped>
+/* Component variables */
+
+$kLabelSpacingX: var(--kui-space-40, $kui-space-40);
+
+/* Component styles */
+
 .k-label {
   align-items: center;
   color: var(--kui-color-text, $kui-color-text);
@@ -61,7 +67,7 @@ const hasTooltip = computed((): boolean => !!(props.info || slots.tooltip))
   margin-bottom: var(--kui-space-40, $kui-space-40);
 
   &.is-required {
-    margin-left: var(--kui-space-60, $kui-space-60);
+    margin-left: calc($kLabelSpacingX + 6px); // 6px to compensate for the 6px width of the dot
     position: relative;
 
     &::before {
@@ -71,7 +77,7 @@ const hasTooltip = computed((): boolean => !!(props.info || slots.tooltip))
       content: '';
       height: 6px;
       left: 0px;
-      margin-left: calc((-1 * var(--kui-space-40, $kui-space-40)) - 6px); // -3px to compensate for the 6px width
+      margin-left: calc((-1 * $kLabelSpacingX) - 6px); // -6px to compensate for the 6px width
       position: absolute;
       width: 6px;
     }
@@ -81,7 +87,7 @@ const hasTooltip = computed((): boolean => !!(props.info || slots.tooltip))
     .tooltip-trigger-icon {
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
-      margin-left: var(--kui-space-40, $kui-space-40);
+      margin-left: $kLabelSpacingX;
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
     }

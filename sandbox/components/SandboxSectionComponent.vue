@@ -69,7 +69,6 @@ const hasDescription = computed((): boolean => !!(props.description || slots.des
         font-size: $kui-font-size-20;
         left: -12px;
         position: absolute;
-        // transform: translateY(-50%);
       }
     }
 
