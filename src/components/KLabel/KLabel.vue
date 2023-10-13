@@ -1,21 +1,18 @@
 <template>
-  <label class="k-input-label">
+  <label
+    class="k-label"
+    :class="{ 'is-required': required }"
+  >
     <slot />
-    <span
-      v-if="required"
-      class="is-required"
-    >*</span>
     <KTooltip
       v-if="hasTooltip"
       v-bind="tooltipAttributes"
       class="label-tooltip"
       position-fixed
     >
-      <KIcon
-        :color="`var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
-        hide-title
-        icon="infoFilled"
-        :size="KUI_ICON_SIZE_30"
+      <InfoIcon
+        class="tooltip-trigger-icon"
+        :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
       />
       <template #content>
         <slot name="tooltip">{{ info }}</slot>
@@ -27,10 +24,10 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, useSlots } from 'vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { TooltipAttributes } from '@/types'
-import { KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { InfoIcon } from '@kong/icons'
+import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
 
 const props = defineProps({
   info: {
@@ -53,8 +50,8 @@ const hasTooltip = computed((): boolean => !!(props.info || slots.tooltip))
 </script>
 
 <style lang="scss" scoped>
-
-.k-input-label {
+.k-label {
+  align-items: center;
   color: var(--kui-color-text, $kui-color-text);
   display: inline-flex;
   font-family: var(--kui-font-family-text, $kui-font-family-text);
@@ -63,22 +60,30 @@ const hasTooltip = computed((): boolean => !!(props.info || slots.tooltip))
   line-height: var(--kui-line-height-30, $kui-line-height-30);
   margin-bottom: var(--kui-space-40, $kui-space-40);
 
-  .is-required {
-    color: var(--kui-color-text, $kui-color-text);
-    font-size: var(--kui-font-size-30, $kui-font-size-30);
-    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-    margin-left: var(--kui-space-20, $kui-space-20);
+  &.is-required {
+    margin-left: var(--kui-space-60, $kui-space-60);
+    position: relative;
+
+    &::before {
+      background-color: var(--kui-color-background-danger, $kui-color-background-danger);
+      border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
+      bottom: calc(50% - 2px); // place the dot in the middle of the text
+      content: '';
+      height: 6px;
+      left: 0px;
+      margin-left: calc((-1 * var(--kui-space-40, $kui-space-40)) - 6px); // -3px to compensate for the 6px width
+      position: absolute;
+      width: 6px;
+    }
   }
 
   .label-tooltip {
-    align-items: center;
-    display: flex;
-
-    :deep(.kong-icon) {
-      &.kong-icon-info {
-        cursor: pointer;
-        height: 16px;
-      }
+    .tooltip-trigger-icon {
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+      margin-left: var(--kui-space-40, $kui-space-40);
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
     }
 
     :deep(.k-tooltip) {
@@ -89,10 +94,6 @@ const hasTooltip = computed((): boolean => !!(props.info || slots.tooltip))
         color: var(--kui-color-text-inverse, $kui-color-text-inverse);
       }
     }
-  }
-
-  .kong-icon {
-    margin-left: var(--kui-space-20, $kui-space-20);
   }
 }
 </style>

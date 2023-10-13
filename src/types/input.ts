@@ -1,7 +1,6 @@
 import type { TooltipAttributes } from '@/types/label'
 
 export interface LabelAttributes {
-  help?: string
   info?: string
   required?: boolean
   tooltipAttributes?: TooltipAttributes
