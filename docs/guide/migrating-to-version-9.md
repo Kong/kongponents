@@ -130,6 +130,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 * `SizeArray` and `IconPositionArray` constants have been removed
 * `Size` and `IconPosition` types have been removed
+* `help` property was removed from `LabelAttributes` interface (TODO: after KLabel is reskinned)
 
 #### Props
 
@@ -137,6 +138,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 * `size` prop has been removed (KInput only comes in 1 size now)
 * `iconPosition` prop has been removed
 * `testMode` prop has been removed
+* `help` property was removed from `labelAttributes` prop (TODO: after KLabel is reskinned)
 
 #### Slots
 
