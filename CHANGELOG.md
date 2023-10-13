@@ -1,3 +1,10 @@
+# [9.0.0-alpha.19](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.18...v9.0.0-alpha.19) (2023-10-13)
+
+
+### Features
+
+* **kinput:** component reskinning [KHCP-8985] ([#1759](https://github.com/Kong/kongponents/issues/1759)) ([29ca87c](https://github.com/Kong/kongponents/commit/29ca87cfc7733c699aaab4025e57207b4da112a2))
+
 # [9.0.0-alpha.18](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.17...v9.0.0-alpha.18) (2023-10-06)
 
 
