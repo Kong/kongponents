@@ -115,7 +115,7 @@
     "postcss-html": "^1.5.0",
     "rimraf": "^5.0.5",
     "rollup-plugin-visualizer": "^5.9.2",
-    "sass": "^1.68.0",
+    "sass": "^1.69.0",
     "semantic-release": "^22.0.5",
     "shx": "^0.3.4",
     "stylelint": "^15.10.3",
