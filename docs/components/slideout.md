@@ -60,17 +60,33 @@ Below we demonstrate wrapping `KSlideout` in the [`KToggle`](/components/renderl
 
 ### isVisible
 
+* **Type**: `boolean`
+* **Required**: no
+* **Default**: `false`
+
 Tells the component whether or not to render the open panel.
 
 ### closeButtonAlignment
+
+* **Type**: `'start' | 'end'`
+* **Required**: no
+* **Default**: `'start'`
 
 Controls the close button alignment, can be `start` (default) or `end`.
 
 ### offsetTop
 
-Allows a host app to define the offset from the top of the page, expects a `number` and that will be converted to `px`, defaults to `0px`.
+* **Type**: `number | string`
+* **Required**: no
+* **Default**: `0`
+
+Allows a host app to define the offset from the top of the page. If the value is a number, it will be treated as a pixel value (e.g. `60` becomes `'60px'`); otherwise, it will be used as-is.
 
 ### hasOverlay
+
+* **Type**: `boolean`
+* **Required**: no
+* **Default**: `true`
 
 Tells the component whether or not to enable / disable overlay when the slideout content is visible, defaults to `true`.
 
@@ -120,6 +136,10 @@ Tells the component whether or not to enable / disable overlay when the slideout
 
 ### preventCloseOnBlur
 
+* **Type**: `boolean`
+* **Required**: no
+* **Default**: `false`
+
 Persists the slideout, ignoring clicks outside of the panel. Defaults to `false`.
 
 <KToggle v-slot="{ isToggled, toggle }">
@@ -151,6 +171,10 @@ Persists the slideout, ignoring clicks outside of the panel. Defaults to `false`
 ```
 
 ### title
+
+* **Type**: `string`
+* **Required**: no
+* **Default**: `''`
 
 This prop takes a string that will be displayed as the title of the slide-out.
 

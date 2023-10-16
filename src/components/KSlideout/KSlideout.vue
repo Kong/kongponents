@@ -94,7 +94,7 @@ const props = defineProps({
   },
   // allows a host app to define the offset from the top of the page
   offsetTop: {
-    type: Number,
+    type: [Number, String],
     default: 0,
   },
   preventCloseOnBlur: {
@@ -140,7 +140,13 @@ onUnmounted(() => {
   document.removeEventListener('keydown', handleClose)
 })
 
-const offsetTopValue = computed((): string => getSizeFromString(String(props.offsetTop)))
+const offsetTopValue = computed((): string => {
+  if (typeof props.offsetTop === 'number') {
+    return getSizeFromString(String(props.offsetTop))
+  }
+
+  return props.offsetTop
+})
 
 </script>
 
