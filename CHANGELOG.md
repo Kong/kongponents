@@ -1,3 +1,10 @@
+# [9.0.0-alpha.20](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.19...v9.0.0-alpha.20) (2023-10-16)
+
+
+### Features
+
+* **kslideout:** accepts offset top as string ([#1769](https://github.com/Kong/kongponents/issues/1769)) ([bdac4a3](https://github.com/Kong/kongponents/commit/bdac4a3bf920f6cae8306d3978976308e6b912ec))
+
 # [9.0.0-alpha.19](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.18...v9.0.0-alpha.19) (2023-10-13)
 
 
