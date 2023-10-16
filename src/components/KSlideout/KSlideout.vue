@@ -27,9 +27,16 @@
             <p
               class="k-slideout-title"
               data-testid="k-slideout-title"
-              :title="title"
+              :title="title ? title : undefined"
             >
-              {{ title }}
+              <slot
+                v-if="$slots.title"
+                name="title"
+              />
+
+              <template v-else>
+                {{ title }}
+              </template>
             </p>
           </div>
 

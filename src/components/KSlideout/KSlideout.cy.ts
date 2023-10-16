@@ -36,6 +36,22 @@ describe('KSlideout', () => {
     cy.getTestId('k-slideout-title').should('be.visible')
   })
 
+  it('renders title slot when providing both title prop and slot', () => {
+    mount(KSlideout, {
+      props: {
+        isVisible: true,
+        title: 'Title prop',
+      },
+      slots: {
+        title: () => h('div', {}, [
+          h('span', {}, 'Title slot'),
+        ]),
+      },
+    })
+
+    cy.getTestId('k-slideout-title').contains('Title slot')
+  })
+
   it('renders cancel button on right when prop is used', () => {
     const closeButtonAlignmentProp = 'end'
 

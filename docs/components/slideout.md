@@ -274,7 +274,9 @@ This prop takes a string that will be displayed as the title of the slide-out.
 
 ## Slots
 
-- `default` - used to place content into the slideout panel
+### default
+
+Used to place content into the slideout panel.
 
 ```html
 <KSlideout :is-visible="isToggled" @close="toggle">
@@ -285,8 +287,18 @@ This prop takes a string that will be displayed as the title of the slide-out.
 </KSlideout>
 ```
 
-- `before-title` - used to customize the header to add content before title
-- `after-title` - used to customize the header to add content after title
+### before-title
+
+Used to customize the header to add content before title.
+
+### title
+
+Used to place title content into the header area.
+
+### after-title
+
+Used to customize the header to add content after title.
+
 
 ## Events
 
