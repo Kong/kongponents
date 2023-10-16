@@ -68,7 +68,11 @@ Controls the close button alignment, can be `start` (default) or `end`.
 
 ### offsetTop
 
-Allows a host app to define the offset from the top of the page, expects a `number` and that will be converted to `px`, defaults to `0px`.
+* **Type**: `number | string`
+* **Required**: no
+* **Default**: `0`
+
+Allows a host app to define the offset from the top of the page. If the value is a number, it will be treated as a pixel value (e.g. `60` becomes `'60px'`); otherwise, it will be used as-is.
 
 ### hasOverlay
 
