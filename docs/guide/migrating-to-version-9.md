@@ -113,10 +113,14 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Constants, Types & Interfaces
 
+* `AppearanceArray` const has been removed
+* `Appearance` type has been removed
+
 #### Props
 
 * `label` prop has been deprecated in favor of the `trigger-text` prop
-* `appearance` in favor of the `is-selection-menu` prop
+* `appearance` prop has been changed in favor of the `is-selection-menu` prop
+* `buttonAppearance` prop has been removed in favor of the `appearance`
 * `testMode` prop has been removed
 * `icon` prop is removed (TODO: [beta])
 * `caretColor` prop is removed

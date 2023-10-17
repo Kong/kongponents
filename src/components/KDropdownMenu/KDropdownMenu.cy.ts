@@ -145,6 +145,7 @@ describe('KDropdownMenu', () => {
     cy.get('.k-dropdown-popover').should('contain.html', itemSlotContent)
   })
 
+  // TODO: test external link KDropdownItem
   it('correctly renders dividers on all item types', () => {
     const itemSlotContent = `
     <KDropdownItem has-divider :item="{ label: 'A link', to: { path: '/' } }" />

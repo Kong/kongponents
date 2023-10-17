@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-dropdown"
-    :class="{ 'selection-dropdown-menu': isSelectionMenu || appearance === 'selectionMenu' }"
+    :class="{ 'selection-dropdown-menu': isSelectionMenu }"
   >
     <KToggle v-slot="{ toggle, isToggled }">
       <KPop
@@ -25,22 +25,19 @@
             :is-open="isToggled.value"
             name="default"
           >
-            <!-- Must wrap in div to allow tooltip when disabled -->
-            <div>
-              <KButton
-                v-if="triggerText || label || icon"
-                :appearance="isSelectionMenu ? 'secondary' : appearance === 'selectionMenu' ? 'secondary' : buttonAppearance"
-                class="dropdown-trigger-button"
-                data-testid="dropdown-trigger-button"
-                :disabled="disabled"
-                :icon="icon"
-              >
-                {{ triggerText || label }}
-                <ChevronDownIcon
-                  v-if="showCaret || isSelectionMenu || appearance === 'selectionMenu'"
-                />
-              </KButton>
-            </div>
+            <KButton
+              v-if="triggerText || label || icon"
+              :appearance="appearance"
+              class="dropdown-trigger-button"
+              data-testid="dropdown-trigger-button"
+              :disabled="disabled"
+              :icon="icon"
+            >
+              {{ triggerText || label }}
+              <ChevronDownIcon
+                v-if="showCaret"
+              />
+            </KButton>
           </slot>
         </component>
         <template #content>
@@ -59,7 +56,7 @@
                 v-bind="item"
                 :key="`${item.label}-${idx}`"
                 :item="item"
-                :selection-menu-child="isSelectionMenu || appearance === 'selectionMenu'"
+                :selection-menu-child="isSelectionMenu"
                 @change="handleSelection"
               />
             </slot>
@@ -73,8 +70,8 @@
 <script lang="ts" setup>
 import type { PropType, Ref } from 'vue'
 import { computed, onMounted, ref, watch, nextTick } from 'vue'
-import type { Appearance, ButtonAppearance, DropdownItem, PopPlacements } from '@/types'
-import { AppearanceArray } from '@/types'
+import type { ButtonAppearance, DropdownItem, PopPlacements } from '@/types'
+import { ButtonAppearances } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import KPop from '@/components/KPop/KPop.vue'
@@ -87,9 +84,17 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  buttonAppearance: {
+  appearance: {
     type: String as PropType<ButtonAppearance>,
     default: 'primary',
+    validator: (value: ButtonAppearance) => {
+      // @ts-ignore
+      if (value === 'menu' || value === 'selectionMenu') {
+        console.warn('KDropdownMenu: some props have changed. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kdropdownmenu')
+      }
+
+      return Object.values(ButtonAppearances).indexOf(value) !== -1
+    },
   },
   triggerText: {
     type: String,
@@ -108,11 +113,13 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  // kpopAttributes is used to pass properties directly to the wrapped KPop component.
-  // Commonly-overridden properties include:
-  // - placement
-  // - popoverClasses
-  // - target
+  /**
+   * kpopAttributes is used to pass properties directly to the wrapped KPop component
+   * Commonly-overridden properties include:
+   * - placement
+   * - popoverClasses
+   * - target
+   */
   kpopAttributes: {
     type: Object,
     default: null,
@@ -131,31 +138,17 @@ const props = defineProps({
     default: '',
   },
   /**
-  * @deprecated in favor of the "triggerText" prop
-  */
+   * @deprecated in favor of the "triggerText" prop
+   */
   label: {
     type: String,
     default: '',
     validator: (value: string) => {
       if (value) {
-        console.warn('KDropdownMenu: label prop is deprecated. Please use trigger-text prop instead.')
+        console.warn('KDropdownMenu: label prop is deprecated. Please use `triggerText` prop instead. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kdropdownmenu')
       }
 
       return true
-    },
-  },
-  /**
-  * @deprecated in favor of the "isSelectionMenu" prop
-  */
-  appearance: {
-    type: String as PropType<Appearance>,
-    default: 'menu',
-    validator: (value: Appearance) => {
-      if (value === 'selectionMenu') {
-        console.warn('KDropdownMenu: appearance prop is deprecated. Please use isSelectionMenu prop instead.')
-      }
-
-      return AppearanceArray.includes(value)
     },
   },
 })
@@ -187,7 +180,7 @@ const boundKPopAttributes = {
 const selectedItem = ref<DropdownItem>()
 
 const handleSelection = (item: DropdownItem): void => {
-  if (!props.isSelectionMenu && props.appearance !== 'selectionMenu') {
+  if (!props.isSelectionMenu) {
     return
   }
 
@@ -258,54 +251,6 @@ onMounted(() => {
     &:active,
     &:focus {
       text-decoration: none;
-    }
-  }
-}
-
-.selection-dropdown-menu {
-  .dropdown-trigger .k-button {
-    border: var(--kui-border-width-0, $kui-border-width-0);
-    color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
-    white-space: nowrap;
-
-    &:focus {
-      box-shadow: none;
-    }
-
-    &:active:disabled {
-      background-color: var(--kui-color-background, $kui-color-background);
-    }
-
-    &.is-active {
-      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
-    }
-  }
-
-  .dropdown-trigger .k-button.k-dropdown-btn {
-    svg {
-      fill: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
-
-      path {
-        stroke: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
-      }
-    }
-  }
-
-  .k-popover.k-dropdown-popover {
-    z-index: 10000 !important;
-
-    li {
-      .non-visual-button {
-        font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular) !important;
-      }
-
-      &.k-dropdown-selected-option {
-        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-
-        .non-visual-button {
-          font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium) !important;
-        }
-      }
     }
   }
 }

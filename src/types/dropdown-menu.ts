@@ -1,4 +1,3 @@
-import type { AnyElementOf } from '@/types'
 import type { Component } from 'vue'
 
 export interface DropdownItem {
@@ -9,10 +8,6 @@ export interface DropdownItem {
   selected?: boolean
   hasDivider?: boolean
 }
-
-export const AppearanceArray = ['menu', 'selectionMenu'] as const
-
-export type Appearance = AnyElementOf<typeof AppearanceArray>
 
 export type DropdownItemType = 'link' | 'button' | 'default'
 

@@ -45,6 +45,48 @@
       </KDropdownMenu>
     </SandboxSectionComponent>
     <SandboxSectionComponent
+      title="appearance (replacement for `buttonAppearance` prop)"
+    >
+      <div class="horizontal-spacing">
+        <KDropdownMenu
+          appearance="primary"
+          :items="[
+            { label: 'Home', to: { name: 'home' } },
+            { label: 'KAlert', to: { name: 'alert' } },
+            { label: 'KButton', to: { name: 'button' } }
+          ]"
+          trigger-text="Primary"
+        />
+        <KDropdownMenu
+          appearance="secondary"
+          :items="[
+            { label: 'Home', to: { name: 'home' } },
+            { label: 'KAlert', to: { name: 'alert' } },
+            { label: 'KButton', to: { name: 'button' } }
+          ]"
+          trigger-text="Secondary"
+        />
+        <KDropdownMenu
+          appearance="tertiary"
+          :items="[
+            { label: 'Home', to: { name: 'home' } },
+            { label: 'KAlert', to: { name: 'alert' } },
+            { label: 'KButton', to: { name: 'button' } }
+          ]"
+          trigger-text="Tertiary"
+        />
+        <KDropdownMenu
+          appearance="danger"
+          :items="[
+            { label: 'Home', to: { name: 'home' } },
+            { label: 'KAlert', to: { name: 'alert' } },
+            { label: 'KButton', to: { name: 'button' } }
+          ]"
+          trigger-text="Danger"
+        />
+      </div>
+    </SandboxSectionComponent>
+    <SandboxSectionComponent
       title="showCaret"
     >
       <KDropdownMenu
@@ -161,6 +203,19 @@
         trigger-text="Icon prop"
       />
     </SandboxSectionComponent>
+    <SandboxSectionComponent
+      title="Props: label & appearance"
+    >
+      <KDropdownMenu
+        appearance="selectionMenu"
+        :items="[
+          { label: 'Home', to: { name: 'home' } },
+          { label: 'KAlert', to: { name: 'alert' } },
+          { label: 'KButton', to: { name: 'button' } }
+        ]"
+        label="Deprecated props"
+      />
+    </SandboxSectionComponent>
   </div>
 </template>
 
@@ -175,7 +230,7 @@ import { CogIcon } from '@kong/icons'
 const selectionMenuSelectedItem = ref<DropdownItem | null>(null)
 
 const selectionMenuItems = [
-  { label: 'Item 1', value: 'item1', selected: true },
+  { label: 'Item 1', value: 'item1' },
   { label: 'Item 2', value: 'item2' },
   { label: 'Item 3', value: 'item3' },
 ]
@@ -188,3 +243,13 @@ const handleItemClick = () => {
   alert('Item clicked!')
 }
 </script>
+
+<style lang="scss" scoped>
+.kdropdown-sandbox {
+  .horizontal-spacing {
+    align-items: flex-end;
+    display: flex;
+    gap: $kui-space-50;
+  }
+}
+</style>
