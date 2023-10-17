@@ -53,6 +53,7 @@ const hasTooltip = computed((): boolean => !!(props.info || slots.tooltip))
 /* Component variables */
 
 $kLabelSpacingX: var(--kui-space-40, $kui-space-40);
+$kLabelRequiredDotSize: 6px;
 
 /* Component styles */
 
@@ -67,7 +68,7 @@ $kLabelSpacingX: var(--kui-space-40, $kui-space-40);
   margin-bottom: var(--kui-space-40, $kui-space-40);
 
   &.is-required {
-    margin-left: calc($kLabelSpacingX + 6px); // 6px to compensate for the 6px width of the dot
+    margin-left: calc($kLabelSpacingX + $kLabelRequiredDotSize); // 6px to compensate for the 6px width of the dot
     position: relative;
 
     &::before {
@@ -75,11 +76,11 @@ $kLabelSpacingX: var(--kui-space-40, $kui-space-40);
       border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
       bottom: calc(50% - 2px); // place the dot in the middle of the text
       content: '';
-      height: 6px;
+      height: $kLabelRequiredDotSize;
       left: 0px;
-      margin-left: calc((-1 * $kLabelSpacingX) - 6px); // -6px to compensate for the 6px width
+      margin-left: calc((-1 * $kLabelSpacingX) - $kLabelRequiredDotSize); // -6px to compensate for the 6px width
       position: absolute;
-      width: 6px;
+      width: $kLabelRequiredDotSize;
     }
   }
 
@@ -88,8 +89,10 @@ $kLabelSpacingX: var(--kui-space-40, $kui-space-40);
 
     .tooltip-trigger-icon {
       cursor: pointer;
+      // override use-proper-token stylelint rule here to override the icon size
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+      // override use-proper-token stylelint rule here to override the icon size
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
     }
