@@ -115,9 +115,11 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Props
 
-* `label` prop has been deprecated and replaced with `trigger-text`
+* `label` prop has been deprecated in favor of the `trigger-text` prop
+* `appearance` in favor of the `is-selection-menu` prop
 * `testMode` prop has been removed
 * `icon` prop is removed (TODO: [beta])
+* `caretColor` prop is removed
 
 #### Slots
 

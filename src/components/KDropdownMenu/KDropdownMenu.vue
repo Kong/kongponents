@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-dropdown"
-    :class="{ 'selection-dropdown-menu': appearance === 'selectionMenu' }"
+    :class="{ 'selection-dropdown-menu': isSelectionMenu || appearance === 'selectionMenu' }"
   >
     <KToggle v-slot="{ toggle, isToggled }">
       <KPop
@@ -28,8 +28,8 @@
             <!-- Must wrap in div to allow tooltip when disabled -->
             <div>
               <KButton
-                v-if="label || icon"
-                :appearance="appearance === 'selectionMenu' ? 'secondary' : buttonAppearance"
+                v-if="triggerText || label || icon"
+                :appearance="isSelectionMenu ? 'secondary' : appearance === 'selectionMenu' ? 'secondary' : buttonAppearance"
                 class="dropdown-trigger-button"
                 data-testid="dropdown-trigger-button"
                 :disabled="disabled"
@@ -37,8 +37,7 @@
               >
                 {{ triggerText || label }}
                 <ChevronDownIcon
-                  v-if="showCaret || appearance === 'selectionMenu'"
-                  :color="caretColor"
+                  v-if="showCaret || isSelectionMenu || appearance === 'selectionMenu'"
                 />
               </KButton>
             </div>
@@ -60,7 +59,7 @@
                 v-bind="item"
                 :key="`${item.label}-${idx}`"
                 :item="item"
-                :selection-menu-child="appearance === 'selectionMenu'"
+                :selection-menu-child="isSelectionMenu || appearance === 'selectionMenu'"
                 @change="handleSelection"
               />
             </slot>
@@ -84,18 +83,13 @@ import KDropdownItem from './KDropdownItem.vue'
 import { ChevronDownIcon } from '@kong/icons'
 
 const props = defineProps({
-  appearance: {
-    type: String as PropType<Appearance>,
-    default: 'menu',
-    validator: (value: Appearance) => AppearanceArray.includes(value),
+  isSelectionMenu: {
+    type: Boolean,
+    default: false,
   },
   buttonAppearance: {
     type: String as PropType<ButtonAppearance>,
     default: 'primary',
-  },
-  caretColor: {
-    type: String,
-    default: undefined,
   },
   triggerText: {
     type: String,
@@ -136,10 +130,33 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  // deprecated
+  /**
+  * @deprecated in favor of the "triggerText" prop
+  */
   label: {
     type: String,
     default: '',
+    validator: (value: string) => {
+      if (value) {
+        console.warn('KDropdownMenu: label prop is deprecated. Please use trigger-text prop instead.')
+      }
+
+      return true
+    },
+  },
+  /**
+  * @deprecated in favor of the "isSelectionMenu" prop
+  */
+  appearance: {
+    type: String as PropType<Appearance>,
+    default: 'menu',
+    validator: (value: Appearance) => {
+      if (value === 'selectionMenu') {
+        console.warn('KDropdownMenu: appearance prop is deprecated. Please use isSelectionMenu prop instead.')
+      }
+
+      return AppearanceArray.includes(value)
+    },
   },
 })
 
@@ -170,9 +187,10 @@ const boundKPopAttributes = {
 const selectedItem = ref<DropdownItem>()
 
 const handleSelection = (item: DropdownItem): void => {
-  if (props.appearance !== 'selectionMenu') {
+  if (!props.isSelectionMenu && props.appearance !== 'selectionMenu') {
     return
   }
+
   selectedItem.value = item
 }
 

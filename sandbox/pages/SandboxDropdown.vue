@@ -16,22 +16,175 @@
       title="Props"
     />
     <SandboxSectionComponent
-      title="button-text (replacement for deprecated label)"
+      title="triggerText (replacement for deprecated `label` prop)"
     >
       <KDropdownMenu
         :items="[
-          { label: 'Props', to: { path: '/components/dropdown-menu.html', hash: '#props' } },
-          { label: 'Slots', to: { path: '/components/dropdown-menu.html', hash: '#slots' } },
-          { label: 'Top', to: { path: '/components/dropdown-menu.html' } }
+          { label: 'Home', to: { name: 'home' } },
+          { label: 'KAlert', to: { name: 'alert' } },
+          { label: 'KButton', to: { name: 'button' } }
         ]"
-        label="Documentation"
+        trigger-text="Documentation"
+      />
+    </SandboxSectionComponent>
+    <SandboxSectionComponent
+      title="isSelectionMenu (replacement for `appearance` prop)"
+    >
+      <KDropdownMenu
+        is-selection-menu
+        :trigger-text="selectionMenuSelectedItem?.label || 'Selection menu'"
+      >
+        <template #items>
+          <KDropdownItem
+            v-for="item in selectionMenuItems"
+            :key="item.value"
+            :item="item"
+            @click="handleSelectionMenuSelection(item)"
+          />
+        </template>
+      </KDropdownMenu>
+    </SandboxSectionComponent>
+    <SandboxSectionComponent
+      title="showCaret"
+    >
+      <KDropdownMenu
+        :items="[
+          { label: 'Home', to: { name: 'home' } },
+          { label: 'KAlert', to: { name: 'alert' } },
+          { label: 'KButton', to: { name: 'button' } }
+        ]"
+        show-caret
+        trigger-text="Show caret"
+      />
+    </SandboxSectionComponent>
+    <SandboxSectionComponent
+      title="disabled"
+    >
+      <KDropdownMenu
+        disabled
+        :items="[
+          { label: 'Home', to: { name: 'home' } },
+          { label: 'KAlert', to: { name: 'alert' } },
+          { label: 'KButton', to: { name: 'button' } }
+        ]"
+        trigger-text="Disabled"
+      />
+    </SandboxSectionComponent>
+    <SandboxSectionComponent
+      title="disabledTooltip"
+    >
+      <KDropdownMenu
+        disabled
+        disabled-tooltip="Tooltip I am"
+        :items="[
+          { label: 'Home', to: { name: 'home' } },
+          { label: 'KAlert', to: { name: 'alert' } },
+          { label: 'KButton', to: { name: 'button' } }
+        ]"
+        trigger-text="Disabled with a tooltip"
+      />
+    </SandboxSectionComponent>
+
+    <!-- Slots -->
+    <SandboxTitleComponent
+      is-subtitle
+      title="Slots"
+    />
+    <SandboxSectionComponent
+      title="default"
+    >
+      <KDropdownMenu
+        :items="[
+          { label: 'Home', to: { name: 'home' } },
+          { label: 'KAlert', to: { name: 'alert' } },
+          { label: 'KButton', to: { name: 'button' } }
+        ]"
+      >
+        <KButton>
+          Default slot
+        </KButton>
+      </KDropdownMenu>
+    </SandboxSectionComponent>
+    <SandboxSectionComponent
+      title="items"
+    >
+      <KDropdownMenu>
+        <KButton
+          appearance="secondary"
+          class="icon-button"
+        >
+          <CogIcon />
+        </KButton>
+        <template #items>
+          <KDropdownItem :item="{ label: 'Home', to: { name: 'home' } }">
+            Home
+          </KDropdownItem>
+          <KDropdownItem>
+            <!-- { label: 'External link', to: 'https://kongponents.konghq.com/' } -->
+            <a
+              href="https://kongponents.konghq.com/"
+              rel="noopener"
+              target="_blank"
+            >
+              External link
+            </a>
+          </KDropdownItem>
+          <KDropdownItem disabled>
+            Disabled
+          </KDropdownItem>
+          <KDropdownItem
+            has-divider
+            is-dangerous
+            @click="handleItemClick"
+          >
+            Delete
+          </KDropdownItem>
+        </template>
+      </KDropdownMenu>
+    </SandboxSectionComponent>
+
+    <!-- Legacy -->
+    <SandboxTitleComponent
+      is-subtitle
+      title="Legacy"
+    />
+    <SandboxSectionComponent
+      title="Prop: icon"
+    >
+      <KDropdownMenu
+        icon="gear"
+        :items="[
+          { label: 'Home', to: { name: 'home' } },
+          { label: 'KAlert', to: { name: 'alert' } },
+          { label: 'KButton', to: { name: 'button' } }
+        ]"
+        trigger-text="Icon prop"
       />
     </SandboxSectionComponent>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { KDropdownMenu, KExternalLink } from '@/components'
+import { KDropdownItem, KDropdownMenu, KExternalLink, KButton } from '@/components'
+import type { DropdownItem } from '@/types'
+import { CogIcon } from '@kong/icons'
+
+const selectionMenuSelectedItem = ref<DropdownItem | null>(null)
+
+const selectionMenuItems = [
+  { label: 'Item 1', value: 'item1', selected: true },
+  { label: 'Item 2', value: 'item2' },
+  { label: 'Item 3', value: 'item3' },
+]
+
+const handleSelectionMenuSelection = (item: DropdownItem) => {
+  selectionMenuSelectedItem.value = item
+}
+
+const handleItemClick = () => {
+  alert('Item clicked!')
+}
 </script>
