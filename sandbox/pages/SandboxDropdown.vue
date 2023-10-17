@@ -30,19 +30,35 @@
     <SandboxSectionComponent
       title="isSelectionMenu (replacement for `appearance` prop)"
     >
-      <KDropdownMenu
-        is-selection-menu
-        :trigger-text="selectionMenuSelectedItem?.label || 'Selection menu'"
-      >
-        <template #items>
-          <KDropdownItem
-            v-for="item in selectionMenuItems"
-            :key="item.value"
-            :item="item"
-            @click="handleSelectionMenuSelection(item)"
-          />
-        </template>
-      </KDropdownMenu>
+      <div class="horizontal-spacing">
+        <KDropdownMenu
+          is-selection-menu
+          :trigger-text="selectionMenuSelectedItem?.label || 'Selection menu'"
+        >
+          <template #items>
+            <KDropdownItem
+              v-for="item in selectionMenuItems"
+              :key="item.value"
+              :item="item"
+              @click="handleSelectionMenuSelection(item)"
+            />
+          </template>
+        </KDropdownMenu>
+        <KDropdownMenu
+          is-selection-menu
+          show-caret
+          :trigger-text="selectionMenuSelectedItem?.label || 'Selection menu'"
+        >
+          <template #items>
+            <KDropdownItem
+              v-for="item in selectionMenuItems"
+              :key="item.value"
+              :item="item"
+              @click="handleSelectionMenuSelection(item)"
+            />
+          </template>
+        </KDropdownMenu>
+      </div>
     </SandboxSectionComponent>
     <SandboxSectionComponent
       title="appearance (replacement for `buttonAppearance` prop)"
