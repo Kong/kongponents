@@ -1,46 +1,28 @@
 # Label
 
-**KLabel** provides a wrapper around general `label` tags.
+KLabel provides a wrapper around the native HTML `label` element.
 
-<KLabel>Input Title</KLabel>
+<KLabel>Input title</KLabel>
 
 ```html
-<KLabel>Input Title</KLabel>
+<KLabel>Input title</KLabel>
 ```
 
 ## Props
-
-### help
-
-Use the `help` prop to display helper tooltip text.
-
-<KLabel help="This is an example">Input Title</KLabel>
-
-```html
-<KLabel help="This is an example">Input Title</KLabel>
-```
-
-<KLabel help="This is a really long tooltip. Hopefully we won't have anything this long but we might. I wonder how it handles long inputs">Long Input Title</KLabel>
-
-```html
-<KLabel help="This is a really long tooltip. Hopefully we won't have anything this long but we might. I wonder how it handles long inputs">
-  Long Input Title
-</KLabel>
-```
 
 ### info
 
 Use the `info` prop to display information help text.
 
-<KLabel info="This is an example">Input Title</KLabel>
+<KLabel info="This is an example">Input title</KLabel>
 
 ```html
-<KLabel info="This is an example">Input Title</KLabel>
+<KLabel info="This is an example">Input title</KLabel>
 ```
 
 ### required
 
-Use the `required` prop to indicate requiredness of a field by displaying an `*` after the label.
+Use this prop on labels for required fields. Adds a red dot in front of a label.
 
 <KLabel required>Name</KLabel>
 
@@ -50,14 +32,14 @@ Use the `required` prop to indicate requiredness of a field by displaying an `*`
 
 ### tooltipAttributes
 
-Use the `tooltipAttributes` prop to configure the **KTooltip's** [props](/components/tooltip) if using the `help` or `info` props.
+Use the `tooltipAttributes` prop to configure the KTooltip's [props](/components/tooltip) if using the `info` prop.
 
-<KLabel :tooltip-attributes="{ placement: 'right', 'max-width': '200' }" help="This is a really long tooltip. Hopefully we won't have anything this long but we might. I wonder how it handles long inputs">With Tooltip Attributes</KLabel>
+<KLabel :tooltip-attributes="{ placement: 'right', 'max-width': '200' }" info="This is a really long tooltip. Hopefully we won't have anything this long but we might. I wonder how it handles long inputs">With Tooltip Attributes</KLabel>
 
 ```html
 <KLabel
   :tooltip-attributes="{ placement: 'right', 'max-width': '200' }"
-  help="This is a really long tooltip. Hopefully we won't have anything this long but we might. I wonder how it handles long inputs"
+  info="This is a really long tooltip. Hopefully we won't have anything this long but we might. I wonder how it handles long inputs"
 >
   With Tooltip Attributes
 </KLabel>
@@ -69,30 +51,28 @@ Use the `tooltipAttributes` prop to configure the **KTooltip's** [props](/compon
 
 Use the `for` attribute to bind a label to an input element for accessibility.
 
-<KLabel for="service">Service Name</KLabel>
+<KLabel for="service" info="A service is an API that you want to offer">Service name</KLabel>
 <KInput id="service"/>
 
 ```html
-<KLabel for="service" help="A service is an API that you want to offer">Service Name</KLabel>
+<KLabel for="service" info="A service is an API that you want to offer">Service name</KLabel>
 <KInput id="service"/>
 ```
 
 ## Slots
 
-- `tooltip` - Rather than using the `help` or `info` props, if you need to utilize HTML in the tooltip, you may use the `tooltip` slot.
+### tooltip
 
-:::tip Note:
-When utilizing the `label-tooltip` slot, the `info` `KIcon` will be shown by default. To utilize the the `help` icon instead, set the `label-attributes` `help` property to any non-empty string value.
-:::
+Should you need to utilize HTML in the tooltip, you may use the `tooltip` slot.
 
-<KLabel help="true">
+<KLabel>
   My Tooltip
   <template #tooltip>Brings all the <code>devs</code> to the yard</template>
 </KLabel>
 <KInput />
 
 ```html
-<KLabel help="true">
+<KLabel>
   My Tooltip
   <template #tooltip>Brings all the <code>devs</code> to the yard</template>
 </KLabel>

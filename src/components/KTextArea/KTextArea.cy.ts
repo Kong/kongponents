@@ -32,7 +32,7 @@ describe('KTextArea', () => {
       },
     })
 
-    cy.get('.k-input-label').should('contain.text', labelText)
+    cy.get('.k-label').should('contain.text', labelText)
   })
 
   it('renders label with labelAttributes applied', () => {
@@ -42,13 +42,13 @@ describe('KTextArea', () => {
         testMode: true,
         label: labelText,
         labelAttributes: {
-          help: 'some help text',
+          info: 'some help text',
         },
       },
     })
 
-    cy.get('.k-input-label').should('contain.text', labelText)
-    cy.get('.k-input-label .kong-icon-help').should('be.visible')
+    cy.get('.k-label').should('contain.text', labelText)
+    cy.get('.k-label .tooltip-trigger-icon').should('be.visible')
   })
 
   it('renders overlayed label when value is passed', () => {

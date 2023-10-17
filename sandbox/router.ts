@@ -29,16 +29,22 @@ export default createRouter({
           component: () => import('./pages/SandboxCatalog.vue'),
         },
         {
-          path: 'tabs',
-          name: 'tabs',
-          meta: { title: 'Tabs Sandbox' },
-          component: () => import('./pages/SandboxTabs.vue'),
-        },
-        {
           path: 'input',
           name: 'input',
           meta: { title: 'Input Sandbox' },
           component: () => import('./pages/SandboxInput.vue'),
+        },
+        {
+          path: 'label',
+          name: 'label',
+          meta: { title: 'Label Sandbox' },
+          component: () => import('./pages/SandboxLabel.vue'),
+        },
+        {
+          path: 'multiselect',
+          name: 'multiselect',
+          meta: { title: 'Multiselect Sandbox' },
+          component: () => import('./pages/SandboxMultiselect.vue'),
         },
         {
           path: 'table',
@@ -47,10 +53,10 @@ export default createRouter({
           component: () => import('./pages/SandboxTable.vue'),
         },
         {
-          path: 'multiselect',
-          name: 'multiselect',
-          meta: { title: 'Multiselect Sandbox' },
-          component: () => import('./pages/SandboxMultiselect.vue'),
+          path: 'tabs',
+          name: 'tabs',
+          meta: { title: 'Tabs Sandbox' },
+          component: () => import('./pages/SandboxTabs.vue'),
         },
       ],
     },

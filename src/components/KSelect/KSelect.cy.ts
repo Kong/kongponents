@@ -97,7 +97,7 @@ describe('KSelect', () => {
       },
     })
 
-    cy.get('.k-input-label').should('contain.text', labelText)
+    cy.get('.k-label').should('contain.text', labelText)
   })
 
   it('renders label with labelAttributes applied', () => {
@@ -107,7 +107,7 @@ describe('KSelect', () => {
         testMode: true,
         label: labelText,
         labelAttributes: {
-          help: 'some help text',
+          info: 'some info text',
         },
         items: [{
           label: 'Label 1',
@@ -116,8 +116,8 @@ describe('KSelect', () => {
       },
     })
 
-    cy.get('.k-input-label').should('contain.text', labelText)
-    cy.get('.k-input-label .kong-icon-help').should('be.visible')
+    cy.get('.k-label').should('contain.text', labelText)
+    cy.get('.k-label .tooltip-trigger-icon').should('be.visible')
   })
 
   it.skip('renders label with required symbol when `required` attribute is set', () => {

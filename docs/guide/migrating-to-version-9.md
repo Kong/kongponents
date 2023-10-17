@@ -153,6 +153,16 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KLabel
 
+#### Structure
+
+* `k-input-label` class has been renamed to `k-label`
+
+#### Constants, Types & Interfaces
+
+#### Props
+
+* `help` prop has been removed
+* `testMode` prop has been removed
 
 ### KMenu
 

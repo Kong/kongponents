@@ -47,7 +47,7 @@ describe('KInput', () => {
       },
     })
 
-    cy.get('.k-input-label').should('contain.text', label)
+    cy.get('.k-label').should('contain.text', label)
   })
 
   it('renders label with labelAttributes applied', () => {
@@ -57,13 +57,13 @@ describe('KInput', () => {
       props: {
         label,
         labelAttributes: {
-          help: 'some help text',
+          info: 'some info text',
         },
       },
     })
 
-    cy.get('.k-input-label').should('contain.text', label)
-    cy.get('.k-input-label .kong-icon-help').should('exist').and('be.visible')
+    cy.get('.k-label').should('contain.text', label)
+    cy.get('.k-label .tooltip-trigger-icon').should('exist').and('be.visible')
   })
 
   it('renders label and tooltip with `label-tooltip` slot applied', () => {
@@ -78,8 +78,8 @@ describe('KInput', () => {
       },
     })
 
-    cy.get('.k-input-label').should('contain.text', label)
-    cy.get('.k-input-label .kong-icon-infoFilled').should('exist').and('be.visible')
+    cy.get('.k-label').should('contain.text', label)
+    cy.get('.k-label .tooltip-trigger-icon').should('exist').and('be.visible')
   })
 
   it.skip('renders label with required symbol when `required` attribute is set', () => {

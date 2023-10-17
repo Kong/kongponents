@@ -11,7 +11,9 @@
     trigger="hover"
     width="auto"
   >
-    <slot />
+    <div :tabindex="$slots.default ? '0' : '-1'">
+      <slot />
+    </div>
 
     <template #content>
       <div role="tooltip">

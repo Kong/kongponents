@@ -55,9 +55,20 @@ const hasDescription = computed((): boolean => !!(props.description || slots.des
     .section-title {
       color: $kui-color-text;
       margin: $kui-space-0;
+      margin-left: $kui-space-50;
+      position: relative;
 
       & + .section-description {
         margin-top: $kui-space-50;
+      }
+
+      &::before {
+        bottom: 2px;
+        color: $kui-color-text-neutral;
+        content: '#';
+        font-size: $kui-font-size-20;
+        left: -12px;
+        position: absolute;
       }
     }
 
