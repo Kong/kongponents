@@ -15,16 +15,15 @@
         data-testid="slideout-panel"
       >
         <div class="k-slideout-header-content">
-          <div
-            v-if="hasBeforeTitle"
-            class="k-slideout-before-title"
-          >
-            <slot name="before-title" />
-          </div>
-
-          <!-- title -->
           <div class="k-slideout-main-title">
-            <p
+            <div
+              v-if="$slots['before-title']"
+              class="k-slideout-before-title"
+            >
+              <slot name="before-title" />
+            </div>
+
+            <div
               class="k-slideout-title"
               data-testid="k-slideout-title"
               :title="title ? title : undefined"
@@ -37,29 +36,29 @@
               <template v-else>
                 {{ title }}
               </template>
-            </p>
+            </div>
+
+            <div
+              v-if="$slots['after-title']"
+              class="k-slideout-after-title"
+            >
+              <slot name="after-title" />
+            </div>
           </div>
 
-          <div
-            v-if="hasAfterTitle"
-            class="k-slideout-after-title"
+          <button
+            class="k-slideout-close-button"
+            :class="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
+            :data-testid="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
+            @click="emit('close')"
           >
-            <slot name="after-title" />
-          </div>
+            <KIcon
+              :color="KUI_COLOR_TEXT_NEUTRAL_STRONGER"
+              icon="close"
+              :size="KUI_ICON_SIZE_50"
+            />
+          </button>
         </div>
-
-        <!-- cancelButton -->
-        <button
-          :class="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
-          :data-testid="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
-          @click="(event: any) => emit('close')"
-        >
-          <KIcon
-            :color="KUI_COLOR_TEXT_NEUTRAL_STRONGER"
-            icon="close"
-            :size="KUI_ICON_SIZE_50"
-          />
-        </button>
 
         <div class="content">
           <KCard border-variant="noBorder">
@@ -74,7 +73,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, useSlots, ref, onMounted, onUnmounted } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import KCard from '@/components/KCard/KCard.vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
 import useUtilities from '@/composables/useUtilities'
@@ -118,9 +117,6 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const slots = useSlots()
-const hasBeforeTitle = computed((): boolean => !!slots['before-title'])
-const hasAfterTitle = computed((): boolean => !!slots['after-title'])
 const { getSizeFromString } = useUtilities()
 const slideOutRef = ref(null)
 
@@ -162,27 +158,35 @@ const offsetTopValue = computed((): string => {
 
 .k-slideout {
   .k-slideout-header-content {
+    align-items: center;
     display: flex;
-    .k-slideout-before-title,
-    .k-slideout-after-title {
-      margin-top: var(--kui-space-60, $kui-space-60);
-    }
+    gap: var(--kui-space-80, $kui-space-80);
+    justify-content: space-between;
+    padding: var(--kui-space-80, $kui-space-80) var(--kui-space-80, $kui-space-80) 0 var(--kui-space-80, $kui-space-80);
+
     .k-slideout-main-title {
+      align-items: center;
+      display: flex;
+      gap: var(--kui-space-40, $kui-space-40);
+
       .k-slideout-title {
         color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-        flex:1;
         font-size: var(--kui-font-size-40, $kui-font-size-40);
         font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
         line-height: var(--kui-line-height-40, $kui-line-height-40);
-        margin-left: var(--kui-space-50, $kui-space-50);
-        margin-right: var(--kui-space-100, $kui-space-100);
-        margin-top: var(--kui-space-60, $kui-space-60);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
     }
   }
+
+  .k-slideout-before-title,
+  .k-slideout-after-title {
+    align-items: center;
+    display: flex;
+  }
+
   .panel {
     background-color: var(--kui-color-background, $kui-color-background);
     display: flex;
@@ -196,17 +200,13 @@ const offsetTopValue = computed((): string => {
     width: 100%;
     z-index: 9999;
 
-    .close-button-start {
-      align-self: flex-start;
+    .k-slideout-close-button {
       background: none;
       border: none;
       cursor: pointer;
       display: flex;
       height: auto;
-      margin-left: var(--kui-space-50, $kui-space-50);
-      margin-top: var(--kui-space-50, $kui-space-50);
       outline: inherit;
-      position: absolute;
       transition: $tmp-animation-timing-2 ease;
 
       &:focus{
@@ -214,22 +214,8 @@ const offsetTopValue = computed((): string => {
       }
     }
 
-    .close-button-end {
-      align-self: flex-end;
-      background: none;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      height: auto;
-      margin-right: var(--kui-space-50, $kui-space-50);
-      margin-top: var(--kui-space-50, $kui-space-50);
-      outline: inherit;
-      position: absolute;
-      transition: $tmp-animation-timing-2 ease;
-
-      &:focus{
-        box-shadow: 0 0 0 2px var(--kui-color-border-primary, $kui-color-border-primary);
-      }
+    .close-button-start {
+      order: -1;
     }
 
     .content {
