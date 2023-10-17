@@ -1,3 +1,10 @@
+# [9.0.0-alpha.21](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.20...v9.0.0-alpha.21) (2023-10-17)
+
+
+### Features
+
+* **klabel:** component reskinning [KHCP-8987] ([#1764](https://github.com/Kong/kongponents/issues/1764)) ([5eef97d](https://github.com/Kong/kongponents/commit/5eef97deb644285d56fa5fa6d1aac2f044d06226))
+
 # [9.0.0-alpha.20](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.19...v9.0.0-alpha.20) (2023-10-16)
 
 
