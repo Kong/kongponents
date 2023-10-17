@@ -89,11 +89,7 @@ $kLabelRequiredDotSize: 6px;
 
     .tooltip-trigger-icon {
       cursor: pointer;
-      // override use-proper-token stylelint rule here to override the icon size
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
-      // override use-proper-token stylelint rule here to override the icon size
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
     }
 

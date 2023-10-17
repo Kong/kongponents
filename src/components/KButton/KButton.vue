@@ -170,20 +170,12 @@ export default {
   // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
   // enforce icon size exported by @kong/icons because it's defined by the design system
   :deep(#{$kongponentsKongIconSelector}), :deep(.kong-icon) {
-    // override use-proper-token stylelint rule here to override the icon size
-    /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
     height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
-    // override use-proper-token stylelint rule here to override the icon size
-    /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
     width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
 
     // TODO: [beta] remove this once once we remove the icon prop & slot
     svg {
-      // override use-proper-token stylelint rule here to override the icon size
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
-      // override use-proper-token stylelint rule here to override the icon size
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
     }
   }
@@ -328,20 +320,12 @@ export default {
     // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
     // enforce icon size exported by @kong/icons because it's defined by the design system
     :deep(#{$kongponentsKongIconSelector}), :deep(.kong-icon) {
-      // override use-proper-token stylelint rule here to override the icon size
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       height: var(--kui-icon-size-50, $kui-icon-size-50) !important;
-      // override use-proper-token stylelint rule here to override the icon size
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       width: var(--kui-icon-size-50, $kui-icon-size-50) !important;
 
       // TODO: [beta] remove this once once we remove the icon prop & slot
       svg {
-        // override use-proper-token stylelint rule here to override the icon size
-        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
         height: var(--kui-icon-size-50, $kui-icon-size-50) !important;
-        // override use-proper-token stylelint rule here to override the icon size
-        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
         width: var(--kui-icon-size-50, $kui-icon-size-50) !important;
       }
     }
@@ -366,20 +350,12 @@ export default {
     // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
     // enforce icon size exported by @kong/icons because it's defined by the design system
     :deep(#{$kongponentsKongIconSelector}), :deep(.kong-icon) {
-      // override use-proper-token stylelint rule here to override the icon size
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
-      // override use-proper-token stylelint rule here to override the icon size
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
 
       // TODO: [beta] remove this once once we remove the icon prop & slot
       svg {
-        // override use-proper-token stylelint rule here to override the icon size
-        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
         height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
-        // override use-proper-token stylelint rule here to override the icon size
-        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
         width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
       }
     }
