@@ -143,16 +143,6 @@ watch(() => props.modelValue, (newTabHash) => {
         margin-right: var(--kui-space-40, $kui-space-40);
       }
 
-      &:after {
-        bottom: -2px;
-        content: '';
-        display: block;
-        height: 2px;
-        left: 0;
-        position: absolute;
-        width: 100%;
-      }
-
       &.active,
       &:hover {
         .tab-link.has-panels,
