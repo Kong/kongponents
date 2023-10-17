@@ -77,15 +77,15 @@
     "@commitlint/config-conventional": "^17.7.0",
     "@cypress/vite-dev-server": "^5.0.6",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
-    "@evilmartians/lefthook": "^1.5.0",
+    "@evilmartians/lefthook": "^1.5.1",
     "@kong/design-tokens": "^1.11.3",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/inquirer": "^9.0.3",
-    "@types/node": "^18.18.3",
+    "@types/node": "^18.18.4",
     "@types/node-emoji": "^1.8.2",
     "@types/sortablejs": "^1.15.3",
-    "@types/uuid": "^9.0.4",
+    "@types/uuid": "^9.0.5",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
     "@vitejs/plugin-vue": "^4.4.0",
@@ -129,7 +129,7 @@
     "vitepress": "^1.0.0-rc.20",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5",
-    "vue-tsc": "^1.8.15"
+    "vue-tsc": "^1.8.16"
   },
   "author": {
     "name": "Kong Inc.",
