@@ -295,6 +295,44 @@ Used to customize the header to add content before title.
 
 Used to place title content into the header area.
 
+<KToggle v-slot="{ isToggled, toggle }">
+  <div>
+    <KButton @click="toggle">Toggle Panel With Title</KButton>
+    <KSlideout :is-visible="isToggled.value" @close="toggle" :has-overlay="false" close-button-alignment="end">
+      <template #before-title>
+        <KIcon icon="kong" />
+      </template>
+      <template #title>
+        <router-link to="route">Title</router-link>
+      </template>
+      <template #after-title>
+        <KIcon icon="check" />
+      </template>
+      Default content
+    </KSlideout>
+  </div>
+</KToggle>
+
+```html
+<KToggle v-slot="{ isToggled, toggle }">
+  <div>
+    <KButton @click="toggle">Toggle Panel With Title</KButton>
+    <KSlideout :is-visible="isToggled.value" @close="toggle" :has-overlay="false" close-button-alignment="end">
+      <template #before-title>
+        <KIcon icon="kong" />
+      </template>
+      <template #title>
+        <router-link to="route">Title</router-link>
+      </template>
+      <template #after-title>
+        <KIcon icon="check" />
+      </template>
+      Default content
+    </KSlideout>
+  </div>
+</KToggle>
+```
+
 ### after-title
 
 Used to customize the header to add content after title.
