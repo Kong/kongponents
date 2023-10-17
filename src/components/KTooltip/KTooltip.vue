@@ -11,7 +11,9 @@
     trigger="hover"
     width="auto"
   >
-    <slot />
+    <div tabindex="0">
+      <slot />
+    </div>
 
     <template #content>
       <div role="tooltip">

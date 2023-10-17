@@ -84,10 +84,12 @@ $kLabelSpacingX: var(--kui-space-40, $kui-space-40);
   }
 
   .label-tooltip {
+    margin-left: $kLabelSpacingX;
+
     .tooltip-trigger-icon {
+      cursor: pointer;
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
-      margin-left: $kLabelSpacingX;
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
     }
