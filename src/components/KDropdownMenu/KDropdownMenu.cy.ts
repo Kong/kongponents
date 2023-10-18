@@ -18,33 +18,24 @@ const selectionMenuItems = [{
   value: 'fr',
 }]
 
-/**
- * ALL TESTS MUST USE testMode: true
- * We generate unique IDs for reference by aria properties. Test mode strips these out
- * allowing for successful snapshot verification.
- * props: {
- *   testMode: true
- * }
- */
 describe('KDropdownMenu', () => {
   it('renders props when passed', () => {
-    const labelProp = 'Drop it!'
+    const triggerTextProp = 'Drop it!'
 
     mount(KDropdownMenu, {
       props: {
-        testMode: true,
-        label: labelProp,
+        triggerText: triggerTextProp,
         items: defaultMenuItems,
       },
     })
 
-    const triggerBtn = cy.getTestId('k-dropdown-trigger')
+    const triggerBtn = cy.getTestId('dropdown-trigger-button')
 
-    triggerBtn.should('contain.text', labelProp)
+    triggerBtn.should('contain.text', triggerTextProp)
     triggerBtn.click()
 
-    cy.getTestId('k-dropdown-list').should('exist')
-    cy.getTestId('k-dropdown-list').should('be.visible')
+    cy.getTestId('dropdown-list').should('exist')
+    cy.getTestId('dropdown-list').should('be.visible')
     cy.getTestId(`k-dropdown-item-${defaultMenuItems[0].label}`).should('exist')
     cy.getTestId(`k-dropdown-item-${defaultMenuItems[0].label}`).should('contain.text', defaultMenuItems[0].label)
     cy.getTestId(`k-dropdown-item-${defaultMenuItems[1].label}`).should('exist')
@@ -56,13 +47,12 @@ describe('KDropdownMenu', () => {
 
     mount(KDropdownMenu, {
       props: {
-        testMode: true,
         width: width + '',
         items: defaultMenuItems,
       },
     })
 
-    const triggerBtn = cy.getTestId('k-dropdown-trigger')
+    const triggerBtn = cy.getTestId('dropdown-trigger')
     triggerBtn.click()
 
     cy.get('.k-dropdown-popover').invoke('width').should('eq', width)
@@ -73,8 +63,7 @@ describe('KDropdownMenu', () => {
 
     mount(KDropdownMenu, {
       props: {
-        testMode: true,
-        label: 'Click me',
+        triggerText: 'Click me',
         disabled: true,
         disabledTooltip: tooltipText,
         items: defaultMenuItems,
@@ -82,18 +71,17 @@ describe('KDropdownMenu', () => {
     })
 
     // button disabled
-    const triggerBtn = cy.getTestId('k-dropdown-trigger')
+    const triggerBtn = cy.getTestId('dropdown-trigger')
     // hover
     triggerBtn.trigger('mouseenter')
 
     cy.get('.k-tooltip').should('contain.text', tooltipText)
   })
 
-  it('renders with correct appearance - selectionMenu', () => {
+  it('renders correctly when isSelectionMenu', () => {
     mount(KDropdownMenu, {
       props: {
-        testMode: true,
-        appearance: 'selectionMenu',
+        isSelectionMenu: true,
         items: selectionMenuItems,
       },
     })
@@ -106,8 +94,7 @@ describe('KDropdownMenu', () => {
 
     mount(KDropdownMenu, {
       props: {
-        testMode: true,
-        label: 'Click me',
+        triggerText: 'Click me',
         items: [
           { label: selectedLabel, value: 'label1', selected: true },
           ...selectionMenuItems,
@@ -115,9 +102,9 @@ describe('KDropdownMenu', () => {
       },
     })
 
-    const triggerBtn = cy.getTestId('k-dropdown-trigger')
+    const triggerBtn = cy.getTestId('dropdown-trigger')
     triggerBtn.click()
-    cy.getTestId('k-dropdown-list').should('be.visible')
+    cy.getTestId('dropdown-list').should('be.visible')
 
     cy.get('.k-dropdown-selected-option').should('exist')
     cy.get('.k-dropdown-selected-option').should('contain.text', selectedLabel)
@@ -128,62 +115,73 @@ describe('KDropdownMenu', () => {
     const triggerSlotContent = 'Click Me!'
 
     mount(KDropdownMenu, {
-      props: {
-        testMode: true,
-      },
       slots: {
         items: h('span', {}, itemSlotContent),
         default: h('button', {}, triggerSlotContent),
       },
     })
 
-    const triggerBtn = cy.getTestId('k-dropdown-trigger')
+    const triggerBtn = cy.getTestId('dropdown-trigger')
     triggerBtn.click()
-    cy.getTestId('k-dropdown-list').should('be.visible')
+    cy.getTestId('dropdown-list').should('be.visible')
 
     triggerBtn.should('contain.html', triggerSlotContent)
     cy.get('.k-dropdown-popover').should('contain.html', itemSlotContent)
   })
 
-  // TODO: test external link KDropdownItem
   it('correctly renders dividers on all item types', () => {
     const itemSlotContent = `
-    <KDropdownItem has-divider :item="{ label: 'A link', to: { path: '/' } }" />
-    <KDropdownItem has-divider @click="() => {}">
+    <KDropdownItem
+      @click="() => {}"
+      data-testid="button"
+    >
       A button
     </KDropdownItem>
     <KDropdownItem
-      has-divider
       disabled
       @click="() => {}"
+      data-testid="disabled-button"
     >
       Disabled button
     </KDropdownItem>
     <KDropdownItem
       :item="{ label: 'You are here 2', to: { path: '/' } }"
       has-divider
+      @click="() => {}"
+      data-testid="router-link"
+    >
+      Router link
+    </KDropdownItem>
+    <KDropdownItem
+      :item="{ label: 'You are here 2', to: { path: '/' } }"
       disabled
       @click="() => {}"
+      data-testid="disabled-router-link"
     >
-      Disabled link
+      Disabled router link
     </KDropdownItem>
     <KDropdownItem
       has-divider
-      is-dangerous
+      :item="{ label: 'You are here 3', to: 'https://kongponents.konghq.com/' }"
+      rel="noopener"
+      target="_blank"
+      data-testid="external-link"
     >
-      <a
-        href="http://www.google.com"
-        rel="noopener"
-        target="_blank"
-      >
-        Custom item
-      </a>
+      External link
+    </KDropdownItem>
+    <KDropdownItem
+      :item="{ label: 'You are here 3', to: 'https://kongponents.konghq.com/' }"
+      rel="noopener"
+      target="_blank"
+      disabled
+      data-testid="disabled-external-link"
+    >
+      Disabled external link
     </KDropdownItem>`
 
     mount(KDropdownMenu, {
       props: {
-        testMode: true,
-        label: 'Click me',
+        triggerText: 'Click me',
         class: 'test-dropdown',
       },
       slots: {
@@ -197,11 +195,20 @@ describe('KDropdownMenu', () => {
       },
     })
 
-    const triggerBtn = cy.getTestId('k-dropdown-trigger')
+    const triggerBtn = cy.getTestId('dropdown-trigger')
     triggerBtn.click()
-    cy.getTestId('k-dropdown-list').should('be.visible')
+    cy.getTestId('dropdown-list').should('be.visible')
 
-    cy.getTestId('k-dropdown-list').eq(0).find('.k-dropdown-item').should('have.length', 5)
-    cy.getTestId('k-dropdown-list').eq(0).find('.has-divider').should('have.length', 5)
+    cy.getTestId('dropdown-list').eq(0).find('.k-dropdown-item').should('have.length', 6)
+    cy.getTestId('dropdown-list').eq(0).find('.has-divider').should('have.length', 2)
+
+    cy.get('button[data-testid="button"]').should('be.visible')
+    cy.get('button[data-testid="disabled-button"]').should('be.visible').should('be.disabled')
+
+    cy.get('router-link[data-testid="router-link"]').should('be.visible')
+    cy.get('router-link[data-testid="disabled-router-link"]').should('be.visible').should('have.attr', 'disabled')
+
+    cy.get('a[data-testid="external-link"]').should('be.visible')
+    cy.get('a[data-testid="disabled-external-link"]').should('be.visible').should('have.attr', 'disabled')
   })
 })
