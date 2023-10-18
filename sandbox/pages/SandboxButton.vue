@@ -194,6 +194,13 @@
         >
           Danger
         </KButton>
+        <KButton
+          disabled
+          target="_blank"
+          to="https://kongponents.konghq.com/"
+        >
+          Disabled
+        </KButton>
       </div>
     </SandboxSectionComponent>
 
@@ -227,6 +234,13 @@
           :to="{ name: 'home' }"
         >
           Danger
+        </KButton>
+        <KButton
+          disabled
+          target="_blank"
+          :to="{ name: 'home' }"
+        >
+          Disabled
         </KButton>
       </div>
     </SandboxSectionComponent>

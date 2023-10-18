@@ -22,7 +22,7 @@
         :items="[
           { label: 'Home', to: { name: 'home' } },
           { label: 'KAlert', to: { name: 'alert' } },
-          { label: 'KButton', to: { name: 'button' } }
+          { label: 'Stay', to: { name: 'dropdown' } }
         ]"
         trigger-text="Documentation"
       />
@@ -30,35 +30,19 @@
     <SandboxSectionComponent
       title="isSelectionMenu (replacement for `appearance` prop)"
     >
-      <div class="horizontal-spacing">
-        <KDropdownMenu
-          is-selection-menu
-          :trigger-text="selectionMenuSelectedItem?.label || 'Selection menu'"
-        >
-          <template #items>
-            <KDropdownItem
-              v-for="item in selectionMenuItems"
-              :key="item.value"
-              :item="item"
-              @click="handleSelectionMenuSelection(item)"
-            />
-          </template>
-        </KDropdownMenu>
-        <KDropdownMenu
-          is-selection-menu
-          show-caret
-          :trigger-text="selectionMenuSelectedItem?.label || 'Selection menu'"
-        >
-          <template #items>
-            <KDropdownItem
-              v-for="item in selectionMenuItems"
-              :key="item.value"
-              :item="item"
-              @click="handleSelectionMenuSelection(item)"
-            />
-          </template>
-        </KDropdownMenu>
-      </div>
+      <KDropdownMenu
+        is-selection-menu
+        :trigger-text="selectionMenuSelectedItem?.label || 'Selection menu'"
+      >
+        <template #items>
+          <KDropdownItem
+            v-for="item in selectionMenuItems"
+            :key="item.value"
+            :item="item"
+            @click="handleSelectionMenuSelection(item)"
+          />
+        </template>
+      </KDropdownMenu>
     </SandboxSectionComponent>
     <SandboxSectionComponent
       title="appearance (replacement for `buttonAppearance` prop)"
@@ -69,7 +53,7 @@
           :items="[
             { label: 'Home', to: { name: 'home' } },
             { label: 'KAlert', to: { name: 'alert' } },
-            { label: 'KButton', to: { name: 'button' } }
+            { label: 'Stay', to: { name: 'dropdown' } }
           ]"
           trigger-text="Primary"
         />
@@ -78,7 +62,7 @@
           :items="[
             { label: 'Home', to: { name: 'home' } },
             { label: 'KAlert', to: { name: 'alert' } },
-            { label: 'KButton', to: { name: 'button' } }
+            { label: 'Stay', to: { name: 'dropdown' } }
           ]"
           trigger-text="Secondary"
         />
@@ -87,7 +71,7 @@
           :items="[
             { label: 'Home', to: { name: 'home' } },
             { label: 'KAlert', to: { name: 'alert' } },
-            { label: 'KButton', to: { name: 'button' } }
+            { label: 'Stay', to: { name: 'dropdown' } }
           ]"
           trigger-text="Tertiary"
         />
@@ -96,7 +80,7 @@
           :items="[
             { label: 'Home', to: { name: 'home' } },
             { label: 'KAlert', to: { name: 'alert' } },
-            { label: 'KButton', to: { name: 'button' } }
+            { label: 'Stay', to: { name: 'dropdown' } }
           ]"
           trigger-text="Danger"
         />
@@ -105,15 +89,31 @@
     <SandboxSectionComponent
       title="showCaret"
     >
-      <KDropdownMenu
-        :items="[
-          { label: 'Home', to: { name: 'home' } },
-          { label: 'KAlert', to: { name: 'alert' } },
-          { label: 'KButton', to: { name: 'button' } }
-        ]"
-        show-caret
-        trigger-text="Show caret"
-      />
+      <div class="horizontal-spacing">
+        <KDropdownMenu
+          :items="[
+            { label: 'Home', to: { name: 'home' } },
+            { label: 'KAlert', to: { name: 'alert' } },
+            { label: 'Stay', to: { name: 'dropdown' } }
+          ]"
+          show-caret
+          trigger-text="Show caret"
+        />
+        <KDropdownMenu
+          is-selection-menu
+          show-caret
+          :trigger-text="selectionMenuSelectedItem?.label || 'Selection menu with caret'"
+        >
+          <template #items>
+            <KDropdownItem
+              v-for="item in selectionMenuItems"
+              :key="item.value"
+              :item="item"
+              @click="handleSelectionMenuSelection(item)"
+            />
+          </template>
+        </KDropdownMenu>
+      </div>
     </SandboxSectionComponent>
     <SandboxSectionComponent
       title="disabled"
@@ -123,7 +123,7 @@
         :items="[
           { label: 'Home', to: { name: 'home' } },
           { label: 'KAlert', to: { name: 'alert' } },
-          { label: 'KButton', to: { name: 'button' } }
+          { label: 'Stay', to: { name: 'dropdown' } }
         ]"
         trigger-text="Disabled"
       />
@@ -137,7 +137,7 @@
         :items="[
           { label: 'Home', to: { name: 'home' } },
           { label: 'KAlert', to: { name: 'alert' } },
-          { label: 'KButton', to: { name: 'button' } }
+          { label: 'Stay', to: { name: 'dropdown' } }
         ]"
         trigger-text="Disabled with a tooltip"
       />
@@ -155,7 +155,7 @@
         :items="[
           { label: 'Home', to: { name: 'home' } },
           { label: 'KAlert', to: { name: 'alert' } },
-          { label: 'KButton', to: { name: 'button' } }
+          { label: 'Stay', to: { name: 'dropdown' } }
         ]"
       >
         <KButton>
@@ -166,7 +166,7 @@
     <SandboxSectionComponent
       title="items"
     >
-      <KDropdownMenu>
+      <KDropdownMenu width="220">
         <KButton
           appearance="secondary"
           class="icon-button"
@@ -174,31 +174,92 @@
           <CogIcon />
         </KButton>
         <template #items>
-          <KDropdownItem :item="{ label: 'Home', to: { name: 'home' } }">
-            Home
+          <KDropdownItem
+            :item="{ label: 'Home', to: { name: 'home' } }"
+            target="_blank"
+          >
+            <KongIcon />
+            Router link
           </KDropdownItem>
-          <KDropdownItem>
-            <!-- { label: 'External link', to: 'https://kongponents.konghq.com/' } -->
-            <a
-              href="https://kongponents.konghq.com/"
-              rel="noopener"
-              target="_blank"
-            >
-              External link
-            </a>
+          <KDropdownItem
+            :item="{ label: 'External link', to: 'https://kongponents.konghq.com/' }"
+            target="_blank"
+          >
+            <ExternalLinkIcon />
+            External link
           </KDropdownItem>
-          <KDropdownItem disabled>
-            Disabled
+          <KDropdownItem
+            disabled
+            has-divider
+            @click="handleItemClick"
+          >
+            <DisabledIcon />
+            Disabled button
+          </KDropdownItem>
+          <KDropdownItem
+            disabled
+            :item="{ label: 'Home', to: { name: 'home' } }"
+          >
+            <KongIcon />
+            Disabled router link
+          </KDropdownItem>
+          <KDropdownItem
+            disabled
+            :item="{ label: 'External link', to: 'https://kongponents.konghq.com/' }"
+          >
+            <ExternalLinkIcon />
+            Disabled external link
           </KDropdownItem>
           <KDropdownItem
             has-divider
             is-dangerous
             @click="handleItemClick"
           >
+            <TrashIcon />
             Delete
           </KDropdownItem>
         </template>
       </KDropdownMenu>
+      <p>KDropdownItem takes care of spacing between the elements. However, should you need to implement some custom layout, you can sprinkle a little CSS in there.</p>
+      <KDropdownMenu
+        trigger-text="Slotted content positioning"
+        width="250"
+      >
+        <template #items>
+          <KDropdownItem>
+            Updates
+            <KBadge
+              class="dropdown-item-content-end"
+              shape="rectangular"
+            >
+              14
+            </KBadge>
+          </KDropdownItem>
+          <KDropdownItem>
+            Support
+            <KBadge
+              appearance="success"
+              shape="rectangular"
+            >
+              Enterprise
+            </KBadge>
+            <ExternalLinkIcon class="dropdown-item-content-end" />
+          </KDropdownItem>
+          <KDropdownItem>
+            <BookIcon />
+            Docs
+            <KTooltip
+              class="dropdown-item-content-end"
+              label="This is a tooltip"
+            >
+              <InfoIcon />
+            </KTooltip>
+          </KDropdownItem>
+        </template>
+      </KDropdownMenu>
+      <pre>
+        {{ slottedContentPositioningSnippet }}
+      </pre>
     </SandboxSectionComponent>
 
     <!-- Legacy -->
@@ -214,7 +275,7 @@
         :items="[
           { label: 'Home', to: { name: 'home' } },
           { label: 'KAlert', to: { name: 'alert' } },
-          { label: 'KButton', to: { name: 'button' } }
+          { label: 'Stay', to: { name: 'dropdown' } }
         ]"
         trigger-text="Icon prop"
       />
@@ -227,7 +288,7 @@
         :items="[
           { label: 'Home', to: { name: 'home' } },
           { label: 'KAlert', to: { name: 'alert' } },
-          { label: 'KButton', to: { name: 'button' } }
+          { label: 'Stay', to: { name: 'dropdown' } }
         ]"
         label="Deprecated props"
       />
@@ -239,9 +300,9 @@
 import { ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { KDropdownItem, KDropdownMenu, KExternalLink, KButton } from '@/components'
+import { KDropdownItem, KDropdownMenu, KExternalLink, KButton, KBadge, KTooltip } from '@/components'
 import type { DropdownItem } from '@/types'
-import { CogIcon } from '@kong/icons'
+import { CogIcon, KongIcon, ExternalLinkIcon, DisabledIcon, TrashIcon, BookIcon, InfoIcon } from '@kong/icons'
 
 const selectionMenuSelectedItem = ref<DropdownItem | null>(null)
 
@@ -258,6 +319,22 @@ const handleSelectionMenuSelection = (item: DropdownItem) => {
 const handleItemClick = () => {
   alert('Item clicked!')
 }
+
+const slottedContentPositioningSnippet = `
+<template>
+  <KDropdownItem>
+    Updates
+    <KBadge class="dropdown-item-content-end">
+      14
+    </KBadge>
+  </KDropdownItem>
+</template>
+
+<style lang="scss" scoped>
+.dropdown-item-content-end {
+  margin-left: $kui-space-auto;
+}
+</style>`
 </script>
 
 <style lang="scss" scoped>
@@ -266,6 +343,14 @@ const handleItemClick = () => {
     align-items: flex-end;
     display: flex;
     gap: $kui-space-50;
+  }
+
+  .dropdown-item-content-end {
+    margin-left: $kui-space-auto;
+  }
+
+  pre {
+    margin-bottom: 0;
   }
 }
 </style>

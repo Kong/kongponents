@@ -27,10 +27,10 @@
 
 <script lang="ts" setup>
 import type { DropdownItem, DropdownItemRenderedRecord, DropdownItemRenderedType, DropdownItemType } from '@/types'
-import KButton from '@/components/KButton/KButton.vue'
 import type { PropType } from 'vue'
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed, useAttrs } from 'vue'
+
+const attrs = useAttrs()
 
 const props = defineProps({
   item: {
@@ -76,8 +76,6 @@ const emit = defineEmits<{
   (e: 'change', item: DropdownItem): void;
 }>()
 
-const route = useRoute()
-
 const type = computed((): DropdownItemType => {
   if (props.item?.to) {
     return 'link'
@@ -90,8 +88,6 @@ const type = computed((): DropdownItemType => {
 
 const label = computed((): string => (props.item?.label) || '')
 
-const routePath = computed((): string => route ? route.path : '')
-
 const to = computed((): string | object | undefined => (props.item?.to) || undefined)
 
 const handleClick = (event: Event): void => {
@@ -102,17 +98,12 @@ const handleClick = (event: Event): void => {
   }
 }
 
-const preventAndStopDefault = (event: Event): void => {
-  event.preventDefault()
-  event.stopPropagation()
-}
-
 const componentType = computed((): DropdownItemRenderedType => {
   let result: DropdownItemRenderedType = 'div'
 
-  if (type.value === 'link' && !!to.value && !!props.disabled) {
+  if (type.value === 'link' && to.value && typeof to.value === 'string') {
     result = 'link'
-  } else if (type.value === 'link' && to.value) {
+  } else if (type.value === 'link' && to.value && typeof to.value === 'object') {
     result = 'router-link'
   } else if (type.value === 'button') {
     result = 'button'
@@ -121,30 +112,45 @@ const componentType = computed((): DropdownItemRenderedType => {
   return result
 })
 
+// Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.
+const strippedAttrs = computed((): typeof attrs => {
+  const modifiedAttrs = Object.assign({}, attrs)
+
+  delete modifiedAttrs.class
+  delete modifiedAttrs.disabled
+
+  return modifiedAttrs
+})
+
 const availableComponents = computed((): DropdownItemRenderedRecord => ({
   link: {
     tag: 'a',
-    onClick: preventAndStopDefault,
     attrs: {
-      class: `k-dropdown-item-trigger ${props.disabled ? 'disabled' : ''}`,
-      href: '#',
+      class: `k-dropdown-item-trigger ${props.disabled ? 'disabled' : ''} ${attrs.class || ''}`,
+      href: to.value as string,
+      // only add disabled attribute if props.disabled returns truthy value, otherwise it will be added as disabled="false" which will be treaded as disabled
+      ...(!!props.disabled && { disabled: true }),
+      ...strippedAttrs.value,
     },
   },
   'router-link': {
     tag: 'router-link',
     onClick: handleClick,
     attrs: {
-      class: `k-dropdown-item-trigger ${props.disabled ? 'disabled' : ''}`,
-      to: !props.disabled ? to.value : routePath.value,
+      class: `k-dropdown-item-trigger ${props.disabled ? 'disabled' : ''} ${attrs.class || ''}`,
+      to: to.value,
+      // only add disabled attribute if props.disabled returns truthy value, otherwise it will be added as disabled="false" which will be treaded as disabled
+      ...(!!props.disabled && { disabled: true }),
+      ...strippedAttrs.value,
     },
   },
   button: {
-    tag: KButton,
+    tag: 'button',
     onClick: handleClick,
     attrs: {
-      class: 'k-dropdown-item-trigger k-button tertiary',
+      class: `k-dropdown-item-trigger ${props.disabled ? 'disabled' : ''} ${attrs.class || ''}`,
       disabled: props.disabled,
-      isRounded: false,
+      ...strippedAttrs.value,
     },
   },
   div: {
@@ -156,92 +162,117 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
 }))
 </script>
 
-<style lang="scss">
-// Must leave this block unscoped as it sometimes causes issues with slotted/nested styles
+<style lang="scss" scoped>
+/* Component mixins */
 
-@import '@/styles/tmp-variables';
-
-@import '@/styles/mixins';
-
-li.k-dropdown-item {
-  .k-button {
-    justify-content: flex-start;
-  }
-
-  align-items: center;
-  display: flex;
-  font-size: var(--kui-font-size-40, $kui-font-size-40);
-  line-height: var(--kui-line-height-40, $kui-line-height-40);
-  width: 100% !important;
-
-  &:not(:first-of-type).has-divider {
-    $k-dropdown-item-divider-container-height: var(--kui-space-80, $kui-space-80); // set to the same value as --spacing-lg without the units
-    $k-dropdown-item-divider-position: -13px; // this should be negative (<container-height> / 2 + 1)
-    margin-top: $k-dropdown-item-divider-container-height;
-    position: relative;
-
-    &:before {
-      background: var(--kui-color-background-disabled, $kui-color-background-disabled);
-      content: '';
-      display: block;
-      height: 1px;
-      position: absolute;
-      top: $k-dropdown-item-divider-position;
-      width: 100%;
-    }
-  }
-
-  svg {
-    margin-right: var(--kui-space-50, $kui-space-50);
-  }
-
-  &:hover {
-    background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
-  }
-
-  .k-dropdown-item-trigger,
-  // Override .btn-link styles
-  .k-dropdown-item-trigger.tertiary {
-    color: var(--kui-color-text, $kui-color-text);
-    line-height: var(--kui-line-height-40, $kui-line-height-40);
-    padding: var(--kui-space-60, $kui-space-60) var(--kui-space-80, $kui-space-80);
-    text-align: left;
-    text-decoration: none;
-    width: 100%;
-
-    &:disabled,
-    &.disabled {
-      color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
-      cursor: not-allowed !important;
-
-      &:hover {
-        background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest) !important;
-      }
-    }
-  }
+@mixin kDropdownItemTriggerDefaults {
+  transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc;
 }
 
-.k-dropdown-item {
-  a, button {
-    &.k-dropdown-item-trigger {
-      @include non-visual-button;
-      line-height: var(--kui-line-height-40, $kui-line-height-40);
-      text-decoration: none !important;
+/* Component styles */
 
-      .k-dropdown-item-trigger-label {
-        @include truncate;
-      }
+.k-dropdown-item, :deep(.k-dropdown-item) {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+
+  &:first-of-type {
+    .k-dropdown-item-trigger {
+      border-top-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+      border-top-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     }
+  }
+
+  &:last-of-type {
+    .k-dropdown-item-trigger {
+      border-bottom-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+      border-bottom-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    }
+  }
+
+  &.has-divider {
+    border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
   }
 
   &.danger {
-    button:not(:disabled),
-    a:not(:disabled) {
+    .k-dropdown-item-trigger {
       color: var(--kui-color-text-danger, $kui-color-text-danger);
-      transition: all $tmp-animation-timing-2;
 
-      &:hover {
+      &:hover:not(:disabled):not(.disabled):not(:focus):not(:active) {
+        background-color: var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest);
         color: var(--kui-color-text-danger, $kui-color-text-danger);
+      }
+
+      &:focus:not(:disabled):not(.disabled), &:active:not(:disabled):not(.disabled) {
+        background-color: var(--kui-color-background-danger-weaker, $kui-color-background-danger-weaker);
+        color: var(--kui-color-text-danger, $kui-color-text-danger);
+      }
+    }
+  }
+
+  .k-dropdown-item-trigger {
+    background-color: var(--kui-color-background, $kui-color-background);
+    border: 0;
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    cursor: pointer;
+    display: flex;
+    font-family: var(--kui-font-family-text, $kui-font-family-text);
+    font-size: var(--kui-font-size-30, $kui-font-size-30);
+    line-height: var(--kui-line-height-40, $kui-line-height-40);
+    padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+    text-align: left;
+    text-decoration: none;
+    transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc;
+    width: 100%;
+
+    &:focus, &:active, &:focus-visible {
+      outline: none;
+    }
+
+    &:focus-visible {
+      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+      z-index: 1; // need this to prevent box shadow being cut off by the next/previous sibling
+    }
+
+    &:hover:not(:disabled):not(.disabled):not(:focus):not(:active) {
+      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+      color: var(--kui-color-text, $kui-color-text);
+    }
+
+    &:focus:not(:disabled):not(.disabled), &:active:not(:disabled):not(.disabled) {
+      background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+      color: var(--kui-color-text, $kui-color-text);
+    }
+
+    &:disabled, &[disabled], &.disabled {
+      cursor: not-allowed;
+    }
+
+    // remove pointer events from only <a>
+    &[disabled]:not(:disabled) {
+      pointer-events: none;
+    }
+
+    .k-dropdown-item-trigger-label {
+      align-items: center;
+      display: inline-flex;
+      gap: var(--kui-space-40, $kui-space-40);
+      width: 100%;
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+// must stay unscoped as it's causing issues with the slotted/nested elements
+// all rules must be very specific to avoid conflicts with other components
+
+.k-dropdown-item {
+  .k-dropdown-item-trigger {
+    .k-dropdown-item-trigger-label {
+      #{$kongponentsKongIconSelector} {
+        height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+        width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
       }
     }
   }

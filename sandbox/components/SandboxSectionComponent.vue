@@ -77,13 +77,21 @@ const hasDescription = computed((): boolean => !!(props.description || slots.des
       font-size: $kui-font-size-40;
       line-height: $kui-line-height-40;
       margin: $kui-space-0;
-      max-width: 700px
+      max-width: 700px;
     }
   }
 
   .section-content {
     :deep(> *:not(:last-of-type)) {
       margin-bottom: $kui-space-70;
+    }
+
+    :slotted(> p) {
+      font-size: $kui-font-size-40;
+      line-height: $kui-line-height-40;
+      margin: 0;
+      margin-bottom: $kui-space-50;
+      max-width: 700px;
     }
   }
 }

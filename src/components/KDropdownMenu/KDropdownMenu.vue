@@ -225,32 +225,20 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+/* Component styles */
+
 .k-dropdown {
   width: fit-content;
-}
-</style>
 
-<style lang="scss">
-@import '@/styles/tmp-variables';
-
-.k-popover.k-dropdown-popover {
-  border: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-black-10;
-  margin-top: var(--kui-space-20, $kui-space-20) !important;
-  padding: var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0);
-
-  ul {
-    margin: var(--kui-space-0, $kui-space-0);
+  :deep(.k-popover.k-dropdown-popover) {
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    margin-top: var(--kui-space-30, $kui-space-30);
     padding: var(--kui-space-0, $kui-space-0);
-  }
 
-  a {
-    color: var(--kui-color-text, $kui-color-text);
-    flex: 1;
-
-    &:hover,
-    &:active,
-    &:focus {
-      text-decoration: none;
+    ul {
+      margin: 0;
+      padding: 0;
     }
   }
 }

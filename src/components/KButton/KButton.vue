@@ -202,7 +202,7 @@ export default {
   vertical-align: middle;
   white-space: nowrap;
 
-  &:focus, &:active {
+  &:focus, &:active, &:focus-visible {
     outline: none;
   }
 
