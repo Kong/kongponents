@@ -1,7 +1,7 @@
 import { mount } from 'cypress/vue'
 import { h } from 'vue'
-import KDropdownMenu from '@/components/KDropdownMenu/KDropdownMenu.vue'
-import KDropdownItem from '@/components/KDropdownMenu/KDropdownItem.vue'
+import KDropdown from '@/components/KDropdown/KDropdown.vue'
+import KDropdownItem from '@/components/KDropdown/KDropdownItem.vue'
 
 const defaultMenuItems = [
   { label: 'Props' },
@@ -18,11 +18,11 @@ const selectionMenuItems = [{
   value: 'fr',
 }]
 
-describe('KDropdownMenu', () => {
+describe('KDropdown', () => {
   it('renders props when passed', () => {
     const triggerTextProp = 'Drop it!'
 
-    mount(KDropdownMenu, {
+    mount(KDropdown, {
       props: {
         triggerText: triggerTextProp,
         items: defaultMenuItems,
@@ -45,7 +45,7 @@ describe('KDropdownMenu', () => {
   it('renders with correct px width', async () => {
     const width = 350
 
-    mount(KDropdownMenu, {
+    mount(KDropdown, {
       props: {
         width: width + '',
         items: defaultMenuItems,
@@ -61,7 +61,7 @@ describe('KDropdownMenu', () => {
   it('renders disabled props when passed', () => {
     const tooltipText = 'A sweet tooltip'
 
-    mount(KDropdownMenu, {
+    mount(KDropdown, {
       props: {
         triggerText: 'Click me',
         disabled: true,
@@ -79,7 +79,7 @@ describe('KDropdownMenu', () => {
   })
 
   it('renders correctly when isSelectionMenu', () => {
-    mount(KDropdownMenu, {
+    mount(KDropdown, {
       props: {
         isSelectionMenu: true,
         items: selectionMenuItems,
@@ -92,7 +92,7 @@ describe('KDropdownMenu', () => {
   it('renders with selected item', () => {
     const selectedLabel = 'Label 1'
 
-    mount(KDropdownMenu, {
+    mount(KDropdown, {
       props: {
         triggerText: 'Click me',
         items: [
@@ -114,7 +114,7 @@ describe('KDropdownMenu', () => {
     const itemSlotContent = 'I am slotted baby!'
     const triggerSlotContent = 'Click Me!'
 
-    mount(KDropdownMenu, {
+    mount(KDropdown, {
       slots: {
         items: h('span', {}, itemSlotContent),
         default: h('button', {}, triggerSlotContent),
@@ -179,7 +179,7 @@ describe('KDropdownMenu', () => {
       Disabled external link
     </KDropdownItem>`
 
-    mount(KDropdownMenu, {
+    mount(KDropdown, {
       props: {
         triggerText: 'Click me',
         class: 'test-dropdown',

@@ -100,6 +100,8 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KDropdownMenu
 
+Component has been renamed to `KDropdown`
+
 #### Structure
 
 * `k-dropdown-menu` class has been removed

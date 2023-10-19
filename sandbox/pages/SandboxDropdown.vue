@@ -18,7 +18,7 @@
     <SandboxSectionComponent
       title="triggerText (replacement for deprecated `label` prop)"
     >
-      <KDropdownMenu
+      <KDropdown
         :items="[
           { label: 'Home', to: { name: 'home' } },
           { label: 'KAlert', to: { name: 'alert' } },
@@ -30,7 +30,7 @@
     <SandboxSectionComponent
       title="isSelectionMenu (replacement for `appearance` prop)"
     >
-      <KDropdownMenu
+      <KDropdown
         is-selection-menu
         :trigger-text="selectionMenuSelectedItem?.label || 'Selection menu'"
       >
@@ -42,13 +42,13 @@
             @click="handleSelectionMenuSelection(item)"
           />
         </template>
-      </KDropdownMenu>
+      </KDropdown>
     </SandboxSectionComponent>
     <SandboxSectionComponent
       title="appearance (replacement for `buttonAppearance` prop)"
     >
       <div class="horizontal-spacing">
-        <KDropdownMenu
+        <KDropdown
           appearance="primary"
           :items="[
             { label: 'Home', to: { name: 'home' } },
@@ -57,7 +57,7 @@
           ]"
           trigger-text="Primary"
         />
-        <KDropdownMenu
+        <KDropdown
           appearance="secondary"
           :items="[
             { label: 'Home', to: { name: 'home' } },
@@ -66,7 +66,7 @@
           ]"
           trigger-text="Secondary"
         />
-        <KDropdownMenu
+        <KDropdown
           appearance="tertiary"
           :items="[
             { label: 'Home', to: { name: 'home' } },
@@ -75,7 +75,7 @@
           ]"
           trigger-text="Tertiary"
         />
-        <KDropdownMenu
+        <KDropdown
           appearance="danger"
           :items="[
             { label: 'Home', to: { name: 'home' } },
@@ -90,7 +90,7 @@
       title="showCaret"
     >
       <div class="horizontal-spacing">
-        <KDropdownMenu
+        <KDropdown
           :items="[
             { label: 'Home', to: { name: 'home' } },
             { label: 'KAlert', to: { name: 'alert' } },
@@ -99,7 +99,7 @@
           show-caret
           trigger-text="Show caret"
         />
-        <KDropdownMenu
+        <KDropdown
           is-selection-menu
           show-caret
           :trigger-text="selectionMenuSelectedItem?.label || 'Selection menu with caret'"
@@ -112,13 +112,13 @@
               @click="handleSelectionMenuSelection(item)"
             />
           </template>
-        </KDropdownMenu>
+        </KDropdown>
       </div>
     </SandboxSectionComponent>
     <SandboxSectionComponent
       title="disabled"
     >
-      <KDropdownMenu
+      <KDropdown
         disabled
         :items="[
           { label: 'Home', to: { name: 'home' } },
@@ -131,7 +131,7 @@
     <SandboxSectionComponent
       title="disabledTooltip"
     >
-      <KDropdownMenu
+      <KDropdown
         disabled
         disabled-tooltip="Tooltip I am"
         :items="[
@@ -151,7 +151,7 @@
     <SandboxSectionComponent
       title="default"
     >
-      <KDropdownMenu
+      <KDropdown
         :items="[
           { label: 'Home', to: { name: 'home' } },
           { label: 'KAlert', to: { name: 'alert' } },
@@ -161,12 +161,12 @@
         <KButton>
           Default slot
         </KButton>
-      </KDropdownMenu>
+      </KDropdown>
     </SandboxSectionComponent>
     <SandboxSectionComponent
       title="items"
     >
-      <KDropdownMenu width="220">
+      <KDropdown width="220">
         <KButton
           appearance="secondary"
           class="icon-button"
@@ -219,9 +219,9 @@
             Delete
           </KDropdownItem>
         </template>
-      </KDropdownMenu>
+      </KDropdown>
       <p>KDropdownItem takes care of spacing between the elements. However, should you need to implement some custom layout, you can sprinkle a little CSS in there.</p>
-      <KDropdownMenu
+      <KDropdown
         trigger-text="Slotted content positioning"
         width="250"
       >
@@ -256,7 +256,7 @@
             </KTooltip>
           </KDropdownItem>
         </template>
-      </KDropdownMenu>
+      </KDropdown>
       <pre>
         {{ slottedContentPositioningSnippet }}
       </pre>
@@ -270,7 +270,7 @@
     <SandboxSectionComponent
       title="Prop: icon"
     >
-      <KDropdownMenu
+      <KDropdown
         icon="gear"
         :items="[
           { label: 'Home', to: { name: 'home' } },
@@ -283,7 +283,7 @@
     <SandboxSectionComponent
       title="Props: label & appearance"
     >
-      <KDropdownMenu
+      <KDropdown
         appearance="selectionMenu"
         :items="[
           { label: 'Home', to: { name: 'home' } },
@@ -300,7 +300,7 @@
 import { ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { KDropdownItem, KDropdownMenu, KExternalLink, KButton, KBadge, KTooltip } from '@/components'
+import { KDropdownItem, KDropdown, KExternalLink, KButton, KBadge, KTooltip } from '@/components'
 import type { DropdownItem } from '@/types'
 import { CogIcon, KongIcon, ExternalLinkIcon, DisabledIcon, TrashIcon, BookIcon, InfoIcon } from '@kong/icons'
 
