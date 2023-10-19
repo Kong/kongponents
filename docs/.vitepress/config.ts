@@ -44,7 +44,7 @@ export default defineConfig({
             { text: 'Code Block', link: '/components/codeblock' },
             { text: 'Collapse', link: '/components/collapse' },
             { text: 'DateTime Picker', link: '/components/datetime-picker' },
-            { text: 'Dropdown Menu', link: '/components/dropdown-menu' },
+            { text: 'Dropdown', link: '/components/dropdown' },
             { text: 'Empty State', link: '/components/empty-state' },
             { text: 'External Link', link: '/components/external-link' },
             { text: 'File Upload', link: '/components/file-upload' },

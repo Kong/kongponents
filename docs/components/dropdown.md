@@ -20,9 +20,9 @@ An array of objects containing a required `label` property and other optional pr
 <KDropdownMenu
   label="Documentation"
   :items="[
-    { label: 'Props', to: { path: '/components/dropdown-menu.html', hash: '#props' } },
-    { label: 'Slots', to: { path: '/components/dropdown-menu.html', hash: '#slots' } },
-    { label: 'Top', to: { path: '/components/dropdown-menu.html' } }
+    { label: 'Props', to: { path: '/components/dropdown.html', hash: '#props' } },
+    { label: 'Slots', to: { path: '/components/dropdown.html', hash: '#slots' } },
+    { label: 'Top', to: { path: '/components/dropdown.html' } }
   ]"
 />
 ```
@@ -425,7 +425,7 @@ There are 3 primary item types:
       Disabled button
     </KDropdownItem>
     <KDropdownItem
-      :item="{ label: 'You are here 2', to: { path: '/components/dropdown-menu.html' } }"
+      :item="{ label: 'You are here 2', to: { path: '/components/dropdown.html' } }"
       disabled
       @click="clickHandler"
     >
@@ -494,11 +494,11 @@ export default defineComponent({
         value: 'fr'
       }],
       defaultItemsUnselected: [
-        { label: 'Props', to: { path: '/components/dropdown-menu.html', hash: '#props' } },
-        { label: 'Slots', to: { path: '/components/dropdown-menu.html', hash: '#slots' } },
-        { label: 'Top', to: { path: '/components/dropdown-menu.html' } }
+        { label: 'Props', to: { path: '/components/dropdown.html', hash: '#props' } },
+        { label: 'Slots', to: { path: '/components/dropdown.html', hash: '#slots' } },
+        { label: 'Top', to: { path: '/components/dropdown.html' } }
       ],
-      youAreHere: { label: 'You are here', to: { path: '/components/dropdown-menu.html' } }
+      youAreHere: { label: 'You are here', to: { path: '/components/dropdown.html' } }
     }
   },
   methods: {
