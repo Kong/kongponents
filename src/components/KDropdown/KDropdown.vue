@@ -26,14 +26,14 @@
             name="default"
           >
             <KButton
-              v-if="triggerText || label || icon"
+              v-if="triggerButtonText || icon"
               :appearance="appearance"
               class="dropdown-trigger-button"
               data-testid="dropdown-trigger-button"
               :disabled="disabled"
               :icon="icon"
             >
-              {{ triggerText || label }}
+              {{ triggerButtonText }}
               <ChevronDownIcon
                 v-if="showCaret"
               />
@@ -176,6 +176,8 @@ const boundKPopAttributes = {
   width: props.width ? props.width : undefined,
   popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes?.popoverClasses || ''}`,
 }
+
+const triggerButtonText = computed((): string => selectedItem.value?.label || props.triggerText || props.label)
 
 const selectedItem = ref<DropdownItem>()
 

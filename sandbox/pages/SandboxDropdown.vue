@@ -32,17 +32,10 @@
     >
       <KDropdown
         is-selection-menu
-        :trigger-text="selectionMenuSelectedItem?.label || 'Selection menu'"
-      >
-        <template #items>
-          <KDropdownItem
-            v-for="item in selectionMenuItems"
-            :key="item.value"
-            :item="item"
-            @click="handleSelectionMenuSelection(item)"
-          />
-        </template>
-      </KDropdown>
+        :items="selectionMenuItems"
+        trigger-text="Selection menu"
+        @change="handleSelectionMenuUpdate"
+      />
     </SandboxSectionComponent>
     <SandboxSectionComponent
       title="appearance (replacement for `buttonAppearance` prop)"
@@ -102,14 +95,16 @@
         <KDropdown
           is-selection-menu
           show-caret
-          :trigger-text="selectionMenuSelectedItem?.label || 'Selection menu with caret'"
+          trigger-text="Selection menu with caret"
+          @change="handleSelectionMenuUpdate"
         >
-          <template #items>
+          <template #items="{ handleSelection }">
             <KDropdownItem
               v-for="item in selectionMenuItems"
               :key="item.value"
               :item="item"
-              @click="handleSelectionMenuSelection(item)"
+              :selected="item.value === selectionMenuSelectedItem?.value"
+              @click="handleSelection(item)"
             />
           </template>
         </KDropdown>
@@ -304,7 +299,7 @@ import { KDropdownItem, KDropdown, KExternalLink, KButton, KBadge, KTooltip } fr
 import type { DropdownItem } from '@/types'
 import { CogIcon, KongIcon, ExternalLinkIcon, DisabledIcon, TrashIcon, BookIcon, InfoIcon } from '@kong/icons'
 
-const selectionMenuSelectedItem = ref<DropdownItem | null>(null)
+const selectionMenuSelectedItem = ref<DropdownItem>()
 
 const selectionMenuItems = [
   { label: 'Item 1', value: 'item1' },
@@ -312,7 +307,7 @@ const selectionMenuItems = [
   { label: 'Item 3', value: 'item3' },
 ]
 
-const handleSelectionMenuSelection = (item: DropdownItem) => {
+const handleSelectionMenuUpdate = (item: DropdownItem) => {
   selectionMenuSelectedItem.value = item
 }
 

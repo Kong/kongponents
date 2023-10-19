@@ -2,7 +2,7 @@
   <component
     :is="buttonType"
     class="k-button"
-    :class="[size, appearance, { 'icon-button': !slots.default && slots.icon /** TODO: [beta] change this to be controlled by icon prop */ }]"
+    :class="[size, appearance, { 'icon-button': !slots.default && slots.icon /** TODO: [beta] change this to be controlled by icon prop and clean up occurrences of 'icon-button' class */ }]"
     :disabled="disabled ? disabled : undefined"
     :type="type"
     v-bind="strippedAttrs"

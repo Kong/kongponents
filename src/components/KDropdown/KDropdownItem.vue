@@ -222,6 +222,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     display: flex;
     font-family: var(--kui-font-family-text, $kui-font-family-text);
     font-size: var(--kui-font-size-30, $kui-font-size-30);
+    font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
     line-height: var(--kui-line-height-40, $kui-line-height-40);
     padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
     text-align: left;
@@ -276,6 +277,25 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
       #{$kongponentsKongIconSelector} {
         height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
         width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+      }
+
+      [role="button"] {
+        &:not([disabled]) {
+          cursor: pointer;
+
+          &:focus, &:active {
+            outline: none;
+          }
+
+          &:hover, &:focus {
+            color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger) !important;
+          }
+        }
+
+        &[disabled] {
+          color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
+          pointer-events: none;
+        }
       }
     }
   }
