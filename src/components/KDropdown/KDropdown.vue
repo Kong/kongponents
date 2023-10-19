@@ -240,7 +240,7 @@ onMounted(() => {
 
     ul {
       margin: 0;
-      padding: 0;
+      padding: var(--kui-space-20, $kui-space-20) 0;
     }
   }
 }

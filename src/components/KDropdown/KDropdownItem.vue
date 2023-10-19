@@ -175,22 +175,16 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
   justify-content: space-between;
   list-style: none;
 
-  &:first-of-type {
-    .k-dropdown-item-trigger {
-      border-top-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-      border-top-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-    }
-  }
-
-  &:last-of-type {
-    .k-dropdown-item-trigger {
-      border-bottom-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-      border-bottom-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-    }
-  }
-
   &.has-divider {
-    border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    display: flex;
+    flex-direction: column;
+
+    &::before {
+      border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+      content: '';
+      margin: var(--kui-space-20, $kui-space-20) 0;
+      width: 100%;
+    }
   }
 
   &.danger {
@@ -224,7 +218,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     font-size: var(--kui-font-size-30, $kui-font-size-30);
     font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
     line-height: var(--kui-line-height-40, $kui-line-height-40);
-    padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+    padding: var(--kui-space-40, $kui-space-40) var(--kui-space-60, $kui-space-60);
     text-align: left;
     text-decoration: none;
     transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc;
