@@ -257,19 +257,25 @@ Removed as of `v9`. Use `KTooltip` instead.
 
 #### Structure
 
+<<<<<<< HEAD
 * `k-input` class on the `input[type="radio"]` has been changed to `radio-input`
 * `k-radio-default` class has been removed
 * `k-radio-card` class has been changed to `radio-card`
 * `k-radio-label` class has been changed to `radio-label`
 * `k-radio-description` class has been changed to `radio-description`
 
+=======
+>>>>>>> b9649495 (chore(sandbox): setup component sandbox [KHCP-8996])
 #### Constants, Types & Interfaces
 
 #### Props
 
+<<<<<<< HEAD
 * `testMode` prop has been removed
 * `type` prop has been deprecated in favor of `card` prop
 
+=======
+>>>>>>> b9649495 (chore(sandbox): setup component sandbox [KHCP-8996])
 #### Slots
 
 #### Events
