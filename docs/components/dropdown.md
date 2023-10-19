@@ -360,7 +360,7 @@ KDropdown generates a KDropdownItem for each object in the `items` prop array. A
 - `isDangerous` - a boolean (defaults to `false`), whether or not to apply danger styles (text color is red)
 
 <ClientOnly>
-  <KDropdown trigger-text="All kinds of dropdown items" width="220">
+  <KDropdown trigger-text="All kinds of dropdown items">
     <template #items="{ closeDropdown }">
       <KDropdownItem
         @click="clickHandler"
