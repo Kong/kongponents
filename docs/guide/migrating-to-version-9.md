@@ -255,6 +255,16 @@ Removed as of `v9`. Use `KTooltip` instead.
 
 ### KRadio
 
+#### Structure
+
+#### Constants, Types & Interfaces
+
+#### Props
+
+#### Slots
+
+#### Events
+
 ### Krumbs
 
 Removed as of `v9`. Use `KBreadcumbs` instead.
