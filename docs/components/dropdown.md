@@ -1,126 +1,52 @@
-# Dropdown Menu
+# Dropdown
 
-**KDropdownMenu** is a button (or any slotted content) that is clicked to trigger a menu popover beneath&nbsp;it.
+KDropdown is a button (or any slotted content) that is clicked to trigger a fly-out menu popover.
 
 <ClientOnly>
-  <KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" />
+  <KDropdown trigger-text="Documentation" :items="deepClone(defaultItems)" />
 </ClientOnly>
+
+```html
+<KDropdown trigger-text="Documentation" :items="items" />
+```
 
 ## Props
 
-### label
+### triggerText
 
-The label for the menu trigger.
+The text for the dropdown trigger button. Trigger element can also be [slotted in](#default) should you need to make it something custom.
 
 ### items
 
-An array of objects containing a required `label` property and other optional properties which will render a menu of [`KDropdownItems`](#KDropdownItem) .
+An array of objects containing a required `label` property and other optional properties which will render a menu of [KDropdownItems](#KDropdownItem).
+
+<ClientOnly>
+  <KDropdown trigger-text="Documentation" :items="deepClone(defaultItems)" />
+</ClientOnly>
 
 ```html
-<KDropdownMenu
-  label="Documentation"
+<KDropdown
+  trigger-text="Documentation"
   :items="[
-    { label: 'Props', to: { path: '/components/dropdown.html', hash: '#props' } },
-    { label: 'Slots', to: { path: '/components/dropdown.html', hash: '#slots' } },
-    { label: 'Top', to: { path: '/components/dropdown.html' } }
+    { label: 'Props', to: { path: '/components/dropdown#props' } },
+    { label: 'Slots', to: { path: '/components/dropdown#slots' } },
+    { label: 'Top', to: { path: '/components/dropdown' } }
   ]"
 />
 ```
 
 ### appearance
 
-Use this prop to specify the display style for the dropdown menu. Can be either `menu` (default) or `selectionMenu`.
-The `menu` style is the standard you have seen in the example above. Uses a standard `primary` `KButton` with hover state over items and no notion of "selection".
+Use this prop to customize the trigger KButton [appearance](/components/button.html#appearance).
 
 <ClientOnly>
-  <KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" />
+  <KDropdown trigger-text="Documentation" appearance="secondary" :items="deepClone(defaultItems)" />
 </ClientOnly>
 
 ```html
-<KDropdownMenu label="Documentation" :items="items" />
-```
-
-The `selectionMenu` style is used when a visual indication of the currently selected menu item is needed. `selected` state is handled automatically when clicking a `KDropdownItem` if used in conjunction with the `items` prop. Each item should have a `label` and a `value`.
-
-If using the `items` slot, you will have access to the `handleSelection()` method which should be called on each item's click event and takes the `item` data as a parameter. This will enable you to attach to the `@change` event (which returns the selected item) to track your selection.
-
-<ClientOnly>
-  <KDropdownMenu
-    :label="selectedItem.label"
-    appearance="selectionMenu"
-    @change="handleChange"
-  >
-    <template #items="{ handleSelection }">
-      <KDropdownItem
-        v-for="item in menuItems"
-        :selected="selectedItem.value === item.value"
-        @click="handleSelection(item)"
-      >
-        {{ item.label }}
-      </KDropdownItem>
-    </template>
-  </KDropdownMenu>
-</ClientOnly>
-
-```html
-<KDropdownMenu
-  :label="selectedItem.label"
-  appearance="selectionMenu"
-  @change="handleChange"
->
-  <template #items="{ handleSelection }">
-    <KDropdownItem
-      v-for="item in menuItems"
-      :selected="selectedItem.value === item.value"
-      @click="handleSelection(item)"
-    >
-      {{ item.label }}
-    </KDropdownItem>
-  </template>
-</KDropdownMenu>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  data() {
-    return {
-      selectedItem: {
-        label: 'Select an item',
-        value: ''
-      },
-      menuItems: [{
-        label: 'US (United States)',
-        value: 'us'
-      },
-      {
-        label: 'FR (France)',
-        value: 'fr'
-      }]
-    }
-  },
-  methods: {
-    handleChange (item) {
-      this.selectedItem = item
-      this.$toaster.open(`${item.label} clicked!`)
-    }
-  }
-})
-</script>
-```
-
-### buttonAppearance
-
-Use this prop to customize the trigger **KButton** [appearance](/components/button.html#appearance).
-
-<ClientOnly>
-  <KDropdownMenu label="Documentation" button-appearance="creation" :items="deepClone(defaultItemsUnselected)" show-caret />
-</ClientOnly>
-
-```html
-<KDropdownMenu
-  label="Documentation"
-  button-appearance="creation"
+<KDropdown
+  trigger-text="Documentation"
+  appearance="secondary"
   :items="items"
 />
 ```
@@ -130,57 +56,31 @@ Use this prop to customize the trigger **KButton** [appearance](/components/butt
 Use this prop if you would like the trigger button to display the caret.
 
 <ClientOnly>
-  <KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" show-caret />
+  <KDropdown trigger-text="Documentation" :items="deepClone(defaultItems)" show-caret />
 </ClientOnly>
 
 ```html
-<KDropdownMenu
-  label="Documentation"
-  :items="items"
+<KDropdown
+  trigger-text="Documentation"
   show-caret
-/>
-```
-
-### caretColor
-
-::: tip NOTE
-Use this prop in conjunction with the `showCaret` prop
-:::
-
-Use this prop to customize the color of the caret
-
-<ClientOnly>
-  <KDropdownMenu
-    caret-color="lightgreen"
-    label="Select Type"
-    :items="deepClone(defaultItemsUnselected)"
-    show-caret
-  />
-</ClientOnly>
-
-```html
-<KDropdownMenu
-  caret-color="lightgreen"
-  label="Select Type"
   :items="items"
-  show-caret
 />
 ```
 
 ### icon
 
+:::warning NOTE
+This prop will be removed in the `9.0.0-beta.0` release.
+:::
+
 A string for the `KIcon` to be displayed on the dropdown button with or in place of the button label.
 
 <ClientOnly>
-  <KDropdownMenu icon="cogwheel" :items="deepClone(defaultItemsUnselected)" show-caret />
+  <KDropdown icon="cogwheel" :items="deepClone(defaultItems)" show-caret />
 </ClientOnly>
 
 ```html
-<KDropdownMenu
-  icon="cogwheel"
-  :items="items"
-  show-caret
-/>
+<KDropdown icon="cogwheel" :items="items" show-caret />
 ```
 
 ### width
@@ -188,138 +88,181 @@ A string for the `KIcon` to be displayed on the dropdown button with or in place
 The width of the dropdown body (defaults to `auto`). Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
 
 <ClientOnly>
-  <KDropdownMenu label="Documentation" :items="deepClone(defaultItemsUnselected)" width="500" />
+  <KDropdown trigger-text="Documentation" :items="deepClone(defaultItems)" width="700" />
 </ClientOnly>
 
 ```html
-<KDropdownMenu
-  label="Documentation"
+<KDropdown
+  trigger-text="Documentation"
+  width="700"
   :items="items"
-  width="500"
 />
 ```
 
 ### kpopAttributes
 
-Use the `kpopAttributes` prop to configure the **KPop** [props](/components/popover) dropdown.
+Use the `kpopAttributes` prop to configure the KPop [props](/components/popover) dropdown.
 
 <ClientOnly>
-  <KCard
-    title="KPopAttributes FTW"
-    body="Click the three dots in the upper right corner to see the example in action"
-  >
-    <template #actions>
-      <KDropdownMenu
-        :kpop-attributes="{
-          maxWidth: '100'
-        }"
-        :items="deepClone(defaultItemsUnselected)"
-      >
-        <template #default>
-          <KButton
-            appearance="tertiary"
-            size="small"
-          >
-            <template #icon>
-              <KIcon
-                icon="more"
-                color="blue"
-                size="16"
-              />
-            </template>
-          </KButton>
-        </template>
-      </KDropdownMenu>
-    </template>
-  </KCard>
+  <KDropdown trigger-text="Documentation" :kpop-attributes="{ placement: 'leftStart' }" :items="deepClone(defaultItems)" />
 </ClientOnly>
 
 ```html
-<KCard
-  title="KPopAttributes FTW"
-  body="Click the three dots in the upper right corner to see the example in action"
->
-  <template #actions>
-    <KDropdownMenu
-      :kpop-attributes="{
-        popoverClasses: 'some-class',
-        maxWidth: '100'
-      }"
-      :items="deepClone(defaultItemsUnselected)"
-    >
-      <template #default>
-        <KButton
-          appearance="tertiary"
-          size="small"
-        >
-          <template #icon>
-            <KIcon
-              icon="more"
-              color="blue"
-              size="16"
-            />
-          </template>
-        </KButton>
-      </template>
-    </KDropdownMenu>
-  </template>
-</KCard>
+<KDropdown 
+  trigger-text="Documentation"
+  :kpop-attributes="{ placement: 'leftStart' }"
+  :items="items"
+/>
 ```
 
 ### disabled
 
-Use this prop to disable the dropdown, can be used in conjunction with `disabledTooltip` prop.
+Use this prop to disable the dropdown, can be used in conjunction with [`disabledTooltip` prop](#disabledtooltip).
 
 ### disabledTooltip
 
 Text to display on hover if dropdown is disabled.
 
 <ClientOnly>
-  <KDropdownMenu
-    label="Documentation"
-    :disabled="true"
+  <KDropdown
+    trigger-text="Documentation"
+    disabled
     disabled-tooltip="You can't click me"
-    :items="deepClone(defaultItemsUnselected)"
+    :items="deepClone(defaultItems)"
   />
 </ClientOnly>
 
 ```html
-<KDropdownMenu
-  label="Documentation"
-  :disabled="true"
+<KDropdown
+  trigger-text="Documentation"
+  disabled
   disabled-tooltip="You can't click me"
-  :items="deepClone(defaultItemsUnselected)"
+  :items="items"
 />
 ```
 
-## Slots
+### isSelectionMenu
 
-There are 2 supported slots:
+Use this prop when a visual indication of the currently selected menu item is needed. 
+
+By default the dropdown has no notion of "selection":
+
+<ClientOnly>
+  <KDropdown trigger-text="Select region" :items="deepClone(selectionMenuItems)" show-caret />
+</ClientOnly>
+
+```html
+<KDropdown
+  trigger-text="Select region"
+  :items="[{ label: 'US (United States)', value: 'us' }, { label: 'FR (France)', value: 'fr' }]"
+  show-caret
+/>
+```
+
+When `isSelectionMenu` is `true`, `selected` state is handled automatically when clicking a KDropdownItem if used in conjunction with the `items` prop. Each item should have a `label` and a `value`. To keep track of changes in your host app you can utilize [`@change` event](#events).
+
+<ClientOnly>
+  <KDropdown
+    is-selection-menu
+    :items="selectionMenuItems"
+    trigger-text="Select region"
+    @change="handleSelectionMenuUpdate"
+    show-caret
+  />
+</ClientOnly>
+
+```vue
+<template>
+  <KDropdown
+    is-selection-menu
+    :items="[{ label: 'US (United States)', value: 'us' }, 
+      { label: 'FR (France)', value: 'fr' }]"
+    trigger-text="Select region"
+    @change="handleSelectionMenuUpdate"
+    show-caret
+  />
+</template>
+
+<script setup lang="ts">
+const selectedItem = ref<DropdownItem>()
+
+const handleSelectionMenuUpdate = (item: DropdownItem): void => {
+  selectedItem.value = item
+}
+</script>
+```
+
+If using the [`items` slot](#items-1), you will have access to the `handleSelection()` method which should be called on each item's click event and takes the `item` data as a parameter. This will enable you to attach to the `@change` event (which returns the selected item) to track your selection.
+
+<ClientOnly>
+  <KDropdown
+    is-selection-menu
+    trigger-text="Select region (with items slot)"
+    @change="handleSelectionMenuUpdate"
+    show-caret
+  >
+    <template #items="{ handleSelection }">
+      <KDropdownItem
+        v-for="item in selectionMenuItems"
+        :key="item.value"
+        :item="item"
+        :selected="item.value === selectionMenuSelectedItem?.value"
+        @click="handleSelection(item)"
+      />
+    </template>
+  </KDropdown>
+</ClientOnly>
+
+```vue
+<template>
+  <KDropdown
+    is-selection-menu
+    trigger-text="Select region (with items slot)"
+    @change="handleSelectionMenuUpdate"
+    show-caret
+  >
+    <template #items="{ handleSelection }">
+      <KDropdownItem
+        v-for="item in [{ label: 'US (United States)', value: 'us' }, 
+          { label: 'FR (France)', value: 'fr' }]"
+        :key="item.value"
+        :item="item"
+        :selected="item.value === selectedItem?.value"
+        @click="handleSelection(item)"
+      />
+    </template>
+  </KDropdown>  
+</template>
+
+<script setup lang="ts">
+const selectionMenuSelectedItem = ref<DropdownItem>()
+
+const handleSelectionMenuUpdate = (item: DropdownItem): void => {
+  selectedItem.value = item
+}
+</script>
+```
+
+## Slots
 
 ### default
 
 The trigger element for opening/closing the menu.
 
 <ClientOnly>
-  <KDropdownMenu :items="deepClone(defaultItemsUnselected)">
-    <template #default>
-        <KButton>
-          Menu
-          <ChevronDownIcon />
-        </KButton>
-      </template>
-  </KDropdownMenu>
+  <KDropdown :items="deepClone(defaultItems)">
+    <KButton appearance="secondary" class="icon-button">
+      <CogIcon />
+    </KButton>
+  </KDropdown>
 </ClientOnly>
 
 ```html
-<KDropdownMenu :items="items">
-  <template #default>
-      <KButton>
-        Menu
-        <ChevronDownIcon />
-      </KButton>
-    </template>
-</KDropdownMenu>
+<KDropdown :items="items">
+  <KButton appearance="secondary" class="icon-button">
+    <CogIcon />
+  </KButton>
+</KDropdown>
 ```
 
 ### items
@@ -330,218 +273,296 @@ Slot props:
 - `closeDropdown`
   - type: `Function`
   - Function that triggers dropdown close.
+- `handleSelection`
+  - type: `Function`
+  - Function that lets KDropdown track selected item when `isSelectionMenu` is `true`.
 
-For an example of using the items slot see the [`KDropdownItem`](#KDropdownItem) section.
+KDropdownItem takes care of icon color, size and spacing as long as you use icons provided by [@kong/icons](https://github.com/Kong/icons) package.
+
+<ClientOnly>
+  <KDropdown
+    trigger-text="Customized dropdown items"
+    width="250"
+  >
+    <template #items>
+      <KDropdownItem>
+        Updates
+        <KBadge
+          class="dropdown-item-content-end"
+          shape="rectangular"
+        >
+          14
+        </KBadge>
+      </KDropdownItem>
+      <KDropdownItem>
+        Support
+        <KBadge
+          appearance="success"
+          shape="rectangular"
+        >
+          Enterprise
+        </KBadge>
+        <ExternalLinkIcon class="dropdown-item-content-end" />
+      </KDropdownItem>
+      <KDropdownItem>
+        <BookIcon />
+        Docs
+        <KTooltip
+          class="dropdown-item-content-end"
+          label="This is a tooltip"
+        >
+          <InfoIcon />
+        </KTooltip>
+      </KDropdownItem>
+    </template>
+  </KDropdown>
+</ClientOnly>
+
+```vue
+<template>
+  <KDropdownItem>
+    <BookIcon />
+    Docs
+    <KTooltip
+      class="dropdown-item-content-end"
+      label="This is a tooltip"
+    >
+      <InfoIcon />
+    </KTooltip>
+  </KDropdownItem>
+</template>
+
+<style lang="scss" scoped>
+.dropdown-item-content-end {
+  margin-left: $kui-space-auto;
+}
+</style>
+```
+
+:::tip TIP
+Should you decide to use your own custom icons, you can use design tokens exported by the [@kong/design-tokens](https://github.com/Kong/design-tokens) package to set icon size. The recommended icon size is `20px` or `kui-icon-size-40`.
+
+We also recommend setting the icon style `color` property to a value of `currentColor` to utilize default KDropdownItem styling for slotted content.
+:::
 
 ## KDropdownItem
 
-**KDropdownMenu** generates a **KDropdownItem** for each object in the `items` prop array. At the most basic level, **KDropdownItem** is a wrapper around each item to display it correctly inside `KDropdownMenu`. You can use the `items` slot of the `KDropdownMenu` to manually create your own menu items.
+KDropdown generates a KDropdownItem for each object in the `items` prop array. At the most basic level, KDropdownItem is a wrapper around each item to display it correctly inside KDropdown. You can use the `items` slot of the KDropdown to manually create your own menu items.
 
-### Properties
+### Props
 
-- `item` - the properties the router-link is built from, it expects a `label` and optionally a `to` (for a router-link item) or `value` (for a `selectionMenu` item).
-- `disabled` - a boolean (defaults to `false`), whether or not to disable the item.
-- `selected` - a boolean (defaults to `false`), whether or not the item is selected if using `selectionMenu` appearance.
+- `item` - the properties the link is built from, it expects a `label` and optionally a `to` or `value` (when `isSelectionMenu` is `true`)
+  - if `to` is `typeof object`, the item will be rendered as a `<router-link>`
+  - otherwise if `to` is `typeof string` - it will be rendered as an `<a>` element with value of `to` applied to `href` attribute
+- `disabled` - a boolean (defaults to `false`), whether or not to disable the item
+- `selected` - a boolean (defaults to `false`), whether or not the item is selected if using `selectionMenu` appearance
 - `hasDivider` - a boolean (defaults to `false`), whether or not the item should have a divider bar displayed above it
 - `isDangerous` - a boolean (defaults to `false`), whether or not to apply danger styles (text color is red)
 
-```html
-<KDropdownItem :item="{ label: 'Leave the page', to: { path: '/' } }" />
-```
-
-There are 3 primary item types:
-
-- `link`
-  - the generic type generated using the `items` prop on `KDropdownMenu`
-  - the generic type generated using the `item` prop on `KDropdownItem`
-- `button` - this item is generated if a handler is specified for the `@click` event on a `KDropdownItem`
-- `custom` - no special handling, you completely control the content
-
 <ClientOnly>
-  <KDropdownMenu label="Variety" width="250">
+  <KDropdown trigger-text="All kinds of dropdown items" width="220">
     <template #items="{ closeDropdown }">
-      <KDropdownItem :item="youAreHere" />
       <KDropdownItem
-        :item="{ label: 'A button with a a long long long long long long looooooooooooooooooooooooooooooooooooooooooooooong name' }"
-        has-divider
-        @click="clickHandler('Button clicked!')"
-      />
+        @click="clickHandler"
+      >
+        Regular button
+      </KDropdownItem>
+      <KDropdownItem
+        :item="{ label: 'Dropdown', to: { path: '/components/dropdown' } }"
+        target="_blank"
+      >
+        Router link
+      </KDropdownItem>
+      <KDropdownItem
+        :item="{ label: 'External link', to: 'https://kongponents.konghq.com/' }"
+        target="_blank"
+      >
+        External link
+      </KDropdownItem>
       <KDropdownItem
         disabled
+        has-divider
         @click="clickHandler"
       >
         Disabled button
       </KDropdownItem>
       <KDropdownItem
-        :item="youAreHere"
         disabled
+        :item="{ label: 'Dropdown', to: { path: '/components/dropdown' } }"
+      >
+        Disabled router link
+      </KDropdownItem>
+      <KDropdownItem
+        disabled
+        :item="{ label: 'External link', to: 'https://kongponents.konghq.com/' }"
+      >
+        Disabled external link
+      </KDropdownItem>
+      <KDropdownItem
+        has-divider
         @click="clickHandler"
       >
-        Disabled to link
-      </KDropdownItem>
-      <KDropdownItem @click="clickHandler('Button clicked!')" class="dropdown-with-remove-action">
-        Button w/ action
-        <KButton
-          appearance="tertiary"
-          @click.stop="() => { clickHandler('Button action clicked!'); closeDropdown() }"
-        >
-          <KIcon icon="trash" />
-        </KButton>
+        Button with action
+        <CogIcon
+          class="dropdown-item-content-end"
+          role="button"
+          tabindex="0"
+          @click.stop="actionClickHandler(closeDropdown)"
+        />
       </KDropdownItem>
       <KDropdownItem
         has-divider
         is-dangerous
+        @click="clickHandler"
       >
-        <a
-          href="http://www.google.com"
-          rel="noopener"
-          target="_blank"
-        >
-          <span class="horizontal-spacing">External link</span>
-          <KIcon
-            icon="externalLink"
-            size="12"
-            color="red"
-          />
-        </a>
+        Danger button
       </KDropdownItem>
     </template>
-  </KDropdownMenu>
+  </KDropdown>
 </ClientOnly>
 
-```html
-<KDropdownMenu label="Variety" width="250">
-  <template #items="{ closeDropdown }">
-    <KDropdownItem :item="youAreHere" />
-    <KDropdownItem
-      :item="{ label: 'A button with a a long long long long long long looooooooooooooooooooooooooooooooooooooooooooooong name' }"
-      has-divider
-      @click="clickHandler('Button clicked!')"
-    />
-    <KDropdownItem
-      disabled
-      @click="clickHandler"
-    >
-      Disabled button
-    </KDropdownItem>
-    <KDropdownItem
-      :item="{ label: 'You are here 2', to: { path: '/components/dropdown.html' } }"
-      disabled
-      @click="clickHandler"
-    >
-      Disabled to link
-    </KDropdownItem>
-    <KDropdownItem
-      @click="clickHandler"
-    >
-      Button w/ action
-      <KButton
-        appearance="tertiary"
-        @click.stop="() => { actionClickHandler(); closeDropdown(); }"
+```vue
+<template>
+  <KDropdown trigger-text="All kinds of dropdown items">
+    <template #items="{ closeDropdown }">
+      <KDropdownItem
+        @click="clickHandler"
       >
-        <KIcon icon="trash" />
-      </KButton>
-    </KDropdownItem>
-    <KDropdownItem
-      has-divider
-      is-dangerous
-    >
-      <a
-        href="http://www.google.com"
-        rel="noopener"
+        Regular button
+      </KDropdownItem>
+      <KDropdownItem
+        :item="{ label: 'Dropdown', to: { path: '/components/dropdown' } }"
+        target="_blank"
+      >
+        Router link
+      </KDropdownItem>
+      <KDropdownItem
+        :item="{ label: 'External link', to: 'https://kongponents.konghq.com/' }"
         target="_blank"
       >
         External link
-        <KIcon
-          icon="externalLink"
-          size="12"
-          color="red"
+      </KDropdownItem>
+      <KDropdownItem
+        disabled
+        has-divider
+        @click="clickHandler"
+      >
+        Disabled button
+      </KDropdownItem>
+      <KDropdownItem
+        disabled
+        :item="{ label: 'Dropdown', to: { path: '/components/dropdown' } }"
+      >
+        Disabled router link
+      </KDropdownItem>
+      <KDropdownItem
+        disabled
+        :item="{ label: 'External link', to: 'https://kongponents.konghq.com/' }"
+      >
+        Disabled external link
+      </KDropdownItem>
+      <KDropdownItem
+        has-divider
+        @click="clickHandler"
+      >
+        Button with action
+        <CogIcon
+          role="button"
+          tabindex="0"
+          @click.stop="actionClickHandler(closeDropdown)"
         />
-      </a>
-    </KDropdownItem>
-  </template>
-</KDropdownMenu>
+      </KDropdownItem>
+      <KDropdownItem
+        has-divider
+        is-dangerous
+        @click="clickHandler"
+      >
+        Danger button
+      </KDropdownItem>
+    </template>
+  </KDropdown>
+</template>
+
+<script setup lang="ts">
+const clickHandler = (): void => {
+  window.alert('Item was clicked')
+}
+
+const actionClickHandler = (closeDropdown: () => void): void => {
+  window.alert('Item action was clicked')
+  closeDropdown()
+}
+</script>
+```
+
+### Attribute Binding
+
+You can pass any attribute to the KDropdownItem and it will get properly bound to the element.
+
+```html
+<KDropdownItem
+  target="_blank"
+  rel="noopener"
+  :item="{ label: 'Leave the page', to: 'https://kongponents.konghq.com/' }" 
+/>
 ```
 
 ### Events
 
-| Event             | Description                                                                                            |
-| :---------------- | :----------------------------------------------------------------------------------------------------- |
-| `@click`          | Fires when a `button` type menu item is clicked                                                        |
-| `@change`         | Fires when items within a `selectionMenu` are clicked; returns the selected menu item object or `null` |
-| `@toggleDropdown` | Fires when the button to toggle the menu is clicked; returns `true` if the menu is open, or `false`    |
+#### click
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { ChevronDownIcon } from '@kong/icons'
+You can bind event handlers to `@click` event just like you would normally do with buttons.
 
-export default defineComponent({
-  components: {
-    ChevronDownIcon
-  },
-  data () {
-    return {
-      selectedItem: {
-        value: '',
-        label: 'Select an item'
-      },
-      menuItems: [{
-        label: 'US (United States)',
-        value: 'us'
-      },
-      {
-        label: 'FR (France)',
-        value: 'fr'
-      }],
-      defaultItemsUnselected: [
-        { label: 'Props', to: { path: '/components/dropdown.html', hash: '#props' } },
-        { label: 'Slots', to: { path: '/components/dropdown.html', hash: '#slots' } },
-        { label: 'Top', to: { path: '/components/dropdown.html' } }
-      ],
-      youAreHere: { label: 'You are here', to: { path: '/components/dropdown.html' } }
-    }
-  },
-  methods: {
-    handleChange (item) {
-      this.selectedItem = item
-      this.$toaster.open(`${item.label} clicked!`)
-    },
-    clickHandler (msg) {
-      let text = 'Button was clicked'
+#### change
 
-      if (msg) {
-        text = msg
-      }
+Fires when items are clicked when `isSelectionMenu` is `true`. Returns the selected menu item object or `null`.
 
-      this.$toaster.open(text)
-    },
-    deepClone (obj) {
-      return JSON.parse(JSON.stringify(obj))
-    }
-  }
-})
-</script>
+#### toggleDropdown
 
-<style lang="scss">
-.dropdown-with-remove-action {
-  button {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-  }
+Fires when the button to toggle the menu is clicked. Returns `true` if the menu is open, otherwise returns `false`.
 
-  svg {
-    margin-right: 0 !important;
-  }
+<script setup lang="ts">
+import { ref } from 'vue'
+import { CogIcon, ExternalLinkIcon, BookIcon, InfoIcon } from '@kong/icons'
+import type { DropdownItem } from '@/types'
 
-  &:hover {
-    svg path {
-      fill: red;
-    }
-  }
+const defaultItems = [
+  { label: 'Props', to: { path: '/components/dropdown#props' } },
+  { label: 'Slots', to: { path: '/components/dropdown#slots' } },
+  { label: 'Top', to: { path: '/components/dropdown' } },
+]
+
+const selectionMenuSelectedItem = ref<DropdownItem>()
+
+const selectionMenuItems = ref<Array<DropdownItem>>([{
+  label: 'US (United States)',
+  value: 'us',
+},
+{
+  label: 'FR (France)',
+  value: 'fr',
+}])
+
+const handleSelectionMenuUpdate = (item: DropdownItem): void => {
+  selectedItem.value = item
 }
 
-.horizontal-spacing {
-  margin-right: $kui-space-40;
+const clickHandler = (): void => {
+  window.alert('Item was clicked')
+}
+
+const actionClickHandler = (closeDropdown: () => void): void => {
+  window.alert('Item action was clicked')
+  closeDropdown()
+}
+
+const deepClone = (obj: any): any => {
+  return JSON.parse(JSON.stringify(obj))
+}
+</script>
+
+<style lang="scss" scoped>
+.dropdown-item-content-end {
+  margin-left: $kui-space-auto;
 }
 </style>
