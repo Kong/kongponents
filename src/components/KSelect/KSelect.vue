@@ -138,6 +138,7 @@
               :color="`var(--grey-500, ${KUI_COLOR_TEXT_NEUTRAL})`"
               icon="chevronDown"
               :size="KUI_ICON_SIZE_30"
+              @click.prevent="onInputFocus"
             />
             <KInput
               :id="selectTextId"
