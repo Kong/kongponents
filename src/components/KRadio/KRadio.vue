@@ -3,9 +3,8 @@
     :checked="isSelected"
     class="k-radio"
     :class="[
-      isTypeDefault ? 'k-radio-default' : `k-radio-${type}`,
       $attrs.class ? $attrs.class : '',
-      { 'disabled': isDisabled }
+      { 'disabled': isDisabled, 'k-radio-card': isCard, 'has-error': hasError }
     ]"
   >
     <input
@@ -18,37 +17,57 @@
       @click="handleClick"
     >
 
-    <KLabel
-      v-if="isTypeDefault && hasLabel"
-      v-bind="labelAttributes"
-      class="k-radio-label"
+    <div
+      v-if="!isCard && (label || $slots.default)"
+      class="k-radio-wrapper"
       :class="{ 'has-description': hasDescription }"
-      :for="inputId"
     >
-      <slot>{{ label }}</slot>
+      <KLabel
+        v-bind="labelAttributes"
+        class="radio-label"
+        :for="inputId"
+      >
+        <slot>{{ label }}</slot>
+
+        <template
+          v-if="hasTooltip"
+          #tooltip
+        >
+          <slot name="tooltip" />
+        </template>
+      </KLabel>
 
       <div
         v-if="hasDescription"
-        class="k-radio-description"
+        class="radio-description"
       >
         <slot name="description">
           {{ description }}
         </slot>
       </div>
-
-      <template
-        v-if="hasTooltip"
-        #tooltip
-      >
-        <slot name="tooltip" />
-      </template>
-    </KLabel>
+    </div>
 
     <label
-      v-else-if="$slots.default"
+      v-else-if="label || $slots.default"
+      class="k-radio-wrapper"
       :for="inputId"
+      :tabindex="isDisabled ? -1 : 0"
     >
-      <slot name="default" />
+      <slot />
+      <span
+        v-if="label"
+        class="radio-label"
+      >
+        {{ label }}
+      </span>
+      <span
+        v-if="hasDescription"
+        class="radio-description"
+      >
+        <slot name="description">
+          {{ description }}
+        </slot>
+      </span>
     </label>
   </div>
 </template>
@@ -73,7 +92,7 @@ const props = defineProps({
    */
   modelValue: {
     type: [String, Number, Boolean, Object],
-    default: 'on',
+    default: 'true',
     required: true,
   },
   /**
@@ -101,34 +120,35 @@ const props = defineProps({
     type: [String, Number, Boolean, Object],
     required: true,
   },
+  hasError: {
+    type: Boolean,
+    default: false,
+  },
+  isCard: {
+    type: Boolean,
+    default: false,
+  },
   /**
-   * Controls appearance of radio input element
+   * @deprecated in favor of `isCard`
    */
   type: {
     type: String as PropType<RadioTypes>,
     default: 'radio',
-    validator: (value: RadioTypes): boolean => RadioTypesArray.includes(value),
-  },
-  /**
-   * Test mode - for testing only, strips out generated ids
-   */
-  testMode: {
-    type: Boolean,
-    default: false,
+    validator: (value: RadioTypes): boolean => {
+      console.warn('KRadio: `type` prop is deprecated in favor of `isCard`. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kradio')
+
+      return RadioTypesArray.includes(value)
+    },
   },
 })
 
 const slots = useSlots()
 
-const inputId = computed((): string => attrs.id ? String(attrs.id) : props.testMode ? 'test-radio-input-id-1234' : uuidv4())
+const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
-const hasLabel = computed((): boolean => !!(props.label || slots.default))
 const hasDescription = computed((): boolean => !!(props.description || slots.description))
 const hasTooltip = computed((): boolean => !!slots.tooltip)
-
 const isSelected = computed((): boolean => props.selectedValue === props.modelValue)
-
-const isTypeDefault = computed((): boolean => props.type === 'radio')
 
 const emit = defineEmits<{
   (e: 'change', value: string | boolean | number | object): void
@@ -153,156 +173,83 @@ const modifiedAttrs = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/mixins';
-
 .k-radio {
+  display: inline-flex;
+
   .k-input {
-    @include input-type-radio;
-  }
-}
-</style>
-
-<style lang="scss">
-@import '@/styles/tmp-variables';
-@import '@/styles/mixins';
-
-$text-color-card: var(--kui-color-text, $kui-color-text);
-$border-color-card: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-$background-color-card-checked: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-$border-color-card-checked: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
-$background-color-card-disabled: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
-
-@mixin kRadioDisabled {
-  background-color: $background-color-card-disabled;
-  cursor: not-allowed;
-  opacity: 0.6;
-
-  &:hover {
-    background-color: $background-color-card-disabled;
-    border-color: $border-color-card;
-  }
-}
-
-@mixin kRadioChecked {
-  background-color: $background-color-card-checked;
-  border-color: $border-color-card-checked;
-  box-shadow: 0px 4px 20px $tmp-color-black-10;
-}
-
-@mixin kRadioCheckedAndDisabled {
-  &:hover {
-    background-color: $background-color-card-checked;
-    border-color: $border-color-card-checked;
-  }
-}
-
-.k-radio {
-  display: inline-block;
-
-  .k-radio-label {
-    font-family: var(--kui-font-family-text, $kui-font-family-text);
-    font-size: var(--kui-font-size-30, $kui-font-size-30);
-    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-    line-height: var(--kui-line-height-30, $kui-line-height-30);
-    margin: var(--kui-space-0, $kui-space-0);
-    vertical-align: middle;
-
-    &.has-description {
-      display: inline !important;
-    }
-  }
-
-  &.disabled {
-    .k-radio-label {
-      color: var(--kui-color-text-disabled, $kui-color-text-disabled);
-    }
-  }
-
-  .k-radio-description {
-    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-    font-size: var(--kui-font-size-30, $kui-font-size-30);
-    line-height: var(--kui-line-height-30, $kui-line-height-30);
-    padding-top: var(--kui-space-20, $kui-space-20);
-  }
-
-  // default radio input styling
-  &.k-radio-default {
-    .k-radio-label:has(.k-radio-description) {
-      font-weight: var(--kui-font-weight-semibold, #{$kui-font-weight-semibold});
-    }
-    .k-radio-description {
-      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-      padding-left: var(--kui-space-80, $kui-space-80);
-    }
-  }
-
-  // card radio input styling
-  &.k-radio-card {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     background-color: var(--kui-color-background, $kui-color-background);
-    border: var(--kui-border-width-10, $kui-border-width-10) solid $border-color-card;
-    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+    border: 0;
+    border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
+    box-shadow: var(--kui-shadow-border, $kui-shadow-border);
     cursor: pointer;
+    height: var(--kui-icon-size-30, $kui-icon-size-30);
+    margin-right: var(--kui-space-40, $kui-space-40);
+    outline: none;
+    width: var(--kui-icon-size-30, $kui-icon-size-30);
 
+    &:hover {
+      box-shadow: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak);
+    }
+
+    &:focus, &:focus-visible {
+      box-shadow: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak), var(--kui-shadow-focus, $kui-shadow-focus);
+    }
+
+    &:checked {
+      box-shadow: 0px 0px 0px 5px #0044f4 inset; // TODO: token needed (kui-shadow-border-primary but with 5px)
+
+      &:focus, &:focus-visible {
+        box-shadow: 0px 0px 0px 5px #0044f4 inset, var(--kui-shadow-focus, $kui-shadow-focus);
+      }
+
+      &:disabled {
+        background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+      }
+    }
+
+    &:disabled {
+      box-shadow: 0px 0px 0px 5px #e0e4ea inset; // TODO: token needed (kui-shadow-border-disabled but with 5px)
+      cursor: not-allowed;
+    }
+  }
+
+  &.has-error {
+    .k-input {
+      &:not(:disabled) {
+        box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
+      }
+
+      &:hover {
+        box-shadow: 0px 0px 0px 1px #ad000e inset; // TODO: token needed (kui-shadow-border-danger-strong, red.70)
+      }
+
+      &:focus, &:focus-visible {
+        box-shadow: 0px 0px 0px 1px #ad000e inset, var(--kui-shadow-focus, $kui-shadow-focus);
+      }
+
+      &:checked:not(:disabled) {
+        box-shadow: 0px 0px 0px 5px #d60027 inset; // TODO: token needed (kui-shadow-border-danger but with 5px)
+
+        &:focus, &:focus-visible {
+          box-shadow: 0px 0px 0px 5px #d60027 inset, var(--kui-shadow-focus, $kui-shadow-focus);
+        }
+      }
+    }
+  }
+
+  // .k-radio-wrapper {
+  // }
+
+  &.k-radio-card {
     .k-input {
       display: none;
     }
 
-    > label {
-      align-items: center;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      justify-content: center;
-      // Apply padding to the label so the entire element is clickable
-      padding: var(--kui-space-60, $kui-space-60);
-      width: 100%;
-    }
-
-    &[disabled], &.disabled {
-      > label {
-        cursor: not-allowed;
-      }
-    }
-
-    .k-radio-label {
-      color: $text-color-card;
-      font-size: var(--kui-font-size-30, $kui-font-size-30);
-      font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
-      text-align: center;
-    }
-
-    &:has(.k-input:disabled) {
-      @include kRadioDisabled;
-    }
-
-    // Firefox disabled state handling
-    &[disabled=""], &[disabled="true"] {
-      @include kRadioDisabled;
-    }
-
-    &:hover {
-      background-color: $background-color-card-checked;
-      border-color: $border-color-card-checked;
-    }
-
-    &:has(.k-input:checked) {
-      @include kRadioChecked;
-    }
-
-    // Firefox checked state handling
-    &[checked=""], &[checked="true"] {
-      @include kRadioChecked;
-    }
-
-    &:has(.k-input:checked:disabled) {
-      @include kRadioCheckedAndDisabled;
-    }
-
-    // Firefox checked AND disabled state handling
-    &[checked=""][disabled=""], &[checked="true"][disabled="true"] {
-      @include kRadioCheckedAndDisabled;
-    }
+    // .k-radio-wrapper {
+    // }
   }
 }
 </style>

@@ -10,6 +10,61 @@
       </template>
     </SandboxTitleComponent>
 
+    <div class="grid-container standalone-container">
+      <div class="vertical-spacing">
+        <KRadio
+          v-model="modelValue"
+          label="Label"
+          selected-value="barfoo0"
+        />
+        <KRadio
+          v-model="modelValue"
+          disabled
+          label="Disabled"
+          selected-value="barfoo1"
+        />
+        <KRadio
+          v-model="modelValue"
+          has-error
+          label="Error"
+          selected-value="barfoo2"
+        />
+        <KRadio
+          v-model="modelValue"
+          disabled
+          has-error
+          label="Error & Disabled"
+          selected-value="barfoo3"
+        />
+      </div>
+      <div class="vertical-spacing">
+        <KRadio
+          v-model="modelValue1"
+          label="Checked"
+          selected-value="barfoo"
+        />
+        <KRadio
+          v-model="modelValue1"
+          disabled
+          label="Checked & Disabled"
+          selected-value="barfoo"
+        />
+        <KRadio
+          v-model="modelValue1"
+          has-error
+          label="Checked & Error"
+          selected-value="barfoo"
+        />
+        <KRadio
+          v-model="modelValue1"
+          disabled
+          has-error
+          label="Checked & Error & Disabled"
+          selected-value="barfoo"
+        />
+      </div>
+    </div>
+
     <!-- Props -->
     <SandboxTitleComponent
       is-subtitle
@@ -19,37 +74,91 @@
       <KRadio
         v-model="modelValue"
         label="Label"
-        selected-value="foobar"
+        selected-value="foobar0"
       />
     </SandboxSectionComponent>
     <SandboxSectionComponent title="description">
-      <KRadio
-        v-model="modelValue"
-        description="Lorem ipsum dolor sit amet."
-        label="Label"
-        selected-value="foobar1"
-      />
+      <div class="grid-container">
+        <div class="vertical-spacing">
+          <KRadio
+            v-model="modelValue"
+            description="Lorem ipsum dolor sit amet."
+            label="Label"
+            selected-value="foobar1"
+          />
+          <KRadio
+            v-model="modelValue"
+            description="Lorem ipsum dolor sit amet."
+            disabled
+            label="Disabled"
+            selected-value="foobar2"
+          />
+        </div>
+        <div class="vertical-spacing">
+          <KRadio
+            v-model="modelValue"
+            description="Lorem ipsum dolor sit amet."
+            has-error
+            label="Error"
+            selected-value="foobar3"
+          />
+          <KRadio
+            v-model="modelValue"
+            description="Lorem ipsum dolor sit amet."
+            disabled
+            has-error
+            label="Error & Disabled"
+            selected-value="foobar4"
+          />
+        </div>
+      </div>
     </SandboxSectionComponent>
-    <SandboxSectionComponent title="type">
-      <div class="horizontal-spacing">
-        <KRadio
-          v-model="modelValue"
-          description="Lorem ipsum dolor sit amet."
-          label="Label"
-          selected-value="foobar2"
-          type="card"
-        >
-          <WorldIcon />
-        </KRadio>
-        <KRadio
-          v-model="modelValue"
-          description="Lorem ipsum dolor sit amet."
-          label="Label"
-          selected-value="foobar3"
-          type="card"
-        >
-          <WorldPrivateIcon />
-        </KRadio>
+    <SandboxSectionComponent title="isCard">
+      <div class="grid-container">
+        <div class="vertical-spacing">
+          <KRadio
+            v-model="modelValue"
+            description="Lorem ipsum dolor sit amet."
+            is-card
+            label="Label"
+            selected-value="card0"
+          >
+            <WorldIcon />
+          </KRadio>
+          <KRadio
+            v-model="modelValue"
+            description="Lorem ipsum dolor sit amet."
+            disabled
+            is-card
+            label="Disabled"
+            selected-value="card1"
+          >
+            <WorldPrivateIcon />
+          </KRadio>
+        </div>
+        <div class="vertical-spacing">
+          <KRadio
+            v-model="modelValue"
+            description="Lorem ipsum dolor sit amet."
+            has-error
+            is-card
+            label="Error"
+            selected-value="card2"
+          >
+            <WorldPrivateIcon />
+          </KRadio>
+          <KRadio
+            v-model="modelValue"
+            description="Lorem ipsum dolor sit amet."
+            disabled
+            has-error
+            is-card
+            label="Error & Disabled"
+            selected-value="card3"
+          >
+            <WorldPrivateIcon />
+          </KRadio>
+        </div>
       </div>
     </SandboxSectionComponent>
     <SandboxSectionComponent title="labelAttributes">
@@ -57,7 +166,7 @@
         v-model="modelValue"
         label="Label"
         :label-attributes="{ info: 'Tooltip it is' }"
-        selected-value="foobar4"
+        selected-value="foobar5"
       />
     </SandboxSectionComponent>
 
@@ -69,7 +178,7 @@
     <SandboxSectionComponent title="default">
       <KRadio
         v-model="modelValue"
-        selected-value="foobar5"
+        selected-value="foobar6"
       >
         Label
       </KRadio>
@@ -78,7 +187,7 @@
       <KRadio
         v-model="modelValue"
         label="Label"
-        selected-value="foobar6"
+        selected-value="foobar7"
       >
         <template #description>
           Lorem ipsum dolor sit amet.
@@ -88,7 +197,7 @@
     <SandboxSectionComponent title="default & description">
       <KRadio
         v-model="modelValue"
-        selected-value="foobar7"
+        selected-value="foobar8"
       >
         Label
         <template #description>
@@ -107,12 +216,30 @@ import { KRadio, KExternalLink } from '@/components'
 import { WorldIcon, WorldPrivateIcon } from '@kong/icons'
 
 const modelValue = ref('foobar')
+const modelValue1 = ref('barfoo')
 </script>
 
 <style lang="scss" scoped>
+.standalone-container {
+  margin-bottom: $kui-space-90;
+}
+
 .horizontal-spacing {
   align-items: flex-end;
   display: flex;
   gap: $kui-space-50;
+}
+
+.vertical-spacing {
+  display: flex;
+  flex-direction: column;
+  gap: $kui-space-50;
+}
+
+.grid-container {
+  column-gap: $kui-space-50;
+  display: grid;
+  grid-template-columns: repeat(2, 40%);
+  row-gap: $kui-space-70;
 }
 </style>
