@@ -16,9 +16,7 @@
 
 ### label
 
-Here you can pass in the text to display in the toolip.
-
-- `I am a new sample label`
+Here you can pass in the text to display in the tooltip.
 
 <KTooltip label="I am a new sample label">
   <KButton>Sample Button</KButton>
@@ -30,43 +28,24 @@ Here you can pass in the text to display in the toolip.
 </KTooltip>
 ```
 
-:::warning NOTE
-KTooltip won't be triggered if the element you pass through `default` slot has `disabled` attribute. You can get around that by wrapping your disabled element around an additional tag, like shown in the example below. 
-:::
+When using the `label` prop (or the [`content` slot](#content)), passing a value of `undefined`, an empty string, or no `content` slot content will prevent the tooltip from showing, while still displaying your `default` slot content.
 
-<KCard>
-  <template #body>
-    <div class="my-tooltip">
-      <KTooltip label="I won't pop up" class="my-tooltip-label">
-        <KButton disabled>❌</KButton>
-      </KTooltip>
-      <KTooltip label="I will pop up">
-        <span>
-          <KButton disabled>✅</KButton>
-        </span>
-      </KTooltip>
-    </div>
-  </template>
-</KCard>
-
-<style>
-.my-tooltip {
-  display: flex !important;
-}
-.my-tooltip-label {
-  margin-right: 4px !important;
-}
-</style>
+<KTooltip :label="labelProptooltipText">
+  <KButton>My tooltip label is empty</KButton>
+</KTooltip>
 
 ```html
-<KTooltip label="I won't show up">
-  <KButton disabled>❌</KButton>
+<KTooltip :label="tooltipLabel">
+  <KButton>My tooltip label is empty</KButton>
 </KTooltip>
-<KTooltip label="I will pop up">
-  <span>
-    <KButton disabled>✅</KButton>
-  </span>
-</KTooltip>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// The tooltip doesn't have label text yet,
+// so hovering over the button will not render an empty tooltip
+const tooltipLabel = ref<string>('')
+</script>
 ```
 
 ### placement
@@ -131,7 +110,9 @@ You can set the maximum width of a Tooltip with the `maxWidth` property. `maxWid
 
 ## Slots
 
-- `Default` There is a main slot that takes in the element you want the popover to be triggered over.
+### default
+
+The `default` slot takes in the element you want the popover to be triggered over.
 
 ```html
 <KTooltip label="a cool label">
@@ -140,7 +121,9 @@ You can set the maximum width of a Tooltip with the `maxWidth` property. `maxWid
 </KTooltip>
 ```
 
-- `Content` This allows you to slot in any html content
+### content
+
+The content slot allows you to slot in any html content
 
 <KTooltip label="Video Games">
   <KButton>&nbsp;✌🏻</KButton>
@@ -185,6 +168,20 @@ Example:
 }
 </style>
 ```
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const labelProptooltipText = ref<string>('')
+
+const toggleTooltipLabel = () => {
+  if (!labelProptooltipText.value) {
+    labelProptooltipText.value = 'Here I am!'
+  } else {
+    labelProptooltipText.value = ''
+  }
+}
+</script>
 
 <style>
 .tooltip-blue {
