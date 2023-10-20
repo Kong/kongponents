@@ -42,13 +42,13 @@ An array of objects containing a required `label` property and other optional pr
 Use this prop to customize the default trigger KButton's [appearance prop](/components/button.html#appearance).
 
 <ClientOnly>
-  <KDropdown trigger-text="Documentation" appearance="secondary" :items="deepClone(defaultItems)" />
+  <KDropdown trigger-text="Documentation" appearance="danger" :items="deepClone(defaultItems)" />
 </ClientOnly>
 
 ```html
 <KDropdown
   trigger-text="Documentation"
-  appearance="secondary"
+  appearance="danger"
   :items="items"
 />
 ```
