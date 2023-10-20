@@ -3,7 +3,7 @@
 **KTooltip** is a tooltip component that is used when you need a simple label to be displayed when hovering over an element. KTooltip has a single slot that takes in the element that you want the tooltip to trigger over. At least the label prop must be passed in for the tooltip to display anything. For example a button:
 
 <KTooltip label="Video Games">
-  <KButton>🎮</KButton>
+  <KButton>What is your hobby?</KButton>
 </KTooltip>
 
 ```html
