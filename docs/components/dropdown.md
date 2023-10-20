@@ -2,6 +2,8 @@
 
 KDropdown is a button (or any slotted content) that is clicked to trigger a fly-out menu popover.
 
+KDropdown provides a popover menu of options, shown by clicking on the dropdown trigger. The trigger defaults to an instance of KButton; however, you may provide slotted content for a custom trigger.
+
 <ClientOnly>
   <KDropdown trigger-text="Documentation" :items="deepClone(defaultItems)" />
 </ClientOnly>
@@ -14,7 +16,7 @@ KDropdown is a button (or any slotted content) that is clicked to trigger a fly-
 
 ### triggerText
 
-The text for the dropdown trigger button. Trigger element can also be [slotted in](#default) should you need to make it something custom.
+The text for the dropdown trigger button. The trigger content can also be [slotted in](#default) should you desire a custom UI.
 
 ### items
 
@@ -37,7 +39,7 @@ An array of objects containing a required `label` property and other optional pr
 
 ### appearance
 
-Use this prop to customize the trigger KButton [appearance](/components/button.html#appearance).
+Use this prop to customize the default trigger KButton's [appearance prop](/components/button.html#appearance).
 
 <ClientOnly>
   <KDropdown trigger-text="Documentation" appearance="secondary" :items="deepClone(defaultItems)" />
@@ -53,7 +55,7 @@ Use this prop to customize the trigger KButton [appearance](/components/button.h
 
 ### showCaret
 
-Use this prop if you would like the trigger button to display the caret.
+Use this prop if you would like the trigger button to display a caret icon.
 
 <ClientOnly>
   <KDropdown trigger-text="Documentation" :items="deepClone(defaultItems)" show-caret />
@@ -70,7 +72,7 @@ Use this prop if you would like the trigger button to display the caret.
 ### icon
 
 :::warning NOTE
-This prop will be removed in the `9.0.0-beta.0` release.
+This prop will be removed in the `9.0.0-beta.0` release. Icons can be provided in the `default` slot
 :::
 
 A string for the `KIcon` to be displayed on the dropdown button with or in place of the button label.

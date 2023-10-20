@@ -90,10 +90,10 @@ const props = defineProps({
     validator: (value: ButtonAppearance) => {
       // @ts-ignore
       if (value === 'menu' || value === 'selectionMenu') {
-        console.warn('KDropdown: some props have changed. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kdropdownmenu')
+        console.warn('KDropdown: the usage for the `appearance` prop has changed. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kdropdownmenu')
       }
 
-      return Object.values(ButtonAppearances).indexOf(value) !== -1
+      return Object.values(ButtonAppearances).includes(value)
     },
   },
   triggerText: {

@@ -120,7 +120,7 @@ Component has been renamed to `KDropdown`
 
 #### Props
 
-* `label` prop has been deprecated in favor of the `trigger-text` prop
+* `label` prop has been deprecated in favor of the new `trigger-text` prop (usage is the same)
 * `appearance` prop has been changed in favor of the `is-selection-menu` prop
 * `buttonAppearance` prop has been removed in favor of the `appearance`
 * `testMode` prop has been removed
