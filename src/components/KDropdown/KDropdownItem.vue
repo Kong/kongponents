@@ -175,22 +175,16 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
   justify-content: space-between;
   list-style: none;
 
-  &:first-of-type {
-    .k-dropdown-item-trigger {
-      border-top-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-      border-top-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-    }
-  }
-
-  &:last-of-type {
-    .k-dropdown-item-trigger {
-      border-bottom-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-      border-bottom-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-    }
-  }
-
   &.has-divider {
-    border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    display: flex;
+    flex-direction: column;
+
+    &::before {
+      border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+      content: '';
+      margin: var(--kui-space-20, $kui-space-20) 0;
+      width: 100%;
+    }
   }
 
   &.danger {
