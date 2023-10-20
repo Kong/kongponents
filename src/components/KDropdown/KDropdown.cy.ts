@@ -36,10 +36,8 @@ describe('KDropdown', () => {
 
     cy.getTestId('dropdown-list').should('exist')
     cy.getTestId('dropdown-list').should('be.visible')
-    cy.getTestId(`k-dropdown-item-${defaultMenuItems[0].label}`).should('exist')
-    cy.getTestId(`k-dropdown-item-${defaultMenuItems[0].label}`).should('contain.text', defaultMenuItems[0].label)
-    cy.getTestId(`k-dropdown-item-${defaultMenuItems[1].label}`).should('exist')
-    cy.getTestId(`k-dropdown-item-${defaultMenuItems[1].label}`).should('contain.text', defaultMenuItems[1].label)
+    cy.getTestId('dropdown-item').eq(0).should('exist').should('contain.text', defaultMenuItems[0].label)
+    cy.getTestId('dropdown-item').eq(1).should('exist').should('contain.text', defaultMenuItems[1].label)
   })
 
   it('renders with correct px width', async () => {

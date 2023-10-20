@@ -145,23 +145,11 @@ Text to display on hover if dropdown is disabled.
 
 ### isSelectionMenu
 
+Defaults to `false`.
+
 Use this prop when a visual indication of the currently selected menu item is needed. 
 
-By default the dropdown has no notion of "selection":
-
-<ClientOnly>
-  <KDropdown trigger-text="Select region" :items="deepClone(selectionMenuItems)" show-caret />
-</ClientOnly>
-
-```html
-<KDropdown
-  trigger-text="Select region"
-  :items="[{ label: 'US (United States)', value: 'us' }, { label: 'FR (France)', value: 'fr' }]"
-  show-caret
-/>
-```
-
-When `isSelectionMenu` is `true`, `selected` state is handled automatically when clicking a KDropdownItem if used in conjunction with the `items` prop. Each item should have a `label` and a `value`. To keep track of changes in your host app you can utilize [`@change` event](#events).
+By default the dropdown has no notion of "selection". When `isSelectionMenu` is `true`, `selected` state is handled automatically when clicking a KDropdownItem if used in conjunction with the `items` prop. Each item should have a `label` and a `value`. To keep track of changes in your host app you can utilize [`@change` event](#events).
 
 <ClientOnly>
   <KDropdown

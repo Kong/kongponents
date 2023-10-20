@@ -7,6 +7,7 @@
       'danger': isDangerous,
       'dropdown-selected-option': selected
     }"
+    data-testid="dropdown-item"
   >
     <component
       :is="availableComponents[componentType].tag"

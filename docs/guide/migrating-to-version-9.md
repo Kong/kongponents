@@ -115,7 +115,7 @@ Component has been renamed to `KDropdown`
 * `k-dropdown-selected-option` class has been replaced with `dropdown-selected-option`
 * `k-dropdown-item-trigger` class has been replaced with `dropdown-item-trigger`
 * `k-dropdown-item-trigger-label` class has been replaced with `dropdown-item-trigger-label`
-* dynamic `k-dropdown-item` `testid` data attribute has been removed
+* dynamic `k-dropdown-item` `testid` data attribute has been replaced with `dropdown-item`
 
 #### Constants, Types & Interfaces
 
@@ -125,8 +125,8 @@ Component has been renamed to `KDropdown`
 #### Props
 
 * `label` prop has been deprecated in favor of the new `trigger-text` prop (usage is the same)
-* `appearance` prop has been changed in favor of the `is-selection-menu` prop
-* `buttonAppearance` prop has been removed in favor of the `appearance`
+* `appearance` prop has been changed in favor of the `is-selection-menu` prop for the selection menu functionality. `appearance` now controls the underlying `KButton` `appearance` prop
+* `buttonAppearance` prop has been removed in favor of `appearance`, still controlling the `KButton` `appearance` prop
 * `testMode` prop has been removed
 * `icon` prop is removed (TODO: [beta])
 * `caretColor` prop is removed
