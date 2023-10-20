@@ -5,18 +5,17 @@
       'has-divider': hasDivider,
       'disabled': disabled,
       'danger': isDangerous,
-      'k-dropdown-selected-option': selected
+      'dropdown-selected-option': selected
     }"
-    :data-testid="`k-dropdown-item-${label.replace(/ /gi, '-')}`"
   >
     <component
       :is="availableComponents[componentType].tag"
-      data-testid="k-dropdown-item-trigger"
+      data-testid="dropdown-item-trigger"
       v-bind="availableComponents[componentType].attrs"
       @click="availableComponents[componentType].onClick"
     >
       <span
-        class="k-dropdown-item-trigger-label"
+        class="dropdown-item-trigger-label"
       >
         <slot>{{ label }}</slot>
       </span>
@@ -125,7 +124,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
   link: {
     tag: 'a',
     attrs: {
-      class: `k-dropdown-item-trigger ${props.disabled ? 'disabled' : ''} ${attrs.class || ''}`,
+      class: `dropdown-item-trigger ${props.disabled ? 'disabled' : ''} ${attrs.class || ''}`,
       href: to.value as string,
       // only add disabled attribute if props.disabled returns truthy value, otherwise it will be added as disabled="false" which will be treaded as disabled
       ...(!!props.disabled && { disabled: true, tabindex: -1 }),
@@ -136,7 +135,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     tag: 'router-link',
     onClick: handleClick,
     attrs: {
-      class: `k-dropdown-item-trigger ${props.disabled ? 'disabled' : ''} ${attrs.class || ''}`,
+      class: `dropdown-item-trigger ${props.disabled ? 'disabled' : ''} ${attrs.class || ''}`,
       to: to.value,
       // only add disabled attribute if props.disabled returns truthy value, otherwise it will be added as disabled="false" which will be treaded as disabled
       ...(!!props.disabled && { disabled: true, tabindex: -1 }),
@@ -147,7 +146,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     tag: 'button',
     onClick: handleClick,
     attrs: {
-      class: `k-dropdown-item-trigger ${props.disabled ? 'disabled' : ''} ${attrs.class || ''}`,
+      class: `dropdown-item-trigger ${props.disabled ? 'disabled' : ''} ${attrs.class || ''}`,
       disabled: props.disabled,
       ...strippedAttrs.value,
     },
@@ -155,7 +154,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
   div: {
     tag: 'div',
     attrs: {
-      class: 'k-dropdown-item-trigger',
+      class: 'dropdown-item-trigger',
     },
   },
 }))
@@ -188,7 +187,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
   }
 
   &.danger {
-    .k-dropdown-item-trigger {
+    .dropdown-item-trigger {
       color: var(--kui-color-text-danger, $kui-color-text-danger);
 
       &:hover:not(:disabled):not(.disabled):not(:focus):not(:active) {
@@ -208,7 +207,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     cursor: not-allowed;
   }
 
-  .k-dropdown-item-trigger {
+  .dropdown-item-trigger {
     background-color: var(--kui-color-background, $kui-color-background);
     border: 0;
     color: var(--kui-color-text-neutral, $kui-color-text);
@@ -251,7 +250,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
       pointer-events: none;
     }
 
-    .k-dropdown-item-trigger-label {
+    .dropdown-item-trigger-label {
       align-items: center;
       display: inline-flex;
       gap: var(--kui-space-40, $kui-space-40);
@@ -266,8 +265,8 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
 // all rules must be very specific to avoid conflicts with other components
 
 .k-dropdown-item {
-  .k-dropdown-item-trigger {
-    .k-dropdown-item-trigger-label {
+  .dropdown-item-trigger {
+    .dropdown-item-trigger-label {
       #{$kongponentsKongIconSelector} {
         height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
         width: var(--kui-icon-size-40, $kui-icon-size-40) !important;

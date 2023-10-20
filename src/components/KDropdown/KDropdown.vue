@@ -6,7 +6,7 @@
     <KToggle v-slot="{ toggle, isToggled }">
       <KPop
         v-bind="boundKPopAttributes"
-        data-testid="dropdown-popover"
+        data-testid="k-dropdown-popover"
         :hide-popover="hidePopover"
         :on-popover-click="() => handleTriggerToggle(isToggled, toggle, false)"
         @closed="() => handleTriggerToggle(isToggled, toggle, false)"

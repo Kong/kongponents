@@ -104,14 +104,18 @@ Component has been renamed to `KDropdown`
 
 #### Structure
 
-* `k-dropdown-menu` class has been removed
-* `k-dropdown-menu-popover` `testid` data attribute has been replaced with `dropdown-popover`
+* `k-dropdown-menu` class has been removed (`k-dropdown` class remains)
+* `k-dropdown-menu-popover` `testid` data attribute has been replaced with `k-dropdown-popover`
 * `k-dropdown-trigger` class has been removed
 * `k-dropdown-trigger` `testid` data attribute has been replaced with `dropdown-trigger`
 * `k-dropdown-btn` class has been replaced with `dropdown-trigger-button`
 * `k-dropdown-btn` `testid` data attribute has been replaced with `dropdown-trigger-button`
 * `k-dropdown-list` class has been removed
 * `k-dropdown-list` `testid` data attribute has been replaced with `dropdown-list`
+* `k-dropdown-selected-option` class has been replaced with `dropdown-selected-option`
+* `k-dropdown-item-trigger` class has been replaced with `dropdown-item-trigger`
+* `k-dropdown-item-trigger-label` class has been replaced with `dropdown-item-trigger-label`
+* dynamic `k-dropdown-item` `testid` data attribute has been removed
 
 #### Constants, Types & Interfaces
 

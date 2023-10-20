@@ -288,6 +288,46 @@
         label="Deprecated props"
       />
     </SandboxSectionComponent>
+    <SandboxSectionComponent
+      description="The old KDropdownMenu component that utilizes the KDropdown under the hood still works as expected."
+      title="Deprecated KDropdownMenu"
+    >
+      <KDropdownMenu
+        trigger-text="KDropdownMenu"
+      >
+        <template #items>
+          <KDropdownItem>
+            Updates
+            <KBadge
+              class="dropdown-item-content-end"
+              shape="rectangular"
+            >
+              14
+            </KBadge>
+          </KDropdownItem>
+          <KDropdownItem>
+            Support
+            <KBadge
+              appearance="success"
+              shape="rectangular"
+            >
+              Enterprise
+            </KBadge>
+            <ExternalLinkIcon class="dropdown-item-content-end" />
+          </KDropdownItem>
+          <KDropdownItem>
+            <BookIcon />
+            Docs
+            <KTooltip
+              class="dropdown-item-content-end"
+              label="This is a tooltip"
+            >
+              <InfoIcon />
+            </KTooltip>
+          </KDropdownItem>
+        </template>
+      </KDropdownMenu>
+    </SandboxSectionComponent>
   </div>
 </template>
 
@@ -295,7 +335,7 @@
 import { ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { KDropdownItem, KDropdown, KExternalLink, KButton, KBadge, KTooltip } from '@/components'
+import { KDropdownMenu, KDropdownItem, KDropdown, KExternalLink, KButton, KBadge, KTooltip } from '@/components'
 import type { DropdownItem } from '@/types'
 import { CogIcon, KongIcon, ExternalLinkIcon, DisabledIcon, TrashIcon, BookIcon, InfoIcon } from '@kong/icons'
 

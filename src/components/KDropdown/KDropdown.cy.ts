@@ -106,8 +106,8 @@ describe('KDropdown', () => {
     triggerBtn.click()
     cy.getTestId('dropdown-list').should('be.visible')
 
-    cy.get('.k-dropdown-selected-option').should('exist')
-    cy.get('.k-dropdown-selected-option').should('contain.text', selectedLabel)
+    cy.get('.dropdown-selected-option').should('exist')
+    cy.get('.dropdown-selected-option').should('contain.text', selectedLabel)
   })
 
   it('allows slotting content', async () => {
