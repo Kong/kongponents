@@ -171,8 +171,6 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
 /* Component styles */
 
 .k-dropdown-item, :deep(.k-dropdown-item) {
-  display: flex;
-  justify-content: space-between;
   list-style: none;
 
   &.has-divider {
@@ -234,11 +232,11 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     }
 
     &:hover:not(:disabled):not(.disabled):not(:focus):not(:active) {
-      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+      background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
     }
 
     &:focus:not(:disabled):not(.disabled), &:active:not(:disabled):not(.disabled) {
-      background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+      background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
     }
 
     &:disabled, &[disabled], &.disabled {
