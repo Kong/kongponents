@@ -1,3 +1,10 @@
+# [8.124.0](https://github.com/Kong/kongponents/compare/v8.123.9...v8.124.0) (2023-10-20)
+
+
+### Features
+
+* **ktooltip:** hide tooltip if no label or content ([#1783](https://github.com/Kong/kongponents/issues/1783)) ([469b3b6](https://github.com/Kong/kongponents/commit/469b3b6b28d499fde417559ee1c4d939a2872c87))
+
 ## [8.123.9](https://github.com/Kong/kongponents/compare/v8.123.8...v8.123.9) (2023-10-06)
 
 
