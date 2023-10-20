@@ -250,4 +250,17 @@ const modelValue2 = ref('card0')
     max-width: $kui-breakpoint-tablet;
   }
 }
+
+.vertical-spacing {
+  display: flex;
+  flex-direction: column;
+  gap: $kui-space-50;
+}
+
+.grid-container {
+  column-gap: $kui-space-50;
+  display: grid;
+  grid-template-columns: repeat(2, 40%);
+  row-gap: $kui-space-70;
+}
 </style>

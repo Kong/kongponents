@@ -280,7 +280,6 @@ $kRadioDotSize: 6px;
     &:disabled {
       @include radioCheckboxDisabled;
     }
-  }
 
   &.error {
     .radio-input {
@@ -383,6 +382,7 @@ $kRadioDotSize: 6px;
         box-shadow: var(--kui-shadow-border-primary, $kui-shadow-border-primary);
       }
     }
+  }
 
     &.error {
       .radio-card-wrapper {
