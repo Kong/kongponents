@@ -8,7 +8,7 @@
 
 ```html
 <KTooltip label="Video Games">
-  <KButton>🎮</KButton>
+  <KButton>What is your hobby?</KButton>
 </KTooltip>
 ```
 
