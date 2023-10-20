@@ -47,7 +47,7 @@ describe('KTooltip', () => {
         trigger: 'click',
       },
       slots: {
-        default: () => h('button', {}, 'text'),
+        default: () => h('button', {}, text),
       },
     })
 
