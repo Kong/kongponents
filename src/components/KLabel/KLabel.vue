@@ -13,6 +13,7 @@
       <InfoIcon
         class="tooltip-trigger-icon"
         :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
+        tabindex="0"
       />
       <template #content>
         <slot name="tooltip">{{ info }}</slot>

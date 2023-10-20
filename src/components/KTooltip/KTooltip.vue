@@ -11,9 +11,7 @@
     trigger="hover"
     width="auto"
   >
-    <div :tabindex="$slots.default ? '0' : '-1'">
-      <slot />
-    </div>
+    <slot />
 
     <template
       v-if="showTooltip"
