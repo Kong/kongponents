@@ -94,6 +94,7 @@ KButton also supports the disabled attribute with both Button and Anchor types.
 <KButton appearance="danger" disabled>Disabled Danger</KButton>
 <KButton to="https://konghq.com/" appearance="tertiary" disabled>Disabled Native Anchor Link</KButton>
 ```
+
 ## Slots
 
 ### default

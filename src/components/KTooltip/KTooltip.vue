@@ -4,7 +4,7 @@
     hide-caret
     :max-width="maxWidth"
     :placement="placement"
-    :popover-classes="`k-tooltip ${computedClass} ${className}`"
+    :popover-classes="`k-tooltip ${computedClass}`"
     :popover-timeout="0"
     :position-fixed="positionFixed"
     :test-mode="!!testMode || undefined"
@@ -15,7 +15,10 @@
       <slot />
     </div>
 
-    <template #content>
+    <template
+      v-if="showTooltip"
+      #content
+    >
       <div role="tooltip">
         <slot
           :label="label"
@@ -29,8 +32,8 @@
 </template>
 
 <script setup lang="ts">
+import { computed, useSlots } from 'vue'
 import type { PropType } from 'vue'
-import { computed, ref } from 'vue'
 import KPop from '@/components/KPop/KPop.vue'
 import type { PopPlacements } from '@/types'
 import { PopPlacementsArray } from '@/types'
@@ -78,25 +81,31 @@ const props = defineProps({
   },
 })
 
-const className = ref('')
+const slots = useSlots()
+const showTooltip = computed((): boolean => !!props.label || !!slots.content)
+
 const computedClass = computed((): string => {
-  let result = ''
+  const result = []
   switch (props.placement) {
     case 'top':
-      result = 'k-tooltip-top'
+      result.push('k-tooltip-top')
       break
     case 'right':
-      result = 'k-tooltip-right'
+      result.push('k-tooltip-right')
       break
     case 'bottom':
-      result = 'k-tooltip-bottom'
+      result.push('k-tooltip-bottom')
       break
     case 'left':
-      result = 'k-tooltip-left'
+      result.push('k-tooltip-left')
       break
   }
 
-  return result
+  if (!showTooltip.value) {
+    result.push('k-tooltip-hidden')
+  }
+
+  return result.join(' ')
 })
 </script>
 
@@ -109,6 +118,10 @@ const computedClass = computed((): string => {
   padding: var(--kui-space-40, $kui-space-40) var(--kui-space-40, $kui-space-40);
   pointer-events: none;
   z-index: 9999;
+
+  &.k-tooltip-hidden {
+    display: none;
+  }
 }
 
 .k-tooltip-top {
