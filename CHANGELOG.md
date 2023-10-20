@@ -1,3 +1,10 @@
+# [9.0.0-alpha.25](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.24...v9.0.0-alpha.25) (2023-10-20)
+
+
+### Bug Fixes
+
+* **ktooltip, klabel:** remove tooltip slot wrapper ([#1785](https://github.com/Kong/kongponents/issues/1785)) ([cd55f54](https://github.com/Kong/kongponents/commit/cd55f543928be5441d0c4ad9d255237d7909ed7a))
+
 # [9.0.0-alpha.24](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.23...v9.0.0-alpha.24) (2023-10-20)
 
 
