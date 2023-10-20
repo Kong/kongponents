@@ -31,12 +31,12 @@ Here you can pass in the text to display in the tooltip.
 When using the `label` prop (or the [`content` slot](#content)), passing a value of `undefined`, an empty string, or no `content` slot content will prevent the tooltip from showing, while still displaying your `default` slot content.
 
 <KTooltip :label="labelProptooltipText">
-  <KButton>Hover me</KButton>
+  <KButton>My tooltip label is empty</KButton>
 </KTooltip>
 
 ```html
 <KTooltip :label="tooltipLabel">
-  <KButton>Hover me</KButton>
+  <KButton>My tooltip label is empty</KButton>
 </KTooltip>
 
 <script setup lang="ts">
@@ -46,45 +46,6 @@ import { ref } from 'vue'
 // so hovering over the button will not render an empty tooltip
 const tooltipLabel = ref<string>('')
 </script>
-```
-
-:::warning NOTE
-KTooltip won't be triggered if the element you pass through `default` slot has `disabled` attribute. You can get around that by wrapping your disabled element around an additional tag, like shown in the example below.
-:::
-
-<KCard>
-  <template #body>
-    <div class="my-tooltip">
-      <KTooltip label="I won't pop up" class="my-tooltip-label">
-        <KButton disabled>❌</KButton>
-      </KTooltip>
-      <KTooltip label="I will pop up">
-        <span>
-          <KButton disabled>✅</KButton>
-        </span>
-      </KTooltip>
-    </div>
-  </template>
-</KCard>
-
-<style>
-.my-tooltip {
-  display: flex !important;
-}
-.my-tooltip-label {
-  margin-right: 4px !important;
-}
-</style>
-
-```html
-<KTooltip label="I won't show up">
-  <KButton disabled>❌</KButton>
-</KTooltip>
-<KTooltip label="I will pop up">
-  <span>
-    <KButton disabled>✅</KButton>
-  </span>
-</KTooltip>
 ```
 
 ### placement

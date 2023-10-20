@@ -154,36 +154,6 @@ KButton also supports the disabled attribute with both Button and Anchor types.
 <KButton to="http://google.com" appearance="btn-link" disabled>Disabled Native Anchor Link</KButton>
 ```
 
-:::warning NOTE
-Should you need to use a KTooltip component on a KButton with `disabled` attribute, don't forget to wrap an additional tag around your KButton, like shown in the example below. Otherwise KTooltip won't be triggered since elements with `disabled` attribute don't trigger pointer events.
-:::
-
-<KCard>
-  <template #body>
-    <div class="spacing-container">
-      <KTooltip label="I won't pop up">
-        <KButton disabled>❌</KButton>
-      </KTooltip>
-      <KTooltip label="I will pop up">
-        <span>
-          <KButton disabled>✅</KButton>
-        </span>
-      </KTooltip>
-    </div>
-  </template>
-</KCard>
-
-```html
-<KTooltip label="I won't show up">
-  <KButton disabled>❌</KButton>
-</KTooltip>
-<KTooltip label="I will pop up">
-  <span>
-    <KButton disabled>✅</KButton>
-  </span>
-</KTooltip>
-```
-
 ## Slots
 
 ### Icon
