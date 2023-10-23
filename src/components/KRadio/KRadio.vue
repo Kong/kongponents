@@ -134,7 +134,9 @@ const props = defineProps({
     type: String as PropType<RadioTypes>,
     default: 'radio',
     validator: (value: RadioTypes): boolean => {
-      console.warn('KRadio: `type` prop is deprecated in favor of `isCard`. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kradio')
+      if (value === 'card') {
+        console.warn('KRadio: `type` prop is deprecated in favor of `isCard`. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kradio')
+      }
 
       return RadioTypesArray.includes(value)
     },
@@ -349,7 +351,7 @@ $kRadioDisabledDotBackground: var(--kui-color-background-neutral-weak, $kui-colo
         box-shadow: $kRadioHoverBorder;
       }
 
-      &:focus, &:focus-visible {
+      &:focus-visible {
         box-shadow: $kRadioHoverBorder, $kRadioFocusRing;
       }
 
@@ -375,7 +377,7 @@ $kRadioDisabledDotBackground: var(--kui-color-background-neutral-weak, $kui-colo
           box-shadow: $kRadioErrorHoverBorder;
         }
 
-        &:focus, &:focus-visible {
+        &:focus-visible {
           box-shadow: $kRadioErrorHoverBorder, $kRadioFocusRing;
         }
       }
