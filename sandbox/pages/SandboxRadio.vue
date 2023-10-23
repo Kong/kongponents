@@ -258,6 +258,7 @@ const modelValue2 = ref('card0')
 }
 
 .grid-container {
+  align-items: flex-end;
   column-gap: $kui-space-50;
   display: grid;
   grid-template-columns: repeat(2, 40%);

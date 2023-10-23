@@ -23,6 +23,7 @@
     >
       <KLabel
         v-bind="labelAttributes"
+        class="radio-label"
         :for="inputId"
       >
         <slot>{{ label }}</slot>
@@ -253,6 +254,14 @@ $kRadioDotSize: 6px;
       }
     }
 
+    &:active:not(:disabled) {
+      box-shadow: $kRadioActiveBorder;
+
+      &::before {
+        @include kRadioInputDot;
+      }
+    }
+
     &:checked {
       @include radioCheckboxChecked;
 
@@ -266,6 +275,10 @@ $kRadioDotSize: 6px;
 
       &:active {
         @include radioCheckboxCheckedActive;
+      }
+
+      &:active {
+        background-color: $kRadioActiveBackground;
       }
 
       &:disabled {
@@ -413,6 +426,46 @@ $kRadioDotSize: 6px;
 
         &:hover {
           box-shadow: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled);
+        }
+      }
+    }
+
+    &.checked.k-radio-card {
+      .card-radio-wrapper {
+        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+        box-shadow: $kRadioCheckedBorder;
+      }
+    }
+
+    &.has-error {
+      .card-radio-wrapper {
+        box-shadow: $kRadioErrorBorder;
+
+        &:hover {
+          box-shadow: $kRadioErrorHoverBorder;
+        }
+
+        &:focus, &:focus-visible {
+          box-shadow: $kRadioErrorHoverBorder, $kRadioFocusRing;
+        }
+      }
+
+      &.checked {
+        .card-radio-wrapper {
+          background-color: var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest);
+          box-shadow: $kRadioErrorBorder;
+        }
+      }
+    }
+
+    &.disabled.k-radio-card {
+      .card-radio-wrapper {
+        background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+        box-shadow: $kRadioDisabledBorder;
+        cursor: not-allowed;
+
+        &:hover {
+          box-shadow: $kRadioDisabledBorder;
         }
       }
     }
