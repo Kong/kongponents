@@ -1,3 +1,10 @@
+# [9.0.0-alpha.27](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.26...v9.0.0-alpha.27) (2023-10-23)
+
+
+### Features
+
+* **kdropdownmenu:** component reskinning [KHCP-8879] ([#1775](https://github.com/Kong/kongponents/issues/1775)) ([830fa46](https://github.com/Kong/kongponents/commit/830fa46269e03c573924a5b4af0a2300dc3e601c))
+
 # [9.0.0-alpha.26](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.25...v9.0.0-alpha.26) (2023-10-23)
 
 
