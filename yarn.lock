@@ -763,15 +763,15 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@kong/design-tokens@^1.11.5":
+"@kong/design-tokens@^1.11.6":
   version "1.11.6"
   resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.11.6.tgz#a5bdc240a2b935c329f81aa8117db7e20c2de35e"
   integrity sha512-K09zObaYWD7rm9FrJCHI7muKI3npWeDeqdY64unAjmlFW17Ox+bFGsJkaJIOXzsssXMGspHqVkl41vmUEhY8OQ==
 
-"@kong/icons@^1.7.6":
-  version "1.7.6"
-  resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.7.6.tgz#e3b210f7d326ae2082a10e0bbc437cce86012685"
-  integrity sha512-1/hyEJGpfI1j7LIM1HjWBCoUlFyhWoj9fAOZsJKX70C87XkCzEfxutD2eeSvE7KZe688oDnx7jXSiSouyly5BA==
+"@kong/icons@^1.7.7":
+  version "1.7.7"
+  resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.7.7.tgz#fbf11f02830ffb4319e7c20248e09ae1421c5bab"
+  integrity sha512-CQHOXZ/S0SRTjW43ItRKFoA9e+roW/jh8vXE1X0HVHDy0LAymvX9nadoVUmtdjNHQnJvr4XZfGgdyXE+fYh6Fw==
 
 "@ljharb/through@^2.3.9":
   version "2.3.9"
