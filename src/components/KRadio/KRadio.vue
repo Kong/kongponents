@@ -23,7 +23,6 @@
     >
       <KLabel
         v-bind="labelAttributes"
-        class="radio-label"
         :for="inputId"
       >
         <slot>{{ label }}</slot>
@@ -43,39 +42,40 @@
         <slot name="description">
           <p>{{ description }}</p>
         </slot>
+        </p>
       </div>
-    </div>
 
-    <label
-      v-else-if="label || $slots.default"
-      class="radio-card-wrapper radio-label-wrapper"
-      :class="{ 'has-label': label, 'has-description': showCardDescription }"
-      :for="inputId"
-      :tabindex="isDisabled ? -1 : 0"
-      @keydown.space.prevent
-      @keyup.space="handleClick"
-    >
-      <span
-        v-if="$slots.default"
-        class="card-content-wrapper"
+      <label
+        v-else-if="label || $slots.default"
+        class="radio-card-wrapper radio-label-wrapper"
+        :class="{ 'has-label': label, 'has-description': showCardDescription }"
+        :for="inputId"
+        :tabindex="isDisabled ? -1 : 0"
+        @keydown.space.prevent
+        @keyup.space="handleClick"
       >
-        <slot />
-      </span>
-      <span
-        v-if="label"
-        class="radio-label"
-      >
-        {{ label }}
-      </span>
-      <span
-        v-if="showCardDescription"
-        class="radio-description"
-      >
-        <slot name="description">
-          {{ description }}
-        </slot>
-      </span>
-    </label>
+        <span
+          v-if="$slots.default"
+          class="card-content-wrapper"
+        >
+          <slot />
+        </span>
+        <span
+          v-if="label"
+          class="radio-label"
+        >
+          {{ label }}
+        </span>
+        <span
+          v-if="showCardDescription"
+          class="radio-description"
+        >
+          <slot name="description">
+            {{ description }}
+          </slot>
+          </p>
+        </span></label>
+    </div>
   </div>
 </template>
 
