@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { KTable, KDropdown, KDropdownItem } from '@/components'
+import { KTable, KDropdown, KButton, KDropdownItem } from '@/components'
 import { MoreIcon } from '@kong/icons'
 
 const fetcher = async (): Promise<any> => {
