@@ -445,7 +445,7 @@ $kRadioDotSize: 6px;
           box-shadow: $kRadioErrorHoverBorder;
         }
 
-        &:focus, &:focus-visible {
+        &:focus-visible {
           box-shadow: $kRadioErrorHoverBorder, $kRadioFocusRing;
         }
       }
