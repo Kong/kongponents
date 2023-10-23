@@ -1173,7 +1173,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
   tbody {
     td {
-      button,
+      button:not(.dropdown-item-trigger),
       .k-button {
         margin-bottom: calc(-1 * var(--kui-space-40, $kui-space-40));
         margin-top: calc(-1 * var(--kui-space-40, $kui-space-40));
