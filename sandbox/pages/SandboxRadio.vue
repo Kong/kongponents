@@ -82,7 +82,7 @@
         <div class="vertical-spacing">
           <KRadio
             v-model="modelValue0"
-            description="Lorem ipsum dolor sit amet."
+            description="Very long description that wraps to the next line and ends with lorem ipsum dolor sit amet."
             label="Label"
             selected-value="foobar1"
           />
@@ -117,8 +117,8 @@
       <div class="grid-container">
         <div class="vertical-spacing">
           <KRadio
-            v-model="modelValue0"
-            description="Lorem ipsum dolor sit amet."
+            v-model="modelValue2"
+            description="Very long description that wraps to the next line and ends with lorem ipsum dolor sit amet."
             is-card
             label="Label"
             selected-value="card0"
@@ -126,7 +126,7 @@
             <WorldIcon />
           </KRadio>
           <KRadio
-            v-model="modelValue0"
+            v-model="modelValue2"
             description="Lorem ipsum dolor sit amet."
             disabled
             is-card
@@ -138,7 +138,7 @@
         </div>
         <div class="vertical-spacing">
           <KRadio
-            v-model="modelValue0"
+            v-model="modelValue2"
             description="Lorem ipsum dolor sit amet."
             has-error
             is-card
@@ -148,7 +148,7 @@
             <WorldPrivateIcon />
           </KRadio>
           <KRadio
-            v-model="modelValue0"
+            v-model="modelValue2"
             description="Lorem ipsum dolor sit amet."
             disabled
             has-error
@@ -228,6 +228,7 @@ import { WorldIcon, WorldPrivateIcon } from '@kong/icons'
 
 const modelValue0 = ref('foobar')
 const modelValue1 = ref('barfoo')
+const modelValue2 = ref('card0')
 </script>
 
 <style lang="scss" scoped>
@@ -248,6 +249,7 @@ const modelValue1 = ref('barfoo')
 }
 
 .grid-container {
+  align-items: flex-end;
   column-gap: $kui-space-50;
   display: grid;
   grid-template-columns: repeat(2, 40%);

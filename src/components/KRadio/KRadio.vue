@@ -1,15 +1,14 @@
 <template>
   <div
-    :checked="isSelected"
     class="k-radio"
     :class="[
       $attrs.class ? $attrs.class : '',
-      { 'disabled': isDisabled, 'k-radio-card': isCard, 'has-error': hasError }
+      { 'disabled': isDisabled, 'k-radio-card': isCard, 'has-error': hasError, 'checked': isChecked }
     ]"
   >
     <input
       :id="inputId"
-      :checked="isSelected"
+      :checked="isChecked"
       v-bind="modifiedAttrs"
       class="k-input"
       :disabled="isDisabled"
@@ -19,11 +18,12 @@
 
     <div
       v-if="!isCard && (label || $slots.default)"
-      class="radio-wrapper"
+      class="radio-label-wrapper"
       :class="{ 'has-description': hasDescription }"
     >
       <KLabel
         v-bind="labelAttributes"
+        class="radio-label"
         :for="inputId"
       >
         <slot>{{ label }}</slot>
@@ -48,7 +48,7 @@
 
     <label
       v-else-if="label || $slots.default"
-      class="radio-wrapper"
+      class="card-radio-wrapper radio-label-wrapper"
       :for="inputId"
       :tabindex="isDisabled ? -1 : 0"
     >
@@ -147,7 +147,7 @@ const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 const hasDescription = computed((): boolean => !!(props.description || slots.description))
 const hasTooltip = computed((): boolean => !!slots.tooltip)
-const isSelected = computed((): boolean => props.selectedValue === props.modelValue)
+const isChecked = computed((): boolean => props.selectedValue === props.modelValue)
 
 const emit = defineEmits<{
   (e: 'change', value: string | boolean | number | object): void
@@ -174,14 +174,18 @@ const modifiedAttrs = computed(() => {
 <style lang="scss" scoped>
 /* Component variables */
 
-$kRadioFocusRing: var(--kui-shadow-focus, $kui-shadow-focus);
 $kRadioBackground: var(--kui-color-background, $kui-color-background);
+$kRadioDotBackground: var(--kui-color-background, $kui-color-background);
 $kRadioBorder: var(--kui-shadow-border, $kui-shadow-border);
 $kRadioHoverBorder: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak);
+// focus
+$kRadioFocusRing: var(--kui-shadow-focus, $kui-shadow-focus);
+// active
+$kRadioActiveBackground: var(--kui-color-background-primary-strongest, $kui-color-background-primary-strongest);
+$kRadioActiveBorder: var(--kui-shadow-border-primary-strongest, $kui-shadow-border-primary-strongest);
 // checked
 $kRadioCheckedBackground: var(--kui-color-background-primary, $kui-color-background-primary);
 $kRadioCheckedBorder: var(--kui-shadow-border-primary, $kui-shadow-border-primary);
-$kRadioDotBackground: var(--kui-color-background, $kui-color-background);
 // error
 $kRadioErrorBackground: var(--kui-color-background-danger, $kui-color-background-danger);
 $kRadioErrorBorder: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
@@ -212,6 +216,7 @@ $kRadioDisabledDotBackground: var(--kui-color-background-neutral-weak, $kui-colo
 .k-radio {
   display: inline-flex;
 
+  /* Radio button styles */
   .k-input {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -236,6 +241,14 @@ $kRadioDisabledDotBackground: var(--kui-color-background-neutral-weak, $kui-colo
       box-shadow: $kRadioHoverBorder, $kRadioFocusRing;
     }
 
+    &:active:not(:disabled) {
+      box-shadow: $kRadioActiveBorder;
+
+      &::before {
+        @include kRadioInputDot;
+      }
+    }
+
     &:checked {
       background-color: $kRadioCheckedBackground;
       box-shadow: $kRadioCheckedBorder;
@@ -246,6 +259,10 @@ $kRadioDisabledDotBackground: var(--kui-color-background-neutral-weak, $kui-colo
 
       &:focus, &:focus-visible {
         box-shadow: $kRadioFocusRing;
+      }
+
+      &:active {
+        background-color: $kRadioActiveBackground;
       }
 
       &:disabled {
@@ -261,10 +278,6 @@ $kRadioDisabledDotBackground: var(--kui-color-background-neutral-weak, $kui-colo
       background-color: $kRadioDisabledBackground;
       box-shadow: $kRadioDisabledBorder;
       cursor: not-allowed;
-
-      &::before {
-        @include kRadioInputDot;
-      }
     }
   }
 
@@ -283,7 +296,6 @@ $kRadioDisabledDotBackground: var(--kui-color-background-neutral-weak, $kui-colo
 
         &:checked {
           background-color: $kRadioErrorBackground;
-          box-shadow: $kRadioErrorBorder;
 
           &:focus, &:focus-visible {
             box-shadow: $kRadioFocusRing;
@@ -293,18 +305,26 @@ $kRadioDisabledDotBackground: var(--kui-color-background-neutral-weak, $kui-colo
     }
   }
 
-  .radio-wrapper {
+  /* Common label & description styles */
+  .radio-label-wrapper {
+    flex: 1;
+
+    .radio-label {
+      margin-bottom: var(--kui-space-20, $kui-space-20);
+    }
+
     .radio-description {
       color: var(--kui-color-text-neutral, $kui-color-text-neutral);
       font-family: var(--kui-font-family-text, $kui-font-family-text);
-      font-size: var(--kui-font-size-20, $kui-font-size-20);
+      font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-      line-height: var(--kui-line-height-20, $kui-line-height-20);
+      line-height: var(--kui-line-height-30, $kui-line-height-30);
       // reset default margin from browser
       margin: 0;
     }
   }
 
+  /* Card styles */
   &.k-radio-card {
     width: 100%;
 
@@ -312,16 +332,71 @@ $kRadioDisabledDotBackground: var(--kui-color-background-neutral-weak, $kui-colo
       display: none;
     }
 
-    .radio-wrapper {
+    .card-radio-wrapper {
       align-items: center;
+      background-color: var(--kui-color-background, $kui-color-background);
+      border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+      box-shadow: $kRadioBorder;
+      cursor: pointer;
       display: flex;
       flex-direction: column;
+      outline: none;
+      padding: var(--kui-space-70, $kui-space-70);
+      text-align: center;
       width: 100%;
+
+      &:hover {
+        box-shadow: $kRadioHoverBorder;
+      }
+
+      &:focus, &:focus-visible {
+        box-shadow: $kRadioHoverBorder, $kRadioFocusRing;
+      }
 
       .radio-label {
         @include labelDefaults;
 
         margin-top: var(--kui-space-40, $kui-space-40);
+      }
+    }
+
+    &.checked.k-radio-card {
+      .card-radio-wrapper {
+        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+        box-shadow: $kRadioCheckedBorder;
+      }
+    }
+
+    &.has-error {
+      .card-radio-wrapper {
+        box-shadow: $kRadioErrorBorder;
+
+        &:hover {
+          box-shadow: $kRadioErrorHoverBorder;
+        }
+
+        &:focus, &:focus-visible {
+          box-shadow: $kRadioErrorHoverBorder, $kRadioFocusRing;
+        }
+      }
+
+      &.checked {
+        .card-radio-wrapper {
+          background-color: var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest);
+          box-shadow: $kRadioErrorBorder;
+        }
+      }
+    }
+
+    &.disabled.k-radio-card {
+      .card-radio-wrapper {
+        background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+        box-shadow: $kRadioDisabledBorder;
+        cursor: not-allowed;
+
+        &:hover {
+          box-shadow: $kRadioDisabledBorder;
+        }
       }
     }
   }

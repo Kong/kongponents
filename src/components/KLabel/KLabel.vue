@@ -63,6 +63,7 @@ $kLabelRequiredDotSize: 6px;
 
   align-items: center;
   display: inline-flex;
+  margin-bottom: var(--kui-space-40, $kui-space-40);
 
   &.is-required {
     margin-left: calc($kLabelSpacingX + $kLabelRequiredDotSize); // 6px to compensate for the 6px width of the dot
