@@ -52,7 +52,7 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "@kong/icons": "^1.7.6",
+    "@kong/icons": "^1.7.7",
     "@popperjs/core": "^2.11.8",
     "axios": "^0.27.2",
     "date-fns": "^2.30.0",
@@ -78,7 +78,7 @@
     "@cypress/vite-dev-server": "^5.0.6",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@evilmartians/lefthook": "^1.5.2",
-    "@kong/design-tokens": "^1.11.5",
+    "@kong/design-tokens": "^1.11.6",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/inquirer": "^9.0.4",
