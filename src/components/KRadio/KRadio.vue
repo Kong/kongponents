@@ -173,6 +173,19 @@ const modifiedAttrs = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+/* Component variables */
+
+$kRadioBorder: var(--kui-shadow-border, $kui-shadow-border);
+$kRadioHoverBorder: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak);
+$kRadioFocusRing: var(--kui-shadow-focus, $kui-shadow-focus);
+$kRadioCheckedBorder: var(--kui-shadow-border-filled-primary, $kui-shadow-border-filled-primary);
+$kRadioDisabledBorder: var(--kui-shadow-border-filled-disabled, $kui-shadow-border-filled-disabled);
+$kRadioErrorBorder: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
+$kRadioErrorHoverBorder: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong);
+$KRadioErrorCheckedBorder: var(--kui-shadow-border-filled-danger, $kui-shadow-border-filled-danger);
+
+/* Component styles */
+
 .k-radio {
   display: inline-flex;
 
@@ -183,26 +196,27 @@ const modifiedAttrs = computed(() => {
     background-color: var(--kui-color-background, $kui-color-background);
     border: 0;
     border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
-    box-shadow: var(--kui-shadow-border, $kui-shadow-border);
+    box-shadow: $kRadioBorder;
     cursor: pointer;
     height: var(--kui-icon-size-30, $kui-icon-size-30);
     margin-right: var(--kui-space-40, $kui-space-40);
     outline: none;
+    transition: box-shadow $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc;
     width: var(--kui-icon-size-30, $kui-icon-size-30);
 
     &:hover {
-      box-shadow: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak);
+      box-shadow: $kRadioHoverBorder;
     }
 
     &:focus, &:focus-visible {
-      box-shadow: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak), var(--kui-shadow-focus, $kui-shadow-focus);
+      box-shadow: $kRadioHoverBorder, $kRadioFocusRing;
     }
 
     &:checked {
-      box-shadow: 0px 0px 0px 5px #0044f4 inset; // TODO: token needed (kui-shadow-border-primary but with 5px)
+      box-shadow: $kRadioCheckedBorder;
 
       &:focus, &:focus-visible {
-        box-shadow: 0px 0px 0px 5px #0044f4 inset, var(--kui-shadow-focus, $kui-shadow-focus);
+        box-shadow: $kRadioCheckedBorder, $kRadioFocusRing;
       }
 
       &:disabled {
@@ -211,7 +225,7 @@ const modifiedAttrs = computed(() => {
     }
 
     &:disabled {
-      box-shadow: 0px 0px 0px 5px #e0e4ea inset; // TODO: token needed (kui-shadow-border-disabled but with 5px)
+      box-shadow: $kRadioDisabledBorder;
       cursor: not-allowed;
     }
   }
@@ -219,22 +233,22 @@ const modifiedAttrs = computed(() => {
   &.has-error {
     .k-input {
       &:not(:disabled) {
-        box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
-      }
+        box-shadow: $kRadioErrorBorder;
 
-      &:hover {
-        box-shadow: 0px 0px 0px 1px #ad000e inset; // TODO: token needed (kui-shadow-border-danger-strong, red.70)
-      }
-
-      &:focus, &:focus-visible {
-        box-shadow: 0px 0px 0px 1px #ad000e inset, var(--kui-shadow-focus, $kui-shadow-focus);
-      }
-
-      &:checked:not(:disabled) {
-        box-shadow: 0px 0px 0px 5px #d60027 inset; // TODO: token needed (kui-shadow-border-danger but with 5px)
+        &:hover {
+          box-shadow: $kRadioErrorHoverBorder;
+        }
 
         &:focus, &:focus-visible {
-          box-shadow: 0px 0px 0px 5px #d60027 inset, var(--kui-shadow-focus, $kui-shadow-focus);
+          box-shadow: $kRadioErrorHoverBorder, $kRadioFocusRing;
+        }
+
+        &:checked {
+          box-shadow: $KRadioErrorCheckedBorder;
+
+          &:focus, &:focus-visible {
+            box-shadow: $KRadioErrorCheckedBorder, $kRadioFocusRing;
+          }
         }
       }
     }

@@ -261,7 +261,9 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
     .k-input {
       box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
 
-      // TODO: do we need a hover state for error?
+      &:hover {
+        box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong);
+      }
 
       &:focus {
         box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger), var(--kui-shadow-focus, $kui-shadow-focus);
