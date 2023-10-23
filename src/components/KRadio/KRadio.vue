@@ -19,12 +19,11 @@
 
     <div
       v-if="!isCard && (label || $slots.default)"
-      class="k-radio-wrapper"
+      class="radio-wrapper"
       :class="{ 'has-description': hasDescription }"
     >
       <KLabel
         v-bind="labelAttributes"
-        class="radio-label"
         :for="inputId"
       >
         <slot>{{ label }}</slot>
@@ -37,19 +36,19 @@
         </template>
       </KLabel>
 
-      <div
+      <p
         v-if="hasDescription"
         class="radio-description"
       >
         <slot name="description">
           {{ description }}
         </slot>
-      </div>
+      </p>
     </div>
 
     <label
       v-else-if="label || $slots.default"
-      class="k-radio-wrapper"
+      class="radio-wrapper"
       :for="inputId"
       :tabindex="isDisabled ? -1 : 0"
     >
@@ -60,14 +59,14 @@
       >
         {{ label }}
       </span>
-      <span
+      <p
         v-if="hasDescription"
         class="radio-description"
       >
         <slot name="description">
           {{ description }}
         </slot>
-      </span>
+      </p>
     </label>
   </div>
 </template>
@@ -175,14 +174,38 @@ const modifiedAttrs = computed(() => {
 <style lang="scss" scoped>
 /* Component variables */
 
+$kRadioFocusRing: var(--kui-shadow-focus, $kui-shadow-focus);
+$kRadioBackground: var(--kui-color-background, $kui-color-background);
 $kRadioBorder: var(--kui-shadow-border, $kui-shadow-border);
 $kRadioHoverBorder: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak);
-$kRadioFocusRing: var(--kui-shadow-focus, $kui-shadow-focus);
-$kRadioCheckedBorder: var(--kui-shadow-border-filled-primary, $kui-shadow-border-filled-primary);
-$kRadioDisabledBorder: var(--kui-shadow-border-filled-disabled, $kui-shadow-border-filled-disabled);
+// checked
+$kRadioCheckedBackground: var(--kui-color-background-primary, $kui-color-background-primary);
+$kRadioCheckedBorder: var(--kui-shadow-border-primary, $kui-shadow-border-primary);
+$kRadioDotBackground: var(--kui-color-background, $kui-color-background);
+// error
+$kRadioErrorBackground: var(--kui-color-background-danger, $kui-color-background-danger);
 $kRadioErrorBorder: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
 $kRadioErrorHoverBorder: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong);
-$KRadioErrorCheckedBorder: var(--kui-shadow-border-filled-danger, $kui-shadow-border-filled-danger);
+// disabled
+$kRadioDisabledBackground: var(--kui-color-background-disabled, $kui-color-background-disabled);
+$kRadioDisabledBorder: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled);
+$kRadioDisabledDotBackground: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+
+/* Component mixins */
+
+@mixin kRadioInputDot {
+  background-color: $kRadioDotBackground;
+  border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
+  content: '';
+  height: 6px;
+  inset: 0;
+  margin-left: 50%;
+  margin-top: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transition: background-color $kongponentsTransitionDurTimingFunc;
+  width: 6px;
+}
 
 /* Component styles */
 
@@ -193,7 +216,7 @@ $KRadioErrorCheckedBorder: var(--kui-shadow-border-filled-danger, $kui-shadow-bo
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-color: var(--kui-color-background, $kui-color-background);
+    background-color: $kRadioBackground;
     border: 0;
     border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
     box-shadow: $kRadioBorder;
@@ -201,6 +224,7 @@ $KRadioErrorCheckedBorder: var(--kui-shadow-border-filled-danger, $kui-shadow-bo
     height: var(--kui-icon-size-30, $kui-icon-size-30);
     margin-right: var(--kui-space-40, $kui-space-40);
     outline: none;
+    position: relative;
     transition: box-shadow $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc;
     width: var(--kui-icon-size-30, $kui-icon-size-30);
 
@@ -213,20 +237,34 @@ $KRadioErrorCheckedBorder: var(--kui-shadow-border-filled-danger, $kui-shadow-bo
     }
 
     &:checked {
+      background-color: $kRadioCheckedBackground;
       box-shadow: $kRadioCheckedBorder;
 
+      &::before {
+        @include kRadioInputDot;
+      }
+
       &:focus, &:focus-visible {
-        box-shadow: $kRadioCheckedBorder, $kRadioFocusRing;
+        box-shadow: $kRadioFocusRing;
       }
 
       &:disabled {
-        background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+        background-color: $kRadioDisabledBackground;
+
+        &::before {
+          background-color: $kRadioDisabledDotBackground;
+        }
       }
     }
 
     &:disabled {
+      background-color: $kRadioDisabledBackground;
       box-shadow: $kRadioDisabledBorder;
       cursor: not-allowed;
+
+      &::before {
+        @include kRadioInputDot;
+      }
     }
   }
 
@@ -244,26 +282,48 @@ $KRadioErrorCheckedBorder: var(--kui-shadow-border-filled-danger, $kui-shadow-bo
         }
 
         &:checked {
-          box-shadow: $KRadioErrorCheckedBorder;
+          background-color: $kRadioErrorBackground;
+          box-shadow: $kRadioErrorBorder;
 
           &:focus, &:focus-visible {
-            box-shadow: $KRadioErrorCheckedBorder, $kRadioFocusRing;
+            box-shadow: $kRadioFocusRing;
           }
         }
       }
     }
   }
 
-  // .k-radio-wrapper {
-  // }
+  .radio-wrapper {
+    .radio-description {
+      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      font-family: var(--kui-font-family-text, $kui-font-family-text);
+      font-size: var(--kui-font-size-20, $kui-font-size-20);
+      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+      line-height: var(--kui-line-height-20, $kui-line-height-20);
+      // reset default margin from browser
+      margin: 0;
+    }
+  }
 
   &.k-radio-card {
+    width: 100%;
+
     .k-input {
       display: none;
     }
 
-    // .k-radio-wrapper {
-    // }
+    .radio-wrapper {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      .radio-label {
+        @include labelDefaults;
+
+        margin-top: var(--kui-space-40, $kui-space-40);
+      }
+    }
   }
 }
 </style>

@@ -13,24 +13,24 @@
     <div class="grid-container standalone-container">
       <div class="vertical-spacing">
         <KRadio
-          v-model="modelValue"
+          v-model="modelValue0"
           label="Label"
           selected-value="barfoo0"
         />
         <KRadio
-          v-model="modelValue"
+          v-model="modelValue0"
           disabled
           label="Disabled"
           selected-value="barfoo1"
         />
         <KRadio
-          v-model="modelValue"
+          v-model="modelValue0"
           has-error
           label="Error"
           selected-value="barfoo2"
         />
         <KRadio
-          v-model="modelValue"
+          v-model="modelValue0"
           disabled
           has-error
           label="Error & Disabled"
@@ -72,7 +72,7 @@
     />
     <SandboxSectionComponent title="label">
       <KRadio
-        v-model="modelValue"
+        v-model="modelValue0"
         label="Label"
         selected-value="foobar0"
       />
@@ -81,13 +81,13 @@
       <div class="grid-container">
         <div class="vertical-spacing">
           <KRadio
-            v-model="modelValue"
+            v-model="modelValue0"
             description="Lorem ipsum dolor sit amet."
             label="Label"
             selected-value="foobar1"
           />
           <KRadio
-            v-model="modelValue"
+            v-model="modelValue0"
             description="Lorem ipsum dolor sit amet."
             disabled
             label="Disabled"
@@ -96,14 +96,14 @@
         </div>
         <div class="vertical-spacing">
           <KRadio
-            v-model="modelValue"
+            v-model="modelValue0"
             description="Lorem ipsum dolor sit amet."
             has-error
             label="Error"
             selected-value="foobar3"
           />
           <KRadio
-            v-model="modelValue"
+            v-model="modelValue0"
             description="Lorem ipsum dolor sit amet."
             disabled
             has-error
@@ -117,7 +117,7 @@
       <div class="grid-container">
         <div class="vertical-spacing">
           <KRadio
-            v-model="modelValue"
+            v-model="modelValue0"
             description="Lorem ipsum dolor sit amet."
             is-card
             label="Label"
@@ -126,7 +126,7 @@
             <WorldIcon />
           </KRadio>
           <KRadio
-            v-model="modelValue"
+            v-model="modelValue0"
             description="Lorem ipsum dolor sit amet."
             disabled
             is-card
@@ -138,7 +138,7 @@
         </div>
         <div class="vertical-spacing">
           <KRadio
-            v-model="modelValue"
+            v-model="modelValue0"
             description="Lorem ipsum dolor sit amet."
             has-error
             is-card
@@ -148,7 +148,7 @@
             <WorldPrivateIcon />
           </KRadio>
           <KRadio
-            v-model="modelValue"
+            v-model="modelValue0"
             description="Lorem ipsum dolor sit amet."
             disabled
             has-error
@@ -163,7 +163,7 @@
     </SandboxSectionComponent>
     <SandboxSectionComponent title="labelAttributes">
       <KRadio
-        v-model="modelValue"
+        v-model="modelValue0"
         label="Label"
         :label-attributes="{ info: 'Tooltip it is' }"
         selected-value="foobar5"
@@ -177,7 +177,7 @@
     />
     <SandboxSectionComponent title="default">
       <KRadio
-        v-model="modelValue"
+        v-model="modelValue0"
         selected-value="foobar6"
       >
         Label
@@ -185,7 +185,7 @@
     </SandboxSectionComponent>
     <SandboxSectionComponent title="description">
       <KRadio
-        v-model="modelValue"
+        v-model="modelValue0"
         label="Label"
         selected-value="foobar7"
       >
@@ -196,11 +196,22 @@
     </SandboxSectionComponent>
     <SandboxSectionComponent title="default & description">
       <KRadio
-        v-model="modelValue"
+        v-model="modelValue0"
         selected-value="foobar8"
       >
         Label
         <template #description>
+          Lorem ipsum dolor sit amet.
+        </template>
+      </KRadio>
+    </SandboxSectionComponent>
+    <SandboxSectionComponent title="tooltip">
+      <KRadio
+        v-model="modelValue0"
+        selected-value="foobar9"
+      >
+        Label
+        <template #tooltip>
           Lorem ipsum dolor sit amet.
         </template>
       </KRadio>
@@ -215,7 +226,7 @@ import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { KRadio, KExternalLink } from '@/components'
 import { WorldIcon, WorldPrivateIcon } from '@kong/icons'
 
-const modelValue = ref('foobar')
+const modelValue0 = ref('foobar')
 const modelValue1 = ref('barfoo')
 </script>
 
