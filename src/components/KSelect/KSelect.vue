@@ -137,6 +137,7 @@
               :color="KUI_COLOR_TEXT_NEUTRAL"
               icon="chevronDown"
               :size="KUI_ICON_SIZE_30"
+              @click.prevent="onInputFocus"
             />
             <KInput
               :id="selectTextId"
@@ -147,6 +148,7 @@
               :class="{
                 'no-filter': !filterIsEnabled,
                 'input-placeholder-dark has-chevron': appearance === 'select',
+                'no-typing': appearance === 'select' && !autosuggest,
                 'input-placeholder-transparent': hasCustomSelectedItem && (!filterIsEnabled || !isToggled.value),
                 'has-clear': isClearVisible,
                 'is-readonly': ($attrs.readonly !== undefined && String($attrs.readonly) !== 'false'),
@@ -853,6 +855,13 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
     display: inline-block;
     position: relative;
     width: 100%;
+
+    &.has-chevron.no-typing {
+      .k-input {
+        caret-color: transparent;
+        cursor: pointer;
+      }
+    }
 
     &.is-readonly {
       @include input-readonly;
