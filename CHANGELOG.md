@@ -1,3 +1,10 @@
+# [9.0.0-alpha.26](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.25...v9.0.0-alpha.26) (2023-10-23)
+
+
+### Bug Fixes
+
+* **kselect:** filter input [khcp-9483] ([#1784](https://github.com/Kong/kongponents/issues/1784)) ([64ec450](https://github.com/Kong/kongponents/commit/64ec450187229b248aaf86831e0a8c8bb2cf341a))
+
 # [9.0.0-alpha.25](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.24...v9.0.0-alpha.25) (2023-10-20)
 
 
