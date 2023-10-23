@@ -194,6 +194,13 @@
         >
           Danger
         </KButton>
+        <KButton
+          disabled
+          target="_blank"
+          to="https://kongponents.konghq.com/"
+        >
+          Disabled
+        </KButton>
       </div>
     </SandboxSectionComponent>
 
@@ -227,6 +234,13 @@
           :to="{ name: 'home' }"
         >
           Danger
+        </KButton>
+        <KButton
+          disabled
+          target="_blank"
+          :to="{ name: 'home' }"
+        >
+          Disabled
         </KButton>
       </div>
     </SandboxSectionComponent>
@@ -486,7 +500,7 @@
     />
     <SandboxSectionComponent
       description="Using KIcon."
-      title="Icon Prop"
+      title="Prop: icon"
     >
       <div class="horizontal-spacing">
         <KButton
@@ -572,7 +586,7 @@
     </SandboxSectionComponent>
     <SandboxSectionComponent
       description="When KIcon is slotted in through icon slot, we can't control the icon color unless we pass color prop to KIcon."
-      title="Icon Slot"
+      title="Slot: icon"
     >
       <div class="horizontal-spacing">
         <KButton size="large">

@@ -5,15 +5,41 @@
       { key: 'name', label: 'Name' },
       { key: 'username', label: 'Username' },
       { key: 'email', label: 'Email' },
+      { key: 'actions', hideLabel: true }
     ]"
     :initial-fetcher-params="{
       pageSize: 30
     }"
-  />
+  >
+    <template #actions>
+      <KDropdown>
+        <template #default>
+          <KButton
+            appearance="tertiary"
+            size="small"
+          >
+            <MoreIcon />
+          </KButton>
+        </template>
+        <template #items>
+          <KDropdownItem>
+            Edit
+          </KDropdownItem>
+          <KDropdownItem
+            has-divider
+            is-dangerous
+          >
+            Delete
+          </KDropdownItem>
+        </template>
+      </KDropdown>
+    </template>
+  </KTable>
 </template>
 
 <script setup lang="ts">
-import { KTable } from '@/components'
+import { KTable, KDropdown, KButton, KDropdownItem } from '@/components'
+import { MoreIcon } from '@kong/icons'
 
 const fetcher = async (): Promise<any> => {
   // Fake delay

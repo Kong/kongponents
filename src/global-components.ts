@@ -16,6 +16,7 @@ declare module '@vue/runtime-core' {
     KCollapse: typeof components.KCollapse
     KComponent: typeof components.KComponent
     KDateTimePicker: typeof components.KDateTimePicker
+    KDropdown: typeof components.KDropdown
     KDropdownItem: typeof components.KDropdownItem
     KDropdownMenu: typeof components.KDropdownMenu
     KEmptyState: typeof components.KEmptyState

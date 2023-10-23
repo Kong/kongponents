@@ -1007,7 +1007,7 @@ export default {
 
 #### Column Cell
 
-This example uses the [`KDropdownMenu`](/components/dropdown-menu) component as the slot content for the `actions` column.
+This example uses the [`KDropdown`](/components/dropdown) component as the slot content for the `actions` column.
 
 <div>
   <KTable
@@ -1018,7 +1018,7 @@ This example uses the [`KDropdownMenu`](/components/dropdown-menu) component as 
       <span v-else style="color: red">&#10007;</span>
     </template>
     <template v-slot:actions>
-      <KDropdownMenu>
+      <KDropdown>
         <template #default>
           <KButton
             appearance="tertiary"
@@ -1045,7 +1045,7 @@ This example uses the [`KDropdownMenu`](/components/dropdown-menu) component as 
             Delete
           </KDropdownItem>
         </template>
-      </KDropdownMenu>
+      </KDropdown>
     </template>
   </KTable>
 </div>
@@ -1063,7 +1063,7 @@ This example uses the [`KDropdownMenu`](/components/dropdown-menu) component as 
     </template>
     <!-- Slot each "actions" cell in each row & link -->
     <template v-slot:actions>
-      <KDropdownMenu>
+      <KDropdown>
         <template #default>
           <KButton
             appearance="tertiary"
@@ -1090,7 +1090,7 @@ This example uses the [`KDropdownMenu`](/components/dropdown-menu) component as 
             Delete
           </KDropdownItem>
         </template>
-      </KDropdownMenu>
+      </KDropdown>
     </template>
   </KTable>
 </template>

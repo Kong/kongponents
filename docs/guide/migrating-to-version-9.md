@@ -100,6 +100,40 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KDropdownMenu
 
+Component has been renamed to `KDropdown`
+
+#### Structure
+
+* `k-dropdown-menu` class has been removed (`k-dropdown` class remains)
+* `k-dropdown-menu-popover` `testid` data attribute has been renamed to `k-dropdown-popover`
+* `k-dropdown-trigger` class has been removed
+* `k-dropdown-trigger` `testid` data attribute has been renamed to `dropdown-trigger`
+* `k-dropdown-btn` class has been renamed to `dropdown-trigger-button`
+* `k-dropdown-btn` `testid` data attribute has been renamed to `dropdown-trigger-button`
+* `k-dropdown-list` class has been removed
+* `k-dropdown-list` `testid` data attribute has been renamed to `dropdown-list`
+* `k-dropdown-selected-option` class has been renamed to `dropdown-selected-option`
+* `k-dropdown-item-trigger` class has been renamed to `dropdown-item-trigger`
+* `k-dropdown-item-trigger-label` class has been renamed to `dropdown-item-trigger-label`
+* dynamic `k-dropdown-item` `testid` data attribute has been renamed to `dropdown-item`
+
+#### Constants, Types & Interfaces
+
+* `AppearanceArray` const has been removed
+* `Appearance` type has been removed
+
+#### Props
+
+* `label` prop has been deprecated in favor of the new `trigger-text` prop (usage is the same)
+* `appearance` prop has been changed in favor of the `isSelectionMenu` prop for the selection menu functionality. `appearance` now controls the underlying `KButton` `appearance` prop (note that default `appearance` for component when `isSelectionMenu` is `true` changed from `tertiary` to `primary`)
+* `buttonAppearance` prop has been removed in favor of `appearance`, still controlling the `KButton` `appearance` prop
+* `testMode` prop has been removed
+* `icon` prop is removed (TODO: [beta])
+* `caretColor` prop is removed
+
+#### Slots
+
+#### Events
 
 ### KEmptyState
 

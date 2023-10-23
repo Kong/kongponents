@@ -121,7 +121,8 @@ const isHomePage = computed((): boolean => route.name === 'home')
 
   .sandbox-welcome {
     margin: 0 auto;
-    max-width: 700px;
+    /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+    max-width: $kui-breakpoint-mobile;
 
     h2 {
       text-align: center;

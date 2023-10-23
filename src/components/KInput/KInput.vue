@@ -308,11 +308,7 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
             outline: none;
           }
 
-          &:hover {
-            color: var(--kui-color-text, $kui-color-text) !important;
-          }
-
-          &:focus {
+          &:hover, &:focus {
             color: var(--kui-color-text, $kui-color-text) !important;
           }
         }
