@@ -3,7 +3,7 @@
 import pc from 'picocolors'
 import boxen from 'boxen'
 import inquirer from 'inquirer'
-import emoji from 'node-emoji'
+import * as emoji from 'node-emoji'
 import { kebabCase, pascalCase, kongponentSrcPath, createComponentFiles } from './utils'
 import fs from 'fs'
 
