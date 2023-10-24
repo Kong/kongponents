@@ -47,17 +47,11 @@ import type { LabelAttributes } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
 
 const props = defineProps({
-  /**
-   * Sets whether or not checkbox is checked
-   */
   modelValue: {
     type: Boolean,
     default: false,
     required: true,
   },
-  /**
-   * Overrides default label text
-   */
   label: {
     type: String,
     default: '',
@@ -66,19 +60,9 @@ const props = defineProps({
     type: Object as PropType<LabelAttributes>,
     default: () => ({}),
   },
-  /**
-   * Overrides default description text
-   */
   description: {
     type: String,
     default: '',
-  },
-  /**
-   * Test mode - for testing only, strips out generated ids
-   */
-  testMode: {
-    type: Boolean,
-    default: false,
   },
 })
 
@@ -91,7 +75,7 @@ const emit = defineEmits<{
 const slots = useSlots()
 const attrs = useAttrs()
 
-const inputId = computed((): string => attrs.id ? String(attrs.id) : props.testMode ? 'test-radio-input-id-1234' : uuidv4())
+const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
 const hasLabel = computed((): boolean => !!(props.label || slots.default))
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 
