@@ -340,7 +340,9 @@ $kRadioDotSize: 6px;
     }
 
     &.has-description {
-      margin-bottom: var(--kui-space-20, $kui-space-20);
+      .radio-label {
+        margin-bottom: var(--kui-space-20, $kui-space-20);
+      }
     }
   }
 
