@@ -43,40 +43,39 @@
         <slot name="description">
           <p>{{ description }}</p>
         </slot>
-        </p>
       </div>
-
-      <label
-        v-else-if="label || $slots.default"
-        class="radio-card-wrapper radio-label-wrapper"
-        :class="{ 'has-label': label, 'has-description': showCardDescription }"
-        :for="inputId"
-        :tabindex="isDisabled ? -1 : 0"
-        @keydown.space.prevent
-        @keyup.space="handleClick"
-      >
-        <span
-          v-if="$slots.default"
-          class="card-content-wrapper"
-        >
-          <slot />
-        </span>
-        <span
-          v-if="label"
-          class="radio-label"
-        >
-          {{ label }}
-        </span>
-        <span
-          v-if="showCardDescription"
-          class="radio-description"
-        >
-          <slot name="description">
-            {{ description }}
-          </slot>
-          </p>
-        </span></label>
     </div>
+
+    <label
+      v-else-if="label || $slots.default"
+      class="radio-card-wrapper radio-label-wrapper"
+      :class="{ 'has-label': label, 'has-description': showCardDescription }"
+      :for="inputId"
+      :tabindex="isDisabled ? -1 : 0"
+      @keydown.space.prevent
+      @keyup.space="handleClick"
+    >
+      <span
+        v-if="$slots.default"
+        class="card-content-wrapper"
+      >
+        <slot />
+      </span>
+      <span
+        v-if="label"
+        class="radio-label"
+      >
+        {{ label }}
+      </span>
+      <span
+        v-if="showCardDescription"
+        class="radio-description"
+      >
+        <slot name="description">
+          {{ description }}
+        </slot>
+      </span>
+    </label>
   </div>
 </template>
 
@@ -254,14 +253,6 @@ $kRadioDotSize: 6px;
       }
     }
 
-    &:active:not(:disabled) {
-      box-shadow: var(--kui-shadow-border-primary-strongest, $kui-shadow-border-primary-strongest);
-
-      &::before {
-        @include kRadioInputDot;
-      }
-    }
-
     &:checked {
       @include radioCheckboxChecked;
 
@@ -277,10 +268,6 @@ $kRadioDotSize: 6px;
         @include radioCheckboxCheckedActive;
       }
 
-      &:active {
-        background-color: var(--kui-color-background-primary-strongest, $kui-color-background-primary-strongest);
-      }
-
       &:disabled {
         @include radioCheckboxCheckedDisabled;
 
@@ -293,6 +280,7 @@ $kRadioDotSize: 6px;
     &:disabled {
       @include radioCheckboxDisabled;
     }
+  }
 
   &.error {
     .radio-input {
@@ -338,16 +326,6 @@ $kRadioDotSize: 6px;
         margin: 0; // reset default margin from browser
       }
     }
-
-    &.has-description {
-      .radio-label {
-        margin-bottom: var(--kui-space-20, $kui-space-20);
-      }
-    }
-  }
-
-  &.disabled .radio-label {
-    cursor: not-allowed;
   }
 
   &.disabled .radio-label {
@@ -405,7 +383,6 @@ $kRadioDotSize: 6px;
         box-shadow: var(--kui-shadow-border-primary, $kui-shadow-border-primary);
       }
     }
-  }
 
     &.error {
       .radio-card-wrapper {
@@ -430,46 +407,6 @@ $kRadioDotSize: 6px;
 
     &.disabled.radio-card {
       .radio-card-wrapper {
-        background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
-        box-shadow: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled);
-        cursor: not-allowed;
-
-        &:hover {
-          box-shadow: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled);
-        }
-      }
-    }
-
-    &.checked.k-radio-card {
-      .card-radio-wrapper {
-        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-        box-shadow: var(--kui-shadow-border-primary, $kui-shadow-border-primary);
-      }
-    }
-
-    &.has-error {
-      .card-radio-wrapper {
-        box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
-
-        &:hover {
-          box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong);
-        }
-
-        &:focus-visible {
-          box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong), var(--kui-shadow-focus, $kui-shadow-focus);
-        }
-      }
-
-      &.checked {
-        .card-radio-wrapper {
-          background-color: var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest);
-          box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
-        }
-      }
-    }
-
-    &.disabled.k-radio-card {
-      .card-radio-wrapper {
         background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
         box-shadow: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled);
         cursor: not-allowed;
