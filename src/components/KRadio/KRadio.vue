@@ -218,32 +218,20 @@ $kRadioDotSize: 6px;
 
   /* Radio button styles */
   .radio-input {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: var(--kui-color-background, $kui-color-background);
-    border: 0;
+    @include radioCheckboxDefaults;
+
     border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
-    box-shadow: var(--kui-shadow-border, $kui-shadow-border);
-    cursor: pointer;
-    height: var(--kui-icon-size-30, $kui-icon-size-30);
-    margin: 0;
-    margin-right: var(--kui-space-40, $kui-space-40);
-    outline: none;
-    position: relative;
-    transition: box-shadow $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc;
-    width: var(--kui-icon-size-30, $kui-icon-size-30);
 
     &:hover {
-      box-shadow: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak);
+      @include radioCheckboxHover;
     }
 
     &:focus-visible {
-      box-shadow: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak), var(--kui-shadow-focus, $kui-shadow-focus);
+      @include radioCheckboxFocus;
     }
 
     &:active:not(:disabled) {
-      box-shadow: var(--kui-shadow-border-primary-strongest, $kui-shadow-border-primary-strongest);
+      @include radioCheckboxActive;
 
       &::before {
         @include kRadioInputDot;
@@ -251,23 +239,22 @@ $kRadioDotSize: 6px;
     }
 
     &:checked {
-      background-color: var(--kui-color-background-primary, $kui-color-background-primary);
-      box-shadow: var(--kui-shadow-border-primary, $kui-shadow-border-primary);
+      @include radioCheckboxChecked;
 
       &::before {
         @include kRadioInputDot;
       }
 
       &:focus-visible {
-        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+        @include radioCheckboxCheckedFocus;
       }
 
       &:active {
-        background-color: var(--kui-color-background-primary-strongest, $kui-color-background-primary-strongest);
+        @include radioCheckboxCheckedActive;
       }
 
       &:disabled {
-        background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+        @include radioCheckboxCheckedDisabled;
 
         &::before {
           background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
@@ -276,30 +263,28 @@ $kRadioDotSize: 6px;
     }
 
     &:disabled {
-      background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
-      box-shadow: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled);
-      cursor: not-allowed;
+      @include radioCheckboxDisabled;
     }
   }
 
   &.has-error {
     .radio-input {
       &:not(:disabled) {
-        box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
+        @include radioCheckboxError;
 
         &:hover {
-          box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong);
+          @include radioCheckboxErrorHover;
         }
 
         &:focus-visible {
-          box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong), var(--kui-shadow-focus, $kui-shadow-focus);
+          @include radioCheckboxErrorFocus;
         }
 
         &:checked {
-          background-color: var(--kui-color-background-danger, $kui-color-background-danger);
+          @include radioCheckboxErrorChecked;
 
           &:focus-visible {
-            box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+            @include radioCheckboxErrorCheckedFocus;
           }
         }
       }

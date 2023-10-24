@@ -56,7 +56,7 @@ describe('KRadio', () => {
       },
     })
 
-    cy.get('.k-radio-card').should('contain.text', slotText)
+    cy.get('.radio-card').should('contain.text', slotText)
   })
 
   it('renders input element hidden when isCard prop is true', () => {
