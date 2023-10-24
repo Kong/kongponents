@@ -19,7 +19,6 @@
     <div
       v-if="!isCard && (label || $slots.default)"
       class="radio-label-wrapper"
-      :class="{ 'has-description': hasDescription }"
     >
       <KLabel
         v-bind="labelAttributes"
@@ -91,7 +90,7 @@ const props = defineProps({
    */
   modelValue: {
     type: [String, Number, Boolean, Object],
-    default: 'true',
+    default: true,
     required: true,
   },
   /**
@@ -176,8 +175,9 @@ const modifiedAttrs = computed(() => {
 <style lang="scss" scoped>
 /* Component variables */
 
-$kRadioBackground: var(--kui-color-background, $kui-color-background);
+$kRadioDotSize: 6px;
 $kRadioDotBackground: var(--kui-color-background, $kui-color-background);
+$kRadioBackground: var(--kui-color-background, $kui-color-background);
 $kRadioBorder: var(--kui-shadow-border, $kui-shadow-border);
 $kRadioHoverBorder: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak);
 // focus
@@ -203,14 +203,14 @@ $kRadioDisabledDotBackground: var(--kui-color-background-neutral-weak, $kui-colo
   background-color: $kRadioDotBackground;
   border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
   content: '';
-  height: 6px;
+  height: $kRadioDotSize;
   inset: 0;
   margin-left: 50%;
   margin-top: 50%;
   position: absolute;
   transform: translate(-50%, -50%);
   transition: background-color $kongponentsTransitionDurTimingFunc;
-  width: 6px;
+  width: $kRadioDotSize;
 }
 
 /* Component styles */
