@@ -79,86 +79,76 @@
     </SandboxSectionComponent>
     <SandboxSectionComponent title="description">
       <div class="grid-container">
-        <div class="vertical-spacing">
-          <KRadio
-            v-model="modelValue0"
-            description="Very long description that wraps to the next line and ends with lorem ipsum dolor sit amet."
-            label="Label"
-            selected-value="foobar1"
-          />
-          <KRadio
-            v-model="modelValue0"
-            description="Lorem ipsum dolor sit amet."
-            disabled
-            label="Disabled"
-            selected-value="foobar2"
-          />
-        </div>
-        <div class="vertical-spacing">
-          <KRadio
-            v-model="modelValue0"
-            description="Lorem ipsum dolor sit amet."
-            has-error
-            label="Error"
-            selected-value="foobar3"
-          />
-          <KRadio
-            v-model="modelValue0"
-            description="Lorem ipsum dolor sit amet."
-            disabled
-            has-error
-            label="Error & Disabled"
-            selected-value="foobar4"
-          />
-        </div>
+        <KRadio
+          v-model="modelValue0"
+          description="Very long description that wraps to the next line and ends with lorem ipsum dolor sit amet."
+          label="Label"
+          selected-value="foobar1"
+        />
+        <KRadio
+          v-model="modelValue0"
+          description="Lorem ipsum dolor sit amet."
+          disabled
+          label="Disabled"
+          selected-value="foobar2"
+        />
+        <KRadio
+          v-model="modelValue0"
+          description="Lorem ipsum dolor sit amet."
+          has-error
+          label="Error"
+          selected-value="foobar3"
+        />
+        <KRadio
+          v-model="modelValue0"
+          description="Lorem ipsum dolor sit amet."
+          disabled
+          has-error
+          label="Error & Disabled"
+          selected-value="foobar4"
+        />
       </div>
     </SandboxSectionComponent>
     <SandboxSectionComponent title="isCard">
       <div class="grid-container">
-        <div class="vertical-spacing">
-          <KRadio
-            v-model="modelValue2"
-            description="Very long description that wraps to the next line and ends with lorem ipsum dolor sit amet."
-            is-card
-            label="Label"
-            selected-value="card0"
-          >
-            <WorldIcon />
-          </KRadio>
-          <KRadio
-            v-model="modelValue2"
-            description="Lorem ipsum dolor sit amet."
-            disabled
-            is-card
-            label="Disabled"
-            selected-value="card1"
-          >
-            <WorldPrivateIcon />
-          </KRadio>
-        </div>
-        <div class="vertical-spacing">
-          <KRadio
-            v-model="modelValue2"
-            description="Lorem ipsum dolor sit amet."
-            has-error
-            is-card
-            label="Error"
-            selected-value="card2"
-          >
-            <WorldPrivateIcon />
-          </KRadio>
-          <KRadio
-            v-model="modelValue2"
-            description="Lorem ipsum dolor sit amet."
-            disabled
-            has-error
-            is-card
-            label="Error & Disabled"
-            selected-value="card3"
-          >
-            <WorldPrivateIcon />
-          </KRadio>
-        </div>
+        <KRadio
+          v-model="modelValue2"
+          description="Very long description that wraps to the next line and ends with lorem ipsum dolor sit amet."
+          is-card
+          label="Label"
+          selected-value="card0"
+        >
+          <WorldIcon />
+        </KRadio>
+        <KRadio
+          v-model="modelValue2"
+          description="Disabled (and without a label)"
+          disabled
+          is-card
+          selected-value="card1"
+        >
+          <WorldPrivateIcon />
+        </KRadio>
+        <KRadio
+          v-model="modelValue2"
+          description="Lorem ipsum dolor sit amet."
+          has-error
+          is-card
+          label="Error"
+          selected-value="card2"
+        >
+          <WorldPrivateIcon />
+        </KRadio>
+        <KRadio
+          v-model="modelValue2"
+          disabled
+          has-error
+          is-card
+          label="Error & Disabled"
+          selected-value="card3"
+        >
+          <WorldPrivateIcon />
+        </KRadio>
       </div>
     </SandboxSectionComponent>
     <SandboxSectionComponent title="labelAttributes">
@@ -212,7 +202,7 @@
       >
         Label
         <template #tooltip>
-          Lorem ipsum dolor sit amet.
+          Lorem ipsum <b>dolor</b> sit amet.
         </template>
       </KRadio>
     </SandboxSectionComponent>
@@ -232,27 +222,29 @@ const modelValue2 = ref('card0')
 </script>
 
 <style lang="scss" scoped>
-.standalone-container {
-  margin-bottom: $kui-space-90;
-}
+.kradio-sandbox {
+  .standalone-container {
+    margin-bottom: $kui-space-90;
+  }
 
-.horizontal-spacing {
-  align-items: flex-end;
-  display: flex;
-  gap: $kui-space-50;
-}
+  .horizontal-spacing {
+    align-items: flex-end;
+    display: flex;
+    gap: $kui-space-50;
+  }
 
-.vertical-spacing {
-  display: flex;
-  flex-direction: column;
-  gap: $kui-space-50;
-}
+  .vertical-spacing {
+    display: flex;
+    flex-direction: column;
+    gap: $kui-space-50;
+  }
 
-.grid-container {
-  align-items: flex-end;
-  column-gap: $kui-space-50;
-  display: grid;
-  grid-template-columns: repeat(2, 40%);
-  row-gap: $kui-space-70;
+  .grid-container {
+    display: grid;
+    gap: $kui-space-50;
+    grid-template-columns: repeat(2, 1fr);
+    /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+    max-width: $kui-breakpoint-tablet;
+  }
 }
 </style>

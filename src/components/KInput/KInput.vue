@@ -245,6 +245,7 @@ export default {
 
 <style lang="scss" scoped>
 /* Component variables */
+// Only add variables for ease of use when the same value is referenced multiple times.
 
 $kInputPaddingX: var(--kui-space-50, $kui-space-50);
 $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
