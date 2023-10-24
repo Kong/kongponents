@@ -6,10 +6,12 @@ KRadio is a wrapper around a Kong styled radio input.
   <template #title>Selected: {{ radioValue }}</template>
 
   <template #body>
-    <KRadio name="test" :selected-value="true" v-model="radioValue">Boolean</KRadio>
-    <KRadio name="test" selected-value="string" v-model="radioValue">String</KRadio>
-    <KRadio name="test" :selected-value="objA" v-model="radioValue">Object A</KRadio>
-    <KRadio name="test" :selected-value="objB" v-model="radioValue">Object B</KRadio>
+    <div class="horizontal-container">
+      <KRadio name="test" :selected-value="true" v-model="radioValue">Boolean</KRadio>
+      <KRadio name="test" selected-value="string" v-model="radioValue">String</KRadio>
+      <KRadio name="test" :selected-value="objA" v-model="radioValue">Object A</KRadio>
+      <KRadio name="test" :selected-value="objB" v-model="radioValue">Object B</KRadio>
+    </div>
   </template>
 </KCard>
 
@@ -195,22 +197,18 @@ Anything passed in to the default slot will replace the `label` prop text.
 ```
 
 :::warning NOTE
-When `isCard` prop is true, the content passed through default prop will render directly above the label. Should you want to customize the layout inside the card you can omit using `label` and `description` props and style content passed through the `default` slot yourself.
+When `isCard` prop is true, the content passed through default slot will render directly above the label. Should you want to customize the layout inside the card you can omit using `label` and `description` props and style content passed through the `default` slot yourself.
 :::
 
 ### description
 
 Anything passed in to this slot will replace the `description` prop text.
 
-<KCard>
-  <template #body>
-    <KRadio label="Some label" description="This will be replaced with a slot" v-model="descriptionSlotRadio" :selected-value="true">
-      <template #description>
-        Description goes here
-      </template>
-    </KRadio>
+<KRadio label="Some label" description="This will be replaced with a slot" v-model="descriptionSlotRadio" :selected-value="true">
+  <template #description>
+    Description goes here
   </template>
-</KCard>
+</KRadio>
 
 ```html
 <KRadio
@@ -283,5 +281,10 @@ const tooltipSlotRadio = ref<boolean>(false)
   display: flex;
   gap: $kui-space-40;
   margin-bottom: $kui-space-40;
+}
+
+.horizontal-container {
+  display: flex;
+  gap: $kui-space-60;
 }
 </style>
