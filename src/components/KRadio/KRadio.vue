@@ -10,7 +10,7 @@
       :id="inputId"
       :checked="isChecked"
       v-bind="modifiedAttrs"
-      class="k-input"
+      class="radio-input"
       :disabled="isDisabled"
       type="radio"
       @click="handleClick"
@@ -210,13 +210,13 @@ $kRadioDotSize: 6px;
   &.has-description {
     align-items: flex-start;
 
-    .k-input {
+    .radio-input {
       margin-top: 3px; // align with label
     }
   }
 
   /* Radio button styles */
-  .k-input {
+  .radio-input {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -282,7 +282,7 @@ $kRadioDotSize: 6px;
   }
 
   &.has-error {
-    .k-input {
+    .radio-input {
       &:not(:disabled) {
         box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
 
@@ -325,7 +325,9 @@ $kRadioDotSize: 6px;
     }
 
     &.has-description {
-      margin-bottom: var(--kui-space-20, $kui-space-20);
+      .radio-label {
+        margin-bottom: var(--kui-space-20, $kui-space-20);
+      }
     }
   }
 
@@ -337,7 +339,7 @@ $kRadioDotSize: 6px;
   &.k-radio-card {
     width: 100%;
 
-    .k-input {
+    .radio-input {
       display: none;
     }
 
