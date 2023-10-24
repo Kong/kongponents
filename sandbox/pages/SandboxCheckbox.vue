@@ -1,0 +1,183 @@
+<template>
+  <div class="kcheckbox-sandbox">
+    <SandboxTitleComponent
+      title="KCheckbox"
+    >
+      <template #description>
+        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=283%3A2899&mode=dev">
+          Figma
+        </KExternalLink>
+      </template>
+    </SandboxTitleComponent>
+
+    <div class="grid-container standalone-container">
+      <div class="vertical-spacing">
+        <KCheckbox
+          v-model="modelValue0"
+          label="Label"
+        />
+        <KCheckbox
+          v-model="modelValue0"
+          disabled
+          label="Disabled"
+        />
+        <KCheckbox
+          v-model="modelValue0"
+          has-error
+          label="Error"
+        />
+        <KCheckbox
+          v-model="modelValue0"
+          disabled
+          has-error
+          label="Error & Disabled"
+        />
+      </div>
+      <div class="vertical-spacing">
+        <KCheckbox
+          v-model="modelValue1"
+          label="Checked"
+          selected-value="barfoo"
+        />
+        <KCheckbox
+          v-model="modelValue1"
+          disabled
+          label="Checked & Disabled"
+        />
+        <KCheckbox
+          v-model="modelValue1"
+          has-error
+          label="Checked & Error"
+        />
+        <KCheckbox
+          v-model="modelValue1"
+          disabled
+          has-error
+          label="Checked & Error & Disabled"
+        />
+      </div>
+    </div>
+
+    <!-- Props -->
+    <SandboxTitleComponent
+      is-subtitle
+      title="Props"
+    />
+    <SandboxSectionComponent title="label">
+      <KCheckbox
+        v-model="modelValue0"
+        label="Label"
+      />
+    </SandboxSectionComponent>
+    <SandboxSectionComponent title="description">
+      <div class="grid-container">
+        <KCheckbox
+          v-model="modelValue0"
+          description="Very long description that wraps to the next line and ends with lorem ipsum dolor sit amet."
+          label="Label"
+        />
+        <KCheckbox
+          v-model="modelValue0"
+          description="Lorem ipsum dolor sit amet."
+          disabled
+          label="Disabled"
+        />
+        <KCheckbox
+          v-model="modelValue0"
+          description="Lorem ipsum dolor sit amet."
+          has-error
+          label="Error"
+        />
+        <KCheckbox
+          v-model="modelValue0"
+          description="Lorem ipsum dolor sit amet."
+          disabled
+          has-error
+          label="Error & Disabled"
+        />
+      </div>
+    </SandboxSectionComponent>
+    <SandboxSectionComponent title="labelAttributes">
+      <KCheckbox
+        v-model="modelValue0"
+        label="Label"
+        :label-attributes="{ info: 'Tooltip it is' }"
+      />
+    </SandboxSectionComponent>
+
+    <!-- Slots -->
+    <SandboxTitleComponent
+      is-subtitle
+      title="Slots"
+    />
+    <SandboxSectionComponent title="default">
+      <KCheckbox
+        v-model="modelValue0"
+      >
+        Label
+      </KCheckbox>
+    </SandboxSectionComponent>
+    <SandboxSectionComponent title="description">
+      <KCheckbox
+        v-model="modelValue0"
+        label="Label"
+      >
+        <template #description>
+          Lorem ipsum dolor sit amet.
+        </template>
+      </KCheckbox>
+    </SandboxSectionComponent>
+    <SandboxSectionComponent title="default & description">
+      <KCheckbox
+        v-model="modelValue0"
+      >
+        Label
+        <template #description>
+          Lorem ipsum dolor sit amet.
+        </template>
+      </KCheckbox>
+    </SandboxSectionComponent>
+    <SandboxSectionComponent title="tooltip">
+      <KCheckbox
+        v-model="modelValue0"
+      >
+        Label
+        <template #tooltip>
+          Lorem ipsum <b>dolor</b> sit amet.
+        </template>
+      </KCheckbox>
+    </SandboxSectionComponent>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
+import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
+import { KCheckbox, KExternalLink } from '@/components'
+
+const modelValue0 = ref<boolean>(false)
+const modelValue1 = ref<boolean>(true)
+</script>
+
+<style lang="scss" scoped>
+.kcheckbox-sandbox {
+  .standalone-container {
+    margin-bottom: $kui-space-90;
+  }
+
+  .vertical-spacing {
+    display: flex;
+    flex-direction: column;
+    gap: $kui-space-50;
+  }
+
+  .grid-container {
+    display: grid;
+    gap: $kui-space-50;
+    grid-template-columns: repeat(2, 1fr);
+    /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+    max-width: $kui-breakpoint-tablet;
+  }
+}
+</style>

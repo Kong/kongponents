@@ -29,6 +29,12 @@ export default createRouter({
           component: () => import('./pages/SandboxCatalog.vue'),
         },
         {
+          path: 'checkbox',
+          name: 'checkbox',
+          meta: { title: 'Checkbox Sandbox' },
+          component: () => import('./pages/SandboxCheckbox.vue'),
+        },
+        {
           path: 'dropdown',
           name: 'dropdown',
           meta: { title: 'Dropdown Sandbox' },
