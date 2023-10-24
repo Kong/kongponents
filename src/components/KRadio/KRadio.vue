@@ -3,7 +3,7 @@
     class="k-radio"
     :class="[
       $attrs.class ? $attrs.class : '',
-      { 'disabled': isDisabled, 'k-radio-card': isCard, 'has-error': hasError, 'checked': isChecked, 'has-description': hasDescription }
+      { 'disabled': isDisabled, 'k-radio-card': isCard || type === 'card', 'has-error': hasError, 'checked': isChecked, 'has-description': hasDescription }
     ]"
   >
     <input
@@ -36,14 +36,14 @@
         </template>
       </KLabel>
 
-      <p
+      <div
         v-if="hasDescription"
         class="radio-description"
       >
         <slot name="description">
-          {{ description }}
+          <p>{{ description }}</p>
         </slot>
-      </p>
+      </div>
     </div>
 
     <label
@@ -52,6 +52,7 @@
       :class="{ 'has-label': label, 'has-description': hasDescription }"
       :for="inputId"
       :tabindex="isDisabled ? -1 : 0"
+      @keyup.enter="handleClick"
     >
       <span
         v-if="$slots.default"
@@ -65,14 +66,14 @@
       >
         {{ label }}
       </span>
-      <p
+      <div
         v-if="hasDescription"
         class="radio-description"
       >
         <slot name="description">
-          {{ description }}
+          <p>{{ description }}</p>
         </slot>
-      </p>
+      </div>
     </label>
   </div>
 </template>
@@ -138,9 +139,9 @@ const props = defineProps({
    */
   type: {
     type: String as PropType<RadioTypes>,
-    default: 'radio',
+    default: '',
     validator: (value: RadioTypes): boolean => {
-      if (value === 'card') {
+      if (value) {
         console.warn('KRadio: `type` prop is deprecated in favor of `isCard`. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kradio')
       }
 
@@ -316,12 +317,16 @@ $kRadioDotSize: 6px;
 
     .radio-description {
       color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      display: block;
       font-family: var(--kui-font-family-text, $kui-font-family-text);
       font-size: var(--kui-font-size-20, $kui-font-size-20);
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
       line-height: var(--kui-line-height-20, $kui-line-height-20);
-      // reset default margin from browser
-      margin: 0;
+
+      p {
+        // reset default margin from browser
+        margin: 0;
+      }
     }
 
     &.has-description {

@@ -1,6 +1,6 @@
 # Radio
 
-KRadio is a user-friendly wrapper around radio input element.
+KRadio is wrapper for native input type `radio` elements.
 
 <KCard>
   <template #title>Selected: {{ radioValue }}</template>
