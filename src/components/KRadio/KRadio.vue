@@ -255,7 +255,7 @@ $kRadioDotSize: 6px;
     }
 
     &:active:not(:disabled) {
-      box-shadow: $kRadioActiveBorder;
+      box-shadow: var(--kui-shadow-border-primary-strongest, $kui-shadow-border-primary-strongest);
 
       &::before {
         @include kRadioInputDot;
@@ -278,7 +278,7 @@ $kRadioDotSize: 6px;
       }
 
       &:active {
-        background-color: $kRadioActiveBackground;
+        background-color: var(--kui-color-background-primary-strongest, $kui-color-background-primary-strongest);
       }
 
       &:disabled {
@@ -338,6 +338,14 @@ $kRadioDotSize: 6px;
         margin: 0; // reset default margin from browser
       }
     }
+
+    &.has-description {
+      margin-bottom: var(--kui-space-20, $kui-space-20);
+    }
+  }
+
+  &.disabled .radio-label {
+    cursor: not-allowed;
   }
 
   &.disabled .radio-label {
@@ -433,27 +441,27 @@ $kRadioDotSize: 6px;
     &.checked.k-radio-card {
       .card-radio-wrapper {
         background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-        box-shadow: $kRadioCheckedBorder;
+        box-shadow: var(--kui-shadow-border-primary, $kui-shadow-border-primary);
       }
     }
 
     &.has-error {
       .card-radio-wrapper {
-        box-shadow: $kRadioErrorBorder;
+        box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
 
         &:hover {
-          box-shadow: $kRadioErrorHoverBorder;
+          box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong);
         }
 
         &:focus-visible {
-          box-shadow: $kRadioErrorHoverBorder, $kRadioFocusRing;
+          box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong), var(--kui-shadow-focus, $kui-shadow-focus);
         }
       }
 
       &.checked {
         .card-radio-wrapper {
           background-color: var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest);
-          box-shadow: $kRadioErrorBorder;
+          box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
         }
       }
     }
@@ -461,11 +469,11 @@ $kRadioDotSize: 6px;
     &.disabled.k-radio-card {
       .card-radio-wrapper {
         background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
-        box-shadow: $kRadioDisabledBorder;
+        box-shadow: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled);
         cursor: not-allowed;
 
         &:hover {
-          box-shadow: $kRadioDisabledBorder;
+          box-shadow: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled);
         }
       }
     }

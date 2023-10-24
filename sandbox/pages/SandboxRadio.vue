@@ -251,17 +251,18 @@ const modelValue2 = ref('card0')
   }
 }
 
-.vertical-spacing {
-  display: flex;
-  flex-direction: column;
-  gap: $kui-space-50;
-}
+  .vertical-spacing {
+    display: flex;
+    flex-direction: column;
+    gap: $kui-space-50;
+  }
 
-.grid-container {
-  align-items: flex-end;
-  column-gap: $kui-space-50;
-  display: grid;
-  grid-template-columns: repeat(2, 40%);
-  row-gap: $kui-space-70;
+  .grid-container {
+    display: grid;
+    gap: $kui-space-50;
+    grid-template-columns: repeat(2, 1fr);
+    /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+    max-width: $kui-breakpoint-tablet;
+  }
 }
 </style>
