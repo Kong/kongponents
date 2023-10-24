@@ -262,6 +262,7 @@ Removed as of `v9`. Use `KTooltip` instead.
 * `k-radio-card` class has been changed to `radio-card`
 * `k-radio-label` class has been changed to `radio-label`
 * `k-radio-description` class has been changed to `radio-description`
+* `has-description` class has been removed
 
 #### Constants, Types & Interfaces
 
