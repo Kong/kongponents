@@ -6,7 +6,6 @@
     <div class="checkbox-input-wrapper">
       <input
         :id="inputId"
-        :checked="modelValue"
         v-bind="modifiedAttrs"
         class="checkbox-input"
         type="checkbox"
@@ -14,7 +13,14 @@
       >
       <CheckSmallIcon
         v-if="modelValue"
-        class="checkbox-check-icon"
+        class="checkbox-icon"
+        data-testid="check-icon"
+        :size="KUI_ICON_SIZE_40"
+      />
+      <IndeterminateSmallIcon
+        v-if="isIndeterminate && !modelValue"
+        class="checkbox-icon"
+        data-testid="indeterminate-icon"
         :size="KUI_ICON_SIZE_40"
       />
     </div>
@@ -53,7 +59,7 @@ import { computed, useAttrs, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import type { LabelAttributes } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
-import { CheckSmallIcon } from '@kong/icons'
+import { CheckSmallIcon, IndeterminateSmallIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 const props = defineProps({
@@ -102,7 +108,27 @@ const modifiedAttrs = computed(() => {
   // delete classes because we bind them to the parent
   delete $attrs.class
 
+  $attrs.checked = props.modelValue
+
+  /**
+   * Indeterminate state logic
+   *
+   * Checkbox can't have both `checked` and `indeterminate` attributes at the same time.
+   * If modelValue is `true` then it's checked (`indeterminate` attribute omitted regardless of value).
+   * If `indeterminate` attribute is passed (and is truthy) and modelValue is `false` then it's indeterminate (`checked` attribute omitted).
+   */
+  if ($attrs.indeterminate !== undefined && String($attrs.indeterminate) !== 'false' && !props.modelValue) {
+    delete $attrs.checked
+    $attrs.indeterminate = true
+  } else {
+    delete $attrs.indeterminate
+  }
+
   return $attrs
+})
+
+const isIndeterminate = computed((): boolean => {
+  return modifiedAttrs.value.indeterminate !== undefined && String(modifiedAttrs.value.indeterminate) !== 'false'
 })
 
 const handleChange = (event: Event): void => {
@@ -168,7 +194,7 @@ export default {
       @include radioCheckboxActive;
     }
 
-    &:checked {
+    &:checked, &:indeterminate {
       @include radioCheckboxChecked;
 
       &:focus-visible {
@@ -202,7 +228,7 @@ export default {
           @include radioCheckboxErrorFocus;
         }
 
-        &:checked {
+        &:checked, &:indeterminate {
           @include radioCheckboxErrorChecked;
 
           &:focus-visible {
@@ -214,14 +240,16 @@ export default {
   }
 
   /* Check and indeterminate icon styles */
-  .checkbox-input:checked + .checkbox-check-icon {
+  .checkbox-input:checked + .checkbox-icon,
+  .checkbox-input:indeterminate + .checkbox-icon {
     @include kCheckboxIcon;
 
     color: var(--kui-color-text-inverse, $kui-color-text-inverse) !important;
   }
 
   &.disabled {
-    .checkbox-input:checked + .checkbox-check-icon {
+    .checkbox-input:checked + .checkbox-icon,
+    .checkbox-input:indeterminate + .checkbox-icon {
       color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
     }
   }

@@ -97,6 +97,56 @@
         />
       </div>
     </SandboxSectionComponent>
+    <SandboxSectionComponent
+      description="Example"
+      title="indeterminate"
+    >
+      <div class="vertical-spacing">
+        <KCheckbox
+          v-model="indeterminateValueAll"
+          :indeterminate="isIndeterminate"
+          :label="indeterminateValueAll ? 'Uncheck all' : 'Check all'"
+          @change="handleIndeterminateChange"
+        />
+        <KCheckbox
+          v-for="(value, index) in indeterminateValues"
+          :key="index"
+          v-model="indeterminateValues[index].value"
+          :label="indeterminateValues[index].label"
+        />
+      </div>
+      <p>Different states</p>
+      <div class="grid-container standalone-container">
+        <KCheckbox
+          v-model="indeterminateValue"
+          description="Lorem ipsum dolor sit amet."
+          indeterminate
+          label="Label"
+        />
+        <KCheckbox
+          v-model="indeterminateValue"
+          description="Lorem ipsum dolor sit amet."
+          disabled
+          indeterminate
+          label="Disabled"
+        />
+        <KCheckbox
+          v-model="indeterminateValue"
+          description="Lorem ipsum dolor sit amet."
+          error
+          indeterminate
+          label="Error"
+        />
+        <KCheckbox
+          v-model="indeterminateValue"
+          description="Lorem ipsum dolor sit amet."
+          disabled
+          error
+          indeterminate
+          label="Error & Disabled"
+        />
+      </div>
+    </SandboxSectionComponent>
     <SandboxSectionComponent title="labelAttributes">
       <KCheckbox
         v-model="modelValue0"
@@ -151,13 +201,56 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { KCheckbox, KExternalLink } from '@/components'
 
 const modelValue0 = ref<boolean>(false)
 const modelValue1 = ref<boolean>(true)
+
+const indeterminateValue = ref<boolean>(false)
+
+// indeterminate example logic
+const indeterminateValueAll = ref<boolean>(false)
+
+const indeterminateValues = ref<Array<Record<string, any>>>([
+  {
+    label: 'Option 1',
+    value: false,
+  },
+  {
+    label: 'Option 2',
+    value: true,
+  },
+  {
+    label: 'Option 3',
+    value: false,
+  },
+])
+
+const isIndeterminate = computed((): boolean => {
+  return !!indeterminateValues.value.filter((value) => value.value).length && !!indeterminateValues.value.filter((value) => !value.value).length
+})
+
+const handleIndeterminateChange = (value: boolean) => {
+  indeterminateValues.value.forEach((val) => {
+    val.value = value
+  })
+}
+
+watch(indeterminateValues, () => {
+  // all are selected
+  if (indeterminateValues.value.filter((value) => value.value).length === indeterminateValues.value.length) {
+    indeterminateValueAll.value = true
+  // all are unselected
+  } else if (indeterminateValues.value.filter((value) => !value.value).length === indeterminateValues.value.length) {
+    indeterminateValueAll.value = false
+  // some are selected
+  } else {
+    indeterminateValueAll.value = false
+  }
+}, { deep: true })
 </script>
 
 <style lang="scss" scoped>
