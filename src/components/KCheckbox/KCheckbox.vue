@@ -14,13 +14,11 @@
       <CheckSmallIcon
         v-if="modelValue"
         class="checkbox-icon"
-        data-testid="check-icon"
         :size="KUI_ICON_SIZE_40"
       />
       <IndeterminateSmallIcon
         v-if="isIndeterminate && !modelValue"
         class="checkbox-icon"
-        data-testid="indeterminate-icon"
         :size="KUI_ICON_SIZE_40"
       />
     </div>

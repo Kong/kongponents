@@ -149,7 +149,7 @@ describe('KInput', () => {
 
     mount(KInput, {
       slots: {
-        before: `<span data-testid="${afterSlot}">After slot</span>`,
+        after: `<span data-testid="${afterSlot}">After slot</span>`,
       },
     })
 
