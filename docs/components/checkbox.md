@@ -317,13 +317,3 @@ watch(indeterminateValues, () => {
   gap: $kui-space-40;
 }
 </style>
-
-<style>
-/* Must stay unscoped as it's fixing docs styles interference with component styles */
-
-.vp-doc .k-checkbox .checkbox-description p {
-  /* <p> inside checkbox description */
-  /* See inputHelpText mixin in src/styles/mixins/_inputs.scss */
-  line-height: var(--kui-line-height-20, $kui-line-height-20);
-}
-</style>

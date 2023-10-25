@@ -262,17 +262,14 @@ export default {
     }
 
     .checkbox-description {
-      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-      display: block;
-      font-family: var(--kui-font-family-text, $kui-font-family-text);
-      font-size: var(--kui-font-size-20, $kui-font-size-20);
-      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-      line-height: var(--kui-line-height-20, $kui-line-height-20);
+      @include inputHelpText;
+
       margin-top: var(--kui-space-20, $kui-space-20);
 
       p {
-        // reset default margin from browser
-        margin: 0;
+        @include inputHelpText;
+
+        margin: 0; // reset default margin from browser
       }
     }
   }
