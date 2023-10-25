@@ -156,7 +156,7 @@ const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 const hasLabel = computed((): boolean => !!(props.label || slots.default))
 const showDescription = computed((): boolean => hasLabel.value && (!!props.description || !!slots.description))
-const showCardDescription = computed((): boolean => props.label && (!!props.description || !!slots.description))
+const showCardDescription = computed((): boolean => !!props.label && (!!props.description || !!slots.description))
 const hasTooltip = computed((): boolean => !!slots.tooltip)
 const isChecked = computed((): boolean => props.selectedValue === props.modelValue)
 
