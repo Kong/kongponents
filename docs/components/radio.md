@@ -237,15 +237,15 @@ Provides a slot for tooltip content displayed after the radio label.
 
 ## Events
 
-`KRadio` has a couple of natural event bindings that all emit the same data when a radio option is selected.
+KRadio emits two events with same data in payloads.
 
 ### change
 
-Fired on change, returns the checked status of the radio.
+Fired on change, returns the checked status of the radio (`boolean`).
 
 ### update:modelValue
 
-Fired on change, returns the checked status of the radio.
+Fired on change, returns the checked status of the radio (`boolean`).
 
 <script setup lang="ts">
 import { ref } from 'vue'

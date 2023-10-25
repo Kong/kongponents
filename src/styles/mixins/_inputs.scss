@@ -1,5 +1,15 @@
 /* This file contains mixins with styles used in all types of inputs */
 
+/* Common elements */
+
+@mixin inputHelpText {
+  color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+  font-family: var(--kui-font-family-text, $kui-font-family-text);
+  font-size: var(--kui-font-size-20, $kui-font-size-20);
+  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+  line-height: var(--kui-line-height-20, $kui-line-height-20);
+}
+
 /* Text inputs */
 
 @mixin inputDefaults {
