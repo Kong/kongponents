@@ -68,7 +68,6 @@
   margin: 0;
   margin-right: var(--kui-space-40, $kui-space-40);
   outline: none;
-  position: relative;
   transition:
     box-shadow $kongponentsTransitionDurTimingFunc,
     background-color $kongponentsTransitionDurTimingFunc;

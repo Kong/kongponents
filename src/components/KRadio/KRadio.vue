@@ -3,7 +3,7 @@
     class="k-radio"
     :class="[
       $attrs.class ? $attrs.class : '',
-      { 'disabled': isDisabled, 'radio-card': isCard || type === 'card', 'has-error': hasError, 'checked': isChecked, 'has-description': hasDescription }
+      { 'disabled': isDisabled, 'radio-card': isCard || type === 'card', 'has-error': hasError, 'checked': isChecked, 'has-description': showDescription }
     ]"
   >
     <input
@@ -19,7 +19,7 @@
     <div
       v-if="!isCard && (label || $slots.default)"
       class="radio-label-wrapper"
-      :class="{ 'has-description': hasDescription }"
+      :class="{ 'has-description': showDescription }"
     >
       <KLabel
         v-bind="labelAttributes"
@@ -37,7 +37,7 @@
       </KLabel>
 
       <div
-        v-if="hasDescription"
+        v-if="showDescription"
         class="radio-description"
       >
         <slot name="description">
@@ -49,7 +49,7 @@
     <label
       v-else-if="label || $slots.default"
       class="radio-card-wrapper radio-label-wrapper"
-      :class="{ 'has-label': label, 'has-description': hasDescription }"
+      :class="{ 'has-label': label, 'has-description': showCardDescription }"
       :for="inputId"
       :tabindex="isDisabled ? -1 : 0"
       @keyup.space="handleClick"
@@ -67,7 +67,7 @@
         {{ label }}
       </span>
       <div
-        v-if="hasDescription"
+        v-if="showCardDescription"
         class="radio-description"
       >
         <slot name="description">
@@ -154,7 +154,9 @@ const slots = useSlots()
 
 const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
-const hasDescription = computed((): boolean => !!(props.description || slots.description))
+const hasLabel = computed((): boolean => !!(props.label || slots.default))
+const showDescription = computed((): boolean => hasLabel.value && (!!props.description || !!slots.description))
+const showCardDescription = computed((): boolean => props.label && (!!props.description || !!slots.description))
 const hasTooltip = computed((): boolean => !!slots.tooltip)
 const isChecked = computed((): boolean => props.selectedValue === props.modelValue)
 
@@ -194,9 +196,9 @@ $kRadioDotSize: 6px;
   content: '';
   height: $kRadioDotSize;
   inset: 0;
-  margin-left: 50%;
-  margin-top: 50%;
+  left: 50%;
   position: absolute;
+  top: 50%;
   transform: translate(-50%, -50%);
   transition: background-color $kongponentsTransitionDurTimingFunc;
   width: $kRadioDotSize;
@@ -221,6 +223,7 @@ $kRadioDotSize: 6px;
     @include radioCheckboxDefaults;
 
     border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
+    position: relative;
 
     &:hover {
       @include radioCheckboxHover;
@@ -307,16 +310,11 @@ $kRadioDotSize: 6px;
       font-size: var(--kui-font-size-20, $kui-font-size-20);
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
       line-height: var(--kui-line-height-20, $kui-line-height-20);
+      margin-top: var(--kui-space-20, $kui-space-20);
 
       p {
         // reset default margin from browser
         margin: 0;
-      }
-    }
-
-    &.has-description {
-      .radio-label {
-        margin-bottom: var(--kui-space-20, $kui-space-20);
       }
     }
   }
