@@ -109,7 +109,10 @@
         />
       </div>
     </SandboxSectionComponent>
-    <SandboxSectionComponent title="isCard">
+    <SandboxSectionComponent
+      description="KRadio card styling is to be revisited in the next `9.0.0-beta.x` release as design is being finalized."
+      title="isCard"
+    >
       <div class="grid-container">
         <KRadio
           v-model="modelValue2"

@@ -87,6 +87,10 @@ Use this prop to apply error styling to the component.
 
 ### isCard
 
+:::danger NOTE
+KRadio card styling is to be revisited in the next `9.0.0-beta.x` release as design is being finalized.
+:::
+
 Set this prop to true to change the appearance of the KRadio component to a card-style design. When `isCard` is set to `true`, the KRadio component will be displayed with a card-like layout, providing a visually distinct and appealing presentation.
 
 <div>
