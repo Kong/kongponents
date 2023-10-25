@@ -1,54 +1,26 @@
 # Checkbox
 
-**KCheckbox** - KCheckbox is a wrapper around a Kong styled checkbox input.
+KCheckbox is wrapper for native input type `checkbox` elements.
 
-<KCard>
-  <template v-slot:body>
-    <KCheckbox v-model="defaultChecked" />
-  </template>
-</KCard>
+<KCheckbox label="Check this out!" v-model="defaultCheckbox" />
 
 ```html
-<template>
-  <KCheckbox
-    v-model="checked"
-    @change="handleToggle"
-  />
-</template>
-
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
-
-export default defineComponent ({
-  setup(props) {
-    const checked = ref(true)
-
-    const handleToggle = (): void => {
-      // do something, make api call?
-    }
-
-    return {
-      checked,
-      handleToggle,
-    }
-  },
-})
-</script>
+<KCheckbox
+  v-model="checked"
+  label="Check this out!"
+/>
 ```
 
 ## Props
 
-### v-model - required
+### v-model
 
-Use `v-model` to bind the `checked` state of the underlying `<input />`. The `v-model` binds to the `value` prop of the component and sets current checked state of the input. You can read more about passing values via `v-model` [here](https://vuejs.org/guide/components/events.html#usage-with-v-model).
+Use `v-model` to bind the `checked` state of the underlying `<input>`. The `v-model` binds to the `modelValue` prop of the component and sets current checked state of the input. You can read more about passing values via `v-model` [here](https://vuejs.org/guide/components/events.html#usage-with-v-model).
 
-<KCard>
-  <template v-slot:body>
-    <KCheckbox v-model="modelChecked">
-      {{ modelChecked ? 'Checked!' : 'Unchecked' }}
-    </KCheckbox>
-  </template>
-</KCard>
+
+<KCheckbox v-model="vModelCheckbox">
+  {{ vModelCheckbox ? 'Checked!' : 'Unchecked' }}
+</KCheckbox>
 
 ```html
 <KCheckbox v-model="checked">
@@ -60,40 +32,55 @@ Use `v-model` to bind the `checked` state of the underlying `<input />`. The `v-
 
 Will place label text to the right of the checkbox. Can also be [slotted](#slots).
 
-<KCheckbox v-model="labelChecked" label="Label Example" />
+<KCheckbox v-model="labelCheckbox" label="Label example" />
 
 ```html
 <KCheckbox
   v-model="checked"
-  label="Label Example"
+  label="Label example"
 />
 ```
 
 ### labelAttributes
 
- `KCheckbox` has an instance of `KLabel` for supporting tooltip text. Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label). This example shows using the `label-attributes` to set up a tooltip, see the [slot](#slots) section if you want to slot HTML into the tooltip rather than use plain text.
+ KCheckbox has an instance of KLabel for supporting tooltip text. Use the `labelAttributes` prop to configure the KLabel's [props](/components/label). This example shows using the `labelAttributes` to set up a tooltip, see the [slot](#slots) section if you want to slot HTML into the tooltip rather than use plain text.
 
-<KCheckbox v-model="labelAChecked" label="Tooltips?" :label-attributes="{ help: 'I use the KLabel `help` prop' }" />
+<KCheckbox v-model="labelAttributesCheckbox" label="Tooltips?" :label-attributes="{ info: 'I use the KLabel `info` prop' }" />
 
 ```html
 <KCheckbox
   v-model="checked"
   label="Tooltips?"
-  :label-attributes="{ help: 'I use the KLabel `help` prop' }"
+  :label-attributes="{ info: 'I use the KLabel `info` prop' }"
 />
 ```
 
 ### description
 
-Will place description text under the checkbox label (required). Can also be [slotted](#slots).
+Will place description text under the checkbox label. Can also be [slotted](#slots).
 
-<KCheckbox v-model="descriptionChecked" label="Label Example" description="Some subheader text" />
+<KCheckbox v-model="descriptionPropCheckbox" label="Label example" description="Some description text" />
 
 ```html
 <KCheckbox
   v-model="checked"
-  label="Label Example"
-  description="Some subheader text"
+  label="Label example"
+  description="Some description text"
+/>
+```
+
+### error
+
+Use this prop to apply error styling to the component.
+
+<KCheckbox v-model="errorCheckbox" label="Input error" error description="Some description text" />
+
+```html
+<KCheckbox
+ v-model="checked"
+ label="Input error"
+ error
+ description="Some description text"
 />
 ```
 
@@ -101,70 +88,129 @@ Will place description text under the checkbox label (required). Can also be [sl
 
 Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/api/composition-api-setup.html#setup-context).
 
-<KCard>
-  <template v-slot:body>
-    <div class="vertical-spacing">
-      <KCheckbox v-model="disabled" label="Can't check this" disabled />
-    </div>
-    <div>
-      <KCheckbox v-model="disabledChecked" disabled />
-    </div>
-  </template>
-</KCard>
+#### disabled
+
+Whether or not KCheckbox is enabled.
+
+<div class="vertical-spacing">
+<KCheckbox v-model="disabledCheckbox" label="Can't check this" disabled />
+<KCheckbox v-model="disabledCheckedCheckbox" label="Can't uncheck this" disabled />
+</div>
 
 ```html
-<KCheckbox v-model="checked" disabled />
+<KCheckbox v-model="unchecked" label="Can't check this" disabled />
+<KCheckbox v-model="checked" label="Can't uncheck this" disabled />
+```
+
+#### indeterminate
+
+In addition to the checked and unchecked states, there is a third state a kCheckbox can be in: indeterminate. This is a state in which it's impossible to say whether the item is toggled on or off.
+
+<div class="vertical-spacing">
+  <KCheckbox
+    v-model="checkAll"
+    :indeterminate="isIndeterminate"
+    :label="checkAll ? 'Uncheck all' : 'Check all'"
+    @change="handleIndeterminateChange"
+  />
+  <KCheckbox
+    v-for="(value, index) in indeterminateValues"
+    :key="index"
+    v-model="value.value"
+    :label="value.label"
+  />
+</div>
+
+```vue
+<template>
+  <KCheckbox
+    v-model="checkAll"
+    :indeterminate="isIndeterminate"
+    :label="checkAll ? 'Uncheck all' : 'Check all'"
+    @change="handleIndeterminateChange"
+  />
+  <KCheckbox
+    v-for="(value, index) in indeterminateValues"
+    :key="index"
+    v-model="value.value"
+    :label="value.label"
+  />
+</template>
+
+<script setup lang="ts">
+import { ref, computed, watch } from 'vue'
+
+const checkAll = ref<boolean>(false)
+
+const indeterminateValues = ref<Array<Record<string, any>>>([
+  {
+    label: 'Option 1',
+    value: false,
+  },
+  {
+    label: 'Option 2',
+    value: true,
+  },
+  {
+    label: 'Option 3',
+    value: false,
+  },
+])
+
+const isIndeterminate = computed((): boolean => {
+  return !!indeterminateValues.value.filter((value) => value.value).length && !!indeterminateValues.value.filter((value) => !value.value).length
+})
+
+const handleIndeterminateChange = (value: boolean) => {
+  indeterminateValues.value.forEach((val) => {
+    val.value = value
+  })
+}
+
+watch(indeterminateValues, () => {
+  // all are selected
+  if (indeterminateValues.value.filter((value) => value.value).length === indeterminateValues.value.length) {
+    checkAll.value = true
+  // all are unselected
+  } else if (indeterminateValues.value.filter((value) => !value.value).length === indeterminateValues.value.length) {
+    checkAll.value = false
+  // some are selected
+  } else {
+    checkAll.value = false
+  }
+}, { deep: true })
+</script>
 ```
 
 ## Slots
 
-### `default`
+### default
 
 Anything passed in to the default slot will replace the label prop text
 
-<KCard>
-  <template v-slot:body>
-    <div class="vertical-spacing">
-      <KCheckbox v-model="slots1">
-        Label goes here. The checkbox is {{ slots1 ? 'checked' : 'not checked' }}
-      </KCheckbox>
-    </div>
-    <div>
-      <KCheckbox v-model="slots2">
-        I agree to the&nbsp;<a href="#slots">privacy policy</a>.
-      </KCheckbox>
-    </div>
-  </template>
-</KCard>
-
-```html
-<KCheckbox v-model="checkbox1">
-  Label goes here. The checkbox is {{ checkbox1 ? 'checked' : 'not checked' }}
+<KCheckbox v-model="defaultSlotCheckbox">
+   I agree to the&nbsp;<a href="#slots">privacy policy</a>.
 </KCheckbox>
 
-<KCheckbox v-model="checkbox2">
+```html
+<KCheckbox v-model="privacyPolicyConsent">
   I agree to the <a :href="privacyPolicyURL">privacy policy</a>.
 </KCheckbox>
 ```
 
-### `description`
+### description
 
 Anything passed in to this slot will replace the `description` prop text
 
-<KCard>
-  <template #body>
-    <KCheckbox label="Some label" description="This will be replaced with a slot" v-model="slotsd" :selected-value="true">
-      <template #description>
-        Anything goes here
-      </template>
-    </KCheckbox>
+<KCheckbox label="Some label" description="This will be replaced with a slot" v-model="descriptionSlotCheckbox">
+  <template #description>
+    Anything goes here
   </template>
-</KCard>
+</KCheckbox>
 
 ```html
 <KCheckbox
   v-model="checked"
-  :selected-value="true"
   description="This will be replaced with a slot"
   label="Some label"
 >
@@ -174,62 +220,17 @@ Anything passed in to this slot will replace the `description` prop text
 </KCheckbox>
 ```
 
-<KCard>
-  <template #body>
-    <KCheckbox label="Some label" description="This will be replaced with a slot" v-model="slots5" :selected-value="true">
-      <template #description>
-        Anything goes here
-      </template>
-      <template #tooltip>Brings all the <code>devs</code> to the yard</template>
-    </KCheckbox>
-  </template>
-</KCard>
+### tooltip
 
-```html
-<KCheckbox
-  v-model="slots5"
-  :selected-value="true"
-  description="This will be replaced with a slot"
-  label="Some label"
->
-  <template #description>
-    Anything goes here
-  </template>
-  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
-</KCheckbox>
-```
+Provides a slot for tooltip content displayed after the checkbox label.
 
-### `tooltip`
-
-Provides a slot for tooltip content displayed after the checkbox label
-
-<KCheckbox v-model="slots3" :selected-value="true">
+<KCheckbox v-model="tooltipSlotCheckbox">
   My tooltip
   <template #tooltip>Brings all the <code>devs</code> to the yard</template>
 </KCheckbox>
 
 ```html
-<KCheckbox v-model="checked" :selected-value="true">
-  My tooltip
-  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
-</KCheckbox>
-```
-
-:::tip Note:
-When utilizing the `tooltip` slot, the `info` `KIcon` will be shown by default. To utilize the the `help` icon instead, set the `label-attributes` `help` property to any non-empty string value.
-:::
-
-<KCheckbox v-model="slots4" :selected-value="true" :label-attributes="{ help: 'true' }">
-  My tooltip
-  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
-</KCheckbox>
-
-```html
-<KCheckbox
-  v-model="checked"
-  :selected-value="true"
-  :label-attributes="{ help: 'true' }"
->
+<KCheckbox v-model="checked">
   My tooltip
   <template #tooltip>Brings all the <code>devs</code> to the yard</template>
 </KCheckbox>
@@ -237,39 +238,92 @@ When utilizing the `tooltip` slot, the `info` `KIcon` will be shown by default. 
 
 ## Events
 
-`KCheckbox` has a couple of natural event bindings that all emit the same data.
+KCheckbox emits a few events with same data in payloads.
 
-- `input` - Fired on change, returns the checked status of the checkbox.
-- `change` - Fired on change, returns the checked status of the checkbox.
-- `update:modelValue` - Fired on change, returns the checked status of the checkbox.
+### input 
 
-<style lang="scss">
+Fired on change, returns the checked status of the checkbox (`boolean`).
+
+### change 
+
+Fired on change, returns the checked status of the checkbox (`boolean`).
+
+### update:modelValue
+
+Fired on change, returns the checked status of the checkbox (`boolean`).
+
+<script setup lang="ts">
+import { ref, computed, watch } from 'vue'
+
+const defaultCheckbox = ref<boolean>(false)
+const vModelCheckbox = ref<boolean>(false)
+const descriptionPropCheckbox = ref<boolean>(false)
+const errorCheckbox = ref<boolean>(false)
+const labelCheckbox = ref<boolean>(false)
+const labelAttributesCheckbox = ref<boolean>(false)
+const disabledCheckbox = ref<boolean>(false)
+const disabledCheckedCheckbox = ref<boolean>(true)
+const themeChecked = ref<boolean>(true)
+const defaultSlotCheckbox = ref<boolean>(false)
+const descriptionSlotCheckbox = ref<boolean>(false)
+const tooltipSlotCheckbox = ref<boolean>(false)
+
+// indeterminate attr example logic
+const checkAll = ref<boolean>(false)
+
+const indeterminateValues = ref<Array<Record<string, any>>>([
+  {
+    label: 'Option 1',
+    value: false,
+  },
+  {
+    label: 'Option 2',
+    value: true,
+  },
+  {
+    label: 'Option 3',
+    value: false,
+  },
+])
+
+const isIndeterminate = computed((): boolean => {
+  return !!indeterminateValues.value.filter((value) => value.value).length && !!indeterminateValues.value.filter((value) => !value.value).length
+})
+
+const handleIndeterminateChange = (value: boolean) => {
+  indeterminateValues.value.forEach((val) => {
+    val.value = value
+  })
+}
+
+watch(indeterminateValues, () => {
+  // all are selected
+  if (indeterminateValues.value.filter((value) => value.value).length === indeterminateValues.value.length) {
+    checkAll.value = true
+  // all are unselected
+  } else if (indeterminateValues.value.filter((value) => !value.value).length === indeterminateValues.value.length) {
+    checkAll.value = false
+  // some are selected
+  } else {
+    checkAll.value = false
+  }
+}, { deep: true })
+</script>
+
+<style lang="scss" scoped>
 .vertical-spacing {
-  margin-bottom: $kui-space-40;
+  display: flex;
+  flex-direction: column;
+  gap: $kui-space-40;
 }
 </style>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<style>
+/* Must stay unscoped as it's fixing docs styles interference with component styles */
 
-export default defineComponent ({
-  data () {
-    return {
-      defaultChecked: false,
-      modelChecked: false,
-      descriptionChecked: false,
-      labelChecked: false,
-      labelAChecked: false,
-      disabled: false,
-      disabledChecked: true,
-      themeChecked: true,
-      slots1: true,
-      slots2: false,
-      slotsd: false,
-      slots3: false,
-      slots4: false,
-      slots5: false,
-    }
-  }
-})
-</script>
+.vp-doc .k-checkbox .checkbox-description p {
+  /* <p> inside checkbox description */
+  /* See inputHelpText mixin in src/styles/mixins/_inputs.scss */
+  line-height: var(--kui-line-height-20, $kui-line-height-20);
+}
+</style>

@@ -276,5 +276,9 @@ export default {
       }
     }
   }
+
+  &.disabled .checkbox-label {
+    cursor: not-allowed;
+  }
 }
 </style>
