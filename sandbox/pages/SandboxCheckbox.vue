@@ -23,13 +23,13 @@
         />
         <KCheckbox
           v-model="modelValue0"
-          has-error
+          error
           label="Error"
         />
         <KCheckbox
           v-model="modelValue0"
           disabled
-          has-error
+          error
           label="Error & Disabled"
         />
       </div>
@@ -46,13 +46,13 @@
         />
         <KCheckbox
           v-model="modelValue1"
-          has-error
+          error
           label="Checked & Error"
         />
         <KCheckbox
           v-model="modelValue1"
           disabled
-          has-error
+          error
           label="Checked & Error & Disabled"
         />
       </div>
@@ -85,14 +85,14 @@
         <KCheckbox
           v-model="modelValue0"
           description="Lorem ipsum dolor sit amet."
-          has-error
+          error
           label="Error"
         />
         <KCheckbox
           v-model="modelValue0"
           description="Lorem ipsum dolor sit amet."
           disabled
-          has-error
+          error
           label="Error & Disabled"
         />
       </div>

@@ -1,40 +1,48 @@
 <template>
   <div
     class="k-checkbox"
-    :class="[$attrs.class, { 'disabled': isDisabled }]"
+    :class="[$attrs.class, { 'disabled': isDisabled, 'has-description': showDescription, 'error': error }]"
   >
-    <input
-      :id="inputId"
-      :checked="modelValue"
-      v-bind="modifiedAttrs"
-      class="k-input"
-      type="checkbox"
-      @change="handleChange"
-    >
-
-    <KLabel
-      v-if="hasLabel"
-      v-bind="labelAttributes"
-      class="k-checkbox-label"
-      :class="{ 'has-desc': showDescription }"
-      :for="inputId"
-    >
-      <slot>{{ label }}</slot>
-
-      <template
-        v-if="hasTooltip"
-        #tooltip
+    <div class="checkbox-input-wrapper">
+      <input
+        :id="inputId"
+        :checked="modelValue"
+        v-bind="modifiedAttrs"
+        class="checkbox-input"
+        type="checkbox"
+        @change="handleChange"
       >
-        <slot name="tooltip" />
-      </template>
-    </KLabel>
-    <div
-      v-if="showDescription"
-      class="k-checkbox-description"
-    >
-      <slot name="description">
-        {{ description }}
-      </slot>
+      <CheckSmallIcon
+        v-if="modelValue"
+        class="checkbox-check-icon"
+        :size="KUI_ICON_SIZE_40"
+      />
+    </div>
+
+    <div class="checkbox-label-wrapper">
+      <KLabel
+        v-if="hasLabel"
+        v-bind="labelAttributes"
+        class="checkbox-label"
+        :for="inputId"
+      >
+        <slot>{{ label }}</slot>
+
+        <template
+          v-if="hasTooltip"
+          #tooltip
+        >
+          <slot name="tooltip" />
+        </template>
+      </KLabel>
+      <div
+        v-if="showDescription"
+        class="checkbox-description"
+      >
+        <slot name="description">
+          <p>{{ description }}</p>
+        </slot>
+      </div>
     </div>
   </div>
 </template>
@@ -45,6 +53,8 @@ import { computed, useAttrs, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import type { LabelAttributes } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
+import { CheckSmallIcon } from '@kong/icons'
+import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 const props = defineProps({
   modelValue: {
@@ -63,6 +73,10 @@ const props = defineProps({
   description: {
     type: String,
     default: '',
+  },
+  error: {
+    type: Boolean,
+    default: false,
   },
 })
 
@@ -105,44 +119,135 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/* Component mixins */
 
-@import '@/styles/mixins';
+@mixin kCheckboxIcon {
+  inset: 0;
+  left: calc(50% - 2px);
+  pointer-events: none;
+  position: absolute;
+  top: calc(50% + 2px);
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+/* Component styles */
 
 .k-checkbox {
-  .k-input {
-    @include input-type-checkbox;
-  }
+  align-items: center;
+  display: inline-flex;
 
-  .k-checkbox-label {
-    font-size: var(--kui-font-size-30, $kui-font-size-30);
-    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-    line-height: var(--kui-line-height-30, $kui-line-height-30);
-    margin: var(--kui-space-0, $kui-space-0);
-    vertical-align: middle;
-  }
+  &.has-description {
+    align-items: flex-start;
 
-  .k-checkbox-description {
-    color: var(--kui-color-text, $kui-color-text);
-    font-size: var(--kui-font-size-30, $kui-font-size-30);
-    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-    line-height: var(--kui-line-height-30, $kui-line-height-30);
-    padding-left: var(--kui-space-80, $kui-space-80);
-    padding-top: var(--kui-space-20, $kui-space-20);
-  }
-
-  &.disabled {
-    .k-checkbox-label {
-      color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+    .checkbox-input-wrapper {
+      margin-top: 3px; // align with label
     }
   }
 
-  .k-checkbox-label.has-desc {
-    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+  .checkbox-input-wrapper {
+    display: flex;
+    position: relative;
   }
-  .has-desc {
-    .label-tooltip {
-      display: inline-block;
-      padding-top: var(--kui-space-10, $kui-space-10);
+
+  /* Checkbox styles */
+  .checkbox-input {
+    @include radioCheckboxDefaults;
+
+    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+
+    &:hover {
+      @include radioCheckboxHover;
+    }
+
+    &:focus-visible {
+      @include radioCheckboxFocus;
+    }
+
+    &:active:not(:disabled) {
+      @include radioCheckboxActive;
+    }
+
+    &:checked {
+      @include radioCheckboxChecked;
+
+      &:focus-visible {
+        @include radioCheckboxCheckedFocus;
+      }
+
+      &:active {
+        @include radioCheckboxCheckedActive;
+      }
+
+      &:disabled {
+        @include radioCheckboxCheckedDisabled;
+      }
+    }
+
+    &:disabled {
+      @include radioCheckboxDisabled;
+    }
+  }
+
+  &.error {
+    .checkbox-input {
+      &:not(:disabled) {
+        @include radioCheckboxError;
+
+        &:hover {
+          @include radioCheckboxErrorHover;
+        }
+
+        &:focus-visible {
+          @include radioCheckboxErrorFocus;
+        }
+
+        &:checked {
+          @include radioCheckboxErrorChecked;
+
+          &:focus-visible {
+            @include radioCheckboxErrorCheckedFocus;
+          }
+        }
+      }
+    }
+  }
+
+  /* Check and indeterminate icon styles */
+  .checkbox-input:checked + .checkbox-check-icon {
+    @include kCheckboxIcon;
+
+    color: var(--kui-color-text-inverse, $kui-color-text-inverse) !important;
+  }
+
+  &.disabled {
+    .checkbox-input:checked + .checkbox-check-icon {
+      color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
+    }
+  }
+
+  /* Label & description styles */
+  .checkbox-label-wrapper {
+    flex: 1;
+
+    .checkbox-label {
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .checkbox-description {
+      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      display: block;
+      font-family: var(--kui-font-family-text, $kui-font-family-text);
+      font-size: var(--kui-font-size-20, $kui-font-size-20);
+      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+      line-height: var(--kui-line-height-20, $kui-line-height-20);
+      margin-top: var(--kui-space-20, $kui-space-20);
+
+      p {
+        // reset default margin from browser
+        margin: 0;
+      }
     }
   }
 }
