@@ -66,5 +66,11 @@ module.exports = {
         message: 'Using "data-test-id" is not allowed. Use "data-testid" instead.',
       },
     ],
+    'vue/no-restricted-v-bind': ['error',
+      {
+        argument: 'data-test-id',
+        message: 'Using "data-test-id" is not allowed. Use "data-testid" instead.',
+      },
+    ],
   },
 }
