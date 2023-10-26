@@ -76,7 +76,7 @@ const props = defineProps({
     default: false,
     validator: (value: boolean): boolean => {
       if (value) {
-        console.warn('KInput: `isDangerous` prop is deprecated. Please use `danger` prop instead. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kdropdownmenu')
+        console.warn('KDropdownItem: `isDangerous` prop is deprecated. Please use `danger` prop instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kdropdownmenu')
       }
 
       return true

@@ -2,7 +2,7 @@
   <!-- TODO: [beta] change wrapper class to k-input -->
   <div
     class="k-input-wrapper"
-    :class="[$attrs.class, { 'error' : charLimitExceeded || error || hasError }]"
+    :class="[$attrs.class, { 'input-error' : charLimitExceeded || error || hasError }]"
   >
     <KLabel
       v-if="label"
@@ -113,7 +113,7 @@ const props = defineProps({
     default: false,
     validator: (value: boolean): boolean => {
       if (value) {
-        console.warn('KInput: `hasError` prop is deprecated. Please use `error` prop instead. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kinput')
+        console.warn('KInput: `hasError` prop is deprecated. Please use `error` prop instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kinput')
       }
 
       return true
@@ -274,7 +274,7 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
   width: 100%;
 
   // error styles
-  &.error {
+  &.input-error {
     .k-input {
       box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
 
