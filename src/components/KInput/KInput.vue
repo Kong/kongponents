@@ -111,6 +111,13 @@ const props = defineProps({
   hasError: {
     type: Boolean,
     default: false,
+    validator: (value: boolean): boolean => {
+      if (value) {
+        console.warn('KInput: `hasError` prop is deprecated. Please use `error` prop instead. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kinput')
+      }
+
+      return true
+    },
   },
 })
 
