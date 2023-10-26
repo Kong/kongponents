@@ -1,3 +1,10 @@
+# [9.0.0-alpha.28](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.27...v9.0.0-alpha.28) (2023-10-26)
+
+
+### Features
+
+* **kradio:** component reskinning [KHCP-8996] ([#1781](https://github.com/Kong/kongponents/issues/1781)) ([98a5488](https://github.com/Kong/kongponents/commit/98a54889fdf67a497d7a3263ee32c122e1788d76))
+
 # [9.0.0-alpha.27](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.26...v9.0.0-alpha.27) (2023-10-23)
 
 
