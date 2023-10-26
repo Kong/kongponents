@@ -245,6 +245,7 @@ export default {
 
 <style lang="scss" scoped>
 /* Component variables */
+// Only add variables here sparingly for ease of use when the same value needs to be referenced for display logic.
 
 $kInputPaddingX: var(--kui-space-50, $kui-space-50);
 $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
@@ -261,7 +262,9 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
     .k-input {
       box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
 
-      // TODO: do we need a hover state for error?
+      &:hover {
+        box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong);
+      }
 
       &:focus {
         box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger), var(--kui-shadow-focus, $kui-shadow-focus);
@@ -274,11 +277,8 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
   }
 
   .help-text {
-    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-    font-family: var(--kui-font-family-text, $kui-font-family-text);
-    font-size: var(--kui-font-size-20, $kui-font-size-20);
-    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-    line-height: var(--kui-line-height-20, $kui-line-height-20);
+    @include inputHelpText;
+
     // reset default margin from browser
     margin: 0;
     margin-top: var(--kui-space-40, $kui-space-40);

@@ -59,13 +59,10 @@ $kLabelRequiredDotSize: 6px;
 /* Component styles */
 
 .k-label {
+  @include labelDefaults;
+
   align-items: center;
-  color: var(--kui-color-text, $kui-color-text);
   display: inline-flex;
-  font-family: var(--kui-font-family-text, $kui-font-family-text);
-  font-size: var(--kui-font-size-30, $kui-font-size-30);
-  font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-  line-height: var(--kui-line-height-30, $kui-line-height-30);
   margin-bottom: var(--kui-space-40, $kui-space-40);
 
   &.is-required {

@@ -255,6 +255,25 @@ Removed as of `v9`. Use `KTooltip` instead.
 
 ### KRadio
 
+#### Structure
+
+* `k-input` class on the `input[type="radio"]` has been changed to `radio-input`
+* `k-radio-default` class has been removed
+* `k-radio-card` class has been changed to `radio-card`
+* `k-radio-label` class has been changed to `radio-label`
+* `k-radio-description` class has been changed to `radio-description`
+
+#### Constants, Types & Interfaces
+
+#### Props
+
+* `testMode` prop has been removed
+* `type` prop has been deprecated in favor of `card` prop
+
+#### Slots
+
+#### Events
+
 ### Krumbs
 
 Removed as of `v9`. Use `KBreadcumbs` instead.

@@ -1,0 +1,14 @@
+/* This file imports mixins with styles used in all types of inputs and contains some shared mixins */
+
+@import "@/styles/mixins/input-text";
+@import "@/styles/mixins/input-radio-checkbox";
+
+/* Common mixins */
+
+@mixin inputHelpText {
+  color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+  font-family: var(--kui-font-family-text, $kui-font-family-text);
+  font-size: var(--kui-font-size-20, $kui-font-size-20);
+  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+  line-height: var(--kui-line-height-20, $kui-line-height-20);
+}
