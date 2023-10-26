@@ -290,7 +290,7 @@
     </SandboxSectionComponent>
     <SandboxSectionComponent
       description="The old KDropdownMenu component that utilizes the KDropdown under the hood still works as expected."
-      title="Deprecated KDropdownMenu"
+      title="KDropdownMenu (deprecated)"
     >
       <KDropdownMenu
         trigger-text="KDropdownMenu"
@@ -327,6 +327,20 @@
           </KDropdownItem>
         </template>
       </KDropdownMenu>
+    </SandboxSectionComponent>
+    <SandboxSectionComponent
+      title="KDropdownItem isDangerous prop (deprecated)"
+    >
+      <KDropdown trigger-text="Deprecated KDropdownItem prop">
+        <template #items>
+          <KDropdownItem
+            is-dangerous
+            @click="handleItemClick"
+          >
+            I am dangerous
+          </KDropdownItem>
+        </template>
+      </KDropdown>
     </SandboxSectionComponent>
   </div>
 </template>

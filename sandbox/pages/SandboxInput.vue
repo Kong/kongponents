@@ -165,6 +165,8 @@
         </template>
       </KInput>
     </SandboxSectionComponent>
+
+    <!-- Examples -->
     <SandboxTitleComponent
       is-subtitle
       title="Examples"
@@ -181,6 +183,20 @@
           Submit
         </KButton>
       </div>
+    </SandboxSectionComponent>
+
+    <!-- Legacy -->
+    <SandboxTitleComponent
+      is-subtitle
+      title="Legacy"
+    />
+    <SandboxSectionComponent
+      title="hasError prop (deprecated)"
+    >
+      <KInput
+        has-error
+        label="Label"
+      />
     </SandboxSectionComponent>
   </div>
 </template>
