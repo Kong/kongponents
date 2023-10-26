@@ -1,7 +1,8 @@
 <template>
+  <!-- TODO: [beta] change wrapper class to k-input -->
   <div
     class="k-input-wrapper"
-    :class="[$attrs.class, { 'has-error' : charLimitExceeded || hasError }]"
+    :class="[$attrs.class, { 'error' : charLimitExceeded || error || hasError }]"
   >
     <KLabel
       v-if="label"
@@ -30,9 +31,10 @@
         <slot name="before" />
       </div>
 
+      <!-- TODO: [beta] change input class to text-input -->
       <input
         v-bind="modifiedAttrs"
-        :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
+        :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
         class="k-input"
         :value="getValue()"
         @input="handleInput"
@@ -89,7 +91,7 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  hasError: {
+  error: {
     type: Boolean,
     default: false,
   },
@@ -102,6 +104,13 @@ const props = defineProps({
     default: null,
     // Ensure the characterLimit is greater than zero
     validator: (limit: number): boolean => limit > 0,
+  },
+  /**
+   * @deprecated in favor of `error`
+   */
+  hasError: {
+    type: Boolean,
+    default: false,
   },
 })
 
@@ -183,13 +192,13 @@ const helpText = computed((): string => {
     return charLimitExceededErrorMessage.value
   }
 
-  // if hasError prop is true and there is an error message, return that
-  if (props.hasError && props.errorMessage) {
+  // if error prop is true and there is an error message, return that
+  if ((props.error || props.hasError) && props.errorMessage) {
     return props.errorMessage
   }
 
   // otherwise return the help text
-  // if hasError prop is true it danger styles will be applied
+  // if error prop is true it danger styles will be applied
   return props.help
 })
 
@@ -258,7 +267,7 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
   width: 100%;
 
   // error styles
-  &.has-error {
+  &.error {
     .k-input {
       box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
 

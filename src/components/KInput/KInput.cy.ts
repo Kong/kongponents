@@ -110,7 +110,7 @@ describe('KInput', () => {
 
     cy.get('.k-input-wrapper .over-char-limit').should('not.exist')
     cy.get('.k-input-wrapper input.k-input').type(`This input has ${textCharCount} characters`)
-    cy.get('.k-input-wrapper.has-error .help-text').should('contain.text', `${textCharCount} / ${charLimit}`)
+    cy.get('.k-input-wrapper.error .help-text').should('contain.text', `${textCharCount} / ${charLimit}`)
   })
 
   it('reacts to text changes', () => {

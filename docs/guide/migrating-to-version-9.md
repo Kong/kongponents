@@ -156,9 +156,8 @@ Component has been renamed to `KDropdown`
 
 * `form-control` class has been removed
 * `over-char-limit` class has been removed
-* `has-error` class has been removed
 * `help` class has been changed to `help-text`
-* `input-error` class has been changed to `has-error`
+* `input-error` class has been changed to `error`
 
 #### Constants, Types & Interfaces
 
@@ -173,6 +172,7 @@ Component has been renamed to `KDropdown`
 * `iconPosition` prop has been removed
 * `testMode` prop has been removed
 * `help` property was removed from `labelAttributes` prop (TODO: after KLabel is reskinned)
+* `hasError` prop has been deprecated in favor of `error`
 
 #### Slots
 
