@@ -1,3 +1,11 @@
+# [9.0.0-alpha.29](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.28...v9.0.0-alpha.29) (2023-10-26)
+
+
+### Bug Fixes
+
+* deprecate and update boolean props [KHCP-9548] ([#1793](https://github.com/Kong/kongponents/issues/1793)) ([9b97cf8](https://github.com/Kong/kongponents/commit/9b97cf8f775a0e2c8c54e1fb7246b152e8301519))
+* **deps:** update dependency @kong/icons to ^1.7.8 ([#1795](https://github.com/Kong/kongponents/issues/1795)) ([221adcb](https://github.com/Kong/kongponents/commit/221adcb28bb7ebea5e5ff5a8f59f188897041260))
+
 # [9.0.0-alpha.28](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.27...v9.0.0-alpha.28) (2023-10-26)
 
 
