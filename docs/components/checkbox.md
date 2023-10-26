@@ -106,20 +106,22 @@ Whether or not KCheckbox is enabled.
 
 In addition to the checked and unchecked states, there is a third state a kCheckbox can be in: indeterminate. This is a state in which it's impossible to say whether the item is toggled on or off.
 
-<div class="vertical-spacing">
-  <KCheckbox
-    v-model="checkAll"
-    :indeterminate="isIndeterminate"
-    :label="checkAll ? 'Uncheck all' : 'Check all'"
-    @change="handleIndeterminateChange"
-  />
-  <KCheckbox
-    v-for="(value, index) in indeterminateValues"
-    :key="index"
-    v-model="value.value"
-    :label="value.label"
-  />
-</div>
+<ClientOnly>
+  <div class="vertical-spacing">
+    <KCheckbox
+      v-model="checkAll"
+      :indeterminate="isIndeterminate"
+      :label="checkAll ? 'Uncheck all' : 'Check all'"
+      @change="handleIndeterminateChange"
+    />
+    <KCheckbox
+      v-for="(value, index) in indeterminateValues"
+      :key="index"
+      v-model="value.value"
+      :label="value.label"
+    />
+  </div>
+</ClientOnly>
 
 ```vue
 <template>
