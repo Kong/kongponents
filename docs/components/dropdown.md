@@ -341,13 +341,13 @@ KDropdown generates a KDropdownItem for each object in the `items` prop array. A
 
 ### Props
 
-| Prop          | Description                                                                                                                                                                                                                                                                                                                                       |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `item`        | The properties the link is built from, it expects a `label` and optionally a `to` or `value` (when `selectionMenu` is `true`). If `to` is `typeof object`, the item will be rendered as a `<router-link>`. Otherwise, if `to` is `typeof string`, it will be rendered as an `<a>` element with the value of `to` applied to the `href` attribute. |
-| `disabled`    | A boolean (defaults to `false`), indicating whether or not to disable the item.                                                                                                                                                                                                                                                                   |
-| `selected`    | A boolean (defaults to `false`), indicating whether or not the item is selected when the `selectionMenu` prop is `true`.                                                                                                                                                                                                                          |
-| `hasDivider`  | A boolean (defaults to `false`), indicating whether or not the item should have a divider bar displayed above it.                                                                                                                                                                                                                                 |
-| `isDangerous` | A boolean (defaults to `false`), indicating whether or not to apply danger styles (text color is red).                                                                                                                                                                                                                                            |
+| Prop         | Description                                                                                                                                                                                                                                                                                                                                       |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `item`       | The properties the link is built from, it expects a `label` and optionally a `to` or `value` (when `selectionMenu` is `true`). If `to` is `typeof object`, the item will be rendered as a `<router-link>`. Otherwise, if `to` is `typeof string`, it will be rendered as an `<a>` element with the value of `to` applied to the `href` attribute. |
+| `disabled`   | A boolean (defaults to `false`), indicating whether or not to disable the item.                                                                                                                                                                                                                                                                   |
+| `selected`   | A boolean (defaults to `false`), indicating whether or not the item is selected when the `selectionMenu` prop is `true`.                                                                                                                                                                                                                          |
+| `hasDivider` | A boolean (defaults to `false`), indicating whether or not the item should have a divider bar displayed above it.                                                                                                                                                                                                                                 |
+| `dangerous`  | A boolean (defaults to `false`), indicating whether or not to apply danger styles (text color is red).                                                                                                                                                                                                                                            |
 
 <ClientOnly>
   <KDropdown trigger-text="All kinds of dropdown items">
@@ -402,7 +402,7 @@ KDropdown generates a KDropdownItem for each object in the `items` prop array. A
       </KDropdownItem>
       <KDropdownItem
         has-divider
-        is-dangerous
+        dangerous
         @click="clickHandler"
       >
         Danger button
@@ -464,7 +464,7 @@ KDropdown generates a KDropdownItem for each object in the `items` prop array. A
       </KDropdownItem>
       <KDropdownItem
         has-divider
-        is-dangerous
+        dangerous
         @click="clickHandler"
       >
         Danger button

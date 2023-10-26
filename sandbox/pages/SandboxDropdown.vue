@@ -206,8 +206,8 @@
             Disabled external link
           </KDropdownItem>
           <KDropdownItem
+            dangerous
             has-divider
-            is-dangerous
             @click="handleItemClick"
           >
             <TrashIcon />

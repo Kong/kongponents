@@ -4,7 +4,7 @@
     :class="{
       'has-divider': hasDivider,
       'disabled': disabled,
-      'danger': isDangerous,
+      'dangerous': dangerous || isDangerous,
       'dropdown-selected-option': selected
     }"
     data-testid="dropdown-item"
@@ -45,7 +45,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  isDangerous: {
+  dangerous: {
     type: Boolean,
     default: false,
   },
@@ -67,6 +67,13 @@ const props = defineProps({
   onClick: {
     type: Function,
     default: undefined,
+  },
+  /**
+   * @deprecated in favor of `dangerous`
+   */
+  isDangerous: {
+    type: Boolean,
+    default: false,
   },
 })
 
@@ -185,7 +192,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     }
   }
 
-  &.danger {
+  &.dangerous {
     .dropdown-item-trigger {
       color: var(--kui-color-text-danger, $kui-color-text-danger);
 

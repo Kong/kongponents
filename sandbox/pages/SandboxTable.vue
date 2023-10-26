@@ -26,8 +26,8 @@
             Edit
           </KDropdownItem>
           <KDropdownItem
+            dangerous
             has-divider
-            is-dangerous
           >
             Delete
           </KDropdownItem>
