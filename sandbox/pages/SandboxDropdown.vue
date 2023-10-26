@@ -28,11 +28,11 @@
       />
     </SandboxSectionComponent>
     <SandboxSectionComponent
-      title="isSelectionMenu (replacement for `appearance` prop)"
+      title="selectionMenu (replacement for `appearance` prop)"
     >
       <KDropdown
-        is-selection-menu
         :items="selectionMenuItems"
+        selection-menu
         trigger-text="Selection menu"
         @change="handleSelectionMenuUpdate"
       />
@@ -93,7 +93,7 @@
           trigger-text="Show caret"
         />
         <KDropdown
-          is-selection-menu
+          selection-menu
           show-caret
           trigger-text="Selection menu with caret"
           @change="handleSelectionMenuUpdate"
