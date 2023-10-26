@@ -147,10 +147,10 @@ export default {
 
 @mixin kCheckboxIcon {
   inset: 0;
-  left: calc(50% - 2px);
+  left: calc(50% - 2.4px); // 2px is not enough, 3px is too much...
   pointer-events: none;
   position: absolute;
-  top: calc(50% + 2px);
+  top: calc(50% + 1.75px); // 1px is not enough, 2px is too much...
   transform: translate(-50%, -50%);
   z-index: 1;
 }

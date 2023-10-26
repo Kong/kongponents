@@ -1,6 +1,6 @@
 # Checkbox
 
-KCheckbox is wrapper for native input type `checkbox` elements.
+KCheckbox is a wrapper for native input type `KCheckbox` elements.
 
 <KCheckbox label="Check this out!" v-model="defaultCheckbox" />
 
@@ -186,7 +186,7 @@ watch(indeterminateValues, () => {
 
 ### default
 
-Anything passed in to the default slot will replace the label prop text
+Content passed in to the `default` slot will be shown as the label content. The slot content takes precedence over the `label` prop.
 
 <KCheckbox v-model="defaultSlotCheckbox">
    I agree to the&nbsp;<a href="#slots">privacy policy</a>.
@@ -198,9 +198,13 @@ Anything passed in to the default slot will replace the label prop text
 </KCheckbox>
 ```
 
+:::warning NOTE
+To preserve a valid HTML structure, avoid slotting in block-level elements such as a div into the default slot as it will be rendered inside a label element. This also applies to card-style radio.
+:::
+
 ### description
 
-Anything passed in to this slot will replace the `description` prop text
+Content passed in to the `description` slot will be shown as the description content. The slot content takes precedence over the `description` prop.
 
 <KCheckbox label="Some label" description="This will be replaced with a slot" v-model="descriptionSlotCheckbox">
   <template #description>
@@ -226,13 +230,13 @@ Provides a slot for tooltip content displayed after the checkbox label.
 
 <KCheckbox v-model="tooltipSlotCheckbox">
   My tooltip
-  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
+  <template #tooltip>Roses are <code>#FF0000</code>, violets are <code>#0000FF</code></template>
 </KCheckbox>
 
 ```html
 <KCheckbox v-model="checked">
   My tooltip
-  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
+  <template #tooltip>Roses are <code>#FF0000</code>, violets are <code>#0000FF</code></template>
 </KCheckbox>
 ```
 
