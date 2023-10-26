@@ -347,7 +347,7 @@ KDropdown generates a KDropdownItem for each object in the `items` prop array. A
 | `disabled`   | A boolean (defaults to `false`), indicating whether or not to disable the item.                                                                                                                                                                                                                                                                   |
 | `selected`   | A boolean (defaults to `false`), indicating whether or not the item is selected when the `selectionMenu` prop is `true`.                                                                                                                                                                                                                          |
 | `hasDivider` | A boolean (defaults to `false`), indicating whether or not the item should have a divider bar displayed above it.                                                                                                                                                                                                                                 |
-| `dangerous`  | A boolean (defaults to `false`), indicating whether or not to apply danger styles (text color is red).                                                                                                                                                                                                                                            |
+| `danger`     | A boolean (defaults to `false`), indicating whether or not to apply danger styles (text color is red).                                                                                                                                                                                                                                            |
 
 <ClientOnly>
   <KDropdown trigger-text="All kinds of dropdown items">
@@ -402,7 +402,7 @@ KDropdown generates a KDropdownItem for each object in the `items` prop array. A
       </KDropdownItem>
       <KDropdownItem
         has-divider
-        dangerous
+        danger
         @click="clickHandler"
       >
         Danger button
@@ -464,7 +464,7 @@ KDropdown generates a KDropdownItem for each object in the `items` prop array. A
       </KDropdownItem>
       <KDropdownItem
         has-divider
-        dangerous
+        danger
         @click="clickHandler"
       >
         Danger button

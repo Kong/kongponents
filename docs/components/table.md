@@ -1039,7 +1039,7 @@ This example uses the [`KDropdown`](/components/dropdown) component as the slot 
           </KDropdownItem>
           <KDropdownItem
             has-divider
-            dangerous
+            danger
             @click="clickHandler('Delete clicked!')"
           >
             Delete
@@ -1084,7 +1084,7 @@ This example uses the [`KDropdown`](/components/dropdown) component as the slot 
           </KDropdownItem>
           <KDropdownItem
             has-divider
-            dangerous
+            danger
             @click="clickHandler('Delete clicked!')"
           >
             Delete

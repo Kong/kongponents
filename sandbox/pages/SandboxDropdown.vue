@@ -206,7 +206,7 @@
             Disabled external link
           </KDropdownItem>
           <KDropdownItem
-            dangerous
+            danger
             has-divider
             @click="handleItemClick"
           >

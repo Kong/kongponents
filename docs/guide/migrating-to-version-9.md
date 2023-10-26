@@ -116,7 +116,6 @@ Component has been renamed to `KDropdown`
 * `k-dropdown-item-trigger` class has been renamed to `dropdown-item-trigger`
 * `k-dropdown-item-trigger-label` class has been renamed to `dropdown-item-trigger-label`
 * dynamic `k-dropdown-item` `testid` data attribute has been renamed to `dropdown-item`
-* `danger` class in `KDropdownItem` has been changed to `dangerous`
 
 #### Constants, Types & Interfaces
 
@@ -131,7 +130,7 @@ Component has been renamed to `KDropdown`
 * `testMode` prop has been removed
 * `icon` prop is removed (TODO: [beta])
 * `caretColor` prop is removed
-* `isDangerous` `KDropdownItem` prop has been deprecated in favor of `dangerous`
+* `isDangerous` `KDropdownItem` prop has been deprecated in favor of `danger`
 
 #### Slots
 
