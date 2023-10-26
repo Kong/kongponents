@@ -187,7 +187,7 @@ const kRadioClasses = computed((): Record<string, boolean> => {
   return {
     disabled: isDisabled.value,
     'radio-card': props.card || props.type === 'card',
-    error: props.error,
+    'input-error': props.error,
     checked: isChecked.value,
     'has-description': showDescription.value,
   }
@@ -282,7 +282,7 @@ $kRadioDotSize: 6px;
     }
   }
 
-  &.error {
+  &.input-error {
     .radio-input {
       &:not(:disabled) {
         @include radioCheckboxError;
@@ -384,7 +384,7 @@ $kRadioDotSize: 6px;
       }
     }
 
-    &.error {
+    &.input-error {
       .radio-card-wrapper {
         box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
 

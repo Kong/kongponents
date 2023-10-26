@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-checkbox"
-    :class="[$attrs.class, { 'disabled': isDisabled, 'has-description': showDescription, 'error': error }]"
+    :class="[$attrs.class, { 'disabled': isDisabled, 'has-description': showDescription, 'input-error': error }]"
   >
     <div class="checkbox-input-wrapper">
       <input
@@ -213,7 +213,7 @@ export default {
     }
   }
 
-  &.error {
+  &.input-error {
     .checkbox-input {
       &:not(:disabled) {
         @include radioCheckboxError;
