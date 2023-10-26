@@ -194,8 +194,11 @@ Content passed in to the `default` slot will be shown as the label content. The 
   Label goes here. The radio is {{ checked ? "selected" : "not selected" }}
 </KRadio>
 ```
+:::warning NOTE
+Avoid slotting in block-level elements like `div` into a `default` slot as it will be rendered inside the `label` element. This applies to card-style radio as well.
+:::
 
-:::tip NOTE
+:::tip TIP
 When `card` prop is true, the content passed through default slot will render directly above the label. Should you want to customize the layout inside the card you can omit using `label` and `description` props and style content passed through the `default` slot yourself.
 :::
 

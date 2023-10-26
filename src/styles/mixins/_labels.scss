@@ -1,3 +1,5 @@
+/* Label styles */
+
 @mixin labelDefaults {
   color: var(--kui-color-text, $kui-color-text);
   font-family: var(--kui-font-family-text, $kui-font-family-text);

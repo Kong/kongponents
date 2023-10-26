@@ -67,14 +67,14 @@
       >
         {{ label }}
       </span>
-      <div
+      <span
         v-if="showCardDescription"
         class="radio-description"
       >
         <slot name="description">
-          <p>{{ description }}</p>
+          {{ description }}
         </slot>
-      </div>
+      </span>
     </label>
   </div>
 </template>
@@ -99,7 +99,6 @@ const props = defineProps({
    */
   modelValue: {
     type: [String, Number, Boolean, Object],
-    default: false,
     required: true,
   },
   /**
@@ -324,8 +323,7 @@ $kRadioDotSize: 6px;
       p {
         @include inputHelpText;
 
-        // reset default margin from browser
-        margin: 0;
+        margin: 0; // reset default margin from browser
       }
     }
   }
