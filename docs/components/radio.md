@@ -69,36 +69,36 @@ Will place description text under the radio label. Can also be [slotted](#slots)
 />
 ```
 
-### hasError
+### error
 
 Use this prop to apply error styling to the component.
 
-<KRadio v-model="hasErrorPropRadio" label="Input error" has-error description="Some description text" :selected-value="true" />
+<KRadio v-model="errorPropRadio" label="Input error" error description="Some description text" :selected-value="true" />
 
 ```html
 <KRadio
   v-model="radio"
   label="Input error"
-  has-error
+  error
   description="Some description text"
   :selected-value="true"
 />
 ```
 
-### isCard
+### card
 
 :::danger NOTE
 KRadio card styling is to be revisited in the next `9.0.0-beta.x` release as design is being finalized.
 :::
 
-Set this prop to true to change the appearance of the KRadio component to a card-style design. When `isCard` is set to `true`, the KRadio component will be displayed with a card-like layout, providing a visually distinct and appealing presentation.
+Set this prop to true to change the appearance of the KRadio component to a card-style design. When `card` is set to `true`, the KRadio component will be displayed with a card-like layout, providing a visually distinct and appealing presentation.
 
 <div>
   <div class="cards-container">
     <KRadio
       v-model="cardRadio"
       description="Choose this option if you want your APIs to be publicly accessible by anyone on the internet."
-      is-card
+      card
       label="Public"
       selected-value="public"
     >
@@ -107,7 +107,7 @@ Set this prop to true to change the appearance of the KRadio component to a card
     <KRadio
       v-model="cardRadio"
       description="Choose this option if you want your APIs to only be accessible from within your private network."
-      is-card
+      card
       label="Private"
       selected-value="private"
     >
@@ -122,7 +122,7 @@ Set this prop to true to change the appearance of the KRadio component to a card
   <KRadio
     v-model="cardRadio"
     description="Choose this option if you want your APIs to be publicly accessible by anyone on the internet."
-    is-card
+    card
     label="Public"
     selected-value="public"
   >
@@ -131,7 +131,7 @@ Set this prop to true to change the appearance of the KRadio component to a card
   <KRadio
     v-model="cardRadio"
     description="Choose this option if you want your APIs to only be accessible from within your private network."
-    is-card
+    card
     label="Private"
     selected-value="private"
   >
@@ -199,7 +199,7 @@ Anything passed in to the default slot will replace the `label` prop text.
 ```
 
 :::warning NOTE
-When `isCard` prop is true, the content passed through default slot will render directly above the label. Should you want to customize the layout inside the card you can omit using `label` and `description` props and style content passed through the `default` slot yourself.
+When `card` prop is true, the content passed through default slot will render directly above the label. Should you want to customize the layout inside the card you can omit using `label` and `description` props and style content passed through the `default` slot yourself.
 :::
 
 ### description
@@ -267,7 +267,7 @@ const labelPropRadio = ref<boolean>(false)
 
 const descriptionPropRadio = ref<boolean>(false)
 
-const hasErrorPropRadio = ref<boolean>(false)
+const errorPropRadio = ref<boolean>(false)
 
 const disabledAttributeRadio = ref<boolean>(true)
 

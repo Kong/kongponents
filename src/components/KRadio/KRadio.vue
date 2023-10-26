@@ -3,7 +3,7 @@
     class="k-radio"
     :class="[
       $attrs.class ? $attrs.class : '',
-      { 'disabled': isDisabled, 'radio-card': isCard || type === 'card', 'has-error': hasError, 'checked': isChecked, 'has-description': showDescription }
+      { 'disabled': isDisabled, 'radio-card': card || type === 'card', 'error': error, 'checked': isChecked, 'has-description': showDescription }
     ]"
   >
     <input
@@ -17,7 +17,7 @@
     >
 
     <div
-      v-if="!isCard && (label || $slots.default)"
+      v-if="!card && (label || $slots.default)"
       class="radio-label-wrapper"
       :class="{ 'has-description': showDescription }"
     >
@@ -126,23 +126,23 @@ const props = defineProps({
     type: [String, Number, Boolean, Object],
     required: true,
   },
-  hasError: {
+  error: {
     type: Boolean,
     default: false,
   },
-  isCard: {
+  card: {
     type: Boolean,
     default: false,
   },
   /**
-   * @deprecated in favor of `isCard`
+   * @deprecated in favor of `card`
    */
   type: {
     type: String as PropType<RadioTypes>,
     default: '',
     validator: (value: RadioTypes): boolean => {
       if (value) {
-        console.warn('KRadio: `type` prop is deprecated in favor of `isCard`. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kradio')
+        console.warn('KRadio: `type` prop is deprecated in favor of `card`. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kradio')
       }
 
       return RadioTypesArray.includes(value)
@@ -270,7 +270,7 @@ $kRadioDotSize: 6px;
     }
   }
 
-  &.has-error {
+  &.error {
     .radio-input {
       &:not(:disabled) {
         @include radioCheckboxError;
@@ -373,7 +373,7 @@ $kRadioDotSize: 6px;
       }
     }
 
-    &.has-error {
+    &.error {
       .radio-card-wrapper {
         box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
 

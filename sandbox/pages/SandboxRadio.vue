@@ -25,14 +25,14 @@
         />
         <KRadio
           v-model="modelValue0"
-          has-error
+          error
           label="Error"
           selected-value="barfoo2"
         />
         <KRadio
           v-model="modelValue0"
           disabled
-          has-error
+          error
           label="Error & Disabled"
           selected-value="barfoo3"
         />
@@ -51,14 +51,14 @@
         />
         <KRadio
           v-model="modelValue1"
-          has-error
+          error
           label="Checked & Error"
           selected-value="barfoo"
         />
         <KRadio
           v-model="modelValue1"
           disabled
-          has-error
+          error
           label="Checked & Error & Disabled"
           selected-value="barfoo"
         />
@@ -95,7 +95,7 @@
         <KRadio
           v-model="modelValue0"
           description="Lorem ipsum dolor sit amet."
-          has-error
+          error
           label="Error"
           selected-value="foobar3"
         />
@@ -103,7 +103,7 @@
           v-model="modelValue0"
           description="Lorem ipsum dolor sit amet."
           disabled
-          has-error
+          error
           label="Error & Disabled"
           selected-value="foobar4"
         />
@@ -111,13 +111,13 @@
     </SandboxSectionComponent>
     <SandboxSectionComponent
       description="KRadio card styling is to be revisited in the next `9.0.0-beta.x` release as design is being finalized."
-      title="isCard"
+      title="card"
     >
       <div class="grid-container">
         <KRadio
           v-model="modelValue2"
+          card
           description="Very long description that wraps to the next line and ends with lorem ipsum dolor sit amet."
-          is-card
           label="Label"
           selected-value="card0"
         >
@@ -125,18 +125,18 @@
         </KRadio>
         <KRadio
           v-model="modelValue2"
+          card
           description="Disabled (and without a label)"
           disabled
-          is-card
           selected-value="card1"
         >
           <WorldPrivateIcon />
         </KRadio>
         <KRadio
           v-model="modelValue2"
+          card
           description="Lorem ipsum dolor sit amet."
-          has-error
-          is-card
+          error
           label="Error"
           selected-value="card2"
         >
@@ -144,9 +144,9 @@
         </KRadio>
         <KRadio
           v-model="modelValue2"
+          card
           disabled
-          has-error
-          is-card
+          error
           label="Error & Disabled"
           selected-value="card3"
         >

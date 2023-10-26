@@ -268,7 +268,7 @@ Removed as of `v9`. Use `KTooltip` instead.
 #### Props
 
 * `testMode` prop has been removed
-* `type` prop has been deprecated in favour of `isCard` prop
+* `type` prop has been deprecated in favour of `card` prop
 
 #### Slots
 
