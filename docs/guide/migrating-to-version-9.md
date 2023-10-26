@@ -176,11 +176,11 @@ Component has been renamed to `KDropdown`
 
 #### Slots
 
-* `icon` slot has been removed. Instead, you can use new `before` and/or `after` slots to provide icons on the left/right, inside the input
+* `icon` slot has been removed. Instead, you can use new `before` and/or `after` slots to provide icons on the left/right, inside the input.
 
 #### Events
 
-* `icon:click` event has been removed. Instead, when using `before` and/or `after` slots, you can provide your custom click handlers bound to clicks on slotted content. See KInput's [slots](/components/input#after) for more details
+* `icon:click` event has been removed. Instead, when using `before` and/or `after` slots, you can provide your custom click handlers bound to clicks on slotted content. See KInput's [slots](/components/input#after) for more details.
 
 ### KInputSwitch
 
@@ -283,6 +283,21 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 
 ### KSelect
+
+#### Structure
+
+
+#### Constants, Types & Interfaces
+
+
+#### Props
+
+* `testMode` prop has been removed
+
+#### Slots
+
+
+#### Events
 
 
 ### KSkeleton

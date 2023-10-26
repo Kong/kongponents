@@ -59,6 +59,12 @@ export default createRouter({
           component: () => import('./pages/SandboxRadio.vue'),
         },
         {
+          path: 'select',
+          name: 'select',
+          meta: { title: 'Select Sandbox' },
+          component: () => import('./pages/SandboxSelect.vue'),
+        },
+        {
           path: 'table',
           name: 'table',
           meta: { title: 'Table Sandbox' },

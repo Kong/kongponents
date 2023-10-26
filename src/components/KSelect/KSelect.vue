@@ -60,7 +60,6 @@
           }"
           :position-fixed="positionFixed"
           :target="`[id='${selectInputId}']`"
-          :test-mode="!!testMode || undefined"
           @closed="() => {
             if (selectedItem && appearance === 'select') {
               filterStr = selectedItem.label
@@ -401,13 +400,6 @@ const props = defineProps({
     default: false,
   },
   /**
-   * Test mode - for testing only, strips out generated ids
-   */
-  testMode: {
-    type: Boolean,
-    default: false,
-  },
-  /**
    * Dropdown footer text
    */
   dropdownFooterText: {
@@ -469,9 +461,9 @@ const uniqueFilterStr = computed((): boolean => {
   return true
 })
 const selectedItem = ref<SelectItem|null>(null)
-const selectId = computed((): string => props.testMode ? 'test-select-id-1234' : uuidv4())
-const selectInputId = computed((): string => props.testMode ? 'test-select-input-id-1234' : uuidv4())
-const selectTextId = computed((): string => props.testMode ? 'test-select-text-id-1234' : uuidv4())
+const selectId = computed((): string => uuidv4()) // TODO: use attrs.id
+const selectInputId = computed((): string => uuidv4()) // TODO: use attrs.id
+const selectTextId = computed((): string => uuidv4()) // TODO: use attrs.id
 const selectItems: Ref<SelectItem[]> = ref([])
 const initialFocusTriggered: Ref<boolean> = ref(false)
 const inputFocused: Ref<boolean> = ref(false)
@@ -603,7 +595,7 @@ const handleAddItem = (): void => {
   const pos = (selectItems.value?.length || 0) + 1
   const item: SelectItem = {
     label: filterStr.value + '',
-    value: props.testMode ? `test-multiselect-added-item-${pos}` : uuidv4(),
+    value: uuidv4(),
     key: `${filterStr.value.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
     custom: true,
   }
