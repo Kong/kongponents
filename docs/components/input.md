@@ -132,7 +132,6 @@ You can pass any input attribute and it will get properly bound to the element.
 <KInput class="vertical-spacing" disabled model-value="disabled"/>
 <KInput class="vertical-spacing" readonly model-value="readonly"/>
 <KInput class="vertical-spacing" type="search" model-value="search"/>
-<KInput class="vertical-spacing" type="email" model-value="email@example.com"/>
 
 ```html
 <KInput placeholder="placeholder" />
@@ -142,7 +141,6 @@ You can pass any input attribute and it will get properly bound to the element.
 <KInput disabled model-value="disabled"/>
 <KInput read-only model-value="read-only"/>
 <KInput type="search" model-value="search"/>
-<KInput type="email" model-value="email@example.com"/>
 ```
 
 ### required
