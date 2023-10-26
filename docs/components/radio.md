@@ -2,18 +2,15 @@
 
 KRadio is wrapper for native input type `radio` elements.
 
-<KCard>
-  <template #title>Selected: {{ radioValue }}</template>
-
-  <template #body>
-    <div class="horizontal-container">
-      <KRadio name="test" :selected-value="true" v-model="radioValue">Boolean</KRadio>
-      <KRadio name="test" selected-value="string" v-model="radioValue">String</KRadio>
-      <KRadio name="test" :selected-value="objA" v-model="radioValue">Object A</KRadio>
-      <KRadio name="test" :selected-value="objB" v-model="radioValue">Object B</KRadio>
-    </div>
-  </template>
-</KCard>
+<div class="vertical-spacing">
+  Selected: {{ radioValue }}
+  <div class="horizontal-container">
+    <KRadio name="test" :selected-value="true" v-model="radioValue">Boolean</KRadio>
+    <KRadio name="test" selected-value="string" v-model="radioValue">String</KRadio>
+    <KRadio name="test" :selected-value="objA" v-model="radioValue">Object A</KRadio>
+    <KRadio name="test" :selected-value="objB" v-model="radioValue">Object B</KRadio>
+  </div>
+</div>
 
 ```vue
 <template>
@@ -88,7 +85,7 @@ Use this prop to apply error styling to the component.
 ### card
 
 :::danger NOTE
-KRadio card styling is to be revisited in the next `9.0.0-beta.x` release as design is being finalized.
+KRadio card styling is to be revisited in the next `9.0.0-alpha.x` release as design is being finalized.
 :::
 
 Set this prop to true to change the appearance of the KRadio component to a card-style design. When `card` is set to `true`, the KRadio component will be displayed with a card-like layout, providing a visually distinct and appealing presentation.
@@ -114,7 +111,7 @@ Set this prop to true to change the appearance of the KRadio component to a card
       <WorldPrivateIcon />
     </KRadio>
   </div>
-  <div>Selected: {{ cardRadio }}</div>
+  <div>Selected: {{ cardRadio || 'none' }}</div>
 </div>
 
 ```vue
@@ -137,7 +134,7 @@ Set this prop to true to change the appearance of the KRadio component to a card
   >
     <WorldPrivateIcon />
   </KRadio>
-  <div>Selected: {{ cardRadio }}</div>
+  <div>Selected: {{ cardRadio || 'none' }}</div>
 </template>
 
 <script setup lang="ts">
@@ -229,13 +226,13 @@ Provides a slot for tooltip content displayed after the radio label.
 
 <KRadio v-model="tooltipSlotRadio" :selected-value="true">
   My tooltip
-  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
+  <template #tooltip>Roses are <code>#FF0000</code>, violets are <code>#0000FF</code></template>
 </KRadio>
 
 ```html
 <KRadio v-model="checked" :selected-value="true">
   My tooltip
-  <template #tooltip>Brings all the <code>devs</code> to the yard</template>
+  <template #tooltip>Roses are <code>#FF0000</code>, violets are <code>#0000FF</code></template>
 </KRadio>
 ```
 
@@ -245,11 +242,11 @@ KRadio emits two events with same data in payloads.
 
 ### change
 
-Fired on change, returns the checked status of the radio (`boolean`).
+Fired on change, returns radio [selectedVale](#selectedvalue).
 
 ### update:modelValue
 
-Fired on change, returns the checked status of the radio (`boolean`).
+Fired on change, returns radio [selectedVale](#selectedvalue).
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -288,5 +285,11 @@ const tooltipSlotRadio = ref<boolean>(false)
 .horizontal-container {
   display: flex;
   gap: $kui-space-60;
+}
+
+.vertical-spacing {
+  display: flex;
+  flex-direction: column;
+  gap: $kui-space-40;
 }
 </style>

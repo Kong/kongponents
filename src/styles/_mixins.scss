@@ -1,3 +1,6 @@
+@import "@/styles/mixins/inputs";
+@import "@/styles/mixins/labels";
+
 @import "@/styles/tmp-variables";
 
 /// Replace `$search` with `$replace` in `$string`
@@ -394,8 +397,3 @@
 }
 
 /* NEW MIXINS */
-
-/* stylelint-disable-next-line no-invalid-position-at-import-rule */
-@import "@/styles/mixins/inputs";
-/* stylelint-disable-next-line no-invalid-position-at-import-rule */
-@import "@/styles/mixins/labels";

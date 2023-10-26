@@ -3,7 +3,7 @@
     class="k-radio"
     :class="[
       $attrs.class ? $attrs.class : '',
-      { 'disabled': isDisabled, 'radio-card': card || type === 'card', 'error': error, 'checked': isChecked, 'has-description': showDescription }
+      kRadioClasses
     ]"
   >
     <input
@@ -52,6 +52,7 @@
       :class="{ 'has-label': label, 'has-description': showCardDescription }"
       :for="inputId"
       :tabindex="isDisabled ? -1 : 0"
+      @keydown.space.prevent
       @keyup.space="handleClick"
     >
       <span
@@ -98,7 +99,7 @@ const props = defineProps({
    */
   modelValue: {
     type: [String, Number, Boolean, Object],
-    default: true,
+    default: false,
     required: true,
   },
   /**
@@ -155,7 +156,9 @@ const slots = useSlots()
 const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 const hasLabel = computed((): boolean => !!(props.label || slots.default))
+// for regular radio we only show description if there is a label or default slot
 const showDescription = computed((): boolean => hasLabel.value && (!!props.description || !!slots.description))
+// for card radio we only show description if there is a label
 const showCardDescription = computed((): boolean => !!props.label && (!!props.description || !!slots.description))
 const hasTooltip = computed((): boolean => !!slots.tooltip)
 const isChecked = computed((): boolean => props.selectedValue === props.modelValue)
@@ -172,13 +175,23 @@ const handleClick = (): void => {
 
 const attrs = useAttrs()
 
-const modifiedAttrs = computed(() => {
+const modifiedAttrs = computed((): Record<string, any> => {
   const $attrs = { ...attrs }
 
   // delete classes because we bind them to the parent
   delete $attrs.class
 
   return $attrs
+})
+
+const kRadioClasses = computed((): Record<string, boolean> => {
+  return {
+    disabled: isDisabled.value,
+    'radio-card': props.card || props.type === 'card',
+    error: props.error,
+    checked: isChecked.value,
+    'has-description': showDescription.value,
+  }
 })
 </script>
 
