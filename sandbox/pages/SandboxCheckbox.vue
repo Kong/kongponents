@@ -65,31 +65,31 @@
     />
     <SandboxSectionComponent title="label">
       <KCheckbox
-        v-model="modelValue0"
+        v-model="modelValue2"
         label="Label"
       />
     </SandboxSectionComponent>
     <SandboxSectionComponent title="description">
       <div class="grid-container">
         <KCheckbox
-          v-model="modelValue0"
+          v-model="modelValue3"
           description="Very long description that wraps to the next line and ends with lorem ipsum dolor sit amet."
           label="Label"
         />
         <KCheckbox
-          v-model="modelValue0"
+          v-model="modelValue3"
           description="Lorem ipsum dolor sit amet."
           disabled
           label="Disabled"
         />
         <KCheckbox
-          v-model="modelValue0"
+          v-model="modelValue3"
           description="Lorem ipsum dolor sit amet."
           error
           label="Error"
         />
         <KCheckbox
-          v-model="modelValue0"
+          v-model="modelValue3"
           description="Lorem ipsum dolor sit amet."
           disabled
           error
@@ -149,7 +149,7 @@
     </SandboxSectionComponent>
     <SandboxSectionComponent title="labelAttributes">
       <KCheckbox
-        v-model="modelValue0"
+        v-model="modelValue4"
         label="Label"
         :label-attributes="{ info: 'Tooltip it is' }"
       />
@@ -162,14 +162,14 @@
     />
     <SandboxSectionComponent title="default">
       <KCheckbox
-        v-model="modelValue0"
+        v-model="modelValue5"
       >
         Label
       </KCheckbox>
     </SandboxSectionComponent>
     <SandboxSectionComponent title="description">
       <KCheckbox
-        v-model="modelValue0"
+        v-model="modelValue6"
         label="Label"
       >
         <template #description>
@@ -179,7 +179,7 @@
     </SandboxSectionComponent>
     <SandboxSectionComponent title="default & description">
       <KCheckbox
-        v-model="modelValue0"
+        v-model="modelValue7"
       >
         Label
         <template #description>
@@ -189,7 +189,7 @@
     </SandboxSectionComponent>
     <SandboxSectionComponent title="tooltip">
       <KCheckbox
-        v-model="modelValue0"
+        v-model="modelValue8"
       >
         Label
         <template #tooltip>
@@ -208,6 +208,13 @@ import { KCheckbox, KExternalLink } from '@/components'
 
 const modelValue0 = ref<boolean>(false)
 const modelValue1 = ref<boolean>(true)
+const modelValue2 = ref<boolean>(false)
+const modelValue3 = ref<boolean>(false)
+const modelValue4 = ref<boolean>(false)
+const modelValue5 = ref<boolean>(false)
+const modelValue6 = ref<boolean>(false)
+const modelValue7 = ref<boolean>(false)
+const modelValue8 = ref<boolean>(false)
 
 const indeterminateValue = ref<boolean>(false)
 

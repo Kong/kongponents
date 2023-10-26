@@ -110,7 +110,7 @@
       </div>
     </SandboxSectionComponent>
     <SandboxSectionComponent
-      description="KRadio card styling is to be revisited in the next `9.0.0-beta.x` release as design is being finalized."
+      description="KRadio card styling is to be revisited in the next `9.0.0-alpha.x` release as design is being finalized."
       title="card"
     >
       <div class="grid-container">
