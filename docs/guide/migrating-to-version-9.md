@@ -125,11 +125,12 @@ Component has been renamed to `KDropdown`
 #### Props
 
 * `label` prop has been deprecated in favor of the new `trigger-text` prop (usage is the same)
-* `appearance` prop has been changed in favor of the `isSelectionMenu` prop for the selection menu functionality. `appearance` now controls the underlying `KButton` `appearance` prop (note that default `appearance` for component when `isSelectionMenu` is `true` changed from `tertiary` to `primary`)
+* `appearance` prop has been changed in favor of the `selectionMenu` prop for the selection menu functionality. `appearance` now controls the underlying `KButton` `appearance` prop (note that default `appearance` for component when `selectionMenu` is `true` changed from `tertiary` to `primary`)
 * `buttonAppearance` prop has been removed in favor of `appearance`, still controlling the `KButton` `appearance` prop
 * `testMode` prop has been removed
 * `icon` prop is removed (TODO: [beta])
 * `caretColor` prop is removed
+* `isDangerous` `KDropdownItem` prop has been deprecated in favor of `danger`
 
 #### Slots
 
@@ -156,9 +157,7 @@ Component has been renamed to `KDropdown`
 
 * `form-control` class has been removed
 * `over-char-limit` class has been removed
-* `has-error` class has been removed
 * `help` class has been changed to `help-text`
-* `input-error` class has been changed to `has-error`
 
 #### Constants, Types & Interfaces
 
@@ -173,6 +172,7 @@ Component has been renamed to `KDropdown`
 * `iconPosition` prop has been removed
 * `testMode` prop has been removed
 * `help` property was removed from `labelAttributes` prop (TODO: after KLabel is reskinned)
+* `hasError` prop has been deprecated in favor of `error`
 
 #### Slots
 

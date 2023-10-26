@@ -28,11 +28,11 @@
       />
     </SandboxSectionComponent>
     <SandboxSectionComponent
-      title="isSelectionMenu (replacement for `appearance` prop)"
+      title="selectionMenu (replacement for `appearance` prop)"
     >
       <KDropdown
-        is-selection-menu
         :items="selectionMenuItems"
+        selection-menu
         trigger-text="Selection menu"
         @change="handleSelectionMenuUpdate"
       />
@@ -93,7 +93,7 @@
           trigger-text="Show caret"
         />
         <KDropdown
-          is-selection-menu
+          selection-menu
           show-caret
           trigger-text="Selection menu with caret"
           @change="handleSelectionMenuUpdate"
@@ -206,8 +206,8 @@
             Disabled external link
           </KDropdownItem>
           <KDropdownItem
+            danger
             has-divider
-            is-dangerous
             @click="handleItemClick"
           >
             <TrashIcon />
@@ -290,7 +290,7 @@
     </SandboxSectionComponent>
     <SandboxSectionComponent
       description="The old KDropdownMenu component that utilizes the KDropdown under the hood still works as expected."
-      title="Deprecated KDropdownMenu"
+      title="KDropdownMenu (deprecated)"
     >
       <KDropdownMenu
         trigger-text="KDropdownMenu"
@@ -327,6 +327,20 @@
           </KDropdownItem>
         </template>
       </KDropdownMenu>
+    </SandboxSectionComponent>
+    <SandboxSectionComponent
+      title="KDropdownItem isDangerous prop (deprecated)"
+    >
+      <KDropdown trigger-text="Deprecated KDropdownItem prop">
+        <template #items>
+          <KDropdownItem
+            is-dangerous
+            @click="handleItemClick"
+          >
+            I am dangerous
+          </KDropdownItem>
+        </template>
+      </KDropdown>
     </SandboxSectionComponent>
   </div>
 </template>

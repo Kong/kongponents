@@ -4,7 +4,7 @@
     :class="{
       'has-divider': hasDivider,
       'disabled': disabled,
-      'danger': isDangerous,
+      'danger': danger || isDangerous,
       'dropdown-selected-option': selected
     }"
     data-testid="dropdown-item"
@@ -45,7 +45,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  isDangerous: {
+  danger: {
     type: Boolean,
     default: false,
   },
@@ -67,6 +67,20 @@ const props = defineProps({
   onClick: {
     type: Function,
     default: undefined,
+  },
+  /**
+   * @deprecated in favor of `danger`
+   */
+  isDangerous: {
+    type: Boolean,
+    default: false,
+    validator: (value: boolean): boolean => {
+      if (value) {
+        console.warn('KDropdownItem: `isDangerous` prop is deprecated. Please use `danger` prop instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kdropdownmenu')
+      }
+
+      return true
+    },
   },
 })
 

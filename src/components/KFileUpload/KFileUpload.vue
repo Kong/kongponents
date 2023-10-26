@@ -18,8 +18,8 @@
       :class="{
         'image-upload': type === 'image'
       }"
+      :error="hasUploadError"
       :error-message="errorMessage"
-      :has-error="hasUploadError"
       :help="help"
       :max-file-size="maximumFileSize"
       type="file"

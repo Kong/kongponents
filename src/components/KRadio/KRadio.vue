@@ -142,7 +142,7 @@ const props = defineProps({
     default: '',
     validator: (value: RadioTypes): boolean => {
       if (value) {
-        console.warn('KRadio: `type` prop is deprecated in favor of `card`. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kradio')
+        console.warn('KRadio: `type` prop is deprecated. Please use `card` prop instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kradio')
       }
 
       return RadioTypesArray.includes(value)

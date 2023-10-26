@@ -75,26 +75,26 @@ String to be displayed as help text.
 <KInput help="I can help with that." placeholder="Need help?" />
 ```
 
-If [`hasError`](#haserror) is true, the `help` prop text will be styled as error message.
+If [`error`](#error) is true, the `help` prop text will be styled as error message.
 
-<KInput has-error help="I can help with that." />
+<KInput error help="I can help with that." />
 
 ```html
-<KInput has-error help="I can help with that." />
+<KInput error help="I can help with that." />
 ```
 
-### hasError
+### error
 
 Boolean to indicate whether the element is in an error state and should apply error styling. Defaults to `false`.
 
 ### errorMessage
 
-String to be displayed as an error message if `hasError` prop is `true`. This prop will supersede the `help` prop if both have a value and `hasError` is `true`.
+String to be displayed as an error message if `error` prop is `true`. This prop will supersede the `help` prop if both have a value and `error` is `true`.
 
-<KInput has-error error-message="Service name should not contain '_'" help="Service name can be anything with only a few exceptions." />
+<KInput error error-message="Service name should not contain '_'" help="Service name can be anything with only a few exceptions." />
 
 ```html
-<KInput has-error error-message="Service name should not contain '_'" help="Service name can be anything with only a few exceptions." />
+<KInput error error-message="Service name should not contain '_'" help="Service name can be anything with only a few exceptions." />
 ```
 
 ### characterLimit
@@ -132,7 +132,6 @@ You can pass any input attribute and it will get properly bound to the element.
 <KInput class="vertical-spacing" disabled model-value="disabled"/>
 <KInput class="vertical-spacing" readonly model-value="readonly"/>
 <KInput class="vertical-spacing" type="search" model-value="search"/>
-<KInput class="vertical-spacing" type="email" model-value="email@example.com"/>
 
 ```html
 <KInput placeholder="placeholder" />
@@ -142,7 +141,6 @@ You can pass any input attribute and it will get properly bound to the element.
 <KInput disabled model-value="disabled"/>
 <KInput read-only model-value="read-only"/>
 <KInput type="search" model-value="search"/>
-<KInput type="email" model-value="email@example.com"/>
 ```
 
 ### required

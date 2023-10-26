@@ -28,8 +28,8 @@
         <KToggle v-slot="{isToggled, toggle}">
           <KInput
             class="full-width-input"
-            :has-error="isToggled.value"
-            help="This is help text. When hasError is true, this text will be red."
+            :error="isToggled.value"
+            help="This is help text. When error is true, this text will be red."
             label="Label"
           />
           <KButton
@@ -41,9 +41,9 @@
         </KToggle>
       </div>
     </SandboxSectionComponent>
-    <SandboxSectionComponent title="hasError">
+    <SandboxSectionComponent title="error">
       <KInput
-        has-error
+        error
         label="Label"
       />
     </SandboxSectionComponent>
@@ -54,9 +54,9 @@
         <KToggle v-slot="{isToggled, toggle}">
           <KInput
             class="full-width-input"
+            :error="isToggled.value"
             error-message="This is errorMessage."
-            :has-error="isToggled.value"
-            help="This is help text. When hasError is true, this text will be red. When hasError is true and errorMessage is set, this text will be replaced by the errorMessage."
+            help="This is help text. When error is true, this text will be red. When error is true and errorMessage is set, this text will be replaced by the errorMessage."
             label="Label"
           />
           <KButton
@@ -77,9 +77,9 @@
           <KInput
             :character-limit="67"
             class="full-width-input"
+            :error="isToggled.value"
             error-message="This is errorMessage. When character limit is exceeded, this text will be replaced by character limit error message."
-            :has-error="isToggled.value"
-            help="This is help text. When hasError is true, this text will be red. When hasError is true and errorMessage is set, this text will be replaced by the errorMessage. When character limit is exceeded, errorMessage text will be replaced by character limit error message."
+            help="This is help text. When error is true, this text will be red. When error is true and errorMessage is set, this text will be replaced by the errorMessage. When character limit is exceeded, errorMessage text will be replaced by character limit error message."
             label="Label"
             model-value="Type in 1 more character to see the character limit error message: "
           />
@@ -165,6 +165,8 @@
         </template>
       </KInput>
     </SandboxSectionComponent>
+
+    <!-- Examples -->
     <SandboxTitleComponent
       is-subtitle
       title="Examples"
@@ -181,6 +183,20 @@
           Submit
         </KButton>
       </div>
+    </SandboxSectionComponent>
+
+    <!-- Legacy -->
+    <SandboxTitleComponent
+      is-subtitle
+      title="Legacy"
+    />
+    <SandboxSectionComponent
+      title="hasError prop (deprecated)"
+    >
+      <KInput
+        has-error
+        label="Label"
+      />
     </SandboxSectionComponent>
   </div>
 </template>

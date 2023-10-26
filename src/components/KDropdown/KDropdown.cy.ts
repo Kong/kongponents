@@ -76,10 +76,10 @@ describe('KDropdown', () => {
     cy.get('.k-tooltip').should('contain.text', tooltipText)
   })
 
-  it('renders correctly when isSelectionMenu', () => {
+  it('renders correctly when selectionMenu', () => {
     mount(KDropdown, {
       props: {
-        isSelectionMenu: true,
+        selectionMenu: true,
         items: selectionMenuItems,
       },
     })

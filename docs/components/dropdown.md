@@ -143,17 +143,17 @@ Text to display on hover if dropdown is disabled.
 />
 ```
 
-### isSelectionMenu
+### selectionMenu
 
 Defaults to `false`.
 
 Use this prop when a visual indication of the currently selected menu item is needed. 
 
-By default the dropdown has no notion of "selection". When `isSelectionMenu` is `true`, `selected` state is handled automatically when clicking a KDropdownItem if used in conjunction with the `items` prop. Each item should have a `label` and a `value`. To keep track of changes in your host app you can utilize [`@change` event](#events).
+By default the dropdown has no notion of "selection". When `selectionMenu` is `true`, `selected` state is handled automatically when clicking a KDropdownItem if used in conjunction with the `items` prop. Each item should have a `label` and a `value`. To keep track of changes in your host app you can utilize [`@change` event](#events).
 
 <ClientOnly>
   <KDropdown
-    is-selection-menu
+    selection-menu
     :items="selectionMenuItems"
     trigger-text="Select region"
     @change="handleSelectionMenuUpdate"
@@ -164,7 +164,7 @@ By default the dropdown has no notion of "selection". When `isSelectionMenu` is 
 ```vue
 <template>
   <KDropdown
-    is-selection-menu
+    selection-menu
     :items="[{ label: 'US (United States)', value: 'us' }, 
       { label: 'FR (France)', value: 'fr' }]"
     trigger-text="Select region"
@@ -186,7 +186,7 @@ If using the [`items` slot](#items-1), you will have access to the `handleSelect
 
 <ClientOnly>
   <KDropdown
-    is-selection-menu
+    selection-menu
     trigger-text="Select region (with items slot)"
     @change="handleSelectionMenuUpdate"
     show-caret
@@ -206,7 +206,7 @@ If using the [`items` slot](#items-1), you will have access to the `handleSelect
 ```vue
 <template>
   <KDropdown
-    is-selection-menu
+    selection-menu
     trigger-text="Select region (with items slot)"
     @change="handleSelectionMenuUpdate"
     show-caret
@@ -265,7 +265,7 @@ Slot props:
   - Function that triggers dropdown close.
 - `handleSelection`
   - type: `Function`
-  - Function that lets KDropdown track selected item when `isSelectionMenu` is `true`.
+  - Function that lets KDropdown track selected item when `selectionMenu` is `true`.
 
 KDropdownItem takes care of icon color, size and spacing as long as you use icons provided by [@kong/icons](https://github.com/Kong/icons) package.
 
@@ -341,13 +341,13 @@ KDropdown generates a KDropdownItem for each object in the `items` prop array. A
 
 ### Props
 
-| Prop          | Description                                                                                                                                                                                                                                                                                                                                         |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `item`        | The properties the link is built from, it expects a `label` and optionally a `to` or `value` (when `isSelectionMenu` is `true`). If `to` is `typeof object`, the item will be rendered as a `<router-link>`. Otherwise, if `to` is `typeof string`, it will be rendered as an `<a>` element with the value of `to` applied to the `href` attribute. |
-| `disabled`    | A boolean (defaults to `false`), indicating whether or not to disable the item.                                                                                                                                                                                                                                                                     |
-| `selected`    | A boolean (defaults to `false`), indicating whether or not the item is selected when the `isSelectionMenu` prop is `true`.                                                                                                                                                                                                                          |
-| `hasDivider`  | A boolean (defaults to `false`), indicating whether or not the item should have a divider bar displayed above it.                                                                                                                                                                                                                                   |
-| `isDangerous` | A boolean (defaults to `false`), indicating whether or not to apply danger styles (text color is red).                                                                                                                                                                                                                                              |
+| Prop         | Description                                                                                                                                                                                                                                                                                                                                       |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `item`       | The properties the link is built from, it expects a `label` and optionally a `to` or `value` (when `selectionMenu` is `true`). If `to` is `typeof object`, the item will be rendered as a `<router-link>`. Otherwise, if `to` is `typeof string`, it will be rendered as an `<a>` element with the value of `to` applied to the `href` attribute. |
+| `disabled`   | A boolean (defaults to `false`), indicating whether or not to disable the item.                                                                                                                                                                                                                                                                   |
+| `selected`   | A boolean (defaults to `false`), indicating whether or not the item is selected when the `selectionMenu` prop is `true`.                                                                                                                                                                                                                          |
+| `hasDivider` | A boolean (defaults to `false`), indicating whether or not the item should have a divider bar displayed above it.                                                                                                                                                                                                                                 |
+| `danger`     | A boolean (defaults to `false`), indicating whether or not to apply danger styles (text color is red).                                                                                                                                                                                                                                            |
 
 <ClientOnly>
   <KDropdown trigger-text="All kinds of dropdown items">
@@ -402,7 +402,7 @@ KDropdown generates a KDropdownItem for each object in the `items` prop array. A
       </KDropdownItem>
       <KDropdownItem
         has-divider
-        is-dangerous
+        danger
         @click="clickHandler"
       >
         Danger button
@@ -464,7 +464,7 @@ KDropdown generates a KDropdownItem for each object in the `items` prop array. A
       </KDropdownItem>
       <KDropdownItem
         has-divider
-        is-dangerous
+        danger
         @click="clickHandler"
       >
         Danger button
@@ -511,7 +511,7 @@ You can bind event handlers to `@click` event just like you would normally do wi
 
 #### change
 
-Fires when items are clicked when `isSelectionMenu` is `true`. Returns the selected menu item object or `null`.
+Fires when items are clicked when `selectionMenu` is `true`. Returns the selected menu item object or `null`.
 
 #### toggleDropdown
 

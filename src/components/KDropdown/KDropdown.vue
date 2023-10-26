@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-dropdown"
-    :class="{ 'selection-dropdown-menu': isSelectionMenu }"
+    :class="{ 'selection-dropdown-menu': selectionMenu }"
   >
     <KToggle v-slot="{ toggle, isToggled }">
       <KPop
@@ -56,7 +56,7 @@
                 v-bind="item"
                 :key="`${item.label}-${idx}`"
                 :item="item"
-                :selection-menu-child="isSelectionMenu"
+                :selection-menu-child="selectionMenu"
                 @change="handleSelection"
               />
             </slot>
@@ -80,7 +80,7 @@ import KDropdownItem from './KDropdownItem.vue'
 import { ChevronDownIcon } from '@kong/icons'
 
 const props = defineProps({
-  isSelectionMenu: {
+  selectionMenu: {
     type: Boolean,
     default: false,
   },
@@ -145,7 +145,7 @@ const props = defineProps({
     default: '',
     validator: (value: string) => {
       if (value) {
-        console.warn('KDropdown: label prop is deprecated. Please use `triggerText` prop instead. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kdropdownmenu')
+        console.warn('KDropdown: `label` prop is deprecated. Please use `triggerText` prop instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kdropdownmenu')
       }
 
       return true
@@ -182,7 +182,7 @@ const triggerButtonText = computed((): string => selectedItem.value?.label || pr
 const selectedItem = ref<DropdownItem>()
 
 const handleSelection = (item: DropdownItem): void => {
-  if (!props.isSelectionMenu) {
+  if (!props.selectionMenu) {
     return
   }
 
