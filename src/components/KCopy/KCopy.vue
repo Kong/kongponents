@@ -215,8 +215,8 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
   display: flex;
 
   &.copy-truncated {
-    display: flex;
     align-items: center;
+    display: flex;
   }
 
   .id-badge {
@@ -233,11 +233,11 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
   }
 
   .copy-content {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: inline-flex;
     align-items: center;
+    display: inline-flex;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .truncated-content {
@@ -247,10 +247,10 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
   }
 
   .non-truncated-content {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
     display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .content-icon-wrapper {
