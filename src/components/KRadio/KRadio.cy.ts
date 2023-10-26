@@ -41,14 +41,14 @@ describe('KRadio', () => {
     })
   })
 
-  it('renders the default slot content when isCard prop is true', () => {
+  it('renders the default slot content when card prop is true', () => {
     const slotText = 'Hello world'
 
     mount(KRadio, {
       props: {
         modelValue: false,
         selectedValue: true,
-        isCard: true,
+        card: true,
         label: 'Some label',
       },
       slots: {
@@ -59,12 +59,12 @@ describe('KRadio', () => {
     cy.get('.radio-card').should('contain.text', slotText)
   })
 
-  it('renders input element hidden when isCard prop is true', () => {
+  it('renders input element hidden when card prop is true', () => {
     mount(KRadio, {
       props: {
         modelValue: false,
         selectedValue: true,
-        isCard: true,
+        card: true,
         label: 'Some label',
       },
     })
@@ -72,12 +72,12 @@ describe('KRadio', () => {
     cy.get('input').should('not.be.visible')
   })
 
-  it('emits checked value on click within entire label element when isCard prop is true', () => {
+  it('emits checked value on click within entire label element when card prop is true', () => {
     mount(KRadio, {
       props: {
         modelValue: false,
         selectedValue: true,
-        isCard: true,
+        card: true,
       },
       slots: {
         default: () => 'Hello',
@@ -93,12 +93,12 @@ describe('KRadio', () => {
       })
   })
 
-  it('should not be selectable when disabled and isCard prop is true', () => {
+  it('should not be selectable when disabled and card prop is true', () => {
     mount(KRadio, {
       props: {
         modelValue: false,
         selectedValue: true,
-        isCard: true,
+        card: true,
       },
       attrs: {
         disabled: true,
