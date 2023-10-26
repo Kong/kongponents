@@ -197,7 +197,7 @@ const kRadioClasses = computed((): Record<string, boolean> => {
 
 <style lang="scss" scoped>
 /* Component variables */
-// Only add variables for ease of use when the same value is referenced multiple times.
+// Only add variables here sparingly for ease of use when the same value needs to be referenced for display logic.
 
 $kRadioDotSize: 6px;
 

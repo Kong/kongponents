@@ -257,7 +257,7 @@ Removed as of `v9`. Use `KTooltip` instead.
 
 #### Structure
 
-* `k-input` class has been changed to `radio-input`
+* `k-input` class on the `input[type="radio"]` has been changed to `radio-input`
 * `k-radio-default` class has been removed
 * `k-radio-card` class has been changed to `radio-card`
 * `k-radio-label` class has been changed to `radio-label`

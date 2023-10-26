@@ -1,6 +1,6 @@
 # Radio
 
-KRadio is wrapper for native input type `radio` elements.
+KRadio is a wrapper for native input type `radio` elements.
 
 <div class="vertical-spacing">
   Selected: {{ radioValue }}
@@ -179,7 +179,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 
 ### default
 
-Anything passed in to the default slot will replace the `label` prop text.
+Content passed in to the `default` slot will be shown as the label content. The slot content takes precedence over the `label` prop.
 
 <KRadio v-model="defaultSlotModelValue" :selected-value="true">
   Label goes here. The radio is {{ defaultSlotModelValue ? 'selected' : 'not selected' }}
@@ -195,13 +195,13 @@ Anything passed in to the default slot will replace the `label` prop text.
 </KRadio>
 ```
 
-:::warning NOTE
+:::tip NOTE
 When `card` prop is true, the content passed through default slot will render directly above the label. Should you want to customize the layout inside the card you can omit using `label` and `description` props and style content passed through the `default` slot yourself.
 :::
 
 ### description
 
-Anything passed in to this slot will replace the `description` prop text.
+Content passed in to the `description` slot will be shown as the description content. The slot content takes precedence over the `description` prop.
 
 <KRadio label="Some label" description="This will be replaced with a slot" v-model="descriptionSlotRadio" :selected-value="true">
   <template #description>
@@ -238,7 +238,7 @@ Provides a slot for tooltip content displayed after the radio label.
 
 ## Events
 
-KRadio emits two events with same data in payloads.
+KRadio emits two events with same payload.
 
 ### change
 
