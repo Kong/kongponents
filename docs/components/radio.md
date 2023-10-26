@@ -51,6 +51,21 @@ Will place label text to the right of the radio. Can also be [slotted](#slots).
 <KRadio v-model="checked" label="Label example" :selected-value="true" />
 ```
 
+### labelAttributes
+
+ KRadio has an instance of KLabel for supporting tooltip text. Use the `labelAttributes` prop to configure the KLabel's [props](/components/label). This example shows using the `labelAttributes` to set up a tooltip. Tooltip content can also be [slotted](#slots).
+
+<KRadio v-model="labelAttributesPropRadio" label="Tooltips?" :label-attributes="{ info: 'I use the KLabel `help` prop' }" :selected-value="true" />
+
+```html
+<KRadio
+  v-model="checked"
+  label="Tooltips?"
+  :label-attributes="{ info: 'I use the KLabel `help` prop' }"
+  :selected-value="true"
+/>
+```
+
 ### description
 
 Will place description text under the radio label. Can also be [slotted](#slots).
@@ -80,6 +95,22 @@ Use this prop to apply error styling to the component.
   description="Some description text"
   :selected-value="true"
 />
+```
+
+### HTML attributes
+
+Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/api/composition-api-setup.html#setup-context).
+
+<KRadio v-model="disabledAttributeRadio" :selected-value="true" disabled>Disabled radio</KRadio>
+
+```html
+<KRadio
+  v-model="checked"
+  :selected-value="true"
+  disabled
+>
+  Disabled radio
+</KRadio>
 ```
 
 ### card
@@ -144,37 +175,6 @@ const cardRadio = ref<string>('')
 </script>
 ```
 
-### labelAttributes
-
- KRadio has an instance of KLabel for supporting tooltip text. Use the `labelAttributes` prop to configure the KLabel's [props](/components/label). This example shows using the `labelAttributes` to set up a tooltip. Tooltip content can also be [slotted](#slots).
-
-<KRadio v-model="labelAttributesPropRadio" label="Tooltips?" :label-attributes="{ info: 'I use the KLabel `help` prop' }" :selected-value="true" />
-
-```html
-<KRadio
-  v-model="checked"
-  label="Tooltips?"
-  :label-attributes="{ info: 'I use the KLabel `help` prop' }"
-  :selected-value="true"
-/>
-```
-
-### HTML attributes
-
-Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/api/composition-api-setup.html#setup-context).
-
-<KRadio v-model="disabledAttributeRadio" :selected-value="true" disabled>Disabled radio</KRadio>
-
-```html
-<KRadio
-  v-model="checked"
-  :selected-value="true"
-  disabled
->
-  Disabled radio
-</KRadio>
-```
-
 ## Slots
 
 ### default
@@ -195,11 +195,11 @@ Content passed in to the `default` slot will be shown as the label content. The 
 </KRadio>
 ```
 :::warning NOTE
-Avoid slotting in block-level elements like `div` into a `default` slot as it will be rendered inside the `label` element. This applies to card-style radio as well.
+To preserve a valid HTML structure, avoid slotting in block-level elements such as a `div` into the `default` slot as it will be rendered inside a `label` element. This also applies to card-style radio.
 :::
 
 :::tip TIP
-When `card` prop is true, the content passed through default slot will render directly above the label. Should you want to customize the layout inside the card you can omit using `label` and `description` props and style content passed through the `default` slot yourself.
+When `card` prop is true, the content passed to the `default` slot will render directly above the label. Should you want to customize the layout inside the card you can omit using the `label` and `description` props and style content passed through the `default` slot yourself.
 :::
 
 ### description
