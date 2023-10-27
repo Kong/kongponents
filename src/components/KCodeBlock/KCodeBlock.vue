@@ -613,12 +613,9 @@ function updateMatchingLineNumbers(): void {
   isProcessingInternally.value = true
   regExpError.value = null
 
-  // Avoids searching when one can expect a very large number of results. The numbers here are determined purely by gut feel and not by any scientific reasoning. Feel free to tweak them.
-  const isSmallEnoughForCostlySearch = query.value.length >= 3 || props.code.length < 1000
-  const shouldPerformSearch = query.value.length > 0 && (isRegExpMode.value || (!isRegExpMode.value && isSmallEnoughForCostlySearch))
   let totalMatchingLineNumbers: number[] = []
 
-  if (shouldPerformSearch) {
+  if (query.value.length > 0) {
     try {
       totalMatchingLineNumbers = getMatchingLineNumbers(props.code.toLowerCase(), query.value.toLowerCase(), isRegExpMode.value)
     } catch (error) {
