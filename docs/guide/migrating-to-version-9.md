@@ -88,6 +88,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 #### Props
 
 * `testMode` prop has been removed
+* `help` property of `labelAttributes` prop has been deprecated in favor of `info`
 
 #### Slots
 
@@ -179,7 +180,6 @@ Component has been renamed to `KDropdown`
 
 * `SizeArray` and `IconPositionArray` constants have been removed
 * `Size` and `IconPosition` types have been removed
-* `help` property was removed from `LabelAttributes` interface (TODO: after KLabel is reskinned)
 
 #### Props
 
@@ -187,7 +187,7 @@ Component has been renamed to `KDropdown`
 * `size` prop has been removed (KInput only comes in 1 size now)
 * `iconPosition` prop has been removed
 * `testMode` prop has been removed
-* `help` property was removed from `labelAttributes` prop (TODO: after KLabel is reskinned)
+* `help` property of `labelAttributes` prop has been deprecated in favor of `info`
 * `hasError` prop has been deprecated in favor of `error`
 
 #### Slots
@@ -211,7 +211,7 @@ Component has been renamed to `KDropdown`
 
 #### Props
 
-* `help` prop has been removed
+* `help` prop has been deprecated in favor of `info`
 * `testMode` prop has been removed
 
 ### KMenu
@@ -285,6 +285,7 @@ Removed as of `v9`. Use `KTooltip` instead.
 
 * `testMode` prop has been removed
 * `type` prop has been deprecated in favor of `card` prop
+* `help` property of `labelAttributes` prop has been deprecated in favor of `info`
 
 #### Slots
 

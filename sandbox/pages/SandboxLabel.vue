@@ -54,11 +54,59 @@
         required
       />
     </SandboxSectionComponent>
+
+    <!-- Legacy -->
+    <SandboxTitleComponent
+      is-subtitle
+      title="Legacy"
+    />
+    <SandboxSectionComponent
+      description="Handles backwards compatibility for deprecated prop usage when passed directly to KLabel or propagated through other components through labelAttributes prop."
+      title="Props: help (deprecated)"
+    >
+      <div class="vertical-spacing">
+        <KLabel
+          help="This is help text"
+        >
+          Label with help tooltip
+        </KLabel>
+        <KInput
+          label="Label"
+          :label-attributes="{
+            help: 'KLabel help.',
+          }"
+        />
+        <KRadio
+          v-model="radioCheck"
+          label="Label"
+          :label-attributes="{ help: 'KLabel help.' }"
+          :selected-value="true"
+        />
+        <KCheckbox
+          v-model="radioCheck"
+          label="Label"
+          :label-attributes="{ help: 'KLabel help.' }"
+        />
+      </div>
+    </SandboxSectionComponent>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { KExternalLink, KLabel, KInput } from '@/components'
+import { KExternalLink, KLabel, KInput, KRadio, KCheckbox } from '@/components'
+
+const radioCheck = ref<boolean>(false)
 </script>
+
+<style scoped lang="scss">
+.klabel-sandbox {
+  .vertical-spacing {
+    display: flex;
+    flex-direction: column;
+    gap: $kui-space-50;
+  }
+}
+</style>

@@ -16,7 +16,7 @@
         tabindex="0"
       />
       <template #content>
-        <slot name="tooltip">{{ info }}</slot>
+        <slot name="tooltip">{{ help || info }}</slot>
       </template>
     </KTooltip>
   </label>
@@ -43,11 +43,25 @@ const props = defineProps({
     type: Object as PropType<TooltipAttributes>,
     default: () => ({}),
   },
+  /**
+   * @deprecated in favor of `info` prop
+   */
+  help: {
+    type: String,
+    default: '',
+    validator: (value: string): boolean => {
+      if (value) {
+        console.warn('KLabel: `help` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#klabel')
+      }
+
+      return true
+    },
+  },
 })
 
 const slots = useSlots()
 
-const hasTooltip = computed((): boolean => !!(props.info || slots.tooltip))
+const hasTooltip = computed((): boolean => !!(props.help || props.info || slots.tooltip))
 </script>
 
 <style lang="scss" scoped>
