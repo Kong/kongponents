@@ -1,3 +1,10 @@
+# [9.0.0-alpha.31](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.30...v9.0.0-alpha.31) (2023-10-27)
+
+
+### Features
+
+* **kcheckbox:** reskin component [KHCP-8973] ([#1792](https://github.com/Kong/kongponents/issues/1792)) ([af7c0d5](https://github.com/Kong/kongponents/commit/af7c0d5f5873da24ecd222312d9d58bafd9de3a9))
+
 # [9.0.0-alpha.30](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.29...v9.0.0-alpha.30) (2023-10-27)
 
 
