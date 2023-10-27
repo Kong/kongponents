@@ -33,7 +33,6 @@
           }"
           :position-fixed="positionFixed"
           :target="`[id='${multiselectInputId}']`"
-          :test-mode="!!testMode || undefined"
           @closed="() => handleToggle(false, isToggled, toggle)"
           @opened="() => handleToggle(true, isToggled, toggle)"
         >
@@ -398,13 +397,6 @@ const props = defineProps({
     default: false,
   },
   /**
-   * Test mode - for testing only, strips out generated ids
-   */
-  testMode: {
-    type: Boolean,
-    default: false,
-  },
-  /**
   * Dropdown footer text
   */
   dropdownFooterText: {
@@ -436,11 +428,11 @@ const defaultKPopAttributes = {
 // keys and ids
 const key = ref(0)
 const stagingKey = ref(0)
-const multiselectId = computed((): string => props.testMode ? 'test-multiselect-id-1234' : uuidv4())
-const multiselectInputId = computed((): string => props.testMode ? 'test-multiselect-input-id-1234' : uuidv4())
-const multiselectTextId = computed((): string => props.testMode ? 'test-multiselect-text-id-1234' : uuidv4())
-const multiselectSelectedItemsId = computed((): string => props.testMode ? 'test-multiselect-selected-id-1234' : uuidv4())
-const multiselectSelectedItemsStagingId = computed((): string => props.testMode ? 'test-multiselect-selected-staging-id-1234' : uuidv4())
+const multiselectId = computed((): string => uuidv4()) // TODO: use attrs.id
+const multiselectInputId = computed((): string => uuidv4()) // TODO: use attrs.id
+const multiselectTextId = computed((): string => uuidv4()) // TODO: use attrs.id
+const multiselectSelectedItemsId = computed((): string => uuidv4()) // TODO: use attrs.id
+const multiselectSelectedItemsStagingId = computed((): string => uuidv4()) // TODO: use attrs.id
 const multiselectRef = ref<HTMLDivElement | null>(null)
 const selectionBottomRef = ref(null)
 // filter and selection
@@ -773,7 +765,7 @@ const handleAddItem = (): void => {
   const pos = unfilteredItems.value.length + 1
   const item:MultiselectItem = {
     label: filterStr.value + '',
-    value: props.testMode ? `test-multiselect-added-item-${pos}` : uuidv4(),
+    value: uuidv4(),
     key: `${filterStr.value.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
   }
   emit('item:added', item)

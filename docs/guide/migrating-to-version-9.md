@@ -224,6 +224,21 @@ Component has been renamed to `KDropdown`
 
 ### KMultiselect
 
+#### Structure
+
+
+#### Constants, Types & Interfaces
+
+
+#### Props
+
+* `testMode` prop has been removed
+
+#### Slots
+
+
+#### Events
+
 
 ### KPagination
 
