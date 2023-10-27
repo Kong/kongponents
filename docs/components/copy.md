@@ -14,6 +14,20 @@
 
 Text displayed before the copyable content when `isBadge` is true.
 
+<KCopy
+  isBadge
+  badge-text="Id"
+  :content="content"
+/>
+
+```html
+<KCopy
+  isBadge
+  badge-text="Id"
+  :content="content"
+/>
+```
+
 ### content
 
 The copyable text.
@@ -56,19 +70,19 @@ Whether or not the content should be truncated.
 ### truncationLimit
 
 Number of characters to truncate at.
-> Note: By default it is set to `8ch`.
+> Note: By default it is set to `8`.
 
 <KCopy
   truncate
   :content="content"
-  truncation-limit="10ch"
+  truncation-limit=10
 />
 
 ```html
 <KCopy
   truncate
   :content="content"
-  truncation-limit="10ch"
+  truncation-limit=10
 />
 ```
 
@@ -76,6 +90,7 @@ Number of characters to truncate at.
 
 Tooltip text displayed on hover copy button. 
 > Note: If `badgeText` exists then text is `Copy <badge-text>` else `Copy`
+
 
 ### successTooltip
 
@@ -145,5 +160,5 @@ Whether or not to display as a badge.
 - `@copied` -  Emitted when `copy button` is clicked; the payload is the copied text.
 
 <script setup lang="ts">
-const content = '12345-6789-ABCD-EFGH-PQRSTUV'
+const content = '12345-6789-ABCD-EFGH-PQRSTUV-WXYZ'
 </script>

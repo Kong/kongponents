@@ -4,12 +4,13 @@
     class="k-copy"
     :class="truncate ? null : 'copy-truncated'"
   >
-    <component
-      :is="!!contentTooltip ? 'KTooltip' : 'div'"
+    <KTooltip
       v-if="format !== 'hidden'"
-      v-bind="contentWrapperProps"
       :class="truncate ? null : 'copy-content'"
       data-testid="copy-content"
+      :label="contentTooltip"
+      placement="bottomStart"
+      position-fixed
     >
       <div
         :class="[
@@ -17,16 +18,18 @@
           truncate ? 'truncated-content' : 'non-truncated-content',
           monospace ? 'monospace' : null
         ]"
-        :style="{ maxWidth: truncationLimit }"
+        :style="widthStyle"
       >
         {{ contentFormat }}
       </div>
-    </component>
+    </KTooltip>
 
-    <component
-      :is="!!copyTooltip ? 'KTooltip' : 'div'"
-      v-bind="buttonWrapperProps"
+    <KTooltip
       class="content-icon-wrapper"
+      :label="`${props.badgeText}` ? iconTitle : tooltipText"
+      max-width="500px"
+      placement="bottomStart"
+      position-fixed
     >
       <KClipboardProvider v-slot="{ copyToClipboard }">
         <span
@@ -44,7 +47,7 @@
           />
         </span>
       </KClipboardProvider>
-    </component>
+    </KTooltip>
   </div>
 
   <div
@@ -68,6 +71,7 @@
       shape="rectangular"
     >
       <KCopy
+        :badge-text="badgeText"
         class="id-badge-content"
         :content="content"
         :content-tooltip="contentTooltip"
@@ -84,6 +88,10 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, ref } from 'vue'
+import KBadge from '@/components/KBadge/KBadge.vue'
+import KIcon from '@/components/KIcon/KIcon.vue'
+import KClipboardProvider from '@/components/KClipboardProvider'
+import KTooltip from '@/components/KTooltip/KTooltip.vue'
 
 const props = defineProps({
   // text displayed before the copyable content when `isBadge` is true
@@ -135,8 +143,8 @@ const props = defineProps({
   },
   // number of characters to truncate at
   truncationLimit: {
-    type: String,
-    default: '8ch',
+    type: Number,
+    default: 8,
   },
 })
 
@@ -154,27 +162,10 @@ const iconTitle = computed(() => {
   return 'Copy'
 })
 
-const contentWrapperProps = computed(() => {
-  return props.contentTooltip
-    ? {
-      label: props.contentTooltip,
-      positionFixed: true,
-      placement: 'bottomStart',
-    }
-    : {
-      title: props.content,
-    }
-})
-
-const buttonWrapperProps = computed(() => {
-  return props.copyTooltip
-    ? {
-      label: tooltipText.value,
-      positionFixed: true,
-      maxWidth: '500px',
-      placement: 'bottomStart',
-    }
-    : {}
+const widthStyle = computed(() => {
+  return {
+    maxWidth: props.truncate ? props.truncationLimit + 'ch' : undefined,
+  }
 })
 
 const contentFormat = computed(() => {
@@ -204,7 +195,6 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
 
   if (hasSuccessTooltip.value) {
     updateTooltipText(props.successTooltip)
-  } else {
     emit('copied', props.content)
   }
 }
@@ -262,12 +252,6 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
   .content-icon {
     display: flex;
   }
-
-  .copy-badge-text {
-    color: $kui-color-text-neutral;
-    font-size: $kui-font-size-20;
-    margin-right: $kui-space-20;
-  }
 }
 .k-copy-badge {
   :deep(.k-badge) {
@@ -276,6 +260,11 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
         max-width: 300px;
       }
     }
+  }
+
+  .copy-badge-text {
+    color: $kui-color-text-neutral;
+    margin-right: $kui-space-20;
   }
 
   .id-badge-content .non-truncated-content{
