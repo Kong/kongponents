@@ -1,3 +1,10 @@
+# [9.0.0-alpha.30](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.29...v9.0.0-alpha.30) (2023-10-27)
+
+
+### Bug Fixes
+
+* **kcodeblock:** not searching long content with short queries ([#1797](https://github.com/Kong/kongponents/issues/1797)) ([7e5e891](https://github.com/Kong/kongponents/commit/7e5e891087adb4e63c3943d9db74bdc7b00841fe))
+
 # [9.0.0-alpha.29](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.28...v9.0.0-alpha.29) (2023-10-26)
 
 
