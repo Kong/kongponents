@@ -77,6 +77,13 @@ const props = defineProps({
   labelAttributes: {
     type: Object as PropType<LabelAttributes>,
     default: () => ({}),
+    validator: (value: LabelAttributes): boolean => {
+      if (value.help) {
+        console.warn('KCheckbox: `help` property of `labelAttributes` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#klabel')
+      }
+
+      return true
+    },
   },
   description: {
     type: String,

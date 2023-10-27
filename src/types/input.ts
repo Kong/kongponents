@@ -4,6 +4,7 @@ export interface LabelAttributes {
   info?: string
   required?: boolean
   tooltipAttributes?: TooltipAttributes
+  help?: string // @deprecated in favor of `info`
 }
 
 export interface LimitExceededData {
