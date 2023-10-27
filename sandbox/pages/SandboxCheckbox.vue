@@ -1,10 +1,10 @@
 <template>
-  <div class="kradio-sandbox">
+  <div class="kcheckbox-sandbox">
     <SandboxTitleComponent
-      title="KRadio"
+      title="KCheckbox"
     >
       <template #description>
-        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=763%3A12969&mode=dev">
+        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=283%3A2899&mode=dev">
           Figma
         </KExternalLink>
       </template>
@@ -12,55 +12,48 @@
 
     <div class="grid-container standalone-container">
       <div class="vertical-spacing">
-        <KRadio
+        <KCheckbox
           v-model="modelValue0"
           label="Label"
-          selected-value="barfoo0"
         />
-        <KRadio
+        <KCheckbox
           v-model="modelValue0"
           disabled
           label="Disabled"
-          selected-value="barfoo1"
         />
-        <KRadio
+        <KCheckbox
           v-model="modelValue0"
           error
           label="Error"
-          selected-value="barfoo2"
         />
-        <KRadio
+        <KCheckbox
           v-model="modelValue0"
           disabled
           error
           label="Error & Disabled"
-          selected-value="barfoo3"
         />
       </div>
       <div class="vertical-spacing">
-        <KRadio
+        <KCheckbox
           v-model="modelValue1"
           label="Checked"
           selected-value="barfoo"
         />
-        <KRadio
+        <KCheckbox
           v-model="modelValue1"
           disabled
           label="Checked & Disabled"
-          selected-value="barfoo"
         />
-        <KRadio
+        <KCheckbox
           v-model="modelValue1"
           error
           label="Checked & Error"
-          selected-value="barfoo"
         />
-        <KRadio
+        <KCheckbox
           v-model="modelValue1"
           disabled
           error
           label="Checked & Error & Disabled"
-          selected-value="barfoo"
         />
       </div>
     </div>
@@ -71,95 +64,94 @@
       title="Props"
     />
     <SandboxSectionComponent title="label">
-      <KRadio
-        v-model="modelValue0"
+      <KCheckbox
+        v-model="modelValue2"
         label="Label"
-        selected-value="foobar0"
       />
     </SandboxSectionComponent>
     <SandboxSectionComponent title="description">
       <div class="grid-container">
-        <KRadio
-          v-model="modelValue0"
+        <KCheckbox
+          v-model="modelValue3"
           description="Very long description that wraps to the next line and ends with lorem ipsum dolor sit amet."
           label="Label"
-          selected-value="foobar1"
         />
-        <KRadio
-          v-model="modelValue0"
+        <KCheckbox
+          v-model="modelValue3"
           description="Lorem ipsum dolor sit amet."
           disabled
           label="Disabled"
-          selected-value="foobar2"
         />
-        <KRadio
-          v-model="modelValue0"
+        <KCheckbox
+          v-model="modelValue3"
           description="Lorem ipsum dolor sit amet."
           error
           label="Error"
-          selected-value="foobar3"
         />
-        <KRadio
-          v-model="modelValue0"
+        <KCheckbox
+          v-model="modelValue3"
           description="Lorem ipsum dolor sit amet."
           disabled
           error
           label="Error & Disabled"
-          selected-value="foobar4"
         />
       </div>
     </SandboxSectionComponent>
     <SandboxSectionComponent
-      description="KRadio card styling is to be revisited in the next `9.0.0-alpha.x` release as design is being finalized."
-      title="card"
+      description="Example"
+      title="indeterminate"
     >
-      <div class="grid-container">
-        <KRadio
-          v-model="modelValue2"
-          card
-          description="Very long description that wraps to the next line and ends with lorem ipsum dolor sit amet."
+      <div class="vertical-spacing">
+        <KCheckbox
+          v-model="indeterminateValueAll"
+          :indeterminate="isIndeterminate"
+          :label="indeterminateValueAll ? 'Uncheck all' : 'Check all'"
+          @change="handleIndeterminateChange"
+        />
+        <KCheckbox
+          v-for="(value, index) in indeterminateValues"
+          :key="index"
+          v-model="indeterminateValues[index].value"
+          :label="indeterminateValues[index].label"
+        />
+      </div>
+      <p>Different states</p>
+      <div class="grid-container standalone-container">
+        <KCheckbox
+          v-model="indeterminateValue"
+          description="Lorem ipsum dolor sit amet."
+          indeterminate
           label="Label"
-          selected-value="card0"
-        >
-          <WorldIcon />
-        </KRadio>
-        <KRadio
-          v-model="modelValue2"
-          card
-          description="Disabled (and without a label)"
+        />
+        <KCheckbox
+          v-model="indeterminateValue"
+          description="Lorem ipsum dolor sit amet."
           disabled
-          selected-value="card1"
-        >
-          <WorldPrivateIcon />
-        </KRadio>
-        <KRadio
-          v-model="modelValue2"
-          card
+          indeterminate
+          label="Disabled"
+        />
+        <KCheckbox
+          v-model="indeterminateValue"
           description="Lorem ipsum dolor sit amet."
           error
+          indeterminate
           label="Error"
-          selected-value="card2"
-        >
-          <WorldPrivateIcon />
-        </KRadio>
-        <KRadio
-          v-model="modelValue2"
-          card
+        />
+        <KCheckbox
+          v-model="indeterminateValue"
+          description="Lorem ipsum dolor sit amet."
           disabled
           error
+          indeterminate
           label="Error & Disabled"
-          selected-value="card3"
-        >
-          <WorldPrivateIcon />
-        </KRadio>
+        />
       </div>
     </SandboxSectionComponent>
     <SandboxSectionComponent title="labelAttributes">
-      <KRadio
-        v-model="modelValue0"
+      <KCheckbox
+        v-model="modelValue4"
         label="Label"
         :label-attributes="{ info: 'Tooltip it is' }"
-        selected-value="foobar5"
       />
     </SandboxSectionComponent>
 
@@ -169,71 +161,109 @@
       title="Slots"
     />
     <SandboxSectionComponent title="default">
-      <KRadio
-        v-model="modelValue0"
-        selected-value="foobar6"
+      <KCheckbox
+        v-model="modelValue5"
       >
         Label
-      </KRadio>
+      </KCheckbox>
     </SandboxSectionComponent>
     <SandboxSectionComponent title="description">
-      <KRadio
-        v-model="modelValue0"
+      <KCheckbox
+        v-model="modelValue6"
         label="Label"
-        selected-value="foobar7"
       >
         <template #description>
           Lorem ipsum dolor sit amet.
         </template>
-      </KRadio>
+      </KCheckbox>
     </SandboxSectionComponent>
     <SandboxSectionComponent title="default & description">
-      <KRadio
-        v-model="modelValue0"
-        selected-value="foobar8"
+      <KCheckbox
+        v-model="modelValue7"
       >
         Label
         <template #description>
           Lorem ipsum dolor sit amet.
         </template>
-      </KRadio>
+      </KCheckbox>
     </SandboxSectionComponent>
     <SandboxSectionComponent title="tooltip">
-      <KRadio
-        v-model="modelValue0"
-        selected-value="foobar9"
+      <KCheckbox
+        v-model="modelValue8"
       >
         Label
         <template #tooltip>
           Lorem ipsum <b>dolor</b> sit amet.
         </template>
-      </KRadio>
+      </KCheckbox>
     </SandboxSectionComponent>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { KRadio, KExternalLink } from '@/components'
-import { WorldIcon, WorldPrivateIcon } from '@kong/icons'
+import { KCheckbox, KExternalLink } from '@/components'
 
-const modelValue0 = ref('foobar')
-const modelValue1 = ref('barfoo')
-const modelValue2 = ref('card0')
+const modelValue0 = ref<boolean>(false)
+const modelValue1 = ref<boolean>(true)
+const modelValue2 = ref<boolean>(false)
+const modelValue3 = ref<boolean>(false)
+const modelValue4 = ref<boolean>(false)
+const modelValue5 = ref<boolean>(false)
+const modelValue6 = ref<boolean>(false)
+const modelValue7 = ref<boolean>(false)
+const modelValue8 = ref<boolean>(false)
+
+const indeterminateValue = ref<boolean>(false)
+
+// indeterminate example logic
+const indeterminateValueAll = ref<boolean>(false)
+
+const indeterminateValues = ref<Array<Record<string, any>>>([
+  {
+    label: 'Option 1',
+    value: false,
+  },
+  {
+    label: 'Option 2',
+    value: true,
+  },
+  {
+    label: 'Option 3',
+    value: false,
+  },
+])
+
+const isIndeterminate = computed((): boolean => {
+  return !!indeterminateValues.value.filter((value) => value.value).length && !!indeterminateValues.value.filter((value) => !value.value).length
+})
+
+const handleIndeterminateChange = (value: boolean) => {
+  indeterminateValues.value.forEach((val) => {
+    val.value = value
+  })
+}
+
+watch(indeterminateValues, () => {
+  // all are selected
+  if (indeterminateValues.value.filter((value) => value.value).length === indeterminateValues.value.length) {
+    indeterminateValueAll.value = true
+  // all are unselected
+  } else if (indeterminateValues.value.filter((value) => !value.value).length === indeterminateValues.value.length) {
+    indeterminateValueAll.value = false
+  // some are selected
+  } else {
+    indeterminateValueAll.value = false
+  }
+}, { deep: true })
 </script>
 
 <style lang="scss" scoped>
-.kradio-sandbox {
+.kcheckbox-sandbox {
   .standalone-container {
     margin-bottom: $kui-space-90;
-  }
-
-  .horizontal-spacing {
-    align-items: flex-end;
-    display: flex;
-    gap: $kui-space-50;
   }
 
   .vertical-spacing {

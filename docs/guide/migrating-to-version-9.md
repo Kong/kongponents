@@ -76,6 +76,22 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KCheckbox
 
+#### Structure
+
+* `k-input` class has been changed to `checkbox-input`
+* `k-checkbox-label` class has been changed to `checkbox-label`
+* `k-checkbox-description` class has been changed to `checkbox-description`
+* `has-desc` class has been been changed to `has-description`
+
+#### Constants, Types & Interfaces
+
+#### Props
+
+* `testMode` prop has been removed
+
+#### Slots
+
+#### Events
 
 ### KCodeBlock
 
