@@ -72,4 +72,17 @@ describe('KCheckbox', () => {
     cy.get('.k-checkbox').find(`[data-testid="${descriptionSlot}"]`).should('be.visible')
     cy.get('.checkbox-description').should('have.text', descriptionSlot)
   })
+
+  it('renders correctly in indeterminate state', () => {
+    mount(KCheckbox, {
+      props: {
+        modelValue: false,
+        label: 'Indeterminate label',
+        indeterminate: true,
+      },
+    })
+
+    cy.get('.k-checkbox').find('[data-testid="indeterminate-icon"]').should('be.visible')
+    cy.get('.k-checkbox').find('[data-testid="check-icon"]').should('not.exist')
+  })
 })

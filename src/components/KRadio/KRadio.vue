@@ -234,6 +234,7 @@ $kRadioDotSize: 6px;
   .radio-input {
     @include radioCheckboxDefaults;
 
+    // Since the mixin is used in both KRadio and KCheckbox it doesn't have rules for some component-specific properties so we need to set them here
     border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
     position: relative;
 

@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-checkbox"
-    :class="[$attrs.class, { 'disabled': isDisabled, 'has-description': showDescription, 'input-error': error }]"
+    :class="[$attrs.class, kCheckboxClasses ]"
   >
     <div class="checkbox-input-wrapper">
       <input
@@ -14,12 +14,16 @@
       <CheckSmallIcon
         v-if="modelValue"
         class="checkbox-icon"
+        data-testid="check-icon"
         :size="KUI_ICON_SIZE_40"
+        tabindex="-1"
       />
       <IndeterminateSmallIcon
         v-if="isIndeterminate && !modelValue"
         class="checkbox-icon"
+        data-testid="indeterminate-icon"
         :size="KUI_ICON_SIZE_40"
+        tabindex="-1"
       />
     </div>
 
@@ -125,6 +129,14 @@ const modifiedAttrs = computed(() => {
   return $attrs
 })
 
+const kCheckboxClasses = computed((): Record<string, boolean> => {
+  return {
+    disabled: isDisabled.value,
+    'has-description': showDescription.value,
+    'input-error': props.error,
+  }
+})
+
 const isIndeterminate = computed((): boolean => {
   return modifiedAttrs.value.indeterminate !== undefined && String(modifiedAttrs.value.indeterminate) !== 'false'
 })
@@ -146,6 +158,7 @@ export default {
 /* Component mixins */
 
 @mixin kCheckboxIcon {
+  color: var(--kui-color-text-inverse, $kui-color-text-inverse) !important;
   inset: 0;
   left: calc(50% - 2.4px); // 2px is not enough, 3px is too much...
   pointer-events: none;
@@ -178,6 +191,7 @@ export default {
   .checkbox-input {
     @include radioCheckboxDefaults;
 
+    // Since the mixin is used in both KRadio and KCheckbox it doesn't have rules for some component-specific properties so we need to set them here
     border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
 
     &:hover {
@@ -241,13 +255,12 @@ export default {
   .checkbox-input:checked + .checkbox-icon,
   .checkbox-input:indeterminate + .checkbox-icon {
     @include kCheckboxIcon;
-
-    color: var(--kui-color-text-inverse, $kui-color-text-inverse) !important;
   }
 
   &.disabled {
     .checkbox-input:checked + .checkbox-icon,
     .checkbox-input:indeterminate + .checkbox-icon {
+      // override kCheckboxIcon mixin
       color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
     }
   }
