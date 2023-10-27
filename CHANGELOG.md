@@ -1,3 +1,10 @@
+# [9.0.0-alpha.32](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.31...v9.0.0-alpha.32) (2023-10-27)
+
+
+### Bug Fixes
+
+* deprecate klabel help prop ([#1799](https://github.com/Kong/kongponents/issues/1799)) ([001a48e](https://github.com/Kong/kongponents/commit/001a48e2b093025fabb6ca6a05746969b5bc0d46))
+
 # [9.0.0-alpha.31](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.30...v9.0.0-alpha.31) (2023-10-27)
 
 
