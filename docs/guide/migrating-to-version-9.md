@@ -32,11 +32,32 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Structure
 
+* dynamic `k-badge-*` classes has been removed
+* `k-badge-text` class has been changed to `badge-content-wrapper`
+* KIcon element that previously contained class `k-badge-dismiss-button` has been removed 
+
 #### Constants, Types & Interfaces
+
+* `BadgeAppearances` const no longer contains `default` and `custom` values
+* `BadgeAppearance` type no longer contains `default` and `custom` values
+* `BadgeShapes` const has been removed
+* `BadgeShape` type has been removed
+* `BadgeShapeRecord` type has been removed
 
 #### Props
 
-#### Slots
+* `appearance` prop no longer accepts `default` and `custom` values (defaults to `info` now)
+* `isBordered` prop has been removed
+* `shape` prop has been removed (now KBadge only comes in one what used to be `rectangular` shape)
+* `borderColor` prop has been removed
+* `dismissable` prop has been removed
+* `hoverColor` prop has been removed
+* `truncationTooltip` prop has been changed to `boolean`. When used in conjunction with new `tooltip` prop, KBadge will only show the tooltip when content passed through the `default` slot needs truncation. Otherwise, if `tooltip` prop is used without `truncationTooltip` prop - tooltip will be shown regardless of whether truncation is needed
+* `forceTooltip` prop has been deprecated
+
+#### Events
+
+* `dismissed` even has been removed
 
 ### KBreadcrumbs
 
