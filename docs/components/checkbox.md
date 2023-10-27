@@ -1,6 +1,6 @@
 # Checkbox
 
-KCheckbox is a wrapper for native input type `KCheckbox` elements.
+KCheckbox is a wrapper for native input type `checkbox` elements.
 
 <KCheckbox label="Check this out!" v-model="defaultCheckbox" />
 
@@ -104,7 +104,7 @@ Whether or not KCheckbox is enabled.
 
 #### indeterminate
 
-In addition to the checked and unchecked states, there is a third state a kCheckbox can be in: indeterminate. This is a state in which it's impossible to say whether the item is toggled on or off.
+In addition to the checked and unchecked states, a KCheckbox can be in an `indeterminate` state. The `indeterminate` state is visual only. The checkbox is still either checked or unchecked as a state, but masks the real value of the checkbox.
 
 <ClientOnly>
   <div class="vertical-spacing">
