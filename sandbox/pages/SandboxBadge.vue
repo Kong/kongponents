@@ -110,157 +110,211 @@
       <div class="horizontal-spacing">
         <KBadge>
           Badge with icon
-          <KongIcon />
+          <template #after>
+            <KongIcon />
+          </template>
         </KBadge>
         <KBadge appearance="warning">
-          <WarningOutlineIcon />
+          <template #before>
+            <WarningOutlineIcon />
+          </template>
           4
+        </KBadge>
+        <KBadge appearance="decorative">
+          Very long truncated badge with icon
+          <template #after>
+            <KongIcon />
+          </template>
         </KBadge>
       </div>
       <p>Clickable icon</p>
       <div class="horizontal-spacing">
         <KBadge>
           Badge with clickable icon
-          <CloseIcon
-            role="button"
-            tabindex="0"
-            @click="handleIconClick"
-          />
+          <template #after>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
         </KBadge>
         <KBadge appearance="danger">
           Disabled clickable icon
-          <CloseIcon
-            disabled
-            role="button"
-            tabindex="0"
-            @click="handleIconClick"
-          />
+          <template #after>
+            <CloseIcon
+              disabled
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
         </KBadge>
       </div>
       <div class="horizontal-spacing">
         <KBadge appearance="info">
           Info
-          <CloseIcon
-            role="button"
-            tabindex="0"
-            @click="handleIconClick"
-          />
+          <template #after>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
         </KBadge>
         <KBadge appearance="success">
           Success
-          <CloseIcon
-            role="button"
-            tabindex="0"
-            @click="handleIconClick"
-          />
+          <template #after>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
         </KBadge>
         <KBadge appearance="warning">
           Warning
-          <CloseIcon
-            role="button"
-            tabindex="0"
-            @click="handleIconClick"
-          />
+          <template #after>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
         </KBadge>
         <KBadge appearance="danger">
           Danger
-          <CloseIcon
-            role="button"
-            tabindex="0"
-            @click="handleIconClick"
-          />
+          <template #after>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
         </KBadge>
         <KBadge appearance="neutral">
           Neutral
-          <CloseIcon
-            role="button"
-            tabindex="0"
-            @click="handleIconClick"
-          />
+          <template #after>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
         </KBadge>
         <KBadge appearance="decorative">
           Decorative
-          <CloseIcon
-            role="button"
-            tabindex="0"
-            @click="handleIconClick"
-          />
+          <template #after>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
         </KBadge>
       </div>
       <div class="horizontal-spacing">
         <KBadge appearance="get">
           Get
-          <CloseIcon
-            role="button"
-            tabindex="0"
-            @click="handleIconClick"
-          />
+          <template #after>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
         </KBadge>
         <KBadge appearance="post">
           Post
-          <CloseIcon
-            role="button"
-            tabindex="0"
-            @click="handleIconClick"
-          />
+          <template #after>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
         </KBadge>
         <KBadge appearance="put">
           Put
-          <CloseIcon
-            role="button"
-            tabindex="0"
-            @click="handleIconClick"
-          />
+          <template #after>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
         </KBadge>
         <KBadge appearance="delete">
           Delete
-          <CloseIcon
-            role="button"
-            tabindex="0"
-            @click="handleIconClick"
-          />
+          <template #after>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
         </KBadge>
         <KBadge appearance="patch">
           Patch
-          <CloseIcon
-            role="button"
-            tabindex="0"
-            @click="handleIconClick"
-          />
+          <template #after>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
         </KBadge>
         <KBadge appearance="options">
           Options
-          <CloseIcon
-            role="button"
-            tabindex="0"
-            @click="handleIconClick"
-          />
+          <template #after>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
         </KBadge>
         <KBadge appearance="head">
           Head
-          <CloseIcon
-            role="button"
-            tabindex="0"
-            @click="handleIconClick"
-          />
+          <template #after>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
         </KBadge>
         <KBadge appearance="connect">
           Connect
-          <CloseIcon
-            role="button"
-            tabindex="0"
-            @click="handleIconClick"
-          />
+          <template #after>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
         </KBadge>
         <KBadge appearance="trace">
           Trace
+          <template #after>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
+        </KBadge>
+      </div>
+      <KBadge appearance="get">
+        <template #before>
           <CloseIcon
             role="button"
             tabindex="0"
             @click="handleIconClick"
           />
-        </KBadge>
-      </div>
+        </template>
+        Get
+      </KBadge>
     </SandboxSectionComponent>
 
     <!-- Legacy -->
