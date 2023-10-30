@@ -91,4 +91,14 @@ describe('KBadge', () => {
 
     cy.get('.badge-content-wrapper').should('have.css', 'max-width').and('eq', maxWidth)
   })
+
+  it('renders the icon slot', () => {
+    mount(KBadge, {
+      slots: {
+        icon: '<span data-testid="icon">Icon</span>',
+      },
+    })
+
+    cy.get('[data-testid="icon"]').should('exist').should('be.visible')
+  })
 })

@@ -14,7 +14,10 @@
       <template #content>
         {{ tooltipText }}
       </template>
-      <slot name="icon" />
+      <slot
+        v-if="$slots.icon"
+        name="icon"
+      />
       <div
         ref="badgeTextElement"
         class="badge-content-wrapper"
