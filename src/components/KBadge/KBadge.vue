@@ -72,13 +72,6 @@ const props = defineProps({
   truncationTooltip: {
     type: Boolean,
     default: false,
-    validator: (value: boolean | string): boolean => {
-      if (typeof value === 'string') {
-        console.warn('KBadge: the usage for the `truncationTooltip` prop has changed. Please use `tooltip` prop instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kbadge')
-      }
-
-      return true
-    },
   },
   /**
    * Use this prop if you don't intend for the badge to actually be shown
@@ -105,13 +98,6 @@ const props = defineProps({
   iconBefore: {
     type: Boolean,
     default: true,
-  },
-  /**
-   * @deprecated Use `tooltip` in combination with `truncationTooltip` instead.
-   */
-  forceTooltip: {
-    type: Boolean,
-    default: false,
   },
 })
 
