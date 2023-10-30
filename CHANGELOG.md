@@ -1,3 +1,10 @@
+# [9.0.0-alpha.33](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.32...v9.0.0-alpha.33) (2023-10-30)
+
+
+### Features
+
+* **ktooltip:** render a plain slot if no label or content ([#1802](https://github.com/Kong/kongponents/issues/1802)) ([56b29e6](https://github.com/Kong/kongponents/commit/56b29e692e2e93ae5f4a9226d32b18953e116c07))
+
 # [9.0.0-alpha.32](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.31...v9.0.0-alpha.32) (2023-10-27)
 
 
