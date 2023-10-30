@@ -32,9 +32,6 @@
         <KBadge appearance="neutral">
           Neutral
         </KBadge>
-        <KBadge appearance="decorative">
-          Decorative
-        </KBadge>
       </div>
       <div class="horizontal-spacing">
         <KBadge appearance="get">
@@ -106,55 +103,81 @@
       is-subtitle
       title="Slots"
     />
-    <SandboxSectionComponent title="default">
+    <SandboxSectionComponent
+      title="default"
+    >
+      <KBadge>
+        <b>Default</b> slot
+      </KBadge>
+      <p>Using icon within the default slot basically becomes a don't unless you are willing to override some default component styles.</p>
       <div class="horizontal-spacing">
         <KBadge>
+          Icon within default slot
+          <KongIcon />
+        </KBadge>
+        <KBadge appearance="warning">
+          Truncation becomes problematic when content is long
+          <KongIcon />
+        </KBadge>
+      </div>
+    </SandboxSectionComponent>
+    <SandboxSectionComponent title="icon">
+      <div class="horizontal-spacing">
+        <KBadge :icon-before="false">
           Badge with icon
-          <template #after>
+          <template #icon>
             <KongIcon />
           </template>
         </KBadge>
         <KBadge appearance="warning">
-          <template #before>
+          <template #icon>
             <WarningOutlineIcon />
           </template>
           4
         </KBadge>
-        <KBadge appearance="decorative">
+      </div>
+      <p>Clickable icon</p>
+      <div class="horizontal-spacing">
+        <KBadge :icon-before="false">
+          Badge with clickable icon
+          <template #icon>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
+        </KBadge>
+        <KBadge
+          appearance="danger"
+          :icon-before="false"
+        >
+          Disabled clickable icon
+          <template #icon>
+            <CloseIcon
+              disabled
+              role="button"
+              @click="handleIconClick"
+            />
+          </template>
+        </KBadge>
+        <KBadge
+          appearance="warning"
+          :icon-before="false"
+        >
           Very long truncated badge with icon
-          <template #after>
+          <template #icon>
             <KongIcon />
           </template>
         </KBadge>
       </div>
-      <p>Clickable icon</p>
       <div class="horizontal-spacing">
-        <KBadge>
-          Badge with clickable icon
-          <template #after>
-            <CloseIcon
-              role="button"
-              tabindex="0"
-              @click="handleIconClick"
-            />
-          </template>
-        </KBadge>
-        <KBadge appearance="danger">
-          Disabled clickable icon
-          <template #after>
-            <CloseIcon
-              disabled
-              role="button"
-              tabindex="0"
-              @click="handleIconClick"
-            />
-          </template>
-        </KBadge>
-      </div>
-      <div class="horizontal-spacing">
-        <KBadge appearance="info">
+        <KBadge
+          appearance="info"
+          :icon-before="false"
+        >
           Info
-          <template #after>
+          <template #icon>
             <CloseIcon
               role="button"
               tabindex="0"
@@ -162,9 +185,12 @@
             />
           </template>
         </KBadge>
-        <KBadge appearance="success">
+        <KBadge
+          appearance="success"
+          :icon-before="false"
+        >
           Success
-          <template #after>
+          <template #icon>
             <CloseIcon
               role="button"
               tabindex="0"
@@ -172,9 +198,12 @@
             />
           </template>
         </KBadge>
-        <KBadge appearance="warning">
+        <KBadge
+          appearance="warning"
+          :icon-before="false"
+        >
           Warning
-          <template #after>
+          <template #icon>
             <CloseIcon
               role="button"
               tabindex="0"
@@ -182,9 +211,12 @@
             />
           </template>
         </KBadge>
-        <KBadge appearance="danger">
+        <KBadge
+          appearance="danger"
+          :icon-before="false"
+        >
           Danger
-          <template #after>
+          <template #icon>
             <CloseIcon
               role="button"
               tabindex="0"
@@ -192,19 +224,12 @@
             />
           </template>
         </KBadge>
-        <KBadge appearance="neutral">
+        <KBadge
+          appearance="neutral"
+          :icon-before="false"
+        >
           Neutral
-          <template #after>
-            <CloseIcon
-              role="button"
-              tabindex="0"
-              @click="handleIconClick"
-            />
-          </template>
-        </KBadge>
-        <KBadge appearance="decorative">
-          Decorative
-          <template #after>
+          <template #icon>
             <CloseIcon
               role="button"
               tabindex="0"
@@ -214,9 +239,12 @@
         </KBadge>
       </div>
       <div class="horizontal-spacing">
-        <KBadge appearance="get">
+        <KBadge
+          appearance="get"
+          :icon-before="false"
+        >
           Get
-          <template #after>
+          <template #icon>
             <CloseIcon
               role="button"
               tabindex="0"
@@ -224,9 +252,12 @@
             />
           </template>
         </KBadge>
-        <KBadge appearance="post">
+        <KBadge
+          appearance="post"
+          :icon-before="false"
+        >
           Post
-          <template #after>
+          <template #icon>
             <CloseIcon
               role="button"
               tabindex="0"
@@ -234,9 +265,12 @@
             />
           </template>
         </KBadge>
-        <KBadge appearance="put">
+        <KBadge
+          appearance="put"
+          :icon-before="false"
+        >
           Put
-          <template #after>
+          <template #icon>
             <CloseIcon
               role="button"
               tabindex="0"
@@ -244,9 +278,12 @@
             />
           </template>
         </KBadge>
-        <KBadge appearance="delete">
+        <KBadge
+          appearance="delete"
+          :icon-before="false"
+        >
           Delete
-          <template #after>
+          <template #icon>
             <CloseIcon
               role="button"
               tabindex="0"
@@ -254,9 +291,12 @@
             />
           </template>
         </KBadge>
-        <KBadge appearance="patch">
+        <KBadge
+          appearance="patch"
+          :icon-before="false"
+        >
           Patch
-          <template #after>
+          <template #icon>
             <CloseIcon
               role="button"
               tabindex="0"
@@ -264,9 +304,12 @@
             />
           </template>
         </KBadge>
-        <KBadge appearance="options">
+        <KBadge
+          appearance="options"
+          :icon-before="false"
+        >
           Options
-          <template #after>
+          <template #icon>
             <CloseIcon
               role="button"
               tabindex="0"
@@ -274,9 +317,12 @@
             />
           </template>
         </KBadge>
-        <KBadge appearance="head">
+        <KBadge
+          appearance="head"
+          :icon-before="false"
+        >
           Head
-          <template #after>
+          <template #icon>
             <CloseIcon
               role="button"
               tabindex="0"
@@ -284,9 +330,12 @@
             />
           </template>
         </KBadge>
-        <KBadge appearance="connect">
+        <KBadge
+          appearance="connect"
+          :icon-before="false"
+        >
           Connect
-          <template #after>
+          <template #icon>
             <CloseIcon
               role="button"
               tabindex="0"
@@ -294,9 +343,12 @@
             />
           </template>
         </KBadge>
-        <KBadge appearance="trace">
+        <KBadge
+          appearance="trace"
+          :icon-before="false"
+        >
           Trace
-          <template #after>
+          <template #icon>
             <CloseIcon
               role="button"
               tabindex="0"
@@ -306,7 +358,7 @@
         </KBadge>
       </div>
       <KBadge appearance="get">
-        <template #before>
+        <template #icon>
           <CloseIcon
             role="button"
             tabindex="0"

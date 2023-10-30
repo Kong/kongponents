@@ -8,19 +8,19 @@
     <component
       :is="truncationTooltip && (forceTooltip || isTruncated) ? 'KTooltip' : 'div'"
       class="badge-container"
+      :class="{ 'icon-after': !iconBefore }"
       :position-fixed="truncationTooltip && (forceTooltip || isTruncated) ? true : undefined"
     >
       <template #content>
         {{ truncationTooltip }}
       </template>
-      <slot name="before" />
+      <slot name="icon" />
       <div
         ref="badgeTextElement"
         class="badge-content-wrapper"
       >
         <slot />
       </div>
-      <slot name="after" />
     </component>
   </div>
 </template>
@@ -98,6 +98,13 @@ const props = defineProps({
   maxWidth: {
     type: String,
     default: '200px',
+  },
+  /**
+   * A boolean whether or not to show the icon before the badge text (or after).
+   */
+  iconBefore: {
+    type: Boolean,
+    default: true,
   },
 })
 
@@ -185,6 +192,10 @@ $kBadgeMethodWidth: 80px;
     align-items: center;
     display: inline-flex;
     gap: var(--kui-space-40, $kui-space-40);
+
+    &.icon-after {
+      flex-direction: row-reverse;
+    }
   }
 
   .badge-content-wrapper {
@@ -203,10 +214,6 @@ $kBadgeMethodWidth: 80px;
   :deep([role="button"]) {
     &:not([disabled]) {
       cursor: pointer;
-
-      &:focus, &:active {
-        outline: none;
-      }
     }
 
     &[disabled] {
@@ -234,35 +241,33 @@ $kBadgeMethodWidth: 80px;
     background-color: var(--kui-color-background-success-weakest, $kui-color-background-success-weakest);
     color: var(--kui-color-text-success, $kui-color-text-success);
 
-    // :deep([role="button"]):not([disabled]) {
-    //   &:hover, &:focus {
-    //     color: var(--kui-color-text-success-strong, $kui-color-text-success-strong) !important; // TODO: token needed kui-color-text-success-strong
-    //   }
-    // }
+    :deep([role="button"]):not([disabled]) {
+      &:hover, &:focus {
+        color: var(--kui-color-text-success-strong, $kui-color-text-success-strong) !important;
+      }
+    }
   }
 
   &.warning {
     background-color: var(--kui-color-background-warning-weakest, $kui-color-background-warning-weakest);
     color: var(--kui-color-text-warning, $kui-color-text-warning);
 
-    // :deep([role="button"]):not([disabled]) {
-    //   &:hover, &:focus {
-    //     color: var(--kui-color-text-warning-strong, $kui-color-text-warning-strong) !important; // TODO: token needed kui-color-text-warning-strong
-    //   }
-    // }
+    :deep([role="button"]):not([disabled]) {
+      &:hover, &:focus {
+        color: var(--kui-color-text-warning-strong, $kui-color-text-warning-strong) !important;
+      }
+    }
   }
 
   &.danger {
     background-color: var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest);
     color: var(--kui-color-text-danger, $kui-color-text-danger);
 
-    // .badge-content-wrapper {
-    //   :deep([role="button"]):not([disabled]) {
-    //     &:hover, &:focus {
-    //       color: var(--kui-color-text-danger-strong, $kui-color-text-danger-strong) !important; // TODO: token needed kui-color-text-danger-strong
-    //     }
-    //   }
-    // }
+    :deep([role="button"]):not([disabled]) {
+      &:hover, &:focus {
+        color: var(--kui-color-text-danger-strong, $kui-color-text-danger-strong) !important;
+      }
+    }
   }
 
   &.neutral {
@@ -276,115 +281,104 @@ $kBadgeMethodWidth: 80px;
     }
   }
 
-  &.decorative {
-    background-color: var(--kui-method-color-background-connect, $kui-method-color-background-connect); // TODO: token needed
-    color: var(--kui-method-color-text-connect, $kui-method-color-text-connect); // TODO: token needed
-
-    // :deep([role="button"]):not([disabled]) {
-    //   &:hover, &:focus {
-    //     color: TODO: token needed !important;
-    //   }
-    // }
-  }
-
   // methods
   &.get {
     background-color: var(--kui-method-color-background-get, $kui-method-color-background-get);
     color: var(--kui-method-color-text-get, $kui-method-color-text-get);
 
-    // :deep([role="button"]):not([disabled]) {
-    //   &:hover, &:focus {
-    //     color: TODO: token needed !important;
-    //   }
-    // }
+    :deep([role="button"]):not([disabled]) {
+      &:hover, &:focus {
+        color: var(--kui-method-color-text-get-strong, $kui-method-color-text-get-strong) !important;
+      }
+    }
   }
 
   &.post {
     background-color: var(--kui-method-color-background-post, $kui-method-color-background-post);
     color: var(--kui-method-color-text-post, $kui-method-color-text-post);
 
-    // :deep([role="button"]):not([disabled]) {
-    //   &:hover, &:focus {
-    //     color: TODO: token needed !important;
-    //   }
-    // }
+    :deep([role="button"]):not([disabled]) {
+      &:hover, &:focus {
+        color: var(--kui-method-color-text-post-strong, $kui-method-color-text-post-strong) !important;
+      }
+    }
   }
 
   &.put {
     background-color: var(--kui-method-color-background-put, $kui-method-color-background-put);
     color: var(--kui-method-color-text-put, $kui-method-color-text-put);
 
-    // :deep([role="button"]):not([disabled]) {
-    //   &:hover, &:focus {
-    //     color: TODO: token needed !important;
-    //   }
-    // }
+    :deep([role="button"]):not([disabled]) {
+      &:hover, &:focus {
+        color: var(--kui-method-color-text-put-strong, $kui-method-color-text-put-strong) !important;
+      }
+    }
   }
 
   &.delete {
     background-color: var(--kui-method-color-background-delete, $kui-method-color-background-delete);
     color: var(--kui-method-color-text-delete, $kui-method-color-text-delete);
 
-    // :deep([role="button"]):not([disabled]) {
-    //   &:hover, &:focus {
-    //     color: TODO: token needed !important;
-    //   }
-    // }
+    :deep([role="button"]):not([disabled]) {
+      &:hover, &:focus {
+        color: var(--kui-method-color-text-delete-strong, $kui-method-color-text-delete-strong) !important;
+      }
+    }
   }
 
   &.patch {
     background-color: var(--kui-method-color-background-patch, $kui-method-color-background-patch);
     color: var(--kui-method-color-text-patch, $kui-method-color-text-patch);
 
-    // :deep([role="button"]):not([disabled]) {
-    //   &:hover, &:focus {
-    //     color: TODO: token needed !important;
-    //   }
-    // }
+    :deep([role="button"]):not([disabled]) {
+      &:hover, &:focus {
+        color: var(--kui-method-color-text-patch-strong, $kui-method-color-text-patch-strong) !important;
+      }
+    }
   }
 
   &.options {
     background-color: var(--kui-method-color-background-options, $kui-method-color-background-options);
     color: var(--kui-method-color-text-options, $kui-method-color-text-options);
 
-    // :deep([role="button"]):not([disabled]) {
-    //   &:hover, &:focus {
-    //     color: TODO: token needed !important;
-    //   }
-    // }
+    :deep([role="button"]):not([disabled]) {
+      &:hover, &:focus {
+        color: var(--kui-method-color-text-options-strong, $kui-method-color-text-options-strong) !important;
+      }
+    }
   }
 
   &.head {
     background-color: var(--kui-method-color-background-head, $kui-method-color-background-head);
     color: var(--kui-method-color-text-head, $kui-method-color-text-head);
 
-    // :deep([role="button"]):not([disabled]) {
-    //   &:hover, &:focus {
-    //     color: TODO: token needed !important;
-    //   }
-    // }
+    :deep([role="button"]):not([disabled]) {
+      &:hover, &:focus {
+        color: var(--kui-method-color-text-head-strong, $kui-method-color-text-head-strong) !important;
+      }
+    }
   }
 
   &.connect {
     background-color: var(--kui-method-color-background-connect, $kui-method-color-background-connect);
     color: var(--kui-method-color-text-connect, $kui-method-color-text-connect);
 
-    // :deep([role="button"]):not([disabled]) {
-    //   &:hover, &:focus {
-    //     color: TODO: token needed !important;
-    //   }
-    // }
+    :deep([role="button"]):not([disabled]) {
+      &:hover, &:focus {
+        color: var(--kui-method-color-text-connect-strong, $kui-method-color-text-connect-strong) !important;
+      }
+    }
   }
 
   &.trace {
     background-color: var(--kui-method-color-background-trace, $kui-method-color-background-trace);
     color: var(--kui-method-color-text-trace, $kui-method-color-text-trace);
 
-    // :deep([role="button"]):not([disabled]) {
-    //   &:hover, &:focus {
-    //     color: TODO: token needed !important;
-    //   }
-    // }
+    :deep([role="button"]):not([disabled]) {
+      &:hover, &:focus {
+        color: var(--kui-method-color-text-trace-strong, $kui-method-color-text-trace-strong) !important;
+      }
+    }
   }
 }
 </style>
