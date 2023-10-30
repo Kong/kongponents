@@ -256,6 +256,12 @@ Component has been renamed to `KDropdown`
 
 ### KMenu
 
+### KMethodBadge
+
+#### Constants, Types & Interfaces
+
+* `MethodShape` type has been removed
+
 ### KMethod Badge
 
 ### KModal
