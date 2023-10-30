@@ -62,13 +62,22 @@
                   'expand-selected': expandSelected,
                   'resize-badge':(item.selected && item.disabled)
                 }"
-                :dismissable="item.selected && !item.disabled"
                 shape="rectangular"
                 :truncation-tooltip="item.label"
                 @click.stop
-                @dismissed="handleItemSelect(item)"
               >
                 {{ item.label }}
+                <template
+                  v-if="item.selected && !item.disabled"
+                  #icon
+                >
+                  <CloseIcon
+                    data-testid="badge-dismiss-button"
+                    role="button"
+                    tabindex="0"
+                    @click="handleItemSelect(item)"
+                  />
+                </template>
               </KBadge>
               <KBadge
                 v-if="!expandSelected && invisibleSelectedItems.length"
@@ -263,6 +272,7 @@ import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 import type { MultiselectItem, MultiselectFilterFnParams, DropdownFooterTextPosition, PopPlacements } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_20, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { CloseIcon } from '@kong/icons'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
