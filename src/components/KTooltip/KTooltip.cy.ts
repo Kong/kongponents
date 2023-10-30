@@ -38,7 +38,7 @@ describe('KTooltip', () => {
   // Loop through varients
   positions.map(p => rendersCorrectPosition(p))
 
-  it('does not render the tooltip if the `label` prop is empty', () => {
+  it('renders the default slot content but not the tooltip if the `label` prop is empty', () => {
     const text = 'Button text'
 
     mount(KTooltip, {
@@ -47,11 +47,11 @@ describe('KTooltip', () => {
         trigger: 'click',
       },
       slots: {
-        default: () => h('button', {}, text),
+        default: () => h('button', { 'data-testid': 'my-button' }, text),
       },
     })
 
-    cy.get('button').click()
+    cy.getTestId('my-button').should('be.visible').click()
 
     cy.get('.k-tooltip').should('not.exist')
   })
