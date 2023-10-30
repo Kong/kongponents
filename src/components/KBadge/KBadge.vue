@@ -219,7 +219,7 @@ $kBadgeMethodWidth: 80px;
   @include kBadgeInfo;
 
   border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-  display: flex;
+  display: inline-flex;
   font-family: var(--kui-font-family-text, $kui-font-family-text);
   font-size: var(--kui-font-size-20, $kui-font-size-20);
   font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);

@@ -62,6 +62,7 @@
                   'expand-selected': expandSelected,
                   'resize-badge':(item.selected && item.disabled)
                 }"
+                :icon-before="false"
                 shape="rectangular"
                 :truncation-tooltip="item.label"
                 @click.stop
