@@ -318,7 +318,7 @@
     </SandboxSectionComponent>
 
     <!-- Legacy -->
-    <SandboxTitleComponent
+    <!-- <SandboxTitleComponent
       is-subtitle
       title="Legacy"
     />
@@ -339,7 +339,7 @@
       >
         Truncation unnecessary
       </KBadge>
-    </SandboxSectionComponent>
+    </SandboxSectionComponent> -->
   </div>
 </template>
 
