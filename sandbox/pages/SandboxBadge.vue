@@ -92,7 +92,7 @@
         </KBadge>
       </div>
     </SandboxSectionComponent>
-    <SandboxSectionComponent title="backgroundColor & color">
+    <SandboxSectionComponent title="maxWidth">
       <KBadge max-width="auto">
         Very long text that should be truncated but isn't thanks to max-width="auto"
       </KBadge>
