@@ -103,7 +103,6 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: 'Migrating to v9', link: '/guide/migrating-to-version-9' },
-            { text: 'Migration to Vue 3', link: '/guide/vue-3-migration-guide' },
           ]
         },
         {
