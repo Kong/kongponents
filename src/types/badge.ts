@@ -23,6 +23,5 @@ export const BadgeAppearances: BadgeAppearanceRecord = {
   danger: 'danger',
   decorative: 'decorative',
   neutral: 'neutral',
-  decorative: 'decorative',
   ...BadgeMethodAppearances,
 } as const
