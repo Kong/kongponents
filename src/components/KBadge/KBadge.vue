@@ -216,7 +216,8 @@ $kBadgeMethodWidth: 80px;
   }
 
   &.method {
-    .badge-content-wrapper {
+    .badge-container {
+      justify-content: center;
       text-align: center;
       text-transform: uppercase;
       width: $kBadgeMethodWidth !important;
