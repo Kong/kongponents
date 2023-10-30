@@ -6,13 +6,13 @@
     :style="badgeCustomStyles"
   >
     <component
-      :is="truncationTooltip && (forceTooltip || isTruncated) ? 'KTooltip' : 'div'"
+      :is="showTooltip ? 'KTooltip' : 'div'"
       class="badge-container"
       :class="{ 'icon-after': !iconBefore }"
-      :position-fixed="truncationTooltip && (forceTooltip || isTruncated) ? true : undefined"
+      :position-fixed="showTooltip ? true : undefined"
     >
       <template #content>
-        {{ truncationTooltip }}
+        {{ tooltipText }}
       </template>
       <slot name="icon" />
       <div
@@ -55,20 +55,25 @@ const props = defineProps({
     default: 'info',
   },
   /**
-   * For use with truncation. This text will be displayed
-   * on hover of the badge if the text is truncated.
+   * Tooltip text that will be displayed on hover.
    */
-  truncationTooltip: {
+  tooltip: {
     type: String,
     default: '',
   },
   /**
-   * Use this prop if you always want to show the tooltip whether
-   * or not the badge text is truncated.
+   * Whether tooltip should only be shown when the badge is truncated.
    */
-  forceTooltip: {
-    type: Boolean,
+  truncationTooltip: {
+    type: [Boolean, String], // TODO: in the next major version, remove string support
     default: false,
+    validator: (value: boolean | string): boolean => {
+      if (typeof value === 'string') {
+        console.warn('KBadge: the usage for the `truncationTooltip` prop has changed. Please use `tooltip` prop instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kbadge')
+      }
+
+      return true
+    },
   },
   /**
    * Use this prop if you don't intend for the badge to actually be shown
@@ -106,6 +111,13 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  /**
+   * @deprecated Use `tooltip` in combination with `truncationTooltip` instead.
+   */
+  forceTooltip: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const isMethodBadge = computed(() => {
@@ -141,6 +153,30 @@ const setTruncation = (): void => {
     isTruncated.value = badgeTextElement.value.offsetWidth < badgeTextElement.value.scrollWidth
   }
 }
+
+const tooltipText = computed((): string => {
+  if (typeof props.truncationTooltip === 'string') {
+    return props.truncationTooltip
+  }
+
+  return props.tooltip
+})
+
+const showTooltip = computed((): boolean => {
+  if (!tooltipText.value) {
+    return false
+  }
+
+  if (props.forceTooltip) { // TODO: remove when forceTooltip is removed
+    return true
+  }
+
+  if (props.truncationTooltip) {
+    return isTruncated.value
+  }
+
+  return true
+})
 
 onMounted(() => {
   resizeObserver.value = ResizeObserverHelper.create(setTruncation)

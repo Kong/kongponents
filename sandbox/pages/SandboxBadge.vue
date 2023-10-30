@@ -71,7 +71,7 @@
         Custom
       </KBadge>
     </SandboxSectionComponent>
-    <!-- <SandboxSectionComponent title="tooltip">
+    <SandboxSectionComponent title="tooltip">
       <KBadge tooltip="I always tooltip">
         Truncation unnecessary
       </KBadge>
@@ -96,7 +96,7 @@
       <KBadge max-width="auto">
         Very long text that should be truncated but isn't thanks to max-width="auto"
       </KBadge>
-    </SandboxSectionComponent> -->
+    </SandboxSectionComponent>
 
     <!-- Slots -->
     <SandboxTitleComponent
@@ -370,7 +370,7 @@
     </SandboxSectionComponent>
 
     <!-- Legacy -->
-    <!-- <SandboxTitleComponent
+    <SandboxTitleComponent
       is-subtitle
       title="Legacy"
     />
@@ -391,7 +391,7 @@
       >
         Truncation unnecessary
       </KBadge>
-    </SandboxSectionComponent> -->
+    </SandboxSectionComponent>
   </div>
 </template>
 
