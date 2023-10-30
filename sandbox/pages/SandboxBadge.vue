@@ -32,6 +32,9 @@
         <KBadge appearance="neutral">
           Neutral
         </KBadge>
+        <KBadge appearance="decorative">
+          Decorative
+        </KBadge>
       </div>
       <div class="horizontal-spacing">
         <KBadge appearance="get">
@@ -98,7 +101,169 @@
       </KBadge>
     </SandboxSectionComponent> -->
 
-    <!-- Props -->
+    <!-- Slots -->
+    <SandboxTitleComponent
+      is-subtitle
+      title="Slots"
+    />
+    <SandboxSectionComponent title="default">
+      <div class="horizontal-spacing">
+        <KBadge>
+          Badge with icon
+          <KongIcon />
+        </KBadge>
+        <KBadge appearance="warning">
+          <WarningOutlineIcon />
+          4
+        </KBadge>
+      </div>
+      <p>Clickable icon</p>
+      <div class="horizontal-spacing">
+        <KBadge>
+          Badge with clickable icon
+          <CloseIcon
+            role="button"
+            tabindex="0"
+            @click="handleIconClick"
+          />
+        </KBadge>
+        <KBadge appearance="danger">
+          Disabled clickable icon
+          <CloseIcon
+            disabled
+            role="button"
+            tabindex="0"
+            @click="handleIconClick"
+          />
+        </KBadge>
+      </div>
+      <div class="horizontal-spacing">
+        <KBadge appearance="info">
+          Info
+          <CloseIcon
+            role="button"
+            tabindex="0"
+            @click="handleIconClick"
+          />
+        </KBadge>
+        <KBadge appearance="success">
+          Success
+          <CloseIcon
+            role="button"
+            tabindex="0"
+            @click="handleIconClick"
+          />
+        </KBadge>
+        <KBadge appearance="warning">
+          Warning
+          <CloseIcon
+            role="button"
+            tabindex="0"
+            @click="handleIconClick"
+          />
+        </KBadge>
+        <KBadge appearance="danger">
+          Danger
+          <CloseIcon
+            role="button"
+            tabindex="0"
+            @click="handleIconClick"
+          />
+        </KBadge>
+        <KBadge appearance="neutral">
+          Neutral
+          <CloseIcon
+            role="button"
+            tabindex="0"
+            @click="handleIconClick"
+          />
+        </KBadge>
+        <KBadge appearance="decorative">
+          Decorative
+          <CloseIcon
+            role="button"
+            tabindex="0"
+            @click="handleIconClick"
+          />
+        </KBadge>
+      </div>
+      <div class="horizontal-spacing">
+        <KBadge appearance="get">
+          Get
+          <CloseIcon
+            role="button"
+            tabindex="0"
+            @click="handleIconClick"
+          />
+        </KBadge>
+        <KBadge appearance="post">
+          Post
+          <CloseIcon
+            role="button"
+            tabindex="0"
+            @click="handleIconClick"
+          />
+        </KBadge>
+        <KBadge appearance="put">
+          Put
+          <CloseIcon
+            role="button"
+            tabindex="0"
+            @click="handleIconClick"
+          />
+        </KBadge>
+        <KBadge appearance="delete">
+          Delete
+          <CloseIcon
+            role="button"
+            tabindex="0"
+            @click="handleIconClick"
+          />
+        </KBadge>
+        <KBadge appearance="patch">
+          Patch
+          <CloseIcon
+            role="button"
+            tabindex="0"
+            @click="handleIconClick"
+          />
+        </KBadge>
+        <KBadge appearance="options">
+          Options
+          <CloseIcon
+            role="button"
+            tabindex="0"
+            @click="handleIconClick"
+          />
+        </KBadge>
+        <KBadge appearance="head">
+          Head
+          <CloseIcon
+            role="button"
+            tabindex="0"
+            @click="handleIconClick"
+          />
+        </KBadge>
+        <KBadge appearance="connect">
+          Connect
+          <CloseIcon
+            role="button"
+            tabindex="0"
+            @click="handleIconClick"
+          />
+        </KBadge>
+        <KBadge appearance="trace">
+          Trace
+          <CloseIcon
+            role="button"
+            tabindex="0"
+            @click="handleIconClick"
+          />
+        </KBadge>
+      </div>
+    </SandboxSectionComponent>
+
+    <!-- Legacy -->
     <SandboxTitleComponent
       is-subtitle
       title="Legacy"
@@ -129,6 +294,11 @@ import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { KExternalLink, KBadge } from '@/components'
 import { KUI_COLOR_BACKGROUND_PRIMARY_WEAK, KUI_COLOR_TEXT_INVERSE } from '@kong/design-tokens'
+import { KongIcon, WarningOutlineIcon, CloseIcon } from '@kong/icons'
+
+const handleIconClick = (): void => {
+  alert('Icon clicked!')
+}
 </script>
 
 <style scoped lang="scss">
