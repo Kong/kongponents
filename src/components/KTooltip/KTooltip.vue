@@ -1,5 +1,6 @@
 <template>
   <KPop
+    v-if="showTooltip"
     v-bind="$attrs"
     hide-caret
     :max-width="maxWidth"
@@ -13,10 +14,7 @@
   >
     <slot />
 
-    <template
-      v-if="showTooltip"
-      #content
-    >
+    <template #content>
       <div role="tooltip">
         <slot
           :label="label"
@@ -27,6 +25,10 @@
       </div>
     </template>
   </KPop>
+
+  <template v-else>
+    <slot />
+  </template>
 </template>
 
 <script setup lang="ts">
@@ -83,27 +85,23 @@ const slots = useSlots()
 const showTooltip = computed((): boolean => !!props.label || !!slots.content)
 
 const computedClass = computed((): string => {
-  const result = []
+  let result = ''
   switch (props.placement) {
     case 'top':
-      result.push('k-tooltip-top')
+      result = 'k-tooltip-top'
       break
     case 'right':
-      result.push('k-tooltip-right')
+      result = 'k-tooltip-right'
       break
     case 'bottom':
-      result.push('k-tooltip-bottom')
+      result = 'k-tooltip-bottom'
       break
     case 'left':
-      result.push('k-tooltip-left')
+      result = 'k-tooltip-left'
       break
   }
 
-  if (!showTooltip.value) {
-    result.push('k-tooltip-hidden')
-  }
-
-  return result.join(' ')
+  return result
 })
 </script>
 
@@ -120,10 +118,6 @@ const computedClass = computed((): string => {
   --KPopBorder: none;
   pointer-events: none;
   z-index: 9999;
-
-  &.k-tooltip-hidden {
-    display: none;
-  }
 }
 
 .k-tooltip-top {

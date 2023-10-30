@@ -53,6 +53,6 @@ describe('KTooltip', () => {
 
     cy.get('button').click()
 
-    cy.get('.k-tooltip').should('have.class', 'k-tooltip-hidden').and('not.be.visible')
+    cy.get('.k-tooltip').should('not.exist')
   })
 })
