@@ -63,8 +63,8 @@
                   'resize-badge':(item.selected && item.disabled)
                 }"
                 :icon-before="false"
-                shape="rectangular"
-                :truncation-tooltip="item.label"
+                :tooltip="item.label"
+                truncation-tooltip
                 @click.stop
               >
                 {{ item.label }}
@@ -83,9 +83,7 @@
               <KBadge
                 v-if="!expandSelected && invisibleSelectedItems.length"
                 class="hidden-selection-count"
-                force-tooltip
-                shape="rectangular"
-                :truncation-tooltip="hiddenItemsTooltip"
+                :tooltip="hiddenItemsTooltip"
                 @click.stop
               >
                 +{{ invisibleSelectedItems.length }}
@@ -240,7 +238,6 @@
           class="k-multiselect-selection-badge"
           hidden
           :icon-before="false"
-          shape="rectangular"
         >
           {{ item.label }}
           <template
@@ -259,7 +256,6 @@
         <KBadge
           class="hidden-selection-count"
           hidden
-          shape="rectangular"
         >
           +{{ invisibleSelectedItemsStaging.length }}
         </KBadge>
