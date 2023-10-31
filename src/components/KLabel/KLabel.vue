@@ -16,7 +16,7 @@
         tabindex="0"
       />
       <template #content>
-        <slot name="tooltip">{{ help || info }}</slot>
+        <slot name="tooltip">{{ info || help }}</slot>
       </template>
     </KTooltip>
   </label>

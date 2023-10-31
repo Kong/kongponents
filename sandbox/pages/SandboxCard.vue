@@ -115,6 +115,9 @@
         </template>
       </KCard>
     </SandboxSectionComponent>
+    <SandboxSectionComponent title="body prop (deprecated)">
+      <KCard body="`body` prop is deprecated but is backwards compatible." />
+    </SandboxSectionComponent>
   </div>
 </template>
 

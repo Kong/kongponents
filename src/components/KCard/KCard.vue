@@ -22,11 +22,11 @@
       </div>
     </div>
     <div
-      v-if="$slots.default || $slots.body || content"
+      v-if="$slots.default || $slots.body || content || body"
       class="card-content"
     >
       <slot :name="contentSlotName">
-        <p>{{ content }}</p>
+        <p>{{ content || body }}</p>
       </slot>
     </div>
     <div
@@ -50,11 +50,25 @@ defineProps({
     type: String,
     default: '',
   },
+  /**
+   * @deprecated in favor of `content` prop
+   */
+  body: {
+    type: String,
+    default: '',
+    validator: (value: string) => {
+      if (value) {
+        console.warn('KCard: `body` prop has been deprecated in favor of `content` prop. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kcard')
+      }
+
+      return true
+    },
+  },
 })
 
 const slots = useSlots()
 
-const contentSlotName = computed((): 'body' | 'default' => { // TODO: remove this when body slot is removed
+const contentSlotName = computed((): 'body' | 'default' => { // TODO: remove this when @deprecated `body` slot is removed
   if (slots.body && !slots.default) {
     console.warn('KCard: `body` slot has been deprecated in favor of `default` slot. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kcard')
 
