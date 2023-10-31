@@ -1,247 +1,92 @@
 <template>
-  <section
-    :aria-describedby="contentId || undefined"
-    :aria-label="title ? title : undefined"
-    :aria-labelledby="!title && slots.title ? titleId : undefined"
-    class="kong-card"
-    :class="[borderVariant, {'hover': hasHover, 'kcard-shadow': hasShadow }]"
-  >
+  <section class="k-card">
     <div
-      v-if="showCardHead"
-      class="k-card-header"
-      :class="{ 'has-status': status || slots.statusHat }"
+      v-if="$slots.title || title || $slots.actions"
+      class="card-header"
     >
       <div
-        v-if="status || slots.statusHat"
-        class="k-card-status-hat"
-      >
-        <!-- @slot Use this slot to pass status text above title -->
-        <slot name="statusHat">
-          {{ status }}
-        </slot>
-      </div>
-
-      <div
-        v-if="showCardTitleWithoutStatus"
-        :id="title ? undefined : titleId"
-        class="k-card-title"
+        v-if="$slots.title || title"
+        class="card-title"
       >
         <h4>
-          <!-- @slot Use this slot to pass title content -->
           <slot name="title">
             {{ title }}
           </slot>
         </h4>
       </div>
-
-      <div class="k-card-actions">
-        <!-- @slot Use this slot to pass actions to right side of header -->
+      <div
+        v-if="$slots.actions"
+        class="card-actions"
+      >
         <slot name="actions" />
       </div>
     </div>
-
     <div
-      v-if="showCardTitleWithStatus"
-      :id="title ? undefined : titleId"
-      class="k-card-title"
+      v-if="$slots.default || content"
+      class="card-content"
     >
-      <h4>
-        <!-- @slot Use this slot to pass title content -->
-        <slot name="title">
-          {{ title }}
-        </slot>
-      </h4>
+      <slot><p>{{ content }}</p></slot>
     </div>
-
-    <div class="k-card-content">
-      <div
-        :id="contentId"
-        class="k-card-body"
-      >
-        <!-- @slot Use this slot to pass in body content -->
-        <slot name="body">
-          {{ body }}
-        </slot>
-      </div>
-
-      <div
-        v-if="slots.notifications"
-        class="k-card-notifications"
-      >
-        <slot name="notifications" />
-      </div>
+    <div
+      v-if="$slots.footer"
+      class="card-footer"
+    >
+      <slot name="footer" />
     </div>
   </section>
 </template>
 
-<script lang="ts" setup>
-import { v1 as uuidv1 } from 'uuid'
-import type { BorderVariant } from '@/types'
-import { BorderVariantsArray } from '@/types'
-import type { PropType } from 'vue'
-import { computed, useSlots } from 'vue'
-
-const props = defineProps({
-  /**
-   * Title string if slot not used, also used for aria-label
-   */
+<script setup lang="ts">
+defineProps({
   title: {
     type: String,
     default: '',
   },
-  /**
-   * Pass body string in if slot not used
-   */
-  body: {
+  content: {
     type: String,
     default: '',
-  },
-  /**
-   * Set top border or no border. If neither set default will have border<br>
-   * * Options: [borderTop, noBorder]
-   */
-  borderVariant: {
-    type: String as PropType<BorderVariant>,
-    default: 'border',
-    validator: (value: BorderVariant): boolean => BorderVariantsArray.includes(value),
-  },
-  /**
-   * Sets if card has hover state<br>
-   */
-  hasHover: {
-    type: Boolean,
-    default: false,
-  },
-  hasShadow: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Add small status text above the card title
-   */
-  status: {
-    type: String,
-    default: '',
-  },
-  /**
-   * Test mode - for testing only, strips out generated ids
-   */
-  testMode: {
-    type: Boolean,
-    default: false,
   },
 })
-
-const titleId = computed((): string => props.testMode ? 'test-title-id-1234' : uuidv1())
-
-const contentId = computed((): string => props.testMode ? 'test-content-id-1234' : uuidv1())
-
-const slots = useSlots()
-
-const useStatusHatLayout = computed((): boolean => !!(props.status || !!slots.statusHat))
-
-const showCardHead = computed((): boolean => !!slots.actions || useStatusHatLayout.value ||
-  (!useStatusHatLayout.value && (!!props.title || !!slots.title)))
-
-const showCardTitleWithoutStatus = computed((): boolean => !useStatusHatLayout.value &&
-  (!!props.title || !!slots.title))
-
-const showCardTitleWithStatus = computed((): boolean => useStatusHatLayout.value &&
-  (!!props.title || !!slots.title))
 </script>
 
 <style lang="scss" scoped>
+.k-card {
+  @include cardDefaults;
 
-@import '@/styles/tmp-variables';
+  display: flex;
+  flex-direction: column;
+  gap: var(--kui-space-70, $kui-space-70);
 
-.kong-card {
-  background-color: var(--kui-color-background, $kui-color-background);
-  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-  padding: var(--kui-space-80, $kui-space-80) var(--kui-space-80, $kui-space-80);
-  transition: box-shadow $tmp-animation-timing-2 ease-in-out;
+  .card-header {
+    align-items: flex-start;
+    display: inline-flex;
+    gap: var(--kui-space-50, $kui-space-50);
+    justify-content: space-between;
 
-  &.noBorder {
-    border: none;
-  }
-
-  &.border {
-    border: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-black-10;
-    box-shadow: none;
-  }
-
-  &.borderTop {
-    border-top: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-black-10;
-  }
-
-  &.hover:hover, &.kcard-shadow {
-    box-shadow: 0 4px 8px $tmp-color-black-10;
-  }
-
-  .k-card-header {
-    align-items: center;
-    display: flex !important;
-    margin-bottom: var(--kui-space-50, $kui-space-50) !important;
-
-    &.has-status {
-      align-items: flex-start;
+    .card-title {
+      h4 {
+        color: var(--kui-color-text, $kui-color-text);
+        font-size: var(--kui-font-size-50, $kui-font-size-50);
+        font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+        letter-spacing: var(--kui-letter-spacing-minus-30, $kui-letter-spacing-minus-30);
+        line-height: var(--kui-line-height-40, $kui-line-height-40);
+        margin: 0; // reset default browser margin
+      }
     }
   }
 
-  .k-card-status-hat {
-    align-items: center;
-    color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-    display: flex;
-    font-size: var(--kui-font-size-20, $kui-font-size-20);
-  }
+  .card-content {
+    @include bodyText;
 
-  .k-card-title {
-    margin-bottom: var(--kui-space-50, $kui-space-50) !important;
-    max-width: 80%;
+    p {
+      @include bodyText;
 
-    h4 {
-      @include truncate;
-
-      color: var(--kui-color-text, $kui-color-text);
-      font-size: var(--kui-font-size-60, $kui-font-size-60);
-      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-      margin: var(--kui-space-0, $kui-space-0);
-      padding: var(--kui-space-0, $kui-space-0);
+      margin: 0; // reset default browser margin
     }
   }
 
-  .k-card-actions  {
-    margin-left: var(--kui-space-auto, $kui-space-auto);
-  }
-
-  .k-card-body {
-    color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-    font-size: var(--kui-font-size-20, $kui-font-size-20);
-    line-height: var(--kui-line-height-20, $kui-line-height-20);
-    width: 100%;
-  }
-
-  .k-card-content {
-    display: flex !important;
-
-    .k-table td, table td, :deep(.k-table) td {
-      font-size: var(--kui-font-size-40, $kui-font-size-40);
-      line-height: var(--kui-line-height-40, $kui-line-height-40);
-    }
-  }
-
-  .k-card-notifications {
-    margin-left: var(--kui-space-50, $kui-space-50) !important;
-    margin-top: var(--kui-space-auto, $kui-space-auto);
-  }
-}
-</style>
-
-<style lang="scss">
-.kong-card {
-  .k-card-header {
-    .k-button {
-      min-height: 38px;
-    }
+  .card-footer {
+    @include bodyText;
   }
 }
 </style>
