@@ -170,32 +170,32 @@ Max width to apply truncation at. Works just like `max-width` property in CSS. D
 Whether icon passed through the [`icon` slot](#icon) should render before or after badge content. Defaults to `true`.
 
 <div class="horizontal-spacing-container">
-  <KBadge appearance="warning">
-    <template #icon>
-      <WarningOutlineIcon />
-    </template>
-    4
-  </KBadge>
   <KBadge :icon-before="false">
     Badge with icon
     <template #icon>
       <KongIcon />
     </template>
   </KBadge>
+  <KBadge appearance="warning">
+    <template #icon>
+      <WarningOutlineIcon />
+    </template>
+    4
+  </KBadge>
 </div>
 
 ```html
-<KBadge appearance="warning">
-  <template #icon>
-    <WarningOutlineIcon />
-  </template>
-  4
-</KBadge>
 <KBadge :icon-before="false">
   Badge with icon
   <template #icon>
     <KongIcon />
   </template>
+</KBadge>
+<KBadge appearance="warning">
+  <template #icon>
+    <WarningOutlineIcon />
+  </template>
+  4
 </KBadge>
 ```
 

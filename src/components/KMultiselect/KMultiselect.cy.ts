@@ -354,7 +354,7 @@ describe('KMultiselect', () => {
           .should(($el) => {
             const text = $el.text()
 
-            expect(text.trim()).to.equal('+7')
+            expect(text.trim()).to.equal('+8')
           })
       })
       .then(() => {
@@ -375,7 +375,7 @@ describe('KMultiselect', () => {
           .should(($el) => {
             const text = $el.text()
 
-            expect(text.trim()).to.equal('+7')
+            expect(text.trim()).to.equal('+8')
           })
       })
   })
