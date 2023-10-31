@@ -302,11 +302,11 @@ $kBadgeMethodWidth: 80px;
 
   &.neutral {
     background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
 
     :deep([role="button"]):not([disabled]) {
       &:hover, &:focus {
-        color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
+        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger) !important;
       }
     }
   }
