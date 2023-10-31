@@ -130,8 +130,8 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.get('.k-card-title').should('contain', slotHeader)
-      cy.get('.k-card-body').should('contain', slotBody)
+      cy.get('.card-title').should('contain', slotHeader)
+      cy.get('.card-content').should('contain', slotBody)
     })
 
     it('renders slots when passed (with empty)', () => {
