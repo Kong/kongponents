@@ -100,7 +100,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 #### Slots
 
 * `statusHat` slot has been removed
-* `body` slot has been removed. Use `default` slot instead
+* `body` slot has been deprecated in favor of `default` slot
 * `notifications` slot has been removed
 
 #### Events

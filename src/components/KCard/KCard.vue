@@ -22,10 +22,12 @@
       </div>
     </div>
     <div
-      v-if="$slots.default || content"
+      v-if="$slots.default || $slots.body || content"
       class="card-content"
     >
-      <slot><p>{{ content }}</p></slot>
+      <slot :name="contentSlotName">
+        <p>{{ content }}</p>
+      </slot>
     </div>
     <div
       v-if="$slots.footer"
@@ -37,6 +39,8 @@
 </template>
 
 <script setup lang="ts">
+import { useSlots, computed } from 'vue'
+
 defineProps({
   title: {
     type: String,
@@ -46,6 +50,18 @@ defineProps({
     type: String,
     default: '',
   },
+})
+
+const slots = useSlots()
+
+const contentSlotName = computed((): 'body' | 'default' => { // TODO: remove this when body slot is removed
+  if (slots.body && !slots.default) {
+    console.warn('KCard: `body` slot has been deprecated in favor of `default` slot. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kcard')
+
+    return 'body'
+  }
+
+  return 'default'
 })
 </script>
 

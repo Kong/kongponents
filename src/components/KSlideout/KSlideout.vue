@@ -55,10 +55,8 @@
         </button>
 
         <div class="content">
-          <KCard border-variant="noBorder">
-            <template #body>
-              <slot />
-            </template>
+          <KCard>
+            <slot />
           </KCard>
         </div>
       </div>

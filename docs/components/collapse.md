@@ -166,9 +166,9 @@ To set the default state (collapsed or expanded) without binding to v-model you 
         </div>
       </template>
       <template #visible-content>
-        <KCard body="I am content that is always visible" />
+        <KCard content="I am content that is always visible" />
       </template>
-      <KCard body="I am only visible when expanded" />
+      <KCard content="I am only visible when expanded" />
     </KCollapse>
   </template>
 </KCard>
@@ -182,10 +182,10 @@ To set the default state (collapsed or expanded) without binding to v-model you 
     </div>
   </template>
   <template #visible-content>
-    <KCard body="I am content that is always visible" />
+    <KCard content="I am content that is always visible" />
   </template>
 
-  <KCard body="I am only visible when expanded" />
+  <KCard content="I am only visible when expanded" />
 </KCollapse>
 ```
 
