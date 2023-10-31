@@ -202,7 +202,7 @@ $kBadgeMethodWidth: 80px;
 /* Component mixins */
 
 @mixin kBadgeInfo {
-  background-color: var(--kui-color-background-success-weakest, $kui-color-background-success-weakest);
+  background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
   color: var(--kui-color-text-primary, $kui-color-text-primary);
 
   :deep([role="button"]):not([disabled]) {
@@ -234,9 +234,8 @@ $kBadgeMethodWidth: 80px;
   }
 
   :deep(#{$kongponentsKongIconSelector}) {
-    // TODO: maybe use kui-icon-size-30 instead?
-    height: var(--kui-icon-size-20, $kui-icon-size-20) !important;
-    width: var(--kui-icon-size-20, $kui-icon-size-20) !important;
+    height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+    width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
   }
 
   :deep([role="button"]) {

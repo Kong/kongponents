@@ -300,7 +300,7 @@ const handleIconClick = () => {
 KBadge takes care of icon color, size and spacing as long as you use icons sourced from [@kong/icons](https://github.com/Kong/icons) package.
 
 :::tip TIP
-Should you decide to use your own custom icons, you can use design tokens exported by the [@kong/design-tokens](https://github.com/Kong/design-tokens) package to set icon size. The recommended icon size is `12px` or `kui-icon-size-20`.
+Should you decide to use your own custom icons, you can use design tokens exported by the [@kong/design-tokens](https://github.com/Kong/design-tokens) package to set icon size. The recommended icon size is `16px` or `kui-icon-size-30`.
 
 We also recommend setting the icon style `color` property to a value of `currentColor` to utilize default KBadge styling for slotted content.
 :::
