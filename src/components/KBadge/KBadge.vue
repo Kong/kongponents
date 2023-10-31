@@ -197,7 +197,7 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 /* Component variables */
 
-$kBadgeMethodWidth: 80px;
+$kBadgeMethodWidth: 85px;
 
 /* Component mixins */
 

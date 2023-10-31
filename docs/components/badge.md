@@ -28,7 +28,7 @@ KBadge component takes one of the following appearance values:
 |             | `custom`            |
 
 :::tip TIP
-Passing one of the methods appearances will apply `text-transform: uppercase;` and fixed with to badge container. You can pass `custom` to apply method badge styling should you need a badge for your custom method.
+Passing one of the methods appearances will apply `text-transform: uppercase;` and set `min-with` to badge container. You can pass `custom` to apply method badge styling should you need a badge for your custom method.
 :::
 
 <div class="vertical-spacing-container">
@@ -153,7 +153,7 @@ Use this prop if you would like to conditionally display a tooltip only when the
 
 ### maxWidth
 
-Max width to apply truncation at. Works just like `max-width` property in CSS. Default value is `200px`.
+Max width to apply truncation at. Works just like `max-width` property in CSS. Default value is `200px`. Content that's wider than value of this prop will automatically be truncated.
 
 <KBadge max-width="auto" appearance="warning">
   Very long text that should be truncated but isn't thanks to max-width="auto"
