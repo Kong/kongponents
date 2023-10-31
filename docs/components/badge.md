@@ -1,82 +1,104 @@
 # Badge
 
-**KBadge** - Badges, pills, or whatever you wanna call them. Slap it on something.
+KBadge is a visual text label that presents small amount of information.
 
-<KBadge appearance="success">SUCCESS</KBadge>
+<KBadge appearance="success">Success</KBadge>
 
 ```html
-<KBadge appearance="success">SUCCESS</KBadge>
+<KBadge appearance="success">Success</KBadge>
 ```
 
 ## Props
 
 ### appearance
 
-The Badge component can take the following appearance values:
+KBadge component takes one of the following appearance values:
 
-- `success`
-- `warning`
-- `danger`
-- `info`
-- `default`
-- `neutral`
-- `custom`
+| Appearances | Methods Appearances |
+| ----------- | ------------------- |
+| `info`      | `get`               |
+| `success`   | `post`              |
+| `warning`   | `put`               |
+| `danger`    | `delete`            |
+| `neutral`   | `patch`             |
+|             | `options`           |
+|             | `head`              |
+|             | `connect`           |
+|             | `trace`             |
+|             | `custom`            |
 
-<div class="horizontal-spacing-container">
-  <KBadge appearance="success">SUCCESS</KBadge>
-  <KBadge appearance="warning">WARNING</KBadge>
-  <KBadge appearance="danger">DANGER</KBadge>
-  <KBadge appearance="info">INFO</KBadge>
-  <KBadge appearance="neutral">NEUTRAL</KBadge>
-  <KBadge>DEFAULT</KBadge>
+:::tip TIP
+Passing one of the methods appearances will apply `text-transform: uppercase;` and fixed with to badge container. You can pass `custom` to apply method badge styling should you need a badge for your custom method.
+:::
+
+<div class="vertical-spacing-container">
+  <div class="horizontal-spacing-container">
+    <KBadge appearance="info">
+      Info
+    </KBadge>
+    <KBadge appearance="success">
+      Success
+    </KBadge>
+    <KBadge appearance="warning">
+      Warning
+    </KBadge>
+    <KBadge appearance="danger">
+      Danger
+    </KBadge>
+    <KBadge appearance="neutral">
+      Neutral
+    </KBadge>
+  </div>
+  <div class="horizontal-spacing-container">
+    <KBadge appearance="get">
+      Get
+    </KBadge>
+    <KBadge appearance="post">
+      Post
+    </KBadge>
+    <KBadge appearance="put">
+      Put
+    </KBadge>
+    <KBadge appearance="delete">
+      Delete
+    </KBadge>
+    <KBadge appearance="patch">
+      Patch
+    </KBadge>
+    <KBadge appearance="options">
+      Options
+    </KBadge>
+    <KBadge appearance="head">
+      Head
+    </KBadge>
+    <KBadge appearance="connect">
+      Connect
+    </KBadge>
+    <KBadge appearance="trace">
+      Trace
+    </KBadge>
+    <KBadge appearance="custom">
+      Custom
+    </KBadge>
+  </div>
 </div>
 
 ```html
-<KBadge appearance="success">SUCCESS</KBadge>
-<KBadge appearance="warning">WARNING</KBadge>
-<KBadge appearance="danger">DANGER</KBadge>
-<KBadge appearance="info">INFO</KBadge>
-<KBadge appearance="neutral">NEUTRAL</KBadge>
-<KBadge>DEFAULT</KBadge>
-```
-
-### isBordered
-
-Use the `isBordered` prop for bordered badges. The border color matches the text color by default.
-
-<div class="horizontal-spacing-container">
-  <KBadge appearance="success" is-bordered>SUCCESS</KBadge>
-  <KBadge appearance="warning" is-bordered>WARNING</KBadge>
-  <KBadge appearance="danger" is-bordered>DANGER</KBadge>
-  <KBadge appearance="info" is-bordered>INFO</KBadge>
-  <KBadge appearance="neutral" is-bordered>NEUTRAL</KBadge>
-  <KBadge is-bordered>DEFAULT</KBadge>
-</div>
-
-```html
-<KBadge appearance="success" is-bordered>SUCCESS</KBadge>
-<KBadge appearance="warning" is-bordered>WARNING</KBadge>
-<KBadge appearance="danger" is-bordered>DANGER</KBadge>
-<KBadge appearance="info" is-bordered>INFO</KBadge>
-<KBadge appearance="neutral" is-bordered>NEUTRAL</KBadge>
-<KBadge is-bordered>DEFAULT</KBadge>
-```
-
-### shape
-
-The Badge has two shapes that can be changed with a `shape` property.
-
-- `rounded` - Default
-- `rectangular`
-
-<div class="horizontal-spacing-container">
-  <KBadge appearance="warning">Round</KBadge>
-  <KBadge appearance="warning" shape="rectangular">Rectangular</KBadge>
-</div>
-
-```html
-<KBadge appearance="warning">Round</KBadge>
-<KBadge appearance="warning" shape="rectangular">Rectangular</KBadge>
+<KBadge appearance="info">Info</KBadge>
+<KBadge appearance="success">Success</KBadge>
+<KBadge appearance="warning">Warning</KBadge>
+<KBadge appearance="danger">Danger</KBadge>
+<KBadge appearance="neutral">Neutral</KBadge>
+<KBadge appearance="get">Gey</KBadge>
+<KBadge appearance="post">Post</KBadge>
+<KBadge appearance="put">Put</KBadge>
+<KBadge appearance="delete">Delete</KBadge>
+<KBadge appearance="patch">Patch</KBadge>
+<KBadge appearance="options">Options</KBadge>
+<KBadge appearance="head">Head</KBadge>
+<KBadge appearance="connect">Connect</KBadge>
+<KBadge appearance="trace">Trace</KBadge>
+<KBadge appearance="custom">Custom</KBadge>
 ```
 
 ### color
@@ -87,190 +109,223 @@ Use this prop to modify the badge text color
 
 Use this prop to modify the background color of the badge
 
-<div class="horizontal-spacing-container">
-  <KBadge color="brown" background-color="yellow">Custom</KBadge>
-  <KBadge color="red" background-color="pink">Badge</KBadge>
-  <KBadge color="blue" background-color="lightblue">Hello</KBadge>
-  <KBadge color="#dfe6e9" background-color="#636e72">Something</KBadge>
-  <KBadge color="pink" background-color="salmon">Long Badge 236bfb09-fe79-4cc9-99be-9361d6b1db64 aa07575b-bcd3-4bb2-bfd7-998224e3d31e 364b78fc-dba3-4b94-9134-388515496de5</KBadge>
-</div>
-
-```html
-<KBadge color="brown" background-color="yellow">Custom</KBadge>
 <KBadge color="red" background-color="pink">Badge</KBadge>
-<KBadge color="blue" background-color="lightblue">Hello</KBadge>
-<KBadge color="#dfe6e9" background-color="#636e72">Something</KBadge>
-<KBadge color="pink" background-color="salmon">Long Badge 236bfb09-fe79-4cc9-99be-9361d6b1db64 aa07575b-bcd3-4bb2-bfd7-998224e3d31e 364b78fc-dba3-4b94-9134-388515496de5</KBadge>
+
+```html
+<KBadge color="red" background-color="pink">Badge</KBadge>
 ```
-### borderColor
 
-Use this prop in conjunction with the `is-bordered` prop to customize the color of the badge border.
+### tooltip
 
-<KBadge
-  appearance="custom"
-  background-color="plum"
-  border-color="purple"
-  color="purple"
-  is-bordered
->
-  Organization Admin
+Use this prop to pass tooltip text that will show on badge hover.
+
+<KBadge tooltip="Unpublish service to make changes" appearance="success">
+  Published
 </KBadge>
 
 ```html
-<KBadge
-  appearance="custom"
-  background-color="plum"
-  border-color="purple"
-  color="purple"
-  is-bordered
->
-  Organization Admin
+<KBadge tooltip="Unpublish service to make changes" appearance="success">
+  Published
 </KBadge>
-```
-
-### hoverColor
-
-Use this prop in conjunction with the `dismissable` prop to customize the color of the badge/dismiss button when hovered.
-
-<KBadge
-  appearance="custom"
-  background-color="aquamarine"
-  border-color="teal"
-  color="teal"
-  dismissable
-  hover-color="mediumturquoise"
-  is-bordered
->
-  Production
-</KBadge>
-
-```html
-<KBadge
-  appearance="custom"
-  background-color="aquamarine"
-  border-color="teal"
-  color="teal"
-  dismissable
-  hover-color="mediumturquoise"
-  is-bordered
->
-  Production
-</KBadge>
-```
-
-The `hoverColor` is also utilized if you wrap the `KBadge` with an anchor tag, or add a `@click` listener directly to the component.
-
-<a href="#">
-  <KBadge appearance="success">Anchor Tag</KBadge>
-</a>
-
-<KLabel>{{ myClicks }} clicks</KLabel><br>
-<KBadge dismissable @click="myClicks++">Click me!</KBadge>
-
-```html
-<a href="#"><KBadge appearance="success">Anchor Tag</KBadge></a>
-
-<KLabel>{{ myClicks }} clicks</KLabel><br>
-<KBadge @click="myClicks++">
-  Click me!
-</KBadge>
-```
-
-### dismissable
-
-Use this prop if you want the badge to be dismissable. If the badge text is long enough to need truncation, the label will truncate; the dismiss button is always visible.
-The color of the dismiss button is determined by the badge type and uses the same theming variables as the badge text. Clicking the dismiss button will trigger a `dismissed` event.
-
-<div class="horizontal-spacing-container">
-  <KBadge dismissable>Close me</KBadge>
-  <KBadge dismissable shape="rectangular">No, close me!</KBadge>
-</div>
-
-```html
-<KBadge dismissable>Close me</KBadge>
-<KBadge dismissable shape="rectangular">No, close me!</KBadge>
 ```
 
 ### truncationTooltip
 
-Use this prop if you would like to conditionally display a tooltip when the badge text is truncated.
+Use this prop if you would like to conditionally display a tooltip only when the badge text is truncated. Defaults to `false`. See [`maxWidth` prop](#maxwidth) to learn more about badge truncation.
 
 <div class="horizontal-spacing-container">
-  <KBadge truncation-tooltip="Truncation unnecessary">Truncation unnecessary</KBadge>
-  <KBadge truncation-tooltip="Hey! Let me see that awesome truncation">Hey! Let me see that awesome truncation</KBadge>
+  <KBadge truncation-tooltip tooltip="8ba8840f-ded7-457a-adb9-0ef15b6fb919">
+    Id: 8ba8840f-ded7-457a-adb9-0ef15b6fb919
+  </KBadge>
+  <KBadge truncation-tooltip tooltip="null" appearance="neutral">
+    Last updated: null
+  </KBadge>
 </div>
 
 ```html
-<KBadge truncation-tooltip="Truncation unnecessary">Truncation unnecessary</KBadge>
-<KBadge truncation-tooltip="Hey! Let me see that awesome truncation">Hey! Let me see that awesome truncation</KBadge>
-```
-
-### forceTooltip
-
-If you want to show the tooltip regardless of whether the badge text is truncated, use this prop.
-
-<KBadge truncation-tooltip="But I'm tooltipping anyways" force-tooltip>Truncation unnecessary</KBadge>
-
-```html
-<KBadge truncation-tooltip="But I'm tooltipping anyways" force-tooltip>Truncation unnecessary</KBadge>
+<KBadge truncation-tooltip tooltip="8ba8840f-ded7-457a-adb9-0ef15b6fb919">
+  Id: 8ba8840f-ded7-457a-adb9-0ef15b6fb919
+</KBadge>
+<KBadge truncation-tooltip tooltip="null" appearance="neutral">
+  Last updated: null
+</KBadge>
 ```
 
 ### maxWidth
 
-Max width to apply truncation at. Works just like `width` property in CSS. Default value is `200px`. Is superseded by `--KBadgeMaxWidth` [CSS variable](#theming) if both present.
+Max width to apply truncation at. Works just like `max-width` property in CSS. Default value is `200px`.
 
-<KBadge max-width="50px" truncation-tooltip="Tooltip often">Truncate early</KBadge>
+<KBadge max-width="auto" appearance="warning">
+  Very long text that should be truncated but isn't thanks to max-width="auto"
+</KBadge>
 
 ```html
-<KBadge max-width="50px" truncation-tooltip="Tooltip often">Truncate early</KBadge>
+<KBadge max-width="auto" appearance="warning">
+  Very long text that should be truncated but isn't thanks to max-width="auto"
+</KBadge>
+```
+
+### iconBefore
+
+Whether icon passed through the [`icon` slot](#icon) should render before or after badge content. Defaults to `true`.
+
+<div class="horizontal-spacing-container">
+  <KBadge appearance="warning">
+    <template #icon>
+      <WarningOutlineIcon />
+    </template>
+    4
+  </KBadge>
+  <KBadge :icon-before="false">
+    Badge with icon
+    <template #icon>
+      <KongIcon />
+    </template>
+  </KBadge>
+</div>
+
+```html
+<KBadge appearance="warning">
+  <template #icon>
+    <WarningOutlineIcon />
+  </template>
+  4
+</KBadge>
+<KBadge :icon-before="false">
+  Badge with icon
+  <template #icon>
+    <KongIcon />
+  </template>
+</KBadge>
 ```
 
 ## Slots
 
-- `default` - innerHTML inside badge
+### default
 
-<KBadge appearance="success">SUCCESS</KBadge>
+Badge content.
+
+<KBadge appearance="success">Success</KBadge>
 
 ```html
-<KBadge appearance="success">SUCCESS</KBadge>
+<KBadge appearance="success">Success</KBadge>
 ```
 
-## Events
+### icon
 
-| Event       | Action                                                      |
-| :---------- | :---------------------------------------------------------- |
-| `dismissed` | When `dismissable` is true and you click the dismiss button |
+Slot to pass an icon or any other element. Positioning (whether this slot content is rendered before or after badge content) is defined by [`iconBefore` prop](#iconbefore).
+
+<div class="horizontal-spacing-container">
+  <KBadge appearance="warning">
+    <template #icon>
+      <WarningOutlineIcon />
+    </template>
+    4
+  </KBadge>
+  <KBadge :icon-before="false">
+    Badge with icon
+    <template #icon>
+      <KongIcon />
+    </template>
+  </KBadge>
+</div>
+
+```html
+<KBadge appearance="warning">
+  <template #icon>
+    <WarningOutlineIcon />
+  </template>
+  4
+</KBadge>
+<KBadge :icon-before="false">
+  Badge with icon
+  <template #icon>
+    <KongIcon />
+  </template>
+</KBadge>
+```
+
+:::tip TIP
+If you want to make an icon clickable, you can assign `role="button"` and appropriate `tabindex` attributes to that element and bind an event handler. KBadge will take care of state styling (hover, focus, disabled).
+
+
+<Transition name="kongponents-fade-transition" mode="out-in">
+  <KBadge
+    appearance="warning"
+    :icon-before="false"
+    v-if="showDismissableBadge"
+    key="badge"
+  >
+    Dismiss me
+    <template #icon>
+      <CloseIcon
+        role="button"
+        tabindex="0"
+        @click="handleIconClick"
+      />
+    </template>
+  </KBadge>
+  <KButton v-else key="reset-button" size="small" @click="showDismissableBadge = true">Reset</KButton>
+</Transition>
+
+```vue
+<template>
+  <KBadge
+    appearance="warning"
+    :icon-before="false"
+    v-if="showBadge"
+  >
+    Dismiss me
+    <template #icon>
+      <CloseIcon
+        role="button"
+        tabindex="0"
+        @click="handleIconClick"
+      />
+    </template>
+  </KBadge>
+</template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const myClicks = ref(0)
+const showBadge = ref<boolean>(true)
 
-const testClick = () => {
-  console.log('you clicked')
+const handleIconClick = () => {
+  showBadge.value = !showBadge.value
+}
+</script>
+:::
+
+KBadge takes care of icon color, size and spacing as long as you use icons sourced from [@kong/icons](https://github.com/Kong/icons) package.
+
+:::tip TIP
+Should you decide to use your own custom icons, you can use design tokens exported by the [@kong/design-tokens](https://github.com/Kong/design-tokens) package to set icon size. The recommended icon size is `12px` or `kui-icon-size-20`.
+
+We also recommend setting the icon style `color` property to a value of `currentColor` to utilize default KBadge styling for slotted content.
+:::
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { KongIcon, WarningOutlineIcon, CloseIcon } from '@kong/icons'
+
+const showDismissableBadge = ref<boolean>(true)
+
+const handleIconClick = () => {
+  showDismissableBadge.value = !showDismissableBadge.value
 }
 </script>
 
 <style lang="scss">
-.KBadge-wrapper {
-  div {
-    display: flex;
-    align-items: center;
-  }
-
-  p {
-    font-size: 12px;
-    margin: 0;
-  }
-
-  .kong-icon-bot {
-    height: 24px;
-    margin-right: 4px;
-  }
+.vertical-spacing-container {
+  display: flex;
+  flex-direction: column;
+  gap: $kui-space-50;
 }
 
 .horizontal-spacing-container {
   display: flex;
-  column-gap: 4px;
+  gap: $kui-space-50;
+  flex-wrap: wrap;
 }
 </style>
