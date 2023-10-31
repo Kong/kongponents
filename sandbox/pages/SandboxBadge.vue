@@ -61,6 +61,9 @@
         <KBadge appearance="trace">
           Trace
         </KBadge>
+        <KBadge appearance="custom">
+          Custom
+        </KBadge>
       </div>
     </SandboxSectionComponent>
     <SandboxSectionComponent title="backgroundColor & color">
@@ -348,6 +351,19 @@
           :icon-before="false"
         >
           Trace
+          <template #icon>
+            <CloseIcon
+              role="button"
+              tabindex="0"
+              @click="handleIconClick"
+            />
+          </template>
+        </KBadge>
+        <KBadge
+          appearance="custom"
+          :icon-before="false"
+        >
+          Custom
           <template #icon>
             <CloseIcon
               role="button"

@@ -2,6 +2,7 @@
 @import "@/styles/mixins/labels";
 @import "@/styles/mixins/input-select";
 @import "@/styles/mixins/cards";
+@import "@/styles/mixins/badges";
 
 @import "@/styles/tmp-variables";
 
@@ -92,12 +93,6 @@
   right: 0;
   top: 0;
   z-index: 10500;
-}
-
-@mixin truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 // this mixin is only meant to be used within non-visual-button mixin to avoid code duplication
@@ -399,3 +394,11 @@
 }
 
 /* NEW MIXINS */
+
+/* Contains common mixins for all components */
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

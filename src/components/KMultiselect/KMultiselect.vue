@@ -300,7 +300,7 @@ const attrs = useAttrs()
 const slots = useSlots()
 
 const { getSizeFromString, cloneDeep, stripRequiredLabel } = useUtilities()
-const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 34
+const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 32
 
 const props = defineProps({
   modelValue: {
@@ -877,6 +877,10 @@ watch(stagingKey, () => {
       key.value++
       return
     }
+
+    // if (props.collapsedContext) {
+    //   console.log(props.selectedRowCount)
+    // }
 
     if (elem) {
       const height = elem.clientHeight

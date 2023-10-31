@@ -1,4 +1,4 @@
-export type BadgeMethodAppearance = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' | 'connect' | 'trace'
+export type BadgeMethodAppearance = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' | 'connect' | 'trace' | 'custom'
 export type BadgeAppearance = 'info' | 'success' | 'warning' | 'danger' | 'neutral' | BadgeMethodAppearance
 export type BadgeMethodAppearanceRecord = Record<BadgeMethodAppearance, BadgeMethodAppearance>
 export type BadgeAppearanceRecord = Record<BadgeAppearance, BadgeAppearance>
@@ -13,6 +13,7 @@ export const BadgeMethodAppearances: BadgeMethodAppearanceRecord = {
   head: 'head',
   connect: 'connect',
   trace: 'trace',
+  custom: 'custom',
 } as const
 
 export const BadgeAppearances: BadgeAppearanceRecord = {

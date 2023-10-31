@@ -7,7 +7,7 @@
   >
     <component
       :is="showTooltip ? 'KTooltip' : 'div'"
-      class="badge-container"
+      class="badge-content"
       :class="{ 'icon-after': !iconBefore }"
       :position-fixed="showTooltip ? true : undefined"
     >
@@ -217,20 +217,10 @@ $kBadgeMethodWidth: 80px;
 .k-badge {
   // apply info appearance by default (in case of invalid appearance)
   @include kBadgeInfo;
+  @include badgeWrapper;
 
-  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-  display: inline-flex;
-  font-family: var(--kui-font-family-text, $kui-font-family-text);
-  font-size: var(--kui-font-size-20, $kui-font-size-20);
-  font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-  line-height: var(--kui-line-height-20, $kui-line-height-20);
-  padding: var(--kui-space-20, $kui-space-20) var(--kui-space-40, $kui-space-40);
-  width: fit-content;
-
-  .badge-container {
-    align-items: center;
-    display: inline-flex;
-    gap: var(--kui-space-40, $kui-space-40);
+  .badge-content {
+    @include badgeContent;
 
     &.icon-after {
       flex-direction: row-reverse;
@@ -238,10 +228,9 @@ $kBadgeMethodWidth: 80px;
   }
 
   .badge-content-wrapper {
+    @include truncate;
+
     max-width: v-bind('maxWidth');
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   :deep(#{$kongponentsKongIconSelector}) {
@@ -255,6 +244,8 @@ $kBadgeMethodWidth: 80px;
       cursor: pointer;
     }
 
+    // adopts info appearance hover styles by default (in case of invalid appearance)
+
     &[disabled] {
       color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
       pointer-events: none;
@@ -262,7 +253,7 @@ $kBadgeMethodWidth: 80px;
   }
 
   &.method {
-    .badge-container {
+    .badge-content {
       justify-content: center;
       text-align: center;
       text-transform: uppercase;
@@ -416,6 +407,17 @@ $kBadgeMethodWidth: 80px;
     :deep([role="button"]):not([disabled]) {
       &:hover, &:focus {
         color: var(--kui-method-color-text-trace-strong, $kui-method-color-text-trace-strong) !important;
+      }
+    }
+  }
+
+  &.custom {
+    background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+    color: var(--kui-color-text, $kui-color-text);
+
+    :deep([role="button"]):not([disabled]) {
+      &:hover, &:focus {
+        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger) !important;
       }
     }
   }
