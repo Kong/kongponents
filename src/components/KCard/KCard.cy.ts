@@ -1,92 +1,53 @@
 import { mount } from 'cypress/vue'
 import KCard from '@/components/KCard/KCard.vue'
-import { h } from 'vue'
 
-/**
- * ALL TESTS MUST USE testMode: true
- * We generate unique IDs for reference by aria properties. Test mode strips these out
- * allowing for successful snapshot verification.
- * props: {
- *   testMode: true
- * }
- */
 describe('KCard', () => {
-  it('renders slots when passed', () => {
-    const cardStatusHat = 'Card Status Hat'
-    const cardTitle = 'Card Title'
-    const cardActions = 'Card Actions'
-    const cardBody = 'Card Body'
-    const cardNotifications = 'Card Notifications'
+  it('does not render any content when no props or slots are passed', () => {
+    mount(KCard)
+
+    cy.get('.k-card').should('be.visible')
+    cy.get('.k-card').find('card-header').should('not.exist')
+    cy.get('.k-card').find('card-content').should('not.exist')
+    cy.get('.k-card').find('card-footer').should('not.exist')
+  })
+
+  it('renders title and content slots when passed', () => {
+    const titleProp = 'Title prop'
+    const contentProp = 'Content prop'
 
     mount(KCard, {
       props: {
-        testMode: true,
+        title: titleProp,
+        content: contentProp,
+      },
+    })
+
+    cy.get('.k-card').find('.card-title').should('contain', titleProp)
+    cy.get('.k-card').find('.card-content').should('contain', contentProp)
+  })
+
+  it('renders slots when passed', () => {
+    const titleProp = 'Test title'
+    const contentProp = 'Test content'
+    const titleText = 'I am the title'
+    const contentText = 'I am the content'
+
+    mount(KCard, {
+      props: {
+        title: titleProp,
+        content: contentProp,
       },
       slots: {
-        statusHat: () => h('span', {}, cardStatusHat),
-        title: () => h('span', {}, cardTitle),
-        actions: () => h('span', {}, cardActions),
-        body: () => h('span', {}, cardBody),
-        notifications: () => h('span', {}, cardNotifications),
+        title: `<span data-testid="card-title">${titleText}</span>`,
+        actions: '<span data-testid="card-actions">Card actions</span>',
+        default: `<span data-testid="card-content">${contentText}</span>`,
+        footer: '<span data-testid="card-footer">Card footer</span>',
       },
     })
 
-    cy.get('.k-card-status-hat').should('contain.text', cardStatusHat)
-    cy.get('.k-card-title').should('contain.text', cardTitle)
-    cy.get('.k-card-actions').should('contain.text', cardActions)
-    cy.get('.k-card-body').should('contain.text', cardBody)
-    cy.get('.k-card-notifications').should('contain.text', cardNotifications)
-  })
-
-  it('renders proper content when using props', () => {
-    const cardStatus = 'Card Status'
-    const cardTitle = 'Card Title'
-    const cardBody = 'Card Body'
-
-    mount(KCard, {
-      props: {
-        testMode: true,
-        status: cardStatus,
-        title: cardTitle,
-        body: cardBody,
-      },
-    })
-
-    cy.get('.k-card-status-hat').should('have.text', cardStatus)
-    cy.get('.k-card-title').should('have.text', cardTitle)
-    cy.get('.k-card-body').should('have.text', cardBody)
-  })
-
-  it('has border class when passed', () => {
-    mount(KCard, {
-      props: {
-        testMode: true,
-        hasBorder: true,
-      },
-    })
-
-    cy.get('.kong-card').should('have.class', 'border')
-  })
-
-  it('has hover class when passed', () => {
-    mount(KCard, {
-      props: {
-        testMode: true,
-        hasHover: true,
-      },
-    })
-
-    cy.get('.kong-card').should('have.class', 'hover')
-  })
-
-  it('has shadow class when passed', () => {
-    mount(KCard, {
-      props: {
-        testMode: true,
-        hasShadow: true,
-      },
-    })
-
-    cy.get('.kong-card').should('have.class', 'kcard-shadow')
+    cy.get('.k-card').find('.card-title').get('[data-testid="card-title"]').should('contain', titleText)
+    cy.get('.k-card').get('[data-testid="card-actions"]').should('be.visible')
+    cy.get('.k-card').find('.card-content').get('[data-testid="card-content"]').should('contain', contentText)
+    cy.get('.k-card').get('[data-testid="card-footer"]').should('be.visible')
   })
 })
