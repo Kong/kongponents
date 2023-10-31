@@ -885,6 +885,10 @@ watch(stagingKey, () => {
       return
     }
 
+    // if (props.collapsedContext) {
+    //   console.log(props.selectedRowCount)
+    // }
+
     if (elem) {
       const height = elem.clientHeight
 
