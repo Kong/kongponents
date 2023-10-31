@@ -370,7 +370,7 @@ describe('KMultiselect', () => {
         cy.get('input').type('{esc}')
       })
       .then(() => {
-        cy.get('[data-testid="k-multiselect-selections"] > div .k-badge-text')
+        cy.get('[data-testid="k-multiselect-selections"] > div .badge-content-wrapper')
           .last()
           .should(($el) => {
             const text = $el.text()

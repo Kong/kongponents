@@ -238,11 +238,22 @@
           v-for="item, idx in visibleSelectedItemsStaging"
           :key="`${item.key ? item.key : idx}-badge`"
           class="k-multiselect-selection-badge"
-          :dismissable="item.selected && !item.disabled"
           hidden
+          :icon-before="false"
           shape="rectangular"
         >
           {{ item.label }}
+          <template
+            v-if="item.selected && !item.disabled"
+            #icon
+          >
+            <CloseIcon
+              data-testid="badge-dismiss-button"
+              role="button"
+              tabindex="-1"
+              @click="handleItemSelect(item)"
+            />
+          </template>
         </KBadge>
         <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
         <KBadge
@@ -300,7 +311,7 @@ const attrs = useAttrs()
 const slots = useSlots()
 
 const { getSizeFromString, cloneDeep, stripRequiredLabel } = useUtilities()
-const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 34
+const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 36
 
 const props = defineProps({
   modelValue: {
@@ -880,6 +891,7 @@ watch(stagingKey, () => {
 
     if (elem) {
       const height = elem.clientHeight
+
       if (height > selectionsMaxHeight.value) {
         const item = visibleSelectedItemsStaging.value.pop()
         if (item && !invisibleSelectedItemsStagingSet.has(item.value)) {
