@@ -254,9 +254,9 @@ $kBadgeMethodWidth: 80px;
   &.method {
     .badge-content {
       justify-content: center;
+      min-width: $kBadgeMethodWidth !important;
       text-align: center;
       text-transform: uppercase;
-      width: $kBadgeMethodWidth !important;
     }
   }
 

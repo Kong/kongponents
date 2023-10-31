@@ -65,6 +65,9 @@
           Custom
         </KBadge>
       </div>
+      <KBadge appearance="connect">
+        Long truncating method badge
+      </KBadge>
     </SandboxSectionComponent>
     <SandboxSectionComponent title="backgroundColor & color">
       <KBadge
