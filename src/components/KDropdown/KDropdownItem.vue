@@ -133,6 +133,7 @@ const strippedAttrs = computed((): typeof attrs => {
   delete modifiedAttrs.class
   delete modifiedAttrs.disabled
   delete modifiedAttrs.style
+  // Ensure the `data-testid` attribute is only applied to the top-most element
   delete modifiedAttrs['data-testid']
 
   return modifiedAttrs
