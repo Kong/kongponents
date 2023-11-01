@@ -72,32 +72,51 @@ KCard is a styled container that organizes together related content and actions.
 
 String to be used as a title. Can also be [slotted](#slots).
 
-### content
+<KCard title="Card Title" />
 
-String to be used as content. Can also be [slotted](#default).
-
-<KCard
-  content="Card content"
-  title="Card Title"
-/>
+```html
+<KCard title="Card Title" />
+```
 
 ## Slots
 
+### default
+
+Content of the card.
+
+<KCard>
+  KCard with only default slot content is a container that neatly envelops your content.
+</KCard>
+
+```html
+<KCard>
+  KCard with only default slot content is a container that neatly envelops your content.
+</KCard>
+```
+
 ### title
 
-Content to be rendered in the title of the card. For example refer to [`footer` slot](#footer).
+Content to be rendered in the title of the card.
 
-:::warning NOTE
-To preserve a valid HTML structure, avoid slotting in block-level elements such as a `div` into the `title` slot as it will be rendered inside a `h4` element.
-:::
+<KCard>
+  <template #title>
+    Card Title
+  </template>
+  When you include a title and content in a KCard, it takes on the appearance of a presentable container for conveying information.
+</KCard>
+
+```html
+<KCard>
+  <template #title>
+    Card Title
+  </template>
+  When you include a title and content in a KCard, it takes on the appearance of a presentable container for conveying information.
+</KCard>
+```
 
 ### actions
 
-Located next to card title, this slot serves for slotting in any action elements. For example refer to [`footer` slot](#footer).
-
-### default
-
-Content of the card. If present, takes precedence over the `content` prop. For example refer to [`footer` slot](#footer). 
+Located next to card title, this slot serves for slotting in any action elements. See the example below.
 
 ### footer
 

@@ -15,11 +15,10 @@
       is-subtitle
       title="Props"
     />
-    <SandboxSectionComponent title="title & content">
-      <KCard
-        content="Card content"
-        title="Card title"
-      />
+    <SandboxSectionComponent title="title">
+      <KCard title="Card title">
+        Card content slot
+      </KCard>
     </SandboxSectionComponent>
 
     <!-- Slots -->

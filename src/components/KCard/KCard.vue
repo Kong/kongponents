@@ -1,18 +1,16 @@
 <template>
-  <section class="k-card">
+  <div class="k-card">
     <div
-      v-if="$slots.title || title || $slots.actions"
+      v-if="showCardHeader"
       class="card-header"
     >
       <div
         v-if="$slots.title || title"
         class="card-title"
       >
-        <h4>
-          <slot name="title">
-            {{ title }}
-          </slot>
-        </h4>
+        <slot name="title">
+          {{ title }}
+        </slot>
       </div>
       <div
         v-if="$slots.actions"
@@ -22,11 +20,15 @@
       </div>
     </div>
     <div
-      v-if="$slots.default || $slots.body || content || body"
+      v-if="showCardBody"
       class="card-content"
     >
-      <slot :name="contentSlotName">
-        <p>{{ content || body }}</p>
+      <slot v-if="$slots.default" />
+      <slot
+        v-else-if="!$slots.default && ($slots.body || body)"
+        name="body"
+      >
+        {{ body }}
       </slot>
     </div>
     <div
@@ -35,18 +37,14 @@
     >
       <slot name="footer" />
     </div>
-  </section>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { useSlots, computed } from 'vue'
+import { useSlots, computed, onMounted } from 'vue'
 
-defineProps({
+const props = defineProps({
   title: {
-    type: String,
-    default: '',
-  },
-  content: {
     type: String,
     default: '',
   },
@@ -58,7 +56,7 @@ defineProps({
     default: '',
     validator: (value: string) => {
       if (value) {
-        console.warn('KCard: `body` prop has been deprecated in favor of `content` prop. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kcard')
+        console.warn('KCard: `body` prop has been deprecated. Please use `default` slot instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kcard')
       }
 
       return true
@@ -68,14 +66,19 @@ defineProps({
 
 const slots = useSlots()
 
-const contentSlotName = computed((): 'body' | 'default' => { // TODO: remove this when @deprecated `body` slot is removed
-  if (slots.body && !slots.default) {
+const showCardHeader = computed((): boolean => {
+  return !!(slots.title || props.title || slots.actions)
+})
+
+const showCardBody = computed((): boolean => {
+  return !!(slots.default || slots.body || props.body)
+})
+
+onMounted(() => {
+  if (slots.body) {
+    // TODO: remove this when @deprecated `body` slot is removed
     console.warn('KCard: `body` slot has been deprecated in favor of `default` slot. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kcard')
-
-    return 'body'
   }
-
-  return 'default'
 })
 </script>
 
@@ -94,25 +97,16 @@ const contentSlotName = computed((): 'body' | 'default' => { // TODO: remove thi
     justify-content: space-between;
 
     .card-title {
-      h4 {
-        color: var(--kui-color-text, $kui-color-text);
-        font-size: var(--kui-font-size-50, $kui-font-size-50);
-        font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
-        letter-spacing: var(--kui-letter-spacing-minus-30, $kui-letter-spacing-minus-30);
-        line-height: var(--kui-line-height-40, $kui-line-height-40);
-        margin: 0; // reset default browser margin
-      }
+      color: var(--kui-color-text, $kui-color-text);
+      font-size: var(--kui-font-size-50, $kui-font-size-50);
+      font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+      letter-spacing: var(--kui-letter-spacing-minus-30, $kui-letter-spacing-minus-30);
+      line-height: var(--kui-line-height-40, $kui-line-height-40);
     }
   }
 
   .card-content {
     @include bodyText;
-
-    p {
-      @include bodyText;
-
-      margin: 0; // reset default browser margin
-    }
   }
 
   .card-footer {
