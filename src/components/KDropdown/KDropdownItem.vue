@@ -129,6 +129,7 @@ const componentType = computed((): DropdownItemRenderedType => {
 const strippedAttrs = computed((): typeof attrs => {
   const modifiedAttrs = Object.assign({}, attrs)
 
+  // remove some attributes because we want them on wrapper element not the trigger element
   delete modifiedAttrs.class
   delete modifiedAttrs.disabled
   delete modifiedAttrs.style
@@ -145,7 +146,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
       href: to.value as string,
       // only add disabled attribute if props.disabled returns truthy value, otherwise it will be added as disabled="false" which will be treaded as disabled
       ...(!!props.disabled && { disabled: true, tabindex: -1 }),
-      ...strippedAttrs.value, // TODO: mention this in the docs
+      ...strippedAttrs.value,
     },
   },
   'router-link': {
