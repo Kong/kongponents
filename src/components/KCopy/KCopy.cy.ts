@@ -1,86 +1,82 @@
 import { mount } from 'cypress/vue'
 import KCopy from '@/components/KCopy/KCopy.vue'
 
-const content = '1234567890ABCDEFG'
+const text = '1234567890ABCDEFG'
 const container = '.k-copy'
-const badgeContainer = '.k-copy-badge'
 
 describe('KCopy', () => {
   it('renders with default props', () => {
     mount(KCopy, {
       props: {
-        content,
+        text,
       },
     })
 
     cy.get(container).should('be.visible')
 
-    cy.get(container).find('.content-container')
-      .should('have.class', 'non-truncated-content')
+    cy.get(container).find('.copy-container .copy-text')
       .should('have.class', 'monospace')
-      .should('contain.text', content)
+      .should('contain.text', text)
 
     cy.get(container).find('[data-testid="copy-to-clipboard"]').should('be.visible')
-    cy.get(container).find('.content-icon').should('be.visible')
+    cy.get(container).find('.text-icon').should('be.visible')
   })
 
-  it('renders with `isBadge` set to true', () => {
-    const badge = 'Id'
+  it('renders with `badge` set to true', () => {
+    const badge = 'Id:'
     mount(KCopy, {
       props: {
-        content,
-        isBadge: true,
+        text,
+        badge: true,
         badgeText: badge,
       },
     })
 
-    cy.get(badgeContainer).should('be.visible')
-    cy.get(badgeContainer).find('.copy-badge-text').should('contain.text', badge)
-    cy.get(badgeContainer).find('.k-badge.id-badge').should('exist')
+    cy.get(container).should('be.visible')
+    cy.get(container).find('.copy-badge-text').should('contain.text', badge)
   })
 
   it('renders with `truncated` set to false', () => {
     mount(KCopy, {
       props: {
-        content,
+        text,
         truncate: false,
       },
     })
 
     cy.get(container).should('be.visible')
 
-    cy.get(container).find('.content-container')
-      .should('not.have.class', 'truncated-content')
+    cy.get(container).find('.copy-container .copy-text')
+      .should('not.have.class', 'truncate-content')
       .should('have.class', 'monospace')
-      .should('contain.text', content)
+      .should('contain.text', text)
 
     cy.get(container).find('[data-testid="copy-to-clipboard"]').should('be.visible')
-    cy.get(container).find('.content-icon').should('be.visible')
+    cy.get(container).find('.text-icon').should('be.visible')
   })
 
   it('renders with `monospace` set to false', () => {
     mount(KCopy, {
       props: {
-        content,
+        text,
         monospace: false,
       },
     })
 
     cy.get(container).should('be.visible')
 
-    cy.get(container).find('.content-container')
-      .should('have.class', 'non-truncated-content')
+    cy.get(container).find('.copy-container')
       .should('not.have.class', 'monospace')
-      .should('contain.text', content)
+      .should('contain.text', text)
 
     cy.get(container).find('[data-testid="copy-to-clipboard"]').should('be.visible')
-    cy.get(container).find('.content-icon').should('be.visible')
+    cy.get(container).find('.text-icon').should('be.visible')
   })
 
   it('renders with `format` set to `hidden`', () => {
     mount(KCopy, {
       props: {
-        content,
+        text,
         format: 'hidden',
       },
     })
@@ -88,45 +84,43 @@ describe('KCopy', () => {
     cy.get(container).should('be.visible')
     cy.get(container).find('[data-testid="copy-to-clipboard"]').should('be.visible')
     cy.get(container).find('[data-testid="copy-id"]').should('not.exist')
-    cy.get(container).find('.content-icon').should('be.visible')
+    cy.get(container).find('.text-icon').should('be.visible')
   })
 
   it('renders with `format` set to `redacted`', () => {
     mount(KCopy, {
       props: {
-        content,
+        text,
         format: 'redacted',
       },
     })
 
     cy.get(container).should('be.visible')
 
-    cy.get(container).find('.content-container')
-      .should('have.class', 'non-truncated-content')
+    cy.get(container).find('.copy-container .copy-text')
       .should('have.class', 'monospace')
       .should('contain.text', '*****')
 
     cy.get(container).find('[data-testid="copy-to-clipboard"]').should('be.visible')
-    cy.get(container).find('.content-icon').should('be.visible')
+    cy.get(container).find('.text-icon').should('be.visible')
   })
 
   it('renders with `format` set to `deleted`', () => {
     mount(KCopy, {
       props: {
-        content,
+        text,
         format: 'deleted',
       },
     })
 
     cy.get(container).should('be.visible')
 
-    cy.get(container).find('.content-container')
-      .should('have.class', 'non-truncated-content')
+    cy.get(container).find('.copy-container .copy-text')
       .should('have.class', 'monospace')
       .should('contain.text', '*12345')
 
     cy.get(container).find('[data-testid="copy-to-clipboard"]').should('be.visible')
-    cy.get(container).find('.content-icon').should('be.visible')
+    cy.get(container).find('.text-icon').should('be.visible')
   })
 
   describe('tooltips', () => {
@@ -135,7 +129,7 @@ describe('KCopy', () => {
 
       mount(KCopy, {
         props: {
-          content,
+          text,
           copyTooltip: tooltipText,
         },
       })
@@ -145,13 +139,13 @@ describe('KCopy', () => {
       cy.get(container).find('.k-tooltip .k-popover-content').should('contain.text', tooltipText)
     })
 
-    it('renders with `contentTooltip` prop set', () => {
+    it('renders with `textTooltip` prop set', () => {
       const tooltipText = 'Custom tooltip text!'
 
       mount(KCopy, {
         props: {
-          content,
-          contentTooltip: tooltipText,
+          text,
+          textTooltip: tooltipText,
         },
       })
 
@@ -166,7 +160,7 @@ describe('KCopy', () => {
 
       mount(KCopy, {
         props: {
-          content,
+          text,
           copyTooltip: tooltipText,
           successTooltip: successText,
         },
@@ -183,13 +177,13 @@ describe('KCopy', () => {
   it('emits event', () => {
     mount(KCopy, {
       props: {
-        content,
+        text,
       },
     })
 
     cy.get('[data-testid="copy-to-clipboard"]').click().then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'copied').then((evt) => {
-        cy.wrap(evt[0][0]).should('be.equal', content)
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'copy').then((evt) => {
+        cy.wrap(evt[0][0]).should('be.equal', text)
       })
     })
   })

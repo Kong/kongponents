@@ -15,6 +15,7 @@
     >
       <KTooltip
         v-if="format !== 'hidden'"
+        class="copy-text"
         :class="[truncateContent, useMono]"
         data-testid="copy-text"
         :label="textTooltip"
