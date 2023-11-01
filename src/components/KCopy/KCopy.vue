@@ -220,7 +220,7 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
   }
 
   .badge-styles {
-    background-color: #f9fafb;
+    background-color: #f0f4fa;
     border-color: #d7d8fe;
     border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
     border-style: solid;
@@ -234,7 +234,8 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
     cursor: pointer;
     display: flex;
     font-size: $kui-font-size-20;
-    padding: $kui-space-10 $kui-space-40;
+    line-height: $kui-line-height-20;
+    padding: $kui-space-10 $kui-space-30;
     white-space: nowrap;
   }
 
