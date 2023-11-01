@@ -2,7 +2,7 @@ import { mount } from 'cypress/vue'
 import KCard from '@/components/KCard/KCard.vue'
 
 describe('KCard', () => {
-  it('does not render any content when no props or slots are passed', () => {
+  it('renders empty card element when no props or slots are passed', () => {
     mount(KCard)
 
     cy.get('.k-card').should('be.visible')

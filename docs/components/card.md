@@ -24,12 +24,10 @@ KCard is a styled container that organizes related content and actions.
   </template>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip excommodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nupariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit aid est laborum.
   <template #footer>
-    <div class="horizontal-spacing">
-      <KBadge appearance="success">
-        Published
-      </KBadge>
-      <KBadge>2 versions</KBadge>
-    </div>
+    <KBadge appearance="success">
+      Published
+    </KBadge>
+    <KBadge>2 versions</KBadge>
   </template>
 </KCard>
 
@@ -56,12 +54,10 @@ KCard is a styled container that organizes related content and actions.
   </template>
   Lorem ipsum dolor sit amet ...
   <template #footer>
-    <div class="horizontal-spacing">
-      <KBadge appearance="success">
-        Published
-      </KBadge>
-      <KBadge>2 versions</KBadge>
-    </div>
+    <KBadge appearance="success">
+      Published
+    </KBadge>
+    <KBadge>2 versions</KBadge>
   </template>
 </KCard>
 ```
@@ -144,12 +140,10 @@ Bottom drawer of the card. Helpful for providing information of lesser importanc
   </template>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip excommodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nupariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit aid est laborum.
   <template #footer>
-    <div class="horizontal-spacing">
-      <KBadge appearance="success">
-        Published
-      </KBadge>
-      <KBadge>2 versions</KBadge>
-    </div>
+    <KBadge appearance="success">
+      Published
+    </KBadge>
+    <KBadge>2 versions</KBadge>
   </template>
 </KCard>
 
@@ -176,12 +170,10 @@ Bottom drawer of the card. Helpful for providing information of lesser importanc
   </template>
   Lorem ipsum dolor sit amet ...
   <template #footer>
-    <div class="horizontal-spacing">
-      <KBadge appearance="success">
-        Published
-      </KBadge>
-      <KBadge>2 versions</KBadge>
-    </div>
+    <KBadge appearance="success">
+      Published
+    </KBadge>
+    <KBadge>2 versions</KBadge>
   </template>
 </KCard>
 ```
@@ -189,10 +181,3 @@ Bottom drawer of the card. Helpful for providing information of lesser importanc
 <script setup lang="ts">
 import { MoreIcon } from '@kong/icons'
 </script>
-
-<style lang="scss" scoped>
-.horizontal-spacing {
-  display: flex;
-  gap: $kui-space-50;
-}
-</style>

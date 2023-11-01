@@ -23,7 +23,10 @@
       v-if="showCardBody"
       class="card-content"
     >
-      <slot v-if="$slots.default" />
+      <slot
+        v-if="$slots.default"
+        name="default"
+      />
       <slot
         v-else-if="!$slots.default && ($slots.body || body)"
         name="body"
@@ -103,6 +106,11 @@ onMounted(() => {
       letter-spacing: var(--kui-letter-spacing-minus-30, $kui-letter-spacing-minus-30);
       line-height: var(--kui-line-height-40, $kui-line-height-40);
     }
+
+    .card-actions {
+      display: flex;
+      gap: var(--kui-space-30, $kui-space-30);
+    }
   }
 
   .card-content {
@@ -111,6 +119,9 @@ onMounted(() => {
 
   .card-footer {
     @include bodyText;
+
+    display: flex;
+    gap: var(--kui-space-30, $kui-space-30);
   }
 }
 </style>

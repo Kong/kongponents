@@ -51,12 +51,10 @@
           </template>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt <em>ut labore</em> et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <b>Excepteur sint occaecat cupidatat non proident</b>, sunt in culpa qui officia deserunt mollit anim id est laborum.
           <template #footer>
-            <div class="horizontal-spacing">
-              <KBadge appearance="success">
-                Published
-              </KBadge>
-              <KBadge>2 versions</KBadge>
-            </div>
+            <KBadge appearance="success">
+              Published
+            </KBadge>
+            <KBadge>2 versions</KBadge>
           </template>
         </KCard>
       </div>
@@ -84,13 +82,11 @@
           </template>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           <template #footer>
-            <span class="footer-content">
-              <CheckIcon
-                :color="KUI_COLOR_TEXT_SUCCESS"
-                :size="KUI_ICON_SIZE_40"
-              />
-              Approved
-            </span>
+            <CheckIcon
+              :color="KUI_COLOR_TEXT_SUCCESS"
+              :size="KUI_ICON_SIZE_40"
+            />
+            Approved
           </template>
         </KCard>
       </div>
