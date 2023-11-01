@@ -1,6 +1,6 @@
 # Card
 
-KCard is a styled container that organizes together related content and actions.
+KCard is a styled container that organizes related content and actions.
 
 <KCard>
   <template #title>

@@ -92,9 +92,9 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 * `testMode` prop has been removed
 * `body` prop has been deprecated. Use `default` slot instead
-* `borderVariant` prop has been removed. KCard has border by default
+* `borderVariant` prop has been removed. KCard has a border by default
 * `hasHover` prop has been removed
-* `hasShadow` prop has been removed. KCard does not have shadow by default
+* `hasShadow` prop has been removed. KCard does not have a box-shadow by default
 * `status` prop has been removed
 
 #### Slots
