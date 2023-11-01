@@ -199,43 +199,43 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
 
 <style lang="scss" scoped>
 .k-copy {
-  display: flex;
   align-items: center;
+  display: flex;
 
   &-badge-text {
     margin-right: $kui-space-40;
   }
 
   .copy-element {
-    white-space: nowrap;
-    text-overflow: ellipsis;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     .truncate-content {
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
       display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 
   .badge-styles {
     background-color: #f9fafb;
     border-color: #d7d8fe;
-    color: #473cfb;
+    border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
     border-style: solid;
     border-width: var(--kui-border-width-10, $kui-border-width-10);
-    border-radius: var(--KBadgeBorderRadius, var(--kui-border-radius-round, 100px));
+    color: #473cfb;
     display: inline-flex;
   }
 
   .copy-container {
-    display: flex;
     align-items: center;
-    padding: $kui-space-10 $kui-space-40;
-    font-size: $kui-font-size-20;
-    white-space: nowrap;
     cursor: pointer;
+    display: flex;
+    font-size: $kui-font-size-20;
+    padding: $kui-space-10 $kui-space-40;
+    white-space: nowrap;
   }
 
   .monospace {
