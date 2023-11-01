@@ -16,17 +16,17 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KAlert
 
-#### Structure
-
-#### Constants, Types & Interfaces
-
-* `appearances` const is no longer exported by the KAlert component. Instead, you can import `AlertAppearances` from `@kong/kongponents` directly.
-
 #### Props
 
 #### Slots
 
 #### Events
+
+#### Structure
+
+#### Constants, Types & Interfaces
+
+* `appearances` const is no longer exported by the KAlert component. Instead, you can import `AlertAppearances` from `@kong/kongponents` directly.
 
 ### KBadge
 
@@ -40,16 +40,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KBreadcrumbs
 
-
 ### KButton
-
-#### Structure
-
-* `icon-btn` class has been renamed to `icon-button`
-
-#### Constants, Types & Interfaces
-
-* `appearances` and `sizes` constants are no longer exported by the KButton component. Instead, you can import `ButtonAppearances` and `ButtonSizes` from `@kong/kongponents` directly
 
 #### Props
 
@@ -68,6 +59,14 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 * `icon` slot is removed (TODO: [beta])
 
+#### Structure
+
+* `icon-btn` class has been renamed to `icon-button`
+
+#### Constants, Types & Interfaces
+
+* `appearances` and `sizes` constants are no longer exported by the KButton component. Instead, you can import `ButtonAppearances` and `ButtonSizes` from `@kong/kongponents` directly
+
 ### KCard
 
 
@@ -76,6 +75,11 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KCheckbox
 
+#### Props
+
+* `testMode` prop has been removed
+* `help` property of `labelAttributes` prop has been deprecated in favor of `info`
+
 #### Structure
 
 * `k-input` class has been changed to `checkbox-input`
@@ -83,22 +87,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 * `k-checkbox-description` class has been changed to `checkbox-description`
 * `has-desc` class has been been changed to `has-description`
 
-#### Constants, Types & Interfaces
-
-#### Props
-
-* `testMode` prop has been removed
-* `help` property of `labelAttributes` prop has been deprecated in favor of `info`
-
-#### Slots
-
-#### Events
-
 ### KCodeBlock
-
-#### Structure
-
-#### Constants, Types & Interfaces
 
 #### Props
 
@@ -108,6 +97,9 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Events
 
+#### Structure
+
+#### Constants, Types & Interfaces
 
 ### KCollapse
 
@@ -118,6 +110,16 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 ### KDropdownMenu
 
 Component has been renamed to `KDropdown`
+
+#### Props
+
+* `label` prop has been deprecated in favor of the new `trigger-text` prop (usage is the same)
+* `appearance` prop has been changed in favor of the `selectionMenu` prop for the selection menu functionality. `appearance` now controls the underlying `KButton` `appearance` prop (note that default `appearance` for component when `selectionMenu` is `true` changed from `tertiary` to `primary`)
+* `buttonAppearance` prop has been removed in favor of `appearance`, still controlling the `KButton` `appearance` prop
+* `testMode` prop has been removed
+* `icon` prop is removed (TODO: [beta])
+* `caretColor` prop is removed
+* `isDangerous` `KDropdownItem` prop has been deprecated in favor of `danger`
 
 #### Structure
 
@@ -139,20 +141,6 @@ Component has been renamed to `KDropdown`
 * `AppearanceArray` const has been removed
 * `Appearance` type has been removed
 
-#### Props
-
-* `label` prop has been deprecated in favor of the new `trigger-text` prop (usage is the same)
-* `appearance` prop has been changed in favor of the `selectionMenu` prop for the selection menu functionality. `appearance` now controls the underlying `KButton` `appearance` prop (note that default `appearance` for component when `selectionMenu` is `true` changed from `tertiary` to `primary`)
-* `buttonAppearance` prop has been removed in favor of `appearance`, still controlling the `KButton` `appearance` prop
-* `testMode` prop has been removed
-* `icon` prop is removed (TODO: [beta])
-* `caretColor` prop is removed
-* `isDangerous` `KDropdownItem` prop has been deprecated in favor of `danger`
-
-#### Slots
-
-#### Events
-
 ### KEmptyState
 
 
@@ -169,17 +157,6 @@ Component has been renamed to `KDropdown`
 
 
 ### KInput
-
-#### Structure
-
-* `form-control` class has been removed
-* `over-char-limit` class has been removed
-* `help` class has been changed to `help-text`
-
-#### Constants, Types & Interfaces
-
-* `SizeArray` and `IconPositionArray` constants have been removed
-* `Size` and `IconPosition` types have been removed
 
 #### Props
 
@@ -198,33 +175,35 @@ Component has been renamed to `KDropdown`
 
 * `icon:click` event has been removed. Instead, when using `before` and/or `after` slots, you can provide your custom click handlers bound to clicks on slotted content. See KInput's [slots](/components/input#after) for more details
 
-### KInputSwitch
-
-
-### KLabel
-
 #### Structure
 
-* `k-input-label` class has been renamed to `k-label`
+* `form-control` class has been removed
+* `over-char-limit` class has been removed
+* `help` class has been changed to `help-text`
 
 #### Constants, Types & Interfaces
+
+* `SizeArray` and `IconPositionArray` constants have been removed
+* `Size` and `IconPosition` types have been removed
+
+### KInputSwitch
+
+### KLabel
 
 #### Props
 
 * `help` prop has been deprecated in favor of `info`
 * `testMode` prop has been removed
 
-### KMenu
+#### Structure
 
+* `k-input-label` class has been renamed to `k-label`
+
+### KMenu
 
 ### KMethod Badge
 
-
 ### KModal
-
-#### Structure
-
-#### Constants, Types & Interfaces
 
 #### Props
 
@@ -233,6 +212,10 @@ Component has been renamed to `KDropdown`
 #### Slots
 
 #### Events
+
+#### Structure
+
+#### Constants, Types & Interfaces
 
 
 ### KModalFullscreen
@@ -249,8 +232,6 @@ Component has been renamed to `KDropdown`
 
 ### KPrompt
 
-#### Constants, Types & Interfaces
-
 #### Props
 
 * New `maxHeight` prop to control the `max-height` of the prompt. Defaults to `400px`
@@ -259,7 +240,7 @@ Component has been renamed to `KDropdown`
 
 #### Events
 
-
+#### Constants, Types & Interfaces
 
 ### Komponent
 
@@ -271,6 +252,12 @@ Removed as of `v9`. Use `KTooltip` instead.
 
 ### KRadio
 
+#### Props
+
+* `testMode` prop has been removed
+* `type` prop has been deprecated in favor of `card` prop
+* `help` property of `labelAttributes` prop has been deprecated in favor of `info`
+
 #### Structure
 
 * `k-input` class on the `input[type="radio"]` has been changed to `radio-input`
@@ -279,22 +266,9 @@ Removed as of `v9`. Use `KTooltip` instead.
 * `k-radio-label` class has been changed to `radio-label`
 * `k-radio-description` class has been changed to `radio-description`
 
-#### Constants, Types & Interfaces
-
-#### Props
-
-* `testMode` prop has been removed
-* `type` prop has been deprecated in favor of `card` prop
-* `help` property of `labelAttributes` prop has been deprecated in favor of `info`
-
-#### Slots
-
-#### Events
-
 ### Krumbs
 
 Removed as of `v9`. Use `KBreadcumbs` instead.
-
 
 ### KSegmentedControl
 
@@ -334,3 +308,20 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KView Switcher
 
+<style lang="scss" scoped>
+  // Add a border above component headings
+  h4 + h3,
+  p + h3,
+  ul + h3 {
+    position: relative;
+
+    &:before {
+      content: '';
+      top: -10px;
+      width: 100%;
+      height: 1px;
+      background: var(--vp-c-divider);
+      position: absolute;
+    }
+}
+</style>
