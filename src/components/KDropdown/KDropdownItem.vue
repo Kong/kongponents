@@ -131,6 +131,8 @@ const strippedAttrs = computed((): typeof attrs => {
 
   delete modifiedAttrs.class
   delete modifiedAttrs.disabled
+  delete modifiedAttrs.style
+  delete modifiedAttrs['data-testid']
 
   return modifiedAttrs
 })
@@ -170,6 +172,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     tag: 'div',
     attrs: {
       class: 'dropdown-item-trigger',
+      ...strippedAttrs.value,
     },
   },
 }))
