@@ -1,3 +1,10 @@
+# [9.0.0-alpha.34](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.33...v9.0.0-alpha.34) (2023-11-01)
+
+
+### Bug Fixes
+
+* misc alpha fixes ([#1809](https://github.com/Kong/kongponents/issues/1809)) ([98eea25](https://github.com/Kong/kongponents/commit/98eea254fa15f12498d7ee5584ae189a7f796cd3))
+
 # [9.0.0-alpha.33](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.32...v9.0.0-alpha.33) (2023-10-30)
 
 
