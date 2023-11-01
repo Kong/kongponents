@@ -1,3 +1,10 @@
+# [9.0.0-alpha.35](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.34...v9.0.0-alpha.35) (2023-11-01)
+
+
+### Bug Fixes
+
+* **kdropdownitem:** clean up bound data-testid attribute ([#1810](https://github.com/Kong/kongponents/issues/1810)) ([671ddc1](https://github.com/Kong/kongponents/commit/671ddc1aa8271f5ff7a3f8b054f1cfc4bb4d1f1b))
+
 # [9.0.0-alpha.34](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.33...v9.0.0-alpha.34) (2023-11-01)
 
 
