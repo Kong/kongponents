@@ -234,7 +234,6 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     text-align: left;
     text-decoration: none;
     transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc;
-    width: 100%;
 
     &:focus, &:active, &:focus-visible {
       outline: none;
