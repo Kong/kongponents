@@ -368,13 +368,13 @@ function highlight({ preElement, codeElement, language, code }) {
 
 This component has a few shortcuts for interacting with its search and filter features. All of them are scoped to the code block. When invoking them while focus is placed outside of a code block, their associated actions won’t trigger.
 
-| Shortcut                             | Description             |
-| :----------------------------------- | :---------------------- |
-| <kbd>Alt+F</kbd> or <kbd>Alt+G</kbd> | Toggles filter mode     |
-| <kbd>Alt+R</kbd>                     | Toggles RegExp mode     |
-| <kbd>Alt+C</kbd>                     | Copies the code         |
-| <kbd>F3</kbd>                        | Jumps to next match     |
-| <kbd>Shift+F3</kbd>                  | Jumps to previous match |
+| Shortcut                                      | Description             |
+| :-------------------------------------------- | :---------------------- |
+| <kbd>Alt+F</kbd> or <kbd>Alt+G</kbd>          | Toggles filter mode     |
+| <kbd>Alt+R</kbd>                              | Toggles RegExp mode     |
+| <kbd>Alt+C</kbd>                              | Copies the code         |
+| <kbd>F3</kbd> or <kbd>Enter</kbd>             | Jumps to next match     |
+| <kbd>Shift+F3</kbd> or <kbd>Shift+Enter</kbd> | Jumps to previous match |
 
 ## Types
 
