@@ -1,164 +1,183 @@
 # Copy
 
-**KCopy** is a component that displays text content and copies it to clipboard.
+KCopy is a component that displays provided text and allows a user to copy it to their clipboard.
 
-<KCopy :content="content" />
+<KCopy :text="text" />
 
 ```html
-<KCopy :content="content" />
+<KCopy :text="text" />
 ```
 
 ## Props
 
-### badgeText
-
-Text displayed before the copyable content when `isBadge` is true.
-
-<KCopy
-  isBadge
-  badge-text="Id"
-  :content="content"
-/>
-
-```html
-<KCopy
-  isBadge
-  badge-text="Id"
-  :content="content"
-/>
-```
-
-### content
+### text
 
 The copyable text.
 
-### contentTooltip
+### badge
 
-Tooltip text displayed on hover over the `content`.
+Whether or not to display as a badge. Defaults to `false`.
 
 <KCopy
+  badge
   truncate
-  :content="content"
-  content-tooltip="Hello!"
+  :text="text"
 />
 
 ```html
 <KCopy
+  badge
   truncate
-  :content="content"
-  content-tooltip="Hello!"
+  :text="text"
+/>
+```
+
+### badgeText
+
+Text displayed before the copyable text when `badge` is true.
+
+<KCopy
+  badge
+  badge-text="Id"
+  :text="text"
+/>
+
+```html
+<KCopy
+  badge
+  badge-text="Id"
+  :text="text"
 />
 ```
 
 ### truncate
 
-Whether or not the content should be truncated.
-> Note: By default truncate is set to false.
+Whether or not the text should be truncated. Defaults to `false`.
 
 <KCopy
   truncate
-  :content="content"
+  :text="text"
 />
 
 ```html
 <KCopy
   truncate
-  :content="content"
+  :text="text"
 />
 ```
 
 ### truncationLimit
 
-Number of characters to truncate at.
-> Note: By default it is set to `8`.
+Number of characters to truncate at. Defaults to `8`.
 
 <KCopy
   truncate
-  :content="content"
-  truncation-limit=10
+  :text="text"
+  :truncation-limit="15"
 />
 
 ```html
 <KCopy
   truncate
-  :content="content"
-  truncation-limit=10
+  :text="text"
+  :truncation-limit="15"
 />
 ```
 
 ### copyTooltip
 
 Tooltip text displayed on hover copy button. 
-> Note: If `badgeText` exists then text is `Copy <badge-text>` else `Copy`
+If the `badgeText` prop has a value, then the copy tooltip text is `Copy {badgeText}`; otherwise, `Copy`.
 
+<KCopy
+  :text="text"
+  badge 
+  badgeText="ID:" 
+/>
+
+```html
+<KCopy
+  :text="text"
+  badge 
+  badgeText="ID:" 
+/>
+```
+
+### textTooltip
+
+Tooltip text displayed on hover over the `text`.
+
+<KCopy
+  truncate
+  :text="text"
+  text-tooltip="Hello!"
+/>
+
+```html
+<KCopy
+  truncate
+  :text="text"
+  text-tooltip="Hello!"
+/>
+```
 
 ### successTooltip
 
-Tooltip text displayed on successful copy.
-> Note: By default `successTooltip` is set to `Copied!`.
+Tooltip text displayed on successful copy. Defaults to `Copied!`.
+
+### monospace
+
+An indicator of whether the copyable text has `JetBrains Mono` font or not. Defaults to `true`, but `false` if `badge` is `true`.
 
 ### format
 
-Formatting for copyable content (default, hidden, redacted, deleted).
+Determines the display format of the copyable text. The component can take the following `format` values:
+
+- `default`: displays regular uuid
+- `hidden`: displays just a copy button without text
+- `redacted`: displays `*****`
+- `deleted`: displays `*<first-5-chars-of-uuid>`
 
 <KCopy
   format="hidden"
-  :content="content"
+  :text="text"
 />
 
 ```html
 <KCopy
   format="hidden"
-  :content="content"
+  :text="text"
 />
 ```
 
 <KCopy
   format="redacted"
-  :content="content"
+  :text="text"
 />
 
 ```html
 <KCopy
   format="redacted"
-  :content="content"
+  :text="text"
 />
 ```
 
 <KCopy
   format="deleted"
-  :content="content"
+  :text="text"
 />
 
 ```html
 <KCopy
   format="deleted"
-  :content="content"
-/>
-```
-
-### isBadge
-
-Whether or not to display as a badge.
-> Note: By default `isBadge` is set to false.
-
-<KCopy
-  is-badge
-  :content="content"
-/>
-
-```html
-<KCopy
-  is-badge
-  truncate
-  :content="content"
+  :text="text"
 />
 ```
 
 ## Events
 
-- `@copied` -  Emitted when `copy button` is clicked; the payload is the copied text.
+- `@copy` -  Emitted when `copy button` is clicked; the payload is the copied text.
 
 <script setup lang="ts">
-const content = '12345-6789-ABCD-EFGH-PQRSTUV-WXYZ'
+const text = '12345-6789-ABCD-EFGH-PQRSTUV-WXYZ'
 </script>

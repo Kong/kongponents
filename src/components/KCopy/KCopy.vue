@@ -1,147 +1,132 @@
 <template>
-  <div
-    v-if="!isBadge"
-    class="k-copy"
-    :class="truncate ? null : 'copy-truncated'"
-  >
-    <KTooltip
-      v-if="format !== 'hidden'"
-      :class="truncate ? null : 'copy-content'"
-      data-testid="copy-content"
-      :label="contentTooltip"
-      placement="bottomStart"
-      position-fixed
-    >
-      <div
-        :class="[
-          'content-container',
-          truncate ? 'truncated-content' : 'non-truncated-content',
-          monospace ? 'monospace' : null
-        ]"
-        :style="widthStyle"
-      >
-        {{ contentFormat }}
-      </div>
-    </KTooltip>
-
-    <KTooltip
-      class="content-icon-wrapper"
-      :label="`${props.badgeText}` ? iconTitle : tooltipText"
-      max-width="500px"
-      placement="bottomStart"
-      position-fixed
-    >
-      <KClipboardProvider v-slot="{ copyToClipboard }">
-        <span
-          data-testid="copy-to-clipboard"
-          role="button"
-          tabindex="0"
-          @click.stop="copyIdToClipboard(copyToClipboard)"
-        >
-          <KIcon
-            class="content-icon"
-            :hide-title="!!copyTooltip || undefined"
-            icon="copy"
-            size="16"
-            :title="iconTitle"
-          />
-        </span>
-      </KClipboardProvider>
-    </KTooltip>
-  </div>
-
-  <div
-    v-else
-    class="k-copy-badge"
-  >
+  <div class="k-copy">
     <span
-      v-if="isBadge"
+      v-if="badge"
       class="copy-badge-text"
     >
       {{ badgeText }}
     </span>
-    <KBadge
-      v-if="isBadge"
-      appearance="custom"
-      background-color="#f9fafb"
-      border-color="#d7d8fe"
-      class="id-badge"
-      color="#473cfb"
-      is-bordered
-      shape="rectangular"
+    <div
+      :class="[
+        'copy-container',
+        truncateStyles,
+        badgeStyles
+      ]"
     >
-      <KCopy
-        :badge-text="badgeText"
-        class="id-badge-content"
-        :content="content"
-        :content-tooltip="contentTooltip"
-        :copy-tooltip="copyTooltip"
-        :monospace="monospace"
-        :success-tooltip="successTooltip"
-        :truncate="truncate"
-        :truncation-limit="truncationLimit"
-      />
-    </KBadge>
+      <KTooltip
+        v-if="format !== 'hidden'"
+        :class="[truncateContent, useMono]"
+        data-testid="copy-text"
+        :label="textTooltip"
+        placement="bottomStart"
+        position-fixed
+      >
+        <span>
+          {{ textFormat }}
+        </span>
+      </KTooltip>
+
+      <KTooltip
+        class="text-icon-wrapper"
+        :label="`${props.badgeText}` ? iconTitle : tooltipText"
+        max-width="500px"
+        placement="bottomStart"
+        position-fixed
+      >
+        <KClipboardProvider v-slot="{ copyToClipboard }">
+          <CopyIcon
+            class="text-icon"
+            data-testid="copy-to-clipboard"
+            :hide-title="!!copyTooltip || undefined"
+            role="button"
+            :size="KUI_ICON_SIZE_40"
+            tabindex="0"
+            @click.stop="copyIdToClipboard(copyToClipboard)"
+          />
+        </KClipboardProvider>
+      </KTooltip>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, ref } from 'vue'
-import KBadge from '@/components/KBadge/KBadge.vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
+import { CopyIcon } from '@kong/icons'
 import KClipboardProvider from '@/components/KClipboardProvider'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
+import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 const props = defineProps({
-  // text displayed before the copyable content when `isBadge` is true
+  /**
+    * Text displayed before the copyable text when
+    * `badge` is true
+    */
   badgeText: {
     type: String,
     default: '',
   },
-  // the copyable text
-  content: {
+  /**
+    * The copyable text
+    */
+  text: {
     type: String,
     required: true,
   },
-  // tooltip text displayed on hover over the `content`
-  contentTooltip: {
+  /**
+    * Tooltip text displayed on hover over the `text`
+    */
+  textTooltip: {
     type: String,
     default: '',
   },
-  // tooltip text displayed on hover over copy button
+  /**
+    * Tooltip text displayed on hover over copy button
+    */
   copyTooltip: {
     type: String,
     default: 'Copy',
   },
-  // formatting for copyable content (default, hidden, redacted, deleted)
+  /**
+    * Formatting for copyable text (default, hidden, redacted, deleted)
+    */
   format: {
     type: String as PropType<'default' | 'hidden' | 'redacted' | 'deleted'>,
     required: false,
     default: 'default',
     validator: (val: string) => ['default', 'hidden', 'redacted', 'deleted'].includes(val),
   },
-  // whether or not to display as a badge
-  isBadge: {
+  /**
+    * Whether or not to display as a badge
+    */
+  badge: {
     type: Boolean,
     default: false,
   },
-  // false if `isBadge` is true
+  /**
+    * False if `badge` is true
+    */
   monospace: {
     type: Boolean,
     default: true,
   },
-  // whether or not the content should be truncated
+  /**
+    * Whether or not the text should be truncated
+    */
   truncate: {
     type: Boolean,
     default: false,
   },
-  // tooltip text displayed on successful copy
+  /**
+    * Tooltip text displayed on successful copy
+    */
   successTooltip: {
     type: String,
     default: 'Copied',
   },
-  // number of characters to truncate at
+  /**
+    * Number of characters to truncate at
+    */
   truncationLimit: {
     type: Number,
     default: 8,
@@ -149,32 +134,43 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'copied', val: string): void
+  (e: 'copy', val: string): void
 }>()
 
 const hasSuccessTooltip = computed((): boolean => !!(props.copyTooltip && props.successTooltip))
 const tooltipText = ref(props.copyTooltip)
 
+const badgeTextLabel = computed((): string => {
+  if (!props.badgeText) {
+    return ''
+  }
+
+  // strip trailing colon from label if one exists
+  return props.badgeText.replace(/:$/, '')
+})
+
 const iconTitle = computed(() => {
   if (props.badgeText) {
-    return `Copy ${props.badgeText}`
+    return `Copy ${badgeTextLabel.value}`
   }
   return 'Copy'
 })
 
-const widthStyle = computed(() => {
-  return {
-    maxWidth: props.truncate ? props.truncationLimit + 'ch' : undefined,
-  }
-})
+const truncateLimitText = computed((): string | null => props.truncate ? `${props.text.substring(0, props.truncationLimit) + '...'}` : null)
 
-const contentFormat = computed(() => {
+// Computed for all dynamic classes
+const truncateStyles = computed((): string | null => props.truncate ? 'copy-element' : null)
+const badgeStyles = computed((): string | null => props.badge ? 'badge-styles' : null)
+const truncateContent = computed((): string | null => props.truncate ? 'truncate-content' : null)
+const useMono = computed((): string | null => props.badge ? null : 'monospace')
+
+const textFormat = computed(() => {
   if (props.format === 'redacted') {
     return '*****'
   } else if (props.format === 'deleted') {
-    return `*${props.content.substring(0, 5)}`
+    return `*${props.text.substring(0, 5)}`
   }
-  return props.content
+  return (props.truncate && props.truncationLimit && truncateLimitText.value) ? truncateLimitText.value.replace(/^"(.*)"$/, '$1') : props.text
 })
 
 const updateTooltipText = (msg: string): void => {
@@ -185,9 +181,9 @@ const updateTooltipText = (msg: string): void => {
 }
 
 const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
-  if (!executeCopy(props.content)) {
+  if (!executeCopy(props.text)) {
     if (hasSuccessTooltip.value) {
-      updateTooltipText('Failed to copy id to clipboard')
+      updateTooltipText('Failed to copy')
     }
 
     return
@@ -195,7 +191,7 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
 
   if (hasSuccessTooltip.value) {
     updateTooltipText(props.successTooltip)
-    emit('copied', props.content)
+    emit('copy', props.text)
   }
 }
 </script>
@@ -203,13 +199,41 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
 <style lang="scss" scoped>
 .k-copy {
   display: flex;
+  align-items: center;
 
-  &.copy-truncated {
-    align-items: center;
-    display: flex;
+  &-badge-text {
+    margin-right: $kui-space-40;
   }
 
-  .id-badge {
+  .copy-element {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    .truncate-content {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: inline-block;
+    }
+  }
+
+  .badge-styles {
+    background-color: #f9fafb;
+    border-color: #d7d8fe;
+    color: #473cfb;
+    border-style: solid;
+    border-width: var(--kui-border-width-10, $kui-border-width-10);
+    border-radius: var(--KBadgeBorderRadius, var(--kui-border-radius-round, 100px));
+    display: inline-flex;
+  }
+
+  .copy-container {
+    display: flex;
+    align-items: center;
+    padding: $kui-space-10 $kui-space-40;
+    font-size: $kui-font-size-20;
+    white-space: nowrap;
     cursor: pointer;
   }
 
@@ -217,58 +241,21 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
     font-family: var(--kui-font-family-code, $kui-font-family-code);
   }
 
-  .content-container {
-    margin-right: $kui-space-50;
-    white-space: nowrap;
-  }
-
-  .copy-content {
-    align-items: center;
-    display: inline-flex;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .truncated-content {
-    margin-right: 1ch;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .non-truncated-content {
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .content-icon-wrapper {
+  .text-icon-wrapper {
     align-items: center;
     cursor: pointer;
     display: flex;
+    margin-left: $kui-space-30;
   }
 
-  .content-icon {
+  .text-icon {
     display: flex;
-  }
-}
-.k-copy-badge {
-  :deep(.k-badge) {
-    &.id-badge {
-      .k-badge-text {
-        max-width: 300px;
-      }
-    }
   }
 
   .copy-badge-text {
     color: $kui-color-text-neutral;
+    font-size: $kui-font-size-20;
     margin-right: $kui-space-20;
-  }
-
-  .id-badge-content .non-truncated-content{
-    max-width: none !important;
   }
 }
 </style>
