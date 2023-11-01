@@ -46,7 +46,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 * some values `appearance` prop accepts were changed:
   * `outline` has been removed (we suggest using `secondary` instead)
-  * `creation` has been removed
+  * `creation` has been removed (we suggest using `primary` instead)
   * `btn-link` is no longer accepted (we suggest using `tertiary` instead)
   * `btn-link-danger` has been removed
   * `action-active` has been removed

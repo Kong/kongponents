@@ -185,6 +185,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
 /* Component styles */
 
 .k-dropdown-item, :deep(.k-dropdown-item) {
+  display: flex;
   list-style: none;
 
   &.has-divider {
@@ -226,6 +227,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     color: var(--kui-color-text-neutral, $kui-color-text);
     cursor: pointer;
     display: flex;
+    flex: 1;
     font-family: var(--kui-font-family-text, $kui-font-family-text);
     font-size: var(--kui-font-size-30, $kui-font-size-30);
     font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
@@ -234,7 +236,6 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     text-align: left;
     text-decoration: none;
     transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc;
-    width: 100%;
 
     &:focus, &:active, &:focus-visible {
       outline: none;
