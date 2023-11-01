@@ -200,13 +200,38 @@ describe('KDropdown', () => {
     cy.getTestId('dropdown-list').eq(0).find('.k-dropdown-item').should('have.length', 6)
     cy.getTestId('dropdown-list').eq(0).find('.has-divider').should('have.length', 2)
 
-    cy.get('button[data-testid="button"]').should('be.visible')
-    cy.get('button[data-testid="disabled-button"]').should('be.visible').should('be.disabled')
+    cy.get('[data-testid="button"] button').should('be.visible')
+    cy.get('[data-testid="disabled-button"] button').should('be.visible').should('be.disabled')
 
-    cy.get('router-link[data-testid="router-link"]').should('be.visible')
-    cy.get('router-link[data-testid="disabled-router-link"]').should('be.visible').should('have.attr', 'disabled')
+    cy.get('[data-testid="router-link"] router-link').should('be.visible')
+    cy.get('[data-testid="disabled-router-link"] router-link').should('be.visible').should('have.attr', 'disabled')
 
-    cy.get('a[data-testid="external-link"]').should('be.visible')
-    cy.get('a[data-testid="disabled-external-link"]').should('be.visible').should('have.attr', 'disabled')
+    cy.get('[data-testid="external-link"] a').should('be.visible')
+    cy.get('[data-testid="disabled-external-link"] a').should('be.visible').should('have.attr', 'disabled')
+  })
+})
+
+describe('KDropdownItem', () => {
+  // TODO: add more KDropdownItem tests
+
+  it('correctly binds attributes to wrapper and trigger elements', () => {
+    const testIdAttr = 'dropdown-item-test'
+
+    mount(KDropdownItem, {
+      props: {
+        item: {
+          label: 'You are here',
+          to: { path: '/' },
+        },
+      },
+      attrs: {
+        target: '_blank',
+        'data-testid': testIdAttr,
+      },
+    })
+
+    cy.getTestId('dropdown-item').should('not.exist')
+    cy.getTestId(testIdAttr).should('be.visible')
+    cy.getTestId(testIdAttr).find('[data-testid="dropdown-item-trigger"]').should('have.attr', 'target', '_blank')
   })
 })
