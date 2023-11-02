@@ -1,3 +1,10 @@
+# [9.0.0-alpha.39](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.38...v9.0.0-alpha.39) (2023-11-02)
+
+
+### Features
+
+* **kcopy:** new component [khcp-9464] ([#1794](https://github.com/Kong/kongponents/issues/1794)) ([a9b3271](https://github.com/Kong/kongponents/commit/a9b3271a9ea4fede59b59fbc38b9f6624edc5c9e))
+
 # [9.0.0-alpha.38](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.37...v9.0.0-alpha.38) (2023-11-02)
 
 
