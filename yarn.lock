@@ -763,10 +763,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@kong/design-tokens@^1.11.8":
-  version "1.11.8"
-  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.11.8.tgz#6315c694d18b435a20b904150dfac4e7ee81cf0b"
-  integrity sha512-x09bF/0FYHponFZ/7gipgTtnV+OzBhJov2xfNg0NJ1GM+AELV90De46mlDPCeMhbc7HFnsFXHSW3dtDX/nGbbw==
+"@kong/design-tokens@^1.11.9":
+  version "1.11.9"
+  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.11.9.tgz#d64bca714079c554a20b8da646e1f75be2f60640"
+  integrity sha512-e4q7yuPvZ3eB0eXGOg0o3h/ce3GIIdRtvCoRCZEA/d7R7MJfXrPa19H5VKy/khyhwEt2IjFJiDisImbfq+ApvQ==
 
 "@kong/icons@^1.7.8":
   version "1.7.8"

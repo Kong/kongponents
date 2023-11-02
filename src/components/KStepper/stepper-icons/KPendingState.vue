@@ -34,7 +34,7 @@ defineProps({
 
   circle {
     animation: dash 1.5s ease-in-out infinite;
-    stroke: var(--kui-color-text-decorative, $kui-color-text-decorative);
+    stroke: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
     stroke-linecap: round;
   }
 }

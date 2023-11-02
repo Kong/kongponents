@@ -32,6 +32,7 @@
       class="k-badge-dismiss-button"
       :color="color"
       data-testid="k-badge-dismiss-button"
+      role="button"
       :tabindex="hidden ? -1 : undefined"
       @click="handleDismiss"
       @click.stop

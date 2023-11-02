@@ -1193,7 +1193,7 @@ $dark-backgroundColor: var(--kui-color-background-neutral-strongest, $kui-color-
 
 .k-code-block {
   .k-matched-term {
-    color: var(--kui-color-text-decorative, $kui-color-text-decorative);
+    color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
     font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
   }
 
