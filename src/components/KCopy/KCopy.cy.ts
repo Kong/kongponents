@@ -28,7 +28,7 @@ describe('KCopy', () => {
       props: {
         text,
         badge: true,
-        badgeText: badge,
+        badgeLabel: badge,
       },
     })
 
@@ -171,20 +171,6 @@ describe('KCopy', () => {
       cy.get(container).find('.k-tooltip .k-popover-content').should('contain.text', tooltipText)
       cy.get('[data-testid="copy-to-clipboard"]').click()
       cy.get(container).find('.k-tooltip .k-popover-content').should('contain.text', successText)
-    })
-  })
-
-  it('emits event', () => {
-    mount(KCopy, {
-      props: {
-        text,
-      },
-    })
-
-    cy.get('[data-testid="copy-to-clipboard"]').click().then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'copy').then((evt) => {
-        cy.wrap(evt[0][0]).should('be.equal', text)
-      })
     })
   })
 })

@@ -4,7 +4,7 @@
       v-if="badge"
       class="copy-badge-text"
     >
-      {{ badgeText }}
+      {{ badgeLabel }}
     </span>
     <div
       :class="[
@@ -18,16 +18,16 @@
         class="copy-text"
         :class="[truncateContent, useMono]"
         data-testid="copy-text"
-        :label="textTooltip"
+        :label="textTooltip ? textTooltip : textFormat"
         placement="bottomStart"
         position-fixed
       >
-        {{ textFormat }}
+        <span>{{ textFormat }}</span>
       </KTooltip>
 
       <KTooltip
         class="text-icon-wrapper"
-        :label="`${props.badgeText}` ? iconTitle : tooltipText"
+        :label="tooltipText"
         max-width="500px"
         placement="bottomStart"
         position-fixed
@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { CopyIcon } from '@kong/icons'
 import KClipboardProvider from '@/components/KClipboardProvider'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
@@ -61,7 +61,7 @@ const props = defineProps({
     * Text displayed before the copyable text when
     * `badge` is true
     */
-  badgeText: {
+  badgeLabel: {
     type: String,
     default: '',
   },
@@ -84,7 +84,7 @@ const props = defineProps({
     */
   copyTooltip: {
     type: String,
-    default: 'Copy',
+    default: '',
   },
   /**
     * Formatting for copyable text (default, hidden, redacted, deleted)
@@ -132,35 +132,26 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits<{
-  (e: 'copy', val: string): void
-}>()
-
-const hasSuccessTooltip = computed((): boolean => !!(props.copyTooltip && props.successTooltip))
-const tooltipText = ref(props.copyTooltip)
-
-const badgeTextLabel = computed((): string => {
-  if (!props.badgeText) {
-    return ''
+const tooltipText = ref('')
+const nonSuccessText = computed((): string => {
+  if (!props.badgeLabel || props.copyTooltip) {
+    return props.copyTooltip || 'Copy'
   }
 
   // strip trailing colon from label if one exists
-  return props.badgeText.replace(/:$/, '')
+  return `Copy ${props.badgeLabel.replace(/:$/, '')}`
 })
 
-const iconTitle = computed(() => {
-  if (props.badgeText) {
-    return `Copy ${badgeTextLabel.value}`
-  }
-  return 'Copy'
-})
+watch(nonSuccessText, (value: string): void => {
+  tooltipText.value = value
+}, { immediate: true })
 
 const truncateLimitText = computed((): string | null => props.truncate ? `${props.text.substring(0, props.truncationLimit) + '...'}` : null)
 
 // Computed for all dynamic classes
-const truncateStyles = computed((): string | null => props.truncate ? 'copy-element' : null)
+const truncateStyles = computed((): string | null => props.truncate || props.badge ? 'copy-element' : null)
 const badgeStyles = computed((): string | null => props.badge ? 'badge-styles' : null)
-const truncateContent = computed((): string | null => props.truncate ? 'truncate-content' : null)
+const truncateContent = computed((): string | null => props.truncate || props.badge ? 'truncate-content' : null)
 const useMono = computed((): string | null => props.badge ? null : 'monospace')
 
 const textFormat = computed(() => {
@@ -173,26 +164,21 @@ const textFormat = computed(() => {
   return (props.truncate && props.truncationLimit && truncateLimitText.value) ? truncateLimitText.value.replace(/^"(.*)"$/, '$1') : props.text
 })
 
-const updateTooltipText = (msg: string): void => {
-  tooltipText.value = msg
+const updateTooltipText = (msg?: string): void => {
+  tooltipText.value = msg || props.successTooltip
   setTimeout(() => {
-    tooltipText.value = props.copyTooltip
+    tooltipText.value = nonSuccessText.value
   }, 1800)
 }
 
 const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
   if (!executeCopy(props.text)) {
-    if (hasSuccessTooltip.value) {
-      updateTooltipText('Failed to copy')
-    }
+    updateTooltipText('Failed to copy')
 
     return
   }
 
-  if (hasSuccessTooltip.value) {
-    updateTooltipText(props.successTooltip)
-    emit('copy', props.text)
-  }
+  updateTooltipText()
 }
 </script>
 
@@ -202,16 +188,21 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
   display: flex;
 
   &-badge-text {
-    margin-right: $kui-space-40;
+    margin-right: var(--kui-space-40, $kui-space-40);
   }
 
   .copy-element {
+    align-items: center;
+    display: inline-flex;
+    margin: var(--kui-space-0, $kui-space-0) var(--kui-space-30, $kui-space-30);
     overflow: hidden;
+    padding: var(--kui-space-10, $kui-space-10) var(--kui-space-40, $kui-space-40);
     text-overflow: ellipsis;
     white-space: nowrap;
 
     .truncate-content {
       display: inline-block;
+      margin-right: var(--kui-space-30, $kui-space-30);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -219,12 +210,12 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
   }
 
   .badge-styles {
-    background-color: #f0f4fa;
-    border-color: #d7d8fe;
+    background-color: var(--kui-color-background-decorative-purple-weakest, $kui-color-background-decorative-purple-weakest);
+    border-color: var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple);
     border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
     border-style: solid;
     border-width: var(--kui-border-width-10, $kui-border-width-10);
-    color: #473cfb;
+    color: var(--kui-color-text-decorative-purple, $kui-color-text-decorative-purple);
     display: inline-flex;
   }
 
@@ -232,9 +223,9 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
     align-items: center;
     cursor: pointer;
     display: flex;
-    font-size: $kui-font-size-20;
-    line-height: $kui-line-height-20;
-    padding: $kui-space-10 $kui-space-30;
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
+    padding: var(--kui-space-10, $kui-space-10) var(--kui-space-30, $kui-space-30);
     white-space: nowrap;
   }
 
@@ -246,7 +237,7 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
     align-items: center;
     cursor: pointer;
     display: flex;
-    margin-left: $kui-space-30;
+    margin-left: var(--kui-space-30, $kui-space-30);
   }
 
   .text-icon {

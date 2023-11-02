@@ -32,27 +32,27 @@ Whether or not to display as a badge. Defaults to `false`.
 />
 ```
 
-### badgeText
+### badgeLabel
 
 Text displayed before the copyable text when `badge` is true.
 
 <KCopy
   badge
-  badge-text="Id"
+  badge-label="Id"
   :text="text"
 />
 
 ```html
 <KCopy
   badge
-  badge-text="Id"
+  badge-label="Id"
   :text="text"
 />
 ```
 
 ### truncate
 
-Whether or not the text should be truncated. Defaults to `false`.
+Whether or not the text should be truncated. Defaults to `false`. If truncate is `false` the text will be truncated only when `badge` is `true`.
 
 <KCopy
   truncate
@@ -87,19 +87,19 @@ Number of characters to truncate at. Defaults to `8`.
 ### copyTooltip
 
 Tooltip text displayed on hover copy button. 
-If the `badgeText` prop has a value, then the copy tooltip text is `Copy {badgeText}` and the trailing colon from label if one exists will be stripped; otherwise the copy tooltip text is `Copy`.
+If the `badgeLabel` prop has a value, then the copy tooltip text is `Copy {badgeLabel}` and the trailing colon from label if one exists will be stripped; otherwise the copy tooltip text is `Copy`.
 
 <KCopy
   :text="text"
   badge 
-  badgeText="ID:" 
+  badge-label="ID:" 
 />
 
 ```html
 <KCopy
   :text="text"
   badge 
-  badgeText="ID:" 
+  badge-label="ID:" 
 />
 ```
 
@@ -183,10 +183,6 @@ Determines the display format of the copyable text. The component can take the f
   :text="text"
 />
 ```
-
-## Events
-
-- `@copy` -  Emitted when `copy button` is clicked; the payload is the copied text.
 
 <script setup lang="ts">
 const text = '12345-6789-ABCD-EFGH-PQRSTUV-WXYZ'
