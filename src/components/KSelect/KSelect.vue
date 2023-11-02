@@ -1003,9 +1003,14 @@ $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
   }
 
   .k-select-button {
-    .k-button.tertiary:hover,
-    &.k-button.tertiary:hover {
-      text-decoration: none;
+    .k-button {
+      justify-content: space-between;
+
+      &.tertiary {
+        &:hover {
+          text-decoration: none;
+        }
+      }
     }
   }
 
