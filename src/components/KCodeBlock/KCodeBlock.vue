@@ -321,6 +321,24 @@ const props = defineProps({
   },
 
   /**
+   * Whether filter mode is initially active. **Default: `false`**.
+   */
+  initialFilterMode: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+
+  /**
+   * Whether regular expression mode is initially active. **Default: `false`**.
+   */
+  initialRegExpMode: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+
+  /**
    * Shows an actions bar with a search input and related action buttons. **Default: `false`**.
    */
   isSearchable: {
@@ -410,14 +428,24 @@ const emit = defineEmits<{
    * Fired when the search query is updated.
    */
   (event: 'query-change', data: string): void
+
+  /**
+   * Fired when the filter mode is toggled.
+   */
+  (event: 'filter-mode-change', data: boolean): void
+
+  /**
+   * Fired when the regular expression mode is toggled.
+   */
+  (event: 'reg-exp-mode-change', data: boolean): void
 }>()
 
 const slots = useSlots()
 
 const query = ref<string>(props.query)
 const isProcessingInternally = ref<boolean>(false)
-const isRegExpMode = ref<boolean>(false)
-const isFilterMode = ref<boolean>(false)
+const isRegExpMode = ref<boolean>(props.initialRegExpMode)
+const isFilterMode = ref<boolean>(props.initialFilterMode)
 const regExpError = ref<Error | null>(null)
 const codeBlock = ref<HTMLElement | null>(null)
 const codeBlockSearchInput = ref<HTMLInputElement | null>(null)
@@ -690,6 +718,7 @@ function clearQuery(): void {
 
 function toggleRegExpMode(): void {
   isRegExpMode.value = !isRegExpMode.value
+  emit('reg-exp-mode-change', isRegExpMode.value)
 
   // Resets regexp error when toggling off regexp mode.
   if (!isRegExpMode.value) {
@@ -699,6 +728,7 @@ function toggleRegExpMode(): void {
 
 function toggleFilterMode(): void {
   isFilterMode.value = !isFilterMode.value
+  emit('filter-mode-change', isFilterMode.value)
 }
 
 function jumpToNextMatch(): void {

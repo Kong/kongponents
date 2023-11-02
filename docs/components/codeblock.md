@@ -51,6 +51,46 @@ No additional formatting of the code takes places. It will be used as-is.
 
 The syntax language of `props.code` (e.g. `'json'`).
 
+### initialFilterMode
+
+* **Type**: `boolean`
+* **Required**: no
+* **Default**: `false`
+
+Controls whether the filter mode is initially active. Can be used together with the [`filter-mode-change` event](#filter-mode-change) to persist a code block’s filter mode setting.
+
+### initialRegExpMode
+
+* **Type**: `boolean`
+* **Required**: no
+* **Default**: `false`
+
+Controls whether the regular expression mode is initially active. Can be used together with the [`reg-exp-mode-change` event](#reg-exp-mode-change) to persist a code block’s regular expression mode setting.
+
+<ClientOnly>
+  <KCodeBlock
+    id="code-block-initial-reg-exp-mode"
+    :code="code"
+    language="json"
+    query="(true|false)"
+    initial-filter-mode
+    initial-reg-exp-mode
+    is-searchable
+  />
+</ClientOnly>
+
+```html
+<KCodeBlock
+  id="code-block-initial-reg-exp-mode"
+  :code="code"
+  language="json"
+  query="(true|false)"
+  initial-filter-mode
+  initial-reg-exp-mode
+  is-searchable
+/>
+```
+
 ### isSearchable
 
 * **Type**: `boolean`
@@ -354,6 +394,11 @@ function highlight({ preElement, codeElement, language, code }) {
 }
 ```
 
+### filter-mode-change
+
+- **Type**: `boolean`
+- **Trigger**: Fired when the toggles the filter mode.
+
 ### matching-lines-change
 
 - **Type**: [`CodeBlockEventData`](#codeblockeventdata)
@@ -363,6 +408,11 @@ function highlight({ preElement, codeElement, language, code }) {
 
 - **Type**: `string`
 - **Trigger**: Fired when the component’s internal query state is updated. This happens when the user finished typing (with a delay of a few hundred milliseconds to avoid repeatedly triggering computations while the user is still typing).
+
+### reg-exp-mode-change
+
+- **Type**: `boolean`
+- **Trigger**: Fired when the toggles the regular expression mode.
 
 ## Default shortcuts
 
