@@ -1,3 +1,11 @@
+# [9.0.0-alpha.36](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.35...v9.0.0-alpha.36) (2023-11-02)
+
+
+### Features
+
+* **kcodeblock:** add filter and regexp mode props and events ([#1807](https://github.com/Kong/kongponents/issues/1807)) ([8f10a06](https://github.com/Kong/kongponents/commit/8f10a064c50ec1decd957e25aa69a4c34de337a1))
+* **kcodeblock:** assign Enter to jump to next match action ([#1808](https://github.com/Kong/kongponents/issues/1808)) ([494708a](https://github.com/Kong/kongponents/commit/494708a03f499c6cdc852baa5061c27789fe2e55))
+
 # [9.0.0-alpha.35](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.34...v9.0.0-alpha.35) (2023-11-01)
 
 
