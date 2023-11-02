@@ -1,8 +1,8 @@
 <template>
   <div class="k-copy">
     <span
-      v-if="badge"
-      class="copy-badge-text"
+      v-if="badge && badgeLabel"
+      class="copy-badge-label"
     >
       {{ badgeLabel }}
     </span>
@@ -187,14 +187,13 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
   align-items: center;
   display: flex;
 
-  &-badge-text {
+  &-badge-label {
     margin-right: var(--kui-space-40, $kui-space-40);
   }
 
   .copy-element {
     align-items: center;
     display: inline-flex;
-    margin: var(--kui-space-0, $kui-space-0) var(--kui-space-30, $kui-space-30);
     overflow: hidden;
     padding: var(--kui-space-10, $kui-space-10) var(--kui-space-40, $kui-space-40);
     text-overflow: ellipsis;
@@ -244,7 +243,7 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
     display: flex;
   }
 
-  .copy-badge-text {
+  .copy-badge-label {
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     margin-right: var(--kui-space-20, $kui-space-20);
