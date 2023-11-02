@@ -43,6 +43,7 @@ export default defineConfig({
             { text: 'Checkbox', link: '/components/checkbox' },
             { text: 'Code Block', link: '/components/codeblock' },
             { text: 'Collapse', link: '/components/collapse' },
+            { text: 'Copy', link: '/components/copy' },
             { text: 'DateTime Picker', link: '/components/datetime-picker' },
             { text: 'Dropdown', link: '/components/dropdown' },
             { text: 'Empty State', link: '/components/empty-state' },
