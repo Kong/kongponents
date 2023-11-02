@@ -33,7 +33,7 @@ describe('KCopy', () => {
     })
 
     cy.get(container).should('be.visible')
-    cy.get(container).find('.copy-badge-text').should('contain.text', badge)
+    cy.get(container).find('.copy-badge-label').should('contain.text', badge)
   })
 
   it('renders with `truncated` set to false', () => {
