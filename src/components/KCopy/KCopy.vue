@@ -22,9 +22,7 @@
         placement="bottomStart"
         position-fixed
       >
-        <span>
-          {{ textFormat }}
-        </span>
+        {{ textFormat }}
       </KTooltip>
 
       <KTooltip
@@ -123,7 +121,7 @@ const props = defineProps({
     */
   successTooltip: {
     type: String,
-    default: 'Copied',
+    default: 'Copied!',
   },
   /**
     * Number of characters to truncate at
@@ -171,6 +169,7 @@ const textFormat = computed(() => {
   } else if (props.format === 'deleted') {
     return `*${props.text.substring(0, 5)}`
   }
+  // This regex will only remove the quotes if they are the first and last characters of the string (truncateLimitText)
   return (props.truncate && props.truncationLimit && truncateLimitText.value) ? truncateLimitText.value.replace(/^"(.*)"$/, '$1') : props.text
 })
 

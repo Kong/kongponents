@@ -87,7 +87,7 @@ Number of characters to truncate at. Defaults to `8`.
 ### copyTooltip
 
 Tooltip text displayed on hover copy button. 
-If the `badgeText` prop has a value, then the copy tooltip text is `Copy {badgeText}`; otherwise, `Copy`.
+If the `badgeText` prop has a value, then the copy tooltip text is `Copy {badgeText}` and the trailing colon from label if one exists will be stripped; otherwise the copy tooltip text is `Copy`.
 
 <KCopy
   :text="text"
@@ -133,11 +133,19 @@ An indicator of whether the copyable text has `JetBrains Mono` font or not. Defa
 
 Determines the display format of the copyable text. The component can take the following `format` values:
 
-- `default`: displays regular uuid
+- `default`: displays regular copyable text
 - `hidden`: displays just a copy button without text
 - `redacted`: displays `*****`
-- `deleted`: displays `*<first-5-chars-of-uuid>`
+- `deleted`: displays `*<first-5-chars-of-copyable-text>`
 
+#### default
+<KCopy :text="text" />
+
+```html
+<KCopy :text="text" />
+```
+
+#### hidden
 <KCopy
   format="hidden"
   :text="text"
@@ -150,6 +158,7 @@ Determines the display format of the copyable text. The component can take the f
 />
 ```
 
+#### redacted
 <KCopy
   format="redacted"
   :text="text"
@@ -162,6 +171,7 @@ Determines the display format of the copyable text. The component can take the f
 />
 ```
 
+#### deleted
 <KCopy
   format="deleted"
   :text="text"
