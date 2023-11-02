@@ -245,9 +245,9 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
   }
 
   .copy-badge-text {
-    color: $kui-color-text-neutral;
-    font-size: $kui-font-size-20;
-    margin-right: $kui-space-20;
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    margin-right: var(--kui-space-20, $kui-space-20);
   }
 }
 </style>
