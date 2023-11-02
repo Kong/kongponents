@@ -1,3 +1,10 @@
+# [9.0.0-alpha.40](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.39...v9.0.0-alpha.40) (2023-11-02)
+
+
+### Bug Fixes
+
+* **kselect:** button appearance spacing ([#1814](https://github.com/Kong/kongponents/issues/1814)) ([2847ce9](https://github.com/Kong/kongponents/commit/2847ce9394b095ad72713b2eb018218f57f81a4c))
+
 # [9.0.0-alpha.39](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.38...v9.0.0-alpha.39) (2023-11-02)
 
 
