@@ -73,9 +73,11 @@
             {{ emptyStateMessage }}
           </template>
 
-          <template #cta>
+          <template
+            v-if="emptyStateActionMessage"
+            #cta
+          >
             <KButton
-              v-if="emptyStateActionMessage"
               :appearance="searchInput ? 'tertiary' : 'primary'"
               :data-testid="getTestIdString(emptyStateActionMessage)"
               :icon="emptyStateActionButtonIcon"
