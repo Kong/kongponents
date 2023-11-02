@@ -38,7 +38,7 @@ defineProps({
 <style lang="scss" scoped>
 .k-step-state-icon {
   .k-step-icon-primary {
-    fill: var(--kui-color-text-decorative, $kui-color-text-decorative);
+    fill: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
   }
 
   .k-step-icon-secondary {

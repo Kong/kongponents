@@ -18,7 +18,7 @@
             <KIcon
               v-if="item.icon"
               :class="['k-breadcrumb-icon', { 'has-no-text': !item.text }]"
-              :color="`var(--kui-color-text-decorative, ${KUI_COLOR_TEXT_DECORATIVE})`"
+              :color="`var(--kui-color-text-decorative-aqua, ${KUI_COLOR_TEXT_DECORATIVE_AQUA})`"
               hide-title
               :icon="item.icon"
               :size="KUI_ICON_SIZE_30"
@@ -53,7 +53,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import type { BreadcrumbItem } from '@/types'
-import { KUI_COLOR_TEXT_DECORATIVE, KUI_ICON_SIZE_30, KUI_COLOR_TEXT_NEUTRAL_WEAK } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_DECORATIVE_AQUA, KUI_ICON_SIZE_30, KUI_COLOR_TEXT_NEUTRAL_WEAK } from '@kong/design-tokens'
 import KIcon from '@/components/KIcon/KIcon.vue'
 
 defineProps({
@@ -137,7 +137,7 @@ export default {
     .k-breadcrumb-divider,
     .k-breadcrumb-icon {
       align-self: center;
-      color: var(--kui-color-text-decorative, $kui-color-text-decorative);
+      color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
       display: inline-flex;
       line-height: 1;
     }
