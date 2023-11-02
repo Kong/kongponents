@@ -1,3 +1,10 @@
+# [9.0.0-alpha.38](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.37...v9.0.0-alpha.38) (2023-11-02)
+
+
+### Bug Fixes
+
+* **kbadge:** minor fix ([#1813](https://github.com/Kong/kongponents/issues/1813)) ([b726c2f](https://github.com/Kong/kongponents/commit/b726c2f56bf9b18bd10f3c03dbc92527e0fdc1b7))
+
 # [9.0.0-alpha.37](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.36...v9.0.0-alpha.37) (2023-11-02)
 
 
