@@ -498,6 +498,8 @@ const keyMap: Record<string, CommandKeywords> = {
   'alt+r': 'toggleRegExpMode',
   f3: 'jumpToNextMatch',
   'shift+f3': 'jumpToPreviousMatch',
+  enter: 'jumpToNextMatch',
+  'shift+enter': 'jumpToPreviousMatch',
 }
 
 /**
