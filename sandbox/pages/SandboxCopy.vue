@@ -9,7 +9,7 @@
       title="Props"
     />
     <SandboxSectionComponent
-      title="appearance"
+      title="format"
     >
       <template #description>
         KCopy component takes 1 of 4 format:
