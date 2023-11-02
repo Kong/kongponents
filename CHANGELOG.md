@@ -1,3 +1,10 @@
+# [9.0.0-alpha.37](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.36...v9.0.0-alpha.37) (2023-11-02)
+
+
+### Bug Fixes
+
+* **ktable:** hide empty state cta if no text ([#1812](https://github.com/Kong/kongponents/issues/1812)) ([d5a2f66](https://github.com/Kong/kongponents/commit/d5a2f666e4a00922372d18c9e453c810551cbb87))
+
 # [9.0.0-alpha.36](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.35...v9.0.0-alpha.36) (2023-11-02)
 
 
