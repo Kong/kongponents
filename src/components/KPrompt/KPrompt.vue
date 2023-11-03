@@ -296,6 +296,7 @@ onBeforeUnmount(() => {
             max-height: v-bind('$props.maxHeight');
             overflow-x: hidden;
             overflow-y: auto;
+            padding: 4px; // temporary fix for KInput focus ring
             padding-bottom: var(--kui-space-60, $kui-space-60);
             text-align: start;
             white-space: normal; // in case inside KTable
