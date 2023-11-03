@@ -58,37 +58,37 @@ import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 const props = defineProps({
   /**
-    * Text displayed before the copyable text when
-    * `badge` is true
-    */
+   * Text displayed before the copyable text when
+   * `badge` is true
+   */
   badgeLabel: {
     type: String,
     default: '',
   },
   /**
-    * The copyable text
-    */
+   * The copyable text
+   */
   text: {
     type: String,
     required: true,
   },
   /**
-    * Tooltip text displayed on hover over the `text`
-    */
+   * Tooltip text displayed on hover over the `text`
+   */
   textTooltip: {
     type: String,
     default: '',
   },
   /**
-    * Tooltip text displayed on hover over copy button
-    */
+   * Tooltip text displayed on hover over copy button
+   */
   copyTooltip: {
     type: String,
     default: '',
   },
   /**
-    * Formatting for copyable text (default, hidden, redacted, deleted)
-    */
+   * Formatting for copyable text (default, hidden, redacted, deleted)
+   */
   format: {
     type: String as PropType<'default' | 'hidden' | 'redacted' | 'deleted'>,
     required: false,
@@ -96,36 +96,36 @@ const props = defineProps({
     validator: (val: string) => ['default', 'hidden', 'redacted', 'deleted'].includes(val),
   },
   /**
-    * Whether or not to display as a badge
-    */
+   * Whether or not to display as a badge
+   */
   badge: {
     type: Boolean,
     default: false,
   },
   /**
-    * False if `badge` is true
-    */
+   * False if `badge` is true
+   */
   monospace: {
     type: Boolean,
     default: true,
   },
   /**
-    * Whether or not the text should be truncated
-    */
+   * Whether or not the text should be truncated
+   */
   truncate: {
     type: Boolean,
     default: false,
   },
   /**
-    * Tooltip text displayed on successful copy
-    */
+   * Tooltip text displayed on successful copy
+   */
   successTooltip: {
     type: String,
     default: 'Copied!',
   },
   /**
-    * Number of characters to truncate at
-    */
+   * Number of characters to truncate at
+   */
   truncationLimit: {
     type: Number,
     default: 8,
