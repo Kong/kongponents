@@ -139,11 +139,14 @@ const strippedAttrs = computed((): typeof attrs => {
   return modifiedAttrs
 })
 
+// do not change this value, it's used in tests
+const dropdownItemTriggerClass = 'dropdown-item-trigger'
+
 const availableComponents = computed((): DropdownItemRenderedRecord => ({
   link: {
     tag: 'a',
     attrs: {
-      class: 'dropdown-item-trigger',
+      class: dropdownItemTriggerClass,
       href: to.value as string,
       // only add disabled attribute if props.disabled returns truthy value, otherwise it will be added as disabled="false" which will be treaded as disabled
       ...(!!props.disabled && { disabled: true, tabindex: -1 }),
@@ -154,7 +157,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     tag: 'router-link',
     onClick: handleClick,
     attrs: {
-      class: 'dropdown-item-trigger',
+      class: dropdownItemTriggerClass,
       to: to.value,
       // only add disabled attribute if props.disabled returns truthy value, otherwise it will be added as disabled="false" which will be treaded as disabled
       ...(!!props.disabled && { disabled: true, tabindex: -1 }),
@@ -165,7 +168,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     tag: 'button',
     onClick: handleClick,
     attrs: {
-      class: 'dropdown-item-trigger',
+      class: dropdownItemTriggerClass,
       disabled: props.disabled,
       ...strippedAttrs.value,
     },
@@ -173,7 +176,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
   div: {
     tag: 'div',
     attrs: {
-      class: 'dropdown-item-trigger',
+      class: dropdownItemTriggerClass,
       ...strippedAttrs.value,
     },
   },

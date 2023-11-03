@@ -252,5 +252,7 @@ describe('KDropdownItem', () => {
 
     cy.getTestId('dropdown-item').should('be.visible').should('have.class', 'disabled')
     cy.get('router-link[data-testid="dropdown-item-trigger"]').should('have.attr', 'disabled')
+    // ensure disabled class doesn't leak to trigger element
+    cy.getTestId('dropdown-item-trigger').should('have.attr', 'class', 'dropdown-item-trigger')
   })
 })
