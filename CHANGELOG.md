@@ -1,3 +1,10 @@
+# [9.0.0-alpha.41](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.40...v9.0.0-alpha.41) (2023-11-03)
+
+
+### Bug Fixes
+
+* **kprompt:** body spacing fix ([#1817](https://github.com/Kong/kongponents/issues/1817)) ([d4e5ad0](https://github.com/Kong/kongponents/commit/d4e5ad0ad80589769a5562745b6d29566195a1f8))
+
 # [9.0.0-alpha.40](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.39...v9.0.0-alpha.40) (2023-11-02)
 
 
