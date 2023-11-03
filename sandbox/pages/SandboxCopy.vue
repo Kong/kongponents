@@ -29,20 +29,75 @@
         </ul>
       </template>
       <div class="horizontal-spacing">
+        <ul>
+          <li>
+            <KCopy
+              :text="text"
+            />
+          </li>
+          <li>
+            <KCopy
+              format="hidden"
+              :text="text"
+            />
+          </li>
+          <li>
+            <KCopy
+              format="redacted"
+              :text="text"
+            />
+          </li>
+          <li>
+            <KCopy
+              format="deleted"
+              :text="text"
+            />
+          </li>
+        </ul>
+      </div>
+    </SandboxSectionComponent>
+
+    <SandboxSectionComponent
+      title="badge"
+    >
+      <template #description>
+        Whether or not to display as a badge. Defaults to false.
+      </template>
+      <div class="horizontal-spacing">
         <KCopy
+          badge
+          :text="text"
+          truncate
+        />
+      </div>
+    </SandboxSectionComponent>
+
+    <SandboxSectionComponent
+      title="badgeLabel"
+    >
+      <template #description>
+        Text displayed before the copyable text when badge is true.
+      </template>
+      <div class="horizontal-spacing">
+        <KCopy
+          badge
+          badge-label="Id"
           :text="text"
         />
+      </div>
+    </SandboxSectionComponent>
+
+    <SandboxSectionComponent
+      title="truncationLimit"
+    >
+      <template #description>
+        Number of characters to truncate at. Defaults to 8.
+      </template>
+      <div class="horizontal-spacing">
         <KCopy
-          format="hidden"
           :text="text"
-        />
-        <KCopy
-          format="hidden"
-          :text="text"
-        />
-        <KCopy
-          format="redacted"
-          :text="text"
+          truncate
+          :truncation-limit="15"
         />
       </div>
     </SandboxSectionComponent>
