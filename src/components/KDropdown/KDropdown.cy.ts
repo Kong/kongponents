@@ -216,6 +216,7 @@ describe('KDropdownItem', () => {
 
   it('correctly binds attributes to wrapper and trigger elements', () => {
     const testIdAttr = 'dropdown-item-test'
+    const boundClass = 'some-random-class'
 
     mount(KDropdownItem, {
       props: {
@@ -227,11 +228,31 @@ describe('KDropdownItem', () => {
       attrs: {
         target: '_blank',
         'data-testid': testIdAttr,
+        class: boundClass,
       },
     })
 
     cy.getTestId('dropdown-item').should('not.exist')
     cy.getTestId(testIdAttr).should('be.visible')
     cy.getTestId(testIdAttr).find('[data-testid="dropdown-item-trigger"]').should('have.attr', 'target', '_blank')
+    // making sure classes don't leak to trigger element
+    cy.getTestId('dropdown-item-trigger').not(`.${boundClass}`).should('have.length', 1)
+  })
+
+  it('correctly handles disabled state', () => {
+    mount(KDropdownItem, {
+      props: {
+        item: {
+          label: 'You are here',
+          to: { path: '/' },
+        },
+        disabled: true,
+      },
+    })
+
+    cy.getTestId('dropdown-item').should('be.visible').should('have.class', 'disabled')
+    cy.get('router-link[data-testid="dropdown-item-trigger"]').should('have.attr', 'disabled')
+    // ensure disabled class doesn't leak to trigger element
+    cy.getTestId('dropdown-item-trigger').should('have.attr', 'class', 'dropdown-item-trigger')
   })
 })
