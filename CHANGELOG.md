@@ -1,3 +1,10 @@
+# [9.0.0-alpha.42](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.41...v9.0.0-alpha.42) (2023-11-03)
+
+
+### Bug Fixes
+
+* **kdropdownitem:** remove disabled class ([#1818](https://github.com/Kong/kongponents/issues/1818)) ([44d5e2e](https://github.com/Kong/kongponents/commit/44d5e2e5e6a837ba77a2004b750ac026e8cbddf5))
+
 # [9.0.0-alpha.41](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.40...v9.0.0-alpha.41) (2023-11-03)
 
 
