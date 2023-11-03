@@ -44,10 +44,10 @@ Use the `labelAttributes` prop to configure the **KLabel's** [props](/components
 
 Enable this prop to overlay the label on the input element's border. Defaults to `false`. Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the input element.
 
-<KTextArea label="Name" placeholder="I'm labelled!" :overlay-label="true" />
+<KTextArea label="Name" placeholder="I'm labelled!" />
 
 ```html
-<KTextArea label="Name" placeholder="I'm labelled!" :overlay-label="true" />
+<KTextArea label="Name" placeholder="I'm labelled!" />
 ```
 
 ### cols
@@ -129,11 +129,11 @@ Text passed in for the `label` will automatically strip any trailing `*` when us
 :::
 
 <KTextArea label="Name" required />
-<KTextArea label="Name" overlay-label required />
+<KTextArea label="Name" required />
 
 ```html
 <KTextArea label="Name" required />
-<KTextArea label="Name" overlay-label required />
+<KTextArea label="Name" required />
 ```
 
 ### v-model

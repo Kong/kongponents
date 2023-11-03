@@ -609,12 +609,12 @@ Text passed in for the `label` will automatically strip any trailing `*` when us
 <ClientOnly>
   <KSelect label="Name" required :items="deepClone(defaultItems)" />
   <br>
-  <KSelect label="Name" required overlay-label :items="deepClone(defaultItems)" />
+  <KSelect label="Name" required :items="deepClone(defaultItems)" />
 </ClientOnly>
 
 ```html
 <KSelect label="Name" required :items="items" />
-<KSelect label="Name" required overlay-label :items="items" />
+<KSelect label="Name" required :items="items" />
 ```
 
 ## Slots
