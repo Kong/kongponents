@@ -65,3 +65,4 @@ const text = '123-asd-zxcv-678-fghj'
     gap: $kui-space-50;
   }
 }
+</style>
