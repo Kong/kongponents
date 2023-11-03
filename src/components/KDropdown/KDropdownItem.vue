@@ -143,7 +143,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
   link: {
     tag: 'a',
     attrs: {
-      class: `dropdown-item-trigger ${props.disabled ? 'disabled' : ''} ${attrs.class || ''}`,
+      class: 'dropdown-item-trigger',
       href: to.value as string,
       // only add disabled attribute if props.disabled returns truthy value, otherwise it will be added as disabled="false" which will be treaded as disabled
       ...(!!props.disabled && { disabled: true, tabindex: -1 }),
@@ -154,7 +154,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     tag: 'router-link',
     onClick: handleClick,
     attrs: {
-      class: `dropdown-item-trigger ${props.disabled ? 'disabled' : ''} ${attrs.class || ''}`,
+      class: 'dropdown-item-trigger',
       to: to.value,
       // only add disabled attribute if props.disabled returns truthy value, otherwise it will be added as disabled="false" which will be treaded as disabled
       ...(!!props.disabled && { disabled: true, tabindex: -1 }),
@@ -165,7 +165,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     tag: 'button',
     onClick: handleClick,
     attrs: {
-      class: `dropdown-item-trigger ${props.disabled ? 'disabled' : ''} ${attrs.class || ''}`,
+      class: 'dropdown-item-trigger',
       disabled: props.disabled,
       ...strippedAttrs.value,
     },
@@ -209,12 +209,12 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     .dropdown-item-trigger {
       color: var(--kui-color-text-danger, $kui-color-text-danger);
 
-      &:hover:not(:disabled):not(.disabled):not(:focus):not(:active) {
+      &:hover:not(:disabled):not(:focus):not(:active) {
         background-color: var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest);
         color: var(--kui-color-text-danger, $kui-color-text-danger);
       }
 
-      &:focus:not(:disabled):not(.disabled), &:active:not(:disabled):not(.disabled) {
+      &:focus:not(:disabled), &:active:not(:disabled) {
         background-color: var(--kui-color-background-danger-weaker, $kui-color-background-danger-weaker);
         color: var(--kui-color-text-danger, $kui-color-text-danger);
       }
@@ -251,15 +251,15 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
       z-index: 1; // need this to prevent box shadow being cut off by the next/previous sibling
     }
 
-    &:hover:not(:disabled):not(.disabled):not(:focus):not(:active) {
+    &:hover:not(:disabled):not(:focus):not(:active) {
       background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
     }
 
-    &:focus:not(:disabled):not(.disabled), &:active:not(:disabled):not(.disabled) {
+    &:focus:not(:disabled), &:active:not(:disabled) {
       background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
     }
 
-    &:disabled, &[disabled], &.disabled {
+    &:disabled, &[disabled] {
       color: var(--kui-color-text-disabled, $kui-color-text-disabled);
       cursor: not-allowed;
     }
