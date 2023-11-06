@@ -96,6 +96,7 @@ const type = computed((): DropdownItemType => {
     // checking attrs since we deleted click from listeners
     return 'button'
   }
+
   return 'default'
 })
 
@@ -146,10 +147,9 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
   link: {
     tag: 'a',
     attrs: {
-      class: dropdownItemTriggerClass,
+      // add disabled class instead of disabled attribute because disabled is not a valid attribute for links
+      class: `${dropdownItemTriggerClass} ${props.disabled ? 'disabled' : ''}`,
       href: to.value as string,
-      // only add disabled attribute if props.disabled returns truthy value, otherwise it will be added as disabled="false" which will be treaded as disabled
-      ...(!!props.disabled && { disabled: true, tabindex: -1 }),
       ...strippedAttrs.value,
     },
   },
@@ -157,10 +157,9 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     tag: 'router-link',
     onClick: handleClick,
     attrs: {
-      class: dropdownItemTriggerClass,
+      // add disabled class instead of disabled attribute because disabled is not a valid attribute for links
+      class: `${dropdownItemTriggerClass} ${props.disabled ? 'disabled' : ''}`,
       to: to.value,
-      // only add disabled attribute if props.disabled returns truthy value, otherwise it will be added as disabled="false" which will be treaded as disabled
-      ...(!!props.disabled && { disabled: true, tabindex: -1 }),
       ...strippedAttrs.value,
     },
   },
@@ -168,6 +167,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     tag: 'button',
     onClick: handleClick,
     attrs: {
+      // don't add disabled class because we want the disabled attribute on the button
       class: dropdownItemTriggerClass,
       disabled: props.disabled,
       ...strippedAttrs.value,
@@ -212,12 +212,12 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     .dropdown-item-trigger {
       color: var(--kui-color-text-danger, $kui-color-text-danger);
 
-      &:hover:not(:disabled):not(:focus):not(:active) {
+      &:hover:not(:disabled):not(.disabled):not(:focus):not(:active) {
         background-color: var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest);
         color: var(--kui-color-text-danger, $kui-color-text-danger);
       }
 
-      &:focus:not(:disabled), &:active:not(:disabled) {
+      &:focus:not(:disabled):not(.disabled), &:active:not(:disabled):not(.disabled) {
         background-color: var(--kui-color-background-danger-weaker, $kui-color-background-danger-weaker);
         color: var(--kui-color-text-danger, $kui-color-text-danger);
       }
@@ -254,21 +254,21 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
       z-index: 1; // need this to prevent box shadow being cut off by the next/previous sibling
     }
 
-    &:hover:not(:disabled):not(:focus):not(:active) {
+    &:hover:not(:disabled):not(.disabled):not(:focus):not(:active) {
       background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
     }
 
-    &:focus:not(:disabled), &:active:not(:disabled) {
+    &:focus:not(:disabled):not(.disabled), &:active:not(:disabled):not(.disabled) {
       background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
     }
 
-    &:disabled, &[disabled] {
+    &:disabled, &[disabled], &.disabled {
       color: var(--kui-color-text-disabled, $kui-color-text-disabled);
       cursor: not-allowed;
     }
 
     // remove pointer events from only <a>
-    &[disabled]:not(:disabled) {
+    &.disabled {
       pointer-events: none;
     }
 
