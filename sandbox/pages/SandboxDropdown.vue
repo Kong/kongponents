@@ -1,355 +1,358 @@
 <template>
-  <div class="kdropdown-sandbox">
-    <SandboxTitleComponent
-      title="KDropdown"
-    >
-      <template #description>
-        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=466%3A9443&mode=dev">
-          Figma
-        </KExternalLink>
-      </template>
-    </SandboxTitleComponent>
+  <SandboxLayout
+    :links="inject('app-links', [])"
+    title="KDropdown"
+  >
+    <div class="kdropdown-sandbox">
+      <!-- Figma -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Figma"
+      />
+      <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=466%3A9443&mode=dev">
+        Figma
+      </KExternalLink>
 
-    <!-- Props -->
-    <SandboxTitleComponent
-      is-subtitle
-      title="Props"
-    />
-    <SandboxSectionComponent
-      title="triggerText (replacement for deprecated `label` prop)"
-    >
-      <KDropdown
-        :items="[
-          { label: 'Home', to: { name: 'home' } },
-          { label: 'KAlert', to: { name: 'alert' } },
-          { label: 'Stay', to: { name: 'dropdown' } }
-        ]"
-        trigger-text="Documentation"
+      <!-- Props -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Props"
       />
-    </SandboxSectionComponent>
-    <SandboxSectionComponent
-      title="selectionMenu (replacement for `appearance` prop)"
-    >
-      <KDropdown
-        :items="selectionMenuItems"
-        selection-menu
-        trigger-text="Selection menu"
-        @change="handleSelectionMenuUpdate"
-      />
-    </SandboxSectionComponent>
-    <SandboxSectionComponent
-      title="appearance (replacement for `buttonAppearance` prop)"
-    >
-      <div class="horizontal-spacing">
-        <KDropdown
-          appearance="primary"
-          :items="[
-            { label: 'Home', to: { name: 'home' } },
-            { label: 'KAlert', to: { name: 'alert' } },
-            { label: 'Stay', to: { name: 'dropdown' } }
-          ]"
-          trigger-text="Primary"
-        />
-        <KDropdown
-          appearance="secondary"
-          :items="[
-            { label: 'Home', to: { name: 'home' } },
-            { label: 'KAlert', to: { name: 'alert' } },
-            { label: 'Stay', to: { name: 'dropdown' } }
-          ]"
-          trigger-text="Secondary"
-        />
-        <KDropdown
-          appearance="tertiary"
-          :items="[
-            { label: 'Home', to: { name: 'home' } },
-            { label: 'KAlert', to: { name: 'alert' } },
-            { label: 'Stay', to: { name: 'dropdown' } }
-          ]"
-          trigger-text="Tertiary"
-        />
-        <KDropdown
-          appearance="danger"
-          :items="[
-            { label: 'Home', to: { name: 'home' } },
-            { label: 'KAlert', to: { name: 'alert' } },
-            { label: 'Stay', to: { name: 'dropdown' } }
-          ]"
-          trigger-text="Danger"
-        />
-      </div>
-    </SandboxSectionComponent>
-    <SandboxSectionComponent
-      title="showCaret"
-    >
-      <div class="horizontal-spacing">
+      <SandboxSectionComponent
+        title="triggerText (replacement for deprecated `label` prop)"
+      >
         <KDropdown
           :items="[
             { label: 'Home', to: { name: 'home' } },
             { label: 'KAlert', to: { name: 'alert' } },
             { label: 'Stay', to: { name: 'dropdown' } }
           ]"
-          show-caret
-          trigger-text="Show caret"
+          trigger-text="Documentation"
         />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        title="selectionMenu (replacement for `appearance` prop)"
+      >
         <KDropdown
+          :items="selectionMenuItems"
           selection-menu
-          show-caret
-          trigger-text="Selection menu with caret"
+          trigger-text="Selection menu"
           @change="handleSelectionMenuUpdate"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        title="appearance (replacement for `buttonAppearance` prop)"
+      >
+        <div class="horizontal-spacing">
+          <KDropdown
+            appearance="primary"
+            :items="[
+              { label: 'Home', to: { name: 'home' } },
+              { label: 'KAlert', to: { name: 'alert' } },
+              { label: 'Stay', to: { name: 'dropdown' } }
+            ]"
+            trigger-text="Primary"
+          />
+          <KDropdown
+            appearance="secondary"
+            :items="[
+              { label: 'Home', to: { name: 'home' } },
+              { label: 'KAlert', to: { name: 'alert' } },
+              { label: 'Stay', to: { name: 'dropdown' } }
+            ]"
+            trigger-text="Secondary"
+          />
+          <KDropdown
+            appearance="tertiary"
+            :items="[
+              { label: 'Home', to: { name: 'home' } },
+              { label: 'KAlert', to: { name: 'alert' } },
+              { label: 'Stay', to: { name: 'dropdown' } }
+            ]"
+            trigger-text="Tertiary"
+          />
+          <KDropdown
+            appearance="danger"
+            :items="[
+              { label: 'Home', to: { name: 'home' } },
+              { label: 'KAlert', to: { name: 'alert' } },
+              { label: 'Stay', to: { name: 'dropdown' } }
+            ]"
+            trigger-text="Danger"
+          />
+        </div>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        title="showCaret"
+      >
+        <div class="horizontal-spacing">
+          <KDropdown
+            :items="[
+              { label: 'Home', to: { name: 'home' } },
+              { label: 'KAlert', to: { name: 'alert' } },
+              { label: 'Stay', to: { name: 'dropdown' } }
+            ]"
+            show-caret
+            trigger-text="Show caret"
+          />
+          <KDropdown
+            selection-menu
+            show-caret
+            trigger-text="Selection menu with caret"
+            @change="handleSelectionMenuUpdate"
+          >
+            <template #items="{ handleSelection }">
+              <KDropdownItem
+                v-for="item in selectionMenuItems"
+                :key="item.value"
+                :item="item"
+                :selected="item.value === selectionMenuSelectedItem?.value"
+                @click="handleSelection(item)"
+              />
+            </template>
+          </KDropdown>
+        </div>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        title="disabled"
+      >
+        <KDropdown
+          disabled
+          :items="[
+            { label: 'Home', to: { name: 'home' } },
+            { label: 'KAlert', to: { name: 'alert' } },
+            { label: 'Stay', to: { name: 'dropdown' } }
+          ]"
+          trigger-text="Disabled"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        title="disabledTooltip"
+      >
+        <KDropdown
+          disabled
+          disabled-tooltip="Tooltip I am"
+          :items="[
+            { label: 'Home', to: { name: 'home' } },
+            { label: 'KAlert', to: { name: 'alert' } },
+            { label: 'Stay', to: { name: 'dropdown' } }
+          ]"
+          trigger-text="Disabled with a tooltip"
+        />
+      </SandboxSectionComponent>
+
+      <!-- Slots -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Slots"
+      />
+      <SandboxSectionComponent
+        title="default"
+      >
+        <KDropdown
+          :items="[
+            { label: 'Home', to: { name: 'home' } },
+            { label: 'KAlert', to: { name: 'alert' } },
+            { label: 'Stay', to: { name: 'dropdown' } }
+          ]"
         >
-          <template #items="{ handleSelection }">
+          <KButton>
+            Default slot
+          </KButton>
+        </KDropdown>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        title="items"
+      >
+        <KDropdown width="220">
+          <KButton
+            appearance="secondary"
+            class="icon-button"
+          >
+            <CogIcon />
+          </KButton>
+          <template #items>
             <KDropdownItem
-              v-for="item in selectionMenuItems"
-              :key="item.value"
-              :item="item"
-              :selected="item.value === selectionMenuSelectedItem?.value"
-              @click="handleSelection(item)"
-            />
+              :item="{ label: 'Home', to: { name: 'home' } }"
+              target="_blank"
+            >
+              <KongIcon />
+              Router link
+            </KDropdownItem>
+            <KDropdownItem
+              :item="{ label: 'External link', to: 'https://kongponents.konghq.com/' }"
+              target="_blank"
+            >
+              <ExternalLinkIcon />
+              External link
+            </KDropdownItem>
+            <KDropdownItem
+              disabled
+              has-divider
+              @click="handleItemClick"
+            >
+              <DisabledIcon />
+              Disabled button
+            </KDropdownItem>
+            <KDropdownItem
+              disabled
+              :item="{ label: 'Home', to: { name: 'home' } }"
+            >
+              <KongIcon />
+              Disabled router link
+            </KDropdownItem>
+            <KDropdownItem
+              disabled
+              :item="{ label: 'External link', to: 'https://kongponents.konghq.com/' }"
+            >
+              <ExternalLinkIcon />
+              Disabled external link
+            </KDropdownItem>
+            <KDropdownItem
+              danger
+              has-divider
+              @click="handleItemClick"
+            >
+              <TrashIcon />
+              Delete
+            </KDropdownItem>
           </template>
         </KDropdown>
-      </div>
-    </SandboxSectionComponent>
-    <SandboxSectionComponent
-      title="disabled"
-    >
-      <KDropdown
-        disabled
-        :items="[
-          { label: 'Home', to: { name: 'home' } },
-          { label: 'KAlert', to: { name: 'alert' } },
-          { label: 'Stay', to: { name: 'dropdown' } }
-        ]"
-        trigger-text="Disabled"
-      />
-    </SandboxSectionComponent>
-    <SandboxSectionComponent
-      title="disabledTooltip"
-    >
-      <KDropdown
-        disabled
-        disabled-tooltip="Tooltip I am"
-        :items="[
-          { label: 'Home', to: { name: 'home' } },
-          { label: 'KAlert', to: { name: 'alert' } },
-          { label: 'Stay', to: { name: 'dropdown' } }
-        ]"
-        trigger-text="Disabled with a tooltip"
-      />
-    </SandboxSectionComponent>
-
-    <!-- Slots -->
-    <SandboxTitleComponent
-      is-subtitle
-      title="Slots"
-    />
-    <SandboxSectionComponent
-      title="default"
-    >
-      <KDropdown
-        :items="[
-          { label: 'Home', to: { name: 'home' } },
-          { label: 'KAlert', to: { name: 'alert' } },
-          { label: 'Stay', to: { name: 'dropdown' } }
-        ]"
-      >
-        <KButton>
-          Default slot
-        </KButton>
-      </KDropdown>
-    </SandboxSectionComponent>
-    <SandboxSectionComponent
-      title="items"
-    >
-      <KDropdown width="220">
-        <KButton
-          appearance="secondary"
-          class="icon-button"
+        <p>KDropdownItem takes care of spacing between the elements. However, should you need to implement some custom layout, you can sprinkle a little CSS in there.</p>
+        <KDropdown
+          trigger-text="Slotted content positioning"
+          width="250"
         >
-          <CogIcon />
-        </KButton>
-        <template #items>
-          <KDropdownItem
-            :item="{ label: 'Home', to: { name: 'home' } }"
-            target="_blank"
-          >
-            <KongIcon />
-            Router link
-          </KDropdownItem>
-          <KDropdownItem
-            :item="{ label: 'External link', to: 'https://kongponents.konghq.com/' }"
-            target="_blank"
-          >
-            <ExternalLinkIcon />
-            External link
-          </KDropdownItem>
-          <KDropdownItem
-            disabled
-            has-divider
-            @click="handleItemClick"
-          >
-            <DisabledIcon />
-            Disabled button
-          </KDropdownItem>
-          <KDropdownItem
-            disabled
-            :item="{ label: 'Home', to: { name: 'home' } }"
-          >
-            <KongIcon />
-            Disabled router link
-          </KDropdownItem>
-          <KDropdownItem
-            disabled
-            :item="{ label: 'External link', to: 'https://kongponents.konghq.com/' }"
-          >
-            <ExternalLinkIcon />
-            Disabled external link
-          </KDropdownItem>
-          <KDropdownItem
-            danger
-            has-divider
-            @click="handleItemClick"
-          >
-            <TrashIcon />
-            Delete
-          </KDropdownItem>
-        </template>
-      </KDropdown>
-      <p>KDropdownItem takes care of spacing between the elements. However, should you need to implement some custom layout, you can sprinkle a little CSS in there.</p>
-      <KDropdown
-        trigger-text="Slotted content positioning"
-        width="250"
-      >
-        <template #items>
-          <KDropdownItem>
-            Updates
-            <KBadge
-              class="dropdown-item-content-end"
-              shape="rectangular"
-            >
-              14
-            </KBadge>
-          </KDropdownItem>
-          <KDropdownItem>
-            Support
-            <KBadge
-              appearance="success"
-              shape="rectangular"
-            >
-              Enterprise
-            </KBadge>
-            <ExternalLinkIcon class="dropdown-item-content-end" />
-          </KDropdownItem>
-          <KDropdownItem>
-            <BookIcon />
-            Docs
-            <KTooltip
-              class="dropdown-item-content-end"
-              label="This is a tooltip"
-            >
-              <InfoIcon />
-            </KTooltip>
-          </KDropdownItem>
-        </template>
-      </KDropdown>
-      <pre>
+          <template #items>
+            <KDropdownItem>
+              Updates
+              <KBadge
+                class="dropdown-item-content-end"
+                shape="rectangular"
+              >
+                14
+              </KBadge>
+            </KDropdownItem>
+            <KDropdownItem>
+              Support
+              <KBadge
+                appearance="success"
+                shape="rectangular"
+              >
+                Enterprise
+              </KBadge>
+              <ExternalLinkIcon class="dropdown-item-content-end" />
+            </KDropdownItem>
+            <KDropdownItem>
+              <BookIcon />
+              Docs
+              <KTooltip
+                class="dropdown-item-content-end"
+                label="This is a tooltip"
+              >
+                <InfoIcon />
+              </KTooltip>
+            </KDropdownItem>
+          </template>
+        </KDropdown>
+        <pre>
         {{ slottedContentPositioningSnippet }}
       </pre>
-    </SandboxSectionComponent>
+      </SandboxSectionComponent>
 
-    <!-- Legacy -->
-    <SandboxTitleComponent
-      is-subtitle
-      title="Legacy"
-    />
-    <SandboxSectionComponent
-      title="Prop: icon"
-    >
-      <KDropdown
-        icon="gear"
-        :items="[
-          { label: 'Home', to: { name: 'home' } },
-          { label: 'KAlert', to: { name: 'alert' } },
-          { label: 'Stay', to: { name: 'dropdown' } }
-        ]"
-        trigger-text="Icon prop"
+      <!-- Legacy -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Legacy"
       />
-    </SandboxSectionComponent>
-    <SandboxSectionComponent
-      title="Props: label & appearance"
-    >
-      <KDropdown
-        appearance="selectionMenu"
-        :items="[
-          { label: 'Home', to: { name: 'home' } },
-          { label: 'KAlert', to: { name: 'alert' } },
-          { label: 'Stay', to: { name: 'dropdown' } }
-        ]"
-        label="Deprecated props"
-      />
-    </SandboxSectionComponent>
-    <SandboxSectionComponent
-      description="The old KDropdownMenu component that utilizes the KDropdown under the hood still works as expected."
-      title="KDropdownMenu (deprecated)"
-    >
-      <KDropdownMenu
-        trigger-text="KDropdownMenu"
+      <SandboxSectionComponent
+        title="Prop: icon"
       >
-        <template #items>
-          <KDropdownItem>
-            Updates
-            <KBadge
-              class="dropdown-item-content-end"
-              shape="rectangular"
+        <KDropdown
+          icon="gear"
+          :items="[
+            { label: 'Home', to: { name: 'home' } },
+            { label: 'KAlert', to: { name: 'alert' } },
+            { label: 'Stay', to: { name: 'dropdown' } }
+          ]"
+          trigger-text="Icon prop"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        title="Props: label & appearance"
+      >
+        <KDropdown
+          appearance="selectionMenu"
+          :items="[
+            { label: 'Home', to: { name: 'home' } },
+            { label: 'KAlert', to: { name: 'alert' } },
+            { label: 'Stay', to: { name: 'dropdown' } }
+          ]"
+          label="Deprecated props"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        description="The old KDropdownMenu component that utilizes the KDropdown under the hood still works as expected."
+        title="KDropdownMenu (deprecated)"
+      >
+        <KDropdownMenu
+          trigger-text="KDropdownMenu"
+        >
+          <template #items>
+            <KDropdownItem>
+              Updates
+              <KBadge
+                class="dropdown-item-content-end"
+                shape="rectangular"
+              >
+                14
+              </KBadge>
+            </KDropdownItem>
+            <KDropdownItem>
+              Support
+              <KBadge
+                appearance="success"
+                shape="rectangular"
+              >
+                Enterprise
+              </KBadge>
+              <ExternalLinkIcon class="dropdown-item-content-end" />
+            </KDropdownItem>
+            <KDropdownItem>
+              <BookIcon />
+              Docs
+              <KTooltip
+                class="dropdown-item-content-end"
+                label="This is a tooltip"
+              >
+                <InfoIcon />
+              </KTooltip>
+            </KDropdownItem>
+          </template>
+        </KDropdownMenu>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        title="KDropdownItem isDangerous prop (deprecated)"
+      >
+        <KDropdown trigger-text="Deprecated KDropdownItem prop">
+          <template #items>
+            <KDropdownItem
+              is-dangerous
+              @click="handleItemClick"
             >
-              14
-            </KBadge>
-          </KDropdownItem>
-          <KDropdownItem>
-            Support
-            <KBadge
-              appearance="success"
-              shape="rectangular"
-            >
-              Enterprise
-            </KBadge>
-            <ExternalLinkIcon class="dropdown-item-content-end" />
-          </KDropdownItem>
-          <KDropdownItem>
-            <BookIcon />
-            Docs
-            <KTooltip
-              class="dropdown-item-content-end"
-              label="This is a tooltip"
-            >
-              <InfoIcon />
-            </KTooltip>
-          </KDropdownItem>
-        </template>
-      </KDropdownMenu>
-    </SandboxSectionComponent>
-    <SandboxSectionComponent
-      title="KDropdownItem isDangerous prop (deprecated)"
-    >
-      <KDropdown trigger-text="Deprecated KDropdownItem prop">
-        <template #items>
-          <KDropdownItem
-            is-dangerous
-            @click="handleItemClick"
-          >
-            I am dangerous
-          </KDropdownItem>
-        </template>
-      </KDropdown>
-    </SandboxSectionComponent>
-  </div>
+              I am dangerous
+            </KDropdownItem>
+          </template>
+        </KDropdown>
+      </SandboxSectionComponent>
+    </div>
+  </SandboxLayout>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { KDropdownMenu, KDropdownItem, KDropdown, KExternalLink, KButton, KBadge, KTooltip } from '@/components'
 import type { DropdownItem } from '@/types'
 import { CogIcon, KongIcon, ExternalLinkIcon, DisabledIcon, TrashIcon, BookIcon, InfoIcon } from '@kong/icons'
 

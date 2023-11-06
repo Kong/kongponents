@@ -56,6 +56,7 @@ const hasDescription = computed((): boolean => !!(props.description || slots.des
 
     &.subtitle {
       margin-left: $kui-space-50;
+      margin-top: $kui-space-50;
       position: relative;
 
       &::before {

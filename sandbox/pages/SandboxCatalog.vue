@@ -1,11 +1,16 @@
 <template>
-  <KCatalog
-    :fetcher="fetcher"
-  />
+  <SandboxLayout
+    :links="inject('app-links', [])"
+    title="KCatalog"
+  >
+    <KCatalog
+      :fetcher="fetcher"
+    />
+  </SandboxLayout>
 </template>
 
 <script setup lang="ts">
-import { KCatalog } from '@/components'
+import { inject } from 'vue'
 
 const fetcher = async (): Promise<any> => {
   // Fake delay

@@ -1,16 +1,15 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import componentRoutes from './sandbox-routes'
 
-export default createRouter({
+const router = createRouter({
   history: createWebHashHistory(),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      alias: '/:pathMatch(.*)*',
-      meta: { title: 'Kongponents Sandbox' },
-      component: () => import('../pages/HomePage.vue'),
-      children: componentRoutes,
-    },
-  ],
+  routes: componentRoutes,
 })
+
+router.beforeEach((to, from, next) => {
+  // @ts-ignore
+  document.title = to.meta.title
+  next()
+})
+
+export default router
