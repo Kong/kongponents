@@ -127,11 +127,12 @@ describe('KDropdown', () => {
     cy.get('.k-dropdown-popover').should('contain.html', itemSlotContent)
   })
 
-  it('correctly renders dividers on all item types', () => {
+  it('correctly renders all item types and dividers', () => {
     const itemSlotContent = `
     <KDropdownItem
       @click="() => {}"
       data-testid="button"
+      danger
     >
       A button
     </KDropdownItem>
@@ -199,15 +200,16 @@ describe('KDropdown', () => {
 
     cy.getTestId('dropdown-list').eq(0).find('.k-dropdown-item').should('have.length', 6)
     cy.getTestId('dropdown-list').eq(0).find('.has-divider').should('have.length', 2)
+    cy.getTestId('dropdown-list').eq(0).find('.danger').should('have.length', 1)
 
     cy.get('[data-testid="button"] button').should('be.visible')
-    cy.get('[data-testid="disabled-button"] button').should('be.visible').should('be.disabled')
+    cy.get('[data-testid="disabled-button"] button').should('be.visible')
 
     cy.get('[data-testid="router-link"] router-link').should('be.visible')
-    cy.get('[data-testid="disabled-router-link"] router-link').should('be.visible').should('have.attr', 'disabled')
+    cy.get('[data-testid="disabled-router-link"] router-link').should('be.visible')
 
     cy.get('[data-testid="external-link"] a').should('be.visible')
-    cy.get('[data-testid="disabled-external-link"] a').should('be.visible').should('have.attr', 'disabled')
+    cy.get('[data-testid="disabled-external-link"] a').should('be.visible')
   })
 })
 
@@ -239,7 +241,7 @@ describe('KDropdownItem', () => {
     cy.getTestId('dropdown-item-trigger').not(`.${boundClass}`).should('have.length', 1)
   })
 
-  it('correctly handles disabled state', () => {
+  it('correctly handles disabled state on links', () => {
     mount(KDropdownItem, {
       props: {
         item: {
@@ -251,7 +253,26 @@ describe('KDropdownItem', () => {
     })
 
     cy.getTestId('dropdown-item').should('be.visible').should('have.class', 'disabled')
-    cy.get('router-link[data-testid="dropdown-item-trigger"]').should('have.attr', 'disabled')
+    cy.get('router-link[data-testid="dropdown-item-trigger"]').should('not.have.attr', 'disabled')
+    // ensure trigger element has disabled class
+    cy.getTestId('dropdown-item-trigger').should('have.attr', 'class', 'dropdown-item-trigger disabled')
+  })
+
+  it('correctly handles disabled state on button', () => {
+    mount(KDropdownItem, {
+      props: {
+        item: {
+          label: 'You are here',
+        },
+        disabled: true,
+      },
+      attrs: {
+        onClick: () => {},
+      },
+    })
+
+    cy.getTestId('dropdown-item').should('be.visible').should('have.class', 'disabled')
+    cy.get('button[data-testid="dropdown-item-trigger"]').should('have.attr', 'disabled')
     // ensure disabled class doesn't leak to trigger element
     cy.getTestId('dropdown-item-trigger').should('have.attr', 'class', 'dropdown-item-trigger')
   })
