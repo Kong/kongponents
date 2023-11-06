@@ -26,7 +26,7 @@ describe('KLabel', () => {
       },
     })
 
-    cy.get('.k-label.is-required').should('exist')
+    cy.get('.k-label.required').should('exist')
   })
 
   it('renders a tooltip when `info` prop is provided', () => {
