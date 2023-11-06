@@ -59,7 +59,9 @@ export async function createComponentFiles(name: string): Promise<void> {
     if (stats.isFile()) {
       const newFilePath = `${kongponentSrcPath(componentName)}/${filename.replace(/Template/g, componentName)}`
       // Replace template strings
-      const fileContent = fs.readFileSync(originalFilePath, 'utf8').replace(/{%%KONGPONENT_NAME%%}/g, componentName)
+      const fileContent = fs.readFileSync(originalFilePath, 'utf8')
+        .replace(/{%%KONGPONENT_KEBAB_CASE_NAME%%}/g, name)
+        .replace(/{%%KONGPONENT_NAME%%}/g, componentName)
 
       fs.writeFileSync(newFilePath, fileContent, 'utf8')
     }
