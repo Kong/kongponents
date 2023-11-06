@@ -1,3 +1,10 @@
+# [9.0.0-alpha.44](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.43...v9.0.0-alpha.44) (2023-11-06)
+
+
+### Bug Fixes
+
+* **kdropdownitem:** add disabled class on links ([#1824](https://github.com/Kong/kongponents/issues/1824)) ([023be26](https://github.com/Kong/kongponents/commit/023be26bd2b0adfd4298a725aec6d50cda8b5978))
+
 # [9.0.0-alpha.43](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.42...v9.0.0-alpha.43) (2023-11-06)
 
 
