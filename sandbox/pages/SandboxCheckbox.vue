@@ -208,7 +208,6 @@
 import { computed, ref, watch, inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { KCheckbox, KExternalLink } from '@/components'
 
 const modelValue0 = ref<boolean>(false)
 const modelValue1 = ref<boolean>(true)
