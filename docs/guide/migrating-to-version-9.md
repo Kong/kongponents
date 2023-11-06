@@ -293,6 +293,17 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KTextarea
 
+#### Props
+
+* `testMode` prop is removed
+
+#### Structure
+
+* `k-input-wrapper` class has been changed to `k-textarea`
+* `has-error` class has been changed to `input-error`
+* `k-input` class has been changed to `input-textarea`
+* `form-control` class has been removed
+* `is-resizable` class has been changed to `resizable`
 
 ### KToaster
 

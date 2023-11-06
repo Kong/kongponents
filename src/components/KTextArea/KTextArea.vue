@@ -1,95 +1,50 @@
 <template>
   <div
-    class="k-input-wrapper"
-    :class="[$attrs.class, {'input-error' : hasError || charLimitExceeded}]"
+    class="k-textarea"
+    :class="[$attrs.class, { 'input-error' : error || hasError || charLimitExceeded}]"
   >
+    <KLabel
+      v-if="label"
+      :for="textAreaId"
+      v-bind="labelAttributes"
+      :required="isRequired"
+    >
+      {{ strippedLabel }}
+
+      <template
+        v-if="hasLabelTooltip"
+        #tooltip
+      >
+        <slot name="label-tooltip" />
+      </template>
+    </KLabel>
+
     <textarea
-      v-if="!label"
       v-bind="modifiedAttrs"
-      class="form-control k-input"
-      :class="[isResizable ? 'is-resizable' : undefined]"
-      :cols="cols"
+      :id="textAreaId"
+      :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
+      class="input-textarea"
+      :class="[resizable || isResizable ? 'resizable' : undefined]"
       :rows="rows"
       :value="getValue()"
       @input="inputHandler"
     />
 
-    <div
-      v-else-if="label && overlayLabel"
-      class="k-textarea"
+    <!-- use transition here so it's not flaky when the help text changes -->
+    <Transition
+      mode="out-in"
+      name="kongponents-fade-transition"
     >
-      <div class="text-on-input">
-        <label
-          v-bind="labelAttributes"
-          :class="{ focused: isFocused, hovered: isHovered }"
-          :for="textAreaId"
-        >
-          <span>{{ strippedLabel }}</span>
-          <span
-            v-if="isRequired"
-            class="is-required"
-          >*</span>
-        </label>
-        <textarea
-          v-bind="modifiedAttrs"
-          :id="textAreaId"
-          :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
-          class="form-control k-input"
-          :class="[isResizable ? 'is-resizable' : undefined]"
-          :cols="cols"
-          :rows="rows"
-          :value="getValue()"
-          @blur="() => isFocused = false"
-          @focus="() => isFocused = true"
-          @input="inputHandler"
-          @mouseenter="() => isHovered = true"
-          @mouseleave="() => isHovered = false"
-        />
-      </div>
-    </div>
-
-    <div
-      v-else
-      class="k-textarea"
-    >
-      <KLabel
-        :for="textAreaId"
-        v-bind="labelAttributes"
-        :required="isRequired"
+      <!-- one element for characters limit exceeded error message as well as errorMessage and help props -->
+      <!-- see the logic in helpText computed property -->
+      <p
+        v-if="helpText"
+        :key="String(helpTextKey)"
+        class="help-text"
       >
-        {{ strippedLabel }}
-
-        <template
-          v-if="hasLabelTooltip"
-          #tooltip
-        >
-          <slot name="label-tooltip" />
-        </template>
-      </KLabel>
-      <textarea
-        v-bind="modifiedAttrs"
-        :id="textAreaId"
-        :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
-        class="form-control k-input"
-        :class="[isResizable ? 'is-resizable' : undefined]"
-        :cols="cols"
-        :rows="rows"
-        :value="getValue()"
-        @blur="() => isFocused = false"
-        @focus="() => isFocused = true"
-        @input="inputHandler"
-        @mouseenter="() => isHovered = true"
-        @mouseleave="() => isHovered = false"
-      />
-    </div>
-
-    <div
-      v-if="!disableCharacterLimit"
-      class="char-limit"
-      :class="{ 'over-char-limit': charLimitExceeded }"
-    >
-      {{ currValue.length || modelValue.length }} / {{ characterLimit }}
-    </div>
+        {{ helpText }}
+      </p>
+    </Transition>
   </div>
 </template>
 
@@ -123,34 +78,38 @@ const props = defineProps({
     // Ensure the characterLimit is greater than zero
     validator: (limit: number):boolean => limit > 0,
   },
-  disableCharacterLimit: {
-    type: Boolean,
-    default: false,
-  },
   rows: {
     type: Number,
     default: 5,
   },
-  cols: {
-    type: Number,
-    default: 52,
-  },
-  hasError: {
+  error: {
     type: Boolean,
     default: false,
+  },
+  resizable: {
+    type: Boolean,
+    default: false,
+  },
+  help: {
+    type: String,
+    default: '',
   },
   /**
-     * Test mode - for testing only, strips out generated ids
-     */
-  testMode: {
-    type: Boolean,
-    default: false,
-  },
+   * @deprecated in favor of `resizable` prop
+   */
   isResizable: {
     type: Boolean,
     default: false,
   },
+  /**
+   * @deprecated in favor of `error` prop
+   */
+  hasError: {
+    type: Boolean,
+    default: false,
+  },
 })
+
 const emit = defineEmits<{
   (e: 'input', val: string): void
   (e: 'update:modelValue', val: string): void
@@ -163,11 +122,15 @@ const slots = useSlots()
 const { stripRequiredLabel } = useUtilities()
 
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
+
 const currValue = ref('') // We need this so that we don't lose the updated value on hover/blur event with label
-const isFocused = ref(false)
-const isHovered = ref(false)
+
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
+
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
+
+const helpTextKey = ref<number>(0)
+
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
   get(): string | number {
@@ -178,7 +141,7 @@ const value = computed({
   },
 })
 
-const textAreaId = computed((): string => (attrs.id ? String(attrs.id) : props.testMode ? 'test-textArea-id-1234' : uuidv4()))
+const textAreaId = computed((): string => (attrs.id ? String(attrs.id) : uuidv4()))
 
 const modifiedAttrs = computed((): Record<string, any> => {
   const $attrs = { ...attrs }
@@ -189,7 +152,7 @@ const modifiedAttrs = computed((): Record<string, any> => {
   return $attrs
 })
 
-const charLimitExceeded = computed((): boolean => !props.disableCharacterLimit && currValue.value.length > props.characterLimit)
+const charLimitExceeded = computed((): boolean => currValue.value.length > props.characterLimit)
 
 const inputHandler = (e: any): void => {
   // avoid pass by ref
@@ -199,6 +162,17 @@ const inputHandler = (e: any): void => {
   emit('update:modelValue', val)
   currValue.value = val
 }
+
+const helpText = computed((): string => {
+  // if character limit exceeded, return that error message
+  if (charLimitExceeded.value) {
+    return `${currValue.value.toString().length} / ${props.characterLimit}`
+  }
+
+  // otherwise return the help text
+  // if error prop is true it danger styles will be applied
+  return props.help
+})
 
 watch(charLimitExceeded, (newVal, oldVal) => {
   if (newVal !== oldVal) {
@@ -217,6 +191,11 @@ watch(value, (newVal, oldVal) => {
   }
 })
 
+watch(helpText, () => {
+  // bump the key to trigger the transition
+  helpTextKey.value += 1
+})
+
 const getValue = (): string => {
   return currValue.value ? currValue.value : props.modelValue
 }
@@ -229,71 +208,59 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/mixins';
+/* Component styles */
 
-.k-input-wrapper {
-  display: grid;
-  margin-bottom: var(--kui-space-40, $kui-space-40);
-  width: fit-content;
+.k-textarea {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
-  .k-textarea {
-    margin-top: var(--kui-space-80, $kui-space-80) !important;
+  // error styles
+  &.input-error {
+    .input-textarea {
+      @include inputError;
+
+      &:hover {
+        @include inputErrorHover;
+      }
+
+      &:focus {
+        @include inputErrorFocus;
+      }
+    }
+
+    .help-text {
+      color: var(--kui-color-text-danger, $kui-color-text-danger);
+    }
   }
 
-  textarea.k-input.form-control {
-    @include input-type-input;
+  .help-text {
+    @include inputHelpText;
 
-    -webkit-appearance: none;
-    appearance: none;
-    font-family: var(--kui-font-family-text, $kui-font-family-text);
-    font-size: var(--kui-font-size-40, $kui-font-size-40) !important;
-    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular) !important;
-    line-height: var(--kui-line-height-40, $kui-line-height-40) !important;
-    padding: 17px 0 0 22px;
+    // reset default margin from browser
+    margin: 0;
+    margin-top: var(--kui-space-40, $kui-space-40);
+  }
+
+  .input-textarea {
+    @include inputDefaults;
+
     resize: none;
 
-    &.is-resizable {
-      min-height: 50px;
+    &.resizable {
       resize: vertical;
     }
 
-    &:focus::placeholder {
-      color: transparent;
-    }
-
-    @include textarea-default;
     &:hover {
-      @include textarea-hover;
+      @include inputHover;
     }
+
     &:focus {
-      @include textarea-focus;
-    }
-  }
-
-  .char-limit {
-    color: var(--kui-color-text, $kui-color-text) !important;
-    font-size: var(--kui-font-size-30, $kui-font-size-30) !important;
-    margin-left: var(--kui-space-auto, $kui-space-auto);
-    margin-top: var(--kui-space-40, $kui-space-40) !important;
-  }
-
-  .over-char-limit {
-    color: var(--kui-color-text-danger, $kui-color-text-danger);
-  }
-
-  .text-on-input {
-    label.hovered, label:hover {
-      color: var(--kui-color-text-primary, $kui-color-text-primary);
+      @include inputFocus;
     }
 
-     @include overlay-label-input;
-  }
-
-  &.input-error {
-    textarea.k-input.form-control {
-      box-shadow: none !important;
-      outline: 1px solid #d44324 !important;
-      transition: color $tmp-animation-timing-2 ease;
+    &:disabled {
+      @include inputDisabled;
     }
   }
 }

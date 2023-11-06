@@ -283,14 +283,14 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
   // error styles
   &.input-error {
     .k-input {
-      box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
+      @include inputError;
 
       &:hover {
-        box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong);
+        @include inputErrorHover;
       }
 
       &:focus {
-        box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger), var(--kui-shadow-focus, $kui-shadow-focus);
+        @include inputErrorFocus;
       }
     }
 
