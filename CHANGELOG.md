@@ -1,3 +1,11 @@
+# [9.0.0-alpha.43](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.42...v9.0.0-alpha.43) (2023-11-06)
+
+
+### Bug Fixes
+
+* **kpagination:** select widget too thin for wide content ([#1821](https://github.com/Kong/kongponents/issues/1821)) ([9ff9f65](https://github.com/Kong/kongponents/commit/9ff9f65bdc461fd720c4990ec0c59a6298bd473b))
+* **kslideout:** content being taller than viewport when using props.offsetTop ([#1822](https://github.com/Kong/kongponents/issues/1822)) ([197fdab](https://github.com/Kong/kongponents/commit/197fdab13ea02f28ebe270bb39d6be3227078582))
+
 # [9.0.0-alpha.42](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.41...v9.0.0-alpha.42) (2023-11-03)
 
 
