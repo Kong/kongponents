@@ -184,7 +184,7 @@ const offsetTopValue = computed((): string => {
     background-color: var(--kui-color-background, $kui-color-background);
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: calc(100vh - v-bind('offsetTopValue'));
     max-width: 500px;
     overflow-y: auto;
     position: fixed;
