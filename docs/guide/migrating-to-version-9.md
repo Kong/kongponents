@@ -291,11 +291,14 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 ### KTabs
 
 
-### KTextarea
+### KTextArea
 
 #### Props
 
 * `testMode` prop is removed
+* `isResizable` prop is deprecated in favor of `resizable` prop
+* `hasError` prop is deprecated in favor of `error` prop
+* `cols` prop has been removed (use CSS to control width of the textarea)
 
 #### Structure
 

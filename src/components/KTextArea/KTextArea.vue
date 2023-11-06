@@ -76,7 +76,7 @@ const props = defineProps({
     type: Number,
     default: 2048,
     // Ensure the characterLimit is greater than zero
-    validator: (limit: number):boolean => limit > 0,
+    validator: (limit: number): boolean => limit > 0,
   },
   rows: {
     type: Number,
@@ -100,6 +100,13 @@ const props = defineProps({
   isResizable: {
     type: Boolean,
     default: false,
+    validator: (value: boolean): boolean => {
+      if (value) {
+        console.warn('KTextArea: the `isResizable` prop is deprecated in favor of the `resizable` prop. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#ktextarea')
+      }
+
+      return true
+    },
   },
   /**
    * @deprecated in favor of `error` prop
@@ -107,6 +114,13 @@ const props = defineProps({
   hasError: {
     type: Boolean,
     default: false,
+    validator: (value: boolean): boolean => {
+      if (value) {
+        console.warn('KTextArea: the `hasError` prop is deprecated in favor of the `error` prop. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#ktextarea')
+      }
+
+      return true
+    },
   },
 })
 
