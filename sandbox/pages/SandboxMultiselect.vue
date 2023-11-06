@@ -1,25 +1,30 @@
 <template>
-  <KMultiselect
-    v-model="selected"
-    autosuggest
-    collapsed-context
-    :items="items"
-    :selected-row-count="1"
-    @query-change="onQueryChange"
-  />
-  <pre>
+  <SandboxLayout
+    :links="inject('app-links', [])"
+    title="KMultiselect"
+  >
+    <KMultiselect
+      v-model="selected"
+      autosuggest
+      collapsed-context
+      :items="items"
+      :selected-row-count="1"
+      @query-change="onQueryChange"
+    />
+    <pre>
     {{ modelJson }}
   </pre>
-  <button
-    type="button"
-    @click="deselectItem"
-  >
-    Deselect Item
-  </button>
+    <button
+      type="button"
+      @click="deselectItem"
+    >
+      Deselect Item
+    </button>
+  </SandboxLayout>
 </template>
+
 <script setup lang="ts">
-import { KMultiselect } from '@/components'
-import { computed, ref } from 'vue'
+import { computed, ref, inject } from 'vue'
 
 const allItems = ref(Array.from(new Array(100)).map((_, i) => ({ label: `Item ${i}`, value: `${i}` })))
 const selected = ref(Array.from(new Array(10)).map((_, i) => `${i}`))

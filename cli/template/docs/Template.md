@@ -1,6 +1,6 @@
 # {%%KONGPONENT_NAME_TITLE_CASE%%}
 
-**{%%KONGPONENT_NAME%%}** - This should be a description of the Kongponent.
+**{%%KONGPONENT_NAME%%}** should be described here in the first paragraph.
 
 <{%%KONGPONENT_NAME%%} />
 
@@ -9,14 +9,8 @@
   <{%%KONGPONENT_NAME%%} />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  setup (props) {
-    // ... code goes here
-  }
-})
+<script setup lang="ts">
+  // Example code goes here
 </script>
 ```
 
@@ -61,14 +55,14 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .{%%KONGPONENT_NAME%%}-wrapper {
   --{%%KONGPONENT_NAME%%}-wrapperBorderColor: lime;
 }
 </style>
 ```
 
-<style lang="scss">
+<style lang="scss" scoped>
 .{%%KONGPONENT_NAME%%}-wrapper {
   --{%%KONGPONENT_NAME%%}-wrapperBorderColor: lime;
 }

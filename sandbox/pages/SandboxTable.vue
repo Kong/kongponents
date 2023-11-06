@@ -1,44 +1,49 @@
 <template>
-  <KTable
-    :fetcher="fetcher"
-    :headers="[
-      { key: 'name', label: 'Name' },
-      { key: 'username', label: 'Username' },
-      { key: 'email', label: 'Email' },
-      { key: 'actions', hideLabel: true }
-    ]"
-    :initial-fetcher-params="{
-      pageSize: 30
-    }"
+  <SandboxLayout
+    :links="inject('app-links', [])"
+    title="KTable"
   >
-    <template #actions>
-      <KDropdown>
-        <template #default>
-          <KButton
-            appearance="tertiary"
-            size="small"
-          >
-            <MoreIcon />
-          </KButton>
-        </template>
-        <template #items>
-          <KDropdownItem>
-            Edit
-          </KDropdownItem>
-          <KDropdownItem
-            danger
-            has-divider
-          >
-            Delete
-          </KDropdownItem>
-        </template>
-      </KDropdown>
-    </template>
-  </KTable>
+    <KTable
+      :fetcher="fetcher"
+      :headers="[
+        { key: 'name', label: 'Name' },
+        { key: 'username', label: 'Username' },
+        { key: 'email', label: 'Email' },
+        { key: 'actions', hideLabel: true }
+      ]"
+      :initial-fetcher-params="{
+        pageSize: 30
+      }"
+    >
+      <template #actions>
+        <KDropdown>
+          <template #default>
+            <KButton
+              appearance="tertiary"
+              size="small"
+            >
+              <MoreIcon />
+            </KButton>
+          </template>
+          <template #items>
+            <KDropdownItem>
+              Edit
+            </KDropdownItem>
+            <KDropdownItem
+              danger
+              has-divider
+            >
+              Delete
+            </KDropdownItem>
+          </template>
+        </KDropdown>
+      </template>
+    </KTable>
+  </SandboxLayout>
 </template>
 
 <script setup lang="ts">
-import { KTable, KDropdown, KButton, KDropdownItem } from '@/components'
+import { inject } from 'vue'
 import { MoreIcon } from '@kong/icons'
 
 const fetcher = async (): Promise<any> => {

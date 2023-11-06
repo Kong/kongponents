@@ -1,7 +1,12 @@
 <template>
-  <KAlert alert-message="This is an alert" />
+  <SandboxLayout
+    :links="inject('app-links', [])"
+    title="KAlert"
+  >
+    <KAlert alert-message="This is an alert" />
+  </SandboxLayout>
 </template>
 
 <script setup lang="ts">
-import { KAlert } from '@/components'
+import { inject } from 'vue'
 </script>
