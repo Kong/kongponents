@@ -122,7 +122,7 @@
           :placeholder="`${ currentPageSize } items per page`"
           position-fixed
           :test-mode="!!testMode || undefined"
-          width="170"
+          width="190"
           @selected="updatePageSize"
         />
       </div>
