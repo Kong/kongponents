@@ -127,11 +127,12 @@ describe('KDropdown', () => {
     cy.get('.k-dropdown-popover').should('contain.html', itemSlotContent)
   })
 
-  it('correctly renders all item types', () => {
+  it('correctly renders all item types and dividers', () => {
     const itemSlotContent = `
     <KDropdownItem
       @click="() => {}"
       data-testid="button"
+      danger
     >
       A button
     </KDropdownItem>
@@ -199,6 +200,7 @@ describe('KDropdown', () => {
 
     cy.getTestId('dropdown-list').eq(0).find('.k-dropdown-item').should('have.length', 6)
     cy.getTestId('dropdown-list').eq(0).find('.has-divider').should('have.length', 2)
+    cy.getTestId('dropdown-list').eq(0).find('.danger').should('have.length', 1)
 
     cy.get('[data-testid="button"] button').should('be.visible')
     cy.get('[data-testid="disabled-button"] button').should('be.visible')
