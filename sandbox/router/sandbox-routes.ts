@@ -15,6 +15,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxAlert.vue'),
   },
   {
+    path: '/badge',
+    name: 'badge',
+    meta: { title: 'Badge Sandbox' },
+    component: () => import('../pages/SandboxBadge.vue'),
+  },
+  {
     path: '/button',
     name: 'button',
     meta: { title: 'Button Sandbox' },
