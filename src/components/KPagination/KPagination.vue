@@ -114,17 +114,18 @@
         class="page-size-select"
         data-testid="page-size-dropdown"
       >
-        <KSelect
-          appearance="button"
-          :button-text="pageSizeText"
+        <KDropdown
           :items="pageSizeOptions"
           :kpop-attributes="kpopAttrs"
-          :placeholder="`${ currentPageSize } items per page`"
-          position-fixed
-          :test-mode="!!testMode || undefined"
-          width="190"
-          @selected="updatePageSize"
-        />
+          selection-menu
+          show-caret
+          @change="updatePageSize"
+        >
+          <KButton appearance="tertiary">
+            {{ pageSizeText }}
+            <ChevronDownIcon />
+          </KButton>
+        </KDropdown>
       </div>
     </div>
   </nav>
@@ -134,10 +135,12 @@
 import type { Ref, PropType } from 'vue'
 import { ref, computed, watch } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import KSelect from '@/components/KSelect/KSelect.vue'
+import KDropdown from '@/components/KDropdown/KDropdown.vue'
+import KButton from '@/components/KButton/KButton.vue'
 import PaginationOffset from './PaginationOffset.vue'
-import type { PaginationType, PageSizeChangedData, PageChangedData } from '@/types'
+import type { PaginationType, PageSizeChangedData, PageChangedData, DropdownItem } from '@/types'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { ChevronDownIcon } from '@kong/icons'
 
 const kpopAttrs = {
   placement: 'top',
@@ -214,7 +217,7 @@ const pageSizeOptions = props.pageSizes.map((size, i) => ({
   key: `size-${i}`,
   value: size,
 }))
-const pageSizeText = ref('')
+const pageSizeText = computed((): string => currentPageSize.value + ' items per page')
 
 const getVisiblePages = (currPage: number, pageCount: number, firstDetached: boolean, lastDetached: boolean): number[] => {
   if (props.disablePageJump) {
@@ -309,13 +312,14 @@ const updatePage = (): void => {
   })
 }
 
-const updatePageSize = (event: any): void => {
-  currentPageSize.value = event.value
-  pageSizeText.value = currentPageSize.value + ' items per page'
+const updatePageSize = (item: DropdownItem): void => {
+  currentPageSize.value = item.value as number
+
   emit('pageSizeChanged', {
     pageSize: currentPageSize.value,
     pageCount: pageCount.value,
   })
+
   if (props.currentPage !== 1) {
     changePage(1)
   }
