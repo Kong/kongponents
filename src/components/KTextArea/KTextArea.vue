@@ -194,9 +194,11 @@ const inputHandler = (e: any): void => {
 }
 
 const helpText = computed((): string => {
+  const characterLimit = typeof props.characterLimit === 'number' ? props.characterLimit : DEFAULT_CHARACTER_LIMIT
+
   // if character limit exceeded, return that error message
   if (charLimitExceeded.value) {
-    return `${currValue.value.toString().length} / ${Number(props.characterLimit)}`
+    return `${currValue.value.toString().length} / ${characterLimit}`
   }
 
   // otherwise return the help text

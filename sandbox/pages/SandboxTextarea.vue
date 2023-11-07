@@ -20,6 +20,7 @@
       />
       <SandboxSectionComponent title="label">
         <KTextArea
+          :character-limit="true"
           label="Label"
           resizable
         />
