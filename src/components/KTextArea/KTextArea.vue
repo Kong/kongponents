@@ -22,7 +22,7 @@
     <textarea
       v-bind="modifiedAttrs"
       :id="textAreaId"
-      :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
+      :aria-invalid="ariaInvalid"
       class="input-textarea"
       :class="[resizable || isResizable ? 'resizable' : undefined]"
       :rows="rows"
@@ -30,13 +30,10 @@
       @input="inputHandler"
     />
 
-    <!-- use transition here so it's not flaky when the help text changes -->
     <Transition
       mode="out-in"
       name="kongponents-fade-transition"
     >
-      <!-- one element for characters limit exceeded error message as well as errorMessage and help props -->
-      <!-- see the logic in helpText computed property -->
       <p
         v-if="helpText"
         :key="String(helpTextKey)"
@@ -73,10 +70,10 @@ const props = defineProps({
     default: () => ({}),
   },
   characterLimit: {
-    type: Number,
-    default: null,
+    type: [Boolean, Number],
+    default: 2048,
     // Ensure the characterLimit is greater than zero
-    validator: (limit: number): boolean => limit > 0,
+    validator: (limit: number | boolean): boolean => typeof limit === 'number' ? limit > 0 : true,
   },
   rows: {
     type: Number,
@@ -143,6 +140,8 @@ const strippedLabel = computed((): string => stripRequiredLabel(props.label, isR
 
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
 
+const ariaInvalid = computed((): boolean | undefined => props.error || props.hasError || charLimitExceeded.value ? true : undefined)
+
 const helpTextKey = ref<number>(0)
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
@@ -167,7 +166,7 @@ const modifiedAttrs = computed((): Record<string, any> => {
 })
 
 const charLimitExceeded = computed((): boolean => {
-  if (props.characterLimit === null) {
+  if (typeof props.characterLimit === 'boolean') {
     return false
   }
 
@@ -186,7 +185,7 @@ const inputHandler = (e: any): void => {
 const helpText = computed((): string => {
   // if character limit exceeded, return that error message
   if (charLimitExceeded.value) {
-    return `${currValue.value.toString().length} / ${props.characterLimit}`
+    return `${currValue.value.toString().length} / ${Number(props.characterLimit)}`
   }
 
   // otherwise return the help text
@@ -199,9 +198,12 @@ watch(charLimitExceeded, (newVal, oldVal) => {
     emit('char-limit-exceeded', {
       value: currValue.value,
       length: currValue.value.length,
-      characterLimit: props.characterLimit,
+      characterLimit: Number(props.characterLimit),
       limitExceeded: newVal,
     })
+
+    // bump the key to trigger the transition
+    helpTextKey.value += 1
   }
 })
 
@@ -209,11 +211,6 @@ watch(value, (newVal, oldVal) => {
   if (newVal !== oldVal) {
     inputHandler({ target: { value: newVal } })
   }
-})
-
-watch(helpText, () => {
-  // bump the key to trigger the transition
-  helpTextKey.value += 1
 })
 
 const getValue = (): string => {
@@ -228,6 +225,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/* Component variables */
+
+$kTextAreaLineHeight: var(--kui-line-height-40, $kui-line-height-40); // corresponds to mixin, search for variable name in mixins
+$kTextAreaPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin, search for variable name in mixins
+
 /* Component styles */
 
 .k-textarea {
@@ -265,6 +267,7 @@ export default {
   .input-textarea {
     @include inputDefaults;
 
+    min-height: calc(($kTextAreaLineHeight * 2) + ($kTextAreaPaddingY * 2)); // 2 lines + padding
     resize: none;
 
     &.resizable {
@@ -281,6 +284,10 @@ export default {
 
     &:disabled {
       @include inputDisabled;
+    }
+
+    &:read-only {
+      @include inputReadOnly;
     }
   }
 }

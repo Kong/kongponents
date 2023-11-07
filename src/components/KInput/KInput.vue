@@ -48,13 +48,10 @@
       </div>
     </div>
 
-    <!-- use transition here so it's not flaky when the help text changes -->
     <Transition
       mode="out-in"
       name="kongponents-fade-transition"
     >
-      <!-- one element for characters limit exceeded error message as well as errorMessage and help props -->
-      <!-- see the logic in helpText computed property -->
       <p
         v-if="helpText"
         :key="String(helpTextKey)"
@@ -224,6 +221,9 @@ watch(charLimitExceeded, (newVal, oldVal) => {
       characterLimit: props.characterLimit,
       limitExceeded: newVal,
     })
+
+    // bump the key to trigger the transition
+    helpTextKey.value += 1
   }
 })
 
@@ -254,9 +254,11 @@ const getValue = (): string | number => {
   return currValue.value || modelValueChanged.value ? currValue.value : props.modelValue
 }
 
-watch(helpText, () => {
-  // bump the key to trigger the transition
-  helpTextKey.value += 1
+watch(() => props.error, (newVal, oldVal) => {
+  if (newVal !== oldVal) {
+    // bump the key to trigger the transition
+    helpTextKey.value += 1
+  }
 })
 </script>
 
@@ -270,7 +272,7 @@ export default {
 /* Component variables */
 // Only add variables here sparingly for ease of use when the same value needs to be referenced for display logic.
 
-$kInputPaddingX: var(--kui-space-50, $kui-space-50);
+$kInputPaddingX: var(--kui-space-50, $kui-space-50); // corresponds to mixin, search for variable name in mixins
 $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
 
 /* Component styles */

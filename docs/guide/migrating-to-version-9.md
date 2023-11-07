@@ -198,6 +198,7 @@ Component has been renamed to `KDropdown`
 #### Structure
 
 * `k-input-label` class has been renamed to `k-label`
+* `is-required` class has been renamed to `required`
 
 ### KMenu
 
@@ -299,8 +300,7 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `isResizable` prop is deprecated in favor of `resizable` prop
 * `hasError` prop is deprecated in favor of `error` prop
 * `cols` prop has been removed (use CSS to control width of the textarea)
-* `disableCharacterLimit` prop has been removed. KTextArea doesn't display character count unless `characterLimit` prop is set and character count is exceeded
-* default value for `characterLimit` prop has changed to `null`
+* `disableCharacterLimit` prop has been removed. You can pass a boolean `false` to `characterLimit` prop to disable character limit
 
 #### Structure
 

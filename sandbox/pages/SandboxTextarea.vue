@@ -65,12 +65,6 @@
           model-value="Type in 1 more character to see the character limit error message: "
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="cols">
-        <KTextArea
-          :cols="10"
-          label="Label"
-        />
-      </SandboxSectionComponent>
       <SandboxSectionComponent title="rows">
         <KTextArea
           label="Label"
@@ -96,6 +90,11 @@
           disabled
           label="Disabled"
           model-value="This input is disabled"
+        />
+        <KTextArea
+          label="Read-only"
+          model-value="This input is read-only"
+          readonly
         />
       </SandboxSectionComponent>
 

@@ -139,7 +139,7 @@ You can pass any input attribute and it will get properly bound to the element.
 <KInput type="number" model-value="1"/>
 <KInput type="email" model-value="john.doe@konghq.com"/>
 <KInput disabled model-value="disabled"/>
-<KInput read-only model-value="read-only"/>
+<KInput readonly model-value="read-only"/>
 <KInput type="search" model-value="search"/>
 ```
 

@@ -82,7 +82,7 @@ Boolean value to indicate whether the element has an error and should apply erro
 
 ### characterLimit
 
-Use this prop to specify a character limit for the textarea. See the [`@char-limit-exceeded` event](#events) for more details.
+Use this prop to specify a character limit for the textarea. Defaults to `2048`. You can pass a boolean `false` if you want to disable character limit. See the [`@char-limit-exceeded` event](#events) for more details.
 
 <KTextArea model-value="Type in 1 more character to see the character limit error message: " :character-limit="67" help="Character limit error supersedes `help` prop when it's been exceeded." />
 
@@ -100,6 +100,12 @@ You can pass any input attribute and it will get properly bound to the element.
 <KTextArea label="Name" placeholder="I'm disabled!" disabled />
 ```
 
+<KTextArea label="Name" placeholder="I'm read-only!" readonly />
+
+```html
+<KTextArea label="Name" placeholder="I'm read-only!" readonly />
+```
+
 ### required
 
 KTextArea will display a red dot next to the label to indicate a field is required if you set the required attribute and provide a label value. See KLabel's required prop for more information.
@@ -112,7 +118,7 @@ KTextArea will display a red dot next to the label to indicate a field is requir
 
 ### v-model
 
-KTextArea works as regular textarea do using `v-model` for data binding:
+KTextArea works with `v-model` for two-way data binding:
 
 <KComponent :data="{ myInput: 'hello' }" v-slot="{ data }">
   <div>
@@ -148,11 +154,11 @@ If you want to utilize HTML in the textarea label's tooltip, use the slot.
 
 ## Events
 
-KTextArea has a couple of natural event bindings.
+KTextArea has a couple of event bindings.
 
 ### input and update:modelValue
 
-Fired on change, returns the content of the textarea.
+To listen for changes to the KTextArea value, you can bind to the `@input` or `@update:modelValue` events.
 
 ### char-limit-exceeded
 
