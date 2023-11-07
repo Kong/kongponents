@@ -1,3 +1,10 @@
+# [9.0.0-alpha.47](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.46...v9.0.0-alpha.47) (2023-11-07)
+
+
+### Bug Fixes
+
+* **ktextarea:** fix character limit prop logic ([#1831](https://github.com/Kong/kongponents/issues/1831)) ([69efe6f](https://github.com/Kong/kongponents/commit/69efe6fa0afda7577209716d4cc50fe9f040a29e))
+
 # [9.0.0-alpha.46](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.45...v9.0.0-alpha.46) (2023-11-07)
 
 
