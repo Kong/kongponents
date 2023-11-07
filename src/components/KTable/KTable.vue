@@ -182,7 +182,7 @@
         :disable-page-jump="disablePaginationPageJump"
         :initial-page-size="pageSize"
         :neighbors="paginationNeighbors"
-        :offset-next-button-disabled="!offset"
+        :offset-next-button-disabled="!offset || !hasNextPage"
         :offset-prev-button-disabled="!previousOffset"
         :page-sizes="paginationPageSizes"
         :pagination-type="paginationType"
@@ -549,6 +549,8 @@ const defaultFetcherProps = {
 const data = ref<Record<string, any>[]>([])
 const tableHeaders: Ref<TableHeader[]> = ref([])
 const total = ref(0)
+const hasNextPage = ref(true)
+const nextCursor = ref('')
 const isScrolled = ref(false)
 const page = ref(1)
 const pageSize = ref(15)
@@ -673,18 +675,37 @@ const isInitialFetch = ref(true)
 const fetchData = async () => {
   const searchInput = props.searchInput
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const res = await props.fetcher({
+  const fetcherParams: Record<string, any> = {
     pageSize: pageSize.value,
-    page: page.value,
     query: searchInput || filterQuery.value,
     sortColumnKey: sortColumnKey.value,
     sortColumnOrder: sortColumnOrder.value,
     offset: offset.value,
-  })
+  }
+
+  // add next_cursor if supported, page - if not
+  if (nextCursor.value) {
+    fetcherParams.nextCursor = nextCursor.value
+  } else {
+    fetcherParams.page = page.value
+  }
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const res = await props.fetcher(fetcherParams)
+
   data.value = res.data as Record<string, any>[]
   total.value = props.paginationTotalItems || res.total || res.data?.length
+
+  // if result has next_cursor support
+  if ('page' in res) {
+    nextCursor.value = res.page?.next_cursor
+    hasNextPage.value = res.page?.has_next_page
+
+    if ('total_count' in res.page) {
+      total.value = res.page?.total_count
+    }
+  }
 
   // get data
   if (props.fetcher) {
@@ -704,6 +725,8 @@ const fetchData = async () => {
       // this will ensure buttons display the correct state for cases like search
       if (!nextPageClicked.value) {
         page.value = 1
+        nextCursor.value = ''
+        hasNextPage.value = true
       }
     } else {
       offset.value = res.pagination.offset
@@ -796,6 +819,7 @@ const sortClickHandler = (header: TableHeader): void => {
   const prevKey = sortColumnKey.value + '' // avoid pass by ref
 
   page.value = 1
+  nextCursor.value = ''
 
   if (sortColumnKey.value) {
     if (key === sortColumnKey.value) {
@@ -843,6 +867,7 @@ const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangedData) =
   offset.value = null
   pageSize.value = newPageSize
   page.value = 1
+  nextCursor.value = ''
 
   // Emit an event whenever one of the tablePreferences are updated
   emitTablePreferences()
@@ -870,8 +895,10 @@ const emitTablePreferences = (): void => {
 }
 
 const getNextOffsetHandler = (): void => {
-  page.value++
-  nextPageClicked.value = true
+  if (hasNextPage.value) {
+    page.value++
+    nextPageClicked.value = true
+  }
 }
 
 const getPrevOffsetHandler = (): void => {
@@ -929,6 +956,7 @@ watch([stateData, tableState], (newData) => {
 watch(() => props.searchInput, (newValue: string) => {
   if (page.value !== 1) {
     page.value = 1
+    nextCursor.value = ''
   }
 
   if (newValue === '') {
@@ -946,6 +974,7 @@ watch([query, page, pageSize], async (newData, oldData) => {
 
   if (newQuery !== oldQuery && newPage !== 1) {
     page.value = 1
+    nextCursor.value = ''
     offsets.value = [null]
     offset.value = null
   }

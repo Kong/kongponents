@@ -15,7 +15,8 @@
 <script setup lang="ts">
 import { KTable } from '@/components'
 
-const fetcher = async (): Promise<any> => {
+const fetcher = async (params: Record<string, any>): Promise<any> => {
+  console.log('params', params)
   // Fake delay
   await new Promise((resolve) => setTimeout(resolve, 2000))
 
@@ -25,6 +26,11 @@ const fetcher = async (): Promise<any> => {
   return {
     data: responseData,
     total: responseData.length,
+    page: {
+      total_count: 25,
+      has_next_page: false,
+      next_cursor: 'f1kSUVBZGURFAEdcGQ19Q1wSMWYOCA4cDRVdU0ZHE0FcF0NQQQ',
+    },
   }
 }
 </script>
