@@ -174,6 +174,8 @@ const modifiedAttrs = computed((): Record<string, any> => {
 
 const charLimitExceeded = computed((): boolean => {
   if (typeof props.characterLimit === 'boolean') {
+    // only disable if characterLimit is a boolean and false
+    // otherwise fallback to default character limit of 2048
     if (!props.characterLimit) {
       return false
     } else {
