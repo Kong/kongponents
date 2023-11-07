@@ -299,6 +299,8 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `isResizable` prop is deprecated in favor of `resizable` prop
 * `hasError` prop is deprecated in favor of `error` prop
 * `cols` prop has been removed (use CSS to control width of the textarea)
+* `disableCharacterLimit` prop has been removed. KTextArea doesn't display character count unless `characterLimit` prop is set and character count is exceeded
+* default value for `characterLimit` prop has changed to `null`
 
 #### Structure
 

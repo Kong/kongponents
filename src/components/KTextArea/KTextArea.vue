@@ -74,7 +74,7 @@ const props = defineProps({
   },
   characterLimit: {
     type: Number,
-    default: 2048,
+    default: null,
     // Ensure the characterLimit is greater than zero
     validator: (limit: number): boolean => limit > 0,
   },
@@ -166,7 +166,13 @@ const modifiedAttrs = computed((): Record<string, any> => {
   return $attrs
 })
 
-const charLimitExceeded = computed((): boolean => currValue.value.length > props.characterLimit)
+const charLimitExceeded = computed((): boolean => {
+  if (props.characterLimit === null) {
+    return false
+  }
+
+  return currValue.value.length > props.characterLimit
+})
 
 const inputHandler = (e: any): void => {
   // avoid pass by ref

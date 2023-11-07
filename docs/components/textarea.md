@@ -1,6 +1,6 @@
 # TextArea
 
-**KTextArea** - Text areas are primarily used in modal views (wizards).
+KTextArea provides a wrapper around textarea element, as well as contextual styling and states (error, focus, etc).
 
 <KTextArea />
 
@@ -20,94 +20,74 @@ String to be used as the textarea label.
 <KTextArea label="Name" placeholder="I'm labelled!" />
 ```
 
-If the label is omitted it can be handled with another component, like **KLabel**. This is meant to be used before **KTextArea** will be styled appropriately.
+If the label is omitted it can be handled with another component, like KLabel. This is meant to be used before KTextArea will be styled appropriately.
 
-<KLabel>Label</KLabel>
-<KTextArea placeholder="I have a label" />
+<KLabel for="my-textarea">Label</KLabel>
+<KTextArea id="my-textarea" placeholder="I have a label" />
 
 ```html
-<KLabel>Label</KLabel>
-<KTextArea placeholder="I have a label" />
+<KLabel for="my-textarea">Label</KLabel>
+<KTextArea id="my-textarea" placeholder="I have a label" />
 ```
 
 ### labelAttributes
 
-Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop. This example shows using the `label-attributes` to set up a tooltip, see the [slot](#slots) section if you want to slot HTML into the tooltip rather than use plain text.
+Use the `labelAttributes` prop to configure the KLabel's [props](/components/label) if using the `label` prop. This example shows using the `labelAttributes` to set up a tooltip. See the [slot](#slots) section if you want to slot HTML into the tooltip rather than use plain text.
 
-<KTextArea label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop' }" />
-
-```html
-<KTextArea label="Name" :label-attributes="{ help: 'I use the KLabel `help` prop' }" />
-```
-
-### overlayLabel
-
-Enable this prop to overlay the label on the input element's border. Defaults to `false`. Make sure that if you are using the built in label you specify the `--KInputBackground` theming variable. This variable is used for the background of the label as well as the input element.
-
-<KTextArea label="Name" placeholder="I'm labelled!" />
+<KTextArea label="Name" :label-attributes="{ info: 'I use the KLabel `info` prop' }" />
 
 ```html
-<KTextArea label="Name" placeholder="I'm labelled!" />
-```
-
-### cols
-
-You can specify `cols` to adjust the horizontal size of the textarea
-
-<KTextArea :cols="12" placeholder="cols:12" />
-
-```html
-<KTextArea :cols="12" placeholder="cols:12" />
+<KTextArea label="Name" :label-attributes="{ info: 'I use the KLabel `info` prop' }" />
 ```
 
 ### rows
 
-You can specify `rows` to adjust the vertical size of the textarea
+You can specify `rows` to adjust the vertical size of the textarea.
 
-<KTextArea :rows="12" placeholder="rows:12" />
+<KTextArea :rows="12" placeholder="12 rows" />
 
 ```html
-<KTextArea :rows="12" placeholder="rows:12" />
+<KTextArea :rows="12" placeholder="12 rows" />
 ```
 
-### isResizable
+### resizable
 
-Boolean value to allow vertically resizing using the drag handle in the right-hand corner of the textarea
+Boolean value to allow vertically resizing using the drag handle in the right-hand corner of the textarea.
 
-<KTextArea is-resizable />
+<KTextArea resizable />
 
 ```html
-<KTextArea is-resizable />
+<KTextArea resizable />
+```
+
+### help
+
+String to be displayed as help text.
+
+<KTextArea help="Hint or other helpful text." />
+
+```html
+<KTextArea help="Hint or other helpful text." />
+```
+
+### error
+
+Boolean value to indicate whether the element has an error and should apply error styling. By default this is `false`.
+
+<KTextArea error help="Text passed through `help` prop takes error styling when `error` prop is `true`." />
+
+```html
+<KTextArea error help="Text passed through `help` prop takes error styling when `error` prop is `true`." />
 ```
 
 ### characterLimit
 
-Use this prop to specify a character limit for the textarea, defaults to `2048`.
+Use this prop to specify a character limit for the textarea. See the [`@char-limit-exceeded` event](#events) for more details.
 
-<KTextArea :characterLimit="20" />
-
-```html
-<KTextArea :characterLimit="20" />
-```
-
-### disableCharacterLimit
-
-Use this prop to remove the character limit on the textarea. Defaults to `false`.
-
-<KTextArea disable-character-limit />
+<KTextArea model-value="Type in 1 more character to see the character limit error message: " :character-limit="67" help="Character limit error supersedes `help` prop when it's been exceeded." />
 
 ```html
-<KTextArea disable-character-limit />
-```
-
-### hasError
-
-Boolean value to indicate whether the element has an error and should apply error styling. By default this is `false`.
-
-<KTextArea has-error />
-
-```html
-<KTextArea has-error />
+<KTextArea model-value="Type in 1 more character to see the character limit error message: " :character-limit="67" help="Character limit error supersedes `help` prop when it's been exceeded." />
 ```
 
 ## Attribute Binding
@@ -122,25 +102,19 @@ You can pass any input attribute and it will get properly bound to the element.
 
 ### required
 
-KTextArea will display an `*` to indicate a field is required if you set the `required` attribute and provide a `label`. See **KLabel's** [`required`](/components/label#required) prop for more information.
+KTextArea will display a red dot next to the label to indicate a field is required if you set the required attribute and provide a label value. See KLabel's required prop for more information.
 
-:::tip NOTE
-Text passed in for the `label` will automatically strip any trailing `*` when used with the `required` attribute to try to prevent duplicate asterisks.
-:::
-
-<KTextArea label="Name" required />
 <KTextArea label="Name" required />
 
 ```html
-<KTextArea label="Name" required />
 <KTextArea label="Name" required />
 ```
 
 ### v-model
 
-`KTextArea` works as regular texarea do using v-model for data binding:
+KTextArea works as regular textarea do using `v-model` for data binding:
 
-<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<KComponent :data="{ myInput: 'hello' }" v-slot="{ data }">
   <div>
     {{ data.myInput }}
     <KTextArea v-model="data.myInput" />
@@ -148,7 +122,7 @@ Text passed in for the `label` will automatically strip any trailing `*` when us
 </KComponent>
 
 ```html
-<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
+<KComponent :data="{ myInput: 'hello' }" v-slot="{ data }">
   {{ myInput }}
   <KTextArea v-model="data.myInput" />
 </KComponent>
@@ -156,73 +130,61 @@ Text passed in for the `label` will automatically strip any trailing `*` when us
 
 ## Slots
 
-- `label-tooltip` - slot for tooltip content if textarea has a label and label has tooltip (note: this slot overrides `help`/`info` content specified in `label-attributes`)
+### labelTooltip
+
+Slot for tooltip content if textarea has a label and label has tooltip (note: this slot overrides `info` content specified in `labelAttributes`)
 
 If you want to utilize HTML in the textarea label's tooltip, use the slot.
 
-<KTextArea label="My Tooltip">
-  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
+<KTextArea label="My tooltip">
+  <template #label-tooltip>Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code></template>
 </KTextArea>
 
 ```html
-<KTextArea label="My Tooltip">
-  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
-</KTextArea>
-```
-
-:::tip Note:
-When utilizing the `label-tooltip` slot, the `info` `KIcon` will be shown by default. To utilize the the `help` icon instead, set the `label-attributes` `help` property to any non-empty string value.
-:::
-
-<KTextArea label="My Tooltip" :label-attributes="{ help: 'true' }">
-  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
-</KTextArea>
-
-```html
-<KTextArea
-  label="My Tooltip"
-  :label-attributes="{ help: 'true' }"
->
-  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
+<KTextArea label="My tooltip">
+  <template #label-tooltip>Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code></template>
 </KTextArea>
 ```
 
 ## Events
 
-`KTextArea` has a couple of natural event bindings.
+KTextArea has a couple of natural event bindings.
 
-- `input` - Fired on change, returns the content of the textarea
-- `char-limit-exceeded` - Fired when the text starts or stops exceeding the limit, returns an object:
+### input and update:modelValue
 
-    ```json
-    {
-        value,          // current value
-        length,         // length of current value
-        characterLimit, // character limit
-        limitExceeded   // whether or not the limit has been exceeded
-    }
-    ```
+Fired on change, returns the content of the textarea.
 
-`KTextArea` also transparently binds to events:
+### char-limit-exceeded
 
-<KComponent :data="{myInput2: 'hello'}" v-slot="{ data }">
-  <div>
-    <KTextArea
-      v-model="data.myInput2"
-      @blur="e => (data.myInput2 = 'blurred')"
-      @focus="e => (data.myInput2 = 'focused')"
-    />
-  </div>
+Fired when the text starts or stops exceeding the limit, returns an object:
+
+```json
+{
+  value,          // current value
+  length,         // length of current value
+  characterLimit, // character limit
+  limitExceeded   // whether or not the limit has been exceeded
+}
+```
+
+### DOM events
+
+KTextArea also allows you to listen to DOM events:
+
+<KComponent :data="{ myInput: 'hello' }" v-slot="{ data }">
+  <KTextArea
+    v-model="data.myInput"
+    @blur="e => (data.myInput = 'blurred')"
+    @focus="e => (data.myInput = 'focused')"
+  />
 </KComponent>
 
 ```html
-<KComponent :data="{myInput: 'hello'}" v-slot="{ data }">
-  <div>
-    <KTextArea
-      v-model="data.myInput"
-      @blur="e => (data.myInput = 'blurred')"
-      @focus="e => (data.myInput = 'focused')"
-    />
-  </div>
+<KComponent :data="{ myInput: 'hello' }" v-slot="{ data }">
+  <KTextArea
+    v-model="data.myInput"
+    @blur="e => (data.myInput = 'blurred')"
+    @focus="e => (data.myInput = 'focused')"
+  />
 </KComponent>
 ```
