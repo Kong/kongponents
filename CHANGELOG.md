@@ -1,3 +1,10 @@
+# [9.0.0-alpha.46](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.45...v9.0.0-alpha.46) (2023-11-07)
+
+
+### Bug Fixes
+
+* **ktextarea:** reskin component [KHCP-9004] ([#1826](https://github.com/Kong/kongponents/issues/1826)) ([235f900](https://github.com/Kong/kongponents/commit/235f9000b93cb0bb58b735d2b6a4ffec8801f102))
+
 # [9.0.0-alpha.45](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.44...v9.0.0-alpha.45) (2023-11-06)
 
 
