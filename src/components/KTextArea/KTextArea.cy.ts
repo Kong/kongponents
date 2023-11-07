@@ -94,6 +94,36 @@ describe('KTextArea', () => {
     cy.get('.k-textarea.input-error .help-text').should('contain.text', `${textCharCount} / ${charLimit}`)
   })
 
+  it('falls back to default character limit if `characterLimit` is `true`', () => {
+    const string = new Array(2049).join('a') // default character limit is 2048
+
+    mount(KTextArea, {
+      props: {
+        characterLimit: true,
+        modelValue: string,
+      },
+    })
+
+    cy.get('textarea').type('b')
+    cy.get('.k-textarea').should('have.class', 'input-error')
+    cy.get('.k-textarea .help-text').should('be.visible').should('contain.text', '2049 / 2048')
+  })
+
+  it('does not show character limit error when `characterLimit` is `false`', () => {
+    const string = new Array(2049).join('a') // default character limit is 2048
+
+    mount(KTextArea, {
+      props: {
+        characterLimit: false,
+        modelValue: string,
+      },
+    })
+
+    cy.get('textarea').type('b')
+    cy.get('.k-textarea').should('not.have.class', 'input-error')
+    cy.get('.k-textarea .help-text').should('not.exist')
+  })
+
   it('should handle `resizable` prop correctly', () => {
     mount(KTextArea, {
       props: {
