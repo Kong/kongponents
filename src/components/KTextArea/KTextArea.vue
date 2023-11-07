@@ -44,13 +44,21 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
 import { ref, computed, watch, useAttrs, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import type { TextAreaLimitExceed } from '@/types'
 
+const DEFAULT_CHARACTER_LIMIT = 2048
+
+export default {
+  inheritAttrs: false,
+}
+</script>
+
+<script lang="ts" setup>
 const props = defineProps({
   modelValue: {
     type: String,
@@ -70,7 +78,7 @@ const props = defineProps({
   },
   characterLimit: {
     type: [Boolean, Number],
-    default: 2048,
+    default: DEFAULT_CHARACTER_LIMIT,
     // Ensure the characterLimit is greater than zero
     validator: (limit: number | boolean): boolean => typeof limit === 'number' ? limit > 0 : true,
   },
@@ -166,7 +174,11 @@ const modifiedAttrs = computed((): Record<string, any> => {
 
 const charLimitExceeded = computed((): boolean => {
   if (typeof props.characterLimit === 'boolean') {
-    return false
+    if (!props.characterLimit) {
+      return false
+    } else {
+      return currValue.value.length > DEFAULT_CHARACTER_LIMIT
+    }
   }
 
   return currValue.value.length > props.characterLimit
@@ -214,12 +226,6 @@ watch(value, (newVal, oldVal) => {
 
 const getValue = (): string => {
   return currValue.value ? currValue.value : props.modelValue
-}
-</script>
-
-<script lang="ts">
-export default {
-  inheritAttrs: false,
 }
 </script>
 
