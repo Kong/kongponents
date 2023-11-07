@@ -299,7 +299,7 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `testMode` prop is removed
 * `isResizable` prop is deprecated in favor of `resizable` prop
 * `hasError` prop is deprecated in favor of `error` prop
-* `cols` prop has been removed (use CSS to control width of the textarea)
+* `cols` prop has been removed (use CSS to control the width of the textarea)
 * `disableCharacterLimit` prop has been removed. You can pass a boolean `false` to `characterLimit` prop to disable character limit
 
 #### Structure

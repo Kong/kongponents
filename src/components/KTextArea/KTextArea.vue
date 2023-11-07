@@ -10,7 +10,6 @@
       :required="isRequired"
     >
       {{ strippedLabel }}
-
       <template
         v-if="hasLabelTooltip"
         #tooltip

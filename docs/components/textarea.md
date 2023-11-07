@@ -20,7 +20,7 @@ String to be used as the textarea label.
 <KTextArea label="Name" placeholder="I'm labelled!" />
 ```
 
-If the label is omitted it can be handled with another component, like KLabel. This is meant to be used before KTextArea will be styled appropriately.
+If the label is omitted it can be handled with another component, like KLabel. This is meant to be used before KTextArea and will be styled appropriately.
 
 <KLabel for="my-textarea">Label</KLabel>
 <KTextArea id="my-textarea" placeholder="I have a label" />
@@ -32,7 +32,7 @@ If the label is omitted it can be handled with another component, like KLabel. T
 
 ### labelAttributes
 
-Use the `labelAttributes` prop to configure the KLabel's [props](/components/label) if using the `label` prop. This example shows using the `labelAttributes` to set up a tooltip. See the [slot](#slots) section if you want to slot HTML into the tooltip rather than use plain text.
+Use the `labelAttributes` prop to configure the KLabel's [props](/components/label) when using the `label` prop. This example shows using the `labelAttributes` to set up a tooltip. See the [slot](#slots) section if you want to slot HTML into the tooltip rather than using plain text.
 
 <KTextArea label="Name" :label-attributes="{ info: 'I use the KLabel `info` prop' }" />
 
@@ -42,7 +42,7 @@ Use the `labelAttributes` prop to configure the KLabel's [props](/components/lab
 
 ### rows
 
-You can specify `rows` to adjust the vertical size of the textarea.
+You can specify `rows` to adjust the height of the textarea.
 
 <KTextArea :rows="12" placeholder="12 rows" />
 
