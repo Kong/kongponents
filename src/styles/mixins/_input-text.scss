@@ -13,9 +13,9 @@
     $kui-font-size-40
   ); // needs to be at least 16px to prevent automatic zoom in on focus on mobile
   font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-  line-height: var(--kui-line-height-40, $kui-line-height-40);
+  line-height: var(--kui-line-height-40, $kui-line-height-40); // $kTextAreaLineHeight
   outline: none;
-  padding: var(--kui-space-40, $kui-space-40) $kInputPaddingX;
+  padding: var(--kui-space-40, $kui-space-40) var(--kui-space-50, $kui-space-50); // $kInputPaddingX, $kTextAreaPaddingY
   transition: box-shadow $kongponentsTransitionDurTimingFunc;
   width: 100%;
 
@@ -51,4 +51,18 @@
 
 @mixin inputReadOnly {
   @include inputDisabledReadOnly;
+}
+
+// error state styles
+
+@mixin inputError {
+  box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
+}
+
+@mixin inputErrorHover {
+  box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong);
+}
+
+@mixin inputErrorFocus {
+  box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger), var(--kui-shadow-focus, $kui-shadow-focus);
 }

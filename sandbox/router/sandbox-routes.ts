@@ -74,6 +74,12 @@ const componentRoutes: RouteRecordRaw[] = [
     meta: { title: 'Tabs Sandbox' },
     component: () => import('../pages/SandboxTabs.vue'),
   },
+  {
+    path: '/textarea',
+    name: 'textarea',
+    meta: { title: 'Textarea Sandbox' },
+    component: () => import('../pages/SandboxTextarea.vue'),
+  },
 ]
 
 export default componentRoutes

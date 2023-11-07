@@ -1,6 +1,6 @@
 # Input
 
-KInput provides a wrapper around general `text` inputs and provides contextual styling and states (error, focus, etc).
+KInput provides a wrapper around general `text` inputs, as well as contextual styling and states (error, focus, etc).
 
 <KInput placeholder="Placeholder text" />
 
@@ -139,7 +139,7 @@ You can pass any input attribute and it will get properly bound to the element.
 <KInput type="number" model-value="1"/>
 <KInput type="email" model-value="john.doe@konghq.com"/>
 <KInput disabled model-value="disabled"/>
-<KInput read-only model-value="read-only"/>
+<KInput readonly model-value="read-only"/>
 <KInput type="search" model-value="search"/>
 ```
 
@@ -251,7 +251,7 @@ Should you decide to use your own custom icons, you can use design tokens export
 We also recommend setting the icon style `color` property to a value of `currentColor` to utilize default KInput styling for slotted content.
 :::
 
-### label-tooltip
+### labelTooltip
 
 If you want to utilize HTML in the input label's tooltip, use the slot.
 

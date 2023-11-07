@@ -26,7 +26,19 @@ describe('KLabel', () => {
       },
     })
 
-    cy.get('.k-label.is-required').should('exist')
+    cy.get('.k-label.required').should('exist')
+
+    // access element's before pseudo element
+    cy.get('.k-label.required').then($els => {
+      // get Window reference from element
+      const win = $els[0].ownerDocument.defaultView
+      // use getComputedStyle to read the pseudo selector
+      const before = win?.getComputedStyle($els[0], 'before')
+      // read the value of the `content` CSS property
+      const contentValue = before?.getPropertyValue('content')
+      // the returned value will be an empty string with double quotes around it
+      expect(contentValue).to.eq('""')
+    })
   })
 
   it('renders a tooltip when `info` prop is provided', () => {

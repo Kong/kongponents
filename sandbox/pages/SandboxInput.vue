@@ -22,7 +22,10 @@
         <KInput label="Label" />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="labelAttributes">
-        <KInput label="Label" />
+        <KInput
+          label="Label"
+          :label-attributes="{ info: 'I use the KLabel `info` prop' }"
+        />
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="help"

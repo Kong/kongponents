@@ -82,8 +82,15 @@ describe('KInput', () => {
     cy.get('.k-label .tooltip-trigger-icon').should('exist').and('be.visible')
   })
 
-  it.skip('renders label with required symbol when `required` attribute is set', () => {
-    // TODO: implement when KLabel component is reskinned
+  it('handles `required` attribute correctly', () => {
+    mount(KInput, {
+      props: {
+        label: 'A label',
+        required: true,
+      },
+    })
+
+    cy.get('.k-label').should('have.class', 'required')
   })
 
   it('renders help when value is passed', () => {
@@ -108,7 +115,6 @@ describe('KInput', () => {
       },
     })
 
-    cy.get('.k-input-wrapper .over-char-limit').should('not.exist')
     cy.get('.k-input-wrapper input.k-input').type(`This input has ${textCharCount} characters`)
     cy.get('.k-input-wrapper.input-error .help-text').should('contain.text', `${textCharCount} / ${charLimit}`)
   })

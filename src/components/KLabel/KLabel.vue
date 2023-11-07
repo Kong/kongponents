@@ -1,7 +1,7 @@
 <template>
   <label
     class="k-label"
-    :class="{ 'is-required': required }"
+    :class="{ 'required': required }"
   >
     <slot />
     <KTooltip
@@ -79,7 +79,7 @@ $kLabelRequiredDotSize: 6px;
   display: inline-flex;
   margin-bottom: var(--kui-space-40, $kui-space-40);
 
-  &.is-required {
+  &.required {
     margin-left: calc($kLabelSpacingX + $kLabelRequiredDotSize); // 6px to compensate for the 6px width of the dot
     position: relative;
 

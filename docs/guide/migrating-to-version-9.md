@@ -113,7 +113,7 @@ Component has been renamed to `KDropdown`
 
 #### Props
 
-* `label` prop has been deprecated in favor of the new `trigger-text` prop (usage is the same)
+* `label` prop has been deprecated in favor of the new `triggerText` prop (usage is the same)
 * `appearance` prop has been changed in favor of the `selectionMenu` prop for the selection menu functionality. `appearance` now controls the underlying `KButton` `appearance` prop (note that default `appearance` for component when `selectionMenu` is `true` changed from `tertiary` to `primary`)
 * `buttonAppearance` prop has been removed in favor of `appearance`, still controlling the `KButton` `appearance` prop
 * `testMode` prop has been removed
@@ -198,6 +198,7 @@ Component has been renamed to `KDropdown`
 #### Structure
 
 * `k-input-label` class has been renamed to `k-label`
+* `is-required` class has been renamed to `required`
 
 ### KMenu
 
@@ -291,8 +292,23 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 ### KTabs
 
 
-### KTextarea
+### KTextArea
 
+#### Props
+
+* `testMode` prop is removed
+* `isResizable` prop is deprecated in favor of `resizable` prop
+* `hasError` prop is deprecated in favor of `error` prop
+* `cols` prop has been removed (use CSS to control the width of the textarea)
+* `disableCharacterLimit` prop has been removed. You can pass a boolean `false` to `characterLimit` prop to disable character limit
+
+#### Structure
+
+* `k-input-wrapper` class has been changed to `k-textarea`
+* `has-error` class has been changed to `input-error`
+* `k-input` class has been changed to `input-textarea`
+* `form-control` class has been removed
+* `is-resizable` class has been changed to `resizable`
 
 ### KToaster
 
