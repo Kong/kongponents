@@ -1,3 +1,10 @@
+# [9.0.0-alpha.48](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.47...v9.0.0-alpha.48) (2023-11-08)
+
+
+### Bug Fixes
+
+* **kfullscreenmodal:** fix button height ([#1833](https://github.com/Kong/kongponents/issues/1833)) ([0b41078](https://github.com/Kong/kongponents/commit/0b410780d5e8e6b3ab11e624fe38cd570ddfd407))
+
 # [9.0.0-alpha.47](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.46...v9.0.0-alpha.47) (2023-11-07)
 
 
