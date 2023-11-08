@@ -319,15 +319,6 @@ $fullscreen-modal-padding: 64px;
   margin-left: var(--kui-space-50, $kui-space-50) !important;
   margin-right: var(--kui-space-90, $kui-space-90);
 
-  & button,
-  & :deep(button) {
-    font-size: var(--kui-font-size-20, $kui-font-size-20);
-    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-    height: 40px;
-    line-height: var(--kui-line-height-20, $kui-line-height-20);
-    margin-left: var(--kui-space-60, $kui-space-60);
-  }
-
   @media (min-width: $kui-breakpoint-phablet) {
     justify-content: flex-end;
   }
