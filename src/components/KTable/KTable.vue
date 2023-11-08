@@ -183,7 +183,7 @@
         :initial-page-size="pageSize"
         :neighbors="paginationNeighbors"
         :offset-next-button-disabled="(!isCursorPagination && !offset) || (isCursorPagination && !hasNextPage)"
-        :offset-prev-button-disabled="(!isCursorPagination && !previousOffset) || (isCursorPagination && page === 1)"
+        :offset-prev-button-disabled="(!isCursorPagination && !previousOffset) || (isCursorPagination && !previousCursor)"
         :page-sizes="paginationPageSizes"
         :pagination-type="paginationType"
         :test-mode="!!testMode || undefined"
@@ -551,7 +551,7 @@ const tableHeaders: Ref<TableHeader[]> = ref([])
 const total = ref(0)
 const hasNextPage = ref(true)
 const nextCursor = ref<string | null | undefined>(null)
-const nextCursorsList = ref<(string | null)[]>([])
+const nextCursorsList = ref<(string | null)[]>([null])
 const isScrolled = ref(false)
 const page = ref(1)
 const pageSize = ref(15)

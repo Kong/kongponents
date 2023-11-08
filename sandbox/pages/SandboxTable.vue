@@ -15,8 +15,7 @@
 <script setup lang="ts">
 import { KTable } from '@/components'
 
-const fetcher = async (params: Record<string, any>): Promise<any> => {
-  console.log('params', params)
+const fetcher = async (): Promise<any> => {
   // Fake delay
   await new Promise((resolve) => setTimeout(resolve, 2000))
 
