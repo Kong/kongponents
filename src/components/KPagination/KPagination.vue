@@ -103,13 +103,24 @@
           </li>
         </ul>
       </template>
-      <PaginationOffset
-        v-else
-        :next-button-disabled="offsetNextButtonDisabled"
-        :prev-button-disabled="offsetPrevButtonDisabled"
-        @get-next-offset="getNextOffset"
-        @get-prev-offset="getPrevOffset"
-      />
+
+      <template v-else>
+        <span
+          v-if="isCursorPagination"
+          class="pagination-text"
+          data-testid="visible-items"
+        >
+          <span class="pagination-text-pages">{{ pagesString }}</span>
+          {{ pageCountString }}
+        </span>
+
+        <PaginationOffset
+          :next-button-disabled="offsetNextButtonDisabled"
+          :prev-button-disabled="offsetPrevButtonDisabled"
+          @get-next-offset="getNextOffset"
+          @get-prev-offset="getPrevOffset"
+        />
+      </template>
       <span
         class="page-size-select"
         data-testid="page-size-dropdown"
@@ -138,6 +149,7 @@ import KSelect from '@/components/KSelect/KSelect.vue'
 import PaginationOffset from './PaginationOffset.vue'
 import type { PaginationType, PageSizeChangedData, PageChangedData } from '@/types'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { PaginationTypeArray } from '@/types'
 
 const kpopAttrs = {
   placement: 'top',
@@ -180,7 +192,7 @@ const props = defineProps({
   paginationType: {
     type: String as PropType<PaginationType>,
     default: 'default',
-    validator: (value: PaginationType) => ['default', 'offset'].includes(value),
+    validator: (value: PaginationType) => PaginationTypeArray.includes(value),
   },
   offsetPrevButtonDisabled: {
     type: Boolean,
@@ -215,6 +227,8 @@ const pageSizeOptions = props.pageSizes.map((size, i) => ({
   value: size,
 }))
 const pageSizeText = ref('')
+
+const isCursorPagination = computed((): boolean => props.paginationType === 'cursor')
 
 const getVisiblePages = (currPage: number, pageCount: number, firstDetached: boolean, lastDetached: boolean): number[] => {
   if (props.disablePageJump) {

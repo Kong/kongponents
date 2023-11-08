@@ -26,11 +26,6 @@ const fetcher = async (params: Record<string, any>): Promise<any> => {
   return {
     data: responseData,
     total: responseData.length,
-    page: {
-      total_count: 25,
-      has_next_page: false,
-      next_cursor: 'f1kSUVBZGURFAEdcGQ19Q1wSMWYOCA4cDRVdU0ZHE0FcF0NQQQ',
-    },
   }
 }
 </script>

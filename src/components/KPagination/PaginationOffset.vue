@@ -41,6 +41,7 @@
 
 <script lang="ts" setup>
 import KIcon from '@/components/KIcon/KIcon.vue'
+import KButton from '@/components/KButton/KButton.vue'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
 const props = defineProps({

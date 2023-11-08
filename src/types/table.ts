@@ -11,7 +11,7 @@ export interface TablePreferences {
   sortColumnOrder?: SortColumnOrder
 }
 
-export const TablePaginationTypeArray = ['default', 'offset'] as const
+export const TablePaginationTypeArray = ['default', 'offset', 'cursor'] as const
 
 export type TablePaginationType = AnyElementOf<typeof TablePaginationTypeArray>
 

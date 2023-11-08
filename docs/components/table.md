@@ -45,7 +45,7 @@ See [the State section](#loading) about `isLoading`
 
 ### disablePaginationPageJump
 
-Set this to `true` to limit pagination navigation to `previous` / `next` page only.
+Set this to `true` to limit pagination navigation to `previous` / `next` page only. If pagination type is set to `cursor`, `disablePaginationPageJump` is `true` by default.
 
 <KTable :fetcher="tableOptionsFetcher" :headers="tableOptionsHeaders" :disablePaginationPageJump="true" />
 
@@ -209,8 +209,16 @@ object supporting the following properties:
 ::: tip NOTE
 All fetcher functions should return a JSON object. This JSON object should contain the following properties:
 
-- `total` - the total count of items (if using pagination)
+- `total` - the total count of items (if using pagination and paginationType in not `cursor`)
 - `data` - an array of JSON objects to populate the table with
+- `page` - ONLY if paginationType in set to `cursor`. Should contain all data from API: 
+```
+  page: {
+    total_count: 548,
+    next_cursor: "f1kSUVBZGURFAEdcGQ19Q1wSMWYOCA4cDRVdU0ZHE0FcF0NQQQ",
+    has_next_page: true
+  }
+```
 :::
 
 Example fetcher function:
@@ -495,7 +503,7 @@ Pass in an array of page sizes for the page size dropdown. If not provided will 
 
 ### paginationType
 
-Pass in the type of pagination to be used. Options are `default` (page/pageSize) or `offset` (offset/pageSize)
+Pass in the type of pagination to be used. Options are `default` (page/pageSize), `offset` (offset/pageSize) or `cursor` (nextCursor/pageSize)
 
 <KTable
   :fetcher="offsetPaginationFetcher"
@@ -509,6 +517,24 @@ Pass in the type of pagination to be used. Options are `default` (page/pageSize)
     :fetcher="fetcher"
     :headers="headers"
     pagination-type="offset"
+  />
+</template>
+```
+
+#### Cursor paginationType
+
+<KTable
+:fetcher="cursorPaginationFetcher"
+:headers="cursorPaginationHeaders"
+:initial-fetcher-params="{ pageSize: cursorPaginationPageSize }"
+pagination-type="cursor" />
+
+```html
+<template>
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+    pagination-type="cursor"
   />
 </template>
 ```
@@ -1604,7 +1630,9 @@ export default defineComponent({
       eventType: '',
       enableRowClick: true,
       offsetPaginationPageSize: 15,
+      cursorPaginationPageSize: 15,
       offsetPaginationData: {},
+      cursorPaginationData: {},
       headers: [
         { label: 'Title', key: 'title', sortable: true },
         { label: 'Description', key: 'description', sortable: true },
@@ -1643,6 +1671,12 @@ export default defineComponent({
         { label: 'Last Seen', key: 'last_seen', sortable: true, useSortHandlerFn: true }
       ],
       offsetPaginationHeaders: [
+        { label: 'Host', key: 'hostname', sortable: false },
+        { label: 'Version', key: 'version', sortable: false },
+        { label: 'Connected', key: 'connected', sortable: false },
+        { label: 'Last Seen', key: 'last_seen', sortable: false }
+      ],
+      cursorPaginationHeaders: [
         { label: 'Host', key: 'hostname', sortable: false },
         { label: 'Version', key: 'version', sortable: false },
         { label: 'Connected', key: 'connected', sortable: false },
@@ -1945,6 +1979,61 @@ export default defineComponent({
         ? this.offsetPaginationData[offset]
         : Object.values(this.offsetPaginationData)[0]
     },
+    async generateCursorPaginationTableData(pgSize) {
+      const pageSize = pgSize || this.cursorPaginationPageSize
+      const data = []
+      const cursorObj = {}
+      const cursorVal = 'cursor'
+      const total = 50
+
+      for (let i = 0; i < total; i++) {
+        data.push({
+          id: `08cc7d81-a9d8-4ae1-a42f-8d4e5a919d0${i}`,
+          version: '2.8.0.0-enterprise-edition',
+          hostname: `99e591ae377${i}`,
+          last_ping: 1648855072,
+          connected: 'Connected',
+          last_seen: `${i} days ago`
+        })
+      }
+
+      const totalPages = Math.ceil(data.length / pageSize)
+
+      cursorObj['all'] = {data, currentPage: 1}
+      cursorObj['1'] = { 
+          data: data.slice(0, pageSize), 
+          page: { total_count: total, has_next_page: true, next_cursor: data[pageSize].id } 
+          }
+
+      this.cursorPaginationData = cursorObj
+    },
+    async cursorPaginationFetcher(params) {
+      const { pageSize, nextCursor, page } = params
+      if (pageSize !== this.cursorPaginationPageSize) {
+        this.cursorPaginationPageSize = pageSize
+        this.generateCursorPaginationTableData()
+      }
+
+      if (nextCursor) {
+        const i = this.cursorPaginationData['all'].data.findIndex(el => el.id === nextCursor)
+        if (i != -1) {
+          const next = this.cursorPaginationData['all'].data[i + pageSize + 1]?.id
+          
+          const newData = this.cursorPaginationData['all'].data.slice(i, i + pageSize + 1)
+
+          this.cursorPaginationData['all'].currentPage = page
+
+          return { 
+            data: newData, 
+            page: { has_next_page: !!next, next_cursor: next } 
+          }
+        } else {
+          return {}
+        }        
+      } else {
+        return this.cursorPaginationData['1']
+      }
+    },
     cellSlotFetcher () {
       return {
         data: [
@@ -1986,6 +2075,7 @@ export default defineComponent({
   },
   mounted() {
     this.generateOffsetPaginationTableData()
+    this.generateCursorPaginationTableData()
   }
 })
 </script>

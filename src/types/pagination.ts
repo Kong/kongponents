@@ -1,4 +1,8 @@
-export type PaginationType = 'default' | 'offset'
+import type { AnyElementOf } from '@/types/utils'
+
+export const PaginationTypeArray = ['default', 'offset', 'cursor'] as const
+
+export type PaginationType = AnyElementOf<typeof PaginationTypeArray>
 
 export interface PageChangedData {
   page: number
