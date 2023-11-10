@@ -36,12 +36,6 @@
               :size="KUI_ICON_SIZE_20"
             />
           </component>
-          <KIcon
-            v-else-if="item.selected"
-            class="selected-item-icon"
-            color="currentColor"
-            icon="check"
-          />
         </span>
       </button>
     </div>

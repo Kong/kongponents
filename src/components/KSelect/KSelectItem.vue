@@ -18,21 +18,12 @@
         <span class="k-select-item-label">
           <slot name="content">{{ item.label }}</slot>
         </span>
-        <span class="k-select-selected-icon-container">
-          <KIcon
-            v-if="item.selected"
-            class="selected-item-icon"
-            color="currentColor"
-            icon="check"
-          />
-        </span>
       </button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import KIcon from '@/components/KIcon/KIcon.vue'
 import type { SelectItem } from '@/types'
 import type { PropType } from 'vue'
 
