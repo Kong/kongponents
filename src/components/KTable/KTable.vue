@@ -807,10 +807,12 @@ const sortClickHandler = (header: TableHeader): void => {
     } else {
       sortColumnKey.value = key
       sortColumnOrder.value = 'asc'
+      offsets.value = [null]
     }
   } else {
     sortColumnKey.value = key
     sortColumnOrder.value = 'asc'
+    offsets.value = [null]
   }
 
   // Use deprecated sort function to sort data passed in via
