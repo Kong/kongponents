@@ -1,3 +1,10 @@
+# [9.0.0-alpha.49](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.48...v9.0.0-alpha.49) (2023-11-10)
+
+
+### Bug Fixes
+
+* **ktable:** reset offsets after sort key changes ([#1834](https://github.com/Kong/kongponents/issues/1834)) ([e521bf3](https://github.com/Kong/kongponents/commit/e521bf33ab17be0684bbf2ac41e7489c149c50ee))
+
 # [9.0.0-alpha.48](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.47...v9.0.0-alpha.48) (2023-11-08)
 
 
