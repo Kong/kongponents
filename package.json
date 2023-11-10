@@ -97,7 +97,7 @@
     "commitizen": "^4.3.0",
     "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
-    "cypress": "^13.3.0",
+    "cypress": "^13.4.0",
     "cypress-fail-fast": "^7.0.3",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^8.52.0",
