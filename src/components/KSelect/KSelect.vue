@@ -177,7 +177,6 @@ import type {
 } from '@/types'
 import { SelectAppearanceArray } from '@/types'
 import { ChevronDownIcon, CloseIcon } from '@kong/icons'
-import { is } from 'cypress/types/bluebird'
 
 export default {
   inheritAttrs: false,
