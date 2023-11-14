@@ -130,8 +130,8 @@ We also recommend setting the icon style `color` property to a value of `current
 
 ### icon
 
-:::warning NOTE
-This slot will be removed in the `9.0.0-beta.0` release.
+:::danger NOTE
+This slot is deprecated and will be removed in the `9.0.0-beta.0` release. Please use the [`default` slot](#default) instead whenever possible (unless the only content you are passing to KButton is icon).
 :::
 
 KButton supports using an icon either before the text or without text. If you are using the KIcon component you must maintain the icon color yourself when the button is enabled or disabled.

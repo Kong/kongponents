@@ -53,7 +53,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 * `showCaret` prop is removed
 * `caretColor` prop is removed
 * `isRounded` prop is removed
-* `icon` prop is removed (TODO: [beta])
+* `icon` prop has changed to boolean (TODO: [beta])
 
 #### Slots
 

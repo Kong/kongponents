@@ -100,10 +100,20 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  // TODO: [beta] remove this prop
+  /**
+   * @deprecated
+   * TODO: [beta] remove this prop
+   */
   icon: {
     type: String,
     default: '',
+    validator: (value: string): boolean => {
+      if (value) {
+        console.warn('KDropdown: `icon` prop is deprecated. Please slot an icon into the `default` slot instead. See KButton docs for more details: https://alpha--kongponents.netlify.app/components/button.html#default')
+      }
+
+      return true
+    },
   },
   showCaret: {
     type: Boolean,
