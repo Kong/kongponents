@@ -54,7 +54,6 @@
   "dependencies": {
     "@kong/icons": "^1.8.0",
     "@popperjs/core": "^2.11.8",
-    "axios": "^0.27.2",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
     "focus-trap": "^7.5.4",
@@ -67,7 +66,7 @@
     "vue-draggable-next": "^2.2.1"
   },
   "peerDependencies": {
-    "axios": "^0.27.2",
+    "axios": "^1.6.1",
     "vue": ">= 3.3.4 < 4",
     "vue-router": "^4.2.5"
   },
@@ -93,6 +92,7 @@
     "@vue/tsconfig": "^0.4.0",
     "@vueuse/core": "^10.5.0",
     "autoprefixer": "^10.4.16",
+    "axios": "^1.6.1",
     "boxen": "^7.1.1",
     "commitizen": "^4.3.0",
     "copyfiles": "^2.4.1",
