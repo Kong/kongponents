@@ -1,3 +1,10 @@
+# [8.126.0](https://github.com/Kong/kongponents/compare/v8.125.1...v8.126.0) (2023-11-14)
+
+
+### Features
+
+* trigger release ([da57ba3](https://github.com/Kong/kongponents/commit/da57ba3eafbdf4802e299b178d53a1b231fc830b))
+
 ## [8.125.1](https://github.com/Kong/kongponents/compare/v8.125.0...v8.125.1) (2023-11-10)
 
 
