@@ -121,7 +121,10 @@
           show-caret
           @change="updatePageSize"
         >
-          <KButton appearance="tertiary">
+          <KButton
+            appearance="tertiary"
+            data-testid="page-size-dropdown-trigger"
+          >
             {{ pageSizeText }}
             <ChevronDownIcon />
           </KButton>

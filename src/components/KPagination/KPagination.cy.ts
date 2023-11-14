@@ -22,7 +22,7 @@ describe('KPagination', () => {
     cy.get('.pagination-button.active a').should('contain.text', currPage + '')
 
     for (let i = 0; i < pageSizes.length; i++) {
-      cy.getTestId(`k-select-item-${pageSizes[i]}`).should('exist')
+      cy.get(`[data-testid="dropdown-item-trigger"][value="${pageSizes[i]}"]`).should('exist')
     }
   })
 
@@ -71,9 +71,9 @@ describe('KPagination', () => {
       },
     })
 
-    cy.getTestId('k-select-input').find('.k-button').should('contain.text', '2 items per page')
-    cy.getTestId('k-select-input').find('button').click({ multiple: true, force: true })
-    cy.getTestId('k-select-item-4').find('button').click({ multiple: true, force: true })
-    cy.getTestId('k-select-input').find('.k-button').should('contain.text', '4 items per page')
+    cy.getTestId('page-size-dropdown-trigger').should('contain.text', '2 items per page')
+    cy.getTestId('page-size-dropdown-trigger').click({ multiple: true, force: true })
+    cy.get('[data-testid="dropdown-item-trigger"][value="4"]').click({ multiple: true, force: true })
+    cy.getTestId('page-size-dropdown-trigger').should('contain.text', '4 items per page')
   })
 })

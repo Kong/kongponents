@@ -15,9 +15,12 @@
   <div
     v-for="group in groups"
     :key="`${group}-group`"
-    class="k-select-group"
+    class="select-group"
+    data-propagate-clicks="false"
   >
-    <span class="k-select-group-title">
+    <span
+      class="select-group-title"
+    >
       {{ group }}
     </span>
     <KSelectItem
@@ -67,18 +70,18 @@ const getGroupItems = (group: string) => props.items?.filter(item => item.group 
 </script>
 
 <style lang="scss" scoped>
-.k-select-group {
+.select-group {
   margin-bottom: var(--kui-space-20, $kui-space-20) !important;
 
-  .k-select-group-title {
+  .select-group-title {
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
     display: block !important;
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
     margin-bottom: var(--kui-space-20, $kui-space-20);
     padding: var(--kui-space-40, $kui-space-40);
+    pointer-events: none;
     text-transform: uppercase;
-    user-select: none;
   }
 }
 </style>

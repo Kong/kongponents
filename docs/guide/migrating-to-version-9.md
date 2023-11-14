@@ -316,6 +316,7 @@ This component has been removed. Please refer to KBadge component which has been
 
 ### KPagination
 
+KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/components/select) as underlying element for page size selector.
 
 ### KPopover
 
@@ -365,6 +366,18 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KSelect
 
+#### Props
+
+* `appearance` prop has been removed. KSelect comes in one appearance (what previously was `select` appearance). If you need an element that behaves like a select but looks like a button, check out KDropdown's [selectionMenu prop](/components/dropdown#selectionmenu)
+* `buttonText` prop has been removed
+* `testMode` prop has been removed
+* `overlayLabel` prop has been removed
+
+#### Structure
+
+* `k-select-selected-item` `data-testid` attribute has been renamed to `selected-item`
+
+#### Constants, Types & Interfaces
 
 ### KSkeleton
 

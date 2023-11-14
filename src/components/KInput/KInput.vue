@@ -273,7 +273,8 @@ export default {
 // Only add variables here sparingly for ease of use when the same value needs to be referenced for display logic.
 
 $kInputPaddingX: var(--kui-space-50, $kui-space-50); // corresponds to mixin, search for variable name in mixins
-$kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
+$kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40); // $kSelectInputIconSize
+$kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpacing
 
 /* Component styles */
 
@@ -359,7 +360,7 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
       .k-input {
         // if there is a before slot, add padding to the left of the input
         // standard padding + icon size + space between icon and input
-        padding-left: calc($kInputPaddingX + $kInputIconSize + var(--kui-space-40, $kui-space-40));
+        padding-left: calc($kInputPaddingX + $kInputIconSize + $kInputSlotSpacing);
       }
     }
 
@@ -367,7 +368,7 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
       .k-input {
         // if there is a after slot, add padding to the right of the input
         // standard padding + icon size + space between icon and input
-        padding-right: calc($kInputPaddingX + $kInputIconSize + var(--kui-space-40, $kui-space-40));
+        padding-right: calc($kInputPaddingX + $kInputIconSize + $kInputSlotSpacing);
       }
     }
   }
