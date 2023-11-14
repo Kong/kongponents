@@ -7465,7 +7465,7 @@ sass@^1.69.5:
     immutable "^4.0.0"
     source-map-js ">=0.6.2 <2.0.0"
 
-semantic-release@^22.0.6:
+semantic-release@^22.0.7:
   version "22.0.7"
   resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-22.0.7.tgz#9ca7cba742ff54f861f983977898b6073bba9c4d"
   integrity sha512-Stx23Hjn7iU8GOAlhG3pHlR7AoNEahj9q7lKBP0rdK2BasGtJ4AWYh3zm1u3SCMuFiA8y4CE/Gu4RGKau1WiaQ==
