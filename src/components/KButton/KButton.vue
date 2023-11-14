@@ -133,7 +133,7 @@ const kIconColor = computed((): string => {
 
 onMounted(() => {
   if (slots.icon) {
-    console.warn('KButton: `icon` slot is deprecated. Please use the `default` slot instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/components/button.html#icon-1')
+    console.warn('KButton: `icon` slot is deprecated. Please slot an icon into the `default` slot instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/components/button.html#icon-1')
   }
 })
 </script>

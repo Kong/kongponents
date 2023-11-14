@@ -109,7 +109,7 @@ const props = defineProps({
     default: '',
     validator: (value: string): boolean => {
       if (value) {
-        console.warn('KDropdown: `icon` prop is deprecated. Please use the `default` slot instead. See KButton docs for more details: https://alpha--kongponents.netlify.app/components/button.html#default')
+        console.warn('KDropdown: `icon` prop is deprecated. Please slot an icon into the `default` slot instead. See KButton docs for more details: https://alpha--kongponents.netlify.app/components/button.html#default')
       }
 
       return true
