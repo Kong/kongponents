@@ -1,3 +1,10 @@
+# [9.0.0-alpha.52](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.51...v9.0.0-alpha.52) (2023-11-14)
+
+
+### Bug Fixes
+
+* kselect selectedItem should reset to null ([#1843](https://github.com/Kong/kongponents/issues/1843)) ([d612309](https://github.com/Kong/kongponents/commit/d6123093d620e623dc2191411b1a7ad484a75dd8))
+
 # [9.0.0-alpha.51](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.50...v9.0.0-alpha.51) (2023-11-14)
 
 
