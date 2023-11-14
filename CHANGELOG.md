@@ -1,3 +1,10 @@
+# [9.0.0-alpha.50](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.49...v9.0.0-alpha.50) (2023-11-14)
+
+
+### Features
+
+* trigger release ([da57ba3](https://github.com/Kong/kongponents/commit/da57ba3eafbdf4802e299b178d53a1b231fc830b))
+
 # [9.0.0-alpha.49](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.48...v9.0.0-alpha.49) (2023-11-10)
 
 
