@@ -1,3 +1,10 @@
+# [9.0.0-alpha.51](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.50...v9.0.0-alpha.51) (2023-11-14)
+
+
+### Bug Fixes
+
+* add deprecation warnings ([#1842](https://github.com/Kong/kongponents/issues/1842)) ([c24bac5](https://github.com/Kong/kongponents/commit/c24bac5bd1a4405eb18ac3ac3dea47028e1206d0))
+
 # [9.0.0-alpha.50](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.49...v9.0.0-alpha.50) (2023-11-14)
 
 
