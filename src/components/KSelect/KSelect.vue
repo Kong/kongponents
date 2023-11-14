@@ -711,6 +711,7 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 
   selectItems.value = JSON.parse(JSON.stringify(props.items))
+  selectedItem.value = null
   for (let i = 0; i < selectItems.value?.length; i++) {
     // Ensure each item has a `selected` property
     if (selectItems.value[i].selected === undefined) {
