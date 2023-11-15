@@ -1,3 +1,10 @@
+## [8.126.2](https://github.com/Kong/kongponents/compare/v8.126.1...v8.126.2) (2023-11-15)
+
+
+### Bug Fixes
+
+* **kselect:** autosuggest query ([#1844](https://github.com/Kong/kongponents/issues/1844)) ([667d8fa](https://github.com/Kong/kongponents/commit/667d8fa5ac13607be0e8fd9dce0ae39779569e5d))
+
 ## [8.126.1](https://github.com/Kong/kongponents/compare/v8.126.0...v8.126.1) (2023-11-14)
 
 
