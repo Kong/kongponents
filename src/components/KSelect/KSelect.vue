@@ -656,6 +656,7 @@ const clearSelection = (): void => {
   selectedItem.value = null
   if (props.appearance === 'select') {
     filterStr.value = ''
+    emit('query-change', '')
   }
   // this 'input' event must be emitted for v-model binding to work properly
   emit('input', null)
@@ -677,8 +678,10 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
 }
 
 const onQueryChange = (query: string) => {
-  filterStr.value = query
-  emit('query-change', query)
+  if (filterStr.value !== query) {
+    filterStr.value = query
+    emit('query-change', query)
+  }
 }
 
 const onInputFocus = (): void => {
