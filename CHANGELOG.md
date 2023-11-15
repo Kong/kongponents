@@ -1,3 +1,10 @@
+# [9.0.0-alpha.53](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.52...v9.0.0-alpha.53) (2023-11-15)
+
+
+### Bug Fixes
+
+* **kselect:** autosuggest query ([#1844](https://github.com/Kong/kongponents/issues/1844)) ([667d8fa](https://github.com/Kong/kongponents/commit/667d8fa5ac13607be0e8fd9dce0ae39779569e5d))
+
 # [9.0.0-alpha.52](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.51...v9.0.0-alpha.52) (2023-11-14)
 
 
