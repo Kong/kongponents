@@ -71,8 +71,8 @@ Use this prop if you would like the trigger button to display a caret icon.
 
 ### icon
 
-:::warning NOTE
-This prop will be removed in the `9.0.0-beta.0` release. Icons can be provided in the `default` slot
+:::danger NOTE
+This prop will be removed in the `9.0.0-beta.0` release. Icons can be provided in the `default` slot.
 :::
 
 A string for the `KIcon` to be displayed on the dropdown button with or in place of the button label.
