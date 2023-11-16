@@ -1,3 +1,10 @@
+# [9.0.0-alpha.54](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.53...v9.0.0-alpha.54) (2023-11-16)
+
+
+### Bug Fixes
+
+* **kinput:** add box-sizing rule ([#1850](https://github.com/Kong/kongponents/issues/1850)) ([a7e9f1c](https://github.com/Kong/kongponents/commit/a7e9f1c1b9d4be15a6da8310021d7e6880aaa2ba))
+
 # [9.0.0-alpha.53](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.52...v9.0.0-alpha.53) (2023-11-15)
 
 
