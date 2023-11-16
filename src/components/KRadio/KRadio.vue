@@ -419,6 +419,10 @@ $kRadioDotSize: 6px;
         .radio-card-wrapper {
           border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-danger, $kui-color-border-danger);
 
+          &:hover {
+            border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-danger-strong, $kui-color-border-danger-strong);
+          }
+
           .radio-label {
             color: var(--kui-color-text, $kui-color-text);
           }
