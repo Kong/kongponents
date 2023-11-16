@@ -344,8 +344,8 @@ $kRadioDotSize: 6px;
     .radio-card-wrapper {
       align-items: center;
       background-color: var(--kui-color-background, $kui-color-background);
+      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-      box-shadow: var(--kui-shadow-border, $kui-shadow-border);
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -353,14 +353,15 @@ $kRadioDotSize: 6px;
       outline: none;
       padding: var(--kui-space-70, $kui-space-70);
       text-align: center;
+      transition: border $kongponentsTransitionDurTimingFunc;
       width: 100%;
 
       &:hover {
-        box-shadow: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak);
+        border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
       }
 
       &:focus-visible {
-        box-shadow: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak), var(--kui-shadow-focus, $kui-shadow-focus);
+        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
       }
 
       .card-content-wrapper {
@@ -369,6 +370,7 @@ $kRadioDotSize: 6px;
 
       &.has-label, &.has-description {
         .card-content-wrapper {
+          height: auto;
           margin-bottom: var(--kui-space-40, $kui-space-40);
         }
       }
@@ -376,44 +378,71 @@ $kRadioDotSize: 6px;
       .radio-label {
         @include labelDefaults;
       }
-    }
 
-    &.checked.radio-card {
-      .radio-card-wrapper {
-        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-        box-shadow: var(--kui-shadow-border-primary, $kui-shadow-border-primary);
+      :deep(#{$kongponentsKongIconSelector}) {
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
       }
     }
 
-    &.input-error {
+    &.checked.radio-card:not(.disabled) {
       .radio-card-wrapper {
-        box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
+        border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-primary, $kui-color-border-primary);
 
         &:hover {
-          box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong);
+          border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
+        }
+
+        .radio-label {
+          color: var(--kui-color-text-primary, $kui-color-text-primary);
+        }
+
+        :deep(#{$kongponentsKongIconSelector}) {
+          color: var(--kui-color-text-primary, $kui-color-text-primary) !important;
+        }
+      }
+    }
+
+    &.input-error.radio-card:not(.disabled) {
+      .radio-card-wrapper {
+        border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-danger, $kui-color-border-danger);
+
+        &:hover {
+          border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-danger-strong, $kui-color-border-danger-strong);
         }
 
         &:focus-visible {
-          box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong), var(--kui-shadow-focus, $kui-shadow-focus);
+          box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
         }
       }
 
       &.checked {
         .radio-card-wrapper {
-          background-color: var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest);
-          box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
+          border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-danger, $kui-color-border-danger);
+
+          .radio-label {
+            color: var(--kui-color-text, $kui-color-text);
+          }
+
+          :deep(#{$kongponentsKongIconSelector}) {
+            color: var(--kui-color-text, $kui-color-text) !important;
+          }
         }
       }
     }
 
     &.disabled.radio-card {
       .radio-card-wrapper {
-        background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
-        box-shadow: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled);
+        border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-disabled, $kui-color-border-disabled);
         cursor: not-allowed;
 
-        &:hover {
-          box-shadow: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled);
+        .radio-label {
+          color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+        }
+      }
+
+      &.checked {
+        .radio-card-wrapper {
+          background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
         }
       }
     }
