@@ -280,11 +280,13 @@ describe('KSelect', () => {
         autosuggest: true,
         loading: false,
         items: [],
+        appearance: 'select',
         onQueryChange,
       },
     })
 
     cy.get('input').type('a').then(() => {
+      cy.get('@onQueryChange').should('have.been.calledWith', '')
       cy.get('@onQueryChange').should('have.been.calledWith', 'a')
     }).then(() => {
       cy.wrap(Cypress.vueWrapper.setProps({ loading: true })).getTestId('k-select-loading').should('exist')
@@ -292,6 +294,12 @@ describe('KSelect', () => {
       cy.wrap(Cypress.vueWrapper.setProps({ loading: false })).getTestId('k-select-loading').should('not.exist')
     }).then(() => {
       cy.wrap(Cypress.vueWrapper.setProps({ items: [{ label: 'Label 1', value: 'label1' }] })).getTestId('k-select-item-label1').should('contain.text', 'Label 1')
+    }).then(() => {
+      cy.getTestId('k-select-item-label1').trigger('click')
+      cy.get('input').should('have.value', 'Label 1')
+      cy.getTestId('k-select-input').trigger('click')
+      cy.get('[data-testid="k-select-item-label1"] button').should('have.class', 'selected')
+      cy.get('@onQueryChange').should('have.been.calledTwice')
     })
   })
 
@@ -504,5 +512,48 @@ describe('KSelect', () => {
     cy.get('input').clear()
     cy.get('input').type(newItem)
     cy.getTestId('k-select-add-item').should('be.visible').should('contain.text', newItem)
+  })
+
+  it('updates selected status after items are mutated', () => {
+    const labels = ['Label 1', 'Label 2']
+    const vals = ['label1', 'label2']
+
+    mount(KSelect, {
+      props: {
+        testMode: true,
+        appearance: 'select',
+        items: [{
+          label: labels[0],
+          value: vals[0],
+          selected: true,
+        }, {
+          label: labels[1],
+          value: vals[1],
+          selected: false,
+        }],
+      },
+    })
+
+    cy.get('.k-select-input input').click()
+    cy.get(`[data-testid="k-select-item-${vals[0]}"] button`).should('have.class', 'selected')
+    cy.get(`[data-testid="k-select-item-${vals[1]}"] button`).should('not.have.class', 'selected')
+      .then(() => {
+        // mutate items
+        cy.wrap(Cypress.vueWrapper.setProps({
+          items: [{
+            label: labels[0],
+            value: vals[0],
+            selected: false,
+          }, {
+            label: labels[1],
+            value: vals[1],
+            selected: true,
+          }],
+        }))
+      })
+      .then(() => {
+        cy.get(`[data-testid="k-select-item-${vals[0]}"] button`).should('not.have.class', 'selected')
+        cy.get(`[data-testid="k-select-item-${vals[1]}"] button`).should('have.class', 'selected')
+      })
   })
 })
