@@ -6,6 +6,7 @@
   border: 0;
   border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
   box-shadow: var(--kui-shadow-border, $kui-shadow-border);
+  box-sizing: border-box; // Ensure the padding is calculated in the element's width
   color: var(--kui-color-text, $kui-color-text);
   font-family: var(--kui-font-family-text, $kui-font-family-text);
   font-size: var(
