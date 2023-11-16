@@ -9,64 +9,68 @@
         is-subtitle
         title="Figma"
       />
-      <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=763%3A12969&mode=dev">
-        Figma
-      </KExternalLink>
+      <SandboxSectionComponent>
+        <div>
+          <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=763%3A12969&mode=dev">
+            Figma
+          </KExternalLink>
+        </div>
 
-      <div class="grid-container standalone-container">
-        <div class="vertical-spacing">
-          <KRadio
-            v-model="modelValue0"
-            label="Label"
-            selected-value="barfoo0"
-          />
-          <KRadio
-            v-model="modelValue0"
-            disabled
-            label="Disabled"
-            selected-value="barfoo1"
-          />
-          <KRadio
-            v-model="modelValue0"
-            error
-            label="Error"
-            selected-value="barfoo2"
-          />
-          <KRadio
-            v-model="modelValue0"
-            disabled
-            error
-            label="Error & Disabled"
-            selected-value="barfoo3"
-          />
+        <div class="grid-container standalone-container">
+          <div class="vertical-spacing">
+            <KRadio
+              v-model="modelValue0"
+              label="Label"
+              selected-value="barfoo0"
+            />
+            <KRadio
+              v-model="modelValue0"
+              disabled
+              label="Disabled"
+              selected-value="barfoo1"
+            />
+            <KRadio
+              v-model="modelValue0"
+              error
+              label="Error"
+              selected-value="barfoo2"
+            />
+            <KRadio
+              v-model="modelValue0"
+              disabled
+              error
+              label="Error & Disabled"
+              selected-value="barfoo3"
+            />
+          </div>
+          <div class="vertical-spacing">
+            <KRadio
+              v-model="modelValue1"
+              label="Checked"
+              selected-value="barfoo"
+            />
+            <KRadio
+              v-model="modelValue1"
+              disabled
+              label="Checked & Disabled"
+              selected-value="barfoo"
+            />
+            <KRadio
+              v-model="modelValue1"
+              error
+              label="Checked & Error"
+              selected-value="barfoo"
+            />
+            <KRadio
+              v-model="modelValue1"
+              disabled
+              error
+              label="Checked & Error & Disabled"
+              selected-value="barfoo"
+            />
+          </div>
         </div>
-        <div class="vertical-spacing">
-          <KRadio
-            v-model="modelValue1"
-            label="Checked"
-            selected-value="barfoo"
-          />
-          <KRadio
-            v-model="modelValue1"
-            disabled
-            label="Checked & Disabled"
-            selected-value="barfoo"
-          />
-          <KRadio
-            v-model="modelValue1"
-            error
-            label="Checked & Error"
-            selected-value="barfoo"
-          />
-          <KRadio
-            v-model="modelValue1"
-            disabled
-            error
-            label="Checked & Error & Disabled"
-            selected-value="barfoo"
-          />
-        </div>
-      </div>
+      </SandboxSectionComponent>
 
       <!-- Props -->
       <SandboxTitleComponent
@@ -112,48 +116,83 @@
           />
         </div>
       </SandboxSectionComponent>
-      <SandboxSectionComponent
-        description="KRadio card styling is to be revisited in the next `9.0.0-alpha.x` release as design is being finalized."
-        title="card"
-      >
+      <SandboxSectionComponent title="card">
         <div class="grid-container">
           <KRadio
             v-model="modelValue2"
             card
             description="Very long description that wraps to the next line and ends with lorem ipsum dolor sit amet."
-            label="Label"
+            label="Selected"
             selected-value="card0"
           >
-            <WorldIcon />
-          </KRadio>
-          <KRadio
-            v-model="modelValue2"
-            card
-            description="Disabled (and without a label)"
-            disabled
-            selected-value="card1"
-          >
-            <WorldPrivateIcon />
+            <KongIcon />
           </KRadio>
           <KRadio
             v-model="modelValue2"
             card
             description="Lorem ipsum dolor sit amet."
+            label="Other"
+            selected-value="card1"
+          >
+            <KongIcon />
+          </KRadio>
+          <KRadio
+            v-model="modelValue2"
+            card
             error
             label="Error"
             selected-value="card2"
           >
-            <WorldPrivateIcon />
+            <KongIcon />
+          </KRadio>
+          <KRadio
+            v-model="modelValue2"
+            card
+            error
+            label="Selected & Error"
+            selected-value="card0"
+          >
+            <KongIcon />
+          </KRadio>
+          <KRadio
+            v-model="modelValue2"
+            card
+            disabled
+            label="Disabled"
+            selected-value="card3"
+          >
+            <LockIcon />
           </KRadio>
           <KRadio
             v-model="modelValue2"
             card
             disabled
             error
-            label="Error & Disabled"
-            selected-value="card3"
+            label="Disabled & Error"
+            selected-value="card4"
           >
-            <WorldPrivateIcon />
+            <LockIcon />
+          </KRadio>
+          <KRadio
+            v-model="modelValue2"
+            card
+            description="Lorem ipsum dolor sit amet."
+            disabled
+            label="Disabled & Checked"
+            selected-value="card0"
+          >
+            <LockIcon />
+          </KRadio>
+          <KRadio
+            v-model="modelValue2"
+            card
+            description="Lorem ipsum dolor sit amet."
+            disabled
+            error
+            label="Disabled & Checked & Error"
+            selected-value="card0"
+          >
+            <LockIcon />
           </KRadio>
         </div>
       </SandboxSectionComponent>
@@ -220,7 +259,7 @@
 import { ref, inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { WorldIcon, WorldPrivateIcon } from '@kong/icons'
+import { KongIcon, LockIcon } from '@kong/icons'
 
 const modelValue0 = ref('foobar')
 const modelValue1 = ref('barfoo')

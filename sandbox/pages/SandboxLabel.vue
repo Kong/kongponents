@@ -9,13 +9,19 @@
         is-subtitle
         title="Figma"
       />
-      <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=418%3A15878&mode=dev">
-        Figma
-      </KExternalLink>
+      <SandboxSectionComponent>
+        <div>
+          <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=418%3A15878&mode=dev">
+            Figma
+          </KExternalLink>
+        </div>
 
-      <KLabel>
-        This is a label
-      </KLabel>
+        <div>
+          <KLabel>
+            This is a label
+          </KLabel>
+        </div>
+      </SandboxSectionComponent>
 
       <!-- Props -->
       <SandboxTitleComponent

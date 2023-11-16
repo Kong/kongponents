@@ -9,57 +9,61 @@
         is-subtitle
         title="Figma"
       />
-      <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=283%3A2899&mode=dev">
-        Figma
-      </KExternalLink>
+      <SandboxSectionComponent>
+        <div>
+          <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=283%3A2899&mode=dev">
+            Figma
+          </KExternalLink>
+        </div>
 
-      <div class="grid-container standalone-container">
-        <div class="vertical-spacing">
-          <KCheckbox
-            v-model="modelValue0"
-            label="Label"
-          />
-          <KCheckbox
-            v-model="modelValue0"
-            disabled
-            label="Disabled"
-          />
-          <KCheckbox
-            v-model="modelValue0"
-            error
-            label="Error"
-          />
-          <KCheckbox
-            v-model="modelValue0"
-            disabled
-            error
-            label="Error & Disabled"
-          />
+        <div class="grid-container standalone-container">
+          <div class="vertical-spacing">
+            <KCheckbox
+              v-model="modelValue0"
+              label="Label"
+            />
+            <KCheckbox
+              v-model="modelValue0"
+              disabled
+              label="Disabled"
+            />
+            <KCheckbox
+              v-model="modelValue0"
+              error
+              label="Error"
+            />
+            <KCheckbox
+              v-model="modelValue0"
+              disabled
+              error
+              label="Error & Disabled"
+            />
+          </div>
+          <div class="vertical-spacing">
+            <KCheckbox
+              v-model="modelValue1"
+              label="Checked"
+              selected-value="barfoo"
+            />
+            <KCheckbox
+              v-model="modelValue1"
+              disabled
+              label="Checked & Disabled"
+            />
+            <KCheckbox
+              v-model="modelValue1"
+              error
+              label="Checked & Error"
+            />
+            <KCheckbox
+              v-model="modelValue1"
+              disabled
+              error
+              label="Checked & Error & Disabled"
+            />
+          </div>
         </div>
-        <div class="vertical-spacing">
-          <KCheckbox
-            v-model="modelValue1"
-            label="Checked"
-            selected-value="barfoo"
-          />
-          <KCheckbox
-            v-model="modelValue1"
-            disabled
-            label="Checked & Disabled"
-          />
-          <KCheckbox
-            v-model="modelValue1"
-            error
-            label="Checked & Error"
-          />
-          <KCheckbox
-            v-model="modelValue1"
-            disabled
-            error
-            label="Checked & Error & Disabled"
-          />
-        </div>
-      </div>
+      </SandboxSectionComponent>
 
       <!-- Props -->
       <SandboxTitleComponent
