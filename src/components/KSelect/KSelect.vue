@@ -90,7 +90,7 @@
         </div>
         <template #content>
           <slot
-            v-if="autosuggest && loading"
+            v-if="enableFiltering && loading"
             name="loading"
           >
             <KIcon
@@ -105,7 +105,7 @@
             data-propagate-clicks="false"
           >
             <KSelectItems
-              :items="selectItems"
+              :items="filteredItems"
               @selected="handleItemSelect"
             >
               <template #content="{ item }">
@@ -117,13 +117,13 @@
               </template>
             </KSelectItems>
             <KSelectItem
-              v-if="!selectItems.length && !$slots.empty && !enableItemCreation"
+              v-if="!filteredItems.length && !$slots.empty && !enableItemCreation"
               key="k-select-empty-state"
               class="k-select-empty-item"
               :item="{ label: 'No results', value: 'no_results' }"
             />
             <KSelectItem
-              v-if="!selectItems.length && uniqueFilterQuery && !$slots.empty && enableItemCreation"
+              v-if="!filteredItems.length && uniqueFilterQuery && !$slots.empty && enableItemCreation"
               key="k-select-new-item"
               class="k-select-new-item"
               data-testid="k-select-add-item"
@@ -139,13 +139,13 @@
             </KSelectItem>
           </div>
           <slot
-            v-if="!loading && !selectItems.length"
+            v-if="!loading && !filteredItems.length"
             name="empty"
           />
           <div
-            v-if="$slots['dropdown-footer-text'] || dropdownFooterText"
-            class="k-select-dropdown-footer-text"
-            :class="`k-select-dropdown-footer-${dropdownFooterTextPosition}`"
+            v-if="hasDropdownFooter"
+            class="dropdown-footer"
+            :class="`dropdown-footer-${dropdownFooterTextPosition}`"
           >
             <slot name="dropdown-footer-text">
               {{ dropdownFooterText }}
@@ -171,11 +171,9 @@ import KSelectItem from '@/components/KSelect/KSelectItem.vue'
 import type {
   PopPlacements,
   SelectItem,
-  SelectFilterFnParams,
   SelectDropdownFooterTextPosition,
-  SelectAppearance,
+  SelectQueryChangeParams,
 } from '@/types'
-import { SelectAppearanceArray } from '@/types'
 import { ChevronDownIcon, CloseIcon } from '@kong/icons'
 
 export default {
@@ -185,13 +183,6 @@ export default {
 
 <script setup lang="ts">
 const { getSizeFromString, stripRequiredLabel } = useUtilities()
-
-const defaultKPopAttributes = {
-  popoverClasses: 'select-popover',
-  popoverTimeout: 0,
-  placement: 'bottomStart' as PopPlacements,
-  hideCaret: true,
-}
 
 const props = defineProps({
   modelValue: {
@@ -228,22 +219,6 @@ const props = defineProps({
     default: '',
   },
   /**
-   * The display style, can be either dropdown, select, or button
-   */
-  appearance: {
-    type: String as PropType<SelectAppearance>,
-    default: 'select',
-    validator: (value: SelectAppearance) => SelectAppearanceArray.includes(value),
-  },
-  /**
-   * Override the text displayed on the button if `appearance` is `button` after an item
-   * has been selected. By default display the selected item's label
-   */
-  buttonText: {
-    type: String,
-    default: '',
-  },
-  /**
    * Items are JSON objects with required 'label' and 'value'
    * {
    *  label: 'Item 1',
@@ -265,23 +240,9 @@ const props = defineProps({
     default: true,
   },
   /**
-   * Override default filter functionality of case-insensitive search on label
-   */
-  filterFunc: {
-    type: Function,
-    default: (params: SelectFilterFnParams) => params.items.filter((item: SelectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase())),
-  },
-  /**
-   * Control whether the input for `select` and `dropdown` appearances supports filtering.
+   * Control whether the input supports filtering.
    */
   enableFiltering: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * A flag for autosuggest mode
-   */
-  autosuggest: {
     type: Boolean,
     default: false,
   },
@@ -293,7 +254,7 @@ const props = defineProps({
     default: false,
   },
   /**
-   * A flag for clearing selection when appearance is `select`
+   * A flag for clearing selection
    */
   clearable: {
     type: Boolean,
@@ -316,7 +277,6 @@ const props = defineProps({
   },
   /**
    * If true and item-template is passed, will display item-template content inside selected-slot-template
-   * Only applies when appearance prop is `select`.
    */
   reuseItemTemplate: {
     type: Boolean,
@@ -336,7 +296,7 @@ const emit = defineEmits<{
   (e: 'input', value: string | number | null): void
   (e: 'change', item: SelectItem | null): void
   (e: 'update:modelValue', value: string | number | null): void
-  (e: 'query-change', value: string): void
+  (e: 'query-change', data: SelectQueryChangeParams): void
   (e: 'item:added', value: SelectItem): void
   (e: 'item:removed', value: SelectItem): void
 }>()
@@ -349,6 +309,14 @@ const resizeObserver = ref<ResizeObserver>()
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const isDisabled = computed((): boolean => attrs.disabled !== undefined && String(attrs.disabled) !== 'false')
 const isReadonly = computed((): boolean => attrs.readonly !== undefined && String(attrs.readonly) !== 'false')
+const hasDropdownFooter = computed((): boolean => !!(slots['dropdown-footer-text'] || props.dropdownFooterText))
+
+const defaultKPopAttributes = {
+  popoverClasses: `select-popover has-${props.dropdownFooterTextPosition}-dropdown-footer`,
+  popoverTimeout: 0,
+  placement: 'bottomStart' as PopPlacements,
+  hideCaret: true,
+}
 
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 
@@ -425,6 +393,10 @@ const isClearVisible = computed((): boolean => props.clearable && !!selectedItem
 
 const hasCustomSelectedItem = computed((): boolean => !!(selectedItem.value &&
   (slots['selected-item-template'] || (props.reuseItemTemplate && slots['item-template']))))
+
+const filteredItems = computed(() => {
+  return props.enableFiltering ? selectItems.value.filter((item: SelectItem) => item.label?.toLowerCase().includes(filterQuery.value?.toLowerCase())) : selectItems.value
+})
 
 const onInputKeypress = (event: Event) => {
   // If filters are not enabled, ignore any keypresses
@@ -504,6 +476,8 @@ const clearSelection = (): void => {
   emit('update:modelValue', null)
 }
 
+// TODO: /mess
+
 const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
   // Ignore `esc` key
   if (evt.keyCode === 27) {
@@ -511,7 +485,7 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
     return
   }
 
-  const inputElem = document.getElementById(selectId.value)
+  const inputElem = selectWrapperElement.value?.children[0] as HTMLInputElement
   if (!isToggled.value && inputElem) { // simulate click to trigger dropdown open
     inputElem.click()
   }
@@ -520,14 +494,14 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
 const onQueryChange = (query: string) => {
   if (filterQuery.value !== query) {
     filterQuery.value = query
-    emit('query-change', query)
+    emit('query-change', { query, items: selectItems.value })
   }
 }
 
 const onInputFocus = (): void => {
   inputFocused.value = true
 
-  emit('query-change', '')
+  emit('query-change', { query: filterQuery.value, items: selectItems.value })
 }
 
 const onInputBlur = (): void => {
@@ -543,6 +517,7 @@ const onSelectWrapperClick = (event: Event): void => {
 watch(value, (newVal, oldVal) => {
   if (newVal !== oldVal) {
     const item = selectItems.value?.filter((item: SelectItem) => item.value === newVal)
+
     if (item?.length) {
       handleItemSelect(item[0])
     } else if (!newVal) {
@@ -594,8 +569,6 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 }, { deep: true, immediate: true })
 
-// TODO: /mess
-
 onMounted(() => {
   if (selectWrapperElement.value) {
     resizeObserver.value = new ResizeObserver(entries => {
@@ -630,6 +603,13 @@ $kSelectInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mix
 $kSelectInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40); // corresponds to value in KInput.vue
 $kSelectInputSlotSpacing: var(--kui-space-40, $kui-space-40); // corresponds to value in KInput.vue
 
+/* Component mixins */
+
+@mixin kSelectPopoverMaxHeight {
+  max-height: v-bind('popoverContentMaxHeight');
+  overflow-y: auto;
+}
+
 /* Component styles */
 
 .k-select {
@@ -660,7 +640,6 @@ $kSelectInputSlotSpacing: var(--kui-space-40, $kui-space-40); // corresponds to 
 
     inset: 0;
     margin-left: $kSelectInputPaddingX;
-    max-width: calc(v-bind('actualElementWidth') - $kSelectInputPaddingX - $kSelectInputIconSize - $kSelectInputSlotSpacing);
     overflow: hidden;
     pointer-events: none;
     position: absolute;
@@ -676,13 +655,49 @@ $kSelectInputSlotSpacing: var(--kui-space-40, $kui-space-40); // corresponds to 
     &.clearable {
       // accommodate for the clear icon
       margin-left: calc($kSelectInputPaddingX + $kSelectInputIconSize + $kSelectInputSlotSpacing);
-      max-width: calc(v-bind('actualElementWidth') - $kSelectInputPaddingX - $kSelectInputIconSize - $kSelectInputSlotSpacing - $kSelectInputPaddingX - $kSelectInputIconSize - $kSelectInputSlotSpacing);
+      max-width: calc(v-bind('actualElementWidth') - ($kSelectInputPaddingX * 2) - ($kSelectInputIconSize * 2) - ($kSelectInputSlotSpacing * 2));
     }
   }
 
-  :deep(.k-popover-content) {
-    max-height: v-bind('popoverContentMaxHeight');
-    overflow-y: auto;
+  .select-popover {
+    &.has-sticky-dropdown-footer {
+      .select-items-container {
+        @include kSelectPopoverMaxHeight;
+      }
+    }
+  }
+
+  :deep(.select-popover.k-popover) {
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
+
+    &.has-sticky-dropdown-footer, &.has-static-dropdown-footer {
+      padding-bottom: var(--kui-space-0, $kui-space-0);
+    }
+
+    &.has-static-dropdown-footer {
+      .k-popover-content {
+        @include kSelectPopoverMaxHeight;
+      }
+    }
+  }
+
+  .dropdown-footer {
+    background-color: var(--kui-color-background, $kui-color-background);
+    border-bottom-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    border-bottom-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    bottom: 0;
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
+    padding: var(--kui-space-50, $kui-space-50);
+    position: sticky;
+
+    &-static {
+      position: static;
+    }
   }
 }
 </style>

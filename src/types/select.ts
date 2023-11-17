@@ -1,5 +1,3 @@
-import type { AnyElementOf } from '@/types/utils'
-
 export interface SelectItem extends Record<string, any> {
   label: string
   value: string | number
@@ -9,17 +7,13 @@ export interface SelectItem extends Record<string, any> {
   group?: string
 }
 
-export interface SelectFilterFnParams {
-  items: SelectItem[]
-  query: string
-}
-
 export interface SelectItemWithGroup extends SelectItem {
   group: string
 }
 
 export type SelectDropdownFooterTextPosition = 'sticky' | 'static'
 
-export const SelectAppearanceArray = ['dropdown', 'select', 'button'] as const
-
-export type SelectAppearance = AnyElementOf<typeof SelectAppearanceArray>
+export interface SelectQueryChangeParams {
+  query: string
+  items: SelectItem[]
+}

@@ -372,12 +372,22 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `buttonText` prop has been removed
 * `testMode` prop has been removed
 * `overlayLabel` prop has been removed
+* `filterFunc` prop has been removed. Instead of providing your own filter function to component you can utilize `@query-change` event to perform filtering in your host app. See events section for details
+* `autosuggest` prop has been removed and replaced with `enableFiltering` prop. Should you want to simply enable default component-handled filtering or perform async fetching behind the scenes, you can use this prop in combination with`@query-change` event to achieve that. See events section for details
 
+#### Events
+
+* `query-change` event now emits an object with two parameters: `query` and `items` (includes all items passed through items prop plus all created items when `enableItemCreation` is `true`)
+  
 #### Structure
 
 * `k-select-selected-item` `data-testid` attribute has been renamed to `selected-item`
 
 #### Constants, Types & Interfaces
+
+* `SelectAppearanceArray` const has been removed
+* `SelectAppearance` type has been removed
+* `SelectFilterFnParams` interface has been removed
 
 ### KSkeleton
 

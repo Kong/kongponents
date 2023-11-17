@@ -78,7 +78,6 @@ const handleClick = (e: MouseEvent): void => {
     align-items: center;
     background-color: var(--kui-color-background, $kui-color-background);
     border: none;
-    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
     display: flex;
     font-family: var(--kui-font-family-text, $kui-font-family-text);

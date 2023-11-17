@@ -154,7 +154,7 @@
         >
           <template #selected-item-template="{ item }">
             <KongIcon />
-            <span class="very-long-item-title">{{ item?.label }} with very long names tend to be more than one line. In this case the text should hopefully get truncated.</span>
+            <span class="long-item-title">{{ item?.label }} with very long names tend to be more than one line. In this case the text should hopefully get truncated.</span>
           </template>
         </KSelect>
         <pre>{{ itemTemplateTruncationSnippet }}</pre>
@@ -172,17 +172,59 @@
       <SandboxSectionComponent
         title="dropdownFooterText"
       >
-      <!-- TODO: add example -->
+        <KSelect
+          dropdown-footer-text="Keep scrolling to reach the bottom."
+          :items="selectItems"
+        >
+          <template #dropdown-footer-text>
+            I am slotted.
+          </template>
+        </KSelect>
+      </SandboxSectionComponent>
+
+      <!-- Events -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Events"
+      />
+      <SandboxSectionComponent>
+        <KSelect
+          v-model="vModel"
+          :items="selectItems"
+          label="v-model"
+        />
+        <KSelect
+          :items="selectItems"
+          label="@selected"
+          @selected="onSelected"
+        />
+        <KSelect
+          :items="selectItems"
+          label="@input"
+          @input="onInput"
+        />
+        <KSelect
+          :items="selectItems"
+          label="@change"
+          @change="onChange"
+        />
+        <KSelect
+          enable-filtering
+          :items="selectItems"
+          label="@query-change"
+          @query-change="onQueryChange"
+        />
       </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { KongIcon } from '@kong/icons'
+import type { SelectItem, SelectQueryChangeParams } from '@/types'
 
 const selectItems = [{
   label: 'Cats',
@@ -213,6 +255,24 @@ const selectItems = [{
   group: 'Fish',
 }]
 
+const vModel = ref<string>('salmon')
+
+const onSelected = (item: SelectItem): void => {
+  console.log('@selected', '\n', item)
+}
+
+const onInput = (value: string | number | null): void => {
+  console.log('@input', '\n', value)
+}
+
+const onChange = (item: SelectItem | null): void => {
+  console.log('@change', '\n', item)
+}
+
+const onQueryChange = ({ query, items }: SelectQueryChangeParams): void => {
+  console.log('@query-change', '\n', query, items)
+}
+
 const itemTemplateTruncationSnippet = `
 <template>
   <KSelect
@@ -221,13 +281,13 @@ const itemTemplateTruncationSnippet = `
   >
     <template #selected-item-template="{ item }">
       <KongIcon />
-      <span class="very-long-item-title">{{ item?.label }} with very long names tend to be more than one line. In this case the text should hopefully get truncated.</span>
+      <span class="long-item-title">{{ item?.label }} with very long names tend to be more than one line. In this case the text should hopefully get truncated.</span>
     </template>
   </KSelect>
 </template>
 
 <style>
-.very-long-item-title {
+.long-item-title {
   max-width: 80%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -245,7 +305,7 @@ const itemTemplateTruncationSnippet = `
     gap: $kui-space-50;
   }
 
-  .very-long-item-title {
+  .long-item-title {
     max-width: 80%;
     overflow: hidden;
     text-overflow: ellipsis;
