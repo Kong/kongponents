@@ -8,6 +8,24 @@
         Figma
       </KExternalLink>
 
+      <!-- Examples -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Examples"
+      />
+      <SandboxSectionComponent title="async items">
+        <KSelect
+          v-model="asyncItemsModel"
+          clearable
+          enable-filtering
+          :items="asyncItems"
+          :loading="asyncItemsLoading"
+          @item-added="handeAsyncItemAdded"
+          @item-removed="handeAsyncItemRemoved"
+          @query-change="asyncQueryChange"
+        />
+      </SandboxSectionComponent>
+
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
@@ -85,19 +103,6 @@
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        title="filterFunc"
-      >
-        <!-- TODO: add example -->
-      </SandboxSectionComponent>
-      <SandboxSectionComponent
-        title="loading"
-      >
-        <KSelect
-          :items="selectItems"
-          loading
-        />
-      </SandboxSectionComponent>
-      <SandboxSectionComponent
         title="reuseItemTemplate"
       >
         <!-- TODO: add example -->
@@ -106,6 +111,7 @@
         title="enableItemCreation"
       >
         <KSelect
+          enable-filtering
           enable-item-creation
           :items="selectItems"
         />
@@ -160,16 +166,6 @@
         <pre>{{ itemTemplateTruncationSnippet }}</pre>
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        title="loading"
-      >
-      <!-- TODO: add example -->
-      </SandboxSectionComponent>
-      <SandboxSectionComponent
-        title="empty"
-      >
-      <!-- TODO: add example -->
-      </SandboxSectionComponent>
-      <SandboxSectionComponent
         title="dropdownFooterText"
       >
         <KSelect
@@ -220,13 +216,13 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { inject, onMounted, ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { KongIcon } from '@kong/icons'
 import type { SelectItem, SelectQueryChangeParams } from '@/types'
 
-const selectItems = [{
+const selectItems: SelectItem[] = [{
   label: 'Cats',
   value: 'cats',
   selected: true,
@@ -295,6 +291,67 @@ const itemTemplateTruncationSnippet = `
 }
 </style>
 `
+const selectItemsInitial = ref<SelectItem[]>([{
+  label: 'Cats',
+  value: 'cats',
+}, {
+  label: 'Dogs',
+  value: 'dogs',
+}, {
+  label: 'Bunnies',
+  value: 'bunnies',
+  disabled: true,
+}, {
+  label: 'Duck',
+  value: 'duck',
+  group: 'Birds',
+}, {
+  label: 'Oriole',
+  value: 'oriole',
+  group: 'Birds',
+}, {
+  label: 'Trout',
+  value: 'trout',
+  group: 'Fish',
+}, {
+  label: 'Salmon',
+  value: 'salmon',
+  group: 'Fish',
+}])
+const asyncItemsQuery = ref<string>('')
+const asyncItemsLoading = ref<boolean>(false)
+const asyncItemsModel = ref<string>('')
+const asyncItems = ref<SelectItem[]>([])
+
+const setAsyncItems = (items?: SelectItem[]): void => {
+  asyncItemsLoading.value = true
+
+  setTimeout(() => {
+    const aItems = asyncItemsQuery.value ? JSON.parse(JSON.stringify(items)) : JSON.parse(JSON.stringify(selectItemsInitial.value))
+    asyncItems.value = asyncItemsQuery.value ? aItems.filter((item: SelectItem) => item.label?.toLowerCase().includes(asyncItemsQuery.value?.toLowerCase())) : aItems
+
+    asyncItemsLoading.value = false
+  }, 2000)
+}
+
+const asyncQueryChange = ({ query, items }: SelectQueryChangeParams): void => {
+  if (asyncItemsQuery.value !== query) {
+    asyncItemsQuery.value = query
+    setAsyncItems(items)
+  }
+}
+
+const handeAsyncItemAdded = (item: SelectItem): void => {
+  selectItemsInitial.value.push(item)
+}
+
+const handeAsyncItemRemoved = (item: SelectItem): void => {
+  selectItemsInitial.value = selectItemsInitial.value.filter(i => i.value !== item.value)
+}
+
+onMounted(() => {
+  setAsyncItems()
+})
 </script>
 
 <style lang="scss" scoped>

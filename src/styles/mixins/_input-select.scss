@@ -5,6 +5,10 @@
   color: var(--kui-color-text, $kui-color-text);
   display: flex;
   font-size: var(--kui-font-size-30, $kui-font-size-30);
+<<<<<<< HEAD
+=======
+  font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+>>>>>>> 4f63c9ab (fix(kselect): reskin component [KHCP-8998])
   gap: var(--kui-space-40, $kui-space-40);
   line-height: var(--kui-line-height-40, $kui-line-height-40);
   padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);

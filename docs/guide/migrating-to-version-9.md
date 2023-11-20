@@ -378,6 +378,8 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 #### Events
 
 * `query-change` event now emits an object with two parameters: `query` and `items` (includes all items passed through items prop plus all created items when `enableItemCreation` is `true`)
+* `item:added` event has been changed to `item-added`
+* `item:removed` event has been changed to `item-removed`
   
 #### Structure
 

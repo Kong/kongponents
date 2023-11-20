@@ -71,17 +71,17 @@ const getGroupItems = (group: string) => props.items?.filter(item => item.group 
 
 <style lang="scss" scoped>
 .select-group {
-  margin-bottom: var(--kui-space-20, $kui-space-20) !important;
+  margin-bottom: var(--kui-space-20, $kui-space-20);
 
   .select-group-title {
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-    display: block !important;
+    display: block;
+    font-family: var(--kui-font-family-text, $kui-font-family-text);
     font-size: var(--kui-font-size-20, $kui-font-size-20);
-    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-    margin-bottom: var(--kui-space-20, $kui-space-20);
-    padding: var(--kui-space-40, $kui-space-40);
+    font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
+    padding: var(--kui-space-50, $kui-space-50);
     pointer-events: none;
-    text-transform: uppercase;
   }
 }
 </style>

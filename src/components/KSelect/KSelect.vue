@@ -93,11 +93,12 @@
             v-if="enableFiltering && loading"
             name="loading"
           >
-            <KIcon
-              class="k-select-loading"
-              data-testid="k-select-loading"
-              icon="spinner"
-            />
+            <span
+              class="select-loading"
+              data-testid="select-loading"
+            >
+              <ProgressIcon class="loading-icon" />
+            </span>
           </slot>
           <div
             v-else
@@ -118,15 +119,13 @@
             </KSelectItems>
             <KSelectItem
               v-if="!filteredItems.length && !$slots.empty && !enableItemCreation"
-              key="k-select-empty-state"
-              class="k-select-empty-item"
-              :item="{ label: 'No results', value: 'no_results' }"
+              :item="{ label: 'No results', value: 'no_results', disabled: true }"
             />
             <KSelectItem
               v-if="!filteredItems.length && uniqueFilterQuery && !$slots.empty && enableItemCreation"
-              key="k-select-new-item"
-              class="k-select-new-item"
-              data-testid="k-select-add-item"
+              key="select-add-item"
+              class="select-add-item"
+              data-testid="select-add-item"
               :item="{ label: `${filterQuery} (Add new value)`, value: 'add_item' }"
               @selected="handleAddItem"
             >
@@ -162,7 +161,6 @@ import type { Ref, PropType } from 'vue'
 import { ref, computed, watch, nextTick, useAttrs, useSlots, onBeforeUnmount, onMounted } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
-import KIcon from '@/components/KIcon/KIcon.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
@@ -174,7 +172,7 @@ import type {
   SelectDropdownFooterTextPosition,
   SelectQueryChangeParams,
 } from '@/types'
-import { ChevronDownIcon, CloseIcon } from '@kong/icons'
+import { ChevronDownIcon, CloseIcon, ProgressIcon } from '@kong/icons'
 
 export default {
   inheritAttrs: false,
@@ -297,8 +295,8 @@ const emit = defineEmits<{
   (e: 'change', item: SelectItem | null): void
   (e: 'update:modelValue', value: string | number | null): void
   (e: 'query-change', data: SelectQueryChangeParams): void
-  (e: 'item:added', value: SelectItem): void
-  (e: 'item:removed', value: SelectItem): void
+  (e: 'item-added', value: SelectItem): void
+  (e: 'item-removed', value: SelectItem): void
 }>()
 
 const attrs = useAttrs()
@@ -312,7 +310,7 @@ const isReadonly = computed((): boolean => attrs.readonly !== undefined && Strin
 const hasDropdownFooter = computed((): boolean => !!(slots['dropdown-footer-text'] || props.dropdownFooterText))
 
 const defaultKPopAttributes = {
-  popoverClasses: `select-popover has-${props.dropdownFooterTextPosition}-dropdown-footer`,
+  popoverClasses: `select-popover ${hasDropdownFooter.value ? `has-${props.dropdownFooterTextPosition}-dropdown-footer` : ''}`,
   popoverTimeout: 0,
   placement: 'bottomStart' as PopPlacements,
   hideCaret: true,
@@ -406,8 +404,6 @@ const onInputKeypress = (event: Event) => {
   }
 }
 
-// TODO: mess
-
 const handleAddItem = (): void => {
   if (!props.enableItemCreation || !filterQuery.value || !uniqueFilterQuery.value) {
     // do nothing if not enabled or no label or label already exists
@@ -422,7 +418,7 @@ const handleAddItem = (): void => {
     custom: true,
   }
 
-  emit('item:added', item)
+  emit('item-added', item)
 
   handleItemSelect(item, true)
   filterQuery.value = ''
@@ -444,7 +440,7 @@ const handleItemSelect = (item: SelectItem, isNew?: boolean) => {
       anItem.key = anItem?.key?.replace(/-selected/gi, '')
       if (anItem.custom) {
         selectItems.value?.splice(i, 1)
-        emit('item:removed', anItem)
+        emit('item-removed', anItem)
       }
     } else {
       anItem.selected = false
@@ -465,7 +461,7 @@ const clearSelection = (): void => {
     anItem.key = anItem?.key?.replace(/-selected/gi, '')
     if (anItem.custom) {
       selectItems.value?.splice(i, 1)
-      emit('item:removed', anItem)
+      emit('item-removed', anItem)
     }
   })
   selectedItem.value = null
@@ -475,8 +471,6 @@ const clearSelection = (): void => {
   emit('change', null)
   emit('update:modelValue', null)
 }
-
-// TODO: /mess
 
 const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
   // Ignore `esc` key
@@ -494,7 +488,6 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
 const onQueryChange = (query: string) => {
   if (filterQuery.value !== query) {
     filterQuery.value = query
-    emit('query-change', { query, items: selectItems.value })
   }
 }
 
@@ -540,7 +533,7 @@ watch(() => props.items, (newValue, oldValue) => {
       selectItems.value[i].selected = false
     }
 
-    selectItems.value[i].key = `${selectItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `k-select-item-label-${i}`
+    selectItems.value[i].key = `${selectItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `select-item-label-${i}`
     if (selectItems.value[i].value === props.modelValue || selectItems.value[i].selected) {
       selectItems.value[i].selected = true
       selectedItem.value = selectItems.value[i]
@@ -560,7 +553,7 @@ watch(() => props.items, (newValue, oldValue) => {
   // This prevents the popover from displaying "detached" from the KSelect
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  if (popperElement.value && typeof popper.value.updatePopper === 'function') {
+  if (popperElement.value && typeof popperElement.value.updatePopper === 'function') {
     nextTick(() => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -568,6 +561,10 @@ watch(() => props.items, (newValue, oldValue) => {
     })
   }
 }, { deep: true, immediate: true })
+
+watch(filterQuery, () => {
+  emit('query-change', { query: filterQuery.value, items: selectItems.value })
+})
 
 onMounted(() => {
   if (selectWrapperElement.value) {
@@ -680,6 +677,14 @@ $kSelectInputSlotSpacing: var(--kui-space-40, $kui-space-40); // corresponds to 
       .k-popover-content {
         @include kSelectPopoverMaxHeight;
       }
+    }
+  }
+
+  .select-loading {
+    @include selectItemDefaults;
+
+    .loading-icon {
+      margin: var(--kui-space-0, $kui-space-0) var(--kui-space-auto, $kui-space-auto);
     }
   }
 
