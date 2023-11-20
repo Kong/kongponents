@@ -159,6 +159,7 @@ const handleClick = (evt: PointerEvent): void => {
     }
 
     &:focus {
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
       box-shadow: 0 0 0 2px var(--kui-color-background, $kui-color-background), 0 0 0 4px var(--kui-color-background-primary, $kui-color-background-primary);
       z-index: 3;
     }

@@ -178,19 +178,12 @@ export default {
 /* Component styles */
 
 .k-checkbox {
-  align-items: center;
+  align-items: flex-start;
   display: inline-flex;
-
-  &.has-description {
-    align-items: flex-start;
-
-    .checkbox-input-wrapper {
-      margin-top: 3px; // align with label
-    }
-  }
 
   .checkbox-input-wrapper {
     display: flex;
+    margin-top: 3px; // align with label
     position: relative;
   }
 

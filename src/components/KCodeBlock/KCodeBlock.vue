@@ -1085,12 +1085,14 @@ $dark-focusColor: $tmp-color-green-500;
 
 .k-clear-query-button:focus {
   border-color: $light-focusColor;
+  /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
   box-shadow: 0 0 0 2px var(--kui-color-background, $kui-color-background), 0 0 0 4px $light-focusColor;
   outline: none;
 }
 
 .theme-dark .k-clear-query-button:focus {
   border-color: $dark-focusColor;
+  /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
   box-shadow: 0 0 0 2px var(--kui-color-background, $kui-color-background), 0 0 0 4px $dark-focusColor;
 }
 

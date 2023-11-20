@@ -816,6 +816,7 @@ $chevronDownIconMargin: var(--kui-space-40, $kui-space-40);
 $iconSize: var(--kui-icon-size-30, $kui-icon-size-30);
 
 @mixin boxShadow($color, $whiteShadowSpred: 2px, $colorShadowSpread: 4px) {
+  /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
   box-shadow: 0 0 0 $whiteShadowSpred var(--kui-color-background, $kui-color-background), 0 0 0 $colorShadowSpread $color;
 }
 
