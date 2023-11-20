@@ -365,7 +365,8 @@ $kRadioDotSize: 6px;
       }
 
       .card-content-wrapper {
-        height: 100%;
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+        height: 100%
       }
 
       &.has-label, &.has-description {
@@ -377,10 +378,6 @@ $kRadioDotSize: 6px;
 
       .radio-label {
         @include labelDefaults;
-      }
-
-      :deep(#{$kongponentsKongIconSelector}) {
-        color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
       }
     }
 
@@ -400,8 +397,8 @@ $kRadioDotSize: 6px;
           color: var(--kui-color-text-primary, $kui-color-text-primary);
         }
 
-        :deep(#{$kongponentsKongIconSelector}) {
-          color: var(--kui-color-text-primary, $kui-color-text-primary) !important;
+        .card-content-wrapper {
+          color: var(--kui-color-text-primary, $kui-color-text-primary);
         }
       }
     }
@@ -435,8 +432,8 @@ $kRadioDotSize: 6px;
             color: var(--kui-color-text, $kui-color-text);
           }
 
-          :deep(#{$kongponentsKongIconSelector}) {
-            color: var(--kui-color-text, $kui-color-text) !important;
+          .card-content-wrapper {
+            color: var(--kui-color-text, $kui-color-text);
           }
         }
       }
@@ -447,7 +444,7 @@ $kRadioDotSize: 6px;
         box-shadow: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled);
         cursor: not-allowed;
 
-        .radio-label {
+        .radio-label, .card-content-wrapper {
           color: var(--kui-color-text-disabled, $kui-color-text-disabled);
         }
       }
