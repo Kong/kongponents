@@ -360,6 +360,10 @@ $kRadioDotSize: 6px;
         box-shadow: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak);
       }
 
+      &:active {
+        box-shadow: var(--kui-shadow-border-primary-strongest, $kui-shadow-border-primary-strongest);
+      }
+
       &:focus-visible {
         box-shadow: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak), var(--kui-shadow-focus, $kui-shadow-focus);
       }
@@ -387,6 +391,26 @@ $kRadioDotSize: 6px;
 
         &:hover {
           box-shadow: var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-20, $kui-border-width-20) var(--kui-color-border-primary-strong, $kui-color-border-primary-strong) inset;
+
+          .radio-label {
+            color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+          }
+
+          .card-content-wrapper {
+            color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+          }
+        }
+
+        &:active {
+          box-shadow: var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-20, $kui-border-width-20) var(--kui-color-border-primary-strongest, $kui-color-border-primary-strongest) inset;
+
+          .radio-label {
+            color: var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest);
+          }
+
+          .card-content-wrapper {
+            color: var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest);
+          }
         }
 
         &:focus-visible {
@@ -411,6 +435,10 @@ $kRadioDotSize: 6px;
           box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong);
         }
 
+        &:active {
+          box-shadow: var(--kui-shadow-border-primary-strongest, $kui-shadow-border-primary-strongest);
+        }
+
         &:focus-visible {
           box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong), var(--kui-shadow-focus, $kui-shadow-focus);
         }
@@ -422,6 +450,10 @@ $kRadioDotSize: 6px;
 
           &:hover {
             box-shadow: var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-20, $kui-border-width-20) var(--kui-color-border-danger-strong, $kui-color-border-danger-strong) inset;
+          }
+
+          &:active {
+            box-shadow: var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-20, $kui-border-width-20) var(--kui-color-border-primary-strongest, $kui-color-border-primary-strongest) inset;
           }
 
           &:focus-visible {
