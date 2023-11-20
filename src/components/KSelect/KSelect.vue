@@ -44,6 +44,7 @@
             :class="{ 'filtering-disabled': !enableFiltering,
                       'hide-model-value': hasCustomSelectedItem
             }"
+            data-testid="select-input"
             :disabled="isDisabled"
             :error="error"
             :help="help"
@@ -63,6 +64,7 @@
               #before
             >
               <CloseIcon
+                data-testid="clear-selection-icon"
                 role="button"
                 tabindex="0"
                 @click="clearSelection"

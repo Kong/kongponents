@@ -383,7 +383,15 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
   
 #### Structure
 
-* `k-select-selected-item` `data-testid` attribute has been renamed to `selected-item`
+* `k-select-input` `data-testid` attribute has been changed to `select-input`
+* dynamic `k-select-item-*` `data-testid` attribute has been changed to `select-item-*`
+* `k-select-dropdown-footer-text` class has been changed to `dropdown-footer`
+* `k-select-item-label` class has been changed to `select-item-label`
+* `k-select-item` class has been changed to `select-item`
+* `k-select-loading` class has been changed to `select-loading`
+* `k-select-loading` `data-testid` attribute has been changed to `select-loading`
+* `k-select-group-title` class has been changed to `select-group-title`
+* `k-select-selected-item` `data-testid` attribute has been changed to `selected-item`
 
 #### Constants, Types & Interfaces
 
