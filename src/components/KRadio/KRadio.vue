@@ -353,7 +353,7 @@ $kRadioDotSize: 6px;
       outline: none;
       padding: var(--kui-space-70, $kui-space-70);
       text-align: center;
-      transition: border $kongponentsTransitionDurTimingFunc;
+      transition: box-shadow $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc;
       width: 100%;
 
       &:hover {
@@ -370,7 +370,8 @@ $kRadioDotSize: 6px;
 
       .card-content-wrapper {
         color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-        height: 100%
+        height: 100%;
+        transition: color $kongponentsTransitionDurTimingFunc;
       }
 
       &.has-label, &.has-description {
@@ -382,6 +383,8 @@ $kRadioDotSize: 6px;
 
       .radio-label {
         @include labelDefaults;
+
+        transition: color $kongponentsTransitionDurTimingFunc;
       }
     }
 
