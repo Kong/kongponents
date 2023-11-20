@@ -344,8 +344,8 @@ $kRadioDotSize: 6px;
     .radio-card-wrapper {
       align-items: center;
       background-color: var(--kui-color-background, $kui-color-background);
-      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+      box-shadow: var(--kui-shadow-border, $kui-shadow-border);
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -357,11 +357,11 @@ $kRadioDotSize: 6px;
       width: 100%;
 
       &:hover {
-        border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
+        box-shadow: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak);
       }
 
       &:focus-visible {
-        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+        box-shadow: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak), var(--kui-shadow-focus, $kui-shadow-focus);
       }
 
       .card-content-wrapper {
@@ -386,10 +386,10 @@ $kRadioDotSize: 6px;
 
     &.checked.radio-card:not(.disabled) {
       .radio-card-wrapper {
-        border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-primary, $kui-color-border-primary);
+        box-shadow: var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-20, $kui-border-width-20) var(--kui-color-border-primary, $kui-color-border-primary) inset;
 
         &:hover {
-          border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
+          box-shadow: var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-20, $kui-border-width-20) var(--kui-color-border-primary-strong, $kui-color-border-primary-strong) inset;
         }
 
         .radio-label {
@@ -404,23 +404,23 @@ $kRadioDotSize: 6px;
 
     &.input-error.radio-card:not(.disabled) {
       .radio-card-wrapper {
-        border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-danger, $kui-color-border-danger);
+        box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
 
         &:hover {
-          border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-danger-strong, $kui-color-border-danger-strong);
+          box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong);
         }
 
         &:focus-visible {
-          box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+          box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong), var(--kui-shadow-focus, $kui-shadow-focus);
         }
       }
 
       &.checked {
         .radio-card-wrapper {
-          border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-danger, $kui-color-border-danger);
+          box-shadow: var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-20, $kui-border-width-20) var(--kui-color-border-danger, $kui-color-border-danger) inset;
 
           &:hover {
-            border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-danger-strong, $kui-color-border-danger-strong);
+            box-shadow: var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-20, $kui-border-width-20) var(--kui-color-border-danger-strong, $kui-color-border-danger-strong) inset;
           }
 
           .radio-label {
@@ -436,7 +436,7 @@ $kRadioDotSize: 6px;
 
     &.disabled.radio-card {
       .radio-card-wrapper {
-        border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-disabled, $kui-color-border-disabled);
+        box-shadow: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled);
         cursor: not-allowed;
 
         .radio-label {
@@ -447,6 +447,7 @@ $kRadioDotSize: 6px;
       &.checked {
         .radio-card-wrapper {
           background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+          box-shadow: var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-20, $kui-border-width-20) var(--kui-color-border-disabled, $kui-color-border-disabled) inset;
         }
       }
     }
