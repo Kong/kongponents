@@ -392,6 +392,10 @@ $kRadioDotSize: 6px;
           box-shadow: var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-20, $kui-border-width-20) var(--kui-color-border-primary-strong, $kui-color-border-primary-strong) inset;
         }
 
+        &:focus-visible {
+          box-shadow: var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-20, $kui-border-width-20) var(--kui-color-border-primary-strong, $kui-color-border-primary-strong) inset, var(--kui-shadow-focus, $kui-shadow-focus);
+        }
+
         .radio-label {
           color: var(--kui-color-text-primary, $kui-color-text-primary);
         }
@@ -421,6 +425,10 @@ $kRadioDotSize: 6px;
 
           &:hover {
             box-shadow: var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-20, $kui-border-width-20) var(--kui-color-border-danger-strong, $kui-color-border-danger-strong) inset;
+          }
+
+          &:focus-visible {
+            box-shadow: var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-20, $kui-border-width-20) var(--kui-color-border-danger-strong, $kui-color-border-danger-strong) inset, var(--kui-shadow-focus, $kui-shadow-focus);
           }
 
           .radio-label {
