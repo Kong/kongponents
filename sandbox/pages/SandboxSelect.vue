@@ -18,6 +18,7 @@
           v-model="asyncItemsModel"
           clearable
           enable-filtering
+          enable-item-creation
           :items="asyncItems"
           :loading="asyncItemsLoading"
           @item-added="handeAsyncItemAdded"
@@ -58,6 +59,22 @@
       >
         <KSelect
           clearable
+          :items="selectItems"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        title="help"
+      >
+        <KSelect
+          help="Help text."
+          :items="selectItems"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        title="error"
+      >
+        <KSelect
+          error
           :items="selectItems"
         />
       </SandboxSectionComponent>
@@ -105,7 +122,15 @@
       <SandboxSectionComponent
         title="reuseItemTemplate"
       >
-        <!-- TODO: add example -->
+        <KSelect
+          :items="selectItems"
+          reuse-item-template
+        >
+          <template #item-template="{ item }">
+            <KongIcon />
+            {{ item?.label }}!
+          </template>
+        </KSelect>
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="enableItemCreation"
@@ -139,7 +164,19 @@
       <SandboxSectionComponent
         title="itemTemplate"
       >
-      <!-- TODO: add example -->
+        <KSelect
+          :items="selectItems"
+        >
+          <template #item-template="{ item }">
+            <div class="custom-item">
+              <KongIcon />
+              <div>
+                <span class="custom-item-title">{{ item?.label }}</span>
+                <span class="custom-item-description">Some random description.</span>
+              </div>
+            </div>
+          </template>
+        </KSelect>
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="selectedItemTemplate"
@@ -367,6 +404,22 @@ onMounted(() => {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .custom-item {
+    display: flex;
+    flex-direction: row;
+    gap: $kui-space-30;
+
+    &-title {
+      display: block;
+    }
+
+    &-description {
+      color: $kui-color-text-neutral;
+      display: block;
+      font-size: $kui-font-size-20;
+    }
   }
 }
 </style>

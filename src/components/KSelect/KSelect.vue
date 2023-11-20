@@ -45,6 +45,8 @@
                       'hide-model-value': hasCustomSelectedItem
             }"
             :disabled="isDisabled"
+            :error="error"
+            :help="help"
             :label="label ? strippedLabel : undefined"
             :label-attributes="labelAttributes"
             :model-value="filterQuery"
@@ -286,6 +288,14 @@ const props = defineProps({
   enableItemCreation: {
     type: Boolean,
     default: false,
+  },
+  error: {
+    type: Boolean,
+    default: false,
+  },
+  help: {
+    type: String,
+    default: '',
   },
 })
 
@@ -632,12 +642,12 @@ $kSelectInputSlotSpacing: var(--kui-space-40, $kui-space-40); // corresponds to 
   }
 
   .custom-selected-item-wrapper {
-    @include inputText;
     @include selectItemDefaults;
 
     inset: 0;
     margin-left: $kSelectInputPaddingX;
     overflow: hidden;
+    padding: var(--kui-space-0, $kui-space-0); // override mixin
     pointer-events: none;
     position: absolute;
     white-space: nowrap;
@@ -657,10 +667,8 @@ $kSelectInputSlotSpacing: var(--kui-space-40, $kui-space-40); // corresponds to 
   }
 
   .select-popover {
-    &.has-sticky-dropdown-footer {
-      .select-items-container {
-        @include kSelectPopoverMaxHeight;
-      }
+    .select-items-container {
+      @include kSelectPopoverMaxHeight;
     }
   }
 
@@ -674,6 +682,11 @@ $kSelectInputSlotSpacing: var(--kui-space-40, $kui-space-40); // corresponds to 
     }
 
     &.has-static-dropdown-footer {
+      .select-items-container {
+        max-height: auto;
+        overflow-y: hidden;
+      }
+
       .k-popover-content {
         @include kSelectPopoverMaxHeight;
       }
