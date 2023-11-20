@@ -1,3 +1,10 @@
+# [9.0.0-alpha.55](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.54...v9.0.0-alpha.55) (2023-11-20)
+
+
+### Bug Fixes
+
+* **kradio:** update radio card styles [KHCP-9491] ([#1851](https://github.com/Kong/kongponents/issues/1851)) ([949589f](https://github.com/Kong/kongponents/commit/949589fb9af98bc88538579b58be356ba13f59f2))
+
 # [9.0.0-alpha.54](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.53...v9.0.0-alpha.54) (2023-11-16)
 
 
