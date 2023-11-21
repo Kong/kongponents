@@ -240,6 +240,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     font-size: var(--kui-font-size-30, $kui-font-size-30);
     font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
     line-height: var(--kui-line-height-40, $kui-line-height-40);
+    max-width: 100%;
     padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
     text-align: left;
     text-decoration: none;
@@ -276,7 +277,6 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
       align-items: center;
       display: inline-flex;
       gap: var(--kui-space-40, $kui-space-40);
-      max-width: 100%;
       width: 100%;
     }
   }
