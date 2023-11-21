@@ -182,7 +182,7 @@
         :disable-page-jump="disablePaginationPageJump"
         :initial-page-size="pageSize"
         :neighbors="paginationNeighbors"
-        :offset-next-button-disabled="!offset"
+        :offset-next-button-disabled="!offset || !hasNextPage"
         :offset-prev-button-disabled="!previousOffset"
         :page-sizes="paginationPageSizes"
         :pagination-type="paginationType"
@@ -557,6 +557,7 @@ const sortColumnKey = ref('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
 const offset: Ref<string | null> = ref(null)
 const offsets: Ref<Array<any>> = ref([])
+const hasNextPage = ref(true)
 const isClickable = ref(false)
 const hasInitialized = ref(false)
 const nextPageClicked = ref(false)
@@ -712,6 +713,8 @@ const fetchData = async () => {
         offsets.value.push(res.pagination.offset)
       }
     }
+
+    hasNextPage.value = (res.pagination && 'hasNextPage' in res.pagination) ? res.pagination.hasNextPage : true
   }
 
   nextPageClicked.value = false
