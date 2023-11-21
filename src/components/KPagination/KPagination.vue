@@ -357,6 +357,7 @@ watch(pageCount, (newVal, oldVal) => {
   display: flex;
   justify-content: space-between;
   margin-top: var(--kui-space-20, $kui-space-20);
+  padding: var(--kui-space-20, $kui-space-20);
 }
 
 .pagination-text {

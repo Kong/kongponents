@@ -196,8 +196,11 @@ const showCardTitleWithStatus = computed((): boolean => useStatusHatLayout.value
 
   .k-card-title {
     margin-bottom: var(--kui-space-50, $kui-space-50) !important;
+    max-width: 80%;
 
     h4 {
+      @include truncate;
+
       color: var(--kui-color-text, $kui-color-text);
       font-size: var(--kui-font-size-60, $kui-font-size-60);
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
