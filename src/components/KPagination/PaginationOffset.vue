@@ -1,6 +1,7 @@
 <template>
   <div class="pagination-offset-button-container">
     <KButton
+      appearance="secondary"
       aria-label="Go to the previous page"
       class="pagination-button"
       :class="{ disabled: prevButtonDisabled }"
@@ -19,6 +20,7 @@
       </template>
     </KButton>
     <KButton
+      appearance="secondary"
       aria-label="Go to the next page"
       class="pagination-button"
       :class="{ disabled: nextButtonDisabled }"
@@ -99,29 +101,7 @@ const getPrevOffset = (): void => {
     }
 
     &.k-button {
-      background-color: var(--kui-color-background, $kui-color-background);
-      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-      height: 34px;
       margin: var(--kui-space-0, $kui-space-0) var(--kui-space-30, $kui-space-30);
-      padding: var(--kui-space-30, $kui-space-30);
-      width: 34px;
-
-      &:focus,
-      &:hover {
-        border-color: var(--kui-color-border-primary, $kui-color-border-primary);
-        border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-        color: var(--kui-color-text-primary, $kui-color-text-primary);
-      }
-
-      &.disabled:focus,
-      &.disabled:hover {
-        border-color: var(--kui-color-border, $kui-color-border);
-        box-shadow: none;
-        color: var(--kui-color-text, $kui-color-text);
-        cursor: not-allowed;
-      }
 
       &.active {
         background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
