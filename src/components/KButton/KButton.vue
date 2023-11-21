@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed, useAttrs, useSlots, onMounted } from 'vue'
+import { computed, useAttrs, useSlots } from 'vue'
 import { ButtonAppearances, ButtonSizes } from '@/types'
 import type { ButtonAppearance, ButtonSize } from '@/types'
 import KIcon from '@/components/KIcon/KIcon.vue'
@@ -131,11 +131,11 @@ const kIconColor = computed((): string => {
   return KUI_COLOR_TEXT_INVERSE
 })
 
-onMounted(() => {
-  if (slots.icon) {
-    console.warn('KButton: `icon` slot is deprecated. Please slot an icon into the `default` slot instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/components/button.html#icon-1')
-  }
-})
+// onMounted(() => {
+//   if (slots.icon) {
+//     console.warn('KButton: `icon` slot is deprecated. Please slot an icon into the `default` slot instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/components/button.html#icon-1')
+//   }
+// })
 </script>
 
 <script lang="ts">
