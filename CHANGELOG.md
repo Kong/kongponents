@@ -1,3 +1,10 @@
+# [9.0.0-alpha.56](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.55...v9.0.0-alpha.56) (2023-11-21)
+
+
+### Bug Fixes
+
+* few styling fixes ([#1860](https://github.com/Kong/kongponents/issues/1860)) ([60aa58e](https://github.com/Kong/kongponents/commit/60aa58e116e1933b6048cdcf86b4147bb0dcb0ff))
+
 # [9.0.0-alpha.55](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.54...v9.0.0-alpha.55) (2023-11-20)
 
 
