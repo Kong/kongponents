@@ -276,6 +276,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
       align-items: center;
       display: inline-flex;
       gap: var(--kui-space-40, $kui-space-40);
+      max-width: 100%;
       width: 100%;
     }
   }
