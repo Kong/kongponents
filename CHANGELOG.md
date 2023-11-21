@@ -1,3 +1,10 @@
+# [9.0.0-alpha.58](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.57...v9.0.0-alpha.58) (2023-11-21)
+
+
+### Bug Fixes
+
+* **kdropdown:** kdropdownitem width fix ([#1862](https://github.com/Kong/kongponents/issues/1862)) ([aa853ed](https://github.com/Kong/kongponents/commit/aa853ed9e9ae830de83652489218406694ae9938))
+
 # [9.0.0-alpha.57](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.56...v9.0.0-alpha.57) (2023-11-21)
 
 
