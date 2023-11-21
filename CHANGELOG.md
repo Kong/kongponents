@@ -1,3 +1,10 @@
+# [9.0.0-alpha.57](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.56...v9.0.0-alpha.57) (2023-11-21)
+
+
+### Bug Fixes
+
+* **kdropdown:** minor fix ([#1861](https://github.com/Kong/kongponents/issues/1861)) ([176a066](https://github.com/Kong/kongponents/commit/176a06670d7ec050176ea25ed58f7f50f0fea097))
+
 # [9.0.0-alpha.56](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.55...v9.0.0-alpha.56) (2023-11-21)
 
 
