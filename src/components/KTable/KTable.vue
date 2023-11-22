@@ -38,9 +38,11 @@
             {{ errorStateMessage }}
           </template>
 
-          <template #cta>
+          <template
+            v-if="errorStateActionMessage"
+            #cta
+          >
             <KButton
-              v-if="errorStateActionMessage"
               appearance="primary"
               :data-testid="getTestIdString(errorStateActionMessage)"
               :to="errorStateActionRoute ? errorStateActionRoute : undefined"
