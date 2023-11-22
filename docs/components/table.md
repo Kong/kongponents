@@ -199,6 +199,7 @@ object supporting the following properties:
   - `page`: the currently visible page - starts at `1`
   - `pageSize`: the number of items to display per page
   - `offset`: the value of the offset for offset-based pagination. `offset` **MUST** be included in the fetcher params for offset-based pagination to work properly.
+  - `hasNextPage`: a boolean value indicating if the next page exists in case of using cursor (`offset`) pagination. This is used to determine disable state of the prev/next page buttons. By default the value is `true`
 - Sort support:
   - `sortColumnKey`: the column to sort by's `key` defined in the `headers` prop
   - `sortColumnOrder`: can be 'asc' or 'desc'
