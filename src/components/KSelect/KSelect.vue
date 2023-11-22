@@ -173,6 +173,7 @@ import KSelectItem from '@/components/KSelect/KSelectItem.vue'
 import type {
   PopPlacements,
   SelectItem,
+  SelectFilterFunctionParams,
   SelectDropdownFooterTextPosition,
   SelectQueryChangeParams,
 } from '@/types'
@@ -247,6 +248,13 @@ const props = defineProps({
   enableFiltering: {
     type: Boolean,
     default: false,
+  },
+  /**
+   * Override default filter functionality of case-insensitive search on label
+   */
+  filterFunction: {
+    type: Function,
+    default: (params: SelectFilterFunctionParams) => params?.items?.filter((item: SelectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase())),
   },
   /**
    * Loading state in autosuggest
@@ -405,7 +413,7 @@ const hasCustomSelectedItem = computed((): boolean => !!(selectedItem.value &&
   (slots['selected-item-template'] || (props.reuseItemTemplate && slots['item-template']))))
 
 const filteredItems = computed(() => {
-  return props.enableFiltering ? selectItems.value.filter((item: SelectItem) => item.label?.toLowerCase().includes(filterQuery.value?.toLowerCase())) : selectItems.value
+  return props.enableFiltering ? props.filterFunction({ query: filterQuery.value, items: selectItems.value }) : selectItems.value
 })
 
 const onInputKeypress = (event: Event) => {

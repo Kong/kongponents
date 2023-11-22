@@ -170,8 +170,8 @@
           <template #item-template="{ item }">
             <div class="custom-item">
               <KongIcon />
-              <div>
-                <span class="custom-item-title">{{ item?.label }}</span>
+              <div class="custom-item-title-container">
+                <span class="custom-item-title">{{ item?.label }} {{ item.value === 'dogs' ? 'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' : '' }}</span>
                 <span class="custom-item-description">Some random description.</span>
               </div>
             </div>
@@ -410,6 +410,10 @@ onMounted(() => {
     display: flex;
     flex-direction: row;
     gap: $kui-space-30;
+
+    &-title-container {
+      flex: 1;
+    }
 
     &-title {
       display: block;

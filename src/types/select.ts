@@ -7,6 +7,11 @@ export interface SelectItem extends Record<string, any> {
   group?: string
 }
 
+export interface SelectFilterFunctionParams {
+  query: string
+  items: SelectItem[]
+}
+
 export interface SelectItemWithGroup extends SelectItem {
   group: string
 }
