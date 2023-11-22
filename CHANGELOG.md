@@ -1,3 +1,10 @@
+# [8.127.0](https://github.com/Kong/kongponents/compare/v8.126.2...v8.127.0) (2023-11-22)
+
+
+### Features
+
+* **KTable:** add hasNextPage support for offset pagination [KHCP-9591] ([#1859](https://github.com/Kong/kongponents/issues/1859)) ([f664083](https://github.com/Kong/kongponents/commit/f664083d0673a40b00d7dd4e66db787a933db3b9))
+
 ## [8.126.2](https://github.com/Kong/kongponents/compare/v8.126.1...v8.126.2) (2023-11-15)
 
 
