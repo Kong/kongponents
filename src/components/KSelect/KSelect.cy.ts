@@ -224,8 +224,8 @@ describe('KSelect', () => {
     })
 
     cy.get('input').type('a').then(() => {
-      cy.get('@onQueryChange').should('have.been.calledWith', { query: '', items: [] })
-      cy.get('@onQueryChange').should('have.been.calledWith', { query: 'a', items: [] })
+      cy.get('@onQueryChange').should('have.been.calledWith', '')
+      cy.get('@onQueryChange').should('have.been.calledWith', 'a')
     }).then(() => {
       cy.wrap(Cypress.vueWrapper.setProps({ loading: true })).getTestId('select-loading').should('exist')
     }).then(() => {
@@ -237,7 +237,7 @@ describe('KSelect', () => {
       cy.get('input').should('have.value', 'Label 1')
       cy.getTestId('select-input').trigger('click')
       cy.get('[data-testid="select-item-label1"] button').should('have.class', 'selected')
-      cy.get('@onQueryChange').should('have.been.calledWith', { query: '', items: [] })
+      cy.get('@onQueryChange').should('have.been.calledWith', '')
     })
   })
 
