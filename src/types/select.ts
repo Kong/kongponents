@@ -17,8 +17,3 @@ export interface SelectItemWithGroup extends SelectItem {
 }
 
 export type SelectDropdownFooterTextPosition = 'sticky' | 'static'
-
-export interface SelectQueryChangeParams {
-  query: string
-  items: SelectItem[]
-}

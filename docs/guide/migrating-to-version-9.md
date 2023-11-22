@@ -373,11 +373,10 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `testMode` prop has been removed
 * `overlayLabel` prop has been removed
 * `filterFunc` prop has been renamed to `filterFunction`
-* `autosuggest` prop has been removed and replaced with `enableFiltering` prop. Should you want to simply enable default component-handled filtering or perform async fetching behind the scenes, you can use this prop in combination with`@query-change` event to achieve that. See events section for details
+* `autosuggest` prop has been removed and replaced with `enableFiltering` prop. Should you want to simply enable default component-handled filtering or perform async fetching behind the scenes, you can use this prop in combination with`@query-change` event to achieve that
 
 #### Events
 
-* `query-change` event now emits an object with two parameters: `query` and `items` (includes all items passed through items prop plus all created items when `enableItemCreation` is `true`)
 * `item:added` event has been changed to `item-added`
 * `item:removed` event has been changed to `item-removed`
   

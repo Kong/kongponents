@@ -24,7 +24,11 @@
           @item-added="handeAsyncItemAdded"
           @item-removed="handeAsyncItemRemoved"
           @query-change="asyncQueryChange"
-        />
+        >
+          <template #loading>
+            Loading...
+          </template>
+        </KSelect>
       </SandboxSectionComponent>
 
       <!-- Props -->
@@ -257,7 +261,7 @@ import { inject, onMounted, ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { KongIcon } from '@kong/icons'
-import type { SelectItem, SelectQueryChangeParams } from '@/types'
+import type { SelectItem } from '@/types'
 
 const selectItems: SelectItem[] = [{
   label: 'Cats',
@@ -302,8 +306,8 @@ const onChange = (item: SelectItem | null): void => {
   console.log('@change', '\n', item)
 }
 
-const onQueryChange = ({ query, items }: SelectQueryChangeParams): void => {
-  console.log('@query-change', '\n', query, items)
+const onQueryChange = (query: string): void => {
+  console.log('@query-change', '\n', query)
 }
 
 const itemTemplateTruncationSnippet = `
@@ -360,21 +364,21 @@ const asyncItemsLoading = ref<boolean>(false)
 const asyncItemsModel = ref<string>('')
 const asyncItems = ref<SelectItem[]>([])
 
-const setAsyncItems = (items?: SelectItem[]): void => {
+const setAsyncItems = (): void => {
   asyncItemsLoading.value = true
 
   setTimeout(() => {
-    const aItems = asyncItemsQuery.value ? JSON.parse(JSON.stringify(items)) : JSON.parse(JSON.stringify(selectItemsInitial.value))
+    const aItems = JSON.parse(JSON.stringify(selectItemsInitial.value))
     asyncItems.value = asyncItemsQuery.value ? aItems.filter((item: SelectItem) => item.label?.toLowerCase().includes(asyncItemsQuery.value?.toLowerCase())) : aItems
 
     asyncItemsLoading.value = false
   }, 2000)
 }
 
-const asyncQueryChange = ({ query, items }: SelectQueryChangeParams): void => {
+const asyncQueryChange = (query: string): void => {
   if (asyncItemsQuery.value !== query) {
     asyncItemsQuery.value = query
-    setAsyncItems(items)
+    setAsyncItems()
   }
 }
 

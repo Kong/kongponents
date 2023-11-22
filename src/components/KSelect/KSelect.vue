@@ -73,6 +73,12 @@
             <template #after>
               <ChevronDownIcon />
             </template>
+            <template
+              v-if="$slots['label-tooltip']"
+              #label-tooltip
+            >
+              <slot name="label-tooltip" />
+            </template>
           </KInput>
           <Transition name="kongponents-fade-transition">
             <div
@@ -140,15 +146,22 @@
                 </div>
               </template>
             </KSelectItem>
+            <div
+              v-if="hasDropdownFooter && dropdownFooterTextPosition === 'static'"
+              class="dropdown-footer dropdown-footer-static"
+            >
+              <slot name="dropdown-footer-text">
+                {{ dropdownFooterText }}
+              </slot>
+            </div>
           </div>
           <slot
             v-if="!loading && !filteredItems.length"
             name="empty"
           />
           <div
-            v-if="hasDropdownFooter"
-            class="dropdown-footer"
-            :class="`dropdown-footer-${dropdownFooterTextPosition}`"
+            v-if="hasDropdownFooter && dropdownFooterTextPosition === 'sticky'"
+            class="dropdown-footer dropdown-footer-sticky"
           >
             <slot name="dropdown-footer-text">
               {{ dropdownFooterText }}
@@ -175,7 +188,6 @@ import type {
   SelectItem,
   SelectFilterFunctionParams,
   SelectDropdownFooterTextPosition,
-  SelectQueryChangeParams,
 } from '@/types'
 import { ChevronDownIcon, CloseIcon, ProgressIcon } from '@kong/icons'
 
@@ -314,7 +326,7 @@ const emit = defineEmits<{
   (e: 'input', value: string | number | null): void
   (e: 'change', item: SelectItem | null): void
   (e: 'update:modelValue', value: string | number | null): void
-  (e: 'query-change', data: SelectQueryChangeParams): void
+  (e: 'query-change', query: string): void
   (e: 'item-added', value: SelectItem): void
   (e: 'item-removed', value: SelectItem): void
 }>()
@@ -514,7 +526,7 @@ const onQueryChange = (query: string) => {
 const onInputFocus = (): void => {
   inputFocused.value = true
 
-  emit('query-change', { query: filterQuery.value, items: selectItems.value })
+  emit('query-change', filterQuery.value)
 }
 
 const onInputBlur = (): void => {
@@ -583,7 +595,7 @@ watch(() => props.items, (newValue, oldValue) => {
 }, { deep: true, immediate: true })
 
 watch(filterQuery, () => {
-  emit('query-change', { query: filterQuery.value, items: selectItems.value })
+  emit('query-change', filterQuery.value)
 })
 
 onMounted(() => {
@@ -690,17 +702,6 @@ $kSelectInputSlotSpacing: var(--kui-space-40, $kui-space-40); // corresponds to 
     &.has-sticky-dropdown-footer, &.has-static-dropdown-footer {
       padding-bottom: var(--kui-space-0, $kui-space-0);
     }
-
-    &.has-static-dropdown-footer {
-      .select-items-container {
-        max-height: auto;
-        overflow-y: hidden;
-      }
-
-      .k-popover-content {
-        @include kSelectPopoverMaxHeight;
-      }
-    }
   }
 
   .select-loading {
@@ -712,15 +713,19 @@ $kSelectInputSlotSpacing: var(--kui-space-40, $kui-space-40); // corresponds to 
   }
 
   .dropdown-footer {
+    align-items: center;
     background-color: var(--kui-color-background, $kui-color-background);
     border-bottom-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     border-bottom-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     bottom: 0;
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    display: flex;
     font-size: var(--kui-font-size-20, $kui-font-size-20);
+    gap: var(--kui-space-30, $kui-space-30);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
     padding: var(--kui-space-50, $kui-space-50);
+    pointer-events: none;
     position: sticky;
 
     &-static {
