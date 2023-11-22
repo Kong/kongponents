@@ -1,3 +1,10 @@
+# [9.0.0-alpha.60](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.59...v9.0.0-alpha.60) (2023-11-22)
+
+
+### Bug Fixes
+
+* **ktable:** add truncate class styles ([#1866](https://github.com/Kong/kongponents/issues/1866)) ([47d4e2d](https://github.com/Kong/kongponents/commit/47d4e2d7ed5536f574bf116b6337488b5eb7418a))
+
 # [9.0.0-alpha.59](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.58...v9.0.0-alpha.59) (2023-11-22)
 
 
