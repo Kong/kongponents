@@ -1,1013 +1,752 @@
 # Select
 
-**Select** - Select input component
-
-<ClientOnly>
-  <KSelect label="Pick Something:" :items="deepClone(defaultItemsUnselect)" />
-</ClientOnly>
-
-```html
-<KSelect label="Pick Something:" :items="items" />
-```
+KSelect is custom component alternative for native `<select>` element.
 
 ## Props
 
 ### items
 
-An array of items containing a `label` and `value`. You may also specify:
-- a certain item is `selected` by default
-- a certain item is `disabled`
-- certain items are grouped under a `group`
+Prop for providing select item options. Supports grouping items under one group name through providing optional `group` property.
 
 <ClientOnly>
-  <KSelect :items="deepClone(defaultItemsWithDisabledAndGroups)" />
+  <KSelect :items="[{
+    label: 'Service A',
+    value: 'a',
+    selected: true,
+  }, {
+    label: 'Service B',
+    value: 'b',
+  }, {
+    label: 'Service F',
+    value: 'f',
+    disabled: true,
+  }, {
+    label: 'Service A1',
+    value: 'a1',
+    group: 'Series 1',
+  }, {
+    label: 'Service B1',
+    value: 'b1',
+    group: 'Series 1',
+  }, {
+    label: 'Service A2',
+    value: 'a2',
+    group: 'Series 2',
+  }, {
+    label: 'Service B2',
+    value: 'b2',
+    group: 'Series 2',
+  }]" />
 </ClientOnly>
 
 ```html
 <KSelect :items="[{
-    label: 'Cats',
-    value: 'cats',
-    selected: true
-  }, {
-    label: 'Dogs',
-    value: 'dogs',
-    disabled: true,
-  }, {
-    label: 'Bunnies',
-    value: 'bunnies'
-  }, {
-    label: 'Duck',
-    value: 'duck',
-    group: 'Birds'
-  }, {
-    label: 'Oriole',
-    value: 'oriole',
-    group: 'Birds'
-  }, {
-    label: 'Trout',
-    value: 'trout',
-    group: 'Fish'
-  }, {
-    label: 'Salmon',
-    value: 'salmon',
-    group: 'Fish'
-  }]"
-/>
+  label: 'Service A',
+  value: 'a',
+  selected: true,
+}, {
+  label: 'Service B',
+  value: 'b',
+}, {
+  label: 'Service F',
+  value: 'f',
+  disabled: true,
+}, {
+  label: 'Service A1',
+  value: 'a1',
+  group: 'Series 1',
+}, {
+  label: 'Service B1',
+  value: 'b1',
+  group: 'Series 1',
+}, {
+  label: 'Service A2',
+  value: 'a2',
+  group: 'Series 2',
+}, {
+  label: 'Service B2',
+  value: 'b2',
+  group: 'Series 2',
+}]" />
 ```
 
 ### label
 
-The label for the select.
+Label associated with the input element.
 
 <ClientOnly>
-  <KSelect label="Cool label" :items="deepClone(defaultItemsUnselect)" />
+  <KSelect label="Label" :items="selectItems" />
 </ClientOnly>
 
 ```html
-<KSelect label="Cool label" :items="items" />
+<KSelect label="Label" :items="selectItems" />
 ```
 
 ### labelAttributes
 
-Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop. This example shows using the `label-attributes` to set up a tooltip, see the [slot](#slots) section if you want to slot HTML into the tooltip rather than use plain text.
+Label attributes to be passed to underlying [KLabel component](/components/label#props).
 
 <ClientOnly>
-  <KSelect label="Name" :label-attributes="{
-      help: 'I use the KLabel `help` prop',
-      'data-testid': 'test'
-    }"
-    :items="defaultItemsUnselect"
-  />
+  <KSelect label="Label" :items="selectItems" :label-attributes="{ info: 'I use the KLabel `info` prop' }" />
 </ClientOnly>
 
 ```html
-<KSelect
-  label="Name"
-  :label-attributes="{
-    help: 'I use the KLabel `help` prop',
-    'data-testid': 'test'
-  }"
-  :items="items"
-/>
+<KSelect label="Label" :items="selectItems" :label-attributes="{ info: 'I use the KLabel `info` prop' }" />
 ```
 
-### appearance
+### placeholder
 
-There are three styles of selects, `select` and `dropdown` (default) which are filterable, and lastly `button` which is not.
-
-The `dropdown` appearance style has a selected item object. You can deselect the item by clicking the Clear icon.
+Placeholder to be displayed when no item is selected.
 
 <ClientOnly>
-  <KSelect :items="deepClone(defaultItems)" />
+  <KSelect placeholder="Select service" :items="selectItemsUnselected" />
 </ClientOnly>
 
 ```html
-<KSelect :items="items" />
-```
-
-The `select` style displays the selected item in the text box and also displays a chevron. To allow deselecting the item, you need to
-set the `clearable` prop to `true`. See [clearable](#clearable) for an example.
-
-<ClientOnly>
-  <KSelect appearance="select" :items="deepClone(defaultItems)" />
-</ClientOnly>
-
-```html
-<KSelect appearance="select" :items="items" />
-```
-
-The `button` style triggers the dropdown on click and you cannot filter the entries.
-
-<ClientOnly>
-  <KSelect appearance="button" :items="deepClone(defaultItems)" />
-</ClientOnly>
-
-```html
-<KSelect appearance="button" :items="items" />
+<KSelect placeholder="Select service" :items="selectItems" />
 ```
 
 ### clearable
 
-The `clearable` prop is used to enable deselecting the selected item when `appearance` is `'select'`. Defaults to `false`.
+When set to `true`, the clear icon will be displayed in front of selected item.
 
 <ClientOnly>
-  <KSelect appearance="select" :items="deepClone(defaultItems)" clearable />
+  <KSelect clearable :items="selectItems" />
 </ClientOnly>
 
 ```html
-<KSelect appearance="select" :items="items" clearable />
+<KSelect clearable :items="selectItems" />
 ```
 
-### buttonText
+### help
 
-You can configure the button text when an item is selected, if `appearance` is type `button`.
+Help text to be displayed below the select element.
 
 <ClientOnly>
-  <KSelect appearance="button" width="225" @selected="item => handleItemSelect(item)" :buttonText="`Show ${mySelect} per page`" :items="items" />
+  <KSelect help="Helpful text." :items="selectItems" />
 </ClientOnly>
 
 ```html
-<KSelect
-  appearance="button"
-  width="225"
-  @selected="item => handleItemSelect(item)"
-  :buttonText="`Show ${mySelect} per page`"
-  :items="items"
-/>
+<KSelect help="Helpful text." :items="selectItems" />
+```
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+### error
 
-export default defineComponent({
-  data() {
-    return {
-      mySelect: '',
-      items: [{
-        label: '25',
-        value: '25'
-      }, {
-        label: '50',
-        value: '50'
-      }]
-    }
-  },
-  methods: {
-    handleItemSelect (item) {
-      this.mySelect = item.label
-    }
-  }
-})
-</script>
+When set to `true`, error styling will apply.
+
+<ClientOnly>
+  <KSelect error help="You can use `help` prop for displaying error messages." :items="selectItems" />
+</ClientOnly>
+
+```html
+<KSelect error help="You can use `help` prop for displaying error messages." :items="selectItems" />
 ```
 
 ### width
 
-You can pass a `width` string for the dropdown. By default the `width` is `200px`. This is the width of the input, dropdown, and selected item.
-Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
-
-::: tip NOTE
-Because we are controlling the widths of multiple elements, we recommend using this prop to control the width instead of explicitly adding classes or styles to the `KSelect` component.
-:::
+Use this prop to limit element's width.
 
 <ClientOnly>
-  <KSelect width="350" :items="deepClone(defaultItemsUnselect)"
-  />
+  <KSelect width="200" :items="selectItems" />
 </ClientOnly>
 
 ```html
-<KSelect width="350" :items="items" />
+<KSelect width="200" :items="selectItems" />
 ```
 
 ### dropdownMaxHeight
 
-You can pass a `dropdownMaxHeight` string for the dropdown. By default, the `dropdownMaxHeight` is `300px`. This is the maximum height of the `KSelect` dropdown when open. You can pass a number (will be converted to `px`), `auto`, percentages, or `vh` units.
+Maximum height for dropdown container.
 
 <ClientOnly>
-  <KSelect width="250" :items="deepClone(defaultItemsLongList)" dropdown-max-height="150" />
+  <KSelect dropdown-max-height="300" :items="selectItems" />
 </ClientOnly>
 
 ```html
-<KSelect width="250" :items="items" dropdown-max-height="150" />
+<KSelect dropdown-max-height="300" :items="selectItems" />
 ```
 
 ### dropdownFooterText
 
-Adds informational text to the bottom of the dropdown options which remains visible even if the content is scrolled. Can also be [slotted](#slots).
+Text to be displayed at the bottom of dropdown container. Can also be [slotted](#dropdown-footer-text).
 
 <ClientOnly>
-  <KSelect dropdown-footer-text="Sticky dropdown footer text" :items="deepClone(defaultItemsLongList)" width="250" />
+  <KSelect dropdown-footer-text="Helpful text in the dropdown." :items="selectItems" />
 </ClientOnly>
 
 ```html
-<KSelect dropdown-footer-text="Sticky dropdown footer text" :items="items" width="250" />
+<KSelect dropdown-footer-text="Helpful text in the dropdown." :items="selectItems" />
 ```
 
 ### dropdownFooterTextPosition
 
-By default, the dropdown footer text will be stuck to the bottom of the dropdown and will always be visible even if the dropdown content is scrolled.
-
-If you want to override the behaviour and have the footer text at the end of the dropdown list, use the value `static`. This ensures the footer text is visible only when the user scrolls to view the bottom of the list.
-
-Accepted values: `sticky` (default) and `static`.
+Defaults to `sticky`, but also accepts `static` value should you want text passed through `dropdownFooterText` prop to bi displayed at the bottom of dropdown container after all items.
 
 <ClientOnly>
-  <KSelect dropdown-footer-text-position="static" dropdown-footer-text="Static dropdown footer text" :items="deepClone(defaultItemsLongList)" width="250" />
+  <KSelect dropdown-footer-text-position="static" dropdown-footer-text="Helpful text in the dropdown." :items="selectItems" />
 </ClientOnly>
 
 ```html
-<KSelect dropdown-footer-text-position="static" dropdown-footer-text="Static dropdown footer text" :items="items" width="250" />
+<KSelect dropdown-footer-text-position="static" dropdown-footer-text="Helpful text in the dropdown." :items="selectItems" />
 ```
-
-### positionFixed
-
-Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `true`. See [`KPop` docs](popover.html#positionfixed) for more information.
 
 ### enableFiltering
 
-Use this prop to control whether or not the `KSelect` component with an `appearance` prop set to a value of `select` or `dropdown` allows filtering. By default, filtering is enabled for `dropdown` appearance and is disabled for `select` appearance.
-
-`button` style `appearance` does not have filter support because it is a button.
+By default, items passed to KSelect are not searchable. When `enableFiltering` prop is true, clicking on select element will turn it into input field, typing into which will filter matching items.
 
 <ClientOnly>
-  <KSelect :items="deepClone(defaultItemsUnselect)" :enable-filtering="false" class="vertical-spacing" />
-  <KSelect :items="deepClone(defaultItemsUnselect)" appearance="select" :enable-filtering="true" />
+  <KSelect enable-filtering placeholder="Try searching for 'service a'" :items="selectItemsUnselected" />
 </ClientOnly>
 
 ```html
-<KSelect :items="items" :enable-filtering="false" />
-
-<KSelect :items="items" appearance="select" :enable-filtering="true" />
+<KSelect enable-filtering placeholder="Try searching for 'service a'" :items="selectItems" />
 ```
 
-### filterFunc
+### filterFunction
 
-Use this prop to override the default filter function if you want to do something like filter on an attribute other than `label`. Your filter function
-should take as parameter a JSON object containing the items to filter on (`items`) and the query string (`query`) and return the filtered items. See [Slots](#slots) for an example.
-
-```js
-myCustomFilter ({ items, query }) {
-  return items.filter(anItem => anItem.label.includes(query))
-}
-```
-
-::: tip NOTE
-`filterFunc` does not work with `autosuggest` enabled.
-For `autosuggest`, you are in charge of filtering the options, so `KSelect` won't filter them internally.
-See [autosuggest](#autosuggest) for more details.
-:::
-
-### v-model
-
-`KSelect` works as regular inputs do using v-model for data binding:
+Custom function to filter items by.
 
 <ClientOnly>
-  <KLabel>Value:</KLabel> {{ myVal }}
-  <KSelect v-model="myVal" :items="deepClone(defaultItems)" />
-  <br>
-  <KButton @click="clearIt">Clear</KButton>
+  <KSelect enable-filtering :filter-function="tagsFilter" placeholder="Try searching for 'dev' or 'prod'" :items="selectItemsUnselectedTagged" />
 </ClientOnly>
 
-```html
-<div>
-  <KLabel>Value:</KLabel> {{ myVal }}
-  <KSelect v-model="myVal" :items="items" />
-  <KButton @click="clearIt">Clear</KButton>
-</div>
+```vue
+<template>
+  <KSelect enable-filtering :filter-function="tagsFilter" placeholder="Try searching for 'dev' or 'prod'" :items="selectItems" />
+</template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import type { SelectItem, SelectFilterFunctionParams } from '@kong/kongponents'
 
-export default defineComponent({
-  data() {
-    return {
-      myVal: 'cats',
-    }
-  },
-  methods: {
-    clearIt() {
-      this.myVal = ''
-    }
-  }
-})
+const selectItems: SelectItem[] = [{
+  label: 'Service A',
+  value: 'a',
+}, {
+  label: 'Service B',
+  value: 'b',
+  tags: ['dev']
+}, {
+  label: 'Service F',
+  value: 'f',
+  disabled: true,
+}, {
+  label: 'Service A1',
+  value: 'a1',
+  group: 'Series 1',
+}, {
+  label: 'Service B1',
+  value: 'b1',
+  group: 'Series 1',
+}, {
+  label: 'Service A2',
+  value: 'a2',
+  group: 'Series 2',
+  tags: ['prod']
+}, {
+  label: 'Service B2',
+  value: 'b2',
+  group: 'Series 2',
+}]
+
+const tagsFilter = (params: SelectFilterFunctionParams) => params?.items?.filter((item: SelectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase()) || item.tags?.includes(params.query?.toLowerCase()))
 </script>
 ```
 
-### autosuggest
+### reuseItemTemplate
 
-Add the `autosuggest` prop to trigger a query to an API with the filter keyword, and then update `items` asynchronously as suggestions as the user types.
-Loading and empty state content can be configured using the `loading` and `empty` slots.
+Whether content passed through [`item-template` slot](#itemtemplate) should be applied for selected item.
 
 <ClientOnly>
-  <KSelect autosuggest
-    :items="itemsForAutosuggest"
-    :loading="loading"
-    width="300px"
-    appearance="select"
-    @query-change="onQueryChange"
+  <KSelect
+    :items="selectItems"
+    reuse-item-template
   >
-    <template v-slot:item-template="{ item }">
-      <div class="select-item-label">{{ item.label }}</div>
-      <div class="select-item-desc">{{ item.description }}</div>
-    </template>
-    <template v-slot:loading>
-      <div>Loading...</div>
-    </template>
-    <template v-slot:empty>
-      <div>No results found</div>
+    <template #item-template="{ item }">
+      <KongIcon />
+      {{ item?.label }}!
     </template>
   </KSelect>
 </ClientOnly>
 
-```html
-<KSelect
-  autosuggest
-  :items="items"
-  :loading="loading"
-  width="300px"
-  appearance="select"
-  @query-change="onQueryChange"
->
-  <template v-slot:item-template="{ item }">
-    <div class="select-item-label">{{ item.label }}</div>
-    <div class="select-item-desc">{{ item.label }}</div>
-  </template>
-  <template v-slot:loading>
-    <div>Loading...</div>
-  </template>
-  <template v-slot:empty>
-    <div>No results found</div>
-  </template>
-</KSelect>
+### positionFixed
 
-<script>
-const allItems = new Array(10).fill().map((_, i) => ({
-  label: `Item ${i}`,
-  description: `This is the description for item ${i}.`,
-  value: `autosuggest-item-${i}`,
-  ...(i > 5 && { group: `${i % 2 === 0 ? 'Even items greater than 5' : 'Odd items greater than 5'}` })
-}));
-export default {
-  data() {
-    return {
-      defaultItems: [],
-      items: [],
-      loading: false,
-    }
-  },
-  methods: {
-    onQueryChange (val) {
-      if (val === '' && !this.defaultItems.length) {
-        this.loading = true;
-        // If query is empty and default items are not fetched, fetch them
-        setTimeout(() => {
-          this.defaultItems = allItems;
-          this.items = this.defaultItems.map(item => Object.assign({}, item));
-          this.loading = false;
-        }, 200);
-        return;
-      }
-      if (val === '') {
-        // If query is empty and default items are fetched, use the default items
-        this.items = this.defaultItems.map(item => Object.assign({}, item));
-        return;
-      }
-      this.loading = true;
-      // Otherwise fetch items that contain the keyword
-      setTimeout(() => {
-        this.items =
-          allItems
-            .filter(item => item.label.toLowerCase().includes(val.toLowerCase()) || item.description.toLowerCase().includes(val.toLowerCase()))
-            .map(item => Object.assign({}, item));
-        this.loading = false;
-      }, 200);
-    }
-  }
-}
-</script>
-```
+Use fixed positioning of the popover to avoid content being clipped by parental boundaries. See [KPopover](/components/popover#positionfixed) docs for more information.
 
-::: tip NOTE
-The `query-change` event triggers immediately when the user types in the input.
-If you need to send API requests in the `query-change` event handler, you may want to implement a debounce function.
-The following is an example:
-:::
+### enableItemCreation
+
+When used in conjunction with `enableFiltering` set to `true`, KSelect will suggest adding a new value when filtering produces no results.
 
 <ClientOnly>
-  <KSelect autosuggest
-    :items="itemsForDebouncedAutosuggest"
-    :loading="loadingForDebounced"
-    width="300px"
-    appearance="select"
-    @query-change="onQueryChangeForDebounced"
-  >
-    <template v-slot:item-template="{ item }">
-      <div class="select-item-label">{{ item.label }}</div>
-      <div class="select-item-desc">{{ item.label }}</div>
-    </template>
-  </KSelect>
+  <KSelect enable-item-creation enable-filtering placeholder="Try searching for 'service d'" :items="selectItemsUnselected" />
 </ClientOnly>
 
 ```html
-<KSelect
-  autosuggest
-  :items="items"
-  :loading="loading"
-  width="300px"
-  appearance="select"
-  @query-change="onQueryChange"
->
-  <template v-slot:item-template="{ item }">
-    <div class="select-item-label">{{ item.label }}</div>
-    <div class="select-item-desc">{{ item.label }}</div>
-  </template>
-</KSelect>
-
-<script>
-function debounce(func, timeout) {
-  let timer;
-  return function (...args) {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func.apply(this, args);
-    }, timeout);
-  };
-}
-const allItems = new Array(10).fill().map((_, i) => ({
-  label: `Item ${i}`,
-  description: `This is the description for item ${i}.`,
-  value: `autosuggest-item-${i}`,
-  ...(i > 5 && { group: `${i % 2 === 0 ? 'Even items greater than 5' : 'Odd items greater than 5'}` })
-}));
-export default {
-  data() {
-    return {
-      defaultItems: [],
-      items: [],
-      loading: true,
-    }
-  },
-  methods: {
-    onQueryChange (val) {
-      if (val === '' && !this.defaultItems.length) {
-        // If query is empty and default items are not fetched, fetch them
-        this.loading = true;
-        setTimeout(() => {
-          this.defaultItems = allItems;
-          this.items = this.defaultItems.map(item => Object.assign({}, item));
-          this.loading = false;
-        }, 200);
-        return;
-      }
-      if (val === '') {
-        // If query is empty and default items are fetched, use the default items
-        this.items = this.defaultItems.map(item => Object.assign({}, item));
-        return;
-      }
-      this.debouncedHandler(val);
-    },
-    debouncedHandler: debounce(function (val) {
-      this.loading = true;
-      // Fetch items that contain the keyword
-      setTimeout(() => {
-        this.items =
-          allItems
-            .filter(item => item.label.toLowerCase().includes(val.toLowerCase()) || item.description.toLowerCase().includes(val.toLowerCase()))
-            .map(item => Object.assign({}, item));
-        this.loading = false;
-      }, 200);
-    }, 400)
-  }
-}
-</script>
+<KSelect enable-item-creation enable-filtering placeholder="Try searching for 'service d'" :items="selectItems" />
 ```
 
 ### loading
 
-When `autosuggest` is enabled, you can use the `loading` prop to show a loading indicator while fetching data from API.
-By default, the loading indicator is a spinner icon, and you can implement your own indicator using the `loading` slot.
-See [autosuggest](#autosuggest) for an example.
+Pass `true` to display loader instead of items in the dropdown. KSelect's `item` prop is reactive to changes by design, so that should you need to perform async item fetching/filtering you can execute that logic on host app's side and pass items back to KSelect. The example below utilizes the [`@query-change` event](#query-change) to simulate async items fetching behind the scenes.
 
-### reuseItemTemplate
+<div class="spacing-container">
+  <span>Selected service: {{ asyncItemsModel || 'none' }}</span>
 
-Use this prop to customize selected item element appearance by reusing content passed through [item-template](#item-template) slot. **Note:** this prop only applies when `appearance` prop is `select` (use [selected-item-template](#selected-item-template) slot in other cases).
+  <ClientOnly>
+    <KSelect
+      v-model="asyncItemsModel"
+      enable-filtering
+      :items="asyncItems"
+      :loading="asyncItemsLoading"
+      @query-change="onAsyncQueryChange"
+    />
+  </ClientOnly>
+</div>
 
-<ClientOnly>
-  <KSelect reuse-item-template appearance="select" :items="deepClone(defaultItems)">
-    <template #item-template="{ item }">
-      <div class="item-template-container">
-        <span v-if="item.value === 'cats'">🐈</span>
-        <span v-if="item.value === 'dogs'">🐕</span>
-        <span v-if="item.value === 'bunnies'">🐇</span>
-        <div class="select-item-label">{{ item.label }}</div>
-      </div>
-    </template>
-  </KSelect>
-</ClientOnly>
-
-```html
-<KSelect reuse-item-template appearance="select" :items="items">
-  <template #item-template="{ item }">
-    <div>
-      <span v-if="item.value === 'cats'">🐈</span>
-      <span v-if="item.value === 'dogs'">🐕</span>
-      <span v-if="item.value === 'bunnies'">🐇</span>
-      <div class="select-item-label">{{ item.label }}</div>
-    </div>
-  </template>
-</KSelect>
-```
-
-### enableItemCreation
-
-`KSelect` offers users the ability to add custom item to the list by typing the item they want to and then clicking the `... (Add new value)` item at the bottom of the list, which will also automatically select it.
-
-Newly created item will have a `label` consisting of the user input and a randomly generated id for the `value` to ensure uniqueness. It will also have an attribute `custom` set to `true`. This action triggers an `item:added` event containing the added item data.
-
-Deselecting the item will completely remove it from the list and underlying data, and trigger a `item:removed` event containing the removed item's data.
-
-:::tip NOTE
-You cannot add an item if the `label` matches the `label` of a pre-existing item. In that scenario the `... (Add new value)` item will not be displayed.
-:::
-
-<ClientOnly>
-  <KLabel>Added Item:</KLabel> <pre class="json">{{ JSON.stringify(addedItems) }}</pre>
-  <KSelect
-    v-model="myVal"
-    :items="deepClone(defaultItems)"
-    enable-item-creation
-    @item:added="(item) => trackNewItems(item, true)"
-    @item:removed="(item) => trackNewItems(item, false)"
-  />
-</ClientOnly>
-
-```html
+```vue
 <template>
-  <KLabel>Added Item:</KLabel> {{ addedItems }}
   <KSelect
-    v-model="myVal"
-    :items="items"
-    enable-item-creation
-    @item:added="(item) => trackNewItems(item, true)"
-    @item:removed="(item) => trackNewItems(item, false)"
+    v-model="asyncItemsModel"
+    enable-filtering
+    :items="asyncItems"
+    :loading="asyncItemsLoading"
+    @query-change="onAsyncQueryChange"
   />
 </template>
 
 <script setup lang="ts">
-  const myVal = 'cats'
-  const addedItems = ref([])
+import { ref } from 'vue'
+import type { SelectItem } from '@kong/kongponents'
 
-  const trackNewItems = (item, added) => {
-    if (added) {
-      addedItems.value.push(item)
-    } else {
-      addedItems.value = addedItems.value.filter(anItem => anItem.value !== item.value)
-    }
+const asyncItems: SelectItem[] = [{
+  label: 'Service A',
+  value: 'a',
+}, {
+  label: 'Service B',
+  value: 'b',
+}, {
+  label: 'Service F',
+  value: 'f',
+  disabled: true,
+}, {
+  label: 'Service A1',
+  value: 'a1',
+  group: 'Series 1',
+}, {
+  label: 'Service B1',
+  value: 'b1',
+  group: 'Series 1',
+}, {
+  label: 'Service A2',
+  value: 'a2',
+  group: 'Series 2',
+}, {
+  label: 'Service B2',
+  value: 'b2',
+  group: 'Series 2',
+}]
+const asyncItemsInitial: SelectItem[] = JSON.parse(JSON.stringify(asyncItems.value))
+
+const asyncItemsModel = ref<string>('')
+const asyncItemsQuery = ref<string>('')
+const asyncItemsLoading = ref<boolean>(false)
+
+const onAsyncQueryChange = (query: string): void => {
+  if (asyncItemsQuery.value !== query) {
+    asyncItemsQuery.value = query
+
+    fetchAsyncItems()
   }
+}
+
+const fetchAsyncItems = (): void => {
+  asyncItemsLoading.value = true
+
+  setTimeout(() => {
+    // normally we would perform api fetching here
+    // but for the sake of this example let's just filter items locally with some timeout
+    const items = JSON.parse(JSON.stringify(asyncItemsInitial))
+    asyncItems.value = items.filter((item: SelectItem) => item.label?.toLowerCase().includes(asyncItemsQuery.value?.toLowerCase()))
+
+    asyncItemsLoading.value = false
+  }, 2000)
+}
 </script>
 ```
 
-## Attribute Binding
+### kpopAttributes
 
-You can pass any input attribute and it will get properly bound to the element.
+Attributes to be passed to underlying KPopover component. See [KPopover's props](/components/popover#props) for more info.
 
-<ClientOnly>
-  <KSelect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
-</ClientOnly>
+### v-model
 
-```html
-<KSelect disabled placeholder="type something" :items="[{ label: 'test', value: 'test' }]" />
-```
+Use `v-model` for two-way value binding.
 
-### required
+<div class="spacing-container">
+  <span>Selected service: {{ vModel || 'none' }}</span>
 
-KSelect will display an `*` to indicate a field is required if you set the `required` attribute and provide a `label`. See **KLabel's** [`required`](/components/label#required) prop for more information.
-
-:::tip NOTE
-Text passed in for the `label` will automatically strip any trailing `*` when used with the `required` attribute to try to prevent duplicate asterisks.
-:::
-
-<ClientOnly>
-  <KSelect label="Name" required :items="deepClone(defaultItems)" />
-  <br>
-  <KSelect label="Name" required :items="deepClone(defaultItems)" />
-</ClientOnly>
+  <ClientOnly>
+    <KSelect
+      v-model="vModel"
+      :items="selectItemsUnselected"
+    />
+  </ClientOnly>
+</div>
 
 ```html
-<KSelect label="Name" required :items="items" />
-<KSelect label="Name" required :items="items" />
+Selected service: {{ selectValue || 'none' }}
+
+<KSelect
+  v-model="selectValue"
+  :items="selectItems"
+/>
 ```
 
-## Slots
+### HTML Attributes
 
-- `label-tooltip` - slot for tooltip content if select has a label and label has tooltip (note: this slot overrides `help`/`info` content specified in `label-attributes`)
-- `item-template` - The template for each item in the dropdown list
-- `selected-item-template` - Slot for customizing selected item appearance
-- `loading` - Slot for the loading indicator
-- `empty` - Slot for the empty state in the dropdown list
-- `dropdown-footer-text` - Slot for footer text in the bottom of the dropdown
+#### required
 
-### `label-tooltip`
-
-If you want to utilize HTML in the select label's tooltip, use the slot.
+KSelect will display a red dot next to label when `required` attribute is passed.
 
 <ClientOnly>
-  <KSelect label="My Tooltip" :items="deepClone(defaultItems)">
-    <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
-  </KSelect>
-</ClientOnly>
-
-```html
-<KSelect label="My Tooltip" :items="items">
-  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
-</KSelect>
-```
-
-:::tip Note:
-When utilizing the `label-tooltip` slot, the `info` `KIcon` will be shown by default. To utilize the the `help` icon instead, set the `label-attributes` `help` property to any non-empty string value.
-:::
-
-<ClientOnly>
-  <KSelect label="My Tooltip" :label-attributes="{ help: 'true' }" :items="deepClone(defaultItems)">
-    <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
-  </KSelect>
+  <KSelect
+    label="Label"
+    required
+    :items="selectItems"
+  />
 </ClientOnly>
 
 ```html
 <KSelect
-  label="My Tooltip"
-  :label-attributes="{ help: 'true' }"
-  :items="items"
->
-  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
-</KSelect>
+  label="Label"
+  required
+  :items="selectItems"
+/>
 ```
 
-### `item-template`
-You can use the `item-template` slot to customize the look and feel of your items. Use slots to gain access to the `item` data.
+## Slots
 
-::: tip TIP
-If you use the `.select-item-label` and `.select-item-desc` classes within the slot as shown in the example below, the dropdown items will inherit preconfigured styles for two-level select items which you're then free to customize.
-:::
+### label-tooltip
+
+Use this prop to pass any custom content to label tooltip.
 
 <ClientOnly>
-  <KSelect :items="myItems" width="100%" :filterFunc="customFilter">
-    <template v-slot:item-template="{ item }">
-      <div class="select-item-label">{{ item.label }}</div>
-      <div class="select-item-desc">{{ item.description }}</div>
-    </template>
+  <KSelect label="Label" :items="selectItems">
+    <template #label-tooltip>Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code></template>
   </KSelect>
 </ClientOnly>
 
 ```html
-<template>
-  <KSelect :items="myItems" width="100%" :filterFunc="customFilter">
-    <template v-slot:item-template="{ item }">
-      <div class="select-item-label">{{ item.label }}</div>
-      <div class="select-item-desc">{{ item.description }}</div>
-    </template>
-  </KSelect>
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  data() {
-    return {
-      myItems: this.getItems(5),
-    }
-  },
-  methods: {
-    getItems(count) {
-      let myItems = []
-        for (let i = 0; i < count; i++) {
-          myItems.push({
-            label: `Item ${i}`,
-            value: `item_${i}`,
-            description: `${i} - The item's description for number ${i}`
-          })
-        }
-      return myItems
-    },
-    customFilter (items, queryStr) {
-      return items.filter(item => {
-        return item.label.toLowerCase().includes(queryStr.toLowerCase()) ||
-          item.description.toLowerCase().includes(queryStr.toLowerCase())
-      })
-    }
-  }
-})
-</script>
+<KSelect label="Label" :items="selectItems">
+  <template #label-tooltip>Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code></template>
+</KSelect>
 ```
 
-### `selected-item-template`
+### item-template
 
-Use this slot to customize appearance of the selected item that appears when the `KSelect` dropdown is not activated. If present, the slot content takes precedence over the [reuseItemTemplate](#reuseitemtemplate) prop.
-
-::: tip TIP
-You can use the `.k-select-selected-item-label` class within the slot to leverage preconfigured styles for selected item title which you're then free to customize.
-:::
+Use this slot to pass custom content to the items. The slot exposes `item` slot prop.
 
 <ClientOnly>
-  <KSelect appearance="select" autosuggest :items="deepClone(defaultItems)">
-    <template #selected-item-template="{ item }">
-      <span class="horizontal-spacing" v-if="item.value === 'cats'">🐈</span>
-      <span class="horizontal-spacing" v-if="item.value === 'dogs'">🐕</span>
-      <span class="horizontal-spacing" v-if="item.value === 'bunnies'">🐇</span>
-      {{ item.label }}
-    </template>
+  <KSelect :items="selectItems">
     <template #item-template="{ item }">
-      <div class="item-template-container">
-        <span v-if="item.value === 'cats'">🐈</span>
-        <span v-if="item.value === 'dogs'">🐕</span>
-        <span v-if="item.value === 'bunnies'">🐇</span>
-        <div class="select-item-label">{{ item.label }}</div>
+      <div class="custom-item">
+        <KongIcon />
+        <div class="custom-item-title-container">
+          <span class="custom-item-title">{{ item?.label }}</span>
+          <span class="custom-item-description">{{ item?.label }} description.</span>
+        </div>
       </div>
     </template>
   </KSelect>
 </ClientOnly>
 
+```vue
+<template>
+  <KSelect :items="selectItems">
+    <template #item-template="{ item }">
+      <div class="custom-item">
+        <KongIcon />
+        <div class="custom-item-title-container">
+          <span class="custom-item-title">{{ item?.label }}</span>
+          <span class="custom-item-description">{{ item?.label }} description.</span>
+        </div>
+      </div>
+    </template>
+  </KSelect>
+</template>
+
+<style lang="scss" scoped>
+.custom-item {
+  display: flex;
+  flex-direction: row;
+  gap: $kui-space-30;
+
+  &-title-container {
+    flex: 1;
+  }
+
+  &-title {
+    display: block;
+  }
+
+  &-description {
+    color: $kui-color-text-neutral;
+    display: block;
+    font-size: $kui-font-size-20;
+  }
+}
+</style>
+```
+
+### selected-item-template
+
+Use this slot to provide custom content to the selected item. The slot exposes `item` slot prop.
+
+<ClientOnly>
+  <KSelect :items="selectItems">
+    <template #selected-item-template="{ item }">
+      <KongIcon />
+      {{ item?.label }}
+    </template>
+  </KSelect>
+</CLientOnly>
+
 ```html
-<KSelect appearance="select" autosuggest :items="items">
+<KSelect :items="selectItems">
   <template #selected-item-template="{ item }">
-    <span v-if="item.value === 'cats'">🐈</span>
-    <span v-if="item.value === 'dogs'">🐕</span>
-    <span v-if="item.value === 'bunnies'">🐇</span>
-    {{ item.label }}
-  </template>
-  <template #item-template="{ item }">
-    <div>
-      <span v-if="item.value === 'cats'">🐈</span>
-      <span v-if="item.value === 'dogs'">🐕</span>
-      <span v-if="item.value === 'bunnies'">🐇</span>
-      <div class="select-item-label">{{ item.label }}</div>
-    </div>
+    <KongIcon />
+    {{ item?.label }}
   </template>
 </KSelect>
 ```
 
-### `loading`
+### dropdown-footer-text
 
-You can use the `loading` slot to customize the loading indicator. Note that this only applies when `autoggest` is `true`. See [autosuggest](#autosuggest) for an example of this slot.
-
-### `empty`
-
-You can use the `empty` slot to customize the look of the dropdown list when there is no options. See [autosuggest](#autosuggest) for an example of this slot.
-
-### `dropdown-footer-text`
-
-Slot the content of the dropdown footer text. This slot will override the `dropdownFooterText` prop if provided.
+A slot alternative for [`dropdownFooterText` prop](#dropdownfootertext).
 
 <ClientOnly>
-  <KSelect dropdown-footer-text="I am irreplaceable" :items="deepClone(defaultItemsLongList)">
+  <KSelect :items="selectItems">
     <template #dropdown-footer-text>
-      Come as you are
+      <KongIcon />
+      Dropdown footer content.
     </template>
   </KSelect>
-</ClientOnly>
+</CLientOnly>
 
 ```html
-<KSelect dropdown-footer-text="I am replaceable" :items="items">
+<KSelect :items="selectItems">
   <template #dropdown-footer-text>
-    Come as you are
+    <KongIcon />
+    Dropdown footer content.
+  </template>
+</KSelect>
+```
+
+### loading
+
+Content to be displayed when [`loading` prop](#loading-1) is `true`. Note that this prop only applies when `enableFiltering` is `true`.
+
+<ClientOnly>
+  <KSelect loading enable-filtering :items="[]">
+    <template #loading>
+      Items loading.
+    </template>
+  </KSelect>
+</CLientOnly>
+
+```html
+<KSelect loading enable-filtering :items="selectItems">
+  <template #loading>
+    Services loading.
+  </template>
+</KSelect>
+```
+
+### empty
+
+Slot to display custom content when items is empty or no items match filter query.
+
+<ClientOnly>
+  <KSelect :items="[]">
+    <template #empty>
+      No services found.
+    </template>
+  </KSelect>
+</CLientOnly>
+
+```html
+<KSelect :items="[]">
+  <template #empty>
+    No services found.
   </template>
 </KSelect>
 ```
 
 ## Events
 
-| Event          | returns                       |
-| :------------- | :---------------------------- |
-| `selected`     | `selectedItem` Object         |
-| `input`        | `selectedItem` Object or null |
-| `change`       | `selectedItem` Object or null |
-| `query-change` | `query` String                |
+### selected
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+Event payload is select item.
 
-function getItems(count) {
-  let myItems = []
-    for (let i = 0; i < count; i++) {
-      myItems.push({
-        label: `Item ${i}`,
-        value: `item_${i}`,
-        description: `${i} - The item's description for number ${i}`
-      })
-    }
-  return myItems
-}
+### input
 
-function debounce(func, timeout) {
-  let timer;
-  return function (...args) {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func.apply(this, args);
-    }, timeout);
-  };
-}
+Event payload is selected item `value`.
 
-const allItems = new Array(10).fill().map((_, i) => ({
-  label: `Item ${i}`,
-  description: `This is the description for item ${i}.`,
-  value: `autosuggest-item-${i}`,
-  ...(i > 5 && { group: `${i % 2 === 0 ? 'Even items greater than 5' : 'Odd items greater than 5'}` })
-}));
+### change
 
-export default defineComponent({
-  data() {
-    return {
-      myItems: getItems(5),
-      mySelect: '',
-      myVal: 'cats',
-      addedItems: [],
-      defaultItems: [{
-        label: 'Cats',
-        value: 'cats',
-        selected: true
-      }, {
-        label: 'Dogs',
-        value: 'dogs'
-      }, {
-        label: 'Bunnies',
-        value: 'bunnies'
-      }],
-      defaultItemsWithDisabledAndGroups: [{
-        label: 'Cats',
-        value: 'cats',
-        selected: true
-      }, {
-        label: 'Dogs',
-        value: 'dogs',
-        disabled: true
-      }, {
-        label: 'Bunnies',
-        value: 'bunnies'
-      }, {
-        label: 'Duck',
-        value: 'duck',
-        group: 'Birds'
-      },{
-        label: 'Salmon',
-        value: 'salmon',
-        group: 'Fish'
-      }, {
-        label: 'Oriole',
-        value: 'oriole',
-        group: 'Birds'
-      }, {
-        label: 'Trout',
-        value: 'trout',
-        group: 'Fish'
-      }],
-      defaultItemsUnselect: [{
-        label: 'Cats',
-        value: 'cats'
-      }, {
-        label: 'Dogs',
-        value: 'dogs'
-      }, {
-        label: 'Bunnies',
-        value: 'bunnies'
-      }],
-      items: [{
-        label: '25',
-        value: '25'
-      }, {
-        label: '50',
-        value: '50'
-      }],
-      defaultItemsForAutosuggest: [],
-      itemsForAutosuggest: [],
-      loading: false,
-      defaultItemsForDebouncedAutosuggest: [],
-      itemsForDebouncedAutosuggest: [],
-      loadingForDebounced: true,
-    }
-  },
-  methods: {
-    trackNewItems (item, added) {
-      if (added) {
-        this.addedItems.push(item)
-      } else {
-        this.addedItems = this.addedItems.filter(anItem => anItem.value !== item.value)
-      }
-    },
-    handleItemSelect (item) {
-      this.mySelect = item.label
-    },
-    clearIt () {
-      this.myVal = ''
-    },
-    customFilter ({items, query}) {
-      return items.filter(item => item.label.toLowerCase().includes(query.toLowerCase()) || item.description.toLowerCase().includes(query.toLowerCase()))
-    },
-    deepClone(obj) {
-      return JSON.parse(JSON.stringify(obj))
-    },
-    onQueryChange (val) {
-      if (val === '' && !this.defaultItemsForAutosuggest.length) {
-        this.loading = true;
-        setTimeout(() => {
-          this.defaultItemsForAutosuggest = allItems;
-          this.itemsForAutosuggest = this.defaultItemsForAutosuggest.map(item => Object.assign({}, item));
-          this.loading = false;
-        }, 200);
-        return;
-      }
-      if (val === '') {
-        this.itemsForAutosuggest = this.defaultItemsForAutosuggest.map(item => Object.assign({}, item));
-        return;
-      }
-      this.loading = true;
-      setTimeout(() => {
-        this.itemsForAutosuggest =
-          allItems
-            .filter(item => item.label.toLowerCase().includes(val.toLowerCase()) || item.description.toLowerCase().includes(val.toLowerCase()))
-            .map(item => Object.assign({}, item));
-        this.loading = false;
-      }, 200);
-    },
-    onQueryChangeForDebounced (val) {
-      if (val === '' && !this.defaultItemsForDebouncedAutosuggest.length) {
-        this.loadingForDebounced = true;
-        setTimeout(() => {
-          this.defaultItemsForDebouncedAutosuggest = allItems;
-          this.itemsForDebouncedAutosuggest = this.defaultItemsForDebouncedAutosuggest.map(item => Object.assign({}, item));
-          this.loadingForDebounced = false;
-        }, 200);
-        return;
-      }
-      if (val === '') {
-        this.itemsForDebouncedAutosuggest = this.defaultItemsForDebouncedAutosuggest.map(item => Object.assign({}, item));
-        return;
-      }
-      this.debouncedHandler(val);
-    },
-    debouncedHandler: debounce(function (val) {
-      this.loadingForDebounced = true;
-      // mock API call for items that contain the keyword
-      setTimeout(() => {
-        this.itemsForDebouncedAutosuggest =
-          allItems
-            .filter(item => item.label.toLowerCase().includes(val.toLowerCase()) || item.description.toLowerCase().includes(val.toLowerCase()))
-            .map(item => Object.assign({}, item));
-        this.loadingForDebounced = false;
-      }, 200);
-    }, 400)
-  },
-  computed: {
-    defaultItemsLongList () {
-      let items = []
-      for (let i = 0; i < 30; i++) {
-        items.push({
-          label: `Item ${i}`,
-          value: i
-        })
-      }
+Event payload is select item`.
 
-      return items
-    }
+### query-change
+
+Event payload is query string.
+
+### item-added
+
+Event payload is added item.
+
+### item-removed
+
+Event payload is removed item.
+
+## Component API
+
+#### Props
+
+| Prop                         | Value                  | Default                                              |
+| ---------------------------- | ---------------------- | ---------------------------------------------------- |
+| `modelValue`                 | `String \| Number`     | `''`                                                 |
+| `kpopAttributes`             | `Object`               | `{}`                                                 |
+| `dropdownMaxHeight`          | `String`               | `'300'`                                              |
+| `label`                      | `String`               | `''`                                                 |
+| `labelAttributes`            | `Object`               | `{}`                                                 |
+| `width`                      | `String`               | `'100%'`                                             |
+| `placeholder`                | `String`               | `''`                                                 |
+| `items`                      | `Array of SelectItem`  | `[]`                                                 |
+| `positionFixed`              | `Boolean`              | `true`                                               |
+| `enableFiltering`            | `Boolean`              | `false`                                              |
+| `filterFunction`             | `Function`             | `(params: SelectFilterFunctionParams) =>`<br>`{...}` |
+| `loading`                    | `Boolean`              | `false`                                              |
+| `clearable`                  | `Boolean`              | `false`                                              |
+| `dropdownFooterText`         | `String`               | `''`                                                 |
+| `dropdownFooterTextPosition` | `'sticky' \| 'static'` | `'sticky'`                                           |
+| `reuseItemTemplate`          | `Boolean`              | `false`                                              |
+| `enableItemCreation`         | `Boolean`              | `false`                                              |
+| `error`                      | `Boolean`              | `false`                                              |
+| `help`                       | `String`               | `''`                                                 |
+
+#### Slots
+
+| Slot                     | Slot Props         |
+| ------------------------ | ------------------ |
+| `label-tooltip`          | -                  |
+| `item-template`          | `item: SelectItem` |
+| `selected-item-template` | `item: SelectItem` |
+| `dropdown-footer-text`   | -                  |
+| `loading`                | -                  |
+| `empty`                  | -                  |
+
+#### Events
+
+| Event               | Parameters                        |
+| ------------------- | --------------------------------- |
+| `selected`          | `item: SelectItem`                |
+| `input`             | `value: string \| number \| null` |
+| `change`            | `item: SelectItem \| null`        |
+| `update:modelValue` | `value: string \| number \| null` |
+| `query-change`      | `query: string`                   |
+| `item-added`        | `value: SelectItem`               |
+| `item-removed`      | `value: SelectItem`               |
+
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { KongIcon } from '@kong/icons'
+
+const selectItems: SelectItem[] = [{
+  label: 'Service A',
+  value: 'a',
+  selected: true,
+}, {
+  label: 'Service B',
+  value: 'b',
+}, {
+  label: 'Service F',
+  value: 'f',
+  disabled: true,
+}, {
+  label: 'Service A1',
+  value: 'a1',
+  group: 'Series 1',
+}, {
+  label: 'Service B1',
+  value: 'b1',
+  group: 'Series 1',
+}, {
+  label: 'Service A2',
+  value: 'a2',
+  group: 'Series 2',
+}, {
+  label: 'Service B2',
+  value: 'b2',
+  group: 'Series 2',
+}]
+
+const selectItemsUnselected: SelectItem[] = JSON.parse(JSON.stringify(selectItems)).map((item: SelectItem) => ({ ...item, selected: false }))
+const selectItemsUnselectedTagged: SelectItem[] =  JSON.parse(JSON.stringify(selectItemsUnselected)).map((item: SelectItem) => ({ ...item, selected: false, ...(item.value === 'b' && { tags: ['dev'] }), ...(item.value === 'a2' && { tags: ['prod'] }) }))
+
+const tagsFilter = (params: SelectFilterFunctionParams) => params?.items?.filter((item: SelectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase()) || item.tags?.includes(params.query?.toLowerCase()))
+
+const asyncItemsModel = ref<string>('')
+const asyncItemsQuery = ref<string>('')
+const asyncItemsLoading = ref<boolean>(false)
+const asyncItems = ref<SelectItem[]>(JSON.parse(JSON.stringify(selectItemsUnselected)))
+const asyncItemsInitial: SelectItem[] = JSON.parse(JSON.stringify(selectItemsUnselected))
+
+const onAsyncQueryChange = (query: string): void => {
+  if (asyncItemsQuery.value !== query) {
+    asyncItemsQuery.value = query
+
+    fetchAsyncItems()
   }
-})
+}
+
+const fetchAsyncItems = (): void => {
+  asyncItemsLoading.value = true
+
+  setTimeout(() => {
+    const items = JSON.parse(JSON.stringify(asyncItemsInitial))
+    asyncItems.value = items.filter((item: SelectItem) => item.label?.toLowerCase().includes(asyncItemsQuery.value?.toLowerCase()))
+
+    asyncItemsLoading.value = false
+  }, 2000)
+}
+
+const vModel = ref<string>('f')
 </script>
 
-<style lang="scss">
-.json {
-  inset: 0 !important;
-}
-
-.item-template-container {
-  width: 100%;
-  display: inline-flex;
+<style lang="scss" scoped>
+.spacing-container {
+  display: flex;
+  flex-direction: column;
   gap: $kui-space-40;
 }
 
-.select-item-label {
-  line-height: initial;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.custom-item {
+  display: flex;
+  flex-direction: row;
+  gap: $kui-space-30;
+
+  &-title-container {
+    flex: 1;
+  }
+
+  &-title {
+    display: block;
+  }
+
+  &-description {
+    color: $kui-color-text-neutral;
+    display: block;
+    font-size: $kui-font-size-20;
+  }
 }
 </style>
