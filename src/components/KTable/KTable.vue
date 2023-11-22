@@ -1175,7 +1175,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
         }
       }
 
-      &.truncate {
+      &.truncate, .truncate {
         @include truncate;
       }
     }
@@ -1199,7 +1199,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
         font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
       }
 
-      &.truncate {
+      &.truncate, .truncate {
         @include truncate;
       }
     }
