@@ -1,3 +1,10 @@
+# [9.0.0-alpha.59](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.58...v9.0.0-alpha.59) (2023-11-22)
+
+
+### Bug Fixes
+
+* **ktable:** error state CTA ([#1863](https://github.com/Kong/kongponents/issues/1863)) ([4f89687](https://github.com/Kong/kongponents/commit/4f896875823ad3ca02a87b96d5ca72bd86c241db))
+
 # [9.0.0-alpha.58](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.57...v9.0.0-alpha.58) (2023-11-21)
 
 
