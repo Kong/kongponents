@@ -6,6 +6,7 @@
       class="pagination-button"
       :class="{ disabled: prevButtonDisabled }"
       data-testid="prev-btn"
+      :disabled="prevButtonDisabled"
       @click.prevent="getPrevOffset"
     >
       <template #icon>
@@ -25,6 +26,7 @@
       class="pagination-button"
       :class="{ disabled: nextButtonDisabled }"
       data-testid="next-btn"
+      :disabled="nextButtonDisabled"
       @click.prevent="getNextOffset"
     >
       <template #icon>
