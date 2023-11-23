@@ -188,6 +188,11 @@ Component has been renamed to `KDropdown`
 
 ### KInputSwitch
 
+#### Props
+
+* `labelPosition` prop has been deprecated in favor of `labelBefore`
+* `enabledIcon` prop has been removed
+
 ### KLabel
 
 #### Props

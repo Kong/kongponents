@@ -1,76 +1,50 @@
 <template>
-  <KTooltip
-    v-if="disabled && disabledTooltipText"
-    :label="disabledTooltipText"
+  <component
+    :is="disabled && disabledTooltipText ? 'KTooltip' : 'div'"
+    class="k-switch"
+    :class="[size, { 'label-before': labelBefore || labelPosition === 'left', 'disabled': disabled }]"
+    :label="disabled && disabledTooltipText ? disabledTooltipText : undefined"
   >
-    <label
-      class="k-switch k-input-switch"
-      :class="[$attrs.class]"
-      :disabled="disabled"
-      :for="$attrs.id ? String($attrs.id) : undefined"
-    >
-      <span v-if="(label || $slots.label) && labelPosition === 'left'">
-        <slot name="label">{{ label }}</slot>
-      </span>
-
-      <input
-        :checked="modelValue"
-        :disabled="disabled"
-        type="checkbox"
-        v-bind="strippedAttrs"
-        @change="handleChange"
-        @input="handleChange"
-      >
-      <div :class="['switch-control', labelPosition === 'right' ? 'has-label-right' : 'has-label-left' ]" />
-
-      <span v-if="(label || $slots.label) && labelPosition === 'right'">
-        <slot name="label">{{ label }}</slot>
-      </span>
-    </label>
-  </KTooltip>
-
-  <label
-    v-else
-    class="k-switch k-input-switch"
-    :class="[$attrs.class, { 'switch-with-icon' : enabledIcon }]"
-    :disabled="disabled ? disabled : undefined"
-    :for="$attrs.id ? String($attrs.id) : undefined"
-  >
-    <span v-if="(label || $slots.label) && labelPosition === 'left'">
-      <slot name="label">{{ label }}</slot>
-    </span>
-
     <input
-      :checked="modelValue"
-      :disabled="disabled ? disabled : undefined"
       v-bind="strippedAttrs"
+      :id="inputId"
+      ref="switchInputElement"
+      :checked="modelValue"
+      :disabled="disabled"
+      tabindex="-1"
       type="checkbox"
       @change="handleChange"
       @input="handleChange"
     >
-
-    <div :class="['switch-control', labelPosition === 'right' ? 'has-label-right' : 'has-label-left' ]" />
-
-    <KIcon
-      v-if="enabledIcon && modelValue === true"
-      :color="`var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE})`"
-      icon="check"
-    />
-
-    <span v-if="(label || $slots.label) && labelPosition === 'right'">
-      <slot name="label">{{ label }}</slot>
+    <span
+      :aria-checked="modelValue"
+      :aria-labelledby="inputId"
+      class="switch-control"
+      :class="{ 'checked': modelValue, 'disabled': disabled }"
+      role="checkbox"
+      :tabindex="disabled ? -1 : 0"
+      @click="propagateInputEvent"
+      @keyup.space="propagateInputEvent"
+    >
+      <!-- white vertical bar that is visible when switch is enabled -->
+      <span class="switch-control-enabled-bar" />
     </span>
-  </label>
+
+    <KLabel
+      v-if="label || $slots.label"
+      :for="inputId"
+    >
+      <slot name="label">
+        {{ label }}
+      </slot>
+    </KLabel>
+  </component>
 </template>
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, useAttrs } from 'vue'
-import KTooltip from '@/components/KTooltip/KTooltip.vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
-import type { LabelPosition } from '@/types'
-import { LabelPositionArray } from '@/types'
-import { KUI_COLOR_TEXT_INVERSE } from '@kong/design-tokens'
+import { computed, ref, useAttrs } from 'vue'
+import { v4 as uuidv4 } from 'uuid'
 
 const props = defineProps({
   /**
@@ -81,20 +55,17 @@ const props = defineProps({
     default: false,
     required: true,
   },
+  size: {
+    type: String as PropType<'small' | 'large'>,
+    default: 'small',
+    validator: (size: 'small' | 'large'): boolean => ['small', 'large'].includes(size),
+  },
   /**
   * Overrides default on/off label text
   */
   label: {
     type: String,
     default: '',
-  },
-  /**
-  * Should the switch be positioned to the left or right of the label
-  */
-  labelPosition: {
-    type: String as PropType<LabelPosition>,
-    default: 'right',
-    validator: (position: LabelPosition): boolean => LabelPositionArray.includes(position),
   },
   disabled: {
     type: Boolean,
@@ -108,11 +79,25 @@ const props = defineProps({
     default: '',
   },
   /**
-  * Sets whether or not to display a check icon if the switch is enabled
-  */
-  enabledIcon: {
+   * Whether the label should be placed before the switch
+   */
+  labelBefore: {
     type: Boolean,
     default: false,
+  },
+  /**
+   * @deprecated in favor of `labelBefore`
+   */
+  labelPosition: {
+    type: String as PropType<'left' | 'right'>,
+    default: 'right',
+    validator: (position: 'left' | 'right'): boolean => {
+      if (position === 'left') {
+        console.warn('KInputSwitch: `labelPosition` prop is deprecated. Please use `labelBefore` prop instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kinputswitch')
+      }
+
+      return ['left', 'right'].includes(position)
+    },
   },
 })
 
@@ -123,6 +108,10 @@ const emit = defineEmits<{
 }>()
 
 const attrs = useAttrs()
+
+const switchInputElement = ref<HTMLInputElement | null>(null)
+
+const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
 
 /**
 * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.
@@ -143,6 +132,16 @@ const strippedAttrs = computed((): typeof attrs => {
   return modifiedAttrs
 })
 
+const propagateInputEvent = (event: Event): void => {
+  if (props.disabled) {
+    return
+  }
+
+  if (event.type === 'click' || (event.type === 'keyup' && (event as KeyboardEvent).code === 'Space')) {
+    switchInputElement.value?.click()
+  }
+}
+
 const handleChange = (event: Event): void => {
   if (props.modelValue !== (event.target as HTMLInputElement).checked) {
     emit('change', (event.target as HTMLInputElement).checked)
@@ -159,98 +158,187 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/tmp-variables';
+/* Component variables */
 
-$kInputSwitchWidth: 44px;
-$kInputSwitchHeight: 24px;
-$kInputSwitchTransition: $tmp-animation-timing-2 linear;
+$kInputSwitchSmallWidth: 44px;
+$kInputSwitchSmallHeight: calc($kInputSwitchSmallWidth / 2);
+$kInputSwitchLargeWidth: 60px;
+$kInputSwitchLargeHeight: calc($kInputSwitchLargeWidth / 2);
+$kInputSwitchPadding: var(--kui-space-10, $kui-space-10);
+$kInputSwitchSmallCircleSize: 4px;
+$kInputSwitchLargeCircleSize: 6px;
+
+/* Component mixins */
+
+@mixin kInputSwitchSmallSize {
+  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+  height: $kInputSwitchSmallHeight;
+  width: $kInputSwitchSmallWidth;
+}
+
+@mixin kInputSwitchLargeSize {
+  border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+  height: $kInputSwitchLargeHeight;
+  width: $kInputSwitchLargeWidth;
+}
+
+@mixin kInputSwitchSmallSizeCircle {
+  height: $kInputSwitchSmallCircleSize;
+  right: calc((50% / 2) - ($kInputSwitchSmallCircleSize / 2));
+  width: $kInputSwitchSmallCircleSize;
+}
+
+@mixin kInputSwitchLargeSizeCircle {
+  height: $kInputSwitchLargeCircleSize;
+  right: calc((50% / 2) - ($kInputSwitchLargeCircleSize / 2));
+  width: $kInputSwitchLargeCircleSize;
+}
+
+/* Component styles */
 
 .k-switch {
   align-items: center;
-  cursor: pointer;
   display: inline-flex;
-  position: relative;
+  gap: var(--kui-space-40, $kui-space-40);
 
-  .has-label-left + .kong-icon {
-    margin-left: var(--kui-space-40, $kui-space-40);
+  &.label-before {
+    flex-direction: row-reverse;
   }
 
-  .has-label-right + .kong-icon {
-    left: 56px;
-    position: absolute;
+  input {
+    display: none;
   }
 
-  .kong-icon {
-    top: 0;
-    transform: translateX(-54px);
+  :deep(.k-label) {
+    margin-bottom: var(--kui-space-0, $kui-space-0);
   }
 
-  &.switch-with-icon .switch-control {
-    width: 48px;
-  }
-
-  &.switch-with-icon .kong-icon {
-    height: 20px;
-    left: 57px;
-    width: 22px;
-  }
-
-  &.switch-with-icon input:checked + .switch-control:after {
-    left: 26px;
+  :not(&.disabled) {
+    :deep(.k-label) {
+      cursor: pointer;
+    }
   }
 
   .switch-control {
-    background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
-    border-radius: 12px;
-    display: block;
-    height: $kInputSwitchHeight;
-    margin-right: var(--kui-space-60, $kui-space-60);
+    @include kInputSwitchSmallSize;
+
+    background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+    cursor: pointer;
+    outline: none;
+    padding: $kInputSwitchPadding;
     position: relative;
-    transition: $kInputSwitchTransition;
-    width: $kInputSwitchWidth;
+    transition: background-color $kongponentsTransitionDurTimingFunc;
 
-    &.has-label-left {
-      margin-left: var(--kui-space-60, $kui-space-60);
-      margin-right: var(--kui-space-0, $kui-space-0);
+    &:hover {
+      background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
     }
 
-    // Toggle
-    &:after {
+    &:focus-visible {
+      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+    }
+
+    &::before {
       background-color: var(--kui-color-background, $kui-color-background);
-      border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
-      content: "";
+      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+      box-shadow: 0px 0px 0px var(--kui-border-width-10, $kui-border-width-10) var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak) inset;
+      content: '';
       display: block;
-      height: 20px;
-      left: 2px;
+      height: calc(100% - ($kInputSwitchPadding * 2));
+      left: $kInputSwitchPadding;
       position: absolute;
-      top: 2px;
-      transition: $kInputSwitchTransition;
-      width: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: transform $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
+      width: calc(50% - ($kInputSwitchPadding * 2));
+      z-index: 1;
     }
-  }
 
-  &[disabled]:not(:disabled) {
-    cursor: not-allowed;
-    .switch-control,
-    input {
-      opacity: 0.3;
-      pointer-events: none;
+    &:after {
+      @include kInputSwitchSmallSizeCircle;
+
+      border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+      border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
     }
-  }
 
-  // Hide default checkbox
-  input {
-    display: none;
-    &:checked + .switch-control {
-      background-color: $tmp-color-green-500;
-      &:after {
-        left: calc($kInputSwitchWidth / 2);
+    &-enabled-bar {
+      background-color: var(--kui-color-background, $kui-color-background);
+      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+      display: block;
+      height: 35%;
+      left: 25%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2px;
+    }
+
+    &.checked {
+      background-color: var(--kui-color-background-primary, $kui-color-background-primary);
+
+      &:hover:not(.disabled) {
+        background-color: var(--kui-color-background-primary-strong, $kui-color-background-primary-strong);
+      }
+
+      &::before {
+        box-shadow: 0px 0px 0px var(--kui-border-width-10, $kui-border-width-10) var(--kui-color-border-primary-strong, $kui-color-border-primary-strong) inset;
+        transform: translateY(-50%) translateX(calc($kInputSwitchSmallWidth / 2));
+      }
+    }
+
+    &.disabled {
+      background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+      cursor: not-allowed;
+
+      &::before {
+        background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+        box-shadow: 0px 0px 0px var(--kui-border-width-10, $kui-border-width-10) var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak) inset;
+      }
+
+      .switch-control-enabled-bar {
+        background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
       }
     }
   }
 
-  span {
-    color: var(--kui-color-text, $kui-color-text);
+  &.small {
+    .switch-control {
+      @include kInputSwitchSmallSize;
+
+      &::after {
+        @include kInputSwitchSmallSizeCircle;
+      }
+    }
+  }
+
+  &.large {
+    .switch-control {
+      @include kInputSwitchLargeSize;
+
+      &::before {
+        border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+      }
+
+      &::after {
+        @include kInputSwitchLargeSizeCircle;
+      }
+
+      &.checked {
+        &::before {
+          transform: translateY(-50%) translateX(calc($kInputSwitchLargeWidth / 2));
+        }
+      }
+    }
+  }
+
+  &.disabled {
+    :deep(.k-label) {
+      cursor: not-allowed;
+    }
   }
 }
 </style>

@@ -45,6 +45,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxInput.vue'),
   },
   {
+    path: '/inputswitch',
+    name: 'inputswitch',
+    meta: { title: 'InputSwitch Sandbox' },
+    component: () => import('../pages/SandboxInputSwitch.vue'),
+  },
+  {
     path: '/label',
     name: 'label',
     meta: { title: 'Label Sandbox' },
