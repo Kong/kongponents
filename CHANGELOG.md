@@ -1,3 +1,10 @@
+# [9.0.0-alpha.62](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.61...v9.0.0-alpha.62) (2023-11-23)
+
+
+### Bug Fixes
+
+* **kpagination, kmultiselect:** misc styling fixes ([#1869](https://github.com/Kong/kongponents/issues/1869)) ([138d3a4](https://github.com/Kong/kongponents/commit/138d3a4523be69de6af815d9d9e4bb13c576ae60))
+
 # [9.0.0-alpha.61](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.60...v9.0.0-alpha.61) (2023-11-22)
 
 
