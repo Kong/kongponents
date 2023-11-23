@@ -135,7 +135,7 @@ const handleClick = (): void => {
 
       :deep(.select-item-desc) {
         color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-        font-size: var(--kui-font-size-50, $kui-font-size-50);
+        font-size: var(--kui-font-size-30, $kui-font-size-30);
         font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
       }
     }
