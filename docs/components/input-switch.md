@@ -54,26 +54,26 @@ Value to bind KSwitchInput value to.
 <KInputSwitch v-model="switchValue" :label="switchValue ? 'Toggled on' : 'Toggled off'" />
 ```
 
+### disabledTooltipText
+
+Use this prop to display tooltip text when KInputSwitch is disabled.
+
+<KInputSwitch disabled disabled-tooltip-text="Tooltip text" v-model="vModel6" />
+
+```html
+<KInputSwitch disabled disabled-tooltip-text="Tooltip text" v-model="switchValue" />
+```
+
 ### HTML Attributes
 
 #### disabled
 
 You can add `disabled` attribute to disallow interactivity.
 
-<KInputSwitch disabled v-model="vModel6" label="Disabled" />
+<KInputSwitch disabled v-model="vModel7" label="Disabled" />
 
 ```html
 <KInputSwitch disabled v-model="switchValue" label="Disabled" />
-```
-
-### disabledTooltipText
-
-Use this prop to display tooltip text when KInputSwitch is disabled.
-
-<KInputSwitch disabled disabled-tooltip-text="Tooltip text" v-model="vModel7" />
-
-```html
-<KInputSwitch disabled disabled-tooltip-text="Tooltip text" v-model="switchValue" />
 ```
 
 ## Slots
