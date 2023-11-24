@@ -193,13 +193,19 @@ Component has been renamed to `KDropdown`
 * `labelPosition` prop has been deprecated in favor of `labelBefore`
 * `enabledIcon` prop has been removed
 
+#### Structure
+
+* `k-switch` class has been removed
+* `switch-with-icon` class has been removed
+* `has-label-right` and `has-label-left` classes were removed
+
 ### KLabel
 
 #### Props
 
 * `help` prop has been deprecated in favor of `info`
 * `testMode` prop has been removed
-* `disabledTooltipText` prop has been removed. You can wrap KInputSwitch in a KTooltip or utilize `labelAttributes` prop for displaying tooltips
+* `disabledTooltipText` prop has been removed. You can wrap `KInputSwitch` in a `KTooltip` for displaying tooltips
 
 #### Structure
 
