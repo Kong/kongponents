@@ -1,224 +1,123 @@
 # Input Switch
 
-**KInputSwitch** is used a like checkbox and is meant to toggle settings on and off.
+KInputSwitch, similarly to checkbox, is used to toggle values on and off.
 
-<KInputSwitch v-model="defaultChecked" @change="handleToggle" />
+<KInputSwitch label="Toggle" v-model="vModel0" />
 
 ```html
-<template>
-  <KInputSwitch v-model="defaultChecked" @change="handleToggle" />
-</template>
-
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
-
-export default defineComponent({
-  setup () {
-    const checked = ref(false)
-
-    const handleToggle = (isChecked: boolean) => {
-      // do something, make api call?
-    }
-
-    return {
-      checked,
-      handleToggle,
-    }
-  }
-})
-</script>
+<KInputSwitch label="Toggle" v-model="switchValue" />
 ```
 
 ## Props
-
-### v-model - required
-
-Use `v-model` to bind to the `checked` state of the underlying `<input />`. The `v-model` binds to the `value` prop of the component and sets current checked state of toggle switch. You can read more about passing values via `v-model` [here](https://vuejs.org/guide/components/events.html#usage-with-v-model).
-
-```html
-<KInputSwitch v-model="isChecked" />
-```
 
 ### label
 
 Will place label text to the right of the switch. Can also be [slotted](#slots).
 
-```html
-<KInputSwitch v-model="checked" :label="checked ? 'on' : 'off'" />
-```
-
-<KInputSwitch v-model="labelPropChecked" :label="labelPropChecked ? 'on' : 'off'" />
-
-### labelPosition
-
-Position the label to the left or right of the switch, default to `right`.
-
-<KInputSwitch v-model="labelPropChecked" label="Label on the right" />
-<br>
-<br>
-<KInputSwitch v-model="labelPropChecked" label="Label on the left" labelPosition="left" />
+<KInputSwitch v-model="vModel3" label="Label" />
 
 ```html
-<KInputSwitch label="Label on the right" />
-<KInputSwitch label="Label on the left" label-position="left" />
+<KInputSwitch v-model="switchValue" label="Label" />
 ```
 
-### disabled
+### size
 
-You can add `disabled` to the input to disallow interactivity.
+KInputSwitch comes in two sizes: `small` (default) and `large`.
+
+<div class="vertical-spacing">
+  <KInputSwitch size="small" label="Small" v-model="vModel1" />
+  <KInputSwitch size="large" label="Large" v-model="vModel2" />
+</div>
 
 ```html
-<KInputSwitch v-model="checked" label="disabled" disabled />
+<KInputSwitch size="small" label="Small" v-model="switchValue1" />
+<KInputSwitch size="large" label="Large" v-model="switchValue2" />
 ```
 
-<KInputSwitch v-model="labelPropChecked" label="disabled" disabled />
+### labelBefore
 
-### disabledTooltipText
+Use this prop if you want the label to render on the left of the toggle box.
 
-You can specify tooltip text to be displayed when the switch is disabled.
+<KInputSwitch label-before label="Label before" v-model="vModel4" />
 
 ```html
-<KInputSwitch v-model="checked" label="disabled" disabled disabledTooltipText="I'm disabled!" />
+<KInputSwitch label-before label="Label before" v-model="switchValue" />
 ```
 
-<KInputSwitch
-  v-model="labelPropChecked"
-  label="disabled"
-  disabled
-  disabledTooltipText="I'm disabled!"
-/>
+### v-model
 
-### enabledIcon
+Value to bind KSwitchInput value to.
 
-Display a check icon when switch is enabled
+<KInputSwitch v-model="vModel5" :label="vModel5 ? 'Toggled on' : 'Toggled off'" />
 
 ```html
-<KInputSwitch v-model="enabledIconChecked" :label="enabledIconChecked ? 'Enabled' : 'Disabled'" enabled-icon />
+<KInputSwitch v-model="switchValue" :label="switchValue ? 'Toggled on' : 'Toggled off'" />
 ```
 
-<KInputSwitch
-  v-model="enabledIconChecked"
-  :label="enabledIconChecked ? 'Enabled' : 'Disabled'"
-  enabled-icon
-/>
+### HTML Attributes
 
-Display a check icon when switch is enabled with label positioned to the left
+#### disabled
+
+You can add `disabled` attribute to disallow interactivity.
+
+<KInputSwitch disabled v-model="vModel6" label="Disabled" />
 
 ```html
-<KInputSwitch v-model="enabledIconChecked" :label="enabledIconChecked ? 'Enabled' : 'Disabled'" labelPosition="left" enabled-icon />
+<KInputSwitch disabled v-model="switchValue" label="Disabled" />
 ```
 
-<KInputSwitch
-  v-model="enabledIconChecked"
-  :label="enabledIconChecked ? 'Enabled' : 'Disabled'"
-  labelPosition="left"
-  enabled-icon
-/>
 
 ## Slots
 
-- `label`
+### label
 
-<KInputSwitch v-model="labelChecked">
-  <template v-slot:label>
-    {{ labelText}}
+This slot takes presence over `label` prop when both are present.
+
+<KInputSwitch v-model="vModel7">
+  <template #label>
+    Slotted label
   </template>
 </KInputSwitch>
 
 ```html
 <template>
-  <KInputSwitch v-model="checked">
-    <template v-slot:label>
-      {{ labelText }}
+  <KInputSwitch v-model="switchValue">
+    <template #label>
+      Slotted label
     </template>
   </KInputSwitch>
 </template>
-
-<script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
-
-export default defineComponent({
-  setup () {
-    const checked = ref(false)
-
-    const labelText = computed(() => checked.value ? 'Yay!' : 'Boo')
-
-    return {
-      checked,
-      labelText,
-    }
-  }
-})
-</script>
 ```
 
 ## Events
 
-To listen for changes to the `KInputSwitch` value, you can bind to the `@input`, `@change`, or `@update:modelValue` events:
+KInputSwitch emits a few events with the same payload.
 
-<KComponent :data="{eventsSwitchEnabled: false}" v-slot="{ data }">
-  <div>
-    <KInputSwitch
-      v-model="data.eventsSwitchEnabled"
-      :label="data.eventsSwitchEnabled ? 'Enabled' : 'Disabled'"
-    />
-  </div>
-</KComponent>
+### input and update:modelValue
 
-```html
-<template>
-  <KInputSwitch
-    :model-value="false"
-    :label="eventsSwitchEnabled ? 'Enabled' : 'Disabled'"
-    @update:modelValue="newValue => eventsSwitchEnabled = newValue"
-  />
-</template>
-```
+Payload is input value (`boolean`).
 
-`KInputSwitch` transparently binds to events:
+### change
 
-<KComponent :data="{eventsSwitchEnabled2: true, changeCount: 0}" v-slot="{ data }">
-  <div>
-    <KInputSwitch v-model="data.eventsSwitchEnabled2" @change="e => (data.changeCount++)" label="Toggle Me" />
-    <div>You've toggled me {{ data.changeCount }} time(s)</div>
-  </div>
-</KComponent>
+Payload is input value (`boolean`).
 
-```html
-<template>
-  <div>
-    <KInputSwitch v-model="eventsSwitchEnabled2" @change="e => (changeCount++)" label="Toggle Me" />
-    <div>You've toggled me {{ changeCount }} time(s)</div>
-  </div>
-</template>
-```
+<script setup lang="ts">
+import { ref } from 'vue'
 
-<script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
-
-export default defineComponent({
-  setup () {
-    const labelPropChecked = ref(false)
-    const defaultChecked = ref(false)
-    const labelChecked = ref(false)
-    const themeChecked = ref(true)
-    const enabledIconChecked = ref(true)
-
-    const labelText = computed((): string => labelChecked.value ? 'Yay!' : 'Boo')
-
-    const handleToggle = (isChecked: boolean): void => {
-      console.log('Toggled to: ' + isChecked)
-    }
-
-    return {
-      labelPropChecked,
-      defaultChecked,
-      labelChecked,
-      themeChecked,
-      enabledIconChecked,
-      labelText,
-      handleToggle,
-    }
-  }
-})
+const vModel0 = ref<boolean>(true)
+const vModel1 = ref<boolean>(false)
+const vModel2 = ref<boolean>(false)
+const vModel3 = ref<boolean>(false)
+const vModel4 = ref<boolean>(false)
+const vModel5 = ref<boolean>(false)
+const vModel6 = ref<boolean>(false)
+const vModel7 = ref<boolean>(false)
 </script>
+
+<style lang="scss" scoped>
+.vertical-spacing {
+  display: flex;
+  flex-direction: column;
+  gap: $kui-space-40;
+}
+</style>
