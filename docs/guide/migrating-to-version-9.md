@@ -199,6 +199,7 @@ Component has been renamed to `KDropdown`
 
 * `help` prop has been deprecated in favor of `info`
 * `testMode` prop has been removed
+* `disabledTooltipText` prop has been removed. You can wrap KInputSwitch in a KTooltip or utilize `labelAttributes` prop for displaying tooltips
 
 #### Structure
 

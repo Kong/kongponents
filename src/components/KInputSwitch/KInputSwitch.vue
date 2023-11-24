@@ -1,9 +1,7 @@
 <template>
-  <component
-    :is="disabled && disabledTooltipText ? 'KTooltip' : 'div'"
+  <div
     class="k-switch"
     :class="[size, { 'label-before': labelBefore || labelPosition === 'left', 'disabled': disabled }]"
-    :label="disabled && disabledTooltipText ? disabledTooltipText : undefined"
   >
     <input
       v-bind="strippedAttrs"
@@ -33,18 +31,27 @@
     <KLabel
       v-if="label || $slots.label"
       :for="inputId"
+      v-bind="strippedLabelAttributes"
     >
       <slot name="label">
         {{ label }}
       </slot>
+
+      <template
+        v-if="hasLabelTooltip"
+        #tooltip
+      >
+        <slot name="label-tooltip" />
+      </template>
     </KLabel>
-  </component>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, ref, useAttrs } from 'vue'
+import { computed, ref, useAttrs, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
+import type { LabelAttributes } from '@/types'
 
 const props = defineProps({
   /**
@@ -67,16 +74,13 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  labelAttributes: {
+    type: Object as PropType<LabelAttributes>,
+    default: () => ({}),
+  },
   disabled: {
     type: Boolean,
     default: false,
-  },
-  /**
-  * Tooltip text to be displayed if the switch is disabled
-  */
-  disabledTooltipText: {
-    type: String,
-    default: '',
   },
   /**
    * Whether the label should be placed before the switch
@@ -108,10 +112,25 @@ const emit = defineEmits<{
 }>()
 
 const attrs = useAttrs()
+const slots = useSlots()
 
 const switchInputElement = ref<HTMLInputElement | null>(null)
 
 const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
+const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']) && !props.labelBefore && props.labelPosition !== 'left')
+
+const strippedLabelAttributes = computed((): LabelAttributes => {
+  const modifiedLabelAttributes = Object.assign({}, props.labelAttributes)
+
+  delete modifiedLabelAttributes.required
+
+  // Remove `info` attribute if label is before switch
+  if (props.labelBefore || props.labelPosition === 'left') {
+    delete modifiedLabelAttributes.info
+  }
+
+  return modifiedLabelAttributes
+})
 
 /**
 * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.

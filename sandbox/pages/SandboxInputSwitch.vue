@@ -41,10 +41,18 @@
           label="Label"
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="labelAttributes">
+        <KInputSwitch
+          v-model="vModel"
+          label="Label"
+          :label-attributes="{ info: 'I use the KLabel `info` prop' }"
+        />
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="labelPosition">
         <KInputSwitch
           v-model="vModel"
           label="Label"
+          :label-attributes="{ info: 'I use the KLabel `info` prop' }"
           label-before
         />
       </SandboxSectionComponent>
@@ -53,14 +61,6 @@
           v-model="vModel"
           disabled
           label="Disabled"
-        />
-      </SandboxSectionComponent>
-      <SandboxSectionComponent title="disabledTooltip">
-        <KInputSwitch
-          v-model="vModel"
-          disabled
-          disabled-tooltip-text="This is tooltip"
-          label="Disabled with tooltip"
         />
       </SandboxSectionComponent>
 
@@ -73,6 +73,16 @@
         <KInputSwitch v-model="vModel">
           <template #label>
             Label
+          </template>
+        </KInputSwitch>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="label-tooltip">
+        <KInputSwitch
+          v-model="vModel"
+          label="Label"
+        >
+          <template #label-tooltip>
+            Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code>
           </template>
         </KInputSwitch>
       </SandboxSectionComponent>
