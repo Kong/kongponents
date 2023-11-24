@@ -229,8 +229,12 @@ $kInputSwitchLargeCircleSize: 6px;
     position: relative;
     transition: background-color $kongponentsTransitionDurTimingFunc;
 
-    &:hover {
+    &:hover:not(.disabled) {
       background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+
+      &::after {
+        border: var(--kui-border-width-20, $kui-border-width-20) solid #e0e4ea; // TODO: token needed kui-color-border-neutral-weaker
+      }
     }
 
     &:focus-visible {
@@ -240,7 +244,7 @@ $kInputSwitchLargeCircleSize: 6px;
     &::before {
       background-color: var(--kui-color-background, $kui-color-background);
       border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-      box-shadow: 0px 0px 0px var(--kui-border-width-10, $kui-border-width-10) var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak) inset;
+      box-shadow: var(--kui-shadow-border, $kui-shadow-border);
       content: '';
       display: block;
       height: calc(100% - ($kInputSwitchPadding * 2));
@@ -263,6 +267,7 @@ $kInputSwitchLargeCircleSize: 6px;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
+      transition: border-color $kongponentsTransitionDurTimingFunc;
     }
 
     &-enabled-bar {

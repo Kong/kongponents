@@ -60,6 +60,7 @@
           v-model="vModel"
           disabled
           disabled-tooltip-text="This is tooltip"
+          label="Disabled with tooltip"
         />
       </SandboxSectionComponent>
 
