@@ -58,10 +58,10 @@ Value to bind KSwitchInput value to.
 
 Use this prop to display tooltip text when KInputSwitch is disabled.
 
-<KInputSwitch disabled disabled-tooltip-text="Tooltip text" v-model="vModel6" />
+<KInputSwitch disabled disabled-tooltip-text="Scale down this cluster first to enable editing" v-model="vModel6" />
 
 ```html
-<KInputSwitch disabled disabled-tooltip-text="Tooltip text" v-model="switchValue" />
+<KInputSwitch disabled disabled-tooltip-text="Scale down this cluster first to enable editing" v-model="switchValue" />
 ```
 
 ### HTML Attributes
@@ -119,7 +119,7 @@ const vModel2 = ref<boolean>(false)
 const vModel3 = ref<boolean>(false)
 const vModel4 = ref<boolean>(false)
 const vModel5 = ref<boolean>(false)
-const vModel6 = ref<boolean>(false)
+const vModel6 = ref<boolean>(true)
 const vModel7 = ref<boolean>(false)
 const vModel8 = ref<boolean>(false)
 </script>
