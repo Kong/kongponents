@@ -41,13 +41,6 @@
           label="Label"
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="labelAttributes">
-        <KInputSwitch
-          v-model="vModel"
-          label="Label"
-          :label-attributes="{ info: 'I use the KLabel `info` prop' }"
-        />
-      </SandboxSectionComponent>
       <SandboxSectionComponent title="labelPosition">
         <KInputSwitch
           v-model="vModel"

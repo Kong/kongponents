@@ -156,8 +156,8 @@ $kInputSwitchSmallHeight: calc($kInputSwitchSmallWidth / 2);
 $kInputSwitchLargeWidth: 60px;
 $kInputSwitchLargeHeight: calc($kInputSwitchLargeWidth / 2);
 $kInputSwitchPadding: var(--kui-space-10, $kui-space-10);
-$kInputSwitchSmallCircleSize: 4px;
-$kInputSwitchLargeCircleSize: 6px;
+$kInputSwitchSmallCircleSize: 8px;
+$kInputSwitchLargeCircleSize: 10px;
 
 /* Component mixins */
 
@@ -253,6 +253,7 @@ $kInputSwitchLargeCircleSize: 6px;
 
       border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
       border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
+      box-sizing: border-box;
       content: '';
       display: block;
       position: absolute;
