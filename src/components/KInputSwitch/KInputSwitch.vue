@@ -14,19 +14,26 @@
       @change="handleChange"
       @input="handleChange"
     >
-    <span
-      :aria-checked="modelValue"
-      :aria-labelledby="inputId"
-      class="switch-control"
-      :class="{ 'checked': modelValue, 'disabled': disabled }"
-      role="checkbox"
-      :tabindex="disabled ? -1 : 0"
-      @click="propagateInputEvent"
-      @keyup.space="propagateInputEvent"
+    <component
+      :is="disabled && disabledTooltipText ? 'KTooltip' : 'div'"
+      class="switch-control-wrapper"
+      :label="disabledTooltipText"
     >
-      <!-- white vertical bar that is visible when switch is enabled -->
-      <span class="switch-control-enabled-bar" />
-    </span>
+      <span
+        :aria-checked="modelValue"
+        :aria-labelledby="inputId"
+        class="switch-control"
+        :class="{ 'checked': modelValue, 'disabled': disabled }"
+        role="checkbox"
+        :tabindex="disabled ? -1 : 0"
+        @click="propagateInputEvent"
+        @keyup.space="propagateInputEvent"
+      >
+
+        <!-- white vertical bar that is visible when switch is enabled -->
+        <span class="switch-control-enabled-bar" />
+      </span>
+    </component>
 
     <KLabel
       v-if="label || $slots.label"
@@ -68,6 +75,10 @@ const props = defineProps({
   disabled: {
     type: Boolean,
     default: false,
+  },
+  disabledTooltipText: {
+    type: String,
+    default: '',
   },
   /**
    * Whether the label should be placed before the switch
@@ -208,6 +219,10 @@ $kInputSwitchLargeCircleSize: 10px;
     :deep(.k-label) {
       cursor: pointer;
     }
+  }
+
+  .switch-control-wrapper {
+    display: flex;
   }
 
   .switch-control {

@@ -66,6 +66,15 @@ You can add `disabled` attribute to disallow interactivity.
 <KInputSwitch disabled v-model="switchValue" label="Disabled" />
 ```
 
+### disabledTooltipText
+
+Use this prop to display tooltip text when KInputSwitch is disabled.
+
+<KInputSwitch disabled disabled-tooltip-text="Tooltip text" v-model="vModel7" />
+
+```html
+<KInputSwitch disabled disabled-tooltip-text="Tooltip text" v-model="switchValue" />
+```
 
 ## Slots
 
@@ -73,7 +82,7 @@ You can add `disabled` attribute to disallow interactivity.
 
 This slot takes presence over `label` prop when both are present.
 
-<KInputSwitch v-model="vModel7">
+<KInputSwitch v-model="vModel8">
   <template #label>
     Slotted label
   </template>
@@ -112,6 +121,7 @@ const vModel4 = ref<boolean>(false)
 const vModel5 = ref<boolean>(false)
 const vModel6 = ref<boolean>(false)
 const vModel7 = ref<boolean>(false)
+const vModel8 = ref<boolean>(false)
 </script>
 
 <style lang="scss" scoped>

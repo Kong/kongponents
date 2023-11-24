@@ -56,6 +56,14 @@
           label="Disabled"
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="disabledTooltipText">
+        <KInputSwitch
+          v-model="vModel"
+          disabled
+          disabled-tooltip-text="Disabled tooltip text"
+          label="Disabled"
+        />
+      </SandboxSectionComponent>
 
       <!-- Slots -->
       <SandboxTitleComponent
