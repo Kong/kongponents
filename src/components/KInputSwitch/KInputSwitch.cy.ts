@@ -25,15 +25,4 @@ describe('KInputSwitch', () => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'update:modelValue')
     })
   })
-
-  it('shows enabled icon if prop is set', () => {
-    mount(KInputSwitch, {
-      props: {
-        modelValue: true,
-        enabledIcon: true,
-      },
-    })
-
-    cy.get('.k-input-switch .kong-icon').should('be.visible')
-  })
 })
