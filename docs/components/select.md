@@ -587,7 +587,7 @@ Slot to display custom content when items is empty or no items match filter quer
 
 Event payload is select item.
 
-### input
+### input and update:modelValue
 
 Event payload is selected item `value`.
 
@@ -646,15 +646,15 @@ Event payload is removed item.
 
 #### Events
 
-| Event               | Parameters                        |
-| ------------------- | --------------------------------- |
-| `selected`          | `item: SelectItem`                |
-| `input`             | `value: string \| number \| null` |
-| `change`            | `item: SelectItem \| null`        |
-| `update:modelValue` | `value: string \| number \| null` |
-| `query-change`      | `query: string`                   |
-| `item-added`        | `value: SelectItem`               |
-| `item-removed`      | `value: SelectItem`               |
+| Event                        | Parameters                        |
+| ---------------------------- | --------------------------------- |
+| `selected`                   | `item: SelectItem`                |
+| `input`, `update:modelValue` | `value: string \| number \| null` |
+| `change`                     | `item: SelectItem \| null`        |
+| `update:modelValue`          | `value: string \| number \| null` |
+| `query-change`               | `query: string`                   |
+| `item-added`                 | `value: SelectItem`               |
+| `item-removed`               | `value: SelectItem`               |
 
 
 <script setup lang="ts">
