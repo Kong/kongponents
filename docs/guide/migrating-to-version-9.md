@@ -30,6 +30,17 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KBadge
 
+#### Props
+
+* `appearance` prop no longer accepts `default` and `custom` values (defaults to `info` now)
+* `isBordered` prop has been removed
+* `shape` prop has been removed (now KBadge only comes in one what used to be `rectangular` shape)
+* `borderColor` prop has been removed
+* `dismissable` prop has been removed
+* `hoverColor` prop has been removed
+* `truncationTooltip` prop has been changed to `boolean`. When used in conjunction with new `tooltip` prop, KBadge will only show the tooltip when content passed through the `default` slot needs truncation. Otherwise, if `tooltip` prop is used without `truncationTooltip` prop - tooltip will be shown regardless of whether truncation is needed
+* `forceTooltip` prop has been removed
+
 #### Structure
 
 * dynamic `k-badge-*` classes have been removed
@@ -43,17 +54,6 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 * `BadgeShapes` const has been removed
 * `BadgeShape` type has been removed
 * `BadgeShapeRecord` type has been removed
-
-#### Props
-
-* `appearance` prop no longer accepts `default` and `custom` values (defaults to `info` now)
-* `isBordered` prop has been removed
-* `shape` prop has been removed (now KBadge only comes in one what used to be `rectangular` shape)
-* `borderColor` prop has been removed
-* `dismissable` prop has been removed
-* `hoverColor` prop has been removed
-* `truncationTooltip` prop has been changed to `boolean`. When used in conjunction with new `tooltip` prop, KBadge will only show the tooltip when content passed through the `default` slot needs truncation. Otherwise, if `tooltip` prop is used without `truncationTooltip` prop - tooltip will be shown regardless of whether truncation is needed
-* `forceTooltip` prop has been deprecated
 
 #### Events
 

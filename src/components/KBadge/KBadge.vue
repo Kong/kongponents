@@ -11,7 +11,10 @@
       :class="{ 'icon-after': !iconBefore }"
       :position-fixed="showTooltip ? true : undefined"
     >
-      <template #content>
+      <template
+        v-if="showTooltip"
+        #content
+      >
         {{ tooltipText }}
       </template>
       <slot
@@ -52,10 +55,10 @@ const props = defineProps({
   appearance: {
     type: String as PropType<BadgeAppearance>,
     required: false,
+    default: 'info',
     validator: (value: string): boolean => {
       return Object.keys(BadgeAppearances).includes(value)
     },
-    default: 'info',
   },
   /**
    * Tooltip text that will be displayed on hover.
@@ -114,13 +117,6 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  /**
-   * @deprecated Use `tooltip` in combination with `truncationTooltip` instead.
-   */
-  forceTooltip: {
-    type: Boolean,
-    default: false,
-  },
 })
 
 const isMethodBadge = computed(() => {
@@ -168,10 +164,6 @@ const tooltipText = computed((): string => {
 const showTooltip = computed((): boolean => {
   if (!tooltipText.value) {
     return false
-  }
-
-  if (props.forceTooltip) { // TODO: remove when forceTooltip is removed
-    return true
   }
 
   if (props.truncationTooltip) {

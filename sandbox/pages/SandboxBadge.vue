@@ -407,14 +407,6 @@
           </KBadge>
         </div>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="forceTooltip prop (deprecated)">
-        <KBadge
-          force-tooltip
-          truncation-tooltip="I always tooltip"
-        >
-          Truncation unnecessary
-        </KBadge>
-      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
