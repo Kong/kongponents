@@ -222,6 +222,56 @@ This prop takes a string that will be displayed as the title of the slide-out.
 </KToggle>
 ```
 
+### maxWidth
+
+* **Type**: `string`
+* **Required**: no
+* **Default**: `500px`
+
+<KToggle v-slot="{ isToggled, toggle }">
+  <div>
+    <KButton @click="toggle">Toggle Panel Custom Width</KButton>
+    <KSlideout :is-visible="isToggled.value" @close="toggle" :has-overlay="false" close-button-alignment="end" title="Width test" max-width="650px">
+      <div>
+        <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+      </div>
+      <KButton appearance="primary">Buttons</KButton>
+      <KCard class="vertical-spacing">
+        <template #body>
+          Something in a KCard
+        </template>
+      </KCard>
+      <KAlert
+        alert-message="Or even an alert!"
+        class="vertical-spacing" />
+    </KSlideout>
+  </div>
+</KToggle>
+
+```html
+<KToggle v-slot="{ isToggled, toggle }">
+  <div>
+    <KButton @click="toggle">Toggle Panel Custom Width</KButton>
+    <KSlideout :is-visible="isToggled.value" @close="toggle" :has-overlay="false" close-button-alignment="end" title="Width test" max-width="650px">
+      <div>
+        <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
+        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
+      </div>
+      <KButton appearance="primary">Buttons</KButton>
+      <KCard class="vertical-spacing">
+        <template #body>
+          Something in a KCard
+        </template>
+      </KCard>
+      <KAlert
+        alert-message="Or even an alert!"
+        class="vertical-spacing" />
+    </KSlideout>
+  </div>
+</KToggle>
+```
+
 ## Slots
 
 - `default` - used to place content into the slideout panel
