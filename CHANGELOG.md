@@ -1,3 +1,10 @@
+# [9.0.0-alpha.63](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.62...v9.0.0-alpha.63) (2023-11-27)
+
+
+### Features
+
+* **KSlideout:** add maxWidth prop ([#1873](https://github.com/Kong/kongponents/issues/1873)) ([28682eb](https://github.com/Kong/kongponents/commit/28682eba018e6269e26a2620882f0c34c51652ff))
+
 # [9.0.0-alpha.62](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.61...v9.0.0-alpha.62) (2023-11-23)
 
 
