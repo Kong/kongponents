@@ -27,6 +27,7 @@
         role="checkbox"
         :tabindex="disabled ? -1 : 0"
         @click="propagateInputEvent"
+        @keydown.space.prevent
         @keyup.space="propagateInputEvent"
       >
 
