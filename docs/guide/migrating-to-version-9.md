@@ -32,7 +32,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Structure
 
-* dynamic `k-badge-*` classes has been removed
+* dynamic `k-badge-*` classes have been removed
 * `k-badge-text` class has been changed to `badge-content-wrapper`
 * KIcon element that previously contained class `k-badge-dismiss-button` has been removed 
 
