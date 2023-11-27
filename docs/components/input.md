@@ -214,7 +214,7 @@ Use the `before` and `after` slots for inserting icons before and/or after the i
 ```
 
 :::tip TIP
-If you want to make an icon clickable, you can assign `role="button"` and appropriate `tabindex` attributes to that element and bind an event handler. KInput will take care of state styling (hover, focus, disabled).
+If you want to make an icon clickable, you **must** assign `role="button"` and appropriate `tabindex` attributes to that element and bind an event handler. KBadge will take care of state styling (hover, focus, disabled).
 
 <KInput model-value="b0490b53-4f47-410d-92b0-e76a3141c04d">
   <template #after>
