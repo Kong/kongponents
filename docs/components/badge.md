@@ -19,8 +19,8 @@ KBadge component takes one of the following appearance values:
 | `info`       | `get`               |
 | `success`    | `post`              |
 | `warning`    | `put`               |
-| `decorative` | `delete`            |
-| `danger`     | `patch`             |
+| `danger`     | `delete`            |
+| `decorative` | `patch`             |
 | `neutral`    | `options`           |
 |              | `head`              |
 |              | `connect`           |
