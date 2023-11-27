@@ -156,7 +156,7 @@ Use this prop to limit element's width.
 
 ### dropdownMaxHeight
 
-Maximum height for dropdown container.
+Maximum height for dropdown container. Defaults to `300px`.
 
 <ClientOnly>
   <KSelect dropdown-max-height="300" :items="selectItems" />
@@ -327,23 +327,7 @@ const asyncItems: SelectItem[] = [{
   label: 'Service F',
   value: 'f',
   disabled: true,
-}, {
-  label: 'Service A1',
-  value: 'a1',
-  group: 'Series 1',
-}, {
-  label: 'Service B1',
-  value: 'b1',
-  group: 'Series 1',
-}, {
-  label: 'Service A2',
-  value: 'a2',
-  group: 'Series 2',
-}, {
-  label: 'Service B2',
-  value: 'b2',
-  group: 'Series 2',
-}]
+}, ...]
 const asyncItemsInitial: SelectItem[] = JSON.parse(JSON.stringify(asyncItems.value))
 
 const asyncItemsModel = ref<string>('')
@@ -606,56 +590,6 @@ Event payload is added item.
 ### item-removed
 
 Event payload is removed item.
-
-## Component API
-
-#### Props
-
-| Prop                         | Value                  | Default                                              |
-| ---------------------------- | ---------------------- | ---------------------------------------------------- |
-| `modelValue`                 | `String \| Number`     | `''`                                                 |
-| `kpopAttributes`             | `Object`               | `{}`                                                 |
-| `dropdownMaxHeight`          | `String`               | `'300'`                                              |
-| `label`                      | `String`               | `''`                                                 |
-| `labelAttributes`            | `Object`               | `{}`                                                 |
-| `width`                      | `String`               | `'100%'`                                             |
-| `placeholder`                | `String`               | `''`                                                 |
-| `items`                      | `Array of SelectItem`  | `[]`                                                 |
-| `positionFixed`              | `Boolean`              | `true`                                               |
-| `enableFiltering`            | `Boolean`              | `false`                                              |
-| `filterFunction`             | `Function`             | `(params: SelectFilterFunctionParams) =>`<br>`{...}` |
-| `loading`                    | `Boolean`              | `false`                                              |
-| `clearable`                  | `Boolean`              | `false`                                              |
-| `dropdownFooterText`         | `String`               | `''`                                                 |
-| `dropdownFooterTextPosition` | `'sticky' \| 'static'` | `'sticky'`                                           |
-| `reuseItemTemplate`          | `Boolean`              | `false`                                              |
-| `enableItemCreation`         | `Boolean`              | `false`                                              |
-| `error`                      | `Boolean`              | `false`                                              |
-| `help`                       | `String`               | `''`                                                 |
-
-#### Slots
-
-| Slot                     | Slot Props         |
-| ------------------------ | ------------------ |
-| `label-tooltip`          | -                  |
-| `item-template`          | `item: SelectItem` |
-| `selected-item-template` | `item: SelectItem` |
-| `dropdown-footer-text`   | -                  |
-| `loading`                | -                  |
-| `empty`                  | -                  |
-
-#### Events
-
-| Event                        | Parameters                        |
-| ---------------------------- | --------------------------------- |
-| `selected`                   | `item: SelectItem`                |
-| `input`, `update:modelValue` | `value: string \| number \| null` |
-| `change`                     | `item: SelectItem \| null`        |
-| `update:modelValue`          | `value: string \| number \| null` |
-| `query-change`               | `query: string`                   |
-| `item-added`                 | `value: SelectItem`               |
-| `item-removed`               | `value: SelectItem`               |
-
 
 <script setup lang="ts">
 import { ref } from 'vue'

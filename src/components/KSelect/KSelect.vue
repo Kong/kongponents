@@ -338,7 +338,7 @@ const isReadonly = computed((): boolean => attrs.readonly !== undefined && Strin
 const hasDropdownFooter = computed((): boolean => !!(slots['dropdown-footer-text'] || props.dropdownFooterText))
 
 const defaultKPopAttributes = {
-  popoverClasses: `select-popover ${hasDropdownFooter.value ? `has-${props.dropdownFooterTextPosition}-dropdown-footer` : ''}`,
+  popoverClasses: `select-popover ${hasDropdownFooter.value ? `has-${props.dropdownFooterTextPosition}-dropdown-footer` : ''} ${props.help ? 'has-help-text' : ''}`,
   popoverTimeout: 0,
   placement: 'bottomStart' as PopPlacements,
   hideCaret: true,
@@ -624,9 +624,10 @@ onBeforeUnmount(() => {
 /* Component variables */
 
 $kSelectInputPaddingX: var(--kui-space-50, $kui-space-50); // corresponds to mixin, search for variable name in mixins
-$kSelectInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin, search for variable name in mixins
+$kSelectInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin
 $kSelectInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40); // corresponds to value in KInput.vue
 $kSelectInputSlotSpacing: var(--kui-space-40, $kui-space-40); // corresponds to value in KInput.vue
+$kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)); // corresponds to mixin
 
 /* Component mixins */
 
@@ -696,6 +697,10 @@ $kSelectInputSlotSpacing: var(--kui-space-40, $kui-space-40); // corresponds to 
 
     &.has-sticky-dropdown-footer, &.has-static-dropdown-footer {
       padding-bottom: var(--kui-space-0, $kui-space-0);
+    }
+
+    &.has-help-text {
+      margin-top: calc(-1 * $kSelectInputHelpTextHeight);
     }
   }
 
