@@ -240,6 +240,18 @@ $kBadgeMethodWidth: 85px;
       var(--kui-color-text-decorative-purple-strong, $kui-color-text-decorative-purple-strong));
   }
 
+  &.decorative {
+    background-color: var(--kui-color-background-decorative-purple-weakest, $kui-color-background-decorative-purple-weakest);
+    color: var(--kui-color-text-decorative-purple, $kui-color-text-decorative-purple);
+
+    :deep([role="button"]):not([disabled]) {
+      &:hover, &:focus {
+        // TODO: kui-color-text-decorative-purple-strong
+        color: var(--kui-color-text-decorative-purple-strong, $kui-color-text-decorative-purple-strong) !important;
+      }
+    }
+  }
+
   &.neutral {
     @include kBadgeAppearance(var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker),
       var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong),
