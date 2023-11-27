@@ -59,18 +59,14 @@
             @keyup="(evt: any) => triggerFocus(evt, isToggled)"
             @update:model-value="onQueryChange"
           >
-            <template
-              v-if="isClearVisible"
-              #before
-            >
+            <template #after>
               <CloseIcon
+                v-if="isClearVisible"
                 data-testid="clear-selection-icon"
                 role="button"
                 tabindex="0"
                 @click="clearSelection"
               />
-            </template>
-            <template #after>
               <ChevronDownIcon />
             </template>
             <template
@@ -683,7 +679,6 @@ $kSelectInputSlotSpacing: var(--kui-space-40, $kui-space-40); // corresponds to 
 
     &.clearable {
       // accommodate for the clear icon
-      margin-left: calc($kSelectInputPaddingX + $kSelectInputIconSize + $kSelectInputSlotSpacing);
       max-width: calc(v-bind('actualElementWidth') - ($kSelectInputPaddingX * 2) - ($kSelectInputIconSize * 2) - ($kSelectInputSlotSpacing * 2));
     }
   }

@@ -26,6 +26,7 @@
     >
       <div
         v-if="$slots.before"
+        ref="beforeSlotElement"
         class="before-content-wrapper"
       >
         <slot name="before" />
@@ -42,6 +43,7 @@
 
       <div
         v-if="$slots.after"
+        ref="afterSlotElement"
         class="after-content-wrapper"
       >
         <slot name="after" />
@@ -64,12 +66,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, useSlots, useAttrs } from 'vue'
+import { computed, ref, watch, useSlots, useAttrs, onMounted } from 'vue'
 import type { PropType } from 'vue'
 import type { LabelAttributes, LimitExceededData } from '@/types'
 import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
+import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 const props = defineProps({
   modelValue: {
@@ -260,6 +263,21 @@ watch(() => props.error, (newVal, oldVal) => {
     helpTextKey.value += 1
   }
 })
+
+const beforeSlotElement = ref<HTMLElement>()
+const afterSlotElement = ref<HTMLElement>()
+const beforeSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot icon size
+const afterSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot icon size
+
+onMounted(() => {
+  if (beforeSlotElement.value) {
+    beforeSlotElementWidth.value = beforeSlotElement.value.offsetWidth + 'px'
+  }
+
+  if (afterSlotElement.value) {
+    afterSlotElementWidth.value = afterSlotElement.value.offsetWidth + 'px'
+  }
+})
 </script>
 
 <script lang="ts">
@@ -316,6 +334,8 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
 
     .before-content-wrapper, .after-content-wrapper {
       color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      display: inline-flex;
+      gap: var(--kui-space-10, $kui-space-10);
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -359,16 +379,16 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
     &.has-before-content {
       .k-input {
         // if there is a before slot, add padding to the left of the input
-        // standard padding + icon size + space between icon and input
-        padding-left: calc($kInputPaddingX + $kInputIconSize + $kInputSlotSpacing);
+        // standard padding + slot with + space between icon and input
+        padding-left: calc($kInputPaddingX + v-bind('beforeSlotElementWidth') + $kInputSlotSpacing);
       }
     }
 
     &.has-after-content {
       .k-input {
         // if there is a after slot, add padding to the right of the input
-        // standard padding + icon size + space between icon and input
-        padding-right: calc($kInputPaddingX + $kInputIconSize + $kInputSlotSpacing);
+        // standard padding + slot with + space between icon and input
+        padding-right: calc($kInputPaddingX + v-bind('afterSlotElementWidth') + $kInputSlotSpacing);
       }
     }
   }
