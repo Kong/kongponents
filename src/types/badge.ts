@@ -1,5 +1,5 @@
 export type BadgeMethodAppearance = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' | 'connect' | 'trace' | 'custom'
-export type BadgeAppearance = 'info' | 'success' | 'warning' | 'danger' | 'neutral' | BadgeMethodAppearance
+export type BadgeAppearance = 'info' | 'success' | 'warning' | 'danger' | 'neutral' | 'decorative' | BadgeMethodAppearance
 export type BadgeMethodAppearanceRecord = Record<BadgeMethodAppearance, BadgeMethodAppearance>
 export type BadgeAppearanceRecord = Record<BadgeAppearance, BadgeAppearance>
 
@@ -21,6 +21,7 @@ export const BadgeAppearances: BadgeAppearanceRecord = {
   success: 'success',
   warning: 'warning',
   danger: 'danger',
+  decorative: 'decorative',
   neutral: 'neutral',
   ...BadgeMethodAppearances,
 } as const

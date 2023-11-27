@@ -291,6 +291,18 @@ $kBadgeMethodWidth: 85px;
     }
   }
 
+  &.decorative {
+    background-color: var(--kui-color-background-decorative-purple-weakest, $kui-color-background-decorative-purple-weakest);
+    color: var(--kui-color-text-decorative-purple, $kui-color-text-decorative-purple);
+
+    :deep([role="button"]):not([disabled]) {
+      &:hover, &:focus {
+        // TODO: kui-color-text-decorative-purple-strong
+        color: var(--kui-color-text-decorative-purple-strong, $kui-color-text-decorative-purple-strong) !important;
+      }
+    }
+  }
+
   &.neutral {
     background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
     color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);

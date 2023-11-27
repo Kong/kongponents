@@ -14,18 +14,18 @@ KBadge is a visual text label that presents small amount of information.
 
 KBadge component takes one of the following appearance values:
 
-| Appearances | Methods Appearances |
-| ----------- | ------------------- |
-| `info`      | `get`               |
-| `success`   | `post`              |
-| `warning`   | `put`               |
-| `danger`    | `delete`            |
-| `neutral`   | `patch`             |
-|             | `options`           |
-|             | `head`              |
-|             | `connect`           |
-|             | `trace`             |
-|             | `custom`            |
+| Appearances  | Methods Appearances |
+| ------------ | ------------------- |
+| `info`       | `get`               |
+| `success`    | `post`              |
+| `warning`    | `put`               |
+| `decorative` | `delete`            |
+| `danger`     | `patch`             |
+| `neutral`    | `options`           |
+|              | `head`              |
+|              | `connect`           |
+|              | `trace`             |
+|              | `custom`            |
 
 :::tip TIP
 Passing one of the methods appearances will apply `text-transform: uppercase;` and set `min-with` to badge container. You can pass `custom` to apply method badge styling should you need a badge for your custom method.
@@ -44,6 +44,9 @@ Passing one of the methods appearances will apply `text-transform: uppercase;` a
     </KBadge>
     <KBadge appearance="danger">
       Danger
+    </KBadge>
+    <KBadge appearance="decorative">
+      Decorative
     </KBadge>
     <KBadge appearance="neutral">
       Neutral
@@ -88,6 +91,7 @@ Passing one of the methods appearances will apply `text-transform: uppercase;` a
 <KBadge appearance="success">Success</KBadge>
 <KBadge appearance="warning">Warning</KBadge>
 <KBadge appearance="danger">Danger</KBadge>
+<KBadge appearance="decorative">Decorative</KBadge>
 <KBadge appearance="neutral">Neutral</KBadge>
 <KBadge appearance="get">Gey</KBadge>
 <KBadge appearance="post">Post</KBadge>

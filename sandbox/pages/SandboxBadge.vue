@@ -33,6 +33,9 @@
           <KBadge appearance="danger">
             Danger
           </KBadge>
+          <KBadge appearance="decorative">
+            Decorative
+          </KBadge>
           <KBadge appearance="neutral">
             Neutral
           </KBadge>
@@ -226,6 +229,19 @@
             :icon-before="false"
           >
             Danger
+            <template #icon>
+              <CloseIcon
+                role="button"
+                tabindex="0"
+                @click="handleIconClick"
+              />
+            </template>
+          </KBadge>
+          <KBadge
+            appearance="decorative"
+            :icon-before="false"
+          >
+            Decorative
             <template #icon>
               <CloseIcon
                 role="button"
