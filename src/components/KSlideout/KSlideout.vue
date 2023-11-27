@@ -105,6 +105,14 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  /**
+   * The max-width of the slideout. **Default: `500px`**.
+   */
+  maxWidth: {
+    type: String,
+    required: false,
+    default: '500px',
+  },
 })
 
 const emit = defineEmits<{
@@ -185,7 +193,7 @@ const offsetTopValue = computed((): string => {
     display: flex;
     flex-direction: column;
     height: calc(100vh - v-bind('offsetTopValue'));
-    max-width: 500px;
+    max-width: v-bind('props.maxWidth');
     overflow-y: auto;
     position: fixed;
     right: 0;
