@@ -87,11 +87,11 @@ Label associated with the input element.
 Label attributes to be passed to underlying [KLabel component](/components/label#props).
 
 <ClientOnly>
-  <KSelect label="Label" :items="selectItems" :label-attributes="{ info: 'I use the KLabel `info` prop' }" />
+  <KSelect :label-attributes="{ info: 'I use the KLabel `info` prop' }" label="Label" :items="selectItems" />
 </ClientOnly>
 
 ```html
-<KSelect label="Label" :items="selectItems" :label-attributes="{ info: 'I use the KLabel `info` prop' }" />
+<KSelect :label-attributes="{ info: 'I use the KLabel `info` prop' }" label="Label" :items="selectItems" />
 ```
 
 ### placeholder
@@ -248,7 +248,10 @@ const selectItems: SelectItem[] = [{
   group: 'Series 2',
 }]
 
-const tagsFilter = (params: SelectFilterFunctionParams) => params?.items?.filter((item: SelectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase()) || item.tags?.includes(params.query?.toLowerCase()))
+const tagsFilter = (params: SelectFilterFunctionParams) => 
+  params?.items?.filter((item: SelectItem) => 
+  item.label?.toLowerCase().includes(params.query?.toLowerCase())
+    || item.tags?.includes(params.query?.toLowerCase()))
 </script>
 ```
 
