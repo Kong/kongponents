@@ -3,7 +3,6 @@
     :aria-hidden="hidden ? true : undefined"
     class="k-badge"
     :class="[appearance, { 'method': isMethodBadge }]"
-    :style="badgeCustomStyles"
   >
     <component
       :is="showTooltip ? 'KTooltip' : 'div'"
@@ -92,16 +91,6 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  color: {
-    type: String,
-    required: false,
-    default: '',
-  },
-  backgroundColor: {
-    type: String,
-    required: false,
-    default: '',
-  },
   /**
    * Max width to apply truncation at
    * Is superseded by CSS variable if both provided
@@ -127,23 +116,6 @@ const badgeTextElement = ref<HTMLDivElement>()
 
 const resizeObserver = ref<ResizeObserverHelper>()
 const isTruncated = ref<boolean>(false)
-
-const badgeCustomStyles = computed(() => {
-  const styles = {} as {
-    backgroundColor?: string
-    color?: string
-  }
-
-  if (props.backgroundColor) {
-    styles.backgroundColor = props.backgroundColor
-  }
-
-  if (props.color) {
-    styles.color = props.color
-  }
-
-  return styles
-})
 
 const maxWidth = computed((): string => getSizeFromString(props.maxWidth))
 

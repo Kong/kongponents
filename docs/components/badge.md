@@ -105,20 +105,6 @@ Passing one of the methods appearances will apply `text-transform: uppercase;` a
 <KBadge appearance="custom">Custom</KBadge>
 ```
 
-### color
-
-Use this prop to modify the badge text color
-
-### backgroundColor
-
-Use this prop to modify the background color of the badge
-
-<KBadge color="red" background-color="pink">Badge</KBadge>
-
-```html
-<KBadge color="red" background-color="pink">Badge</KBadge>
-```
-
 ### tooltip
 
 Use this prop to pass tooltip text that will show on badge hover.
