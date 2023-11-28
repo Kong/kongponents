@@ -67,7 +67,10 @@
                 tabindex="0"
                 @click="clearSelection"
               />
-              <ChevronDownIcon />
+              <ChevronDownIcon
+                class="chevron-down-icon"
+                :class="{ 'disabled': isDisabled }"
+              />
             </template>
             <template
               v-if="$slots['label-tooltip']"
@@ -415,7 +418,7 @@ const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
 const placeholderText = computed((): string => props.placeholder || attrs.placeholder as string || 'Filter...')
 
-const isClearVisible = computed((): boolean => props.clearable && !!selectedItem.value)
+const isClearVisible = computed((): boolean => !isDisabled.value && (props.clearable && !!selectedItem.value))
 
 const hasCustomSelectedItem = computed((): boolean => !!(selectedItem.value &&
   (slots['selected-item-template'] || (props.reuseItemTemplate && slots['item-template']))))
@@ -657,6 +660,12 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
       :deep(input) {
         color: transparent;
       }
+    }
+  }
+
+  .chevron-down-icon {
+    &.disabled {
+      color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
     }
   }
 
