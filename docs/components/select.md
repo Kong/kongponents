@@ -410,6 +410,26 @@ KSelect will display a red dot next to label when `required` attribute is passed
 />
 ```
 
+#### disabled
+
+Use this attribute to disable interaction with the element.
+
+<ClientOnly>
+  <KSelect
+    label="Disabled"
+    disabled
+    :items="selectItems"
+  />
+</ClientOnly>
+
+```html
+<KSelect
+  label="Disabled"
+  disabled
+  :items="selectItems"
+/>
+```
+
 ## Slots
 
 ### label-tooltip

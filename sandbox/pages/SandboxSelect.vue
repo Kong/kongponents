@@ -154,6 +154,15 @@
           required
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent
+        title="disabled"
+      >
+        <KSelect
+          disabled
+          :items="selectItems"
+          label="Disabled"
+        />
+      </SandboxSectionComponent>
 
       <!-- Slots -->
       <SandboxTitleComponent
@@ -163,7 +172,14 @@
       <SandboxSectionComponent
         title="labelTooltip"
       >
-      <!-- TODO: add example -->
+        <KSelect
+          :items="selectItems"
+          label="Label"
+        >
+          <template #label-tooltip>
+            Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code>
+          </template>
+        </KSelect>
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="itemTemplate"
