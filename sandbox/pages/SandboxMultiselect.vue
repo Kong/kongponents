@@ -68,6 +68,7 @@
       >
         <KMultiselect
           error
+          help="Help text turns into error text."
           :items="multiselectItems"
         />
       </SandboxSectionComponent>

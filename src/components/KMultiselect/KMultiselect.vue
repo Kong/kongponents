@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-multiselect"
-    :class="[$attrs.class]"
+    :class="[$attrs.class, { 'multiselect-error': error }]"
     :style="widthStyle"
   >
     <KLabel
@@ -36,7 +36,7 @@
           <div
             ref="multiselectElement"
             class="multiselect-trigger"
-            :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
+            :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly, 'multiselect-error': error }"
             data-testid="multiselect-trigger"
             role="listbox"
             @click="handleFilterClick"
@@ -198,6 +198,12 @@
         </KPop>
       </KToggle>
     </div>
+    <p
+      v-if="help"
+      class="help-text"
+    >
+      {{ help }}
+    </p>
 
     <!-- Staging area -->
     <div
@@ -1020,6 +1026,7 @@ onBeforeUnmount(() => {
 $kMultiselectInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin, search for variable name in mixins
 $kMultiselectInputPaddingX: var(--kui-space-50, $kui-space-50); // corresponds to mixin
 $kMultiselectChevronIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
+$kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20); // corresponds to mixin
 
 /* Component mixins */
 
@@ -1115,6 +1122,18 @@ $kMultiselectChevronIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
       @include inputDisabled;
     }
 
+    &.multiselect-error {
+      @include inputError;
+
+      &.hovered {
+        @include inputErrorHover;
+      }
+
+      &.focused {
+        @include inputErrorFocus;
+      }
+    }
+
     .multiselect-input {
       display: inline-block;
       position: relative;
@@ -1186,6 +1205,20 @@ $kMultiselectChevronIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
     padding: var(--kui-space-50, $kui-space-50);
     pointer-events: none;
+  }
+
+  .help-text {
+    @include inputHelpText;
+
+    // reset default margin from browser
+    margin: 0;
+    margin-top: var(--kui-space-40, $kui-space-40);
+  }
+
+  &.multiselect-error {
+    .help-text {
+      color: var(--kui-color-text-danger, $kui-color-text-danger);
+    }
   }
 }
 </style>
