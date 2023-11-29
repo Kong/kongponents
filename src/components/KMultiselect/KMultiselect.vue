@@ -99,8 +99,14 @@
                 @click="clearSelection"
                 @keyup.enter="clearSelection"
               />
+              <ProgressIcon
+                v-else-if="loading"
+                class="multiselect-loading-icon"
+                :size="KUI_ICON_SIZE_30"
+              />
               <ChevronDownIcon
                 v-else
+                class="multiselect-chevron-icon"
                 :size="KUI_ICON_SIZE_40"
               />
             </div>
@@ -263,8 +269,8 @@ import KToggle from '@/components/KToggle'
 import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 import type { MultiselectItem, MultiselectFilterFnParams, DropdownFooterTextPosition, PopPlacements } from '@/types'
-import { CloseIcon, ChevronDownIcon } from '@kong/icons'
-import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
+import { KUI_ICON_SIZE_40, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -569,7 +575,7 @@ const numericWidthStyle = computed(() => {
 
 const nonSlimStyle = computed(() => {
   return {
-    width: (numericWidth.value - 30) + 'px',
+    width: (numericWidth.value - 40) + 'px',
     maxHeight: selectionsMaxHeight.value + 'px',
     paddingRight: 0,
   }

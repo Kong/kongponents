@@ -343,6 +343,7 @@ This component has been removed. Please refer to KBadge component which has been
 * `k-multiselect-empty-item` class and `testid` data attribute has been changed to `multiselect-empty-item`
 * `k-multiselect-dropdown-footer-text` class has been changed to `dropdown-footer`
 * `k-multiselect-popover` class has been changed to `multiselect-popover`
+* `k-multiselect-chevron-icon` class has been changed to `multiselect-chevron-icon`
 
 #### Constants, Types & Interfaces
 
