@@ -331,27 +331,30 @@ const state = reactive<DateTimePickerState>({
 })
 
 /**
-     * Updates our internal (read: separate) state of currently selected `v-calendar` value(s)
-     * @param {object | string | null} vCalValue Object containing a pair of `start` and `end` timestamps,
-     * or a single timestamp. Can be `null` if current selection is cleared.
-     */
+ * Updates our internal (read: separate) state of currently selected `v-calendar` value(s)
+ * @param {object | string | null} vCalValue Object containing a pair of `start` and `end` timestamps,
+ * or a single timestamp. Can be `null` if current selection is cleared.
+ */
 const changeCalendarRange = (vCalValue: TimeRange | Date | number | string): void => {
-  let start: Date | number, end: Date | number
+  let start: Date | number = new Date()
+  let end: Date | number = new Date()
 
+  // If value is an object, this is a time range
+  // Otherwise, it is a single date or time value.
+  // Else, fallback to using today's date
   if (vCalValue) {
-    // If value is an object, this is a time range. Else, a single date or time value.
     if ((vCalValue as TimeRange).start && (vCalValue as TimeRange).end) {
       start = new Date((vCalValue as TimeRange).start)
       end = new Date((vCalValue as TimeRange).end)
-    } else {
+    } else if (Number(vCalValue)) {
       start = new Date(Number(vCalValue))
       end = 0
     }
 
-    // Set emitted value when v-calendar selection is made. In the case of a single date / time
-    // picker, only the `start` value will be provided.
-    // The `timePeriodsKey` param only applies to relative timeframes,
-    // not `v-calendar` selections; however, this keeps the object "shape" consistent.
+    // Sets the emitted value when a v-calendar selection is made.
+    // In the case of a single date / time picker, only the `start` value will be provided.
+    // The `timePeriodsKey` param only applies to relative timeframes, not `v-calendar` selections;
+    // We return an empty string to keep the object shape consistent.
     state.selectedRange = state.previouslySelectedRange = {
       start,
       end,
@@ -361,10 +364,10 @@ const changeCalendarRange = (vCalValue: TimeRange | Date | number | string): voi
 }
 
 /**
-     * Updates both the input field value, and the full time frame readout
-     * when a relative time frame button is clicked
-     * @param {*} timeframe
-     */
+ * Updates both the input field value, and the full time frame readout
+ * when a relative time frame button is clicked
+ * @param {*} timeframe
+ */
 const changeRelativeTimeframe = (timeframe: TimePeriod): void => {
   state.selectedTimeframe = state.previouslySelectedTimeframe = timeframe
 
@@ -383,9 +386,9 @@ const changeRelativeTimeframe = (timeframe: TimePeriod): void => {
 }
 
 /**
-     * Clears any previously made choices, and emits the result of this action
-     * back to the parent.
-     */
+ * Clears any previously made choices, and emits the result of this action
+ * back to the parent.
+ */
 const clearSelection = (): void => {
   selectedCalendarRange.value = ''
   state.abbreviatedDisplay = props.placeholder
@@ -408,14 +411,15 @@ const clearSelection = (): void => {
 }
 
 /**
-     * Displays selected date/time/range as a human readable string.
-     * The date formatting string is dynamically determined based on
-     * the current mode of the instance (Custom vs Relative)
-     * @param {*} range A set of `start` and `end` Unix timestamps∂
-     */
+ * Displays selected date/time/range as a human readable string.
+ * The date formatting string is dynamically determined based on
+ * the current mode of the instance (Custom vs Relative)
+ * @param {*} range A set of `start` and `end` Unix timestamps∂
+ */
 const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
   const { start, end } = range
   let fmtStr = 'PP hh:mm a'
+
   const tzAbbrev = formatInTimeZone(start, localTz, '(z)')
 
   // Determines the human timestamp readout format string; subject to change
@@ -437,9 +441,9 @@ const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
 }
 
 /**
-     * Once a selection is made, emit value back to parent.
-     * If a range date picker, send the full range (start and end); else, a single `start` Date.
-     */
+ * Once a selection is made, emit value back to parent.
+ * If a range date picker, send the full range (start and end); else, a single `start` Date.
+ */
 const submitTimeFrame = async (): Promise<void> => {
   if (props.range || hasTimePeriods.value) {
     emit('change', state.selectedRange)
@@ -455,17 +459,16 @@ const submitTimeFrame = async (): Promise<void> => {
 }
 
 /**
-     * Updates the input field value as a visual confirmation after a choice is made
-     *
-     * If a time range (custom or relative) determine which tab has focus,
-     * then update input field text.
-     * Else, update input field text for single date / time instance
-     */
+ * Updates the input field value as a visual confirmation after a choice is made
+ *
+ * If a single date/time instance, display the time range and timezone
+ * Otherwise, display the chosen relative timeframe
+ */
 const updateDisplay = (): void => {
-  if (props.range && hasTimePeriods.value && !showCalendar.value) {
-    state.abbreviatedDisplay = state.selectedTimeframe.display
-  } else {
+  if (showCalendar.value && state.selectedRange?.start) {
     state.abbreviatedDisplay = formatDisplayDate(state.selectedRange, true)
+  } else if (props.range && hasTimePeriods.value && !showCalendar.value) {
+    state.abbreviatedDisplay = state.selectedTimeframe.display
   }
 }
 
@@ -474,18 +477,18 @@ const ucWord = (val: string): string => {
 }
 
 /**
-     * Saves the internal state (range or single value) whenever
-     * the `v-calendar` instance is interacted with.
-     */
+ * Saves the internal state (range or single value) whenever
+ * the `v-calendar` instance is interacted with.
+ */
 watch(selectedCalendarRange, (newValue, oldValue) => {
   if (newValue !== undefined && newValue !== oldValue) {
     changeCalendarRange(newValue)
   }
-}, { immediate: true })
+}, { immediate: false })
 
 /**
-     * Reinstate previous selection whenever user toggles between Relative and Custom tabs
-     */
+ * Reinstate previous selection whenever user toggles between Relative and Custom tabs
+ */
 watch(() => state.tabName, (newValue, oldValue) => {
   if (oldValue !== undefined && newValue === 'relative') {
     changeRelativeTimeframe(state.previouslySelectedTimeframe)
@@ -497,20 +500,22 @@ watch(() => state.tabName, (newValue, oldValue) => {
 onMounted(() => {
   // Select the tab based on incoming defaults; save the default value to our internal
   // state and update the input field to display the human-readable date/time.
-  if (props.modelValue) {
-    if ('timePeriodsKey' in (props.modelValue as TimeRange)) {
-      state.tabName = 'relative'
-      for (const section of props.timePeriods) {
-        const selectedTimeframe = section.values.find(e => e.key === (props.modelValue as TimeRange).timePeriodsKey)
-        if (selectedTimeframe) {
-          changeRelativeTimeframe(selectedTimeframe)
-          updateDisplay()
-          break
-        }
+  if ('timePeriodsKey' in (selectedCalendarRange.value as TimeRange)) {
+    state.tabName = 'relative'
+
+    for (const section of props.timePeriods) {
+      const selectedTimeframe = section.values.find(e => e.key === (selectedCalendarRange.value as TimeRange).timePeriodsKey)
+      if (selectedTimeframe) {
+        changeRelativeTimeframe(selectedTimeframe)
+        updateDisplay()
+        break
       }
-    } else {
-      state.tabName = 'custom'
-      changeCalendarRange(props.modelValue)
+    }
+  } else {
+    state.tabName = 'custom'
+
+    if (selectedCalendarRange.value || ('start' in (selectedCalendarRange as unknown as TimeRange))) {
+      changeCalendarRange(selectedCalendarRange.value)
       updateDisplay()
     }
   }
@@ -628,7 +633,7 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
             font-size: var(--kui-font-size-30, $kui-font-size-30);
             font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
             justify-content: center;
-            padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+            padding: var(--kui-space-40, $kui-space-40) var(--kui-space-50, $kui-space-50);
 
             &.selected-option {
               background-color: var(--kui-color-background-primary, $kui-color-background-primary);

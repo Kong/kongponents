@@ -43,6 +43,10 @@ const defaultTimeRange = {
   start: twoDaysAgo,
   end: today,
 }
+const emptyTimeRange = {
+  start: null,
+  end: null,
+}
 
 const timepickerInput = 'k-datetime-picker-input'
 const submitButton = 'k-datetime-picker-submit'
@@ -215,7 +219,7 @@ describe('KDateTimePicker', () => {
       props: {
         mode: 'relative',
         modelValue: today,
-        range: true,
+        range: false,
         timePeriods: exampleTimeFrames,
       },
     })
@@ -257,6 +261,23 @@ describe('KDateTimePicker', () => {
       props: {
         mode: 'relativeDate',
         modelValue: today,
+        range: false,
+        timePeriods: exampleTimeFrames,
+      },
+    })
+
+    cy.getTestId(timepickerInput).click()
+    cy.getTestId(segmentedToggle).find('button[name="custom"]').eq(0).click()
+    // On the calendar side, we should see the month view, but not the time picker
+    cy.get('.k-datetime-picker .vc-pane-container .vc-weeks').should('exist')
+    cy.get('.k-datetime-picker .vc-pane-container .vc-time-picker').should('not.exist')
+  })
+
+  it('renders calendar with a default date range, if seeded with an invalid one', () => {
+    mount(KDateTimePicker, {
+      props: {
+        mode: 'relativeDate',
+        modelValue: emptyTimeRange,
         range: true,
         timePeriods: exampleTimeFrames,
       },
@@ -267,5 +288,6 @@ describe('KDateTimePicker', () => {
     // On the calendar side, we should see the month view, but not the time picker
     cy.get('.k-datetime-picker .vc-pane-container .vc-weeks').should('exist')
     cy.get('.k-datetime-picker .vc-pane-container .vc-time-picker').should('not.exist')
+    cy.getTestId(timepickerInput).find('.timepicker-display').should('contain.text', todayDateTimeString)
   })
 })

@@ -253,7 +253,7 @@ This utilizes the same time frames as the previous example; however, in this exa
   <KDateTimePicker
     v-model="currentValue6"
     placeholder="Please select a time frame"
-    mode="relative"
+    mode="relativeDate"
     width="480"
     :min-date="minDate"
     :max-date="maxDate"
