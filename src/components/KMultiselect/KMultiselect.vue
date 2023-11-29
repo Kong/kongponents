@@ -197,7 +197,7 @@
               name="empty"
             />
             <div
-              v-if="$slots['dropdown-footer-text'] || dropdownFooterText"
+              v-if="hasDropdownFooter"
               class="k-multiselect-dropdown-footer-text"
               :class="`k-multiselect-dropdown-footer-${dropdownFooterTextPosition}`"
             >
@@ -434,6 +434,8 @@ const emit = defineEmits(['selected', 'item:added', 'item:removed', 'input', 'ch
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
+const hasDropdownFooter = computed((): boolean => !!(props.dropdownFooterText || slots['dropdown-footer-text']))
+
 const defaultKPopAttributes = {
   hideCaret: true,
   placement: 'bottomStart' as PopPlacements,
@@ -531,7 +533,7 @@ const createKPopAttributes = computed(() => {
   return {
     ...defaultKPopAttributes,
     ...props.kpopAttributes,
-    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses}`,
+    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} ${hasDropdownFooter.value ? 'has-dropdown-footer' : ''}`,
     width: numericWidth.value + 'px',
     maxWidth: numericWidth.value + 'px',
     disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),
@@ -1158,6 +1160,10 @@ $kMultiselectChevronIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
 
+    &.has-dropdown-footer {
+      padding-bottom: var(--kui-space-0, $kui-space-0);
+    }
+
     .k-popover-content {
       @include kMultiselectPopoverMaxHeight;
 
@@ -1180,104 +1186,18 @@ $kMultiselectChevronIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
   }
 
   .k-multiselect-dropdown-footer-text {
+    align-items: center;
     background-color: var(--kui-color-background, $kui-color-background);
-    border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+    border-bottom-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    border-bottom-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-    padding: var(--kui-space-40, $kui-space-40);
-    padding-bottom: var(--kui-space-0);
+    display: flex;
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    gap: var(--kui-space-30, $kui-space-30);
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
+    padding: var(--kui-space-50, $kui-space-50);
+    pointer-events: none;
   }
-}
-</style>
-
-<style lang="scss">
-@import '@/styles/tmp-variables';
-@import '@/styles/mixins';
-
-@mixin kMultiselectPopoverMaxHeight {
-  max-height: v-bind('popoverContentMaxHeight');
-  overflow-y: auto;
-}
-
-.k-multiselect {
-  .k-multiselect-trigger {
-    .k-multiselect-input {
-      // input {
-      //   box-shadow: none !important; // remove input's default box shadow
-      //   height: calc(100% - 2px); // slightly smaller than container so we can see the container's box-shadow
-      //   left: 1px; // so we can see the container's box-shadow
-      //   margin: 1px; // so we can see the container's box-shadow
-      //   position: relative;
-      //   width: calc(100% - 4px); // slightly smaller than container so we can see the container's box-shadow
-
-      //   &:hover,
-      //   &:focus,
-      //   &:read-only,
-      //   &:disabled {
-      //     box-shadow: none !important;
-      //   }
-      // }
-    }
-
-    // &.k-input {
-    //   width: 100%;  // need this so input takes the k-input-wrapper's width which uses this.width prop
-    // }
-  }
-
-  // .k-multiselect-popover {
-  //   box-sizing: border-box;
-  //   margin-top: var(--kui-space-0, $kui-space-0) !important;
-  //   width: 100%;
-
-  //   &[x-placement^="top"] {
-  //     margin-bottom: var(--kui-space-10, $kui-space-10) !important;
-  //     margin-top: var(--kui-space-0, $kui-space-0) !important;
-  //   }
-
-  //   &.k-multiselect-pop {
-  //     border: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-black-10;
-  //     padding: var(--kui-space-40, $kui-space-40) var(--kui-space-40, $kui-space-40);
-  //   }
-
-  //   .k-multiselect-empty-item button,
-  //   .k-multiselect-empty-item button:focus,
-  //   .k-multiselect-empty-item button:hover {
-  //     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-
-  //     .select-item-label {
-  //       color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-  //     }
-  //   }
-
-  //   a {
-  //     color: var(--kui-color-text, $kui-color-text);
-  //     flex: 1;
-
-  //     &:hover,
-  //     &:active,
-  //     &:focus {
-  //       text-decoration: none;
-  //     }
-  //   }
-
-  //   .k-popover-content {
-  //     @include kMultiselectPopoverMaxHeight;
-
-  //     // when dropdown footer text position is sticky
-  //     &:has(.k-multiselect-dropdown-footer-text.k-multiselect-dropdown-footer-sticky) {
-  //       max-height: none;
-
-  //       .k-multiselect-list {
-  //         @include kMultiselectPopoverMaxHeight;
-  //       }
-  //     }
-
-  //     // Firefox workaround
-  //     // since :has() selector isn't supported in Firefox be default
-  //     .k-multiselect-list ~ .k-multiselect-dropdown-footer-sticky {
-  //       bottom: 0;
-  //       position: sticky;
-  //     }
-  //   }
-  // }
 }
 </style>
