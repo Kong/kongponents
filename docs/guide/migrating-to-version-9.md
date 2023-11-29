@@ -316,12 +316,33 @@ This component has been removed. Please refer to KBadge component which has been
 #### Props
 
 * `testMode` prop has been removed
+* `filterFunc` prop name has been changed to `filterFunction`
 
 #### Slots
 
 #### Events
 
 #### Structure
+
+* `k-multiselect-item` class has been changed to `multiselect-item`
+* `k-multiselect-item-container` class has been changed to `multiselect-item-container`
+* `k-multiselect-item-label` class has been changed to `multiselect-item-label`
+* `k-multiselect-group-container` class has been changed to `multiselect-group-container`
+* `k-multiselect-group-title` class has been changed to `multiselect-group-title`
+* `k-multiselect-label` `testid` data attribute has been changed to `multiselect-label`
+* `k-multiselect-container` `testid` data attribute has been changed to `multiselect-container`
+* `k-multiselect-wrapper` class has been changed to `multiselect-wrapper`
+* `k-multiselect-trigger` class and `testid` data attribute has been changed to `multiselect-trigger`
+* `k-multiselect-selections` class and `testid` data attribute has been changed to `multiselect-selections`
+* `k-multiselect-selection-badge` class has been changed to `multiselect-selection-badge`
+* `k-multiselect-icon` class has been changed to `multiselect-icons-container`
+* `k-multiselect-clear-icon` class and `testid` data attribute has been changed to `multiselect-clear-icon`
+* `k-multiselect-input` class and `testid` data attribute has been changed to `multiselect-input`
+* `k-multiselect-list` class has been changed to `multiselect-list`
+* `k-multiselect-new-item` class has been changed to `multiselect-add-item`
+* `k-multiselect-empty-item` class and `testid` data attribute has been changed to `multiselect-empty-item`
+* `k-multiselect-dropdown-footer-text` class has been changed to `dropdown-footer`
+* `k-multiselect-popover` class has been changed to `multiselect-popover`
 
 #### Constants, Types & Interfaces
 
