@@ -1,3 +1,10 @@
+# [9.0.0-alpha.64](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.63...v9.0.0-alpha.64) (2023-11-29)
+
+
+### Bug Fixes
+
+* **mixins:** add selects shared mixin ([#1880](https://github.com/Kong/kongponents/issues/1880)) ([7ed74dd](https://github.com/Kong/kongponents/commit/7ed74ddd59d583ac8562636fcfd7743a6b366ab2))
+
 # [9.0.0-alpha.63](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.62...v9.0.0-alpha.63) (2023-11-27)
 
 
