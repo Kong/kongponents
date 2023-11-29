@@ -22,11 +22,10 @@
         size="large"
         :style="widthStyle"
       >
-        <KIcon
+        <CalIcon
           v-if="icon"
           class="calendar-icon"
-          :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
-          icon="calendar"
+          :color="KUI_COLOR_TEXT_NEUTRAL"
           :size="KUI_ICON_SIZE_30"
         />
         <div
@@ -138,13 +137,13 @@ import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 import { DatePicker } from 'v-calendar'
 import KButton from '@/components/KButton/KButton.vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.vue'
 import 'v-calendar/dist/style.css'
 import type { DateTimePickerState, TimeFrameSection, TimePeriod, TimeRange, Mode, CSSProperties } from '@/types'
 import { ModeArray } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { CalIcon } from '@kong/icons'
 
 const props = defineProps({
   clearButton: {
