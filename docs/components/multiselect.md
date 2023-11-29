@@ -223,7 +223,7 @@ By default, we try to keep the KMultiselect display slim. This means that KMulti
 By default, we try to keep the KMultiselect display slim. This means that KMultiselect only takes up a single line when it doesn't have focus, and when focused, if the selected entries would display beyond the `selectedRowCount` we collapse them into the additional count badge. You can set `expandSelected` to `true` if you want to continue to see the selections even when KMultiselect doesn't have focus. Instead of collapsing additional selections into the additional count badge we will allow you to scroll through all of your selections.
 
 <ClientOnly>
-  <KMultiselect expand-selected :items="deepClone(defaultItemsManySelected)" />
+  <KMultiselect expand-selected width="300" :items="deepClone(defaultItemsManySelected)" />
 </ClientOnly>
 
 ```html

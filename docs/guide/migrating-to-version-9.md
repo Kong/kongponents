@@ -313,6 +313,17 @@ This component has been removed. Please refer to KBadge component which has been
 
 ### KMultiselect
 
+#### Props
+
+* `testMode` prop has been removed
+
+#### Slots
+
+#### Events
+
+#### Structure
+
+#### Constants, Types & Interfaces
 
 ### KPagination
 

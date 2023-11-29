@@ -76,7 +76,7 @@
       >
         <KMultiselect
           :items="multiselectItems"
-          width="700"
+          width="400"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent
@@ -141,6 +141,36 @@
           :items="multiselectItems"
           label="Label"
           required
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        title="disabled"
+      >
+        <KMultiselect
+          disabled
+          :items="multiselectItems"
+          label="Disabled"
+        />
+        <KMultiselect
+          collapsed-context
+          disabled
+          :items="multiselectItems"
+          label="Disabled"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        title="readonly"
+      >
+        <KMultiselect
+          :items="multiselectItems"
+          label="Read only"
+          readonly
+        />
+        <KMultiselect
+          collapsed-context
+          :items="multiselectItems"
+          label="Read only"
+          readonly
         />
       </SandboxSectionComponent>
 
@@ -237,6 +267,7 @@ const multiselectItems: MultiselectItem[] = [{
   label: 'Service F',
   value: 'f',
   disabled: true,
+  selected: true,
 }, {
   label: 'Service A1',
   value: 'a1',
