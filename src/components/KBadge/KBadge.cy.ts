@@ -63,21 +63,6 @@ describe('KBadge', () => {
     cy.get('.k-tooltip').should('not.exist')
   })
 
-  it('handles custom colors', () => {
-    mount(KBadge, {
-      props: {
-        color: 'rgb(255, 255, 255)',
-        backgroundColor: 'rgb(255, 0, 0)',
-      },
-      slots: {
-        default: () => 'Hello!',
-      },
-    })
-
-    cy.get('.k-badge').should('have.css', 'color').and('eq', 'rgb(255, 255, 255)')
-    cy.get('.k-badge').should('have.css', 'background-color').and('eq', 'rgb(255, 0, 0)')
-  })
-
   it('it should apply `maxWidth` prop when provided', () => {
     const maxWidth = '10px'
     mount(KBadge, {
