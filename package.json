@@ -52,7 +52,7 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "@kong/icons": "^1.8.0",
+    "@kong/icons": "^1.8.1",
     "@popperjs/core": "^2.11.8",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
