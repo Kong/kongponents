@@ -50,7 +50,7 @@
           ]"
           @click="(selected: string) => state.tabName = selected"
         />
-        <!-- Single date / time or range readout -->
+        <!-- Time range readout -->
         <p
           v-if="!showCalendar"
           class="range-display"
@@ -59,10 +59,10 @@
         </p>
         <DatePicker
           v-if="hasCalendar && showCalendar"
-          v-model="selectedCalendarRange"
+          v-model="calendarRange"
           :drag-attribute="calendarDragAttributes"
           is-expanded
-          :is-range="range"
+          is-range
           :max-date="maxDate"
           :min-date="minDate"
           :minute-increment="minuteIncrement"
@@ -141,7 +141,7 @@ import KPop from '@/components/KPop/KPop.vue'
 import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.vue'
 import 'v-calendar/dist/style.css'
 import type { DateTimePickerState, TimeFrameSection, TimePeriod, TimeRange, Mode, CSSProperties } from '@/types'
-import { ModeArray } from '@/types'
+import { ModeArray, ModeArrayRelative } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import { CalIcon } from '@kong/icons'
 
@@ -157,13 +157,11 @@ const props = defineProps({
     default: true,
   },
   modelValue: {
-    type: [Object, Date, String] as PropType<TimeRange | Date | string>,
+    type: [Object] as PropType<TimeRange>,
     required: false,
-    default: '',
-    validator: (value: TimeRange | string): boolean => {
-      return typeof value === 'string'
-        ? value === ''
-        : value instanceof Date || (value.start !== undefined && value.end !== undefined)
+    default: () => defaultTimePeriod,
+    validator: (value: TimeRange): boolean => {
+      return value instanceof Date || (value.start !== undefined && value.end !== undefined)
     },
   },
   /**
@@ -214,15 +212,6 @@ const props = defineProps({
     default: 'Select a time range',
   },
   /**
-   * Determines whether the `v-calendar` will allow a single date/time,
-   * or a range of dates/times.
-   */
-  range: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  /**
    * A custom set of time frames to be displayed as selectable buttons.
    * The `timeframeLength`, `start`, and `end` values are passed in as functions,
    * allowing for on-the-fly date boundary creation.
@@ -258,8 +247,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'change', value: TimeRange | string | Date): void
-  (e: 'update:modelValue', value: TimeRange | string | Date): void
+  (e: 'change', value: TimeRange | null): void
+  (e: 'update:modelValue', value: TimeRange | null): void
 }>()
 
 // https://vcalendar.io/datepicker.html#model-config
@@ -285,19 +274,11 @@ const calendarDragAttributes = {
   },
 } as any
 
-const selectedCalendarRange = ref<TimeRange | Date | string>(props.modelValue)
-
+const calendarRange = ref<TimeRange>(props.modelValue)
 const hasCalendar = computed((): boolean => props.mode !== 'relative')
 const hasTimePeriods = computed((): boolean => props?.timePeriods?.length > 0)
 const showCalendar = computed((): boolean => state.tabName === 'custom' || !hasTimePeriods.value)
-const submitDisabled = computed((): boolean => {
-  // If either the calendar is in range selection mode, or relative time frames
-  // are present, check whether both `start` and `end` are set;
-  // Otherwise, it's a single date or time, so only check `start`
-  return props.range || hasTimePeriods.value
-    ? !state.selectedRange.start || !state.selectedRange.end
-    : !state.selectedRange.start
-})
+const submitDisabled = ref<boolean>(true)
 
 const widthStyle = computed((): CSSProperties => {
   return {
@@ -326,39 +307,40 @@ const state = reactive<DateTimePickerState>({
   previouslySelectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
   selectedTimeframe: props.timePeriods[0]?.values[0],
   previouslySelectedTimeframe: props.timePeriods[0]?.values[0],
-  tabName: 'custom',
+  tabName: 'relative',
 })
 
 /**
- * Updates our internal (read: separate) state of currently selected `v-calendar` value(s)
- * @param {object | string | null} vCalValue Object containing a pair of `start` and `end` timestamps,
- * or a single timestamp. Can be `null` if current selection is cleared.
+ * Tracks internal `v-calendar` state
+ * @param {TimeRange | Date | string} vCalValue Object containing a pair of `start` and `end` timestamps.
+ * Defaults to today's date if current selection is cleared.
  */
-const changeCalendarRange = (vCalValue: TimeRange | Date | number | string): void => {
-  let start: Date | number = new Date()
-  let end: Date | number = new Date()
+const changeCalendarRange = (vCalValue: TimeRange | null): void => {
+  if (!vCalValue) return
 
-  // If value is an object, this is a time range
-  // Otherwise, it is a single date or time value.
-  // Else, fallback to using today's date
-  if (vCalValue) {
-    if ((vCalValue as TimeRange).start && (vCalValue as TimeRange).end) {
-      start = new Date((vCalValue as TimeRange).start)
-      end = new Date((vCalValue as TimeRange).end)
-    } else if (Number(vCalValue)) {
-      start = new Date(Number(vCalValue))
-      end = 0
-    }
+  const isCleared = !(vCalValue as TimeRange).start || !(vCalValue as TimeRange).end
+  const start: Date | number | null = vCalValue?.start || new Date()
+  const end: Date | number | null = vCalValue?.end || new Date()
 
-    // Sets the emitted value when a v-calendar selection is made.
-    // In the case of a single date / time picker, only the `start` value will be provided.
-    // The `timePeriodsKey` param only applies to relative timeframes, not `v-calendar` selections;
-    // We return an empty string to keep the object shape consistent.
-    state.selectedRange = state.previouslySelectedRange = {
-      start,
-      end,
-      timePeriodsKey: '',
-    }
+  submitDisabled.value = !!isCleared
+
+  /**
+   * Set our v-calendar v-model
+   */
+  if (vCalValue && (vCalValue as TimeRange).start && (vCalValue as TimeRange).end) {
+    calendarRange.value.start = start
+    calendarRange.value.end = end
+  }
+
+  /**
+   * Set our internal state, used for display purposes, and for the emitted value when "Apply" is clicked.
+   * The `timePeriodsKey` param only applies to relative timeframes, not `v-calendar` selections;
+   * We return an empty string to keep the object shape consistent.
+   */
+  state.selectedRange = state.previouslySelectedRange = {
+    start,
+    end,
+    timePeriodsKey: '',
   }
 }
 
@@ -382,6 +364,7 @@ const changeRelativeTimeframe = (timeframe: TimePeriod): void => {
   }
 
   state.fullRangeDisplay = formatDisplayDate(state.selectedRange, false)
+  submitDisabled.value = false
 }
 
 /**
@@ -389,24 +372,20 @@ const changeRelativeTimeframe = (timeframe: TimePeriod): void => {
  * back to the parent.
  */
 const clearSelection = (): void => {
-  selectedCalendarRange.value = ''
+  calendarRange.value = defaultTimePeriod
   state.abbreviatedDisplay = props.placeholder
   state.fullRangeDisplay = ''
-  state.selectedRange = { start: 0, end: 0, timePeriodsKey: '' }
 
+  // Set the relative timeframe to the smallest increment, eg: `15m`
   if (hasTimePeriods.value) {
     state.selectedTimeframe = props.timePeriods[0]?.values[0]
   }
 
-  // If a range, emit an object with empty `start`, `end`, `timePeriods`;
-  // Else, emit empty string for single date/time picker
-  if (props.range || props.mode === 'relative') {
-    emit('change', state.selectedRange)
-    emit('update:modelValue', state.selectedRange)
-  } else {
-    emit('change', '')
-    emit('update:modelValue', '')
-  }
+  state.selectedRange = state.previouslySelectedRange = defaultTimePeriod
+
+  // Emit an object with empty `start`, `end`, `timePeriods`;
+  emit('change', state.selectedRange)
+  emit('update:modelValue', state.selectedRange)
 }
 
 /**
@@ -419,7 +398,7 @@ const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
   const { start, end } = range
   let fmtStr = 'PP hh:mm a'
 
-  const tzAbbrev = formatInTimeZone(start, localTz, '(z)')
+  const tzAbbrev = formatInTimeZone((start as Date), localTz, '(z)')
 
   // Determines the human timestamp readout format string; subject to change
   if (!hasCalendar.value && hasTimePeriods.value) {
@@ -427,31 +406,19 @@ const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
   } else if (props.mode === 'date') {
     fmtStr = 'PP'
   }
-  // Determine whether to display a formatting time range, or a single value in input field
-  if (props.range) {
-    return htmlFormat
-      ? `<div>${format(start, fmtStr)} -&nbsp;</div><div>${formatInTimeZone(end, localTz, fmtStr)} ${tzAbbrev}</div>`
-      : `${format(start, fmtStr)} - ${formatInTimeZone(end, localTz, fmtStr)} ${tzAbbrev}`
-  } else if (start) {
-    return `${format(start, fmtStr)} ${tzAbbrev}`
-  } else {
-    return ''
-  }
+  // Display a formatted time range
+  return htmlFormat
+    ? `<div>${format(start as Date, fmtStr)} -&nbsp;</div><div>${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}</div>`
+    : `${format(start as Date, fmtStr)} - ${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}` || ''
 }
 
 /**
  * Once a selection is made, emit value back to parent.
- * If a range date picker, send the full range (start and end); else, a single `start` Date.
+ * Emits `start`, `end` and the optional `timePeriodsKey`.
  */
 const submitTimeFrame = async (): Promise<void> => {
-  if (props.range || hasTimePeriods.value) {
-    emit('change', state.selectedRange)
-    emit('update:modelValue', state.selectedRange)
-  } else {
-    const singleDate: Date = new Date(state.selectedRange.start)
-    emit('change', singleDate)
-    emit('update:modelValue', singleDate)
-  }
+  emit('change', state.selectedRange)
+  emit('update:modelValue', state.selectedRange)
 
   state.hidePopover = true
   updateDisplay()
@@ -460,13 +427,13 @@ const submitTimeFrame = async (): Promise<void> => {
 /**
  * Updates the input field value as a visual confirmation after a choice is made
  *
- * If a single date/time instance, display the time range and timezone
+ * If the calendar tab has focus, display the time range and timezone
  * Otherwise, display the chosen relative timeframe
  */
 const updateDisplay = (): void => {
-  if (showCalendar.value && state.selectedRange?.start) {
+  if (showCalendar.value && !!state.selectedRange?.start) {
     state.abbreviatedDisplay = formatDisplayDate(state.selectedRange, true)
-  } else if (props.range && hasTimePeriods.value && !showCalendar.value) {
+  } else if (hasTimePeriods.value && !showCalendar.value) {
     state.abbreviatedDisplay = state.selectedTimeframe.display
   }
 }
@@ -476,14 +443,13 @@ const ucWord = (val: string): string => {
 }
 
 /**
- * Saves the internal state (range or single value) whenever
- * the `v-calendar` instance is interacted with.
+ * Saves the calendar range whenever the `v-calendar` instance is interacted with
  */
-watch(selectedCalendarRange, (newValue, oldValue) => {
+watch(calendarRange, (newValue, oldValue) => {
   if (newValue !== undefined && newValue !== oldValue) {
-    changeCalendarRange(newValue)
+    changeCalendarRange(newValue as TimeRange)
   }
-}, { immediate: false })
+}, { immediate: true })
 
 /**
  * Reinstate previous selection whenever user toggles between Relative and Custom tabs
@@ -496,14 +462,18 @@ watch(() => state.tabName, (newValue, oldValue) => {
   }
 })
 
+/**
+ * Selects either "Relative" or "Custom" tab, saves the incoming default value to internal state,
+ * then updates the input field to display the human-readable time frame.
+ */
 onMounted(() => {
-  // Select the tab based on incoming defaults; save the default value to our internal
-  // state and update the input field to display the human-readable date/time.
-  if ('timePeriodsKey' in (selectedCalendarRange.value as TimeRange)) {
+  if (ModeArrayRelative.includes(props.mode) && props.modelValue?.timePeriodsKey) {
     state.tabName = 'relative'
+    submitDisabled.value = false
 
     for (const section of props.timePeriods) {
-      const selectedTimeframe = section.values.find(e => e.key === (selectedCalendarRange.value as TimeRange).timePeriodsKey)
+      const selectedTimeframe = section.values.find(e => e.key === props.modelValue.timePeriodsKey)
+
       if (selectedTimeframe) {
         changeRelativeTimeframe(selectedTimeframe)
         updateDisplay()
@@ -512,13 +482,22 @@ onMounted(() => {
     }
   } else {
     state.tabName = 'custom'
+    changeCalendarRange(props.modelValue)
 
-    if (selectedCalendarRange.value || ('start' in (selectedCalendarRange as unknown as TimeRange))) {
-      changeCalendarRange(selectedCalendarRange.value)
+    if (props.modelValue?.start && props.modelValue?.end) {
       updateDisplay()
     }
   }
 })
+</script>
+
+<script lang="ts">
+// Module scope
+const defaultTimePeriod: TimeRange = {
+  start: null,
+  end: null,
+  timePeriodsKey: '',
+}
 </script>
 
 <style lang="scss">

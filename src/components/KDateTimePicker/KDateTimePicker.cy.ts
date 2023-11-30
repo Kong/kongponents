@@ -42,10 +42,12 @@ const maxDate = today
 const defaultTimeRange = {
   start: twoDaysAgo,
   end: today,
+  timePeriodsKey: TimeframeKeys.ONE_DAY,
 }
 const emptyTimeRange = {
   start: null,
   end: null,
+  timePeriodKey: null,
 }
 
 const timepickerInput = 'k-datetime-picker-input'
@@ -58,7 +60,7 @@ describe('KDateTimePicker', () => {
     mount(KDateTimePicker, {
       props: {
         mode: 'date',
-        modelValue: today,
+        modelValue: defaultTimeRange,
         range: false,
         icon: false,
       },
@@ -72,29 +74,28 @@ describe('KDateTimePicker', () => {
   it('renders with clear button', () => {
     mount(KDateTimePicker, {
       props: {
-        mode: 'date',
-        modelValue: today,
+        mode: 'dateTime',
+        modelValue: defaultTimeRange,
         clearButton: true,
-        range: false,
         icon: false,
       },
     })
 
     cy.getTestId(timepickerInput).should('exist')
     cy.getTestId(clearButton).should('exist')
+    cy.getTestId(timepickerInput).should('contain.text', todayDateTimeString)
   })
 
-  it('renders a single date picker with placeholder message and correct width', () => {
+  it('renders a date picker with placeholder message and correct width', () => {
     const placeholderText = 'Customer-facing message'
     const width = 500
 
     mount(KDateTimePicker, {
       props: {
         mode: 'date',
-        modelValue: today,
+        modelValue: defaultTimeRange,
         placeholder: placeholderText,
         clearButton: true,
-        range: false,
         width: width + '',
       },
     })
@@ -111,12 +112,11 @@ describe('KDateTimePicker', () => {
     cy.getTestId(timepickerInput).should('contain.text', placeholderText)
   })
 
-  it('renders range date picker', () => {
+  it('renders a date picker', () => {
     mount(KDateTimePicker, {
       props: {
         mode: 'date',
         modelValue: defaultTimeRange,
-        range: true,
       },
     })
     cy.getTestId(timepickerInput).should('exist')
@@ -125,47 +125,12 @@ describe('KDateTimePicker', () => {
     cy.get('.vc-pane-container').find('.vc-time-picker').should('not.exist')
   })
 
-  it('renders a single date and time picker', () => {
-    mount(KDateTimePicker, {
-      props: {
-        mode: 'dateTime',
-        modelValue: today,
-        range: false,
-      },
-    })
-    cy.getTestId(timepickerInput).should('exist')
-    cy.getTestId(timepickerInput).click()
-    cy.get('.vc-pane-container').should('exist')
-    cy.get('.vc-pane-container').find('.vc-time-picker').should('exist')
-    cy.getTestId(timepickerInput).find('.timepicker-display').should('contain.text', todayDateTimeString)
-  })
-
-  it('renders a range date and time picker', () => {
-    mount(KDateTimePicker, {
-      props: {
-        mode: 'dateTime',
-        modelValue: defaultTimeRange,
-        range: true,
-        minuteIncrement: '5',
-        minDate,
-        maxDate,
-      },
-    })
-
-    const wrapper = cy.get('.k-datetime-picker')
-    wrapper.should('exist')
-    wrapper.getTestId(timepickerInput).should('exist')
-    wrapper.getTestId(timepickerInput).click()
-    wrapper.get('.vc-pane-container .vc-time-picker').should('exist')
-  })
-
   it('displays a valid date when "Submit" is clicked', () => {
     mount(KDateTimePicker, {
       props: {
         mode: 'date',
         clearButton: true,
-        modelValue: today,
-        range: false,
+        modelValue: defaultTimeRange,
       },
     })
 
@@ -180,9 +145,8 @@ describe('KDateTimePicker', () => {
     mount(KDateTimePicker, {
       props: {
         mode: 'date',
-        modelValue: today,
+        modelValue: defaultTimeRange,
         clearButton: true,
-        range: false,
       },
     })
 
@@ -201,8 +165,7 @@ describe('KDateTimePicker', () => {
     mount(KDateTimePicker, {
       props: {
         mode: 'date',
-        modelValue: today,
-        range: false,
+        modelValue: defaultTimeRange,
       },
     })
 
@@ -218,8 +181,7 @@ describe('KDateTimePicker', () => {
     mount(KDateTimePicker, {
       props: {
         mode: 'relative',
-        modelValue: today,
-        range: false,
+        modelValue: defaultTimeRange,
         timePeriods: exampleTimeFrames,
       },
     })
@@ -238,7 +200,6 @@ describe('KDateTimePicker', () => {
       props: {
         mode: 'dateTime',
         modelValue: defaultTimeRange,
-        range: true,
         minDate,
         maxDate,
         timePeriods: exampleTimeFrames,
@@ -260,8 +221,7 @@ describe('KDateTimePicker', () => {
     mount(KDateTimePicker, {
       props: {
         mode: 'relativeDate',
-        modelValue: today,
-        range: false,
+        modelValue: defaultTimeRange,
         timePeriods: exampleTimeFrames,
       },
     })
@@ -273,21 +233,31 @@ describe('KDateTimePicker', () => {
     cy.get('.k-datetime-picker .vc-pane-container .vc-time-picker').should('not.exist')
   })
 
-  it('renders calendar with a default date range, if seeded with an invalid one', () => {
+  it('renders calendar, even if seeded with an invalid date range', () => {
+    const placeholderText = 'Please choose valid start and end dates'
+
     mount(KDateTimePicker, {
       props: {
         mode: 'relativeDate',
         modelValue: emptyTimeRange,
-        range: true,
+        placeholder: placeholderText,
         timePeriods: exampleTimeFrames,
       },
     })
 
     cy.getTestId(timepickerInput).click()
     cy.getTestId(segmentedToggle).find('button[name="custom"]').eq(0).click()
-    // On the calendar side, we should see the month view, but not the time picker
+
     cy.get('.k-datetime-picker .vc-pane-container .vc-weeks').should('exist')
     cy.get('.k-datetime-picker .vc-pane-container .vc-time-picker').should('not.exist')
-    cy.getTestId(timepickerInput).find('.timepicker-display').should('contain.text', todayDateTimeString)
+
+    cy.getTestId(timepickerInput).find('.timepicker-display').should('contain.text', placeholderText)
+
+    // "Apply" button should be enabled, since we default to current day
+    cy.getTestId(submitButton).should('be.enabled')
+
+    // If "Apply" is clicked, current time range includes today, eg: today - today (TZ)
+    cy.getTestId(submitButton).eq(0).click()
+    cy.getTestId(timepickerInput).find('.timepicker-display').should('contain.text', todayDateString)
   })
 })

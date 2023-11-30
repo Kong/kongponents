@@ -1,8 +1,8 @@
 import type { AnyElementOf } from '@/types/utils'
 
 export interface TimeRange {
-  start: Date | number,
-  end: Date | number,
+  start: Date | number | null,
+  end: Date | number | null,
   timePeriodsKey?: string
 }
 
@@ -24,7 +24,7 @@ export interface DateTimePickerState {
   abbreviatedDisplay: string
   fullRangeDisplay?: string
   hidePopover: boolean
-  selectedRange: TimeRange
+  selectedRange: TimeRange | null
   previouslySelectedRange: TimeRange,
   selectedTimeframe: TimePeriod
   previouslySelectedTimeframe: TimePeriod
@@ -35,5 +35,27 @@ export interface CSSProperties {
   [key: string]: string
 }
 
-export const ModeArray = ['date', 'time', 'dateTime', 'relative', 'relativeDate', 'relativeDateTime']
+export enum TimepickerMode {
+  D = 'date',
+  T = 'time',
+  DT = 'dateTime',
+  R = 'relative',
+  RD = 'relativeDate',
+  RDT = 'relativeDateTime'
+}
+
+export const ModeArray: string[] = Object.values(TimepickerMode)
+
+export const ModeArrayCustom: string[] = [
+  TimepickerMode.D,
+  TimepickerMode.T,
+  TimepickerMode.DT,
+]
+
+export const ModeArrayRelative: string[] = [
+  TimepickerMode.R,
+  TimepickerMode.RD,
+  TimepickerMode.RDT,
+]
+
 export type Mode = AnyElementOf<typeof ModeArray>

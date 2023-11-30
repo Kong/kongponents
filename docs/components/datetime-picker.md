@@ -4,80 +4,19 @@
 
 ## Examples
 
-### Single date
-
-Create a single date selection calendar, with an example of passing in a fixed pixel width for the input field, and an empty string for `currentValue` which defaults the input to the placeholder message.
-
-Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
-
-<ClientOnly>
-  <KDateTimePicker
-    v-model="currentValue0"
-    clear-button
-    placeholder="Please select a date"
-    mode="date"
-    width="250"
-    :range="false"
-  />
-  <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ JSON.stringify(currentValue0) }}</pre></div>
-</ClientOnly>
-
-```html
-<KDateTimePicker
-  v-model="currentValue"
-  @change="newVal => emitVal = newVal"
-  :range="false"
-  clear-button
-  placeholder="Please select a date"
-  mode="date"
-  width="250"
-/>
-```
-
-### Single date and time
-
-Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
-
-<ClientOnly>
-  <KDateTimePicker
-    v-model="currentValue1"
-    clear-button
-    placeholder="Please select a date and time"
-    mode="dateTime"
-    :minute-increment="5"
-    :range="false"
-  />
-  <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ JSON.stringify(currentValue1) }}</pre></div>
-</ClientOnly>
-
-```html
-<KDateTimePicker
-  v-model="currentValue"
-  @change="newVal => emitVal = newVal"
-  clear-button
-  placeholder="Please select a date and time"
-  mode="dateTime"
-  :minute-increment="5"
-  :range="false"
-/>
-```
-
 ### Date range
 
 Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 
 <ClientOnly>
   <KDateTimePicker
-    v-model="currentValue2"
+    v-model="currentValue5"
     clear-button
     placeholder="Please select a date range"
     mode="date"
-    :range="true"
   />
   <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ currentValue2 }}</pre></div>
+  <div>Emitted value: <pre class="json hide-from-percy">{{ currentValue5 }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -87,10 +26,8 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
   clear-button
   placeholder="Please select a date range"
   mode="date"
-  :range="true"
 />
 ```
-
 ### Date and time range
 
 Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
@@ -102,7 +39,6 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
     placeholder="Please select a date and time"
     mode="dateTime"
     :minute-increment="5"
-    :range="true"
   />
   <br/>
   <div>Emitted value: <pre class="json hide-from-percy">{{ currentValue3 }}</pre></div>
@@ -116,7 +52,6 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
   placeholder="Please select a date and time"
   mode="dateTime"
   :minute-increment="5"
-  :range="true"
 />
 ```
 
@@ -129,18 +64,17 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
 
 <ClientOnly>
   <KDateTimePicker
-    v-model="currentValue4"
+    v-model="currentValueRelative"
     placeholder="Please select a range"
     mode="relativeDate"
     width="415"
     :min-date="minDate"
     :max-date="maxDate"
     :minute-increment="5"
-    :range="true"
     :time-periods="exampleTimeFrames"
   />
   <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ currentValue4 }}</pre></div>
+  <div>Emitted value: <pre class="json hide-from-percy">{{ currentValueRelative }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -153,7 +87,6 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
   :min-date="minDate"
   :max-date="maxDate"
   :minute-increment="5"
-  :range="true"
   :time-periods="[
     {
       section: 'Last',
@@ -191,18 +124,17 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
 
 <ClientOnly>
   <KDateTimePicker
-    v-model="currentValue5"
+    v-model="currentValueRelative"
     placeholder="Please select a range"
     mode="relativeDateTime"
     width="415"
     :min-date="minDate"
     :max-date="maxDate"
     :minute-increment="5"
-    :range="true"
     :time-periods="exampleTimeFrames"
   />
   <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ currentValue5 }}</pre></div>
+  <div>Emitted value: <pre class="json hide-from-percy">{{ currentValueRelative }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -215,7 +147,6 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
   :min-date="minDate"
   :max-date="maxDate"
   :minute-increment="5"
-  :range="true"
   :time-periods="[
     {
       section: 'Last',
@@ -251,7 +182,7 @@ This utilizes the same time frames as the previous example; however, in this exa
 
 <ClientOnly>
   <KDateTimePicker
-    v-model="currentValue6"
+    v-model="currentValueRelative"
     placeholder="Please select a time frame"
     mode="relativeDate"
     width="480"
@@ -261,7 +192,7 @@ This utilizes the same time frames as the previous example; however, in this exa
     :time-periods="exampleTimeFrames"
   />
   <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ currentValue6 }}</pre></div>
+  <div>Emitted value: <pre class="json hide-from-percy">{{ currentValueRelative }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -305,17 +236,6 @@ This utilizes the same time frames as the previous example; however, in this exa
 ## Props
 
 ### v-model
-
-#### Single date time picker `v-model`
-
-A single date or time picker instance which can be seeded with a value as shown here, where `currentValue` is a valid Date object, eg: `new Date()` or an empty string, eg: `''` which will display the placeholder message.
-
-```ts
-<KDateTimePicker
-  v-model="currentValue"
-  ...
-/>
-```
 
 #### Range date time picker `v-model`
 
@@ -457,7 +377,7 @@ Will emit an `object` containing the following values:
   "start": "2022-09-06T19:45:54.406Z",  // ISO 8601 Date string
   "end": "2022-09-07T19:45:54.406Z", // ISO 8601 Date string
   "timePeriodsKey": "24h" // or "" if not applicable
-}
+} 
 ```
 
 <script>
@@ -501,8 +421,6 @@ export default {
     const aWeekAgo    = new Date(today.getTime() - (7*24*60*60*1000))
     const aYearAgo    = new Date(today.getTime() - (365*24*60*60*1000))
     return {
-      currentValue0: new Date(),
-      currentValue1: new Date(),
       currentValue2: {
         start: twoDaysAgo,
         end: today
@@ -519,10 +437,10 @@ export default {
         start: aWeekAgo,
         end: today
       },
-      currentValue6: {
-        start: aWeekAgo,
-        end: today,
-        timePeriodsKey: TimeframeKeys.SEVEN_DAY
+      currentValueRelative: {
+        start: null,
+        end: null,
+        timePeriodsKey: ''
       },
       rangeTwoday: {
         start: twoDaysAgo,
