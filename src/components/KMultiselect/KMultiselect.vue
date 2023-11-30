@@ -52,7 +52,7 @@
               <KBadge
                 v-for="item, idx in visibleSelectedItems"
                 :key="`${item.key ? item.key : idx}-badge`"
-                :appearance="isDisabled || isReadonly || item.disabled ? 'neutral' : 'info'"
+                :appearance="getBadgeAppearance(item)"
                 class="multiselect-selection-badge"
                 :class="{
                   'expand-selected': expandSelected,
@@ -268,7 +268,7 @@ import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
-import type { MultiselectItem, MultiselectFilterFnParams, DropdownFooterTextPosition, PopPlacements } from '@/types'
+import type { MultiselectItem, MultiselectFilterFnParams, DropdownFooterTextPosition, PopPlacements, BadgeAppearance } from '@/types'
 import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
@@ -346,7 +346,7 @@ const props = defineProps({
    */
   selectedRowCount: {
     type: Number,
-    default: 2,
+    default: 1,
   },
   /**
    * Determines whether to show total selected count (false), or
@@ -354,7 +354,7 @@ const props = defineProps({
    */
   collapsedContext: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   /**
    * Determines whether or not to hide the selections when not focused,
@@ -444,6 +444,18 @@ const isRequired = computed((): boolean => attrs.required !== undefined && Strin
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
 const hasDropdownFooter = computed((): boolean => !!(props.dropdownFooterText || slots['dropdown-footer-text']))
+
+const getBadgeAppearance = (item: MultiselectItem): BadgeAppearance => {
+  if (isDisabled.value || isReadonly.value || item.disabled) {
+    return 'neutral'
+  }
+
+  if (props.error) {
+    return 'danger'
+  }
+
+  return 'info'
+}
 
 const defaultKPopAttributes = {
   hideCaret: true,
@@ -960,11 +972,6 @@ watch(() => props.items, (newValue, oldValue) => {
     // Ensure each item has a `selected` property
     if (unfilteredItems.value[i].selected === undefined) {
       unfilteredItems.value[i].selected = false
-    }
-
-    // If an item is `selected` and `disabled`, provide fallback tooltip text if not provided
-    if (unfilteredItems.value[i].selected === true && unfilteredItems.value[i].disabled === true && !unfilteredItems.value[i].disabledTooltipText) {
-      unfilteredItems.value[i].disabledTooltipText = 'This item cannot be removed'
     }
 
     unfilteredItems.value[i].key = `${unfilteredItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `multiselect-item-label-${i}`

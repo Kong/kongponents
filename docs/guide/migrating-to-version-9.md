@@ -317,10 +317,12 @@ This component has been removed. Please refer to KBadge component which has been
 
 * `testMode` prop has been removed
 * `filterFunc` prop name has been changed to `filterFunction`
-
-#### Slots
+* `disabledTooltipText` property of object passed through `items` prop is no longer supported
 
 #### Events
+
+* `item:added` event was renamed to `item-added`
+* `item:removed` event was renamed to `item-removed`
 
 #### Structure
 
@@ -344,8 +346,6 @@ This component has been removed. Please refer to KBadge component which has been
 * `k-multiselect-dropdown-footer-text` class has been changed to `dropdown-footer`
 * `k-multiselect-popover` class has been changed to `multiselect-popover`
 * `k-multiselect-chevron-icon` class has been changed to `multiselect-chevron-icon`
-
-#### Constants, Types & Interfaces
 
 ### KPagination
 

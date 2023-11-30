@@ -35,15 +35,16 @@
         title="selectedRowCount"
       >
         <KMultiselect
-          :items="multiselectItems"
-          :selected-row-count="1"
+          :items="multiselectItemsSelected"
+          :selected-row-count="2"
+          width="500"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="collapsedContext"
       >
         <KMultiselect
-          collapsed-context
+          :collapsed-context="false"
           :items="multiselectItems"
         />
       </SandboxSectionComponent>
@@ -67,6 +68,11 @@
         title="error"
       >
         <KMultiselect
+          error
+          :items="multiselectItems"
+        />
+        <KMultiselect
+          :collapsed-context="false"
           error
           help="Help text turns into error text."
           :items="multiselectItems"
@@ -153,7 +159,7 @@
           label="Disabled"
         />
         <KMultiselect
-          collapsed-context
+          :collapsed-context="false"
           disabled
           :items="multiselectItems"
           label="Disabled"
@@ -168,7 +174,7 @@
           readonly
         />
         <KMultiselect
-          collapsed-context
+          :collapsed-context="false"
           :items="multiselectItems"
           label="Read only"
           readonly
@@ -231,7 +237,7 @@
         <KMultiselect
           v-model="example1Selected"
           autosuggest
-          collapsed-context
+          :collapsed-context="false"
           :items="example1Items"
           :selected-row-count="1"
           @query-change="example1OnQueryChange"
@@ -287,6 +293,14 @@ const multiselectItems: MultiselectItem[] = [{
   value: 'b2',
   group: 'Series 2',
 }]
+
+const multiselectItemsSelected = JSON.parse(JSON.stringify(multiselectItems)).map((item: MultiselectItem) => {
+  item.selected = true
+
+  return item
+})
+
+console.log(multiselectItemsSelected)
 
 // programmatic deselect example logic
 
