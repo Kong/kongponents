@@ -2,6 +2,26 @@
  * ResizeObserverHelper
  * @description Helper class for ResizeObserver
  * @param callback - Callback function on resize
+ *
+ * @example component usage
+ *
+ * import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
+ *
+ * const someElementRef = ref<HTMLDivElement>()
+ * const resizeObserver = ref<ResizeObserverHelper>()
+ *
+ * const onResizeCallback = () => {
+ *  // Callback on resize
+ * }
+ *
+ * onMounted(() => {
+ *  resizeObserver.value = ResizeObserverHelper.create(onResizeCallback)
+ *  resizeObserver.value.observe(someElementRef.value as HTMLDivElement)
+ * }}
+ *
+ * onUnmounted(() => {
+ *  resizeObserver.value.unobserve(someElementRef.value as HTMLDivElement)
+ * })
  */
 
 export class ResizeObserverHelper {
