@@ -112,11 +112,11 @@ Content to be rendered in the title of the card.
 
 ### actions
 
-Located next to card title, this slot serves for slotting in any action elements. See the example below.
+Located to the right of the card title, the `actions` slot allows for slotting in any action elements. See the example below.
 
 ### footer
 
-Bottom drawer of the card. Helpful for providing information of lesser importance.
+Bottom drawer of the card. Useful for providing contextual information.
 
 <KCard>
   <template #title>

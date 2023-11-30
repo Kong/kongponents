@@ -1,7 +1,7 @@
 <template>
   <SandboxLayout
     :links="inject('app-links', [])"
-    title="KButton"
+    title="KCard"
   >
     <div class="kcard-sandbox">
       <SandboxTitleComponent
