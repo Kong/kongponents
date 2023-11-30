@@ -44,9 +44,10 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.multiselect-input input').should('have.attr', 'placeholder', '2 items selected')
+    cy.getTestId('multiselect-selections').should('contain.text', selectedLabel)
+    cy.getTestId('multiselect-selections').should('contain.text', selectedLabel2)
 
-    cy.get('.multiselect-input').trigger('click')
+    cy.get('.multiselect-trigger').trigger('click')
 
     cy.getTestId('multiselect-selections').should('contain.text', selectedLabel)
     cy.getTestId('multiselect-selections').should('contain.text', selectedLabel2)
@@ -316,7 +317,6 @@ describe('KMultiselect', () => {
     mount(KMultiselect, {
       props: {
         autosuggest: true,
-        collapsedContext: true,
         selectedRowCount: 1,
         modelValue: selected,
         loading: false,
@@ -389,13 +389,13 @@ describe('KMultiselect', () => {
     cy.getTestId('multiselect-selections').should('exist')
   })
 
-  it('always shows selections when collapsedContext is true', () => {
+  it('inly shows placeholder when collapsedContext is false', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 
     mount(KMultiselect, {
       props: {
-        collapsedContext: true,
+        collapsedContext: false,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -408,10 +408,9 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.getTestId('multiselect-selections').should('exist')
+    cy.getTestId('multiselect-selections').should('not.exist')
 
-    cy.getTestId('multiselect-selections').should('contain.text', labels[0])
-    cy.getTestId('multiselect-selections').should('contain.text', labels[1])
+    cy.get('.multiselect-input input').should('have.attr', 'placeholder', '2 items selected')
 
     cy.get('.multiselect-chevron-icon').click()
 
@@ -436,7 +435,7 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.multiselect-input').click()
+    cy.get('.multiselect-trigger').click()
 
     cy.getTestId('multiselect-selections').should('contain.text', labels[0])
     cy.getTestId('multiselect-selections').should('contain.text', labels[1])
@@ -461,7 +460,7 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.multiselect-input').click()
+    cy.get('.multiselect-trigger').click()
 
     cy.getTestId('multiselect-selections').should('contain.text', labels[0])
     cy.getTestId('multiselect-selections').getTestId('badge-dismiss-button').first().click()
@@ -584,33 +583,33 @@ describe('KMultiselect', () => {
         modelValue: ['label1', 'label2'],
       },
     }).then(({ wrapper }) => {
-      cy.get('.multiselect-input input').should('have.attr', 'placeholder', '2 items selected').then(() => {
+      cy.getTestId('multiselect-selections').children().should('have.length', 2).then(() => {
 
         // Remove 'label1'
         wrapper.setProps({
           modelValue: ['label2'],
         }).then(() => {
 
-          cy.get('.multiselect-input input').should('have.attr', 'placeholder', '1 item selected').then(() => {
+          cy.getTestId('multiselect-selections').children().should('have.length', 1).then(() => {
 
             // Change the items; 'label2' is no longer in the list.
             wrapper.setProps({
               items: allItems.slice(2),
             }).then(() => {
 
-              cy.get('.multiselect-input input').should('have.attr', 'placeholder', '1 item selected').then(() => {
+              cy.getTestId('multiselect-selections').children().should('have.length', 1).then(() => {
 
                 // Select an additional item.
                 wrapper.setProps({
                   modelValue: ['label2', 'label3'],
                 }).then(() => {
-                  cy.get('.multiselect-input input').should('have.attr', 'placeholder', '2 items selected').then(() => {
+                  cy.getTestId('multiselect-selections').children().should('have.length', 2).then(() => {
 
                     // Remove 'label2' from the selection.
                     wrapper.setProps({
                       modelValue: ['label3'],
                     }).then(() => {
-                      cy.get('.multiselect-input input').should('have.attr', 'placeholder', '1 item selected')
+                      cy.getTestId('multiselect-selections').children().should('have.length', 1)
                     })
                   })
                 })

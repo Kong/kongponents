@@ -318,6 +318,8 @@ This component has been removed. Please refer to KBadge component which has been
 * `testMode` prop has been removed
 * `filterFunc` prop name has been changed to `filterFunction`
 * `disabledTooltipText` property of object passed through `items` prop is no longer supported
+* default value of `collapsedContext` prop has changed to `true`
+* default value of `selectedRowCount` prop has changed to `1`
 
 #### Events
 
