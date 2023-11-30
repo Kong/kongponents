@@ -160,7 +160,8 @@ const offsetTopValue = computed((): string => {
 @import '@/styles/tmp-variables';
 
 .k-slideout {
-  :deep(.kong-card) {
+  :deep(.k-card) {
+    border: none;
     padding: var(--kui-space-110, $kui-space-110) var(--kui-space-90, $kui-space-90);
   }
 

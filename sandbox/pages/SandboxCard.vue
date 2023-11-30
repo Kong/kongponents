@@ -95,28 +95,6 @@
           </KCard>
         </div>
       </SandboxSectionComponent>
-
-      <!-- Legacy -->
-      <SandboxTitleComponent
-        is-subtitle
-        title="Legacy"
-      />
-      <SandboxSectionComponent title="body slot (deprecated)">
-        <KCard>
-          When both `default` and `body` slots are present, `default` slot will be used.
-          <template #body>
-            And `body` slot will be ignored.
-          </template>
-        </KCard>
-        <KCard>
-          <template #body>
-            But when only the `body` slot is present, it will be treated as `default`.
-          </template>
-        </KCard>
-      </SandboxSectionComponent>
-      <SandboxSectionComponent title="body prop (deprecated)">
-        <KCard body="`body` prop is deprecated but is backwards compatible." />
-      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>

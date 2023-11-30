@@ -20,19 +20,10 @@
       </div>
     </div>
     <div
-      v-if="showCardBody"
+      v-if="$slots.default"
       class="card-content"
     >
-      <slot
-        v-if="$slots.default"
-        name="default"
-      />
-      <slot
-        v-else-if="!$slots.default && ($slots.body || body)"
-        name="body"
-      >
-        {{ body }}
-      </slot>
+      <slot name="default" />
     </div>
     <div
       v-if="$slots.footer"
@@ -44,26 +35,12 @@
 </template>
 
 <script setup lang="ts">
-import { useSlots, computed, onMounted } from 'vue'
+import { useSlots, computed } from 'vue'
 
 const props = defineProps({
   title: {
     type: String,
     default: '',
-  },
-  /**
-   * @deprecated in favor of `content` prop
-   */
-  body: {
-    type: String,
-    default: '',
-    validator: (value: string) => {
-      if (value) {
-        console.warn('KCard: `body` prop has been deprecated. Please use `default` slot instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kcard')
-      }
-
-      return true
-    },
   },
 })
 
@@ -71,17 +48,6 @@ const slots = useSlots()
 
 const showCardHeader = computed((): boolean => {
   return !!(slots.title || props.title || slots.actions)
-})
-
-const showCardBody = computed((): boolean => {
-  return !!(slots.default || slots.body || props.body)
-})
-
-onMounted(() => {
-  if (slots.body) {
-    // TODO: remove this when @deprecated `body` slot is removed
-    console.warn('KCard: `body` slot has been deprecated in favor of `default` slot. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kcard')
-  }
 })
 </script>
 
