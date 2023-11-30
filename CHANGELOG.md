@@ -1,3 +1,10 @@
+# [9.0.0-alpha.66](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.65...v9.0.0-alpha.66) (2023-11-30)
+
+
+### Bug Fixes
+
+* **utils:** add resize observer helper class ([#1886](https://github.com/Kong/kongponents/issues/1886)) ([c64ff73](https://github.com/Kong/kongponents/commit/c64ff7352aaa7601ab72ceed71c2261675919563))
+
 # [9.0.0-alpha.65](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.64...v9.0.0-alpha.65) (2023-11-30)
 
 
