@@ -81,6 +81,33 @@ You may also specify:
 />
 ```
 
+### help
+
+Use this prop to pass help text to be displayed below the multiselect element.
+
+<ClientOnly>
+  <KMultiselect label="Label" help="Help text or other tips." :items="deepClone(defaultItemsUnselect)" />
+</ClientOnly>
+
+```html
+<KMultiselect label="Label" help="Help text or other tips." :items="items" />
+```
+
+### error
+
+Boolean to display component in error state.
+
+<ClientOnly>
+  <KMultiselect error :items="deepClone(defaultItemsCollapse)" />
+  <br>
+  <KMultiselect error :collapsed-context="false" help="Help text can turn into error message." :items="deepClone(defaultItemsCollapse)" />
+</ClientOnly>
+
+```html
+<KMultiselect error :items="items" />
+<KMultiselect error :collapsed-context="false" help="Help text can turn into error message." :items="items" />
+```
+
 ### enableItemCreation
 
 KMultiselect can offer users the ability to add custom items to the list by typing the item they want to and then clicking the `... (Add new value)` item at the bottom of the list, which will also automatically select it.
