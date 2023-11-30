@@ -96,6 +96,7 @@ import { onMounted, onBeforeUnmount, ref, nextTick, computed } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import { ChevronUpIcon } from '@kong/icons'
 import { KUI_SPACE_40, KUI_COLOR_TEXT_PRIMARY } from '@kong/design-tokens'
+import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 
 const { getSizeFromString } = useUtilities()
 
@@ -123,7 +124,7 @@ const expanded = ref<boolean>(props.isExpanded)
 
 const showToggle = ref<boolean>(false)
 
-const resizeObserver = ref()
+const resizeObserver = ref<ResizeObserverHelper>()
 
 const kTruncateContainer = ref<HTMLDivElement>()
 const kTruncateWrapper = ref<HTMLDivElement>()
@@ -228,24 +229,14 @@ const widthStyle = computed((): Record<string, string> => {
 })
 
 onMounted(() => {
-  resizeObserver.value = new ResizeObserver(entries => {
-    // Wrapper 'window.requestAnimationFrame' is needed for disabling "ResizeObserver loop limit exceeded" error in DD
-    window.requestAnimationFrame(() => {
-      if (!Array.isArray(entries) || !entries.length) {
-        return
-      }
-      // Actual code
-      setWrapperHeight()
-    })
-  })
+  resizeObserver.value = ResizeObserverHelper.create(setWrapperHeight)
+
   resizeObserver.value.observe(kTruncateContainer.value as HTMLDivElement)
   updateToggleVisibility()
 })
 
 onBeforeUnmount(() => {
-  if (resizeObserver.value) {
-    resizeObserver.value.unobserve(kTruncateContainer.value)
-  }
+  resizeObserver.value?.unobserve(kTruncateContainer.value as HTMLDivElement)
 })
 </script>
 
