@@ -233,6 +233,28 @@ describe('KDateTimePicker', () => {
     cy.get('.k-datetime-picker .vc-pane-container .vc-time-picker').should('not.exist')
   })
 
+  it('renders date only calendar and displays time range in `PP` format', () => {
+    mount(KDateTimePicker, {
+      props: {
+        mode: 'date',
+        modelValue: defaultTimeRange,
+      },
+    })
+
+    cy.getTestId(timepickerInput).find('.timepicker-display').should('contain.text', todayDateString)
+  })
+
+  it('renders relativeDateTime calendar and displays time range in `PP hh:mm a` format', () => {
+    mount(KDateTimePicker, {
+      props: {
+        mode: 'dateTime',
+        modelValue: defaultTimeRange,
+      },
+    })
+
+    cy.getTestId(timepickerInput).find('.timepicker-display').should('contain.text', todayDateTimeString)
+  })
+
   it('renders calendar, even if seeded with an invalid date range', () => {
     const placeholderText = 'Please choose valid start and end dates'
 

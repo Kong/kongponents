@@ -141,7 +141,7 @@ import KPop from '@/components/KPop/KPop.vue'
 import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.vue'
 import 'v-calendar/dist/style.css'
 import type { DateTimePickerState, TimeFrameSection, TimePeriod, TimeRange, Mode, CSSProperties } from '@/types'
-import { ModeArray, ModeArrayRelative } from '@/types'
+import { ModeArray, ModeArrayRelative, ModeDateOnly, TimepickerMode } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import { CalIcon } from '@kong/icons'
 
@@ -287,9 +287,9 @@ const widthStyle = computed((): CSSProperties => {
 })
 
 const impliedMode = computed((): string => {
-  if (props.mode === 'relativeDateTime') {
+  if (props.mode === TimepickerMode.RelativeDateTime) {
     return 'dateTime'
-  } else if (props.mode === 'relativeDate') {
+  } else if (props.mode === TimepickerMode.RelativeDate) {
     return 'date'
   } else {
     // Values that are safe to be passed verbatim to v-calendar
@@ -403,7 +403,7 @@ const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
   // Determines the human timestamp readout format string; subject to change
   if (!hasCalendar.value && hasTimePeriods.value) {
     fmtStr = 'PP hh:mm a'
-  } else if (props.mode === 'date') {
+  } else if (ModeDateOnly.includes(props.mode)) {
     fmtStr = 'PP'
   }
   // Display a formatted time range
@@ -525,10 +525,6 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
     padding: var(--kui-space-50, $kui-space-50) !important;
     // Styling button as input via mixin
     @include input-default;
-
-    .calendar-icon {
-      margin-right: var(--kui-space-20, $kui-space-20) !important;
-    }
 
     &.set-min-width {
       min-width: $timepicker-min-width;

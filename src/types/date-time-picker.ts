@@ -58,4 +58,9 @@ export const ModeArrayRelative: string[] = [
   TimepickerMode.RelativeDateTime,
 ]
 
+export const ModeDateOnly: string[] = [
+  TimepickerMode.Date,
+  TimepickerMode.RelativeDate,
+]
+
 export type Mode = AnyElementOf<typeof ModeArray>

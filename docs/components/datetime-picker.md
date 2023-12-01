@@ -438,9 +438,9 @@ export default {
         end: today
       },
       currentValueRelative: {
-        start: null,
-        end: null,
-        timePeriodsKey: ''
+        start: aWeekAgo,
+        end: today,
+        timePeriodsKey: TimeframeKeys.SEVEN_DAY
       },
       rangeTwoday: {
         start: twoDaysAgo,
