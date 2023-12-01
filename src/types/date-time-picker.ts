@@ -1,5 +1,23 @@
 import type { AnyElementOf } from '@/types/utils'
 
+// v-calendar defines these types internally, but does not export them
+export interface SimpleDateParts {
+  year: number
+  month: number
+  day: number
+  hours: number
+  minutes: number
+  seconds: number
+  milliseconds: number
+}
+export type DateSource = Date | string | number
+export type DatePickerDate = DateSource | Partial<SimpleDateParts> | null
+export type DatePickerRangeObject = {
+  start: Exclude<DatePickerDate, null>
+  end: Exclude<DatePickerDate, null>
+}
+export type DatePickerModel = DatePickerDate | DatePickerRangeObject
+
 export interface TimeRange {
   start: Date | null,
   end: Date | null,
@@ -24,8 +42,8 @@ export interface DateTimePickerState {
   abbreviatedDisplay: string
   fullRangeDisplay?: string
   hidePopover: boolean
-  selectedRange: TimeRange | null
-  previouslySelectedRange: TimeRange,
+  selectedRange: TimeRange
+  previouslySelectedRange: TimeRange
   selectedTimeframe: TimePeriod
   previouslySelectedTimeframe: TimePeriod
   tabName: string
