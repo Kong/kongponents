@@ -81,6 +81,8 @@ const showCardHeader = computed((): boolean => {
 
   .card-content {
     @include bodyText;
+
+    height: 100%;
   }
 
   .card-footer {
