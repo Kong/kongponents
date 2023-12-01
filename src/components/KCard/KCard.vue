@@ -82,6 +82,8 @@ const showCardHeader = computed((): boolean => {
   .card-content {
     @include bodyText;
 
+    display: flex;
+    flex-direction: column;
     height: 100%;
   }
 
