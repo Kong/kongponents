@@ -190,7 +190,7 @@ Component has been renamed to `KDropdown`
 
 #### Props
 
-* `labelPosition` prop has been deprecated in favor of `labelBefore`
+* `labelPosition` prop has been removed. Please use `labelBefore` prop instead
 * `enabledIcon` prop has been removed
 
 #### Structure

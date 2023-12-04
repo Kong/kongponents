@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-input-switch"
-    :class="[size, { 'label-before': labelBefore || labelPosition === 'left', 'disabled': disabled }, $attrs.class]"
+    :class="[size, { 'label-before': labelBefore, 'disabled': disabled }, $attrs.class]"
   >
     <input
       v-bind="strippedAttrs"
@@ -24,6 +24,7 @@
         :aria-labelledby="inputId"
         class="switch-control"
         :class="{ 'checked': modelValue, 'disabled': disabled }"
+        data-testid="switch-control"
         role="checkbox"
         :tabindex="disabled ? -1 : 0"
         @click="propagateInputEvent"
@@ -87,20 +88,6 @@ const props = defineProps({
   labelBefore: {
     type: Boolean,
     default: false,
-  },
-  /**
-   * @deprecated in favor of `labelBefore`
-   */
-  labelPosition: {
-    type: String as PropType<'left' | 'right'>,
-    default: 'right',
-    validator: (position: 'left' | 'right'): boolean => {
-      if (position === 'left') {
-        console.warn('KInputSwitch: `labelPosition` prop is deprecated. Please use `labelBefore` prop instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kinputswitch')
-      }
-
-      return ['left', 'right'].includes(position)
-    },
   },
 })
 

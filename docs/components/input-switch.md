@@ -10,14 +10,34 @@ KInputSwitch, similar to a checkbox, is used to toggle a value on and off.
 
 ## Props
 
+### v-model
+
+Value to bind to the KInputSwitch.
+
+<KInputSwitch v-model="vModel5" :label="vModel5 ? 'Toggled on' : 'Toggled off'" />
+
+```html
+<KInputSwitch v-model="switchValue" :label="switchValue ? 'Toggled on' : 'Toggled off'" />
+```
+
 ### label
 
-Will place label text to the right of the switch. Can also be [slotted](#slots).
+A `string` of text to display as a label after the input switch. The label can also be [slotted](#slots).
 
 <KInputSwitch v-model="vModel3" label="Label" />
 
 ```html
 <KInputSwitch v-model="switchValue" label="Label" />
+```
+
+### labelBefore
+
+A `boolean` to place the label before the input switch. Defaults to `false`.
+
+<KInputSwitch label-before label="Label before" v-model="vModel4" />
+
+```html
+<KInputSwitch label-before label="Label before" v-model="switchValue" />
 ```
 
 ### size
@@ -32,26 +52,6 @@ KInputSwitch comes in two sizes: `small` (default) and `large`.
 ```html
 <KInputSwitch size="small" label="Small" v-model="switchValue1" />
 <KInputSwitch size="large" label="Large" v-model="switchValue2" />
-```
-
-### labelBefore
-
-Use this prop if you want the label to render on the left of the toggle box.
-
-<KInputSwitch label-before label="Label before" v-model="vModel4" />
-
-```html
-<KInputSwitch label-before label="Label before" v-model="switchValue" />
-```
-
-### v-model
-
-Value to bind to the KInputSwitch.
-
-<KInputSwitch v-model="vModel5" :label="vModel5 ? 'Toggled on' : 'Toggled off'" />
-
-```html
-<KInputSwitch v-model="switchValue" :label="switchValue ? 'Toggled on' : 'Toggled off'" />
 ```
 
 ### disabledTooltipText
