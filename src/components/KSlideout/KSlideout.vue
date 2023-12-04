@@ -241,7 +241,6 @@ const offsetTopValue = computed((): string => {
 
       .content-card {
         border: none;
-        padding: var(--kui-space-110, $kui-space-110) var(--kui-space-90, $kui-space-90);
       }
     }
   }
