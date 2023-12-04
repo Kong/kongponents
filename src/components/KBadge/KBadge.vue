@@ -247,10 +247,46 @@ $kBadgeMethodWidth: 85px;
   }
 
   // methods
+  &.connect {
+    @include kBadgeAppearance(var(--kui-method-color-background-connect, $kui-method-color-background-connect),
+      var(--kui-method-color-text-connect, $kui-method-color-text-connect),
+      var(--kui-method-color-text-connect-strong, $kui-method-color-text-connect-strong));
+  }
+
+  &.custom {
+    @include kBadgeAppearance(var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak),
+      var(--kui-color-text, $kui-color-text),
+      var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+  }
+
+  &.delete {
+    @include kBadgeAppearance(var(--kui-method-color-background-delete, $kui-method-color-background-delete),
+      var(--kui-method-color-text-delete, $kui-method-color-text-delete),
+      var(--kui-method-color-text-delete-strong, $kui-method-color-text-delete-strong));
+  }
+
   &.get {
     @include kBadgeAppearance(var(--kui-method-color-background-get, $kui-method-color-background-get),
       var(--kui-method-color-text-get, $kui-method-color-text-get),
       var(--kui-method-color-text-get-strong, $kui-method-color-text-get-strong));
+  }
+
+  &.head {
+    @include kBadgeAppearance(var(--kui-method-color-background-head, $kui-method-color-background-head),
+      var(--kui-method-color-text-head, $kui-method-color-text-head),
+      var(--kui-method-color-text-head-strong, $kui-method-color-text-head-strong));
+  }
+
+  &.options {
+    @include kBadgeAppearance(var(--kui-method-color-background-options, $kui-method-color-background-options),
+      var(--kui-method-color-text-options, $kui-method-color-text-options),
+      var(--kui-method-color-text-options-strong, $kui-method-color-text-options-strong));
+  }
+
+  &.patch {
+    @include kBadgeAppearance(var(--kui-method-color-background-patch, $kui-method-color-background-patch),
+      var(--kui-method-color-text-patch, $kui-method-color-text-patch),
+      var(--kui-method-color-text-patch-strong, $kui-method-color-text-patch-strong));
   }
 
   &.post {
@@ -265,46 +301,10 @@ $kBadgeMethodWidth: 85px;
       var(--kui-method-color-text-put-strong, $kui-method-color-text-put-strong));
   }
 
-  &.delete {
-    @include kBadgeAppearance(var(--kui-method-color-background-delete, $kui-method-color-background-delete),
-      var(--kui-method-color-text-delete, $kui-method-color-text-delete),
-      var(--kui-method-color-text-delete-strong, $kui-method-color-text-delete-strong));
-  }
-
-  &.patch {
-    @include kBadgeAppearance(var(--kui-method-color-background-patch, $kui-method-color-background-patch),
-      var(--kui-method-color-text-patch, $kui-method-color-text-patch),
-      var(--kui-method-color-text-patch-strong, $kui-method-color-text-patch-strong));
-  }
-
-  &.options {
-    @include kBadgeAppearance(var(--kui-method-color-background-options, $kui-method-color-background-options),
-      var(--kui-method-color-text-options, $kui-method-color-text-options),
-      var(--kui-method-color-text-options-strong, $kui-method-color-text-options-strong));
-  }
-
-  &.head {
-    @include kBadgeAppearance(var(--kui-method-color-background-head, $kui-method-color-background-head),
-      var(--kui-method-color-text-head, $kui-method-color-text-head),
-      var(--kui-method-color-text-head-strong, $kui-method-color-text-head-strong));
-  }
-
-  &.connect {
-    @include kBadgeAppearance(var(--kui-method-color-background-connect, $kui-method-color-background-connect),
-      var(--kui-method-color-text-connect, $kui-method-color-text-connect),
-      var(--kui-method-color-text-connect-strong, $kui-method-color-text-connect-strong));
-  }
-
   &.trace {
     @include kBadgeAppearance(var(--kui-method-color-background-trace, $kui-method-color-background-trace),
       var(--kui-method-color-text-trace, $kui-method-color-text-trace),
       var(--kui-method-color-text-trace-strong, $kui-method-color-text-trace-strong));
-  }
-
-  &.custom {
-    @include kBadgeAppearance(var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak),
-      var(--kui-color-text, $kui-color-text),
-      var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
   }
 }
 </style>
