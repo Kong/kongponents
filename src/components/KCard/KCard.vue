@@ -76,6 +76,7 @@ const showCardHeader = computed((): boolean => {
     .card-actions {
       display: flex;
       gap: var(--kui-space-30, $kui-space-30);
+      margin-left: var(--kui-space-auto, $kui-space-auto);
     }
   }
 
