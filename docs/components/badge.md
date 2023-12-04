@@ -14,7 +14,7 @@ KBadge is a visual text label that presents small amount of information.
 
 KBadge component takes one of the following appearance values:
 
-| Appearances  | Methods Appearances |
+| Standard  | Methods |
 | ------------ | ------------------- |
 | `info`       | `get`               |
 | `success`    | `post`              |
@@ -28,7 +28,7 @@ KBadge component takes one of the following appearance values:
 |              | `custom`            |
 
 :::tip TIP
-Passing one of the methods appearances will apply `text-transform: uppercase;` and set `min-with` to badge container. You can pass `custom` to apply method badge styling should you need a badge for your custom method.
+Passing one of the methods appearances will apply `text-transform: uppercase` and set the `min-width` on the badge container. You may pass `custom` to apply method badge styling should you need a badge for your custom method.
 :::
 
 <div class="vertical-spacing-container">
@@ -107,7 +107,7 @@ Passing one of the methods appearances will apply `text-transform: uppercase;` a
 
 ### tooltip
 
-Use this prop to pass tooltip text that will show on badge hover.
+Provide a `string` of tooltip text that will be shown on badge hover.
 
 <KBadge tooltip="Unpublish service to make changes" appearance="success">
   Published
@@ -121,7 +121,7 @@ Use this prop to pass tooltip text that will show on badge hover.
 
 ### truncationTooltip
 
-Use this prop if you would like to conditionally display a tooltip only when the badge text is truncated. Defaults to `false`. See [`maxWidth` prop](#maxwidth) to learn more about badge truncation.
+A `boolean` to conditionally display the [`tooltip`](#tooltip) only when the badge text is truncated. Defaults to `false`. See [`maxWidth` prop](#maxwidth) to learn more about badge truncation.
 
 <div class="horizontal-spacing-container">
   <KBadge truncation-tooltip tooltip="8ba8840f-ded7-457a-adb9-0ef15b6fb919">
@@ -143,7 +143,7 @@ Use this prop if you would like to conditionally display a tooltip only when the
 
 ### maxWidth
 
-Max width to apply truncation at. Works just like `max-width` property in CSS. Default value is `200px`. Content that's wider than value of this prop will automatically be truncated.
+A `string`, in pixels, to limit the badge width and truncate the text. Works just like `max-width` property in CSS. Default value is `200px`. Text content that is wider than the provided value will be truncated.
 
 <KBadge max-width="auto" appearance="warning">
   Very long text that should be truncated but isn't thanks to max-width="auto"
@@ -157,7 +157,7 @@ Max width to apply truncation at. Works just like `max-width` property in CSS. D
 
 ### iconBefore
 
-Whether icon passed through the [`icon` slot](#icon) should render before or after badge content. Defaults to `true`.
+The [`icon` slot](#icon) content is displayed before the badge text by default. Pass `false` to the `iconBefore` prop to render the icon after the badge text.
 
 <div class="horizontal-spacing-container">
   <KBadge :icon-before="false">
@@ -193,7 +193,7 @@ Whether icon passed through the [`icon` slot](#icon) should render before or aft
 
 ### default
 
-Badge content.
+The badge content.
 
 <KBadge appearance="success">Success</KBadge>
 
@@ -203,7 +203,7 @@ Badge content.
 
 ### icon
 
-Slot to pass an icon or any other element. Positioning (whether this slot content is rendered before or after badge content) is defined by [`iconBefore` prop](#iconbefore).
+Used to pass an icon or (other element) into the badge. Positioning (whether this slot content is rendered before or after the badge content) is configured with the [`iconBefore` prop](#iconbefore).
 
 <div class="horizontal-spacing-container">
   <KBadge appearance="warning">
@@ -236,7 +236,7 @@ Slot to pass an icon or any other element. Positioning (whether this slot conten
 ```
 
 :::tip TIP
-If you want to make an icon clickable, you can assign `role="button"` and appropriate `tabindex` attributes to that element and bind an event handler. KBadge will take care of state styling (hover, focus, disabled).
+To make an icon clickable, you **must** assign an attribute of `role="button"` and an appropriate `tabindex` to the clickable element and bind an event handler. KBadge will take care of the state styling (hover, focus, and disabled).
 
 
 <Transition name="kongponents-fade-transition" mode="out-in">
