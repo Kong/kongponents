@@ -150,13 +150,14 @@ $kBadgeMethodWidth: 85px;
 
 /* Component mixins */
 
-@mixin kBadgeInfo {
-  background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-  color: var(--kui-color-text-primary, $kui-color-text-primary);
+// uses info badge appearance colors as default
+@mixin kBadgeAppearance($bgColor: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest), $textColor: var(--kui-color-text-primary, $kui-color-text-primary), $hoverColor: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong)) {
+  background-color: $bgColor;
+  color: $textColor;
 
   :deep([role="button"]):not([disabled]) {
     &:hover, &:focus {
-      color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong) !important;
+      color: $hoverColor !important;
     }
   }
 }
@@ -165,7 +166,7 @@ $kBadgeMethodWidth: 85px;
 
 .k-badge {
   // apply info appearance by default (in case of invalid appearance)
-  @include kBadgeInfo;
+  @include kBadgeAppearance;
   @include badgeWrapper;
 
   .badge-content {
@@ -212,174 +213,98 @@ $kBadgeMethodWidth: 85px;
   /* Appearances */
 
   &.info {
-    @include kBadgeInfo;
+    @include kBadgeAppearance;
   }
 
   &.success {
-    background-color: var(--kui-color-background-success-weakest, $kui-color-background-success-weakest);
-    color: var(--kui-color-text-success, $kui-color-text-success);
-
-    :deep([role="button"]):not([disabled]) {
-      &:hover, &:focus {
-        color: var(--kui-color-text-success-strong, $kui-color-text-success-strong) !important;
-      }
-    }
+    @include kBadgeAppearance(var(--kui-color-background-success-weakest, $kui-color-background-success-weakest),
+      var(--kui-color-text-success, $kui-color-text-success),
+      var(--kui-color-text-success-strong, $kui-color-text-success-strong));
   }
 
   &.warning {
-    background-color: var(--kui-color-background-warning-weakest, $kui-color-background-warning-weakest);
-    color: var(--kui-color-text-warning, $kui-color-text-warning);
-
-    :deep([role="button"]):not([disabled]) {
-      &:hover, &:focus {
-        color: var(--kui-color-text-warning-strong, $kui-color-text-warning-strong) !important;
-      }
-    }
+    @include kBadgeAppearance(var(--kui-color-background-warning-weakest, $kui-color-background-warning-weakest),
+      var(--kui-color-text-warning, $kui-color-text-warning),
+      var(--kui-color-text-warning-strong, $kui-color-text-warning-strong));
   }
 
   &.danger {
-    background-color: var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest);
-    color: var(--kui-color-text-danger, $kui-color-text-danger);
-
-    :deep([role="button"]):not([disabled]) {
-      &:hover, &:focus {
-        color: var(--kui-color-text-danger-strong, $kui-color-text-danger-strong) !important;
-      }
-    }
+    @include kBadgeAppearance(var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest),
+      var(--kui-color-text-danger, $kui-color-text-danger),
+      var(--kui-color-text-danger-strong, $kui-color-text-danger-strong));
   }
 
   &.decorative {
-    background-color: var(--kui-color-background-decorative-purple-weakest, $kui-color-background-decorative-purple-weakest);
-    color: var(--kui-color-text-decorative-purple, $kui-color-text-decorative-purple);
-
-    :deep([role="button"]):not([disabled]) {
-      &:hover, &:focus {
-        // TODO: kui-color-text-decorative-purple-strong
-        color: var(--kui-color-text-decorative-purple-strong, $kui-color-text-decorative-purple-strong) !important;
-      }
-    }
+    @include kBadgeAppearance(var(--kui-color-background-decorative-purple-weakest, $kui-color-background-decorative-purple-weakest),
+      var(--kui-color-text-decorative-purple, $kui-color-text-decorative-purple),
+      var(--kui-color-text-decorative-purple-strong, $kui-color-text-decorative-purple-strong));
   }
 
   &.neutral {
-    background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-    color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
-
-    :deep([role="button"]):not([disabled]) {
-      &:hover, &:focus {
-        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger) !important;
-      }
-    }
+    @include kBadgeAppearance(var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker),
+      var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong),
+      var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
   }
 
   // methods
   &.get {
-    background-color: var(--kui-method-color-background-get, $kui-method-color-background-get);
-    color: var(--kui-method-color-text-get, $kui-method-color-text-get);
-
-    :deep([role="button"]):not([disabled]) {
-      &:hover, &:focus {
-        color: var(--kui-method-color-text-get-strong, $kui-method-color-text-get-strong) !important;
-      }
-    }
+    @include kBadgeAppearance(var(--kui-method-color-background-get, $kui-method-color-background-get),
+      var(--kui-method-color-text-get, $kui-method-color-text-get),
+      var(--kui-method-color-text-get-strong, $kui-method-color-text-get-strong));
   }
 
   &.post {
-    background-color: var(--kui-method-color-background-post, $kui-method-color-background-post);
-    color: var(--kui-method-color-text-post, $kui-method-color-text-post);
-
-    :deep([role="button"]):not([disabled]) {
-      &:hover, &:focus {
-        color: var(--kui-method-color-text-post-strong, $kui-method-color-text-post-strong) !important;
-      }
-    }
+    @include kBadgeAppearance(var(--kui-method-color-background-post, $kui-method-color-background-post),
+      var(--kui-method-color-text-post, $kui-method-color-text-post),
+      var(--kui-method-color-text-post-strong, $kui-method-color-text-post-strong));
   }
 
   &.put {
-    background-color: var(--kui-method-color-background-put, $kui-method-color-background-put);
-    color: var(--kui-method-color-text-put, $kui-method-color-text-put);
-
-    :deep([role="button"]):not([disabled]) {
-      &:hover, &:focus {
-        color: var(--kui-method-color-text-put-strong, $kui-method-color-text-put-strong) !important;
-      }
-    }
+    @include kBadgeAppearance(var(--kui-method-color-background-put, $kui-method-color-background-put),
+      var(--kui-method-color-text-put, $kui-method-color-text-put),
+      var(--kui-method-color-text-put-strong, $kui-method-color-text-put-strong));
   }
 
   &.delete {
-    background-color: var(--kui-method-color-background-delete, $kui-method-color-background-delete);
-    color: var(--kui-method-color-text-delete, $kui-method-color-text-delete);
-
-    :deep([role="button"]):not([disabled]) {
-      &:hover, &:focus {
-        color: var(--kui-method-color-text-delete-strong, $kui-method-color-text-delete-strong) !important;
-      }
-    }
+    @include kBadgeAppearance(var(--kui-method-color-background-delete, $kui-method-color-background-delete),
+      var(--kui-method-color-text-delete, $kui-method-color-text-delete),
+      var(--kui-method-color-text-delete-strong, $kui-method-color-text-delete-strong));
   }
 
   &.patch {
-    background-color: var(--kui-method-color-background-patch, $kui-method-color-background-patch);
-    color: var(--kui-method-color-text-patch, $kui-method-color-text-patch);
-
-    :deep([role="button"]):not([disabled]) {
-      &:hover, &:focus {
-        color: var(--kui-method-color-text-patch-strong, $kui-method-color-text-patch-strong) !important;
-      }
-    }
+    @include kBadgeAppearance(var(--kui-method-color-background-patch, $kui-method-color-background-patch),
+      var(--kui-method-color-text-patch, $kui-method-color-text-patch),
+      var(--kui-method-color-text-patch-strong, $kui-method-color-text-patch-strong));
   }
 
   &.options {
-    background-color: var(--kui-method-color-background-options, $kui-method-color-background-options);
-    color: var(--kui-method-color-text-options, $kui-method-color-text-options);
-
-    :deep([role="button"]):not([disabled]) {
-      &:hover, &:focus {
-        color: var(--kui-method-color-text-options-strong, $kui-method-color-text-options-strong) !important;
-      }
-    }
+    @include kBadgeAppearance(var(--kui-method-color-background-options, $kui-method-color-background-options),
+      var(--kui-method-color-text-options, $kui-method-color-text-options),
+      var(--kui-method-color-text-options-strong, $kui-method-color-text-options-strong));
   }
 
   &.head {
-    background-color: var(--kui-method-color-background-head, $kui-method-color-background-head);
-    color: var(--kui-method-color-text-head, $kui-method-color-text-head);
-
-    :deep([role="button"]):not([disabled]) {
-      &:hover, &:focus {
-        color: var(--kui-method-color-text-head-strong, $kui-method-color-text-head-strong) !important;
-      }
-    }
+    @include kBadgeAppearance(var(--kui-method-color-background-head, $kui-method-color-background-head),
+      var(--kui-method-color-text-head, $kui-method-color-text-head),
+      var(--kui-method-color-text-head-strong, $kui-method-color-text-head-strong));
   }
 
   &.connect {
-    background-color: var(--kui-method-color-background-connect, $kui-method-color-background-connect);
-    color: var(--kui-method-color-text-connect, $kui-method-color-text-connect);
-
-    :deep([role="button"]):not([disabled]) {
-      &:hover, &:focus {
-        color: var(--kui-method-color-text-connect-strong, $kui-method-color-text-connect-strong) !important;
-      }
-    }
+    @include kBadgeAppearance(var(--kui-method-color-background-connect, $kui-method-color-background-connect),
+      var(--kui-method-color-text-connect, $kui-method-color-text-connect),
+      var(--kui-method-color-text-connect-strong, $kui-method-color-text-connect-strong));
   }
 
   &.trace {
-    background-color: var(--kui-method-color-background-trace, $kui-method-color-background-trace);
-    color: var(--kui-method-color-text-trace, $kui-method-color-text-trace);
-
-    :deep([role="button"]):not([disabled]) {
-      &:hover, &:focus {
-        color: var(--kui-method-color-text-trace-strong, $kui-method-color-text-trace-strong) !important;
-      }
-    }
+    @include kBadgeAppearance(var(--kui-method-color-background-trace, $kui-method-color-background-trace),
+      var(--kui-method-color-text-trace, $kui-method-color-text-trace),
+      var(--kui-method-color-text-trace-strong, $kui-method-color-text-trace-strong));
   }
 
   &.custom {
-    background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
-    color: var(--kui-color-text, $kui-color-text);
-
-    :deep([role="button"]):not([disabled]) {
-      &:hover, &:focus {
-        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger) !important;
-      }
-    }
+    @include kBadgeAppearance(var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak),
+      var(--kui-color-text, $kui-color-text),
+      var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
   }
 }
 </style>
