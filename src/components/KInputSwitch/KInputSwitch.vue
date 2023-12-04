@@ -227,7 +227,7 @@ $kInputSwitchLargeCircleSize: 10px;
       background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
 
       &::after {
-        border: var(--kui-border-width-20, $kui-border-width-20) solid #e0e4ea; // TODO: token needed kui-color-border-neutral-weaker
+        border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-neutral-weaker, $kui-color-border-neutral-weaker);
       }
     }
 
