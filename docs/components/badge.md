@@ -14,18 +14,18 @@ KBadge is a visual text label that presents small amount of information.
 
 KBadge component takes one of the following appearance values:
 
-| Standard  | Methods |
-| ------------ | ------------------- |
-| `info`       | `connect`           |
-| `success`    | `custom`            |
-| `warning`    | `delete`            |
-| `danger`     | `get`               |
-| `decorative` | `head`              |
-| `neutral`    | `options`           |
-|              | `patch`             |
-|              | `post`              |
-|              | `put`               |
-|              | `trace`             |
+| Standard     | Methods   |
+| ------------ | --------- |
+| `info`       | `connect` |
+| `success`    | `custom`  |
+| `warning`    | `delete`  |
+| `danger`     | `get`     |
+| `decorative` | `head`    |
+| `neutral`    | `options` |
+|              | `patch`   |
+|              | `post`    |
+|              | `put`     |
+|              | `trace`   |
 
 :::tip TIP
 Passing one of the methods appearances will apply `text-transform: uppercase` and set the `min-width` on the badge container. You may pass `custom` to apply method badge styling should you need a badge for your custom method.
@@ -236,7 +236,7 @@ Used to pass an icon or (other element) into the badge. Positioning (whether thi
 ```
 
 :::tip TIP
-To make an icon clickable, you **must** assign an attribute of `role="button"` and an appropriate `tabindex` to the clickable element and bind an event handler. KBadge will take care of the state styling (hover, focus, and disabled).
+To make an icon clickable, you **must** assign an attribute of `role="button"` and `tabindex="0"` attributes to the clickable element and bind an event handler. KBadge will take care of the state styling (hover, focus, and disabled).
 
 <div class="dismissible-example-container">
   <Transition name="kongponents-fade-transition" mode="out-in">
