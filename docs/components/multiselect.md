@@ -1,9 +1,9 @@
 # Multiselect
 
-KMultiselect - Multiselect component
+KMultiselect - A select component that allows for choosing multiple items and creating new options
 
 - Selected items labels will be displayed as dismissible badges.
-- When component has focus, input field will be displayed.
+- When the component has focus, its input field will be displayed.
 - If at least one item is selected, there will be a clear all button displayed in place of the dropdown chevron when the multiselect has focus.
 - Selected items are displayed at the top of the dropdown for easy access (refreshed on multiselect collapse).
 
@@ -83,7 +83,7 @@ You may also specify:
 
 ### help
 
-Use this prop to pass help text to be displayed below the multiselect element.
+Pass a `string` of help text to be displayed below the multiselect element.
 
 <ClientOnly>
   <KMultiselect label="Label" help="Help text or other tips." :items="deepClone(defaultItemsUnselect)" />
@@ -95,7 +95,7 @@ Use this prop to pass help text to be displayed below the multiselect element.
 
 ### error
 
-Boolean to display component in error state.
+A `boolean` to put the component into an error state.
 
 <ClientOnly>
   <KMultiselect error :items="deepClone(defaultItemsCollapse)" />
@@ -112,7 +112,7 @@ Boolean to display component in error state.
 
 KMultiselect can offer users the ability to add custom items to the list by typing the item they want to and then clicking the `... (Add new value)` item at the bottom of the list, which will also automatically select it.
 
-Newly created items will have a `label` consisting of the user input and a randomly generated id for the `value` to ensure uniqueness. It will also have an attribute `custom` set to `true`. This action triggers an `item-added` event containing the added item data.
+Newly created items will have a `label` consisting of the user input and a randomly generated id for the `value` to ensure uniqueness. The item will also have an attribute `custom` set to `true`. This action triggers an `item-added` event containing the added item data.
 
 Deselecting the item will completely remove it from the list and underlying data, and trigger a `item-removed` event containing the removed item's data.
 
@@ -214,7 +214,9 @@ Because we are controlling the widths of multiple elements, we recommend using t
 
 ### selectedRowCount
 
-Use this prop to customize the number of rows of selections to display when the multiselect has focus. By default, we display 1 row of selections. Additional selections will be combined into an additional count badge if the number of selections would extend beyond the selection row count. You can hover over this badge to see the remaining selections.
+Use this prop to customize the number of rows of selected items to display when the multiselect has focus. By default, we display one row of selected items. 
+
+Additional selections will be combined into a count badge if the number of selections would extend beyond the selection row count. You can hover over this badge to see the remaining selections.
 
 <ClientOnly>
   <KMultiselect :selected-row-count="2" :items="deepClone(defaultItemsManySelected)" />
@@ -1098,7 +1100,7 @@ export default defineComponent({
 })
 </script>
 
-<style ісщзув lang="scss">
+<style scoped lang="scss">
 .json {
   inset: 0 !important;
 }
