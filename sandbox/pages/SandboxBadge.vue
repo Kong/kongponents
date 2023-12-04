@@ -41,8 +41,26 @@
           </KBadge>
         </div>
         <div class="horizontal-spacing">
+          <KBadge appearance="connect">
+            Connect
+          </KBadge>
+          <KBadge appearance="custom">
+            Custom
+          </KBadge>
+          <KBadge appearance="delete">
+            Delete
+          </KBadge>
           <KBadge appearance="get">
             Get
+          </KBadge>
+          <KBadge appearance="head">
+            Head
+          </KBadge>
+          <KBadge appearance="options">
+            Options
+          </KBadge>
+          <KBadge appearance="patch">
+            Patch
           </KBadge>
           <KBadge appearance="post">
             Post
@@ -50,26 +68,8 @@
           <KBadge appearance="put">
             Put
           </KBadge>
-          <KBadge appearance="delete">
-            Delete
-          </KBadge>
-          <KBadge appearance="patch">
-            Patch
-          </KBadge>
-          <KBadge appearance="options">
-            Options
-          </KBadge>
-          <KBadge appearance="head">
-            Head
-          </KBadge>
-          <KBadge appearance="connect">
-            Connect
-          </KBadge>
           <KBadge appearance="trace">
             Trace
-          </KBadge>
-          <KBadge appearance="custom">
-            Custom
           </KBadge>
         </div>
         <KBadge appearance="connect">
@@ -266,10 +266,88 @@
         </div>
         <div class="horizontal-spacing">
           <KBadge
+            appearance="connect"
+            :icon-before="false"
+          >
+            Connect
+            <template #icon>
+              <CloseIcon
+                role="button"
+                tabindex="0"
+                @click="handleIconClick"
+              />
+            </template>
+          </KBadge>
+          <KBadge
+            appearance="custom"
+            :icon-before="false"
+          >
+            Custom
+            <template #icon>
+              <CloseIcon
+                role="button"
+                tabindex="0"
+                @click="handleIconClick"
+              />
+            </template>
+          </KBadge>
+          <KBadge
+            appearance="delete"
+            :icon-before="false"
+          >
+            Delete
+            <template #icon>
+              <CloseIcon
+                role="button"
+                tabindex="0"
+                @click="handleIconClick"
+              />
+            </template>
+          </KBadge>
+          <KBadge
             appearance="get"
             :icon-before="false"
           >
             Get
+            <template #icon>
+              <CloseIcon
+                role="button"
+                tabindex="0"
+                @click="handleIconClick"
+              />
+            </template>
+          </KBadge>
+          <KBadge
+            appearance="head"
+            :icon-before="false"
+          >
+            Head
+            <template #icon>
+              <CloseIcon
+                role="button"
+                tabindex="0"
+                @click="handleIconClick"
+              />
+            </template>
+          </KBadge>
+          <KBadge
+            appearance="options"
+            :icon-before="false"
+          >
+            Options
+            <template #icon>
+              <CloseIcon
+                role="button"
+                tabindex="0"
+                @click="handleIconClick"
+              />
+            </template>
+          </KBadge>
+          <KBadge
+            appearance="patch"
+            :icon-before="false"
+          >
+            Patch
             <template #icon>
               <CloseIcon
                 role="button"
@@ -305,88 +383,10 @@
             </template>
           </KBadge>
           <KBadge
-            appearance="delete"
-            :icon-before="false"
-          >
-            Delete
-            <template #icon>
-              <CloseIcon
-                role="button"
-                tabindex="0"
-                @click="handleIconClick"
-              />
-            </template>
-          </KBadge>
-          <KBadge
-            appearance="patch"
-            :icon-before="false"
-          >
-            Patch
-            <template #icon>
-              <CloseIcon
-                role="button"
-                tabindex="0"
-                @click="handleIconClick"
-              />
-            </template>
-          </KBadge>
-          <KBadge
-            appearance="options"
-            :icon-before="false"
-          >
-            Options
-            <template #icon>
-              <CloseIcon
-                role="button"
-                tabindex="0"
-                @click="handleIconClick"
-              />
-            </template>
-          </KBadge>
-          <KBadge
-            appearance="head"
-            :icon-before="false"
-          >
-            Head
-            <template #icon>
-              <CloseIcon
-                role="button"
-                tabindex="0"
-                @click="handleIconClick"
-              />
-            </template>
-          </KBadge>
-          <KBadge
-            appearance="connect"
-            :icon-before="false"
-          >
-            Connect
-            <template #icon>
-              <CloseIcon
-                role="button"
-                tabindex="0"
-                @click="handleIconClick"
-              />
-            </template>
-          </KBadge>
-          <KBadge
             appearance="trace"
             :icon-before="false"
           >
             Trace
-            <template #icon>
-              <CloseIcon
-                role="button"
-                tabindex="0"
-                @click="handleIconClick"
-              />
-            </template>
-          </KBadge>
-          <KBadge
-            appearance="custom"
-            :icon-before="false"
-          >
-            Custom
             <template #icon>
               <CloseIcon
                 role="button"
