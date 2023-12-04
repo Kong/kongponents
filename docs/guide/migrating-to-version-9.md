@@ -106,6 +106,21 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KDateTimePicker
 
+#### Props
+
+* `v-model` Single date and time picker's seed value (string in ISO date format) has been deprecated in favor of a `TimeRange` object whose `start` value will be set to a Date ISO string; `end` value will be set to `null`.
+
+  See KDateTimePickers's [v-model](/components/datetime-picker#v-model) for more details
+
+#### Events
+
+* `change`, `update:modelValue` – a Single date and time picker will no longer emit an ISO date format string. Instead, a `TimeRange` object with a Date ISO string `start` value, and a null `end` value will be emitted.
+  
+  See KDateTimePickers's [Single date time picker events](/components/datetime-picker#single-date-time-picker) for more details
+
+#### Constants, Types & Interfaces
+
+* `TimeRange` - `start` and `end` keys are now defined as `Date | null`
 
 ### KDropdownMenu
 

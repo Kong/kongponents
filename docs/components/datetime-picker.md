@@ -310,11 +310,6 @@ currentValue = {
 },
 ```
 
-![Warning - Breaking Change](https://img.shields.io/badge/Warning-Breaking_Change-de881f)
-
-Previously, a Date ISO string was accepted as the seed value. That value now has to be nested one level deeper, inside the `start` object key.
-___
-
 #### Range date time picker `v-model`
 
 An instance that displays a date range or a series of relative time frames.
@@ -447,11 +442,6 @@ When "Clear" is clicked, it will emit null values for both `start` and `end`.
   end: null,
 },
 ```
-
-![Warning - Breaking Change](https://img.shields.io/badge/Warning-Breaking_Change-de881f) 
-
-Previously, a Date ISO string was emitted.
-___
 
 ### Range date time picker
 
