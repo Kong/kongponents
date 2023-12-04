@@ -407,22 +407,6 @@
           Get
         </KBadge>
       </SandboxSectionComponent>
-
-      <!-- Legacy -->
-      <SandboxTitleComponent
-        is-subtitle
-        title="Legacy"
-      />
-      <SandboxSectionComponent title="truncationTooltip prop (deprecated)">
-        <div class="horizontal-spacing">
-          <KBadge truncation-tooltip="I never tooltip">
-            Truncation unnecessary
-          </KBadge>
-          <KBadge truncation-tooltip="I only tooltip when truncation is needed">
-            Very long text that should be truncated
-          </KBadge>
-        </div>
-      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>

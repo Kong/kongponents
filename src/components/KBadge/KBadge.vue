@@ -14,7 +14,7 @@
         v-if="showTooltip"
         #content
       >
-        {{ tooltipText }}
+        {{ tooltip }}
       </template>
       <slot
         v-if="$slots.icon"
@@ -70,15 +70,8 @@ const props = defineProps({
    * Whether tooltip should only be shown when the badge is truncated.
    */
   truncationTooltip: {
-    type: [Boolean, String], // TODO: in the next major version, remove string support
+    type: Boolean,
     default: false,
-    validator: (value: boolean | string): boolean => {
-      if (typeof value === 'string') {
-        console.warn('KBadge: the usage for the `truncationTooltip` prop has changed. Please use `tooltip` prop instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kbadge')
-      }
-
-      return true
-    },
   },
   /**
    * Use this prop if you don't intend for the badge to actually be shown
@@ -125,16 +118,8 @@ const setTruncation = (): void => {
   }
 }
 
-const tooltipText = computed((): string => {
-  if (typeof props.truncationTooltip === 'string') {
-    return props.truncationTooltip
-  }
-
-  return props.tooltip
-})
-
 const showTooltip = computed((): boolean => {
-  if (!tooltipText.value) {
+  if (!props.tooltip) {
     return false
   }
 
