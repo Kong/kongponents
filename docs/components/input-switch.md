@@ -1,6 +1,6 @@
 # Input Switch
 
-KInputSwitch, similarly to checkbox, is used to toggle values on and off.
+KInputSwitch, similar to a checkbox, is used to toggle a value on and off.
 
 <KInputSwitch label="Toggle" v-model="vModel0" />
 
@@ -46,7 +46,7 @@ Use this prop if you want the label to render on the left of the toggle box.
 
 ### v-model
 
-Value to bind KSwitchInput value to.
+Value to bind to the KInputSwitch.
 
 <KInputSwitch v-model="vModel5" :label="vModel5 ? 'Toggled on' : 'Toggled off'" />
 
@@ -68,7 +68,7 @@ Use this prop to display tooltip text when KInputSwitch is disabled.
 
 #### disabled
 
-You can add `disabled` attribute to disallow interactivity.
+You can add the `disabled` attribute to disallow interactivity.
 
 <KInputSwitch disabled v-model="vModel7" label="Disabled" />
 
@@ -80,7 +80,7 @@ You can add `disabled` attribute to disallow interactivity.
 
 ### label
 
-This slot takes presence over `label` prop when both are present.
+Provide slotted content for the input switch label. This slot takes precedence over the `label` prop if both are provided.
 
 <KInputSwitch v-model="vModel8">
   <template #label>
@@ -108,7 +108,7 @@ Payload is input value (`boolean`).
 
 ### change
 
-Payload is input value (`boolean`).
+Payload is a `boolean` indicating the toggle value.
 
 <script setup lang="ts">
 import { ref } from 'vue'
