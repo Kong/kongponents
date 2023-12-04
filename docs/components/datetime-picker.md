@@ -8,11 +8,11 @@
 
 Create a single date selection calendar, with an example of passing in a fixed pixel width for the input field, and an empty string for `currentValue` which defaults the input to the placeholder message.
 
-Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
+Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model). Mode is set to `date`, which results in a calendar, but no timepicker.
 
 <ClientOnly>
   <KDateTimePicker
-    v-model="singleDateToday"
+    v-model="singleDateEmpty"
     clear-button
     placeholder="Please select a date"
     mode="date"
@@ -20,7 +20,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
     :range="false"
   />
   <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ singleDateToday }}</pre></div>
+  <div>Emitted value: <pre class="json hide-from-percy">{{ singleDateEmpty }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -37,18 +37,18 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 
 ### Single date and time
 
-Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
+Setting the `v-model` to [Single date time picker](#single-date-time-picker-v-model) with a `start` value of `new Date()` will initialize the datepicker with today's date. Mode is set to `dateTime`, which results in a calendar, and a timepicker.
 
 <ClientOnly>
   <KDateTimePicker
-    v-model="singleDateTwoDaysAgo"
+    v-model="singleDateToday"
     clear-button
     placeholder="Please select a date and time"
     mode="dateTime"
     :range="false"
   />
   <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ singleDateTwoDaysAgo }}</pre></div>
+  <div>Emitted value: <pre class="json hide-from-percy">{{ singleDateToday }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -64,18 +64,18 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
 
 ### Date range
 
-Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
+Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model).
 
 <ClientOnly>
   <KDateTimePicker
-    v-model="dateRangeOneWeek"
+    v-model="dateRangeWeek"
     clear-button
     placeholder="Please select a date range"
     mode="date"
     :range="true"
   />
   <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ dateRangeOneWeek }}</pre></div>
+  <div>Emitted value: <pre class="json hide-from-percy">{{ dateRangeWeek }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -94,14 +94,14 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 
 <ClientOnly>
   <KDateTimePicker
-    v-model="dateRangeOneWeek"
+    v-model="dateRangeWeek"
     clear-button
     placeholder="Please select a date and time"
     mode="dateTime"
     :range="true"
   />
   <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ dateRangeOneWeek }}</pre></div>
+  <div>Emitted value: <pre class="json hide-from-percy">{{ dateRangeWeek }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -119,12 +119,13 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 
 Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 
-Display both a calendar and relative time frames, passing in a preset week-long range. Hide the time.
-This instance also makes use of the `minDate` and `maxDate` parameters, which are both optional.
+Display both a calendar and relative time frames, passing in a preset week-long range. The `mode` is set to `relativeDate`, which only shows monthly calendar.
+
+This instance makes use of the optional `minDate` and `maxDate` parameters.
 
 <ClientOnly>
   <KDateTimePicker
-    v-model="dateRangeWeekRelative"
+    v-model="dateRangeWeek"
     placeholder="Please select a range"
     mode="relativeDate"
     width="415"
@@ -134,7 +135,7 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
     :time-periods="exampleTimeFrames"
   />
   <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ dateRangeWeekRelative }}</pre></div>
+  <div>Emitted value: <pre class="json hide-from-percy">{{ dateRangeWeek }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -179,8 +180,9 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
 
 Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
 
-Display both a calendar and relative time frames, passing in a preset week-long range.
-This instance also makes use of the `minDate` and `maxDate` parameters, which are both optional.
+Display both a calendar and relative time frames, passing in a preset week-long range. This instance makes use of the optional `minDate` and `maxDate` parameters. 
+
+Passing in a `timePeriodsKey` causes the instance to default to the "Relative" tab.
 
 <ClientOnly>
   <KDateTimePicker
@@ -235,14 +237,14 @@ This instance also makes use of the `minDate` and `maxDate` parameters, which ar
 />
 ```
 
-### Relative date and time
+### Relative date and time only
 
-Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
-This utilizes the same time frames as the previous example; however, in this example we are passing in a pre-selected time frame.
+Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model).
+This utilizes the same time frames as the previous example; however, in this case we are passing in a pre-selected time frame of one hour, and.
 
 <ClientOnly>
   <KDateTimePicker
-    v-model="dateRangeWeekRelative"
+    v-model="oneHourRelativeOnly"
     placeholder="Please select a time frame"
     mode="relativeDate"
     width="480"
@@ -252,7 +254,7 @@ This utilizes the same time frames as the previous example; however, in this exa
     :time-periods="exampleTimeFrames"
   />
   <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ dateRangeWeekRelative }}</pre></div>
+  <div>Emitted value: <pre class="json hide-from-percy">{{ oneHourRelativeOnly }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -299,14 +301,19 @@ This utilizes the same time frames as the previous example; however, in this exa
 
 #### Single date time picker `v-model`
 
-A single date or time picker instance which can be seeded with a value as shown here, where `currentValue` is a valid Date object, eg: `new Date()` or an empty string, eg: `''` which will display the placeholder message.
+A single date or time picker instance which can be seeded with a value as shown here, where `currentValue`'s `start` key contains a valid Date object, `new Date()` or an empty string, `''`.  If empty, the picker will display the placeholder message and allow the user to make a selection. 
 
 ```ts
-<KDateTimePicker
-  v-model="currentValue"
-  ...
-/>
+currentValue = {
+  start: new Date(),
+  end: null,
+},
 ```
+
+![Warning - Breaking Change](https://img.shields.io/badge/Warning-Breaking_Change-de881f)
+
+Previously, a Date ISO string was accepted as the seed value. That value now has to be nested one level deeper, inside the `start` object key.
+___
 
 #### Range date time picker `v-model`
 
@@ -316,8 +323,8 @@ Can be seeded with a **relative time frame** by setting the `v-model` to `curren
 
 ```ts
 currentValue = {
-  start: '',
-  end: '',
+  start: null,
+  end: null,
   timePeriodsKey: TimeframeKeys.ONE_DAY
 },
 ```
@@ -382,7 +389,7 @@ Required `String` prop which accepts the following values:
 
 ### range
 
-`Boolean` which determines whether the calendar allows selection of a **single** date or time, as opposed to a **range** of start and end values. If `mode` is set to any of the relative options, this defaults the `range` to `true`.
+`Boolean` which determines whether the calendar allows selection of a **single** date or time, as opposed to a **range** of start and end values. Choosing any relative `mode` option will default the `range` to `true`.
 
 **default**: `false`
 
@@ -431,11 +438,20 @@ The events below will fire whenever **Apply** is clicked (assuming the user has 
 
 **Events**: `change`, `update:modelValue`
 
-Will emit a JavaScript Date object, or an empty string  "Clear".
+Component will emit a JavaScript Date object for the `start` value, and a null value for `end`. 
+When "Clear" is clicked, it will emit null values for both `start` and `end`.
 
 ```ts
-"2022-09-06T19:45:54.406Z"  // ISO 8601 Date string
+{
+  start: "2022-09-06T19:45:54.406Z",
+  end: null,
+},
 ```
+
+![Warning - Breaking Change](https://img.shields.io/badge/Warning-Breaking_Change-de881f) 
+
+Previously, a Date ISO string was emitted.
+___
 
 ### Range date time picker
 
@@ -492,22 +508,27 @@ export default {
     const aWeekAgo    = new Date(today.getTime() - (7*24*60*60*1000))
     const aYearAgo    = new Date(today.getTime() - (365*24*60*60*1000))
     return {
+      singleDateEmpty: {
+        start: null,
+        end: null
+      },
       singleDateToday: {
         start: today,
         end: null
       },
-      singleDateTwoDaysAgo: {
-        start: twoDaysAgo,
-        end: today
-      },
-      dateRangeOneWeek: {
+      dateRangeWeek: {
         start: aWeekAgo,
         end: today
       },
       dateRangeWeekRelative: {
+        start: aWeekAgo,
+        end: today,
+        timePeriodsKey: TimeframeKeys.SEVEN_DAY
+      },
+      oneHourRelativeOnly: {
         start: null,
         end: null,
-        timePeriodsKey: null
+        timePeriodsKey: TimeframeKeys.ONE_HOUR
       },
       maxDate: today,
       minDate: aYearAgo,
