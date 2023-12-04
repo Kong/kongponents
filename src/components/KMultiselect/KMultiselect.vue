@@ -470,9 +470,9 @@ const stagingKey = ref(0)
 
 const multiselectId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
 
-const multiselectElement = ref<HTMLDivElement>()
-const multiselectInputElement = ref<HTMLDivElement>()
-const selectionBottomElement = ref<HTMLDivElement>()
+const multiselectElement = ref<HTMLDivElement | null>(null)
+const multiselectInputElement = ref<HTMLDivElement | null>(null)
+const selectionBottomElement = ref<HTMLDivElement | null>(null)
 const multiselectSelectionsStagingElement = ref<HTMLDivElement>()
 
 // filter and selection
@@ -587,7 +587,7 @@ const numericWidthStyle = computed(() => {
 
 const nonSlimStyle = computed(() => {
   return {
-    width: (numericWidth.value - 40) + 'px',
+    width: (numericWidth.value - 40) + 'px', // 40px to accommodate for chevron icon and default spacing
     maxHeight: selectionsMaxHeight.value + 'px',
     paddingRight: 0,
   }
@@ -621,12 +621,15 @@ const handleFilterClick = (evt: any) => {
   }
 }
 
-const handleToggle = (open: boolean, isToggled: Ref<boolean>, toggle: Function) => {
+const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: Function) => {
   if (open) {
     if (!isToggled.value) { // not already open
       filterStr.value = ''
       toggle()
       sortItems()
+      await nextTick()
+      const input = multiselectElement.value?.querySelector('.k-input') as HTMLInputElement
+      input?.focus()
     }
   } else {
     if (isToggled.value) { // not already closed
@@ -1039,6 +1042,7 @@ onBeforeUnmount(() => {
 $kMultiselectInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin, search for variable name in mixins
 $kMultiselectInputPaddingX: var(--kui-space-50, $kui-space-50); // corresponds to mixin
 $kMultiselectChevronIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
+$kMultiselectSelectionsPaddingRight: calc($kMultiselectInputPaddingX + $kMultiselectChevronIconSize + var(--kui-space-40, $kui-space-40));
 $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20); // corresponds to mixin
 
 /* Component mixins */
@@ -1071,8 +1075,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     margin-bottom: $kMultiselectInputPaddingY;
     margin-top: $kMultiselectInputPaddingY;
     padding-left: $kMultiselectInputPaddingX;
-    // default padding + chevron icon size + margin
-    padding-right: calc($kMultiselectInputPaddingX + $kMultiselectChevronIconSize + var(--kui-space-40, $kui-space-40));
+    padding-right: $kMultiselectSelectionsPaddingRight;
 
     &.scrollable {
       overflow-y: auto;
@@ -1088,8 +1091,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
       box-sizing: border-box;
       height: auto;
       padding-left: $kMultiselectInputPaddingX;
-      // default padding + chevron icon size + margin
-      padding-right: calc($kMultiselectInputPaddingX + $kMultiselectChevronIconSize + var(--kui-space-40, $kui-space-40));
+      padding-right: $kMultiselectSelectionsPaddingRight;
       position: relative;
     }
   }

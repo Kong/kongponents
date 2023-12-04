@@ -120,19 +120,6 @@
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        title="reuseItemTemplate"
-      >
-        <KMultiselect
-          :items="multiselectItems"
-          reuse-item-template
-        >
-          <template #item-template="{ item }">
-            <KongIcon />
-            {{ item?.label }}!
-          </template>
-        </KMultiselect>
-      </SandboxSectionComponent>
-      <SandboxSectionComponent
         title="enableItemCreation"
       >
         <KMultiselect
@@ -299,8 +286,6 @@ const multiselectItemsSelected = JSON.parse(JSON.stringify(multiselectItems)).ma
 
   return item
 })
-
-console.log(multiselectItemsSelected)
 
 // programmatic deselect example logic
 

@@ -17,6 +17,45 @@ KMultiselect - A select component that allows for choosing multiple items and cr
 
 ## Props
 
+### v-model
+
+KMultiselect works as regular inputs do using `v-model` for data binding:
+
+<ClientOnly>
+  <KLabel>Value:</KLabel> <pre class="json">{{ JSON.stringify(myVal) }}</pre>
+  <KMultiselect v-model="myVal" :items="deepClone(defaultItems)" />
+  <br>
+  <KButton @click="clearIt">Clear</KButton>
+</ClientOnly>
+
+```vue
+<template>
+  <KLabel>Value:</KLabel> {{ myVal }}
+  <KMultiselect v-model="myVal" :items="items" />
+  <KButton @click="clearIt">Clear</KButton>
+</template>
+
+<script setup lang="ts">
+import { MultiselectItem } from '@kong/kongponents'
+
+const myVal = ref<string[]>(["cats","bunnies"])
+
+const items: MultiselectItem[] = [
+  { label: 'Cats', value: 'cats', selected: true },
+  { label: 'Dogs', value: 'dogs', selected: true, disabled: true },
+  { label: 'Bunnies', value: 'bunnies', selected: true },
+  { label: 'Lions', value: 'lions' },
+  { label: 'Tigers', value: 'tigers' },
+  { label: 'Bears', value: 'bears' },
+  { label: 'A long & truncated item', value: 'long' }
+]
+
+const clearIt = () => {
+  myVal.value = []
+}
+</script>
+```
+
 ### items
 
 An array of items containing a `label` and `value`.
@@ -61,23 +100,7 @@ You may also specify:
   }, {
     label: 'A long & truncated item',
     value: 'long'
-  }, {
-    label: 'Duck',
-    value: 'duck',
-    group: 'Birds'
-  },{
-    label: 'Salmon',
-    value: 'salmon',
-    group: 'Fish'
-  }, {
-    label: 'Oriole',
-    value: 'oriole',
-    group: 'Birds'
-  }, {
-    label: 'Trout',
-    value: 'trout',
-    group: 'Fish'
-  }]"
+  }, ...]"
 />
 ```
 
@@ -329,45 +352,6 @@ For `autosuggest`, you are in charge of filtering the options, so `KMultiselect`
 See [autosuggest](#autosuggest) for more details.
 :::
 
-### v-model
-
-KMultiselect works as regular inputs do using v-model for data binding:
-
-<ClientOnly>
-  <KLabel>Value:</KLabel> <pre class="json">{{ JSON.stringify(myVal) }}</pre>
-  <KMultiselect v-model="myVal" :items="deepClone(defaultItems)" />
-  <br>
-  <KButton @click="clearIt">Clear</KButton>
-</ClientOnly>
-
-```vue
-<template>
-  <KLabel>Value:</KLabel> {{ myVal }}
-  <KMultiselect v-model="myVal" :items="items" />
-  <KButton @click="clearIt">Clear</KButton>
-</template>
-
-<script setup lang="ts">
-import { MultiselectItem } from '@kong/kongponents'
-
-const myVal = ref<string[]>(["cats","bunnies"])
-
-const items: MultiselectItem[] = [
-  { label: 'Cats', value: 'cats', selected: true },
-  { label: 'Dogs', value: 'dogs', selected: true, disabled: true },
-  { label: 'Bunnies', value: 'bunnies', selected: true },
-  { label: 'Lions', value: 'lions' },
-  { label: 'Tigers', value: 'tigers' },
-  { label: 'Bears', value: 'bears' },
-  { label: 'A long & truncated item', value: 'long' }
-]
-
-const clearIt = () => {
-  myVal.value = []
-}
-</script>
-```
-
 ### autosuggest
 
 Add the `autosuggest` prop to trigger a query to an API with the filter keyword, and then update `items` asynchronously as suggestions as the user types.
@@ -386,10 +370,6 @@ When using `autosuggest`, you **MUST** use `v-model` otherwise the Multiselect c
     :loading="loading"
     @query-change="onQueryChange"
   >
-    <template #item-template="{ item }">
-      <div class="select-item-label">{{ item.label }}</div>
-      <div class="select-item-desc">{{ item.description }}</div>
-    </template>
     <template #empty>
       <div>No results found</div>
     </template>
@@ -405,10 +385,6 @@ When using `autosuggest`, you **MUST** use `v-model` otherwise the Multiselect c
     :loading="loading"
     @query-change="onQueryChange"
   >
-    <template #item-template="{ item }">
-      <div class="select-item-label">{{ item.label }}</div>
-      <div class="select-item-desc">{{ item.label }}</div>
-    </template>
     <template #empty>
       <div>No results found</div>
     </template>
