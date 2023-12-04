@@ -791,7 +791,7 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
   const selectedVals = selectedItems.value.map(anItem => anItem.value)
 
   emit('selected', selectedItems.value)
-  emit('change', item)
+  emit('change', selectedItem)
   emit('update:modelValue', selectedVals)
 }
 
