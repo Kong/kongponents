@@ -159,7 +159,7 @@ const props = defineProps({
   modelValue: {
     type: [Object] as PropType<TimeRange>,
     required: false,
-    default: () => defaultTimeRange,
+    default: () => ({ start: null, end: null }),
     validator: (value: TimeRange): boolean => {
       return value instanceof Date || (value.start !== undefined && value.end !== undefined)
     },
@@ -282,12 +282,18 @@ const hasTimePeriods = computed((): boolean => props?.timePeriods?.length > 0)
 const showCalendar = computed((): boolean => state.tabName === 'custom' || !hasTimePeriods.value)
 const submitDisabled = ref<boolean>(true)
 
+const defaultTimeRange: TimeRange = {
+  start: null,
+  end: null,
+  timePeriodsKey: '',
+}
+
 /**
  * Dynamically choose the v-model
  * Single date is a Date, whereas a Date range is an object containing `start` and `end` dates
  */
-const calendarSingleDate = ref<Date|null>(props.modelValue.start)
-const calendarRange = ref<TimeRange>(props.modelValue)
+const calendarSingleDate = ref<Date|null>(props.modelValue?.start)
+const calendarRange = ref<TimeRange>(props.modelValue || defaultTimeRange)
 const calendarVModel = isSingleDatepicker.value
   ? calendarSingleDate as DatePickerModel
   : calendarRange as DatePickerModel
@@ -349,6 +355,7 @@ const changeCalendarRange = (vCalValue: TimeRange | null): void => {
    * Set our v-calendar v-model
    */
   if (!isSingleDatepicker.value && vCalValue && (vCalValue as TimeRange).start && (vCalValue as TimeRange).end) {
+    debugger
     calendarRange.value.start = start
     calendarRange.value.end = end
   } else if (vCalValue && (vCalValue as TimeRange).start) {
@@ -533,15 +540,6 @@ onMounted(() => {
     }
   }
 })
-</script>
-
-<script lang="ts">
-// Module scope
-const defaultTimeRange: TimeRange = {
-  start: null,
-  end: null,
-  timePeriodsKey: '',
-}
 </script>
 
 <style lang="scss">

@@ -88,6 +88,7 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model).
   :range="true"
 />
 ```
+
 ### Date and time range
 
 Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
