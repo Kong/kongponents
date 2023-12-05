@@ -55,10 +55,8 @@
         </button>
 
         <div class="content">
-          <KCard border-variant="noBorder">
-            <template #body>
-              <slot />
-            </template>
+          <KCard class="content-card">
+            <slot />
           </KCard>
         </div>
       </div>
@@ -162,10 +160,6 @@ const offsetTopValue = computed((): string => {
 @import '@/styles/tmp-variables';
 
 .k-slideout {
-  :deep(.kong-card) {
-    padding: var(--kui-space-110, $kui-space-110) var(--kui-space-90, $kui-space-90);
-  }
-
   .k-slideout-header-content {
     display: flex;
     .k-slideout-before-title,
@@ -243,6 +237,10 @@ const offsetTopValue = computed((): string => {
       scrollbar-width: none;  // Firefox
       &::-webkit-scrollbar {
         display: none;
+      }
+
+      .content-card {
+        border: none;
       }
     }
   }

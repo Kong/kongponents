@@ -2,10 +2,8 @@
   <KCard
     class="k-card-catalog-item"
     :data-testid="item && item.title ? `${item.title.replace(/[^0-9a-z]/gi, '-')}-catalog-item` : 'catalog-item'"
-    has-hover
     role="button"
     tabindex="0"
-    :test-mode="!!testMode || undefined"
     @click="($event: any) => handleCardClick($event, item)"
   >
     <template #title>
@@ -18,13 +16,11 @@
       <slot name="cardActions" />
     </template>
 
-    <template #body>
-      <div :class="{ 'multi-line-truncate': truncate }">
-        <slot name="cardBody">
-          {{ item ? item.description : '' }}
-        </slot>
-      </div>
-    </template>
+    <div :class="{ 'multi-line-truncate': truncate }">
+      <slot name="cardBody">
+        {{ item ? item.description : '' }}
+      </slot>
+    </div>
   </KCard>
 </template>
 
