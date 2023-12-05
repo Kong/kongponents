@@ -6,7 +6,7 @@
 
 ### Single date
 
-Create a single date selection calendar, with an example of passing in a fixed pixel width for the input field, and an empty string for `currentValue` which defaults the input to the placeholder message.
+Create a single date selection calendar, with an example of passing in a fixed pixel width for the input field, and null values for the `start` and `end` keys, which causes the input to display the placeholder message.
 
 Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model). Mode is set to `date`, which results in a calendar, but no timepicker.
 
@@ -237,7 +237,7 @@ Passing in a `timePeriodsKey` causes the instance to default to the "Relative" t
 />
 ```
 
-### Relative date and time only
+### Relative date and time only 
 
 Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model).
 This utilizes the same time frames as the previous example; however, in this case we are passing in a pre-selected time frame of one hour, and.
@@ -301,7 +301,7 @@ This utilizes the same time frames as the previous example; however, in this cas
 
 #### Single date time picker `v-model`
 
-A single date or time picker instance which can be seeded with a value as shown here, where `currentValue`'s `start` key contains a valid Date object, `new Date()` or an empty string, `''`.  If empty, the picker will display the placeholder message and allow the user to make a selection. 
+A single date or time picker instance which can be seeded with a value as shown here, where `currentValue`'s `start` key contains a valid Date object, `new Date()` or a `null` value.  If null, the picker will display the placeholder message and allow the user to make a selection. 
 
 ```ts
 currentValue = {
@@ -427,7 +427,7 @@ An array of time frame values to be displayed as buttons in the "Relative" secti
 
 ## Events
 
-The events below will fire whenever **Apply** is clicked (assuming the user has made a custom calendar or relative timeframe selection). If **Clear** is clicked, the object shape remains the same, but the values are empty strings.
+The events below will fire whenever **Apply** is clicked (assuming the user has made a custom calendar or relative timeframe selection). If **Clear** is clicked, the object shape remains the same, but the `start` and `end` values will be `null`.
 
 ### Single date time picker
 
