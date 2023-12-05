@@ -2,7 +2,39 @@
 
 KSelect is custom component alternative for native `<select>` element.
 
+<ClientOnly>
+  <KSelect :items="selectItems" />
+</ClientOnly>
+
+```html
+<KSelect :items="selectItems" />
+```
+
 ## Props
+
+### v-model
+
+Use `v-model` for two-way value binding.
+
+<div class="spacing-container">
+  <span>Selected service: {{ vModel || 'none' }}</span>
+
+  <ClientOnly>
+    <KSelect
+      v-model="vModel"
+      :items="selectItemsUnselected"
+    />
+  </ClientOnly>
+</div>
+
+```html
+Selected service: {{ selectValue || 'none' }}
+
+<KSelect
+  v-model="selectValue"
+  :items="selectItems"
+/>
+```
 
 ### items
 
@@ -266,10 +298,22 @@ Whether content passed through [`item-template` slot](#itemtemplate) should be a
   >
     <template #item-template="{ item }">
       <KongIcon />
-      {{ item?.label }}!
+      {{ item?.label }}
     </template>
   </KSelect>
 </ClientOnly>
+
+```html
+<KSelect
+  :items="selectItems"
+  reuse-item-template
+>
+  <template #item-template="{ item }">
+    <KongIcon />
+    {{ item?.label }}
+  </template>
+</KSelect>
+```
 
 ### positionFixed
 
@@ -363,30 +407,6 @@ const fetchAsyncItems = (): void => {
 ### kpopAttributes
 
 Attributes to be passed to underlying KPopover component. See [KPopover's props](/components/popover#props) for more info.
-
-### v-model
-
-Use `v-model` for two-way value binding.
-
-<div class="spacing-container">
-  <span>Selected service: {{ vModel || 'none' }}</span>
-
-  <ClientOnly>
-    <KSelect
-      v-model="vModel"
-      :items="selectItemsUnselected"
-    />
-  </ClientOnly>
-</div>
-
-```html
-Selected service: {{ selectValue || 'none' }}
-
-<KSelect
-  v-model="selectValue"
-  :items="selectItems"
-/>
-```
 
 ### HTML Attributes
 
@@ -555,7 +575,7 @@ Content to be displayed when [`loading` prop](#loading-1) is `true`. Note that t
 <ClientOnly>
   <KSelect loading enable-filtering :items="[]">
     <template #loading>
-      Items loading.
+      Services loading...
     </template>
   </KSelect>
 </CLientOnly>
@@ -563,7 +583,7 @@ Content to be displayed when [`loading` prop](#loading-1) is `true`. Note that t
 ```html
 <KSelect loading enable-filtering :items="selectItems">
   <template #loading>
-    Services loading.
+    Services loading...
   </template>
 </KSelect>
 ```

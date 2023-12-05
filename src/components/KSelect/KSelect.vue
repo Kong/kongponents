@@ -98,17 +98,16 @@
           </Transition>
         </div>
         <template #content>
-          <slot
+          <div
             v-if="enableFiltering && loading"
-            name="loading"
+            class="select-loading"
+            data-propagate-clicks="false"
+            data-testid="select-loading"
           >
-            <span
-              class="select-loading"
-              data-testid="select-loading"
-            >
+            <slot name="loading">
               <ProgressIcon class="loading-icon" />
-            </span>
-          </slot>
+            </slot>
+          </div>
           <div
             v-else
             class="select-items-container"
@@ -154,10 +153,13 @@
               </slot>
             </div>
           </div>
-          <slot
+          <div
             v-if="!loading && !filteredItems.length"
-            name="empty"
-          />
+            class="select-empty"
+            data-propagate-clicks="false"
+          >
+            <slot name="empty" />
+          </div>
           <div
             v-if="hasDropdownFooter && dropdownFooterTextPosition === 'sticky'"
             class="dropdown-footer dropdown-footer-sticky"
@@ -713,7 +715,8 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     }
   }
 
-  .select-loading {
+  .select-loading,
+  .select-empty {
     @include selectItemDefaults;
 
     .loading-icon {
