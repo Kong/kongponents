@@ -36,7 +36,7 @@
           <div
             ref="multiselectElement"
             class="multiselect-trigger"
-            :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly, 'multiselect-error': error }"
+            :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
             data-testid="multiselect-trigger"
             role="listbox"
             @click="handleFilterClick"
@@ -1137,18 +1137,6 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
       @include inputDisabled;
     }
 
-    &.multiselect-error {
-      @include inputError;
-
-      &.hovered {
-        @include inputErrorHover;
-      }
-
-      &.focused {
-        @include inputErrorFocus;
-      }
-    }
-
     .multiselect-input {
       display: inline-block;
       position: relative;
@@ -1231,6 +1219,18 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
   }
 
   &.multiselect-error {
+    .multiselect-trigger {
+      @include inputError;
+
+      &.hovered {
+        @include inputErrorHover;
+      }
+
+      &.focused {
+        @include inputErrorFocus;
+      }
+    }
+
     .help-text {
       color: var(--kui-color-text-danger, $kui-color-text-danger);
     }

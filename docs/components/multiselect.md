@@ -395,7 +395,7 @@ When using `autosuggest`, you **MUST** use `v-model` otherwise the Multiselect c
 import { MultiselectItem } from '@kong/kongponents'
 
 const allItems: MultiselectItems[] = new Array(10).fill().map((_, i) => ({
-  label: `Item ${i}`,
+  label: `${i % 2 === 0 ? 'Even item' : 'Odd item'} ${i}`,
   description: `This is the description for item ${i}.`,
   value: `autosuggest-item-${i}`,
   ...(i > 5 && { group: `${i % 2 === 0 ? 'Even items greater than 5' : 'Odd items greater than 5'}` })
@@ -495,7 +495,7 @@ function debounce(func, timeout) {
 }
 
 const allItems: MultiselectItems[] = new Array(10).fill().map((_, i) => ({
-  label: `Item ${i}`,
+  label: `${i % 2 === 0 ? 'Even item' : 'Odd item'} ${i}`,
   description: `This is the description for item ${i}.`,
   value: `autosuggest-item-${i}`,
   ...(i > 5 && { group: `${i % 2 === 0 ? 'Even items greater than 5' : 'Odd items greater than 5'}` })
@@ -770,7 +770,7 @@ function debounce(func, timeout) {
 }
 
 const allItems = new Array(10).fill().map((_, i) => ({
-  label: `Item ${i}`,
+  label: `${i % 2 === 0 ? 'Even item' : 'Odd item'} ${i}`,
   description: `This is the description for item ${i}.`,
   value: `autosuggest-item-${i}`,
   ...(i > 5 && { group: `${i % 2 === 0 ? 'Even items greater than 5' : 'Odd items greater than 5'}` })
