@@ -69,6 +69,39 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KCard
 
+#### Props
+
+* `testMode` prop has been removed
+* `body` prop has been removed. Use `default` slot instead
+* `borderVariant` prop has been removed. KCard has a border by default
+* `hasHover` prop has been removed
+* `hasShadow` prop has been removed. KCard does not have a box-shadow by default
+* `status` prop has been removed
+
+#### Slots
+
+* `statusHat` slot has been removed
+* `body` slot has been removed. Use the `default` slot instead
+* `notifications` slot has been removed
+
+#### Structure
+
+* `kong-card` class has been changed to `k-card`
+* `hover` class has been removed
+* `kcard-shadow` class has been removed
+* `k-card-header` class has been changed to `card-header`
+* `has-status` class has been removed
+* `k-card-status-hat` class has been removed
+* `k-card-title` class has been changed to `card-title`
+* `k-card-actions` class has been changed to `card-actions`
+* `k-card-content` class has been changed to `card-content`
+* `k-card-body` class has been removed
+* `k-card-notifications` class has been removed
+
+#### Constants, Types & Interfaces
+
+* `BorderVariantsArray` constant has been removed
+* `BorderVariant` type has been removed
 
 ### KCatalog
 

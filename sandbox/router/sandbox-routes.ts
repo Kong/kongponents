@@ -21,6 +21,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxButton.vue'),
   },
   {
+    path: '/card',
+    name: 'card',
+    meta: { title: 'Card Sandbox' },
+    component: () => import('../pages/SandboxCard.vue'),
+  },
+  {
     path: '/catalog',
     name: 'catalog',
     meta: { title: 'Catalog Sandbox' },

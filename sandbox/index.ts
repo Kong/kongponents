@@ -18,6 +18,7 @@ app.component('SandboxLayout', SandboxLayout)
 const sandboxAppLinks: SandboxNavigationItem[] = ([
   { name: 'KAlert', to: { name: 'alert' } },
   { name: 'KButton', to: { name: 'button' } },
+  { name: 'KCard', to: { name: 'card' } },
   { name: 'KCatalog', to: { name: 'catalog' } },
   { name: 'KCheckbox', to: { name: 'checkbox' } },
   { name: 'KDropdown', to: { name: 'dropdown' } },

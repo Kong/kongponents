@@ -766,27 +766,27 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@kong-ui-public/sandbox-layout@^2.0.6":
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/sandbox-layout/-/sandbox-layout-2.0.6.tgz#98c11f77bc60a4bdf2d8aaaa9df5b1eac6698c7e"
-  integrity sha512-Mt2yvv7yhUn2jr7/G972fQSuE2vwoajD+h1y+8INyxc9GqsgnoJP6Y8StNI11zrqUYOhS9Pv7lqyqYD656xRAA==
+"@kong-ui-public/sandbox-layout@^2.0.8":
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/sandbox-layout/-/sandbox-layout-2.0.8.tgz#34e7359ef97047affc2496b5916691a0df2d1614"
+  integrity sha512-3qdE8/nylfAURJ0qAEKu2tUdtodY1nARqPZvaVb67PiXqNZTSlAzAaSN+MhfuwKvVyEamfTHa7peaE6xNmerng==
   dependencies:
-    "@kong/icons" "^1.8.1"
+    "@kong/icons" "^1.8.2"
 
-"@kong/design-tokens@^1.12.0":
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.12.0.tgz#bd86d3e8a9d653362b91be61ac9265dd44a478be"
-  integrity sha512-CXcDgCD91UlzhF7TTrcyql9gei8Q1x0K1SXDz0dwba3+PHtR2DFYewIxHerI667M58tLPlmV0dcN8KB8Msx1zg==
-
-"@kong/icons@^1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.8.1.tgz#4ea19758013ec5f1aaa3578a3302b29c4311776a"
-  integrity sha512-60Ud+nahbJ7zc1tsKuDpSZgVZrEXM+VHvnoC82aK3C8hMeFlNwi4XeVe8+Rf9fvVCZdFosMDuAa3J0xdzCF2jQ==
+"@kong/design-tokens@^1.12.1":
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.12.1.tgz#01e1939c81ab97699bae879585ebe5ea588539cb"
+  integrity sha512-I6C2HHJ+Kx14Exmr9OEe4yzHvhneC5RGrWzViZXcWNOYCl2VN9dMmgjTAaowbdeyLEeZ+4AtC+LJ2JU7eN4o8w==
 
 "@kong/icons@^1.8.2":
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.8.2.tgz#a6f248163988e1287c747bdc8b0108ea3f581f3f"
   integrity sha512-d+4nbKPBBy71pPzPSV9UIEhm53QABGGnvaPzk3OdTwTMJTZ+ah1o7bzW61NavMaLKQXQ+Hpjdiat3YMMY0ijmQ==
+
+"@kong/icons@^1.8.3":
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.8.3.tgz#ae82ace540bcd3fd1c1c092533099e7721ea55ee"
+  integrity sha512-9xXD8au1ty9Osi4qhy3OXthNTa8rAnVTIXryGJuA41/T0o4YnOSXMA7oj0F/kX6tEVeEi6TWbqwzGrj881ZFvA==
 
 "@ljharb/through@^2.3.11":
   version "2.3.11"

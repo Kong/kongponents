@@ -1,3 +1,16 @@
+# [9.0.0-alpha.68](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.67...v9.0.0-alpha.68) (2023-12-05)
+
+
+### Bug Fixes
+
+* disable percy from blocking CI ([445bf74](https://github.com/Kong/kongponents/commit/445bf74294498ba8fdf6c1d33898d35d85a04153))
+* release ([3eb055d](https://github.com/Kong/kongponents/commit/3eb055d2a36c963c67580665d0778473ab7d9410))
+
+
+### Features
+
+* **kcard:** component reskin [KHCP-8971] ([#1804](https://github.com/Kong/kongponents/issues/1804)) ([0375d1d](https://github.com/Kong/kongponents/commit/0375d1d746a143d70e21d970ff9ba507bd3e4f06))
+
 # [9.0.0-alpha.67](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.66...v9.0.0-alpha.67) (2023-11-30)
 
 

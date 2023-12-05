@@ -12,7 +12,7 @@ export default {
   },
 }
 
-// Named exports
+// All other named exports
 export * from './components'
 export * from './global-components'
 export * from './types'
