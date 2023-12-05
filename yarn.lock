@@ -773,15 +773,20 @@
   dependencies:
     "@kong/icons" "^1.8.2"
 
-"@kong/design-tokens@^1.12.0":
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.12.0.tgz#bd86d3e8a9d653362b91be61ac9265dd44a478be"
-  integrity sha512-CXcDgCD91UlzhF7TTrcyql9gei8Q1x0K1SXDz0dwba3+PHtR2DFYewIxHerI667M58tLPlmV0dcN8KB8Msx1zg==
+"@kong/design-tokens@^1.12.1":
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.12.1.tgz#01e1939c81ab97699bae879585ebe5ea588539cb"
+  integrity sha512-I6C2HHJ+Kx14Exmr9OEe4yzHvhneC5RGrWzViZXcWNOYCl2VN9dMmgjTAaowbdeyLEeZ+4AtC+LJ2JU7eN4o8w==
 
 "@kong/icons@^1.8.2":
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.8.2.tgz#a6f248163988e1287c747bdc8b0108ea3f581f3f"
   integrity sha512-d+4nbKPBBy71pPzPSV9UIEhm53QABGGnvaPzk3OdTwTMJTZ+ah1o7bzW61NavMaLKQXQ+Hpjdiat3YMMY0ijmQ==
+
+"@kong/icons@^1.8.3":
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.8.3.tgz#ae82ace540bcd3fd1c1c092533099e7721ea55ee"
+  integrity sha512-9xXD8au1ty9Osi4qhy3OXthNTa8rAnVTIXryGJuA41/T0o4YnOSXMA7oj0F/kX6tEVeEi6TWbqwzGrj881ZFvA==
 
 "@ljharb/through@^2.3.11":
   version "2.3.11"
