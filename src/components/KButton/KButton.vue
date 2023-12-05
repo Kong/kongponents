@@ -197,8 +197,8 @@ export default {
 /* Component styles */
 
 .k-button {
-  @include kButtonPrimaryAppearance; // primary appearance is the default
-  @include kButtonMediumSize; // medium size is the default
+  @include kButtonPrimaryAppearance; // primary appearance is the default (in case of invalid appearance)
+  @include kButtonMediumSize; // medium size is the default (in case of invalid size)
 
   align-items: center;
   border-radius: var(--kui-border-radius-30, $kui-border-radius-30);

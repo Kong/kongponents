@@ -30,13 +30,36 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KBadge
 
+#### Props
+
+* `appearance` prop no longer accepts `default` and `custom` values (defaults to `info` now)
+* `isBordered` prop has been removed
+* `shape` prop has been removed (now KBadge only comes in one what used to be `rectangular` shape)
+* `borderColor` prop has been removed
+* `backgroundColor` prop has beed removed
+* `color` prop has been removed
+* `dismissable` prop has been removed. You can now pass a clickable close icon (remember to add `role="button"` and `tabindex="0"` attributes) through the `icon` slot and handle KBadge showing/hiding from your host app
+* `hoverColor` prop has been removed
+* `truncationTooltip` prop has been changed to `boolean`. When used in conjunction with new `tooltip` prop, KBadge will only show the tooltip when content passed through the `default` slot needs truncation. Otherwise, if `tooltip` prop is used without `truncationTooltip` prop - tooltip will be shown regardless of whether truncation is needed
+* `forceTooltip` prop has been removed
+
 #### Structure
+
+* dynamic `k-badge-*` classes have been removed
+* `k-badge-text` class has been changed to `badge-content-wrapper`
+* KIcon element that previously contained class `k-badge-dismiss-button` has been removed 
 
 #### Constants, Types & Interfaces
 
-#### Props
+* `BadgeAppearances` const no longer contains `default` and `custom` values
+* `BadgeAppearance` type no longer contains `default` and `custom` values
+* `BadgeShapes` const has been removed
+* `BadgeShape` type has been removed
+* `BadgeShapeRecord` type has been removed
 
-#### Slots
+#### Events
+
+* `dismissed` even has been removed
 
 ### KBreadcrumbs
 
@@ -260,6 +283,12 @@ Component has been renamed to `KDropdown`
 * `is-required` class has been renamed to `required`
 
 ### KMenu
+
+### KMethodBadge
+
+#### Constants, Types & Interfaces
+
+* `MethodShape` type has been removed
 
 ### KMethod Badge
 
