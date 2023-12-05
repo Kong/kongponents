@@ -355,7 +355,6 @@ const changeCalendarRange = (vCalValue: TimeRange | null): void => {
    * Set our v-calendar v-model
    */
   if (!isSingleDatepicker.value && vCalValue && (vCalValue as TimeRange).start && (vCalValue as TimeRange).end) {
-    debugger
     calendarRange.value.start = start
     calendarRange.value.end = end
   } else if (vCalValue && (vCalValue as TimeRange).start) {
