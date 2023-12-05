@@ -236,6 +236,17 @@ Component has been renamed to `KDropdown`
 
 ### KInputSwitch
 
+#### Props
+
+* `labelPosition` prop has been removed. Please use `labelBefore` prop instead
+* `enabledIcon` prop has been removed
+
+#### Structure
+
+* `k-switch` class has been removed
+* `switch-with-icon` class has been removed
+* `has-label-right` and `has-label-left` classes were removed
+
 ### KLabel
 
 #### Props
