@@ -592,10 +592,10 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
       color: var(--kui-color-text, $kui-color-text);
       display: flex !important;
       flex-wrap: wrap;
-      font-size: var(--kui-font-size-40, $kui-font-size-40) !important;
+      font-size: var(--kui-font-size-30, $kui-font-size-30) !important;
 
       div {
-        font-size: var(--kui-font-size-40, $kui-font-size-40);
+        font-size: var(--kui-font-size-30, $kui-font-size-30);
         line-height: var(--kui-line-height-30, $kui-line-height-30);
         margin: var(--kui-space-0, $kui-space-0);
         padding: var(--kui-space-0, $kui-space-0);
