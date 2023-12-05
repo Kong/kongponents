@@ -181,14 +181,6 @@ const props = defineProps({
     default: null,
   },
   /**
-   * Sets a custom interval for the minute select dropdown
-   */
-  minuteIncrement: {
-    type: Number,
-    required: false,
-    default: 5,
-  },
-  /**
    * Determines which `v-calendar` type to initialize.
    * - { `date`, `time`, `dateTime` } are passed verbatim to `v-calendar`,
    * - `relative` denotes a component instance made up solely of time frames
@@ -290,14 +282,20 @@ const hasTimePeriods = computed((): boolean => props?.timePeriods?.length > 0)
 const showCalendar = computed((): boolean => state.tabName === 'custom' || !hasTimePeriods.value)
 const submitDisabled = ref<boolean>(true)
 
-// Tracks v-calendar state, which could be a Single date, or a Range object, eg { start, end }
-const calendarVModel = isSingleDatepicker?.value ? ref<Date | null>(props.modelValue.start) : ref<TimeRange>(props.modelValue)
+/**
+ * Dynamically choose the v-model
+ * Single date is a Date, whereas a Date range is an object containing `start` and `end` dates
+ */
+const calendarSingleDate = ref<Date|null>(props.modelValue.start)
+const calendarRange = ref<TimeRange>(props.modelValue)
+const calendarVModel = isSingleDatepicker.value
+  ? calendarSingleDate as DatePickerModel
+  : calendarRange as DatePickerModel
 
 // `minute-increment` has been deprecated in favor of the time `rules` object
 // https://vcalendar.io/datepicker/time-rules.html
 const vCalendarRules = ref({
   minutes: [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55],
-  seconds: [0],
 })
 
 const widthStyle = computed((): CSSProperties => {
@@ -312,7 +310,7 @@ const impliedMode = computed((): string => {
   } else if (props.mode === TimepickerMode.RelativeDate) {
     return 'date'
   } else {
-    // Values that are safe to be passed verbatim to v-calendar
+    // Modes that are safe to be passed verbatim to v-calendar
     return props.mode
   }
 })
@@ -342,10 +340,20 @@ const changeCalendarRange = (vCalValue: TimeRange | null): void => {
     ? !(vCalValue as TimeRange).start || !(vCalValue as TimeRange).end
     : !(vCalValue as TimeRange).start
 
-  const start: Date | number | null = vCalValue?.start || null
+  const start: Date | number | null = vCalValue?.start || new Date()
   const end: Date | number | null = vCalValue?.end || null
 
   submitDisabled.value = !!isCleared
+
+  /**
+   * Set our v-calendar v-model
+   */
+  if (!isSingleDatepicker.value && vCalValue && (vCalValue as TimeRange).start && (vCalValue as TimeRange).end) {
+    calendarRange.value.start = start
+    calendarRange.value.end = end
+  } else if (vCalValue && (vCalValue as TimeRange).start) {
+    calendarSingleDate.value = start
+  }
 
   /**
    * Set our internal state, used for display purposes, and for the emitted value when "Apply" is clicked.
@@ -387,12 +395,11 @@ const changeRelativeTimeframe = (timeframe: TimePeriod): void => {
  * back to the parent.
  */
 const clearSelection = (): void => {
-  // Reset the v-calendar DatePicker selection
-  calendarVModel.value = null
+  calendarRange.value = defaultTimeRange
+  calendarSingleDate.value = null
 
   state.abbreviatedDisplay = props.placeholder
   state.fullRangeDisplay = ''
-  submitDisabled.value = true
 
   // Set the relative timeframe to the smallest increment, eg: `15m`
   if (hasTimePeriods.value) {
@@ -471,17 +478,22 @@ const ucWord = (val: string): string => {
 }
 
 /**
- * Determine if `v-calendar` instance is in single or range mode
+ * Triggers when `v-calendar` instance is in single date/time mode
  */
-watch(calendarVModel, (newValue, oldValue) => {
+watch(calendarSingleDate, (newValue, oldValue) => {
   if (newValue !== undefined && newValue !== oldValue) {
-    if (isSingleDatepicker.value) {
-      changeCalendarRange({ start: newValue, end: null })
-    } else if (newValue && 'start' in newValue && 'end' in newValue) {
-      changeCalendarRange(newValue as TimeRange)
-    }
+    changeCalendarRange({ start: newValue, end: null, timePeriodsKey: '' } as TimeRange)
   }
-}, { immediate: false })
+}, { immediate: true })
+
+/**
+ * Triggers when `v-calendar` instance is in date range mode
+ */
+watch(calendarRange, (newValue, oldValue) => {
+  if (newValue !== undefined && newValue !== oldValue) {
+    changeCalendarRange(newValue as TimeRange)
+  }
+}, { immediate: true })
 
 /**
  * Reinstate previous selection whenever user toggles between Relative and Custom tabs
@@ -528,6 +540,7 @@ onMounted(() => {
 const defaultTimeRange: TimeRange = {
   start: null,
   end: null,
+  timePeriodsKey: '',
 }
 </script>
 
@@ -573,10 +586,10 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
       color: var(--kui-color-text, $kui-color-text);
       display: flex !important;
       flex-wrap: wrap;
-      font-size: var(--kui-font-size-30, $kui-font-size-30) !important;
+      font-size: var(--kui-font-size-40, $kui-font-size-40) !important;
 
       div {
-        font-size: var(--kui-font-size-30, $kui-font-size-30);
+        font-size: var(--kui-font-size-40, $kui-font-size-40);
         line-height: var(--kui-line-height-30, $kui-line-height-30);
         margin: var(--kui-space-0, $kui-space-0);
         padding: var(--kui-space-0, $kui-space-0);
