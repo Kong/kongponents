@@ -1,3 +1,10 @@
+# [9.0.0-alpha.69](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.68...v9.0.0-alpha.69) (2023-12-06)
+
+
+### Bug Fixes
+
+* **kcard:** card content width ([#1895](https://github.com/Kong/kongponents/issues/1895)) ([7152892](https://github.com/Kong/kongponents/commit/7152892f53b1b9c160c24e1ed4e8ec91dca6e7bf))
+
 # [9.0.0-alpha.68](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.67...v9.0.0-alpha.68) (2023-12-05)
 
 
