@@ -62,7 +62,7 @@
           v-model="calendarVModel"
           :drag-attribute="calendarDragAttributes"
           is-expanded
-          :is-range="!isSingleDatepicker ? true : false"
+          :is-range="!isSingleDatepicker"
           :max-date="maxDate"
           :min-date="minDate"
           :mode="impliedMode"
@@ -157,7 +157,7 @@ const props = defineProps({
     default: true,
   },
   modelValue: {
-    type: [Object] as PropType<TimeRange>,
+    type: Object as PropType<TimeRange>,
     required: false,
     default: () => ({ start: null, end: null }),
     validator: (value: TimeRange): boolean => {

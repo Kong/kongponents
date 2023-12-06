@@ -141,9 +141,9 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Props
 
-* `minuteIncrement` Deprecated in favor of the `rules` prop. [Refer to v-calendar documentation](https://vcalendar.io/datepicker/time-rules.html)
+* `minuteIncrement` Deprecated; we now internally default the `rules` prop to a 5 minute increment. [Refer to v-calendar documentation](https://vcalendar.io/datepicker/time-rules.html)
 
-* `v-model` Single date and time picker's seed value (string in ISO date format) has been deprecated in favor of a `TimeRange` object whose `start` value will be set to a Date ISO string; `end` value will be set to `null`.
+* `v-model` Single date and time picker's seed value (string in ISO date format) has been changed to a `TimeRange` object whose `start` value will be set to a Date ISO string; `end` value will be set to `null`.
 
   See KDateTimePickers's [v-model](/components/datetime-picker#v-model) for more details
 

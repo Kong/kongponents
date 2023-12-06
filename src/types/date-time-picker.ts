@@ -19,8 +19,8 @@ export type DatePickerRangeObject = {
 export type DatePickerModel = DatePickerDate | DatePickerRangeObject
 
 export interface TimeRange {
-  start: Date | null,
-  end: Date | null,
+  start: Date | null
+  end: Date | null
   timePeriodsKey?: string
 }
 
@@ -59,7 +59,7 @@ export enum TimepickerMode {
   Datetime = 'dateTime',
   Relative = 'relative',
   RelativeDate = 'relativeDate',
-  RelativeDateTime = 'relativeDateTime'
+  RelativeDateTime = 'relativeDateTime',
 }
 
 export const ModeArray: string[] = Object.values(TimepickerMode)
