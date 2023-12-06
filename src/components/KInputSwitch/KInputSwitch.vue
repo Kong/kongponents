@@ -210,7 +210,7 @@ $kInputSwitchLargeCircleSize: 10px;
   }
 
   .switch-control-wrapper {
-    display: flex;
+    display: flex !important;
   }
 
   .switch-control {
