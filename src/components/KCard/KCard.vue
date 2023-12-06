@@ -87,7 +87,7 @@ const showCardHeader = computed((): boolean => {
     display: flex;
     flex-direction: column;
     height: 100%;
-    // width: 100%;
+    width: 100%;
   }
 
   .card-footer {
@@ -95,7 +95,7 @@ const showCardHeader = computed((): boolean => {
 
     display: flex;
     gap: var(--kui-space-30, $kui-space-30);
-    // width: 100%;
+    width: 100%;
   }
 }
 </style>
