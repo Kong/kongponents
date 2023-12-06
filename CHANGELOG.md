@@ -1,3 +1,10 @@
+# [9.0.0-alpha.70](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.69...v9.0.0-alpha.70) (2023-12-06)
+
+
+### Bug Fixes
+
+* **datetimepicker:** invalid value passed to formatTime [MA-2131] ([#1881](https://github.com/Kong/kongponents/issues/1881)) ([6dde6a5](https://github.com/Kong/kongponents/commit/6dde6a51b12eb745362de4dbb10775328f7c29f3))
+
 # [9.0.0-alpha.69](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.68...v9.0.0-alpha.69) (2023-12-06)
 
 
