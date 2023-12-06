@@ -359,12 +359,6 @@ A valid `Date` object (eg: `Mon Aug 15 2022 08:00:00 GMT-0700 (Pacific Daylight 
 
 A valid `Date` object (eg: `Fri Aug 19 2022 12:00:00 GMT-0700 (Pacific Daylight Time)`) which blocks out days/times that occur **after** the given timestamp. `maxDate` gets passed down to the calendar component, and does not apply to relative time frames.
 
-**default**: `null`
-
-### minuteIncrement
-
-A `Number` which sets the custom interval for the Minutes select dropdown.
-
 **default**: `5`
 
 ### mode
