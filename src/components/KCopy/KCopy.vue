@@ -187,10 +187,6 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
   align-items: center;
   display: flex;
 
-  &-badge-text {
-    margin-right: var(--kui-space-40, $kui-space-40);
-  }
-
   .copy-element {
     align-items: center;
     display: inline-flex;
