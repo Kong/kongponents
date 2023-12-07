@@ -286,11 +286,12 @@ Component has been renamed to `KDropdown`
 
 ### KMethodBadge
 
+This component has been removed. Please refer to KBadge component which has been updated to support method appearances.
+
 #### Constants, Types & Interfaces
 
-* `MethodShape` type has been removed
-
-### KMethod Badge
+* `MethodShape`, `Method` and `MethodBadgeColors` types have been removed
+* `MethodsArray` const has been removed
 
 ### KModal
 
