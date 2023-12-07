@@ -19,14 +19,14 @@
         class="timepicker-input"
         :class="{ 'set-min-width': hasTimePeriods }"
         data-testid="k-datetime-picker-input"
-        size="large"
+        size="medium"
         :style="widthStyle"
       >
         <CalIcon
           v-if="icon"
           class="calendar-icon"
           :color="KUI_COLOR_TEXT_NEUTRAL"
-          :size="KUI_ICON_SIZE_30"
+          :size="KUI_ICON_SIZE_20"
         />
         <div
           class="timepicker-display"
@@ -142,7 +142,7 @@ import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.
 import 'v-calendar/dist/style.css'
 import { ModeArray, ModeArrayCustom, ModeArrayRelative, ModeDateOnly, TimepickerMode } from '@/types'
 import type { DateTimePickerState, TimeFrameSection, TimePeriod, TimeRange, Mode, CSSProperties, DatePickerModel } from '@/types'
-import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_20 } from '@kong/design-tokens'
 import { CalIcon } from '@kong/icons'
 
 const props = defineProps({
@@ -306,7 +306,7 @@ const vCalendarRules = ref({
 
 const widthStyle = computed((): CSSProperties => {
   return {
-    width: props.width === 'auto' || props.width.endsWith('%') || props.width.endsWith('px') ? props.width : props.width + 'px',
+    width: props.width === 'auto' || props.width.endsWith('%') || props.width.endsWith('px') ? props.width : props.width + 'ppppx',
   }
 })
 
@@ -563,7 +563,10 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
     justify-content: flex-start;
     // Prevent overflowing the container
     max-width: 100%;
-    padding: var(--kui-space-50, $kui-space-50) !important;
+
+    // Match KInput
+    padding: var(--kui-space-40, $kui-space-40) var(--kui-space-50, $kui-space-50) !important;
+
     // Styling button as input via mixin
     @include input-default;
 
@@ -579,15 +582,16 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
       // Styling button as input via mixin
       @include input-focus;
     }
+
     .timepicker-display {
       color: var(--kui-color-text, $kui-color-text);
       display: flex !important;
       flex-wrap: wrap;
-      font-size: var(--kui-font-size-40, $kui-font-size-40) !important;
+      font-size: var(--kui-font-size-30, $kui-font-size-30);
 
-      div {
-        font-size: var(--kui-font-size-40, $kui-font-size-40);
-        line-height: var(--kui-line-height-30, $kui-line-height-30);
+      > div {
+        font-size: var(--kui-font-size-30, $kui-font-size-30);
+        line-height: var(--kui-line-height-20, $kui-line-height-20);
         margin: var(--kui-space-0, $kui-space-0);
         padding: var(--kui-space-0, $kui-space-0);
         text-align: left;
@@ -613,11 +617,16 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
 
     .k-popover-content {
       .datetime-picker-toggle {
-        margin-bottom: var(--kui-space-60, $kui-space-60) !important;
+        margin-bottom: var(--kui-space-40, $kui-space-40) !important;
         width: 100% !important;
+
+        .k-button {
+          font-size: var(--kui-font-size-20, $kui-font-size-20);
+        }
       }
 
       .range-display {
+        font-size: var(--kui-font-size-20, $kui-font-size-20);
         line-height: $kui-line-height-30;
         margin: var(--kui-space-0, $kui-space-0) auto var(--kui-space-0, $kui-space-0);
       }
@@ -633,7 +642,7 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
 
         .timeframe-section-title {
           color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
-          font-size: var(--kui-font-size-30, $kui-font-size-30) !important;
+          font-size: var(--kui-font-size-20, $kui-font-size-20) !important;
           font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
           margin-bottom: var(--kui-space-20, $kui-space-20) !important;
           margin-top: var(--kui-space-40, $kui-space-40) !important;
@@ -645,10 +654,10 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
           row-gap: $grid-spacing;
 
           .timeframe-btn {
-            font-size: var(--kui-font-size-30, $kui-font-size-30);
+            font-size: var(--kui-font-size-20, $kui-font-size-20);
             font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
             justify-content: center;
-            padding: var(--kui-space-40, $kui-space-40) var(--kui-space-50, $kui-space-50);
+            padding: var(--kui-space-30, $kui-space-30);
 
             &.selected-option {
               background-color: var(--kui-color-background-primary, $kui-color-background-primary);
@@ -677,7 +686,8 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
         // Apply / Clear buttons
         // TODO these overrides should be applied to Kongponents button
         .action-btn {
-          padding: var(--kui-space-40, $kui-space-40) var(--kui-space-60, $kui-space-60);
+          font-size: var(--kui-font-size-20, $kui-font-size-20);
+          padding: var(--kui-space-30, $kui-space-30) var(--kui-space-50, $kui-space-50);
           &:focus {
             box-shadow: none;
           }
@@ -693,6 +703,10 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
 
 // v-calendar overrides
 .k-datetime-picker {
+  // All calendar dates use v-calendar's small text variable
+  // stylelint-disable-next-line
+  --vc-text-sm: var(--kui-font-size-20, 12px);
+
   $highlight-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
   $selected-color: var(--kui-color-background-primary, $kui-color-background-primary);
   $text-color: var(--kui-color-text-neutral, $kui-color-text-neutral);
@@ -787,6 +801,7 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
     .vc-time-picker {
       // Hide grey top border above each Time input group
       border-top: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-white !important; // token needed
+      padding-bottom: 0;
 
       // Force Date display and Time inputs to expand to full width
       .vc-time-header, .vc-time-select-group {
@@ -832,7 +847,7 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
         .vc-title {
           background-color: white;
           color: $text-color;
-          font-size: var(--kui-font-size-40, $kui-font-size-40);
+          font-size: var(--kui-font-size-30, $kui-font-size-30);
 
           &:hover,
           &:active {
@@ -848,7 +863,7 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
       // Calendar content (weekday headings and full month)
       .vc-weeks {
         margin-top: var(--kui-space-50, $kui-space-50);
-
+        padding: 0;
         .vc-weekday {
           color: $text-color;
         }

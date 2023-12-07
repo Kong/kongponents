@@ -9,7 +9,6 @@ const exampleTimeFrames = [
     values: [
       TimePeriods.get(TimeframeKeys.FIFTEEN_MIN),
       TimePeriods.get(TimeframeKeys.ONE_HOUR),
-      TimePeriods.get(TimeframeKeys.THREE_HOUR),
       TimePeriods.get(TimeframeKeys.SIX_HOUR),
       TimePeriods.get(TimeframeKeys.TWELVE_HOUR),
       TimePeriods.get(TimeframeKeys.ONE_DAY),
