@@ -1,7 +1,7 @@
 <template>
   <div class="k-copy">
     <span
-      v-if="badge"
+      v-if="badge && badgeLabel"
       class="copy-badge-text"
     >
       {{ badgeLabel }}
