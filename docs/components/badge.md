@@ -93,16 +93,16 @@ Passing one of the methods appearances will apply `text-transform: uppercase` an
 <KBadge appearance="danger">Danger</KBadge>
 <KBadge appearance="decorative">Decorative</KBadge>
 <KBadge appearance="neutral">Neutral</KBadge>
+<KBadge appearance="connect">Connect</KBadge>
+<KBadge appearance="custom">Custom</KBadge>
+<KBadge appearance="delete">Delete</KBadge>
 <KBadge appearance="get">Get</KBadge>
+<KBadge appearance="head">Head</KBadge>
+<KBadge appearance="options">Options</KBadge>
+<KBadge appearance="patch">Patch</KBadge>
 <KBadge appearance="post">Post</KBadge>
 <KBadge appearance="put">Put</KBadge>
-<KBadge appearance="delete">Delete</KBadge>
-<KBadge appearance="patch">Patch</KBadge>
-<KBadge appearance="options">Options</KBadge>
-<KBadge appearance="head">Head</KBadge>
-<KBadge appearance="connect">Connect</KBadge>
 <KBadge appearance="trace">Trace</KBadge>
-<KBadge appearance="custom">Custom</KBadge>
 ```
 
 ### tooltip
