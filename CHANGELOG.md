@@ -1,3 +1,10 @@
+# [9.0.0-alpha.72](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.71...v9.0.0-alpha.72) (2023-12-07)
+
+
+### Bug Fixes
+
+* **kcard:** add box-sizing rule ([#1898](https://github.com/Kong/kongponents/issues/1898)) ([7a0c612](https://github.com/Kong/kongponents/commit/7a0c6123561662fe9e5b781201ef4bf9e143c31c))
+
 # [9.0.0-alpha.71](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.70...v9.0.0-alpha.71) (2023-12-07)
 
 
