@@ -55,6 +55,7 @@ const showCardHeader = computed((): boolean => {
 .k-card {
   @include cardDefaults;
 
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: var(--kui-space-70, $kui-space-70);
