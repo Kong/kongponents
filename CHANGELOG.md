@@ -1,3 +1,10 @@
+# [9.0.0-alpha.71](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.70...v9.0.0-alpha.71) (2023-12-07)
+
+
+### Bug Fixes
+
+* **kcopy:** icon having left margin when format is hidden ([#1897](https://github.com/Kong/kongponents/issues/1897)) ([9597f9e](https://github.com/Kong/kongponents/commit/9597f9ed3c089088a4634d495b8fd389831241d9))
+
 # [9.0.0-alpha.70](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.69...v9.0.0-alpha.70) (2023-12-06)
 
 
