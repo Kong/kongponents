@@ -93,7 +93,7 @@ Passing one of the methods appearances will apply `text-transform: uppercase` an
 <KBadge appearance="danger">Danger</KBadge>
 <KBadge appearance="decorative">Decorative</KBadge>
 <KBadge appearance="neutral">Neutral</KBadge>
-<KBadge appearance="get">Gey</KBadge>
+<KBadge appearance="get">Get</KBadge>
 <KBadge appearance="post">Post</KBadge>
 <KBadge appearance="put">Put</KBadge>
 <KBadge appearance="delete">Delete</KBadge>
