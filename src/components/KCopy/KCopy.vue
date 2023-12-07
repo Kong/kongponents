@@ -202,7 +202,6 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
 
     .truncate-content {
       display: inline-block;
-      margin-right: var(--kui-space-30, $kui-space-30);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -224,6 +223,7 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
     cursor: pointer;
     display: flex;
     font-size: var(--kui-font-size-20, $kui-font-size-20);
+    gap: var(--kui-space-30, $kui-space-30);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
     padding: var(--kui-space-10, $kui-space-10) var(--kui-space-30, $kui-space-30);
     white-space: nowrap;
@@ -237,7 +237,6 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
     align-items: center;
     cursor: pointer;
     display: flex;
-    margin-left: var(--kui-space-30, $kui-space-30);
   }
 
   .text-icon {
