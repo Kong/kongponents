@@ -253,6 +253,7 @@ onUnmounted(() => {
     height: 100% !important;
 
     .expand-trigger {
+      background: var(--kui-color-background-transparent, $kui-color-background-transparent);
       border: 0;
       border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
       color: var(--kui-color-text-primary, $kui-color-text-primary);

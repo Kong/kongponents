@@ -208,7 +208,7 @@ describe('KMultiselect', () => {
     // no adding a label that already exists
     cy.getTestId('k-multiselect-add-item').should('not.exist')
     // item gone when dismissed
-    cy.getTestId('k-multiselect-selections').get('.k-badge-dismiss-button').first().click()
+    cy.getTestId('k-multiselect-selections').getTestId('badge-dismiss-button').first().click()
     // removed from selections
     cy.getTestId('k-multiselect-selections').should('not.to.exist')
     // gone when searching
@@ -349,12 +349,12 @@ describe('KMultiselect', () => {
     cy.get('[data-testid="k-multiselect-trigger"]')
       .click('topRight')
       .then(() => {
-        cy.get('[data-testid="k-multiselect-selections"] > div .k-badge-text')
+        cy.get('[data-testid="k-multiselect-selections"] > div .badge-content-wrapper')
           .last()
           .should(($el) => {
             const text = $el.text()
 
-            expect(text.trim()).to.equal('+7')
+            expect(text.trim()).to.equal('+8')
           })
       })
       .then(() => {
@@ -370,12 +370,12 @@ describe('KMultiselect', () => {
         cy.get('input').type('{esc}')
       })
       .then(() => {
-        cy.get('[data-testid="k-multiselect-selections"] > div .k-badge-text')
+        cy.get('[data-testid="k-multiselect-selections"] > div .badge-content-wrapper')
           .last()
           .should(($el) => {
             const text = $el.text()
 
-            expect(text.trim()).to.equal('+7')
+            expect(text.trim()).to.equal('+8')
           })
       })
   })
@@ -488,7 +488,7 @@ describe('KMultiselect', () => {
     cy.get('.k-multiselect-input').click()
 
     cy.getTestId('k-multiselect-selections').should('contain.text', labels[0])
-    cy.getTestId('k-multiselect-selections').get('.k-badge-dismiss-button').first().click()
+    cy.getTestId('k-multiselect-selections').getTestId('badge-dismiss-button').first().click()
     cy.getTestId('k-multiselect-selections').should('not.exist')
   })
 

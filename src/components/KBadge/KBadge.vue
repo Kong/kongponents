@@ -1,99 +1,75 @@
 <template>
   <div
-    v-if="!isDismissed"
     :aria-hidden="hidden ? true : undefined"
     class="k-badge"
-    :class="[ `k-badge-${appearance}`, `k-badge-${shape}`, {
-      'is-bordered': isBordered,
-      'clickable': isClickable
-    } ]"
-    :style="badgeCustomStyles"
-    :tabindex="hidden ? -1 : isClickable ? 0 : undefined"
+    :class="[appearance, { 'method': isMethodBadge }]"
   >
     <component
-      :is="truncationTooltip && (forceTooltip || isTruncated) ? 'KTooltip' : 'div'"
-      class="k-badge-text"
-      :position-fixed="truncationTooltip && (forceTooltip || isTruncated) ? true : undefined"
+      :is="showTooltip ? 'KTooltip' : 'div'"
+      class="badge-content"
+      :class="{ 'icon-after': !iconBefore }"
+      :position-fixed="showTooltip ? true : undefined"
     >
-      <template #content>
-        {{ truncationTooltip }}
+      <template
+        v-if="showTooltip"
+        #content
+      >
+        {{ tooltip }}
       </template>
+      <slot
+        v-if="$slots.icon"
+        name="icon"
+      />
       <div
-        ref="badgeText"
-        class="k-badge-text"
+        ref="badgeTextElement"
+        class="badge-content-wrapper"
       >
         <slot />
       </div>
     </component>
-
-    <CloseIcon
-      v-if="dismissable"
-      :aria-hidden="hidden ? true : undefined"
-      class="k-badge-dismiss-button"
-      :color="color"
-      data-testid="k-badge-dismiss-button"
-      role="button"
-      :tabindex="hidden ? -1 : undefined"
-      @click="handleDismiss"
-      @click.stop
-    />
   </div>
 </template>
 
 <script lang="ts">
 import type { PropType } from 'vue'
-import { ref, computed, watch, useAttrs } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
-import type { BadgeAppearance, BadgeShape } from '@/types'
-import { BadgeAppearances, BadgeShapes } from '@/types'
+import type { BadgeAppearance } from '@/types'
+import { BadgeAppearances, BadgeMethodAppearances } from '@/types'
 import useUtilities from '@/composables/useUtilities'
-import { CloseIcon } from '@kong/icons'
+import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 
 const { getSizeFromString } = useUtilities()
 
 // Must explicitly define components so KTooltip works in tests
 export default {
   name: 'KBadge',
-  components: { KButton, KIcon, KTooltip },
+  components: { KButton, KTooltip },
 }
 </script>
 
 <script setup lang="ts">
 const props = defineProps({
-  /**
-    * Base styling<br>
-    * One of [danger, warning, success etc.]
-    */
   appearance: {
     type: String as PropType<BadgeAppearance>,
     required: false,
+    default: 'info',
     validator: (value: string): boolean => {
-      return Object.keys({ ...BadgeAppearances }).includes(value)
+      return Object.keys(BadgeAppearances).includes(value)
     },
-    default: 'default',
   },
   /**
-   * For use with truncation. This text will be displayed
-   * on hover of the badge if the text is truncated.
+   * Tooltip text that will be displayed on hover.
    */
-  truncationTooltip: {
+  tooltip: {
     type: String,
     default: '',
   },
   /**
-   * Use this prop if you always want to show the tooltip whether
-   * or not the badge text is truncated.
+   * Whether tooltip should only be shown when the badge is truncated.
    */
-  forceTooltip: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Adds a dismiss button to the badge
-   */
-  dismissable: {
+  truncationTooltip: {
     type: Boolean,
     default: false,
   },
@@ -108,51 +84,6 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-
-  shape: {
-    type: String as PropType<BadgeShape>,
-    required: false,
-    validator: (value: string): boolean => {
-      return Object.keys({ ...BadgeShapes }).includes(value)
-    },
-    default: 'rounded',
-  },
-
-  color: {
-    type: String,
-    required: false,
-    default: '',
-  },
-
-  backgroundColor: {
-    type: String,
-    required: false,
-    default: '',
-  },
-
-  /**
-   * The color to apply to the border of badges with custom appearance
-   */
-  borderColor: {
-    type: String,
-    required: false,
-    default: '',
-  },
-
-  isBordered: {
-    type: Boolean,
-    default: false,
-  },
-
-  /**
-   * The color to apply to the dismiss button on hover
-   */
-  hoverColor: {
-    type: String,
-    required: false,
-    default: '',
-  },
-
   /**
    * Max width to apply truncation at
    * Is superseded by CSS variable if both provided
@@ -161,402 +92,219 @@ const props = defineProps({
     type: String,
     default: '200px',
   },
+  /**
+   * A boolean whether or not to show the icon before the badge text (or after).
+   */
+  iconBefore: {
+    type: Boolean,
+    default: true,
+  },
 })
 
-const emit = defineEmits(['dismissed'])
-
-const attrs = useAttrs()
-const isClickable = computed((): boolean => !!attrs.onClick)
-
-const badgeText = ref(null)
-const isDismissed = ref(false)
-
-const handleDismiss = (): void => {
-  isDismissed.value = true
-  emit('dismissed')
-}
-
-const offsetWidth = ref(0)
-const scrollWidth = ref(0)
-const truncationCalculated = ref(false)
-const isTruncated = computed(() => offsetWidth.value < scrollWidth.value)
-
-const badgeCustomStyles = computed(() => {
-  const styles = {} as {
-    backgroundColor?: string
-    borderColor?: string
-    color?: string
-  }
-
-  if (props.backgroundColor) {
-    styles.backgroundColor = props.backgroundColor
-  }
-
-  if (props.borderColor) {
-    styles.borderColor = props.borderColor
-  }
-
-  if (props.color) {
-    styles.color = props.color
-  }
-
-  // set border-color to match the text color if is-bordered prop is true and
-  // no border-color is provided
-  if (props.isBordered && !props.borderColor && props.color) {
-    styles.borderColor = props.color
-  }
-
-  return styles
+const isMethodBadge = computed(() => {
+  return Object.keys(BadgeMethodAppearances).includes(props.appearance)
 })
+
+const badgeTextElement = ref<HTMLDivElement>()
+
+const resizeObserver = ref<ResizeObserverHelper>()
+const isTruncated = ref<boolean>(false)
 
 const maxWidth = computed((): string => getSizeFromString(props.maxWidth))
 
-watch(badgeText, () => {
-  // prevent recursion loop
-  if (badgeText.value && !truncationCalculated.value) {
-    offsetWidth.value = (badgeText.value as HTMLElement)?.offsetWidth
-    scrollWidth.value = (badgeText.value as HTMLElement)?.scrollWidth
-    truncationCalculated.value = true
+const setTruncation = (): void => {
+  if (badgeTextElement.value) {
+    isTruncated.value = badgeTextElement.value.offsetWidth < badgeTextElement.value.scrollWidth
+  }
+}
+
+const showTooltip = computed((): boolean => {
+  if (!props.tooltip) {
+    return false
+  }
+
+  if (props.truncationTooltip) {
+    return isTruncated.value
+  }
+
+  return true
+})
+
+onMounted(() => {
+  resizeObserver.value = ResizeObserverHelper.create(setTruncation)
+
+  resizeObserver.value.observe(badgeTextElement.value as HTMLDivElement)
+})
+
+onUnmounted(() => {
+  if (resizeObserver.value) {
+    resizeObserver.value.unobserve(badgeTextElement.value as HTMLDivElement)
   }
 })
 </script>
 
 <style lang="scss" scoped>
+/* Component variables */
 
-@import '@/styles/tmp-variables';
+$kBadgeMethodWidth: 85px;
 
-@import '@/styles/mixins';
+/* Component mixins */
 
-.k-badge {
-  display: inline-flex;
-  font-family: var(--kui-font-family-text, $kui-font-family-text);
-  font-size: var(--kui-font-size-20, $kui-font-size-20);
-  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-  height: auto;
-  line-height: var(--kui-line-height-20, $kui-line-height-20);
-  padding: var(--kui-space-10, $kui-space-10) var(--kui-space-30, $kui-space-30);
-  text-align: center;
-  transition: all $tmp-animation-timing-2 ease-in-out;
-  width: fit-content;
+// uses info badge appearance colors as default
+@mixin kBadgeAppearance($bgColor: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest), $textColor: var(--kui-color-text-primary, $kui-color-text-primary), $hoverColor: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong)) {
+  background-color: $bgColor;
+  color: $textColor;
 
-  // Appearances
-  &.k-badge-default {
-    background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-    border-color: var(--kui-color-border-primary, $kui-color-border-primary);
-    color: var(--kui-color-text-primary, $kui-color-text-primary);
-
-    &.is-bordered {
-      border-style: solid;
-      border-width: var(--kui-border-width-10, $kui-border-width-10);
+  :deep([role="button"]):not([disabled]) {
+    &:hover, &:focus {
+      color: $hoverColor !important;
     }
-  }
-  &.k-badge-success {
-    background-color: $tmp-color-green-100;
-    border-color: $tmp-color-green-700;
-    color: $tmp-color-green-700;
-
-    &.is-bordered {
-      border-style: solid;
-      border-width: var(--kui-border-width-10, $kui-border-width-10);
-    }
-  }
-  &.k-badge-danger {
-    background-color: var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest);
-    border-color: var(--kui-color-border-danger, $kui-color-border-danger);
-    color: var(--kui-color-text-danger, $kui-color-text-danger);
-
-    &.is-bordered {
-      border-style: solid;
-      border-width: var(--kui-border-width-10, $kui-border-width-10);
-    }
-  }
-  &.k-badge-info {
-    background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
-    border-color: var(--kui-color-border-primary, $kui-color-border-primary);
-    color: var(--kui-color-text-primary, $kui-color-text-primary);
-
-    &.is-bordered {
-      border-style: solid;
-      border-width: var(--kui-border-width-10, $kui-border-width-10);
-    }
-  }
-  &.k-badge-warning {
-    background-color: $tmp-color-yellow-100;
-    border-color: $tmp-color-yellow-600;
-    color: $tmp-color-yellow-600;
-
-    &.is-bordered {
-      border-style: solid;
-      border-width: var(--kui-border-width-10, $kui-border-width-10);
-    }
-  }
-  &.k-badge-neutral {
-    background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-    border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-
-    &.is-bordered {
-      border-style: solid;
-      border-width: var(--kui-border-width-10, $kui-border-width-10);
-    }
-  }
-
-  &.k-badge-rectangular {
-    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-
-    .k-badge-dismiss-button {
-      border-bottom-left-radius: var(--kui-border-radius-0, $kui-border-radius-0);
-      border-bottom-right-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-      border-top-left-radius: var(--kui-border-radius-0, $kui-border-radius-0);
-      border-top-right-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-    }
-  }
-
-  &.k-badge-rounded {
-    border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
-
-    .k-badge-dismiss-button {
-      border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
-      border-bottom-left-radius: var(--kui-border-radius-0, $kui-border-radius-0);
-      border-top-left-radius: var(--kui-border-radius-0, $kui-border-radius-0);
-    }
-  }
-
-  &.clickable {
-    cursor: pointer;
-  }
-
-  a &,
-  &.clickable {
-    user-select: none;
-  }
-
-  .k-badge-text {
-    @include truncate;
-    align-self: center;
-    max-width: v-bind(maxWidth);
-    min-width: 8px;
-    width: auto;
-  }
-
-  .k-badge-dismiss-button {
-    border: none;
-    cursor: pointer;
-    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-    // ignore badge padding
-    margin: calc(-1 * var(--kui-space-10, $kui-space-10)) calc(-1 * var(--kui-space-30, $kui-space-30));
-    margin-left: var(--kui-space-10, $kui-space-10);
-    padding: var(--kui-space-20, $kui-space-20);
   }
 }
-</style>
 
-<style lang="scss">
-
-@import '@/styles/tmp-variables';
+/* Component styles */
 
 .k-badge {
-  // default appearance colors local variables
-  $KBadgeDefaultBackground: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-  $KBadgeDefaultColor: var(--kui-color-text-primary, $kui-color-text-primary);
-  $KBadgeDefaultButtonHoverColor: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
-  // success appearance colors local variables
-  $KBadgeSuccessBackground: $tmp-color-green-100;
-  $KBadgeSuccessColor: $tmp-color-green-700;
-  $KBadgeSuccessButtonHoverColor: $tmp-color-green-200;
-  // danger appearance colors local variables
-  $KBadgeDangerBackground: var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest);
-  $KBadgeDangerColor: var(--kui-color-text-danger, $kui-color-text-danger);
-  $KBadgeDangerButtonHoverColor: var(--kui-color-background-danger-weaker, $kui-color-background-danger-weaker);
-  // info appearance colors local variables
-  $KBadgeInfoBackground: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
-  $KBadgeInfoColor: var(--kui-color-text-primary, $kui-color-text-primary);
-  $KBadgeInfoButtonHoverColor: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
-  // warning appearance colors local variables
-  $KBadgeWarningBackground: $tmp-color-yellow-100;
-  $KBadgeWarningColor: $tmp-color-yellow-600;
-  $KBadgeWarningButtonHoverColor: $tmp-color-yellow-200;
-  // neutral appearance colors local variables
-  $KBadgeNeutralBackground: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-  $KBadgeNeutralColor: var(--kui-color-text-neutral, $kui-color-text-neutral);
-  $KBadgeNeutralButtonHoverColor: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+  // apply info appearance by default (in case of invalid appearance)
+  @include kBadgeAppearance;
+  @include badgeWrapper;
 
-   &.k-badge-custom {
-    background-color: v-bind('$props.backgroundColor');
-    border-color: v-bind('$props.borderColor');
-    color: v-bind('$props.color');
+  .badge-content {
+    @include badgeContent;
 
-    &.is-bordered {
-      border-style: solid;
-      border-width: var(--kui-border-width-10, $kui-border-width-10);
-    }
-
-    .k-badge-dismiss-button {
-      background-color: v-bind('$props.backgroundColor');
-      .kong-icon.kong-icon-close path {
-        stroke: v-bind('$props.color');
-      }
-
-      &:hover {
-        background-color: v-bind('$props.hoverColor');
-      }
-    }
-
-    a &:hover,
-    a:focus &,
-    &.clickable:hover,
-    &:focus {
-      // fall back to backgroundColor if hoverColor is not provided
-      background-color: v-bind('$props.hoverColor || $props.backgroundColor') !important;
-    }
-
-    &:has(.k-badge-dismiss-button:hover) {
-      background-color: v-bind('$props.backgroundColor') !important;
+    &.icon-after {
+      flex-direction: row-reverse;
     }
   }
 
-  &.k-badge-default {
-    .k-badge-dismiss-button {
-      background-color: $KBadgeDefaultBackground;
-      .kong-icon.kong-icon-close path {
-        stroke: $KBadgeDefaultColor;
-      }
+  .badge-content-wrapper {
+    @include truncate;
 
-      &:hover {
-        background-color: $KBadgeDefaultButtonHoverColor;
-      }
+    max-width: v-bind('maxWidth');
+  }
+
+  :deep(#{$kongponentsKongIconSelector}) {
+    height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+    width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+  }
+
+  :deep([role="button"]) {
+    &:not([disabled]) {
+      cursor: pointer;
     }
 
-    a &:hover,
-    a:focus &,
-    &.clickable:hover,
-    &:focus {
-      background-color: $KBadgeDefaultButtonHoverColor;
-    }
+    // adopts info appearance hover styles by default (in case of invalid appearance)
 
-    &:has(.k-badge-dismiss-button:hover) {
-      background-color: $KBadgeDefaultBackground;
+    &[disabled] {
+      color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
+      pointer-events: none;
     }
   }
 
-  &.k-badge-success {
-    .k-badge-dismiss-button {
-      background-color: $KBadgeSuccessBackground;
-      .kong-icon.kong-icon-close path {
-        stroke: $KBadgeSuccessColor;
-      }
-
-      &:hover {
-        background-color: $KBadgeSuccessButtonHoverColor;
-      }
-    }
-
-    a &:hover,
-    a:focus &,
-    &.clickable:hover,
-    &:focus {
-      background-color: $KBadgeSuccessButtonHoverColor;
-    }
-
-    &:has(.k-badge-dismiss-button:hover) {
-      background-color: $KBadgeSuccessBackground;
+  &.method {
+    .badge-content {
+      justify-content: center;
+      min-width: $kBadgeMethodWidth !important;
+      text-align: center;
+      text-transform: uppercase;
     }
   }
 
-  &.k-badge-danger {
-    .k-badge-dismiss-button {
-      background-color: $KBadgeDangerBackground;
-      .kong-icon.kong-icon-close path {
-        stroke: $KBadgeDangerColor;
-      }
+  /* Appearances */
 
-      &:hover {
-        background-color: $KBadgeDangerButtonHoverColor;
-      }
-    }
-
-    a &:hover,
-    a:focus &,
-    &.clickable:hover,
-    &:focus {
-      background-color: $KBadgeDangerButtonHoverColor;
-    }
-
-    &:has(.k-badge-dismiss-button:hover) {
-      background-color: $KBadgeDangerBackground;
-    }
+  &.info {
+    @include kBadgeAppearance;
   }
 
-  &.k-badge-info {
-    .k-badge-dismiss-button {
-      background-color: $KBadgeInfoBackground;
-      .kong-icon.kong-icon-close path {
-        stroke: $KBadgeInfoColor;
-      }
-
-      &:hover {
-        background-color: $KBadgeInfoButtonHoverColor;
-      }
-    }
-
-    a &:hover,
-    a:focus &,
-    &.clickable:hover,
-    &:focus {
-      background-color: $KBadgeInfoButtonHoverColor;
-    }
-
-    &:has(.k-badge-dismiss-button:hover) {
-      background-color: $KBadgeInfoBackground;
-    }
+  &.success {
+    @include kBadgeAppearance(var(--kui-color-background-success-weakest, $kui-color-background-success-weakest),
+      var(--kui-color-text-success, $kui-color-text-success),
+      var(--kui-color-text-success-strong, $kui-color-text-success-strong));
   }
 
-  &.k-badge-warning {
-    .k-badge-dismiss-button {
-      background-color: $KBadgeWarningBackground;
-      .kong-icon.kong-icon-close path {
-        stroke: $KBadgeWarningColor;
-      }
-
-      &:hover {
-        background-color: $KBadgeWarningButtonHoverColor;
-      }
-    }
-
-    a &:hover,
-    a:focus &,
-    &.clickable:hover,
-    &:focus {
-      background-color: $KBadgeWarningButtonHoverColor;
-    }
-
-    &:has(.k-badge-dismiss-button:hover) {
-      background-color: $KBadgeWarningBackground;
-    }
+  &.warning {
+    @include kBadgeAppearance(var(--kui-color-background-warning-weakest, $kui-color-background-warning-weakest),
+      var(--kui-color-text-warning, $kui-color-text-warning),
+      var(--kui-color-text-warning-strong, $kui-color-text-warning-strong));
   }
 
-  &.k-badge-neutral {
-    .k-badge-dismiss-button {
-      background-color: $KBadgeNeutralBackground;
-      .kong-icon.kong-icon-close path {
-        stroke: $KBadgeNeutralColor;
-      }
+  &.danger {
+    @include kBadgeAppearance(var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest),
+      var(--kui-color-text-danger, $kui-color-text-danger),
+      var(--kui-color-text-danger-strong, $kui-color-text-danger-strong));
+  }
 
-      &:hover {
-        background-color: $KBadgeNeutralButtonHoverColor;
-      }
-    }
+  &.decorative {
+    @include kBadgeAppearance(var(--kui-color-background-decorative-purple-weakest, $kui-color-background-decorative-purple-weakest),
+      var(--kui-color-text-decorative-purple, $kui-color-text-decorative-purple),
+      var(--kui-color-text-decorative-purple-strong, $kui-color-text-decorative-purple-strong));
+  }
 
-    a &:hover,
-    a:focus &,
-    &.clickable:hover,
-    &:focus {
-      background-color: $KBadgeNeutralButtonHoverColor;
-    }
+  &.neutral {
+    @include kBadgeAppearance(var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker),
+      var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong),
+      var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+  }
 
-    &:has(.k-badge-dismiss-button:hover) {
-      background-color: $KBadgeNeutralBackground;
-    }
+  // methods
+  &.connect {
+    @include kBadgeAppearance(var(--kui-method-color-background-connect, $kui-method-color-background-connect),
+      var(--kui-method-color-text-connect, $kui-method-color-text-connect),
+      var(--kui-method-color-text-connect-strong, $kui-method-color-text-connect-strong));
+  }
+
+  &.custom {
+    @include kBadgeAppearance(var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak),
+      var(--kui-color-text, $kui-color-text),
+      var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+  }
+
+  &.delete {
+    @include kBadgeAppearance(var(--kui-method-color-background-delete, $kui-method-color-background-delete),
+      var(--kui-method-color-text-delete, $kui-method-color-text-delete),
+      var(--kui-method-color-text-delete-strong, $kui-method-color-text-delete-strong));
+  }
+
+  &.get {
+    @include kBadgeAppearance(var(--kui-method-color-background-get, $kui-method-color-background-get),
+      var(--kui-method-color-text-get, $kui-method-color-text-get),
+      var(--kui-method-color-text-get-strong, $kui-method-color-text-get-strong));
+  }
+
+  &.head {
+    @include kBadgeAppearance(var(--kui-method-color-background-head, $kui-method-color-background-head),
+      var(--kui-method-color-text-head, $kui-method-color-text-head),
+      var(--kui-method-color-text-head-strong, $kui-method-color-text-head-strong));
+  }
+
+  &.options {
+    @include kBadgeAppearance(var(--kui-method-color-background-options, $kui-method-color-background-options),
+      var(--kui-method-color-text-options, $kui-method-color-text-options),
+      var(--kui-method-color-text-options-strong, $kui-method-color-text-options-strong));
+  }
+
+  &.patch {
+    @include kBadgeAppearance(var(--kui-method-color-background-patch, $kui-method-color-background-patch),
+      var(--kui-method-color-text-patch, $kui-method-color-text-patch),
+      var(--kui-method-color-text-patch-strong, $kui-method-color-text-patch-strong));
+  }
+
+  &.post {
+    @include kBadgeAppearance(var(--kui-method-color-background-post, $kui-method-color-background-post),
+      var(--kui-method-color-text-post, $kui-method-color-text-post),
+      var(--kui-method-color-text-post-strong, $kui-method-color-text-post-strong));
+  }
+
+  &.put {
+    @include kBadgeAppearance(var(--kui-method-color-background-put, $kui-method-color-background-put),
+      var(--kui-method-color-text-put, $kui-method-color-text-put),
+      var(--kui-method-color-text-put-strong, $kui-method-color-text-put-strong));
+  }
+
+  &.trace {
+    @include kBadgeAppearance(var(--kui-method-color-background-trace, $kui-method-color-background-trace),
+      var(--kui-method-color-text-trace, $kui-method-color-text-trace),
+      var(--kui-method-color-text-trace-strong, $kui-method-color-text-trace-strong));
   }
 }
 </style>

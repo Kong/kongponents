@@ -62,20 +62,28 @@
                   'expand-selected': expandSelected,
                   'resize-badge':(item.selected && item.disabled)
                 }"
-                :dismissable="item.selected && !item.disabled"
-                shape="rectangular"
-                :truncation-tooltip="item.label"
+                :icon-before="false"
+                :tooltip="item.label"
+                truncation-tooltip
                 @click.stop
-                @dismissed="handleItemSelect(item)"
               >
                 {{ item.label }}
+                <template
+                  v-if="item.selected && !item.disabled"
+                  #icon
+                >
+                  <CloseIcon
+                    data-testid="badge-dismiss-button"
+                    role="button"
+                    tabindex="0"
+                    @click="handleItemSelect(item)"
+                  />
+                </template>
               </KBadge>
               <KBadge
                 v-if="!expandSelected && invisibleSelectedItems.length"
                 class="hidden-selection-count"
-                force-tooltip
-                shape="rectangular"
-                :truncation-tooltip="hiddenItemsTooltip"
+                :tooltip="hiddenItemsTooltip"
                 @click.stop
               >
                 +{{ invisibleSelectedItems.length }}
@@ -228,17 +236,26 @@
           v-for="item, idx in visibleSelectedItemsStaging"
           :key="`${item.key ? item.key : idx}-badge`"
           class="k-multiselect-selection-badge"
-          :dismissable="item.selected && !item.disabled"
           hidden
-          shape="rectangular"
+          :icon-before="false"
         >
           {{ item.label }}
+          <template
+            v-if="item.selected && !item.disabled"
+            #icon
+          >
+            <CloseIcon
+              data-testid="badge-dismiss-button"
+              role="button"
+              tabindex="-1"
+              @click="handleItemSelect(item)"
+            />
+          </template>
         </KBadge>
         <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
         <KBadge
           class="hidden-selection-count"
           hidden
-          shape="rectangular"
         >
           +{{ invisibleSelectedItemsStaging.length }}
         </KBadge>
@@ -263,6 +280,7 @@ import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 import type { MultiselectItem, MultiselectFilterFnParams, DropdownFooterTextPosition, PopPlacements } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_20, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { CloseIcon } from '@kong/icons'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -289,7 +307,7 @@ const attrs = useAttrs()
 const slots = useSlots()
 
 const { getSizeFromString, cloneDeep, stripRequiredLabel } = useUtilities()
-const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 34
+const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 36
 
 const props = defineProps({
   modelValue: {
@@ -869,6 +887,7 @@ watch(stagingKey, () => {
 
     if (elem) {
       const height = elem.clientHeight
+
       if (height > selectionsMaxHeight.value) {
         const item = visibleSelectedItemsStaging.value.pop()
         if (item && !invisibleSelectedItemsStagingSet.has(item.value)) {

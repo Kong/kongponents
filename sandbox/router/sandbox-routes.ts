@@ -15,6 +15,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxAlert.vue'),
   },
   {
+    path: '/badge',
+    name: 'badge',
+    meta: { title: 'Badge Sandbox' },
+    component: () => import('../pages/SandboxBadge.vue'),
+  },
+  {
     path: '/button',
     name: 'button',
     meta: { title: 'Button Sandbox' },
@@ -49,6 +55,12 @@ const componentRoutes: RouteRecordRaw[] = [
     name: 'input',
     meta: { title: 'Input Sandbox' },
     component: () => import('../pages/SandboxInput.vue'),
+  },
+  {
+    path: '/inputswitch',
+    name: 'inputswitch',
+    meta: { title: 'InputSwitch Sandbox' },
+    component: () => import('../pages/SandboxInputSwitch.vue'),
   },
   {
     path: '/label',

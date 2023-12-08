@@ -17,12 +17,14 @@ app.component('SandboxLayout', SandboxLayout)
 // Define the sandbox layout links here to inject
 const sandboxAppLinks: SandboxNavigationItem[] = ([
   { name: 'KAlert', to: { name: 'alert' } },
+  { name: 'KBadge', to: { name: 'badge' } },
   { name: 'KButton', to: { name: 'button' } },
   { name: 'KCard', to: { name: 'card' } },
   { name: 'KCatalog', to: { name: 'catalog' } },
   { name: 'KCheckbox', to: { name: 'checkbox' } },
   { name: 'KDropdown', to: { name: 'dropdown' } },
   { name: 'KInput', to: { name: 'input' } },
+  { name: 'KInputSwitch', to: { name: 'inputswitch' } },
   { name: 'KLabel', to: { name: 'label' } },
   { name: 'KMultiselect', to: { name: 'multiselect' } },
   { name: 'KRadio', to: { name: 'radio' } },
