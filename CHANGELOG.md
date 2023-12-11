@@ -1,3 +1,10 @@
+# [9.0.0-alpha.74](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.73...v9.0.0-alpha.74) (2023-12-11)
+
+
+### Bug Fixes
+
+* **ktruncate:** stop click propagation [KHCP-10009] ([#1904](https://github.com/Kong/kongponents/issues/1904)) ([3bec03c](https://github.com/Kong/kongponents/commit/3bec03c1bd32df49851179400dba3aa3a8386a16))
+
 # [9.0.0-alpha.73](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.72...v9.0.0-alpha.73) (2023-12-08)
 
 
