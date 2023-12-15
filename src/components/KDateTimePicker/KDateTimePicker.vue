@@ -703,6 +703,10 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
 
 // v-calendar overrides
 .k-datetime-picker {
+  // Use `Inter` font throughout
+  // stylelint-disable-next-line
+  --vc-font-family: var(--kui-font-family-text, $kui-font-family-text);
+  
   // All calendar dates use v-calendar's small text variable
   // stylelint-disable-next-line
   --vc-text-sm: var(--kui-font-size-20, 12px);
@@ -811,6 +815,12 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
         &:nth-of-type(0) {
           content: '–';
           margin-left: $kui-space-20;
+        }
+      }
+
+      .vc-time-header {
+        .vc-time-weekday, .vc-time-month, .vc-time-day, .vc-time-year {
+          color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
         }
       }
 
