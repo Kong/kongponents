@@ -655,14 +655,14 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
 
           .timeframe-btn {
             font-size: var(--kui-font-size-20, $kui-font-size-20);
-            font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+            font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
             justify-content: center;
-            padding: var(--kui-space-30, $kui-space-30);
+            padding: var(--kui-space-40, $kui-space-40) var(--kui-space-0, $kui-space-0);
 
             &.selected-option {
               background-color: var(--kui-color-background-primary, $kui-color-background-primary);
               color: var(--kui-color-text-inverse, $kui-color-text-inverse);
-              font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular); // token value change
+              font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
             }
             &:nth-child(3n) {
               margin-right: var(--kui-space-0, $kui-space-0);
@@ -802,6 +802,17 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
       // Hide grey top border above each Time input group
       border-top: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-white !important; // token needed
       padding-bottom: 0;
+
+      // Start / End times should be displayed inline
+      &.vc-attached {
+        display: inline-block;
+
+        // End time should be preceded by a dash
+        &:nth-of-type(0) {
+          content: '–';
+          margin-left: $kui-space-20;
+        }
+      }
 
       // Force Date display and Time inputs to expand to full width
       .vc-time-header, .vc-time-select-group {
