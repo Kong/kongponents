@@ -706,7 +706,7 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
   // Use `Inter` font throughout
   // stylelint-disable-next-line
   --vc-font-family: var(--kui-font-family-text, $kui-font-family-text);
-  
+
   // All calendar dates use v-calendar's small text variable
   // stylelint-disable-next-line
   --vc-text-sm: var(--kui-font-size-20, 12px);
