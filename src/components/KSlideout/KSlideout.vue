@@ -14,50 +14,52 @@
         :class="{ 'is-visible': isVisible, 'border-styles': !hasOverlay }"
         data-testid="slideout-panel"
       >
-        <div class="k-slideout-header-content">
-          <div
-            v-if="hasBeforeTitle"
-            class="k-slideout-before-title"
-          >
-            <slot name="before-title" />
-          </div>
-
-          <!-- title -->
-          <div class="k-slideout-main-title">
-            <p
-              class="k-slideout-title"
-              data-testid="k-slideout-title"
-              :title="title"
+        <div class="k-slideout-content-wrapper">
+          <div class="k-slideout-header-content">
+            <div
+              v-if="hasBeforeTitle"
+              class="k-slideout-before-title"
             >
-              {{ title }}
-            </p>
+              <slot name="before-title" />
+            </div>
+
+            <!-- title -->
+            <div class="k-slideout-main-title">
+              <p
+                class="k-slideout-title"
+                data-testid="k-slideout-title"
+                :title="title"
+              >
+                {{ title }}
+              </p>
+            </div>
+
+            <div
+              v-if="hasAfterTitle"
+              class="k-slideout-after-title"
+            >
+              <slot name="after-title" />
+            </div>
           </div>
 
-          <div
-            v-if="hasAfterTitle"
-            class="k-slideout-after-title"
+          <!-- cancelButton -->
+          <button
+            :class="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
+            :data-testid="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
+            @click="(event: any) => emit('close')"
           >
-            <slot name="after-title" />
+            <KIcon
+              :color="KUI_COLOR_TEXT_NEUTRAL_STRONGER"
+              icon="close"
+              :size="KUI_ICON_SIZE_50"
+            />
+          </button>
+
+          <div class="content">
+            <KCard class="content-card">
+              <slot />
+            </KCard>
           </div>
-        </div>
-
-        <!-- cancelButton -->
-        <button
-          :class="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
-          :data-testid="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
-          @click="(event: any) => emit('close')"
-        >
-          <KIcon
-            :color="KUI_COLOR_TEXT_NEUTRAL_STRONGER"
-            icon="close"
-            :size="KUI_ICON_SIZE_50"
-          />
-        </button>
-
-        <div class="content">
-          <KCard class="content-card">
-            <slot />
-          </KCard>
         </div>
       </div>
     </transition>
@@ -160,6 +162,12 @@ const offsetTopValue = computed((): string => {
 @import '@/styles/tmp-variables';
 
 .k-slideout {
+  .k-slideout-content-wrapper {
+    // Ensures that positioned content extending past the slideout’s content area (e.g. KTooltips) isn’t cut-off. The key to this working is to not `position: fixed` the element that has the `overflow-y: auto` declaration.
+    overflow-y: auto;
+    position: relative;
+  }
+
   .k-slideout-header-content {
     display: flex;
     .k-slideout-before-title,
@@ -167,6 +175,9 @@ const offsetTopValue = computed((): string => {
       margin-top: var(--kui-space-60, $kui-space-60);
     }
     .k-slideout-main-title {
+      // Prevents long, non-wrapping titles from triggering a horizontal scrollbar in the content area. This also allows `.k-slideout-title` to actually truncate its text content.
+      min-width: 0;
+
       .k-slideout-title {
         color: var(--kui-color-text-neutral, $kui-color-text-neutral);
         flex:1;
@@ -188,7 +199,6 @@ const offsetTopValue = computed((): string => {
     flex-direction: column;
     height: calc(100vh - v-bind('offsetTopValue'));
     max-width: v-bind('props.maxWidth');
-    overflow-y: auto;
     position: fixed;
     right: 0;
     top: v-bind('offsetTopValue');
@@ -202,10 +212,12 @@ const offsetTopValue = computed((): string => {
       cursor: pointer;
       display: flex;
       height: auto;
+      left: 0;
       margin-left: var(--kui-space-50, $kui-space-50);
       margin-top: var(--kui-space-50, $kui-space-50);
       outline: inherit;
       position: absolute;
+      top: 0;
       transition: $tmp-animation-timing-2 ease;
 
       &:focus{
@@ -224,6 +236,8 @@ const offsetTopValue = computed((): string => {
       margin-top: var(--kui-space-50, $kui-space-50);
       outline: inherit;
       position: absolute;
+      right: 0;
+      top: 0;
       transition: $tmp-animation-timing-2 ease;
 
       &:focus{
@@ -231,17 +245,8 @@ const offsetTopValue = computed((): string => {
       }
     }
 
-    .content {
-      height: 100%;
-      -ms-overflow-style: none;  // IE 10+
-      scrollbar-width: none;  // Firefox
-      &::-webkit-scrollbar {
-        display: none;
-      }
-
-      .content-card {
-        border: none;
-      }
+    .content-card {
+      border: none;
     }
   }
 }
