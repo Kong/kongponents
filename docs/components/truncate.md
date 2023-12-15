@@ -3,13 +3,11 @@
 **KTruncate** - A Kongponent that limits content to a specific number of lines and provides controls to show or hide the truncated content.
 
 <KCard>
-  <template v-slot:body>
-    <KTruncate>
-      <KBadge v-for="n in 25" :key="n">
-        Item {{ n }}
-      </KBadge>
-    </KTruncate>
-  </template>
+  <KTruncate>
+    <KBadge v-for="n in 25" :key="n">
+      Item {{ n }}
+    </KBadge>
+  </KTruncate>
 </KCard>
 
 ```html
@@ -29,13 +27,11 @@
 Number of rows to truncate content. Default value is `1`.
 
 <KCard>
-  <template v-slot:body>
-    <KTruncate :rows="2">
-      <KBadge v-for="n in 25" :key="n">
-        Item {{ n }}
-      </KBadge>
-    </KTruncate>
-  </template>
+  <KTruncate :rows="2">
+    <KBadge v-for="n in 25" :key="n">
+      Item {{ n }}
+    </KBadge>
+  </KTruncate>
 </KCard>
 
 ```html
@@ -55,12 +51,10 @@ By default the component treats anything passed through the `default` slot as co
 When this prop is set to `true`, the component applies different logic; truncation is achieved via the `-webkit-line-clamp` CSS property, rather than assessing the height of child elements to determine the row height.
 
 <KCard>
-  <template v-slot:body>
-    <KTruncate is-text-content :rows="3">
-      <p>A good design decision to apply <a href="https://kongponents.konghq.com/components/truncate.html#istextcontent">text truncation</a> would be when displaying a <b>large amount of textual content</b>, such as a list of articles or product descriptions, in a limited space, such as a mobile screen or a small widget. By truncating the text to a short summary, it is possible to present the information in a more organized and readable manner, allowing the user to quickly scan and understand the main points of each item.</p>
-      <p>The truncated text can also serve as a teaser, encouraging the user to click or tap to view the full content.</p>
-    </KTruncate>
-  </template>
+  <KTruncate is-text-content :rows="3">
+    <p>A good design decision to apply <a href="https://kongponents.konghq.com/components/truncate.html#istextcontent">text truncation</a> would be when displaying a <b>large amount of textual content</b>, such as a list of articles or product descriptions, in a limited space, such as a mobile screen or a small widget. By truncating the text to a short summary, it is possible to present the information in a more organized and readable manner, allowing the user to quickly scan and understand the main points of each item.</p>
+    <p>The truncated text can also serve as a teaser, encouraging the user to click or tap to view the full content.</p>
+  </KTruncate>
 </KCard>
 
 ```html
@@ -83,13 +77,11 @@ When this prop is set to `true`, the component applies different logic; truncati
 When `true`, the component will not truncate the content and the collapse trigger will be visible.
 
 <KCard>
-  <template v-slot:body>
-    <KTruncate is-expanded>
-      <KBadge v-for="n in 25" :key="n">
-        Item {{ n }}
-      </KBadge>
-    </KTruncate>
-  </template>
+  <KTruncate is-expanded>
+    <KBadge v-for="n in 25" :key="n">
+      Item {{ n }}
+    </KBadge>
+  </KTruncate>
 </KCard>
 
 ```html
@@ -107,11 +99,9 @@ When `true`, the component will not truncate the content and the collapse trigge
 Width of container element that wraps content passed through the `default` slot. Works just like `width` property in CSS. Default value is `100%`.
 
 <KCard>
-  <template v-slot:body>
-    <KTruncate is-text-content :rows="2" width="50%">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    </KTruncate>
-  </template>
+  <KTruncate is-text-content :rows="2" width="50%">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </KTruncate>
 </KCard>
 
 ```html
@@ -135,13 +125,11 @@ The component is reactive to its dimensions changes. To see this in action, try 
 :::
 
 <KCard>
-  <template v-slot:body>
-    <KTruncate :rows="3">
-      <KBadge v-for="n in 30" :key="n">
-        Item {{ n }}
-      </KBadge>
-    </KTruncate>
-  </template>
+  <KTruncate :rows="3">
+    <KBadge v-for="n in 30" :key="n">
+      Item {{ n }}
+    </KBadge>
+  </KTruncate>
 </KCard>
 
 ### expand-trigger
@@ -160,19 +148,17 @@ Slot for a custom collapse trigger element. Slot props:
 Example of using the `expand-trigger` and `collapse-trigger` slots for creating custom toggle elements:
 
 <KCard>
-  <template v-slot:body>
-    <KTruncate>
-      <KBadge v-for="n in 25" :key="n">
-        Item {{ n }}
-      </KBadge>
-      <template #expand-trigger="{ truncatedCount, expand }">
-        <button class="custom-trigger" @click="expand">Show {{ truncatedCount }} more</button>
-      </template>
-      <template #collapse-trigger="{ collapse }">
-        <button class="custom-trigger" @click="collapse">Show less</button>
-      </template>
-    </KTruncate>
-  </template>
+  <KTruncate>
+    <KBadge v-for="n in 25" :key="n">
+      Item {{ n }}
+    </KBadge>
+    <template #expand-trigger="{ truncatedCount, expand }">
+      <button class="custom-trigger" @click="expand">Show {{ truncatedCount }} more</button>
+    </template>
+    <template #collapse-trigger="{ collapse }">
+      <button class="custom-trigger" @click="collapse">Show less</button>
+    </template>
+  </KTruncate>
 </KCard>
 
 ```html

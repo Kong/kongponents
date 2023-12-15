@@ -21,7 +21,7 @@
         >
           <button
             class="expand-trigger"
-            @click="handleToggleClick"
+            @click.stop="handleToggleClick"
           >
             {{ truncatedCount }}
           </button>
@@ -46,7 +46,7 @@
             :color="KUI_COLOR_TEXT_PRIMARY"
             role="button"
             tabindex="0"
-            @click="handleToggleClick"
+            @click.stop="handleToggleClick"
           />
         </slot>
       </div>
@@ -67,7 +67,7 @@
           <KButton
             appearance="tertiary"
             size="small"
-            @click="handleToggleClick"
+            @click.stop="handleToggleClick"
           >
             Show more
           </KButton>
@@ -81,7 +81,7 @@
           <KButton
             appearance="tertiary"
             size="small"
-            @click="handleToggleClick"
+            @click.stop="handleToggleClick"
           >
             Show less
           </KButton>
@@ -253,6 +253,7 @@ onUnmounted(() => {
     height: 100% !important;
 
     .expand-trigger {
+      background: var(--kui-color-background-transparent, $kui-color-background-transparent);
       border: 0;
       border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
       color: var(--kui-color-text-primary, $kui-color-text-primary);

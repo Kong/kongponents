@@ -486,9 +486,9 @@ const actionClickHandler = (closeDropdown: () => void): void => {
 ```
 
 :::tip TIP
-If you want to make an icon slotted into KDropdownItem clickable (like the one next to button with action in the example above), you can assign `role="button"` and appropriate `tabindex` attributes to that element and bind an event handler (note that you will have to use `.stop` [event modifier](https://vuejs.org/guide/essentials/event-handling.html#event-modifiers)). 
+If you want to make an icon slotted into KDropdownItem clickable (like the one next to button with action in the example above), you can assign `role="button"` and `tabindex="0"` attributes to that element and bind an event handler (note that you will have to use `.stop` [event modifier](https://vuejs.org/guide/essentials/event-handling.html#event-modifiers)). 
 
-If implemented as described here, KDropdownItem will take care of styling the different states (hover, active, disabled). Also note that you will have to trigger closing the dropdown via the `closeDropdown()` slot prop.
+If implemented as described here, KDropdownItem will take care of styling the different states (hover, focus, disabled). Also note that you will have to trigger closing the dropdown via the `closeDropdown()` slot prop.
 :::
 
 ### Attribute Binding

@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.0.0-alpha.72",
+  "version": "9.0.0-alpha.74",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -77,7 +77,7 @@
     "@cypress/vite-dev-server": "^5.0.6",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@evilmartians/lefthook": "^1.5.2",
-    "@kong-ui-public/sandbox-layout": "^2.0.10",
+    "@kong-ui-public/sandbox-layout": "^2.0.12",
     "@kong/design-tokens": "^1.12.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
