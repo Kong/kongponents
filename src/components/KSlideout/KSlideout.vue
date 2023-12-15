@@ -167,6 +167,9 @@ const offsetTopValue = computed((): string => {
       margin-top: var(--kui-space-60, $kui-space-60);
     }
     .k-slideout-main-title {
+      // Prevents long, non-wrapping titles from triggering a horizontal scrollbar in the content area. This also allows `.k-slideout-title` to actually truncate its text content.
+      min-width: 0;
+
       .k-slideout-title {
         color: var(--kui-color-text-neutral, $kui-color-text-neutral);
         flex:1;
