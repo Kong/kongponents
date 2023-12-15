@@ -19,7 +19,6 @@
         class="timepicker-input"
         :class="{ 'set-min-width': hasTimePeriods }"
         data-testid="k-datetime-picker-input"
-        size="medium"
         :style="widthStyle"
       >
         <CalIcon
@@ -90,7 +89,6 @@
                 class="timeframe-btn"
                 :class="{ 'selected-option': timeFrame.key === state.selectedTimeframe.key }"
                 :data-testid="'select-timeframe-' + timeFrame.timeframeLength()"
-                size="medium"
                 @click="changeRelativeTimeframe(timeFrame)"
               >
                 {{ ucWord(timeFrame.timeframeText) }}
@@ -109,7 +107,6 @@
             appearance="tertiary"
             class="action-btn"
             data-testid="k-datetime-picker-clear"
-            size="medium"
             @click="clearSelection()"
           >
             Clear
@@ -119,7 +116,6 @@
             class="action-btn"
             data-testid="k-datetime-picker-submit"
             :disabled="submitDisabled"
-            size="medium"
             @click="submitTimeFrame()"
           >
             Apply
@@ -677,7 +673,7 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
     }
 
     .k-popover-footer {
-      margin: var(--kui-space-20, $kui-space-20) auto var(--kui-space-0, $kui-space-0);
+      margin: var(--kui-space-40, $kui-space-40) auto var(--kui-space-0, $kui-space-0);
 
       .datetime-picker-footer-container {
         display: flex !important;
@@ -705,11 +701,11 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
 .k-datetime-picker {
   // Use `Inter` font throughout
   // stylelint-disable-next-line
-  --vc-font-family: var(--kui-font-family-text, $kui-font-family-text);
+  --vc-font-family: var(--kui-font-family-text, #{$kui-font-family-text});
 
   // All calendar dates use v-calendar's small text variable
   // stylelint-disable-next-line
-  --vc-text-sm: var(--kui-font-size-20, 12px);
+  --vc-text-sm: var(--kui-font-size-20, #{$kui-font-size-20});
 
   $highlight-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
   $selected-color: var(--kui-color-background-primary, $kui-color-background-primary);
