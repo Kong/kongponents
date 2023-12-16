@@ -895,6 +895,7 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
         color: $text-color-darker;
 
         &:hover {
+          border: 3px solid red;
           color: $text-color-darker;
         }
         &:focus {
@@ -963,9 +964,9 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
       }
       .vc-day-content {
         &:hover {
-          background-color: var(--kui-color-background, $kui-color-background);
-          border: var(--kui-border-width-20, $kui-border-width-20) solid $selected-color;
-          color: $selected-color;
+          background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+          border: none;
+          color: $text-color;
         }
       }
 
