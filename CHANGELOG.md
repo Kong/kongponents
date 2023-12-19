@@ -1,3 +1,10 @@
+# [9.0.0-alpha.75](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.74...v9.0.0-alpha.75) (2023-12-19)
+
+
+### Bug Fixes
+
+* **kslideout:** long titles not truncating ([#1906](https://github.com/Kong/kongponents/issues/1906)) ([69a1198](https://github.com/Kong/kongponents/commit/69a1198d047ea7089feefc09582c8f2b4d736907))
+
 # [9.0.0-alpha.74](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.73...v9.0.0-alpha.74) (2023-12-11)
 
 
