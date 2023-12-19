@@ -562,6 +562,7 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
 
     // Match KInput
     padding: var(--kui-space-40, $kui-space-40) var(--kui-space-50, $kui-space-50) !important;
+    transition: box-shadow $kongponentsTransitionDurTimingFunc !important;
 
     // Styling button as input via mixin
     @include input-default;
@@ -570,13 +571,14 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
       min-width: $timepicker-min-width;
     }
     &:hover {
-      // Styling button as input via mixin
-      @include input-hover;
+      background-color: transparent !important;
+      box-shadow: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak) !important;
     }
     &:focus,
     &:active {
       // Styling button as input via mixin
       @include input-focus;
+      background-color: transparent !important;
     }
 
     .timepicker-display {
@@ -598,6 +600,8 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
   }
 
   .k-popover {
+    border-color: var(--kui-color-border, $kui-color-border);
+    border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
     max-height: 90vh;
     max-width: 350px;
     overflow: hidden;
@@ -707,7 +711,7 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
   // stylelint-disable-next-line
   --vc-text-sm: var(--kui-font-size-20, #{$kui-font-size-20});
 
-  $highlight-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
+  $highlight-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
   $selected-color: var(--kui-color-background-primary, $kui-color-background-primary);
   $text-color: var(--kui-color-text-neutral, $kui-color-text-neutral);
   $text-color-darker: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
@@ -837,7 +841,7 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
             margin: 0 3px;
 
             &:hover {
-              background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+              background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
             }
           }
         }
@@ -895,7 +899,6 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
         color: $text-color-darker;
 
         &:hover {
-          border: 3px solid red;
           color: $text-color-darker;
         }
         &:focus {
@@ -938,8 +941,8 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
               color: var(--kui-color-text-inverse, $kui-color-text-inverse);
             }
             &:active {
-              background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
-              border-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
+              background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+              border-color: var(--kui-color-border-primary-weakest, $kui-color-border-primary-weakest);
               color: var(--kui-color-text-inverse, $kui-color-text-inverse);
             }
           }
@@ -966,7 +969,7 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
         &:hover {
           background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
           border: none;
-          color: $text-color;
+          color: var(--kui-color-text, $kui-color-text);
         }
       }
 
@@ -974,6 +977,11 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
       .vc-highlight.vc-highlight-base-start,
       .vc-highlight.vc-highlight-base-end {
         background-color: $highlight-color;
+      }
+
+      // Only the start / end highligted days
+      .vc-highlight-content-solid {
+        background-color: var(--kui-color-background-primary, $kui-color-background-primary);
       }
     }
   }
