@@ -339,7 +339,7 @@ This component has been removed. Please refer to KBadge component which has been
 * `k-multiselect-container` `data-testid` attribute has been changed to `multiselect-container`
 * `k-multiselect-wrapper` class has been changed to `multiselect-wrapper`
 * `k-multiselect-trigger` class and `data-testid` attribute has been changed to `multiselect-trigger`
-* `k-multiselect-selections` class and `data-testid` attribute has been changed to `multiselect-selections`
+* `k-multiselect-selections` class and `data-testid` attribute has been changed to `selection-badges-container`
 * `k-multiselect-selection-badge` class has been changed to `multiselect-selection-badge`
 * `k-multiselect-icon` class has been changed to `multiselect-icons-container`
 * `k-multiselect-clear-icon` class and `data-testid` attribute has been changed to `multiselect-clear-icon`

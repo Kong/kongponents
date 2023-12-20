@@ -41,7 +41,7 @@
             role="listbox"
             @click="handleFilterClick"
           >
-            <div v-if="collapsedContext || !selectedItems.length">
+            <div v-if="collapsedContext">
               <KInput
                 :id="multiselectId"
                 v-bind="modifiedAttrs"
@@ -52,7 +52,7 @@
                 :class="{ 'is-readonly': isReadonly }"
                 data-testid="multiselect-input"
                 :model-value="filterString"
-                :placeholder="getPlaceholderText(isToggled.value)"
+                :placeholder="getPlaceholderText"
                 :readonly="isReadonly ? true : undefined"
                 type="text"
                 @blur="() => isFocused = false"
@@ -69,9 +69,16 @@
               />
             </div>
             <div
+              v-else-if="!selectedItems.length"
+              class="expanded-selection-empty"
+            >
+              0 items selected
+            </div>
+            <div
               v-else
               :key="key"
               class="selection-badges-container"
+              data-testid="selection-badges-container"
               :style="numericWidthStyle"
             >
               <KBadge
@@ -134,9 +141,7 @@
             <!-- use @click.stop so we don't close drop down when selecting/deselecting items -->
             <div
               class="multiselect-list"
-              @blur="() => isFocused = false"
               @click.stop
-              @focus="isFocused = true"
               @mouseenter="() => isHovered = true"
               @mouseleave="() => isHovered = false"
             >
@@ -150,6 +155,7 @@
                   ref="multiselectDropdownInputElement"
                   autocapitalize="off"
                   autocomplete="off"
+                  class="multiselect-dropdown-input"
                   data-testid="multiselect-dropdown-input"
                   :model-value="filterString"
                   :placeholder="placeholder ? placeholder : 'Filter...'"
@@ -469,6 +475,7 @@ const multiselectId = computed((): string => attrs.id ? String(attrs.id) : uuidv
 
 const multiselectElement = ref<HTMLDivElement | null>(null)
 const multiselectInputElement = ref<HTMLDivElement | null>(null)
+const multiselectDropdownInputElement = ref<HTMLDivElement | null>(null)
 const multiselectSelectionsStagingElement = ref<HTMLDivElement>()
 
 // filter and selection
@@ -581,22 +588,13 @@ const numericWidthStyle = computed(() => {
   }
 })
 
-const getPlaceholderText = (isOpen?: boolean): string => {
-  if (selectedItems.value.length && !isOpen) {
-    if (selectedItems.value.length === 1) {
-      return `${selectedItems.value.length} item selected`
-    }
-    return `${selectedItems.value.length} items selected`
+const getPlaceholderText = computed((): string => {
+  if (selectedItems.value.length === 1) {
+    return `${selectedItems.value.length} item selected`
   }
 
-  if (props.placeholder) {
-    return props.placeholder
-  } else if (attrs.placeholder) {
-    return String(attrs.placeholder || '')
-  }
-
-  return 'Filter...'
-}
+  return `${selectedItems.value.length} items selected`
+})
 
 const filteredItems = computed(() => {
   // For autosuggest, items don't need to be filtered internally
@@ -615,8 +613,10 @@ const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: Func
       filterString.value = ''
       toggle()
       sortItems()
+
       await nextTick()
-      const input = multiselectElement.value?.querySelector('.k-input') as HTMLInputElement
+
+      const input = document.getElementById(multiselectId.value) as HTMLInputElement
       input?.focus()
     }
   } else {
@@ -852,8 +852,9 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
   }
 }
 
-const onInputFocus = (): void => {
+const onInputFocus = async (): Promise<void> => {
   isFocused.value = true
+
   if (!initialFocusTriggered.value) {
     initialFocusTriggered.value = true
     emit('query-change', '')
@@ -1037,6 +1038,17 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     position: absolute;
     visibility: hidden;
     z-index: -1;
+  }
+
+  .expanded-selection-empty {
+    @include inputText;
+
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral); // override mixin with placeholder text color
+    font-size: var(--kui-font-size-30, $kui-font-size-30); // override mixin with placeholder font size
+    padding-bottom: $kMultiselectInputPaddingY;
+    padding-left: $kMultiselectInputPaddingX;
+    padding-right: $kMultiselectSelectionsPaddingRight;
+    padding-top: $kMultiselectInputPaddingY;
   }
 
   .selection-badges-container {
