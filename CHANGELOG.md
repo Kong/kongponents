@@ -1,3 +1,10 @@
+# [9.0.0-alpha.76](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.75...v9.0.0-alpha.76) (2023-12-20)
+
+
+### Bug Fixes
+
+* **mixins:** add input text mixin ([#1910](https://github.com/Kong/kongponents/issues/1910)) ([a05c061](https://github.com/Kong/kongponents/commit/a05c061d12cc21e1bae737a754d1cb26850280c1))
+
 # [9.0.0-alpha.75](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.74...v9.0.0-alpha.75) (2023-12-19)
 
 
