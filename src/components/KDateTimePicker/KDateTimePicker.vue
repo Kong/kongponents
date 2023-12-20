@@ -85,7 +85,7 @@
               <KButton
                 v-for="(timeFrame, itemIdx) in item.values"
                 :key="`time-${itemIdx}`"
-                appearance="secondary"
+                appearance="tertiary"
                 class="timeframe-btn"
                 :class="{ 'selected-option': timeFrame.key === state.selectedTimeframe.key }"
                 :data-testid="'select-timeframe-' + timeFrame.timeframeLength()"
@@ -654,22 +654,25 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
           row-gap: $grid-spacing;
 
           .timeframe-btn {
+            border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-primary, $kui-color-border-primary);
             font-size: var(--kui-font-size-20, $kui-font-size-20);
             font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
             justify-content: center;
-            padding: var(--kui-space-40, $kui-space-40) var(--kui-space-0, $kui-space-0);
+            padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
+            transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, border-color $kongponentsTransitionDurTimingFunc;
 
             &.selected-option {
               background-color: var(--kui-color-background-primary, $kui-color-background-primary);
               color: var(--kui-color-text-inverse, $kui-color-text-inverse);
-              font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
             }
             &:nth-child(3n) {
               margin-right: var(--kui-space-0, $kui-space-0);
             }
-            // TODO this override should be applied to Kongponents button
-            &:focus {
-              box-shadow: none;
+            &:active {
+              color: var(--kui-color-text-primary, $kui-color-text-primary);
+            }
+            &:hover:not(:disabled):not(:focus):not(:active) {
+              background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
             }
           }
         }
