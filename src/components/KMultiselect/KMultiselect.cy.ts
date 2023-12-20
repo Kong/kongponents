@@ -123,7 +123,7 @@ describe('KMultiselect', () => {
     cy.get('.k-label .tooltip-trigger-icon').should('be.visible')
   })
 
-  it.only('reacts to text change and select', () => {
+  it('reacts to text change and select', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 

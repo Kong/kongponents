@@ -252,7 +252,7 @@ const multiselectItems: MultiselectItem[] = [{
 }, {
   label: 'Service F',
   value: 'f',
-  // disabled: true,
+  disabled: true,
   selected: true,
 }, {
   label: 'Service A1',
