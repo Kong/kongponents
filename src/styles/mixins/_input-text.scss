@@ -1,12 +1,6 @@
 /* Text inputs */
 
-@mixin inputDefaults {
-  -webkit-appearance: none; // need this to allow box-shadow to apply on mobile
-  background-color: var(--kui-color-background, $kui-color-background);
-  border: 0;
-  border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-  box-shadow: var(--kui-shadow-border, $kui-shadow-border);
-  box-sizing: border-box; // Ensure the padding is calculated in the element's width
+@mixin inputText {
   color: var(--kui-color-text, $kui-color-text);
   font-family: var(--kui-font-family-text, $kui-font-family-text);
   font-size: var(
@@ -15,6 +9,17 @@
   ); // needs to be at least 16px to prevent automatic zoom in on focus on mobile
   font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   line-height: var(--kui-line-height-40, $kui-line-height-40); // $kTextAreaLineHeight
+}
+
+@mixin inputDefaults {
+  @include inputText;
+
+  -webkit-appearance: none; // need this to allow box-shadow to apply on mobile
+  background-color: var(--kui-color-background, $kui-color-background);
+  border: 0;
+  border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+  box-shadow: var(--kui-shadow-border, $kui-shadow-border);
+  box-sizing: border-box; // Ensure the padding is calculated in the element's width
   outline: none;
   padding: var(--kui-space-40, $kui-space-40) var(--kui-space-50, $kui-space-50); // $kInputPaddingX, $kTextAreaPaddingY
   transition: box-shadow $kongponentsTransitionDurTimingFunc;
