@@ -604,6 +604,7 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
     border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
     max-height: 90vh;
     max-width: 350px;
+    min-width: 290px;
     overflow: hidden;
     padding: var(--kui-space-50, $kui-space-50);
 
@@ -822,8 +823,10 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
       }
 
       .vc-time-header {
+        // Time range text headers
         .vc-time-weekday, .vc-time-month, .vc-time-day, .vc-time-year {
           color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
+          margin-left: 4px;
         }
       }
 
@@ -841,7 +844,7 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
           select {
             border: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-gray-weaker;
             color: $text-color-darker;
-            margin: 0 3px;
+            margin: 0 2px;
 
             &:hover {
               background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
