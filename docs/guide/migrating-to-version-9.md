@@ -42,6 +42,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 * `hoverColor` prop has been removed
 * `truncationTooltip` prop has been changed to `boolean`. When used in conjunction with new `tooltip` prop, KBadge will only show the tooltip when content passed through the `default` slot needs truncation. Otherwise, if `tooltip` prop is used without `truncationTooltip` prop - tooltip will be shown regardless of whether truncation is needed
 * `forceTooltip` prop has been removed
+* `hidden` prop has been removed
 
 #### Structure
 

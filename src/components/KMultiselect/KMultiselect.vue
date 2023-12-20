@@ -227,8 +227,8 @@
         <KBadge
           v-for="item, idx in visibleSelectedItemsStaging"
           :key="`${item.key ? item.key : idx}-badge`"
+          aria-hidden="true"
           class="multiselect-selection-badge"
-          hidden
           :icon-before="false"
         >
           {{ item.label }}
@@ -246,8 +246,8 @@
         </KBadge>
         <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
         <KBadge
+          aria-hidden="true"
           class="hidden-selection-count"
-          hidden
         >
           +{{ invisibleSelectedItemsStaging.length }}
         </KBadge>
