@@ -123,12 +123,12 @@ A `boolean` to put the component into an error state.
 <ClientOnly>
   <KMultiselect error :items="deepClone(defaultItemsCollapse)" />
   <br>
-  <KMultiselect error :collapsed-context="false" help="Help text can turn into error message." :items="deepClone(defaultItemsCollapse)" />
+  <KMultiselect error collapsed-context help="Help text can turn into error message." :items="deepClone(defaultItemsCollapse)" />
 </ClientOnly>
 
 ```html
 <KMultiselect error :items="items" />
-<KMultiselect error :collapsed-context="false" help="Help text can turn into error message." :items="items" />
+<KMultiselect error collapsed-context help="Help text can turn into error message." :items="items" />
 ```
 
 ### enableItemCreation
@@ -241,6 +241,8 @@ Use this prop to customize the number of rows of selected items to display when 
 
 Additional selections will be combined into a count badge if the number of selections would extend beyond the selection row count. You can hover over this badge to see the remaining selections.
 
+Note that this prop only applies when `collapsedContext` prop is `false`.
+
 <ClientOnly>
   <KMultiselect :selected-row-count="2" :items="deepClone(defaultItemsManySelected)" />
 </ClientOnly>
@@ -251,29 +253,14 @@ Additional selections will be combined into a count badge if the number of selec
 
 ### collapsedContext
 
-By default KMultiselect displays selected items as badges. However, you can set `collapsedContext` to `false` and have it display just the number of selected items. When focused, it will expand.
+By default KMultiselect displays selected items as badges. However, you can set `collapsedContext` to `true` and have it display just the number of selected items.
 
 <ClientOnly>
-  <KMultiselect :collapsed-context="false" :items="deepClone(defaultItemsManySelected)" />
-  <br>
-  <KMultiselect :collapsed-context="false" :selected-row-count="2" :items="deepClone(defaultItemsManySelected)" />
+  <KMultiselect collapsed-context :items="deepClone(defaultItemsManySelected)" />
 </ClientOnly>
 
 ```html
-<KMultiselect :collapsed-context="false" :items="items" />
-<KMultiselect :collapsed-context="false" :selected-row-count="2" :items="items" />
-```
-
-### expandSelected
-
-By default, we try to keep the KMultiselect display slim. This means that KMultiselect only takes up a single line when it doesn't have focus, and when focused, if the selected entries would display beyond the `selectedRowCount` we collapse them into the additional count badge. You can set `expandSelected` to `true` if you want to continue to see the selections even when KMultiselect doesn't have focus. Instead of collapsing additional selections into the additional count badge we will allow you to scroll through all of your selections.
-
-<ClientOnly>
-  <KMultiselect expand-selected width="300" :selected-row-count="2" :items="deepClone(defaultItemsManySelected)" />
-</ClientOnly>
-
-```html
-<KMultiselect expand-selected width="300" :selected-row-count="2" :items="items" />
+<KMultiselect collapsed-context :items="items" />
 ```
 
 ### dropdownMaxHeight

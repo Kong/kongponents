@@ -321,6 +321,7 @@ This component has been removed. Please refer to KBadge component which has been
 * `disabledTooltipText` property of object passed through `items` prop is no longer supported
 * default value of `collapsedContext` prop has changed to `true`
 * default value of `selectedRowCount` prop has changed to `1`
+* `expandSelected` prop has been removed
 
 #### Events
 

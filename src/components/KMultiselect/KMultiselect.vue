@@ -29,7 +29,7 @@
             return
           }"
           :position-fixed="positionFixed"
-          target=".multiselect-wrapper"
+          target=".multiselect-trigger"
           @closed="() => handleToggle(false, isToggled, toggle)"
           @opened="() => handleToggle(true, isToggled, toggle)"
         >
@@ -41,22 +41,44 @@
             role="listbox"
             @click="handleFilterClick"
           >
+            <div v-if="collapsedContext || !selectedItems.length">
+              <KInput
+                :id="multiselectId"
+                v-bind="modifiedAttrs"
+                ref="multiselectInputElement"
+                autocapitalize="off"
+                autocomplete="off"
+                class="multiselect-input"
+                :class="{ 'is-readonly': isReadonly }"
+                data-testid="multiselect-input"
+                :model-value="filterString"
+                :placeholder="getPlaceholderText(isToggled.value)"
+                :readonly="isReadonly ? true : undefined"
+                type="text"
+                @blur="() => isFocused = false"
+                @click="(evt: any) => {
+                  if (isToggled.value) {
+                    evt.stopPropagation()
+                  }
+                }"
+                @focus="onInputFocus"
+                @keyup="(evt: any) => triggerFocus(evt, isToggled)"
+                @mouseenter="() => isHovered = true"
+                @mouseleave="() => isHovered = false"
+                @update:model-value="onQueryChange"
+              />
+            </div>
             <div
-              v-if="selectedItems.length && (isToggled.value || expandSelected || collapsedContext)"
+              v-else
               :key="key"
-              class="multiselect-selections"
-              :class="{ 'scrollable': expandSelected, 'collapsed': collapsedContext && !isToggled.value }"
-              data-testid="multiselect-selections"
-              :style="!expandSelected ? numericWidthStyle : nonSlimStyle"
+              class="selection-badges-container"
+              :style="numericWidthStyle"
             >
               <KBadge
                 v-for="item, idx in visibleSelectedItems"
                 :key="`${item.key ? item.key : idx}-badge`"
                 :appearance="getBadgeAppearance(item)"
                 class="multiselect-selection-badge"
-                :class="{
-                  'expand-selected': expandSelected,
-                }"
                 :icon-before="false"
                 :tooltip="item.label"
                 truncation-tooltip
@@ -76,17 +98,14 @@
                 </template>
               </KBadge>
               <KBadge
-                v-if="!expandSelected && invisibleSelectedItems.length"
+                v-if="invisibleSelectedItems.length"
+                :appearance="error ? 'danger' : 'info'"
                 class="hidden-selection-count"
                 :tooltip="hiddenItemsTooltip"
                 @click.stop
               >
                 +{{ invisibleSelectedItems.length }}
               </KBadge>
-              <div
-                v-if="expandSelected"
-                ref="selectionBottomElement"
-              />
             </div>
             <div class="multiselect-icons-container">
               <CloseIcon
@@ -102,43 +121,12 @@
               <ProgressIcon
                 v-else-if="loading"
                 class="multiselect-loading-icon"
-                :size="KUI_ICON_SIZE_30"
+                :size="KUI_ICON_SIZE_40"
               />
               <ChevronDownIcon
                 v-else
                 class="multiselect-chevron-icon"
                 :size="KUI_ICON_SIZE_40"
-              />
-            </div>
-            <div
-              class="multiselect-wrapper"
-              :style="numericWidthStyle"
-            >
-              <KInput
-                v-if="(!expandSelected && !collapsedContext) || ((expandSelected || collapsedContext) && (!selectedItems.length || isToggled.value))"
-                :id="multiselectId"
-                v-bind="modifiedAttrs"
-                ref="multiselectInputElement"
-                autocapitalize="off"
-                autocomplete="off"
-                class="multiselect-input"
-                :class="{ 'is-toggled': isToggled.value && selectedItems.length, 'is-readonly': isReadonly }"
-                data-testid="multiselect-input"
-                :model-value="filterStr"
-                :placeholder="getPlaceholderText(isToggled.value)"
-                :readonly="isReadonly ? true : undefined"
-                type="text"
-                @blur="() => isFocused = false"
-                @click="(evt: any) => {
-                  if (isToggled.value) {
-                    evt.stopPropagation()
-                  }
-                }"
-                @focus="onInputFocus"
-                @keyup="(evt: any) => triggerFocus(evt, isToggled)"
-                @mouseenter="() => isHovered = true"
-                @mouseleave="() => isHovered = false"
-                @update:model-value="onQueryChange"
               />
             </div>
           </div>
@@ -152,6 +140,24 @@
               @mouseenter="() => isHovered = true"
               @mouseleave="() => isHovered = false"
             >
+              <div
+                v-if="!collapsedContext && !isReadonly"
+                class="multiselect-input-wrapper"
+              >
+                <KInput
+                  :id="multiselectId"
+                  v-bind="modifiedAttrs"
+                  ref="multiselectDropdownInputElement"
+                  autocapitalize="off"
+                  autocomplete="off"
+                  data-testid="multiselect-dropdown-input"
+                  :model-value="filterString"
+                  :placeholder="placeholder ? placeholder : 'Filter...'"
+                  type="text"
+                  @click.stop
+                  @update:model-value="onQueryChange"
+                />
+              </div>
               <KMultiselectItems
                 :items="sortedItems"
                 @selected="handleItemSelect"
@@ -169,12 +175,12 @@
                 key="multiselect-add-item"
                 class="multiselect-add-item"
                 data-testid="multiselect-add-item"
-                :item="{ label: `${filterStr} (Add new value)`, value: 'add_item' }"
+                :item="{ label: `${filterString} (Add new value)`, value: 'add_item' }"
                 @selected="handleAddItem"
               >
                 <template #content>
                   <div class="select-item-description">
-                    {{ filterStr }}
+                    {{ filterString }}
                     <span class="select-item-new-indicator">(Add new value)</span>
                   </div>
                 </template>
@@ -213,14 +219,14 @@
 
     <!-- Staging area -->
     <div
-      v-if="!expandSelected"
+      v-if="!collapsedContext"
       aria-hidden="true"
       class="staging-area"
     >
       <div
         :key="stagingKey"
         ref="multiselectSelectionsStagingElement"
-        class="multiselect-selections staging"
+        class="selection-badges-container staging"
         :style="numericWidthStyle"
         tabindex="-1"
       >
@@ -270,7 +276,7 @@ import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 import type { MultiselectItem, MultiselectFilterFnParams, DropdownFooterTextPosition, PopPlacements, BadgeAppearance } from '@/types'
 import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
-import { KUI_ICON_SIZE_40, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -354,15 +360,6 @@ const props = defineProps({
    */
   collapsedContext: {
     type: Boolean,
-    default: true,
-  },
-  /**
-   * Determines whether or not to hide the selections when not focused,
-   * and whether or not to move items displayed beyond the selectedRowCount
-   * into a +n badge, or allow the sections to be scrollable.
-   */
-  expandSelected: {
-    type: Boolean,
     default: false,
   },
   /**
@@ -445,8 +442,8 @@ const strippedLabel = computed((): string => stripRequiredLabel(props.label, isR
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
 const hasDropdownFooter = computed((): boolean => !!(props.dropdownFooterText || slots['dropdown-footer-text']))
 
-const getBadgeAppearance = (item: MultiselectItem): BadgeAppearance => {
-  if (isDisabled.value || isReadonly.value || item.disabled) {
+const getBadgeAppearance = (item?: MultiselectItem): BadgeAppearance => {
+  if (isDisabled.value || isReadonly.value || item?.disabled) {
     return 'neutral'
   }
 
@@ -472,21 +469,20 @@ const multiselectId = computed((): string => attrs.id ? String(attrs.id) : uuidv
 
 const multiselectElement = ref<HTMLDivElement | null>(null)
 const multiselectInputElement = ref<HTMLDivElement | null>(null)
-const selectionBottomElement = ref<HTMLDivElement | null>(null)
 const multiselectSelectionsStagingElement = ref<HTMLDivElement>()
 
 // filter and selection
 const selectionsMaxHeight = computed((): number => {
   return props.selectedRowCount * SELECTED_ITEMS_SINGLE_LINE_HEIGHT
 })
-const filterStr = ref('')
+const filterString = ref('')
 // whether or not filter string matches an existing item's label
 const uniqueFilterStr = computed((): boolean => {
-  if (!filterStr.value) {
+  if (!filterString.value) {
     return false
   }
 
-  if (unfilteredItems.value.filter((item: MultiselectItem) => item.label === filterStr.value).length) {
+  if (unfilteredItems.value.filter((item: MultiselectItem) => item.label === filterString.value).length) {
     return false
   }
 
@@ -585,14 +581,6 @@ const numericWidthStyle = computed(() => {
   }
 })
 
-const nonSlimStyle = computed(() => {
-  return {
-    width: (numericWidth.value - 40) + 'px', // 40px to accommodate for chevron icon and default spacing
-    maxHeight: selectionsMaxHeight.value + 'px',
-    paddingRight: 0,
-  }
-})
-
 const getPlaceholderText = (isOpen?: boolean): string => {
   if (selectedItems.value.length && !isOpen) {
     if (selectedItems.value.length === 1) {
@@ -612,7 +600,7 @@ const getPlaceholderText = (isOpen?: boolean): string => {
 
 const filteredItems = computed(() => {
   // For autosuggest, items don't need to be filtered internally
-  return props.autosuggest ? unfilteredItems.value : props.filterFunction({ items: unfilteredItems.value, query: filterStr.value })
+  return props.autosuggest ? unfilteredItems.value : props.filterFunction({ items: unfilteredItems.value, query: filterString.value })
 })
 
 const handleFilterClick = (evt: any) => {
@@ -624,7 +612,7 @@ const handleFilterClick = (evt: any) => {
 const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: Function) => {
   if (open) {
     if (!isToggled.value) { // not already open
-      filterStr.value = ''
+      filterString.value = ''
       toggle()
       sortItems()
       await nextTick()
@@ -633,7 +621,7 @@ const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: Func
     }
   } else {
     if (isToggled.value) { // not already closed
-      filterStr.value = ''
+      filterString.value = ''
       toggle()
     }
   }
@@ -646,8 +634,8 @@ const stageSelections = () => {
   setTimeout(() => {
     const elem = multiselectSelectionsStagingElement.value
 
-    if (props.expandSelected) {
-      // if it's expanded don't do calculcations, because we will display all
+    if (!props.collapsedContext) {
+      // if it's collapsed don't do calculations, because we don't display badges
       stagingKey.value++
       return
     }
@@ -783,11 +771,6 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
       selectedItem.custom = true
       unfilteredItems.value.push(selectedItem)
     }
-
-    if (props.expandSelected) {
-      // if expanded, scroll new selections into view
-      scrollSmoothlyToBottom()
-    }
   }
 
   stageSelections()
@@ -800,31 +783,21 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
 
 // add an item with `enter`
 const handleAddItem = (): void => {
-  if (!props.enableItemCreation || !filterStr.value || !uniqueFilterStr.value) {
+  if (!props.enableItemCreation || !filterString.value || !uniqueFilterStr.value) {
     // do nothing if not enabled or no label or label already exists
     return
   }
 
   const pos = unfilteredItems.value.length + 1
   const item:MultiselectItem = {
-    label: filterStr.value + '',
+    label: filterString.value + '',
     value: uuidv4(),
-    key: `${filterStr.value.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
+    key: `${filterString.value.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
   }
   emit('item-added', item)
 
   handleItemSelect(item, true)
-  filterStr.value = ''
-}
-
-const scrollSmoothlyToBottom = () => {
-  setTimeout(() => {
-    // @ts-ignore
-    selectionBottomElement.value?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
-    })
-  }, 200)
+  filterString.value = ''
 }
 
 // sort dropdown items. Selected items displayed before unselected items
@@ -851,7 +824,7 @@ const clearSelection = (): void => {
   visibleSelectedItemsStaging.value = []
   invisibleSelectedItemsStaging.value = []
   invisibleSelectedItemsStagingSet.clear()
-  filterStr.value = ''
+  filterString.value = ''
   stageSelections()
 
   emit('selected', [])
@@ -861,7 +834,7 @@ const clearSelection = (): void => {
 }
 
 const onQueryChange = (query: string) => {
-  filterStr.value = query
+  filterString.value = query
   emit('query-change', query)
 }
 
@@ -893,9 +866,8 @@ watch(stagingKey, () => {
   setTimeout(() => {
     const elem = multiselectSelectionsStagingElement.value
 
-    if (props.expandSelected) {
-      // if expanded, don't do all the calculations because we are going to display
-      // everything
+    if (props.collapsedContext) {
+      // if collapsed, don't do all the calculations because we are not displaying badges
       visibleSelectedItems.value = cloneDeep(visibleSelectedItemsStaging.value)
       invisibleSelectedItems.value = []
       key.value++
@@ -1067,7 +1039,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     z-index: -1;
   }
 
-  .multiselect-selections {
+  .selection-badges-container {
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
@@ -1077,21 +1049,11 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     padding-left: $kMultiselectInputPaddingX;
     padding-right: $kMultiselectSelectionsPaddingRight;
 
-    &.scrollable {
-      overflow-y: auto;
-    }
-
-    &.collapsed {
-      margin-bottom: var(--kui-space-40, $kui-space-40);
-    }
-
     &.staging {
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box;
       height: auto;
-      padding-left: $kMultiselectInputPaddingX;
-      padding-right: $kMultiselectSelectionsPaddingRight;
       position: relative;
     }
   }
@@ -1106,7 +1068,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     z-index: 1;
 
     .multiselect-clear-icon {
-      @include non-visual-button;
+      cursor: pointer;
 
       &:hover, &:focus {
         color: var(--kui-color-text, $kui-color-text) !important;
@@ -1158,10 +1120,6 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
           box-shadow: none !important;
         }
       }
-
-      &.is-toggled {
-        margin-top: var(--kui-space-20, $kui-space-20);
-      }
     }
   }
 
@@ -1193,6 +1151,11 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
         position: sticky;
       }
     }
+  }
+
+  .multiselect-input-wrapper {
+    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    padding: var(--kui-space-40, $kui-space-40);
   }
 
   .dropdown-footer {

@@ -360,35 +360,6 @@ describe('KMultiselect', () => {
       })
   })
 
-  it('always shows selections when expandSelected is true', () => {
-    const labels = ['Label 1', 'Label 2']
-    const vals = ['label1', 'label2']
-
-    mount(KMultiselect, {
-      props: {
-        expandSelected: true,
-        items: [{
-          label: labels[0],
-          value: vals[0],
-          selected: true,
-        }, {
-          label: labels[1],
-          value: vals[1],
-          selected: true,
-        }],
-      },
-    })
-
-    cy.getTestId('multiselect-selections').should('exist')
-
-    cy.getTestId('multiselect-selections').should('contain.text', labels[0])
-    cy.getTestId('multiselect-selections').should('contain.text', labels[1])
-
-    cy.get('.multiselect-chevron-icon').click()
-
-    cy.getTestId('multiselect-selections').should('exist')
-  })
-
   it('inly shows placeholder when collapsedContext is false', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']

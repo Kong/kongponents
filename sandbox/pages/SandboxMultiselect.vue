@@ -44,15 +44,7 @@
         title="collapsedContext"
       >
         <KMultiselect
-          :collapsed-context="false"
-          :items="multiselectItems"
-        />
-      </SandboxSectionComponent>
-      <SandboxSectionComponent
-        title="expandSelected"
-      >
-        <KMultiselect
-          expand-selected
+          collapsed-context
           :items="multiselectItems"
         />
       </SandboxSectionComponent>
@@ -72,7 +64,7 @@
           :items="multiselectItems"
         />
         <KMultiselect
-          :collapsed-context="false"
+          collapsed-context
           error
           help="Help text turns into error text."
           :items="multiselectItems"
@@ -146,7 +138,7 @@
           label="Disabled"
         />
         <KMultiselect
-          :collapsed-context="false"
+          collapsed-context
           disabled
           :items="multiselectItems"
           label="Disabled"
@@ -161,7 +153,7 @@
           readonly
         />
         <KMultiselect
-          :collapsed-context="false"
+          collapsed-context
           :items="multiselectItems"
           label="Read only"
           readonly
@@ -224,7 +216,7 @@
         <KMultiselect
           v-model="example1Selected"
           autosuggest
-          :collapsed-context="false"
+          collapsed-context
           :items="example1Items"
           :selected-row-count="1"
           @query-change="example1OnQueryChange"
@@ -260,7 +252,7 @@ const multiselectItems: MultiselectItem[] = [{
 }, {
   label: 'Service F',
   value: 'f',
-  disabled: true,
+  // disabled: true,
   selected: true,
 }, {
   label: 'Service A1',
