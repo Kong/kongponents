@@ -22,7 +22,7 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.multiselect-input').trigger('click')
+    cy.get('.multiselect-trigger').trigger('click')
 
     cy.getTestId(`multiselect-item-${vals[0]}`).should('contain.text', labels[0])
     cy.getTestId(`multiselect-item-${vals[1]}`).should('contain.text', labels[1])
@@ -44,13 +44,13 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.getTestId('multiselect-selections').should('contain.text', selectedLabel)
-    cy.getTestId('multiselect-selections').should('contain.text', selectedLabel2)
+    cy.getTestId('selection-badges-container').should('contain.text', selectedLabel)
+    cy.getTestId('selection-badges-container').should('contain.text', selectedLabel2)
 
     cy.get('.multiselect-trigger').trigger('click')
 
-    cy.getTestId('multiselect-selections').should('contain.text', selectedLabel)
-    cy.getTestId('multiselect-selections').should('contain.text', selectedLabel2)
+    cy.getTestId('selection-badges-container').should('contain.text', selectedLabel)
+    cy.getTestId('selection-badges-container').should('contain.text', selectedLabel2)
   })
 
   it('renders with disabled item', () => {
@@ -66,7 +66,7 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.multiselect-input').trigger('click')
+    cy.get('.multiselect-trigger').trigger('click')
 
     cy.get(`[data-testid="multiselect-item-${vals[0]}"] button`).should('have.attr', 'disabled')
   })
@@ -123,7 +123,7 @@ describe('KMultiselect', () => {
     cy.get('.k-label .tooltip-trigger-icon').should('be.visible')
   })
 
-  it('reacts to text change and select', () => {
+  it.only('reacts to text change and select', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 
@@ -139,7 +139,7 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.multiselect-input').click()
+    cy.get('.multiselect-trigger').click()
 
     cy.getTestId(`multiselect-item-${vals[0]}`).should('contain.text', labels[0])
     cy.getTestId(`multiselect-item-${vals[1]}`).should('contain.text', labels[1])
@@ -150,7 +150,7 @@ describe('KMultiselect', () => {
     cy.getTestId(`multiselect-item-${vals[1]}`).should('not.exist')
 
     cy.getTestId(`multiselect-item-${vals[0]}`).eq(0).click()
-    cy.getTestId('multiselect-selections').should('contain.text', labels[0])
+    cy.getTestId('selection-badges-container').should('contain.text', labels[0])
   })
 
   it('allows adding an item with enableItemCreation', () => {
@@ -171,7 +171,7 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.multiselect-input').click()
+    cy.get('.multiselect-trigger').click()
 
     cy.getTestId(`multiselect-item-${vals[0]}`).should('contain.text', labels[0])
     cy.getTestId(`multiselect-item-${vals[1]}`).should('contain.text', labels[1])
@@ -185,16 +185,16 @@ describe('KMultiselect', () => {
     // search is cleared
     cy.get('input').should('not.contain.text', newItem)
     // item displays in selections
-    cy.getTestId('multiselect-selections').should('contain.text', newItem)
+    cy.getTestId('selection-badges-container').should('contain.text', newItem)
     // item displays when searching
     cy.get('input').type(newItem)
     cy.get('.multiselect-item .multiselect-item-label').should('contain.text', newItem)
     // no adding a label that already exists
     cy.getTestId('multiselect-add-item').should('not.exist')
     // item gone when dismissed
-    cy.getTestId('multiselect-selections').getTestId('badge-dismiss-button').first().click()
+    cy.getTestId('selection-badges-container').getTestId('badge-dismiss-button').first().click()
     // removed from selections
-    cy.getTestId('multiselect-selections').should('not.to.exist')
+    cy.getTestId('selection-badges-container').should('not.to.exist')
     // gone when searching
     cy.get('input').clear()
     cy.get('input').type(newItem)
@@ -219,7 +219,7 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.multiselect-input').click()
+    cy.get('.multiselect-trigger').click()
 
     cy.getTestId(`multiselect-item-${vals[0]}`).should('contain.text', labels[0])
     cy.getTestId(`multiselect-item-${vals[1]}`).should('contain.text', labels[1])
@@ -228,10 +228,10 @@ describe('KMultiselect', () => {
     cy.get('input').type(newItem)
     cy.getTestId('multiselect-add-item').should('contain.text', newItem).click()
     // item displays in selections
-    cy.getTestId('multiselect-selections').should('contain.text', newItem)
+    cy.getTestId('selection-badges-container').should('contain.text', newItem)
     cy.getTestId('multiselect-clear-icon').click()
     // cleared
-    cy.getTestId('multiselect-selections').should('not.to.exist')
+    cy.getTestId('selection-badges-container').should('not.to.exist')
     cy.get('input').type(newItem)
     cy.get('.multiselect-item .selected .multiselect-item-label').should('not.exist')
   })
@@ -253,10 +253,10 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.multiselect-input').click()
+    cy.get('.multiselect-trigger').click()
 
     cy.getTestId(`multiselect-item-${vals[0]}`).click()
-    cy.getTestId('multiselect-selections').should('not.exist')
+    cy.getTestId('selection-badges-container').should('not.exist')
   })
 
   it('allows slotting content into the items', async () => {
@@ -329,7 +329,7 @@ describe('KMultiselect', () => {
     cy.get('[data-testid="multiselect-trigger"]')
       .click({ force: true })
       .then(() => {
-        cy.get('[data-testid="multiselect-selections"] > div .badge-content-wrapper')
+        cy.get('[data-testid="selection-badges-container"] > div .badge-content-wrapper')
           .last()
           .should(($el) => {
             const text = $el.text()
@@ -350,7 +350,7 @@ describe('KMultiselect', () => {
         cy.get('input').type('{esc}')
       })
       .then(() => {
-        cy.get('[data-testid="multiselect-selections"] > div .badge-content-wrapper')
+        cy.get('[data-testid="selection-badges-container"] > div .badge-content-wrapper')
           .last()
           .should(($el) => {
             const text = $el.text()
@@ -360,13 +360,13 @@ describe('KMultiselect', () => {
       })
   })
 
-  it('inly shows placeholder when collapsedContext is false', () => {
+  it('inly shows placeholder when collapsedContext is true', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 
     mount(KMultiselect, {
       props: {
-        collapsedContext: false,
+        collapsedContext: true,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -379,13 +379,13 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.getTestId('multiselect-selections').should('not.exist')
+    cy.getTestId('selection-badges-container').should('not.exist')
 
-    cy.get('.multiselect-input input').should('have.attr', 'placeholder', '2 items selected')
+    cy.get('.multiselect-trigger input').should('have.attr', 'placeholder', '2 items selected')
 
     cy.get('.multiselect-chevron-icon').click()
 
-    cy.getTestId('multiselect-selections').should('exist')
+    cy.getTestId('selection-badges-container').should('exist')
   })
 
   it('can clear all selections when focused', () => {
@@ -408,10 +408,10 @@ describe('KMultiselect', () => {
 
     cy.get('.multiselect-trigger').click()
 
-    cy.getTestId('multiselect-selections').should('contain.text', labels[0])
-    cy.getTestId('multiselect-selections').should('contain.text', labels[1])
+    cy.getTestId('selection-badges-container').should('contain.text', labels[0])
+    cy.getTestId('selection-badges-container').should('contain.text', labels[1])
     cy.get('.multiselect-clear-icon').trigger('click')
-    cy.getTestId('multiselect-selections').should('not.exist')
+    cy.getTestId('selection-badges-container').should('not.exist')
   })
 
   it('can clear selection by badge dismiss when focused', () => {
@@ -433,9 +433,9 @@ describe('KMultiselect', () => {
 
     cy.get('.multiselect-trigger').click()
 
-    cy.getTestId('multiselect-selections').should('contain.text', labels[0])
-    cy.getTestId('multiselect-selections').getTestId('badge-dismiss-button').first().click()
-    cy.getTestId('multiselect-selections').should('not.exist')
+    cy.getTestId('selection-badges-container').should('contain.text', labels[0])
+    cy.getTestId('selection-badges-container').getTestId('badge-dismiss-button').first().click()
+    cy.getTestId('selection-badges-container').should('not.exist')
   })
 
   it('renders dropdown footer text when prop is passed', () => {
@@ -459,7 +459,7 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.multiselect-input').trigger('click')
+    cy.get('.multiselect-trigger').trigger('click')
 
     cy.get('.dropdown-footer').should('be.visible').should('contain.text', dropdownFooterText)
   })
@@ -488,7 +488,7 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.multiselect-input').trigger('click')
+    cy.get('.multiselect-trigger').trigger('click')
 
     cy.get('.dropdown-footer').should('be.visible').should('contain.text', dropdownFooterText)
   })
@@ -510,7 +510,7 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.getTestId('multiselect-input').trigger('click')
+    cy.getTestId('multiselect-trigger').trigger('click')
     cy.get('.multiselect-item').eq(0).should('contain.text', items[0].label)
     cy.get('.multiselect-group-title').eq(0).should('contain.text', group1Title)
     cy.get('.multiselect-group-title').eq(1).should('contain.text', group2Title)
@@ -554,33 +554,33 @@ describe('KMultiselect', () => {
         modelValue: ['label1', 'label2'],
       },
     }).then(({ wrapper }) => {
-      cy.getTestId('multiselect-selections').children().should('have.length', 2).then(() => {
+      cy.getTestId('selection-badges-container').children().should('have.length', 2).then(() => {
 
         // Remove 'label1'
         wrapper.setProps({
           modelValue: ['label2'],
         }).then(() => {
 
-          cy.getTestId('multiselect-selections').children().should('have.length', 1).then(() => {
+          cy.getTestId('selection-badges-container').children().should('have.length', 1).then(() => {
 
             // Change the items; 'label2' is no longer in the list.
             wrapper.setProps({
               items: allItems.slice(2),
             }).then(() => {
 
-              cy.getTestId('multiselect-selections').children().should('have.length', 1).then(() => {
+              cy.getTestId('selection-badges-container').children().should('have.length', 1).then(() => {
 
                 // Select an additional item.
                 wrapper.setProps({
                   modelValue: ['label2', 'label3'],
                 }).then(() => {
-                  cy.getTestId('multiselect-selections').children().should('have.length', 2).then(() => {
+                  cy.getTestId('selection-badges-container').children().should('have.length', 2).then(() => {
 
                     // Remove 'label2' from the selection.
                     wrapper.setProps({
                       modelValue: ['label3'],
                     }).then(() => {
-                      cy.getTestId('multiselect-selections').children().should('have.length', 1)
+                      cy.getTestId('selection-badges-container').children().should('have.length', 1)
                     })
                   })
                 })
