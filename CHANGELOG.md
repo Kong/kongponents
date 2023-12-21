@@ -1,3 +1,10 @@
+# [9.0.0-alpha.78](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.77...v9.0.0-alpha.78) (2023-12-21)
+
+
+### Bug Fixes
+
+* **types:** update types export ([ca0d4b2](https://github.com/Kong/kongponents/commit/ca0d4b2908fb92227afe8ad5174f3a1045a56140))
+
 # [9.0.0-alpha.77](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.76...v9.0.0-alpha.77) (2023-12-21)
 
 
