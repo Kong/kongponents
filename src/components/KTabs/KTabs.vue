@@ -8,18 +8,18 @@
         v-for="(tab, i) in tabs"
         :id="`${tab.hash.replace('#','')}-tab`"
         :key="tab.hash"
-        :aria-controls="hasPanels ? `panel-${i}` : undefined"
-        :aria-selected="hasPanels ? (activeTab === tab.hash ? 'true' : 'false') : undefined"
         class="tab-item"
-        :class="{ active: activeTab === tab.hash }"
-        :role="hasPanels ? 'tab' : undefined"
-        tabindex="0"
-        @click="handleTabChange(tab.hash)"
-        @keydown.enter.prevent="handleTabChange(tab.hash)"
-        @keydown.space.prevent="handleTabChange(tab.hash)"
+        :class="{ active: activeTab === tab.hash, disabled: tab.disabled }"
       >
         <div
-          :class="['tab-link', { 'has-panels': hasPanels }]"
+          :aria-controls="hasPanels ? `panel-${i}` : undefined"
+          :aria-selected="hasPanels ? (activeTab === tab.hash ? 'true' : 'false') : undefined"
+          class="tab-link"
+          :role="hasPanels ? 'tab' : undefined"
+          :tabindex="tab.disabled ? '-1' : '0'"
+          @click="handleTabChange(tab.hash)"
+          @keydown.enter.prevent="handleTabChange(tab.hash)"
+          @keydown.space.prevent="handleTabChange(tab.hash)"
         >
           <slot :name="`${tab.hash.replace('#','')}-anchor`">
             <span>{{ tab.title }}</span>
@@ -54,7 +54,7 @@ import type { Tab } from '@/types'
 
 const props = defineProps({
   /**
-   * Array of Tab objects [{hash: '#tab1', title: 'tab1'}, {hash: '#tab2', title: 'tab2'}]
+   * Array of Tab objects [{ hash: '#tab1', title: 'tab1'}, {hash: '#tab2', title: 'tab2' }]
    */
   tabs: {
     type: Array as PropType<Tab[]>,
@@ -98,57 +98,60 @@ watch(() => props.modelValue, (newTabHash) => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/tmp-variables';
-
 .k-tabs {
   ul {
-    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     display: flex;
-    font-size: var(--kui-font-size-50, $kui-font-size-50);
-    line-height: var(--kui-line-height-50, $kui-line-height-50);
+    font-family: var(--kui-font-family-text, $kui-font-family-text);
+    font-size: var(--kui-font-size-30, $kui-font-size-30);
+    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+    gap: var(--kui-space-80, $kui-space-80);
+    line-height: var(--kui-line-height-40, $kui-line-height-40);
     list-style: none;
-    margin-bottom: var(--kui-space-0, $kui-space-0);
-    padding-left: var(--kui-space-0, $kui-space-0);
+    margin-bottom: var(--kui-space-70, $kui-space-70);
+    padding: var(--kui-space-0, $kui-space-0) var(--kui-space-70, $kui-space-70);
 
     .tab-item {
       cursor: pointer;
+      padding-bottom: var(--kui-space-40, $kui-space-40);
       position: relative;
 
       .tab-link {
-        font-size: inherit;
+        border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+        color: var(--kui-color-text, $kui-color-text);
+        display: inline-flex;
+        gap: var(--kui-space-40, $kui-space-40);
+        padding: var(--kui-space-30, $kui-space-30) var(--kui-space-50, $kui-space-50);
         text-decoration: none;
 
-        a,
-        :deep(a) {
+        a, :deep(a) {
+          color: var(--kui-color-text, $kui-color-text);
           text-decoration: none;
+        }
+
+        &:focus-visible {
+          background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+          box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+          outline: none;
         }
       }
 
-      .tab-link,
-      .tab-link:not(.has-panels) :deep(> *) {
-        color: var(--kui-color-text, $kui-color-text);
+      &:hover:not(.disabled) {
+        .tab-link {
+          background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+        }
       }
 
-      .tab-link.has-panels,
-      .tab-link:not(.has-panels) :deep(> *) {
-        display: inline-block;
-        padding: var(--kui-space-60, $kui-space-60);
+      &.active {
+        border-bottom: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple);
       }
 
-      &:not(:first-of-type) {
-        margin-left: var(--kui-space-40, $kui-space-40);
-      }
+      &.disabled {
+        cursor: not-allowed;
 
-      &:not(:last-of-type) {
-        margin-right: var(--kui-space-40, $kui-space-40);
-      }
-
-      &.active,
-      &:hover {
-        .tab-link.has-panels,
-        .tab-link:not(.has-panels) :deep(> *) {
-          border-bottom: var(--kui-border-width-30, $kui-border-width-30) solid $tmp-color-aqua-50; // teal-300 is now aqua-50
-          color: var(--kui-color-text, $kui-color-text);
+        .tab-link {
+          color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+          pointer-events: none;
         }
       }
     }
