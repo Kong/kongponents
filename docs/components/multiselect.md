@@ -3,7 +3,7 @@
 KMultiselect - A select component that allows for choosing multiple items and creating new options
 
 - Selected items labels will be displayed as dismissible badges.
-- When the component has focus, its input field will be displayed.
+- When the dropdown is open, the input field for filtering items will be displayed.
 - If at least one item is selected, there will be a clear all button displayed in place of the dropdown chevron when the multiselect has focus.
 - Selected items are displayed at the top of the dropdown for easy access (refreshed on multiselect collapse).
 
