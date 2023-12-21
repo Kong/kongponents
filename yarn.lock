@@ -783,7 +783,7 @@
   resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.8.3.tgz#ae82ace540bcd3fd1c1c092533099e7721ea55ee"
   integrity sha512-9xXD8au1ty9Osi4qhy3OXthNTa8rAnVTIXryGJuA41/T0o4YnOSXMA7oj0F/kX6tEVeEi6TWbqwzGrj881ZFvA==
 
-"@kong/icons@^1.8.6":
+"@kong/icons@^1.8.7":
   version "1.8.7"
   resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.8.7.tgz#e52ae86cedfa1d61b0d6fd78cc69b9f40af2573b"
   integrity sha512-gSs8VRUyPVacVg/4/bTjnRSuIzcXrWFvV7+4vxjUJXt0dMWBq8GzMZ4JTj9ar7eUHLWeY1nmP55PmwF2Qwsa5A==
