@@ -617,7 +617,7 @@ const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: Func
       await nextTick()
 
       const input = document.getElementById(multiselectId.value) as HTMLInputElement
-      input?.focus()
+      input?.focus({ preventScroll: true })
     }
   } else {
     if (isToggled.value) { // not already closed
