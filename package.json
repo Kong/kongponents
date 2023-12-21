@@ -19,7 +19,8 @@
   "exports": {
     ".": {
       "import": "./dist/kongponents.es.js",
-      "require": "./dist/kongponents.umd.js"
+      "require": "./dist/kongponents.umd.js",
+      "types": "./dist/types/index.d.ts"
     },
     "./package.json": "./package.json",
     "./dist/*": "./dist/*"
