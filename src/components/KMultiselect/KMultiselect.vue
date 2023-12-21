@@ -105,7 +105,7 @@
               </KBadge>
               <KBadge
                 v-if="invisibleSelectedItems.length"
-                :appearance="error ? 'danger' : 'info'"
+                :appearance="getBadgeAppearance()"
                 class="hidden-selection-count"
                 :tooltip="hiddenItemsTooltip"
                 @click.stop
@@ -1168,8 +1168,11 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
   }
 
   .multiselect-input-wrapper {
+    background-color: var(--kui-color-background, $kui-color-background);
     border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     padding: var(--kui-space-40, $kui-space-40);
+    position: sticky;
+    top: 0;
   }
 
   .dropdown-footer {
