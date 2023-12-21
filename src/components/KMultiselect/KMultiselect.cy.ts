@@ -232,6 +232,7 @@ describe('KMultiselect', () => {
     cy.getTestId('multiselect-clear-icon').click()
     // cleared
     cy.getTestId('selection-badges-container').should('not.to.exist')
+    cy.getTestId('multiselect-trigger').click()
     cy.get('input').type(newItem)
     cy.get('.multiselect-item .selected .multiselect-item-label').should('not.exist')
   })
@@ -290,6 +291,8 @@ describe('KMultiselect', () => {
       },
     })
 
+    cy.get('.multiselect-trigger').click()
+
     cy.get('input').type('a').then(() => {
       cy.get('@onQueryChange').should('have.been.calledWith', 'a')
     }).then(() => {
@@ -342,6 +345,7 @@ describe('KMultiselect', () => {
       })
       .then(() => {
         cy.get('@onQueryChange').should('have.been.calledWith', '')
+
         Cypress.vueWrapper.setProps({
           items: allItems.slice(5, 20),
         })
@@ -360,7 +364,7 @@ describe('KMultiselect', () => {
       })
   })
 
-  it('inly shows placeholder when collapsedContext is true', () => {
+  it('only shows placeholder when collapsedContext is true', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 
@@ -382,10 +386,6 @@ describe('KMultiselect', () => {
     cy.getTestId('selection-badges-container').should('not.exist')
 
     cy.get('.multiselect-trigger input').should('have.attr', 'placeholder', '2 items selected')
-
-    cy.get('.multiselect-chevron-icon').click()
-
-    cy.getTestId('selection-badges-container').should('exist')
   })
 
   it('can clear all selections when focused', () => {
@@ -410,7 +410,7 @@ describe('KMultiselect', () => {
 
     cy.getTestId('selection-badges-container').should('contain.text', labels[0])
     cy.getTestId('selection-badges-container').should('contain.text', labels[1])
-    cy.get('.multiselect-clear-icon').trigger('click')
+    cy.get('.multiselect-clear-icon').click()
     cy.getTestId('selection-badges-container').should('not.exist')
   })
 

@@ -160,6 +160,7 @@
                   :placeholder="placeholder ? placeholder : 'Filter...'"
                   type="text"
                   @click.stop
+                  @focus="triggerInitialFocus"
                   @update:model-value="onQueryChange"
                 />
               </div>
@@ -269,7 +270,7 @@
 
 <script lang="ts">
 import type { Ref, PropType } from 'vue'
-import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount, useAttrs, useSlots } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onUnmounted, useAttrs, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KBadge from '@/components/KBadge/KBadge.vue'
@@ -854,6 +855,10 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
 const onInputFocus = async (): Promise<void> => {
   isFocused.value = true
 
+  triggerInitialFocus()
+}
+
+const triggerInitialFocus = (): void => {
   if (!initialFocusTriggered.value) {
     initialFocusTriggered.value = true
     emit('query-change', '')
@@ -999,8 +1004,8 @@ onMounted(() => {
   resizeObserver.value.observe(multiselectElement.value as HTMLDivElement)
 })
 
-onBeforeUnmount(() => {
-  if (resizeObserver.value) {
+onUnmounted(() => {
+  if (resizeObserver.value && multiselectElement.value) {
     resizeObserver.value.unobserve(multiselectElement.value)
   }
 })
