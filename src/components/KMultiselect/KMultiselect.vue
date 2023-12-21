@@ -76,14 +76,13 @@
             </div>
             <div
               v-else
-              :key="key"
               class="selection-badges-container"
               data-testid="selection-badges-container"
               :style="numericWidthStyle"
             >
               <KBadge
                 v-for="item, idx in visibleSelectedItems"
-                :key="`${item.key ? item.key : idx}-badge`"
+                :key="`${item.key ? item.key : idx}-badge-${key}`"
                 :appearance="getBadgeAppearance(item)"
                 class="multiselect-selection-badge"
                 :icon-before="false"
@@ -896,15 +895,13 @@ watch(stagingKey, () => {
 
 // make the popper recalculate it's position whenever the selections display
 // is updated in case we've grown a line
-watch(key, () => {
+watch(key, async () => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   if (popper.value && typeof popper.value.updatePopper === 'function') {
-    nextTick(() => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      popper.value.updatePopper()
-    })
+    await nextTick()
+    // @ts-ignore
+    popper.value.updatePopper()
   }
 })
 

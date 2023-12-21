@@ -139,7 +139,7 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.multiselect-trigger').click()
+    cy.getTestId('multiselect-trigger').click()
 
     cy.getTestId(`multiselect-item-${vals[0]}`).should('contain.text', labels[0])
     cy.getTestId(`multiselect-item-${vals[1]}`).should('contain.text', labels[1])
@@ -171,7 +171,7 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.multiselect-trigger').click()
+    cy.getTestId('multiselect-trigger').click()
 
     cy.getTestId(`multiselect-item-${vals[0]}`).should('contain.text', labels[0])
     cy.getTestId(`multiselect-item-${vals[1]}`).should('contain.text', labels[1])
@@ -219,7 +219,7 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.multiselect-trigger').click()
+    cy.getTestId('multiselect-trigger').click()
 
     cy.getTestId(`multiselect-item-${vals[0]}`).should('contain.text', labels[0])
     cy.getTestId(`multiselect-item-${vals[1]}`).should('contain.text', labels[1])
@@ -253,7 +253,7 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.multiselect-trigger').click()
+    cy.getTestId('multiselect-trigger').click()
 
     cy.getTestId(`multiselect-item-${vals[0]}`).click()
     cy.getTestId('selection-badges-container').should('not.exist')
@@ -406,7 +406,7 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.multiselect-trigger').click()
+    cy.getTestId('multiselect-trigger').click()
 
     cy.getTestId('selection-badges-container').should('contain.text', labels[0])
     cy.getTestId('selection-badges-container').should('contain.text', labels[1])
@@ -431,7 +431,7 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.multiselect-trigger').click()
+    cy.getTestId('multiselect-trigger').click()
 
     cy.getTestId('selection-badges-container').should('contain.text', labels[0])
     cy.getTestId('selection-badges-container').getTestId('badge-dismiss-button').first().click()
