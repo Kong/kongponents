@@ -118,7 +118,7 @@ watch(() => props.modelValue, (newTabHash) => {
 
       .tab-link {
         border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-        color: var(--kui-color-text, $kui-color-text);
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
         display: inline-flex;
         gap: var(--kui-space-40, $kui-space-40);
         padding: var(--kui-space-30, $kui-space-30) var(--kui-space-50, $kui-space-50);
@@ -132,6 +132,7 @@ watch(() => props.modelValue, (newTabHash) => {
         &:focus-visible {
           background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
           box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+          color: var(--kui-color-text, $kui-color-text);
           outline: none;
         }
       }
@@ -144,6 +145,10 @@ watch(() => props.modelValue, (newTabHash) => {
 
       &.active {
         border-bottom: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple);
+
+        .tab-link {
+          color: var(--kui-color-text, $kui-color-text);
+        }
       }
 
       &.disabled {
