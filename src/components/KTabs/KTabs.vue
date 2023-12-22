@@ -118,6 +118,7 @@ watch(() => props.modelValue, (newTabHash) => {
       margin-bottom: calc(-1 * var(--kui-border-width-10, $kui-border-width-10)); // to make the active item border appear on top of the bottom border
       padding-bottom: var(--kui-space-40, $kui-space-40);
       position: relative;
+      transition: border-bottom $kongponentsKongIconSelector;
 
       .tab-link {
         border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
@@ -126,6 +127,7 @@ watch(() => props.modelValue, (newTabHash) => {
         gap: var(--kui-space-40, $kui-space-40);
         padding: var(--kui-space-30, $kui-space-30) var(--kui-space-50, $kui-space-50);
         text-decoration: none;
+        transition: color $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
 
         a, :deep(a) {
           color: var(--kui-color-text, $kui-color-text);
