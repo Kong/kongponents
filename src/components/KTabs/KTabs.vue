@@ -114,6 +114,8 @@ watch(() => props.modelValue, (newTabHash) => {
 
     .tab-item {
       cursor: pointer;
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      margin-bottom: calc(-1 * var(--kui-border-width-10, $kui-border-width-10)); // to make the active item border appear on top of the bottom border
       padding-bottom: var(--kui-space-40, $kui-space-40);
       position: relative;
 
