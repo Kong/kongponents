@@ -78,7 +78,7 @@
     "@cypress/vite-dev-server": "^5.0.6",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@evilmartians/lefthook": "^1.5.2",
-    "@kong-ui-public/sandbox-layout": "^2.0.15",
+    "@kong-ui-public/sandbox-layout": "^2.0.16",
     "@kong/design-tokens": "^1.12.3",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
