@@ -380,6 +380,7 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KTabs
 
+No major changes.
 
 ### KTextArea
 
