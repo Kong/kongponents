@@ -11,20 +11,21 @@
         class="tab-item"
         :class="{ active: activeTab === tab.hash, disabled: tab.disabled }"
       >
-        <div
+        <a
           :aria-controls="hasPanels ? `panel-${i}` : undefined"
           :aria-selected="hasPanels ? (activeTab === tab.hash ? 'true' : 'false') : undefined"
           class="tab-link"
+          href="#"
           :role="hasPanels ? 'tab' : undefined"
           :tabindex="tab.disabled ? '-1' : '0'"
-          @click="handleTabChange(tab.hash)"
+          @click.prevent="handleTabChange(tab.hash)"
           @keydown.enter.prevent="handleTabChange(tab.hash)"
           @keydown.space.prevent="handleTabChange(tab.hash)"
         >
           <slot :name="`${tab.hash.replace('#','')}-anchor`">
             <span>{{ tab.title }}</span>
           </slot>
-        </div>
+        </a>
       </li>
     </ul>
 
