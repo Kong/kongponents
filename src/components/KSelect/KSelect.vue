@@ -154,7 +154,7 @@
             </div>
           </div>
           <div
-            v-if="!loading && !filteredItems.length"
+            v-if="!loading && !filteredItems.length && $slots.empty"
             class="select-empty"
             data-propagate-clicks="false"
           >
@@ -426,7 +426,7 @@ const hasCustomSelectedItem = computed((): boolean => !!(selectedItem.value &&
   (slots['selected-item-template'] || (props.reuseItemTemplate && slots['item-template']))))
 
 const filteredItems = computed(() => {
-  return props.enableFiltering ? props.filterFunction({ query: filterQuery.value, items: selectItems.value }) : selectItems.value
+  return props.enableFiltering && props.filterFunction({ query: filterQuery.value, items: selectItems.value }) !== true ? props.filterFunction({ query: filterQuery.value, items: selectItems.value }) : selectItems.value
 })
 
 const onInputKeypress = (event: Event) => {

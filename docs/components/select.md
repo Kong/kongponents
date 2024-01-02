@@ -287,6 +287,18 @@ const tagsFilter = (params: SelectFilterFunctionParams) =>
 </script>
 ```
 
+:::tip TIP
+Should you need to disable the default filter function while still allowing filtering (for example when you want to handle filtering asynchronously by fetching from the API), you can pass a function that always returns boolean `true` to this prop, like so: 
+
+```html
+<KSelect
+  enable-filtering
+  :filter-function="() => true"
+  :items="selectItems"
+/>
+```
+:::
+
 ### reuseItemTemplate
 
 Whether content passed through [`item-template` slot](#itemtemplate) should be applied for selected item.
