@@ -239,6 +239,7 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
     .text-icon {
       &:hover,
       &:focus {
+        // only applies to non-badge as for badge the mixin takes care hover styles
         color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
       }
     }
