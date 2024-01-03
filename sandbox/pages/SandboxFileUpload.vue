@@ -107,12 +107,22 @@
           label="Disabled"
           model-value="This input is disabled"
         />
+      </SandboxSectionComponent>
+
+      <!-- Slots -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Slots"
+      />
+      <SandboxSectionComponent title="icon">
         <KFileUpload
           :accept="['image/*']"
-          label="Readonly"
-          model-value="This input is read only"
-          readonly
-        />
+          label="Label"
+        >
+          <template #icon>
+            <ImageIcon />
+          </template>
+        </KFileUpload>
       </SandboxSectionComponent>
     </div>
   </SandboxLayout>
@@ -122,6 +132,7 @@
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { inject } from 'vue'
+import { ImageIcon } from '@kong/icons'
 </script>
 
 <style lang="scss" scoped>
