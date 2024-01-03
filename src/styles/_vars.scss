@@ -9,3 +9,6 @@ $kongponentsKongIconSelector: ".kui-icon";
 
 // transition duration and transition timing function
 $kongponentsTransitionDurTimingFunc: var(--kui-animation-duration-20, $kui-animation-duration-20) ease-in-out;
+
+// KCopy tooltip selector
+$kongponentsKCopyTooltipWrapperSelector: ".copy-text";

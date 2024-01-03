@@ -15,8 +15,7 @@
     >
       <KTooltip
         v-if="format !== 'hidden'"
-        class="copy-text"
-        :class="[truncateContent, useMono]"
+        :class="[truncateContent, useMono, 'copy-text' /* this selector is referenced in vars.scss - do not update without checking for usage in there first */]"
         data-testid="copy-text"
         :label="textTooltip ? textTooltip : textFormat"
         placement="bottomStart"
@@ -38,7 +37,7 @@
             data-testid="copy-to-clipboard"
             :hide-title="!!copyTooltip || undefined"
             role="button"
-            :size="KUI_ICON_SIZE_40"
+            :size="KUI_ICON_SIZE_30"
             tabindex="0"
             @click.stop="copyIdToClipboard(copyToClipboard)"
           />
@@ -54,7 +53,7 @@ import { computed, ref, watch } from 'vue'
 import { CopyIcon } from '@kong/icons'
 import KClipboardProvider from '@/components/KClipboardProvider'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
-import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
 const props = defineProps({
   /**
@@ -103,11 +102,12 @@ const props = defineProps({
     default: false,
   },
   /**
-   * False if `badge` is true
+   * Whether or not to use monospace font
    */
   monospace: {
     type: Boolean,
-    default: true,
+    required: false,
+    default: undefined,
   },
   /**
    * Whether or not the text should be truncated
@@ -152,7 +152,17 @@ const truncateLimitText = computed((): string | null => props.truncate ? `${prop
 const truncateStyles = computed((): string | null => props.truncate || props.badge ? 'copy-element' : null)
 const badgeStyles = computed((): string | null => props.badge ? 'badge-styles' : null)
 const truncateContent = computed((): string | null => props.truncate || props.badge ? 'truncate-content' : null)
-const useMono = computed((): string | null => props.badge ? null : 'monospace')
+const useMono = computed((): string | null => {
+  if (props.monospace) {
+    return 'monospace'
+  }
+
+  if (!props.badge && typeof props.monospace === 'undefined') {
+    return 'monospace'
+  }
+
+  return null
+})
 
 const textFormat = computed(() => {
   if (props.format === 'redacted') {
@@ -190,9 +200,7 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
   .copy-element {
     align-items: center;
     display: inline-flex;
-    margin: var(--kui-space-0, $kui-space-0) var(--kui-space-30, $kui-space-30);
     overflow: hidden;
-    padding: var(--kui-space-10, $kui-space-10) var(--kui-space-40, $kui-space-40);
     text-overflow: ellipsis;
     white-space: nowrap;
 
@@ -205,13 +213,8 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
   }
 
   .badge-styles {
-    background-color: var(--kui-color-background-decorative-purple-weakest, $kui-color-background-decorative-purple-weakest);
-    border-color: var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple);
-    border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
-    border-style: solid;
-    border-width: var(--kui-border-width-10, $kui-border-width-10);
-    color: var(--kui-color-text-decorative-purple, $kui-color-text-decorative-purple);
-    display: inline-flex;
+    @include badgeWrapper;
+    @include decorativeBadgeAppearance;
   }
 
   .copy-container {
@@ -221,7 +224,6 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     gap: var(--kui-space-30, $kui-space-30);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
-    padding: var(--kui-space-10, $kui-space-10) var(--kui-space-30, $kui-space-30);
     white-space: nowrap;
   }
 
@@ -233,16 +235,25 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
     align-items: center;
     cursor: pointer;
     display: flex;
-  }
 
-  .text-icon {
-    display: flex;
+    .text-icon {
+      &:hover,
+      &:focus {
+        color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
+      }
+    }
   }
 
   .copy-badge-text {
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
     font-size: var(--kui-font-size-20, $kui-font-size-20);
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
     margin-right: var(--kui-space-20, $kui-space-20);
+  }
+
+  :deep(.k-popover-content) {
+    font-family: var(--kui-font-family-text, $kui-font-family-text);
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   }
 }
 </style>

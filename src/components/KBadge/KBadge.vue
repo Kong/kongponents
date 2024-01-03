@@ -148,25 +148,11 @@ onUnmounted(() => {
 
 $kBadgeMethodWidth: 85px;
 
-/* Component mixins */
-
-// uses info badge appearance colors as default
-@mixin kBadgeAppearance($bgColor: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest), $textColor: var(--kui-color-text-primary, $kui-color-text-primary), $hoverColor: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong)) {
-  background-color: $bgColor;
-  color: $textColor;
-
-  :deep([role="button"]):not([disabled]) {
-    &:hover, &:focus {
-      color: $hoverColor !important;
-    }
-  }
-}
-
 /* Component styles */
 
 .k-badge {
   // apply info appearance by default (in case of invalid appearance)
-  @include kBadgeAppearance;
+  @include badgeAppearance;
   @include badgeWrapper;
 
   .badge-content {
@@ -213,96 +199,94 @@ $kBadgeMethodWidth: 85px;
   /* Appearances */
 
   &.info {
-    @include kBadgeAppearance;
+    @include badgeAppearance;
   }
 
   &.success {
-    @include kBadgeAppearance(var(--kui-color-background-success-weakest, $kui-color-background-success-weakest),
+    @include badgeAppearance(var(--kui-color-background-success-weakest, $kui-color-background-success-weakest),
       var(--kui-color-text-success, $kui-color-text-success),
       var(--kui-color-text-success-strong, $kui-color-text-success-strong));
   }
 
   &.warning {
-    @include kBadgeAppearance(var(--kui-color-background-warning-weakest, $kui-color-background-warning-weakest),
+    @include badgeAppearance(var(--kui-color-background-warning-weakest, $kui-color-background-warning-weakest),
       var(--kui-color-text-warning, $kui-color-text-warning),
       var(--kui-color-text-warning-strong, $kui-color-text-warning-strong));
   }
 
   &.danger {
-    @include kBadgeAppearance(var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest),
+    @include badgeAppearance(var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest),
       var(--kui-color-text-danger, $kui-color-text-danger),
       var(--kui-color-text-danger-strong, $kui-color-text-danger-strong));
   }
 
   &.decorative {
-    @include kBadgeAppearance(var(--kui-color-background-decorative-purple-weakest, $kui-color-background-decorative-purple-weakest),
-      var(--kui-color-text-decorative-purple, $kui-color-text-decorative-purple),
-      var(--kui-color-text-decorative-purple-strong, $kui-color-text-decorative-purple-strong));
+    @include decorativeBadgeAppearance;
   }
 
   &.neutral {
-    @include kBadgeAppearance(var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker),
+    @include badgeAppearance(var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker),
       var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong),
       var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
   }
 
   // methods
   &.connect {
-    @include kBadgeAppearance(var(--kui-method-color-background-connect, $kui-method-color-background-connect),
+    @include badgeAppearance(var(--kui-method-color-background-connect, $kui-method-color-background-connect),
       var(--kui-method-color-text-connect, $kui-method-color-text-connect),
       var(--kui-method-color-text-connect-strong, $kui-method-color-text-connect-strong));
   }
 
   &.custom {
-    @include kBadgeAppearance(var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak),
+    @include badgeAppearance(var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak),
       var(--kui-color-text, $kui-color-text),
       var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
   }
 
   &.delete {
-    @include kBadgeAppearance(var(--kui-method-color-background-delete, $kui-method-color-background-delete),
+    @include badgeAppearance(var(--kui-method-color-background-delete, $kui-method-color-background-delete),
       var(--kui-method-color-text-delete, $kui-method-color-text-delete),
       var(--kui-method-color-text-delete-strong, $kui-method-color-text-delete-strong));
   }
 
   &.get {
-    @include kBadgeAppearance(var(--kui-method-color-background-get, $kui-method-color-background-get),
+    @include badgeAppearance(var(--kui-method-color-background-get, $kui-method-color-background-get),
       var(--kui-method-color-text-get, $kui-method-color-text-get),
       var(--kui-method-color-text-get-strong, $kui-method-color-text-get-strong));
   }
 
   &.head {
-    @include kBadgeAppearance(var(--kui-method-color-background-head, $kui-method-color-background-head),
+    @include badgeAppearance(var(--kui-method-color-background-head, $kui-method-color-background-head),
       var(--kui-method-color-text-head, $kui-method-color-text-head),
       var(--kui-method-color-text-head-strong, $kui-method-color-text-head-strong));
   }
 
   &.options {
-    @include kBadgeAppearance(var(--kui-method-color-background-options, $kui-method-color-background-options),
+    @include badgeAppearance(var(--kui-method-color-background-options, $kui-method-color-background-options),
       var(--kui-method-color-text-options, $kui-method-color-text-options),
       var(--kui-method-color-text-options-strong, $kui-method-color-text-options-strong));
   }
 
   &.patch {
-    @include kBadgeAppearance(var(--kui-method-color-background-patch, $kui-method-color-background-patch),
+    @include badgeAppearance(var(--kui-method-color-background-patch, $kui-method-color-background-patch),
       var(--kui-method-color-text-patch, $kui-method-color-text-patch),
       var(--kui-method-color-text-patch-strong, $kui-method-color-text-patch-strong));
   }
 
   &.post {
-    @include kBadgeAppearance(var(--kui-method-color-background-post, $kui-method-color-background-post),
+    @include badgeAppearance(var(--kui-method-color-background-post, $kui-method-color-background-post),
       var(--kui-method-color-text-post, $kui-method-color-text-post),
       var(--kui-method-color-text-post-strong, $kui-method-color-text-post-strong));
   }
 
   &.put {
-    @include kBadgeAppearance(var(--kui-method-color-background-put, $kui-method-color-background-put),
+    @include badgeAppearance(var(--kui-method-color-background-put, $kui-method-color-background-put),
       var(--kui-method-color-text-put, $kui-method-color-text-put),
       var(--kui-method-color-text-put-strong, $kui-method-color-text-put-strong));
   }
 
   &.trace {
-    @include kBadgeAppearance(var(--kui-method-color-background-trace, $kui-method-color-background-trace),
+    @include badgeAppearance(var(--kui-method-color-background-trace, $kui-method-color-background-trace),
       var(--kui-method-color-text-trace, $kui-method-color-text-trace),
       var(--kui-method-color-text-trace-strong, $kui-method-color-text-trace-strong));
   }

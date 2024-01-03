@@ -127,7 +127,7 @@ Tooltip text displayed on successful copy. Defaults to `Copied!`.
 
 ### monospace
 
-An indicator of whether the copyable text has `JetBrains Mono` font or not. Defaults to `true`, but `false` if `badge` is `true`.
+An indicator of whether the copyable text has `JetBrains Mono` font or not. Defaults to `undefined`, but `true` if `badge` is `false`.
 
 ### format
 
