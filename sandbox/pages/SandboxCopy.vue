@@ -30,9 +30,20 @@
           :text="uuid1"
           truncate
         />
+        <KCopy
+          badge
+          :text="uuid1"
+          truncate
+        />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="truncationLimit">
         <KCopy
+          :text="uuid1"
+          truncate
+          :truncation-limit="5"
+        />
+        <KCopy
+          badge
           :text="uuid1"
           truncate
           :truncation-limit="5"
