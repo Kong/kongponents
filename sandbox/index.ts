@@ -22,6 +22,7 @@ const sandboxAppLinks: SandboxNavigationItem[] = ([
   { name: 'KCard', to: { name: 'card' } },
   { name: 'KCatalog', to: { name: 'catalog' } },
   { name: 'KCheckbox', to: { name: 'checkbox' } },
+  { name: 'KCopy', to: { name: 'copy' } },
   { name: 'KDropdown', to: { name: 'dropdown' } },
   { name: 'KInput', to: { name: 'input' } },
   { name: 'KInputSwitch', to: { name: 'inputswitch' } },
