@@ -206,6 +206,13 @@
           </template>
         </KMultiselect>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="empty">
+        <KMultiselect :items="[]">
+          <template #empty>
+            Empty 🤷‍♂️
+          </template>
+        </KMultiselect>
+      </SandboxSectionComponent>
 
       <!-- Examples -->
       <SandboxTitleComponent

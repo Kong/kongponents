@@ -43,7 +43,7 @@
   }
 
   &::placeholder {
-    // @include inputText;
+    @include inputText;
 
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
   }

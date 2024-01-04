@@ -103,15 +103,20 @@
                   />
                 </template>
               </KBadge>
-              <KBadge
+              <KTooltip
                 v-if="invisibleSelectedItems.length"
-                :appearance="getBadgeAppearance()"
-                class="hidden-selection-count"
-                :tooltip="hiddenItemsTooltip"
-                @click.stop
+                class="hidden-selection-count-tooltip"
+                :label="hiddenItemsTooltip"
+                max-width="300"
               >
-                +{{ invisibleSelectedItems.length }}
-              </KBadge>
+                <KBadge
+                  :appearance="getBadgeAppearance()"
+                  class="hidden-selection-count"
+                  @click.stop
+                >
+                  +{{ invisibleSelectedItems.length }}
+                </KBadge>
+              </KTooltip>
             </div>
             <div class="multiselect-icons-container">
               <CloseIcon
@@ -199,14 +204,18 @@
                 :item="{ label: 'No results', value: 'no_results', disabled: true }"
               />
             </div>
-            <slot
+            <div
               v-if="!loading && !sortedItems.length"
-              name="empty"
-            />
+              class="multiselect-empty"
+              data-propagate-clicks="false"
+            >
+              <slot name="empty" />
+            </div>
             <div
               v-if="hasDropdownFooter"
               class="dropdown-footer"
               :class="`dropdown-footer-${dropdownFooterTextPosition}`"
+              data-testid="dropdown-footer"
             >
               <slot name="dropdown-footer-text">
                 {{ dropdownFooterText }}
@@ -283,6 +292,7 @@ import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 import type { MultiselectItem, MultiselectFilterFnParams, DropdownFooterTextPosition, PopPlacements, BadgeAppearance } from '@/types'
 import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -519,7 +529,7 @@ const invisibleSelectedItemsStagingSet = new Set<string>()
 const visibleSelectedItems = ref<MultiselectItem[]>([])
 const invisibleSelectedItems = ref<MultiselectItem[]>([])
 
-const hiddenItemsTooltip = computed(() => invisibleSelectedItems.value.map(item => item.label).join(', '))
+const hiddenItemsTooltip = computed((): string => invisibleSelectedItems.value.map(item => item.label).join(', '))
 
 // state
 const initialFocusTriggered: Ref<boolean> = ref(false)
@@ -601,9 +611,16 @@ const filteredItems = computed(() => {
   return props.autosuggest ? unfilteredItems.value : props.filterFunction({ items: unfilteredItems.value, query: filterString.value })
 })
 
-const handleFilterClick = (evt: any) => {
-  if (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') {
-    evt.stopPropagation()
+const handleFilterClick = (event: any) => {
+  /**
+   * The component is designed so that most of the time it propagates click events
+   * so that popover component handles them properly (for example closing the dropdown when clicking outside of it or selecting an item).
+   * However some container or wrapper clicks should not propagate to the popover component.
+   * In cases like that we can't use always pointer-events: none; because it will disabled pointer event on children elements.
+   * Instead we can give that element data-propagate-clicks="false" data property and it will be handled here.
+   */
+  if (isDisabled.value || (event?.target as HTMLElement)?.dataset.propagateClicks === 'false') {
+    event.stopPropagation()
   }
 }
 
@@ -988,19 +1005,10 @@ const setNumericWidth = (): void => {
   numericWidth.value = multiselectElement.value?.clientWidth || 300
 }
 
-const resizeObserver = ref()
+const resizeObserver = ref<ResizeObserverHelper>()
 onMounted(() => {
-  resizeObserver.value = new ResizeObserver(entries => {
-    // TODO: use resizeObserverHelper(entries, setNumericWidth())
-    // Wrapper 'window.requestAnimationFrame' is needed for disabling "ResizeObserver loop limit exceeded" error in DD
-    window.requestAnimationFrame(() => {
-      if (!Array.isArray(entries) || !entries.length) {
-        return
-      }
-      // Actual code
-      setNumericWidth()
-    })
-  })
+  resizeObserver.value = ResizeObserverHelper.create(setNumericWidth)
+
   resizeObserver.value.observe(multiselectElement.value as HTMLDivElement)
 })
 
@@ -1069,6 +1077,14 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
       box-sizing: border-box;
       height: auto;
       position: relative;
+    }
+  }
+
+  .hidden-selection-count-tooltip {
+    cursor: pointer;
+
+    :deep(.k-popover-content) {
+      @include truncate(3);
     }
   }
 
@@ -1173,6 +1189,10 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     padding: var(--kui-space-40, $kui-space-40);
     position: sticky;
     top: 0;
+  }
+
+  .multiselect-empty {
+    @include selectItemDefaults;
   }
 
   .dropdown-footer {
