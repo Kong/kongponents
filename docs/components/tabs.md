@@ -80,7 +80,7 @@ interface Tab {
 
 ### v-model
 
-By default the KTabs will set the first tab in the array as active. You can override this by passing in the hash of any other tab to be used with `v-model`.
+KTabs will set the first tab in the `tabs` array as active. You can override this by passing in the hash of any other tab to be used with `v-model`.
 
 <KTabs v-model="modelTab" :tabs="tabs">
   <template #tab1>
@@ -126,7 +126,7 @@ const tabs: Tab[] = [
 </script>
 ```
 
-If you want to keep your `v-model` in sync so that you can programmatically change the active tab after initialization, you also must respond to the `@changed` emitted event.
+If you want to keep your `v-model` in sync so that you can programmatically change the active tab after initialization, you must subscribe to the emitted `@changed` event.
 
 <div>
   <KTabs v-model="modelTabProgrammatic" :tabs="tabs" @changed="hash => modelTabProgrammatic = hash">
@@ -229,7 +229,7 @@ Here's an example (code only) of utilizing a dynamic `router-view` component wit
 
 The tab control defaults to the `tab.title` string. You may use the `#{tab.hash}-anchor` slot to customize the content of the tab control.
 
-In order provide the tab panel content (when the `hasPanels` prop is set to `true`) you must slot the content in the named slot, defined by the `tab.hash` string, without the `#`.
+In order provide the tab panel content (when the `hasPanels` prop is set to `true`) you must slot the content into the corresponding named slot, defined by the `tab.hash` string, without the `#`.
 
 <KTabs :tabs="slottedTabs">
   <template #gateway-anchor>
