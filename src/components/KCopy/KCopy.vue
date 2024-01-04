@@ -17,7 +17,7 @@
         v-if="format !== 'hidden'"
         :class="[truncateContent, useMono, 'copy-text' /* this selector is referenced in vars.scss - do not update without checking for usage in there first */]"
         data-testid="copy-text"
-        :label="textTooltip ? textTooltip : textFormat"
+        :label="textTooltipLabel"
         placement="bottomStart"
         position-fixed
       >
@@ -132,7 +132,7 @@ const props = defineProps({
   },
 })
 
-const tooltipText = ref('')
+const tooltipText = ref<string>('')
 const nonSuccessText = computed((): string => {
   if (!props.badgeLabel || props.copyTooltip) {
     return props.copyTooltip || 'Copy'
@@ -170,8 +170,22 @@ const textFormat = computed(() => {
   } else if (props.format === 'deleted') {
     return `*${props.text.substring(0, 5)}`
   }
+
   // This regex will only remove the quotes if they are the first and last characters of the string (truncateLimitText)
   return (props.truncate && props.truncationLimit && truncateLimitText.value) ? truncateLimitText.value.replace(/^"(.*)"$/, '$1') : props.text
+})
+
+const textTooltipLabel = computed((): string | undefined => {
+  if (props.textTooltip) {
+    return props.textTooltip
+  }
+
+  // don't show text tooltip if text is redacted or not truncated
+  if (props.format === 'redacted' || !truncateLimitText.value) {
+    return undefined
+  }
+
+  return props.text
 })
 
 const updateTooltipText = (msg?: string): void => {
