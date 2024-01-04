@@ -46,7 +46,7 @@
           </template>
         </KTabs>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="hasPanels">
+      <SandboxSectionComponent title="showPanels">
         <KTabs
           v-model="vModel2"
           :tabs="items"
@@ -101,7 +101,7 @@
       />
       <SandboxSectionComponent title="Dynamic router view">
         <KTabs
-          :has-panels="false"
+          :show-panels="false"
           :tabs="dynamicRouterViewItems"
         >
           <template

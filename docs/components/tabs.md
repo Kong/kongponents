@@ -33,7 +33,7 @@ Required prop, which is an array of tab objects with the following interface:
 
 ```ts
 interface Tab {
-  hash: string
+  hash: string // has to be unique, corresponds to the slot name
   title: string
   disabled?: boolean
 }
@@ -126,10 +126,14 @@ const tabs: Tab[] = [
 </script>
 ```
 
+<<<<<<< Updated upstream
 If you want to keep your `v-model` in sync so that you can programmatically change the active tab after initialization, you must subscribe to the emitted `@changed` event.
+=======
+If you want to keep your `v-model` in sync so that you can programmatically change the active tab after initialization, you also must respond to the `@change` emitted event.
+>>>>>>> Stashed changes
 
 <div>
-  <KTabs v-model="modelTabProgrammatic" :tabs="tabs" @changed="hash => modelTabProgrammatic = hash">
+  <KTabs v-model="modelTabProgrammatic" :tabs="tabs" @change="hash => modelTabProgrammatic = hash">
     <template #tab1>Tab 1 content</template>
     <template #tab2>Tab 2 content</template>
     <template #tab3>Tab 3 content</template>
@@ -143,7 +147,7 @@ If you want to keep your `v-model` in sync so that you can programmatically chan
 </div>
 
 ```html
-<KTabs v-model="currentTab" :tabs="tabs" @changed="hash => currentTab = hash">
+<KTabs v-model="currentTab" :tabs="tabs" @change="hash => currentTab = hash">
   <template #tab1>Tab 1 content</template>
   <template #tab2>Tab 2 content</template>
   <template #tab2>Tab 3 content</template>
@@ -154,24 +158,24 @@ If you want to keep your `v-model` in sync so that you can programmatically chan
 <KButton @click="currentTab = '#tab3'">Activate Tab 3</KButton>
 ```
 
-### hasPanels
+### showPanels
 
 A `boolean` that determines whether all tabs should have corresponding "panel" (the tab content) containers. Defaults to `true`.
 
 In some scenarios, you may want to implement the KTabs UI controls without utilizing the corresponding panel containers.
 
-For example, you could set the `hasPanels` prop to `false` and then your host app could provide custom functionality such as navigating to a different page or `router-view` on click.
+For example, you could set the `showPanels` prop to `false` and then your host app could provide custom functionality such as navigating to a different page or `router-view` on click.
 
 Here's an example where we display the active tab hash:
 
 <div>
-  <KTabs :tabs="slottedTabs" :has-panels="false" @changed="hasPanelsChanged" />
-  <p>Active hash: {{ hasPanelsActiveHash }}</p>
+  <KTabs :tabs="slottedTabs" :show-panels="false" @change="panelsChange" />
+  <p>Active hash: {{ panelsActiveHash }}</p>
 </div>
 
 ```vue
 <template>
-  <KTabs :tabs="tabs" :has-panels="false" @changed="tabChanged" />
+  <KTabs :tabs="tabs" :show-panels="false" @change="tabChange" />
   <p>Active hash: {{ currentTab }} </p>
 </template>
 
@@ -186,7 +190,7 @@ const tabs: Tab[] = [
 
 const currentTab = ref<string>(tabs.value[0].hash)
 
-const tabChanged = (hash: string): void => {
+const tabChange = (hash: string): void => {
   currentTab.value = hash
 }
 </script>
@@ -198,7 +202,7 @@ Here's an example (code only) of utilizing a dynamic `router-view` component wit
 
 ```html
 <KTabs
-  :has-panels="false"
+  :show-panels="false"
   :tabs="tabs"
 >
   <template
@@ -229,7 +233,11 @@ Here's an example (code only) of utilizing a dynamic `router-view` component wit
 
 The tab control defaults to the `tab.title` string. You may use the `#{tab.hash}-anchor` slot to customize the content of the tab control.
 
+<<<<<<< Updated upstream
 In order provide the tab panel content (when the `hasPanels` prop is set to `true`) you must slot the content into the corresponding named slot, defined by the `tab.hash` string, without the `#`.
+=======
+In order provide the tab panel content (when the `showPanels` prop is set to `true`) you must slot the content in the named slot, defined by the `tab.hash` string, without the `#`. For example, if `tab.hash` is `#notifications` - the panel slot name will be `notifications`, like in the example below.
+>>>>>>> Stashed changes
 
 <KTabs :tabs="slottedTabs">
   <template #gateway-anchor>
@@ -273,16 +281,16 @@ In order provide the tab panel content (when the `hasPanels` prop is set to `tru
 
 ## Events
 
-### changed
+### change
 
-KTabs emits a `@changed` event with the new tab `hash` when clicked. You can use this to set the router or window hash and in turn use that with [`v-model`](#v-model).
+KTabs emits a `@change` event with the new tab `hash` when clicked. You can use this to set the router or window hash and in turn use that with [`v-model`](#v-model).
 
 ```vue
 <template>
   <KTabs
     :tabs="tabs"
     v-model="$route.hash"
-    @changed="hash => $router.replace({ hash })">
+    @change="hash => $router.replace({ hash })">
     <template #tab1>Tab 1 content</template>
     <template #tab2>Tab 2 content</template>
     <template #tab3>Tab 3 content</template>
@@ -320,10 +328,10 @@ const slottedTabs = ref<Tab[]>([
   { hash: '#docs', title: 'Documentation' },
 ])
 
-const hasPanelsActiveHash = ref('#gateway')
+const panelsActiveHash = ref('#gateway')
 
-const hasPanelsChanged = (hash: string) => {
-  hasPanelsActiveHash.value = hash;
+const panelsChange = (hash: string) => {
+  panelsActiveHash.value = hash;
 }
 </script>
 

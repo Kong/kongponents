@@ -380,7 +380,9 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KTabs
 
-No major changes.
+#### Props
+
+* `hasPanels` prop has been renamed to `showPanels`
 
 ### KTextArea
 

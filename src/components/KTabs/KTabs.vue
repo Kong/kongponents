@@ -5,18 +5,18 @@
       role="tablist"
     >
       <li
-        v-for="(tab, i) in tabs"
+        v-for="tab in tabs"
         :id="`${tab.hash.replace('#','')}-tab`"
         :key="tab.hash"
         class="tab-item"
         :class="{ active: activeTab === tab.hash, disabled: tab.disabled }"
       >
         <a
-          :aria-controls="hasPanels ? `panel-${i}` : undefined"
-          :aria-selected="hasPanels ? (activeTab === tab.hash ? 'true' : 'false') : undefined"
+          :aria-controls="showPanels ? `panel-${tab.hash}` : undefined"
+          :aria-selected="showPanels ? (activeTab === tab.hash ? 'true' : 'false') : undefined"
           class="tab-link"
           href="#"
-          :role="hasPanels ? 'tab' : undefined"
+          role="tab"
           :tabindex="tab.disabled ? '-1' : '0'"
           @click.prevent="handleTabChange(tab.hash)"
           @keydown.enter.prevent="handleTabChange(tab.hash)"
@@ -29,7 +29,7 @@
       </li>
     </ul>
 
-    <template v-if="hasPanels">
+    <template v-if="showPanels">
       <div
         v-for="(tab, i) in tabs"
         :id="`panel-${i}`"
@@ -72,7 +72,7 @@ const props = defineProps({
   /**
    * Render the tab's corresponding panel container
    */
-  hasPanels: {
+  showPanels: {
     type: Boolean,
     default: true,
   },
@@ -80,20 +80,20 @@ const props = defineProps({
 
 const emit = defineEmits<{
   (e: 'update:modelValue', val: string): void
-  (e: 'changed', val: string): void
+  (e: 'change', val: string): void
 }>()
 
 const activeTab = ref<string>(props.modelValue ? props.modelValue : props.tabs[0].hash)
 
 const handleTabChange = (tab: string): void => {
   activeTab.value = tab
-  emit('changed', tab)
+  emit('change', tab)
   emit('update:modelValue', tab)
 }
 
 watch(() => props.modelValue, (newTabHash) => {
   activeTab.value = newTabHash
-  emit('changed', newTabHash)
+  emit('change', newTabHash)
   emit('update:modelValue', newTabHash)
 })
 </script>

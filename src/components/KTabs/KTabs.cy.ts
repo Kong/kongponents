@@ -38,12 +38,12 @@ describe('KTabs', () => {
     })
 
     cy.get('.tab-item').eq(1).click().then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'changed')
-      cy.wrap(Cypress.vueWrapper.emitted('changed')[0][0]).should('eq', '#movies')
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'change')
+      cy.wrap(Cypress.vueWrapper.emitted('change')[0][0]).should('eq', '#movies')
     })
   })
 
-  it('hides the panel content when `hasPanels` is false', () => {
+  it('hides the panel content when `showPanels` is false', () => {
     const picturesSlot = 'I love pictures'
     const moviesSlot = 'I love pictures'
     const booksSlot = 'I love pictures'
@@ -51,7 +51,7 @@ describe('KTabs', () => {
     mount(KTabs, {
       props: {
         tabs: TABS,
-        hasPanels: false,
+        showPanels: false,
       },
       slots: {
         pictures: h('div', {}, picturesSlot),
