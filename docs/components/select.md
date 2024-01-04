@@ -40,6 +40,17 @@ Selected service: {{ selectValue || 'none' }}
 
 Prop for providing select item options. Supports grouping items under one group name through providing optional `group` property.
 
+```ts
+interface SelectItem {
+  label: string
+  value: string | number
+  key?: string
+  selected?: boolean
+  disabled?: boolean
+  group?: string
+}
+```
+
 <ClientOnly>
   <KSelect :items="[{
     label: 'Service A',
@@ -236,7 +247,18 @@ By default, items passed to KSelect are not searchable. When `enableFiltering` p
 
 ### filterFunction
 
-A custom function to perform item filtering.
+A custom function to perform item filtering. Expects an object with query string and items to filter through. To keep track of user input you can listen to [`@query-change` event](#query-change).
+
+```ts
+interface SelectFilterFunctionParams {
+  query: string
+  items: SelectItem[]
+}
+```
+
+:::tip TIP
+When using `filterFunction` prop in conjunction with `enableItemCreation` set to `true` you must keep track of added and removed custom items to be able to provide the most up to date items to `filterFunction`. To achieve that you want to utilize [`@item-added`](#item-added) and [`@item-removed`](#item-added) events.
+:::
 
 <ClientOnly>
   <KSelect enable-filtering :filter-function="tagsFilter" placeholder="Try searching for 'dev' or 'prod'" :items="selectItemsUnselectedTagged" />
@@ -256,7 +278,7 @@ const selectItems: SelectItem[] = [{
 }, {
   label: 'Service B',
   value: 'b',
-  tags: ['dev']
+  tags: ['dev'],
 }, {
   label: 'Service F',
   value: 'f',
@@ -273,11 +295,12 @@ const selectItems: SelectItem[] = [{
   label: 'Service A2',
   value: 'a2',
   group: 'Series 2',
-  tags: ['prod']
+  tags: ['prod'],
 }, {
   label: 'Service B2',
   value: 'b2',
   group: 'Series 2',
+  tags: ['dev', 'prod'],
 }]
 
 const tagsFilter = (params: SelectFilterFunctionParams) => 
@@ -682,7 +705,7 @@ const selectItems: SelectItem[] = [{
 }]
 
 const selectItemsUnselected: SelectItem[] = JSON.parse(JSON.stringify(selectItems)).map((item: SelectItem) => ({ ...item, selected: false }))
-const selectItemsUnselectedTagged: SelectItem[] =  JSON.parse(JSON.stringify(selectItemsUnselected)).map((item: SelectItem) => ({ ...item, selected: false, ...(item.value === 'b' && { tags: ['dev'] }), ...(item.value === 'a2' && { tags: ['prod'] }) }))
+const selectItemsUnselectedTagged: SelectItem[] =  JSON.parse(JSON.stringify(selectItemsUnselected)).map((item: SelectItem) => ({ ...item, selected: false, ...(item.value === 'b' && { tags: ['dev'] }), ...(item.value === 'a2' && { tags: ['prod'] }), ...(item.value === 'b2' && { tags: ['dev', 'prod'] }) }))
 
 const tagsFilter = (params: SelectFilterFunctionParams) => params?.items?.filter((item: SelectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase()) || item.tags?.includes(params.query?.toLowerCase()))
 

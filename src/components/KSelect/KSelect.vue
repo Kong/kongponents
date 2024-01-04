@@ -457,10 +457,12 @@ const handleItemSelect = (item: SelectItem, isNew?: boolean) => {
 
   selectItems.value?.forEach((anItem, i) => {
     if (anItem.key === item.key) {
+      // select the item
       anItem.selected = true
       anItem.key = anItem?.key?.includes('-selected') ? anItem.key : `${anItem.key}-selected`
       selectedItem.value = anItem
     } else if (anItem.selected) {
+      // deselect previously selected item
       anItem.selected = false
       anItem.key = anItem?.key?.replace(/-selected/gi, '')
       if (anItem.custom) {
@@ -527,6 +529,7 @@ const onInputBlur = (): void => {
 }
 
 const onSelectWrapperClick = (event: Event): void => {
+  console.log('here')
   /**
    * The component is designed so that most of the time it propagates click events
    * so that popover component handles them properly (for example closing the dropdown when clicking outside of it or selecting an item).
@@ -662,7 +665,7 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
 
   .select-input {
     &.filtering-disabled {
-      :deep(input) {
+      :deep(input:not([disabled])) {
         caret-color: transparent;
         cursor: pointer;
       }

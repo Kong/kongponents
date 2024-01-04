@@ -41,11 +41,12 @@ const emit = defineEmits<{
 }>()
 
 const handleClick = (e: MouseEvent): void => {
-  if (props.item.disabled) {
-    // Clicking on a disabled item should not close the dropdown
+  if (props.item.disabled || props.item.selected) {
+    // Clicking on a disabled or selected item should not close the dropdown
     e.stopPropagation()
     return
   }
+
   emit('selected', props.item)
 }
 </script>
