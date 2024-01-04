@@ -126,6 +126,23 @@
           <p>{{ route.path }}{{ route.hash }}</p>
         </router-view>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="Dynamic router view with panels">
+        <KTabs
+          v-model="$route.hash"
+          :tabs="items"
+          @change="(hash: string) => $router.replace({ hash })"
+        >
+          <template #tab1>
+            Tab 1 content
+          </template>
+          <template #tab2>
+            Tab 2 content
+          </template>
+          <template #tab3>
+            Tab 3 content
+          </template>
+        </KTabs>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>

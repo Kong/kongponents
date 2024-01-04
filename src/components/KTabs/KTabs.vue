@@ -11,11 +11,10 @@
         class="tab-item"
         :class="{ active: activeTab === tab.hash, disabled: tab.disabled }"
       >
-        <a
+        <div
           :aria-controls="showPanels ? `panel-${tab.hash}` : undefined"
           :aria-selected="showPanels ? (activeTab === tab.hash ? 'true' : 'false') : undefined"
           class="tab-link"
-          href="#"
           role="tab"
           :tabindex="tab.disabled ? '-1' : '0'"
           @click.prevent="handleTabChange(tab.hash)"
@@ -25,7 +24,7 @@
           <slot :name="`${tab.hash.replace('#','')}-anchor`">
             <span>{{ tab.title }}</span>
           </slot>
-        </a>
+        </div>
       </li>
     </ul>
 
