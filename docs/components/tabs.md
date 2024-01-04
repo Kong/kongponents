@@ -126,11 +126,7 @@ const tabs: Tab[] = [
 </script>
 ```
 
-<<<<<<< Updated upstream
-If you want to keep your `v-model` in sync so that you can programmatically change the active tab after initialization, you must subscribe to the emitted `@changed` event.
-=======
 If you want to keep your `v-model` in sync so that you can programmatically change the active tab after initialization, you also must respond to the `@change` emitted event.
->>>>>>> Stashed changes
 
 <div>
   <KTabs v-model="modelTabProgrammatic" :tabs="tabs" @change="hash => modelTabProgrammatic = hash">
@@ -233,11 +229,7 @@ Here's an example (code only) of utilizing a dynamic `router-view` component wit
 
 The tab control defaults to the `tab.title` string. You may use the `#{tab.hash}-anchor` slot to customize the content of the tab control.
 
-<<<<<<< Updated upstream
-In order provide the tab panel content (when the `hasPanels` prop is set to `true`) you must slot the content into the corresponding named slot, defined by the `tab.hash` string, without the `#`.
-=======
 In order provide the tab panel content (when the `showPanels` prop is set to `true`) you must slot the content in the named slot, defined by the `tab.hash` string, without the `#`. For example, if `tab.hash` is `#notifications` - the panel slot name will be `notifications`, like in the example below.
->>>>>>> Stashed changes
 
 <KTabs :tabs="slottedTabs">
   <template #gateway-anchor>
