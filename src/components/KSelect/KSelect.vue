@@ -529,7 +529,6 @@ const onInputBlur = (): void => {
 }
 
 const onSelectWrapperClick = (event: Event): void => {
-  console.log('here')
   /**
    * The component is designed so that most of the time it propagates click events
    * so that popover component handles them properly (for example closing the dropdown when clicking outside of it or selecting an item).
