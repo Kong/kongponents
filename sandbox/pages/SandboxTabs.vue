@@ -99,30 +99,26 @@
         is-subtitle
         title="Usage"
       />
-      <SandboxSectionComponent title="Dynamic router view">
+      <SandboxSectionComponent title="Dynamic router view without panels">
         <KTabs
           :show-panels="false"
           :tabs="dynamicRouterViewItems"
+          @change="(hash: string) => $router.replace({ hash })"
         >
-          <template
-            v-for="item in dynamicRouterViewItems"
-            :key="`${item.hash}-anchor`"
-            #[`${item.hash}-anchor`]
-          >
-            <router-link
-              :to="{
-                name: item.hash.split('?').shift(),
-                hash: `#${item.hash.split('?').pop()}`,
-              }"
-            >
-              {{ item.title }}
+          <template #one-anchor>
+            <router-link :to="{ hash: '#one' }">
+              One
+            </router-link>
+          </template>
+          <template #two-anchor>
+            <router-link :to="{ hash: '#two' }">
+              Two
             </router-link>
           </template>
         </KTabs>
         <router-view
           v-slot="{route}"
         >
-          <h3>Router view content</h3>
           <p>{{ route.path }}{{ route.hash }}</p>
         </router-view>
       </SandboxSectionComponent>
@@ -166,11 +162,11 @@ const vModel2 = ref<string>('#tab2')
 const dynamicRouterViewItems = [
   {
     title: 'One',
-    hash: 'tabs?one',
+    hash: '#one',
   },
   {
     title: 'Two',
-    hash: 'tabs?two',
+    hash: '#two',
   },
 ]
 </script>
