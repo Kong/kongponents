@@ -38,14 +38,14 @@ Text displayed before the copyable text when `badge` is true.
 
 <KCopy
   badge
-  badge-label="Id"
+  badge-label="Service ID"
   :text="text"
 />
 
 ```html
 <KCopy
   badge
-  badge-label="Id"
+  badge-label="Service ID"
   :text="text"
 />
 ```
@@ -92,14 +92,16 @@ If the `badgeLabel` prop has a value, then the copy tooltip text is `Copy {badge
 <KCopy
   :text="text"
   badge 
-  badge-label="ID:" 
+  badge-label="Service ID"
+  copy-tooltip="Copy to clipboard"
 />
 
 ```html
 <KCopy
   :text="text"
   badge 
-  badge-label="ID:" 
+  badge-label="Service ID"
+  copy-tooltip="Copy to clipboard"
 />
 ```
 
@@ -128,6 +130,12 @@ Tooltip text displayed on successful copy. Defaults to `Copied!`.
 ### monospace
 
 When `badge` is `true`, use this prop to control whether the copyable text has `JetBrains Mono` font or not. Defaults to `false`.
+
+<KCopy badge monospace :text="text" />
+
+```html
+<KCopy badge monospace :text="text" />
+```
 
 ### format
 

@@ -222,7 +222,6 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
 
   .copy-container {
     align-items: center;
-    cursor: pointer;
     display: flex;
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     gap: var(--kui-space-30, $kui-space-30);
