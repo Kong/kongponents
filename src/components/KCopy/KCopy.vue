@@ -231,6 +231,7 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
 
   .monospace {
     font-family: var(--kui-font-family-code, $kui-font-family-code);
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   }
 
   .text-icon-wrapper {
