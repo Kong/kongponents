@@ -196,6 +196,8 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
 </script>
 
 <style lang="scss" scoped>
+/* Component styles */
+
 .k-copy {
   align-items: center;
   display: flex;
