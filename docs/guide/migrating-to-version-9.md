@@ -384,6 +384,10 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 * `hasPanels` prop has been renamed to `showPanels`
 
+#### Events
+
+* `changed` event has been rename to `change`
+
 ### KTextArea
 
 #### Props
