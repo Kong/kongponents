@@ -595,8 +595,8 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 }, { deep: true, immediate: true })
 
-watch(filterQuery, () => {
-  emit('query-change', filterQuery.value)
+watch(filterQuery, (q: string) => {
+  emit('query-change', q)
 })
 
 onMounted(() => {

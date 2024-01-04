@@ -200,7 +200,7 @@ Maximum height for dropdown container. Defaults to `300px`.
 
 ### dropdownFooterText
 
-Text to be displayed at the bottom of dropdown container. Can also be [slotted](#dropdown-footer-text).
+Text to be displayed at the bottom of the dropdown container. Can also be [slotted](#dropdown-footer-text).
 
 <ClientOnly>
   <KSelect dropdown-footer-text="Helpful text in the dropdown." :items="selectItems" />
@@ -212,7 +212,7 @@ Text to be displayed at the bottom of dropdown container. Can also be [slotted](
 
 ### dropdownFooterTextPosition
 
-Defaults to `sticky`, but also accepts `static` value should you want text passed through `dropdownFooterText` prop to bi displayed at the bottom of dropdown container after all items.
+Defaults to `sticky`, but also accepts `static` value should you want text passed through `dropdownFooterText` prop to be displayed at the bottom of dropdown container after all items.
 
 <ClientOnly>
   <KSelect dropdown-footer-text-position="static" dropdown-footer-text="Helpful text in the dropdown." :items="selectItems" />
@@ -224,7 +224,7 @@ Defaults to `sticky`, but also accepts `static` value should you want text passe
 
 ### enableFiltering
 
-By default, items passed to KSelect are not searchable. When `enableFiltering` prop is true, clicking on select element will turn it into input field, typing into which will filter matching items.
+By default, items passed to KSelect are not searchable. When `enableFiltering` prop is true, clicking on the select element will turn it into input field. You may filter items by typing in the input which will hide non-matching items.
 
 <ClientOnly>
   <KSelect enable-filtering placeholder="Try searching for 'service a'" :items="selectItemsUnselected" />
@@ -236,7 +236,7 @@ By default, items passed to KSelect are not searchable. When `enableFiltering` p
 
 ### filterFunction
 
-Custom function to filter items by.
+A custom function to perform item filtering.
 
 <ClientOnly>
   <KSelect enable-filtering :filter-function="tagsFilter" placeholder="Try searching for 'dev' or 'prod'" :items="selectItemsUnselectedTagged" />
@@ -288,7 +288,7 @@ const tagsFilter = (params: SelectFilterFunctionParams) =>
 ```
 
 :::tip TIP
-Should you need to disable the default filter function while still allowing filtering (for example when you want to handle filtering asynchronously by fetching from the API), you can pass a function that always returns boolean `true` to this prop, like so: 
+Should you need to disable the default filter function while still allowing filtering (for example when you want to handle filtering asynchronously by querying an API), you can provide a function that always returns boolean `true` to this prop, like so: 
 
 ```html
 <KSelect
@@ -301,7 +301,7 @@ Should you need to disable the default filter function while still allowing filt
 
 ### reuseItemTemplate
 
-Whether content passed through [`item-template` slot](#itemtemplate) should be applied for selected item.
+Reuse the same display format provided via the [`item-template` slot](#itemtemplate) for the selected item.
 
 <ClientOnly>
   <KSelect
@@ -329,7 +329,7 @@ Whether content passed through [`item-template` slot](#itemtemplate) should be a
 
 ### positionFixed
 
-Use fixed positioning of the popover to avoid content being clipped by parental boundaries. See [KPopover](/components/popover#positionfixed) docs for more information.
+Use fixed positioning for the select dropdown to avoid content being clipped by the boundaries of its parent container. See [KPopover](/components/popover#positionfixed) docs for more information.
 
 ### enableItemCreation
 
@@ -345,7 +345,9 @@ When used in conjunction with `enableFiltering` set to `true`, KSelect will sugg
 
 ### loading
 
-Pass `true` to display loader instead of items in the dropdown. KSelect's `item` prop is reactive to changes by design, so that should you need to perform async item fetching/filtering you can execute that logic on host app's side and pass items back to KSelect. The example below utilizes the [`@query-change` event](#query-change) to simulate async items fetching behind the scenes.
+Pass `true` to display loader instead of items in the dropdown. KSelect's `item` prop is reactive to changes by design, so that should you need to perform async item fetching/filtering you can execute that logic within the host app and pass items back to KSelect. 
+
+The example below utilizes the [`@query-change` event](#query-change) to simulate async item fetching behind the scenes.
 
 <div class="spacing-container">
   <span>Selected service: {{ asyncItemsModel || 'none' }}</span>

@@ -316,7 +316,7 @@ This component has been removed. Please refer to KBadge component which has been
 
 ### KPagination
 
-KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/components/select) as underlying element for page size selector.
+KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/components/select) as the underlying component for page size selection.
 
 ### KPopover
 

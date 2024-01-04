@@ -264,8 +264,8 @@ watch(() => props.error, (newVal, oldVal) => {
   }
 })
 
-const beforeSlotElement = ref<HTMLElement>()
-const afterSlotElement = ref<HTMLElement>()
+const beforeSlotElement = ref<HTMLElement | null>(null)
+const afterSlotElement = ref<HTMLElement | null>(null)
 const beforeSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot icon size
 const afterSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot icon size
 
