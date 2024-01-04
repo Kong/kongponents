@@ -7,21 +7,21 @@
       {{ badgeLabel }}
     </span>
     <div
-      :class="[
-        'copy-container',
-        truncateStyles,
-        badgeStyles
-      ]"
+      class="copy-container"
+      :class="{ 'copy-element': props.truncate || props.badge, 'badge-styles': badge }"
     >
       <KTooltip
         v-if="format !== 'hidden'"
-        :class="[truncateContent, useMono, 'copy-text' /* this selector is referenced in vars.scss - do not update without checking for usage in there first */]"
-        data-testid="copy-text"
+        :class="[textTooltipClasses]"
+        data-testid="copy-tooltip-wrapper"
         :label="textTooltipLabel"
         placement="bottomStart"
         position-fixed
       >
-        <span>{{ textFormat }}</span>
+        <span
+          class="copy-text"
+          :class="{ 'monospace': monospace || !badge }"
+        >{{ textFormat }}</span>
       </KTooltip>
 
       <KTooltip
@@ -106,8 +106,7 @@ const props = defineProps({
    */
   monospace: {
     type: Boolean,
-    required: false,
-    default: undefined,
+    default: false,
   },
   /**
    * Whether or not the text should be truncated
@@ -148,20 +147,10 @@ watch(nonSuccessText, (value: string): void => {
 
 const truncateLimitText = computed((): string | null => props.truncate ? `${props.text.substring(0, props.truncationLimit) + '...'}` : null)
 
-// Computed for all dynamic classes
-const truncateStyles = computed((): string | null => props.truncate || props.badge ? 'copy-element' : null)
-const badgeStyles = computed((): string | null => props.badge ? 'badge-styles' : null)
-const truncateContent = computed((): string | null => props.truncate || props.badge ? 'truncate-content' : null)
-const useMono = computed((): string | null => {
-  if (props.monospace) {
-    return 'monospace'
-  }
-
-  if (!props.badge && typeof props.monospace === 'undefined') {
-    return 'monospace'
-  }
-
-  return null
+// Computed for dynamic classes
+const textTooltipClasses = computed((): string => {
+  const tooltipWrapperClass = 'copy-tooltip-wrapper' // this selector is referenced in vars.scss - do not update without checking for usage in there first
+  return `${tooltipWrapperClass} ${props.truncate || props.badge ? 'truncate-content' : ''}`
 })
 
 const textFormat = computed(() => {
