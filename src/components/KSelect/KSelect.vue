@@ -177,6 +177,7 @@ import type {
 } from '@/types'
 import { ChevronDownIcon, CloseIcon, ProgressIcon } from '@kong/icons'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
+import { sanitizeInput } from '@/utilities/sanitizeInput'
 
 export default {
   inheritAttrs: false,
@@ -436,9 +437,9 @@ const handleAddItem = (): void => {
 
   const pos = (selectItems.value?.length || 0) + 1
   const item: SelectItem = {
-    label: filterQuery.value + '',
+    label: sanitizeInput(filterQuery.value),
     value: uuidv4(),
-    key: `${filterQuery.value.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
+    key: `${sanitizeInput(filterQuery.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
     custom: true,
   }
 
@@ -526,7 +527,13 @@ const onInputBlur = (): void => {
 }
 
 const onSelectWrapperClick = (event: Event): void => {
-  // some wrapper elements propagate clicks to the input, so we need to stop that
+  /**
+   * The component is designed so that most of the time it propagates click events
+   * so that popover component handles them properly (for example closing the dropdown when clicking outside of it or selecting an item).
+   * However some container or wrapper clicks should not propagate to the popover component.
+   * In cases like that we can't use always pointer-events: none; because it will disabled pointer event on children elements.
+   * Instead we can give that element data-propagate-clicks="false" data property and it will be handled here.
+   */
   if (isDisabled.value || (event?.target as HTMLElement)?.dataset.propagateClicks === 'false') {
     event.stopPropagation()
   }
