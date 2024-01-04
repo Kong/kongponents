@@ -112,9 +112,10 @@
       />
       <div
         class="page-size-select"
-        data-testid="page-size-dropdown"
       >
         <KDropdown
+          class="page-size-dropdown"
+          data-testid="page-size-dropdown"
           :items="pageSizeOptions"
           :kpop-attributes="kpopAttrs"
           selection-menu
@@ -379,12 +380,11 @@ watch(pageCount, (newVal, oldVal) => {
 }
 
 .page-size-select {
-  color: var(--kui-color-text-primary, #{$kui-color-text-primary});
-  font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-  line-height: var(--kui-line-height-30, $kui-line-height-30);
-
-  :deep(.k-button) {
-    font-size: var(--kui-font-size-30, $kui-font-size-30);
+  .page-size-dropdown {
+    :deep(.k-popover-content) {
+      max-height: 200px;
+      overflow-y: auto;
+    }
   }
 }
 

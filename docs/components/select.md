@@ -466,22 +466,6 @@ Use this attribute to disable interaction with the element.
 
 ## Slots
 
-### label-tooltip
-
-Use this prop to pass any custom content to label tooltip.
-
-<ClientOnly>
-  <KSelect label="Label" :items="selectItems">
-    <template #label-tooltip>Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code></template>
-  </KSelect>
-</ClientOnly>
-
-```html
-<KSelect label="Label" :items="selectItems">
-  <template #label-tooltip>Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code></template>
-</KSelect>
-```
-
 ### item-template
 
 Use this slot to pass custom content to the items. The slot exposes `item` slot prop.
@@ -619,6 +603,22 @@ Slot to display custom content when items is empty or no items match filter quer
   <template #empty>
     No services found.
   </template>
+</KSelect>
+```
+
+### label-tooltip
+
+Use this prop to pass any custom content to label tooltip.
+
+<ClientOnly>
+  <KSelect label="Label" :items="selectItems">
+    <template #label-tooltip>Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code></template>
+  </KSelect>
+</ClientOnly>
+
+```html
+<KSelect label="Label" :items="selectItems">
+  <template #label-tooltip>Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code></template>
 </KSelect>
 ```
 

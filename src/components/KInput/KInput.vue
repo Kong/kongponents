@@ -348,14 +348,16 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
 
       :deep([role="button"]) {
         &:not([disabled]) {
+          border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
           cursor: pointer;
+          outline: none;
 
-          &:focus, &:active {
-            outline: none;
+          &:hover, &:focus, &:focus-visible {
+            color: var(--kui-color-text, $kui-color-text) !important;
           }
 
-          &:hover, &:focus {
-            color: var(--kui-color-text, $kui-color-text) !important;
+          &:focus-visible {
+            box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
           }
         }
 

@@ -7,26 +7,11 @@
       <KPop
         ref="popperElement"
         v-bind="boundKPopAttributes"
-        :on-popover-click="() => {
-          toggle()
-          return isToggled.value
-        }"
+        :on-popover-click="() => onPopoverClick(toggle, isToggled.value)"
         :position-fixed="positionFixed"
         target=".select-wrapper"
-        @closed="() => {
-          if (selectedItem) {
-            filterQuery = selectedItem.label
-          }
-          if (isToggled.value) {
-            toggle()
-          }
-        }"
-        @opened="() => {
-          if (enableFiltering) {
-            filterQuery = ''
-          }
-          toggle()
-        }"
+        @closed="() => onClose(toggle, isToggled.value)"
+        @opened="() => onOpen(toggle)"
       >
         <div
           ref="selectWrapperElement"
@@ -176,7 +161,7 @@
 
 <script lang="ts">
 import type { Ref, PropType } from 'vue'
-import { ref, computed, watch, nextTick, useAttrs, useSlots, onBeforeUnmount, onMounted } from 'vue'
+import { ref, computed, watch, nextTick, useAttrs, useSlots, onUnmounted, onMounted } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KInput from '@/components/KInput/KInput.vue'
@@ -191,6 +176,7 @@ import type {
   SelectDropdownFooterTextPosition,
 } from '@/types'
 import { ChevronDownIcon, CloseIcon, ProgressIcon } from '@kong/icons'
+import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 
 export default {
   inheritAttrs: false,
@@ -266,7 +252,7 @@ const props = defineProps({
    * Override default filter functionality of case-insensitive search on label
    */
   filterFunction: {
-    type: Function,
+    type: Function as PropType<(params: SelectFilterFunctionParams) => SelectItem[] | boolean>,
     default: (params: SelectFilterFunctionParams) => params?.items?.filter((item: SelectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase())),
   },
   /**
@@ -335,7 +321,7 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 const slots = useSlots()
 
-const resizeObserver = ref<ResizeObserver>()
+const resizeObserver = ref<ResizeObserverHelper>()
 
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const isDisabled = computed((): boolean => attrs.disabled !== undefined && String(attrs.disabled) !== 'false')
@@ -418,15 +404,20 @@ const popoverContentMaxHeight = computed((): string => getSizeFromString(props.d
 // TypeScript complains if I bind the original object
 const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
-const placeholderText = computed((): string => props.placeholder || attrs.placeholder as string || 'Filter...')
+const placeholderText = computed((): string => props.placeholder || attrs.placeholder as string || 'Select...')
 
 const isClearVisible = computed((): boolean => !isDisabled.value && (props.clearable && !!selectedItem.value))
 
 const hasCustomSelectedItem = computed((): boolean => !!(selectedItem.value &&
   (slots['selected-item-template'] || (props.reuseItemTemplate && slots['item-template']))))
 
-const filteredItems = computed(() => {
-  return props.enableFiltering && props.filterFunction({ query: filterQuery.value, items: selectItems.value }) !== true ? props.filterFunction({ query: filterQuery.value, items: selectItems.value }) : selectItems.value
+const filteredItems = computed((): SelectItem[] => {
+  // if filtering is not enabled or filter function returns true
+  if (!props.enableFiltering || props.filterFunction({ query: filterQuery.value, items: selectItems.value }) === true) {
+    return selectItems.value
+  }
+
+  return props.filterFunction({ query: filterQuery.value, items: selectItems.value }) as SelectItem[]
 })
 
 const onInputKeypress = (event: Event) => {
@@ -535,9 +526,32 @@ const onInputBlur = (): void => {
 }
 
 const onSelectWrapperClick = (event: Event): void => {
+  // some wrapper elements propagate clicks to the input, so we need to stop that
   if (isDisabled.value || (event?.target as HTMLElement)?.dataset.propagateClicks === 'false') {
     event.stopPropagation()
   }
+}
+
+const onPopoverClick = (toggle: Function, isToggled: boolean) => {
+  toggle()
+
+  return isToggled
+}
+
+const onClose = (toggle: Function, isToggled: boolean) => {
+  if (selectedItem.value) {
+    filterQuery.value = selectedItem.value.label
+  }
+  if (isToggled) {
+    toggle()
+  }
+}
+
+const onOpen = (toggle: Function) => {
+  if (props.enableFiltering) {
+    filterQuery.value = ''
+  }
+  toggle()
 }
 
 watch(value, (newVal, oldVal) => {
@@ -601,24 +615,13 @@ watch(filterQuery, (q: string) => {
 
 onMounted(() => {
   if (selectWrapperElement.value) {
-    resizeObserver.value = new ResizeObserver(entries => {
-      // TODO: use resizeObserverHelper(entries, () => { actualElementWidth.value = `${selectWrapperElement.value?.offsetWidth}px` })
-      // Wrapper 'window.requestAnimationFrame' is needed for disabling "ResizeObserver loop limit exceeded" error in DD
-      window.requestAnimationFrame(() => {
-        if (!Array.isArray(entries) || !entries.length) {
-          return
-        }
-
-        // Callback on resize
-        actualElementWidth.value = `${selectWrapperElement.value?.offsetWidth}px`
-      })
-    })
+    resizeObserver.value = ResizeObserverHelper.create(() => { actualElementWidth.value = `${selectWrapperElement.value?.offsetWidth}px` })
 
     resizeObserver.value.observe(selectWrapperElement.value as HTMLDivElement)
   }
 })
 
-onBeforeUnmount(() => {
+onUnmounted(() => {
   if (selectWrapperElement.value) {
     resizeObserver.value?.unobserve(selectWrapperElement.value)
   }
@@ -674,6 +677,7 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
   .custom-selected-item-wrapper {
     @include selectItemDefaults;
 
+    box-sizing: border-box;
     inset: 0;
     margin-left: $kSelectInputPaddingX;
     overflow: hidden;
