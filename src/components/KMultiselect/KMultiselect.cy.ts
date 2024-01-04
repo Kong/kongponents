@@ -332,13 +332,7 @@ describe('KMultiselect', () => {
     cy.get('[data-testid="multiselect-trigger"]')
       .click({ force: true })
       .then(() => {
-        cy.get('[data-testid="selection-badges-container"] > div .badge-content-wrapper')
-          .last()
-          .should(($el) => {
-            const text = $el.text()
-
-            expect(text.trim()).to.equal('+8')
-          })
+        cy.getTestId('hidden-selection-count').should('contain.text', '+8')
       })
       .then(() => {
         cy.get('input').focus()
@@ -354,13 +348,7 @@ describe('KMultiselect', () => {
         cy.get('input').type('{esc}')
       })
       .then(() => {
-        cy.get('[data-testid="selection-badges-container"] > div .badge-content-wrapper')
-          .last()
-          .should(($el) => {
-            const text = $el.text()
-
-            expect(text.trim()).to.equal('+8')
-          })
+        cy.getTestId('hidden-selection-count').should('contain.text', '+8')
       })
   })
 

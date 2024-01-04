@@ -112,6 +112,7 @@
                 <KBadge
                   :appearance="getBadgeAppearance()"
                   class="hidden-selection-count"
+                  data-testid="hidden-selection-count"
                   @click.stop
                 >
                   +{{ invisibleSelectedItems.length }}
