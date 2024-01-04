@@ -773,10 +773,10 @@
   dependencies:
     "@kong/icons" "^1.8.8"
 
-"@kong/design-tokens@^1.12.3":
-  version "1.12.3"
-  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.12.3.tgz#1e2844f7f58e78ece190f93b6ad8ef3415caa532"
-  integrity sha512-9g42/oKt8MvXi5ihl7tjayL1sgZ6rNgloye+Bt27h+cB6cJb860+xIF3YvEASncaWuKM0IEYB8gq7dPjBKkZNA==
+"@kong/design-tokens@^1.12.4":
+  version "1.12.4"
+  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.12.4.tgz#3469d408f8af42c71f03646eb741e666bdf72911"
+  integrity sha512-ldBWJbpNLU34OR0d+ptErp/FJrwc8GK8nUZjUmu9zy69ebjztcNAoULgc8MXS+bjzwGZ8U/v8Vmbhh3WFQq0gA==
 
 "@kong/icons@^1.8.8":
   version "1.8.8"
