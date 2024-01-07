@@ -71,6 +71,9 @@
     "vue": ">= 3.3.4 < 4",
     "vue-router": "^4.2.5"
   },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.6.1"
+  },
   "devDependencies": {
     "@babel/types": "^7.23.6",
     "@commitlint/cli": "^18.4.3",
