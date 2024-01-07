@@ -1,3 +1,20 @@
+# [9.0.0-alpha.81](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.80...v9.0.0-alpha.81) (2024-01-07)
+
+
+### Bug Fixes
+
+* deps ([62116b7](https://github.com/Kong/kongponents/commit/62116b7afc5c7590f7c689a6ce3c9368aba7e882))
+* **deps:** dependency fix ([b7a4881](https://github.com/Kong/kongponents/commit/b7a4881aedf1bf4e562f03112802a65e5f547744))
+* rollup ([fb92557](https://github.com/Kong/kongponents/commit/fb925576dd7671f5ff3c66077d6a5d979ac9208a))
+
+
+### Reverts
+
+* add rollup-linux-x64-gnu for netlify deploy ([a09a3e7](https://github.com/Kong/kongponents/commit/a09a3e781e7697136d58e06443e6fa2af1b52dfd))
+* fix lockfile ([90968a2](https://github.com/Kong/kongponents/commit/90968a2636e4fdf7162da9619e9a7c90a018bdea))
+* vite ([56382c4](https://github.com/Kong/kongponents/commit/56382c414fe6ac71bbad180b6be3b828eb056652))
+* vitepress ([643e5e0](https://github.com/Kong/kongponents/commit/643e5e0b9880770cf3cef2612e451f93396392f4))
+
 # [9.0.0-alpha.80](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.79...v9.0.0-alpha.80) (2024-01-07)
 
 
