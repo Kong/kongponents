@@ -127,7 +127,7 @@
     "stylelint-order": "^6.0.4",
     "tsc-alias": "^1.8.8",
     "typescript": "^5.3.3",
-    "vite": "^4.5.1",
+    "vite": "^5.0.11",
     "vitepress": "^1.0.0-rc.35",
     "vue": "^3.3.13",
     "vue-router": "^4.2.5",
