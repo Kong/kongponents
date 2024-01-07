@@ -1,3 +1,10 @@
+# [9.0.0-alpha.80](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.79...v9.0.0-alpha.80) (2024-01-07)
+
+
+### Bug Fixes
+
+* lockfile ([bc1405a](https://github.com/Kong/kongponents/commit/bc1405a42ce9109c346b8d9d1c0621df9db30ae0))
+
 # [9.0.0-alpha.79](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.78...v9.0.0-alpha.79) (2023-12-21)
 
 
