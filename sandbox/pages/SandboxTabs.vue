@@ -46,11 +46,16 @@
           </template>
         </KTabs>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="showPanels">
+      <SandboxSectionComponent title="hidePanels">
         <KTabs
           v-model="vModel2"
+          hide-panels
           :tabs="items"
-        />
+        >
+          <template #tab1>
+            Tab 1 panel
+          </template>
+        </KTabs>
         <div v-if="vModel2 === '#tab1'">
           Tab 1 content
         </div>
@@ -101,7 +106,7 @@
       />
       <SandboxSectionComponent title="Dynamic router view without panels">
         <KTabs
-          :show-panels="false"
+          hide-panels
           :tabs="dynamicRouterViewItems"
           @change="(hash: string) => $router.replace({ hash })"
         >

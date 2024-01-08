@@ -12,8 +12,8 @@
         :class="{ active: activeTab === tab.hash, disabled: tab.disabled }"
       >
         <div
-          :aria-controls="showPanels ? `panel-${tab.hash}` : undefined"
-          :aria-selected="showPanels ? (activeTab === tab.hash ? 'true' : 'false') : undefined"
+          :aria-controls="hidePanels ? undefined : `panel-${tab.hash}`"
+          :aria-selected="hidePanels ? undefined : (activeTab === tab.hash ? 'true' : 'false')"
           class="tab-link"
           role="tab"
           :tabindex="tab.disabled ? '-1' : '0'"
@@ -28,7 +28,7 @@
       </li>
     </ul>
 
-    <template v-if="showPanels">
+    <template v-if="!hidePanels">
       <div
         v-for="(tab, i) in tabs"
         :id="`panel-${i}`"
@@ -71,9 +71,9 @@ const props = defineProps({
   /**
    * Render the tab's corresponding panel container
    */
-  showPanels: {
+  hidePanels: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 })
 

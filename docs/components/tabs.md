@@ -154,24 +154,24 @@ If you want to keep your `v-model` in sync so that you can programmatically chan
 <KButton @click="currentTab = '#tab3'">Activate Tab 3</KButton>
 ```
 
-### showPanels
+### hidePanels
 
-A `boolean` that determines whether all tabs should have corresponding "panel" (the tab content) containers. Defaults to `true`.
+A `boolean` that determines whether all tabs should have corresponding "panel" (the tab content) containers. Defaults to `false`.
 
 In some scenarios, you may want to implement the KTabs UI controls without utilizing the corresponding panel containers.
 
-For example, you could set the `showPanels` prop to `false` and then your host app could provide custom functionality such as navigating to a different page or `router-view` on click.
+For example, you could set the `hidePanels` prop to `true` and then your host app could provide custom functionality such as navigating to a different page or `router-view` on click.
 
 Here's an example where we display the active tab hash:
 
 <div>
-  <KTabs :tabs="slottedTabs" :show-panels="false" @change="panelsChange" />
+  <KTabs :tabs="slottedTabs" hide-panels @change="panelsChange" />
   <p>Active hash: {{ panelsActiveHash }}</p>
 </div>
 
 ```vue
 <template>
-  <KTabs :tabs="tabs" :show-panels="false" @change="tabChange" />
+  <KTabs :tabs="tabs" hide-panels @change="tabChange" />
   <p>Active hash: {{ currentTab }} </p>
 </template>
 
@@ -198,7 +198,7 @@ Here's an example (code only) of utilizing a dynamic `router-view` component wit
 
 ```html
 <KTabs
-  :show-panels="false"
+  hide-panels
   :tabs="tabs"
 >
   <template
@@ -229,7 +229,7 @@ Here's an example (code only) of utilizing a dynamic `router-view` component wit
 
 The tab control defaults to the `tab.title` string. You may use the `#{tab.hash}-anchor` slot to customize the content of the tab control.
 
-In order provide the tab panel content (when the `showPanels` prop is set to `true`) you must slot the content in the named slot, defined by the `tab.hash` string, without the `#`. For example, if `tab.hash` is `#notifications` - the panel slot name will be `notifications`, like in the example below.
+In order provide the tab panel content (when the `hidePanels` prop is set to `false`) you must slot the content in the named slot, defined by the `tab.hash` string, without the `#`. For example, if `tab.hash` is `#notifications` - the panel slot name will be `notifications`, like in the example below.
 
 <KTabs :tabs="slottedTabs">
   <template #gateway-anchor>
@@ -311,7 +311,7 @@ const modelTabProgrammatic = ref('#tab2')
 const tabs = ref<Tab[]>([
   { hash: '#tab1', title: 'Tab 1' },
   { hash: '#tab2', title: 'Tab 2' },
-  { hash: '#tab3', title: 'Tab 3', disabled: true },
+  { hash: '#tab3', title: 'Tab 3 (disabled)', disabled: true },
 ])
 
 const slottedTabs = ref<Tab[]>([

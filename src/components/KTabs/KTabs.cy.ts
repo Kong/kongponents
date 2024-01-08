@@ -43,7 +43,7 @@ describe('KTabs', () => {
     })
   })
 
-  it('hides the panel content when `showPanels` is false', () => {
+  it('hides the panel content when `hidePanels` is true', () => {
     const picturesSlot = 'I love pictures'
     const moviesSlot = 'I love pictures'
     const booksSlot = 'I love pictures'
@@ -51,7 +51,7 @@ describe('KTabs', () => {
     mount(KTabs, {
       props: {
         tabs: TABS,
-        showPanels: false,
+        hidePanels: true,
       },
       slots: {
         pictures: h('div', {}, picturesSlot),
