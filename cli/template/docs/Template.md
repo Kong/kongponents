@@ -43,7 +43,7 @@ Actual component using examplePropName
 
 ## Events
 
-- `@changed` - Emitted when...
+- `@change` - Emitted when...
 
 <script lang="ts">
 import { defineComponent } from 'vue'

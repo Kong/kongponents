@@ -380,6 +380,13 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KTabs
 
+#### Props
+
+* `hasPanels` prop has been renamed to `hidePanels`. the default value for this prop has also been changed to `false`
+
+#### Events
+
+* `changed` event has been rename to `change`
 
 ### KTextArea
 
