@@ -6,6 +6,7 @@
     "jsx": "preserve",
     "importHelpers": true,
     "sourceMap": false,
+    "noEmit": false,
     "baseUrl": ".",
     "lib": [
       "esnext",
