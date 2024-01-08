@@ -52,7 +52,8 @@
                 role="button"
                 tabindex="0"
                 @click="clearSelection"
-                @keyup.enter="clearSelection"
+                @keydown.space.prevent
+                @keyup.space="clearSelection"
               />
               <ChevronDownIcon
                 class="chevron-down-icon"
