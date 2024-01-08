@@ -79,7 +79,6 @@ You may also specify:
     value: 'dogs',
     selected: true,
     disabled: true,
-    disabledTooltipText: 'This item is disabled and cannot be removed'
   }, {
     label: 'Bunnies',
     value: 'bunnies',
@@ -89,7 +88,6 @@ You may also specify:
     label: 'Lions',
     value: 'lions',
     disabled: true,
-    disabledTooltipText: 'This item is disabled and cannot be selected'
   }, {
     label: 'Tigers',
     value: 'tigers',
@@ -826,7 +824,6 @@ export default defineComponent({
         value: 'dogs',
         selected: true,
         disabled: true,
-        disabledTooltipText: 'This item is disabled and cannot be removed'
       }, {
         label: 'Bunnies',
         value: 'bunnies',
@@ -836,7 +833,6 @@ export default defineComponent({
         label: 'Lions',
         value: 'lions',
         disabled: true,
-        disabledTooltipText: 'This item is disabled and cannot be selected'
       }, {
         label: 'Tigers',
         value: 'tigers',

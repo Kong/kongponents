@@ -39,6 +39,7 @@
             :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
             data-testid="multiselect-trigger"
             role="listbox"
+            :tabindex="isDisabled || isReadonly || collapsedContext ? -1 : 0"
             @click="handleFilterClick"
           >
             <div v-if="collapsedContext">
@@ -167,6 +168,7 @@
                   type="text"
                   @click.stop
                   @focus="triggerInitialFocus"
+                  @keyup.enter.stop
                   @update:model-value="onQueryChange"
                 />
               </div>
@@ -880,13 +882,6 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
   // `esc` key closes
   if (evt.keyCode === 27) {
     isToggled.value = false
-    return
-  }
-
-  const inputElem = multiselectInputElement.value
-  if (!isToggled.value && inputElem) {
-    // simulate click to trigger dropdown open
-    inputElem.click()
   }
 }
 
@@ -1099,6 +1094,11 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
       height: auto;
       position: relative;
     }
+
+    .multiselect-selection-badge,
+    .hidden-selection-count {
+      cursor: auto;
+    }
   }
 
   .hidden-selection-count-tooltip {
@@ -1130,6 +1130,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
   .multiselect-trigger {
     @include inputBoxShadow;
 
+    cursor: pointer;
     display: inline-block;
     position: relative;
     width: 100%;
@@ -1138,12 +1139,14 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
       @include inputHover;
     }
 
-    &.focused {
+    &.focused, &:focus-visible {
       @include inputFocus;
     }
 
     &.readonly {
       @include inputReadOnly;
+
+      cursor: auto;
     }
 
     &.disabled {
