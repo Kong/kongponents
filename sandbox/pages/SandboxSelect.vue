@@ -220,7 +220,6 @@
             <span class="long-item-title">{{ item?.label }} with very long names tend to be more than one line. In this case the text should hopefully get truncated.</span>
           </template>
         </KSelect>
-        <pre>{{ itemTemplateTruncationSnippet }}</pre>
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="dropdownFooterText"
@@ -241,11 +240,19 @@
         title="Events"
       />
       <SandboxSectionComponent>
-        <KSelect
-          v-model="vModel"
-          :items="selectItems"
-          label="v-model"
-        />
+        <div class="horizontal-spacing">
+          <KSelect
+            v-model="vModel"
+            :items="selectItems"
+            label="v-model"
+          />
+          <KButton
+            size="large"
+            @click="vModel = 'dogs'"
+          >
+            Select dogs
+          </KButton>
+        </div>
         <KSelect
           :items="selectItems"
           label="@selected"
@@ -308,7 +315,7 @@ const selectItems: SelectItem[] = [{
   group: 'Fish',
 }]
 
-const vModel = ref<string>('salmon')
+const vModel = ref<string>('cats')
 
 const onSelected = (item: SelectItem): void => {
   console.log('@selected', '\n', item)
@@ -326,28 +333,6 @@ const onQueryChange = (query: string): void => {
   console.log('@query-change', '\n', query)
 }
 
-const itemTemplateTruncationSnippet = `
-<template>
-  <KSelect
-    :items="items"
-    width="300"
-  >
-    <template #selected-item-template="{ item }">
-      <KongIcon />
-      <span class="long-item-title">{{ item?.label }} with very long names tend to be more than one line. In this case the text should hopefully get truncated.</span>
-    </template>
-  </KSelect>
-</template>
-
-<style>
-.long-item-title {
-  max-width: 80%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-</style>
-`
 const selectItemsInitial = ref<SelectItem[]>([{
   label: 'Cats',
   value: 'cats',

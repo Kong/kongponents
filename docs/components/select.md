@@ -261,12 +261,22 @@ When using `filterFunction` prop in conjunction with `enableItemCreation` set to
 :::
 
 <ClientOnly>
-  <KSelect enable-filtering :filter-function="tagsFilter" placeholder="Try searching for 'dev' or 'prod'" :items="selectItemsUnselectedTagged" />
+  <KSelect enable-filtering :filter-function="envFilter" placeholder="Try searching for 'dev' or 'prod'" :items="selectItemsUnselectedEnv">
+    <template #item-template="{ item }">
+      {{ item?.label }}
+      <KBadge v-if="item.env">{{ item.env }}</KBadge>
+    </template>
+  </KSelect>
 </ClientOnly>
 
 ```vue
 <template>
-  <KSelect enable-filtering :filter-function="tagsFilter" placeholder="Try searching for 'dev' or 'prod'" :items="selectItems" />
+  <KSelect enable-filtering :filter-function="envFilter" placeholder="Try searching for 'dev' or 'prod'" :items="selectItems">
+    <template #item-template="{ item }">
+      {{ item?.label }}
+      <KBadge v-if="item.env">{{ item.env }}</KBadge>
+    </template>
+  </KSelect>
 </template>
 
 <script setup lang="ts">
@@ -278,7 +288,7 @@ const selectItems: SelectItem[] = [{
 }, {
   label: 'Service B',
   value: 'b',
-  tags: ['dev'],
+  env: 'dev',
 }, {
   label: 'Service F',
   value: 'f',
@@ -295,18 +305,18 @@ const selectItems: SelectItem[] = [{
   label: 'Service A2',
   value: 'a2',
   group: 'Series 2',
-  tags: ['prod'],
+  env: 'prod',
 }, {
   label: 'Service B2',
   value: 'b2',
   group: 'Series 2',
-  tags: ['dev', 'prod'],
+  env: 'prod',
 }]
 
-const tagsFilter = (params: SelectFilterFunctionParams) => 
+const envFilter = (params: SelectFilterFunctionParams) => 
   params?.items?.filter((item: SelectItem) => 
   item.label?.toLowerCase().includes(params.query?.toLowerCase())
-    || item.tags?.includes(params.query?.toLowerCase()))
+    || item.env?.includes(params.query?.toLowerCase()))
 </script>
 ```
 
@@ -594,15 +604,24 @@ A slot alternative for [`dropdownFooterText` prop](#dropdownfootertext).
 Content to be displayed when [`loading` prop](#loading-1) is `true`. Note that this prop only applies when `enableFiltering` is `true`.
 
 <ClientOnly>
-  <KSelect loading enable-filtering :items="[]">
-    <template #loading>
-      Services loading...
-    </template>
-  </KSelect>
+  <KToggle toggled v-slot="{ isToggled, toggle }">
+    <div class="spacing-container">
+      <KSelect :loading="isToggled.value" enable-filtering :items="selectItems">
+        <template #loading>
+          Services loading...
+        </template>
+      </KSelect>
+      <div>
+        <KButton @click="toggle" size="small">
+          Toggle loading {{ isToggled.value ? 'off' : 'on' }}
+        </KButton>
+      </div>
+    </div>
+  </KToggle>
 </CLientOnly>
 
 ```html
-<KSelect loading enable-filtering :items="selectItems">
+<KSelect :loading="loading" enable-filtering :items="selectItems">
   <template #loading>
     Services loading...
   </template>
@@ -657,7 +676,7 @@ Event payload is selected item `value`.
 
 ### change
 
-Event payload is select item`.
+Event payload is select [item](#items).
 
 ### query-change
 
@@ -665,11 +684,11 @@ Event payload is query string.
 
 ### item-added
 
-Event payload is added item.
+Event payload is added [item](#items).
 
 ### item-removed
 
-Event payload is removed item.
+Event payload is removed [item](#items).
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -705,9 +724,9 @@ const selectItems: SelectItem[] = [{
 }]
 
 const selectItemsUnselected: SelectItem[] = JSON.parse(JSON.stringify(selectItems)).map((item: SelectItem) => ({ ...item, selected: false }))
-const selectItemsUnselectedTagged: SelectItem[] =  JSON.parse(JSON.stringify(selectItemsUnselected)).map((item: SelectItem) => ({ ...item, selected: false, ...(item.value === 'b' && { tags: ['dev'] }), ...(item.value === 'a2' && { tags: ['prod'] }), ...(item.value === 'b2' && { tags: ['dev', 'prod'] }) }))
+const selectItemsUnselectedEnv: SelectItem[] =  JSON.parse(JSON.stringify(selectItemsUnselected)).map((item: SelectItem) => ({ ...item, selected: false, ...(item.value === 'b' && { env: 'dev' }), ...(item.value === 'a2' && { env: 'prod' }), ...(item.value === 'b2' && { env: 'prod' }) }))
 
-const tagsFilter = (params: SelectFilterFunctionParams) => params?.items?.filter((item: SelectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase()) || item.tags?.includes(params.query?.toLowerCase()))
+const envFilter = (params: SelectFilterFunctionParams) => params?.items?.filter((item: SelectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase()) || item.env?.includes(params.query?.toLowerCase()))
 
 const asyncItemsModel = ref<string>('')
 const asyncItemsQuery = ref<string>('')

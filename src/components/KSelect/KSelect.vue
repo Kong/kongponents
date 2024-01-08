@@ -42,6 +42,7 @@
             @focus="onInputFocus"
             @keypress="onInputKeypress"
             @keyup="(evt: any) => triggerFocus(evt, isToggled)"
+            @keyup.enter.stop
             @update:model-value="onQueryChange"
           >
             <template #after>
@@ -51,6 +52,7 @@
                 role="button"
                 tabindex="0"
                 @click="clearSelection"
+                @keyup.enter="clearSelection"
               />
               <ChevronDownIcon
                 class="chevron-down-icon"
