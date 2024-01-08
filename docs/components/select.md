@@ -606,16 +606,12 @@ Content to be displayed when [`loading` prop](#loading-1) is `true`. Note that t
 <ClientOnly>
   <KToggle toggled v-slot="{ isToggled, toggle }">
     <div class="spacing-container">
+      <KInputSwitch v-model="isToggled.value" label="Loading" />
       <KSelect :loading="isToggled.value" enable-filtering :items="selectItems">
         <template #loading>
           Services loading...
         </template>
       </KSelect>
-      <div>
-        <KButton @click="toggle" size="small">
-          Toggle loading {{ isToggled.value ? 'off' : 'on' }}
-        </KButton>
-      </div>
     </div>
   </KToggle>
 </CLientOnly>
