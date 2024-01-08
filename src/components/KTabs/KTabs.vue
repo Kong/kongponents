@@ -109,6 +109,8 @@ watch(() => props.modelValue, (newTabHash) => {
     line-height: var(--kui-line-height-40, $kui-line-height-40);
     list-style: none;
     margin-bottom: var(--kui-space-70, $kui-space-70);
+    overflow-x: auto;
+    overflow-y: hidden;
     padding: var(--kui-space-0, $kui-space-0) var(--kui-space-70, $kui-space-70);
 
     .tab-item {
@@ -118,6 +120,7 @@ watch(() => props.modelValue, (newTabHash) => {
       padding-bottom: var(--kui-space-40, $kui-space-40);
       position: relative;
       transition: border-bottom $kongponentsKongIconSelector;
+      white-space: nowrap;
 
       .tab-link {
         border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
