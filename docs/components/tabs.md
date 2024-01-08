@@ -19,9 +19,6 @@ KTabs are horizontal controls that allow users to switch between multiple views 
   <template #tab2>
     <p>Tab 2 content</p>
   </template>
-  <template #tab3>
-    <p>Tab 3 content</p>
-  </template>
 </KTabs>
 ```
 
@@ -33,13 +30,13 @@ Required prop, which is an array of tab objects with the following interface:
 
 ```ts
 interface Tab {
-  hash: string // has to be unique, corresponds to the slot name
+  hash: string // has to be unique, corresponds to the panel slot name
   title: string
   disabled?: boolean
 }
 ```
 
-<KTabs :tabs="tabs">
+<KTabs :tabs="tabsWithDisabled">
   <template #tab1>
     <p>Tab 1 content</p>
   </template>
@@ -89,9 +86,6 @@ KTabs will set the first tab in the `tabs` array as active. You can override thi
   <template #tab2>
     <p>Tab 2 content</p>
   </template>
-  <template #tab3>
-    <p>Tab 3 content</p>
-  </template>
 </KTabs>
 
 ```vue
@@ -99,7 +93,6 @@ KTabs will set the first tab in the `tabs` array as active. You can override thi
   <KTabs v-model="currentTab" :tabs="tabs">
     <template #tab1>Tab 1 content</template>
     <template #tab2>Tab 2 content</template>
-    <template #tab3>Tab 3 content</template>
   </KTabs>
 </template>
 
@@ -116,11 +109,6 @@ const tabs: Tab[] = [
   {
     hash: '#tab2',
     title: 'Tab 2'
-  },
-  {
-    hash: '#tab3',
-    title: 'Tab 3',
-    disabled: true
   }
 ]
 </script>
@@ -132,13 +120,11 @@ If you want to keep your `v-model` in sync so that you can programmatically chan
   <KTabs v-model="modelTabProgrammatic" :tabs="tabs" @change="hash => modelTabProgrammatic = hash">
     <template #tab1>Tab 1 content</template>
     <template #tab2>Tab 2 content</template>
-    <template #tab3>Tab 3 content</template>
   </KTabs>
 
   <div class="horizontal-spacing spacing-top">
     <KButton @click="modelTabProgrammatic = '#tab1'">Activate Tab 1</KButton>
     <KButton @click="modelTabProgrammatic = '#tab2'">Activate Tab 2</KButton>
-    <KButton @click="modelTabProgrammatic = '#tab3'">Activate Tab 3</KButton>
   </div>
 </div>
 
@@ -146,12 +132,10 @@ If you want to keep your `v-model` in sync so that you can programmatically chan
 <KTabs v-model="currentTab" :tabs="tabs" @change="hash => currentTab = hash">
   <template #tab1>Tab 1 content</template>
   <template #tab2>Tab 2 content</template>
-  <template #tab2>Tab 3 content</template>
 </KTabs>
 
 <KButton @click="currentTab = '#tab1'">Activate Tab 1</KButton>
 <KButton @click="currentTab = '#tab2'">Activate Tab 2</KButton>
-<KButton @click="currentTab = '#tab3'">Activate Tab 3</KButton>
 ```
 
 ### hidePanels
@@ -285,7 +269,6 @@ KTabs emits a `@change` event with the new tab `hash` when clicked. You can use 
     @change="hash => $router.replace({ hash })">
     <template #tab1>Tab 1 content</template>
     <template #tab2>Tab 2 content</template>
-    <template #tab3>Tab 3 content</template>
   </KTabs>
 </template>
 
@@ -296,7 +279,6 @@ import type { Tab } from '@kong/kongponents'
 const tabs = ref<Tab[]>([
   { hash: '#tab1', title: 'Tab 1' },
   { hash: '#tab2', title: 'Tab 2' },
-  { hash: '#tab3', title: 'Tab 3', disabled: true },
 ])
 </script>
 ```
@@ -309,6 +291,11 @@ const modelTab = ref('#tab2')
 const modelTabProgrammatic = ref('#tab2')
 
 const tabs = ref<Tab[]>([
+  { hash: '#tab1', title: 'Tab 1' },
+  { hash: '#tab2', title: 'Tab 2' },
+])
+
+const tabsWithDisabled = ref<Tab[]>([
   { hash: '#tab1', title: 'Tab 1' },
   { hash: '#tab2', title: 'Tab 2' },
   { hash: '#tab3', title: 'Tab 3 (disabled)', disabled: true },
