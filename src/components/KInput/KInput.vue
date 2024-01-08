@@ -26,6 +26,7 @@
     >
       <div
         v-if="$slots.before"
+        ref="beforeSlotElement"
         class="before-content-wrapper"
       >
         <slot name="before" />
@@ -42,6 +43,7 @@
 
       <div
         v-if="$slots.after"
+        ref="afterSlotElement"
         class="after-content-wrapper"
       >
         <slot name="after" />
@@ -64,12 +66,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, useSlots, useAttrs } from 'vue'
+import { computed, ref, watch, useSlots, useAttrs, onMounted } from 'vue'
 import type { PropType } from 'vue'
 import type { LabelAttributes, LimitExceededData } from '@/types'
 import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
+import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 const props = defineProps({
   modelValue: {
@@ -260,6 +263,21 @@ watch(() => props.error, (newVal, oldVal) => {
     helpTextKey.value += 1
   }
 })
+
+const beforeSlotElement = ref<HTMLElement | null>(null)
+const afterSlotElement = ref<HTMLElement | null>(null)
+const beforeSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot icon size
+const afterSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot icon size
+
+onMounted(() => {
+  if (beforeSlotElement.value) {
+    beforeSlotElementWidth.value = beforeSlotElement.value.offsetWidth + 'px'
+  }
+
+  if (afterSlotElement.value) {
+    afterSlotElementWidth.value = afterSlotElement.value.offsetWidth + 'px'
+  }
+})
 </script>
 
 <script lang="ts">
@@ -273,7 +291,8 @@ export default {
 // Only add variables here sparingly for ease of use when the same value needs to be referenced for display logic.
 
 $kInputPaddingX: var(--kui-space-50, $kui-space-50); // corresponds to mixin, search for variable name in mixins
-$kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
+$kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40); // $kSelectInputIconSize
+$kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpacing
 
 /* Component styles */
 
@@ -315,6 +334,8 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
 
     .before-content-wrapper, .after-content-wrapper {
       color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      display: inline-flex;
+      gap: var(--kui-space-10, $kui-space-10);
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -327,14 +348,16 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
 
       :deep([role="button"]) {
         &:not([disabled]) {
+          border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
           cursor: pointer;
+          outline: none;
 
-          &:focus, &:active {
-            outline: none;
+          &:hover, &:focus, &:focus-visible {
+            color: var(--kui-color-text, $kui-color-text) !important;
           }
 
-          &:hover, &:focus {
-            color: var(--kui-color-text, $kui-color-text) !important;
+          &:focus-visible {
+            box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
           }
         }
 
@@ -358,16 +381,16 @@ $kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
     &.has-before-content {
       .k-input {
         // if there is a before slot, add padding to the left of the input
-        // standard padding + icon size + space between icon and input
-        padding-left: calc($kInputPaddingX + $kInputIconSize + var(--kui-space-40, $kui-space-40));
+        // standard padding + slot with + space between icon and input
+        padding-left: calc($kInputPaddingX + v-bind('beforeSlotElementWidth') + $kInputSlotSpacing);
       }
     }
 
     &.has-after-content {
       .k-input {
         // if there is a after slot, add padding to the right of the input
-        // standard padding + icon size + space between icon and input
-        padding-right: calc($kInputPaddingX + $kInputIconSize + var(--kui-space-40, $kui-space-40));
+        // standard padding + slot with + space between icon and input
+        padding-right: calc($kInputPaddingX + v-bind('afterSlotElementWidth') + $kInputSlotSpacing);
       }
     }
   }

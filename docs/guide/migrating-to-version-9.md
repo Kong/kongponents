@@ -316,6 +316,7 @@ This component has been removed. Please refer to KBadge component which has been
 
 ### KPagination
 
+KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/components/select) as the underlying component for page size selection.
 
 ### KPopover
 
@@ -365,6 +366,37 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KSelect
 
+#### Props
+
+* `appearance` prop has been removed. KSelect comes in one appearance (what previously was `select` appearance). If you need an element that behaves like a select but looks like a button, check out KDropdown's [selectionMenu prop](/components/dropdown#selectionmenu)
+* `buttonText` prop has been removed
+* `testMode` prop has been removed
+* `overlayLabel` prop has been removed
+* `filterFunc` prop has been renamed to `filterFunction`
+* `autosuggest` prop has been removed and replaced with `enableFiltering` prop. Should you want to simply enable default component-handled filtering or perform async fetching behind the scenes, you can use this prop in combination with`@query-change` event to achieve that
+
+#### Events
+
+* `item:added` event has been changed to `item-added`
+* `item:removed` event has been changed to `item-removed`
+  
+#### Structure
+
+* `k-select-input` `data-testid` attribute has been changed to `select-input`
+* dynamic `k-select-item-*` `data-testid` attribute has been changed to `select-item-*`
+* `k-select-dropdown-footer-text` class has been changed to `dropdown-footer`
+* `k-select-item-label` class has been changed to `select-item-label`
+* `k-select-item` class has been changed to `select-item`
+* `k-select-loading` class has been changed to `select-loading`
+* `k-select-loading` `data-testid` attribute has been changed to `select-loading`
+* `k-select-group-title` class has been changed to `select-group-title`
+* `k-select-selected-item` `data-testid` attribute has been changed to `selected-item`
+
+#### Constants, Types & Interfaces
+
+* `SelectAppearanceArray` const has been removed
+* `SelectAppearance` type has been removed
+* `SelectFilterFnParams` interface has been renamed to `SelectFilterFunctionParams`
 
 ### KSkeleton
 
