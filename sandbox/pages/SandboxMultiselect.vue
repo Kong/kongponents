@@ -159,6 +159,21 @@
           readonly
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent
+        title="placeholder"
+      >
+        <KMultiselect
+          :items="multiselectItemsUnselected"
+          label="I have a placeholder"
+          placeholder="Placeholder"
+        />
+        <KMultiselect
+          collapsed-context
+          :items="multiselectItemsUnselected"
+          label="I have a placeholder"
+          placeholder="Placeholder"
+        />
+      </SandboxSectionComponent>
 
       <!-- Slots -->
       <SandboxTitleComponent
@@ -282,6 +297,12 @@ const multiselectItems: MultiselectItem[] = [{
 
 const multiselectItemsSelected = JSON.parse(JSON.stringify(multiselectItems)).map((item: MultiselectItem) => {
   item.selected = true
+
+  return item
+})
+
+const multiselectItemsUnselected = JSON.parse(JSON.stringify(multiselectItems)).map((item: MultiselectItem) => {
+  item.selected = false
 
   return item
 })

@@ -72,7 +72,7 @@
               v-else-if="!selectedItems.length"
               class="expanded-selection-empty"
             >
-              0 items selected
+              {{ getPlaceholderText }}
             </div>
             <div
               v-else
@@ -206,7 +206,7 @@
               />
             </div>
             <div
-              v-if="!loading && !sortedItems.length"
+              v-if="$slots.empty && !loading && !sortedItems.length"
               class="multiselect-empty"
               data-propagate-clicks="false"
             >
@@ -600,6 +600,10 @@ const numericWidthStyle = computed(() => {
 })
 
 const getPlaceholderText = computed((): string => {
+  if (selectedItems.value.length === 0) {
+    return props.placeholder ? props.placeholder : '0 items selected'
+  }
+
   if (selectedItems.value.length === 1) {
     return `${selectedItems.value.length} item selected`
   }
@@ -828,6 +832,10 @@ const sortItems = () => {
 
 const clearSelection = (): void => {
   unfilteredItems.value.forEach(anItem => {
+    if (anItem.disabled) {
+      return
+    }
+
     anItem.selected = false
     anItem.key = anItem?.key?.replace(/-selected/gi, '')
 
@@ -836,18 +844,30 @@ const clearSelection = (): void => {
       emit('item-removed', anItem)
     }
   })
+
   // clear added entries
-  unfilteredItems.value = unfilteredItems.value.filter(anItem => !anItem.custom)
-  selectedItems.value = []
-  visibleSelectedItemsStaging.value = []
-  invisibleSelectedItemsStaging.value = []
-  invisibleSelectedItemsStagingSet.clear()
+  unfilteredItems.value = unfilteredItems.value.filter(anItem => {
+    if (anItem.custom && !anItem.disabled) {
+      return false
+    }
+
+    return true
+  })
+  selectedItems.value = selectedItems.value.filter(anItem => anItem.disabled)
+  visibleSelectedItemsStaging.value = visibleSelectedItemsStaging.value.filter(anItem => anItem.disabled)
+  invisibleSelectedItemsStaging.value = invisibleSelectedItemsStaging.value.filter(anItem => {
+    if (!anItem.disabled) {
+      invisibleSelectedItemsStagingSet.delete(anItem.value)
+    }
+
+    return anItem.disabled
+  })
   filterString.value = ''
   stageSelections()
+  const selectedVals = selectedItems.value.map(anItem => anItem.value)
 
-  emit('selected', [])
-  emit('change', null)
-  emit('update:modelValue', [])
+  emit('selected', selectedItems.value)
+  emit('update:modelValue', selectedVals)
   emit('query-change', '')
 }
 

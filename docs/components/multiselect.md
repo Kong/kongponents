@@ -1,6 +1,6 @@
 # Multiselect
 
-KMultiselect - A select component that allows for choosing multiple items and creating new options
+KMultiselect - A select component that allows for choosing multiple items and creating new options.
 
 - Selected items labels will be displayed as dismissible badges.
 - When the dropdown is open, the input field for filtering items will be displayed.
@@ -38,7 +38,7 @@ KMultiselect works as regular inputs do using `v-model` for data binding:
 <script setup lang="ts">
 import { MultiselectItem } from '@kong/kongponents'
 
-const myVal = ref<string[]>(["cats","bunnies"])
+const myVal = ref<string[]>(["cats", "dogs", "bunnies"])
 
 const items: MultiselectItem[] = [
   { label: 'Cats', value: 'cats', selected: true },
@@ -47,7 +47,7 @@ const items: MultiselectItem[] = [
   { label: 'Lions', value: 'lions' },
   { label: 'Tigers', value: 'tigers' },
   { label: 'Bears', value: 'bears' },
-  { label: 'A long & truncated item', value: 'long' }
+  { label: 'An extremely lengthy truncated item', value: 'long' }
 ]
 
 const clearIt = () => {
@@ -98,7 +98,7 @@ You may also specify:
     label: 'Bears',
     value: 'bears'
   }, {
-    label: 'A long & truncated item',
+    label: 'An extremely lengthy truncated item',
     value: 'long'
   }, ...]"
 />
@@ -133,7 +133,7 @@ A `boolean` to put the component into an error state.
 
 ### enableItemCreation
 
-KMultiselect can offer users the ability to add custom items to the list by typing the item they want to and then clicking the `... (Add new value)` item at the bottom of the list, which will also automatically select it.
+KMultiselect can offer users the ability to add custom items to the list by typing the item they want to and then **clicking the** `... (Add new value)` **item at the bottom of the list**, which will also automatically select it.
 
 Newly created items will have a `label` consisting of the user input and a randomly generated id for the `value` to ensure uniqueness. The item will also have an attribute `custom` set to `true`. This action triggers an `item-added` event containing the added item data.
 
@@ -345,7 +345,7 @@ Add the `autosuggest` prop to trigger a query to an API with the filter keyword,
 Empty state content can be configured using the `empty` slot.
 
 ::: tip NOTE
-When using `autosuggest`, you **MUST** use `v-model` otherwise the Multiselect can't maintain an accurate list of which items are selected.
+When using `autosuggest`, you **must** use `v-model` otherwise the Multiselect can't maintain an accurate list of which items are selected.
 :::
 
 <ClientOnly>
@@ -357,6 +357,12 @@ When using `autosuggest`, you **MUST** use `v-model` otherwise the Multiselect c
     :loading="loading"
     @query-change="onQueryChange"
   >
+    <template #item-template="{ item }">
+      <div class="item-container">
+        <div class="item-label">{{ item.label }}</div>
+        <div class="item-description">{{ item.description }}</div>
+      </div>
+    </template>
     <template #empty>
       <div>No results found</div>
     </template>
@@ -372,6 +378,12 @@ When using `autosuggest`, you **MUST** use `v-model` otherwise the Multiselect c
     :loading="loading"
     @query-change="onQueryChange"
   >
+    <template #item-template="{ item }">
+      <div class="item-container">
+        <div class="item-label">{{ item.label }}</div>
+        <div class="item-description">{{ item.description }}</div>
+      </div>
+    </template>
     <template #empty>
       <div>No results found</div>
     </template>
@@ -446,8 +458,10 @@ The following is an example:
     @query-change="onQueryChangeForDebounced"
   >
     <template #item-template="{ item }">
-      <div class="select-item-label">{{ item.label }}</div>
-      <div class="select-item-desc">{{ item.label }}</div>
+      <div class="item-container">
+        <div class="item-label">{{ item.label }}</div>
+        <div class="item-description">{{ item.description }}</div>
+      </div>
     </template>
   </KMultiselect>
 </ClientOnly>
@@ -462,8 +476,10 @@ The following is an example:
     @query-change="onQueryChange"
   >
     <template #item-template="{ item }">
-      <div class="select-item-label">{{ item.label }}</div>
-      <div class="select-item-desc">{{ item.label }}</div>
+      <div class="item-container">
+        <div class="item-label">{{ item.label }}</div>
+        <div class="item-description">{{ item.description }}</div>
+      </div>
     </template>
   </KMultiselect>
 </template>
@@ -771,7 +787,7 @@ export default defineComponent({
       mySelect: '',
       mySelections: ['cats', 'bunnies'],
       addedItems: [],
-      myVal: ['cats', 'bunnies'],
+      myVal: ['cats', 'dogs', 'bunnies'],
       myAutoVal: [],
       myDebounceAutoVal: [],
       defaultItems: [{
@@ -798,7 +814,7 @@ export default defineComponent({
         label: 'Bears',
         value: 'bears'
       }, {
-        label: 'A long & truncated item',
+        label: 'An extremely lengthy truncated item',
         value: 'long'
       }],
       defaultItemsWithDisabledAndGroups: [{
@@ -829,7 +845,7 @@ export default defineComponent({
         label: 'Bears',
         value: 'bears'
       }, {
-        label: 'A long & truncated item',
+        label: 'An extremely lengthy truncated item',
         value: 'long'
       }, {
         label: 'Duck',
@@ -872,7 +888,7 @@ export default defineComponent({
         label: 'Bears',
         value: 'bears'
       }, {
-        label: 'A long & truncated item',
+        label: 'An extremely lengthy truncated item',
         value: 'long',
         selected: true
       }],
@@ -902,7 +918,7 @@ export default defineComponent({
         value: 'bears',
         selected: true
       }, {
-        label: 'A long & truncated item',
+        label: 'An extremely lengthy truncated item',
         value: 'long',
         selected: true
       }],
@@ -926,7 +942,7 @@ export default defineComponent({
         label: 'Bears',
         value: 'bears'
       }, {
-        label: 'A long & truncated item',
+        label: 'An extremely lengthy truncated item',
         value: 'long'
       }],
       myEventItems: [{
@@ -1085,6 +1101,16 @@ export default defineComponent({
     color: $kui-color-text-neutral;
     display: block;
     font-size: $kui-font-size-20;
+  }
+}
+
+.item-container {
+  .item-label {
+    font-weight: $kui-font-weight-semibold;
+  }
+
+  .item-description {
+    color: $kui-color-text-neutral;
   }
 }
 </style>
