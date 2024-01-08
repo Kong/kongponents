@@ -86,7 +86,7 @@ describe('KFileUpload', () => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'file-added')
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'input')
     })
-    cy.getTestId('remove-button').should('exist').click().then(() => {
+    cy.getTestId('file-upload-button').should('exist').should('contain.text', 'Clear').click().then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'file-removed')
     })
   })

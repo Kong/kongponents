@@ -67,6 +67,7 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import { computed, ref, useAttrs, useSlots } from 'vue'
+import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import { v4 as uuidv4 } from 'uuid'
