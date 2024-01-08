@@ -263,8 +263,8 @@ describe('KTable', () => {
       })
 
       cy.getTestId('k-table-pagination').should('be.visible')
-      cy.getTestId('k-select-input').click()
-      cy.getTestId('k-select-item-1').click({ multiple: true, force: true })
+      cy.getTestId('page-size-dropdown-trigger').click()
+      cy.get('[data-testid="dropdown-item-trigger"][value="1"]').click()
       cy.getTestId('next-btn').find('a').click()
       cy.get('.pagination-button').should('contain.text', 2 + '')
       cy.get('.k-table').find('tr').should('have.length', 4)
@@ -282,8 +282,8 @@ describe('KTable', () => {
       })
 
       cy.getTestId('k-table-pagination').should('be.visible')
-      cy.getTestId('k-select-input').click()
-      cy.getTestId('k-select-item-15').click({ multiple: true, force: true })
+      cy.getTestId('page-size-dropdown-trigger').click()
+      cy.get('[data-testid="dropdown-item-trigger"][value="15"]').click({ multiple: true, force: true })
       cy.getTestId('next-btn').should('exist')
       cy.get('.k-table').find('tr').should('have.length', 16)
     })
@@ -305,8 +305,8 @@ describe('KTable', () => {
       })
 
       cy.getTestId('k-table-pagination').should('be.visible')
-      cy.getTestId('k-select-input').click()
-      cy.getTestId('k-select-item-3').click({ multiple: true, force: true })
+      cy.getTestId('page-size-dropdown-trigger').click()
+      cy.get('[data-testid="dropdown-item-trigger"][value="3"]').click({ multiple: true, force: true })
       cy.getTestId('next-btn').find('a').click()
       cy.get('.pagination-button.active').should('contain.text', 2 + '')
       cy.get('.k-table').find('tr').should('have.length', 13)

@@ -256,12 +256,12 @@ We also recommend setting the icon style `color` property to a value of `current
 If you want to utilize HTML in the input label's tooltip, use the slot.
 
 <KInput label="My tooltip">
-  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
+  <template #label-tooltip>Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code></template>
 </KInput>
 
 ```html
 <KInput label="My tooltip">
-  <template #label-tooltip>Brings all the <code>devs</code> to the yard</template>
+  <template #label-tooltip>Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code></template>
 </KInput>
 ```
 
