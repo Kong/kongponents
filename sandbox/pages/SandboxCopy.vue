@@ -21,7 +21,7 @@
       <SandboxSectionComponent title="badgeLabel">
         <KCopy
           badge
-          badge-label="Id:"
+          badge-label="Service ID:"
           :text="uuid1"
         />
       </SandboxSectionComponent>
