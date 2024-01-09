@@ -296,6 +296,7 @@ import type { MultiselectItem, MultiselectFilterFnParams, DropdownFooterTextPosi
 import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
+import { sanitizeInput } from '@/utilities/sanitizeInput'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -813,10 +814,10 @@ const handleAddItem = (): void => {
   }
 
   const pos = unfilteredItems.value.length + 1
-  const item:MultiselectItem = {
-    label: filterString.value + '',
+  const item: MultiselectItem = {
+    label: sanitizeInput(filterString.value + ''),
     value: uuidv4(),
-    key: `${filterString.value.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
+    key: `${sanitizeInput(filterString.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
   }
   emit('item-added', item)
 
