@@ -781,6 +781,11 @@
   resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.12.4.tgz#3469d408f8af42c71f03646eb741e666bdf72911"
   integrity sha512-ldBWJbpNLU34OR0d+ptErp/FJrwc8GK8nUZjUmu9zy69ebjztcNAoULgc8MXS+bjzwGZ8U/v8Vmbhh3WFQq0gA==
 
+"@kong/icons@^1.8.10":
+  version "1.8.10"
+  resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.8.10.tgz#2a29df63bf6bfcdd517df1341d78cee3c3442a12"
+  integrity sha512-t/LhFqjLMJvbl0qC5X8oQumduuD4ye4Lpyf+zGIcKxbTb+H41d6CV1kdGDJ5obWDrl4n2Zdv4ahWvrd+PnKDLA==
+
 "@kong/icons@^1.8.8":
   version "1.8.8"
   resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.8.8.tgz#08bd0ef7e16744f8cfec5713e74811790b8f7071"
