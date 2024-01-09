@@ -120,7 +120,7 @@
     "sass": "^1.69.5",
     "semantic-release": "^22.0.12",
     "shx": "^0.3.4",
-    "stylelint": "^16.0.2",
+    "stylelint": "^16.1.0",
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-recommended-scss": "^14.0.0",
     "stylelint-config-recommended-vue": "^1.5.0",
