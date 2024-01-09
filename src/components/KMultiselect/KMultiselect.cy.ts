@@ -2,15 +2,6 @@ import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KMultiselect from '@/components/KMultiselect/KMultiselect.vue'
 
-/**
- * ALL TESTS MUST USE testMode: true
- * We generate unique IDs for reference by aria properties. Test mode strips these out
- * allowing for successful snapshot verification.
- * props: {
- *   testMode: true
- * }
- */
-
 describe('KMultiselect', () => {
   it('renders props when passed', () => {
     const labels = ['Label 1', 'Label 2', 'Label 3']
@@ -18,7 +9,6 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -32,13 +22,13 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.k-multiselect-input').trigger('click')
+    cy.get('.multiselect-trigger').trigger('click')
 
-    cy.getTestId(`k-multiselect-item-${vals[0]}`).should('contain.text', labels[0])
-    cy.getTestId(`k-multiselect-item-${vals[1]}`).should('contain.text', labels[1])
-    cy.getTestId(`k-multiselect-item-${vals[2]}`).should('contain.text', labels[2])
-    cy.get('.k-multiselect-popover').should('be.visible')
-    cy.get('.k-multiselect-dropdown-footer-text').should('not.exist')
+    cy.getTestId(`multiselect-item-${vals[0]}`).should('contain.text', labels[0])
+    cy.getTestId(`multiselect-item-${vals[1]}`).should('contain.text', labels[1])
+    cy.getTestId(`multiselect-item-${vals[2]}`).should('contain.text', labels[2])
+    cy.get('.multiselect-popover').should('be.visible')
+    cy.get('.dropdown-footer').should('not.exist')
   })
 
   it('renders with selected items when focused', () => {
@@ -47,7 +37,6 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         items: [
           { label: selectedLabel, value: 'label1', selected: true },
           { label: selectedLabel2, value: 'label2', selected: true },
@@ -55,12 +44,13 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.k-multiselect-input input').should('have.attr', 'placeholder', '2 items selected')
+    cy.getTestId('selection-badges-container').should('contain.text', selectedLabel)
+    cy.getTestId('selection-badges-container').should('contain.text', selectedLabel2)
 
-    cy.get('.k-multiselect-input').trigger('click')
+    cy.get('.multiselect-trigger').trigger('click')
 
-    cy.getTestId('k-multiselect-selections').should('contain.text', selectedLabel)
-    cy.getTestId('k-multiselect-selections').should('contain.text', selectedLabel2)
+    cy.getTestId('selection-badges-container').should('contain.text', selectedLabel)
+    cy.getTestId('selection-badges-container').should('contain.text', selectedLabel2)
   })
 
   it('renders with disabled item', () => {
@@ -69,7 +59,6 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         items: [
           { label: labels[0], value: vals[0], disabled: true },
           { label: labels[1], value: vals[1] },
@@ -77,9 +66,9 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.k-multiselect-input').trigger('click')
+    cy.get('.multiselect-trigger').trigger('click')
 
-    cy.get(`[data-testid="k-multiselect-item-${vals[0]}"] button`).should('have.attr', 'disabled')
+    cy.get(`[data-testid="multiselect-item-${vals[0]}"] button`).should('have.attr', 'disabled')
   })
 
   it('renders with correct px width', () => {
@@ -87,7 +76,6 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         width: width + '',
         items: [{
           label: 'Label 1',
@@ -105,7 +93,6 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         label: labelText,
         items: [{
           label: 'Label 1',
@@ -121,7 +108,6 @@ describe('KMultiselect', () => {
     const labelText = 'A Label'
     mount(KMultiselect, {
       props: {
-        testMode: true,
         label: labelText,
         labelAttributes: {
           info: 'some info text',
@@ -143,7 +129,6 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -154,18 +139,18 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.k-multiselect-input').click()
+    cy.getTestId('multiselect-trigger').click()
 
-    cy.getTestId(`k-multiselect-item-${vals[0]}`).should('contain.text', labels[0])
-    cy.getTestId(`k-multiselect-item-${vals[1]}`).should('contain.text', labels[1])
+    cy.getTestId(`multiselect-item-${vals[0]}`).should('contain.text', labels[0])
+    cy.getTestId(`multiselect-item-${vals[1]}`).should('contain.text', labels[1])
 
     cy.get('input').type(labels[0])
 
-    cy.getTestId(`k-multiselect-item-${vals[0]}`).should('contain.text', labels[0])
-    cy.getTestId(`k-multiselect-item-${vals[1]}`).should('not.exist')
+    cy.getTestId(`multiselect-item-${vals[0]}`).should('contain.text', labels[0])
+    cy.getTestId(`multiselect-item-${vals[1]}`).should('not.exist')
 
-    cy.getTestId(`k-multiselect-item-${vals[0]}`).eq(0).click()
-    cy.getTestId('k-multiselect-selections').should('contain.text', labels[0])
+    cy.getTestId(`multiselect-item-${vals[0]}`).eq(0).click()
+    cy.getTestId('selection-badges-container').should('contain.text', labels[0])
   })
 
   it('allows adding an item with enableItemCreation', () => {
@@ -175,7 +160,6 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -187,34 +171,34 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.k-multiselect-input').click()
+    cy.getTestId('multiselect-trigger').click()
 
-    cy.getTestId(`k-multiselect-item-${vals[0]}`).should('contain.text', labels[0])
-    cy.getTestId(`k-multiselect-item-${vals[1]}`).should('contain.text', labels[1])
+    cy.getTestId(`multiselect-item-${vals[0]}`).should('contain.text', labels[0])
+    cy.getTestId(`multiselect-item-${vals[1]}`).should('contain.text', labels[1])
     // no adding a label that already exists
     cy.get('input').type(labels[0])
-    cy.getTestId('k-multiselect-add-item').should('not.exist')
+    cy.getTestId('multiselect-add-item').should('not.exist')
     cy.get('input').clear()
     // add new item
     cy.get('input').type(newItem)
-    cy.getTestId('k-multiselect-add-item').should('contain.text', newItem).click()
+    cy.getTestId('multiselect-add-item').should('contain.text', newItem).click()
     // search is cleared
     cy.get('input').should('not.contain.text', newItem)
     // item displays in selections
-    cy.getTestId('k-multiselect-selections').should('contain.text', newItem)
+    cy.getTestId('selection-badges-container').should('contain.text', newItem)
     // item displays when searching
     cy.get('input').type(newItem)
-    cy.get('.k-multiselect-item .k-multiselect-item-label').should('contain.text', newItem)
+    cy.get('.multiselect-item .multiselect-item-label').should('contain.text', newItem)
     // no adding a label that already exists
-    cy.getTestId('k-multiselect-add-item').should('not.exist')
+    cy.getTestId('multiselect-add-item').should('not.exist')
     // item gone when dismissed
-    cy.getTestId('k-multiselect-selections').getTestId('badge-dismiss-button').first().click()
+    cy.getTestId('selection-badges-container').getTestId('badge-dismiss-button').first().click()
     // removed from selections
-    cy.getTestId('k-multiselect-selections').should('not.to.exist')
+    cy.getTestId('selection-badges-container').should('not.to.exist')
     // gone when searching
     cy.get('input').clear()
     cy.get('input').type(newItem)
-    cy.get('.k-multiselect-item .selected .k-multiselect-item-label').should('not.exist')
+    cy.get('.multiselect-item .selected .multiselect-item-label').should('not.exist')
   })
 
   it('clears added items when clicking clear all with enableItemCreation', () => {
@@ -224,7 +208,6 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -236,21 +219,22 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.k-multiselect-input').click()
+    cy.getTestId('multiselect-trigger').click()
 
-    cy.getTestId(`k-multiselect-item-${vals[0]}`).should('contain.text', labels[0])
-    cy.getTestId(`k-multiselect-item-${vals[1]}`).should('contain.text', labels[1])
+    cy.getTestId(`multiselect-item-${vals[0]}`).should('contain.text', labels[0])
+    cy.getTestId(`multiselect-item-${vals[1]}`).should('contain.text', labels[1])
 
     // add new item
     cy.get('input').type(newItem)
-    cy.getTestId('k-multiselect-add-item').should('contain.text', newItem).click()
+    cy.getTestId('multiselect-add-item').should('contain.text', newItem).click()
     // item displays in selections
-    cy.getTestId('k-multiselect-selections').should('contain.text', newItem)
-    cy.getTestId('k-multiselect-clear-icon').click()
+    cy.getTestId('selection-badges-container').should('contain.text', newItem)
+    cy.getTestId('multiselect-clear-icon').click()
     // cleared
-    cy.getTestId('k-multiselect-selections').should('not.to.exist')
+    cy.getTestId('selection-badges-container').should('not.to.exist')
+    cy.getTestId('multiselect-trigger').click()
     cy.get('input').type(newItem)
-    cy.get('.k-multiselect-item .selected .k-multiselect-item-label').should('not.exist')
+    cy.get('.multiselect-item .selected .multiselect-item-label').should('not.exist')
   })
 
   it('ignores clicks on disabled item', () => {
@@ -259,7 +243,6 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -271,10 +254,10 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.k-multiselect-input').click()
+    cy.getTestId('multiselect-trigger').click()
 
-    cy.getTestId(`k-multiselect-item-${vals[0]}`).click()
-    cy.getTestId('k-multiselect-selections').should('not.exist')
+    cy.getTestId(`multiselect-item-${vals[0]}`).click()
+    cy.getTestId('selection-badges-container').should('not.exist')
   })
 
   it('allows slotting content into the items', async () => {
@@ -284,7 +267,6 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         items: [{
           label: itemLabel,
           value: itemValue,
@@ -295,14 +277,13 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.getTestId(`k-multiselect-item-${itemValue}`).should('contain.text', itemSlotContent)
+    cy.getTestId(`multiselect-item-${itemValue}`).should('contain.text', itemSlotContent)
   })
 
   it('works in autosuggest mode', () => {
     const onQueryChange = cy.spy().as('onQueryChange')
     mount(KMultiselect, {
       props: {
-        testMode: true,
         autosuggest: true,
         loading: false,
         items: [],
@@ -310,14 +291,17 @@ describe('KMultiselect', () => {
       },
     })
 
+    cy.get('.multiselect-trigger').click()
+
     cy.get('input').type('a').then(() => {
       cy.get('@onQueryChange').should('have.been.calledWith', 'a')
     }).then(() => {
-      cy.wrap(Cypress.vueWrapper.setProps({ loading: true })).get('.k-multiselect-chevron-icon.kong-icon-spinner').should('exist')
+      cy.wrap(Cypress.vueWrapper.setProps({ loading: true })).get('.multiselect-chevron-icon').should('not.exist')
+      cy.wrap(Cypress.vueWrapper.setProps({ loading: true })).get('.multiselect-loading-icon').should('exist')
     }).then(() => {
-      cy.wrap(Cypress.vueWrapper.setProps({ loading: false })).get('.k-multiselect-chevron-icon.kong-icon-spinner').should('not.exist')
+      cy.wrap(Cypress.vueWrapper.setProps({ loading: false })).get('.multiselect-loading-icon').should('not.exist')
     }).then(() => {
-      cy.wrap(Cypress.vueWrapper.setProps({ items: [{ label: 'Label 1', value: 'label1' }] })).getTestId('k-multiselect-item-label1').should('contain.text', 'Label 1')
+      cy.wrap(Cypress.vueWrapper.setProps({ items: [{ label: 'Label 1', value: 'label1' }] })).getTestId('multiselect-item-label1').should('contain.text', 'Label 1')
     })
   })
 
@@ -335,33 +319,27 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         autosuggest: true,
-        collapsedContext: true,
         selectedRowCount: 1,
         modelValue: selected,
         loading: false,
         items,
         onQueryChange,
+        width: '300',
       },
     })
 
-    cy.get('[data-testid="k-multiselect-trigger"]')
-      .click('topRight')
+    cy.get('[data-testid="multiselect-trigger"]')
+      .click({ force: true })
       .then(() => {
-        cy.get('[data-testid="k-multiselect-selections"] > div .badge-content-wrapper')
-          .last()
-          .should(($el) => {
-            const text = $el.text()
-
-            expect(text.trim()).to.equal('+8')
-          })
+        cy.getTestId('hidden-selection-count').should('contain.text', '+8')
       })
       .then(() => {
         cy.get('input').focus()
       })
       .then(() => {
         cy.get('@onQueryChange').should('have.been.calledWith', '')
+
         Cypress.vueWrapper.setProps({
           items: allItems.slice(5, 20),
         })
@@ -370,53 +348,16 @@ describe('KMultiselect', () => {
         cy.get('input').type('{esc}')
       })
       .then(() => {
-        cy.get('[data-testid="k-multiselect-selections"] > div .badge-content-wrapper')
-          .last()
-          .should(($el) => {
-            const text = $el.text()
-
-            expect(text.trim()).to.equal('+8')
-          })
+        cy.getTestId('hidden-selection-count').should('contain.text', '+8')
       })
   })
 
-  it('always shows selections when expandSelected is true', () => {
+  it('only shows placeholder when collapsedContext is true', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
-        expandSelected: true,
-        items: [{
-          label: labels[0],
-          value: vals[0],
-          selected: true,
-        }, {
-          label: labels[1],
-          value: vals[1],
-          selected: true,
-        }],
-      },
-    })
-
-    cy.getTestId('k-multiselect-selections').should('exist')
-
-    cy.getTestId('k-multiselect-selections').should('contain.text', labels[0])
-    cy.getTestId('k-multiselect-selections').should('contain.text', labels[1])
-
-    cy.get('.k-multiselect-chevron-icon').click()
-
-    cy.getTestId('k-multiselect-selections').should('exist')
-  })
-
-  it('always shows selections when collapsedContext is true', () => {
-    const labels = ['Label 1', 'Label 2']
-    const vals = ['label1', 'label2']
-
-    mount(KMultiselect, {
-      props: {
-        testMode: true,
         collapsedContext: true,
         items: [{
           label: labels[0],
@@ -430,14 +371,9 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.getTestId('k-multiselect-selections').should('exist')
+    cy.getTestId('selection-badges-container').should('not.exist')
 
-    cy.getTestId('k-multiselect-selections').should('contain.text', labels[0])
-    cy.getTestId('k-multiselect-selections').should('contain.text', labels[1])
-
-    cy.get('.k-multiselect-chevron-icon').click()
-
-    cy.getTestId('k-multiselect-selections').should('exist')
+    cy.get('.multiselect-trigger input').should('have.attr', 'placeholder', '2 items selected')
   })
 
   it('can clear all selections when focused', () => {
@@ -446,7 +382,6 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -459,12 +394,12 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.k-multiselect-input').click()
+    cy.getTestId('multiselect-trigger').click()
 
-    cy.getTestId('k-multiselect-selections').should('contain.text', labels[0])
-    cy.getTestId('k-multiselect-selections').should('contain.text', labels[1])
-    cy.get('.k-multiselect-clear-icon').trigger('click')
-    cy.getTestId('k-multiselect-selections').should('not.exist')
+    cy.getTestId('selection-badges-container').should('contain.text', labels[0])
+    cy.getTestId('selection-badges-container').should('contain.text', labels[1])
+    cy.get('.multiselect-clear-icon').click()
+    cy.getTestId('selection-badges-container').should('not.exist')
   })
 
   it('can clear selection by badge dismiss when focused', () => {
@@ -473,7 +408,6 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -485,11 +419,11 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.k-multiselect-input').click()
+    cy.getTestId('multiselect-trigger').click()
 
-    cy.getTestId('k-multiselect-selections').should('contain.text', labels[0])
-    cy.getTestId('k-multiselect-selections').getTestId('badge-dismiss-button').first().click()
-    cy.getTestId('k-multiselect-selections').should('not.exist')
+    cy.getTestId('selection-badges-container').should('contain.text', labels[0])
+    cy.getTestId('selection-badges-container').getTestId('badge-dismiss-button').first().click()
+    cy.getTestId('selection-badges-container').should('not.exist')
   })
 
   it('renders dropdown footer text when prop is passed', () => {
@@ -499,7 +433,6 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -514,9 +447,9 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.k-multiselect-input').trigger('click')
+    cy.get('.multiselect-trigger').trigger('click')
 
-    cy.get('.k-multiselect-dropdown-footer-text').should('be.visible').should('contain.text', dropdownFooterText)
+    cy.get('.dropdown-footer').should('be.visible').should('contain.text', dropdownFooterText)
   })
 
   it('should allow slotting dropdown footer text', () => {
@@ -526,7 +459,6 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -544,9 +476,9 @@ describe('KMultiselect', () => {
       },
     })
 
-    cy.get('.k-multiselect-input').trigger('click')
+    cy.get('.multiselect-trigger').trigger('click')
 
-    cy.get('.k-multiselect-dropdown-footer-text').should('be.visible').should('contain.text', dropdownFooterText)
+    cy.get('.dropdown-footer').should('be.visible').should('contain.text', dropdownFooterText)
   })
 
   it('renders group titles and groups items in correct order', () => {
@@ -562,19 +494,18 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         items,
       },
     })
 
-    cy.getTestId('k-multiselect-input').trigger('click')
-    cy.get('.k-multiselect-item').eq(0).should('contain.text', items[0].label)
-    cy.get('.k-multiselect-group-title').eq(0).should('contain.text', group1Title)
-    cy.get('.k-multiselect-group-title').eq(1).should('contain.text', group2Title)
-    cy.get('.k-multiselect-item').eq(1).should('contain.text', items[1].label)
-    cy.get('.k-multiselect-item').eq(2).should('contain.text', items[3].label)
-    cy.get('.k-multiselect-item').eq(3).should('contain.text', items[2].label)
-    cy.get('.k-multiselect-item').eq(4).should('contain.text', items[4].label)
+    cy.getTestId('multiselect-trigger').trigger('click')
+    cy.get('.multiselect-item').eq(0).should('contain.text', items[0].label)
+    cy.get('.multiselect-group-title').eq(0).should('contain.text', group1Title)
+    cy.get('.multiselect-group-title').eq(1).should('contain.text', group2Title)
+    cy.get('.multiselect-item').eq(1).should('contain.text', items[1].label)
+    cy.get('.multiselect-item').eq(2).should('contain.text', items[3].label)
+    cy.get('.multiselect-item').eq(3).should('contain.text', items[2].label)
+    cy.get('.multiselect-item').eq(4).should('contain.text', items[4].label)
   })
 
   it('should able to handle tons of items with no obvious lag', () => {
@@ -588,7 +519,6 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         items,
       },
     }).then(() => {
@@ -608,38 +538,37 @@ describe('KMultiselect', () => {
 
     mount(KMultiselect, {
       props: {
-        testMode: true,
         items: currentItems,
         modelValue: ['label1', 'label2'],
       },
     }).then(({ wrapper }) => {
-      cy.get('.k-multiselect-input input').should('have.attr', 'placeholder', '2 items selected').then(() => {
+      cy.getTestId('selection-badges-container').children().should('have.length', 2).then(() => {
 
         // Remove 'label1'
         wrapper.setProps({
           modelValue: ['label2'],
         }).then(() => {
 
-          cy.get('.k-multiselect-input input').should('have.attr', 'placeholder', '1 item selected').then(() => {
+          cy.getTestId('selection-badges-container').children().should('have.length', 1).then(() => {
 
             // Change the items; 'label2' is no longer in the list.
             wrapper.setProps({
               items: allItems.slice(2),
             }).then(() => {
 
-              cy.get('.k-multiselect-input input').should('have.attr', 'placeholder', '1 item selected').then(() => {
+              cy.getTestId('selection-badges-container').children().should('have.length', 1).then(() => {
 
                 // Select an additional item.
                 wrapper.setProps({
                   modelValue: ['label2', 'label3'],
                 }).then(() => {
-                  cy.get('.k-multiselect-input input').should('have.attr', 'placeholder', '2 items selected').then(() => {
+                  cy.getTestId('selection-badges-container').children().should('have.length', 2).then(() => {
 
                     // Remove 'label2' from the selection.
                     wrapper.setProps({
                       modelValue: ['label3'],
                     }).then(() => {
-                      cy.get('.k-multiselect-input input').should('have.attr', 'placeholder', '1 item selected')
+                      cy.getTestId('selection-badges-container').children().should('have.length', 1)
                     })
                   })
                 })

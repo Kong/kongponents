@@ -1,6 +1,5 @@
 <template>
   <div
-    :aria-hidden="hidden ? true : undefined"
     class="k-badge"
     :class="[appearance, { 'method': isMethodBadge }]"
   >
@@ -70,17 +69,6 @@ const props = defineProps({
    * Whether tooltip should only be shown when the badge is truncated.
    */
   truncationTooltip: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Use this prop if you don't intend for the badge to actually be shown
-   * or able to be interacted with by the user. This is used in KMultiselect
-   * to stage the badge before rendering the visible content to the user.
-   *
-   * DO NOT REFACTOR USAGE WITHOUT CHECKING KMULTISELECT
-   */
-  hidden: {
     type: Boolean,
     default: false,
   },
