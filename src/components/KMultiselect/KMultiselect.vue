@@ -585,7 +585,7 @@ const popoverContentMaxHeight = computed((): string => getSizeFromString(props.d
 const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
 const widthValue = computed(() => {
-  const w = props.width ? props.width : '200'
+  const w = props.width ? props.width : '300'
 
   return getSizeFromString(w)
 })
@@ -1017,9 +1017,9 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 }, { deep: true, immediate: true })
 
-const numericWidth = ref<number>(200)
+const numericWidth = ref<number>(300)
 const setNumericWidth = (): void => {
-  numericWidth.value = multiselectElement.value?.clientWidth || 200
+  numericWidth.value = multiselectElement.value?.clientWidth || 300
 }
 
 const resizeObserver = ref<ResizeObserverHelper>()
