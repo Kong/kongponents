@@ -428,6 +428,8 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `k-select-loading` `data-testid` attribute has been changed to `select-loading`
 * `k-select-group-title` class has been changed to `select-group-title`
 * `k-select-selected-item` `data-testid` attribute has been changed to `selected-item`
+* `k-select-list` class has been changed to `select-items-container`
+* `k-select-label` `data-testid` attribute has been changed to `select-label`
 
 #### Constants, Types & Interfaces
 
