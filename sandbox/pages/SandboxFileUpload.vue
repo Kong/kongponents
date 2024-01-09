@@ -38,7 +38,6 @@
               class="full-width-input"
               :error="isToggled.value"
               help="This is help text. When error is true, this text will be red."
-              label="Label"
             />
             <KButton
               size="small"

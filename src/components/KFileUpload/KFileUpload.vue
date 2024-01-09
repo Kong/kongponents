@@ -20,7 +20,7 @@
       <span
         :key="fileInputKey"
         class="file-upload-input-text"
-        :class="{ 'has-icon': $slots.icon, 'disabled': disabled }"
+        :class="{ 'placeholder': !fileValue, 'has-icon': $slots.icon, 'disabled': disabled }"
       >
         {{ fileValue ? fileValue : placeholder }}
       </span>
@@ -32,7 +32,7 @@
         class="upload-input"
         :disabled="disabled"
         :error="hasUploadError || error"
-        :error-message="errorMessage"
+        :error-message="errorMessage || fileSizeErrorMessage"
         :help="help"
         :max-file-size="maximumFileSize"
         :placeholder="placeholder"
@@ -132,10 +132,19 @@ const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info |
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
 
+const hasFileSizeError = ref<boolean>(false)
+const fileSizeErrorMessage = computed((): string => {
+  if (hasFileSizeError.value) {
+    return `File size must be less than ${maximumFileSize.value} bytes.`
+  }
+
+  return ''
+})
 const maximumFileSize = computed((): Number => {
   if (props.maxFileSize || props.maxFileSize === 0) {
     return props.maxFileSize
   }
+
   return 5250000
 })
 
@@ -160,6 +169,11 @@ const onFileChange = (evt: any): void => {
 
   if (hasUploadError.value) {
     fileInputKey.value++
+
+    if (Number(fileSize) as Number > maximumFileSize.value) {
+      hasFileSizeError.value = true
+    }
+
     emit('error', fileInput.value)
   }
 
@@ -173,10 +187,12 @@ const onFileChange = (evt: any): void => {
     inputElem.files = fileClone.value[fileClone.value.length - 1]
     // @ts-ignore
     fileInput.value = inputElem.files
+
     if (inputElem.files) {
       fileValue.value = String(inputElem.files[inputElem.files.length - 1].name)
     }
   }
+
   emit('file-added', fileInput.value)
 }
 
@@ -203,6 +219,7 @@ const resetInput = (): void => {
   fileClone.value = []
   fileInputKey.value++
   hasUploadError.value = false
+  hasFileSizeError.value = false
 
   emit('file-removed')
 }
@@ -250,6 +267,10 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
       position: absolute;
       top: 0;
       z-index: 1;
+
+      &.placeholder {
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      }
 
       &.has-icon {
         // default spacing + icon size + icon spacing
