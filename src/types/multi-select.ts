@@ -4,7 +4,6 @@ export interface MultiselectItem {
   key?: string
   selected?: boolean
   disabled?: boolean
-  disabledTooltipText?: string
   custom?: boolean
   group?: string
 }

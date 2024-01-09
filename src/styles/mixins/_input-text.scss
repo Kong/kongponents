@@ -1,5 +1,16 @@
 /* Text inputs */
 
+@mixin inputBoxShadow {
+  -webkit-appearance: none; // need this to allow box-shadow to apply on mobile
+  background-color: var(--kui-color-background, $kui-color-background);
+  border: 0;
+  border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+  box-shadow: var(--kui-shadow-border, $kui-shadow-border);
+  box-sizing: border-box; // Ensure the padding is calculated in the element's width
+  outline: none;
+  transition: box-shadow $kongponentsTransitionDurTimingFunc;
+}
+
 @mixin inputText {
   color: var(--kui-color-text, $kui-color-text);
   font-family: var(--kui-font-family-text, $kui-font-family-text);
@@ -12,6 +23,7 @@
 }
 
 @mixin inputDefaults {
+  @include inputBoxShadow;
   @include inputText;
 
   -webkit-appearance: none; // need this to allow box-shadow to apply on mobile
@@ -21,7 +33,7 @@
   box-shadow: var(--kui-shadow-border, $kui-shadow-border);
   box-sizing: border-box; // Ensure the padding is calculated in the element's width
   outline: none;
-  padding: var(--kui-space-40, $kui-space-40) var(--kui-space-50, $kui-space-50); // $kInputPaddingX, $kTextAreaPaddingY, $kSelectInputPaddingX, $kSelectInputPaddingY
+  padding: var(--kui-space-40, $kui-space-40) var(--kui-space-50, $kui-space-50); // $kInputPaddingX, $kTextAreaPaddingY, $kSelectInputPaddingX, $kSelectInputPaddingY, $kMultiselectInputPaddingY, $kMultiselectInputPaddingX
   text-overflow: ellipsis;
   transition: box-shadow $kongponentsTransitionDurTimingFunc;
   width: 100%;
@@ -31,6 +43,8 @@
   }
 
   &::placeholder {
+    @include inputText;
+
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
   }
 }

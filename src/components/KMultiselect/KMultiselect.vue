@@ -1,13 +1,13 @@
 <template>
   <div
     class="k-multiselect"
-    :class="[$attrs.class]"
+    :class="[$attrs.class, { 'multiselect-error': error }]"
     :style="widthStyle"
   >
     <KLabel
       v-if="label"
       v-bind="labelAttributes"
-      :data-testid="labelAttributes['data-testid'] ? labelAttributes['data-testid'] : 'k-multiselect-label'"
+      :data-testid="labelAttributes['data-testid'] ? labelAttributes['data-testid'] : 'multiselect-label'"
       :for="multiselectId"
       :required="isRequired"
     >
@@ -20,10 +20,7 @@
         <slot name="label-tooltip" />
       </template>
     </KLabel>
-    <div
-      :id="multiselectId"
-      data-testid="k-multiselect-container"
-    >
+    <div data-testid="multiselect-container">
       <KToggle v-slot="{ isToggled, toggle }">
         <KPop
           ref="popper"
@@ -32,106 +29,31 @@
             return
           }"
           :position-fixed="positionFixed"
-          :target="`[id='${multiselectInputId}']`"
-          :test-mode="!!testMode || undefined"
+          target=".multiselect-trigger"
           @closed="() => handleToggle(false, isToggled, toggle)"
           @opened="() => handleToggle(true, isToggled, toggle)"
         >
           <div
-            ref="multiselectRef"
-            class="k-multiselect-trigger"
+            ref="multiselectElement"
+            class="multiselect-trigger"
             :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
-            data-testid="k-multiselect-trigger"
+            data-testid="multiselect-trigger"
             role="listbox"
+            :tabindex="isDisabled || isReadonly || collapsedContext ? -1 : 0"
             @click="handleFilterClick"
           >
-            <div
-              v-if="selectedItems.length && (isToggled.value || expandSelected || collapsedContext)"
-              :id="multiselectSelectedItemsId"
-              :key="key"
-              class="k-multiselect-selections"
-              :class="{ 'scrollable': expandSelected, 'collapsed': collapsedContext && !isToggled.value }"
-              data-testid="k-multiselect-selections"
-              :style="!expandSelected ? numericWidthStyle : nonSlimStyle"
-            >
-              <KBadge
-                v-for="item, idx in visibleSelectedItems"
-                :key="`${item.key ? item.key : idx}-badge`"
-                class="k-multiselect-selection-badge"
-                :class="{
-                  'expand-selected': expandSelected,
-                  'resize-badge':(item.selected && item.disabled)
-                }"
-                :icon-before="false"
-                :tooltip="item.label"
-                truncation-tooltip
-                @click.stop
-              >
-                {{ item.label }}
-                <template
-                  v-if="item.selected && !item.disabled"
-                  #icon
-                >
-                  <CloseIcon
-                    data-testid="badge-dismiss-button"
-                    role="button"
-                    tabindex="0"
-                    @click="handleItemSelect(item)"
-                  />
-                </template>
-              </KBadge>
-              <KBadge
-                v-if="!expandSelected && invisibleSelectedItems.length"
-                class="hidden-selection-count"
-                :tooltip="hiddenItemsTooltip"
-                @click.stop
-              >
-                +{{ invisibleSelectedItems.length }}
-              </KBadge>
-              <div
-                v-if="expandSelected"
-                ref="selectionBottomRef"
-              />
-            </div>
-            <div class="k-multiselect-icon">
-              <KButton
-                v-if="!loading && selectedItems.length && isToggled.value"
-                class="k-multiselect-clear-icon"
-                data-testid="k-multiselect-clear-icon"
-                @click="clearSelection"
-                @keyup.enter="clearSelection"
-              >
-                <KIcon
-                  :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
-                  icon="close"
-                  :size="KUI_ICON_SIZE_20"
-                  title="Clear all selections"
-                />
-              </KButton>
-              <KIcon
-                v-else
-                class="k-multiselect-chevron-icon"
-                :class="{ 'in-selection-box': selectedItems.length }"
-                :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
-                :icon="loading ? 'spinner' : 'chevronDown'"
-                :size="KUI_ICON_SIZE_30"
-              />
-            </div>
-            <div
-              :id="multiselectInputId"
-              :style="numericWidthStyle"
-            >
+            <div v-if="collapsedContext">
               <KInput
-                v-if="(!expandSelected && !collapsedContext) || ((expandSelected || collapsedContext) && (!selectedItems.length || isToggled.value))"
-                :id="multiselectTextId"
+                :id="multiselectId"
                 v-bind="modifiedAttrs"
+                ref="multiselectInputElement"
                 autocapitalize="off"
                 autocomplete="off"
-                class="k-multiselect-input input-placeholder-dark"
-                :class="{ 'is-toggled': isToggled.value && selectedItems.length, 'is-readonly': isReadonly }"
-                data-testid="k-multiselect-input"
-                :model-value="filterStr"
-                :placeholder="getPlaceholderText(isToggled.value)"
+                class="multiselect-input"
+                :class="{ 'is-readonly': isReadonly }"
+                data-testid="multiselect-input"
+                :model-value="filterString"
+                :placeholder="getPlaceholderText"
                 :readonly="isReadonly ? true : undefined"
                 type="text"
                 @blur="() => isFocused = false"
@@ -147,69 +69,156 @@
                 @update:model-value="onQueryChange"
               />
             </div>
+            <div
+              v-else-if="!selectedItems.length"
+              class="expanded-selection-empty"
+            >
+              {{ getPlaceholderText }}
+            </div>
+            <div
+              v-else
+              class="selection-badges-container"
+              data-testid="selection-badges-container"
+              :style="numericWidthStyle"
+            >
+              <KBadge
+                v-for="item, idx in visibleSelectedItems"
+                :key="`${item.key ? item.key : idx}-badge-${key}`"
+                :appearance="getBadgeAppearance(item)"
+                class="multiselect-selection-badge"
+                :icon-before="false"
+                :tooltip="item.label"
+                truncation-tooltip
+                @click.stop
+              >
+                {{ item.label }}
+                <template
+                  v-if="item.selected && !item.disabled && !isDisabled && !isReadonly"
+                  #icon
+                >
+                  <CloseIcon
+                    data-testid="badge-dismiss-button"
+                    role="button"
+                    tabindex="0"
+                    @click="handleItemSelect(item)"
+                  />
+                </template>
+              </KBadge>
+              <KTooltip
+                v-if="invisibleSelectedItems.length"
+                class="hidden-selection-count-tooltip"
+                :label="hiddenItemsTooltip"
+                max-width="300"
+              >
+                <KBadge
+                  :appearance="getBadgeAppearance()"
+                  class="hidden-selection-count"
+                  data-testid="hidden-selection-count"
+                  @click.stop
+                >
+                  +{{ invisibleSelectedItems.length }}
+                </KBadge>
+              </KTooltip>
+            </div>
+            <div class="multiselect-icons-container">
+              <CloseIcon
+                v-if="!loading && selectedItems.length && isToggled.value"
+                class="multiselect-clear-icon"
+                data-testid="multiselect-clear-icon"
+                role="button"
+                :size="KUI_ICON_SIZE_40"
+                tabindex="0"
+                @click="clearSelection"
+                @keyup.enter="clearSelection"
+              />
+              <ProgressIcon
+                v-else-if="loading"
+                class="multiselect-loading-icon"
+                :size="KUI_ICON_SIZE_40"
+              />
+              <ChevronDownIcon
+                v-else
+                class="multiselect-chevron-icon"
+                :size="KUI_ICON_SIZE_40"
+              />
+            </div>
           </div>
           <template #content>
             <!-- use @click.stop so we don't close drop down when selecting/deselecting items -->
             <div
-              class="k-multiselect-list"
-              @blur="() => isFocused = false"
+              class="multiselect-list"
               @click.stop
-              @focus="isFocused = true"
               @mouseenter="() => isHovered = true"
               @mouseleave="() => isHovered = false"
             >
+              <div
+                v-if="!collapsedContext && !isReadonly"
+                class="multiselect-input-wrapper"
+              >
+                <KInput
+                  :id="multiselectId"
+                  v-bind="modifiedAttrs"
+                  ref="multiselectDropdownInputElement"
+                  autocapitalize="off"
+                  autocomplete="off"
+                  class="multiselect-dropdown-input"
+                  data-testid="multiselect-dropdown-input"
+                  :model-value="filterString"
+                  :placeholder="placeholder ? placeholder : 'Filter...'"
+                  type="text"
+                  @click.stop
+                  @focus="triggerInitialFocus"
+                  @keyup.enter.stop
+                  @update:model-value="onQueryChange"
+                />
+              </div>
               <KMultiselectItems
                 :items="sortedItems"
                 @selected="handleItemSelect"
               >
                 <template #content="{ item }">
                   <slot
-                    class="k-multiselect-item"
+                    class="multiselect-item"
                     :item="item"
                     name="item-template"
                   />
                 </template>
               </KMultiselectItems>
               <KMultiselectItem
-                v-if="enableItemCreation && uniqueFilterStr"
-                key="k-multiselect-new-item"
-                class="k-multiselect-new-item"
-                data-testid="k-multiselect-add-item"
-                :item="{ label: `${filterStr} (Add new value)`, value: 'add_item' }"
+                v-if="enableItemCreation && uniqueFilterStr && !$slots.empty"
+                key="multiselect-add-item"
+                class="multiselect-add-item"
+                data-testid="multiselect-add-item"
+                :item="{ label: `${filterString} (Add new value)`, value: 'add_item' }"
                 @selected="handleAddItem"
               >
                 <template #content>
                   <div class="select-item-description">
-                    {{ filterStr }}
+                    {{ filterString }}
                     <span class="select-item-new-indicator">(Add new value)</span>
                   </div>
                 </template>
               </KMultiselectItem>
               <KMultiselectItem
                 v-if="!sortedItems.length && !$slots.empty && !enableItemCreation"
-                key="k-multiselect-empty-state"
-                class="k-multiselect-empty-item"
-                data-testid="k-multiselect-empty-item"
-                :item="{ label: 'No results found', value: 'no_results' }"
-              >
-                <template #content>
-                  <div class="select-item-label">
-                    No results found
-                  </div>
-                  <div class="select-item-desc">
-                    Please adjust the criteria and try again
-                  </div>
-                </template>
-              </KMultiselectItem>
+                key="multiselect-empty-item"
+                class="multiselect-empty-item"
+                data-testid="multiselect-empty-item"
+                :item="{ label: 'No results', value: 'no_results', disabled: true }"
+              />
             </div>
-            <slot
-              v-if="!loading && !sortedItems.length"
-              name="empty"
-            />
             <div
-              v-if="$slots['dropdown-footer-text'] || dropdownFooterText"
-              class="k-multiselect-dropdown-footer-text"
-              :class="`k-multiselect-dropdown-footer-${dropdownFooterTextPosition}`"
+              v-if="$slots.empty && !loading && !sortedItems.length"
+              class="multiselect-empty"
+              data-propagate-clicks="false"
+            >
+              <slot name="empty" />
+            </div>
+            <div
+              v-if="hasDropdownFooter"
+              class="dropdown-footer"
+              :class="`dropdown-footer-${dropdownFooterTextPosition}`"
+              data-testid="dropdown-footer"
             >
               <slot name="dropdown-footer-text">
                 {{ dropdownFooterText }}
@@ -219,29 +228,36 @@
         </KPop>
       </KToggle>
     </div>
+    <p
+      v-if="help"
+      class="help-text"
+    >
+      {{ help }}
+    </p>
+
     <!-- Staging area -->
     <div
-      v-if="!expandSelected"
+      v-if="!collapsedContext"
       aria-hidden="true"
       class="staging-area"
     >
       <div
-        :id="multiselectSelectedItemsStagingId"
         :key="stagingKey"
-        class="k-multiselect-selections staging"
+        ref="multiselectSelectionsStagingElement"
+        class="selection-badges-container staging"
         :style="numericWidthStyle"
         tabindex="-1"
       >
         <KBadge
           v-for="item, idx in visibleSelectedItemsStaging"
           :key="`${item.key ? item.key : idx}-badge`"
-          class="k-multiselect-selection-badge"
-          hidden
+          aria-hidden="true"
+          class="multiselect-selection-badge"
           :icon-before="false"
         >
           {{ item.label }}
           <template
-            v-if="item.selected && !item.disabled"
+            v-if="item.selected && !item.disabled && !isDisabled && !isReadonly"
             #icon
           >
             <CloseIcon
@@ -254,8 +270,8 @@
         </KBadge>
         <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
         <KBadge
+          aria-hidden="true"
           class="hidden-selection-count"
-          hidden
         >
           +{{ invisibleSelectedItemsStaging.length }}
         </KBadge>
@@ -266,21 +282,21 @@
 
 <script lang="ts">
 import type { Ref, PropType } from 'vue'
-import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount, useAttrs, useSlots } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onUnmounted, useAttrs, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KBadge from '@/components/KBadge/KBadge.vue'
-import KButton from '@/components/KButton/KButton.vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
-import type { MultiselectItem, MultiselectFilterFnParams, DropdownFooterTextPosition, PopPlacements } from '@/types'
-import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_20, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
-import { CloseIcon } from '@kong/icons'
+import type { MultiselectItem, MultiselectFilterFnParams, DropdownFooterTextPosition, PopPlacements, BadgeAppearance } from '@/types'
+import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
+import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
+import { sanitizeInput } from '@/utilities/sanitizeInput'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -318,6 +334,14 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  help: {
+    type: String,
+    default: '',
+  },
+  error: {
+    type: Boolean,
+    default: false,
+  },
   labelAttributes: {
     type: Object,
     default: () => ({}),
@@ -341,29 +365,20 @@ const props = defineProps({
    */
   width: {
     type: String,
-    default: '',
+    default: '100%',
   },
   /**
    * Number of rows of selections to show when focused
    */
   selectedRowCount: {
     type: Number,
-    default: 2,
+    default: 1,
   },
   /**
    * Determines whether to show total selected count (false), or
    * row(s) of selections when collapsed
    */
   collapsedContext: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Determines whether or not to hide the selections when not focused,
-   * and whether or not to move items displayed beyond the selectedRowCount
-   * into a +n badge, or allow the sections to be scrollable.
-   */
-  expandSelected: {
     type: Boolean,
     default: false,
   },
@@ -390,7 +405,7 @@ const props = defineProps({
   /**
    * Override default filter functionality of case-insensitive search on label
    */
-  filterFunc: {
+  filterFunction: {
     type: Function,
     default: (params: MultiselectFilterFnParams) => params.items.filter((item: MultiselectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase())),
   },
@@ -416,63 +431,79 @@ const props = defineProps({
     default: false,
   },
   /**
-   * Test mode - for testing only, strips out generated ids
+   * Dropdown footer text
    */
-  testMode: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-  * Dropdown footer text
-  */
   dropdownFooterText: {
     type: String,
     default: '',
   },
   /**
-    * Dropdown footer text position
-    * Accepted values: 'sticky' and 'static'
-    */
+   * Dropdown footer text position
+   * Accepted values: 'sticky' and 'static'
+   */
   dropdownFooterTextPosition: {
     type: String as PropType<DropdownFooterTextPosition>,
     default: 'sticky',
   },
 })
 
-const emit = defineEmits(['selected', 'item:added', 'item:removed', 'input', 'change', 'update:modelValue', 'query-change'])
+const emit = defineEmits<{
+  (e: 'selected', item: MultiselectItem[]): void
+  (e: 'input', value: string[]): void
+  (e: 'change', item: MultiselectItem | null): void
+  (e: 'update:modelValue', value: string[]): void
+  (e: 'query-change', query: string): void
+  (e: 'item-added', value: MultiselectItem): void
+  (e: 'item-removed', value: MultiselectItem): void
+}>()
 
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
+const hasDropdownFooter = computed((): boolean => !!(props.dropdownFooterText || slots['dropdown-footer-text']))
+
+const getBadgeAppearance = (item?: MultiselectItem): BadgeAppearance => {
+  if (isDisabled.value || isReadonly.value || item?.disabled) {
+    return 'neutral'
+  }
+
+  if (props.error) {
+    return 'danger'
+  }
+
+  return 'info'
+}
+
 const defaultKPopAttributes = {
   hideCaret: true,
   placement: 'bottomStart' as PopPlacements,
   popoverTimeout: 0,
-  popoverClasses: 'k-multiselect-popover',
+  popoverClasses: 'multiselect-popover',
 }
 
 // keys and ids
 const key = ref(0)
 const stagingKey = ref(0)
-const multiselectId = computed((): string => props.testMode ? 'test-multiselect-id-1234' : uuidv4())
-const multiselectInputId = computed((): string => props.testMode ? 'test-multiselect-input-id-1234' : uuidv4())
-const multiselectTextId = computed((): string => props.testMode ? 'test-multiselect-text-id-1234' : uuidv4())
-const multiselectSelectedItemsId = computed((): string => props.testMode ? 'test-multiselect-selected-id-1234' : uuidv4())
-const multiselectSelectedItemsStagingId = computed((): string => props.testMode ? 'test-multiselect-selected-staging-id-1234' : uuidv4())
-const multiselectRef = ref<HTMLDivElement | null>(null)
-const selectionBottomRef = ref(null)
+
+const multiselectId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
+
+const multiselectElement = ref<HTMLDivElement | null>(null)
+const multiselectInputElement = ref<HTMLDivElement | null>(null)
+const multiselectDropdownInputElement = ref<HTMLDivElement | null>(null)
+const multiselectSelectionsStagingElement = ref<HTMLDivElement>()
+
 // filter and selection
 const selectionsMaxHeight = computed((): number => {
   return props.selectedRowCount * SELECTED_ITEMS_SINGLE_LINE_HEIGHT
 })
-const filterStr = ref('')
+const filterString = ref('')
 // whether or not filter string matches an existing item's label
 const uniqueFilterStr = computed((): boolean => {
-  if (!filterStr.value) {
+  if (!filterString.value) {
     return false
   }
 
-  if (unfilteredItems.value.filter((item: MultiselectItem) => item.label === filterStr.value).length) {
+  if (unfilteredItems.value.filter((item: MultiselectItem) => item.label === filterString.value).length) {
     return false
   }
 
@@ -502,7 +533,7 @@ const invisibleSelectedItemsStagingSet = new Set<string>()
 const visibleSelectedItems = ref<MultiselectItem[]>([])
 const invisibleSelectedItems = ref<MultiselectItem[]>([])
 
-const hiddenItemsTooltip = computed(() => invisibleSelectedItems.value.map(item => item.label).join(', '))
+const hiddenItemsTooltip = computed((): string => invisibleSelectedItems.value.map(item => item.label).join(', '))
 
 // state
 const initialFocusTriggered: Ref<boolean> = ref(false)
@@ -540,7 +571,7 @@ const createKPopAttributes = computed(() => {
   return {
     ...defaultKPopAttributes,
     ...props.kpopAttributes,
-    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} k-multiselect-pop`,
+    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} ${hasDropdownFooter.value ? 'has-dropdown-footer' : ''}`,
     width: numericWidth.value + 'px',
     maxWidth: numericWidth.value + 'px',
     disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),
@@ -554,7 +585,7 @@ const popoverContentMaxHeight = computed((): string => getSizeFromString(props.d
 const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
 const widthValue = computed(() => {
-  const w = props.width ? props.width : '300'
+  const w = props.width ? props.width : '200'
 
   return getSizeFromString(w)
 })
@@ -571,52 +602,51 @@ const numericWidthStyle = computed(() => {
   }
 })
 
-const nonSlimStyle = computed(() => {
-  return {
-    width: (numericWidth.value - 30) + 'px',
-    maxHeight: selectionsMaxHeight.value + 'px',
-    paddingRight: 0,
+const getPlaceholderText = computed((): string => {
+  if (selectedItems.value.length === 0) {
+    return props.placeholder ? props.placeholder : '0 items selected'
   }
+
+  if (selectedItems.value.length === 1) {
+    return `${selectedItems.value.length} item selected`
+  }
+
+  return `${selectedItems.value.length} items selected`
 })
-
-const getPlaceholderText = (isOpen?: boolean): string => {
-  if (selectedItems.value.length && !isOpen) {
-    if (selectedItems.value.length === 1) {
-      return `${selectedItems.value.length} item selected`
-    }
-    return `${selectedItems.value.length} items selected`
-  }
-
-  if (props.placeholder) {
-    return props.placeholder
-  } else if (attrs.placeholder) {
-    return String(attrs.placeholder || '')
-  }
-
-  return 'Filter...'
-}
 
 const filteredItems = computed(() => {
   // For autosuggest, items don't need to be filtered internally
-  return props.autosuggest ? unfilteredItems.value : props.filterFunc({ items: unfilteredItems.value, query: filterStr.value })
+  return props.autosuggest ? unfilteredItems.value : props.filterFunction({ items: unfilteredItems.value, query: filterString.value })
 })
 
-const handleFilterClick = (evt: any) => {
-  if (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') {
-    evt.stopPropagation()
+const handleFilterClick = (event: any) => {
+  /**
+   * The component is designed so that most of the time it propagates click events
+   * so that popover component handles them properly (for example closing the dropdown when clicking outside of it or selecting an item).
+   * However some container or wrapper clicks should not propagate to the popover component.
+   * In cases like that we can't use always pointer-events: none; because it will disabled pointer event on children elements.
+   * Instead we can give that element data-propagate-clicks="false" data property and it will be handled here.
+   */
+  if (isDisabled.value || (event?.target as HTMLElement)?.dataset.propagateClicks === 'false') {
+    event.stopPropagation()
   }
 }
 
-const handleToggle = (open: boolean, isToggled: Ref<boolean>, toggle: Function) => {
+const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: Function) => {
   if (open) {
     if (!isToggled.value) { // not already open
-      filterStr.value = ''
+      filterString.value = ''
       toggle()
       sortItems()
+
+      await nextTick()
+
+      const input = document.getElementById(multiselectId.value) as HTMLInputElement
+      input?.focus({ preventScroll: true })
     }
   } else {
     if (isToggled.value) { // not already closed
-      filterStr.value = ''
+      filterString.value = ''
       toggle()
     }
   }
@@ -627,10 +657,10 @@ const handleToggle = (open: boolean, isToggled: Ref<boolean>, toggle: Function) 
 const stageSelections = () => {
   // set timeout required to push the calculation to the end of the update lifecycle event queue
   setTimeout(() => {
-    const elem = document.getElementById(multiselectSelectedItemsStagingId.value)
+    const elem = multiselectSelectionsStagingElement.value
 
-    if (props.expandSelected) {
-      // if it's expanded don't do calculcations, because we will display all
+    if (!props.collapsedContext) {
+      // if it's collapsed don't do calculations, because we don't display badges
       stagingKey.value++
       return
     }
@@ -639,7 +669,7 @@ const stageSelections = () => {
       const height = elem.clientHeight
       if (height > selectionsMaxHeight.value) {
         // populate as much items as possible by checking the offsetTop
-        const overflowedElements = Array.from(elem.querySelectorAll('.k-multiselect-selection-badge'))
+        const overflowedElements = Array.from(elem.querySelectorAll('.multiselect-selection-badge'))
           .filter(badge => (badge as HTMLElement).offsetTop >= selectionsMaxHeight.value)
 
         // if there are overflowed items, move them to the invisibleSelectedItemsStaging array
@@ -701,7 +731,7 @@ const handleMultipleItemsDeselect = (items: MultiselectItem[], restage = false) 
     // if it's an added item, remove it from list when it is deselected
     if (props.enableItemCreation && itemToDeselect.custom) {
       unfilteredItems.value = unfilteredItems.value.filter(anItem => anItem.value !== itemToDeselect.value)
-      emit('item:removed', itemToDeselect)
+      emit('item-removed', itemToDeselect)
     }
   })
 
@@ -754,7 +784,7 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
     // if it's an added item, remove it from list when it is deselected
     if (selectionIsAdded) {
       unfilteredItems.value = unfilteredItems.value.filter(anItem => anItem.value !== item.value)
-      emit('item:removed', item)
+      emit('item-removed', item)
     }
   } else { // newly selected item
     selectedItem.selected = true
@@ -766,48 +796,33 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
       selectedItem.custom = true
       unfilteredItems.value.push(selectedItem)
     }
-
-    if (props.expandSelected) {
-      // if expanded, scroll new selections into view
-      scrollSmoothlyToBottom()
-    }
   }
 
   stageSelections()
   const selectedVals = selectedItems.value.map(anItem => anItem.value)
 
   emit('selected', selectedItems.value)
-  emit('change', item)
+  emit('change', selectedItem)
   emit('update:modelValue', selectedVals)
 }
 
 // add an item with `enter`
 const handleAddItem = (): void => {
-  if (!props.enableItemCreation || !filterStr.value || !uniqueFilterStr.value) {
+  if (!props.enableItemCreation || !filterString.value || !uniqueFilterStr.value) {
     // do nothing if not enabled or no label or label already exists
     return
   }
 
   const pos = unfilteredItems.value.length + 1
-  const item:MultiselectItem = {
-    label: filterStr.value + '',
-    value: props.testMode ? `test-multiselect-added-item-${pos}` : uuidv4(),
-    key: `${filterStr.value.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
+  const item: MultiselectItem = {
+    label: sanitizeInput(filterString.value + ''),
+    value: uuidv4(),
+    key: `${sanitizeInput(filterString.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
   }
-  emit('item:added', item)
+  emit('item-added', item)
 
   handleItemSelect(item, true)
-  filterStr.value = ''
-}
-
-const scrollSmoothlyToBottom = () => {
-  setTimeout(() => {
-    // @ts-ignore
-    selectionBottomRef.value?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
-    })
-  }, 200)
+  filterString.value = ''
 }
 
 // sort dropdown items. Selected items displayed before unselected items
@@ -820,31 +835,47 @@ const sortItems = () => {
 
 const clearSelection = (): void => {
   unfilteredItems.value.forEach(anItem => {
+    if (anItem.disabled) {
+      return
+    }
+
     anItem.selected = false
     anItem.key = anItem?.key?.replace(/-selected/gi, '')
 
     if (anItem.custom) {
       // we must emit that we are removing each item before we actually clear them since this is our only reference
-      emit('item:removed', anItem)
+      emit('item-removed', anItem)
     }
   })
-  // clear added entries
-  unfilteredItems.value = unfilteredItems.value.filter(anItem => !anItem.custom)
-  selectedItems.value = []
-  visibleSelectedItemsStaging.value = []
-  invisibleSelectedItemsStaging.value = []
-  invisibleSelectedItemsStagingSet.clear()
-  filterStr.value = ''
-  stageSelections()
 
-  emit('selected', [])
-  emit('change', null)
-  emit('update:modelValue', [])
+  // clear added entries
+  unfilteredItems.value = unfilteredItems.value.filter(anItem => {
+    if (anItem.custom && !anItem.disabled) {
+      return false
+    }
+
+    return true
+  })
+  selectedItems.value = selectedItems.value.filter(anItem => anItem.disabled)
+  visibleSelectedItemsStaging.value = visibleSelectedItemsStaging.value.filter(anItem => anItem.disabled)
+  invisibleSelectedItemsStaging.value = invisibleSelectedItemsStaging.value.filter(anItem => {
+    if (!anItem.disabled) {
+      invisibleSelectedItemsStagingSet.delete(anItem.value)
+    }
+
+    return anItem.disabled
+  })
+  filterString.value = ''
+  stageSelections()
+  const selectedVals = selectedItems.value.map(anItem => anItem.value)
+
+  emit('selected', selectedItems.value)
+  emit('update:modelValue', selectedVals)
   emit('query-change', '')
 }
 
 const onQueryChange = (query: string) => {
-  filterStr.value = query
+  filterString.value = query
   emit('query-change', query)
 }
 
@@ -852,18 +883,16 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
   // `esc` key closes
   if (evt.keyCode === 27) {
     isToggled.value = false
-    return
-  }
-
-  const inputElem = document.getElementById(multiselectTextId.value)
-  if (!isToggled.value && inputElem) {
-    // simulate click to trigger dropdown open
-    inputElem.click()
   }
 }
 
-const onInputFocus = (): void => {
+const onInputFocus = async (): Promise<void> => {
   isFocused.value = true
+
+  triggerInitialFocus()
+}
+
+const triggerInitialFocus = (): void => {
   if (!initialFocusTriggered.value) {
     initialFocusTriggered.value = true
     emit('query-change', '')
@@ -874,11 +903,10 @@ const onInputFocus = (): void => {
 watch(stagingKey, () => {
   // set timeout required to push the calculation to the end of the update lifecycle event queue
   setTimeout(() => {
-    const elem = document.getElementById(multiselectSelectedItemsStagingId.value)
+    const elem = multiselectSelectionsStagingElement.value
 
-    if (props.expandSelected) {
-      // if expanded, don't do all the calculations because we are going to display
-      // everything
+    if (props.collapsedContext) {
+      // if collapsed, don't do all the calculations because we are not displaying badges
       visibleSelectedItems.value = cloneDeep(visibleSelectedItemsStaging.value)
       invisibleSelectedItems.value = []
       key.value++
@@ -906,15 +934,13 @@ watch(stagingKey, () => {
 
 // make the popper recalculate it's position whenever the selections display
 // is updated in case we've grown a line
-watch(key, () => {
+watch(key, async () => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   if (popper.value && typeof popper.value.updatePopper === 'function') {
-    nextTick(() => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      popper.value.updatePopper()
-    })
+    await nextTick()
+    // @ts-ignore
+    popper.value.updatePopper()
   }
 })
 
@@ -960,12 +986,7 @@ watch(() => props.items, (newValue, oldValue) => {
       unfilteredItems.value[i].selected = false
     }
 
-    // If an item is `selected` and `disabled`, provide fallback tooltip text if not provided
-    if (unfilteredItems.value[i].selected === true && unfilteredItems.value[i].disabled === true && !unfilteredItems.value[i].disabledTooltipText) {
-      unfilteredItems.value[i].disabledTooltipText = 'This item cannot be removed'
-    }
-
-    unfilteredItems.value[i].key = `${unfilteredItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `k-multiselect-item-label-${i}`
+    unfilteredItems.value[i].key = `${unfilteredItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `multiselect-item-label-${i}`
     if (props.modelValue.includes(unfilteredItems.value[i].value) || unfilteredItems.value[i].selected) {
       const selectedItem = unfilteredItems.value[i]
       selectedItem.selected = true
@@ -996,35 +1017,42 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 }, { deep: true, immediate: true })
 
-const numericWidth = ref<number>(300)
+const numericWidth = ref<number>(200)
 const setNumericWidth = (): void => {
-  numericWidth.value = multiselectRef.value?.clientWidth || 300
+  numericWidth.value = multiselectElement.value?.clientWidth || 200
 }
 
-const resizeObserver = ref()
+const resizeObserver = ref<ResizeObserverHelper>()
 onMounted(() => {
-  resizeObserver.value = new ResizeObserver(entries => {
-    // Wrapper 'window.requestAnimationFrame' is needed for disabling "ResizeObserver loop limit exceeded" error in DD
-    window.requestAnimationFrame(() => {
-      if (!Array.isArray(entries) || !entries.length) {
-        return
-      }
-      // Actual code
-      setNumericWidth()
-    })
-  })
-  resizeObserver.value.observe(multiselectRef.value as HTMLDivElement)
+  resizeObserver.value = ResizeObserverHelper.create(setNumericWidth)
+
+  resizeObserver.value.observe(multiselectElement.value as HTMLDivElement)
 })
 
-onBeforeUnmount(() => {
-  if (resizeObserver.value) {
-    resizeObserver.value.unobserve(multiselectRef.value)
+onUnmounted(() => {
+  if (resizeObserver.value && multiselectElement.value) {
+    resizeObserver.value.unobserve(multiselectElement.value)
   }
 })
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/mixins';
+/* Component variables */
+
+$kMultiselectInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin, search for variable name in mixins
+$kMultiselectInputPaddingX: var(--kui-space-50, $kui-space-50); // corresponds to mixin
+$kMultiselectChevronIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
+$kMultiselectSelectionsPaddingRight: calc($kMultiselectInputPaddingX + $kMultiselectChevronIconSize + var(--kui-space-40, $kui-space-40));
+$kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20); // corresponds to mixin
+
+/* Component mixins */
+
+@mixin kMultiselectPopoverMaxHeight {
+  max-height: v-bind('popoverContentMaxHeight');
+  overflow-y: auto;
+}
+
+/* Component styles */
 
 .k-multiselect {
   position: relative; // so staging area is positioned around this node
@@ -1039,173 +1067,106 @@ onBeforeUnmount(() => {
     z-index: -1;
   }
 
-  .k-multiselect-selections {
+  .expanded-selection-empty {
+    @include inputText;
+
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral); // override mixin with placeholder text color
+    font-size: var(--kui-font-size-30, $kui-font-size-30); // override mixin with placeholder font size
+    padding-bottom: $kMultiselectInputPaddingY;
+    padding-left: $kMultiselectInputPaddingX;
+    padding-right: $kMultiselectSelectionsPaddingRight;
+    padding-top: $kMultiselectInputPaddingY;
+  }
+
+  .selection-badges-container {
     box-sizing: border-box;
-    padding-left: var(--kui-space-60, $kui-space-60);
-    padding-right: var(--kui-space-80, $kui-space-80);
-
-    .resize-badge {
-      padding: var(--kui-space-20, $kui-space-20);
-    }
-
-    &.scrollable {
-      margin-bottom: var(--kui-space-40, $kui-space-40) !important;
-      margin-top: var(--kui-space-40, $kui-space-40) !important;
-      overflow-y: auto;
-    }
-
-    &.collapsed {
-      margin-bottom: var(--kui-space-40, $kui-space-40) !important;
-    }
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--kui-space-40, $kui-space-40);
+    margin-bottom: $kMultiselectInputPaddingY;
+    margin-top: $kMultiselectInputPaddingY;
+    padding-left: $kMultiselectInputPaddingX;
+    padding-right: $kMultiselectSelectionsPaddingRight;
 
     &.staging {
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box;
       height: auto;
-      padding-left: var(--kui-space-60, $kui-space-60);
-      padding-right: var(--kui-space-80, $kui-space-80);
       position: relative;
     }
 
+    .multiselect-selection-badge,
     .hidden-selection-count {
-      line-height: var(--kui-line-height-30, $kui-line-height-30);
-      margin-top: var(--kui-space-40, $kui-space-40) !important;
+      cursor: auto;
     }
+  }
 
-    .k-multiselect-selection-badge {
-      margin-right: var(--kui-space-20, $kui-space-20) !important;
-      margin-top: var(--kui-space-40, $kui-space-40) !important;
+  .hidden-selection-count-tooltip {
+    cursor: pointer;
 
-      &.expand-selected {
-        margin-bottom: var(--kui-space-20, $kui-space-20) !important;
-        margin-top: var(--kui-space-20, $kui-space-20) !important;
+    :deep(.k-popover-content) {
+      @include truncate(3);
+    }
+  }
+
+  .multiselect-icons-container {
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    margin-right: $kMultiselectInputPaddingX;
+    margin-top: 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+
+    .multiselect-clear-icon {
+      cursor: pointer;
+
+      &:hover, &:focus {
+        color: var(--kui-color-text, $kui-color-text) !important;
       }
     }
   }
 
-  .k-multiselect-icon {
-    position: absolute;
-    right: 1px;
-    top: 1px;
-    z-index: 1;
+  .multiselect-trigger {
+    @include inputBoxShadow;
 
-    .k-multiselect-chevron-icon {
-      position: relative;
-      right: 10px;
-      top: 9px;
-    }
-
-    .k-multiselect-clear-icon {
-      @include non-visual-button;
-      padding: var(--kui-space-0, $kui-space-0) !important;
-      position: absolute;
-      right: 10px;
-      top: 8px;
-    }
-  }
-
-  .k-multiselect-trigger {
-    border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
+    cursor: pointer;
     display: inline-block;
     position: relative;
-    width: 100% !important;
-    // mimic input's box shadow styling
-    @include input-default;
+    width: 100%;
 
     &.hovered {
-      @include input-hover;
+      @include inputHover;
     }
 
-    &.focused {
-      @include input-focus;
+    &.focused, &:focus-visible {
+      @include inputFocus;
     }
 
     &.readonly {
-      @include input-readonly;
+      @include inputReadOnly;
+
+      cursor: auto;
     }
 
     &.disabled {
-      @include input-disabled;
-      background-color: transparent !important;
-      box-shadow: none !important;
+      @include inputDisabled;
     }
 
-    .k-multiselect-input {
+    .multiselect-input {
       display: inline-block;
       position: relative;
       width: 100%;
 
-      &.is-readonly {
-        :deep(.k-input) {
-          &:not([type=checkbox]):not([type=radio]),
-          .form-control:not([type=checkbox]):not([type=radio]) {
-            background-color: var(--kui-color-background-transparent, $kui-color-background-transparent) !important;
-          }
-        }
-      }
-
-      &.is-toggled {
-        margin-top: var(--kui-space-20, $kui-space-20) !important;
-      }
-    }
-  }
-
-  .k-multiselect-list {
-    margin: var(--kui-space-0, $kui-space-0) !important;
-    padding: var(--kui-space-0, kui-space-0) !important;
-  }
-
-  .k-multiselect-new-item {
-    word-break: break-word;
-
-    .select-item-new-indicator {
-      font-style: italic;
-      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-    }
-  }
-
-  .k-multiselect-dropdown-footer-text {
-    background-color: var(--kui-color-background, $kui-color-background);
-    border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-    padding: var(--kui-space-40, $kui-space-40);
-    padding-bottom: var(--kui-space-0);
-  }
-}
-</style>
-
-<style lang="scss">
-@import '@/styles/tmp-variables';
-@import '@/styles/mixins';
-
-// allows setting a maxHeight on the popover dropdown
-@mixin kMultiselectPopoverMaxHeight {
-  max-height: v-bind('popoverContentMaxHeight');
-  overflow-y: auto;
-}
-
-.k-multiselect {
-  .k-multiselect-trigger {
-    .k-multiselect-input {
-      &.prevent-pointer-events {
-        pointer-events: none;
-      }
-
-      &.input-placeholder-dark::placeholder {
-        color: var(--kui-color-text, $kui-color-text) !important;
-      }
-
-      input.k-input:not([type="checkbox"]):not([type="radio"]) {
-        // remove input's default box shadow
-        box-shadow: none !important;
-        // slightly smaller than container so we can see
-        // the container's box-shadow
-        height: calc(100% - 2px);
-        left: 1px;
-        margin: 1px;
+      :deep(input) {
+        box-shadow: none !important; // remove input's default box shadow
+        left: 1px; // so we can see the container's box-shadow
+        margin: 1px; // so we can see the container's box-shadow
+        padding-bottom: calc($kMultiselectInputPaddingY - 1px); // slightly smaller than container so we can see the container's box-shadow
+        padding-top: calc($kMultiselectInputPaddingY - 1px); // slightly smaller than container so we can see the container's box-shadow
         position: relative;
-        width: calc(100% - 4px);
+        width: calc(100% - 4px); // slightly smaller than container so we can see the container's box-shadow
 
         &:hover,
         &:focus,
@@ -1215,66 +1176,88 @@ onBeforeUnmount(() => {
         }
       }
     }
-
-    &.k-input {
-      width: 100%;  // need this so input takes the k-input-wrapper's width which uses this.width prop
-    }
   }
 
-  .k-multiselect-popover {
-    box-sizing: border-box;
-    margin-top: var(--kui-space-0, $kui-space-0) !important;
-    width: 100%;
+  :deep(.multiselect-popover) {
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
 
-    &[x-placement^="top"] {
-      margin-bottom: var(--kui-space-10, $kui-space-10) !important;
-      margin-top: var(--kui-space-0, $kui-space-0) !important;
-    }
-
-    &.k-multiselect-pop {
-      border: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-black-10;
-      padding: var(--kui-space-40, $kui-space-40) var(--kui-space-40, $kui-space-40);
-    }
-
-    .k-multiselect-empty-item button,
-    .k-multiselect-empty-item button:focus,
-    .k-multiselect-empty-item button:hover {
-      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-
-      .select-item-label {
-        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-      }
-    }
-
-    a {
-      color: var(--kui-color-text, $kui-color-text);
-      flex: 1;
-
-      &:hover,
-      &:active,
-      &:focus {
-        text-decoration: none;
-      }
+    &.has-dropdown-footer {
+      padding-bottom: var(--kui-space-0, $kui-space-0);
     }
 
     .k-popover-content {
       @include kMultiselectPopoverMaxHeight;
 
       // when dropdown footer text position is sticky
-      &:has(.k-multiselect-dropdown-footer-text.k-multiselect-dropdown-footer-sticky) {
+      &:has(.dropdown-footer.dropdown-footer-sticky) {
         max-height: none;
 
-        .k-multiselect-list {
+        .multiselect-list {
           @include kMultiselectPopoverMaxHeight;
         }
       }
 
       // Firefox workaround
       // since :has() selector isn't supported in Firefox be default
-      .k-multiselect-list ~ .k-multiselect-dropdown-footer-sticky {
+      .multiselect-list ~ .dropdown-footer-sticky {
         bottom: 0;
         position: sticky;
       }
+    }
+  }
+
+  .multiselect-input-wrapper {
+    background-color: var(--kui-color-background, $kui-color-background);
+    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    padding: var(--kui-space-40, $kui-space-40);
+    position: sticky;
+    top: 0;
+  }
+
+  .multiselect-empty {
+    @include selectItemDefaults;
+  }
+
+  .dropdown-footer {
+    align-items: center;
+    background-color: var(--kui-color-background, $kui-color-background);
+    border-bottom-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    border-bottom-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    display: flex;
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    gap: var(--kui-space-30, $kui-space-30);
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
+    padding: var(--kui-space-50, $kui-space-50);
+    pointer-events: none;
+  }
+
+  .help-text {
+    @include inputHelpText;
+
+    // reset default margin from browser
+    margin: 0;
+    margin-top: var(--kui-space-40, $kui-space-40);
+  }
+
+  &.multiselect-error {
+    .multiselect-trigger {
+      @include inputError;
+
+      &.hovered {
+        @include inputErrorHover;
+      }
+
+      &.focused {
+        @include inputErrorFocus;
+      }
+    }
+
+    .help-text {
+      color: var(--kui-color-text-danger, $kui-color-text-danger);
     }
   }
 }
