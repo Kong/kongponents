@@ -22,7 +22,6 @@
         >
           <KInput
             :id="selectId"
-            v-bind="modifiedAttrs"
             autocapitalize="off"
             autocomplete="off"
             class="select-input"
@@ -38,6 +37,7 @@
             :model-value="filterQuery"
             :placeholder="selectedItem && !enableFiltering ? selectedItem.label : placeholderText"
             :readonly="isReadonly"
+            v-bind="modifiedAttrs"
             @blur="onInputBlur"
             @focus="onInputFocus"
             @keypress="onInputKeypress"
