@@ -45,6 +45,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxCheckbox.vue'),
   },
   {
+    path: '/copy',
+    name: 'copy',
+    meta: { title: 'Copy Sandbox' },
+    component: () => import('../pages/SandboxCopy.vue'),
+  },
+  {
     path: '/dropdown',
     name: 'dropdown',
     meta: { title: 'Dropdown Sandbox' },

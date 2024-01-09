@@ -7,22 +7,21 @@
       {{ badgeLabel }}
     </span>
     <div
-      :class="[
-        'copy-container',
-        truncateStyles,
-        badgeStyles
-      ]"
+      class="copy-container"
+      :class="{ 'copy-element': props.truncate || props.badge, 'badge-styles': badge }"
     >
       <KTooltip
         v-if="format !== 'hidden'"
-        class="copy-text"
-        :class="[truncateContent, useMono]"
-        data-testid="copy-text"
-        :label="textTooltip ? textTooltip : textFormat"
+        :class="[textTooltipClasses]"
+        data-testid="copy-tooltip-wrapper"
+        :label="textTooltipLabel"
         placement="bottomStart"
         position-fixed
       >
-        <span>{{ textFormat }}</span>
+        <span
+          class="copy-text"
+          :class="{ 'monospace': monospace || !badge }"
+        >{{ textFormat }}</span>
       </KTooltip>
 
       <KTooltip
@@ -38,7 +37,7 @@
             data-testid="copy-to-clipboard"
             :hide-title="!!copyTooltip || undefined"
             role="button"
-            :size="KUI_ICON_SIZE_40"
+            :size="KUI_ICON_SIZE_30"
             tabindex="0"
             @click.stop="copyIdToClipboard(copyToClipboard)"
           />
@@ -54,7 +53,7 @@ import { computed, ref, watch } from 'vue'
 import { CopyIcon } from '@kong/icons'
 import KClipboardProvider from '@/components/KClipboardProvider'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
-import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
 const props = defineProps({
   /**
@@ -103,11 +102,11 @@ const props = defineProps({
     default: false,
   },
   /**
-   * False if `badge` is true
+   * Whether or not to use monospace font
    */
   monospace: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   /**
    * Whether or not the text should be truncated
@@ -132,7 +131,7 @@ const props = defineProps({
   },
 })
 
-const tooltipText = ref('')
+const tooltipText = ref<string>('')
 const nonSuccessText = computed((): string => {
   if (!props.badgeLabel || props.copyTooltip) {
     return props.copyTooltip || 'Copy'
@@ -148,11 +147,11 @@ watch(nonSuccessText, (value: string): void => {
 
 const truncateLimitText = computed((): string | null => props.truncate ? `${props.text.substring(0, props.truncationLimit) + '...'}` : null)
 
-// Computed for all dynamic classes
-const truncateStyles = computed((): string | null => props.truncate || props.badge ? 'copy-element' : null)
-const badgeStyles = computed((): string | null => props.badge ? 'badge-styles' : null)
-const truncateContent = computed((): string | null => props.truncate || props.badge ? 'truncate-content' : null)
-const useMono = computed((): string | null => props.badge ? null : 'monospace')
+// Computed for dynamic classes
+const textTooltipClasses = computed((): string => {
+  const tooltipWrapperClass = 'copy-tooltip-wrapper' // this selector is referenced in vars.scss - do not update without checking for usage in there first
+  return `${tooltipWrapperClass} ${props.truncate || props.badge ? 'truncate-content' : ''}`
+})
 
 const textFormat = computed(() => {
   if (props.format === 'redacted') {
@@ -160,8 +159,22 @@ const textFormat = computed(() => {
   } else if (props.format === 'deleted') {
     return `*${props.text.substring(0, 5)}`
   }
+
   // This regex will only remove the quotes if they are the first and last characters of the string (truncateLimitText)
   return (props.truncate && props.truncationLimit && truncateLimitText.value) ? truncateLimitText.value.replace(/^"(.*)"$/, '$1') : props.text
+})
+
+const textTooltipLabel = computed((): string | undefined => {
+  if (props.textTooltip) {
+    return props.textTooltip
+  }
+
+  // don't show text tooltip if text is redacted or not truncated
+  if (props.format === 'redacted' || !truncateLimitText.value) {
+    return undefined
+  }
+
+  return props.text
 })
 
 const updateTooltipText = (msg?: string): void => {
@@ -183,6 +196,8 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
 </script>
 
 <style lang="scss" scoped>
+/* Component styles */
+
 .k-copy {
   align-items: center;
   display: flex;
@@ -190,9 +205,7 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
   .copy-element {
     align-items: center;
     display: inline-flex;
-    margin: var(--kui-space-0, $kui-space-0) var(--kui-space-30, $kui-space-30);
     overflow: hidden;
-    padding: var(--kui-space-10, $kui-space-10) var(--kui-space-40, $kui-space-40);
     text-overflow: ellipsis;
     white-space: nowrap;
 
@@ -205,44 +218,48 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
   }
 
   .badge-styles {
-    background-color: var(--kui-color-background-decorative-purple-weakest, $kui-color-background-decorative-purple-weakest);
-    border-color: var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple);
-    border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
-    border-style: solid;
-    border-width: var(--kui-border-width-10, $kui-border-width-10);
-    color: var(--kui-color-text-decorative-purple, $kui-color-text-decorative-purple);
-    display: inline-flex;
+    @include badgeWrapper;
+    @include decorativeBadgeAppearance;
   }
 
   .copy-container {
     align-items: center;
-    cursor: pointer;
     display: flex;
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     gap: var(--kui-space-30, $kui-space-30);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
-    padding: var(--kui-space-10, $kui-space-10) var(--kui-space-30, $kui-space-30);
     white-space: nowrap;
   }
 
   .monospace {
     font-family: var(--kui-font-family-code, $kui-font-family-code);
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   }
 
   .text-icon-wrapper {
     align-items: center;
     cursor: pointer;
     display: flex;
-  }
 
-  .text-icon {
-    display: flex;
+    .text-icon {
+      &:hover,
+      &:focus {
+        // only applies to non-badge as for badge the mixin takes care hover styles
+        color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
+      }
+    }
   }
 
   .copy-badge-text {
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
     font-size: var(--kui-font-size-20, $kui-font-size-20);
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
     margin-right: var(--kui-space-20, $kui-space-20);
+  }
+
+  :deep(.k-popover-content) {
+    font-family: var(--kui-font-family-text, $kui-font-family-text);
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   }
 }
 </style>

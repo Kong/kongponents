@@ -9,3 +9,8 @@ $kongponentsKongIconSelector: ".kui-icon";
 
 // transition duration and transition timing function
 $kongponentsTransitionDurTimingFunc: var(--kui-animation-duration-20, $kui-animation-duration-20) ease-in-out;
+
+// KCopy tooltip selector
+// when KCopy is truncated, it's wrapped by a tooltip which automatically adds a attribute that applies unwanted styles
+// so we need this selector to exclude those styles (check KBadge component)
+$kongponentsKCopyTooltipWrapperSelector: ".copy-tooltip-wrapper";
