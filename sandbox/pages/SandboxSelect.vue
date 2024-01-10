@@ -79,6 +79,7 @@
       >
         <KSelect
           error
+          help="Help text."
           :items="selectItems"
         />
       </SandboxSectionComponent>
@@ -212,7 +213,9 @@
         <p>Truncation of long content is NOT handled by the component.</p>
         <KSelect
           clearable
+          help="Help text."
           :items="selectItems"
+          label="Label"
           width="300"
         >
           <template #selected-item-template="{ item }">
