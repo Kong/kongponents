@@ -26,11 +26,12 @@
         v-bind="boundKPopAttributes"
         :on-popover-click="() => onPopoverClick(toggle, isToggled.value)"
         :position-fixed="positionFixed"
-        target=".select-wrapper"
+        :target="`[id='${selectWrapperId}']`"
         @closed="() => onClose(toggle, isToggled.value)"
         @opened="() => onOpen(toggle)"
       >
         <div
+          :id="selectWrapperId"
           ref="selectWrapperElement"
           class="select-wrapper"
           data-testid="select-wrapper"
@@ -379,6 +380,7 @@ const uniqueFilterQuery = computed((): boolean => {
   return true
 })
 
+const selectWrapperId = uuidv4() // unique id for the KPop target
 const selectedItem = ref<SelectItem | null>(null)
 const selectId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
 const selectItems = ref<SelectItem[]>([])
