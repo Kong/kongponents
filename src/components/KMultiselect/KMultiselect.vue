@@ -29,7 +29,7 @@
             return
           }"
           :position-fixed="positionFixed"
-          :target="`[id='${multiselectWrapperId}']`"
+          :target="`#${multiselectWrapperId}`"
           @closed="() => handleToggle(false, isToggled, toggle)"
           @opened="() => handleToggle(true, isToggled, toggle)"
         >
