@@ -29,11 +29,12 @@
             return
           }"
           :position-fixed="positionFixed"
-          target=".multiselect-trigger"
+          :target="`[id='${multiselectWrapperId}']`"
           @closed="() => handleToggle(false, isToggled, toggle)"
           @opened="() => handleToggle(true, isToggled, toggle)"
         >
           <div
+            :id="multiselectWrapperId"
             ref="multiselectElement"
             class="multiselect-trigger"
             :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
@@ -485,6 +486,7 @@ const defaultKPopAttributes = {
 const key = ref(0)
 const stagingKey = ref(0)
 
+const multiselectWrapperId = uuidv4() // unique id for the KPop target
 const multiselectId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
 
 const multiselectElement = ref<HTMLDivElement | null>(null)
