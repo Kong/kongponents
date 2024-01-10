@@ -357,7 +357,7 @@ const isReadonly = computed((): boolean => attrs.readonly !== undefined && Strin
 const hasDropdownFooter = computed((): boolean => !!(slots['dropdown-footer-text'] || props.dropdownFooterText))
 
 const defaultKPopAttributes = {
-  popoverClasses: `select-popover ${hasDropdownFooter.value ? `has-${props.dropdownFooterTextPosition}-dropdown-footer` : ''} ${props.help ? 'has-help-text' : ''}`,
+  popoverClasses: `select-popover ${hasDropdownFooter.value ? `has-${props.dropdownFooterTextPosition}-dropdown-footer` : ''}`,
   popoverTimeout: 0,
   placement: 'bottomStart' as PopPlacements,
   hideCaret: true,
@@ -749,10 +749,6 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
 
     &.has-sticky-dropdown-footer, &.has-static-dropdown-footer {
       padding-bottom: var(--kui-space-0, $kui-space-0);
-    }
-
-    &.has-help-text {
-      margin-top: calc(-1 * $kSelectInputHelpTextHeight);
     }
   }
 
