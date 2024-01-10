@@ -261,12 +261,7 @@
             v-if="item.selected && !item.disabled && !isDisabled && !isReadonly"
             #icon
           >
-            <CloseIcon
-              data-testid="badge-dismiss-button"
-              role="button"
-              tabindex="-1"
-              @click="handleItemSelect(item)"
-            />
+            <CloseIcon aria-hidden="true" />
           </template>
         </KBadge>
         <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
