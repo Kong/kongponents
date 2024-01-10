@@ -26,7 +26,7 @@
         v-bind="boundKPopAttributes"
         :on-popover-click="() => onPopoverClick(toggle, isToggled.value)"
         :position-fixed="positionFixed"
-        :target="`#${multiselectWrapperId}`"
+        :target="`[id='${selectWrapperId}']`"
         @closed="() => onClose(toggle, isToggled.value)"
         @opened="() => onOpen(toggle)"
       >
