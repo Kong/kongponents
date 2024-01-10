@@ -26,11 +26,12 @@
         v-bind="boundKPopAttributes"
         :on-popover-click="() => onPopoverClick(toggle, isToggled.value)"
         :position-fixed="positionFixed"
-        target=".select-wrapper"
+        :target="`[id='${selectWrapperId}']`"
         @closed="() => onClose(toggle, isToggled.value)"
         @opened="() => onOpen(toggle)"
       >
         <div
+          :id="selectWrapperId"
           ref="selectWrapperElement"
           class="select-wrapper"
           data-testid="select-wrapper"
@@ -356,7 +357,7 @@ const isReadonly = computed((): boolean => attrs.readonly !== undefined && Strin
 const hasDropdownFooter = computed((): boolean => !!(slots['dropdown-footer-text'] || props.dropdownFooterText))
 
 const defaultKPopAttributes = {
-  popoverClasses: `select-popover ${hasDropdownFooter.value ? `has-${props.dropdownFooterTextPosition}-dropdown-footer` : ''} ${props.help ? 'has-help-text' : ''}`,
+  popoverClasses: `select-popover ${hasDropdownFooter.value ? `has-${props.dropdownFooterTextPosition}-dropdown-footer` : ''}`,
   popoverTimeout: 0,
   placement: 'bottomStart' as PopPlacements,
   hideCaret: true,
@@ -379,6 +380,7 @@ const uniqueFilterQuery = computed((): boolean => {
   return true
 })
 
+const selectWrapperId = uuidv4() // unique id for the KPop target
 const selectedItem = ref<SelectItem | null>(null)
 const selectId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
 const selectItems = ref<SelectItem[]>([])
@@ -747,10 +749,6 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
 
     &.has-sticky-dropdown-footer, &.has-static-dropdown-footer {
       padding-bottom: var(--kui-space-0, $kui-space-0);
-    }
-
-    &.has-help-text {
-      margin-top: calc(-1 * $kSelectInputHelpTextHeight);
     }
   }
 
