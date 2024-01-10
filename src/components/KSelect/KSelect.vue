@@ -3,6 +3,23 @@
     class="k-select"
     :class="[$attrs.class]"
   >
+    <KLabel
+      v-if="label"
+      v-bind="labelAttributes"
+      data-testid="select-label"
+      :for="selectId"
+      :required="isRequired"
+    >
+      {{ strippedLabel }}
+
+      <template
+        v-if="hasLabelTooltip"
+        #tooltip
+      >
+        <slot name="label-tooltip" />
+      </template>
+    </KLabel>
+
     <KToggle v-slot="{ toggle, isToggled }">
       <KPop
         ref="popperElement"
@@ -31,9 +48,6 @@
             data-testid="select-input"
             :disabled="isDisabled"
             :error="error"
-            :help="help"
-            :label="label ? strippedLabel : undefined"
-            :label-attributes="labelAttributes"
             :model-value="filterQuery"
             :placeholder="selectedItem && !enableFiltering ? selectedItem.label : placeholderText"
             :readonly="isReadonly"
@@ -159,6 +173,13 @@
         </template>
       </KPop>
     </KToggle>
+    <p
+      v-if="help"
+      class="help-text"
+      :class="{ 'select-error': error }"
+    >
+      {{ help }}
+    </p>
   </div>
 </template>
 
@@ -167,6 +188,7 @@ import type { Ref, PropType } from 'vue'
 import { ref, computed, watch, nextTick, useAttrs, useSlots, onUnmounted, onMounted } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
+import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
@@ -327,6 +349,7 @@ const slots = useSlots()
 
 const resizeObserver = ref<ResizeObserverHelper>()
 
+const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const isDisabled = computed((): boolean => attrs.disabled !== undefined && String(attrs.disabled) !== 'false')
 const isReadonly = computed((): boolean => attrs.readonly !== undefined && String(attrs.readonly) !== 'false')
@@ -758,6 +781,18 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
 
     &-static {
       position: static;
+    }
+  }
+
+  .help-text {
+    @include inputHelpText;
+
+    // reset default margin from browser
+    margin: 0;
+    margin-top: var(--kui-space-40, $kui-space-40);
+
+    &.select-error {
+      color: var(--kui-color-text-danger, $kui-color-text-danger);
     }
   }
 }
