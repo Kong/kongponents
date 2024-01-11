@@ -113,7 +113,7 @@
     "node-emoji": "^2.1.3",
     "picocolors": "^1.0.0",
     "postcss-cli": "^11.0.0",
-    "postcss-custom-properties": "^13.3.3",
+    "postcss-custom-properties": "^13.3.4",
     "postcss-html": "^1.5.0",
     "rimraf": "^5.0.5",
     "rollup-plugin-visualizer": "^5.12.0",
