@@ -89,7 +89,7 @@
     "@types/uuid": "^9.0.7",
     "@typescript-eslint/eslint-plugin": "^6.17.0",
     "@typescript-eslint/parser": "^6.17.0",
-    "@vitejs/plugin-vue": "^4.6.2",
+    "@vitejs/plugin-vue": "^5.0.0",
     "@vue/tsconfig": "^0.5.1",
     "@vueuse/core": "^10.7.1",
     "autoprefixer": "^10.4.16",
