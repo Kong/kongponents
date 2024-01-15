@@ -44,7 +44,7 @@
             autocomplete="off"
             class="select-input"
             :class="{ 'filtering-disabled': !enableFiltering,
-                      'hide-model-value': hasCustomSelectedItem
+                      'hide-model-value': hasCustomSelectedItem,
             }"
             data-testid="select-input"
             :disabled="isDisabled"
@@ -707,6 +707,10 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     &.hide-model-value {
       :deep(input) {
         color: transparent;
+
+        &::placeholder {
+          color: transparent;
+        }
       }
     }
   }
