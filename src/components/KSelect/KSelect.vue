@@ -44,7 +44,7 @@
             autocomplete="off"
             class="select-input"
             :class="{ 'filtering-disabled': !enableFiltering,
-                      'hide-model-value': hasCustomSelectedItem,
+                      'hide-model-value': hasCustomSelectedItem
             }"
             data-testid="select-input"
             :disabled="isDisabled"
