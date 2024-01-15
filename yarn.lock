@@ -759,22 +759,17 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@kong-ui-public/sandbox-layout@^2.0.22":
-  version "2.0.22"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/sandbox-layout/-/sandbox-layout-2.0.22.tgz#3bb9285da4c4ffb60df71db519c7dcd5b46e1d98"
-  integrity sha512-V1HTQuNnL74OsgtyPJanKXgGX/NghKnt67790broC0d5mMhqKe2STendRyJ8D2EngmhhTuSKjzZ43LqDHVAo7Q==
+"@kong-ui-public/sandbox-layout@^2.0.23":
+  version "2.0.23"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/sandbox-layout/-/sandbox-layout-2.0.23.tgz#a2aacfcd394b6c7cbc010db1d0b41cfe619d8c92"
+  integrity sha512-DLrmdKunYFoFrroBFRv2iT6uBgKcRt0+OQqVKyTIztTeL/ZZpgpsQNwqtaPDo7Bgk8srjCtdyQ3VOTK7yHlW8w==
   dependencies:
-    "@kong/icons" "^1.8.11"
+    "@kong/icons" "^1.8.12"
 
 "@kong/design-tokens@^1.12.4":
   version "1.12.4"
   resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.12.4.tgz#3469d408f8af42c71f03646eb741e666bdf72911"
   integrity sha512-ldBWJbpNLU34OR0d+ptErp/FJrwc8GK8nUZjUmu9zy69ebjztcNAoULgc8MXS+bjzwGZ8U/v8Vmbhh3WFQq0gA==
-
-"@kong/icons@^1.8.11":
-  version "1.8.11"
-  resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.8.11.tgz#fa77a527d55671782278edba3ee0f5266f7df3d9"
-  integrity sha512-1WQqPZEvXMnrgRWcm1P3wIYohNAHTwLKCsze6GztrBO54GHfRFn+qZidDt019pUq2Swa+gmWFWUdhBWOMOXfvA==
 
 "@kong/icons@^1.8.12":
   version "1.8.12"
