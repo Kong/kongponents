@@ -302,7 +302,7 @@ const vCalendarRules = ref({
 
 const widthStyle = computed((): CSSProperties => {
   return {
-    width: props.width === 'auto' || props.width.endsWith('%') || props.width.endsWith('px') ? props.width : props.width + 'ppppx',
+    width: props.width === 'auto' || props.width.endsWith('%') || props.width.endsWith('px') ? props.width : props.width + 'px',
   }
 })
 
