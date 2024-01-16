@@ -137,12 +137,12 @@ const fileSizeErrorMessage = computed((): string => {
   if (hasFileSizeError.value) {
     let units = 'bytes'
     let maxFileSize = maximumFileSize.value
-    if (Number(maximumFileSize.value) >= 1000 && Number(maximumFileSize.value) < 1000000) {
-      maxFileSize = Number(maximumFileSize.value) / 1000
+    if (maximumFileSize.value >= 1000 && maximumFileSize.value < 1000000) {
+      maxFileSize = maximumFileSize.value / 1000
       units = 'KB'
     }
-    if (Number(maximumFileSize.value) >= 1000000) {
-      maxFileSize = Number(maximumFileSize.value) / 1000000
+    if (maximumFileSize.value >= 1000000) {
+      maxFileSize = maximumFileSize.value / 1000000
       units = 'MB'
     }
 
@@ -151,7 +151,7 @@ const fileSizeErrorMessage = computed((): string => {
 
   return ''
 })
-const maximumFileSize = computed((): Number => {
+const maximumFileSize = computed((): number => {
   if (props.maxFileSize || props.maxFileSize === 0) {
     return props.maxFileSize
   }
@@ -176,12 +176,12 @@ const onFileChange = (evt: any): void => {
 
   const fileSize = fileInput?.value[0]?.size
 
-  hasUploadError.value = Number(fileSize) as Number > maximumFileSize.value
+  hasUploadError.value = Number(fileSize) > maximumFileSize.value
 
   if (hasUploadError.value) {
     fileInputKey.value++
 
-    if (Number(fileSize) as Number > maximumFileSize.value) {
+    if (Number(fileSize) > maximumFileSize.value) {
       hasFileSizeError.value = true
     }
 
