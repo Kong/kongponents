@@ -1,3 +1,83 @@
+# [9.0.0-alpha.84](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.83...v9.0.0-alpha.84) (2024-01-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.8.12 ([#1948](https://github.com/Kong/kongponents/issues/1948)) ([b1fe840](https://github.com/Kong/kongponents/commit/b1fe8402770bf0b490a0449000e0ae4872763a3a))
+
+# [9.0.0-alpha.83](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.82...v9.0.0-alpha.83) (2024-01-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.8.11 ([#1941](https://github.com/Kong/kongponents/issues/1941)) ([8d0a498](https://github.com/Kong/kongponents/commit/8d0a4980fd4f256ff1ce5f6b609a6297b43a0a0e))
+
+# [9.0.0-alpha.82](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.81...v9.0.0-alpha.82) (2024-01-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.8.10 ([#1933](https://github.com/Kong/kongponents/issues/1933)) ([e2f0275](https://github.com/Kong/kongponents/commit/e2f0275f9c88860db4bba3d2892bf138d22d0b08))
+
+# [9.0.0-alpha.81](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.80...v9.0.0-alpha.81) (2024-01-07)
+
+
+### Bug Fixes
+
+* deps ([62116b7](https://github.com/Kong/kongponents/commit/62116b7afc5c7590f7c689a6ce3c9368aba7e882))
+* **deps:** dependency fix ([b7a4881](https://github.com/Kong/kongponents/commit/b7a4881aedf1bf4e562f03112802a65e5f547744))
+* rollup ([fb92557](https://github.com/Kong/kongponents/commit/fb925576dd7671f5ff3c66077d6a5d979ac9208a))
+
+
+### Reverts
+
+* add rollup-linux-x64-gnu for netlify deploy ([a09a3e7](https://github.com/Kong/kongponents/commit/a09a3e781e7697136d58e06443e6fa2af1b52dfd))
+* fix lockfile ([90968a2](https://github.com/Kong/kongponents/commit/90968a2636e4fdf7162da9619e9a7c90a018bdea))
+* vite ([56382c4](https://github.com/Kong/kongponents/commit/56382c414fe6ac71bbad180b6be3b828eb056652))
+* vitepress ([643e5e0](https://github.com/Kong/kongponents/commit/643e5e0b9880770cf3cef2612e451f93396392f4))
+
+# [9.0.0-alpha.80](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.79...v9.0.0-alpha.80) (2024-01-07)
+
+
+### Bug Fixes
+
+* lockfile ([bc1405a](https://github.com/Kong/kongponents/commit/bc1405a42ce9109c346b8d9d1c0621df9db30ae0))
+
+# [9.0.0-alpha.79](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.78...v9.0.0-alpha.79) (2023-12-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.8.8 ([#1915](https://github.com/Kong/kongponents/issues/1915)) ([49bd47e](https://github.com/Kong/kongponents/commit/49bd47e79c27c78c09bed487373611f50179d657))
+
+# [9.0.0-alpha.78](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.77...v9.0.0-alpha.78) (2023-12-21)
+
+
+### Bug Fixes
+
+* **types:** update types export ([ca0d4b2](https://github.com/Kong/kongponents/commit/ca0d4b2908fb92227afe8ad5174f3a1045a56140))
+
+# [9.0.0-alpha.77](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.76...v9.0.0-alpha.77) (2023-12-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.8.7 ([#1912](https://github.com/Kong/kongponents/issues/1912)) ([21b234e](https://github.com/Kong/kongponents/commit/21b234e565b6f427be55a6f443f2b15b5f116d63))
+
+# [9.0.0-alpha.76](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.75...v9.0.0-alpha.76) (2023-12-20)
+
+
+### Bug Fixes
+
+* **mixins:** add input text mixin ([#1910](https://github.com/Kong/kongponents/issues/1910)) ([a05c061](https://github.com/Kong/kongponents/commit/a05c061d12cc21e1bae737a754d1cb26850280c1))
+
+# [9.0.0-alpha.75](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.74...v9.0.0-alpha.75) (2023-12-19)
+
+
+### Bug Fixes
+
+* **kslideout:** long titles not truncating ([#1906](https://github.com/Kong/kongponents/issues/1906)) ([69a1198](https://github.com/Kong/kongponents/commit/69a1198d047ea7089feefc09582c8f2b4d736907))
+
 # [9.0.0-alpha.74](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.73...v9.0.0-alpha.74) (2023-12-11)
 
 
