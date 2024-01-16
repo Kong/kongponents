@@ -610,7 +610,13 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 
   selectItems.value = JSON.parse(JSON.stringify(props.items))
-  selectedItem.value = null
+
+  // drop selected item value to find the selected item in the new list
+  // unless items is empty
+  if (selectItems.value?.length) {
+    selectedItem.value = null
+  }
+
   for (let i = 0; i < selectItems.value?.length; i++) {
     // Ensure each item has a `selected` property
     if (selectItems.value[i].selected === undefined) {
@@ -701,6 +707,10 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     &.hide-model-value {
       :deep(input) {
         color: transparent;
+
+        &::placeholder {
+          color: transparent;
+        }
       }
     }
   }
