@@ -88,7 +88,7 @@
                 appearance="tertiary"
                 class="timeframe-btn"
                 :class="{ 'selected-option': timeFrame.key === state.selectedTimeframe.key }"
-                :data-testid="'select-timeframe-' + timeFrame.timeframeLength()"
+                :data-testid="`select-timeframe-${timeFrame.timeframeLength()}`"
                 @click="changeRelativeTimeframe(timeFrame)"
               >
                 {{ ucWord(timeFrame.timeframeText) }}

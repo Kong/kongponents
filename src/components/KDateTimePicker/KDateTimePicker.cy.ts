@@ -234,9 +234,9 @@ describe('KDateTimePicker', () => {
     cy.get('.timeframe-section').should('exist')
     cy.get('.timeframe-buttons').should('exist')
 
-    // Click on "3 hours", check whether selected class is applied
-    cy.getTestId('select-timeframe-10800000').eq(0).click()
-    cy.get('.k-popover-content').find('.timeframe-btn.selected-option').should('contain.text', '3 hours')
+    // Click on "6 hours", check whether selected class is applied
+    cy.getTestId('select-timeframe-21600000').click()
+    cy.get('.k-popover-content').find('.timeframe-btn.selected-option').should('contain.text', '6 hours')
   })
 
   it('renders custom calendar and relative time frames', { includeShadowDom: false }, () => {
