@@ -16,7 +16,7 @@ KFileUpload provides a wrapper around an `input` element with `type=file` for fi
 
 ### accept
 
-Please refer to [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) that defines the file types the file input should accept.
+Please refer to [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) that defines the file types the component can accept.
 
 <KFileUpload :accept="['.jpg', '.png']" />
 
@@ -107,7 +107,7 @@ Use this prop to customize the maximize size of file that can be uploaded. Defau
 ```
 
 :::tip NOTE
-By default KFileUpload will display error state with a generic error message when selected file size exceeds specified maximum file size. You can use [`errorMessage` prop](#errormessage) in conjunction with [`error` event](#events) to display custom error message.
+By default KFileUpload will display the error state with a generic error message when selected file exceeds specified maximum file size. You can use [`errorMessage` prop](#errormessage) in conjunction with the [`error` event](#events) to display a custom error message.
 :::
 
 ## Slots
