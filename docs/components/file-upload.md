@@ -210,5 +210,7 @@ const printData = (i) => {
 .emitted-value {
   font-weight: $kui-font-size-20;
   overflow: hidden;
+  background-color: $kui-color-background-neutral-weaker;
+  padding-top: $kui-space-50;
 }
 </style>

@@ -135,7 +135,18 @@ const isRequired = computed((): boolean => attrs?.required !== undefined && Stri
 const hasFileSizeError = ref<boolean>(false)
 const fileSizeErrorMessage = computed((): string => {
   if (hasFileSizeError.value) {
-    return `File size must be less than ${maximumFileSize.value} bytes.`
+    let units = 'bytes'
+    let maxFileSize = maximumFileSize.value
+    if (Number(maximumFileSize.value) >= 1000 && Number(maximumFileSize.value) < 1000000) {
+      maxFileSize = Number(maximumFileSize.value) / 1000
+      units = 'KB'
+    }
+    if (Number(maximumFileSize.value) >= 1000000) {
+      maxFileSize = Number(maximumFileSize.value) / 1000000
+      units = 'MB'
+    }
+
+    return `File size must be less than ${maxFileSize}${units}.`
   }
 
   return ''

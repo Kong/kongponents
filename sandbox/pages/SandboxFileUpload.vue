@@ -83,6 +83,13 @@
           button-text="Choose file"
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="maxFileSize">
+        <KFileUpload
+          :accept="['image/*']"
+          help="Max file size is 4MB"
+          :max-file-size="4002000"
+        />
+      </SandboxSectionComponent>
 
       <!-- Attributes -->
       <SandboxTitleComponent
