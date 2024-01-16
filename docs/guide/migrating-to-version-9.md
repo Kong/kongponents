@@ -404,6 +404,10 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KSegmentedControl
 
+#### Props
+
+* `allowPointerEvents` prop has been removed
+* `isDisabled` prop has been changed to `disabled`
 
 ### KSelect
 

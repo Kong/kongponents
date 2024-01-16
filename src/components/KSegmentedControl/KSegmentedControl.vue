@@ -1,15 +1,10 @@
 <template>
-  <div
-    class="k-segmented-control"
-    :class="{ 'allow-pointer-events': allowPointerEvents }"
-  >
-    <KButton
+  <div class="k-segmented-control">
+    <button
       v-for="option in normalizedOptions"
       :key="`${option.value}-option`"
       :appearance="getAppearance(option)"
       :disabled="getDisabled(option)"
-      :name="option.value"
-      size="medium"
       @click="handleClick"
     >
       <slot
@@ -18,14 +13,13 @@
       >
         {{ option.label }}
       </slot>
-    </KButton>
+    </button>
   </div>
 </template>
 
 <script lang="ts">
 import type { PropType } from 'vue'
 import { ref } from 'vue'
-import KButton from '@/components/KButton/KButton.vue'
 import type { SegmentedControlOption } from '@/types/segmented-control'
 
 const itemsHaveRequiredProps = (items: SegmentedControlOption[]): boolean => {
@@ -80,11 +74,7 @@ const props = defineProps({
     required: true,
     validator: (items: SegmentedControlOption[] | string[]) => !items.length || validateItems(items),
   },
-  isDisabled: {
-    type: Boolean,
-    default: false,
-  },
-  allowPointerEvents: {
+  disabled: {
     type: Boolean,
     default: false,
   },
@@ -102,10 +92,10 @@ const getAppearance = (option: SegmentedControlOption): 'primary' | 'secondary' 
 }
 
 const getDisabled = (option: SegmentedControlOption): boolean => {
-  return !!option.disabled || props.isDisabled
+  return !!option.disabled || props.disabled
 }
 
-const handleClick = (evt: PointerEvent): void => {
+const handleClick = (evt: Event): void => {
   // @ts-ignore
   emit('click', evt.target?.name)
   // @ts-ignore
@@ -114,81 +104,8 @@ const handleClick = (evt: PointerEvent): void => {
 </script>
 
 <style lang="scss" scoped>
-
 .k-segmented-control {
-  display: flex !important;
+  display: flex;
   gap: var(--kui-space-0, $kui-space-0);
-
-  :deep(.k-button) {
-    background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-    border-radius: var(--kui-border-radius-0, $kui-border-radius-0);
-    color: var(--kui-color-text-primary, $kui-color-text-primary);
-    flex: 1;
-    justify-content: center !important;
-    margin-left: -1px;
-
-    &.primary {
-      border-color: var(--kui-color-border-primary, $kui-color-border-primary);
-      z-index: 1;
-
-      &:hover:not(:disabled) {
-        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest) !important;
-      }
-
-      &:focus {
-        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-      }
-    }
-
-    &.secondary {
-      background-color: var(--kui-color-background, $kui-color-background);
-      border-color: rgba($kui-color-border-primary, .4);
-
-      &:hover {
-        background-color: var(--kui-color-background, $kui-color-background);
-        border-color: var(--kui-color-border-primary, $kui-color-border-primary);
-      }
-    }
-
-    &:hover {
-      z-index: 2;
-    }
-
-    &:active {
-      z-index: 2;
-    }
-
-    &:focus {
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      box-shadow: 0 0 0 2px var(--kui-color-background, $kui-color-background), 0 0 0 4px var(--kui-color-background-primary, $kui-color-background-primary);
-      z-index: 3;
-    }
-
-    &:first-child {
-      border-radius: var(--kui-border-radius-10, $kui-border-radius-10) var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-10, $kui-border-radius-10);
-      margin-left: var(--kui-space-0, $kui-space-0);
-    }
-
-    &:last-child {
-      border-radius: var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-10, $kui-border-radius-10) var(--kui-border-radius-10, $kui-border-radius-10) var(--kui-border-radius-0, $kui-border-radius-0);
-    }
-
-    &:only-child {
-      border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
-      margin-left: var(--kui-space-0, $kui-space-0);
-    }
-
-    &:disabled, &:disabled:hover {
-      background-color: var(--kui-color-background, $kui-color-background) !important;
-      border-color: rgba($kui-color-border-neutral-weak, .4);
-      z-index: 0;
-    }
-  }
-
-  &:not(.allow-pointer-events) {
-    :deep(.k-button) > * {
-      pointer-events: none;
-    }
-  }
 }
 </style>
