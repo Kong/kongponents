@@ -30,6 +30,7 @@ const sandboxAppLinks: SandboxNavigationItem[] = ([
   { name: 'KMultiselect', to: { name: 'multiselect' } },
   { name: 'KPagination', to: { name: 'pagination' } },
   { name: 'KRadio', to: { name: 'radio' } },
+  { name: 'KSegmentedControl', to: { name: 'segmentedcontrol' } },
   { name: 'KSelect', to: { name: 'select' } },
   { name: 'KTable', to: { name: 'table' } },
   { name: 'KTabs', to: { name: 'tabs' } },
