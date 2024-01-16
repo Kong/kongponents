@@ -324,9 +324,9 @@ Use this prop to override the default filter function if you want to do somethin
 should take as parameter a JSON object containing the items to filter on (`items`) and the query string (`query`) and return the filtered items. See [slots](#slots) for an example.
 
 ```ts
-import { MultiselectFilterFnParams } from '@kong/kongponents'
+import { MultiselectFilterFunctionParams } from '@kong/kongponents'
 
-const myCustomFilter = ({ items, query }: MultiselectFilterFnParams) => {
+const myCustomFilter = ({ items, query }: MultiselectFilterFunctionParams) => {
   return items.filter(anItem => anItem.label.includes(query))
 }
 ```

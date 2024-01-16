@@ -288,7 +288,7 @@ import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
-import type { MultiselectItem, MultiselectFilterFnParams, DropdownFooterTextPosition, PopPlacements, BadgeAppearance } from '@/types'
+import type { MultiselectItem, MultiselectFilterFunctionParams, DropdownFooterTextPosition, PopPlacements, BadgeAppearance } from '@/types'
 import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
@@ -403,7 +403,7 @@ const props = defineProps({
    */
   filterFunction: {
     type: Function,
-    default: (params: MultiselectFilterFnParams) => params.items.filter((item: MultiselectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase())),
+    default: (params: MultiselectFilterFunctionParams) => params.items.filter((item: MultiselectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase())),
   },
   /**
    * A flag for autosuggest mode

@@ -351,6 +351,10 @@ This component has been removed. Please refer to KBadge component which has been
 * `k-multiselect-popover` class has been changed to `multiselect-popover`
 * `k-multiselect-chevron-icon` class has been changed to `multiselect-chevron-icon`
 
+#### Constants, Types & Interfaces
+
+* `MultiselectFilterFnParams` interface has been renamed to `MultiselectFilterFunctionParams`
+
 ### KPagination
 
 KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/components/select) as the underlying component for page size selection.
@@ -430,6 +434,7 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `k-select-selected-item` `data-testid` attribute has been changed to `selected-item`
 * `k-select-list` class has been changed to `select-items-container`
 * `k-select-label` `data-testid` attribute has been changed to `select-label`
+* `k-select-new-item` `data-testid` attribute and class has been changed to `select-add-item`
 
 #### Constants, Types & Interfaces
 
