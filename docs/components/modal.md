@@ -275,9 +275,9 @@ There are 4 designated slots you can use to display content in the modal.
 
 ## Events
 
-| Event       | Description                                 |
-| :---------- | :------------------------------------------ |
-| `cancelled` | Emitted when cancel/close button is clicked |
+| Event      | Description                                 |
+| :--------- | :------------------------------------------ |
+| `canceled` | Emitted when cancel/close button is clicked |
 
 ## Usage
 
