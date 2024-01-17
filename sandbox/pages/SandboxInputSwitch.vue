@@ -17,7 +17,7 @@
         </div>
 
         <div>
-          <KInputSwitch v-model="vModel" />
+          <KInputSwitch v-model="vModel0" />
         </div>
       </SandboxSectionComponent>
 
@@ -29,21 +29,21 @@
       <SandboxSectionComponent title="size">
         <div class="horizontal-spacing">
           <KInputSwitch
-            v-model="vModel"
+            v-model="vModel1"
             size="large"
           />
-          <KInputSwitch v-model="vModel" />
+          <KInputSwitch v-model="vModel1" />
         </div>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="label">
         <KInputSwitch
-          v-model="vModel"
+          v-model="vModel1"
           label="Label"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="labelPosition">
         <KInputSwitch
-          v-model="vModel"
+          v-model="vModel1"
           label="Label"
           :label-attributes="{ info: 'I use the KLabel `info` prop' }"
           label-before
@@ -51,14 +51,14 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="disabled">
         <KInputSwitch
-          v-model="vModel"
+          v-model="vModel1"
           disabled
           label="Disabled"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="disabledTooltipText">
         <KInputSwitch
-          v-model="vModel"
+          v-model="vModel1"
           disabled
           disabled-tooltip-text="Disabled tooltip text"
           label="Disabled"
@@ -71,7 +71,7 @@
         title="Slots"
       />
       <SandboxSectionComponent title="label">
-        <KInputSwitch v-model="vModel">
+        <KInputSwitch v-model="vModel1">
           <template #label>
             Label
           </template>
@@ -79,7 +79,7 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="label-tooltip">
         <KInputSwitch
-          v-model="vModel"
+          v-model="vModel1"
           label="Label"
         >
           <template #label-tooltip>
@@ -96,7 +96,8 @@ import { ref, inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 
-const vModel = ref<boolean>(false)
+const vModel0 = ref<boolean>(false)
+const vModel1 = ref<boolean>(false)
 </script>
 
 <style scoped lang="scss">
