@@ -8,7 +8,7 @@ export interface MultiselectItem {
   group?: string
 }
 
-export interface MultiselectFilterFnParams {
+export interface MultiselectFilterFunctionParams {
   items: MultiselectItem[]
   query: string
 }
