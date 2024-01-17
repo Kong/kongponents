@@ -20,7 +20,13 @@
           :tabs="items"
         >
           <template #tab1>
-            Tab 1 content
+            <div>
+              Tab 1 content
+            </div>
+            <br>
+            <KButton size="small">
+              Dummy button
+            </KButton>
           </template>
           <template #tab2>
             Tab 2 content
