@@ -128,6 +128,7 @@ watch(() => props.modelValue, (newTabHash) => {
         padding: var(--kui-space-30, $kui-space-30) var(--kui-space-50, $kui-space-50);
         text-decoration: none;
         transition: color $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
+        user-select: none;
 
         a, :deep(a) {
           color: var(--kui-color-text, $kui-color-text);
