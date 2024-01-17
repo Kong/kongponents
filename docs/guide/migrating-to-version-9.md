@@ -42,6 +42,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 * `hoverColor` prop has been removed
 * `truncationTooltip` prop has been changed to `boolean`. When used in conjunction with new `tooltip` prop, KBadge will only show the tooltip when content passed through the `default` slot needs truncation. Otherwise, if `tooltip` prop is used without `truncationTooltip` prop - tooltip will be shown regardless of whether truncation is needed
 * `forceTooltip` prop has been removed
+* `hidden` prop has been removed
 
 #### Structure
 
@@ -195,17 +196,17 @@ Component has been renamed to `KDropdown`
 #### Structure
 
 * `k-dropdown-menu` class has been removed (`k-dropdown` class remains)
-* `k-dropdown-menu-popover` `testid` data attribute has been renamed to `k-dropdown-popover`
+* `k-dropdown-menu-popover` `data-testid` attribute has been renamed to `k-dropdown-popover`
 * `k-dropdown-trigger` class has been removed
-* `k-dropdown-trigger` `testid` data attribute has been renamed to `dropdown-trigger`
+* `k-dropdown-trigger` `data-testid` attribute has been renamed to `dropdown-trigger`
 * `k-dropdown-btn` class has been renamed to `dropdown-trigger-button`
-* `k-dropdown-btn` `testid` data attribute has been renamed to `dropdown-trigger-button`
+* `k-dropdown-btn` `data-testid` attribute has been renamed to `dropdown-trigger-button`
 * `k-dropdown-list` class has been removed
-* `k-dropdown-list` `testid` data attribute has been renamed to `dropdown-list`
+* `k-dropdown-list` `data-testid` attribute has been renamed to `dropdown-list`
 * `k-dropdown-selected-option` class has been renamed to `dropdown-selected-option`
 * `k-dropdown-item-trigger` class has been renamed to `dropdown-item-trigger`
 * `k-dropdown-item-trigger-label` class has been renamed to `dropdown-item-trigger-label`
-* dynamic `k-dropdown-item` `testid` data attribute has been renamed to `dropdown-item`
+* dynamic `k-dropdown-item` `data-testid` attribute has been renamed to `dropdown-item`
 
 #### Constants, Types & Interfaces
 
@@ -313,9 +314,50 @@ This component has been removed. Please refer to KBadge component which has been
 
 ### KMultiselect
 
+#### Props
+
+* `testMode` prop has been removed
+* `filterFunc` prop name has been changed to `filterFunction`
+* `disabledTooltipText` property of object passed through `items` prop is no longer supported
+* default value of `collapsedContext` prop has changed to `true`
+* default value of `selectedRowCount` prop has changed to `1`
+* `expandSelected` prop has been removed
+
+#### Events
+
+* `item:added` event was renamed to `item-added`
+* `item:removed` event was renamed to `item-removed`
+
+#### Structure
+
+* `k-multiselect-item` class has been changed to `multiselect-item`
+* `k-multiselect-item-container` class has been changed to `multiselect-item-container`
+* `k-multiselect-item-label` class has been changed to `multiselect-item-label`
+* `k-multiselect-group-container` class has been changed to `multiselect-group-container`
+* `k-multiselect-group-title` class has been changed to `multiselect-group-title`
+* `k-multiselect-label` `data-testid` attribute has been changed to `multiselect-label`
+* `k-multiselect-container` `data-testid` attribute has been changed to `multiselect-container`
+* `k-multiselect-wrapper` class has been changed to `multiselect-wrapper`
+* `k-multiselect-trigger` class and `data-testid` attribute has been changed to `multiselect-trigger`
+* `k-multiselect-selections` class and `data-testid` attribute has been changed to `selection-badges-container`
+* `k-multiselect-selection-badge` class has been changed to `multiselect-selection-badge`
+* `k-multiselect-icon` class has been changed to `multiselect-icons-container`
+* `k-multiselect-clear-icon` class and `data-testid` attribute has been changed to `multiselect-clear-icon`
+* `k-multiselect-input` class and `data-testid` attribute has been changed to `multiselect-input`
+* `k-multiselect-list` class has been changed to `multiselect-list`
+* `k-multiselect-new-item` class has been changed to `multiselect-add-item`
+* `k-multiselect-empty-item` class and `data-testid` attribute has been changed to `multiselect-empty-item`
+* `k-multiselect-dropdown-footer-text` class has been changed to `dropdown-footer`
+* `k-multiselect-popover` class has been changed to `multiselect-popover`
+* `k-multiselect-chevron-icon` class has been changed to `multiselect-chevron-icon`
+
+#### Constants, Types & Interfaces
+
+* `MultiselectFilterFnParams` interface has been renamed to `MultiselectFilterFunctionParams`
 
 ### KPagination
 
+KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/components/select) as the underlying component for page size selection.
 
 ### KPopover
 
@@ -365,6 +407,40 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KSelect
 
+#### Props
+
+* `appearance` prop has been removed. KSelect comes in one appearance (what previously was `select` appearance). If you need an element that behaves like a select but looks like a button, check out KDropdown's [selectionMenu prop](/components/dropdown#selectionmenu)
+* `buttonText` prop has been removed
+* `testMode` prop has been removed
+* `overlayLabel` prop has been removed
+* `filterFunc` prop has been renamed to `filterFunction`
+* `autosuggest` prop has been removed and replaced with `enableFiltering` prop. Should you want to simply enable default component-handled filtering or perform async fetching behind the scenes, you can use this prop in combination with`@query-change` event to achieve that
+
+#### Events
+
+* `item:added` event has been changed to `item-added`
+* `item:removed` event has been changed to `item-removed`
+  
+#### Structure
+
+* `k-select-input` `data-testid` attribute has been changed to `select-input`
+* dynamic `k-select-item-*` `data-testid` attribute has been changed to `select-item-*`
+* `k-select-dropdown-footer-text` class has been changed to `dropdown-footer`
+* `k-select-item-label` class has been changed to `select-item-label`
+* `k-select-item` class has been changed to `select-item`
+* `k-select-loading` class has been changed to `select-loading`
+* `k-select-loading` `data-testid` attribute has been changed to `select-loading`
+* `k-select-group-title` class has been changed to `select-group-title`
+* `k-select-selected-item` `data-testid` attribute has been changed to `selected-item`
+* `k-select-list` class has been changed to `select-items-container`
+* `k-select-label` `data-testid` attribute has been changed to `select-label`
+* `k-select-new-item` `data-testid` attribute and class has been changed to `select-add-item`
+
+#### Constants, Types & Interfaces
+
+* `SelectAppearanceArray` const has been removed
+* `SelectAppearance` type has been removed
+* `SelectFilterFnParams` interface has been renamed to `SelectFilterFunctionParams`
 
 ### KSkeleton
 
@@ -380,6 +456,13 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KTabs
 
+#### Props
+
+* `hasPanels` prop has been renamed to `hidePanels`. the default value for this prop has also been changed to `false`
+
+#### Events
+
+* `changed` event has been rename to `change`
 
 ### KTextArea
 

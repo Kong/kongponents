@@ -1,5 +1,5 @@
 @import "@/styles/mixins/inputs";
-@import "@/styles/mixins/labels";
+@import "@/styles/mixins/label";
 @import "@/styles/mixins/input-select";
 @import "@/styles/mixins/cards";
 @import "@/styles/mixins/badges";
@@ -397,8 +397,16 @@
 
 /* Contains common mixins for all components */
 
-@mixin truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+@mixin truncate($lines: 0) {
+  // if lines is 0, truncate with ellipsis, otherwise truncate with line clamp
+  @if $lines == 0 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    overflow: hidden;
+  }
 }

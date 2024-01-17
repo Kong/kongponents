@@ -45,6 +45,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxCheckbox.vue'),
   },
   {
+    path: '/copy',
+    name: 'copy',
+    meta: { title: 'Copy Sandbox' },
+    component: () => import('../pages/SandboxCopy.vue'),
+  },
+  {
     path: '/dropdown',
     name: 'dropdown',
     meta: { title: 'Dropdown Sandbox' },
@@ -75,10 +81,22 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxMultiselect.vue'),
   },
   {
+    path: '/pagination',
+    name: 'pagination',
+    meta: { title: 'Pagination Sandbox' },
+    component: () => import('../pages/SandboxPagination.vue'),
+  },
+  {
     path: '/radio',
     name: 'radio',
     meta: { title: 'Radio Sandbox' },
     component: () => import('../pages/SandboxRadio.vue'),
+  },
+  {
+    path: '/select',
+    name: 'select',
+    meta: { title: 'Select Sandbox' },
+    component: () => import('../pages/SandboxSelect.vue'),
   },
   {
     path: '/table',

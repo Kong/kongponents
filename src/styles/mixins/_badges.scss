@@ -16,3 +16,29 @@
   display: inline-flex;
   gap: var(--kui-space-40, $kui-space-40);
 }
+
+// uses info badge appearance colors as default
+@mixin badgeAppearance(
+  $bgColor: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest),
+  $textColor: var(--kui-color-text-primary, $kui-color-text-primary),
+  $hoverColor: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong)
+) {
+  background-color: $bgColor;
+  color: $textColor;
+
+  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+  :deep([role="button"]):not([disabled]):not(#{$kongponentsKCopyTooltipWrapperSelector}):not(.badge-content) {
+    &:hover,
+    &:focus {
+      color: $hoverColor !important;
+    }
+  }
+}
+
+@mixin decorativeBadgeAppearance {
+  @include badgeAppearance(
+    var(--kui-color-background-decorative-purple-weakest, $kui-color-background-decorative-purple-weakest),
+    var(--kui-color-text-decorative-purple, $kui-color-text-decorative-purple),
+    var(--kui-color-text-decorative-purple-strong, $kui-color-text-decorative-purple-strong)
+  );
+}

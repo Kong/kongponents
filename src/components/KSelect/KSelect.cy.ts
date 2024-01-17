@@ -2,15 +2,6 @@ import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KSelect from '@/components/KSelect/KSelect.vue'
 
-/**
- * ALL TESTS MUST USE testMode: true
- * We generate unique IDs for reference by aria properties. Test mode strips these out
- * allowing for successful snapshot verification.
- * props: {
- *   testMode: true
- * }
- */
-
 describe('KSelect', () => {
   it('renders props when passed', () => {
     const labels = ['Label 1', 'Label 2', 'Label 3']
@@ -18,7 +9,6 @@ describe('KSelect', () => {
 
     mount(KSelect, {
       props: {
-        testMode: true,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -32,13 +22,13 @@ describe('KSelect', () => {
       },
     })
 
-    cy.getTestId('k-select-input').trigger('click')
+    cy.getTestId('select-input').trigger('click')
 
-    cy.getTestId(`k-select-item-${vals[0]}`).should('contain.text', labels[0])
-    cy.getTestId(`k-select-item-${vals[1]}`).should('contain.text', labels[1])
-    cy.getTestId(`k-select-item-${vals[2]}`).should('contain.text', labels[2])
-    cy.get('.k-select-pop-dropdown').should('be.visible')
-    cy.get('.k-select-dropdown-footer-text').should('not.exist')
+    cy.get('.select-popover').should('be.visible')
+    cy.getTestId(`select-item-${vals[0]}`).should('contain.text', labels[0])
+    cy.getTestId(`select-item-${vals[1]}`).should('contain.text', labels[1])
+    cy.getTestId(`select-item-${vals[2]}`).should('contain.text', labels[2])
+    cy.get('.dropdown-footer').should('not.exist')
   })
 
   it('renders with selected item', () => {
@@ -46,23 +36,21 @@ describe('KSelect', () => {
 
     mount(KSelect, {
       props: {
-        testMode: true,
         items: [{ label: selectedLabel, value: 'label1', selected: true }],
       },
     })
 
-    cy.get('.k-select-selected-item-label').should('contain.text', selectedLabel)
+    cy.getTestId('select-input').should('have.value', selectedLabel)
   })
 
   it('renders with disabled item', () => {
     mount(KSelect, {
       props: {
-        testMode: true,
         items: [{ label: 'Label 1', value: 'label1', disabled: true }],
       },
     })
 
-    cy.get('.k-select-item button').should('have.attr', 'disabled')
+    cy.get('.select-item button').should('have.attr', 'disabled')
   })
 
   it('renders with correct px width', () => {
@@ -70,7 +58,6 @@ describe('KSelect', () => {
 
     mount(KSelect, {
       props: {
-        testMode: true,
         width: width + '',
         items: [{
           label: 'Label 1',
@@ -88,7 +75,6 @@ describe('KSelect', () => {
 
     mount(KSelect, {
       props: {
-        testMode: true,
         label: labelText,
         items: [{
           label: 'Label 1',
@@ -104,7 +90,6 @@ describe('KSelect', () => {
     const labelText = 'A Label'
     mount(KSelect, {
       props: {
-        testMode: true,
         label: labelText,
         labelAttributes: {
           info: 'some info text',
@@ -120,38 +105,15 @@ describe('KSelect', () => {
     cy.get('.k-label .tooltip-trigger-icon').should('be.visible')
   })
 
-  it.skip('renders label with required symbol when `required` attribute is set', () => {
-    // TODO: implement when KLabel component is reskinned
-  })
-
-  it('renders with correct appearance - select', () => {
+  it('handles the `required` state correctly', () => {
     mount(KSelect, {
       props: {
-        testMode: true,
-        appearance: 'select',
-        items: [{
-          label: 'Label 1',
-          value: 'label1',
-        }],
+        label: 'A Label',
+        required: true,
       },
     })
 
-    cy.get('.k-select-pop-select').should('exist')
-  })
-
-  it('renders with correct appearance - button', () => {
-    mount(KSelect, {
-      props: {
-        testMode: true,
-        appearance: 'button',
-        items: [{
-          label: 'Label 1',
-          value: 'label1',
-        }],
-      },
-    })
-
-    cy.get('.k-select-button').should('exist')
+    cy.get('.k-label').should('have.class', 'required')
   })
 
   it('reacts to text change and select', () => {
@@ -160,7 +122,7 @@ describe('KSelect', () => {
 
     mount(KSelect, {
       props: {
-        testMode: true,
+        enableFiltering: true,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -171,18 +133,18 @@ describe('KSelect', () => {
       },
     })
 
-    cy.getTestId('k-select-input').click()
+    cy.getTestId('select-input').click()
 
-    cy.getTestId(`k-select-item-${vals[0]}`).should('contain.text', labels[0])
-    cy.getTestId(`k-select-item-${vals[1]}`).should('contain.text', labels[1])
+    cy.getTestId(`select-item-${vals[0]}`).should('contain.text', labels[0])
+    cy.getTestId(`select-item-${vals[1]}`).should('contain.text', labels[1])
 
     cy.get('input').type(labels[0])
 
-    cy.getTestId(`k-select-item-${vals[0]}`).should('contain.text', labels[0])
-    cy.getTestId(`k-select-item-${vals[1]}`).should('not.exist')
+    cy.getTestId(`select-item-${vals[0]}`).should('contain.text', labels[0])
+    cy.getTestId(`select-item-${vals[1]}`).should('not.exist')
 
-    cy.getTestId(`k-select-item-${vals[0]}`).eq(0).click({ force: true })
-    cy.get('.k-select-selected-item-label').should('contain.text', labels[0])
+    cy.getTestId(`select-item-${vals[0]}`).eq(0).click({ force: true })
+    cy.getTestId('select-input').should('have.value', labels[0])
   })
 
   it('ignores clicks on disabled item', () => {
@@ -191,7 +153,6 @@ describe('KSelect', () => {
 
     mount(KSelect, {
       props: {
-        testMode: true,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -203,21 +164,19 @@ describe('KSelect', () => {
       },
     })
 
-    cy.getTestId('k-select-input').click()
+    cy.getTestId('select-input').click()
 
-    cy.getTestId(`k-select-item-${vals[0]}`).click({ force: true })
-    cy.get('.k-select-selected-item-label').should('not.exist')
+    cy.getTestId(`select-item-${vals[0]}`).click({ force: true })
+    cy.getTestId('select-input').should('not.have.value')
   })
 
   it('allows slotting content into the items', async () => {
-    const itemSlotContent = 'I am slotted baby!'
+    const itemSlotContent = 'I am slotted!'
     const itemLabel = 'Label 1'
     const itemValue = 'label1'
 
     mount(KSelect, {
       props: {
-        testMode: true,
-        appearance: 'button',
         items: [{
           label: itemLabel,
           value: itemValue,
@@ -228,18 +187,16 @@ describe('KSelect', () => {
       },
     })
 
-    cy.getTestId(`k-select-item-${itemValue}`).should('contain.text', itemSlotContent)
+    cy.getTestId(`select-item-${itemValue}`).should('contain.text', itemSlotContent)
   })
 
   it('reuses item template slot for selected item element when prop is true', async () => {
-    const itemSlotContent = 'I am slotted baby!'
+    const itemSlotContent = 'I am slotted!'
     const itemLabel = 'Label 1'
     const itemValue = 'label1'
 
     mount(KSelect, {
       props: {
-        testMode: true,
-        appearance: 'select',
         items: [{
           label: itemLabel,
           value: itemValue,
@@ -248,22 +205,20 @@ describe('KSelect', () => {
         reuseItemTemplate: true,
       },
       slots: {
-        'item-template': h('span', {}, itemSlotContent),
+        'item-template': `<span data-testid="item-slot-content">${itemSlotContent}</span>`,
       },
     })
 
-    cy.get('.k-select-input').should('contain.text', itemSlotContent)
+    cy.getTestId('item-slot-content').should('be.visible').should('contain.text', itemSlotContent)
   })
 
-  it('works in autosuggest mode', () => {
+  it('handles all states correctly when `enableFiltering` is `true`', () => {
     const onQueryChange = cy.spy().as('onQueryChange')
     mount(KSelect, {
       props: {
-        testMode: true,
-        autosuggest: true,
+        enableFiltering: true,
         loading: false,
         items: [],
-        appearance: 'select',
         onQueryChange,
       },
     })
@@ -272,17 +227,17 @@ describe('KSelect', () => {
       cy.get('@onQueryChange').should('have.been.calledWith', '')
       cy.get('@onQueryChange').should('have.been.calledWith', 'a')
     }).then(() => {
-      cy.wrap(Cypress.vueWrapper.setProps({ loading: true })).getTestId('k-select-loading').should('exist')
+      cy.wrap(Cypress.vueWrapper.setProps({ loading: true })).getTestId('select-loading').should('exist')
     }).then(() => {
-      cy.wrap(Cypress.vueWrapper.setProps({ loading: false })).getTestId('k-select-loading').should('not.exist')
+      cy.wrap(Cypress.vueWrapper.setProps({ loading: false })).getTestId('select-loading').should('not.exist')
     }).then(() => {
-      cy.wrap(Cypress.vueWrapper.setProps({ items: [{ label: 'Label 1', value: 'label1' }] })).getTestId('k-select-item-label1').should('contain.text', 'Label 1')
+      cy.wrap(Cypress.vueWrapper.setProps({ items: [{ label: 'Label 1', value: 'label1' }] })).getTestId('select-item-label1').should('contain.text', 'Label 1')
     }).then(() => {
-      cy.getTestId('k-select-item-label1').trigger('click')
+      cy.getTestId('select-item-label1').trigger('click')
       cy.get('input').should('have.value', 'Label 1')
-      cy.getTestId('k-select-input').trigger('click')
-      cy.get('[data-testid="k-select-item-label1"] button').should('have.class', 'selected')
-      cy.get('@onQueryChange').should('have.been.calledTwice')
+      cy.getTestId('select-input').trigger('click')
+      cy.get('[data-testid="select-item-label1"] button').should('have.class', 'selected')
+      cy.get('@onQueryChange').should('have.been.calledWith', '')
     })
   })
 
@@ -292,7 +247,6 @@ describe('KSelect', () => {
 
     mount(KSelect, {
       props: {
-        testMode: true,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -301,13 +255,12 @@ describe('KSelect', () => {
           label: labels[1],
           value: vals[1],
         }],
-        appearance: 'select',
         clearable: true,
       },
     })
 
     cy.get('input').should('have.value', labels[0])
-    cy.get('.k-select-input .clear-selection-icon').trigger('click')
+    cy.getTestId('clear-selection-icon').trigger('click')
     cy.get('input').should('have.value', '')
   })
 
@@ -318,7 +271,6 @@ describe('KSelect', () => {
 
     mount(KSelect, {
       props: {
-        testMode: true,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -333,9 +285,9 @@ describe('KSelect', () => {
       },
     })
 
-    cy.getTestId('k-select-input').trigger('click')
+    cy.getTestId('select-input').trigger('click')
 
-    cy.get('.k-select-dropdown-footer-text').should('be.visible').should('contain.text', dropdownFooterText)
+    cy.get('.dropdown-footer').should('be.visible').should('contain.text', dropdownFooterText)
   })
 
   it('should allow slotting dropdown footer text', () => {
@@ -345,7 +297,6 @@ describe('KSelect', () => {
 
     mount(KSelect, {
       props: {
-        testMode: true,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -363,9 +314,9 @@ describe('KSelect', () => {
       },
     })
 
-    cy.getTestId('k-select-input').trigger('click')
+    cy.getTestId('select-input').trigger('click')
 
-    cy.get('.k-select-dropdown-footer-text').should('be.visible').should('contain.text', dropdownFooterText)
+    cy.get('.dropdown-footer').should('be.visible').should('contain.text', dropdownFooterText)
   })
 
   it('renders group titles and groups items in correct order', () => {
@@ -381,29 +332,27 @@ describe('KSelect', () => {
 
     mount(KSelect, {
       props: {
-        testMode: true,
         items,
       },
     })
 
-    cy.getTestId('k-select-input').trigger('click')
-    cy.get('.k-select-item').eq(0).should('contain.text', items[0].label)
-    cy.get('.k-select-group-title').eq(0).should('contain.text', group1Title)
-    cy.get('.k-select-group-title').eq(1).should('contain.text', group2Title)
-    cy.get('.k-select-item').eq(1).should('contain.text', items[1].label)
-    cy.get('.k-select-item').eq(2).should('contain.text', items[3].label)
-    cy.get('.k-select-item').eq(3).should('contain.text', items[2].label)
-    cy.get('.k-select-item').eq(4).should('contain.text', items[4].label)
+    cy.getTestId('select-input').trigger('click')
+    cy.get('.select-item').eq(0).should('contain.text', items[0].label)
+    cy.get('.select-group-title').eq(0).should('contain.text', group1Title)
+    cy.get('.select-group-title').eq(1).should('contain.text', group2Title)
+    cy.get('.select-item').eq(1).should('contain.text', items[1].label)
+    cy.get('.select-item').eq(2).should('contain.text', items[3].label)
+    cy.get('.select-item').eq(3).should('contain.text', items[2].label)
+    cy.get('.select-item').eq(4).should('contain.text', items[4].label)
   })
 
   it('allows slotting selected item content', async () => {
-    const selectedItemContent = 'I am slotted baby!'
+    const selectedItemContent = 'I am slotted!'
     const itemLabel = 'Label 1'
     const itemValue = 'label1'
 
     mount(KSelect, {
       props: {
-        testMode: true,
         items: [{
           label: itemLabel,
           value: itemValue,
@@ -411,42 +360,37 @@ describe('KSelect', () => {
         }],
       },
       slots: {
-        'selected-item-template': selectedItemContent,
+        'selected-item-template': `<span data-testid="selected-item-slot-content">${selectedItemContent}</span>`,
       },
     })
 
-    cy.get('.k-select-item-selection').should('contain.text', selectedItemContent)
+    cy.getTestId('selected-item-slot-content').should('be.visible').should('contain.text', selectedItemContent)
   })
 
   it('displays placeholder correctly when selected item slot is present', async () => {
-    const selectedItemContent = 'I am slotted baby!'
+    const selectedItemContent = 'I am slotted!'
     const placeholderText = 'Placeholder text'
     const itemLabel = 'Label 1'
     const itemValue = 'label1'
-    const itemSlotContent = 'I am overwritten by selected-item slot'
 
     mount(KSelect, {
       props: {
-        testMode: true,
         placeholder: placeholderText,
-        appearance: 'select',
-        autosuggest: true,
+        enableFiltering: true,
         items: [{
           label: itemLabel,
           value: itemValue,
           selected: true,
         }],
-        reuseItemTemplate: true,
       },
       slots: {
-        'selected-item-template': selectedItemContent,
-        'item-template': itemSlotContent,
+        'selected-item-template': `<span data-testid="selected-item-slot-content">${selectedItemContent}</span>`,
       },
     })
 
-    cy.get('.k-select-input').should('contain.text', selectedItemContent)
-    cy.getTestId('k-select-input').trigger('click')
-    cy.get('.custom-selected-item').should('not.exist')
+    cy.getTestId('selected-item-slot-content').should('be.visible').should('contain.text', selectedItemContent)
+    cy.getTestId('select-input').trigger('click')
+    cy.getTestId('selected-item-slot-content').should('not.exist')
     cy.get('input').invoke('attr', 'placeholder').should('contain', placeholderText)
   })
 
@@ -457,7 +401,6 @@ describe('KSelect', () => {
 
     mount(KSelect, {
       props: {
-        testMode: true,
         items: [{
           label: labels[0],
           value: vals[0],
@@ -466,35 +409,37 @@ describe('KSelect', () => {
           value: vals[1],
         }],
         enableItemCreation: true,
+        enableFiltering: true,
+        clearable: true,
       },
     })
 
-    cy.get('.k-select-input').click()
-    cy.getTestId(`k-select-item-${vals[0]}`).should('contain.text', labels[0])
-    cy.getTestId(`k-select-item-${vals[1]}`).should('contain.text', labels[1])
+    cy.get('.select-input').click()
+    cy.getTestId(`select-item-${vals[0]}`).should('contain.text', labels[0])
+    cy.getTestId(`select-item-${vals[1]}`).should('contain.text', labels[1])
     // no adding a label that already exists
     cy.get('input').type(labels[0])
-    cy.getTestId('k-select-add-item').should('not.exist')
+    cy.getTestId('select-add-item').should('not.exist')
     cy.get('input').clear()
     // add new item
     cy.get('input').type(newItem)
-    cy.getTestId('k-select-add-item').should('contain.text', newItem).click()
+    cy.getTestId('select-add-item').should('contain.text', newItem).click()
     // search is cleared
     cy.get('input').should('not.contain.text', newItem)
     // displays selected item correctly
-    cy.get('.k-select-item-selection').should('contain.text', newItem)
+    cy.getTestId('select-input').should('have.value', newItem)
     // item displays when searching
     cy.get('input').type(newItem)
-    cy.get('.k-select-item .k-select-item-label').should('contain.text', newItem)
+    cy.get('.select-item .select-item-label').should('contain.text', newItem)
     // no adding a label that already exists
-    cy.getTestId('k-select-add-item').should('not.exist')
+    cy.getTestId('select-add-item').should('not.exist')
     // item gone when deselected
-    cy.get('.k-select-item-selection').get('.clear-selection-icon').click()
-    cy.get('.k-select-item-selection').should('not.to.exist')
+    cy.getTestId('clear-selection-icon').trigger('click')
+    cy.getTestId('select-input').should('not.have.value')
     // gone when searching
     cy.get('input').clear()
     cy.get('input').type(newItem)
-    cy.getTestId('k-select-add-item').should('be.visible').should('contain.text', newItem)
+    cy.getTestId('select-add-item').should('be.visible').should('contain.text', newItem)
   })
 
   it('updates selected status after items are mutated', () => {
@@ -503,8 +448,6 @@ describe('KSelect', () => {
 
     mount(KSelect, {
       props: {
-        testMode: true,
-        appearance: 'select',
         items: [{
           label: labels[0],
           value: vals[0],
@@ -517,9 +460,9 @@ describe('KSelect', () => {
       },
     })
 
-    cy.get('.k-select-input input').click()
-    cy.get(`[data-testid="k-select-item-${vals[0]}"] button`).should('have.class', 'selected')
-    cy.get(`[data-testid="k-select-item-${vals[1]}"] button`).should('not.have.class', 'selected')
+    cy.get('.select-input input').click()
+    cy.get(`[data-testid="select-item-${vals[0]}"] button`).should('have.class', 'selected')
+    cy.get(`[data-testid="select-item-${vals[1]}"] button`).should('not.have.class', 'selected')
       .then(() => {
         // mutate items
         cy.wrap(Cypress.vueWrapper.setProps({
@@ -535,8 +478,8 @@ describe('KSelect', () => {
         }))
       })
       .then(() => {
-        cy.get(`[data-testid="k-select-item-${vals[0]}"] button`).should('not.have.class', 'selected')
-        cy.get(`[data-testid="k-select-item-${vals[1]}"] button`).should('have.class', 'selected')
+        cy.get(`[data-testid="select-item-${vals[0]}"] button`).should('not.have.class', 'selected')
+        cy.get(`[data-testid="select-item-${vals[1]}"] button`).should('have.class', 'selected')
       })
   })
 })

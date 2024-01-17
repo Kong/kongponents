@@ -1,180 +1,188 @@
 # Tabs
 
-**KTabs** - A mindblowing tabs component
+KTabs are horizontal controls that allow users to switch between multiple views within one page.
 
 <KTabs :tabs="tabs">
-  <template v-slot:tab1>
+  <template #tab1>
     <p>Tab 1 content</p>
   </template>
-  <template v-slot:tab2>
+  <template #tab2>
     <p>Tab 2 content</p>
   </template>
 </KTabs>
 
 ```html
 <KTabs :tabs="tabs">
-  <template v-slot:tab1>
+  <template #tab1>
     <p>Tab 1 content</p>
   </template>
-  <template v-slot:tab2>
+  <template #tab2>
     <p>Tab 2 content</p>
   </template>
 </KTabs>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  setup () {
-    const tabs = [
-      {
-        hash: '#tab1',
-        title: 'Tab 1'
-      },
-      {
-        hash: '#tab2',
-        title: 'Tab 2'
-      }
-    ]
-
-    return {
-      tabs,
-    }
-  }
-})
-</script>
 ```
 
 ## Props
 
 ### tabs
 
-`KTabs` has one **required** prop, `tabs`, which is an array of tab objects with the following interface:
+Required prop, which is an array of tab objects with the following interface:
 
 ```ts
-export interface Tab {
-  hash: string
+interface Tab {
+  hash: string // has to be unique, corresponds to the panel slot name
   title: string
+  disabled?: boolean
 }
 ```
 
+<KTabs :tabs="tabsWithDisabled">
+  <template #tab1>
+    <p>Tab 1 content</p>
+  </template>
+  <template #tab2>
+    <p>Tab 2 content</p>
+  </template>
+</KTabs>
+
 ```html
-<template>
-  <KTabs :tabs="tabs" />
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  setup () {
-    const tabs = [
-      { hash: '#pictures', title: 'Pictures' },
-      { hash: '#movies', title: 'Movies' },
-      { hash: '#books', title: 'Books' },
-    ]
-
-    return {
-      tabs,
+<KTabs
+  :tabs="[
+    {
+      hash: '#tab1',
+      title: 'Tab 1'
+    },
+    {
+      hash: '#tab2',
+      title: 'Tab 2'
+    },
+    {
+      hash: '#tab3',
+      title: 'Tab 3',
+      disabled: true
     }
-  }
-})
-</script>
+  ]"
+>
+  <template #tab1>
+    <p>Tab 1 content</p>
+  </template>
+  <template #tab2>
+    <p>Tab 2 content</p>
+  </template>
+  <template #tab3>
+    <p>Tab 3 content</p>
+  </template>
+</KTabs>
 ```
 
 ### v-model
 
-By default the `KTabs` will set the first tab in the array as active. You can override this by passing in the hash of any other tab to be used with `v-model`.
+KTabs will set the first tab in the `tabs` array as active. You can override this by passing in the hash of any other tab to be used with `v-model`.
 
-<KTabs v-model="defaultTab" :tabs="tabs">
-  <template v-slot:tab1>
+<KTabs v-model="modelTab" :tabs="tabs">
+  <template #tab1>
     <p>Tab 1 content</p>
   </template>
-  <template v-slot:tab2>
+  <template #tab2>
     <p>Tab 2 content</p>
   </template>
 </KTabs>
 
-```html
-<KTabs v-model="#tab2" :tabs="tabs">
-  <template v-slot:tab1>Tab 1 content</template>
-  <template v-slot:tab2>Tab 2 content</template>
-</KTabs>
-```
-
-If you want to keep your `v-model` in sync so that you can programatically change the active tab after initialization, you also must respond to the `@changed` emitted event.
-
-<KTabs v-model="defaultProgrammaticTab" :tabs="tabs" @changed="hash => defaultProgrammaticTab = hash">
-  <template v-slot:tab1>
-    <p>Tab 1 content</p>
-  </template>
-  <template v-slot:tab2>
-    <p>Tab 2 content</p>
-  </template>
-</KTabs>
-
-<hr />
-
-<KButton @click="defaultProgrammaticTab = '#tab1'" class="horizontal-spacing">Activate Tab 1</KButton>
-<KButton @click="defaultProgrammaticTab = '#tab2'">Activate Tab 2</KButton>
-
-```html
-<KTabs v-model="defaultTab" :tabs="tabs" @changed="hash => defaultTab = hash">
-  <template v-slot:tab1>
-    <p>Tab 1 content</p>
-  </template>
-  <template v-slot:tab2>
-    <p>Tab 2 content</p>
-  </template>
-</KTabs>
-
-<KButton @click="defaultTab = '#tab1'">Activate Tab 1</KButton>
-<KButton @click="defaultTab = '#tab2'">Activate Tab 2</KButton>
-```
-
-### hasPanels
-
-A `boolean` that determines whether all tabs should have corresponding "panel" (the tab content) containers. Defaults to `true`.
-
-In some scenarios, you may want to implement the KTabs UI controls without utilizing the corresponding panel containers.
-
-For example, you could set the `hasPanels` prop to `false` and then your host app could provide custom functionality such as navigating to a different page or `router-view` on click.
-
-Here's an example where we display the active tab hash:
-
-<KTabs :tabs="slottedTabs" :has-panels="false" @changed="hasPanelsChanged" />
-<p>Active hash: {{ hasPanelsActiveHash }} </p>
-
-```html
+```vue
 <template>
-  <KTabs :tabs="tabs" :has-panels="false" @changed="tabChanged" />
-  <p>Active hash: {{ activeTabHash }} </p>
+  <KTabs v-model="currentTab" :tabs="tabs">
+    <template #tab1>Tab 1 content</template>
+    <template #tab2>Tab 2 content</template>
+  </KTabs>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import type { Tab } from '@kong/kongponents'
 
-const tabs = [
+const currentTab = ref<string>('#tab2')
+
+const tabs: Tab[] = [
+  {
+    hash: '#tab1',
+    title: 'Tab 1'
+  },
+  {
+    hash: '#tab2',
+    title: 'Tab 2'
+  }
+]
+</script>
+```
+
+If you want to keep your `v-model` in sync so that you can programmatically change the active tab after initialization, you also must respond to the `@change` emitted event.
+
+<div>
+  <KTabs v-model="modelTabProgrammatic" :tabs="tabs" @change="hash => modelTabProgrammatic = hash">
+    <template #tab1>Tab 1 content</template>
+    <template #tab2>Tab 2 content</template>
+  </KTabs>
+
+  <div class="horizontal-spacing spacing-top">
+    <KButton @click="modelTabProgrammatic = '#tab1'">Activate Tab 1</KButton>
+    <KButton @click="modelTabProgrammatic = '#tab2'">Activate Tab 2</KButton>
+  </div>
+</div>
+
+```html
+<KTabs v-model="currentTab" :tabs="tabs" @change="hash => currentTab = hash">
+  <template #tab1>Tab 1 content</template>
+  <template #tab2>Tab 2 content</template>
+</KTabs>
+
+<KButton @click="currentTab = '#tab1'">Activate Tab 1</KButton>
+<KButton @click="currentTab = '#tab2'">Activate Tab 2</KButton>
+```
+
+### hidePanels
+
+A `boolean` that determines whether all tabs should have corresponding "panel" (the tab content) containers. Defaults to `false`.
+
+In some scenarios, you may want to implement the KTabs UI controls without utilizing the corresponding panel containers.
+
+For example, you could set the `hidePanels` prop to `true` and then your host app could provide custom functionality such as navigating to a different page or `router-view` on click.
+
+Here's an example where we display the active tab hash:
+
+<div>
+  <KTabs :tabs="slottedTabs" hide-panels @change="panelsChange" />
+  <p>Active hash: {{ panelsActiveHash }}</p>
+</div>
+
+```vue
+<template>
+  <KTabs :tabs="tabs" hide-panels @change="tabChange" />
+  <p>Active hash: {{ currentTab }} </p>
+</template>
+
+<script setup lang="ts">
+import type { Tab } from '@kong/kongponents'
+
+const tabs: Tab[] = [
   { hash: '#pictures', title: 'Pictures' },
   { hash: '#movies', title: 'Movies' },
   { hash: '#books', title: 'Books' },
 ]
 
-const activeTabHash = ref<string>(tabs.value[0].hash)
+const currentTab = ref<string>(tabs.value[0].hash)
 
-const tabChanged = (hash: string) => {
-  activeTabHash.value = hash
+const tabChange = (hash: string): void => {
+  currentTab.value = hash
 }
 </script>
 ```
 
 #### Dynamic RouterView
 
-Here's an example (code only) of utlizing a dynamic `router-view` component within the host app:
+Here's an example (code only) of utilizing a dynamic `router-view` component within the host app:
 
 ```html
 <KTabs
-  :has-panels="false"
+  hide-panels
   :tabs="tabs"
 >
   <template
@@ -192,9 +200,8 @@ Here's an example (code only) of utlizing a dynamic `router-view` component with
     </router-link>
   </template>
 </KTabs>
-<router-view
-  v-slot="{ route }"
->
+
+<router-view v-slot="{ route }">
   <h3>Router View content</h3>
   <p>{{ route.path }}{{ route.hash }}</p>
 </router-view>
@@ -202,156 +209,118 @@ Here's an example (code only) of utlizing a dynamic `router-view` component with
 
 ## Slots
 
-### Anchor Content
+### anchor & panel
 
 The tab control defaults to the `tab.title` string. You may use the `#{tab.hash}-anchor` slot to customize the content of the tab control.
 
+In order provide the tab panel content (when the `hidePanels` prop is set to `false`) you must slot the content in the named slot, defined by the `tab.hash` string, without the `#`. For example, if `tab.hash` is `#notifications` - the panel slot name will be `notifications`, like in the example below.
+
 <KTabs :tabs="slottedTabs">
-  <template #pictures-anchor>
-    Custom Pictures Tab
+  <template #gateway-anchor>
+    <KongIcon />
+    Gateway
   </template>
-  <template #pictures><p>Wow look <b>Pictures!</b></p></template>
-  <template #movies-anchor>
-    I love movies
+  <template #gateway><b>Gateway</b> tab content</template>
+  <template #notifications-anchor>
+    <InboxNotificationIcon />
+    Notifications
+    <KBadge appearance="decorative">3</KBadge>
   </template>
-  <template #movies><p>Wow look <b>Movies!</b></p></template>
-  <template #books-anchor>
-    Need a book?
+  <template #notifications><b>Notifications</b> tab content</template>
+  <template #docs-anchor>
+    <BookIcon />
+    Documentation
   </template>
-  <template #books><p>Wow look <b>Books!</b></p></template>
+  <template #docs><b>Documentation</b> tab content</template>
 </KTabs>
 
 ```html
-<template>
-  <KTabs :tabs="tabs">
-    <template #pictures-anchor>
-      Custom Pictures Tab
-    </template>
-    <template #pictures><p>Wow look <b>Pictures!</b></p></template>
-    <template #movies-anchor>
-      I love movies
-    </template>
-    <template #movies><p>Wow look <b>Movies!</b></p></template>
-    <template #books-anchor>
-      Need a book?
-    </template>
-    <template #books><p>Wow look <b>Books!</b></p></template>
-  </KTabs>
-</template>
-
-<script setup lang="ts">
-const tabs = [
-  { hash: '#pictures', title: 'Pictures' },
-  { hash: '#movies', title: 'Movies' },
-  { hash: '#books', title: 'Books' },
-]
-</script>
-```
-
-### Panel Content
-
-In order provide the tab panel content (when the `hasPanels` prop is set to `true`) you must slot the content in the named slot, defined by the `tab.hash` string, without the `#`.
-
-<KTabs :tabs="slottedTabs">
-  <template #pictures><p>Wow look <b>Pictures!</b></p></template>
-  <template #movies><p>Wow look <b>Movies!</b></p></template>
-  <template #books><p>Wow look <b>Books!</b></p></template>
+<KTabs :tabs="tabs">
+  <template #gateway-anchor>
+    <KongIcon />
+    Gateway
+  </template>
+  <template #gateway><b>Gateway</b> tab content</template>
+  <template #notifications-anchor>
+    <InboxNotificationIcon />
+    Notifications
+    <KBadge appearance="decorative">3</KBadge>
+  </template>
+  <template #notifications><b>Notifications</b> tab content</template>
+  <template #docs-anchor>
+    <BookIcon />
+    Documentation
+  </template>
+  <template #docs><b>Documentation</b> tab content</template>
 </KTabs>
-
-```html
-<template>
-  <KTabs :tabs="tabs">
-    <template #pictures><p>Wow look <b>Pictures!</b></p></template>
-    <template #movies><p>Wow look <b>Movies!</b></p></template>
-    <template #books><p>Wow look <b>Books!</b></p></template>
-  </KTabs>
-</template>
-
-<script setup lang="ts">
-const tabs = [
-  { hash: '#pictures', title: 'Pictures' },
-  { hash: '#movies', title: 'Movies' },
-  { hash: '#books', title: 'Books' },
-]
-</script>
 ```
 
 ## Events
 
-- `@changed` - Emitted when the active tab is updated, and includes the new active `hash` value
+### change
 
-## Usage
+KTabs emits a `@change` event with the new tab `hash` when clicked. You can use this to set the router or window hash and in turn use that with [`v-model`](#v-model).
 
-### Router Hash
-
-`KTabs` emits a `changed` event with the new tab hash when clicked. You can use this to set the router or window hash and in turn use that with [`v-model`](#v-model).
-
-```html
+```vue
 <template>
   <KTabs
     :tabs="tabs"
     v-model="$route.hash"
-    @changed="hash => $router.replace({hash})">
-    <template v-slot:pictures>Wow look Pictures!</template>
-    <template v-slot:movies>Wow look Movies!</template>
-    <template v-slot:books>Wow look Books!</template>
+    @change="hash => $router.replace({ hash })">
+    <template #tab1>Tab 1 content</template>
+    <template #tab2>Tab 2 content</template>
   </KTabs>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-// Importing $route and $router in your app may vary and is excluded in this example.
+<script setup lang="ts">
+import type { Tab } from '@kong/kongponents'
+// importing $route and $router in your app may vary and is excluded in this example.
 
-export default defineComponent({
-  setup () {
-    const tabs = [
-      { hash: '#pictures', title: 'Pictures' },
-      { hash: '#movies', title: 'Movies' },
-      { hash: '#books', title: 'Books' },
-    ]
-
-    return {
-      tabs,
-    }
-  }
-})
+const tabs = ref<Tab[]>([
+  { hash: '#tab1', title: 'Tab 1' },
+  { hash: '#tab2', title: 'Tab 2' },
+])
 </script>
 ```
 
-<script>
-export default {
-  data() {
-    return {
-      defaultTab: '#tab2',
-      defaultProgrammaticTab: '#tab2',
-      tabs: [
-        {
-          hash: '#tab1',
-          title: 'Tab 1'
-        },
-        {
-          hash: '#tab2',
-          title: 'Tab 2'
-        }
-      ],
-      slottedTabs: [
-        { hash: '#pictures', title: 'Pictures' },
-        { hash: '#movies', title: 'Movies' },
-        { hash: '#books', title: 'Books' },
-      ],
-      hasPanelsActiveHash: '#pictures'
-    }
-  },
-  methods: {
-    hasPanelsChanged(hash) {
-      this.hasPanelsActiveHash = hash
-    }
-  }
+<script setup lang="ts">
+import { ref } from 'vue'
+import { KongIcon, InboxNotificationIcon, BookIcon } from '@kong/icons'
+
+const modelTab = ref('#tab2')
+const modelTabProgrammatic = ref('#tab2')
+
+const tabs = ref<Tab[]>([
+  { hash: '#tab1', title: 'Tab 1' },
+  { hash: '#tab2', title: 'Tab 2' },
+])
+
+const tabsWithDisabled = ref<Tab[]>([
+  { hash: '#tab1', title: 'Tab 1' },
+  { hash: '#tab2', title: 'Tab 2' },
+  { hash: '#tab3', title: 'Tab 3 (disabled)', disabled: true },
+])
+
+const slottedTabs = ref<Tab[]>([
+  { hash: '#gateway', title: 'Gateway' },
+  { hash: '#notifications', title: 'Notifications' },
+  { hash: '#docs', title: 'Documentation' },
+])
+
+const panelsActiveHash = ref('#gateway')
+
+const panelsChange = (hash: string) => {
+  panelsActiveHash.value = hash;
 }
 </script>
 
 <style lang="scss" scoped>
 .horizontal-spacing {
-  margin-right: $kui-space-40;
+  display: flex;
+  gap: $kui-space-40;
+}
+
+.spacing-top {
+  margin-top: $kui-space-50;
 }
 </style>

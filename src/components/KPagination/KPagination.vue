@@ -112,19 +112,24 @@
       />
       <div
         class="page-size-select"
-        data-testid="page-size-dropdown"
       >
-        <KSelect
-          appearance="button"
-          :button-text="pageSizeText"
+        <KDropdown
+          class="page-size-dropdown"
+          data-testid="page-size-dropdown"
           :items="pageSizeOptions"
           :kpop-attributes="kpopAttrs"
-          :placeholder="`${ currentPageSize } items per page`"
-          position-fixed
-          :test-mode="!!testMode || undefined"
-          width="190"
-          @selected="updatePageSize"
-        />
+          selection-menu
+          show-caret
+          @change="updatePageSize"
+        >
+          <KButton
+            appearance="tertiary"
+            data-testid="page-size-dropdown-trigger"
+          >
+            {{ pageSizeText }}
+            <ChevronDownIcon />
+          </KButton>
+        </KDropdown>
       </div>
     </div>
   </nav>
@@ -134,10 +139,12 @@
 import type { Ref, PropType } from 'vue'
 import { ref, computed, watch } from 'vue'
 import KIcon from '@/components/KIcon/KIcon.vue'
-import KSelect from '@/components/KSelect/KSelect.vue'
+import KDropdown from '@/components/KDropdown/KDropdown.vue'
+import KButton from '@/components/KButton/KButton.vue'
 import PaginationOffset from './PaginationOffset.vue'
-import type { PaginationType, PageSizeChangedData, PageChangedData } from '@/types'
+import type { PaginationType, PageSizeChangedData, PageChangedData, DropdownItem } from '@/types'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { ChevronDownIcon } from '@kong/icons'
 
 const kpopAttrs = {
   placement: 'top',
@@ -214,7 +221,7 @@ const pageSizeOptions = props.pageSizes.map((size, i) => ({
   key: `size-${i}`,
   value: size,
 }))
-const pageSizeText = ref('')
+const pageSizeText = computed((): string => currentPageSize.value + ' items per page')
 
 const getVisiblePages = (currPage: number, pageCount: number, firstDetached: boolean, lastDetached: boolean): number[] => {
   if (props.disablePageJump) {
@@ -309,13 +316,14 @@ const updatePage = (): void => {
   })
 }
 
-const updatePageSize = (event: any): void => {
-  currentPageSize.value = event.value
-  pageSizeText.value = currentPageSize.value + ' items per page'
+const updatePageSize = (item: DropdownItem): void => {
+  currentPageSize.value = item.value as number
+
   emit('pageSizeChanged', {
     pageSize: currentPageSize.value,
     pageCount: pageCount.value,
   })
+
   if (props.currentPage !== 1) {
     changePage(1)
   }
@@ -372,12 +380,11 @@ watch(pageCount, (newVal, oldVal) => {
 }
 
 .page-size-select {
-  color: var(--kui-color-text-primary, #{$kui-color-text-primary});
-  font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-  line-height: var(--kui-line-height-30, $kui-line-height-30);
-
-  :deep(.k-button) {
-    font-size: var(--kui-font-size-30, $kui-font-size-30);
+  .page-size-dropdown {
+    :deep(.k-popover-content) {
+      max-height: 200px;
+      overflow-y: auto;
+    }
   }
 }
 

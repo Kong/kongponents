@@ -14,6 +14,73 @@ KCopy is a component that displays provided text and allows a user to copy it to
 
 The copyable text.
 
+### format
+
+Determines the display format of the copyable text. The component can take the following `format` values:
+
+- `default`
+- `hidden`
+- `redacted`
+- `deleted`
+
+#### default
+
+Displays regular copyable text.
+
+<KCopy :text="text" />
+
+```html
+<KCopy :text="text" />
+```
+
+#### hidden
+
+Displays just a copy button without text.
+
+<KCopy
+  format="hidden"
+  :text="text"
+/>
+
+```html
+<KCopy
+  format="hidden"
+  :text="text"
+/>
+```
+
+#### redacted
+
+Displays `*****`.
+
+<KCopy
+  format="redacted"
+  :text="text"
+/>
+
+```html
+<KCopy
+  format="redacted"
+  :text="text"
+/>
+```
+
+#### deleted
+
+Displays `*<first-5-chars-of-copyable-text>`.
+
+<KCopy
+  format="deleted"
+  :text="text"
+/>
+
+```html
+<KCopy
+  format="deleted"
+  :text="text"
+/>
+```
+
 ### badge
 
 Whether or not to display as a badge. Defaults to `false`.
@@ -38,14 +105,14 @@ Text displayed before the copyable text when `badge` is true.
 
 <KCopy
   badge
-  badge-label="Id"
+  badge-label="Service ID:"
   :text="text"
 />
 
 ```html
 <KCopy
   badge
-  badge-label="Id"
+  badge-label="Service ID:"
   :text="text"
 />
 ```
@@ -92,14 +159,16 @@ If the `badgeLabel` prop has a value, then the copy tooltip text is `Copy {badge
 <KCopy
   :text="text"
   badge 
-  badge-label="ID:" 
+  badge-label="Service ID:"
+  copy-tooltip="Copy to clipboard"
 />
 
 ```html
 <KCopy
   :text="text"
   badge 
-  badge-label="ID:" 
+  badge-label="Service ID:"
+  copy-tooltip="Copy to clipboard"
 />
 ```
 
@@ -127,61 +196,12 @@ Tooltip text displayed on successful copy. Defaults to `Copied!`.
 
 ### monospace
 
-An indicator of whether the copyable text has `JetBrains Mono` font or not. Defaults to `true`, but `false` if `badge` is `true`.
+When `badge` is `true`, use this prop to control whether the copyable text has `JetBrains Mono` font or not. Defaults to `false`.
 
-### format
-
-Determines the display format of the copyable text. The component can take the following `format` values:
-
-- `default`: displays regular copyable text
-- `hidden`: displays just a copy button without text
-- `redacted`: displays `*****`
-- `deleted`: displays `*<first-5-chars-of-copyable-text>`
-
-#### default
-<KCopy :text="text" />
+<KCopy badge monospace :text="text" />
 
 ```html
-<KCopy :text="text" />
-```
-
-#### hidden
-<KCopy
-  format="hidden"
-  :text="text"
-/>
-
-```html
-<KCopy
-  format="hidden"
-  :text="text"
-/>
-```
-
-#### redacted
-<KCopy
-  format="redacted"
-  :text="text"
-/>
-
-```html
-<KCopy
-  format="redacted"
-  :text="text"
-/>
-```
-
-#### deleted
-<KCopy
-  format="deleted"
-  :text="text"
-/>
-
-```html
-<KCopy
-  format="deleted"
-  :text="text"
-/>
+<KCopy badge monospace :text="text" />
 ```
 
 <script setup lang="ts">
