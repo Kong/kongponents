@@ -1,3 +1,10 @@
+# [9.0.0-alpha.86](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.85...v9.0.0-alpha.86) (2024-01-17)
+
+
+### Bug Fixes
+
+* **ktabs:** remove panel tabindex, add padding top ([#1956](https://github.com/Kong/kongponents/issues/1956)) ([5443da2](https://github.com/Kong/kongponents/commit/5443da298e884d0748588ba354bd8bf34d141d62))
+
 # [9.0.0-alpha.85](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.84...v9.0.0-alpha.85) (2024-01-17)
 
 
