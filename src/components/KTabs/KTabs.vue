@@ -36,7 +36,6 @@
         :aria-labelledby="`${tab.hash.replace('#','')}-tab`"
         class="tab-container"
         role="tabpanel"
-        tabindex="0"
       >
         <slot
           v-if="activeTab === tab.hash"
@@ -112,14 +111,13 @@ watch(() => props.modelValue, (newTabHash) => {
     overflow-x: auto;
     overflow-y: hidden;
     padding: var(--kui-space-0, $kui-space-0) var(--kui-space-70, $kui-space-70);
+    padding-top: var(--kui-space-20, $kui-space-20);
 
     .tab-item {
       cursor: pointer;
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      margin-bottom: calc(-1 * var(--kui-border-width-10, $kui-border-width-10)); // to make the active item border appear on top of the bottom border
       padding-bottom: var(--kui-space-40, $kui-space-40);
       position: relative;
-      transition: border-bottom $kongponentsKongIconSelector;
+      transition: border-bottom $kongponentsTransitionDurTimingFunc;
       white-space: nowrap;
 
       .tab-link {

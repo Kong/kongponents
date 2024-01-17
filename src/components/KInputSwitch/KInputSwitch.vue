@@ -11,7 +11,6 @@
       :disabled="disabled"
       tabindex="-1"
       type="checkbox"
-      @change="handleChange"
       @input="handleChange"
     >
     <component
