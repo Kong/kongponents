@@ -1,3 +1,10 @@
+# [9.0.0-alpha.85](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.84...v9.0.0-alpha.85) (2024-01-17)
+
+
+### Features
+
+* **ktabs, kselect, kmultiselect, kcopy:** components reskin ([#1932](https://github.com/Kong/kongponents/issues/1932)) ([9693fe8](https://github.com/Kong/kongponents/commit/9693fe87cd2c5afefb80f8f4a193627805b44e2a)), closes [#1914](https://github.com/Kong/kongponents/issues/1914)
+
 # [9.0.0-alpha.84](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.83...v9.0.0-alpha.84) (2024-01-13)
 
 
