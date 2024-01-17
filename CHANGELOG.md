@@ -1,3 +1,10 @@
+# [9.0.0-alpha.88](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.87...v9.0.0-alpha.88) (2024-01-17)
+
+
+### Bug Fixes
+
+* **ktabs:** user-select none ([7840b5c](https://github.com/Kong/kongponents/commit/7840b5c5f9167fc0b5dab6d605dd17b0653011fc))
+
 # [9.0.0-alpha.87](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.86...v9.0.0-alpha.87) (2024-01-17)
 
 
