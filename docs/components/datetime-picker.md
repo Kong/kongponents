@@ -238,10 +238,10 @@ Passing in a `timePeriodsKey` causes the instance to default to the "Relative" t
 />
 ```
 
-### Relative date and time only 
+### Relative date only 
 
 Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model).
-This utilizes the same time frames as the previous example; however, in this case we are passing in a pre-selected time frame of one hour, and.
+This utilizes the same time frames as the previous example; however, in this case we are passing in a pre-selected time frame of one hour.
 
 <ClientOnly>
   <KDateTimePicker
@@ -300,7 +300,7 @@ This utilizes the same time frames as the previous example; however, in this cas
 
 ### v-model
 
-#### Single date time picker `v-model`
+#### Single date and/or time picker `v-model`
 
 A single date or time picker instance which can be seeded with a value as shown here, where `currentValue`'s `start` key contains a valid Date object, `new Date()` or a `null` value.  If null, the picker will display the placeholder message and allow the user to make a selection. 
 
@@ -311,7 +311,7 @@ currentValue = {
 },
 ```
 
-#### Range date time picker `v-model`
+#### Range date and/or time picker `v-model`
 
 An instance that displays a date range or a series of relative time frames.
 
@@ -461,7 +461,6 @@ const exampleTimeFrames = [
     values: [
       TimePeriods.get(TimeframeKeys.FIFTEEN_MIN),
       TimePeriods.get(TimeframeKeys.ONE_HOUR),
-      TimePeriods.get(TimeframeKeys.THREE_HOUR),
       TimePeriods.get(TimeframeKeys.SIX_HOUR),
       TimePeriods.get(TimeframeKeys.TWELVE_HOUR),
       TimePeriods.get(TimeframeKeys.ONE_DAY),
