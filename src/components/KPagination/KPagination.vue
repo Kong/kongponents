@@ -318,15 +318,17 @@ const updatePage = (): void => {
 }
 
 const updatePageSize = (item: DropdownItem): void => {
-  currentPageSize.value = item.value as number
+  if (currentPageSize.value !== item.value) {
+    currentPageSize.value = item.value as number
 
-  emit('pageSizeChanged', {
-    pageSize: currentPageSize.value,
-    pageCount: pageCount.value,
-  })
+    emit('pageSizeChanged', {
+      pageSize: currentPageSize.value,
+      pageCount: pageCount.value,
+    })
 
-  if (props.currentPage !== 1) {
-    changePage(1)
+    if (props.currentPage !== 1) {
+      changePage(1)
+    }
   }
 }
 
