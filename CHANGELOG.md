@@ -1,3 +1,10 @@
+# [9.0.0-alpha.89](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.88...v9.0.0-alpha.89) (2024-01-18)
+
+
+### Bug Fixes
+
+* **ktabs:** tab click target being too small when using hide panels ([#1959](https://github.com/Kong/kongponents/issues/1959)) ([143fe12](https://github.com/Kong/kongponents/commit/143fe1289e5223f8d9a12fa0bfefb8a92abf0df0))
+
 # [9.0.0-alpha.88](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.87...v9.0.0-alpha.88) (2024-01-17)
 
 
