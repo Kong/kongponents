@@ -270,13 +270,13 @@ const beforeSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot 
 const afterSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot icon size
 
 onMounted(async () => {
-  if (beforeSlotElement.value) {
-    await nextTick() // wait for the slot content to render
+  await nextTick() // wait for the slots content to render
+
+  if (beforeSlotElement.value?.offsetWidth) {
     beforeSlotElementWidth.value = beforeSlotElement.value.offsetWidth + 'px'
   }
 
-  if (afterSlotElement.value) {
-    await nextTick() // wait for the slot content to render
+  if (afterSlotElement.value?.offsetWidth) {
     afterSlotElementWidth.value = afterSlotElement.value.offsetWidth + 'px'
   }
 })
