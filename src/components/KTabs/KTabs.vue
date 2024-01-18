@@ -121,7 +121,7 @@ watch(() => props.modelValue, (newTabHash) => {
       cursor: pointer;
       padding-bottom: var(--kui-space-40, $kui-space-40);
       position: relative;
-      transition: border-color $kongponentsTransitionDurTimingFunc;
+      transition: border-bottom-color $kongponentsTransitionDurTimingFunc;
       white-space: nowrap;
 
       .tab-link {
@@ -159,7 +159,7 @@ watch(() => props.modelValue, (newTabHash) => {
       }
 
       &.active {
-        border-color: var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple);
+        border-bottom-color: var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple);
 
         .tab-link {
           color: var(--kui-color-text, $kui-color-text);
