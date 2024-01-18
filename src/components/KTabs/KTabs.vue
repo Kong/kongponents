@@ -15,6 +15,7 @@
           :aria-controls="hidePanels ? undefined : `panel-${tab.hash}`"
           :aria-selected="hidePanels ? undefined : (activeTab === tab.hash ? 'true' : 'false')"
           class="tab-link"
+          :class="{ 'has-panels': !hidePanels }"
           role="tab"
           :tabindex="tab.disabled ? '-1' : '0'"
           @click.prevent="handleTabChange(tab.hash)"
@@ -125,10 +126,15 @@ watch(() => props.modelValue, (newTabHash) => {
         color: var(--kui-color-text-neutral, $kui-color-text-neutral);
         display: inline-flex;
         gap: var(--kui-space-40, $kui-space-40);
-        padding: var(--kui-space-30, $kui-space-30) var(--kui-space-50, $kui-space-50);
         text-decoration: none;
         transition: color $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
         user-select: none;
+
+        // Applies the padding to the tab’s content when not showing panels which is typically used for placing links inside KTabs for navigational tabs. Otherwise, clicking the tab outside of the link’s box will mark it as active but won’t actually navigate.
+        &.has-panels,
+        &:not(.has-panels) :deep(> *) {
+          padding: var(--kui-space-30, $kui-space-30) var(--kui-space-50, $kui-space-50);
+        }
 
         a, :deep(a) {
           color: var(--kui-color-text, $kui-color-text);
