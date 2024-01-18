@@ -156,7 +156,7 @@ By default the dropdown has no notion of "selection". When `selectionMenu` is `t
     selection-menu
     :items="selectionMenuItems"
     trigger-text="Select region"
-    @change="handleSelectionMenuUpdate"
+    @change="handleSelectionMenuUpdate1"
     show-caret
   />
 </ClientOnly>
@@ -188,7 +188,7 @@ If using the [`items` slot](#items-1), you will have access to the `handleSelect
   <KDropdown
     selection-menu
     trigger-text="Select region (with items slot)"
-    @change="handleSelectionMenuUpdate"
+    @change="handleSelectionMenuUpdate2"
     show-caret
   >
     <template #items="{ handleSelection }">
@@ -196,7 +196,7 @@ If using the [`items` slot](#items-1), you will have access to the `handleSelect
         v-for="item in selectionMenuItems"
         :key="item.value"
         :item="item"
-        :selected="item.value === selectionMenuSelectedItem?.value"
+        :selected="item.value === selectionMenu2SelectedItem?.value"
         @click="handleSelection(item)"
       />
     </template>
@@ -528,7 +528,8 @@ const defaultItems = [
   { label: 'Top', to: { path: '/components/dropdown' } },
 ]
 
-const selectionMenuSelectedItem = ref<DropdownItem>()
+const selectionMenu1SelectedItem = ref<DropdownItem>()
+const selectionMenu2SelectedItem = ref<DropdownItem>()
 
 const selectionMenuItems = ref<Array<DropdownItem>>([{
   label: 'US (United States)',
@@ -539,8 +540,12 @@ const selectionMenuItems = ref<Array<DropdownItem>>([{
   value: 'fr',
 }])
 
-const handleSelectionMenuUpdate = (item: DropdownItem): void => {
-  selectedItem.value = item
+const handleSelectionMenuUpdate1 = (item: DropdownItem): void => {
+  selectionMenu1SelectedItem.value = item
+}
+
+const handleSelectionMenuUpdate2 = (item: DropdownItem): void => {
+  selectionMenu2SelectedItem.value = item
 }
 
 const clickHandler = (): void => {
