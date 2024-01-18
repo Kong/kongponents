@@ -66,7 +66,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, useSlots, useAttrs, onMounted } from 'vue'
+import { computed, ref, watch, useSlots, useAttrs, onMounted, nextTick } from 'vue'
 import type { PropType } from 'vue'
 import type { LabelAttributes, LimitExceededData } from '@/types'
 import { v4 as uuidv4 } from 'uuid'
@@ -269,12 +269,14 @@ const afterSlotElement = ref<HTMLElement | null>(null)
 const beforeSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot icon size
 const afterSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot icon size
 
-onMounted(() => {
+onMounted(async () => {
   if (beforeSlotElement.value) {
+    await nextTick() // wait for the slot content to render
     beforeSlotElementWidth.value = beforeSlotElement.value.offsetWidth + 'px'
   }
 
   if (afterSlotElement.value) {
+    await nextTick() // wait for the slot content to render
     afterSlotElementWidth.value = afterSlotElement.value.offsetWidth + 'px'
   }
 })
