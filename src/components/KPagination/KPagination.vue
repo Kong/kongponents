@@ -220,6 +220,7 @@ const pageSizeOptions = props.pageSizes.map((size, i) => ({
   label: `${size}`,
   key: `size-${i}`,
   value: size,
+  selected: size === currentPageSize.value,
 }))
 const pageSizeText = computed((): string => currentPageSize.value + ' items per page')
 
