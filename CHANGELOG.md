@@ -1,3 +1,10 @@
+# [9.0.0-alpha.90](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.89...v9.0.0-alpha.90) (2024-01-18)
+
+
+### Features
+
+* network icon ([#1961](https://github.com/Kong/kongponents/issues/1961)) ([66a0b39](https://github.com/Kong/kongponents/commit/66a0b398365f8e044b46555c0c95949273282aa7))
+
 # [9.0.0-alpha.89](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.88...v9.0.0-alpha.89) (2024-01-18)
 
 
