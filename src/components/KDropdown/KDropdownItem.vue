@@ -229,6 +229,23 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     cursor: not-allowed;
   }
 
+  &.dropdown-selected-option {
+    .dropdown-item-trigger {
+      background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+      color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+
+      &:hover:not(:disabled):not(.disabled):not(:focus):not(:active),
+      &:focus:not(:disabled):not(.disabled),
+      &:active:not(:disabled):not(.disabled) {
+        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+      }
+
+      &:disabled, &[disabled], &.disabled {
+        background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+      }
+    }
+  }
+
   .dropdown-item-trigger {
     background-color: var(--kui-color-background, $kui-color-background);
     border: 0;
