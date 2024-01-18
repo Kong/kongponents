@@ -118,7 +118,6 @@ watch(() => props.modelValue, (newTabHash) => {
       cursor: pointer;
       padding-bottom: var(--kui-space-40, $kui-space-40);
       position: relative;
-      transition: border-bottom $kongponentsTransitionDurTimingFunc;
       white-space: nowrap;
 
       .tab-link {
