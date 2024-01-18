@@ -93,6 +93,7 @@ describe('KDropdown', () => {
     mount(KDropdown, {
       props: {
         triggerText: 'Click me',
+        selectionMenu: true,
         items: [
           { label: selectedLabel, value: 'label1', selected: true },
           ...selectionMenuItems,
