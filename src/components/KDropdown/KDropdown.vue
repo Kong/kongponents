@@ -56,6 +56,7 @@
                 v-bind="item"
                 :key="`${item.label}-${idx}`"
                 :item="item"
+                :selected="selectionMenu && selectedItem?.value === item.value"
                 :selection-menu-child="selectionMenu"
                 @change="handleSelection"
               />
