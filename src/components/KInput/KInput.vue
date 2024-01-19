@@ -305,7 +305,7 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
 
   // error styles
   &.input-error {
-    .k-input {
+    .k-input, .k-input[type="file"] {
       @include inputError;
 
       &:hover {

@@ -57,6 +57,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxDropdown.vue'),
   },
   {
+    path: '/fileupload',
+    name: 'fileupload',
+    meta: { title: 'File Upload Sandbox' },
+    component: () => import('../pages/SandboxFileUpload.vue'),
+  },
+  {
     path: '/input',
     name: 'input',
     meta: { title: 'Input Sandbox' },

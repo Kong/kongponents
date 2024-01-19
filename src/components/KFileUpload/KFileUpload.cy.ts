@@ -6,7 +6,7 @@ describe('KFileUpload', () => {
     const text = 'I am a label'
     mount(KFileUpload, {
       props: {
-        testMode: true,
+        accept: ['.md'],
         label: text,
       },
     })
@@ -14,32 +14,11 @@ describe('KFileUpload', () => {
     cy.get('.k-label').should('contain.text', text)
   })
 
-  it('remove-button should not exist if there is no selected file', () => {
-    mount(KFileUpload, {
-      props: {
-        testMode: true,
-      },
-    })
-
-    cy.get('.remove-button').should('not.exist')
-  })
-
-  it('for type image, upload button shold not exist', () => {
-    mount(KFileUpload, {
-      props: {
-        testMode: true,
-        type: 'image',
-      },
-    })
-
-    cy.get('.k-file-upload-btn').should('not.exist')
-  })
-
   it('renders label with labelAttributes applied', () => {
     const labelText = 'A Label Text'
     mount(KFileUpload, {
       props: {
-        testMode: true,
+        accept: ['.md'],
         label: labelText,
         labelAttributes: {
           info: 'random text',
@@ -51,34 +30,10 @@ describe('KFileUpload', () => {
     cy.get('.k-label .tooltip-trigger-icon').should('be.visible')
   })
 
-  it('does not render cancel button, if removable is false', () => {
-    mount(KFileUpload, {
-      props: {
-        testMode: true,
-        removable: false,
-      },
-    })
-
-    cy.getTestId('remove-button').should('not.exist')
-  })
-
-  it('does not render cancel button, if removable is false', () => {
-    mount(KFileUpload, {
-      props: {
-        testMode: true,
-        removable: false,
-        type: 'image',
-      },
-    })
-
-    cy.getTestId('remove-button').should('not.exist')
-  })
-
   it('should emit correct event when a file is selected, removed', () => {
     mount(KFileUpload, {
       props: {
-        testMode: true,
-        type: 'file',
+        accept: ['.md'],
       },
     })
 
@@ -86,16 +41,32 @@ describe('KFileUpload', () => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'file-added')
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'input')
     })
-    cy.getTestId('remove-button').should('exist').click().then(() => {
+    cy.getTestId('file-upload-button').click().then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'file-removed')
     })
+  })
+
+  it('triggers input click on button click', () => {
+    mount(KFileUpload, {
+      props: {
+        accept: ['.md'],
+      },
+    })
+
+    cy.get('input[type=file]').then(($input) => {
+      cy.spy($input[0], 'click').as('inputClickSpy')
+    })
+
+    cy.getTestId('file-upload-button').click()
+
+    // Assert that the input click was triggered
+    cy.get('@inputClickSpy').should('have.been.calledOnce')
   })
 
   it('should emit error event when there is an error with file upload', () => {
     mount(KFileUpload, {
       props: {
-        testMode: true,
-        type: 'file',
+        accept: ['.md'],
         maxFileSize: 0,
       },
     })
