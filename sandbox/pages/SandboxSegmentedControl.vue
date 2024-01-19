@@ -95,6 +95,23 @@
           :options="items"
         />
       </SandboxSectionComponent>
+
+      <!-- Props -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Slots"
+      />
+      <SandboxSectionComponent title="option-label">
+        <KSegmentedControl
+          v-model="vModel"
+          :options="items"
+        >
+          <template #option-label="{ option }">
+            <KongIcon />
+            Option {{ option.label }}
+          </template>
+        </KSegmentedControl>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
@@ -103,6 +120,7 @@
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { inject, ref } from 'vue'
+import { KongIcon } from '@kong/icons'
 
 const vModel = ref('item1')
 

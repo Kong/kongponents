@@ -110,22 +110,28 @@ const handleClick = (option: SegmentedControlOption): void => {
 </script>
 
 <style lang="scss" scoped>
+/* Component styles */
+
 .k-segmented-control {
   display: flex;
   gap: var(--kui-space-0, $kui-space-0);
   width: 100%;
 
   .segmented-control-button {
+    align-items: center;
     background-color: var(--kui-color-background, $kui-color-background);
     border-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
     border-style: solid;
     border-width: var(--kui-border-width-10, $kui-border-width-10);
     color: var(--kui-color-text-primary, $kui-color-text-primary);
     cursor: pointer;
+    display: flex;
     font-family: var(--kui-font-family-text, $kui-font-family-text);
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+    gap: var(--kui-space-30, $kui-space-30);
     height: 32px;
+    justify-content: center;
     line-height: var(--kui-line-height-20, $kui-line-height-20);
     outline: none;
     padding-left: var(--kui-space-50, $kui-space-50);
@@ -184,6 +190,11 @@ const handleClick = (option: SegmentedControlOption): void => {
       border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
       color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
       z-index: 2;
+    }
+
+    :deep(#{$kongponentsKongIconSelector}) {
+      height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+      width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
     }
   }
 }
