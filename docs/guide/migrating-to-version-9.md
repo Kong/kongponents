@@ -409,6 +409,10 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `allowPointerEvents` prop has been removed
 * `isDisabled` prop has been changed to `disabled`
 
+#### Structure
+
+* `name="option.value"` attribute has been removed and replaced with `data-testid="option.value-option"` attribute
+
 ### KSelect
 
 #### Props

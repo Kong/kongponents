@@ -6,6 +6,7 @@
       :appearance="getAppearance(option)"
       class="segmented-control-button"
       :class="[size, { selected: props.modelValue === option.value }]"
+      :data-testid="`${option.value}-option`"
       :disabled="getDisabled(option)"
       @click="handleClick(option)"
     >
