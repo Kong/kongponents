@@ -53,8 +53,8 @@
             data-testid="file-upload-button"
             :disabled="disabled"
             size="small"
-            @click="updateFile"
-            @keyup.enter="updateFile"
+            @click="selectFile"
+            @keyup.enter="selectFile"
           >
             {{ fileValue ? 'Clear' : buttonText }}
           </KButton>
@@ -208,14 +208,14 @@ const onFileChange = (evt: any): void => {
 }
 
 // When KButton for Select file is clicked
-const updateFile = (): void => {
+const selectFile = (): void => {
   if (fileValue.value) {
     resetInput()
 
     return
   }
 
-  const inputEl = document.getElementById(inputId.value)
+  const inputEl = document.getElementById(inputId.value) as HTMLInputElement
 
   if (inputEl) {
     // Simulate button click to trigger input click
