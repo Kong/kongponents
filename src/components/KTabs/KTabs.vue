@@ -109,6 +109,7 @@ watch(() => props.modelValue, (newTabHash) => {
     line-height: var(--kui-line-height-40, $kui-line-height-40);
     list-style: none;
     margin-bottom: var(--kui-space-70, $kui-space-70);
+    margin-top: var(--kui-space-0, $kui-space-0);
     overflow-x: auto;
     overflow-y: hidden;
     padding: var(--kui-space-0, $kui-space-0) var(--kui-space-70, $kui-space-70);
