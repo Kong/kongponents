@@ -209,11 +209,7 @@ const onFileChange = (evt: any): void => {
 
 // When KButton for Select file is clicked
 const selectFile = (): void => {
-  if (fileValue.value) {
-    resetInput()
-
-    return
-  }
+  resetInput()
 
   const inputEl = document.getElementById(inputId.value) as HTMLInputElement
 
