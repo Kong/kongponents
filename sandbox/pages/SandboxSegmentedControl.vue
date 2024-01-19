@@ -18,6 +18,10 @@
       <SandboxSectionComponent title="options">
         <KSegmentedControl
           v-model="vModel"
+          :options="['Item One', 'Item Two', 'Item Three']"
+        />
+        <KSegmentedControl
+          v-model="vModel"
           :options="items"
         />
         <KSegmentedControl

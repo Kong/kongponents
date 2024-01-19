@@ -3,7 +3,6 @@
     <button
       v-for="option in normalizedOptions"
       :key="`${option.value}-option`"
-      :appearance="getAppearance(option)"
       class="segmented-control-button"
       :class="[size, { selected: props.modelValue === option.value }]"
       :data-testid="`${option.value}-option`"
@@ -31,7 +30,7 @@ const itemsHaveRequiredProps = (items: SegmentedControlOption[]): boolean => {
 
 // functions used in prop validators
 const getValues = (items: SegmentedControlOption[]) => {
-  const vals:string[] = []
+  const vals: string[] = []
   items.forEach((item: SegmentedControlOption) => vals.push(item.value + ''))
 
   return vals
@@ -48,7 +47,7 @@ const normalizeItems = (items: SegmentedControlOption[] | string[]): SegmentedCo
   return items.map((item:SegmentedControlOption | string) => {
     return {
       label: typeof item === 'string' ? item : (item.label || (item.value + '')),
-      value: typeof item === 'string' ? item : item.value,
+      value: typeof item === 'string' ? item.toLocaleLowerCase().replace(' ', '-') : item.value,
       disabled: typeof item === 'string' ? false : item.disabled,
     } as SegmentedControlOption
   })
@@ -59,7 +58,7 @@ const validateItems = (items: SegmentedControlOption[] | string[]): boolean => {
   const nItems = normalizeItems(items)
   const isValid = itemValuesAreUnique(nItems)
 
-  return isStringArray ? isValid && itemsHaveRequiredProps(items as SegmentedControlOption[]) : isValid
+  return isStringArray ? isValid && itemsHaveRequiredProps(nItems as SegmentedControlOption[]) : isValid
 }
 
 export default {}
@@ -93,10 +92,6 @@ const emit = defineEmits<{
 }>()
 
 const normalizedOptions = ref(normalizeItems(props.options))
-
-const getAppearance = (option: SegmentedControlOption): 'primary' | 'secondary' => {
-  return props.modelValue === option.value ? 'primary' : 'secondary'
-}
 
 const getDisabled = (option: SegmentedControlOption): boolean => {
   return !!option.disabled || props.disabled
