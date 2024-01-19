@@ -132,6 +132,7 @@ const handleClick = (option: SegmentedControlOption): void => {
     outline: none;
     padding-left: var(--kui-space-50, $kui-space-50);
     padding-right: var(--kui-space-50, $kui-space-50);
+    transition: border-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
     width: 100%;
     z-index: 1;
 

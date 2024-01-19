@@ -57,11 +57,31 @@ Selected option: {{ vModel4 || 'none' }}
 Selected option: {{ selectedOption || 'none' }}
 ```
 
+### size
+
+KSegmentedControl comes in two sizes: `small` (default) and `large`.
+
+Small:
+
+<KSegmentedControl size="small" :options="options" v-model="vModel5" />
+
+```html
+<KSegmentedControl size="small" :options="options" v-model="selectedOption" />
+```
+
+Large:
+
+<KSegmentedControl size="large" :options="options" v-model="vModel6" />
+
+```html
+<KSegmentedControl size="large" :options="options" v-model="selectedOption" />
+```
+
 ### disabled
 
 Use this slot to disable all options at once.
 
-<KSegmentedControl disabled :options="['Item One', 'Item Two', 'Item Three']" v-model="vModel5" />
+<KSegmentedControl disabled :options="['Item One', 'Item Two', 'Item Three']" v-model="vModel7" />
 
 ```html
 <KSegmentedControl disabled :options="['Item One', 'Item Two', 'Item Three']" v-model="selectedOption" />
@@ -75,7 +95,7 @@ You can customize each option's content using the `option-label` slot. The optio
 
 <KSegmentedControl
   :options="options"
-  v-model="selectedOption"
+  v-model="vModel8"
 >
   <template #option-label="{ option }">
     Option {{ option.label }}
@@ -85,7 +105,7 @@ You can customize each option's content using the `option-label` slot. The optio
 ```html
 <KSegmentedControl
   :options="options"
-  v-model="vModel6"
+  v-model="selectedOption"
 >
   <template #option-label="{ option }">
     Option {{ option.label }}
@@ -99,9 +119,9 @@ You can customize each option's content using the `option-label` slot. The optio
 
 KSegmentedControl only emits one event on item click. The payload is newly selected option (or, if parameter passed through `options` prop is array of objects, the event payload is `option.value`).
 
-<KSegmentedControl :options="['Item One', 'Item Two', 'Item Three']" v-model="vModel7" />
+<KSegmentedControl :options="['Item One', 'Item Two', 'Item Three']" v-model="vModel9" />
 <div class="value-example-container">
-Emitted value: <code>{{ vModel7 || 'none' }}</code>
+Emitted value: <code>{{ vModel9 || 'none' }}</code>
 </div>
 
 ```html
@@ -126,12 +146,14 @@ const optionsDisabled = [...options].map(option => option.value === 'item-two' ?
 const stringOptions: string[] = ['Item One', 'Item Two', 'Item Three']
 
 const vModel1 = ref<string>('item-one')
-const vModel2 = ref<string>()
-const vModel3 = ref<string>()
-const vModel4 = ref<string>()
-const vModel5 = ref<string>()
-const vModel6 = ref<string>()
-const vModel7 = ref<string>()
+const vModel2 = ref<string>('')
+const vModel3 = ref<string>('')
+const vModel4 = ref<string>('')
+const vModel5 = ref<string>('')
+const vModel6 = ref<string>('')
+const vModel7 = ref<string>('')
+const vModel8 = ref<string>('')
+const vModel9 = ref<string>('')
 </script>
 
 <style lang="scss" scoped>
