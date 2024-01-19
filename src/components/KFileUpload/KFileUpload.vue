@@ -53,8 +53,9 @@
             data-testid="file-upload-button"
             :disabled="disabled"
             size="small"
-            @click="selectFile"
-            @keyup.enter="selectFile"
+            @click="onButtonClick"
+            @keydown.space.prevent
+            @keyup.space="onButtonClick"
           >
             {{ fileValue ? 'Clear' : buttonText }}
           </KButton>
@@ -208,7 +209,7 @@ const onFileChange = (evt: any): void => {
 }
 
 // When KButton for Select file is clicked
-const selectFile = (): void => {
+const onButtonClick = (): void => {
   if (fileValue.value) {
     resetInput()
 
