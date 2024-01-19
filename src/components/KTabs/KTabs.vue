@@ -118,7 +118,6 @@ watch(() => props.modelValue, (newTabHash) => {
       border-bottom-color: var(--kui-color-border-transparent, $kui-color-border-transparent);
       border-bottom-style: solid;
       border-bottom-width: var(--kui-border-width-20, $kui-border-width-20);
-      cursor: pointer;
       padding-bottom: var(--kui-space-40, $kui-space-40);
       position: relative;
       transition: border-bottom-color $kongponentsTransitionDurTimingFunc;
@@ -127,6 +126,7 @@ watch(() => props.modelValue, (newTabHash) => {
       .tab-link {
         border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
         color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+        cursor: pointer;
         display: inline-flex;
         gap: var(--kui-space-40, $kui-space-40);
         text-decoration: none;
@@ -144,17 +144,15 @@ watch(() => props.modelValue, (newTabHash) => {
           text-decoration: none;
         }
 
+        &:hover:not(.disabled) {
+          background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+        }
+
         &:focus-visible {
           background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
           box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
           color: var(--kui-color-text, $kui-color-text);
           outline: none;
-        }
-      }
-
-      &:hover:not(.disabled) {
-        .tab-link {
-          background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
         }
       }
 
