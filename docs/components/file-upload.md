@@ -2,7 +2,9 @@
 
 KFileUpload provides a wrapper around an `input` element with `type=file` for file upload.
 
-<KFileUpload label="File upload" :label-attributes="{ info: `Accepted file types: ${acceptedFileType.join(', ')}` }" help="File size must be less than 1MB." :accept="acceptedFileType" />
+<ClientOnly>
+  <KFileUpload label="File upload" :label-attributes="{ info: `Accepted file types: ${acceptedFileType.join(', ')}` }" help="File size must be less than 1MB." :accept="acceptedFileType" />
+</ClientOnly>
 
 ```html
 <KFileUpload
