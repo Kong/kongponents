@@ -1,3 +1,10 @@
+# [9.0.0-alpha.92](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.91...v9.0.0-alpha.92) (2024-01-19)
+
+
+### Bug Fixes
+
+* **kdropdown:** selection menu item selected state style ([#1960](https://github.com/Kong/kongponents/issues/1960)) ([3a74220](https://github.com/Kong/kongponents/commit/3a7422025a35598df3638a9e8df017a5e749ef1f))
+
 # [9.0.0-alpha.91](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.90...v9.0.0-alpha.91) (2024-01-18)
 
 
