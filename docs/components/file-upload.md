@@ -20,7 +20,9 @@ KFileUpload provides a wrapper around an `input` element with `type=file` for fi
 
 Please refer to [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) that defines the file types the component can accept.
 
-<KFileUpload :accept="['.jpg', '.png']" />
+<ClientOnly>
+  <KFileUpload :accept="['.jpg', '.png']" />
+</ClientOnly>
 
 ```html
 <KFileUpload :accept="['.jpg', '.png']" />
@@ -30,7 +32,9 @@ Please refer to [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/HTML
 
 String to be used as the label.
 
-<KFileUpload label="Upload file" :accept="acceptedFileType" />
+<ClientOnly>
+  <KFileUpload label="Upload file" :accept="acceptedFileType" />
+</ClientOnly>
 
 ```html
 <KFileUpload label="Upload file" :accept="acceptedFileType" />
@@ -40,7 +44,9 @@ String to be used as the label.
 
 Use the `labelAttributes` prop to configure the KLabel's [props](/components/label) if using the `label` prop.
 
-<KFileUpload label="Upload file" :label-attributes="{ info: `Accepted file types: ${acceptedFileType.join(', ')}` }" :accept="acceptedFileType" />
+<ClientOnly>
+  <KFileUpload label="Upload file" :label-attributes="{ info: `Accepted file types: ${acceptedFileType.join(', ')}` }" :accept="acceptedFileType" />
+</ClientOnly>
 
 ```html
 <KFileUpload
@@ -53,7 +59,9 @@ Use the `labelAttributes` prop to configure the KLabel's [props](/components/lab
 
 Use the `help` prop to display text under the input.
 
-<KFileUpload label="Upload file" help="File size must be less than 1MB." :accept="acceptedFileType" />
+<ClientOnly>
+  <KFileUpload label="Upload file" help="File size must be less than 1MB." :accept="acceptedFileType" />
+</ClientOnly>
 
 ```html
 <KFileUpload label="Upload File" help="File size must be less than 1MB." :accept="acceptedFileType" />
@@ -67,7 +75,9 @@ Boolean value to indicate whether the element has an error and should apply erro
 
 String to be displayed as error message if `hasError` prop is `true`.
 
-<KFileUpload label="Upload file" error error-message="File size must be less than 1MB." :accept="acceptedFileType" />
+<ClientOnly>
+  <KFileUpload label="Upload file" error error-message="File size must be less than 1MB." :accept="acceptedFileType" />
+</ClientOnly>
 
 ```html
 <KFileUpload
@@ -82,7 +92,9 @@ String to be displayed as error message if `hasError` prop is `true`.
 
 Use the `placeholder` prop to display placeholder text.
 
-<KFileUpload placeholder="Select file on your computer" :accept="acceptedFileType" />
+<ClientOnly>
+  <KFileUpload placeholder="Select file on your computer" :accept="acceptedFileType" />
+</ClientOnly>
 
 ```html
 <KFileUpload placeholder="Select file on your computer" :accept="acceptedFileType" />
@@ -92,7 +104,9 @@ Use the `placeholder` prop to display placeholder text.
 
 This is the text that will be displayed on the button that triggers the click on KInput.
 
-<KFileUpload button-text="Choose file" :accept="acceptedFileType" />
+<ClientOnly>
+  <KFileUpload button-text="Choose file" :accept="acceptedFileType" />
+</ClientOnly>
 
 ```html
 <KFileUpload button-text="Choose file" :accept="acceptedFileType" />
@@ -102,7 +116,9 @@ This is the text that will be displayed on the button that triggers the click on
 
 Use this prop to customize the maximize size of file that can be uploaded. Default value for `image` upload is `1MB` and for `file` is `5.25MB`.
 
-<KFileUpload :max-file-size="2" :accept="['.jpg', '.png']" />
+<ClientOnly>
+  <KFileUpload :max-file-size="2" :accept="['.jpg', '.png']" />
+</ClientOnly>
 
 ```html
 <KFileUpload :max-file-size="2" :accept="acceptedFileType" />
@@ -118,11 +134,13 @@ By default KFileUpload will display the error state with a generic error message
 
 Slot for an icon in front of the input field.
 
-<KFileUpload label="Upload image" :accept="['.jpg', '.png']">
-  <template #icon>
-    <ImageIcon />
-  </template>
-</KFileUpload>
+<ClientOnly>
+  <KFileUpload label="Upload image" :accept="['.jpg', '.png']">
+    <template #icon>
+      <ImageIcon />
+    </template>
+  </KFileUpload>
+</ClientOnly>
 
 ```html
 <KFileUpload label="Upload image" :accept="['.jpg', '.png']">
@@ -136,9 +154,11 @@ Slot for an icon in front of the input field.
 
 Use this slot if you want to utilize HTML in the input label's tooltip.
 
-<KFileUpload label="Upload file" :accept="acceptedFileType">
-  <template #label-tooltip>Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code></template>
-</KFileUpload>
+<ClientOnly>
+  <KFileUpload label="Upload file" :accept="acceptedFileType">
+    <template #label-tooltip>Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code></template>
+  </KFileUpload>
+</ClientOnly>
 
 ```html
 <KFileUpload label="Upload file" :accept="acceptedFileType">
@@ -163,8 +183,9 @@ All of the above 3 events will emit a `JavaScript Array` of type `FileList`. Thi
 - `type` (returns the MIME type of the file)
 - `webkitRelativePath` (returns the path the URL of the File is relative to)
 
-
-<KFileUpload label="Upload file" :label-attributes="{ info: `Accepted file types: ${acceptedFileType.join(', ')}` }" :accept="acceptedFileType" @file-added="file => printData(file)" @file-removed="() => fileData = ''" />
+<ClientOnly>
+  <KFileUpload label="Upload file" :label-attributes="{ info: `Accepted file types: ${acceptedFileType.join(', ')}` }" :accept="acceptedFileType" @file-added="file => printData(file)" @file-removed="() => fileData = ''" />
+</ClientOnly>
 
 ```html
 <KFileUpload
