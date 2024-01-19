@@ -1,3 +1,10 @@
+# [9.0.0-alpha.93](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.92...v9.0.0-alpha.93) (2024-01-19)
+
+
+### Bug Fixes
+
+* **ktabs:** add margin top 0 ([#1965](https://github.com/Kong/kongponents/issues/1965)) ([c94e8dc](https://github.com/Kong/kongponents/commit/c94e8dcc51bade612640f20c0afc57446b52cf5e))
+
 # [9.0.0-alpha.92](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.91...v9.0.0-alpha.92) (2024-01-19)
 
 
