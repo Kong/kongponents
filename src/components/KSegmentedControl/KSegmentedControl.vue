@@ -4,8 +4,10 @@
       v-for="option in normalizedOptions"
       :key="`${option.value}-option`"
       :appearance="getAppearance(option)"
+      class="segmented-control-button"
+      :class="[size, { selected: props.modelValue === option.value }]"
       :disabled="getDisabled(option)"
-      @click="handleClick"
+      @click="handleClick(option)"
     >
       <slot
         name="option-label"
@@ -63,7 +65,6 @@ export default {}
 </script>
 
 <script lang="ts" setup>
-
 const props = defineProps({
   modelValue: {
     type: [String, Number, Boolean],
@@ -73,6 +74,11 @@ const props = defineProps({
     type: Array as PropType<SegmentedControlOption[] | string[]>,
     required: true,
     validator: (items: SegmentedControlOption[] | string[]) => !items.length || validateItems(items),
+  },
+  size: {
+    type: String,
+    default: 'small',
+    validator: (size: string) => ['small', 'large'].includes(size),
   },
   disabled: {
     type: Boolean,
@@ -95,11 +101,11 @@ const getDisabled = (option: SegmentedControlOption): boolean => {
   return !!option.disabled || props.disabled
 }
 
-const handleClick = (evt: Event): void => {
+const handleClick = (option: SegmentedControlOption): void => {
   // @ts-ignore
-  emit('click', evt.target?.name)
+  emit('click', option.value)
   // @ts-ignore
-  emit('update:modelValue', evt.target?.name)
+  emit('update:modelValue', option.value)
 }
 </script>
 
@@ -107,5 +113,78 @@ const handleClick = (evt: Event): void => {
 .k-segmented-control {
   display: flex;
   gap: var(--kui-space-0, $kui-space-0);
+  width: 100%;
+
+  .segmented-control-button {
+    background-color: var(--kui-color-background, $kui-color-background);
+    border-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
+    border-style: solid;
+    border-width: var(--kui-border-width-10, $kui-border-width-10);
+    color: var(--kui-color-text-primary, $kui-color-text-primary);
+    cursor: pointer;
+    font-family: var(--kui-font-family-text, $kui-font-family-text);
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+    height: 32px;
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
+    outline: none;
+    padding-left: var(--kui-space-50, $kui-space-50);
+    padding-right: var(--kui-space-50, $kui-space-50);
+    width: 100%;
+    z-index: 1;
+
+    &:not(:first-child) {
+      // offset the border of the previous button
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      margin-left: calc(var(--kui-border-width-10, $kui-border-width-10) * -1);
+    }
+
+    &:first-child {
+      border-bottom-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+      border-top-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    }
+
+    &:last-child {
+      border-bottom-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+      border-top-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    }
+
+    &.large {
+      height: 40px;
+      padding-left: var(--kui-space-60, $kui-space-60);
+      padding-right: var(--kui-space-60, $kui-space-60);
+    }
+
+    &:hover:not([disabled]) {
+      border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+      color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+      z-index: 2;
+    }
+
+    &:focus:not([disabled]), &:focus-visible:not([disabled]) {
+      border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
+      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+      color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+      z-index: 3;
+    }
+
+    &[disabled] {
+      border-color: var(--kui-color-border-disabled, $kui-color-border-disabled) !important;
+      color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
+      cursor: not-allowed;
+      z-index: 0;
+
+      &.selected {
+        background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+      }
+    }
+
+    &.selected {
+      background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+      border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
+      color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+      z-index: 2;
+    }
+  }
 }
 </style>
