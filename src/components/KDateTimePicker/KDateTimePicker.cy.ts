@@ -253,12 +253,12 @@ describe('KDateTimePicker', () => {
     cy.getTestId(timepickerInput).click()
 
     // Check that time frames render
-    cy.getTestId(segmentedToggle).find('button[name="relative"]').eq(0).click()
+    cy.getTestId(segmentedToggle).find('button[data-testid="relative-option"]').eq(0).click()
     cy.get('.timeframe-section').should('exist')
     cy.get('.timeframe-buttons').should('exist')
 
     // Check that calendar month and 2 x time selection inputs show up
-    cy.getTestId(segmentedToggle).find('button[name="custom"]').eq(0).click()
+    cy.getTestId(segmentedToggle).find('button[data-testid="custom-option"]').eq(0).click()
     cy.get('.k-datetime-picker .vc-pane-container .vc-weeks').should('exist')
   })
 
@@ -273,7 +273,7 @@ describe('KDateTimePicker', () => {
     })
 
     cy.getTestId(timepickerInput).click()
-    cy.getTestId(segmentedToggle).find('button[name="custom"]').eq(0).click()
+    cy.getTestId(segmentedToggle).find('button[data-testid="custom-option"]').eq(0).click()
     // On the calendar side, we should see the month view, but not the time picker
     cy.get('.k-datetime-picker .vc-pane-container .vc-weeks').should('exist')
     cy.get('.k-datetime-picker .vc-pane-container .vc-time-picker').should('not.exist')
@@ -317,7 +317,7 @@ describe('KDateTimePicker', () => {
     })
 
     cy.getTestId(timepickerInput).click()
-    cy.getTestId(segmentedToggle).find('button[name="custom"]').eq(0).click()
+    cy.getTestId(segmentedToggle).find('button[data-testid="custom-option"]').eq(0).click()
 
     cy.get('.k-datetime-picker .vc-pane-container .vc-weeks').should('exist')
     cy.get('.k-datetime-picker .vc-pane-container .vc-time-picker').should('not.exist')
@@ -328,7 +328,7 @@ describe('KDateTimePicker', () => {
     cy.getTestId(submitButton).should('be.disabled')
 
     // If a timeframe is selected, "Apply" should be re-enabled
-    cy.getTestId(segmentedToggle).find('button[name="relative"]').eq(0).click()
+    cy.getTestId(segmentedToggle).find('button[data-testid="relative-option"]').eq(0).click()
     cy.getTestId('select-timeframe-86400000').click()
     cy.getTestId(submitButton).eq(0).click()
     cy.getTestId(timepickerInput).find('.timepicker-display').should('contain.text', 'Last 24 hours')

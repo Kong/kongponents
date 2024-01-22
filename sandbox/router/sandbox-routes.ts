@@ -99,6 +99,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxRadio.vue'),
   },
   {
+    path: '/segmentedcontrol',
+    name: 'segmentedcontrol',
+    meta: { title: 'Segmented Control Sandbox' },
+    component: () => import('../pages/SandboxSegmentedControl.vue'),
+  },
+  {
     path: '/select',
     name: 'select',
     meta: { title: 'Select Sandbox' },

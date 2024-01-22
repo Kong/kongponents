@@ -14,3 +14,7 @@ $kongponentsTransitionDurTimingFunc: var(--kui-animation-duration-20, $kui-anima
 // when KCopy is truncated, it's wrapped by a tooltip which automatically adds a attribute that applies unwanted styles
 // so we need this selector to exclude those styles (check KBadge component)
 $kongponentsKCopyTooltipWrapperSelector: ".copy-tooltip-wrapper";
+
+// KInput base height
+// used when we need to match the height of other elements to the height of KInput
+$kongponentsInputElementHeight: 40px;
