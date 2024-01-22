@@ -115,7 +115,6 @@ $kSegmentedControlSmallHeight: 32px;
 .k-segmented-control {
   display: flex;
   gap: var(--kui-space-0, $kui-space-0);
-  overflow-x: auto;
   width: 100%;
 
   .segmented-control-button {
