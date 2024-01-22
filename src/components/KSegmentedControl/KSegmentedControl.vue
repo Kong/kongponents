@@ -106,6 +106,10 @@ const handleClick = (option: SegmentedControlOption): void => {
 </script>
 
 <style lang="scss" scoped>
+/* Component variables */
+
+$kSegmentedControlSmallHeight: 32px;
+
 /* Component styles */
 
 .k-segmented-control {
@@ -126,7 +130,7 @@ const handleClick = (option: SegmentedControlOption): void => {
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
     gap: var(--kui-space-30, $kui-space-30);
-    height: 32px;
+    height: $kSegmentedControlSmallHeight;
     justify-content: center;
     line-height: var(--kui-line-height-20, $kui-line-height-20);
     outline: none;
@@ -153,7 +157,7 @@ const handleClick = (option: SegmentedControlOption): void => {
     }
 
     &.large {
-      height: 40px;
+      height: $kongponentsInputElementHeight;
       padding-left: var(--kui-space-60, $kui-space-60);
       padding-right: var(--kui-space-60, $kui-space-60);
     }
@@ -164,10 +168,16 @@ const handleClick = (option: SegmentedControlOption): void => {
       z-index: 2;
     }
 
-    &:focus:not([disabled]), &:focus-visible:not([disabled]) {
+    &:focus:not([disabled]) {
       border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
-      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
       color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+      z-index: 3;
+    }
+
+    &:focus-visible:not([disabled]) {
+      border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+      color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
       z-index: 3;
     }
 

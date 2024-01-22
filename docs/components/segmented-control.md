@@ -117,7 +117,7 @@ You can customize each option's content using the `option-label` slot. The optio
 
 ### update:modelValue
 
-KSegmentedControl only emits one event on item click. The payload is newly selected option (or, if parameter passed through `options` prop is array of objects, the event payload is `option.value`).
+KSegmentedControl emits two events on option click with the same payload. The payload is newly selected option (or, if parameter passed through `options` prop is array of objects, the event payload is `option.value`).
 
 <KSegmentedControl :options="['Item One', 'Item Two', 'Item Three']" v-model="vModel9" />
 <div class="value-example-container">
@@ -125,13 +125,32 @@ Emitted value: <code>{{ vModel9 || 'none' }}</code>
 </div>
 
 ```html
-<KSegmentedControl :options="['1h', '3h', '5h', '12h', '24h', 'All']" v-model="selectedOption" />
+<KSegmentedControl :options="['Item One', 'Item Two', 'Item Three']" v-model="selectedOption" />
 Selected option: {{ selectedOption || 'none' }}
 ```
 
 :::tip NOTE
 Note that when options is an array of strings, the value emitted by KSegmentedControl will be lower case, all spaces will be replaced by dash (`-`) symbol.
 :::
+
+### click
+
+Similarly, you can bind any logic related to option select to the `@click` event.
+
+<KSegmentedControl @click="onOptionClick" :options="options" v-model="vModel10" />
+
+```vue
+<template>
+  <KSegmentedControl @click="onOptionClick" :options="options" v-model="selectedOption" />
+</template>
+
+<script setup lang="ts">
+const onOptionClick = (value: string): void => {
+  alert(`Option ${value} clicked`)
+}
+</script>
+```
+
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -154,6 +173,11 @@ const vModel6 = ref<string>('')
 const vModel7 = ref<string>('')
 const vModel8 = ref<string>('')
 const vModel9 = ref<string>('')
+const vModel10 = ref<string>('')
+
+const onOptionClick = (value: string): void => {
+  alert(`Option ${value} clicked`)
+}
 </script>
 
 <style lang="scss" scoped>

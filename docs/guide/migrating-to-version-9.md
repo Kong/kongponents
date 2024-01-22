@@ -413,6 +413,10 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 * `name="option.value"` attribute has been removed and replaced with `data-testid="option.value-option"` attribute
 
+#### Constants, Types & Interfaces
+
+* `value` property in `SegmentedControlOption` type no longer accepts `boolean`
+
 ### KSelect
 
 #### Props
