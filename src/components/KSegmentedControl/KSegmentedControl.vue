@@ -115,6 +115,7 @@ $kSegmentedControlSmallHeight: 32px;
 .k-segmented-control {
   display: flex;
   gap: var(--kui-space-0, $kui-space-0);
+  overflow-x: auto;
   width: 100%;
 
   .segmented-control-button {
@@ -137,6 +138,7 @@ $kSegmentedControlSmallHeight: 32px;
     padding-left: var(--kui-space-50, $kui-space-50);
     padding-right: var(--kui-space-50, $kui-space-50);
     transition: border-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
+    white-space: nowrap;
     width: 100%;
     z-index: 1;
 
@@ -171,6 +173,12 @@ $kSegmentedControlSmallHeight: 32px;
     &:focus:not([disabled]) {
       border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
       color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+      z-index: 3;
+    }
+
+    &:active:not([disabled]) {
+      border-color: var(--kui-color-border-primary-stronger, $kui-color-border-primary-stronger);
+      color: var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest);
       z-index: 3;
     }
 
