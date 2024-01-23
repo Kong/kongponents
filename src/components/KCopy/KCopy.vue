@@ -135,7 +135,7 @@ const props = defineProps({
   },
 })
 
-const copyButtonElementId = computed((): string => uuid4())
+const copyButtonElementId = uuid4()
 
 const tooltipText = ref<string>('')
 const nonSuccessText = computed((): string => {
@@ -201,8 +201,8 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
 }
 
 const triggerCopy = () => {
-  if (document.getElementById(copyButtonElementId.value)) {
-    document.getElementById(copyButtonElementId.value)?.click()
+  if (document.getElementById(copyButtonElementId)) {
+    document.getElementById(copyButtonElementId)?.click()
   }
 }
 
