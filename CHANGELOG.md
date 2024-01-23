@@ -1,3 +1,10 @@
+# [9.0.0-alpha.94](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.93...v9.0.0-alpha.94) (2024-01-23)
+
+
+### Features
+
+* **kfileupload, ksegmentedcontrol:** component reskin ([#1967](https://github.com/Kong/kongponents/issues/1967)) ([c2a78cd](https://github.com/Kong/kongponents/commit/c2a78cd41b1847ca6e82dfd45bb44b88c58543b7)), closes [#1926](https://github.com/Kong/kongponents/issues/1926)
+
 # [9.0.0-alpha.93](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.92...v9.0.0-alpha.93) (2024-01-19)
 
 
