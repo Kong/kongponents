@@ -21,7 +21,9 @@
         <span
           class="copy-text"
           :class="{ 'monospace': monospace || !badge }"
-        >{{ textFormat }}</span>
+        >
+          {{ textFormat }}
+        </span>
       </KTooltip>
 
       <KTooltip
@@ -33,6 +35,7 @@
       >
         <KClipboardProvider v-slot="{ copyToClipboard }">
           <CopyIcon
+            :id="copyButtonElementId"
             class="text-icon"
             data-testid="copy-to-clipboard"
             :hide-title="!!copyTooltip || undefined"
@@ -54,6 +57,7 @@ import { CopyIcon } from '@kong/icons'
 import KClipboardProvider from '@/components/KClipboardProvider'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { v4 as uuid4 } from 'uuid'
 
 const props = defineProps({
   /**
@@ -131,6 +135,8 @@ const props = defineProps({
   },
 })
 
+const copyButtonElementId = computed((): string => uuid4())
+
 const tooltipText = ref<string>('')
 const nonSuccessText = computed((): string => {
   if (!props.badgeLabel || props.copyTooltip) {
@@ -193,6 +199,16 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
 
   updateTooltipText()
 }
+
+const triggerCopy = () => {
+  if (document.getElementById(copyButtonElementId.value)) {
+    document.getElementById(copyButtonElementId.value)?.click()
+  }
+}
+
+defineExpose({
+  triggerCopy,
+})
 </script>
 
 <style lang="scss" scoped>
@@ -241,7 +257,7 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
     cursor: pointer;
     display: flex;
 
-    .text-icon {
+    .text-icon:not(.k-button .k-copy .text-icon-wrapper .text-icon) {
       &:hover,
       &:focus {
         // only applies to non-badge as for badge the mixin takes care hover styles

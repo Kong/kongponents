@@ -93,14 +93,65 @@
           :text="uuid1"
         />
       </SandboxSectionComponent>
+
+      <!-- Usage -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Usage"
+      />
+      <SandboxSectionComponent title="KCopy inside of a KButton">
+        <div class="horizontal-container">
+          <KButton appearance="secondary">
+            <KCopy
+              format="hidden"
+              :text="uuid1"
+            />
+          </KButton>
+          <KButton appearance="tertiary">
+            <KCopy
+              format="hidden"
+              :text="uuid1"
+            />
+          </KButton>
+        </div>
+        <div>
+          <p>Clicking on KButton will trigger click on KCopy:</p>
+          <KButton
+            @click="onButtonClick"
+          >
+            <KCopy
+              ref="kButtonKCopyElement"
+              format="hidden"
+              :text="uuid1"
+            />
+          </KButton>
+        </div>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
+import KCopy from '@/components/KCopy/KCopy.vue'
 
 const uuid1: string = '2cf64827-6c70-4116-906b-4c9aae83fc4a'
+
+const kButtonKCopyElement = ref<InstanceType<typeof KCopy> | null>(null)
+
+const onButtonClick = () => {
+  // @ts-ignore
+  kButtonKCopyElement.value?.triggerCopy()
+}
 </script>
+
+<style lang="scss" scoped>
+.kcopy-sandbox {
+  .horizontal-container {
+    display: flex;
+    gap: $kui-space-50;
+  }
+}
+</style>

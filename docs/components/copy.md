@@ -204,6 +204,46 @@ When `badge` is `true`, use this prop to control whether the copyable text has `
 <KCopy badge monospace :text="text" />
 ```
 
+## Usage
+
+### triggerCopy
+
+KCopy exposes `triggerCopy` method that can be used to trigger copy from outside the component. Here is an example of KCopy inside of KButton, clicking on which will trigger KCopy to copy the text.
+
+<KButton class="icon-button" @click="onButtonClick">
+  <KCopy format="hidden" ref="kCopyElement" :text="text" />
+</KButton>
+
+```vue
+<template>
+  <KButton @click="onButtonClick">
+    <KCopy format="hidden" ref="kCopyElement" :text="text" />
+  </KButton>
+</template>
+
 <script setup lang="ts">
+import { KCopy } from '@kong/kongponents'
+
 const text = '12345-6789-ABCD-EFGH-PQRSTUV-WXYZ'
+
+const kCopyElement = ref<InstanceType<typeof KCopy> | null>(null)
+
+const onButtonClick = (): void => {
+  kCopyElement.value?.triggerCopy()
+  alert(`Copied to clipboard: ${text}`)
+}
+</script>
+```
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const text = '12345-6789-ABCD-EFGH-PQRSTUV-WXYZ'
+
+const kCopyElement = ref<InstanceType<typeof KCopy> | null>(null)
+
+const onButtonClick = (): void => {
+  kCopyElement.value?.triggerCopy()
+  alert(`Copied to clipboard: ${text}`)
+}
 </script>
