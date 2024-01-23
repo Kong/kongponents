@@ -1,16 +1,13 @@
 <template>
-  <div
-    class="k-segmented-control"
-    :class="{ 'allow-pointer-events': allowPointerEvents }"
-  >
-    <KButton
+  <div class="k-segmented-control">
+    <button
       v-for="option in normalizedOptions"
       :key="`${option.value}-option`"
-      :appearance="getAppearance(option)"
+      class="segmented-control-button"
+      :class="[size, { selected: props.modelValue === option.value }]"
+      :data-testid="`${option.value}-option`"
       :disabled="getDisabled(option)"
-      :name="option.value"
-      size="medium"
-      @click="handleClick"
+      @click="handleClick(option)"
     >
       <slot
         name="option-label"
@@ -18,14 +15,13 @@
       >
         {{ option.label }}
       </slot>
-    </KButton>
+    </button>
   </div>
 </template>
 
 <script lang="ts">
 import type { PropType } from 'vue'
 import { ref } from 'vue'
-import KButton from '@/components/KButton/KButton.vue'
 import type { SegmentedControlOption } from '@/types/segmented-control'
 
 const itemsHaveRequiredProps = (items: SegmentedControlOption[]): boolean => {
@@ -34,7 +30,7 @@ const itemsHaveRequiredProps = (items: SegmentedControlOption[]): boolean => {
 
 // functions used in prop validators
 const getValues = (items: SegmentedControlOption[]) => {
-  const vals:string[] = []
+  const vals: string[] = []
   items.forEach((item: SegmentedControlOption) => vals.push(item.value + ''))
 
   return vals
@@ -51,7 +47,7 @@ const normalizeItems = (items: SegmentedControlOption[] | string[]): SegmentedCo
   return items.map((item:SegmentedControlOption | string) => {
     return {
       label: typeof item === 'string' ? item : (item.label || (item.value + '')),
-      value: typeof item === 'string' ? item : item.value,
+      value: typeof item === 'string' ? item.toLocaleLowerCase().replace(' ', '-') : item.value,
       disabled: typeof item === 'string' ? false : item.disabled,
     } as SegmentedControlOption
   })
@@ -62,14 +58,13 @@ const validateItems = (items: SegmentedControlOption[] | string[]): boolean => {
   const nItems = normalizeItems(items)
   const isValid = itemValuesAreUnique(nItems)
 
-  return isStringArray ? isValid && itemsHaveRequiredProps(items as SegmentedControlOption[]) : isValid
+  return isStringArray ? isValid && itemsHaveRequiredProps(nItems as SegmentedControlOption[]) : isValid
 }
 
 export default {}
 </script>
 
 <script lang="ts" setup>
-
 const props = defineProps({
   modelValue: {
     type: [String, Number, Boolean],
@@ -80,11 +75,12 @@ const props = defineProps({
     required: true,
     validator: (items: SegmentedControlOption[] | string[]) => !items.length || validateItems(items),
   },
-  isDisabled: {
-    type: Boolean,
-    default: false,
+  size: {
+    type: String,
+    default: 'small',
+    validator: (size: string) => ['small', 'large'].includes(size),
   },
-  allowPointerEvents: {
+  disabled: {
     type: Boolean,
     default: false,
   },
@@ -97,97 +93,122 @@ const emit = defineEmits<{
 
 const normalizedOptions = ref(normalizeItems(props.options))
 
-const getAppearance = (option: SegmentedControlOption): 'primary' | 'secondary' => {
-  return props.modelValue === option.value ? 'primary' : 'secondary'
-}
-
 const getDisabled = (option: SegmentedControlOption): boolean => {
-  return !!option.disabled || props.isDisabled
+  return !!option.disabled || props.disabled
 }
 
-const handleClick = (evt: PointerEvent): void => {
+const handleClick = (option: SegmentedControlOption): void => {
   // @ts-ignore
-  emit('click', evt.target?.name)
+  emit('click', option.value)
   // @ts-ignore
-  emit('update:modelValue', evt.target?.name)
+  emit('update:modelValue', option.value)
 }
 </script>
 
 <style lang="scss" scoped>
+/* Component variables */
+
+$kSegmentedControlSmallHeight: 32px;
+
+/* Component styles */
 
 .k-segmented-control {
-  display: flex !important;
+  display: flex;
   gap: var(--kui-space-0, $kui-space-0);
+  width: 100%;
 
-  :deep(.k-button) {
-    background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-    border-radius: var(--kui-border-radius-0, $kui-border-radius-0);
+  .segmented-control-button {
+    align-items: center;
+    background-color: var(--kui-color-background, $kui-color-background);
+    border-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
+    border-style: solid;
+    border-width: var(--kui-border-width-10, $kui-border-width-10);
     color: var(--kui-color-text-primary, $kui-color-text-primary);
-    flex: 1;
-    justify-content: center !important;
-    margin-left: -1px;
+    cursor: pointer;
+    display: flex;
+    font-family: var(--kui-font-family-text, $kui-font-family-text);
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+    gap: var(--kui-space-30, $kui-space-30);
+    height: $kSegmentedControlSmallHeight;
+    justify-content: center;
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
+    outline: none;
+    padding-left: var(--kui-space-50, $kui-space-50);
+    padding-right: var(--kui-space-50, $kui-space-50);
+    transition: border-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
+    white-space: nowrap;
+    width: 100%;
+    z-index: 1;
 
-    &.primary {
-      border-color: var(--kui-color-border-primary, $kui-color-border-primary);
-      z-index: 1;
-
-      &:hover:not(:disabled) {
-        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest) !important;
-      }
-
-      &:focus {
-        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-      }
-    }
-
-    &.secondary {
-      background-color: var(--kui-color-background, $kui-color-background);
-      border-color: rgba($kui-color-border-primary, .4);
-
-      &:hover {
-        background-color: var(--kui-color-background, $kui-color-background);
-        border-color: var(--kui-color-border-primary, $kui-color-border-primary);
-      }
-    }
-
-    &:hover {
-      z-index: 2;
-    }
-
-    &:active {
-      z-index: 2;
-    }
-
-    &:focus {
+    &:not(:first-child) {
+      // offset the border of the previous button
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      box-shadow: 0 0 0 2px var(--kui-color-background, $kui-color-background), 0 0 0 4px var(--kui-color-background-primary, $kui-color-background-primary);
-      z-index: 3;
+      margin-left: calc(var(--kui-border-width-10, $kui-border-width-10) * -1);
     }
 
     &:first-child {
-      border-radius: var(--kui-border-radius-10, $kui-border-radius-10) var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-10, $kui-border-radius-10);
-      margin-left: var(--kui-space-0, $kui-space-0);
+      border-bottom-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+      border-top-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     }
 
     &:last-child {
-      border-radius: var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-10, $kui-border-radius-10) var(--kui-border-radius-10, $kui-border-radius-10) var(--kui-border-radius-0, $kui-border-radius-0);
+      border-bottom-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+      border-top-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     }
 
-    &:only-child {
-      border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
-      margin-left: var(--kui-space-0, $kui-space-0);
+    &.large {
+      height: $kongponentsInputElementHeight;
+      padding-left: var(--kui-space-60, $kui-space-60);
+      padding-right: var(--kui-space-60, $kui-space-60);
     }
 
-    &:disabled, &:disabled:hover {
-      background-color: var(--kui-color-background, $kui-color-background) !important;
-      border-color: rgba($kui-color-border-neutral-weak, .4);
+    &:hover:not([disabled]) {
+      border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+      color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+      z-index: 2;
+    }
+
+    &:focus:not([disabled]) {
+      border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
+      color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+      z-index: 3;
+    }
+
+    &:active:not([disabled]) {
+      border-color: var(--kui-color-border-primary-stronger, $kui-color-border-primary-stronger);
+      color: var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest);
+      z-index: 3;
+    }
+
+    &:focus-visible:not([disabled]) {
+      border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+      color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+      z-index: 3;
+    }
+
+    &[disabled] {
+      border-color: var(--kui-color-border-disabled, $kui-color-border-disabled) !important;
+      color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
+      cursor: not-allowed;
       z-index: 0;
-    }
-  }
 
-  &:not(.allow-pointer-events) {
-    :deep(.k-button) > * {
-      pointer-events: none;
+      &.selected {
+        background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+      }
+    }
+
+    &.selected {
+      background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+      border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
+      color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+      z-index: 2;
+    }
+
+    :deep(#{$kongponentsKongIconSelector}) {
+      height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+      width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
     }
   }
 }

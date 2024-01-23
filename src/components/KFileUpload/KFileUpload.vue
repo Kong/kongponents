@@ -2,100 +2,77 @@
   <div class="k-file-upload">
     <KLabel
       v-if="label"
+      :for="inputId"
       v-bind="labelAttributes"
-      class="k-file-upload-label"
-      data-testid="k-file-upload-label"
-      :for="customInputId"
+      :required="isRequired"
     >
-      {{ label }}
+      {{ strippedLabel }}
+
+      <template
+        v-if="hasLabelTooltip"
+        #tooltip
+      >
+        <slot name="label-tooltip" />
+      </template>
     </KLabel>
 
-    <KInput
-      :id="customInputId"
-      :key="fileInputKey"
-      :accept="accept"
-      class="upload-input"
-      :class="{
-        'image-upload': type === 'image'
-      }"
-      :error="hasUploadError"
-      :error-message="errorMessage"
-      :help="help"
-      :max-file-size="maximumFileSize"
-      type="file"
-      @change="onFileChange"
-    />
+    <div class="file-upload-input-wrapper">
+      <span
+        :key="fileInputKey"
+        class="file-upload-input-text"
+        :class="{ 'placeholder': !fileValue, 'has-icon': $slots.icon, 'disabled': disabled }"
+      >
+        {{ fileValue ? fileValue : placeholder }}
+      </span>
 
-    <KIcon
-      v-if="type === 'image'"
-      class="image-upload-icon"
-      :color="iconColor"
-      :icon="icon"
-      :size="iconSize"
-      @click.prevent="updateFile"
-    />
+      <KInput
+        :id="inputId"
+        :key="fileInputKey"
+        :accept="accept"
+        class="upload-input"
+        :disabled="disabled"
+        :error="hasUploadError || error"
+        :error-message="errorMessage || fileSizeErrorMessage"
+        :help="help"
+        :max-file-size="maximumFileSize"
+        :placeholder="placeholder"
+        type="file"
+        @change="onFileChange"
+      >
+        <template
+          v-if="$slots.icon"
+          #before
+        >
+          <slot name="icon" />
+        </template>
 
-    <a
-      v-if="type === 'image'"
-      class="image-upload-description"
-      href="#"
-      @click.prevent="updateFile"
-    >
-      {{ fileValue ? fileValue : placeholder }}
-    </a>
-    <KButton
-      v-if="fileValue && removable"
-      appearance="primary"
-      class="remove-button"
-      :class="[label ? 'k-file-upload-btn-with-label' : 'k-file-upload-btn-without-label', { 'move-btn-right': type !== 'file' }]"
-      data-testid="remove-button"
-      size="small"
-      type="reset"
-      @click="resetInput"
-      @keyup.enter="resetInput"
-    >
-      <template #icon>
-        <KIcon
-          icon="close"
-          size="16"
-        />
-      </template>
-    </KButton>
-    <KButton
-      v-if="type === 'file'"
-      :appearance="buttonAppearance"
-      class="k-file-upload-btn"
-      :class="[label ? 'k-file-upload-btn-with-label' : 'k-file-upload-btn-without-label']"
-      data-testid="k-file-upload-button"
-      size="small"
-      @click="updateFile"
-      @keyup.enter="updateFile"
-    >
-      {{ buttonText }}
-    </KButton>
-    <a
-      v-if="type === 'file'"
-      class="display-name"
-      :class="[label ? 'has-label' : 'has-no-label']"
-      href="#"
-      @click="updateFile"
-      @keyup.enter="updateFile"
-    >
-      {{ fileValue ? fileValue : placeholder }}
-    </a>
+        <template #after>
+          <KButton
+            appearance="tertiary"
+            class="file-upload-button"
+            data-testid="file-upload-button"
+            :disabled="disabled"
+            size="small"
+            @click="onButtonClick"
+            @keydown.space.prevent
+            @keyup.space="onButtonClick"
+          >
+            {{ fileValue ? 'Clear' : buttonText }}
+          </KButton>
+        </template>
+      </KInput>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, ref } from 'vue'
+import { computed, ref, useAttrs, useSlots } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
-import { v1 as uuidv1 } from 'uuid'
-import type { FileUploadType, ButtonAppearance } from '@/types'
-import { KUI_ICON_SIZE_50 } from '@kong/design-tokens'
+import { v4 as uuidv4 } from 'uuid'
+import useUtilities from '@/composables/useUtilities'
 
 const props = defineProps({
   labelAttributes: {
@@ -106,46 +83,17 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  /**
-  * Test mode - for testing only, strips out generated ids
-  */
-  testMode: {
-    type: Boolean,
-    default: false,
-  },
   help: {
     type: String,
     default: undefined,
-  },
-  buttonAppearance: {
-    type: String as PropType<ButtonAppearance>,
-    default: 'primary',
   },
   buttonText: {
     type: String,
     default: 'Select file',
   },
-  fileModel: {
-    type: String,
-    default: undefined,
-  },
-  removable: {
-    type: Boolean,
-    default: true,
-  },
   placeholder: {
     type: String,
     default: 'No file selected',
-  },
-  /**
-  * Set whether its file upload or image upload type
-  */
-  type: {
-    type: String as PropType<FileUploadType>,
-    default: 'file',
-    validator: (value: FileUploadType): boolean => {
-      return ['file', 'image'].includes(value)
-    },
   },
   accept: {
     type: Array as PropType<string[]>,
@@ -155,33 +103,22 @@ const props = defineProps({
     type: Number,
     default: null,
   },
-  /**
-  * Set icon size
-  */
-  iconSize: {
-    type: String,
-    default: KUI_ICON_SIZE_50,
-  },
-  icon: {
-    type: String,
-    default: 'image',
-  },
-  /**
-  * Set icon color
-  */
-  iconColor: {
-    type: String,
-    default: undefined,
-  },
-  hasError: {
+  error: {
     type: Boolean,
     default: false,
   },
   errorMessage: {
     type: String,
-    default: 'Please check file size.',
+    default: '',
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
   },
 })
+
+const attrs = useAttrs()
+const slots = useSlots()
 
 const emit = defineEmits<{
   (e: 'file-added', val: File[]): void
@@ -189,39 +126,70 @@ const emit = defineEmits<{
   (e: 'error', val: File[]): void
 }>()
 
-const customInputId = computed((): string => props.testMode ? 'test-file-upload-id-1234' : uuidv1())
-const maximumFileSize = computed((): Number => {
+const { stripRequiredLabel } = useUtilities()
+
+const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
+const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
+const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
+const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
+
+const hasFileSizeError = ref<boolean>(false)
+const fileSizeErrorMessage = computed((): string => {
+  if (hasFileSizeError.value) {
+    let units = 'bytes'
+    let maxFileSize = maximumFileSize.value
+    if (maximumFileSize.value >= 1000 && maximumFileSize.value < 1000000) {
+      maxFileSize = maximumFileSize.value / 1000
+      units = 'KB'
+    }
+    if (maximumFileSize.value >= 1000000) {
+      maxFileSize = maximumFileSize.value / 1000000
+      units = 'MB'
+    }
+
+    return `File size must be less than ${maxFileSize}${units}.`
+  }
+
+  return ''
+})
+const maximumFileSize = computed((): number => {
   if (props.maxFileSize || props.maxFileSize === 0) {
     return props.maxFileSize
   }
-  return props.type === 'file' ? 5250000 : 1000000
+
+  return 5250000
 })
 
-const hasUploadError = ref(false)
+const hasUploadError = ref<boolean>(false)
 
 // This holds the FileList
 const fileInput = ref<File[]>([])
 // To clear the input value after reset
 const fileInputKey = ref(0)
 // File fakepath
-const fileValue = ref('')
+const fileValue = ref<string>('')
 // Array to store the previously selected FileList when user clicks reopen the file uploader and clicks on Cancel
 const fileClone = ref<File[]>([])
 
 const onFileChange = (evt: any): void => {
   fileInput.value = evt.target?.files
-  fileValue.value = fileInput?.value[0]?.name
+  fileValue.value = String(fileInput?.value[0]?.name)
 
   const fileSize = fileInput?.value[0]?.size
 
-  hasUploadError.value = Number(fileSize) as Number > maximumFileSize.value
+  hasUploadError.value = Number(fileSize) > maximumFileSize.value
 
   if (hasUploadError.value) {
     fileInputKey.value++
+
+    if (Number(fileSize) > maximumFileSize.value) {
+      hasFileSizeError.value = true
+    }
+
     emit('error', fileInput.value)
   }
 
-  const inputElem = document.getElementById(customInputId.value) as HTMLInputElement
+  const inputElem = document.getElementById(inputId.value) as HTMLInputElement
 
   if (fileSize) {
     // @ts-ignore
@@ -231,16 +199,25 @@ const onFileChange = (evt: any): void => {
     inputElem.files = fileClone.value[fileClone.value.length - 1]
     // @ts-ignore
     fileInput.value = inputElem.files
+
     if (inputElem.files) {
-      fileValue.value = inputElem.files[inputElem.files.length - 1].name
+      fileValue.value = String(inputElem.files[inputElem.files.length - 1].name)
     }
   }
+
   emit('file-added', fileInput.value)
 }
 
 // When KButton for Select file is clicked
-const updateFile = (): void => {
-  const inputEl = document.getElementById(customInputId.value)
+const onButtonClick = (): void => {
+  if (fileValue.value) {
+    resetInput()
+
+    return
+  }
+
+  const inputEl = document.getElementById(inputId.value) as HTMLInputElement
+
   if (inputEl) {
     // Simulate button click to trigger input click
     inputEl.click()
@@ -254,137 +231,69 @@ const resetInput = (): void => {
   fileClone.value = []
   fileInputKey.value++
   hasUploadError.value = false
+  hasFileSizeError.value = false
 
   emit('file-removed')
 }
 </script>
 
 <style lang="scss" scoped>
+/* Component variables */
 
-@import '@/styles/tmp-variables';
+$kFileUploadInputPaddingX: var(--kui-space-50, $kui-space-50); // corresponds to mixin, search for variable name in mixins
+$kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin
+
+/* Component styles */
 
 .k-file-upload {
-  position: relative;
-  width: 100% !important;
-  $kInputPaddingY: var(--kui-space-40, $kui-space-40);
-  $kInputLabelMarginBottom: var(--kui-space-40, $kui-space-40); // matching KLabel margin bottom
-  $kInputLabelLineHeight: var(--kui-line-height-30, $kui-line-height-30); // matching KLabel line height
-  $kInputLineHeight: var(--kui-line-height-40, $kui-line-height-40); // matching KInput line height
-
-  .k-file-upload-label {
-    cursor: pointer !important;
-  }
-
-  .upload-input {
-    width: 100% !important;
-  }
-
-  .k-file-upload-btn.k-button {
-    border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
-    height: 29px;
-    position: absolute;
-    right: 8px;
-  }
-
-  .k-file-upload-btn-with-label.k-button {
-    top: 36px;
-  }
-
-  .k-file-upload-btn-without-label.k-button {
-    top: 8px;
-  }
-
-  // To hide the button and thumbnail that appears in Safari and firefox after uploading a file
   :deep(.k-input-wrapper) input[type="file"]::-webkit-file-upload-button,
   :deep(.k-input-wrapper) input[type="file"]::file-selector-button {
-    cursor: inherit;
-    min-height: 100%;
-    min-width: 100%;
+    margin: 0;
     opacity: 0;
+    padding: 0;
     pointer-events: none;
-    position: absolute;
+    width: 0;
   }
 
   :deep(.k-input-wrapper) input[type="file"],
-  :deep(.k-input-wrapper) input[type="file"].image-upload {
+  :deep(.k-input-wrapper) input[type="file"][disabled] {
     color: transparent;
   }
 
-  .remove-button {
-    background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-    border: none;
-    cursor: pointer;
-    height: 24px;
-    padding: var(--kui-space-30, $kui-space-30);
-    position: absolute;
-    right: 120px;
-
-    &:hover,
-    &:active {
-      background-color: var(--kui-color-background-transparent, $kui-color-background-transparent) !important;
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      box-shadow: 0 0 0 2px var(--kui-color-background, $kui-color-background), 0 0 0 4px var(--kui-color-background-primary, $kui-color-background-primary);
-    }
+  :deep(.k-input) {
+    padding-right: 90px !important; // offset to account for button
   }
 
-  .move-btn-right {
-    right: 8px;
-  }
+  .file-upload-input-wrapper {
+    position: relative;
 
-  .image-upload-icon {
-    cursor: pointer;
-    left: 8px;
-    position: absolute;
-    top: 4px;
-  }
+    .file-upload-input-text {
+      @include inputText;
+      @include truncate;
 
-  .image-upload-description {
-    color: var(--kui-color-text-primary, $kui-color-text-primary);
-    cursor: pointer;
-    font-size: var(--kui-font-size-20, $kui-font-size-20);
-    left: 40px;
-    line-height: var(--kui-line-height-20, $kui-line-height-20);
-    overflow: hidden;
-    position: absolute;
-    text-overflow: ellipsis;
-    top: 12px;
-    white-space: nowrap;
-  }
-}
-</style>
+      left: 0;
+      margin-left: $kFileUploadInputPaddingX;
+      margin-top: $kFileUploadInputPaddingY;
+      max-width: 90%;
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      z-index: 1;
 
-<style lang="scss">
-.k-file-upload {
-  .k-input {
-    height: 44px;
+      &.placeholder {
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      }
 
-    + .help {
-      cursor: default;
-    }
-  }
+      &.has-icon {
+        // default spacing + icon size + icon spacing
+        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+        margin-left: calc($kFileUploadInputPaddingX + var(--kui-icon-size-40, $kui-icon-size-40) + var(--kui-space-40, $kui-space-40));
+        max-width: 80%;
+      }
 
-  input[type=file]{
-    color: transparent;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  .display-name {
-    color: var(--kui-color-text, $kui-color-text);
-    cursor: pointer !important;
-    left: 20px;
-    pointer-events: none;
-    position: absolute;
-    text-decoration: none;
-
-    &.has-label {
-      top: 40px;
-    }
-
-    &.has-no-label {
-      top: 12px;
+      &.disabled {
+        color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
+      }
     }
   }
 }

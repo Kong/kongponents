@@ -1,109 +1,73 @@
 # File Upload
 
-**KFileUpload** provides a wrapper around an `input` element with `type=file` for `file upload` or `image upload`.
+KFileUpload provides a wrapper around an `input` element with `type=file` for file upload.
 
-<KCard>
-  <template v-slot:body>
-    <KFileUpload :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" help="Additional files can be uploaded from HomePage." :accept="acceptedFileType" hasError />
-  </template>
-</KCard>
+<ClientOnly>
+  <KFileUpload label="File upload" :label-attributes="{ info: `Accepted file types: ${acceptedFileType.join(', ')}` }" help="File size must be less than 1MB." :accept="acceptedFileType" />
+</ClientOnly>
 
 ```html
 <KFileUpload
   label="Upload File"
-  :label-attributes="{ help: 'Accepted file types: .yml, .yaml, .json, .md, .markdown, image/*' }"
-  :accept="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/*']"
+  :label-attributes="{ info: 'Accepted file types: .yml, .yaml, .json, .md, .markdown, image/*' }"
+  :accept="acceptedFileType"
 />
 ```
 
 ## Props
 
-### type
+### accept
 
-KFileUpload has two supported types: `file` (default) and `image`.
+Please refer to [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) that defines the file types the component can accept.
 
-<KCard>
-  <template v-slot:body>
-    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" help="Additional files can be uploaded from HomePage." :accept="acceptedFileType" />
-  </template>
-</KCard>
+<ClientOnly>
+  <KFileUpload :accept="['.jpg', '.png']" />
+</ClientOnly>
 
 ```html
-<KFileUpload
-  label="Upload File"
-  help="Additional files can be uploaded from HomePage."
-/>
-```
-
-<br/>
-<KCard>
-  <template v-slot:body>
-    <KFileUpload type="image" label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedImageType}` }" class="image-with-label" icon="image" :accept="['image/*']" placeholder="Upload new image (Max 4 MB)" />
-  </template>
-</KCard>
-
-```html
-<KFileUpload type="image"
-  label="Upload File"
-  icon="image"
-  :accept="['image/*']"
-  placeholder="Upload new image (Max 4 MB)"
-/>
+<KFileUpload :accept="['.jpg', '.png']" />
 ```
 
 ### label
 
-String to be used as the `KFileUpload` label.
+String to be used as the label.
+
+<ClientOnly>
+  <KFileUpload label="Upload file" :accept="acceptedFileType" />
+</ClientOnly>
+
+```html
+<KFileUpload label="Upload file" :accept="acceptedFileType" />
+```
 
 ### labelAttributes
 
-Use the `labelAttributes` prop to configure the **KLabel's** [props](/components/label) if using the `label` prop.
+Use the `labelAttributes` prop to configure the KLabel's [props](/components/label) if using the `label` prop.
 
-<KCard>
-  <template v-slot:body>
-    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" :accept="acceptedFileType"/>
-  </template>
-</KCard>
+<ClientOnly>
+  <KFileUpload label="Upload file" :label-attributes="{ info: `Accepted file types: ${acceptedFileType.join(', ')}` }" :accept="acceptedFileType" />
+</ClientOnly>
 
 ```html
 <KFileUpload
-  label="Upload File"
-  :label-attributes="{ help: 'Accepted file types: .yml, .yaml, .json, .md, .markdown, image/*' }"
-/>
-```
-
-<br/>
-<KCard>
-  <template v-slot:body>
-    <KFileUpload type="image" label="Upload Image File" :label-attributes="{ help: `Accepted file types: ${acceptedImageType}` }" class="image-with-label" icon="image" :accept="acceptedImageType" placeholder="Upload new image (Max 1 MB)" />
-  </template>
-</KCard>
-
-```html
-<KFileUpload
-  type="image"
-  label="Upload Image file"
-  :label-attributes="{ help: 'Accepted file types: image/*' }"
-  icon="image"
-  placeholder="Upload new image (Max 1 MB)"
+  label="Upload file"
+  :label-attributes="{ info: 'Accepted file types: .yml, .yaml, .json, .md, .markdown, image/*' }"
 />
 ```
 
 ### help
 
-Use the `help` prop to display text under KInput.
+Use the `help` prop to display text under the input.
 
-<KCard>
-  <template v-slot:body>
-    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" help="Some text here.." :accept="acceptedFileType" />
-  </template>
-</KCard>
+<ClientOnly>
+  <KFileUpload label="Upload file" help="File size must be less than 1MB." :accept="acceptedFileType" />
+</ClientOnly>
 
 ```html
-<KFileUpload label="Upload File" help="Some text here.." />
+<KFileUpload label="Upload File" help="File size must be less than 1MB." :accept="acceptedFileType" />
 ```
 
-### hasError
+### error
 
 Boolean value to indicate whether the element has an error and should apply error styling. By default this is `false`.
 
@@ -111,153 +75,104 @@ Boolean value to indicate whether the element has an error and should apply erro
 
 String to be displayed as error message if `hasError` prop is `true`.
 
-> Note: For below example, `maxFileSize` prop has been set to `0` to display the error state.
-
-<KCard>
-  <template v-slot:body>
-    <KFileUpload label="Upload File" :maxFileSize="0" help="Please select any file to display the error state." hasError errorMessage="File size should be less than 1MB." :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" :accept="acceptedFileType" />
-  </template>
-</KCard>
-
+<ClientOnly>
+  <KFileUpload label="Upload file" error error-message="File size must be less than 1MB." :accept="acceptedFileType" />
+</ClientOnly>
 
 ```html
 <KFileUpload
-  label="Upload File"
-  :maxFileSize="0"
-  help="Please select any file to display the error state."
-  hasError
-  errorMessage="File size should be less than 1MB."
-  :accept="['.yml', '.yaml', '.json', '.md', '.markdown', 'image/*']"
+  label="Upload file"
+  error
+  error-message="File size must be less than 1MB."
+  :accept="acceptedFileType"
 />
 ```
-
 
 ### placeholder
 
-Use the `placeholder` prop to display placeholder text. The `placeholder text` is `blue` to indicate the field is `clickable`.
+Use the `placeholder` prop to display placeholder text.
 
-<br/>
-<KCard>
-  <template v-slot:body>
-    <KFileUpload type="image" label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedImageType}` }" class="image-with-label" :accept="acceptedImageType" placeholder="You can change the text here!" icon="kong" >
-    </KFileUpload>
-  </template>
-</KCard>
+<ClientOnly>
+  <KFileUpload placeholder="Select file on your computer" :accept="acceptedFileType" />
+</ClientOnly>
 
 ```html
-<KFileUpload
-  type="image"
-  label="Upload File"
-  placeholder="You can change the text here!"
-  icon="kong"
-/>
-```
-
-### removable
-
-A `cancel` button can be displayed, by default this is set to `true`. This button is only visible once a file has been added.
-
-<KCard>
-  <template v-slot:body>
-    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" buttonAppearance="creation" :accept="acceptedFileType" :removable="false" />
-  </template>
-</KCard>
-
-```html
-<KFileUpload
-  :removable="false"
-  label="Upload File"
-  :label-attributes="{ help: 'Accepted file types: .yml, .yaml, .json, .md, .markdown, image/*' }"
-  buttonAppearance="creation"
-/>
-```
-
-<br/>
-<KCard>
-  <template v-slot:body>
-    <KFileUpload type="image" label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedImageType}` }" :removable="false" class="image-with-label" :accept="acceptedImageType" placeholder="No cancel button!" icon="kong" >
-    </KFileUpload>
-  </template>
-</KCard>
-
-```html
-<KFileUpload
-  type="image"
-  :removable="false"
-  label="Upload File"
-  placeholder="No cancel button!"
-  icon="kong"
-/>
-```
-
-### accept
-
-Please refer to [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) that defines the file types the file input should accept.
-
-### buttonAppearance
-
-Use this prop to customize the trigger **KButton** [appearance](/components/button.html#appearance). This button only shows when prop `type` is `file`. Default vaue is set to `primary`.
-
-<KCard>
-  <template v-slot:body>
-    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" buttonAppearance="creation" :accept="acceptedFileType" />
-  </template>
-</KCard>
-
-```html
-<KFileUpload label="Upload File" buttonAppearance="creation" />
+<KFileUpload placeholder="Select file on your computer" :accept="acceptedFileType" />
 ```
 
 ### buttonText
 
-This is the text that will be displayed on the button that triggers the click on KInput. Button text can only be changed when prop `type` is `file`.
+This is the text that will be displayed on the button that triggers the click on KInput.
 
-<KCard>
-  <template v-slot:body>
-    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" buttonAppearance="danger" buttonText="Click me" :accept="acceptedFileType" />
-  </template>
-</KCard>
+<ClientOnly>
+  <KFileUpload button-text="Choose file" :accept="acceptedFileType" />
+</ClientOnly>
 
 ```html
-<KFileUpload label="Upload File" buttonAppearance="danger" buttonText="Click me" />
+<KFileUpload button-text="Choose file" :accept="acceptedFileType" />
 ```
 
-### icon
-
-Specify an icon to display to the left of the `placeholder text` if prop `type` is `image`.
-
-### iconSize
-
-The size of the `icon` being displayed (default is `24px`).
-
-### iconColor
-
-The color of the `icon` being displayed.
-
-<br/>
-<KCard>
-  <template v-slot:body>
-    <KFileUpload type="image" label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedImageType}` }" :accept="acceptedImageType" class="image-with-label" placeholder="Customized icon, iconColor & iconSize!" icon="immunity" iconColor="gold" iconSize="30px" />
-  </template>
-</KCard>
-
-```html
-<KFileUpload
-  type="image" icon="immunity" iconColor="gold" iconSize="30px"
-  placeholder="You can change the text here!"
-/>
-```
 ### maxFileSize
 
 Use this prop to customize the maximize size of file that can be uploaded. Default value for `image` upload is `1MB` and for `file` is `5.25MB`.
+
+<ClientOnly>
+  <KFileUpload :max-file-size="2" :accept="['.jpg', '.png']" />
+</ClientOnly>
+
+```html
+<KFileUpload :max-file-size="2" :accept="acceptedFileType" />
+```
+
+:::tip NOTE
+By default KFileUpload will display the error state with a generic error message when selected file exceeds specified maximum file size. You can use [`errorMessage` prop](#errormessage) in conjunction with the [`error` event](#events) to display a custom error message.
+:::
+
+## Slots
+
+### icon
+
+Slot for an icon in front of the input field.
+
+<ClientOnly>
+  <KFileUpload label="Upload image" :accept="['.jpg', '.png']">
+    <template #icon>
+      <ImageIcon />
+    </template>
+  </KFileUpload>
+</ClientOnly>
+
+```html
+<KFileUpload label="Upload image" :accept="['.jpg', '.png']">
+  <template #icon>
+    <ImageIcon />
+  </template>
+</KFileUpload>
+```
+
+### labelTooltip
+
+Use this slot if you want to utilize HTML in the input label's tooltip.
+
+<ClientOnly>
+  <KFileUpload label="Upload file" :accept="acceptedFileType">
+    <template #label-tooltip>Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code></template>
+  </KFileUpload>
+</ClientOnly>
+
+```html
+<KFileUpload label="Upload file" :accept="acceptedFileType">
+  <template #label-tooltip>Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code></template>
+</KFileUpload>
+```
 
 ## Events
 
 The events below will fire whenever:
 
-- a file is added: `file-added`
-- a file is removed: `file-removed`
-- there is a file upload error because the uploaded file size is greater than `maxFileSize` prop): `error`
+- `file-added`: a file is added
+- `file-removed`: a file is removed
+- `error`: the uploaded file size is greater than `maxFileSize` prop
 
 All of the above 3 events will emit a `JavaScript Array` of type `FileList`. This FileList object provides the `File object` that has following `read-only` properties:
 
@@ -268,15 +183,13 @@ All of the above 3 events will emit a `JavaScript Array` of type `FileList`. Thi
 - `type` (returns the MIME type of the file)
 - `webkitRelativePath` (returns the path the URL of the File is relative to)
 
-<KCard>
-  <template v-slot:body>
-    <KFileUpload label="Upload File" :label-attributes="{ help: `Accepted file types: ${acceptedFileType.join(', ')}` }" :accept="acceptedFileType" @file-added="file => printData(file)" @file-removed="() => fileData = ''" />
-  </template>
-</KCard>
+<ClientOnly>
+  <KFileUpload label="Upload file" :label-attributes="{ info: `Accepted file types: ${acceptedFileType.join(', ')}` }" :accept="acceptedFileType" @file-added="file => printData(file)" @file-removed="() => fileData = ''" />
+</ClientOnly>
 
 ```html
 <KFileUpload
-  label="Upload File"
+  label="Upload file"
   @file-added="file => printData(file)"
   @file-removed="() => fileData = ''"
 />
@@ -284,8 +197,9 @@ All of the above 3 events will emit a `JavaScript Array` of type `FileList`. Thi
 
 <br/>
 <div>Emitted value:
-  <pre v-if="fileData.length" class="emitted-value">{{ `File Data:` }}
-    <div v-for="(file) in fileData">
+  <pre v-if="fileData.length" class="emitted-value">
+    File Data:
+    <div v-for="(file) in fileData" :key="file.name">
       <span>lastModified: {{file.lastModified}}</span>
       <span>lastModifiedDate: {{file.lastModifiedDate}}</span>
       <span>name: {{file.name}}</span>
@@ -294,55 +208,32 @@ All of the above 3 events will emit a `JavaScript Array` of type `FileList`. Thi
       <span>webkitRelativePath: {{file.webkitRelativePath}}</span>
     </div>
   </pre>
+  <span v-else>null</span>
 </div>
 
+<script setup lang="ts">
+import { ref } from 'vue'
+import { ImageIcon } from '@kong/icons'
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+// Reactive data properties
+const fileSize = ref<string>('')
+const fileName = ref<string>('')
+const imageSize = ref<string>('')
+const imageName = ref<string>('')
+const fileData = ref([])
+const acceptedFileType = ref(['.yml', '.yaml', '.json', '.md', '.markdown', 'image/*'])
 
-export default defineComponent({
-  data() {
-    return {
-      fileSize: '',
-      fileName: '',
-      imageSize: '',
-      imageName: '',
-      fileData: [],
-      acceptedFileType: ['.yml', '.yaml', '.json', '.md', '.markdown', 'image/*'],
-      acceptedImageType: ['image/*']
-    }
-  },
-  methods: {
-    printData (i) {
-      this.fileData = Array.from(i)
-    },
-  }
-})
+// Methods
+const printData = (i) => {
+  fileData.value = Array.from(i)
+}
 </script>
 
 <style lang="scss" scoped>
-pre.emitted-value {
-  font-size: 12px;
-  white-space: pre-wrap;
-  background-color: lightgrey;
-  padding: 10px;
-  height: 200px;
+.emitted-value {
+  font-weight: $kui-font-size-20;
   overflow: hidden;
-}
-</style>
-
-<style lang="scss">
-.k-file-upload {
-  .image-upload-icon.kong-icon-image svg rect {
-    fill: lightblue;
-  }
-}
-.image-with-label {
-  .image-upload-icon.kong-icon {
-    top: 37px !important;
-  }
-  .image-upload-description {
-    top: 40px !important;
-  }
+  background-color: $kui-color-background-neutral-weaker;
+  padding-top: $kui-space-50;
 }
 </style>

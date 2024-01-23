@@ -57,6 +57,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxDropdown.vue'),
   },
   {
+    path: '/fileupload',
+    name: 'fileupload',
+    meta: { title: 'File Upload Sandbox' },
+    component: () => import('../pages/SandboxFileUpload.vue'),
+  },
+  {
     path: '/input',
     name: 'input',
     meta: { title: 'Input Sandbox' },
@@ -91,6 +97,12 @@ const componentRoutes: RouteRecordRaw[] = [
     name: 'radio',
     meta: { title: 'Radio Sandbox' },
     component: () => import('../pages/SandboxRadio.vue'),
+  },
+  {
+    path: '/segmentedcontrol',
+    name: 'segmentedcontrol',
+    meta: { title: 'Segmented Control Sandbox' },
+    component: () => import('../pages/SandboxSegmentedControl.vue'),
   },
   {
     path: '/select',

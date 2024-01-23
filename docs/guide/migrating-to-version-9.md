@@ -221,6 +221,27 @@ Component has been renamed to `KDropdown`
 
 ### KFileUpload
 
+#### Props
+
+* `testMode` prop has been removed
+* `buttonAppearance` prop has been removed. Default button appearance has been changed to `tertiary`
+* `fileModel` prop has been removed
+* `removable` prop has been removed. Component allows to clear input by default
+* `iconSize` prop has been removed
+* `iconColor` prop has been removed
+* `icon` prop has been removed
+* `hasError` prop has been renamed to `error`
+* `type` prop has been removed
+* default value for `errorMessage` has been changed to `''`
+
+#### Structure
+
+* `k-file-upload-btn` class has been changed to `file-upload-button`
+* `k-file-upload-button` `data-testid` attribute has been changed to `file-upload-button`
+
+#### Constants, Types & Interfaces
+
+* `FileUploadType` type has been removed
 
 ### KIcon
 
@@ -404,6 +425,18 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KSegmentedControl
 
+#### Props
+
+* `allowPointerEvents` prop has been removed
+* `isDisabled` prop has been changed to `disabled`
+
+#### Structure
+
+* `name="option.value"` attribute has been removed and replaced with `data-testid="option.value-option"` attribute
+
+#### Constants, Types & Interfaces
+
+* `value` property in `SegmentedControlOption` type no longer accepts `boolean`
 
 ### KSelect
 

@@ -20,6 +20,10 @@
   ); // needs to be at least 16px to prevent automatic zoom in on focus on mobile
   font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   line-height: var(--kui-line-height-40, $kui-line-height-40); // $kTextAreaLineHeight
+
+  @media (min-width: $kui-breakpoint-mobile) {
+    font-size: var(--kui-font-size-30, $kui-font-size-30);
+  }
 }
 
 @mixin inputDefaults {
@@ -33,14 +37,10 @@
   box-shadow: var(--kui-shadow-border, $kui-shadow-border);
   box-sizing: border-box; // Ensure the padding is calculated in the element's width
   outline: none;
-  padding: var(--kui-space-40, $kui-space-40) var(--kui-space-50, $kui-space-50); // $kInputPaddingX, $kTextAreaPaddingY, $kSelectInputPaddingX, $kSelectInputPaddingY, $kMultiselectInputPaddingY, $kMultiselectInputPaddingX
+  padding: var(--kui-space-40, $kui-space-40) var(--kui-space-50, $kui-space-50); // $kInputPaddingX, $kTextAreaPaddingY, $kSelectInputPaddingX, $kSelectInputPaddingY, $kMultiselectInputPaddingY, $kMultiselectInputPaddingX, $kFileUploadInputPaddingX, $kFileUploadInputPaddingY
   text-overflow: ellipsis;
   transition: box-shadow $kongponentsTransitionDurTimingFunc;
   width: 100%;
-
-  @media (min-width: $kui-breakpoint-mobile) {
-    font-size: var(--kui-font-size-30, $kui-font-size-30);
-  }
 
   &::placeholder {
     @include inputText;
