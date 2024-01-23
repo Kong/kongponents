@@ -1,3 +1,10 @@
+# [9.0.0-alpha.95](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.94...v9.0.0-alpha.95) (2024-01-23)
+
+
+### Bug Fixes
+
+* **kcopy:** expose trigger copy, tweak hover in kbutton ([#1969](https://github.com/Kong/kongponents/issues/1969)) ([7302263](https://github.com/Kong/kongponents/commit/730226317f77b0ff341bab1421c86ed85e45c72a))
+
 # [9.0.0-alpha.94](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.93...v9.0.0-alpha.94) (2024-01-23)
 
 
