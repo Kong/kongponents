@@ -200,14 +200,14 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
   updateTooltipText()
 }
 
-const triggerCopy = () => {
+const copy = () => {
   if (document.getElementById(copyButtonElementId)) {
     document.getElementById(copyButtonElementId)?.click()
   }
 }
 
 defineExpose({
-  triggerCopy,
+  copy,
 })
 </script>
 

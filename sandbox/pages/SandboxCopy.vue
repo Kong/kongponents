@@ -143,7 +143,7 @@ const kButtonKCopyElement = ref<InstanceType<typeof KCopy> | null>(null)
 
 const onButtonClick = () => {
   // @ts-ignore
-  kButtonKCopyElement.value?.triggerCopy()
+  kButtonKCopyElement.value?.copy()
 }
 </script>
 
