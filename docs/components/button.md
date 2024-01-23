@@ -1,6 +1,6 @@
 # Button
 
-**KButton** is probably the most used Kongponent. It supports a number of variations
+KButton is probably the most used Kongponent. It supports a number of variations
 and configuration options.
 
 <KButton appearance="primary">I'm a button</KButton>
