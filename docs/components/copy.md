@@ -230,7 +230,6 @@ const kCopyElement = ref<InstanceType<typeof KCopy> | null>(null)
 
 const onButtonClick = (): void => {
   kCopyElement.value?.copy()
-  alert(`Copied to clipboard: ${text}`)
 }
 </script>
 ```
@@ -244,6 +243,5 @@ const kCopyElement = ref<InstanceType<typeof KCopy> | null>(null)
 
 const onButtonClick = (): void => {
   kCopyElement.value?.copy()
-  alert(`Copied to clipboard: ${text}`)
 }
 </script>
