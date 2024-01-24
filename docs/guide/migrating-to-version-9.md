@@ -319,7 +319,14 @@ This component has been removed. Please refer to KBadge component which has been
 
 #### Props
 
-* New `maxWidth` prop to control the `max-width` of the modal. Defaults to `500px`
+* new `width` prop to control the width of the modal. Defaults to `500px`
+* `testMode` prop has been removed
+* `hideTitle` prop has been removed
+* `hideDismissIcon` prop has been removed
+* `dismissButtonTheme` prop has been removed
+* `textAlign` prop has been removed
+* `isVisible` prop has been removed and replaced with `visible` prop
+* `hideCancelButton` prop has been removed
 
 #### Slots
 
@@ -327,7 +334,17 @@ This component has been removed. Please refer to KBadge component which has been
 
 #### Structure
 
+* `k-modal-backdrop` class has been removed and replaced with `modal-backdrop`
+* `k-modal-dialog` class has been removed and replaced with `modal-container`
+* `k-modal-content` class has been removed and replaced with `modal-content`
+* `k-modal-footer` class has been removed and replaced with `modal-footer`
+  
 #### Constants, Types & Interfaces
+
+* `DismissButtonThemeArray` const has been removed
+* `DismissButtonTheme` type has been removed
+* `TextAlignArray` const has been removed
+* `TextAlign` type has been removed
 
 
 ### KModalFullscreen

@@ -1,223 +1,155 @@
 <template>
-  <div
-    v-if="isVisible"
-    :aria-label="title"
-    aria-modal="true"
-    class="k-modal"
-    role="dialog"
-  >
+  <Teleport :to="teleportTarget">
     <div
-      ref="modalOuter"
-      class="k-modal-backdrop modal-backdrop"
-      @click="(evt: any) => close(false, evt)"
+      v-if="visible"
+      :aria-label="title"
+      aria-modal="true"
+      class="k-modal"
+      role="dialog"
     >
-      <FocusTrap
-        ref="focusTrap"
-        :active="false"
-        :fallback-focus="modalOuter?.$el"
-        :tabbable-options="tabbableOptions"
+      <div
+        ref="modalWrapperElement"
+        class="modal-backdrop"
+        @click="(evt: any) => close(false, evt)"
       >
-        <div class="k-modal-dialog modal-dialog">
+        <FocusTrap
+          ref="focusTrapElement"
+          :active="false"
+          :fallback-focus="modalWrapperElement?.$el"
+          :tabbable-options="tabbableOptions"
+        >
           <div
-            v-if="hasHeaderImage && !hideDismissIcon"
-            class="close-button"
+            class="modal-container"
+            :class="{ 'custom-content': $slots['modal-content'] }"
           >
-            <KButton
-              aria-label="Close"
-              @click="close(true)"
-            >
-              <KIcon
-                :color="dismissButtonColor"
-                icon="close"
-                :size="KUI_ICON_SIZE_30"
-              />
-            </KButton>
-          </div>
-          <div class="k-modal-content modal-content">
-            <div
-              v-if="hasHeaderImage"
-              class="k-modal-header-image"
-            >
-              <slot name="header-image" />
-            </div>
-            <div
-              v-if="$slots['header-content'] || !hideTitle"
-              aria-level="2"
-              class="k-modal-header modal-header"
-              :class="{
-                'header-left': textAlign === 'left',
-                'header-centered': textAlign === 'center',
-                'header-right': textAlign === 'right',
-                'has-header-image': hasHeaderImage
-              }"
-              role="heading"
-            >
-              <slot name="header-content">
-                {{ title }}
-              </slot>
-            </div>
-            <div
-              class="k-modal-body modal-body"
-              :class="{
-                'content-left': textAlign === 'left',
-                'content-centered': textAlign === 'center',
-                'content-right': textAlign === 'right',
-              }"
-            >
-              <slot name="body-content">
-                {{ content }}
-              </slot>
-            </div>
-            <div class="k-modal-footer modal-footer">
-              <slot name="footer-content">
-                <KButton
-                  v-if="!hideCancelButton"
-                  :appearance="cancelButtonAppearance"
-                  @click="close(true)"
-                  @keyup.esc="close(true)"
+            <slot name="modal-content">
+              <div class="modal-header">
+                <div
+                  v-if="title || $slots.title"
+                  class="modal-title"
                 >
-                  {{ cancelButtonText }}
-                </KButton>
-                <div class="k-modal-action-buttons">
-                  <slot name="action-buttons">
-                    <KButton
-                      :appearance="actionButtonAppearance"
-                      @click="proceed"
-                      @keyup.enter="proceed"
-                    >
-                      {{ actionButtonText }}
-                    </KButton>
+                  <slot name="title">
+                    {{ title }}
                   </slot>
                 </div>
-              </slot>
-            </div>
+                <CloseIcon
+                  class="close-icon"
+                  :color="KUI_COLOR_TEXT_NEUTRAL"
+                  role="button"
+                  tabindex="0"
+                  @click="$emit('canceled')"
+                />
+              </div>
+              <div class="modal-content">
+                <slot name="default">
+                  <p>{{ content }}</p>
+                </slot>
+              </div>
+              <div class="modal-footer">
+                <slot name="footer">
+                  <div class="footer-actions">
+                    <slot name="footer-actions">
+                      <KButton
+                        :appearance="cancelButtonAppearance"
+                        :disabled="cancelButtonDisabled"
+                        @click="$emit('canceled')"
+                      >
+                        {{ cancelButtonText }}
+                      </KButton>
+                      <KButton
+                        :appearance="actionButtonAppearance"
+                        :disabled="actionButtonDisabled"
+                        @click="$emit('proceed')"
+                      >
+                        {{ actionButtonText }}
+                      </KButton>
+                    </slot>
+                  </div>
+                </slot>
+              </div>
+            </slot>
           </div>
-        </div>
-      </FocusTrap>
+        </FocusTrap>
+      </div>
     </div>
-  </div>
+  </Teleport>
 </template>
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, nextTick, onMounted, onUnmounted, ref, watch, watchEffect, useSlots } from 'vue'
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
-import type { ButtonAppearance, DismissButtonTheme, TextAlign } from '@/types'
-import { DismissButtonThemeArray, TextAlignArray } from '@/types'
-import { KUI_ICON_SIZE_30, KUI_COLOR_TEXT_NEUTRAL_STRONGER, KUI_COLOR_TEXT_NEUTRAL_WEAK } from '@kong/design-tokens'
+import type { ButtonAppearance } from '@/types'
+import useUtilities from '@/composables/useUtilities'
+import { CloseIcon } from '@kong/icons'
+import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
+
+const { getSizeFromString } = useUtilities()
 
 const props = defineProps({
-  /**
-  * Set the text of the title, if using title slot, this text is for the aria-label
-  */
+  visible: {
+    type: Boolean,
+    default: false,
+  },
   title: {
     type: String,
-    required: true,
+    default: '',
   },
-  /**
-  * Title is required for aria-labelling, toggle if the title is visible on the modal
-  */
-  hideTitle: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-  * The dismiss icon is visible by default when using the `header-image` slot.
-  * Set to true to hide the 'x' dismiss button
-  */
-  hideDismissIcon: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-  * Controls whether the dismiss button is light or dark shade.
-  */
-  dismissButtonTheme: {
-    type: String as PropType<DismissButtonTheme>,
-    default: 'dark',
-    validator: (val: DismissButtonTheme): boolean => DismissButtonThemeArray.includes(val),
-  },
-  /**
-  * Set the text of the body content
-  */
   content: {
     type: String,
     default: '',
   },
-  /**
-  * Set the alignment for the title and content
-  */
-  textAlign: {
-    type: String as PropType<TextAlign>,
-    default: 'center',
-    validator: (val: TextAlign): boolean => TextAlignArray.includes(val),
-  },
-  /**
-  * Pass whether or not the modal should be visible
-  */
-  isVisible: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-  * Set the text of the action/proceed button
-  */
   actionButtonText: {
     type: String,
     default: 'Submit',
   },
-  /**
-  * Set the appearance of the action/proceed button
-  */
   actionButtonAppearance: {
     type: String as PropType<ButtonAppearance>,
     default: 'primary',
   },
-  /**
-  * Set the text of the close/cancel button
-  */
+  actionButtonDisabled: {
+    type: Boolean,
+    default: false,
+  },
   cancelButtonText: {
     type: String,
     default: 'Cancel',
   },
-  /**
-  * Set the appearance of the close/cancel button
-  */
   cancelButtonAppearance: {
     type: String as PropType<ButtonAppearance>,
-    default: 'secondary',
+    default: 'tertiary',
   },
-  /**
-  * Set to not render the cancel button
-  */
-  hideCancelButton: {
+  cancelButtonDisabled: {
     type: Boolean,
     default: false,
   },
-  /**
-  * Options to be passed to tabbable
-  */
   tabbableOptions: {
     type: Object,
     default: () => ({}),
   },
-  /**
-  * Test mode - for testing only, strips out generated ids
-  */
-  testMode: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * The max-width of the modal. **Default: `500px`**.
-   */
-  maxWidth: {
+  width: {
     type: String,
     required: false,
     default: '500px',
+  },
+  maxHeight: {
+    type: String,
+    required: false,
+    default: 'calc(100vh - 200px)',
+  },
+  teleportTarget: {
+    type: String,
+    required: false,
+    default: 'body',
+  },
+  closeOnBackdropClick: {
+    type: Boolean,
+    default: true,
+  },
+  proceedOnEnter: {
+    type: Boolean,
+    default: true,
   },
 })
 
@@ -226,31 +158,26 @@ const emit = defineEmits<{
   (e: 'proceed'): void
 }>()
 
-const slots = useSlots()
-const focusTrap = ref<InstanceType<typeof FocusTrap> | null>(null)
-const modalOuter = ref<{ $el: HTMLElement} | null>(null)
+const focusTrapElement = ref<InstanceType<typeof FocusTrap> | null>(null)
+const modalWrapperElement = ref<{ $el: HTMLElement } | null>(null)
 
-const hasHeaderImage = computed((): boolean => {
-  return !!slots['header-image']
-})
+const widthValue = computed((): string => getSizeFromString(props.width))
+const maxHeightValue = computed((): string => getSizeFromString(props.maxHeight))
 
-const dismissButtonColor = computed((): string => {
-  if (props.dismissButtonTheme === 'light') {
-    return `var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`
+const handleKeydown = (event: any): void => {
+  // close on escape key press
+  if (props.visible && event.key === 'Escape') {
+    close(true)
   }
 
-  return `var(--kui-color-text-neutral-stronger, ${KUI_COLOR_TEXT_NEUTRAL_STRONGER})`
-})
-
-const handleKeydown = (e: any): void => {
-  if (props.isVisible && e.keyCode === 27) {
-    close(true)
+  if (props.visible && event.key === 'Enter' && props.proceedOnEnter) {
+    proceed()
   }
 }
 
 const close = (force = false, event?: any): void => {
-  // Close if force === true or if the user clicks on .k-modal-backdrop
-  if (force || event?.target?.classList?.contains('k-modal-backdrop')) {
+  // Close if force === true or if the user clicks on .modal-backdrop
+  if ((force || event?.target?.classList?.contains('modal-backdrop')) && props.closeOnBackdropClick) {
     emit('canceled')
   }
 }
@@ -259,32 +186,20 @@ const proceed = (): void => {
   emit('proceed')
 }
 
-watchEffect(() => {
-  if (typeof document !== 'undefined') {
-    if (props.isVisible) {
-      // Hide body overflow
-      document?.body?.classList.add('k-modal-overflow-hidden')
-    } else {
-      // Reset body overflow
-      document?.body?.classList.remove('k-modal-overflow-hidden')
-    }
-  }
-})
-
 const toggleFocusTrap = async (isActive: boolean): Promise<void> => {
   if (isActive) {
     await nextTick()
     // Delay ensures that the focused element doesn't capture the event
     // that caused the focus trap activation.
     await new Promise((resolve) => setTimeout(resolve, 0))
-    focusTrap.value?.activate()
+    focusTrapElement.value?.activate()
   } else {
-    focusTrap.value?.deactivate()
+    focusTrapElement.value?.deactivate()
   }
 }
 
-watch(() => props.isVisible, async (isVisible) => {
-  if (isVisible) {
+watch(() => props.visible, async (visible) => {
+  if (visible) {
     await toggleFocusTrap(true)
   } else {
     await toggleFocusTrap(false)
@@ -293,160 +208,100 @@ watch(() => props.isVisible, async (isVisible) => {
 
 onMounted(() => {
   document.addEventListener('keydown', handleKeydown)
-
-  if (props.isVisible) {
-    // Hide body overflow
-    document?.body?.classList.add('k-modal-overflow-hidden')
-  }
 })
 
 onUnmounted(() => {
   document.removeEventListener('keydown', handleKeydown)
-  // Reset body overflow
-  document?.body?.classList.remove('k-modal-overflow-hidden')
 })
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/tmp-variables';
-@import '@/styles/mixins';
-
-.k-modal-backdrop {
-  background-color: $tmp-color-backdrop;
-  inset: 0;
-  position: fixed;
-  z-index: 1100;
-}
-
-// Allow modal backdrop to scroll if viewport is shorter than modal
-.k-modal-overflow-hidden .k-modal-backdrop {
-  overflow: auto;
-}
-
 .k-modal {
-  // use a var to ensure correct sizing of .k-modal-header-image
-  $k-modal-padding: var(--kui-space-90, $kui-space-90);
-
-  .k-modal-dialog {
-    background: var(--kui-color-background, $kui-color-background);
-    border: initial;
-    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-    box-shadow: 0px 0px 12px 0px $tmp-color-black-10;
-    margin: var(--kui-space-110, $kui-space-110) var(--kui-space-auto, $kui-space-auto);
-    overflow: hidden;
-    padding: $k-modal-padding;
-    position: relative;
-    width: auto;
-    z-index: 9999;
-
-    @media (min-width: $kui-breakpoint-phablet) {
-      max-width: v-bind('$props.maxWidth');
-    }
-
-    .close-button {
-      position: absolute;
-      right: 24px;
-      top: 24px;
-      // 1 more than .k-modal-dialog
-      z-index: 10000;
-
-      .k-button {
-        margin-top: calc(-1 * var(--kui-space-40, $kui-space-40));
-        padding: var(--kui-space-40, $kui-space-40);
-        @include non-visual-button;
-      }
-    }
-  }
-
-  .k-modal-content {
+  .modal-backdrop {
+    align-items: center;
+    background-color: var(--kui-color-background-overlay, $kui-color-background-overlay);
     display: flex;
-    flex-direction: column;
-    position: relative;
+    inset: 0;
+    position: fixed;
+    z-index: 1100;
+  }
 
-    .k-modal-header-image {
-      display: flex !important;
-      margin-bottom: var(--kui-space-90, $kui-space-90);
-      /* stylelint-disable-next-line custom-property-no-missing-var-function */
-      margin-left: calc(#{$k-modal-padding} * -1);
-      /* stylelint-disable-next-line custom-property-no-missing-var-function */
-      margin-right: calc(#{$k-modal-padding} * -1);
-      /* stylelint-disable-next-line custom-property-no-missing-var-function */
-      margin-top: calc(#{$k-modal-padding} * -1);
+  .modal-container {
+    background-color: var(--kui-color-background, $kui-color-background);
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
+    box-shadow: var(--kui-shadow, $kui-shadow);
+    margin: var(--kui-space-0, $kui-space-0) var(--kui-space-auto, $kui-space-auto);
+    width: v-bind('widthValue');
+
+    &.custom-content {
+      padding: var(--kui-space-80, $kui-space-80);
     }
 
-    .k-modal-header {
+    .modal-header {
       align-items: center;
-      color: var(--kui-color-text, $kui-color-text);
+      border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       display: flex;
-      font-size: var(--kui-font-size-60, $kui-font-size-60);
-      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-      justify-content: flex-start;
-      margin-bottom: var(--kui-space-80, $kui-space-80) !important;
+      justify-content: space-between;
+      padding: var(--kui-space-80, $kui-space-80);
 
-      &.header-centered {
-        margin-left: var(--kui-space-auto, $kui-space-auto);
-        margin-right: var(--kui-space-auto, $kui-space-auto);
-        text-align: center;
+      .modal-title {
+        @include truncate;
+
+        font-family: var(--kui-font-family-text, $kui-font-family-text);
+        font-size: var(--kui-font-size-60, $kui-font-size-60);
+        font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+        letter-spacing: var(--kui-letter-spacing-minus-40, $kui-letter-spacing-minus-40);
+        line-height: var(--kui-line-height-50, $kui-line-height-50);
+        max-width: 100%;
       }
 
-      &.header-left {
-        margin-left: var(--kui-space-0, $kui-space-0);
-        margin-right: var(--kui-space-auto, $kui-space-auto);
-        text-align: left;
-      }
+      .close-icon {
+        border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+        cursor: pointer;
+        margin-left: auto;
+        outline: none;
 
-      &.header-right {
-        margin-left: var(--kui-space-auto, $kui-space-auto);
-        margin-right: var(--kui-space-0, $kui-space-0);
-        text-align: right;
-      }
+        &:hover, &:focus {
+          color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
+        }
 
-      &.has-header-image {
-        margin-bottom: var(--kui-space-60, $kui-space-60) !important;
+        &:focus-visible {
+          box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+        }
       }
     }
 
-    .k-modal-body {
-      color: var(--kui-color-text, $kui-color-text);
-      flex: 1 1 auto;
+    .modal-content {
+      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+      box-sizing: border-box;
+      color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+      display: flex;
+      font-family: var(--kui-font-family-text, $kui-font-family-text);
       font-size: var(--kui-font-size-30, $kui-font-size-30);
+      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
       line-height: var(--kui-line-height-30, $kui-line-height-30);
-      margin-bottom: var(--kui-space-80, $kui-space-80);
-      position: relative;
+      max-height: v-bind('maxHeightValue');
+      overflow-y: auto;
+      padding: var(--kui-space-80, $kui-space-80);
 
-      &.content-centered {
-        margin-left: var(--kui-space-auto, $kui-space-auto);
-        margin-right: var(--kui-space-auto, $kui-space-auto);
-        text-align: center;
-      }
-
-      &.content-left {
-        margin-left: var(--kui-space-0, $kui-space-0);
-        margin-right: var(--kui-space-auto, $kui-space-auto);
-        text-align: left;
-      }
-
-      &.content-right {
-        margin-left: var(--kui-space-auto, $kui-space-auto);
-        margin-right: var(--kui-space-0, $kui-space-0);
-        text-align: right;
+      p {
+        height: 100%;
+        margin: var(--kui-space-0, $kui-space-0);
       }
     }
 
-    .k-modal-footer {
-      display: flex !important;
+    .modal-footer {
+      border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+      display: flex;
+      padding: var(--kui-space-80, $kui-space-80);
 
-      .k-modal-action-buttons {
+      .footer-actions {
+        display: flex;
+        gap: var(--kui-space-40, $kui-space-40);
         margin-left: var(--kui-space-auto, $kui-space-auto);
       }
     }
   }
-}
-</style>
-
-<style lang="scss">
-// Leave unscoped to target 'body' element
-body.k-modal-overflow-hidden {
-  overflow: hidden;
 }
 </style>
