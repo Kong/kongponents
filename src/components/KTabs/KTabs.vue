@@ -169,7 +169,7 @@ watch(() => props.modelValue, (newTabHash) => {
         cursor: not-allowed;
 
         .tab-link {
-          color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
+          color: var(--kui-color-text-disabled, $kui-color-text-disabled);
           pointer-events: none;
         }
       }
