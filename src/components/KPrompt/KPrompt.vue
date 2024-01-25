@@ -73,7 +73,7 @@ const props = defineProps({
   },
   title: {
     type: String,
-    default: '',
+    default: 'Please confirm your action',
   },
   message: {
     type: String,
@@ -133,6 +133,9 @@ const sanitizedAttrs = computed(() => {
   delete attributes['max-height']
   delete attributes['close-on-backdrop-click']
   delete attributes['proceed-on-enter']
+  // delete KModal props that are not available in KPrompt
+  delete attributes['hide-close-icon']
+  delete attributes['hide-cancel-button']
 
   return attributes
 })

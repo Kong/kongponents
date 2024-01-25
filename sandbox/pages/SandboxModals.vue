@@ -42,6 +42,58 @@
         </KComponent>
       </SandboxSectionComponent>
       <SandboxSectionComponent
+        description="Only available in KModal."
+        title="hideCloseIcon"
+      >
+        <KComponent
+          v-slot="{ data }"
+          :data="{ modalVisible: false }"
+        >
+          <div class="horizontal-container">
+            <KButton
+              @click="data.modalVisible = !data.modalVisible"
+            >
+              KModal
+            </KButton>
+          </div>
+
+          <KModal
+            hide-close-icon
+            :visible="data.modalVisible"
+            @canceled="data.modalVisible = false"
+            @proceed="data.modalVisible = false"
+          >
+            When no title is provided and hideCloseIcon is true, the modal header is hidden.
+          </KModal>
+        </KComponent>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        description="Only available in KModal."
+        title="hideCancelButton"
+      >
+        <KComponent
+          v-slot="{ data }"
+          :data="{ modalVisible: false }"
+        >
+          <div class="horizontal-container">
+            <KButton
+              @click="data.modalVisible = !data.modalVisible"
+            >
+              KModal
+            </KButton>
+          </div>
+
+          <KModal
+            hide-cancel-button
+            title="KModal"
+            :visible="data.modalVisible"
+            @canceled="data.modalVisible = false"
+            @proceed="data.modalVisible = false"
+          />
+        </KComponent>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        description="Only available in KPrompt."
         title="message & confirmationText & confirmationPrompt"
       >
         <KComponent
@@ -174,7 +226,7 @@
         </KComponent>
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        description="KPrompt: passed through modalAttributes prop."
+        description="In KPrompt passed through modalAttributes prop."
         title="proceedOnEnter"
       >
         <KComponent
@@ -227,7 +279,7 @@
         </KComponent>
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        description="KPrompt: passed through modalAttributes prop."
+        description="In KPrompt passed through modalAttributes prop."
         title="closeOnBackdropClick"
       >
         <KComponent
@@ -280,7 +332,7 @@
         </KComponent>
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        description="KPrompt: passed through modalAttributes prop."
+        description="In KPrompt passed through modalAttributes prop."
         title="width"
       >
         <KComponent
@@ -317,7 +369,7 @@
         </KComponent>
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        description="KPrompt: passed through modalAttributes prop."
+        description="In KPrompt passed through modalAttributes prop."
         title="maxHeight"
       >
         <KComponent
@@ -440,6 +492,7 @@
         </KComponent>
       </SandboxSectionComponent>
       <SandboxSectionComponent
+        description="Only available in KModal."
         title="footer"
       >
         <KComponent
@@ -464,6 +517,7 @@
         </KComponent>
       </SandboxSectionComponent>
       <SandboxSectionComponent
+        description="Only available in KModal."
         title="footer-actions"
       >
         <KComponent
@@ -493,6 +547,7 @@
         </KComponent>
       </SandboxSectionComponent>
       <SandboxSectionComponent
+        description="Only available in KModal."
         title="modal-content"
       >
         <KComponent

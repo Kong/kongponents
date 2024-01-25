@@ -322,11 +322,10 @@ This component has been removed. Please refer to KBadge component which has been
 * new `width` prop to control the width of the modal. Defaults to `500px`
 * `testMode` prop has been removed
 * `hideTitle` prop has been removed
-* `hideDismissIcon` prop has been removed
+* `hideDismissIcon` prop has been removed and replaced with `hideCloseIcon`
 * `dismissButtonTheme` prop has been removed
 * `textAlign` prop has been removed
 * `isVisible` prop has been removed and replaced with `visible` prop
-* `hideCancelButton` prop has been removed
 * `content` prop has been removed. You can use the `default` slot instead
 
 #### Slots

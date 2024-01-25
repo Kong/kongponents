@@ -24,7 +24,10 @@
           :class="{ 'custom-content': $slots['modal-content'] }"
         >
           <slot name="modal-content">
-            <div class="modal-header">
+            <div
+              v-if="showHeader"
+              class="modal-header"
+            >
               <div
                 v-if="title || $slots.title"
                 class="modal-title"
@@ -34,6 +37,7 @@
                 </slot>
               </div>
               <CloseIcon
+                v-if="!hideCloseIcon"
                 class="close-icon"
                 :color="KUI_COLOR_TEXT_NEUTRAL"
                 role="button"
@@ -41,7 +45,10 @@
                 @click="$emit('canceled')"
               />
             </div>
-            <div class="modal-content">
+            <div
+              class="modal-content"
+              :class="{ 'no-header': !showHeader }"
+            >
               <slot name="default" />
             </div>
             <div class="modal-footer">
@@ -49,6 +56,7 @@
                 <div class="footer-actions">
                   <slot name="footer-actions">
                     <KButton
+                      v-if="!hideCancelButton"
                       :appearance="cancelButtonAppearance"
                       :disabled="cancelButtonDisabled"
                       @click="$emit('canceled')"
@@ -75,7 +83,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, nextTick, onMounted, onUnmounted, ref, useAttrs, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, useAttrs, watch, useSlots } from 'vue'
 import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
 import type { ButtonAppearance } from '@/types'
@@ -107,6 +115,10 @@ const props = defineProps({
     default: 'primary',
   },
   actionButtonDisabled: {
+    type: Boolean,
+    default: false,
+  },
+  hideCancelButton: {
     type: Boolean,
     default: false,
   },
@@ -144,6 +156,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  hideCloseIcon: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits<{
@@ -152,6 +168,7 @@ const emit = defineEmits<{
 }>()
 
 const attrs = useAttrs()
+const slots = useSlots()
 
 const focusTrapElement = ref<InstanceType<typeof FocusTrap> | null>(null)
 const modalWrapperElement = ref<{ $el: HTMLElement } | null>(null)
@@ -165,6 +182,10 @@ const sanitizedAttrs = computed(() => {
   delete attributes.class // delete  because we bind it to the class
 
   return attributes
+})
+
+const showHeader = computed((): boolean => {
+  return !!props.title || !!slots.title || !props.hideCloseIcon
 })
 
 const handleKeydown = (event: any): void => {
@@ -291,6 +312,11 @@ onUnmounted(() => {
 
       :deep(p) {
         margin: var(--kui-space-0, $kui-space-0);
+      }
+
+      &.no-header {
+        border-top-left-radius: var(--kui-border-radius-40, $kui-border-radius-40);
+        border-top-right-radius: var(--kui-border-radius-40, $kui-border-radius-40);
       }
     }
 
