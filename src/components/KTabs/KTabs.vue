@@ -105,7 +105,7 @@ watch(() => props.modelValue, (newTabHash) => {
     font-family: var(--kui-font-family-text, $kui-font-family-text);
     font-size: var(--kui-font-size-30, $kui-font-size-30);
     font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-    gap: var(--kui-space-80, $kui-space-80);
+    gap: var(--kui-space-40, $kui-space-40);
     line-height: var(--kui-line-height-40, $kui-line-height-40);
     list-style: none;
     margin-bottom: var(--kui-space-70, $kui-space-70);
