@@ -327,6 +327,7 @@ This component has been removed. Please refer to KBadge component which has been
 * `textAlign` prop has been removed
 * `isVisible` prop has been removed and replaced with `visible` prop
 * `hideCancelButton` prop has been removed
+* `content` prop has been removed. You can use the `default` slot instead
 
 #### Slots
 
@@ -404,13 +405,24 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 
 #### Props
 
-* New `maxHeight` prop to control the `max-height` of the prompt. Defaults to `400px`
-
+* `isVisible` prop has been removed and replaced with `visible` prop
+* `type` prop has been removed. You can use `actionButtonAppearance` prop to modify appearance of action button instead
+* `actionPending` prop has been removed
+* `preventProceedOnEnter` prop has been removed. You can use new `modalAttributes` prop to pass value to `proceedOnEnter` prop in KModal
+* `tabbableOptions` has been removed. You can use new `modalAttributes` prop to pass value to `tabbableOptions` prop in KModal
+  
 #### Slots
 
 #### Events
 
+#### Structure
+
+* `k-prompt-confirm-text` class has been been changed to `prompt-confirmation-text`
+
 #### Constants, Types & Interfaces
+
+* `PromptVariantsArray` const has been removed
+* `PromptVariants` type has been removed
 
 ### Komponent
 

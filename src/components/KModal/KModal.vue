@@ -1,89 +1,91 @@
 <template>
-  <Teleport :to="teleportTarget">
+  <div
+    v-if="visible"
+    :aria-label="title"
+    aria-modal="true"
+    class="k-modal"
+    :class="[attrs.class]"
+    v-bind="sanitizedAttrs"
+    role="dialog"
+  >
     <div
-      v-if="visible"
-      :aria-label="title"
-      aria-modal="true"
-      class="k-modal"
-      role="dialog"
+      ref="modalWrapperElement"
+      class="modal-backdrop"
+      @click="(evt: any) => close(false, evt)"
     >
-      <div
-        ref="modalWrapperElement"
-        class="modal-backdrop"
-        @click="(evt: any) => close(false, evt)"
+      <FocusTrap
+        ref="focusTrapElement"
+        :active="false"
+        :fallback-focus="modalWrapperElement?.$el"
+        :tabbable-options="tabbableOptions"
       >
-        <FocusTrap
-          ref="focusTrapElement"
-          :active="false"
-          :fallback-focus="modalWrapperElement?.$el"
-          :tabbable-options="tabbableOptions"
+        <div
+          class="modal-container"
+          :class="{ 'custom-content': $slots['modal-content'] }"
         >
-          <div
-            class="modal-container"
-            :class="{ 'custom-content': $slots['modal-content'] }"
-          >
-            <slot name="modal-content">
-              <div class="modal-header">
-                <div
-                  v-if="title || $slots.title"
-                  class="modal-title"
-                >
-                  <slot name="title">
-                    {{ title }}
+          <slot name="modal-content">
+            <div class="modal-header">
+              <div
+                v-if="title || $slots.title"
+                class="modal-title"
+              >
+                <slot name="title">
+                  {{ title }}
+                </slot>
+              </div>
+              <CloseIcon
+                class="close-icon"
+                :color="KUI_COLOR_TEXT_NEUTRAL"
+                role="button"
+                tabindex="0"
+                @click="$emit('canceled')"
+              />
+            </div>
+            <div class="modal-content">
+              <slot name="default" />
+            </div>
+            <div class="modal-footer">
+              <slot name="footer">
+                <div class="footer-actions">
+                  <slot name="footer-actions">
+                    <KButton
+                      :appearance="cancelButtonAppearance"
+                      :disabled="cancelButtonDisabled"
+                      @click="$emit('canceled')"
+                    >
+                      {{ cancelButtonText }}
+                    </KButton>
+                    <KButton
+                      :appearance="actionButtonAppearance"
+                      :disabled="actionButtonDisabled"
+                      @click="$emit('proceed')"
+                    >
+                      {{ actionButtonText }}
+                    </KButton>
                   </slot>
                 </div>
-                <CloseIcon
-                  class="close-icon"
-                  :color="KUI_COLOR_TEXT_NEUTRAL"
-                  role="button"
-                  tabindex="0"
-                  @click="$emit('canceled')"
-                />
-              </div>
-              <div class="modal-content">
-                <slot name="default">
-                  <p>{{ content }}</p>
-                </slot>
-              </div>
-              <div class="modal-footer">
-                <slot name="footer">
-                  <div class="footer-actions">
-                    <slot name="footer-actions">
-                      <KButton
-                        :appearance="cancelButtonAppearance"
-                        :disabled="cancelButtonDisabled"
-                        @click="$emit('canceled')"
-                      >
-                        {{ cancelButtonText }}
-                      </KButton>
-                      <KButton
-                        :appearance="actionButtonAppearance"
-                        :disabled="actionButtonDisabled"
-                        @click="$emit('proceed')"
-                      >
-                        {{ actionButtonText }}
-                      </KButton>
-                    </slot>
-                  </div>
-                </slot>
-              </div>
-            </slot>
-          </div>
-        </FocusTrap>
-      </div>
+              </slot>
+            </div>
+          </slot>
+        </div>
+      </FocusTrap>
     </div>
-  </Teleport>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, useAttrs, watch } from 'vue'
 import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
 import type { ButtonAppearance } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import { CloseIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const { getSizeFromString } = useUtilities()
 
@@ -93,10 +95,6 @@ const props = defineProps({
     default: false,
   },
   title: {
-    type: String,
-    default: '',
-  },
-  content: {
     type: String,
     default: '',
   },
@@ -138,14 +136,9 @@ const props = defineProps({
     required: false,
     default: 'calc(100vh - 200px)',
   },
-  teleportTarget: {
-    type: String,
-    required: false,
-    default: 'body',
-  },
   closeOnBackdropClick: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   proceedOnEnter: {
     type: Boolean,
@@ -158,11 +151,21 @@ const emit = defineEmits<{
   (e: 'proceed'): void
 }>()
 
+const attrs = useAttrs()
+
 const focusTrapElement = ref<InstanceType<typeof FocusTrap> | null>(null)
 const modalWrapperElement = ref<{ $el: HTMLElement } | null>(null)
 
 const widthValue = computed((): string => getSizeFromString(props.width))
 const maxHeightValue = computed((): string => getSizeFromString(props.maxHeight))
+
+const sanitizedAttrs = computed(() => {
+  const attributes = Object.assign({}, attrs)
+
+  delete attributes.class // delete  because we bind it to the class
+
+  return attributes
+})
 
 const handleKeydown = (event: any): void => {
   // close on escape key press
@@ -277,6 +280,7 @@ onUnmounted(() => {
       box-sizing: border-box;
       color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
       display: flex;
+      flex-direction: column;
       font-family: var(--kui-font-family-text, $kui-font-family-text);
       font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
@@ -285,8 +289,7 @@ onUnmounted(() => {
       overflow-y: auto;
       padding: var(--kui-space-80, $kui-space-80);
 
-      p {
-        height: 100%;
+      :deep(p) {
         margin: var(--kui-space-0, $kui-space-0);
       }
     }

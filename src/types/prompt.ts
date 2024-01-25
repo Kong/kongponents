@@ -1,5 +1,7 @@
-import type { AnyElementOf } from '@/types/utils'
-
-export const PromptVariantsArray = ['info', 'warning', 'danger'] as const
-
-export type PromptVariants = AnyElementOf<typeof PromptVariantsArray>
+export interface ModalAttributes {
+  tabbableOptions: Object,
+  width: string,
+  maxHeight: string,
+  closeOnBackdropClick: boolean,
+  proceedOnEnter: boolean,
+}

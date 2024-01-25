@@ -1,92 +1,54 @@
 <template>
   <KModal
+    :action-button-appearance="actionButtonAppearance"
+    :action-button-disabled="actionButtonDisabledValue"
+    :action-button-text="actionButtonText"
+    :cancel-button-appearance="cancelButtonAppearance"
+    :cancel-button-disabled="cancelButtonDisabled"
+    :cancel-button-text="cancelButtonText"
     class="k-prompt"
-    :is-visible="isVisible"
-    :tabbable-options="tabbableOptions"
-    text-align="left"
-    :title="displayTitle"
+    :title="title"
+    :visible="visible"
+    v-bind="{ ...sanitizedAttrs, ...modalAttributes}"
+    @canceled="$emit('canceled')"
+    @proceed="$emit('proceed')"
   >
-    <template #header-content>
-      <div class="k-prompt-header">
-        <div class="k-prompt-header-content">
-          <slot name="header-content">
-            <KIcon
-              v-if="type === 'warning'"
-              class="warning-icon"
-              :color="`var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE})`"
-              icon="warning"
-              secondary-color="currentColor"
-              :size="KUI_ICON_SIZE_40"
-            />
-            {{ displayTitle }}
-          </slot>
-          <div class="close-button">
-            <KButton
-              aria-label="Close"
-              @click="close"
-            >
-              <KIcon
-                :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
-                icon="close"
-                :size="KUI_ICON_SIZE_30"
-              />
-            </KButton>
-          </div>
-        </div>
-        <hr class="divider">
-      </div>
+    <template
+      v-if="$slots.title"
+      #title
+    >
+      <slot name="title" />
     </template>
-    <template #body-content>
-      <div class="k-prompt-body">
-        <div class="k-prompt-body-content">
-          <slot name="body-content">
+    <template #default>
+      <div
+        v-if="$slots.default || message"
+        class="prompt-message"
+      >
+        <slot
+          name="default"
+        >
+          <p>
             {{ message }}
-          </slot>
-
-          <div
-            v-if="confirmationText"
-            class="k-prompt-confirm-text"
-          >
-            Type "<span class="confirm-text">{{ confirmationText }}</span>" to confirm your action.
-
-            <KInput
-              v-model="confirmationInput"
-              autocapitalize="off"
-              autocomplete="off"
-              data-testid="confirmation-input"
-            />
-          </div>
-        </div>
-        <hr class="divider">
-      </div>
-    </template>
-    <template #footer-content>
-      <div class="k-prompt-action-buttons">
-        <slot name="action-buttons">
-          <KButton
-            appearance="tertiary"
-            class="k-prompt-cancel"
-            @click="close"
-          >
-            {{ cancelButtonText }}
-          </KButton>
-          <KButton
-            :appearance="type === 'danger' ? 'danger' : 'primary'"
-            class="k-prompt-proceed"
-            :disabled="disableProceedButton"
-            @click="proceed"
-          >
-            <template #icon>
-              <KIcon
-                v-if="actionPending"
-                :color="`var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
-                icon="spinner"
-                :size="KUI_ICON_SIZE_30"
-              />
-            </template>
-            {{ actionButtonText }}
-          </KButton>
+          </p>
         </slot>
+      </div>
+
+      <div
+        v-if="confirmationText"
+        class="prompt-confirmation-container"
+      >
+        <p class="prompt-confirmation-text">
+          {{ confirmationPromptText[0] }} <span class="confirmation-text">"{{ confirmationText }}"</span>
+          {{ confirmationPromptText[1] ? confirmationPromptText[1] : '' }}
+        </p>
+        <KInput
+          :id="confirmationInputId"
+          ref="confirmationInputElement"
+          v-model="confirmationInput"
+          autocapitalize="off"
+          autocomplete="off"
+          data-testid="confirmation-input"
+        />
       </div>
     </template>
   </KModal>
@@ -94,24 +56,24 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import KButton from '@/components/KButton/KButton.vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
-import KInput from '@/components/KInput/KInput.vue'
+import { computed, ref, useAttrs, watch, nextTick } from 'vue'
 import KModal from '@/components/KModal/KModal.vue'
-import type { PromptVariants } from '@/types'
-import { PromptVariantsArray } from '@/types'
-import { KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_NEUTRAL, KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_ICON_SIZE_30, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import KInput from '@/components/KInput/KInput.vue'
+import type { ButtonAppearance, ModalAttributes } from '@/types'
+import { v4 as uuidv4 } from 'uuid'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = defineProps({
+  visible: {
+    type: Boolean,
+    default: false,
+  },
   title: {
     type: String,
     default: '',
-  },
-  type: {
-    type: String as PropType<PromptVariants>,
-    default: 'info',
-    validator: (val: PromptVariants): boolean => PromptVariantsArray.includes(val),
   },
   message: {
     type: String,
@@ -119,214 +81,100 @@ const props = defineProps({
   },
   actionButtonText: {
     type: String,
-    default: 'OK',
+    default: 'Confirm',
+  },
+  actionButtonAppearance: {
+    type: String as PropType<ButtonAppearance>,
+    default: 'primary',
+  },
+  actionButtonDisabled: {
+    type: Boolean,
+    default: false,
   },
   cancelButtonText: {
     type: String,
     default: 'Cancel',
   },
-  /**
-   * Boolean to disable action buttons while a submission is occurring. Display
-   * spinner on action button.
-   */
-  actionPending: {
+  cancelButtonAppearance: {
+    type: String as PropType<ButtonAppearance>,
+    default: 'tertiary',
+  },
+  cancelButtonDisabled: {
     type: Boolean,
     default: false,
   },
-  isVisible: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * The max-height of the prompt. **Default: `400px`**.
-   */
-  maxHeight: {
-    type: String,
-    required: false,
-    default: '400px',
-  },
-  /**
-   * Use this prop to require a confirmation string be typed correctly
-   * before the submit button will be enabled.
-   */
   confirmationText: {
     type: String,
     default: '',
   },
-  preventProceedOnEnter: {
-    type: Boolean,
-    default: false,
+  confirmationPrompt: {
+    type: String,
+    default: 'Type {confirmationText} to confirm your action.',
   },
-  /**
-   * Options to be passed to tabbable
-   */
-  tabbableOptions: {
-    type: Object,
+  modalAttributes: {
+    type: Object as PropType<ModalAttributes>,
     default: () => ({}),
   },
 })
-const emit = defineEmits<{
+
+const attrs = useAttrs()
+
+defineEmits<{
   (e: 'canceled'): void
-  (e: 'proceed', event: Event): void
+  (e: 'proceed'): void
 }>()
 
-const confirmationInput = ref('')
+const sanitizedAttrs = computed(() => {
+  const attributes = Object.assign({}, attrs) as Record<string, any>
 
-const close = (): void => {
-  confirmationInput.value = ''
-  emit('canceled')
-}
+  // delete attributes that are handled through modalAttributes prop
+  delete attributes['tabbable-options']
+  delete attributes.width
+  delete attributes['max-height']
+  delete attributes['close-on-backdrop-click']
+  delete attributes['proceed-on-enter']
 
-const proceed = (evt: Event): void => {
-  if (disableProceedButton.value) return
-
-  confirmationInput.value = ''
-  emit('proceed', evt)
-}
-
-const handleKeydown = (e: KeyboardEvent) => {
-  if (props.isVisible) {
-    if (e.key === 'Escape') {
-      close()
-    } else if (e.key === 'Enter') {
-      if (!props.preventProceedOnEnter) {
-        proceed(e)
-      }
-    }
-  }
-}
-
-const capitalize = (str = ''): string => {
-  const capitalizeRegEx = /(?:^|[\s-:'"])\w/g
-  return str.replace(capitalizeRegEx, (a) => a.toUpperCase())
-}
-
-const displayTitle = computed((): string => {
-  if (props.title) {
-    if (props.type === 'warning') {
-      return 'Warning: ' + props.title
-    }
-
-    return props.title
-  } else if (props.type === 'info') {
-    return 'Information'
-  }
-
-  return capitalize(props.type)
+  return attributes
 })
 
-const disableProceedButton = computed((): boolean => {
-  if (props.actionPending) {
+const confirmationInput = ref<string>('')
+const confirmationInputId = uuidv4()
+
+const actionButtonDisabledValue = computed(() => {
+  if (props.actionButtonDisabled) {
     return true
   }
-  if (!props.confirmationText.length) {
-    return false
+
+  return props.confirmationText ? props.confirmationText !== confirmationInput.value : false
+})
+
+const confirmationPromptText = computed((): string[] => {
+  return props.confirmationPrompt.split('{confirmationText}')
+})
+
+watch(() => props.visible, async (visible) => {
+  if (visible) {
+    await nextTick()
+    confirmationInput.value = ''
+    document.getElementById(confirmationInputId)?.focus()
   }
-  return props.confirmationText !== confirmationInput.value
-})
-
-onMounted(() => {
-  document.addEventListener('keydown', handleKeydown)
-})
-
-onBeforeUnmount(() => {
-  document.removeEventListener('keydown', handleKeydown)
 })
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/tmp-variables';
-@import '@/styles/mixins';
-
 .k-prompt {
-  :deep(.k-modal-dialog.modal-dialog) {
-    $kPromptModalPadding: var(--kui-space-80, $kui-space-80);
-    padding: $kPromptModalPadding;
-    padding-bottom: var(--kui-space-60, $kui-space-60);
+  .prompt-message + .prompt-confirmation-container {
+    margin-top: var(--kui-space-80, $kui-space-80);
+  }
 
-    .k-prompt-header {
-      width: 100% !important;
+  .prompt-confirmation-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--kui-space-40, $kui-space-40);
 
-      .k-prompt-header-content {
-        align-items: center !important;
-        display: flex !important;
-        width: 100% !important;
-
-        .warning-icon {
-          color: $tmp-color-yellow-400;
-          margin-right: var(--kui-space-40, $kui-space-40) !important;
-        }
-
-        .close-button {
-          margin-left: var(--kui-space-auto, $kui-space-auto);
-        }
-      }
-    }
-
-    .divider {
-      border: none;
-      border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-      /* subtract parents padding from margin to take full width of modal */
-      margin: var(--kui-space-60, $kui-space-60) calc($kPromptModalPadding * -1) var(--kui-space-0, $kui-space-0);
-    }
-
-    .k-modal-content {
-      .k-modal-header.modal-header {
-        display: flex;
-        padding-bottom: var(--kui-space-40, $kui-space-40);
-        width: 100%;
-
-        .close-button .k-button {
-          @include non-visual-button;
-          margin-top: calc(-1 * var(--kui-space-40, $kui-space-40));
-          padding: var(--kui-space-40, $kui-space-40);
-        }
-      }
-
-      .k-modal-body.modal-body {
-        width: 100%;
-
-        .k-prompt-body {
-          width: 100% !important;
-
-          .k-prompt-body-content {
-            color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
-            font-size: var(--kui-font-size-40, $kui-font-size-40);
-            line-height: var(--kui-line-height-40, $kui-line-height-40);
-            max-height: v-bind('$props.maxHeight');
-            overflow-x: hidden;
-            overflow-y: auto;
-            padding: 4px; // temporary fix for KInput focus ring
-            padding-bottom: var(--kui-space-60, $kui-space-60);
-            text-align: start;
-            white-space: normal; // in case inside KTable
-            width: 100% !important;
-
-            .k-prompt-confirm-text {
-              margin-top: var(--kui-space-80, $kui-space-80);
-              width: 100% !important;
-
-              .confirm-text {
-                font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold) !important;
-              }
-
-              .k-input {
-                margin-top: var(--kui-space-40, $kui-space-40) !important;
-                width: 100%;
-              }
-            }
-          }
-        }
-      }
-
-      .k-modal-footer.modal-footer {
-        .k-prompt-action-buttons {
-          margin-left: auto;
-
-          .k-prompt-cancel {
-            margin-right: var(--kui-space-40, $kui-space-40) !important;
-          }
-        }
+    .prompt-confirmation-text {
+      .confirmation-text {
+        font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
       }
     }
   }
