@@ -1,3 +1,10 @@
+# [9.0.0-alpha.96](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.95...v9.0.0-alpha.96) (2024-01-25)
+
+
+### Bug Fixes
+
+* **ktabs:** minor styling fixes ([#1973](https://github.com/Kong/kongponents/issues/1973)) ([8ca9897](https://github.com/Kong/kongponents/commit/8ca9897dae30db587f69f6573266a3dc345b929a))
+
 # [9.0.0-alpha.95](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.94...v9.0.0-alpha.95) (2024-01-23)
 
 
