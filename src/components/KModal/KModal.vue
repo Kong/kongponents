@@ -265,7 +265,7 @@ onUnmounted(() => {
     width: v-bind('widthValue');
 
     &.custom-content {
-      padding: var(--kui-space-80, $kui-space-70);
+      padding: var(--kui-space-80, $kui-space-80);
     }
 
     .modal-header {
@@ -273,7 +273,7 @@ onUnmounted(() => {
       border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       display: flex;
       justify-content: space-between;
-      padding: var(--kui-space-80, $kui-space-70);
+      padding: var(--kui-space-80, $kui-space-80);
 
       .modal-title {
         @include truncate;
@@ -314,7 +314,7 @@ onUnmounted(() => {
       line-height: var(--kui-line-height-30, $kui-line-height-30);
       max-height: v-bind('maxHeightValue');
       overflow-y: auto;
-      padding: var(--kui-space-80, $kui-space-70);
+      padding: var(--kui-space-80, $kui-space-80);
 
       :deep(p) {
         margin: var(--kui-space-0, $kui-space-0);
@@ -329,7 +329,7 @@ onUnmounted(() => {
     .modal-footer {
       border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       display: flex;
-      padding: var(--kui-space-80, $kui-space-70);
+      padding: var(--kui-space-80, $kui-space-80);
 
       .footer-actions {
         display: flex;

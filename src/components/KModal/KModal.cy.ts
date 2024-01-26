@@ -92,7 +92,7 @@ describe('KModal', () => {
       },
     })
 
-    cy.getTestId('modal-action-button').should('be.visible').contains(text).should('have.class', `${appearance}`).should('be.disabled')
+    cy.getTestId('modal-action-button').should('be.visible').contains(text).should('have.class', appearance).should('be.disabled')
   })
 
   it('renders cancel button properly when text, appearance and disabled props are passed', () => {
@@ -109,7 +109,7 @@ describe('KModal', () => {
       },
     })
 
-    cy.getTestId('modal-cancel-button').should('be.visible').contains(text).should('have.class', `${appearance}`).should('be.disabled')
+    cy.getTestId('modal-cancel-button').should('be.visible').contains(text).should('have.class', appearance).should('be.disabled')
   })
 
   it('does not render cancel button when hideCancelButton is true', () => {
@@ -121,6 +121,59 @@ describe('KModal', () => {
     })
 
     cy.getTestId('modal-cancel-button').should('not.to.exist')
+  })
+
+  it('renders footer slot when passed', () => {
+    const footer = 'Modal Footer'
+
+    mount(KModal, {
+      props: {
+        visible: true,
+      },
+      slots: {
+        footer,
+      },
+    })
+
+    cy.get('.modal-footer').should('be.visible').contains(footer)
+    cy.getTestId('modal-cancel-button').should('not.to.exist')
+    cy.getTestId('modal-action-button').should('not.to.exist')
+  })
+
+  // footer-actions slot
+  it('renders footer-actions slot when passed', () => {
+    const footerActions = 'Modal Footer Actions'
+
+    mount(KModal, {
+      props: {
+        visible: true,
+      },
+      slots: {
+        'footer-actions': footerActions,
+      },
+    })
+
+    cy.get('.footer-actions').should('be.visible').contains(footerActions)
+    cy.getTestId('modal-cancel-button').should('not.to.exist')
+    cy.getTestId('modal-action-button').should('not.to.exist')
+  })
+
+  it('renders custom content over default content when passed through modal-content slot', () => {
+    const modalContent = 'Modal Content'
+
+    mount(KModal, {
+      props: {
+        visible: true,
+      },
+      slots: {
+        'modal-content': modalContent,
+      },
+    })
+
+    cy.get('.modal-container').should('be.visible').contains(modalContent)
+    cy.get('.modal-header').should('not.to.exist')
+    cy.get('.modal-content').should('not.to.exist')
+    cy.get('.modal-footer').should('not.to.exist')
   })
 
   it('does not render close icon when hideCloseIcon is true', () => {
