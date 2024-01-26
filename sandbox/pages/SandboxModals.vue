@@ -566,7 +566,7 @@
             @proceed="data.modalVisible = false"
           >
             <template #modal-content>
-              Slotted KModal content
+              Slotted KModal custom content
             </template>
           </KModal>
         </KComponent>

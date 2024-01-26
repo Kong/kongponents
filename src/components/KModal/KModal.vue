@@ -16,7 +16,7 @@
       <FocusTrap
         ref="focusTrapElement"
         :active="false"
-        :fallback-focus="modalWrapperElement?.$el"
+        :fallback-focus="() => (modalWrapperElement as HTMLElement)"
         :tabbable-options="tabbableOptions"
       >
         <div
@@ -171,7 +171,7 @@ const attrs = useAttrs()
 const slots = useSlots()
 
 const focusTrapElement = ref<InstanceType<typeof FocusTrap> | null>(null)
-const modalWrapperElement = ref<{ $el: HTMLElement } | null>(null)
+const modalWrapperElement = ref<HTMLElement | null>(null)
 
 const widthValue = computed((): string => getSizeFromString(props.width))
 const maxHeightValue = computed((): string => getSizeFromString(props.maxHeight))
@@ -225,6 +225,9 @@ const toggleFocusTrap = async (isActive: boolean): Promise<void> => {
 watch(() => props.visible, async (visible) => {
   if (visible) {
     await toggleFocusTrap(true)
+
+    // focus on first input element automatically on modal open
+    modalWrapperElement.value?.querySelectorAll('input')?.[0]?.focus()
   } else {
     await toggleFocusTrap(false)
   }
@@ -259,7 +262,7 @@ onUnmounted(() => {
     width: v-bind('widthValue');
 
     &.custom-content {
-      padding: var(--kui-space-80, $kui-space-80);
+      padding: var(--kui-space-80, $kui-space-70);
     }
 
     .modal-header {
@@ -267,7 +270,7 @@ onUnmounted(() => {
       border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       display: flex;
       justify-content: space-between;
-      padding: var(--kui-space-80, $kui-space-80);
+      padding: var(--kui-space-80, $kui-space-70);
 
       .modal-title {
         @include truncate;
@@ -308,7 +311,7 @@ onUnmounted(() => {
       line-height: var(--kui-line-height-30, $kui-line-height-30);
       max-height: v-bind('maxHeightValue');
       overflow-y: auto;
-      padding: var(--kui-space-80, $kui-space-80);
+      padding: var(--kui-space-80, $kui-space-70);
 
       :deep(p) {
         margin: var(--kui-space-0, $kui-space-0);
@@ -323,7 +326,7 @@ onUnmounted(() => {
     .modal-footer {
       border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       display: flex;
-      padding: var(--kui-space-80, $kui-space-80);
+      padding: var(--kui-space-80, $kui-space-70);
 
       .footer-actions {
         display: flex;

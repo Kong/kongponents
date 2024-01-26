@@ -42,9 +42,8 @@
           {{ confirmationPromptText[1] ? confirmationPromptText[1] : '' }}
         </p>
         <KInput
-          :id="confirmationInputId"
           ref="confirmationInputElement"
-          v-model="confirmationInput"
+          v-model.trim="confirmationInput"
           autocapitalize="off"
           autocomplete="off"
           data-testid="confirmation-input"
@@ -60,7 +59,6 @@ import { computed, ref, useAttrs, watch, nextTick } from 'vue'
 import KModal from '@/components/KModal/KModal.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import type { ButtonAppearance, ModalAttributes } from '@/types'
-import { v4 as uuidv4 } from 'uuid'
 
 defineOptions({
   inheritAttrs: false,
@@ -73,7 +71,7 @@ const props = defineProps({
   },
   title: {
     type: String,
-    default: 'Please confirm your action',
+    default: '',
   },
   message: {
     type: String,
@@ -141,7 +139,6 @@ const sanitizedAttrs = computed(() => {
 })
 
 const confirmationInput = ref<string>('')
-const confirmationInputId = uuidv4()
 
 const actionButtonDisabledValue = computed(() => {
   if (props.actionButtonDisabled) {
@@ -159,7 +156,6 @@ watch(() => props.visible, async (visible) => {
   if (visible) {
     await nextTick()
     confirmationInput.value = ''
-    document.getElementById(confirmationInputId)?.focus()
   }
 })
 </script>
