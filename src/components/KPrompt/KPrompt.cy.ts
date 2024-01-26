@@ -1,128 +1,219 @@
 import { mount } from 'cypress/vue'
 import KPrompt from '@/components/KPrompt/KPrompt.vue'
-import { h } from 'vue'
 
 describe('KPrompt', () => {
-  it('renders proper content when using slots', () => {
-    const headerText = 'This is some header text'
-    const bodyText = 'This is some body text'
-    const actionButtonsText = 'This is some footer text'
-
+  it('renders closed when visible is false', () => {
     mount(KPrompt, {
       props: {
-        isVisible: true,
-        title: headerText,
-      },
-      slots: {
-        'header-content': () => h('div', {}, headerText),
-        'body-content': () => h('div', {}, bodyText),
-        'action-buttons': h('div', {}, actionButtonsText),
+        visible: false,
       },
     })
 
-    cy.get('.k-prompt-header').should('contain.text', headerText)
-    cy.get('.k-prompt-body').should('contain.text', bodyText)
-    cy.get('.k-prompt-action-buttons').should('contain.text', actionButtonsText)
+    cy.get('.k-prompt').should('not.to.exist')
   })
 
-  it('renders proper content when using props', () => {
-    const title = 'Sweet prop title'
-    const message = 'Sweet prop content'
+  it('renders open when visible is true', () => {
+    mount(KPrompt, {
+      props: {
+        visible: true,
+      },
+    })
+
+    cy.get('.k-prompt .modal-container').should('be.visible')
+  })
+
+  it('renders action buttons and close icon by default', () => {
+    mount(KPrompt, {
+      props: {
+        visible: true,
+      },
+    })
+
+    cy.getTestId('modal-close-icon').should('be.visible')
+    cy.getTestId('prompt-cancel-button').should('be.visible')
+    cy.getTestId('prompt-action-button').should('be.visible')
+  })
+
+  it('renders title when passed through prop', () => {
+    const title = 'Modal Title'
 
     mount(KPrompt, {
       props: {
-        isVisible: true,
+        visible: true,
         title,
+      },
+    })
+
+    cy.get('.modal-title').should('be.visible').contains(title)
+  })
+
+  it('renders title when passed through slot', () => {
+    const title = 'Slotted Title'
+
+    mount(KPrompt, {
+      props: {
+        visible: true,
+        title: 'Modal Title',
+      },
+      slots: {
+        title,
+      },
+    })
+
+    cy.get('.modal-title').should('be.visible').contains(title)
+  })
+
+  it('renders message when passed through prop', () => {
+    const message = 'Modal Message'
+
+    mount(KPrompt, {
+      props: {
+        visible: true,
         message,
       },
     })
 
-    cy.get('.k-prompt-header').should('contain.text', title)
-    cy.get('.k-prompt-body').should('contain.text', message)
+    cy.get('.prompt-content .prompt-message').should('be.visible').contains(message)
   })
 
-  it('renders custom button text', () => {
-    const actionButtonText = 'Sweet ACTION button'
-    const cancelButtonText = 'Sweet CANCEL button'
+  it('renders content passed through default slot over message prop', () => {
+    const content = 'Modal Content'
 
     mount(KPrompt, {
       props: {
-        isVisible: true,
-        actionButtonText,
-        cancelButtonText,
+        visible: true,
+        message: 'Modal Message',
+      },
+      slots: {
+        default: content,
       },
     })
 
-    // button at 0 is close button in top right corner
-    cy.get('button').eq(1).should('contain.text', cancelButtonText)
-    cy.get('button').eq(2).should('contain.text', actionButtonText)
+    cy.get('.prompt-content').should('be.visible').contains(content)
+    cy.get('.prompt-content .prompt-message').should('not.exist')
   })
 
-  it('has a pending state', () => {
+  it('renders action button properly when text, appearance and disabled props are passed', () => {
+    const text = 'Action Button'
+    const appearance = 'danger'
+    const disabled = true
+
     mount(KPrompt, {
       props: {
-        isVisible: true,
-        actionPending: true,
+        visible: true,
+        actionButtonText: text,
+        actionButtonAppearance: appearance,
+        actionButtonDisabled: disabled,
       },
     })
 
-    cy.get('.k-prompt-proceed .kong-icon-spinner').should('be.visible')
+    cy.getTestId('prompt-action-button').should('be.visible').contains(text).should('have.class', appearance).should('be.disabled')
   })
 
-  it('enables correctly with confirmationText', () => {
-    const confirmationText = 'I Agree'
+  it('renders cancel button properly when text, appearance and disabled props are passed', () => {
+    const text = 'Cancel Button'
+    const appearance = 'danger'
+    const disabled = true
 
     mount(KPrompt, {
       props: {
-        isVisible: true,
+        visible: true,
+        cancelButtonText: text,
+        cancelButtonAppearance: appearance,
+        cancelButtonDisabled: disabled,
+      },
+    })
+
+    cy.getTestId('prompt-cancel-button').should('be.visible').contains(text).should('have.class', appearance).should('be.disabled')
+  })
+
+  it('renders modal with correct width when passed through modalAttributes prop', () => {
+    const widthHeight = '123px'
+
+    mount(KPrompt, {
+      props: {
+        visible: true,
+        modalAttributes: {
+          width: widthHeight,
+          maxHeight: widthHeight,
+        },
+      },
+    })
+
+    cy.get('.k-prompt .modal-container').should('have.css', 'width', widthHeight)
+    cy.get('.k-prompt .modal-content').should('have.css', 'max-height', widthHeight)
+  })
+
+  it('emits proceed event when action button is clicked', () => {
+    mount(KPrompt, {
+      props: {
+        visible: true,
+      },
+    })
+
+    cy.getTestId('prompt-action-button').click().then(() => {
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'proceed')
+    })
+  })
+
+  it('emits canceled event when cancel button is clicked', () => {
+    mount(KPrompt, {
+      props: {
+        visible: true,
+      },
+    })
+
+    cy.getTestId('prompt-cancel-button').click().then(() => {
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'canceled')
+    })
+  })
+
+  it('emits canceled event when backdrop is clicked and closeOnBackdropClick is true', () => {
+    mount(KPrompt, {
+      props: {
+        visible: true,
+        modalAttributes: {
+          closeOnBackdropClick: true,
+        },
+      },
+    })
+
+    cy.get('.k-prompt .modal-backdrop').click('topRight').then(() => {
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'canceled')
+    })
+  })
+
+  it('renders confirmation input field and confirmation prompt properly when props are passed', () => {
+    const confirmationText = 'Confirmation Text'
+    const confirmationPrompt = 'Confirmation {confirmationText} Prompt'
+
+    mount(KPrompt, {
+      props: {
+        visible: true,
+        confirmationPrompt,
         confirmationText,
       },
     })
 
-    // disabled
-    cy.get('.k-prompt-action-buttons .k-prompt-proceed').invoke('attr', 'disabled').should('eq', 'disabled')
-
-    const input = cy.getTestId('confirmation-input')
-
-    // bad input, still disabled
-    input.type(confirmationText + 'x')
-    // enable
-    input.clear()
-    input.type(confirmationText)
-
-    cy.get('.k-prompt-action-buttons .k-prompt-proceed[disabled="disabled"]').should('not.exist')
-    cy.get('.k-prompt-action-buttons .k-prompt-proceed').click().then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'proceed')
-    })
+    cy.get('.prompt-confirmation-text').should('be.visible').contains('Confirmation "Confirmation Text" Prompt')
+    cy.getTestId('confirmation-input').should('be.visible').should('be.focused')
   })
 
-  it('proceeds when clicking action button', () => {
+  it('action button behaves correctly when confirmationText is passed', () => {
+    const confirmationText = 'Confirmation Text'
+
     mount(KPrompt, {
       props: {
-        isVisible: true,
+        visible: true,
+        confirmationText,
+        actionButtonDisabled: false,
       },
     })
 
-    cy.get('.k-prompt-action-buttons .k-prompt-proceed').click().then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'proceed')
-    })
-  })
+    cy.getTestId('prompt-action-button').should('be.disabled')
 
-  it('proceeds when clicking cancel buttons', () => {
-    mount(KPrompt, {
-      props: {
-        isVisible: true,
-      },
-    })
-
-    cy.get('.k-prompt-header .close-button button').click().then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'canceled')
-      cy.wrap(Cypress.vueWrapper.emitted('canceled')).should('have.length', 1)
-    })
-
-    cy.get('.k-prompt-action-buttons .k-prompt-cancel').click().then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'canceled')
-      cy.wrap(Cypress.vueWrapper.emitted('canceled')).should('have.length', 2)
+    cy.getTestId('confirmation-input').type(confirmationText).then(() => {
+      cy.getTestId('prompt-action-button').should('not.be.disabled')
     })
   })
 })

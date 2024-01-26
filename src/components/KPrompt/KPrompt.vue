@@ -1,11 +1,5 @@
 <template>
   <KModal
-    :action-button-appearance="actionButtonAppearance"
-    :action-button-disabled="actionButtonDisabledValue"
-    :action-button-text="actionButtonText"
-    :cancel-button-appearance="cancelButtonAppearance"
-    :cancel-button-disabled="cancelButtonDisabled"
-    :cancel-button-text="cancelButtonText"
     class="k-prompt"
     :title="title"
     :visible="visible"
@@ -22,12 +16,10 @@
     <template #default>
       <div
         v-if="$slots.default || message"
-        class="prompt-message"
+        class="prompt-content"
       >
-        <slot
-          name="default"
-        >
-          <p>
+        <slot name="default">
+          <p class="prompt-message">
             {{ message }}
           </p>
         </slot>
@@ -42,13 +34,30 @@
           {{ confirmationPromptText[1] ? confirmationPromptText[1] : '' }}
         </p>
         <KInput
-          ref="confirmationInputElement"
           v-model.trim="confirmationInput"
           autocapitalize="off"
           autocomplete="off"
           data-testid="confirmation-input"
         />
       </div>
+    </template>
+    <template #footer-actions>
+      <KButton
+        :appearance="cancelButtonAppearance"
+        data-testid="prompt-cancel-button"
+        :disabled="cancelButtonDisabled"
+        @click="$emit('canceled')"
+      >
+        {{ cancelButtonText }}
+      </KButton>
+      <KButton
+        :appearance="actionButtonAppearance"
+        data-testid="prompt-action-button"
+        :disabled="actionButtonDisabledValue"
+        @click="$emit('proceed')"
+      >
+        {{ actionButtonText }}
+      </KButton>
     </template>
   </KModal>
 </template>
@@ -58,6 +67,7 @@ import type { PropType } from 'vue'
 import { computed, ref, useAttrs, watch, nextTick } from 'vue'
 import KModal from '@/components/KModal/KModal.vue'
 import KInput from '@/components/KInput/KInput.vue'
+import KButton from '@/components/KButton/KButton.vue'
 import type { ButtonAppearance, ModalAttributes } from '@/types'
 
 defineOptions({
@@ -162,7 +172,7 @@ watch(() => props.visible, async (visible) => {
 
 <style lang="scss" scoped>
 .k-prompt {
-  .prompt-message + .prompt-confirmation-container {
+  .prompt-content + .prompt-confirmation-container {
     margin-top: var(--kui-space-80, $kui-space-80);
   }
 

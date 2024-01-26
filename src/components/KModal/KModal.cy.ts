@@ -140,7 +140,6 @@ describe('KModal', () => {
     cy.getTestId('modal-action-button').should('not.to.exist')
   })
 
-  // footer-actions slot
   it('renders footer-actions slot when passed', () => {
     const footerActions = 'Modal Footer Actions'
 
