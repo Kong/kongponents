@@ -1,131 +1,225 @@
 import { mount } from 'cypress/vue'
 import KModal from '@/components/KModal/KModal.vue'
-import { h } from 'vue'
 
 describe('KModal', () => {
-  it('renders proper content when using slots', () => {
-    const headerText = 'This is some header text'
-    const bodyText = 'This is some body text'
-    const footerText = 'This is some footer text'
+  it('renders closed when visible is false', () => {
     mount(KModal, {
       props: {
-        isVisible: true,
-        title: headerText,
-      },
-      slots: {
-        'header-content': () => h('div', {}, headerText),
-        'body-content': h('div', {}, bodyText),
-        'footer-content': h('div', {}, footerText),
+        visible: false,
       },
     })
 
-    cy.get('.k-modal').find('.k-modal-header').should('contain.html', headerText)
-    cy.get('.k-modal').find('.k-modal-body').should('contain.html', bodyText)
-    cy.get('.k-modal').find('.k-modal-footer').should('contain.html', footerText)
+    cy.get('.k-modal').should('not.to.exist')
   })
 
-  it('hides the title when using hideTitle prop', () => {
-    const titleText = "You can't see me"
+  it('renders open when visible is true', () => {
     mount(KModal, {
       props: {
-        isVisible: true,
-        title: titleText,
-        hideTitle: true,
+        visible: true,
       },
     })
 
-    cy.get('.k-modal').find('.k-modal-header').should('not.exist')
+    cy.get('.k-modal .modal-container').should('be.visible')
   })
 
-  it('renders proper content when using action-buttons slot', () => {
-    const actionButtonsText = 'This is some action buttons text'
+  it('renders action buttons and close icon by default', () => {
     mount(KModal, {
       props: {
-        isVisible: true,
-        title: 'Test Me',
-      },
-      slots: {
-        'action-buttons': h('div', {}, actionButtonsText),
+        visible: true,
       },
     })
 
-    cy.get('.k-modal').find('.k-modal-action-buttons').should('contain.html', actionButtonsText)
+    cy.getTestId('modal-close-icon').should('be.visible')
+    cy.getTestId('modal-cancel-button').should('be.visible')
+    cy.getTestId('modal-action-button').should('be.visible')
   })
 
-  it('renders proper content when using props', () => {
-    const title = 'Sweet prop title'
-    const content = 'Sweet prop content'
+  it('renders title when passed through prop', () => {
+    const title = 'Modal Title'
+
     mount(KModal, {
       props: {
-        isVisible: true,
+        visible: true,
         title,
-        content,
       },
     })
 
-    cy.get('.k-modal').find('.k-modal-header').should('contain.html', title)
-    cy.get('.k-modal').find('.k-modal-body').should('contain.html', content)
+    cy.get('.modal-title').should('be.visible').contains(title)
   })
 
-  it('renders custom button text & appearance', () => {
-    const confirmText = 'click to continue'
-    const cancelText = 'click to cancel'
+  it('renders title when passed through slot', () => {
+    const title = 'Slotted Title'
+
     mount(KModal, {
       props: {
-        isVisible: true,
-        actionButtonAppearance: 'outline',
-        actionButtonText: confirmText,
-        cancelButtonAppearance: 'danger',
-        cancelButtonText: cancelText,
-        title: 'Test Me',
+        visible: true,
+        title: 'Modal Title',
+      },
+      slots: {
+        title,
       },
     })
 
-    cy.get('.k-modal').find('button').each(($el, index) => {
-      if (index === 0) cy.wrap($el).should('have.text', cancelText).and('have.class', 'danger')
-      if (index === 1) cy.wrap($el).should('have.text', confirmText).and('have.class', 'outline')
-    })
+    cy.get('.modal-title').should('be.visible').contains(title)
   })
 
-  it('proceeds when clicking action button', () => {
+  it('renders content when passed through slot', () => {
+    const content = 'Modal Content'
+
     mount(KModal, {
       props: {
-        title: 'Test Me',
-        isVisible: true,
+        visible: true,
+      },
+      slots: {
+        default: content,
       },
     })
 
-    cy.get('.k-modal').find('.k-modal-footer .k-modal-action-buttons button').click().then(() => {
-      // Check for emitted event
+    cy.get('.modal-content').should('be.visible').contains(content)
+  })
+
+  it('renders action button properly when text, appearance and disabled props are passed', () => {
+    const text = 'Action Button'
+    const appearance = 'danger'
+    const disabled = true
+
+    mount(KModal, {
+      props: {
+        visible: true,
+        actionButtonText: text,
+        actionButtonAppearance: appearance,
+        actionButtonDisabled: disabled,
+      },
+    })
+
+    cy.getTestId('modal-action-button').should('be.visible').contains(text).should('have.class', `${appearance}`).should('be.disabled')
+  })
+
+  it('renders cancel button properly when text, appearance and disabled props are passed', () => {
+    const text = 'Cancel Button'
+    const appearance = 'danger'
+    const disabled = true
+
+    mount(KModal, {
+      props: {
+        visible: true,
+        cancelButtonText: text,
+        cancelButtonAppearance: appearance,
+        cancelButtonDisabled: disabled,
+      },
+    })
+
+    cy.getTestId('modal-cancel-button').should('be.visible').contains(text).should('have.class', `${appearance}`).should('be.disabled')
+  })
+
+  it('does not render cancel button when hideCancelButton is true', () => {
+    mount(KModal, {
+      props: {
+        visible: true,
+        hideCancelButton: true,
+      },
+    })
+
+    cy.getTestId('modal-cancel-button').should('not.to.exist')
+  })
+
+  it('does not render close icon when hideCloseIcon is true', () => {
+    mount(KModal, {
+      props: {
+        visible: true,
+        hideCloseIcon: true,
+      },
+    })
+
+    cy.getTestId('modal-close-icon').should('not.to.exist')
+  })
+
+  it('renders modal with correct width when prop is passed', () => {
+    const width = '123px'
+
+    mount(KModal, {
+      props: {
+        visible: true,
+        width,
+      },
+    })
+
+    cy.get('.k-modal .modal-container').should('have.css', 'width', width)
+  })
+
+  it('renders modal with correct max-height when prop is passed', () => {
+    const maxHeight = '123px'
+
+    mount(KModal, {
+      props: {
+        visible: true,
+        maxHeight,
+      },
+    })
+
+    cy.get('.k-modal .modal-content').should('have.css', 'max-height', maxHeight)
+  })
+
+  it('emits proceed event when action button is clicked', () => {
+    mount(KModal, {
+      props: {
+        visible: true,
+      },
+    })
+
+    cy.getTestId('modal-action-button').click().then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'proceed')
     })
   })
 
-  it('emits close when backdrop is clicked', () => {
+  it('emits canceled event when cancel button is clicked', () => {
     mount(KModal, {
       props: {
-        title: 'Test Me',
-        isVisible: true,
+        visible: true,
       },
     })
 
-    cy.get('.k-modal-backdrop').click().then(() => {
-      // Check for emitted event
+    cy.getTestId('modal-cancel-button').click().then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'canceled')
     })
   })
 
-  it('emits close when hitting escape', () => {
+  it('does not close modal on backdrop click when closeOnBackdropClick is false', () => {
     mount(KModal, {
       props: {
-        title: 'Test Me',
-        isVisible: true,
+        visible: true,
+        closeOnBackdropClick: false,
       },
     })
 
-    cy.get('body').type('{esc}').then(() => {
-      // Check for emitted event
+    cy.get('.k-modal .modal-backdrop').click('topRight').then(() => {
+      cy.get('.k-modal .modal-container').should('be.visible')
+    })
+  })
+
+  it('emits canceled event when backdrop is clicked and closeOnBackdropClick is true', () => {
+    mount(KModal, {
+      props: {
+        visible: true,
+        closeOnBackdropClick: true,
+      },
+    })
+
+    cy.get('.k-modal .modal-backdrop').click('topRight').then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'canceled')
     })
+  })
+
+  it('automatically focuses in the first input element on modal open when present', () => {
+    mount(KModal, {
+      props: {
+        visible: true,
+      },
+      slots: {
+        default: '<input type="text" data-testid="first-input" /><input type="text" data-testid="second-input" />',
+      },
+    })
+
+    cy.getTestId('first-input').should('be.focused')
   })
 })

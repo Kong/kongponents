@@ -40,6 +40,7 @@
                 v-if="!hideCloseIcon"
                 class="close-icon"
                 :color="KUI_COLOR_TEXT_NEUTRAL"
+                data-testid="modal-close-icon"
                 role="button"
                 tabindex="0"
                 @click="$emit('canceled')"
@@ -58,6 +59,7 @@
                     <KButton
                       v-if="!hideCancelButton"
                       :appearance="cancelButtonAppearance"
+                      data-testid="modal-cancel-button"
                       :disabled="cancelButtonDisabled"
                       @click="$emit('canceled')"
                     >
@@ -65,6 +67,7 @@
                     </KButton>
                     <KButton
                       :appearance="actionButtonAppearance"
+                      data-testid="modal-action-button"
                       :disabled="actionButtonDisabled"
                       @click="$emit('proceed')"
                     >
