@@ -330,6 +330,12 @@ This component has been removed. Please refer to KBadge component which has been
 
 #### Slots
 
+* `header-image` slot has been removed. You can use `modal-content` to pass custom content to KModal
+* `header-content` slot has been removed
+* `body-content` slot had been removed. You can use the `default` slot instead
+* `footer-content` slot has been changed to `footer`
+* `action-buttons` slot has been changed to `footer-actions`
+
 #### Events
 
 #### Structure
@@ -411,6 +417,10 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 * `tabbableOptions` has been removed. You can use new `modalAttributes` prop to pass value to `tabbableOptions` prop in KModal
   
 #### Slots
+
+* `header-content` slot has been removed
+* `body-content` slot has been changed to `default`
+* `action-buttons` slot has been removed. If you need to slot in custom action buttons, check out KModal component
 
 #### Events
 
