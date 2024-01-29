@@ -224,7 +224,7 @@ describe('KModal', () => {
     })
   })
 
-  it('emits canceled event when cancel button is clicked', () => {
+  it('emits cancel event when cancel button is clicked', () => {
     mount(KModal, {
       props: {
         visible: true,
@@ -232,7 +232,7 @@ describe('KModal', () => {
     })
 
     cy.getTestId('modal-cancel-button').click().then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'canceled')
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'cancel')
     })
   })
 
@@ -249,7 +249,7 @@ describe('KModal', () => {
     })
   })
 
-  it('emits canceled event when backdrop is clicked and closeOnBackdropClick is true', () => {
+  it('emits cancel event when backdrop is clicked and closeOnBackdropClick is true', () => {
     mount(KModal, {
       props: {
         visible: true,
@@ -258,7 +258,7 @@ describe('KModal', () => {
     })
 
     cy.get('.k-modal .modal-backdrop').click('topRight').then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'canceled')
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'cancel')
     })
   })
 })

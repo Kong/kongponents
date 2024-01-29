@@ -156,7 +156,7 @@ describe('KPrompt', () => {
     })
   })
 
-  it('emits canceled event when cancel button is clicked', () => {
+  it('emits cancel event when cancel button is clicked', () => {
     mount(KPrompt, {
       props: {
         visible: true,
@@ -164,11 +164,11 @@ describe('KPrompt', () => {
     })
 
     cy.getTestId('prompt-cancel-button').click().then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'canceled')
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'cancel')
     })
   })
 
-  it('emits canceled event when backdrop is clicked and closeOnBackdropClick is true', () => {
+  it('emits cancel event when backdrop is clicked and closeOnBackdropClick is true', () => {
     mount(KPrompt, {
       props: {
         visible: true,
@@ -179,7 +179,7 @@ describe('KPrompt', () => {
     })
 
     cy.get('.k-prompt .modal-backdrop').click('topRight').then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'canceled')
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'cancel')
     })
   })
 
