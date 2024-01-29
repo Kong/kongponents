@@ -157,7 +157,7 @@ describe('KModal', () => {
     cy.getTestId('modal-action-button').should('not.to.exist')
   })
 
-  it('renders custom content over default content when passed through modal-content slot', () => {
+  it('renders custom content over default content when passed through content slot', () => {
     const modalContent = 'Modal Content'
 
     mount(KModal, {
@@ -165,7 +165,7 @@ describe('KModal', () => {
         visible: true,
       },
       slots: {
-        'modal-content': modalContent,
+        content: modalContent,
       },
     })
 

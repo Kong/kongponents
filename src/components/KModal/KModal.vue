@@ -21,9 +21,9 @@
       >
         <div
           class="modal-container"
-          :class="{ 'custom-content': $slots['modal-content'] }"
+          :class="{ 'custom-content': $slots['content'] }"
         >
-          <slot name="modal-content">
+          <slot name="content">
             <div
               v-if="showHeader"
               class="modal-header"
@@ -228,9 +228,6 @@ const toggleFocusTrap = async (isActive: boolean): Promise<void> => {
 watch(() => props.visible, async (visible) => {
   if (visible) {
     await toggleFocusTrap(true)
-
-    // focus on first input element automatically on modal open
-    modalWrapperElement.value?.querySelectorAll('input')?.[0]?.focus()
   } else {
     await toggleFocusTrap(false)
   }
@@ -265,6 +262,11 @@ onUnmounted(() => {
     width: v-bind('widthValue');
 
     &.custom-content {
+      color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+      font-family: var(--kui-font-family-text, $kui-font-family-text);
+      font-size: var(--kui-font-size-30, $kui-font-size-30);
+      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+      line-height: var(--kui-line-height-30, $kui-line-height-30);
       padding: var(--kui-space-80, $kui-space-80);
     }
 
@@ -273,7 +275,7 @@ onUnmounted(() => {
       border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       display: flex;
       justify-content: space-between;
-      padding: var(--kui-space-80, $kui-space-80);
+      padding: var(--kui-space-70, $kui-space-70) var(--kui-space-80, $kui-space-80);
 
       .modal-title {
         @include truncate;
@@ -329,7 +331,7 @@ onUnmounted(() => {
     .modal-footer {
       border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       display: flex;
-      padding: var(--kui-space-80, $kui-space-80);
+      padding: var(--kui-space-60, $kui-space-60) var(--kui-space-80, $kui-space-80);
 
       .footer-actions {
         display: flex;

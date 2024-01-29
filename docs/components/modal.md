@@ -50,8 +50,6 @@ A boolean that defines whether the modal is shown.
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-
 const modalVisible = ref<boolean>(false)
 
 const handleModalClose = () => {
@@ -439,10 +437,6 @@ Options to be passed to [`focus-trap`](https://github.com/focus-trap/focus-trap)
 
 Slot for modal content.
 
-:::tip NOTE
-If modal contains any input elements, KModal will automatically set focus on the first input element upon opening.
-:::
-
 <KButton @click="modal16Visible = true">Modal</KButton>
 <KModal
   title="Modal"
@@ -498,18 +492,178 @@ Slot for title string.
 
 ### footer
 
+Slot for footer content.
+
+<KButton @click="modal18Visible = true">Modal</KButton>
+<KModal
+  title="Title"
+  :visible="modal18Visible"
+  @canceled="closeAllModals"
+  @proceed="closeAllModals"
+>
+  <template #footer>
+    All prices are in USD.
+  </template>
+</KModal>
+
+```html
+<KModal
+  title="Title"
+  :visible="modalVisible"
+  @canceled="handleModalClose"
+  @proceed="handleModalProceed"
+>
+  <template #footer>
+    All prices are in USD.
+  </template>
+</KModal>
+```
+
 ### footer-actions
 
-### modal-content
+Use this slot should you need to provide cusom buttons in modal footer. Ommited when [`footer` slot](#footer) is used.
+
+<KButton @click="modal19Visible = true">Modal</KButton>
+<KModal
+  title="Title"
+  :visible="modal19Visible"
+  @canceled="closeAllModals"
+>
+  <template #footer-actions>
+    <KButton appearance="tertiary" @click="closeAllModals">
+      <BackIcon />
+      Back
+    </KButton>
+    <KButton @click="closeAllModals">
+     Proceed
+     <ForwardIcon />
+    </KButton>
+  </template>
+</KModal>
+
+```vue
+<template>
+  <KModal
+    :visible="modalVisible"
+    title="Modal"
+    @canceled="handleModalClose"
+  >
+    <template #footer-actions>
+      <KButton
+        appearance="tertiary"
+        @click="handleModalClose">
+        <BackIcon />
+        Back
+      </KButton>
+      <KButton @click="handleModalClose">
+      Proceed
+      <ForwardIcon />
+      </KButton>
+    </template>
+  </KModal>
+</template>
+
+<script setup lang="ts">
+const modalVisible = ref<boolean>(false)
+
+const handleModalClose = () => {
+  modalVisible.value = false
+}
+</script>
+```
+
+:::tip NOTE
+KModal takes care of placement and spacing between the buttons when using `footer-actions` slot. However, should you want to mimic that container behaviour using, for example, [`footer`](#footer) slot, we recomend you use `$kui-space-40` [design token](https://github.com/Kong/design-tokens) for spacing between the buttons and place the container containing the buttons on the right using `margin-left: $kui-space-auto;` rule.
+:::
+
+### content
+
+By default KModal provides you with the standard layout: modal header (optional), content section and footer. However, should you need to make a custom modal window, you can use `content` slot for your content. It will provide you with just a padded container with white background.
+
+:::warning NOTE
+Focus-trap requires at least one tabbable element to be present in modal at all times. You can learn more about what elements are considered tabbable [here](https://github.com/focus-trap/tabbable).
+:::
+
+<KButton @click="modal20Visible = true">Modal</KButton>
+
+<div class="custom-modal-content">
+  <KModal :visible="modal20Visible">
+    <template #content>
+      <div class="modal-content">
+        <img src="/img/dark-demo.png" alt="Circuit board" />
+        <div class="info-container">
+          <h3>Welcome to Gateway Manager!</h3>
+          <p>Optimize Kong Gateway and Ingress Controller deployments across hybrid, multi-cloud, and Kubernetes environments. Get single-pane management, a 99.99% SLA, and seamless day-2 operations.</p>
+          <KButton @click="closeAllModals">Show me around</KButton>
+        </div>
+      </div>
+    </template>
+  </KModal>
+</div>
+
+```vue
+<template>
+  <KModal :visible="modalVisible">
+    <template #content>
+      <div class="modal-content">
+        <img src="/img/gateway-manager.png" alt="Gateway Manager" />
+        <div class="info-container">
+          <h3>Welcome to Gateway Manager!</h3>
+          <p>Optimize Kong Gateway and Ingress Controller deployments across hybrid, multi-cloud, and Kubernetes environments. Get single-pane management, a 99.99% SLA, and seamless day-2 operations.</p>
+          <KButton @click="modalVisible = false">Show me around</KButton>
+        </div>
+      </div>
+    </template>
+  </KModal>
+</template>
+
+<script setup lang="ts">
+const modalVisible = ref<boolean>(false)
+</script>
+
+<style lang="scss" scoped>
+:deep(.k-modal .modal-container) {
+  padding: $kui-space-0;
+}
+
+.modal-content {
+  img {
+    border-top-left-radius: $kui-border-radius-40;
+    border-top-right-radius: $kui-border-radius-40;
+  }
+
+  .info-container {
+    display: flex;
+    flex-direction: column;
+    gap: $kui-space-60;
+    padding: $kui-space-80;
+    text-align: center;
+
+    p {
+      color: $kui-color-text-neutral;
+    }
+  }
+}
+</style>
+```
+
+:::tip NOTE
+By default when using `content` slot KModal comes with a padded container. However, should you want to customize that behaviour, you can override that like in the example above. We suggest you use `$kui-space-80` [design token](https://github.com/Kong/design-tokens) token for any container padding and `$kui-border-radius-40` token for rounding the corners.
+:::
 
 ## Events
 
 ### proceed
 
+Emitted when action button is clicked. Doesn't pass any payload.
+
 ### cancel
+
+Emitted when cancel button or close icon (when not hidden) is clicked. Doesn't pass any payload.
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { BackIcon, ForwardIcon } from '@kong/icons'
 
 const closeAllModals = () => {
   modal1Visible.value = false
@@ -532,8 +686,6 @@ const closeAllModals = () => {
   modal18Visible.value = false
   modal19Visible.value = false
   modal20Visible.value = false
-  modal21Visible.value = false
-  modal22Visible.value = false
 }
 
 const modal1Visible = ref<boolean>(false)
@@ -556,8 +708,6 @@ const modal17Visible = ref<boolean>(false)
 const modal18Visible = ref<boolean>(false)
 const modal19Visible = ref<boolean>(false)
 const modal20Visible = ref<boolean>(false)
-const modal21Visible = ref<boolean>(false)
-const modal22Visible = ref<boolean>(false)
 </script>
 
 <style lang="scss" scoped>
@@ -565,5 +715,34 @@ const modal22Visible = ref<boolean>(false)
   display: flex;
   flex-direction: column;
   gap: $kui-space-50;
+}
+
+.custom-modal-content {
+  :deep(.k-modal .modal-container) {
+    padding: $kui-space-0;
+  }
+
+  .modal-content {
+    img {
+      border-top-left-radius: $kui-border-radius-40;
+      border-top-right-radius: $kui-border-radius-40;
+    }
+
+    .info-container {
+      display: flex;
+      flex-direction: column;
+      gap: $kui-space-60;
+      padding: $kui-space-80;
+      text-align: center;
+
+      p {
+        color: $kui-color-text-neutral;
+      }
+    }
+
+    h3, p {
+      margin: 0;
+    }
+  }
 }
 </style>

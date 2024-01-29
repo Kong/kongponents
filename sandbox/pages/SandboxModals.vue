@@ -548,7 +548,7 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent
         description="Only available in KModal."
-        title="modal-content"
+        title="content"
       >
         <KComponent
           v-slot="{ data }"
@@ -561,11 +561,12 @@
           </KButton>
 
           <KModal
+            close-on-backdrop-click
             :visible="data.modalVisible"
             @canceled="data.modalVisible = false"
             @proceed="data.modalVisible = false"
           >
-            <template #modal-content>
+            <template #content>
               Slotted KModal custom content
             </template>
           </KModal>

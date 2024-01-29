@@ -330,7 +330,7 @@ This component has been removed. Please refer to KBadge component which has been
 
 #### Slots
 
-* `header-image` slot has been removed. You can use `modal-content` to pass custom content to KModal
+* `header-image` slot has been removed. You can use `content` to pass custom content to KModal
 * `header-content` slot has been removed
 * `body-content` slot had been removed. You can use the `default` slot instead
 * `footer-content` slot has been changed to `footer`
