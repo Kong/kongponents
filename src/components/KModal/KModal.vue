@@ -43,7 +43,7 @@
                 data-testid="modal-close-icon"
                 role="button"
                 tabindex="0"
-                @click="$emit('canceled')"
+                @click="$emit('cancel')"
               />
             </div>
             <div
@@ -61,7 +61,7 @@
                       :appearance="cancelButtonAppearance"
                       data-testid="modal-cancel-button"
                       :disabled="cancelButtonDisabled"
-                      @click="$emit('canceled')"
+                      @click="$emit('cancel')"
                     >
                       {{ cancelButtonText }}
                     </KButton>
@@ -166,7 +166,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'canceled'): void
+  (e: 'cancel'): void
   (e: 'proceed'): void
 }>()
 
@@ -205,7 +205,7 @@ const handleKeydown = (event: any): void => {
 const close = (force = false, event?: any): void => {
   // Close if force === true or if the user clicks on .modal-backdrop
   if ((force || event?.target?.classList?.contains('modal-backdrop')) && props.closeOnBackdropClick) {
-    emit('canceled')
+    emit('cancel')
   }
 }
 

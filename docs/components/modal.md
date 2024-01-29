@@ -2,24 +2,31 @@
 
 KModal is a modal window component with overlay.
 
+:::tip NOTE
+Consider using [KPrompt component](/components/prompt) instead if your use case is one of the below:
+* you need a simple pop-up element to ask user to confirm their action
+* you need user's input
+* you don't need much customization options for modal window layout
+:::
+
 <KButton @click="modal1Visible = true">Modal</KButton>
 <KModal
   :visible="modal1Visible"
   title="Modal"
-  @canceled="closeAllModals"
+  @cancel="closeAllModals"
   @proceed="closeAllModals"
 >
-  Modal is a pop-up element that temporarily interrupts the user's interaction with the main content, requiring an action before returning to the page.
+  Modal is a pop-up element that temporarily interrupts the user's interaction with the main content.
 </KModal>
 
 ```html
 <KModal
   :visible="modalVisible"
   title="Modal"
-  @canceled="handleModalClose"
+  @cancel="handleModalClose"
   @proceed="handleModalProceed"
 >
-  Modal is a pop-up element that temporarily interrupts the user's interaction with the main content, requiring an action before returning to the page.
+  Modal is a pop-up element that temporarily interrupts the user's interaction with the main content.
 </KModal>
 ```
 
@@ -33,7 +40,7 @@ A boolean that defines whether the modal is shown.
 <KModal
   :visible="modal2Visible"
   title="Modal"
-  @canceled="closeAllModals"
+  @cancel="closeAllModals"
   @proceed="closeAllModals"
 />
 
@@ -44,7 +51,7 @@ A boolean that defines whether the modal is shown.
   <KModal
     :visible="modalVisible"
     title="Modal"
-    @canceled="handleModalClose"
+    @cancel="handleModalClose"
     @proceed="handleModalClose"
   />
 </template>
@@ -66,7 +73,7 @@ A string to be displayed as modal window title. Can also be [slotted](#title-1).
 <KModal
   title="Long modal title gets truncated with an ellipsis"
   :visible="modal3Visible"
-  @canceled="closeAllModals"
+  @cancel="closeAllModals"
   @proceed="closeAllModals"
 />
 
@@ -74,21 +81,21 @@ A string to be displayed as modal window title. Can also be [slotted](#title-1).
 <KModal
   title="Long modal title gets truncated with an ellipsis"
   :visible="modalVisible"
-  @canceled="handleModalClose"
+  @cancel="handleModalClose"
   @proceed="handleModalProceed"
 />
 ```
 
 ### actionButtonText
 
-Text to be displayed in action button. Defaults to `Submit`.
+Text to be displayed in action button. Defaults to "Submit".
 
 <KButton @click="modal4Visible = true">Modal</KButton>
 <KModal
   action-button-text="Ok"
   :visible="modal4Visible"
   title="Modal"
-  @canceled="closeAllModals"
+  @cancel="closeAllModals"
   @proceed="closeAllModals"
 />
 
@@ -97,7 +104,7 @@ Text to be displayed in action button. Defaults to `Submit`.
   action-button-text="Ok"
   :visible="modalVisible"
   title="Modal"
-  @canceled="handleModalClose"
+  @cancel="handleModalClose"
   @proceed="handleModalProceed"
 />
 ```
@@ -111,7 +118,7 @@ Appearance of action button. See [KButton `appearance`](/components/button#appea
   action-button-appearance="danger"
   :visible="modal5Visible"
   title="Modal"
-  @canceled="closeAllModals"
+  @cancel="closeAllModals"
   @proceed="closeAllModals"
 />
 
@@ -120,7 +127,7 @@ Appearance of action button. See [KButton `appearance`](/components/button#appea
   action-button-appearance="danger"
   :visible="modalVisible"
   title="Modal"
-  @canceled="handleModalClose"
+  @cancel="handleModalClose"
   @proceed="handleModalProceed"
 />
 ```
@@ -147,7 +154,7 @@ By default the action button is enabled, but you can pass `true` to this prop sh
     :action-button-disabled="!data.actionEnabled"
     :visible="modal6Visible"
     title="Modal"
-    @canceled="closeAllModals"
+    @cancel="closeAllModals"
     @proceed="closeAllModals"
   />
 </KComponent>
@@ -157,21 +164,21 @@ By default the action button is enabled, but you can pass `true` to this prop sh
   :action-button-disabled="false"
   :visible="modalVisible"
   title="Modal"
-  @canceled="handleModalClose"
+  @cancel="handleModalClose"
   @proceed="handleModalProceed"
 />
 ```
 
 ### cancelButtonText
 
-Text to be displayed in cancel button. Defaults to `Cancel`.
+Text to be displayed in cancel button. Defaults to "Cancel".
 
 <KButton @click="modal7Visible = true">Modal</KButton>
 <KModal
   cancel-button-text="Leave"
   :visible="modal7Visible"
   title="Modal"
-  @canceled="closeAllModals"
+  @cancel="closeAllModals"
   @proceed="closeAllModals"
 />
 
@@ -180,7 +187,7 @@ Text to be displayed in cancel button. Defaults to `Cancel`.
   cancel-button-text="Leave"
   :visible="modalVisible"
   title="Modal"
-  @canceled="handleModalClose"
+  @cancel="handleModalClose"
   @proceed="handleModalProceed"
 />
 ```
@@ -194,7 +201,7 @@ Appearance of cancel button. See [KButton `appearance`](/components/button#appea
   cancel-button-appearance="secondary"
   :visible="modal8Visible"
   title="Modal"
-  @canceled="closeAllModals"
+  @cancel="closeAllModals"
   @proceed="closeAllModals"
 />
 
@@ -203,7 +210,7 @@ Appearance of cancel button. See [KButton `appearance`](/components/button#appea
   cancel-button-appearance="secondary"
   :visible="modalVisible"
   title="Modal"
-  @canceled="handleModalClose"
+  @cancel="handleModalClose"
   @proceed="handleModalProceed"
 />
 ```
@@ -230,7 +237,7 @@ By default the cancel button is enabled, but you can pass `true` to this prop sh
     :cancel-button-disabled="!data.cancelEnabled"
     :visible="modal9Visible"
     title="Modal"
-    @canceled="closeAllModals"
+    @cancel="closeAllModals"
     @proceed="closeAllModals"
   />
 </KComponent>
@@ -240,7 +247,7 @@ By default the cancel button is enabled, but you can pass `true` to this prop sh
   :cancel-button-disabled="false"
   :visible="modalVisible"
   title="Modal"
-  @canceled="handleModalClose"
+  @cancel="handleModalClose"
   @proceed="handleModalProceed"
 />
 ```
@@ -254,7 +261,7 @@ Use this prop to hide the cancel button. Defaults to `false`.
   hide-cancel-button
   :visible="modal10Visible"
   title="Modal"
-  @canceled="closeAllModals"
+  @cancel="closeAllModals"
   @proceed="closeAllModals"
 />
 
@@ -263,7 +270,7 @@ Use this prop to hide the cancel button. Defaults to `false`.
   hide-cancel-button
   :visible="modalVisible"
   title="Modal"
-  @canceled="handleModalClose"
+  @cancel="handleModalClose"
   @proceed="handleModalProceed"
 />
 ```
@@ -276,7 +283,7 @@ Prop that allows you to hide close icon next to the title. Defaults to `false`. 
 <KModal
   hide-close-icon
   :visible="modal11Visible"
-  @canceled="closeAllModals"
+  @cancel="closeAllModals"
   @proceed="closeAllModals"
 >
   Modal header section is omitted when no header content is present.
@@ -286,7 +293,7 @@ Prop that allows you to hide close icon next to the title. Defaults to `false`. 
 <KModal
   hide-close-icon
   :visible="modalVisible"
-  @canceled="handleModalClose"
+  @cancel="handleModalClose"
   @proceed="handleModalProceed"
 >
   Modal header section is omitted when no header content is present.
@@ -315,7 +322,7 @@ Whether pressing on Enter should result in KModal emitting the [`proceed` event]
     :proceed-on-enter="data.proceedOnEnter"
     hide-close-icon
     :visible="modal12Visible"
-    @canceled="closeAllModals"
+    @cancel="closeAllModals"
     @proceed="closeAllModals"
   >
     Try pressing Enter.
@@ -327,7 +334,7 @@ Whether pressing on Enter should result in KModal emitting the [`proceed` event]
   :proceed-on-enter="false"
   hide-close-icon
   :visible="modalVisible"
-  @canceled="handleModalClose"
+  @cancel="handleModalClose"
   @proceed="handleModalProceed"
 >
   Try pressing Enter.
@@ -356,7 +363,7 @@ Whether clicking on backdrop should close the modal (by emitting the [`cancel` e
     :close-on-backdrop-click="data.closeOnBackdropClick"
     hide-close-icon
     :visible="modal13Visible"
-    @canceled="closeAllModals"
+    @cancel="closeAllModals"
     @proceed="closeAllModals"
   >
     Try clicking on modal backdrop.
@@ -368,7 +375,7 @@ Whether clicking on backdrop should close the modal (by emitting the [`cancel` e
   :close-on-backdrop-click="false"
   hide-close-icon
   :visible="modalVisible"
-  @canceled="handleModalClose"
+  @cancel="handleModalClose"
   @proceed="handleModalProceed"
 >
   Try clicking on modal backdrop.
@@ -384,7 +391,7 @@ With of the modal window. Defaults to `500px`.
   width="90%"
   title="Modal"
   :visible="modal14Visible"
-  @canceled="closeAllModals"
+  @cancel="closeAllModals"
   @proceed="closeAllModals"
 />
 
@@ -393,7 +400,7 @@ With of the modal window. Defaults to `500px`.
   width="90%"
   title="Modal"
   :visible="modalVisible"
-  @canceled="handleModalClose"
+  @cancel="handleModalClose"
   @proceed="handleModalProceed"
 />
 ```
@@ -407,7 +414,7 @@ Maximum height of the content area. When content overflows, content area becomes
   max-height="200px"
   title="Modal"
   :visible="modal15Visible"
-  @canceled="closeAllModals"
+  @cancel="closeAllModals"
   @proceed="closeAllModals"
 >
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Euismod nisi porta lorem mollis aliquam ut porttitor leo. Felis donec et odio pellentesque. Consectetur adipiscing elit pellentesque habitant morbi tristique senectus et netus. In eu mi bibendum neque egestas. Aliquam eleifend mi in nulla posuere sollicitudin. Faucibus ornare suspendisse sed nisi lacus sed viverra. Elementum curabitur vitae nunc sed. Nulla porttitor massa id neque aliquam vestibulum morbi. At varius vel pharetra vel turpis nunc eget.</p>
@@ -420,7 +427,7 @@ Maximum height of the content area. When content overflows, content area becomes
   max-height="200px"
   title="Modal"
   :visible="modalVisible"
-  @canceled="handleModalClose"
+  @cancel="handleModalClose"
   @proceed="handleModalProceed"
 >
   <p>Lorem ipsum dolor sit amet...
@@ -441,23 +448,20 @@ Slot for modal content.
 <KModal
   title="Modal"
   :visible="modal16Visible"
-  @canceled="closeAllModals"
+  @cancel="closeAllModals"
   @proceed="closeAllModals"
 >
-  <div class="vertical-container">
-    <KInput label="First name" required autocapitalize="off" autocomplete="off" />
-    <KInput label="Last name" required autocapitalize="off" autocomplete="off" />
-  </div>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 </KModal>
 
 ```html
 <KModal
   title="Modal"
   :visible="modalVisible"
-  @canceled="handleModalClose"
+  @cancel="handleModalClose"
   @proceed="handleModalProceed"
 >
-  <KInput label="Name" required />
+  <p>Lorem ipsum dolor sit amet...
 </KModal>
 ```
 
@@ -469,7 +473,7 @@ Slot for title string.
 <KModal
   title="Title"
   :visible="modal17Visible"
-  @canceled="closeAllModals"
+  @cancel="closeAllModals"
   @proceed="closeAllModals"
 >
   <template #title>
@@ -481,7 +485,7 @@ Slot for title string.
 <KModal
   title="Title"
   :visible="modalVisible"
-  @canceled="handleModalClose"
+  @cancel="handleModalClose"
   @proceed="handleModalProceed"
 >
   <template #title>
@@ -498,7 +502,7 @@ Slot for footer content.
 <KModal
   title="Title"
   :visible="modal18Visible"
-  @canceled="closeAllModals"
+  @cancel="closeAllModals"
   @proceed="closeAllModals"
 >
   <template #footer>
@@ -510,7 +514,7 @@ Slot for footer content.
 <KModal
   title="Title"
   :visible="modalVisible"
-  @canceled="handleModalClose"
+  @cancel="handleModalClose"
   @proceed="handleModalProceed"
 >
   <template #footer>
@@ -527,7 +531,7 @@ Use this slot should you need to provide cusom buttons in modal footer. Ommited 
 <KModal
   title="Title"
   :visible="modal19Visible"
-  @canceled="closeAllModals"
+  @cancel="closeAllModals"
 >
   <template #footer-actions>
     <KButton appearance="tertiary" @click="closeAllModals">
@@ -546,7 +550,7 @@ Use this slot should you need to provide cusom buttons in modal footer. Ommited 
   <KModal
     :visible="modalVisible"
     title="Modal"
-    @canceled="handleModalClose"
+    @cancel="handleModalClose"
   >
     <template #footer-actions>
       <KButton

@@ -338,6 +338,8 @@ This component has been removed. Please refer to KBadge component which has been
 
 #### Events
 
+* `canceled` event has been renamed to `cancel`
+
 #### Structure
 
 * `k-modal-backdrop` class has been removed and replaced with `modal-backdrop`
@@ -423,6 +425,8 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 * `action-buttons` slot has been removed. If you need to slot in custom action buttons, check out KModal component
 
 #### Events
+
+* `canceled` event has been renamed to `cancel`
 
 #### Structure
 
