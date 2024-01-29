@@ -30,13 +30,13 @@
           <KModal
             title="Long KModal title gets truncated with an ellipsis"
             :visible="data.modalVisible"
-            @canceled="data.modalVisible = false"
+            @cancel="data.modalVisible = false"
             @proceed="data.modalVisible = false"
           />
           <KPrompt
             title="Long KPrompt title gets truncated with an ellipsis"
             :visible="data.promptVisible"
-            @canceled="data.promptVisible = false"
+            @cancel="data.promptVisible = false"
             @proceed="data.promptVisible = false"
           />
         </KComponent>
@@ -60,7 +60,7 @@
           <KModal
             hide-close-icon
             :visible="data.modalVisible"
-            @canceled="data.modalVisible = false"
+            @cancel="data.modalVisible = false"
             @proceed="data.modalVisible = false"
           >
             When no title is provided and hideCloseIcon is true, the modal header is hidden.
@@ -87,7 +87,7 @@
             hide-cancel-button
             title="KModal"
             :visible="data.modalVisible"
-            @canceled="data.modalVisible = false"
+            @cancel="data.modalVisible = false"
             @proceed="data.modalVisible = false"
           />
         </KComponent>
@@ -112,7 +112,7 @@
             message="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
             title="KPrompt"
             :visible="data.promptVisible"
-            @canceled="data.promptVisible = false"
+            @cancel="data.promptVisible = false"
             @proceed="data.promptVisible = false"
           />
         </KComponent>
@@ -157,7 +157,7 @@
             action-button-text="KModal action"
             title="KModal"
             :visible="data.modalVisible"
-            @canceled="data.modalVisible = false"
+            @cancel="data.modalVisible = false"
             @proceed="data.modalVisible = false"
           />
           <KPrompt
@@ -166,7 +166,7 @@
             action-button-text="KPrompt action"
             title="KPrompt"
             :visible="data.promptVisible"
-            @canceled="data.promptVisible = false"
+            @cancel="data.promptVisible = false"
             @proceed="data.promptVisible = false"
           />
         </KComponent>
@@ -211,7 +211,7 @@
             cancel-button-text="KModal cancel"
             title="KModal"
             :visible="data.modalVisible"
-            @canceled="data.modalVisible = false"
+            @cancel="data.modalVisible = false"
             @proceed="data.modalVisible = false"
           />
           <KPrompt
@@ -220,7 +220,7 @@
             cancel-button-text="KPrompt cancel"
             title="KPrompt"
             :visible="data.promptVisible"
-            @canceled="data.promptVisible = false"
+            @cancel="data.promptVisible = false"
             @proceed="data.promptVisible = false"
           />
         </KComponent>
@@ -266,14 +266,14 @@
             :proceed-on-enter="data.modalProceedOnEnter"
             title="KModal"
             :visible="data.modalVisible"
-            @canceled="data.modalVisible = false"
+            @cancel="data.modalVisible = false"
             @proceed="data.modalVisible = false"
           />
           <KPrompt
             :modal-attributes="{ proceedOnEnter: data.promptProceedOnEnter }"
             title="KPrompt"
             :visible="data.promptVisible"
-            @canceled="data.promptVisible = false"
+            @cancel="data.promptVisible = false"
             @proceed="data.promptVisible = false"
           />
         </KComponent>
@@ -319,14 +319,14 @@
             :close-on-backdrop-click="data.modalCloseOnBackdropClick"
             title="KModal"
             :visible="data.modalVisible"
-            @canceled="data.modalVisible = false"
+            @cancel="data.modalVisible = false"
             @proceed="data.modalVisible = false"
           />
           <KPrompt
             :modal-attributes="{ closeOnBackdropClick: data.promptCloseOnBackdropClick }"
             title="KPrompt"
             :visible="data.promptVisible"
-            @canceled="data.promptVisible = false"
+            @cancel="data.promptVisible = false"
             @proceed="data.promptVisible = false"
           />
         </KComponent>
@@ -356,14 +356,14 @@
             title="KModal"
             :visible="data.modalVisible"
             width="1000px"
-            @canceled="data.modalVisible = false"
+            @cancel="data.modalVisible = false"
             @proceed="data.modalVisible = false"
           />
           <KPrompt
             :modal-attributes="{ width: '1000px' }"
             title="KPrompt"
             :visible="data.promptVisible"
-            @canceled="data.promptVisible = false"
+            @cancel="data.promptVisible = false"
             @proceed="data.promptVisible = false"
           />
         </KComponent>
@@ -393,7 +393,7 @@
             max-height="200px"
             title="KModal"
             :visible="data.modalVisible"
-            @canceled="data.modalVisible = false"
+            @cancel="data.modalVisible = false"
             @proceed="data.modalVisible = false"
           >
             <p>
@@ -404,7 +404,7 @@
             :modal-attributes="{ maxHeight: '200px' }"
             title="KPrompt"
             :visible="data.promptVisible"
-            @canceled="data.promptVisible = false"
+            @cancel="data.promptVisible = false"
             @proceed="data.promptVisible = false"
           >
             <p>
@@ -438,8 +438,9 @@
           </div>
 
           <KModal
+            title="KModal"
             :visible="data.modalVisible"
-            @canceled="data.modalVisible = false"
+            @cancel="data.modalVisible = false"
             @proceed="data.modalVisible = false"
           >
             <template #title>
@@ -447,8 +448,9 @@
             </template>
           </KModal>
           <KPrompt
+            title="KPrompt"
             :visible="data.promptVisible"
-            @canceled="data.promptVisible = false"
+            @cancel="data.promptVisible = false"
             @proceed="data.promptVisible = false"
           >
             <template #title>
@@ -477,14 +479,14 @@
 
           <KModal
             :visible="data.modalVisible"
-            @canceled="data.modalVisible = false"
+            @cancel="data.modalVisible = false"
             @proceed="data.modalVisible = false"
           >
             Slotted KModel content
           </KModal>
           <KPrompt
             :visible="data.promptVisible"
-            @canceled="data.promptVisible = false"
+            @cancel="data.promptVisible = false"
             @proceed="data.promptVisible = false"
           >
             Slotted KPrompt content
@@ -507,7 +509,7 @@
 
           <KModal
             :visible="data.modalVisible"
-            @canceled="data.modalVisible = false"
+            @cancel="data.modalVisible = false"
             @proceed="data.modalVisible = false"
           >
             <template #footer>
@@ -532,7 +534,7 @@
 
           <KModal
             :visible="data.modalVisible"
-            @canceled="data.modalVisible = false"
+            @cancel="data.modalVisible = false"
             @proceed="data.modalVisible = false"
           >
             <template #footer-actions>
@@ -563,7 +565,7 @@
           <KModal
             close-on-backdrop-click
             :visible="data.modalVisible"
-            @canceled="data.modalVisible = false"
+            @cancel="data.modalVisible = false"
             @proceed="data.modalVisible = false"
           >
             <template #content>

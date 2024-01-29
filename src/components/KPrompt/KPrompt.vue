@@ -1,10 +1,10 @@
 <template>
   <KModal
     class="k-prompt"
-    :title="title"
+    :title="title || 'Confirm your action'"
     :visible="visible"
     v-bind="{ ...sanitizedAttrs, ...modalAttributes}"
-    @canceled="$emit('canceled')"
+    @cancel="$emit('cancel')"
     @proceed="$emit('proceed')"
   >
     <template
@@ -46,7 +46,7 @@
         :appearance="cancelButtonAppearance"
         data-testid="prompt-cancel-button"
         :disabled="cancelButtonDisabled"
-        @click="$emit('canceled')"
+        @click="$emit('cancel')"
       >
         {{ cancelButtonText }}
       </KButton>
@@ -128,7 +128,7 @@ const props = defineProps({
 const attrs = useAttrs()
 
 defineEmits<{
-  (e: 'canceled'): void
+  (e: 'cancel'): void
   (e: 'proceed'): void
 }>()
 
