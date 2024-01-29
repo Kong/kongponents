@@ -38,12 +38,12 @@
               </div>
               <CloseIcon
                 v-if="!hideCloseIcon"
-                title="Close"
                 class="close-icon"
                 :color="KUI_COLOR_TEXT_NEUTRAL"
                 data-testid="modal-close-icon"
                 role="button"
                 tabindex="0"
+                title="Close"
                 @click="$emit('cancel')"
               />
             </div>
@@ -205,7 +205,7 @@ const handleKeydown = (event: any): void => {
 
 const close = (force = false, event?: any): void => {
   // Close if force === true or if the user clicks on .modal-backdrop
-  if ((force || event?.target?.classList?.contains('modal-backdrop')) && props.closeOnBackdropClick) {
+  if (force || (event?.target?.classList?.contains('modal-backdrop') && props.closeOnBackdropClick)) {
     emit('cancel')
   }
 }
@@ -226,11 +226,21 @@ const toggleFocusTrap = async (isActive: boolean): Promise<void> => {
   }
 }
 
-watch(() => props.visible, async (visible: boolean) => {
+const toggleBodyScroll = (isScrollable: boolean): void => {
+  if (isScrollable) {
+    document.body.classList.remove('k-modal-overflow-hidden')
+  } else {
+    document.body.classList.add('k-modal-overflow-hidden')
+  }
+}
+
+watch(() => props.visible, async (visible: boolean): Promise<void> => {
   if (visible) {
     await toggleFocusTrap(true)
+    toggleBodyScroll(false)
   } else {
     await toggleFocusTrap(false)
+    toggleBodyScroll(true)
   }
 }, { immediate: true })
 
@@ -240,6 +250,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   document.removeEventListener('keydown', handleKeydown)
+  toggleBodyScroll(true)
 })
 </script>
 
@@ -250,6 +261,8 @@ onUnmounted(() => {
     background-color: var(--kui-color-background-overlay, $kui-color-background-overlay);
     display: flex;
     inset: 0;
+    padding-left: var(--kui-space-30, $kui-space-30);
+    padding-right: var(--kui-space-30, $kui-space-30);
     position: fixed;
     z-index: 1100;
   }
@@ -287,6 +300,7 @@ onUnmounted(() => {
         letter-spacing: var(--kui-letter-spacing-minus-40, $kui-letter-spacing-minus-40);
         line-height: var(--kui-line-height-50, $kui-line-height-50);
         max-width: 100%;
+        user-select: none;
       }
 
       .close-icon {
@@ -341,5 +355,12 @@ onUnmounted(() => {
       }
     }
   }
+}
+</style>
+
+<style lang="scss">
+// keep unscoped to target body element
+body.k-modal-overflow-hidden {
+  overflow: hidden;
 }
 </style>

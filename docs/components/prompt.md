@@ -205,7 +205,7 @@ Set to `true` to disable the action button. Defaults to `false`.
 
 <KComponent
   v-slot="{ data }"
-  :data="{ actionEnabled: true }"
+  :data="{ actionEnabled: false }"
 >
   <div class="vertical-container">
     <div>
@@ -288,7 +288,7 @@ Set to `true` to disable the cancel button. Defaults to `false`.
 
 <KComponent
   v-slot="{ data }"
-  :data="{ cancelEnabled: true }"
+  :data="{ cancelEnabled: false }"
 >
   <div class="vertical-container">
     <div>

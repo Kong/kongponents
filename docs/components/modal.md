@@ -138,7 +138,7 @@ By default the action button is enabled, but you can pass `true` to this prop sh
 
 <KComponent
   v-slot="{ data }"
-  :data="{ actionEnabled: true }"
+  :data="{ actionEnabled: false }"
 >
   <div class="vertical-container">
     <div>
@@ -221,7 +221,7 @@ By default the cancel button is enabled, but you can pass `true` to this prop sh
 
 <KComponent
   v-slot="{ data }"
-  :data="{ cancelEnabled: true }"
+  :data="{ cancelEnabled: false }"
 >
   <div class="vertical-container">
     <div>
@@ -306,7 +306,7 @@ Whether pressing on Enter should result in KModal emitting the [`proceed` event]
 
 <KComponent
   v-slot="{ data }"
-  :data="{ proceedOnEnter: true }"
+  :data="{ proceedOnEnter: false }"
 >
   <div class="vertical-container">
     <div>
@@ -347,7 +347,7 @@ Whether clicking on backdrop should close the modal (by emitting the [`cancel` e
 
 <KComponent
   v-slot="{ data }"
-  :data="{ closeOnBackdropClick: false }"
+  :data="{ closeOnBackdropClick: true }"
 >
   <div class="vertical-container">
     <div>
@@ -442,7 +442,7 @@ Options to be passed to [`focus-trap`](https://github.com/focus-trap/focus-trap)
 
 ### default
 
-Slot for modal content.
+Slot for modal content. Not to be confused with the [`content`](#content) slot which takes presense over all other slots when provided.
 
 <KButton @click="modal16Visible = true">Modal</KButton>
 <KModal
@@ -585,7 +585,7 @@ KModal takes care of placement and spacing between the buttons when using `foote
 By default KModal provides you with the standard layout: modal header (optional), content section and footer. However, should you need to make a custom modal, you can use `content` slot for your content. It will provide you with just a padded container with white background.
 
 :::warning IMPORTANT
-Focus-trap requires at least one tabbable element to be present in modal at all times. You can learn more about what elements are considered tabbable [here](https://github.com/focus-trap/tabbable).
+Focus-trap requires at least one tabbable element to be present in modal at all times. You can learn more about what elements are considered tabbable [here](https://github.com/focus-trap/tabbable). Make sure your modal has at least one element with non-negative `tabindex` attribute (for example close icon with `role="button"` and `tabindex="0"` attributes). 
 :::
 
 <KButton @click="modal20Visible = true">Modal</KButton>

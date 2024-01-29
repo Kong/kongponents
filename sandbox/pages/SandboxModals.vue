@@ -28,12 +28,16 @@
           </div>
 
           <KModal
+            class="test-class"
+            data-testid="test-id"
             title="Long KModal title gets truncated with an ellipsis"
             :visible="data.modalVisible"
             @cancel="data.modalVisible = false"
             @proceed="data.modalVisible = false"
           />
           <KPrompt
+            class="test-class"
+            data-testid="test-id"
             title="Long KPrompt title gets truncated with an ellipsis"
             :visible="data.promptVisible"
             @cancel="data.promptVisible = false"
