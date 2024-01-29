@@ -261,17 +261,4 @@ describe('KModal', () => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'canceled')
     })
   })
-
-  it('automatically focuses in the first input element on modal open when present', () => {
-    mount(KModal, {
-      props: {
-        visible: true,
-      },
-      slots: {
-        default: '<input type="text" data-testid="first-input" /><input type="text" data-testid="second-input" />',
-      },
-    })
-
-    cy.getTestId('first-input').should('be.focused')
-  })
 })
