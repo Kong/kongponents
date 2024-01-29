@@ -1,12 +1,12 @@
 # Modal
 
-KModal is a modal window component with overlay.
+KModal is a pop-up modal component with a background overlay.
 
 :::tip NOTE
-Consider using [KPrompt component](/components/prompt) instead if your use case is one of the below:
-* you need a simple pop-up element to ask user to confirm their action
-* you need user's input
-* you don't need much customization options for modal window layout
+If your use-case matches one of the scenarios below, consider using [KPrompt](/components/prompt) instead:
+* you need a simple pop-up dialog to ask user to confirm their action
+* the user performed an action and you first require them to provide input text
+* you don't need many customization options for a simple modal with action buttons
 :::
 
 <KButton @click="modal1Visible = true">Modal</KButton>
@@ -67,7 +67,7 @@ const handleModalClose = () => {
 
 ### title
 
-A string to be displayed as modal window title. Can also be [slotted](#title-1).
+A string to be displayed as modal title. Can also be [slotted](#title-1).
 
 <KButton @click="modal3Visible = true">Modal</KButton>
 <KModal
@@ -384,7 +384,7 @@ Whether clicking on backdrop should close the modal (by emitting the [`cancel` e
 
 ### width
 
-With of the modal window. Defaults to `500px`.
+Width of the modal. Defaults to `500px`.
 
 <KButton @click="modal14Visible = true">Modal</KButton>
 <KModal
@@ -582,9 +582,9 @@ KModal takes care of placement and spacing between the buttons when using `foote
 
 ### content
 
-By default KModal provides you with the standard layout: modal header (optional), content section and footer. However, should you need to make a custom modal window, you can use `content` slot for your content. It will provide you with just a padded container with white background.
+By default KModal provides you with the standard layout: modal header (optional), content section and footer. However, should you need to make a custom modal, you can use `content` slot for your content. It will provide you with just a padded container with white background.
 
-:::warning NOTE
+:::warning IMPORTANT
 Focus-trap requires at least one tabbable element to be present in modal at all times. You can learn more about what elements are considered tabbable [here](https://github.com/focus-trap/tabbable).
 :::
 
@@ -659,11 +659,11 @@ By default when using `content` slot KModal comes with a padded container. Howev
 
 ### proceed
 
-Emitted when action button is clicked. Doesn't pass any payload.
+Emitted when action button is clicked.
 
 ### cancel
 
-Emitted when cancel button or close icon (when not hidden) is clicked. Doesn't pass any payload.
+Emitted when cancel button or close icon (when not hidden) is clicked. 
 
 <script setup lang="ts">
 import { ref } from 'vue'

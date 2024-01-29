@@ -38,6 +38,7 @@
               </div>
               <CloseIcon
                 v-if="!hideCloseIcon"
+                title="Close"
                 class="close-icon"
                 :color="KUI_COLOR_TEXT_NEUTRAL"
                 data-testid="modal-close-icon"
@@ -225,7 +226,7 @@ const toggleFocusTrap = async (isActive: boolean): Promise<void> => {
   }
 }
 
-watch(() => props.visible, async (visible) => {
+watch(() => props.visible, async (visible: boolean) => {
   if (visible) {
     await toggleFocusTrap(true)
   } else {

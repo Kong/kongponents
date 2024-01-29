@@ -4,9 +4,9 @@ KPrompt is a pop-up window that temporarily interrupts the user's interaction wi
 
 :::tip NOTE
 Consider using [KModal](/components/modal) instead if your use case is one of the below:
-* you need to display some information to the user but their input is not required
-* you need to customize the appearance of elements in modal window (e.g. hide the title or provide custom footer content)
-* you need to customize the modal window completely, providing custom layout (contrary to the default layout: modal header, followed by content section, followed by footer)
+* you need to display some information to the user but their input/interaction is not required
+* you need to customize the appearance of elements in the modal (e.g. hide the title or provide custom footer content)
+* you need to provide a custom modal layout that differs significantly from the default layout (modal header, followed by content section, followed by footer)
 :::
 
 <KButton @click="prompt1Visible = true">Prompt</KButton>
@@ -65,7 +65,7 @@ const handlePromptClose = () => {
 
 ### title
 
-A string to be displayed as prompt window title. Can also be [slotted](#title-1). If no title provided, defaults to "Confirm your action".
+A string to be displayed as the prompt dialog title. Can also be [slotted](#title-1). If no title provided, defaults to "Confirm your action".
 
 <KButton @click="prompt3Visible = true">Prompt</KButton>
 <KPrompt
@@ -132,7 +132,7 @@ Message string to be displayed in prompt content section.
 
 String above the input field when `confirmationText` prop is present.
 
-Defaults to 'Type "{confirmationText}"" to confirm your action.' where the `{confirmationText}` part is replaced with the string passed through the `confirmationText` prop.
+Defaults to 'Type "{confirmationText}"" to confirm your action.' where `{confirmationText}` is replaced with the string passed through the `confirmationText` prop.
 
 <KButton @click="prompt6Visible = true">Prompt</KButton>
 <KPrompt
@@ -201,7 +201,7 @@ Appearance of action button. See [KButton `appearance`](/components/button#appea
 
 ### actionButtonDisabled
 
-By default the action button is enabled, but you can pass `true` to this prop should you want to change that.
+Set to `true` to disable the action button. Defaults to `false`.
 
 <KComponent
   v-slot="{ data }"
@@ -284,7 +284,7 @@ Appearance of cancel button. See [KButton `appearance`](/components/button#appea
 
 ### cancelButtonDisabled
 
-By default the cancel button is enabled, but you can pass `true` to this prop should you want to change that.
+Set to `true` to disable the cancel button. Defaults to `false`.
 
 <KComponent
   v-slot="{ data }"
@@ -321,10 +321,10 @@ By default the cancel button is enabled, but you can pass `true` to this prop sh
 
 ### modalAttributes
 
-Object you can pass other secondary KModal attributes through (check out [KModal props](/components/modal#props) for details).
+KPrompt provides a `modalAttributes` prop to expose  secondary KModal component props for customization (check out [KModal props](/components/modal#props) for details).
 
 ```ts
-export interface ModalAttributes {
+interface ModalAttributes {
   tabbableOptions?: Object
   width?: string
   maxHeight?: string

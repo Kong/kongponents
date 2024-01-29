@@ -34,7 +34,7 @@
           {{ confirmationPromptText[1] ? confirmationPromptText[1] : '' }}
         </p>
         <KInput
-          v-model.trim="confirmationInput"
+          v-model="confirmationInput"
           autocapitalize="off"
           autocomplete="off"
           data-testid="confirmation-input"
@@ -162,7 +162,7 @@ const confirmationPromptText = computed((): string[] => {
   return props.confirmationPrompt.split('{confirmationText}')
 })
 
-watch(() => props.visible, async (visible) => {
+watch(() => props.visible, async (visible: boolean) => {
   if (visible) {
     await nextTick()
     confirmationInput.value = ''
