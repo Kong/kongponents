@@ -7,6 +7,7 @@
       :class="[size, { selected: props.modelValue === option.value }]"
       :data-testid="`${option.value}-option`"
       :disabled="getDisabled(option)"
+      type="button"
       @click="handleClick(option)"
     >
       <slot
