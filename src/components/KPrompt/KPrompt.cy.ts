@@ -134,13 +134,13 @@ describe('KPrompt', () => {
       props: {
         visible: true,
         modalAttributes: {
-          width: widthHeight,
+          maxWidth: widthHeight,
           maxHeight: widthHeight,
         },
       },
     })
 
-    cy.get('.k-prompt .modal-container').should('have.css', 'width', widthHeight)
+    cy.get('.k-prompt .modal-container').should('have.css', 'max-width', widthHeight)
     cy.get('.k-prompt .modal-content').should('have.css', 'max-height', widthHeight)
   })
 

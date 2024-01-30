@@ -186,17 +186,17 @@ describe('KModal', () => {
     cy.getTestId('modal-close-icon').should('not.to.exist')
   })
 
-  it('renders modal with correct width when prop is passed', () => {
-    const width = '123px'
+  it('renders modal with correct maxWidth when prop is passed', () => {
+    const maxWidth = '123px'
 
     mount(KModal, {
       props: {
         visible: true,
-        width,
+        maxWidth,
       },
     })
 
-    cy.get('.k-modal .modal-container').should('have.css', 'width', width)
+    cy.get('.k-modal .modal-container').should('have.css', 'max-width', maxWidth)
   })
 
   it('renders modal with correct max-height when prop is passed', () => {
