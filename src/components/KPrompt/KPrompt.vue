@@ -1,7 +1,12 @@
 <template>
   <KModal
     v-bind="{ ...sanitizedAttrs, ...modalAttributes}"
+    :action-button-appearance="actionButtonAppearance"
     :action-button-disabled="actionButtonDisabledValue"
+    :action-button-text="actionButtonText"
+    :cancel-button-appearance="cancelButtonAppearance"
+    :cancel-button-disabled="cancelButtonDisabled"
+    :cancel-button-text="cancelButtonText"
     class="k-prompt"
     :title="title || 'Confirm your action'"
     :visible="visible"
@@ -42,24 +47,6 @@
         />
       </div>
     </template>
-    <template #footer-actions>
-      <KButton
-        :appearance="cancelButtonAppearance"
-        data-testid="prompt-cancel-button"
-        :disabled="cancelButtonDisabled"
-        @click="$emit('cancel')"
-      >
-        {{ cancelButtonText }}
-      </KButton>
-      <KButton
-        :appearance="actionButtonAppearance"
-        data-testid="prompt-action-button"
-        :disabled="actionButtonDisabledValue"
-        @click="$emit('proceed')"
-      >
-        {{ actionButtonText }}
-      </KButton>
-    </template>
   </KModal>
 </template>
 
@@ -68,7 +55,6 @@ import type { PropType } from 'vue'
 import { computed, ref, useAttrs, watch, nextTick } from 'vue'
 import KModal from '@/components/KModal/KModal.vue'
 import KInput from '@/components/KInput/KInput.vue'
-import KButton from '@/components/KButton/KButton.vue'
 import type { ButtonAppearance, ModalAttributes } from '@/types'
 
 defineOptions({

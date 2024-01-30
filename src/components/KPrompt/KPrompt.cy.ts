@@ -30,8 +30,8 @@ describe('KPrompt', () => {
     })
 
     cy.getTestId('modal-close-icon').should('be.visible')
-    cy.getTestId('prompt-cancel-button').should('be.visible')
-    cy.getTestId('prompt-action-button').should('be.visible')
+    cy.getTestId('modal-cancel-button').should('be.visible')
+    cy.getTestId('modal-action-button').should('be.visible')
   })
 
   it('renders title when passed through prop', () => {
@@ -107,7 +107,7 @@ describe('KPrompt', () => {
       },
     })
 
-    cy.getTestId('prompt-action-button').should('be.visible').contains(text).should('have.class', appearance).should('be.disabled')
+    cy.getTestId('modal-action-button').should('be.visible').contains(text).should('have.class', appearance).should('be.disabled')
   })
 
   it('renders cancel button properly when text, appearance and disabled props are passed', () => {
@@ -124,7 +124,7 @@ describe('KPrompt', () => {
       },
     })
 
-    cy.getTestId('prompt-cancel-button').should('be.visible').contains(text).should('have.class', appearance).should('be.disabled')
+    cy.getTestId('modal-cancel-button').should('be.visible').contains(text).should('have.class', appearance).should('be.disabled')
   })
 
   it('renders modal with correct width when passed through modalAttributes prop', () => {
@@ -151,7 +151,7 @@ describe('KPrompt', () => {
       },
     })
 
-    cy.getTestId('prompt-action-button').click().then(() => {
+    cy.getTestId('modal-action-button').click().then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'proceed')
     })
   })
@@ -163,7 +163,7 @@ describe('KPrompt', () => {
       },
     })
 
-    cy.getTestId('prompt-cancel-button').click().then(() => {
+    cy.getTestId('modal-cancel-button').click().then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'cancel')
     })
   })
@@ -210,10 +210,10 @@ describe('KPrompt', () => {
       },
     })
 
-    cy.getTestId('prompt-action-button').should('be.disabled')
+    cy.getTestId('modal-action-button').should('be.disabled')
 
     cy.getTestId('confirmation-input').type(confirmationText).then(() => {
-      cy.getTestId('prompt-action-button').should('not.be.disabled')
+      cy.getTestId('modal-action-button').should('not.be.disabled')
     })
   })
 })
