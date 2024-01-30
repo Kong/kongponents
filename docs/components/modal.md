@@ -532,6 +532,7 @@ Use this slot should you need to provide cusom buttons in modal footer. Ommited 
   title="Title"
   :visible="modal19Visible"
   @cancel="closeAllModals"
+  @proceed="closeAllModals"
 >
   <template #footer-actions>
     <KButton appearance="tertiary" @click="closeAllModals">
@@ -551,6 +552,7 @@ Use this slot should you need to provide cusom buttons in modal footer. Ommited 
     :visible="modalVisible"
     title="Modal"
     @cancel="handleModalClose"
+    @proceed="handleModalProceed"
   >
     <template #footer-actions>
       <KButton
@@ -591,7 +593,7 @@ Focus-trap requires at least one tabbable element to be present in modal at all 
 <KButton @click="modal20Visible = true" :disabled="modal20Visible">Modal</KButton>
 
 <div class="custom-modal-content">
-  <KModal :visible="modal20Visible">
+  <KModal :visible="modal20Visible" @proceed="closeAllModals">
     <template #content>
       <div class="modal-content">
         <img src="/img/dark-demo.png" alt="Circuit board" />
@@ -607,7 +609,7 @@ Focus-trap requires at least one tabbable element to be present in modal at all 
 
 ```vue
 <template>
-  <KModal :visible="modalVisible">
+  <KModal :visible="modalVisible" @proceed="handleModalProceed">
     <template #content>
       <div class="modal-content">
         <img src="/img/gateway-manager.png" alt="Gateway Manager" />
