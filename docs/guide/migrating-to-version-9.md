@@ -319,7 +319,7 @@ This component has been removed. Please refer to KBadge component which has been
 
 #### Props
 
-* new `width` prop to control the width of the modal. Defaults to `500px`
+* new `maxWidth` prop to control the width of the modal. Defaults to `500px`
 * `testMode` prop has been removed
 * `hideTitle` prop has been removed
 * `hideDismissIcon` prop has been removed and replaced with `hideCloseIcon`

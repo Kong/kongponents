@@ -9,7 +9,7 @@ If your use-case matches one of the scenarios below, consider using [KPrompt](/c
 * you don't need many customization options for a simple modal with action buttons
 :::
 
-<KButton @click="modal1Visible = true">Modal</KButton>
+<KButton @click="modal1Visible = true" :disabled="modal1Visible">Modal</KButton>
 <KModal
   :visible="modal1Visible"
   title="Modal"
@@ -36,7 +36,7 @@ If your use-case matches one of the scenarios below, consider using [KPrompt](/c
 
 A boolean that defines whether the modal is shown.
 
-<KButton @click="modal2Visible = true">Modal</KButton>
+<KButton @click="modal2Visible = true" :disabled="modal2Visible">Modal</KButton>
 <KModal
   :visible="modal2Visible"
   title="Modal"
@@ -69,7 +69,7 @@ const handleModalClose = () => {
 
 A string to be displayed as modal title. Can also be [slotted](#title-1).
 
-<KButton @click="modal3Visible = true">Modal</KButton>
+<KButton @click="modal3Visible = true" :disabled="modal3Visible">Modal</KButton>
 <KModal
   title="Long modal title gets truncated with an ellipsis"
   :visible="modal3Visible"
@@ -90,7 +90,7 @@ A string to be displayed as modal title. Can also be [slotted](#title-1).
 
 Text to be displayed in action button. Defaults to "Submit".
 
-<KButton @click="modal4Visible = true">Modal</KButton>
+<KButton @click="modal4Visible = true" :disabled="modal4Visible">Modal</KButton>
 <KModal
   action-button-text="Ok"
   :visible="modal4Visible"
@@ -113,7 +113,7 @@ Text to be displayed in action button. Defaults to "Submit".
 
 Appearance of action button. See [KButton `appearance`](/components/button#appearance) prop for more details. Defaults to `primary`.
 
-<KButton @click="modal5Visible = true">Modal</KButton>
+<KButton @click="modal5Visible = true" :disabled="modal5Visible">Modal</KButton>
 <KModal
   action-button-appearance="danger"
   :visible="modal5Visible"
@@ -142,7 +142,7 @@ By default the action button is enabled, but you can pass `true` to this prop sh
 >
   <div class="vertical-container">
     <div>
-      <KButton @click="modal6Visible = true">Modal</KButton>
+      <KButton @click="modal6Visible = true" :disabled="modal6Visible">Modal</KButton>
     </div>
     <KInputSwitch
       v-model="data.actionEnabled"
@@ -173,7 +173,7 @@ By default the action button is enabled, but you can pass `true` to this prop sh
 
 Text to be displayed in cancel button. Defaults to "Cancel".
 
-<KButton @click="modal7Visible = true">Modal</KButton>
+<KButton @click="modal7Visible = true" :disabled="modal7Visible">Modal</KButton>
 <KModal
   cancel-button-text="Leave"
   :visible="modal7Visible"
@@ -196,7 +196,7 @@ Text to be displayed in cancel button. Defaults to "Cancel".
 
 Appearance of cancel button. See [KButton `appearance`](/components/button#appearance) prop for more details. Defaults to `tertiary`.
 
-<KButton @click="modal8Visible = true">Modal</KButton>
+<KButton @click="modal8Visible = true" :disabled="modal8Visible">Modal</KButton>
 <KModal
   cancel-button-appearance="secondary"
   :visible="modal8Visible"
@@ -225,7 +225,7 @@ By default the cancel button is enabled, but you can pass `true` to this prop sh
 >
   <div class="vertical-container">
     <div>
-      <KButton @click="modal9Visible = true">Modal</KButton>
+      <KButton @click="modal9Visible = true" :disabled="modal9Visible">Modal</KButton>
     </div>
     <KInputSwitch
       v-model="data.cancelEnabled"
@@ -256,7 +256,7 @@ By default the cancel button is enabled, but you can pass `true` to this prop sh
 
 Use this prop to hide the cancel button. Defaults to `false`.
 
-<KButton @click="modal10Visible = true">Modal</KButton>
+<KButton @click="modal10Visible = true" :disabled="modal10Visible">Modal</KButton>
 <KModal
   hide-cancel-button
   :visible="modal10Visible"
@@ -279,7 +279,7 @@ Use this prop to hide the cancel button. Defaults to `false`.
 
 Prop that allows you to hide close icon next to the title. Defaults to `false`. When no title is passed and `hideCloseIcon` is `true`, the modal header section will be hidden.
 
-<KButton @click="modal11Visible = true">Modal</KButton>
+<KButton @click="modal11Visible = true" :disabled="modal11Visible">Modal</KButton>
 <KModal
   hide-close-icon
   :visible="modal11Visible"
@@ -302,7 +302,7 @@ Prop that allows you to hide close icon next to the title. Defaults to `false`. 
 
 ### proceedOnEnter
 
-Whether pressing on Enter should result in KModal emitting the [`proceed` event](#proceed). Defaults to `true`.
+Whether pressing on Enter should result in KModal emitting the [`proceed` event](#proceed). Defaults to `true`. Will only emit the proceed event when action button is not disabled.
 
 <KComponent
   v-slot="{ data }"
@@ -310,7 +310,7 @@ Whether pressing on Enter should result in KModal emitting the [`proceed` event]
 >
   <div class="vertical-container">
     <div>
-      <KButton @click="modal12Visible = true">Modal</KButton>
+      <KButton @click="modal12Visible = true" :disabled="modal12Visible">Modal</KButton>
     </div>
     <KInputSwitch
       v-model="data.proceedOnEnter"
@@ -351,7 +351,7 @@ Whether clicking on backdrop should close the modal (by emitting the [`cancel` e
 >
   <div class="vertical-container">
     <div>
-      <KButton @click="modal13Visible = true">Modal</KButton>
+      <KButton @click="modal13Visible = true" :disabled="modal13Visible">Modal</KButton>
     </div>
     <KInputSwitch
       v-model="data.closeOnBackdropClick"
@@ -382,13 +382,13 @@ Whether clicking on backdrop should close the modal (by emitting the [`cancel` e
 </KModal>
 ```
 
-### width
+### maxWidth
 
-Width of the modal. Defaults to `500px`.
+Max width of the modal. Defaults to `500px`.
 
-<KButton @click="modal14Visible = true">Modal</KButton>
+<KButton @click="modal14Visible = true" :disabled="modal14Visible">Modal</KButton>
 <KModal
-  width="90%"
+  max-width="90%"
   title="Modal"
   :visible="modal14Visible"
   @cancel="closeAllModals"
@@ -397,7 +397,7 @@ Width of the modal. Defaults to `500px`.
 
 ```html
 <KModal
-  width="90%"
+  max-width="90%"
   title="Modal"
   :visible="modalVisible"
   @cancel="handleModalClose"
@@ -409,7 +409,7 @@ Width of the modal. Defaults to `500px`.
 
 Maximum height of the content area. When content overflows, content area becomes scrollable. Default value is viewport height minus `200px` (`calc(100vh - 200px)`).
 
-<KButton @click="modal15Visible = true">Modal</KButton>
+<KButton @click="modal15Visible = true" :disabled="modal15Visible">Modal</KButton>
 <KModal
   max-height="200px"
   title="Modal"
@@ -444,7 +444,7 @@ Options to be passed to [`focus-trap`](https://github.com/focus-trap/focus-trap)
 
 Slot for modal content. Not to be confused with the [`content`](#content) slot which takes presense over all other slots when provided.
 
-<KButton @click="modal16Visible = true">Modal</KButton>
+<KButton @click="modal16Visible = true" :disabled="modal16Visible">Modal</KButton>
 <KModal
   title="Modal"
   :visible="modal16Visible"
@@ -469,7 +469,7 @@ Slot for modal content. Not to be confused with the [`content`](#content) slot w
 
 Slot for title string.
 
-<KButton @click="modal17Visible = true">Modal</KButton>
+<KButton @click="modal17Visible = true" :disabled="modal17Visible">Modal</KButton>
 <KModal
   title="Title"
   :visible="modal17Visible"
@@ -498,7 +498,7 @@ Slot for title string.
 
 Slot for footer content.
 
-<KButton @click="modal18Visible = true">Modal</KButton>
+<KButton @click="modal18Visible = true" :disabled="modal18Visible">Modal</KButton>
 <KModal
   title="Title"
   :visible="modal18Visible"
@@ -527,7 +527,7 @@ Slot for footer content.
 
 Use this slot should you need to provide cusom buttons in modal footer. Ommited when [`footer` slot](#footer) is used.
 
-<KButton @click="modal19Visible = true">Modal</KButton>
+<KButton @click="modal19Visible = true" :disabled="modal19Visible">Modal</KButton>
 <KModal
   title="Title"
   :visible="modal19Visible"
@@ -588,7 +588,7 @@ By default KModal provides you with the standard layout: modal header (optional)
 Focus-trap requires at least one tabbable element to be present in modal at all times. You can learn more about what elements are considered tabbable [here](https://github.com/focus-trap/tabbable). Make sure your modal has at least one element with non-negative `tabindex` attribute (for example close icon with `role="button"` and `tabindex="0"` attributes). 
 :::
 
-<KButton @click="modal20Visible = true">Modal</KButton>
+<KButton @click="modal20Visible = true" :disabled="modal20Visible">Modal</KButton>
 
 <div class="custom-modal-content">
   <KModal :visible="modal20Visible">

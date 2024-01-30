@@ -1,9 +1,10 @@
 <template>
   <KModal
+    v-bind="{ ...sanitizedAttrs, ...modalAttributes}"
+    :action-button-disabled="actionButtonDisabledValue"
     class="k-prompt"
     :title="title || 'Confirm your action'"
     :visible="visible"
-    v-bind="{ ...sanitizedAttrs, ...modalAttributes}"
     @cancel="$emit('cancel')"
     @proceed="$emit('proceed')"
   >
@@ -137,7 +138,7 @@ const sanitizedAttrs = computed(() => {
 
   // delete attributes that are handled through modalAttributes prop
   delete attributes['tabbable-options']
-  delete attributes.width
+  delete attributes['max-width']
   delete attributes['max-height']
   delete attributes['close-on-backdrop-click']
   delete attributes['proceed-on-enter']

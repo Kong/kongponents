@@ -1,6 +1,6 @@
 export interface ModalAttributes {
   tabbableOptions?: Object
-  width?: string
+  maxWidth?: string
   maxHeight?: string
   closeOnBackdropClick?: boolean
   proceedOnEnter?: boolean

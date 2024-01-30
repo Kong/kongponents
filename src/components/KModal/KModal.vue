@@ -142,7 +142,7 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
-  width: {
+  maxWidth: {
     type: String,
     required: false,
     default: '500px',
@@ -177,7 +177,7 @@ const slots = useSlots()
 const focusTrapElement = ref<InstanceType<typeof FocusTrap> | null>(null)
 const modalWrapperElement = ref<HTMLElement | null>(null)
 
-const widthValue = computed((): string => getSizeFromString(props.width))
+const maxWidthValue = computed((): string => getSizeFromString(props.maxWidth))
 const maxHeightValue = computed((): string => getSizeFromString(props.maxHeight))
 
 const sanitizedAttrs = computed(() => {
@@ -198,7 +198,7 @@ const handleKeydown = (event: any): void => {
     close(true)
   }
 
-  if (props.visible && event.key === 'Enter' && props.proceedOnEnter) {
+  if (props.visible && event.key === 'Enter' && props.proceedOnEnter && !props.actionButtonDisabled) {
     proceed()
   }
 }
@@ -234,23 +234,29 @@ const toggleBodyScroll = (isScrollable: boolean): void => {
   }
 }
 
+const toggleEventListeners = (isActive: boolean): void => {
+  if (isActive) {
+    document.addEventListener('keydown', handleKeydown)
+  } else {
+    document.removeEventListener('keydown', handleKeydown)
+  }
+}
+
 watch(() => props.visible, async (visible: boolean): Promise<void> => {
   if (visible) {
     await toggleFocusTrap(true)
     toggleBodyScroll(false)
+    toggleEventListeners(true)
   } else {
     await toggleFocusTrap(false)
     toggleBodyScroll(true)
+    toggleEventListeners(false)
   }
 }, { immediate: true })
 
-onMounted(() => {
-  document.addEventListener('keydown', handleKeydown)
-})
-
 onUnmounted(() => {
   document.removeEventListener('keydown', handleKeydown)
-  toggleBodyScroll(true)
+  toggleEventListeners(false)
 })
 </script>
 
@@ -273,7 +279,8 @@ onUnmounted(() => {
     border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
     box-shadow: var(--kui-shadow, $kui-shadow);
     margin: var(--kui-space-0, $kui-space-0) var(--kui-space-auto, $kui-space-auto);
-    width: v-bind('widthValue');
+    max-width: v-bind('maxWidthValue');
+    width: 100%;
 
     &.custom-content {
       color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
@@ -294,6 +301,7 @@ onUnmounted(() => {
       .modal-title {
         @include truncate;
 
+        flex: 1;
         font-family: var(--kui-font-family-text, $kui-font-family-text);
         font-size: var(--kui-font-size-60, $kui-font-size-60);
         font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
