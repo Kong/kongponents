@@ -300,6 +300,58 @@ Prop that allows you to hide close icon next to the title. Defaults to `false`. 
 </KModal>
 ```
 
+### maxWidth
+
+Max width of the modal. Defaults to `500px`.
+
+<KButton @click="modal12Visible = true" :disabled="modal12Visible">Modal</KButton>
+<KModal
+  max-width="90%"
+  title="Modal"
+  :visible="modal12Visible"
+  @cancel="closeAllModals"
+  @proceed="closeAllModals"
+/>
+
+```html
+<KModal
+  max-width="90%"
+  title="Modal"
+  :visible="modalVisible"
+  @cancel="handleModalClose"
+  @proceed="handleModalProceed"
+/>
+```
+
+### maxHeight
+
+Maximum height of the content area. When content overflows, content area becomes scrollable. Default value is viewport height minus `200px` (`calc(100vh - 200px)`).
+
+<KButton @click="modal13Visible = true" :disabled="modal13Visible">Modal</KButton>
+<KModal
+  max-height="200px"
+  title="Modal"
+  :visible="modal13Visible"
+  @cancel="closeAllModals"
+  @proceed="closeAllModals"
+>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Euismod nisi porta lorem mollis aliquam ut porttitor leo. Felis donec et odio pellentesque. Consectetur adipiscing elit pellentesque habitant morbi tristique senectus et netus. In eu mi bibendum neque egestas. Aliquam eleifend mi in nulla posuere sollicitudin. Faucibus ornare suspendisse sed nisi lacus sed viverra. Elementum curabitur vitae nunc sed. Nulla porttitor massa id neque aliquam vestibulum morbi. At varius vel pharetra vel turpis nunc eget.</p>
+
+  <p>Diam sollicitudin tempor id eu nisl nunc. Nunc mi ipsum faucibus vitae aliquet nec ullamcorper sit. Ullamcorper eget nulla facilisi etiam dignissim diam. Ultrices neque ornare aenean euismod elementum nisi. Enim tortor at auctor urna nunc id cursus. Et netus et malesuada fames ac turpis egestas maecenas. Nulla porttitor massa id neque aliquam vestibulum morbi blandit cursus. Euismod lacinia at quis risus sed vulputate odio ut enim. Sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus. Eu turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Justo laoreet sit amet cursus. Adipiscing enim eu turpis egestas pretium aenean pharetra. Ullamcorper velit sed ullamcorper morbi. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus. Magna sit amet purus gravida quis blandit turpis cursus.</p>
+</KModal>
+
+```html
+<KModal
+  max-height="200px"
+  title="Modal"
+  :visible="modalVisible"
+  @cancel="handleModalClose"
+  @proceed="handleModalProceed"
+>
+  <p>Lorem ipsum dolor sit amet...
+</KModal>
+```
+
 ### proceedOnEnter
 
 Whether pressing on Enter should result in KModal emitting the [`proceed` event](#proceed). Defaults to `true`. Will only emit the proceed event when action button is not disabled.
@@ -310,7 +362,7 @@ Whether pressing on Enter should result in KModal emitting the [`proceed` event]
 >
   <div class="vertical-container">
     <div>
-      <KButton @click="modal12Visible = true" :disabled="modal12Visible">Modal</KButton>
+      <KButton @click="modal14Visible = true" :disabled="modal14Visible">Modal</KButton>
     </div>
     <KInputSwitch
       v-model="data.proceedOnEnter"
@@ -321,7 +373,7 @@ Whether pressing on Enter should result in KModal emitting the [`proceed` event]
   <KModal
     :proceed-on-enter="data.proceedOnEnter"
     hide-close-icon
-    :visible="modal12Visible"
+    :visible="modal14Visible"
     @cancel="closeAllModals"
     @proceed="closeAllModals"
   >
@@ -351,7 +403,7 @@ Whether clicking on backdrop should close the modal (by emitting the [`cancel` e
 >
   <div class="vertical-container">
     <div>
-      <KButton @click="modal13Visible = true" :disabled="modal13Visible">Modal</KButton>
+      <KButton @click="modal15Visible = true" :disabled="modal15Visible">Modal</KButton>
     </div>
     <KInputSwitch
       v-model="data.closeOnBackdropClick"
@@ -362,7 +414,7 @@ Whether clicking on backdrop should close the modal (by emitting the [`cancel` e
   <KModal
     :close-on-backdrop-click="data.closeOnBackdropClick"
     hide-close-icon
-    :visible="modal13Visible"
+    :visible="modal15Visible"
     @cancel="closeAllModals"
     @proceed="closeAllModals"
   >
@@ -379,58 +431,6 @@ Whether clicking on backdrop should close the modal (by emitting the [`cancel` e
   @proceed="handleModalProceed"
 >
   Try clicking on modal backdrop.
-</KModal>
-```
-
-### maxWidth
-
-Max width of the modal. Defaults to `500px`.
-
-<KButton @click="modal14Visible = true" :disabled="modal14Visible">Modal</KButton>
-<KModal
-  max-width="90%"
-  title="Modal"
-  :visible="modal14Visible"
-  @cancel="closeAllModals"
-  @proceed="closeAllModals"
-/>
-
-```html
-<KModal
-  max-width="90%"
-  title="Modal"
-  :visible="modalVisible"
-  @cancel="handleModalClose"
-  @proceed="handleModalProceed"
-/>
-```
-
-### maxHeight
-
-Maximum height of the content area. When content overflows, content area becomes scrollable. Default value is viewport height minus `200px` (`calc(100vh - 200px)`).
-
-<KButton @click="modal15Visible = true" :disabled="modal15Visible">Modal</KButton>
-<KModal
-  max-height="200px"
-  title="Modal"
-  :visible="modal15Visible"
-  @cancel="closeAllModals"
-  @proceed="closeAllModals"
->
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Euismod nisi porta lorem mollis aliquam ut porttitor leo. Felis donec et odio pellentesque. Consectetur adipiscing elit pellentesque habitant morbi tristique senectus et netus. In eu mi bibendum neque egestas. Aliquam eleifend mi in nulla posuere sollicitudin. Faucibus ornare suspendisse sed nisi lacus sed viverra. Elementum curabitur vitae nunc sed. Nulla porttitor massa id neque aliquam vestibulum morbi. At varius vel pharetra vel turpis nunc eget.</p>
-
-  <p>Diam sollicitudin tempor id eu nisl nunc. Nunc mi ipsum faucibus vitae aliquet nec ullamcorper sit. Ullamcorper eget nulla facilisi etiam dignissim diam. Ultrices neque ornare aenean euismod elementum nisi. Enim tortor at auctor urna nunc id cursus. Et netus et malesuada fames ac turpis egestas maecenas. Nulla porttitor massa id neque aliquam vestibulum morbi blandit cursus. Euismod lacinia at quis risus sed vulputate odio ut enim. Sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus. Eu turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Justo laoreet sit amet cursus. Adipiscing enim eu turpis egestas pretium aenean pharetra. Ullamcorper velit sed ullamcorper morbi. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus. Magna sit amet purus gravida quis blandit turpis cursus.</p>
-</KModal>
-
-```html
-<KModal
-  max-height="200px"
-  title="Modal"
-  :visible="modalVisible"
-  @cancel="handleModalClose"
-  @proceed="handleModalProceed"
->
-  <p>Lorem ipsum dolor sit amet...
 </KModal>
 ```
 
