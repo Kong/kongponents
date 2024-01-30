@@ -284,6 +284,8 @@ onUnmounted(() => {
 
     &.custom-content {
       color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+      display: flex;
+      flex-direction: column;
       font-family: var(--kui-font-family-text, $kui-font-family-text);
       font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
