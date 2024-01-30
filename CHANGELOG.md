@@ -1,3 +1,10 @@
+# [9.0.0-alpha.97](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.96...v9.0.0-alpha.97) (2024-01-30)
+
+
+### Bug Fixes
+
+* **ksegmentedcontrol:** add type button ([#1977](https://github.com/Kong/kongponents/issues/1977)) ([174b075](https://github.com/Kong/kongponents/commit/174b0756983bb2cd27a00880ff0c7103ae17a146))
+
 # [9.0.0-alpha.96](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.95...v9.0.0-alpha.96) (2024-01-25)
 
 
