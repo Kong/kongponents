@@ -354,7 +354,7 @@ Maximum height of the content area. When content overflows, content area becomes
 
 ### proceedOnEnter
 
-Whether pressing on Enter should result in KModal emitting the [`proceed` event](#proceed). Defaults to `true`. Will only emit the proceed event when action button is not disabled.
+Whether pressing on Enter should result in KModal emitting the [`proceed` event](#proceed). Defaults to `true`. Will only emit the `proceed` event when action button is not disabled.
 
 <KComponent
   v-slot="{ data }"
