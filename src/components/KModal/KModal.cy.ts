@@ -220,7 +220,7 @@ describe('KModal', () => {
     })
 
     cy.getTestId('modal-action-button').click().then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'proceed')
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'proceed').and('have.length', 1)
     })
   })
 
@@ -232,7 +232,7 @@ describe('KModal', () => {
     })
 
     cy.getTestId('modal-cancel-button').click().then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'cancel')
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'cancel').and('have.length', 1)
     })
   })
 
@@ -258,7 +258,7 @@ describe('KModal', () => {
     })
 
     cy.get('.k-modal .modal-backdrop').click('topRight').then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'cancel')
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'cancel').and('have.length', 1)
     })
   })
 })
