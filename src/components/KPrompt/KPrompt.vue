@@ -130,6 +130,7 @@ const sanitizedAttrs = computed(() => {
   // delete KModal props that are not available in KPrompt
   delete attributes['hide-close-icon']
   delete attributes['hide-cancel-button']
+  delete attributes['full-screen']
 
   return attributes
 })

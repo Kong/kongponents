@@ -294,21 +294,27 @@ onUnmounted(() => {
       flex-direction: column;
       height: 92vh;
 
+      .modal-title {
+        display: flex;
+        gap: var(--kui-space-40, $kui-space-40);
+
+        :deep(#{$kongponentsKongIconSelector}) {
+          color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
+        }
+      }
+
       .modal-content {
         flex: 1;
       }
     }
 
     .modal-header {
-      align-items: center;
       border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       display: flex;
       justify-content: space-between;
       padding: var(--kui-space-70, $kui-space-70) var(--kui-space-80, $kui-space-80);
 
       .modal-title {
-        @include truncate;
-
         flex: 1;
         font-family: var(--kui-font-family-text, $kui-font-family-text);
         font-size: var(--kui-font-size-60, $kui-font-size-60);
@@ -319,10 +325,15 @@ onUnmounted(() => {
         user-select: none;
       }
 
+      .modal-title:not(.full-screen .modal-title) {
+        @include truncate;
+      }
+
       .close-icon {
         border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
         cursor: pointer;
         margin-left: auto;
+        margin-top: var(--kui-space-10, $kui-space-10);
         outline: none;
 
         &:hover, &:focus {

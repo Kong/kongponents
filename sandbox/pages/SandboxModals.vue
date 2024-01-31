@@ -382,11 +382,15 @@
 
           <KModal
             full-screen
-            title="KModal Full Screen"
             :visible="data.modalVisible"
             @cancel="data.modalVisible = false"
             @proceed="data.modalVisible = false"
-          />
+          >
+            <template #title>
+              <KongIcon />
+              Full screen KModal
+            </template>
+          </KModal>
         </KComponent>
       </SandboxSectionComponent>
 
@@ -562,6 +566,7 @@
 import { inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
+import { KongIcon } from '@kong/icons'
 </script>
 
 <style lang="scss" scoped>

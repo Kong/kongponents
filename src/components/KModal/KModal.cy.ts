@@ -199,7 +199,7 @@ describe('KModal', () => {
     cy.get('.k-modal .modal-container').should('have.css', 'max-width', maxWidth)
   })
 
-  it('renders modal with correct max-height when prop is passed', () => {
+  it('renders modal with correct maxHeight when prop is passed', () => {
     const maxHeight = '123px'
 
     mount(KModal, {
@@ -210,6 +210,17 @@ describe('KModal', () => {
     })
 
     cy.get('.k-modal .modal-content').should('have.css', 'max-height', maxHeight)
+  })
+
+  it('renders full screen modal when fullScreen prop is true', () => {
+    mount(KModal, {
+      props: {
+        visible: true,
+        fullScreen: true,
+      },
+    })
+
+    cy.get('.k-modal .modal-container.full-screen').should('be.visible')
   })
 
   it('emits proceed event when action button is clicked', () => {

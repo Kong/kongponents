@@ -352,6 +352,35 @@ Maximum height of the content area. When content overflows, content area becomes
 </KModal>
 ```
 
+### fullScreen
+
+Use this prop to make modal window take up almost the whole screen. When set to `true`, `maxWidth` and `maxHeight` props will have no effect.
+
+<KButton @click="modal14Visible = true">Modal</KButton>
+<KModal
+  full-screen
+  title="Modal Full Screen"
+  :visible="modal14Visible"
+  @cancel="closeAllModals"
+  @proceed="closeAllModals"
+>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Euismod nisi porta lorem mollis aliquam ut porttitor leo. Felis donec et odio pellentesque. Consectetur adipiscing elit pellentesque habitant morbi tristique senectus et netus. In eu mi bibendum neque egestas. Aliquam eleifend mi in nulla posuere sollicitudin. Faucibus ornare suspendisse sed nisi lacus sed viverra. Elementum curabitur vitae nunc sed. Nulla porttitor massa id neque aliquam vestibulum morbi. At varius vel pharetra vel turpis nunc eget.</p>
+
+  <p>Diam sollicitudin tempor id eu nisl nunc. Nunc mi ipsum faucibus vitae aliquet nec ullamcorper sit. Ullamcorper eget nulla facilisi etiam dignissim diam. Ultrices neque ornare aenean euismod elementum nisi. Enim tortor at auctor urna nunc id cursus. Et netus et malesuada fames ac turpis egestas maecenas. Nulla porttitor massa id neque aliquam vestibulum morbi blandit cursus. Euismod lacinia at quis risus sed vulputate odio ut enim. Sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus. Eu turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Justo laoreet sit amet cursus. Adipiscing enim eu turpis egestas pretium aenean pharetra. Ullamcorper velit sed ullamcorper morbi. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus. Magna sit amet purus gravida quis blandit turpis cursus.</p>
+</KModal>
+
+```html
+<KModal
+  full-screen
+  title="Modal Full Screen"
+  :visible="modalVisible"
+  @cancel="handleModalClose"
+  @proceed="handleModalProceed"
+>
+  <p>Lorem ipsum dolor sit amet...
+</KModal>
+```
+
 ### closeOnBackdropClick
 
 Whether clicking on backdrop should close the modal (by emitting the [`cancel` event](#cancel)). Defaults to `false`.
