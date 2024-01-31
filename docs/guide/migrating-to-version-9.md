@@ -430,7 +430,9 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 
 #### Structure
 
-* `k-prompt-confirm-text` class has been been changed to `prompt-confirmation-text`
+* `k-prompt-confirm-text` class has been changed to `prompt-confirmation-text`
+* `k-prompt-cancel` class has been removed. For testing, use `[data-testid='modal-cancel-button']` instead.
+* `k-prompt-proceed` class has been removed. For testing, use `[data-testid='modal-action-button']` instead.
 
 #### Constants, Types & Interfaces
 
