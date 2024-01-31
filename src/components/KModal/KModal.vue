@@ -156,10 +156,6 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  proceedOnEnter: {
-    type: Boolean,
-    default: true,
-  },
   hideCloseIcon: {
     type: Boolean,
     default: false,
@@ -197,10 +193,6 @@ const handleKeydown = (event: any): void => {
   if (props.visible && event.key === 'Escape') {
     close(true)
   }
-
-  if (props.visible && event.key === 'Enter' && props.proceedOnEnter && !props.actionButtonDisabled) {
-    proceed()
-  }
 }
 
 const close = (force = false, event?: any): void => {
@@ -208,10 +200,6 @@ const close = (force = false, event?: any): void => {
   if (force || (event?.target?.classList?.contains('modal-backdrop') && props.closeOnBackdropClick)) {
     emit('cancel')
   }
-}
-
-const proceed = (): void => {
-  emit('proceed')
 }
 
 const toggleFocusTrap = async (isActive: boolean): Promise<void> => {

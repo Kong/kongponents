@@ -240,61 +240,6 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent
         description="In KPrompt passed through modalAttributes prop."
-        title="proceedOnEnter"
-      >
-        <KComponent
-          v-slot="{ data }"
-          :data="{ modalVisible: false, promptVisible: false, modalProceedOnEnter: true, promptProceedOnEnter: true }"
-        >
-          <div class="horizontal-container">
-            <div class="vertical-container">
-              <div>
-                <KButton
-                  :disabled="data.modalVisible"
-                  @click="data.modalVisible = true"
-                >
-                  KModal
-                </KButton>
-              </div>
-              <KInputSwitch
-                v-model="data.modalProceedOnEnter"
-                label="Proceed on Enter"
-              />
-            </div>
-            <div class="vertical-container">
-              <div>
-                <KButton
-                  :disabled="data.promptVisible"
-                  @click="data.promptVisible = true"
-                >
-                  KPrompt
-                </KButton>
-              </div>
-              <KInputSwitch
-                v-model="data.promptProceedOnEnter"
-                label="Proceed on Enter"
-              />
-            </div>
-          </div>
-
-          <KModal
-            :proceed-on-enter="data.modalProceedOnEnter"
-            title="KModal"
-            :visible="data.modalVisible"
-            @cancel="data.modalVisible = false"
-            @proceed="data.modalVisible = false"
-          />
-          <KPrompt
-            :modal-attributes="{ proceedOnEnter: data.promptProceedOnEnter }"
-            title="KPrompt"
-            :visible="data.promptVisible"
-            @cancel="data.promptVisible = false"
-            @proceed="data.promptVisible = false"
-          />
-        </KComponent>
-      </SandboxSectionComponent>
-      <SandboxSectionComponent
-        description="In KPrompt passed through modalAttributes prop."
         title="closeOnBackdropClick"
       >
         <KComponent

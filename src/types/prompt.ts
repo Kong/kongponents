@@ -3,5 +3,4 @@ export interface ModalAttributes {
   maxWidth?: string
   maxHeight?: string
   closeOnBackdropClick?: boolean
-  proceedOnEnter?: boolean
 }

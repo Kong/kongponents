@@ -415,7 +415,7 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 * `isVisible` prop has been removed and replaced with `visible` prop
 * `type` prop has been removed. You can use `actionButtonAppearance` prop to modify appearance of action button instead
 * `actionPending` prop has been removed. We suggest using `actionButtonDisabled` prop instead
-* `preventProceedOnEnter` prop has been removed. You can use new `modalAttributes` prop to pass value to `proceedOnEnter` prop in KModal
+* `preventProceedOnEnter` prop has been removed
 * `tabbableOptions` has been removed. You can use new `modalAttributes` prop to pass value to `tabbableOptions` prop in KModal
   
 #### Slots

@@ -352,47 +352,6 @@ Maximum height of the content area. When content overflows, content area becomes
 </KModal>
 ```
 
-### proceedOnEnter
-
-Whether pressing on Enter should result in KModal emitting the [`proceed` event](#proceed). Defaults to `true`. Will only emit the `proceed` event when action button is not disabled.
-
-<KComponent
-  v-slot="{ data }"
-  :data="{ proceedOnEnter: false }"
->
-  <div class="vertical-container">
-    <div>
-      <KButton @click="modal14Visible = true" :disabled="modal14Visible">Modal</KButton>
-    </div>
-    <KInputSwitch
-      v-model="data.proceedOnEnter"
-      label="Proceed on Enter"
-    />
-  </div>
-
-  <KModal
-    :proceed-on-enter="data.proceedOnEnter"
-    hide-close-icon
-    :visible="modal14Visible"
-    @cancel="closeAllModals"
-    @proceed="closeAllModals"
-  >
-    Try pressing Enter.
-  </KModal>
-</KComponent>
-
-```html
-<KModal
-  :proceed-on-enter="false"
-  hide-close-icon
-  :visible="modalVisible"
-  @cancel="handleModalClose"
-  @proceed="handleModalProceed"
->
-  Try pressing Enter.
-</KModal>
-```
-
 ### closeOnBackdropClick
 
 Whether clicking on backdrop should close the modal (by emitting the [`cancel` event](#cancel)). Defaults to `false`.
