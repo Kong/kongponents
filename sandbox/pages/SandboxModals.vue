@@ -16,13 +16,11 @@
         >
           <div class="horizontal-container">
             <KButton
-              :disabled="data.modalVisible"
               @click="data.modalVisible = true"
             >
               KModal
             </KButton>
             <KButton
-              :disabled="data.promptVisible"
               @click="data.promptVisible = true"
             >
               KPrompt
@@ -57,7 +55,6 @@
         >
           <div class="horizontal-container">
             <KButton
-              :disabled="data.modalVisible"
               @click="data.modalVisible = true"
             >
               KModal
@@ -84,7 +81,6 @@
         >
           <div class="horizontal-container">
             <KButton
-              :disabled="data.modalVisible"
               @click="data.modalVisible = true"
             >
               KModal
@@ -109,7 +105,6 @@
           :data="{ promptVisible: false }"
         >
           <KButton
-            :disabled="data.promptVisible"
             @click="data.promptVisible = true"
           >
             KPrompt
@@ -135,7 +130,6 @@
             <div class="vertical-container">
               <div>
                 <KButton
-                  :disabled="data.modalVisible"
                   @click="data.modalVisible = true"
                 >
                   KModal
@@ -149,7 +143,6 @@
             <div class="vertical-container">
               <div>
                 <KButton
-                  :disabled="data.promptVisible"
                   @click="data.promptVisible = true"
                 >
                   KPrompt
@@ -191,7 +184,6 @@
             <div class="vertical-container">
               <div>
                 <KButton
-                  :disabled="data.modalVisible"
                   @click="data.modalVisible = true"
                 >
                   KModal
@@ -205,7 +197,6 @@
             <div class="vertical-container">
               <div>
                 <KButton
-                  :disabled="data.promptVisible"
                   @click="data.promptVisible = true"
                 >
                   KPrompt
@@ -250,7 +241,6 @@
             <div class="vertical-container">
               <div>
                 <KButton
-                  :disabled="data.modalVisible"
                   @click="data.modalVisible = true"
                 >
                   KModal
@@ -264,7 +254,6 @@
             <div class="vertical-container">
               <div>
                 <KButton
-                  :disabled="data.promptVisible"
                   @click="data.promptVisible = true"
                 >
                   KPrompt
@@ -303,13 +292,11 @@
         >
           <div class="horizontal-container">
             <KButton
-              :disabled="data.modalVisible"
               @click="data.modalVisible = true"
             >
               KModal
             </KButton>
             <KButton
-              :disabled="data.promptVisible"
               @click="data.promptVisible = true"
             >
               KPrompt
@@ -342,13 +329,11 @@
         >
           <div class="horizontal-container">
             <KButton
-              :disabled="data.modalVisible"
               @click="data.modalVisible = true"
             >
               KModal
             </KButton>
             <KButton
-              :disabled="data.promptVisible"
               @click="data.promptVisible = true"
             >
               KPrompt
@@ -392,13 +377,11 @@
         >
           <div class="horizontal-container">
             <KButton
-              :disabled="data.modalVisible"
               @click="data.modalVisible = true"
             >
               KModal
             </KButton>
             <KButton
-              :disabled="data.promptVisible"
               @click="data.promptVisible = true"
             >
               KPrompt
@@ -434,13 +417,11 @@
         >
           <div class="horizontal-container">
             <KButton
-              :disabled="data.modalVisible"
               @click="data.modalVisible = true"
             >
               KModal
             </KButton>
             <KButton
-              :disabled="data.promptVisible"
               @click="data.promptVisible = true"
             >
               KPrompt
@@ -472,7 +453,6 @@
           :data="{ modalVisible: false }"
         >
           <KButton
-            :disabled="data.modalVisible"
             @click="data.modalVisible = true"
           >
             KModal
@@ -498,7 +478,6 @@
           :data="{ modalVisible: false, promptVisible: false }"
         >
           <KButton
-            :disabled="data.modalVisible"
             @click="data.modalVisible = true"
           >
             KModal
@@ -512,13 +491,11 @@
             <template #footer-actions>
               <KButton
                 appearance="secondary"
-                :disabled="data.modalVisible"
               >
                 Slotted KModal
               </KButton>
               <KButton
                 appearance="secondary"
-                :disabled="data.modalVisible"
               >
                 footer actions
               </KButton>
@@ -535,7 +512,6 @@
           :data="{ modalVisible: false }"
         >
           <KButton
-            :disabled="data.modalVisible"
             @click="data.modalVisible = true"
           >
             KModal

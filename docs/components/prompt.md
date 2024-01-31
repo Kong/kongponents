@@ -9,7 +9,7 @@ Consider using [KModal](/components/modal) instead if your use case is one of th
 * you need to provide a custom modal layout that differs significantly from the default layout (modal header, followed by content section, followed by footer)
 :::
 
-<KButton @click="prompt1Visible = true" :disabled="prompt1Visible">Prompt</KButton>
+<KButton @click="prompt1Visible = true">Prompt</KButton>
 <KPrompt
   confirmation-text="confirm"
   :visible="prompt1Visible"
@@ -34,7 +34,7 @@ Consider using [KModal](/components/modal) instead if your use case is one of th
 
 A boolean that defines whether the prompt is shown.
 
-<KButton @click="prompt2Visible = true" :disabled="prompt2Visible">Prompt</KButton>
+<KButton @click="prompt2Visible = true">Prompt</KButton>
 <KPrompt
   :visible="prompt2Visible"
   title="Prompt"
@@ -67,7 +67,7 @@ const handlePromptClose = () => {
 
 A string to be displayed as the prompt dialog title. Can also be [slotted](#title-1). If no title provided, defaults to "Confirm your action".
 
-<KButton @click="prompt3Visible = true" :disabled="prompt3Visible">Prompt</KButton>
+<KButton @click="prompt3Visible = true">Prompt</KButton>
 <KPrompt
   title="Long prompt title gets truncated with an ellipsis"
   :visible="prompt3Visible"
@@ -88,7 +88,7 @@ A string to be displayed as the prompt dialog title. Can also be [slotted](#titl
 
 A string the user must type before the action button becomes enabled.
 
-<KButton @click="prompt4Visible = true" :disabled="prompt4Visible">Prompt</KButton>
+<KButton @click="prompt4Visible = true">Prompt</KButton>
 <KPrompt
   confirmation-text="confirm"
   :visible="prompt4Visible"
@@ -109,7 +109,7 @@ A string the user must type before the action button becomes enabled.
 
 Message string to be displayed in prompt content section.
 
-<KButton @click="prompt5Visible = true" :disabled="prompt5Visible">Prompt</KButton>
+<KButton @click="prompt5Visible = true">Prompt</KButton>
 <KPrompt
   message="This action cannot be reversed."
   confirmation-text="confirm"
@@ -134,7 +134,7 @@ String above the input field when `confirmationText` prop is present.
 
 Defaults to 'Type "{confirmationText}"" to confirm your action.' where `{confirmationText}` is replaced with the string passed through the `confirmationText` prop.
 
-<KButton @click="prompt6Visible = true" :disabled="prompt6Visible">Prompt</KButton>
+<KButton @click="prompt6Visible = true">Prompt</KButton>
 <KPrompt
   confirmation-prompt="Please type {confirmationText} below to delete this resource permanently."
   confirmation-text="delete permanently"
@@ -157,7 +157,7 @@ Defaults to 'Type "{confirmationText}"" to confirm your action.' where `{confirm
 
 Text to be displayed in action button. Defaults to "Confirm".
 
-<KButton @click="prompt7Visible = true" :disabled="prompt7Visible">Prompt</KButton>
+<KButton @click="prompt7Visible = true">Prompt</KButton>
 <KPrompt
   action-button-text="Acknowledge"
   :visible="prompt7Visible"
@@ -180,7 +180,7 @@ Text to be displayed in action button. Defaults to "Confirm".
 
 Appearance of action button. See [KButton `appearance`](/components/button#appearance) prop for more details. Defaults to `primary`.
 
-<KButton @click="prompt8Visible = true" :disabled="prompt8Visible">Prompt</KButton>
+<KButton @click="prompt8Visible = true">Prompt</KButton>
 <KPrompt
   action-button-appearance="danger"
   :visible="prompt8Visible"
@@ -209,7 +209,7 @@ Set to `true` to disable the action button. Defaults to `false`.
 >
   <div class="vertical-container">
     <div>
-      <KButton @click="prompt9Visible = true" :disabled="prompt9Visible">Prompt</KButton>
+      <KButton @click="prompt9Visible = true">Prompt</KButton>
     </div>
     <KInputSwitch
       v-model="data.actionEnabled"
@@ -240,7 +240,7 @@ Set to `true` to disable the action button. Defaults to `false`.
 
 Text to be displayed in cancel button. Defaults to "Cancel".
 
-<KButton @click="prompt10Visible = true" :disabled="prompt10Visible">Prompt</KButton>
+<KButton @click="prompt10Visible = true">Prompt</KButton>
 <KPrompt
   cancel-button-text="Leave"
   :visible="prompt10Visible"
@@ -263,7 +263,7 @@ Text to be displayed in cancel button. Defaults to "Cancel".
 
 Appearance of cancel button. See [KButton `appearance`](/components/button#appearance) prop for more details. Defaults to `tertiary`.
 
-<KButton @click="prompt11Visible = true" :disabled="prompt11Visible">Prompt</KButton>
+<KButton @click="prompt11Visible = true">Prompt</KButton>
 <KPrompt
   cancel-button-appearance="secondary"
   :visible="prompt11Visible"
@@ -292,7 +292,7 @@ Set to `true` to disable the cancel button. Defaults to `false`.
 >
   <div class="vertical-container">
     <div>
-      <KButton @click="prompt12Visible = true" :disabled="prompt12Visible">Prompt</KButton>
+      <KButton @click="prompt12Visible = true">Prompt</KButton>
     </div>
     <KInputSwitch
       v-model="data.cancelEnabled"
@@ -332,7 +332,7 @@ interface ModalAttributes {
 }
 ```
 
-<KButton @click="prompt13Visible = true" :disabled="prompt13Visible">Prompt</KButton>
+<KButton @click="prompt13Visible = true">Prompt</KButton>
 <KPrompt
   :modal-attributes="{ maxWidth: '90%' }"
   :visible="prompt13Visible"
@@ -355,7 +355,7 @@ interface ModalAttributes {
 
 Slot for prompt content.
 
-<KButton @click="prompt14Visible = true" :disabled="prompt14Visible">Prompt</KButton>
+<KButton @click="prompt14Visible = true">Prompt</KButton>
 <KPrompt
   title="Prompt"
   :visible="prompt14Visible"
@@ -384,7 +384,7 @@ Slot for prompt content.
 
 Slot for title string.
 
-<KButton @click="prompt15Visible = true" :disabled="prompt15Visible">Prompt</KButton>
+<KButton @click="prompt15Visible = true">Prompt</KButton>
 <KPrompt
   title="Title"
   :visible="prompt15Visible"
