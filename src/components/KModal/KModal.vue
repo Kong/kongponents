@@ -21,7 +21,7 @@
       >
         <div
           class="modal-container"
-          :class="{ 'custom-content': $slots['content'] }"
+          :class="{ 'custom-content': $slots['content'], 'full-screen': fullScreen && !$slots.content }"
         >
           <slot name="content">
             <div
@@ -160,6 +160,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  fullScreen: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits<{
@@ -173,8 +177,8 @@ const slots = useSlots()
 const focusTrapElement = ref<InstanceType<typeof FocusTrap> | null>(null)
 const modalWrapperElement = ref<HTMLElement | null>(null)
 
-const maxWidthValue = computed((): string => getSizeFromString(props.maxWidth))
-const maxHeightValue = computed((): string => getSizeFromString(props.maxHeight))
+const maxWidthValue = computed((): string => props.fullScreen && !slots.content ? '95%' : getSizeFromString(props.maxWidth))
+const maxHeightValue = computed((): string => props.fullScreen && !slots.content ? '92vh' : getSizeFromString(props.maxHeight))
 
 const sanitizedAttrs = computed(() => {
   const attributes = Object.assign({}, attrs)
@@ -256,14 +260,12 @@ onUnmounted(() => {
     display: flex;
     inset: 0;
     justify-content: center;
-    padding-left: var(--kui-space-30, $kui-space-30);
-    padding-right: var(--kui-space-30, $kui-space-30);
-    padding-top: var(--kui-space-50, $kui-space-50);
+    padding: var(--kui-space-70, $kui-space-70) var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0) var(--kui-space-50, $kui-space-50);
     position: fixed;
     z-index: 1100;
 
     @media (min-width: $kui-breakpoint-phablet) {
-      padding-top: var(--kui-space-150, $kui-space-150);
+      padding-top: var(--kui-space-110, $kui-space-110);
     }
   }
 
@@ -285,6 +287,16 @@ onUnmounted(() => {
       line-height: var(--kui-line-height-30, $kui-line-height-30);
       max-height: v-bind('maxHeightValue');
       overflow: hidden;
+    }
+
+    &.full-screen {
+      display: flex;
+      flex-direction: column;
+      height: 92vh;
+
+      .modal-content {
+        flex: 1;
+      }
     }
 
     .modal-header {

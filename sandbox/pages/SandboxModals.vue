@@ -364,6 +364,31 @@
           </KPrompt>
         </KComponent>
       </SandboxSectionComponent>
+      <SandboxSectionComponent
+        description="Only available in KModal."
+        title="fullScreen"
+      >
+        <KComponent
+          v-slot="{ data }"
+          :data="{ modalVisible: false }"
+        >
+          <div class="horizontal-container">
+            <KButton
+              @click="data.modalVisible = true"
+            >
+              KModal
+            </KButton>
+          </div>
+
+          <KModal
+            full-screen
+            title="KModal Full Screen"
+            :visible="data.modalVisible"
+            @cancel="data.modalVisible = false"
+            @proceed="data.modalVisible = false"
+          />
+        </KComponent>
+      </SandboxSectionComponent>
 
       <!-- Slots -->
       <SandboxTitleComponent
