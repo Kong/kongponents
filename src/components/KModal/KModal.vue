@@ -271,14 +271,13 @@ onUnmounted(() => {
     width: 100%;
 
     &.custom-content {
-      color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+      color: var(--kui-color-text, $kui-color-text);
       display: flex;
       flex-direction: column;
       font-family: var(--kui-font-family-text, $kui-font-family-text);
       font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
       line-height: var(--kui-line-height-30, $kui-line-height-30);
-      padding: var(--kui-space-80, $kui-space-80);
     }
 
     .modal-header {

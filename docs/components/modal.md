@@ -538,12 +538,12 @@ const handleModalClose = () => {
 ```
 
 :::tip NOTE
-KModal takes care of placement and spacing between the buttons when using `footer-actions` slot. However, should you want to mimic that container behaviour using, for example, [`footer`](#footer) slot, we recomend you use `$kui-space-40` [design token](https://github.com/Kong/design-tokens) for spacing between the buttons and place the container containing the buttons on the right using `margin-left: $kui-space-auto;` rule.
+KModal takes care of placement and spacing between the buttons when using `footer-actions` slot. However, should you want to mimic that container behaviour using, for example, [`footer`](#footer) slot, we recomend you use `kui-space-40` [design token](https://github.com/Kong/design-tokens) or `8px` for spacing between the buttons and place the container containing the buttons on the right using `margin-left: auto;` rule.
 :::
 
 ### content
 
-By default KModal provides you with the standard layout: modal header (optional), content section and footer. However, should you need to make a custom modal, you can use `content` slot for your content. It will provide you with just a padded container with white background.
+By default KModal provides you with the standard layout: modal header (optional), content section and footer. However, should you need to make a custom modal, you can use `content` slot for your content. It will provide you with just a wrapper container with white background.
 
 :::warning IMPORTANT
 Focus-trap requires at least one tabbable element to be present in modal at all times. You can learn more about what elements are considered tabbable [here](https://github.com/focus-trap/tabbable). Make sure your modal has at least one element with non-negative `tabindex` attribute (for example close icon with `role="button"` and `tabindex="0"` attributes). 
@@ -587,10 +587,6 @@ const modalVisible = ref<boolean>(false)
 </script>
 
 <style lang="scss" scoped>
-:deep(.k-modal .modal-container) {
-  padding: $kui-space-0;
-}
-
 .modal-content {
   img {
     border-top-left-radius: $kui-border-radius-40;
@@ -613,7 +609,7 @@ const modalVisible = ref<boolean>(false)
 ```
 
 :::tip NOTE
-By default when using `content` slot KModal comes with a padded container. However, should you want to customize that behaviour, you can override that like in the example above. We suggest you use `$kui-space-80` [design token](https://github.com/Kong/design-tokens) token for any container padding and `$kui-border-radius-40` token for rounding the corners.
+By default when using `content` slot KModal comes with a wrapper container with no padding. However, should you want to customize that behaviour, we suggest you use `kui-space-80` [design token](https://github.com/Kong/design-tokens) or `24px` for any container padding and `kui-border-radius-40` token or `8px` for rounding the corners.
 :::
 
 ## Events
@@ -683,10 +679,6 @@ const modal20Visible = ref<boolean>(false)
 }
 
 .custom-modal-content {
-  :deep(.k-modal .modal-container) {
-    padding: $kui-space-0;
-  }
-
   .modal-content {
     img {
       border-top-left-radius: $kui-border-radius-40;
