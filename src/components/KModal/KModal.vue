@@ -251,14 +251,20 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 .k-modal {
   .modal-backdrop {
-    align-items: center;
+    align-items: flex-start;
     background-color: var(--kui-color-background-overlay, $kui-color-background-overlay);
     display: flex;
     inset: 0;
+    justify-content: center;
     padding-left: var(--kui-space-30, $kui-space-30);
     padding-right: var(--kui-space-30, $kui-space-30);
+    padding-top: var(--kui-space-50, $kui-space-50);
     position: fixed;
     z-index: 1100;
+
+    @media (min-width: $kui-breakpoint-phablet) {
+      padding-top: var(--kui-space-150, $kui-space-150);
+    }
   }
 
   .modal-container {
@@ -266,7 +272,6 @@ onUnmounted(() => {
     border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
     box-shadow: var(--kui-shadow, $kui-shadow);
-    margin: var(--kui-space-0, $kui-space-0) var(--kui-space-auto, $kui-space-auto);
     max-width: v-bind('maxWidthValue');
     width: 100%;
 
