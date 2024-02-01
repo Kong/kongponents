@@ -558,6 +558,39 @@
           </KModal>
         </KComponent>
       </SandboxSectionComponent>
+
+      <!-- Usage -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Usage"
+      />
+      <SandboxSectionComponent
+        description="When content slot is used, KModal will ognore fullScreen prop even if set to true."
+        title="fullScreen & content slot"
+      >
+        <KComponent
+          v-slot="{ data }"
+          :data="{ modalVisible: false }"
+        >
+          <KButton
+            @click="data.modalVisible = true"
+          >
+            KModal
+          </KButton>
+
+          <KModal
+            close-on-backdrop-click
+            full-screen
+            :visible="data.modalVisible"
+            @cancel="data.modalVisible = false"
+            @proceed="data.modalVisible = false"
+          >
+            <template #content>
+              Slotted KModal custom content
+            </template>
+          </KModal>
+        </KComponent>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
