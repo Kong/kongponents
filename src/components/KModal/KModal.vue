@@ -11,6 +11,7 @@
     <div
       ref="modalWrapperElement"
       class="modal-backdrop"
+      :class="{ 'modal-full-screen': fullScreen && !$slots.content }"
       @click="(evt: any) => close(false, evt)"
     >
       <FocusTrap
@@ -21,7 +22,7 @@
       >
         <div
           class="modal-container"
-          :class="{ 'custom-content': $slots['content'], 'full-screen': fullScreen && !$slots.content }"
+          :class="{ 'custom-content': $slots['content'] }"
         >
           <slot name="content">
             <div
@@ -178,7 +179,7 @@ const focusTrapElement = ref<InstanceType<typeof FocusTrap> | null>(null)
 const modalWrapperElement = ref<HTMLElement | null>(null)
 
 const maxWidthValue = computed((): string => props.fullScreen && !slots.content ? '95%' : getSizeFromString(props.maxWidth))
-const maxHeightValue = computed((): string => props.fullScreen && !slots.content ? '92vh' : getSizeFromString(props.maxHeight))
+const maxHeightValue = computed((): string => props.fullScreen && !slots.content ? '95vh' : getSizeFromString(props.maxHeight))
 
 const sanitizedAttrs = computed(() => {
   const attributes = Object.assign({}, attrs)
@@ -267,6 +268,30 @@ onUnmounted(() => {
     @media (min-width: $kui-breakpoint-phablet) {
       padding-top: var(--kui-space-110, $kui-space-110);
     }
+
+    &.modal-full-screen {
+      align-items: center;
+      padding-top: var(--kui-space-0, $kui-space-0);
+
+      .modal-container {
+        display: flex;
+        flex-direction: column;
+        height: 95vh;
+
+        .modal-title {
+          display: flex;
+          gap: var(--kui-space-40, $kui-space-40);
+
+          :deep(#{$kongponentsKongIconSelector}) {
+            color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
+          }
+        }
+
+        .modal-content {
+          flex: 1;
+        }
+      }
+    }
   }
 
   .modal-container {
@@ -289,25 +314,6 @@ onUnmounted(() => {
       overflow: hidden;
     }
 
-    &.full-screen {
-      display: flex;
-      flex-direction: column;
-      height: 92vh;
-
-      .modal-title {
-        display: flex;
-        gap: var(--kui-space-40, $kui-space-40);
-
-        :deep(#{$kongponentsKongIconSelector}) {
-          color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
-        }
-      }
-
-      .modal-content {
-        flex: 1;
-      }
-    }
-
     .modal-header {
       border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       display: flex;
@@ -325,7 +331,7 @@ onUnmounted(() => {
         user-select: none;
       }
 
-      .modal-title:not(.full-screen .modal-title) {
+      .modal-title:not(.modal-full-screen .modal-title) {
         @include truncate;
       }
 
