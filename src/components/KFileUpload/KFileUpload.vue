@@ -201,7 +201,7 @@ const onFileChange = (evt: any): void => {
     fileInput.value = inputElem.files
 
     if (inputElem.files) {
-      fileValue.value = String(inputElem.files[inputElem.files.length - 1].name)
+      fileValue.value = String(inputElem.files[inputElem.files.length - 1]?.name)
     }
   }
 
