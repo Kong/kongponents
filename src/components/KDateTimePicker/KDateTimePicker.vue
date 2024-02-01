@@ -560,11 +560,7 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
     // Prevent overflowing the container
     max-width: 100%;
 
-    // Match KInput
-    padding: var(--kui-space-40, $kui-space-40) var(--kui-space-50, $kui-space-50) !important;
-    transition: box-shadow $kongponentsTransitionDurTimingFunc !important;
-
-    // Styling button as input via mixin
+    // Styling button to match KInput via mixin
     @include input-default;
 
     &.set-min-width {
@@ -586,10 +582,11 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
       display: flex !important;
       flex-wrap: wrap;
       font-size: var(--kui-font-size-30, $kui-font-size-30);
+      line-height: var(--kui-line-height-40, $kui-line-height-40);
 
       > div {
         font-size: var(--kui-font-size-30, $kui-font-size-30);
-        line-height: var(--kui-line-height-20, $kui-line-height-20);
+        line-height: var(--kui-line-height-40, $kui-line-height-40);
         margin: var(--kui-space-0, $kui-space-0);
         padding: var(--kui-space-0, $kui-space-0);
         text-align: left;
