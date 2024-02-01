@@ -220,7 +220,7 @@ describe('KModal', () => {
       },
     })
 
-    cy.get('.k-modal .modal-container.full-screen').should('be.visible')
+    cy.get('.k-modal .modal-backdrop.modal-full-screen').should('be.visible')
   })
 
   it('emits proceed event when action button is clicked', () => {
