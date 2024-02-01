@@ -156,7 +156,7 @@ export default {
     background-color: var(--kui-color-background-primary-strong, $kui-color-background-primary-strong);
   }
 
-  &:focus {
+  &:focus-visible {
     background-color: var(--kui-color-background-primary-stronger, $kui-color-background-primary-stronger);
   }
 
@@ -250,7 +250,7 @@ export default {
       color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
     }
 
-    &:focus {
+    &:focus-visible {
       background-color: var(--kui-color-background, $kui-color-background);
       border-color: var(--kui-color-border-primary-stronger, $kui-color-border-primary-stronger);
       color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
@@ -279,7 +279,7 @@ export default {
       color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
     }
 
-    &:focus {
+    &:focus-visible {
       background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
       color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
     }
@@ -304,7 +304,7 @@ export default {
       background-color: var(--kui-color-background-danger-strong, $kui-color-background-danger-strong);
     }
 
-    &:focus {
+    &:focus-visible {
       background-color: var(--kui-color-background-danger-stronger, $kui-color-background-danger-stronger);
     }
 
