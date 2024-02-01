@@ -1,3 +1,10 @@
+# [9.0.0-alpha.98](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.97...v9.0.0-alpha.98) (2024-02-01)
+
+
+### Bug Fixes
+
+* **kbutton:** fix unfocusing of kbutton ([#1984](https://github.com/Kong/kongponents/issues/1984)) ([38e7945](https://github.com/Kong/kongponents/commit/38e7945606b096c35b235fbd0ff01a645f1ff685))
+
 # [9.0.0-alpha.97](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.96...v9.0.0-alpha.97) (2024-01-30)
 
 
