@@ -1,3 +1,10 @@
+# [9.0.0-alpha.100](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.99...v9.0.0-alpha.100) (2024-02-01)
+
+
+### Bug Fixes
+
+* **kdatetimepicker:** button should match input height [MA-2397] ([#1986](https://github.com/Kong/kongponents/issues/1986)) ([83fae6f](https://github.com/Kong/kongponents/commit/83fae6f42fff43d564342ccc06975875a5e8c117))
+
 # [9.0.0-alpha.99](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.98...v9.0.0-alpha.99) (2024-02-01)
 
 
