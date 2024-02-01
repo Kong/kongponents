@@ -565,7 +565,7 @@
         title="Usage"
       />
       <SandboxSectionComponent
-        description="When content slot is used, KModal will ognore fullScreen prop even if set to true."
+        description="When content slot is provided, KModal will ignore fullScreen prop even if set to true."
         title="fullScreen & content slot"
       >
         <KComponent
