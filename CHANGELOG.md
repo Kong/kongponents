@@ -1,3 +1,10 @@
+# [9.0.0-alpha.99](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.98...v9.0.0-alpha.99) (2024-02-01)
+
+
+### Bug Fixes
+
+* **kfileupload:** file name [KHCP-10556] ([#1985](https://github.com/Kong/kongponents/issues/1985)) ([996bff2](https://github.com/Kong/kongponents/commit/996bff2637d3ee438e88eaf2c93764f620043c50))
+
 # [9.0.0-alpha.98](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.97...v9.0.0-alpha.98) (2024-02-01)
 
 
