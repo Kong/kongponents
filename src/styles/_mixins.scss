@@ -31,10 +31,10 @@
 
 @mixin input-default {
   background-color: var(--kui-color-background, $kui-color-background);
+  border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
   box-shadow: inset 0 0 0 1px #e7e7ec !important;
-  transition:
-    color 0.1s ease,
-    box-shadow 0.1s ease;
+  padding: var(--kui-space-40, $kui-space-40) var(--kui-space-50, $kui-space-50) !important;
+  transition: box-shadow $kongponentsTransitionDurTimingFunc !important;
 }
 
 @mixin input-focus {
