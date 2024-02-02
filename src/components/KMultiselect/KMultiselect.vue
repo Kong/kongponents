@@ -108,8 +108,8 @@
               <KTooltip
                 v-if="invisibleSelectedItems.length"
                 class="hidden-selection-count-tooltip"
-                :label="hiddenItemsTooltip"
                 max-width="300"
+                :text="hiddenItemsTooltip"
               >
                 <KBadge
                   :appearance="getBadgeAppearance()"
