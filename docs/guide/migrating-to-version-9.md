@@ -218,6 +218,7 @@ Component has been renamed to `KDropdown`
 
 ### KExternalLink
 
+No breaking changes.
 
 ### KFileUpload
 
