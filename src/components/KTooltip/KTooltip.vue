@@ -16,10 +16,10 @@
     <template #content>
       <div role="tooltip">
         <slot
-          :label="label"
+          :label="text || label"
           name="content"
         >
-          {{ label }}
+          {{ text || label }}
         </slot>
       </div>
     </template>
@@ -41,7 +41,7 @@ const props = defineProps({
   /**
   * Text to show in tooltip
   */
-  label: {
+  text: {
     type: String,
     required: false,
     default: '',
@@ -71,29 +71,34 @@ const props = defineProps({
     type: String,
     default: 'auto',
   },
+
+  /**
+   * @deprecated in favor of text prop
+   */
+  label: {
+    type: String,
+    default: '',
+  },
 })
 
 const slots = useSlots()
-const showTooltip = computed((): boolean => !!props.label || !!slots.content)
+const showTooltip = computed((): boolean => !!props.text || !!slots.content || !!props.label)
 
 const computedClass = computed((): string => {
-  let result = ''
-  switch (props.placement) {
-    case 'top':
-      result = 'tooltip-top'
-      break
-    case 'right':
-      result = 'tooltip-right'
-      break
-    case 'bottom':
-      result = 'tooltip-bottom'
-      break
-    case 'left':
-      result = 'tooltip-left'
-      break
-  }
+  let placementClass = ''
+  const placementDirections = ['top', 'right', 'bottom', 'left']
 
-  return result
+  placementDirections.forEach((direction) => {
+    if (props.placement.toLocaleLowerCase().includes(direction)) {
+      if (placementClass) {
+        placementClass += ` tooltip-${direction}`
+      } else {
+        placementClass = `tooltip-${direction}`
+      }
+    }
+  })
+
+  return placementClass
 })
 </script>
 

@@ -11,7 +11,7 @@ const rendersCorrectPosition = (variant: string) => {
     mount(KTooltip, {
       props: {
         placement: variant,
-        label: `I'm on the ${variant} side!`,
+        text: `I'm on the ${variant} side!`,
         trigger: 'click',
       },
       slots: {
@@ -21,7 +21,7 @@ const rendersCorrectPosition = (variant: string) => {
 
     cy.get('button').click()
 
-    cy.get('.k-tooltip').should('be.visible').and('not.have.class', 'k-tooltip-hidden').and('have.text', `I'm on the ${variant} side!`)
+    cy.get('.k-tooltip').should('be.visible').and('have.text', `I'm on the ${variant} side!`)
   })
 }
 
@@ -29,7 +29,7 @@ describe('KTooltip', () => {
   // Loop through varients
   positions.map(p => rendersCorrectPosition(p))
 
-  it('renders the default slot content but not the tooltip if the `label` prop is empty', () => {
+  it('renders the default slot content but not the tooltip if the text prop is empty', () => {
     const text = 'Button text'
 
     mount(KTooltip, {

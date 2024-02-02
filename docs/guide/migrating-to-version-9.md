@@ -523,6 +523,7 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 #### Props
 
 * `testMode` prop has been removed
+* `label` prop has been deprecated in favor of `text` prop
 
 #### Structure
 
