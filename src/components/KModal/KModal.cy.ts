@@ -256,7 +256,7 @@ describe('KModal', () => {
     })
 
     cy.get('.k-modal .modal-backdrop').click('topRight').then(() => {
-      cy.get('.k-modal .modal-container').should('be.visible')
+      cy.wrap(Cypress.vueWrapper.emitted()).should('not.have.property', 'cancel')
     })
   })
 
