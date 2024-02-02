@@ -131,5 +131,9 @@ const computedClass = computed((): string => {
   &.tooltip-left {
     margin-right: var(--kui-space-20, $kui-space-20);
   }
+
+  code {
+    color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
+  }
 }
 </style>
