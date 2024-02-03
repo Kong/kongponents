@@ -5,6 +5,7 @@ on:
 
 jobs:
   commitlint:
+    timeout-minutes: ${{ fromJSON(vars.GHA_DEFAULT_TIMEOUT) }}
     if: ${{ github.actor != 'renovate[bot]' }}
     runs-on: ubuntu-latest
     steps:
