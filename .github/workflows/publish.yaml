@@ -9,10 +9,12 @@ on:
 
 jobs:
   get-changed-files:
+      timeout-minutes: ${{ fromJSON(vars.GHA_DEFAULT_TIMEOUT) }}
     name: Get Changed Files
     uses: ./.github/workflows/get-changed-files.yaml
 
   run-tests:
+      timeout-minutes: ${{ fromJSON(vars.GHA_DEFAULT_TIMEOUT) }}
     name: Tests
     needs:
       - get-changed-files
@@ -24,6 +26,7 @@ jobs:
       PREVENT_PERCY_TESTS: 'false'
 
   publish:
+      timeout-minutes: ${{ fromJSON(vars.GHA_DEFAULT_TIMEOUT) }}
       name: Build and Publish Kongponents
       needs:
         - get-changed-files
@@ -67,6 +70,7 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
   no-tests-required:
+      timeout-minutes: ${{ fromJSON(vars.GHA_DEFAULT_TIMEOUT) }}
     name: No Component Tests needed
     needs:
       - get-changed-files
@@ -77,6 +81,7 @@ jobs:
         run: echo "No files changed in the `src/`, `docs/`, or `cypress/` directories, so no tests are needed."
 
   no-publish-required:
+      timeout-minutes: ${{ fromJSON(vars.GHA_DEFAULT_TIMEOUT) }}
     name: No Build and Publish needed
     needs:
       - get-changed-files
