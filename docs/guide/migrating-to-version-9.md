@@ -524,6 +524,7 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 * `testMode` prop has been removed
 * `label` prop has been deprecated in favor of `text` prop
+* default value of `positionFixed` prop has been changed to `true`
 
 #### Structure
 

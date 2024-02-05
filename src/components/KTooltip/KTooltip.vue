@@ -62,7 +62,7 @@ const props = defineProps({
   */
   positionFixed: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   /**
   * Set the max-width of the ktooltip

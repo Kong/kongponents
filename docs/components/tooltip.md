@@ -85,7 +85,7 @@ Here are the different options:
 
 ### positionFixed
 
-Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `false`. See [KPop docs](/components/popover#positionfixed) for more information.
+Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `true`. See [KPop docs](/components/popover#positionfixed) for more information.
 
 ### maxWidth
 
