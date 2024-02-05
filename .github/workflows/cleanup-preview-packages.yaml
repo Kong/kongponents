@@ -11,6 +11,7 @@ concurrency:
 
 jobs:
   cleanup:
+    timeout-minutes: ${{ fromJSON(vars.GHA_DEFAULT_TIMEOUT) }}
     name: Cleanup PR Previews
     runs-on: ubuntu-latest
     env:
