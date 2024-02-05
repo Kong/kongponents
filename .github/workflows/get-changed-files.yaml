@@ -18,6 +18,7 @@ on:
 
 jobs:
   get-changed-files:
+    timeout-minutes: ${{ fromJSON(vars.GHA_DEFAULT_TIMEOUT) }}
     name: Check changed files
     runs-on: ubuntu-22.04
     outputs:
