@@ -81,6 +81,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxLabel.vue'),
   },
   {
+    path: '/modals',
+    name: 'modals',
+    meta: { title: 'Modals Sandbox' },
+    component: () => import('../pages/SandboxModals.vue'),
+  },
+  {
     path: '/multiselect',
     name: 'multiselect',
     meta: { title: 'Multiselect Sandbox' },

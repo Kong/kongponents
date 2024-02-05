@@ -319,15 +319,40 @@ This component has been removed. Please refer to KBadge component which has been
 
 #### Props
 
-* New `maxWidth` prop to control the `max-width` of the modal. Defaults to `500px`
+* new `maxWidth` prop to control the width of the modal. Defaults to `500px`
+* `testMode` prop has been removed
+* `hideTitle` prop has been removed
+* `hideDismissIcon` prop has been removed and replaced with `hideCloseIcon`
+* `dismissButtonTheme` prop has been removed
+* `textAlign` prop has been removed
+* `isVisible` prop has been removed and replaced with `visible` prop
+* `content` prop has been removed. You can use the `default` slot instead
 
 #### Slots
 
+* `header-image` slot has been removed. You can use `content` to pass custom content to KModal
+* `header-content` slot has been removed
+* `body-content` slot had been removed. You can use the `default` slot instead
+* `footer-content` slot has been changed to `footer`
+* `action-buttons` slot has been changed to `footer-actions`
+
 #### Events
+
+* `canceled` event has been renamed to `cancel`
 
 #### Structure
 
+* `k-modal-backdrop` class has been removed and replaced with `modal-backdrop`
+* `k-modal-dialog` class has been removed and replaced with `modal-container`
+* `k-modal-content` class has been removed and replaced with `modal-content`
+* `k-modal-footer` class has been removed and replaced with `modal-footer`
+  
 #### Constants, Types & Interfaces
+
+* `DismissButtonThemeArray` const has been removed
+* `DismissButtonTheme` type has been removed
+* `TextAlignArray` const has been removed
+* `TextAlign` type has been removed
 
 
 ### KModalFullscreen
@@ -387,13 +412,32 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 
 #### Props
 
-* New `maxHeight` prop to control the `max-height` of the prompt. Defaults to `400px`
-
+* `isVisible` prop has been removed and replaced with `visible` prop
+* `type` prop has been removed. You can use `actionButtonAppearance` prop to modify appearance of action button instead
+* `actionPending` prop has been removed. We suggest using `actionButtonDisabled` prop instead
+* `preventProceedOnEnter` prop has been removed
+* `tabbableOptions` has been removed. You can use new `modalAttributes` prop to pass value to `tabbableOptions` prop in KModal
+  
 #### Slots
+
+* `header-content` slot has been removed
+* `body-content` slot has been changed to `default`
+* `action-buttons` slot has been removed. If you need to slot in custom action buttons, check out KModal component
 
 #### Events
 
+* `canceled` event has been renamed to `cancel`
+
+#### Structure
+
+* `k-prompt-confirm-text` class has been changed to `prompt-confirmation-text`
+* `k-prompt-cancel` class has been removed. For testing, use `[data-testid='modal-cancel-button']` instead.
+* `k-prompt-proceed` class has been removed. For testing, use `[data-testid='modal-action-button']` instead.
+
 #### Constants, Types & Interfaces
+
+* `PromptVariantsArray` const has been removed
+* `PromptVariants` type has been removed
 
 ### Komponent
 

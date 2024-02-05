@@ -1,266 +1,467 @@
 # Prompt
 
-::: info
-Are you looking for a modal with no close icon, centered text, and the ability to display an image in the header of the modal? Try [KModal](/components/modal.html) instead.
+KPrompt is a pop-up window that temporarily interrupts the user's interaction with the main content, usually to require user confirmation before proceeding with an action. This component uses [KModal](/components/modal) under the hood.
+
+:::tip NOTE
+Consider using [KModal](/components/modal) instead if your use case is one of the below:
+* you need to display some information to the user but their input/interaction is not required
+* you need to customize the appearance of elements in the modal (e.g. hide the title or provide custom footer content)
+* you need to provide a custom modal layout that differs significantly from the default layout (modal header, followed by content section, followed by footer)
 :::
 
-The **KPrompt** component is used to display a dialog that prompts a user to take an action.
-
-<KButton appearance="primary" @click="defaultIsOpen = true">Prompt</KButton>
-
+<KButton @click="prompt1Visible = true">Prompt</KButton>
 <KPrompt
-  :is-visible="defaultIsOpen"
-  message="Hello, World?"
-  @canceled="defaultIsOpen = false"
-  @proceed="defaultIsOpen = false"
+  confirmation-text="confirm"
+  :visible="prompt1Visible"
+  title="Prompt"
+  @cancel="closeAllPrompts"
+  @proceed="closeAllPrompts"
 />
 
 ```html
-<KButton appearance="primary" @click="defaultIsOpen = true">Prompt</KButton>
-
-<KPrompt :is-visible="defaultIsOpen" message="Hello, World?" @canceled="defaultIsOpen = false" @proceed="defaultIsOpen = false" />
-```
-
-```ts
-import { defineComponent, ref } from 'vue'
-
-export default defineComponent({
-  setup () {
-    const defaultIsOpen = ref(false)
-
-    return {
-      defaultIsOpen
-    }
-  }
-})
+<KPrompt
+  confirmation-text="confirm"
+  :visible="promptVisible"
+  title="Prompt"
+  @cancel="handlePromptClose"
+  @proceed="handlePromptProceed"
+/>
 ```
 
 ## Props
 
-### isVisible
+### visible
 
-Tells the component whether or not to render the open prompt.
+A boolean that defines whether the prompt is shown.
 
-### maxHeight
+<KButton @click="prompt2Visible = true">Prompt</KButton>
+<KPrompt
+  :visible="prompt2Visible"
+  title="Prompt"
+  @cancel="closeAllPrompts"
+  @proceed="closeAllPrompts"
+/>
 
-The `max-height` of the prompt. Defaults to `400px`.
+```vue
+<template>
+  <KButton @click="promptVisible = true">Prompt</KButton>
+
+  <KPrompt
+    :visible="promptVisible"
+    title="Prompt"
+    @cancel="handlePromptClose"
+    @proceed="handlePromptClose"
+  />
+</template>
+
+<script setup lang="ts">
+const promptVisible = ref<boolean>(false)
+
+const handlePromptClose = () => {
+  promptVisible.value = false
+}
+</script>
+```
 
 ### title
 
-Text displayed in header if not using slot. If no title is provided, the prompt `type` is used.
+A string to be displayed as the prompt dialog title. Can also be [slotted](#title-1). If no title provided, defaults to "Confirm your action".
 
-### message
-
-Text to display in body section if not using slot.
-
-<KButton appearance="primary" @click="contentIsOpen = true">Prompt</KButton>
-
+<KButton @click="prompt3Visible = true">Prompt</KButton>
 <KPrompt
-  :is-visible="contentIsOpen"
-  title="Look Mah!"
-  message="I'm prompting you"
-  @canceled="contentIsOpen = false"
-  @proceed="contentIsOpen = false"
+  title="Long prompt title gets truncated with an ellipsis"
+  :visible="prompt3Visible"
+  @cancel="closeAllPrompts"
+  @proceed="closeAllPrompts"
 />
 
 ```html
-<KPrompt :is-visible="contentIsOpen" title="Look Mah!" message="I'm prompting you" @canceled="contentIsOpen = false" @proceed="contentIsOpen = false" />
-```
-
-### actionButtonText
-
-Change the text content of the submit/proceed button.
-
-### cancelButtonText
-
-Change the text content of the close/cancel button.
-
-<KButton appearance="primary" @click="buttonsIsOpen = true">Prompt</KButton>
-
 <KPrompt
-  :is-visible="buttonsIsOpen"
-  message="Look at my button customizations"
-  actionButtonText="Let's do it!"
-  cancelButtonText="Abort"
-  @canceled="buttonsIsOpen = false"
-  @proceed="buttonsIsOpen = false"
+  title="Long prompt title gets truncated with an ellipsis"
+  :visible="promptVisible"
+  @cancel="handlePromptClose"
+  @proceed="handlePromptProceed"
 />
-
-```html
-<KPrompt :is-visible="contentIsOpen" actionButtonText="Let's do it!" cancelButtonText="Abort" @canceled="buttonsIsOpen = false" @proceed="buttonsIsOpen = false" />
-```
-
-### actionPending
-
-This boolean indicates if an action is being taken on the dialog and we should disable the action button to prevent spam clicking.
-
-<KButton appearance="primary" @click="pendingIsOpen = true">Prompt</KButton>
-
-<KPrompt
-  :is-visible="pendingIsOpen"
-  message="Click Cancel to close me"
-  :action-pending="true"
-  @canceled="pendingIsOpen = false"
-  @proceed="pendingIsOpen = false"
-/>
-
-```html
-<KPrompt :is-visible="pendingIsOpen" message="Click Cancel to close me" :action-pending="true" @canceled="pendingIsOpen = false" @proceed="pendingIsOpen = false" />
-```
-
-### type
-
-This prop determines the look and feel of the dialog. Can be `danger`, `warning`, or `info`. Defaults to `info`.
-
-#### Information
-
-Use the `info` prompt type to notify the user about general information associated with the action about to be taken.
-
-<KButton appearance="primary" @click="infoIsOpen = true">Prompt</KButton>
-
-<KPrompt
-  :is-visible="infoIsOpen"
-  message="You have been informed 🕵🏻‍♂️"
-  @canceled="infoIsOpen = false"
-  @proceed="infoIsOpen = false"
-/>
-
-```html
-<KPrompt :is-visible="infoIsOpen" message="You have been informed 🕵🏻‍♂️" @canceled="infoIsOpen = false" @proceed="infoIsOpen = false" />
-```
-
-#### Warning
-
-Use the `warning` prompt type if the user needs to be notified that there is a risk associated with the action about to be taken. We will display a warning icon and prepend the 'Warning:' in the title for this flavor.
-
-<KButton appearance="primary" @click="warningIsOpen = true">Prompt</KButton>
-
-<KPrompt :is-visible="warningIsOpen" title="Pay attention" message="I'm warning you 🤔" type="warning" @canceled="warningIsOpen = false" @proceed="warningIsOpen = false" />
-
-```html
-<KPrompt :is-visible="warningIsOpen" message="I'm warning you 🤔" type="warning" @canceled="warningIsOpen = false" @proceed="warningIsOpen = false" />
-```
-
-#### Danger
-
-Use the `danger` prompt type if the user is taking an irreversible action, like deleting an item. You can use this type in conjuction with `confirmationText` to further restrict the action.
-
-<KButton appearance="primary" @click="dangerIsOpen = true">Prompt</KButton>
-
-<KPrompt
-  :is-visible="dangerIsOpen"
-  type="danger"
-  message="This is dangerous ☠️"
-  @canceled="dangerIsOpen = false"
-  @proceed="dangerIsOpen = false"
-/>
-
-```html
-<KPrompt :is-visible="dangerIsOpen" type="danger" message="This is dangerous ☠️" @canceled="dangerIsOpen = false" @proceed="dangerIsOpen = false" />
 ```
 
 ### confirmationText
 
-Provide a string the user must type before the action button becomes enabled
+A string the user must type before the action button becomes enabled.
 
-<KButton appearance="primary" @click="dangerConfirmIsOpen = true">Prompt</KButton>
-
+<KButton @click="prompt4Visible = true">Prompt</KButton>
 <KPrompt
-  :is-visible="dangerConfirmIsOpen"
-  type="danger"
-  message="This is dangerous ☠️"
-  confirmationText="I Agree"
-  @canceled="dangerConfirmIsOpen = false"
-  @proceed="dangerConfirmIsOpen = false"
+  confirmation-text="confirm"
+  :visible="prompt4Visible"
+  @cancel="closeAllPrompts"
+  @proceed="closeAllPrompts"
 />
 
 ```html
-<KPrompt :is-visible="dangerConfirmIsOpen" type="danger" message="This is dangerous ☠️" confirmationText="I Agree" @canceled="dangerConfirmIsOpen = false" @proceed="dangerConfirmIsOpen = false" />
+<KPrompt
+  confirmation-text="confirm"
+  :visible="promptVisible"
+  @cancel="handlePromptClose"
+  @proceed="handlePromptProceed"
+/>
 ```
 
-### preventProceedOnEnter
+### message
 
-If you don't want to `emit` the `proceed` event upon pressing the `Enter` key, you can prevent it using this prop. Defaults to `false`.
+Message string to be displayed in prompt content section.
 
-<KButton appearance="primary" @click="preventProceed = true">Prompt</KButton>
-
+<KButton @click="prompt5Visible = true">Prompt</KButton>
 <KPrompt
-  :is-visible="preventProceed"
-  type="danger"
-  message="I don't care if you press Enter"
-  prevent-proceed-on-enter
-  @canceled="preventProceed = false"
-  @proceed="preventProceed = false"
+  message="This action cannot be reversed."
+  confirmation-text="confirm"
+  :visible="prompt5Visible"
+  @cancel="closeAllPrompts"
+  @proceed="closeAllPrompts"
 />
 
 ```html
-<KPrompt :is-visible="preventProceed" type="danger" message="I don't care if you press Enter" prevent-proceed-on-enter @canceled="preventProceed = false" @proceed="preventProceed = false" />
+<KPrompt
+  message="This action cannot be reversed."
+  confirmation-text="confirm"
+  :visible="promptVisible"
+  @cancel="handlePromptClose"
+  @proceed="handlePromptProceed"
+/>
 ```
 
-### tabbableOptions
-Options to be passed to [`focus-trap`](https://github.com/focus-trap/focus-trap), which is responsible for trapping focus inside the prompt box. If you're experiencing issues with testing `<KPrompt>` in `jsdom`, you can pass this prop according to the [focus-trap documentation](https://github.com/focus-trap/focus-trap#testing-in-jsdom).
+### confirmationPrompt
 
+String above the input field when `confirmationText` prop is present.
+
+Defaults to 'Type "{confirmationText}"" to confirm your action.' where `{confirmationText}` is replaced with the string passed through the `confirmationText` prop.
+
+<KButton @click="prompt6Visible = true">Prompt</KButton>
+<KPrompt
+  confirmation-prompt="Please type {confirmationText} below to delete this resource permanently."
+  confirmation-text="delete permanently"
+  :visible="prompt6Visible"
+  @cancel="closeAllPrompts"
+  @proceed="closeAllPrompts"
+/>
+
+```html
+<KPrompt
+  confirmation-prompt="Please type {confirmationText} below to delete this resource permanently."
+  confirmation-text="delete permanently"
+  :visible="promptVisible"
+  @cancel="handlePromptClose"
+  @proceed="handlePromptProceed"
+/>
+```
+
+### actionButtonText
+
+Text to be displayed in action button. Defaults to "Confirm".
+
+<KButton @click="prompt7Visible = true">Prompt</KButton>
+<KPrompt
+  action-button-text="Acknowledge"
+  :visible="prompt7Visible"
+  title="Prompt"
+  @cancel="closeAllPrompts"
+  @proceed="closeAllPrompts"
+/>
+
+```html
+<KPrompt
+  action-button-text="Acknowledge"
+  :visible="promptVisible"
+  title="Prompt"
+  @cancel="handlePromptClose"
+  @proceed="handlePromptProceed"
+/>
+```
+
+### actionButtonAppearance
+
+Appearance of action button. See [KButton `appearance`](/components/button#appearance) prop for more details. Defaults to `primary`.
+
+<KButton @click="prompt8Visible = true">Prompt</KButton>
+<KPrompt
+  action-button-appearance="danger"
+  :visible="prompt8Visible"
+  title="Prompt"
+  @cancel="closeAllPrompts"
+  @proceed="closeAllPrompts"
+/>
+
+```html
+<KPrompt
+  action-button-appearance="danger"
+  :visible="promptVisible"
+  title="Prompt"
+  @cancel="handlePromptClose"
+  @proceed="handlePromptProceed"
+/>
+```
+
+### actionButtonDisabled
+
+Set to `true` to disable the action button. Defaults to `false`.
+
+<KComponent
+  v-slot="{ data }"
+  :data="{ actionEnabled: false }"
+>
+  <div class="vertical-container">
+    <div>
+      <KButton @click="prompt9Visible = true">Prompt</KButton>
+    </div>
+    <KInputSwitch
+      v-model="data.actionEnabled"
+      label="Action button enabled"
+    />
+  </div>
+
+  <KPrompt
+    :action-button-disabled="!data.actionEnabled"
+    :visible="prompt9Visible"
+    title="Prompt"
+    @cancel="closeAllPrompts"
+    @proceed="closeAllPrompts"
+  />
+</KComponent>
+
+```html
+<KPrompt
+  :action-button-disabled="false"
+  :visible="promptVisible"
+  title="Prompt"
+  @cancel="handlePromptClose"
+  @proceed="handlePromptProceed"
+/>
+```
+
+### cancelButtonText
+
+Text to be displayed in cancel button. Defaults to "Cancel".
+
+<KButton @click="prompt10Visible = true">Prompt</KButton>
+<KPrompt
+  cancel-button-text="Leave"
+  :visible="prompt10Visible"
+  title="Prompt"
+  @cancel="closeAllPrompts"
+  @proceed="closeAllPrompts"
+/>
+
+```html
+<KPrompt
+  cancel-button-text="Leave"
+  :visible="promptVisible"
+  title="Prompt"
+  @cancel="handlePromptClose"
+  @proceed="handlePromptProceed"
+/>
+```
+
+### cancelButtonAppearance
+
+Appearance of cancel button. See [KButton `appearance`](/components/button#appearance) prop for more details. Defaults to `tertiary`.
+
+<KButton @click="prompt11Visible = true">Prompt</KButton>
+<KPrompt
+  cancel-button-appearance="secondary"
+  :visible="prompt11Visible"
+  title="Prompt"
+  @cancel="closeAllPrompts"
+  @proceed="closeAllPrompts"
+/>
+
+```html
+<KPrompt
+  cancel-button-appearance="secondary"
+  :visible="promptVisible"
+  title="Prompt"
+  @cancel="handlePromptClose"
+  @proceed="handlePromptProceed"
+/>
+```
+
+### cancelButtonDisabled
+
+Set to `true` to disable the cancel button. Defaults to `false`.
+
+<KComponent
+  v-slot="{ data }"
+  :data="{ cancelEnabled: false }"
+>
+  <div class="vertical-container">
+    <div>
+      <KButton @click="prompt12Visible = true">Prompt</KButton>
+    </div>
+    <KInputSwitch
+      v-model="data.cancelEnabled"
+      label="Cancel button enabled"
+    />
+  </div>
+
+  <KPrompt
+    :cancel-button-disabled="!data.cancelEnabled"
+    :visible="prompt12Visible"
+    title="Prompt"
+    @cancel="closeAllPrompts"
+    @proceed="closeAllPrompts"
+  />
+</KComponent>
+
+```html
+<KPrompt
+  :cancel-button-disabled="false"
+  :visible="promptVisible"
+  title="Prompt"
+  @cancel="handlePromptClose"
+  @proceed="handlePromptProceed"
+/>
+```
+
+### modalAttributes
+
+KPrompt provides a `modalAttributes` prop to expose  secondary KModal component props for customization (check out [KModal props](/components/modal#props) for details).
+
+```ts
+interface ModalAttributes {
+  tabbableOptions?: Object
+  maxWidth?: string
+  maxHeight?: string
+  closeOnBackdropClick?: boolean
+}
+```
+
+<KButton @click="prompt13Visible = true">Prompt</KButton>
+<KPrompt
+  :modal-attributes="{ maxWidth: '90%' }"
+  :visible="prompt13Visible"
+  @cancel="closeAllPrompts"
+  @proceed="closeAllPrompts"
+/>
+
+```html
+<KPrompt
+  :modal-attributes="{ maxWidth: '90%' }"
+  :visible="promptVisible"
+  @cancel="handlePromptClose"
+  @proceed="handlePromptProceed"
+/>
+```
 
 ## Slots
 
-There are 3 designated slots you can use to display content in the modal.
+### default
 
-- `header-content`
-- `body-content`
-- `action-buttons` - Contains cancel & action buttons by default.
+Slot for prompt content.
 
-<KButton appearance="primary" @click="slotsIsOpen = true">Prompt</KButton>
+<KButton @click="prompt14Visible = true">Prompt</KButton>
+<KPrompt
+  title="Prompt"
+  :visible="prompt14Visible"
+  @cancel="closeAllPrompts"
+  @proceed="closeAllPrompts"
+>
+  <div class="vertical-container">
+    <KInput label="First name" required autocapitalize="off" autocomplete="off" />
+    <KInput label="Last name" required autocapitalize="off" autocomplete="off" />
+  </div>
+</KPrompt>
 
-<KPrompt :is-visible="slotsIsOpen" @canceled="slotsIsOpen = false" @proceed="slotsIsOpen = false">
-  <template v-slot:header-content>
-    <KIcon icon="immunity" color="#7F01FE" class="horizontal-spacing" size="20" />
-    Look Mah!
-  </template>
-  <template v-slot:body-content>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.
-  </template>
-  <template v-slot:action-buttons>
-    <KButton appearance="secondary" @click="slotsIsOpen = false">Close</KButton>
+```html
+<KPrompt
+  title="Prompt"
+  :visible="promptVisible"
+  @cancel="handlePromptClose"
+  @proceed="handlePromptProceed"
+>
+  <KInput label="First name" required />
+  <KInput label="Last name" required />
+</KPrompt>
+```
+
+### title
+
+Slot for title string.
+
+<KButton @click="prompt15Visible = true">Prompt</KButton>
+<KPrompt
+  title="Title"
+  :visible="prompt15Visible"
+  @cancel="closeAllPrompts"
+  @proceed="closeAllPrompts"
+>
+  <template #title>
+    Slotted title
   </template>
 </KPrompt>
 
 ```html
-<KPrompt :is-visible="slotsIsOpen" @canceled="slotsIsOpen = false" @proceed="slotsIsOpen = false">
-  <template v-slot:header-content>
-    <KIcon icon="immunity" color="#7F01FE" size="20" />
-    Look Mah!
-  </template>
-  <template v-slot:body-content>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.
-  </template>
-  <template v-slot:action-buttons>
-    <KButton appearance="secondary" @click="slotsIsOpen = false">Close</KButton>
+<KPrompt
+  title="Title"
+  :visible="promptVisible"
+  @cancel="handlePromptClose"
+  @proceed="handlePromptProceed"
+>
+  <template #title>
+    Slotted title
   </template>
 </KPrompt>
 ```
 
 ## Events
 
-- `@canceled` - Emitted when cancel/close button is clicked or the Escape key is pressed
-- `@proceed` - Emitted when action button is clicked or the Enter key is pressed
+### proceed
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+Emitted when action button is clicked. Doesn't pass any payload.
 
-export default defineComponent({
-  data () {
-    return {
-      buttonsIsOpen: false,
-      contentIsOpen: false,
-      dangerIsOpen: false,
-      dangerConfirmIsOpen: false,
-      defaultIsOpen: false,
-      infoIsOpen: false,
-      pendingIsOpen: false,
-      slotsIsOpen: false,
-      warningIsOpen: false,
-      preventProceed: false
-    }
-  }
-})
+### cancel
+
+Emitted when cancel button or close icon (when not hidden) is clicked. Doesn't pass any payload.
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { BackIcon, ForwardIcon } from '@kong/icons'
+
+const closeAllPrompts = () => {
+  prompt1Visible.value = false
+  prompt2Visible.value = false
+  prompt3Visible.value = false
+  prompt4Visible.value = false
+  prompt5Visible.value = false
+  prompt6Visible.value = false
+  prompt7Visible.value = false
+  prompt8Visible.value = false
+  prompt9Visible.value = false
+  prompt10Visible.value = false
+  prompt11Visible.value = false
+  prompt12Visible.value = false
+  prompt13Visible.value = false
+  prompt14Visible.value = false
+  prompt15Visible.value = false
+}
+
+const prompt1Visible = ref<boolean>(false)
+const prompt2Visible = ref<boolean>(false)
+const prompt3Visible = ref<boolean>(false)
+const prompt4Visible = ref<boolean>(false)
+const prompt5Visible = ref<boolean>(false)
+const prompt6Visible = ref<boolean>(false)
+const prompt7Visible = ref<boolean>(false)
+const prompt8Visible = ref<boolean>(false)
+const prompt9Visible = ref<boolean>(false)
+const prompt10Visible = ref<boolean>(false)
+const prompt11Visible = ref<boolean>(false)
+const prompt12Visible = ref<boolean>(false)
+const prompt13Visible = ref<boolean>(false)
+const prompt14Visible = ref<boolean>(false)
+const prompt15Visible = ref<boolean>(false)
 </script>
+
+<style lang="scss" scoped>
+.vertical-container {
+  display: flex;
+  flex-direction: column;
+  gap: $kui-space-50;
+}
+</style>
