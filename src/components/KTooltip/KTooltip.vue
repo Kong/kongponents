@@ -110,7 +110,7 @@ const computedClass = computed((): string => {
   color: var(--kui-color-text-inverse, $kui-color-text-inverse);
   font-family: var(--kui-font-family-text, $kui-font-family-text);
   font-size: var(--kui-font-size-20, $kui-font-size-20);
-  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+  font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
   line-height: var(--kui-line-height-20, $kui-line-height-20);
   padding: var(--kui-space-30, $kui-space-30);
   pointer-events: none;
