@@ -1,3 +1,10 @@
+# [9.0.0-alpha.101](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.100...v9.0.0-alpha.101) (2024-02-05)
+
+
+### Features
+
+* **kmodal, kprompt:** reskin components ([#1972](https://github.com/Kong/kongponents/issues/1972)) ([35a04b9](https://github.com/Kong/kongponents/commit/35a04b90710212832561d34803b009da3479a86d))
+
 # [9.0.0-alpha.100](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.99...v9.0.0-alpha.100) (2024-02-01)
 
 
