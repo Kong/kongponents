@@ -12,6 +12,9 @@ export default {
   },
 }
 
+// Export a named object exporting all available components. This is utilized to loop through all available components in this package.
+export { components }
+
 // All other named exports
 export * from './components'
 export * from './global-components'
