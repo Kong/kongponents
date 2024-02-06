@@ -3,7 +3,6 @@ import App from './App.vue'
 import router from './router'
 import '../src/styles/styles.scss'
 import Kongponents from '../src'
-
 // Sandbox layout
 import { SandboxLayout } from '@kong-ui-public/sandbox-layout'
 import type { SandboxNavigationItem } from '@kong-ui-public/sandbox-layout'
