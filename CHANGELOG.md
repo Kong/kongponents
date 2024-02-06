@@ -1,3 +1,10 @@
+# [9.0.0-alpha.102](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.101...v9.0.0-alpha.102) (2024-02-06)
+
+
+### Bug Fixes
+
+* export components object ([#1999](https://github.com/Kong/kongponents/issues/1999)) ([22d7523](https://github.com/Kong/kongponents/commit/22d7523bb42edcd49c5a119f6a4383a05ee19122))
+
 # [9.0.0-alpha.101](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.100...v9.0.0-alpha.101) (2024-02-05)
 
 
