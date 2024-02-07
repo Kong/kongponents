@@ -1,3 +1,10 @@
+# [9.0.0-alpha.103](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.102...v9.0.0-alpha.103) (2024-02-07)
+
+
+### Bug Fixes
+
+* **ts:** add danger property to dropdown item interface ([#2001](https://github.com/Kong/kongponents/issues/2001)) ([66db32a](https://github.com/Kong/kongponents/commit/66db32ae3bd0e5e2e068542d3087a386ea08cc3c))
+
 # [9.0.0-alpha.102](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.101...v9.0.0-alpha.102) (2024-02-06)
 
 
