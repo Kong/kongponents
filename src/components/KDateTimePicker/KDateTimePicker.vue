@@ -24,6 +24,7 @@
         <KInput
           class="datetime-picker-input"
           data-testid="datetime-picker-input"
+          :disabled="disabled"
           readonly
           :style="widthStyle"
         >

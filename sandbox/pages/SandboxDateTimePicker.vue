@@ -105,7 +105,13 @@
         <KDateTimePicker
           mode="dateTime"
           placeholder="Select a date and time"
-          width="100%"
+          width="300"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="disabled">
+        <KDateTimePicker
+          disabled
+          mode="dateTime"
         />
       </SandboxSectionComponent>
     </div>
