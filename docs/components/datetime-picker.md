@@ -404,11 +404,11 @@ This utilizes the same time frames as the previous example; however, in this cas
 
 ## Events
 
+### change and update:modelValue
+
 The events below will fire whenever **Apply** is clicked (assuming the user has made a custom calendar or relative timeframe selection). If **Clear** is clicked, the object shape remains the same, but the `start` and `end` values will be `null`.
 
-### Single date time picker
-
-**Events**: `change`, `update:modelValue`
+#### Single date time picker
 
 Component will emit a JavaScript Date object for the `start` value, and a null value for `end`. 
 When "Clear" is clicked, it will emit null values for both `start` and `end`.
@@ -420,9 +420,7 @@ When "Clear" is clicked, it will emit null values for both `start` and `end`.
 },
 ```
 
-### Range date time picker
-
-**Events**: `change`, `update:modelValue`
+#### Range date time picker
 
 Will emit an `object` containing the following values:
 
