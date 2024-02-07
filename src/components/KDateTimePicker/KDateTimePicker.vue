@@ -554,7 +554,7 @@ $grid-spacing: var(--kui-space-30, $kui-space-30);
   }
 
   .timepicker-input {
-    border: none;
+    border: 0 !important;
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular); // token value change
     justify-content: flex-start;
     // Prevent overflowing the container
