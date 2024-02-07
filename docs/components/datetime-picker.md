@@ -1,6 +1,120 @@
 # DateTime Picker
 
-**KDateTimePicker** - A date and time selection tool, displayed inside a popover.
+KDateTimePicker is a date and time selection widget, displayed inside a popover.
+
+## Props
+
+### v-model
+
+#### Single date and/or time picker `v-model`
+
+A single date or time picker instance which can be seeded with a value as shown here, where `currentValue`'s `start` key contains a valid Date object, `new Date()` or a `null` value.  If null, the picker will display the placeholder message and allow the user to make a selection. 
+
+```ts
+currentValue = {
+  start: new Date(),
+  end: null,
+},
+```
+
+#### Range date and/or time picker `v-model`
+
+An instance that displays a date range or a series of relative time frames.
+
+Can be seeded with a **relative time frame** by setting the `v-model` to `currentValue` as shown below:
+
+```ts
+currentValue = {
+  start: null,
+  end: null,
+  timePeriodsKey: TimeframeKeys.ONE_DAY
+},
+```
+
+Or, it can be seeded with a **custom calendar range** by setting `v-model` to:
+
+```ts
+const today = new Date()
+const twoDaysAgo  = new Date(today.getTime() - (2*24*60*60*1000))
+
+currentValue = {
+  start: twoDaysAgo,
+  end: today
+}
+```
+
+### clearButton
+
+A `Boolean` to show/hide the Clear button. Defaults to `false`.
+
+### icon
+
+A `Boolean` to show/hide the calendar icon displayed within the display field. Defaults to `true`.
+
+### minDate
+
+A valid `Date` object (eg: `Mon Aug 15 2022 08:00:00 GMT-0700 (Pacific Daylight Time)`) which blocks out days/times that occur **before** the given timestamp. `minDate` gets passed down to the calendar component, and does not apply to relative time frames. Default value is `null`.
+
+### maxDate
+
+A valid `Date` object (eg: `Fri Aug 19 2022 12:00:00 GMT-0700 (Pacific Daylight Time)`) which blocks out days/times that occur **after** the given timestamp. `maxDate` gets passed down to the calendar component, and does not apply to relative time frames. Default value is `null`.
+
+### mode
+
+Required `String` prop which accepts the following values:
+- `date`: denotes a datetime picker instance that allows a calendar date to be selected
+- `time`: denotes an instance that allows a time to be selected
+- `dateTime`: denotes an instance that allows a calendar date and time to be selected
+- `relative`: instance which only contains relative time frames
+- `relativeDate`: instance with relative time frames, and a calendar that supports date selection
+- `relativeDateTime`: instance with relative time frames, and a calendar that supports date and time selection
+
+### placeholder
+
+`String` containing the default message displayed in the date time picker input. Clearing any selected values will revert the input to display this placeholder message. Default value is "_Select a time range_".
+
+### range
+
+`Boolean` which determines whether the calendar allows selection of a **single** date or time, as opposed to a **range** of start and end values. Choosing any relative `mode` option will default the `range` to `true`. Defaults to `false`.
+
+### timePeriods
+
+An array of time frame values to be displayed as buttons in the "Relative" section of the popover.
+
+**Please note that each timeframe's `key` attribute must be unique.**
+
+**Example:**
+
+```ts
+[
+  {
+    section: "Last",
+    values: [
+      { key: "15m", prefix: "Last", timeframeText: "15 minutes", start: () => {}, end: () => {} },
+      { key: "12h", prefix: "Last", timeframeText: "12 hours", start: () => {}, end: () => {} },
+      { key: "24h", prefix: "Last", timeframeText: "24 hours", start: () => {}, end: () => {} },
+    ]
+  },
+   {
+    section: "Current",
+    values: [
+      { key: "current_week", prefix: "Current", timeframeText: "week", start: () => {}, end: () => {} },
+      { key: "current_month", prefix: "Current", timeframeText: "month", start: () => {}, end: () => {} },
+    ]
+  }
+  {
+    section: "Previous",
+    values: [
+      { key: "previous_week", prefix: "Previous", timeframeText: "week", start: () => {}, end: () => {} },
+      { key: "previous_month", prefix: "Previous", timeframeText: "month", start: () => {}, end: () => {} },
+    ]
+  }
+]
+```
+
+### width
+
+Width of the trigger element. Defaults to `100%`.
 
 ## Examples
 
@@ -16,7 +130,6 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
     clear-button
     placeholder="Please select a date"
     mode="date"
-    width="250"
     :range="false"
   />
   <br/>
@@ -30,7 +143,6 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
   clear-button
   placeholder="Please select a date"
   mode="date"
-  width="250"
   :range="false"
 />
 ```
@@ -129,7 +241,6 @@ This instance makes use of the optional `minDate` and `maxDate` parameters.
     v-model="dateRangeWeek"
     placeholder="Please select a range"
     mode="relativeDate"
-    width="415"
     :min-date="minDate"
     :max-date="maxDate"
     :range="true"
@@ -145,7 +256,6 @@ This instance makes use of the optional `minDate` and `maxDate` parameters.
   @change="newVal => emitVal = newVal"
   placeholder="Please select a range"
   mode="relativeDate"
-  width="415"
   :min-date="minDate"
   :max-date="maxDate"
   :range="true"
@@ -190,7 +300,6 @@ Passing in a `timePeriodsKey` causes the instance to default to the "Relative" t
     v-model="dateRangeWeekRelative"
     placeholder="Please select a range"
     mode="relativeDateTime"
-    width="415"
     :min-date="minDate"
     :max-date="maxDate"
     :range="true"
@@ -206,7 +315,6 @@ Passing in a `timePeriodsKey` causes the instance to default to the "Relative" t
   @change="newVal => emitVal = newVal"
   placeholder="Please select a range"
   mode="relativeDateTime"
-  width="415"
   :min-date="minDate"
   :max-date="maxDate"
   :range="true"
@@ -248,7 +356,6 @@ This utilizes the same time frames as the previous example; however, in this cas
     v-model="oneHourRelativeOnly"
     placeholder="Please select a time frame"
     mode="relativeDate"
-    width="480"
     :min-date="minDate"
     :max-date="maxDate"
     :range="true"
@@ -264,7 +371,6 @@ This utilizes the same time frames as the previous example; however, in this cas
   @change="newVal => emitVal = newVal"
   placeholder="Please select a time frame"
   mode="relative"
-  width="480"
   :min-date="minDate"
   :max-date="maxDate"
   :range="true"
@@ -294,130 +400,6 @@ This utilizes the same time frames as the previous example; however, in this cas
     }
   ]"
 />
-```
-
-## Props
-
-### v-model
-
-#### Single date and/or time picker `v-model`
-
-A single date or time picker instance which can be seeded with a value as shown here, where `currentValue`'s `start` key contains a valid Date object, `new Date()` or a `null` value.  If null, the picker will display the placeholder message and allow the user to make a selection. 
-
-```ts
-currentValue = {
-  start: new Date(),
-  end: null,
-},
-```
-
-#### Range date and/or time picker `v-model`
-
-An instance that displays a date range or a series of relative time frames.
-
-Can be seeded with a **relative time frame** by setting the `v-model` to `currentValue` as shown below:
-
-```ts
-currentValue = {
-  start: null,
-  end: null,
-  timePeriodsKey: TimeframeKeys.ONE_DAY
-},
-```
-
-Or, it can be seeded with a **custom calendar range** by setting `v-model` to:
-
-```ts
-const today = new Date()
-const twoDaysAgo  = new Date(today.getTime() - (2*24*60*60*1000))
-
-currentValue = {
-  start: twoDaysAgo,
-  end: today
-}
-```
-
-### clearButton
-
-A `Boolean` to show/hide the Clear button.
-
-**default**: `false`
-
-### icon
-
-A `Boolean` to show/hide the calendar icon displayed within the display field.
-
-**default**: `true`
-
-### minDate
-
-A valid `Date` object (eg: `Mon Aug 15 2022 08:00:00 GMT-0700 (Pacific Daylight Time)`) which blocks out days/times that occur **before** the given timestamp. `minDate` gets passed down to the calendar component, and does not apply to relative time frames.
-
-**default**: `null`
-
-### maxDate
-
-A valid `Date` object (eg: `Fri Aug 19 2022 12:00:00 GMT-0700 (Pacific Daylight Time)`) which blocks out days/times that occur **after** the given timestamp. `maxDate` gets passed down to the calendar component, and does not apply to relative time frames.
-
-**default**: `5`
-
-### mode
-
-Required `String` prop which accepts the following values:
-- `date`: denotes a datetime picker instance that allows a calendar date to be selected
-- `time`: denotes an instance that allows a time to be selected
-- `dateTime`: denotes an instance that allows a calendar date and time to be selected
-- `relative`: instance which only contains relative time frames
-- `relativeDate`: instance with relative time frames, and a calendar that supports date selection
-- `relativeDateTime`: instance with relative time frames, and a calendar that supports date and time selection
-
-### placeholder
-
-`String` containing the default message displayed in the date time picker input. Clearing any selected values will revert the input to display this placeholder message.
-
-**default**: `Select a time range`
-
-### range
-
-`Boolean` which determines whether the calendar allows selection of a **single** date or time, as opposed to a **range** of start and end values. Choosing any relative `mode` option will default the `range` to `true`.
-
-**default**: `false`
-
-### timePeriods
-
-An array of time frame values to be displayed as buttons in the "Relative" section of the popover.
-
-**Please note that each timeframe's `key` attribute must be unique.**
-
-**default**: `[]`
-
-**Example:**
-
-```ts
-[
-  {
-    section: "Last",
-    values: [
-      { key: "15m", prefix: "Last", timeframeText: "15 minutes", start: () => {}, end: () => {} },
-      { key: "12h", prefix: "Last", timeframeText: "12 hours", start: () => {}, end: () => {} },
-      { key: "24h", prefix: "Last", timeframeText: "24 hours", start: () => {}, end: () => {} },
-    ]
-  },
-   {
-    section: "Current",
-    values: [
-      { key: "current_week", prefix: "Current", timeframeText: "week", start: () => {}, end: () => {} },
-      { key: "current_month", prefix: "Current", timeframeText: "month", start: () => {}, end: () => {} },
-    ]
-  }
-  {
-    section: "Previous",
-    values: [
-      { key: "previous_week", prefix: "Previous", timeframeText: "week", start: () => {}, end: () => {} },
-      { key: "previous_month", prefix: "Previous", timeframeText: "month", start: () => {}, end: () => {} },
-    ]
-  }
-]
 ```
 
 ## Events
