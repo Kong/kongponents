@@ -58,7 +58,7 @@
       <SandboxSectionComponent title="mode">
         <KComponent
           v-slot="{ data }"
-          :data="{ selectedMode: 'date', modes: [
+          :data="{ selectedMode: 'dateTime', modes: [
             { label: 'date', value: 'date' },
             { label: 'time', value: 'time' },
             { label: 'dateTime', value: 'dateTime' },
@@ -68,8 +68,8 @@
           ] }"
         >
           <KDateTimePicker
+            :max-date="maxDate"
             :mode="data.selectedMode"
-            range
             :time-periods="[
               {
                 section: 'Relative',
@@ -96,6 +96,7 @@
           <KSelect
             v-model="data.selectedMode"
             :items="data.modes"
+            label="Mode:"
             width="200"
           />
         </KComponent>
@@ -115,4 +116,7 @@
 import { inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
+
+const maxDate = new Date()
+maxDate.setMonth(new Date().getMonth() + 3)
 </script>
