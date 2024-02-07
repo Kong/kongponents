@@ -659,12 +659,15 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
         }
 
         .timeframe-buttons {
-          display: flex;
-          flex-wrap: wrap;
+          display: grid;
           gap: var(--kui-space-40, $kui-space-40);
+          grid-template-columns: repeat(3, 1fr);
 
           .timeframe-button {
+            @include truncate;
+
             border-width: var(--kui-border-width-10, $kui-border-width-10);
+            display: block;
           }
         }
       }
