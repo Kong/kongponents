@@ -434,10 +434,12 @@ Will emit an `object` containing the following values:
 } 
 ```
 
-<script>
+<script setup lang="ts">
+import { ref, reactive } from 'vue'
 import { TimePeriods, TimeframeKeys } from '@mocks/KDateTimePickerMockData'
+import type { TimeFrameSection } from '@/types'
 
-const exampleTimeFrames = [
+const exampleTimeFrames: TimeFrameSection[] = reactive([
   {
     section: 'Last',
     values: [
@@ -447,59 +449,58 @@ const exampleTimeFrames = [
       TimePeriods.get(TimeframeKeys.TWELVE_HOUR),
       TimePeriods.get(TimeframeKeys.ONE_DAY),
       TimePeriods.get(TimeframeKeys.SEVEN_DAY),
-      TimePeriods.get(TimeframeKeys.THIRTY_DAY)
-    ]
+      TimePeriods.get(TimeframeKeys.THIRTY_DAY),
+    ],
   },
   {
     section: 'Current',
     values: [
       TimePeriods.get(TimeframeKeys.CURRENT_WEEK),
-      TimePeriods.get(TimeframeKeys.CURRENT_MONTH)
-    ]
+      TimePeriods.get(TimeframeKeys.CURRENT_MONTH),
+    ],
   },
   {
     section: 'Previous',
     values: [
       TimePeriods.get(TimeframeKeys.PREVIOUS_WEEK),
-      TimePeriods.get(TimeframeKeys.PREVIOUS_MONTH)
-    ]
-  }
-]
+      TimePeriods.get(TimeframeKeys.PREVIOUS_MONTH),
+    ],
+  },
+])
 
-export default {
-  data() {
-    const today       = new Date()
-    const tomorrow    = new Date().getTime() + (1*24*60*60*1000)
-    const twoDaysAgo  = new Date(today.getTime() - (2*24*60*60*1000))
-    const aWeekAgo    = new Date(today.getTime() - (7*24*60*60*1000))
-    const aYearAgo    = new Date(today.getTime() - (365*24*60*60*1000))
-    return {
-      singleDateEmpty: {
-        start: null,
-        end: null
-      },
-      singleDateToday: {
-        start: today,
-        end: null
-      },
-      dateRangeWeek: {
-        start: aWeekAgo,
-        end: today
-      },
-      dateRangeWeekRelative: {
-        start: aWeekAgo,
-        end: today,
-        timePeriodsKey: TimeframeKeys.SEVEN_DAY
-      },
-      oneHourRelativeOnly: {
-        start: null,
-        end: null,
-        timePeriodsKey: TimeframeKeys.ONE_HOUR
-      },
-      maxDate: today,
-      minDate: aYearAgo,
-      exampleTimeFrames
-    }
-  }
-}
+const today = new Date()
+const tomorrow = new Date().getTime() + 1 * 24 * 60 * 60 * 1000
+const twoDaysAgo = new Date(today.getTime() - 2 * 24 * 60 * 60 * 1000)
+const aWeekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
+const aYearAgo = new Date(today.getTime() - 365 * 24 * 60 * 60 * 1000)
+
+const singleDateEmpty = ref({
+  start: null,
+  end: null,
+})
+
+const singleDateToday = reactive({
+  start: today,
+  end: null,
+})
+
+const dateRangeWeek = reactive({
+  start: aWeekAgo,
+  end: today,
+})
+
+const dateRangeWeekRelative = reactive({
+  start: aWeekAgo,
+  end: today,
+  timePeriodsKey: TimeframeKeys.SEVEN_DAY,
+})
+
+const oneHourRelativeOnly = reactive({
+  start: null,
+  end: null,
+  timePeriodsKey: TimeframeKeys.ONE_HOUR,
+})
+
+const maxDate = ref(today)
+const minDate = ref(aYearAgo)
 </script>
