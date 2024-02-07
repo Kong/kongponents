@@ -7,6 +7,7 @@ export interface DropdownItem {
   value?: string | number
   selected?: boolean
   hasDivider?: boolean
+  danger?: boolean
 }
 
 export type DropdownItemType = 'link' | 'button' | 'default'
