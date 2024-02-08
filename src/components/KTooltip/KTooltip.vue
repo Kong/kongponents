@@ -82,7 +82,7 @@ const props = defineProps({
 })
 
 const slots = useSlots()
-const showTooltip = computed((): boolean => !!props.text || !!slots.content || !!props.label)
+const showTooltip = computed((): boolean => !!props.text || !!props.label || !!slots.content)
 
 const computedClass = computed((): string => {
   let placementClass = ''
