@@ -1,6 +1,6 @@
 # Tooltip
 
-A tooltip is aninformative message that appears when a user hovers over, focuses on, or taps an element, providing additional context, guidance, or information without cluttering the interface.
+A tooltip is an informative message that appears when a user hovers over, focuses on, or taps an element, providing additional context, guidance, or information without cluttering the interface.
 
 <KTooltip text="Simple tooltip.">
   <InfoIcon />
