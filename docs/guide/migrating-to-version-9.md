@@ -565,6 +565,18 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KTooltip
 
+#### Props
+
+* `testMode` prop has been removed
+* `label` prop has been deprecated in favor of `text` prop
+* default value of `positionFixed` prop has been changed to `true`
+
+#### Structure
+
+* `k-tooltip-top` class has been changed to `tooltip-top`
+* `k-tooltip-right` class has been changed to `tooltip-right`
+* `k-tooltip-bottom` class has been changed to `tooltip-bottom`
+* `k-tooltip-left` class has been changed to `tooltip-left`
 
 ### KTree List
 
