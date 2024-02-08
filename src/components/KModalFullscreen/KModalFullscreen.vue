@@ -216,6 +216,8 @@ const proceed = () => {
 
 onMounted(() => {
   document.addEventListener('keydown', handleKeydown)
+
+  console.warn("The Kongponents 'KFullScreenModal' component is deprecated and will be removed in the 9.0.0-beta.0 release.\nWe suggest using 'KModal' component instead.\nDocs: https://alpha--kongponents.netlify.app/components/modal.html#fullscreen")
 })
 
 onBeforeUnmount(() => {
@@ -228,8 +230,6 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/tmp-variables';
-
 $kmodalfullscreen-viewport-md: 992px;
 $fullscreen-modal-padding: 64px;
 
@@ -262,10 +262,10 @@ $fullscreen-modal-padding: 64px;
 
 .k-modal-fullscreen-header {
   background-color: var(--kui-color-background, $kui-color-background);
-  border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+  border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
   display: flex;
   flex-direction: column;
-  padding: var(--kui-space-80, $kui-space-80) var(--kui-space-0, $kui-space-0);
+  padding: var(--kui-space-70, $kui-space-70) var(--kui-space-0, $kui-space-0);
   position: fixed;
   top: 0;
   width: 100%;
@@ -288,13 +288,13 @@ $fullscreen-modal-padding: 64px;
 .k-modal-fullscreen-footer {
   align-items: center;
   background-color: var(--kui-color-background, $kui-color-background);
-  border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+  border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
   bottom: 0;
-  box-shadow: 0px 0px 20px var(black-10, $tmp-color-black-10);
+  box-shadow: var(--kui-shadow, $kui-shadow);
   display: inline-flex;
   justify-content: space-between;
   padding: var(--kui-space-80, $kui-space-80) var(--kui-space-0, $kui-space-0);
-  padding-left: var(--kui-space-90, $kui-space-90);
+  padding-left: var(--kui-space-80, $kui-space-80);
   position: fixed;
   width: 100%;
   z-index: 1009;
@@ -309,7 +309,7 @@ $fullscreen-modal-padding: 64px;
   @media (min-width: $kui-breakpoint-phablet) {
     justify-content: flex-start;
     margin-bottom: var(--kui-space-0, $kui-space-0);
-    margin-left: var(--kui-space-90, $kui-space-90); // This was 36px, switched it to 32px
+    margin-left: var(--kui-space-80, $kui-space-80); // This was 36px, switched it to 32px
   }
 }
 
@@ -317,7 +317,7 @@ $fullscreen-modal-padding: 64px;
   display: inline-flex;
   justify-content: center;
   margin-left: var(--kui-space-50, $kui-space-50) !important;
-  margin-right: var(--kui-space-90, $kui-space-90);
+  margin-right: var(--kui-space-80, $kui-space-80);
 
   @media (min-width: $kui-breakpoint-phablet) {
     justify-content: flex-end;
@@ -349,7 +349,7 @@ $fullscreen-modal-padding: 64px;
 }
 
 .k-modal-fullscreen-body-header {
-  margin-bottom: var(--kui-space-90, $kui-space-90);
+  margin-bottom: var(--kui-space-80, $kui-space-80);
   margin-top: $fullscreen-modal-padding;
   padding-bottom: var(--kui-space-0, $kui-space-0);
   padding-top: var(--kui-space-0, $kui-space-0);
@@ -379,27 +379,29 @@ $fullscreen-modal-padding: 64px;
 }
 
 .header-content {
-  border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
   display: inline-block;
-  line-height: var(--kui-line-height-40, $kui-line-height-40);
+  font-family: var(--kui-font-family-text, $kui-font-family-text);
+  font-size: var(--kui-font-size-60, $kui-font-size-60);
+  font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+  letter-spacing: var(--kui-letter-spacing-minus-40, $kui-letter-spacing-minus-40);
+  line-height: var(--kui-line-height-50, $kui-line-height-50);
   margin-bottom: var(--kui-space-auto, $kui-space-auto) !important;
   margin-top: var(--kui-space-auto, $kui-space-auto) !important;
   padding-left: var(--kui-space-30, $kui-space-30);
+  user-select: none;
 }
 
 .k-modal-fullscreen-action-buttons {
   button,
   :deep(button) {
-    margin-left: var(--kui-space-60, $kui-space-60);
+    margin-left: var(--kui-space-40, $kui-space-40);
   }
 
   @media (min-width: $kui-breakpoint-phablet) {
     margin-left: var(--kui-space-auto, $kui-space-auto) !important;
   }
 }
-</style>
 
-<style lang="scss">
 .header-icon {
   margin-bottom: var(--kui-space-auto, $kui-space-auto) !important;
   margin-top: var(--kui-space-auto, $kui-space-auto) !important;
