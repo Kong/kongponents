@@ -668,6 +668,8 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
 
             border-width: var(--kui-border-width-10, $kui-border-width-10);
             display: block;
+            font-size: var(--kui-font-size-20, $kui-font-size-20);
+            line-height: var(--kui-line-height-20, $kui-line-height-20);
           }
         }
       }
