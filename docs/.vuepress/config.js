@@ -16,6 +16,7 @@ module.exports = {
           {
             text: 'v9-alpha',
             link: 'https://alpha--kongponents.netlify.app',
+            rel: 'nofollow'
           },
           {
             text: 'v8.x',
@@ -117,6 +118,7 @@ module.exports = {
     ]
   },
   head: [
+    ['meta', { name: 'robots', content: 'noindex,nofollow' }],
     ['link', {rel: 'icon', href: 'https://2tjosk2rxzc21medji3nfn1g-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/kong-logomark-color-64px.png'}],
     ['link', {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:400,500,700'}]
   ],
@@ -124,10 +126,7 @@ module.exports = {
     "@kawarimidoll/tailwind",
     ['@vuepress/search', {
       searchHotkeys: ['/']
-    }],
-    ['sitemap', {
-      hostname: 'https://legacy.kongponents.konghq.com'
-    }],
+    }]
   ],
   chainWebpack: config => {
     const svgRule = config.module.rule('svg')

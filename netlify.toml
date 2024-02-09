@@ -20,10 +20,17 @@
   environment = { NODE_VERSION = "16.15.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
 
 # ##############################
-# 'legacy' branch
+# 'v7' branch
 # ##############################
 
-# 'legacy' branch context
+# 'v7' branch context (same as legacy)
+[context.v7]
+  base = "/"
+  command = "yarn build:styles && yarn docs:build"
+  publish = "docs/.vuepress/dist"
+  environment = { NODE_VERSION = "16.15.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
+
+# 'legacy' branch context  (same as v7)
 [context.legacy]
   base = "/"
   command = "yarn build:styles && yarn docs:build"
