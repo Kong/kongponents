@@ -148,7 +148,7 @@ import KPop from '@/components/KPop/KPop.vue'
 import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.vue'
 import 'v-calendar/dist/style.css'
 import { ModeArray, ModeArrayCustom, ModeArrayRelative, ModeDateOnly, TimepickerMode } from '@/types'
-import type { DateTimePickerState, TimeFrameSection, TimePeriod, TimeRange, Mode, CSSProperties, DatePickerModel } from '@/types'
+import type { DateTimePickerState, TimeFrameSection, TimePeriod, TimeRange, Mode, CSSProperties, DatePickerModel, ButtonAppearance } from '@/types'
 import { CalIcon } from '@kong/icons'
 import useUtilities from '@/composables/useUtilities'
 
@@ -496,7 +496,7 @@ const ucWord = (val: string): string => {
   return val.charAt(0).toUpperCase() + val.slice(1)
 }
 
-const getTimeframeButtonAppearance = (timeframe: TimePeriod): string => {
+const getTimeframeButtonAppearance = (timeframe: TimePeriod): ButtonAppearance => {
   return state.selectedTimeframe.key === timeframe.key ? 'primary' : 'secondary'
 }
 
