@@ -33,7 +33,7 @@ jobs:
           fetch-depth: 2
 
       - name: Check if component (`src` directory) files have changed
-        uses: tj-actions/changed-files@v41
+        uses: tj-actions/changed-files@v42
         id: component-files-changed
         # Return 'true' for any directories listed here that changed
         with:
@@ -41,7 +41,7 @@ jobs:
             src/**
 
       - name: Check if docs (`docs` directory) files have changed
-        uses: tj-actions/changed-files@v41
+        uses: tj-actions/changed-files@v42
         id: docs-files-changed
         # Return 'true' for any directories listed here that changed
         with:
@@ -49,7 +49,7 @@ jobs:
             docs/**
 
       - name: Check if files changed in `src/`, `docs/`, or `cypress/` directories
-        uses: tj-actions/changed-files@v41
+        uses: tj-actions/changed-files@v42
         id: components-or-docs-or-cypress-files-changed
         # Return 'true' for any directories listed here that changed
         with:
@@ -59,7 +59,7 @@ jobs:
             cypress/**
 
       - name: Check if package.json or yarn.lock files changed
-        uses: tj-actions/changed-files@v41
+        uses: tj-actions/changed-files@v42
         id: package-json-yarn-lock-files-changed
         # Return 'true' for any directories listed here that changed
         with:
