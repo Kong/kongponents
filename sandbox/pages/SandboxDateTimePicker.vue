@@ -68,9 +68,10 @@
           ] }"
         >
           <KDateTimePicker
+            :key="`${data.selectedMode}-mode`"
             :max-date="maxDate"
             :mode="data.selectedMode"
-            :time-periods="[
+            :time-periods="data.selectedMode.includes('relative') ? [
               {
                 section: 'Relative',
                 values: [
@@ -90,7 +91,7 @@
                   { key: 'foobar3', display: 'Apr 01 2024 - Apr 15 2024', timeframeText: 'Apr 01 2024 - Apr 15 2024', start: () => new Date(), end: () => new Date(), timeframeLength: () => '15days' }
                 ]
               }
-            ]"
+            ] : []"
           />
 
           <KSelect
