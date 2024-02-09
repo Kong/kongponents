@@ -570,6 +570,18 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KTruncate
 
+#### Props
+
+* `isTextContent` prop has been changed to `textContent`
+* `isExpanded` prop has been changed to `expanded`
+
+#### Structure
+
+* `k-truncate-content` class has been changed to `truncate-content`
+* `k-truncate-text` class has been changed to `truncate-text`
+* `k-truncate-expand-controls` class has been changed to `truncate-expand-controls`
+* `k-truncate-container` class has been changed to `truncate-container`
+* `k-truncate-collapse-controls` class has been changed to `truncate-collapse-controls`
 
 ### KView Switcher
 
