@@ -37,6 +37,7 @@
   box-shadow: var(--kui-shadow-border, $kui-shadow-border);
   box-sizing: border-box; // Ensure the padding is calculated in the element's width
   outline: none;
+  // Variables that reference the same value. If this value changes, all of those need to be updated too.
   padding: var(--kui-space-40, $kui-space-40) var(--kui-space-50, $kui-space-50); // $kInputPaddingX, $kTextAreaPaddingY, $kSelectInputPaddingX, $kSelectInputPaddingY, $kMultiselectInputPaddingY, $kMultiselectInputPaddingX, $kFileUploadInputPaddingX, $kFileUploadInputPaddingY, $kDateTimePickerInputPaddingX, $kDateTimePickerInputPaddingY
   text-overflow: ellipsis;
   transition: box-shadow $kongponentsTransitionDurTimingFunc;
