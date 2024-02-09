@@ -220,18 +220,22 @@ const toggleFocusTrap = async (isActive: boolean): Promise<void> => {
 }
 
 const toggleBodyScroll = (isScrollable: boolean): void => {
-  if (isScrollable) {
-    document.body.classList.remove('k-modal-overflow-hidden')
-  } else {
-    document.body.classList.add('k-modal-overflow-hidden')
+  if (typeof document !== 'undefined') {
+    if (isScrollable) {
+      document.body.classList.remove('k-modal-overflow-hidden')
+    } else {
+      document.body.classList.add('k-modal-overflow-hidden')
+    }
   }
 }
 
 const toggleEventListeners = (isActive: boolean): void => {
-  if (isActive) {
-    document.addEventListener('keydown', handleKeydown)
-  } else {
-    document.removeEventListener('keydown', handleKeydown)
+  if (typeof document !== 'undefined') {
+    if (isActive) {
+      document.addEventListener('keydown', handleKeydown)
+    } else {
+      document.removeEventListener('keydown', handleKeydown)
+    }
   }
 }
 
