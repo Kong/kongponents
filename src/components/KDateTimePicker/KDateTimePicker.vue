@@ -32,7 +32,10 @@
             v-if="icon"
             #before
           >
-            <CalIcon class="calendar-icon" />
+            <CalIcon
+              class="calendar-icon"
+              decorative
+            />
           </template>
         </KInput>
       </div>
@@ -92,7 +95,7 @@
               <KButton
                 v-for="(timeFrame, itemIdx) in item.values"
                 :key="`time-${itemIdx}`"
-                :appearance="timeFrame.key === state.selectedTimeframe.key ? 'primary' : 'secondary'"
+                :appearance="getTimeframeButtonAppearance(timeFrame)"
                 class="timeframe-button"
                 :data-testid="`select-timeframe-${timeFrame.timeframeLength()}`"
                 @click="changeRelativeTimeframe(timeFrame)"
@@ -491,6 +494,10 @@ const updateDisplay = (): void => {
 
 const ucWord = (val: string): string => {
   return val.charAt(0).toUpperCase() + val.slice(1)
+}
+
+const getTimeframeButtonAppearance = (timeframe: TimePeriod): string => {
+  return state.selectedTimeframe.key === timeframe.key ? 'primary' : 'secondary'
 }
 
 /**
