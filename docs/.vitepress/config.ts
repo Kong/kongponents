@@ -157,7 +157,7 @@ export default defineConfig({
           },
           {
             text: 'v7.x',
-            link: 'https://legacy--kongponents.netlify.app',
+            link: 'https://v7--kongponents.netlify.app',
             rel: 'nofollow'
           },
         ],
