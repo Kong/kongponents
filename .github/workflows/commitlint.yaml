@@ -17,6 +17,6 @@ jobs:
       - name: Remove tsconfig
         run: rm tsconfig.json
 
-      - uses: wagoid/commitlint-github-action@v5.4.4
+      - uses: wagoid/commitlint-github-action@v5.4.5
         with:
           configFile: commitlint.config.cjs
