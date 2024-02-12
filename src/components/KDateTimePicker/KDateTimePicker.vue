@@ -8,7 +8,7 @@
     <KPop
       hide-caret
       :hide-popover="state.hidePopover"
-      placement="bottomStart"
+      :placement="popoverPlacement"
       position-fixed
       width="auto"
       @opened="state.hidePopover = false"
@@ -147,8 +147,8 @@ import KButton from '@/components/KButton/KButton.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.vue'
 import 'v-calendar/dist/style.css'
-import { ModeArray, ModeArrayCustom, ModeArrayRelative, ModeDateOnly, TimepickerMode } from '@/types'
-import type { DateTimePickerState, TimeFrameSection, TimePeriod, TimeRange, Mode, CSSProperties, DatePickerModel, ButtonAppearance } from '@/types'
+import { ModeArray, ModeArrayCustom, ModeArrayRelative, ModeDateOnly, TimepickerMode, PopPlacementsArray } from '@/types'
+import type { DateTimePickerState, TimeFrameSection, TimePeriod, TimeRange, Mode, CSSProperties, DatePickerModel, ButtonAppearance, PopPlacements } from '@/types'
 import { CalIcon } from '@kong/icons'
 import useUtilities from '@/composables/useUtilities'
 
@@ -257,6 +257,16 @@ const props = defineProps({
   disabled: {
     type: Boolean,
     default: false,
+  },
+  /**
+   * Define which side the popover displays
+   */
+  popoverPlacement: {
+    type: String as PropType<PopPlacements>,
+    default: 'bottomStart',
+    validator: (value: PopPlacements):boolean => {
+      return PopPlacementsArray.includes(value)
+    },
   },
 })
 

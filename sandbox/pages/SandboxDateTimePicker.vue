@@ -15,6 +15,12 @@
         is-subtitle
         title="Props"
       />
+      <SandboxSectionComponent title="popoverPlacement">
+        <KDateTimePicker
+          mode="dateTime"
+          popover-placement="bottomEnd"
+        />
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="clearButton">
         <KComponent
           v-slot="{ data }"
