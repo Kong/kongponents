@@ -122,7 +122,7 @@ Boolean to disable the input component. Defaults to `false`.
 
 ### popoverPlacement
 
-Prop to define where the popover should appear (see [KPopover placement prop](/components//popover#placement) for details). Default value is `bottomStart`.
+Prop to define where the popover should appear (see [KPopover placement prop](/components/popover#placement) for details). Default value is `bottomStart`.
 
 ## Examples
 
