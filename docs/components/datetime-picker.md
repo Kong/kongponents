@@ -116,6 +116,14 @@ An array of time frame values to be displayed as buttons in the "Relative" secti
 
 Width of the trigger element. Defaults to `100%`.
 
+### disabled
+
+Boolean to disable the input component. Defaults to `false`.
+
+### popoverPlacement
+
+Prop to define the positioning of the popover in relation to the trigger element (see [KPopover placement prop](/components/popover#placement) for details). Default value is `bottomStart`.
+
 ## Examples
 
 ### Single date
