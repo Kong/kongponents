@@ -18,6 +18,7 @@
           <div
             v-if="title || $slots.title"
             class="slideout-title"
+            data-testid="slideout-title"
           >
             <slot name="title">
               {{ title }}
