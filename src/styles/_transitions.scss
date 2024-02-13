@@ -1,6 +1,6 @@
 @import "vars";
 
-/* 
+/*
 Kongponents Transitions 
 
 Styles for transitions using Vue native <Transition> component.
@@ -8,6 +8,8 @@ You don't need to import this file directly, it is imported by styles.scss, ther
 
 All transitions names must follow `kongponents-<name>-transition` pattern to avoid any conflicts with styles defined by the consuming apps.
 */
+
+// fade transition
 
 .kongponents-fade-transition-enter-active,
 .kongponents-fade-transition-leave-active {
@@ -17,4 +19,23 @@ All transitions names must follow `kongponents-<name>-transition` pattern to avo
 .kongponents-fade-transition-enter-from,
 .kongponents-fade-transition-leave-to {
   opacity: 0;
+}
+
+// slide in transition/animation
+
+@keyframes kongponents-slide-in-animation {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.kongponents-slide-in-transition-enter-active {
+  animation: kongponents-slide-in-animation $kongponentsTransitionDurTimingFunc;
+}
+
+.kongponents-slide-in-transition-leave-active {
+  animation: kongponents-slide-in-animation $kongponentsTransitionDurTimingFunc reverse;
 }

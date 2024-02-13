@@ -524,6 +524,25 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KSlideout
 
+#### Props
+
+* `isVisible` prop has been changed to `visible`
+* `preventCloseOnBlur` prop has been removed in favor of new `closeOnBlur` prop
+* `closeButtonAlignment` prop has been removed
+
+#### Slots
+
+* `before-title` slot has been removed
+* `after-title` slot has been removed
+
+#### Structure
+
+* `panel` class has been replaced with `slideout-container` class
+* `slideout-panel` `data-testid` attribute has been replaced with `slideout-container`
+* `k-slideout-header-content` class has been replaced with `slideout-header` class
+* `k-slideout-main-title` class and `k-slideout-title` class and `data-testid` attribute were been replaced with `slideout-title`
+* `content` class has been replaced with `slideout-content` class
+* `content-card` class has been removed
 
 ### KStepper
 

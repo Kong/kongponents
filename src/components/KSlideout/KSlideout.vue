@@ -1,79 +1,58 @@
 <template>
   <div class="k-slideout">
-    <transition name="fade">
+    <Transition name="kongponents-fade-transition">
       <div
-        v-if="isVisible"
-        :class="hasOverlay ? 'panel-background' : 'panel-background-transparent'"
+        v-if="visible"
+        class="slideout-backdrop"
+        :class="{ 'backdrop-transparent': !hasOverlay }"
       />
-    </transition>
-    <transition name="slide">
+    </Transition>
+    <Transition name="kongponents-slide-in-transition">
       <div
-        v-if="isVisible"
-        ref="slideOutRef"
-        class="panel"
-        :class="{ 'is-visible': isVisible, 'border-styles': !hasOverlay }"
-        data-testid="slideout-panel"
+        v-if="visible"
+        ref="slideoutContainerElement"
+        class="slideout-container"
+        data-testid="slideout-container"
       >
-        <div class="k-slideout-header-content">
+        <div class="slideout-header">
           <div
-            v-if="hasBeforeTitle"
-            class="k-slideout-before-title"
+            v-if="title || $slots.title"
+            class="slideout-title"
           >
-            <slot name="before-title" />
-          </div>
-
-          <!-- title -->
-          <div class="k-slideout-main-title">
-            <p
-              class="k-slideout-title"
-              data-testid="k-slideout-title"
-              :title="title"
-            >
+            <slot name="title">
               {{ title }}
-            </p>
+            </slot>
           </div>
-
-          <div
-            v-if="hasAfterTitle"
-            class="k-slideout-after-title"
-          >
-            <slot name="after-title" />
-          </div>
-        </div>
-
-        <!-- cancelButton -->
-        <button
-          :class="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
-          :data-testid="closeButtonAlignment === 'start' ? 'close-button-start' : 'close-button-end'"
-          @click="(event: any) => emit('close')"
-        >
-          <KIcon
-            :color="KUI_COLOR_TEXT_NEUTRAL_STRONGER"
-            icon="close"
-            :size="KUI_ICON_SIZE_50"
+          <CloseIcon
+            class="slideout-close-icon"
+            :color="KUI_COLOR_TEXT_NEUTRAL"
+            data-testid="slideout-close-icon"
+            role="button"
+            tabindex="0"
+            title="Close"
+            @click="$emit('close')"
+            @keydown.space.prevent
+            @keyup.enter="$emit('close')"
+            @keyup.space="$emit('close')"
           />
-        </button>
-
-        <div class="content">
-          <KCard class="content-card">
-            <slot />
-          </KCard>
+        </div>
+        <div class="slideout-content">
+          <slot />
         </div>
       </div>
-    </transition>
+    </Transition>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, useSlots, ref, onMounted, onUnmounted } from 'vue'
-import KCard from '@/components/KCard/KCard.vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
+import { computed, ref, onUnmounted, watch } from 'vue'
 import useUtilities from '@/composables/useUtilities'
-import { KUI_ICON_SIZE_50, KUI_COLOR_TEXT_NEUTRAL_STRONGER } from '@kong/design-tokens'
 import { onClickOutside } from '@vueuse/core'
+import { CloseIcon } from '@kong/icons'
+import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
 
 const props = defineProps({
-  isVisible: {
+  visible: {
     type: Boolean,
     default: false,
   },
@@ -95,9 +74,9 @@ const props = defineProps({
     type: [Number, String],
     default: 0,
   },
-  preventCloseOnBlur: {
+  closeOnBlur: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   title: {
     type: String,
@@ -117,34 +96,8 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const slots = useSlots()
-const hasBeforeTitle = computed((): boolean => !!slots['before-title'])
-const hasAfterTitle = computed((): boolean => !!slots['after-title'])
 const { getSizeFromString } = useUtilities()
-const slideOutRef = ref(null)
-
-onClickOutside(
-  slideOutRef,
-  (event) => {
-    if (event.isTrusted && !props.preventCloseOnBlur) {
-      emit('close')
-    }
-  },
-)
-
-const handleClose = (e: any, forceClose = false): void => {
-  if ((props.isVisible && e.keyCode === 27) || forceClose) {
-    emit('close')
-  }
-}
-
-onMounted(() => {
-  document.addEventListener('keydown', handleClose)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('keydown', handleClose)
-})
+const slideoutContainerElement = ref<HTMLElement | null>(null)
 
 const offsetTopValue = computed((): string => {
   if (typeof props.offsetTop === 'number') {
@@ -154,141 +107,149 @@ const offsetTopValue = computed((): string => {
   return props.offsetTop
 })
 
+onClickOutside(
+  slideoutContainerElement,
+  (event) => {
+    if (event.isTrusted && props.closeOnBlur) {
+      emit('close')
+    }
+  },
+)
+
+const handleClose = (e: any, forceClose = false): void => {
+  // close on escape key
+  if ((props.visible && e.keyCode === 27) || forceClose) {
+    emit('close')
+  }
+}
+
+const toggleBodyScroll = (isScrollable: boolean): void => {
+  if (typeof document !== 'undefined') {
+    if (isScrollable) {
+      document.body.classList.remove('k-slideout-overflow-hidden')
+    } else {
+      document.body.classList.add('k-slideout-overflow-hidden')
+    }
+  }
+}
+
+const toggleEventListeners = (isActive: boolean): void => {
+  if (typeof document !== 'undefined') {
+    if (isActive) {
+      document.addEventListener('keydown', handleClose)
+    } else {
+      document.removeEventListener('keydown', handleClose)
+    }
+  }
+}
+
+watch(() => props.visible, async (visible: boolean): Promise<void> => {
+  if (visible) {
+    toggleBodyScroll(false)
+    toggleEventListeners(true)
+  } else {
+    toggleBodyScroll(true)
+    toggleEventListeners(false)
+  }
+}, { immediate: true })
+
+onUnmounted(() => {
+  toggleEventListeners(false)
+})
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/tmp-variables';
-
 .k-slideout {
-  .k-slideout-header-content {
-    display: flex;
-    .k-slideout-before-title,
-    .k-slideout-after-title {
-      margin-top: var(--kui-space-60, $kui-space-60);
-    }
-    .k-slideout-main-title {
-      // Prevents long, non-wrapping titles from triggering a horizontal scrollbar in the content area. This also allows `.k-slideout-title` to actually truncate its text content.
-      min-width: 0;
-
-      .k-slideout-title {
-        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-        flex:1;
-        font-size: var(--kui-font-size-40, $kui-font-size-40);
-        font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
-        line-height: var(--kui-line-height-40, $kui-line-height-40);
-        margin-left: var(--kui-space-50, $kui-space-50);
-        margin-right: var(--kui-space-100, $kui-space-100);
-        margin-top: var(--kui-space-60, $kui-space-60);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-    }
-  }
-  .panel {
+  .slideout-container {
     background-color: var(--kui-color-background, $kui-color-background);
+    border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    box-shadow: var(--kui-shadow, $kui-shadow);
     display: flex;
     flex-direction: column;
+    gap: var(--kui-space-50, $kui-space-50);
     height: calc(100vh - v-bind('offsetTopValue'));
     max-width: v-bind('props.maxWidth');
     overflow-y: auto;
+    padding: var(--kui-space-70, $kui-space-70);
+    padding-right: var(--kui-space-0, $kui-space-0); // remove padding-right so header and content containers set their own so that scroll bar is all the way to the right
     position: fixed;
     right: 0;
     top: v-bind('offsetTopValue');
     width: 100%;
     z-index: 9999;
 
-    .close-button-start {
-      align-self: flex-start;
-      background: none;
-      border: none;
-      cursor: pointer;
+    .slideout-header {
       display: flex;
-      height: auto;
-      margin-left: var(--kui-space-50, $kui-space-50);
-      margin-top: var(--kui-space-50, $kui-space-50);
-      outline: inherit;
-      position: absolute;
-      transition: $tmp-animation-timing-2 ease;
+      justify-content: space-between;
+      padding-right: var(--kui-space-70, $kui-space-70);
 
-      &:focus{
-        box-shadow: 0 0 0 2px var(--kui-color-border-primary, $kui-color-border-primary);
+      .slideout-title {
+        display: flex;
+        flex: 1;
+        font-family: var(--kui-font-family-text, $kui-font-family-text);
+        font-size: var(--kui-font-size-60, $kui-font-size-60);
+        font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+        gap: var(--kui-space-40, $kui-space-40);
+        letter-spacing: var(--kui-letter-spacing-minus-40, $kui-letter-spacing-minus-40);
+        line-height: var(--kui-line-height-50, $kui-line-height-50);
+        user-select: none;
+
+        :deep(#{$kongponentsKongIconSelector}) {
+          color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
+        }
+      }
+
+      .slideout-close-icon {
+        border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+        cursor: pointer;
+        margin-left: auto;
+        // margin-top: var(--kui-space-10, $kui-space-10);
+        outline: none;
+
+        &:hover, &:focus {
+          color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
+        }
+
+        &:focus-visible {
+          box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+        }
       }
     }
 
-    .close-button-end {
-      align-self: flex-end;
-      background: none;
-      border: none;
-      cursor: pointer;
+    .slideout-content {
+      box-sizing: border-box;
+      color: var(--kui-color-text, $kui-color-text);
       display: flex;
-      height: auto;
-      margin-right: var(--kui-space-50, $kui-space-50);
-      margin-top: var(--kui-space-50, $kui-space-50);
-      outline: inherit;
-      position: absolute;
-      transition: $tmp-animation-timing-2 ease;
-
-      &:focus{
-        box-shadow: 0 0 0 2px var(--kui-color-border-primary, $kui-color-border-primary);
-      }
-    }
-
-    .content {
-      height: 100%;
-      -ms-overflow-style: none;  // IE 10+
-      scrollbar-width: none;  // Firefox
-      &::-webkit-scrollbar {
-        display: none;
-      }
-
-      .content-card {
-        border: none;
-      }
+      flex-direction: column;
+      font-family: var(--kui-font-family-text, $kui-font-family-text);
+      font-size: var(--kui-font-size-30, $kui-font-size-30);
+      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+      line-height: var(--kui-line-height-30, $kui-line-height-30);
+      overflow-y: auto;
+      padding-right: var(--kui-space-70, $kui-space-70);
     }
   }
-}
 
-  .panel-background {
-    background: $tmp-color-black-45;
+  .slideout-backdrop {
+    background: var(--kui-color-background-overlay, $kui-color-background-overlay);
     bottom: 0;
     left: 0;
     position: fixed;
     right: 0;
     top: v-bind('offsetTopValue');
     z-index: 9999;
-  }
 
-  .panel-background-transparent {
-    background: transparent;
-    bottom: 0;
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: v-bind('offsetTopValue');
-    z-index: -1;
+    &.backdrop-transparent {
+      background: var(--kui-color-background-transparent, $kui-color-background-transparent);
+      z-index: -1;
+    }
   }
-
-  .border-styles {
-    border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-    box-shadow: -2px 0px 5px $tmp-color-black-5;
-  }
+}
 </style>
 
 <style lang="scss">
-// @keyframes animations need to be un-scoped
-.k-slideout {
-  @keyframes slide {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(0%); }
-  }
-
-  .slide-enter-active { animation: slide .3s cubic-bezier(1.0, 0.5, 0.8, 1.0); }
-
-  .slide-leave-active { animation: slide .3s ease reverse; }
-
-  .fade-enter-active, .fade-leave-active { transition: opacity 500ms;}
-
-  .fade-enter, .fade-leave-to { opacity: 0; }
+// keep unscoped to target body element
+body.k-slideout-overflow-hidden {
+  overflow: hidden;
 }
 </style>
