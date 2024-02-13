@@ -173,8 +173,8 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Structure
 
-* `timepicker-input` class has been changed to `datetime-picker-input`
-* `k-datetime-picker-input` `data-testid` attribute has been changed to `datetime-picker-input`
+* `timepicker-input` class has been changed to `datetime-picker-trigger`
+* `k-datetime-picker-input` `data-testid` attribute has been changed to `datetime-picker-trigger`
 * `timepicker-display` class has been changed to `datetime-picker-display`
 * `k-datetime-picker-display` `data-testid` attribute has been changed to `datetime-picker-display`
 * `k-datetime-picker-toggle` `data-testid` attribute has been changed to `datetime-picker-toggle`

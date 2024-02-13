@@ -6,6 +6,7 @@
     :style="widthStyle"
   >
     <KPop
+      :disabled="disabled"
       hide-caret
       :hide-popover="state.hidePopover"
       :placement="popoverPlacement"
@@ -13,31 +14,32 @@
       width="auto"
       @opened="state.hidePopover = false"
     >
-      <div class="datetime-picker-input-wrapper">
-        <span
-          class="datetime-picker-display"
-          :class="{ 'has-icon': icon, 'disabled': disabled }"
-          data-testid="datetime-picker-display"
-          v-html="state.abbreviatedDisplay"
-        />
-
-        <KInput
-          class="datetime-picker-input"
-          data-testid="datetime-picker-input"
-          :disabled="disabled"
-          readonly
+      <div
+        class="datetime-picker-trigger-wrapper"
+        :class="{ 'disabled': disabled }"
+      >
+        <div
+          class="datetime-picker-trigger"
+          :class="{ 'disabled': disabled }"
+          data-testid="datetime-picker-trigger"
+          role="button"
           :style="widthStyle"
+          :tabindex="disabled ? -1 : 0"
         >
-          <template
-            v-if="icon"
-            #before
-          >
-            <CalIcon
-              class="calendar-icon"
-              decorative
-            />
-          </template>
-        </KInput>
+          <span
+            class="datetime-picker-display"
+            :class="{ 'has-icon': icon, 'disabled': disabled }"
+            data-testid="datetime-picker-display"
+            v-html="state.abbreviatedDisplay"
+          />
+        </div>
+        <CalIcon
+          v-if="icon"
+          class="calendar-icon"
+          :color="KUI_COLOR_TEXT_NEUTRAL"
+          decorative
+          :size="KUI_ICON_SIZE_40"
+        />
       </div>
 
       <template
@@ -142,7 +144,6 @@ import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 import { DatePicker } from 'v-calendar'
-import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.vue'
@@ -151,6 +152,7 @@ import { ModeArray, ModeArrayCustom, ModeArrayRelative, ModeDateOnly, Timepicker
 import type { DateTimePickerState, TimeFrameSection, TimePeriod, TimeRange, Mode, CSSProperties, DatePickerModel, ButtonAppearance, PopPlacements } from '@/types'
 import { CalIcon } from '@kong/icons'
 import useUtilities from '@/composables/useUtilities'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 const { getSizeFromString } = useUtilities()
 
@@ -584,51 +586,58 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
     }
   }
 
-  .datetime-picker-input-wrapper {
+  .datetime-picker-trigger-wrapper {
     position: relative;
 
-    .datetime-picker-input {
-      :deep(.k-input:read-only) {
-        @include inputDefaults;
-        cursor: pointer;
+    .datetime-picker-trigger {
+      @include inputDefaults;
 
-        &:hover {
-          @include inputHover;
+      cursor: pointer;
+      display: inline-flex;
+
+      &:hover {
+        @include inputHover;
+      }
+
+      &:focus {
+        @include inputFocus;
+      }
+
+      &.disabled {
+        @include inputDisabled;
+        pointer-events: none;
+
+        .datetime-picker-display {
+          color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
         }
+      }
 
-        &:focus {
-          @include inputFocus;
-        }
+      .datetime-picker-display {
+        @include inputText;
 
-        &:disabled {
-          @include inputDisabled;
+        display: flex;
+        flex-wrap: wrap;
+        pointer-events: none;
+        white-space: nowrap;
+
+        &.has-icon {
+          // icon size + icon spacing
+          /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+          margin-left: calc(var(--kui-icon-size-40, $kui-icon-size-40) + var(--kui-space-40, $kui-space-40));
         }
       }
     }
 
-    .datetime-picker-display {
-      @include inputText;
-
-      display: inline-flex;
-      left: 0;
-      margin-left: $kDateTimePickerInputPaddingX;
-      margin-top: $kDateTimePickerInputPaddingY;
-      max-width: 90%;
+    .calendar-icon {
+      left: $kDateTimePickerInputPaddingX;
+      margin-top: 2px; // align icon vertically with input text
       pointer-events: none;
       position: absolute;
-      top: 0;
-      z-index: 1;
+      top: $kDateTimePickerInputPaddingY;
+    }
 
-      &.has-icon {
-        // default spacing + icon size + icon spacing
-        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-        margin-left: calc($kDateTimePickerInputPaddingX + var(--kui-icon-size-40, $kui-icon-size-40) + var(--kui-space-40, $kui-space-40));
-        max-width: 80%;
-      }
-
-      &.disabled {
-        color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
-      }
+    &.disabled {
+      cursor: not-allowed;
     }
   }
 

@@ -54,7 +54,7 @@ const emptyTimeRange = {
   timePeriodKey: null,
 }
 
-const timepickerInput = 'datetime-picker-input'
+const timepickerInput = 'datetime-picker-trigger'
 const timepickerDisplay = 'datetime-picker-display'
 const submitButton = 'datetime-picker-submit'
 const clearButton = 'datetime-picker-clear'
