@@ -21,7 +21,7 @@
   font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   line-height: var(--kui-line-height-40, $kui-line-height-40); // $kTextAreaLineHeight
 
-  @media (max-width: $kui-breakpoint-mobile) {
+  @media (min-width: $kui-breakpoint-mobile) {
     font-size: var(--kui-font-size-30, $kui-font-size-30);
   }
 }

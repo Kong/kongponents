@@ -128,7 +128,10 @@
         is-subtitle
         title="Usage"
       />
-      <SandboxSectionComponent title="popoverPlacement">
+      <SandboxSectionComponent
+        description="When range is selected, in narrow spaces KDateTimePicker should wrap to next line."
+        title="Wrapping to next line"
+      >
         <div class="between-container">
           <div class="full-width-sibling">
             <p>Full-width sibling</p>
