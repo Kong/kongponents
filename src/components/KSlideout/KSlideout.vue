@@ -170,8 +170,7 @@ onUnmounted(() => {
     height: calc(100vh - v-bind('offsetTopValue'));
     max-width: v-bind('props.maxWidth');
     overflow-y: auto;
-    padding: var(--kui-space-70, $kui-space-70);
-    padding-right: var(--kui-space-0, $kui-space-0); // remove padding-right so header and content containers set their own so that scroll bar is all the way to the right
+    padding: var(--kui-space-70, $kui-space-70) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0) var(--kui-space-70, $kui-space-70);
     position: fixed;
     right: 0;
     top: v-bind('offsetTopValue');
