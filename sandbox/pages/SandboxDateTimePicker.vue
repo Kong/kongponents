@@ -112,6 +112,7 @@
         <KDateTimePicker
           mode="dateTime"
           placeholder="Select a date and time"
+          range
           width="300"
         />
       </SandboxSectionComponent>
@@ -120,6 +121,26 @@
           disabled
           mode="dateTime"
         />
+      </SandboxSectionComponent>
+
+      <!-- Usage -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Usage"
+      />
+      <SandboxSectionComponent title="popoverPlacement">
+        <div class="between-container">
+          <div class="full-width-sibling">
+            <p>Full-width sibling</p>
+          </div>
+          <div>
+            <KDateTimePicker
+              mode="dateTime"
+              popover-placement="bottomEnd"
+              range
+            />
+          </div>
+        </div>
       </SandboxSectionComponent>
     </div>
   </SandboxLayout>
@@ -133,3 +154,28 @@ import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 const maxDate = new Date()
 maxDate.setMonth(new Date().getMonth() + 3)
 </script>
+
+<style lang="scss" scoped>
+.kdatetimepicker-sandbox {
+  .between-container {
+    display: flex;
+    gap: $kui-space-50;
+    justify-content: space-between;
+
+    .full-width-sibling {
+      align-items: center;
+      background-color: $kui-color-background-danger-weaker;
+      border-radius: $kui-border-radius-20;
+      display: flex;
+      overflow: auto;
+      padding: $kui-space-40;
+      resize: horizontal;
+      width: 100%;
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+}
+</style>
