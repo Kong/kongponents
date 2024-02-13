@@ -5,23 +5,20 @@
     :href="href"
     rel="noopener"
     target="_blank"
-    @mouseleave="isMouseOver = false"
-    @mouseover="isMouseOver = true"
   >
     <slot />
-    <KIcon
+    <ExternalLinkIcon
       v-if="!hideIcon"
-      :color="iconColor"
-      icon="externalLink"
-      size="12"
+      :size="KUI_ICON_SIZE_40"
     />
   </a>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { KUI_COLOR_TEXT_PRIMARY, KUI_COLOR_TEXT_PRIMARY_STRONG } from '@kong/design-tokens'
+import { computed } from 'vue'
+import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { isValidUrl } from '@/utilities/urls'
+import { ExternalLinkIcon } from '@kong/icons'
 
 const props = defineProps({
   href: {
@@ -36,26 +33,30 @@ const props = defineProps({
 })
 
 const isHrefValid = computed((): boolean => !!isValidUrl(props.href))
-
-const isMouseOver = ref(false)
-const iconColor = computed((): string => isMouseOver.value ? `var(--kui-color-text-primary-strong, ${KUI_COLOR_TEXT_PRIMARY_STRONG})` : `var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})`)
 </script>
 
 <style lang="scss" scoped>
-
 .k-external-link {
   align-items: center;
   color: var(--kui-color-text-primary, $kui-color-text-primary);
   display: inline-flex;
+  font-size: inherit;
   font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+  gap: var(--kui-space-20, $kui-space-20);
+  list-style: inherit;
+  outline: none;
   text-decoration: none;
 
   &:hover {
     color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
   }
 
-  .kong-icon {
-    margin-left: var(--kui-space-40, $kui-space-40);
+  &:focus-visible {
+    color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+  }
+
+  &:active {
+    color: var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest);
   }
 }
 </style>

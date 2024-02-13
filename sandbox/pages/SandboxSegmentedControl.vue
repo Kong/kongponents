@@ -100,7 +100,7 @@
         />
       </SandboxSectionComponent>
 
-      <!-- Props -->
+      <!-- Slots -->
       <SandboxTitleComponent
         is-subtitle
         title="Slots"

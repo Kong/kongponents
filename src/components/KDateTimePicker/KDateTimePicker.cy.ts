@@ -54,10 +54,11 @@ const emptyTimeRange = {
   timePeriodKey: null,
 }
 
-const timepickerInput = 'k-datetime-picker-input'
-const submitButton = 'k-datetime-picker-submit'
-const clearButton = 'k-datetime-picker-clear'
-const segmentedToggle = 'k-datetime-picker-toggle'
+const timepickerInput = 'datetime-picker-trigger'
+const timepickerDisplay = 'datetime-picker-display'
+const submitButton = 'datetime-picker-submit'
+const clearButton = 'datetime-picker-clear'
+const segmentedToggle = 'datetime-picker-toggle'
 
 describe('KDateTimePicker', () => {
   it('renders without calendar icon', () => {
@@ -71,7 +72,7 @@ describe('KDateTimePicker', () => {
     })
 
     cy.getTestId(timepickerInput).should('exist')
-    cy.getTestId(timepickerInput).find('.kong-icon').should('not.exist')
+    cy.getTestId(timepickerInput).find('.calendar-icon').should('not.exist')
     cy.getTestId(clearButton).should('not.exist')
   })
 
@@ -88,7 +89,7 @@ describe('KDateTimePicker', () => {
 
     cy.getTestId(timepickerInput).should('exist')
     cy.getTestId(clearButton).should('exist')
-    cy.getTestId(timepickerInput).should('contain.text', todayDateTimeString)
+    cy.getTestId(timepickerDisplay).should('contain.text', todayDateTimeString)
   })
 
   it('renders a date picker with placeholder message and correct width', () => {
@@ -115,7 +116,7 @@ describe('KDateTimePicker', () => {
     wrapper.should('be.visible')
     cy.getTestId(clearButton).should('exist')
     cy.getTestId(clearButton).eq(0).click()
-    cy.getTestId(timepickerInput).should('contain.text', placeholderText)
+    cy.getTestId(timepickerDisplay).should('contain.text', placeholderText)
   })
 
   it('renders a date picker', () => {
@@ -144,7 +145,7 @@ describe('KDateTimePicker', () => {
     cy.getTestId(timepickerInput).click()
     cy.get('.vc-pane-container').should('exist')
     cy.get('.vc-pane-container').find('.vc-time-picker').should('exist')
-    cy.getTestId(timepickerInput).find('.timepicker-display').should('contain.text', todayDateTimeString)
+    cy.getTestId(timepickerDisplay).should('contain.text', todayDateTimeString)
   })
 
   it('renders a range date and time picker', () => {
@@ -217,7 +218,7 @@ describe('KDateTimePicker', () => {
     cy.getTestId(submitButton).eq(0).click()
 
     // Check emitted raw date value, and the displayed value - should be the same, if rounded
-    cy.getTestId(timepickerInput).find('.timepicker-display').should('contain.text', todayDateString)
+    cy.getTestId(timepickerDisplay).should('contain.text', todayDateString)
   })
 
   it('renders relative time frames, and makes a selection', () => {
@@ -236,7 +237,7 @@ describe('KDateTimePicker', () => {
 
     // Click on "6 hours", check whether selected class is applied
     cy.getTestId('select-timeframe-21600000').click()
-    cy.get('.k-popover-content').find('.timeframe-btn.selected-option').should('contain.text', '6 hours')
+    cy.get('.k-popover-content').find('.timeframe-button.primary').should('contain.text', '6 hours')
   })
 
   it('renders custom calendar and relative time frames', { includeShadowDom: false }, () => {
@@ -288,7 +289,7 @@ describe('KDateTimePicker', () => {
       },
     })
 
-    cy.getTestId(timepickerInput).find('.timepicker-display').should('contain.text', todayDateString)
+    cy.getTestId(timepickerDisplay).should('contain.text', todayDateString)
   })
 
   it('renders relativeDateTime calendar and displays time range in `PP hh:mm a` format', () => {
@@ -300,7 +301,7 @@ describe('KDateTimePicker', () => {
       },
     })
 
-    cy.getTestId(timepickerInput).find('.timepicker-display').should('contain.text', todayDateTimeString)
+    cy.getTestId(timepickerDisplay).should('contain.text', todayDateTimeString)
   })
 
   it('renders calendar, even if seeded with an invalid date range', () => {
@@ -322,7 +323,7 @@ describe('KDateTimePicker', () => {
     cy.get('.k-datetime-picker .vc-pane-container .vc-weeks').should('exist')
     cy.get('.k-datetime-picker .vc-pane-container .vc-time-picker').should('not.exist')
 
-    cy.getTestId(timepickerInput).find('.timepicker-display').should('contain.text', placeholderText)
+    cy.getTestId(timepickerDisplay).should('contain.text', placeholderText)
 
     // "Apply" button should be disabled
     cy.getTestId(submitButton).should('be.disabled')
@@ -331,6 +332,6 @@ describe('KDateTimePicker', () => {
     cy.getTestId(segmentedToggle).find('button[data-testid="relative-option"]').eq(0).click()
     cy.getTestId('select-timeframe-86400000').click()
     cy.getTestId(submitButton).eq(0).click()
-    cy.getTestId(timepickerInput).find('.timepicker-display').should('contain.text', 'Last 24 hours')
+    cy.getTestId(timepickerDisplay).should('contain.text', 'Last 24 hours')
   })
 })

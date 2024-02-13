@@ -248,7 +248,7 @@
               Docs
               <KTooltip
                 class="dropdown-item-content-end"
-                label="This is a tooltip"
+                text="This is a tooltip"
               >
                 <InfoIcon />
               </KTooltip>
@@ -323,7 +323,7 @@
               Docs
               <KTooltip
                 class="dropdown-item-content-end"
-                label="This is a tooltip"
+                text="This is a tooltip"
               >
                 <InfoIcon />
               </KTooltip>

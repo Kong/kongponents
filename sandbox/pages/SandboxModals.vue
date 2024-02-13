@@ -4,6 +4,12 @@
     title="KModal & KPrompt"
   >
     <div class="kmodals-sandbox">
+      <SandboxSectionComponent>
+        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=1292%3A5056&mode=dev&t=7C3HUCeWQiS7AhA7-1">
+          Figma
+        </KExternalLink>
+      </SandboxSectionComponent>
+
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
