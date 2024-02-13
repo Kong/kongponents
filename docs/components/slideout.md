@@ -338,7 +338,7 @@ Slot for custom title.
 
 ### close
 
-Emitted when the close button is clicked, anything outside the slideout content area is clicked (when [`closeOnBlur` prop](#closeonblur) is set to `false`), or the `esc` key is pressed.
+Emitted when the close icon is clicked, anything outside the slideout content area is clicked (when [`closeOnBlur` prop](#closeonblur) is set to `false`), or the `esc` key is pressed.
 
 <script setup lang="ts">
 import { KongIcon } from '@kong/icons'
