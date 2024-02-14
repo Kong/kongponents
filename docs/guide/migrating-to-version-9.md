@@ -570,6 +570,21 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KToaster
 
+#### Attributes
+
+#### Structure
+
+* `toaster-container-outer` class has been replaced with `k-toaster`
+* `toaster-item` class has been replaced with `toast`
+* `message` class has been replaced with `toast-message`
+
+#### Constants, Types & Interfaces
+
+* `toasterAppearances` constant has been renamed to `ToasterAppearances`
+* `Toast` interface changes:
+  * `title` property has been added
+  * `message` property became optional
+  * `appearances` property is no longer an instance of `AlertAppearance` type - instead it is an instance of new `ToasterAppearance` type
 
 ### KTooltip
 

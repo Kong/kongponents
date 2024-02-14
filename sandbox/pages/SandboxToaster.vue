@@ -15,11 +15,13 @@
         is-subtitle
         title="Props"
       />
-      <SandboxSectionComponent title="title">
-        <!-- TODO -->
-      </SandboxSectionComponent>
       <SandboxSectionComponent title="message">
         <KButton @click="openToaster('message')">
+          KToaster
+        </KButton>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="title">
+        <KButton @click="openToaster('title')">
           KToaster
         </KButton>
       </SandboxSectionComponent>
@@ -58,15 +60,6 @@
           KToaster
         </KButton>
       </SandboxSectionComponent>
-
-      <!-- Slots -->
-      <SandboxTitleComponent
-        is-subtitle
-        title="Slots"
-      />
-      <SandboxSectionComponent title="default">
-        <!-- TODO -->
-      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
@@ -83,31 +76,67 @@ const toaster = new ToastManager()
 
 const openToaster = (argument: string) => {
   let options: Toast = {
+    title: 'Toaster',
     appearance: 'info',
     message: 'This is a toaster',
   }
 
   switch (argument) {
     case 'message':
-      options = { message: 'This is toaster message', appearance: 'info' }
+      options = {
+        title: 'Toaster',
+        message: 'This is toaster message',
+        appearance: 'info',
+      }
+      break
+    case 'title':
+      options = {
+        title: 'Toast with truncated title and no message',
+        appearance: 'system',
+      }
       break
     case 'appearance:info':
-      options = { message: 'This is info toaster', appearance: 'info' }
+      options = {
+        title: 'Info',
+        message: 'This is info toaster',
+        appearance: 'info',
+      }
       break
     case 'appearance:success':
-      options = { message: 'This is success toaster', appearance: 'success' }
+      options = {
+        title: 'Success',
+        message: 'This is success toaster',
+        appearance: 'success',
+      }
       break
     case 'appearance:danger':
-      options = { message: 'This is danger toaster', appearance: 'danger' }
+      options = {
+        title: 'Danger',
+        message: 'This is danger toaster',
+        appearance: 'danger',
+      }
       break
     case 'appearance:warning':
-      options = { message: 'This is warning toaster', appearance: 'warning' }
+      options = {
+        title: 'Warning',
+        message: 'This is warning toaster',
+        appearance: 'warning',
+      }
       break
-    // case 'appearance:system':
-    //   options = { message: 'This is system toaster', appearance: 'system' }
-    //   break
+    case 'appearance:system':
+      options = {
+        title: 'System',
+        message: 'This is system toaster',
+        appearance: 'system',
+      }
+      break
     case 'timeout':
-      options = { message: 'This is toaster with timeout (10s)', appearance: 'info', timeoutMilliseconds: 10000 }
+      options = {
+        title: 'Timeout',
+        message: 'This is toaster with timeout (10s)',
+        appearance: 'info',
+        timeoutMilliseconds: 10000,
+      }
       break
   }
 

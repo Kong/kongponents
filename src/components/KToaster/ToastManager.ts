@@ -1,15 +1,15 @@
 import KToaster from './KToaster.vue'
 import type { Ref } from 'vue'
 import { createApp, h, ref } from 'vue'
-import type { AlertAppearance, Toast } from '@/types'
-import { toasterAppearances } from '@/types'
+import type { ToasterAppearance, Toast } from '@/types'
+import { ToasterAppearances } from '@/types'
 
-const APPEARANCES = Object.keys(toasterAppearances)
+const APPEARANCES = Object.keys(ToasterAppearances)
 
 const DEFAULTS = {
   id: 'toaster-container',
   timeout: 5000,
-  appearance: toasterAppearances.info,
+  appearance: ToasterAppearances.info,
 }
 
 export default class ToastManager {
@@ -52,17 +52,18 @@ export default class ToastManager {
   open(args: Record<string, any> | string): void {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const { key, timeoutMilliseconds, appearance, message } = args
+    const { key, timeoutMilliseconds, appearance, message, title } = args
 
     const _key: any = key || (this.toasters.value.length) + new Date().getTime()
-    const _appearance: AlertAppearance = (appearance && APPEARANCES.indexOf(appearance) !== -1) ? appearance : this.appearance
+    const _appearance: ToasterAppearance = (appearance && APPEARANCES.indexOf(appearance) !== -1) ? appearance : this.appearance
     const timer: number = this.setTimer(_key, timeoutMilliseconds || this.timeout)
 
     // Add toaster to state
     this.toasters.value.push({
       key: _key,
       appearance: _appearance,
-      message: message || args,
+      title: title || _appearance.charAt(0).toUpperCase() + _appearance.slice(1),
+      message: message || '',
       timer,
       timeoutMilliseconds: timeoutMilliseconds || this.timeout,
     })
