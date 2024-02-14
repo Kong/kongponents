@@ -532,8 +532,8 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 #### Slots
 
-* `before-title` slot has been removed
-* `after-title` slot has been removed
+* `before-title` slot has been removed (you can use the newly added `title` slot instead)
+* `after-title` slot has been removed (you can use the newly added `title` slot instead)
 
 #### Structure
 
