@@ -576,7 +576,7 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 * `toaster-container-outer` class has been replaced with `k-toaster`
 * `toaster-item` class has been replaced with `toast`
-* `message` class has been replaced with `toast-message`
+* `message` and `k-alert-msg` classes has been replaced with `toast-message`
 
 #### Constants, Types & Interfaces
 

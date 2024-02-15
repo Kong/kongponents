@@ -63,7 +63,7 @@ export default class ToastManager {
       key: _key,
       appearance: _appearance,
       title: title || _appearance.charAt(0).toUpperCase() + _appearance.slice(1),
-      message: message || '',
+      message: message || args,
       timer,
       timeoutMilliseconds: timeoutMilliseconds || this.timeout,
     })

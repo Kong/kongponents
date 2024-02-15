@@ -15,10 +15,10 @@ describe('KToaster', () => {
   describe('KToaster.vue', () => {
     it('renders toaster', () => {
       const toasts = []
-      toasts.push({ message: 'hey toasty' })
-      toasts.push({ appearance: 'success', message: 'hey toasty' })
-      toasts.push({ appearance: 'danger', message: 'hey toasty' })
-      toasts.push({ appearance: 'danger', message: 'hey toasty' })
+      toasts.push({ title: 'I have a toast', message: 'hey toasty' })
+      toasts.push({ title: 'I have a toast', appearance: 'success', message: 'hey toasty' })
+      toasts.push({ title: 'I have a toast', appearance: 'danger', message: 'hey toasty' })
+      toasts.push({ title: 'I have a toast', appearance: 'danger', message: 'hey toasty' })
 
       mount(KToaster, {
         props: {
@@ -28,7 +28,38 @@ describe('KToaster', () => {
 
       cy.get('body').find('div[role="alert"].success').its('length').should('eq', 1)
       cy.get('body').find('div[role="alert"].danger').its('length').should('eq', 2)
-      cy.get('body').find('.toaster-item div.k-alert-msg').its('length').should('eq', 4)
+      cy.get('body').find('.toast .toast-message').its('length').should('eq', 4)
+    })
+
+    it('renders all elements in toaster correctly - message passed', () => {
+      const title = 'I have a toast'
+      const message = 'hey toasty'
+
+      mount(KToaster, {
+        props: {
+          toasterState: [{ title, message }],
+        },
+      })
+
+      cy.get('.toast .toast-icon').should('be.visible')
+      cy.get('.toast .toast-title').contains(title)
+      cy.get('.toast .toast-message').contains(message)
+      cy.get('.toast .toast-close-icon').should('be.visible')
+    })
+
+    it('renders all elements in toaster correctly - message not passed', () => {
+      const title = 'I have a toast'
+
+      mount(KToaster, {
+        props: {
+          toasterState: [{ title }],
+        },
+      })
+
+      cy.get('.toast .toast-icon').should('be.visible')
+      cy.get('.toast .toast-title').contains(title)
+      cy.get('.toast .toast-message').should('not.exist')
+      cy.get('.toast .toast-close-icon').should('be.visible')
     })
   })
 
@@ -37,12 +68,12 @@ describe('KToaster', () => {
       tm.open('hey toasty')
       tm.open({ message: 'yo toasty' })
       tm.open({ key: 2, message: 'there has been an alert' })
-      cy.get('body .toaster-item').its('length').should('eq', 3)
+      cy.get('body .toast').its('length').should('eq', 3)
     })
 
-    it('opens toasters - invalid appearance', () => {
-      tm.open({ message: 'invalid appearance', appearance: 'info' })
-      cy.get('body .toaster-item').its('length').should('eq', 1)
+    it('handles invalid appearance', () => {
+      tm.open({ message: 'invalid appearance', appearance: 'invalid' })
+      cy.get('body .toast').its('length').should('eq', 1)
 
       cy.wrap(tm.toasters.value).its('length').should('eq', 1)
       cy.wrap(tm.toasters.value[0].appearance).should('eq', 'info')

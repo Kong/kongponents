@@ -9,6 +9,7 @@
       :key="toast.key"
       class="toast"
       :class="`${toast.appearance}`"
+      role="alert"
     >
       <div class="toast-header">
         <div class="toast-icon-container">
