@@ -66,13 +66,13 @@ describe('KToaster', () => {
   describe('ToastManager', () => {
     it('opens toasters', () => {
       tm.open('hey toasty')
-      tm.open({ message: 'yo toasty' })
-      tm.open({ key: 2, message: 'there has been an alert' })
+      tm.open({ title: 'hey toasty', message: 'yo toasty' })
+      tm.open({ title: 'hey toasty', key: 2, message: 'there has been an alert' })
       cy.get('body .toast').its('length').should('eq', 3)
     })
 
     it('handles invalid appearance', () => {
-      tm.open({ message: 'invalid appearance', appearance: 'invalid' })
+      tm.open({ title: 'hey toasty', message: 'invalid appearance', appearance: 'invalid' })
       cy.get('body .toast').its('length').should('eq', 1)
 
       cy.wrap(tm.toasters.value).its('length').should('eq', 1)
@@ -93,10 +93,10 @@ describe('KToaster', () => {
     })
 
     it('dismisses toasters after timeout per toast', () => {
-      tm.open({ message: 'hey toasty', timeoutMilliseconds: 1000 })
-      tm.open({ message: 'hey toasty', timeoutMilliseconds: 2000 })
-      tm.open({ message: 'hey toasty', timeoutMilliseconds: 3000 })
-      tm.open({ message: 'hey toasty' }) // default 5000 milliseconds
+      tm.open({ title: 'hey toasty', timeoutMilliseconds: 1000 })
+      tm.open({ title: 'hey toasty', timeoutMilliseconds: 2000 })
+      tm.open({ title: 'hey toasty', timeoutMilliseconds: 3000 })
+      tm.open('hey toasty') // default 5000 milliseconds
 
       cy.wrap(tm.toasters.value).its('length').should('eq', 4).then(() => {
         cy.wait(1000)
@@ -114,8 +114,8 @@ describe('KToaster', () => {
     })
 
     it('closes toasters', () => {
-      tm.open({ key: '#123', message: 'hey toasty' })
-      tm.open({ key: '#345', message: 'another toasty message' })
+      tm.open({ title: 'hey toasty', key: '#123', message: 'hey toasty' })
+      tm.open({ title: 'hey toasty', key: '#345', message: 'another toasty message' })
 
       cy.wrap(tm.toasters.value).its('length').should('eq', 2).then(() => {
         tm.close('#345')

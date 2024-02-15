@@ -16,9 +16,17 @@
         title="Props"
       />
       <SandboxSectionComponent title="message">
-        <KButton @click="openToaster('message')">
-          KToaster
-        </KButton>
+        <div class="horizontal-container">
+          <KButton @click="openToaster('message:object')">
+            KToaster
+          </KButton>
+          <KButton
+            appearance="secondary"
+            @click="openToaster('message:string')"
+          >
+            KToaster
+          </KButton>
+        </div>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="title">
         <KButton @click="openToaster('title')">
@@ -75,19 +83,22 @@ import { InfoIcon, CheckCircleIcon, WarningIcon, ClearIcon, KongIcon } from '@ko
 const toaster = new ToastManager()
 
 const openToaster = (argument: string) => {
-  let options: Toast = {
+  let options: string | Toast = {
     title: 'Toaster',
     appearance: 'info',
     message: 'This is a toaster',
   }
 
   switch (argument) {
-    case 'message':
+    case 'message:object':
       options = {
         title: 'Toaster',
-        message: 'This is toaster message',
+        message: 'This is toaster message (object)',
         appearance: 'info',
       }
+      break
+    case 'message:string':
+      options = 'This is toaster message (string)'
       break
     case 'title':
       options = {

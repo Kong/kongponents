@@ -2,11 +2,11 @@ export type ToasterAppearance = 'info' | 'success' | 'danger' | 'warning' | 'sys
 
 export interface Toast {
   key?: any // unique identifier of toaster
-  appearance?: ToasterAppearance
   title: string // Title of toaster
   message?: string // Text to display in toaster
-  timer?: any
+  appearance?: ToasterAppearance
   timeoutMilliseconds?: number
+  timer?: any
 }
 
 export type ToasterAppearancesRecord = Record<ToasterAppearance, ToasterAppearance>
