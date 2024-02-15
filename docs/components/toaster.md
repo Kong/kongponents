@@ -196,7 +196,7 @@ You can view the current state of active toasters by calling `this.$toaster.toas
   </KButton>
 </div>
 
-<pre>
+<pre class="fixed-height-data-container">
   {{ JSON.stringify(toasters || [], null, 2) }}
 </pre>
 
@@ -254,5 +254,10 @@ const openNotificationElapse = (options: Toast | string): void => {
 .horizontal-container {
   display: flex;
   gap: $kui-space-50;
+}
+
+.fixed-height-data-container {
+  height: 300px;
+  overflow-y: auto;
 }
 </style>
