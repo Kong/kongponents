@@ -349,7 +349,8 @@ import { KongIcon } from '@kong/icons'
 <style lang="scss" scoped>
 .default-slot-example {
   p {
-    margin: 0;
+    margin-top: $kui-space-0;
+    margin-bottom: $kui-space-40;
   }
 }
 </style>
