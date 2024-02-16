@@ -15,10 +15,10 @@ describe('KToaster', () => {
   describe('KToaster.vue', () => {
     it('renders toaster', () => {
       const toasts = []
-      toasts.push({ message: 'hey toasty' })
-      toasts.push({ appearance: 'success', message: 'hey toasty' })
-      toasts.push({ appearance: 'danger', message: 'hey toasty' })
-      toasts.push({ appearance: 'danger', message: 'hey toasty' })
+      toasts.push({ title: 'I have a toast', message: 'hey toasty' })
+      toasts.push({ title: 'I have a toast', appearance: 'success', message: 'hey toasty' })
+      toasts.push({ title: 'I have a toast', appearance: 'danger', message: 'hey toasty' })
+      toasts.push({ title: 'I have a toast', appearance: 'danger', message: 'hey toasty' })
 
       mount(KToaster, {
         props: {
@@ -28,21 +28,52 @@ describe('KToaster', () => {
 
       cy.get('body').find('div[role="alert"].success').its('length').should('eq', 1)
       cy.get('body').find('div[role="alert"].danger').its('length').should('eq', 2)
-      cy.get('body').find('.toaster-item div.k-alert-msg').its('length').should('eq', 4)
+      cy.get('body').find('.toaster .toaster-message').its('length').should('eq', 4)
+    })
+
+    it('renders all elements in toaster correctly - message passed', () => {
+      const title = 'I have a toast'
+      const message = 'hey toasty'
+
+      mount(KToaster, {
+        props: {
+          toasterState: [{ title, message }],
+        },
+      })
+
+      cy.get('.toaster .toaster-icon').should('be.visible')
+      cy.get('.toaster .toaster-title').contains(title)
+      cy.get('.toaster .toaster-message').contains(message)
+      cy.get('.toaster .toaster-close-icon').should('be.visible')
+    })
+
+    it('renders all elements in toaster correctly - message not passed', () => {
+      const title = 'I have a toast'
+
+      mount(KToaster, {
+        props: {
+          toasterState: [{ title }],
+        },
+      })
+
+      cy.get('.toaster .toaster-icon').should('be.visible')
+      cy.get('.toaster .toaster-title').contains(title)
+      cy.get('.toaster .toaster-message').should('not.exist')
+      cy.get('.toaster .toaster-close-icon').should('be.visible')
     })
   })
 
   describe('ToastManager', () => {
     it('opens toasters', () => {
       tm.open('hey toasty')
-      tm.open({ message: 'yo toasty' })
-      tm.open({ key: 2, message: 'there has been an alert' })
-      cy.get('body .toaster-item').its('length').should('eq', 3)
+      tm.open({ title: 'hey toasty', message: 'yo toasty' })
+      tm.open({ title: 'hey toasty', key: 2, message: 'there has been an alert' })
+      cy.get('body .toaster').its('length').should('eq', 3)
     })
 
-    it('opens toasters - invalid appearance', () => {
-      tm.open({ message: 'invalid appearance', appearance: 'info' })
-      cy.get('body .toaster-item').its('length').should('eq', 1)
+    it('handles invalid appearance', () => {
+      tm.open({ title: 'hey toasty', message: 'invalid appearance', appearance: 'invalid' })
+      cy.get('body .toaster').its('length').should('eq', 1)
 
       cy.wrap(tm.toasters.value).its('length').should('eq', 1)
       cy.wrap(tm.toasters.value[0].appearance).should('eq', 'info')
@@ -62,10 +93,10 @@ describe('KToaster', () => {
     })
 
     it('dismisses toasters after timeout per toast', () => {
-      tm.open({ message: 'hey toasty', timeoutMilliseconds: 1000 })
-      tm.open({ message: 'hey toasty', timeoutMilliseconds: 2000 })
-      tm.open({ message: 'hey toasty', timeoutMilliseconds: 3000 })
-      tm.open({ message: 'hey toasty' }) // default 5000 milliseconds
+      tm.open({ title: 'hey toasty', timeoutMilliseconds: 1000 })
+      tm.open({ title: 'hey toasty', timeoutMilliseconds: 2000 })
+      tm.open({ title: 'hey toasty', timeoutMilliseconds: 3000 })
+      tm.open('hey toasty') // default 5000 milliseconds
 
       cy.wrap(tm.toasters.value).its('length').should('eq', 4).then(() => {
         cy.wait(1000)
@@ -83,8 +114,8 @@ describe('KToaster', () => {
     })
 
     it('closes toasters', () => {
-      tm.open({ key: '#123', message: 'hey toasty' })
-      tm.open({ key: '#345', message: 'another toasty message' })
+      tm.open({ title: 'hey toasty', key: '#123', message: 'hey toasty' })
+      tm.open({ title: 'hey toasty', key: '#345', message: 'another toasty message' })
 
       cy.wrap(tm.toasters.value).its('length').should('eq', 2).then(() => {
         tm.close('#345')
