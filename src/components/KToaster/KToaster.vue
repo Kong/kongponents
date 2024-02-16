@@ -5,38 +5,38 @@
     tag="div"
   >
     <div
-      v-for="toast in toasterState"
-      :key="toast.key"
-      class="toast"
-      :class="`${toast.appearance}`"
+      v-for="toaster in toasterState"
+      :key="toaster.key"
+      class="toaster"
+      :class="`${toaster.appearance}`"
       role="alert"
     >
-      <div class="toast-header">
-        <div class="toast-icon-container">
+      <div class="toaster-header">
+        <div class="toaster-icon-container">
           <component
-            :is="getToastIcon(toast.appearance)"
-            class="toast-icon"
+            :is="getToastIcon(toaster.appearance)"
+            class="toaster-icon"
             :color="KUI_COLOR_TEXT"
           />
         </div>
-        <span class="toast-title">
-          {{ toast.title }}
+        <span class="toaster-title">
+          {{ toaster.title }}
         </span>
         <CloseIcon
-          class="toast-close-icon"
+          class="toaster-close-icon"
           :color="KUI_COLOR_TEXT_NEUTRAL_WEAK"
-          data-testid="toast-close-icon"
+          data-testid="toaster-close-icon"
           role="button"
           :size="KUI_ICON_SIZE_50"
           tabindex="0"
-          @click="() => $emit('close', toast.key)"
+          @click="() => $emit('close', toaster.key)"
         />
       </div>
       <p
-        v-if="toast.message"
-        class="toast-message"
+        v-if="toaster.message"
+        class="toaster-message"
       >
-        {{ toast.message }}
+        {{ toaster.message }}
       </p>
     </div>
   </TransitionGroup>
@@ -91,7 +91,7 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
   width: 400px;
   z-index: 10000;
 
-  .toast {
+  .toaster {
     background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
     border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
     box-shadow: var(--kui-shadow, $kui-shadow);
@@ -102,12 +102,12 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
     padding: var(--kui-space-50, $kui-space-50);
     width: 100%;
 
-    .toast-header {
+    .toaster-header {
       align-items: center;
       display: flex;
       gap: var(--kui-space-50, $kui-space-50);
 
-      .toast-icon-container {
+      .toaster-icon-container {
         align-items: center;
         background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak); // info appearance as default in case of invalid appearance
         border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
@@ -117,7 +117,7 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
         width: 32px;
       }
 
-      .toast-title {
+      .toaster-title {
         @include truncate;
 
         flex: 1;
@@ -128,7 +128,7 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
         line-height: var(--kui-line-height-40, $kui-line-height-40);
       }
 
-      .toast-close-icon {
+      .toaster-close-icon {
         border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
         cursor: pointer;
         margin-left: var(--kui-space-auto, $kui-space-auto);
@@ -144,7 +144,7 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
       }
     }
 
-    .toast-message {
+    .toaster-message {
       font-family: var(--kui-font-family-text, $kui-font-family-text);
       font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
@@ -155,31 +155,31 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
     // appearances
 
     &.info {
-      .toast-icon-container {
+      .toaster-icon-container {
         background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
       }
     }
 
     &.success {
-      .toast-icon-container {
+      .toaster-icon-container {
         background-color: var(--kui-color-background-success-weak, $kui-color-background-success-weak);
       }
     }
 
     &.warning {
-      .toast-icon-container {
+      .toaster-icon-container {
         background-color: var(--kui-color-background-warning-weak, $kui-color-background-warning-weak);
       }
     }
 
     &.danger {
-      .toast-icon-container {
+      .toaster-icon-container {
         background-color: var(--kui-color-background-danger-weak, $kui-color-background-danger-weak);
       }
     }
 
     &.system {
-      .toast-icon-container {
+      .toaster-icon-container {
         background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
       }
     }

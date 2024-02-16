@@ -28,7 +28,7 @@ declare module 'vue' {
 }
 ```
 
-Once `ToastManager` is added as a global property, you can access it's methods via `this.$toaster`
+Once `ToastManager` is added as a global property, you can access it's methods via `this.$toaster` if using the Vue Options API.
 
 <KButton @click="$toaster.open({ title: 'Basic Notification', message: 'Detailed message' })">Open Toaster</KButton>
 
