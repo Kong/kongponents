@@ -540,6 +540,7 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `panel` class has been replaced with `slideout-container` class
 * `slideout-panel` `data-testid` attribute has been replaced with `slideout-container`
 * `k-slideout-header-content` class has been replaced with `slideout-header` class
+* `close-button-start` and `close-button-end` `data-testid` attributes have been removed. Use the `slideout-close-icon` `data-testid` attribute instead.
 * `k-slideout-main-title` class and `k-slideout-title` class and `data-testid` attribute were been replaced with `slideout-title`
 * `content` class has been replaced with `slideout-content` class
 * `content-card` class has been removed
