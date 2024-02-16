@@ -179,7 +179,8 @@ Example of using the `expand-trigger` and `collapse-trigger` slots for creating 
 
 <style lang="scss" scoped>
 .text-paragraph {
-  margin: 0;
+  margin-top: $kui-space-0;
+  margin-bottom: $kui-space-40;
 }
 
 .resizable-card {
