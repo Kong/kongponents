@@ -1086,10 +1086,10 @@
   dependencies:
     "@kong/icons" "^1.8.14"
 
-"@kong/design-tokens@^1.12.9":
-  version "1.12.9"
-  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.12.9.tgz#88f1f32b68db8e7df122c854903a50508da17f21"
-  integrity sha512-4qJ2I4RjqA/wAi84fKs8dKwQPGIl1mNYCUJdiJex0rkpemSVbqURR4T0zrhhWkJu1R0yhgOE+U/WU5v4Y8+X/w==
+"@kong/design-tokens@^1.12.10":
+  version "1.12.10"
+  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.12.10.tgz#5732c51d93430de566adb3011b1b83717be969a3"
+  integrity sha512-6IY1H6UMg95BqjU4Xov5sfjsG94G8KadUnf8MawuovbjGAcOh1Avr5Ooq4jEqmFcfjH6q+BjZHgKxO4A6Vt0kA==
 
 "@kong/icons@^1.8.14":
   version "1.8.14"
