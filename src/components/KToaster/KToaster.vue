@@ -135,7 +135,7 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
         outline: none;
 
         &:hover, &:focus {
-          color: var(--kui-color-text-neutral-weaker, #e0e4ea) !important; // TODO: add token
+          color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker) !important;
         }
 
         &:focus-visible {
