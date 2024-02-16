@@ -572,7 +572,7 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 #### Props
 
-* `isTextContent` prop has been changed to `textContent`
+* `isTextContent` prop has been changed to `truncateText`
 * `isExpanded` prop has been changed to `expanded`
 
 #### Structure
