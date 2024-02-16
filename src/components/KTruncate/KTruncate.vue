@@ -47,7 +47,7 @@
             role="button"
             tabindex="0"
             @click.stop="handleToggleClick"
-            @enter="handleToggleClick"
+            @keyup.enter="handleToggleClick"
             @keydown.space.prevent
             @keyup.space="handleToggleClick"
           />
@@ -301,7 +301,8 @@ onUnmounted(() => {
       color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong) !important;
     }
 
-    &:focus, &:focus-within {
+    &:focus, 
+    &:focus-within {
       background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
       color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger) !important;
     }
