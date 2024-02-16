@@ -2,13 +2,13 @@
   <div
     ref="kTruncateWrapper"
     class="k-truncate"
-    :class="[expanded ? 'expanded' : '', `k-truncate-${isTextContent ? 'text' : 'content'}`]"
+    :class="[expanded ? 'expanded' : '', `truncate-${truncateText ? 'text' : 'content'}`]"
     :style="widthStyle"
   >
     <!-- Order switched for ease when using keyboard navigation -->
     <div
-      v-if="!isTextContent && showToggle"
-      class="k-truncate-expand-controls"
+      v-if="!truncateText && showToggle"
+      class="truncate-expand-controls"
     >
       <div
         v-if="!expanded"
@@ -21,6 +21,7 @@
         >
           <button
             class="expand-trigger"
+            type="button"
             @click.stop="handleToggleClick"
           >
             {{ truncatedCount }}
@@ -30,11 +31,11 @@
     </div>
     <div
       ref="kTruncateContainer"
-      class="k-truncate-container"
+      class="truncate-container"
     >
       <slot name="default" />
       <div
-        v-if="!isTextContent && expanded"
+        v-if="!truncateText && expanded"
         data-testid="collapse-trigger-wrapper"
       >
         <slot
@@ -43,18 +44,20 @@
         >
           <ChevronUpIcon
             class="collapse-trigger"
-            :color="KUI_COLOR_TEXT_PRIMARY"
             role="button"
             tabindex="0"
             @click.stop="handleToggleClick"
+            @keydown.space.prevent
+            @keyup.enter="handleToggleClick"
+            @keyup.space="handleToggleClick"
           />
         </slot>
       </div>
     </div>
     <div
-      v-if="isTextContent && (showToggle || expanded)"
+      v-if="truncateText && (showToggle || expanded)"
       ref="textToggleControls"
-      class="k-truncate-collapse-controls"
+      class="truncate-collapse-controls"
     >
       <div
         v-if="!expanded"
@@ -95,7 +98,7 @@
 import { onMounted, onUnmounted, ref, nextTick, computed } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import { ChevronUpIcon } from '@kong/icons'
-import { KUI_SPACE_40, KUI_COLOR_TEXT_PRIMARY } from '@kong/design-tokens'
+import { KUI_SPACE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 
 const { getSizeFromString } = useUtilities()
@@ -106,11 +109,11 @@ const props = defineProps({
     default: 1,
     validator: (value: number): boolean => value > 0,
   },
-  isTextContent: {
+  truncateText: {
     type: Boolean,
     default: false,
   },
-  isExpanded: {
+  expanded: {
     type: Boolean,
     default: false,
   },
@@ -120,7 +123,7 @@ const props = defineProps({
   },
 })
 
-const expanded = ref<boolean>(props.isExpanded)
+const expanded = ref<boolean>(props.expanded)
 
 const showToggle = ref<boolean>(false)
 
@@ -145,7 +148,7 @@ const truncatedCount = ref<number>(0)
  * For example if rows is 2 and all elements are equal height if 22px, wrapper height will be set to 54px (2 * 22 + gap).
  */
 const setWrapperHeight = async (): Promise<void> => {
-  if (props.isTextContent) {
+  if (props.truncateText) {
     return
   }
 
@@ -173,7 +176,7 @@ const setWrapperHeight = async (): Promise<void> => {
 const updateToggleVisibility = (): void => {
   if (kTruncateContainer.value && kTruncateWrapper.value) {
     // in case with text content, need to compare scrollHeight value
-    const containerHeightProperty = props.isTextContent ? kTruncateContainer.value.scrollHeight : kTruncateContainer.value.offsetHeight
+    const containerHeightProperty = props.truncateText ? kTruncateContainer.value.scrollHeight : kTruncateContainer.value.offsetHeight
     const textToggleControlsHeight = textToggleControls.value ? textToggleControls.value.offsetHeight : 0
     /**
      * In case with text content, toggle controls element is rendered below content, so adds up to wrapper height.
@@ -186,7 +189,7 @@ const updateToggleVisibility = (): void => {
 
 // Counts elements that are wrapped to the hidden rows and therefore are not visible.
 const countExcessElements = (): void => {
-  if (props.isTextContent) {
+  if (props.truncateText) {
     return
   }
 
@@ -196,7 +199,7 @@ const countExcessElements = (): void => {
     for (let i = 0; i < children.length; i++) {
       /**
        * If element's offsetTop
-       * (offset from the nearest relatively positioned parent, which is .k-truncate-container)
+       * (offset from the nearest relatively positioned parent, which is .truncate-container)
        * is greater than the wrapper element height - means it's not visible
        */
       if (children[i].offsetTop > kTruncateWrapper.value.offsetHeight) {
@@ -247,18 +250,20 @@ onUnmounted(() => {
   overflow: hidden;
   padding: var(--kui-space-20, $kui-space-20);
 
-  .k-truncate-expand-controls {
-    align-items: flex-end !important;
-    display: flex !important;
-    height: 100% !important;
+  .truncate-expand-controls {
+    align-items: flex-end;
+    display: flex;
+    height: 100%;
 
     .expand-trigger {
       background: var(--kui-color-background-transparent, $kui-color-background-transparent);
       border: 0;
       border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
       color: var(--kui-color-text-primary, $kui-color-text-primary);
+      font-family: var(--kui-font-family-text, $kui-font-family-text);
       font-size: var(--kui-font-size-10, $kui-font-size-10);
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+      line-height: var(--kui-line-height-10, $kui-line-height-10);
       padding: var(--kui-space-10, $kui-space-10);
 
       &:focus, &:active {
@@ -282,7 +287,10 @@ onUnmounted(() => {
   .collapse-trigger {
     background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
     border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
+    color: var(--kui-color-text-primary, $kui-color-text-primary);
     cursor: pointer;
+    outline: none;
+    padding: var(--kui-space-20, $kui-space-20);
 
     &:focus-visible {
       box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
@@ -290,14 +298,17 @@ onUnmounted(() => {
 
     &:hover {
       background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
+      color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong) !important;
     }
 
-    &:focus {
+    &:focus,
+    &:focus-within {
       background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
+      color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger) !important;
     }
   }
 
-  &.k-truncate-content {
+  &.truncate-content {
     display: flex;
     flex-direction: row-reverse;
     height: v-bind('wrapperHeight');
@@ -305,7 +316,7 @@ onUnmounted(() => {
     &.expanded {
       height: auto;
     }
-    .k-truncate-container {
+    .truncate-container {
       display: flex;
       flex-wrap: wrap;
       gap: v-bind('gap');
@@ -318,39 +329,27 @@ onUnmounted(() => {
         content: '+';
       }
     }
-    .collapse-trigger {
-      padding: var(--kui-space-20, $kui-space-20);
-
-      &:focus, &:active {
-        box-shadow: none;
-      }
-
-      &:focus-within {
-        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-        outline: -webkit-focus-ring-color auto 1px;
-      }
-    }
   }
-  &.k-truncate-text {
+  &.truncate-text {
     display: flex;
     flex-direction: column;
 
-    .k-truncate-container {
+    .truncate-container {
       -webkit-box-orient: vertical;
       display: -webkit-box;
       -webkit-line-clamp: v-bind('props.rows');
       overflow: hidden;
     }
     &.expanded {
-      .k-truncate-container {
+      .truncate-container {
         display: block;
       }
     }
   }
 
-  .k-truncate-collapse-controls {
-    margin-top: var(--kui-space-40, $kui-space-40) !important;
-    place-self: flex-end !important;
+  .truncate-collapse-controls {
+    margin-top: var(--kui-space-40, $kui-space-40);
+    place-self: flex-end;
   }
 }
 </style>
