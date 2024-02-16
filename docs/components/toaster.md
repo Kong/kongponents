@@ -71,7 +71,7 @@ interface Toast {
 
 ### title
 
-Notification title. When passing an object to `$toaster.open()` method, the `title` property is required. When passing a string, it will be rendered as title.
+Notification title. When passing an object to `$toaster.open()` method, the `title` property is required. When passing only a string, the string will be rendered as the title.
 
 <div class="horizontal-container">
   <KButton @click="$toaster.open({ title: 'Long Title Gets Truncated With Ellipsis' })">Open Toaster</KButton>
@@ -85,7 +85,9 @@ Notification title. When passing an object to `$toaster.open()` method, the `tit
 
 ### message
 
-Because a long title gets truncated, it is only good for short notifications. When a longer notification needs to be shown to the user, `message` property becomes helpful.
+The message prop allows for displaying longer strings of text to the user. This prop is good for more detailed messages, or displaying IDs, etc.
+
+Because a long title gets truncated, it is only good for short notifications. When a longer notification needs to be shown to the user, the `message` property is ideal.
 
 <KButton @click="$toaster.open({ 
   title: 'Long Title Gets Truncated With Ellipsis',
@@ -106,6 +108,7 @@ Because a long title gets truncated, it is only good for short notifications. Wh
 ### appearance
 
 Depending on the nature of notification, you might want to use different appearances. KToaster supports these 5 appearances:
+
 * `info` (default)
 * `success`
 * `danger`
