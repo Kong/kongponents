@@ -93,7 +93,7 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
 
   .toaster {
     background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
-    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     box-shadow: var(--kui-shadow, $kui-shadow);
     color: var(--kui-color-text-inverse, $kui-color-text-inverse);
     display: flex;
@@ -123,7 +123,7 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
         flex: 1;
         font-family: var(--kui-font-family-text, $kui-font-family-text);
         font-size: var(--kui-font-size-50, $kui-font-size-50);
-        font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+        font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
         letter-spacing: var(--kui-letter-spacing-minus-30, $kui-letter-spacing-minus-30);
         line-height: var(--kui-line-height-40, $kui-line-height-40);
       }
