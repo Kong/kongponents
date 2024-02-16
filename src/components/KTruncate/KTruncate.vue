@@ -23,9 +23,6 @@
             class="expand-trigger"
             type="button"
             @click.stop="handleToggleClick"
-            @keydown.space.prevent
-            @keyup.enter="handleToggleClick"
-            @keyup.space="handleToggleClick"
           >
             {{ truncatedCount }}
           </button>
@@ -74,9 +71,6 @@
             appearance="tertiary"
             size="small"
             @click.stop="handleToggleClick"
-            @keydown.space.prevent
-            @keyup.enter="handleToggleClick"
-            @keyup.space="handleToggleClick"
           >
             Show more
           </KButton>
@@ -91,9 +85,6 @@
             appearance="tertiary"
             size="small"
             @click.stop="handleToggleClick"
-            @keydown.space.prevent
-            @keyup.enter="handleToggleClick"
-            @keyup.space="handleToggleClick"
           >
             Show less
           </KButton>

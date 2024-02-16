@@ -52,8 +52,8 @@ When this prop is set to `true`, the component applies different logic; truncati
 
 <KCard>
   <KTruncate truncate-text :rows="3">
-    <p>A good design decision to apply <a href="https://kongponents.konghq.com/components/truncate.html#textcontent">text truncation</a> would be when displaying a <b>large amount of textual content</b>, such as a list of articles or product descriptions, in a limited space, such as a mobile screen or a small widget. By truncating the text to a short summary, it is possible to present the information in a more organized and readable manner, allowing the user to quickly scan and understand the main points of each item.</p>
-    <p>The truncated text can also serve as a teaser, encouraging the user to click or tap to view the full content.</p>
+    <p class="text-paragraph">A good design decision to apply <a href="https://kongponents.konghq.com/components/truncate.html#textcontent">text truncation</a> would be when displaying a <b>large amount of textual content</b>, such as a list of articles or product descriptions, in a limited space, such as a mobile screen or a small widget. By truncating the text to a short summary, it is possible to present the information in a more organized and readable manner, allowing the user to quickly scan and understand the main points of each item.</p>
+    <p class="text-paragraph">The truncated text can also serve as a teaser, encouraging the user to click or tap to view the full content.</p>
   </KTruncate>
 </KCard>
 
@@ -100,7 +100,7 @@ Width of container element that wraps content passed through the `default` slot.
 
 <KCard>
   <KTruncate truncate-text :rows="2" width="50%">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p class="text-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   </KTruncate>
 </KCard>
 
@@ -178,6 +178,10 @@ Example of using the `expand-trigger` and `collapse-trigger` slots for creating 
 ```
 
 <style lang="scss" scoped>
+.text-paragraph {
+  margin: 0;
+}
+
 .resizable-card {
   resize: horizontal;
   overflow-x: auto;
