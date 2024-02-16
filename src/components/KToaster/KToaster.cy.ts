@@ -28,7 +28,7 @@ describe('KToaster', () => {
 
       cy.get('body').find('div[role="alert"].success').its('length').should('eq', 1)
       cy.get('body').find('div[role="alert"].danger').its('length').should('eq', 2)
-      cy.get('body').find('.toast .toast-message').its('length').should('eq', 4)
+      cy.get('body').find('.toaster .toaster-message').its('length').should('eq', 4)
     })
 
     it('renders all elements in toaster correctly - message passed', () => {
@@ -41,10 +41,10 @@ describe('KToaster', () => {
         },
       })
 
-      cy.get('.toast .toast-icon').should('be.visible')
-      cy.get('.toast .toast-title').contains(title)
-      cy.get('.toast .toast-message').contains(message)
-      cy.get('.toast .toast-close-icon').should('be.visible')
+      cy.get('.toaster .toaster-icon').should('be.visible')
+      cy.get('.toaster .toaster-title').contains(title)
+      cy.get('.toaster .toaster-message').contains(message)
+      cy.get('.toaster .toaster-close-icon').should('be.visible')
     })
 
     it('renders all elements in toaster correctly - message not passed', () => {
@@ -56,10 +56,10 @@ describe('KToaster', () => {
         },
       })
 
-      cy.get('.toast .toast-icon').should('be.visible')
-      cy.get('.toast .toast-title').contains(title)
-      cy.get('.toast .toast-message').should('not.exist')
-      cy.get('.toast .toast-close-icon').should('be.visible')
+      cy.get('.toaster .toaster-icon').should('be.visible')
+      cy.get('.toaster .toaster-title').contains(title)
+      cy.get('.toaster .toaster-message').should('not.exist')
+      cy.get('.toaster .toaster-close-icon').should('be.visible')
     })
   })
 
@@ -68,12 +68,12 @@ describe('KToaster', () => {
       tm.open('hey toasty')
       tm.open({ title: 'hey toasty', message: 'yo toasty' })
       tm.open({ title: 'hey toasty', key: 2, message: 'there has been an alert' })
-      cy.get('body .toast').its('length').should('eq', 3)
+      cy.get('body .toaster').its('length').should('eq', 3)
     })
 
     it('handles invalid appearance', () => {
       tm.open({ title: 'hey toasty', message: 'invalid appearance', appearance: 'invalid' })
-      cy.get('body .toast').its('length').should('eq', 1)
+      cy.get('body .toaster').its('length').should('eq', 1)
 
       cy.wrap(tm.toasters.value).its('length').should('eq', 1)
       cy.wrap(tm.toasters.value[0].appearance).should('eq', 'info')
