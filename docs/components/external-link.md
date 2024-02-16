@@ -1,12 +1,9 @@
 # External Link
 
-**KExternalLink** - a component to render an anchor tag (that opens in a new window) with an icon
+KExternalLink renders an anchor element (that opens a link in a new window) with an icon.
 
-<KCard>
-    <template v-slot:body>
-      <KExternalLink href="https://kongponents.konghq.com/">Kongponents</KExternalLink>
-    </template>
-</KCard>
+
+<KExternalLink href="https://kongponents.konghq.com/">Kongponents</KExternalLink>
 
 ```html
 <KExternalLink href="https://kongponents.konghq.com/">
@@ -16,15 +13,18 @@
 
 ## Props
 
-### href - required
+### href
 
 The URL that the hyperlink points to.
 
-::: tip NOTE
+:::tip NOTE
 
-Must be a valid URL
+Must be a valid URL.
 
-<h4><KIcon icon="check" size="22" color="green" style="vertical-align: sub;" class="horizontal-spacing" />Correct Usage</h4>
+<h4 class="example-heading">
+  <CheckIcon :size="KUI_ICON_SIZE_40" :color="KUI_COLOR_TEXT_SUCCESS" class="icon" />
+  Correct Usage
+</h4>
 
 ```html
 <KExternalLink href="https://kongponents.konghq.com/">
@@ -32,7 +32,10 @@ Must be a valid URL
 </KExternalLink>
 ```
 
-<h4><KIcon icon="disabled" size="22" color="red" style="vertical-align: sub;" class="horizontal-spacing" />Incorrect Usage</h4>
+<h4 class="example-heading">
+  <CloseIcon :size="KUI_ICON_SIZE_40" :color="KUI_COLOR_TEXT_DANGER" class="icon" />
+  Incorrect Usage
+</h4>
 
 ```html
 <KExternalLink href="https://kongponents">
@@ -46,11 +49,9 @@ Must be a valid URL
 
 If true, icon won't be rendered.
 
-<KCard>
-    <template v-slot:body>
-      <KExternalLink hide-icon href="https://kongponents.konghq.com/">Kongponents</KExternalLink>
-    </template>
-</KCard>
+
+<KExternalLink hide-icon href="https://kongponents.konghq.com/">Kongponents</KExternalLink>
+
 
 ```html
 <KExternalLink hide-icon href="https://kongponents.konghq.com/">
@@ -60,10 +61,22 @@ If true, icon won't be rendered.
 
 ## Slots
 
-- `default` - link text
+### default
 
-<style lang="scss">
-.horizontal-spacing {
-  margin-right: $kui-space-40;
+Link text.
+
+<script setup lang="ts">
+import { CheckIcon, CloseIcon } from '@kong/icons'
+import { KUI_ICON_SIZE_40, KUI_COLOR_TEXT_SUCCESS, KUI_COLOR_TEXT_DANGER } from '@kong/design-tokens'
+</script>
+
+<style lang="scss" scoped>
+.example-heading {
+  display: inline-flex;
+  align-items: center;
+
+  .icon {
+    margin-right: $kui-space-40;
+  }
 }
 </style>

@@ -165,15 +165,23 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Props
 
-* `v-model` Single date and time picker's seed value (string in ISO date format) has been changed to a `TimeRange` object whose `start` value will be set to a Date ISO string; `end` value will be set to `null`.
-
-  See KDateTimePickers's [v-model](/components/datetime-picker#v-model) for more details
+* `v-model` Single date and time picker's seed value (string in ISO date format) has been changed to a `TimeRange` object whose `start` value will be set to a Date ISO string; `end` value will be set to `null`. See KDateTimePickers's [v-model](/components/datetime-picker#v-model) for more details
 
 #### Events
 
-* `change`, `update:modelValue` – a Single date and time picker will no longer emit an ISO date format string. Instead, a `TimeRange` object with a Date ISO string `start` value, and a null `end` value will be emitted.
-  
-  See KDateTimePickers's [Single date time picker events](/components/datetime-picker#single-date-time-picker) for more details
+* `change`, `update:modelValue` – a Single date and time picker will no longer emit an ISO date format string. Instead, a `TimeRange` object with a Date ISO string `start` value, and a null `end` value will be emitted. See KDateTimePickers's [Single date time picker events](/components/datetime-picker#single-date-time-picker) for more details
+
+#### Structure
+
+* `timepicker-input` class has been changed to `datetime-picker-trigger`
+* `k-datetime-picker-input` `data-testid` attribute has been changed to `datetime-picker-trigger`
+* `timepicker-display` class has been changed to `datetime-picker-display`
+* `k-datetime-picker-display` `data-testid` attribute has been changed to `datetime-picker-display`
+* `k-datetime-picker-toggle` `data-testid` attribute has been changed to `datetime-picker-toggle`
+* `k-datetime-picker-clear` `data-testid` attribute has been changed to `datetime-picker-clear`
+* `k-datetime-picker-submit` `data-testid` attribute has been changed to `datetime-picker-submit`
+* `timeframe-btn` class has been changed to `timeframe-button`
+* `action-btn` class has been changed to `action-button`
 
 #### Constants, Types & Interfaces
 
@@ -218,6 +226,7 @@ Component has been renamed to `KDropdown`
 
 ### KExternalLink
 
+No breaking changes.
 
 ### KFileUpload
 
@@ -581,15 +590,54 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KToaster
 
+#### Attributes
+
+#### Structure
+
+* `toaster-container-outer` class has been replaced with `k-toaster`
+* `toaster-item` class has been replaced with `toaster`
+* `message` and `k-alert-msg` classes has been replaced with `toaster-message`
+
+#### Constants, Types & Interfaces
+
+* `toasterAppearances` constant has been renamed to `ToasterAppearances`
+* `Toast` interface changes:
+  * `title` property has been added
+  * `message` property became optional
+  * `appearances` property is no longer an instance of `AlertAppearance` type - instead it is an instance of new `ToasterAppearance` type
 
 ### KTooltip
 
+#### Props
+
+* `testMode` prop has been removed
+* `label` prop has been deprecated in favor of `text` prop
+* default value of `positionFixed` prop has been changed to `true`
+
+#### Structure
+
+* `k-tooltip-top` class has been changed to `tooltip-top`
+* `k-tooltip-right` class has been changed to `tooltip-right`
+* `k-tooltip-bottom` class has been changed to `tooltip-bottom`
+* `k-tooltip-left` class has been changed to `tooltip-left`
 
 ### KTree List
 
 
 ### KTruncate
 
+#### Props
+
+* `isTextContent` prop has been changed to `truncateText`
+* `isExpanded` prop has been changed to `expanded`
+
+#### Structure
+
+* `k-truncate-content` class has been changed to `truncate-content`
+* `k-truncate-text` class has been changed to `truncate-text`
+* `k-truncate-expand-controls` class has been changed to `truncate-expand-controls`
+* `k-truncate-container` class has been changed to `truncate-container`
+* `k-truncate-collapse-controls` class has been changed to `truncate-collapse-controls`
 
 ### KView Switcher
 

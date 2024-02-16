@@ -22,6 +22,7 @@ const sandboxAppLinks: SandboxNavigationItem[] = ([
   { name: 'KCatalog', to: { name: 'catalog' } },
   { name: 'KCheckbox', to: { name: 'checkbox' } },
   { name: 'KCopy', to: { name: 'copy' } },
+  { name: 'KDateTimePicker', to: { name: 'datetimepicker' } },
   { name: 'KDropdown', to: { name: 'dropdown' } },
   { name: 'KFileUpload', to: { name: 'fileupload' } },
   { name: 'KInput', to: { name: 'input' } },
@@ -37,6 +38,7 @@ const sandboxAppLinks: SandboxNavigationItem[] = ([
   { name: 'KTable', to: { name: 'table' } },
   { name: 'KTabs', to: { name: 'tabs' } },
   { name: 'KTextarea', to: { name: 'textarea' } },
+  { name: 'KToaster', to: { name: 'toaster' } },
 ])
 
 // Provide the app links to the SandboxLayout components

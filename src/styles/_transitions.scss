@@ -39,3 +39,22 @@ All transitions names must follow `kongponents-<name>-transition` pattern to avo
 .kongponents-slide-in-transition-leave-active {
   animation: kongponents-slide-in-animation $kongponentsTransitionDurTimingFunc reverse;
 }
+
+// slide up transition/animation
+
+@keyframes kongponents-slide-up-animation {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.kongponents-slide-up-transition-enter-active {
+  animation: kongponents-slide-up-animation $kongponentsTransitionDurTimingFunc;
+}
+
+.kongponents-slide-up-transition-leave-active {
+  animation: kongponents-slide-up-animation $kongponentsTransitionDurTimingFunc reverse;
+}

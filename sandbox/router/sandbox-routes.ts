@@ -51,6 +51,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxCopy.vue'),
   },
   {
+    path: '/datetimepicker',
+    name: 'datetimepicker',
+    meta: { title: 'DateTimePicker Sandbox' },
+    component: () => import('../pages/SandboxDateTimePicker.vue'),
+  },
+  {
     path: '/dropdown',
     name: 'dropdown',
     meta: { title: 'Dropdown Sandbox' },
@@ -139,6 +145,12 @@ const componentRoutes: RouteRecordRaw[] = [
     name: 'textarea',
     meta: { title: 'Textarea Sandbox' },
     component: () => import('../pages/SandboxTextarea.vue'),
+  },
+  {
+    path: '/toaster',
+    name: 'toaster',
+    meta: { title: 'Toaster Sandbox' },
+    component: () => import('../pages/SandboxToaster.vue'),
   },
 ]
 
