@@ -1,6 +1,6 @@
 # Slideout
 
-KSlideout is a slide-out container with optional backdrop overlay that opens on top of main content area.
+KSlideout is a slide-out overlay container with optional backdrop that displays over the page content.
 
 <KComponent
   v-slot="{ data }"
@@ -196,6 +196,8 @@ A boolean whether or not the slideout should have background overlay. Defaults t
 
 A boolean whether on not the slideout should close when user clicks outside the slideout content area. Defaults to `true`.
 
+When set to false, the user can only close the slideout by pressing <kbd>Escape</kbd> or clicking the close button.
+
 <KComponent
   v-slot="{ data }"
   :data="{ slideoutVisible: false }"
@@ -293,7 +295,7 @@ Slot for slideout content. The component container will have a scrollbar, should
   title="Slideout Content"
   @close="hideSlideout"
 >
-  <p>Lorem ipsum dolor sit amet...
+  <p>Lorem ipsum dolor sit amet...</p>
 </KSlideout>
 ```
 
