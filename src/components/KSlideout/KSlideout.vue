@@ -124,16 +124,6 @@ const handleClose = (e: any, forceClose = false): void => {
   }
 }
 
-const toggleBodyScroll = (isScrollable: boolean): void => {
-  if (typeof document !== 'undefined') {
-    if (isScrollable) {
-      document.body.classList.remove('k-slideout-overflow-hidden')
-    } else {
-      document.body.classList.add('k-slideout-overflow-hidden')
-    }
-  }
-}
-
 const toggleEventListeners = (isActive: boolean): void => {
   if (typeof document !== 'undefined') {
     if (isActive) {
@@ -146,10 +136,8 @@ const toggleEventListeners = (isActive: boolean): void => {
 
 watch(() => props.visible, async (visible: boolean): Promise<void> => {
   if (visible) {
-    toggleBodyScroll(false)
     toggleEventListeners(true)
   } else {
-    toggleBodyScroll(true)
     toggleEventListeners(false)
   }
 }, { immediate: true })
@@ -167,6 +155,7 @@ onUnmounted(() => {
     box-shadow: var(--kui-shadow, $kui-shadow);
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     gap: var(--kui-space-50, $kui-space-50);
     height: calc(100vh - v-bind('offsetTopValue'));
     max-width: v-bind('props.maxWidth');
@@ -227,6 +216,10 @@ onUnmounted(() => {
       line-height: var(--kui-line-height-30, $kui-line-height-30);
       overflow-y: auto;
       padding-right: var(--kui-space-70, $kui-space-70);
+
+      :deep(> *:last-child) {
+        padding-bottom: var(--kui-space-70, $kui-space-70); // add padding to the last child to add some spacing before bottom of the page
+      }
     }
   }
 
@@ -244,12 +237,5 @@ onUnmounted(() => {
       z-index: -1;
     }
   }
-}
-</style>
-
-<style lang="scss">
-// keep unscoped to target body element
-body.k-slideout-overflow-hidden {
-  overflow: hidden;
 }
 </style>
