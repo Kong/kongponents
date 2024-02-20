@@ -5,14 +5,8 @@
 [build]
   base = "/"
   command = "yarn docs:build"
-  publish = "docs/.vitepress/dist"
-  environment = { NODE_VERSION = "18.19.0", YARN_FLAGS="--frozen-lockfile" }
-
-[context.branch-deploy]
-  base = "/"
-  command = "yarn docs:build"
-  publish = "docs/.vitepress/dist"
-  environment = { NODE_VERSION = "18.19.0", YARN_FLAGS="--frozen-lockfile" }
+  publish = "/docs/.vitepress/dist"
+  environment = { NODE_VERSION = "18.19.0", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
 
 # ##############################
 # 'v7' branch
