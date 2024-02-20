@@ -25,46 +25,70 @@
         <KAlert
           appearance="info"
           message="This is info alert."
+          title="Info"
         />
         <KAlert
           appearance="success"
           message="This is success alert."
+          title="Success"
         />
         <KAlert
           appearance="warning"
           message="This is warning alert."
+          title="Warning"
         />
         <KAlert
           appearance="danger"
           message="This is danger alert."
+          title="Danger"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="hideIcon">
         <KAlert
           appearance="info"
+          dismissible
           :hide-icon="false"
           message="This is info alert with icon."
         />
         <KAlert
+          appearance="info"
+          dismissible
+          :hide-icon="false"
+          message="This is info alert with icon."
+          title="Info"
+        />
+        <KAlert
           appearance="success"
+          dismissible
           :hide-icon="false"
           message="This is success alert with icon."
+          title="Success"
         />
         <KAlert
           appearance="warning"
+          dismissible
           :hide-icon="false"
           message="This is warning alert with icon."
+          title="Warning"
         />
         <KAlert
           appearance="danger"
+          dismissible
           :hide-icon="false"
           message="This is danger alert with icon."
+          title="Danger"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="dismissible">
         <KAlert
           dismissible
-          message="This is a dismissible button."
+          message="This is a dismissible alert."
+        />
+        <KAlert
+          dismissible
+          :hide-icon="false"
+          message="Fully packed alert. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          title="This is a dismissible alert with super long title, super long message and icon. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         />
       </SandboxSectionComponent>
 
@@ -74,7 +98,10 @@
         title="Slots"
       />
       <SandboxSectionComponent title="icon">
-        <KAlert message="Alert with a custom icon.">
+        <KAlert
+          :hide-icon="false"
+          message="Alert with a custom icon."
+        >
           <template #icon>
             <KongIcon />
           </template>
