@@ -1548,17 +1548,17 @@
     lodash-es "^4.17.21"
     read-pkg-up "^10.0.0"
 
-"@shikijs/core@1.1.5", "@shikijs/core@^1.1.3":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@shikijs/core/-/core-1.1.5.tgz#ed92e3b7c89ba150564127062c29ae715c5da875"
-  integrity sha512-cKc5vGQ4p/4sjx48BHIO7CvLaN32vqpz5Wh7v2n+U1EezGdfX4Wms7khBctKz3iCg9yYq4sfGUc2t+JWj6EUsw==
+"@shikijs/core@1.1.6", "@shikijs/core@^1.1.5":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@shikijs/core/-/core-1.1.6.tgz#a30e0bd836d04ec6cc1736d35b08de5e7000c241"
+  integrity sha512-kt9hhvrWTm0EPtRDIsoAZnSsFlIDBVBBI5CQewpA/NZCPin+MOKRXg+JiWc4y+8fZ/v0HzfDhu/UC+OTZGMt7A==
 
-"@shikijs/transformers@^1.1.3":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@shikijs/transformers/-/transformers-1.1.5.tgz#13608be740c75a46fb3b7371822a48f1013bbe79"
-  integrity sha512-ot6KWPmLuSN9nA9FAhttOXZIjKIy7cnwpNtI9aWmYN72RUaDz8eojRfMGUXsXXUxW/buvcvdZQAQldk7/pFpdw==
+"@shikijs/transformers@^1.1.5":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@shikijs/transformers/-/transformers-1.1.6.tgz#93d5e26e0e375f62f01177d95a7ee99f6ccd2ad6"
+  integrity sha512-R+eI1I9sQv0MCJyfR4kAG1G1SKSctw5ILszP0tHVrAgzSHWTpaHbXreZrDueahqtUCNHjt+MKmKJ8EMFtiitOQ==
   dependencies:
-    shiki "1.1.5"
+    shiki "1.1.6"
 
 "@sigstore/bundle@^2.1.0":
   version "2.1.0"
@@ -8186,12 +8186,12 @@ shelljs@^0.8.5:
     interpret "^1.0.0"
     rechoir "^0.6.2"
 
-shiki@1.1.5, shiki@^1.1.3:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/shiki/-/shiki-1.1.5.tgz#9d48cd8f835706dd38ccb879c87351271583d6ba"
-  integrity sha512-754GuKIwkUdT810Xm8btuyNQPL+q3PqOkwGW/VlmAWyMYp+HbvvDt69sWXO1sm5aeczBJQjmQTTMR4GkKQNQPw==
+shiki@1.1.6, shiki@^1.1.5:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/shiki/-/shiki-1.1.6.tgz#cbe38edfc6d5fbe208b9fca25af8aefef7a24c73"
+  integrity sha512-j4pcpvaQWHb42cHeV+W6P+X/VcK7Y2ctvEham6zB8wsuRQroT6cEMIkiUmBU2Nqg2qnHZDH6ZyRdVldcy0l6xw==
   dependencies:
-    "@shikijs/core" "1.1.5"
+    "@shikijs/core" "1.1.6"
 
 shx@^0.3.4:
   version "0.3.4"
@@ -9267,15 +9267,15 @@ vite@^5.1.1, vite@^5.1.3:
   optionalDependencies:
     fsevents "~2.3.3"
 
-vitepress@^1.0.0-rc.42:
-  version "1.0.0-rc.43"
-  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-1.0.0-rc.43.tgz#1448acd0a1fbe3daa6729e353c12bf70b2a42f40"
-  integrity sha512-XZ9xaN76/LxCBqvk6U+3ne3T60JOavdOlk+FMQBlXYK/9pyyKGfjnEra4yKYvOdZdStoTg8VXTAj4wcsCTlJaQ==
+vitepress@^1.0.0-rc.44:
+  version "1.0.0-rc.44"
+  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-1.0.0-rc.44.tgz#01bce883761c22de42b9869a95f04bd02cbb8cdb"
+  integrity sha512-tO5taxGI7fSpBK1D8zrZTyJJERlyU9nnt0jHSt3fywfq3VKn977Hg0wUuTkEmwXlFYwuW26+6+3xorf4nD3XvA==
   dependencies:
     "@docsearch/css" "^3.5.2"
     "@docsearch/js" "^3.5.2"
-    "@shikijs/core" "^1.1.3"
-    "@shikijs/transformers" "^1.1.3"
+    "@shikijs/core" "^1.1.5"
+    "@shikijs/transformers" "^1.1.5"
     "@types/markdown-it" "^13.0.7"
     "@vitejs/plugin-vue" "^5.0.4"
     "@vue/devtools-api" "^7.0.14"
@@ -9284,7 +9284,7 @@ vitepress@^1.0.0-rc.42:
     focus-trap "^7.5.4"
     mark.js "8.11.1"
     minisearch "^6.3.0"
-    shiki "^1.1.3"
+    shiki "^1.1.5"
     vite "^5.1.3"
     vue "^3.4.19"
 
