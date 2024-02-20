@@ -1,3 +1,10 @@
+# [9.0.0-alpha.106](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.105...v9.0.0-alpha.106) (2024-02-20)
+
+
+### Bug Fixes
+
+* **kinput:** update readonly styles [KHCP-10785] ([#2027](https://github.com/Kong/kongponents/issues/2027)) ([fcd4cc3](https://github.com/Kong/kongponents/commit/fcd4cc33b3132b99f0a68e7c8e7ae4df442b628c))
+
 # [9.0.0-alpha.105](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.104...v9.0.0-alpha.105) (2024-02-13)
 
 
