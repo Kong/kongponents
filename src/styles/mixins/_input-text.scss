@@ -58,21 +58,17 @@
   box-shadow: var(--kui-shadow-border-primary, $kui-shadow-border-primary), var(--kui-shadow-focus, $kui-shadow-focus);
 }
 
-// shared styles between disabled and readonly states
-@mixin inputDisabledReadOnly {
-  background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
-  box-shadow: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled);
-  color: var(--kui-color-text-disabled, $kui-color-text-disabled);
-}
-
 @mixin inputDisabled {
-  @include inputDisabledReadOnly;
-
+  background-color: var(--kui-color-background-disabled, $kui-color-background-disabled) !important;
+  box-shadow: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled) !important;
+  color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
   cursor: not-allowed;
 }
 
 @mixin inputReadOnly {
-  @include inputDisabledReadOnly;
+  background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+  box-shadow: var(--kui-shadow-border, $kui-shadow-border);
+  color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
 }
 
 // error state styles
