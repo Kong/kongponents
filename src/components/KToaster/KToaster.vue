@@ -39,7 +39,7 @@
         role="button"
         :size="KUI_ICON_SIZE_50"
         tabindex="0"
-        @click="() => $emit('close', toaster.key)"
+        @click="$emit('close', toaster.key)"
       />
     </div>
   </TransitionGroup>
