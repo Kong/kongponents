@@ -57,14 +57,14 @@ export default class ToastManager {
     const _key: any = key || (this.toasters.value.length) + new Date().getTime()
     const _appearance: ToasterAppearance = (appearance && APPEARANCES.indexOf(appearance) !== -1) ? appearance : this.appearance
     const timer: number = this.setTimer(_key, timeoutMilliseconds || this.timeout)
-    const _title = typeof args === 'string' ? args : title
+    const _message = typeof args === 'string' ? args : message
 
     // Add toaster to state
     this.toasters.value.push({
       key: _key,
       appearance: _appearance,
-      title: _title,
-      message: message || '',
+      title,
+      message: _message,
       timer,
       timeoutMilliseconds: timeoutMilliseconds || this.timeout,
     })

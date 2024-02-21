@@ -102,7 +102,7 @@ const openToaster = (argument: string) => {
       break
     case 'title':
       options = {
-        title: 'Toast with truncated title and no message',
+        title: 'Toast with very long title and no message',
         appearance: 'system',
       }
       break

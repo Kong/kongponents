@@ -2,7 +2,7 @@ export type ToasterAppearance = 'info' | 'success' | 'danger' | 'warning' | 'sys
 
 export interface Toast {
   key?: any // unique identifier of toaster
-  title: string // Title of toaster
+  title?: string // Title of toaster
   message?: string // Text to display in toaster
   appearance?: ToasterAppearance
   timeoutMilliseconds?: number
