@@ -96,6 +96,7 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
 
   .toaster {
     align-items: flex-start;
+    align-items: center;
     background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     box-shadow: var(--kui-shadow, $kui-shadow);
@@ -116,7 +117,6 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
     }
 
     .toaster-content {
-      align-self: center;
       display: flex;
       flex: 1;
       flex-direction: column;
