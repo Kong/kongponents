@@ -11,33 +11,36 @@
       :class="`${toaster.appearance}`"
       role="alert"
     >
-      <div class="toaster-header">
-        <div class="toaster-icon-container">
-          <component
-            :is="getToastIcon(toaster.appearance)"
-            class="toaster-icon"
-            :color="KUI_COLOR_TEXT"
-          />
-        </div>
-        <span class="toaster-title">
-          {{ toaster.title }}
-        </span>
-        <CloseIcon
-          class="toaster-close-icon"
-          :color="KUI_COLOR_TEXT_NEUTRAL_WEAK"
-          data-testid="toaster-close-icon"
-          role="button"
-          :size="KUI_ICON_SIZE_50"
-          tabindex="0"
-          @click="() => $emit('close', toaster.key)"
+      <div class="toaster-icon-container">
+        <component
+          :is="getToastIcon(toaster.appearance)"
+          class="toaster-icon"
+          :color="KUI_COLOR_TEXT"
         />
       </div>
-      <p
-        v-if="toaster.message"
-        class="toaster-message"
-      >
-        {{ toaster.message }}
-      </p>
+      <div class="toaster-content">
+        <span
+          v-if="toaster.title"
+          class="toaster-title"
+        >
+          {{ toaster.title }}
+        </span>
+        <p
+          v-if="toaster.message"
+          class="toaster-message"
+        >
+          {{ toaster.message }}
+        </p>
+      </div>
+      <CloseIcon
+        class="toaster-close-icon"
+        :color="KUI_COLOR_TEXT_NEUTRAL_WEAK"
+        data-testid="toaster-close-icon"
+        role="button"
+        :size="KUI_ICON_SIZE_50"
+        tabindex="0"
+        @click="$emit('close', toaster.key)"
+      />
     </div>
   </TransitionGroup>
 </template>
@@ -92,35 +95,34 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
   z-index: 10000;
 
   .toaster {
+    align-items: flex-start;
+    align-items: center;
     background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     box-shadow: var(--kui-shadow, $kui-shadow);
     color: var(--kui-color-text-inverse, $kui-color-text-inverse);
     display: flex;
-    flex-direction: column;
-    gap: var(--kui-space-30, $kui-space-30);
+    gap: var(--kui-space-50, $kui-space-50);
     padding: var(--kui-space-50, $kui-space-50);
     width: 100%;
 
-    .toaster-header {
+    .toaster-icon-container {
       align-items: center;
+      background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak); // info appearance as default in case of invalid appearance
+      border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
       display: flex;
-      gap: var(--kui-space-50, $kui-space-50);
+      height: 32px;
+      justify-content: center;
+      width: 32px;
+    }
 
-      .toaster-icon-container {
-        align-items: center;
-        background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak); // info appearance as default in case of invalid appearance
-        border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
-        display: flex;
-        height: 32px;
-        justify-content: center;
-        width: 32px;
-      }
+    .toaster-content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: var(--kui-space-30, $kui-space-30);
 
       .toaster-title {
-        @include truncate;
-
-        flex: 1;
         font-family: var(--kui-font-family-text, $kui-font-family-text);
         font-size: var(--kui-font-size-50, $kui-font-size-50);
         font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
@@ -128,28 +130,28 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
         line-height: var(--kui-line-height-40, $kui-line-height-40);
       }
 
-      .toaster-close-icon {
-        border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-        cursor: pointer;
-        margin-left: var(--kui-space-auto, $kui-space-auto);
-        outline: none;
-
-        &:hover, &:focus {
-          color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker) !important;
-        }
-
-        &:focus-visible {
-          box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
-        }
+      .toaster-message {
+        font-family: var(--kui-font-family-text, $kui-font-family-text);
+        font-size: var(--kui-font-size-30, $kui-font-size-30);
+        font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+        line-height: var(--kui-line-height-30, $kui-line-height-30);
+        margin: var(--kui-space-0, $kui-space-0);
       }
     }
 
-    .toaster-message {
-      font-family: var(--kui-font-family-text, $kui-font-family-text);
-      font-size: var(--kui-font-size-30, $kui-font-size-30);
-      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-      line-height: var(--kui-line-height-30, $kui-line-height-30);
-      margin: var(--kui-space-0, $kui-space-0);
+    .toaster-close-icon {
+      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+      cursor: pointer;
+      margin-left: var(--kui-space-auto, $kui-space-auto);
+      outline: none;
+
+      &:hover, &:focus {
+        color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker) !important;
+      }
+
+      &:focus-visible {
+        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+      }
     }
 
     // appearances

@@ -62,7 +62,7 @@ KToaster is the underlying component rendered by the `ToastManager` instance, so
 ```ts
 interface Toast {
   key?: any
-  title: string
+  title?: string
   message?: string
   appearance?: ToasterAppearance
   timeoutMilliseconds?: number
@@ -71,38 +71,38 @@ interface Toast {
 
 ### title
 
-Notification title. When passing an object to `$toaster.open()` method, the `title` property is required. When passing only a string, the string will be rendered as the title.
+Notification title.
 
-<div class="horizontal-container">
-  <KButton @click="$toaster.open({ title: 'Long Title Gets Truncated With Ellipsis' })">Open Toaster</KButton>
-  <KButton @click="$toaster.open('String Will Become A Title')" appearance="secondary">Open Toaster</KButton>
-</div>
+<KButton @click="$toaster.open({ title: 'Notification Title' })">Open Toaster</KButton>
 
 ```html
-<KButton @click="$toaster.open({ title: 'Long Title Gets Truncated With Ellipsis' })">Open Toaster</KButton>
-<KButton @click="$toaster.open('String Will Become A Title')" appearance="secondary">Open Toaster</KButton>
+<KButton @click="$toaster.open({ title: 'Notification Title' })">Open Toaster</KButton>
 ```
 
 ### message
 
-The message prop allows for displaying longer strings of text to the user. This prop is good for more detailed messages, or displaying IDs, etc.
+The message string that allows for displaying longer strings of text to the user. This prop is good for more detailed messages.
 
-Because a long title gets truncated, it is only good for short notifications. When a longer notification needs to be shown to the user, the `message` property is ideal.
+Alternatively, if you provide a string as the only argument to the `open()` method, it will be treated as message.
 
-<KButton @click="$toaster.open({ 
-  title: 'Long Title Gets Truncated With Ellipsis',
-  message: 'Detailed message. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' })"
->
-  Open Toaster
-</KButton>
+<div class="horizontal-container">
+  <KButton @click="$toaster.open({ 
+    title: 'Title',
+    message: 'Detailed message. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' })"
+  >
+    Open Toaster
+  </KButton>
+  <KButton @click="$toaster.open('String will become a message.')" appearance="secondary">Open Toaster</KButton>
+</div>
 
 ```html
 <KButton @click="$toaster.open({ 
-  title: 'Long Title Gets Truncated With Ellipsis',
+  title: 'Title',
   message: 'Detailed message. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' })"
 >
   Open Toaster
 </KButton>
+<KButton @click="$toaster.open('String will become a message.')" appearance="secondary">Open Toaster</KButton>
 ```
 
 ### appearance
