@@ -83,7 +83,7 @@ Notification title.
 
 The message string that allows for displaying longer strings of text to the user. This prop is good for more detailed messages.
 
-Alternatively, if you provide a string as the only argument, it will be treated as message.
+Alternatively, if you provide a string as the only argument to the `open()` method, it will be treated as message.
 
 <div class="horizontal-container">
   <KButton @click="$toaster.open({ 
