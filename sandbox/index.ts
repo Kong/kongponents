@@ -24,6 +24,7 @@ const sandboxAppLinks: SandboxNavigationItem[] = ([
   { name: 'KCopy', to: { name: 'copy' } },
   { name: 'KDateTimePicker', to: { name: 'datetimepicker' } },
   { name: 'KDropdown', to: { name: 'dropdown' } },
+  { name: 'KEmptyState', to: { name: 'emptystate' } },
   { name: 'KFileUpload', to: { name: 'fileupload' } },
   { name: 'KInput', to: { name: 'input' } },
   { name: 'KInputSwitch', to: { name: 'inputswitch' } },
