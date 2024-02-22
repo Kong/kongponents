@@ -2,6 +2,18 @@
 
 KAlert is used to display contextual information to a user (typically warning or error messages).
 
+<KAlert
+  title="Important"
+  message="Runtime Groups have been renamed to Control Planes."
+/>
+
+```html
+<KAlert
+  title="Important"
+  message="Runtime Groups have been renamed to Control Planes."
+/>
+```
+
 ## Props
 
 ### message
