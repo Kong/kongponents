@@ -55,11 +55,11 @@ import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 type AlertIcon = typeof InfoIcon | typeof CheckCircleIcon | typeof WarningIcon | typeof ClearIcon
 
 const props = defineProps({
-  message: {
+  title: {
     type: String,
     default: '',
   },
-  title: {
+  message: {
     type: String,
     default: '',
   },

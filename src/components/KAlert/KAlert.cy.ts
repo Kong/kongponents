@@ -1,10 +1,9 @@
 import { mount } from 'cypress/vue'
 import KAlert from '@/components/KAlert/KAlert.vue'
 import { AlertAppearances } from '@/types'
-import { h } from 'vue'
 
 const rendersCorrectVariant = (variant) => {
-  it(`Renders ${variant} variant`, () => {
+  it(`renders ${variant} variant`, () => {
     mount(KAlert, {
       props: {
         appearance: `${variant}`,
@@ -30,82 +29,78 @@ describe('KAlert', () => {
     cy.get('.k-alert').should('have.class', 'info')
   })
 
-  it('does not render if isShowing set to false', () => {
-    mount(KAlert, {
-      props: {
-        isShowing: false,
-      },
-    })
+  it('renders all elements correctly when props are not passed', () => {
+    mount(KAlert)
 
-    cy.get('.k-alert').should('not.exist')
+    cy.get('.k-alert').should('exist')
+    cy.get('.alert-icon-container').should('not.exist')
+    cy.get('.alert-content').should('exist')
+    cy.get('.alert-title').should('not.exist')
+    cy.get('.alert-message').should('not.exist')
+    cy.get('.alert-dismiss-icon').should('not.exist')
   })
 
-  it('renders borders on the expected sides', () => {
-    mount(KAlert, {
-      props: {
-        alertMessage: 'Hello world',
-        hasLeftBorder: true,
-      },
-    })
-    cy.get('.k-alert').should('have.class', 'has-left-border')
+  it('renders title when passed as a prop', () => {
+    const title = 'I am a title'
 
     mount(KAlert, {
       props: {
-        alertMessage: 'Hello world',
-        hasRightBorder: true,
+        title,
       },
     })
-    cy.get('.k-alert').should('have.class', 'has-right-border')
 
-    mount(KAlert, {
-      props: {
-        alertMessage: 'Hello world',
-        hasBottomBorder: true,
-      },
-    })
-    cy.get('.k-alert').should('have.class', 'has-bottom-border')
-
-    mount(KAlert, {
-      props: {
-        alertMessage: 'Hello world',
-        hasTopBorder: true,
-      },
-    })
-    cy.get('.k-alert').should('have.class', 'has-top-border')
+    cy.get('.alert-title').should('be.visible').and('have.text', title)
   })
 
-  it('renders large alert box', () => {
+  it('renders message when passed as a prop', () => {
+    const message = 'I am a message'
+
     mount(KAlert, {
       props: {
-        alertMessage: 'Hello world',
-        size: 'large',
+        message,
       },
     })
 
-    cy.get('.k-alert').should('have.class', 'large')
+    cy.get('.alert-message').should('be.visible').and('have.text', message)
   })
 
-  it('renders slots when passed', () => {
-    const actionButtons = 'Action button'
-    const alertMessage = 'Hello World'
-    const description = 'I am an alert'
+  it('renders icon and dismiss button when props are passed', () => {
+    mount(KAlert, {
+      props: {
+        hideIcon: false,
+        dismissible: true,
+      },
+    })
+
+    cy.get('.alert-icon-container').should('exist')
+    cy.get('.alert-dismiss-icon').should('exist')
+  })
+
+  it('renders default slot correctly', () => {
+    const message = 'I am a message'
+    const defaultSlotContent = 'Default'
 
     mount(KAlert, {
       props: {
-        dismissType: 'button',
-        size: 'large',
-        hasActionButtons: true,
-        type: 'banner',
+        message,
       },
       slots: {
-        actionButtons: () => h('span', {}, actionButtons),
-        alertMessage: () => h('span', {}, alertMessage),
-        description: () => h('span', {}, description),
+        default: `<span data-testid="default-slot-content">${defaultSlotContent}</span>`,
       },
     })
 
-    cy.get('.k-alert-action').should('contain.html', actionButtons)
-    cy.get('.k-alert-msg').should('contain.html', alertMessage)
-    cy.get('.k-alert-description-text').should('contain.html', description)
+    cy.get('.alert-message').should('be.visible').and('have.text', defaultSlotContent)
+  })
+
+  it('emits dismiss event when dismiss button is clicked', () => {
+    mount(KAlert, {
+      props: {
+        dismissible: true,
+      },
+    })
+
+    cy.get('.alert-dismiss-icon').click().then(() => {
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'dismiss')
+    })
   })
 })
