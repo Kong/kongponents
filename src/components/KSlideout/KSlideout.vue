@@ -182,10 +182,6 @@ onUnmounted(() => {
         letter-spacing: var(--kui-letter-spacing-minus-40, $kui-letter-spacing-minus-40);
         line-height: var(--kui-line-height-50, $kui-line-height-50);
         user-select: none;
-
-        :deep(#{$kongponentsKongIconSelector}) {
-          color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
-        }
       }
 
       .slideout-close-icon {
