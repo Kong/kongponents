@@ -6,7 +6,6 @@
     <div
       v-if="!hideIcon"
       class="alert-icon-container"
-      :class="{ 'has-title': title }"
     >
       <slot name="icon">
         <component
@@ -128,13 +127,10 @@ const getAlertIcon = computed((): AlertIcon => {
       height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
       width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
     }
-
-    &.has-title {
-      margin-top: 2px; // align icon with title
-    }
   }
 
   .alert-content {
+    align-self: center;
     display: flex;
     flex: 1;
     flex-direction: column;

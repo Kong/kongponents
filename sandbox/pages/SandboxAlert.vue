@@ -54,6 +54,24 @@
           appearance="info"
           dismissible
           :hide-icon="false"
+          message="This is info alert with icon and super long text. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        />
+        <KAlert
+          appearance="info"
+          dismissible
+          :hide-icon="false"
+          title="Just title and icon"
+        />
+        <KAlert
+          appearance="info"
+          dismissible
+          :hide-icon="false"
+          title="Just super long title and icon. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut."
+        />
+        <KAlert
+          appearance="info"
+          dismissible
+          :hide-icon="false"
           message="This is info alert with icon."
           title="Info"
         />
