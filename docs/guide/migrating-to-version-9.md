@@ -592,7 +592,9 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 ### KTruncate
 
 
-### KView Switcher
+### KViewSwitcher
+
+This component has been removed.
 
 <style lang="scss" scoped>
   // Add a border above component headings
