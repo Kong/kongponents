@@ -2,74 +2,87 @@ import { mount } from 'cypress/vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 
 describe('KEmptyState', () => {
-  it('renders slots when passed', () => {
-    const emptyTitle = 'No Entities Yet'
-    const emptyMessage = 'To Add an Entity, Press the Button'
-    const ctaText = 'Click Me!'
+  it('renders all elements correctly', () => {
+    mount(KEmptyState)
+
+    cy.get('.k-empty-state').should('be.visible')
+    cy.get('.empty-state-icon').should('be.visible')
+    cy.get('.empty-state-title').should('not.exist')
+    cy.get('.empty-state-message').should('not.exist')
+    cy.get('.empty-state-action').should('not.exist') // because action button text wasn't provided
+  })
+
+  it('renders title and message when provided', () => {
+    const title = 'Title'
+    const message = 'Message'
 
     mount(KEmptyState, {
       props: {
-        ctaText,
+        title,
+        message,
+      },
+    })
+
+    cy.get('.empty-state-title').should('be.visible').should('contain', title)
+    cy.get('.empty-state-message').should('be.visible').should('contain', message)
+  })
+
+  it('renders action button when provided button text', () => {
+    const actionButtonText = 'Action'
+
+    mount(KEmptyState, {
+      props: {
+        actionButtonText,
+      },
+    })
+
+    cy.get('.empty-state-action').should('be.visible').should('contain', actionButtonText)
+  })
+
+  it('does not render action button when hidden', () => {
+    mount(KEmptyState, {
+      props: {
+        actionButtonVisible: false,
+        actionButtonText: 'Action',
+      },
+    })
+
+    cy.get('.empty-state-action').should('not.exist')
+  })
+
+  it('correctly handles action button disabled state', () => {
+    mount(KEmptyState, {
+      props: {
+        actionButtonText: 'Action',
+        actionButtonDisabled: true,
+      },
+    })
+
+    cy.get('.empty-state-action').should('be.visible').find('button').should('be.disabled')
+  })
+
+  it('displays content passed through default slot correctly', () => {
+    const content = 'Content'
+
+    mount(KEmptyState, {
+      props: {
+        message: 'Message',
       },
       slots: {
-        title: () => `${emptyTitle}`,
-        message: () => `${emptyMessage}`,
+        default: `<span data-testid="slotted-message">${content}</span>`,
       },
     })
 
-    cy.get('.empty-state-title').should('contain.text', emptyTitle)
-    cy.get('.empty-state-content').should('contain.text', emptyMessage)
-    cy.get('button.primary').should('contain.text', ctaText)
+    cy.get('.empty-state-message').findTestId('slotted-message').should('be.visible').should('contain', content)
   })
 
-  it('renders icon when error flag passed', () => {
-    const errorMessage = 'I got a bad feeling about this'
+  it('displays icon passed through icon slot', () => {
     mount(KEmptyState, {
-      props: {
-        isError: true,
-        ctaIsHidden: true,
-      },
       slots: {
-        message: () => `${errorMessage}`,
+        icon: '<img data-testid="slotted-icon" src="https://via.placeholder.com/36" />',
       },
     })
 
-    cy.get('.warning-icon').should('be.visible')
-    cy.get('.k-empty-state-message').should('contain.text', errorMessage)
-  })
-
-  it('renders custom icon when icon prop passed', () => {
-    const errorMessage = 'Support me'
-    mount(KEmptyState, {
-      props: {
-        icon: 'support',
-        ctaIsHidden: true,
-      },
-      slots: {
-        message: () => `${errorMessage}`,
-      },
-    })
-
-    cy.get('.kong-icon-support').should('be.visible')
-    cy.get('.empty-state-content').should('contain.text', errorMessage)
-  })
-
-  it('remains empty when no slots are passed', () => {
-    mount(KEmptyState, {
-      slots: {},
-    })
-
-    cy.get('.empty-state-title').should('not.contain.text')
-    cy.get('.empty-state-content').should('not.contain.text')
-  })
-
-  it('does not render KButton when ctaIsHidden', () => {
-    mount(KEmptyState, {
-      props: {
-        ctaIsHidden: true,
-      },
-    })
-
-    cy.get('button').should('not.exist')
+    cy.get('.empty-state-icon').findTestId('slotted-icon').should('be.visible')
   })
 })

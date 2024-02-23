@@ -51,6 +51,7 @@
 import { computed } from 'vue'
 import { AnalyticsIcon, WarningIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_COLOR_TEXT_WARNING, KUI_ICON_SIZE_60 } from '@kong/design-tokens'
+import KButton from '@/components/KButton/KButton.vue'
 
 type EmptyStateIcon = typeof AnalyticsIcon // all icons are the same type so we can use any of them
 
