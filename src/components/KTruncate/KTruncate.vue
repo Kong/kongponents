@@ -47,9 +47,8 @@
             role="button"
             tabindex="0"
             @click.stop="handleToggleClick"
-            @keydown.space.prevent
-            @keyup.enter="handleToggleClick"
-            @keyup.space="handleToggleClick"
+            @keydown.enter="handleToggleClick"
+            @keydown.space.prevent="handleToggleClick"
           />
         </slot>
       </div>
