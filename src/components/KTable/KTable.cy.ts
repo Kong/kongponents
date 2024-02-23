@@ -113,7 +113,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.get('.empty-state-wrapper').should('be.visible')
+      cy.get('.k-empty-state').should('be.visible')
     })
 
     it('displays an empty state when no data is available (slot)', () => {
@@ -153,8 +153,8 @@ describe('KTable', () => {
         },
       })
 
-      cy.get('.empty-state-wrapper').should('be.visible')
-      cy.get('.is-error').should('be.visible')
+      cy.get('.k-empty-state').should('be.visible')
+      cy.get('.empty-state-error').should('be.visible')
     })
 
     it('displays an error state (slot)', () => {
@@ -188,7 +188,7 @@ describe('KTable', () => {
       })
 
       cy.get('.skeleton-table-wrapper').should('be.visible')
-      cy.get('.empty-state-wrapper').should('not.exist')
+      cy.get('.k-empty-state').should('not.exist')
     })
   })
 
