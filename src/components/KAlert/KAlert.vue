@@ -4,7 +4,7 @@
     :class="[appearance]"
   >
     <div
-      v-if="showIcon"
+      v-if="showIcon || $slots.icon"
       class="alert-icon-container"
     >
       <slot name="icon">

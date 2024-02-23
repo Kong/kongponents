@@ -92,6 +92,16 @@ describe('KAlert', () => {
     cy.get('.alert-message').should('be.visible').and('have.text', defaultSlotContent)
   })
 
+  it('displays icon passed through icon slot', () => {
+    mount(KAlert, {
+      slots: {
+        icon: '<img data-testid="slotted-icon" src="https://via.placeholder.com/24" />',
+      },
+    })
+
+    cy.get('.alert-icon-container').findTestId('slotted-icon').should('be.visible')
+  })
+
   it('emits dismiss event when dismiss button is clicked', () => {
     mount(KAlert, {
       props: {

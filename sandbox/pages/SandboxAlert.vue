@@ -116,10 +116,7 @@
         title="Slots"
       />
       <SandboxSectionComponent title="icon">
-        <KAlert
-          message="Alert with a custom icon."
-          show-icon
-        >
+        <KAlert message="Alert with a custom icon.">
           <template #icon>
             <KongIcon />
           </template>

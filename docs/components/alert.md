@@ -97,7 +97,11 @@ A prop to provide the alert title.
 
 ### showIcon
 
-Boolean to display icon before the content. Each KAlert appearance comes with a default icon, however should you want to, you can provide your own icon through [`icon` prop](#icon). Defaults to `false`.
+Boolean to display icon before the content. Each KAlert appearance comes with a default icon, however should you want to, you can provide your own icon through [`icon` slot](#icon). Defaults to `false`.
+
+:::tip NOTE
+If you provide your custom icon through [`icon` slot](#icon), it will be shown regardless of this prop value.
+:::
 
 <div class="vertical-container">
   <KAlert
@@ -179,10 +183,13 @@ Slot for passing alert message content. When provided, takes precedence over the
 
 ### icon
 
-Slot for providing a custom icon to the left of the alert message. Note that `showIcon` has to be set to `true` for icon to be visible.
+Slot for providing a custom icon to the left of the alert message.
+
+:::tip NOTE
+If you provide your custom icon through this slot, it will be shown regardless of [`showIcon` prop](#showicon) value.
+:::
 
 <KAlert
-  show-icon
   appearance="success"
   message="This is success alert with custom icon."
 >
