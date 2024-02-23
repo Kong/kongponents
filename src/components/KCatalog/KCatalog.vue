@@ -54,24 +54,14 @@
     >
       <slot name="error-state">
         <KEmptyState
-          :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
-          :icon="errorStateIcon || ''"
-          :icon-color="errorStateIconColor"
-          :icon-size="errorStateIconSize"
-          is-error
+          :action-button-visible="!!errorStateActionMessage && !!errorStateActionRoute"
+          error
+          :message="errorStateMessage"
+          :title="errorStateTitle"
         >
-          <template #title>
-            {{ errorStateTitle }}
-          </template>
-
-          <template #message>
-            {{ errorStateMessage }}
-          </template>
-
-          <template #cta>
+          <template #action>
             <KButton
               v-if="errorStateActionMessage"
-              appearance="primary"
               :data-testid="getTestIdString(errorStateActionMessage)"
               :to="errorStateActionRoute ? errorStateActionRoute : undefined"
               @click="$emit('kcatalog-error-cta-clicked')"
@@ -90,20 +80,11 @@
     >
       <slot name="empty-state">
         <KEmptyState
-          :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
-          :icon="emptyStateIcon || ''"
-          :icon-color="emptyStateIconColor"
-          :icon-size="emptyStateIconSize"
+          :action-button-visible="!!emptyStateActionMessage && !!emptyStateActionRoute"
+          :message="emptyStateMessage"
+          :title="emptyStateTitle"
         >
-          <template #title>
-            {{ emptyStateTitle }}
-          </template>
-
-          <template #message>
-            {{ emptyStateMessage }}
-          </template>
-
-          <template #cta>
+          <template #action>
             <KButton
               v-if="emptyStateActionMessage"
               :appearance="searchInput ? 'secondary' : 'primary'"
