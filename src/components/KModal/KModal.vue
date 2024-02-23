@@ -46,9 +46,8 @@
                 tabindex="0"
                 title="Close"
                 @click="$emit('cancel')"
-                @keydown.space.prevent
-                @keyup.enter="$emit('cancel')"
-                @keyup.space="$emit('cancel')"
+                @keydown.enter="$emit('cancel')"
+                @keydown.space.prevent="$emit('cancel')"
               />
             </div>
             <div

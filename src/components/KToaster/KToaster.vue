@@ -40,6 +40,8 @@
         :size="KUI_ICON_SIZE_50"
         tabindex="0"
         @click="$emit('close', toaster.key)"
+        @keydown.enter="$emit('close', toaster.key)"
+        @keydown.space.prevent="$emit('close', toaster.key)"
       />
     </div>
   </TransitionGroup>

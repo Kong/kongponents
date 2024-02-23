@@ -32,9 +32,8 @@
             tabindex="0"
             title="Close"
             @click="$emit('close')"
-            @keydown.space.prevent
-            @keyup.enter="$emit('close')"
-            @keyup.space="$emit('close')"
+            @keydown.enter="$emit('close')"
+            @keydown.space.prevent="$emit('close')"
           />
         </div>
         <div class="slideout-content">
