@@ -67,7 +67,7 @@ describe('KAlert', () => {
   it('renders icon and dismiss button when props are passed', () => {
     mount(KAlert, {
       props: {
-        hideIcon: false,
+        showIcon: true,
         dismissible: true,
       },
     })

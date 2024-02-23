@@ -54,8 +54,6 @@
             :disabled="disabled"
             size="small"
             @click="onButtonClick"
-            @keydown.space.prevent
-            @keyup.space="onButtonClick"
           >
             {{ fileValue ? 'Clear' : buttonText }}
           </KButton>

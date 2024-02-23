@@ -4,13 +4,13 @@ KAlert is used to display contextual information to a user (typically additional
 
 <KAlert
   title="Important"
-  message="Runtime Groups have been renamed to Control Planes."
+  message="Alert message with important information for user."
 />
 
 ```html
 <KAlert
   title="Important"
-  message="Runtime Groups have been renamed to Control Planes."
+  message="Alert message with important information for user."
 />
 ```
 
@@ -21,12 +21,12 @@ KAlert is used to display contextual information to a user (typically additional
 The alert message. The main content of the alert can also be [slotted](#default).
 
 <KAlert
-  message="Runtime Groups have been renamed to Control Planes."
+  message="Alert message with important information for user."
 />
 
 ```html
 <KAlert
-  message="Runtime Groups have been renamed to Control Planes."
+  message="Alert message with important information for user."
 />
 ```
 
@@ -95,28 +95,28 @@ A prop to provide the alert title.
 />
 ```
 
-### hideIcon
+### showIcon
 
-Boolean to display icon before the content. Each KAlert appearance comes with a default icon, however should you want to, you can provide your own icon through [`icon` prop](#icon). Defaults to `true`.
+Boolean to display icon before the content. Each KAlert appearance comes with a default icon, however should you want to, you can provide your own icon through [`icon` prop](#icon). Defaults to `false`.
 
 <div class="vertical-container">
   <KAlert
-    :hide-icon="false"
+    show-icon
     appearance="info"
     message="This is info alert with icon."
   />
   <KAlert
-    :hide-icon="false"
+    show-icon
     appearance="success"
     message="This is success alert with icon."
   />
   <KAlert
-    :hide-icon="false"
+    show-icon
     appearance="warning"
     message="This is warning alert with icon."
   />
   <KAlert
-    :hide-icon="false"
+    show-icon
     appearance="danger"
     message="This is danger alert with icon."
   />
@@ -124,22 +124,22 @@ Boolean to display icon before the content. Each KAlert appearance comes with a 
 
 ```html
 <KAlert
-  :hide-icon="false"
+  show-icon
   appearance="info"
   message="This is info alert with icon."
 />
 <KAlert
-  :hide-icon="false"
+  show-icon
   appearance="success"
   message="This is success alert with icon."
 />
 <KAlert
-  :hide-icon="false"
+  show-icon
   appearance="warning"
   message="This is warning alert."
 />
 <KAlert
-  :hide-icon="false"
+  show-icon
   appearance="danger"
   message="This is danger alert with icon."
 />
@@ -151,13 +151,13 @@ Boolean to control whether dismiss button should be displayed. Defaults to `fals
 
 <KAlert
   dismissible
-  message="Runtime Groups have been renamed to Control Planes."
+  message="Alert message with important information for user."
 />
 
 ```html
 <KAlert
   dismissible
-  message="Runtime Groups have been renamed to Control Planes."
+  message="Alert message with important information for user."
 />
 ```
 
@@ -179,10 +179,10 @@ Slot for passing alert message content. When provided, takes precedence over the
 
 ### icon
 
-Slot for providing custom icon. Note that `hideIcon` has to be set to `false` for icon to be visible.
+Slot for providing a custom icon to the left of the alert message. Note that `showIcon` has to be set to `true` for icon to be visible.
 
 <KAlert
-  :hide-icon="false"
+  show-icon
   appearance="success"
   message="This is success alert with custom icon."
 >
@@ -200,7 +200,7 @@ Emitted when dismiss icon is clicked.
 <KAlert
   v-if="showAlert"
   dismissible
-  message="Runtime Groups have been renamed to Control Planes."
+  message="Alert message with important information for user."
   @dismiss="showAlert = false"
 />
 
@@ -209,7 +209,7 @@ Emitted when dismiss icon is clicked.
   <KAlert
     v-if="showAlert"
     dismissible
-    message="Runtime Groups have been renamed to Control Planes."
+    message="Alert message with important information for user."
     @dismiss="hideAlert"
   />
 </template>

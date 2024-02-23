@@ -4,7 +4,7 @@
     :class="[appearance]"
   >
     <div
-      v-if="!hideIcon"
+      v-if="showIcon"
       class="alert-icon-container"
     >
       <slot name="icon">
@@ -70,9 +70,9 @@ const props = defineProps({
       return Object.values(AlertAppearances).includes(value)
     },
   },
-  hideIcon: {
+  showIcon: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   dismissible: {
     type: Boolean,
@@ -101,7 +101,10 @@ const getAlertIcon = computed((): AlertIcon => {
 <style lang="scss" scoped>
 /* Component mixins */
 
-@mixin kAlertAppearance($backgroundColor: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest), $textColor: var(--kui-color-text-primary, $kui-color-text-primary), $dismissIconHoverColor: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong)) {
+@mixin kAlertAppearance(
+  $backgroundColor: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest),
+  $textColor: var(--kui-color-text-primary, $kui-color-text-primary),
+  $dismissIconHoverColor: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong)) {
   background-color: $backgroundColor;
   color: $textColor;
 

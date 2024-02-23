@@ -43,57 +43,57 @@
           title="Danger"
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="hideIcon">
+      <SandboxSectionComponent title="showIcon">
         <KAlert
           appearance="info"
           dismissible
-          :hide-icon="false"
           message="This is info alert with icon."
+          show-icon
         />
         <KAlert
           appearance="info"
           dismissible
-          :hide-icon="false"
           message="This is info alert with icon and super long text. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+          show-icon
         />
         <KAlert
           appearance="info"
           dismissible
-          :hide-icon="false"
+          show-icon
           title="Just title and icon"
         />
         <KAlert
           appearance="info"
           dismissible
-          :hide-icon="false"
+          show-icon
           title="Just super long title and icon. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut."
         />
         <KAlert
           appearance="info"
           dismissible
-          :hide-icon="false"
           message="This is info alert with icon."
+          show-icon
           title="Info"
         />
         <KAlert
           appearance="success"
           dismissible
-          :hide-icon="false"
           message="This is success alert with icon."
+          show-icon
           title="Success"
         />
         <KAlert
           appearance="warning"
           dismissible
-          :hide-icon="false"
           message="This is warning alert with icon."
+          show-icon
           title="Warning"
         />
         <KAlert
           appearance="danger"
           dismissible
-          :hide-icon="false"
           message="This is danger alert with icon."
+          show-icon
           title="Danger"
         />
       </SandboxSectionComponent>
@@ -104,8 +104,8 @@
         />
         <KAlert
           dismissible
-          :hide-icon="false"
           message="Fully packed alert. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          show-icon
           title="This is a dismissible alert with super long title, super long message and icon. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         />
       </SandboxSectionComponent>
@@ -117,8 +117,8 @@
       />
       <SandboxSectionComponent title="icon">
         <KAlert
-          :hide-icon="false"
           message="Alert with a custom icon."
+          show-icon
         >
           <template #icon>
             <KongIcon />
