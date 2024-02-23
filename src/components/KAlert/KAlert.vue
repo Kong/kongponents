@@ -52,7 +52,7 @@ import { AlertAppearances } from '@/types'
 import { InfoIcon, CheckCircleIcon, WarningIcon, ClearIcon, CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
-type AlertIcon = typeof InfoIcon | typeof CheckCircleIcon | typeof WarningIcon | typeof ClearIcon
+type AlertIcon = typeof InfoIcon // all icons are the same type so we can use any of them
 
 const props = defineProps({
   title: {
