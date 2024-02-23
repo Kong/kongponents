@@ -122,6 +122,11 @@ const getIconColor = computed(() => {
 
     .empty-state-icon {
       color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+
+      :deep(#{$kongponentsKongIconSelector}) {
+        height: var(--kui-icon-size-60, $kui-icon-size-60) !important;
+        width: var(--kui-icon-size-60, $kui-icon-size-60) !important;
+      }
     }
 
     .empty-state-title {
