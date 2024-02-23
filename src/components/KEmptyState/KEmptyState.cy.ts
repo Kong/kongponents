@@ -85,4 +85,16 @@ describe('KEmptyState', () => {
 
     cy.get('.empty-state-icon').findTestId('slotted-icon').should('be.visible')
   })
+
+  it('emits event when action button is clicked', () => {
+    mount(KEmptyState, {
+      props: {
+        actionButtonText: 'Action',
+      },
+    })
+
+    cy.get('.empty-state-action').should('be.visible').find('button').click().then(() => {
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'action-click')
+    })
+  })
 })
