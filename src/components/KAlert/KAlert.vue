@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-alert"
-    :class="`${appearance}`"
+    :class="[appearance]"
   >
     <div
       v-if="!hideIcon"

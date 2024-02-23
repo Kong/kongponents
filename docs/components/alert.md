@@ -1,6 +1,6 @@
 # Alert
 
-KAlert is used to display contextual information to a user (typically warning or error messages).
+KAlert is used to display contextual information to a user (typically additional info or error messages).
 
 <KAlert
   title="Important"
@@ -18,7 +18,7 @@ KAlert is used to display contextual information to a user (typically warning or
 
 ### message
 
-Main content of the alert container. Can also be [slotted](#default).
+The alert message. The main content of the alert can also be [slotted](#default).
 
 <KAlert
   message="Runtime Groups have been renamed to Control Planes."
@@ -32,7 +32,7 @@ Main content of the alert container. Can also be [slotted](#default).
 
 ### appearance
 
-Depending on the nature of the message you want to display to user, you might want to use different appearances. KAlert comes in 4 variations:
+Depending on the nature of the message you want to display to the user, KAlert comes with 4 appearances:
 
 - `info` (default)
 - `success`
@@ -79,17 +79,17 @@ Depending on the nature of the message you want to display to user, you might wa
 
 ### title
 
-A prop to provide a title string. Good for longer messages.
+A prop to provide the alert title. 
 
 <KAlert
-  title="Important Update On How We Handle Third-Party Cookies"
+  title="Important update on how we handle third-party cookies"
   appearance="warning"
   message="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 />
 
 ```html
 <KAlert
-  title="Important Update On How We Handle Third-Party Cookies"
+  title="Important update on how we handle third-party cookies"
   appearance="warning"
   message="Lorem ipsum dolor sit amet..."
 />
@@ -165,7 +165,7 @@ Boolean to control whether dismiss button should be displayed. Defaults to `fals
 
 ### default
 
-Slot for passing alert message content. When provided, take presence over [`message` prop](#message).
+Slot for passing alert message content. When provided, takes precedence over the [`message` prop](#message).
 
 <KAlert>
   We update our privacy policy. <KExternalLink href="https://kongponents.konghq.com/">More info</KExternalLink>
