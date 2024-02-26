@@ -1015,18 +1015,32 @@ watch(() => props.items, (newValue, oldValue) => {
 }, { deep: true, immediate: true })
 
 const numericWidth = ref<number>(300)
-const setNumericWidth = (): void => {
+const setNumericWidth = async (): Promise<void> => {
+  numericWidth.value = 300
+  await nextTick()
   numericWidth.value = multiselectElement.value?.clientWidth || 300
+  stageSelections()
 }
 
 const resizeObserver = ref<ResizeObserverHelper>()
+
+const toggleEventListeners = (add: boolean): void => {
+  if (add) {
+    window.addEventListener('resize', setNumericWidth)
+  } else {
+    window.removeEventListener('resize', setNumericWidth)
+  }
+}
+
 onMounted(() => {
+  toggleEventListeners(true)
   resizeObserver.value = ResizeObserverHelper.create(setNumericWidth)
 
   resizeObserver.value.observe(multiselectElement.value as HTMLDivElement)
 })
 
 onUnmounted(() => {
+  toggleEventListeners(false)
   if (resizeObserver.value && multiselectElement.value) {
     resizeObserver.value.unobserve(multiselectElement.value)
   }
