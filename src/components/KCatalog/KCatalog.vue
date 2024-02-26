@@ -55,7 +55,7 @@
       <slot name="error-state">
         <KEmptyState
           :action-button-visible="!!errorStateActionMessage && !!errorStateActionRoute"
-          error
+          icon-variant="error"
           :message="errorStateMessage"
           :title="errorStateTitle"
         >

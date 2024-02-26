@@ -153,8 +153,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.get('.k-empty-state').should('be.visible')
-      cy.get('.empty-state-error').should('be.visible')
+      cy.get('.k-empty-state.error').should('be.visible')
     })
 
     it('displays an error state (slot)', () => {
