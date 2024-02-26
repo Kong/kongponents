@@ -1079,10 +1079,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@kong-ui-public/sandbox-layout@^2.0.34":
-  version "2.0.34"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/sandbox-layout/-/sandbox-layout-2.0.34.tgz#4d2df6d38d7734114094a3004d76f6e47a24c648"
-  integrity sha512-42FE358Avnkge3t0gKVZSr7jquCsFwWum4JOJxH/b1h6/+vR3kWoUk48O3+snpxf3kpHqHz3yIy2+z0itHHgJw==
+"@kong-ui-public/sandbox-layout@^2.0.35":
+  version "2.0.35"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/sandbox-layout/-/sandbox-layout-2.0.35.tgz#885d34a8a896e51d61eb5729703b44fe2ba97579"
+  integrity sha512-Pjyb/h02o10aEAFYyplaYM/18dmWf48iVKSgja9qUZhREye9lG0KoxDIjoRq5f1CI/jPrpXoCRalWUE4xMpJqA==
   dependencies:
     "@kong/icons" "^1.8.14"
 
