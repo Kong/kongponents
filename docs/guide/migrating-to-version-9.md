@@ -227,7 +227,7 @@ Component has been renamed to `KDropdown`
 
 * `isError` prop has been changed to `error`
 * `iconSize` prop has been removed
-* `icon` prop has been removed. You can use the new `icon` slot to provide your custom icon
+* `icon` prop has been removed and replaced with `iconVariant` prop. You can also use the new `icon` slot to provide your custom icon
 * `ctaIsHidden` prop has been removed and replaced with `actionButtonVisible` prop
 * `ctaText` prop has been removed and replaced with `actionButtonText` prop
 * `handleClick` prop has been removed. You can bind your action button click handler function to new `action-click` event
@@ -243,7 +243,6 @@ Component has been renamed to `KDropdown`
 #### Structure
 
 * `empty-state-wrapper` class has been changed to `k-empty-state`
-* `is-error` class has been changed to `empty-state-error`
 * `k-empty-state-icon` class has been changed to `empty-state-icon`
 * `k-empty-state-title-header` class has been changed to `empty-state-title`
 * `k-empty-state-message` class has been changed to `empty-state-message`

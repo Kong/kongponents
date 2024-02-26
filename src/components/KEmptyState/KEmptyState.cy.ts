@@ -2,6 +2,16 @@ import { mount } from 'cypress/vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 
 describe('KEmptyState', () => {
+  ['default', 'search', 'kong', 'error'].forEach((variant) => {
+    it(`renders ${variant} icon variant correctly`, () => {
+      it('renders all elements correctly', () => {
+        mount(KEmptyState)
+
+        cy.get(`.k-empty-state.${variant}`).should('be.visible')
+      })
+    })
+  })
+
   it('renders all elements correctly', () => {
     mount(KEmptyState)
 

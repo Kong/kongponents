@@ -132,26 +132,6 @@ Boolean to control whether action button should be enabled or disabled. Defaults
 />
 ```
 
-### error
-
-Boolean to control whether error icon should be displayed instead of default. You can also provide your custom icon using [`icon` slot](#icon).
-
-<KEmptyState
-  error
-  action-button-text="Action"
-  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
-  title="Empty State Error"
-/>
-
-```html
-<KEmptyState
-  error
-  action-button-text="Action"
-  message="Lorem ipsum dolor sit amet..."
-  title="Empty State Error"
-/>
-```
-
 ## Slots
 
 ### default

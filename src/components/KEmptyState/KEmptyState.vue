@@ -1,7 +1,7 @@
 <template>
   <section
     class="k-empty-state"
-    :class="{ 'empty-state-error': error }"
+    :class="[iconVariant]"
   >
     <div class="empty-state-content">
       <div class="empty-state-icon">
@@ -48,10 +48,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { AnalyticsIcon, WarningIcon } from '@kong/icons'
+import { computed, type PropType } from 'vue'
+import { AnalyticsIcon, WarningIcon, SearchIcon, KongIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_COLOR_TEXT_WARNING, KUI_ICON_SIZE_60 } from '@kong/design-tokens'
 import KButton from '@/components/KButton/KButton.vue'
+import { EmptyStateIconVariants } from '@/types'
+import type { EmptyStateIconVariant } from '@/types'
 
 type EmptyStateIcon = typeof AnalyticsIcon // all icons are the same type so we can use any of them
 
@@ -76,28 +78,37 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  error: {
-    type: Boolean,
-    default: false,
+  iconVariant: {
+    type: String as PropType<EmptyStateIconVariant>,
+    default: EmptyStateIconVariants.Default,
   },
 })
 
 defineEmits(['action-click'])
 
 const getEmptyStateIcon = computed((): EmptyStateIcon => {
-  if (props.error) {
-    return WarningIcon
+  switch (props.iconVariant) {
+    case EmptyStateIconVariants.Default:
+      return AnalyticsIcon
+    case EmptyStateIconVariants.Error:
+      return WarningIcon
+    case EmptyStateIconVariants.Search:
+      return SearchIcon
+    case EmptyStateIconVariants.Kong:
+      return KongIcon
+    default:
+      return AnalyticsIcon // default variant in case of invalid value
   }
-
-  return AnalyticsIcon
 })
 
-const getIconColor = computed(() => {
-  if (props.error) {
-    return KUI_COLOR_TEXT_WARNING
+const getIconColor = computed((): string => {
+  // TODO: add color for other variants
+  switch (props.iconVariant) {
+    case EmptyStateIconVariants.Error:
+      return KUI_COLOR_TEXT_WARNING
+    default:
+      return KUI_COLOR_TEXT_NEUTRAL
   }
-
-  return KUI_COLOR_TEXT_NEUTRAL
 })
 </script>
 
