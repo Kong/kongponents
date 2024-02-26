@@ -253,24 +253,9 @@
           Deselect Item
         </KButton>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="KSelect and KMultiselect row layout">
-        <div
-          ref="resizableContainerElement"
-          class="select-multiselect-row"
-          @click="resizableContainerResize"
-        >
+      <SandboxSectionComponent title="Respecting siblings on resize">
+        <div class="select-multiselect-row">
           <KSelect
-            :key="resizableContainerChildKey"
-            :items="[{
-              label: 'Control plane 1',
-              value: 'cp1',
-            }, {
-              label: 'Control plane 2',
-              value: 'cp2',
-            }]"
-          />
-          <KSelect
-            :key="resizableContainerChildKey"
             :items="[{
               label: 'Route 1',
               value: 'route1',
@@ -280,7 +265,6 @@
             }]"
           />
           <KMultiselect
-            :key="resizableContainerChildKey"
             :items="multiselectItems"
           />
         </div>
@@ -357,18 +341,6 @@ const example1DeselectItem = () => {
 }
 
 const example1ModelJson = computed(() => JSON.stringify(example1Selected.value, undefined, 2))
-
-// KSelect and KMultiselect row layout example logic
-
-const resizableContainerElement = ref<HTMLElement | null>(null)
-
-const resizableContainerChildKey = ref<number>(0)
-
-const resizableContainerResize = (event: Event) => {
-  if (event.target === resizableContainerElement.value) {
-    resizableContainerChildKey.value++
-  }
-}
 </script>
 
 <style lang="scss" scoped>
@@ -397,10 +369,6 @@ const resizableContainerResize = (event: Event) => {
     display: flex;
     flex-direction: row;
     gap: $kui-space-30;
-    overflow: auto;
-    padding: $kui-space-20;
-    padding-bottom: $kui-space-100;
-    resize: horizontal;
   }
 }
 </style>
