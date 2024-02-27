@@ -180,8 +180,8 @@
           :page-sizes="paginationPageSizes"
           :test-mode="!!testMode || undefined"
           :total-count="total"
-          @page-changed="pageChangeHandler"
-          @page-size-changed="pageSizeChangeHandler"
+          @page-change="pageChangeHandler"
+          @page-size-change="pageSizeChangeHandler"
         />
       </div>
     </div>

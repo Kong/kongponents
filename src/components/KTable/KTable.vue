@@ -194,8 +194,8 @@
         :total-count="total"
         @get-next-offset="getNextOffsetHandler"
         @get-prev-offset="getPrevOffsetHandler"
-        @page-changed="pageChangeHandler"
-        @page-size-changed="pageSizeChangeHandler"
+        @page-change="pageChangeHandler"
+        @page-size-change="pageSizeChangeHandler"
       />
     </section>
   </div>

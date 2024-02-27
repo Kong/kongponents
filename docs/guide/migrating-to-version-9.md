@@ -420,6 +420,9 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 
 #### Events
 
+* `pageChanged` event has been renamed to `pageChange`
+* `pageSizeChanged` event has been renamed to `pageSizeChange`
+
 #### Structure
 
 * `card-pagination-bar` has been removed and replaced with `k-pagination`

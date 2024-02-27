@@ -193,8 +193,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'pageChanged', val: PageChangedData): void
-  (e: 'pageSizeChanged', val: PageSizeChangedData): void
+  (e: 'pageChange', val: PageChangedData): void
+  (e: 'pageSizeChange', val: PageSizeChangedData): void
   (e: 'getNextOffset'): void
   (e: 'getPrevOffset'): void
 }>()
