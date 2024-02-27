@@ -219,8 +219,8 @@ import type {
   SwrvState,
   SwrvStateData,
   TableState,
-  PageChangedData,
-  PageSizeChangedData,
+  PageChangeData,
+  PageSizeChangeData,
   SortColumnOrder,
   TableSortOrder,
   TableSortPayload,
@@ -843,11 +843,11 @@ const sortClickHandler = (header: TableHeader): void => {
   emitTablePreferences()
 }
 
-const pageChangeHandler = ({ page: newPage }: PageChangedData) => {
+const pageChangeHandler = ({ page: newPage }: PageChangeData) => {
   page.value = newPage
 }
 
-const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangedData) => {
+const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData) => {
   offsets.value = [null]
   offset.value = null
   pageSize.value = newPageSize

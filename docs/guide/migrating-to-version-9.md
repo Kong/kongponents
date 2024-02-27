@@ -430,6 +430,11 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 * `prev-btn` `data-testid` attribute has been changed to `previous-button`
 * `*-btn` part in various `data-testid` attributes has been updated to `*-button`
 
+#### Constants, Types & Interfaces
+
+* `PageChangedData` interface has been renamed to `PageChangeData`
+* `PageSizeChangedData` interface has been renamed to `PageSizeChangeData`
+
 ### KPopover
 
 

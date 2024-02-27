@@ -199,8 +199,8 @@ import type {
   SwrvStateData,
   CardSize,
   CatalogState,
-  PageChangedData,
-  PageSizeChangedData,
+  PageChangeData,
+  PageSizeChangeData,
 } from '@/types'
 import {
   CardSizeArray,
@@ -542,11 +542,11 @@ const stateData = computed((): SwrvStateData => ({
 }))
 const catalogState = computed((): CatalogState => isCatalogLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
 
-const pageChangeHandler = ({ page: newPage }: PageChangedData): void => {
+const pageChangeHandler = ({ page: newPage }: PageChangeData): void => {
   page.value = newPage
 }
 
-const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangedData): void => {
+const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData): void => {
   pageSize.value = newPageSize
   page.value = 1
 }

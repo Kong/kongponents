@@ -135,7 +135,7 @@ import { ref, computed, watch } from 'vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import PaginationOffset from './PaginationOffset.vue'
-import type { PaginationType, PageSizeChangedData, PageChangedData, DropdownItem } from '@/types'
+import type { PaginationType, PageSizeChangeData, PageChangeData, DropdownItem } from '@/types'
 import { BackIcon, ForwardIcon, ChevronDownIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_DISABLED, KUI_COLOR_TEXT_PRIMARY, KUI_ICON_SIZE_50 } from '@kong/design-tokens'
 
@@ -193,8 +193,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'pageChange', val: PageChangedData): void
-  (e: 'pageSizeChange', val: PageSizeChangedData): void
+  (e: 'pageChange', val: PageChangeData): void
+  (e: 'pageSizeChange', val: PageSizeChangeData): void
   (e: 'getNextOffset'): void
   (e: 'getPrevOffset'): void
 }>()
@@ -294,7 +294,7 @@ const updatePage = (): void => {
     lastDetached.value = currPage.value <= pageCount.value - props.neighbors - 3
   }
   pagesVisible.value = getVisiblePages(currPage.value, pageCount.value, firstDetached.value, lastDetached.value)
-  emit('pageChanged', {
+  emit('pageChange', {
     page: currPage.value,
     pageCount: pageCount.value,
     firstItem: startCount.value,
@@ -307,7 +307,7 @@ const updatePageSize = (item: DropdownItem): void => {
   if (currentPageSize.value !== item.value) {
     currentPageSize.value = item.value as number
 
-    emit('pageSizeChanged', {
+    emit('pageSizeChange', {
       pageSize: currentPageSize.value,
       pageCount: pageCount.value,
     })
