@@ -1,3 +1,10 @@
+# [9.0.0-alpha.107](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.106...v9.0.0-alpha.107) (2024-02-27)
+
+
+### Features
+
+* **ktruncate, kslideout, ktoaster:** components reskin ([#2020](https://github.com/Kong/kongponents/issues/2020)) ([cb059fd](https://github.com/Kong/kongponents/commit/cb059fdc83f9600db78c8cb400a95a8183615a1a)), closes [#2009](https://github.com/Kong/kongponents/issues/2009)
+
 # [9.0.0-alpha.106](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.105...v9.0.0-alpha.106) (2024-02-20)
 
 
