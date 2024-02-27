@@ -198,6 +198,17 @@ If you provide your custom icon through this slot, it will be shown regardless o
   </template>
 </KAlert>
 
+```html
+<KAlert
+  appearance="success"
+  message="This is success alert with custom icon."
+>
+  <template #icon>
+    <KongIcon />
+  </template>
+</KAlert>
+```
+
 ## Events
 
 ### dismiss
