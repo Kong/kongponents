@@ -1026,7 +1026,7 @@ const setNumericWidth = async (): Promise<void> => {
 const resizeObserver = ref<ResizeObserverHelper>()
 
 onMounted(() => {
-  useEventListener('resize', setNumericWidth)
+  useEventListener('resize', setNumericWidth) // automatically removes listener on unmount so no need to clean up
   resizeObserver.value = ResizeObserverHelper.create(setNumericWidth)
 
   resizeObserver.value.observe(multiselectElement.value as HTMLDivElement)
