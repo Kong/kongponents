@@ -4,56 +4,52 @@ import { h } from 'vue'
 
 describe('KSlideout', () => {
   it('renders default slot', () => {
+    const contentHeading = 'What\'s up default slot'
+    const contentSentence = 'Default slots are the easiest'
+
     mount(KSlideout, {
       props: {
-        isVisible: true,
+        visible: true,
       },
       slots: {
         default: () => h('div', {}, [
-          h('h1', {}, 'What\'s up default slot'),
-          h('p', {}, 'Default slots are the easiest'),
+          h('h1', {}, contentHeading),
+          h('p', {}, contentSentence),
         ]),
       },
     })
 
-    cy.get('h1').should('be.visible')
-    cy.get('p').should('be.visible')
+    cy.get('h1').should('be.visible').should('have.text', contentHeading)
+    cy.get('p').should('be.visible').should('have.text', contentSentence)
   })
 
   it('renders props when passed', () => {
     const titleProp = 'Hello!'
-    const closeButtonAlignmentProp = 'end'
 
     mount(KSlideout, {
       props: {
-        isVisible: true,
+        visible: true,
         title: titleProp,
-        closeButtonAlignment: closeButtonAlignmentProp,
       },
     })
 
-    cy.getTestId('k-slideout-title').should('exist')
-    cy.getTestId('k-slideout-title').should('be.visible')
+    cy.getTestId('slideout-title').should('be.visible').should('have.text', titleProp)
   })
 
-  it('renders cancel button on right when prop is used', () => {
-    const closeButtonAlignmentProp = 'end'
-
+  it('renders close icon on right', () => {
     mount(KSlideout, {
       props: {
-        isVisible: true,
-        closeButtonAlignment: closeButtonAlignmentProp,
+        visible: true,
       },
     })
 
-    cy.getTestId('close-button-end').should('exist')
-    cy.getTestId('close-button-end').should('be.visible')
+    cy.getTestId('slideout-close-icon').should('be.visible')
   })
 
-  it('emits close when panel-background is clicked', () => {
+  it('emits close event when backdrop is clicked', () => {
     mount(KSlideout, {
       props: {
-        isVisible: true,
+        visible: true,
         onClose: cy.spy().as('onCloseSpy'),
       },
     }).then(({ wrapper }) => wrapper)
@@ -64,16 +60,16 @@ describe('KSlideout', () => {
 
     cy.get('@onCloseSpy').should('have.been.called')
 
-    cy.get('.panel-background').click({ force: true })
+    cy.get('.slideout-backdrop').click()
       .then(() => {
         cy.get('@onCloseSpy').should('have.been.called')
       })
   })
 
-  it('emits close when esc key pressed', () => {
+  it('emits close event when esc key pressed', () => {
     mount(KSlideout, {
       props: {
-        isVisible: true,
+        visible: true,
       },
     })
 
@@ -82,10 +78,10 @@ describe('KSlideout', () => {
     })
   })
 
-  it('does not emit close event when persist prop is true', () => {
+  it('does not emit close event when closeOnBlur prop is false', () => {
     mount(KSlideout, {
       props: {
-        isVisible: true,
+        visible: true,
         preventCloseOnBlur: true,
       },
     }).then(({ wrapper }) => wrapper)

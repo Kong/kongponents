@@ -46,6 +46,8 @@
                 tabindex="0"
                 title="Close"
                 @click="$emit('cancel')"
+                @keydown.enter="$emit('cancel')"
+                @keydown.space.prevent="$emit('cancel')"
               />
             </div>
             <div
@@ -252,7 +254,6 @@ watch(() => props.visible, async (visible: boolean): Promise<void> => {
 }, { immediate: true })
 
 onUnmounted(() => {
-  document.removeEventListener('keydown', handleKeydown)
   toggleEventListeners(false)
 })
 </script>

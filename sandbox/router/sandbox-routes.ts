@@ -123,6 +123,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxSelect.vue'),
   },
   {
+    path: '/slideout',
+    name: 'slideout',
+    meta: { title: 'Slideout Sandbox' },
+    component: () => import('../pages/SandboxSlideout.vue'),
+  },
+  {
     path: '/table',
     name: 'table',
     meta: { title: 'Table Sandbox' },
@@ -139,6 +145,12 @@ const componentRoutes: RouteRecordRaw[] = [
     name: 'textarea',
     meta: { title: 'Textarea Sandbox' },
     component: () => import('../pages/SandboxTextarea.vue'),
+  },
+  {
+    path: '/toaster',
+    name: 'toaster',
+    meta: { title: 'Toaster Sandbox' },
+    component: () => import('../pages/SandboxToaster.vue'),
   },
 ]
 
