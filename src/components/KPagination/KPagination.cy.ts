@@ -37,10 +37,10 @@ describe('KPagination', () => {
     })
 
     cy.get('.pagination-button.active').should('contain.text', 1 + '')
-    cy.getTestId('next-btn').find('a').click()
-    cy.getTestId('next-btn').find('a').click()
+    cy.getTestId('next-button').find('a').click()
+    cy.getTestId('next-button').find('a').click()
     cy.get('.pagination-button.active').should('contain.text', 3 + '')
-    cy.getTestId('page-1-btn').find('a').click()
+    cy.getTestId('page-1-button').find('a').click()
     cy.get('.pagination-button.active').should('contain.text', 1 + '')
   })
 
@@ -55,9 +55,9 @@ describe('KPagination', () => {
     })
 
     cy.get('.pagination-button.active').should('contain.text', 1 + '')
-    cy.getTestId('next-btn').find('a').click()
+    cy.getTestId('next-button').find('a').click()
     cy.get('.pagination-button.active').should('contain.text', 2 + '')
-    cy.getTestId('prev-btn').find('a').click()
+    cy.getTestId('previous-button').find('a').click()
     cy.get('.pagination-button.active').should('contain.text', 1 + '')
   })
 

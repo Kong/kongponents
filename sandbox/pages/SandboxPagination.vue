@@ -39,6 +39,39 @@
           @page-size-changed="handlePageSizeChange"
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="neighbors">
+        <KPagination
+          :neighbors="3"
+          :page-size="15"
+          :total-count="1000"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="disablePageJump">
+        <KPagination
+          disable-page-jump
+          :total-count="1000"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="paginationType">
+        <KPagination
+          pagination-type="offset"
+          :total-count="1000"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="offsetPrevButtonDisabled">
+        <KPagination
+          offset-prev-button-disabled
+          pagination-type="offset"
+          :total-count="1000"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="offsetNextButtonDisabled">
+        <KPagination
+          offset-next-button-disabled
+          pagination-type="offset"
+          :total-count="1000"
+        />
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>

@@ -414,6 +414,19 @@ This component has been removed. Please refer to KBadge component which has been
 
 KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/components/select) as the underlying component for page size selection.
 
+#### Props
+
+* `testMode` prop has been removed
+
+#### Events
+
+#### Structure
+
+* `card-pagination-bar` has been removed and replaced with `k-pagination`
+* `k-pagination-container` has been replaced with `k-pagination`
+* `prev-btn` `data-testid` attribute has been changed to `previous-button`
+* `*-btn` part in various `data-testid` attributes has been updated to `*-button`
+
 ### KPopover
 
 
