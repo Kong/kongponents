@@ -293,6 +293,7 @@ import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
+import { useEventListener } from '@vueuse/core'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -1024,23 +1025,14 @@ const setNumericWidth = async (): Promise<void> => {
 
 const resizeObserver = ref<ResizeObserverHelper>()
 
-const toggleEventListeners = (add: boolean): void => {
-  if (add) {
-    window.addEventListener('resize', setNumericWidth)
-  } else {
-    window.removeEventListener('resize', setNumericWidth)
-  }
-}
-
 onMounted(() => {
-  toggleEventListeners(true)
+  useEventListener('resize', setNumericWidth)
   resizeObserver.value = ResizeObserverHelper.create(setNumericWidth)
 
   resizeObserver.value.observe(multiselectElement.value as HTMLDivElement)
 })
 
 onUnmounted(() => {
-  toggleEventListeners(false)
   if (resizeObserver.value && multiselectElement.value) {
     resizeObserver.value.unobserve(multiselectElement.value)
   }
