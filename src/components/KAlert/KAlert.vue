@@ -117,6 +117,7 @@ const getAlertIcon = computed((): AlertIcon => {
 }
 
 /* Component styles */
+
 .k-alert {
   @include kAlertAppearance;
 
@@ -126,7 +127,7 @@ const getAlertIcon = computed((): AlertIcon => {
   padding: var(--kui-space-50, $kui-space-50);
 
   .alert-icon-container {
-    :deep(#{$kongponentsKongIconSelector}) { // target slotted icon
+    :deep(#{$kongponentsKongIconSelector}) { // target the slotted icon
       height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
       width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
     }
@@ -141,10 +142,10 @@ const getAlertIcon = computed((): AlertIcon => {
     gap: var(--kui-space-30, $kui-space-30);
 
     .alert-title {
-      font-size: var(--kui-font-size-50, $kui-font-size-50);
+      font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
       letter-spacing: var(--kui-letter-spacing-minus-30, $kui-letter-spacing-minus-30);
-      line-height: var(--kui-line-height-40, $kui-line-height-40);
+      line-height: var(--kui-line-height-30, $kui-line-height-30);
     }
 
     .alert-message {
@@ -168,6 +169,8 @@ const getAlertIcon = computed((): AlertIcon => {
       box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
     }
   }
+
+  // appearances
 
   &.info {
     @include kAlertAppearance;
