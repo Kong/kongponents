@@ -1,4 +1,4 @@
-# Alert
+# Alert!
 
 KAlert is used to display contextual information to a user (typically additional info or error messages).
 
