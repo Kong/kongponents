@@ -1,299 +1,356 @@
 # Slideout
 
-**KSlideout** - provides a container/wrapper to show content that may not always be important to show all of the time. It is a user-initiated component and should only show with a click.
+KSlideout is a slide-out overlay container with optional backdrop that displays over the page content.
 
-Below we demonstrate wrapping `KSlideout` in the [`KToggle`](/components/renderless/toggle) component. This allows us to easily toggle the open state without needing to set a data prop in the parent component.
+<KComponent
+  v-slot="{ data }"
+  :data="{ slideoutVisible: false }"
+>
+  <KButton
+    @click="data.slideoutVisible = true"
+  >
+    Slideout
+  </KButton>
 
-<KToggle v-slot="{ isToggled, toggle }">
-  <div>
-    <KButton @click="toggle">Toggle Panel</KButton>
-    <KSlideout :is-visible="isToggled.value" @close="toggle">
-      <div>
-        <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
-        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
-        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
-        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
-        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
-        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
-      </div>
-      <KButton appearance="primary">Buttons</KButton>
-      <KCard class="vertical-spacing">
-        <template #body>
-          Something in a KCard
-        </template>
-      </KCard>
-      <KAlert
-        alert-message="Or even an alert!"
-        class="vertical-spacing" />
-    </KSlideout>
-  </div>
-</KToggle>
+  <KSlideout
+    :visible="data.slideoutVisible"
+    title="Slideout Content"
+    @close="data.slideoutVisible = false"
+  >
+    <KTabs
+      :tabs="[
+        {
+          hash: '#tab1',
+          title: 'Tab 1'
+        },
+        {
+          hash: '#tab2',
+          title: 'Tab 2'
+        }
+      ]"
+    >
+      <template #tab1>
+        <p>Tab 1 content</p>
+      </template>
+      <template #tab2>
+        <p>Tab 2 content</p>
+      </template>
+      <template #tab3>
+        <p>Tab 3 content</p>
+      </template>
+    </KTabs>
+  </KSlideout>
+</KComponent>
 
 ```html
-<KToggle v-slot="{ isToggled, toggle }">
-  <div>
-    <KButton @click="toggle">Toggle Panel</KButton>
-    <KSlideout :is-visible="isToggled.value" @close="toggle">
-      <div>
-        <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
-        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
-        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
-        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
-        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
-        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
-      </div>
-      <KButton appearance="primary">Buttons</KButton>
-      <KCard class="vertical-spacing">
-        <template #body>
-          Something in a KCard
-        </template>
-      </KCard>
-      <KAlert
-        alert-message="Or even an alert!"
-        class="vertical-spacing" />
-    </KSlideout>
-  </div>
-</KToggle>
+<KSlideout
+  :visible="slideoutVisible"
+  title="Slideout Content"
+  @close="hideSlideout"
+>
+  <KTabs :tabs="tabs">
+    <template #tab1>
+      <p>Tab 1 content</p>
+    </template>
+    <template #tab2>
+      <p>Tab 2 content</p>
+    </template>
+    <template #tab3>
+      <p>Tab 3 content</p>
+    </template>
+  </KTabs>
+</KSlideout>
 ```
 
 ## Props
 
-### isVisible
+### visible
 
-* **Type**: `boolean`
-* **Required**: no
-* **Default**: `false`
+Boolean to show/hide the slideout. Defaults to `false`.
 
-Tells the component whether or not to render the open panel.
+<KComponent
+  v-slot="{ data }"
+  :data="{ slideoutVisible: false }"
+>
+  <KButton
+    @click="data.slideoutVisible = true"
+  >
+    Slideout
+  </KButton>
 
-### closeButtonAlignment
+  <KSlideout
+    :visible="data.slideoutVisible"
+    @close="data.slideoutVisible = false"
+  />
+</KComponent>
 
-* **Type**: `'start' | 'end'`
-* **Required**: no
-* **Default**: `'start'`
+```vue
+<template>
+  <KSlideout
+    :visible="slideoutVisible"
+    @close="hideSlideout"
+  />
+</template>
 
-Controls the close button alignment, can be `start` (default) or `end`.
+<script setup lang="ts">
+const slideoutVisible = ref<boolean>(false)
 
-### offsetTop
-
-* **Type**: `number | string`
-* **Required**: no
-* **Default**: `0`
-
-Allows a host app to define the offset from the top of the page. If the value is a number, it will be treated as a pixel value (e.g. `60` becomes `'60px'`); otherwise, it will be used as-is.
-
-### hasOverlay
-
-* **Type**: `boolean`
-* **Required**: no
-* **Default**: `true`
-
-Tells the component whether or not to enable / disable overlay when the slideout content is visible, defaults to `true`.
-
-<KToggle v-slot="{ isToggled, toggle }">
-  <div>
-    <KButton @click="toggle">Toggle Panel With Disabled Overlay</KButton>
-    <KSlideout :is-visible="isToggled.value" @close="toggle" :has-overlay="false" close-button-alignment="end">
-      <div>
-        <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
-        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
-      </div>
-      <KButton appearance="primary">Buttons</KButton>
-      <KCard class="vertical-spacing">
-        <template #body>
-          Something in a KCard
-        </template>
-      </KCard>
-      <KAlert
-        alert-message="Or even an alert!"
-        class="vertical-spacing" />
-    </KSlideout>
-  </div>
-</KToggle>
-
-```html
-<KToggle v-slot="{ isToggled, toggle }">
-  <div>
-    <KButton @click="toggle">Toggle Panel</KButton>
-        <KSlideout :is-visible="isToggled.value" @close="toggle" has-overlay close-button-alignment="end">
-      <div>
-        <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
-        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
-      </div>
-      <KButton appearance="primary">Buttons</KButton>
-      <KCard class="vertical-spacing">
-        <template #body>
-          Something in a KCard
-        </template>
-      </KCard>
-      <KAlert
-        alert-message="Or even an alert!"
-        class="vertical-spacing" />
-    </KSlideout>
-  </div>
-</KToggle>
-```
-
-### preventCloseOnBlur
-
-* **Type**: `boolean`
-* **Required**: no
-* **Default**: `false`
-
-Persists the slideout, ignoring clicks outside of the panel. Defaults to `false`.
-
-<KToggle v-slot="{ isToggled, toggle }">
-  <div>
-    <KButton @click="toggle">Toggle persistent Panel</KButton>
-    <KSlideout :is-visible="isToggled.value" @close="toggle" :has-overlay="false"
-    prevent-close-on-blur close-button-alignment="end" title="GET/account/kong.docs.dev">
-      <div>
-        <h2>Lorem ipsum turkey bacon</h2>
-        <p>This panel can only be closed via Escape key, or the Close button in the upper right.</p>
-      </div>
-    </KSlideout>
-  </div>
-</KToggle>
-
-```html
-<KToggle v-slot="{ isToggled, toggle }">
-  <div>
-    <KButton @click="toggle">Toggle persistent Panel</KButton>
-    <KSlideout :is-visible="isToggled.value" @close="toggle" :has-overlay="false"
-    prevent-close-on-blur close-button-alignment="end" title="GET/account/kong.docs.dev">
-      <div>
-        <h2>Lorem ipsum turkey bacon</h2>
-        <p>This panel can only be closed via Escape key, or the Close button in the upper right.</p>
-      </div>
-    </KSlideout>
-  </div>
-</KToggle>
+const hideSlideout = () => {
+  slideoutVisible.value = false
+}
+</script>
 ```
 
 ### title
 
-* **Type**: `string`
-* **Required**: no
-* **Default**: `''`
+A string to be displayed as slideout title. Can also be [slotted](#title-1).
 
-This prop takes a string that will be displayed as the title of the slide-out.
+<KComponent
+  v-slot="{ data }"
+  :data="{ slideoutVisible: false }"
+>
+  <KButton
+    @click="data.slideoutVisible = true"
+  >
+    Slideout
+  </KButton>
 
-<KToggle v-slot="{ isToggled, toggle }">
-  <div>
-    <KButton @click="toggle">Toggle Panel With Title</KButton>
-    <KSlideout :is-visible="isToggled.value" @close="toggle" :has-overlay="false" close-button-alignment="end" title="GET/account/kong.admin.servicekjagfabxncbadrtyuwefef">
-      <div>
-        <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
-        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
-      </div>
-      <KButton appearance="primary">Buttons</KButton>
-      <KCard class="vertical-spacing">
-        <template #body>
-          Something in a KCard
-        </template>
-      </KCard>
-      <KAlert
-        alert-message="Or even an alert!"
-        class="vertical-spacing" />
-    </KSlideout>
-  </div>
-</KToggle>
+  <KSlideout
+    title="Slideout With A Title"
+    :visible="data.slideoutVisible"
+    @close="data.slideoutVisible = false"
+  />
+</KComponent>
 
 ```html
-<KToggle v-slot="{ isToggled, toggle }">
-  <div>
-    <KButton @click="toggle">Toggle Panel With Title</KButton>
-    <KSlideout :is-visible="isToggled.value" @close="toggle" :has-overlay="false" close-button-alignment="end" title="GET/account/kong.admin.servicekjagfabxncbadrtyuwefef">
-      <div>
-        <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
-        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
-      </div>
-      <KButton appearance="primary">Buttons</KButton>
-      <KCard class="vertical-spacing">
-        <template #body>
-          Something in a KCard
-        </template>
-      </KCard>
-      <KAlert
-        alert-message="Or even an alert!"
-        class="vertical-spacing" />
-    </KSlideout>
-  </div>
-</KToggle>
+<KSlideout
+  title="Slideout With A Title"
+  :visible="slideoutVisible"
+  @close="hideSlideout"
+/>
+```
+
+### offsetTop
+
+Allows a host app to define the offset from the top of the page. If the value is a number, it will be treated as a pixel value (e.g. `60` becomes `'60px'`); otherwise, it will be used as-is. Defaults to `0`.
+
+<KComponent
+  v-slot="{ data }"
+  :data="{ slideoutVisible: false }"
+>
+  <KButton
+    @click="data.slideoutVisible = true"
+  >
+    Slideout
+  </KButton>
+
+  <KSlideout
+    offset-top="64px"
+    title="Slideout With Offset"
+    :visible="data.slideoutVisible"
+    @close="data.slideoutVisible = false"
+  />
+</KComponent>
+
+```html
+<KSlideout
+  offset-top="64px"
+  title="Slideout With Offset"
+  :visible="slideoutVisible"
+  @close="hideSlideout"
+/>
+```
+
+### hasOverlay
+
+A boolean whether or not the slideout should have background overlay. Defaults to `true`.
+
+<KComponent
+  v-slot="{ data }"
+  :data="{ slideoutVisible: false }"
+>
+  <KButton
+    @click="data.slideoutVisible = true"
+  >
+    Slideout
+  </KButton>
+
+  <KSlideout
+    :has-overlay="false"
+    title="Slideout Without Overlay"
+    :visible="data.slideoutVisible"
+    @close="data.slideoutVisible = false"
+  />
+</KComponent>
+
+```html
+<KSlideout
+  :has-overlay="false"
+  title="Slideout Without Overlay"
+  :visible="slideoutVisible"
+  @close="hideSlideout"
+/>
+```
+
+### closeOnBlur
+
+A boolean whether on not the slideout should close when user clicks outside the slideout content area. Defaults to `true`.
+
+When set to false, the user can only close the slideout by pressing <kbd>Escape</kbd> or clicking the close button.
+
+<KComponent
+  v-slot="{ data }"
+  :data="{ slideoutVisible: false }"
+>
+  <KButton
+    @click="data.slideoutVisible = true"
+  >
+    Slideout
+  </KButton>
+
+  <KSlideout
+    :close-on-blur="false"
+    title="Click On Close Icon To Dismiss"
+    :visible="data.slideoutVisible"
+    @close="data.slideoutVisible = false"
+  />
+</KComponent>
+
+```html
+<KSlideout
+  :close-on-blur="false"
+  title="Click On Close Icon To Dismiss"
+  :visible="slideoutVisible"
+  @close="hideSlideout"
+/>
 ```
 
 ### maxWidth
 
-* **Type**: `string`
-* **Required**: no
-* **Default**: `500px`
+Controls width of the slideout content area. Default value is `500px`.
 
-<KToggle v-slot="{ isToggled, toggle }">
-  <div>
-    <KButton @click="toggle">Toggle Panel Custom Width</KButton>
-    <KSlideout :is-visible="isToggled.value" @close="toggle" :has-overlay="false" close-button-alignment="end" title="Width test" max-width="650px">
-      <div>
-        <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
-        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
-      </div>
-      <KButton appearance="primary">Buttons</KButton>
-      <KCard class="vertical-spacing">
-        <template #body>
-          Something in a KCard
-        </template>
-      </KCard>
-      <KAlert
-        alert-message="Or even an alert!"
-        class="vertical-spacing" />
-    </KSlideout>
-  </div>
-</KToggle>
+<KComponent
+  v-slot="{ data }"
+  :data="{ slideoutVisible: false }"
+>
+  <KButton
+    @click="data.slideoutVisible = true"
+  >
+    Slideout
+  </KButton>
+
+  <KSlideout
+    max-width="80%"
+    title="Very Wide Slideout"
+    :visible="data.slideoutVisible"
+    @close="data.slideoutVisible = false"
+  />
+</KComponent>
 
 ```html
-<KToggle v-slot="{ isToggled, toggle }">
-  <div>
-    <KButton @click="toggle">Toggle Panel Custom Width</KButton>
-    <KSlideout :is-visible="isToggled.value" @close="toggle" :has-overlay="false" close-button-alignment="end" title="Width test" max-width="650px">
-      <div>
-        <h2>Not only can you put any html in here like the paragraph below but you can also use other components</h2>
-        <p>Anim officia eiusmod duis est consequat nulla tempor ad non magna Lorem ullamco nostrud amet. Occaecat voluptate dolor enim eiusmod do qui nulla pariatur enim. Et elit elit consequat do do duis enim est ullamco id sunt sunt amet eiusmod. Do minim mollit irure ea sunt officia minim sint eiusmod enim amet. Quis exercitation in ullamco quis aliqua.</p>
-      </div>
-      <KButton appearance="primary">Buttons</KButton>
-      <KCard class="vertical-spacing">
-        <template #body>
-          Something in a KCard
-        </template>
-      </KCard>
-      <KAlert
-        alert-message="Or even an alert!"
-        class="vertical-spacing" />
-    </KSlideout>
-  </div>
-</KToggle>
+<KSlideout
+  max-width="80%"
+  title="Very Wide Slideout"
+  :visible="slideoutVisible"
+  @close="hideSlideout"
+/>
 ```
 
 ## Slots
 
-- `default` - used to place content into the slideout panel
+### default
+
+Slot for slideout content. The component container will have a scrollbar, should the content overflow.
+
+<KComponent
+  v-slot="{ data }"
+  :data="{ slideoutVisible: false }"
+>
+  <KButton
+    @click="data.slideoutVisible = true"
+  >
+    Slideout
+  </KButton>
+
+  <KSlideout
+    :visible="data.slideoutVisible"
+    title="Slideout Content"
+    @close="data.slideoutVisible = false"
+  >
+    <div class="default-slot-example">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lacus viverra vitae congue eu consequat ac felis. Netus et malesuada fames ac turpis. Donec massa sapien faucibus et molestie ac feugiat. Cursus turpis massa tincidunt dui. Eget nullam non nisi est sit amet facilisis magna. Porttitor eget dolor morbi non arcu risus quis. Tempus urna et pharetra pharetra massa massa ultricies mi. Facilisi morbi tempus iaculis urna id volutpat lacus laoreet non. Elit eget gravida cum sociis natoque penatibus et. Lobortis mattis aliquam faucibus purus in massa tempor nec. Aliquet eget sit amet tellus cras adipiscing enim eu. Diam vulputate ut pharetra sit amet aliquam. Ultricies mi quis hendrerit dolor magna eget est lorem. Diam sollicitudin tempor id eu nisl nunc mi ipsum. Pellentesque habitant morbi tristique senectus et netus et. Aliquam ultrices sagittis orci a scelerisque purus.</p>
+      <p>Tincidunt dui ut ornare lectus sit amet. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Egestas erat imperdiet sed euismod nisi porta lorem. Potenti nullam ac tortor vitae purus faucibus ornare suspendisse sed. Sit amet cursus sit amet dictum sit amet justo donec. Augue mauris augue neque gravida in fermentum. Tristique risus nec feugiat in. Purus viverra accumsan in nisl. Massa sapien faucibus et molestie ac feugiat. Pharetra magna ac placerat vestibulum. Consequat mauris nunc congue nisi vitae.</p>
+      <p>Turpis tincidunt id aliquet risus feugiat in ante. Congue nisi vitae suscipit tellus. Tincidunt id aliquet risus feugiat in ante. Tincidunt ornare massa eget egestas purus. Velit dignissim sodales ut eu sem. Suspendisse sed nisi lacus sed. At lectus urna duis convallis convallis tellus id interdum velit. Dignissim diam quis enim lobortis. Ullamcorper sit amet risus nullam eget. Id volutpat lacus laoreet non curabitur gravida arcu ac tortor.</p>
+      <p>Vestibulum morbi blandit cursus risus at ultrices mi tempus imperdiet. Dui vivamus arcu felis bibendum ut. Enim neque volutpat ac tincidunt vitae semper. Sed vulputate mi sit amet mauris commodo quis imperdiet massa. Maecenas volutpat blandit aliquam etiam erat velit scelerisque. Non diam phasellus vestibulum lorem sed risus ultricies tristique. Nulla aliquet enim tortor at auctor urna nunc id. Faucibus in ornare quam viverra orci sagittis eu volutpat. Viverra adipiscing at in tellus integer feugiat scelerisque varius morbi. Amet tellus cras adipiscing enim eu turpis. Aliquet risus feugiat in ante. Cursus in hac habitasse platea dictumst. Fringilla ut morbi tincidunt augue interdum. Elementum curabitur vitae nunc sed. Egestas dui id ornare arcu odio ut sem nulla. Nisi vitae suscipit tellus mauris a. Vel fringilla est ullamcorper eget nulla facilisi etiam dignissim diam. Tortor at risus viverra adipiscing at in tellus integer.</p>
+      <p>Porta lorem mollis aliquam ut porttitor leo a. Egestas diam in arcu cursus euismod quis viverra. Egestas erat imperdiet sed euismod nisi porta lorem mollis aliquam. Sociis natoque penatibus et magnis dis parturient montes nascetur. Malesuada nunc vel risus commodo viverra maecenas. Viverra nam libero justo laoreet sit amet. Eu augue ut lectus arcu. Sagittis eu volutpat odio facilisis mauris. Etiam non quam lacus suspendisse faucibus interdum posuere. Mi quis hendrerit dolor magna eget est lorem ipsum dolor. Maecenas ultricies mi eget mauris pharetra et ultrices neque ornare. Nulla porttitor massa id neque aliquam vestibulum morbi blandit. Ut enim blandit volutpat maecenas.</p>
+      <p>Gravida quis blandit turpis cursus in hac habitasse platea. Ornare quam viverra orci sagittis eu volutpat odio. Habitant morbi tristique senectus et netus. Cursus metus aliquam eleifend mi in nulla posuere sollicitudin. Nec dui nunc mattis enim ut tellus. Nunc eget lorem dolor sed viverra ipsum nunc. Commodo sed egestas egestas fringilla phasellus faucibus scelerisque. Varius vel pharetra vel turpis nunc eget lorem dolor. Cursus risus at ultrices mi tempus. Velit scelerisque in dictum non. Aliquet bibendum enim facilisis gravida neque convallis a.</p>
+      <p>Enim ut tellus elementum sagittis vitae et leo duis. Luctus venenatis lectus magna fringilla. Lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt. Vitae congue eu consequat ac felis donec et odio pellentesque. Purus viverra accumsan in nisl nisi. Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor. Vestibulum lectus mauris ultrices eros in cursus. Ipsum suspendisse ultrices gravida dictum fusce ut. Et netus et malesuada fames ac turpis egestas integer eget. Sed lectus vestibulum mattis ullamcorper.</p>
+    </div>
+  </KSlideout>
+</KComponent>
 
 ```html
-<KSlideout :is-visible="isToggled" @close="toggle">
-  <div>
-    <h1>Default Slot</h1>
-    <p>Anything here will render in the panel</p>
-  </div>
+<KSlideout
+  :visible="slideoutVisible"
+  title="Slideout Content"
+  @close="hideSlideout"
+>
+  <p>Lorem ipsum dolor sit amet...</p>
 </KSlideout>
 ```
 
-- `before-title` - used to customize the header to add content before title
-- `after-title` - used to customize the header to add content after title
+### title
+
+Slot for custom title.
+
+<KComponent
+  v-slot="{ data }"
+  :data="{ slideoutVisible: false }"
+>
+  <KButton
+    @click="data.slideoutVisible = true"
+  >
+    Slideout
+  </KButton>
+
+  <KSlideout
+    :visible="data.slideoutVisible"
+    @close="data.slideoutVisible = false"
+  >
+    <template #title>
+      <KongIcon />
+      Custom Title
+    </template>
+  </KSlideout>
+</KComponent>
+
+```html
+<KSlideout
+  :visible="slideoutVisible"
+  @close="hideSlideout"
+>
+  <template #title>
+    <KongIcon />
+    Custom Title
+  </template>
+</KSlideout>
+```
 
 ## Events
 
-- `close` - Emitted when the close button is clicked, anything outside the panel is clicked, or the `esc` key is pressed.
+### close
+
+Emitted when the close icon is clicked, anything outside the slideout content area is clicked (when [`closeOnBlur` prop](#closeonblur) is set to `false`), or the `esc` key is pressed.
+
+<script setup lang="ts">
+import { KongIcon } from '@kong/icons'
+</script>
 
 <style lang="scss" scoped>
-.vertical-spacing {
-  margin-top: $kui-space-40;
+.default-slot-example {
+  p {
+    margin-top: $kui-space-0;
+    margin-bottom: $kui-space-40;
+  }
 }
 </style>

@@ -570,6 +570,26 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KSlideout
 
+#### Props
+
+* `isVisible` prop has been changed to `visible`
+* `preventCloseOnBlur` prop has been removed in favor of new `closeOnBlur` prop
+* `closeButtonAlignment` prop has been removed
+
+#### Slots
+
+* `before-title` slot has been removed (you can use the newly added `title` slot instead)
+* `after-title` slot has been removed (you can use the newly added `title` slot instead)
+
+#### Structure
+
+* `panel` class has been replaced with `slideout-container` class
+* `slideout-panel` `data-testid` attribute has been replaced with `slideout-container`
+* `k-slideout-header-content` class has been replaced with `slideout-header` class
+* `close-button-start` and `close-button-end` `data-testid` attributes have been removed. Use the `slideout-close-icon` `data-testid` attribute instead.
+* `k-slideout-main-title` class and `k-slideout-title` class and `data-testid` attribute were been replaced with `slideout-title`
+* `content` class has been replaced with `slideout-content` class
+* `content-card` class has been removed
 
 ### KStepper
 
@@ -607,6 +627,21 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KToaster
 
+#### Attributes
+
+#### Structure
+
+* `toaster-container-outer` class has been replaced with `k-toaster`
+* `toaster-item` class has been replaced with `toaster`
+* `message` and `k-alert-msg` classes has been replaced with `toaster-message`
+
+#### Constants, Types & Interfaces
+
+* `toasterAppearances` constant has been renamed to `ToasterAppearances`
+* `Toast` interface changes:
+  * `title` property has been added
+  * `message` property became optional
+  * `appearances` property is no longer an instance of `AlertAppearance` type - instead it is an instance of new `ToasterAppearance` type
 
 ### KTooltip
 
@@ -628,6 +663,18 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KTruncate
 
+#### Props
+
+* `isTextContent` prop has been changed to `truncateText`
+* `isExpanded` prop has been changed to `expanded`
+
+#### Structure
+
+* `k-truncate-content` class has been changed to `truncate-content`
+* `k-truncate-text` class has been changed to `truncate-text`
+* `k-truncate-expand-controls` class has been changed to `truncate-expand-controls`
+* `k-truncate-container` class has been changed to `truncate-container`
+* `k-truncate-collapse-controls` class has been changed to `truncate-collapse-controls`
 
 ### KView Switcher
 
