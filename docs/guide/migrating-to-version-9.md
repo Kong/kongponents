@@ -417,6 +417,7 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 #### Props
 
 * `testMode` prop has been removed
+* `paginationType` prop has been removed. You can use new `offset` prop instead
 
 #### Events
 
@@ -434,6 +435,7 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 
 * `PageChangedData` interface has been renamed to `PageChangeData`
 * `PageSizeChangedData` interface has been renamed to `PageSizeChangeData`
+* `PaginationType` type has been removed
 
 ### KPopover
 

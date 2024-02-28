@@ -52,9 +52,9 @@
           :total-count="1000"
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="paginationType">
+      <SandboxSectionComponent title="offset">
         <KPagination
-          pagination-type="offset"
+          offset
           :total-count="1000"
         />
       </SandboxSectionComponent>

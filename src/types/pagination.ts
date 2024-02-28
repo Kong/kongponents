@@ -1,5 +1,3 @@
-export type PaginationType = 'default' | 'offset'
-
 export interface PageChangeData {
   page: number
   pageCount: number

@@ -277,7 +277,7 @@ describe('KTable', () => {
           fetcher: offsetPaginationFetcher,
           isLoading: false,
           headers: offsetPaginationHeaders,
-          paginationType: 'offset',
+          offset: true,
         },
       })
 
@@ -571,7 +571,7 @@ describe('KTable', () => {
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
           initialFetcherParams: { offset: null },
-          paginationType: 'offset',
+          offset: true,
           cacheIdentifier: 'offset-pagination',
         },
       })
@@ -591,7 +591,7 @@ describe('KTable', () => {
           headers: options.headers,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
-          paginationType: 'offset',
+          offset: true,
         },
       })
 
@@ -618,7 +618,7 @@ describe('KTable', () => {
           headers: options.headers,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
-          paginationType: 'offset',
+          offset: true,
           searchInput: '',
           cacheIdentifier: 'search-example',
         },

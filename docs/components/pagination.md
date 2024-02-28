@@ -2,7 +2,7 @@
 
 KPagination is a component used for pagination.
 
-<KPagination :totalCount="300"/>
+<KPagination :total-count="300"/>
 
 ## Props
 
@@ -11,7 +11,7 @@ KPagination is a component used for pagination.
 A total number of items inside the paginated data source. This prop is **required**.
 
 ```html
-<KPagination :totalCount="50"/>
+<KPagination :total-count="50"/>
 ```
 
 ### pageSizes
@@ -20,20 +20,20 @@ An array of numbers of page sizes that the user can choose from. The default pag
 
 You can provide custom page sizes. The first one in the array will be the initial page size unless otherwise specified through [`initialPageSize` prop](#initialpagesize).
 
-<KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]"/>
+<KPagination :total-count="100" :page-sizes="[10, 20, 30, 40]" />
 
 ```html
-<KPagination :totalCount="100" :pageSizes="[10, 20, 30, 40]"/>
+<KPagination :total-count="100" :page-sizes="[10, 20, 30, 40]" />
 ```
 
 ### initialPageSize
 
 An optional initial page size. If the value is not set, the first one of the available `pageSizes` is selected as a page size.
 
-<KPagination :initialPageSize="20" :totalCount="100" :pageSizes="[10, 20, 30, 40]" />
+<KPagination :initial-page-size="20" :total-count="100" :page-sizes="[10, 20, 30, 40]" />
 
 ```html
-<KPagination :initialPageSize="20" :totalCount="100" :pageSizes="[10, 20, 30, 40]" />
+<KPagination :initial-page-size="20" :total-count="100" :page-sizes="[10, 20, 30, 40]" />
 ```
 
 ### items
@@ -43,24 +43,24 @@ Optional array of items that can be provided for easy pagination. Slice of this 
 <KComponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['a', 'b', 'c']}" v-slot="{ data }">
   <div>
     <span><b>Visible letters: </b></span>
-    <span v-for="number in data.visibleLetters">{{ number }} </span>
+    <span v-for="letter in data.visibleLetters">{{ letter }}</span>
     <KPagination
       :items="data.letters"
-      :totalCount="data.letters.length"
-      :pageSizes="[3]"
-      @page-change="({visibleItems}) => data.visibleLetters = visibleItems"/>
+      :total-count="data.letters.length"
+      :page-sizes="[3]"
+      @page-change="({visibleItems}) => data.visibleLetters = visibleItems" />
   </div>
 </KComponent>
 
 ```vue
 <template>
   <span><b>Visible letters: </b></span>
-  <span v-for="number in visibleLetters">{{ number }} </span>
+  <span v-for="letter in visibleLetters">{{ letter }}</span>
   <KPagination
     :items="letters"
-    :totalCount="letters.length"
-    :pageSizes="[3]"
-    @page-change="({visibleItems}) => visibleLetters = visibleItems"/>
+    :total-count="letters.length"
+    :page-sizes="[3]"
+    @page-change="({visibleItems}) => visibleLetters = visibleItems" />
 </template>
 
 <script setup lang="ts">
@@ -73,10 +73,10 @@ const visibleLetters = ref<string>(['a', 'b', 'c'])
 
 A number that sets the neighboring pages visible to the left and right of the center page when ellipsis are visible on both sides. By default, 1 neighbor is shown. For bigger sets of data we want user to see more pages to go through the pagination faster.
 
-<KPagination :totalCount="1000" :neighbors="2"/>
+<KPagination :total-count="1000" :neighbors="2" />
 
 ```html
-<KPagination :totalCount="1000" :neighbors="2"/>
+<KPagination :total-count="1000" :neighbors="2" />
 ```
 
 ### disablePageJump
@@ -86,20 +86,20 @@ Restrict navigation to only previous/next page. Defaults to `false`.
 <KComponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['a', 'b', 'c']}" v-slot="{ data }">
   <div>
     <span><b>Visible letters: </b></span>
-    <span v-for="number in data.visibleLetters">{{ number }} </span>
-    <KPagination :items="data.letters" :totalCount="data.letters.length" :pageSizes="[3]" :disablePageJump="true" @page-change="({visibleItems}) => data.visibleLetters = visibleItems"/>
+    <span v-for="letter in data.visibleLetters">{{ letter }} </span>
+    <KPagination :items="data.letters" :total-count="data.letters.length" :page-sizes="[3]" disable-page-jump @page-change="({visibleItems}) => data.visibleLetters = visibleItems" />
   </div>
 </KComponent>
 
 ```vue
 <template>
   <span><b>Visible letters: </b></span>
-  <span v-for="number in visibleLetters">{{ number }} </span>
+  <span v-for="letter in visibleLetters">{{ letter }}</span>
   <KPagination
+    disable-page-jump
     :items="letters"
-    :totalCount="letters.length"
-    :pageSizes="[3]"
-    :disablePageJump="true"
+    :total-count="letters.length"
+    :page-sizes="[3]"
     @page-change="({visibleItems}) => visibleLetters = visibleItems" />
 </template>
 
@@ -116,25 +116,25 @@ Manually control the current page instead of using native handling. If using thi
 <KComponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['d', 'e', 'f'], currPage: 2}" v-slot="{ data }">
   <div>
     <span><b>Visible letters: </b></span>
-    <span v-for="number in data.visibleLetters">{{ number }} </span>
+    <span v-for="letter in data.visibleLetters">{{ letter }}</span>
     <KPagination
       :items="data.letters"
-      :totalCount="data.letters.length"
-      :pageSizes="[3]"
-      :currentPage="data.currPage"
-      @page-change="({visibleItems, page}) => { data.visibleLetters = visibleItems; data.currPage = page }"/>
+      :total-count="data.letters.length"
+      :page-sizes="[3]"
+      :current-page="data.currPage"
+      @page-change="({visibleItems, page}) => { data.visibleLetters = visibleItems; data.currPage = page }" />
   </div>
 </KComponent>
 
 ```vue
 <template>
   <span><b>Visible letters: </b></span>
-  <span v-for="number in visibleLetters">{{ number }} </span>
+  <span v-for="letter in visibleLetters">{{ letter }}</span>
   <KPagination
     :items="letters"
-    :totalCount="letters.length"
-    :pageSizes="[3]"
-    :currentPage="currPage"
+    :total-count="letters.length"
+    :page-sizes="[3]"
+    :current-page="currPage"
     @page-change="({visibleItems, page}) => {
       visibleLetters = visibleItems
       currPage = page
@@ -142,24 +142,63 @@ Manually control the current page instead of using native handling. If using thi
 </template>
 
 <script setup lang="ts">
+const letters = ref<string>(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'])
+const visibleLetters = ref<string>(['a', 'b', 'c'])
 const currPage = ref<number>(2)
 </script>
 ```
 
-### paginationType
+### offset
 
-Pass in the type of pagination to be used. Options are `default` (page/pageSize) or `offset` (offset/pageSize).
+Set this prop to `true` if you want to use offset pagination. Defaults to `false`.
 
-<KPagination
-  pagination-type="offset"
-  :total-count="1000"
-/>
+Offset pagination is a simpler version of pagination that omits the concept of pages. When using this type of pagination you will have to keep track of current offset and related logic in your component.
 
-```html
-<KPagination
-  pagination-type="offset"
-  :total-count="1000"
-/>
+<div>
+  <span><b>Visible letters: </b></span>
+  <span v-for="letter in offsetVisibleLetters">{{ letter }}</span>
+  <KPagination
+    offset
+    :offset-prev-button-disabled="currentOffset === 0"
+    :offset-next-button-disabled="(currentOffset + 1) === (offsetLetters.length/offsetPageSize)"
+    :items="offsetLetters"
+    :total-count="offsetLetters.length"
+    :page-sizes="[offsetPageSize]"
+    @get-next-offset="getNextOffset"
+    @get-prev-offset="getPrevOffset" />
+</div>
+
+```vue
+<template>
+  <span><b>Visible letters: </b></span>
+  <span v-for="letter in visibleLetters">{{ letter }}</span>
+  <KPagination
+    offset
+    :offset-prev-button-disabled="currentOffset === 0"
+    :offset-next-button-disabled="(currentOffset + 1) === (letters.length/pageSize)"
+    :items="letters"
+    :total-count="letters.length"
+    :page-sizes="[pageSize]"
+    @get-next-offset="getNextOffset"
+    @get-prev-offset="getPrevOffset" />
+</template>
+
+<script setup lang="ts">
+const pageSize = 3
+const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
+const currentOffset = ref<number>(0)
+const visibleLetters = ref<string>(offsetLetters.slice((currentOffset.value * 3), ((currentOffset.value * 3) + pageSize)))
+
+const getNextOffset = () => {
+  currentOffset.value++
+  visibleLetters.value = offsetLetters.slice((currentOffset.value * 3), ((currentOffset.value * 3) + pageSize))
+}
+
+const getPrevOffset = () => {
+  currentOffset.value--
+  visibleLetters.value = offsetLetters.slice((currentOffset.value * 3), ((currentOffset.value * 3) + pageSize))
+}
+</script>
 ```
 
 ### offsetPrevButtonDisabled
@@ -210,9 +249,9 @@ Emitted when the number of items per page has been changed.
 
   <KPagination
     :items="data.names"
-    :totalCount="data.names.length"
-    :pageSizes="[3, 4, 5]"
-    @page-change="({visibleItems}) => data.visibleNames = visibleItems"/>
+    :total-count="data.names.length"
+    :page-sizes="[3, 4, 5]"
+    @page-change="({visibleItems}) => data.visibleNames = visibleItems" />
   </div>
 </KComponent>
 
@@ -224,8 +263,8 @@ Emitted when the number of items per page has been changed.
 
   <KPagination
     :items="names"
-    :totalCount="names.length"
-    :pageSizes="[3, 4, 5]"
+    :total-count="names.length"
+    :page-sizes="[3, 4, 5]"
     @page-change="({visibleItems}) => visibleNames = visibleItems" />
 </template>
 
@@ -240,3 +279,22 @@ const visibleNames = ref<string>(names.slice(0, 3))
 const page = ref<number>(1)
 </script>
 ```
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const offsetPageSize = 3
+const offsetLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
+const currentOffset = ref<number>(0)
+const offsetVisibleLetters = ref<string>(offsetLetters.slice((currentOffset.value * 3), ((currentOffset.value * 3) + offsetPageSize)))
+
+const getNextOffset = () => {
+  currentOffset.value++
+  offsetVisibleLetters.value = offsetLetters.slice((currentOffset.value * 3), ((currentOffset.value * 3) + offsetPageSize))
+}
+
+const getPrevOffset = () => {
+  currentOffset.value--
+  offsetVisibleLetters.value = offsetLetters.slice((currentOffset.value * 3), ((currentOffset.value * 3) + offsetPageSize))
+}
+</script>

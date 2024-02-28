@@ -3,7 +3,7 @@
     class="k-pagination"
     data-testid="k-pagination"
   >
-    <template v-if="paginationType === 'default'">
+    <template v-if="!offset">
       <span
         class="pagination-text"
         data-testid="visible-items"
@@ -131,7 +131,7 @@ import { ref, computed, watch } from 'vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import PaginationOffset from './PaginationOffset.vue'
-import type { PaginationType, PageSizeChangeData, PageChangeData, DropdownItem } from '@/types'
+import type { PageSizeChangeData, PageChangeData, DropdownItem } from '@/types'
 import { BackIcon, ForwardIcon, ChevronDownIcon } from '@kong/icons'
 
 const kpopAttrs = {
@@ -172,10 +172,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  paginationType: {
-    type: String as PropType<PaginationType>,
-    default: 'default',
-    validator: (value: PaginationType) => ['default', 'offset'].includes(value),
+  offset: {
+    type: Boolean,
+    default: false,
   },
   offsetPrevButtonDisabled: {
     type: Boolean,
@@ -232,8 +231,8 @@ const getVisiblePages = (currPage: number, pageCount: number, firstDetached: boo
   return pages
 }
 
-const backDisabled = ref(currPage.value === 1)
-const forwardDisabled = ref(currPage.value === pageCount.value)
+const backDisabled = ref<boolean>(currPage.value === 1)
+const forwardDisabled = ref<boolean>(currPage.value === pageCount.value)
 
 const startCount = computed((): number => (currPage.value - 1) * currentPageSize.value + 1)
 const endCount = computed((): number => {
@@ -245,7 +244,7 @@ const endCount = computed((): number => {
 const pagesString = computed((): string => `${startCount.value} to ${endCount.value}`)
 const pageCountString = computed((): string => ` of ${props.totalCount}`)
 const currentlySelectedPage = computed((): number => props.currentPage ? props.currentPage : currPage.value)
-const firstDetached = ref(false)
+const firstDetached = ref<boolean>(false)
 const lastDetached = ref(pageCount.value > 5 + 2 * props.neighbors)
 const pagesVisible = ref(getVisiblePages(
   currentlySelectedPage.value,
@@ -255,15 +254,11 @@ const pagesVisible = ref(getVisiblePages(
 ))
 
 const pageForward = ():void => {
-  if (forwardDisabled.value) return
-
   currPage.value++
   updatePage()
 }
 
 const pageBack = ():void => {
-  if (backDisabled.value) return
-
   currPage.value--
   updatePage()
 }
@@ -288,7 +283,9 @@ const updatePage = (): void => {
     firstDetached.value = currPage.value >= props.neighbors + 4
     lastDetached.value = currPage.value <= pageCount.value - props.neighbors - 3
   }
+
   pagesVisible.value = getVisiblePages(currPage.value, pageCount.value, firstDetached.value, lastDetached.value)
+
   emit('pageChange', {
     page: currPage.value,
     pageCount: pageCount.value,

@@ -7,7 +7,7 @@
       data-testid="previous-button"
       :disabled="prevButtonDisabled"
       type="button"
-      @click.prevent="getPrevOffset"
+      @click.prevent="emit('getPrevOffset')"
     >
       <template #icon>
         <BackIcon />
@@ -20,7 +20,7 @@
       data-testid="next-button"
       :disabled="nextButtonDisabled"
       type="button"
-      @click.prevent="getNextOffset"
+      @click.prevent="emit('getNextOffset')"
     >
       <template #icon>
         <ForwardIcon />
@@ -32,7 +32,7 @@
 <script setup lang="ts">
 import { BackIcon, ForwardIcon } from '@kong/icons'
 
-const props = defineProps({
+defineProps({
   prevButtonDisabled: {
     type: Boolean,
     default: false,
@@ -47,22 +47,6 @@ const emit = defineEmits<{
   (e: 'getPrevOffset'): void
   (e: 'getNextOffset'): void
 }>()
-
-const getNextOffset = (): void => {
-  if (props.nextButtonDisabled) {
-    return
-  }
-
-  emit('getNextOffset')
-}
-
-const getPrevOffset = (): void => {
-  if (props.prevButtonDisabled) {
-    return
-  }
-
-  emit('getPrevOffset')
-}
 </script>
 
 <style lang="scss" scoped>
