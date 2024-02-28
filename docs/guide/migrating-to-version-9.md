@@ -639,7 +639,9 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `k-truncate-container` class has been changed to `truncate-container`
 * `k-truncate-collapse-controls` class has been changed to `truncate-collapse-controls`
 
-### KView Switcher
+### KViewSwitcher
+
+This component has been removed.
 
 <style lang="scss" scoped>
   // Add a border above component headings
