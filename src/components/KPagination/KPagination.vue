@@ -381,7 +381,7 @@ watch(pageCount, (newVal, oldVal) => {
 
     .pagination-button {
       align-self: center;
-      background-color: var(--kui-color-background, $kui-color-background);
+      background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
       border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
       color: var(--kui-color-text-primary, $kui-color-text-primary);
