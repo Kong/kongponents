@@ -12,35 +12,32 @@
         {{ pageCountString }}
       </span>
       <ul class="pagination-button-container">
-        <li
-          class="pagination-button arrow"
-          :class="{ disabled: backDisabled, 'arrow-only': disablePageJump }"
-          data-testid="previous-button"
-        >
-          <a
+        <li :class="{ 'arrow-spacing': !disablePageJump }">
+          <KButton
+            appearance="tertiary"
             aria-label="Go to the previous page"
-            href="#"
-            :tabindex="backDisabled ? -1 : 0"
+            class="pagination-button arrow"
+            data-testid="previous-button"
+            :disabled="backDisabled"
+            size="large"
+            type="button"
             @click.prevent="pageBack"
           >
-            <BackIcon
-              class="pagination-arrow-icon"
-              :class="{ 'is-direction-disabled': backDisabled }"
-              :color="backDisabled ? KUI_COLOR_TEXT_DISABLED : KUI_COLOR_TEXT_PRIMARY"
-              :size="KUI_ICON_SIZE_50"
-            />
-          </a>
+            <template #icon>
+              <BackIcon class="pagination-arrow-icon" />
+            </template>
+          </KButton>
         </li>
-        <li
-          v-if="!disablePageJump && firstDetached"
-          class="pagination-button"
-          data-testid="page-1-button"
-        >
-          <a
+        <li v-if="!disablePageJump && firstDetached">
+          <button
             aria-label="Go to the first page"
-            href="#"
+            class="pagination-button"
+            data-testid="page-1-button"
+            type="button"
             @click.prevent="changePage(1)"
-          >1</a>
+          >
+            1
+          </button>
         </li>
         <li
           v-if="!disablePageJump && firstDetached"
@@ -51,16 +48,18 @@
         <li
           v-for="page in pagesVisible"
           :key="page"
-          class="pagination-button"
-          :class="{ active: page == currentlySelectedPage }"
-          :data-testid="`page-${ page }-button`"
         >
-          <a
+          <button
             :aria-current="page == currentlySelectedPage && 'page' || undefined"
             :aria-label="`Go to page ${ page }`"
-            href="#"
+            class="pagination-button"
+            :class="{ active: page == currentlySelectedPage }"
+            :data-testid="`page-${ page }-button`"
+            type="button"
             @click.prevent="changePage(page)"
-          >{{ page }}</a>
+          >
+            {{ page }}
+          </button>
         </li>
         <li
           v-if="!disablePageJump && lastDetached"
@@ -68,35 +67,32 @@
         >
           ...
         </li>
-        <li
-          v-if="!disablePageJump && lastDetached"
-          class="pagination-button"
-        >
-          <a
+        <li v-if="!disablePageJump && lastDetached">
+          <button
             aria-label="Go to the last page"
+            class="pagination-button"
             data-testid="last-button"
-            href="#"
+            type="button"
             @click.prevent="changePage(pageCount)"
-          >{{ pageCount }}</a>
+          >
+            {{ pageCount }}
+          </button>
         </li>
-        <li
-          class="pagination-button arrow"
-          :class="{ disabled: forwardDisabled, 'arrow-only': disablePageJump }"
-          data-testid="next-button"
-        >
-          <a
+        <li :class="{ 'arrow-spacing': !disablePageJump }">
+          <KButton
+            appearance="tertiary"
             aria-label="Go to the next page"
-            href="#"
-            :tabindex="forwardDisabled ? -1 : 0"
+            class="pagination-button arrow"
+            data-testid="next-button"
+            :disabled="forwardDisabled ? true : undefined"
+            size="large"
+            type="button"
             @click.prevent="pageForward"
           >
-            <ForwardIcon
-              class="pagination-arrow-icon"
-              :class="{ 'is-direction-disabled': forwardDisabled }"
-              :color="forwardDisabled ? KUI_COLOR_TEXT_DISABLED : KUI_COLOR_TEXT_PRIMARY"
-              :size="KUI_ICON_SIZE_50"
-            />
-          </a>
+            <template #icon>
+              <ForwardIcon class="pagination-arrow-icon" />
+            </template>
+          </KButton>
         </li>
       </ul>
     </template>
@@ -137,7 +133,6 @@ import KButton from '@/components/KButton/KButton.vue'
 import PaginationOffset from './PaginationOffset.vue'
 import type { PaginationType, PageSizeChangeData, PageChangeData, DropdownItem } from '@/types'
 import { BackIcon, ForwardIcon, ChevronDownIcon } from '@kong/icons'
-import { KUI_COLOR_TEXT_DISABLED, KUI_COLOR_TEXT_PRIMARY, KUI_ICON_SIZE_50 } from '@kong/design-tokens'
 
 const kpopAttrs = {
   placement: 'top',
@@ -379,83 +374,55 @@ watch(pageCount, (newVal, oldVal) => {
     padding: var(--kui-space-0, $kui-space-0);
     text-align: center;
 
+    .arrow-spacing {
+      // extra spacing for the arrow buttons
+      &:first-child {
+        margin-right: var(--kui-space-60, $kui-space-60);
+      }
+
+      &:last-child {
+        margin-left: var(--kui-space-60, $kui-space-60);
+      }
+    }
+
     .pagination-button {
-      align-self: center;
-      background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-      color: var(--kui-color-text-primary, $kui-color-text-primary);
-      cursor: pointer;
-      font-size: var(--kui-font-size-30, $kui-font-size-30);
-      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-      line-height: var(--kui-line-height-30, $kui-line-height-30);
-      min-height: 32px;
-      min-width: 32px;
+      // styles for the arrow and page number buttons
+      // since arrow uses KButton, it takes care of certain styles
+      height: 32px;
+      padding: var(--kui-space-30, $kui-space-30);
+      width: 32px;
 
-      a {
-        display: block;
-        font-weight: initial;
-        outline: none;
-        text-decoration: none;
+      &:not(.arrow) {
+        background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
+        border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+        border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+        color: var(--kui-color-text-primary, $kui-color-text-primary);
+        cursor: pointer;
+        font-size: var(--kui-font-size-30, $kui-font-size-30);
+        font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+        line-height: var(--kui-line-height-30, $kui-line-height-30);
+        transition: background-color $kongponentsTransitionDurTimingFunc border-color $kongponentsTransitionDurTimingFunc;
 
-        &:visited {
-          color: var(--kui-color-text-primary, $kui-color-text-primary);
+        &:hover:not(.placeholder),
+        &:focus:not(.placeholder) {
+          border-color: var(--kui-color-border-primary, $kui-color-border-primary) !important;
         }
 
         &:focus-visible {
           box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
         }
-      }
 
-      .pagination-arrow-icon {
-        &:not(.is-direction-disabled):hover {
-          color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong) !important;
-        }
-      }
-
-      a, div {
-        padding: var(--kui-space-30, $kui-space-30);
-      }
-
-      &.arrow {
-        border: none;
-
-        &:first-child:not(.arrow-only) {
-          margin-right: var(--kui-space-60, $kui-space-60);
+        &.placeholder {
+          align-items: center;
+          cursor: initial;
+          display: flex;
+          justify-content: center;
         }
 
-        &:last-child:not(.arrow-only) {
-          margin-left: var(--kui-space-60, $kui-space-60);
+        &.active {
+          background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+          border-color: var(--kui-color-border-primary, $kui-color-border-primary);
         }
-      }
-
-      &.placeholder {
-        align-items: center;
-        cursor: initial;
-        display: flex;
-        justify-content: center;
-      }
-
-      &:hover:not(.placeholder),
-      &:focus:not(.placeholder) {
-        border-color: var(--kui-color-border-primary, $kui-color-border-primary);
-      }
-
-      &.disabled:hover:not(.placeholder),
-      &.disabled:focus:not(.placeholder) {
-        border-color: var(--kui-color-border-disabled, $kui-color-border-disabled);
-        color: var(--kui-color-text-disabled, $kui-color-text-disabled);
-      }
-
-      &.disabled {
-        a {
-          cursor: not-allowed !important;
-        }
-      }
-
-      &.active {
-        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-        border-color: var(--kui-color-border-primary, $kui-color-border-primary);
       }
     }
   }
