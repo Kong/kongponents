@@ -99,7 +99,7 @@
     <PaginationOffset
       v-else
       :next-button-disabled="offsetNextButtonDisabled"
-      :prev-button-disabled="offsetPreviousButtonDisabled"
+      :previous-button-disabled="offsetPreviousButtonDisabled"
       @get-next-offset="getNextOffset"
       @get-previous-offset="getPreviousOffset"
     />
