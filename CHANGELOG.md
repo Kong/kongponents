@@ -1,3 +1,10 @@
+# [9.0.0-alpha.108](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.107...v9.0.0-alpha.108) (2024-02-28)
+
+
+### Bug Fixes
+
+* **kmultiselect:** react to resize [KHCP-10321] ([#2039](https://github.com/Kong/kongponents/issues/2039)) ([d970ad3](https://github.com/Kong/kongponents/commit/d970ad300bf6d40e74fbd119b6da06b74b6be877))
+
 # [9.0.0-alpha.107](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.106...v9.0.0-alpha.107) (2024-02-27)
 
 
