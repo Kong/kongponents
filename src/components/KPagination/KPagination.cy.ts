@@ -19,7 +19,7 @@ describe('KPagination', () => {
 
     cy.getTestId('visible-items').should('contain.text', '3 to 4')
     cy.getTestId('visible-items').should('contain.text', 'of 9')
-    cy.get('.pagination-button.active a').should('contain.text', currPage + '')
+    cy.get('.pagination-button.active').should('contain.text', currPage + '')
 
     for (let i = 0; i < pageSizes.length; i++) {
       cy.get(`[data-testid="dropdown-item-trigger"][value="${pageSizes[i]}"]`).should('exist')
@@ -37,10 +37,10 @@ describe('KPagination', () => {
     })
 
     cy.get('.pagination-button.active').should('contain.text', 1 + '')
-    cy.getTestId('next-button').find('a').click()
-    cy.getTestId('next-button').find('a').click()
+    cy.getTestId('next-button').click()
+    cy.getTestId('next-button').click()
     cy.get('.pagination-button.active').should('contain.text', 3 + '')
-    cy.getTestId('page-1-button').find('a').click()
+    cy.getTestId('page-1-button').click()
     cy.get('.pagination-button.active').should('contain.text', 1 + '')
   })
 
@@ -55,9 +55,9 @@ describe('KPagination', () => {
     })
 
     cy.get('.pagination-button.active').should('contain.text', 1 + '')
-    cy.getTestId('next-button').find('a').click()
+    cy.getTestId('next-button').click()
     cy.get('.pagination-button.active').should('contain.text', 2 + '')
-    cy.getTestId('previous-button').find('a').click()
+    cy.getTestId('previous-button').click()
     cy.get('.pagination-button.active').should('contain.text', 1 + '')
   })
 
