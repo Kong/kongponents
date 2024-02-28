@@ -99,9 +99,9 @@
     <PaginationOffset
       v-else
       :next-button-disabled="offsetNextButtonDisabled"
-      :prev-button-disabled="offsetPrevButtonDisabled"
+      :prev-button-disabled="offsetPreviousButtonDisabled"
       @get-next-offset="getNextOffset"
-      @get-prev-offset="getPrevOffset"
+      @get-previous-offset="getPreviousOffset"
     />
     <div class="page-size-select">
       <KDropdown
@@ -176,7 +176,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  offsetPrevButtonDisabled: {
+  offsetPreviousButtonDisabled: {
     type: Boolean,
     default: false,
   },
@@ -190,7 +190,7 @@ const emit = defineEmits<{
   (e: 'pageChange', val: PageChangeData): void
   (e: 'pageSizeChange', val: PageSizeChangeData): void
   (e: 'getNextOffset'): void
-  (e: 'getPrevOffset'): void
+  (e: 'getPreviousOffset'): void
 }>()
 
 const currPage: Ref<number> = ref(props.currentPage ? props.currentPage : 1)
@@ -314,8 +314,8 @@ const getNextOffset = (): void => {
   emit('getNextOffset')
 }
 
-const getPrevOffset = (): void => {
-  emit('getPrevOffset')
+const getPreviousOffset = (): void => {
+  emit('getPreviousOffset')
 }
 
 watch(() => props.currentPage, (newVal, oldVal) => {

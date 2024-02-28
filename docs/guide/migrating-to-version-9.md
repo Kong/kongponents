@@ -418,11 +418,13 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 
 * `testMode` prop has been removed
 * `paginationType` prop has been removed. You can use new `offset` prop instead
+* `offsetPrevButtonDisabled` prop has been renamed to `offsetPreviousButtonDisabled`
 
 #### Events
 
 * `pageChanged` event has been renamed to `pageChange`
 * `pageSizeChanged` event has been renamed to `pageSizeChange`
+* `getPrevOffset` event has been renamed to `getPreviousOffset`
 
 #### Structure
 

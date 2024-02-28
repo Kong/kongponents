@@ -58,9 +58,9 @@
           :total-count="1000"
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="offsetPrevButtonDisabled">
+      <SandboxSectionComponent title="offsetPreviousButtonDisabled">
         <KPagination
-          offset-prev-button-disabled
+          offset-previous-button-disabled
           pagination-type="offset"
           :total-count="1000"
         />

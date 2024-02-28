@@ -5,9 +5,9 @@
       aria-label="Go to the previous page"
       class="pagination-button"
       data-testid="previous-button"
-      :disabled="prevButtonDisabled"
+      :disabled="previousButtonDisabled"
       type="button"
-      @click.prevent="emit('getPrevOffset')"
+      @click.prevent="emit('getPreviousOffset')"
     >
       <template #icon>
         <BackIcon />
@@ -33,7 +33,7 @@
 import { BackIcon, ForwardIcon } from '@kong/icons'
 
 defineProps({
-  prevButtonDisabled: {
+  previousButtonDisabled: {
     type: Boolean,
     default: false,
   },
@@ -44,7 +44,7 @@ defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'getPrevOffset'): void
+  (e: 'getPreviousOffset'): void
   (e: 'getNextOffset'): void
 }>()
 </script>

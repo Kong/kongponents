@@ -159,13 +159,13 @@ Offset pagination is a simpler version of pagination that omits the concept of p
   <span v-for="letter in offsetVisibleLetters">{{ letter }}</span>
   <KPagination
     offset
-    :offset-prev-button-disabled="currentOffset === 0"
+    :offset-previous-button-disabled="currentOffset === 0"
     :offset-next-button-disabled="(currentOffset + 1) === (offsetLetters.length/offsetPageSize)"
     :items="offsetLetters"
     :total-count="offsetLetters.length"
     :page-sizes="[offsetPageSize]"
     @get-next-offset="getNextOffset"
-    @get-prev-offset="getPrevOffset" />
+    @get-previous-offset="getPreviousOffset" />
 </div>
 
 ```vue
@@ -174,13 +174,13 @@ Offset pagination is a simpler version of pagination that omits the concept of p
   <span v-for="letter in visibleLetters">{{ letter }}</span>
   <KPagination
     offset
-    :offset-prev-button-disabled="currentOffset === 0"
+    :offset-previous-button-disabled="currentOffset === 0"
     :offset-next-button-disabled="(currentOffset + 1) === (letters.length/pageSize)"
     :items="letters"
     :total-count="letters.length"
     :page-sizes="[pageSize]"
     @get-next-offset="getNextOffset"
-    @get-prev-offset="getPrevOffset" />
+    @get-previous-offset="getPreviousOffset" />
 </template>
 
 <script setup lang="ts">
@@ -194,14 +194,14 @@ const getNextOffset = () => {
   visibleLetters.value = offsetLetters.slice((currentOffset.value * 3), ((currentOffset.value * 3) + pageSize))
 }
 
-const getPrevOffset = () => {
+const getPreviousOffset = () => {
   currentOffset.value--
   visibleLetters.value = offsetLetters.slice((currentOffset.value * 3), ((currentOffset.value * 3) + pageSize))
 }
 </script>
 ```
 
-### offsetPrevButtonDisabled
+### offsetPreviousButtonDisabled
 
 Pass in a boolean value for whether or not the offset-based Previous button should be disabled.
 
@@ -235,6 +235,14 @@ Emitted when the number of items per page has been changed.
   pageCount,    // Max number of pages
 }
 ```
+
+### getNextOffset
+
+Emitted when next arrow button clicked when [`offset` prop](#offset) is true.
+
+### getPreviousOffset
+
+Emitted when previous arrow button clicked when [`offset` prop](#offset) is true.
 
 ## Usage
 
@@ -293,7 +301,7 @@ const getNextOffset = () => {
   offsetVisibleLetters.value = offsetLetters.slice((currentOffset.value * 3), ((currentOffset.value * 3) + offsetPageSize))
 }
 
-const getPrevOffset = () => {
+const getPreviousOffset = () => {
   currentOffset.value--
   offsetVisibleLetters.value = offsetLetters.slice((currentOffset.value * 3), ((currentOffset.value * 3) + offsetPageSize))
 }
