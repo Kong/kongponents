@@ -2,11 +2,12 @@
   <KPop
     v-if="showTooltip"
     v-bind="$attrs"
+    :key="tooltipKey"
     hide-caret
     :max-width="maxWidth"
     :placement="placement"
     :popover-classes="`k-tooltip ${computedClass}`"
-    :popover-timeout="0"
+    :popover-timeout="100"
     :position-fixed="positionFixed"
     trigger="hover"
     width="auto"
@@ -14,7 +15,10 @@
     <slot />
 
     <template #content>
-      <div role="tooltip">
+      <div
+        role="tooltip"
+        @mouseleave="tooltipKey++"
+      >
         <slot
           :label="text || label"
           name="content"
@@ -31,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useSlots } from 'vue'
+import { computed, ref, useSlots } from 'vue'
 import type { PropType } from 'vue'
 import KPop from '@/components/KPop/KPop.vue'
 import type { PopPlacements } from '@/types'
@@ -82,6 +86,8 @@ const props = defineProps({
 })
 
 const slots = useSlots()
+
+const tooltipKey = ref<number>(0)
 const showTooltip = computed((): boolean => !!props.text || !!props.label || !!slots.content)
 
 const computedClass = computed((): string => {
@@ -113,7 +119,6 @@ const computedClass = computed((): string => {
   font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
   line-height: var(--kui-line-height-20, $kui-line-height-20);
   padding: var(--kui-space-30, $kui-space-30);
-  pointer-events: none;
   z-index: 9999;
 
   &.tooltip-top {
