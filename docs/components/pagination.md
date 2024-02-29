@@ -18,7 +18,7 @@ A total number of items inside the paginated data source. This prop is **require
 
 An array of numbers of page sizes that the user can choose from. The default page sizes are: `[15, 30, 50, 75, 100]`.
 
-You can provide custom page sizes. The first one in the array will be the initial page size unless otherwise specified through [`initialPageSize` prop](#initialpagesize).
+You can provide custom page sizes. The first number in the array will be the initial page size unless otherwise specified through the [`initialPageSize` prop](#initialpagesize).
 
 <KPagination :total-count="100" :page-sizes="[10, 20, 30, 40]" />
 
@@ -28,7 +28,7 @@ You can provide custom page sizes. The first one in the array will be the initia
 
 ### initialPageSize
 
-An optional initial page size. If the value is not set, the first one of the available `pageSizes` is selected as a page size.
+An optional initial page size. If the value is not set, the first number in the `pageSizes` array is selected as the default.
 
 <KPagination :initial-page-size="20" :total-count="100" :page-sizes="[10, 20, 30, 40]" />
 
@@ -203,17 +203,17 @@ const getPreviousOffset = () => {
 
 ### offsetPreviousButtonDisabled
 
-Pass in a boolean value for whether or not the offset-based Previous button should be disabled.
+Pass in a boolean value for whether or not the offset-based previous button should be disabled.
 
 ### offsetNextButtonDisabled
 
-Pass in a boolean value for whether or not the offset-based Next button should be disabled.
+Pass in a boolean value for whether or not the offset-based next button should be disabled.
 
 ## Events
 
 ### pageChange
 
-Emitted when the page has been changed. The event provides following information. All of the numbers are sent in a human-understandable base (starting at 1 instead of 0) to be used directly in UI.
+Emitted when the page has been changed. The page number is returned starting at 1 rather than 0 to be easier to use directly in the UI.
 
 ```json
 {
