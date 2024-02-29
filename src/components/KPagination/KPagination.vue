@@ -111,13 +111,13 @@
         :items="pageSizeOptions"
         :kpop-attributes="kpopAttrs"
         selection-menu
-        show-caret
         @change="updatePageSize"
       >
         <KButton
           appearance="tertiary"
           data-testid="page-size-dropdown-trigger"
           :disabled="pageSizeOptions.length <= 1"
+          type="button"
         >
           {{ pageSizeText }}
           <ChevronDownIcon v-if="pageSizeOptions.length > 1" />
