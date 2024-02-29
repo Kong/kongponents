@@ -2,7 +2,6 @@
   <KPop
     v-if="showTooltip"
     v-bind="$attrs"
-    :key="tooltipKey"
     hide-caret
     :max-width="maxWidth"
     :placement="placement"
@@ -17,7 +16,6 @@
     <template #content>
       <div
         role="tooltip"
-        @mouseleave="tooltipKey++"
       >
         <slot
           :label="text || label"
@@ -35,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, useSlots } from 'vue'
+import { computed, useSlots } from 'vue'
 import type { PropType } from 'vue'
 import KPop from '@/components/KPop/KPop.vue'
 import type { PopPlacements } from '@/types'
@@ -87,7 +85,6 @@ const props = defineProps({
 
 const slots = useSlots()
 
-const tooltipKey = ref<number>(0)
 const showTooltip = computed((): boolean => !!props.text || !!props.label || !!slots.content)
 
 const computedClass = computed((): string => {
