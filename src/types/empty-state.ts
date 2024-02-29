@@ -1,8 +1,10 @@
 export enum EmptyStateIconVariants {
   Default = 'default',
+  Error = 'error',
+  Config = 'config',
+  File = 'file',
   Search = 'search',
   Kong = 'kong',
-  Error = 'error',
 }
 
 export type EmptyStateIconVariant = `${EmptyStateIconVariants}`

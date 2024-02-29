@@ -49,7 +49,7 @@
 
 <script lang="ts" setup>
 import { computed, type PropType } from 'vue'
-import { AnalyticsIcon, WarningIcon, SearchIcon, KongIcon } from '@kong/icons'
+import { AnalyticsIcon, WarningIcon, CogIcon, FileEmptyIcon, SearchIcon, KongIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_COLOR_TEXT_WARNING, KUI_ICON_SIZE_60 } from '@kong/design-tokens'
 import KButton from '@/components/KButton/KButton.vue'
 import { EmptyStateIconVariants } from '@/types'
@@ -92,6 +92,10 @@ const getEmptyStateIcon = computed((): EmptyStateIcon => {
       return AnalyticsIcon
     case EmptyStateIconVariants.Error:
       return WarningIcon
+    case EmptyStateIconVariants.Config:
+      return CogIcon
+    case EmptyStateIconVariants.File:
+      return FileEmptyIcon
     case EmptyStateIconVariants.Search:
       return SearchIcon
     case EmptyStateIconVariants.Kong:
@@ -102,7 +106,6 @@ const getEmptyStateIcon = computed((): EmptyStateIcon => {
 })
 
 const getIconColor = computed((): string => {
-  // TODO: add color for other variants
   switch (props.iconVariant) {
     case EmptyStateIconVariants.Error:
       return KUI_COLOR_TEXT_WARNING

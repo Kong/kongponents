@@ -2,7 +2,7 @@ import { mount } from 'cypress/vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 
 describe('KEmptyState', () => {
-  ['default', 'search', 'kong', 'error'].forEach((variant) => {
+  ['default', 'error', 'config', 'file', 'search', 'kong'].forEach((variant) => {
     it(`renders ${variant} icon variant correctly`, () => {
       it('renders all elements correctly', () => {
         mount(KEmptyState)

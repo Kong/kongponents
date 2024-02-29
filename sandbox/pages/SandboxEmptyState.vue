@@ -72,6 +72,24 @@
         />
         <KEmptyState
           action-button-text="Action"
+          icon-variant="error"
+          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+          title="Error Icon Variant"
+        />
+        <KEmptyState
+          action-button-text="Action"
+          icon-variant="config"
+          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+          title="Config Icon Variant"
+        />
+        <KEmptyState
+          action-button-text="Action"
+          icon-variant="file"
+          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+          title="File Icon Variant"
+        />
+        <KEmptyState
+          action-button-text="Action"
           icon-variant="search"
           message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
           title="Search Icon Variant"
@@ -81,12 +99,6 @@
           icon-variant="kong"
           message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
           title="Kong Icon Variant"
-        />
-        <KEmptyState
-          action-button-text="Action"
-          icon-variant="error"
-          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
-          title="Error Icon Variant"
         />
       </SandboxSectionComponent>
       <!-- Slots -->

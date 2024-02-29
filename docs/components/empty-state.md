@@ -132,6 +132,50 @@ Boolean to control whether action button should be enabled or disabled. Defaults
 />
 ```
 
+### iconVariant
+
+Depending on context in which you need to display empty state message component to the user, you may want it to have different appearances. `iconVariant` prop provides a few options to easily swap the icon to better fit the context in which the component is displayed. Should you want to use your custom icon, you can use the [`icon` slot](#icon).
+
+Accepted values:
+* `default` (default)
+* `error`
+* `config`
+* `file`
+* `search`
+* `kong`
+
+<KEmptyState
+  icon-variant="error"
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State Error"
+/>
+
+```html
+<KEmptyState
+  icon-variant="error"
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State Error"
+/>
+```
+
+<KEmptyState
+  icon-variant="file"
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State File"
+/>
+
+```html
+<KEmptyState
+  icon-variant="file"
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State File"
+/>
+```
+
 ## Slots
 
 ### default
@@ -217,6 +261,8 @@ Slot for providing your custom action button.
 
 
 ### action-click
+
+Emitted when action button is clicked.
 
 <KEmptyState
   @action-click="onActionClick"
