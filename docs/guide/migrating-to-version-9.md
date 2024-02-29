@@ -225,7 +225,7 @@ Component has been renamed to `KDropdown`
 
 #### Props
 
-* `isError` prop has been changed to `error`
+* `isError` prop has been removed. You can use the new `iconVariant` prop instead. For more details check out component documentation
 * `iconSize` prop has been removed
 * `icon` prop has been removed and replaced with `iconVariant` prop. You can also use the new `icon` slot to provide your custom icon
 * `ctaIsHidden` prop has been removed and replaced with `actionButtonVisible` prop
