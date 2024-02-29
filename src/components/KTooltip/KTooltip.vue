@@ -135,5 +135,21 @@ const computedClass = computed((): string => {
   code {
     color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
   }
+
+  a {
+    color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+
+    &:hover {
+      color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker);
+    }
+
+    &:focus-visible {
+      color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
+    }
+
+    &:active {
+      color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
+    }
+  }
 }
 </style>
