@@ -23,9 +23,7 @@
             type="button"
             @click="pageBack"
           >
-            <template #icon>
-              <BackIcon class="pagination-arrow-icon" />
-            </template>
+            <BackIcon class="pagination-arrow-icon" />
           </KButton>
         </li>
         <li v-if="!disablePageJump && firstDetached">
@@ -89,9 +87,7 @@
             type="button"
             @click="pageForward"
           >
-            <template #icon>
-              <ForwardIcon class="pagination-arrow-icon" />
-            </template>
+            <ForwardIcon class="pagination-arrow-icon" />
           </KButton>
         </li>
       </ul>

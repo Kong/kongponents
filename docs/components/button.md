@@ -140,13 +140,13 @@ Using only this slot without the default slot will make button square (left and 
 
 <div class="spacing-container">
   <KButton appearance="secondary">
-    <template v-slot:icon>
+    <template #icon>
       <KIcon icon="externalLink" color="#003694"/>
     </template>
     With Text
   </KButton>
   <KButton appearance="secondary" size="small">
-    <template v-slot:icon>
+    <template #icon>
       <KIcon icon="gear" color="#003694"/>
     </template>
   </KButton>
@@ -154,13 +154,13 @@ Using only this slot without the default slot will make button square (left and 
 
 ```html
 <KButton appearance="secondary">
-  <template v-slot:icon>
+  <template #icon>
     <KIcon icon="externalLink" />
   </template>
   With Text
 </KButton>
 <KButton appearance="secondary" size="small">
-  <template v-slot:icon>
+  <template #icon>
     <KIcon icon="gear" />
   </template>
 </KButton>
