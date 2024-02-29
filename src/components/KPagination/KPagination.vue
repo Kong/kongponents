@@ -119,8 +119,7 @@
           :disabled="pageSizeOptions.length <= 1"
           type="button"
         >
-          {{ pageSizeText }}
-          <ChevronDownIcon v-if="pageSizeOptions.length > 1" />
+          {{ pageSizeText }}<ChevronDownIcon v-if="pageSizeOptions.length > 1" />
         </KButton>
       </KDropdown>
     </div>

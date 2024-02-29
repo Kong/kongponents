@@ -71,9 +71,9 @@ describe('KPagination', () => {
       },
     })
 
-    cy.getTestId('page-size-dropdown-trigger').should('contain.text', '2 items per page')
+    cy.getTestId('page-size-dropdown-trigger').contains('2 items per page')
     cy.getTestId('page-size-dropdown-trigger').click({ multiple: true, force: true })
     cy.get('[data-testid="dropdown-item-trigger"][value="4"]').click({ multiple: true, force: true })
-    cy.getTestId('page-size-dropdown-trigger').should('contain.text', '4 items per page')
+    cy.getTestId('page-size-dropdown-trigger').contains('4 items per page')
   })
 })
