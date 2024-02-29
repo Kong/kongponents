@@ -14,9 +14,7 @@
     <slot />
 
     <template #content>
-      <div
-        role="tooltip"
-      >
+      <div role="tooltip">
         <slot
           :label="text || label"
           name="content"
