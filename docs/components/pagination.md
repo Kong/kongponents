@@ -1,6 +1,6 @@
 # Pagination
 
-KPagination is a component used for pagination.
+KPagination component is a user interface element that allows users to navigate through multiple pages of content in smaller, manageable sections.
 
 <KPagination :total-count="300"/>
 
@@ -111,7 +111,7 @@ const visibleLetters = ref<string>(['a', 'b', 'c'])
 
 ### currentPage
 
-Manually control the current page instead of using native handling. If using this prop you **must** keep it up-to-date using the `@page-change` event in order to remain reactive to clicking the prev, next, and specific page buttons.
+Prop for setting the current page. If using this prop you **must** keep it up-to-date using the `@page-change` event in order to remain reactive to clicking the previous, next, and specific page buttons.
 
 <KComponent :data="{ letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], visibleLetters: ['d', 'e', 'f'], currPage: 2}" v-slot="{ data }">
   <div>

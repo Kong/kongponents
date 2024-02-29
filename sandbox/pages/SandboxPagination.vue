@@ -30,6 +30,11 @@
           :total-count="100"
           @page-size-change="handlePageSizeChange"
         />
+        <KPagination
+          :page-sizes="[1]"
+          :total-count="100"
+          @page-size-change="handlePageSizeChange"
+        />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="initialPageSize">
         <KPagination

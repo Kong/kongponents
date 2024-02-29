@@ -21,7 +21,7 @@
             :disabled="backDisabled"
             size="large"
             type="button"
-            @click.prevent="pageBack"
+            @click="pageBack"
           >
             <template #icon>
               <BackIcon class="pagination-arrow-icon" />
@@ -34,7 +34,7 @@
             class="pagination-button"
             data-testid="page-1-button"
             type="button"
-            @click.prevent="changePage(1)"
+            @click="changePage(1)"
           >
             1
           </button>
@@ -56,7 +56,7 @@
             :class="{ active: page == currentlySelectedPage }"
             :data-testid="`page-${ page }-button`"
             type="button"
-            @click.prevent="changePage(page)"
+            @click="changePage(page)"
           >
             {{ page }}
           </button>
@@ -73,7 +73,7 @@
             class="pagination-button"
             data-testid="last-button"
             type="button"
-            @click.prevent="changePage(pageCount)"
+            @click="changePage(pageCount)"
           >
             {{ pageCount }}
           </button>
@@ -87,7 +87,7 @@
             :disabled="forwardDisabled ? true : undefined"
             size="large"
             type="button"
-            @click.prevent="pageForward"
+            @click="pageForward"
           >
             <template #icon>
               <ForwardIcon class="pagination-arrow-icon" />
@@ -107,6 +107,7 @@
       <KDropdown
         class="page-size-dropdown"
         data-testid="page-size-dropdown"
+        :disabled="pageSizeOptions.length <= 1"
         :items="pageSizeOptions"
         :kpop-attributes="kpopAttrs"
         selection-menu
@@ -116,9 +117,10 @@
         <KButton
           appearance="tertiary"
           data-testid="page-size-dropdown-trigger"
+          :disabled="pageSizeOptions.length <= 1"
         >
           {{ pageSizeText }}
-          <ChevronDownIcon />
+          <ChevronDownIcon v-if="pageSizeOptions.length > 1" />
         </KButton>
       </KDropdown>
     </div>
@@ -202,7 +204,7 @@ const pageSizeOptions = props.pageSizes.map((size, i) => ({
   value: size,
   selected: size === currentPageSize.value,
 }))
-const pageSizeText = computed((): string => currentPageSize.value + ' items per page')
+const pageSizeText = computed((): string => `${currentPageSize.value} ${currentPageSize.value === 1 ? 'item per page' : ' items per page'}`)
 
 const getVisiblePages = (currPage: number, pageCount: number, firstDetached: boolean, lastDetached: boolean): number[] => {
   if (props.disablePageJump) {
@@ -386,8 +388,8 @@ watch(pageCount, (newVal, oldVal) => {
       // styles for the arrow and page number buttons
       // since arrow uses KButton, it takes care of certain styles
       height: 32px;
+      min-width: 32px;
       padding: var(--kui-space-30, $kui-space-30);
-      width: 32px;
 
       &:not(.arrow) {
         background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
