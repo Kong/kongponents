@@ -190,7 +190,7 @@ The `max-height` of the code block.
     id="code-block-max-height"
     :code="code"
     language="json"
-    max-height="200px"
+    max-height="200"
   />
 </ClientOnly>
 
@@ -199,7 +199,7 @@ The `max-height` of the code block.
   id="code-block-max-height"
   :code="code"
   language="json"
-  max-height="200px"
+  max-height="200"
 />
 ```
 
