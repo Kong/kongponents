@@ -1,3 +1,10 @@
+# [9.0.0-alpha.110](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.109...v9.0.0-alpha.110) (2024-03-01)
+
+
+### Bug Fixes
+
+* **kcodeblock:** misc fixes ([#2045](https://github.com/Kong/kongponents/issues/2045)) ([53be102](https://github.com/Kong/kongponents/commit/53be10278f2910a696004e8a3af0de33984db8cd))
+
 # [9.0.0-alpha.109](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.108...v9.0.0-alpha.109) (2024-03-01)
 
 
