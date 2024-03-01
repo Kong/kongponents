@@ -288,6 +288,9 @@ import type { Command } from '@/utilities/ShortcutManager'
 import { ShortcutManager } from '@/utilities/ShortcutManager'
 import type { CodeBlockEventData, CommandKeywords, Theme } from '@/types/code-block'
 import { KUI_ICON_SIZE_30, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import useUtilities from '@/composables/useUtilities'
+
+const { getSizeFromString } = useUtilities()
 
 const IS_MAYBE_MAC = window?.navigator?.platform?.toLowerCase().includes('mac')
 const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Options' : 'Alt'
@@ -485,6 +488,8 @@ const escapeUnsafeCharacters = (unescapedCodeString: string): string => {
 }
 
 const finalCode = computed(() => props.isSingleLine ? escapeUnsafeCharacters(props.code).replaceAll('\n', '') : escapeUnsafeCharacters(props.code))
+
+const maxHeightValue = computed(() => getSizeFromString(props.maxHeight))
 
 watch(() => props.code, async function() {
   // Waits one Vue tick in which the code block is re-rendered. Only then does it make sense to emit the corresponding event. Otherwise, consuming components applying syntax highlighting would have to do this because if syntax highlighting is applied before re-rendering is done, re-rendering will effectively undo the syntax highlighting.
@@ -829,7 +834,7 @@ $dark-focusColor: $tmp-color-green-500;
   grid-template-columns: v-bind('maxLineNumberWidth') 1fr;
   margin-bottom: var(--kui-space-0, $kui-space-0);
   margin-top: var(--kui-space-0, $kui-space-0);
-  max-height: v-bind('$props.maxHeight');
+  max-height: v-bind('maxHeightValue');
   min-height: 56px;
   overflow: auto;
   padding: var(--kui-space-60, $kui-space-60) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0) var(--kui-space-50, $kui-space-50);
@@ -1104,7 +1109,7 @@ $dark-focusColor: $tmp-color-green-500;
   display: flex;
   gap: var(--kui-space-40, $kui-space-40);
   position: absolute;
-  right: 16px;
+  right: 22px;
   top: 8px;
   z-index: 1;
 }
