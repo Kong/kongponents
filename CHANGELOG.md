@@ -1,3 +1,10 @@
+# [9.0.0-alpha.109](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.108...v9.0.0-alpha.109) (2024-03-01)
+
+
+### Bug Fixes
+
+* **ktooltip:** keep tiooltip open on content hover ([#2044](https://github.com/Kong/kongponents/issues/2044)) ([d07169f](https://github.com/Kong/kongponents/commit/d07169f9a03d66e7e2de5fbcc81c87081ae2a628))
+
 # [9.0.0-alpha.108](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.107...v9.0.0-alpha.108) (2024-02-28)
 
 
