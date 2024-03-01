@@ -9,14 +9,14 @@
     <slot />
     <ExternalLinkIcon
       v-if="!hideIcon"
-      :size="KUI_ICON_SIZE_40"
+      :size="KUI_ICON_SIZE_30"
     />
   </a>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import { isValidUrl } from '@/utilities/urls'
 import { ExternalLinkIcon } from '@kong/icons'
 

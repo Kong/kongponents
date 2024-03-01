@@ -49,7 +49,26 @@
         </KLabel>
       </SandboxSectionComponent>
 
-      <!-- Props -->
+      <!-- Slots -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Slots"
+      />
+      <SandboxSectionComponent title="tooltip">
+        <KLabel>
+          Label
+          <template #tooltip>
+            <KExternalLink
+              href="https://kongponents.konghq.com/"
+              target="_blank"
+            >
+              External link
+            </KExternalLink> inside of a tooltip
+          </template>
+        </KLabel>
+      </SandboxSectionComponent>
+
+      <!-- Usage -->
       <SandboxTitleComponent
         is-subtitle
         title="Usage"
