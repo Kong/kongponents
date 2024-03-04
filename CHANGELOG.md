@@ -1,3 +1,10 @@
+# [9.0.0-alpha.111](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.110...v9.0.0-alpha.111) (2024-03-04)
+
+
+### Bug Fixes
+
+* **kcopy:** icon & tooltip text styles ([#2050](https://github.com/Kong/kongponents/issues/2050)) ([e81b94c](https://github.com/Kong/kongponents/commit/e81b94ce23a45d05593714c09c53e7f13871911d))
+
 # [9.0.0-alpha.110](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.109...v9.0.0-alpha.110) (2024-03-01)
 
 
