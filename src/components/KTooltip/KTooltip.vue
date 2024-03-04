@@ -6,7 +6,7 @@
     :max-width="maxWidth"
     :placement="placement"
     :popover-classes="`k-tooltip ${computedClass}`"
-    :popover-timeout="0"
+    :popover-timeout="100"
     :position-fixed="positionFixed"
     trigger="hover"
     width="auto"
@@ -82,6 +82,7 @@ const props = defineProps({
 })
 
 const slots = useSlots()
+
 const showTooltip = computed((): boolean => !!props.text || !!props.label || !!slots.content)
 
 const computedClass = computed((): string => {
@@ -113,7 +114,6 @@ const computedClass = computed((): string => {
   font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
   line-height: var(--kui-line-height-20, $kui-line-height-20);
   padding: var(--kui-space-30, $kui-space-30);
-  pointer-events: none;
   z-index: 9999;
 
   &.tooltip-top {
@@ -134,6 +134,22 @@ const computedClass = computed((): string => {
 
   code {
     color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
+  }
+
+  a {
+    color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+
+    &:hover {
+      color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker);
+    }
+
+    &:focus-visible {
+      color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
+    }
+
+    &:active {
+      color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
+    }
   }
 }
 </style>

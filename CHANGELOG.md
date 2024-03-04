@@ -1,3 +1,24 @@
+# [9.0.0-alpha.110](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.109...v9.0.0-alpha.110) (2024-03-01)
+
+
+### Bug Fixes
+
+* **kcodeblock:** misc fixes ([#2045](https://github.com/Kong/kongponents/issues/2045)) ([53be102](https://github.com/Kong/kongponents/commit/53be10278f2910a696004e8a3af0de33984db8cd))
+
+# [9.0.0-alpha.109](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.108...v9.0.0-alpha.109) (2024-03-01)
+
+
+### Bug Fixes
+
+* **ktooltip:** keep tiooltip open on content hover ([#2044](https://github.com/Kong/kongponents/issues/2044)) ([d07169f](https://github.com/Kong/kongponents/commit/d07169f9a03d66e7e2de5fbcc81c87081ae2a628))
+
+# [9.0.0-alpha.108](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.107...v9.0.0-alpha.108) (2024-02-28)
+
+
+### Bug Fixes
+
+* **kmultiselect:** react to resize [KHCP-10321] ([#2039](https://github.com/Kong/kongponents/issues/2039)) ([d970ad3](https://github.com/Kong/kongponents/commit/d970ad300bf6d40e74fbd119b6da06b74b6be877))
+
 # [9.0.0-alpha.107](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.106...v9.0.0-alpha.107) (2024-02-27)
 
 
