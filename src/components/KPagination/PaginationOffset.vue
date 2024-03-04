@@ -9,9 +9,7 @@
       type="button"
       @click.prevent="emit('getPreviousOffset')"
     >
-      <template #icon>
-        <BackIcon />
-      </template>
+      <BackIcon />
     </KButton>
     <KButton
       appearance="tertiary"
@@ -22,9 +20,7 @@
       type="button"
       @click.prevent="emit('getNextOffset')"
     >
-      <template #icon>
-        <ForwardIcon />
-      </template>
+      <ForwardIcon />
     </KButton>
   </div>
 </template>
@@ -53,5 +49,9 @@ const emit = defineEmits<{
 .pagination-offset-button-container {
   display: flex;
   gap: var(--kui-space-40, $kui-space-40);
+
+  .pagination-button {
+    padding: var(--kui-space-30, $kui-space-30);
+  }
 }
 </style>

@@ -12,14 +12,13 @@
         {{ pageCountString }}
       </span>
       <ul class="pagination-button-container">
-        <li :class="{ 'arrow-spacing': !disablePageJump }">
+        <li>
           <KButton
             appearance="tertiary"
             aria-label="Go to the previous page"
             class="pagination-button arrow"
             data-testid="previous-button"
             :disabled="backDisabled"
-            size="large"
             type="button"
             @click="pageBack"
           >
@@ -76,14 +75,13 @@
             {{ pageCount }}
           </button>
         </li>
-        <li :class="{ 'arrow-spacing': !disablePageJump }">
+        <li>
           <KButton
             appearance="tertiary"
             aria-label="Go to the next page"
             class="pagination-button arrow"
             data-testid="next-button"
             :disabled="forwardDisabled ? true : undefined"
-            size="large"
             type="button"
             @click="pageForward"
           >
@@ -344,7 +342,6 @@ watch(pageCount, (newVal, oldVal) => {
   font-family: var(--kui-font-family-text, $kui-font-family-text);
   justify-content: space-between;
   margin-top: var(--kui-space-20, $kui-space-20);
-  overflow-x: auto;
   padding: var(--kui-space-20, $kui-space-20);
   width: 100%;
 
@@ -367,17 +364,6 @@ watch(pageCount, (newVal, oldVal) => {
     margin: var(--kui-space-0, $kui-space-0);
     padding: var(--kui-space-0, $kui-space-0);
     text-align: center;
-
-    .arrow-spacing {
-      // extra spacing for the arrow buttons
-      &:first-child {
-        margin-right: var(--kui-space-60, $kui-space-60);
-      }
-
-      &:last-child {
-        margin-left: var(--kui-space-60, $kui-space-60);
-      }
-    }
 
     .pagination-button {
       // styles for the arrow and page number buttons
@@ -423,6 +409,8 @@ watch(pageCount, (newVal, oldVal) => {
 
   .page-size-select {
     .page-size-dropdown {
+      margin-left: var(--kui-space-30, $kui-space-30);
+
       :deep(.k-popover-content) {
         max-height: 200px;
         overflow-y: auto;
