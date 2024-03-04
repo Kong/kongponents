@@ -8,8 +8,8 @@
     "url": "https://github.com/Kong/kongponents.git"
   },
   "homepage": "https://kongponents.konghq.com/",
-  "main": "./dist/kongponents.umd.js",
-  "module": "./dist/kongponents.es.js",
+  "main": "./dist/kongponents.js",
+  "module": "./dist/kongponents.mjs",
   "files": [
     "dist",
     "bin"
@@ -18,8 +18,8 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/kongponents.es.js",
-      "require": "./dist/kongponents.umd.js"
+      "import": "./dist/kongponents.mjs",
+      "require": "./dist/kongponents.js"
     },
     "./package.json": "./package.json",
     "./dist/*": "./dist/*"

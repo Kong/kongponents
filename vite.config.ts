@@ -48,7 +48,9 @@ export default defineConfig({
       : {
         entry: path.resolve(__dirname, 'src/index.ts'),
         name: 'Kongponents',
-        fileName: (format) => `kongponents.${format}.js`,
+        fileName: (format) => {
+          return format === 'es' ? 'kongponents.mjs' : 'kongponents.js'
+        },
       },
     minify: true,
     sourcemap: !!process.env.BUILD_VISUALIZER,
