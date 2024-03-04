@@ -8,7 +8,7 @@
     </span>
     <div
       class="copy-container"
-      :class="{ 'copy-element': props.truncate || props.badge, 'badge-styles': badge }"
+      :class="{ 'copy-element': truncate || badge, 'badge-styles': badge }"
     >
       <KTooltip
         v-if="format !== 'hidden'"
@@ -43,6 +43,8 @@
             :size="KUI_ICON_SIZE_30"
             tabindex="0"
             @click.stop="copyIdToClipboard(copyToClipboard)"
+            @keydown.enter="copyIdToClipboard(copyToClipboard)"
+            @keydown.space.prevent="copyIdToClipboard(copyToClipboard)"
           />
         </KClipboardProvider>
       </KTooltip>
@@ -257,7 +259,7 @@ defineExpose({
     cursor: pointer;
     display: flex;
 
-    .text-icon:not(.k-button .k-copy .text-icon-wrapper .text-icon) {
+    .text-icon:not(.k-button .k-copy .text-icon-wrapper .text-icon):not(.badge-styles .text-icon-wrapper .text-icon) {
       &:hover,
       &:focus {
         // only applies to non-badge as for badge the mixin takes care hover styles
@@ -271,11 +273,6 @@ defineExpose({
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
     margin-right: var(--kui-space-20, $kui-space-20);
-  }
-
-  :deep(.k-popover-content) {
-    font-family: var(--kui-font-family-text, $kui-font-family-text);
-    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   }
 }
 </style>
