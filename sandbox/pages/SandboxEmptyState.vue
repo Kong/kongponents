@@ -64,14 +64,6 @@
           />
         </KComponent>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="actionButtonShowIcon">
-        <KEmptyState
-          action-button-show-icon
-          action-button-text="Action"
-          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
-          title="Empty State Action Button"
-        />
-      </SandboxSectionComponent>
       <SandboxSectionComponent title="iconVariant">
         <KEmptyState
           action-button-text="Action"

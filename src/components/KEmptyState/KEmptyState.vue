@@ -40,7 +40,6 @@
           type="button"
           @click="$emit('click-action')"
         >
-          <AddIcon v-if="actionButtonShowIcon" />
           {{ actionButtonText }}
         </KButton>
       </slot>
@@ -50,7 +49,7 @@
 
 <script lang="ts" setup>
 import { computed, type PropType } from 'vue'
-import { AnalyticsIcon, WarningIcon, SearchIcon, AddIcon } from '@kong/icons'
+import { AnalyticsIcon, WarningIcon, SearchIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_COLOR_TEXT_WARNING, KUI_ICON_SIZE_60 } from '@kong/design-tokens'
 import KButton from '@/components/KButton/KButton.vue'
 import { EmptyStateIconVariants } from '@/types'
@@ -76,10 +75,6 @@ const props = defineProps({
     default: '',
   },
   actionButtonDisabled: {
-    type: Boolean,
-    default: false,
-  },
-  actionButtonShowIcon: {
     type: Boolean,
     default: false,
   },
