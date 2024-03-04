@@ -1,5 +1,5 @@
 <template>
-  <section
+  <div
     class="k-empty-state"
     :class="[iconVariant]"
   >
@@ -44,7 +44,7 @@
         </KButton>
       </slot>
     </div>
-  </section>
+  </div>
 </template>
 
 <script lang="ts" setup>
