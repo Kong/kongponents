@@ -72,6 +72,26 @@ The button **won't be rendered** if this prop is not provided.
 />
 ```
 
+### actionButtonShowIcon
+
+Boolean to control whether to show or hide add icon in action button. Helpful when using action button for prompting user to create a resource. Defaults to `false`.
+
+<KEmptyState
+  action-button-show-icon
+  action-button-text="Action"
+  title="Empty State Action Button"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+/>
+
+```html
+<KEmptyState
+  action-button-show-icon
+  action-button-text="Action"
+  title="Empty State Action Button"
+  message="Lorem ipsum dolor sit amet..."
+/>
+```
+
 ### actionButtonVisible
 
 Boolean to show/hide action button. Defaults to `true`.
@@ -139,10 +159,7 @@ Depending on context in which you need to display empty state message component 
 Accepted values:
 * `default` (default)
 * `error`
-* `config`
-* `file`
 * `search`
-* `kong`
 
 <KEmptyState
   icon-variant="error"
@@ -161,18 +178,18 @@ Accepted values:
 ```
 
 <KEmptyState
-  icon-variant="file"
+  icon-variant="search"
   action-button-text="Action"
   message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
-  title="Empty State File"
+  title="Empty State Search"
 />
 
 ```html
 <KEmptyState
-  icon-variant="file"
+  icon-variant="search"
   action-button-text="Action"
   message="Lorem ipsum dolor sit amet..."
-  title="Empty State File"
+  title="Empty State Search"
 />
 ```
 
@@ -260,12 +277,12 @@ Slot for providing your custom action button.
 ## Events
 
 
-### action-click
+### click-action
 
 Emitted when action button is clicked.
 
 <KEmptyState
-  @action-click="onActionClick"
+  @click-action="onActionClick"
   action-button-text="Action"
   message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
   title="Empty State Events"
@@ -274,7 +291,7 @@ Emitted when action button is clicked.
 ```vue
 <template>
   <KEmptyState
-    @action-click="onActionClick"
+    @click-action="onActionClick"
     action-button-text="Action"
     message="Lorem ipsum dolor sit amet..."
     title="Empty State Events"

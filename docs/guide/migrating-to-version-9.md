@@ -230,7 +230,7 @@ Component has been renamed to `KDropdown`
 * `icon` prop has been removed and replaced with `iconVariant` prop. You can also use the new `icon` slot to provide your custom icon
 * `ctaIsHidden` prop has been removed and replaced with `actionButtonVisible` prop
 * `ctaText` prop has been removed and replaced with `actionButtonText` prop
-* `handleClick` prop has been removed. You can bind your action button click handler function to new `action-click` event
+* `handleClick` prop has been removed. You can bind your action button click handler function to new `click-action` event
 * `iconColor` prop has been removed
 * `iconSecondaryColor` prop has been removed
 

@@ -104,7 +104,7 @@ describe('KEmptyState', () => {
     })
 
     cy.get('.empty-state-action').should('be.visible').find('button').click().then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'action-click')
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'click-action')
     })
   })
 })
