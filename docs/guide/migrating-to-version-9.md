@@ -257,6 +257,7 @@ No breaking changes.
 
 ### KInlineEdit
 
+This component has been removed.
 
 ### KInput
 
