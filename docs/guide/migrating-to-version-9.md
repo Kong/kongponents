@@ -18,6 +18,43 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Props
 
+* `alertMessage` prop has been changed to `message`
+* `isShowing` prop has been removed. You can use Vue native `v-if` binging to control whether alert is shown or hidden
+* `type` prop has been removed. KAlert only comes in form of themed-color (defined by `appearance` prop) container
+* `dismissType` prop has been removed. KAlert can only be dismissed by clicking on close icon text to title, which is either hidden or visible depending on value of new `dismissible` prop
+* `size` prop has been removed
+* `icon, iconSize, iconColor` props has been removed. You can use `icon` slot to override default icon
+* `description` prop has been removed
+* `isBordered, hasTopBorder, hasRightBorder, hasBottomBorder, hasLeftBorder` props has been removed. KAlert does not have a border by default
+* `isFixed` prop has been removed
+
+#### Slots
+
+* `alertMessage` slot has been removed. You can use the `default` slot to pass alert message content
+* `title` slot has been removed
+* `description` slot has been removed
+* `actionButtons` slot has been removed
+
+#### Events
+
+* `closed` event has been renamed to `dismiss`
+* `proceed` event has been been removed
+
+#### Structure
+
+* `k-alert-icon-container` class has been replaced with `alert-icon-container`
+* `k-alert-msg-text` class has been replaced with `alert-content`
+* `k-alert-title` class has been replaced with `alert-title`
+* `k-alert-msg` class has been replaced with `alert-message`
+
+#### Constants, Types & Interfaces
+
+* `AlertSize` type has been removed
+* `AlertType` type has been removed
+* `AlertDismissType` type has been removed
+
+#### Props
+
 #### Slots
 
 #### Events
