@@ -186,16 +186,16 @@
         :disable-page-jump="disablePaginationPageJump"
         :initial-page-size="pageSize"
         :neighbors="paginationNeighbors"
+        :offset="paginationType === 'offset' ? true : false"
         :offset-next-button-disabled="!offset || !hasNextPage"
-        :offset-prev-button-disabled="!previousOffset"
+        :offset-previous-button-disabled="!previousOffset"
         :page-sizes="paginationPageSizes"
-        :pagination-type="paginationType"
         :test-mode="!!testMode || undefined"
         :total-count="total"
         @get-next-offset="getNextOffsetHandler"
-        @get-prev-offset="getPrevOffsetHandler"
-        @page-changed="pageChangeHandler"
-        @page-size-changed="pageSizeChangeHandler"
+        @get-previous-offset="getPrevOffsetHandler"
+        @page-change="pageChangeHandler"
+        @page-size-change="pageSizeChangeHandler"
       />
     </section>
   </div>
@@ -219,8 +219,8 @@ import type {
   SwrvState,
   SwrvStateData,
   TableState,
-  PageChangedData,
-  PageSizeChangedData,
+  PageChangeData,
+  PageSizeChangeData,
   SortColumnOrder,
   TableSortOrder,
   TableSortPayload,
@@ -843,11 +843,11 @@ const sortClickHandler = (header: TableHeader): void => {
   emitTablePreferences()
 }
 
-const pageChangeHandler = ({ page: newPage }: PageChangedData) => {
+const pageChangeHandler = ({ page: newPage }: PageChangeData) => {
   page.value = newPage
 }
 
-const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangedData) => {
+const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData) => {
   offsets.value = [null]
   offset.value = null
   pageSize.value = newPageSize

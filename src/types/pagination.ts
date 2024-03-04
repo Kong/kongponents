@@ -1,6 +1,4 @@
-export type PaginationType = 'default' | 'offset'
-
-export interface PageChangedData {
+export interface PageChangeData {
   page: number
   pageCount: number
   firstItem: number
@@ -8,7 +6,7 @@ export interface PageChangedData {
   visibleItems: any[]
 }
 
-export interface PageSizeChangedData {
+export interface PageSizeChangeData {
   pageSize: number
   pageCount: number
 }

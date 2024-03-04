@@ -462,7 +462,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.getTestId('k-pagination-container').should('not.exist')
+      cy.getTestId('k-pagination').should('not.exist')
     })
 
     it('does not display pagination when hidePaginationWhenOptional is true and total is equal to pageSize', () => {
@@ -479,7 +479,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.getTestId('k-pagination-container').should('not.exist')
+      cy.getTestId('k-pagination').should('not.exist')
     })
 
     it('does display pagination when total is greater than pageSize', () => {
@@ -495,7 +495,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.getTestId('k-pagination-container').should('exist')
+      cy.getTestId('k-pagination').should('exist')
     })
   })
 })
