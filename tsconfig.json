@@ -1,7 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
-    "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
