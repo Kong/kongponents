@@ -9,9 +9,7 @@
 An array of Breadcrumb items. Items that are not links, displayed at the end will not be followed by a divider.
 
 <KCard>
-  <template #body>
-    <KBreadcrumbs :items="internalBreadcrumbItems" />
-  </template>
+  <KBreadcrumbs :items="internalBreadcrumbItems" />
 </KCard>
 
 ```html
@@ -64,9 +62,7 @@ Each breadcrumb item can display `text`, an `icon`, or both.
 The `to` property can be a Vue route or traditional URL. When using a URL though the target will be blank and a new window will open. In most scenarios you will build your breadcrumb items using your Vue application routes.
 
 <KCard>
-  <template #body>
-    <KBreadcrumbs :items="externalBreadcrumbItems" />
-  </template>
+  <KBreadcrumbs :items="externalBreadcrumbItems" />
 </KCard>
 
 ```html
@@ -95,9 +91,7 @@ The `to` property can be a Vue route or traditional URL. When using a URL though
 Maximum width of each breadcrumb item for truncating to ellipsis.
 
 <KCard>
-  <template #body>
-    <KBreadcrumbs :items="longBreadcrumbs" item-max-width="16ch" />
-  </template>
+  <KBreadcrumbs :items="longBreadcrumbs" item-max-width="16ch" />
 </KCard>
 
 ```html
@@ -112,9 +106,7 @@ Maximum width of each breadcrumb item for truncating to ellipsis.
 Emphasize the breadcrumbs by making them bolder.
 
 <KCard>
-  <template #body>
-    <KBreadcrumbs :items="contextualBreadcrumbs" emphasis />
-  </template>
+  <KBreadcrumbs :items="contextualBreadcrumbs" emphasis />
 </KCard>
 
 ```html
@@ -131,13 +123,11 @@ Emphasize the breadcrumbs by making them bolder.
 Content to be displayed between breadcrumb items, defaults to a chevron.
 
 <KCard>
-  <template #body>
-    <KBreadcrumbs :items="internalBreadcrumbItems">
-      <template #divider>
-        <span class="custom-divider">/</span>
-      </template>
-    </KBreadcrumbs>
-  </template>
+  <KBreadcrumbs :items="internalBreadcrumbItems">
+    <template #divider>
+      <span class="custom-divider">/</span>
+    </template>
+  </KBreadcrumbs>
 </KCard>
 
 ```html
@@ -153,16 +143,14 @@ Content to be displayed between breadcrumb items, defaults to a chevron.
 You can slot individual breadcrumb icon content. Each breadcrumb will have an icon slot named after the item `key` or index (if no `key` provided).
 
 <KCard>
-  <template #body>
-    <KBreadcrumbs :items="iconBreadcrumbs">
-      <template #icon-home>
-        <KIcon icon="immunity" color="#169fcc" size="16" class="breadcrumb-icon" />
-      </template>
-      <template #icon-breadcrumb-1>
-        <KIcon icon="graduationHat" color="#473cfb" size="16" class="breadcrumb-icon" />
-      </template>
-    </KBreadcrumbs>
-  </template>
+  <KBreadcrumbs :items="iconBreadcrumbs">
+    <template #icon-home>
+      <KIcon icon="immunity" color="#169fcc" size="16" class="breadcrumb-icon" />
+    </template>
+    <template #icon-breadcrumb-1>
+      <KIcon icon="graduationHat" color="#473cfb" size="16" class="breadcrumb-icon" />
+    </template>
+  </KBreadcrumbs>
 </KCard>
 
 ```html
