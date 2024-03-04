@@ -260,6 +260,30 @@ Component has been renamed to `KDropdown`
 
 ### KEmptyState
 
+#### Props
+
+* `isError` prop has been removed. You can use the new `iconVariant` prop instead. For more details check out component documentation
+* `iconSize` prop has been removed
+* `icon` prop has been removed and replaced with `iconVariant` prop. You can also use the new `icon` slot to provide your custom icon
+* `ctaIsHidden` prop has been removed and replaced with `actionButtonVisible` prop
+* `ctaText` prop has been removed and replaced with `actionButtonText` prop
+* `handleClick` prop has been removed. You can bind your action button click handler function to new `click-action` event
+* `iconColor` prop has been removed
+* `iconSecondaryColor` prop has been removed
+
+#### Slots
+
+* `title` slot has been removed. You can use the new `title` prop instead
+* `message` slot has been renamed to `default`
+* `cta` slot has been renamed to `action`
+
+#### Structure
+
+* `empty-state-wrapper` class has been changed to `k-empty-state`
+* `k-empty-state-icon` class has been changed to `empty-state-icon`
+* `k-empty-state-title-header` class has been changed to `empty-state-title`
+* `k-empty-state-message` class has been changed to `empty-state-message`
+* `k-empty-state-cta` class has been changed to `empty-state-action`
 
 ### KExternalLink
 
