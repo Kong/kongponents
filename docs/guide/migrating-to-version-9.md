@@ -273,7 +273,6 @@ Component has been renamed to `KDropdown`
 
 #### Slots
 
-* `title` slot has been removed. You can use the new `title` prop instead
 * `message` slot has been renamed to `default`
 * `cta` slot has been renamed to `action`
 

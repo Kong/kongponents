@@ -13,12 +13,14 @@
           />
         </slot>
       </div>
-      <span
-        v-if="title"
+      <div
+        v-if="title || $slots.title"
         class="empty-state-title"
       >
-        {{ title }}
-      </span>
+        <slot name="title">
+          {{ title }}
+        </slot>
+      </div>
       <div
         v-if="message || $slots.default"
         class="empty-state-message"
@@ -31,7 +33,7 @@
       </div>
     </div>
     <div
-      v-if="actionButtonVisible && (actionButtonText || $slots.action)"
+      v-if="(actionButtonVisible && actionButtonText) || $slots.action"
       class="empty-state-action"
     >
       <slot name="action">
