@@ -222,9 +222,10 @@ import {
   TablePaginationTypeArray,
   TableSortOrderArray,
   TableTestModeArray,
+  EmptyStateIconVariants,
 } from '@/types'
 import { KUI_COLOR_TEXT, KUI_ICON_SIZE_20 } from '@kong/design-tokens'
-import { AddIcon } from '@kong/icons/dist/types'
+import { AddIcon } from '@kong/icons'
 
 const { useDebounce, useRequest, useSwrvState } = useUtilities()
 
@@ -339,7 +340,7 @@ const props = defineProps({
   },
   emptyStateIconVariant: {
     type: String as PropType<EmptyStateIconVariant>,
-    default: 'default',
+    default: EmptyStateIconVariants.Default,
   },
   /**
    * A prop that enables the error state
