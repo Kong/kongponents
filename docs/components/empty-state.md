@@ -196,6 +196,32 @@ Slot for passing message content. When provided, takes precedence over the [`mes
 </KEmptyState>
 ```
 
+### title
+
+Slot for passing title text.
+
+<KEmptyState
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Lorem Ipsum Dolor Sit Amet"
+>
+  <template #title>
+    Empty State Slotted Title
+  </template>
+</KEmptyState>
+
+```html
+<KEmptyState
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet..."
+  title="Lorem Ipsum Dolor Sit Amet"
+>
+  <template #title>
+    <h1>Empty State Slotted Title</h1>
+  </template>
+</KEmptyState>
+```
+
 ### icon
 
 Slot for providing custom icon.

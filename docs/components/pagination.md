@@ -211,7 +211,7 @@ Pass in a boolean value for whether or not the offset-based next button should b
 
 ## Events
 
-### pageChange
+### page-change
 
 Emitted when the page has been changed. The page number is returned starting at 1 rather than 0 to be easier to use directly in the UI.
 
@@ -225,7 +225,7 @@ Emitted when the page has been changed. The page number is returned starting at 
 }
 ```
 
-### pageSizeChange
+### page-size-change
 
 Emitted when the number of items per page has been changed.
 
@@ -236,11 +236,11 @@ Emitted when the number of items per page has been changed.
 }
 ```
 
-### getNextOffset
+### get-next-offset
 
 Emitted when next arrow button clicked when [`offset` prop](#offset) is true.
 
-### getPreviousOffset
+### get-previous-offset
 
 Emitted when previous arrow button clicked when [`offset` prop](#offset) is true.
 
