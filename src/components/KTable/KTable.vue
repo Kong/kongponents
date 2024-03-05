@@ -24,12 +24,14 @@
     >
       <slot name="error-state">
         <KEmptyState
-          :action-button-visible="!!errorStateActionMessage && !!errorStateActionRoute"
           icon-variant="error"
           :message="errorStateMessage"
           :title="errorStateTitle"
         >
-          <template #action>
+          <template
+            v-if="!!errorStateActionMessage && !!errorStateActionRoute"
+            #action
+          >
             <KButton
               :data-testid="getTestIdString(errorStateActionMessage)"
               :to="errorStateActionRoute ? errorStateActionRoute : undefined"
@@ -49,11 +51,13 @@
     >
       <slot name="empty-state">
         <KEmptyState
-          :action-button-visible="!!emptyStateActionMessage && !!emptyStateActionRoute"
           :message="emptyStateMessage"
           :title="emptyStateTitle"
         >
-          <template #action>
+          <template
+            v-if="!!emptyStateActionMessage && !!emptyStateActionRoute"
+            #action
+          >
             <KButton
               :appearance="searchInput ? 'tertiary' : 'primary'"
               :data-testid="getTestIdString(emptyStateActionMessage)"
