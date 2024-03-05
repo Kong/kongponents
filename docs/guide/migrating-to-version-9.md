@@ -644,6 +644,12 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KTable
 
+#### Props
+
+* `emptyStateIcon` prop has been removed. You can use the new `emptyStateIconVariant` prop or `empty-state-icon` slot instead
+* `emptyStateIconColor` prop has been removed
+* `emptyStateIconSize` prop has been removed
+* `emptyStateActionButtonIcon` prop has been removed. You can use the new `emptyStateActionButtonShowPlusIcon` prop instead
 
 ### KTabs
 
