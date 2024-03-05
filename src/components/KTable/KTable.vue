@@ -29,7 +29,7 @@
           :title="errorStateTitle"
         >
           <template
-            v-if="!!errorStateActionMessage && !!errorStateActionRoute"
+            v-if="!!errorStateActionMessage"
             #action
           >
             <KButton
@@ -63,7 +63,7 @@
           </template>
 
           <template
-            v-if="!!emptyStateActionMessage && !!emptyStateActionRoute"
+            v-if="!!emptyStateActionMessage"
             #action
           >
             <KButton
