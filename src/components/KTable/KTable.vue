@@ -51,9 +51,17 @@
     >
       <slot name="empty-state">
         <KEmptyState
+          :icon-variant="emptyStateIconVariant"
           :message="emptyStateMessage"
           :title="emptyStateTitle"
         >
+          <template
+            v-if="$slots['empty-state-icon']"
+            #icon
+          >
+            <slot name="empty-state-icon" />
+          </template>
+
           <template
             v-if="!!emptyStateActionMessage && !!emptyStateActionRoute"
             #action
@@ -61,10 +69,13 @@
             <KButton
               :appearance="searchInput ? 'tertiary' : 'primary'"
               :data-testid="getTestIdString(emptyStateActionMessage)"
-              :icon="emptyStateActionButtonIcon"
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
               @click="$emit('ktable-empty-state-cta-clicked')"
             >
+              <AddIcon
+                v-if="emptyStateActionButtonShowPlusIcon"
+                decorative
+              />
               {{ emptyStateActionMessage }}
             </KButton>
           </template>
@@ -205,13 +216,16 @@ import type {
   TableSortPayload,
   TableStatePayload,
   TableTestMode,
+  EmptyStateIconVariant,
 } from '@/types'
 import {
   TablePaginationTypeArray,
   TableSortOrderArray,
   TableTestModeArray,
+  EmptyStateIconVariants,
 } from '@/types'
 import { KUI_COLOR_TEXT, KUI_ICON_SIZE_20 } from '@kong/design-tokens'
+import { AddIcon } from '@kong/icons/dist/types'
 
 const { useDebounce, useRequest, useSwrvState } = useUtilities()
 
@@ -320,33 +334,13 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  /**
-   * A prop to pass in a custom empty state action message
-   */
-  emptyStateActionButtonIcon: {
-    type: String,
-    default: '',
+  emptyStateActionButtonShowPlusIcon: {
+    type: Boolean,
+    default: false,
   },
-  /**
-   * A prop to pass in a custom empty state icon
-   */
-  emptyStateIcon: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a color for the empty state icon
-   */
-  emptyStateIconColor: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a size for the empty state icon
-   */
-  emptyStateIconSize: {
-    type: String,
-    default: '50',
+  emptyStateIconVariant: {
+    type: String as PropType<EmptyStateIconVariant>,
+    default: EmptyStateIconVariants.Default,
   },
   /**
    * A prop that enables the error state
