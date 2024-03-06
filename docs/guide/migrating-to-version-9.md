@@ -646,10 +646,10 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 #### Props
 
-* `emptyStateIcon` prop has been removed. You can use the new `emptyStateIconVariant` prop or `empty-state-icon` slot instead
+* `emptyStateIcon` prop has been removed. You can use the new `emptyStateIconVariant` prop instead
 * `emptyStateIconColor` prop has been removed
 * `emptyStateIconSize` prop has been removed
-* `emptyStateActionButtonIcon` prop has been removed. You can use the new `emptyStateActionButtonShowPlusIcon` prop instead
+* `emptyStateActionButtonIcon` prop has been removed
 
 ### KTabs
 
