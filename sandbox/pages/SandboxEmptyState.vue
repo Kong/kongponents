@@ -82,6 +82,12 @@
           message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
           title="Search Icon Variant"
         />
+        <KEmptyState
+          action-button-text="Action"
+          icon-variant="kong"
+          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+          title="Kong Icon Variant"
+        />
       </SandboxSectionComponent>
 
       <!-- Slots -->

@@ -140,6 +140,7 @@ Accepted values:
 * `default` (default)
 * `error`
 * `search`
+* `kong`
 
 <KEmptyState
   icon-variant="error"
