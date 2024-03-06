@@ -11,6 +11,7 @@
         <component
           :is="getAlertIcon"
           class="alert-icon"
+          decorative
           :size="KUI_ICON_SIZE_40"
         />
       </slot>

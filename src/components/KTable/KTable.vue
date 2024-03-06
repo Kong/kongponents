@@ -56,13 +56,6 @@
           :title="emptyStateTitle"
         >
           <template
-            v-if="$slots['empty-state-icon']"
-            #icon
-          >
-            <slot name="empty-state-icon" />
-          </template>
-
-          <template
             v-if="!!emptyStateActionMessage"
             #action
           >
@@ -72,10 +65,6 @@
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
               @click="$emit('ktable-empty-state-cta-clicked')"
             >
-              <AddIcon
-                v-if="emptyStateActionButtonShowPlusIcon"
-                decorative
-              />
               {{ emptyStateActionMessage }}
             </KButton>
           </template>
@@ -225,7 +214,6 @@ import {
   EmptyStateIconVariants,
 } from '@/types'
 import { KUI_COLOR_TEXT, KUI_ICON_SIZE_20 } from '@kong/design-tokens'
-import { AddIcon } from '@kong/icons'
 
 const { useDebounce, useRequest, useSwrvState } = useUtilities()
 
@@ -333,10 +321,6 @@ const props = defineProps({
   emptyStateActionMessage: {
     type: String,
     default: '',
-  },
-  emptyStateActionButtonShowPlusIcon: {
-    type: Boolean,
-    default: false,
   },
   emptyStateIconVariant: {
     type: String as PropType<EmptyStateIconVariant>,

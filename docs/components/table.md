@@ -1272,8 +1272,7 @@ Set the following properties to handle empty state:
 - `emptyStateMessage` - Message for empty state
 - `emptyStateActionRoute` - Route for empty state action
 - `emptyStateActionMessage` - Button text for empty state action
-- `emptyStateActionButtonShowPlusIcon` - Boolean prop to show/hide plus icon in empty state action button
-- `emptyStateIconVariant` - Prop set empty state icon variant. See [KEmptyState component docs](/components/empty-state#iconvariant) for details. Alternatively, you can use `empty-state-icon` slot.
+- `emptyStateIconVariant` - Prop set empty state icon variant. See [KEmptyState component docs](/components/empty-state#iconvariant) for details
 
 If using a CTA button, a `@ktable-empty-state-cta-clicked` event is fired when clicked.
 

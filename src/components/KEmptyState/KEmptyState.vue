@@ -9,6 +9,7 @@
           <component
             :is="getEmptyStateIcon"
             :color="getIconColor"
+            decorative
             :size="KUI_ICON_SIZE_60"
           />
         </slot>

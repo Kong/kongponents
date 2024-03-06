@@ -16,6 +16,7 @@
           :is="getToastIcon(toaster.appearance)"
           class="toaster-icon"
           :color="KUI_COLOR_TEXT"
+          decorative
         />
       </div>
       <div class="toaster-content">
