@@ -649,7 +649,7 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `emptyStateIcon` prop has been removed. You can use the new `emptyStateIconVariant` prop instead
 * `emptyStateIconColor` prop has been removed
 * `emptyStateIconSize` prop has been removed
-* `emptyStateActionButtonIcon` prop has been removed
+* `emptyStateActionButtonIcon` prop has been removed. You can use the new `empty-state-action-icon` slot instead
 
 ### KTabs
 

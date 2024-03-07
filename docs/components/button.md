@@ -110,11 +110,18 @@ The default slot allows you to provide the button text as well as to slot in oth
     Button Two
     <ChevronDownIcon />
   </KButton>
-  <!-- TODO: [beta] change this to icon prop -->
-  <KButton appearance="danger" size="small" class="icon-button">
-    <TrashIcon />
-  </KButton>
 </div>
+
+```html
+<KButton size="large">
+  <WorldIcon />
+  Button One
+</KButton>
+<KButton appearance="secondary">
+  Button Two
+  <ChevronDownIcon />
+</KButton>
+```
 
 :::tip TIP
 When utilizing icons inside KButton, some sizes work better than others. You can use the `kui-icon-size-*` tokens exported by the [@kong/design-tokens](https://github.com/Kong/design-tokens) package, or manually set the size.
@@ -131,12 +138,8 @@ We also recommend setting the icon style `color` property to a value of `current
 ### icon
 
 :::danger NOTE
-This slot is deprecated and will be removed in the `9.0.0-beta.0` release. Please use the [`default` slot](#default) instead whenever possible (unless the only content you are passing to KButton is icon).
+This slot is deprecated and will be removed in the `9.0.0-beta.0` release. Please use the [`default` slot](#default) instead whenever possible (unless the only content you are passing to KButton is icon and you need to make the button square (_left and right padding = top and bottom_)).
 :::
-
-KButton supports using an icon either before the text or without text. If you are using the KIcon component you must maintain the icon color yourself when the button is enabled or disabled.
-
-Using only this slot without the default slot will make button square (left and right padding = top and bottom).
 
 <div class="spacing-container">
   <KButton appearance="secondary">

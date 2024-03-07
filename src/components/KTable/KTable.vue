@@ -65,6 +65,7 @@
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
               @click="$emit('ktable-empty-state-cta-clicked')"
             >
+              <slot name="empty-state-action-icon" />
               {{ emptyStateActionMessage }}
             </KButton>
           </template>

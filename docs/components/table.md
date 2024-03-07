@@ -1229,6 +1229,7 @@ the section below or completely slot in your own content.
 
 - `empty-state` - Slot content to be displayed when empty
 - `error-state` - Slot content to be displayed when in an error state
+- `empty-state-action-icon` - Slot for slotting an icon to be rendered to the left of button text in empty state action button
 
 <KCard>
   <template #default>
@@ -1307,9 +1308,11 @@ If using a CTA button, a `@ktable-empty-state-cta-clicked` event is fired when c
       emptyStateActionMessage="Create a Workspace"
       emptyStateActionButtonIcon="plus"
       emptyStateActionRoute="#empty-state-full-example"
-      emptyStateIcon="workspaces"
-      emptyStateIconColor="#5996ff"
-      emptyStateIconSize="35" />
+      empty-state-icon-variant="kong">
+      <template #empty-state-action-icon>
+        <AddIcon />
+      </template>
+    </KTable>
   </template>
 </KCard>
 
@@ -1326,9 +1329,11 @@ If using a CTA button, a `@ktable-empty-state-cta-clicked` event is fired when c
         emptyStateActionMessage="Create a Workspace"
         emptyStateActionButtonIcon="plus"
         emptyStateActionRoute="create-workspace"
-        emptyStateIcon="workspaces"
-        emptyStateIconColor="#5996ff"
-        emptyStateIconSize="35" />
+        empty-state-icon-variant="kong">
+        <template #empty-state-action-icon>
+          <AddIcon />
+        </template>
+      </KTable>
     </template>
   </KCard>
 </template>
@@ -1349,10 +1354,7 @@ If using a CTA button, a `@ktable-empty-state-cta-clicked` event is fired when c
           params: {
             organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
           }
-        }"
-        emptyStateIcon="workspaces"
-        emptyStateIconColor="#5996ff"
-        emptyStateIconSize="35" />
+        }" />
     </template>
   </KCard>
 </template>
@@ -1566,8 +1568,12 @@ fetcher(payload) {
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { AddIcon } from '@kong/icons'
 
 export default defineComponent({
+  components: {
+    AddIcon
+  },
   data() {
     return {
       row: null,
