@@ -1348,13 +1348,17 @@ If using a CTA button, a `@ktable-empty-state-cta-clicked` event is fired when c
         emptyStateTitle="No Workspaces exist"
         emptyStateMessage="Adding a new Workspace will populate this table."
         emptyStateActionMessage="Create a Workspace"
-        emptyStateActionButtonIcon="plus"
         emptyStateActionRoute="{
           name: 'create-workspace',
           params: {
             organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
           }
-        }" />
+        }"
+        empty-state-icon-variant="kong">
+        <template #empty-state-action-icon>
+          <AddIcon />
+        </template>
+      </KTable>
     </template>
   </KCard>
 </template>
