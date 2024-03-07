@@ -843,7 +843,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
 
 <template>
   <KCard>
-    <template v-slot:body>
+    <template #default>
       <div v-if="eventType">
         {{eventType}} on: {{row}}
       </div>
@@ -1231,7 +1231,7 @@ the section below or completely slot in your own content.
 - `error-state` - Slot content to be displayed when in an error state
 
 <KCard>
-  <template v-slot:body>
+  <template #default>
     <KTable :fetcher="emptyFetcher" :headers="headers">
       <template v-slot:empty-state>
         <div style="text-align: center;">
@@ -1280,7 +1280,7 @@ If using a CTA button, a `@ktable-empty-state-cta-clicked` event is fired when c
 
 <br/>
 <KCard>
-  <template v-slot:body>
+  <template #default>
     <KTable :fetcher="() => { return { data: [] } }" />
   </template>
 </KCard>
@@ -1288,7 +1288,7 @@ If using a CTA button, a `@ktable-empty-state-cta-clicked` event is fired when c
 ```html
 <template>
   <KCard>
-    <template v-slot:body>
+    <template #default>
       <KTable :fetcher="fetcher" :headers="headers" />
     </template>
   </KCard>
@@ -1299,7 +1299,7 @@ If using a CTA button, a `@ktable-empty-state-cta-clicked` event is fired when c
 
 <br/>
 <KCard>
-  <template v-slot:body>
+  <template #default>
     <KTable
       :fetcher="() => { return { data: [] } }"
       emptyStateTitle="No Workspaces exist"
@@ -1317,7 +1317,7 @@ If using a CTA button, a `@ktable-empty-state-cta-clicked` event is fired when c
 <!-- Using a route string -->
 <template>
   <KCard>
-    <template v-slot:body>
+    <template #default>
       <KTable
         :fetcher="fetcher"
         :headers="headers"
@@ -1336,7 +1336,7 @@ If using a CTA button, a `@ktable-empty-state-cta-clicked` event is fired when c
 <!-- Using a route object -->
 <template>
   <KCard>
-    <template v-slot:body>
+    <template #default>
       <KTable
         :fetcher="fetcher"
         :headers="headers"
@@ -1377,7 +1377,7 @@ If using a CTA button, a `ktable-error-cta-clicked` event is fired when clicked.
 
 <br/>
 <KCard>
-  <template v-slot:body>
+  <template #default>
     <KTable :fetcher="() => { return { data: [] } }" :hasError="true" />
   </template>
 </KCard>
@@ -1385,7 +1385,7 @@ If using a CTA button, a `ktable-error-cta-clicked` event is fired when clicked.
 ```html
 <template>
   <KCard>
-    <template v-slot:body>
+    <template #default>
       <KTable :fetcher="fetcher" :headers="headers" :hasError="true" />
     </template>
   </KCard>
@@ -1396,7 +1396,7 @@ If using a CTA button, a `ktable-error-cta-clicked` event is fired when clicked.
 
 <br/>
 <KCard>
-  <template v-slot:body>
+  <template #default>
     <KTable
       :fetcher="() => { return { data: [] } }"
       :hasError="true"
@@ -1414,7 +1414,7 @@ If using a CTA button, a `ktable-error-cta-clicked` event is fired when clicked.
 <!-- Using a route string -->
 <template>
   <KCard>
-    <template v-slot:body>
+    <template #default>
       <KTable
         :fetcher="fetcher"
         :headers="headers"
@@ -1433,7 +1433,7 @@ If using a CTA button, a `ktable-error-cta-clicked` event is fired when clicked.
 <!-- Using a route object -->
 <template>
   <KCard>
-    <template v-slot:body>
+    <template #default>
       <KTable
         :fetcher="fetcher"
         :headers="headers"
@@ -1460,7 +1460,7 @@ If using a CTA button, a `ktable-error-cta-clicked` event is fired when clicked.
 Set the `isLoading` prop to `true` to enable the loading state.
 
 <KCard>
-  <template v-slot:body>
+  <template #default>
     <KTable
       :fetcher="() => { return { data: [] } }"
       :isLoading="true"
@@ -1471,7 +1471,7 @@ Set the `isLoading` prop to `true` to enable the loading state.
 ```html
 <template>
 <KCard>
-  <template v-slot:body>
+  <template #default>
     <KTable
       :fetcher="fetcher"
       :headers="headers"
@@ -1501,7 +1501,7 @@ https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
 <!-- Example Component Usage -->
 
 <KCard>
-  <template v-slot:body>
+  <template #default>
     <KInput placeholder="Search" v-model="search" type="search" />
     <KTable
       cache-identifier="server-side-functions-table"
