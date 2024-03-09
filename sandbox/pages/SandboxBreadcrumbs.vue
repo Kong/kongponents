@@ -5,7 +5,7 @@
   >
     <div class="kbreadcrumbs-sandbox">
       <SandboxSectionComponent>
-        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=2020%3A9543&mode=dev&t=USFhEkebi5cmYxaK-1">
+        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=470%3A22444&mode=dev&t=tS1kk3tqkOVTlZ8a-1">
           Figma
         </KExternalLink>
       </SandboxSectionComponent>
@@ -22,7 +22,7 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="itemMaxWidth">
         <KBreadcrumbs
-          item-max-width="20px"
+          item-max-width="50px"
           :items="breadcrumbs"
         />
       </SandboxSectionComponent>
@@ -37,6 +37,9 @@
           <template #icon-home>
             <RuntimeDedicatedCloudIcon />
           </template>
+          <template #icon-not-here>
+            <KongIcon />
+          </template>
         </KBreadcrumbs>
       </SandboxSectionComponent>
     </div>
@@ -47,7 +50,7 @@
 import { inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { RuntimeDedicatedCloudIcon } from '@kong/icons'
+import { RuntimeDedicatedCloudIcon, KongIcon } from '@kong/icons'
 
 const breadcrumbs = [{
   key: 'home',

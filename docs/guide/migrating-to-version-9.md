@@ -64,6 +64,20 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KBreadcrumbs
 
+#### Props
+
+* `emphasis` prop has been removed
+
+#### Structure
+
+* `k-breadcrumbs-item` class has been replaced with `breadcrumbs-item-container`
+* `k-breadcrumb-text` class has been replaced with `breadcrumbs-text`
+* `k-breadcrumb-divider` class has been replaced with `kbreadcrumbs-divider`
+
+#### Constants, Types & Interfaces
+
+* `icon` property has been removed from `BreadcrumbItem` interface
+
 ### KButton
 
 #### Props

@@ -6,44 +6,30 @@
     <li
       v-for="(item, idx) in items"
       :key="getBreadcrumbKey(item, idx)"
-      class="k-breadcrumbs-item"
+      class="breadcrumbs-item-container"
     >
       <component
         :is="getComponentAttrs(item).type"
         v-bind="getComponentAttrs(item).attrs"
-        class="no-underline"
+        class="breadcrumbs-item"
+        :class="{ 'link': !!item.to, 'active': idx === items.length - 1}"
       >
-        <div class="k-breadcrumb-icon-wrapper">
-          <slot :name="`icon-${getBreadcrumbKey(item, idx)}`">
-            <KIcon
-              v-if="item.icon"
-              :class="['k-breadcrumb-icon', { 'has-no-text': !item.text }]"
-              :color="`var(--kui-color-text-decorative-aqua, ${KUI_COLOR_TEXT_DECORATIVE_AQUA})`"
-              hide-title
-              :icon="item.icon"
-              :size="KUI_ICON_SIZE_30"
-            />
-          </slot>
-        </div>
+        <slot :name="`icon-${getBreadcrumbKey(item, idx)}`" />
         <span
           v-if="item.text"
-          class="k-breadcrumb-text"
-          :class="{ 'non-link': !item.to, 'emphasis': emphasis }"
-          :style="{ maxWidth: item.maxWidth || itemMaxWidth }"
-        >{{ item.text }}</span>
+          class="breadcrumbs-text"
+          :style="{ maxWidth: item.maxWidth? getSizeFromString(item.maxWidth) : getSizeFromString(itemMaxWidth) }"
+        >
+          {{ item.text }}
+        </span>
       </component>
 
       <span
         v-if="item.to || idx < items.length - 1"
-        class="k-breadcrumb-divider"
+        class="breadcrumbs-divider"
       >
         <slot name="divider">
-          <KIcon
-            :color="`var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
-            hide-title
-            icon="chevronRight"
-            :size="KUI_ICON_SIZE_30"
-          />
+          /
         </slot>
       </span>
     </li>
@@ -53,8 +39,9 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import type { BreadcrumbItem } from '@/types'
-import { KUI_COLOR_TEXT_DECORATIVE_AQUA, KUI_ICON_SIZE_30, KUI_COLOR_TEXT_NEUTRAL_WEAK } from '@kong/design-tokens'
-import KIcon from '@/components/KIcon/KIcon.vue'
+import useUtilities from '@/composables/useUtilities'
+
+const { getSizeFromString } = useUtilities()
 
 defineProps({
   items: {
@@ -68,11 +55,7 @@ defineProps({
   itemMaxWidth: {
     type: String,
     required: false,
-    default: '38ch', // can handle a monospaced uuid
-  },
-  emphasis: {
-    type: Boolean,
-    default: false,
+    default: '100px',
   },
 })
 
@@ -112,85 +95,70 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-@import '@/styles/mixins';
-
 .k-breadcrumbs {
-  border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
+  align-items: center;
   display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  font-size: var(--kui-font-size-30, $kui-font-size-30);
-  font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
-  line-height: var(--kui-line-height-40, $kui-line-height-40);
+  font-family: var(--kui-font-family-text, $kui-font-family-text);
+  gap: var(--kui-space-20, $kui-space-20);
   list-style: none;
-  margin-bottom: var(--kui-space-60, $kui-space-60);
+  margin: var(--kui-space-0, $kui-space-0);
   padding: var(--kui-space-0, $kui-space-0);
 
-  .k-breadcrumb-icon-wrapper {
-    display: inline-flex;
-  }
+  .breadcrumbs-item-container {
+    align-items: center;
+    display: flex;
+    font-size: var(--kui-font-size-30, $kui-font-size-30);
+    gap: var(--kui-space-20, $kui-space-20);
+    line-height: var(--kui-line-height-30, $kui-line-height-30);
 
-  .k-breadcrumbs-item {
-    @include truncate;
+    .breadcrumbs-item {
+      align-items: center;
+      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      display: flex;
+      gap: var(--kui-space-20, $kui-space-20);
+      padding: var(--kui-space-10, $kui-space-10) var(--kui-space-20, $kui-space-20);
+      text-decoration: none;
+      transition: color $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
+      user-select: none;
 
-    .k-breadcrumb-divider,
-    .k-breadcrumb-icon {
-      align-self: center;
-      color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
-      display: inline-flex;
-      line-height: 1;
-    }
+      #{$kongponentsKongIconSelector} {
+        height: var(--kui-icon-size-30, $kui-icon-size-30);
+        width: var(--kui-icon-size-30, $kui-icon-size-30);
+      }
 
-    .k-breadcrumb-divider {
-      color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
-      padding: var(--kui-space-0, $kui-space-0) var(--kui-space-20, $kui-space-20);
-    }
+      .breadcrumbs-text {
+        @include truncate;
 
-    .k-breadcrumb-icon {
-      padding: var(--kui-space-0, $kui-space-0) var(--kui-space-30, $kui-space-30) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+        font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+      }
 
-      &:deep(.kong-icon) {
-        align-items: center;
-        align-self: baseline;
-        justify-content: center;
+      &.link {
+        cursor: pointer;
+        outline: none;
 
-        &.has-no-text {
-          padding-right: var(--kui-space-0, $kui-space-0);
+        &:hover {
+          background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weaker);
+        }
+
+        &:focus-visible {
+          background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weaker);
+          box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+        }
+      }
+
+      &.active {
+        .breadcrumbs-text {
+          color: var(--kui-color-text, $kui-color-text);
         }
       }
     }
 
-    .k-breadcrumb-text {
-      @include truncate;
-
-      &:hover {
-        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger); /** TODO: use $kui-color-text-selected token, once it is added */
-      }
-
-      &.non-link {
-        color: var(--kui-color-text, $kui-color-text);
-      }
-
-      &.emphasis {
-        font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
-        letter-spacing: -0.14px;
-      }
-    }
-  }
-
-  li {
-    display: inline-flex;
-
-    a {
-      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-      display: inline-flex;
-      font-size: var(--kui-font-size-30, $kui-font-size-30);
-
-      &:hover,
-      &.no-underline {
-        text-decoration: none !important;
-      }
+    .breadcrumbs-divider {
+      color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
+      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+      user-select: none;
     }
   }
 }
