@@ -30,11 +30,12 @@
       </component>
 
       <span
-        v-if="item.to || idx < items.length - 1"
+        v-if="idx < items.length - 1"
         class="breadcrumbs-divider"
       >
         <slot name="divider">
-          /
+          <!-- forward slash -->
+          &#47;
         </slot>
       </span>
     </li>
