@@ -71,6 +71,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 #### Structure
 
 * `k-breadcrumbs-item` class has been replaced with `breadcrumbs-item-container`
+* `k-breadcrumb-icon-wrapper` class has been replaced with `breadcrumbs-icon-container`
 * `k-breadcrumb-text` class has been replaced with `breadcrumbs-text`
 * `k-breadcrumb-divider` class has been replaced with `kbreadcrumbs-divider`
 

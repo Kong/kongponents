@@ -3,12 +3,11 @@ import KBreadcrumbs from '@/components/KBreadcrumbs/KBreadcrumbs.vue'
 import type { BreadcrumbItem } from '@/types'
 
 describe('KBreadcrumbs', () => {
-  it('renders an icon breadcrumb', () => {
+  it('renders a breadcrumb', () => {
     const items = [{
       key: 'docs',
       to: 'https://docs.konghq.com',
       text: 'Go to Kong Docs',
-      icon: 'kong',
     }] as BreadcrumbItem[]
 
     mount(KBreadcrumbs, {
@@ -18,26 +17,6 @@ describe('KBreadcrumbs', () => {
     })
 
     cy.get('.k-breadcrumbs').find('li').its('length').should('eq', 1)
-    cy.get('.k-breadcrumbs').find('li .k-breadcrumb-icon').its('length').should('eq', 1)
-  })
-
-  it('renders with emphasis', () => {
-    mount(KBreadcrumbs, {
-      props: {
-        items: [
-          {
-            key: 'docs',
-            to: 'https://docs.konghq.com',
-            text: 'Go to Kong Docs',
-            icon: 'kong',
-          },
-        ],
-        emphasis: true,
-      },
-    })
-
-    cy.get('.k-breadcrumbs').find('li').its('length').should('eq', 1)
-    cy.get('.k-breadcrumbs').find('.k-breadcrumb-text.emphasis').its('length').should('eq', 1)
   })
 
   it('correctly renders an non-link breadcrumbs', () => {
@@ -47,7 +26,6 @@ describe('KBreadcrumbs', () => {
           {
             key: 'docs',
             text: 'Go to Kong Docs',
-            icon: 'kong',
           },
           {
             key: 'specific-doc',
@@ -58,8 +36,8 @@ describe('KBreadcrumbs', () => {
     })
 
     cy.get('.k-breadcrumbs').find('li').its('length').should('eq', 2)
-    cy.get('.k-breadcrumbs').find('.k-breadcrumb-text.non-link').its('length').should('eq', 2)
-    cy.get('.k-breadcrumbs').find('.k-breadcrumb-divider').its('length').should('eq', 1)
+    cy.get('.k-breadcrumbs').find('.breadcrumbs-item').should('not.have.class', '.link')
+    cy.get('.k-breadcrumbs').find('.breadcrumbs-divider').its('length').should('eq', 1)
   })
 
   it('renders custom divider when using slot', () => {
@@ -72,7 +50,6 @@ describe('KBreadcrumbs', () => {
             key: 'docs',
             to: 'https://docs.konghq.com',
             text: 'Go to Kong Docs',
-            icon: 'kong',
           },
         ],
       },
@@ -82,7 +59,7 @@ describe('KBreadcrumbs', () => {
     })
 
     cy.get('.k-breadcrumbs').find('li').its('length').should('eq', 1)
-    cy.get('.k-breadcrumbs .k-breadcrumb-divider').should('contain.text', customDivider)
+    cy.get('.k-breadcrumbs .breadcrumbs-divider').should('contain.text', customDivider)
   })
 
   it('renders custom icon when using slot', () => {
@@ -104,7 +81,7 @@ describe('KBreadcrumbs', () => {
     })
 
     cy.get('.k-breadcrumbs').find('li').its('length').should('eq', 1)
-    cy.get('.k-breadcrumbs .k-breadcrumb-icon-wrapper').should('contain.text', customIcon)
+    cy.get('.k-breadcrumbs .breadcrumbs-icon-container').should('contain.text', customIcon)
   })
 
   it('renders breadcrumb links without needing a router', () => {

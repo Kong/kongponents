@@ -14,7 +14,12 @@
         class="breadcrumbs-item"
         :class="{ 'link': !!item.to, 'active': idx === items.length - 1}"
       >
-        <slot :name="`icon-${getBreadcrumbKey(item, idx)}`" />
+        <span
+          v-if="$slots[`icon-${getBreadcrumbKey(item, idx)}`]"
+          class="breadcrumbs-icon-container"
+        >
+          <slot :name="`icon-${getBreadcrumbKey(item, idx)}`" />
+        </span>
         <span
           v-if="item.text"
           class="breadcrumbs-text"
