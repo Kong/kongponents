@@ -12,7 +12,7 @@
         :is="getComponentAttrs(item, idx === items.length - 1).type"
         v-bind="getComponentAttrs(item, idx === items.length - 1).attrs"
         class="breadcrumbs-item"
-        :class="{ 'link': !!item.to, 'active': idx === items.length - 1}"
+        :class="{ 'link': !!item.to && idx !== items.length - 1, 'active': idx === items.length - 1 }"
       >
         <span
           v-if="$slots[`icon-${getBreadcrumbKey(item, idx)}`]"
@@ -69,7 +69,9 @@ const getComponentAttrs = (item: BreadcrumbItem, active: boolean) => {
   if (!item.to || active) {
     return {
       type: 'div',
-      attrs: {},
+      attrs: {
+        title: item.title || item.text,
+      },
     }
   } else if (typeof item.to === 'object') {
     return {
