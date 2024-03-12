@@ -1,6 +1,6 @@
 # Breadcrumbs
 
-KBreadcrumbs component is a navigational aid that displays the user's location within a website's hierarchy, offering a trail of links back to the starting or higher-level pages. It helps users understand their current position and navigate the site more efficiently.
+KBreadcrumbs component is a navigational aid that displays the user's location within a website's hierarchy, offering a trail of links back to the parent or higher-level pages. Breadcrumbs help users understand their current position in the site and navigate more efficiently.
 
 <KBreadcrumbs :items="internalBreadcrumbItems">
   <template #icon-home>
@@ -12,7 +12,7 @@ KBreadcrumbs component is a navigational aid that displays the user's location w
 
 ### items
 
-An array of breadcrumb items. Items that are not links, displayed at the end will not be followed by a divider.
+An array of breadcrumb items. Items that are not links, displayed at the end, will not be followed by a divider.
 
 <KBreadcrumbs :items="internalBreadcrumbItems" />
 
@@ -103,7 +103,7 @@ Maximum width of each breadcrumb item for truncating to ellipsis. Defaults to `1
 
 ### divider
 
-Content to be displayed between breadcrumb items, defaults to forward slash.
+Content to be displayed between breadcrumb items, defaults to a forward slash `/`.
 
 <KCard>
   <KBreadcrumbs :items="internalBreadcrumbItems">
