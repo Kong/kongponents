@@ -9,8 +9,8 @@
       class="breadcrumbs-item-container"
     >
       <component
-        :is="getComponentAttrs(item).type"
-        v-bind="getComponentAttrs(item).attrs"
+        :is="getComponentAttrs(item, idx === items.length - 1).type"
+        v-bind="getComponentAttrs(item, idx === items.length - 1).attrs"
         class="breadcrumbs-item"
         :class="{ 'link': !!item.to, 'active': idx === items.length - 1}"
       >
@@ -24,7 +24,6 @@
           v-if="item.text"
           class="breadcrumbs-text"
           :style="{ maxWidth: item.maxWidth? getSizeFromString(item.maxWidth) : getSizeFromString(itemMaxWidth) }"
-          :title="item.text"
         >
           {{ item.text }}
         </span>
@@ -66,8 +65,8 @@ defineProps({
   },
 })
 
-const getComponentAttrs = (item: BreadcrumbItem) => {
-  if (!item.to) {
+const getComponentAttrs = (item: BreadcrumbItem, active: boolean) => {
+  if (!item.to || active) {
     return {
       type: 'div',
       attrs: {},
@@ -76,7 +75,7 @@ const getComponentAttrs = (item: BreadcrumbItem) => {
     return {
       type: 'router-link',
       attrs: {
-        title: item.title,
+        title: item.title || item.text,
         to: item.to,
       },
     }
@@ -85,8 +84,7 @@ const getComponentAttrs = (item: BreadcrumbItem) => {
       type: 'a',
       attrs: {
         href: item.to,
-        target: '_blank',
-        title: item.title,
+        title: item.title || item.text,
       },
     }
   }

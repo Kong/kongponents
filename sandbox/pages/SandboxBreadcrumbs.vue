@@ -67,12 +67,12 @@ const breadcrumbs = [{
 },
 {
   key: 'not-here',
-  title: 'You are not Here',
-  text: 'You are not Here',
+  title: 'Non-link item',
+  text: 'Non-link item',
 },
 {
   key: 'here',
-  title: 'You are Here',
-  text: 'You are Here',
+  title: 'You are here',
+  text: 'You are here',
 }]
 </script>

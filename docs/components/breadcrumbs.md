@@ -19,9 +19,9 @@ An array of breadcrumb items. Items that are not links, displayed at the end, wi
 ```ts
 interface BreadcrumbItem {
   to?: object | string
-  text?: string
-  title?: string
-  key?: string
+  text?: string // breadcrumb text that will appear inside of anchor tag
+  title?: string // will be used for html title attribute on the anchor tag, helpful when text is truncated
+  key?: string // identifier, must be unique for each breadcrumb item
   maxWidth?: string
 }
 ```
@@ -42,24 +42,25 @@ const breadcrumbItems: BreadcrumbItem[] = [{
 },
 {
   key: 'button',
-  to: { path: '/components/breadcrumbs.html' },
-  title: 'Go to Button',
-  text: 'Breadcrumbs'
+  to: { path: '/components/button.html' },
+  title: 'Go to KButton',
+  text: 'KButton'
 },
 {
   key: 'not-here',
-  title: 'You are not Here',
-  text: 'You are not Here'
+  title: 'Non-link item',
+  text: 'Non-link item'
 },
 {
   key: 'here',
-  title: 'You are Here',
-  text: 'You are Here'
+  to: { path: '/components/breadcrumb.html' },
+  title: 'You are here',
+  text: 'You are here'
 }]
 </script>
 ```
 
-The `to` property can be a Vue router object or a URL. When using a URL though the target will be blank and a new window will open. In most scenarios you will build your breadcrumb items using your Vue application routes.
+The `to` property can be a Vue router object or a URL. In most scenarios you will build your breadcrumb items using your Vue application routes.
 
 <KBreadcrumbs :items="externalBreadcrumbItems" />
 
@@ -72,16 +73,16 @@ The `to` property can be a Vue router object or a URL. When using a URL though t
 import { BreadcrumbItem } from '@kong/kongponents'
 
 const breadcrumbItems: BreadcrumbItem[] = [{
-  key: 'home',
-  to: { path: '/' },
-  title: 'Home',
-  text: 'Home'
-},
-{
   key: 'google',
   to: 'https://google.com',
   title: 'Search at Google',
   text: 'Google'
+},
+{
+  key: 'kongponents',
+  to: { path: '/' },
+  title: 'Kongponents',
+  text: 'Kongponents'
 }]
 </script>
 ```
@@ -105,14 +106,12 @@ Maximum width of each breadcrumb item for truncating to ellipsis. Defaults to `1
 
 Content to be displayed between breadcrumb items, defaults to a forward slash `/`.
 
-<KCard>
-  <KBreadcrumbs :items="internalBreadcrumbItems">
-    <template #divider>
-      <!-- chevron right html symbol -->
-      &#8250;
-    </template>
-  </KBreadcrumbs>
-</KCard>
+<KBreadcrumbs :items="internalBreadcrumbItems">
+  <template #divider>
+    <!-- chevron right html symbol -->
+    &#8250;
+  </template>
+</KBreadcrumbs>
 
 ```html
 <KBreadcrumbs :items="breadcrumbItems">
@@ -177,36 +176,37 @@ const internalBreadcrumbItems: BreadcrumbItem[] = [
     text: 'Home'
   },
   {
-    key: 'breadcrumbs',
-    to: { path: '/components/breadcrumbs.html' },
-    title: 'Go to Breadcrumbs',
-    text: 'Breadcrumbs'
+    key: 'button',
+    to: { path: '/components/button.html' },
+    title: 'Go to KButton',
+    text: 'KButton'
   },
   {
     key: 'not-here',
-    title: 'You are not Here',
-    text: 'You are not Here'
+    title: 'Non-link item',
+    text: 'Non-link item'
   },
   {
     key: 'here',
-    title: 'You are Here',
-    text: 'You are Here'
+    to: { path: '/components/breadcrumbs.html' },
+    title: 'You are here',
+    text: 'You are here'
   }
 ]
 
 const externalBreadcrumbItems: BreadcrumbItem[] = [
   {
-    key: 'home',
-    to: { path: '/' },
-    title: 'Go Home',
-    text: 'Home'
-  },
-  {
     key: 'google',
     to: 'https://google.com',
     title: 'Search over at Google',
     text: 'Google'
-  }
+  },
+  {
+    key: 'kongponents',
+    to: { path: '/' },
+    title: 'Kongponents',
+    text: 'Kongponents'
+  },
 ]
 
 const longBreadcrumbs: BreadcrumbItem[] = [
