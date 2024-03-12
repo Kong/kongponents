@@ -108,6 +108,7 @@ Content to be displayed between breadcrumb items, defaults to forward slash.
 <KCard>
   <KBreadcrumbs :items="internalBreadcrumbItems">
     <template #divider>
+      <!-- chevron right html symbol -->
       &#8250;
     </template>
   </KBreadcrumbs>
@@ -116,6 +117,7 @@ Content to be displayed between breadcrumb items, defaults to forward slash.
 ```html
 <KBreadcrumbs :items="breadcrumbItems">
   <template #divider>
+    <!-- chevron right html symbol -->
     &#8250;
   </template>
 </KBreadcrumbs>
