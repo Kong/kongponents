@@ -335,6 +335,16 @@ Should you decide to use your own custom icons, you can use design tokens export
 We also recommend setting the icon style `color` property to a value of `currentColor` to utilize default KDropdownItem styling for slotted content.
 :::
 
+## Events
+
+### toggleDropdown
+
+Fires when dropdown is opened/closed. Returns state of the dropdown (boolean).
+
+### change
+
+Fires when item is selected. Returns the selected menu item object.
+
 ## KDropdownItem
 
 KDropdown generates a KDropdownItem for each object in the `items` prop array. At the most basic level, KDropdownItem is a wrapper around each item to display it correctly inside KDropdown. You can use the `items` slot of the KDropdown to manually create your own menu items.

@@ -49,7 +49,6 @@ declare module '@vue/runtime-core' {
     KToggle: typeof components.KToggle
     KTooltip: typeof components.KTooltip
     KTreeList: typeof components.KTreeList
-    KViewSwitcher: typeof components.KViewSwitcher
     ToastManager: typeof components.ToastManager
     KTruncate: typeof components.KTruncate
     KCopy: typeof components.KCopy
