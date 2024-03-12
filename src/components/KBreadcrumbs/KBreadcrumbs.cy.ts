@@ -51,6 +51,10 @@ describe('KBreadcrumbs', () => {
             to: 'https://docs.konghq.com',
             text: 'Go to Kong Docs',
           },
+          {
+            key: 'specific-doc',
+            text: 'My Doc',
+          },
         ],
       },
       slots: {
@@ -58,7 +62,8 @@ describe('KBreadcrumbs', () => {
       },
     })
 
-    cy.get('.k-breadcrumbs').find('li').its('length').should('eq', 1)
+    cy.get('.k-breadcrumbs').find('li').its('length').should('eq', 2)
+    cy.get('.k-breadcrumbs .breadcrumbs-divider').its('length').should('eq', 1)
     cy.get('.k-breadcrumbs .breadcrumbs-divider').should('contain.text', customDivider)
   })
 
