@@ -1,3 +1,10 @@
+# [9.0.0-alpha.112](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.111...v9.0.0-alpha.112) (2024-03-12)
+
+
+### Features
+
+* **kalert, kemptystate, kpagination, kviewswitcher:** component reskin ([#2043](https://github.com/Kong/kongponents/issues/2043)) ([fa9845a](https://github.com/Kong/kongponents/commit/fa9845a6e9edf7bf1136d699cd62e7f22482ba88)), closes [#2030](https://github.com/Kong/kongponents/issues/2030) [#2021](https://github.com/Kong/kongponents/issues/2021)
+
 # [9.0.0-alpha.111](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.110...v9.0.0-alpha.111) (2024-03-04)
 
 
