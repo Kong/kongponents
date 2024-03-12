@@ -18,6 +18,43 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Props
 
+* `alertMessage` prop has been changed to `message`
+* `isShowing` prop has been removed. You can use Vue native `v-if` binging to control whether alert is shown or hidden
+* `type` prop has been removed. KAlert only comes in form of themed-color (defined by `appearance` prop) container
+* `dismissType` prop has been removed. KAlert can only be dismissed by clicking on close icon text to title, which is either hidden or visible depending on value of new `dismissible` prop
+* `size` prop has been removed
+* `icon, iconSize, iconColor` props has been removed. You can use `icon` slot to override default icon
+* `description` prop has been removed
+* `isBordered, hasTopBorder, hasRightBorder, hasBottomBorder, hasLeftBorder` props has been removed. KAlert does not have a border by default
+* `isFixed` prop has been removed
+
+#### Slots
+
+* `alertMessage` slot has been removed. You can use the `default` slot to pass alert message content
+* `title` slot has been removed
+* `description` slot has been removed
+* `actionButtons` slot has been removed
+
+#### Events
+
+* `closed` event has been renamed to `dismiss`
+* `proceed` event has been been removed
+
+#### Structure
+
+* `k-alert-icon-container` class has been replaced with `alert-icon-container`
+* `k-alert-msg-text` class has been replaced with `alert-content`
+* `k-alert-title` class has been replaced with `alert-title`
+* `k-alert-msg` class has been replaced with `alert-message`
+
+#### Constants, Types & Interfaces
+
+* `AlertSize` type has been removed
+* `AlertType` type has been removed
+* `AlertDismissType` type has been removed
+
+#### Props
+
 #### Slots
 
 #### Events
@@ -223,6 +260,29 @@ Component has been renamed to `KDropdown`
 
 ### KEmptyState
 
+#### Props
+
+* `isError` prop has been removed. You can use the new `iconVariant` prop instead. For more details check out component documentation
+* `iconSize` prop has been removed
+* `icon` prop has been removed and replaced with `iconVariant` prop. You can also use the new `icon` slot to provide your custom icon
+* `ctaIsHidden` prop has been removed and replaced with `actionButtonVisible` prop
+* `ctaText` prop has been removed and replaced with `actionButtonText` prop
+* `handleClick` prop has been removed. You can bind your action button click handler function to new `click-action` event
+* `iconColor` prop has been removed
+* `iconSecondaryColor` prop has been removed
+
+#### Slots
+
+* `message` slot has been renamed to `default`
+* `cta` slot has been renamed to `action`
+
+#### Structure
+
+* `empty-state-wrapper` class has been changed to `k-empty-state`
+* `k-empty-state-icon` class has been changed to `empty-state-icon`
+* `k-empty-state-title-header` class has been changed to `empty-state-title`
+* `k-empty-state-message` class has been changed to `empty-state-message`
+* `k-empty-state-cta` class has been changed to `empty-state-action`
 
 ### KExternalLink
 
@@ -414,6 +474,31 @@ This component has been removed. Please refer to KBadge component which has been
 
 KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/components/select) as the underlying component for page size selection.
 
+#### Props
+
+* `testMode` prop has been removed
+* `paginationType` prop has been removed. You can use the new `offset` prop instead
+* `offsetPrevButtonDisabled` prop has been renamed to `offsetPreviousButtonDisabled`
+
+#### Events
+
+* `pageChanged` event has been renamed to `pageChange`
+* `pageSizeChanged` event has been renamed to `pageSizeChange`
+* `getPrevOffset` event has been renamed to `getPreviousOffset`
+
+#### Structure
+
+* `card-pagination-bar` has been removed and replaced with `k-pagination`
+* `k-pagination-container` has been replaced with `k-pagination`
+* `prev-btn` `data-testid` attribute has been changed to `previous-button`
+* `*-btn` part in various `data-testid` attributes has been updated to `*-button`
+
+#### Constants, Types & Interfaces
+
+* `PageChangedData` interface has been renamed to `PageChangeData`
+* `PageSizeChangedData` interface has been renamed to `PageSizeChangeData`
+* `PaginationType` type has been removed
+
 ### KPopover
 
 
@@ -559,6 +644,12 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KTable
 
+#### Props
+
+* `emptyStateIcon` prop has been removed. You can use the new `emptyStateIconVariant` prop instead
+* `emptyStateIconColor` prop has been removed
+* `emptyStateIconSize` prop has been removed
+* `emptyStateActionButtonIcon` prop has been removed. You can use the new `empty-state-action-icon` slot instead
 
 ### KTabs
 
@@ -639,7 +730,9 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `k-truncate-container` class has been changed to `truncate-container`
 * `k-truncate-collapse-controls` class has been changed to `truncate-collapse-controls`
 
-### KView Switcher
+### KViewSwitcher
+
+This component has been removed.
 
 <style lang="scss" scoped>
   // Add a border above component headings

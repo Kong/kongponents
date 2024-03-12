@@ -321,7 +321,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.get('.empty-state-wrapper').should('be.visible')
+      cy.get('.k-empty-state').should('be.visible')
     })
 
     it('displays an empty state when no data is available (slot)', () => {
@@ -364,8 +364,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.get('.empty-state-wrapper').should('be.visible')
-      cy.get('.is-error').should('be.visible')
+      cy.get('.k-empty-state.error').should('be.visible')
     })
 
     it('displays an error state (slot)', () => {
@@ -400,7 +399,7 @@ describe('KCatalog', () => {
       })
 
       cy.get('.skeleton-card-wrapper').should('be.visible')
-      cy.get('.empty-state-wrapper').should('not.exist')
+      cy.get('.k-empty-state').should('not.exist')
     })
   })
 
@@ -462,7 +461,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.getTestId('k-pagination-container').should('not.exist')
+      cy.getTestId('k-pagination').should('not.exist')
     })
 
     it('does not display pagination when hidePaginationWhenOptional is true and total is equal to pageSize', () => {
@@ -479,7 +478,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.getTestId('k-pagination-container').should('not.exist')
+      cy.getTestId('k-pagination').should('not.exist')
     })
 
     it('does display pagination when total is greater than pageSize', () => {
@@ -495,7 +494,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.getTestId('k-pagination-container').should('exist')
+      cy.getTestId('k-pagination').should('exist')
     })
   })
 })

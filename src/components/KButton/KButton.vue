@@ -240,30 +240,30 @@ export default {
   }
 
   &.secondary {
-    background-color: var(--kui-color-background, $kui-color-background);
+    background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
     border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-primary, $kui-color-border-primary);
     color: var(--kui-color-text-primary, $kui-color-text-primary);
 
     &:hover:not(:disabled):not(:focus):not(:active) {
-      background-color: var(--kui-color-background, $kui-color-background);
+      background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
       border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
       color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
     }
 
     &:focus-visible {
-      background-color: var(--kui-color-background, $kui-color-background);
+      background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
       border-color: var(--kui-color-border-primary-stronger, $kui-color-border-primary-stronger);
       color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
     }
 
     &:active {
-      background-color: var(--kui-color-background, $kui-color-background);
+      background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
       border-color: var(--kui-color-border-primary-strongest, $kui-color-border-primary-strongest);
       color: var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest);
     }
 
     &:disabled, &[disabled] {
-      background-color: var(--kui-color-background, $kui-color-background);
+      background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
       border-color: var(--kui-color-border-disabled, $kui-color-border-disabled);
       color: var(--kui-color-text-disabled, $kui-color-text-disabled);
     }
