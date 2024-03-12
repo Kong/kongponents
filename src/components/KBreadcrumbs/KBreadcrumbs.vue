@@ -24,6 +24,7 @@
           v-if="item.text"
           class="breadcrumbs-text"
           :style="{ maxWidth: item.maxWidth? getSizeFromString(item.maxWidth) : getSizeFromString(itemMaxWidth) }"
+          :title="item.text"
         >
           {{ item.text }}
         </span>
