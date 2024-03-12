@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.0.0-alpha.111",
+  "version": "9.0.0-alpha.112",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -72,13 +72,13 @@
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@babel/types": "^7.23.9",
+    "@babel/types": "^7.24.0",
     "@commitlint/cli": "^18.6.0",
     "@commitlint/config-conventional": "^18.6.0",
     "@cypress/vite-dev-server": "^5.0.7",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@evilmartians/lefthook": "^1.6.1",
-    "@kong-ui-public/sandbox-layout": "^2.0.37",
+    "@kong-ui-public/sandbox-layout": "^2.0.41",
     "@kong/design-tokens": "^1.12.10",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
@@ -102,7 +102,7 @@
     "cypress": "^13.6.4",
     "cypress-fail-fast": "^7.1.0",
     "cz-conventional-changelog": "3.3.0",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-import": "^2.29.1",

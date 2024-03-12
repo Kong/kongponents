@@ -24,26 +24,15 @@
     >
       <slot name="error-state">
         <KEmptyState
-          :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
-          :icon="errorStateIcon || ''"
-          :icon-color="errorStateIconColor"
-          :icon-size="errorStateIconSize"
-          is-error
+          icon-variant="error"
+          :message="errorStateMessage"
+          :title="errorStateTitle"
         >
-          <template #title>
-            {{ errorStateTitle }}
-          </template>
-
-          <template #message>
-            {{ errorStateMessage }}
-          </template>
-
           <template
-            v-if="errorStateActionMessage"
-            #cta
+            v-if="!!errorStateActionMessage"
+            #action
           >
             <KButton
-              appearance="primary"
               :data-testid="getTestIdString(errorStateActionMessage)"
               :to="errorStateActionRoute ? errorStateActionRoute : undefined"
               @click="$emit('ktable-error-cta-clicked')"
@@ -62,30 +51,21 @@
     >
       <slot name="empty-state">
         <KEmptyState
-          :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
-          :icon="emptyStateIcon || ''"
-          :icon-color="emptyStateIconColor"
-          :icon-size="emptyStateIconSize"
+          :icon-variant="emptyStateIconVariant"
+          :message="emptyStateMessage"
+          :title="emptyStateTitle"
         >
-          <template #title>
-            {{ emptyStateTitle }}
-          </template>
-
-          <template #message>
-            {{ emptyStateMessage }}
-          </template>
-
           <template
-            v-if="emptyStateActionMessage"
-            #cta
+            v-if="!!emptyStateActionMessage"
+            #action
           >
             <KButton
               :appearance="searchInput ? 'tertiary' : 'primary'"
               :data-testid="getTestIdString(emptyStateActionMessage)"
-              :icon="emptyStateActionButtonIcon"
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
               @click="$emit('ktable-empty-state-cta-clicked')"
             >
+              <slot name="empty-state-action-icon" />
               {{ emptyStateActionMessage }}
             </KButton>
           </template>
@@ -186,16 +166,16 @@
         :disable-page-jump="disablePaginationPageJump"
         :initial-page-size="pageSize"
         :neighbors="paginationNeighbors"
+        :offset="paginationType === 'offset' ? true : false"
         :offset-next-button-disabled="!offset || !hasNextPage"
-        :offset-prev-button-disabled="!previousOffset"
+        :offset-previous-button-disabled="!previousOffset"
         :page-sizes="paginationPageSizes"
-        :pagination-type="paginationType"
         :test-mode="!!testMode || undefined"
         :total-count="total"
         @get-next-offset="getNextOffsetHandler"
-        @get-prev-offset="getPrevOffsetHandler"
-        @page-changed="pageChangeHandler"
-        @page-size-changed="pageSizeChangeHandler"
+        @get-previous-offset="getPrevOffsetHandler"
+        @page-change="pageChangeHandler"
+        @page-size-change="pageSizeChangeHandler"
       />
     </section>
   </div>
@@ -219,18 +199,20 @@ import type {
   SwrvState,
   SwrvStateData,
   TableState,
-  PageChangedData,
-  PageSizeChangedData,
+  PageChangeData,
+  PageSizeChangeData,
   SortColumnOrder,
   TableSortOrder,
   TableSortPayload,
   TableStatePayload,
   TableTestMode,
+  EmptyStateIconVariant,
 } from '@/types'
 import {
   TablePaginationTypeArray,
   TableSortOrderArray,
   TableTestModeArray,
+  EmptyStateIconVariants,
 } from '@/types'
 import { KUI_COLOR_TEXT, KUI_ICON_SIZE_20 } from '@kong/design-tokens'
 
@@ -341,33 +323,9 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  /**
-   * A prop to pass in a custom empty state action message
-   */
-  emptyStateActionButtonIcon: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a custom empty state icon
-   */
-  emptyStateIcon: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a color for the empty state icon
-   */
-  emptyStateIconColor: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a size for the empty state icon
-   */
-  emptyStateIconSize: {
-    type: String,
-    default: '50',
+  emptyStateIconVariant: {
+    type: String as PropType<EmptyStateIconVariant>,
+    default: EmptyStateIconVariants.Default,
   },
   /**
    * A prop that enables the error state
@@ -843,11 +801,11 @@ const sortClickHandler = (header: TableHeader): void => {
   emitTablePreferences()
 }
 
-const pageChangeHandler = ({ page: newPage }: PageChangedData) => {
+const pageChangeHandler = ({ page: newPage }: PageChangeData) => {
   page.value = newPage
 }
 
-const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangedData) => {
+const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData) => {
   offsets.value = [null]
   offset.value = null
   pageSize.value = newPageSize

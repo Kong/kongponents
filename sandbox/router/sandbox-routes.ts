@@ -59,7 +59,7 @@ const componentRoutes: RouteRecordRaw[] = [
   {
     path: '/datetimepicker',
     name: 'datetimepicker',
-    meta: { title: 'DateTimePicker Sandbox' },
+    meta: { title: 'Date Time Picker Sandbox' },
     component: () => import('../pages/SandboxDateTimePicker.vue'),
   },
   {
@@ -67,6 +67,12 @@ const componentRoutes: RouteRecordRaw[] = [
     name: 'dropdown',
     meta: { title: 'Dropdown Sandbox' },
     component: () => import('../pages/SandboxDropdown.vue'),
+  },
+  {
+    path: '/emptystate',
+    name: 'emptystate',
+    meta: { title: 'Empty State Sandbox' },
+    component: () => import('../pages/SandboxEmptyState.vue'),
   },
   {
     path: '/fileupload',
@@ -83,7 +89,7 @@ const componentRoutes: RouteRecordRaw[] = [
   {
     path: '/inputswitch',
     name: 'inputswitch',
-    meta: { title: 'InputSwitch Sandbox' },
+    meta: { title: 'Input Switch Sandbox' },
     component: () => import('../pages/SandboxInputSwitch.vue'),
   },
   {

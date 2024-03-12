@@ -94,7 +94,6 @@ export default defineConfig({
             { text: 'Tooltip', link: '/components/tooltip' },
             { text: 'Tree List', link: '/components/tree-list' },
             { text: 'Truncate', link: '/components/truncate' },
-            { text: 'View Switcher', link: '/components/view-switcher' },
           ]
         },
         {
