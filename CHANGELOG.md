@@ -1,3 +1,10 @@
+# [9.0.0-alpha.113](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.112...v9.0.0-alpha.113) (2024-03-13)
+
+
+### Bug Fixes
+
+* **kcopy:** substring of undefined [KHCP-11057] ([#2061](https://github.com/Kong/kongponents/issues/2061)) ([aaa6405](https://github.com/Kong/kongponents/commit/aaa64052b80d7217c1858865d47c4dd6bde6cbd6))
+
 # [9.0.0-alpha.112](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.111...v9.0.0-alpha.112) (2024-03-12)
 
 
