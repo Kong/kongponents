@@ -6,6 +6,7 @@
       'selected': item.selected
     }"
     :data-testid="`tree-item-${item.id}`"
+    :draggable="!disabled"
     type="button"
     @click.prevent="handleClick"
   >
@@ -86,6 +87,7 @@ const handleClick = () => {
   text-decoration: none;
   transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc;
   user-select: none;
+  width: 100%;
 
   .tree-item-icon,
   :deep(#{$kongponentsKongIconSelector}) {
