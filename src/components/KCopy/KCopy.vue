@@ -153,7 +153,7 @@ watch(nonSuccessText, (value: string): void => {
   tooltipText.value = value
 }, { immediate: true })
 
-const truncateLimitText = computed((): string | null => props.truncate ? `${props.text.substring(0, props.truncationLimit) + '...'}` : null)
+const truncateLimitText = computed((): string | null => props.truncate ? `${String(props.text || '').substring(0, props.truncationLimit) + '...'}` : null)
 
 // Computed for dynamic classes
 const textTooltipClasses = computed((): string => {
@@ -165,7 +165,7 @@ const textFormat = computed(() => {
   if (props.format === 'redacted') {
     return '*****'
   } else if (props.format === 'deleted') {
-    return `*${props.text.substring(0, 5)}`
+    return `*${String(props.text || '').substring(0, 5)}`
   }
 
   // This regex will only remove the quotes if they are the first and last characters of the string (truncateLimitText)
