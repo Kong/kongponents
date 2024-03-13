@@ -455,7 +455,7 @@ const handleChildChange = (data) => {
 </script>
 
 <style scoped lang="scss">
-.slot-example :deep(.k-tree-item) .k-tree-item-icon {
+.slot-example :deep(.tree-item) .tree-item-icon {
   line-height: 1.4;
 }
 

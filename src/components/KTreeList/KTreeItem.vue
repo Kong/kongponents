@@ -1,31 +1,27 @@
 <template>
   <a
-    class="k-tree-item"
+    class="tree-item"
     :class="{
       'not-draggable': disabled,
       'selected': item.selected
     }"
-    :data-testid="`k-tree-item-${item.id}`"
+    :data-testid="`tree-item-${item.id}`"
     href="#"
     role="button"
     @click.prevent="handleClick"
   >
     <div
       v-if="hasIcon"
-      class="k-tree-item-icon"
-      data-testid="k-tree-item-icon"
+      class="tree-item-icon"
+      data-testid="tree-item-icon"
     >
       <slot name="item-icon">
-        <KIcon
-          :icon="itemIcon"
-          :secondary-color="iconSecondaryColor"
-          :size="KUI_ICON_SIZE_40"
-        />
+        <ServiceDocumentIcon />
       </slot>
     </div>
     <div
-      class="k-tree-item-label"
-      data-testid="k-tree-item-label"
+      class="tree-item-label"
+      data-testid="tree-item-label"
     >
       <slot name="item-label">
         {{ item.name }}
@@ -38,8 +34,7 @@
 import type { PropType } from 'vue'
 import { computed, useSlots } from 'vue'
 import type { TreeListItem } from '@/types'
-import { KUI_ICON_SIZE_40, KUI_COLOR_BORDER_DISABLED } from '@kong/design-tokens'
-import KIcon from '@/components/KIcon/KIcon.vue'
+import { ServiceDocumentIcon } from '@kong/icons'
 
 export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
   return items.every(i => i.name !== undefined && i.id !== undefined && (!i.children?.length || itemsHaveRequiredProps(i.children)))
@@ -57,6 +52,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  hideIcons: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits<{
@@ -65,18 +64,7 @@ const emit = defineEmits<{
 
 const slots = useSlots()
 
-const hasIcon = computed((): boolean => props.item.icon !== 'none' || !!slots['item-icon'])
-const itemIcon = computed((): string => props.item.icon ? props.item.icon : 'documentList')
-
-const iconSecondaryColor = computed((): string | undefined => {
-  if (itemIcon.value === 'documentList') {
-    return props.item.selected
-      ? 'currentColor'
-      : `var(--kui-color-border-disabled, ${KUI_COLOR_BORDER_DISABLED})`
-  }
-
-  return undefined
-})
+const hasIcon = computed((): boolean => !props.hideIcons || !!slots['item-icon'])
 
 const handleClick = () => {
   emit('selected', props.item)
@@ -87,7 +75,7 @@ const handleClick = () => {
 
 @import '@/styles/tmp-variables';
 
-.k-tree-item {
+.tree-item {
   align-items: center;
   background-color: var(--kui-color-background, $kui-color-background);
   border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-disabled, $kui-color-border-disabled);
@@ -97,7 +85,7 @@ const handleClick = () => {
   padding: var(--kui-space-20, $kui-space-20);
   text-decoration: none;
 
-  .k-tree-item-icon {
+  .tree-item-icon {
     line-height: var(--kui-line-height-20, $kui-line-height-20);
     margin-right: var(--kui-space-40, $kui-space-40) !important;
   }
@@ -106,7 +94,7 @@ const handleClick = () => {
     background-color: $tmp-color-teal-100;
     border-color: $tmp-color-teal-200;
 
-    .k-tree-item-icon { /** so we can use currentColor in script section */
+    .tree-item-icon { /** so we can use currentColor in script section */
       color: $tmp-color-teal-200;
     }
   }
