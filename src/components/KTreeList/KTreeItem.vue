@@ -1,12 +1,11 @@
 <template>
-  <a
+  <div
     class="tree-item"
     :class="{
       'not-draggable': disabled,
       'selected': item.selected
     }"
     :data-testid="`tree-item-${item.id}`"
-    href="#"
     role="button"
     @click.prevent="handleClick"
   >
@@ -27,7 +26,7 @@
         {{ item.name }}
       </slot>
     </div>
-  </a>
+  </div>
 </template>
 
 <script lang="ts">
@@ -86,6 +85,7 @@ const handleClick = () => {
   padding: var(--kui-space-20, $kui-space-20);
   text-decoration: none;
   transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc;
+  user-select: none;
 
   .tree-item-icon,
   :deep(#{$kongponentsKongIconSelector}) {
