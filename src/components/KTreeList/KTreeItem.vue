@@ -83,9 +83,10 @@ const handleClick = () => {
   font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   gap: var(--kui-space-20, $kui-space-20);
   line-height: var(--kui-line-height-30, $kui-line-height-30);
+  outline: none;
   padding: var(--kui-space-30, $kui-space-30);
   text-decoration: none;
-  transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc;
+  transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, border-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
   user-select: none;
   width: 100%;
 
@@ -109,6 +110,11 @@ const handleClick = () => {
   &:hover {
     background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
     cursor: grab;
+  }
+
+  &:focus-visible {
+    background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+    box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
   }
 
   &.not-draggable {
