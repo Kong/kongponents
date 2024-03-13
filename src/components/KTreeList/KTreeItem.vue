@@ -1,13 +1,12 @@
 <template>
-  <div
+  <button
     class="tree-item"
     :class="{
       'not-draggable': disabled,
       'selected': item.selected
     }"
     :data-testid="`tree-item-${item.id}`"
-    role="button"
-    tabindex="0"
+    type="button"
     @click.prevent="handleClick"
   >
     <div
@@ -27,7 +26,7 @@
         {{ item.name }}
       </slot>
     </div>
-  </div>
+  </button>
 </template>
 
 <script lang="ts">
@@ -83,7 +82,7 @@ const handleClick = () => {
   font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   gap: var(--kui-space-20, $kui-space-20);
   line-height: var(--kui-line-height-30, $kui-line-height-30);
-  padding: var(--kui-space-20, $kui-space-20);
+  padding: var(--kui-space-30, $kui-space-30);
   text-decoration: none;
   transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc;
   user-select: none;
