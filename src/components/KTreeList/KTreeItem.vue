@@ -7,6 +7,7 @@
     }"
     :data-testid="`tree-item-${item.id}`"
     role="button"
+    tabindex="0"
     @click.prevent="handleClick"
   >
     <div

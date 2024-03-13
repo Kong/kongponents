@@ -275,7 +275,7 @@ $kTreeListBar: 12px;
   // style while dragging an item
  .tree-item-dragged {
     cursor: move !important; /* fallback: no `url()` support or images disabled */
-    cursor: grabbing !important; /* W3C standards syntax, should come least */
+    cursor: grabbing !important; /* W3C standards syntax, should come last */
 
     // the bar under the last child
     .has-no-children:last-of-type .child-drop-zone:last-of-type,

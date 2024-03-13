@@ -227,6 +227,6 @@ onMounted(() => {
 .tree-list-grabbing *,
 .tree-item-grabbing * {
   cursor: move !important; /* fallback: no `url()` support or images disabled */
-  cursor: grabbing !important; /* W3C standards syntax, should come least */
+  cursor: grabbing !important; /* W3C standards syntax, should come last */
 }
 </style>
