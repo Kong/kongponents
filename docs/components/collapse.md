@@ -23,7 +23,7 @@
 Use this prop to apply a title to the collapsible section.
 
 <KCard>
-  <template #body>
+  <template #default>
     <KCollapse title="Look Mah!" trigger-label="View more info">
       Can you see me now?
     </KCollapse>
@@ -32,7 +32,7 @@ Use this prop to apply a title to the collapsible section.
 
 ```html
 <KCard>
-  <template #body>
+  <template #default>
     <KCollapse title="Look Mah!" trigger-label="View more info">
       Can you see me now?
     </KCollapse>
@@ -46,7 +46,7 @@ You can customize the alignment of the trigger. `leading` or `trailing` (default
 If a `title` is specified, the trigger will be inline with `trailing` alignment, or displayed beneath the `title` with `leading` alignment.
 
 <KCard>
-  <template #body>
+  <template #default>
     <KCollapse title="Look Mah!" trigger-label="What?" trigger-alignment="leading">
       Can you see me now?
     </KCollapse>
@@ -64,7 +64,7 @@ If a `title` is specified, the trigger will be inline with `trailing` alignment,
 Use this prop to customize the content to that will toggle the collapsed state of the component. The label will be displayed to the right of a caret that indicates the state of the hidden content.
 
 <KCard>
-  <template #body>
+  <template #default>
     <KCollapse trigger-label="I am the trigger">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
     </KCollapse>
@@ -80,7 +80,7 @@ Use this prop to customize the content to that will toggle the collapsed state o
 If no label is provided, only a caret will be displayed.
 
 <KCard>
-  <template #body>
+  <template #default>
     <KCollapse>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
     </KCollapse>
@@ -105,7 +105,7 @@ KCollapse can be controlled with `v-model`.
   <KButton @click="myIsCollapsed = !myIsCollapsed">Another trigger</KButton>
 </div>
 <KCard>
-  <template #body>
+  <template #default>
     <KCollapse trigger-label="View more info" v-model="myIsCollapsed">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
     </KCollapse>
@@ -131,7 +131,7 @@ KCollapse can be controlled with `v-model`.
 To set the default state (collapsed or expanded) without binding to v-model you can use the `modelValue` prop.
 
 <KCard>
-  <template #body>
+  <template #default>
     <KCollapse title="Look Mah!" :model-value="false">
       I am expanded by default
     </KCollapse>
@@ -157,7 +157,7 @@ To set the default state (collapsed or expanded) without binding to v-model you 
 :::
 
 <KCard>
-  <template #body>
+  <template #default>
     <KCollapse title="Look Mah!">
       <template #trigger-content>
         <div class="trigger-wrapper">
@@ -201,7 +201,7 @@ If you want complete control of the trigger content and events, you can use the 
 We provide the `isCollapsed` Vue 'ref' and the `toggle()` function as slot props.
 
 <KCard>
-  <template #body>
+  <template #default>
     <KCollapse title="Look Mah!">
       <template #trigger="{ isCollapsed, toggle }">
         <KButton @click="toggle()">{{ isCollapsed ? 'Click to expand' : 'Click to collapse' }}</KButton>
