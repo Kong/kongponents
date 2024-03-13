@@ -257,15 +257,19 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/tmp-variables';
+/* Component variables  */
 
+$kTreeListDropZoneHeight: 6px;
+// no tokens for these two since the math requires them to be static
+$kTreeListIdent: 16px;
+$kTreeListBar: 12px;
+
+/* Component styles */
 .tree-draggable {
-  $defaultDropZoneHeight: 6px;
-
   .child-drop-zone {
     // this is the height of the area you can drop an item in
     // to make it the child of another item
-    min-height: $defaultDropZoneHeight;
+    min-height: $kTreeListDropZoneHeight;
   }
 
   // style while dragging an item
@@ -276,9 +280,10 @@ onMounted(() => {
     // the bar under the last child
     .has-no-children:last-of-type .child-drop-zone:last-of-type,
     &.has-no-children .child-drop-zone:last-of-type {
-      background-color: $tmp-color-teal-200;
+      background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
       border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
       margin-left: var(--kui-space-0, $kui-space-0);
+      margin-top: var(--kui-space-10, $kui-space-10);
       min-height: 4px;
     }
 
@@ -292,46 +297,43 @@ onMounted(() => {
     display: none;
   }
 
-  // no tokens for these two since the math requires them to be static
-  $indent: 16px;
-  $bar: 12px;
   .tree-draggable {
     counter-reset: item;
-    margin-left: $indent;
+    margin-left: $kTreeListIdent;
   }
 
   .tree-item-container {
-    $border: var(--kui-color-border-disabled, $kui-color-border-disabled);
-    $barLeft: -($bar);
-    $dropZoneHalved: calc(#{$defaultDropZoneHeight} / 2);
-    margin: $dropZoneHalved 0 0 $dropZoneHalved;
+    margin: calc(#{$kTreeListDropZoneHeight} / 2) 0 0 calc(#{$kTreeListDropZoneHeight} / 2);
     position: relative;
 
     // child connecting lines
     &:before {
-      border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid $border;
-      border-left: var(--kui-border-width-10, $kui-border-width-10) solid $border;
+      border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+      border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       border-radius: var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-0, $kui-border-radius-0) 5px;
       content: "";
-      height: calc(#{$defaultDropZoneHeight} + 20px);
-      left: $barLeft;
+      height: calc(#{$kTreeListDropZoneHeight} + 20px);
+      left: -($kTreeListBar);
       position: absolute;
-      top: calc($dropZoneHalved * -1);
-      width: $bar;
+      top: calc(calc(#{$kTreeListDropZoneHeight} / 2) * -1);
+      width: $kTreeListBar;
     }
+
     // connects siblings
     &:after {
-      border-left: var(--kui-border-width-10, $kui-border-width-10) solid $border;
+      border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       content: "";
       height: 100%;
-      left: $barLeft;
+      left: -($kTreeListBar);
       position: absolute;
-      top: calc(#{$defaultDropZoneHeight} + 2px);
-      width: $bar;
+      top: calc(#{$kTreeListDropZoneHeight} + 2px);
+      width: $kTreeListBar;
     }
+
     &:first-child {
-      padding-top: $defaultDropZoneHeight;
+      padding-top: $kTreeListDropZoneHeight;
     }
+
     &:last-child:after {
       display: none;
     }

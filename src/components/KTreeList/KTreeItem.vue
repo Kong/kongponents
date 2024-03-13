@@ -72,35 +72,40 @@ const handleClick = () => {
 </script>
 
 <style lang="scss" scoped>
-
-@import '@/styles/tmp-variables';
-
 .tree-item {
   align-items: center;
   background-color: var(--kui-color-background, $kui-color-background);
   border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-disabled, $kui-color-border-disabled);
-  border-radius: $kui-border-radius-40;
-  color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
+  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+  color: var(--kui-color-text, $kui-color-text);
   display: flex;
+  font-size: var(--kui-font-size-30, $kui-font-size-30);
+  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+  gap: var(--kui-space-20, $kui-space-20);
+  line-height: var(--kui-line-height-30, $kui-line-height-30);
   padding: var(--kui-space-20, $kui-space-20);
   text-decoration: none;
+  transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc;
 
-  .tree-item-icon {
-    line-height: var(--kui-line-height-20, $kui-line-height-20);
-    margin-right: var(--kui-space-40, $kui-space-40) !important;
+  .tree-item-icon,
+  :deep(#{$kongponentsKongIconSelector}) {
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+    transition: color $kongponentsTransitionDurTimingFunc;
+    width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
   }
 
   &.selected {
-    background-color: $tmp-color-teal-100;
-    border-color: $tmp-color-teal-200;
+    background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+    border-color: var(--kui-color-border-neutral-weaker, $kui-color-border-neutral-weaker);
 
-    .tree-item-icon { /** so we can use currentColor in script section */
-      color: $tmp-color-teal-200;
+    .tree-item-icon {
+      color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
     }
   }
 
   &:hover {
-    color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
+    background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
     cursor: grab;
   }
 

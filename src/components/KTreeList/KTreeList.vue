@@ -205,6 +205,8 @@ onMounted(() => {
 
 <style lang="scss">
 .k-tree-list {
+  font-family: var(--kui-font-family-text, $kui-font-family-text);
+
   .tree-draggable {
     margin: var(--kui-space-0, $kui-space-0);
     padding: var(--kui-space-0, $kui-space-0);
@@ -214,6 +216,7 @@ onMounted(() => {
     &:before {
       display: none;
     }
+
     &:after {
       display: none;
     }

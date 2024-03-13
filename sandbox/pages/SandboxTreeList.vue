@@ -51,7 +51,10 @@
       <SandboxSectionComponent title="item-icon">
         <KTreeList :items="items">
           <template #item-icon="{ item }">
-            <InboxIcon v-if="item.id.includes('folder')" />
+            <InboxIcon
+              v-if="item.id.includes('folder')"
+              :color="item.selected ? KUI_COLOR_TEXT_DECORATIVE_PURPLE : KUI_COLOR_TEXT_DECORATIVE_PURPLE_STRONG"
+            />
           </template>
         </KTreeList>
       </SandboxSectionComponent>
@@ -77,6 +80,7 @@ import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import type { TreeListItem } from '@/types'
 import { InboxIcon } from '@kong/icons'
+import { KUI_COLOR_TEXT_DECORATIVE_PURPLE, KUI_COLOR_TEXT_DECORATIVE_PURPLE_STRONG } from '@kong/design-tokens'
 
 const items = ref<TreeListItem[]>([
   {

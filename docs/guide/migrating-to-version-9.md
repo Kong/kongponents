@@ -725,10 +725,10 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 #### Structure
 
 * `k-tree-draggable` class has been changed to `tree-draggable`
-* `tree-item-container` class has been changed to `tree-item-container`
+* `k-tree-item-container` class has been changed to `tree-item-container`
 * `k-tree-list-grabbing` class has been changed to `tree-list-grabbing`
-* `tree-item-grabbing` class has been changed to `tree-item-grabbing`
-* `tree-item-dragged` class has been changed to `tree-item-dragged`
+* `k-tree-item-grabbing` class has been changed to `tree-item-grabbing`
+* `k-tree-item-dragged` class has been changed to `tree-item-dragged`
 * `k-tree-item` class has been changed to `tree-item`
 * `k-tree-item-icon` class has been changed to `tree-item-icon`
 * `k-tree-item-label` class has been changed to `tree-item-label`
