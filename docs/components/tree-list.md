@@ -23,7 +23,7 @@ The value provided to `v-model` should adhere to all the same constraints of the
   <div>
     <KButton @click="reset">Reset</KButton>
   </div>
-  <div class="value-wrapper"><b>Value:</b> <pre class="json hide-from-percy">{{ JSON.stringify(myList) }}</pre></div>
+  <div class="value-wrapper"><b>Value:</b> <pre class="json hide-from-percy">{{ JSON.stringify(myList, null, 2) }}</pre></div>
 </div>
 
 ```vue
@@ -280,7 +280,7 @@ Emitted when you click (and don't drag) an item. Returns the selected item's dat
 <div class="vertical-container">
   <KLabel>Selected: {{ mySelection && mySelection.name || '' }}</KLabel>
   <KLabel>Items:</KLabel>
-  <pre class="json hide-from-percy">{{ JSON.stringify(eventItems) }}</pre>
+  <pre class="json hide-from-percy">{{ JSON.stringify(eventItems, null, 2) }}</pre>
   <KTreeList
     :items="eventItems"
     @selected="(item) => mySelection = item"
