@@ -16,30 +16,30 @@
         title="Props"
       />
       <SandboxSectionComponent title="item">
-        <KTreeList :items="items" />
+        <KTreeList :items="items1" />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="disableDrag">
         <KTreeList
           disable-drag
-          :items="items"
+          :items="items2"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="maxDepth">
         <KTreeList
-          :items="items"
+          :items="items3"
           :max-depth="4"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="width">
         <KTreeList
-          :items="items"
+          :items="items4"
           width="300"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="hideIcons">
         <KTreeList
           hide-icons
-          :items="items"
+          :items="items5"
         />
       </SandboxSectionComponent>
 
@@ -49,7 +49,7 @@
         title="Slots"
       />
       <SandboxSectionComponent title="item-icon">
-        <KTreeList :items="items">
+        <KTreeList :items="items6">
           <template #item-icon="{ item }">
             <InboxIcon
               v-if="item.id.includes('folder')"
@@ -59,7 +59,7 @@
         </KTreeList>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="item-label">
-        <KTreeList :items="items">
+        <KTreeList :items="items7">
           <template #item-label="{ item }">
             <span v-if="item.id.includes('folder')">
               <strong>{{ item.name }}</strong>
@@ -82,7 +82,7 @@ import type { TreeListItem } from '@/types'
 import { InboxIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_DECORATIVE_PURPLE, KUI_COLOR_TEXT_DECORATIVE_PURPLE_STRONG } from '@kong/design-tokens'
 
-const items = ref<TreeListItem[]>([
+const defaultItems = [
   {
     name: 'Components',
     id: 'components-folder',
@@ -129,5 +129,13 @@ const items = ref<TreeListItem[]>([
       id: 'user-types',
     }],
   },
-])
+]
+
+const items1 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
+const items2 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
+const items3 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
+const items4 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
+const items5 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
+const items6 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
+const items7 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 </script>

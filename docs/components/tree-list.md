@@ -277,45 +277,6 @@ Two separate `child-change` events will fire if an item is moved from one parent
 
 Emitted when you click (and don't drag) an item. Returns the selected item's data.
 
-<div class="vertical-container">
-  <KLabel>Selected: {{ mySelection && mySelection.name || '' }}</KLabel>
-  <KLabel>Items:</KLabel>
-  <pre class="json hide-from-percy">{{ JSON.stringify(eventItems, null, 2) }}</pre>
-  <KTreeList
-    :items="eventItems"
-    @selected="(item) => mySelection = item"
-    @change="({ items }) => eventItems = items"
-    @child-change="handleChildChange"
-  />
-</div>
-
-```vue
-<template>
-  <KLabel>Selected: {{ mySelection && mySelection.name || '' }}</KLabel>
-  <KLabel>Items: </KLabel> {{ myItems }}
-  <KTreeList
-    :items="myItems"
-    @selected="(item) => mySelection = item"
-    @change="({ items }) => myItems = items"
-    @child-change="handleChildChange"
-  />
-</template>
-
-<script setup lang="ts">
-import type { TreeListItem } from '@kong/kongponents'
-
-...
-
-const mySelection = ref<TreeListItem | null>(null)
-
-const handleChildChange = (data): void => {
-  const { parentId, children, target } = data
-  const changedParent = myItems.value.find(item => item.id === parentId)
-  changedParent.children = children
-}
-</script>
-```
-
 <script setup lang="ts">
 import { ref } from 'vue'
 import { InboxIcon, DataObjectIcon } from '@kong/icons'
@@ -390,16 +351,8 @@ const hideIconsItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
 const slotItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
-const eventItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
-
 const reset = (): void => {
   myList.value = JSON.parse(JSON.stringify(items))
-}
-
-const handleChildChange = (data): void => {
-  const { parentId, children, target } = data
-  const changedParent = eventItems.value.find(item => item.id === parentId)
-  changedParent.children = children
 }
 </script>
 
