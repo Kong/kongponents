@@ -18,6 +18,7 @@ const sandboxAppLinks: SandboxNavigationItem[] = ([
   { name: 'KAlert', to: { name: 'alert' } },
   { name: 'KBadge', to: { name: 'badge' } },
   { name: 'KButton', to: { name: 'button' } },
+  { name: 'KBreadcrumbs', to: { name: 'breadcrumbs' } },
   { name: 'KCard', to: { name: 'card' } },
   { name: 'KCatalog', to: { name: 'catalog' } },
   { name: 'KCheckbox', to: { name: 'checkbox' } },
