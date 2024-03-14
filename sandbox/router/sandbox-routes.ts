@@ -158,6 +158,12 @@ const componentRoutes: RouteRecordRaw[] = [
     meta: { title: 'Toaster Sandbox' },
     component: () => import('../pages/SandboxToaster.vue'),
   },
+  {
+    path: '/treelist',
+    name: 'treelist',
+    meta: { title: 'Tree List Sandbox' },
+    component: () => import('../pages/SandboxTreeList.vue'),
+  },
 ]
 
 export default componentRoutes
