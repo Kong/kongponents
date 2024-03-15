@@ -204,7 +204,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-// needs to dtay unscoped as it's targeting specific deeply nested elements
+// needs to stay unscoped as it's targeting specific deeply nested elements
 .k-tree-list {
   font-family: var(--kui-font-family-text, $kui-font-family-text);
 
