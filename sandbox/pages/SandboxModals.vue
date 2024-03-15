@@ -393,7 +393,7 @@
             @proceed="data.modalVisible = false"
           >
             <template #title>
-              <KongIcon />
+              <KongIcon :color="KUI_COLOR_TEXT_DECORATIVE_AQUA" />
               Full screen KModal
             </template>
           </KModal>
@@ -606,6 +606,7 @@ import { inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { KongIcon } from '@kong/icons'
+import { KUI_COLOR_TEXT_DECORATIVE_AQUA } from '@kong/design-tokens'
 </script>
 
 <style lang="scss" scoped>
