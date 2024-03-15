@@ -13,14 +13,16 @@ describe('KCard', () => {
 
   it('renders title prop when passed', () => {
     const titleProp = 'Title prop'
+    const titleTag = 'h5'
 
     mount(KCard, {
       props: {
         title: titleProp,
+        titleTag,
       },
     })
 
-    cy.get('.k-card').find('.card-title').should('contain', titleProp)
+    cy.get('.k-card').find(`${titleTag}.card-title`).should('contain', titleProp)
   })
 
   it('renders slots when passed', () => {

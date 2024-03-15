@@ -74,6 +74,16 @@ String to be used as a title. Can also be [slotted](#slots).
 <KCard title="Card Title" />
 ```
 
+### titleTag
+
+HTML element you want title to be rendered as. Defaults to `div`.
+
+<KCard title-tag="h4" title="Card Title H4 Heading" />
+
+```html
+<KCard title-tag="h4" title="Card Title H4 Heading" />
+```
+
 ## Slots
 
 ### default
