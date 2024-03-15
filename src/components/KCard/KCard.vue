@@ -4,14 +4,15 @@
       v-if="showCardHeader"
       class="card-header"
     >
-      <div
+      <component
+        :is="titleTag"
         v-if="$slots.title || title"
         class="card-title"
       >
         <slot name="title">
           {{ title }}
         </slot>
-      </div>
+      </component>
       <div
         v-if="$slots.actions"
         class="card-actions"
@@ -35,12 +36,19 @@
 </template>
 
 <script setup lang="ts">
-import { useSlots, computed } from 'vue'
+import { useSlots, computed, type PropType } from 'vue'
+import { HeaderTags } from '@/types'
+import type { HeaderTag } from '@/types'
 
 const props = defineProps({
   title: {
     type: String,
     default: '',
+  },
+  titleTag: {
+    type: String as PropType<HeaderTag>,
+    default: 'div',
+    validator: (value: HeaderTag): boolean => HeaderTags.includes(value),
   },
 })
 
@@ -73,6 +81,7 @@ const showCardHeader = computed((): boolean => {
       font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
       letter-spacing: var(--kui-letter-spacing-minus-30, $kui-letter-spacing-minus-30);
       line-height: var(--kui-line-height-40, $kui-line-height-40);
+      margin: var(--kui-space-0, $kui-space-0);
     }
 
     .card-actions {
