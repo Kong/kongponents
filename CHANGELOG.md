@@ -1,3 +1,10 @@
+# [9.0.0-alpha.115](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.114...v9.0.0-alpha.115) (2024-03-15)
+
+
+### Bug Fixes
+
+* **kcard:** add title tag prop ([#2069](https://github.com/Kong/kongponents/issues/2069)) ([faf5bfb](https://github.com/Kong/kongponents/commit/faf5bfb93fff4cb75117555438219eebad06a738))
+
 # [9.0.0-alpha.114](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.113...v9.0.0-alpha.114) (2024-03-15)
 
 
