@@ -286,10 +286,6 @@ onUnmounted(() => {
         .modal-title {
           display: flex;
           gap: var(--kui-space-40, $kui-space-40);
-
-          :deep(#{$kongponentsKongIconSelector}) {
-            color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
-          }
         }
 
         .modal-content {
