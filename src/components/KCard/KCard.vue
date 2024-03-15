@@ -36,7 +36,9 @@
 </template>
 
 <script setup lang="ts">
-import { useSlots, computed } from 'vue'
+import { useSlots, computed, type PropType } from 'vue'
+import { HeaderTags } from '@/types'
+import type { HeaderTag } from '@/types'
 
 const props = defineProps({
   title: {
@@ -44,8 +46,9 @@ const props = defineProps({
     default: '',
   },
   titleTag: {
-    type: String,
+    type: String as PropType<HeaderTag>,
     default: 'div',
+    validator: (value: HeaderTag): boolean => HeaderTags.includes(value),
   },
 })
 
