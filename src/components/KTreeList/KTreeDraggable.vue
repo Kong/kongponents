@@ -266,6 +266,9 @@ $kTreeListBar: 12px;
 
 /* Component styles */
 .tree-draggable {
+  margin: var(--kui-space-0, $kui-space-0);
+  padding: var(--kui-space-0, $kui-space-0);
+
   .child-drop-zone {
     // this is the height of the area you can drop an item in
     // to make it the child of another item
