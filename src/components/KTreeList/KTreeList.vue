@@ -204,13 +204,9 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+// needs to stay unscoped as it's targeting specific deeply nested elements
 .k-tree-list {
   font-family: var(--kui-font-family-text, $kui-font-family-text);
-
-  .tree-draggable {
-    margin: var(--kui-space-0, $kui-space-0);
-    padding: var(--kui-space-0, $kui-space-0);
-  }
 
   & > .tree-draggable > .tree-item-container {
     &:before {
