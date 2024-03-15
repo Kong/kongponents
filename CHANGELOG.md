@@ -1,3 +1,10 @@
+# [9.0.0-alpha.114](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.113...v9.0.0-alpha.114) (2024-03-15)
+
+
+### Bug Fixes
+
+* **kmodal:** remove enforcing title icon color ([#2068](https://github.com/Kong/kongponents/issues/2068)) ([d486ef5](https://github.com/Kong/kongponents/commit/d486ef5930b9e0a3f647a089d33a8e231181e138))
+
 # [9.0.0-alpha.113](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.112...v9.0.0-alpha.113) (2024-03-13)
 
 
