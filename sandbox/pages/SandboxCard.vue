@@ -24,6 +24,14 @@
           Card content slot
         </KCard>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="titleTag">
+        <KCard
+          title="Card title"
+          title-tag="h2"
+        >
+          Card content slot
+        </KCard>
+      </SandboxSectionComponent>
 
       <!-- Slots -->
       <SandboxTitleComponent
