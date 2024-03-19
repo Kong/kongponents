@@ -365,7 +365,6 @@ Use this prop to make modal window take up almost the whole screen. When set to 
   @proceed="closeAllModals"
 />
 
-
 ```html
 <KModal
   full-screen
@@ -421,16 +420,112 @@ Whether clicking on backdrop should close the modal (by emitting the [`cancel` e
 
 Options to be passed to [`focus-trap`](https://github.com/focus-trap/focus-trap), which is responsible for trapping focus inside the modal box.
 
+### inputAutofocus
+
+Boolean to control whether KModal should set focus on the first visible input field as soon as modal opens. Defaults to `false`.
+
+<KButton @click="modal16Visible = true">Modal</KButton>
+<KModal
+  input-autofocus
+  title="Modal"
+  :visible="modal16Visible"
+  @cancel="closeAllModals"
+  @proceed="closeAllModals"
+ >
+  <KInput
+    label="Slotted input"
+    :label-attributes="{ info: 'Focus trap set focus on this input field for you as soon as modal opened.' }"
+    required
+  />
+</KModal>
+
+```html
+<KModal
+  input-autofocus
+  title="Modal"
+  :visible="modalVisible"
+  @cancel="handleModalClose"
+  @proceed="handleModalProceed"
+>
+  <KInput
+    label="Slotted input"
+    :label-attributes="{ info: 'Focus trap set focus on this input field for you as soon as modal opened.' }"
+    required
+  />
+</KModal>
+```
+
+:::tip NOTE
+Sometimes you may need to asynchronously fetch data before displaying the form inside a modal. In that case, you can bind `inputAutofocus` to your local loading state variable in order to set `inputAutofocus` prop to `true` as soon as content loads so that KModal could set focus on input fields as soon as they are available.
+
+<KButton @click="modal17Visible = true">Modal</KButton>
+<KModal
+  :input-autofocus="!inputAutofocusContentLoading"
+  title="Modal"
+  :visible="modal17Visible"
+  @cancel="closeAllModals"
+  @proceed="closeAllModals"
+ >
+  <KInput
+    v-if="!inputAutofocusContentLoading"
+    label="Slotted input"
+    :label-attributes="{ info: 'Focus trap set focus on this input field for you as soon as it became available.' }"
+    required
+  />
+  <div
+    v-else
+    class="loading-container"
+  >
+    <ProgressIcon />
+  </div>
+</KModal>
+
+```vue
+<template>
+  <KModal
+    :input-autofocus="!loading"
+    title="Modal"
+    :visible="modalVisible"
+    @cancel="handleModalClose"
+    @proceed="handleModalProceed"
+  >
+    <KInput
+      v-if="!loading"
+      label="Slotted input"
+      :label-attributes="{ info: 'Focus trap set focus on this input field for you as soon as it became available.' }"
+      required
+    />
+    <ProgressIcon v-else />
+  </KModal>
+</template>
+
+<script setup lang="ts">
+const modalVisible = ref<boolean>(false)
+const loading = ref<boolean>(true)
+
+watch(modalVisible, (newValue): void => {
+  if (newValue) {
+    setTimeout(() => {
+      loading.value = false
+    }, 3000)
+  } else {
+    loading.value = true
+  }
+})
+</script>
+```
+:::
+
 ## Slots
 
 ### default
 
 Slot for modal content. Not to be confused with the [`content`](#content) slot which takes presense over all other slots when provided.
 
-<KButton @click="modal16Visible = true">Modal</KButton>
+<KButton @click="modal18Visible = true">Modal</KButton>
 <KModal
   title="Modal"
-  :visible="modal16Visible"
+  :visible="modal18Visible"
   @cancel="closeAllModals"
   @proceed="closeAllModals"
 >
@@ -452,10 +547,10 @@ Slot for modal content. Not to be confused with the [`content`](#content) slot w
 
 Slot for title string.
 
-<KButton @click="modal17Visible = true">Modal</KButton>
+<KButton @click="modal19Visible = true">Modal</KButton>
 <KModal
   title="Title"
-  :visible="modal17Visible"
+  :visible="modal19Visible"
   @cancel="closeAllModals"
   @proceed="closeAllModals"
 >
@@ -481,10 +576,10 @@ Slot for title string.
 
 Slot for footer content.
 
-<KButton @click="modal18Visible = true">Modal</KButton>
+<KButton @click="modal20Visible = true">Modal</KButton>
 <KModal
   title="Title"
-  :visible="modal18Visible"
+  :visible="modal20Visible"
   @cancel="closeAllModals"
   @proceed="closeAllModals"
 >
@@ -510,10 +605,10 @@ Slot for footer content.
 
 Use this slot should you need to provide cusom buttons in modal footer. Ommited when [`footer` slot](#footer) is used.
 
-<KButton @click="modal19Visible = true">Modal</KButton>
+<KButton @click="modal21Visible = true">Modal</KButton>
 <KModal
   title="Title"
-  :visible="modal19Visible"
+  :visible="modal21Visible"
   @cancel="closeAllModals"
   @proceed="closeAllModals"
 >
@@ -573,10 +668,10 @@ By default KModal provides you with the standard layout: modal header (optional)
 Focus-trap requires at least one tabbable element to be present in modal at all times. You can learn more about what elements are considered tabbable [here](https://github.com/focus-trap/tabbable). Make sure your modal has at least one element with non-negative `tabindex` attribute (for example close icon with `role="button"` and `tabindex="0"` attributes). 
 :::
 
-<KButton @click="modal20Visible = true">Modal</KButton>
+<KButton @click="modal22Visible = true">Modal</KButton>
 
 <div class="custom-modal-content">
-  <KModal :visible="modal20Visible" @proceed="closeAllModals">
+  <KModal :visible="modal22Visible" @proceed="closeAllModals">
     <template #content>
       <div class="modal-content">
         <img src="/img/dark-demo.png" alt="Circuit board" />
@@ -647,8 +742,8 @@ Emitted when action button is clicked.
 Emitted when cancel button or close icon (when not hidden) is clicked. 
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { BackIcon, ForwardIcon } from '@kong/icons'
+import { ref, watch } from 'vue'
+import { BackIcon, ForwardIcon, ProgressIcon } from '@kong/icons'
 
 const closeAllModals = () => {
   modal1Visible.value = false
@@ -671,6 +766,8 @@ const closeAllModals = () => {
   modal18Visible.value = false
   modal19Visible.value = false
   modal20Visible.value = false
+  modal21Visible.value = false
+  modal22Visible.value = false
 }
 
 const modal1Visible = ref<boolean>(false)
@@ -693,6 +790,20 @@ const modal17Visible = ref<boolean>(false)
 const modal18Visible = ref<boolean>(false)
 const modal19Visible = ref<boolean>(false)
 const modal20Visible = ref<boolean>(false)
+const modal21Visible = ref<boolean>(false)
+const modal22Visible = ref<boolean>(false)
+
+const inputAutofocusContentLoading = ref<boolean>(true)
+
+watch(modal17Visible, (newValue) => {
+  if (newValue) {
+    setTimeout(() => {
+      inputAutofocusContentLoading.value = false
+    }, 3000)
+  } else {
+    inputAutofocusContentLoading.value = true
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -725,5 +836,10 @@ const modal20Visible = ref<boolean>(false)
       margin: 0;
     }
   }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
 }
 </style>
