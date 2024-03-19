@@ -306,7 +306,7 @@ onUnmounted(() => {
       align-items: center;
       padding-top: var(--kui-space-0, $kui-space-0);
 
-      .modal-container {
+      > .modal-container {
         display: flex;
         flex-direction: column;
         height: 95vh;
