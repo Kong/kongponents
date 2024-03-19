@@ -1,3 +1,10 @@
+# [9.0.0-alpha.116](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.115...v9.0.0-alpha.116) (2024-03-19)
+
+
+### Bug Fixes
+
+* **kcard:** title font size ([#2074](https://github.com/Kong/kongponents/issues/2074)) ([4f990c7](https://github.com/Kong/kongponents/commit/4f990c7e7aa63d45ef896198f017c91befea153d))
+
 # [9.0.0-alpha.115](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.114...v9.0.0-alpha.115) (2024-03-15)
 
 
