@@ -665,7 +665,7 @@ import { KUI_COLOR_TEXT_DECORATIVE_AQUA } from '@kong/design-tokens'
 const inputAutofocusModalVisible = ref<boolean>(false)
 const inputAutofocusContentLoading = ref<boolean>(true)
 
-watch(inputAutofocusModalVisible, (newValue) => {
+watch(inputAutofocusModalVisible, (newValue): void => {
   if (newValue) {
     setTimeout(() => {
       inputAutofocusContentLoading.value = false
