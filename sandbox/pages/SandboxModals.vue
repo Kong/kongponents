@@ -399,6 +399,34 @@
           </KModal>
         </KComponent>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="inputAutofocus">
+        <KComponent
+          v-slot="{ data }"
+          :data="{ modalVisible: false }"
+        >
+          <div class="horizontal-container">
+            <KButton
+              @click="data.modalVisible = true"
+            >
+              KModal
+            </KButton>
+          </div>
+
+          <KModal
+            input-autofocus
+            title="KModal autofocus"
+            :visible="data.modalVisible"
+            @cancel="data.modalVisible = false"
+            @proceed="data.modalVisible = false"
+          >
+            <KInput
+              label="Slotted input"
+              :label-attributes="{ info: 'Focus trap set focus on this input field for you as soon as modal opened.' }"
+              required
+            />
+          </KModal>
+        </KComponent>
+      </SandboxSectionComponent>
 
       <!-- Slots -->
       <SandboxTitleComponent
@@ -597,16 +625,55 @@
           </KModal>
         </KComponent>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="inputAutofocus & loading content">
+        <KButton @click="inputAutofocusModalVisible = true">
+          KModal
+        </KButton>
+
+        <KModal
+          :input-autofocus="!inputAutofocusContentLoading"
+          title="KModal autofocus"
+          :visible="inputAutofocusModalVisible"
+          @cancel="inputAutofocusModalVisible = false"
+          @proceed="inputAutofocusModalVisible = false"
+        >
+          <KInput
+            v-if="!inputAutofocusContentLoading"
+            label="Slotted input"
+            :label-attributes="{ info: 'Focus trap set focus on this input field for you as soon as modal opened.' }"
+            required
+          />
+          <div
+            v-else
+            class="loading-container"
+          >
+            <ProgressIcon />
+          </div>
+        </KModal>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject, ref, watch } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { KongIcon } from '@kong/icons'
+import { KongIcon, ProgressIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_DECORATIVE_AQUA } from '@kong/design-tokens'
+
+const inputAutofocusModalVisible = ref<boolean>(false)
+const inputAutofocusContentLoading = ref<boolean>(true)
+
+watch(inputAutofocusModalVisible, (newValue) => {
+  if (newValue) {
+    setTimeout(() => {
+      inputAutofocusContentLoading.value = false
+    }, 3000)
+  } else {
+    inputAutofocusContentLoading.value = true
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -620,6 +687,11 @@ import { KUI_COLOR_TEXT_DECORATIVE_AQUA } from '@kong/design-tokens'
     display: flex;
     flex-direction: column;
     gap: $kui-space-50;
+  }
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

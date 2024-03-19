@@ -272,4 +272,18 @@ describe('KModal', () => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'cancel').and('have.length', 1)
     })
   })
+
+  it('sets focus on first input field when inputAutofocus is true', () => {
+    mount(KModal, {
+      props: {
+        visible: true,
+        inputAutofocus: true,
+      },
+      slots: {
+        default: '<input data-testid="slotted-input" type="text" />',
+      },
+    })
+
+    cy.get('.k-modal input[data-testid="slotted-input"]').should('have.focus')
+  })
 })

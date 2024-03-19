@@ -15,14 +15,17 @@
       @click="(evt: any) => close(false, evt)"
     >
       <FocusTrap
+        :key="focusTrapKey"
         ref="focusTrapElement"
-        :active="false"
+        v-model:active="focusTrapActive"
         :fallback-focus="() => (modalWrapperElement as HTMLElement)"
+        :initial-focus="() => getFirstFocusableInput()"
         :tabbable-options="tabbableOptions"
       >
         <div
           class="modal-container"
           :class="{ 'custom-content': $slots['content'] }"
+          tabindex="-1"
         >
           <slot name="content">
             <div
@@ -167,6 +170,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  inputAutofocus: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits<{
@@ -179,6 +186,9 @@ const slots = useSlots()
 
 const focusTrapElement = ref<InstanceType<typeof FocusTrap> | null>(null)
 const modalWrapperElement = ref<HTMLElement | null>(null)
+
+const focusTrapActive = ref<boolean>(props.inputAutofocus)
+const focusTrapKey = ref<number>(0)
 
 const maxWidthValue = computed((): string => props.fullScreen && !slots.content ? '95%' : getSizeFromString(props.maxWidth))
 const maxHeightValue = computed((): string => props.fullScreen && !slots.content ? '95vh' : getSizeFromString(props.maxHeight))
@@ -231,6 +241,18 @@ const toggleBodyScroll = (isScrollable: boolean): void => {
   }
 }
 
+const getFirstFocusableInput = (): HTMLElement | false => {
+  if (props.inputAutofocus) {
+    const allInputs = focusTrapElement.value?.$el?.querySelector('.modal-content')?.querySelectorAll('input')
+    if (allInputs?.length) {
+      // focus trap is smart enough to not set focus on a disabled or readonly input so no need to check for that
+      return allInputs[0] as HTMLElement
+    }
+  }
+
+  return false
+}
+
 const toggleEventListeners = (isActive: boolean): void => {
   if (typeof document !== 'undefined') {
     if (isActive) {
@@ -252,6 +274,12 @@ watch(() => props.visible, async (visible: boolean): Promise<void> => {
     toggleEventListeners(false)
   }
 }, { immediate: true })
+
+watch(() => props.inputAutofocus, async (inputAutofocus: boolean): Promise<void> => {
+  await nextTick() // wait for the modal content to be rendered
+  focusTrapActive.value = inputAutofocus
+  focusTrapKey.value++
+})
 
 onUnmounted(() => {
   toggleEventListeners(false)
