@@ -1,3 +1,10 @@
+# [9.0.0-alpha.117](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.116...v9.0.0-alpha.117) (2024-03-20)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies with stable version ([#2075](https://github.com/Kong/kongponents/issues/2075)) ([6922baa](https://github.com/Kong/kongponents/commit/6922baa045519b21658df87410580a31a0e7aa95))
+
 # [9.0.0-alpha.116](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.115...v9.0.0-alpha.116) (2024-03-19)
 
 
