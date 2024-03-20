@@ -329,8 +329,13 @@ interface ModalAttributes {
   maxWidth?: string
   maxHeight?: string
   closeOnBackdropClick?: boolean
+  inputAutofocus?: boolean
 }
 ```
+
+:::tip NOTE
+`inputAutofocus` prop defaults to `true` in KPrompt for better UX when `confirmationText` is provided. You can change that simply by setting `inputAutofocus` property to `false` through `modalAttributes` prop.
+:::
 
 <KButton @click="prompt13Visible = true">Prompt</KButton>
 <KPrompt
