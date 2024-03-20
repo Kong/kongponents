@@ -1,11 +1,14 @@
 <template>
   <label
+    :id="labelId"
     class="k-label"
     :class="{ 'required': required }"
   >
     <slot />
+
     <KTooltip
       v-if="hasTooltip"
+      :aria-labelledby="labelId"
       v-bind="tooltipAttributes"
       class="label-tooltip"
       position-fixed
@@ -24,11 +27,12 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed, useSlots } from 'vue'
+import { computed, useAttrs, useSlots } from 'vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { TooltipAttributes } from '@/types'
 import { InfoIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
+import { v4 as uuidv4 } from 'uuid'
 
 const props = defineProps({
   info: {
@@ -60,8 +64,11 @@ const props = defineProps({
 })
 
 const slots = useSlots()
+const attrs = useAttrs()
 
 const hasTooltip = computed((): boolean => !!(props.help || props.info || slots.tooltip))
+
+const labelId = attrs.id ? String(attrs.id) : uuidv4()
 </script>
 
 <style lang="scss" scoped>
