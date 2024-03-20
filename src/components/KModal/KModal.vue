@@ -15,11 +15,9 @@
       @click="(evt: any) => close(false, evt)"
     >
       <FocusTrap
-        :key="focusTrapKey"
         ref="focusTrapElement"
-        v-model:active="focusTrapActive"
+        :active="false"
         :fallback-focus="() => (modalWrapperElement as HTMLElement)"
-        :initial-focus="() => getFirstFocusableInput()"
         :tabbable-options="tabbableOptions"
       >
         <div
@@ -187,9 +185,6 @@ const slots = useSlots()
 const focusTrapElement = ref<InstanceType<typeof FocusTrap> | null>(null)
 const modalWrapperElement = ref<HTMLElement | null>(null)
 
-const focusTrapActive = ref<boolean>(props.inputAutofocus)
-const focusTrapKey = ref<number>(0)
-
 const maxWidthValue = computed((): string => props.fullScreen && !slots.content ? '95%' : getSizeFromString(props.maxWidth))
 const maxHeightValue = computed((): string => props.fullScreen && !slots.content ? '95vh' : getSizeFromString(props.maxHeight))
 
@@ -241,18 +236,6 @@ const toggleBodyScroll = (isScrollable: boolean): void => {
   }
 }
 
-const getFirstFocusableInput = (): HTMLElement | false => {
-  if (props.inputAutofocus) {
-    const allInputs = focusTrapElement.value?.$el?.querySelector('.modal-content')?.querySelectorAll('input')
-    if (allInputs?.length) {
-      // focus trap is smart enough to not set focus on a disabled or readonly input so no need to check for that
-      return allInputs[0] as HTMLElement
-    }
-  }
-
-  return false
-}
-
 const toggleEventListeners = (isActive: boolean): void => {
   if (typeof document !== 'undefined') {
     if (isActive) {
@@ -263,9 +246,20 @@ const toggleEventListeners = (isActive: boolean): void => {
   }
 }
 
+const setInputAutofocus = (): void => {
+  const allInputs = focusTrapElement.value?.$el?.querySelector('.modal-content')?.querySelectorAll('input')
+  if (allInputs?.length) {
+    // TODO: check if item is visible, enabled and not readonly
+    allInputs[0].focus()
+  }
+}
+
 watch(() => props.visible, async (visible: boolean): Promise<void> => {
   if (visible) {
     await toggleFocusTrap(true)
+    if (props.inputAutofocus) {
+      setInputAutofocus()
+    }
     toggleBodyScroll(false)
     toggleEventListeners(true)
   } else {
@@ -276,9 +270,10 @@ watch(() => props.visible, async (visible: boolean): Promise<void> => {
 }, { immediate: true })
 
 watch(() => props.inputAutofocus, async (inputAutofocus: boolean): Promise<void> => {
-  await nextTick() // wait for the modal content to be rendered
-  focusTrapActive.value = inputAutofocus
-  focusTrapKey.value++
+  if (inputAutofocus) {
+    await nextTick() // wait for the modal content to be rendered
+    setInputAutofocus()
+  }
 })
 
 onUnmounted(() => {

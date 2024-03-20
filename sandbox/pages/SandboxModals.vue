@@ -402,18 +402,25 @@
       <SandboxSectionComponent title="inputAutofocus">
         <KComponent
           v-slot="{ data }"
-          :data="{ modalVisible: false }"
+          :data="{ modalVisible: false, inputAutofocus: false }"
         >
-          <div class="horizontal-container">
-            <KButton
-              @click="data.modalVisible = true"
-            >
-              KModal
-            </KButton>
+          <div class="vertical-container">
+            <div>
+              <KButton
+                @click="data.modalVisible = true"
+              >
+                KModal
+              </KButton>
+            </div>
+            <KInputSwitch
+              v-model="data.inputAutofocus"
+              label="Input autofocus"
+            />
           </div>
 
           <KModal
-            input-autofocus
+            data-autofocus="true"
+            :input-autofocus="data.inputAutofocus"
             title="KModal autofocus"
             :visible="data.modalVisible"
             @cancel="data.modalVisible = false"
