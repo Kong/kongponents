@@ -8,7 +8,7 @@
       v-if="label"
       v-bind="labelAttributes"
       :data-testid="labelAttributes['data-testid'] ? labelAttributes['data-testid'] : 'multiselect-label'"
-      :for="multiselectId"
+      :for="multiselectWrapperId"
       :required="isRequired"
     >
       {{ strippedLabel }}
@@ -37,6 +37,7 @@
             :id="multiselectWrapperId"
             ref="multiselectElement"
             class="multiselect-trigger"
+            v-bind="modifiedAttrs"
             :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
             data-testid="multiselect-trigger"
             role="listbox"
@@ -46,7 +47,6 @@
             <div v-if="collapsedContext">
               <KInput
                 :id="multiselectId"
-                v-bind="modifiedAttrs"
                 ref="multiselectInputElement"
                 autocapitalize="off"
                 autocomplete="off"
