@@ -203,6 +203,7 @@
         title="selectedItemTemplate"
       >
         <KSelect
+          enable-filtering
           :items="selectItems"
         >
           <template #selected-item-template="{ item }">
