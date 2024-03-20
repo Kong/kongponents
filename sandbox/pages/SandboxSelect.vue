@@ -405,6 +405,7 @@ onMounted(() => {
   .horizontal-spacing {
     align-items: flex-end;
     display: flex;
+    flex-wrap: wrap;
     gap: $kui-space-50;
   }
 

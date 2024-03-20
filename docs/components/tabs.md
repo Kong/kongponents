@@ -318,6 +318,7 @@ const panelsChange = (hash: string) => {
 .horizontal-spacing {
   display: flex;
   gap: $kui-space-40;
+  flex-wrap: wrap;
 }
 
 .spacing-top {

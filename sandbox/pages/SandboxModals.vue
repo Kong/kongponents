@@ -691,6 +691,7 @@ watch(inputAutofocusModalVisible, (newValue): void => {
 .kmodals-sandbox {
   .horizontal-container {
     display: flex;
+    flex-wrap: wrap;
     gap: $kui-space-50;
   }
 
