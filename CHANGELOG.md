@@ -1,3 +1,10 @@
+# [9.0.0-alpha.118](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.117...v9.0.0-alpha.118) (2024-03-20)
+
+
+### Bug Fixes
+
+* **kmodal:** add input autofocus prop [KHCP-11113] ([#2073](https://github.com/Kong/kongponents/issues/2073)) ([81b0d45](https://github.com/Kong/kongponents/commit/81b0d456df4918a566621be3f2a9289ae1e141d6))
+
 # [9.0.0-alpha.117](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.116...v9.0.0-alpha.117) (2024-03-20)
 
 
