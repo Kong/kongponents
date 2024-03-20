@@ -419,18 +419,22 @@
           </div>
 
           <KModal
-            data-autofocus="true"
             :input-autofocus="data.inputAutofocus"
             title="KModal autofocus"
             :visible="data.modalVisible"
             @cancel="data.modalVisible = false"
             @proceed="data.modalVisible = false"
           >
-            <KInput
-              label="Slotted input"
-              :label-attributes="{ info: 'Focus trap set focus on this input field for you as soon as modal opened.' }"
-              required
-            />
+            <div class="vertical-container">
+              <KInput
+                label="Readonly input"
+                readonly
+              />
+              <KInput
+                label="Focusable input"
+                :label-attributes="{ info: 'KModal set focus on this input field for you as soon as modal opened.' }"
+              />
+            </div>
           </KModal>
         </KComponent>
       </SandboxSectionComponent>

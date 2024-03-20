@@ -249,8 +249,16 @@ const toggleEventListeners = (isActive: boolean): void => {
 const setInputAutofocus = (): void => {
   const allInputs = focusTrapElement.value?.$el?.querySelector('.modal-content')?.querySelectorAll('input')
   if (allInputs?.length) {
-    // TODO: check if item is visible, enabled and not readonly
-    allInputs[0].focus()
+    // loop through all inputs and focus on the first one that is not disabled or read-only
+    Array.from(allInputs).every((input: any) => {
+      if (!input.disabled && !input.readOnly) {
+        input.focus() // set focus
+
+        return false // exit the loop
+      }
+
+      return true // continue going through the loop until we find a focusable input (or run out of inputs)
+    })
   }
 }
 
