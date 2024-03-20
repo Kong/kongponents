@@ -173,47 +173,49 @@
                   @update:model-value="onQueryChange"
                 />
               </div>
-              <KMultiselectItems
-                :items="sortedItems"
-                @selected="handleItemSelect"
+              <div aria-live="polite">
+                <KMultiselectItems
+                  :items="sortedItems"
+                  @selected="handleItemSelect"
+                >
+                  <template #content="{ item }">
+                    <slot
+                      class="multiselect-item"
+                      :item="item"
+                      name="item-template"
+                    />
+                  </template>
+                </KMultiselectItems>
+                <KMultiselectItem
+                  v-if="enableItemCreation && uniqueFilterStr && !$slots.empty"
+                  key="multiselect-add-item"
+                  class="multiselect-add-item"
+                  data-testid="multiselect-add-item"
+                  :item="{ label: `${filterString} (Add new value)`, value: 'add_item' }"
+                  @selected="handleAddItem"
+                >
+                  <template #content>
+                    <div class="select-item-description">
+                      {{ filterString }}
+                      <span class="select-item-new-indicator">(Add new value)</span>
+                    </div>
+                  </template>
+                </KMultiselectItem>
+                <KMultiselectItem
+                  v-if="!sortedItems.length && !$slots.empty && !enableItemCreation"
+                  key="multiselect-empty-item"
+                  class="multiselect-empty-item"
+                  data-testid="multiselect-empty-item"
+                  :item="{ label: 'No results', value: 'no_results', disabled: true }"
+                />
+              </div>
+              <div
+                v-if="$slots.empty && !loading && !sortedItems.length"
+                class="multiselect-empty"
+                data-propagate-clicks="false"
               >
-                <template #content="{ item }">
-                  <slot
-                    class="multiselect-item"
-                    :item="item"
-                    name="item-template"
-                  />
-                </template>
-              </KMultiselectItems>
-              <KMultiselectItem
-                v-if="enableItemCreation && uniqueFilterStr && !$slots.empty"
-                key="multiselect-add-item"
-                class="multiselect-add-item"
-                data-testid="multiselect-add-item"
-                :item="{ label: `${filterString} (Add new value)`, value: 'add_item' }"
-                @selected="handleAddItem"
-              >
-                <template #content>
-                  <div class="select-item-description">
-                    {{ filterString }}
-                    <span class="select-item-new-indicator">(Add new value)</span>
-                  </div>
-                </template>
-              </KMultiselectItem>
-              <KMultiselectItem
-                v-if="!sortedItems.length && !$slots.empty && !enableItemCreation"
-                key="multiselect-empty-item"
-                class="multiselect-empty-item"
-                data-testid="multiselect-empty-item"
-                :item="{ label: 'No results', value: 'no_results', disabled: true }"
-              />
-            </div>
-            <div
-              v-if="$slots.empty && !loading && !sortedItems.length"
-              class="multiselect-empty"
-              data-propagate-clicks="false"
-            >
-              <slot name="empty" />
+                <slot name="empty" />
+              </div>
             </div>
             <div
               v-if="hasDropdownFooter"
