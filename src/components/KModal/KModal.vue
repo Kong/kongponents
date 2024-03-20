@@ -23,6 +23,7 @@
         <div
           class="modal-container"
           :class="{ 'custom-content': $slots['content'] }"
+          tabindex="-1"
         >
           <slot name="content">
             <div
@@ -167,6 +168,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  inputAutofocus: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits<{
@@ -241,9 +246,28 @@ const toggleEventListeners = (isActive: boolean): void => {
   }
 }
 
+const setInputAutofocus = (): void => {
+  const allInputs = focusTrapElement.value?.$el?.querySelector('.modal-content')?.querySelectorAll('input')
+  if (allInputs?.length) {
+    // loop through all inputs and focus on the first one that is not disabled or read-only
+    Array.from(allInputs).every((input: any) => {
+      if (!input.disabled && !input.readOnly) {
+        input.focus() // set focus
+
+        return false // exit the loop
+      }
+
+      return true // continue going through the loop until we find a focusable input (or run out of inputs)
+    })
+  }
+}
+
 watch(() => props.visible, async (visible: boolean): Promise<void> => {
   if (visible) {
     await toggleFocusTrap(true)
+    if (props.inputAutofocus) {
+      setInputAutofocus()
+    }
     toggleBodyScroll(false)
     toggleEventListeners(true)
   } else {
@@ -252,6 +276,13 @@ watch(() => props.visible, async (visible: boolean): Promise<void> => {
     toggleEventListeners(false)
   }
 }, { immediate: true })
+
+watch(() => props.inputAutofocus, async (inputAutofocus: boolean): Promise<void> => {
+  if (inputAutofocus) {
+    await nextTick() // wait for the modal content to be rendered
+    setInputAutofocus()
+  }
+})
 
 onUnmounted(() => {
   toggleEventListeners(false)
@@ -278,7 +309,7 @@ onUnmounted(() => {
       align-items: center;
       padding-top: var(--kui-space-0, $kui-space-0);
 
-      .modal-container {
+      > .modal-container {
         display: flex;
         flex-direction: column;
         height: 95vh;
