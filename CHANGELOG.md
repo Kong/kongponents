@@ -1,3 +1,10 @@
+# [9.0.0-alpha.121](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.120...v9.0.0-alpha.121) (2024-03-21)
+
+
+### Bug Fixes
+
+* **klabel, kselect, kmultiselect:** a11y attributes [KHCP-111026] ([#2077](https://github.com/Kong/kongponents/issues/2077)) ([0949025](https://github.com/Kong/kongponents/commit/09490253ad679603f0c3c771d07b276ec0b85fb8))
+
 # [9.0.0-alpha.120](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.119...v9.0.0-alpha.120) (2024-03-21)
 
 
