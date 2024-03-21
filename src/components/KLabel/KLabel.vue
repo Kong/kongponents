@@ -1,6 +1,6 @@
 <template>
   <label
-    :aria-describedby="tooltipId"
+    :aria-describedby="hasTooltip ? tooltipId : undefined"
     class="k-label"
     :class="{ 'required': required }"
   >
@@ -106,7 +106,7 @@ $kLabelRequiredDotSize: 6px;
     margin-left: $kLabelSpacingX;
 
     .tooltip-trigger-icon {
-      cursor: pointer;
+      cursor: help;
       height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
       width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
     }
