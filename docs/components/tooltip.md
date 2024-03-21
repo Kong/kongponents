@@ -101,6 +101,30 @@ You can set the maximum width of the tooltip container with the `maxWidth` prope
 </KTooltip>
 ```
 
+### tooltipId
+
+A string to be used as `id` attribute on underlying `role="tooltip"` element. Useful for setting accessible attributes (such as `aria-describedby`) on other elements.
+
+<label aria-describedby="full-name-field-tooltip" for="full-name-field" class="example-label">
+  Full Name
+
+  <KTooltip tooltip-id="full-name-field-tooltip" text="Please enter your full name as it appears in government documents.">
+    <InfoIcon tabindex="0"/>
+  </KTooltip>
+</label>
+<KInput id="full-name-field" />
+
+```html
+<label aria-describedby="full-name-field-tooltip" for="full-name-field">
+  Full Name
+
+  <KTooltip tooltip-id="full-name-field-tooltip" text="Please enter your full name as it appears in government documents.">
+    <InfoIcon tabindex="0"/>
+  </KTooltip>
+</label>
+<KInput id="full-name-field" />
+```
+
 ## Slots
 
 ### default
@@ -143,5 +167,11 @@ import { InfoIcon } from '@kong/icons'
 .tooltip-container {
   display: flex;
   justify-content: space-around;
+}
+
+.example-label {
+  display: flex;
+  gap: $kui-space-40;
+  margin-bottom: $kui-space-40;
 }
 </style>
