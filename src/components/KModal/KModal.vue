@@ -91,7 +91,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, nextTick, onBeforeUnmount, ref, useAttrs, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, ref, useAttrs, watch, useSlots } from 'vue'
 import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
 import type { ButtonAppearance } from '@/types'
