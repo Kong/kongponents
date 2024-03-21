@@ -14,7 +14,10 @@
     <slot />
 
     <template #content>
-      <div role="tooltip">
+      <div
+        :id="tooltipId"
+        role="tooltip"
+      >
         <slot
           :label="text || label"
           name="content"
@@ -36,6 +39,7 @@ import type { PropType } from 'vue'
 import KPop from '@/components/KPop/KPop.vue'
 import type { PopPlacements } from '@/types'
 import { PopPlacementsArray } from '@/types'
+import { v4 as uuidv4 } from 'uuid'
 
 const props = defineProps({
   /**
@@ -78,6 +82,10 @@ const props = defineProps({
   label: {
     type: String,
     default: '',
+  },
+  tooltipId: {
+    type: String,
+    default: `tooltip-${uuidv4()}`,
   },
 })
 

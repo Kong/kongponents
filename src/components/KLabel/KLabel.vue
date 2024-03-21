@@ -1,6 +1,6 @@
 <template>
   <label
-    :id="labelId"
+    :aria-describedby="tooltipId"
     class="k-label"
     :class="{ 'required': required }"
   >
@@ -8,10 +8,10 @@
 
     <KTooltip
       v-if="hasTooltip"
-      :aria-labelledby="labelId"
       v-bind="tooltipAttributes"
       class="label-tooltip"
       position-fixed
+      :tooltip-id="tooltipId"
     >
       <InfoIcon
         class="tooltip-trigger-icon"
@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed, useAttrs, useSlots } from 'vue'
+import { computed, useSlots } from 'vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { TooltipAttributes } from '@/types'
 import { InfoIcon } from '@kong/icons'
@@ -64,11 +64,10 @@ const props = defineProps({
 })
 
 const slots = useSlots()
-const attrs = useAttrs()
 
 const hasTooltip = computed((): boolean => !!(props.help || props.info || slots.tooltip))
 
-const labelId = attrs.id ? String(attrs.id) : uuidv4()
+const tooltipId = uuidv4()
 </script>
 
 <style lang="scss" scoped>
