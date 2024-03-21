@@ -92,6 +92,7 @@ watch([tableEmptyState, tableErrorState], () => {
 <style lang="scss" scoped>
 .horizontal-container {
   display: flex;
+  flex-wrap: wrap;
   gap: $kui-space-50;
 }
 </style>

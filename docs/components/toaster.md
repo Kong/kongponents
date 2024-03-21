@@ -257,6 +257,7 @@ const openNotificationElapse = (options: Toast | string): void => {
 .horizontal-container {
   display: flex;
   gap: $kui-space-50;
+  flex-wrap: wrap;
 }
 
 .fixed-height-data-container {

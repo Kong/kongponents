@@ -151,6 +151,7 @@ const onButtonClick = () => {
 .kcopy-sandbox {
   .horizontal-container {
     display: flex;
+    flex-wrap: wrap;
     gap: $kui-space-50;
   }
 }
