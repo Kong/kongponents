@@ -101,67 +101,69 @@
           </Transition>
         </div>
         <template #content>
-          <div
-            v-if="enableFiltering && loading"
-            class="select-loading"
-            data-propagate-clicks="false"
-            data-testid="select-loading"
-          >
-            <slot name="loading">
-              <ProgressIcon class="loading-icon" />
-            </slot>
-          </div>
-          <div
-            v-else
-            class="select-items-container"
-            data-propagate-clicks="false"
-          >
-            <KSelectItems
-              :items="filteredItems"
-              @selected="handleItemSelect"
-            >
-              <template #content="{ item }">
-                <slot
-                  class="select-item-label select-item-desc"
-                  :item="item"
-                  name="item-template"
-                />
-              </template>
-            </KSelectItems>
-            <KSelectItem
-              v-if="!filteredItems.length && !$slots.empty && !enableItemCreation"
-              :item="{ label: 'No results', value: 'no_results', disabled: true }"
-            />
-            <KSelectItem
-              v-if="!filteredItems.length && uniqueFilterQuery && !$slots.empty && enableItemCreation"
-              key="select-add-item"
-              class="select-add-item"
-              data-testid="select-add-item"
-              :item="{ label: `${filterQuery} (Add new value)`, value: 'add_item' }"
-              @selected="handleAddItem"
-            >
-              <template #content>
-                <div class="select-item-description">
-                  {{ filterQuery }}
-                  <span class="select-item-new-indicator">(Add new value)</span>
-                </div>
-              </template>
-            </KSelectItem>
+          <div :aria-live="enableFiltering ? 'polite' : 'off'">
             <div
-              v-if="hasDropdownFooter && dropdownFooterTextPosition === 'static'"
-              class="dropdown-footer dropdown-footer-static"
+              v-if="enableFiltering && loading"
+              class="select-loading"
+              data-propagate-clicks="false"
+              data-testid="select-loading"
             >
-              <slot name="dropdown-footer-text">
-                {{ dropdownFooterText }}
+              <slot name="loading">
+                <ProgressIcon class="loading-icon" />
               </slot>
             </div>
-          </div>
-          <div
-            v-if="!loading && !filteredItems.length && $slots.empty"
-            class="select-empty"
-            data-propagate-clicks="false"
-          >
-            <slot name="empty" />
+            <div
+              v-else
+              class="select-items-container"
+              data-propagate-clicks="false"
+            >
+              <KSelectItems
+                :items="filteredItems"
+                @selected="handleItemSelect"
+              >
+                <template #content="{ item }">
+                  <slot
+                    class="select-item-label select-item-desc"
+                    :item="item"
+                    name="item-template"
+                  />
+                </template>
+              </KSelectItems>
+              <KSelectItem
+                v-if="!filteredItems.length && !$slots.empty && !enableItemCreation"
+                :item="{ label: 'No results', value: 'no_results', disabled: true }"
+              />
+              <KSelectItem
+                v-if="!filteredItems.length && uniqueFilterQuery && !$slots.empty && enableItemCreation"
+                key="select-add-item"
+                class="select-add-item"
+                data-testid="select-add-item"
+                :item="{ label: `${filterQuery} (Add new value)`, value: 'add_item' }"
+                @selected="handleAddItem"
+              >
+                <template #content>
+                  <div class="select-item-description">
+                    {{ filterQuery }}
+                    <span class="select-item-new-indicator">(Add new value)</span>
+                  </div>
+                </template>
+              </KSelectItem>
+              <div
+                v-if="hasDropdownFooter && dropdownFooterTextPosition === 'static'"
+                class="dropdown-footer dropdown-footer-static"
+              >
+                <slot name="dropdown-footer-text">
+                  {{ dropdownFooterText }}
+                </slot>
+              </div>
+            </div>
+            <div
+              v-if="!loading && !filteredItems.length && $slots.empty"
+              class="select-empty"
+              data-propagate-clicks="false"
+            >
+              <slot name="empty" />
+            </div>
           </div>
           <div
             v-if="hasDropdownFooter && dropdownFooterTextPosition === 'sticky'"
