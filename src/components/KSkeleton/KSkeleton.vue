@@ -1,8 +1,8 @@
 <template>
   <div
     v-if="isVisible"
-    class="k-skeleton-container"
-    :class="{ 'is-spinner': type !== 'spinner' }"
+    class="k-skeleton"
+    :class="{ 'not-spinner': type !== 'spinner' }"
   >
     <CardSkeleton
       v-if="type === 'card'"
@@ -94,7 +94,7 @@ const props = defineProps({
   tableColumns: {
     type: Number,
     required: false,
-    default: 6,
+    default: 5,
   },
   tableRows: {
     type: Number,
@@ -115,12 +115,13 @@ onMounted(() => {
 
 <style lang="scss">
 
-.k-skeleton-container {
-  display: flex !important;
-  flex-wrap: wrap !important;
+.k-skeleton {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
 
-  &.is-spinner {
-    width: 100% !important;
+  &.not-spinner {
+    width: 100%;
   }
 }
 </style>

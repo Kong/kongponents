@@ -615,6 +615,10 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KSkeleton
 
+#### Structure
+
+* `k-skeleton-container` class has been replaced with `k-skeleton`
+* `box` class has been replaced with `skeleton-box`
 
 ### KSlideout
 
