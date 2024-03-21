@@ -275,6 +275,7 @@ const modelValue2 = ref('card0')
   .horizontal-spacing {
     align-items: flex-end;
     display: flex;
+    flex-wrap: wrap;
     gap: $kui-space-50;
   }
 

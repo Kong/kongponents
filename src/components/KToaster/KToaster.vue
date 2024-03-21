@@ -93,9 +93,16 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
   flex-direction: column;
   gap: var(--kui-space-50, $kui-space-50);
   position: fixed;
-  right: 16px;
-  width: 400px;
+  right: 50%;
+  transform: translateX(50%);
+  width: 90%;
   z-index: 10000;
+
+  @media (min-width: $kui-breakpoint-mobile) {
+    right: 16px;
+    transform: none;
+    width: 400px;
+  }
 
   .toaster {
     align-items: flex-start;

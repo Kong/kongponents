@@ -119,6 +119,7 @@ import { KUI_COLOR_TEXT_SUCCESS, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 .kcard-sandbox {
   .horizontal-spacing {
     display: flex;
+    flex-wrap: wrap;
     gap: $kui-space-50;
   }
 

@@ -1,3 +1,17 @@
+# [9.0.0-alpha.120](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.119...v9.0.0-alpha.120) (2024-03-21)
+
+
+### Bug Fixes
+
+* **kslideout:** remove user-select: none from title of KSlideout ([#2080](https://github.com/Kong/kongponents/issues/2080)) ([08ae7cf](https://github.com/Kong/kongponents/commit/08ae7cfc1bb8fa2e707a8c2345d870ee72ff1885))
+
+# [9.0.0-alpha.119](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.118...v9.0.0-alpha.119) (2024-03-21)
+
+
+### Bug Fixes
+
+* **kselect:** invisible user input [KHCP-11152] ([#2076](https://github.com/Kong/kongponents/issues/2076)) ([55c1905](https://github.com/Kong/kongponents/commit/55c19054e81abf4192e8fac1788e6e1c3f7cf4a8))
+
 # [9.0.0-alpha.118](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.117...v9.0.0-alpha.118) (2024-03-20)
 
 
