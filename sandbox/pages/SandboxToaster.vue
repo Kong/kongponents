@@ -159,6 +159,7 @@ const openToaster = (argument: string) => {
 .ktoaster-sandbox {
   .horizontal-container {
     display: flex;
+    flex-wrap: wrap;
     gap: $kui-space-50;
   }
 }

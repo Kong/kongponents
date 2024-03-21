@@ -284,6 +284,7 @@ const tooltipSlotRadio = ref<boolean>(false)
 .horizontal-container {
   display: flex;
   gap: $kui-space-60;
+  flex-wrap: wrap;
 }
 
 .vertical-spacing {

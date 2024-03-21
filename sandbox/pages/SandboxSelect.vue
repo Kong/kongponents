@@ -203,6 +203,7 @@
         title="selectedItemTemplate"
       >
         <KSelect
+          enable-filtering
           :items="selectItems"
         >
           <template #selected-item-template="{ item }">
@@ -404,6 +405,7 @@ onMounted(() => {
   .horizontal-spacing {
     align-items: flex-end;
     display: flex;
+    flex-wrap: wrap;
     gap: $kui-space-50;
   }
 
