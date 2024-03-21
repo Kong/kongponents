@@ -284,7 +284,8 @@ watch(() => props.inputAutofocus, async (inputAutofocus: boolean): Promise<void>
   }
 })
 
-onUnmounted(() => {
+onUnmounted(async () => {
+  await toggleFocusTrap(false)
   toggleEventListeners(false)
 })
 </script>
