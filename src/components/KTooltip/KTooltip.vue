@@ -15,7 +15,7 @@
 
     <template #content>
       <div
-        :id="tooltipId"
+        :id="tooltipId || randomTooltipId"
         role="tooltip"
       >
         <slot
@@ -85,13 +85,15 @@ const props = defineProps({
   },
   tooltipId: {
     type: String,
-    default: () => uuidv4(),
+    default: '',
   },
 })
 
 const slots = useSlots()
 
 const showTooltip = computed((): boolean => !!props.text || !!props.label || !!slots.content)
+
+const randomTooltipId = uuidv4()
 
 const computedClass = computed((): string => {
   let placementClass = ''
