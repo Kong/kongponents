@@ -1,3 +1,10 @@
+# [9.0.0-alpha.122](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.121...v9.0.0-alpha.122) (2024-03-22)
+
+
+### Bug Fixes
+
+* **kmodal:** toggle focus trap off on unmounted ([#2081](https://github.com/Kong/kongponents/issues/2081)) ([69ef84d](https://github.com/Kong/kongponents/commit/69ef84d2cb61ed24e4e3603aaa4e6baf50dbd7af))
+
 # [9.0.0-alpha.121](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.120...v9.0.0-alpha.121) (2024-03-21)
 
 
