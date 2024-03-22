@@ -91,7 +91,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, nextTick, onUnmounted, ref, useAttrs, watch, useSlots } from 'vue'
+import { computed, nextTick, onBeforeUnmount, ref, useAttrs, watch, useSlots } from 'vue'
 import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
 import type { ButtonAppearance } from '@/types'
@@ -284,7 +284,9 @@ watch(() => props.inputAutofocus, async (inputAutofocus: boolean): Promise<void>
   }
 })
 
-onUnmounted(() => {
+// need to use onBeforeUnmount instead of onUnmounted to ensure that focus trap is deactivated BEFORE the component is unmounted
+onBeforeUnmount(async () => {
+  await toggleFocusTrap(false)
   toggleEventListeners(false)
 })
 </script>
