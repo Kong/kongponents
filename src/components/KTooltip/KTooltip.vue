@@ -85,7 +85,7 @@ const props = defineProps({
   },
   tooltipId: {
     type: String,
-    default: uuidv4(),
+    default: () => uuidv4(),
   },
 })
 
