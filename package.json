@@ -130,7 +130,7 @@
     "typescript": "^5.4.2",
     "vite": "^5.1.6",
     "vite-plugin-vue-devtools": "^7.0.16",
-    "vitepress": "^1.0.0-rc.45",
+    "vitepress": "^1.0.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "vue-tsc": "^1.8.27"
