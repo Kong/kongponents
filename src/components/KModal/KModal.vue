@@ -284,6 +284,7 @@ watch(() => props.inputAutofocus, async (inputAutofocus: boolean): Promise<void>
   }
 })
 
+// need to use onBeforeUnmount instead of onUnmounted to ensure that focus trap is deactivated BEFORE the component is unmounted
 onBeforeUnmount(async () => {
   await toggleFocusTrap(false)
   toggleEventListeners(false)
