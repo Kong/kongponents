@@ -15,7 +15,7 @@
 
     <template #content>
       <div
-        :id="tooltipId"
+        :id="tooltipId || uuidv4()"
         role="tooltip"
       >
         <slot
@@ -85,7 +85,7 @@ const props = defineProps({
   },
   tooltipId: {
     type: String,
-    default: uuidv4(),
+    default: '',
   },
 })
 
