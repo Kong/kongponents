@@ -41,6 +41,50 @@ describe('KMultiselect', () => {
     cy.get('.k-multiselect-dropdown-footer-text').should('not.exist')
   })
 
+  it('handles large record count', () => {
+    const items = []
+
+    for (let i = 0; i < 1000; i++) {
+      items.push({
+        label: `Label ${i + 1}`,
+        value: `label-${i + 1}`,
+      })
+    }
+
+    mount(KMultiselect, {
+      props: {
+        testMode: true,
+        items,
+      },
+    })
+
+    cy.getTestId('k-multiselect-input').trigger('click')
+
+    // renders first and last entry
+    cy.get('.k-multiselect-pop-dropdown').should('be.visible')
+    cy.getTestId(`k-multiselect-item-${items[0].value}`).should('contain.text', items[0].label)
+    cy.getTestId(`k-multiselect-item-${items[999].value}`).should('contain.text', items[999].label)
+
+    // Can find/select last entry
+    cy.get('.k-multiselect-input').type(items[999].label)
+
+    cy.getTestId(`k-multiselect-item-${items[999].value}`).should('contain.text', items[999].label)
+    cy.getTestId(`k-multiselect-item-${items[0].value}`).should('not.exist')
+
+    cy.getTestId(`k-multiselect-item-${items[999].value}`).eq(0).click({ force: true })
+    cy.get('.k-multiselect-selected-item-label').should('contain.text', items[999].label)
+
+    // Can find/select first entry
+    cy.get('.k-multiselect-input').clear()
+    cy.get('.k-multiselect-input').type(items[0].label)
+
+    cy.getTestId(`k-multiselect-item-${items[0].value}`).should('contain.text', items[0].label)
+    cy.getTestId(`k-multiselect-item-${items[999].value}`).should('not.exist')
+
+    cy.getTestId(`k-multiselect-item-${items[0].value}`).eq(0).click({ force: true })
+    cy.get('.k-multiselect-selected-item-label').should('contain.text', items[0].label)
+  })
+
   it('renders with selected items when focused', () => {
     const selectedLabel = 'Label 1'
     const selectedLabel2 = 'Label 2'
