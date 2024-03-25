@@ -20,9 +20,7 @@ The number of milliseconds to wait before showing the skeleton state. Defaults t
 
 <KComponent :data="{ isLoading: false }" v-slot="{ data }">
   <div class="vertical-spacing-container">
-    <div>
-      <KButton @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</KButton>
-    </div>
+    <KInputSwitch v-model="data.isLoading" label="Loading" />
     <div v-if="!data.isLoading">
       <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
     </div>
@@ -32,7 +30,7 @@ The number of milliseconds to wait before showing the skeleton state. Defaults t
 
 ```html
 <KComponent :data="{ isLoading: false }" v-slot="{ data }">
-  <KButton @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</KButton>
+  <KInputSwitch v-model="data.isLoading" label="Loading" />
   <div v-if="!data.isLoading">
     <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
   </div>
@@ -68,6 +66,16 @@ Used for displaying the number of cards in this loading state. Defaults to 1. Th
 
 ```html
 <KSkeleton :card-count="2" type="card" />
+```
+
+### maxWidth
+
+Prop to specify width of each card. If not specified, KSkeleton will try to size them automatically in order to fit a maximum of 3 cards in a row without wrapping. If `cardCount` is `1` (or not specified) the maximum width a card will span is `470px`.
+
+<KSkeleton max-width="100%" type="card" />
+
+```html
+<KSkeleton max-width="100%" type="card" />
 ```
 
 ## Form Loading State

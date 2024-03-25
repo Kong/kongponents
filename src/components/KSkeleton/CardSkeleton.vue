@@ -38,15 +38,27 @@
 import { computed } from 'vue'
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 import { KUI_SPACE_50 } from '@kong/design-tokens'
+import useUtilities from '@/composables/useUtilities'
+
+const { getSizeFromString } = useUtilities()
 
 const props = defineProps({
   cardCount: {
     type: Number,
     default: 1,
   },
+  maxWidth: {
+    type: String,
+    default: '',
+  },
 })
 
 const cardMaxWidth = computed((): string => {
+  if (props.maxWidth) {
+    console.log(props.maxWidth)
+    return getSizeFromString(props.maxWidth)
+  }
+
   if (props.cardCount === 1) {
     return '470px'
   }
