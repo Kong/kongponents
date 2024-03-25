@@ -23,6 +23,7 @@
         <div
           class="modal-container"
           :class="{ 'custom-content': $slots['content'] }"
+          tabindex="-1"
         >
           <slot name="content">
             <div
@@ -90,7 +91,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, nextTick, onUnmounted, ref, useAttrs, watch, useSlots } from 'vue'
+import { computed, nextTick, onBeforeUnmount, ref, useAttrs, watch, useSlots } from 'vue'
 import { FocusTrap } from 'focus-trap-vue'
 import KButton from '@/components/KButton/KButton.vue'
 import type { ButtonAppearance } from '@/types'
@@ -164,6 +165,10 @@ const props = defineProps({
     default: false,
   },
   fullScreen: {
+    type: Boolean,
+    default: false,
+  },
+  inputAutofocus: {
     type: Boolean,
     default: false,
   },
@@ -241,9 +246,28 @@ const toggleEventListeners = (isActive: boolean): void => {
   }
 }
 
+const setInputAutofocus = (): void => {
+  const allInputs = focusTrapElement.value?.$el?.querySelector('.modal-content')?.querySelectorAll('input')
+  if (allInputs?.length) {
+    // loop through all inputs and focus on the first one that is not disabled or read-only
+    Array.from(allInputs).every((input: any) => {
+      if (!input.disabled && !input.readOnly) {
+        input.focus() // set focus
+
+        return false // exit the loop
+      }
+
+      return true // continue going through the loop until we find a focusable input (or run out of inputs)
+    })
+  }
+}
+
 watch(() => props.visible, async (visible: boolean): Promise<void> => {
   if (visible) {
     await toggleFocusTrap(true)
+    if (props.inputAutofocus) {
+      setInputAutofocus()
+    }
     toggleBodyScroll(false)
     toggleEventListeners(true)
   } else {
@@ -253,7 +277,16 @@ watch(() => props.visible, async (visible: boolean): Promise<void> => {
   }
 }, { immediate: true })
 
-onUnmounted(() => {
+watch(() => props.inputAutofocus, async (inputAutofocus: boolean): Promise<void> => {
+  if (inputAutofocus) {
+    await nextTick() // wait for the modal content to be rendered
+    setInputAutofocus()
+  }
+})
+
+// need to use onBeforeUnmount instead of onUnmounted to ensure that focus trap is deactivated BEFORE the component is unmounted
+onBeforeUnmount(async () => {
+  await toggleFocusTrap(false)
   toggleEventListeners(false)
 })
 </script>
@@ -278,7 +311,7 @@ onUnmounted(() => {
       align-items: center;
       padding-top: var(--kui-space-0, $kui-space-0);
 
-      .modal-container {
+      > .modal-container {
         display: flex;
         flex-direction: column;
         height: 95vh;
@@ -286,10 +319,6 @@ onUnmounted(() => {
         .modal-title {
           display: flex;
           gap: var(--kui-space-40, $kui-space-40);
-
-          :deep(#{$kongponentsKongIconSelector}) {
-            color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
-          }
         }
 
         .modal-content {

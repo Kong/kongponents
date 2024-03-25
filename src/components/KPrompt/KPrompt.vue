@@ -1,6 +1,6 @@
 <template>
   <KModal
-    v-bind="{ ...sanitizedAttrs, ...modalAttributes}"
+    v-bind="{ ...sanitizedAttrs, ...modalAttributes }"
     :action-button-appearance="actionButtonAppearance"
     :action-button-disabled="actionButtonDisabledValue"
     :action-button-text="actionButtonText"
@@ -8,6 +8,7 @@
     :cancel-button-disabled="cancelButtonDisabled"
     :cancel-button-text="cancelButtonText"
     class="k-prompt"
+    :input-autofocus="modalAttributes.inputAutofocus === undefined ? true : modalAttributes.inputAutofocus"
     :title="title || 'Confirm your action'"
     :visible="visible"
     @cancel="$emit('cancel')"
@@ -127,6 +128,7 @@ const sanitizedAttrs = computed(() => {
   delete attributes['max-width']
   delete attributes['max-height']
   delete attributes['close-on-backdrop-click']
+  delete attributes['input-autofocus']
   // delete KModal props that are not available in KPrompt
   delete attributes['hide-close-icon']
   delete attributes['hide-cancel-button']

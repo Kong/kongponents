@@ -24,6 +24,14 @@
           Card content slot
         </KCard>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="titleTag">
+        <KCard
+          title="Card title"
+          title-tag="h2"
+        >
+          Card content slot
+        </KCard>
+      </SandboxSectionComponent>
 
       <!-- Slots -->
       <SandboxTitleComponent
@@ -111,6 +119,7 @@ import { KUI_COLOR_TEXT_SUCCESS, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 .kcard-sandbox {
   .horizontal-spacing {
     display: flex;
+    flex-wrap: wrap;
     gap: $kui-space-50;
   }
 

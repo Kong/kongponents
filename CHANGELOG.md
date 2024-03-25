@@ -1,3 +1,66 @@
+# [9.0.0-alpha.122](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.121...v9.0.0-alpha.122) (2024-03-22)
+
+
+### Bug Fixes
+
+* **kmodal:** toggle focus trap off on unmounted ([#2081](https://github.com/Kong/kongponents/issues/2081)) ([69ef84d](https://github.com/Kong/kongponents/commit/69ef84d2cb61ed24e4e3603aaa4e6baf50dbd7af))
+
+# [9.0.0-alpha.121](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.120...v9.0.0-alpha.121) (2024-03-21)
+
+
+### Bug Fixes
+
+* **klabel, kselect, kmultiselect:** a11y attributes [KHCP-111026] ([#2077](https://github.com/Kong/kongponents/issues/2077)) ([0949025](https://github.com/Kong/kongponents/commit/09490253ad679603f0c3c771d07b276ec0b85fb8))
+
+# [9.0.0-alpha.120](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.119...v9.0.0-alpha.120) (2024-03-21)
+
+
+### Bug Fixes
+
+* **kslideout:** remove user-select: none from title of KSlideout ([#2080](https://github.com/Kong/kongponents/issues/2080)) ([08ae7cf](https://github.com/Kong/kongponents/commit/08ae7cfc1bb8fa2e707a8c2345d870ee72ff1885))
+
+# [9.0.0-alpha.119](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.118...v9.0.0-alpha.119) (2024-03-21)
+
+
+### Bug Fixes
+
+* **kselect:** invisible user input [KHCP-11152] ([#2076](https://github.com/Kong/kongponents/issues/2076)) ([55c1905](https://github.com/Kong/kongponents/commit/55c19054e81abf4192e8fac1788e6e1c3f7cf4a8))
+
+# [9.0.0-alpha.118](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.117...v9.0.0-alpha.118) (2024-03-20)
+
+
+### Bug Fixes
+
+* **kmodal:** add input autofocus prop [KHCP-11113] ([#2073](https://github.com/Kong/kongponents/issues/2073)) ([81b0d45](https://github.com/Kong/kongponents/commit/81b0d456df4918a566621be3f2a9289ae1e141d6))
+
+# [9.0.0-alpha.117](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.116...v9.0.0-alpha.117) (2024-03-20)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies with stable version ([#2075](https://github.com/Kong/kongponents/issues/2075)) ([6922baa](https://github.com/Kong/kongponents/commit/6922baa045519b21658df87410580a31a0e7aa95))
+
+# [9.0.0-alpha.116](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.115...v9.0.0-alpha.116) (2024-03-19)
+
+
+### Bug Fixes
+
+* **kcard:** title font size ([#2074](https://github.com/Kong/kongponents/issues/2074)) ([4f990c7](https://github.com/Kong/kongponents/commit/4f990c7e7aa63d45ef896198f017c91befea153d))
+
+# [9.0.0-alpha.115](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.114...v9.0.0-alpha.115) (2024-03-15)
+
+
+### Bug Fixes
+
+* **kcard:** add title tag prop ([#2069](https://github.com/Kong/kongponents/issues/2069)) ([faf5bfb](https://github.com/Kong/kongponents/commit/faf5bfb93fff4cb75117555438219eebad06a738))
+
+# [9.0.0-alpha.114](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.113...v9.0.0-alpha.114) (2024-03-15)
+
+
+### Bug Fixes
+
+* **kmodal:** remove enforcing title icon color ([#2068](https://github.com/Kong/kongponents/issues/2068)) ([d486ef5](https://github.com/Kong/kongponents/commit/d486ef5930b9e0a3f647a089d33a8e231181e138))
+
 # [9.0.0-alpha.113](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.112...v9.0.0-alpha.113) (2024-03-13)
 
 
