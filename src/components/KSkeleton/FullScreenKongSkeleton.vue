@@ -63,22 +63,11 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/mixins';
-
 .fullscreen-loading-container {
-  @include fullscreen-loading-container;
+  @include fullScreenLoadingContainer;
 
   .progress {
-    background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
-    border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
-    margin-top: var(--kui-space-60, $kui-space-60);
-    max-width: 350px;
-
-    .progress-bar {
-      background-color: var(--kui-color-background-primary, $kui-color-background-primary);
-      border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
-      height: 5px;
-    }
+    @include fullScreenLoadingProgressBar;
   }
 }
 </style>
