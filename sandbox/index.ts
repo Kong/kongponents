@@ -54,3 +54,5 @@ app.use(router)
 app.use(Kongponents)
 
 app.mount('#app')
+
+// foo bar
