@@ -66,7 +66,7 @@ describe('KSelect', () => {
     cy.getTestId(`k-select-item-${items[999].value}`).should('contain.text', items[999].label)
 
     // Can find/select last entry
-    cy.get('input').type(items[999].label)
+    cy.getTestId('k-select-input').type(items[999].label)
 
     cy.getTestId(`k-select-item-${items[999].value}`).should('contain.text', items[999].label)
     cy.getTestId(`k-select-item-${items[0].value}`).should('not.exist')
@@ -75,11 +75,12 @@ describe('KSelect', () => {
     cy.get('.k-select-selected-item-label').should('contain.text', items[999].label)
 
     // Can find/select first entry
-    cy.get('input').clear()
-    cy.get('input').type(items[0].label)
+    cy.getTestId('k-select-input').clear()
+    cy.getTestId('k-select-input').type(items[0].label)
 
     cy.getTestId(`k-select-item-${items[0].value}`).should('contain.text', items[0].label)
-    cy.getTestId(`k-select-item-${items[999].value}`).should('not.exist')
+    // record 1000 would be found but 999 will not
+    cy.getTestId(`k-select-item-${items[998].value}`).should('not.exist')
 
     cy.getTestId(`k-select-item-${items[0].value}`).eq(0).click({ force: true })
     cy.get('.k-select-selected-item-label').should('contain.text', items[0].label)

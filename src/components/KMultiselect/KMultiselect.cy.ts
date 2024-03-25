@@ -66,7 +66,7 @@ describe('KMultiselect', () => {
     cy.getTestId(`k-multiselect-item-${items[999].value}`).should('contain.text', items[999].label)
 
     // Can find/select last entry
-    cy.get('.k-multiselect-input').type(items[999].label)
+    cy.getTestId('k-multiselect-input').type(items[999].label)
 
     cy.getTestId(`k-multiselect-item-${items[999].value}`).should('contain.text', items[999].label)
     cy.getTestId(`k-multiselect-item-${items[0].value}`).should('not.exist')
@@ -75,11 +75,12 @@ describe('KMultiselect', () => {
     cy.get('.k-multiselect-selected-item-label').should('contain.text', items[999].label)
 
     // Can find/select first entry
-    cy.get('.k-multiselect-input').clear()
-    cy.get('.k-multiselect-input').type(items[0].label)
+    cy.getTestId('k-multiselect-input').clear()
+    cy.getTestId('k-multiselect-input').type(items[0].label)
 
     cy.getTestId(`k-multiselect-item-${items[0].value}`).should('contain.text', items[0].label)
-    cy.getTestId(`k-multiselect-item-${items[999].value}`).should('not.exist')
+    // record 1000 would be found but 999 will not
+    cy.getTestId(`k-multiselect-item-${items[998].value}`).should('not.exist')
 
     cy.getTestId(`k-multiselect-item-${items[0].value}`).eq(0).click({ force: true })
     cy.get('.k-multiselect-selected-item-label').should('contain.text', items[0].label)
