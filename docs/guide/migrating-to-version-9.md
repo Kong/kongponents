@@ -390,6 +390,8 @@ No breaking changes.
 
 ### KMenu
 
+This component has been removed.
+
 ### KMethodBadge
 
 This component has been removed. Please refer to KBadge component which has been updated to support method appearances.
