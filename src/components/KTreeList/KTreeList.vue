@@ -6,13 +6,17 @@
   >
     <KTreeDraggable
       :disable-drag="disableDrag"
+      :hide-icons="hideIcons"
       :items="internalList"
       :max-depth="maxDepth"
       @change="handleChangeEvent"
       @child-change="handleChildChangeEvent"
       @selected="handleSelection"
     >
-      <template #item-icon="{ item }">
+      <template
+        v-if="$slots['item-icon']"
+        #item-icon="{ item }"
+      >
         <slot
           :item="item"
           name="item-icon"
@@ -29,12 +33,6 @@
 </template>
 
 <script lang="ts">
-/**
- *  Note: if TS errors appear on the
- *  <template #[itemIcon]="slotProps"> or
- *  <template #[itemLabel]="slotProps">
- *  lines switch to `v-slot:` notation and Save to let linter clear -->
- */
 import type { PropType } from 'vue'
 import { computed, ref, watch, onMounted } from 'vue'
 import useUtilities from '@/composables/useUtilities'
@@ -76,7 +74,7 @@ const treeListIsValid = (items: TreeListItem[]): boolean => {
 }
 </script>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 const props = defineProps({
   modelValue: {
     type: Array as PropType<TreeListItem[]>,
@@ -100,6 +98,10 @@ const props = defineProps({
   width: {
     type: String,
     default: '',
+  },
+  hideIcons: {
+    type: Boolean,
+    default: false,
   },
 })
 
@@ -202,16 +204,15 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+// needs to stay unscoped as it's targeting specific deeply nested elements
 .k-tree-list {
-  .k-tree-draggable {
-    margin: var(--kui-space-0, $kui-space-0);
-    padding: var(--kui-space-0, $kui-space-0);
-  }
+  font-family: var(--kui-font-family-text, $kui-font-family-text);
 
-  & > .k-tree-draggable > .k-tree-item-container {
+  & > .tree-draggable > .tree-item-container {
     &:before {
       display: none;
     }
+
     &:after {
       display: none;
     }
@@ -219,9 +220,9 @@ onMounted(() => {
 }
 
 // override cursor as grabbing when an item is being dragged
-.k-tree-list-grabbing *,
-.k-tree-item-grabbing * {
+.tree-list-grabbing *,
+.tree-item-grabbing * {
   cursor: move !important; /* fallback: no `url()` support or images disabled */
-  cursor: grabbing !important; /* W3C standards syntax, should come least */
+  cursor: grabbing !important; /* W3C standards syntax, should come last */
 }
 </style>

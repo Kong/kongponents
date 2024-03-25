@@ -27,6 +27,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxButton.vue'),
   },
   {
+    path: '/breadcrumbs',
+    name: 'breadcrumbs',
+    meta: { title: 'Breadcrumbs Sandbox' },
+    component: () => import('../pages/SandboxBreadcrumbs.vue'),
+  },
+  {
     path: '/card',
     name: 'card',
     meta: { title: 'Card Sandbox' },
@@ -157,6 +163,12 @@ const componentRoutes: RouteRecordRaw[] = [
     name: 'toaster',
     meta: { title: 'Toaster Sandbox' },
     component: () => import('../pages/SandboxToaster.vue'),
+  },
+  {
+    path: '/treelist',
+    name: 'treelist',
+    meta: { title: 'Tree List Sandbox' },
+    component: () => import('../pages/SandboxTreeList.vue'),
   },
 ]
 

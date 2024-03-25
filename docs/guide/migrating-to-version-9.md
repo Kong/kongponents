@@ -101,6 +101,21 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KBreadcrumbs
 
+#### Props
+
+* `emphasis` prop has been removed
+
+#### Structure
+
+* `k-breadcrumbs-item` class has been replaced with `breadcrumbs-item-container`
+* `k-breadcrumb-icon-wrapper` class has been replaced with `breadcrumbs-icon-container`
+* `k-breadcrumb-text` class has been replaced with `breadcrumbs-text`
+* `k-breadcrumb-divider` class has been replaced with `kbreadcrumbs-divider`
+
+#### Constants, Types & Interfaces
+
+* `icon` property has been removed from `BreadcrumbItem` interface
+
 ### KButton
 
 #### Props
@@ -714,8 +729,26 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `k-tooltip-bottom` class has been changed to `tooltip-bottom`
 * `k-tooltip-left` class has been changed to `tooltip-left`
 
-### KTree List
+### KTreeList
 
+#### Props
+
+* `icon` property has been removed from `items` prop. You can use the `item-icon` slot to provide your custom icon or use new `hideIcons` prop to hide the icon
+
+#### Constants, Types & Interfaces
+
+* `icon` property has been removed from `TreeListItem` interface
+
+#### Structure
+
+* `k-tree-draggable` class has been changed to `tree-draggable`
+* `k-tree-item-container` class has been changed to `tree-item-container`
+* `k-tree-list-grabbing` class has been changed to `tree-list-grabbing`
+* `k-tree-item-grabbing` class has been changed to `tree-item-grabbing`
+* `k-tree-item-dragged` class has been changed to `tree-item-dragged`
+* `k-tree-item` class has been changed to `tree-item`
+* `k-tree-item-icon` class has been changed to `tree-item-icon`
+* `k-tree-item-label` class has been changed to `tree-item-label`
 
 ### KTruncate
 
