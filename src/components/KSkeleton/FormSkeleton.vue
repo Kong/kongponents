@@ -1,7 +1,7 @@
 <template>
   <div class="skeleton-form-wrapper">
     <div
-      v-for="n in 3"
+      v-for="n in 4"
       :key="n"
       class="skeleton-form-row"
     >
