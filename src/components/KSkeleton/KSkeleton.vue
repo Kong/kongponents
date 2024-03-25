@@ -45,6 +45,7 @@
 
     <ProgressIcon
       v-else-if="type === 'spinner'"
+      class="skeleton-spinner"
       :color="KUI_COLOR_TEXT_NEUTRAL"
     />
 
