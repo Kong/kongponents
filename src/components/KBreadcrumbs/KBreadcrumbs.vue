@@ -129,9 +129,9 @@ export default {
       transition: color $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
       user-select: none;
 
-      #{$kongponentsKongIconSelector} {
-        height: var(--kui-icon-size-30, $kui-icon-size-30);
-        width: var(--kui-icon-size-30, $kui-icon-size-30);
+      :deep(#{$kongponentsKongIconSelector}) {
+        height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+        width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
       }
 
       .breadcrumbs-text {
