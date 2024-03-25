@@ -1,36 +1,10 @@
 <template>
   <div class="skeleton-form-wrapper">
-    <div class="skeleton-form-row">
-      <KSkeletonBox
-        height="2"
-        width="10"
-      />
-      <KSkeletonBox
-        height="2"
-        width="100"
-      />
-    </div>
-    <div class="skeleton-form-row">
-      <KSkeletonBox
-        height="2"
-        width="10"
-      />
-      <KSkeletonBox
-        height="2"
-        width="100"
-      />
-    </div>
-    <div class="skeleton-form-row">
-      <KSkeletonBox
-        height="2"
-        width="10"
-      />
-      <KSkeletonBox
-        height="2"
-        width="100"
-      />
-    </div>
-    <div class="skeleton-form-row">
+    <div
+      v-for="n in 3"
+      :key="n"
+      class="skeleton-form-row"
+    >
       <KSkeletonBox
         height="2"
         width="10"

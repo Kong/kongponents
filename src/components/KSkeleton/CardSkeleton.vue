@@ -12,19 +12,19 @@
       </div>
       <div class="skeleton-card-content">
         <slot name="card-content">
-          <KSkeletonBox width="100" />
-          <KSkeletonBox width="100" />
-          <KSkeletonBox width="100" />
+          <KSkeletonBox
+            v-for="n in 3"
+            :key="n"
+            width="100"
+          />
           <KSkeletonBox width="50" />
         </slot>
       </div>
       <div class="skeleton-card-footer">
         <slot name="card-footer">
           <KSkeletonBox
-            height="2"
-            width="5"
-          />
-          <KSkeletonBox
+            v-for="n in 2"
+            :key="n"
             height="2"
             width="5"
           />
