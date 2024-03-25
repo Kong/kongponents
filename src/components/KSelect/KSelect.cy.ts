@@ -41,6 +41,50 @@ describe('KSelect', () => {
     cy.get('.k-select-dropdown-footer-text').should('not.exist')
   })
 
+  it('handles large record count', () => {
+    const items = []
+
+    for (let i = 0; i < 1000; i++) {
+      items.push({
+        label: `Label ${i + 1}`,
+        value: `label-${i + 1}`,
+      })
+    }
+
+    mount(KSelect, {
+      props: {
+        testMode: true,
+        items,
+      },
+    })
+
+    cy.getTestId('k-select-input').trigger('click')
+
+    // renders first and last entry
+    cy.get('.k-select-pop-dropdown').should('be.visible')
+    cy.getTestId(`k-select-item-${items[0].value}`).should('contain.text', items[0].label)
+    cy.getTestId(`k-select-item-${items[999].value}`).should('contain.text', items[999].label)
+
+    // Can find/select last entry
+    cy.get('input').type(items[999].label)
+
+    cy.getTestId(`k-select-item-${items[999].value}`).should('contain.text', items[999].label)
+    cy.getTestId(`k-select-item-${items[0].value}`).should('not.exist')
+
+    cy.getTestId(`k-select-item-${items[999].value}`).eq(0).click({ force: true })
+    cy.get('.k-select-selected-item-label').should('contain.text', items[999].label)
+
+    // Can find/select first entry
+    cy.get('input').clear()
+    cy.get('input').type(items[0].label)
+
+    cy.getTestId(`k-select-item-${items[0].value}`).should('contain.text', items[0].label)
+    cy.getTestId(`k-select-item-${items[999].value}`).should('not.exist')
+
+    cy.getTestId(`k-select-item-${items[0].value}`).eq(0).click({ force: true })
+    cy.get('.k-select-selected-item-label').should('contain.text', items[0].label)
+  })
+
   it('renders with selected item', () => {
     const selectedLabel = 'Label 1'
 
