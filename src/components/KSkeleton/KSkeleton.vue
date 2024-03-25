@@ -43,11 +43,9 @@
       :progress="progress"
     />
 
-    <KIcon
+    <ProgressIcon
       v-else-if="type === 'spinner'"
-      color="#000"
-      icon="spinner"
-      size="18"
+      :color="KUI_COLOR_TEXT_NEUTRAL"
     />
 
     <Skeleton v-else />
@@ -63,9 +61,10 @@ import TableSkeleton from '@/components/KSkeleton/TableSkeleton.vue'
 import FormSkeleton from '@/components/KSkeleton/FormSkeleton.vue'
 import FullScreenKongSkeleton from '@/components/KSkeleton/FullScreenKongSkeleton.vue'
 import FullScreenGenericSpinner from '@/components/KSkeleton/FullScreenGenericSpinner.vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
 import type { SkeletonType } from '@/types'
 import { SkeletonTypeArray } from '@/types'
+import { ProgressIcon } from '@kong/icons'
+import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
 
 const props = defineProps({
   delayMilliseconds: {

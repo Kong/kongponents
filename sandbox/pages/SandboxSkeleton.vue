@@ -17,7 +17,23 @@
         <KSkeleton type="table" />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="type=&quot;card&quot;">
+        <p>Card count: 1</p>
         <KSkeleton type="card" />
+        <p>Card count: 3</p>
+        <KSkeleton
+          :card-count="3"
+          type="card"
+        />
+        <p>Card count: 4</p>
+        <KSkeleton
+          :card-count="4"
+          type="card"
+        />
+        <p>Card count: 6</p>
+        <KSkeleton
+          :card-count="6"
+          type="card"
+        />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="type=&quot;form&quot;">
         <KSkeleton type="form" />

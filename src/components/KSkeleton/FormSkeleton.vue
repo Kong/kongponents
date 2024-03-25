@@ -2,7 +2,7 @@
   <div class="skeleton-form-wrapper">
     <div class="skeleton-form-row">
       <KSkeletonBox
-        height="1"
+        height="2"
         width="10"
       />
       <KSkeletonBox
@@ -12,7 +12,7 @@
     </div>
     <div class="skeleton-form-row">
       <KSkeletonBox
-        height="1"
+        height="2"
         width="10"
       />
       <KSkeletonBox
@@ -22,7 +22,7 @@
     </div>
     <div class="skeleton-form-row">
       <KSkeletonBox
-        height="1"
+        height="2"
         width="10"
       />
       <KSkeletonBox
@@ -32,7 +32,7 @@
     </div>
     <div class="skeleton-form-row">
       <KSkeletonBox
-        height="1"
+        height="2"
         width="10"
       />
       <KSkeletonBox
@@ -50,9 +50,9 @@ import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 <style lang="scss" scoped>
 
 .skeleton-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--kui-space-70, $kui-space-70);
   width: 100%;
-  .skeleton-form-row {
-    margin-bottom: var(--kui-space-90, $kui-space-90);
-  }
 }
 </style>

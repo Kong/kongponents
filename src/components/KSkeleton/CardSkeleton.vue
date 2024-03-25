@@ -3,96 +3,84 @@
     <div
       v-for="c in cardCount"
       :key="c"
-      class="skeleton-card-column"
+      class="skeleton-card"
     >
-      <div class="skeleton-card">
-        <div class="skeleton-card-header">
-          <slot name="card-header">
-            <KSkeletonBox
-              class="card-header-content-1"
-              height="2"
-              width="25"
-            />
-            <KSkeletonBox
-              class="card-header-content-2"
-              height="2"
-              width="75"
-            />
-            <hr>
-          </slot>
-        </div>
-        <div class="skeleton-card-content">
-          <slot name="card-content">
-            <KSkeletonBox width="10" />
-          </slot>
-        </div>
-        <div class="skeleton-card-footer">
-          <slot name="card-footer">
-            <KSkeletonBox width="5" />
-            <KSkeletonBox width="5" />
-          </slot>
-        </div>
+      <div class="skeleton-card-header">
+        <slot name="card-header">
+          <KSkeletonBox width="50" />
+        </slot>
+      </div>
+      <div class="skeleton-card-content">
+        <slot name="card-content">
+          <KSkeletonBox width="100" />
+          <KSkeletonBox width="100" />
+          <KSkeletonBox width="100" />
+          <KSkeletonBox width="50" />
+        </slot>
+      </div>
+      <div class="skeleton-card-footer">
+        <slot name="card-footer">
+          <KSkeletonBox
+            height="2"
+            width="5"
+          />
+          <KSkeletonBox
+            height="2"
+            width="5"
+          />
+        </slot>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue'
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
+import { KUI_SPACE_50 } from '@kong/design-tokens'
 
-defineProps({
+const props = defineProps({
   cardCount: {
     type: Number,
     default: 1,
   },
 })
+
+const cardMaxWidth = computed((): string => {
+  if (props.cardCount === 1) {
+    return '470px'
+  }
+
+  const rowCardCount = 3 // can't fit more than 3 cards in a row without wrapping to next row
+
+  return `calc((100% / ${rowCardCount}) - ${KUI_SPACE_50})` // 100% / card count - gap
+})
 </script>
 
 <style lang="scss" scoped>
-$borderColor: #e6e6e6;
 .skeleton-card-wrapper {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  gap: var(--kui-space-60, $kui-space-60);
+  gap: var(--kui-space-50, $kui-space-50);
   justify-content: space-between;
   width: 100%;
-}
-.skeleton-card-column {
-  margin-bottom: var(--kui-space-60, $kui-space-60);
-  width: calc(33% - 16px);
-}
-.skeleton-card {
-  border: var(--kui-border-width-10, $kui-border-width-10) solid $borderColor;
-  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-  display: flex;
-  flex-direction: column;
-  min-height: 324px;
-  overflow: hidden;
-  padding: var(--kui-space-60, $kui-space-60);
-  .skeleton-card-header {
+
+  .skeleton-card {
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     display: flex;
-    margin-bottom: var(--kui-space-60, $kui-space-60);
+    flex-direction: column;
+    gap: var(--kui-space-90, $kui-space-90);
+    max-width: v-bind('cardMaxWidth');
+    min-width: 400px;
+    padding: var(--kui-space-70, $kui-space-70);
     width: 100%;
 
-    .card-header-content-2 {
-      margin-left: var(--kui-space-40, $kui-space-40) !important;
+    .skeleton-card-footer {
+      display: flex;
+      gap: var(--kui-space-20, $kui-space-20);
     }
-
-    hr {
-      margin-bottom: var(--kui-space-0, $kui-space-0) !important;
-    }
-  }
-  .skeleton-card-content {
-    display: flex;
-    justify-content: space-between;
-  }
-  .skeleton-card-footer {
-    align-self: flex-end;
-    display: flex;
-    justify-content: space-between;
-    margin-top: var(--kui-space-auto, $kui-space-auto);
-    padding-top: var(--kui-space-60, $kui-space-60);
-    width: 100%;
   }
 }
 </style>
