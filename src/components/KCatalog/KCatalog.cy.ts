@@ -60,8 +60,8 @@ describe('KCatalog', () => {
 
     for (let i = 0; i < count; i++) {
       myItems.push({
-        title: 'Item ' + i,
-        description: "The item's description for number " + i,
+        title: 'Item ' + (i + 1),
+        description: "The item's description for number " + (i + 1),
       })
     }
 
@@ -496,6 +496,29 @@ describe('KCatalog', () => {
       })
 
       cy.getTestId('k-pagination-container').should('exist')
+    })
+
+    it('handles large record count', () => {
+      mount(KCatalog, {
+        propsData: {
+          testMode: 'true',
+          fetcher: () => {
+            return { data: getItems(1000), total: 1000 }
+          },
+          isLoading: false,
+          cacheIdentifier: 'pagination-example-limits',
+        },
+      })
+
+      cy.get('.k-catalog-page').should('exist')
+
+      cy.getTestId('k-table-pagination').should('be.visible')
+      // go to the last page
+      cy.getTestId('last-button').click()
+      // showing 1000th record
+      cy.getTestId('visible-items').find('.pagination-text-pages').should('contain.text', '1000')
+      // title of last card should contain 'Item 1000'
+      cy.get('.k-card.k-card-catalog-item').last().find('.card-title').should('contain.text', 'Item 1000')
     })
   })
 })

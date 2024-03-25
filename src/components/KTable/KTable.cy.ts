@@ -598,6 +598,38 @@ describe('KTable', () => {
 
       cy.getTestId('k-table-pagination').should('be.visible')
     })
+
+    it('handles large record count', () => {
+      const data:{name: string, id: string, enabled: boolean}[] = []
+
+      for (let i = 0; i < 1000; i++) {
+        data.push({
+          name: `Record ${i + 1}`,
+          id: `record-${i + 1}`,
+          enabled: Math.random() < 0.5, // random bool
+        })
+      }
+
+      mount(KTable, {
+        propsData: {
+          testMode: 'true',
+          fetcher: () => {
+            return { data, total: 1000 }
+          },
+          isLoading: false,
+          headers: options.headers,
+          paginationPageSizes: [10, 15, 20],
+        },
+      })
+
+      cy.getTestId('k-table-pagination').should('be.visible')
+      // go to the last page
+      cy.getTestId('last-button').click()
+      // showing 1000th record
+      cy.getTestId('visible-items').find('.pagination-text-pages').should('contain.text', '1000')
+      // second column (id) of last row should contain 'record-1000'
+      cy.get('.k-table').find('tr').last().find('td').eq(1).should('contain.text', 'record-1000')
+    })
   })
 
   describe('misc', () => {
