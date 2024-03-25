@@ -55,7 +55,6 @@ const props = defineProps({
 
 const cardMaxWidth = computed((): string => {
   if (props.maxWidth) {
-    console.log(props.maxWidth)
     return getSizeFromString(props.maxWidth)
   }
 
