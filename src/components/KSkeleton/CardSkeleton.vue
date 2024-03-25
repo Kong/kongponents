@@ -73,7 +73,7 @@ const cardMaxWidth = computed((): string => {
     flex-direction: column;
     gap: var(--kui-space-90, $kui-space-90);
     max-width: v-bind('cardMaxWidth');
-    min-width: 400px;
+    min-width: 330px;
     padding: var(--kui-space-70, $kui-space-70);
     width: 100%;
 
