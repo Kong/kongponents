@@ -619,6 +619,7 @@ describe('KTable', () => {
           isLoading: false,
           headers: options.headers,
           paginationPageSizes: [10, 15, 20],
+          paginationTotalItems: 1000,
         },
       })
 

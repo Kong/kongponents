@@ -507,6 +507,7 @@ describe('KCatalog', () => {
           },
           isLoading: false,
           cacheIdentifier: 'pagination-example-limits',
+          paginationTotalItems: 1000,
         },
       })
 
