@@ -632,6 +632,10 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KSkeleton
 
+#### Props
+
+* `tableColumns` prop default value has changed
+
 #### Structure
 
 * `k-skeleton-container` class has been replaced with `k-skeleton`
