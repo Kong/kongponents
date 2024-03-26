@@ -74,5 +74,6 @@ const breadcrumbs = [{
   key: 'here',
   title: 'You are here',
   text: 'You are here',
+  to: { path: '/breadcrumbs' },
 }]
 </script>
