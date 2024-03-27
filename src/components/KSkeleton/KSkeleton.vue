@@ -7,7 +7,7 @@
     <CardSkeleton
       v-if="type === 'card'"
       :card-count="cardCount"
-      :max-width="maxWidth"
+      :max-width="cardMaxWidth"
     >
       <template #card-header>
         <slot name="card-header" />
@@ -92,7 +92,7 @@ const props = defineProps({
     type: Number,
     default: 1,
   },
-  maxWidth: {
+  cardMaxWidth: {
     type: String,
     default: '',
   },

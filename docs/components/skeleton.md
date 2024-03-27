@@ -68,14 +68,14 @@ Used for displaying the number of cards in this loading state. Defaults to 1. Th
 <KSkeleton :card-count="2" type="card" />
 ```
 
-### maxWidth
+### cardMaxWidth
 
 Prop to specify width of each card. If not specified, KSkeleton will try to size them automatically in order to fit a maximum of 3 cards in a row without wrapping. If `cardCount` is `1` (or not specified) the maximum width a card will span is `470px`.
 
-<KSkeleton max-width="100%" type="card" />
+<KSkeleton card-max-width="100%" type="card" />
 
 ```html
-<KSkeleton max-width="100%" type="card" />
+<KSkeleton card-max-width="100%" type="card" />
 ```
 
 ## Form Loading State
