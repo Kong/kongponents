@@ -3,6 +3,7 @@
 @import "@/styles/mixins/input-select";
 @import "@/styles/mixins/cards";
 @import "@/styles/mixins/badges";
+@import "@/styles/mixins/loaders";
 
 @import "@/styles/tmp-variables";
 
@@ -78,21 +79,6 @@
   cursor: not-allowed;
   font-style: italic;
   transition: all 0.1s ease;
-}
-
-@mixin fullscreen-loading-container {
-  align-items: center;
-  background: var(--kui-color-background, $kui-color-background);
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  left: 0;
-  margin: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 10500;
 }
 
 // this mixin is only meant to be used within non-visual-button mixin to avoid code duplication
