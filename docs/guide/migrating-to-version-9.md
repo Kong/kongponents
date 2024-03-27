@@ -200,6 +200,11 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Props
 
+* `isSearchable` prop has been removed and replaced with `searchable`
+* `isProcessing` prop has been removed and replaced with `processing`
+
+#### Props
+
 * New `maxHeight` prop to control the `max-height` of the code block. Defaults to `none`
 
 #### Slots

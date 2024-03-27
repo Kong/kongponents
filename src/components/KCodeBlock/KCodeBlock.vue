@@ -8,7 +8,7 @@
     tabindex="0"
   >
     <div
-      v-if="isSearchable && !isSingleLine"
+      v-if="searchable && !isSingleLine"
       class="k-code-block-actions"
     >
       <p
@@ -344,7 +344,7 @@ const props = defineProps({
   /**
    * Shows an actions bar with a search input and related action buttons. **Default: `false`**.
    */
-  isSearchable: {
+  searchable: {
     type: Boolean,
     required: false,
     default: false,
@@ -353,7 +353,7 @@ const props = defineProps({
   /**
    * Allows controlling the processing state from outside the component. This allows a parent component to show the processing icon when it’s, for example, currently syntax highlighting the code. **Default: `false`**.
    */
-  isProcessing: {
+  processing: {
     type: Boolean,
     required: false,
     default: false,
@@ -459,7 +459,7 @@ const currentLineIndex = ref<null | number>(null)
 const totalLines = computed((): number[] => Array.from({ length: props.code.split('\n').length }, (_, index) => index + 1))
 const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value.length - 1].toString().length + 'ch')
 const linePrefix = computed((): string => props.id.toLowerCase().replace(/\s+/g, '-'))
-const isProcessing = computed((): boolean => props.isProcessing || isProcessingInternally.value)
+const isProcessing = computed((): boolean => props.processing || isProcessingInternally.value)
 const isShowingFilteredCode = computed((): boolean => isFilterMode.value && filteredCode.value !== '')
 const filteredCode = computed((): string => {
   if (query.value === '') {
