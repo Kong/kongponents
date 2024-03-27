@@ -1,3 +1,10 @@
+# [9.0.0-alpha.123](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.122...v9.0.0-alpha.123) (2024-03-27)
+
+
+### Features
+
+* **ktreelist, kbreadcrumb, kskeleton, kmenu:** component reskin ([#2097](https://github.com/Kong/kongponents/issues/2097)) ([b274b94](https://github.com/Kong/kongponents/commit/b274b948060ccbf3d5a633e0b1fedbf1ef675bda)), closes [#2064](https://github.com/Kong/kongponents/issues/2064) [#2051](https://github.com/Kong/kongponents/issues/2051)
+
 # [9.0.0-alpha.122](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.121...v9.0.0-alpha.122) (2024-03-22)
 
 
