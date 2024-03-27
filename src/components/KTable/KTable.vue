@@ -84,18 +84,17 @@
         :data-tableid="tableId"
       >
         <thead :class="{ 'is-scrolled': isScrolled }">
-          <tr :class="{ 'is-scrolled': isScrolled }">
+          <tr
+            ref="headerRow"
+            :class="{ 'is-scrolled': isScrolled }"
+          >
             <th
               v-for="(column, index) in tableHeaders"
               :key="`k-table-${tableId}-headers-${index}`"
-              :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
-              class="k-table-headers"
               :class="{
-                'sortable': !disableSorting && !column.hideLabel && column.sortable,
-                'active-sort': !disableSorting && !column.hideLabel && column.sortable && column.key === sortColumnKey,
-                [sortColumnOrder]: !disableSorting && column.key === sortColumnKey && !column.hideLabel,
-                'is-scrolled': isScrolled
+                'resize-hover': currentFocusedColumn === column.key && resizeColumns,
               }"
+              :style="columnStyles[column.key]"
               @click="() => {
                 if (!disableSorting && column.sortable) {
                   $emit('sort', {
@@ -106,26 +105,42 @@
                   sortClickHandler(column)
                 }
               }"
+              @mouseleave="currentFocusedColumn = ''"
+              @mouseover="currentFocusedColumn = column.key"
             >
-              <span class="k-table-headers-container">
-                <slot
-                  :column="getGeneric(column)"
-                  :name="getColumnSlotName(column.key)"
-                >
-                  <span :class="{'sr-only': column.hideLabel}">
-                    {{ column.label ? column.label : column.key }}
-                  </span>
-                </slot>
+              <div
+                :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
+                class="k-table-headers"
+                :class="{
+                  'sortable': !disableSorting && !column.hideLabel && column.sortable,
+                  'active-sort': !disableSorting && !column.hideLabel && column.sortable && column.key === sortColumnKey,
+                  [sortColumnOrder]: !disableSorting && column.key === sortColumnKey && !column.hideLabel,
+                  'is-scrolled': isScrolled,
+                  'truncated-column resizable': resizeColumns
+                }"
+                :data-testid="`k-table-header-${column.key}`"
+                :style="widthStyles[column.key]"
+              >
+                <span class="k-table-headers-container">
+                  <slot
+                    :column="getGeneric(column)"
+                    :name="getColumnSlotName(column.key)"
+                  >
+                    <span :class="{'sr-only': column.hideLabel}">
+                      {{ column.label ? column.label : column.key }}
+                    </span>
+                  </slot>
 
-                <KIcon
-                  v-if="!disableSorting && !column.hideLabel && column.sortable"
-                  aria-hidden="true"
-                  class="caret"
-                  :color="`var(--kui-color-text, ${KUI_COLOR_TEXT})`"
-                  icon="chevronDown"
-                  :size="KUI_ICON_SIZE_20"
-                />
-              </span>
+                  <KIcon
+                    v-if="!disableSorting && !column.hideLabel && column.sortable"
+                    aria-hidden="true"
+                    class="caret"
+                    :color="`var(--kui-color-text, ${KUI_COLOR_TEXT})`"
+                    icon="chevronDown"
+                    :size="KUI_ICON_SIZE_20"
+                  />
+                </span>
+              </div>
             </th>
           </tr>
         </thead>
@@ -143,6 +158,11 @@
               v-for="(value, index) in tableHeaders"
               v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
               :key="`k-table-${tableId}-cell-${index}`"
+              :class="{
+                'resize-hover': currentFocusedColumn === value.key && resizeColumns,
+                'truncated-column': resizeColumns
+              }"
+              :style="columnStyles[value.key]"
               v-on="tdlisteners(row[value.key], row)"
             >
               <slot
@@ -183,8 +203,9 @@
 
 <script setup lang="ts">
 import type { Ref, PropType } from 'vue'
-import { ref, watch, computed, onMounted, useAttrs, useSlots } from 'vue'
+import { ref, watch, computed, onMounted, onBeforeUnmount, useAttrs, useSlots } from 'vue'
 import { v1 as uuidv1 } from 'uuid'
+import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
@@ -230,6 +251,13 @@ const props = defineProps({
     type: Object,
     default: () => null,
     required: false,
+  },
+  /**
+   * Allow columns to be resized
+   */
+  resizeColumns: {
+    type: Boolean,
+    default: false,
   },
   /**
    * Enable client side sort - only do this if using a fetcher
@@ -509,7 +537,9 @@ const defaultFetcherProps = {
   offset: null,
 }
 const data = ref<Record<string, any>[]>([])
+const headerRow = ref<HTMLDivElement>()
 const tableHeaders: Ref<TableHeader[]> = ref([])
+const currentFocusedColumn = ref('')
 const total = ref(0)
 const isScrolled = ref(false)
 const page = ref(1)
@@ -631,6 +661,105 @@ const tdlisteners = computed((): any => {
     }
   }
 })
+
+const columnResizers = ref<{ observer: ResizeObserverHelper, elem: HTMLDivElement }[]>([])
+const columnWidths = ref<Record<string, number>>({})
+
+const columnStyles = computed(() => {
+  const styles: Record<string, any> = {}
+
+  console.log('recalc columnStyles', columnWidths.value)
+
+  for (const colKey in columnWidths.value) {
+    // no width set
+    if (!columnWidths.value[colKey]) {
+      continue
+    }
+
+    const width = columnWidths.value[colKey] + 'px'
+
+    styles[colKey] = {
+      width,
+      maxWidth: width,
+      minWidth: width,
+    }
+  }
+
+  return styles
+})
+
+const widthStyles = computed(() => {
+  const styles: Record<string, any> = {}
+
+  for (const colKey in columnWidths.value) {
+    // no width set
+    if (!columnWidths.value[colKey]) {
+      continue
+    }
+
+    const width = columnWidths.value[colKey] + 'px'
+
+    styles[colKey] = {
+      width,
+    }
+  }
+
+  return styles
+})
+
+// get the resizable header divs to be used for the resize observers
+const headerElems = computed(() => headerRow.value?.querySelectorAll('th .k-table-headers.resizable') || [])
+watch(headerElems, (newHeaders, oldHeaders) => {
+  // don't redraw unless number of columns changed
+  if (newHeaders.length === oldHeaders.length) {
+    return
+  }
+
+  console.log('headerElems was updated, resizeColumns?' + props.resizeColumns, newHeaders)
+  if (props.resizeColumns) {
+    resetResizeObservers()
+  }
+}, { deep: true })
+
+// disconnect previously used resizeObservers and create new ones
+const resetResizeObservers = (): void => {
+  // remove old observers
+  columnResizers.value.forEach((resizer) => {
+    resizer.observer.unobserve(resizer.elem)
+  })
+
+  headerElems.value.forEach((headerElem) => {
+    if (headerElem.hasAttributes()) {
+      // data-testid will have format: `k-table-header-${column.key}`
+      const columnKey = headerElem.getAttribute('data-testid')?.split('k-table-header-')?.[1] || ''
+
+      if (columnKey) {
+        // create new observers
+        const observer = ResizeObserverHelper.create(() => {
+          debugger
+          console.log('resize event for ' + columnKey)
+          // on resize update column with new width
+          columnWidths.value[columnKey] = headerElem.clientWidth
+        })
+
+        // TODO: do I want to?
+        // set initial column widths
+        /*   if (!columnWidths.value[columnKey]) {
+          console.log('setting initial width for ' + columnKey)
+          columnWidths.value[columnKey] = headerElem.clientWidth + TH_OFFSET
+        } */
+
+        // watch for resize events and track the observers
+        observer.observe(headerElem as HTMLDivElement)
+        columnResizers.value.push({
+          observer,
+          elem: headerElem as HTMLDivElement,
+        })
+      }
+
+    }
+  })
+}
 
 const isInitialFetch = ref(true)
 const fetchData = async () => {
@@ -935,6 +1064,13 @@ watch([query, page, pageSize], async (newData, oldData) => {
 onMounted(() => {
   initData()
 })
+
+onBeforeUnmount(() => {
+  // remove old observers
+  columnResizers.value.forEach((resizer) => {
+    resizer.observer.unobserve(resizer.elem)
+  })
+})
 </script>
 
 <script lang="ts">
@@ -955,6 +1091,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
 <style lang="scss" scoped>
 @import '@/styles/tmp-variables';
+@import '@/styles/mixins';
 
 .k-table-wrapper {
   overflow: auto;
@@ -977,9 +1114,21 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
   th,
   td {
-    padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+    border-right: $kui-border-width-20 solid $kui-color-border-transparent;
     vertical-align: middle;
     white-space: nowrap;
+  }
+
+  th.resize-hover {
+    border-right: $kui-border-width-20 solid $kui-color-border-decorative-purple;
+  }
+
+  td.resize-hover {
+    border-right: $kui-border-width-20 solid rgba(175, 183, 197, .2); /** $kui-color-border as rgb */
+  }
+
+  .truncated-column {
+    @include truncate;
   }
 
   thead {
@@ -1025,8 +1174,9 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
     th {
       font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-      padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+      padding: unset;
       text-align: left;
+      width: fit-content;
 
       &.active-sort {
         color: var(--kui-color-text-primary, $kui-color-text-primary);
@@ -1048,9 +1198,36 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
         cursor: pointer;
       }
 
+      .k-table-headers {
+        &.resizable {
+          background-color: #efefef;
+        /*  min-height: 24px; */
+          min-width: 20px;
+          overflow: hidden;
+          position: relative;
+          resize: horizontal;
+          width: 100%;
+
+          &:after {
+            background-color: #efefef;
+            bottom: 0;
+            content: "";
+            font-size: 14px;
+            height: 48px;
+            pointer-events: none;
+            position: absolute;
+            right: 0;
+            text-align: center;
+            width: 22px;
+            z-index: 2;
+          }
+        }
+      }
+
       .k-table-headers-container {
         align-items: center !important;
         display: flex !important;
+        padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
 
         .caret {
           margin-left: var(--kui-space-40, $kui-space-40) !important;
@@ -1070,6 +1247,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
     td {
       color: var(--kui-color-text, $kui-color-text);
+      padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
       white-space: nowrap;
 
       a {
