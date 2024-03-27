@@ -5,16 +5,15 @@
     class="k-code-block"
     :class="[`theme-${theme}`]"
     data-testid="k-code-block"
-    tabindex="0"
   >
     <div
-      v-if="searchable && !isSingleLine"
-      class="k-code-block-actions"
+      v-if="searchable && !singleLine"
+      class="code-block-actions"
     >
       <p
-        class="k-code-block-search-results"
+        class="code-block-search-results"
         :class="{
-          'k-code-block-search-results-has-query': query !== '',
+          'code-block-search-results-has-query': query !== '',
         }"
       >
         <template v-if="query === '' && matchingLineNumbers.length === 0">
@@ -34,12 +33,12 @@
         </template>
       </p>
 
-      <div class="k-search-container">
+      <div class="search-container">
         <KIcon
-          class="k-search-icon"
+          class="code-block-search-icon"
           :class="[`theme-${theme}`]"
           color="currentColor"
-          data-testid="k-code-block-search-icon"
+          data-testid="code-block-search-icon"
           icon="search"
           :size="KUI_ICON_SIZE_40"
         />
@@ -54,32 +53,32 @@
         <input
           :id="`${id}-search-input`"
           ref="codeBlockSearchInput"
-          class="k-code-block-search-input"
-          data-testid="k-code-block-search-input"
+          class="code-block-search-input"
+          data-testid="code-block-search-input"
           type="text"
           @input="handleSearch"
         >
 
         <p
           v-if="regExpError !== null"
-          class="k-code-block-search-error"
+          class="code-block-search-error"
         >
           {{ regExpError.message }}
         </p>
 
         <KIcon
-          class="k-is-processing-icon"
+          class="processing-icon"
           :class="[`theme-${theme}`, { 'k-is-processing-icon-is-visible': isProcessing }]"
           color="currentColor"
-          data-testid="k-code-block-is-processing-icon"
+          data-testid="processing-icon"
           icon="spinner"
         />
 
         <button
           v-if="query !== ''"
           appearance="outline"
-          class="k-clear-query-button"
-          data-testid="k-code-block-clear-query-button"
+          class="clear-query-button"
+          data-testid="clear-query-button"
           title="Clear query"
           type="button"
           @click="clearQuery"
@@ -97,13 +96,13 @@
         </button>
       </div>
 
-      <div class="k-search-actions">
+      <div class="code-block-search-actions">
         <!-- temporary workaround to get state to "stick" -->
         <KButton
           :appearance="isRegExpMode ? 'secondary' : 'tertiary'"
           :aria-pressed="isRegExpMode"
-          class="k-regexp-mode-button"
-          data-testid="k-code-block-regexp-mode-button"
+          class="regexp-mode-button"
+          data-testid="regexp-mode-button"
           size="small"
           :title="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
           type="button"
@@ -118,8 +117,8 @@
         <KButton
           :appearance="isFilterMode ? 'secondary' : 'tertiary'"
           :aria-pressed="isFilterMode"
-          class="k-filter-mode-button"
-          data-testid="k-code-block-filter-mode-button"
+          class="filter-mode-button"
+          data-testid="filter-mode-button"
           icon="filter"
           size="small"
           :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
@@ -141,8 +140,8 @@
 
         <KButton
           appearance="tertiary"
-          class="k-previous-match-button"
-          data-testid="k-code-block-previous-match-button"
+          class="previous-match-button"
+          data-testid="previous-match-button"
           :disabled="matchingLineNumbers.length === 0 || isFilterMode"
           size="small"
           title="Previous match (Shift+F3)"
@@ -164,8 +163,8 @@
 
         <KButton
           appearance="tertiary"
-          class="k-next-match-button"
-          data-testid="k-code-block-next-match-button"
+          class="next-match-button"
+          data-testid="next-match-button"
           :disabled="matchingLineNumbers.length === 0 || isFilterMode"
           size="small"
           title="Next match (F3)"
@@ -187,25 +186,25 @@
       </div>
     </div>
 
-    <div class="k-code-block-content">
+    <div class="code-block-content">
       <!-- eslint-disable vue/no-v-html -->
       <pre
         v-if="isShowingFilteredCode"
-        class="k-filtered-code-block"
-        data-testid="k-code-block-filtered-code-block"
+        class="filtered-code-block"
+        data-testid="filtered-code-block"
       >
         <span
-          v-if="!isSingleLine"
-          class="k-line-number-rows"
+          v-if="!singleLine"
+          class="line-number-rows"
         >
           <span
             v-for="line in matchingLineNumbers"
             :key="line"
-            class="k-line"
+            class="line"
           >
             <a
               :id="`${linePrefix}-L${line}`"
-              class="k-line-anchor"
+              class="line-anchor"
               :href="showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
             >{{ line }}</a>
           </span>
@@ -215,29 +214,29 @@
 
       <pre
         v-else
-        class="k-highlighted-code-block"
+        class="highlighted-code-block"
         :class="{
-          'is-single-line': isSingleLine,
+          'single-line': singleLine,
           'show-copy-button': showCopyButton
         }"
-        data-testid="k-code-block-highlighted-code-block"
+        data-testid="highlighted-code-block"
       >
         <span
-          v-if="!isSingleLine"
-          class="k-line-number-rows"
+          v-if="!singleLine"
+          class="line-number-rows"
         >
           <span
             v-for="line in totalLines"
             :key="line"
-            class="k-line"
+            class="line"
             :class="{
-              'k-line-is-match': matchingLineNumbers.includes(line),
-              'k-line-is-highlighted-match': currentLineIndex !== null && line === matchingLineNumbers[currentLineIndex],
+              'line-is-match': matchingLineNumbers.includes(line),
+              'line-is-highlighted-match': currentLineIndex !== null && line === matchingLineNumbers[currentLineIndex],
             }"
           >
             <a
               :id="`${linePrefix}-L${line}`"
-              class="k-line-anchor"
+              class="line-anchor"
               :href="showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
             >{{ line }}</a>
           </span>
@@ -248,13 +247,13 @@
 
       <div
         v-if="showCopyButton || slots['secondary-actions']"
-        class="k-code-block-secondary-actions"
+        class="code-block-secondary-actions"
       >
         <KButton
           v-if="showCopyButton"
           appearance="tertiary"
-          class="k-code-block-copy-button"
-          data-testid="k-code-block-copy-button"
+          class="code-block-copy-button"
+          data-testid="code-block-copy-button"
           size="small"
           :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
           type="button"
@@ -398,7 +397,7 @@ const props = defineProps({
   /**
    * Displays the code on a single line. **Default: `false`**.
    */
-  isSingleLine: {
+  singleLine: {
     type: Boolean,
     required: false,
     default: false,
@@ -472,7 +471,7 @@ const filteredCode = computed((): string => {
     .map((line) => {
       try {
         const regExp = new RegExp(query.value, 'gi')
-        return line.replace(regExp, (match) => `<span class="k-matched-term">${match}</span>`)
+        return line.replace(regExp, (match) => `<span class="matched-term">${match}</span>`)
       } catch {
         return line
       }
@@ -487,7 +486,7 @@ const escapeUnsafeCharacters = (unescapedCodeString: string): string => {
   return unescapedCodeString.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;')
 }
 
-const finalCode = computed(() => props.isSingleLine ? escapeUnsafeCharacters(props.code).replaceAll('\n', '') : escapeUnsafeCharacters(props.code))
+const finalCode = computed(() => props.singleLine ? escapeUnsafeCharacters(props.code).replaceAll('\n', '') : escapeUnsafeCharacters(props.code))
 
 const maxHeightValue = computed(() => getSizeFromString(props.maxHeight))
 
@@ -600,7 +599,7 @@ onBeforeUnmount(function() {
 })
 
 function emitCodeBlockRenderEvent(): void {
-  const preElement = codeBlock.value?.querySelector('.k-highlighted-code-block')
+  const preElement = codeBlock.value?.querySelector('.highlighted-code-block')
   const codeElement = preElement?.querySelector('code')
 
   if (preElement instanceof HTMLElement && codeElement instanceof HTMLElement) {
@@ -609,7 +608,7 @@ function emitCodeBlockRenderEvent(): void {
 }
 
 function emitMatchingLinesChangeEvent(): void {
-  const preElement = codeBlock.value?.querySelector('.k-highlighted-code-block')
+  const preElement = codeBlock.value?.querySelector('.highlighted-code-block')
   const codeElement = preElement?.querySelector('code')
 
   if (preElement instanceof HTMLElement && codeElement instanceof HTMLElement) {
