@@ -1,6 +1,6 @@
 <template>
   <div
-    class="box"
+    class="skeleton-box"
     :class="{[`width-${width}`]: true, [`height-${height}`]: true }"
   />
 </template>
@@ -25,21 +25,21 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-.box {
-  animation: gradient 1s ease infinite;
+.skeleton-box {
+  animation: kSkeletonGradient 4s ease infinite;
   background: linear-gradient(
       -70deg,
-      #f2f2f2 0%,
-      #f2f2f2 40%,
-      #f7f7f7 50%,
-      #f2f2f2 60%,
-      #f2f2f2 100%
+      var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) 0%,
+      var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) 40%,
+      var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest) 50%,
+      var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) 60%,
+      var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) 100%
     )
     repeat;
   background-size: 400% 100%;
-  border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
+  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
   display: inline-flex;
-  margin-right: var(--kui-space-20, $kui-space-20) !important;
+  margin-right: var(--kui-space-20, $kui-space-20);
   transition: 1s;
   // Provided box widths
   &.width {
@@ -74,10 +74,10 @@ defineProps({
   // Provided box heights
   &.height {
     &-1 {
-      height: 16px;
+      height: 8px;
     }
     &-2 {
-      height: 32px;
+      height: 16px;
     }
   }
 }
@@ -85,8 +85,8 @@ defineProps({
 
 <style lang="scss">
 // @keyframes animations need to be un-scoped
-.box {
-  @keyframes gradient {
+.skeleton-box {
+  @keyframes kSkeletonGradient {
     0% {
       background-position: 100% 50%;
     }

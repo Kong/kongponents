@@ -18,6 +18,7 @@ const sandboxAppLinks: SandboxNavigationItem[] = ([
   { name: 'KAlert', to: { name: 'alert' } },
   { name: 'KBadge', to: { name: 'badge' } },
   { name: 'KButton', to: { name: 'button' } },
+  { name: 'KBreadcrumbs', to: { name: 'breadcrumbs' } },
   { name: 'KCard', to: { name: 'card' } },
   { name: 'KCatalog', to: { name: 'catalog' } },
   { name: 'KCheckbox', to: { name: 'checkbox' } },
@@ -35,11 +36,13 @@ const sandboxAppLinks: SandboxNavigationItem[] = ([
   { name: 'KRadio', to: { name: 'radio' } },
   { name: 'KSegmentedControl', to: { name: 'segmentedcontrol' } },
   { name: 'KSelect', to: { name: 'select' } },
+  { name: 'KSkeleton', to: { name: 'skeleton' } },
   { name: 'KSlideout', to: { name: 'slideout' } },
   { name: 'KTable', to: { name: 'table' } },
   { name: 'KTabs', to: { name: 'tabs' } },
   { name: 'KTextarea', to: { name: 'textarea' } },
   { name: 'KToaster', to: { name: 'toaster' } },
+  { name: 'KTreeList', to: { name: 'treelist' } },
 ])
 
 // Provide the app links to the SandboxLayout components

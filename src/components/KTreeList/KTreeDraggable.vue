@@ -1,7 +1,7 @@
 <template>
   <VueDraggableNext
     v-bind="draggableAttrs"
-    class="k-tree-draggable"
+    class="tree-draggable"
     :disabled="disableDrag"
     :group="{ name: 'k-tree-list', put: !maxLevelReached }"
     :level="level"
@@ -15,7 +15,7 @@
     <div
       v-for="element in internalList"
       :key="element.id"
-      class="k-tree-item-container"
+      class="tree-item-container"
       :class="{
         'has-no-children': hasNoChildren(element)
       }"
@@ -23,21 +23,18 @@
       <KTreeItem
         :key="`tree-item-${element.id}-${key}`"
         :disabled="disableDrag"
+        :hide-icons="hideIcons"
         :item="element"
         @selected="handleSelectionEvent"
       >
-        <template #item-icon>
+        <template
+          v-if="$slots['item-icon']"
+          #item-icon
+        >
           <slot
             :item="element"
             name="item-icon"
-          >
-            <KIcon
-              v-if="element.icon !== 'none'"
-              :icon="element.icon ? element.icon : 'documentList'"
-              :secondary-color="iconSecondaryColor(element)"
-              :size="KUI_ICON_SIZE_50"
-            />
-          </slot>
+          />
         </template>
         <template #item-label>
           <slot
@@ -51,6 +48,7 @@
       <KTreeDraggable
         :key="`tree-item-${element.id}-children-${key}`"
         :disable-drag="disableDrag"
+        :hide-icons="hideIcons"
         :items="getElementChildren(element)"
         :level="level + 1"
         :max-depth="maxDepth"
@@ -58,13 +56,16 @@
         @child-change="handleChildChangeEvent"
         @selected="handleSelectionEvent"
       >
-        <template #[itemIcon]="{ item }: any">
+        <template
+          v-if="$slots['item-icon']"
+          #item-icon="{ item }: any"
+        >
           <slot
             :item="item"
             name="item-icon"
           />
         </template>
-        <template #[itemLabel]="{ item }: any">
+        <template #item-label="{ item }: any">
           <slot
             :item="item"
             name="item-label"
@@ -76,18 +77,10 @@
 </template>
 
 <script lang="ts">
-/**
- *  Note: if TS errors appear on the
- *  <template #[itemIcon]="slotProps"> or
- *  <template #[itemLabel]="slotProps">
- *  lines switch to `v-slot:` notation and Save to let linter clear -->
- */
 import type { PropType } from 'vue'
 import { computed, ref, watch, onMounted } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import type { TreeListItem, ChangeEvent, ChildChangeEvent } from '@/types'
-import { KUI_ICON_SIZE_50, KUI_COLOR_BORDER_DISABLED } from '@kong/design-tokens'
-import KIcon from '@/components/KIcon/KIcon.vue'
 import KTreeItem from '@/components/KTreeList/KTreeItem.vue'
 
 /**
@@ -126,6 +119,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  hideIcons: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits<{
@@ -141,26 +138,13 @@ const draggableAttrs = {
   // Note: force-fallback: true is required to override cursor when dragging
   'force-fallback': true,
   animation: '100',
-  draggable: '.k-tree-item-container',
+  draggable: '.tree-item-container',
   'item-key': 'id',
-  'ghost-class': 'k-tree-item-dragged',
-  'drag-class': 'k-tree-item-grabbing',
+  'ghost-class': 'tree-item-dragged',
+  'drag-class': 'tree-item-grabbing',
   class: 'child-drop-zone',
 }
 const dragging = ref<boolean>(false)
-// using these vars to trick the TS compiler and avoid errors about circular refs in the <template>
-const itemIcon = 'item-icon'
-const itemLabel = 'item-label'
-
-const iconSecondaryColor = (item: TreeListItem): string | undefined => {
-  if (item.icon === 'documentList' || !item.icon) {
-    return item.selected
-      ? 'var(--KTreeListItemSelectedBorder, currentColor)'
-      : `var(--KTreeListItemUnselectedBorder, var(--kui-color-border-disabled, ${KUI_COLOR_BORDER_DISABLED}))`
-  }
-
-  return undefined
-}
 
 const hasNoChildren = (item: TreeListItem): boolean => {
   return !internalList.value.filter(anItem => anItem.id === item.id)?.[0].children?.length
@@ -245,7 +229,7 @@ const setDragCursor = (value: boolean): void => {
   const html = document?.getElementsByTagName('html').item(0)
 
   if (html) {
-    html.classList.toggle('k-tree-list-grabbing', value)
+    html.classList.toggle('tree-list-grabbing', value)
   }
 }
 
@@ -273,28 +257,36 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/tmp-variables';
+/* Component variables  */
 
-.k-tree-draggable {
-  $defaultDropZoneHeight: 6px;
+$kTreeListDropZoneHeight: 6px;
+// no tokens for these two since the math requires them to be static
+$kTreeListIdent: 16px;
+$kTreeListBar: 12px;
+
+/* Component styles */
+.tree-draggable {
+  margin: var(--kui-space-0, $kui-space-0);
+  padding: var(--kui-space-0, $kui-space-0);
 
   .child-drop-zone {
     // this is the height of the area you can drop an item in
     // to make it the child of another item
-    min-height: $defaultDropZoneHeight;
+    min-height: $kTreeListDropZoneHeight;
   }
 
   // style while dragging an item
- .k-tree-item-dragged {
+ .tree-item-dragged {
     cursor: move !important; /* fallback: no `url()` support or images disabled */
-    cursor: grabbing !important; /* W3C standards syntax, should come least */
+    cursor: grabbing !important; /* W3C standards syntax, should come last */
 
     // the bar under the last child
     .has-no-children:last-of-type .child-drop-zone:last-of-type,
     &.has-no-children .child-drop-zone:last-of-type {
-      background-color: $tmp-color-teal-200;
+      background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
       border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
       margin-left: var(--kui-space-0, $kui-space-0);
+      margin-top: var(--kui-space-10, $kui-space-10);
       min-height: 4px;
     }
 
@@ -304,50 +296,47 @@ onMounted(() => {
   }
 
   // hide the see-through duplicate
-  .k-tree-item-grabbing {
+  .tree-item-grabbing {
     display: none;
   }
 
-  // no tokens for these two since the math requires them to be static
-  $indent: 16px;
-  $bar: 12px;
-  .k-tree-draggable {
+  .tree-draggable {
     counter-reset: item;
-    margin-left: $indent;
+    margin-left: $kTreeListIdent;
   }
 
-  .k-tree-item-container {
-    $border: var(--kui-color-border-disabled, $kui-color-border-disabled);
-    $barLeft: -($bar);
-    $dropZoneHalved: calc(#{$defaultDropZoneHeight} / 2);
-    margin: $dropZoneHalved 0 0 $dropZoneHalved;
+  .tree-item-container {
+    margin: calc(#{$kTreeListDropZoneHeight} / 2) 0 0 calc(#{$kTreeListDropZoneHeight} / 2);
     position: relative;
 
     // child connecting lines
     &:before {
-      border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid $border;
-      border-left: var(--kui-border-width-10, $kui-border-width-10) solid $border;
+      border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+      border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       border-radius: var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-0, $kui-border-radius-0) 5px;
       content: "";
-      height: calc(#{$defaultDropZoneHeight} + 20px);
-      left: $barLeft;
+      height: calc(#{$kTreeListDropZoneHeight} + 20px);
+      left: -($kTreeListBar);
       position: absolute;
-      top: calc($dropZoneHalved * -1);
-      width: $bar;
+      top: calc(calc(#{$kTreeListDropZoneHeight} / 2) * -1);
+      width: $kTreeListBar;
     }
+
     // connects siblings
     &:after {
-      border-left: var(--kui-border-width-10, $kui-border-width-10) solid $border;
+      border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       content: "";
       height: 100%;
-      left: $barLeft;
+      left: -($kTreeListBar);
       position: absolute;
-      top: calc(#{$defaultDropZoneHeight} + 2px);
-      width: $bar;
+      top: calc(#{$kTreeListDropZoneHeight} + 2px);
+      width: $kTreeListBar;
     }
+
     &:first-child {
-      padding-top: $defaultDropZoneHeight;
+      padding-top: $kTreeListDropZoneHeight;
     }
+
     &:last-child:after {
       display: none;
     }

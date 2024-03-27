@@ -27,8 +27,6 @@ declare module '@vue/runtime-core' {
     KInput: typeof components.KInput
     KInputSwitch: typeof components.KInputSwitch
     KLabel: typeof components.KLabel
-    KMenu: typeof components.KMenu
-    KMenuItem: typeof components.KMenuItem
     KModal: typeof components.KModal
     KModalFullscreen: typeof components.KModalFullscreen
     KMultiselect: typeof components.KMultiselect
