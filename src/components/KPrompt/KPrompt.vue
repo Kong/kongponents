@@ -42,6 +42,7 @@
         </p>
         <KInput
           v-model="confirmationInput"
+          :aria-label="`${confirmationPromptText[0]}&quot;${confirmationText}&quot;${(confirmationPromptText[1] ? confirmationPromptText[1] : '')}`"
           autocapitalize="off"
           autocomplete="off"
           data-testid="confirmation-input"
