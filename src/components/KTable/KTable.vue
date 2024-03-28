@@ -704,7 +704,6 @@ const startResize = (evt: MouseEvent, colKey: string) => {
   let col: HTMLElement | null = null
   headerElems.value?.forEach((elem) => {
     if (elem.getAttribute('data-testid') === `k-table-header-${colKey}`) {
-      console.log('found col')
       col = document.querySelector(`[data-testid="k-table-header-${colKey}"]`)
     }
   })
@@ -1094,7 +1093,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
   }
 
   th.resize-hover {
-    border-right: $kui-border-width-20 solid $kui-color-border-decorative-purple;
+    border-right: $kui-border-width-20 solid var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple);
   }
 
   td.resize-hover {
