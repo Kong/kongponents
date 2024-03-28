@@ -74,6 +74,27 @@ describe('KTabs', () => {
     })
   })
 
+  // handles disabled item correctly
+
+  it('disables the tab item when `disabled` is true', () => {
+    const tabs = [
+      { hash: '#pictures', title: 'Pictures' },
+      { hash: '#movies', title: 'Movies', disabled: true },
+      { hash: '#books', title: 'Books' },
+    ]
+
+    mount(KTabs, {
+      props: {
+        tabs,
+      },
+    })
+
+    cy.get('.tab-item .tab-link').eq(1).should('have.class', 'disabled')
+    cy.get('.tab-item').eq(1).click().then(() => {
+      cy.wrap(Cypress.vueWrapper.emitted()).should('not.have.property', 'change')
+    })
+  })
+
   describe('slots', () => {
     it('provides the #hash slot content', () => {
       const picturesSlot = 'I love pictures'

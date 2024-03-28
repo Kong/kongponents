@@ -92,6 +92,11 @@
               3
             </KBadge>
           </template>
+          <template #disabled-anchor>
+            <KTooltip text="This tab item is disabled.">
+              <div>Disabled</div>
+            </KTooltip>
+          </template>
 
           <template #tab1>
             Tab 1 content
