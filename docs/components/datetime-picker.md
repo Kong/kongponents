@@ -445,7 +445,7 @@ import { ref, reactive } from 'vue'
 import { TimePeriods, TimeframeKeys } from '@mocks/KDateTimePickerMockData'
 import type { TimeFrameSection } from '@/types'
 
-const exampleTimeFrames: TimeFrameSection[] = reactive([
+const exampleTimeFrames: TimeFrameSection[] = [
   {
     section: 'Last',
     values: [
@@ -472,7 +472,7 @@ const exampleTimeFrames: TimeFrameSection[] = reactive([
       TimePeriods.get(TimeframeKeys.PREVIOUS_MONTH),
     ],
   },
-])
+]
 
 const today = new Date()
 const tomorrow = new Date().getTime() + 1 * 24 * 60 * 60 * 1000
@@ -480,28 +480,28 @@ const twoDaysAgo = new Date(today.getTime() - 2 * 24 * 60 * 60 * 1000)
 const aWeekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
 const aYearAgo = new Date(today.getTime() - 365 * 24 * 60 * 60 * 1000)
 
-const singleDateEmpty = ref({
+const singleDateEmpty = ref<TimeRange>({
   start: null,
   end: null,
 })
 
-const singleDateToday = reactive({
+const singleDateToday = ref<TimeRange>({
   start: today,
   end: null,
 })
 
-const dateRangeWeek = reactive({
+const dateRangeWeek = ref<TimeRange>({
   start: aWeekAgo,
   end: today,
 })
 
-const dateRangeWeekRelative = reactive({
+const dateRangeWeekRelative = ref<TimeRange>({
   start: aWeekAgo,
   end: today,
   timePeriodsKey: TimeframeKeys.SEVEN_DAY,
 })
 
-const oneHourRelativeOnly = reactive({
+const oneHourRelativeOnly = ref<TimeRange>({
   start: null,
   end: null,
   timePeriodsKey: TimeframeKeys.ONE_HOUR,
