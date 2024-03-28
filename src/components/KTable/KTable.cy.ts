@@ -249,7 +249,7 @@ describe('KTable', () => {
       })
 
       cy.get('.k-table').find('th.resizable').should('be.visible')
-      cy.get('.resize-handle').should('should.exist')
+      cy.get('.resize-handle').should('exist')
     })
   })
 
