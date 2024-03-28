@@ -200,6 +200,52 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Props
 
+* `isSearchable` prop has been removed and replaced with `searchable`
+* `isProcessing` prop has been removed and replaced with `processing`
+* `isSingleLine` prop has been removed and replaced with `singleLine`
+
+#### Structure
+
+* `k-code-block-actions` class has been changed to `code-block-actions`
+* `k-code-block-search-results` class has been changed to `code-block-search-results`
+* `k-code-block-search-results-has-query` class has been changed to `code-block-search-results-has-query`
+* `k-search-container` class has been changed to `search-container`
+* `k-search-icon` class has been changed to `code-block-search-icon`
+* `k-code-block-search-icon` `data-testid` attribute has been replaced with `code-block-search-icon`
+* `k-code-block-search-input` class and `data-testid` attribute has been changed to `code-block-search-input`
+* `k-code-block-search-error` class has been changed to `code-block-search-error`
+* `k-is-processing-icon` class has been changed to `processing-icon`
+* `k-code-block-is-processing-icon` `data-testid` attribute has been replaced with `processing-icon`
+* `k-clear-query-button` and `k-clear-icon` classes changed to `clear-query-button`
+* `k-code-block-clear-query-button` and `k-code-block-clear-icon` `data-testid` attributes were replaced with `clear-query-button`
+* `k-search-actions` class has been changed to `code-block-search-actions`
+* `k-regexp-mode-button` class has been changed to `regexp-mode-button`
+* `k-code-block-regexp-mode-button` `data-testid` attribute has been replaced with `regexp-mode-button`
+* `k-filter-mode-button` class has been changed to `filter-mode-button`
+* `k-code-block-filter-mode-button` `data-testid` attribute has been replaced with `filter-mode-button`
+* `k-previous-match-button` class has been changed to `previous-match-button`
+* `k-code-block-previous-match-button` `data-testid` attribute has been replaced with `previous-match-button`
+* `k-next-match-button` class has been changed to `next-match-button`
+* `k-code-block-next-match-button` `data-testid` attribute has been replaced with `next-match-button`
+* `k-code-block-content` class has been changed to `code-block-content`
+* `k-filtered-code-block` class has been changed to `filtered-code-block`
+* `k-code-block-filtered-code-block` `data-testid` attribute has been replaced with `filtered-code-block`
+* `k-line-number-rows` class has been changed to `line-number-rows`
+* `k-line` class has been changed to `line`
+* `k-line-anchor` class has been changed to `line-anchor`
+* `k-highlighted-code-block` class has been changed to `highlighted-code-block`
+* `k-code-block-highlighted-code-block` `data-testid` attribute has been replaced with `highlighted-code-block`
+* `is-single-line` class has been changed to `single-line`
+* `k-line-number-rows` class has been changed to `line-number-rows`
+* `k-line-is-match` class has been changed to `line-is-match`
+* `k-line-is-highlighted-match` class has been changed to `line-is-highlighted-match`
+* `k-line-anchor` class has been changed to `line-anchor`
+* `k-code-block-secondary-actions` class has been changed to `code-block-secondary-actions`
+* `k-code-block-copy-button` class and `data-testid` attribute has been changed to `code-block-copy-button`
+* `k-matched-term` `class` has been replaced with `matched-term`
+
+#### Props
+
 * New `maxHeight` prop to control the `max-height` of the code block. Defaults to `none`
 
 #### Slots
