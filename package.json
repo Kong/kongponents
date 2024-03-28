@@ -55,7 +55,7 @@
   "dependencies": {
     "@kong/icons": "^1.8.14",
     "@popperjs/core": "^2.11.8",
-    "date-fns": "^2.30.0",
+    "date-fns": "^3.4.0",
     "date-fns-tz": "^2.0.1",
     "focus-trap": "^7.5.4",
     "focus-trap-vue": "^4.0.3",
