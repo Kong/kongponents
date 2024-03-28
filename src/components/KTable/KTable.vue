@@ -1086,18 +1086,18 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
   th,
   td {
-    border-right: $kui-border-width-20 solid $kui-color-border-transparent;
+    border-right: var(--kui-border-width-20, $kui-border-width-20) solid $kui-color-border-transparent;
     padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
     vertical-align: middle;
     white-space: nowrap;
   }
 
   th.resize-hover {
-    border-right: $kui-border-width-20 solid var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple);
+    border-right: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple);
   }
 
   td.resize-hover {
-    border-right: $kui-border-width-20 solid rgba(175, 183, 197, .2); /** $kui-color-border as rgb */
+    border-right: var(--kui-border-width-20, $kui-border-width-20) solid rgba(175, 183, 197, .2); /** $kui-color-border as rgb */
   }
 
   .truncated-column {
