@@ -1602,6 +1602,11 @@ export default defineComponent({
         { label: 'Description', key: 'description', sortable: true },
         { label: 'Enabled', key: 'enabled', sortable: false }
       ],
+      resizeHeaders: [
+        { label: 'Name', key: 'name' },
+        { label: 'ID', key: 'id' },
+        { label: 'Enabled', key: 'enabled' },
+      ],
       tableOptionsHeaders: [
         { label: 'Name', key: 'name' },
         { label: 'ID', key: 'id' },

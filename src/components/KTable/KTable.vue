@@ -94,7 +94,7 @@
               :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
               class="k-table-headers"
               :class="{
-                'resize-hover': currentFocusedColumn === column.key && resizeColumns,
+                'resize-hover': currentFocusedColumn === column.key && resizeColumns && index !== tableHeaders.length - 1,
                 'truncated-column resizable': resizeColumns,
                 'sortable': !disableSorting && !column.hideLabel && column.sortable,
                 'active-sort': !disableSorting && !column.hideLabel && column.sortable && column.key === sortColumnKey,
@@ -141,7 +141,7 @@
                 />
 
                 <div
-                  v-if="resizeColumns"
+                  v-if="resizeColumns && index !== tableHeaders.length - 1"
                   class="resize-handle"
                   @mousedown="(evt) => startResize(evt, column.key)"
                 />
@@ -164,7 +164,7 @@
               v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
               :key="`k-table-${tableId}-cell-${index}`"
               :class="{
-                'resize-hover': currentFocusedColumn === value.key && resizeColumns,
+                'resize-hover': currentFocusedColumn === value.key && resizeColumns && index !== tableHeaders.length - 1,
                 'truncated-column': resizeColumns
               }"
               :style="columnStyles[value.key]"
