@@ -83,7 +83,7 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/inquirer": "^9.0.7",
-    "@types/node": "^18.19.23",
+    "@types/node": "^20.11.27",
     "@types/node-emoji": "^1.8.2",
     "@types/sortablejs": "^1.15.8",
     "@types/uuid": "^9.0.8",
@@ -184,10 +184,10 @@
     ]
   },
   "engines": {
-    "node": ">=v16.20.2"
+    "node": ">=20.11.1"
   },
   "volta": {
-    "node": "18.19.1",
+    "node": "20.11.1",
     "yarn": "1.22.22"
   },
   "config": {
