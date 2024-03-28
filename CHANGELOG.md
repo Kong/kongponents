@@ -1,3 +1,10 @@
+# [9.0.0-alpha.124](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.123...v9.0.0-alpha.124) (2024-03-28)
+
+
+### Bug Fixes
+
+* **kprompt:** add arial-label ([#2102](https://github.com/Kong/kongponents/issues/2102)) ([8302e71](https://github.com/Kong/kongponents/commit/8302e711e2f5c8783ae162700c7d0b6541c4422d))
+
 # [9.0.0-alpha.123](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.122...v9.0.0-alpha.123) (2024-03-27)
 
 
