@@ -9,6 +9,8 @@ export interface TablePreferences {
   sortColumnKey?: string
   /** The order by which to sort the column, one of `asc` or `desc` */
   sortColumnOrder?: SortColumnOrder
+  /** The customized column widths, if resizing is allowed */
+  columnWidths?: Record<string, number>
 }
 
 export const TablePaginationTypeArray = ['default', 'offset'] as const

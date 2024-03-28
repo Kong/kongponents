@@ -43,6 +43,16 @@ See [the State section](#error) about `hasError`
 
 See [the State section](#loading) about `isLoading`
 
+### resizeColumns
+
+Allow table column width to be resizable. Adjusting a column's width will trigger an `@update:table-preferences` event.
+
+<KTable :fetcher="tableOptionsFetcher" :headers="resizeHeaders" resize-columns />
+
+```html
+  <KTable :fetcher="fetcher" :headers="headers" resize-columns />
+```
+
 ### disablePaginationPageJump
 
 Set this to `true` to limit pagination navigation to `previous` / `next` page only.
@@ -910,6 +920,8 @@ interface TablePreferences {
   sortColumnKey?: string
   /** The order by which to sort the column, one of `asc` or `desc` */
   sortColumnOrder?: 'asc' | 'desc'
+  /** The customized column widths, if resizing is allowed */
+  columnWidths?: Record<string, number>
 }
 ```
 

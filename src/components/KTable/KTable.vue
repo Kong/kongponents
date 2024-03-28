@@ -84,18 +84,25 @@
         :data-tableid="tableId"
       >
         <thead :class="{ 'is-scrolled': isScrolled }">
-          <tr :class="{ 'is-scrolled': isScrolled }">
+          <tr
+            ref="headerRow"
+            :class="{ 'is-scrolled': isScrolled }"
+          >
             <th
               v-for="(column, index) in tableHeaders"
               :key="`k-table-${tableId}-headers-${index}`"
               :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
               class="k-table-headers"
               :class="{
+                'resize-hover': currentFocusedColumn === column.key && resizeColumns,
+                'truncated-column resizable': resizeColumns,
                 'sortable': !disableSorting && !column.hideLabel && column.sortable,
                 'active-sort': !disableSorting && !column.hideLabel && column.sortable && column.key === sortColumnKey,
                 [sortColumnOrder]: !disableSorting && column.key === sortColumnKey && !column.hideLabel,
                 'is-scrolled': isScrolled
               }"
+              :data-testid="`k-table-header-${column.key}`"
+              :style="columnStyles[column.key]"
               @click="() => {
                 if (!disableSorting && column.sortable) {
                   $emit('sort', {
@@ -106,13 +113,20 @@
                   sortClickHandler(column)
                 }
               }"
+              @mouseleave="currentFocusedColumn = ''"
+              @mouseover="currentFocusedColumn = column.key"
             >
-              <span class="k-table-headers-container">
+              <div class="k-table-headers-container">
                 <slot
                   :column="getGeneric(column)"
                   :name="getColumnSlotName(column.key)"
                 >
-                  <span :class="{'sr-only': column.hideLabel}">
+                  <span
+                    :class="{
+                      'sr-only': column.hideLabel,
+                      'truncated-column': resizeColumns,
+                    }"
+                  >
                     {{ column.label ? column.label : column.key }}
                   </span>
                 </slot>
@@ -125,7 +139,13 @@
                   icon="chevronDown"
                   :size="KUI_ICON_SIZE_20"
                 />
-              </span>
+
+                <div
+                  v-if="resizeColumns"
+                  class="resize-handle"
+                  @mousedown="(evt) => startResize(evt, column.key)"
+                />
+              </div>
             </th>
           </tr>
         </thead>
@@ -143,6 +163,11 @@
               v-for="(value, index) in tableHeaders"
               v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
               :key="`k-table-${tableId}-cell-${index}`"
+              :class="{
+                'resize-hover': currentFocusedColumn === value.key && resizeColumns,
+                'truncated-column': resizeColumns
+              }"
+              :style="columnStyles[value.key]"
               v-on="tdlisteners(row[value.key], row)"
             >
               <slot
@@ -230,6 +255,13 @@ const props = defineProps({
     type: Object,
     default: () => null,
     required: false,
+  },
+  /**
+   * Allow columns to be resized
+   */
+  resizeColumns: {
+    type: Boolean,
+    default: false,
   },
   /**
    * Enable client side sort - only do this if using a fetcher
@@ -509,7 +541,9 @@ const defaultFetcherProps = {
   offset: null,
 }
 const data = ref<Record<string, any>[]>([])
+const headerRow = ref<HTMLDivElement>()
 const tableHeaders: Ref<TableHeader[]> = ref([])
+const currentFocusedColumn = ref('')
 const total = ref(0)
 const isScrolled = ref(false)
 const page = ref(1)
@@ -631,6 +665,80 @@ const tdlisteners = computed((): any => {
     }
   }
 })
+
+const columnWidths = ref<Record<string, number>>({})
+const columnStyles = computed(() => {
+  const styles: Record<string, any> = {}
+  for (const colKey in columnWidths.value) {
+    // no width set
+    if (!columnWidths.value[colKey]) {
+      continue
+    }
+    const width = columnWidths.value[colKey] + 'px'
+    styles[colKey] = {
+      width,
+      maxWidth: width,
+      minWidth: width,
+    }
+  }
+  return styles
+})
+
+// get the resizable header divs to be used for the resize observers
+const headerElems = computed(() => headerRow.value?.querySelectorAll('th.resizable'))
+const headerHeight = computed((): string => {
+  const elem = headerElems.value?.item(0)
+  if (elem) {
+    const styles = window.getComputedStyle(elem)
+
+    return `${parseInt(styles.height, 10)}px`
+  }
+
+  return 'auto'
+})
+const startResize = (evt: MouseEvent, colKey: string) => {
+  let x = 0
+  let width = 0
+
+  // get the current column's element
+  let col: HTMLElement | null = null
+  headerElems.value?.forEach((elem) => {
+    if (elem.getAttribute('data-testid') === `k-table-header-${colKey}`) {
+      console.log('found col')
+      col = document.querySelector(`[data-testid="k-table-header-${colKey}"]`)
+    }
+  })
+
+  // resize in progress
+  const mouseMoveHandler = (e: MouseEvent): void => {
+    // distance mouse has moved
+    const dx = e.clientX - x
+
+    // Update column width to match
+    col?.setAttribute('style', `width: ${width + dx}px`)
+    columnWidths.value[colKey] = width + dx
+  }
+
+  // done resizing
+  const mouseUpHandler = (): void => {
+    document.removeEventListener('mousemove', mouseMoveHandler)
+    document.removeEventListener('mouseup', mouseUpHandler)
+    emitTablePreferences()
+  }
+
+  // get mouse position
+  x = evt.clientX
+
+  if (col) {
+    // set current column's width
+    const styles = window.getComputedStyle(col)
+    width = parseInt(styles.width, 10)
+
+    // event listeners for resizing
+    document.addEventListener('mousemove', mouseMoveHandler)
+    document.addEventListener('mouseup', mouseUpHandler)
+  }
+}
 
 const isInitialFetch = ref(true)
 const fetchData = async () => {
@@ -830,6 +938,7 @@ const tablePreferences = computed((): TablePreferences => ({
   pageSize: pageSize.value,
   sortColumnKey: sortColumnKey.value,
   sortColumnOrder: sortColumnOrder.value as 'asc' | 'desc',
+  ...(props.resizeColumns ? { columnWidths: columnWidths.value } : {}),
 }))
 
 const emitTablePreferences = (): void => {
@@ -955,6 +1064,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
 <style lang="scss" scoped>
 @import '@/styles/tmp-variables';
+@import '@/styles/mixins';
 
 .k-table-wrapper {
   overflow: auto;
@@ -977,9 +1087,22 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
   th,
   td {
+    border-right: $kui-border-width-20 solid $kui-color-border-transparent;
     padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
     vertical-align: middle;
     white-space: nowrap;
+  }
+
+  th.resize-hover {
+    border-right: $kui-border-width-20 solid $kui-color-border-decorative-purple;
+  }
+
+  td.resize-hover {
+    border-right: $kui-border-width-20 solid rgba(175, 183, 197, .2); /** $kui-color-border as rgb */
+  }
+
+  .truncated-column {
+    @include truncate;
   }
 
   thead {
@@ -1027,6 +1150,20 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
       padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
       text-align: left;
+
+      &.resizable {
+        min-width: 20px;
+        position: relative;
+
+        .resize-handle {
+          cursor: col-resize;
+          height: v-bind('headerHeight');
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 6px;
+        }
+      }
 
       &.active-sort {
         color: var(--kui-color-text-primary, $kui-color-text-primary);
@@ -1084,8 +1221,12 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
   // Variants
   &.has-hover {
-     tbody tr:hover {
+    tbody tr:hover {
       background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+
+      td {
+        border-color: var(--kui-color-border-primary-weakest, $kui-color-border-primary-weakest);
+      }
     }
   }
 

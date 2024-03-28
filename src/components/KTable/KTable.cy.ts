@@ -237,6 +237,20 @@ describe('KTable', () => {
 
       cy.get('.k-table').should('have.class', 'has-hover')
     })
+
+    it('renders column resize toggles when resizeColumns is set', () => {
+      mount(KTable, {
+        props: {
+          testMode: 'true',
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } },
+          resizeColumns: true,
+        },
+      })
+
+      cy.get('.k-table').find('th.resizable').should('be.visible')
+      cy.get('.resize-handle').should('be.visible')
+    })
   })
 
   describe('data revalidates and changes as expected', () => {
@@ -276,7 +290,6 @@ describe('KTable', () => {
           fetcher: offsetPaginationFetcher,
           isLoading: false,
           headers: offsetPaginationHeaders,
-          offset: true,
         },
       })
 
@@ -570,7 +583,6 @@ describe('KTable', () => {
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
           initialFetcherParams: { offset: null },
-          offset: true,
           cacheIdentifier: 'offset-pagination',
         },
       })
@@ -590,7 +602,6 @@ describe('KTable', () => {
           headers: options.headers,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
-          offset: true,
         },
       })
 
@@ -617,7 +628,6 @@ describe('KTable', () => {
           headers: options.headers,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
-          offset: true,
           searchInput: '',
           cacheIdentifier: 'search-example',
         },
