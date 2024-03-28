@@ -170,7 +170,7 @@ This slot is deprecated and will be removed in the `9.0.0-beta.0` release. Pleas
 ```
 
 <script setup lang="ts">
-import { WorldIcon, ChevronDownIcon, TrashIcon } from '@kong/icons'
+import { WorldIcon, ChevronDownIcon } from '@kong/icons'
 </script>
 
 <style scoped lang="scss">
