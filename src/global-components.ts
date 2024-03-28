@@ -23,7 +23,6 @@ declare module '@vue/runtime-core' {
     KExternalLink: typeof components.KExternalLink
     KFileUpload: typeof components.KFileUpload
     KIcon: typeof components.KIcon
-    KInlineEdit: typeof components.KInlineEdit
     KInput: typeof components.KInput
     KInputSwitch: typeof components.KInputSwitch
     KLabel: typeof components.KLabel
