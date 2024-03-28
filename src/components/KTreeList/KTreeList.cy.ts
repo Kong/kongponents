@@ -22,9 +22,9 @@ describe('KTreeList', () => {
       },
     })
 
-    cy.get(`[data-testid="k-tree-item-${ids[0]}"] [data-testid="k-tree-item-label"]`).should('contain.text', names[0])
-    cy.get(`[data-testid="k-tree-item-${ids[1]}"] [data-testid="k-tree-item-label"]`).should('contain.text', names[1])
-    cy.get(`[data-testid="k-tree-item-${ids[2]}"] [data-testid="k-tree-item-label"]`).should('contain.text', names[2])
+    cy.get(`[data-testid="tree-item-${ids[0]}"] [data-testid="tree-item-label"]`).should('contain.text', names[0])
+    cy.get(`[data-testid="tree-item-${ids[1]}"] [data-testid="tree-item-label"]`).should('contain.text', names[1])
+    cy.get(`[data-testid="tree-item-${ids[2]}"] [data-testid="tree-item-label"]`).should('contain.text', names[2])
   })
 
   it('renders with correct px maxWidth', () => {
@@ -60,11 +60,11 @@ describe('KTreeList', () => {
       },
     })
 
-    cy.get(`[data-testid="k-tree-item-${ids[0]}"] [data-testid="k-tree-item-label"]`).should('contain.text', names[0])
-    cy.get(`[data-testid="k-tree-item-${ids[1]}"] [data-testid="k-tree-item-label"]`).should('contain.text', names[1])
+    cy.get(`[data-testid="tree-item-${ids[0]}"] [data-testid="tree-item-label"]`).should('contain.text', names[0])
+    cy.get(`[data-testid="tree-item-${ids[1]}"] [data-testid="tree-item-label"]`).should('contain.text', names[1])
 
-    cy.getTestId(`k-tree-item-${ids[0]}`).click()
-    cy.get(`[data-testid="k-tree-item-${ids[0]}"].selected [data-testid="k-tree-item-label"]`).should('contain.text', names[0])
+    cy.getTestId(`tree-item-${ids[0]}`).click()
+    cy.get(`[data-testid="tree-item-${ids[0]}"].selected [data-testid="tree-item-label"]`).should('contain.text', names[0])
   })
 
   it('correctly renders with disableDrag', () => {
@@ -75,8 +75,8 @@ describe('KTreeList', () => {
       },
     })
 
-    cy.get('.k-tree-draggable').should('have.attr', 'disabled')
-    cy.get('.k-tree-item').should('have.class', 'not-draggable')
+    cy.get('.tree-draggable').should('have.attr', 'disabled')
+    cy.get('.tree-item').should('have.class', 'not-draggable')
   })
 
   it('allows selecting an item with disableDrag', () => {
@@ -96,14 +96,14 @@ describe('KTreeList', () => {
       },
     })
 
-    cy.get('.k-tree-draggable').should('have.attr', 'disabled')
-    cy.get('.k-tree-item').should('have.class', 'not-draggable')
+    cy.get('.tree-draggable').should('have.attr', 'disabled')
+    cy.get('.tree-item').should('have.class', 'not-draggable')
 
-    cy.get(`[data-testid="k-tree-item-${ids[0]}"] [data-testid="k-tree-item-label"]`).should('contain.text', names[0])
-    cy.get(`[data-testid="k-tree-item-${ids[1]}"] [data-testid="k-tree-item-label"]`).should('contain.text', names[1])
+    cy.get(`[data-testid="tree-item-${ids[0]}"] [data-testid="tree-item-label"]`).should('contain.text', names[0])
+    cy.get(`[data-testid="tree-item-${ids[1]}"] [data-testid="tree-item-label"]`).should('contain.text', names[1])
 
-    cy.getTestId(`k-tree-item-${ids[0]}`).click()
-    cy.get(`[data-testid="k-tree-item-${ids[0]}"].selected [data-testid="k-tree-item-label"]`).should('contain.text', names[0])
+    cy.getTestId(`tree-item-${ids[0]}`).click()
+    cy.get(`[data-testid="tree-item-${ids[0]}"].selected [data-testid="tree-item-label"]`).should('contain.text', names[0])
   })
 
   it('reacts to selecting an item and deselects previous selection', () => {
@@ -123,13 +123,13 @@ describe('KTreeList', () => {
       },
     })
 
-    cy.get(`[data-testid="k-tree-item-${ids[0]}"] [data-testid="k-tree-item-label"]`).should('contain.text', names[0])
-    cy.get(`[data-testid="k-tree-item-${ids[1]}"] [data-testid="k-tree-item-label"]`).should('contain.text', names[1])
-    cy.get(`[data-testid="k-tree-item-${ids[0]}"].selected [data-testid="k-tree-item-label"]`).should('contain.text', names[0])
+    cy.get(`[data-testid="tree-item-${ids[0]}"] [data-testid="tree-item-label"]`).should('contain.text', names[0])
+    cy.get(`[data-testid="tree-item-${ids[1]}"] [data-testid="tree-item-label"]`).should('contain.text', names[1])
+    cy.get(`[data-testid="tree-item-${ids[0]}"].selected [data-testid="tree-item-label"]`).should('contain.text', names[0])
 
-    cy.getTestId(`k-tree-item-${ids[1]}`).click()
-    cy.get(`[data-testid="k-tree-item-${ids[0]}"].selected`).should('not.exist')
-    cy.get(`[data-testid="k-tree-item-${ids[1]}"].selected [data-testid="k-tree-item-label"]`).should('contain.text', names[1])
+    cy.getTestId(`tree-item-${ids[1]}`).click()
+    cy.get(`[data-testid="tree-item-${ids[0]}"].selected`).should('not.exist')
+    cy.get(`[data-testid="tree-item-${ids[1]}"].selected [data-testid="tree-item-label"]`).should('contain.text', names[1])
   })
 
   it('allows slotting content into the items', async () => {
@@ -154,7 +154,7 @@ describe('KTreeList', () => {
       },
     })
 
-    cy.get(`[data-testid="k-tree-item-${itemId}"] [data-testid="k-tree-item-icon"]`).should('contain.text', itemIconSlot)
-    cy.get(`[data-testid="k-tree-item-${itemId}"] [data-testid="k-tree-item-label"]`).should('contain.text', 'Hello ' + itemName)
+    cy.get(`[data-testid="tree-item-${itemId}"] [data-testid="tree-item-icon"]`).should('contain.text', itemIconSlot)
+    cy.get(`[data-testid="tree-item-${itemId}"] [data-testid="tree-item-label"]`).should('contain.text', 'Hello ' + itemName)
   })
 })

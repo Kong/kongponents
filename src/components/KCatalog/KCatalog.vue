@@ -54,24 +54,14 @@
     >
       <slot name="error-state">
         <KEmptyState
-          :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
-          :icon="errorStateIcon || ''"
-          :icon-color="errorStateIconColor"
-          :icon-size="errorStateIconSize"
-          is-error
+          :action-button-visible="!!errorStateActionMessage && !!errorStateActionRoute"
+          icon-variant="error"
+          :message="errorStateMessage"
+          :title="errorStateTitle"
         >
-          <template #title>
-            {{ errorStateTitle }}
-          </template>
-
-          <template #message>
-            {{ errorStateMessage }}
-          </template>
-
-          <template #cta>
+          <template #action>
             <KButton
               v-if="errorStateActionMessage"
-              appearance="primary"
               :data-testid="getTestIdString(errorStateActionMessage)"
               :to="errorStateActionRoute ? errorStateActionRoute : undefined"
               @click="$emit('kcatalog-error-cta-clicked')"
@@ -90,23 +80,14 @@
     >
       <slot name="empty-state">
         <KEmptyState
-          :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
-          :icon="emptyStateIcon || ''"
-          :icon-color="emptyStateIconColor"
-          :icon-size="emptyStateIconSize"
+          :action-button-visible="!!emptyStateActionMessage && !!emptyStateActionRoute"
+          :message="emptyStateMessage"
+          :title="emptyStateTitle"
         >
-          <template #title>
-            {{ emptyStateTitle }}
-          </template>
-
-          <template #message>
-            {{ emptyStateMessage }}
-          </template>
-
-          <template #cta>
+          <template #action>
             <KButton
               v-if="emptyStateActionMessage"
-              :appearance="searchInput ? 'btn-link' : 'primary'"
+              :appearance="searchInput ? 'secondary' : 'primary'"
               :data-testid="getTestIdString(emptyStateActionMessage)"
               :icon="emptyStateActionButtonIcon"
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
@@ -180,8 +161,8 @@
           :page-sizes="paginationPageSizes"
           :test-mode="!!testMode || undefined"
           :total-count="total"
-          @page-changed="pageChangeHandler"
-          @page-size-changed="pageSizeChangeHandler"
+          @page-change="pageChangeHandler"
+          @page-size-change="pageSizeChangeHandler"
         />
       </div>
     </div>
@@ -199,8 +180,8 @@ import type {
   SwrvStateData,
   CardSize,
   CatalogState,
-  PageChangedData,
-  PageSizeChangedData,
+  PageChangeData,
+  PageSizeChangeData,
 } from '@/types'
 import {
   CardSizeArray,
@@ -542,11 +523,11 @@ const stateData = computed((): SwrvStateData => ({
 }))
 const catalogState = computed((): CatalogState => isCatalogLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
 
-const pageChangeHandler = ({ page: newPage }: PageChangedData): void => {
+const pageChangeHandler = ({ page: newPage }: PageChangeData): void => {
   page.value = newPage
 }
 
-const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangedData): void => {
+const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData): void => {
   pageSize.value = newPageSize
   page.value = 1
 }
@@ -627,17 +608,14 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
-
 .k-card-catalog {
   .k-card-catalog-title {
-    color: var(--blue-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+    color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
   }
 
   .k-catalog-page {
     display: grid;
-    grid-gap: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
+    grid-gap: var(--kui-space-80, $kui-space-80);
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
@@ -652,8 +630,6 @@ onMounted(() => {
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
-@import '@/styles/functions';
 
 .k-card-catalog {
   $cardHeight: 181px;

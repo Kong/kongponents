@@ -9,7 +9,6 @@ export default defineComponent({
     },
   },
   emits: ['toggled'],
-
   setup(props, { slots, emit }) {
     const isToggled = ref(props.toggled)
 

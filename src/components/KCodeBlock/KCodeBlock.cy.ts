@@ -178,4 +178,38 @@ describe('KCodeBlock', () => {
 
     cy.get('pre.k-highlighted-code-block').should('have.class', 'is-single-line')
   })
+
+  it('initializes in regular expression mode with search correctly executed', () => {
+    const id = 'code-block'
+    renderComponent({
+      id,
+      initialRegExpMode: true,
+      query: 'key[12]',
+    })
+
+    const expectedLineNumbersForRegExp = [2, 3]
+
+    cy.get('.k-line-is-match').should('have.length', expectedLineNumbersForRegExp.length)
+    for (const lineNumber of expectedLineNumbersForRegExp) {
+      cy.get(`.k-line-is-match .k-line-anchor#${id}-L${lineNumber}`).should('exist')
+    }
+  })
+
+  it('initializes in filter mode with search correctly executed', () => {
+    renderComponent({
+      id: 'code-block',
+      initialFilterMode: true,
+      initialRegExpMode: true,
+      query: 'key[12]',
+    })
+
+    const expectedMatchedTerms = ['key1', 'key2']
+    const expectedNumberOfMatches = 2
+
+    cy.get('.k-matched-term')
+      .should('have.length', expectedNumberOfMatches)
+      .each(([matchedTerm]) => {
+        expect(expectedMatchedTerms.includes(matchedTerm.textContent as string))
+      })
+  })
 })

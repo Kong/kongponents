@@ -1,0 +1,78 @@
+/* Radio and checkbox inputs */
+
+// Shared styles between radio and checkbox inputs
+
+@mixin radioCheckboxDefaults {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: var(--kui-color-background, $kui-color-background);
+  border: 0;
+  box-shadow: var(--kui-shadow-border, $kui-shadow-border);
+  cursor: pointer;
+  height: var(--kui-icon-size-30, $kui-icon-size-30);
+  margin: 0;
+  margin-right: var(--kui-space-40, $kui-space-40);
+  outline: none;
+  transition:
+    box-shadow $kongponentsTransitionDurTimingFunc,
+    background-color $kongponentsTransitionDurTimingFunc;
+  width: var(--kui-icon-size-30, $kui-icon-size-30);
+}
+
+@mixin radioCheckboxHover {
+  box-shadow: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak);
+}
+
+@mixin radioCheckboxFocus {
+  box-shadow: var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak),
+    var(--kui-shadow-focus, $kui-shadow-focus);
+}
+
+@mixin radioCheckboxActive {
+  box-shadow: var(--kui-shadow-border-primary-strongest, $kui-shadow-border-primary-strongest);
+}
+
+@mixin radioCheckboxChecked {
+  background-color: var(--kui-color-background-primary, $kui-color-background-primary);
+  box-shadow: var(--kui-shadow-border-primary, $kui-shadow-border-primary);
+}
+
+@mixin radioCheckboxCheckedFocus {
+  box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+}
+
+@mixin radioCheckboxCheckedActive {
+  background-color: var(--kui-color-background-primary-strongest, $kui-color-background-primary-strongest);
+}
+
+@mixin radioCheckboxCheckedDisabled {
+  background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+}
+
+@mixin radioCheckboxDisabled {
+  background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+  box-shadow: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled);
+  cursor: not-allowed;
+}
+
+@mixin radioCheckboxError {
+  box-shadow: var(--kui-shadow-border-danger, $kui-shadow-border-danger);
+}
+
+@mixin radioCheckboxErrorHover {
+  box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong);
+}
+
+@mixin radioCheckboxErrorFocus {
+  box-shadow: var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong),
+    var(--kui-shadow-focus, $kui-shadow-focus);
+}
+
+@mixin radioCheckboxErrorChecked {
+  background-color: var(--kui-color-background-danger, $kui-color-background-danger);
+}
+
+@mixin radioCheckboxErrorCheckedFocus {
+  @include radioCheckboxCheckedFocus;
+}

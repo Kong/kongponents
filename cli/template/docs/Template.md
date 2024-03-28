@@ -1,6 +1,6 @@
 # {%%KONGPONENT_NAME_TITLE_CASE%%}
 
-**{%%KONGPONENT_NAME%%}** - This should be a description of the Kongponent.
+**{%%KONGPONENT_NAME%%}** should be described here in the first paragraph.
 
 <{%%KONGPONENT_NAME%%} />
 
@@ -9,14 +9,8 @@
   <{%%KONGPONENT_NAME%%} />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  setup (props) {
-    // ... code goes here
-  }
-})
+<script setup lang="ts">
+  // Example code goes here
 </script>
 ```
 
@@ -49,31 +43,7 @@ Actual component using examplePropName
 
 ## Events
 
-- `@changed` - Emitted when...
-
-## Theming
-
-| Variable | Purpose
-|:-------- |:-------
-| `--{%%KONGPONENT_NAME%%}BorderColor`| {%%KONGPONENT_NAME%%} border color
-
-An Example of changing the border color of {%%KONGPONENT_NAME%%} to lime might look
-like:
-
-> Note: We are scoping the overrides to a wrapper in this example
-
-<template>
-  <div class="{%%KONGPONENT_NAME%%}-wrapper">
-    <{%%KONGPONENT_NAME%%} />
-  </div>
-</template>
-
-```html
-<template>
-  <div class="{%%KONGPONENT_NAME%%}-wrapper">
-    <{%%KONGPONENT_NAME%%} />
-  </div>
-</template>
+- `@change` - Emitted when...
 
 <script lang="ts">
 import { defineComponent } from 'vue'
@@ -85,14 +55,14 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .{%%KONGPONENT_NAME%%}-wrapper {
   --{%%KONGPONENT_NAME%%}-wrapperBorderColor: lime;
 }
 </style>
 ```
 
-<style lang="scss">
+<style lang="scss" scoped>
 .{%%KONGPONENT_NAME%%}-wrapper {
   --{%%KONGPONENT_NAME%%}-wrapperBorderColor: lime;
 }

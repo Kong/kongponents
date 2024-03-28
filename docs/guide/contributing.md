@@ -188,6 +188,8 @@ In order to prevent component styles from leaking out into the consuming applica
 
 2. All component styles must be wrapped in a unique wrapper class so that styles do not leak out into the consuming application.
 
+  TODO: update class naming guidelines
+
     The class name should follow the syntax `.k-{component-name}-*`
 
    This is a good practice even if you go with option one outlined above.
@@ -205,6 +207,12 @@ In order to prevent component styles from leaking out into the consuming applica
 Kongponent styles should **never** use relative font units; specifically, do not use `rem` or `em` units.
 
 We cannot control the `html` base font size and therefore these relative units are not predictable within a host application. Use `px` (pixels) or a similar unit instead.
+
+### Code best practices
+
+#### Prop naming
+
+TODO: wip
 
 ## Testing your component
 

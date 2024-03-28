@@ -50,7 +50,7 @@ describe('KSkeleton', () => {
         },
       })
 
-      cy.get('.kong-icon').should('exist')
+      cy.get('.skeleton-spinner').should('exist')
     })
 
     it('renders full screen loader with progress bar', () => {

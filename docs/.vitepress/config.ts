@@ -1,6 +1,8 @@
 import { defineConfig } from 'vitepress'
+import VueDevTools from 'vite-plugin-vue-devtools'
 
-const DEPLOYED_HOSTNAME = 'https://kongponents.konghq.com' // Ensure this does NOT end with a trailing-slash
+// TODO: Update to permanent path when `alpha` is merged into main
+const DEPLOYED_HOSTNAME = 'https://alpha--kongponents.netlify.app' // Ensure this does NOT end with a trailing-slash
 
 const KONG_SVG = '<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><title>Kong API Gateway and Service Connectivity Platform</title><path fill-rule="evenodd" clip-rule="evenodd" d="m16.28 36.66 1-1.3h7.45l3.88 4.96-.7 1.68h-9.6l.24-1.68-2.27-3.66Z" fill="#169FCC"/><path fill-rule="evenodd" clip-rule="evenodd" d="m18.55 19.75 3.6-6.21h4.19L45.1 35.35 43.65 42H35.6l.5-1.87-17.55-20.38Z" fill="#14B59A"/><path fill-rule="evenodd" clip-rule="evenodd" d="m22.92 12.36 1.72-3.19L29.8 5l8.85 6.94-1.15 1.17 1.54 2.13v2.28l-4.4 3.6-7.4-8.76h-4.32Z" fill="#1BC263"/><path fill-rule="evenodd" clip-rule="evenodd" d="M9.25 26.23h2.33l6.1-5.1 8.08 9.4-2.28 3.41h-7.46l-5.15 6.55L9.7 42H3v-8.03l6.25-7.74Z" fill="#16BDCC"/></svg>'
 
@@ -10,6 +12,7 @@ export default defineConfig({
   title: 'Kongponents',
   description: 'Kong UI Components & Style Guide',
   head: [
+    ['meta', { name: 'robots', content: 'noindex,nofollow' }], // TODO: Remove when `alpha` is merged into main
     ['meta', { name: 'theme-color', content: '#1456cb' }],
     ['meta', { name: 'msapplication-TileColor', content: '#1456cb' }],
     ['meta', { name: 'application-name', content: 'Kongponents' }],
@@ -60,8 +63,9 @@ export default defineConfig({
             { text: 'Checkbox', link: '/components/checkbox' },
             { text: 'Code Block', link: '/components/codeblock' },
             { text: 'Collapse', link: '/components/collapse' },
+            { text: 'Copy', link: '/components/copy' },
             { text: 'DateTime Picker', link: '/components/datetime-picker' },
-            { text: 'Dropdown Menu', link: '/components/dropdown-menu' },
+            { text: 'Dropdown', link: '/components/dropdown' },
             { text: 'Empty State', link: '/components/empty-state' },
             { text: 'External Link', link: '/components/external-link' },
             { text: 'File Upload', link: '/components/file-upload' },
@@ -70,8 +74,6 @@ export default defineConfig({
             { text: 'Input', link: '/components/input' },
             { text: 'Input Switch', link: '/components/input-switch' },
             { text: 'Label', link: '/components/label' },
-            { text: 'Menu', link: '/components/menu' },
-            { text: 'Method Badge', link: '/components/method-badge' },
             { text: 'Modal', link: '/components/modal' },
             { text: 'Modal Fullscreen', link: '/components/modal-fullscreen' },
             { text: 'Multiselect', link: '/components/multiselect' },
@@ -91,7 +93,6 @@ export default defineConfig({
             { text: 'Tooltip', link: '/components/tooltip' },
             { text: 'Tree List', link: '/components/tree-list' },
             { text: 'Truncate', link: '/components/truncate' },
-            { text: 'View Switcher', link: '/components/view-switcher' },
           ]
         },
         {
@@ -112,25 +113,14 @@ export default defineConfig({
           items: [
             { text: 'Getting Started', link: '/guide/' },
             { text: 'Usage', link: '/guide/usage' },
-          ]
-        },
-        {
-          text: 'Styles',
-          collapsed: false,
-          items: [
-            { text: 'Theming', link: '/guide/styles/theming' },
-            { text: 'Colors', link: '/guide/styles/colors' },
-            { text: 'Typography', link: '/guide/styles/typography' },
-            { text: 'Forms', link: '/guide/styles/forms' },
-            { text: 'Utilities', link: '/guide/styles/utilities' },
-            { text: 'Standalone Usage', link: '/guide/styles/standalone-usage' },
+            { text: 'Theming', link: '/guide/theming' },
           ]
         },
         {
           text: 'Migrations',
           collapsed: false,
           items: [
-            { text: 'Migration to Vue 3', link: '/guide/vue-3-migration-guide' },
+            { text: 'Migrating to v9', link: '/guide/migrating-to-version-9' },
           ]
         },
         {
@@ -138,7 +128,6 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: 'Setup', link: '/guide/contributing' },
-            { text: 'Adding Icons to KIcon', link: '/guide/adding-icons-to-kicon' },
           ]
         },
       ],
@@ -148,11 +137,11 @@ export default defineConfig({
       { text: 'Guide', link: '/guide/', activeMatch: '/guide/' },
       { text: 'Components', link: '/components/alert', activeMatch: '/components/' },
       {
-        text: `v8.x`,
+        text: `v9-alpha`,
         items: [
           {
-            text: 'v9-alpha',
-            link: 'https://alpha--kongponents.netlify.app',
+            text: 'v8.x',
+            link: 'https://kongponents.konghq.com',
             rel: 'nofollow'
           },
           {
@@ -184,4 +173,9 @@ export default defineConfig({
       indexName: 'kongponents-konghq'
     },
   },
+  vite: {
+    plugins: [
+      VueDevTools(),
+    ]
+  }
 })

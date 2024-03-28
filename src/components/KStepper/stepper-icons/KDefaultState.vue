@@ -25,12 +25,9 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
-
 .k-step-state-icon {
   circle {
-    stroke: var(--KStepDefaultColor, var(--grey-300, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak)));
+    stroke: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
   }
 }
 </style>

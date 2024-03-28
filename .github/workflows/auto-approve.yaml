@@ -9,6 +9,7 @@ on: pull_request_target
 
 jobs:
   renovate-autoapprove:
+    timeout-minutes: ${{ fromJSON(vars.GHA_DEFAULT_TIMEOUT) }}
     runs-on: ubuntu-latest
     # Do not auto-approve branches `alpha` or `beta`
     if: github.actor == 'renovate[bot]' && !contains(github.head_ref || github.ref_name, 'alpha') && !contains(github.head_ref || github.ref_name, 'beta')

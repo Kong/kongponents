@@ -153,8 +153,6 @@ watch(modelComputed, (newVal, oldVal) => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
 
 .k-collapse {
   width: 100% !important;
@@ -167,7 +165,7 @@ watch(modelComputed, (newVal, oldVal) => {
     }
   }
   .k-collapse-title {
-    font-size: var(--type-lg, var(--kui-font-size-50, $kui-font-size-50));
+    font-size: var(--kui-font-size-50, $kui-font-size-50);
     font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
     margin-bottom: var(--kui-space-40, $kui-space-40) !important;
 
@@ -184,9 +182,9 @@ watch(modelComputed, (newVal, oldVal) => {
     }
 
     .k-collapse-trigger-content {
-      color: var(--KCollapseTriggerColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+      color: var(--kui-color-text-primary, $kui-color-text-primary);
       display: inline-block !important;
-      font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
+      font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
     }
   }
@@ -194,8 +192,6 @@ watch(modelComputed, (newVal, oldVal) => {
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
-@import '@/styles/functions';
 
 .k-collapse {
   .k-collapse-trigger {
@@ -205,7 +201,7 @@ watch(modelComputed, (newVal, oldVal) => {
         &.kong-icon {
           &.kong-icon-chevronDown svg path,
           &.kong-icon-chevronRight svg path {
-            stroke: var(--KCollapseTriggerColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
+            stroke: var(--kui-color-text-primary, $kui-color-text-primary);
           }
         }
       }

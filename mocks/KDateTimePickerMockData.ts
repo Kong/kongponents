@@ -5,7 +5,6 @@ const CHART_DATA_REQUEST_TRIM = 10
 export const TimeframeKeys = {
   FIFTEEN_MIN: '15m',
   ONE_HOUR: '1h',
-  THREE_HOUR: '3h',
   SIX_HOUR: '6h',
   TWELVE_HOUR: '12h',
   ONE_DAY: '24h',
@@ -94,15 +93,6 @@ export const TimePeriods = new Map([
       display: 'Last hour',
       timeframeText: '1 hour',
       timeframeLength: () => 60 * 60 * 1 * 1000,
-    }),
-  ],
-  [
-    TimeframeKeys.THREE_HOUR,
-    new Timeframe({
-      key: TimeframeKeys.THREE_HOUR,
-      display: 'Last 3 hours',
-      timeframeText: '3 hours',
-      timeframeLength: () => 60 * 60 * 3 * 1000,
     }),
   ],
   [

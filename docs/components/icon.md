@@ -1,5 +1,9 @@
 # Icon
 
+::: danger DEPRECATED COMPONENT
+`KIcon` is deprecated and will be removed in `v9` of Kongponents. All icons will be sourced from [`@kong/icons`](https://github.com/Kong/icons), and all icon props will be removed in favor of slotting in an icon from `@kong/icons` or your icon library of choice.
+:::
+
 **KIcon** - Icon component for displaying SVG symbols. Currently Size, color and viewbox vary between icons, so the implementor must be mindful when using.
 
 <KIcon icon="dashboard" />
@@ -18,7 +22,7 @@ The name of the icon. This required prop will only recognize icons from the foll
   <KToggle v-slot="{ isToggled, toggle }">
     <div>
       <KButton
-        appearance="outline"
+        appearance="secondary"
         @click="toggle"
         class="toggle-viewbox-button"
       >
@@ -54,7 +58,7 @@ The `State icons` do not support the `color` prop.
   <KToggle v-slot="{ isToggled, toggle }">
     <div>
       <KButton
-        appearance="outline"
+        appearance="secondary"
         class="toggle-viewbox-button"
         @click="toggle"
       >
@@ -248,8 +252,6 @@ You can read more about the viewBox attribute
 KIcon imports .svg file types directly, so a loader is needed in order to render in your application such as the webpack
 [raw-loader](https://webpack.js.org/loaders/raw-loader/)
 :::
-
-Check out the [contributing](/guide/adding-icons-to-kicon) docs to learn about adding new icons to `KIcon`.
 
 <style lang="scss" scoped>
 .icon-row {

@@ -640,11 +640,6 @@ Returns the `state` and `hasData` (boolean) of the catalog, `state` can be one o
 - `error` - when the catalog fetch failed
 - `success` - when the catalog fetch completed successfully
 
-## Theming
-
-**KCatalog** is for the most part a collection of KCards. To theme the cards, use
-the existing **KCard** theming variables [here](./card.md#theming).
-
 <script>
 function getItems(count) {
   let myItems = []

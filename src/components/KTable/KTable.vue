@@ -24,24 +24,15 @@
     >
       <slot name="error-state">
         <KEmptyState
-          :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
-          :icon="errorStateIcon || ''"
-          :icon-color="errorStateIconColor"
-          :icon-size="errorStateIconSize"
-          is-error
+          icon-variant="error"
+          :message="errorStateMessage"
+          :title="errorStateTitle"
         >
-          <template #title>
-            {{ errorStateTitle }}
-          </template>
-
-          <template #message>
-            {{ errorStateMessage }}
-          </template>
-
-          <template #cta>
+          <template
+            v-if="!!errorStateActionMessage"
+            #action
+          >
             <KButton
-              v-if="errorStateActionMessage"
-              appearance="primary"
               :data-testid="getTestIdString(errorStateActionMessage)"
               :to="errorStateActionRoute ? errorStateActionRoute : undefined"
               @click="$emit('ktable-error-cta-clicked')"
@@ -60,28 +51,21 @@
     >
       <slot name="empty-state">
         <KEmptyState
-          :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
-          :icon="emptyStateIcon || ''"
-          :icon-color="emptyStateIconColor"
-          :icon-size="emptyStateIconSize"
+          :icon-variant="emptyStateIconVariant"
+          :message="emptyStateMessage"
+          :title="emptyStateTitle"
         >
-          <template #title>
-            {{ emptyStateTitle }}
-          </template>
-
-          <template #message>
-            {{ emptyStateMessage }}
-          </template>
-
-          <template #cta>
+          <template
+            v-if="!!emptyStateActionMessage"
+            #action
+          >
             <KButton
-              v-if="emptyStateActionMessage"
-              :appearance="searchInput ? 'btn-link' : 'primary'"
+              :appearance="searchInput ? 'tertiary' : 'primary'"
               :data-testid="getTestIdString(emptyStateActionMessage)"
-              :icon="emptyStateActionButtonIcon"
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
               @click="$emit('ktable-empty-state-cta-clicked')"
             >
+              <slot name="empty-state-action-icon" />
               {{ emptyStateActionMessage }}
             </KButton>
           </template>
@@ -137,7 +121,7 @@
                   v-if="!disableSorting && !column.hideLabel && column.sortable"
                   aria-hidden="true"
                   class="caret"
-                  :color="`var(--KTableColor, var(--black-70, var(--kui-color-text, ${KUI_COLOR_TEXT})))`"
+                  :color="`var(--kui-color-text, ${KUI_COLOR_TEXT})`"
                   icon="chevronDown"
                   :size="KUI_ICON_SIZE_20"
                 />
@@ -182,16 +166,16 @@
         :disable-page-jump="disablePaginationPageJump"
         :initial-page-size="pageSize"
         :neighbors="paginationNeighbors"
+        :offset="paginationType === 'offset' ? true : false"
         :offset-next-button-disabled="!offset || !hasNextPage"
-        :offset-prev-button-disabled="!previousOffset"
+        :offset-previous-button-disabled="!previousOffset"
         :page-sizes="paginationPageSizes"
-        :pagination-type="paginationType"
         :test-mode="!!testMode || undefined"
         :total-count="total"
         @get-next-offset="getNextOffsetHandler"
-        @get-prev-offset="getPrevOffsetHandler"
-        @page-changed="pageChangeHandler"
-        @page-size-changed="pageSizeChangeHandler"
+        @get-previous-offset="getPrevOffsetHandler"
+        @page-change="pageChangeHandler"
+        @page-size-change="pageSizeChangeHandler"
       />
     </section>
   </div>
@@ -215,18 +199,20 @@ import type {
   SwrvState,
   SwrvStateData,
   TableState,
-  PageChangedData,
-  PageSizeChangedData,
+  PageChangeData,
+  PageSizeChangeData,
   SortColumnOrder,
   TableSortOrder,
   TableSortPayload,
   TableStatePayload,
   TableTestMode,
+  EmptyStateIconVariant,
 } from '@/types'
 import {
   TablePaginationTypeArray,
   TableSortOrderArray,
   TableTestModeArray,
+  EmptyStateIconVariants,
 } from '@/types'
 import { KUI_COLOR_TEXT, KUI_ICON_SIZE_20 } from '@kong/design-tokens'
 
@@ -337,33 +323,9 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  /**
-   * A prop to pass in a custom empty state action message
-   */
-  emptyStateActionButtonIcon: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a custom empty state icon
-   */
-  emptyStateIcon: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a color for the empty state icon
-   */
-  emptyStateIconColor: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a size for the empty state icon
-   */
-  emptyStateIconSize: {
-    type: String,
-    default: '50',
+  emptyStateIconVariant: {
+    type: String as PropType<EmptyStateIconVariant>,
+    default: EmptyStateIconVariants.Default,
   },
   /**
    * A prop that enables the error state
@@ -839,11 +801,11 @@ const sortClickHandler = (header: TableHeader): void => {
   emitTablePreferences()
 }
 
-const pageChangeHandler = ({ page: newPage }: PageChangedData) => {
+const pageChangeHandler = ({ page: newPage }: PageChangeData) => {
   page.value = newPage
 }
 
-const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangedData) => {
+const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData) => {
   offsets.value = [null]
   offset.value = null
   pageSize.value = newPageSize
@@ -992,9 +954,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
 @import '@/styles/tmp-variables';
-@import '@/styles/functions';
 
 .k-table-wrapper {
   overflow: auto;
@@ -1017,14 +977,14 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
   th,
   td {
-    padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) var(--spacing-md, var(--kui-space-60, $kui-space-60));
+    padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
     vertical-align: middle;
     white-space: nowrap;
   }
 
   thead {
     background-color: var(--kui-color-background, $kui-color-background);
-    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTableBorder, var(--grey-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
+    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     height: 60px;
     position: sticky;
     top: 0;
@@ -1063,13 +1023,13 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
     }
 
     th {
-      font-size: var(--KTableHeaderSize, var(--type-sm, var(--kui-font-size-20, $kui-font-size-20)));
+      font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-      padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) var(--spacing-md, var(--kui-space-60, $kui-space-60));
+      padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
       text-align: left;
 
       &.active-sort {
-        color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
+        color: var(--kui-color-text-primary, $kui-color-text-primary);
       }
 
       .sr-only {
@@ -1104,16 +1064,16 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
       height: 44px;
 
       &:not(:last-of-type) {
-        border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTableBorder, var(--grey-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
+        border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       }
     }
 
     td {
-      color: var(--KTableColor, var(--black-70, var(--kui-color-text, $kui-color-text)));
+      color: var(--kui-color-text, $kui-color-text);
       white-space: nowrap;
 
       a {
-        color: var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary));
+        color: var(--kui-color-text-primary, $kui-color-text-primary);
         text-decoration: none;
         &:hover {
           text-decoration: underline;
@@ -1125,7 +1085,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
   // Variants
   &.has-hover {
      tbody tr:hover {
-      background-color: var(--KTableHover, var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest)));
+      background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
     }
   }
 
@@ -1144,12 +1104,12 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
     }
 
     tbody tr td:first-child {
-      border-left: var(--kui-border-width-20, $kui-border-width-20) solid var(--KTableBorder, var(--steel-200, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
+      border-left: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border, $kui-color-border);
     }
 
     &.has-hover {
       tbody tr:hover td:first-child {
-        border-left: var(--kui-border-width-20, $kui-border-width-20) solid var(--KTableBorder, var(--steel-300, $tmp-color-steel-300));
+        border-left: var(--kui-border-width-20, $kui-border-width-20) solid $tmp-color-steel-300;
       }
     }
   }
@@ -1161,9 +1121,6 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
-@import '@/styles/functions';
-
 .k-table {
   thead {
     th {
@@ -1178,25 +1135,33 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
           transform: rotate(-180deg);
         }
       }
+
+      &.truncate, .truncate {
+        @include truncate;
+      }
     }
   }
 
   tbody {
     td {
-      button,
+      button:not(.dropdown-item-trigger),
       .k-button {
-        margin-bottom: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs, var(--kui-space-40, $kui-space-40))));
-        margin-top: calc(-1 * var(--KButtonPaddingY, var(--spacing-xs, var(--kui-space-40, $kui-space-40))));
+        margin-bottom: calc(-1 * var(--kui-space-40, $kui-space-40));
+        margin-top: calc(-1 * var(--kui-space-40, $kui-space-40));
       }
       .k-table-cell-title {
-        color: var(--grey-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
-        font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+        font-size: var(--kui-font-size-40, $kui-font-size-40);
         font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
       }
       .k-table-cell-description {
-        color: var(--grey-500, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong));
-        font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
+        color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+        font-size: var(--kui-font-size-40, $kui-font-size-40);
         font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+      }
+
+      &.truncate, .truncate {
+        @include truncate;
       }
     }
   }

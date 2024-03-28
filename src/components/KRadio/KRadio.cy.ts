@@ -1,21 +1,12 @@
 import { mount } from 'cypress/vue'
 import KRadio from '@/components/KRadio/KRadio.vue'
 
-/**
- * ALL TESTS MUST USE testMode
- * We generate unique IDs for reference by aria properties. Test mode strips these out
- * allowing for successful snapshot verification.
- * props: {
- *   testMode: true
- * }
- */
 describe('KRadio', () => {
   it('shows as not selected when modelValue is true', () => {
     mount(KRadio, {
       props: {
         modelValue: false,
         selectedValue: true,
-        testMode: true,
       },
     })
 
@@ -27,7 +18,6 @@ describe('KRadio', () => {
       props: {
         modelValue: true,
         selectedValue: true,
-        testMode: true,
       },
     })
 
@@ -39,7 +29,6 @@ describe('KRadio', () => {
       props: {
         modelValue: false,
         selectedValue: true,
-        testMode: true,
       },
     })
 
@@ -52,45 +41,43 @@ describe('KRadio', () => {
     })
   })
 
-  it('renders the default slot content when type prop is card', () => {
+  it('renders the default slot content when card prop is true', () => {
     const slotText = 'Hello world'
+
     mount(KRadio, {
       props: {
         modelValue: false,
         selectedValue: true,
-        type: 'card',
+        card: true,
         label: 'Some label',
-        testMode: true,
       },
       slots: {
         default: () => slotText,
       },
     })
 
-    cy.get('.k-radio-card').should('contain.text', slotText)
+    cy.get('.radio-card').should('contain.text', slotText)
   })
 
-  it('renders input element hidden when type prop is card', () => {
+  it('renders input element hidden when card prop is true', () => {
     mount(KRadio, {
       props: {
         modelValue: false,
         selectedValue: true,
-        type: 'card',
+        card: true,
         label: 'Some label',
-        testMode: true,
       },
     })
 
     cy.get('input').should('not.be.visible')
   })
 
-  it('emits checked value on click within entire label element when type prop is card', () => {
+  it('emits checked value on click within entire label element when card prop is true', () => {
     mount(KRadio, {
       props: {
         modelValue: false,
         selectedValue: true,
-        type: 'card',
-        testMode: true,
+        card: true,
       },
       slots: {
         default: () => 'Hello',
@@ -106,13 +93,12 @@ describe('KRadio', () => {
       })
   })
 
-  it('should not be selectable when disabled and type prop is card', () => {
+  it('should not be selectable when disabled and card prop is true', () => {
     mount(KRadio, {
       props: {
         modelValue: false,
         selectedValue: true,
-        type: 'card',
-        testMode: true,
+        card: true,
       },
       attrs: {
         disabled: true,

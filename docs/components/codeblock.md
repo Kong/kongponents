@@ -51,6 +51,46 @@ No additional formatting of the code takes places. It will be used as-is.
 
 The syntax language of `props.code` (e.g. `'json'`).
 
+### initialFilterMode
+
+* **Type**: `boolean`
+* **Required**: no
+* **Default**: `false`
+
+Controls whether the filter mode is initially active. Can be used together with the [`filter-mode-change` event](#filter-mode-change) to persist a code block’s filter mode setting.
+
+### initialRegExpMode
+
+* **Type**: `boolean`
+* **Required**: no
+* **Default**: `false`
+
+Controls whether the regular expression mode is initially active. Can be used together with the [`reg-exp-mode-change` event](#reg-exp-mode-change) to persist a code block’s regular expression mode setting.
+
+<ClientOnly>
+  <KCodeBlock
+    id="code-block-initial-reg-exp-mode"
+    :code="code"
+    language="json"
+    query="(true|false)"
+    initial-filter-mode
+    initial-reg-exp-mode
+    is-searchable
+  />
+</ClientOnly>
+
+```html
+<KCodeBlock
+  id="code-block-initial-reg-exp-mode"
+  :code="code"
+  language="json"
+  query="(true|false)"
+  initial-filter-mode
+  initial-reg-exp-mode
+  is-searchable
+/>
+```
+
 ### isSearchable
 
 * **Type**: `boolean`
@@ -137,6 +177,32 @@ Allows controlling the processing state from outside the component. This allows 
 />
 ```
 
+### maxHeight
+
+* **Type**: `string`
+* **Required**: no
+* **Default**: `'none'`
+
+The `max-height` of the code block.
+
+<ClientOnly>
+  <KCodeBlock
+    id="code-block-max-height"
+    :code="code"
+    language="json"
+    max-height="200"
+  />
+</ClientOnly>
+
+```html
+<KCodeBlock
+  id="code-block-max-height"
+  :code="code"
+  language="json"
+  max-height="200"
+/>
+```
+
 ### query
 
 * **Type**: `string`
@@ -207,7 +273,7 @@ You might need to turn this off for sites that already constantly use the fragme
     :code="code"
     language="json"
     :show-line-number-links="true"
-    style="--KCodeBlockMaxHeight: 200px"
+    max-height="200px"
   />
 </ClientOnly>
 
@@ -264,10 +330,8 @@ Allows adding elements after the location of the copy button.
   >
     <template #secondary-actions>
       <KButton
-        appearance="outline"
+        appearance="secondary"
         size="small"
-        :is-rounded="false"
-        title="Copy as Kubernetes"
       >
         <KIcon
           color="currentColor"
@@ -289,10 +353,8 @@ Allows adding elements after the location of the copy button.
 >
   <template #secondary-actions>
     <KButton
-      appearance="outline"
+      appearance="secondary"
       size="small"
-      :is-rounded="false"
-      title="Copy as Kubernetes"
       @click="copyAsKubernetes"
     >
       <KIcon
@@ -332,6 +394,11 @@ function highlight({ preElement, codeElement, language, code }) {
 }
 ```
 
+### filter-mode-change
+
+- **Type**: `boolean`
+- **Trigger**: Fired when the toggles the filter mode.
+
 ### matching-lines-change
 
 - **Type**: [`CodeBlockEventData`](#codeblockeventdata)
@@ -342,32 +409,22 @@ function highlight({ preElement, codeElement, language, code }) {
 - **Type**: `string`
 - **Trigger**: Fired when the component’s internal query state is updated. This happens when the user finished typing (with a delay of a few hundred milliseconds to avoid repeatedly triggering computations while the user is still typing).
 
-## Theming
+### reg-exp-mode-change
 
-
-| Variable                          | Default                   | Purpose                                                          |
-|:--------------------------------- |:------------------------- |:---------------------------------------------------------------- |
-| `--KCodeBlockBorderRadius`        | `5px`                     | Code block border radius                                         |
-| `--KCodeBlockFocusColor`          | `var(--blue-500)`         | General focus color                                              |
-| `--KCodeBlockMatchHighlightColor` | `var(--blue-500)`         | Current match highlight color                                    |
-| `--KCodeBlockColor`               | `var(--black-85)`         | Code block text color                                            |
-| `--KCodeBlockBackgroundColor`     | `var(--grey-100)`         | Code block background color                                      |
-| `--KCodeBlockFontSize`            | `var(--type-xs)`          | Code block font size                                             |
-| `--KCodeBlockFontFamilyMono`      | `var(--font-family-mono)` | Code block font family                                           |
-| `--KCodeBlockTabSize`             | `2`                       | Tab size for code blocks                                         |
-| `--KCodeBlockMaxHeight`           | `none`                    | Max-height of the code block. Any overflow will be scrollable |
+- **Type**: `boolean`
+- **Trigger**: Fired when the toggles the regular expression mode.
 
 ## Default shortcuts
 
 This component has a few shortcuts for interacting with its search and filter features. All of them are scoped to the code block. When invoking them while focus is placed outside of a code block, their associated actions won’t trigger.
 
-| Shortcut                             | Description             |
-|:------------------------------------ |:----------------------- |
-| <kbd>Alt+F</kbd> or <kbd>Alt+G</kbd> | Toggles filter mode     |
-| <kbd>Alt+R</kbd>                     | Toggles RegExp mode     |
-| <kbd>Alt+C</kbd>                     | Copies the code         |
-| <kbd>F3</kbd>                        | Jumps to next match     |
-| <kbd>Shift+F3</kbd>                  | Jumps to previous match |
+| Shortcut                                      | Description             |
+| :-------------------------------------------- | :---------------------- |
+| <kbd>Alt+F</kbd> or <kbd>Alt+G</kbd>          | Toggles filter mode     |
+| <kbd>Alt+R</kbd>                              | Toggles RegExp mode     |
+| <kbd>Alt+C</kbd>                              | Copies the code         |
+| <kbd>F3</kbd> or <kbd>Enter</kbd>             | Jumps to next match     |
+| <kbd>Shift+F3</kbd> or <kbd>Shift+Enter</kbd> | Jumps to previous match |
 
 ## Types
 

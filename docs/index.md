@@ -32,9 +32,9 @@ features:
     details: At Kong, we thrive with the open-source community. We're always looking for contributions; feel free to submit a pull request!
     link: /guide/contributing
     linkText: Start coding
-  - title: Migrating to Vue 3?
+  - title: Migrating from v8.x?
     details: Our Migration Guide has you covered with a complete list of breaking changes.
-    link: /guide/vue-3-migration-guide
+    link: /guide/migrating-to-version-9
     linkText: View changes
 ---
 

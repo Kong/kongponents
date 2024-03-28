@@ -235,7 +235,8 @@ export default function useUtilities() {
       sizeStr.endsWith('%') ||
       sizeStr.endsWith('vw') ||
       sizeStr.endsWith('vh') ||
-      sizeStr.endsWith('px')
+      sizeStr.endsWith('px') ||
+      sizeStr.includes('calc(')
       ? sizeStr
       : sizeStr + 'px'
   }

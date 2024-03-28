@@ -6,6 +6,7 @@ on:
 
 jobs:
   remove-pr-preview-comment:
+    timeout-minutes: ${{ fromJSON(vars.GHA_DEFAULT_TIMEOUT) }}
     name: Remove PR preview comment from PR
     runs-on: ubuntu-latest
     env:

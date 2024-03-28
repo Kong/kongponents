@@ -2,6 +2,11 @@ name: Tests
 
 on:
   pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - labeled
     branches:
       - main
       - alpha
@@ -43,7 +48,7 @@ jobs:
          fetch-depth: 0
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
 
@@ -61,7 +66,7 @@ jobs:
 
       - name: Publish Package Preview
         id: package-preview
-        if: github.event_name == 'pull_request' && github.actor != 'renovate[bot]'
+        if: github.event_name == 'pull_request' && (github.actor != 'renovate[bot]' || contains(github.event.pull_request.labels.*.name, 'create preview package'))
         run: |
           git config user.email "konnectx-engineers+kongponents-bot@konghq.com"
           git config user.name "Kong UI Bot"
@@ -94,7 +99,7 @@ jobs:
             exit -1
           fi
 
-          npm_instructions="@$(echo ${pkg}|cut -d'@' -f2)@${tag}"
+          npm_instructions="yarn add @$(echo ${pkg}|cut -d'@' -f2)@${tag}"
 
           echo "npm_instructions<<EOF" >> $GITHUB_OUTPUT
           echo -e "$npm_instructions" >> $GITHUB_OUTPUT
@@ -120,26 +125,27 @@ jobs:
           command: yarn test
 
       - name: Upload Cypress screenshots (on failure)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
 
       - name: Upload Cypress videos (always)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
           path: cypress/videos
 
       # This step will be skipped if being ran from the publish action with PREVENT_PERCY_TESTS: 'true'
-      - name: Trigger Percy visual regression test for docs
-        timeout-minutes: 5
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-          PREVENT_PERCY_TESTS: ${{ secrets.PREVENT_PERCY_TESTS }}
-          PERCY_TARGET_BRANCH: main
-        if: "${{ env.PREVENT_PERCY_TESTS != 'true' }}"
-        run: |
-          npx @percy/cli snapshot docs/.vitepress/dist/ --exclude "**/404.html"
+      # - name: Trigger Percy visual regression test for docs
+      #   timeout-minutes: 5
+      #   env:
+      #     PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+      #     PREVENT_PERCY_TESTS: ${{ secrets.PREVENT_PERCY_TESTS }}
+      #     # TODO: Change branch as branch name changes
+      #     PERCY_TARGET_BRANCH: alpha
+      #   if: "${{ env.PREVENT_PERCY_TESTS != 'true' }}"
+      #   run: |
+      #     npx @percy/cli snapshot docs/.vitepress/dist/ --exclude "**/404.html"

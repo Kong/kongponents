@@ -1,7 +1,6 @@
 export interface TreeListItem {
   name: string
   id: string
-  icon?: string
   selected?: boolean
   children?: TreeListItem[]
 }

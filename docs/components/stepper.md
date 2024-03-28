@@ -128,52 +128,6 @@ The width of step labels (default is `170px`). We support numbers (will be conve
 <KStepper :steps="steps" max-label-width="100" />
 ```
 
-## Theming
-
-| Variable                       | Purpose                                  |
-| :----------------------------- | :--------------------------------------- |
-| `KStepIconSize`                | Height and width of step state icon      |
-| `KStepBackgroundColor`         | Background color of the step state icon  |
-| `KStepDividerColorCompleted`   | Color of divider for completed steps     |
-| `KStepDividerColorDefault`     | Color of divider for non-completed steps |
-| `KStepActiveColor`             | Primary color of active state icon       |
-| `KStepCompletedColor`          | Primary color of completed state icon    |
-| `KStepCompletedSecondaryColor` | Secondary color of completed state icon  |
-| `KStepDefaultColor`            | Primary color of default state icon      |
-| `KStepErrorColor`              | Primary color of error state icon        |
-| `KStepErrorSecondaryColor`     | Secondary color of error state icon      |
-| `KStepPendingColor`            | Primary color for pending state icon     |
-
-
-An example of theming the stepper:
-
-> Note: We are scoping the overrides to a wrapper in this example
-
-<div class="k-stepper-wrapper">
-  <KStepper :steps="stepTypes" />
-</div>
-
-```html
-<template>
-  <div class="k-stepper-wrapper">
-    <KStepper :steps="steps" />
-  </div>
-</template>
-
-<style lang="scss">
-.k-stepper-wrapper {
-  --KStepIconSize: 40px;
-  --KStepDividerColorCompleted: green;
-  --KStepDividerColorDefault: lightgrey;
-  --KStepActiveColor: slateblue;
-  --KStepCompletedColor: green;
-  --KStepDefaultColor: lightgrey;
-  --KStepErrorColor: red;
-  --KStepPendingColor: sandybrown;
-}
-</style>
-```
-
 <script lang="ts">
 import { defineComponent } from 'vue'
 
@@ -202,16 +156,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="scss">
-.k-stepper-wrapper {
-  --KStepIconSize: 40px;
-  --KStepDividerColorCompleted: green;
-  --KStepDividerColorDefault: lightgrey;
-  --KStepActiveColor: slateblue;
-  --KStepCompletedColor: green;
-  --KStepDefaultColor: lightgrey;
-  --KStepErrorColor: red;
-  --KStepPendingColor: sandybrown;
-}
-</style>

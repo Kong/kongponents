@@ -14,10 +14,7 @@ const rendersCorrectAppearance = (variant: BadgeAppearance) => {
       },
     })
 
-    cy.get('.k-badge').should('not.have.class', 'is-bordered')
-    cy.get('.k-badge').should('have.css', 'border-width').and('eq', '0px')
-    cy.get('.k-badge').should('have.css', 'border-style').and('eq', 'none')
-    cy.get('.k-badge').should('have.class', `k-badge-${variant}`)
+    cy.get('.k-badge').should('have.class', variant)
   })
 }
 
@@ -25,50 +22,38 @@ describe('KBadge', () => {
   // Loop through BadgeAppearances
   Object.keys(BadgeAppearances).map(a => rendersCorrectAppearance(a as BadgeAppearance))
 
-  it('renders with borders', () => {
-    mount(KBadge, {
-      props: {
-        isBordered: true,
-      },
-      slots: {
-        default: () => 'Hello!',
-      },
-    })
-
-    cy.get('.k-badge').should('have.class', 'is-bordered')
-    cy.get('.k-badge').should('have.css', 'border-width').and('eq', '1px')
-    cy.get('.k-badge').should('have.css', 'border-style').and('eq', 'solid')
-  })
-
-  it('defaults to default badge', () => {
+  it('defaults to info `appearance`', () => {
     mount(KBadge, {
       slots: {
         default: () => 'Hello!',
       },
     })
 
-    cy.get('.k-badge').should('have.class', 'k-badge-default')
+    cy.get('.k-badge').should('have.class', 'info')
   })
 
-  it('correctly displays truncation tooltip', () => {
+  it('displays `tooltip` at all times', () => {
     const tooltipText = 'Hello! Long badge with truncated text here'
+
     mount(KBadge, {
       props: {
-        truncationTooltip: tooltipText,
+        tooltip: tooltipText,
       },
       slots: {
-        default: () => 'Hello! Long badge with truncated text here',
+        default: () => 'Hello!',
       },
     })
 
     cy.get('.k-tooltip').should('contain.text', tooltipText)
   })
 
-  it('only displays tooltip if truncated', () => {
+  it('when `truncationText` is true, only displays `tooltip` if truncated', () => {
     const tooltipText = 'Hello!'
+
     mount(KBadge, {
       props: {
-        truncationTooltip: tooltipText,
+        tooltip: tooltipText,
+        truncationTooltip: true,
       },
       slots: {
         default: () => 'Hello!',
@@ -78,53 +63,7 @@ describe('KBadge', () => {
     cy.get('.k-tooltip').should('not.exist')
   })
 
-  it('renders tooltip without truncation if forceTooltip prop present', () => {
-    const tooltipText = 'Hello!'
-    mount(KBadge, {
-      props: {
-        truncationTooltip: tooltipText,
-        forceTooltip: true,
-      },
-      slots: {
-        default: () => 'Hello!',
-      },
-    })
-
-    cy.get('.k-tooltip').should('contain.text', tooltipText)
-  })
-
-  it('renders dismissible badge', () => {
-    mount(KBadge, {
-      props: {
-        dismissable: true,
-      },
-      slots: {
-        default: () => 'Hello!',
-      },
-    })
-
-    cy.getTestId('k-badge-dismiss-button').should('exist')
-    cy.getTestId('k-badge-dismiss-button').click()
-    cy.get('.k-badge').should('not.exist')
-  })
-
-  it('handles custom colors', () => {
-    mount(KBadge, {
-      props: {
-        appearance: 'custom',
-        color: 'rgb(255, 255, 255)',
-        backgroundColor: 'rgb(255, 0, 0)',
-      },
-      slots: {
-        default: () => 'Hello!',
-      },
-    })
-
-    cy.get('.k-badge').should('have.css', 'color').and('eq', 'rgb(255, 255, 255)')
-    cy.get('.k-badge').should('have.css', 'background-color').and('eq', 'rgb(255, 0, 0)')
-  })
-
-  it('it should apply maxWidth prop when provided', () => {
+  it('it should apply `maxWidth` prop when provided', () => {
     const maxWidth = '10px'
     mount(KBadge, {
       props: {
@@ -135,6 +74,16 @@ describe('KBadge', () => {
       },
     })
 
-    cy.get('.k-badge-text').should('have.css', 'max-width').and('eq', maxWidth)
+    cy.get('.badge-content-wrapper').should('have.css', 'max-width').and('eq', maxWidth)
+  })
+
+  it('renders the icon slot', () => {
+    mount(KBadge, {
+      slots: {
+        icon: '<span data-testid="icon">Icon</span>',
+      },
+    })
+
+    cy.get('[data-testid="icon"]').should('exist').should('be.visible')
   })
 })

@@ -2,47 +2,23 @@ import { mount } from 'cypress/vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { h } from 'vue'
 
-/**
- * ALL TESTS MUST USE testMode: true
- * We generate unique IDs for reference by aria properties. Test mode strips these out
- * allowing for successful snapshot verification.
- * props: {
- *   testMode: true
- * }
- */
 describe('KLabel', () => {
   it('renders a plain label by default', () => {
     const text = 'Full Name'
     mount(KLabel, {
       props: {
-        testMode: true,
       },
       slots: {
         default: () => text,
       },
     })
 
-    cy.get('.k-input-label').should('have.text', text)
+    cy.get('.k-label').should('have.text', text)
   })
 
-  it('renders a tooltip when `help` is provided', () => {
+  it('renders a red dot when `required` is true', () => {
     mount(KLabel, {
       props: {
-        help: 'This is a tooltip',
-        testMode: true,
-      },
-      slots: {
-        default: () => 'Full Name',
-      },
-    })
-
-    cy.get('.k-input-label .label-tooltip').should('not.be.empty')
-  })
-
-  it('renders an asterisk when `required` is true', () => {
-    mount(KLabel, {
-      props: {
-        testMode: true,
         required: true,
       },
       slots: {
@@ -50,27 +26,37 @@ describe('KLabel', () => {
       },
     })
 
-    cy.get('.k-input-label .is-required').should('exist')
+    cy.get('.k-label.required').should('exist')
+
+    // access element's before pseudo element
+    cy.get('.k-label.required').then($els => {
+      // get Window reference from element
+      const win = $els[0].ownerDocument.defaultView
+      // use getComputedStyle to read the pseudo selector
+      const before = win?.getComputedStyle($els[0], 'before')
+      // read the value of the `content` CSS property
+      const contentValue = before?.getPropertyValue('content')
+      // the returned value will be an empty string with double quotes around it
+      expect(contentValue).to.eq('""')
+    })
   })
 
-  it('renders a tooltip when `info` is provided', () => {
+  it('renders a tooltip when `info` prop is provided', () => {
     mount(KLabel, {
       props: {
         info: 'This is a tooltip',
-        testMode: true,
       },
       slots: {
         default: () => 'Full Name',
       },
     })
 
-    cy.get('.k-input-label .label-tooltip').should('not.be.empty')
+    cy.get('.k-label .label-tooltip').should('not.be.empty')
   })
 
   it('renders a tooltip when `tooltip` slot is used', () => {
     mount(KLabel, {
       props: {
-        testMode: true,
       },
       slots: {
         default: () => 'Full Name',
@@ -78,7 +64,7 @@ describe('KLabel', () => {
       },
     })
 
-    cy.get('.k-input-label .label-tooltip').should('not.be.empty')
+    cy.get('.k-label .label-tooltip').should('not.be.empty')
   })
 
   it('passes the `for` attribute to label when `for` is provided', () => {
@@ -86,13 +72,12 @@ describe('KLabel', () => {
     mount(KLabel, {
       props: {
         for: id,
-        testMode: true,
       },
       slots: {
         default: () => 'Full Name',
       },
     })
 
-    cy.get('.k-input-label').invoke('attr', 'for').should('eq', id)
+    cy.get('.k-label').invoke('attr', 'for').should('eq', id)
   })
 })

@@ -19,21 +19,25 @@ describe('KInputSwitch', () => {
       },
     })
 
-    cy.get('input').click({ force: true }).then(() => {
+    cy.getTestId('switch-control').click().then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'change')
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'input')
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'update:modelValue')
     })
   })
 
-  it('shows enabled icon if prop is set', () => {
+  it('does not emit checked value on click when disabled', () => {
     mount(KInputSwitch, {
       props: {
         modelValue: true,
-        enabledIcon: true,
+        disabled: true,
       },
     })
 
-    cy.get('.k-input-switch .kong-icon').should('be.visible')
+    cy.getTestId('switch-control').click().then(() => {
+      cy.wrap(Cypress.vueWrapper.emitted()).should('not.have.property', 'change')
+      cy.wrap(Cypress.vueWrapper.emitted()).should('not.have.property', 'input')
+      cy.wrap(Cypress.vueWrapper.emitted()).should('not.have.property', 'update:modelValue')
+    })
   })
 })

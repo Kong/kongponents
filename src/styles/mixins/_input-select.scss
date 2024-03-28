@@ -1,0 +1,12 @@
+/* Select related inputs */
+
+@mixin selectItemDefaults {
+  align-items: center;
+  color: var(--kui-color-text, $kui-color-text);
+  display: flex;
+  font-size: var(--kui-font-size-30, $kui-font-size-30);
+  gap: var(--kui-space-40, $kui-space-40);
+  line-height: var(--kui-line-height-40, $kui-line-height-40);
+  padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+  width: 100%;
+}
