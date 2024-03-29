@@ -696,6 +696,7 @@ const headerHeight = computed((): string => {
 
   return 'auto'
 })
+
 const startResize = (evt: MouseEvent, colKey: string) => {
   let x = 0
   let width = 0
@@ -1062,8 +1063,6 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/tmp-variables';
-@import '@/styles/mixins';
 
 .k-table-wrapper {
   overflow: auto;
@@ -1086,7 +1085,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
   th,
   td {
-    border-right: var(--kui-border-width-20, $kui-border-width-20) solid $kui-color-border-transparent;
+    border-right: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
     padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
     vertical-align: middle;
     white-space: nowrap;
