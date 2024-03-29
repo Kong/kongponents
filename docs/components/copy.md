@@ -151,14 +151,53 @@ Number of characters to truncate at. Defaults to `8`.
 />
 ```
 
+If you specify `'auto'` for the `truncationLimit` the text will only truncate if there is not enough space for it to be fully displayed.
+
+<KCard>
+  <div class="copy-flexed">
+    <KCopy
+      badge
+      badge-label="Truncated(auto):"
+      truncate
+      :text="longUrl"
+      truncation-limit="auto"
+    />
+    <KCopy
+      badge
+      badge-label="Truncated(20ch):"
+      truncate
+      :text="longUrl"
+      :truncation-limit="20"
+    />
+  </div>
+</KCard>
+
+```html
+<KCopy
+  badge
+  badge-label="Truncated(auto):"
+  truncate
+  :text="longUrl"
+  truncation-limit="auto"
+/>
+
+<KCopy
+  badge
+  badge-label="Truncated(20ch):"
+  truncate
+  :text="longUrl"
+  :truncation-limit="20"
+/>
+```
+
 ### copyTooltip
 
-Tooltip text displayed on hover copy button. 
+Tooltip text displayed on hover copy button.
 If the `badgeLabel` prop has a value, then the copy tooltip text is `Copy {badgeLabel}` and the trailing colon from label if one exists will be stripped; otherwise the copy tooltip text is `Copy`.
 
 <KCopy
   :text="text"
-  badge 
+  badge
   badge-label="Service ID:"
   copy-tooltip="Copy to clipboard"
 />
@@ -166,7 +205,7 @@ If the `badgeLabel` prop has a value, then the copy tooltip text is `Copy {badge
 ```html
 <KCopy
   :text="text"
-  badge 
+  badge
   badge-label="Service ID:"
   copy-tooltip="Copy to clipboard"
 />
@@ -238,6 +277,7 @@ const onButtonClick = (): void => {
 import { ref } from 'vue'
 
 const text = '12345-6789-ABCD-EFGH-PQRSTUV-WXYZ'
+const longUrl = 'http://i.can.haz.cookies/chocolate/chocolate-chip?best=true&ref=a24Sfsdjh382-3hhdsu3-dsda'
 
 const kCopyElement = ref<InstanceType<typeof KCopy> | null>(null)
 
@@ -245,3 +285,12 @@ const onButtonClick = (): void => {
   kCopyElement.value?.copy()
 }
 </script>
+
+<style lang="scss" scoped>
+.copy-flexed {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 100%;
+}
+</style>
