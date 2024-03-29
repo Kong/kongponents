@@ -120,7 +120,7 @@
                 <div
                   v-if="resizeColumns && index !== 0"
                   class="resize-handle previous"
-                  @mousedown="(evt) => startResize(evt, tableHeaders[index - 1].key)"
+                  @mousedown.stop="(evt) => startResize(evt, tableHeaders[index - 1].key)"
                   @mouseleave="resizerHoveredColumn = ''"
                   @mouseover="resizerHoveredColumn = tableHeaders[index - 1].key"
                 />
@@ -151,7 +151,7 @@
                 <div
                   v-if="resizeColumns && index !== tableHeaders.length - 1"
                   class="resize-handle"
-                  @mousedown="(evt) => startResize(evt, column.key)"
+                  @mousedown.stop="(evt) => startResize(evt, column.key)"
                   @mouseleave="resizerHoveredColumn = ''"
                   @mouseover="resizerHoveredColumn = column.key"
                 />
