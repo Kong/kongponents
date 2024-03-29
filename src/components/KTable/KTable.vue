@@ -94,7 +94,7 @@
               :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
               class="k-table-headers"
               :class="{
-                'resize-hover': currentFocusedColumn === column.key && resizeColumns && index !== tableHeaders.length - 1,
+                'resize-hover': resizeHoverColumn === column.key && resizeColumns && index !== tableHeaders.length - 1,
                 'truncated-column resizable': resizeColumns,
                 'sortable': !disableSorting && !column.hideLabel && column.sortable,
                 'active-sort': !disableSorting && !column.hideLabel && column.sortable && column.key === sortColumnKey,
@@ -113,10 +113,18 @@
                   sortClickHandler(column)
                 }
               }"
-              @mouseleave="currentFocusedColumn = ''"
-              @mouseover="currentFocusedColumn = column.key"
+              @mouseleave="currentHoveredColumn = ''"
+              @mouseover="currentHoveredColumn = column.key"
             >
               <div class="k-table-headers-container">
+                <div
+                  v-if="resizeColumns && index !== 0"
+                  class="resize-handle previous"
+                  @mousedown="(evt) => startResize(evt, tableHeaders[index - 1].key)"
+                  @mouseleave="resizerHoveredColumn = ''"
+                  @mouseover="resizerHoveredColumn = tableHeaders[index - 1].key"
+                />
+
                 <slot
                   :column="getGeneric(column)"
                   :name="getColumnSlotName(column.key)"
@@ -144,6 +152,8 @@
                   v-if="resizeColumns && index !== tableHeaders.length - 1"
                   class="resize-handle"
                   @mousedown="(evt) => startResize(evt, column.key)"
+                  @mouseleave="resizerHoveredColumn = ''"
+                  @mouseover="resizerHoveredColumn = column.key"
                 />
               </div>
             </th>
@@ -164,7 +174,7 @@
               v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
               :key="`k-table-${tableId}-cell-${index}`"
               :class="{
-                'resize-hover': currentFocusedColumn === value.key && resizeColumns && index !== tableHeaders.length - 1,
+                'resize-hover': resizeHoverColumn && resizeColumns && index !== tableHeaders.length - 1,
                 'truncated-column': resizeColumns
               }"
               :style="columnStyles[value.key]"
@@ -543,7 +553,9 @@ const defaultFetcherProps = {
 const data = ref<Record<string, any>[]>([])
 const headerRow = ref<HTMLDivElement>()
 const tableHeaders: Ref<TableHeader[]> = ref([])
-const currentFocusedColumn = ref('')
+const currentHoveredColumn = ref('')
+const resizerHoveredColumn = ref('')
+const resizingColumn = ref('')
 const total = ref(0)
 const isScrolled = ref(false)
 const page = ref(1)
@@ -684,6 +696,38 @@ const columnStyles = computed(() => {
   return styles
 })
 
+/**
+ * We have to track the state of all three hover events because
+ * they have differing priorities that can have clashing styles.
+ */
+const resizerHoverState = computed((): string => {
+  if (resizingColumn.value) {
+    // highest priority - resize event in progress, mouse may be completely outside of the column
+    return 'resizing'
+  } else if (resizerHoveredColumn.value) {
+    // hovered over a column resize handle (may need to trigger styles on the adjacent column instead of the current)
+    return 'resize-hover'
+  } else if (currentHoveredColumn.value) {
+    // lowest priority - hovered somewhere in the <th> of a resizable column
+    return 'th-hover'
+  }
+
+  return ''
+})
+
+const resizeHoverColumn = computed((): string => {
+  switch (resizerHoverState.value) {
+    case 'resizing':
+      return resizingColumn.value
+    case 'resize-hover':
+      return resizerHoveredColumn.value
+    case 'th-hover':
+      return currentHoveredColumn.value
+    default:
+      return ''
+  }
+})
+
 // get the resizable header divs to be used for the resize observers
 const headerElems = computed(() => headerRow.value?.querySelectorAll('th.resizable'))
 const headerHeight = computed((): string => {
@@ -696,10 +740,11 @@ const headerHeight = computed((): string => {
 
   return 'auto'
 })
-
 const startResize = (evt: MouseEvent, colKey: string) => {
   let x = 0
   let width = 0
+
+  resizingColumn.value = colKey
 
   // get the current column's element
   let col: HTMLElement | null = null
@@ -721,6 +766,7 @@ const startResize = (evt: MouseEvent, colKey: string) => {
 
   // done resizing
   const mouseUpHandler = (): void => {
+    resizingColumn.value = ''
     document.removeEventListener('mousemove', mouseMoveHandler)
     document.removeEventListener('mouseup', mouseUpHandler)
     emitTablePreferences()
@@ -1063,6 +1109,8 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/tmp-variables';
+@import '@/styles/mixins';
 
 .k-table-wrapper {
   overflow: auto;
@@ -1085,7 +1133,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
   th,
   td {
-    border-right: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
+    border-right: var(--kui-border-width-20, $kui-border-width-20) solid $kui-color-border-transparent;
     padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
     vertical-align: middle;
     white-space: nowrap;
@@ -1160,6 +1208,11 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
           right: 0;
           top: 0;
           width: 6px;
+
+          &.previous {
+            left: 0;
+            right: unset;
+          }
         }
       }
 
