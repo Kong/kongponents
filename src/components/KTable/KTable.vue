@@ -120,7 +120,8 @@
                 <div
                   v-if="resizeColumns && index !== 0"
                   class="resize-handle previous"
-                  @mousedown.stop="(evt) => startResize(evt, tableHeaders[index - 1].key)"
+                  @click.stop
+                  @mousedown="(evt) => startResize(evt, tableHeaders[index - 1].key)"
                   @mouseleave="resizerHoveredColumn = ''"
                   @mouseover="resizerHoveredColumn = tableHeaders[index - 1].key"
                 />
@@ -151,7 +152,8 @@
                 <div
                   v-if="resizeColumns && index !== tableHeaders.length - 1"
                   class="resize-handle"
-                  @mousedown.stop="(evt) => startResize(evt, column.key)"
+                  @click.stop
+                  @mousedown="(evt) => startResize(evt, column.key)"
                   @mouseleave="resizerHoveredColumn = ''"
                   @mouseover="resizerHoveredColumn = column.key"
                 />
@@ -174,7 +176,7 @@
               v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
               :key="`k-table-${tableId}-cell-${index}`"
               :class="{
-                'resize-hover': resizeHoverColumn && resizeColumns && index !== tableHeaders.length - 1,
+                'resize-hover': resizeColumns && resizeHoverColumn === value.key && index !== tableHeaders.length - 1,
                 'truncated-column': resizeColumns
               }"
               :style="columnStyles[value.key]"
