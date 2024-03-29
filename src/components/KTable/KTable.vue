@@ -271,7 +271,7 @@ const props = defineProps({
    */
   resizeColumns: {
     type: Boolean,
-    default: false,
+    default: true, /** TODO: default to false before merge!! */
   },
   /**
    * Enable client side sort - only do this if using a fetcher
