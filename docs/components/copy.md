@@ -290,7 +290,7 @@ const onButtonClick = (): void => {
 .copy-flexed {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: $kui-space-70;
   max-width: 100%;
 }
 </style>
