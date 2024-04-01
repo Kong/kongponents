@@ -1,3 +1,15 @@
+# [9.0.0-alpha.125](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.124...v9.0.0-alpha.125) (2024-04-01)
+
+
+### Bug Fixes
+
+* **ktabs:** disabled item remove pointer events none [KHCP-11265] ([#2103](https://github.com/Kong/kongponents/issues/2103)) ([cc08a9a](https://github.com/Kong/kongponents/commit/cc08a9a8cc41b0b4f41fe50aefd880e6cec9d031))
+
+
+### Features
+
+* **kcopy:** support truncationLimit auto [khcp-11256] ([#2106](https://github.com/Kong/kongponents/issues/2106)) ([26c4365](https://github.com/Kong/kongponents/commit/26c43652a486eea53591ec94bbe241622e5bd661))
+
 # [9.0.0-alpha.124](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.123...v9.0.0-alpha.124) (2024-03-28)
 
 
