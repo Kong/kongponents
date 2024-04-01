@@ -1135,18 +1135,19 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
   th,
   td {
-    border-right: var(--kui-border-width-20, $kui-border-width-20) solid $kui-color-border-transparent;
     padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
     vertical-align: middle;
     white-space: nowrap;
   }
 
   th.resize-hover {
-    border-right: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple);
+    // creates a 2px "border" on the right - can't use the border because it will "jump"
+    box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple) inset;
   }
 
   td.resize-hover {
-    border-right: var(--kui-border-width-20, $kui-border-width-20) solid rgba(175, 183, 197, .2); /** $kui-color-border as rgb */
+    // creates a 2px "border" on the right - can't use the border because it will "jump"
+    box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border, $kui-color-border) inset;
   }
 
   .truncated-column {
