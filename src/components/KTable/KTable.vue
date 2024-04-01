@@ -273,7 +273,7 @@ const props = defineProps({
    */
   resizeColumns: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   /**
    * Enable client side sort - only do this if using a fetcher
