@@ -18,12 +18,13 @@
         position-fixed
         :text="textTooltipLabel"
       >
-        <span
+        <div
+          ref="copyTextElement"
           class="copy-text"
           :class="{ 'monospace': monospace || !badge }"
         >
           {{ textFormat }}
-        </span>
+        </div>
       </KTooltip>
 
       <KTooltip
@@ -54,12 +55,13 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
+import { v4 as uuid4 } from 'uuid'
+import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { CopyIcon } from '@kong/icons'
 import KClipboardProvider from '@/components/KClipboardProvider'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
-import { v4 as uuid4 } from 'uuid'
 
 const props = defineProps({
   /**
@@ -132,7 +134,7 @@ const props = defineProps({
    * Number of characters to truncate at
    */
   truncationLimit: {
-    type: Number,
+    type: [Number, String],
     default: 8,
   },
 })
@@ -153,12 +155,10 @@ watch(nonSuccessText, (value: string): void => {
   tooltipText.value = value
 }, { immediate: true })
 
-const truncateLimitText = computed((): string | null => props.truncate ? `${String(props.text || '').substring(0, props.truncationLimit) + '...'}` : null)
-
 // Computed for dynamic classes
 const textTooltipClasses = computed((): string => {
   const tooltipWrapperClass = 'copy-tooltip-wrapper' // this selector is referenced in vars.scss - do not update without checking for usage in there first
-  return `${tooltipWrapperClass} ${props.truncate || props.badge ? 'truncate-content' : ''}`
+  return `${tooltipWrapperClass} ${(props.truncate && isTruncated.value) || props.badge ? 'truncate-content' : ''}`
 })
 
 const textFormat = computed(() => {
@@ -178,7 +178,7 @@ const textTooltipLabel = computed((): string | undefined => {
   }
 
   // don't show text tooltip if text is redacted or not truncated
-  if (props.format === 'redacted' || !truncateLimitText.value) {
+  if (props.format === 'redacted' || !isTruncated.value) {
     return undefined
   }
 
@@ -211,6 +211,34 @@ const copy = () => {
 defineExpose({
   copy,
 })
+
+const copyTextElement = ref<HTMLDivElement>()
+const resizeObserver = ref<ResizeObserverHelper>()
+const truncateLimitText = computed((): string | null => props.truncate && typeof props.truncationLimit === 'number' ? `${String(props.text || '').substring(0, props.truncationLimit) + '...'}` : null)
+const isTruncated = ref<boolean>(false)
+const setTruncation = (): void => {
+  if (!props.truncate) {
+    return
+  }
+
+  if (props.truncationLimit !== 'auto' && truncateLimitText.value) {
+    isTruncated.value = true
+  } else if (props.truncationLimit === 'auto' && copyTextElement.value) {
+    isTruncated.value = copyTextElement.value.offsetWidth < copyTextElement.value.scrollWidth
+  }
+}
+
+onMounted(() => {
+  resizeObserver.value = ResizeObserverHelper.create(setTruncation)
+
+  resizeObserver.value.observe(copyTextElement.value as HTMLDivElement)
+})
+
+onUnmounted(() => {
+  if (resizeObserver.value) {
+    resizeObserver.value.unobserve(copyTextElement.value as HTMLDivElement)
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -219,6 +247,7 @@ defineExpose({
 .k-copy {
   align-items: center;
   display: flex;
+  max-width: 100%; /** necessary for truncation */
 
   .copy-element {
     align-items: center;
@@ -226,6 +255,10 @@ defineExpose({
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    .copy-text {
+      @include truncate;
+    }
 
     .truncate-content {
       display: inline-block;
