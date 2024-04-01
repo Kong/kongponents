@@ -7,181 +7,134 @@
     data-testid="k-code-block"
   >
     <div
-      v-if="searchable && !singleLine"
+      v-if="showCodeBlockActions"
       class="code-block-actions"
     >
-      <p
-        class="code-block-search-results"
-        :class="{
-          'code-block-search-results-has-query': query !== '',
-        }"
+      <KInput
+        v-model="searchQuery"
+        aria-label="Search"
+        class="code-block-search-input"
+        data-testid="code-block-search-input"
+        :error="regExpError !== null"
+        :error-message="regExpError !== null ? regExpError.message : undefined"
+        placeholder="Search..."
+        @input="handleSearch"
       >
-        <template v-if="query === '' && matchingLineNumbers.length === 0">
-          &nbsp;
+        <template #before>
+          <Transition
+            mode="out-in"
+            name="kongponents-fade-transition"
+          >
+            <CloseIcon
+              v-if="searchQuery"
+              aria-label="Clear query"
+              class="clear-query-button"
+              data-testid="clear-query-button"
+              role="button"
+              tabindex="0"
+              title="Clear query"
+              @click="clearQuery"
+              @keydown.enter="clearQuery"
+              @keydown.space="clearQuery"
+            />
+            <SearchIcon
+              v-else
+              class="code-block-search-icon"
+            />
+          </Transition>
         </template>
+      </KInput>
 
-        <template v-else-if="matchingLineNumbers.length === 0">
-          No results
-        </template>
-
-        <template v-else-if="typeof currentLineIndex === 'number' && !isShowingFilteredCode">
-          {{ currentLineIndex + 1 }} of {{ matchingLineNumbers.length }}
-        </template>
-
-        <template v-else>
-          {{ matchingLineNumbers.length }} {{ matchingLineNumbers.length === 1 ? 'result' : 'results' }}
-        </template>
-      </p>
-
-      <div class="search-container">
-        <KIcon
-          class="code-block-search-icon"
-          :class="[`theme-${theme}`]"
-          color="currentColor"
-          data-testid="code-block-search-icon"
-          icon="search"
-          :size="KUI_ICON_SIZE_40"
-        />
-
-        <label
-          class="k-code-block-search-label"
-          :for="`${id}-search-input`"
+      <Transition name="kongponents-fade-transition">
+        <div
+          v-if="isProcessing || searchQuery"
+          class="code-block-search-results-container"
         >
-          <span class="visually-hidden">Search</span>
-        </label>
+          <Transition name="kongponents-fade-transition">
+            <ProgressIcon
+              v-if="isProcessing"
+              class="code-block-processing-icon"
+              :color="KUI_COLOR_TEXT_NEUTRAL_STRONG"
+              :size="KUI_ICON_SIZE_30"
+            />
+          </Transition>
 
-        <input
-          :id="`${id}-search-input`"
-          ref="codeBlockSearchInput"
-          class="code-block-search-input"
-          data-testid="code-block-search-input"
-          type="text"
-          @input="handleSearch"
-        >
+          <p
+            v-if="searchQuery"
+            class="code-block-search-results"
+          >
+            <template v-if="matchingLineNumbers.length === 0">
+              No results
+            </template>
 
-        <p
-          v-if="regExpError !== null"
-          class="code-block-search-error"
-        >
-          {{ regExpError.message }}
-        </p>
+            <template v-else-if="typeof currentLineIndex === 'number' && !isShowingFilteredCode">
+              {{ currentLineIndex + 1 }} of {{ matchingLineNumbers.length }}
+            </template>
 
-        <KIcon
-          class="processing-icon"
-          :class="[`theme-${theme}`, { 'k-is-processing-icon-is-visible': isProcessing }]"
-          color="currentColor"
-          data-testid="processing-icon"
-          icon="spinner"
-        />
-
-        <button
-          v-if="query !== ''"
-          appearance="outline"
-          class="clear-query-button"
-          data-testid="clear-query-button"
-          title="Clear query"
-          type="button"
-          @click="clearQuery"
-        >
-          <span class="visually-hidden">Clear query</span>
-
-          <KIcon
-            class="k-clear-icon"
-            :class="[`theme-${theme}`]"
-            color="currentColor"
-            data-testid="k-code-block-clear-icon"
-            icon="clear"
-            :size="KUI_ICON_SIZE_40"
-          />
-        </button>
-      </div>
+            <template v-else>
+              {{ matchingLineNumbers.length }} {{ matchingLineNumbers.length === 1 ? 'result' : 'results' }}
+            </template>
+          </p>
+        </div>
+      </Transition>
 
       <div class="code-block-search-actions">
-        <!-- temporary workaround to get state to "stick" -->
         <KButton
-          :appearance="isRegExpMode ? 'secondary' : 'tertiary'"
-          :aria-pressed="isRegExpMode"
-          class="regexp-mode-button"
+          appearance="tertiary"
+          :aria-label="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
+          class="action-button regexp-mode-button"
+          :class="{ 'action-inactive': !isRegExpMode }"
           data-testid="regexp-mode-button"
-          size="small"
           :title="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
           type="button"
           @click="toggleRegExpMode"
         >
-          <span class="visually-hidden">RegExp mode enabled</span>
-
-          .*
+          <template #icon>
+            <RegexIcon />
+          </template>
         </KButton>
 
-        <!-- temporary workaround to get state to "stick" -->
         <KButton
-          :appearance="isFilterMode ? 'secondary' : 'tertiary'"
-          :aria-pressed="isFilterMode"
-          class="filter-mode-button"
+          appearance="tertiary"
+          :aria-label="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
+          class="action-button filter-mode-button"
+          :class="{ 'action-inactive': !isFilterMode }"
           data-testid="filter-mode-button"
-          icon="filter"
-          size="small"
           :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
           type="button"
           @click="toggleFilterMode"
         >
           <template #icon>
-            <KIcon
-              class="k-button-icon"
-              color="currentColor"
-              icon="filter"
-              :size="KUI_ICON_SIZE_30"
-              :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
-            />
+            <FilterIcon />
           </template>
-
-          <span class="visually-hidden">Filter mode enabled</span>
         </KButton>
 
         <KButton
           appearance="tertiary"
+          aria-label="Previous match (Shift+F3)"
           class="previous-match-button"
           data-testid="previous-match-button"
           :disabled="matchingLineNumbers.length === 0 || isFilterMode"
-          size="small"
           title="Previous match (Shift+F3)"
-          type="button"
           @click="jumpToPreviousMatch"
         >
           <template #icon>
-            <KIcon
-              class="k-button-icon"
-              color="currentColor"
-              icon="chevronUp"
-              :size="KUI_ICON_SIZE_30"
-              title="Previous match (Shift+F3)"
-            />
+            <ArrowUpIcon />
           </template>
-
-          <span class="visually-hidden">Previous match</span>
         </KButton>
 
         <KButton
           appearance="tertiary"
+          aria-label="Next match (F3)"
           class="next-match-button"
           data-testid="next-match-button"
           :disabled="matchingLineNumbers.length === 0 || isFilterMode"
-          size="small"
           title="Next match (F3)"
-          type="button"
           @click="jumpToNextMatch"
         >
           <template #icon>
-            <KIcon
-              class="k-button-icon"
-              color="currentColor"
-              icon="chevronDown"
-              :size="KUI_ICON_SIZE_30"
-              title="Next match (F3)"
-            />
+            <ArrowDownIcon />
           </template>
-
-          <span class="visually-hidden">Next match</span>
         </KButton>
       </div>
     </div>
@@ -252,21 +205,16 @@
         <KButton
           v-if="showCopyButton"
           appearance="tertiary"
+          :aria-label="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
           class="code-block-copy-button"
           data-testid="code-block-copy-button"
-          size="small"
           :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
           type="button"
           @click="copyCode"
         >
-          <KIcon
-            color="currentColor"
-            icon="copy"
-            :size="KUI_ICON_SIZE_30"
-            :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
-          />
-
-          <span class="visually-hidden">Copy</span>
+          <template #icon>
+            <CopyIcon />
+          </template>
         </KButton>
 
         <slot name="secondary-actions" />
@@ -280,14 +228,14 @@ import type { PropType } from 'vue'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, useSlots, watch } from 'vue'
 
 import KButton from '@/components/KButton/KButton.vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
 import { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 import { debounce } from '@/utilities/debounce'
 import type { Command } from '@/utilities/ShortcutManager'
 import { ShortcutManager } from '@/utilities/ShortcutManager'
 import type { CodeBlockEventData, CommandKeywords, Theme } from '@/types/code-block'
-import { KUI_ICON_SIZE_30, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import useUtilities from '@/composables/useUtilities'
+import { CopyIcon, SearchIcon, ProgressIcon, CloseIcon, RegexIcon, FilterIcon, ArrowUpIcon, ArrowDownIcon } from '@kong/icons'
+import { KUI_COLOR_TEXT_NEUTRAL_STRONG, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
 const { getSizeFromString } = useUtilities()
 
@@ -450,7 +398,7 @@ const isRegExpMode = ref<boolean>(props.initialRegExpMode)
 const isFilterMode = ref<boolean>(props.initialFilterMode)
 const regExpError = ref<Error | null>(null)
 const codeBlock = ref<HTMLElement | null>(null)
-const codeBlockSearchInput = ref<HTMLInputElement | null>(null)
+const searchQuery = ref<string>(props.query)
 const numberOfMatches = ref<number>(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
@@ -478,6 +426,7 @@ const filteredCode = computed((): string => {
     })
     .join('\n')
 })
+const showCodeBlockActions = computed((): boolean => !props.singleLine && (props.searchable || isFilterMode.value || isRegExpMode.value))
 
 // This is in the case where a user is trying to render
 // HTML code, and it would render the actual tags inside
@@ -586,10 +535,6 @@ const shortcutManager = new ShortcutManager(keyMap, commands)
 onMounted(function() {
   shortcutManager.registerListener()
 
-  if (codeBlockSearchInput.value instanceof HTMLInputElement && props.query !== '') {
-    codeBlockSearchInput.value.value = props.query
-  }
-
   emitCodeBlockRenderEvent()
   updateMatchingLineNumbers()
 })
@@ -627,19 +572,16 @@ function getEventData(preElement: HTMLElement, codeElement: HTMLElement): CodeBl
   }
 }
 
-function handleSearch(event: Event): void {
-  const input = event.target as HTMLInputElement
-
+function handleSearch(): void {
   // Ensures that no wasted debouncing takes place when the search input value being emitted is the same as the previous query. This also avoids unnecessarily showing the processing icon.
-  if (input.value !== query.value) {
+  if (searchQuery.value !== query.value) {
     isProcessingInternally.value = true
-    debouncedHandleSearchInputValue(input.value)
+    debouncedHandleSearchInputValue()
   }
 }
 
-function handleSearchInputValue(inputValue: string): void {
-  query.value = inputValue
-  emit('query-change', inputValue)
+function handleSearchInputValue(): void {
+  emit('query-change', searchQuery.value)
   updateMatchingLineNumbers()
 }
 
@@ -649,9 +591,9 @@ function updateMatchingLineNumbers(): void {
 
   let totalMatchingLineNumbers: number[] = []
 
-  if (query.value.length > 0) {
+  if (searchQuery.value.length > 0) {
     try {
-      totalMatchingLineNumbers = getMatchingLineNumbers(props.code.toLowerCase(), query.value.toLowerCase(), isRegExpMode.value)
+      totalMatchingLineNumbers = getMatchingLineNumbers(props.code.toLowerCase(), searchQuery.value.toLowerCase(), isRegExpMode.value)
     } catch (error) {
       if (error instanceof Error) {
         regExpError.value = error
@@ -713,11 +655,9 @@ function getMatchingLineNumbersByRegExp(code: string, query: string): number[] {
 }
 
 function clearQuery(): void {
-  if (codeBlockSearchInput.value instanceof HTMLInputElement) {
-    codeBlockSearchInput.value.value = ''
-  }
+  searchQuery.value = ''
 
-  handleSearchInputValue('')
+  handleSearchInputValue()
 }
 
 function toggleRegExpMode(): void {
@@ -782,489 +722,153 @@ async function copyCode(event: Event): Promise<void> {
 </script>
 
 <style lang="scss" scoped>
+/* Component mixins */
 
-@import '@/styles/tmp-variables';
-
-@import '@/styles/mixins';
-
-// shared
-$borderRadius: var(--kui-border-radius-40, $kui-border-radius-40);
-$fontSize: var(--kui-font-size-20, $kui-font-size-20);
-$fontFamilyMono: var(--kui-font-family-code, $kui-font-family-code);
-$tabSize: 2;
-
-// theme-light
-$light-color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-$light-backgroundColor: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
-$light-focusColor: var(--kui-color-border-primary, $kui-color-border-primary);
-
-// theme-dark
-$dark-color: $tmp-color-green-200;
-$dark-backgroundColor: var(--kui-color-background-neutral-strongest, $kui-color-background-neutral-strongest);
-$dark-focusColor: $tmp-color-green-500;
-
-.k-code-block {
-  border-radius: $borderRadius;
-  color: $light-color;
-
-  &.theme-dark {
-    color: $dark-color;
-  }
-}
-
-.k-code-block pre,
-.k-code-block code {
-  color: $light-color;
-  font-family: $fontFamilyMono;
-  font-size: $fontSize;
-  tab-size: $tabSize;
-}
-
-.k-code-block.theme-dark pre,
-.k-code-block.theme-dark code {
-  color: $dark-color;
-}
-
-.k-code-block pre {
-  background-color: $light-backgroundColor;
-  border-radius: $borderRadius;
-  display: grid;
-  gap: var(--kui-space-50, $kui-space-50);
-  grid-template-columns: v-bind('maxLineNumberWidth') 1fr;
-  margin-bottom: var(--kui-space-0, $kui-space-0);
-  margin-top: var(--kui-space-0, $kui-space-0);
-  max-height: v-bind('maxHeightValue');
-  min-height: 56px;
-  overflow: auto;
-  padding: var(--kui-space-60, $kui-space-60) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0) var(--kui-space-50, $kui-space-50);
-}
-
-.k-code-block pre.is-single-line {
-  grid-template-columns: auto;
-  padding: var(--kui-space-50, $kui-space-50) var(--kui-space-110, $kui-space-110) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
-
-  code {
-    line-height: var(--kui-line-height-50, $kui-line-height-50);
-    margin-right: var(--kui-space-70, $kui-space-70);
-    overflow-x: auto;
-    padding-bottom: var(--kui-space-40, $kui-space-40);
-    padding-left: var(--kui-space-50, $kui-space-50);
-  }
-
-  + .k-code-block-copy-button {
-    top: 8px;
-  }
-}
-
-.k-code-block.theme-dark pre {
-  background-color: $dark-backgroundColor;
-}
-
-.k-code-block pre:focus-visible {
-  isolation: isolate;
-  outline: 2px solid $light-focusColor;
-  outline-offset: -2px;
-}
-
-.k-code-block.theme-dark pre:focus-visible {
-  outline: 2px solid $dark-focusColor;
-}
-
-.k-code-block-actions + .k-code-block-content > pre {
-  border-bottom-left-radius: $borderRadius;
-  border-bottom-right-radius: $borderRadius;
-  border-top-left-radius: var(--kui-border-radius-0, $kui-border-radius-0);
-  border-top-right-radius: var(--kui-border-radius-0, $kui-border-radius-0);
-}
-
-.k-code-block code {
-  // This is an essential performance regression prevention in scenarios where the code block content is being syntax-highlighted using PrismJS (see https://github.com/PrismJS/prism/issues/2062). I’ve observed noticeable performance issues as recent as October 2022.
-  display: block;
-  // This element will act as a grid item whose minimum width is initially `auto` which in turn can cause the CSS box to overflow which is not desirable here.
-  min-width: 0;
-  overflow-x: auto;
-  padding-bottom: var(--kui-space-50, $kui-space-50);
-}
-
-.k-code-block:focus-visible {
-  box-shadow: 0 0 0 2px $light-focusColor;
-  isolation: isolate;
-  outline: none;
-}
-
-.k-code-block.theme-dark:focus-visible {
-  box-shadow: 0 0 0 2px $dark-focusColor;
-}
-
-.k-code-block-actions {
-  align-items: stretch;
-  background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-  border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-  border-top-left-radius: $borderRadius;
-  border-top-right-radius: $borderRadius;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--kui-space-20, $kui-space-20);
-  justify-content: flex-end;
-  padding: var(--kui-space-40, $kui-space-40) var(--kui-space-60, $kui-space-60);
-}
-
-.theme-dark .k-code-block-actions {
-  background-color: var(--kui-color-background-neutral-strongest, $kui-color-background-neutral-strongest);
-  border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid $tmp-color-steel-700;
-  color: var(--kui-color-text-inverse, $kui-color-text-inverse);
-}
-
-.k-code-block-actions .k-button {
-  align-self: stretch;
-
-  // TODO: This rule set should live in KButton.vue.
-  &.action-active {
-    background-color: var(--kui-color-background-neutral, $kui-color-background-neutral);
-    border-color: $tmp-color-steel-500;
-    color: var(--kui-color-text-inverse, $kui-color-text-inverse);;
-  }
-}
-
-.k-is-processing-icon {
-  align-items: center;
-  display: inline-flex;
-  justify-content: center;
-
-  .theme-light {
-    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-  }
-
-  .theme-dark {
-    color: $tmp-color-steel-400;
-  }
-}
-
-.k-search-actions {
-  align-items: stretch;
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: var(--kui-space-20, $kui-space-20);
-}
-
-.k-is-processing-icon:not(.k-is-processing-icon-is-visible) {
-  visibility: hidden;
-}
-
-.k-button.k-regexp-mode-button {
-  font-family: $fontFamilyMono;
-}
-
-.k-search-container {
-  align-items: stretch;
-  background-color: var(--kui-color-background, $kui-color-background);
-  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-  border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
-  display: inline-flex;
-  // Indicates the sizing requirements to the surrounding flex container and ensures the search container doesn’t get too small.
-  flex-basis: 15ch;
-  flex-grow: 1;
-  max-width: 250px;
-  position: relative;
-  transition: border $tmp-animation-timing-2 ease;
-
-  &:focus {
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-  }
-}
-
-.theme-dark .k-search-container {
-  background-color: var(--kui-color-background-neutral-stronger, $kui-color-background-neutral-stronger);
-  border: none;
-}
-
-.k-search-container:hover {
-  border-color: $tmp-color-steel-200;
-}
-
-.k-search-container:focus-within {
-  border-color: $tmp-color-steel-400;
-}
-
-.theme-dark .k-search-container:focus-within {
-  border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-}
-
-.k-code-block-search-input {
-  appearance: none;
-  background-color: transparent;
-  border: none;
-  color: currentColor;
-  flex-grow: 1;
-  font: inherit;
-  height: 32px;
-  margin: var(--kui-space-0, $kui-space-0);
-  padding: var(--kui-space-0, $kui-space-0) var(--kui-space-40, $kui-space-40);
-  width: 0;
-}
-
-.theme-dark .k-code-block-search-input {
-  background-color: var(--kui-color-background-neutral-stronger, $kui-color-background-neutral-stronger);
-  color: var(--kui-color-text-inverse, $kui-color-text-inverse);
-}
-
-.k-code-block-search-input:focus,
-.k-code-block-search-input:focus-visible {
-  // Focus styles are managed by `.k-search-container`
-  outline: none;
-}
-
-.k-code-block-search-results {
-  align-self: center;
-  // Sets the minimum width to 12 characters which is the length of the string “1234 results” which should be reasonably safe in order to avoid having layout elements jump around.
-  min-width: 12ch;
-  padding-right: var(--kui-space-50, $kui-space-50);
-  text-align: right;
-}
-
-.k-code-block-search-results:not(.k-code-block-search-results-has-query) {
-  color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-}
-
-.theme-dark .k-code-block-search-results:not(.k-code-block-search-results-has-query) {
-  color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
-}
-
-.k-code-block-search-error,
-.k-code-block-search-results {
-  margin-bottom: var(--kui-space-0, $kui-space-0);
-  margin-top: var(--kui-space-0, $kui-space-0);
-}
-
-.k-code-block-search-error {
-  background-color: var(--kui-color-background, $kui-color-background);
-  border: var(--kui-border-width-10, $kui-border-width-10) solid currentColor;
-  border-bottom-left-radius: var(--kui-border-radius-10, $kui-border-radius-10);
-  border-bottom-right-radius: var(--kui-border-radius-10, $kui-border-radius-10);
-  color: var(--kui-color-text-danger, $kui-color-text-danger);
+@mixin kCodeBlockTypography {
+  font-family: var(--kui-font-family-code, $kui-font-family-code);
   font-size: var(--kui-font-size-20, $kui-font-size-20);
-  left: -1px;
-  padding: var(--kui-space-0, $kui-space-0) var(--kui-space-20, $kui-space-20);
-  position: absolute;
-  right: -1px;
-  top: 100%;
-  z-index: 1;
+  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+  line-height: var(--kui-line-height-30, $kui-line-height-30);
 }
 
-.k-search-icon {
-  color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
-  padding: var(--kui-space-0, $kui-space-0) var(--kui-space-20, $kui-space-20);
-
-  .theme-light {
-    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-  }
-
-  .theme-dark {
-    color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
-  }
-}
-
-.k-clear-query-button {
-  align-items: center;
-  appearance: none;
-  background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
-  border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
-  color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
-  display: inline-flex;
-  font: inherit;
-  margin: var(--kui-space-0, $kui-space-0);
-  padding: var(--kui-space-0, $kui-space-0) var(--kui-space-20, $kui-space-20);
-
-  .k-clear-icon {
-    .theme-light {
-      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-    }
-
-    .theme-dark {
-      color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
-    }
-  }
-}
-
-.k-clear-query-button:focus {
-  border-color: $light-focusColor;
-  /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-  box-shadow: 0 0 0 2px var(--kui-color-background, $kui-color-background), 0 0 0 4px $light-focusColor;
-  outline: none;
-}
-
-.theme-dark .k-clear-query-button:focus {
-  border-color: $dark-focusColor;
-  /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-  box-shadow: 0 0 0 2px var(--kui-color-background, $kui-color-background), 0 0 0 4px $dark-focusColor;
-}
-
-.k-code-block-content {
-  position: relative;
-}
-
-.k-code-block-secondary-actions {
-  display: flex;
-  gap: var(--kui-space-40, $kui-space-40);
-  position: absolute;
-  right: 22px;
-  top: 8px;
-  z-index: 1;
-}
-
-.k-code-block-copy-button[data-tooltip-text]::after {
-  background-color: var(--kui-color-background-neutral-stronger, $kui-color-background-neutral-stronger);
-  border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
-  color: var(--kui-color-text-inverse, $kui-color-text-inverse);
-  content: attr(data-tooltip-text);
-  font-weight: normal;
-  padding: var(--kui-space-40, $kui-space-40);
-  position: absolute;
-  right: calc(100% + 8px);
-  top: 50%;
-  transform: translateY(-50%);
-  white-space: nowrap;
-}
-
-.k-button-icon {
-  align-items: center;
-  display: inline-flex;
-  justify-content: center;
-}
-
-.k-line-number-rows {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  user-select: none;
-}
-
-.k-line-number-rows,
-.k-line-number-rows a {
-  color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-}
-
-.theme-dark .k-line-number-rows,
-.theme-dark .k-line-number-rows a {
-  color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
-}
-
-.k-line {
-  // For some reason, `.k-line` elements are otherwise sized way too large.
-  display: inline-flex;
-  justify-content: flex-end;
-}
-
-.k-line-is-match::before {
-  background-color: $tmp-color-black-10;
-  content: '\A0';
-  left: 0;
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-}
-
-.theme-dark .k-line-is-match::before {
-  background-color: $tmp-color-white-10;
-}
-
-.k-line-is-highlighted-match::before {
-  background-color: $tmp-color-black-20;
-  border-left: var(--kui-border-width-30, $kui-border-width-30) solid $light-focusColor;
-}
-
-.theme-dark .k-line-is-highlighted-match::before {
-  border-left: var(--kui-border-width-30, $kui-border-width-30) solid $dark-focusColor;
-}
-
-.k-line-anchor:not([href]) {
-  text-decoration: none;
-}
-
-.k-line-anchor[href]:hover {
-  color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-  text-decoration: underline;
-}
-
-.visually-hidden {
-  @include visually-hidden;
-}
-</style>
-
-<style lang="scss">
-@import '@/styles/tmp-variables';
-
-$dark-backgroundColor: var(--kui-color-background-neutral-strongest, $kui-color-background-neutral-strongest);
+/* Component styles */
 
 .k-code-block {
-  .k-matched-term {
-    color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
-    font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+  background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+  border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
+
+  .code-block-actions {
+    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    justify-content: space-between;
+    padding: var(--kui-space-40, $kui-space-40);
+
+    .code-block-search-input {
+      max-width: 500px;
+
+      :deep(input) {
+        background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
+        box-shadow: none !important;
+      }
+    }
+
+    & + .code-block-content {
+      pre {
+        padding-top: var(--kui-space-40, $kui-space-40);
+      }
+    }
+
+    .code-block-search-results-container {
+      margin-left: var(--kui-space-auto, $kui-space-auto);
+
+      .code-block-search-results {
+        color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+        font-family: var(--kui-font-family-text, $kui-font-family-text);
+        font-size: var(--kui-font-size-20, $kui-font-size-20);
+        font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+        line-height: var(--kui-line-height-20, $kui-line-height-20);
+      }
+    }
+
+    .code-block-search-actions {
+      .action-button {
+        &.action-inactive {
+          color: var(--kui-color-text-strong, $kui-color-text-neutral-strong);
+
+          &:hover:not(:disabled):not(:focus):not(:active) {
+            color: var(--kui-color-text-primary, $kui-color-text-primary);
+          }
+
+          &:focus-visible {
+            color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+          }
+
+          &:active {
+            color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+          }
+        }
+      }
+    }
   }
 
-  &.theme-dark .k-matched-term {
-    color: var(--kui-color-text-success, $kui-color-text-success);
-  }
-
-  .k-button.small {
-    padding-left: var(--kui-space-40, $kui-space-40);
-    padding-right: var(--kui-space-40, $kui-space-40);
-  }
-
-  .kong-icon {
+  .code-block-actions,
+  .code-block-search-results-container,
+  .code-block-search-actions {
     align-items: center;
-    display: inline-flex;
-    justify-content: center;
+    display: flex;
+    gap: var(--kui-space-40, $kui-space-40);
   }
 
-  // TODO: If and once KButton has `props.theme` support, these styles should live in KButton.vue.
-  // TODO: Fix these styles not always providing a solid background color for the copy button allowing content to clip through it.
-  &.theme-light .k-button:not(.increase-specificity) {
-    @media (min-width: $kui-breakpoint-phablet) {
-      background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-    }
+  .code-block-content {
+    position: relative;
 
-    &:hover:not(:disabled) {
-      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
-    }
+    pre {
+      color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
+      display: grid;
+      gap: var(--kui-space-60, $kui-space-60);
+      grid-template-columns: v-bind('maxLineNumberWidth') 1fr; // first column for line numbers, second column for code
+      margin: var(--kui-space-0, $kui-space-0);
+      max-height: v-bind('maxHeightValue');
+      overflow: auto;
+      padding: var(--kui-space-40, $kui-space-40);
 
-    &:active,
-    &.action-active:hover,
-    &:hover:active {
-      &:not(:disabled) {
-        background-color: var(--kui-color-background-neutral, $kui-color-background-neutral);
-        color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+      .line-number-rows {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        user-select: none;
+
+        .line {
+          @include kCodeBlockTypography;
+
+          display: inline-flex;
+          justify-content: flex-end;
+
+          .line-anchor {
+            color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+          }
+
+          &.line-is-match {
+            .line-anchor {
+              z-index: 1;
+            }
+
+            &::before {
+              background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+              content: '\A0';
+              left: 0;
+              pointer-events: none;
+              position: absolute;
+              right: 0;
+              transition: background-color $kongponentsTransitionDurTimingFunc, border $kongponentsTransitionDurTimingFunc;
+            }
+
+            &.line-is-highlighted-match {
+              &::before {
+                background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+                border-left: var(--kui-border-width-30, $kui-border-width-30) solid #6c7489; // TODO: token needed kui-color-border-neutral
+              }
+            }
+          }
+        }
+      }
+
+      code {
+        @include kCodeBlockTypography;
+
+        display: block;
+        min-width: 0;
+        overflow-x: auto;
+        z-index: 1;
       }
     }
-  }
 
-  // TODO: If and once KButton has `props.theme` support, these styles should live in KButton.vue.
-  // TODO: Fix these styles not always providing a solid background color for the copy button allowing content to clip through it.
-  &.theme-dark .k-button:not(.increase-specificity) {
-    background-color: $dark-backgroundColor;
-    border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-    color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
-
-    @media (max-width: ($kui-breakpoint-phablet - 1px)) {
-      background-color: var(--kui-color-background-neutral-strongest, $kui-color-background-neutral-strongest);
-      border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-    }
-
-    &:hover:not(:disabled) {
-      background-color: $tmp-color-steel-400;
-      border-color: $tmp-color-steel-400;
-      color: $dark-backgroundColor;
-    }
-
-    &:active,
-    &.action-active:hover,
-    &:hover:active {
-      &:not(:disabled) {
-        background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
-        border-color: var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-        color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
-      }
+    .code-block-secondary-actions {
+      margin-right: var(--kui-space-70, $kui-space-70);
+      margin-top: var(--kui-space-40, $kui-space-40);
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 1;
     }
   }
 }

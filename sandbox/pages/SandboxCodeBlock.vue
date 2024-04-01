@@ -29,27 +29,26 @@
         <KCodeBlock
           id="filter-regex-modes-props"
           :code="code"
-          initial-filter-mode
           initial-reg-exp-mode
-          is-searchable
           language="json"
+          searchable
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="singleLine">
         <KCodeBlock
           id="single-line-prop"
           :code="singleLineCode"
-          is-single-line
           language="plaintext"
+          single-line
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="processing">
         <KCodeBlock
           id="processing-prop"
           :code="code"
-          is-processing
-          is-searchable
           language="json"
+          processing
+          searchable
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="maxHeight">
@@ -58,23 +57,24 @@
           :code="code"
           language="json"
           max-height="200px"
+          searchable
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="query">
         <KCodeBlock
           id="query-prop"
           :code="code"
-          is-searchable
           language="json"
           query="compilerOptions"
+          searchable
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="showCopyButton">
         <KCodeBlock
           id="show-copy-button-prop"
           :code="code"
-          is-searchable
           language="json"
+          searchable
           :show-copy-button="false"
         />
       </SandboxSectionComponent>
@@ -82,8 +82,8 @@
         <KCodeBlock
           id="show-line-number-links-prop"
           :code="code"
-          is-searchable
           language="json"
+          searchable
           show-line-number-links
         />
       </SandboxSectionComponent>
@@ -92,9 +92,9 @@
           id="theme-prop"
           :code="code"
           initial-reg-exp-mode
-          is-searchable
           language="json"
           query="compilerOptions"
+          searchable
           theme="dark"
         />
       </SandboxSectionComponent>
