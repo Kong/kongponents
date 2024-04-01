@@ -153,24 +153,22 @@ Number of characters to truncate at. Defaults to `8`.
 
 If you specify `'auto'` for the `truncationLimit` the text will only truncate if there is not enough space for it to be fully displayed.
 
-<KCard>
-  <div class="copy-flexed">
-    <KCopy
-      badge
-      badge-label="Truncated(auto):"
-      truncate
-      :text="longUrl"
-      truncation-limit="auto"
-    />
-    <KCopy
-      badge
-      badge-label="Truncated(20ch):"
-      truncate
-      :text="longUrl"
-      :truncation-limit="20"
-    />
-  </div>
-</KCard>
+<div class="copy-flexed">
+  <KCopy
+    badge
+    badge-label="Truncated(auto):"
+    truncate
+    :text="longUrl"
+    truncation-limit="auto"
+  />
+  <KCopy
+    badge
+    badge-label="Truncated(20ch):"
+    truncate
+    :text="longUrl"
+    :truncation-limit="20"
+  />
+</div>
 
 ```html
 <KCopy
@@ -288,9 +286,16 @@ const onButtonClick = (): void => {
 
 <style lang="scss" scoped>
 .copy-flexed {
+  border: 1px solid $kui-color-border;
   display: flex;
   flex-wrap: wrap;
   gap: $kui-space-70;
-  max-width: 100%;
+  padding: $kui-space-30;
+
+  /** Resizable */
+  max-width: 90%;
+  min-width: 100px;
+  overflow-x: auto;
+  resize: horizontal;
 }
 </style>
