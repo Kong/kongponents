@@ -1083,7 +1083,7 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@kong-ui-public/sandbox-layout@^2.0.44":
+"@kong-ui-public/sandbox-layout@^2.0.48":
   version "2.0.48"
   resolved "https://registry.yarnpkg.com/@kong-ui-public/sandbox-layout/-/sandbox-layout-2.0.48.tgz#ef3640da787980e26af1396914ad19eb5c7da39c"
   integrity sha512-ijQgTy448/KZSjCYxYpuMTYlZFmJgMd09lzIgiUER2bLIfKAJzlhczhYqw64Fi8z4xWPuKDDOEemSprX4bBVsw==
