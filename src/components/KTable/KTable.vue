@@ -769,7 +769,7 @@ const startResize = (evt: MouseEvent, colKey: string) => {
   let col: HTMLElement | null = null
   headerElems.value?.forEach((elem) => {
     if (elem.getAttribute('data-testid') === `k-table-header-${colKey}`) {
-      col = document.querySelector(`[data-tableid="${tableId.value}"] "[data-testid="k-table-header-${colKey}"]`)
+      col = document.querySelector(`[data-tableid="${tableId.value}"] [data-testid="k-table-header-${colKey}"]`)
     }
   })
 
