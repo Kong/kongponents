@@ -395,7 +395,7 @@ const linePrefix = computed((): string => props.id.toLowerCase().replace(/\s+/g,
 const isProcessing = computed((): boolean => props.processing || isProcessingInternally.value)
 const isShowingFilteredCode = computed((): boolean => isFilterMode.value && filteredCode.value !== '')
 const filteredCode = computed((): string => {
-  if (query.value === '') {
+  if (searchQuery.value === '') {
     return ''
   }
 
@@ -404,7 +404,7 @@ const filteredCode = computed((): string => {
     .filter((_line, index) => matchingLineNumbers.value.includes(index + 1))
     .map((line) => {
       try {
-        const regExp = new RegExp(query.value, 'gi')
+        const regExp = new RegExp(searchQuery.value, 'gi')
         return line.replace(regExp, (match) => `<span class="matched-term">${match}</span>`)
       } catch {
         return line
@@ -722,6 +722,7 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
 /* Component styles */
 
 .k-code-block {
+  // light theme (treated as default)
   background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
   border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
 
@@ -822,6 +823,11 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
         overflow-x: auto;
         z-index: 1;
       }
+
+      &.single-line {
+        grid-template-columns: auto;
+        padding-right: var(--kui-space-100, $kui-space-100);
+      }
     }
 
     .code-block-secondary-actions {
@@ -889,6 +895,19 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
         code {
           color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker);
         }
+      }
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+// needs to be unscoped, applies to both light and dark themes
+.k-code-block {
+  pre.filtered-code-block {
+    code {
+      .matched-term {
+        color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
       }
     }
   }

@@ -127,12 +127,19 @@
           searchable
           theme="dark"
         />
+        <KCodeBlock
+          id="single-line-dark-prop"
+          :code="singleLineCode"
+          language="plaintext"
+          single-line
+          theme="dark"
+        />
       </SandboxSectionComponent>
 
-      <!-- Props -->
+      <!-- Slots -->
       <SandboxTitleComponent
         is-subtitle
-        title="Props"
+        title="Slots"
       />
       <SandboxSectionComponent
         class="limited-width"
