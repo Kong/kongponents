@@ -84,7 +84,7 @@
     "@semantic-release/git": "^10.0.1",
     "@types/inquirer": "^9.0.7",
     "@types/node": "^18.19.26",
-    "@types/node-emoji": "^1.8.2",
+    "@types/node-emoji": "^2.1.0",
     "@types/sortablejs": "^1.15.8",
     "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
