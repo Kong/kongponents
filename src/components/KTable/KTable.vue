@@ -80,7 +80,11 @@
     >
       <table
         class="k-table"
-        :class="{'has-hover': hasHover, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
+        :class="{
+          'has-hover': hasHover,
+          'is-clickable': isClickable,
+          'side-border': hasSideBorder
+        }"
         :data-tableid="tableId"
       >
         <thead :class="{ 'is-scrolled': isScrolled }">
@@ -93,14 +97,7 @@
               :key="`k-table-${tableId}-headers-${index}`"
               :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
               class="k-table-headers"
-              :class="{
-                'resize-hover': resizeHoverColumn === column.key && resizeColumns && index !== tableHeaders.length - 1,
-                'truncated-column resizable': resizeColumns,
-                'sortable': !disableSorting && !column.hideLabel && column.sortable,
-                'active-sort': !disableSorting && !column.hideLabel && column.sortable && column.key === sortColumnKey,
-                [sortColumnOrder]: !disableSorting && column.key === sortColumnKey && !column.hideLabel,
-                'is-scrolled': isScrolled
-              }"
+              :class="getHeaderClasses(column, index)"
               :data-testid="`k-table-header-${column.key}`"
               :style="columnStyles[column.key]"
               @click="() => {
@@ -700,6 +697,20 @@ const columnStyles = computed(() => {
   }
   return styles
 })
+
+const getHeaderClasses = (column: TableHeader, index: number): Record<string, boolean> => {
+  return {
+    // display the resize handle on the right side of the column if resizeColumns is enabled, hovering current column, and not the last column
+    'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && index !== tableHeaders.value.length - 1,
+    'truncated-column resizable': props.resizeColumns,
+    // display sort control if column is sortable, label is visible, and sorting is not disabled
+    sortable: !props.disableSorting && !column.hideLabel && !!column.sortable,
+    // display active sorting styles if column is currently sorted
+    'active-sort': !props.disableSorting && !column.hideLabel && !!column.sortable && column.key === sortColumnKey.value,
+    [sortColumnOrder.value]: !props.disableSorting && column.key === sortColumnKey.value && !column.hideLabel,
+    'is-scrolled': isScrolled.value,
+  }
+}
 
 /**
  * We have to track the state of all three hover events because
