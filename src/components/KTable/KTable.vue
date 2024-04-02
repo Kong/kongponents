@@ -121,7 +121,7 @@
                   v-if="resizeColumns && index !== 0"
                   class="resize-handle previous"
                   @click.stop
-                  @mousedown="(evt) => startResize(evt, tableHeaders[index - 1].key)"
+                  @mousedown="startResize($event, tableHeaders[index - 1].key)"
                   @mouseleave="resizerHoveredColumn = ''"
                   @mouseover="resizerHoveredColumn = tableHeaders[index - 1].key"
                 />
@@ -153,7 +153,7 @@
                   v-if="resizeColumns && index !== tableHeaders.length - 1"
                   class="resize-handle"
                   @click.stop
-                  @mousedown="(evt) => startResize(evt, column.key)"
+                  @mousedown="startResize($event, column.key)"
                   @mouseleave="resizerHoveredColumn = ''"
                   @mouseover="resizerHoveredColumn = column.key"
                 />
@@ -553,11 +553,14 @@ const defaultFetcherProps = {
   offset: null,
 }
 const data = ref<Record<string, any>[]>([])
-const headerRow = ref<HTMLDivElement>(null)
+const headerRow = ref<HTMLDivElement>()
 const tableHeaders: Ref<TableHeader[]> = ref([])
-const currentHoveredColumn = ref('')
-const resizerHoveredColumn = ref('')
+// highest priority - column currently being resized (mouse may be completely outside the column)
 const resizingColumn = ref('')
+// column the user is currently hovering over the resize handle for (may be hovered on the adjacent column to what we want to resize)
+const resizerHoveredColumn = ref('')
+// lowest priority - currently hovered resizable column (mouse is somewhere in the <th>)
+const currentHoveredColumn = ref('')
 const total = ref(0)
 const isScrolled = ref(false)
 const page = ref(1)
@@ -731,17 +734,20 @@ const resizeHoverColumn = computed((): string => {
 })
 
 // get the resizable header divs to be used for the resize observers
-const headerElems = computed(() => headerRow.value?.querySelectorAll('th.resizable'))
+const headerElems = computed((): NodeListOf<Element> | undefined => headerRow.value?.querySelectorAll('th.resizable'))
 const headerHeight = computed((): string => {
   const elem = headerElems.value?.item(0)
   if (elem) {
     const styles = window.getComputedStyle(elem)
 
-    return `${parseInt(styles.height, 10)}px`
+    if (styles.height) {
+      return `${parseInt(styles.height, 10)}px`
+    }
   }
 
   return 'auto'
 })
+
 const startResize = (evt: MouseEvent, colKey: string) => {
   let x = 0
   let width = 0
@@ -752,7 +758,7 @@ const startResize = (evt: MouseEvent, colKey: string) => {
   let col: HTMLElement | null = null
   headerElems.value?.forEach((elem) => {
     if (elem.getAttribute('data-testid') === `k-table-header-${colKey}`) {
-      col = document.querySelector(`[data-testid="k-table-header-${colKey}"]`)
+      col = document.querySelector(`[data-tableid="${tableId.value}"] "[data-testid="k-table-header-${colKey}"]`)
     }
   })
 
@@ -780,7 +786,9 @@ const startResize = (evt: MouseEvent, colKey: string) => {
   if (col) {
     // set current column's width
     const styles = window.getComputedStyle(col)
-    width = parseInt(styles.width, 10)
+    if (styles.width) {
+      width = parseInt(styles.width, 10)
+    }
 
     // event listeners for resizing
     document?.addEventListener('mousemove', mouseMoveHandler)
@@ -1199,7 +1207,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
       text-align: left;
 
       &.resizable {
-        min-width: 20px;
+        min-width: 40px;
         position: relative;
 
         .resize-handle {
