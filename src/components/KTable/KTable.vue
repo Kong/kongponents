@@ -553,7 +553,7 @@ const defaultFetcherProps = {
   offset: null,
 }
 const data = ref<Record<string, any>[]>([])
-const headerRow = ref<HTMLDivElement>()
+const headerRow = ref<HTMLDivElement>(null)
 const tableHeaders: Ref<TableHeader[]> = ref([])
 const currentHoveredColumn = ref('')
 const resizerHoveredColumn = ref('')
@@ -769,8 +769,8 @@ const startResize = (evt: MouseEvent, colKey: string) => {
   // done resizing
   const mouseUpHandler = (): void => {
     resizingColumn.value = ''
-    document.removeEventListener('mousemove', mouseMoveHandler)
-    document.removeEventListener('mouseup', mouseUpHandler)
+    document?.removeEventListener('mousemove', mouseMoveHandler)
+    document?.removeEventListener('mouseup', mouseUpHandler)
     emitTablePreferences()
   }
 
@@ -783,8 +783,8 @@ const startResize = (evt: MouseEvent, colKey: string) => {
     width = parseInt(styles.width, 10)
 
     // event listeners for resizing
-    document.addEventListener('mousemove', mouseMoveHandler)
-    document.addEventListener('mouseup', mouseUpHandler)
+    document?.addEventListener('mousemove', mouseMoveHandler)
+    document?.addEventListener('mouseup', mouseUpHandler)
   }
 }
 
@@ -1111,8 +1111,6 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/tmp-variables';
-@import '@/styles/mixins';
 
 .k-table-wrapper {
   overflow: auto;
