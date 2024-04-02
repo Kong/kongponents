@@ -55,6 +55,7 @@
               v-if="isProcessing"
               class="code-block-processing-icon"
               :color="getIconColor"
+              data-testid="code-block-processing-icon"
               :size="KUI_ICON_SIZE_30"
             />
           </Transition>
@@ -212,7 +213,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, useSlots, watch } from 'vue'
-
+import KInput from '@/components/KInput/KInput.vue'
 import { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 import { debounce } from '@/utilities/debounce'
 import type { Command } from '@/utilities/ShortcutManager'

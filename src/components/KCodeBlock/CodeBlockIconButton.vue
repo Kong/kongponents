@@ -24,6 +24,8 @@
 import { ref, type PropType, useAttrs } from 'vue'
 import type { Theme } from '@/types'
 import { watch } from 'vue'
+import KButton from '@/components/KButton/KButton.vue'
+import KTooltip from '@/components/KTooltip/KTooltip.vue'
 
 const props = defineProps({
   theme: {
