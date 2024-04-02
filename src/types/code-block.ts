@@ -1,4 +1,4 @@
-export type CodeBlockEventData = {
+export interface CodeBlockEventData {
   preElement: HTMLElement
   codeElement: HTMLElement
   code: string

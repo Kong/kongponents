@@ -181,6 +181,7 @@
             <a
               :id="`${linePrefix}-L${line}`"
               class="line-anchor"
+              :class="{ 'hide-links': !showLineNumberLinks }"
               :href="showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
             >{{ line }}</a>
           </span>
@@ -195,6 +196,7 @@
       >
         <CodeBlockIconButton
           v-if="showCopyButton"
+          :aria-label="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
           class="code-block-copy-button"
           :copy-tooltip="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
           data-testid="code-block-copy-button"
@@ -413,7 +415,7 @@ const filteredCode = computed((): string => {
     })
     .join('\n')
 })
-const showCodeBlockActions = computed((): boolean => !props.singleLine && (props.searchable || isFilterMode.value || isRegExpMode.value))
+const showCodeBlockActions = computed((): boolean => !props.singleLine && props.searchable)
 
 // This is in the case where a user is trying to render
 // HTML code, and it would render the actual tags inside
@@ -750,6 +752,7 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
         font-size: var(--kui-font-size-20, $kui-font-size-20);
         font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
         line-height: var(--kui-line-height-20, $kui-line-height-20);
+        white-space: nowrap;
       }
     }
   }
@@ -764,7 +767,7 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
 
   .code-block-content {
     max-height: v-bind('maxHeightValue');
-    overflow: auto;
+    overflow-y: auto;
     padding: var(--kui-space-40, $kui-space-40);
     position: relative;
 
@@ -788,6 +791,10 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
 
           .line-anchor {
             color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+
+            &.hide-links {
+              text-decoration: none;
+            }
           }
 
           &.line-is-match {
