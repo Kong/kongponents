@@ -1,3 +1,10 @@
+# [9.0.0-alpha.127](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.126...v9.0.0-alpha.127) (2024-04-02)
+
+
+### Bug Fixes
+
+* **docs:** deploy ([3eda6d1](https://github.com/Kong/kongponents/commit/3eda6d1ba48cdf908172265a76e51f38a0f32a3f))
+
 # [9.0.0-alpha.126](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.125...v9.0.0-alpha.126) (2024-04-01)
 
 
