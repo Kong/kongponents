@@ -334,7 +334,8 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
   .input-element-wrapper {
     position: relative;
 
-    .before-content-wrapper, .after-content-wrapper {
+    .before-content-wrapper,
+    .after-content-wrapper {
       color: var(--kui-color-text-neutral, $kui-color-text-neutral);
       display: inline-flex;
       gap: var(--kui-space-10, $kui-space-10);

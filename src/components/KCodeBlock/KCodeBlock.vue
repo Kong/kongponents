@@ -54,7 +54,7 @@
             <ProgressIcon
               v-if="isProcessing"
               class="code-block-processing-icon"
-              :color="KUI_COLOR_TEXT_NEUTRAL_STRONG"
+              :color="getIconColor"
               :size="KUI_ICON_SIZE_30"
             />
           </Transition>
@@ -79,63 +79,53 @@
       </Transition>
 
       <div class="code-block-search-actions">
-        <KButton
-          appearance="tertiary"
+        <CodeBlockIconButton
+          :active="isRegExpMode"
           :aria-label="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
-          class="action-button regexp-mode-button"
-          :class="{ 'action-inactive': !isRegExpMode }"
+          class="regexp-mode-button"
           data-testid="regexp-mode-button"
+          :theme="theme"
           :title="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
-          type="button"
           @click="toggleRegExpMode"
         >
-          <template #icon>
-            <RegexIcon />
-          </template>
-        </KButton>
+          <RegexIcon />
+        </CodeBlockIconButton>
 
-        <KButton
-          appearance="tertiary"
+        <CodeBlockIconButton
+          :active="isFilterMode"
           :aria-label="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
           class="action-button filter-mode-button"
-          :class="{ 'action-inactive': !isFilterMode }"
           data-testid="filter-mode-button"
+          :theme="theme"
           :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
-          type="button"
           @click="toggleFilterMode"
         >
-          <template #icon>
-            <FilterIcon />
-          </template>
-        </KButton>
+          <FilterIcon />
+        </CodeBlockIconButton>
 
-        <KButton
-          appearance="tertiary"
+        <CodeBlockIconButton
           aria-label="Previous match (Shift+F3)"
           class="previous-match-button"
           data-testid="previous-match-button"
           :disabled="matchingLineNumbers.length === 0 || isFilterMode"
+          :theme="theme"
           title="Previous match (Shift+F3)"
           @click="jumpToPreviousMatch"
         >
-          <template #icon>
-            <ArrowUpIcon />
-          </template>
-        </KButton>
+          <ArrowUpIcon />
+        </CodeBlockIconButton>
 
-        <KButton
-          appearance="tertiary"
+        <CodeBlockIconButton
           aria-label="Next match (F3)"
           class="next-match-button"
           data-testid="next-match-button"
           :disabled="matchingLineNumbers.length === 0 || isFilterMode"
+          :theme="theme"
           title="Next match (F3)"
           @click="jumpToNextMatch"
         >
-          <template #icon>
-            <ArrowDownIcon />
-          </template>
-        </KButton>
+          <ArrowDownIcon />
+        </CodeBlockIconButton>
       </div>
     </div>
 
@@ -202,20 +192,16 @@
         v-if="showCopyButton || slots['secondary-actions']"
         class="code-block-secondary-actions"
       >
-        <KButton
+        <CodeBlockIconButton
           v-if="showCopyButton"
-          appearance="tertiary"
-          :aria-label="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
           class="code-block-copy-button"
+          :copy-tooltip="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
           data-testid="code-block-copy-button"
-          :title="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
-          type="button"
+          :theme="theme"
           @click="copyCode"
         >
-          <template #icon>
-            <CopyIcon />
-          </template>
-        </KButton>
+          <CopyIcon />
+        </CodeBlockIconButton>
 
         <slot name="secondary-actions" />
       </div>
@@ -227,15 +213,15 @@
 import type { PropType } from 'vue'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, useSlots, watch } from 'vue'
 
-import KButton from '@/components/KButton/KButton.vue'
 import { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 import { debounce } from '@/utilities/debounce'
 import type { Command } from '@/utilities/ShortcutManager'
 import { ShortcutManager } from '@/utilities/ShortcutManager'
-import type { CodeBlockEventData, CommandKeywords, Theme } from '@/types/code-block'
+import type { CodeBlockEventData, CommandKeywords, Theme } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import { CopyIcon, SearchIcon, ProgressIcon, CloseIcon, RegexIcon, FilterIcon, ArrowUpIcon, ArrowDownIcon } from '@kong/icons'
-import { KUI_COLOR_TEXT_NEUTRAL_STRONG, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_NEUTRAL_STRONG, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import CodeBlockIconButton from './CodeBlockIconButton.vue'
 
 const { getSizeFromString } = useUtilities()
 
@@ -719,6 +705,8 @@ async function copyCode(event: Event): Promise<void> {
     }, 1500)
   }
 }
+
+const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEUTRAL_STRONG : KUI_COLOR_TEXT_INVERSE)
 </script>
 
 <style lang="scss" scoped>
@@ -740,7 +728,7 @@ async function copyCode(event: Event): Promise<void> {
   .code-block-actions {
     border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     justify-content: space-between;
-    padding: var(--kui-space-40, $kui-space-40);
+    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-40, $kui-space-40);
 
     .code-block-search-input {
       max-width: 500px;
@@ -748,12 +736,6 @@ async function copyCode(event: Event): Promise<void> {
       :deep(input) {
         background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
         box-shadow: none !important;
-      }
-    }
-
-    & + .code-block-content {
-      pre {
-        padding-top: var(--kui-space-40, $kui-space-40);
       }
     }
 
@@ -768,26 +750,6 @@ async function copyCode(event: Event): Promise<void> {
         line-height: var(--kui-line-height-20, $kui-line-height-20);
       }
     }
-
-    .code-block-search-actions {
-      .action-button {
-        &.action-inactive {
-          color: var(--kui-color-text-strong, $kui-color-text-neutral-strong);
-
-          &:hover:not(:disabled):not(:focus):not(:active) {
-            color: var(--kui-color-text-primary, $kui-color-text-primary);
-          }
-
-          &:focus-visible {
-            color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
-          }
-
-          &:active {
-            color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
-          }
-        }
-      }
-    }
   }
 
   .code-block-actions,
@@ -799,17 +761,16 @@ async function copyCode(event: Event): Promise<void> {
   }
 
   .code-block-content {
+    max-height: v-bind('maxHeightValue');
+    overflow: auto;
+    padding: var(--kui-space-40, $kui-space-40);
     position: relative;
 
     pre {
-      color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
       display: grid;
       gap: var(--kui-space-60, $kui-space-60);
       grid-template-columns: v-bind('maxLineNumberWidth') 1fr; // first column for line numbers, second column for code
       margin: var(--kui-space-0, $kui-space-0);
-      max-height: v-bind('maxHeightValue');
-      overflow: auto;
-      padding: var(--kui-space-40, $kui-space-40);
 
       .line-number-rows {
         box-sizing: border-box;
@@ -839,12 +800,12 @@ async function copyCode(event: Event): Promise<void> {
               pointer-events: none;
               position: absolute;
               right: 0;
-              transition: background-color $kongponentsTransitionDurTimingFunc, border $kongponentsTransitionDurTimingFunc;
+              transition: border $kongponentsTransitionDurTimingFunc;
+              width: 100%;
             }
 
             &.line-is-highlighted-match {
               &::before {
-                background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
                 border-left: var(--kui-border-width-30, $kui-border-width-30) solid #6c7489; // TODO: token needed kui-color-border-neutral
               }
             }
@@ -855,6 +816,7 @@ async function copyCode(event: Event): Promise<void> {
       code {
         @include kCodeBlockTypography;
 
+        color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
         display: block;
         min-width: 0;
         overflow-x: auto;
@@ -863,12 +825,71 @@ async function copyCode(event: Event): Promise<void> {
     }
 
     .code-block-secondary-actions {
-      margin-right: var(--kui-space-70, $kui-space-70);
+      display: flex;
+      gap: var(--kui-space-40, $kui-space-40);
+      margin-right: var(--kui-space-40, $kui-space-40);
       margin-top: var(--kui-space-40, $kui-space-40);
       position: absolute;
       right: 0;
       top: 0;
       z-index: 1;
+    }
+  }
+
+  &.theme-dark {
+    background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
+
+    .code-block-actions {
+      border-bottom-color: #2e3350; // TODO: token needed kui-color-border-inverse
+
+      .code-block-search-input {
+        :deep(input) {
+          color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+        }
+
+        .clear-query-button,
+        .code-block-search-icon {
+          color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker) !important;
+        }
+
+        .clear-query-button[role="button"] {
+          &:hover, &:focus, &:focus-visible {
+            color: var(--kui-color-text-inverse, $kui-color-text-inverse) !important;
+          }
+        }
+      }
+
+      .code-block-search-results {
+        color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+      }
+    }
+
+    .code-block-content {
+      pre {
+        .line-number-rows {
+          .line {
+            .line-anchor {
+              color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
+            }
+
+            &.line-is-match {
+              &::before {
+                background-color: #262a49; // TODO: token needed ???
+              }
+
+              &.line-is-highlighted-match {
+                &::before {
+                  border-left-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
+                }
+              }
+            }
+          }
+        }
+
+        code {
+          color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker);
+        }
+      }
     }
   }
 }

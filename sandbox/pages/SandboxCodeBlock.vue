@@ -18,14 +18,20 @@
         is-subtitle
         title="Props"
       />
-      <SandboxSectionComponent title="code & language">
+      <SandboxSectionComponent
+        class="limited-width"
+        title="code & language"
+      >
         <KCodeBlock
           id="code-language-props"
           :code="code"
           language="json"
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="initialFilterMode & initialRegExpMode & searchable">
+      <SandboxSectionComponent
+        class="limited-width"
+        title="initialFilterMode & initialRegExpMode & searchable"
+      >
         <KCodeBlock
           id="filter-regex-modes-props"
           :code="code"
@@ -34,7 +40,10 @@
           searchable
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="singleLine">
+      <SandboxSectionComponent
+        class="limited-width"
+        title="singleLine"
+      >
         <KCodeBlock
           id="single-line-prop"
           :code="singleLineCode"
@@ -42,7 +51,10 @@
           single-line
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="processing">
+      <SandboxSectionComponent
+        class="limited-width"
+        title="processing"
+      >
         <KCodeBlock
           id="processing-prop"
           :code="code"
@@ -51,25 +63,35 @@
           searchable
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="maxHeight">
+      <SandboxSectionComponent
+        class="limited-width"
+        title="maxHeight"
+      >
         <KCodeBlock
           id="max-height-prop"
           :code="code"
           language="json"
-          max-height="200px"
+          max-height="200"
           searchable
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="query">
+      <SandboxSectionComponent
+        class="limited-width"
+        title="query"
+      >
         <KCodeBlock
           id="query-prop"
           :code="code"
           language="json"
+          max-height="200"
           query="compilerOptions"
           searchable
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="showCopyButton">
+      <SandboxSectionComponent
+        class="limited-width"
+        title="showCopyButton"
+      >
         <KCodeBlock
           id="show-copy-button-prop"
           :code="code"
@@ -78,7 +100,10 @@
           :show-copy-button="false"
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="showLineNumberLinks">
+      <SandboxSectionComponent
+        class="limited-width"
+        title="showLineNumberLinks"
+      >
         <KCodeBlock
           id="show-line-number-links-prop"
           :code="code"
@@ -87,12 +112,17 @@
           show-line-number-links
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="theme">
+      <SandboxSectionComponent
+        class="limited-width"
+        title="theme"
+      >
         <KCodeBlock
           id="theme-prop"
           :code="code"
           initial-reg-exp-mode
           language="json"
+          max-height="200"
+          processing
           query="compilerOptions"
           searchable
           theme="dark"
@@ -104,7 +134,10 @@
         is-subtitle
         title="Props"
       />
-      <SandboxSectionComponent title="secondary-actions">
+      <SandboxSectionComponent
+        class="limited-width"
+        title="secondary-actions"
+      >
         <KCodeBlock
           id="secondary-actions-slot"
           :code="code"
@@ -171,3 +204,9 @@ Rl1IG8evLu2zWxN3wb451/Kf5lRFLUjfjuLD8tHMlpwVIxoHct9GuKV4W14cf2Q/
 cWMCwpGsAAE=
 -----END CERTIFICATE-----`
 </script>
+
+<style lang="scss" scoped>
+.limited-width {
+  max-width: 90%;
+}
+</style>
