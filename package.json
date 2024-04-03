@@ -121,7 +121,7 @@
     "sass": "^1.72.0",
     "semantic-release": "^22.0.12",
     "shx": "^0.3.4",
-    "stylelint": "^16.2.1",
+    "stylelint": "^16.3.0",
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-recommended-scss": "^14.0.0",
     "stylelint-config-recommended-vue": "^1.5.0",
@@ -133,7 +133,7 @@
     "vitepress": "^1.0.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
-    "vue-tsc": "^2.0.6"
+    "vue-tsc": "^2.0.7"
   },
   "resolutions": {
     "rollup": "npm:@rollup/wasm-node"
