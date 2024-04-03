@@ -80,10 +80,10 @@
       </Transition>
 
       <div class="code-block-search-actions">
-        <CodeBlockIconButton
+        <KCodeBlockIconButton
           :active="isRegExpMode"
           :aria-label="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
-          :aria-presssed="isRegExpMode"
+          :aria-pressed="isRegExpMode"
           class="regexp-mode-button"
           data-testid="regexp-mode-button"
           :theme="theme"
@@ -91,12 +91,12 @@
           @click="toggleRegExpMode"
         >
           <RegexIcon />
-        </CodeBlockIconButton>
+        </KCodeBlockIconButton>
 
-        <CodeBlockIconButton
+        <KCodeBlockIconButton
           :active="isFilterMode"
           :aria-label="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
-          :aria-pressed="isRegExpMode"
+          :aria-pressed="isFilterMode"
           class="action-button filter-mode-button"
           data-testid="filter-mode-button"
           :theme="theme"
@@ -104,9 +104,9 @@
           @click="toggleFilterMode"
         >
           <FilterIcon />
-        </CodeBlockIconButton>
+        </KCodeBlockIconButton>
 
-        <CodeBlockIconButton
+        <KCodeBlockIconButton
           aria-label="Previous match (Shift+F3)"
           class="previous-match-button"
           data-testid="previous-match-button"
@@ -116,9 +116,9 @@
           @click="jumpToPreviousMatch"
         >
           <ArrowUpIcon />
-        </CodeBlockIconButton>
+        </KCodeBlockIconButton>
 
-        <CodeBlockIconButton
+        <KCodeBlockIconButton
           aria-label="Next match (F3)"
           class="next-match-button"
           data-testid="next-match-button"
@@ -128,7 +128,7 @@
           @click="jumpToNextMatch"
         >
           <ArrowDownIcon />
-        </CodeBlockIconButton>
+        </KCodeBlockIconButton>
       </div>
     </div>
 
@@ -196,7 +196,7 @@
         v-if="showCopyButton || slots['secondary-actions']"
         class="code-block-secondary-actions"
       >
-        <CodeBlockIconButton
+        <KCodeBlockIconButton
           v-if="showCopyButton"
           :aria-label="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
           class="code-block-copy-button"
@@ -206,7 +206,7 @@
           @click="copyCode"
         >
           <CopyIcon />
-        </CodeBlockIconButton>
+        </KCodeBlockIconButton>
 
         <slot name="secondary-actions" />
       </div>
@@ -226,7 +226,7 @@ import type { CodeBlockEventData, CommandKeywords, Theme } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import { CopyIcon, SearchIcon, ProgressIcon, CloseIcon, RegexIcon, FilterIcon, ArrowUpIcon, ArrowDownIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_NEUTRAL_STRONG, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
-import CodeBlockIconButton from './CodeBlockIconButton.vue'
+import KCodeBlockIconButton from './KCodeBlockIconButton.vue'
 
 const { getSizeFromString } = useUtilities()
 

@@ -274,7 +274,31 @@ Sets the display theme of the component. Accepted values are:
 
 ### secondary-actions
 
-Allows adding elements after the location of the copy button.
+Allows adding elements after the location of the copy button. See example in [KCodeBlockIconButton component docs section](#kcodeblockiconbutton).
+
+## KCodeBlockIconButton
+
+KCodeBlockIconButton is a helper component for adding KCodeBlock-style icon buttons. It works just like a regular button with a few props expanding it's functionality.
+
+### Props
+
+#### theme
+
+Pass the value matching the [`theme` prop](#theme) value passed to KCodeBlock component so that the button style matches the theme. **Note:** it's also a good idea to combine this prop with appropriate accessibility attributes such as `aria-pressed`.
+
+#### active
+
+Use this prop for buttons that can have two states: _active_ and _inactive_ (e.g. filter mode button). This will apply appropriate state styling to the button. Defaults to `true`.
+
+#### copyTooltip
+
+If the button action is copying some content to the clipboard, you can pass test through this prop that will be displayed as tooltip on the button. Once the button is clicked, the tooltip text will change to "Copied!" for a few seconds before changing back to the original value you passed.
+
+### Slots
+
+#### default
+
+Slot for button content.
 
 <ClientOnly>
   <KCodeBlock
@@ -283,13 +307,10 @@ Allows adding elements after the location of the copy button.
     language="json"
   >
     <template #secondary-actions>
-      <KButton
-        appearance="secondary"
-        size="small"
-      >
+      <KCodeBlockIconButton copy-tooltip="Copy as k8s">
         <CopyIcon />
         as k8s
-      </KButton>
+      </KCodeBlockIconButton>
     </template>
   </KCodeBlock>
 </ClientOnly>
@@ -301,14 +322,10 @@ Allows adding elements after the location of the copy button.
   language="json"
 >
   <template #secondary-actions>
-    <KButton
-      appearance="secondary"
-      size="small"
-      @click="copyAsKubernetes"
-    >
+    <KCodeBlockIconButton copy-tooltip="Copy as k8s">
       <CopyIcon />
       as k8s
-    </KButton>
+    </KCodeBlockIconButton>
   </template>
 </KCodeBlock>
 ```
