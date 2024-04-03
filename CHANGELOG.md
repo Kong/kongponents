@@ -1,3 +1,127 @@
+# [9.0.0-alpha.127](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.126...v9.0.0-alpha.127) (2024-04-02)
+
+
+### Bug Fixes
+
+* **docs:** deploy ([3eda6d1](https://github.com/Kong/kongponents/commit/3eda6d1ba48cdf908172265a76e51f38a0f32a3f))
+
+# [9.0.0-alpha.126](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.125...v9.0.0-alpha.126) (2024-04-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.8.15 ([#2107](https://github.com/Kong/kongponents/issues/2107)) ([c0a41f8](https://github.com/Kong/kongponents/commit/c0a41f813b7dfa5de6191ceac6a575b1a72e89b6))
+
+# [9.0.0-alpha.125](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.124...v9.0.0-alpha.125) (2024-04-01)
+
+
+### Bug Fixes
+
+* **ktabs:** disabled item remove pointer events none [KHCP-11265] ([#2103](https://github.com/Kong/kongponents/issues/2103)) ([cc08a9a](https://github.com/Kong/kongponents/commit/cc08a9a8cc41b0b4f41fe50aefd880e6cec9d031))
+
+
+### Features
+
+* **kcopy:** support truncationLimit auto [khcp-11256] ([#2106](https://github.com/Kong/kongponents/issues/2106)) ([26c4365](https://github.com/Kong/kongponents/commit/26c43652a486eea53591ec94bbe241622e5bd661))
+
+# [9.0.0-alpha.124](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.123...v9.0.0-alpha.124) (2024-03-28)
+
+
+### Bug Fixes
+
+* **kprompt:** add arial-label ([#2102](https://github.com/Kong/kongponents/issues/2102)) ([8302e71](https://github.com/Kong/kongponents/commit/8302e711e2f5c8783ae162700c7d0b6541c4422d))
+
+# [9.0.0-alpha.123](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.122...v9.0.0-alpha.123) (2024-03-27)
+
+
+### Features
+
+* **ktreelist, kbreadcrumb, kskeleton, kmenu:** component reskin ([#2097](https://github.com/Kong/kongponents/issues/2097)) ([b274b94](https://github.com/Kong/kongponents/commit/b274b948060ccbf3d5a633e0b1fedbf1ef675bda)), closes [#2064](https://github.com/Kong/kongponents/issues/2064) [#2051](https://github.com/Kong/kongponents/issues/2051)
+
+# [9.0.0-alpha.122](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.121...v9.0.0-alpha.122) (2024-03-22)
+
+
+### Bug Fixes
+
+* **kmodal:** toggle focus trap off on unmounted ([#2081](https://github.com/Kong/kongponents/issues/2081)) ([69ef84d](https://github.com/Kong/kongponents/commit/69ef84d2cb61ed24e4e3603aaa4e6baf50dbd7af))
+
+# [9.0.0-alpha.121](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.120...v9.0.0-alpha.121) (2024-03-21)
+
+
+### Bug Fixes
+
+* **klabel, kselect, kmultiselect:** a11y attributes [KHCP-111026] ([#2077](https://github.com/Kong/kongponents/issues/2077)) ([0949025](https://github.com/Kong/kongponents/commit/09490253ad679603f0c3c771d07b276ec0b85fb8))
+
+# [9.0.0-alpha.120](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.119...v9.0.0-alpha.120) (2024-03-21)
+
+
+### Bug Fixes
+
+* **kslideout:** remove user-select: none from title of KSlideout ([#2080](https://github.com/Kong/kongponents/issues/2080)) ([08ae7cf](https://github.com/Kong/kongponents/commit/08ae7cfc1bb8fa2e707a8c2345d870ee72ff1885))
+
+# [9.0.0-alpha.119](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.118...v9.0.0-alpha.119) (2024-03-21)
+
+
+### Bug Fixes
+
+* **kselect:** invisible user input [KHCP-11152] ([#2076](https://github.com/Kong/kongponents/issues/2076)) ([55c1905](https://github.com/Kong/kongponents/commit/55c19054e81abf4192e8fac1788e6e1c3f7cf4a8))
+
+# [9.0.0-alpha.118](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.117...v9.0.0-alpha.118) (2024-03-20)
+
+
+### Bug Fixes
+
+* **kmodal:** add input autofocus prop [KHCP-11113] ([#2073](https://github.com/Kong/kongponents/issues/2073)) ([81b0d45](https://github.com/Kong/kongponents/commit/81b0d456df4918a566621be3f2a9289ae1e141d6))
+
+# [9.0.0-alpha.117](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.116...v9.0.0-alpha.117) (2024-03-20)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies with stable version ([#2075](https://github.com/Kong/kongponents/issues/2075)) ([6922baa](https://github.com/Kong/kongponents/commit/6922baa045519b21658df87410580a31a0e7aa95))
+
+# [9.0.0-alpha.116](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.115...v9.0.0-alpha.116) (2024-03-19)
+
+
+### Bug Fixes
+
+* **kcard:** title font size ([#2074](https://github.com/Kong/kongponents/issues/2074)) ([4f990c7](https://github.com/Kong/kongponents/commit/4f990c7e7aa63d45ef896198f017c91befea153d))
+
+# [9.0.0-alpha.115](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.114...v9.0.0-alpha.115) (2024-03-15)
+
+
+### Bug Fixes
+
+* **kcard:** add title tag prop ([#2069](https://github.com/Kong/kongponents/issues/2069)) ([faf5bfb](https://github.com/Kong/kongponents/commit/faf5bfb93fff4cb75117555438219eebad06a738))
+
+# [9.0.0-alpha.114](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.113...v9.0.0-alpha.114) (2024-03-15)
+
+
+### Bug Fixes
+
+* **kmodal:** remove enforcing title icon color ([#2068](https://github.com/Kong/kongponents/issues/2068)) ([d486ef5](https://github.com/Kong/kongponents/commit/d486ef5930b9e0a3f647a089d33a8e231181e138))
+
+# [9.0.0-alpha.113](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.112...v9.0.0-alpha.113) (2024-03-13)
+
+
+### Bug Fixes
+
+* **kcopy:** substring of undefined [KHCP-11057] ([#2061](https://github.com/Kong/kongponents/issues/2061)) ([aaa6405](https://github.com/Kong/kongponents/commit/aaa64052b80d7217c1858865d47c4dd6bde6cbd6))
+
+# [9.0.0-alpha.112](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.111...v9.0.0-alpha.112) (2024-03-12)
+
+
+### Features
+
+* **kalert, kemptystate, kpagination, kviewswitcher:** component reskin ([#2043](https://github.com/Kong/kongponents/issues/2043)) ([fa9845a](https://github.com/Kong/kongponents/commit/fa9845a6e9edf7bf1136d699cd62e7f22482ba88)), closes [#2030](https://github.com/Kong/kongponents/issues/2030) [#2021](https://github.com/Kong/kongponents/issues/2021)
+
+# [9.0.0-alpha.111](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.110...v9.0.0-alpha.111) (2024-03-04)
+
+
+### Bug Fixes
+
+* **kcopy:** icon & tooltip text styles ([#2050](https://github.com/Kong/kongponents/issues/2050)) ([e81b94c](https://github.com/Kong/kongponents/commit/e81b94ce23a45d05593714c09c53e7f13871911d))
+
 # [9.0.0-alpha.110](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.109...v9.0.0-alpha.110) (2024-03-01)
 
 

@@ -21,14 +21,19 @@
       <SandboxSectionComponent title="totalCount">
         <KPagination
           :total-count="50"
-          @page-size-changed="handlePageSizeChange"
+          @page-size-change="handlePageSizeChange"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="pageSizes">
         <KPagination
           :page-sizes="[10, 20, 30, 40]"
           :total-count="100"
-          @page-size-changed="handlePageSizeChange"
+          @page-size-change="handlePageSizeChange"
+        />
+        <KPagination
+          :page-sizes="[1]"
+          :total-count="100"
+          @page-size-change="handlePageSizeChange"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="initialPageSize">
@@ -36,7 +41,40 @@
           :initial-page-size="20"
           :page-sizes="[10, 20, 30, 40]"
           :total-count="100"
-          @page-size-changed="handlePageSizeChange"
+          @page-size-change="handlePageSizeChange"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="neighbors">
+        <KPagination
+          :neighbors="3"
+          :page-size="15"
+          :total-count="1000"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="disablePageJump">
+        <KPagination
+          disable-page-jump
+          :total-count="1000"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="offset">
+        <KPagination
+          offset
+          :total-count="1000"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="offsetPreviousButtonDisabled">
+        <KPagination
+          offset-previous-button-disabled
+          pagination-type="offset"
+          :total-count="1000"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="offsetNextButtonDisabled">
+        <KPagination
+          offset-next-button-disabled
+          pagination-type="offset"
+          :total-count="1000"
         />
       </SandboxSectionComponent>
     </div>

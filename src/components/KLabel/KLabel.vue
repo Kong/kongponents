@@ -1,14 +1,17 @@
 <template>
   <label
+    :aria-describedby="hasTooltip ? tooltipId : undefined"
     class="k-label"
     :class="{ 'required': required }"
   >
     <slot />
+
     <KTooltip
       v-if="hasTooltip"
       v-bind="tooltipAttributes"
       class="label-tooltip"
       position-fixed
+      :tooltip-id="tooltipId"
     >
       <InfoIcon
         class="tooltip-trigger-icon"
@@ -29,6 +32,7 @@ import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { TooltipAttributes } from '@/types'
 import { InfoIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
+import { v4 as uuidv4 } from 'uuid'
 
 const props = defineProps({
   info: {
@@ -62,6 +66,8 @@ const props = defineProps({
 const slots = useSlots()
 
 const hasTooltip = computed((): boolean => !!(props.help || props.info || slots.tooltip))
+
+const tooltipId = uuidv4()
 </script>
 
 <style lang="scss" scoped>
@@ -100,7 +106,7 @@ $kLabelRequiredDotSize: 6px;
     margin-left: $kLabelSpacingX;
 
     .tooltip-trigger-icon {
-      cursor: pointer;
+      cursor: help;
       height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
       width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
     }

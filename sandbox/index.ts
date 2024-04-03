@@ -18,12 +18,14 @@ const sandboxAppLinks: SandboxNavigationItem[] = ([
   { name: 'KAlert', to: { name: 'alert' } },
   { name: 'KBadge', to: { name: 'badge' } },
   { name: 'KButton', to: { name: 'button' } },
+  { name: 'KBreadcrumbs', to: { name: 'breadcrumbs' } },
   { name: 'KCard', to: { name: 'card' } },
   { name: 'KCatalog', to: { name: 'catalog' } },
   { name: 'KCheckbox', to: { name: 'checkbox' } },
   { name: 'KCopy', to: { name: 'copy' } },
   { name: 'KDateTimePicker', to: { name: 'datetimepicker' } },
   { name: 'KDropdown', to: { name: 'dropdown' } },
+  { name: 'KEmptyState', to: { name: 'emptystate' } },
   { name: 'KFileUpload', to: { name: 'fileupload' } },
   { name: 'KInput', to: { name: 'input' } },
   { name: 'KInputSwitch', to: { name: 'inputswitch' } },
@@ -34,11 +36,13 @@ const sandboxAppLinks: SandboxNavigationItem[] = ([
   { name: 'KRadio', to: { name: 'radio' } },
   { name: 'KSegmentedControl', to: { name: 'segmentedcontrol' } },
   { name: 'KSelect', to: { name: 'select' } },
+  { name: 'KSkeleton', to: { name: 'skeleton' } },
   { name: 'KSlideout', to: { name: 'slideout' } },
   { name: 'KTable', to: { name: 'table' } },
   { name: 'KTabs', to: { name: 'tabs' } },
   { name: 'KTextarea', to: { name: 'textarea' } },
   { name: 'KToaster', to: { name: 'toaster' } },
+  { name: 'KTreeList', to: { name: 'treelist' } },
 ])
 
 // Provide the app links to the SandboxLayout components

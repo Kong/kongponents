@@ -27,6 +27,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxButton.vue'),
   },
   {
+    path: '/breadcrumbs',
+    name: 'breadcrumbs',
+    meta: { title: 'Breadcrumbs Sandbox' },
+    component: () => import('../pages/SandboxBreadcrumbs.vue'),
+  },
+  {
     path: '/card',
     name: 'card',
     meta: { title: 'Card Sandbox' },
@@ -53,7 +59,7 @@ const componentRoutes: RouteRecordRaw[] = [
   {
     path: '/datetimepicker',
     name: 'datetimepicker',
-    meta: { title: 'DateTimePicker Sandbox' },
+    meta: { title: 'Date Time Picker Sandbox' },
     component: () => import('../pages/SandboxDateTimePicker.vue'),
   },
   {
@@ -61,6 +67,12 @@ const componentRoutes: RouteRecordRaw[] = [
     name: 'dropdown',
     meta: { title: 'Dropdown Sandbox' },
     component: () => import('../pages/SandboxDropdown.vue'),
+  },
+  {
+    path: '/emptystate',
+    name: 'emptystate',
+    meta: { title: 'Empty State Sandbox' },
+    component: () => import('../pages/SandboxEmptyState.vue'),
   },
   {
     path: '/fileupload',
@@ -77,7 +89,7 @@ const componentRoutes: RouteRecordRaw[] = [
   {
     path: '/inputswitch',
     name: 'inputswitch',
-    meta: { title: 'InputSwitch Sandbox' },
+    meta: { title: 'Input Switch Sandbox' },
     component: () => import('../pages/SandboxInputSwitch.vue'),
   },
   {
@@ -123,6 +135,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxSelect.vue'),
   },
   {
+    path: '/skeleton',
+    name: 'skeleton',
+    meta: { title: 'Skeleton Sandbox' },
+    component: () => import('../pages/SandboxSkeleton.vue'),
+  },
+  {
     path: '/slideout',
     name: 'slideout',
     meta: { title: 'Slideout Sandbox' },
@@ -151,6 +169,12 @@ const componentRoutes: RouteRecordRaw[] = [
     name: 'toaster',
     meta: { title: 'Toaster Sandbox' },
     component: () => import('../pages/SandboxToaster.vue'),
+  },
+  {
+    path: '/treelist',
+    name: 'treelist',
+    meta: { title: 'Tree List Sandbox' },
+    component: () => import('../pages/SandboxTreeList.vue'),
   },
 ]
 

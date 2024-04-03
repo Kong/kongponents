@@ -26,8 +26,6 @@ declare module '@vue/runtime-core' {
     KInput: typeof components.KInput
     KInputSwitch: typeof components.KInputSwitch
     KLabel: typeof components.KLabel
-    KMenu: typeof components.KMenu
-    KMenuItem: typeof components.KMenuItem
     KModal: typeof components.KModal
     KModalFullscreen: typeof components.KModalFullscreen
     KMultiselect: typeof components.KMultiselect
@@ -48,7 +46,6 @@ declare module '@vue/runtime-core' {
     KToggle: typeof components.KToggle
     KTooltip: typeof components.KTooltip
     KTreeList: typeof components.KTreeList
-    KViewSwitcher: typeof components.KViewSwitcher
     ToastManager: typeof components.ToastManager
     KTruncate: typeof components.KTruncate
     KCopy: typeof components.KCopy

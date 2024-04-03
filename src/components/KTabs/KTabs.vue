@@ -9,18 +9,18 @@
         :id="`${tab.hash.replace('#','')}-tab`"
         :key="tab.hash"
         class="tab-item"
-        :class="{ active: activeTab === tab.hash, disabled: tab.disabled }"
+        :class="{ active: activeTab === tab.hash }"
       >
         <div
           :aria-controls="hidePanels ? undefined : `panel-${tab.hash}`"
           :aria-selected="hidePanels ? undefined : (activeTab === tab.hash ? 'true' : 'false')"
           class="tab-link"
-          :class="{ 'has-panels': !hidePanels }"
+          :class="{ 'has-panels': !hidePanels, disabled: tab.disabled }"
           role="tab"
           :tabindex="tab.disabled ? '-1' : '0'"
-          @click.prevent="handleTabChange(tab.hash)"
-          @keydown.enter.prevent="handleTabChange(tab.hash)"
-          @keydown.space.prevent="handleTabChange(tab.hash)"
+          @click.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
+          @keydown.enter.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
+          @keydown.space.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
         >
           <slot :name="`${tab.hash.replace('#','')}-anchor`">
             <span>{{ tab.title }}</span>
@@ -155,6 +155,11 @@ watch(() => props.modelValue, (newTabHash) => {
           color: var(--kui-color-text, $kui-color-text);
           outline: none;
         }
+
+        &.disabled {
+          color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+          cursor: not-allowed;
+        }
       }
 
       &.active {
@@ -162,15 +167,6 @@ watch(() => props.modelValue, (newTabHash) => {
 
         .tab-link {
           color: var(--kui-color-text, $kui-color-text);
-        }
-      }
-
-      &.disabled {
-        cursor: not-allowed;
-
-        .tab-link {
-          color: var(--kui-color-text-disabled, $kui-color-text-disabled);
-          pointer-events: none;
         }
       }
     }

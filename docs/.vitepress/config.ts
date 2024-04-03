@@ -73,7 +73,6 @@ export default defineConfig({
             { text: 'Input', link: '/components/input' },
             { text: 'Input Switch', link: '/components/input-switch' },
             { text: 'Label', link: '/components/label' },
-            { text: 'Menu', link: '/components/menu' },
             { text: 'Modal', link: '/components/modal' },
             { text: 'Modal Fullscreen', link: '/components/modal-fullscreen' },
             { text: 'Multiselect', link: '/components/multiselect' },
@@ -93,7 +92,6 @@ export default defineConfig({
             { text: 'Tooltip', link: '/components/tooltip' },
             { text: 'Tree List', link: '/components/tree-list' },
             { text: 'Truncate', link: '/components/truncate' },
-            { text: 'View Switcher', link: '/components/view-switcher' },
           ]
         },
         {

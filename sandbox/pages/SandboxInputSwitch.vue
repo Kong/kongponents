@@ -105,6 +105,7 @@ const vModel1 = ref<boolean>(false)
   .horizontal-spacing {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: $kui-space-50;
   }
 }
