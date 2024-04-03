@@ -816,7 +816,7 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
 
             &.line-is-highlighted-match {
               &::before {
-                border-left: var(--kui-border-width-30, $kui-border-width-30) solid #6c7489; // TODO: token needed kui-color-border-neutral
+                border-left: var(--kui-border-width-30, $kui-border-width-30) solid var(--kui-color-border-primary, $kui-color-border-primary);
               }
             }
           }
@@ -855,7 +855,7 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
     background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
 
     .code-block-actions {
-      border-bottom-color: #2e3350; // TODO: token needed kui-color-border-inverse
+      border-bottom-color: var(--kui-color-border-inverse, $kui-color-border-inverse);
 
       .code-block-search-input {
         :deep(input) {
@@ -893,7 +893,7 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
 
             &.line-is-match {
               &::before {
-                background-color: #262a49; // TODO: token needed ???
+                background-color: var(--kui-color-background-overlay-inverse, $kui-color-background-overlay-inverse);
               }
 
               &.line-is-highlighted-match {

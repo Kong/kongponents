@@ -113,7 +113,7 @@ watch(copyTooltipText, () => {
 
       // active
       &.code-block-action-button-active {
-        color: #5f9aff; // TODO: token needed, kui-color-text-primary-weak
+        color: var(--kui-color-text-primary-weak, $kui-color-text-primary-weak);
 
         &:hover:not(:disabled):not(:focus),
         &:focus:is(:hover),
