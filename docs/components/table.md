@@ -759,7 +759,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
   <template v-slot:other>
     <div>
       <KPop title="Cool header">
-        <KButton>
+        <KButton appearance="tertiary">
           <template #icon>
             <KIcon
               icon="more"
@@ -792,7 +792,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
   <template v-slot:other>
     <div>
       <KPop title="Cool header">
-        <KButton>
+        <KButton appearance="tertiary">
           <template #icon>
             <KIcon
               icon="more"
