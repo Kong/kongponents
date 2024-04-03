@@ -1,3 +1,36 @@
+# [9.0.0-alpha.127](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.126...v9.0.0-alpha.127) (2024-04-02)
+
+
+### Bug Fixes
+
+* **docs:** deploy ([3eda6d1](https://github.com/Kong/kongponents/commit/3eda6d1ba48cdf908172265a76e51f38a0f32a3f))
+
+# [9.0.0-alpha.126](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.125...v9.0.0-alpha.126) (2024-04-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.8.15 ([#2107](https://github.com/Kong/kongponents/issues/2107)) ([c0a41f8](https://github.com/Kong/kongponents/commit/c0a41f813b7dfa5de6191ceac6a575b1a72e89b6))
+
+# [9.0.0-alpha.125](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.124...v9.0.0-alpha.125) (2024-04-01)
+
+
+### Bug Fixes
+
+* **ktabs:** disabled item remove pointer events none [KHCP-11265] ([#2103](https://github.com/Kong/kongponents/issues/2103)) ([cc08a9a](https://github.com/Kong/kongponents/commit/cc08a9a8cc41b0b4f41fe50aefd880e6cec9d031))
+
+
+### Features
+
+* **kcopy:** support truncationLimit auto [khcp-11256] ([#2106](https://github.com/Kong/kongponents/issues/2106)) ([26c4365](https://github.com/Kong/kongponents/commit/26c43652a486eea53591ec94bbe241622e5bd661))
+
+# [9.0.0-alpha.124](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.123...v9.0.0-alpha.124) (2024-03-28)
+
+
+### Bug Fixes
+
+* **kprompt:** add arial-label ([#2102](https://github.com/Kong/kongponents/issues/2102)) ([8302e71](https://github.com/Kong/kongponents/commit/8302e711e2f5c8783ae162700c7d0b6541c4422d))
+
 # [9.0.0-alpha.123](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.122...v9.0.0-alpha.123) (2024-03-27)
 
 
