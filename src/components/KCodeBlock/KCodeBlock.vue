@@ -83,6 +83,7 @@
         <CodeBlockIconButton
           :active="isRegExpMode"
           :aria-label="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
+          :aria-presssed="isRegExpMode"
           class="regexp-mode-button"
           data-testid="regexp-mode-button"
           :theme="theme"
@@ -95,6 +96,7 @@
         <CodeBlockIconButton
           :active="isFilterMode"
           :aria-label="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
+          :aria-pressed="isRegExpMode"
           class="action-button filter-mode-button"
           data-testid="filter-mode-button"
           :theme="theme"
@@ -735,11 +737,13 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
     padding: var(--kui-space-20, $kui-space-20) var(--kui-space-40, $kui-space-40);
 
     .code-block-search-input {
-      max-width: 500px;
-
       :deep(input) {
         background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
         box-shadow: none !important;
+
+        &::placeholder {
+          color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker);
+        }
       }
     }
 
@@ -776,6 +780,7 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
       gap: var(--kui-space-60, $kui-space-60);
       grid-template-columns: v-bind('maxLineNumberWidth') 1fr; // first column for line numbers, second column for code
       margin: var(--kui-space-0, $kui-space-0);
+      min-height: 32px; // ensures that scroll bar doesn't show up when there's only one line of content (not to confuse with single line mode)
 
       .line-number-rows {
         box-sizing: border-box;
