@@ -740,10 +740,6 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
       :deep(input) {
         background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
         box-shadow: none !important;
-
-        &::placeholder {
-          color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker);
-        }
       }
     }
 
@@ -864,6 +860,10 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
       .code-block-search-input {
         :deep(input) {
           color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+
+          &::placeholder {
+            color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker);
+          }
         }
 
         .clear-query-button,
