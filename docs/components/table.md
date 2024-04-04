@@ -438,6 +438,7 @@ Pass in an array of header objects for the table.
 | `key`              | string  | A unique key for the column                                                                                                                |
 | `label`            | string  | The label displayed on the table for the column                                                                                            |
 | `sortable`         | boolean | Enables or disables server-side sorting for the column (`false` by default)                                                                |
+| `allowHide`        | boolean | Enable show/hide for this column                                                                                                           |
 | `hideLabel`        | boolean | Hides or displays the column label (useful for actions columns)                                                                            |
 | `useSortHandlerFn` | boolean | Uses the function passed in the [sortHandlerFn](#sorthandlerfn) prop to sort the column data instead of the default client sorter function |
 
@@ -465,8 +466,32 @@ Example headers array:
           { key: 'name', label: 'Name', sortable: true },
           { key: 'email', label: 'Email', sortable: true },
           { key: 'department', label: 'department', sortable: true },
-          { key: 'start_date', label: 'Start Date', sortable: true },
+          { key: 'start_date', label: 'Start Date', sortable: true, allowHide: true },
           { key: 'actions', label: '', sortable: false, hideLabel: true },
+        ]
+      }
+    }
+  }
+</script>
+```
+
+#### `allowHide`
+
+Using this modal will cause the column visibility menu to be displayed above the table after any toolbar content. Hovering over a column with `allowHide: true` will trigger the display of a hide button in the header. An `@update:table-preferences` event is emitted whenever changes are applied.
+
+<KTable :fetcher="tableHideColumnFetcher" :headers="hideColumnHeaders" />
+
+```html
+<script>
+  export default {
+    data() {
+      return {
+        headers: [
+          { label: 'Host', key: 'hostname' },
+          { label: 'Version', key: 'version' },
+          { label: 'Connected', key: 'connected' },
+          { label: 'Last Ping', key: 'last_ping', allowHide: true },
+          { label: 'Last Seen', key: 'last_seen', allowHide: true },
         ]
       }
     }
@@ -922,6 +947,8 @@ interface TablePreferences {
   sortColumnOrder?: 'asc' | 'desc'
   /** The customized column widths, if resizing is allowed */
   columnWidths?: Record<string, number>
+  /** Column visibility, if visibility is toggleable */
+  columnVisibility?: Record<string, boolean>
 }
 ```
 
@@ -1613,6 +1640,13 @@ export default defineComponent({
         { label: 'Enabled', key: 'enabled' },
         { key: 'actions', hideLabel: true }
       ],
+      hideColumnHeaders: [
+        { label: 'Host', key: 'hostname' },
+        { label: 'Version', key: 'version' },
+        { label: 'Connected', key: 'connected' },
+        { label: 'Last Ping', key: 'last_ping', allowHide: true },
+        { label: 'Last Seen', key: 'last_seen', allowHide: true },
+      ],
       tableOptionsRowAttrsHeaders: [
         { label: 'Type', key: 'type' },
         { label: 'Value', key: 'value' },
@@ -1707,6 +1741,42 @@ export default defineComponent({
     },
     emptyFetcher () {
       return { data: [] }
+    },
+    tableHideColumnFetcher () {
+      return {
+        data: [{
+          id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+          version: '2.8.0.0-enterprise-edition',
+          hostname: '99e591ae3776',
+          last_ping: 1648855072,
+          connected: 'Disconnected',
+          last_seen: '6 days ago'
+        },
+        {
+          id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+          version: '2.7.0.0-enterprise-edition',
+          hostname: '19e591ae3776',
+          last_ping: 1649362660,
+          connected: 'Connected',
+          last_seen: '3 hours ago',
+        },
+        {
+          id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+          version: '2.8.1.0-enterprise-edition',
+          hostname: '79e591ae3776',
+          last_ping: 1649355460,
+          connected: 'Connected',
+          last_seen: '5 hours ago',
+        },
+        {
+          id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
+          version: '2.6.0.0-enterprise-edition',
+          hostname: '89e591ae3776',
+          last_ping: 1648155072,
+          connected: 'Disconnected',
+          last_seen: '14 days ago'
+        }]
+      }
     },
     tableOptionsLinkFetcher () {
       return {

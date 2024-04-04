@@ -9,6 +9,12 @@
         name="toolbar"
         :state="stateData"
       />
+      <ColumnVisibilityMenu
+        v-if="hasColumnVisibilityMenu"
+        :columns="visibilityColumns"
+        :visibility-preferences="visibilityPreferences"
+        @update:visibility="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
+      />
     </div>
 
     <KSkeleton
@@ -93,7 +99,7 @@
               :class="{ 'is-scrolled': isScrolled }"
             >
               <th
-                v-for="(column, index) in tableHeaders"
+                v-for="(column, index) in visibleHeaders"
                 :key="`k-table-${tableId}-headers-${index}`"
                 :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
                 class="k-table-headers"
@@ -118,9 +124,9 @@
                     v-if="resizeColumns && index !== 0"
                     class="resize-handle previous"
                     @click.stop
-                    @mousedown="startResize($event, tableHeaders[index - 1].key)"
+                    @mousedown="startResize($event, visibleHeaders[index - 1].key)"
                     @mouseleave="resizerHoveredColumn = ''"
-                    @mouseover="resizerHoveredColumn = tableHeaders[index - 1].key"
+                    @mouseover="resizerHoveredColumn = visibleHeaders[index - 1].key"
                   />
 
                   <slot
@@ -147,7 +153,7 @@
                   />
 
                   <div
-                    v-if="resizeColumns && index !== tableHeaders.length - 1"
+                    v-if="resizeColumns && index !== visibleHeaders.length - 1"
                     class="resize-handle"
                     @click.stop
                     @mousedown="startResize($event, column.key)"
@@ -169,11 +175,11 @@
               v-on="hasSideBorder ? tdlisteners(row, row) : {}"
             >
               <td
-                v-for="(value, index) in tableHeaders"
+                v-for="(value, index) in visibleHeaders"
                 v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
                 :key="`k-table-${tableId}-cell-${index}`"
                 :class="{
-                  'resize-hover': resizeColumns && resizeHoverColumn === value.key && index !== tableHeaders.length - 1,
+                  'resize-hover': resizeColumns && resizeHoverColumn === value.key && index !== visibleHeaders.length - 1,
                   'truncated-column': resizeColumns
                 }"
                 :style="columnStyles[value.key]"
@@ -250,6 +256,7 @@ import {
   EmptyStateIconVariants,
 } from '@/types'
 import { KUI_COLOR_TEXT, KUI_ICON_SIZE_20 } from '@kong/design-tokens'
+import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
 
 const { useDebounce, useRequest, useSwrvState } = useUtilities()
 
@@ -272,6 +279,14 @@ const props = defineProps({
   resizeColumns: {
     type: Boolean,
     default: false,
+  },
+  /**
+   * Used to customize the initial state of the table.
+   * Column visibility/width.
+   */
+  tablePreferences: {
+    type: Object as PropType<TablePreferences>,
+    default: () => ({}),
   },
   /**
    * Enable client side sort - only do this if using a fetcher
@@ -552,13 +567,23 @@ const defaultFetcherProps = {
 }
 const data = ref<Record<string, any>[]>([])
 const headerRow = ref<HTMLDivElement>()
-const tableHeaders: Ref<TableHeader[]> = ref([])
+// all headers
+const tableHeaders = ref<TableHeader[]>([])
+// currently visible headers
+const visibleHeaders = ref<TableHeader[]>([])
 // highest priority - column currently being resized (mouse may be completely outside the column)
 const resizingColumn = ref('')
 // column the user is currently hovering over the resize handle for (may be hovered on the adjacent column to what we want to resize)
 const resizerHoveredColumn = ref('')
 // lowest priority - currently hovered resizable column (mouse is somewhere in the <th>)
 const currentHoveredColumn = ref('')
+const hasColumnVisibilityMenu = computed((): boolean => tableHeaders.value.filter((header: TableHeader) => header.allowHide).length > 0)
+// columns whose visibility can be toggled
+const visibilityColumns = computed((): TableHeader[] => tableHeaders.value.filter((header: TableHeader) => header.allowHide))
+// visibility preferences from the host app (initialized by app)
+const visibilityPreferences = computed((): Record<string, boolean> => props.tablePreferences.columnVisibility || {})
+// current column visibility state
+const columnVisibility = ref<Record<string, boolean>>({})
 const total = ref(0)
 const isScrolled = ref(false)
 const page = ref(1)
@@ -572,7 +597,7 @@ const hasNextPage = ref(true)
 const isClickable = ref(false)
 const hasInitialized = ref(false)
 const nextPageClicked = ref(false)
-const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
+const hasToolbarSlot = computed((): boolean => !!slots.toolbar || hasColumnVisibilityMenu.value)
 
 /**
  * Utilize a helper function to generate the column slot name.
@@ -702,7 +727,7 @@ const columnStyles = computed(() => {
 const getHeaderClasses = (column: TableHeader, index: number): Record<string, boolean> => {
   return {
     // display the resize handle on the right side of the column if resizeColumns is enabled, hovering current column, and not the last column
-    'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && index !== tableHeaders.value.length - 1,
+    'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && index !== visibleHeaders.value.length - 1,
     'truncated-column resizable': props.resizeColumns,
     // display sort control if column is sortable, label is visible, and sorting is not disabled
     sortable: !props.disableSorting && !column.hideLabel && !!column.sortable,
@@ -1007,6 +1032,7 @@ const tablePreferences = computed((): TablePreferences => ({
   sortColumnKey: sortColumnKey.value,
   sortColumnOrder: sortColumnOrder.value as 'asc' | 'desc',
   ...(props.resizeColumns ? { columnWidths: columnWidths.value } : {}),
+  ...(hasColumnVisibilityMenu.value ? { columnVisibility: columnVisibility.value } : {}),
 }))
 
 const emitTablePreferences = (): void => {
@@ -1039,6 +1065,18 @@ const getTestIdString = (message: string): string => {
 
   return msg
 }
+
+watch([columnVisibility, tableHeaders], (newVals) => {
+  const newVisibility = newVals[0]
+  const newHeaders = newVals[1]
+  const newVisibleHeaders = newHeaders.filter((header: TableHeader) => newVisibility[header.label] !== false)
+
+  if (JSON.stringify(newVisibleHeaders) !== JSON.stringify(visibleHeaders.value)) {
+    emitTablePreferences()
+  }
+
+  visibleHeaders.value = newVisibleHeaders
+}, { deep: true, immediate: true })
 
 watch(fetcherData, (fetchedData: any) => {
   if (fetchedData?.length && !data.value.length) {
@@ -1138,7 +1176,9 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 }
 
 .k-table-toolbar {
+  display: flex;
   margin-bottom: var(--kui-space-80, $kui-space-80) !important;
+  width: 100%;
 
   & > :deep(*) {
     display: flex;
