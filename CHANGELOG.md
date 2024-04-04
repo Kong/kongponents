@@ -1,3 +1,10 @@
+# [9.0.0-alpha.130](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.129...v9.0.0-alpha.130) (2024-04-04)
+
+
+### Features
+
+* **kinline edit:** remove component [KHCP-8984] ([#2049](https://github.com/Kong/kongponents/issues/2049)) ([d9109d9](https://github.com/Kong/kongponents/commit/d9109d92c79e0b432780abd048331a603e39b295))
+
 # [9.0.0-alpha.129](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.128...v9.0.0-alpha.129) (2024-04-04)
 
 
