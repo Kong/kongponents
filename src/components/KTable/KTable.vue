@@ -73,124 +73,125 @@
       </slot>
     </div>
 
-    <section
-      v-else
-      class="k-table-wrapper"
-      @scroll.passive="scrollHandler"
-    >
-      <table
-        class="k-table"
-        :class="{
-          'has-hover': hasHover,
-          'is-clickable': isClickable,
-          'side-border': hasSideBorder
-        }"
-        :data-tableid="tableId"
+    <div v-else>
+      <div
+        class="k-table-wrapper"
+        @scroll.passive="scrollHandler"
       >
-        <thead :class="{ 'is-scrolled': isScrolled }">
-          <tr
-            ref="headerRow"
-            :class="{ 'is-scrolled': isScrolled }"
-          >
-            <th
-              v-for="(column, index) in tableHeaders"
-              :key="`k-table-${tableId}-headers-${index}`"
-              :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
-              class="k-table-headers"
-              :class="getHeaderClasses(column, index)"
-              :data-testid="`k-table-header-${column.key}`"
-              :style="columnStyles[column.key]"
-              @click="() => {
-                if (!disableSorting && column.sortable) {
-                  $emit('sort', {
-                    prevKey: sortColumnKey,
-                    sortColumnKey: column.key,
-                    sortColumnOrder: sortColumnOrder === 'asc' ? 'desc' : 'asc' // display opposite because sortColumnOrder outdated
-                  })
-                  sortClickHandler(column)
-                }
-              }"
-              @mouseleave="currentHoveredColumn = ''"
-              @mouseover="currentHoveredColumn = column.key"
+        <table
+          class="k-table"
+          :class="{
+            'has-hover': hasHover,
+            'is-clickable': isClickable,
+            'side-border': hasSideBorder
+          }"
+          :data-tableid="tableId"
+        >
+          <thead :class="{ 'is-scrolled': isScrolled }">
+            <tr
+              ref="headerRow"
+              :class="{ 'is-scrolled': isScrolled }"
             >
-              <div class="k-table-headers-container">
-                <div
-                  v-if="resizeColumns && index !== 0"
-                  class="resize-handle previous"
-                  @click.stop
-                  @mousedown="startResize($event, tableHeaders[index - 1].key)"
-                  @mouseleave="resizerHoveredColumn = ''"
-                  @mouseover="resizerHoveredColumn = tableHeaders[index - 1].key"
-                />
-
-                <slot
-                  :column="getGeneric(column)"
-                  :name="getColumnSlotName(column.key)"
-                >
-                  <span
-                    :class="{
-                      'sr-only': column.hideLabel,
-                      'truncated-column': resizeColumns,
-                    }"
-                  >
-                    {{ column.label ? column.label : column.key }}
-                  </span>
-                </slot>
-
-                <KIcon
-                  v-if="!disableSorting && !column.hideLabel && column.sortable"
-                  aria-hidden="true"
-                  class="caret"
-                  :color="`var(--kui-color-text, ${KUI_COLOR_TEXT})`"
-                  icon="chevronDown"
-                  :size="KUI_ICON_SIZE_20"
-                />
-
-                <div
-                  v-if="resizeColumns && index !== tableHeaders.length - 1"
-                  class="resize-handle"
-                  @click.stop
-                  @mousedown="startResize($event, column.key)"
-                  @mouseleave="resizerHoveredColumn = ''"
-                  @mouseover="resizerHoveredColumn = column.key"
-                />
-              </div>
-            </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr
-            v-for="(row, rowIndex) in data"
-            v-bind="rowAttrs(row)"
-            :key="`k-table-${tableId}-row-${rowIndex}`"
-            :role="isClickable ? 'link' : null"
-            :tabindex="isClickable ? 0 : null"
-            v-on="hasSideBorder ? tdlisteners(row, row) : {}"
-          >
-            <td
-              v-for="(value, index) in tableHeaders"
-              v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
-              :key="`k-table-${tableId}-cell-${index}`"
-              :class="{
-                'resize-hover': resizeColumns && resizeHoverColumn === value.key && index !== tableHeaders.length - 1,
-                'truncated-column': resizeColumns
-              }"
-              :style="columnStyles[value.key]"
-              v-on="tdlisteners(row[value.key], row)"
-            >
-              <slot
-                :name="value.key"
-                :row="getGeneric(row)"
-                :row-key="rowIndex"
-                :row-value="row[value.key]"
+              <th
+                v-for="(column, index) in tableHeaders"
+                :key="`k-table-${tableId}-headers-${index}`"
+                :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
+                class="k-table-headers"
+                :class="getHeaderClasses(column, index)"
+                :data-testid="`k-table-header-${column.key}`"
+                :style="columnStyles[column.key]"
+                @click="() => {
+                  if (!disableSorting && column.sortable) {
+                    $emit('sort', {
+                      prevKey: sortColumnKey,
+                      sortColumnKey: column.key,
+                      sortColumnOrder: sortColumnOrder === 'asc' ? 'desc' : 'asc' // display opposite because sortColumnOrder outdated
+                    })
+                    sortClickHandler(column)
+                  }
+                }"
+                @mouseleave="currentHoveredColumn = ''"
+                @mouseover="currentHoveredColumn = column.key"
               >
-                {{ row[value.key] }}
-              </slot>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <div class="k-table-headers-container">
+                  <div
+                    v-if="resizeColumns && index !== 0"
+                    class="resize-handle previous"
+                    @click.stop
+                    @mousedown="startResize($event, tableHeaders[index - 1].key)"
+                    @mouseleave="resizerHoveredColumn = ''"
+                    @mouseover="resizerHoveredColumn = tableHeaders[index - 1].key"
+                  />
+
+                  <slot
+                    :column="getGeneric(column)"
+                    :name="getColumnSlotName(column.key)"
+                  >
+                    <span
+                      :class="{
+                        'sr-only': column.hideLabel,
+                        'truncated-column': resizeColumns,
+                      }"
+                    >
+                      {{ column.label ? column.label : column.key }}
+                    </span>
+                  </slot>
+
+                  <KIcon
+                    v-if="!disableSorting && !column.hideLabel && column.sortable"
+                    aria-hidden="true"
+                    class="caret"
+                    :color="`var(--kui-color-text, ${KUI_COLOR_TEXT})`"
+                    icon="chevronDown"
+                    :size="KUI_ICON_SIZE_20"
+                  />
+
+                  <div
+                    v-if="resizeColumns && index !== tableHeaders.length - 1"
+                    class="resize-handle"
+                    @click.stop
+                    @mousedown="startResize($event, column.key)"
+                    @mouseleave="resizerHoveredColumn = ''"
+                    @mouseover="resizerHoveredColumn = column.key"
+                  />
+                </div>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr
+              v-for="(row, rowIndex) in data"
+              v-bind="rowAttrs(row)"
+              :key="`k-table-${tableId}-row-${rowIndex}`"
+              :role="isClickable ? 'link' : null"
+              :tabindex="isClickable ? 0 : null"
+              v-on="hasSideBorder ? tdlisteners(row, row) : {}"
+            >
+              <td
+                v-for="(value, index) in tableHeaders"
+                v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
+                :key="`k-table-${tableId}-cell-${index}`"
+                :class="{
+                  'resize-hover': resizeColumns && resizeHoverColumn === value.key && index !== tableHeaders.length - 1,
+                  'truncated-column': resizeColumns
+                }"
+                :style="columnStyles[value.key]"
+                v-on="tdlisteners(row[value.key], row)"
+              >
+                <slot
+                  :name="value.key"
+                  :row="getGeneric(row)"
+                  :row-key="rowIndex"
+                  :row-value="row[value.key]"
+                >
+                  {{ row[value.key] }}
+                </slot>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <KPagination
         v-if="shouldShowPagination"
@@ -211,7 +212,7 @@
         @page-change="pageChangeHandler"
         @page-size-change="pageSizeChangeHandler"
       />
-    </section>
+    </div>
   </div>
 </template>
 
