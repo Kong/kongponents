@@ -1085,15 +1085,10 @@
   dependencies:
     "@kong/icons" "^1.8.15"
 
-"@kong/design-tokens@^1.12.11-pr.261.7614b1e.0":
-  version "1.12.11-pr.261.7614b1e.0"
-  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.12.11-pr.261.7614b1e.0.tgz#3dc60d0029c92afce3db249769fd6ee267655364"
-  integrity sha512-9hlwzZrWzTgltMrd3JwUmZIPvzrhMasyL06uyi1zdZoYjXOByJDVXHR2Ee41C8cudGWP6g0DKLNtHESg7Hsqig==
-
-"@kong/icons@^1.8.15":
-  version "1.8.15"
-  resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.8.15.tgz#ffb481e22c856bfcbed7889b77c2e4c5a28df686"
-  integrity sha512-8Qyp0letN0uQ5GF1Y4fvkkbU5yG5e9IggpTxUynmUsUC15Hlrtpy/dZIZNDdpwxeKqGjaGL456iaV/sErA5Tug==
+"@kong/design-tokens@^1.12.11":
+  version "1.12.11"
+  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.12.11.tgz#4d491e198a8401252966abba0cc6185025e7c4c0"
+  integrity sha512-+zgR6Ti4Joj85yD/KJzE3ja6Y0khxh9vapNnkOyGtLAUnCLstkH7WfLLhM22Qi7K5q/J2R1kWuR3X+XMp6U2mQ==
 
 "@kong/icons@^1.8.15":
   version "1.8.15"

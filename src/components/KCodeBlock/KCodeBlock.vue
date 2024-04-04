@@ -893,7 +893,7 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
 
             &.line-is-match {
               &::before {
-                background-color: var(--kui-color-background-overlay-inverse, $kui-color-background-overlay-inverse);
+                background-color: $tmp-color-white-opaque-12; // we don't have a token for this now and we might not ever need one so using a temp variable
               }
 
               &.line-is-highlighted-match {
