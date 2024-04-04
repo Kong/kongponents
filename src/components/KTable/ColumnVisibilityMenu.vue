@@ -1,12 +1,16 @@
 <template>
   <div class="k-table-column-visibility-menu">
     <KDropdown>
-      <KButton
-        appearance="secondary"
-        class="menu-button"
-      >
-        <CogIcon />
-      </KButton>
+      <KTooltip text="Show/Hide Columns">
+        <KButton
+          appearance="secondary"
+          class="menu-button"
+        >
+          <template #icon>
+            <CogIcon />
+          </template>
+        </KButton>
+      </KTooltip>
 
       <template #items>
         <KDropdownItem
