@@ -35,18 +35,18 @@
         :text="tooltipText"
       >
         <KClipboardProvider v-slot="{ copyToClipboard }">
-          <CopyIcon
+          <button
             :id="copyButtonElementId"
-            class="text-icon"
             data-testid="copy-to-clipboard"
-            :hide-title="!!copyTooltip || undefined"
-            role="button"
-            :size="KUI_ICON_SIZE_30"
-            tabindex="0"
+            type="button"
             @click.stop="copyIdToClipboard(copyToClipboard)"
-            @keydown.enter="copyIdToClipboard(copyToClipboard)"
-            @keydown.space.prevent="copyIdToClipboard(copyToClipboard)"
-          />
+          >
+            <CopyIcon
+              class="text-icon"
+              :hide-title="!!copyTooltip || undefined"
+              :size="KUI_ICON_SIZE_30"
+            />
+          </button>
         </KClipboardProvider>
       </KTooltip>
     </div>
