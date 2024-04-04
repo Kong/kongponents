@@ -1,3 +1,10 @@
+# [9.0.0-alpha.128](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.127...v9.0.0-alpha.128) (2024-04-04)
+
+
+### Features
+
+* **ktable:** add column resize support [khcp-11161] ([#2105](https://github.com/Kong/kongponents/issues/2105)) ([c448c49](https://github.com/Kong/kongponents/commit/c448c49d2be04f164789ee5d1e321dc6912522f4))
+
 # [9.0.0-alpha.127](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.126...v9.0.0-alpha.127) (2024-04-02)
 
 
