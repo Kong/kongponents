@@ -43,6 +43,16 @@ See [the State section](#error) about `hasError`
 
 See [the State section](#loading) about `isLoading`
 
+### resizeColumns
+
+Allow table column width to be resizable. Adjusting a column's width will trigger an `@update:table-preferences` event.
+
+<KTable :fetcher="tableOptionsFetcher" :headers="resizeHeaders" resize-columns />
+
+```html
+  <KTable :fetcher="fetcher" :headers="headers" resize-columns />
+```
+
 ### disablePaginationPageJump
 
 Set this to `true` to limit pagination navigation to `previous` / `next` page only.
@@ -749,7 +759,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
   <template v-slot:other>
     <div>
       <KPop title="Cool header">
-        <KButton>
+        <KButton appearance="tertiary">
           <template #icon>
             <KIcon
               icon="more"
@@ -782,7 +792,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
   <template v-slot:other>
     <div>
       <KPop title="Cool header">
-        <KButton>
+        <KButton appearance="tertiary">
           <template #icon>
             <KIcon
               icon="more"
@@ -910,6 +920,8 @@ interface TablePreferences {
   sortColumnKey?: string
   /** The order by which to sort the column, one of `asc` or `desc` */
   sortColumnOrder?: 'asc' | 'desc'
+  /** The customized column widths, if resizing is allowed */
+  columnWidths?: Record<string, number>
 }
 ```
 
@@ -1589,6 +1601,11 @@ export default defineComponent({
         { label: 'Title', key: 'title', sortable: true },
         { label: 'Description', key: 'description', sortable: true },
         { label: 'Enabled', key: 'enabled', sortable: false }
+      ],
+      resizeHeaders: [
+        { label: 'Name', key: 'name' },
+        { label: 'ID', key: 'id' },
+        { label: 'Enabled', key: 'enabled' },
       ],
       tableOptionsHeaders: [
         { label: 'Name', key: 'name' },
