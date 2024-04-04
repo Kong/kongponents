@@ -1,3 +1,10 @@
+# [9.0.0-alpha.129](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.128...v9.0.0-alpha.129) (2024-04-04)
+
+
+### Bug Fixes
+
+* **kcopy:** not using actual button ([#2113](https://github.com/Kong/kongponents/issues/2113)) ([642f8b6](https://github.com/Kong/kongponents/commit/642f8b60e0f30259bf356d189576f127f4ff45d9))
+
 # [9.0.0-alpha.128](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.127...v9.0.0-alpha.128) (2024-04-04)
 
 
