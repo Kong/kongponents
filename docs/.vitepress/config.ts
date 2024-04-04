@@ -70,7 +70,6 @@ export default defineConfig({
             { text: 'External Link', link: '/components/external-link' },
             { text: 'File Upload', link: '/components/file-upload' },
             { text: 'Icon', link: '/components/icon' },
-            { text: 'Inline Edit', link: '/components/inline-edit' },
             { text: 'Input', link: '/components/input' },
             { text: 'Input Switch', link: '/components/input-switch' },
             { text: 'Label', link: '/components/label' },
