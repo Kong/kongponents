@@ -20,7 +20,7 @@
     </div>
 
     <KSkeleton
-      v-if="(!testMode || testMode === 'loading') && (isCatalogLoading || isLoading || isRevalidating) && !hasError"
+      v-if="(isCatalogLoading || loading || isRevalidating) && !error"
       :card-count="4"
       class="k-skeleton-grid"
       data-testid="k-catalog-skeleton"
@@ -48,7 +48,7 @@
     </KSkeleton>
 
     <div
-      v-else-if="hasError"
+      v-else-if="error"
       class="k-catalog-error-state"
       data-testid="k-card-catalog-error-state"
     >
@@ -64,7 +64,7 @@
               v-if="errorStateActionMessage"
               :data-testid="getTestIdString(errorStateActionMessage)"
               :to="errorStateActionRoute ? errorStateActionRoute : undefined"
-              @click="$emit('kcatalog-error-cta-clicked')"
+              @click="$emit('error-action-button-click')"
             >
               {{ errorStateActionMessage }}
             </KButton>
@@ -74,7 +74,7 @@
     </div>
 
     <div
-      v-else-if="!hasError && (!isCatalogLoading && !isLoading && !isRevalidating) && (data && !data.length)"
+      v-else-if="!error && (!isCatalogLoading && !loading && !isRevalidating) && (data && !data.length)"
       class="k-catalog-empty-state"
       data-testid="k-card-catalog-empty-state"
     >
@@ -85,13 +85,13 @@
           :title="emptyStateTitle"
         >
           <template #action>
+            <!-- TODO: empty-state-action-icon slot -->
             <KButton
               v-if="emptyStateActionMessage"
               :appearance="searchInput ? 'secondary' : 'primary'"
               :data-testid="getTestIdString(emptyStateActionMessage)"
-              :icon="emptyStateActionButtonIcon"
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
-              @click="$emit('kcatalog-empty-state-cta-clicked')"
+              @click="$emit('empty-state-action-click')"
             >
               {{ emptyStateActionMessage }}
             </KButton>
@@ -116,30 +116,29 @@
           class="catalog-item"
           :data-testid="item.id ? item.id : `k-catalog-item-${idx}`"
           :item="(item as CatalogItem)"
-          :test-mode="!!testMode || undefined"
-          :truncate="!noTruncation"
-          @click="$emit('card:click', item)"
+          :truncate="truncateDescription"
+          @click="$emit('card-click', item)"
         >
-          <template #cardTitle>
+          <template #card-title>
             <slot
               :item="item"
-              name="cardTitle"
+              name="card-title"
             >
               {{ item.title }}
             </slot>
           </template>
 
-          <template #cardActions>
+          <template #card-actions>
             <slot
               :item="item"
-              name="cardActions"
+              name="card-actions"
             />
           </template>
 
-          <template #cardBody>
+          <template #card-body>
             <slot
               :item="item"
-              name="cardBody"
+              name="card-body"
             >
               {{ item.description }}
             </slot>
@@ -159,7 +158,6 @@
           :initial-page-size="pageSize"
           :neighbors="paginationNeighbors"
           :page-sizes="paginationPageSizes"
-          :test-mode="!!testMode || undefined"
           :total-count="total"
           @page-change="pageChangeHandler"
           @page-size-change="pageSizeChangeHandler"
@@ -200,7 +198,7 @@ const props = defineProps({
   /**
    * A prop to pass in to display skeleton to indicate loading
    */
-  isLoading: {
+  loading: {
     type: Boolean,
     default: false,
   },
@@ -219,9 +217,9 @@ const props = defineProps({
   /**
    * Disable truncation of the KCard's 'description'
    */
-  noTruncation: {
+  truncateDescription: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   /**
    * A prop to pass in a custom empty state title
@@ -251,38 +249,11 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  /**
-   * A prop to pass in a custom empty state action message
-   */
-  emptyStateActionButtonIcon: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a custom empty state icon
-   */
-  emptyStateIcon: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a color for the empty state icon
-   */
-  emptyStateIconColor: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a size for the empty state icon
-   */
-  emptyStateIconSize: {
-    type: String,
-    default: '50',
-  },
+  // TODO: emptyStateIconVariant prop
   /**
    * A prop that enables the error state
    */
-  hasError: {
+  error: {
     type: Boolean,
     default: false,
   },
@@ -313,27 +284,6 @@ const props = defineProps({
   errorStateActionMessage: {
     type: String,
     default: '',
-  },
-  /**
-   * A prop to pass in a custom error state icon
-   */
-  errorStateIcon: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a color for the error state icon
-   */
-  errorStateIconColor: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a size for the error state icon
-   */
-  errorStateIconSize: {
-    type: String,
-    default: '50',
   },
   /**
    * A prop to pass in a fetcher function to enable server-side pagination
@@ -408,28 +358,19 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  /**
-   * for testing only, strips out generated ids and avoid loading state in tests.
-   * 'true' - no id's no loading
-   * 'loading' - no id's but allow loading
-   */
-  testMode: {
-    type: [String, Boolean],
-    default: false,
-  },
 })
 
 const emit = defineEmits<{
-  (e: 'card:click', item: CatalogItem): void
-  (e: 'kcatalog-error-cta-clicked'): void
-  (e: 'kcatalog-empty-state-cta-clicked'): void
+  (e: 'card-click', item: CatalogItem): void
+  (e: 'error-action-click'): void
+  (e: 'empty-state-action-click'): void
   (e: 'update:catalog-preferences', preferences: CatalogPreferences): void
   (e: 'state', value: { state: CatalogState, hasData: boolean }): void
 }>()
 
 const slots = useSlots()
 
-const catalogId = computed((): string => props.testMode ? 'test-catalog-id-1234' : uuidv4())
+const catalogId = uuidv4()
 const defaultFetcherProps = {
   page: 1,
   pageSize: 15,
@@ -491,7 +432,7 @@ const catalogFetcherCacheKey = computed((): string => {
   }
 
   // Set the default identifier to a random string
-  let identifierKey: string = catalogId.value
+  let identifierKey: string = catalogId
   if (props.cacheIdentifier) {
     identifierKey = props.cacheIdentifier
   }

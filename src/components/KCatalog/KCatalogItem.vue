@@ -7,17 +7,17 @@
     @click="($event: any) => handleCardClick($event, item)"
   >
     <template #title>
-      <slot name="cardTitle">
+      <slot name="card-title">
         {{ item ? item.title : '' }}
       </slot>
     </template>
 
     <template #actions>
-      <slot name="cardActions" />
+      <slot name="card-actions" />
     </template>
 
     <div :class="{ 'multi-line-truncate': truncate }">
-      <slot name="cardBody">
+      <slot name="card-body">
         {{ item ? item.description : '' }}
       </slot>
     </div>
@@ -38,19 +38,12 @@ defineProps({
     type: Boolean,
     default: true,
   },
-  /**
-     * Test mode - for testing only, strips out generated ids
-     */
-  testMode: {
-    type: Boolean,
-    default: false,
-  },
 })
 
-const emit = defineEmits(['card:click'])
+const emit = defineEmits(['card-click'])
 
 const handleCardClick = (evt: Event, item: CatalogItem): void => {
-  emit('card:click', {
+  emit('card-click', {
     evt,
     item,
   })

@@ -3,14 +3,118 @@
     :links="inject('app-links', [])"
     title="KCatalog"
   >
-    <KCatalog
-      :fetcher="fetcher"
-    />
+    <div class="kcatalog-sandbox">
+      <!-- Props -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Props"
+      />
+      <SandboxSectionComponent title="loading">
+        <KComponent
+          v-slot="{ data }"
+          :data="{ isLoading: true }"
+        >
+          <KInputSwitch
+            v-model="data.isLoading"
+            label="Loading"
+          />
+          <KCatalog
+            :fetcher="fetcher"
+            :loading="data.isLoading"
+          />
+        </KComponent>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="cardSize & hidePaginationWhenOptional">
+        <KCatalog
+          card-size="small"
+          :fetcher="fetcher"
+        />
+        <KCatalog
+          card-size="large"
+          :fetcher="fetcher"
+          :hide-pagination-when-optional="true"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="title">
+        <KCatalog
+          :fetcher="fetcher"
+          title="Catalog"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="truncateDescription">
+        <KComponent
+          v-slot="{ data }"
+          :data="{ isTruncated: true }"
+        >
+          <KInputSwitch
+            v-model="data.isTruncated"
+            label="Truncated"
+          />
+          <KCatalog
+            :fetcher="fetcher"
+            title="Catalog"
+            :truncate-description="data.isTruncated"
+          >
+            <template #card-body>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </template>
+          </KCatalog>
+        </KComponent>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="emptyStateTitle & emptyStateMessage & emptyStateActionRoute & emptyStateActionMessage & emptyStateIconVariant">
+        <KCatalog
+          empty-state-action-message="Empty state action"
+          empty-state-action-route="/"
+          empty-state-icon-variant="primary"
+          empty-state-message="Empty state message"
+          empty-state-title="Empty state title"
+          :fetcher="emptyFetcher"
+          title="Catalog"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="error & errorStateTitle & errorStateMessage & errorStateActionRoute & errorStateActionMessage">
+        <KCatalog
+          error
+          error-state-action-message="Error state action"
+          error-state-action-route="/"
+          error-state-message="Error state message"
+          error-state-title="Error state title"
+          :fetcher="fetcher"
+          title="Catalog"
+        />
+      </SandboxSectionComponent>
+
+      <!-- Slots -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Slots"
+      />
+      <SandboxSectionComponent title="card-title & card-actions & card-body">
+        <KCatalog :fetcher="fetcher">
+          <template #card-title>
+            Card title
+          </template>
+          <template #card-actions>
+            <KButton size="small">
+              <template #icon>
+                <KongIcon />
+              </template>
+            </KButton>
+          </template>
+          <template #card-body>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </template>
+        </KCatalog>
+      </SandboxSectionComponent>
+    </div>
   </SandboxLayout>
 </template>
 
 <script setup lang="ts">
 import { inject } from 'vue'
+import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
+import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
+import { KongIcon } from '@kong/icons'
 
 const fetcher = async (): Promise<any> => {
   // Fake delay
@@ -28,6 +132,16 @@ const fetcher = async (): Promise<any> => {
   return {
     data: catalogData,
     total: catalogData.length,
+  }
+}
+
+const emptyFetcher = async (): Promise<any> => {
+  // Fake delay
+  await new Promise((resolve) => setTimeout(resolve, 2000))
+
+  return {
+    data: [],
+    total: 0,
   }
 }
 </script>

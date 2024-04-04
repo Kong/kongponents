@@ -181,6 +181,35 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KCatalog
 
+#### Props
+
+* `isLoading` prop has been removed and replaced with `loading` prop
+* `noTruncation` prop has been removed and replaced with `truncateDescription` prop
+* `emptyStateActionButtonIcon` prop has been removed. You can use the new `empty-state-action-icon` slot instead
+* `emptyStateIcon` prop has been removed. You can use the new `emptyStateIconVariant` prop instead
+* `hasError` prop has been removed and replaced with `error` prop
+* `emptyStateIconColor` prop has been removed
+* `emptyStateIconSize` prop has been removed
+* `errorStateIcon` prop has been removed
+* `errorStateIconColor` prop has been removed
+* `errorStateIconSize` prop has been removed
+* `testMode` prop has been removed
+
+#### Slots
+
+* `cardTitle` props has been renamed to `card-title`
+  * same change applies to KCatalogItem component
+* `cardActions` prop has been renamed to `card-actions`
+  * same change applies to KCatalogItem component
+* `cardBody` prop has been renamed to `card-body`
+  * same change applies to KCatalogItem component
+
+#### Events
+
+* `card:click` event has been renamed to `card-click`
+  * same change applies to KCatalogItem component
+* `kcatalog-error-cta-clicked` event has been renamed to `error-action-click`
+* `kcatalog-empty-state-cta-clicked` event has been renamed to `empty-state-action-click`
 
 ### KCheckbox
 
