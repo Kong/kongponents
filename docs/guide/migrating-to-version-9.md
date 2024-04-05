@@ -226,6 +226,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 * `k-catalog-page` class has been replaced with `catalog-page`
 * `k-card-[small | medium | large]` classes were replaced with `card-[small | medium | large]`
 * `k-catalog-pagination` class and `data-testid` attribute has been replaced with `catalog-pagination`
+* `k-card-catalog-item` class has been replaced with `k-catalog-item`
 
 class has been replaced with
 class and `data-testid` attribute has been replaced with
