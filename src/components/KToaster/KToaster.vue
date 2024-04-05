@@ -151,6 +151,8 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
     }
 
     .toaster-close-icon {
+      @include defaultButtonReset;
+
       border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
       margin-left: var(--kui-space-auto, $kui-space-auto);
       outline: none;

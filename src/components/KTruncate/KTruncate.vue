@@ -284,6 +284,8 @@ onUnmounted(() => {
   }
 
   .collapse-trigger {
+    @include defaultButtonReset;
+
     background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
     border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
     color: var(--kui-color-text-primary, $kui-color-text-primary);

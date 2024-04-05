@@ -181,6 +181,8 @@ onUnmounted(() => {
       }
 
       .slideout-close-icon {
+        @include defaultButtonReset;
+
         border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
         margin-left: auto;
         outline: none;

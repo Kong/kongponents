@@ -64,6 +64,7 @@
               <button
                 v-if="isClearVisible"
                 aria-label="Clear"
+                class="clear-selection-button"
                 data-testid="clear-selection-icon"
                 type="button"
                 @click="clearSelection"
@@ -804,6 +805,10 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     &.select-error {
       color: var(--kui-color-text-danger, $kui-color-text-danger);
     }
+  }
+
+  .clear-selection-button {
+    @include defaultButtonReset;
   }
 }
 </style>

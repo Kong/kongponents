@@ -368,9 +368,10 @@ onBeforeUnmount(async () => {
       }
 
       .close-icon {
+        @include defaultButtonReset;
+
         border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
         margin-left: auto;
-        margin-top: var(--kui-space-10, $kui-space-10);
         outline: none;
 
         &:hover, &:focus {

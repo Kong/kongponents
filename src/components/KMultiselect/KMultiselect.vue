@@ -99,6 +99,7 @@
                 >
                   <button
                     aria-label="Dismiss"
+                    class="badge-dismiss-button"
                     data-testid="badge-dismiss-button"
                     type="button"
                     @click="handleItemSelect(item)"
@@ -1127,6 +1128,8 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     z-index: 1;
 
     .multiselect-clear-icon {
+      @include defaultButtonReset;
+
       &:hover, &:focus {
         color: var(--kui-color-text, $kui-color-text) !important;
       }
@@ -1264,6 +1267,10 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     .help-text {
       color: var(--kui-color-text-danger, $kui-color-text-danger);
     }
+  }
+
+  .badge-dismiss-button {
+    @include defaultButtonReset;
   }
 }
 </style>
