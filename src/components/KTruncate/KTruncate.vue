@@ -42,14 +42,14 @@
           :collapse="handleToggleClick"
           name="collapse-trigger"
         >
-          <ChevronUpIcon
+          <button
+            aria-label="Toggle"
             class="collapse-trigger"
-            role="button"
-            tabindex="0"
+            type="button"
             @click.stop="handleToggleClick"
-            @keydown.enter="handleToggleClick"
-            @keydown.space.prevent="handleToggleClick"
-          />
+          >
+            <ChevronUpIcon />
+          </button>
         </slot>
       </div>
     </div>
@@ -287,7 +287,6 @@ onUnmounted(() => {
     background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
     border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
     color: var(--kui-color-text-primary, $kui-color-text-primary);
-    cursor: pointer;
     outline: none;
     padding: var(--kui-space-20, $kui-space-20);
 
