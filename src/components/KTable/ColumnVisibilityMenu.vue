@@ -1,9 +1,9 @@
 <template>
-  <div class="k-table-column-visibility-menu">
+  <div class="table-column-visibility-menu">
     <KDropdown @toggle-dropdown="handleDropdownToggle">
       <KTooltip text="Show/Hide Columns">
         <KButton
-          appearance="secondary"
+          appearance="tertiary"
           class="menu-button"
         >
           <template #icon>
@@ -34,7 +34,7 @@
             {{ col.label }}
           </KLabel>
         </KDropdownItem>
-        <KDropdownItem>
+        <div class="apply-button-wrapper">
           <KButton
             appearance="tertiary"
             class="apply-button"
@@ -42,14 +42,14 @@
           >
             Apply
           </KButton>
-        </KDropdownItem>
+        </div>
       </template>
     </KDropdown>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount, type PropType } from 'vue'
+import { ref, watch, onBeforeMount, type PropType } from 'vue'
 import type { TableHeader } from '@/types'
 import { CogIcon } from '@kong/icons'
 import KButton from '@/components/KButton/KButton.vue'
@@ -101,6 +101,10 @@ const handleDropdownToggle = (isOpen: boolean): void => {
   }
 }
 
+watch(() => props.visibilityPreferences, () => {
+  initVisibilityMap()
+})
+
 onBeforeMount(() => {
   // initialize visibility state
   initVisibilityMap()
@@ -108,12 +112,17 @@ onBeforeMount(() => {
 </script>
 
 <style lang="scss" scoped>
-.k-table-column-visibility-menu {
+.table-column-visibility-menu {
   margin-left: var(--kui-space-auto, $kui-space-auto);
 
-  .apply-button {
-    margin-left: var(--kui-space-auto, $kui-space-auto);
-    margin-right: var(--kui-space-auto, $kui-space-auto);
+  .apply-button-wrapper {
+    display: flex;
+    width: 100%;
+
+    .apply-button {
+      margin-left: var(--kui-space-auto, $kui-space-auto);
+      margin-right: var(--kui-space-auto, $kui-space-auto);
+    }
   }
 
   .visibility-checkbox-label {

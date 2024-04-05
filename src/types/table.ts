@@ -23,7 +23,7 @@ export interface TableHeader {
   key: string
   label: string
   sortable?: boolean
-  allowHide?: boolean
+  hidable?: boolean
   hideLabel?: boolean
   useSortHandlerFn?: boolean
 }

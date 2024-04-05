@@ -578,9 +578,9 @@ const resizingColumn = ref('')
 const resizerHoveredColumn = ref('')
 // lowest priority - currently hovered resizable column (mouse is somewhere in the <th>)
 const currentHoveredColumn = ref('')
-const hasColumnVisibilityMenu = computed((): boolean => tableHeaders.value.filter((header: TableHeader) => header.allowHide).length > 0)
+const hasColumnVisibilityMenu = computed((): boolean => tableHeaders.value.filter((header: TableHeader) => header.hidable).length > 0)
 // columns whose visibility can be toggled
-const visibilityColumns = computed((): TableHeader[] => tableHeaders.value.filter((header: TableHeader) => header.allowHide))
+const visibilityColumns = computed((): TableHeader[] => tableHeaders.value.filter((header: TableHeader) => header.hidable))
 // visibility preferences from the host app (initialized by app)
 const visibilityPreferences = computed((): Record<string, boolean> => props.tablePreferences.columnVisibility || {})
 // current column visibility state
@@ -1073,10 +1073,9 @@ watch([columnVisibility, tableHeaders], (newVals) => {
   const newVisibleHeaders = newHeaders.filter((header: TableHeader) => newVisibility[header.key] !== false)
 
   if (JSON.stringify(newVisibleHeaders) !== JSON.stringify(visibleHeaders.value)) {
+    visibleHeaders.value = newVisibleHeaders
     emitTablePreferences()
   }
-
-  visibleHeaders.value = newVisibleHeaders
 }, { deep: true, immediate: true })
 
 watch(fetcherData, (fetchedData: any) => {

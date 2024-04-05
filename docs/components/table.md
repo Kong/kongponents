@@ -438,7 +438,7 @@ Pass in an array of header objects for the table.
 | `key`              | string  | A unique key for the column                                                                                                                |
 | `label`            | string  | The label displayed on the table for the column                                                                                            |
 | `sortable`         | boolean | Enables or disables server-side sorting for the column (`false` by default)                                                                |
-| `hidable`        | boolean | Enable show/hide for this column                                                                                                           |
+| `hidable`          | boolean | Enable show/hide for this column                                                                                                           |
 | `hideLabel`        | boolean | Hides or displays the column label (useful for actions columns)                                                                            |
 | `useSortHandlerFn` | boolean | Uses the function passed in the [sortHandlerFn](#sorthandlerfn) prop to sort the column data instead of the default client sorter function |
 
@@ -466,7 +466,7 @@ Example headers array:
           { key: 'name', label: 'Name', sortable: true },
           { key: 'email', label: 'Email', sortable: true },
           { key: 'department', label: 'department', sortable: true },
-          { key: 'start_date', label: 'Start Date', sortable: true, allowHide: true },
+          { key: 'start_date', label: 'Start Date', sortable: true, hidable: true },
           { key: 'actions', label: '', sortable: false, hideLabel: true },
         ]
       }
@@ -475,14 +475,25 @@ Example headers array:
 </script>
 ```
 
-#### allowHide
+#### hidable
 
-Using this modal will cause the column visibility menu to be displayed above the table after any toolbar content. Hovering over a column with `allowHide: true` will trigger the display of a hide button in the header. An `@update:table-preferences` event is emitted whenever changes are applied.
+Using this modal will cause the column visibility menu to be displayed above the table after any toolbar content. Hovering over a column with `hidable: true` will trigger the display of a hide button in the header. An `@update:table-preferences` event is emitted whenever changes are applied.
 
-<KTable :fetcher="tableHideColumnFetcher" :headers="hideColumnHeaders" />
+<KTable :fetcher="tableHideColumnFetcher" :headers="hideColumnHeaders" :table-preferences="hidablePreferences" @update:table-preferences="(tablePrefs) => hidablePreferences.columnVisibility = tablePrefs.columnVisibility" />
 
 ```html
-<script>
+<template>
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+    :table-preferences="myPreferences"
+    @update:table-preferences="(newTablePreferences: TablePreferences) => {
+      myPreferences.columnVisibility = newTablePreferences.columnVisibility
+    }"
+  />
+</template>
+
+<script lang="ts">
   export default {
     data() {
       return {
@@ -490,8 +501,8 @@ Using this modal will cause the column visibility menu to be displayed above the
           { label: 'Host', key: 'hostname' },
           { label: 'Version', key: 'version' },
           { label: 'Connected', key: 'connected' },
-          { label: 'Last Ping', key: 'last_ping', allowHide: true },
-          { label: 'Last Seen', key: 'last_seen', allowHide: true },
+          { label: 'Last Ping', key: 'last_ping', hidable: true },
+          { label: 'Last Seen', key: 'last_seen', hidable: true },
         ]
       }
     }
@@ -1624,6 +1635,7 @@ export default defineComponent({
       enableRowClick: true,
       offsetPaginationPageSize: 15,
       offsetPaginationData: {},
+      hidablePreferences: {},
       headers: [
         { label: 'Title', key: 'title', sortable: true },
         { label: 'Description', key: 'description', sortable: true },
@@ -1644,8 +1656,8 @@ export default defineComponent({
         { label: 'Host', key: 'hostname' },
         { label: 'Version', key: 'version' },
         { label: 'Connected', key: 'connected' },
-        { label: 'Last Ping', key: 'last_ping', allowHide: true },
-        { label: 'Last Seen', key: 'last_seen', allowHide: true },
+        { label: 'Last Ping', key: 'last_ping', hidable: true },
+        { label: 'Last Seen', key: 'last_seen', hidable: true },
       ],
       tableOptionsRowAttrsHeaders: [
         { label: 'Type', key: 'type' },
