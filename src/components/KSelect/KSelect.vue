@@ -61,15 +61,15 @@
             @update:model-value="onQueryChange"
           >
             <template #after>
-              <CloseIcon
+              <button
                 v-if="isClearVisible"
+                aria-label="Clear"
                 data-testid="clear-selection-icon"
-                role="button"
-                tabindex="0"
+                type="button"
                 @click="clearSelection"
-                @keydown.space.prevent
-                @keyup.space="clearSelection"
-              />
+              >
+                <CloseIcon />
+              </button>
               <ChevronDownIcon
                 class="chevron-down-icon"
                 :class="{ 'disabled': isDisabled }"
