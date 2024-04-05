@@ -30,10 +30,11 @@
               aria-label="Clear query"
               class="clear-query-button"
               data-testid="clear-query-button"
+              title="Clear query"
               type="button"
               @click="clearQuery"
             >
-              <CloseIcon title="Clear query" />
+              <CloseIcon />
             </button>
             <SearchIcon
               v-else

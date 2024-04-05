@@ -1,0 +1,7 @@
+/* Buttons mixins */
+
+@mixin defaultButtonReset {
+  background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
+  border: none;
+  padding: var(--kui-space-0, $kui-space-0);
+}
