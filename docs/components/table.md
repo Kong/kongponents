@@ -438,7 +438,7 @@ Pass in an array of header objects for the table.
 | `key`              | string  | A unique key for the column                                                                                                                |
 | `label`            | string  | The label displayed on the table for the column                                                                                            |
 | `sortable`         | boolean | Enables or disables server-side sorting for the column (`false` by default)                                                                |
-| `allowHide`        | boolean | Enable show/hide for this column                                                                                                           |
+| `hidable`        | boolean | Enable show/hide for this column                                                                                                           |
 | `hideLabel`        | boolean | Hides or displays the column label (useful for actions columns)                                                                            |
 | `useSortHandlerFn` | boolean | Uses the function passed in the [sortHandlerFn](#sorthandlerfn) prop to sort the column data instead of the default client sorter function |
 
@@ -475,7 +475,7 @@ Example headers array:
 </script>
 ```
 
-#### `allowHide`
+#### allowHide
 
 Using this modal will cause the column visibility menu to be displayed above the table after any toolbar content. Hovering over a column with `allowHide: true` will trigger the display of a hide button in the header. An `@update:table-preferences` event is emitted whenever changes are applied.
 
