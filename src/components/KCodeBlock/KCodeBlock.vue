@@ -25,18 +25,16 @@
             mode="out-in"
             name="kongponents-fade-transition"
           >
-            <CloseIcon
+            <button
               v-if="searchQuery"
               aria-label="Clear query"
               class="clear-query-button"
               data-testid="clear-query-button"
-              role="button"
-              tabindex="0"
-              title="Clear query"
+              type="button"
               @click="clearQuery"
-              @keydown.enter="clearQuery"
-              @keydown.space="clearQuery"
-            />
+            >
+              <CloseIcon title="Clear query" />
+            </button>
             <SearchIcon
               v-else
               class="code-block-search-icon"
@@ -871,7 +869,7 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
           color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker) !important;
         }
 
-        .clear-query-button[role="button"] {
+        .clear-query-button {
           &:hover, &:focus, &:focus-visible {
             color: var(--kui-color-text-inverse, $kui-color-text-inverse) !important;
           }
