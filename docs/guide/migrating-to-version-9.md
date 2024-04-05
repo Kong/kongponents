@@ -211,6 +211,25 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 * `kcatalog-error-cta-clicked` event has been renamed to `error-action-click`
 * `kcatalog-empty-state-cta-clicked` event has been renamed to `empty-state-action-click`
 
+#### Structure
+
+* `k-card-catalog` class has been replaced with `k-catalog`
+* `k-card-catalog-title` class has been replaced with `catalog-title`
+* `k-catalog-title` `data-testid` property has been replaced with `catalog-title`
+* `k-catalog-toolbar` class and `data-testid` attribute has been replaced with `catalog-toolbar`
+* `k-skeleton-grid` class has been replaced with `catalog-skeleton-loader`
+* `k-catalog-skeleton` `data-testid` attribute has been replaced with `catalog-skeleton-loader`
+* `k-catalog-error-state` class has been replaced with `catalog-error-state`
+* `k-card-catalog-error-state` `data-testid` attribute has been replaced with `catalog-error-state`
+* `k-catalog-empty-state` class has been replaced with `catalog-empty-state`
+* `k-card-catalog-empty-state` `data-testid` attribute has been replaced with `catalog-empty-state`
+* `k-catalog-page` class has been replaced with `catalog-page`
+* `k-card-[small | medium | large]` classes were replaced with `card-[small | medium | large]`
+* `k-catalog-pagination` class and `data-testid` attribute has been replaced with `catalog-pagination`
+
+class has been replaced with
+class and `data-testid` attribute has been replaced with
+
 ### KCheckbox
 
 #### Props

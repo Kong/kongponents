@@ -52,7 +52,6 @@
           />
           <KCatalog
             :fetcher="fetcher"
-            title="Catalog"
             :truncate-description="data.isTruncated"
           >
             <template #card-body>
@@ -65,11 +64,10 @@
         <KCatalog
           empty-state-action-message="Empty state action"
           empty-state-action-route="/"
-          empty-state-icon-variant="primary"
+          empty-state-icon-variant="kong"
           empty-state-message="Empty state message"
           empty-state-title="Empty state title"
           :fetcher="emptyFetcher"
-          title="Catalog"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="error & errorStateTitle & errorStateMessage & errorStateActionRoute & errorStateActionMessage">
@@ -80,7 +78,6 @@
           error-state-message="Error state message"
           error-state-title="Error state title"
           :fetcher="fetcher"
-          title="Catalog"
         />
       </SandboxSectionComponent>
 
@@ -89,6 +86,19 @@
         is-subtitle
         title="Slots"
       />
+      <SandboxSectionComponent title="toolbar">
+        <KCatalog
+          :fetcher="fetcher"
+          title="Card with toolbar"
+        >
+          <template #toolbar>
+            <KInput />
+            <KButton size="large">
+              Toolbar button
+            </KButton>
+          </template>
+        </KCatalog>
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="card-title & card-actions & card-body">
         <KCatalog :fetcher="fetcher">
           <template #card-title>
@@ -103,6 +113,16 @@
           </template>
           <template #card-body>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </template>
+        </KCatalog>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="empty-state-action-icon">
+        <KCatalog
+          empty-state-action-message="Empty state action"
+          :fetcher="emptyFetcher"
+        >
+          <template #empty-state-action-icon>
+            <KongIcon />
           </template>
         </KCatalog>
       </SandboxSectionComponent>
