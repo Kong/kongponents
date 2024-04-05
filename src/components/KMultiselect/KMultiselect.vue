@@ -97,12 +97,14 @@
                   v-if="item.selected && !item.disabled && !isDisabled && !isReadonly"
                   #icon
                 >
-                  <CloseIcon
+                  <button
+                    aria-label="Dismiss"
                     data-testid="badge-dismiss-button"
-                    role="button"
-                    tabindex="0"
+                    type="button"
                     @click="handleItemSelect(item)"
-                  />
+                  >
+                    <CloseIcon />
+                  </button>
                 </template>
               </KBadge>
               <KTooltip
@@ -122,16 +124,16 @@
               </KTooltip>
             </div>
             <div class="multiselect-icons-container">
-              <CloseIcon
+              <button
                 v-if="!loading && selectedItems.length && isToggled.value"
+                aria-label="Clear"
                 class="multiselect-clear-icon"
                 data-testid="multiselect-clear-icon"
-                role="button"
-                :size="KUI_ICON_SIZE_40"
-                tabindex="0"
+                type="button"
                 @click="clearSelection"
-                @keyup.enter="clearSelection"
-              />
+              >
+                <CloseIcon :size="KUI_ICON_SIZE_40" />
+              </button>
               <ProgressIcon
                 v-else-if="loading"
                 class="multiselect-loading-icon"
@@ -1125,8 +1127,6 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     z-index: 1;
 
     .multiselect-clear-icon {
-      cursor: pointer;
-
       &:hover, &:focus {
         color: var(--kui-color-text, $kui-color-text) !important;
       }
