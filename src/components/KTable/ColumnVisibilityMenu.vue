@@ -1,10 +1,14 @@
 <template>
   <div class="table-column-visibility-menu">
-    <KDropdown @toggle-dropdown="handleDropdownToggle">
+    <KDropdown
+      data-testid="table-column-visibility-menu"
+      @toggle-dropdown="handleDropdownToggle"
+    >
       <KTooltip text="Show/Hide Columns">
         <KButton
           appearance="tertiary"
           class="menu-button"
+          data-testid="column-visibility-menu-button"
         >
           <template #icon>
             <CogIcon />
@@ -17,6 +21,7 @@
           v-for="col in columns"
           :key="col.key"
           class="column-visibility-menu-item"
+          :data-testid="`column-visibility-menu-item-${col.key}`"
           @click.stop="() => {
             visibilityMap[col.key] = !visibilityMap[col.key]
             isDirty = true
@@ -26,6 +31,7 @@
           <KCheckbox
             v-model="visibilityMap[col.key]"
             :aria-labelledby="`${tableId}-${col.key}-visibility-checkbox-label`"
+            :data-testid="`column-visibility-checkbox-${col.key}`"
           />
           <KLabel
             :id="`${tableId}-${col.key}-visibility-checkbox-label`"
@@ -38,6 +44,7 @@
           <KButton
             appearance="tertiary"
             class="apply-button"
+            data-testid="apply-button"
             @click="handleApply"
           >
             Apply

@@ -251,6 +251,37 @@ describe('KTable', () => {
       cy.get('.k-table').find('th.resizable').should('be.visible')
       cy.get('.resize-handle').should('exist')
     })
+
+    it('renders column show/hide when headers.hidable is set', () => {
+      // make ID column hidable
+      options.headers[1].hidable = true
+      const modifiedHeaderKey = options.headers[1].key
+
+      mount(KTable, {
+        props: {
+          testMode: 'true',
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } },
+        },
+      })
+
+      cy.get('.k-table').should('be.visible')
+      // menu button is visible
+      cy.getTestId('column-visibility-menu-button').should('be.visible')
+      cy.getTestId('column-visibility-menu-button').click()
+
+      // only columns with hidable set to true should be visible and checked by default
+      cy.getTestId(`column-visibility-menu-item-${modifiedHeaderKey}`).should('be.visible')
+      cy.getTestId(`column-visibility-menu-item-${options.headers[0].key}`).should('not.exist')
+      cy.getTestId(`column-visibility-checkbox-${modifiedHeaderKey}`).should('be.visible')
+      cy.getTestId(`column-visibility-checkbox-${modifiedHeaderKey}`).should('be.checked')
+
+      // changes are applied only when Apply button is clicked
+      cy.getTestId(`column-visibility-checkbox-${modifiedHeaderKey}`).click()
+      cy.getTestId(`k-table-header-${modifiedHeaderKey}`).should('be.visible')
+      cy.getTestId('apply-button').click()
+      cy.getTestId(`k-table-header-${modifiedHeaderKey}`).should('not.exist')
+    })
   })
 
   describe('data revalidates and changes as expected', () => {
