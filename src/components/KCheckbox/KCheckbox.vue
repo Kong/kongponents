@@ -3,7 +3,10 @@
     class="k-checkbox"
     :class="[$attrs.class, kCheckboxClasses ]"
   >
-    <div class="checkbox-input-wrapper">
+    <div
+      class="checkbox-input-wrapper"
+      :class="{ 'has-label': hasLabel }"
+    >
       <input
         :id="inputId"
         v-bind="modifiedAttrs"
@@ -183,8 +186,11 @@ export default {
 
   .checkbox-input-wrapper {
     display: flex;
-    margin-top: 3px; // align with label
     position: relative;
+
+    &.has-label {
+      margin-top: 3px; // align with label
+    }
   }
 
   /* Checkbox styles */

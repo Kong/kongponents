@@ -118,6 +118,7 @@ onBeforeMount(() => {
 
   .visibility-checkbox-label {
     margin-bottom: var(--kui-space-0, $kui-space-0);
+    margin-left: calc(-1 * var(--kui-space-40, $kui-space-40)); // because dropdown item container and checkbox both have default spacing, reduce it
   }
 }
 </style>
