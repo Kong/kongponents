@@ -132,7 +132,7 @@
     </div>
 
     <KPagination
-      v-if="!disablePagination && fetcher && !(hidePaginationWhenOptional && total <= paginationPageSizes[0])"
+      v-if="!disablePagination && fetcher && !(hidePaginationWhenOptional && total <= paginationPageSizes[0]) && !error && data && data.length"
       class="card-pagination"
       :current-page="page"
       data-testid="catalog-pagination"

@@ -140,12 +140,19 @@ const fetcher = async (): Promise<any> => {
   // Fake delay
   await new Promise((resolve) => setTimeout(resolve, 2000))
 
-  const response = await fetch('https://jsonplaceholder.typicode.com/users')
+  const response = await fetch('https://jsonplaceholder.typicode.com/posts')
   const responseData = await response.json()
-  const catalogData = responseData.map((item: { name: string, email: string }) => {
-    return {
-      title: item.name,
-      description: item.email,
+  const catalogData: any[] = []
+  responseData.every((item: { title: string, body: string }, index: number) => {
+    if (index <= 9) {
+      catalogData.push({
+        title: item.title,
+        description: item.body,
+      })
+
+      return true
+    } else {
+      return false
     }
   })
 
