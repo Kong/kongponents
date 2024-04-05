@@ -38,18 +38,16 @@
                   {{ title }}
                 </slot>
               </div>
-              <CloseIcon
+              <button
                 v-if="!hideCloseIcon"
+                aria-label="Close"
                 class="close-icon"
-                :color="KUI_COLOR_TEXT_NEUTRAL"
                 data-testid="modal-close-icon"
-                role="button"
-                tabindex="0"
-                title="Close"
+                type="button"
                 @click="$emit('cancel')"
-                @keydown.enter="$emit('cancel')"
-                @keydown.space.prevent="$emit('cancel')"
-              />
+              >
+                <CloseIcon :color="KUI_COLOR_TEXT_NEUTRAL" />
+              </button>
             </div>
             <div
               class="modal-content"
@@ -371,7 +369,6 @@ onBeforeUnmount(async () => {
 
       .close-icon {
         border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-        cursor: pointer;
         margin-left: auto;
         margin-top: var(--kui-space-10, $kui-space-10);
         outline: none;
