@@ -17,7 +17,7 @@
           v-for="col in columns"
           :key="col.key"
           class="column-visibility-menu-item"
-          @click.stop
+          @click.stop="visibilityMap[col.label] = !visibilityMap[col.label]"
         >
           <KCheckbox
             v-model="visibilityMap[col.label]"
@@ -65,7 +65,8 @@ const props = defineProps({
 const visibilityMap = ref<Record<string, boolean>>({})
 
 const handleApply = () => {
-  emit('update:visibility', visibilityMap.value)
+  // pass by ref problems
+  emit('update:visibility', JSON.parse(JSON.stringify(visibilityMap.value)))
 }
 
 onBeforeMount(() => {
