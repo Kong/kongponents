@@ -33,17 +33,18 @@
           {{ toaster.message }}
         </p>
       </div>
-      <CloseIcon
+      <button
+        aria-label="Close"
         class="toaster-close-icon"
-        :color="KUI_COLOR_TEXT_NEUTRAL_WEAK"
         data-testid="toaster-close-icon"
-        role="button"
-        :size="KUI_ICON_SIZE_50"
-        tabindex="0"
-        @click="$emit('close', toaster.key)"
-        @keydown.enter="$emit('close', toaster.key)"
-        @keydown.space.prevent="$emit('close', toaster.key)"
-      />
+        type="button"
+        @click.stop="$emit('close', toaster.key)"
+      >
+        <CloseIcon
+          :color="KUI_COLOR_TEXT_NEUTRAL_WEAK"
+          :size="KUI_ICON_SIZE_50"
+        />
+      </button>
     </div>
   </TransitionGroup>
 </template>
@@ -151,7 +152,6 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
 
     .toaster-close-icon {
       border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-      cursor: pointer;
       margin-left: var(--kui-space-auto, $kui-space-auto);
       outline: none;
 
