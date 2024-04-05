@@ -24,17 +24,15 @@
               {{ title }}
             </slot>
           </div>
-          <CloseIcon
+          <button
+            aria-label="Close"
             class="slideout-close-icon"
-            :color="KUI_COLOR_TEXT_NEUTRAL"
             data-testid="slideout-close-icon"
-            role="button"
-            tabindex="0"
-            title="Close"
-            @click="$emit('close')"
-            @keydown.enter="$emit('close')"
-            @keydown.space.prevent="$emit('close')"
-          />
+            type="button"
+            @click.stop="$emit('close')"
+          >
+            <CloseIcon :color="KUI_COLOR_TEXT_NEUTRAL" />
+          </button>
         </div>
         <div class="slideout-content">
           <slot />
@@ -184,9 +182,7 @@ onUnmounted(() => {
 
       .slideout-close-icon {
         border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-        cursor: pointer;
         margin-left: auto;
-        // margin-top: var(--kui-space-10, $kui-space-10);
         outline: none;
 
         &:hover, &:focus {
