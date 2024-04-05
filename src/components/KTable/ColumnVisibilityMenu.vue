@@ -1,6 +1,6 @@
 <template>
   <div class="k-table-column-visibility-menu">
-    <KDropdown>
+    <KDropdown @toggle-dropdown="handleDropdownToggle">
       <KTooltip text="Show/Hide Columns">
         <KButton
           appearance="secondary"
@@ -17,12 +17,22 @@
           v-for="col in columns"
           :key="col.key"
           class="column-visibility-menu-item"
-          @click.stop="visibilityMap[col.label] = !visibilityMap[col.label]"
+          @click.stop="() => {
+            visibilityMap[col.key] = !visibilityMap[col.key]
+            isDirty = true
+          }"
         >
+          <!-- KLabel must be separate to maintain click handling on the label within the dropdown item -->
           <KCheckbox
-            v-model="visibilityMap[col.label]"
-            :label="col.label"
+            v-model="visibilityMap[col.key]"
+            :aria-labelledby="`${tableId}-${col.key}-visibility-checkbox-label`"
           />
+          <KLabel
+            :id="`${tableId}-${col.key}-visibility-checkbox-label`"
+            class="visibility-checkbox-label"
+          >
+            {{ col.label }}
+          </KLabel>
         </KDropdownItem>
         <KDropdownItem>
           <KButton
@@ -56,6 +66,10 @@ const props = defineProps({
     type: Array as PropType<TableHeader[]>,
     required: true,
   },
+  tableId: {
+    type: String,
+    required: true,
+  },
   visibilityPreferences: {
     type: Object as PropType<Record<string, boolean>>,
     default: () => ({}),
@@ -63,29 +77,47 @@ const props = defineProps({
 })
 
 const visibilityMap = ref<Record<string, boolean>>({})
+const isDirty = ref(false)
 
-const handleApply = () => {
+const initVisibilityMap = (): void => {
+  visibilityMap.value = props.columns.reduce((acc, col: TableHeader) => {
+    acc[col.key] = props.visibilityPreferences[col.key] === undefined ? true : props.visibilityPreferences[col.key]
+
+    return acc
+  }, {} as Record<string, boolean>)
+  isDirty.value = false
+}
+
+const handleApply = (): void => {
   // pass by ref problems
   emit('update:visibility', JSON.parse(JSON.stringify(visibilityMap.value)))
+  isDirty.value = false
+}
+
+const handleDropdownToggle = (isOpen: boolean): void => {
+  // reset the map if the dropdown is closed without applying changes
+  if (!isOpen && isDirty.value) {
+    initVisibilityMap()
+  }
 }
 
 onBeforeMount(() => {
   // initialize visibility state
-  visibilityMap.value = props.columns.reduce((acc, col: TableHeader) => {
-    acc[col.label] = props.visibilityPreferences[col.label] === undefined ? true : props.visibilityPreferences[col.label]
-
-    return acc
-  }, {} as Record<string, boolean>)
+  initVisibilityMap()
 })
 </script>
 
 <style lang="scss" scoped>
 .k-table-column-visibility-menu {
-  margin-left: auto;
+  margin-left: var(--kui-space-auto, $kui-space-auto);
 
   .apply-button {
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: var(--kui-space-auto, $kui-space-auto);
+    margin-right: var(--kui-space-auto, $kui-space-auto);
+  }
+
+  .visibility-checkbox-label {
+    margin-bottom: var(--kui-space-0, $kui-space-0);
   }
 }
 </style>

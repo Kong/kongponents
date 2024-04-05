@@ -12,6 +12,7 @@
       <ColumnVisibilityMenu
         v-if="hasColumnVisibilityMenu"
         :columns="visibilityColumns"
+        :table-id="tableId"
         :visibility-preferences="visibilityPreferences"
         @update:visibility="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
       />
@@ -225,7 +226,7 @@
 <script setup lang="ts">
 import type { Ref, PropType } from 'vue'
 import { ref, watch, computed, onMounted, useAttrs, useSlots } from 'vue'
-import { v1 as uuidv1 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
@@ -556,7 +557,7 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 const slots = useSlots()
 
-const tableId = computed((): string => props.testMode ? 'test-table-id-1234' : uuidv1())
+const tableId = computed((): string => props.testMode ? 'test-table-id-1234' : uuidv4())
 const defaultFetcherProps = {
   pageSize: 15,
   page: 1,
