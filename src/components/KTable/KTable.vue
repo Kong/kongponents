@@ -1070,7 +1070,7 @@ const getTestIdString = (message: string): string => {
 watch([columnVisibility, tableHeaders], (newVals) => {
   const newVisibility = newVals[0]
   const newHeaders = newVals[1]
-  const newVisibleHeaders = newHeaders.filter((header: TableHeader) => newVisibility[header.label] !== false)
+  const newVisibleHeaders = newHeaders.filter((header: TableHeader) => newVisibility[header.key] !== false)
 
   if (JSON.stringify(newVisibleHeaders) !== JSON.stringify(visibleHeaders.value)) {
     emitTablePreferences()
