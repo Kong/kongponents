@@ -1784,7 +1784,7 @@
   dependencies:
     "@types/node" "*"
 
-"@typescript-eslint/eslint-plugin@^7.3.1":
+"@typescript-eslint/eslint-plugin@^7.4.0":
   version "7.5.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-7.5.0.tgz#1dc52fe48454d5b54be2d5f089680452f1628a5a"
   integrity sha512-HpqNTH8Du34nLxbKgVMGljZMG0rJd2O9ecvr2QLYp+7512ty1j42KnsFwspPXg1Vh8an9YImf6CokUBltisZFQ==
@@ -1801,7 +1801,7 @@
     semver "^7.5.4"
     ts-api-utils "^1.0.1"
 
-"@typescript-eslint/parser@^7.3.1":
+"@typescript-eslint/parser@^7.4.0":
   version "7.5.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-7.5.0.tgz#1eeff36309ac2253c905dd4a88b4b71b72a358ed"
   integrity sha512-cj+XGhNujfD2/wzR1tabNsidnYRaFfEkcULdcIyVBYcXjBvBKOes+mpMBP7hMpOyk+gBcfXsrg4NBGAStQyxjQ==
@@ -3955,7 +3955,7 @@ eslint-plugin-promise@^6.1.1:
   resolved "https://registry.yarnpkg.com/eslint-plugin-promise/-/eslint-plugin-promise-6.1.1.tgz#269a3e2772f62875661220631bd4dafcb4083816"
   integrity sha512-tjqWDwVZQo7UIPMeDReOpUgHCmCiH+ePnVT+5zVapL0uuHnegBUs2smM13CzOs2Xb5+MHMRFTs9v24yjba4Oig==
 
-eslint-plugin-vue@^9.23.0:
+eslint-plugin-vue@^9.24.0:
   version "9.24.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-9.24.0.tgz#71209f4652ee767f18c0bf56f25991b7cdc5aa46"
   integrity sha512-9SkJMvF8NGMT9aQCwFc5rj8Wo1XWSMSHk36i7ZwdI614BU7sIOR28ZjuFPKp8YGymZN12BSEbiSwa7qikp+PBw==
@@ -9008,7 +9008,7 @@ vite-plugin-inspect@^0.8.3:
     picocolors "^1.0.0"
     sirv "^2.0.4"
 
-vite-plugin-vue-devtools@^7.0.20:
+vite-plugin-vue-devtools@^7.0.21:
   version "7.0.25"
   resolved "https://registry.yarnpkg.com/vite-plugin-vue-devtools/-/vite-plugin-vue-devtools-7.0.25.tgz#0d7296432ffda824c1813159ce2a504caaa14135"
   integrity sha512-u2n9gvH+M/mtlU6nGMkFV70t9In5qhUd+8HdzAT7qudMJBk2PmyWgQzUZ3JCDc0pQmJliYXToF27DdnJKkUa0g==
