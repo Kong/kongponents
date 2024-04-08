@@ -9,6 +9,7 @@
           appearance="secondary"
           class="menu-button"
           data-testid="column-visibility-menu-button"
+          size="large"
         >
           <template #icon>
             <TableColumnsIcon />
