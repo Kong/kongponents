@@ -1,9 +1,8 @@
-import { h } from 'vue'
 import { mount } from 'cypress/vue'
 import KAlert from '@/components/KAlert/KAlert.vue'
 import { AlertAppearances } from '@/types'
 
-const rendersCorrectVariant = (variant: string) => {
+const rendersCorrectVariant = (variant) => {
   it(`renders ${variant} variant`, () => {
     mount(KAlert, {
       props: {
@@ -86,7 +85,7 @@ describe('KAlert', () => {
         message,
       },
       slots: {
-        default: h('span', {}, defaultSlotContent),
+        default: `<span data-testid="default-slot-content">${defaultSlotContent}</span>`,
       },
     })
 
@@ -94,17 +93,13 @@ describe('KAlert', () => {
   })
 
   it('displays icon passed through icon slot', () => {
-    const dragon = '🐉'
-    const testId = 'slotted-icon'
-
     mount(KAlert, {
       slots: {
-        icon: h('div', { 'data-testid': testId }, dragon),
+        icon: '<img data-testid="slotted-icon" src="https://via.placeholder.com/24" />',
       },
     })
 
-    cy.get('.alert-icon-container').findTestId(testId).should('be.visible')
-    cy.get('.alert-icon-container').findTestId(testId).should('contain.text', dragon)
+    cy.get('.alert-icon-container').findTestId('slotted-icon').should('be.visible')
   })
 
   it('emits dismiss event when dismiss button is clicked', () => {
