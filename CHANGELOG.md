@@ -1,3 +1,24 @@
+# [9.0.0-alpha.133](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.132...v9.0.0-alpha.133) (2024-04-08)
+
+
+### Features
+
+* **ktable:** toggle column visibility [khcp-11162] ([#2114](https://github.com/Kong/kongponents/issues/2114)) ([54af737](https://github.com/Kong/kongponents/commit/54af7378616a5d530696b3e1480e412e228041db))
+
+# [9.0.0-alpha.132](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.131...v9.0.0-alpha.132) (2024-04-08)
+
+
+### Bug Fixes
+
+* **kalert,kemptystate:** icon slot test ([#2123](https://github.com/Kong/kongponents/issues/2123)) ([06f2f4f](https://github.com/Kong/kongponents/commit/06f2f4f95f980de3a93d80b7be3d10056799e4c8))
+
+# [9.0.0-alpha.131](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.130...v9.0.0-alpha.131) (2024-04-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.8.16 ([#2120](https://github.com/Kong/kongponents/issues/2120)) ([5c210a3](https://github.com/Kong/kongponents/commit/5c210a32dae338de6eaa29c42d1ec9ec11d7ed1d))
+
 # [9.0.0-alpha.130](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.129...v9.0.0-alpha.130) (2024-04-04)
 
 
