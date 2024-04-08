@@ -152,8 +152,8 @@ The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to
 
 The identifier should be a string and will default to `''` if not provided. In that scenario, we will generate a random ID for the identifier every time the catalog is mounted.
 
-::: danger Danger
-This identifier must be unique across all `KCatalog` instances across the entire Vue app, otherwise there is a risk that SWRV will return the cached data of the wrong catalog.
+::: danger
+This identifier must be unique across all KCatalog instances across the entire Vue app, otherwise there is a risk that SWRV will return the cached data of the wrong catalog.
 :::
 
 ### fetcherCacheKey
@@ -232,7 +232,7 @@ Object instance of `CatalogItem` from which card content is built.
 
 #### truncate
 
-A boolean (default to `true`), whether or not to truncate the `description` text.
+A boolean (default to `true`), whether or not to truncate the description text.
 
 ```html
 <KCatalogItem :item="item" :truncate="false" class="catalog-item" />
@@ -375,7 +375,7 @@ Set the `loading` prop to `true` to enable the loading state.
 
 ## Slots
 
-Both the title & description of the card items as well as the entire catalog `body` are slottable.
+Both the title & description of the card items as well as the entire catalog body are slottable.
 
 ### body
 
@@ -417,7 +417,7 @@ Will slot the card body for each entry. The slot exposes card item through the `
 
 ### toolbar
 
-The `toolbar` slot allows you to slot catalog controls rendered at the top of the `.k-card-catalog` element such as a search input or other UI elements. It provides the [SWRV](https://docs-swrv.netlify.app/) `state` and `hasData` in the slot param.
+The `toolbar` slot allows you to slot catalog controls rendered at the top of the `.k-catalog` element such as a search input or other UI elements. It provides the [SWRV](https://docs-swrv.netlify.app/) `state` and `hasData` in the slot param.
 
 ```ts
 {
