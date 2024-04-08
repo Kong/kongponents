@@ -99,7 +99,7 @@ describe('KEmptyState', () => {
     })
 
     cy.get('.empty-state-icon').findTestId(testId).should('be.visible')
-    cy.get('.alert-icon-container').findTestId(testId).should('contain.text', dragon)
+    cy.get('.empty-state-icon').findTestId(testId).should('contain.text', dragon)
   })
 
   it('emits event when action button is clicked', () => {
