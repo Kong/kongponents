@@ -11,7 +11,7 @@
           data-testid="column-visibility-menu-button"
         >
           <template #icon>
-            <ViewColumns />
+            <TableColumnsIcon />
           </template>
         </KButton>
       </KTooltip>
@@ -58,7 +58,7 @@
 <script setup lang="ts">
 import { ref, watch, onBeforeMount, type PropType } from 'vue'
 import type { TableHeader } from '@/types'
-import { ViewColumns } from '@kong/icons'
+import { TableColumnsIcon } from '@kong/icons'
 import KButton from '@/components/KButton/KButton.vue'
 import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
