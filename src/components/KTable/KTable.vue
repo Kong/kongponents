@@ -1176,6 +1176,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 }
 
 .k-table-toolbar {
+  column-gap: var(--kui-space-50, $kui-space-50);
   display: flex;
   margin-bottom: var(--kui-space-80, $kui-space-80) !important;
   width: 100%;
