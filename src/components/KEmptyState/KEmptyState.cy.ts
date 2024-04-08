@@ -89,17 +89,17 @@ describe('KEmptyState', () => {
   })
 
   it('displays icon passed through icon slot', () => {
-    const dragon = '🐉'
+    const iconSlotContent = 'icon slot content'
     const testId = 'slotted-icon'
 
     mount(KEmptyState, {
       slots: {
-        icon: h('div', { 'data-testid': testId }, dragon),
+        icon: h('div', { 'data-testid': testId }, iconSlotContent),
       },
     })
 
     cy.get('.empty-state-icon').findTestId(testId).should('be.visible')
-    cy.get('.empty-state-icon').findTestId(testId).should('contain.text', dragon)
+    cy.get('.empty-state-icon').findTestId(testId).should('contain.text', iconSlotContent)
   })
 
   it('emits event when action button is clicked', () => {
