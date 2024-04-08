@@ -94,15 +94,17 @@ describe('KAlert', () => {
   })
 
   it('displays icon passed through icon slot', () => {
+    const dragon = '🐉'
     const testId = 'slotted-icon'
 
     mount(KAlert, {
       slots: {
-        icon: h('img', { src: 'https://via.placeholder.com/24', 'data-testid': testId }),
+        icon: h('div', { 'data-testid': testId }, dragon),
       },
     })
 
     cy.get('.alert-icon-container').findTestId(testId).should('be.visible')
+    cy.get('.alert-icon-container').findTestId(testId).should('contain.text', dragon)
   })
 
   it('emits dismiss event when dismiss button is clicked', () => {
