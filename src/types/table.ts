@@ -11,6 +11,8 @@ export interface TablePreferences {
   sortColumnOrder?: SortColumnOrder
   /** The customized column widths, if resizing is allowed */
   columnWidths?: Record<string, number>
+  /** Column visibility, if visibility is toggleable */
+  columnVisibility?: Record<string, boolean>
 }
 
 export const TablePaginationTypeArray = ['default', 'offset'] as const
@@ -21,6 +23,7 @@ export interface TableHeader {
   key: string
   label: string
   sortable?: boolean
+  hidable?: boolean
   hideLabel?: boolean
   useSortHandlerFn?: boolean
 }
