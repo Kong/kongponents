@@ -94,6 +94,9 @@ describe('KAlert', () => {
 
   it('displays icon passed through icon slot', () => {
     mount(KAlert, {
+      props: {
+        showIcon: true,
+      },
       slots: {
         icon: '<img data-testid="slotted-icon" src="https://via.placeholder.com/24" />',
       },

@@ -6,7 +6,7 @@
     >
       <KTooltip text="Show/Hide Columns">
         <KButton
-          appearance="tertiary"
+          appearance="secondary"
           class="menu-button"
           data-testid="column-visibility-menu-button"
         >
