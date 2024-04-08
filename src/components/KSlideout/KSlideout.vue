@@ -188,7 +188,9 @@ onUnmounted(() => {
         outline: none;
 
         &:hover, &:focus {
-          color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
+          :deep(#{$kongponentsKongIconSelector}) {
+            color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
+          }
         }
 
         &:focus-visible {

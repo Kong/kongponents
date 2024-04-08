@@ -48,7 +48,7 @@
             type="button"
             @click.stop="handleToggleClick"
           >
-            <ChevronUpIcon />
+            <ChevronUpIcon :size="KUI_ICON_SIZE_30" />
           </button>
         </slot>
       </div>
@@ -97,7 +97,7 @@
 import { onMounted, onUnmounted, ref, nextTick, computed } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import { ChevronUpIcon } from '@kong/icons'
-import { KUI_SPACE_40 } from '@kong/design-tokens'
+import { KUI_ICON_SIZE_30, KUI_SPACE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 
 const { getSizeFromString } = useUtilities()
@@ -298,13 +298,19 @@ onUnmounted(() => {
 
     &:hover {
       background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
-      color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong) !important;
+
+      :deep(#{$kongponentsKongIconSelector}) {
+        color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong) !important;
+      }
     }
 
     &:focus,
     &:focus-within {
       background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
-      color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger) !important;
+
+      :deep(#{$kongponentsKongIconSelector}) {
+        color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger) !important;
+      }
     }
   }
 

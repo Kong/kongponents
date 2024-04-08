@@ -158,7 +158,9 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
       outline: none;
 
       &:hover, &:focus {
-        color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker) !important;
+        :deep(#{$kongponentsKongIconSelector}) {
+          color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker) !important;
+        }
       }
 
       &:focus-visible {
