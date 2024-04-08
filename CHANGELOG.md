@@ -1,3 +1,10 @@
+# [9.0.0-alpha.132](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.131...v9.0.0-alpha.132) (2024-04-08)
+
+
+### Bug Fixes
+
+* **kalert,kemptystate:** icon slot test ([#2123](https://github.com/Kong/kongponents/issues/2123)) ([06f2f4f](https://github.com/Kong/kongponents/commit/06f2f4f95f980de3a93d80b7be3d10056799e4c8))
+
 # [9.0.0-alpha.131](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.130...v9.0.0-alpha.131) (2024-04-05)
 
 
