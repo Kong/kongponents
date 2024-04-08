@@ -89,7 +89,7 @@ describe('KEmptyState', () => {
   it('displays icon passed through icon slot', () => {
     mount(KEmptyState, {
       slots: {
-        icon: '<img data-testid="slotted-icon" src="https://via.placeholder.com/36" />',
+        icon: '<img data-testid="slotted-icon" src="https://via.placeholder.com/24" />',
       },
     })
 

@@ -2,7 +2,7 @@ import { mount } from 'cypress/vue'
 import KAlert from '@/components/KAlert/KAlert.vue'
 import { AlertAppearances } from '@/types'
 
-const rendersCorrectVariant = (variant) => {
+const rendersCorrectVariant = (variant: string) => {
   it(`renders ${variant} variant`, () => {
     mount(KAlert, {
       props: {
