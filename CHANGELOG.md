@@ -1,3 +1,10 @@
+# [9.0.0-alpha.133](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.132...v9.0.0-alpha.133) (2024-04-08)
+
+
+### Features
+
+* **ktable:** toggle column visibility [khcp-11162] ([#2114](https://github.com/Kong/kongponents/issues/2114)) ([54af737](https://github.com/Kong/kongponents/commit/54af7378616a5d530696b3e1480e412e228041db))
+
 # [9.0.0-alpha.132](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.131...v9.0.0-alpha.132) (2024-04-08)
 
 
