@@ -37,6 +37,7 @@
         <KClipboardProvider v-slot="{ copyToClipboard }">
           <button
             :id="copyButtonElementId"
+            class="copy-to-clipboard-button"
             data-testid="copy-to-clipboard"
             type="button"
             @click.stop="copyIdToClipboard(copyToClipboard)"
@@ -306,6 +307,10 @@ onUnmounted(() => {
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
     margin-right: var(--kui-space-20, $kui-space-20);
+  }
+
+  .copy-to-clipboard-button {
+    @include defaultButtonReset;
   }
 }
 </style>

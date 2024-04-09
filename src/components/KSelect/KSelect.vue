@@ -61,15 +61,16 @@
             @update:model-value="onQueryChange"
           >
             <template #after>
-              <CloseIcon
+              <button
                 v-if="isClearVisible"
+                aria-label="Clear"
+                class="clear-selection-button"
                 data-testid="clear-selection-icon"
-                role="button"
-                tabindex="0"
+                type="button"
                 @click="clearSelection"
-                @keydown.space.prevent
-                @keyup.space="clearSelection"
-              />
+              >
+                <CloseIcon />
+              </button>
               <ChevronDownIcon
                 class="chevron-down-icon"
                 :class="{ 'disabled': isDisabled }"
@@ -804,6 +805,10 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     &.select-error {
       color: var(--kui-color-text-danger, $kui-color-text-danger);
     }
+  }
+
+  .clear-selection-button {
+    @include defaultButtonReset;
   }
 }
 </style>
