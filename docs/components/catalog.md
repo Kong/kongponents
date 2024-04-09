@@ -122,7 +122,7 @@ const fetcher = (payload: { page: number, pageSize: number, query: string }) {
   }).then(res => {
     return {
       total: res.total,
-      data: res.data as CatalogItem[]
+      data: res.data
     }
   })
 }
@@ -387,7 +387,7 @@ Will slot the card title for each entry. The slot exposes card item through the 
 
 ### card-actions
 
-Will slot the card actions for each entry. The slot exposes card item through the `item` slot prop.
+Slot the card actions for each entry. The slot exposes card item through the `item` slot prop.
 
 <KCatalog :fetcher="fetcherXs">
   <template #card-actions="{ item }">
