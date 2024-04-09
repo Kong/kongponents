@@ -108,9 +108,7 @@ interface CatalogItem {
 Example fetcher function:
 
 ```ts
-import type { CatalogItem } from '@kong/kongponents'
-
-const fetcher = (payload: { page: number, pageSize: number, query: string }) {
+const fetcher = (payload: { page: number, pageSize: number, query: string }) => {
   const params = {
     _limit: payload.pageSize,
     _page: payload.page
@@ -128,10 +126,8 @@ const fetcher = (payload: { page: number, pageSize: number, query: string }) {
 }
 ```
 
-::: tip NOTE
-The loading state is handled automatically. When the `fetcher` is called the internal loading state
-is triggered and will be resolved when the fetcher returns. You can override this behavior using the
-`loading` prop.
+:::tip NOTE
+The loading state is handled automatically. When the `fetcher` is called the internal loading state is triggered and will be resolved when the fetcher returns. You can override this behavior using the `loading` prop.
 :::
 
 ### initialFetcherParams
@@ -152,8 +148,8 @@ The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to
 
 The identifier should be a string and will default to `''` if not provided. In that scenario, we will generate a random ID for the identifier every time the catalog is mounted.
 
-::: danger
-This identifier must be unique across all KCatalog instances across the entire Vue app, otherwise there is a risk that SWRV will return the cached data of the wrong catalog.
+:::danger
+This identifier must be unique across all KCatalog instances across the entire Vue app, otherwise there is a risk that [SWRV](https://docs-swrv.netlify.app/) will return the cached data of the wrong catalog.
 :::
 
 ### fetcherCacheKey
@@ -221,8 +217,7 @@ Set this to `true` to hide the pagination UI when the table record count is less
 
 ## KCatalogItem
 
-KCatalog generates a KCatalogItem for each item in the `items` property. At the most basic level, KCatalogItem is
-a wrapper around KCard to display correctly inside KCatalog. You can use the `body` slot of the KCatalog to manually create your own catalog items.
+KCatalog generates a KCatalogItem for each item in the `items` property. At the most basic level, KCatalogItem is a wrapper around KCard to display correctly inside KCatalog. You can use the `body` slot of the KCatalog to manually create your own catalog items.
 
 ### Props
 
@@ -270,7 +265,7 @@ The body content for the card.
 
 ### Events
 
-#### card-click
+#### click
 
 Fired when item is clicked. Event payload is item object.
 
@@ -354,7 +349,7 @@ A `error-action-click` event is fired when error state action button is clicked.
 
 ```html
 <KCatalog
-  :fetcher="fetcherXs"
+  :fetcher="fetcher"
   :error="true"
   error-state-title="Something went wrong"
   error-state-message="Error loading data."
@@ -385,28 +380,50 @@ The body of the card catalog, if you do not want to use KCatalogItem components 
 
 Will slot the card title for each entry. The slot exposes card item through the `item` slot prop.
 
+<KCatalog :fetcher="fetcherXs">
+  <template #card-title="{ item }">
+    {{ item.key % 2 ? 'Odd' : 'Even' }} item
+  </template>
+</KCatalog>
+
+```html
+<KCatalog :fetcher="fetcher">
+  <template #card-title="{ item }">
+    {{ item.key % 2 ? 'Odd' : 'Even' }} item
+  </template>
+</KCatalog>
+```
+
 ### card-actions
 
 Slot the card actions for each entry. The slot exposes card item through the `item` slot prop.
 
 <KCatalog :fetcher="fetcherXs">
   <template #card-actions="{ item }">
-    <KButton size="small" :title="`${item.title} actions`">
-      <template #icon>
-        <KongIcon />
-      </template>
-    </KButton>
+    <KDropdown :items="[
+      { label: 'Home', to: { path: '/' } },
+      { label: 'Dropdown', to: { path: '/components/dropdown' } },
+      { label: 'Button', to: { path: '/components/button' } }
+    ]">
+      <KButton size="small" :title="`${item.title} actions`" appearance="secondary">
+        <template #icon>
+          <MoreIcon />
+        </template>
+      </KButton>
+    </KDropdown>
   </template>
 </KCatalog>
 
 ```html
-<KCatalog :fetcher="fetcherXs">
+<KCatalog :fetcher="fetcher">
   <template #card-actions="{ item }">
-    <KButton size="small" :title="`${item.title} actions`">
-      <template #icon>
-        <KongIcon />
-      </template>
-    </KButton>
+    <KDropdown :items="items">
+      <KButton size="small" :title="`${item.title} actions`" appearance="secondary">
+        <template #icon>
+          <MoreIcon />
+        </template>
+      </KButton>
+    </KDropdown>
   </template>
 </KCatalog>
 ```
@@ -499,7 +516,7 @@ Returns the `state` and `hasData` (boolean) of the catalog, `state` can be one o
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import { AddIcon, KongIcon } from '@kong/icons'
+import { AddIcon, MoreIcon } from '@kong/icons'
 
 const getItems = (count: number): CardItem[] => {
   let myItems: CardItem[] = []
@@ -525,7 +542,8 @@ const resolveAfter5MiliSec = (count: number, pageSize: number, page: number): Pr
   for (let i = ((page - 1) * pageSize); i < limit; i++) {
     myItems.push({
       title: "Item " + `${i + 1}`,
-      description: "The item's description for number " + `${i + 1}`
+      description: "The item's description for number " + `${i + 1}`,
+      key: i + 1
     })
   }
 

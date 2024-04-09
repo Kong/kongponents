@@ -97,7 +97,6 @@ const showCardHeader = computed((): boolean => {
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow: hidden;
     width: 100%
   }
 

@@ -40,10 +40,10 @@ defineProps({
   },
 })
 
-const emit = defineEmits(['card-click'])
+const emit = defineEmits(['click'])
 
 const handleCardClick = (evt: Event, item: CatalogItem): void => {
-  emit('card-click', {
+  emit('click', {
     evt,
     item,
   })
@@ -54,6 +54,10 @@ const handleCardClick = (evt: Event, item: CatalogItem): void => {
 .k-catalog-item {
   cursor: pointer;
   transition: box-shadow $kongponentsTransitionDurTimingFunc;
+
+  :deep(.card-content) {
+    overflow: hidden;
+  }
 
   &:hover {
     box-shadow: var(--kui-shadow, $kui-shadow);

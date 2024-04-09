@@ -21,7 +21,7 @@
     </div>
 
     <KSkeleton
-      v-if="(isCatalogLoading || loading || isRevalidating) && !error"
+      v-if="showLoading"
       :card-count="4"
       class="catalog-skeleton-loader"
       data-testid="catalog-skeleton-loader"
@@ -56,7 +56,7 @@
     </div>
 
     <div
-      v-else-if="!error && (!isCatalogLoading && !loading && !isRevalidating) && (data && !data.length)"
+      v-else-if="showEmptyState"
       class="catalog-empty-state"
       data-testid="catalog-empty-state"
     >
@@ -96,7 +96,7 @@
       >
         <KCatalogItem
           v-for="(item, idx) in data"
-          :key="item.key ? item.key : `catalog-item-${idx}`"
+          :key="item.key ? item.key : `catalog-${catalogId}-item-${idx}`"
           class="catalog-item"
           :data-testid="item.id ? item.id : `catalog-item-${idx}`"
           :item="(item as CatalogItem)"
@@ -373,6 +373,11 @@ const page = ref<number>(1)
 const pageSize = ref<number>(15)
 const hasInitialized = ref<boolean>(false)
 const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
+
+// show loading if fetching, loading prop is `true` or if revalidating (swrv state)
+const showLoading = computed((): boolean => (isCatalogLoading.value || props.loading || isRevalidating.value) && !props.error)
+// show empty state if not loading and no data
+const showEmptyState = computed((): boolean => !showLoading.value && data.value && !data.value.length)
 
 // Store the catalogPreferences in a computed property to utilize in the watcher
 const catalogPreferences = computed((): CatalogPreferences => ({

@@ -207,7 +207,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 #### Events
 
 * `card:click` event has been renamed to `card-click`
-  * same change applies to KCatalogItem component
+* in KCatalogItem component `card:click` event has been renamed to `click`
 * `kcatalog-error-cta-clicked` event has been renamed to `error-action-click`
 * `kcatalog-empty-state-cta-clicked` event has been renamed to `empty-state-action-click`
 
@@ -227,9 +227,6 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 * `k-card-[small | medium | large]` classes were replaced with `card-[small | medium | large]`
 * `k-catalog-pagination` class and `data-testid` attribute has been replaced with `catalog-pagination`
 * `k-card-catalog-item` class has been replaced with `k-catalog-item`
-
-class has been replaced with
-class and `data-testid` attribute has been replaced with
 
 ### KCheckbox
 
