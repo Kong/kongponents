@@ -4,44 +4,41 @@
       class="collapse-heading"
       :class="{ 'has-trailing-trigger': trailingTrigger }"
     >
-      <div
+      <component
+        :is="titleTag"
         v-if="title"
         class="collapse-title"
-        :class="{ 'has-trailing-trigger': trailingTrigger }"
         data-testid="collapse-title"
       >
         {{ title }}
-      </div>
-      <div
-        class="collapse-trigger"
-        :class="{ 'has-trailing-trigger': trailingTrigger }"
-      >
+      </component>
+      <div class="collapse-trigger">
         <slot
           :is-collapsed="collapsedState"
           name="trigger"
           :toggle="toggleDisplay"
         >
           <button
+            :aria-label="triggerLabel ? undefined : 'Toggle content'"
             class="collapse-trigger-content"
-            :class="{ 'collapse-expanded': !isCollapsed }"
             data-testid="collapse-trigger-content"
             role="button"
             @click.prevent.stop="toggleDisplay()"
           >
             <slot name="trigger-content">
+              <ChevronRightIcon
+                class="collapse-trigger-icon"
+                :class="{ 'collapse-expanded': !collapsedState }"
+                data-testid="collapse-trigger-icon"
+                :size="KUI_ICON_SIZE_40"
+              />
               <span
                 v-if="triggerLabel"
                 class="collapse-trigger-label"
                 data-testid="collapse-trigger-label"
               >
-                <ChevronDownIcon class="collapse-trigger-chevron" />
-                <span>{{ triggerLabel }}</span>
+                {{ triggerLabel }}
               </span>
-              <ChevronDownIcon
-                v-else
-                class="collapse-trigger-icon collapse-trigger-chevron"
-                data-testid="collapse-trigger-icon"
-              />
             </slot>
           </button>
         </slot>
@@ -54,22 +51,25 @@
     >
       <slot name="visible-content" />
     </div>
-    <div
-      v-show="!collapsedState"
-      class="collapse-hidden-content"
-      data-testid="collapse-hidden-content"
-    >
-      <slot />
-    </div>
+    <Transition name="kongponents-fade-transition">
+      <div
+        v-show="!collapsedState"
+        class="collapse-hidden-content"
+        data-testid="collapse-hidden-content"
+      >
+        <slot />
+      </div>
+    </Transition>
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import { computed, ref, useSlots, watch } from 'vue'
-import type { TriggerAlignment } from '@/types'
-import { TriggerAlignmentArray } from '@/types'
-import { ChevronDownIcon } from '@kong/icons'
+import type { TriggerAlignment, HeaderTag } from '@/types'
+import { TriggerAlignmentArray, HeaderTags } from '@/types'
+import { ChevronRightIcon } from '@kong/icons'
+import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 const props = defineProps({
   // Is the KCollapse collapsed? Defaults to true-->
@@ -82,6 +82,11 @@ const props = defineProps({
     type: String,
     required: false,
     default: '',
+  },
+  titleTag: {
+    type: String as PropType<HeaderTag>,
+    default: 'div',
+    validator: (value: HeaderTag): boolean => HeaderTags.includes(value),
   },
   triggerLabel: {
     type: String,
@@ -145,90 +150,74 @@ watch(modelComputed, (newVal, oldVal) => {
 </script>
 
 <style lang="scss" scoped>
-// TODO: remove this mixin once https://github.com/Kong/kongponents/pull/2119 is merged
-
-@mixin buttonReset {
-  background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-  border: none;
-  color: inherit;
-  cursor: pointer;
-  padding: var(--kui-space-0, $kui-space-0);
-}
-
 .k-collapse {
+  font-family: var(--kui-font-family-text, $kui-font-family-text);
   width: 100%;
 
   .collapse-heading {
     display: block;
     margin-bottom: var(--kui-space-50, $kui-space-50);
 
-    &.has-trailing-trigger {
-      display: flex;
-    }
-  }
-  .collapse-title {
-    font-size: var(--kui-font-size-50, $kui-font-size-50);
-    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-    margin-bottom: var(--kui-space-40, $kui-space-40);
-
-    &.has-trailing-trigger {
-      margin-right: var(--kui-space-auto, $kui-space-auto);
-    }
-  }
-
-  .collapse-trigger {
-    cursor: pointer;
-
-    &.has-trailing-trigger {
-      margin-left: var(--kui-space-auto, $kui-space-auto);
+    .collapse-title {
+      color: var(--kui-color-text, $kui-color-text);
+      font-size: var(--kui-font-size-40, $kui-font-size-40);
+      font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+      letter-spacing: var(--kui-letter-spacing-minus-30, $kui-letter-spacing-minus-30);
+      line-height: var(--kui-line-height-30, $kui-line-height-30);
+      margin: var(--kui-space-0, $kui-space-0);
+      margin-bottom: var(--kui-space-40, $kui-space-40);
     }
 
-    .collapse-trigger-content {
-      @include buttonReset;
+    .collapse-trigger {
+      cursor: pointer;
 
-      color: var(--kui-color-text-primary, $kui-color-text-primary);
-      display: inline-block !important;
-      font-size: var(--kui-font-size-30, $kui-font-size-30);
-      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-    }
-  }
-}
-</style>
+      .collapse-trigger-content {
+        @include defaultButtonReset;
 
-<style lang="scss">
-.k-collapse {
-  .collapse-trigger {
-    .collapse-trigger-content {
-      .collapse-trigger-chevron {
-        margin-right: var(--kui-space-20, $kui-space-20);
-        &.kong-icon {
-          &.kong-icon-chevronDown svg path,
-          &.kong-icon-chevronRight svg path {
-            stroke: var(--kui-color-text-primary, $kui-color-text-primary);
+        align-items: center;
+        color: var(--kui-color-text-primary, $kui-color-text-primary);
+        display: flex;
+        font-size: var(--kui-font-size-30, $kui-font-size-30);
+        font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+        gap: var(--kui-space-20, $kui-space-20);
+        line-height: var(--kui-line-height-30, $kui-line-height-30);
+        outline: none;
+
+        &:hover:not(:focus):not(:active) {
+          color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+        }
+
+        &:focus-visible {
+          box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+        }
+
+        &:active {
+          color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+        }
+
+        .collapse-trigger-icon {
+          &.collapse-expanded {
+            transform: rotate(90deg);
           }
         }
       }
+    }
 
-      .collapse-trigger-icon.kong-icon {
-        padding-right: var(--kui-space-0, $kui-space-0);
-      }
-
-      .collapse-trigger-label {
-        .kong-icon {
-          position: relative;
-          top: 2px;
-        }
-      }
+    &.has-trailing-trigger {
+      display: flex;
+      justify-content: space-between;
     }
   }
 
-  .collapse-visible-content {
-    margin-bottom: var(--kui-space-60, $kui-space-60);
+  .collapse-visible-content,
+  .collapse-hidden-content {
+    @include bodyText;
+
     width: 100%;
   }
 
   .collapse-hidden-content {
-    width: 100%;
+    margin-top: var(--kui-space-40, $kui-space-40);
   }
 }
 </style>

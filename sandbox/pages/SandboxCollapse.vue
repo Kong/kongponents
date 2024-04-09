@@ -18,22 +18,22 @@
         is-subtitle
         title="Props"
       />
-      <SandboxSectionComponent title="title">
+      <SandboxSectionComponent title="KCollapse title">
         <KCollapse title="KCollapse title">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </KCollapse>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="triggerAlignment">
         <KCollapse
-          title="Title"
+          title="KCollapse title"
           trigger-alignment="leading"
+          trigger-label="Trigger label"
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </KCollapse>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="triggerLabel">
         <KCollapse
-          title="Title"
           trigger-label="Trigger label"
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -45,9 +45,34 @@
         is-subtitle
         title="Slots"
       />
-      <SandboxSectionComponent title="visible-content" />
-      <SandboxSectionComponent title="trigger-content" />
-      <SandboxSectionComponent title="trigger" />
+      <SandboxSectionComponent title="visible-content">
+        <KCollapse title="KCollapse title">
+          <template #visible-content>
+            <div>
+              This is the visible content
+            </div>
+          </template>
+          This is the hidden content
+        </KCollapse>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="trigger-content">
+        <KCollapse trigger-label="Trigger label">
+          <template #trigger-content>
+            Custom trigger content
+          </template>
+          This is the hidden content
+        </KCollapse>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="trigger">
+        <KCollapse trigger-label="Trigger label">
+          <template #trigger="{ isCollapsed, toggle }">
+            <KButton @click="toggle()">
+              {{ isCollapsed ? 'Expand' : 'Collapse' }}
+            </KButton>
+          </template>
+          This is the hidden content
+        </KCollapse>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
