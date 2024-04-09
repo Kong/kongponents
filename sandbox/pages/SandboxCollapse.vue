@@ -56,7 +56,7 @@
         </KCollapse>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="trigger-content">
-        <KCollapse trigger-label="Trigger label">
+        <KCollapse>
           <template #trigger-content>
             Custom trigger content
           </template>
@@ -64,7 +64,7 @@
         </KCollapse>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="trigger">
-        <KCollapse trigger-label="Trigger label">
+        <KCollapse>
           <template #trigger="{ isCollapsed, toggle }">
             <KButton @click="toggle()">
               {{ isCollapsed ? 'Expand' : 'Collapse' }}

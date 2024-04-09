@@ -212,6 +212,10 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KCollapse
 
+#### Events
+
+* `toggled` event was renamed to `toggle`
+
 #### Structure
 
 * `k-collapse-heading` class has been replaced with `collapse-heading`

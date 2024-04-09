@@ -19,6 +19,8 @@
           :toggle="toggleDisplay"
         >
           <button
+            :aria-controls="contentId"
+            :aria-expanded="!collapsedState"
             :aria-label="triggerLabel ? undefined : 'Toggle content'"
             class="collapse-trigger-content"
             data-testid="collapse-trigger-content"
@@ -54,6 +56,7 @@
     <Transition name="kongponents-fade-transition">
       <div
         v-show="!collapsedState"
+        :id="contentId"
         class="collapse-hidden-content"
         data-testid="collapse-hidden-content"
       >
@@ -70,6 +73,7 @@ import type { TriggerAlignment, HeaderTag } from '@/types'
 import { TriggerAlignmentArray, HeaderTags } from '@/types'
 import { ChevronRightIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import { v4 as uuidv4 } from 'uuid'
 
 const props = defineProps({
   // Is the KCollapse collapsed? Defaults to true-->
@@ -102,9 +106,11 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'toggled', value: boolean): void;
+  (e: 'toggle', value: boolean): void;
   (e: 'update:modelValue', value: boolean): void;
 }>()
+
+const contentId = uuidv4()
 
 const isCollapsed = ref<boolean>(true)
 const modelValueChanged = ref<boolean>(false)
@@ -137,7 +143,7 @@ const toggleDisplay = (isToggled?: boolean): void => {
 
   modelValueChanged.value = true
 
-  emit('toggled', isCollapsed.value)
+  emit('toggle', isCollapsed.value)
   emit('update:modelValue', isCollapsed.value)
 }
 
@@ -175,6 +181,7 @@ watch(modelComputed, (newVal, oldVal) => {
         @include defaultButtonReset;
 
         align-items: center;
+        border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
         color: var(--kui-color-text-primary, $kui-color-text-primary);
         display: flex;
         font-size: var(--kui-font-size-30, $kui-font-size-30);
@@ -182,6 +189,7 @@ watch(modelComputed, (newVal, oldVal) => {
         gap: var(--kui-space-20, $kui-space-20);
         line-height: var(--kui-line-height-30, $kui-line-height-30);
         outline: none;
+        padding: var(--kui-space-10, $kui-space-10);
 
         &:hover:not(:focus):not(:active) {
           color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
