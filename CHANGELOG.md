@@ -1,3 +1,10 @@
+# [9.0.0-alpha.134](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.133...v9.0.0-alpha.134) (2024-04-09)
+
+
+### Bug Fixes
+
+* using icons as buttons ([#2119](https://github.com/Kong/kongponents/issues/2119)) ([eb8598e](https://github.com/Kong/kongponents/commit/eb8598e4c341ea8f8469562ee3de6792dbc96305))
+
 # [9.0.0-alpha.133](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.132...v9.0.0-alpha.133) (2024-04-08)
 
 
