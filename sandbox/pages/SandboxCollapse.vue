@@ -48,9 +48,7 @@
       <SandboxSectionComponent title="visible-content">
         <KCollapse title="KCollapse title">
           <template #visible-content>
-            <div>
-              This is the visible content
-            </div>
+            This is the visible content
           </template>
           This is the hidden content
         </KCollapse>
