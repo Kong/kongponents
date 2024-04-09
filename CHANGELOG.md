@@ -1,3 +1,52 @@
+# [9.0.0-alpha.134](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.133...v9.0.0-alpha.134) (2024-04-09)
+
+
+### Bug Fixes
+
+* using icons as buttons ([#2119](https://github.com/Kong/kongponents/issues/2119)) ([eb8598e](https://github.com/Kong/kongponents/commit/eb8598e4c341ea8f8469562ee3de6792dbc96305))
+
+# [9.0.0-alpha.133](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.132...v9.0.0-alpha.133) (2024-04-08)
+
+
+### Features
+
+* **ktable:** toggle column visibility [khcp-11162] ([#2114](https://github.com/Kong/kongponents/issues/2114)) ([54af737](https://github.com/Kong/kongponents/commit/54af7378616a5d530696b3e1480e412e228041db))
+
+# [9.0.0-alpha.132](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.131...v9.0.0-alpha.132) (2024-04-08)
+
+
+### Bug Fixes
+
+* **kalert,kemptystate:** icon slot test ([#2123](https://github.com/Kong/kongponents/issues/2123)) ([06f2f4f](https://github.com/Kong/kongponents/commit/06f2f4f95f980de3a93d80b7be3d10056799e4c8))
+
+# [9.0.0-alpha.131](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.130...v9.0.0-alpha.131) (2024-04-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.8.16 ([#2120](https://github.com/Kong/kongponents/issues/2120)) ([5c210a3](https://github.com/Kong/kongponents/commit/5c210a32dae338de6eaa29c42d1ec9ec11d7ed1d))
+
+# [9.0.0-alpha.130](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.129...v9.0.0-alpha.130) (2024-04-04)
+
+
+### Features
+
+* **kinline edit:** remove component [KHCP-8984] ([#2049](https://github.com/Kong/kongponents/issues/2049)) ([d9109d9](https://github.com/Kong/kongponents/commit/d9109d92c79e0b432780abd048331a603e39b295))
+
+# [9.0.0-alpha.129](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.128...v9.0.0-alpha.129) (2024-04-04)
+
+
+### Bug Fixes
+
+* **kcopy:** not using actual button ([#2113](https://github.com/Kong/kongponents/issues/2113)) ([642f8b6](https://github.com/Kong/kongponents/commit/642f8b60e0f30259bf356d189576f127f4ff45d9))
+
+# [9.0.0-alpha.128](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.127...v9.0.0-alpha.128) (2024-04-04)
+
+
+### Features
+
+* **ktable:** add column resize support [khcp-11161] ([#2105](https://github.com/Kong/kongponents/issues/2105)) ([c448c49](https://github.com/Kong/kongponents/commit/c448c49d2be04f164789ee5d1e321dc6912522f4))
+
 # [9.0.0-alpha.127](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.126...v9.0.0-alpha.127) (2024-04-02)
 
 

@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { mount } from 'cypress/vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 
@@ -73,27 +74,32 @@ describe('KEmptyState', () => {
 
   it('displays content passed through default slot correctly', () => {
     const content = 'Content'
+    const testId = 'slotted-message'
 
     mount(KEmptyState, {
       props: {
         message: 'Message',
       },
       slots: {
-        default: `<span data-testid="slotted-message">${content}</span>`,
+        default: h('span', { 'data-testid': testId }, content),
       },
     })
 
-    cy.get('.empty-state-message').findTestId('slotted-message').should('be.visible').should('contain', content)
+    cy.get('.empty-state-message').findTestId(testId).should('be.visible').should('contain', content)
   })
 
   it('displays icon passed through icon slot', () => {
+    const iconSlotContent = 'icon slot content'
+    const testId = 'slotted-icon'
+
     mount(KEmptyState, {
       slots: {
-        icon: '<img data-testid="slotted-icon" src="https://via.placeholder.com/36" />',
+        icon: h('div', { 'data-testid': testId }, iconSlotContent),
       },
     })
 
-    cy.get('.empty-state-icon').findTestId('slotted-icon').should('be.visible')
+    cy.get('.empty-state-icon').findTestId(testId).should('be.visible')
+    cy.get('.empty-state-icon').findTestId(testId).should('contain.text', iconSlotContent)
   })
 
   it('emits event when action button is clicked', () => {

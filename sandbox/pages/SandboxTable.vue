@@ -29,6 +29,7 @@
         :initial-fetcher-params="{
           pageSize: 30
         }"
+        resize-columns
       >
         <template #actions>
           <KDropdown>

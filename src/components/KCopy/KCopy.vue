@@ -35,18 +35,19 @@
         :text="tooltipText"
       >
         <KClipboardProvider v-slot="{ copyToClipboard }">
-          <CopyIcon
+          <button
             :id="copyButtonElementId"
-            class="text-icon"
+            class="copy-to-clipboard-button"
             data-testid="copy-to-clipboard"
-            :hide-title="!!copyTooltip || undefined"
-            role="button"
-            :size="KUI_ICON_SIZE_30"
-            tabindex="0"
+            type="button"
             @click.stop="copyIdToClipboard(copyToClipboard)"
-            @keydown.enter="copyIdToClipboard(copyToClipboard)"
-            @keydown.space.prevent="copyIdToClipboard(copyToClipboard)"
-          />
+          >
+            <CopyIcon
+              class="text-icon"
+              :hide-title="!!copyTooltip || undefined"
+              :size="KUI_ICON_SIZE_30"
+            />
+          </button>
         </KClipboardProvider>
       </KTooltip>
     </div>
@@ -306,6 +307,10 @@ onUnmounted(() => {
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
     margin-right: var(--kui-space-20, $kui-space-20);
+  }
+
+  .copy-to-clipboard-button {
+    @include defaultButtonReset;
   }
 }
 </style>

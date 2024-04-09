@@ -9,6 +9,13 @@
         name="toolbar"
         :state="stateData"
       />
+      <ColumnVisibilityMenu
+        v-if="hasColumnVisibilityMenu"
+        :columns="visibilityColumns"
+        :table-id="tableId"
+        :visibility-preferences="visibilityPreferences"
+        @update:visibility="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
+      />
     </div>
 
     <KSkeleton
@@ -73,90 +80,125 @@
       </slot>
     </div>
 
-    <section
-      v-else
-      class="k-table-wrapper"
-      @scroll.passive="scrollHandler"
-    >
-      <table
-        class="k-table"
-        :class="{'has-hover': hasHover, 'is-clickable': isClickable, 'side-border': hasSideBorder}"
-        :data-tableid="tableId"
+    <div v-else>
+      <div
+        class="k-table-wrapper"
+        @scroll.passive="scrollHandler"
       >
-        <thead :class="{ 'is-scrolled': isScrolled }">
-          <tr :class="{ 'is-scrolled': isScrolled }">
-            <th
-              v-for="(column, index) in tableHeaders"
-              :key="`k-table-${tableId}-headers-${index}`"
-              :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
-              class="k-table-headers"
-              :class="{
-                'sortable': !disableSorting && !column.hideLabel && column.sortable,
-                'active-sort': !disableSorting && !column.hideLabel && column.sortable && column.key === sortColumnKey,
-                [sortColumnOrder]: !disableSorting && column.key === sortColumnKey && !column.hideLabel,
-                'is-scrolled': isScrolled
-              }"
-              @click="() => {
-                if (!disableSorting && column.sortable) {
-                  $emit('sort', {
-                    prevKey: sortColumnKey,
-                    sortColumnKey: column.key,
-                    sortColumnOrder: sortColumnOrder === 'asc' ? 'desc' : 'asc' // display opposite because sortColumnOrder outdated
-                  })
-                  sortClickHandler(column)
-                }
-              }"
+        <table
+          class="k-table"
+          :class="{
+            'has-hover': hasHover,
+            'is-clickable': isClickable,
+            'side-border': hasSideBorder
+          }"
+          :data-tableid="tableId"
+        >
+          <thead :class="{ 'is-scrolled': isScrolled }">
+            <tr
+              ref="headerRow"
+              :class="{ 'is-scrolled': isScrolled }"
             >
-              <span class="k-table-headers-container">
-                <slot
-                  :column="getGeneric(column)"
-                  :name="getColumnSlotName(column.key)"
-                >
-                  <span :class="{'sr-only': column.hideLabel}">
-                    {{ column.label ? column.label : column.key }}
-                  </span>
-                </slot>
-
-                <KIcon
-                  v-if="!disableSorting && !column.hideLabel && column.sortable"
-                  aria-hidden="true"
-                  class="caret"
-                  :color="`var(--kui-color-text, ${KUI_COLOR_TEXT})`"
-                  icon="chevronDown"
-                  :size="KUI_ICON_SIZE_20"
-                />
-              </span>
-            </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr
-            v-for="(row, rowIndex) in data"
-            v-bind="rowAttrs(row)"
-            :key="`k-table-${tableId}-row-${rowIndex}`"
-            :role="isClickable ? 'link' : null"
-            :tabindex="isClickable ? 0 : null"
-            v-on="hasSideBorder ? tdlisteners(row, row) : {}"
-          >
-            <td
-              v-for="(value, index) in tableHeaders"
-              v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
-              :key="`k-table-${tableId}-cell-${index}`"
-              v-on="tdlisteners(row[value.key], row)"
-            >
-              <slot
-                :name="value.key"
-                :row="getGeneric(row)"
-                :row-key="rowIndex"
-                :row-value="row[value.key]"
+              <th
+                v-for="(column, index) in visibleHeaders"
+                :key="`k-table-${tableId}-headers-${index}`"
+                :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
+                class="k-table-headers"
+                :class="getHeaderClasses(column, index)"
+                :data-testid="`k-table-header-${column.key}`"
+                :style="columnStyles[column.key]"
+                @click="() => {
+                  if (!disableSorting && column.sortable) {
+                    $emit('sort', {
+                      prevKey: sortColumnKey,
+                      sortColumnKey: column.key,
+                      sortColumnOrder: sortColumnOrder === 'asc' ? 'desc' : 'asc' // display opposite because sortColumnOrder outdated
+                    })
+                    sortClickHandler(column)
+                  }
+                }"
+                @mouseleave="currentHoveredColumn = ''"
+                @mouseover="currentHoveredColumn = column.key"
               >
-                {{ row[value.key] }}
-              </slot>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <div class="k-table-headers-container">
+                  <div
+                    v-if="resizeColumns && index !== 0"
+                    class="resize-handle previous"
+                    @click.stop
+                    @mousedown="startResize($event, visibleHeaders[index - 1].key)"
+                    @mouseleave="resizerHoveredColumn = ''"
+                    @mouseover="resizerHoveredColumn = visibleHeaders[index - 1].key"
+                  />
+
+                  <slot
+                    :column="getGeneric(column)"
+                    :name="getColumnSlotName(column.key)"
+                  >
+                    <span
+                      :class="{
+                        'sr-only': column.hideLabel,
+                        'truncated-column': resizeColumns,
+                      }"
+                    >
+                      {{ column.label ? column.label : column.key }}
+                    </span>
+                  </slot>
+
+                  <KIcon
+                    v-if="!disableSorting && !column.hideLabel && column.sortable"
+                    aria-hidden="true"
+                    class="caret"
+                    :color="`var(--kui-color-text, ${KUI_COLOR_TEXT})`"
+                    icon="chevronDown"
+                    :size="KUI_ICON_SIZE_20"
+                  />
+
+                  <div
+                    v-if="resizeColumns && index !== visibleHeaders.length - 1"
+                    class="resize-handle"
+                    @click.stop
+                    @mousedown="startResize($event, column.key)"
+                    @mouseleave="resizerHoveredColumn = ''"
+                    @mouseover="resizerHoveredColumn = column.key"
+                  />
+                </div>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr
+              v-for="(row, rowIndex) in data"
+              v-bind="rowAttrs(row)"
+              :key="`k-table-${tableId}-row-${rowIndex}`"
+              :role="isClickable ? 'link' : null"
+              :tabindex="isClickable ? 0 : null"
+              v-on="hasSideBorder ? tdlisteners(row, row) : {}"
+            >
+              <td
+                v-for="(value, index) in visibleHeaders"
+                v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
+                :key="`k-table-${tableId}-cell-${index}`"
+                :class="{
+                  'resize-hover': resizeColumns && resizeHoverColumn === value.key && index !== visibleHeaders.length - 1,
+                  'truncated-column': resizeColumns
+                }"
+                :style="columnStyles[value.key]"
+                v-on="tdlisteners(row[value.key], row)"
+              >
+                <slot
+                  :name="value.key"
+                  :row="getGeneric(row)"
+                  :row-key="rowIndex"
+                  :row-value="row[value.key]"
+                >
+                  {{ row[value.key] }}
+                </slot>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <KPagination
         v-if="shouldShowPagination"
@@ -177,14 +219,14 @@
         @page-change="pageChangeHandler"
         @page-size-change="pageSizeChangeHandler"
       />
-    </section>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Ref, PropType } from 'vue'
 import { ref, watch, computed, onMounted, useAttrs, useSlots } from 'vue'
-import { v1 as uuidv1 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
@@ -215,6 +257,7 @@ import {
   EmptyStateIconVariants,
 } from '@/types'
 import { KUI_COLOR_TEXT, KUI_ICON_SIZE_20 } from '@kong/design-tokens'
+import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
 
 const { useDebounce, useRequest, useSwrvState } = useUtilities()
 
@@ -230,6 +273,21 @@ const props = defineProps({
     type: Object,
     default: () => null,
     required: false,
+  },
+  /**
+   * Allow columns to be resized
+   */
+  resizeColumns: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * Used to customize the initial state of the table.
+   * Column visibility/width.
+   */
+  tablePreferences: {
+    type: Object as PropType<TablePreferences>,
+    default: () => ({}),
   },
   /**
    * Enable client side sort - only do this if using a fetcher
@@ -499,7 +557,7 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 const slots = useSlots()
 
-const tableId = computed((): string => props.testMode ? 'test-table-id-1234' : uuidv1())
+const tableId = computed((): string => props.testMode ? 'test-table-id-1234' : uuidv4())
 const defaultFetcherProps = {
   pageSize: 15,
   page: 1,
@@ -509,7 +567,24 @@ const defaultFetcherProps = {
   offset: null,
 }
 const data = ref<Record<string, any>[]>([])
-const tableHeaders: Ref<TableHeader[]> = ref([])
+const headerRow = ref<HTMLDivElement>()
+// all headers
+const tableHeaders = ref<TableHeader[]>([])
+// currently visible headers
+const visibleHeaders = ref<TableHeader[]>([])
+// highest priority - column currently being resized (mouse may be completely outside the column)
+const resizingColumn = ref('')
+// column the user is currently hovering over the resize handle for (may be hovered on the adjacent column to what we want to resize)
+const resizerHoveredColumn = ref('')
+// lowest priority - currently hovered resizable column (mouse is somewhere in the <th>)
+const currentHoveredColumn = ref('')
+const hasColumnVisibilityMenu = computed((): boolean => tableHeaders.value.filter((header: TableHeader) => header.hidable).length > 0)
+// columns whose visibility can be toggled
+const visibilityColumns = computed((): TableHeader[] => tableHeaders.value.filter((header: TableHeader) => header.hidable))
+// visibility preferences from the host app (initialized by app)
+const visibilityPreferences = computed((): Record<string, boolean> => props.tablePreferences.columnVisibility || {})
+// current column visibility state
+const columnVisibility = ref<Record<string, boolean>>({})
 const total = ref(0)
 const isScrolled = ref(false)
 const page = ref(1)
@@ -523,7 +598,7 @@ const hasNextPage = ref(true)
 const isClickable = ref(false)
 const hasInitialized = ref(false)
 const nextPageClicked = ref(false)
-const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
+const hasToolbarSlot = computed((): boolean => !!slots.toolbar || hasColumnVisibilityMenu.value)
 
 /**
  * Utilize a helper function to generate the column slot name.
@@ -631,6 +706,133 @@ const tdlisteners = computed((): any => {
     }
   }
 })
+
+const columnWidths = ref<Record<string, number>>({})
+const columnStyles = computed(() => {
+  const styles: Record<string, any> = {}
+  for (const colKey in columnWidths.value) {
+    // no width set
+    if (!columnWidths.value[colKey]) {
+      continue
+    }
+    const width = columnWidths.value[colKey] + 'px'
+    styles[colKey] = {
+      width,
+      maxWidth: width,
+      minWidth: width,
+    }
+  }
+  return styles
+})
+
+const getHeaderClasses = (column: TableHeader, index: number): Record<string, boolean> => {
+  return {
+    // display the resize handle on the right side of the column if resizeColumns is enabled, hovering current column, and not the last column
+    'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && index !== visibleHeaders.value.length - 1,
+    'truncated-column resizable': props.resizeColumns,
+    // display sort control if column is sortable, label is visible, and sorting is not disabled
+    sortable: !props.disableSorting && !column.hideLabel && !!column.sortable,
+    // display active sorting styles if column is currently sorted
+    'active-sort': !props.disableSorting && !column.hideLabel && !!column.sortable && column.key === sortColumnKey.value,
+    [sortColumnOrder.value]: !props.disableSorting && column.key === sortColumnKey.value && !column.hideLabel,
+    'is-scrolled': isScrolled.value,
+  }
+}
+
+/**
+ * We have to track the state of all three hover events because
+ * they have differing priorities that can have clashing styles.
+ */
+const resizerHoverState = computed((): string => {
+  if (resizingColumn.value) {
+    // highest priority - resize event in progress, mouse may be completely outside of the column
+    return 'resizing'
+  } else if (resizerHoveredColumn.value) {
+    // hovered over a column resize handle (may need to trigger styles on the adjacent column instead of the current)
+    return 'resize-hover'
+  } else if (currentHoveredColumn.value) {
+    // lowest priority - hovered somewhere in the <th> of a resizable column
+    return 'th-hover'
+  }
+
+  return ''
+})
+
+const resizeHoverColumn = computed((): string => {
+  switch (resizerHoverState.value) {
+    case 'resizing':
+      return resizingColumn.value
+    case 'resize-hover':
+      return resizerHoveredColumn.value
+    case 'th-hover':
+      return currentHoveredColumn.value
+    default:
+      return ''
+  }
+})
+
+// get the resizable header divs to be used for the resize observers
+const headerElems = computed((): NodeListOf<Element> | undefined => headerRow.value?.querySelectorAll('th.resizable'))
+const headerHeight = computed((): string => {
+  const elem = headerElems.value?.item(0)
+  if (elem) {
+    const styles = window.getComputedStyle(elem)
+
+    if (styles.height) {
+      return `${parseInt(styles.height, 10)}px`
+    }
+  }
+
+  return 'auto'
+})
+
+const startResize = (evt: MouseEvent, colKey: string) => {
+  let x = 0
+  let width = 0
+
+  resizingColumn.value = colKey
+
+  // get the current column's element
+  let col: HTMLElement | null = null
+  headerElems.value?.forEach((elem) => {
+    if (elem.getAttribute('data-testid') === `k-table-header-${colKey}`) {
+      col = document.querySelector(`[data-tableid="${tableId.value}"] [data-testid="k-table-header-${colKey}"]`)
+    }
+  })
+
+  // resize in progress
+  const mouseMoveHandler = (e: MouseEvent): void => {
+    // distance mouse has moved
+    const dx = e.clientX - x
+
+    // Update column width to match
+    col?.setAttribute('style', `width: ${width + dx}px`)
+    columnWidths.value[colKey] = width + dx
+  }
+
+  // done resizing
+  const mouseUpHandler = (): void => {
+    resizingColumn.value = ''
+    document?.removeEventListener('mousemove', mouseMoveHandler)
+    document?.removeEventListener('mouseup', mouseUpHandler)
+    emitTablePreferences()
+  }
+
+  // get mouse position
+  x = evt.clientX
+
+  if (col) {
+    // set current column's width
+    const styles = window.getComputedStyle(col)
+    if (styles.width) {
+      width = parseInt(styles.width, 10)
+    }
+
+    // event listeners for resizing
+    document?.addEventListener('mousemove', mouseMoveHandler)
+    document?.addEventListener('mouseup', mouseUpHandler)
+  }
+}
 
 const isInitialFetch = ref(true)
 const fetchData = async () => {
@@ -830,6 +1032,8 @@ const tablePreferences = computed((): TablePreferences => ({
   pageSize: pageSize.value,
   sortColumnKey: sortColumnKey.value,
   sortColumnOrder: sortColumnOrder.value as 'asc' | 'desc',
+  ...(props.resizeColumns ? { columnWidths: columnWidths.value } : {}),
+  ...(hasColumnVisibilityMenu.value ? { columnVisibility: columnVisibility.value } : {}),
 }))
 
 const emitTablePreferences = (): void => {
@@ -862,6 +1066,17 @@ const getTestIdString = (message: string): string => {
 
   return msg
 }
+
+watch([columnVisibility, tableHeaders], (newVals) => {
+  const newVisibility = newVals[0]
+  const newHeaders = newVals[1]
+  const newVisibleHeaders = newHeaders.filter((header: TableHeader) => newVisibility[header.key] !== false)
+
+  if (JSON.stringify(newVisibleHeaders) !== JSON.stringify(visibleHeaders.value)) {
+    visibleHeaders.value = newVisibleHeaders
+    emitTablePreferences()
+  }
+}, { deep: true, immediate: true })
 
 watch(fetcherData, (fetchedData: any) => {
   if (fetchedData?.length && !data.value.length) {
@@ -954,7 +1169,6 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/tmp-variables';
 
 .k-table-wrapper {
   overflow: auto;
@@ -962,7 +1176,10 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 }
 
 .k-table-toolbar {
+  column-gap: var(--kui-space-50, $kui-space-50);
+  display: flex;
   margin-bottom: var(--kui-space-80, $kui-space-80) !important;
+  width: 100%;
 
   & > :deep(*) {
     display: flex;
@@ -980,6 +1197,20 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
     padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
     vertical-align: middle;
     white-space: nowrap;
+  }
+
+  th.resize-hover {
+    // creates a 2px "border" on the right - can't use the border because it will "jump"
+    box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple) inset;
+  }
+
+  td.resize-hover {
+    // creates a 2px "border" on the right - can't use the border because it will "jump"
+    box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border, $kui-color-border) inset;
+  }
+
+  .truncated-column {
+    @include truncate;
   }
 
   thead {
@@ -1027,6 +1258,25 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
       padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
       text-align: left;
+
+      &.resizable {
+        min-width: 40px;
+        position: relative;
+
+        .resize-handle {
+          cursor: col-resize;
+          height: v-bind('headerHeight');
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 6px;
+
+          &.previous {
+            left: 0;
+            right: unset;
+          }
+        }
+      }
 
       &.active-sort {
         color: var(--kui-color-text-primary, $kui-color-text-primary);
@@ -1084,8 +1334,12 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
   // Variants
   &.has-hover {
-     tbody tr:hover {
+    tbody tr:hover {
       background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+
+      td {
+        border-color: var(--kui-color-border-primary-weakest, $kui-color-border-primary-weakest);
+      }
     }
   }
 
