@@ -22,78 +22,79 @@ describe('KCodeBlock', () => {
   it('has the right default content', () => {
     renderComponent({ id: 'code-block' })
 
-    cy.get('.k-line').should('have.length', 5)
-    cy.get('[data-testid="k-code-block-copy-button"]').should('exist')
-    cy.get('[data-testid="k-code-block-highlighted-code-block"]').contains(code)
+    cy.get('.line').should('have.length', 5)
+    cy.get('[data-testid="code-block-copy-button"]').should('exist')
+    cy.get('[data-testid="highlighted-code-block"]').contains(code)
   })
 
   it('has no copy button when props.showCopyButton is false', () => {
     renderComponent({ id: 'code-block', showCopyButton: false })
 
-    cy.get('[data-testid="k-code-block-copy-button"]').should('not.exist')
+    cy.get('[data-testid="code-block-copy-button"]').should('not.exist')
   })
 
   it('can be searched to highlight matching lines', () => {
     const id = 'code-block'
     renderComponent({
       id,
-      isSearchable: true,
+      searchable: true,
     })
 
     // Searches in normal mode.
     const expectedLineNumbers = [2, 3, 4]
 
-    const searchInput = cy.get('[data-testid="k-code-block-search-input"]')
-    searchInput.type('key')
+    cy.get('[data-testid="code-block-search-input"]').type('key').then(() => {
+      // Guard: Ensures processing of the search is done
+      cy.get('[data-testid="code-block-processing-icon"]').should('be.visible')
+    })
 
-    // Checks that the processing icon is shown while the search is in progress and subsequently hidden.
-    // Guard: Ensures processing of the search is done
-    cy.get('[data-testid="k-code-block-is-processing-icon"]').should('have.class', 'k-is-processing-icon-is-visible')
-    cy.get('[data-testid="k-code-block-is-processing-icon"]').should('not.have.class', 'k-is-processing-icon-is-visible')
+    cy.get('[data-testid="code-block-processing-icon"]').should('not.exist')
 
     // Jumps to the next (i.e. first) match using F3 and checks that the highlighted line numbers are jumped to in order.
-    cy.get('.k-line-is-highlighted-match').should('not.exist')
+    cy.get('.line-is-highlighted-match').should('not.exist')
     for (const lineNumber of expectedLineNumbers) {
       cy.get('[data-testid="k-code-block"]').trigger('keydown', { code: 'F3', bubbles: true })
-      cy.get(`.k-line-is-highlighted-match .k-line-anchor#${id}-L${lineNumber}`).should('be.visible')
+      cy.get(`.line-is-highlighted-match .line-anchor#${id}-L${lineNumber}`).should('be.visible')
     }
 
     // Searches again in regular expression mode.
     const expectedLineNumbersForRegExp = [2, 3]
 
-    const regExpModeButton = cy.get('[data-testid="k-code-block-regexp-mode-button"]')
-    regExpModeButton.trigger('click')
-    searchInput.clear()
-    searchInput.type('key[12]')
+    const regExpModeButton = cy.get('[data-testid="regexp-mode-button"]')
+    regExpModeButton.click()
 
-    // Guard: Ensures processing of the search is done.
-    cy.get('[data-testid="k-code-block-is-processing-icon"]').should('have.class', 'k-is-processing-icon-is-visible')
-    cy.get('[data-testid="k-code-block-is-processing-icon"]').should('not.have.class', 'k-is-processing-icon-is-visible')
+    cy.get('[data-testid="code-block-search-input"]').clear()
+    cy.get('[data-testid="code-block-search-input"]').type('key[12]').then(() => {
+      // Guard: Ensures processing of the search is done
+      cy.get('[data-testid="code-block-processing-icon"]').should('be.visible')
+    })
 
-    cy.get('.k-line-is-match').should('have.length', expectedLineNumbersForRegExp.length)
+    cy.get('[data-testid="code-block-processing-icon"]').should('not.exist')
+
+    cy.get('.line-is-match').should('have.length', expectedLineNumbersForRegExp.length)
     // Checks if the correct line numbers are highlighted now that processing is done.
     for (const lineNumber of expectedLineNumbersForRegExp) {
-      cy.get(`.k-line-is-match .k-line-anchor#${id}-L${lineNumber}`).should('exist')
+      cy.get(`.line-is-match .line-anchor#${id}-L${lineNumber}`).should('exist')
     }
   })
 
   it('can be filtered to show only matching lines (like grep)', () => {
-    renderComponent({ id: 'code-block', isSearchable: true })
+    renderComponent({ id: 'code-block', searchable: true })
 
     // Searches in normal mode.
     const expectedMatchedTerms = ['key']
     const expectedNumberOfMatches = 3
 
-    cy.get('[data-testid="k-code-block-filter-mode-button"]').click({ force: true })
+    cy.get('[data-testid="filter-mode-button"]').click()
 
-    const searchInput = cy.get('[data-testid="k-code-block-search-input"]')
-    searchInput.type('key')
+    cy.get('[data-testid="code-block-search-input"]').type('key').then(() => {
+      // Guard: Ensures processing of the search is done
+      cy.get('[data-testid="code-block-processing-icon"]').should('be.visible')
+    })
 
-    // Guard: Ensures processing of the search is done.
-    cy.get('[data-testid="k-code-block-is-processing-icon"]').should('have.class', 'k-is-processing-icon-is-visible')
-    cy.get('[data-testid="k-code-block-is-processing-icon"]').should('not.have.class', 'k-is-processing-icon-is-visible')
+    cy.get('[data-testid="code-block-processing-icon"]').should('not.exist')
 
-    cy.get('.k-matched-term')
+    cy.get('.matched-term')
       .should('have.length', expectedNumberOfMatches)
       .each(([matchedTerm]) => {
         expect(expectedMatchedTerms.includes(matchedTerm.textContent as string))
@@ -103,17 +104,18 @@ describe('KCodeBlock', () => {
     const expectedMatchedTermsForRegExp = ['key1', 'key2']
     const expectedNumberOfMatchesForRegExp = 2
 
-    const regExpModeButton = cy.get('[data-testid="k-code-block-regexp-mode-button"]')
+    const regExpModeButton = cy.get('[data-testid="regexp-mode-button"]')
     regExpModeButton.click()
 
-    searchInput.clear()
-    searchInput.type('key[12]')
+    cy.get('[data-testid="code-block-search-input"]').clear()
+    cy.get('[data-testid="code-block-search-input"]').type('key[12]').then(() => {
+      // Guard: Ensures processing of the search is done
+      cy.get('[data-testid="code-block-processing-icon"]').should('be.visible')
+    })
 
-    // Guard: Ensures processing of the search is done.
-    cy.get('[data-testid="k-code-block-is-processing-icon"]').should('have.class', 'k-is-processing-icon-is-visible')
-    cy.get('[data-testid="k-code-block-is-processing-icon"]').should('not.have.class', 'k-is-processing-icon-is-visible')
+    cy.get('[data-testid="code-block-processing-icon"]').should('not.exist')
 
-    cy.get('.k-matched-term')
+    cy.get('.matched-term')
       .should('have.length', expectedNumberOfMatchesForRegExp)
       .each(([matchedTerm]) => {
         expect(expectedMatchedTermsForRegExp.includes(matchedTerm.textContent as string))
@@ -121,62 +123,61 @@ describe('KCodeBlock', () => {
   })
 
   it('shows matching results when initializing with query', () => {
-    renderComponent({ id: 'code-block', isSearchable: true, query: 'key' })
+    renderComponent({ id: 'code-block', searchable: true, query: 'key' })
 
-    cy.get('.k-line-is-match').should('have.length', 3)
+    cy.get('.line-is-match').should('have.length', 3)
   })
 
   it('can be interacted with using default shortcuts', () => {
     const id = 'code-block'
-    renderComponent({ id, isSearchable: true, query: 'key' })
+    renderComponent({ id, searchable: true, query: 'key' })
     const codeBlock = cy.get('.k-code-block')
 
     // Tests that scoped shortcuts don’t work when focus is not within the code block.
     cy.document().trigger('keydown', { code: 'F3' })
-    cy.get('.k-line-is-highlighted-match').should('not.exist')
+    cy.get('.line-is-highlighted-match').should('not.exist')
 
     codeBlock.trigger('keydown', { code: 'F3' })
-    cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'id').should('equal', `${id}-L2`)
+    cy.get('.line-is-highlighted-match .line-anchor').invoke('attr', 'id').should('equal', `${id}-L2`)
 
     codeBlock.trigger('keydown', { code: 'F3' })
-    cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'id').should('equal', `${id}-L3`)
+    cy.get('.line-is-highlighted-match .line-anchor').invoke('attr', 'id').should('equal', `${id}-L3`)
 
     codeBlock.trigger('keydown', { code: 'F3' })
-    cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'id').should('equal', `${id}-L4`)
+    cy.get('.line-is-highlighted-match .line-anchor').invoke('attr', 'id').should('equal', `${id}-L4`)
 
     codeBlock.trigger('keydown', { code: 'F3' })
-    cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'id').should('equal', `${id}-L2`)
+    cy.get('.line-is-highlighted-match .line-anchor').invoke('attr', 'id').should('equal', `${id}-L2`)
 
     codeBlock.trigger('keydown', { code: 'F3', shiftKey: true })
-    cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'id').should('equal', `${id}-L4`)
+    cy.get('.line-is-highlighted-match .line-anchor').invoke('attr', 'id').should('equal', `${id}-L4`)
 
     // Switches to filter mode using shortcut.
-    cy.get('.k-filtered-code-block').should('not.exist')
+    cy.get('.filtered-code-block').should('not.exist')
     codeBlock.trigger('keydown', { code: 'KeyF', altKey: true })
-    cy.get('.k-filtered-code-block').should('exist')
-    cy.get('.k-matched-term').should('have.length', 3)
+    cy.get('.filtered-code-block').should('exist')
+    cy.get('.matched-term').should('have.length', 3)
 
     // Switches to regular expression mode using shortcut.
-    const searchInput = cy.get('[data-testid="k-code-block-search-input"]')
-    searchInput.clear()
-    searchInput.type('key[12]')
+    cy.get('[data-testid="code-block-search-input"]').clear()
+    cy.get('[data-testid="code-block-search-input"]').type('key[12]')
 
     codeBlock.trigger('keydown', { code: 'KeyR', altKey: true })
-    cy.get('.k-matched-term').should('have.length', 2)
+    cy.get('.matched-term').should('have.length', 2)
   })
 
   it('shows line number links', () => {
     const id = 'code-block'
-    renderComponent({ id, isSearchable: true, query: 'key', showLineNumberLinks: true })
+    renderComponent({ id, searchable: true, query: 'key', showLineNumberLinks: true })
 
     cy.get('.k-code-block').trigger('keydown', { code: 'F3' })
-    cy.get('.k-line-is-highlighted-match .k-line-anchor').invoke('attr', 'href').should('equal', `#${id}-L2`)
+    cy.get('.line-is-highlighted-match .line-anchor').invoke('attr', 'href').should('equal', `#${id}-L2`)
   })
 
-  it('has the `is-single-line` class when props.isSingleLine is true', () => {
-    renderComponent({ id: 'code-block', isSingleLine: true })
+  it('has the `single-line` class when props.singleLine is true', () => {
+    renderComponent({ id: 'code-block', singleLine: true })
 
-    cy.get('pre.k-highlighted-code-block').should('have.class', 'is-single-line')
+    cy.get('pre.highlighted-code-block').should('have.class', 'single-line')
   })
 
   it('initializes in regular expression mode with search correctly executed', () => {
@@ -189,9 +190,9 @@ describe('KCodeBlock', () => {
 
     const expectedLineNumbersForRegExp = [2, 3]
 
-    cy.get('.k-line-is-match').should('have.length', expectedLineNumbersForRegExp.length)
+    cy.get('.line-is-match').should('have.length', expectedLineNumbersForRegExp.length)
     for (const lineNumber of expectedLineNumbersForRegExp) {
-      cy.get(`.k-line-is-match .k-line-anchor#${id}-L${lineNumber}`).should('exist')
+      cy.get(`.line-is-match .line-anchor#${id}-L${lineNumber}`).should('exist')
     }
   })
 
@@ -206,7 +207,7 @@ describe('KCodeBlock', () => {
     const expectedMatchedTerms = ['key1', 'key2']
     const expectedNumberOfMatches = 2
 
-    cy.get('.k-matched-term')
+    cy.get('.matched-term')
       .should('have.length', expectedNumberOfMatches)
       .each(([matchedTerm]) => {
         expect(expectedMatchedTerms.includes(matchedTerm.textContent as string))
