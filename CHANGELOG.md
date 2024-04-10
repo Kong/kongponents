@@ -1,3 +1,10 @@
+# [9.0.0-alpha.136](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.135...v9.0.0-alpha.136) (2024-04-10)
+
+
+### Bug Fixes
+
+* **ktreelist:** label alignment ([#2128](https://github.com/Kong/kongponents/issues/2128)) ([627364e](https://github.com/Kong/kongponents/commit/627364e9454236db5b7a02a85322c679467d1fec))
+
 # [9.0.0-alpha.135](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.134...v9.0.0-alpha.135) (2024-04-10)
 
 
