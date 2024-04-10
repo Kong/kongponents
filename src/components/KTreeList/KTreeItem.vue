@@ -98,6 +98,10 @@ const handleClick = () => {
     width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
   }
 
+  .tree-item-label {
+    text-align: left;
+  }
+
   &.selected {
     background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
     border-color: var(--kui-color-border-neutral-weaker, $kui-color-border-neutral-weaker);
