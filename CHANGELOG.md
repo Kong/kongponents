@@ -1,3 +1,10 @@
+# [9.0.0-alpha.137](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.136...v9.0.0-alpha.137) (2024-04-10)
+
+
+### Bug Fixes
+
+* **types:** allow legend header tag ([#2129](https://github.com/Kong/kongponents/issues/2129)) ([d2bd615](https://github.com/Kong/kongponents/commit/d2bd61586c289c8d306db22165983b74b146a2c8))
+
 # [9.0.0-alpha.136](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.135...v9.0.0-alpha.136) (2024-04-10)
 
 
