@@ -1,3 +1,10 @@
+# [9.0.0-alpha.135](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.134...v9.0.0-alpha.135) (2024-04-10)
+
+
+### Bug Fixes
+
+* **kcodeblock:** fix shortcut manager runtime undefined ([#2126](https://github.com/Kong/kongponents/issues/2126)) ([015b310](https://github.com/Kong/kongponents/commit/015b31071619aad129a5fcb788b88d90064071ae))
+
 # [9.0.0-alpha.134](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.133...v9.0.0-alpha.134) (2024-04-09)
 
 
