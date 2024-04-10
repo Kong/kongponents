@@ -82,6 +82,7 @@ Accepted values are:
 * `div`
 * `span`
 * `a`
+* `legend`
 * `h1`
 * `h2`
 * `h3`
