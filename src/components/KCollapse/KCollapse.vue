@@ -60,7 +60,7 @@
         class="collapse-hidden-content"
         data-testid="collapse-hidden-content"
       >
-        <slot />
+        <slot name="default" />
       </div>
     </Transition>
   </div>

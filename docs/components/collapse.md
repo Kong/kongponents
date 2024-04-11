@@ -1,6 +1,6 @@
 # Collapse
 
-KCollapse is collapsible section.
+KCollapse is a collapsible section of content.
 
 <KCollapse trigger-label="View more info">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
@@ -30,7 +30,7 @@ Use this prop to apply a title to the collapsible section.
 
 ### titleTag
 
-HTML element you want title to be rendered as. Defaults to `div`.
+Provide the HTML element tag name you want the title to be rendered inside. Defaults to `div`.
 
 Accepted values are:
 * `div`
