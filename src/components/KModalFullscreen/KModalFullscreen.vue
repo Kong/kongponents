@@ -383,7 +383,6 @@ $fullscreen-modal-padding: 64px;
   font-family: var(--kui-font-family-text, $kui-font-family-text);
   font-size: var(--kui-font-size-60, $kui-font-size-60);
   font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
-  letter-spacing: var(--kui-letter-spacing-minus-40, $kui-letter-spacing-minus-40);
   line-height: var(--kui-line-height-50, $kui-line-height-50);
   margin-bottom: var(--kui-space-auto, $kui-space-auto) !important;
   margin-top: var(--kui-space-auto, $kui-space-auto) !important;

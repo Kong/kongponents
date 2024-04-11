@@ -1,23 +1,23 @@
 <template>
   <KCard
-    class="k-card-catalog-item"
+    class="k-catalog-item"
     :data-testid="item && item.title ? `${item.title.replace(/[^0-9a-z]/gi, '-')}-catalog-item` : 'catalog-item'"
     role="button"
     tabindex="0"
     @click="($event: any) => handleCardClick($event, item)"
   >
     <template #title>
-      <slot name="cardTitle">
+      <slot name="card-title">
         {{ item ? item.title : '' }}
       </slot>
     </template>
 
     <template #actions>
-      <slot name="cardActions" />
+      <slot name="card-actions" />
     </template>
 
     <div :class="{ 'multi-line-truncate': truncate }">
-      <slot name="cardBody">
+      <slot name="card-body">
         {{ item ? item.description : '' }}
       </slot>
     </div>
@@ -38,19 +38,12 @@ defineProps({
     type: Boolean,
     default: true,
   },
-  /**
-     * Test mode - for testing only, strips out generated ids
-     */
-  testMode: {
-    type: Boolean,
-    default: false,
-  },
 })
 
-const emit = defineEmits(['card:click'])
+const emit = defineEmits(['click'])
 
 const handleCardClick = (evt: Event, item: CatalogItem): void => {
-  emit('card:click', {
+  emit('click', {
     evt,
     item,
   })
@@ -58,51 +51,20 @@ const handleCardClick = (evt: Event, item: CatalogItem): void => {
 </script>
 
 <style lang="scss" scoped>
-.k-card-catalog-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: stretch;
-  overflow: hidden;
+.k-catalog-item {
+  cursor: pointer;
+  transition: box-shadow $kongponentsTransitionDurTimingFunc;
+
+  :deep(.card-content) {
+    overflow: hidden;
+  }
+
+  &:hover {
+    box-shadow: var(--kui-shadow, $kui-shadow);
+  }
 
   .multi-line-truncate {
-    line-height: var(--kui-line-height-30, $kui-line-height-30);
-    max-height: 100px;
-    overflow: hidden;
-    padding-right: var(--kui-space-40, $kui-space-40);
-    position: relative;
-  }
-
-  .multi-line-truncate::before {
-    content: "...";
-    position: absolute;
-    right: 12px;
-    top: 80px;
-  }
-
-  &:hover {
-    cursor: pointer;
-  }
-}
-</style>
-
-<style lang="scss">
-.k-card-catalog-item.kong-card {
-  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-  padding: var(--kui-space-60, $kui-space-60) var(--kui-space-80, $kui-space-80);
-
-  .k-card-body {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-
-    .description {
-      flex-grow: 1;
-    }
-  }
-
-  &:hover {
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-primary-weak, $kui-color-border-primary-weak) !important;
-    box-shadow: none !important;
+    @include truncate(3);
   }
 }
 </style>

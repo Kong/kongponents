@@ -176,7 +176,6 @@ onUnmounted(() => {
         font-size: var(--kui-font-size-60, $kui-font-size-60);
         font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
         gap: var(--kui-space-40, $kui-space-40);
-        letter-spacing: var(--kui-letter-spacing-minus-40, $kui-letter-spacing-minus-40);
         line-height: var(--kui-line-height-50, $kui-line-height-50);
       }
 

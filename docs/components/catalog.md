@@ -1,6 +1,6 @@
 # Catalog
 
-**KCatalog** - A grid view of KCards
+KCatalog - a grid view of KCards.
 
 <KCatalog :fetcher="fetcherXs" />
 
@@ -8,89 +8,107 @@
 <KCatalog :fetcher="fetcher" />
 ```
 
-::: warning NOTE
-`KCatalog` implements `KIcon` which imports .svg files directly, so a loader is needed in order to render these in your application such as the webpack
-[raw-loader](https://webpack.js.org/loaders/raw-loader/). [See here for more information](/#raw-loader).
-:::
-
-Pass a fetcher function to build a slot-able card catalog.
-
 ## Props
 
 ### title
 
 The catalog title.
 
-<KCatalog title="Look Mah!" :fetcher="fetcherXs" />
+<KCatalog title="Cards Catalog" :fetcher="fetcherXs" />
 
 ```html
-<KCatalog title="Look Mah!" :fetcher="fetcher" />
+<KCatalog title="Cards Catalog" :fetcher="fetcher" />
 ```
+
+### titleTag
+
+HTML element you want title to be rendered as. Defaults to `div`.
+
+Accepted values are:
+* `div`
+* `span`
+* `a`
+* `h1`
+* `h2`
+* `h3`
+* `h4`
+* `h5`
+* `h6`
 
 ### cardSize
 
 Size of the cards. Supports values `small`, `medium` (default), and `large`.
 
-<KCatalog title="Small Cards" :fetcher="fetcherXs" cardSize="small" />
-<KCatalog title="Medium Cards" :fetcher="fetcherXs" />
-<KCatalog title="Large Cards" :fetcher="fetcherXs" cardSize="large" />
+<div class="vertical-container">
+  <KCatalog title="Small Cards" :fetcher="fetcherXs" card-size="small" hide-pagination-when-optional />
+  <KCatalog title="Medium Cards" :fetcher="fetcherXs" hide-pagination-when-optional />
+  <KCatalog title="Large Cards" :fetcher="fetcherXs" card-size="large" hide-pagination-when-optional />
+</div>
 
 ```html
-<KCatalog title="Small Cards" :fetcher="fetcher" cardSize="small" />
+<KCatalog card-size="small" title="Small Cards" :fetcher="fetcher" hide-pagination-when-optional />
 <KCatalog title="Medium Cards" :fetcher="fetcher" />
-<KCatalog title="Large Cards" :fetcher="fetcher" cardSize="large" />
+<KCatalog card-size="large" title="Large Cards" :fetcher="fetcher" hide-pagination-when-optional />
 ```
 
-### noTruncation
+### truncateDescription
 
-By default truncation of items with long descriptions is enabled at 5 lines. Enable `noTruncation`
-to turn it off.
+By default long card body text is truncated at 3 lines. Set this prop to `false` to turn truncation off.
 
-<KCatalog title="Truncate me" :fetcher="fetcherLong" />
-<KCatalog title="No truncation allowed!!" :fetcher="fetcherLong" no-truncation />
+<div class="vertical-container">
+  <KCatalog title="Truncating card body" :fetcher="fetcherLong" hide-pagination-when-optional />
+  <KCatalog title="Truncation disabled" :truncate-description="false" :fetcher="fetcherLong" hide-pagination-when-optional />
+</div>
 
 ```html
-const longItem = {
-  title: "Item long",
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in tempus lorem, et molestie quam. Praesent sapien massa, posuere et volutpat nec, imperdiet a dui. Fusce non leo posuere, molestie neque et, posuere ex. Nullam euismod tortor in est sagittis iaculis. In sodales bibendum nulla nec feugiat."
-}
-
-<KCatalog title="Truncate me" :fetcher="fetcherLong" />
-<KCatalog title="No truncation allowed!!" :fetcher="fetcherLong" no-truncation />
+<KCatalog title="Truncating card body" :fetcher="fetcherLong" hide-pagination-when-optional />
+<KCatalog :truncate-description="false" title="Truncation disabled" :fetcher="fetcherLong" hide-pagination-when-optional />
 ```
 
-### hasError
+### error
 
-See [the State section](#error) about `hasError`
+Boolean to control whether KCatalog should display [error state](#error-1). Defaults to `false`.
 
-### isLoading
+### loading
 
-See [the State section](#loading) about `isLoading`
+Boolean to control whether KCatalog should display [loading state](#loading-1). Defaults to `false`.
 
 ### fetcher
 
-Use a custom fetcher function to fetch card catalog items and leverage server-side pagination.
+Use a custom fetcher function to fetch card catalog items and leverage server-side pagination. Fetcher functions takes a single optional param (see [`initialFetcherParams` prop](#initialfetcherparams)) as an object with following properties:
 
-::: tip NOTE
-All fetcher functions should take a single param. This parameter is a JSON
-object supporting the following properties:
+```ts
+// fetcher function param
+{
+  page: number, // the currently visible page (default value is 1)
+  pageSize: number, // the number of items to display per page (default value is 15)
+  query: string // search query if search is supported
+}
+```
 
-- Pagination support:
-  - `page`: the currently visible page - starts at `1`
-  - `pageSize`: the number of items to display per page
-:::
+The return value of the fetcher function should be an object with the following properties:
 
-::: tip NOTE
-All fetcher functions should return a JSON object. This JSON object should contain the following properties:
+```ts
+// fetcher function return
+{ 
+  total: number, // the total count of catalog items (if using pagination)
+  data: CatalogItem[] // an array of catalog items
+}
+```
 
-- `total` - the total count of catalog items (if using pagination)
-- `data` - an array of JSON objects to populate the card catalog with
-:::
+```ts
+interface CatalogItem {
+  id?: string
+  title: string
+  description: string
+  key?: string
+}
+```
 
 Example fetcher function:
 
-```js
-fetcher(payload) {
+```ts
+const fetcher = (payload: { page: number, pageSize: number, query: string }) => {
   const params = {
     _limit: payload.pageSize,
     _page: payload.page
@@ -108,13 +126,20 @@ fetcher(payload) {
 }
 ```
 
+:::tip NOTE
+The loading state is handled automatically. When the `fetcher` is called the internal loading state is triggered and will be resolved when the fetcher returns. You can override this behavior using the `loading` prop.
+:::
+
 ### initialFetcherParams
 
 Pass in an object of parameters for the initial fetcher function call. If not provided,
 will default to the following values:
 
-```js
-{ pageSize: 15, page: 1 }
+```ts
+{ 
+  pageSize: 15,
+  page: 1
+}
 ```
 
 ### cacheIdentifier
@@ -123,63 +148,52 @@ The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to
 
 The identifier should be a string and will default to `''` if not provided. In that scenario, we will generate a random ID for the identifier every time the catalog is mounted.
 
-::: danger Danger
-This identifier must be unique across all `KCatalog` instances across the entire Vue app, otherwise there is a risk that SWRV will return the cached data of the wrong catalog.
+:::danger
+This identifier must be unique across all KCatalog instances across the entire Vue app, otherwise there is a risk that [SWRV](https://docs-swrv.netlify.app/) will return the cached data of the wrong catalog.
 :::
 
 ### fetcherCacheKey
 
 Whenever the cache key is changed the fetcher will automatically be called and attempt to fetch new catalog data.
 
-```html
+```vue
 <template>
   <KCatalog
     cache-identifier="fetcher-cache-key-example-catalog"
     :fetcher="fetcher"
-    :fetcherCacheKey="cacheKey"
+    :fetcher-cache-key="cacheKey"
   />
 </template>
 
-<script>
-export default {
-  data () {
-    return {
-      cacheKey: 1
-    }
-  },
-  methods: {
-    itemDeleted () {
-      // take an action on the DOM
-      cacheKey++ // triggers refetch
-    }
-  }
+<script setup lang="ts">
+const cacheKey = ref<number>(1)
+
+const itemDeleted = () => {
+  // take an action on the DOM
+  cacheKey.value++ // triggers refetch
 }
 </script>
 ```
 
 ### searchInput
 
-Pass in a string of search input for server-side table filtering. See [the Server-side function section](#server-side-functions) for an example.
+Pass in a string of search input for server-side table filtering.
 
 ### paginationTotalItems
 
-Pass the total number of items in the set to populate the pagination text:
-
-```html
-1 to 20 of <paginationTotalItems>
-```
+Pass the total number of items in the set to populate the pagination text. See [KPagination component docs](/components/pagination) for more details.
 
 If not provided the fetcher response should return a top-level property `total` or return a `data` property that is an array.
 
 ### paginationNeighbors
 
-Pass in a number of pagination neighbors to be used by the pagination component. See more detail in the [Pagination](/components/pagination.html#neighbors) docs.
+Pass in a number of pagination neighbors to be used by the pagination component. See more detail in the [KPagination component docs](/components/pagination.html#neighbors).
 
 ### paginationPageSizes
 
 Pass in an array of page sizes for the page size dropdown. If not provided will default to the following:
 
-```js
+```ts
 [15, 30, 50, 75, 100]
 ```
 
@@ -190,9 +204,7 @@ Set this to `true` to limit pagination navigation to `previous` / `next` page on
 <KCatalog :fetcher="fetcher" :disablePaginationPageJump="true" :paginationPageSizes="[4, 5, 6]" :initial-fetcher-params="{ pageSize: 4, page: 1 }" />
 
 ```html
-<template>
-  <KCatalog :fetcher="fetcher" :disablePaginationPageJump="true" />
-</template>
+<KCatalog :disable-pagination-page-jump="true" :fetcher="fetcher" />
 ```
 
 ### disablePagination
@@ -205,245 +217,224 @@ Set this to `true` to hide the pagination UI when the table record count is less
 
 ## KCatalogItem
 
-**KCatalog** generates a **KCatalogItem** for each item in the `items` property. At the most basic level, **KCatalogItem** is
-a wrapper around `KCard` to display correctly inside `KCatalog`. You can use the `body` slot of the `KCatalog` to manually create your own catalog items.
+KCatalog generates a KCatalogItem for each item in the `items` property. At the most basic level, KCatalogItem is a wrapper around KCard to display correctly inside KCatalog. You can use the `body` slot of the KCatalog to manually create your own catalog items.
 
-### Properties
+### Props
 
-- `item` - the card content is built from this, it expects a `title` and optionally a `description`.
+#### item
 
-  ```json
-  { title: 'some title', description: 'some description' }
-  ```
+Object instance of `CatalogItem` from which card content is built.
 
-- `truncate` - a boolean (default to `true`), whether or not to truncate the `description` text.
+#### truncate
+
+A boolean (default to `true`), whether or not to truncate the description text.
 
 ```html
 <KCatalogItem :item="item" :truncate="false" class="catalog-item" />
 ```
 
-### Card Slots
+### Slots
 
-- `cardTitle` - the title content for the card
-- `cardBody` - the body content for the card
+#### card-title
+
+The title content for the card.
+
+#### card-body
+
+The body content for the card.
+
+<KCatalogItem>
+  <template #card-title>
+    Card Title
+  </template>
+  <template #card-body>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.
+  </template>
+</KCatalogItem>
 
 ```html
 <KCatalogItem>
-  <template v-slot:cardTitle>
-    <KIcon
-      icon="profile"
-      color="#7F01FE"
-      size="44" />
-    Look Mah!
+  <template #card-title>
+    Card Title
   </template>
-  <template v-slot:cardBody>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>
+  <template #card-body>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.
+  </template>
 </KCatalogItem>
 ```
+
+### Events
+
+#### click
+
+Fired when item is clicked. Event payload is item object.
 
 ## States
 
 ### Empty
 
-<KCatalog title="Empty catalog" :fetcher="emptyFetcher" />
+<KCatalog :fetcher="emptyFetcher" />
 
 ```html
-<KCatalog title="Empty catalog" :fetcher="emptyFetcher" />
+<KCatalog :fetcher="emptyFetcher" />
 ```
 
-Set the following properties to handle empty state:
+Set the following props to handle empty state:
 
 - `emptyStateTitle` - Title text for empty state
 - `emptyStateMessage` - Message for empty state
-- `emptyStateIcon` - Icon for empty state
-- `emptyStateIconColor` - Color for empty state icon
-- `emptyStateIconSize` - Size for empty state icon
-- `emptyStateActionRoute` - Route for empty state action
+- `emptyStateIconVariant` - Icon variant for empty state (see [KEmptyState component props](/components/empty-state#iconvariant))
 - `emptyStateActionMessage` - Button text for empty state action
-- `emptyStateActionButtonIcon` - Icon for the empty state action button
+- `emptyStateActionRoute` - Route for empty state action
 
-If using a CTA button, a `@kcatalog-empty-state-cta-clicked` event is fired when clicked.
+Should you want to display an icon inside of action button, you can use `empty-state-action-icon` slot.
 
-<KCatalog :fetcher="emptyFetcher" title="Customized empty catalog" emptyStateTitle="No Workspaces exist" emptyStateMessage="Adding a new Workspace will populate this catalog." emptyStateActionMessage="Create a Workspace" emptyStateActionRoute="#empty-state-full-example" emptyStateIcon="workspaces" emptyStateIconColor="#5996ff" emptyStateIconSize="35" />
+When empty state action button is clicked, KCatalog emits the `empty-state-action-click` event.
+
+<KCatalog 
+  :fetcher="emptyFetcher"
+  empty-state-title="No Workspaces exist"
+  empty-state-message="Adding a new Workspace will populate this catalog."
+  empty-state-icon-variant="kong"
+  empty-state-action-message="Create a Workspace"
+  empty-state-action-route="#empty-state-full-example"
+>
+  <template #empty-state-action-icon>
+    <AddIcon />
+  </template>
+</KCatalog>
 
 ```html
-<!-- Using a route string -->
-<KCatalog
-  title="Customized empty catalog"
+<KCatalog 
   :fetcher="emptyFetcher"
-  emptyStateTitle="No Workspaces exist"
-  emptyStateMessage="Adding a new Workspace will populate this catalog."
-  emptyStateActionMessage="Create a Workspace"
-  emptyStateActionRoute="#empty-state-full-example"
-  emptyStateIcon="workspaces"
-  emptyStateIconColor="#5996ff"
-  emptyStateIconSize="35"
-/>
-
-<!-- Using a route object -->
-<KCatalog
-  title="Customized empty catalog"
-  :fetcher="emptyFetcher"
-  emptyStateTitle="No Workspaces exist"
-  emptyStateMessage="Adding a new Workspace will populate this catalog."
-  emptyStateActionMessage="Create a Workspace"
-  emptyStateActionRoute="{
-    name: 'create-workspace',
-    params: {
-      organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
-    }
-  }"
-  emptyStateIcon="workspaces"
-  emptyStateIconColor="#5996ff"
-  emptyStateIconSize="35"
-/>
+  empty-state-title="No Workspaces exist"
+  empty-state-message="Adding a new Workspace will populate this catalog."
+  empty-state-icon-variant="kong"
+  empty-state-action-message="Create a Workspace"
+  empty-state-action-route="#empty-state-full-example"
+>
+  <template #empty-state-action-icon>
+    <AddIcon />
+  </template>
+</KCatalog>
 ```
 
 ### Error
 
-Set the `hasError` prop to `true` to enable the error state.
+Set the `error` prop to `true` to enable the error state.
 
-<KCatalog title="Catalog with error" :fetcher="fetcherXs" :hasError="true" />
+<KCatalog :fetcher="fetcherXs" error />
 
 ```html
-<KCatalog title="Empty catalog" :fetcher="fetcher" :hasError="true" />
+<KCatalog error :fetcher="fetcher" />
 ```
 
 Set the following properties to customize error state:
 
 - `errorStateTitle` - Title text for error state
 - `errorStateMessage` - Message for error state
-- `errorStateIcon` - Icon for error state
-- `errorStateIconColor` - Color for error state icon
-- `errorStateIconSize` - Size for error state icon
-- `errorStateActionRoute` - Route for error state action
 - `errorStateActionMessage` - Button text for error state action
+- `errorStateActionRoute` - Route for error state action
 
-If using a CTA button, a `KCatalog-error-cta-clicked` event is fired when clicked.
+A `error-action-click` event is fired when error state action button is clicked.
 
 <KCatalog
-  title="Catalog with error"
   :fetcher="fetcherXs"
-  :hasError="true"
-  errorStateTitle="Something went wrong"
-  errorStateMessage="Error loading data."
-  errorStateActionMessage="Report an Issue"
-  errorStateActionRoute="#error-state-full-example"
-  errorStateIcon="dangerCircle"
-  errorStateIconColor="#e6173a"
-  errorStateIconSize="35"
+  :error="true"
+  error-state-title="Something went wrong"
+  error-state-message="Error loading data."
+  error-state-action-message="Report an Issue"
+  error-state-action-route="#error-state-full-example"
 />
 
 ```html
-<!-- Using a route string -->
 <KCatalog
-  title="Catalog with error"
   :fetcher="fetcher"
-  :hasError="true"
-  errorStateTitle="Something went wrong"
-  errorStateMessage="Error loading data."
-  errorStateActionMessage="Report an Issue"
-  errorStateActionRoute="create-workspace"
-  errorStateIcon="dangerCircle"
-  errorStateIconColor="#e6173a"
-  errorStateIconSize="35"
-/>
-
-<!-- Using a route object -->
-<KCatalog
-  title="Catalog with error"
-  :fetcher="fetcher"
-  :hasError="true"
-  errorStateTitle="Something went wrong"
-  errorStateMessage="Error loading data."
-  errorStateActionMessage="Report an Issue"
-  errorStateActionRoute="{
-    name: 'report-issue',
-    params: {
-      organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
-    }
-  }"
-  errorStateIcon="dangerCircle"
-  errorStateIconColor="#e6173a"
-  errorStateIconSize="35"
+  :error="true"
+  error-state-title="Something went wrong"
+  error-state-message="Error loading data."
+  error-state-action-message="Report an Issue"
+  error-state-action-route="#error-state-full-example"
 />
 ```
 
 ### Loading
 
-Set the `isLoading` prop to `true` to enable the loading state.
+Set the `loading` prop to `true` to enable the loading state.
 
-<KCatalog title="Loading catalog" :fetcher="fetcherXs" :isLoading="true" />
+<KCatalog :fetcher="fetcherXs" loading />
 
 ```html
-<KCatalog title="Loading catalog" :fetcher="fetcher" :isLoading="true" />
+<KCatalog loading :fetcher="fetcher" />
 ```
 
 ## Slots
 
-### Main Slots
+Both the title & description of the card items as well as the entire catalog body are slottable.
 
-Both the `title` & `description` of the card items as well as the entire catalog `body` are slottable.
+### body
 
-- `body` - The body of the card catalog, if you do not want to use `KCatalogItem` components for the children.
-- `cardHeader` - Will slot the card title for each entry
-- `cardActions` - Will slot the card actions for each entry
-- `cardBody` - Will slot the card body for each entry
+The body of the card catalog, if you do not want to use KCatalogItem components for the children.
 
-If used in conjuction with a `fetcher` you have the option of using the returned `data` in the `body` slot.
+### card-title
 
-<KCatalog :fetcher="fetcherSm" title="Customized body">
-  <template v-slot:body="{ data }">
-    <div v-for="item in data">
-      <h4>{{ item.title }}</h4>
-      <p>{{ item.description }}</p>
-    </div>
+Will slot the card title for each entry. The slot exposes card item through the `item` slot prop.
+
+<KCatalog :fetcher="fetcherXs">
+  <template #card-title="{ item }">
+    {{ item.key % 2 ? 'Odd' : 'Even' }} item
   </template>
 </KCatalog>
 
 ```html
-<KCatalog :fetcher="fetcher" title="Customized body">
-  <template v-slot:body="{ data }">
-    <div v-for="item in data">
-      <h4>{{ item.title }}</h4>
-      <p>{{ item.description }}</p>
-    </div>
+<KCatalog :fetcher="fetcher">
+  <template #card-title="{ item }">
+    {{ item.key % 2 ? 'Odd' : 'Even' }} item
   </template>
 </KCatalog>
 ```
 
-Use the `cardTitle`, `cardActions`, and `cardBody` slots to access `item` specific data.
+### card-actions
 
-<KCatalog :fetcher="fetcherSm" title="Customized cards">
-  <template v-slot:cardTitle="{ item }">
-    <div class="custom-title">
-      {{ item.title }}
-    </div>
-  </template>
-  <template v-slot:cardBody="{ item }">
-    <span class="custom-description">
-    {{ item.description }}
-    </span>
+Slot the card actions for each entry. The slot exposes card item through the `item` slot prop.
+
+<KCatalog :fetcher="fetcherXs">
+  <template #card-actions="{ item }">
+    <KDropdown :items="[
+      { label: 'Home', to: { path: '/' } },
+      { label: 'Dropdown', to: { path: '/components/dropdown' } },
+      { label: 'Button', to: { path: '/components/button' } }
+    ]">
+      <KButton size="small" :title="`${item.title} actions`" appearance="secondary">
+        <template #icon>
+          <MoreIcon />
+        </template>
+      </KButton>
+    </KDropdown>
   </template>
 </KCatalog>
 
 ```html
-<KCatalog :fetcher="fetcher" title="Customized cards">
-  <template v-slot:cardTitle="{ item }">
-    <div>
-      {{ item.title }}
-    </div>
-  </template>
-  <template v-slot:cardBody="{ item }">
-    <span>
-    {{ item.description }}
-    </span>
+<KCatalog :fetcher="fetcher">
+  <template #card-actions="{ item }">
+    <KDropdown :items="items">
+      <KButton size="small" :title="`${item.title} actions`" appearance="secondary">
+        <template #icon>
+          <MoreIcon />
+        </template>
+      </KButton>
+    </KDropdown>
   </template>
 </KCatalog>
 ```
 
-### Toolbar
+### card-body
 
-The `toolbar` slot allows you to slot catalog controls rendered at the top of the `.k-card-catalog` element such as a search input or other UI elements. It provides the [SWRV](https://docs-swrv.netlify.app/) `state` and `hasData` in the slot param.
+Will slot the card body for each entry. The slot exposes card item through the `item` slot prop.
+
+### toolbar
+
+The `toolbar` slot allows you to slot catalog controls rendered at the top of the `.k-catalog` element such as a search input or other UI elements. It provides the [SWRV](https://docs-swrv.netlify.app/) `state` and `hasData` in the slot param.
 
 ```ts
 {
@@ -454,173 +445,56 @@ The `toolbar` slot allows you to slot catalog controls rendered at the top of th
 }
 ```
 
-If utilizing multiple elements, we recommend adding `display: flex; width: 100%;` to the root slot tag.
-
 <KCatalog :fetcher="fetcherXs">
   <template #toolbar="{ state }">
-    <div class="toolbar-container">
-      <KInput v-if="state.hasData" placeholder="Search" />
-      <KSelect appearance="select" :items="[{ label: 'First option', value: '1', selected: true }, { label: 'Another option', value: '2'}]" />
-    </div>
+    <KInput v-if="state.hasData" placeholder="Search" />
+    <KSelect appearance="select" :items="[{ label: 'First option', value: '1', selected: true }, { label: 'Another option', value: '2'}]" />
   </template>
 </KCatalog>
 
 ```html
 <KCatalog :fetcher="fetcher">
   <template #toolbar="{ state }">
-    <div class="toolbar-container">
-      <KInput
-        v-if="state.hasData"
-        placeholder="Search"
-      />
-      <KSelect
-        appearance="select"
-        :items="[
-          { label: 'First option', value: '1', selected: true },
-          { label: 'Another option', value: '2'}
-        ]"
-      />
-    </div>
-  </template>
-</KCatalog>
-
-<style lang="scss">
-.toolbar-container {
-  display: flex;
-  justify-content: space-between;
-}
-</style>
-```
-
-
-### State Slots
-
-KCatalog has built-in state management for loading, empty, and error states. You can either use the props described in
-the section above or completely slot in your own content.
-
-- `empty-state` - Slot content to be displayed when empty
-- `error-state` - Slot content to be displayed when in an error state
-
-<KCard>
-  <template v-slot:body>
-    <KCatalog :fetcher="emptyFetcher">
-      <template v-slot:empty-state>
-        <div style="text-align: center;">
-          <KIcon icon="warning" />
-          <div>No Content!!!</div>
-        </div>
-      </template>
-      <template v-slot:error-state>
-        <KIcon icon="error" />
-        Something went wrong
-      </template>
-    </KCatalog>
-  </template>
-</KCard>
-
-```html
-<template>
-  <KCatalog :fetcher="() => { return { data: [] } }">
-    <template v-slot:empty-state>
-      <KIcon icon="warning" />
-      No Content!!!
-    </template>
-    <template v-slot:error-state>
-      <KIcon icon="error" />
-      Something went wrong
-    </template>
-  </KCatalog>
-</template>
-```
-
-## Server-side functions
-
-Pass a fetcher function to enable server-side pagination.
-The fetcher function should structure the ajax request URL in such a way that
-enables server side pagination per the requirements of the API being used.
-
-::: tip NOTE
-The loading state is handled automatically. When the `fetcher` is called the internal loading state
-is triggered and will be resolved when the fetcher returns. You can override this behavior using the
-`isLoading` prop.
-:::
-
-<KCatalog
-  cache-identifier="server-side-functions-catalog"
-  :fetcher="fetcher"
-  :initial-fetcher-params="{
-    pageSize: 15,
-    page: 1,
-    query: ''
-  }"
-/>
-
-```
-Example URL
-
-https://kongponents.dev/api/components?_page=1&_limit=10
-```
-
-```html
-<!-- Example Component Usage -->
-
-<KCard>
-  <template v-slot:body>
-    <KInput placeholder="Search" v-model="search" type="search" />
-    <KCatalog
-      cache-identifier="server-side-functions-catalog"
-      :fetcher="fetcher"
-      :initial-fetcher-params="{
-        pageSize: 15,
-        page: 1,
-        query: ''
-      }"
-      :search-input="search"
+    <KInput
+      v-if="state.hasData"
+      placeholder="Search"
+    />
+    <KSelect
+      appearance="select"
+      :items="[
+        { label: 'First option', value: '1', selected: true },
+        { label: 'Another option', value: '2'}
+      ]"
     />
   </template>
-</KCard>
+</KCatalog>
 ```
 
-```js
-// Example Fetcher Function
+### empty-state
 
-fetcher(payload) {
-  const params = {
-    _limit: payload.pageSize,
-    _page: payload.page
-  }
+Slot content to be displayed when empty.
 
-  if (query) {
-    params.q = payload.query
-    params._page = 1
-  }
+### error-state
 
-  return axios.get('/user_list', {
-    baseURL: 'https://kongponents.dev/api',
-    params
-  }).then(res => {
-    return {
-      data: res.data,
-      total: res.total
-    }
-  })
-}
-```
+Slot content to be displayed when in an error state.
 
 ## Events
 
-### @card:click
+### card-click
 
-Emitted when a `KCatalogItem` is clicked, the payload is the clicked item's object.
+Emitted when a KCatalogItem is clicked, the payload is the clicked item's object.
 
-### CTA Clicks
+### empty-state-action-click
 
-- `@kcatalog-empty-state-cta-clicked` - If using a CTA button in the empty state, this event is fired when clicked.
-- `@kcatalog-error-cta-clicked` - If using a CTA button in the error state, this event is fired when clicked.
+Emitted when empty state action button is clocked.
 
-### Catalog Preferences
+### error-action-click
 
-- `@update:catalog-preferences` - Fired when the user changes the catalog's `pageSize`.
+Emitted when error state action button is clicked.
+
+### update:catalog-preferences
+
+Fired when the user changes the catalog's `pageSize`.
 
 Returns a payload that adheres to the `CatalogPreferences` interface:
 
@@ -631,118 +505,108 @@ interface CatalogPreferences {
 }
 ```
 
-### Catalog State
+### state
 
-`@state` - Fired when the catalog state changes.
+Fired when the catalog state changes.
 
 Returns the `state` and `hasData` (boolean) of the catalog, `state` can be one of:
 - `loading` - when the catalog is fetching new catalog data
 - `error` - when the catalog fetch failed
 - `success` - when the catalog fetch completed successfully
 
-<script>
-function getItems(count) {
-  let myItems = []
-    for (let i = 0; i < count; i++) {
-      myItems.push({
+<script setup lang="ts">
+import { ref, reactive } from 'vue'
+import { AddIcon, MoreIcon } from '@kong/icons'
+
+const getItems = (count: number): CardItem[] => {
+  let myItems: CardItem[] = []
+  for (let i = 0; i < count; i++) {
+    myItems.push({
       title: "Item " + i,
       description: "The item's description for number " + i
-      })
-    }
+    })
+  }
   return myItems
 }
 
-const longItem = {
+const longItem: CardItem = reactive({
   title: "A very long item",
   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in tempus lorem, et molestie quam. Praesent sapien massa, posuere et volutpat nec, imperdiet a dui. Fusce non leo posuere, molestie neque et, posuere ex. Nullam euismod tortor in est sagittis iaculis. In sodales bibendum nulla nec feugiat."
+})
+
+const resolveAfter5MiliSec = (count: number, pageSize: number, page: number): Promise<CardItem[]> => {
+  let limit = count
+  if ((pageSize * page) < count) { limit = pageSize * page }
+
+  let myItems: CardItem[] = []
+  for (let i = ((page - 1) * pageSize); i < limit; i++) {
+    myItems.push({
+      title: "Item " + `${i + 1}`,
+      description: "The item's description for number " + `${i + 1}`,
+      key: i + 1
+    })
+  }
+
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(myItems)
+    }, 500)
+  })
 }
 
-export default {
-  data() {
-    return {
-      getItems,
-      longItem
-    }
-  },
-  methods: {
-    resolveAfter5MiliSec(count, pageSize, page) {
-      // simulate pagination
-      let limit = count
-      // <!-- markdownlint-disable-next-line MD037 -->
-      if ((pageSize * page) < count) { limit = pageSize * page }
-
-      let myItems = []
-      for (let i = ((page-1) * pageSize); i < limit; i++) {
-        myItems.push({
-          title: "Item " + `${i+1}`,
-          description: "The item's description for number " + `${i+1}`
-        })
-      }
-
-      return new Promise(resolve => {
-        setTimeout(() => {
-          resolve(myItems);
-        }, 500)
-      })
-    },
-    async fetcher(payload) {
-      const params = {
-        _limit: payload.pageSize,
-        _page: payload.page,
-        data: await this.resolveAfter5MiliSec(25, payload.pageSize, payload.page),
-        total: 25
-      }
-
-      return params
-    },
-    async fetcherSm(payload) {
-      const params = {
-        _limit: payload.pageSize,
-        _page: payload.page,
-        data: await this.resolveAfter5MiliSec(6, payload.pageSize, payload.page),
-        total: 6
-      }
-
-      return params
-    },
-    async fetcherXs(payload) {
-      const params = {
-        _limit: payload.pageSize,
-        _page: payload.page,
-        data: await this.resolveAfter5MiliSec(4, payload.pageSize, payload.page),
-        total: 4
-      }
-
-      return params
-    },
-    async fetcherLong(payload) {
-      const params = {
-        _limit: payload.pageSize,
-        _page: payload.page,
-        data: [longItem],
-        total: 1
-      }
-
-      return params
-    },
-    emptyFetcher () {
-      return { data: [], total: 0 }
-    },
+const fetcher = async (payload: { pageSize: number, page: number }) => {
+  const params = {
+    _limit: payload.pageSize,
+    _page: payload.page,
+    data: await resolveAfter5MiliSec(25, payload.pageSize, payload.page),
+    total: 25
   }
+
+  return params
+}
+
+const fetcherSm = async (payload: { pageSize: number, page: number }) => {
+  const params = {
+    _limit: payload.pageSize,
+    _page: payload.page,
+    data: await resolveAfter5MiliSec(6, payload.pageSize, payload.page),
+    total: 6
+  }
+
+  return params
+}
+
+const fetcherXs = async (payload: { pageSize: number, page: number }) => {
+  const params = {
+    _limit: payload.pageSize,
+    _page: payload.page,
+    data: await resolveAfter5MiliSec(4, payload.pageSize, payload.page),
+    total: 4
+  }
+
+  return params
+}
+
+const fetcherLong = async (payload: { pageSize: number, page: number }) => {
+  const params = {
+    _limit: payload.pageSize,
+    _page: payload.page,
+    data: [longItem],
+    total: 1
+  }
+
+  return params
+}
+
+const emptyFetcher = () => {
+  return { data: [], total: 0 }
 }
 </script>
 
-<style lang="scss">
-.custom-title {
-  color: $kui-color-text-primary;
-}
-
-.custom-description {
-  color: $kui-color-text-neutral;
-}
-
-.toolbar-container {
+<style lang="scss" scoped>
+.vertical-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: $kui-space-50;
 }
 </style>

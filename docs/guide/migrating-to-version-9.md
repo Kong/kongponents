@@ -181,6 +181,52 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KCatalog
 
+#### Props
+
+* `isLoading` prop has been removed and replaced with `loading` prop
+* `noTruncation` prop has been removed and replaced with `truncateDescription` prop
+* `emptyStateActionButtonIcon` prop has been removed. You can use the new `empty-state-action-icon` slot instead
+* `emptyStateIcon` prop has been removed. You can use the new `emptyStateIconVariant` prop instead
+* `hasError` prop has been removed and replaced with `error` prop
+* `emptyStateIconColor` prop has been removed
+* `emptyStateIconSize` prop has been removed
+* `errorStateIcon` prop has been removed
+* `errorStateIconColor` prop has been removed
+* `errorStateIconSize` prop has been removed
+* `testMode` prop has been removed
+
+#### Slots
+
+* `cardTitle` props has been renamed to `card-title`
+  * same change applies to KCatalogItem component
+* `cardActions` prop has been renamed to `card-actions`
+  * same change applies to KCatalogItem component
+* `cardBody` prop has been renamed to `card-body`
+  * same change applies to KCatalogItem component
+
+#### Events
+
+* `card:click` event has been renamed to `card-click`
+* in KCatalogItem component `card:click` event has been renamed to `click`
+* `kcatalog-error-cta-clicked` event has been renamed to `error-action-click`
+* `kcatalog-empty-state-cta-clicked` event has been renamed to `empty-state-action-click`
+
+#### Structure
+
+* `k-card-catalog` class has been replaced with `k-catalog`
+* `k-card-catalog-title` class has been replaced with `catalog-title`
+* `k-catalog-title` `data-testid` property has been replaced with `catalog-title`
+* `k-catalog-toolbar` class and `data-testid` attribute has been replaced with `catalog-toolbar`
+* `k-skeleton-grid` class has been replaced with `catalog-skeleton-loader`
+* `k-catalog-skeleton` `data-testid` attribute has been replaced with `catalog-skeleton-loader`
+* `k-catalog-error-state` class has been replaced with `catalog-error-state`
+* `k-card-catalog-error-state` `data-testid` attribute has been replaced with `catalog-error-state`
+* `k-catalog-empty-state` class has been replaced with `catalog-empty-state`
+* `k-card-catalog-empty-state` `data-testid` attribute has been replaced with `catalog-empty-state`
+* `k-catalog-page` class has been replaced with `catalog-page`
+* `k-card-[small | medium | large]` classes were replaced with `card-[small | medium | large]`
+* `k-catalog-pagination` class and `data-testid` attribute has been replaced with `catalog-pagination`
+* `k-card-catalog-item` class has been replaced with `k-catalog-item`
 
 ### KCheckbox
 

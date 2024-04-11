@@ -137,7 +137,6 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
         font-family: var(--kui-font-family-text, $kui-font-family-text);
         font-size: var(--kui-font-size-50, $kui-font-size-50);
         font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-        letter-spacing: var(--kui-letter-spacing-minus-30, $kui-letter-spacing-minus-30);
         line-height: var(--kui-line-height-40, $kui-line-height-40);
       }
 
