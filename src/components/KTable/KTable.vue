@@ -584,7 +584,7 @@ const visibilityColumns = computed((): TableHeader[] => tableHeaders.value.filte
 // visibility preferences from the host app (initialized by app)
 const visibilityPreferences = computed((): Record<string, boolean> => props.tablePreferences.columnVisibility || {})
 // current column visibility state
-const columnVisibility = ref<Record<string, boolean>>({})
+const columnVisibility = ref<Record<string, boolean>>(props.tablePreferences.columnVisibility || {})
 const total = ref(0)
 const isScrolled = ref(false)
 const page = ref(1)
