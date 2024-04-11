@@ -1,3 +1,10 @@
+# [9.0.0-alpha.138](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.137...v9.0.0-alpha.138) (2024-04-11)
+
+
+### Bug Fixes
+
+* **ktable:** dont clear visibility prefs on load ([#2131](https://github.com/Kong/kongponents/issues/2131)) ([418ac26](https://github.com/Kong/kongponents/commit/418ac26cbae699dad31977e844267b76f485ac7a))
+
 # [9.0.0-alpha.137](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.136...v9.0.0-alpha.137) (2024-04-10)
 
 
