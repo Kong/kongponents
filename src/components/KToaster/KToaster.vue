@@ -63,6 +63,10 @@ defineProps({
     default: [] as Toast[],
     required: true,
   },
+  zIndex: {
+    type: Number,
+    default: 10000,
+  },
 })
 
 defineEmits<{
@@ -97,7 +101,7 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
   right: 50%;
   transform: translateX(50%);
   width: 90%;
-  z-index: 10000;
+  z-index: v-bind(zIndex);
 
   @media (min-width: $kui-breakpoint-mobile) {
     right: 16px;

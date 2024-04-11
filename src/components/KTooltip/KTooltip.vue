@@ -87,6 +87,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  zIndex: {
+    type: Number,
+    default: 9999,
+  },
 })
 
 const slots = useSlots()
@@ -124,7 +128,7 @@ const computedClass = computed((): string => {
   font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
   line-height: var(--kui-line-height-20, $kui-line-height-20);
   padding: var(--kui-space-30, $kui-space-30);
-  z-index: 9999;
+  z-index: v-bind(zIndex);
 
   &.tooltip-top {
     margin-bottom: var(--kui-space-20, $kui-space-20);

@@ -170,6 +170,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  zIndex: {
+    type: Number,
+    default: 1100,
+  },
 })
 
 const emit = defineEmits<{
@@ -299,7 +303,7 @@ onBeforeUnmount(async () => {
     justify-content: center;
     padding: var(--kui-space-70, $kui-space-70) var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0) var(--kui-space-50, $kui-space-50);
     position: fixed;
-    z-index: 1100;
+    z-index: v-bind(zIndex);
 
     @media (min-width: $kui-breakpoint-phablet) {
       padding-top: var(--kui-space-110, $kui-space-110);
