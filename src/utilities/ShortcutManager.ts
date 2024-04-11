@@ -78,6 +78,10 @@ export class ShortcutManager<CommandKeyword extends string> {
 }
 
 function triggerShortcuts<CommandKeyword extends string>(event: KeyboardEvent, keyMap: Record<string, CommandKeyword>, commands: Record<CommandKeyword, Command>): void {
+  if (!event.code) {
+    return
+  }
+
   const code = normalizeKeyCode(event.code)
   const shortcut = [
     event.ctrlKey ? 'ctrl' : '',

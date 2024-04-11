@@ -25,15 +25,11 @@ The catalog title.
 HTML element you want title to be rendered as. Defaults to `div`.
 
 Accepted values are:
-* `div`
-* `span`
-* `a`
-* `h1`
-* `h2`
-* `h3`
-* `h4`
-* `h5`
-* `h6`
+<ul>
+  <li v-for="tag in HeaderTags" :key="`${tag}-header-tag`">
+    <code>{{ tag }}</code>
+  </li>
+</ul>
 
 ### cardSize
 
@@ -517,6 +513,7 @@ Returns the `state` and `hasData` (boolean) of the catalog, `state` can be one o
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { AddIcon, MoreIcon } from '@kong/icons'
+import { HeaderTags } from '@/types'
 
 const getItems = (count: number): CardItem[] => {
   let myItems: CardItem[] = []

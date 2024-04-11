@@ -1,3 +1,31 @@
+# [9.0.0-alpha.138](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.137...v9.0.0-alpha.138) (2024-04-11)
+
+
+### Bug Fixes
+
+* **ktable:** dont clear visibility prefs on load ([#2131](https://github.com/Kong/kongponents/issues/2131)) ([418ac26](https://github.com/Kong/kongponents/commit/418ac26cbae699dad31977e844267b76f485ac7a))
+
+# [9.0.0-alpha.137](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.136...v9.0.0-alpha.137) (2024-04-10)
+
+
+### Bug Fixes
+
+* **types:** allow legend header tag ([#2129](https://github.com/Kong/kongponents/issues/2129)) ([d2bd615](https://github.com/Kong/kongponents/commit/d2bd61586c289c8d306db22165983b74b146a2c8))
+
+# [9.0.0-alpha.136](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.135...v9.0.0-alpha.136) (2024-04-10)
+
+
+### Bug Fixes
+
+* **ktreelist:** label alignment ([#2128](https://github.com/Kong/kongponents/issues/2128)) ([627364e](https://github.com/Kong/kongponents/commit/627364e9454236db5b7a02a85322c679467d1fec))
+
+# [9.0.0-alpha.135](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.134...v9.0.0-alpha.135) (2024-04-10)
+
+
+### Bug Fixes
+
+* **kcodeblock:** fix shortcut manager runtime undefined ([#2126](https://github.com/Kong/kongponents/issues/2126)) ([015b310](https://github.com/Kong/kongponents/commit/015b31071619aad129a5fcb788b88d90064071ae))
+
 # [9.0.0-alpha.134](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.133...v9.0.0-alpha.134) (2024-04-09)
 
 
