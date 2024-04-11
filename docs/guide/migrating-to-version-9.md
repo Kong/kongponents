@@ -258,6 +258,21 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KCollapse
 
+#### Events
+
+* `toggled` event was renamed to `toggle`
+
+#### Structure
+
+* `k-collapse-heading` class has been replaced with `collapse-heading`
+* `k-collapse-title` class and `data-testid` attribute has been replaced with `collapse-title`
+* `k-collapse-trigger` class has been replaced with `collapse-trigger` 
+* `k-collapse-trigger-content` class and `data-testid` attribute has been replaced with `collapse-trigger-content`
+* `k-collapse-trigger-label` class and `data-testid` attribute has been replaced with `collapse-trigger-label`
+* `k-collapse-trigger-chevron` class has been replaced with `collapse-trigger-icon`
+* `k-collapse-trigger-icon` class and `data-testid` attribute has been replaced with `collapse-trigger-icon`
+* `k-collapse-visible-content` class and `data-testid` attribute has been replaced with `collapse-visible-content`
+* `k-collapse-hidden-content` class and `data-testid` attribute has been replaced with `collapse-hidden-content`
 
 ### KDateTimePicker
 

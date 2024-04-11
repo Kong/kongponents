@@ -57,6 +57,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxCodeBlock.vue'),
   },
   {
+    path: '/collapse',
+    name: 'collapse',
+    meta: { title: 'Collapse Sandbox' },
+    component: () => import('../pages/SandboxCollapse.vue'),
+  },
+  {
     path: '/copy',
     name: 'copy',
     meta: { title: 'Copy Sandbox' },

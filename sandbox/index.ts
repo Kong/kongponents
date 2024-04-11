@@ -23,6 +23,7 @@ const sandboxAppLinks: SandboxNavigationItem[] = ([
   { name: 'KCatalog', to: { name: 'catalog' } },
   { name: 'KCheckbox', to: { name: 'checkbox' } },
   { name: 'KCodeBlock', to: { name: 'codeblock' } },
+  { name: 'KCollapse', to: { name: 'collapse' } },
   { name: 'KCopy', to: { name: 'copy' } },
   { name: 'KDateTimePicker', to: { name: 'datetimepicker' } },
   { name: 'KDropdown', to: { name: 'dropdown' } },
