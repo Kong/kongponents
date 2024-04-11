@@ -32,6 +32,7 @@
                 class="collapse-trigger-icon"
                 :class="{ 'collapse-expanded': !collapsedState }"
                 data-testid="collapse-trigger-icon"
+                decorative
                 :size="KUI_ICON_SIZE_40"
               />
               <span
@@ -157,6 +158,7 @@ watch(modelComputed, (newVal, oldVal) => {
 
 <style lang="scss" scoped>
 .k-collapse {
+  box-sizing: border-box;
   font-family: var(--kui-font-family-text, $kui-font-family-text);
   width: 100%;
 

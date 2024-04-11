@@ -33,15 +33,11 @@ Use this prop to apply a title to the collapsible section.
 Provide the HTML element tag name you want the title to be rendered inside. Defaults to `div`.
 
 Accepted values are:
-* `div`
-* `span`
-* `a`
-* `h1`
-* `h2`
-* `h3`
-* `h4`
-* `h5`
-* `h6`
+<ul>
+  <li v-for="tag in HeaderTags" :key="`${tag}-header-tag`">
+    <code>{{ tag }}</code>
+  </li>
+</ul>
 
 ### triggerAlignment
 
@@ -228,6 +224,7 @@ Emitted when the `modelValue` is changed.
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { HeaderTags } from '@/types'
 
 const vModelCollapsed = ref<boolean>(true)
 </script>
