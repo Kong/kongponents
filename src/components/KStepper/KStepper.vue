@@ -5,7 +5,7 @@
   >
     <KStep
       v-for="(step) in steps"
-      :key="`k-step-${step.label.replace(/ /gi, '-')}`"
+      :key="`step-${step.label.replace(/ /gi, '-')}`"
       :label="step.label"
       :max-label-width="maxLabelWidth"
       :state="step.state"
