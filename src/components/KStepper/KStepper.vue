@@ -32,7 +32,7 @@ defineProps({
    */
   maxLabelWidth: {
     type: String,
-    default: '',
+    default: '170',
   },
 })
 </script>
