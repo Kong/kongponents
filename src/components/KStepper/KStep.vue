@@ -1,5 +1,8 @@
 <template>
-  <li class="step">
+  <li
+    class="step"
+    :data-testid="`step-${state}`"
+  >
     <div
       class="step-container"
       :class="`${state}`"
