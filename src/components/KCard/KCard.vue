@@ -79,7 +79,6 @@ const showCardHeader = computed((): boolean => {
       color: var(--kui-color-text, $kui-color-text);
       font-size: var(--kui-font-size-40, $kui-font-size-40);
       font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
-      letter-spacing: var(--kui-letter-spacing-minus-30, $kui-letter-spacing-minus-30);
       line-height: var(--kui-line-height-30, $kui-line-height-30);
       margin: var(--kui-space-0, $kui-space-0);
     }
@@ -97,7 +96,7 @@ const showCardHeader = computed((): boolean => {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 100%
+    width: 100%;
   }
 
   .card-footer {
