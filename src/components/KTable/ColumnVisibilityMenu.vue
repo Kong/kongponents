@@ -2,7 +2,6 @@
   <div class="table-column-visibility-menu">
     <KDropdown
       data-testid="table-column-visibility-menu"
-      :kpop-attributes="{ placement: 'left' }"
       @toggle-dropdown="handleDropdownToggle"
     >
       <KTooltip text="Show/Hide Columns">
@@ -168,7 +167,7 @@ onBeforeMount(() => {
     $bottom-mask-size: 0px;
     -webkit-mask-image: linear-gradient(to bottom, black calc(100% - $bottom-mask-size), transparent 100%);
     mask-image: linear-gradient(to bottom, black calc(100% - $bottom-mask-size), transparent 100%);
-    max-height: 400px;
+    max-height: 250px;
     overflow-y: auto;
 
     &.is-bottom-overflowing {
