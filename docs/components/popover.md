@@ -322,6 +322,19 @@ The max width of the popover body - by default it is `auto`.
 </KPop>
 ```
 
+### zIndex
+
+The `z-index` of the popover - by default it is `1000`.
+
+```html
+<KPop title="Cool header" z-index="9999">
+  <KButton>button</KButton>
+  <template v-slot:content>
+    I have a z-index of 9999! I have a z-index of 9999!
+  </template>
+</KPop>
+```
+
 ### popoverClasses
 
 Custom classes that you want to append to the popover - by default it has a `k-popover` class on it.

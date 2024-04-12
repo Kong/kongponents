@@ -256,6 +256,19 @@ Controls width of the slideout content area. Default value is `500px`.
 />
 ```
 
+### zIndex
+
+Controls `z-index` of the slideout content area. Default value is `9999`.
+
+```html
+<KSlideout
+  z-index="92929"
+  title="Very high z-index"
+  :visible="slideoutVisible"
+  @close="hideSlideout"
+/>
+```
+
 ## Slots
 
 ### default

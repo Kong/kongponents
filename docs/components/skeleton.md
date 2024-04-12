@@ -140,6 +140,10 @@ Used for controlling the progress indicator.
 
 Defaults to `false`, you can use this prop to hide the progress indicator.
 
+### zIndex
+
+Defaults to `10500`, you can use this prop to control the `z-index` value of the full-screen skeleton container
+
 <div class="horizontal-spacing-container">
   <KButton @click="onClickNoProgress">Click for no progress indicator</KButton>
   <KButton @click="onClick">Click for default progress behavior</KButton>
