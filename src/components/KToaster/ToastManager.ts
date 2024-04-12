@@ -20,7 +20,7 @@ export default class ToastManager {
   public id: string
   public zIndex: number
 
-  constructor(id = DEFAULTS.id, timeout = DEFAULTS.timeout, appearance = DEFAULTS.appearance, zIndex = DEFAULTS.zIndex) {
+  constructor({ id, timeout, appearance, zIndex } = DEFAULTS) {
     this.toasters = ref<Toast[]>([])
 
     this.timeout = timeout
