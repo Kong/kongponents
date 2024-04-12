@@ -1,6 +1,6 @@
 /* Loaders styles */
 
-@mixin fullScreenLoadingContainer {
+@mixin fullScreenLoadingContainer($zIndex: 10500) {
   align-items: center;
   background: var(--kui-color-background, $kui-color-background);
   bottom: 0;
@@ -12,7 +12,7 @@
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 10500;
+  z-index: $zIndex;
 }
 
 @mixin fullScreenLoadingProgressBar {

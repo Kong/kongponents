@@ -34,6 +34,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  zIndex: {
+    type: Number,
+    default: 10500,
+  },
 })
 
 const timer = ref(0)
@@ -61,7 +65,7 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 .fullscreen-loading-container {
-  @include fullScreenLoadingContainer;
+  @include fullScreenLoadingContainer(v-bind(zIndex));
 
   .progress {
     @include fullScreenLoadingProgressBar;
