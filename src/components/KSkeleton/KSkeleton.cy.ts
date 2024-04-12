@@ -65,6 +65,19 @@ describe('KSkeleton', () => {
       cy.get('[role="progressbar"]').should('be.visible')
     })
 
+    it('renders full screen loader with custom zIndex', () => {
+      mount(KSkeleton, {
+        props: {
+          type: 'fullscreen-kong',
+          zIndex: 12000,
+        },
+      })
+
+      cy.getTestId('full-screen-loader').should('be.visible')
+
+      cy.get('.k-skeleton .fullscreen-loading-container').should('have.css', 'z-index', '12000')
+    })
+
     it('renders full screen generic loader with progress bar', () => {
       mount(KSkeleton, {
         props: {
@@ -75,6 +88,20 @@ describe('KSkeleton', () => {
       cy.getTestId('full-screen-spinner-loader').should('be.visible')
 
       cy.get('[role="progressbar"]').should('be.visible')
+    })
+
+    it('renders full screen generic loader with custom zIndex', () => {
+      mount(KSkeleton, {
+        props: {
+          type: 'fullscreen-generic',
+          zIndex: 12000,
+        },
+      })
+
+      cy.getTestId('full-screen-spinner-loader').should('be.visible')
+
+      cy.get('.k-skeleton .fullscreen-loading-container').should('have.css', 'z-index', '12000')
+
     })
   })
 })

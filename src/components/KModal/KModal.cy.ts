@@ -223,6 +223,31 @@ describe('KModal', () => {
     cy.get('.k-modal .modal-backdrop.modal-full-screen').should('be.visible')
   })
 
+  it('renders modal with correct zIndex when prop is passed', () => {
+
+    mount(KModal, {
+      props: {
+        visible: true,
+        zIndex: 1200,
+      },
+    })
+
+    // cypress only allows assertion with strings in CSS assertions
+    // https://github.com/cypress-io/cypress/blob/0e1a49dc461a670a3a1dd9a6e139eeb2f00c7c46/cli/types/cypress.d.ts#L5632
+    cy.get('.k-modal .modal-backdrop').should('have.css', 'z-index', '1200')
+  })
+
+  it('renders modal with correct default zIndex when prop is not passed', () => {
+
+    mount(KModal, {
+      props: {
+        visible: true,
+      },
+    })
+
+    cy.get('.k-modal .modal-backdrop').should('have.css', 'z-index', '1100') // default z-index
+  })
+
   it('emits proceed event when action button is clicked', () => {
     mount(KModal, {
       props: {

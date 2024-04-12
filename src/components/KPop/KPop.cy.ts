@@ -118,4 +118,20 @@ describe('KPop', () => {
     cy.get('.slottedEl').trigger('mouseenter')
     cy.get('.k-popover').should('be.visible')
   })
+
+  it('renders with correct default zIndex', () => {
+    mount(KPop)
+
+    cy.get('.k-popover').should('have.css', 'z-index', '1000')
+  })
+
+  it('renders with custom zIndex', () => {
+    mount(KPop, {
+      props: {
+        zIndex: 2200,
+      },
+    })
+
+    cy.get('.k-popover').should('have.css', 'z-index', '2200')
+  })
 })
