@@ -1,3 +1,10 @@
+# [9.0.0-alpha.139](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.138...v9.0.0-alpha.139) (2024-04-12)
+
+
+### Features
+
+* **ktable:** make visibility menu scrollable ([#2134](https://github.com/Kong/kongponents/issues/2134)) ([ab3af1a](https://github.com/Kong/kongponents/commit/ab3af1a1fd3fdd0786bc4005a42660f0ae15494b))
+
 # [9.0.0-alpha.138](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.137...v9.0.0-alpha.138) (2024-04-11)
 
 
