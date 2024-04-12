@@ -172,7 +172,7 @@ You can read more about the viewBox attribute
 
 <div class="spacing-container">
   <KIcon icon="check" size="48px" color="url('#linear-gradient')">
-    <template v-slot:svgElements>
+    <template #svgElements>
       <defs>
         <linearGradient id="linear-gradient" x1="0" x2="1">
           <stop offset="0%" stop-color="#16BDCC" />
@@ -184,7 +184,7 @@ You can read more about the viewBox attribute
   </KIcon>
 
   <KIcon icon="search" size="48px" color="url('#linear-gradient2')">
-    <template v-slot:svgElements>
+    <template #svgElements>
       <defs>
         <linearGradient id="linear-gradient2" gradientTransform="rotate(90)">
           <stop offset="10%"  stop-color="gold" />
@@ -195,7 +195,7 @@ You can read more about the viewBox attribute
   </KIcon>
 
   <KIcon icon="cogwheel" size="48px" color="dark-grey">
-    <template v-slot:svgElements>
+    <template #svgElements>
       <animateTransform
         attributeName="transform"
         type="rotate"
@@ -210,7 +210,7 @@ You can read more about the viewBox attribute
 
 ```html
 <KIcon icon="check" size="48px" color="url('#linear-gradient')">
-  <template v-slot:svgElements>
+  <template #svgElements>
     <defs>
       <linearGradient id="linear-gradient" x1="0" x2="1">
         <stop offset="0%" stop-color="#16BDCC" />
@@ -222,7 +222,7 @@ You can read more about the viewBox attribute
 </KIcon>
 
 <KIcon icon="search" size="48px" color="url('#linear-gradient2')">
-  <template v-slot:svgElements>
+  <template #svgElements>
     <defs>
       <linearGradient id="linear-gradient2" gradientTransform="rotate(90)">
         <stop offset="10%"  stop-color="gold" />
@@ -233,7 +233,7 @@ You can read more about the viewBox attribute
 </KIcon>
 
 <KIcon icon="cogwheel" size="48px" color="dark-grey">
-  <template v-slot:svgElements>
+  <template #svgElements>
     <animateTransform
       attributeName="transform"
       type="rotate"

@@ -60,7 +60,7 @@ them and placing them inside `KComponent`'s default slot.
 
 <br/>
 <KCard>
-  <template v-slot:body>
+  <template #body>
     <KComponent :data="{ selected: '' }" v-slot="{ data }">
       <div>
         <label for="apes">What's your favorite great ape? </label>
@@ -79,7 +79,7 @@ them and placing them inside `KComponent`'s default slot.
 
 ```html
 <KCard style="min-height: 100px;">
-  <template v-slot:body>
+  <template #body>
     <KComponent :data="{ selected: '' }" v-slot="{ data }">
       <div>
         <label for="apes">What's your favorite great ape?</label>
