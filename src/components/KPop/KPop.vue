@@ -466,7 +466,7 @@ export default defineComponent({
   padding: var(--kui-space-80, $kui-space-80) var(--kui-space-60, $kui-space-60);
   text-align: left;
   white-space: normal;
-  z-index: v-bind(zIndex);
+  z-index: v-bind('zIndex');
 
   // Prevent Vue animation classes from impacting the positioning of the popover
   &.fade-enter-active,

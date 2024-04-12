@@ -166,7 +166,7 @@ onUnmounted(() => {
     right: 0;
     top: v-bind('offsetTopValue');
     width: 100%;
-    z-index: v-bind(zIndex);
+    z-index: v-bind('zIndex');
 
     .slideout-header {
       display: flex;
@@ -228,7 +228,7 @@ onUnmounted(() => {
     position: fixed;
     right: 0;
     top: v-bind('offsetTopValue');
-    z-index: v-bind(zIndex); // same value as z-index of slideout-container
+    z-index: v-bind('zIndex'); // same value as z-index of slideout-container
 
     &.backdrop-transparent {
       background: var(--kui-color-background-transparent, $kui-color-background-transparent);

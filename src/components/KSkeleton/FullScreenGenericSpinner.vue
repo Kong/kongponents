@@ -65,7 +65,7 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 .fullscreen-loading-container {
-  @include fullScreenLoadingContainer(v-bind(zIndex));
+  @include fullScreenLoadingContainer(v-bind('zIndex'));
 
   .progress {
     @include fullScreenLoadingProgressBar;
