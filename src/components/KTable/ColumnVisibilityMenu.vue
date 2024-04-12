@@ -110,6 +110,10 @@ const handleApply = (): void => {
 }
 
 const handleDropdownToggle = (isOpen: boolean): void => {
+  // set scroll classes on open
+  if (isOpen && menuItemsRef.value) {
+    setOverflowClass(menuItemsRef.value)
+  }
   // reset the map if the dropdown is closed without applying changes
   if (!isOpen && isDirty.value) {
     initVisibilityMap()
@@ -145,6 +149,7 @@ onMounted(() => {
 
       setOverflowClass(el)
     })
+
     setOverflowClass(menuItemsRef.value)
   }
 })
