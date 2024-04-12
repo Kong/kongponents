@@ -10,6 +10,7 @@ const DEFAULTS = {
   id: 'toaster-container',
   timeout: 5000,
   appearance: ToasterAppearances.info,
+  zIndex: 10000,
 }
 
 export default class ToastManager {
@@ -17,13 +18,15 @@ export default class ToastManager {
   public timeout: number
   public appearance: string
   public id: string
+  public zIndex: number
 
-  constructor(id = DEFAULTS.id, timeout = DEFAULTS.timeout, appearance = DEFAULTS.appearance) {
+  constructor(id = DEFAULTS.id, timeout = DEFAULTS.timeout, appearance = DEFAULTS.appearance, zIndex = DEFAULTS.zIndex) {
     this.toasters = ref<Toast[]>([])
 
     this.timeout = timeout
     this.appearance = appearance
     this.id = id
+    this.zIndex = zIndex
 
     this.mount()
   }
@@ -39,6 +42,7 @@ export default class ToastManager {
 
     const Toast = h(KToaster, {
       toasterState: this.toasters.value,
+      zIndex: this.zIndex,
       onClose: (key: any) => this.close(key),
     })
 
