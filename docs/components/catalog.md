@@ -429,12 +429,12 @@ Use the `cardTitle`, `cardActions`, and `cardBody` slots to access `item` specif
 ```html
 <KCatalog :fetcher="fetcher" title="Customized cards">
   <template #cardTitle="{ item }">
-    <div>
+    <div class="custom-title">
       {{ item.title }}
     </div>
   </template>
   <template #cardBody="{ item }">
-    <span>
+    <span class="custom-description">
     {{ item.description }}
     </span>
   </template>
