@@ -707,17 +707,17 @@ To avoid firing row clicks by accident, the row click handler ignores events com
 <KInputSwitch v-model="enableRowClick" :label="enableRowClick ? 'Row clicks enabled' : 'Row clicks disabled'" />
 
 <KTable :headers="tableOptionsLinkHeaders" :fetcher="tableOptionsLinkFetcher" @row:click="enableRowClick ? handleRowClick : undefined">
-  <template v-slot:company="{ rowValue }">
+  <template #company="{ rowValue }">
     <a @click="linkHander">{{rowValue.label}}</a>
   </template>
-  <template v-slot:actions>
+  <template #actions>
     <div>
       <KButton appearance="secondary" @click="buttonHandler">
         Fire Button Handler!
       </KButton>
     </div>
   </template>
-  <template v-slot:input>
+  <template #input>
     <KInput type="text" placeholder="Need help?" />
     <KInput type="text" placeholder="Row click me" disabled />
   </template>
@@ -730,11 +730,11 @@ To avoid firing row clicks by accident, the row click handler ignores events com
   :fetcher="fetcher"
   :headers="headers"
   @row:click="enableRowClick ? handleRowClick : undefined">
-  <template v-slot:company="{rowValue}">
+  <template #company="{rowValue}">
     <!-- .stop not needed on @click because we ignore clicks from anchors -->
     <a @click="linkHander">{{rowValue.label}}</a>
   </template>
-  <template v-slot:actions>
+  <template #actions>
     <div>
       <!-- .stop not needed on @click because we ignore clicks from buttons -->
       <KButton
@@ -744,7 +744,7 @@ To avoid firing row clicks by accident, the row click handler ignores events com
       </KButton>
     </div>
   </template>
-  <template v-slot:input>
+  <template #input>
     <!-- no special handling needed because click events on input elements are ignored -->
     <KInput type="text" placeholder="Need help?" />
     <!-- row click is triggered when clicking disabled elements -->
@@ -786,13 +786,13 @@ Click events tied to non-ignored elements (not `a`, `button`, `input`, `select`)
 Using a `KPop` inside of a clickable row requires some special handling. Non-clickable content must be wrapped in a `div` with the `@click.stop` attribute to prevent the row click handler from firing if a user clicks content inside of the popover. Any handlers on non-ignored elements will need to have `.stop`.
 
 <KTable :headers="tableOptionsLinkHeaders2" :fetcher="tableOptionsLinkFetcher" @row:click="handleRowClick">
-  <template v-slot:company="{rowValue}">
+  <template #company="{rowValue}">
     <a @click="linkHander">{{rowValue.label}}</a>
   </template>
-  <template v-slot:wrapped>
+  <template #wrapped>
     <div>Row click event <div class="eventful-row" @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div></div>
   </template>
-  <template v-slot:other>
+  <template #other>
     <div>
       <KPop title="Cool header">
         <KButton appearance="tertiary">
@@ -804,7 +804,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
             />
           </template>
         </KButton>
-        <template v-slot:content>
+        <template #content>
           <div @click.stop>Clicking me does nothing!</div>
           <div @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div>
         </template>
@@ -818,14 +818,14 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
   :fetcher="fetcher"
   :headers="headers"
   @row:click="handleRowClick">
-  <template v-slot:company="{rowValue}">
+  <template #company="{rowValue}">
     <a @click="linkHander">{{rowValue.label}}</a>
   </template>
-  <template v-slot:wrapped>
+  <template #wrapped>
     <!-- We have a click event on a div, div clicks are not ignored so we need .stop -->
     <div>Row click event <div @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div></div>
   </template>
-  <template v-slot:other>
+  <template #other>
     <div>
       <KPop title="Cool header">
         <KButton appearance="tertiary">
@@ -837,7 +837,7 @@ Using a `KPop` inside of a clickable row requires some special handling. Non-cli
             />
           </template>
         </KButton>
-        <template v-slot:content>
+        <template #content>
           <!-- non-clickable content in a KPop MUST be wrapped in a div with @click.stop to prevent row click firing on content click -->
           <div @click.stop>Clicking me does nothing!</div>
           <!-- an example where we want a click event to fire from the popover, requires .stop on the @click -->
@@ -1026,7 +1026,7 @@ Both column cells & header cells are slottable in KTable. Use slots to gain acce
 #### Column Header
 
 <KTable :headers="tableOptionsHeaders" :fetcher="tableOptionsFetcher">
-  <template v-slot:column-name="{ column }">
+  <template #column-name="{ column }">
     {{ column.label.toUpperCase() }}
   </template>
 </KTable>
@@ -1035,7 +1035,7 @@ Both column cells & header cells are slottable in KTable. Use slots to gain acce
 <template>
   <KTable :fetcher="fetcher" :headers="headers">
     <!-- Slot column header "name" -->
-    <template v-slot:column-name="{ column }">
+    <template #column-name="{ column }">
       {{ column.label.toUpperCase() }}
     </template>
   </KTable>
@@ -1064,11 +1064,11 @@ This example uses the [`KDropdown`](/components/dropdown) component as the slot 
   <KTable
     :headers="tableOptionsHeaders"
     :fetcher="tableOptionsFetcher">
-    <template v-slot:enabled="{rowValue}">
+    <template #enabled="{rowValue}">
       <span v-if="rowValue" style="color: green">&#10003;</span>
       <span v-else style="color: red">&#10007;</span>
     </template>
-    <template v-slot:actions>
+    <template #actions>
       <KDropdown>
         <template #default>
           <KButton
@@ -1108,12 +1108,12 @@ This example uses the [`KDropdown`](/components/dropdown) component as the slot 
     :headers="headers"
   >
     <!-- Slot each "enabled" cell in each row & add icon if matching value -->
-    <template v-slot:enabled="{rowValue}">
+    <template #enabled="{rowValue}">
       <span v-if="rowValue" style="color: green">&#10003;</span>
       <span v-else style="color: red">&#10007;</span>
     </template>
     <!-- Slot each "actions" cell in each row & link -->
-    <template v-slot:actions>
+    <template #actions>
       <KDropdown>
         <template #default>
           <KButton
@@ -1177,7 +1177,7 @@ You can choose utilize the `.k-table-cell-title` and `.k-table-cell-description`
     :enableClientSort="true"
     hidePaginationWhenOptional
     >
-    <template v-slot:name="{row}">
+    <template #name="{row}">
       <img class="horizontal-spacing" src="/img/kong-logomark.png" :alt="row.img.alt">
       <div>
         <div class="k-table-cell-title">{{row.name}}</div>
@@ -1284,13 +1284,13 @@ the section below or completely slot in your own content.
 <KCard>
   <template #default>
     <KTable :fetcher="emptyFetcher" :headers="headers">
-      <template v-slot:empty-state>
+      <template #empty-state>
         <div style="text-align: center;">
           <KIcon icon="warning" />
           <div>No Content!!!</div>
         </div>
       </template>
-      <template v-slot:error-state>
+      <template #error-state>
         <KIcon icon="error" />
         Something went wrong
       </template>
@@ -1301,11 +1301,11 @@ the section below or completely slot in your own content.
 ```html
 <template>
   <KTable :fetcher="() => { return { data: [] } }" :headers="headers">
-    <template v-slot:empty-state>
+    <template #empty-state>
       <KIcon icon="warning" />
       No Content!!!
     </template>
-    <template v-slot:error-state>
+    <template #error-state>
       <KIcon icon="error" />
       Something went wrong
     </template>

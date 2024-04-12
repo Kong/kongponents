@@ -6,7 +6,7 @@ For example a button:
 
 <KPop title="Cool header">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I am some sample text!
   </template>
 </KPop>
@@ -14,7 +14,7 @@ For example a button:
 ```html
 <KPop title="Cool header">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I am some sample text!
   </template>
 </KPop>
@@ -28,14 +28,14 @@ This is the text that will be displayed on the button that triggers the popover 
 the default slot.
 
 <KPop title="Cool header" buttonText="Click Me!">
-  <template v-slot:content>
+  <template #content>
     You clicked me!
   </template>
 </KPop>
 
 ```html
 <KPop title="Cool header" buttonText="Click Me!">
-  <template v-slot:content>
+  <template #content>
     You clicked me!
   </template>
 </KPop>
@@ -47,7 +47,7 @@ This is the target `element` that the <code>popover</code> is appended to. By de
 
 <KPop title="Cool header" target=".theme-default-content">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I am a popover, inside the <code>.theme-default-content</code> selector so
     I can get some of the stylings inside the theme!
   </template>
@@ -56,7 +56,7 @@ This is the target `element` that the <code>popover</code> is appended to. By de
 ```html
 <KPop title="Cool header" target=".theme-default-content">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I am a popover, inside the <code>.theme-default-content</code> selector so
     I can get some of the stylings inside the theme!
   </template>
@@ -70,13 +70,13 @@ This is the tag that the popover is wrapped around. By default its the div tag.
 ```html
 <KPop title="Cool header" tag="details">
   <KButton>button</KButton>
-  <template v-slot:content>I am inside a &lt;details/&gt; block!</template>
+  <template #content>I am inside a &lt;details/&gt; block!</template>
 </KPop>
 ```
 
 <KPop title="Cool header" tag="details">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I am inside a &lt;details/&gt; block!
   </template>
 </KPop>
@@ -87,7 +87,7 @@ This is the Title of the popover. Either this or the title slot needs to be fill
 
 <KPop title="I am a new sample header">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I am some sample text!
   </template>
 </KPop>
@@ -95,7 +95,7 @@ This is the Title of the popover. Either this or the title slot needs to be fill
 ```html
 <KPop title="I am a new sample header">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I am some sample text!
   </template>
 </KPop>
@@ -104,11 +104,11 @@ This is the Title of the popover. Either this or the title slot needs to be fill
 or alternatively, via the slot:
 
 <KPop>
-  <template v-slot:default>
+  <template #default>
     <KButton>button</KButton>
   </template>
-  <template v-slot:title>I am a new sample header</template>
-  <template v-slot:content>I am some sample text!</template>
+  <template #title>I am a new sample header</template>
+  <template #content>I am some sample text!</template>
 </KPop>
 
 ```html
@@ -116,8 +116,8 @@ or alternatively, via the slot:
   <template>
     <KButton>button</KButton>
   </template>
-  <template v-slot:title>I am a new sample header</template>
-  <template v-slot:content>I am some sample text!</template>
+  <template #title>I am a new sample header</template>
+  <template #content>I am some sample text!</template>
 </KPop>
 ```
 
@@ -132,7 +132,7 @@ Here are the different options:
 
 <KPop title="Cool header" trigger="hover">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I am triggered on hover!
   </template>
 </KPop>
@@ -140,7 +140,7 @@ Here are the different options:
 ```html
 <KPop title="Cool header" trigger="hover">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I am triggered on hover!
   </template>
 </KPop>
@@ -170,7 +170,7 @@ Here are the different options:
 
 <KPop title="Cool header" trigger="hover" :placement="selectedPosition">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I am placed on the {{ selectedPosition }}!
   </template>
 </KPop>
@@ -186,7 +186,7 @@ Here are the different options:
 
   <KPop title="Cool header" trigger="hover" :placement="selectedPosition">
     <KButton>button</KButton>
-    <template v-slot:content>
+    <template #content>
       I am placed on the {{ selectedPosition }}!
     </template>
   </KPop>
@@ -231,7 +231,7 @@ Use fixed positioning of the popover to avoid content being clipped by parental 
     placement="right"
   >
     <KButton>Click</KButton>
-    <template v-slot:content>
+    <template #content>
       My parent is too small 😭
     </template>
   </KPop>
@@ -245,7 +245,7 @@ Use fixed positioning of the popover to avoid content being clipped by parental 
     placement="right"
   >
     <KButton>Click</KButton>
-    <template v-slot:content>
+    <template #content>
       My parent is too small 😭
     </template>
   </KPop>
@@ -260,7 +260,7 @@ Use fixed positioning of the popover to avoid content being clipped by parental 
     :position-fixed="true"
   >
     <KButton>Click</KButton>
-    <template v-slot:content>
+    <template #content>
       My parent is too small, but I don't care 😎
     </template>
   </KPop>
@@ -275,7 +275,7 @@ Use fixed positioning of the popover to avoid content being clipped by parental 
     :position-fixed="true"
   >
     <KButton>Click</KButton>
-    <template v-slot:content>
+    <template #content>
       My parent is too small, but I don't care 😎
     </template>
   </KPop>
@@ -288,7 +288,7 @@ The width of the popover body - by default it is `200px`. Currently we support n
 
 <KPop title="Cool header" width="300">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I am 300 pixels wide!
   </template>
 </KPop>
@@ -296,7 +296,7 @@ The width of the popover body - by default it is `200px`. Currently we support n
 ```html
 <KPop title="Cool header" width="300">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I am 300 pixels wide!
   </template>
 </KPop>
@@ -308,7 +308,7 @@ The max width of the popover body - by default it is `auto`.
 
 <KPop title="Cool header" width="auto" max-width="500">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide!
   </template>
 </KPop>
@@ -316,7 +316,7 @@ The max width of the popover body - by default it is `auto`.
 ```html
 <KPop title="Cool header" max-width="500">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide!
   </template>
 </KPop>
@@ -329,7 +329,7 @@ Custom classes that you want to append to the popover - by default it has a `k-p
 ```html
 <KPop title="Cool header" popoverClasses="my-class">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I have a custom my-class class on me!
   </template>
 </KPop>
@@ -342,7 +342,7 @@ Custom transitions that you want the popover to have - by default it uses a `fad
 ```html
 <KPop title="Cool header" popoverTransitions="slide">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I use a slide transition!
   </template>
 </KPop>
@@ -354,7 +354,7 @@ Custom timeout setting that you want the popover to have - by default it is set 
 
 <KPop title="Cool header" :popover-timeout="1000" trigger="hover">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I have a 1 second timeout!
   </template>
 </KPop>
@@ -362,7 +362,7 @@ Custom timeout setting that you want the popover to have - by default it is set 
 ```html
 <KPop title="Cool header" :popover-timeout="1000">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I have a 1 second timeout!
   </template>
 </KPop>
@@ -375,7 +375,7 @@ You can pass in an optional flag to trigger the popover to hide - useful for ext
 ```html
 <KPop title="Cool header" hidePopover="zoom()">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
   I am hidden depending on the outcome of the zoom function!
   </template>
 </KPop>
@@ -388,7 +388,7 @@ You can pass in an optional flag to disable the popover - by default it is set t
 ```html
 <KPop title="Cool header" disabled="true">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     I do not trigger because I am disabled!
   </template>
 </KPop>
@@ -400,7 +400,7 @@ You can pass in an optional flag to not show the caret on the edge of the popove
 
 <KPop title="Cool header" hide-caret placement="right">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     Look ma, no caret!
   </template>
 </KPop>
@@ -408,7 +408,7 @@ You can pass in an optional flag to not show the caret on the edge of the popove
 ```html
 <KPop title="Cool header" hide-caret placement="right">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     Look ma, no caret!
   </template>
 </KPop>
@@ -422,7 +422,7 @@ The callback function can optionally return a boolean, which will show or hide t
 
 <KPop title="Cool header" :on-popover-click="toggle">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     The first time you click the button, I will close when you click here once.
     The second time you click the button, I will close when you click here twice.
   </template>
@@ -431,7 +431,7 @@ The callback function can optionally return a boolean, which will show or hide t
 ```html
 <KPop title="Cool header" :on-popover-click="toggle">
   <KButton>button</KButton>
-  <template v-slot:content>
+  <template #content>
     The first time you click the button, I will close when you click here once.
     The second time you click the button, I will close when you click here twice.
   </template>
@@ -460,7 +460,7 @@ To support `<KPop>` being able to be used inside an svg tag, use the `isSvg` pro
 
 <svg style="cursor: pointer; height: 20px; width: 20px; margin-right: 16px;" v-for="light in [{ color: 'red', value: 'red'}, { color: 'yellow', value: 'gold'}, { color: 'green', value: 'lime'}]">
   <KPop trigger="hover" :title="light.color" :is-svg="true" tag="svg" :popover-timeout="10">
-    <template v-slot:content>
+    <template #content>
       <p>{{ light.color }} means {{ light.color == 'green' ? 'GO!' : (light.color == 'red' ? 'STOP!' : 'SLOW DOWN!') }}</p>
     </template>
     <rect :fill="`${light.value}`" width="20" height="20" rx="20" ry="20"></rect>
@@ -470,7 +470,7 @@ To support `<KPop>` being able to be used inside an svg tag, use the `isSvg` pro
 ```html
 <svg v-for="light in ['red', 'gold', 'lime']">
   <KPop trigger="hover" title="Light" :is-svg="true" tag="g" :popover-timeout="10">
-    <template v-slot:content>
+    <template #content>
       <p>{{ light }} means {{ light == 'green' ? 'GO!' : (light == 'red' ? 'STOP!' : 'SLOW DOWN!') }}</p>
     </template>
     <rect :fill="`${light}`" width="20" height="20" rx="20" ry="20"></rect>
@@ -498,7 +498,7 @@ There is an optional title slot that can take in an element for the title. The t
   <!-- Your element goes here -->
   <KButton>button</KButton>
   <!-- Your title goes here -->
-  <template v-slot:title>
+  <template #title>
     My Title
   </template>
 </KPop>
@@ -513,7 +513,7 @@ An optional slot for an actions button in the upper right corner of the popover.
   <!-- Your element goes here -->
   <KButton>button</KButton>
   <!-- Your content goes here -->
-  <template v-slot:actions>
+  <template #actions>
     View All
   </template>
 </KPop>
@@ -528,7 +528,7 @@ This is the slot that takes in the content of the popover.
   <!-- Your element goes here -->
   <KButton>button</KButton>
   <!-- Your content goes here -->
-  <template v-slot:content>
+  <template #content>
     I am some cool content
   </template>
 </KPop>
@@ -544,7 +544,7 @@ a button or link.
   <!-- Your element goes here -->
   <KButton>button</KButton>
   <!-- Your footer content goes here -->
-  <template v-slot:footer>
+  <template #footer>
     View All
   </template>
 </KPop>
@@ -554,16 +554,16 @@ Example:
 
 <KPop title="Notifications" :on-popover-click="toggle" width="500">
   <KButton>Fire!</KButton>
-  <template v-slot:title>
+  <template #title>
     <div>Notifications</div>
   </template>
-  <template v-slot:actions>
+  <template #actions>
     <KButton appearance="tertiary" size="small">Mark all as read</KButton>
   </template>
-  <template v-slot:content>
+  <template #content>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eleifend lorem ut ex tempus, a tincidunt elit hendrerit. Nunc eu ex vestibulum, consequat tellus sed, pharetra magna.
   </template>
-  <template v-slot:footer>
+  <template #footer>
     <KButton size="small">View all notifications</KButton>
   </template>
 </KPop>
@@ -571,16 +571,16 @@ Example:
 ```html
 <KPop title="Notifications" :on-popover-click="toggle" width="500">
   <KButton>Fire!</KButton>
-  <template v-slot:title>
+  <template #title>
     <div>Notifications</div>
   </template>
-  <template v-slot:actions>
+  <template #actions>
     <KButton appearance="tertiary" size="small">Mark all as read</KButton>
   </template>
-  <template v-slot:content>
+  <template #content>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eleifend lorem ut ex tempus, a tincidunt elit hendrerit. Nunc eu ex vestibulum, consequat tellus sed, pharetra magna.
   </template>
-  <template v-slot:footer>
+  <template #footer>
     <KButton size="small">View all notifications</KButton>
   </template>
 </KPop>
@@ -595,7 +595,7 @@ Example:
 
 <KPop @opened="loadSomething" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
-  <template v-slot:content>
+  <template #content>
     <div style="justify-content: center;" class="loading-container">
       <KIcon v-if="currentState == 'pending'" icon="spinner" color="purple" />
       <div>{{ message }}</div>
@@ -677,7 +677,7 @@ export default defineComponent({
 ```html
 <KPop @opened="loadSomething" @closed="onClose">
   <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
-  <template v-slot:content>
+  <template #content>
     <div style="justify-content: center;">
       <KIcon v-if="currentState == 'pending'" icon="spinner" color="purple" />
       <div>{{ message }}</div>
