@@ -229,14 +229,14 @@ a wrapper around `KCard` to display correctly inside `KCatalog`. You can use the
 
 ```html
 <KCatalogItem>
-  <template #cardTitle>
+  <template v-slot:cardTitle>
     <KIcon
       icon="profile"
       color="#7F01FE"
       size="44" />
     Look Mah!
   </template>
-  <template #cardBody>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>
+  <template v-slot:cardBody>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>
 </KCatalogItem>
 ```
 
@@ -392,7 +392,7 @@ Both the `title` & `description` of the card items as well as the entire catalog
 If used in conjuction with a `fetcher` you have the option of using the returned `data` in the `body` slot.
 
 <KCatalog :fetcher="fetcherSm" title="Customized body">
-  <template #body="{ data }">
+  <template v-slot:body="{ data }">
     <div v-for="item in data">
       <h4>{{ item.title }}</h4>
       <p>{{ item.description }}</p>
@@ -402,7 +402,7 @@ If used in conjuction with a `fetcher` you have the option of using the returned
 
 ```html
 <KCatalog :fetcher="fetcher" title="Customized body">
-  <template #body="{ data }">
+  <template v-slot:body="{ data }">
     <div v-for="item in data">
       <h4>{{ item.title }}</h4>
       <p>{{ item.description }}</p>
@@ -414,12 +414,12 @@ If used in conjuction with a `fetcher` you have the option of using the returned
 Use the `cardTitle`, `cardActions`, and `cardBody` slots to access `item` specific data.
 
 <KCatalog :fetcher="fetcherSm" title="Customized cards">
-  <template #cardTitle="{ item }">
+  <template v-slot:cardTitle="{ item }">
     <div class="custom-title">
       {{ item.title }}
     </div>
   </template>
-  <template #cardBody="{ item }">
+  <template v-slot:cardBody="{ item }">
     <span class="custom-description">
     {{ item.description }}
     </span>
@@ -428,13 +428,13 @@ Use the `cardTitle`, `cardActions`, and `cardBody` slots to access `item` specif
 
 ```html
 <KCatalog :fetcher="fetcher" title="Customized cards">
-  <template #cardTitle="{ item }">
-    <div class="custom-title">
+  <template v-slot:cardTitle="{ item }">
+    <div>
       {{ item.title }}
     </div>
   </template>
-  <template #cardBody="{ item }">
-    <span class="custom-description">
+  <template v-slot:cardBody="{ item }">
+    <span>
     {{ item.description }}
     </span>
   </template>
@@ -502,15 +502,15 @@ the section above or completely slot in your own content.
 - `error-state` - Slot content to be displayed when in an error state
 
 <KCard>
-  <template #body>
+  <template v-slot:body>
     <KCatalog :fetcher="emptyFetcher">
-      <template #empty-state>
+      <template v-slot:empty-state>
         <div style="text-align: center;">
           <KIcon icon="warning" />
           <div>No Content!!!</div>
         </div>
       </template>
-      <template #error-state>
+      <template v-slot:error-state>
         <KIcon icon="error" />
         Something went wrong
       </template>
@@ -521,11 +521,11 @@ the section above or completely slot in your own content.
 ```html
 <template>
   <KCatalog :fetcher="() => { return { data: [] } }">
-    <template #empty-state>
+    <template v-slot:empty-state>
       <KIcon icon="warning" />
       No Content!!!
     </template>
-    <template #error-state>
+    <template v-slot:error-state>
       <KIcon icon="error" />
       Something went wrong
     </template>
@@ -565,7 +565,7 @@ https://kongponents.dev/api/components?_page=1&_limit=10
 <!-- Example Component Usage -->
 
 <KCard>
-  <template #body>
+  <template v-slot:body>
     <KInput placeholder="Search" v-model="search" type="search" />
     <KCatalog
       cache-identifier="server-side-functions-catalog"
