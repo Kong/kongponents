@@ -36,6 +36,31 @@ describe('KSlideout', () => {
     cy.getTestId('slideout-title').should('be.visible').should('have.text', titleProp)
   })
 
+  it('renders with correct default z-index', () => {
+
+    mount(KSlideout, {
+      props: {
+        visible: true,
+      },
+    })
+
+    cy.get('.k-slideout .slideout-container').should('have.css', 'z-index', '9999')
+    cy.get('.k-slideout .slideout-backdrop').should('have.css', 'z-index', '9999')
+  })
+
+  it('renders with custom z-index', () => {
+
+    mount(KSlideout, {
+      props: {
+        visible: true,
+        zIndex: 92929,
+      },
+    })
+
+    cy.get('.k-slideout .slideout-container').should('have.css', 'z-index', '92929')
+    cy.get('.k-slideout .slideout-backdrop').should('have.css', 'z-index', '92929')
+  })
+
   it('renders close icon on right', () => {
     mount(KSlideout, {
       props: {

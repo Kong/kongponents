@@ -268,6 +268,13 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    /**
+     * z-index - to control z-index value of the popover
+     */
+    zIndex: {
+      type: Number,
+      default: 1000,
+    },
   },
   emits: ['opened', 'closed'],
   data() {
@@ -459,7 +466,7 @@ export default defineComponent({
   padding: var(--kui-space-80, $kui-space-80) var(--kui-space-60, $kui-space-60);
   text-align: left;
   white-space: normal;
-  z-index: 1000;
+  z-index: v-bind('zIndex');
 
   // Prevent Vue animation classes from impacting the positioning of the popover
   &.fade-enter-active,
