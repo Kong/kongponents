@@ -88,6 +88,10 @@ const props = defineProps({
     required: false,
     default: '500px',
   },
+  zIndex: {
+    type: Number,
+    default: 9999,
+  },
 })
 
 const emit = defineEmits<{
@@ -162,7 +166,7 @@ onUnmounted(() => {
     right: 0;
     top: v-bind('offsetTopValue');
     width: 100%;
-    z-index: 9999;
+    z-index: v-bind('zIndex');
 
     .slideout-header {
       display: flex;
@@ -224,7 +228,7 @@ onUnmounted(() => {
     position: fixed;
     right: 0;
     top: v-bind('offsetTopValue');
-    z-index: 9999;
+    z-index: v-bind('zIndex'); // same value as z-index of slideout-container
 
     &.backdrop-transparent {
       background: var(--kui-color-background-transparent, $kui-color-background-transparent);
