@@ -1,3 +1,10 @@
+# [9.0.0-alpha.140](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.139...v9.0.0-alpha.140) (2024-04-13)
+
+
+### Features
+
+* add zIndex prop to overlaying components [KHCP-10747] ([#2130](https://github.com/Kong/kongponents/issues/2130)) ([ef48c22](https://github.com/Kong/kongponents/commit/ef48c22cd731a9d5c9aec377fd5540e3e0fcb5e8))
+
 # [9.0.0-alpha.139](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.138...v9.0.0-alpha.139) (2024-04-12)
 
 
