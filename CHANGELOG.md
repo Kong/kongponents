@@ -1,3 +1,11 @@
+# [9.0.0-alpha.141](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.140...v9.0.0-alpha.141) (2024-04-15)
+
+
+### Bug Fixes
+
+* **ktable:** column visibility menu button ([#2136](https://github.com/Kong/kongponents/issues/2136)) ([e1a6854](https://github.com/Kong/kongponents/commit/e1a68542f9cb6fb7a7588098694a71e9bd0dfbb2))
+* **ShortcutManager:** return empty string for invalid keycode during normalization [KHCP-11186] ([#2137](https://github.com/Kong/kongponents/issues/2137)) ([58d75fc](https://github.com/Kong/kongponents/commit/58d75fc6d19f45f3f99534abba359eb2f94d5cf1))
+
 # [9.0.0-alpha.140](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.139...v9.0.0-alpha.140) (2024-04-13)
 
 
