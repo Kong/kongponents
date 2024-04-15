@@ -36,12 +36,14 @@
       v-else-if="type === 'fullscreen-kong'"
       :hide-progress="hideProgress"
       :progress="progress"
+      :z-index="zIndex"
     />
 
     <FullScreenGenericSpinner
       v-else-if="type === 'fullscreen-generic'"
       :hide-progress="hideProgress"
       :progress="progress"
+      :z-index="zIndex"
     />
 
     <ProgressIcon
@@ -105,6 +107,10 @@ const props = defineProps({
     type: Number,
     required: false,
     default: 6,
+  },
+  zIndex: {
+    type: Number,
+    default: 10500,
   },
 })
 

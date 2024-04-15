@@ -1,3 +1,25 @@
+# [9.0.0-alpha.141](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.140...v9.0.0-alpha.141) (2024-04-15)
+
+
+### Bug Fixes
+
+* **ktable:** column visibility menu button ([#2136](https://github.com/Kong/kongponents/issues/2136)) ([e1a6854](https://github.com/Kong/kongponents/commit/e1a68542f9cb6fb7a7588098694a71e9bd0dfbb2))
+* **ShortcutManager:** return empty string for invalid keycode during normalization [KHCP-11186] ([#2137](https://github.com/Kong/kongponents/issues/2137)) ([58d75fc](https://github.com/Kong/kongponents/commit/58d75fc6d19f45f3f99534abba359eb2f94d5cf1))
+
+# [9.0.0-alpha.140](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.139...v9.0.0-alpha.140) (2024-04-13)
+
+
+### Features
+
+* add zIndex prop to overlaying components [KHCP-10747] ([#2130](https://github.com/Kong/kongponents/issues/2130)) ([ef48c22](https://github.com/Kong/kongponents/commit/ef48c22cd731a9d5c9aec377fd5540e3e0fcb5e8))
+
+# [9.0.0-alpha.139](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.138...v9.0.0-alpha.139) (2024-04-12)
+
+
+### Features
+
+* **ktable:** make visibility menu scrollable ([#2134](https://github.com/Kong/kongponents/issues/2134)) ([ab3af1a](https://github.com/Kong/kongponents/commit/ab3af1a1fd3fdd0786bc4005a42660f0ae15494b))
+
 # [9.0.0-alpha.138](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.137...v9.0.0-alpha.138) (2024-04-11)
 
 

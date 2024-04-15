@@ -45,4 +45,25 @@ describe('KTooltip', () => {
 
     cy.get('.k-tooltip').should('not.exist')
   })
+
+  it('renders with correct default zIndex', () => {
+    mount(KTooltip, {
+      props: {
+        text: 'sample text',
+      },
+    })
+
+    cy.get('.k-tooltip.k-popover').should('have.css', 'z-index', '9999')
+  })
+
+  it('renders with custom zIndex', () => {
+    mount(KTooltip, {
+      props: {
+        text: 'sample text',
+        zIndex: 92929,
+      },
+    })
+
+    cy.get('.k-tooltip.k-popover').should('have.css', 'z-index', '92929')
+  })
 })

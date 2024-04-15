@@ -140,6 +140,10 @@ Used for controlling the progress indicator.
 
 Defaults to `false`, you can use this prop to hide the progress indicator.
 
+### zIndex
+
+Defaults to `10500`, you can use this prop to control the `z-index` value of the full-screen skeleton container
+
 <div class="horizontal-spacing-container">
   <KButton @click="onClickNoProgress">Click for no progress indicator</KButton>
   <KButton @click="onClick">Click for default progress behavior</KButton>
@@ -250,7 +254,7 @@ Accepted values: `1` (default), `2`.
 For example, here is a card skeleton with different arrangement of placeholders:
 
 <KSkeleton class="k-skeleton-modified" type="card" :card-count="2">
-  <template v-slot:card-header>
+  <template #card-header>
     <div class="skeleton-header-container">
       <div>
         <KSkeletonBox width="5" />
@@ -258,10 +262,10 @@ For example, here is a card skeleton with different arrangement of placeholders:
       <hr>
     </div>
   </template>
-  <template v-slot:card-content>
+  <template #card-content>
     <KSkeletonBox width="100"/>
   </template>
-  <template v-slot:card-footer>
+  <template #card-footer>
     <div class="skeleton-header-container">
       <div>
         <KSkeletonBox width="5" />
@@ -272,7 +276,7 @@ For example, here is a card skeleton with different arrangement of placeholders:
 
 ```html
 <KSkeleton type="card" :card-count="2">
-  <template v-slot:card-header>
+  <template #card-header>
     <div>
       <div>
         <KSkeletonBox width="5" />
@@ -280,7 +284,7 @@ For example, here is a card skeleton with different arrangement of placeholders:
       <hr>
     </div>
   </template>
-  <template v-slot:card-footer>
+  <template #card-footer>
     <div>
       <div>
         <KSkeletonBox width="5" />
@@ -293,7 +297,7 @@ For example, here is a card skeleton with different arrangement of placeholders:
 And another example:
 
 <KSkeleton type="card">
-  <template v-slot:card-header>
+  <template #card-header>
     <div>
       <div>
         <KSkeletonBox width="5" />
@@ -301,7 +305,7 @@ And another example:
       <hr>
     </div>
   </template>
-  <template v-slot:card-content>
+  <template #card-content>
     <div>
       <template v-for="i in 8">
         <KSkeletonBox width="5" />
@@ -311,7 +315,7 @@ And another example:
       </template>
     </div>
   </template>
-  <template v-slot:card-footer>
+  <template #card-footer>
     <KSkeletonBox width="100" />
   </template>
 </KSkeleton>
@@ -319,7 +323,7 @@ And another example:
 ```html
 <template>
   <KSkeleton type="card">
-    <template v-slot:card-header>
+    <template #card-header>
       <div>
         <div>
           <KSkeletonBox width="5" />
@@ -327,7 +331,7 @@ And another example:
         <hr>
       </div>
     </template>
-    <template v-slot:card-content>
+    <template #card-content>
       <div>
         <template v-for="i in 8">
           <KSkeletonBox width="5" />
@@ -337,7 +341,7 @@ And another example:
         </template>
       </div>
     </template>
-    <template v-slot:card-footer>
+    <template #card-footer>
       <KSkeletonBox width="100" />
     </template>
   </KSkeleton>

@@ -13,7 +13,13 @@ import { ToastManager } from '@kong/kongponents'
 const app = createApp()
 
 // Available inside any component template in the application, and also on 'this' of any component instance
-app.config.globalProperties.$toaster = new ToastManager()
+app.config.globalProperties.$toaster = new ToastManager({
+  // you can also override the default value of following properties while initializing ToastManager
+  id: 'custom-id', // default: 'toaster-container'
+  timeout: 500, // default: 5000
+  appearance: 'success', // default: 'info'
+  zIndex: 92929, // default: 10000
+})
 ```
 
 For TypeScript, you should also augment the global property in your vue declaration file

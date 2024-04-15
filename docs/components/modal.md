@@ -352,6 +352,20 @@ Maximum height of the content area. When content overflows, content area becomes
 </KModal>
 ```
 
+### zIndex
+
+`z-index` value for the modal. Defaults to `1100`.
+
+```html
+<KModal
+  z-index="9999"
+  title="Modal"
+  :visible="modalVisible"
+  @cancel="handleModalClose"
+  @proceed="handleModalProceed"
+/>
+```
+
 ### fullScreen
 
 Use this prop to make modal window take up almost the whole screen. When set to `true`, `maxWidth` and `maxHeight` props will have no effect.

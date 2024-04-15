@@ -61,6 +61,29 @@ describe('KToaster', () => {
       cy.get('.toaster .toaster-message').should('not.exist')
       cy.get('.toaster .toaster-close-icon').should('be.visible')
     })
+
+    it('renders toast with correct default z-index', () => {
+
+      mount(KToaster, {
+        props: {
+          toasterState: [{ title: 'I have a toast' }],
+        },
+      })
+
+      cy.get('.k-toaster').should('have.css', 'z-index', '10000')
+    })
+
+    it('renders toast with custom z-index', () => {
+
+      mount(KToaster, {
+        props: {
+          toasterState: [{ title: 'I have a toast' }],
+          zIndex: 9999,
+        },
+      })
+
+      cy.get('.k-toaster').should('have.css', 'z-index', '9999')
+    })
   })
 
   describe('ToastManager', () => {
