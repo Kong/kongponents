@@ -578,7 +578,11 @@ const resizingColumn = ref('')
 const resizerHoveredColumn = ref('')
 // lowest priority - currently hovered resizable column (mouse is somewhere in the <th>)
 const currentHoveredColumn = ref('')
-const hasColumnVisibilityMenu = computed((): boolean => tableHeaders.value.filter((header: TableHeader) => header.hidable).length > 0)
+const hasColumnVisibilityMenu = computed((): boolean => {
+  // has hidable columns, no error/loading/empty state
+  return tableHeaders.value.filter((header: TableHeader) => header.hidable).length > 0 &&
+    !props.hasError && !isTableLoading.value && !props.isLoading && (data.value && data.value.length)
+})
 // columns whose visibility can be toggled
 const visibilityColumns = computed((): TableHeader[] => tableHeaders.value.filter((header: TableHeader) => header.hidable))
 // visibility preferences from the host app (initialized by app)
