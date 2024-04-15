@@ -1,5 +1,6 @@
 <template>
   <li
+    :aria-current="state === 'active' ? 'step' : undefined"
     class="step"
     :data-testid="`step-${state}`"
   >
