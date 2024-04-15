@@ -118,8 +118,8 @@ function triggerShortcuts<CommandKeyword extends string>(event: KeyboardEvent, k
 }
 
 function normalizeKeyCode(code: string): string {
-  // Returns relevant modifier keys as the empty string which is going to be filtered out.
-  if (MODIFIER_KEY_CODES.includes(code)) {
+  // If keycode is a relevant modifier key or an invalid string, return empty string.
+  if (!code || MODIFIER_KEY_CODES.includes(code)) {
     return ''
   }
 
