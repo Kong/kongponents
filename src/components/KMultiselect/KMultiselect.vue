@@ -84,7 +84,7 @@
             >
               <KBadge
                 v-for="item, idx in visibleSelectedItems"
-                :key="`${item.key ? item.key : idx}-badge-${key}`"
+                :key="`${multiselectId}-${item.key ? item.key : idx}-badge-${key}`"
                 :appearance="getBadgeAppearance(item)"
                 class="multiselect-selection-badge"
                 :icon-before="false"
@@ -98,7 +98,7 @@
                   #icon
                 >
                   <button
-                    aria-label="Dismiss"
+                    :aria-label="`Unselect ${item.label}`"
                     class="badge-dismiss-button"
                     data-testid="badge-dismiss-button"
                     type="button"
@@ -256,7 +256,7 @@
       >
         <KBadge
           v-for="item, idx in visibleSelectedItemsStaging"
-          :key="`${item.key ? item.key : idx}-badge`"
+          :key="`${multiselectId}-${item.key ? item.key : idx}-badge`"
           aria-hidden="true"
           class="multiselect-selection-badge"
           :icon-before="false"

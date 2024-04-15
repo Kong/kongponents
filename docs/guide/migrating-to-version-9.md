@@ -774,6 +774,11 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KStepper
 
+#### Structure
+
+* `k-step-container` class has been replaced with `step-container`
+* `k-step` class has been replaced with `step`
+* `k-step-label` class has been replaced with `step-label`
 
 ### KTable
 

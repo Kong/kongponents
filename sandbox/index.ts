@@ -40,6 +40,7 @@ const sandboxAppLinks: SandboxNavigationItem[] = ([
   { name: 'KSelect', to: { name: 'select' } },
   { name: 'KSkeleton', to: { name: 'skeleton' } },
   { name: 'KSlideout', to: { name: 'slideout' } },
+  { name: 'KStepper', to: { name: 'stepper' } },
   { name: 'KTable', to: { name: 'table' } },
   { name: 'KTabs', to: { name: 'tabs' } },
   { name: 'KTextarea', to: { name: 'textarea' } },

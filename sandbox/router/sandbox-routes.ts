@@ -159,6 +159,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxSlideout.vue'),
   },
   {
+    path: '/stepper',
+    name: 'stepper',
+    meta: { title: 'Stepper Sandbox' },
+    component: () => import('../pages/SandboxStepper.vue'),
+  },
+  {
     path: '/table',
     name: 'table',
     meta: { title: 'Table Sandbox' },
