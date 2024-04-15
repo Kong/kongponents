@@ -1,6 +1,6 @@
 <template>
   <li
-    :aria-current="state === 'active' ? 'step' : undefined"
+    :aria-current="state === 'active' ? 'step' : 'false'"
     class="step"
     :data-testid="`step-${state}`"
   >
@@ -12,20 +12,20 @@
         <CheckIcon
           v-if="state === 'completed'"
           :color="KUI_COLOR_TEXT_INVERSE"
-          decorative
           :size="KUI_ICON_SIZE_40"
+          title="Completed"
         />
         <ProgressIcon
           v-else-if="state === 'pending'"
           :color="KUI_COLOR_TEXT_PRIMARY"
-          decorative
           :size="KUI_ICON_SIZE_40"
+          title="Pending"
         />
         <CloseIcon
           v-else-if="state === 'error'"
           :color="KUI_COLOR_TEXT_INVERSE"
-          decorative
           :size="KUI_ICON_SIZE_40"
+          title="Error"
         />
       </div>
 
