@@ -711,7 +711,7 @@ const tdlisteners = computed((): any => {
   }
 })
 
-const columnWidths = ref<Record<string, number>>({})
+const columnWidths = ref<Record<string, number>>(props.tablePreferences.columnWidths || {})
 const columnStyles = computed(() => {
   const styles: Record<string, any> = {}
   for (const colKey in columnWidths.value) {
