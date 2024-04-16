@@ -35,6 +35,7 @@
       <!-- TODO: [beta] change input class to text-input -->
       <input
         v-bind="modifiedAttrs"
+        :aria-describedby="helpTextId"
         :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
         class="k-input"
         :value="getValue()"
@@ -56,6 +57,7 @@
     >
       <p
         v-if="helpText"
+        :id="helpTextId"
         :key="String(helpTextKey)"
         class="help-text"
       >
@@ -215,6 +217,8 @@ const helpText = computed((): string => {
   // if error prop is true it danger styles will be applied
   return props.help
 })
+
+const helpTextId = helpText.value ? uuidv4() : ''
 
 watch(charLimitExceeded, (newVal, oldVal) => {
   if (newVal !== oldVal) {
