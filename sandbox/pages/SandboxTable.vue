@@ -23,7 +23,7 @@
         :headers="[
           { key: 'name', label: 'Full Name' },
           { key: 'username', label: 'Username' },
-          { key: 'email', label: 'Email' },
+          { key: 'email', label: 'Email', hidable: true },
           { key: 'actions', hideLabel: true }
         ]"
         :initial-fetcher-params="{
