@@ -21,7 +21,7 @@
         :fetcher="fetcher"
         :has-error="tableErrorState"
         :headers="[
-          { key: 'name', label: 'Name' },
+          { key: 'name', label: 'Full Name' },
           { key: 'username', label: 'Username' },
           { key: 'email', label: 'Email' },
           { key: 'actions', hideLabel: true }

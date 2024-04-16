@@ -120,16 +120,19 @@
                 @mouseleave="currentHoveredColumn = ''"
                 @mouseover="currentHoveredColumn = column.key"
               >
-                <div class="k-table-headers-container">
-                  <div
-                    v-if="resizeColumns && index !== 0"
-                    class="resize-handle previous"
-                    @click.stop
-                    @mousedown="startResize($event, visibleHeaders[index - 1].key)"
-                    @mouseleave="resizerHoveredColumn = ''"
-                    @mouseover="resizerHoveredColumn = visibleHeaders[index - 1].key"
-                  />
+                <div
+                  v-if="resizeColumns && index !== 0"
+                  class="resize-handle previous"
+                  @click.stop
+                  @mousedown="startResize($event, visibleHeaders[index - 1].key)"
+                  @mouseleave="resizerHoveredColumn = ''"
+                  @mouseover="resizerHoveredColumn = visibleHeaders[index - 1].key"
+                />
 
+                <div
+                  class="k-table-headers-container"
+                  :class="{ 'resized': resizingColumn === column.key }"
+                >
                   <slot
                     :column="getGeneric(column)"
                     :name="getColumnSlotName(column.key)"
@@ -152,16 +155,16 @@
                     icon="chevronDown"
                     :size="KUI_ICON_SIZE_20"
                   />
-
-                  <div
-                    v-if="resizeColumns && index !== visibleHeaders.length - 1"
-                    class="resize-handle"
-                    @click.stop
-                    @mousedown="startResize($event, column.key)"
-                    @mouseleave="resizerHoveredColumn = ''"
-                    @mouseover="resizerHoveredColumn = column.key"
-                  />
                 </div>
+
+                <div
+                  v-if="resizeColumns && index !== visibleHeaders.length - 1"
+                  class="resize-handle"
+                  @click.stop
+                  @mousedown="startResize($event, column.key)"
+                  @mouseleave="resizerHoveredColumn = ''"
+                  @mouseover="resizerHoveredColumn = column.key"
+                />
               </th>
             </tr>
           </thead>
@@ -1173,6 +1176,11 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 </script>
 
 <style lang="scss" scoped>
+/* Component variables */
+
+$kTableThPaddingBottom: var(--kui-space-60, $kui-space-60);
+
+/* Component styles */
 
 .k-table-wrapper {
   overflow: auto;
@@ -1199,7 +1207,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
   th,
   td {
     padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
-    vertical-align: middle;
+    vertical-align: bottom;
     white-space: nowrap;
   }
 
@@ -1261,6 +1269,7 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
       font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
       padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+      padding-bottom: $kTableThPaddingBottom;
       text-align: left;
 
       &.resizable {
@@ -1308,6 +1317,11 @@ export const defaultSorter = (key: string, previousKey: string, sortOrder: strin
 
         .caret {
           margin-left: var(--kui-space-40, $kui-space-40) !important;
+        }
+
+        &.resized {
+          bottom: $kTableThPaddingBottom;
+          position: absolute;
         }
       }
     }
