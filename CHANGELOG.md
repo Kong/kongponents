@@ -1,3 +1,10 @@
+# [9.0.0-alpha.142](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.141...v9.0.0-alpha.142) (2024-04-16)
+
+
+### Bug Fixes
+
+* **ktable:** resized column choppiness ([#2139](https://github.com/Kong/kongponents/issues/2139)) ([b28918f](https://github.com/Kong/kongponents/commit/b28918f1c36c552c2b787659d92a895a4a9240a2))
+
 # [9.0.0-alpha.141](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.140...v9.0.0-alpha.141) (2024-04-15)
 
 
