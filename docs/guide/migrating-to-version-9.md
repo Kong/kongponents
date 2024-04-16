@@ -246,6 +246,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Props
 
+* new `maxHeight` prop to control the `max-height` of the code block. Defaults to `none`
 * `isSearchable` prop has been removed and replaced with `searchable`
 * `isProcessing` prop has been removed and replaced with `processing`
 * `isSingleLine` prop has been removed and replaced with `singleLine`
@@ -289,10 +290,6 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 * `k-code-block-secondary-actions` class has been changed to `code-block-secondary-actions`
 * `k-code-block-copy-button` class and `data-testid` attribute has been changed to `code-block-copy-button`
 * `k-matched-term` `class` has been replaced with `matched-term`
-
-#### Props
-
-* New `maxHeight` prop to control the `max-height` of the code block. Defaults to `none`
 
 #### Slots
 
