@@ -1207,7 +1207,7 @@ $kTableThPaddingBottom: var(--kui-space-60, $kui-space-60);
   th,
   td {
     padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
-    vertical-align: bottom;
+    vertical-align: middle;
     white-space: nowrap;
   }
 
@@ -1271,6 +1271,7 @@ $kTableThPaddingBottom: var(--kui-space-60, $kui-space-60);
       padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
       padding-bottom: $kTableThPaddingBottom;
       text-align: left;
+      vertical-align: bottom;
 
       &.resizable {
         min-width: 40px;
