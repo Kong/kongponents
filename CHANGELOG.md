@@ -1,3 +1,10 @@
+# [9.0.0-alpha.144](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.143...v9.0.0-alpha.144) (2024-04-17)
+
+
+### Bug Fixes
+
+* **KInput:** add aria label to associate helper text with input [KHCP-11030] ([#2138](https://github.com/Kong/kongponents/issues/2138)) ([e38021d](https://github.com/Kong/kongponents/commit/e38021d4f3f59dbfff48474d3fad830318589f78))
+
 # [9.0.0-alpha.143](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.142...v9.0.0-alpha.143) (2024-04-17)
 
 
