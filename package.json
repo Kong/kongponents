@@ -1,6 +1,10 @@
 {
   "name": "@kong/kongponents",
+<<<<<<< HEAD
   "version": "9.0.0-alpha.149",
+=======
+  "version": "9.0.0-alpha.145",
+>>>>>>> c01912548 (chore(release): 9.0.0-alpha.145 [skip ci])
   "description": "Kong Component library",
   "type": "module",
   "repository": {
