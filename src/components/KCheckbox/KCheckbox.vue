@@ -10,6 +10,7 @@
       <input
         :id="inputId"
         v-bind="modifiedAttrs"
+        :aria-checked="modelValue"
         class="checkbox-input"
         type="checkbox"
         @change="handleChange"

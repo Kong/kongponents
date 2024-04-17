@@ -139,7 +139,7 @@
                 v-else-if="loading"
                 class="multiselect-loading-icon"
                 :size="KUI_ICON_SIZE_40"
-                title="Loading in progress"
+                title="Loading"
               />
               <ChevronDownIcon
                 v-else

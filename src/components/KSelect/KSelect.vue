@@ -113,7 +113,7 @@
               <slot name="loading">
                 <ProgressIcon
                   class="loading-icon"
-                  title="Loading in progress"
+                  title="Loading"
                 />
               </slot>
             </div>

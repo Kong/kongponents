@@ -57,7 +57,7 @@
               :color="getIconColor"
               data-testid="code-block-processing-icon"
               :size="KUI_ICON_SIZE_30"
-              title="Loading in progress"
+              title="Loading"
             />
           </Transition>
 
