@@ -1,3 +1,24 @@
+# [9.0.0-alpha.144](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.143...v9.0.0-alpha.144) (2024-04-17)
+
+
+### Bug Fixes
+
+* **KInput:** add aria label to associate helper text with input [KHCP-11030] ([#2138](https://github.com/Kong/kongponents/issues/2138)) ([e38021d](https://github.com/Kong/kongponents/commit/e38021d4f3f59dbfff48474d3fad830318589f78))
+
+# [9.0.0-alpha.143](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.142...v9.0.0-alpha.143) (2024-04-17)
+
+
+### Bug Fixes
+
+* **KCodeBlock:** add question marks [KHCP-11554] ([#2142](https://github.com/Kong/kongponents/issues/2142)) ([ddff842](https://github.com/Kong/kongponents/commit/ddff842bda62e070eb364a353f5d579956492055))
+
+# [9.0.0-alpha.142](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.141...v9.0.0-alpha.142) (2024-04-16)
+
+
+### Bug Fixes
+
+* **ktable:** resized column choppiness ([#2139](https://github.com/Kong/kongponents/issues/2139)) ([b28918f](https://github.com/Kong/kongponents/commit/b28918f1c36c552c2b787659d92a895a4a9240a2))
+
 # [9.0.0-alpha.141](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.140...v9.0.0-alpha.141) (2024-04-15)
 
 
