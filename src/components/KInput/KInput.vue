@@ -35,7 +35,7 @@
       <!-- TODO: [beta] change input class to text-input -->
       <input
         v-bind="modifiedAttrs"
-        :aria-describedby="helpTextId"
+        :aria-describedby="helpText ? helpTextId : undefined"
         :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
         class="k-input"
         :value="getValue()"
@@ -146,6 +146,7 @@ const attrs = useAttrs()
 
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
 const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
+const helpTextId = uuidv4()
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
 
@@ -217,8 +218,6 @@ const helpText = computed((): string => {
   // if error prop is true it danger styles will be applied
   return props.help
 })
-
-const helpTextId = helpText.value ? uuidv4() : ''
 
 watch(charLimitExceeded, (newVal, oldVal) => {
   if (newVal !== oldVal) {
