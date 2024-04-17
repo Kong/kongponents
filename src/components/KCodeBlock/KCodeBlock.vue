@@ -456,7 +456,7 @@ const numberOfMatches = ref<number>(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
 
-const totalLines = computed((): number[] => Array.from({ length: props.code.split('\n').length }, (_, index) => index + 1))
+const totalLines = computed((): number[] => Array.from({ length: props.code?.split('\n').length }, (_, index) => index + 1))
 const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value.length - 1].toString().length + 'ch')
 const linePrefix = computed((): string => props.id.toLowerCase().replace(/\s+/g, '-'))
 const isProcessing = computed((): boolean => props.isProcessing || isProcessingInternally.value)
@@ -466,8 +466,7 @@ const filteredCode = computed((): string => {
     return ''
   }
 
-  return props.code
-    .split('\n')
+  return props.code?.split('\n')
     .filter((_line, index) => matchingLineNumbers.value.includes(index + 1))
     .map((line) => {
       try {
@@ -484,10 +483,10 @@ const filteredCode = computed((): string => {
 // HTML code, and it would render the actual tags inside
 // of the code block.
 const escapeUnsafeCharacters = (unescapedCodeString: string): string => {
-  return unescapedCodeString.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;')
+  return unescapedCodeString?.replaceAll('&', '&amp;')?.replaceAll('<', '&lt;')?.replaceAll('>', '&gt;')?.replaceAll('"', '&quot;')?.replaceAll("'", '&#039;')
 }
 
-const finalCode = computed(() => props.isSingleLine ? escapeUnsafeCharacters(props.code).replaceAll('\n', '') : escapeUnsafeCharacters(props.code))
+const finalCode = computed(() => props.isSingleLine ? escapeUnsafeCharacters(props.code)?.replaceAll('\n', '') : escapeUnsafeCharacters(props.code))
 
 const maxHeightValue = computed(() => getSizeFromString(props.maxHeight))
 
@@ -690,7 +689,7 @@ function getMatchingLineNumbersByExactMatch(code: string, query: string): number
       break
     }
 
-    const lineNumber = code.substring(0, pos).split('\n').length
+    const lineNumber = code.substring(0, pos)?.split('\n').length
     totalMatchingLineNumbers.push(lineNumber)
 
     startPos = pos + 1
@@ -705,7 +704,7 @@ function getMatchingLineNumbersByRegExp(code: string, query: string): number[] {
 
   for (const match of Array.from(matches)) {
     if (match.index !== undefined) {
-      const lineNumber = code.substring(0, match.index).split('\n').length
+      const lineNumber = code.substring(0, match.index)?.split('\n').length
       totalMatchingLineNumbers.push(lineNumber)
     }
   }
