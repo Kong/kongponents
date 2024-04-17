@@ -372,6 +372,10 @@ Both the title & description of the card items as well as the entire catalog bod
 
 The body of the card catalog, if you do not want to use KCatalogItem components for the children.
 
+:::tip NOTE
+KCatalog will apply some default styles (such as hover state styling and card body truncation) to underlying KCard if it's slotted in through the body slot.
+:::
+
 ### card-title
 
 Will slot the card title for each entry. The slot exposes card item through the `item` slot prop.

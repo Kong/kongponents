@@ -49,22 +49,3 @@ const handleCardClick = (evt: Event, item: CatalogItem): void => {
   })
 }
 </script>
-
-<style lang="scss" scoped>
-.k-catalog-item {
-  cursor: pointer;
-  transition: box-shadow $kongponentsTransitionDurTimingFunc;
-
-  :deep(.card-content) {
-    overflow: hidden;
-  }
-
-  &:hover {
-    box-shadow: var(--kui-shadow, $kui-shadow);
-  }
-
-  .multi-line-truncate {
-    @include truncate(3);
-  }
-}
-</style>

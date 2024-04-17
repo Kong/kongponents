@@ -572,6 +572,24 @@ onMounted(() => {
     &.card-large {
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     }
+
+    // KCatalogItem styles need to be included here in case KCards are slotted through the body slot
+    :deep(.k-catalog-item), :deep(.k-card) {
+      cursor: pointer;
+      transition: box-shadow $kongponentsTransitionDurTimingFunc;
+
+      .card-content {
+        overflow: hidden;
+      }
+
+      &:hover {
+        box-shadow: var(--kui-shadow, $kui-shadow);
+      }
+
+      .multi-line-truncate {
+        @include truncate(3);
+      }
+    }
   }
 }
 </style>
