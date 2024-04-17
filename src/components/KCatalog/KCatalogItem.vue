@@ -53,11 +53,8 @@ const handleCardClick = (evt: Event, item: CatalogItem): void => {
 <style lang="scss" scoped>
 .k-catalog-item {
   cursor: pointer;
+  overflow: hidden;
   transition: box-shadow $kongponentsTransitionDurTimingFunc;
-
-  :deep(.card-content) {
-    overflow: hidden;
-  }
 
   &:hover {
     box-shadow: var(--kui-shadow, $kui-shadow);
