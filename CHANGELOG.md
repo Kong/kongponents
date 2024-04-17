@@ -1,3 +1,10 @@
+# [9.0.0-alpha.143](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.142...v9.0.0-alpha.143) (2024-04-17)
+
+
+### Bug Fixes
+
+* **KCodeBlock:** add question marks [KHCP-11554] ([#2142](https://github.com/Kong/kongponents/issues/2142)) ([ddff842](https://github.com/Kong/kongponents/commit/ddff842bda62e070eb364a353f5d579956492055))
+
 # [9.0.0-alpha.142](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.141...v9.0.0-alpha.142) (2024-04-16)
 
 
