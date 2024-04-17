@@ -9,6 +9,7 @@
     <slot />
     <ExternalLinkIcon
       v-if="!hideIcon"
+      decorative
       :size="KUI_ICON_SIZE_30"
     />
   </a>

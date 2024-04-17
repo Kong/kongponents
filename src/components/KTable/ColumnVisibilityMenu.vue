@@ -7,12 +7,13 @@
       <KTooltip text="Show/Hide Columns">
         <KButton
           appearance="secondary"
+          aria-label="Show/Hide Columns"
           class="menu-button"
           data-testid="column-visibility-menu-button"
           size="large"
         >
           <template #icon>
-            <TableColumnsIcon />
+            <TableColumnsIcon decorative />
           </template>
         </KButton>
       </KTooltip>

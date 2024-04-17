@@ -10,6 +10,7 @@
       <input
         :id="inputId"
         v-bind="modifiedAttrs"
+        :aria-checked="modelValue"
         class="checkbox-input"
         type="checkbox"
         @change="handleChange"
@@ -18,6 +19,7 @@
         v-if="modelValue"
         class="checkbox-icon"
         data-testid="check-icon"
+        decorative
         :size="KUI_ICON_SIZE_40"
         tabindex="-1"
       />
@@ -25,6 +27,7 @@
         v-if="isIndeterminate && !modelValue"
         class="checkbox-icon"
         data-testid="indeterminate-icon"
+        decorative
         :size="KUI_ICON_SIZE_40"
         tabindex="-1"
       />
