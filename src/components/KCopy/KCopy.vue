@@ -46,7 +46,6 @@
             <CopyIcon
               class="text-icon"
               decorative
-              :hide-title="!!copyTooltip || undefined"
               :size="KUI_ICON_SIZE_30"
             />
           </button>
