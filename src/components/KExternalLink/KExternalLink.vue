@@ -10,6 +10,7 @@
     <ExternalLinkIcon
       v-if="!hideIcon"
       :size="KUI_ICON_SIZE_30"
+      title="External link icon"
     />
   </a>
 </template>

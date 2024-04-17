@@ -104,7 +104,7 @@
                     type="button"
                     @click="handleItemSelect(item)"
                   >
-                    <CloseIcon />
+                    <CloseIcon decorative />
                   </button>
                 </template>
               </KBadge>
@@ -139,10 +139,12 @@
                 v-else-if="loading"
                 class="multiselect-loading-icon"
                 :size="KUI_ICON_SIZE_40"
+                title="Loading spinner"
               />
               <ChevronDownIcon
                 v-else
                 class="multiselect-chevron-icon"
+                decorative
                 :size="KUI_ICON_SIZE_40"
               />
             </div>

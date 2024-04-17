@@ -34,11 +34,12 @@
               type="button"
               @click="clearQuery"
             >
-              <CloseIcon />
+              <CloseIcon decorative />
             </button>
             <SearchIcon
               v-else
               class="code-block-search-icon"
+              decorative
             />
           </Transition>
         </template>
@@ -56,6 +57,7 @@
               :color="getIconColor"
               data-testid="code-block-processing-icon"
               :size="KUI_ICON_SIZE_30"
+              title="Loading spinner"
             />
           </Transition>
 
@@ -89,7 +91,7 @@
           :title="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
           @click="toggleRegExpMode"
         >
-          <RegexIcon />
+          <RegexIcon decorative />
         </KCodeBlockIconButton>
 
         <KCodeBlockIconButton
@@ -102,7 +104,7 @@
           :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
           @click="toggleFilterMode"
         >
-          <FilterIcon />
+          <FilterIcon decorative />
         </KCodeBlockIconButton>
 
         <KCodeBlockIconButton
@@ -114,7 +116,7 @@
           title="Previous match (Shift+F3)"
           @click="jumpToPreviousMatch"
         >
-          <ArrowUpIcon />
+          <ArrowUpIcon decorative />
         </KCodeBlockIconButton>
 
         <KCodeBlockIconButton
@@ -126,7 +128,7 @@
           title="Next match (F3)"
           @click="jumpToNextMatch"
         >
-          <ArrowDownIcon />
+          <ArrowDownIcon decorative />
         </KCodeBlockIconButton>
       </div>
     </div>
@@ -204,7 +206,7 @@
           :theme="theme"
           @click="copyCode"
         >
-          <CopyIcon />
+          <CopyIcon decorative />
         </KCodeBlockIconButton>
 
         <slot name="secondary-actions" />

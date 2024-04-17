@@ -22,7 +22,10 @@
             type="button"
             @click="pageBack"
           >
-            <BackIcon class="pagination-arrow-icon" />
+            <BackIcon
+              class="pagination-arrow-icon"
+              decorative
+            />
           </KButton>
         </li>
         <li v-if="!disablePageJump && firstDetached">
@@ -85,7 +88,10 @@
             type="button"
             @click="pageForward"
           >
-            <ForwardIcon class="pagination-arrow-icon" />
+            <ForwardIcon
+              class="pagination-arrow-icon"
+              decorative
+            />
           </KButton>
         </li>
       </ul>
@@ -113,7 +119,10 @@
           :disabled="pageSizeOptions.length <= 1"
           type="button"
         >
-          {{ pageSizeText }}<ChevronDownIcon v-if="pageSizeOptions.length > 1" />
+          {{ pageSizeText }}<ChevronDownIcon
+            v-if="pageSizeOptions.length > 1"
+            decorative
+          />
         </KButton>
       </KDropdown>
     </div>

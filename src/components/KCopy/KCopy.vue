@@ -46,6 +46,7 @@
               class="text-icon"
               :hide-title="!!copyTooltip || undefined"
               :size="KUI_ICON_SIZE_30"
+              :title="tooltipText"
             />
           </button>
         </KClipboardProvider>

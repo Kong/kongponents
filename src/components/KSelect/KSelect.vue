@@ -69,11 +69,12 @@
                 type="button"
                 @click="clearSelection"
               >
-                <CloseIcon />
+                <CloseIcon decorative />
               </button>
               <ChevronDownIcon
                 class="chevron-down-icon"
                 :class="{ 'disabled': isDisabled }"
+                decorative
               />
             </template>
             <template
@@ -110,7 +111,10 @@
               data-testid="select-loading"
             >
               <slot name="loading">
-                <ProgressIcon class="loading-icon" />
+                <ProgressIcon
+                  class="loading-icon"
+                  title="Loading in progress"
+                />
               </slot>
             </div>
             <div

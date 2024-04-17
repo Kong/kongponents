@@ -31,7 +31,10 @@
             type="button"
             @click.stop="$emit('close')"
           >
-            <CloseIcon :color="KUI_COLOR_TEXT_NEUTRAL" />
+            <CloseIcon
+              :color="KUI_COLOR_TEXT_NEUTRAL"
+              decorative
+            />
           </button>
         </div>
         <div class="slideout-content">
