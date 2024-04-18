@@ -145,7 +145,6 @@ const getAlertIcon = computed((): AlertIcon => {
     .alert-title {
       font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-      letter-spacing: var(--kui-letter-spacing-minus-30, $kui-letter-spacing-minus-30);
       line-height: var(--kui-line-height-30, $kui-line-height-30);
     }
 

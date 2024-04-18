@@ -181,6 +181,52 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KCatalog
 
+#### Props
+
+* `isLoading` prop has been removed and replaced with `loading` prop
+* `noTruncation` prop has been removed and replaced with `truncateDescription` prop
+* `emptyStateActionButtonIcon` prop has been removed. You can use the new `empty-state-action-icon` slot instead
+* `emptyStateIcon` prop has been removed. You can use the new `emptyStateIconVariant` prop instead
+* `hasError` prop has been removed and replaced with `error` prop
+* `emptyStateIconColor` prop has been removed
+* `emptyStateIconSize` prop has been removed
+* `errorStateIcon` prop has been removed
+* `errorStateIconColor` prop has been removed
+* `errorStateIconSize` prop has been removed
+* `testMode` prop has been removed
+
+#### Slots
+
+* `cardTitle` props has been renamed to `card-title`
+  * same change applies to KCatalogItem component
+* `cardActions` prop has been renamed to `card-actions`
+  * same change applies to KCatalogItem component
+* `cardBody` prop has been renamed to `card-body`
+  * same change applies to KCatalogItem component
+
+#### Events
+
+* `card:click` event has been renamed to `card-click`
+* in KCatalogItem component `card:click` event has been renamed to `click`
+* `kcatalog-error-cta-clicked` event has been renamed to `error-action-click`
+* `kcatalog-empty-state-cta-clicked` event has been renamed to `empty-state-action-click`
+
+#### Structure
+
+* `k-card-catalog` class has been replaced with `k-catalog`
+* `k-card-catalog-title` class has been replaced with `catalog-title`
+* `k-catalog-title` `data-testid` property has been replaced with `catalog-title`
+* `k-catalog-toolbar` class and `data-testid` attribute has been replaced with `catalog-toolbar`
+* `k-skeleton-grid` class has been replaced with `catalog-skeleton-loader`
+* `k-catalog-skeleton` `data-testid` attribute has been replaced with `catalog-skeleton-loader`
+* `k-catalog-error-state` class has been replaced with `catalog-error-state`
+* `k-card-catalog-error-state` `data-testid` attribute has been replaced with `catalog-error-state`
+* `k-catalog-empty-state` class has been replaced with `catalog-empty-state`
+* `k-card-catalog-empty-state` `data-testid` attribute has been replaced with `catalog-empty-state`
+* `k-catalog-page` class has been replaced with `catalog-page`
+* `k-card-[small | medium | large]` classes were replaced with `card-[small | medium | large]`
+* `k-catalog-pagination` class and `data-testid` attribute has been replaced with `catalog-pagination`
+* `k-card-catalog-item` class has been replaced with `k-catalog-item`
 
 ### KCheckbox
 
@@ -200,7 +246,50 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 #### Props
 
-* New `maxHeight` prop to control the `max-height` of the code block. Defaults to `none`
+* new `maxHeight` prop to control the `max-height` of the code block. Defaults to `none`
+* `isSearchable` prop has been removed and replaced with `searchable`
+* `isProcessing` prop has been removed and replaced with `processing`
+* `isSingleLine` prop has been removed and replaced with `singleLine`
+
+#### Structure
+
+* `k-code-block-actions` class has been changed to `code-block-actions`
+* `k-code-block-search-results` class has been changed to `code-block-search-results`
+* `k-code-block-search-results-has-query` class has been changed to `code-block-search-results-has-query`
+* `k-search-container` class has been changed to `search-container`
+* `k-search-icon` class has been changed to `code-block-search-icon`
+* `k-code-block-search-icon` `data-testid` attribute has been replaced with `code-block-search-icon`
+* `k-code-block-search-input` class and `data-testid` attribute has been changed to `code-block-search-input`
+* `k-code-block-search-error` class has been changed to `code-block-search-error`
+* `k-is-processing-icon` class has been changed to `processing-icon`
+* `k-code-block-is-processing-icon` `data-testid` attribute has been replaced with `processing-icon`
+* `k-clear-query-button` and `k-clear-icon` classes changed to `clear-query-button`
+* `k-code-block-clear-query-button` and `k-code-block-clear-icon` `data-testid` attributes were replaced with `clear-query-button`
+* `k-search-actions` class has been changed to `code-block-search-actions`
+* `k-regexp-mode-button` class has been changed to `regexp-mode-button`
+* `k-code-block-regexp-mode-button` `data-testid` attribute has been replaced with `regexp-mode-button`
+* `k-filter-mode-button` class has been changed to `filter-mode-button`
+* `k-code-block-filter-mode-button` `data-testid` attribute has been replaced with `filter-mode-button`
+* `k-previous-match-button` class has been changed to `previous-match-button`
+* `k-code-block-previous-match-button` `data-testid` attribute has been replaced with `previous-match-button`
+* `k-next-match-button` class has been changed to `next-match-button`
+* `k-code-block-next-match-button` `data-testid` attribute has been replaced with `next-match-button`
+* `k-code-block-content` class has been changed to `code-block-content`
+* `k-filtered-code-block` class has been changed to `filtered-code-block`
+* `k-code-block-filtered-code-block` `data-testid` attribute has been replaced with `filtered-code-block`
+* `k-line-number-rows` class has been changed to `line-number-rows`
+* `k-line` class has been changed to `line`
+* `k-line-anchor` class has been changed to `line-anchor`
+* `k-highlighted-code-block` class has been changed to `highlighted-code-block`
+* `k-code-block-highlighted-code-block` `data-testid` attribute has been replaced with `highlighted-code-block`
+* `is-single-line` class has been changed to `single-line`
+* `k-line-number-rows` class has been changed to `line-number-rows`
+* `k-line-is-match` class has been changed to `line-is-match`
+* `k-line-is-highlighted-match` class has been changed to `line-is-highlighted-match`
+* `k-line-anchor` class has been changed to `line-anchor`
+* `k-code-block-secondary-actions` class has been changed to `code-block-secondary-actions`
+* `k-code-block-copy-button` class and `data-testid` attribute has been changed to `code-block-copy-button`
+* `k-matched-term` `class` has been replaced with `matched-term`
 
 #### Slots
 
@@ -212,6 +301,21 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 
 ### KCollapse
 
+#### Events
+
+* `toggled` event was renamed to `toggle`
+
+#### Structure
+
+* `k-collapse-heading` class has been replaced with `collapse-heading`
+* `k-collapse-title` class and `data-testid` attribute has been replaced with `collapse-title`
+* `k-collapse-trigger` class has been replaced with `collapse-trigger` 
+* `k-collapse-trigger-content` class and `data-testid` attribute has been replaced with `collapse-trigger-content`
+* `k-collapse-trigger-label` class and `data-testid` attribute has been replaced with `collapse-trigger-label`
+* `k-collapse-trigger-chevron` class has been replaced with `collapse-trigger-icon`
+* `k-collapse-trigger-icon` class and `data-testid` attribute has been replaced with `collapse-trigger-icon`
+* `k-collapse-visible-content` class and `data-testid` attribute has been replaced with `collapse-visible-content`
+* `k-collapse-hidden-content` class and `data-testid` attribute has been replaced with `collapse-hidden-content`
 
 ### KDateTimePicker
 
@@ -667,6 +771,11 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KStepper
 
+#### Structure
+
+* `k-step-container` class has been replaced with `step-container`
+* `k-step` class has been replaced with `step`
+* `k-step-label` class has been replaced with `step-label`
 
 ### KTable
 

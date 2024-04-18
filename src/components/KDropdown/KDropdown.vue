@@ -36,6 +36,7 @@
               {{ triggerButtonText }}
               <ChevronDownIcon
                 v-if="showCaret"
+                decorative
               />
             </KButton>
           </slot>

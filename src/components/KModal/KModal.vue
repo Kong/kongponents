@@ -46,7 +46,10 @@
                 type="button"
                 @click="$emit('cancel')"
               >
-                <CloseIcon :color="KUI_COLOR_TEXT_NEUTRAL" />
+                <CloseIcon
+                  :color="KUI_COLOR_TEXT_NEUTRAL"
+                  decorative
+                />
               </button>
             </div>
             <div
@@ -361,7 +364,6 @@ onBeforeUnmount(async () => {
         font-family: var(--kui-font-family-text, $kui-font-family-text);
         font-size: var(--kui-font-size-60, $kui-font-size-60);
         font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
-        letter-spacing: var(--kui-letter-spacing-minus-40, $kui-letter-spacing-minus-40);
         line-height: var(--kui-line-height-50, $kui-line-height-50);
         max-width: 100%;
         user-select: none;

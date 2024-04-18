@@ -337,7 +337,8 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
   .input-element-wrapper {
     position: relative;
 
-    .before-content-wrapper, .after-content-wrapper {
+    .before-content-wrapper,
+    .after-content-wrapper {
       color: var(--kui-color-text-neutral, $kui-color-text-neutral);
       display: inline-flex;
       gap: var(--kui-space-10, $kui-space-10);
@@ -352,6 +353,10 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
       }
 
       :deep([role="button"]), :deep(button) {
+        @include defaultButtonReset;
+
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+
         &:not([disabled]) {
           border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
           cursor: pointer;

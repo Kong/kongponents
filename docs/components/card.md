@@ -79,16 +79,11 @@ String to be used as a title. Can also be [slotted](#slots).
 HTML element you want title to be rendered as. Defaults to `div`.
 
 Accepted values are:
-* `div`
-* `span`
-* `a`
-* `legend`
-* `h1`
-* `h2`
-* `h3`
-* `h4`
-* `h5`
-* `h6`
+<ul>
+  <li v-for="tag in HeaderTags" :key="`${tag}-header-tag`">
+    <code>{{ tag }}</code>
+  </li>
+</ul>
 
 <KCard title-tag="h4" title="Card Title H4 Heading" />
 
@@ -202,4 +197,5 @@ Bottom drawer of the card. Useful for providing contextual information.
 
 <script setup lang="ts">
 import { MoreIcon } from '@kong/icons'
+import { HeaderTags } from '@/types'
 </script>

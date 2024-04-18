@@ -8,8 +8,9 @@
   >
     <input
       :id="inputId"
-      :checked="isChecked"
       v-bind="modifiedAttrs"
+      :aria-checked="isChecked"
+      :checked="isChecked"
       class="radio-input"
       :disabled="isDisabled"
       type="radio"
