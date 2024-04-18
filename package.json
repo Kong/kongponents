@@ -85,8 +85,13 @@
     "@commitlint/config-conventional": "^19.1.0",
     "@cypress/vite-dev-server": "^5.0.7",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
+<<<<<<< HEAD
     "@evilmartians/lefthook": "^1.6.10",
     "@kong-ui-public/sandbox-layout": "^2.0.52",
+=======
+    "@evilmartians/lefthook": "^1.6.7",
+    "@kong-ui-public/sandbox-layout": "^2.0.50",
+>>>>>>> af75cab08 (chore(deps): update dependency @kong-ui-public/sandbox-layout to ^2.0.50 (#2145))
     "@kong/design-tokens": "^1.12.11",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
