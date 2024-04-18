@@ -94,8 +94,12 @@
     "@kong-ui-public/sandbox-layout": "^2.0.52",
 =======
     "@evilmartians/lefthook": "^1.6.7",
+<<<<<<< HEAD
     "@kong-ui-public/sandbox-layout": "^2.0.50",
 >>>>>>> af75cab08 (chore(deps): update dependency @kong-ui-public/sandbox-layout to ^2.0.50 (#2145))
+=======
+    "@kong-ui-public/sandbox-layout": "^2.0.51",
+>>>>>>> d81d57a4f (chore(deps): update dependency @kong-ui-public/sandbox-layout to ^2.0.51 (#2146))
     "@kong/design-tokens": "^1.12.11",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
