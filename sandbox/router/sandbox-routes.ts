@@ -51,6 +51,18 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxCheckbox.vue'),
   },
   {
+    path: '/codeblock',
+    name: 'codeblock',
+    meta: { title: 'Code Block Sandbox' },
+    component: () => import('../pages/SandboxCodeBlock.vue'),
+  },
+  {
+    path: '/collapse',
+    name: 'collapse',
+    meta: { title: 'Collapse Sandbox' },
+    component: () => import('../pages/SandboxCollapse.vue'),
+  },
+  {
     path: '/copy',
     name: 'copy',
     meta: { title: 'Copy Sandbox' },
@@ -145,6 +157,12 @@ const componentRoutes: RouteRecordRaw[] = [
     name: 'slideout',
     meta: { title: 'Slideout Sandbox' },
     component: () => import('../pages/SandboxSlideout.vue'),
+  },
+  {
+    path: '/stepper',
+    name: 'stepper',
+    meta: { title: 'Stepper Sandbox' },
+    component: () => import('../pages/SandboxStepper.vue'),
   },
   {
     path: '/table',

@@ -1188,8 +1188,8 @@ $kTableThPaddingBottom: var(--kui-space-60, $kui-space-60);
 }
 
 .k-table-toolbar {
-  column-gap: var(--kui-space-50, $kui-space-50);
   display: flex;
+  gap: var(--kui-space-50, $kui-space-50);
   margin-bottom: var(--kui-space-80, $kui-space-80) !important;
   width: 100%;
 

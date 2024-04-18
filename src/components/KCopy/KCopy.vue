@@ -37,6 +37,7 @@
         <KClipboardProvider v-slot="{ copyToClipboard }">
           <button
             :id="copyButtonElementId"
+            :aria-label="tooltipText"
             class="copy-to-clipboard-button"
             data-testid="copy-to-clipboard"
             type="button"
@@ -44,7 +45,7 @@
           >
             <CopyIcon
               class="text-icon"
-              :hide-title="!!copyTooltip || undefined"
+              decorative
               :size="KUI_ICON_SIZE_30"
             />
           </button>

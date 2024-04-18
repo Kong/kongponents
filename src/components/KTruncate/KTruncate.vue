@@ -20,6 +20,7 @@
           :truncated-count="truncatedCount"
         >
           <button
+            :aria-label="`Show ${truncatedCount} more items`"
             class="expand-trigger"
             type="button"
             @click.stop="handleToggleClick"
@@ -43,12 +44,15 @@
           name="collapse-trigger"
         >
           <button
-            aria-label="Toggle"
+            aria-label="Collapse content"
             class="collapse-trigger"
             type="button"
             @click.stop="handleToggleClick"
           >
-            <ChevronUpIcon :size="KUI_ICON_SIZE_30" />
+            <ChevronUpIcon
+              decorative
+              :size="KUI_ICON_SIZE_30"
+            />
           </button>
         </slot>
       </div>

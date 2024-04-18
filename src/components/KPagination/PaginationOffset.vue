@@ -9,7 +9,7 @@
       type="button"
       @click.prevent="emit('getPreviousOffset')"
     >
-      <BackIcon />
+      <BackIcon decorative />
     </KButton>
     <KButton
       appearance="tertiary"
@@ -20,7 +20,7 @@
       type="button"
       @click.prevent="emit('getNextOffset')"
     >
-      <ForwardIcon />
+      <ForwardIcon decorative />
     </KButton>
   </div>
 </template>

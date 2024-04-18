@@ -84,7 +84,7 @@
             >
               <KBadge
                 v-for="item, idx in visibleSelectedItems"
-                :key="`${item.key ? item.key : idx}-badge-${key}`"
+                :key="`${multiselectId}-${item.key ? item.key : idx}-badge-${key}`"
                 :appearance="getBadgeAppearance(item)"
                 class="multiselect-selection-badge"
                 :icon-before="false"
@@ -98,13 +98,13 @@
                   #icon
                 >
                   <button
-                    aria-label="Dismiss"
+                    :aria-label="`Unselect ${item.label}`"
                     class="badge-dismiss-button"
                     data-testid="badge-dismiss-button"
                     type="button"
                     @click="handleItemSelect(item)"
                   >
-                    <CloseIcon />
+                    <CloseIcon decorative />
                   </button>
                 </template>
               </KBadge>
@@ -139,10 +139,12 @@
                 v-else-if="loading"
                 class="multiselect-loading-icon"
                 :size="KUI_ICON_SIZE_40"
+                title="Loading"
               />
               <ChevronDownIcon
                 v-else
                 class="multiselect-chevron-icon"
+                decorative
                 :size="KUI_ICON_SIZE_40"
               />
             </div>
@@ -256,7 +258,7 @@
       >
         <KBadge
           v-for="item, idx in visibleSelectedItemsStaging"
-          :key="`${item.key ? item.key : idx}-badge`"
+          :key="`${multiselectId}-${item.key ? item.key : idx}-badge`"
           aria-hidden="true"
           class="multiselect-selection-badge"
           :icon-before="false"

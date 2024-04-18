@@ -16,7 +16,7 @@
       data-testid="tree-item-icon"
     >
       <slot name="item-icon">
-        <ServiceDocumentIcon />
+        <ServiceDocumentIcon decorative />
       </slot>
     </div>
     <div
