@@ -264,7 +264,7 @@ The footer content for the card.
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.
   </template>
   <template #card-footer>
-      <KBadge appearance="neutral">Card footer</KBadge>
+    <KBadge appearance="neutral">Card footer</KBadge>
   </template>
 </KCatalogItem>
 ```
