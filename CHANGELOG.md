@@ -1,3 +1,10 @@
+# [9.0.0-alpha.146](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.145...v9.0.0-alpha.146) (2024-04-18)
+
+
+### Features
+
+* **kcodeblock, kcatalog, kcollapse, kstepper:** components reskin ([#2124](https://github.com/Kong/kongponents/issues/2124)) ([4c97890](https://github.com/Kong/kongponents/commit/4c97890a5915b35d448b9de952d5c4552302852f)), closes [#2100](https://github.com/Kong/kongponents/issues/2100) [#2125](https://github.com/Kong/kongponents/issues/2125)
+
 # [9.0.0-alpha.145](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.144...v9.0.0-alpha.145) (2024-04-17)
 
 
