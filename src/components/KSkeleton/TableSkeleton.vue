@@ -51,11 +51,14 @@ const calcWidth = (cell: number, row: number): SkeletonBoxWidth => {
   width: 100%;
 
   .skeleton-table-row {
-    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     display: flex;
     gap: var(--kui-space-20, $kui-space-20);
     padding: var(--kui-space-80, $kui-space-80) var(--kui-space-40, $kui-space-40);
     width: 100%;
+
+    &:not(:last-child) {
+      border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    }
 
     .skeleton-cell-container {
       width: calc(100% / v-bind('columns'));

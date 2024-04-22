@@ -19,13 +19,13 @@
     </div>
 
     <KSkeleton
-      v-if="(!testMode || testMode === 'loading') && (isTableLoading || isLoading || isRevalidating) && !hasError"
+      v-if="(isTableLoading || loading || isRevalidating) && !error"
       data-testid="k-table-skeleton"
       type="table"
     />
 
     <div
-      v-else-if="hasError"
+      v-else-if="error"
       class="k-table-error-state"
       data-testid="k-table-error-state"
     >
@@ -52,7 +52,7 @@
     </div>
 
     <div
-      v-else-if="!hasError && (!isTableLoading && !isLoading && !isRevalidating) && (data && !data.length)"
+      v-else-if="!error && (!isTableLoading && !loading && !isRevalidating) && (data && !data.length)"
       class="k-table-empty-state"
       data-testid="k-table-empty-state"
     >
@@ -89,8 +89,7 @@
           class="k-table"
           :class="{
             'has-hover': hasHover,
-            'is-clickable': isClickable,
-            'side-border': hasSideBorder
+            'is-clickable': isClickable
           }"
           :data-tableid="tableId"
         >
@@ -102,13 +101,13 @@
               <th
                 v-for="(column, index) in visibleHeaders"
                 :key="`k-table-${tableId}-headers-${index}`"
-                :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
+                :aria-sort="!sortable && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
                 class="k-table-headers"
                 :class="getHeaderClasses(column, index)"
                 :data-testid="`k-table-header-${column.key}`"
                 :style="columnStyles[column.key]"
                 @click="() => {
-                  if (!disableSorting && column.sortable) {
+                  if (!sortable && column.sortable) {
                     $emit('sort', {
                       prevKey: sortColumnKey,
                       sortColumnKey: column.key,
@@ -148,7 +147,7 @@
                   </slot>
 
                   <KIcon
-                    v-if="!disableSorting && !column.hideLabel && column.sortable"
+                    v-if="!sortable && !column.hideLabel && column.sortable"
                     aria-hidden="true"
                     class="caret"
                     :color="`var(--kui-color-text, ${KUI_COLOR_TEXT})`"
@@ -176,7 +175,6 @@
               :key="`k-table-${tableId}-row-${rowIndex}`"
               :role="isClickable ? 'link' : null"
               :tabindex="isClickable ? 0 : null"
-              v-on="hasSideBorder ? tdlisteners(row, row) : {}"
             >
               <td
                 v-for="(value, index) in visibleHeaders"
@@ -215,7 +213,6 @@
         :offset-next-button-disabled="!offset || !hasNextPage"
         :offset-previous-button-disabled="!previousOffset"
         :page-sizes="paginationPageSizes"
-        :test-mode="!!testMode || undefined"
         :total-count="total"
         @get-next-offset="getNextOffsetHandler"
         @get-previous-offset="getPrevOffsetHandler"
@@ -247,16 +244,12 @@ import type {
   PageChangeData,
   PageSizeChangeData,
   SortColumnOrder,
-  TableSortOrder,
   TableSortPayload,
   TableStatePayload,
-  TableTestMode,
   EmptyStateIconVariant,
 } from '@/types'
 import {
   TablePaginationTypeArray,
-  TableSortOrderArray,
-  TableTestModeArray,
   EmptyStateIconVariants,
 } from '@/types'
 import { KUI_COLOR_TEXT, KUI_ICON_SIZE_20 } from '@kong/design-tokens'
@@ -265,18 +258,6 @@ import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
 const { useDebounce, useRequest, useSwrvState } = useUtilities()
 
 const props = defineProps({
-  /**
-   * @deprecated in favor of the "fetcher" prop
-   * Object containing data which creates rows and columns.
-   * @param {Object} options - Options to initialize the component with
-   * @param {Array} options.headers - Array of Objects defining Table Headers
-   * @param {Array} options.data - Array of Objects defining column data
-   */
-  options: {
-    type: Object,
-    default: () => null,
-    required: false,
-  },
   /**
    * Allow columns to be resized
    */
@@ -296,7 +277,7 @@ const props = defineProps({
    * Enable client side sort - only do this if using a fetcher
    * that returns static data
    */
-  enableClientSort: {
+  clientSort: {
     type: Boolean,
     default: false,
   },
@@ -307,24 +288,7 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  /**
-   * @deprecated
-   * the sort order for the table.
-   */
-  sortOrder: {
-    type: String as PropType<TableSortOrder>,
-    default: '',
-    validator: (value: TableSortOrder): boolean => TableSortOrderArray.includes(value),
-  },
-  /**
-   * @deprecated
-   * the key of the column that's currently being sorted
-   */
-  sortKey: {
-    type: String,
-    default: '',
-  },
-  sortHandlerFn: {
+  sortHandlerFunction: {
     type: Function,
     default: () => ({}),
   },
@@ -336,13 +300,6 @@ const props = defineProps({
     default: () => ({}),
   },
   /**
-   * A prop that enables a side border with a themable color to it.
-   */
-  hasSideBorder: {
-    type: Boolean,
-    default: false,
-  },
-  /**
    * A function that conditionally specifies cell attributes
    */
   cellAttrs: {
@@ -352,7 +309,7 @@ const props = defineProps({
   /**
    * A prop that enables a loading skeleton
    */
-  isLoading: {
+  loading: {
     type: Boolean,
     default: false,
   },
@@ -391,7 +348,7 @@ const props = defineProps({
   /**
    * A prop that enables the error state
    */
-  hasError: {
+  error: {
     type: Boolean,
     default: false,
   },
@@ -422,27 +379,6 @@ const props = defineProps({
   errorStateActionMessage: {
     type: String,
     default: '',
-  },
-  /**
-   * A prop to pass in a custom error state icon
-   */
-  errorStateIcon: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a color for the error state icon
-   */
-  errorStateIconColor: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a size for the error state icon
-   */
-  errorStateIconSize: {
-    type: String,
-    default: '50',
   },
   /**
    * A prop to pass in a fetcher function to enable server-side search, sort
@@ -515,9 +451,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  disableSorting: {
+  sortable: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   disablePagination: {
     type: Boolean,
@@ -535,16 +471,6 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  /**
-   * for testing only, strips out generated ids and avoid loading state in tests.
-   * 'true' - no id's no loading
-   * 'loading' - no id's but allow loading
-   */
-  testMode: {
-    type: String as PropType<TableTestMode>,
-    default: undefined,
-    validator: (val: TableTestMode): boolean => TableTestModeArray.includes(val),
-  },
 })
 
 const emit = defineEmits<{
@@ -560,7 +486,7 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 const slots = useSlots()
 
-const tableId = computed((): string => props.testMode ? 'test-table-id-1234' : uuidv4())
+const tableId = uuidv4()
 const defaultFetcherProps = {
   pageSize: 15,
   page: 1,
@@ -584,7 +510,7 @@ const currentHoveredColumn = ref('')
 const hasColumnVisibilityMenu = computed((): boolean => {
   // has hidable columns, no error/loading/empty state
   return !!(tableHeaders.value.filter((header: TableHeader) => header.hidable).length > 0 &&
-    !props.hasError && !isTableLoading.value && !props.isLoading && (data.value && data.value.length))
+    !props.error && !isTableLoading.value && !props.loading && (data.value && data.value.length))
 })
 // columns whose visibility can be toggled
 const visibilityColumns = computed((): TableHeader[] => tableHeaders.value.filter((header: TableHeader) => header.hidable))
@@ -738,10 +664,10 @@ const getHeaderClasses = (column: TableHeader, index: number): Record<string, bo
     'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && index !== visibleHeaders.value.length - 1,
     'truncated-column resizable': props.resizeColumns,
     // display sort control if column is sortable, label is visible, and sorting is not disabled
-    sortable: !props.disableSorting && !column.hideLabel && !!column.sortable,
+    sortable: !props.sortable && !column.hideLabel && !!column.sortable,
     // display active sorting styles if column is currently sorted
-    'active-sort': !props.disableSorting && !column.hideLabel && !!column.sortable && column.key === sortColumnKey.value,
-    [sortColumnOrder.value]: !props.disableSorting && column.key === sortColumnKey.value && !column.hideLabel,
+    'active-sort': !props.sortable && !column.hideLabel && !!column.sortable && column.key === sortColumnKey.value,
+    [sortColumnOrder.value]: !props.sortable && column.key === sortColumnKey.value && !column.hideLabel,
     'is-scrolled': isScrolled.value,
   }
 }
@@ -803,7 +729,7 @@ const startResize = (evt: MouseEvent, colKey: string) => {
   let col: HTMLElement | null = null
   headerElems.value?.forEach((elem) => {
     if (elem.getAttribute('data-testid') === `k-table-header-${colKey}`) {
-      col = document.querySelector(`[data-tableid="${tableId.value}"] [data-testid="k-table-header-${colKey}"]`)
+      col = document.querySelector(`[data-tableid="${tableId}"] [data-testid="k-table-header-${colKey}"]`)
     }
   })
 
@@ -858,16 +784,6 @@ const fetchData = async () => {
   data.value = res.data as Record<string, any>[]
   total.value = props.paginationTotalItems || res.total || res.data?.length
 
-  // get data
-  if (props.fetcher) {
-    if (props.enableClientSort && sortColumnKey.value && sortColumnOrder.value) {
-      defaultSorter(sortColumnKey.value, '', sortColumnOrder.value, data.value)
-    }
-  } else if (props.options && props.options.data && props.options.data.length) { // support legacy props
-    data.value = props.options.data
-    total.value = props.options.data.length
-  }
-
   if (props.paginationType === 'offset') {
     if (!res.pagination?.offset) {
       offset.value = null
@@ -914,8 +830,6 @@ const initData = () => {
   // get table headers
   if (props.headers && props.headers.length) {
     tableHeaders.value = props.headers as TableHeader[]
-  } else if (props.options && props.options.headers && props.options.headers.length) {
-    tableHeaders.value = props.options.headers
   }
 
   // trigger setting of tableFetcherCacheKey
@@ -931,7 +845,7 @@ const tableFetcherCacheKey = computed((): string => {
   }
 
   // Set the default identifier to a random string
-  let identifierKey: string = tableId.value
+  let identifierKey: string = tableId
   if (props.cacheIdentifier) {
     identifierKey = props.cacheIdentifier
   }
@@ -966,7 +880,7 @@ const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebounced
 const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)
 
 const sortClickHandler = (header: TableHeader): void => {
-  const { key, useSortHandlerFn } = header
+  const { key, useSortHandlerFunction } = header
   const prevKey = sortColumnKey.value + '' // avoid pass by ref
 
   page.value = 1
@@ -989,18 +903,14 @@ const sortClickHandler = (header: TableHeader): void => {
     offsets.value = [null]
   }
 
-  // Use deprecated sort function to sort data passed in via
-  // the deprecated options.data prop
-  if ((props.options && props.options.data) || props.enableClientSort) {
-    if (useSortHandlerFn && props.sortHandlerFn) {
-      props.sortHandlerFn({
+  if (props.clientSort) {
+    if (useSortHandlerFunction && props.sortHandlerFunction) {
+      props.sortHandlerFunction({
         key,
         prevKey,
         sortColumnOrder: sortColumnOrder.value,
         data: data.value,
       })
-    } else {
-      defaultSorter(key, prevKey, sortColumnOrder.value, data.value)
     }
   } else if (props.paginationType !== 'offset') {
     debouncedRevalidate()
@@ -1109,7 +1019,7 @@ watch(state, () => {
 
 watch([stateData, tableState], (newData) => {
   emit('state', {
-    state: newData?.[1],            // newData[tableState]
+    state: newData?.[1], // newData[tableState]
     hasData: newData?.[0]?.hasData, // newData[stateData].hasData
   })
 })
@@ -1157,22 +1067,6 @@ watch([query, page, pageSize], async (newData, oldData) => {
 onMounted(() => {
   initData()
 })
-</script>
-
-<script lang="ts">
-const { clientSideSorter } = useUtilities()
-
-/**
- * @deprecated defaultSorter
- * @param {String} key - the current key to sort by
- * @param {String} previousKey - the previous key used to sort by
- * @param {String} sortOrder - either ascending or descending
- * @param {Array} items - the list of items to sort
- * @return {Object} an object containing the previousKey and sortOrder
- */
-export const defaultSorter = (key: string, previousKey: string, sortOrder: string, items: Record<string, any>[]): Record<string, any> => {
-  return clientSideSorter(key, previousKey, sortOrder, items)
-}
 </script>
 
 <style lang="scss" scoped>

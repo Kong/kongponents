@@ -781,10 +781,30 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 #### Props
 
+* `hasSideBorder` prop has been removed
+* `hasError` prop has been removed and replaced with `error` prop
+* `isLoading` prop has been removed and replaced with `loading` prop
+* `disableSorting` prop has been removed and replaced with `sortable` prop (defaults to `true`)
+* `enableClientSort` prop has been removed and replaced with `clientSort` prop
+* `sortHandlerFn` prop has been removed and replaced with `sortHandlerFunction` prop
 * `emptyStateIcon` prop has been removed. You can use the new `emptyStateIconVariant` prop instead
 * `emptyStateIconColor` prop has been removed
 * `emptyStateIconSize` prop has been removed
 * `emptyStateActionButtonIcon` prop has been removed. You can use the new `empty-state-action-icon` slot instead
+* `errorStateIcon` prop has been removed
+* `errorStateIconColor` prop has been removed
+* `errorStateIconSize` prop has been removed
+* `options` prop (deprecated) has been removed
+* `sortOrder` prop (deprecated) has been removed
+* `testMode` prop has been removed
+
+#### Constants, Types & Interfaces
+
+* `useSortHandlerFn` parameter in `TableHeader` interface has been renamed to `useSortHandlerFunction`
+* `TableSortOrderArray` const has been removed
+* `TableSortOrder` type has been removed
+* `TableTestModeArray` const has been removed
+* `TableTestMode` type has been removed
 
 ### KTabs
 

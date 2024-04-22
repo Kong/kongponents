@@ -25,7 +25,7 @@ export interface TableHeader {
   sortable?: boolean
   hidable?: boolean
   hideLabel?: boolean
-  useSortHandlerFn?: boolean
+  useSortHandlerFunction?: boolean
 }
 
 /**
@@ -36,14 +36,7 @@ export interface TableHeader {
  */
 export type TableColumnSlotName = `column-${string}`
 
-export type TableState = 'loading' | 'error' | 'success'
-
-export const TableSortOrderArray = ['ascending', 'descending', ''] as const
-
-export type TableSortOrder = AnyElementOf<typeof TableSortOrderArray>
-
-export const TableTestModeArray = ['true', 'loading'] as const
-export type TableTestMode = AnyElementOf<typeof TableTestModeArray>
+export type TableState = 'loading' | 'error' | 'success' | 'empty'
 
 export interface TableSortPayload {
   prevKey: string

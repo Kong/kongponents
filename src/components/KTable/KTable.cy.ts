@@ -92,21 +92,11 @@ const options = {
   ],
 }
 
-/**
- * ALL TESTS MUST USE testMode
- * We generate unique IDs for reference by aria properties. Test mode strips these out
- * allowing for successful snapshot verification.
- * props: {
- *   testMode: 'true' || 'loading'
- * }
- */
-
 describe('KTable', () => {
   describe('states', () => {
     it('displays an empty state when no data is available', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           fetcher: () => ({ data: [] }),
           headers: options.headers,
           pageSize: 4,
@@ -117,11 +107,10 @@ describe('KTable', () => {
     })
 
     it('displays an empty state when no data is available (slot)', () => {
-      const emptySlotContent = 'Look mah! I am empty! (except testMode)'
+      const emptySlotContent = 'Look mah! I am empty!'
       const fetcher = () => new Promise(resolve => resolve({ data: [] }))
       mount(KTable, {
         props: {
-          testMode: 'true',
           fetcher,
           headers: options.headers,
           pageSize: 4,
@@ -134,22 +123,20 @@ describe('KTable', () => {
       cy.getTestId('k-table-empty-state').should('contain.text', emptySlotContent)
     })
 
-    it('displays a loading skeletion when the "isLoading" prop is set to true"', () => {
+    it('displays a loading skeletion when the "loading" prop is set to true"', () => {
       mount(KTable, {
         props: {
-          testMode: 'loading',
-          isLoading: true,
+          loading: true,
         },
       })
 
       cy.get('.skeleton-table-wrapper').should('be.visible')
     })
 
-    it('displays an error state when the "hasError" prop is set to true"', () => {
+    it('displays an error state when the "error" prop is set to true"', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
-          hasError: true,
+          error: true,
         },
       })
 
@@ -157,11 +144,10 @@ describe('KTable', () => {
     })
 
     it('displays an error state (slot)', () => {
-      const errorSlotContent = 'Look mah! I am erroneous! (except testMode)'
+      const errorSlotContent = 'Look mah! I am erroneous!'
       mount(KTable, {
         props: {
-          testMode: 'true',
-          hasError: true,
+          error: true,
         },
         slots: {
           'error-state': () => h('span', {}, errorSlotContent),
@@ -178,7 +164,6 @@ describe('KTable', () => {
 
       mount(KTable, {
         props: {
-          testMode: 'loading',
           fetcher: slowFetcher,
           headers: options.headers,
           cacheIdentifier: 'loading-test',
@@ -195,7 +180,6 @@ describe('KTable', () => {
     it('renders link in action slot', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           headers: options.headers,
           fetcher: () => { return { data: options.data } },
           disablePagination: true,
@@ -211,7 +195,6 @@ describe('KTable', () => {
     it('renders content in the toolbar slot', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           headers: options.headers,
           fetcher: () => { return { data: options.data } },
           disablePagination: true,
@@ -228,7 +211,6 @@ describe('KTable', () => {
     it('has hover class when passed', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           headers: options.headers,
           fetcher: () => { return { data: options.data } },
           hasHover: true,
@@ -241,7 +223,6 @@ describe('KTable', () => {
     it('renders column resize toggles when resizeColumns is set', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           headers: options.headers,
           fetcher: () => { return { data: options.data } },
           resizeColumns: true,
@@ -259,7 +240,6 @@ describe('KTable', () => {
 
       mount(KTable, {
         props: {
-          testMode: 'true',
           headers: options.headers,
           fetcher: () => { return { data: options.data } },
         },
@@ -288,7 +268,6 @@ describe('KTable', () => {
     it('when clicking a specific page number for non-offset pagination', () => {
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           initialFetcherParams: {
             page: 1,
             pageSize: 1,
@@ -299,7 +278,7 @@ describe('KTable', () => {
               total: options.data.length,
             }
           },
-          isLoading: false,
+          loading: false,
           headers: options.headers,
           paginationPageSizes: [1, 2],
           hidePaginationWhenOptional: false,
@@ -317,9 +296,8 @@ describe('KTable', () => {
     it('when clicking arrows for offset based pagination', () => {
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: offsetPaginationFetcher,
-          isLoading: false,
+          loading: false,
           headers: offsetPaginationHeaders,
         },
       })
@@ -334,13 +312,12 @@ describe('KTable', () => {
     it('when page size is changed', () => {
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: () => {
             return {
               data: largeDataSet,
             }
           },
-          isLoading: false,
+          loading: false,
           headers: options.headers,
           paginationPageSizes: [1, 2, 3, 4],
           hidePaginationWhenOptional: false,
@@ -360,7 +337,7 @@ describe('KTable', () => {
         { label: 'Host', key: 'hostname', sortable: true },
         { label: 'Version', key: 'version', sortable: true },
         { label: 'Connected', key: 'connected', sortable: true },
-        { label: 'Last Seen', key: 'last_seen', sortable: true, useSortHandlerFn: true },
+        { label: 'Last Seen', key: 'last_seen', sortable: true, useSortHandlerFunction: true },
       ]
       const sortHandlerFnFetcher = () => {
         return {
@@ -410,9 +387,8 @@ describe('KTable', () => {
       }
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: sortHandlerFnFetcher,
-          isLoading: false,
+          loading: false,
           headers: sortHandlerFnHeaders,
         },
       })
@@ -429,7 +405,6 @@ describe('KTable', () => {
     it('should have sortable class when passed', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           headers: options.headers,
           fetcher: () => { return { data: options.data } },
         },
@@ -445,10 +420,9 @@ describe('KTable', () => {
     it('should allow disabling sorting', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           headers: options.headers,
           fetcher: () => { return { data: options.data } },
-          disableSorting: true,
+          sortable: false,
         },
       })
 
@@ -465,7 +439,6 @@ describe('KTable', () => {
   //       localVue,
   //       attachToDocument: true,
   //       props: {
-  //         testMode: 'true',
   //         headers: options.headers,
   //         fetcher: () => { return { data: options.data } },
   //       },
@@ -484,7 +457,6 @@ describe('KTable', () => {
   //     localVue,
   //     attachToDocument: true,
   //     props: {
-  //       testMode: 'true',
   //       headers: options.headers,
   //       fetcher: () => { return { data: options.data } },
   //     },
@@ -513,11 +485,10 @@ describe('KTable', () => {
     it('displays pagination when fetcher provided', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           fetcher: () => {
             return largeDataSet
           },
-          isLoading: false,
+          loading: false,
           headers: options.headers,
           paginationPageSizes: [10, 20, 30, 40],
         },
@@ -529,11 +500,10 @@ describe('KTable', () => {
     it('does not display pagination when pagination disabled', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           fetcher: () => {
             return largeDataSet
           },
-          isLoading: false,
+          loading: false,
           headers: options.headers,
           paginationPageSizes: [10, 20, 30, 40],
           disablePagination: true,
@@ -546,7 +516,6 @@ describe('KTable', () => {
     it('does not display pagination when no fetcher', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           options,
           paginationPageSizes: [10, 20, 30, 40],
         },
@@ -558,9 +527,8 @@ describe('KTable', () => {
     it('does not display pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: () => { return { data: options.data, total: options.data.length } },
-          isLoading: false,
+          loading: false,
           headers: options.headers,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
@@ -573,11 +541,10 @@ describe('KTable', () => {
     it('does not display pagination when hidePaginationWhenOptional is true and total is equal to min pageSize', () => {
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: () => {
             return { data: largeDataSet, total: 12 }
           },
-          isLoading: false,
+          loading: false,
           headers: options.headers,
           paginationPageSizes: [12, 15, 20],
           hidePaginationWhenOptional: true,
@@ -590,11 +557,10 @@ describe('KTable', () => {
     it('does display pagination when total is greater than min pageSize', () => {
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: () => {
             return { data: largeDataSet, total: 12 }
           },
-          isLoading: false,
+          loading: false,
           headers: options.headers,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
@@ -607,9 +573,8 @@ describe('KTable', () => {
     it('does not display offset-based pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: () => { return { data: options.data, offset: null } },
-          isLoading: false,
+          loading: false,
           headers: options.headers,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
@@ -624,11 +589,10 @@ describe('KTable', () => {
     it('does display offset-based pagination when total is greater than min pageSize', () => {
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: () => {
             return { data: largeDataSet, offset: 'abc' }
           },
-          isLoading: false,
+          loading: false,
           initialFetcherParams: { offset: 'abc' },
           headers: options.headers,
           paginationPageSizes: [10, 15, 20],
@@ -652,9 +616,8 @@ describe('KTable', () => {
 
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: fns.fetcher,
-          isLoading: false,
+          loading: false,
           initialFetcherParams: { offset: 'abc' },
           headers: options.headers,
           paginationPageSizes: [10, 15, 20],
