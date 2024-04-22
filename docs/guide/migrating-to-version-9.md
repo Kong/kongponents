@@ -803,6 +803,19 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `ktable-error-cta-clicked` event has been renamed to `error-action-click`
 * `ktable-empty-state-cta-clicked` event has been renamed to `empty-state-action-click`
 
+#### Structure
+
+* `k-table-container` class has been changed to `k-table`
+* `k-table-toolbar` class and +++ has been changed to `table-toolbar`
+* `k-table-skeleton` +++ has been changed to `table-skeleton`
+* `k-table-error-state` class and +++ has been changed to `table-error-state`
+* `k-table-empty-state` class and +++ has been changed to `table-empty-state`
+* `k-table-wrapper` class has been changed to `table-wrapper`
+* `table.k-table` class has been changed to `table`
+* `k-table-headers` class has been changed to `table-headers`
+* `k-table-header-*` +++ has been changed to `table-header-*`
+* `k-table-pagination` class and +++ has been changed to `table-pagination`
+
 #### Constants, Types & Interfaces
 
 * `useSortHandlerFn` parameter in `TableHeader` interface has been renamed to `useSortHandlerFunction`
@@ -840,8 +853,6 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `is-resizable` class has been changed to `resizable`
 
 ### KToaster
-
-#### Attributes
 
 #### Structure
 

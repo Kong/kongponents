@@ -120,7 +120,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-table-empty-state').should('contain.text', emptySlotContent)
+      cy.getTestId('table-empty-state').should('contain.text', emptySlotContent)
     })
 
     it('displays a loading skeletion when the "loading" prop is set to true"', () => {
@@ -154,7 +154,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-table-error-state').should('contain.text', errorSlotContent)
+      cy.getTestId('table-error-state').should('contain.text', errorSlotContent)
     })
 
     it('displays a loading state and not an empty state when pending response', () => {
@@ -189,7 +189,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.get('.k-table td:last-of-type > *').contains('a', 'Link')
+      cy.get('.table td:last-of-type > *').contains('a', 'Link')
     })
 
     it('renders content in the toolbar slot', () => {
@@ -204,8 +204,8 @@ describe('KTable', () => {
         },
       })
 
-      cy.get('.k-table-container .k-table-toolbar').find('button').should('be.visible')
-      cy.get('.k-table-container .k-table-toolbar button').should('contain.text', 'Toolbar button')
+      cy.get('.k-table .table-toolbar').find('button').should('be.visible')
+      cy.get('.k-table .table-toolbar button').should('contain.text', 'Toolbar button')
     })
 
     it('has hover class when passed', () => {
@@ -217,7 +217,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.get('.k-table').should('have.class', 'has-hover')
+      cy.get('.table').should('have.class', 'has-hover')
     })
 
     it('renders column resize toggles when resizeColumns is set', () => {
@@ -229,7 +229,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.get('.k-table').find('th.resizable').should('be.visible')
+      cy.get('.table').find('th.resizable').should('be.visible')
       cy.get('.resize-handle').should('exist')
     })
 
@@ -245,7 +245,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.get('.k-table').should('be.visible')
+      cy.get('.table').should('be.visible')
       // menu button is visible
       cy.getTestId('column-visibility-menu-button').should('be.visible')
       cy.getTestId('column-visibility-menu-button').click()
@@ -258,9 +258,9 @@ describe('KTable', () => {
 
       // changes are applied only when Apply button is clicked
       cy.getTestId(`column-visibility-checkbox-${modifiedHeaderKey}`).click()
-      cy.getTestId(`k-table-header-${modifiedHeaderKey}`).should('be.visible')
+      cy.getTestId(`table-header-${modifiedHeaderKey}`).should('be.visible')
       cy.getTestId('apply-button').click()
-      cy.getTestId(`k-table-header-${modifiedHeaderKey}`).should('not.exist')
+      cy.getTestId(`table-header-${modifiedHeaderKey}`).should('not.exist')
     })
   })
 
@@ -285,12 +285,12 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-table-pagination').should('be.visible')
+      cy.getTestId('table-pagination').should('be.visible')
       cy.getTestId('page-size-dropdown-trigger').click()
       cy.get('[data-testid="dropdown-item-trigger"][value="1"]').click()
       cy.getTestId('next-button').click()
       cy.get('.pagination-button').should('contain.text', 2 + '')
-      cy.get('.k-table').find('tr').should('have.length', 4)
+      cy.get('.table').find('tr').should('have.length', 4)
     })
 
     it('when clicking arrows for offset based pagination', () => {
@@ -302,11 +302,11 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-table-pagination').should('be.visible')
+      cy.getTestId('table-pagination').should('be.visible')
       cy.getTestId('page-size-dropdown-trigger').click()
       cy.get('[data-testid="dropdown-item-trigger"][value="15"]').click({ multiple: true, force: true })
       cy.getTestId('next-button').should('exist')
-      cy.get('.k-table').find('tr').should('have.length', 16)
+      cy.get('.table').find('tr').should('have.length', 16)
     })
 
     it('when page size is changed', () => {
@@ -324,12 +324,12 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-table-pagination').should('be.visible')
+      cy.getTestId('table-pagination').should('be.visible')
       cy.getTestId('page-size-dropdown-trigger').click()
       cy.get('[data-testid="dropdown-item-trigger"][value="3"]').click({ multiple: true, force: true })
       cy.getTestId('next-button').click()
       cy.get('.pagination-button.active').should('contain.text', 2 + '')
-      cy.get('.k-table').find('tr').should('have.length', 13)
+      cy.get('.table').find('tr').should('have.length', 13)
     })
 
     it('when sort key or sort direction is changed and NOT using clientSideSort', () => {
@@ -393,11 +393,11 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-table-pagination').should('be.visible')
-      cy.getTestId('k-table-pagination').find('.kui-icon.chevron-down-icon').click()
-      cy.get('.k-table').find('tr').should('have.length', 6)
-      cy.get('.k-table').find('.kong-icon-chevronDown').last().click()
-      cy.get('.k-table').find('td:nth-child(4)').first().should('has.text', 'Just now')
+      cy.getTestId('table-pagination').should('be.visible')
+      cy.getTestId('table-pagination').find('.kui-icon.chevron-down-icon').click()
+      cy.get('.table').find('tr').should('have.length', 6)
+      cy.get('.table').find('.kong-icon-chevronDown').last().click()
+      cy.get('.table').find('td:nth-child(4)').first().should('has.text', 'Just now')
     })
   })
 
@@ -494,7 +494,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-table-pagination').should('be.visible')
+      cy.getTestId('table-pagination').should('be.visible')
     })
 
     it('does not display pagination when pagination disabled', () => {
@@ -510,7 +510,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-table-pagination').should('not.exist')
+      cy.getTestId('table-pagination').should('not.exist')
     })
 
     it('does not display pagination when no fetcher', () => {
@@ -521,7 +521,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-table-pagination').should('not.exist')
+      cy.getTestId('table-pagination').should('not.exist')
     })
 
     it('does not display pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
@@ -535,7 +535,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-table-pagination').should('not.exist')
+      cy.getTestId('table-pagination').should('not.exist')
     })
 
     it('does not display pagination when hidePaginationWhenOptional is true and total is equal to min pageSize', () => {
@@ -551,7 +551,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-table-pagination').should('not.exist')
+      cy.getTestId('table-pagination').should('not.exist')
     })
 
     it('does display pagination when total is greater than min pageSize', () => {
@@ -567,7 +567,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-table-pagination').should('be.visible')
+      cy.getTestId('table-pagination').should('be.visible')
     })
 
     it('does not display offset-based pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
@@ -583,7 +583,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-table-pagination').should('not.exist')
+      cy.getTestId('table-pagination').should('not.exist')
     })
 
     it('does display offset-based pagination when total is greater than min pageSize', () => {
@@ -600,7 +600,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-table-pagination').should('be.visible')
+      cy.getTestId('table-pagination').should('be.visible')
     })
   })
 

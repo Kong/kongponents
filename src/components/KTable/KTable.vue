@@ -1,9 +1,9 @@
 <template>
-  <div class="k-table-container">
+  <div class="k-table">
     <div
       v-if="hasToolbarSlot"
-      class="k-table-toolbar"
-      data-testid="k-table-toolbar"
+      class="table-toolbar"
+      data-testid="table-toolbar"
     >
       <slot
         name="toolbar"
@@ -20,14 +20,14 @@
 
     <KSkeleton
       v-if="(isTableLoading || loading || isRevalidating) && !error"
-      data-testid="k-table-skeleton"
+      data-testid="table-skeleton"
       type="table"
     />
 
     <div
       v-else-if="error"
-      class="k-table-error-state"
-      data-testid="k-table-error-state"
+      class="table-error-state"
+      data-testid="table-error-state"
     >
       <slot name="error-state">
         <KEmptyState
@@ -53,8 +53,8 @@
 
     <div
       v-else-if="!error && (!isTableLoading && !loading && !isRevalidating) && (data && !data.length)"
-      class="k-table-empty-state"
-      data-testid="k-table-empty-state"
+      class="table-empty-state"
+      data-testid="table-empty-state"
     >
       <slot name="empty-state">
         <KEmptyState
@@ -82,11 +82,11 @@
 
     <div v-else>
       <div
-        class="k-table-wrapper"
+        class="table-wrapper"
         @scroll.passive="scrollHandler"
       >
         <table
-          class="k-table"
+          class="table"
           :class="{
             'has-hover': hasHover,
             'is-clickable': isClickable
@@ -100,11 +100,11 @@
             >
               <th
                 v-for="(column, index) in visibleHeaders"
-                :key="`k-table-${tableId}-headers-${index}`"
+                :key="`table-${tableId}-headers-${index}`"
                 :aria-sort="sortable && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
-                class="k-table-headers"
+                class="table-headers"
                 :class="getHeaderClasses(column, index)"
-                :data-testid="`k-table-header-${column.key}`"
+                :data-testid="`table-header-${column.key}`"
                 :style="columnStyles[column.key]"
                 @click="() => {
                   if (sortable && column.sortable) {
@@ -129,7 +129,7 @@
                 />
 
                 <div
-                  class="k-table-headers-container"
+                  class="table-headers-container"
                   :class="{ 'resized': resizingColumn === column.key }"
                 >
                   <slot
@@ -172,14 +172,14 @@
             <tr
               v-for="(row, rowIndex) in data"
               v-bind="rowAttrs(row)"
-              :key="`k-table-${tableId}-row-${rowIndex}`"
+              :key="`table-${tableId}-row-${rowIndex}`"
               :role="isClickable ? 'link' : null"
               :tabindex="isClickable ? 0 : null"
             >
               <td
                 v-for="(value, index) in visibleHeaders"
                 v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
-                :key="`k-table-${tableId}-cell-${index}`"
+                :key="`table-${tableId}-cell-${index}`"
                 :class="{
                   'resize-hover': resizeColumns && resizeHoverColumn === value.key && index !== visibleHeaders.length - 1,
                   'truncated-column': resizeColumns
@@ -203,9 +203,9 @@
 
       <KPagination
         v-if="shouldShowPagination"
-        class="k-table-pagination"
+        class="table-pagination"
         :current-page="page"
-        data-testid="k-table-pagination"
+        data-testid="table-pagination"
         :disable-page-jump="disablePaginationPageJump"
         :initial-page-size="pageSize"
         :neighbors="paginationNeighbors"
@@ -728,8 +728,8 @@ const startResize = (evt: MouseEvent, colKey: string) => {
   // get the current column's element
   let col: HTMLElement | null = null
   headerElems.value?.forEach((elem) => {
-    if (elem.getAttribute('data-testid') === `k-table-header-${colKey}`) {
-      col = document.querySelector(`[data-tableid="${tableId}"] [data-testid="k-table-header-${colKey}"]`)
+    if (elem.getAttribute('data-testid') === `table-header-${colKey}`) {
+      col = document.querySelector(`[data-tableid="${tableId}"] [data-testid="table-header-${colKey}"]`)
     }
   })
 
@@ -1076,12 +1076,12 @@ $kTableThPaddingBottom: var(--kui-space-60, $kui-space-60);
 
 /* Component styles */
 
-.k-table-wrapper {
+.table-wrapper {
   overflow: auto;
   width: 100%;
 }
 
-.k-table-toolbar {
+.table-toolbar {
   display: flex;
   gap: var(--kui-space-50, $kui-space-50);
   margin-bottom: var(--kui-space-80, $kui-space-80) !important;
@@ -1092,7 +1092,7 @@ $kTableThPaddingBottom: var(--kui-space-60, $kui-space-60);
   }
 }
 
-.k-table {
+.table {
   border-collapse: collapse;
   margin-top: var(--kui-space-0, $kui-space-0);
   max-width: 100%;
@@ -1206,7 +1206,7 @@ $kTableThPaddingBottom: var(--kui-space-60, $kui-space-60);
         cursor: pointer;
       }
 
-      .k-table-headers-container {
+      .table-headers-container {
         align-items: center !important;
         display: flex !important;
 
@@ -1281,14 +1281,14 @@ $kTableThPaddingBottom: var(--kui-space-60, $kui-space-60);
     }
   }
 
-  .k-table-pagination {
+  .table-pagination {
     padding: var(--kui-space-20, $kui-space-20) !important;
   }
 }
 </style>
 
 <style lang="scss">
-.k-table {
+.table {
   thead {
     th {
       .caret {

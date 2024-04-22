@@ -38,7 +38,7 @@
 
           <KTable
             :key="data.tableKey"
-            empty-state-action-message="Emty state message"
+            empty-state-action-message="Empty state action"
             empty-state-action-route="/"
             empty-state-icon-variant="kong"
             empty-state-message="Empty state message"
@@ -71,14 +71,14 @@
 
           <KTable
             empty-state-action-message="Add new item"
+            :error="data.tableErrorState"
             error-state-action-message="Error state action"
             error-state-action-route="/"
             error-state-message="Error state message"
             error-state-title="Error state title"
             :fetcher="fetcher"
-            :has-error="data.tableErrorState"
             :headers="headers(true)"
-            :is-loading="data.tableLoadingState"
+            :loading="data.tableLoadingState"
             resize-columns
           >
             <template #actions>
@@ -86,6 +86,94 @@
             </template>
           </KTable>
         </KComponent>
+      </SandboxSectionComponent>
+
+      <!-- Slots -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Slots"
+      />
+      <SandboxSectionComponent title="column header & cell">
+        <KTable
+          :fetcher="fetcher"
+          :headers="headers()"
+        >
+          <template #column-username>
+            <div class="horizontal-container">
+              Username
+
+              <KTooltip text="Unique for each user.">
+                <InfoIcon
+                  :color="KUI_COLOR_TEXT_NEUTRAL"
+                  :size="KUI_ICON_SIZE_30"
+                />
+              </KTooltip>
+            </div>
+          </template>
+          <template #email="{ rowValue }">
+            <KCopy :text="rowValue" />
+          </template>
+          <template #actions>
+            <SandboxTableActions />
+          </template>
+        </KTable>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="toolbar">
+        <KTable
+          :fetcher="fetcher"
+          :headers="headers()"
+        >
+          <template #toolbar>
+            <KInput />
+            <KButton size="large">
+              <AddIcon /> Add user
+            </KButton>
+          </template>
+          <template #actions>
+            <SandboxTableActions />
+          </template>
+        </KTable>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="error-state">
+        <KTable
+          error
+          :fetcher="fetcher"
+          :headers="headers()"
+        >
+          <template #error-state>
+            <KEmptyState
+              action-button-text="Slotted error state action"
+              icon-variant="error"
+              message="Slotted error state message"
+              title="Slotted error state title"
+            />
+          </template>
+        </KTable>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="empty-state">
+        <KTable
+          :fetcher="emptyFetcher"
+          :headers="headers()"
+        >
+          <template #empty-state>
+            <KEmptyState
+              action-button-text="Slotted empty state action"
+              message="Slotted empty state message"
+              title="Slotted empty state title"
+            />
+          </template>
+        </KTable>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="empty-state-action-icon">
+        <KTable
+          empty-state-action-message="Empty state action"
+          :fetcher="emptyFetcher"
+          :headers="headers()"
+        >
+          <template #empty-state-action-icon>
+            <AddIcon />
+          </template>
+        </KTable>
       </SandboxSectionComponent>
     </div>
   </SandboxLayout>
@@ -96,6 +184,8 @@ import { inject } from 'vue'
 import SandboxTitleComponent from '../../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../../components/SandboxSectionComponent.vue'
 import SandboxTableActions from './SandboxTableActions.vue'
+import { AddIcon, InfoIcon } from '@kong/icons'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
 const headers = (hidable: boolean = false) => {
   return [
