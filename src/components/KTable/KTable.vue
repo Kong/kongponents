@@ -101,13 +101,13 @@
               <th
                 v-for="(column, index) in visibleHeaders"
                 :key="`k-table-${tableId}-headers-${index}`"
-                :aria-sort="!sortable && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
+                :aria-sort="sortable && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
                 class="k-table-headers"
                 :class="getHeaderClasses(column, index)"
                 :data-testid="`k-table-header-${column.key}`"
                 :style="columnStyles[column.key]"
                 @click="() => {
-                  if (!sortable && column.sortable) {
+                  if (sortable && column.sortable) {
                     $emit('sort', {
                       prevKey: sortColumnKey,
                       sortColumnKey: column.key,
@@ -147,7 +147,7 @@
                   </slot>
 
                   <KIcon
-                    v-if="!sortable && !column.hideLabel && column.sortable"
+                    v-if="sortable && !column.hideLabel && column.sortable"
                     aria-hidden="true"
                     class="caret"
                     :color="`var(--kui-color-text, ${KUI_COLOR_TEXT})`"
@@ -664,10 +664,10 @@ const getHeaderClasses = (column: TableHeader, index: number): Record<string, bo
     'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && index !== visibleHeaders.value.length - 1,
     'truncated-column resizable': props.resizeColumns,
     // display sort control if column is sortable, label is visible, and sorting is not disabled
-    sortable: !props.sortable && !column.hideLabel && !!column.sortable,
+    sortable: props.sortable && !column.hideLabel && !!column.sortable,
     // display active sorting styles if column is currently sorted
-    'active-sort': !props.sortable && !column.hideLabel && !!column.sortable && column.key === sortColumnKey.value,
-    [sortColumnOrder.value]: !props.sortable && column.key === sortColumnKey.value && !column.hideLabel,
+    'active-sort': props.sortable && !column.hideLabel && !!column.sortable && column.key === sortColumnKey.value,
+    [sortColumnOrder.value]: props.sortable && column.key === sortColumnKey.value && !column.hideLabel,
     'is-scrolled': isScrolled.value,
   }
 }
