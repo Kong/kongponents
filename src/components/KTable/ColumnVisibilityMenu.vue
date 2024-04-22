@@ -2,6 +2,7 @@
   <div class="table-column-visibility-menu">
     <KDropdown
       data-testid="table-column-visibility-menu"
+      :kpop-attributes="{ placement: 'bottomEnd' }"
       @toggle-dropdown="handleDropdownToggle"
     >
       <KTooltip text="Show/Hide Columns">
@@ -189,7 +190,7 @@ onBeforeMount(() => {
 
     .apply-button {
       margin-left: var(--kui-space-auto, $kui-space-auto);
-      margin-right: var(--kui-space-auto, $kui-space-auto);
+      margin-right: var(--kui-space-20, $kui-space-20);
     }
   }
 
