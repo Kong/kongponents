@@ -486,7 +486,7 @@ describe('KTable', () => {
       mount(KTable, {
         props: {
           fetcher: () => {
-            return largeDataSet
+            return { data: largeDataSet, total: largeDataSet.length }
           },
           loading: false,
           headers: options.headers,
@@ -501,7 +501,7 @@ describe('KTable', () => {
       mount(KTable, {
         props: {
           fetcher: () => {
-            return largeDataSet
+            return { data: largeDataSet, total: largeDataSet.length }
           },
           loading: false,
           headers: options.headers,
@@ -542,7 +542,7 @@ describe('KTable', () => {
       mount(KTable, {
         propsData: {
           fetcher: () => {
-            return { data: largeDataSet, total: 12 }
+            return { data: largeDataSet, total: largeDataSet.length }
           },
           loading: false,
           headers: options.headers,
@@ -558,7 +558,7 @@ describe('KTable', () => {
       mount(KTable, {
         propsData: {
           fetcher: () => {
-            return { data: largeDataSet, total: 12 }
+            return { data: largeDataSet, total: largeDataSet.length }
           },
           loading: false,
           headers: options.headers,
