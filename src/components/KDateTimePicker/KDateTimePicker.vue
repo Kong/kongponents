@@ -140,7 +140,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 import { DatePicker } from 'v-calendar'
@@ -545,7 +545,7 @@ watch(() => state.tabName, (newValue, oldValue) => {
  * Selects either "Relative" or "Custom" tab, saves the incoming default value to internal state,
  * then updates the input field to display the human-readable time frame.
  */
-onMounted(() => {
+watch(props, () => {
   if (ModeArrayRelative.includes(props.mode) && props.modelValue?.timePeriodsKey) {
     state.tabName = 'relative'
     submitDisabled.value = false
@@ -567,7 +567,7 @@ onMounted(() => {
       updateDisplay()
     }
   }
-})
+}, { deep: true })
 </script>
 
 <style lang="scss" scoped>
