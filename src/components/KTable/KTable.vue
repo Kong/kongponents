@@ -42,7 +42,7 @@
             <KButton
               :data-testid="getTestIdString(errorStateActionMessage)"
               :to="errorStateActionRoute ? errorStateActionRoute : undefined"
-              @click="$emit('ktable-error-cta-clicked')"
+              @click="$emit('error-action-click')"
             >
               {{ errorStateActionMessage }}
             </KButton>
@@ -70,7 +70,7 @@
               :appearance="searchInput ? 'tertiary' : 'primary'"
               :data-testid="getTestIdString(emptyStateActionMessage)"
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
-              @click="$emit('ktable-empty-state-cta-clicked')"
+              @click="$emit('empty-state-action-click')"
             >
               <slot name="empty-state-action-icon" />
               {{ emptyStateActionMessage }}
@@ -476,8 +476,8 @@ const props = defineProps({
 const emit = defineEmits<{
   (e: 'cell-click', value: { data: any }): void
   (e: 'row-click', value: { data: any }): void
-  (e: 'ktable-error-cta-clicked'): void
-  (e: 'ktable-empty-state-cta-clicked'): void
+  (e: 'error-action-click'): void
+  (e: 'empty-state-action-click'): void
   (e: 'update:table-preferences', preferences: TablePreferences): void
   (e: 'sort', value: TableSortPayload): void
   (e: 'state', value: TableStatePayload): void

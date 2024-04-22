@@ -798,6 +798,11 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `sortOrder` prop (deprecated) has been removed
 * `testMode` prop has been removed
 
+#### Events
+
+* `ktable-error-cta-clicked` event has been renamed to `error-action-click`
+* `ktable-empty-state-cta-clicked` event has been renamed to `empty-state-action-click`
+
 #### Constants, Types & Interfaces
 
 * `useSortHandlerFn` parameter in `TableHeader` interface has been renamed to `useSortHandlerFunction`
