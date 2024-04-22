@@ -190,6 +190,7 @@ onBeforeMount(() => {
 
     .apply-button {
       margin-left: var(--kui-space-auto, $kui-space-auto);
+      margin-right: var(--kui-space-20, $kui-space-20);
     }
   }
 
