@@ -1,3 +1,10 @@
+# [9.0.0-alpha.147](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.146...v9.0.0-alpha.147) (2024-04-22)
+
+
+### Bug Fixes
+
+* **ktable:** column visibility design feedback ([#2152](https://github.com/Kong/kongponents/issues/2152)) ([524d89b](https://github.com/Kong/kongponents/commit/524d89b1ffda1a0ca2b0e8d11ab9977c2f7718cc))
+
 # [9.0.0-alpha.146](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.145...v9.0.0-alpha.146) (2024-04-18)
 
 
