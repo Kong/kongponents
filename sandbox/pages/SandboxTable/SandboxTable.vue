@@ -45,7 +45,7 @@
             empty-state-title="Empty state title"
             :fetcher="data.tableEmptyState ? emptyFetcher : fetcher"
             :has-hover="data.tableHasHover"
-            :headers="headers()"
+            :headers="headers(false, true)"
           >
             <template #actions>
               <SandboxTableActions />
@@ -99,16 +99,14 @@
           :headers="headers()"
         >
           <template #column-username>
-            <div class="horizontal-container">
-              Username
+            Username
 
-              <KTooltip text="Unique for each user.">
-                <InfoIcon
-                  :color="KUI_COLOR_TEXT_NEUTRAL"
-                  :size="KUI_ICON_SIZE_30"
-                />
-              </KTooltip>
-            </div>
+            <KTooltip text="Unique for each user.">
+              <InfoIcon
+                :color="KUI_COLOR_TEXT_NEUTRAL"
+                :size="KUI_ICON_SIZE_30"
+              />
+            </KTooltip>
           </template>
           <template #email="{ rowValue }">
             <KCopy :text="rowValue" />
@@ -187,10 +185,10 @@ import SandboxTableActions from './SandboxTableActions.vue'
 import { AddIcon, InfoIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
-const headers = (hidable: boolean = false) => {
+const headers = (hidable: boolean = false, sortable: boolean = false) => {
   return [
     { key: 'name', label: 'Full Name' },
-    { key: 'username', label: 'Username' },
+    { key: 'username', label: 'Username', sortable },
     { key: 'email', label: 'Email', hidable },
     { key: 'actions', hideLabel: true },
   ]

@@ -146,13 +146,11 @@
                     </span>
                   </slot>
 
-                  <KIcon
+                  <ArrowDownIcon
                     v-if="sortable && !column.hideLabel && column.sortable"
-                    aria-hidden="true"
-                    class="caret"
-                    :color="`var(--kui-color-text, ${KUI_COLOR_TEXT})`"
-                    icon="chevronDown"
-                    :size="KUI_ICON_SIZE_20"
+                    class="sort-icon"
+                    :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
+                    :size="KUI_ICON_SIZE_30"
                   />
                 </div>
 
@@ -231,7 +229,7 @@ import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
+import { ArrowDownIcon } from '@kong/icons'
 import useUtilities from '@/composables/useUtilities'
 import type {
   TablePreferences,
@@ -252,7 +250,7 @@ import {
   TablePaginationTypeArray,
   EmptyStateIconVariants,
 } from '@/types'
-import { KUI_COLOR_TEXT, KUI_ICON_SIZE_20 } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
 
 const { useDebounce, useRequest, useSwrvState } = useUtilities()
@@ -1072,263 +1070,208 @@ onMounted(() => {
 <style lang="scss" scoped>
 /* Component variables */
 
-$kTableThPaddingBottom: var(--kui-space-60, $kui-space-60);
+$kTableThPaddingY: var(--kui-space-50, $kui-space-50);
 
 /* Component styles */
 
-.table-wrapper {
-  overflow: auto;
-  width: 100%;
-}
-
-.table-toolbar {
+.k-table {
   display: flex;
-  gap: var(--kui-space-50, $kui-space-50);
-  margin-bottom: var(--kui-space-80, $kui-space-80) !important;
-  width: 100%;
+  flex-direction: column;
+  gap: var(--kui-space-70, $kui-space-70);
 
-  & > :deep(*) {
+  .table-toolbar {
     display: flex;
-  }
-}
-
-.table {
-  border-collapse: collapse;
-  margin-top: var(--kui-space-0, $kui-space-0);
-  max-width: 100%;
-  width: 100%;
-
-  th,
-  td {
-    padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
-    vertical-align: middle;
-    white-space: nowrap;
+    gap: var(--kui-space-50, $kui-space-50);
+    width: 100%;
   }
 
-  th.resize-hover {
-    // creates a 2px "border" on the right - can't use the border because it will "jump"
-    box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple) inset;
-  }
+  .table-wrapper {
+    overflow: auto;
+    width: 100%;
 
-  td.resize-hover {
-    // creates a 2px "border" on the right - can't use the border because it will "jump"
-    box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border, $kui-color-border) inset;
-  }
+    .table {
+      border-collapse: collapse;
+      max-width: 100%;
+      width: 100%;
 
-  .truncated-column {
-    @include truncate;
-  }
-
-  thead {
-    background-color: var(--kui-color-background, $kui-color-background);
-    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    height: 60px;
-    position: sticky;
-    top: 0;
-
-    &.is-scrolled {
-      border-bottom: none;
-    }
-
-    tr {
-      position: relative;
-
-      &:after {
-        box-shadow: none;
-        content: '';
-        height: 100%;
-        left: 0;
-        opacity: 0;
-        // Super-important to allow clicking on table rows in Safari.
-        // This allows clicks to pass through the "invisible" :after layer
-        pointer-events: none;
-        position: absolute;
-        transition: opacity $tmp-animation-timing-2 ease-in-out;
-        width: 100%;
-        z-index: -1;
+      th,
+      td {
+        padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+        vertical-align: middle;
+        white-space: nowrap;
       }
 
-      &.is-scrolled {
-        border-bottom: none;
+      th.resize-hover {
+        // creates a 2px "border" on the right - can't use the border because it will "jump"
+        box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple) inset;
+      }
 
-        &:after {
-          box-shadow: $tmp-color-shadow;
-          opacity: 1;
-          transition: opacity $tmp-animation-timing-2 ease-in-out;
+      td.resize-hover {
+        // creates a 2px "border" on the right - can't use the border because it will "jump"
+        box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border, $kui-color-border) inset;
+      }
+
+      .truncated-column {
+        @include truncate;
+      }
+
+      thead {
+        background-color: var(--kui-color-background, $kui-color-background);
+        border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+        height: 44px;
+        position: sticky;
+        top: 0;
+
+        &.is-scrolled {
+          border-bottom: none;
         }
-      }
-    }
 
-    th {
-      font-size: var(--kui-font-size-30, $kui-font-size-30);
-      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-      padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
-      padding-bottom: $kTableThPaddingBottom;
-      text-align: left;
-      vertical-align: bottom;
+        tr {
+          position: relative;
 
-      &.resizable {
-        min-width: 40px;
-        position: relative;
-
-        .resize-handle {
-          cursor: col-resize;
-          height: v-bind('headerHeight');
-          position: absolute;
-          right: 0;
-          top: 0;
-          width: 6px;
-
-          &.previous {
+          &:after {
+            box-shadow: none;
+            content: '';
+            height: 100%;
             left: 0;
-            right: unset;
+            opacity: 0;
+            // Super-important to allow clicking on table rows in Safari.
+            // This allows clicks to pass through the "invisible" :after layer
+            pointer-events: none;
+            position: absolute;
+            transition: opacity $kongponentsTransitionDurTimingFunc;
+            width: 100%;
+            z-index: -1;
+          }
+
+          &.is-scrolled {
+            border-bottom: none;
+
+            &:after {
+              box-shadow: var(--kui-shadow, $kui-shadow);
+              opacity: 1;
+              transition: opacity $kongponentsTransitionDurTimingFunc;
+            }
+          }
+        }
+
+        th {
+          color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+          font-size: var(--kui-font-size-30, $kui-font-size-30);
+          font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+          line-height: var(--kui-line-height-30, $kui-line-height-30);
+          padding: $kTableThPaddingY var(--kui-space-60, $kui-space-60);
+          text-align: left;
+          vertical-align: bottom;
+
+          &.resizable {
+            min-width: 40px;
+            position: relative;
+
+            .resize-handle {
+              cursor: col-resize;
+              height: v-bind('headerHeight');
+              position: absolute;
+              right: 0;
+              top: 0;
+              width: 6px;
+
+              &.previous {
+                left: 0;
+                right: unset;
+              }
+            }
+          }
+
+          &.active-sort {
+            color: var(--kui-color-text, $kui-color-text);
+          }
+
+          .sr-only {
+            border-width: var(--kui-border-width-0, $kui-border-width-0);
+            clip: rect(0, 0, 0, 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: var(--kui-space-0, $kui-space-0);
+            position: absolute;
+            white-space: nowrap;
+            width: 1px;
+          }
+
+          &.sortable {
+            cursor: pointer;
+
+            &.asc .sort-icon {
+              transform: rotate(-180deg);
+            }
+          }
+
+          .table-headers-container {
+            align-items: center;
+            display: flex;
+            gap: var(--kui-space-40, $kui-space-40);
+
+            &.resized {
+              // when column is resized we need to set position: absolute; to avoid glitching resizing behavior
+              bottom: $kTableThPaddingY;
+              position: absolute;
+            }
           }
         }
       }
 
-      &.active-sort {
-        color: var(--kui-color-text-primary, $kui-color-text-primary);
-      }
+      tbody {
+        tr {
+          height: 48px;
 
-      .sr-only {
-        border-width: var(--kui-border-width-0, $kui-border-width-0);
-        clip: rect(0, 0, 0, 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: var(--kui-space-0, $kui-space-0);
-        position: absolute;
-        white-space: nowrap;
-        width: 1px;
-      }
-
-      &.sortable {
-        cursor: pointer;
-      }
-
-      .table-headers-container {
-        align-items: center !important;
-        display: flex !important;
-
-        .caret {
-          margin-left: var(--kui-space-40, $kui-space-40) !important;
+          &:not(:last-of-type) {
+            border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+          }
         }
 
-        &.resized {
-          bottom: $kTableThPaddingBottom;
-          position: absolute;
+        td {
+          color: var(--kui-color-text, $kui-color-text);
+          font-size: var(--kui-font-size-30, $kui-font-size-30);
+          font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+          line-height: var(--kui-line-height-30, $kui-line-height-30);
+          white-space: nowrap;
         }
       }
-    }
-  }
 
-  tbody {
-    tr {
-      height: 44px;
+      // Variants
+      &.has-hover {
+        tbody tr:hover {
+          background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
 
-      &:not(:last-of-type) {
-        border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-      }
-    }
-
-    td {
-      color: var(--kui-color-text, $kui-color-text);
-      white-space: nowrap;
-
-      a {
-        color: var(--kui-color-text-primary, $kui-color-text-primary);
-        text-decoration: none;
-        &:hover {
-          text-decoration: underline;
+          td {
+            border-color: var(--kui-color-border-primary-weakest, $kui-color-border-primary-weakest);
+          }
         }
       }
-    }
-  }
 
-  // Variants
-  &.has-hover {
-    tbody tr:hover {
-      background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-
-      td {
-        border-color: var(--kui-color-border-primary-weakest, $kui-color-border-primary-weakest);
-      }
-    }
-  }
-
-  &.is-clickable {
-    tbody tr {
-      cursor: pointer;
-    }
-  }
-
-  &.side-border {
-    border-collapse: separate;
-    border-spacing: $tmp-border-spacing-0 $tmp-border-spacing-2;
-
-    tbody tr {
-      border-bottom: none;
-    }
-
-    tbody tr td:first-child {
-      border-left: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border, $kui-color-border);
-    }
-
-    &.has-hover {
-      tbody tr:hover td:first-child {
-        border-left: var(--kui-border-width-20, $kui-border-width-20) solid $tmp-color-steel-300;
+      &.is-clickable {
+        tbody tr {
+          cursor: pointer;
+        }
       }
     }
   }
 
   .table-pagination {
-    padding: var(--kui-space-20, $kui-space-20) !important;
+    margin-top: var(--kui-space-70, $kui-space-70);
   }
 }
 </style>
 
 <style lang="scss">
-.table {
-  thead {
-    th {
-      .caret {
-        position: relative;
-        top: 2px;
-        transform: rotate(0deg);
-      }
-
-      &.sortable {
-        &.asc .caret {
-          transform: rotate(-180deg);
+.k-table {
+  .table {
+    thead {
+      th {
+        &.truncate, .truncate {
+          @include truncate;
         }
-      }
-
-      &.truncate, .truncate {
-        @include truncate;
-      }
-    }
-  }
-
-  tbody {
-    td {
-      button:not(.dropdown-item-trigger),
-      .k-button {
-        margin-bottom: calc(-1 * var(--kui-space-40, $kui-space-40));
-        margin-top: calc(-1 * var(--kui-space-40, $kui-space-40));
-      }
-      .k-table-cell-title {
-        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-        font-size: var(--kui-font-size-40, $kui-font-size-40);
-        font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-      }
-      .k-table-cell-description {
-        color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
-        font-size: var(--kui-font-size-40, $kui-font-size-40);
-        font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-      }
-
-      &.truncate, .truncate {
-        @include truncate;
       }
     }
   }

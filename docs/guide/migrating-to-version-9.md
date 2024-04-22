@@ -806,15 +806,16 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 #### Structure
 
 * `k-table-container` class has been changed to `k-table`
-* `k-table-toolbar` class and +++ has been changed to `table-toolbar`
-* `k-table-skeleton` +++ has been changed to `table-skeleton`
-* `k-table-error-state` class and +++ has been changed to `table-error-state`
-* `k-table-empty-state` class and +++ has been changed to `table-empty-state`
+* `k-table-toolbar` class and `data-testid` attribute has been changed to `table-toolbar`
+* `k-table-skeleton` `data-testid` attribute has been changed to `table-skeleton`
+* `k-table-error-state` class and `data-testid` attribute has been changed to `table-error-state`
+* `k-table-empty-state` class and `data-testid` attribute has been changed to `table-empty-state`
 * `k-table-wrapper` class has been changed to `table-wrapper`
 * `table.k-table` class has been changed to `table`
 * `k-table-headers` class has been changed to `table-headers`
-* `k-table-header-*` +++ has been changed to `table-header-*`
-* `k-table-pagination` class and +++ has been changed to `table-pagination`
+* `k-table-header-*` `data-testid` attribute has been changed to `table-header-*`
+* `k-table-pagination` class and `data-testid` attribute has been changed to `table-pagination`
+* `caret` class has been changed to `sort-icon`
 
 #### Constants, Types & Interfaces
 
