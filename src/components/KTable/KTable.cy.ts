@@ -213,7 +213,7 @@ describe('KTable', () => {
         props: {
           headers: options.headers,
           fetcher: () => { return { data: options.data } },
-          hasHover: true,
+          rowHover: true,
         },
       })
 

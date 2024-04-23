@@ -1,5 +1,3 @@
-import type { AnyElementOf } from '@/types/utils'
-
 export type SortColumnOrder = 'asc' | 'desc'
 
 export interface TablePreferences {
@@ -14,10 +12,6 @@ export interface TablePreferences {
   /** Column visibility, if visibility is toggleable */
   columnVisibility?: Record<string, boolean>
 }
-
-export const TablePaginationTypeArray = ['default', 'offset'] as const
-
-export type TablePaginationType = AnyElementOf<typeof TablePaginationTypeArray>
 
 export interface TableHeader {
   key: string

@@ -19,14 +19,14 @@
         is-subtitle
         title="Props"
       />
-      <SandboxSectionComponent title="hasHover & emptyStateIconVariant & emptyStateTitle & emptyStateMessage & emptyStateActionMessage & emptyStateActionRoute">
+      <SandboxSectionComponent title="rowHover & emptyStateIconVariant & emptyStateTitle & emptyStateMessage & emptyStateActionMessage & emptyStateActionRoute">
         <KComponent
           v-slot="{ data }"
-          :data="{ tableKey: 0, tableHasHover: false, tableEmptyState: false }"
+          :data="{ tableKey: 0, tableRowHover: false, tableEmptyState: false }"
         >
           <div class="horizontal-container">
             <KInputSwitch
-              v-model="data.tableHasHover"
+              v-model="data.tableRowHover"
               label="Has hover"
             />
             <KInputSwitch
@@ -38,14 +38,16 @@
 
           <KTable
             :key="data.tableKey"
+            client-sort
             empty-state-action-message="Empty state action"
             empty-state-action-route="/"
             empty-state-icon-variant="kong"
             empty-state-message="Empty state message"
             empty-state-title="Empty state title"
             :fetcher="data.tableEmptyState ? emptyFetcher : fetcher"
-            :has-hover="data.tableHasHover"
             :headers="headers(false, true)"
+            :row-hover="data.tableRowHover"
+            :sort-handler-function="sortHandlerFunction"
           >
             <template #actions>
               <SandboxTableActions />
@@ -184,13 +186,19 @@ import SandboxSectionComponent from '../../components/SandboxSectionComponent.vu
 import SandboxTableActions from './SandboxTableActions.vue'
 import { AddIcon, InfoIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import type { TableHeader } from '@/types'
 
-const headers = (hidable: boolean = false, sortable: boolean = false) => {
+const headers = (hidable: boolean = false, sortable: boolean = false): TableHeader[] => {
   return [
     { key: 'name', label: 'Full Name' },
-    { key: 'username', label: 'Username', sortable },
+    {
+      key: 'username',
+      label: 'Username',
+      sortable,
+      ...(sortable && { useSortHandlerFunction: true }),
+    },
     { key: 'email', label: 'Email', hidable },
-    { key: 'actions', hideLabel: true },
+    { key: 'actions', label: 'Row actions', hideLabel: true },
   ]
 }
 
@@ -215,6 +223,32 @@ const emptyFetcher = async (): Promise<any> => {
     data: [],
     total: 0,
   }
+}
+
+const sortHandlerFunction = ({ key, sortColumnOrder, data }: any) => {
+  return data.sort((a: any, b: any) => {
+    if (key === 'username') {
+      if (sortColumnOrder === 'asc') {
+        if (a.username > b.username) {
+          return 1
+        } else if (a.username < b.username) {
+          return -1
+        }
+
+        return 0
+      } else {
+        if (a.username > b.username) {
+          return -1
+        } else if (a.username < b.username) {
+          return 1
+        }
+
+        return 0
+      }
+    }
+
+    return data
+  })
 }
 </script>
 

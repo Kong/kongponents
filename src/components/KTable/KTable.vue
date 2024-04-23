@@ -14,7 +14,7 @@
         :columns="visibilityColumns"
         :table-id="tableId"
         :visibility-preferences="visibilityPreferences"
-        @update:visibility="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
+        @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
       />
     </div>
 
@@ -88,7 +88,7 @@
         <table
           class="table"
           :class="{
-            'has-hover': hasHover,
+            'has-hover': rowHover,
             'is-clickable': isClickable
           }"
           :data-tableid="tableId"
@@ -137,9 +137,9 @@
                     :name="getColumnSlotName(column.key)"
                   >
                     <span
+                      class="table-header-label"
                       :class="{
                         'sr-only': column.hideLabel,
-                        'truncated-column': resizeColumns,
                       }"
                     >
                       {{ column.label ? column.label : column.key }}
@@ -180,7 +180,6 @@
                 :key="`table-${tableId}-cell-${index}`"
                 :class="{
                   'resize-hover': resizeColumns && resizeHoverColumn === value.key && index !== visibleHeaders.length - 1,
-                  'truncated-column': resizeColumns
                 }"
                 :style="columnStyles[value.key]"
                 v-on="tdlisteners(row[value.key], row)"
@@ -207,7 +206,7 @@
         :disable-page-jump="disablePaginationPageJump"
         :initial-page-size="pageSize"
         :neighbors="paginationNeighbors"
-        :offset="paginationType === 'offset' ? true : false"
+        :offset="paginationOffset"
         :offset-next-button-disabled="!offset || !hasNextPage"
         :offset-previous-button-disabled="!previousOffset"
         :page-sizes="paginationPageSizes"
@@ -233,7 +232,6 @@ import { ArrowDownIcon } from '@kong/icons'
 import useUtilities from '@/composables/useUtilities'
 import type {
   TablePreferences,
-  TablePaginationType,
   TableHeader,
   TableColumnSlotName,
   SwrvState,
@@ -247,7 +245,6 @@ import type {
   EmptyStateIconVariant,
 } from '@/types'
 import {
-  TablePaginationTypeArray,
   EmptyStateIconVariants,
 } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
@@ -282,7 +279,7 @@ const props = defineProps({
   /**
    * Enables hover highlighting to table rows
    */
-  hasHover: {
+  rowHover: {
     type: Boolean,
     default: true,
   },
@@ -413,7 +410,7 @@ const props = defineProps({
    * A prop to pass in an array of headers for the table
    */
   headers: {
-    type: Array,
+    type: Array as PropType<TableHeader[]>,
     default: () => [],
   },
   /**
@@ -457,10 +454,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  paginationType: {
-    type: String as PropType<TablePaginationType>,
-    default: 'default',
-    validator: (type: TablePaginationType) => TablePaginationTypeArray.includes(type),
+  paginationOffset: {
+    type: Boolean,
+    default: false,
   },
   /**
    * A prop to pass to hide pagination for total table records is less than or equal to pagesize
@@ -513,9 +509,9 @@ const hasColumnVisibilityMenu = computed((): boolean => {
 // columns whose visibility can be toggled
 const visibilityColumns = computed((): TableHeader[] => tableHeaders.value.filter((header: TableHeader) => header.hidable))
 // visibility preferences from the host app (initialized by app)
-const visibilityPreferences = computed((): Record<string, boolean> => props.tablePreferences.columnVisibility || {})
+const visibilityPreferences = computed((): Record<string, boolean> => hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
 // current column visibility state
-const columnVisibility = ref<Record<string, boolean>>(props.tablePreferences.columnVisibility || {})
+const columnVisibility = ref<Record<string, boolean>>(hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
 const total = ref(0)
 const isScrolled = ref(false)
 const page = ref(1)
@@ -638,7 +634,7 @@ const tdlisteners = computed((): any => {
   }
 })
 
-const columnWidths = ref<Record<string, number>>(props.tablePreferences.columnWidths || {})
+const columnWidths = ref<Record<string, number>>(props.resizeColumns ? props.tablePreferences.columnWidths || {} : {})
 const columnStyles = computed(() => {
   const styles: Record<string, any> = {}
   for (const colKey in columnWidths.value) {
@@ -660,7 +656,7 @@ const getHeaderClasses = (column: TableHeader, index: number): Record<string, bo
   return {
     // display the resize handle on the right side of the column if resizeColumns is enabled, hovering current column, and not the last column
     'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && index !== visibleHeaders.value.length - 1,
-    'truncated-column resizable': props.resizeColumns,
+    resizable: props.resizeColumns,
     // display sort control if column is sortable, label is visible, and sorting is not disabled
     sortable: props.sortable && !column.hideLabel && !!column.sortable,
     // display active sorting styles if column is currently sorted
@@ -782,7 +778,7 @@ const fetchData = async () => {
   data.value = res.data as Record<string, any>[]
   total.value = props.paginationTotalItems || res.total || res.data?.length
 
-  if (props.paginationType === 'offset') {
+  if (props.paginationOffset) {
     if (!res.pagination?.offset) {
       offset.value = null
 
@@ -820,7 +816,7 @@ const initData = () => {
   sortColumnKey.value = fetcherParams.sortColumnKey ?? defaultFetcherProps.sortColumnKey
   sortColumnOrder.value = fetcherParams.sortColumnOrder as SortColumnOrder ?? defaultFetcherProps.sortColumnOrder as SortColumnOrder
 
-  if (props.paginationType === 'offset') {
+  if (props.paginationOffset) {
     offset.value = fetcherParams.offset
     offsets.value.push(fetcherParams.offset)
   }
@@ -910,7 +906,7 @@ const sortClickHandler = (header: TableHeader): void => {
         data: data.value,
       })
     }
-  } else if (props.paginationType !== 'offset') {
+  } else if (!props.paginationOffset) {
     debouncedRevalidate()
   }
 
@@ -972,8 +968,8 @@ const getPrevOffsetHandler = (): void => {
 //  - hide if neither previous/next offset exists and current data set count is < min pagesize
 const shouldShowPagination = computed((): boolean => {
   return !!(props.fetcher && !props.disablePagination &&
-        !(props.paginationType !== 'offset' && props.hidePaginationWhenOptional && total.value <= props.paginationPageSizes[0]) &&
-        !(props.paginationType === 'offset' && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value && data.value.length < props.paginationPageSizes[0]))
+        !(!props.paginationOffset && props.hidePaginationWhenOptional && total.value <= props.paginationPageSizes[0]) &&
+        !(props.paginationOffset && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value && data.value.length < props.paginationPageSizes[0]))
 })
 
 const getTestIdString = (message: string): string => {
@@ -1062,6 +1058,13 @@ watch([query, page, pageSize], async (newData, oldData) => {
   }
 }, { deep: true, immediate: true })
 
+// because hasColumnVisibilityMenu also accounts for error/loading/empty state, we need to watch it
+watch(hasColumnVisibilityMenu, (newVal) => {
+  if (newVal) {
+    columnVisibility.value = props.tablePreferences.columnVisibility || {}
+  }
+}, { immediate: true })
+
 onMounted(() => {
   initData()
 })
@@ -1075,8 +1078,10 @@ $kTableThPaddingY: var(--kui-space-50, $kui-space-50);
 /* Component styles */
 
 .k-table {
+  background-color: var(--kui-color-background, $kui-color-background);
   display: flex;
   flex-direction: column;
+  font-family: var(--kui-font-family-text, $kui-font-family-text);
   gap: var(--kui-space-70, $kui-space-70);
 
   .table-toolbar {
@@ -1096,27 +1101,14 @@ $kTableThPaddingY: var(--kui-space-50, $kui-space-50);
 
       th,
       td {
+        @include truncate;
+
         padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
         vertical-align: middle;
         white-space: nowrap;
       }
 
-      th.resize-hover {
-        // creates a 2px "border" on the right - can't use the border because it will "jump"
-        box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple) inset;
-      }
-
-      td.resize-hover {
-        // creates a 2px "border" on the right - can't use the border because it will "jump"
-        box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border, $kui-color-border) inset;
-      }
-
-      .truncated-column {
-        @include truncate;
-      }
-
       thead {
-        background-color: var(--kui-color-background, $kui-color-background);
         border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
         height: 44px;
         position: sticky;
@@ -1153,69 +1145,78 @@ $kTableThPaddingY: var(--kui-space-50, $kui-space-50);
               transition: opacity $kongponentsTransitionDurTimingFunc;
             }
           }
-        }
 
-        th {
-          color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-          font-size: var(--kui-font-size-30, $kui-font-size-30);
-          font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-          line-height: var(--kui-line-height-30, $kui-line-height-30);
-          padding: $kTableThPaddingY var(--kui-space-60, $kui-space-60);
-          text-align: left;
-          vertical-align: bottom;
+          th {
+            color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+            font-size: var(--kui-font-size-30, $kui-font-size-30);
+            font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+            line-height: var(--kui-line-height-30, $kui-line-height-30);
+            padding: $kTableThPaddingY var(--kui-space-60, $kui-space-60);
+            text-align: left;
+            vertical-align: bottom;
 
-          &.resizable {
-            min-width: 40px;
-            position: relative;
+            &.resizable {
+              min-width: 40px;
+              position: relative;
 
-            .resize-handle {
-              cursor: col-resize;
-              height: v-bind('headerHeight');
-              position: absolute;
-              right: 0;
-              top: 0;
-              width: 6px;
+              .resize-handle {
+                cursor: col-resize;
+                height: v-bind('headerHeight');
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 6px;
 
-              &.previous {
-                left: 0;
-                right: unset;
+                &.previous {
+                  left: 0;
+                  right: unset;
+                }
               }
             }
-          }
 
-          &.active-sort {
-            color: var(--kui-color-text, $kui-color-text);
-          }
-
-          .sr-only {
-            border-width: var(--kui-border-width-0, $kui-border-width-0);
-            clip: rect(0, 0, 0, 0);
-            height: 1px;
-            margin: -1px;
-            overflow: hidden;
-            padding: var(--kui-space-0, $kui-space-0);
-            position: absolute;
-            white-space: nowrap;
-            width: 1px;
-          }
-
-          &.sortable {
-            cursor: pointer;
-
-            &.asc .sort-icon {
-              transform: rotate(-180deg);
+            &.active-sort {
+              color: var(--kui-color-text, $kui-color-text);
             }
-          }
 
-          .table-headers-container {
-            align-items: center;
-            display: flex;
-            gap: var(--kui-space-40, $kui-space-40);
-
-            &.resized {
-              // when column is resized we need to set position: absolute; to avoid glitching resizing behavior
-              bottom: $kTableThPaddingY;
+            .sr-only {
+              border-width: var(--kui-border-width-0, $kui-border-width-0);
+              clip: rect(0, 0, 0, 0);
+              height: 1px;
+              margin: -1px;
+              overflow: hidden;
+              padding: var(--kui-space-0, $kui-space-0);
               position: absolute;
+              white-space: nowrap;
+              width: 1px;
+            }
+
+            &.sortable {
+              cursor: pointer;
+
+              &.asc .sort-icon {
+                transform: rotate(-180deg);
+              }
+            }
+
+            .table-headers-container {
+              align-items: center;
+              display: flex;
+              gap: var(--kui-space-40, $kui-space-40);
+
+              &.resized {
+                // when column is resized we need to set position: absolute; to avoid glitching resizing behavior
+                bottom: $kTableThPaddingY;
+                position: absolute;
+              }
+
+              .table-header-label {
+                @include truncate;
+              }
+            }
+
+            &.resize-hover {
+              // creates a 2px "border" on the right - can't use the border because it will "jump"
+              box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple) inset;
             }
           }
         }
@@ -1228,14 +1229,19 @@ $kTableThPaddingY: var(--kui-space-50, $kui-space-50);
           &:not(:last-of-type) {
             border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
           }
-        }
 
-        td {
-          color: var(--kui-color-text, $kui-color-text);
-          font-size: var(--kui-font-size-30, $kui-font-size-30);
-          font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-          line-height: var(--kui-line-height-30, $kui-line-height-30);
-          white-space: nowrap;
+          td {
+            color: var(--kui-color-text, $kui-color-text);
+            font-size: var(--kui-font-size-30, $kui-font-size-30);
+            font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+            line-height: var(--kui-line-height-30, $kui-line-height-30);
+            white-space: nowrap;
+
+            &.resize-hover {
+              // creates a 2px "border" on the right - can't use the border because it will "jump"
+              box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border, $kui-color-border) inset;
+            }
+          }
         }
       }
 

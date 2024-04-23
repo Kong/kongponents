@@ -781,6 +781,7 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 #### Props
 
+* `hasHover` prop has been removed and replaced with `rowHover` prop
 * `hasSideBorder` prop has been removed
 * `hasError` prop has been removed and replaced with `error` prop
 * `isLoading` prop has been removed and replaced with `loading` prop
@@ -797,6 +798,7 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `options` prop (deprecated) has been removed
 * `sortOrder` prop (deprecated) has been removed
 * `testMode` prop has been removed
+* `paginationType` prop has been removed. You can use new `paginationOffset` prop instead
 
 #### Events
 
@@ -824,6 +826,8 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `TableSortOrder` type has been removed
 * `TableTestModeArray` const has been removed
 * `TableTestMode` type has been removed
+* `TablePaginationTypeArray` const has been removed
+* `TablePaginationType` type has been removed 
 
 ### KTabs
 
