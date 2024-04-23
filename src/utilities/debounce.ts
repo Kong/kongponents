@@ -2,7 +2,7 @@
  * Returns a function, that, as long as it continues to be invoked, will not be triggered. The initial function will be called after the debounced function stops being called for a certain number of milliseconds.
  *
  * @param initialFunction Initial function to debounce
- * @param delay Time to wait for recurring bounces
+ * @param {number} delay Time to wait for recurring bounces
  * @returns the debounced function.
  */
 export function debounce(initialFunction: (...args: any) => any, delay: number): (...args: any) => void {
