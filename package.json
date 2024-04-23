@@ -106,10 +106,10 @@
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-n": "^17.0.0",
+    "eslint-plugin-n": "^17.2.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.24.1",
-    "inquirer": "^9.2.17",
+    "inquirer": "^9.2.18",
     "nanospinner": "^1.1.0",
     "node-emoji": "^2.1.3",
     "picocolors": "^1.0.0",
@@ -130,10 +130,10 @@
     "typescript": "^5.4.5",
     "vite": "^5.2.8",
     "vite-plugin-vue-devtools": "^7.0.27",
-    "vitepress": "^1.0.2",
+    "vitepress": "^1.1.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
-    "vue-tsc": "^2.0.12"
+    "vue-tsc": "^2.0.13"
   },
   "resolutions": {
     "rollup": "npm:@rollup/wasm-node"
