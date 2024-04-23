@@ -10,6 +10,21 @@
 
 ### Features
 
+* **kcatalogitem:** add card-footer slot ([#2154](https://github.com/Kong/kongponents/issues/2154)) ([e26025b](https://github.com/Kong/kongponents/commit/e26025b2ce0c2e7753c8b8633f7ee30749c53b91))
+* **kcodeblock, kcatalog, kcollapse, kstepper:** components reskin ([#2124](https://github.com/Kong/kongponents/issues/2124)) ([c3bfe87](https://github.com/Kong/kongponents/commit/c3bfe87da67e975910dbcf2b2fee0b28db217361)), closes [#2100](https://github.com/Kong/kongponents/issues/2100) [#2125](https://github.com/Kong/kongponents/issues/2125)
+
+# [9.0.0-alpha.144](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.143...v9.0.0-alpha.144) (2024-04-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.9.0 ([#2144](https://github.com/Kong/kongponents/issues/2144)) ([04d688d](https://github.com/Kong/kongponents/commit/04d688de916858104fa8e58081a7c44de7c77813))
+* **kinput:** add aria label to associate helper text with input [KHCP-11030] ([#2138](https://github.com/Kong/kongponents/issues/2138)) ([4b3ea54](https://github.com/Kong/kongponents/commit/4b3ea5452a2b7259d8a2b4f53574ac9329ee13aa))
+* **ktable:** column visibility design feedback ([#2152](https://github.com/Kong/kongponents/issues/2152)) ([717b6a9](https://github.com/Kong/kongponents/commit/717b6a9037ad680497dc6726288b8e32236cb7dd))
+
+
+### Features
+
 * **kcodeblock, kcatalog, kcollapse, kstepper:** components reskin ([#2124](https://github.com/Kong/kongponents/issues/2124)) ([c3bfe87](https://github.com/Kong/kongponents/commit/c3bfe87da67e975910dbcf2b2fee0b28db217361)), closes [#2100](https://github.com/Kong/kongponents/issues/2100) [#2125](https://github.com/Kong/kongponents/issues/2125)
 
 # [9.0.0-alpha.147](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.146...v9.0.0-alpha.147) (2024-04-22)
