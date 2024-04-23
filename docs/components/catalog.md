@@ -239,12 +239,19 @@ The title content for the card.
 
 The body content for the card.
 
+#### card-footer
+
+The footer content for the card.
+
 <KCatalogItem>
   <template #card-title>
     Card Title
   </template>
   <template #card-body>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.
+  </template>
+  <template #card-footer>
+    <KBadge appearance="neutral">Card footer</KBadge>
   </template>
 </KCatalogItem>
 
@@ -255,6 +262,9 @@ The body content for the card.
   </template>
   <template #card-body>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.
+  </template>
+  <template #card-footer>
+      <KBadge appearance="neutral">Card footer</KBadge>
   </template>
 </KCatalogItem>
 ```
