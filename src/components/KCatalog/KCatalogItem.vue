@@ -21,6 +21,10 @@
         {{ item ? item.description : '' }}
       </slot>
     </div>
+
+    <template #footer>
+      <slot name="card-footer" />
+    </template>
   </KCard>
 </template>
 
