@@ -1,3 +1,10 @@
+# [9.0.0-alpha.148](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.147...v9.0.0-alpha.148) (2024-04-24)
+
+
+### Bug Fixes
+
+* tags ([#2158](https://github.com/Kong/kongponents/issues/2158)) ([5bb23aa](https://github.com/Kong/kongponents/commit/5bb23aad473e4eaaa6fb8fc371882ed67d01617b))
+
 # [9.0.0-alpha.144](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.143...v9.0.0-alpha.144) (2024-04-24)
 
 
