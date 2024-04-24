@@ -5,7 +5,7 @@ import KSelect from '@/components/KSelect/KSelect.vue'
 describe('KSelect', () => {
   it('renders props when passed', () => {
     const labels = ['Label 1', 'Label 2', 'Label 3']
-    const vals = ['label1', 'label2', 'label3']
+    const vals = ['val1', 'val2', 'val3']
 
     mount(KSelect, {
       props: {
@@ -36,7 +36,7 @@ describe('KSelect', () => {
 
     mount(KSelect, {
       props: {
-        items: [{ label: selectedLabel, value: 'label1', selected: true }],
+        items: [{ label: selectedLabel, value: 'val1', selected: true }],
       },
     })
 
@@ -46,7 +46,7 @@ describe('KSelect', () => {
   it('renders with disabled item', () => {
     mount(KSelect, {
       props: {
-        items: [{ label: 'Label 1', value: 'label1', disabled: true }],
+        items: [{ label: 'Label 1', value: 'val1', disabled: true }],
       },
     })
 
@@ -118,7 +118,7 @@ describe('KSelect', () => {
 
   it('reacts to text change and select', () => {
     const labels = ['Label 1', 'Label 2']
-    const vals = ['label1', 'label2']
+    const vals = ['val1', 'val2']
 
     mount(KSelect, {
       props: {
@@ -149,7 +149,7 @@ describe('KSelect', () => {
 
   it('ignores clicks on disabled item', () => {
     const labels = ['Label 1', 'Label 2']
-    const vals = ['label1', 'label2']
+    const vals = ['val1', 'val2']
 
     mount(KSelect, {
       props: {
@@ -173,7 +173,7 @@ describe('KSelect', () => {
   it('allows slotting content into the items', async () => {
     const itemSlotContent = 'I am slotted!'
     const itemLabel = 'Label 1'
-    const itemValue = 'label1'
+    const itemValue = 'val1'
 
     mount(KSelect, {
       props: {
@@ -193,7 +193,7 @@ describe('KSelect', () => {
   it('reuses item template slot for selected item element when prop is true', async () => {
     const itemSlotContent = 'I am slotted!'
     const itemLabel = 'Label 1'
-    const itemValue = 'label1'
+    const itemValue = 'val1'
 
     mount(KSelect, {
       props: {
@@ -266,7 +266,7 @@ describe('KSelect', () => {
 
   it('renders dropdown footer text when prop is passed', () => {
     const labels = ['Label 1', 'Label 2', 'Label 3']
-    const vals = ['label1', 'label2', 'label3']
+    const vals = ['val1', 'val2', 'val3']
     const dropdownFooterText = 'Dropdown footer text'
 
     mount(KSelect, {
@@ -349,7 +349,7 @@ describe('KSelect', () => {
   it('allows slotting selected item content', async () => {
     const selectedItemContent = 'I am slotted!'
     const itemLabel = 'Label 1'
-    const itemValue = 'label1'
+    const itemValue = 'val1'
 
     mount(KSelect, {
       props: {
@@ -396,7 +396,7 @@ describe('KSelect', () => {
 
   it('allows adding an item with enableItemCreation', () => {
     const labels = ['Label 1', 'Label 2']
-    const vals = ['label1', 'label2']
+    const vals = ['val1', 'val2']
     const newItem = 'Rock me'
 
     mount(KSelect, {
@@ -444,7 +444,7 @@ describe('KSelect', () => {
 
   it('updates selected status after items are mutated', () => {
     const labels = ['Label 1', 'Label 2']
-    const vals = ['label1', 'label2']
+    const vals = ['val1', 'val2']
 
     mount(KSelect, {
       props: {
@@ -481,5 +481,69 @@ describe('KSelect', () => {
         cy.get(`[data-testid="select-item-${vals[0]}"] button`).should('not.have.class', 'selected')
         cy.get(`[data-testid="select-item-${vals[1]}"] button`).should('have.class', 'selected')
       })
+  })
+
+  it('emits selected, input, change events when item selected', () => {
+    const labels = ['Label 1', 'Label 2']
+    const vals = ['val1', 'val2']
+
+    mount(KSelect, {
+      props: {
+        modelValue: '',
+        items: [{
+          label: labels[0],
+          value: vals[0],
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }],
+      },
+    })
+
+    cy.get('.select-input input').click()
+    cy.getTestId(`select-item-${vals[0]}`).eq(0).click({ force: true }).then(() => {
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'selected')
+      cy.wrap(Cypress.vueWrapper.emitted().selected).should('have.length', 1)
+
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'input')
+      cy.wrap(Cypress.vueWrapper.emitted().input).should('have.length', 1)
+      // @ts-ignore
+      cy.wrap(Cypress.vueWrapper.emitted().input[0][0]).should('be.equal', vals[0])
+
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'change')
+      cy.wrap(Cypress.vueWrapper.emitted().change).should('have.length', 1)
+    })
+  })
+
+  it('emits input, change events correctly when item is cleared', () => {
+    const labels = ['Label 1', 'Label 2']
+    const vals = ['val1', 'val2']
+
+    mount(KSelect, {
+      props: {
+        modelValue: 'val1',
+        items: [{
+          label: labels[0],
+          value: vals[0],
+          selected: true,
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }],
+        clearable: true,
+      },
+    })
+
+    cy.getTestId('clear-selection-icon').trigger('click').then(() => {
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'input')
+      cy.wrap(Cypress.vueWrapper.emitted().input).should('have.length', 1)
+      // @ts-ignore
+      cy.wrap(Cypress.vueWrapper.emitted().input[0][0]).should('be.equal', null)
+
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'change')
+      cy.wrap(Cypress.vueWrapper.emitted().change).should('have.length', 1)
+      // @ts-ignore
+      cy.wrap(Cypress.vueWrapper.emitted().change[0][0]).should('be.equal', null)
+    })
   })
 })
