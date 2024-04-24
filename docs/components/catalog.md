@@ -293,7 +293,9 @@ Set the following props to handle empty state:
 - `emptyStateActionMessage` - Button text for empty state action
 - `emptyStateActionRoute` - Route for empty state action
 
+:::tip
 Should you want to display an icon inside of action button, you can use `empty-state-action-icon` slot.
+:::
 
 When empty state action button is clicked, KCatalog emits the `empty-state-action-click` event.
 
@@ -480,9 +482,13 @@ The `toolbar` slot allows you to slot catalog controls rendered at the top of th
 
 Slot content to be displayed when empty.
 
+### empty-state-action-icon
+
+Slot for icon to be displayed in front of action button text in empty state. See [empty state](#empty) section for example of usage of this slot.
+
 ### error-state
 
-Slot content to be displayed when in an error state.
+Slot content to be displayed when in error state.
 
 ## Events
 

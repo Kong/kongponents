@@ -578,7 +578,7 @@ const tdlisteners = computed((): any => {
   return (entity: any, rowData: any) => {
     const rowListeners = pluckListeners('onRow:', attrs)(rowData, 'row')
     const cellListeners = pluckListeners('onCell:', attrs)(entity, 'cell')
-    const ignoredElements = ['a', 'button', 'input', 'select']
+    const ignoredElements = ['a', 'button', 'label', 'input', 'select']
 
     if (rowListeners.click) {
       isClickable.value = true
