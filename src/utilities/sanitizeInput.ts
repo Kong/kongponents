@@ -1,6 +1,6 @@
 /**
  * Sanitizes input to prevent XSS attacks.
- * @param input The input to sanitize.
+ * @param {string} input The input to sanitize.
  * @returns The sanitized input.
  */
 
