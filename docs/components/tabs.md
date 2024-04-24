@@ -232,6 +232,11 @@ In order provide the tab panel content (when the `hidePanels` prop is set to `fa
     Documentation
   </template>
   <template #docs><b>Documentation</b> tab content</template>
+  <template #disabled-anchor>
+    <KTooltip text="This tab item is disabled.">
+      <div>Disabled</div>
+    </KTooltip>
+  </template>
 </KTabs>
 
 ```html
@@ -252,6 +257,11 @@ In order provide the tab panel content (when the `hidePanels` prop is set to `fa
     Documentation
   </template>
   <template #docs><b>Documentation</b> tab content</template>
+  <template #disabled-anchor>
+    <KTooltip text="This tab item is disabled.">
+      <div>Disabled</div>
+    </KTooltip>
+  </template>
 </KTabs>
 ```
 
@@ -305,6 +315,7 @@ const slottedTabs = ref<Tab[]>([
   { hash: '#gateway', title: 'Gateway' },
   { hash: '#notifications', title: 'Notifications' },
   { hash: '#docs', title: 'Documentation' },
+  { hash: '#disabled', title: 'Disabled', disabled: true }
 ])
 
 const panelsActiveHash = ref('#gateway')
