@@ -173,6 +173,7 @@
           </KButton>
           <template #items>
             <KDropdownItem
+              data-testid="router-link"
               :item="{ label: 'Home', to: { name: 'home' } }"
               target="_blank"
             >
@@ -180,6 +181,7 @@
               Router link
             </KDropdownItem>
             <KDropdownItem
+              data-testid="external-link"
               :item="{ label: 'External link', to: 'https://kongponents.konghq.com/' }"
               target="_blank"
             >
@@ -187,6 +189,7 @@
               External link
             </KDropdownItem>
             <KDropdownItem
+              data-testid="disabled-button"
               disabled
               has-divider
               @click="handleItemClick"
@@ -195,6 +198,7 @@
               Disabled button
             </KDropdownItem>
             <KDropdownItem
+              data-testid="disabled-router-link"
               disabled
               :item="{ label: 'Home', to: { name: 'home' } }"
             >
@@ -202,6 +206,7 @@
               Disabled router link
             </KDropdownItem>
             <KDropdownItem
+              data-testid="disabled-external-link"
               disabled
               :item="{ label: 'External link', to: 'https://kongponents.konghq.com/' }"
             >
@@ -210,6 +215,7 @@
             </KDropdownItem>
             <KDropdownItem
               danger
+              data-testid="button"
               has-divider
               @click="handleItemClick"
             >

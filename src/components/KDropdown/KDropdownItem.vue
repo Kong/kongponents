@@ -1,12 +1,12 @@
 <template>
   <li
     class="k-dropdown-item"
-    :class="{
+    :class="[{
       'has-divider': hasDivider,
       'disabled': disabled,
       'danger': danger || isDangerous,
-      'dropdown-selected-option': selected
-    }"
+      'dropdown-selected-option': selected,
+    }, $attrs.class]"
     data-testid="dropdown-item"
   >
     <component
@@ -24,11 +24,17 @@
   </li>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
 import type { DropdownItem, DropdownItemRenderedRecord, DropdownItemRenderedType, DropdownItemType } from '@/types'
 import type { PropType } from 'vue'
 import { computed, useAttrs } from 'vue'
 
+export default {
+  inheritAttrs: false,
+}
+</script>
+
+<script lang="ts" setup>
 const attrs = useAttrs()
 
 const props = defineProps({
@@ -133,9 +139,6 @@ const strippedAttrs = computed((): typeof attrs => {
   // remove some attributes because we want them on wrapper element not the trigger element
   delete modifiedAttrs.class
   delete modifiedAttrs.disabled
-  delete modifiedAttrs.style
-  // Ensure the `data-testid` attribute is only applied to the top-most element
-  delete modifiedAttrs['data-testid']
 
   return modifiedAttrs
 })
