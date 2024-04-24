@@ -510,11 +510,6 @@ const handleItemSelect = (item: SelectItem, isNew?: boolean) => {
   })
 
   filterQuery.value = item.label
-  emit('selected', item)
-  // this 'input' event must be emitted for v-model binding to work properly
-  emit('input', item.value)
-  emit('change', item)
-  emit('update:modelValue', item.value)
 }
 
 const clearSelection = (): void => {
@@ -528,10 +523,6 @@ const clearSelection = (): void => {
   })
   selectedItem.value = null
   filterQuery.value = ''
-  // this 'input' event must be emitted for v-model binding to work properly
-  emit('input', null)
-  emit('change', null)
-  emit('update:modelValue', null)
 }
 
 const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
@@ -662,6 +653,23 @@ watch(() => props.items, (newValue, oldValue) => {
 watch(filterQuery, (q: string) => {
   emit('query-change', q)
 })
+
+watch(selectedItem, (newVal, oldVal) => {
+  if (newVal) {
+    if (newVal !== oldVal) {
+      emit('selected', newVal)
+      // this 'input' event must be emitted for v-model binding to work properly
+      emit('input', newVal.value)
+      emit('change', newVal)
+      emit('update:modelValue', newVal.value)
+    }
+  } else {
+    // this 'input' event must be emitted for v-model binding to work properly
+    emit('input', null)
+    emit('change', null)
+    emit('update:modelValue', null)
+  }
+}, { deep: true })
 
 onMounted(() => {
   if (selectWrapperElement.value) {
