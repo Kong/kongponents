@@ -1,8 +1,8 @@
 /**
  * Copies a piece of text to the clipboard. Adapted from [StackOverflow][1].
  *
- * @param {string} text The text to copy
- * @returns {Promise<boolean>} Whether the operation was successful
+ * @param {string} text The text to copy.
+ * @returns {Promise<boolean>} Whether the operation was successful.
  */
 export async function copyTextToClipboard(text: string): Promise<boolean> {
   if (navigator.clipboard) {
