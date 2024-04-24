@@ -281,6 +281,10 @@ export default {
     .checkbox-label {
       cursor: pointer;
       margin: 0;
+
+      &.required {
+        margin-left: var(--kui-space-60, $kui-space-60);
+      }
     }
 
     .checkbox-description {
