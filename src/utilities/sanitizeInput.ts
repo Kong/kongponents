@@ -1,7 +1,7 @@
 /**
  * Sanitizes input to prevent XSS attacks.
  * @param {string} input The input to sanitize.
- * @returns {string} The sanitized input.
+ * @returns The sanitized input.
  */
 
 export function sanitizeInput(input: string): string {
