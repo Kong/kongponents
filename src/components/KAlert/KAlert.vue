@@ -1,4 +1,5 @@
 <template>
+  <div>absurd</div>
   <div
     class="k-alert"
     :class="[appearance]"
