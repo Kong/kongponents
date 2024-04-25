@@ -3,7 +3,7 @@ module.exports = {
   rules: {
     'header-max-length': [2, 'always', 100],
     'body-max-line-length': [1, 'always', 150],
-    'header-case': [2, 'always', 'lower-case'],
+    'type-case': [2, 'always', 'lower-case'],
     'scope-case': [2, 'always', 'lower-case'],
   },
   ignores: [(message) => /^chore\(release\): .+$/m.test(message)],
