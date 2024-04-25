@@ -362,9 +362,49 @@ Set this to `false` to disable ability to sort.
 
 Function for adding custom attributes to each row. The function should return an object with `key: value` pairs for each attribute.
 
+The passed function receives row value object as an argument.
+
+<KTable
+  :fetcher="basicFetcher"
+  :headers="basicHeaders()"
+  :row-attrs="(row) => { return { 'data-testid': `row-${row.id}` } }"
+/>
+
+```html
+<KTable
+  :row-attrs="(row) => { return { 'data-testid': `row-${row.id}` } }"
+  :fetcher="fetcher"
+  :headers="headers"
+/>
+```
+
 ### cellAttrs
 
 Function for adding custom attributes to each table cell. The function should return an object with `key: value` pairs for each attribute.
+
+The passed function receives an object with these parameters as an argument:
+```ts
+{
+  headerKey: string // header key
+  row: object // row value
+  rowIndex: number // row index
+  colIndex: index // column index
+}
+```
+
+<KTable
+  :fetcher="basicFetcher"
+  :headers="basicHeaders()"
+  :cell-attrs="({ headerKey, row }) => { return { 'data-testid': `column-${headerKey}-row-${row.id}` } }"
+/>
+
+```html
+<KTable
+  :cell-attrs="({ headerKey, row }) => { return { 'data-testid': `column-${headerKey}-row-${row.id}` } }"
+  :fetcher="fetcher"
+  :headers="headers"
+/>
+```
 
 ## Pagination
 
