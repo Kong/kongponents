@@ -354,40 +354,6 @@ const handleDelete = (id): void => {
 
 Pass in a string of search input for server-side table filtering.
 
-### paginationTotalItems
-
-Pass the total number of items in the set to populate the pagination text.
-
-If not provided the fetcher response should return a top-level property `total` or return a `data` property that is an array.
-
-### paginationNeighbors
-
-Pass in a number of pagination neighbors to be used by the pagination component. See more detail in the [KPagination](/components/pagination.html#neighbors) docs.
-
-### paginationPageSizes
-
-Pass in an array of page sizes for the page size dropdown. If not provided will default to the following:
-
-```ts
-[15, 30, 50, 75, 100]
-```
-
-### paginationOffset
-
-Boolean to control whether underlying KPagination component should use offset pagination type. See [KPagination props](/components/pagination#offset) for details.
-
-### disablePaginationPageJump
-
-Set this to `true` to limit pagination navigation to previous/next page only.
-
-### disablePagination
-
-Set this to `true` to hide pagination when using a fetcher.
-
-### hidePaginationWhenOptional
-
-Set this to `true` to hide pagination when the table record count is less than or equal to the `pageSize`.
-
 ### sortable
 
 Set this to `false` to disable ability to sort.
@@ -399,6 +365,24 @@ Function for adding custom attributes to each row. The function should return an
 ### cellAttrs
 
 Function for adding custom attributes to each table cell. The function should return an object with `key: value` pairs for each attribute.
+
+## Pagination
+
+KTable uses KPagination component under the hood and exposes a few props as a way to modify how pagination looks and behaves in tables. See [KPagination](/components/pagination.html#props) docs for more details and examples:
+
+* `paginationTotalItems`
+* `paginationNeighbors`
+* `paginationPageSizes`
+* `paginationOffset`
+* `disablePaginationPageJump`
+
+### disablePagination
+
+Set this to `true` to hide pagination when using a fetcher.
+
+### hidePaginationWhenOptional
+
+Set this to `true` to hide pagination when the table record count is less than or equal to the `pageSize`.
 
 ## States
 

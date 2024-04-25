@@ -7,7 +7,7 @@
     >
       <KTooltip
         placement="bottomEnd"
-        text="Show/Hide Columns"
+        :text="isDropdownOpen ? undefined : 'Show/Hide Columns'"
       >
         <KButton
           appearance="secondary"
@@ -94,6 +94,7 @@ const props = defineProps({
   },
 })
 
+const isDropdownOpen = ref<boolean>(false)
 const visibilityMap = ref<Record<string, boolean>>({})
 const isDirty = ref(false)
 const menuItemsRef = ref<HTMLDivElement>()
@@ -114,6 +115,8 @@ const handleApply = (): void => {
 }
 
 const handleDropdownToggle = (isOpen: boolean): void => {
+  isDropdownOpen.value = isOpen
+
   // set scroll classes on open
   if (isOpen && menuItemsRef.value) {
     setTimeout(() => {
