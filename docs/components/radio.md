@@ -55,10 +55,7 @@ Will place label text to the right of the radio. Can also be [slotted](#slots).
 
  KRadio has an instance of KLabel for supporting tooltip text. Use the `labelAttributes` prop to configure the KLabel's [props](/components/label). This example shows using the `labelAttributes` to set up a tooltip. Tooltip content can also be [slotted](#slots).
 
-<div class="vertical-spacing">
-  <KRadio v-model="labelAttributesPropRadio" label="Tooltip" :label-attributes="{ info: 'I use the KLabel `help` prop' }" :selected-value="true" />
-  <KRadio v-model="labelAttributesPropRadio" label="Required" :label-attributes="{ required: true }" :selected-value="false" />
-</div>
+<KRadio v-model="labelAttributesPropRadio" label="Tooltip" :label-attributes="{ info: 'I use the KLabel `help` prop' }" :selected-value="true" />
 
 ```html
 <KRadio
@@ -66,13 +63,6 @@ Will place label text to the right of the radio. Can also be [slotted](#slots).
   label="Tooltip"
   :label-attributes="{ info: 'I use the KLabel `help` prop' }"
   :selected-value="true"
-/>
-
-<KRadio
-  v-model="checked"
-  label="Required"
-  :label-attributes="{ required: true }"
-  :selected-value="false"
 />
 ```
 
