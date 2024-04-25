@@ -136,7 +136,7 @@ KTextArea works with `v-model` for two-way data binding:
 
 ## Slots
 
-### labelTooltip
+### label-tooltip
 
 Slot for tooltip content if textarea has a label and label has tooltip (note: this slot overrides `info` content specified in `labelAttributes`)
 

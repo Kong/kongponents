@@ -192,7 +192,7 @@ export default {
     position: relative;
 
     &.has-label {
-      margin-top: 3px; // align with label
+      margin-top: 4px; // align with label
     }
   }
 
@@ -281,6 +281,10 @@ export default {
     .checkbox-label {
       cursor: pointer;
       margin: 0;
+
+      &.required {
+        margin-left: var(--kui-space-60, $kui-space-60);
+      }
     }
 
     .checkbox-description {
