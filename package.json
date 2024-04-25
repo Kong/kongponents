@@ -73,7 +73,7 @@
   },
   "devDependencies": {
     "@babel/types": "^7.24.0",
-    "@commitlint/cli": "^19.2.1",
+    "@commitlint/cli": "^19.2.2",
     "@commitlint/config-conventional": "^19.1.0",
     "@cypress/vite-dev-server": "^5.0.7",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
@@ -108,7 +108,7 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^17.2.0",
     "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-vue": "^9.24.1",
+    "eslint-plugin-vue": "^9.25.0",
     "inquirer": "^9.2.18",
     "nanospinner": "^1.1.0",
     "node-emoji": "^2.1.3",
