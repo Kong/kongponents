@@ -155,11 +155,18 @@
         </div>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="labelAttributes">
-        <KCheckbox
-          v-model="modelValue4"
-          label="Label"
-          :label-attributes="{ info: 'Tooltip it is' }"
-        />
+        <div class="vertical-spacing">
+          <KCheckbox
+            v-model="modelValue4"
+            label="Label"
+            :label-attributes="{ info: 'Tooltip it is' }"
+          />
+          <KCheckbox
+            v-model="modelValue4"
+            label="Label"
+            :label-attributes="{ required: true }"
+          />
+        </div>
       </SandboxSectionComponent>
 
       <!-- Slots -->

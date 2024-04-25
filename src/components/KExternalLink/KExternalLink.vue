@@ -45,7 +45,7 @@ const isHrefValid = computed((): boolean => !!isValidUrl(props.href))
   font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   gap: var(--kui-space-20, $kui-space-20);
   list-style: inherit;
-  outline: none;
+  outline-offset: 0px;
   text-decoration: none;
 
   &:hover {

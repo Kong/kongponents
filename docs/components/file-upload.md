@@ -150,7 +150,7 @@ Slot for an icon in front of the input field.
 </KFileUpload>
 ```
 
-### labelTooltip
+### label-tooltip
 
 Use this slot if you want to utilize HTML in the input label's tooltip.
 
