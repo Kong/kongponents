@@ -1,3 +1,10 @@
+# [9.0.0-alpha.149](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.148...v9.0.0-alpha.149) (2024-04-25)
+
+
+### Bug Fixes
+
+* **kradio, kcheckbox:** required field indicator [KHCP-11503] ([#2159](https://github.com/Kong/kongponents/issues/2159)) ([fdd617e](https://github.com/Kong/kongponents/commit/fdd617e4252fc09a06248ff27cfe45445cd05352))
+
 # [9.0.0-alpha.148](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.147...v9.0.0-alpha.148) (2024-04-24)
 
 
