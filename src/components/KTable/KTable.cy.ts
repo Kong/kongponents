@@ -2,6 +2,7 @@ import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KTable from '@/components/KTable/KTable.vue'
 import { offsetPaginationHeaders, offsetPaginationFetcher } from '../../../mocks/KTableMockData'
+import type { TableHeader } from '@/types'
 
 const largeDataSet = [
   {
@@ -72,7 +73,7 @@ const options = {
     { label: 'ID', key: 'id', sortable: false, hideLabel: false },
     { label: 'Enabled', key: 'enabled', sortable: false, hideLabel: false },
     { label: '', key: 'actions', sortable: false, hideLabel: true },
-  ],
+  ] as TableHeader[],
   data: [
     {
       name: 'Basic Auth',
@@ -261,6 +262,19 @@ describe('KTable', () => {
       cy.getTestId(`table-header-${modifiedHeaderKey}`).should('be.visible')
       cy.getTestId('apply-button').click()
       cy.getTestId(`table-header-${modifiedHeaderKey}`).should('not.exist')
+    })
+
+    it('renders tooltip when provided in headers', () => {
+      options.headers[0].tooltip = 'This is a tooltip'
+
+      mount(KTable, {
+        props: {
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } },
+        },
+      })
+
+      cy.getTestId(`tooltip-${options.headers[0].key}`).should('be.visible')
     })
   })
 

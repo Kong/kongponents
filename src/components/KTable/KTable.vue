@@ -129,6 +129,7 @@
                 />
 
                 <div
+                  :aria-describedby="column.tooltip || $slots[getColumnTooltipSlotName(column.key)] ? `${getColumnTooltipSlotName(column.key)}-${tableId}` : undefined"
                   class="table-headers-container"
                   :class="{ 'resized': resizingColumn === column.key }"
                 >
@@ -148,11 +149,13 @@
 
                   <KTooltip
                     v-if="column.tooltip || $slots[getColumnTooltipSlotName(column.key)]"
+                    :data-testid="getColumnTooltipSlotName(column.key)"
                     position-fixed
+                    :tooltip-id="`${getColumnTooltipSlotName(column.key)}-${tableId}`"
                   >
                     <InfoIcon
                       class="header-tooltip-trigger"
-                      :color="KUI_COLOR_TEXT_NEUTRAL"
+                      :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
                       :size="KUI_ICON_SIZE_30"
                     />
 
@@ -248,6 +251,7 @@ import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
+import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { InfoIcon, ArrowDownIcon } from '@kong/icons'
 import useUtilities from '@/composables/useUtilities'
 import type {
