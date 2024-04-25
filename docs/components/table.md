@@ -26,6 +26,7 @@ interface TableHeader {
   label: string // visible column header text
   sortable?: boolean // in the nutshell, this property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it
   hidable?: boolean
+  tooltip?: string // when provided, an info icon will be rendered next to the column label, upon hovering on which the tooltip will be revealed
   hideLabel?: boolean // whether column header text should be hidden (only visible to screen readers)
   useSortHandlerFunction?: boolean // whether KTable should use function passed through sortHandlerFunction prop to apply sorting logic to this column
 }
@@ -65,8 +66,18 @@ Fetcher function is expected to return an object with following properties:
 <script setup lang="ts">
 const headers = [
   { key: 'name', label: 'Full Name' },
-  { key: 'username', label: 'Username', sortable: true, useSortHandlerFunction: true },
-  { key: 'email', label: 'Email', hidable: true },
+  {
+    key: 'username',
+    label: 'Username',
+    sortable: true,
+    tooltip: 'Unique for each user.',
+    useSortHandlerFunction: true
+  },
+  {
+    key: 'email',
+    label: 'Email',
+    hidable: true
+  },
 ]
 
 const fetcher = async (): Promise<any> => {
@@ -500,7 +511,7 @@ A `error-action-click` event is fired when error state action button is clicked.
 
 ## Slots
 
-### column-header
+### Column Header
 
 You can slot in your custom content into each column header. For that, use column `key` value prefixed with `column-*` like in the example below.
 
@@ -531,7 +542,7 @@ Header slot container is a `display: flex;` element that takes care of spacing b
 </KTable>
 ```
 
-### cell
+### Cell
 
 You can slot in each individual cell content. Each cell slot is name after the `key` it corresponds to.
 
@@ -618,13 +629,44 @@ const headers = [
   { key: 'name', label: 'Full Name' },
   { key: 'username', label: 'Username' },
   { key: 'email', label: 'Email' },
-  { key: 'actions', label: 'Row actions', hideLabel: true },
+  {
+    key: 'actions',
+    label: 'Row actions',
+    hideLabel: true
+  },
 ]
 
 const fetcher = () => {
   // fetcher logic
 }
 </script>
+```
+
+### Header Tooltip
+
+If you want to utilize HTML in the column header's tooltip, use the slot. Similar to column header slot, use column `key` value prefixed with `tooltip-*` like in the example below.
+
+Slot props:
+* `column` - column header object
+
+<KTable
+  :fetcher="basicFetcher"
+  :headers="basicHeaders()"
+>
+  <template #tooltip-email>
+    HubSpot Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code>
+  </template>
+</KTable>
+
+```html
+<KTable
+  :fetcher="fetcher"
+  :headers="headers"
+>
+  <template #tooltip-email>
+    HubSpot Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code>
+  </template>
+</KTable>
 ```
 
 ### toolbar
@@ -686,7 +728,7 @@ Slot content to be displayed when in error state.
 
 ## Events
 
-### Row events
+### Row Events
 
 `@row:{event}` - returns the `Event`, the row item, and the type. `row-click` event is emitted whenever a row is clicked and the row click event handler is fired, returns the row `data`.
 
@@ -725,7 +767,7 @@ To avoid firing row clicks by accident, the row click handler ignores events com
 />
 ```
 
-### Cell events
+### Cell Events
 
 `@cell:{event}` - returns the `Event`, the cell value, and the type. `cell-click` event is emitted whenever a cell is clicked and the cell click event handler is fired, returns the cell `data`.
 
@@ -813,7 +855,8 @@ const basicHeaders = (actions: boolean = false, sortable: string | null = null, 
     },
     username: {
       key: 'username',
-      label: 'Username' 
+      label: 'Username',
+      tooltip: 'Unique for each user.'
     },
     email: { 
       key: 'email',

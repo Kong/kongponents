@@ -46,6 +46,7 @@
             empty-state-title="Empty state title"
             :fetcher="data.tableEmptyState ? emptyFetcher : fetcher"
             :headers="headers(false, true)"
+            resize-columns
             :row-hover="data.tableRowHover"
             :sort-handler-function="sortHandlerFunction"
           >
@@ -95,7 +96,7 @@
         is-subtitle
         title="Slots"
       />
-      <SandboxSectionComponent title="column header & cell">
+      <SandboxSectionComponent title="column header & column tooltip & cell">
         <KTable
           :fetcher="fetcher"
           :headers="headers()"
@@ -103,12 +104,10 @@
           <template #column-username>
             Username
 
-            <KTooltip text="Unique for each user.">
-              <InfoIcon
-                :color="KUI_COLOR_TEXT_NEUTRAL"
-                :size="KUI_ICON_SIZE_30"
-              />
-            </KTooltip>
+            <KBadge>Beta</KBadge>
+          </template>
+          <template #tooltip-email>
+            Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code>
           </template>
           <template #email="{ rowValue }">
             <KCopy :text="rowValue" />
@@ -184,8 +183,7 @@ import { inject } from 'vue'
 import SandboxTitleComponent from '../../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../../components/SandboxSectionComponent.vue'
 import SandboxTableActions from './SandboxTableActions.vue'
-import { AddIcon, InfoIcon } from '@kong/icons'
-import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { AddIcon } from '@kong/icons'
 import type { TableHeader } from '@/types'
 
 const headers = (hidable: boolean = false, sortable: boolean = false): TableHeader[] => {
@@ -194,6 +192,7 @@ const headers = (hidable: boolean = false, sortable: boolean = false): TableHead
     {
       key: 'username',
       label: 'Username',
+      tooltip: 'Columns with a tooltip.',
       sortable,
       ...(sortable && { useSortHandlerFunction: true }),
     },

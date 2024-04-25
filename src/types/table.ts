@@ -18,17 +18,19 @@ export interface TableHeader {
   label: string
   sortable?: boolean
   hidable?: boolean
+  tooltip?: string
   hideLabel?: boolean
   useSortHandlerFunction?: boolean
 }
 
 /**
- * Provide a type interface for KTable `column-*` slot names.
+ * Provide a type interface for KTable `column-*` and `tooltip-*` slot names.
  *
  * This helps TypeScript infer the slot name in the template section so that
  * the slot props can be resolved.
  */
 export type TableColumnSlotName = `column-${string}`
+export type TableColumnTooltipSlotName = `tooltip-${string}`
 
 export type TableState = 'loading' | 'error' | 'success' | 'empty'
 

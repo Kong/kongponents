@@ -146,6 +146,26 @@
                     </span>
                   </slot>
 
+                  <KTooltip
+                    v-if="column.tooltip || $slots[getColumnTooltipSlotName(column.key)]"
+                    position-fixed
+                  >
+                    <InfoIcon
+                      class="header-tooltip-trigger"
+                      :color="KUI_COLOR_TEXT_NEUTRAL"
+                      :size="KUI_ICON_SIZE_30"
+                    />
+
+                    <template #content>
+                      <slot
+                        :column="getGeneric(column)"
+                        :name="getColumnTooltipSlotName(column.key)"
+                      >
+                        {{ column.tooltip }}
+                      </slot>
+                    </template>
+                  </KTooltip>
+
                   <ArrowDownIcon
                     v-if="sortable && !column.hideLabel && column.sortable"
                     class="sort-icon"
@@ -228,12 +248,13 @@ import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
-import { ArrowDownIcon } from '@kong/icons'
+import { InfoIcon, ArrowDownIcon } from '@kong/icons'
 import useUtilities from '@/composables/useUtilities'
 import type {
   TablePreferences,
   TableHeader,
   TableColumnSlotName,
+  TableColumnTooltipSlotName,
   SwrvState,
   SwrvStateData,
   TableState,
@@ -537,6 +558,15 @@ const getColumnSlotName = (columnKey: string): TableColumnSlotName => {
 }
 
 /**
+ * Utilize a helper function to generate the column tooltip slot name.
+ * This helps TypeScript infer the slot name in the template section so that the slot props can be resolved.
+ * @param {string} columnKey The column.key
+ */
+const getColumnTooltipSlotName = (columnKey: string): TableColumnTooltipSlotName => {
+  return `tooltip-${columnKey}`
+}
+
+/**
  * To avoid requiring the consuming app to typecast if they want to use `row` or `column`
  * we strip the types to something generic before we put it in the slot for use.
  * @param obj The object to strip the type from
@@ -663,6 +693,7 @@ const getHeaderClasses = (column: TableHeader, index: number): Record<string, bo
     'active-sort': props.sortable && !column.hideLabel && !!column.sortable && column.key === sortColumnKey.value,
     [sortColumnOrder.value]: props.sortable && column.key === sortColumnKey.value && !column.hideLabel,
     'is-scrolled': isScrolled.value,
+    'has-tooltip': !!column.tooltip,
   }
 }
 
@@ -1156,8 +1187,19 @@ $kTableThPaddingY: var(--kui-space-50, $kui-space-50);
             vertical-align: bottom;
 
             &.resizable {
-              min-width: 40px;
+              // set min with so the column can't be collapsed to nothing - avoiding bad UX
+              min-width: 40px !important; // needs important because resizing will set min-width inline
               position: relative;
+
+              // when sortable or has tooltip (or both), we need to increase the min-width to account for icons
+              &.sortable,
+              &.has-tooltip {
+                min-width: 80px !important; // needs important because resizing will set min-width inline
+              }
+
+              &.sortable.has-tooltip {
+                min-width: 100px !important; // needs important because resizing will set min-width inline
+              }
 
               .resize-handle {
                 cursor: col-resize;
@@ -1211,6 +1253,14 @@ $kTableThPaddingY: var(--kui-space-50, $kui-space-50);
 
               .table-header-label {
                 @include truncate;
+              }
+
+              .header-tooltip-trigger {
+                cursor: help;
+              }
+
+              .sort-icon {
+                flex-shrink: 0;
               }
             }
 
