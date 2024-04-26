@@ -18,13 +18,13 @@ Component that takes care of fetching and rendering data in a table format.
 
 ### headers
 
-Array of objects that represent table columns along with some configurations that should apply to each of the columns (whether a columns is sortable, hidable, etc).
+Array of objects that represent table columns along with some configurations that should apply to each of the columns (whether a column is sortable, hidable, etc).
 
 ```ts
 interface TableHeader {
   key: string // must be unique for each column
   label: string // visible column header text
-  sortable?: boolean // in the nutshell, this property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it
+  sortable?: boolean // in a nutshell, this property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it
   hidable?: boolean
   tooltip?: string // when provided, an info icon will be rendered next to the column label, upon hovering on which the tooltip will be revealed
   hideLabel?: boolean // whether column header text should be hidden (only visible to screen readers)
@@ -42,7 +42,7 @@ For example of `headers` prop usage please refer to [`fetcher` prop documentatio
 
 Function that handles data fetching, server-side search and pagination. It takes a single param as an argument which you can conveniently pass as a prop (see [`initialFetcherParams` prop](#initialfetcherparams) for details).
 
-Fetcher function is expected to return an object with following properties:
+Fetcher function is expected to return an object with the following properties:
 * `data` - an array of objects to populate table with
 * `total` - the total count of items (if using pagination)
 

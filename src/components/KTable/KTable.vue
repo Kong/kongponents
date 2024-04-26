@@ -1191,7 +1191,7 @@ $kTableThPaddingY: var(--kui-space-50, $kui-space-50);
             vertical-align: bottom;
 
             &.resizable {
-              // set min with so the column can't be collapsed to nothing - avoiding bad UX
+              // set min width so the column can't be collapsed to nothing - avoiding bad UX
               min-width: 40px !important; // needs important because resizing will set min-width inline
               position: relative;
 
@@ -1269,7 +1269,7 @@ $kTableThPaddingY: var(--kui-space-50, $kui-space-50);
             }
 
             &.resize-hover {
-              // creates a 2px "border" on the right - can't use the border because it will "jump"
+              // creates a 2px "border" on the right - can't use border property because it will "jump"
               box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple) inset;
             }
           }
