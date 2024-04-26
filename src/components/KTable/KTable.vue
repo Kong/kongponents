@@ -435,7 +435,7 @@ const props = defineProps({
    * A prop to pass in an array of headers for the table
    */
   headers: {
-    type: Array as PropType<TableHeader[]>,
+    type: Array,
     default: () => [],
   },
   /**
