@@ -1323,17 +1323,3 @@ $kTableThPaddingY: var(--kui-space-50, $kui-space-50);
   }
 }
 </style>
-
-<style lang="scss">
-.k-table {
-  .table {
-    thead {
-      th {
-        &.truncate, .truncate {
-          @include truncate;
-        }
-      }
-    }
-  }
-}
-</style>
