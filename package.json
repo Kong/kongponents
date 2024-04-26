@@ -1,14 +1,6 @@
 {
   "name": "@kong/kongponents",
-<<<<<<< HEAD
-<<<<<<< HEAD
   "version": "9.0.0-alpha.149",
-=======
-  "version": "9.0.0-alpha.145",
->>>>>>> c01912548 (chore(release): 9.0.0-alpha.145 [skip ci])
-=======
-  "version": "9.0.0-alpha.146",
->>>>>>> e1406a43d (chore(release): 9.0.0-alpha.146 [skip ci])
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -61,11 +53,7 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@kong/icons": "^1.9.1",
-=======
-    "@kong/icons": "^1.9.0",
->>>>>>> 52f3c2dfe (fix(deps): update dependency @kong/icons to ^1.9.0 (#2144))
     "@popperjs/core": "^2.11.8",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.1",
@@ -89,17 +77,8 @@
     "@commitlint/config-conventional": "^19.1.0",
     "@cypress/vite-dev-server": "^5.0.7",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
-<<<<<<< HEAD
     "@evilmartians/lefthook": "^1.6.10",
     "@kong-ui-public/sandbox-layout": "^2.0.52",
-=======
-    "@evilmartians/lefthook": "^1.6.7",
-<<<<<<< HEAD
-    "@kong-ui-public/sandbox-layout": "^2.0.50",
->>>>>>> af75cab08 (chore(deps): update dependency @kong-ui-public/sandbox-layout to ^2.0.50 (#2145))
-=======
-    "@kong-ui-public/sandbox-layout": "^2.0.51",
->>>>>>> d81d57a4f (chore(deps): update dependency @kong-ui-public/sandbox-layout to ^2.0.51 (#2146))
     "@kong/design-tokens": "^1.12.11",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
