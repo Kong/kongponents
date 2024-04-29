@@ -523,6 +523,10 @@ const clearSelection = (): void => {
   })
   selectedItem.value = null
   filterQuery.value = ''
+
+  emit('input', null)
+  emit('change', null)
+  emit('update:modelValue', null)
 }
 
 const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
@@ -665,9 +669,9 @@ watch(selectedItem, (newVal, oldVal) => {
     }
   } else {
     // this 'input' event must be emitted for v-model binding to work properly
-    emit('input', null)
-    emit('change', null)
-    emit('update:modelValue', null)
+    // emit('input', null)
+    // emit('change', null)
+    // emit('update:modelValue', null)
   }
 }, { deep: true })
 
