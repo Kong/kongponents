@@ -145,7 +145,7 @@ const setOverflowClass = (el: HTMLDivElement) => {
 
 watch(() => props.visibilityPreferences, () => {
   initVisibilityMap()
-})
+}, { immediate: true })
 
 onMounted(() => {
   if (menuItemsRef.value) {
