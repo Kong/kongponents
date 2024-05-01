@@ -583,7 +583,7 @@ const resizerHoveredColumn = ref('')
 const currentHoveredColumn = ref('')
 const hasColumnVisibilityMenu = computed((): boolean => {
   // has hidable columns, no error/loading/empty state
-  return !!(tableHeaders.value.filter((header: TableHeader) => header.hidable).length > 0 &&
+  return !!(hasHidableColumns.value &&
     !props.hasError && !isTableLoading.value && !props.isLoading && (data.value && data.value.length))
 })
 // columns whose visibility can be toggled
