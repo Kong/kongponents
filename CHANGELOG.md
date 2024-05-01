@@ -1,3 +1,10 @@
+# [9.0.0-alpha.150](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.149...v9.0.0-alpha.150) (2024-05-01)
+
+
+### Bug Fixes
+
+* **ktable:** init col visibility [khcp-11730] ([#2169](https://github.com/Kong/kongponents/issues/2169)) ([b86bfc5](https://github.com/Kong/kongponents/commit/b86bfc57d489960a30368429b032bd85b8cca957))
+
 # [9.0.0-alpha.149](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.148...v9.0.0-alpha.149) (2024-04-25)
 
 
