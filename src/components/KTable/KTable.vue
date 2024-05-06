@@ -526,6 +526,7 @@ const resizingColumn = ref('')
 const resizerHoveredColumn = ref('')
 // lowest priority - currently hovered resizable column (mouse is somewhere in the <th>)
 const currentHoveredColumn = ref('')
+const hasHidableColumns = computed((): boolean => tableHeaders.value.filter((header: TableHeader) => header.hidable).length > 0)
 const hasColumnVisibilityMenu = computed((): boolean => {
   // has hidable columns, no error/loading/empty state
   return !!(hasHidableColumns.value &&
@@ -973,7 +974,6 @@ const scrollHandler = (event: any): void => {
   }
 }
 
-const hasHidableColumns = computed((): boolean => tableHeaders.value.filter((header: TableHeader) => header.hidable).length > 0)
 // Store the tablePreferences in a computed property to utilize in the watcher
 const tablePreferences = computed((): TablePreferences => ({
   pageSize: pageSize.value,
