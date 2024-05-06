@@ -275,7 +275,7 @@ import {
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
 
-const { useDebounce, useRequest, useSwrvState } = useUtilities()
+const { useDebounce, useRequest, useSwrvState, clientSideSorter: defaultClientSideSorter } = useUtilities()
 
 const props = defineProps({
   /**
@@ -852,6 +852,10 @@ const initData = () => {
   sortColumnKey.value = fetcherParams.sortColumnKey ?? defaultFetcherProps.sortColumnKey
   sortColumnOrder.value = fetcherParams.sortColumnOrder as SortColumnOrder ?? defaultFetcherProps.sortColumnOrder as SortColumnOrder
 
+  if (props.clientSort && sortColumnKey.value && sortColumnOrder.value) {
+    defaultClientSideSorter(sortColumnKey.value, '', sortColumnOrder.value, data.value)
+  }
+
   if (props.paginationOffset) {
     offset.value = fetcherParams.offset
     offsets.value.push(fetcherParams.offset)
@@ -941,6 +945,8 @@ const sortClickHandler = (header: TableHeader): void => {
         sortColumnOrder: sortColumnOrder.value,
         data: data.value,
       })
+    } else {
+      defaultClientSideSorter(key, prevKey, sortColumnOrder.value, data.value)
     }
   } else if (!props.paginationOffset) {
     debouncedRevalidate()

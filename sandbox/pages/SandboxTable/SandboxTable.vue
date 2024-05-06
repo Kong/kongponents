@@ -19,7 +19,7 @@
         is-subtitle
         title="Props"
       />
-      <SandboxSectionComponent title="rowHover & emptyStateIconVariant & emptyStateTitle & emptyStateMessage & emptyStateActionMessage & emptyStateActionRoute">
+      <SandboxSectionComponent title="rowHover & emptyStateIconVariant & emptyStateTitle & emptyStateMessage & emptyStateActionMessage & emptyStateActionRoute & sortHandlerFunction">
         <KComponent
           v-slot="{ data }"
           :data="{ tableKey: 0, tableRowHover: false, tableEmptyState: false }"
