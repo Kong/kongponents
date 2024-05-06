@@ -98,71 +98,6 @@ export default function useUtilities() {
     }
   }
 
-  /**
-   * @param {String} key - the current key to sort by
-   * @param {String} previousKey - the previous key used to sort by
-   * @param {String} sortOrder - either ascending or descending
-   * @param {Array} items - the list of items to sort
-   * @return {Object} an object containing the previousKey and sortOrder
-   */
-  const clientSideSorter = (key: string, previousKey: string, sortOrder: string, items: Record<string, any>[]) => {
-    let comparator = null
-
-    const numberComparator = (a: number, b: number | string) => {
-      if (typeof b === 'number' && !Number.isNaN(a) && !Number.isNaN(b)) {
-        return a - b
-      }
-
-      return 0
-    }
-    const stringComparator = (a: string, b: string) => {
-      return a.localeCompare(b)
-    }
-
-    if (key !== previousKey) {
-      comparator = (a: any, b: any) => {
-        const transformer = (val: string | number) => {
-          if (val === undefined || val === null) {
-            return ''
-          }
-
-          if (typeof val === 'number') {
-            return val
-          }
-
-          if (Array.isArray(val) && val.length && typeof val[0] === 'number') {
-            return val[0]
-          }
-
-          return String(val)
-        }
-
-        const newValA: any = transformer(a[key])
-        const newValB: any = transformer(b[key])
-
-        switch (typeof newValA) {
-          case 'number':
-            return numberComparator(newValA, newValB)
-          default:
-            return stringComparator(newValA, newValB)
-        }
-      }
-
-      items.sort(comparator)
-      previousKey = key
-      sortOrder = 'ascending'
-    } else {
-      items.reverse()
-      if (sortOrder === 'descending' || sortOrder === 'desc') {
-        sortOrder = 'ascending'
-      } else {
-        sortOrder = 'descending'
-      }
-    }
-
-    return { previousKey, sortOrder }
-  }
-
   const useSwrvState = (response: Ref<any>, error: Ref<any>, isValidating: Ref<boolean>) => {
     const state = ref(swrvState.PENDING)
     const hasData = ref(false)
@@ -277,7 +212,6 @@ export default function useUtilities() {
   return {
     useRequest,
     useDebounce,
-    clientSideSorter,
     useSwrvState,
     getSizeFromString,
     cloneDeep,
