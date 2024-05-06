@@ -56,7 +56,10 @@
           </KTable>
         </KComponent>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="loading & resizeColumns & error & errorStateTitle & errorStateMessage & errorStateActionMessage & errorStateActionRoute">
+      <SandboxSectionComponent
+        description="This table has clickable rows."
+        title="loading & resizeColumns & error & errorStateTitle & errorStateMessage & errorStateActionMessage & errorStateActionRoute"
+      >
         <KComponent
           v-slot="{ data }"
           :data="{ tableLoadingState: false, tableErrorState: false }"
@@ -83,6 +86,7 @@
             :headers="headers(true)"
             :loading="data.tableLoadingState"
             resize-columns
+            @row:click="(_event: any, row: any) => onRowClick(row)"
           >
             <template #actions>
               <SandboxTableActions />
@@ -248,6 +252,10 @@ const sortHandlerFunction = ({ key, sortColumnOrder, data }: any) => {
 
     return data
   })
+}
+
+const onRowClick = (row: any) => {
+  alert(`Row clicked:' ${JSON.stringify(row)}`)
 }
 </script>
 
