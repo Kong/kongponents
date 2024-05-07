@@ -71,6 +71,40 @@
           This is the hidden content
         </KCollapse>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="title">
+        <KCollapse>
+          <template #title>
+            Slotted title
+          </template>
+
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </KCollapse>
+      </SandboxSectionComponent>
+
+      <!-- Usage -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Usage"
+      />
+      <SandboxSectionComponent title="Slotted title & cusom trigger">
+        <KCollapse>
+          <template #title>
+            <KongIcon
+              :color="KUI_COLOR_TEXT_NEUTRAL"
+              :size="KUI_ICON_SIZE_40"
+            />
+            Slotted title
+          </template>
+
+          <template #trigger="{ isCollapsed, toggle }">
+            <KButton @click="toggle()">
+              {{ isCollapsed ? 'Expand' : 'Collapse' }}
+            </KButton>
+          </template>
+
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </KCollapse>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
@@ -79,4 +113,6 @@
 import { inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
+import { KongIcon } from '@kong/icons'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 </script>

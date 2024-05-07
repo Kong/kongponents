@@ -6,11 +6,13 @@
     >
       <component
         :is="titleTag"
-        v-if="title"
+        v-if="title || $slots.title"
         class="collapse-title"
         data-testid="collapse-title"
       >
-        {{ title }}
+        <slot name="title">
+          {{ title }}
+        </slot>
       </component>
       <div class="collapse-trigger">
         <slot
@@ -167,9 +169,12 @@ watch(modelComputed, (newVal, oldVal) => {
     margin-bottom: var(--kui-space-50, $kui-space-50);
 
     .collapse-title {
+      align-items: center;
       color: var(--kui-color-text, $kui-color-text);
+      display: flex;
       font-size: var(--kui-font-size-40, $kui-font-size-40);
       font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+      gap: var(--kui-space-50, $kui-space-50);
       letter-spacing: var(--kui-letter-spacing-minus-30, $kui-letter-spacing-minus-30);
       line-height: var(--kui-line-height-30, $kui-line-height-30);
       margin: var(--kui-space-0, $kui-space-0);
