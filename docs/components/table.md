@@ -25,7 +25,7 @@ interface TableHeader {
   key: string // must be unique for each column
   label: string // visible column header text
   sortable?: boolean // in a nutshell, this property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it
-  hidable?: boolean
+  hidable?: boolean // allow toggling column visibility
   tooltip?: string // when provided, an info icon will be rendered next to the column label, upon hovering on which the tooltip will be revealed
   hideLabel?: boolean // whether column header text should be hidden (only visible to screen readers)
   useSortHandlerFunction?: boolean // whether KTable should use function passed through sortHandlerFunction prop to apply sorting logic to this column
@@ -33,10 +33,10 @@ interface TableHeader {
 ```
 
 :::tip NOTE
-If at least one column is hidable in the table, KTable will render a dropdown on the right of the table toolbar, directly above the table, which will provide an interface for showing/hiding columns to the user.
+If at least one column is `hidable` in the table, KTable will render a dropdown on the right of the table toolbar, directly above the table, which will provide an interface for showing/hiding columns to the user.
 :::
 
-For example of `headers` prop usage please refer to [`fetcher` prop documentation](#fetcher) below.
+For an example of `headers` prop usage please refer to [`fetcher` prop documentation](#fetcher) below.
 
 ### fetcher
 
@@ -87,7 +87,8 @@ const fetcher = async (): Promise<any> => {
   const responseData = [
     {
       id: 1,
-      name: 'Leanne Graham', // notice that property keys in data object correspond to each respective key in headers const
+      // notice that property keys in data object correspond to each respective key in headers const
+      name: 'Leanne Graham', 
       username: 'Bret',
       email: 'Sincere@april.biz'
     },
@@ -135,12 +136,12 @@ const sortHandlerFunction = ({ key, sortColumnOrder, data }) => {
 ```
 
 :::tip NOTE
-Notice that in the example above _Username_ column is sortable and _Email_ column is hidable. In this example sorting is handled on the client side, however should you want to apply serer-side logic to handle sorting, you can bind your logic to [`sort` event](#sort) and perform re-fetching of data as needed.
+Notice that in the example above the _Username_ column is `sortable` and the _Email_ column is `hidable`. In this example sorting is handled on the client side, however should you want to apply server-side logic to handle sorting, you can bind your logic to the [`sort` event](#sort) and perform re-fetching of data as needed.
 :::
 
 ### initialFetcherParams
 
-Fetcher function takes a single param - an object with following properties:
+Fetcher function takes a single param - an object with the following properties:
 
 ```ts
 interface FetcherParams {
@@ -168,7 +169,7 @@ For ease of configuration, all properties in the `initialFetcherParams` object h
 
 ### loading
 
-Boolean to control whether the component should display loading state. When not explicitly set, KTable will display loading state until function passed through [`fetcher` prop](#fetcher) resolves.
+Boolean to control whether the component should display the loading state. When not explicitly set, KTable will display the loading state until the function passed for the [`fetcher` prop](#fetcher) resolves.
 
 <KTable
   loading
@@ -186,7 +187,7 @@ Boolean to control whether the component should display loading state. When not 
 
 ### error
 
-Boolean to control whether the component should display error state. Defaults to `false`. See [error state](#error-1) section for more customization options.
+Boolean to control whether the component should display the error state. Defaults to `false`. See [error state](#error-1) section for more customization options.
 
 <KTable
   error
@@ -222,17 +223,17 @@ Allow table column width to be resizable (defaults to `false`). Adjusting a colu
 
 ### clientSort
 
-Boolean to enable client side sorting if using a fetcher that returns unpaginatinated data. Defaults to `false`. Use this in conjunction with [`sortHandlerFunction` prop](#sorthandlerfunction).
+Boolean to enable client side sorting if using a fetcher that returns unpaginated data. Defaults to `false`. Use this in conjunction with [`sortHandlerFunction` prop](#sorthandlerfunction).
 
 ### sortHandlerFunction
 
 Pass a custom sort handler function to handle sorting table data for specific columns.
 
 :::warning WARNING
-If [`clientSort` prop](#clientsort) is `true` but no `sortHandlerFunction` provided, KTable will apply some default logic for client side sorting. This may produce unexpected results. We recommend to **always** provide `sortHandlerFunction` when using client side sorting.
+If [`clientSort` prop](#clientsort) is `true` but no `sortHandlerFunction` provided, KTable will apply some default logic for client side sorting. This may produce unexpected results. We recommend **always** providing a `sortHandlerFunction` when using client side sorting.
 :::
 
-The function can take an object with these properties as an only argument:
+The function can take an object with these properties as the only argument:
 
 ```ts
 interface SortHandlerFunctionParam {
@@ -244,7 +245,7 @@ interface SortHandlerFunctionParam {
 ```
 
 :::tip NOTE
-Please note that you have to set [`clientSort` prop](#clientsort) to `true` as well as to pass `sortable: true` and `useSortHandlerFunction: true` in the respecting [headers object](#headers) to make a column sortable via `sortHandlerFunction`.
+Please note that you have to set [`clientSort` prop](#clientsort) to `true` as well as to pass `sortable: true` and `useSortHandlerFunction: true` in the respective [headers object](#headers) to make a column sortable via `sortHandlerFunction`.
 :::
 
 Please refer to [`fetcher` prop documentation](#fetcher) for example.
