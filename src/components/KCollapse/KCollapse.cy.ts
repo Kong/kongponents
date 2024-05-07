@@ -118,4 +118,22 @@ describe('KCollapse', () => {
     cy.getTestId('collapse-hidden-content').should('be.visible')
     cy.getTestId('collapse-hidden-content').should('contain.text', collapseContent)
   })
+
+  it('renders title slot when using slots', () => {
+    const title = 'Awesome title'
+    const triggerLabel = 'Awesome label'
+    const collapseContent = 'Can you see me?'
+
+    mount(KCollapse, {
+      props: {
+        triggerLabel,
+      },
+      slots: {
+        title: h('div', { 'data-testid': 'custom-title' }, title),
+        default: h('div', {}, collapseContent),
+      },
+    })
+
+    cy.getTestId('custom-title').should('contain.text', title)
+  })
 })
