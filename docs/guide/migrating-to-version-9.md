@@ -548,6 +548,7 @@ This component has been removed. Please refer to KBadge component which has been
 
 ### KModalFullscreen
 
+This component is deprecated and will be removed in the next major release.
 
 ### KMultiselect
 

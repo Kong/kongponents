@@ -169,8 +169,42 @@ This slot is deprecated and will be removed in the `9.0.0-beta.0` release. Pleas
 </KButton>
 ```
 
+## Events
+
+KButton supports all events a native `button` and `a` elements do. Simply bind your event handler function to event with any modifiers.
+
+<form>
+  <KButton
+    type="submit"
+    @click.prevent="onButtonClick"
+    @keydown.enter.prevent="onButtonEnter"
+  >
+    Simple button
+  </KButton>
+</form>
+
+```html
+<form>
+  <KButton
+    type="submit"
+    @click.prevent="onButtonClick"
+    @keydown.enter.prevent="onButtonEnter"
+  >
+    Simple button
+  </KButton>
+</form>
+```
+
 <script setup lang="ts">
 import { WorldIcon, ChevronDownIcon } from '@kong/icons'
+
+const onButtonClick = () => {
+  alert('Button was clicked')
+}
+
+const onButtonEnter = () => {
+  alert('Enter was pressed')
+}
 </script>
 
 <style scoped lang="scss">
