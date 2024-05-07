@@ -1,3 +1,10 @@
+# [9.0.0-alpha.151](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.150...v9.0.0-alpha.151) (2024-05-07)
+
+
+### Bug Fixes
+
+* **kselect:** avoid incorrect event triggering with null ([#2168](https://github.com/Kong/kongponents/issues/2168)) ([aa75dea](https://github.com/Kong/kongponents/commit/aa75dea5a070d0deddb8a242e627a365f2508963))
+
 # [9.0.0-alpha.150](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.149...v9.0.0-alpha.150) (2024-05-01)
 
 
