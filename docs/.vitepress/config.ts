@@ -74,7 +74,6 @@ export default defineConfig({
             { text: 'Input Switch', link: '/components/input-switch' },
             { text: 'Label', link: '/components/label' },
             { text: 'Modal', link: '/components/modal' },
-            { text: 'Modal Fullscreen', link: '/components/modal-fullscreen' },
             { text: 'Multiselect', link: '/components/multiselect' },
             { text: 'Pagination', link: '/components/pagination' },
             { text: 'Popover', link: '/components/popover' },

@@ -63,11 +63,9 @@ describe('KModalFullscreen', () => {
         cancelButtonText,
         bodyHeader,
         bodyHeaderDescription,
-        iconString: 'immunity',
       },
     })
 
-    cy.get('.k-modal-fullscreen-title .header-icon .kong-icon-immunity').should('be.visible')
     cy.get('.proceed-button').should('contain', actionButtonText)
     cy.get('.cancel-button').should('contain', cancelButtonText)
     cy.get('.k-modal-fullscreen-header').should('contain', title)
