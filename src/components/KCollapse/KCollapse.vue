@@ -219,6 +219,7 @@ watch(modelComputed, (newVal, oldVal) => {
     }
 
     &.has-trailing-trigger {
+      align-items: center;
       display: flex;
       justify-content: space-between;
     }
