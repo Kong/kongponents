@@ -47,7 +47,7 @@
           <div class="k-modal-fullscreen-title">
             <span class="header-icon">
               <slot name="header-icon">
-                <KIcon :icon="iconString" />
+                <KongIcon :color="KUI_COLOR_TEXT_DECORATIVE_AQUA" />
               </slot>
             </span>
             <span class="header-content">
@@ -104,8 +104,9 @@
 import type { PropType } from 'vue'
 import { watch, ref, computed, onMounted, onUnmounted, onBeforeUnmount, nextTick } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
 import type { ButtonAppearance } from '@/types'
+import { KongIcon } from '@kong/icons'
+import { KUI_COLOR_TEXT_DECORATIVE_AQUA } from '@kong/design-tokens'
 
 const props = defineProps({
   /**
@@ -165,7 +166,8 @@ const props = defineProps({
     default: 'secondary',
   },
   /**
-  *  Pass the type of icon for the header on the left
+  * @deprecated
+  * Pass the type of icon for the header on the left
   */
   iconString: {
     type: String,
