@@ -523,6 +523,10 @@ const clearSelection = (): void => {
   })
   selectedItem.value = null
   filterQuery.value = ''
+  // this 'input' event must be emitted for v-model binding to work properly
+  emit('input', null)
+  emit('change', null)
+  emit('update:modelValue', null)
 }
 
 const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
@@ -655,19 +659,12 @@ watch(filterQuery, (q: string) => {
 })
 
 watch(selectedItem, (newVal, oldVal) => {
-  if (newVal) {
-    if (newVal !== oldVal) {
-      emit('selected', newVal)
-      // this 'input' event must be emitted for v-model binding to work properly
-      emit('input', newVal.value)
-      emit('change', newVal)
-      emit('update:modelValue', newVal.value)
-    }
-  } else {
+  if (newVal && newVal !== oldVal) {
+    emit('selected', newVal)
     // this 'input' event must be emitted for v-model binding to work properly
-    emit('input', null)
-    emit('change', null)
-    emit('update:modelValue', null)
+    emit('input', newVal.value)
+    emit('change', newVal)
+    emit('update:modelValue', newVal.value)
   }
 }, { deep: true })
 
