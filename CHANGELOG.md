@@ -1,3 +1,10 @@
+# [9.0.0-alpha.152](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.151...v9.0.0-alpha.152) (2024-05-07)
+
+
+### Bug Fixes
+
+* **kcollapse:** add title slot ([#2174](https://github.com/Kong/kongponents/issues/2174)) ([7407eb8](https://github.com/Kong/kongponents/commit/7407eb83273c12a63840c84c87a2a268310cb56b))
+
 # [9.0.0-alpha.151](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.150...v9.0.0-alpha.151) (2024-05-07)
 
 
