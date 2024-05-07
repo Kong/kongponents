@@ -229,7 +229,7 @@ Boolean to enable client side sorting if using a fetcher that returns unpaginati
 Pass a custom sort handler function to handle sorting table data for specific columns.
 
 :::warning WARNING
-If [`clientSort` prop](#clientsort) is `true` but no `sortHandlerFunction` provided, KTable will apply a default sorting function for client side sorting. This may produce unexpected results. Passing `sortHandlerFunction` to handle client side sorting of table data is the only way to **reliably** use client side sorting.
+If [`clientSort` prop](#clientsort) is `true` but no `sortHandlerFunction` provided, KTable will apply some default logic for client side sorting. This may produce unexpected results. We recommend to **always** provide `sortHandlerFunction` when using client side sorting.
 :::
 
 The function can take an object with these properties as an only argument:
