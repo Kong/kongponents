@@ -222,6 +222,10 @@ watch(modelComputed, (newVal, oldVal) => {
       align-items: center;
       display: flex;
       justify-content: space-between;
+
+      .collapse-title {
+        margin-bottom: var(--kui-space-0, $kui-space-0);
+      }
     }
   }
 
