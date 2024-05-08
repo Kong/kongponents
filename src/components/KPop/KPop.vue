@@ -19,54 +19,7 @@
         {{ buttonText }}
       </KButton>
     </slot>
-    <div
-      v-if="isSvg"
-    >
-      <foreignObject>
-        <div
-          v-show="isOpen"
-          :id="popoverId"
-          ref="popper"
-          class="k-popover"
-          :class="popoverClassObj"
-          role="region"
-          :style="popoverStyle"
-        >
-          <div
-            v-if="$slots.title || title || $slots.actions"
-            class="k-popover-header"
-          >
-            <div
-              v-if="$slots.title || title"
-              class="k-popover-title"
-            >
-              <slot name="title">
-                {{ title }}
-              </slot>
-            </div>
-            <div
-              v-if="$slots.actions"
-              class="k-popover-actions"
-            >
-              <slot name="actions" />
-            </div>
-          </div>
-          <div class="k-popover-content">
-            <slot name="content" />
-          </div>
-          <div
-            v-if="$slots.footer"
-            class="k-popover-footer"
-          >
-            <slot name="footer" />
-          </div>
-        </div>
-      </foreignObject>
-    </div>
-    <transition
-      v-else
-      name="fade"
-    >
+    <Transition name="fade">
       <div
         v-show="isOpen"
         :id="popoverId"
@@ -105,7 +58,7 @@
           <slot name="footer" />
         </div>
       </div>
-    </transition>
+    </Transition>
   </component>
 </template>
 
@@ -116,7 +69,7 @@
 // @ts-nocheck
 import type { PropType } from 'vue'
 import { defineComponent } from 'vue'
-import { v1 as uuidv1 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 import Popper from 'popper.js'
 import useUtilities from '@/composables/useUtilities'
 import KButton from '@/components/KButton/KButton.vue'
@@ -150,7 +103,7 @@ export default defineComponent({
      */
     buttonText: {
       type: String,
-      default: 'OK',
+      default: '',
     },
     /**
      * The title of the Popover header
@@ -206,13 +159,6 @@ export default defineComponent({
       default: '',
     },
     /**
-     * Custom transition names that will be applied to the popover
-     */
-    popoverTransitions: {
-      type: String,
-      default: 'fade',
-    },
-    /**
     * Custom popover timeout setting
      */
     popoverTimeout: {
@@ -234,13 +180,6 @@ export default defineComponent({
       default: false,
     },
     /**
-    * A flag indicating whether or not the element in the slot will be an SVG element
-    */
-    isSvg: {
-      type: Boolean,
-      default: false,
-    },
-    /**
      * A flag to hide the triangle pointing to the trigger element
      */
     hideCaret: {
@@ -248,23 +187,16 @@ export default defineComponent({
       default: false,
     },
     /**
-     * A custom callback function to call when the popover is already opened and an element inside has been clicked
+     * Whether popover should be closed when popover content is clicked
      */
-    onPopoverClick: {
-      type: Function,
-      default: null,
+    closeOnPopoverClick: {
+      type: Boolean,
+      default: false,
     },
     /**
      * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
      */
     positionFixed: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Test mode - for testing only, strips out generated ids
-     */
-    testMode: {
       type: Boolean,
       default: false,
     },
@@ -276,14 +208,14 @@ export default defineComponent({
       default: 1000,
     },
   },
-  emits: ['opened', 'closed'],
+  emits: ['open', 'close', 'popover-click'],
   data() {
     return {
       popper: null,
       reference: null,
       isOpen: false,
-      popoverId: !this.testMode ? uuidv1() : 'test-popover-id-1234',
-      targetId: !this.testMode ? uuidv1() : 'test-target-id-1234',
+      popoverId: uuidv4(),
+      targetId: uuidv4(),
     }
   },
   computed: {
@@ -326,7 +258,7 @@ export default defineComponent({
     const popper = this.$refs.popper
 
     document.documentElement.removeEventListener('click', this.handleClick)
-    popper && popper.removeEventListener('click', this.showPopper)
+    popper && popper.removeEventListener('click', this.onPopperContentClick)
 
     if (this.reference) {
       this.reference.removeEventListener('click', this.handleClick)
@@ -344,7 +276,7 @@ export default defineComponent({
       }
 
       this.timer = setTimeout(() => {
-        this.$emit('closed')
+        this.$emit('close')
         this.destroy()
       }, this.popoverTimeout)
     },
@@ -353,7 +285,10 @@ export default defineComponent({
       this.isOpen = true
       if (this.timer) clearTimeout(this.timer)
       if (this.popperTimer) clearTimeout(this.popperTimer)
-      this.$emit('opened')
+      this.$emit('open')
+    },
+    onPopperContentClick() {
+      this.$emit('popover-click')
     },
     updatePopper() {
       if (this.popper && typeof this.popper.update === 'function') {
@@ -366,7 +301,7 @@ export default defineComponent({
       this.showPopper()
       const placement = (this.placement || 'auto').replace(/[A-Z]/g, '-$&').toLowerCase()
       const popperEl = this.$refs.popper
-      const theTarget = (this.target && !this.isSvg && !!document.querySelector(this.target))
+      const theTarget = (this.target && !!document.querySelector(this.target))
         ? document.querySelector(this.target)
         : document.getElementById(this.targetId)
 
@@ -403,19 +338,16 @@ export default defineComponent({
         this.hidePopper()
       }
 
-      if (this.reference && this.reference.contains(e.target)) {
+      if (this.reference && this.reference.contains(e.target) && (this.$refs.popper && !this.$refs.popper.contains(e.target))) {
         if (this.isOpen) {
           hidePopperAndStopPropagation()
         } else {
           this.createInstance()
         }
-      } else if (this.$refs.popper && this.$refs.popper.contains(e.target) && this.onPopoverClick) {
-        const isOpen = this.onPopoverClick()
-        if (isOpen !== undefined) {
-          isOpen ? this.showPopper() : hidePopperAndStopPropagation()
-        }
       } else if (this.$refs.popper && this.$refs.popper.contains(e.target)) {
-        this.showPopper()
+        if (this.closeOnPopoverClick) {
+          hidePopperAndStopPropagation()
+        }
       } else if (this.isOpen) {
         hidePopperAndStopPropagation()
       }
@@ -428,13 +360,11 @@ export default defineComponent({
           this.reference.addEventListener('focus', this.createInstance)
           this.reference.addEventListener('mouseleave', this.hidePopper)
           this.reference.addEventListener('blur', this.hidePopper)
-          popper.addEventListener('mouseenter', this.showPopper)
-          popper.addEventListener('focus', this.showPopper)
           popper.addEventListener('mouseleave', this.hidePopper)
           popper.addEventListener('blur', this.hidePopper)
         }
 
-        popper.addEventListener('click', this.showPopper)
+        popper.addEventListener('click', this.onPopperContentClick)
         document.documentElement.addEventListener('click', this.handleClick)
       }
     },

@@ -16,7 +16,10 @@
         title="Props"
       />
       <SandboxSectionComponent title="buttonText">
-        <KPop button-text="KPop button">
+        <KPop
+          v-if="false"
+          button-text="KPop Button"
+        >
           <template #content>
             Popover content.
           </template>
@@ -24,6 +27,7 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="tag">
         <KPop
+          v-if="false"
           button-text="Button"
           tag="section"
         >
@@ -34,6 +38,7 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="title">
         <KPop
+          v-if="false"
           button-text="Button"
           title="Popover title"
         >
@@ -44,6 +49,7 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="trigger">
         <KPop
+          v-if="false"
           button-text="Button"
           trigger="hover"
         >
@@ -54,6 +60,7 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="placement">
         <KPop
+          v-if="false"
           button-text="Button"
           placement="top"
         >
@@ -64,6 +71,7 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="width">
         <KPop
+          v-if="false"
           button-text="Button"
           width="500"
         >
@@ -74,6 +82,7 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="maxWidth">
         <KPop
+          v-if="false"
           button-text="Button"
           max-width="100"
         >
@@ -84,6 +93,7 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="popoverTimeout">
         <KPop
+          v-if="false"
           button-text="Button"
           :popover-timeout="3000"
           trigger="hover"
@@ -98,7 +108,10 @@
           <span v-if="!hidingPopover">Hide popover: <code>false</code></span>
           <span v-else>Hiding popover in: {{ timeoutValue }}</span>
         </p>
-        <KPop :hide-popover="showPopover">
+        <KPop
+          v-if="false"
+          :hide-popover="showPopover"
+        >
           <KButton @click="startPopoverTimeout">
             Button
           </KButton>
@@ -110,6 +123,7 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="disabled">
         <KPop
+          v-if="false"
           button-text="Button"
           disabled
         >
@@ -120,6 +134,7 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="hideCaret">
         <KPop
+          v-if="false"
           button-text="Button"
           hide-caret
         >
@@ -135,7 +150,9 @@
         title="Slots"
       />
       <SandboxSectionComponent title="default">
-        <KPop>
+        <KPop
+          v-if="false"
+        >
           <KButton appearance="secondary">
             Slotted button
           </KButton>
@@ -146,7 +163,10 @@
         </KPop>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="title & content">
-        <KPop button-text="Button">
+        <KPop
+          v-if="false"
+          button-text="Button"
+        >
           <template #title>
             Popover title
           </template>
@@ -157,7 +177,10 @@
         </KPop>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="footer">
-        <KPop button-text="Button">
+        <KPop
+          v-if="false"
+          button-text="Button"
+        >
           <template #content>
             Popover content.
           </template>
@@ -168,6 +191,52 @@
             </KButton>
           </template>
         </KPop>
+      </SandboxSectionComponent>
+
+      <!-- Events -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Events"
+      />
+      <SandboxSectionComponent title="open & close">
+        <KPop
+          v-if="false"
+          button-text="Button"
+          @close="onEvent('Popover closed')"
+          @open="onEvent('Popover opened')"
+        >
+          <template #content>
+            Popover content.
+          </template>
+        </KPop>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="popover-click">
+        <KComponent
+          v-slot="{ data }"
+          :data="{ closeOnPopoverClick: false }"
+        >
+          <KInputSwitch
+            v-model="data.closeOnPopoverClick"
+            label="Close on popover click"
+          />
+          <KPop
+            button-text="Button"
+            :close-on-popover-click="data.closeOnPopoverClick"
+            @close="onEvent('Popover closed')"
+            @open="onEvent('Popover opened')"
+            @popover-click="onEvent('Popover clicked')"
+          >
+            <template #content>
+              <KButton
+                appearance="tertiary"
+                size="small"
+                @click="onEvent('Popover content clicked')"
+              >
+                Click here.
+              </KButton>
+            </template>
+          </KPop>
+        </KComponent>
       </SandboxSectionComponent>
     </div>
   </SandboxLayout>
@@ -205,4 +274,8 @@ watch(showPopover, async (value) => {
     interval.value = null
   }
 })
+
+const onEvent = (message: string): void => {
+  console.log(message)
+}
 </script>
