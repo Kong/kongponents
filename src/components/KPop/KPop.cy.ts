@@ -29,7 +29,6 @@ describe('KPop', () => {
 
   it('renders slots when passed', () => {
     const popTitle = 'Look Mah!'
-    const popActions = 'Pop Actions'
     const popContent = 'Pop Content'
     const popFooter = 'Pop Footer'
 
@@ -39,14 +38,12 @@ describe('KPop', () => {
       },
       slots: {
         title: () => h('span', {}, popTitle),
-        actions: h('span', {}, popActions),
         content: h('span', {}, popContent),
         footer: h('span', {}, popFooter),
       },
     })
 
     cy.get('.popover-title').should('contain.html', popTitle)
-    cy.get('.k-popover-actions').should('contain.html', popActions)
     cy.get('.popover-content').should('contain.html', popContent)
     cy.get('.popover-footer').should('contain.html', popFooter)
   })
