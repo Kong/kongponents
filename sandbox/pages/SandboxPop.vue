@@ -16,52 +16,67 @@
         title="Props"
       />
       <SandboxSectionComponent title="buttonText">
-        <KPop
-
-          button-text="KPop Button"
-        >
+        <KPop button-text="KPop Button">
           <template #content>
             Popover content.
           </template>
         </KPop>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="tag">
-        <KPop tag="section">
+        <KPop
+          button-text="Button"
+          tag="section"
+        >
           <template #content>
             Popover content.
           </template>
         </KPop>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="title">
-        <KPop title="Popover title">
+        <KPop
+          button-text="Button"
+          title="Popover title"
+        >
           <template #content>
             Popover content.
           </template>
         </KPop>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="trigger">
-        <KPop trigger="hover">
+        <KPop
+          button-text="Button"
+          trigger="hover"
+        >
           <template #content>
             Popover content.
           </template>
         </KPop>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="placement">
-        <KPop placement="top">
+        <KPop
+          button-text="Button"
+          placement="top"
+        >
           <template #content>
             Popover content.
           </template>
         </KPop>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="width">
-        <KPop width="500">
+        <KPop
+          button-text="Button"
+          width="500"
+        >
           <template #content>
             Popover content.
           </template>
         </KPop>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="maxWidth">
-        <KPop max-width="100">
+        <KPop
+          button-text="Button"
+          max-width="100"
+        >
           <template #content>
             Popover content.
           </template>
@@ -69,6 +84,7 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="popoverTimeout">
         <KPop
+          button-text="Button"
           :popover-timeout="3000"
           trigger="hover"
         >
@@ -93,14 +109,22 @@
         </KPop>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="disabled">
-        <KPop disabled>
+        <KPop
+          button-text="Button"
+          disabled
+        >
           <template #content>
             Popover content.
           </template>
         </KPop>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="hideCaret">
-        <KPop hide-caret>
+      <SandboxSectionComponent
+        title="hideCaret"
+      >
+        <KPop
+          button-text="Button"
+          hide-caret
+        >
           <template #content>
             Popover content.
           </template>
@@ -124,7 +148,7 @@
         </KPop>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="title & content">
-        <KPop>
+        <KPop button-text="Button">
           <template #title>
             Popover title
           </template>
@@ -155,6 +179,7 @@
       />
       <SandboxSectionComponent title="open & close">
         <KPop
+          button-text="Button"
           @close="onEvent('Popover closed')"
           @open="onEvent('Popover opened')"
         >
