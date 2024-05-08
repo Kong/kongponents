@@ -6,11 +6,12 @@
     <KToggle v-slot="{ toggle, isToggled }">
       <KPop
         v-bind="boundKPopAttributes"
+        :close-on-popover-click="!isToggled.value"
         data-testid="k-dropdown-popover"
         :hide-popover="hidePopover"
-        :on-popover-click="() => handleTriggerToggle(isToggled, toggle, false)"
-        @closed="() => handleTriggerToggle(isToggled, toggle, false)"
-        @opened="() => handleTriggerToggle(isToggled, toggle, true)"
+        @close="() => handleTriggerToggle(isToggled, toggle, false)"
+        @open="() => handleTriggerToggle(isToggled, toggle, true)"
+        @popover-click="() => handleTriggerToggle(isToggled, toggle, false)"
       >
         <component
           :is="tooltipComponent"
@@ -211,14 +212,12 @@ const handleCloseDropdown = async (): Promise<void> => {
   })
 }
 
-const handleTriggerToggle = (isToggled: Ref<boolean>, toggle: () => void, isOpen: boolean): boolean => {
+const handleTriggerToggle = (isToggled: Ref<boolean>, toggle: () => void, isOpen: boolean): void => {
   // avoid toggling twice for the same event
   if (isToggled.value !== isOpen) {
     toggle()
     emit('toggleDropdown', isToggled.value)
   }
-
-  return isToggled.value
 }
 
 watch(selectedItem, (newVal, oldVal): void => {

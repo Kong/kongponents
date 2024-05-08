@@ -12,7 +12,7 @@
       :placement="popoverPlacement"
       position-fixed
       width="auto"
-      @opened="state.hidePopover = false"
+      @open="state.hidePopover = false"
     >
       <div
         class="datetime-picker-trigger-wrapper"

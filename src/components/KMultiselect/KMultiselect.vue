@@ -25,13 +25,10 @@
         <KPop
           ref="popper"
           v-bind="boundKPopAttributes"
-          :on-popover-click="() => {
-            return
-          }"
           :position-fixed="positionFixed"
           :target="`[id='${multiselectWrapperId}']`"
-          @closed="() => handleToggle(false, isToggled, toggle)"
-          @opened="() => handleToggle(true, isToggled, toggle)"
+          @close="() => handleToggle(false, isToggled, toggle)"
+          @open="() => handleToggle(true, isToggled, toggle)"
         >
           <div
             :id="multiselectWrapperId"

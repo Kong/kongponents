@@ -24,11 +24,12 @@
       <KPop
         ref="popperElement"
         v-bind="boundKPopAttributes"
-        :on-popover-click="() => onPopoverClick(toggle, isToggled.value)"
+        close-on-popover-click
         :position-fixed="positionFixed"
         :target="`[id='${selectWrapperId}']`"
-        @closed="() => onClose(toggle, isToggled.value)"
-        @opened="() => onOpen(toggle)"
+        @close="() => onClose(toggle, isToggled.value)"
+        @open="() => onOpen(toggle)"
+        @popover-click="() => onPopoverClick(toggle)"
       >
         <div
           :id="selectWrapperId"
@@ -571,10 +572,8 @@ const onSelectWrapperClick = (event: Event): void => {
   }
 }
 
-const onPopoverClick = (toggle: Function, isToggled: boolean) => {
+const onPopoverClick = (toggle: Function) => {
   toggle()
-
-  return isToggled
 }
 
 const onClose = (toggle: Function, isToggled: boolean) => {
