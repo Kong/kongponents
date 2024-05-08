@@ -53,14 +53,18 @@
         </KPop>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="placement">
-        <KPop
-          button-text="Button"
-          placement="top"
-        >
-          <template #content>
-            Popover content.
-          </template>
-        </KPop>
+        <div class="vertical-container">
+          <KPop
+            v-for="placement in PopPlacementsArray"
+            :key="placement"
+            :button-text="placement"
+            :placement="placement"
+          >
+            <template #content>
+              Popover content.
+            </template>
+          </KPop>
+        </div>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="width">
         <KPop
@@ -224,6 +228,7 @@
 import { inject, nextTick, ref, watch } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
+import { PopPlacementsArray } from '@/types'
 
 const hidingPopover = ref<boolean>(false)
 const interval = ref<any>(null)
@@ -257,3 +262,11 @@ const onEvent = (message: string): void => {
   console.log(message)
 }
 </script>
+
+<style lang="scss" scoped>
+.vertical-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $kui-space-50;
+}
+</style>

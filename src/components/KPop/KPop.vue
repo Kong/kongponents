@@ -14,7 +14,7 @@
         :id="targetId"
         :aria-controls="popoverId || undefined"
         :aria-expanded="!!isOpen || undefined"
-        data-testid="kpop-button"
+        data-testid="popover-button"
       >
         {{ buttonText }}
       </KButton>
@@ -24,30 +24,32 @@
         v-show="isOpen"
         :id="popoverId"
         ref="popper"
+        :aria-labelledby="$slots.title || title ? titleId : undefined"
         class="k-popover"
         :class="popoverClassObj"
-        role="region"
+        role="dialog"
         :style="popoverStyle"
       >
         <div
           v-if="$slots.title || title"
-          class="k-popover-header"
+          class="popover-header"
         >
           <div
             v-if="$slots.title || title"
-            class="k-popover-title"
+            :id="titleId"
+            class="popover-title"
           >
             <slot name="title">
               {{ title }}
             </slot>
           </div>
         </div>
-        <div class="k-popover-content">
+        <div class="popover-content">
           <slot name="content" />
         </div>
         <div
           v-if="$slots.footer"
-          class="k-popover-footer"
+          class="popover-footer"
         >
           <slot name="footer" />
         </div>
@@ -210,6 +212,7 @@ export default defineComponent({
       isOpen: false,
       popoverId: uuidv4(),
       targetId: uuidv4(),
+      titleId: uuidv4(),
     }
   },
   computed: {
@@ -373,180 +376,182 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
-// Must leave this block unscoped as it sometimes causes issues with slotted/nested styles
+<style lang="scss" scoped>
+/* Component mixins */
 
-@import '@/styles/tmp-variables';
+@mixin kPopCaret {
+  &:after, &:before {
+    border: solid var(--kui-color-border-transparent, $kui-color-border-transparent);
+    content: " ";
+    height: 0;
+    pointer-events: none;
+    position: absolute;
+    width: 0;
+  }
 
-.k-popover {
+  &:after {
+    border-width: 10px;
+    margin-left: -10px;
+  }
+
+  &:before {
+    border-width: 11px;
+    margin-left: -11px;
+  }
+}
+
+/* Component styles */
+
+.k-popover, :deep(.k-popover) {
   background-color: var(--kui-color-background, $kui-color-background);
-  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-  border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
-  -webkit-box-shadow: 0px 4px 20px $tmp-color-black-10;
-  box-shadow: 0px 4px 20px $tmp-color-black-10;
-  color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-  font-size: var(--kui-font-size-30, $kui-font-size-30);
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+  border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+  box-shadow: var(--kui-shadow, $kui-shadow);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--kui-font-family-text, $kui-font-family-text);
+  gap: var(--kui-space-40, $kui-space-40);
   max-width: none;
-  padding: var(--kui-space-80, $kui-space-80) var(--kui-space-60, $kui-space-60);
+  padding: var(--kui-space-60, $kui-space-60);
   text-align: left;
   white-space: normal;
   z-index: v-bind('zIndex');
 
-  .k-popover-header {
+  .popover-header {
     align-items: baseline;
-    display: flex !important;
-    margin-bottom: var(--kui-space-80, $kui-space-80);
+    display: flex;
 
-    .k-popover-title {
+    .popover-title {
       color: var(--kui-color-text, $kui-color-text);
       font-size: var(--kui-font-size-40, $kui-font-size-40);
-      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+      font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+      line-height: var(--kui-line-height-30, $kui-line-height-30);
     }
   }
 
-  .k-popover-content {
-    line-height: var(--kui-line-height-30, $kui-line-height-30);
+  .popover-content {
+    color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
   }
 
-  .k-popover-footer {
-    margin: var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0);
+  .popover-footer {
+    align-items: center;
+    display: flex;
+    gap: var(--kui-space-40, $kui-space-40);
   }
 
-  // TODO: this block is repetitive and can be refactored inti a mixin
+  // placement and caret styles
+
   &[x-placement^="bottom"] {
     margin-top: var(--kui-space-50, $kui-space-50);
 
+    @include kPopCaret;
+
     &:after, &:before {
-      border: solid var(--kui-color-border-transparent, $kui-color-border-transparent);
       bottom: 100%;
-      content: " ";
-      height: 0;
       left: 50%;
-      pointer-events: none;
-      position: absolute;
-      width: 0;
     }
 
     &:after {
-      border-color: rgba(255, 255, 255, 0);
-      border-bottom-color: $tmp-color-white;
-      border-width: 10px;
-      margin-left: -10px;
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      border-bottom-color: var(--kui-color-background, $kui-color-background);
     }
 
     &:before {
-      border-color: rgba(250, 250, 250, 0);
-      border-bottom-color: $tmp-color-black-10;
-      border-width: 11px;
-      margin-left: -11px;
+      border-bottom-color: var(--kui-color-border, $kui-color-border);
     }
   }
 
   &[x-placement^="top"] {
     margin-bottom: var(--kui-space-60, $kui-space-60);
 
+    @include kPopCaret;
+
     &:after, &:before {
-      border: solid var(--kui-color-border-transparent, $kui-color-border-transparent);
-      content: " ";
-      height: 0;
       left: 50%;
-      pointer-events: none;
-      position: absolute;
       top: 100%;
-      width: 0;
     }
 
     &:after {
-      border-color: rgba(255, 255, 255, 0);
-      border-top-color: $tmp-color-white;
-      border-width: 10px;
-      margin-left: -10px;
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      border-top-color: var(--kui-color-background, $kui-color-background);
     }
 
     &:before {
-      border-color: rgba(250, 250, 250, 0);
-      border-top-color: $tmp-color-black-10;
-      border-width: 11px;
-      margin-left: -11px;
+      border-top-color: var(--kui-color-border, $kui-color-border);
     }
   }
 
   &[x-placement^="left"] {
     margin-right: var(--kui-space-60, $kui-space-60);
 
+    @include kPopCaret;
+
     &:after, &:before {
-      border: solid var(--kui-color-border-transparent, $kui-color-border-transparent);
-      content: " ";
-      height: 0;
       left: 100%;
-      pointer-events: none;
-      position: absolute;
       top: 50%;
-      width: 0;
+      transform: translate(50%, -50%);
     }
 
     &:after {
-      border-color: rgba(255, 255, 255, 0);
-      border-left-color: $tmp-color-white;
-      border-width: 10px;
-      margin-top: -10px;
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      border-left-color: var(--kui-color-background, $kui-color-background);
     }
 
     &:before {
-      border-color: rgba(250, 250, 250, 0);
-      border-left-color: $tmp-color-black-10;
-      border-width: 11px;
-      margin-top: -11px;
+      border-left-color: var(--kui-color-border, $kui-color-border);
     }
   }
 
   &[x-placement^="right"] {
     margin-left: var(--kui-space-60, $kui-space-60);
 
+    @include kPopCaret;
+
     &:after, &:before {
-      border: solid var(--kui-color-border-transparent, $kui-color-border-transparent);
-      content: " ";
-      height: 0;
-      pointer-events: none;
-      position: absolute;
       right: 100%;
       top: 50%;
-      width: 0;
+      transform: translateY(-50%);
     }
 
     &:after {
-      border-color: rgba(255, 255, 255, 0);
-      border-right-color: $tmp-color-white;
-      border-width: 10px;
-      margin-top: -10px;
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      border-right-color: var(--kui-color-background, $kui-color-background);
     }
 
     &:before {
-      border-color: rgba(250, 250, 250, 0);
-      border-right-color: $tmp-color-black-10;
-      border-width: 11px;
-      margin-top: -11px;
+      border-right-color: var(--kui-color-border, $kui-color-border);
     }
   }
 
   &[x-placement^="top-start"],
   &[x-placement^="bottom-start"] {
-    &:after, &:before { left: 11px; }
+    &:after, &:before {
+      left: 16px;
+    }
   }
 
   &[x-placement^="top-end"],
   &[x-placement^="bottom-end"] {
-    &:after, &:before { left: calc(100% - 11px); }
+    &:after, &:before {
+      left: calc(100% - 16px);
+    }
   }
 
   &[x-placement^="right-start"],
   &[x-placement^="left-start"] {
-    &:after, &:before { top: 11px; }
+    &:after, &:before {
+      top: 16px;
+    }
   }
 
   &[x-placement^="right-end"],
   &[x-placement^="left-end"] {
-    &:after, &:before { top: calc(100% - 11px); }
+    &:after, &:before {
+      top: calc(100% - 16px);
+    }
   }
 
   &.hide-caret {

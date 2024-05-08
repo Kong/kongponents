@@ -640,6 +640,14 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 * `opened` event has been renamed to `open`
 * `closed` event has been renamed to `close`
 
+#### Structure
+
+* `kpop-button` ... has been replaced with `popover-button`
+* `k-popover-header` class has been replaced with `popover-header`
+* `k-popover-title` class has been replaced with `popover-title`
+* `k-popover-content` class has been replaced with `popover-content`
+* `k-popover-footer` class has been replaced with `popover-footer`
+
 ### KPrompt
 
 #### Props

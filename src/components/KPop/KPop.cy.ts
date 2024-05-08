@@ -23,7 +23,7 @@ describe('KPop', () => {
       },
     })
 
-    cy.get('[data-testid="kpop-button"]').should('contain.html', popButtonText)
+    cy.get('[data-testid="popover-button"]').should('contain.html', popButtonText)
     cy.get('.k-popover-title').should('contain.html', popTitle)
   })
 
