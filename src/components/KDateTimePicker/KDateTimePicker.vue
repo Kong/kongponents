@@ -650,7 +650,7 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
     overflow: hidden;
     padding: var(--kui-space-40, $kui-space-40);
 
-    .k-popover-content {
+    .popover-content {
       .datetime-picker-toggle {
         margin-bottom: var(--kui-space-40, $kui-space-40);
       }
@@ -701,7 +701,7 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
       }
     }
 
-    .k-popover-footer {
+    .popover-footer {
       margin: var(--kui-space-0, $kui-space-0);
       margin-top: var(--kui-space-40, $kui-space-40);
 

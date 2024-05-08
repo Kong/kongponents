@@ -24,7 +24,7 @@ describe('KPop', () => {
     })
 
     cy.get('[data-testid="popover-button"]').should('contain.html', popButtonText)
-    cy.get('.k-popover-title').should('contain.html', popTitle)
+    cy.get('.popover-title').should('contain.html', popTitle)
   })
 
   it('renders slots when passed', () => {
@@ -45,10 +45,10 @@ describe('KPop', () => {
       },
     })
 
-    cy.get('.k-popover-title').should('contain.html', popTitle)
+    cy.get('.popover-title').should('contain.html', popTitle)
     cy.get('.k-popover-actions').should('contain.html', popActions)
-    cy.get('.k-popover-content').should('contain.html', popContent)
-    cy.get('.k-popover-footer').should('contain.html', popFooter)
+    cy.get('.popover-content').should('contain.html', popContent)
+    cy.get('.popover-footer').should('contain.html', popFooter)
   })
 
   it('renders with correct px width', () => {
@@ -74,7 +74,7 @@ describe('KPop', () => {
         title,
       },
     })
-    cy.get('.k-popover-title').should('have.text', title)
+    cy.get('.popover-title').should('have.text', title)
   })
 
   it('has no title if no prop', () => {
@@ -83,7 +83,7 @@ describe('KPop', () => {
         testMode: true,
       },
     })
-    cy.get('.k-popover-title').should('not.exist')
+    cy.get('.popover-title').should('not.exist')
   })
 
   it('shows element on click', () => {

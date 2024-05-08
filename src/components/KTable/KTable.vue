@@ -680,7 +680,7 @@ const tdlisteners = computed((): any => {
         }
 
         // check parent for popover class
-        if (e.target.closest('.k-popover-content') !== null) {
+        if (e.target.closest('.popover-content') !== null) {
           isPopoverContent = true
         }
 

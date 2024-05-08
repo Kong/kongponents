@@ -580,7 +580,7 @@ const createKPopAttributes = computed(() => {
   }
 })
 
-// Calculate the `.k-popover-content` max-height
+// Calculate the `.popover-content` max-height
 const popoverContentMaxHeight = computed((): string => getSizeFromString(props.dropdownMaxHeight))
 
 // TypeScript complains if I bind the original object
@@ -1112,7 +1112,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
   .hidden-selection-count-tooltip {
     cursor: pointer;
 
-    :deep(.k-popover-content) {
+    :deep(.popover-content) {
       @include truncate(3);
     }
   }
@@ -1194,7 +1194,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
       padding-bottom: var(--kui-space-0, $kui-space-0);
     }
 
-    .k-popover-content {
+    .popover-content {
       @include kMultiselectPopoverMaxHeight;
 
       // when dropdown footer text position is sticky

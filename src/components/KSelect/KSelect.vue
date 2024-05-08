@@ -435,7 +435,7 @@ const createKPopAttributes = computed(() => {
   }
 })
 
-// Calculate the `.k-popover-content` max-height
+// Calculate the `.popover-content` max-height
 const popoverContentMaxHeight = computed((): string => getSizeFromString(props.dropdownMaxHeight))
 
 // TypeScript complains if I bind the original object

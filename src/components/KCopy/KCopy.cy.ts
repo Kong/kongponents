@@ -136,7 +136,7 @@ describe('KCopy', () => {
 
       cy.get(container).should('be.visible')
       cy.get(container).find('.k-tooltip').should('exist')
-      cy.get(container).find('.k-tooltip .k-popover-content').should('contain.text', tooltipText)
+      cy.get(container).find('.k-tooltip .popover-content').should('contain.text', tooltipText)
     })
 
     it('renders with `textTooltip` prop set', () => {
@@ -151,7 +151,7 @@ describe('KCopy', () => {
 
       cy.get(container).should('be.visible')
       cy.get(container).find('.k-tooltip').should('exist')
-      cy.get(container).find('.k-tooltip .k-popover-content').should('contain.text', tooltipText)
+      cy.get(container).find('.k-tooltip .popover-content').should('contain.text', tooltipText)
     })
 
     it('renders `successTooltip` with `copyTooltip` prop set', () => {
@@ -168,9 +168,9 @@ describe('KCopy', () => {
 
       cy.get(container).should('be.visible')
       cy.get(container).find('.k-tooltip').should('exist')
-      cy.get(container).find('.k-tooltip .k-popover-content').should('contain.text', tooltipText)
+      cy.get(container).find('.k-tooltip .popover-content').should('contain.text', tooltipText)
       cy.get('[data-testid="copy-to-clipboard"]').click()
-      cy.get(container).find('.k-tooltip .k-popover-content').should('contain.text', successText)
+      cy.get(container).find('.k-tooltip .popover-content').should('contain.text', successText)
     })
   })
 })
