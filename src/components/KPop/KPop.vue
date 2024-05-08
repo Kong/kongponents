@@ -19,7 +19,7 @@
         {{ buttonText }}
       </KButton>
     </slot>
-    <Transition name="fade">
+    <Transition name="kongponents-fade-transition">
       <div
         v-show="isOpen"
         :id="popoverId"
@@ -30,7 +30,7 @@
         :style="popoverStyle"
       >
         <div
-          v-if="$slots.title || title || $slots.actions"
+          v-if="$slots.title || title"
           class="k-popover-header"
         >
           <div
@@ -40,12 +40,6 @@
             <slot name="title">
               {{ title }}
             </slot>
-          </div>
-          <div
-            v-if="$slots.actions"
-            class="k-popover-actions"
-          >
-            <slot name="actions" />
           </div>
         </div>
         <div class="k-popover-content">
@@ -227,7 +221,7 @@ export default defineComponent({
       }
     },
     popoverClassObj: function() {
-      return [this.popoverClasses, { 'hide-caret': this.hideCaret }, { 'has-actions': this.$slots.actions }]
+      return [this.popoverClasses, { 'hide-caret': this.hideCaret }]
     },
   },
   watch: {
@@ -398,14 +392,6 @@ export default defineComponent({
   white-space: normal;
   z-index: v-bind('zIndex');
 
-  // Prevent Vue animation classes from impacting the positioning of the popover
-  &.fade-enter-active,
-  &.fade-enter-to,
-  &.fade-leave-active,
-  &.fade-leave-to {
-    animation: none !important;
-  }
-
   .k-popover-header {
     align-items: baseline;
     display: flex !important;
@@ -415,10 +401,6 @@ export default defineComponent({
       color: var(--kui-color-text, $kui-color-text);
       font-size: var(--kui-font-size-40, $kui-font-size-40);
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-    }
-
-    .k-popover-actions {
-      margin-left: auto;
     }
   }
 
@@ -573,47 +555,5 @@ export default defineComponent({
       display: none;
     }
   }
-
-  &.has-actions {
-    padding-bottom: var(--kui-space-0, $kui-space-0) !important;
-  }
-}
-</style>
-
-<style lang="scss">
-@import '@/styles/tmp-variables';
-// @keyframes animations need to be un-scoped
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-.fade-enter-active,
-.fadeIn,
-.fade-leave-active,
-.fadeOut {
-  animation-duration: $tmp-animation-timing-2;
-  animation-fill-mode: both;
-}
-.fade-enter-active,
-.fadeIn {
-  animation-name: fadeIn;
-}
-.fade-leave-active,
-.fadeOut {
-  animation-name: fadeOut;
 }
 </style>
