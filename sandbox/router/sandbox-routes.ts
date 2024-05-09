@@ -168,7 +168,7 @@ const componentRoutes: RouteRecordRaw[] = [
     path: '/table',
     name: 'table',
     meta: { title: 'Table Sandbox' },
-    component: () => import('../pages/SandboxTable.vue'),
+    component: () => import('../pages/SandboxTable/SandboxTable.vue'),
   },
   {
     path: '/tabs',
