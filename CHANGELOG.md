@@ -1,3 +1,15 @@
+# [9.0.0-alpha.154](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.153...v9.0.0-alpha.154) (2024-05-09)
+
+
+### Bug Fixes
+
+* trigger release ([dfa61cf](https://github.com/Kong/kongponents/commit/dfa61cf88018714611485b3a5845691853300d09))
+
+
+### Features
+
+* **ktable:** component reskin [KHCP-9002] ([#2151](https://github.com/Kong/kongponents/issues/2151)) ([4e60986](https://github.com/Kong/kongponents/commit/4e609865084dbe180147b946906e54aed6fcb25d)), closes [#2144](https://github.com/Kong/kongponents/issues/2144) [#2144](https://github.com/Kong/kongponents/issues/2144) [#2145](https://github.com/Kong/kongponents/issues/2145) [#2124](https://github.com/Kong/kongponents/issues/2124) [#2100](https://github.com/Kong/kongponents/issues/2100) [#2125](https://github.com/Kong/kongponents/issues/2125)
+
 # [9.0.0-alpha.153](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.152...v9.0.0-alpha.153) (2024-05-09)
 
 
