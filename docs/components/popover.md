@@ -392,7 +392,10 @@ Slot for passing popover content.
 
 Slot for passing custom popover trigger element.
 
-<KPop width="auto">
+<KPop
+  width="auto"
+  hide-close-icon
+>
   <KInput
     label="Password"
     type="password"
@@ -404,7 +407,10 @@ Slot for passing custom popover trigger element.
 </KPop>
 
 ```html
-<KPop width="auto">
+<KPop
+  width="auto"
+  hide-close-icon
+>
   <KInput
     label="Password"
     type="password"
