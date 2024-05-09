@@ -255,7 +255,7 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
 
   :deep(.k-input-wrapper) input[type="file"],
   :deep(.k-input-wrapper) input[type="file"][disabled] {
-    color: transparent;
+    color: transparent !important;
   }
 
   :deep(.k-input) {

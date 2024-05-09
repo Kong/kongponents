@@ -548,6 +548,7 @@ This component has been removed. Please refer to KBadge component which has been
 
 ### KModalFullscreen
 
+This component is deprecated and will be removed in the next major release.
 
 ### KMultiselect
 
@@ -805,10 +806,53 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 #### Props
 
+* `hasHover` prop has been removed and replaced with `rowHover` prop
+* `hasSideBorder` prop has been removed
+* `hasError` prop has been removed and replaced with `error` prop
+* `isLoading` prop has been removed and replaced with `loading` prop
+* `disableSorting` prop has been removed and replaced with `sortable` prop (defaults to `true`)
+* `enableClientSort` prop has been removed and replaced with `clientSort` prop
+* `sortHandlerFn` prop has been removed and replaced with `sortHandlerFunction` prop
 * `emptyStateIcon` prop has been removed. You can use the new `emptyStateIconVariant` prop instead
 * `emptyStateIconColor` prop has been removed
 * `emptyStateIconSize` prop has been removed
 * `emptyStateActionButtonIcon` prop has been removed. You can use the new `empty-state-action-icon` slot instead
+* `errorStateIcon` prop has been removed
+* `errorStateIconColor` prop has been removed
+* `errorStateIconSize` prop has been removed
+* `options` prop (deprecated) has been removed
+* `sortOrder` prop (deprecated) has been removed
+* `testMode` prop has been removed
+* `paginationType` prop has been removed. You can use new `paginationOffset` prop instead
+
+#### Events
+
+* `ktable-error-cta-clicked` event has been renamed to `error-action-click`
+* `ktable-empty-state-cta-clicked` event has been renamed to `empty-state-action-click`
+
+#### Structure
+
+* `k-table-container` class has been changed to `k-table`
+* `k-table-toolbar` class and `data-testid` attribute has been changed to `table-toolbar`
+* `k-table-skeleton` `data-testid` attribute has been changed to `table-skeleton`
+* `k-table-error-state` class and `data-testid` attribute has been changed to `table-error-state`
+* `k-table-empty-state` class and `data-testid` attribute has been changed to `table-empty-state`
+* `k-table-wrapper` class has been changed to `table-wrapper`
+* `table.k-table` class has been changed to `table`
+* `k-table-headers` class has been changed to `table-headers`
+* `k-table-header-*` `data-testid` attribute has been changed to `table-header-*`
+* `k-table-pagination` class and `data-testid` attribute has been changed to `table-pagination`
+* `caret` class has been changed to `sort-icon`
+
+#### Constants, Types & Interfaces
+
+* `useSortHandlerFn` parameter in `TableHeader` interface has been renamed to `useSortHandlerFunction`
+* `TableSortOrderArray` const has been removed
+* `TableSortOrder` type has been removed
+* `TableTestModeArray` const has been removed
+* `TableTestMode` type has been removed
+* `TablePaginationTypeArray` const has been removed
+* `TablePaginationType` type has been removed 
 
 ### KTabs
 
@@ -839,8 +883,6 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `is-resizable` class has been changed to `resizable`
 
 ### KToaster
-
-#### Attributes
 
 #### Structure
 
