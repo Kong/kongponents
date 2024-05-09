@@ -41,6 +41,10 @@ import type { PopPlacements } from '@/types'
 import { PopPlacementsArray } from '@/types'
 import { v4 as uuidv4 } from 'uuid'
 
+defineOptions({
+  inheritAttrs: false,
+})
+
 const props = defineProps({
   /**
   * Text to show in tooltip
