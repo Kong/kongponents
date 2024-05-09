@@ -1,7 +1,7 @@
 <template>
   <component
     :is="tag"
-    :id="$slots.default ? targetId : null"
+    :id="targetId"
     ref="root"
     :aria-controls="$slots.default ? popoverId : undefined"
     :aria-expanded="$slots.default ? (!!isOpen || undefined) : undefined"
@@ -11,7 +11,6 @@
   >
     <slot>
       <KButton
-        :id="targetId"
         :aria-controls="popoverId || undefined"
         :aria-expanded="!!isOpen || undefined"
         data-testid="popover-button"
@@ -30,6 +29,19 @@
         role="dialog"
         :style="popoverStyle"
       >
+        <!-- click on close button is handled by handleClick method -->
+        <button
+          v-if="!hideCloseIcon"
+          ref="popoverCloseButton"
+          class="popover-close-button"
+          :tabindex="isOpen ? 0 : -1"
+          type="button"
+        >
+          <CloseIcon
+            class="popover-close-icon"
+            :size="KUI_ICON_SIZE_30"
+          />
+        </button>
         <div
           v-if="$slots.title || title"
           class="popover-header"
@@ -38,13 +50,17 @@
             v-if="$slots.title || title"
             :id="titleId"
             class="popover-title"
+            :class="{ 'close-icon-spacing': !hideCloseIcon }"
           >
             <slot name="title">
               {{ title }}
             </slot>
           </div>
         </div>
-        <div class="popover-content">
+        <div
+          class="popover-content"
+          :class="{ 'close-icon-spacing': !hideCloseIcon && !($slots.title || title) }"
+        >
           <slot name="content" />
         </div>
         <div
@@ -71,12 +87,14 @@ import useUtilities from '@/composables/useUtilities'
 import KButton from '@/components/KButton/KButton.vue'
 import type { PopPlacements, PopTrigger } from '@/types'
 import { PopPlacementsArray, PopTriggerArray } from '@/types'
+import { CloseIcon } from '@kong/icons'
+import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
 const { getSizeFromString } = useUtilities()
 
 export default defineComponent({
   name: 'KPop',
-  components: { KButton },
+  components: { KButton, CloseIcon },
   expose: ['updatePopper'],
   props: {
     /**
@@ -203,6 +221,10 @@ export default defineComponent({
       type: Number,
       default: 1000,
     },
+    hideCloseIcon: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['open', 'close', 'popover-click'],
   data() {
@@ -213,6 +235,7 @@ export default defineComponent({
       popoverId: uuidv4(),
       targetId: uuidv4(),
       titleId: uuidv4(),
+      KUI_ICON_SIZE_30,
     }
   },
   computed: {
@@ -284,8 +307,10 @@ export default defineComponent({
       if (this.popperTimer) clearTimeout(this.popperTimer)
       this.$emit('open')
     },
-    onPopperContentClick() {
-      this.$emit('popover-click')
+    onPopperContentClick(e) {
+      if (e.target !== this.$refs.popoverCloseButton) {
+        this.$emit('popover-click')
+      }
     },
     updatePopper() {
       if (this.popper && typeof this.popper.update === 'function') {
@@ -333,6 +358,10 @@ export default defineComponent({
         // Stop event propagation only when the click event is about to hide popper
         e.stopPropagation()
         this.hidePopper()
+      }
+
+      if (e.target === this.$refs.popoverCloseButton) {
+        hidePopperAndStopPropagation()
       }
 
       if (this.reference && this.reference.contains(e.target) && (this.$refs.popper && !this.$refs.popper.contains(e.target))) {
@@ -413,9 +442,34 @@ export default defineComponent({
   gap: var(--kui-space-40, $kui-space-40);
   max-width: none;
   padding: var(--kui-space-60, $kui-space-60);
+  position: relative;
   text-align: left;
   white-space: normal;
   z-index: v-bind('zIndex');
+
+  .popover-close-button {
+    @include defaultButtonReset;
+
+    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    margin: var(--kui-space-60, $kui-space-60) var(--kui-space-60, $kui-space-60) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
+    outline: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &:hover, &:focus {
+      color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
+    }
+
+    &:focus-visible {
+      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+    }
+
+    .popover-close-icon {
+      pointer-events: none;
+    }
+  }
 
   .popover-header {
     align-items: baseline;
@@ -426,6 +480,10 @@ export default defineComponent({
       font-size: var(--kui-font-size-40, $kui-font-size-40);
       font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
       line-height: var(--kui-line-height-30, $kui-line-height-30);
+
+      &.close-icon-spacing {
+        margin-right: var(--kui-space-60, $kui-space-60);
+      }
     }
   }
 
@@ -434,6 +492,10 @@ export default defineComponent({
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
+
+    &.close-icon-spacing {
+      margin-right: var(--kui-space-60, $kui-space-60);
+    }
   }
 
   .popover-footer {

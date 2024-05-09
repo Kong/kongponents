@@ -134,6 +134,26 @@
           </template>
         </KPop>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="hideCloseIcon">
+        <KComponent
+          v-slot="{ data }"
+          :data="{ showCloseIcon: true }"
+        >
+          <KInputSwitch
+            v-model="data.showCloseIcon"
+            label="Show close icon"
+          />
+
+          <KPop
+            button-text="Button"
+            :hide-close-icon="!data.showCloseIcon"
+          >
+            <template #content>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </template>
+          </KPop>
+        </KComponent>
+      </SandboxSectionComponent>
 
       <!-- Slots -->
       <SandboxTitleComponent

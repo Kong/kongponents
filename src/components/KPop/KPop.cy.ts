@@ -2,14 +2,6 @@ import { mount } from 'cypress/vue'
 import KPop from '@/components/KPop/KPop.vue'
 import { h } from 'vue'
 
-/**
- * ALL TESTS MUST USE testMode: true
- * We generate unique IDs for reference by aria properties. Test mode strips these out
- * allowing for successful snapshot verification.
- * props: {
- *   testMode: true
- * }
- */
 describe('KPop', () => {
   it('renders props when passed', () => {
     const popButtonText = 'Click Me!'
@@ -17,7 +9,6 @@ describe('KPop', () => {
 
     mount(KPop, {
       props: {
-        testMode: true,
         buttonText: popButtonText,
         title: popTitle,
       },
@@ -34,7 +25,6 @@ describe('KPop', () => {
 
     mount(KPop, {
       props: {
-        testMode: true,
       },
       slots: {
         title: () => h('span', {}, popTitle),
@@ -52,7 +42,6 @@ describe('KPop', () => {
     const width = 300
     mount(KPop, {
       props: {
-        testMode: true,
         width: width + '',
       },
       slots: {
@@ -67,7 +56,6 @@ describe('KPop', () => {
     const title = 'Cool Beans!'
     mount(KPop, {
       props: {
-        testMode: true,
         title,
       },
     })
@@ -77,7 +65,6 @@ describe('KPop', () => {
   it('has no title if no prop', () => {
     mount(KPop, {
       props: {
-        testMode: true,
       },
     })
     cy.get('.popover-title').should('not.exist')
@@ -86,7 +73,6 @@ describe('KPop', () => {
   it('shows element on click', () => {
     mount(KPop, {
       props: {
-        testMode: true,
         title: 'Popover Title',
       },
       slots: {
@@ -102,7 +88,6 @@ describe('KPop', () => {
   it('shows element on hover', () => {
     mount(KPop, {
       props: {
-        testMode: true,
         title: 'Popover Title',
         trigger: 'hover',
       },
@@ -130,5 +115,31 @@ describe('KPop', () => {
     })
 
     cy.get('.k-popover').should('have.css', 'z-index', '2200')
+  })
+
+  it('does not render close icon when prop is false', () => {
+    mount(KPop, {
+      props: {
+        hideCloseIcon: true,
+      },
+    })
+
+    cy.get('.popover-close-button').should('not.exist')
+  })
+
+  it('closes popover when close button is clicked', () => {
+    mount(KPop, {
+      props: {
+        title: 'Popover Title',
+      },
+      slots: {
+        default: () => h('div', { class: ['slottedEl'] }, 'Slotted element'),
+      },
+    })
+
+    cy.get('.slottedEl').click()
+    cy.get('.k-popover').should('be.visible')
+    cy.get('.popover-close-button').click()
+    cy.get('.k-popover').should('not.be.visible')
   })
 })
