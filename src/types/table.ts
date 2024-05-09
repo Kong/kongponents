@@ -1,5 +1,3 @@
-import type { AnyElementOf } from '@/types/utils'
-
 export type SortColumnOrder = 'asc' | 'desc'
 
 export interface TablePreferences {
@@ -15,35 +13,26 @@ export interface TablePreferences {
   columnVisibility?: Record<string, boolean>
 }
 
-export const TablePaginationTypeArray = ['default', 'offset'] as const
-
-export type TablePaginationType = AnyElementOf<typeof TablePaginationTypeArray>
-
 export interface TableHeader {
   key: string
   label: string
   sortable?: boolean
   hidable?: boolean
+  tooltip?: string
   hideLabel?: boolean
-  useSortHandlerFn?: boolean
+  useSortHandlerFunction?: boolean
 }
 
 /**
- * Provide a type interface for KTable `column-*` slot names.
+ * Provide a type interface for KTable `column-*` and `tooltip-*` slot names.
  *
  * This helps TypeScript infer the slot name in the template section so that
  * the slot props can be resolved.
  */
 export type TableColumnSlotName = `column-${string}`
+export type TableColumnTooltipSlotName = `tooltip-${string}`
 
-export type TableState = 'loading' | 'error' | 'success'
-
-export const TableSortOrderArray = ['ascending', 'descending', ''] as const
-
-export type TableSortOrder = AnyElementOf<typeof TableSortOrderArray>
-
-export const TableTestModeArray = ['true', 'loading'] as const
-export type TableTestMode = AnyElementOf<typeof TableTestModeArray>
+export type TableState = 'loading' | 'error' | 'success' | 'empty'
 
 export interface TableSortPayload {
   prevKey: string

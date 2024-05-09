@@ -1,9 +1,9 @@
 <template>
-  <div class="k-table-container">
+  <div class="k-table">
     <div
       v-if="hasToolbarSlot"
-      class="k-table-toolbar"
-      data-testid="k-table-toolbar"
+      class="table-toolbar"
+      data-testid="table-toolbar"
     >
       <slot
         name="toolbar"
@@ -14,20 +14,20 @@
         :columns="visibilityColumns"
         :table-id="tableId"
         :visibility-preferences="visibilityPreferences"
-        @update:visibility="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
+        @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
       />
     </div>
 
     <KSkeleton
-      v-if="(!testMode || testMode === 'loading') && (isTableLoading || isLoading || isRevalidating) && !hasError"
-      data-testid="k-table-skeleton"
+      v-if="(isTableLoading || loading || isRevalidating) && !error"
+      data-testid="table-skeleton"
       type="table"
     />
 
     <div
-      v-else-if="hasError"
-      class="k-table-error-state"
-      data-testid="k-table-error-state"
+      v-else-if="error"
+      class="table-error-state"
+      data-testid="table-error-state"
     >
       <slot name="error-state">
         <KEmptyState
@@ -42,7 +42,7 @@
             <KButton
               :data-testid="getTestIdString(errorStateActionMessage)"
               :to="errorStateActionRoute ? errorStateActionRoute : undefined"
-              @click="$emit('ktable-error-cta-clicked')"
+              @click="$emit('error-action-click')"
             >
               {{ errorStateActionMessage }}
             </KButton>
@@ -52,9 +52,9 @@
     </div>
 
     <div
-      v-else-if="!hasError && (!isTableLoading && !isLoading && !isRevalidating) && (data && !data.length)"
-      class="k-table-empty-state"
-      data-testid="k-table-empty-state"
+      v-else-if="!error && (!isTableLoading && !loading && !isRevalidating) && (data && !data.length)"
+      class="table-empty-state"
+      data-testid="table-empty-state"
     >
       <slot name="empty-state">
         <KEmptyState
@@ -70,7 +70,7 @@
               :appearance="searchInput ? 'tertiary' : 'primary'"
               :data-testid="getTestIdString(emptyStateActionMessage)"
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
-              @click="$emit('ktable-empty-state-cta-clicked')"
+              @click="$emit('empty-state-action-click')"
             >
               <slot name="empty-state-action-icon" />
               {{ emptyStateActionMessage }}
@@ -82,15 +82,14 @@
 
     <div v-else>
       <div
-        class="k-table-wrapper"
+        class="table-wrapper"
         @scroll.passive="scrollHandler"
       >
         <table
-          class="k-table"
+          class="table"
           :class="{
-            'has-hover': hasHover,
-            'is-clickable': isClickable,
-            'side-border': hasSideBorder
+            'has-hover': rowHover,
+            'is-clickable': isClickable
           }"
           :data-tableid="tableId"
         >
@@ -101,14 +100,14 @@
             >
               <th
                 v-for="(column, index) in visibleHeaders"
-                :key="`k-table-${tableId}-headers-${index}`"
-                :aria-sort="!disableSorting && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
-                class="k-table-headers"
+                :key="`table-${tableId}-headers-${index}`"
+                :aria-sort="sortable && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
+                class="table-headers"
                 :class="getHeaderClasses(column, index)"
-                :data-testid="`k-table-header-${column.key}`"
+                :data-testid="`table-header-${column.key}`"
                 :style="columnStyles[column.key]"
                 @click="() => {
-                  if (!disableSorting && column.sortable) {
+                  if (sortable && column.sortable) {
                     $emit('sort', {
                       prevKey: sortColumnKey,
                       sortColumnKey: column.key,
@@ -130,7 +129,8 @@
                 />
 
                 <div
-                  class="k-table-headers-container"
+                  :aria-describedby="column.tooltip || $slots[getColumnTooltipSlotName(column.key)] ? `${getColumnTooltipSlotName(column.key)}-${tableId}` : undefined"
+                  class="table-headers-container"
                   :class="{ 'resized': resizingColumn === column.key }"
                 >
                   <slot
@@ -138,22 +138,42 @@
                     :name="getColumnSlotName(column.key)"
                   >
                     <span
+                      class="table-header-label"
                       :class="{
                         'sr-only': column.hideLabel,
-                        'truncated-column': resizeColumns,
                       }"
                     >
                       {{ column.label ? column.label : column.key }}
                     </span>
                   </slot>
 
-                  <KIcon
-                    v-if="!disableSorting && !column.hideLabel && column.sortable"
-                    aria-hidden="true"
-                    class="caret"
-                    :color="`var(--kui-color-text, ${KUI_COLOR_TEXT})`"
-                    icon="chevronDown"
-                    :size="KUI_ICON_SIZE_20"
+                  <KTooltip
+                    v-if="column.tooltip || $slots[getColumnTooltipSlotName(column.key)]"
+                    :data-testid="getColumnTooltipSlotName(column.key)"
+                    position-fixed
+                    :tooltip-id="`${getColumnTooltipSlotName(column.key)}-${tableId}`"
+                  >
+                    <InfoIcon
+                      class="header-tooltip-trigger"
+                      :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
+                      :size="KUI_ICON_SIZE_30"
+                    />
+
+                    <template #content>
+                      <slot
+                        :column="getGeneric(column)"
+                        :name="getColumnTooltipSlotName(column.key)"
+                      >
+                        {{ column.tooltip }}
+                      </slot>
+                    </template>
+                  </KTooltip>
+
+                  <ArrowDownIcon
+                    v-if="sortable && !column.hideLabel && column.sortable"
+                    class="sort-icon"
+                    :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
+                    :size="KUI_ICON_SIZE_30"
                   />
                 </div>
 
@@ -173,18 +193,16 @@
             <tr
               v-for="(row, rowIndex) in data"
               v-bind="rowAttrs(row)"
-              :key="`k-table-${tableId}-row-${rowIndex}`"
+              :key="`table-${tableId}-row-${rowIndex}`"
               :role="isClickable ? 'link' : null"
               :tabindex="isClickable ? 0 : null"
-              v-on="hasSideBorder ? tdlisteners(row, row) : {}"
             >
               <td
                 v-for="(value, index) in visibleHeaders"
                 v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
-                :key="`k-table-${tableId}-cell-${index}`"
+                :key="`table-${tableId}-cell-${index}`"
                 :class="{
                   'resize-hover': resizeColumns && resizeHoverColumn === value.key && index !== visibleHeaders.length - 1,
-                  'truncated-column': resizeColumns
                 }"
                 :style="columnStyles[value.key]"
                 v-on="tdlisteners(row[value.key], row)"
@@ -205,17 +223,16 @@
 
       <KPagination
         v-if="shouldShowPagination"
-        class="k-table-pagination"
+        class="table-pagination"
         :current-page="page"
-        data-testid="k-table-pagination"
+        data-testid="table-pagination"
         :disable-page-jump="disablePaginationPageJump"
         :initial-page-size="pageSize"
         :neighbors="paginationNeighbors"
-        :offset="paginationType === 'offset' ? true : false"
+        :offset="paginationOffset"
         :offset-next-button-disabled="!offset || !hasNextPage"
         :offset-previous-button-disabled="!previousOffset"
         :page-sizes="paginationPageSizes"
-        :test-mode="!!testMode || undefined"
         :total-count="total"
         @get-next-offset="getNextOffsetHandler"
         @get-previous-offset="getPrevOffsetHandler"
@@ -234,49 +251,33 @@ import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
+import KTooltip from '@/components/KTooltip/KTooltip.vue'
+import { InfoIcon, ArrowDownIcon } from '@kong/icons'
 import useUtilities from '@/composables/useUtilities'
 import type {
   TablePreferences,
-  TablePaginationType,
   TableHeader,
   TableColumnSlotName,
+  TableColumnTooltipSlotName,
   SwrvState,
   SwrvStateData,
   TableState,
   PageChangeData,
   PageSizeChangeData,
   SortColumnOrder,
-  TableSortOrder,
   TableSortPayload,
   TableStatePayload,
-  TableTestMode,
   EmptyStateIconVariant,
 } from '@/types'
 import {
-  TablePaginationTypeArray,
-  TableSortOrderArray,
-  TableTestModeArray,
   EmptyStateIconVariants,
 } from '@/types'
-import { KUI_COLOR_TEXT, KUI_ICON_SIZE_20 } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
 
-const { useDebounce, useRequest, useSwrvState } = useUtilities()
+const { useDebounce, useRequest, useSwrvState, clientSideSorter: defaultClientSideSorter } = useUtilities()
 
 const props = defineProps({
-  /**
-   * @deprecated in favor of the "fetcher" prop
-   * Object containing data which creates rows and columns.
-   * @param {Object} options - Options to initialize the component with
-   * @param {Array} options.headers - Array of Objects defining Table Headers
-   * @param {Array} options.data - Array of Objects defining column data
-   */
-  options: {
-    type: Object,
-    default: () => null,
-    required: false,
-  },
   /**
    * Allow columns to be resized
    */
@@ -296,35 +297,18 @@ const props = defineProps({
    * Enable client side sort - only do this if using a fetcher
    * that returns static data
    */
-  enableClientSort: {
+  clientSort: {
     type: Boolean,
     default: false,
   },
   /**
    * Enables hover highlighting to table rows
    */
-  hasHover: {
+  rowHover: {
     type: Boolean,
     default: true,
   },
-  /**
-   * @deprecated
-   * the sort order for the table.
-   */
-  sortOrder: {
-    type: String as PropType<TableSortOrder>,
-    default: '',
-    validator: (value: TableSortOrder): boolean => TableSortOrderArray.includes(value),
-  },
-  /**
-   * @deprecated
-   * the key of the column that's currently being sorted
-   */
-  sortKey: {
-    type: String,
-    default: '',
-  },
-  sortHandlerFn: {
+  sortHandlerFunction: {
     type: Function,
     default: () => ({}),
   },
@@ -336,13 +320,6 @@ const props = defineProps({
     default: () => ({}),
   },
   /**
-   * A prop that enables a side border with a themable color to it.
-   */
-  hasSideBorder: {
-    type: Boolean,
-    default: false,
-  },
-  /**
    * A function that conditionally specifies cell attributes
    */
   cellAttrs: {
@@ -352,7 +329,7 @@ const props = defineProps({
   /**
    * A prop that enables a loading skeleton
    */
-  isLoading: {
+  loading: {
     type: Boolean,
     default: false,
   },
@@ -391,7 +368,7 @@ const props = defineProps({
   /**
    * A prop that enables the error state
    */
-  hasError: {
+  error: {
     type: Boolean,
     default: false,
   },
@@ -422,27 +399,6 @@ const props = defineProps({
   errorStateActionMessage: {
     type: String,
     default: '',
-  },
-  /**
-   * A prop to pass in a custom error state icon
-   */
-  errorStateIcon: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a color for the error state icon
-   */
-  errorStateIconColor: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a size for the error state icon
-   */
-  errorStateIconSize: {
-    type: String,
-    default: '50',
   },
   /**
    * A prop to pass in a fetcher function to enable server-side search, sort
@@ -515,18 +471,17 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  disableSorting: {
+  sortable: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   disablePagination: {
     type: Boolean,
     default: false,
   },
-  paginationType: {
-    type: String as PropType<TablePaginationType>,
-    default: 'default',
-    validator: (type: TablePaginationType) => TablePaginationTypeArray.includes(type),
+  paginationOffset: {
+    type: Boolean,
+    default: false,
   },
   /**
    * A prop to pass to hide pagination for total table records is less than or equal to pagesize
@@ -535,23 +490,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  /**
-   * for testing only, strips out generated ids and avoid loading state in tests.
-   * 'true' - no id's no loading
-   * 'loading' - no id's but allow loading
-   */
-  testMode: {
-    type: String as PropType<TableTestMode>,
-    default: undefined,
-    validator: (val: TableTestMode): boolean => TableTestModeArray.includes(val),
-  },
 })
 
 const emit = defineEmits<{
   (e: 'cell-click', value: { data: any }): void
   (e: 'row-click', value: { data: any }): void
-  (e: 'ktable-error-cta-clicked'): void
-  (e: 'ktable-empty-state-cta-clicked'): void
+  (e: 'error-action-click'): void
+  (e: 'empty-state-action-click'): void
   (e: 'update:table-preferences', preferences: TablePreferences): void
   (e: 'sort', value: TableSortPayload): void
   (e: 'state', value: TableStatePayload): void
@@ -560,7 +505,7 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 const slots = useSlots()
 
-const tableId = computed((): string => props.testMode ? 'test-table-id-1234' : uuidv4())
+const tableId = uuidv4()
 const defaultFetcherProps = {
   pageSize: 15,
   page: 1,
@@ -581,17 +526,18 @@ const resizingColumn = ref('')
 const resizerHoveredColumn = ref('')
 // lowest priority - currently hovered resizable column (mouse is somewhere in the <th>)
 const currentHoveredColumn = ref('')
+const hasHidableColumns = computed((): boolean => tableHeaders.value.filter((header: TableHeader) => header.hidable).length > 0)
 const hasColumnVisibilityMenu = computed((): boolean => {
   // has hidable columns, no error/loading/empty state
   return !!(hasHidableColumns.value &&
-    !props.hasError && !isTableLoading.value && !props.isLoading && (data.value && data.value.length))
+    !props.error && !isTableLoading.value && !props.loading && (data.value && data.value.length))
 })
 // columns whose visibility can be toggled
 const visibilityColumns = computed((): TableHeader[] => tableHeaders.value.filter((header: TableHeader) => header.hidable))
 // visibility preferences from the host app (initialized by app)
-const visibilityPreferences = computed((): Record<string, boolean> => props.tablePreferences.columnVisibility || {})
+const visibilityPreferences = computed((): Record<string, boolean> => hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
 // current column visibility state
-const columnVisibility = ref<Record<string, boolean>>(props.tablePreferences.columnVisibility || {})
+const columnVisibility = ref<Record<string, boolean>>(hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
 const total = ref(0)
 const isScrolled = ref(false)
 const page = ref(1)
@@ -614,6 +560,15 @@ const hasToolbarSlot = computed((): boolean => !!slots.toolbar || hasColumnVisib
  */
 const getColumnSlotName = (columnKey: string): TableColumnSlotName => {
   return `column-${columnKey}`
+}
+
+/**
+ * Utilize a helper function to generate the column tooltip slot name.
+ * This helps TypeScript infer the slot name in the template section so that the slot props can be resolved.
+ * @param {string} columnKey The column.key
+ */
+const getColumnTooltipSlotName = (columnKey: string): TableColumnTooltipSlotName => {
+  return `tooltip-${columnKey}`
 }
 
 /**
@@ -658,7 +613,7 @@ const tdlisteners = computed((): any => {
   return (entity: any, rowData: any) => {
     const rowListeners = pluckListeners('onRow:', attrs)(rowData, 'row')
     const cellListeners = pluckListeners('onCell:', attrs)(entity, 'cell')
-    const ignoredElements = ['a', 'button', 'input', 'select']
+    const ignoredElements = ['a', 'button', 'label', 'input', 'select']
 
     if (rowListeners.click) {
       isClickable.value = true
@@ -714,7 +669,7 @@ const tdlisteners = computed((): any => {
   }
 })
 
-const columnWidths = ref<Record<string, number>>(props.tablePreferences.columnWidths || {})
+const columnWidths = ref<Record<string, number>>(props.resizeColumns ? props.tablePreferences.columnWidths || {} : {})
 const columnStyles = computed(() => {
   const styles: Record<string, any> = {}
   for (const colKey in columnWidths.value) {
@@ -736,13 +691,14 @@ const getHeaderClasses = (column: TableHeader, index: number): Record<string, bo
   return {
     // display the resize handle on the right side of the column if resizeColumns is enabled, hovering current column, and not the last column
     'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && index !== visibleHeaders.value.length - 1,
-    'truncated-column resizable': props.resizeColumns,
+    resizable: props.resizeColumns,
     // display sort control if column is sortable, label is visible, and sorting is not disabled
-    sortable: !props.disableSorting && !column.hideLabel && !!column.sortable,
+    sortable: props.sortable && !column.hideLabel && !!column.sortable,
     // display active sorting styles if column is currently sorted
-    'active-sort': !props.disableSorting && !column.hideLabel && !!column.sortable && column.key === sortColumnKey.value,
-    [sortColumnOrder.value]: !props.disableSorting && column.key === sortColumnKey.value && !column.hideLabel,
+    'active-sort': props.sortable && !column.hideLabel && !!column.sortable && column.key === sortColumnKey.value,
+    [sortColumnOrder.value]: props.sortable && column.key === sortColumnKey.value && !column.hideLabel,
     'is-scrolled': isScrolled.value,
+    'has-tooltip': !!column.tooltip,
   }
 }
 
@@ -802,8 +758,8 @@ const startResize = (evt: MouseEvent, colKey: string) => {
   // get the current column's element
   let col: HTMLElement | null = null
   headerElems.value?.forEach((elem) => {
-    if (elem.getAttribute('data-testid') === `k-table-header-${colKey}`) {
-      col = document.querySelector(`[data-tableid="${tableId.value}"] [data-testid="k-table-header-${colKey}"]`)
+    if (elem.getAttribute('data-testid') === `table-header-${colKey}`) {
+      col = document.querySelector(`[data-tableid="${tableId}"] [data-testid="table-header-${colKey}"]`)
     }
   })
 
@@ -858,17 +814,7 @@ const fetchData = async () => {
   data.value = res.data as Record<string, any>[]
   total.value = props.paginationTotalItems || res.total || res.data?.length
 
-  // get data
-  if (props.fetcher) {
-    if (props.enableClientSort && sortColumnKey.value && sortColumnOrder.value) {
-      defaultSorter(sortColumnKey.value, '', sortColumnOrder.value, data.value)
-    }
-  } else if (props.options && props.options.data && props.options.data.length) { // support legacy props
-    data.value = props.options.data
-    total.value = props.options.data.length
-  }
-
-  if (props.paginationType === 'offset') {
+  if (props.paginationOffset) {
     if (!res.pagination?.offset) {
       offset.value = null
 
@@ -906,7 +852,11 @@ const initData = () => {
   sortColumnKey.value = fetcherParams.sortColumnKey ?? defaultFetcherProps.sortColumnKey
   sortColumnOrder.value = fetcherParams.sortColumnOrder as SortColumnOrder ?? defaultFetcherProps.sortColumnOrder as SortColumnOrder
 
-  if (props.paginationType === 'offset') {
+  if (props.clientSort && sortColumnKey.value && sortColumnOrder.value) {
+    defaultClientSideSorter(sortColumnKey.value, '', sortColumnOrder.value, data.value)
+  }
+
+  if (props.paginationOffset) {
     offset.value = fetcherParams.offset
     offsets.value.push(fetcherParams.offset)
   }
@@ -914,8 +864,6 @@ const initData = () => {
   // get table headers
   if (props.headers && props.headers.length) {
     tableHeaders.value = props.headers as TableHeader[]
-  } else if (props.options && props.options.headers && props.options.headers.length) {
-    tableHeaders.value = props.options.headers
   }
 
   // trigger setting of tableFetcherCacheKey
@@ -931,7 +879,7 @@ const tableFetcherCacheKey = computed((): string => {
   }
 
   // Set the default identifier to a random string
-  let identifierKey: string = tableId.value
+  let identifierKey: string = tableId
   if (props.cacheIdentifier) {
     identifierKey = props.cacheIdentifier
   }
@@ -966,7 +914,7 @@ const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebounced
 const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)
 
 const sortClickHandler = (header: TableHeader): void => {
-  const { key, useSortHandlerFn } = header
+  const { key, useSortHandlerFunction } = header
   const prevKey = sortColumnKey.value + '' // avoid pass by ref
 
   page.value = 1
@@ -989,20 +937,18 @@ const sortClickHandler = (header: TableHeader): void => {
     offsets.value = [null]
   }
 
-  // Use deprecated sort function to sort data passed in via
-  // the deprecated options.data prop
-  if ((props.options && props.options.data) || props.enableClientSort) {
-    if (useSortHandlerFn && props.sortHandlerFn) {
-      props.sortHandlerFn({
+  if (props.clientSort) {
+    if (useSortHandlerFunction && props.sortHandlerFunction) {
+      props.sortHandlerFunction({
         key,
         prevKey,
         sortColumnOrder: sortColumnOrder.value,
         data: data.value,
       })
     } else {
-      defaultSorter(key, prevKey, sortColumnOrder.value, data.value)
+      defaultClientSideSorter(key, prevKey, sortColumnOrder.value, data.value)
     }
-  } else if (props.paginationType !== 'offset') {
+  } else if (!props.paginationOffset) {
     debouncedRevalidate()
   }
 
@@ -1034,7 +980,6 @@ const scrollHandler = (event: any): void => {
   }
 }
 
-const hasHidableColumns = computed((): boolean => tableHeaders.value.filter((header: TableHeader) => header.hidable).length > 0)
 // Store the tablePreferences in a computed property to utilize in the watcher
 const tablePreferences = computed((): TablePreferences => ({
   pageSize: pageSize.value,
@@ -1065,8 +1010,8 @@ const getPrevOffsetHandler = (): void => {
 //  - hide if neither previous/next offset exists and current data set count is < min pagesize
 const shouldShowPagination = computed((): boolean => {
   return !!(props.fetcher && !props.disablePagination &&
-        !(props.paginationType !== 'offset' && props.hidePaginationWhenOptional && total.value <= props.paginationPageSizes[0]) &&
-        !(props.paginationType === 'offset' && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value && data.value.length < props.paginationPageSizes[0]))
+        !(!props.paginationOffset && props.hidePaginationWhenOptional && total.value <= props.paginationPageSizes[0]) &&
+        !(props.paginationOffset && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value && data.value.length < props.paginationPageSizes[0]))
 })
 
 const getTestIdString = (message: string): string => {
@@ -1110,7 +1055,7 @@ watch(state, () => {
 
 watch([stateData, tableState], (newData) => {
   emit('state', {
-    state: newData?.[1],            // newData[tableState]
+    state: newData?.[1], // newData[tableState]
     hasData: newData?.[0]?.hasData, // newData[stateData].hasData
   })
 })
@@ -1155,289 +1100,233 @@ watch([query, page, pageSize], async (newData, oldData) => {
   }
 }, { deep: true, immediate: true })
 
+// because hasColumnVisibilityMenu also accounts for error/loading/empty state, we need to watch it
+watch(hasColumnVisibilityMenu, (newVal) => {
+  if (newVal) {
+    columnVisibility.value = props.tablePreferences.columnVisibility || {}
+  }
+}, { immediate: true })
+
 onMounted(() => {
   initData()
 })
 </script>
 
-<script lang="ts">
-const { clientSideSorter } = useUtilities()
-
-/**
- * @deprecated defaultSorter
- * @param {String} key - the current key to sort by
- * @param {String} previousKey - the previous key used to sort by
- * @param {String} sortOrder - either ascending or descending
- * @param {Array} items - the list of items to sort
- * @return {Object} an object containing the previousKey and sortOrder
- */
-export const defaultSorter = (key: string, previousKey: string, sortOrder: string, items: Record<string, any>[]): Record<string, any> => {
-  return clientSideSorter(key, previousKey, sortOrder, items)
-}
-</script>
-
 <style lang="scss" scoped>
 /* Component variables */
 
-$kTableThPaddingBottom: var(--kui-space-60, $kui-space-60);
+$kTableThPaddingY: var(--kui-space-50, $kui-space-50);
 
 /* Component styles */
 
-.k-table-wrapper {
-  overflow: auto;
-  width: 100%;
-}
-
-.k-table-toolbar {
-  display: flex;
-  gap: var(--kui-space-50, $kui-space-50);
-  margin-bottom: var(--kui-space-80, $kui-space-80) !important;
-  width: 100%;
-
-  & > :deep(*) {
-    display: flex;
-  }
-}
-
 .k-table {
-  border-collapse: collapse;
-  margin-top: var(--kui-space-0, $kui-space-0);
-  max-width: 100%;
-  width: 100%;
+  background-color: var(--kui-color-background, $kui-color-background);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--kui-font-family-text, $kui-font-family-text);
+  gap: var(--kui-space-70, $kui-space-70);
 
-  th,
-  td {
-    padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
-    vertical-align: middle;
-    white-space: nowrap;
+  .table-toolbar {
+    display: flex;
+    gap: var(--kui-space-50, $kui-space-50);
+    width: 100%;
   }
 
-  th.resize-hover {
-    // creates a 2px "border" on the right - can't use the border because it will "jump"
-    box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple) inset;
-  }
+  .table-wrapper {
+    overflow: auto;
+    width: 100%;
 
-  td.resize-hover {
-    // creates a 2px "border" on the right - can't use the border because it will "jump"
-    box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border, $kui-color-border) inset;
-  }
+    .table {
+      border-collapse: collapse;
+      max-width: 100%;
+      width: 100%;
 
-  .truncated-column {
-    @include truncate;
-  }
+      th,
+      td {
+        @include truncate;
 
-  thead {
-    background-color: var(--kui-color-background, $kui-color-background);
-    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    height: 60px;
-    position: sticky;
-    top: 0;
-
-    &.is-scrolled {
-      border-bottom: none;
-    }
-
-    tr {
-      position: relative;
-
-      &:after {
-        box-shadow: none;
-        content: '';
-        height: 100%;
-        left: 0;
-        opacity: 0;
-        // Super-important to allow clicking on table rows in Safari.
-        // This allows clicks to pass through the "invisible" :after layer
-        pointer-events: none;
-        position: absolute;
-        transition: opacity $tmp-animation-timing-2 ease-in-out;
-        width: 100%;
-        z-index: -1;
+        padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+        vertical-align: middle;
+        white-space: nowrap;
       }
 
-      &.is-scrolled {
-        border-bottom: none;
+      thead {
+        border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+        height: 44px;
+        position: sticky;
+        top: 0;
 
-        &:after {
-          box-shadow: $tmp-color-shadow;
-          opacity: 1;
-          transition: opacity $tmp-animation-timing-2 ease-in-out;
+        &.is-scrolled {
+          border-bottom: none;
         }
-      }
-    }
 
-    th {
-      font-size: var(--kui-font-size-30, $kui-font-size-30);
-      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-      padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
-      padding-bottom: $kTableThPaddingBottom;
-      text-align: left;
-      vertical-align: bottom;
+        tr {
+          position: relative;
 
-      &.resizable {
-        min-width: 40px;
-        position: relative;
-
-        .resize-handle {
-          cursor: col-resize;
-          height: v-bind('headerHeight');
-          position: absolute;
-          right: 0;
-          top: 0;
-          width: 6px;
-
-          &.previous {
+          &:after {
+            box-shadow: none;
+            content: '';
+            height: 100%;
             left: 0;
-            right: unset;
+            opacity: 0;
+            // Super-important to allow clicking on table rows in Safari.
+            // This allows clicks to pass through the "invisible" :after layer
+            pointer-events: none;
+            position: absolute;
+            transition: opacity $kongponentsTransitionDurTimingFunc;
+            width: 100%;
+            z-index: -1;
+          }
+
+          &.is-scrolled {
+            border-bottom: none;
+
+            &:after {
+              box-shadow: var(--kui-shadow, $kui-shadow);
+              opacity: 1;
+              transition: opacity $kongponentsTransitionDurTimingFunc;
+            }
+          }
+
+          th {
+            color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+            font-size: var(--kui-font-size-30, $kui-font-size-30);
+            font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+            line-height: var(--kui-line-height-30, $kui-line-height-30);
+            padding: $kTableThPaddingY var(--kui-space-60, $kui-space-60);
+            text-align: left;
+            vertical-align: bottom;
+
+            &.resizable {
+              // set min width so the column can't be collapsed to nothing - avoiding bad UX
+              min-width: 40px !important; // needs important because resizing will set min-width inline
+              position: relative;
+
+              // when sortable or has tooltip (or both), we need to increase the min-width to account for icons
+              &.sortable,
+              &.has-tooltip {
+                min-width: 80px !important; // needs important because resizing will set min-width inline
+              }
+
+              &.sortable.has-tooltip {
+                min-width: 100px !important; // needs important because resizing will set min-width inline
+              }
+
+              .resize-handle {
+                cursor: col-resize;
+                height: v-bind('headerHeight');
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 6px;
+
+                &.previous {
+                  left: 0;
+                  right: unset;
+                }
+              }
+            }
+
+            &.active-sort {
+              color: var(--kui-color-text, $kui-color-text);
+            }
+
+            .sr-only {
+              border-width: var(--kui-border-width-0, $kui-border-width-0);
+              clip: rect(0, 0, 0, 0);
+              height: 1px;
+              margin: -1px;
+              overflow: hidden;
+              padding: var(--kui-space-0, $kui-space-0);
+              position: absolute;
+              white-space: nowrap;
+              width: 1px;
+            }
+
+            &.sortable {
+              cursor: pointer;
+
+              &.asc .sort-icon {
+                transform: rotate(-180deg);
+              }
+            }
+
+            .table-headers-container {
+              align-items: center;
+              display: flex;
+              gap: var(--kui-space-40, $kui-space-40);
+
+              &.resized {
+                // when column is resized we need to set position: absolute; to avoid glitching resizing behavior
+                bottom: $kTableThPaddingY;
+                position: absolute;
+              }
+
+              .table-header-label {
+                @include truncate;
+              }
+
+              .header-tooltip-trigger {
+                cursor: help;
+              }
+
+              .sort-icon {
+                flex-shrink: 0;
+              }
+            }
+
+            &.resize-hover {
+              // creates a 2px "border" on the right - can't use border property because it will "jump"
+              box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple) inset;
+            }
           }
         }
       }
 
-      &.active-sort {
-        color: var(--kui-color-text-primary, $kui-color-text-primary);
-      }
+      tbody {
+        tr {
+          height: 48px;
 
-      .sr-only {
-        border-width: var(--kui-border-width-0, $kui-border-width-0);
-        clip: rect(0, 0, 0, 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: var(--kui-space-0, $kui-space-0);
-        position: absolute;
-        white-space: nowrap;
-        width: 1px;
-      }
+          &:not(:last-of-type) {
+            border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+          }
 
-      &.sortable {
-        cursor: pointer;
-      }
+          td {
+            color: var(--kui-color-text, $kui-color-text);
+            font-size: var(--kui-font-size-30, $kui-font-size-30);
+            font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+            line-height: var(--kui-line-height-30, $kui-line-height-30);
+            white-space: nowrap;
 
-      .k-table-headers-container {
-        align-items: center !important;
-        display: flex !important;
-
-        .caret {
-          margin-left: var(--kui-space-40, $kui-space-40) !important;
-        }
-
-        &.resized {
-          bottom: $kTableThPaddingBottom;
-          position: absolute;
+            &.resize-hover {
+              // creates a 2px "border" on the right - can't use the border because it will "jump"
+              box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border, $kui-color-border) inset;
+            }
+          }
         }
       }
-    }
-  }
 
-  tbody {
-    tr {
-      height: 44px;
+      // Variants
+      &.has-hover {
+        tbody tr:hover {
+          background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
 
-      &:not(:last-of-type) {
-        border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+          td {
+            border-color: var(--kui-color-border-primary-weakest, $kui-color-border-primary-weakest);
+          }
+        }
       }
-    }
 
-    td {
-      color: var(--kui-color-text, $kui-color-text);
-      white-space: nowrap;
-
-      a {
-        color: var(--kui-color-text-primary, $kui-color-text-primary);
-        text-decoration: none;
-        &:hover {
-          text-decoration: underline;
+      &.is-clickable {
+        tbody tr {
+          cursor: pointer;
         }
       }
     }
   }
 
-  // Variants
-  &.has-hover {
-    tbody tr:hover {
-      background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-
-      td {
-        border-color: var(--kui-color-border-primary-weakest, $kui-color-border-primary-weakest);
-      }
-    }
-  }
-
-  &.is-clickable {
-    tbody tr {
-      cursor: pointer;
-    }
-  }
-
-  &.side-border {
-    border-collapse: separate;
-    border-spacing: $tmp-border-spacing-0 $tmp-border-spacing-2;
-
-    tbody tr {
-      border-bottom: none;
-    }
-
-    tbody tr td:first-child {
-      border-left: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border, $kui-color-border);
-    }
-
-    &.has-hover {
-      tbody tr:hover td:first-child {
-        border-left: var(--kui-border-width-20, $kui-border-width-20) solid $tmp-color-steel-300;
-      }
-    }
-  }
-
-  .k-table-pagination {
-    padding: var(--kui-space-20, $kui-space-20) !important;
-  }
-}
-</style>
-
-<style lang="scss">
-.k-table {
-  thead {
-    th {
-      .caret {
-        position: relative;
-        top: 2px;
-        transform: rotate(0deg);
-      }
-
-      &.sortable {
-        &.asc .caret {
-          transform: rotate(-180deg);
-        }
-      }
-
-      &.truncate, .truncate {
-        @include truncate;
-      }
-    }
-  }
-
-  tbody {
-    td {
-      button:not(.dropdown-item-trigger),
-      .k-button {
-        margin-bottom: calc(-1 * var(--kui-space-40, $kui-space-40));
-        margin-top: calc(-1 * var(--kui-space-40, $kui-space-40));
-      }
-      .k-table-cell-title {
-        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-        font-size: var(--kui-font-size-40, $kui-font-size-40);
-        font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-      }
-      .k-table-cell-description {
-        color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
-        font-size: var(--kui-font-size-40, $kui-font-size-40);
-        font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-      }
-
-      &.truncate, .truncate {
-        @include truncate;
-      }
-    }
+  .table-pagination {
+    margin-top: var(--kui-space-70, $kui-space-70);
   }
 }
 </style>

@@ -2,6 +2,7 @@ import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KTable from '@/components/KTable/KTable.vue'
 import { offsetPaginationHeaders, offsetPaginationFetcher } from '../../../mocks/KTableMockData'
+import type { TableHeader } from '@/types'
 
 const largeDataSet = [
   {
@@ -72,7 +73,7 @@ const options = {
     { label: 'ID', key: 'id', sortable: false, hideLabel: false },
     { label: 'Enabled', key: 'enabled', sortable: false, hideLabel: false },
     { label: '', key: 'actions', sortable: false, hideLabel: true },
-  ],
+  ] as TableHeader[],
   data: [
     {
       name: 'Basic Auth',
@@ -92,21 +93,11 @@ const options = {
   ],
 }
 
-/**
- * ALL TESTS MUST USE testMode
- * We generate unique IDs for reference by aria properties. Test mode strips these out
- * allowing for successful snapshot verification.
- * props: {
- *   testMode: 'true' || 'loading'
- * }
- */
-
 describe('KTable', () => {
   describe('states', () => {
     it('displays an empty state when no data is available', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           fetcher: () => ({ data: [] }),
           headers: options.headers,
           pageSize: 4,
@@ -117,11 +108,10 @@ describe('KTable', () => {
     })
 
     it('displays an empty state when no data is available (slot)', () => {
-      const emptySlotContent = 'Look mah! I am empty! (except testMode)'
+      const emptySlotContent = 'Look mah! I am empty!'
       const fetcher = () => new Promise(resolve => resolve({ data: [] }))
       mount(KTable, {
         props: {
-          testMode: 'true',
           fetcher,
           headers: options.headers,
           pageSize: 4,
@@ -131,25 +121,23 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-table-empty-state').should('contain.text', emptySlotContent)
+      cy.getTestId('table-empty-state').should('contain.text', emptySlotContent)
     })
 
-    it('displays a loading skeletion when the "isLoading" prop is set to true"', () => {
+    it('displays a loading skeletion when the "loading" prop is set to true"', () => {
       mount(KTable, {
         props: {
-          testMode: 'loading',
-          isLoading: true,
+          loading: true,
         },
       })
 
       cy.get('.skeleton-table-wrapper').should('be.visible')
     })
 
-    it('displays an error state when the "hasError" prop is set to true"', () => {
+    it('displays an error state when the "error" prop is set to true"', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
-          hasError: true,
+          error: true,
         },
       })
 
@@ -157,18 +145,17 @@ describe('KTable', () => {
     })
 
     it('displays an error state (slot)', () => {
-      const errorSlotContent = 'Look mah! I am erroneous! (except testMode)'
+      const errorSlotContent = 'Look mah! I am erroneous!'
       mount(KTable, {
         props: {
-          testMode: 'true',
-          hasError: true,
+          error: true,
         },
         slots: {
           'error-state': () => h('span', {}, errorSlotContent),
         },
       })
 
-      cy.getTestId('k-table-error-state').should('contain.text', errorSlotContent)
+      cy.getTestId('table-error-state').should('contain.text', errorSlotContent)
     })
 
     it('displays a loading state and not an empty state when pending response', () => {
@@ -178,7 +165,6 @@ describe('KTable', () => {
 
       mount(KTable, {
         props: {
-          testMode: 'loading',
           fetcher: slowFetcher,
           headers: options.headers,
           cacheIdentifier: 'loading-test',
@@ -195,7 +181,6 @@ describe('KTable', () => {
     it('renders link in action slot', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           headers: options.headers,
           fetcher: () => { return { data: options.data } },
           disablePagination: true,
@@ -205,13 +190,12 @@ describe('KTable', () => {
         },
       })
 
-      cy.get('.k-table td:last-of-type > *').contains('a', 'Link')
+      cy.get('.table td:last-of-type > *').contains('a', 'Link')
     })
 
     it('renders content in the toolbar slot', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           headers: options.headers,
           fetcher: () => { return { data: options.data } },
           disablePagination: true,
@@ -221,34 +205,32 @@ describe('KTable', () => {
         },
       })
 
-      cy.get('.k-table-container .k-table-toolbar').find('button').should('be.visible')
-      cy.get('.k-table-container .k-table-toolbar button').should('contain.text', 'Toolbar button')
+      cy.get('.k-table .table-toolbar').find('button').should('be.visible')
+      cy.get('.k-table .table-toolbar button').should('contain.text', 'Toolbar button')
     })
 
     it('has hover class when passed', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           headers: options.headers,
           fetcher: () => { return { data: options.data } },
-          hasHover: true,
+          rowHover: true,
         },
       })
 
-      cy.get('.k-table').should('have.class', 'has-hover')
+      cy.get('.table').should('have.class', 'has-hover')
     })
 
     it('renders column resize toggles when resizeColumns is set', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           headers: options.headers,
           fetcher: () => { return { data: options.data } },
           resizeColumns: true,
         },
       })
 
-      cy.get('.k-table').find('th.resizable').should('be.visible')
+      cy.get('.table').find('th.resizable').should('be.visible')
       cy.get('.resize-handle').should('exist')
     })
 
@@ -259,13 +241,12 @@ describe('KTable', () => {
 
       mount(KTable, {
         props: {
-          testMode: 'true',
           headers: options.headers,
           fetcher: () => { return { data: options.data } },
         },
       })
 
-      cy.get('.k-table').should('be.visible')
+      cy.get('.table').should('be.visible')
       // menu button is visible
       cy.getTestId('column-visibility-menu-button').should('be.visible')
       cy.getTestId('column-visibility-menu-button').click()
@@ -278,9 +259,22 @@ describe('KTable', () => {
 
       // changes are applied only when Apply button is clicked
       cy.getTestId(`column-visibility-checkbox-${modifiedHeaderKey}`).click()
-      cy.getTestId(`k-table-header-${modifiedHeaderKey}`).should('be.visible')
+      cy.getTestId(`table-header-${modifiedHeaderKey}`).should('be.visible')
       cy.getTestId('apply-button').click()
-      cy.getTestId(`k-table-header-${modifiedHeaderKey}`).should('not.exist')
+      cy.getTestId(`table-header-${modifiedHeaderKey}`).should('not.exist')
+    })
+
+    it('renders tooltip when provided in headers', () => {
+      options.headers[0].tooltip = 'This is a tooltip'
+
+      mount(KTable, {
+        props: {
+          headers: options.headers,
+          fetcher: () => { return { data: options.data } },
+        },
+      })
+
+      cy.getTestId(`tooltip-${options.headers[0].key}`).should('be.visible')
     })
   })
 
@@ -288,7 +282,6 @@ describe('KTable', () => {
     it('when clicking a specific page number for non-offset pagination', () => {
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           initialFetcherParams: {
             page: 1,
             pageSize: 1,
@@ -299,60 +292,58 @@ describe('KTable', () => {
               total: options.data.length,
             }
           },
-          isLoading: false,
+          loading: false,
           headers: options.headers,
           paginationPageSizes: [1, 2],
           hidePaginationWhenOptional: false,
         },
       })
 
-      cy.getTestId('k-table-pagination').should('be.visible')
+      cy.getTestId('table-pagination').should('be.visible')
       cy.getTestId('page-size-dropdown-trigger').click()
       cy.get('[data-testid="dropdown-item-trigger"][value="1"]').click()
       cy.getTestId('next-button').click()
       cy.get('.pagination-button').should('contain.text', 2 + '')
-      cy.get('.k-table').find('tr').should('have.length', 4)
+      cy.get('.table').find('tr').should('have.length', 4)
     })
 
     it('when clicking arrows for offset based pagination', () => {
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: offsetPaginationFetcher,
-          isLoading: false,
+          loading: false,
           headers: offsetPaginationHeaders,
         },
       })
 
-      cy.getTestId('k-table-pagination').should('be.visible')
+      cy.getTestId('table-pagination').should('be.visible')
       cy.getTestId('page-size-dropdown-trigger').click()
       cy.get('[data-testid="dropdown-item-trigger"][value="15"]').click({ multiple: true, force: true })
       cy.getTestId('next-button').should('exist')
-      cy.get('.k-table').find('tr').should('have.length', 16)
+      cy.get('.table').find('tr').should('have.length', 16)
     })
 
     it('when page size is changed', () => {
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: () => {
             return {
               data: largeDataSet,
             }
           },
-          isLoading: false,
+          loading: false,
           headers: options.headers,
           paginationPageSizes: [1, 2, 3, 4],
           hidePaginationWhenOptional: false,
         },
       })
 
-      cy.getTestId('k-table-pagination').should('be.visible')
+      cy.getTestId('table-pagination').should('be.visible')
       cy.getTestId('page-size-dropdown-trigger').click()
       cy.get('[data-testid="dropdown-item-trigger"][value="3"]').click({ multiple: true, force: true })
       cy.getTestId('next-button').click()
       cy.get('.pagination-button.active').should('contain.text', 2 + '')
-      cy.get('.k-table').find('tr').should('have.length', 13)
+      cy.get('.table').find('tr').should('have.length', 13)
     })
 
     it('when sort key or sort direction is changed and NOT using clientSideSort', () => {
@@ -360,7 +351,7 @@ describe('KTable', () => {
         { label: 'Host', key: 'hostname', sortable: true },
         { label: 'Version', key: 'version', sortable: true },
         { label: 'Connected', key: 'connected', sortable: true },
-        { label: 'Last Seen', key: 'last_seen', sortable: true, useSortHandlerFn: true },
+        { label: 'Last Seen', key: 'last_seen', sortable: true, useSortHandlerFunction: true },
       ]
       const sortHandlerFnFetcher = () => {
         return {
@@ -410,18 +401,17 @@ describe('KTable', () => {
       }
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: sortHandlerFnFetcher,
-          isLoading: false,
+          loading: false,
           headers: sortHandlerFnHeaders,
         },
       })
 
-      cy.getTestId('k-table-pagination').should('be.visible')
-      cy.getTestId('k-table-pagination').find('.kui-icon.chevron-down-icon').click()
-      cy.get('.k-table').find('tr').should('have.length', 6)
-      cy.get('.k-table').find('.kong-icon-chevronDown').last().click()
-      cy.get('.k-table').find('td:nth-child(4)').first().should('has.text', 'Just now')
+      cy.getTestId('table-pagination').should('be.visible')
+      cy.getTestId('table-pagination').find('.kui-icon.chevron-down-icon').click()
+      cy.get('.table').find('tr').should('have.length', 6)
+      cy.get('.table').find('.sort-icon').last().click()
+      cy.get('.table').find('td:nth-child(4)').first().should('has.text', 'Just now')
     })
   })
 
@@ -429,7 +419,6 @@ describe('KTable', () => {
     it('should have sortable class when passed', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           headers: options.headers,
           fetcher: () => { return { data: options.data } },
         },
@@ -445,10 +434,9 @@ describe('KTable', () => {
     it('should allow disabling sorting', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           headers: options.headers,
           fetcher: () => { return { data: options.data } },
-          disableSorting: true,
+          sortable: false,
         },
       })
 
@@ -465,7 +453,6 @@ describe('KTable', () => {
   //       localVue,
   //       attachToDocument: true,
   //       props: {
-  //         testMode: 'true',
   //         headers: options.headers,
   //         fetcher: () => { return { data: options.data } },
   //       },
@@ -484,7 +471,6 @@ describe('KTable', () => {
   //     localVue,
   //     attachToDocument: true,
   //     props: {
-  //       testMode: 'true',
   //       headers: options.headers,
   //       fetcher: () => { return { data: options.data } },
   //     },
@@ -513,103 +499,96 @@ describe('KTable', () => {
     it('displays pagination when fetcher provided', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           fetcher: () => {
-            return largeDataSet
+            return { data: largeDataSet, total: largeDataSet.length }
           },
-          isLoading: false,
+          loading: false,
           headers: options.headers,
           paginationPageSizes: [10, 20, 30, 40],
         },
       })
 
-      cy.getTestId('k-table-pagination').should('be.visible')
+      cy.getTestId('table-pagination').should('be.visible')
     })
 
     it('does not display pagination when pagination disabled', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           fetcher: () => {
-            return largeDataSet
+            return { data: largeDataSet, total: largeDataSet.length }
           },
-          isLoading: false,
+          loading: false,
           headers: options.headers,
           paginationPageSizes: [10, 20, 30, 40],
           disablePagination: true,
         },
       })
 
-      cy.getTestId('k-table-pagination').should('not.exist')
+      cy.getTestId('table-pagination').should('not.exist')
     })
 
     it('does not display pagination when no fetcher', () => {
       mount(KTable, {
         props: {
-          testMode: 'true',
           options,
           paginationPageSizes: [10, 20, 30, 40],
         },
       })
 
-      cy.getTestId('k-table-pagination').should('not.exist')
+      cy.getTestId('table-pagination').should('not.exist')
     })
 
     it('does not display pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: () => { return { data: options.data, total: options.data.length } },
-          isLoading: false,
+          loading: false,
           headers: options.headers,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
         },
       })
 
-      cy.getTestId('k-table-pagination').should('not.exist')
+      cy.getTestId('table-pagination').should('not.exist')
     })
 
     it('does not display pagination when hidePaginationWhenOptional is true and total is equal to min pageSize', () => {
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: () => {
-            return { data: largeDataSet, total: 12 }
+            return { data: largeDataSet, total: largeDataSet.length }
           },
-          isLoading: false,
+          loading: false,
           headers: options.headers,
           paginationPageSizes: [12, 15, 20],
           hidePaginationWhenOptional: true,
         },
       })
 
-      cy.getTestId('k-table-pagination').should('not.exist')
+      cy.getTestId('table-pagination').should('not.exist')
     })
 
     it('does display pagination when total is greater than min pageSize', () => {
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: () => {
-            return { data: largeDataSet, total: 12 }
+            return { data: largeDataSet, total: largeDataSet.length }
           },
-          isLoading: false,
+          loading: false,
           headers: options.headers,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
         },
       })
 
-      cy.getTestId('k-table-pagination').should('be.visible')
+      cy.getTestId('table-pagination').should('be.visible')
     })
 
     it('does not display offset-based pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: () => { return { data: options.data, offset: null } },
-          isLoading: false,
+          loading: false,
           headers: options.headers,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
@@ -618,17 +597,16 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-table-pagination').should('not.exist')
+      cy.getTestId('table-pagination').should('not.exist')
     })
 
     it('does display offset-based pagination when total is greater than min pageSize', () => {
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: () => {
             return { data: largeDataSet, offset: 'abc' }
           },
-          isLoading: false,
+          loading: false,
           initialFetcherParams: { offset: 'abc' },
           headers: options.headers,
           paginationPageSizes: [10, 15, 20],
@@ -636,7 +614,7 @@ describe('KTable', () => {
         },
       })
 
-      cy.getTestId('k-table-pagination').should('be.visible')
+      cy.getTestId('table-pagination').should('be.visible')
     })
   })
 
@@ -652,9 +630,8 @@ describe('KTable', () => {
 
       mount(KTable, {
         propsData: {
-          testMode: 'true',
           fetcher: fns.fetcher,
-          isLoading: false,
+          loading: false,
           initialFetcherParams: { offset: 'abc' },
           headers: options.headers,
           paginationPageSizes: [10, 15, 20],

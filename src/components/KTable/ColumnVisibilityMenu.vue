@@ -5,7 +5,10 @@
       :kpop-attributes="{ placement: 'bottomEnd' }"
       @toggle-dropdown="handleDropdownToggle"
     >
-      <KTooltip text="Show/Hide Columns">
+      <KTooltip
+        placement="bottomEnd"
+        :text="isDropdownOpen ? undefined : 'Show/Hide Columns'"
+      >
         <KButton
           appearance="secondary"
           aria-label="Show/Hide Columns"
@@ -73,7 +76,7 @@ import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KDropdownItem from '@/components/KDropdown/KDropdownItem.vue'
 
 const emit = defineEmits<{
-  (e: 'update:visibility', columnVisibility: Record<string, boolean>): void
+  (e: 'update', columnVisibility: Record<string, boolean>): void
 }>()
 
 const props = defineProps({
@@ -91,6 +94,7 @@ const props = defineProps({
   },
 })
 
+const isDropdownOpen = ref<boolean>(false)
 const visibilityMap = ref<Record<string, boolean>>({})
 const isDirty = ref(false)
 const menuItemsRef = ref<HTMLDivElement>()
@@ -106,11 +110,13 @@ const initVisibilityMap = (): void => {
 
 const handleApply = (): void => {
   // pass by ref problems
-  emit('update:visibility', JSON.parse(JSON.stringify(visibilityMap.value)))
+  emit('update', JSON.parse(JSON.stringify(visibilityMap.value)))
   isDirty.value = false
 }
 
 const handleDropdownToggle = (isOpen: boolean): void => {
+  isDropdownOpen.value = isOpen
+
   // set scroll classes on open
   if (isOpen && menuItemsRef.value) {
     setTimeout(() => {
