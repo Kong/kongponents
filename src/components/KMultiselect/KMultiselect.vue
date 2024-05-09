@@ -24,6 +24,7 @@
       <KToggle v-slot="{ isToggled, toggle }">
         <KPop
           ref="popper"
+          hide-close-icon
           v-bind="boundKPopAttributes"
           :position-fixed="positionFixed"
           :target="`[id='${multiselectWrapperId}']`"

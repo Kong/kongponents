@@ -25,6 +25,7 @@
         ref="popperElement"
         v-bind="boundKPopAttributes"
         close-on-popover-click
+        hide-close-icon
         :position-fixed="positionFixed"
         :target="`[id='${selectWrapperId}']`"
         @close="() => onClose(toggle, isToggled.value)"

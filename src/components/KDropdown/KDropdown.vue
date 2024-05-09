@@ -8,6 +8,7 @@
         v-bind="boundKPopAttributes"
         :close-on-popover-click="!isToggled.value"
         data-testid="k-dropdown-popover"
+        hide-close-icon
         :hide-popover="hidePopover"
         @close="() => handleTriggerToggle(isToggled, toggle, false)"
         @open="() => handleTriggerToggle(isToggled, toggle, true)"

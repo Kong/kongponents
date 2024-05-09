@@ -8,6 +8,7 @@
     <KPop
       :disabled="disabled"
       hide-caret
+      hide-close-icon
       :hide-popover="state.hidePopover"
       :placement="popoverPlacement"
       position-fixed
