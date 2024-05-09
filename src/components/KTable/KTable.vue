@@ -269,9 +269,7 @@ import type {
   TableStatePayload,
   EmptyStateIconVariant,
 } from '@/types'
-import {
-  EmptyStateIconVariants,
-} from '@/types'
+import { EmptyStateIconVariants } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
 
