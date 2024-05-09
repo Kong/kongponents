@@ -53,7 +53,7 @@ const calcWidth = (cell: number, row: number): SkeletonBoxWidth => {
   .skeleton-table-row {
     display: flex;
     gap: var(--kui-space-20, $kui-space-20);
-    padding: var(--kui-space-80, $kui-space-80) var(--kui-space-40, $kui-space-40);
+    padding: var(--kui-space-60, $kui-space-60) var(--kui-space-40, $kui-space-40);
     width: 100%;
 
     &:not(:last-child) {
