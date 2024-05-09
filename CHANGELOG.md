@@ -1,3 +1,11 @@
+# [9.0.0-alpha.153](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.152...v9.0.0-alpha.153) (2024-05-09)
+
+
+### Bug Fixes
+
+* **kfileupload:** force transparent color for the input element ([#2177](https://github.com/Kong/kongponents/issues/2177)) ([b42e177](https://github.com/Kong/kongponents/commit/b42e177a9fea2716fe697d7f58b26e19e8127aa7))
+* **ktooltip:** suppress vue attr passthrough warning ([#2178](https://github.com/Kong/kongponents/issues/2178)) ([1230889](https://github.com/Kong/kongponents/commit/1230889ceb7222434918654e7439c014ce735135))
+
 # [9.0.0-alpha.152](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.151...v9.0.0-alpha.152) (2024-05-07)
 
 
