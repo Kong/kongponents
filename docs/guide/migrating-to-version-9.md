@@ -631,6 +631,7 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 * `popoverTransitions` prop has been removed
 * `testMode` prop has been removed
 * `onPopoverClick` prop has been removed. You can a combination of new `closeOnPopoverClick` prop and `popover-click` event instead
+* `positionFixed` prop default value has been changed to `true`
 
 #### Slots
 

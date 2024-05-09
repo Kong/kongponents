@@ -212,7 +212,7 @@ export default defineComponent({
      */
     positionFixed: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     /**
      * z-index - to control z-index value of the popover
@@ -302,10 +302,12 @@ export default defineComponent({
     },
     showPopper() {
       if (this.disabled) return
-      this.isOpen = true
       if (this.timer) clearTimeout(this.timer)
       if (this.popperTimer) clearTimeout(this.popperTimer)
-      this.$emit('open')
+      if (!this.isOpen) {
+        this.isOpen = true
+        this.$emit('open')
+      }
     },
     onPopperContentClick(e) {
       if (e.target !== this.$refs.popoverCloseButton) {
@@ -386,6 +388,8 @@ export default defineComponent({
           this.reference.addEventListener('focus', this.createInstance)
           this.reference.addEventListener('mouseleave', this.hidePopper)
           this.reference.addEventListener('blur', this.hidePopper)
+          popper.addEventListener('mouseenter', this.showPopper)
+          popper.addEventListener('focus', this.showPopper)
           popper.addEventListener('mouseleave', this.hidePopper)
           popper.addEventListener('blur', this.hidePopper)
         }

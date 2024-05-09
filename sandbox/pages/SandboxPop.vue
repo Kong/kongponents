@@ -5,9 +5,13 @@
   >
     <div class="kstepper-sandbox">
       <SandboxSectionComponent>
-        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=1315%3A5554&mode=dev&t=9OUwgF6LJ2eiytiT-1">
-          Figma
-        </KExternalLink>
+        <iframe
+          allowfullscreen
+          height="450"
+          src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FYze0SWXl5nKjR0rFdilljK%2FComponents%3Ftype%3Ddesign%26node-id%3D1470%253A3448%26mode%3Ddesign%26t%3DJ5otgKUNrASQZmIz-1"
+          style="border: 1px solid rgba(0, 0, 0, 0.1);"
+          width="800"
+        />
       </SandboxSectionComponent>
 
       <!-- Props -->
@@ -137,16 +141,16 @@
       <SandboxSectionComponent title="hideCloseIcon">
         <KComponent
           v-slot="{ data }"
-          :data="{ showCloseIcon: true }"
+          :data="{ hideCloseIcon: false }"
         >
           <KInputSwitch
-            v-model="data.showCloseIcon"
-            label="Show close icon"
+            v-model="data.hideCloseIcon"
+            label="Hide close icon"
           />
 
           <KPop
             button-text="Button"
-            :hide-close-icon="!data.showCloseIcon"
+            :hide-close-icon="data.hideCloseIcon"
           >
             <template #content>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -230,11 +234,10 @@
           >
             <template #content>
               <KButton
-                appearance="tertiary"
                 size="small"
                 @click="onEvent('Popover content clicked')"
               >
-                Click here.
+                Click here
               </KButton>
             </template>
           </KPop>
