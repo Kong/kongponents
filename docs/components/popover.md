@@ -392,6 +392,10 @@ Slot for passing popover content.
 
 Slot for passing custom popover trigger element.
 
+:::tip NOTE
+When providing your custom element as popover trigger, make sure to set appropriate `tabindex` attribute in order to make popover accessible for assistive technology users.
+:::
+
 <KPop
   width="auto"
   hide-close-icon
