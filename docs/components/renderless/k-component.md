@@ -9,11 +9,11 @@ e.g.
 
 <KComponent :data="{ count: 0 }" v-slot="{ data }">
   <div>
-    <KButton size="small" appearance="secondary" class="icon-button" :isRounded="false" @click="data.count = data.count - 1">
+    <KButton size="small" appearance="secondary" icon :isRounded="false" @click="data.count = data.count - 1">
       <IndeterminateSmallIcon />
     </KButton>
     {{ data.count }}
-    <KButton size="small" appearance="secondary" class="icon-button" :isRounded="false" @click="data.count = data.count + 1">
+    <KButton size="small" appearance="secondary" icon :isRounded="false" @click="data.count = data.count + 1">
       <AddIcon />
     </KButton>
   </div>

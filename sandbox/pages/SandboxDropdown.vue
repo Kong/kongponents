@@ -167,7 +167,7 @@
         <KDropdown width="220">
           <KButton
             appearance="secondary"
-            class="icon-button"
+            icon
           >
             <CogIcon />
           </KButton>

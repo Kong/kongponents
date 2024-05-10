@@ -10,12 +10,10 @@
       class="code-block-action-button"
       :class="[`theme-${theme}`, { 'code-block-action-button-active': active }]"
       v-bind="attrs"
+      icon
       @click="onClick"
     >
-      <!-- TODO: [beta] update once icon slot is deprecated -->
-      <template #icon>
-        <slot />
-      </template>
+      <slot />
     </KButton>
   </KTooltip>
 </template>

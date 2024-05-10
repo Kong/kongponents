@@ -129,11 +129,11 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 * `showCaret` prop is removed
 * `caretColor` prop is removed
 * `isRounded` prop is removed
-* `icon` prop has changed to boolean (TODO: [beta])
+* `icon` prop has changed to boolean
 
 #### Slots
 
-* `icon` slot is removed (TODO: [beta])
+* `icon` slot has been deprecated
 
 #### Structure
 
@@ -353,7 +353,7 @@ Component has been renamed to `KDropdown`
 * `appearance` prop has been changed in favor of the `selectionMenu` prop for the selection menu functionality. `appearance` now controls the underlying `KButton` `appearance` prop (note that default `appearance` for component when `selectionMenu` is `true` changed from `tertiary` to `primary`)
 * `buttonAppearance` prop has been removed in favor of `appearance`, still controlling the `KButton` `appearance` prop
 * `testMode` prop has been removed
-* `icon` prop is removed (TODO: [beta])
+* `icon` prop is removed
 * `caretColor` prop is removed
 * `isDangerous` `KDropdownItem` prop has been deprecated in favor of `danger`
 

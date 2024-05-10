@@ -39,11 +39,13 @@ describe('KButton', () => {
   // Loop through ButtonSizes
   Object.values(ButtonSizes).map(s => rendersCorrectSize(s))
 
-  // TODO: [beta] update this when we change icon prop
-  it('sets icon-button class when size passed', () => {
+  it('sets icon-button class when icon prop is `true` passed', () => {
     mount(KButton, {
+      props: {
+        icon: true,
+      },
       slots: {
-        icon: () => 'Pretend I am an icon',
+        default: () => 'Pretend I am an icon',
       },
     })
 
@@ -65,21 +67,7 @@ describe('KButton', () => {
     cy.get('a').invoke('attr', 'href').should('eq', 'https://google.com')
   })
 
-  // TODO: [beta] remove this when we change icon prop
-  it('renders an icon when using icon prop', () => {
-    mount(KButton, {
-      props: {
-        icon: 'spinner',
-      },
-      slots: {
-        default: () => 'Click me',
-      },
-    })
-
-    cy.get('.k-button .k-button-icon').should('be.visible')
-  })
-
-  // TODO: [beta] remove this when we remove icon slot
+  // TODO: remove this when we remove icon slot
   it('renders an icon when using icon slot', () => {
     const iconText = 'Pretend I am an icon'
     mount(KButton, {
