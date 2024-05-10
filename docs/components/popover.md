@@ -6,7 +6,7 @@ KPop is a popover component that comes in handy when you need to display more co
 
 ### buttonText
 
-Popover trigger button text. If you want to use your custom element as popover trigger, check out [`default` slot](#default).
+Popover trigger button text. If you want to use your custom element as a popover trigger, check out the [`default` slot](#default).
 
 <KPop button-text="Open popover">
   <template #content>
@@ -185,7 +185,7 @@ Boolean to control whether the popover caret should be visible. Defaults to `tru
 
 ### closeOnPopoverClick
 
-Boolean to control whether or not popover should close on popover content click. Default to `false`.
+Boolean to control whether or not the popover should close when a user clicks within the popover content. Default to `false`.
 
 <KComponent
   v-slot="{ data }"
@@ -339,11 +339,11 @@ Maximum width of the popover container. Default value is `auto`.
 
 ### target
 
-This is the target element that the popover is appended to. By default its KPop wrapper element.
+This is the target element that the popover is appended to. By default its the KPop wrapper element.
 
 ### tag
 
-KPop wrapper element. Default value is `div`.
+KPop wrapper element type. Default value is `div`.
 
 ### popoverClasses
 
@@ -362,11 +362,11 @@ List of class names you want to assign to `.k-popover` element.
 
 ### hidePopover
 
-Optional boolean flag to hide popover. Useful for external events. Default value is `false`.
+Optional boolean flag to hide the popover. Useful for external events. Default value is `false`.
 
 ### zIndex
 
-Pass a number to use for `z-index` property. Default value is `1000`.
+Pass a number to use for the `z-index` property. Default value is `1000`.
 
 ## Slots
 
@@ -474,15 +474,15 @@ Slot for passing footer content that goes directly underneath main popover conte
 
 ### open
 
-Fires when popover is opened.
+Fires when the popover is opened.
 
 ### close
 
-Fires when popover is closed.
+Fires when the popover is closed.
 
 ### popover-click
 
-Fires when popover content is clicked.
+Fires when the popover content is clicked.
 
 <script setup lang="ts">
 import { PopPlacementsArray } from '@/types'
