@@ -5,7 +5,7 @@
 
 :root {
   body {
-    // font weight
+    font-family: var(--kui-font-family-text, $kui-font-family-text);
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
   }
 }
