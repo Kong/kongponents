@@ -129,12 +129,12 @@ describe('KInput', () => {
       },
     })
 
-    cy.get('.k-input').should('have.value', inputValue)
-    cy.get('.k-input').clear()
-    cy.get('.k-input').type(newValue).then(() => {
+    cy.get('.input').should('have.value', inputValue)
+    cy.get('.input').clear()
+    cy.get('.input').type(newValue).then(() => {
       // Check for emitted event
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'input')
-      cy.get('.k-input').should('have.value', newValue)
+      cy.get('.input').should('have.value', newValue)
     })
   })
 
