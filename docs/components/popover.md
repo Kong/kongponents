@@ -510,5 +510,6 @@ import { PopPlacementsArray } from '@/types'
   position: relative;
   display: flex;
   gap: $kui-space-50;
+  border-radius: $kui-border-radius-30;
 }
 </style>
