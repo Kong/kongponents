@@ -14,9 +14,6 @@ export default {
     // Extend default theme custom behaviour
     DefaultTheme.enhanceApp(ctx)
 
-    // Register KIcon icons
-    ctx.app.config.globalProperties.$icons = Object.keys(icons)
-
     // Register ToastManager
     // TODO: May need to handle SSR
     ctx.app.config.globalProperties.$toaster = new ToastManager()
