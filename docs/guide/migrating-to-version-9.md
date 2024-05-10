@@ -433,6 +433,7 @@ No breaking changes.
 
 ### KIcon
 
+This component has been removed.
 
 ### KInlineEdit
 
