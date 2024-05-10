@@ -1,7 +1,6 @@
 <template>
-  <!-- TODO: [beta] change wrapper class to k-input -->
   <div
-    class="k-input-wrapper"
+    class="k-input"
     :class="[$attrs.class, { 'input-error' : charLimitExceeded || error || hasError }]"
   >
     <KLabel
@@ -37,7 +36,7 @@
         v-bind="modifiedAttrs"
         :aria-describedby="helpText ? helpTextId : undefined"
         :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
-        class="k-input"
+        class="input"
         :value="getValue()"
         @input="handleInput"
       >
@@ -301,14 +300,14 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
 
 /* Component styles */
 
-.k-input-wrapper {
+.k-input {
   display: flex;
   flex-direction: column;
   width: 100%;
 
   // error styles
   &.input-error {
-    .k-input, .k-input[type="file"] {
+    .input, .input[type="file"] {
       @include inputError;
 
       &:hover {
@@ -389,7 +388,7 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
     }
 
     &.has-before-content {
-      .k-input {
+      .input {
         // if there is a before slot, add padding to the left of the input
         // standard padding + slot with + space between icon and input
         padding-left: calc($kInputPaddingX + v-bind('beforeSlotElementWidth') + $kInputSlotSpacing);
@@ -397,7 +396,7 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
     }
 
     &.has-after-content {
-      .k-input {
+      .input {
         // if there is a after slot, add padding to the right of the input
         // standard padding + slot with + space between icon and input
         padding-right: calc($kInputPaddingX + v-bind('afterSlotElementWidth') + $kInputSlotSpacing);
@@ -406,7 +405,7 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
   }
 }
 
-.k-input {
+.input {
   @include inputDefaults;
 
   &:hover {

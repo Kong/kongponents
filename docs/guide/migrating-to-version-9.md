@@ -462,6 +462,8 @@ This component has been removed.
 * `form-control` class has been removed
 * `over-char-limit` class has been removed
 * `help` class has been changed to `help-text`
+* `k-input-wrapper` class has been changed to `k-input`
+* `input.k-input` element class has been changed to `.input`
 
 #### Constants, Types & Interfaces
 

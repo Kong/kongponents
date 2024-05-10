@@ -102,7 +102,7 @@ describe('KInput', () => {
       },
     })
 
-    cy.get('.k-input-wrapper .help-text').should('contain.text', helpText)
+    cy.get('.k-input .help-text').should('contain.text', helpText)
   })
 
   it('shows character count when characterLimit prop is set and exceeded', () => {
@@ -115,8 +115,8 @@ describe('KInput', () => {
       },
     })
 
-    cy.get('.k-input-wrapper input.k-input').type(`This input has ${textCharCount} characters`)
-    cy.get('.k-input-wrapper.input-error .help-text').should('contain.text', `${textCharCount} / ${charLimit}`)
+    cy.get('.k-input input.input').type(`This input has ${textCharCount} characters`)
+    cy.get('.k-input.input-error .help-text').should('contain.text', `${textCharCount} / ${charLimit}`)
   })
 
   it('reacts to text changes', () => {
@@ -147,7 +147,7 @@ describe('KInput', () => {
       },
     })
 
-    cy.get('.k-input-wrapper').find(`[data-testid="${beforeSlot}"]`).should('be.visible')
+    cy.get('.k-input').find(`[data-testid="${beforeSlot}"]`).should('be.visible')
   })
 
   it('renders after slot when passed', () => {
@@ -159,6 +159,6 @@ describe('KInput', () => {
       },
     })
 
-    cy.get('.k-input-wrapper').find(`[data-testid="${afterSlot}"]`).should('be.visible')
+    cy.get('.k-input').find(`[data-testid="${afterSlot}"]`).should('be.visible')
   })
 })
