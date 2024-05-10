@@ -129,11 +129,11 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 * `showCaret` prop is removed
 * `caretColor` prop is removed
 * `isRounded` prop is removed
-* `icon` prop has changed to boolean
+* `icon` prop has changed to `boolean`. Use it when only content you're passing to KButton is an icon to make KButton square
 
 #### Slots
 
-* `icon` slot has been deprecated
+* `icon` slot has been deprecated. Please use `default` slot instead
 
 #### Structure
 
