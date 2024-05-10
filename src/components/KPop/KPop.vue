@@ -290,7 +290,6 @@ export default defineComponent({
     }
 
     if (this.reference) {
-      this.reference.removeEventListener('click', this.handleClick)
       this.reference.removeEventListener('mouseenter', this.createInstance)
       this.reference.removeEventListener('mouseleave', this.toggle)
       this.reference.removeEventListener('focus', this.createInstance)
@@ -408,7 +407,6 @@ export default defineComponent({
           // this is important event listener that allows to keyboard navigate through the popover without closing it
           popper.addEventListener('focusin', this.showPopper)
           popper.addEventListener('mouseleave', this.hidePopper)
-          popper.addEventListener('blur', this.hidePopper)
           // has to come in pair with focusin
           popper.addEventListener('focusout', this.hidePopper)
         }
