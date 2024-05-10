@@ -367,16 +367,19 @@ export default defineComponent({
       }
 
       if (this.reference && this.reference.contains(e.target) && (this.$refs.popper && !this.$refs.popper.contains(e.target))) {
+        // If the click is on or within the trigger element and not on the popover element
         if (this.isOpen) {
           hidePopperAndStopPropagation()
         } else {
           this.createInstance()
         }
       } else if (this.$refs.popper && this.$refs.popper.contains(e.target)) {
+        // If the click is on or within the popover element
         if (this.closeOnPopoverClick) {
           hidePopperAndStopPropagation()
         }
       } else if (this.isOpen) {
+        // Click outside
         hidePopperAndStopPropagation()
       }
     },
@@ -410,6 +413,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+/* Component variables */
+
+$kPopCaretSize: 10px;
+$kPopCaretShadowElementSize: 11px;
+$kPopCaretOffset: 16px;
+
 /* Component mixins */
 
 @mixin kPopCaret {
@@ -423,13 +432,13 @@ export default defineComponent({
   }
 
   &:after {
-    border-width: 10px;
-    margin-left: -10px;
+    border-width: $kPopCaretSize;
+    margin-left: calc($kPopCaretSize * -1);
   }
 
   &:before {
-    border-width: 11px;
-    margin-left: -11px;
+    border-width: $kPopCaretShadowElementSize;
+    margin-left: calc($kPopCaretShadowElementSize * -1);
   }
 }
 
@@ -595,28 +604,28 @@ export default defineComponent({
   &[x-placement^="top-start"],
   &[x-placement^="bottom-start"] {
     &:after, &:before {
-      left: 16px;
+      left: $kPopCaretOffset;
     }
   }
 
   &[x-placement^="top-end"],
   &[x-placement^="bottom-end"] {
     &:after, &:before {
-      left: calc(100% - 16px);
+      left: calc(100% - $kPopCaretOffset);
     }
   }
 
   &[x-placement^="right-start"],
   &[x-placement^="left-start"] {
     &:after, &:before {
-      top: 16px;
+      top: $kPopCaretOffset;
     }
   }
 
   &[x-placement^="right-end"],
   &[x-placement^="left-end"] {
     &:after, &:before {
-      top: calc(100% - 16px);
+      top: calc(100% - $kPopCaretOffset);
     }
   }
 
