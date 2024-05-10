@@ -244,8 +244,8 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
 /* Component styles */
 
 .k-file-upload {
-  :deep(.k-input-wrapper) input[type="file"]::-webkit-file-upload-button,
-  :deep(.k-input-wrapper) input[type="file"]::file-selector-button {
+  :deep(.k-input) input[type="file"]::-webkit-file-upload-button,
+  :deep(.k-input) input[type="file"]::file-selector-button {
     margin: 0;
     opacity: 0;
     padding: 0;
@@ -253,8 +253,8 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
     width: 0;
   }
 
-  :deep(.k-input-wrapper) input[type="file"],
-  :deep(.k-input-wrapper) input[type="file"][disabled] {
+  :deep(.k-input) input[type="file"],
+  :deep(.k-input) input[type="file"][disabled] {
     color: transparent !important;
   }
 
