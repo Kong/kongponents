@@ -277,8 +277,17 @@ export default defineComponent({
   beforeUnmount() {
     const popper = this.$refs.popper
 
-    document.documentElement.removeEventListener('click', this.handleClick)
-    popper && popper.removeEventListener('click', this.onPopperContentClick)
+    if (document) {
+      document.documentElement.removeEventListener('click', this.handleClick)
+    }
+
+    if (popper) {
+      popper.removeEventListener('click', this.onPopperContentClick)
+      popper.removeEventListener('mouseenter', this.showPopper)
+      popper.removeEventListener('focusin', this.showPopper)
+      popper.removeEventListener('mouseleave', this.hidePopper)
+      popper.removeEventListener('focusout', this.hidePopper)
+    }
 
     if (this.reference) {
       this.reference.removeEventListener('click', this.handleClick)
@@ -287,6 +296,7 @@ export default defineComponent({
       this.reference.removeEventListener('focus', this.createInstance)
       this.reference.removeEventListener('blur', this.toggle)
     }
+
     this.destroy()
   },
   methods: {
@@ -325,9 +335,12 @@ export default defineComponent({
       this.showPopper()
       const placement = (this.placement || 'auto').replace(/[A-Z]/g, '-$&').toLowerCase()
       const popperEl = this.$refs.popper
-      const theTarget = (this.target && !!document.querySelector(this.target))
-        ? document.querySelector(this.target)
-        : document.getElementById(this.targetId)
+      let theTarget = null
+      if (document) {
+        theTarget = (this.target && !!document.querySelector(this.target))
+          ? document.querySelector(this.target)
+          : document.getElementById(this.targetId)
+      }
 
       if (theTarget) {
         theTarget.appendChild(popperEl)
@@ -392,12 +405,18 @@ export default defineComponent({
           this.reference.addEventListener('mouseleave', this.hidePopper)
           this.reference.addEventListener('blur', this.hidePopper)
           popper.addEventListener('mouseenter', this.showPopper)
-          popper.addEventListener('focus', this.showPopper)
+          // this is important event listener that allows to keyboard navigate through the popover without closing it
+          popper.addEventListener('focusin', this.showPopper)
           popper.addEventListener('mouseleave', this.hidePopper)
           popper.addEventListener('blur', this.hidePopper)
+          // has to come in pair with focusin
+          popper.addEventListener('focusout', this.hidePopper)
         }
 
         popper.addEventListener('click', this.onPopperContentClick)
+      }
+
+      if (document) {
         document.documentElement.addEventListener('click', this.handleClick)
       }
     },
