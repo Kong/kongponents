@@ -1,7 +1,7 @@
 export type ToasterAppearance = 'info' | 'success' | 'danger' | 'warning' | 'system'
 
 export interface Toast {
-  /** unique identifier of toaster */
+  /** Unique identifier of toaster */
   key?: any
   /** Title of toaster */
   title?: string
