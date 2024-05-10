@@ -97,7 +97,7 @@ interface CatalogItem {
   id?: string
   title: string
   description: string
-  key?: string
+  key?: string // optional parameter to be used as key in v-for, has to be unique for each item
 }
 ```
 

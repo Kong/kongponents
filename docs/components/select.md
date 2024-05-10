@@ -44,7 +44,7 @@ Prop for providing select item options. Supports grouping items under one group 
 interface SelectItem {
   label: string
   value: string | number
-  key?: string
+  key?: string // optional parameter that will be appended with `-selected` when selected
   selected?: boolean
   disabled?: boolean
   group?: string
