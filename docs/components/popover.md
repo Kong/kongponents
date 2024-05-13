@@ -1,6 +1,6 @@
 # Popover
 
-KPop is a popover component that comes in handy when you need to display more content than a tooltip can fit.
+KPop is a popover component that comes in handy when you need to display more content than can fit in a tooltip.
 
 ## Props
 
@@ -339,7 +339,9 @@ Maximum width of the popover container. Default value is `auto`.
 
 ### target
 
-This is the target element that the popover is appended to. By default its the KPop wrapper element.
+This is the target element selector that the popover is appended to. By default its the KPop wrapper element.
+
+Example: `#my-element-id`
 
 ### tag
 
