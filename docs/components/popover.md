@@ -2,6 +2,43 @@
 
 KPop is a popover component that comes in handy when you need to display more content than can fit in a tooltip.
 
+<KComponent
+  v-slot="{ data }"
+  :data="{ data1: false, data2: true }"
+>
+  <KPop
+    button-text="Open popover"
+    title="Communications settings"
+    width="350"
+  >
+    <template #content>
+      <div class="vertical-container">
+        <KInputSwitch label="Receive marketing communications" v-model="data.data1" />
+        <KInputSwitch label="Receive important updates" v-model="data.data2" />
+      </div>
+    </template>
+    <template #footer>
+      <KButton class="button-right">Apply</KButton>
+    </template>
+  </KPop>
+</KComponent>
+
+```html
+<KPop
+  button-text="Open popover"
+  title="Communications settings"
+  width="350"
+>
+  <template #content>
+    <KInputSwitch label="Receive marketing communications" />
+    <KInputSwitch label="Receive important updates" />
+  </template>
+  <template #footer>
+    <KButton>Apply</KButton>
+  </template>
+</KPop>
+```
+
 :::tip NOTE
 Check out [KTooltip](/components/tooltip) if you're looking for a component for displaying tooltips. KPop is ideal for more complex popover dialogs that might need to have interactive elements.
 :::
@@ -508,7 +545,7 @@ import { PopPlacementsArray } from '@/types'
 .vertical-container {
   display: flex;
   flex-direction: column;
-  gap: $kui-space-50;
+  gap: $kui-space-40;
 }
 
 .position-fixed-container {
@@ -521,5 +558,9 @@ import { PopPlacementsArray } from '@/types'
   display: flex;
   gap: $kui-space-50;
   border-radius: $kui-border-radius-30;
+}
+
+.button-right {
+  margin-left: $kui-space-auto;
 }
 </style>
