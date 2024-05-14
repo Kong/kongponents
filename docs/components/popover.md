@@ -2,6 +2,10 @@
 
 KPop is a popover component that comes in handy when you need to display more content than can fit in a tooltip.
 
+:::tip NOTE
+Check out [KTooltip](/components/tooltip) if you're looking for a component for displaying tooltips. KPop is ideal for more complex popover dialogs that might need to have interactive elements.
+:::
+
 ## Props
 
 ### buttonText
