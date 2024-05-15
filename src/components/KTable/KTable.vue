@@ -983,8 +983,8 @@ const tablePreferences = computed((): TablePreferences => ({
   pageSize: pageSize.value,
   sortColumnKey: sortColumnKey.value,
   sortColumnOrder: sortColumnOrder.value as 'asc' | 'desc',
-  ...(props.resizeColumns && { columnWidths: columnWidths.value }),
-  ...(hasHidableColumns.value && { columnVisibility: columnVisibility.value }),
+  ...(props.resizeColumns ? { columnWidths: columnWidths.value } : {}),
+  ...(hasHidableColumns.value ? { columnVisibility: columnVisibility.value } : {}),
 }))
 
 const emitTablePreferences = (): void => {
