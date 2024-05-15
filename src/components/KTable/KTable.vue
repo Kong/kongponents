@@ -272,6 +272,7 @@ import type {
 import { EmptyStateIconVariants } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
+import { debounce } from '@/utilities/debounce'
 
 const { useDebounce, useRequest, useSwrvState, clientSideSorter: defaultClientSideSorter } = useUtilities()
 
@@ -987,8 +988,10 @@ const tablePreferences = computed((): TablePreferences => ({
   ...(hasHidableColumns.value ? { columnVisibility: columnVisibility.value } : {}),
 }))
 
-const emitTablePreferences = (): void => {
-  useDebounce(() => emit('update:table-preferences', tablePreferences.value), 100)
+const emitTablePreferences = debounce(handleEmitTablePreferences, 100)
+
+function handleEmitTablePreferences(): void {
+  emit('update:table-preferences', tablePreferences.value)
 }
 
 const getNextOffsetHandler = (): void => {
