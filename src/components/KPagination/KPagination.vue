@@ -420,7 +420,7 @@ watch(pageCount, (newVal, oldVal) => {
     .page-size-dropdown {
       margin-left: var(--kui-space-30, $kui-space-30);
 
-      :deep(.k-popover-content) {
+      :deep(.popover-content) {
         max-height: 200px;
         overflow-y: auto;
       }

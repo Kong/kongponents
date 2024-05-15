@@ -129,6 +129,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxPagination.vue'),
   },
   {
+    path: '/pop',
+    name: 'pop',
+    meta: { title: 'Pop Sandbox' },
+    component: () => import('../pages/SandboxPop.vue'),
+  },
+  {
     path: '/radio',
     name: 'radio',
     meta: { title: 'Radio Sandbox' },
