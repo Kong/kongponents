@@ -52,8 +52,6 @@ const handleClick = (e: MouseEvent): void => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/tmp-variables';
-
 .select-item {
   list-style: none;
 

@@ -1,7 +1,11 @@
 export interface BreadcrumbItem {
-  to?: object | string // router-link "to" object or href string
-  text?: string // breadcrumb text that will appear inside of anchor tag
-  title?: string // will be used for html title attribute on the anchor tag, helpful when text is truncated
-  key?: string // identifier, must be unique for each breadcrumb item
+  /** router-link "to" object or href string */
+  to?: object | string
+  /** Breadcrumb text that will appear inside of an anchor tag */
+  text?: string
+  /** Will be used for html title attribute on the anchor tag, helpful when text is truncated */
+  title?: string
+  /** Identifier, must be unique for each breadcrumb item */
+  key?: string
   maxWidth?: string
 }
