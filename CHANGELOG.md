@@ -1,3 +1,10 @@
+# [9.0.0-alpha.155](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.154...v9.0.0-alpha.155) (2024-05-15)
+
+
+### Features
+
+* **kpop:** component reskin [KHCP-8994] ([#2176](https://github.com/Kong/kongponents/issues/2176)) ([99e513a](https://github.com/Kong/kongponents/commit/99e513aefcf8642ba85de3325504e4858e38b158))
+
 # [9.0.0-alpha.154](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.153...v9.0.0-alpha.154) (2024-05-09)
 
 
