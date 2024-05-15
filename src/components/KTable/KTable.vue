@@ -984,13 +984,11 @@ const tablePreferences = computed((): TablePreferences => ({
   pageSize: pageSize.value,
   sortColumnKey: sortColumnKey.value,
   sortColumnOrder: sortColumnOrder.value as 'asc' | 'desc',
-  ...(props.resizeColumns ? { columnWidths: columnWidths.value } : {}),
-  ...(hasHidableColumns.value ? { columnVisibility: columnVisibility.value } : {}),
+  ...(props.resizeColumns && { columnWidths: columnWidths.value }),
+  ...(hasHidableColumns.value && { columnVisibility: columnVisibility.value }),
 }))
 
-const emitTablePreferences = debounce(handleEmitTablePreferences, 100)
-
-function handleEmitTablePreferences(): void {
+const emitTablePreferences = (): void => {
   emit('update:table-preferences', tablePreferences.value)
 }
 
