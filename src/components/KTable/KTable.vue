@@ -1027,7 +1027,7 @@ watch([columnVisibility, tableHeaders], (newVals) => {
     visibleHeaders.value = newVisibleHeaders
     emitTablePreferences()
   }
-}, { deep: true, immediate: true })
+}, { deep: true })
 
 watch(fetcherData, (fetchedData: any) => {
   if (fetchedData?.length && !data.value.length) {
