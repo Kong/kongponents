@@ -1088,6 +1088,13 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@kong-ui-public/core@^1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/core/-/core-1.6.2.tgz#854190299ab23d7c3198eaaf244c9a4a1e22ad8e"
+  integrity sha512-bjIN0IlIr2dpmornLdMGupAC3ORmbAreHdFtx0BEn6XcMD7WvTvtDMqp+yUYdofqeppJ/bQNZA67dOsP/FZpfA==
+  dependencies:
+    date-fns "^2.30.0"
+
 "@kong-ui-public/sandbox-layout@^2.0.57":
   version "2.0.57"
   resolved "https://registry.yarnpkg.com/@kong-ui-public/sandbox-layout/-/sandbox-layout-2.0.57.tgz#d589a132ffd20d49ec7b38cef464b2537146e69a"
