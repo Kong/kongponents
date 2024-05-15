@@ -717,6 +717,7 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
 <style lang="scss" scoped>
 /* Component variables */
 
+// background color for the matching line (search or filter) in dark theme
 $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't have a token for this
 
 /* Component mixins */
