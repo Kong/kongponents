@@ -1,3 +1,10 @@
+# [9.0.0-alpha.156](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.155...v9.0.0-alpha.156) (2024-05-15)
+
+
+### Bug Fixes
+
+* **styles:** remove tmp variables, old mixins [KHCP-8944] ([#2181](https://github.com/Kong/kongponents/issues/2181)) ([0548cba](https://github.com/Kong/kongponents/commit/0548cba4fd917add82b78459dba2828136dc3846))
+
 # [9.0.0-alpha.155](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.154...v9.0.0-alpha.155) (2024-05-15)
 
 
