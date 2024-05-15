@@ -202,7 +202,7 @@ Boolean to control whether popover should be disabled. Defaults to `false`.
 
 ### hideCaret
 
-Boolean to control whether the popover caret should be visible. Defaults to `true`.
+Boolean to control whether the popover caret should be visible. Defaults to `false`.
 
 <KPop
   hide-caret
