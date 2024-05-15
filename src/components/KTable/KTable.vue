@@ -776,6 +776,7 @@ const startResize = (evt: MouseEvent, colKey: string) => {
     resizingColumn.value = ''
     document?.removeEventListener('mousemove', mouseMoveHandler)
     document?.removeEventListener('mouseup', mouseUpHandler)
+    console.log('emitTablePreferences 2')
     emitTablePreferences()
   }
 
@@ -951,6 +952,7 @@ const sortClickHandler = (header: TableHeader): void => {
   }
 
   // Emit an event whenever one of the tablePreferences are updated
+  console.log('emitTablePreferences 3')
   emitTablePreferences()
 }
 
@@ -965,6 +967,7 @@ const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData) =>
   page.value = 1
 
   // Emit an event whenever one of the tablePreferences are updated
+  console.log('emitTablePreferences 4')
   emitTablePreferences()
 }
 
@@ -1025,6 +1028,7 @@ watch([columnVisibility, tableHeaders], (newVals) => {
 
   if (JSON.stringify(newVisibleHeaders) !== JSON.stringify(visibleHeaders.value)) {
     visibleHeaders.value = newVisibleHeaders
+    console.log('emitTablePreferences 1')
     emitTablePreferences()
   }
 }, { deep: true })
