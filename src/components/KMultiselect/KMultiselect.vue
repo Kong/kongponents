@@ -24,14 +24,12 @@
       <KToggle v-slot="{ isToggled, toggle }">
         <KPop
           ref="popper"
+          hide-close-icon
           v-bind="boundKPopAttributes"
-          :on-popover-click="() => {
-            return
-          }"
           :position-fixed="positionFixed"
           :target="`[id='${multiselectWrapperId}']`"
-          @closed="() => handleToggle(false, isToggled, toggle)"
-          @opened="() => handleToggle(true, isToggled, toggle)"
+          @close="() => handleToggle(false, isToggled, toggle)"
+          @open="() => handleToggle(true, isToggled, toggle)"
         >
           <div
             :id="multiselectWrapperId"
@@ -583,7 +581,7 @@ const createKPopAttributes = computed(() => {
   }
 })
 
-// Calculate the `.k-popover-content` max-height
+// Calculate the `.popover-content` max-height
 const popoverContentMaxHeight = computed((): string => getSizeFromString(props.dropdownMaxHeight))
 
 // TypeScript complains if I bind the original object
@@ -1115,7 +1113,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
   .hidden-selection-count-tooltip {
     cursor: pointer;
 
-    :deep(.k-popover-content) {
+    :deep(.popover-content) {
       @include truncate(3);
     }
   }
@@ -1197,7 +1195,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
       padding-bottom: var(--kui-space-0, $kui-space-0);
     }
 
-    .k-popover-content {
+    .popover-content {
       @include kMultiselectPopoverMaxHeight;
 
       // when dropdown footer text position is sticky
