@@ -988,7 +988,10 @@ const tablePreferences = computed((): TablePreferences => ({
 }))
 
 const emitTablePreferences = (): void => {
-  emit('update:table-preferences', tablePreferences.value)
+  // don't emit until we have finished initializing and made initial fetch
+  if (hasInitialized.value) {
+    emit('update:table-preferences', tablePreferences.value)
+  }
 }
 
 const getNextOffsetHandler = (): void => {
@@ -1022,8 +1025,6 @@ watch([columnVisibility, tableHeaders], (newVals) => {
   const newVisibility = newVals[0]
   const newHeaders = newVals[1]
   const newVisibleHeaders = newHeaders.filter((header: TableHeader) => newVisibility[header.key] !== false)
-  console.log('visibleHeaders', visibleHeaders.value)
-  console.log('newVisibleHeaders', newVisibleHeaders)
 
   if (JSON.stringify(newVisibleHeaders) !== JSON.stringify(visibleHeaders.value)) {
     visibleHeaders.value = newVisibleHeaders
