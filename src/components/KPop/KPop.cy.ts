@@ -2,14 +2,6 @@ import { mount } from 'cypress/vue'
 import KPop from '@/components/KPop/KPop.vue'
 import { h } from 'vue'
 
-/**
- * ALL TESTS MUST USE testMode: true
- * We generate unique IDs for reference by aria properties. Test mode strips these out
- * allowing for successful snapshot verification.
- * props: {
- *   testMode: true
- * }
- */
 describe('KPop', () => {
   it('renders props when passed', () => {
     const popButtonText = 'Click Me!'
@@ -17,45 +9,39 @@ describe('KPop', () => {
 
     mount(KPop, {
       props: {
-        testMode: true,
         buttonText: popButtonText,
         title: popTitle,
       },
     })
 
-    cy.get('[data-testid="kpop-button"]').should('contain.html', popButtonText)
-    cy.get('.k-popover-title').should('contain.html', popTitle)
+    cy.get('[data-testid="popover-button"]').should('contain.html', popButtonText)
+    cy.get('.popover-title').should('contain.html', popTitle)
   })
 
   it('renders slots when passed', () => {
     const popTitle = 'Look Mah!'
-    const popActions = 'Pop Actions'
     const popContent = 'Pop Content'
     const popFooter = 'Pop Footer'
 
     mount(KPop, {
       props: {
-        testMode: true,
       },
       slots: {
         title: () => h('span', {}, popTitle),
-        actions: h('span', {}, popActions),
         content: h('span', {}, popContent),
         footer: h('span', {}, popFooter),
       },
     })
 
-    cy.get('.k-popover-title').should('contain.html', popTitle)
-    cy.get('.k-popover-actions').should('contain.html', popActions)
-    cy.get('.k-popover-content').should('contain.html', popContent)
-    cy.get('.k-popover-footer').should('contain.html', popFooter)
+    cy.get('.popover-title').should('contain.html', popTitle)
+    cy.get('.popover-content').should('contain.html', popContent)
+    cy.get('.popover-footer').should('contain.html', popFooter)
   })
 
   it('renders with correct px width', () => {
     const width = 300
     mount(KPop, {
       props: {
-        testMode: true,
         width: width + '',
       },
       slots: {
@@ -70,26 +56,23 @@ describe('KPop', () => {
     const title = 'Cool Beans!'
     mount(KPop, {
       props: {
-        testMode: true,
         title,
       },
     })
-    cy.get('.k-popover-title').should('have.text', title)
+    cy.get('.popover-title').should('have.text', title)
   })
 
   it('has no title if no prop', () => {
     mount(KPop, {
       props: {
-        testMode: true,
       },
     })
-    cy.get('.k-popover-title').should('not.exist')
+    cy.get('.popover-title').should('not.exist')
   })
 
   it('shows element on click', () => {
     mount(KPop, {
       props: {
-        testMode: true,
         title: 'Popover Title',
       },
       slots: {
@@ -105,7 +88,6 @@ describe('KPop', () => {
   it('shows element on hover', () => {
     mount(KPop, {
       props: {
-        testMode: true,
         title: 'Popover Title',
         trigger: 'hover',
       },
@@ -133,5 +115,31 @@ describe('KPop', () => {
     })
 
     cy.get('.k-popover').should('have.css', 'z-index', '2200')
+  })
+
+  it('does not render close icon when prop is false', () => {
+    mount(KPop, {
+      props: {
+        hideCloseIcon: true,
+      },
+    })
+
+    cy.get('.popover-close-button').should('not.exist')
+  })
+
+  it('closes popover when close button is clicked', () => {
+    mount(KPop, {
+      props: {
+        title: 'Popover Title',
+      },
+      slots: {
+        default: () => h('div', { class: ['slottedEl'] }, 'Slotted element'),
+      },
+    })
+
+    cy.get('.slottedEl').click()
+    cy.get('.k-popover').should('be.visible')
+    cy.get('.popover-close-button').click()
+    cy.get('.k-popover').should('not.be.visible')
   })
 })

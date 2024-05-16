@@ -67,7 +67,7 @@ KToaster is the underlying component rendered by the `ToastManager` instance, so
 
 ```ts
 interface Toast {
-  key?: any
+  key?: any // optional, unique identifier of a toast
   title?: string
   message?: string
   appearance?: ToasterAppearance

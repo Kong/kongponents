@@ -1,3 +1,17 @@
+# [9.0.0-alpha.156](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.155...v9.0.0-alpha.156) (2024-05-15)
+
+
+### Bug Fixes
+
+* **styles:** remove tmp variables, old mixins [KHCP-8944] ([#2181](https://github.com/Kong/kongponents/issues/2181)) ([0548cba](https://github.com/Kong/kongponents/commit/0548cba4fd917add82b78459dba2828136dc3846))
+
+# [9.0.0-alpha.155](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.154...v9.0.0-alpha.155) (2024-05-15)
+
+
+### Features
+
+* **kpop:** component reskin [KHCP-8994] ([#2176](https://github.com/Kong/kongponents/issues/2176)) ([99e513a](https://github.com/Kong/kongponents/commit/99e513aefcf8642ba85de3325504e4858e38b158))
+
 # [9.0.0-alpha.154](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.153...v9.0.0-alpha.154) (2024-05-09)
 
 

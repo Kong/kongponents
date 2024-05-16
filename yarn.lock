@@ -1088,17 +1088,17 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@kong-ui-public/sandbox-layout@^2.0.55":
-  version "2.0.55"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/sandbox-layout/-/sandbox-layout-2.0.55.tgz#6f77386373eb0fa768bdfdefabba78a934b31fe2"
-  integrity sha512-N1CES0+zUy96yQEZejJFB07kkF+bmze93VYILyT32ZYnZYC4xMDgl5lluCXwZbd21dWKaSXtoRrF2xU97Dg/3w==
+"@kong-ui-public/sandbox-layout@^2.0.59":
+  version "2.0.59"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/sandbox-layout/-/sandbox-layout-2.0.59.tgz#ac784676fc7767b196abe800373c3388aec6a16e"
+  integrity sha512-c0XcfieAQmrTg5eUJ+RT70QavRK+w7SQxOK0BXnrYA3Ed5dLgapb/rq90pkERmAh0jnCg3HEhd+EVQu3GJ3tTA==
   dependencies:
     "@kong/icons" "^1.9.1"
 
-"@kong/design-tokens@^1.12.11":
-  version "1.12.11"
-  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.12.11.tgz#4d491e198a8401252966abba0cc6185025e7c4c0"
-  integrity sha512-+zgR6Ti4Joj85yD/KJzE3ja6Y0khxh9vapNnkOyGtLAUnCLstkH7WfLLhM22Qi7K5q/J2R1kWuR3X+XMp6U2mQ==
+"@kong/design-tokens@^1.12.12":
+  version "1.12.12"
+  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.12.12.tgz#76198cc9ccabdee17d40f60b3219ae1d525b0eaf"
+  integrity sha512-2efq8GaNUBweF5tp2hd4iQG22TfbGdDBfRgTzWvYCixdtEI0MjacLsBTl/iiQEdsekxb5dmC3Dq4qy/bWpCrnQ==
 
 "@kong/icons@^1.9.1":
   version "1.9.1"
@@ -4033,10 +4033,10 @@ eslint-module-utils@^2.8.0:
   dependencies:
     debug "^3.2.7"
 
-eslint-plugin-cypress@^2.15.2:
-  version "2.15.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-cypress/-/eslint-plugin-cypress-2.15.2.tgz#f22e12fad4c434edad7b298ef92bac8fa087ffa0"
-  integrity sha512-CtcFEQTDKyftpI22FVGpx8bkpKyYXBlNge6zSo0pl5/qJvBAnzaD76Vu2AsP16d6mTj478Ldn2mhgrWV+Xr0vQ==
+eslint-plugin-cypress@^3.0.3:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-cypress/-/eslint-plugin-cypress-3.2.0.tgz#fe2dd9c99ed5dfed5c7be658801e75ed3d9c2265"
+  integrity sha512-HaxMz6BoU4ay+K4WrG9ZJC1NdX06FqSlAwtRDStjM0ORFT7zCNPNuRJ+kUPc17Rt2AMUBSqeD9L0zTR3uZhPpw==
   dependencies:
     globals "^13.20.0"
 
