@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, nextTick, onMounted, ref } from 'vue'
+import { inject, nextTick, onMounted, ref, watch } from 'vue'
 import type { TableHeader, TablePreferences } from '@/types'
 import { useTablePreferences } from '@kong-ui-public/core'
 
@@ -32,7 +32,7 @@ const defaultPreferences: TablePreferences = {
 const tablePreferences = ref<TablePreferences>(defaultPreferences)
 
 const onTablePreferencesUpdate = (newTablePreferences: TablePreferences): void => {
-  console.log('Table preferences updated:', newTablePreferences)
+  console.log('KTable preferences:', newTablePreferences)
   setTablePreferences(preferencesKey, newTablePreferences)
 }
 
@@ -118,4 +118,8 @@ onMounted(async () => {
   await nextTick()
   tablePreferences.value = getTablePreferences(preferencesKey)
 })
+
+watch(tablePreferences, (newTablePreferences) => {
+  console.log('Sandbox preferences:', newTablePreferences)
+}, { deep: true, immediate: true })
 </script>
