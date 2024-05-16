@@ -93,7 +93,7 @@ const isMethodBadge = computed(() => {
   return Object.keys(BadgeMethodAppearances).includes(props.appearance)
 })
 
-const badgeTextElement = ref<HTMLDivElement>()
+const badgeTextElement = ref<HTMLDivElement | null>(null)
 
 const resizeObserver = ref<ResizeObserverHelper>()
 const isTruncated = ref<boolean>(false)
