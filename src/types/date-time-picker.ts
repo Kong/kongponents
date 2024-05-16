@@ -25,7 +25,8 @@ export interface TimeRange {
 }
 
 export interface TimePeriod {
-  key: string // unique identifier
+  /** Unique identifier */
+  key: string
   display: string
   timeframeText: string
   timeframeLength: () => string

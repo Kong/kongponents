@@ -14,12 +14,19 @@ export interface TablePreferences {
 }
 
 export interface TableHeader {
+  /** Must be unique for each column */
   key: string
+  /** Visible column header text */
   label: string
+  /** In a nutshell, this property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it */
   sortable?: boolean
+  /** Allow toggling column visibility */
   hidable?: boolean
+  /** When provided, an info icon will be rendered next to the column label, upon hovering on which the tooltip will be revealed */
   tooltip?: string
+  /** Whether column header text should be hidden (only visible to screen readers) */
   hideLabel?: boolean
+  /** Whether KTable should use function passed through sortHandlerFunction prop to apply sorting logic to this column */
   useSortHandlerFunction?: boolean
 }
 

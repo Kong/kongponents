@@ -1,7 +1,8 @@
 export interface SelectItem extends Record<string, any> {
   label: string
   value: string | number
-  key?: string // optional parameter that will be appended with `-selected` when selected
+  /** Optional parameter that will be appended with `-selected` when selected */
+  key?: string
   selected?: boolean
   disabled?: boolean
   group?: string
