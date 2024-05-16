@@ -1,7 +1,7 @@
 <template>
   <component
     :is="tag"
-    :id="$slots.default ? targetId : null"
+    :id="targetId"
     ref="root"
     :aria-controls="$slots.default ? popoverId : undefined"
     :aria-expanded="$slots.default ? (!!isOpen || undefined) : undefined"
@@ -11,101 +11,66 @@
   >
     <slot>
       <KButton
-        :id="targetId"
         :aria-controls="popoverId || undefined"
         :aria-expanded="!!isOpen || undefined"
-        data-testid="kpop-button"
+        data-testid="popover-button"
       >
         {{ buttonText }}
       </KButton>
     </slot>
-    <div
-      v-if="isSvg"
-    >
-      <foreignObject>
-        <div
-          v-show="isOpen"
-          :id="popoverId"
-          ref="popper"
-          class="k-popover"
-          :class="popoverClassObj"
-          role="region"
-          :style="popoverStyle"
-        >
-          <div
-            v-if="$slots.title || title || $slots.actions"
-            class="k-popover-header"
-          >
-            <div
-              v-if="$slots.title || title"
-              class="k-popover-title"
-            >
-              <slot name="title">
-                {{ title }}
-              </slot>
-            </div>
-            <div
-              v-if="$slots.actions"
-              class="k-popover-actions"
-            >
-              <slot name="actions" />
-            </div>
-          </div>
-          <div class="k-popover-content">
-            <slot name="content" />
-          </div>
-          <div
-            v-if="$slots.footer"
-            class="k-popover-footer"
-          >
-            <slot name="footer" />
-          </div>
-        </div>
-      </foreignObject>
-    </div>
-    <transition
-      v-else
-      name="fade"
-    >
+    <Transition name="kongponents-fade-transition">
       <div
         v-show="isOpen"
         :id="popoverId"
         ref="popper"
+        :aria-labelledby="$slots.title || title ? titleId : undefined"
         class="k-popover"
         :class="popoverClassObj"
-        role="region"
+        role="dialog"
         :style="popoverStyle"
       >
+        <!-- click on close button is handled by handleClick method -->
+        <button
+          v-if="!hideCloseIcon"
+          ref="popoverCloseButton"
+          class="popover-close-button"
+          :tabindex="isOpen ? 0 : -1"
+          type="button"
+        >
+          <CloseIcon
+            class="popover-close-icon"
+            :size="KUI_ICON_SIZE_30"
+          />
+        </button>
         <div
-          v-if="$slots.title || title || $slots.actions"
-          class="k-popover-header"
+          v-if="$slots.title || title"
+          class="popover-header"
         >
           <div
             v-if="$slots.title || title"
-            class="k-popover-title"
+            :id="titleId"
+            class="popover-title"
+            :class="{ 'close-icon-spacing': !hideCloseIcon }"
           >
             <slot name="title">
               {{ title }}
             </slot>
           </div>
-          <div
-            v-if="$slots.actions"
-            class="k-popover-actions"
-          >
-            <slot name="actions" />
-          </div>
         </div>
-        <div class="k-popover-content">
+        <div
+          class="popover-content"
+          :class="{ 'close-icon-spacing': !hideCloseIcon && !($slots.title || title) }"
+        >
           <slot name="content" />
         </div>
         <div
           v-if="$slots.footer"
-          class="k-popover-footer"
+          class="popover-footer"
         >
           <slot name="footer" />
         </div>
       </div>
-    </transition>
+    </Transition>
   </component>
 </template>
 
@@ -116,18 +81,20 @@
 // @ts-nocheck
 import type { PropType } from 'vue'
 import { defineComponent } from 'vue'
-import { v1 as uuidv1 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 import Popper from 'popper.js'
 import useUtilities from '@/composables/useUtilities'
 import KButton from '@/components/KButton/KButton.vue'
 import type { PopPlacements, PopTrigger } from '@/types'
 import { PopPlacementsArray, PopTriggerArray } from '@/types'
+import { CloseIcon } from '@kong/icons'
+import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 
 const { getSizeFromString } = useUtilities()
 
 export default defineComponent({
   name: 'KPop',
-  components: { KButton },
+  components: { KButton, CloseIcon },
   expose: ['updatePopper'],
   props: {
     /**
@@ -150,7 +117,7 @@ export default defineComponent({
      */
     buttonText: {
       type: String,
-      default: 'OK',
+      default: '',
     },
     /**
      * The title of the Popover header
@@ -206,13 +173,6 @@ export default defineComponent({
       default: '',
     },
     /**
-     * Custom transition names that will be applied to the popover
-     */
-    popoverTransitions: {
-      type: String,
-      default: 'fade',
-    },
-    /**
     * Custom popover timeout setting
      */
     popoverTimeout: {
@@ -234,13 +194,6 @@ export default defineComponent({
       default: false,
     },
     /**
-    * A flag indicating whether or not the element in the slot will be an SVG element
-    */
-    isSvg: {
-      type: Boolean,
-      default: false,
-    },
-    /**
      * A flag to hide the triangle pointing to the trigger element
      */
     hideCaret: {
@@ -248,25 +201,18 @@ export default defineComponent({
       default: false,
     },
     /**
-     * A custom callback function to call when the popover is already opened and an element inside has been clicked
+     * Whether popover should be closed when popover content is clicked
      */
-    onPopoverClick: {
-      type: Function,
-      default: null,
+    closeOnPopoverClick: {
+      type: Boolean,
+      default: false,
     },
     /**
      * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
      */
     positionFixed: {
       type: Boolean,
-      default: false,
-    },
-    /**
-     * Test mode - for testing only, strips out generated ids
-     */
-    testMode: {
-      type: Boolean,
-      default: false,
+      default: true,
     },
     /**
      * z-index - to control z-index value of the popover
@@ -275,15 +221,21 @@ export default defineComponent({
       type: Number,
       default: 1000,
     },
+    hideCloseIcon: {
+      type: Boolean,
+      default: false,
+    },
   },
-  emits: ['opened', 'closed'],
+  emits: ['open', 'close', 'popover-click'],
   data() {
     return {
       popper: null,
       reference: null,
       isOpen: false,
-      popoverId: !this.testMode ? uuidv1() : 'test-popover-id-1234',
-      targetId: !this.testMode ? uuidv1() : 'test-target-id-1234',
+      popoverId: uuidv4(),
+      targetId: uuidv4(),
+      titleId: uuidv4(),
+      KUI_ICON_SIZE_30,
     }
   },
   computed: {
@@ -295,7 +247,7 @@ export default defineComponent({
       }
     },
     popoverClassObj: function() {
-      return [this.popoverClasses, { 'hide-caret': this.hideCaret }, { 'has-actions': this.$slots.actions }]
+      return [this.popoverClasses, { 'hide-caret': this.hideCaret }]
     },
   },
   watch: {
@@ -325,16 +277,25 @@ export default defineComponent({
   beforeUnmount() {
     const popper = this.$refs.popper
 
-    document.documentElement.removeEventListener('click', this.handleClick)
-    popper && popper.removeEventListener('click', this.showPopper)
+    if (document) {
+      document.documentElement.removeEventListener('click', this.handleClick)
+    }
+
+    if (popper) {
+      popper.removeEventListener('click', this.onPopperContentClick)
+      popper.removeEventListener('mouseenter', this.showPopper)
+      popper.removeEventListener('focusin', this.showPopper)
+      popper.removeEventListener('mouseleave', this.hidePopper)
+      popper.removeEventListener('focusout', this.hidePopper)
+    }
 
     if (this.reference) {
-      this.reference.removeEventListener('click', this.handleClick)
       this.reference.removeEventListener('mouseenter', this.createInstance)
       this.reference.removeEventListener('mouseleave', this.toggle)
       this.reference.removeEventListener('focus', this.createInstance)
       this.reference.removeEventListener('blur', this.toggle)
     }
+
     this.destroy()
   },
   methods: {
@@ -344,16 +305,23 @@ export default defineComponent({
       }
 
       this.timer = setTimeout(() => {
-        this.$emit('closed')
+        this.$emit('close')
         this.destroy()
       }, this.popoverTimeout)
     },
     showPopper() {
       if (this.disabled) return
-      this.isOpen = true
       if (this.timer) clearTimeout(this.timer)
       if (this.popperTimer) clearTimeout(this.popperTimer)
-      this.$emit('opened')
+      if (!this.isOpen) {
+        this.isOpen = true
+        this.$emit('open')
+      }
+    },
+    onPopperContentClick(e) {
+      if (e.target !== this.$refs.popoverCloseButton) {
+        this.$emit('popover-click')
+      }
     },
     updatePopper() {
       if (this.popper && typeof this.popper.update === 'function') {
@@ -366,9 +334,12 @@ export default defineComponent({
       this.showPopper()
       const placement = (this.placement || 'auto').replace(/[A-Z]/g, '-$&').toLowerCase()
       const popperEl = this.$refs.popper
-      const theTarget = (this.target && !this.isSvg && !!document.querySelector(this.target))
-        ? document.querySelector(this.target)
-        : document.getElementById(this.targetId)
+      let theTarget = null
+      if (document) {
+        theTarget = (this.target && !!document.querySelector(this.target))
+          ? document.querySelector(this.target)
+          : document.getElementById(this.targetId)
+      }
 
       if (theTarget) {
         theTarget.appendChild(popperEl)
@@ -403,20 +374,24 @@ export default defineComponent({
         this.hidePopper()
       }
 
-      if (this.reference && this.reference.contains(e.target)) {
+      if (e.target === this.$refs.popoverCloseButton) {
+        hidePopperAndStopPropagation()
+      }
+
+      if (this.reference && this.reference.contains(e.target) && (this.$refs.popper && !this.$refs.popper.contains(e.target))) {
+        // If the click is on or within the trigger element and not on the popover element
         if (this.isOpen) {
           hidePopperAndStopPropagation()
         } else {
           this.createInstance()
         }
-      } else if (this.$refs.popper && this.$refs.popper.contains(e.target) && this.onPopoverClick) {
-        const isOpen = this.onPopoverClick()
-        if (isOpen !== undefined) {
-          isOpen ? this.showPopper() : hidePopperAndStopPropagation()
-        }
       } else if (this.$refs.popper && this.$refs.popper.contains(e.target)) {
-        this.showPopper()
+        // If the click is on or within the popover element
+        if (this.closeOnPopoverClick) {
+          hidePopperAndStopPropagation()
+        }
       } else if (this.isOpen) {
+        // Click outside
         hidePopperAndStopPropagation()
       }
     },
@@ -429,12 +404,17 @@ export default defineComponent({
           this.reference.addEventListener('mouseleave', this.hidePopper)
           this.reference.addEventListener('blur', this.hidePopper)
           popper.addEventListener('mouseenter', this.showPopper)
-          popper.addEventListener('focus', this.showPopper)
+          // this is important event listener that allows to keyboard navigate through the popover without closing it
+          popper.addEventListener('focusin', this.showPopper)
           popper.addEventListener('mouseleave', this.hidePopper)
-          popper.addEventListener('blur', this.hidePopper)
+          // has to come in pair with focusin
+          popper.addEventListener('focusout', this.hidePopper)
         }
 
-        popper.addEventListener('click', this.showPopper)
+        popper.addEventListener('click', this.onPopperContentClick)
+      }
+
+      if (document) {
         document.documentElement.addEventListener('click', this.handleClick)
       }
     },
@@ -449,192 +429,221 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
-// Must leave this block unscoped as it sometimes causes issues with slotted/nested styles
+<style lang="scss" scoped>
+/* Component variables */
 
-@import '@/styles/tmp-variables';
+$kPopCaretSize: 10px;
+$kPopCaretShadowElementSize: 11px;
+$kPopCaretOffset: 16px;
 
-.k-popover {
+/* Component mixins */
+
+@mixin kPopCaret {
+  &:after, &:before {
+    border: solid var(--kui-color-border-transparent, $kui-color-border-transparent);
+    content: " ";
+    height: 0;
+    pointer-events: none;
+    position: absolute;
+    width: 0;
+  }
+
+  &:after {
+    border-width: $kPopCaretSize;
+    margin-left: calc($kPopCaretSize * -1);
+  }
+
+  &:before {
+    border-width: $kPopCaretShadowElementSize;
+    margin-left: calc($kPopCaretShadowElementSize * -1);
+  }
+}
+
+/* Component styles */
+
+.k-popover, :deep(.k-popover) {
   background-color: var(--kui-color-background, $kui-color-background);
-  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-  border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
-  -webkit-box-shadow: 0px 4px 20px $tmp-color-black-10;
-  box-shadow: 0px 4px 20px $tmp-color-black-10;
-  color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-  font-size: var(--kui-font-size-30, $kui-font-size-30);
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+  border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+  box-shadow: var(--kui-shadow, $kui-shadow);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--kui-font-family-text, $kui-font-family-text);
+  gap: var(--kui-space-40, $kui-space-40);
   max-width: none;
-  padding: var(--kui-space-80, $kui-space-80) var(--kui-space-60, $kui-space-60);
+  padding: var(--kui-space-60, $kui-space-60);
+  position: relative;
   text-align: left;
   white-space: normal;
   z-index: v-bind('zIndex');
 
-  // Prevent Vue animation classes from impacting the positioning of the popover
-  &.fade-enter-active,
-  &.fade-enter-to,
-  &.fade-leave-active,
-  &.fade-leave-to {
-    animation: none !important;
+  .popover-close-button {
+    @include defaultButtonReset;
+
+    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    margin: var(--kui-space-60, $kui-space-60) var(--kui-space-60, $kui-space-60) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
+    outline: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &:hover, &:focus {
+      color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
+    }
+
+    &:focus-visible {
+      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+    }
+
+    .popover-close-icon {
+      pointer-events: none;
+    }
   }
 
-  .k-popover-header {
+  .popover-header {
     align-items: baseline;
-    display: flex !important;
-    margin-bottom: var(--kui-space-80, $kui-space-80);
+    display: flex;
 
-    .k-popover-title {
+    .popover-title {
       color: var(--kui-color-text, $kui-color-text);
       font-size: var(--kui-font-size-40, $kui-font-size-40);
-      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+      font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+      line-height: var(--kui-line-height-30, $kui-line-height-30);
+
+      &.close-icon-spacing {
+        margin-right: var(--kui-space-60, $kui-space-60);
+      }
     }
+  }
 
-    .k-popover-actions {
-      margin-left: auto;
+  .popover-content {
+    color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
+
+    &.close-icon-spacing {
+      margin-right: var(--kui-space-60, $kui-space-60);
     }
   }
 
-  .k-popover-content {
-    line-height: var(--kui-line-height-30, $kui-line-height-30);
+  .popover-footer {
+    align-items: center;
+    display: flex;
+    gap: var(--kui-space-40, $kui-space-40);
   }
 
-  .k-popover-footer {
-    margin: var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0);
-  }
+  // placement and caret styles
 
-  // TODO: this block is repetitive and can be refactored inti a mixin
   &[x-placement^="bottom"] {
     margin-top: var(--kui-space-50, $kui-space-50);
 
+    @include kPopCaret;
+
     &:after, &:before {
-      border: solid var(--kui-color-border-transparent, $kui-color-border-transparent);
       bottom: 100%;
-      content: " ";
-      height: 0;
       left: 50%;
-      pointer-events: none;
-      position: absolute;
-      width: 0;
     }
 
     &:after {
-      border-color: rgba(255, 255, 255, 0);
-      border-bottom-color: $tmp-color-white;
-      border-width: 10px;
-      margin-left: -10px;
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      border-bottom-color: var(--kui-color-background, $kui-color-background);
     }
 
     &:before {
-      border-color: rgba(250, 250, 250, 0);
-      border-bottom-color: $tmp-color-black-10;
-      border-width: 11px;
-      margin-left: -11px;
+      border-bottom-color: var(--kui-color-border, $kui-color-border);
     }
   }
 
   &[x-placement^="top"] {
     margin-bottom: var(--kui-space-60, $kui-space-60);
 
+    @include kPopCaret;
+
     &:after, &:before {
-      border: solid var(--kui-color-border-transparent, $kui-color-border-transparent);
-      content: " ";
-      height: 0;
       left: 50%;
-      pointer-events: none;
-      position: absolute;
       top: 100%;
-      width: 0;
     }
 
     &:after {
-      border-color: rgba(255, 255, 255, 0);
-      border-top-color: $tmp-color-white;
-      border-width: 10px;
-      margin-left: -10px;
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      border-top-color: var(--kui-color-background, $kui-color-background);
     }
 
     &:before {
-      border-color: rgba(250, 250, 250, 0);
-      border-top-color: $tmp-color-black-10;
-      border-width: 11px;
-      margin-left: -11px;
+      border-top-color: var(--kui-color-border, $kui-color-border);
     }
   }
 
   &[x-placement^="left"] {
     margin-right: var(--kui-space-60, $kui-space-60);
 
+    @include kPopCaret;
+
     &:after, &:before {
-      border: solid var(--kui-color-border-transparent, $kui-color-border-transparent);
-      content: " ";
-      height: 0;
       left: 100%;
-      pointer-events: none;
-      position: absolute;
       top: 50%;
-      width: 0;
+      transform: translate(50%, -50%);
     }
 
     &:after {
-      border-color: rgba(255, 255, 255, 0);
-      border-left-color: $tmp-color-white;
-      border-width: 10px;
-      margin-top: -10px;
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      border-left-color: var(--kui-color-background, $kui-color-background);
     }
 
     &:before {
-      border-color: rgba(250, 250, 250, 0);
-      border-left-color: $tmp-color-black-10;
-      border-width: 11px;
-      margin-top: -11px;
+      border-left-color: var(--kui-color-border, $kui-color-border);
     }
   }
 
   &[x-placement^="right"] {
     margin-left: var(--kui-space-60, $kui-space-60);
 
+    @include kPopCaret;
+
     &:after, &:before {
-      border: solid var(--kui-color-border-transparent, $kui-color-border-transparent);
-      content: " ";
-      height: 0;
-      pointer-events: none;
-      position: absolute;
       right: 100%;
       top: 50%;
-      width: 0;
+      transform: translateY(-50%);
     }
 
     &:after {
-      border-color: rgba(255, 255, 255, 0);
-      border-right-color: $tmp-color-white;
-      border-width: 10px;
-      margin-top: -10px;
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      border-right-color: var(--kui-color-background, $kui-color-background);
     }
 
     &:before {
-      border-color: rgba(250, 250, 250, 0);
-      border-right-color: $tmp-color-black-10;
-      border-width: 11px;
-      margin-top: -11px;
+      border-right-color: var(--kui-color-border, $kui-color-border);
     }
   }
 
   &[x-placement^="top-start"],
   &[x-placement^="bottom-start"] {
-    &:after, &:before { left: 11px; }
+    &:after, &:before {
+      left: $kPopCaretOffset;
+    }
   }
 
   &[x-placement^="top-end"],
   &[x-placement^="bottom-end"] {
-    &:after, &:before { left: calc(100% - 11px); }
+    &:after, &:before {
+      left: calc(100% - $kPopCaretOffset);
+    }
   }
 
   &[x-placement^="right-start"],
   &[x-placement^="left-start"] {
-    &:after, &:before { top: 11px; }
+    &:after, &:before {
+      top: $kPopCaretOffset;
+    }
   }
 
   &[x-placement^="right-end"],
   &[x-placement^="left-end"] {
-    &:after, &:before { top: calc(100% - 11px); }
+    &:after, &:before {
+      top: calc(100% - $kPopCaretOffset);
+    }
   }
 
   &.hide-caret {
@@ -643,47 +652,5 @@ export default defineComponent({
       display: none;
     }
   }
-
-  &.has-actions {
-    padding-bottom: var(--kui-space-0, $kui-space-0) !important;
-  }
-}
-</style>
-
-<style lang="scss">
-@import '@/styles/tmp-variables';
-// @keyframes animations need to be un-scoped
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-.fade-enter-active,
-.fadeIn,
-.fade-leave-active,
-.fadeOut {
-  animation-duration: $tmp-animation-timing-2;
-  animation-fill-mode: both;
-}
-.fade-enter-active,
-.fadeIn {
-  animation-name: fadeIn;
-}
-.fade-leave-active,
-.fadeOut {
-  animation-name: fadeOut;
 }
 </style>

@@ -715,6 +715,11 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
 </script>
 
 <style lang="scss" scoped>
+/* Component variables */
+
+// background color for the matching line (search or filter) in dark theme
+$kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't have a token for this
+
 /* Component mixins */
 
 @mixin kCodeBlockTypography {
@@ -893,7 +898,7 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
 
             &.line-is-match {
               &::before {
-                background-color: $tmp-color-white-opaque-12; // we don't have a token for this now and we might not ever need one so using a temp variable
+                background-color: $kCodeBlockDarkLineMatchBackgroundColor;
               }
 
               &.line-is-highlighted-match {

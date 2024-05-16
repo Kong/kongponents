@@ -624,8 +624,33 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 * `PageSizeChangedData` interface has been renamed to `PageSizeChangeData`
 * `PaginationType` type has been removed
 
-### KPopover
+### KPop
 
+#### Props
+
+* `isSvg` prop has been removed
+* default value of `buttonText` prop has changed
+* `popoverTransitions` prop has been removed
+* `testMode` prop has been removed
+* `onPopoverClick` prop has been removed. You can a combination of new `closeOnPopoverClick` prop and `popover-click` event instead
+* `positionFixed` prop default value has been changed to `true`
+
+#### Slots
+
+* `actions` slot has been removed
+
+#### Events
+
+* `opened` event has been renamed to `open`
+* `closed` event has been renamed to `close`
+
+#### Structure
+
+* `kpop-button` ... has been replaced with `popover-button`
+* `k-popover-header` class has been replaced with `popover-header`
+* `k-popover-title` class has been replaced with `popover-title`
+* `k-popover-content` class has been replaced with `popover-content`
+* `k-popover-footer` class has been replaced with `popover-footer`
 
 ### KPrompt
 

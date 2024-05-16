@@ -51,8 +51,6 @@ const handleClick = (): void => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/tmp-variables';
-
 .multiselect-item {
   list-style: none;
 
