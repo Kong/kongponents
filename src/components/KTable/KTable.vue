@@ -988,7 +988,9 @@ const tablePreferences = computed((): TablePreferences => ({
 }))
 
 const emitTablePreferences = (): void => {
-  emit('update:table-preferences', tablePreferences.value)
+  if (tableState.value === 'success') {
+    emit('update:table-preferences', tablePreferences.value)
+  }
 }
 
 const getNextOffsetHandler = (): void => {
