@@ -757,7 +757,7 @@ const startResize = (evt: MouseEvent, colKey: string) => {
   let col: HTMLElement | null = null
   headerElems.value?.forEach((elem) => {
     if (elem.getAttribute('data-testid') === `table-header-${colKey}`) {
-      col = document.querySelector(`[data-tableid="${tableId}"] [data-testid="table-header-${colKey}"]`)
+      col = document?.querySelector(`[data-tableid="${tableId}"] [data-testid="table-header-${colKey}"]`)
     }
   })
 
@@ -1054,8 +1054,6 @@ watch(state, () => {
 }, { immediate: true })
 
 watch([stateData, tableState], (newData) => {
-  console.log('Table state:', newData?.[1])
-
   emit('state', {
     state: newData?.[1], // newData[tableState]
     hasData: newData?.[0]?.hasData, // newData[stateData].hasData

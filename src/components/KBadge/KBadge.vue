@@ -119,9 +119,11 @@ const showTooltip = computed((): boolean => {
 })
 
 onMounted(() => {
-  resizeObserver.value = ResizeObserverHelper.create(setTruncation)
+  if (badgeTextElement.value) {
+    resizeObserver.value = ResizeObserverHelper.create(setTruncation)
 
-  resizeObserver.value.observe(badgeTextElement.value as HTMLDivElement)
+    resizeObserver.value.observe(badgeTextElement.value as HTMLDivElement)
+  }
 })
 
 onUnmounted(() => {
