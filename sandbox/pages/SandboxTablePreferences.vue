@@ -38,7 +38,7 @@ const onTablePreferencesUpdate = (newTablePreferences: TablePreferences): void =
 
 const headers: TableHeader[] = [
   { key: 'name', label: 'Full Name' },
-  { key: 'username', label: 'Username', tooltip: 'Columns with a tooltip.' },
+  { key: 'username', label: 'Username' },
   { key: 'email', label: 'Email', hidable: true },
   { key: 'actions', label: 'Row actions', hideLabel: true },
 ]
