@@ -988,10 +988,7 @@ const tablePreferences = computed((): TablePreferences => ({
 }))
 
 const emitTablePreferences = (): void => {
-  // don't emit until we have finished initializing and made initial fetch
-  if (hasInitialized.value) {
-    emit('update:table-preferences', tablePreferences.value)
-  }
+  emit('update:table-preferences', tablePreferences.value)
 }
 
 const getNextOffsetHandler = (): void => {
