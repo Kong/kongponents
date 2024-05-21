@@ -407,9 +407,5 @@ $fullscreen-modal-padding: 64px;
   margin-bottom: var(--kui-space-auto, $kui-space-auto) !important;
   margin-top: var(--kui-space-auto, $kui-space-auto) !important;
   padding-right: var(--kui-space-40, $kui-space-40) !important;
-  .kong-icon.kong-icon-kong {
-    position: relative;
-    top: 1px;
-  }
 }
 </style>
