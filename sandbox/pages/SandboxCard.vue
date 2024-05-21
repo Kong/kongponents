@@ -54,7 +54,7 @@
               >
                 <KButton
                   appearance="tertiary"
-                  class="icon-button"
+                  icon
                   size="small"
                 >
                   <MoreIcon />
@@ -85,7 +85,7 @@
               >
                 <KButton
                   appearance="tertiary"
-                  class="icon-button"
+                  icon
                   size="small"
                 >
                   <MoreIcon />

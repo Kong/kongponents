@@ -809,7 +809,7 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
 
     // reset default margin from browser
     margin: 0;
-    margin-top: var(--kui-space-40, $kui-space-40);
+    margin-top: var(--kui-space-40, $kui-space-40) !important; // need important to override some overrides of default p margin in other components
 
     &.select-error {
       color: var(--kui-color-text-danger, $kui-color-text-danger);

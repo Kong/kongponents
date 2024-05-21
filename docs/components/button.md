@@ -64,23 +64,16 @@ KButton can render either a `<a>` or `<router-link>` by simply passing the `to` 
 
 ### icon
 
-:::warning NOTE
-This prop will be changed to a `boolean` in the `9.0.0-beta.0` release.
-:::
+Optional boolean flag that you can use when the only content you are passing to KButton is icon and you need to make the button square (_left and right padding = top and bottom_). Defaults to `false`.
 
-A string for the `KIcon` name to be displayed to the left of the button's content. Specifying a value for `icon` will automatically indicate that it should be visible.
-
-If the disable state of the button can be changed, it is recommended to use the `icon` property instead of the slot, as using the prop will apply correct
-coloring to the icon depending on the `disabled` state of the button.
-
-<div class="icon-prop-demo-section">
-  <KButton appearance="primary" icon="spinner">I'm a button</KButton>
-  <KButton appearance="primary" icon="spinner" disabled>I'm a button</KButton>
-</div>
+<KButton icon>
+  <KongIcon />
+</KButton>
 
 ```html
-<KButton appearance="primary" icon="spinner">I'm a button</KButton>
-<KButton appearance="primary" icon="spinner" disabled>I'm a button</KButton>
+<KButton icon>
+  <KongIcon />
+</KButton>
 ```
 
 ### Disabled HTML Attribute
@@ -135,40 +128,6 @@ For utilizing icons in KButton not sourced from `@kong/icons`, we recommend the 
 We also recommend setting the icon style `color` property to a value of `currentColor` to inherit the default KButton styling for slotted content.
 :::
 
-### icon
-
-:::danger NOTE
-This slot is deprecated and will be removed in the `9.0.0-beta.0` release. Please use the [`default` slot](#default) instead whenever possible (unless the only content you are passing to KButton is icon and you need to make the button square (_left and right padding = top and bottom_)).
-:::
-
-<div class="spacing-container">
-  <KButton appearance="secondary">
-    <template #icon>
-      <KIcon icon="externalLink" color="#003694"/>
-    </template>
-    With Text
-  </KButton>
-  <KButton appearance="secondary" size="small">
-    <template #icon>
-      <KIcon icon="gear" color="#003694"/>
-    </template>
-  </KButton>
-</div>
-
-```html
-<KButton appearance="secondary">
-  <template #icon>
-    <KIcon icon="externalLink" />
-  </template>
-  With Text
-</KButton>
-<KButton appearance="secondary" size="small">
-  <template #icon>
-    <KIcon icon="gear" />
-  </template>
-</KButton>
-```
-
 ## Events
 
 KButton supports all events a native `button` and `a` elements do. Simply bind your event handler function to event with any modifiers.
@@ -196,7 +155,7 @@ KButton supports all events a native `button` and `a` elements do. Simply bind y
 ```
 
 <script setup lang="ts">
-import { WorldIcon, ChevronDownIcon } from '@kong/icons'
+import { WorldIcon, ChevronDownIcon, KongIcon } from '@kong/icons'
 
 const onButtonClick = () => {
   alert('Button was clicked')
@@ -207,7 +166,7 @@ const onButtonEnter = () => {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .preview-code .preview div {
   display: flex;
   flex-wrap: wrap;
