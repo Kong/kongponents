@@ -1,3 +1,10 @@
+# [9.0.0-alpha.158](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.157...v9.0.0-alpha.158) (2024-05-21)
+
+
+### Bug Fixes
+
+* **ktable:** emit preferences only in success state [KHCP-11890] ([#2191](https://github.com/Kong/kongponents/issues/2191)) ([a442a18](https://github.com/Kong/kongponents/commit/a442a1843d36ed2b84eb6a97f11ec93673d43a49))
+
 # [9.0.0-alpha.157](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.156...v9.0.0-alpha.157) (2024-05-21)
 
 
