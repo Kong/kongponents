@@ -1285,7 +1285,7 @@ $kTableThPaddingY: var(--kui-space-50, $kui-space-50);
         tr {
           height: 48px;
 
-          &:not(:last-of-type) {
+          &:not(:last-child) {
             border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
           }
 
