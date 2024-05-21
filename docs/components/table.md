@@ -207,10 +207,6 @@ Boolean to control whether the component should display the error state. Default
 
 Allow table column width to be resizable (defaults to `false`). Adjusting a column's width will trigger an [`update:table-preferences` event](#updatetable-preferences).
 
-:::warning WARNING
-`update:table-preferences` event only fires when KTable is in `success` state (see [`state` event](#state) for details).
-:::
-
 <KTable
   resize-columns
   :fetcher="basicFetcher"
@@ -873,6 +869,10 @@ Emitted when error state action button is clicked.
 ### update:table-preferences
 
 Fired when the user changes the table's page size, performs sorting, resizes columns or toggles column visibility. Event payload is object of type `TablePreferences` interface (see [`tablePreferences` prop](#tablepreferences) for details).
+
+:::warning WARNING
+`update:table-preferences` event only fires when KTable is in `success` state (see [`state` event](#state) for details).
+:::
 
 <script setup lang="ts">
 import { AddIcon, SearchIcon, MoreIcon } from '@kong/icons'
