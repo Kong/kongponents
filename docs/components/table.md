@@ -870,6 +870,10 @@ Emitted when error state action button is clicked.
 
 Fired when the user changes the table's page size, performs sorting, resizes columns or toggles column visibility. Event payload is object of type `TablePreferences` interface (see [`tablePreferences` prop](#tablepreferences) for details).
 
+:::warning WARNING
+`update:table-preferences` event only fires when KTable is in `success` state (see [`state` event](#state) for details).
+:::
+
 <script setup lang="ts">
 import { AddIcon, SearchIcon, MoreIcon } from '@kong/icons'
 import { getCurrentInstance } from 'vue'
