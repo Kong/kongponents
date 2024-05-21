@@ -207,6 +207,10 @@ Boolean to control whether the component should display the error state. Default
 
 Allow table column width to be resizable (defaults to `false`). Adjusting a column's width will trigger an [`update:table-preferences` event](#updatetable-preferences).
 
+:::warning WARNING
+`update:table-preferences` event only fires when KTable is in `success` state (see [`state` event](#state) for details).
+:::
+
 <KTable
   resize-columns
   :fetcher="basicFetcher"
