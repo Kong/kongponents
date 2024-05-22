@@ -69,22 +69,6 @@ Use this prop if you would like the trigger button to display a caret icon.
 />
 ```
 
-### icon
-
-:::danger NOTE
-This prop will be removed in the `9.0.0-beta.0` release. Icons can be provided in the `default` slot.
-:::
-
-A string for the `KIcon` to be displayed on the dropdown button with or in place of the button label.
-
-<ClientOnly>
-  <KDropdown icon="cogwheel" :items="deepClone(defaultItems)" show-caret />
-</ClientOnly>
-
-```html
-<KDropdown icon="cogwheel" :items="items" show-caret />
-```
-
 ### width
 
 The width of the dropdown body (defaults to `auto`). Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
@@ -241,7 +225,7 @@ The trigger element for opening/closing the menu.
 
 <ClientOnly>
   <KDropdown :items="deepClone(defaultItems)">
-    <KButton appearance="secondary" class="icon-button">
+    <KButton appearance="secondary" icon>
       <CogIcon />
     </KButton>
   </KDropdown>
@@ -249,7 +233,7 @@ The trigger element for opening/closing the menu.
 
 ```html
 <KDropdown :items="items">
-  <KButton appearance="secondary" class="icon-button">
+  <KButton appearance="secondary" icon>
     <CogIcon />
   </KButton>
 </KDropdown>

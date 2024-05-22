@@ -247,7 +247,7 @@ When `badge` is `true`, use this prop to control whether the copyable text has `
 
 KCopy exposes `copy` method that can be used to trigger copy from outside the component. Here is an example of KCopy inside of KButton, clicking on which will trigger KCopy to copy the text.
 
-<KButton class="icon-button" @click="onButtonClick">
+<KButton icon @click="onButtonClick">
   <KCopy format="hidden" ref="kCopyElement" :text="text" />
 </KButton>
 

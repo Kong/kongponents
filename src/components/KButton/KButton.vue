@@ -2,31 +2,23 @@
   <component
     :is="buttonType"
     class="k-button"
-    :class="[size, appearance, { 'icon-button': !slots.default && slots.icon /** TODO: [beta] change this to be controlled by icon prop and clean up occurrences of 'icon-button' class */ }]"
+    :class="[size, appearance, { 'icon-button': icon === true || (!$slots.default && $slots.icon /* TODO: remove this once we remove icon slot */) }]"
     :disabled="disabled ? disabled : undefined"
     :type="type"
     v-bind="strippedAttrs"
   >
-    <!-- TODO: [beta] remove this slot -->
-    <slot name="icon">
-      <KIcon
-        v-if="icon"
-        class="k-button-icon"
-        :color="kIconColor"
-        :icon="icon"
-      />
-    </slot>
+    <!-- @deprecated -->
+    <!-- KButton: `icon` slot will be removed in the next major release -->
+    <slot name="icon" />
     <slot />
   </component>
 </template>
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed, useAttrs, useSlots } from 'vue'
+import { computed, onMounted, useAttrs, useSlots } from 'vue'
 import { ButtonAppearances, ButtonSizes } from '@/types'
 import type { ButtonAppearance, ButtonSize } from '@/types'
-import KIcon from '@/components/KIcon/KIcon.vue'
-import { KUI_COLOR_TEXT_PRIMARY, KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_DISABLED } from '@kong/design-tokens'
 
 const props = defineProps({
   /**
@@ -66,14 +58,14 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  // TODO: [beta] turn this into boolean to control icon-only buttons
-  // TODO: [beta] also add a validator to ensure it's a boolean
   icon: {
-    type: String,
-    default: '',
-    validator: (value: string): boolean => {
-      if (value) {
-        console.warn('KButton: `icon` prop will be changed to a boolean in the 9.0.0-beta.0 release. Please use the `default` slot instead. See KButton docs for more details: https://alpha--kongponents.netlify.app/components/button.html#default')
+    type: Boolean,
+    default: false,
+    validator: (value: string | boolean): boolean => {
+      if (typeof value === 'string') {
+        console.warn('KButton: `icon` prop usage has changed. Please refer to the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kbutton')
+
+        return false
       }
 
       return true
@@ -118,24 +110,11 @@ const strippedAttrs = computed((): typeof attrs => {
   return modifiedAttrs
 })
 
-// TODO: [beta] remove this once once we remove the icon prop
-const kIconColor = computed((): string => {
-  if (props.disabled || strippedAttrs.value.disabled) {
-    return KUI_COLOR_TEXT_DISABLED
+onMounted(() => {
+  if (slots.icon) {
+    console.warn('KButton: `icon` slot is deprecated. Please slot an icon into the `default` slot instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kbutton')
   }
-
-  if (props.appearance === 'secondary' || props.appearance === 'tertiary') {
-    return KUI_COLOR_TEXT_PRIMARY
-  }
-
-  return KUI_COLOR_TEXT_INVERSE
 })
-
-// onMounted(() => {
-//   if (slots.icon) {
-//     console.warn('KButton: `icon` slot is deprecated. Please slot an icon into the `default` slot instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/components/button.html#icon-1')
-//   }
-// })
 </script>
 
 <script lang="ts">
@@ -180,17 +159,10 @@ export default {
     padding: var(--kui-space-20, $kui-space-20);
   }
 
-  // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
   // enforce icon size exported by @kong/icons because it's defined by the design system
-  :deep(#{$kongponentsKongIconSelector}), :deep(.kong-icon) {
+  :deep(#{$kongponentsKongIconSelector}) {
     height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
     width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
-
-    // TODO: [beta] remove this once once we remove the icon prop & slot
-    svg {
-      height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
-      width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
-    }
   }
 }
 
@@ -330,17 +302,10 @@ export default {
       padding: var(--kui-space-30, $kui-space-30);
     }
 
-    // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
     // enforce icon size exported by @kong/icons because it's defined by the design system
-    :deep(#{$kongponentsKongIconSelector}), :deep(.kong-icon) {
+    :deep(#{$kongponentsKongIconSelector}) {
       height: var(--kui-icon-size-50, $kui-icon-size-50) !important;
       width: var(--kui-icon-size-50, $kui-icon-size-50) !important;
-
-      // TODO: [beta] remove this once once we remove the icon prop & slot
-      svg {
-        height: var(--kui-icon-size-50, $kui-icon-size-50) !important;
-        width: var(--kui-icon-size-50, $kui-icon-size-50) !important;
-      }
     }
   }
 
@@ -360,17 +325,10 @@ export default {
       padding: var(--kui-space-10, $kui-space-10);
     }
 
-    // TODO: [beta] remove :deep(.kong-icon) once once we remove the icon prop & slot
     // enforce icon size exported by @kong/icons because it's defined by the design system
-    :deep(#{$kongponentsKongIconSelector}), :deep(.kong-icon) {
+    :deep(#{$kongponentsKongIconSelector}) {
       height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
       width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
-
-      // TODO: [beta] remove this once once we remove the icon prop & slot
-      svg {
-        height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
-        width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
-      }
     }
   }
 }
