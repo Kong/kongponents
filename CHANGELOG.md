@@ -1,3 +1,10 @@
+# [9.0.0-alpha.159](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.158...v9.0.0-alpha.159) (2024-05-22)
+
+
+### Bug Fixes
+
+* **kinput:** update classes ([#2182](https://github.com/Kong/kongponents/issues/2182)) ([58e97e6](https://github.com/Kong/kongponents/commit/58e97e6d8d903d0e52bafdbc7be12b2febd13438))
+
 # [9.0.0-alpha.158](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.157...v9.0.0-alpha.158) (2024-05-21)
 
 
