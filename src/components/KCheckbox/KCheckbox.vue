@@ -192,7 +192,7 @@ export default {
     position: relative;
 
     &.has-label {
-      margin-top: 4px; // align with label
+      margin-top: 3px; // align with label
     }
   }
 
