@@ -1,3 +1,10 @@
+# [9.0.0-alpha.161](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.160...v9.0.0-alpha.161) (2024-05-28)
+
+
+### Bug Fixes
+
+* **kradio, kcheckbox:** fix label alignment ([#2195](https://github.com/Kong/kongponents/issues/2195)) ([cad802e](https://github.com/Kong/kongponents/commit/cad802efd7431a372230351f77b6e85f236c2cfc))
+
 # [9.0.0-alpha.160](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.159...v9.0.0-alpha.160) (2024-05-27)
 
 
