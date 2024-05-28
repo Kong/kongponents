@@ -236,7 +236,7 @@ $kRadioDotSize: 6px;
 
     // Since the mixin is used in both KRadio and KCheckbox it doesn't have rules for some component-specific properties so we need to set them here
     border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
-    margin-top: 4px; // align with label
+    margin-top: 3px; // align with label
     position: relative;
 
     &:hover {
