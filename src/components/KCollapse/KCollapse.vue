@@ -71,7 +71,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, ref, useAttrs, useSlots, watch } from 'vue'
+import { computed, ref, useSlots, watch } from 'vue'
 import type { TriggerAlignment, HeaderTag } from '@/types'
 import { TriggerAlignmentArray, HeaderTags } from '@/types'
 import { ChevronRightIcon } from '@kong/icons'
@@ -113,9 +113,7 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void;
 }>()
 
-const attrs = useAttrs()
-
-const contentId = attrs['content-id'] ? String(attrs['content-id']) : uuidv4()
+const contentId = uuidv4()
 
 const isCollapsed = ref<boolean>(true)
 const modelValueChanged = ref<boolean>(false)
