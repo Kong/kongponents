@@ -62,13 +62,17 @@ const props = defineProps({
       return true
     },
   },
+  useId: {
+    type: Function as PropType<() => string>,
+    default: () => uuidv4(),
+  },
 })
 
 const slots = useSlots()
 
 const hasTooltip = computed((): boolean => !!(props.help || props.info || slots.tooltip))
 
-const tooltipId = uuidv4()
+const tooltipId = props.useId()
 </script>
 
 <style lang="scss" scoped>
