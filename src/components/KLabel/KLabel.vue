@@ -73,6 +73,7 @@ const slots = useSlots()
 const hasTooltip = computed((): boolean => !!(props.help || props.info || slots.tooltip))
 
 const tooltipId = props.useId()
+console.log(tooltipId)
 </script>
 
 <style lang="scss" scoped>
