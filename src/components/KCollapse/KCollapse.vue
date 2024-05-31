@@ -115,7 +115,7 @@ const emit = defineEmits<{
 
 const attrs = useAttrs()
 
-const contentId = attrs['content-id'] || uuidv4()
+const contentId = attrs['content-id'] ? String(attrs['content-id']) : uuidv4()
 
 const isCollapsed = ref<boolean>(true)
 const modelValueChanged = ref<boolean>(false)
