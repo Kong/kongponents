@@ -396,7 +396,7 @@ const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
 
 const totalLines = computed((): number[] => Array.from({ length: props.code?.split('\n').length }, (_, index) => index + 1))
-const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value.length - 1].toString().length + 'ch')
+const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value.length - 1]?.toString().length + 'ch')
 const linePrefix = computed((): string => props.id.toLowerCase().replace(/\s+/g, '-'))
 const isProcessing = computed((): boolean => props.processing || isProcessingInternally.value)
 const isShowingFilteredCode = computed((): boolean => isFilterMode.value && filteredCode.value !== '')
