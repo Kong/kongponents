@@ -198,8 +198,8 @@ const charLimitExceededErrorMessage = computed((): string => {
   }
 
   return modelValueChanged.value
-    ? `${currValue.value.toString().length} / ${props.characterLimit}`
-    : `${props.modelValue.toString().length} / ${props.characterLimit}`
+    ? `${currValue.value?.toString().length} / ${props.characterLimit}`
+    : `${props.modelValue?.toString().length} / ${props.characterLimit}`
 })
 
 const helpText = computed((): string => {
