@@ -1,3 +1,10 @@
+# [9.0.0-alpha.162](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.161...v9.0.0-alpha.162) (2024-06-03)
+
+
+### Bug Fixes
+
+* add question marks before tostring [KHCP-12065] ([#2200](https://github.com/Kong/kongponents/issues/2200)) ([bd6cee7](https://github.com/Kong/kongponents/commit/bd6cee776c38365acc79a00ff3b4937a4a984c6d))
+
 # [9.0.0-alpha.161](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.160...v9.0.0-alpha.161) (2024-05-28)
 
 
