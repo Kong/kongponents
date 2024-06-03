@@ -200,7 +200,7 @@ const helpText = computed((): string => {
 
   // if character limit exceeded, return that error message
   if (charLimitExceeded.value) {
-    return `${currValue.value.toString().length} / ${characterLimit}`
+    return `${currValue.value?.toString().length} / ${characterLimit}`
   }
 
   // otherwise return the help text
