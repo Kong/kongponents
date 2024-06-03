@@ -5,19 +5,18 @@ export const PopTriggerArray = ['click', 'hover'] as const
 export type PopTrigger = AnyElementOf<typeof PopTriggerArray>
 
 export const PopPlacementsArray = [
-  'auto',
   'top',
-  'topStart',
-  'topEnd',
+  'top-start',
+  'top-end',
   'left',
-  'leftStart',
-  'leftEnd',
+  'left-start',
+  'left-end',
   'right',
-  'rightStart',
-  'rightEnd',
+  'right-start',
+  'right-end',
   'bottom',
-  'bottomStart',
-  'bottomEnd',
+  'bottom-start',
+  'bottom-end',
 ] as const
 
 export type PopPlacements = AnyElementOf<typeof PopPlacementsArray>

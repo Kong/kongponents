@@ -1,41 +1,42 @@
 <template>
   <component
     :is="tag"
-    :id="targetId"
-    ref="root"
-    :aria-controls="$slots.default ? popoverId : undefined"
-    :aria-expanded="$slots.default ? (!!isOpen || undefined) : undefined"
-    :role="$slots.default ? 'button' : null"
-    @keyup.enter.stop.prevent="showPopper"
-    @keyup.esc="hidePopper"
+    ref="kPopoverElement"
+    class="k-popover"
   >
-    <slot>
-      <KButton
-        :aria-controls="popoverId || undefined"
-        :aria-expanded="!!isOpen || undefined"
-        data-testid="popover-button"
-      >
-        {{ buttonText }}
-      </KButton>
-    </slot>
+    <div
+      ref="triggerWrapperElement"
+      class="popover-trigger-wrapper"
+    >
+      <slot>
+        <KButton
+          :aria-controls="popoverId || undefined"
+          data-testid="popover-button"
+        >
+          {{ buttonText }}
+        </KButton>
+      </slot>
+    </div>
+
     <Transition name="kongponents-fade-transition">
       <div
-        v-show="isOpen"
+        v-show="isVisible"
         :id="popoverId"
-        ref="popper"
+        ref="popoverElement"
         :aria-labelledby="$slots.title || title ? titleId : undefined"
-        class="k-popover"
-        :class="popoverClassObj"
+        class="popover"
+        :class="popoverClassesObj"
         role="dialog"
         :style="popoverStyle"
+        :x-placement="placement"
       >
-        <!-- click on close button is handled by handleClick method -->
         <button
           v-if="!hideCloseIcon"
           ref="popoverCloseButton"
           class="popover-close-button"
-          :tabindex="isOpen ? 0 : -1"
+          :tabindex="isVisible ? 0 : -1"
           type="button"
+          @click="hidePopover"
         >
           <CloseIcon
             class="popover-close-icon"
@@ -74,358 +75,231 @@
   </component>
 </template>
 
-<script lang="ts">
-// TODO: Popper.js needs to be updated/replaced. For now, leave as-is without Composition API implementation
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+<script setup lang="ts">
+import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
 import type { PropType } from 'vue'
-import { defineComponent } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
-import Popper from 'popper.js'
-import useUtilities from '@/composables/useUtilities'
-import KButton from '@/components/KButton/KButton.vue'
+import { computePosition, offset } from '@floating-ui/dom'
 import type { PopPlacements, PopTrigger } from '@/types'
 import { PopPlacementsArray, PopTriggerArray } from '@/types'
+import { v4 as uuid4 } from 'uuid'
+import useUtilities from '@/composables/useUtilities'
 import { CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import type { Placement } from '@floating-ui/dom'
+
+const props = defineProps({
+  buttonText: {
+    type: String,
+    default: '',
+  },
+  title: {
+    type: String,
+    default: '',
+  },
+  placement: {
+    type: String as PropType<PopPlacements>,
+    validator: (value: PopPlacements): boolean => PopPlacementsArray.includes(value),
+    default: 'bottom',
+  },
+  trigger: {
+    type: String as PropType<PopTrigger>,
+    default: 'click',
+    validator: (value: PopTrigger): boolean => PopTriggerArray.includes(value),
+  },
+  popoverTimeout: {
+    type: Number,
+    default: 300,
+  },
+  hideCloseIcon: {
+    type: Boolean,
+    default: false,
+  },
+  hideCaret: {
+    type: Boolean,
+    default: false,
+  },
+  closeOnPopoverClick: {
+    type: Boolean,
+    default: false,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  width: {
+    type: String,
+    default: '200',
+  },
+  maxWidth: {
+    type: String,
+    default: 'auto',
+  },
+  maxHeight: {
+    type: String,
+    default: 'auto',
+  },
+  popoverClasses: {
+    type: String,
+    default: '',
+  },
+  tag: {
+    type: String,
+    default: 'div',
+  },
+  zIndex: {
+    type: Number,
+    default: 1000,
+  },
+})
+
+const emit = defineEmits(['open', 'close', 'popover-click'])
 
 const { getSizeFromString } = useUtilities()
 
-export default defineComponent({
-  name: 'KPop',
-  components: { KButton, CloseIcon },
-  expose: ['updatePopper'],
-  props: {
-    /**
-     * The target element to append the popper to
-     */
-    target: {
-      type: String,
-      default: '',
-    },
-    /**
-     * The tag to wrap the popover around
-     */
-    tag: {
-      type: String,
-      default: 'div',
-    },
-    /**
-     * If not using the default slot, the text on the button
-     * that triggers the popover
-     */
-    buttonText: {
-      type: String,
-      default: '',
-    },
-    /**
-     * The title of the Popover header
-     */
-    title: {
-      type: String,
-      default: '',
-    },
-    /**
-     * The position of the popover
-     * 'top' | 'bottom' | 'left' | 'right'
-     */
-    placement: {
-      type: String as PropType<PopPlacements>,
-      validator: (value: PopPlacements): boolean => PopPlacementsArray.includes(value),
-      default: 'auto',
-    },
-    /**
-     * How the Popover will trigger
-     * 'click' | 'hover'
-     */
-    trigger: {
-      type: String as PropType<PopTrigger>,
-      default: 'click',
-      validator: (value: PopTrigger): boolean => PopTriggerArray.includes(value),
-    },
-    /**
-     * The width of the Popover body
-     */
-    width: {
-      type: String,
-      default: '200',
-    },
-    /**
-     * Set the max-width of the popover
-     */
-    maxWidth: {
-      type: String,
-      default: 'auto',
-    },
-    /**
-     * The maxHeight of the Popover body - undocumented and only used within KSelect
-     */
-    maxHeight: {
-      type: String,
-      default: 'auto',
-    },
-    /**
-     * Custom classes that will be applied to the popover
-     */
-    popoverClasses: {
-      type: String,
-      default: '',
-    },
-    /**
-    * Custom popover timeout setting
-     */
-    popoverTimeout: {
-      type: Number,
-      default: 300,
-    },
-    /**
-     * An optional flag passed in to trigger the Popover to hide - useful for external events like zooming or panning
-     */
-    hidePopover: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * A flag for disabling the popover
-     */
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * A flag to hide the triangle pointing to the trigger element
-     */
-    hideCaret: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Whether popover should be closed when popover content is clicked
-     */
-    closeOnPopoverClick: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
-     */
-    positionFixed: {
-      type: Boolean,
-      default: true,
-    },
-    /**
-     * z-index - to control z-index value of the popover
-     */
-    zIndex: {
-      type: Number,
-      default: 1000,
-    },
-    hideCloseIcon: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ['open', 'close', 'popover-click'],
-  data() {
-    return {
-      popper: null,
-      reference: null,
-      isOpen: false,
-      popoverId: uuidv4(),
-      targetId: uuidv4(),
-      titleId: uuidv4(),
-      KUI_ICON_SIZE_30,
-    }
-  },
-  computed: {
-    popoverStyle: function() {
-      return {
-        width: getSizeFromString(this.width),
-        maxWidth: getSizeFromString(this.maxWidth),
-        maxHeight: getSizeFromString(this.maxHeight),
-      }
-    },
-    popoverClassObj: function() {
-      return [this.popoverClasses, { 'hide-caret': this.hideCaret }]
-    },
-  },
-  watch: {
-    hidePopover: function() {
-      // whenever this prop gets updated, hide the popper
-      if (this.isOpen) {
-        this.hidePopper()
-      }
-    },
-    disabled: {
-      handler() {
-        if (this.isOpen) {
-          this.hidePopper()
-        }
-      },
-      immediate: true,
-    },
-  },
-  mounted() {
-    if (!this.$el.children) {
-      this.reference = this.$el
+const popoverId = uuid4()
+const titleId = uuid4()
+const kPopoverElement = ref<HTMLElement | null>(null)
+const triggerWrapperElement = ref<HTMLElement | null>(null)
+const popoverElement = ref<HTMLElement | null>(null)
+const isVisible = ref<boolean>(false)
+
+const popoverTrigger = computed((): HTMLElement | null => triggerWrapperElement.value && triggerWrapperElement.value?.children[0] ? triggerWrapperElement.value?.children[0] as HTMLElement : null)
+
+const timer = ref<number | null>(null)
+
+const togglePopover = () => {
+  if (!props.disabled) {
+    if (!isVisible.value) {
+      isVisible.value = true
     } else {
-      this.reference = this.$el.children[0]
+      hidePopover()
     }
-    this.bindEvents()
-  },
-  beforeUnmount() {
-    const popper = this.$refs.popper
+  }
+}
 
-    if (document) {
-      document.documentElement.removeEventListener('click', this.handleClick)
+const showPopover = () => {
+  if (timer.value) {
+    clearTimeout(timer.value)
+  }
+
+  isVisible.value = true
+}
+
+const hidePopover = () => {
+  timer.value = setTimeout(() => {
+    isVisible.value = false
+  }, props.trigger === 'hover' ? props.popoverTimeout : 0)
+}
+
+const onPopoverClick = () => {
+  if (props.closeOnPopoverClick) {
+    hidePopover()
+  }
+
+  emit('popover-click')
+}
+
+const clickHandler = (event: Event) => {
+  const target = event.target as HTMLElement
+
+  if (!kPopoverElement.value?.contains(target)) {
+    hidePopover()
+  }
+}
+
+const updatePosition = () => {
+  if (popoverTrigger.value && popoverElement.value) {
+    computePosition(popoverTrigger.value, popoverElement.value, {
+      placement: props.placement as Placement,
+      middleware: [
+        // only need the offset for top and left placements
+        ...(props.placement.includes('top') || props.placement.includes('left') ? [offset(10)] : []),
+      ],
+    }).then(({ x, y }) => {
+      if (popoverElement.value) {
+        Object.assign(popoverElement.value.style, {
+          left: `${x}px`,
+          top: `${y}px`,
+          position: 'fixed',
+        })
+      }
+    })
+  }
+}
+
+const popoverStyle = computed(() => {
+  return {
+    width: getSizeFromString(props.width),
+    maxWidth: getSizeFromString(props.maxWidth),
+    maxHeight: getSizeFromString(props.maxHeight),
+  }
+})
+
+const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': props.hideCaret }])
+
+onMounted(() => {
+  if (document) {
+    document.addEventListener('click', clickHandler)
+
+    if (popoverTrigger.value) {
+      if (props.trigger === 'hover') {
+        popoverTrigger.value.addEventListener('mouseenter', showPopover)
+        popoverTrigger.value.addEventListener('mouseleave', hidePopover)
+      } else {
+        popoverTrigger.value.addEventListener('click', togglePopover)
+      }
     }
 
-    if (popper) {
-      popper.removeEventListener('click', this.onPopperContentClick)
-      popper.removeEventListener('mouseenter', this.showPopper)
-      popper.removeEventListener('focusin', this.showPopper)
-      popper.removeEventListener('mouseleave', this.hidePopper)
-      popper.removeEventListener('focusout', this.hidePopper)
+    if (popoverElement.value) {
+      popoverElement.value.addEventListener('click', onPopoverClick)
+
+      if (props.trigger === 'hover') {
+        popoverElement.value.addEventListener('mouseenter', showPopover)
+        popoverElement.value.addEventListener('mouseleave', hidePopover)
+      }
+    }
+  }
+})
+
+onBeforeUnmount(() => {
+  if (document) {
+    document.removeEventListener('click', clickHandler)
+
+    if (popoverTrigger.value) {
+      if (props.trigger === 'hover') {
+        popoverTrigger.value.removeEventListener('mouseenter', showPopover)
+        popoverTrigger.value.removeEventListener('mouseleave', hidePopover)
+      } else {
+        popoverTrigger.value.removeEventListener('click', togglePopover)
+      }
     }
 
-    if (this.reference) {
-      this.reference.removeEventListener('mouseenter', this.createInstance)
-      this.reference.removeEventListener('mouseleave', this.toggle)
-      this.reference.removeEventListener('focus', this.createInstance)
-      this.reference.removeEventListener('blur', this.toggle)
+    if (popoverElement.value) {
+      popoverElement.value.removeEventListener('click', onPopoverClick)
+
+      if (props.trigger === 'hover') {
+        popoverElement.value.removeEventListener('mouseenter', showPopover)
+        popoverElement.value.removeEventListener('mouseleave', hidePopover)
+      }
     }
+  }
 
-    this.destroy()
-  },
-  methods: {
-    hidePopper() {
-      if (this.trigger !== 'hover') {
-        this.isOpen = false
-      }
+  if (popoverElement.value) {
+    popoverElement.value.remove()
+  }
+})
 
-      this.timer = setTimeout(() => {
-        this.$emit('close')
-        this.destroy()
-      }, this.popoverTimeout)
-    },
-    showPopper() {
-      if (this.disabled) return
-      if (this.timer) clearTimeout(this.timer)
-      if (this.popperTimer) clearTimeout(this.popperTimer)
-      if (!this.isOpen) {
-        this.isOpen = true
-        this.$emit('open')
-      }
-    },
-    onPopperContentClick(e) {
-      if (e.target !== this.$refs.popoverCloseButton) {
-        this.$emit('popover-click')
-      }
-    },
-    updatePopper() {
-      if (this.popper && typeof this.popper.update === 'function') {
-        this.popper.update()
-      }
-    },
-    async createInstance() {
-      // destroy any previous poppers before creating new one
-      this.destroy()
-      this.showPopper()
-      const placement = (this.placement || 'auto').replace(/[A-Z]/g, '-$&').toLowerCase()
-      const popperEl = this.$refs.popper
-      let theTarget = null
-      if (document) {
-        theTarget = (this.target && !!document.querySelector(this.target))
-          ? document.querySelector(this.target)
-          : document.getElementById(this.targetId)
-      }
+watch(isVisible, async (val) => {
+  if (val) {
+    updatePosition()
+    emit('open')
+  } else {
+    emit('close')
+  }
+})
 
-      if (theTarget) {
-        theTarget.appendChild(popperEl)
-        // Hide overflow to prevent page jump
-        theTarget.style.overflow = 'auto'
-      }
-
-      await this.$nextTick()
-      this.popper = new Popper(this.reference, popperEl, {
-        placement,
-        // Use positionFixed to avoid popover content being cut off by parent boundaries
-        positionFixed: this.positionFixed,
-        modifiers: {
-          // Ensures element does not ovflow outside of boundary
-          preventOverflow: {
-            enabled: true,
-            boundariesElement: 'viewport',
-          },
-        },
-      })
-      await this.$nextTick()
-      if (theTarget) {
-        // Remove overflow attribute now that rendering is complete
-        theTarget.style.removeProperty('overflow')
-      }
-      this.updatePopper()
-    },
-    handleClick(e) {
-      const hidePopperAndStopPropagation = () => {
-        // Stop event propagation only when the click event is about to hide popper
-        e.stopPropagation()
-        this.hidePopper()
-      }
-
-      if (e.target === this.$refs.popoverCloseButton) {
-        hidePopperAndStopPropagation()
-      }
-
-      if (this.reference && this.reference.contains(e.target) && (this.$refs.popper && !this.$refs.popper.contains(e.target))) {
-        // If the click is on or within the trigger element and not on the popover element
-        if (this.isOpen) {
-          hidePopperAndStopPropagation()
-        } else {
-          this.createInstance()
-        }
-      } else if (this.$refs.popper && this.$refs.popper.contains(e.target)) {
-        // If the click is on or within the popover element
-        if (this.closeOnPopoverClick) {
-          hidePopperAndStopPropagation()
-        }
-      } else if (this.isOpen) {
-        // Click outside
-        hidePopperAndStopPropagation()
-      }
-    },
-    bindEvents() {
-      const popper = this.$refs.popper
-      if (popper) {
-        if (this.trigger === 'hover') {
-          this.reference.addEventListener('mouseenter', this.createInstance)
-          this.reference.addEventListener('focus', this.createInstance)
-          this.reference.addEventListener('mouseleave', this.hidePopper)
-          this.reference.addEventListener('blur', this.hidePopper)
-          popper.addEventListener('mouseenter', this.showPopper)
-          // this is important event listener that allows to keyboard navigate through the popover without closing it
-          popper.addEventListener('focusin', this.showPopper)
-          popper.addEventListener('mouseleave', this.hidePopper)
-          // has to come in pair with focusin
-          popper.addEventListener('focusout', this.hidePopper)
-        }
-
-        popper.addEventListener('click', this.onPopperContentClick)
-      }
-
-      if (document) {
-        document.documentElement.addEventListener('click', this.handleClick)
-      }
-    },
-    destroy() {
-      if (this.popper) {
-        this.isOpen = false
-        this.popper.disableEventListeners()
-        this.popper = null
-      }
-    },
-  },
+defineExpose({
+  hidePopover,
 })
 </script>
 
@@ -437,6 +311,15 @@ $kPopCaretShadowElementSize: 11px;
 $kPopCaretOffset: 16px;
 
 /* Component mixins */
+
+@mixin popoverInitialStyles {
+  // needs to be set for positioning to work smoothly
+  // https://floating-ui.com/docs/computePosition#initial-layout
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: max-content;
+}
 
 @mixin kPopCaret {
   &:after, &:before {
@@ -461,195 +344,203 @@ $kPopCaretOffset: 16px;
 
 /* Component styles */
 
-.k-popover, :deep(.k-popover) {
-  background-color: var(--kui-color-background, $kui-color-background);
-  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-  border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-  box-shadow: var(--kui-shadow, $kui-shadow);
-  display: flex;
-  flex-direction: column;
-  font-family: var(--kui-font-family-text, $kui-font-family-text);
-  gap: var(--kui-space-40, $kui-space-40);
-  max-width: none;
-  padding: var(--kui-space-60, $kui-space-60);
-  position: relative;
-  text-align: left;
-  white-space: normal;
-  z-index: v-bind('zIndex');
-
-  .popover-close-button {
-    @include defaultButtonReset;
-
-    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-    margin: var(--kui-space-60, $kui-space-60) var(--kui-space-60, $kui-space-60) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
-    outline: none;
-    position: absolute;
-    right: 0;
-    top: 0;
-
-    &:hover, &:focus {
-      color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
-    }
-
-    &:focus-visible {
-      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
-    }
-
-    .popover-close-icon {
-      pointer-events: none;
-    }
+.k-popover {
+  .popover-trigger-wrapper {
+    display: inline-block;
   }
 
-  .popover-header {
-    align-items: baseline;
-    display: flex;
+  .popover {
+    @include popoverInitialStyles;
 
-    .popover-title {
-      color: var(--kui-color-text, $kui-color-text);
-      font-size: var(--kui-font-size-40, $kui-font-size-40);
-      font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
-      line-height: var(--kui-line-height-30, $kui-line-height-30);
+    background-color: var(--kui-color-background, $kui-color-background);
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    box-shadow: var(--kui-shadow, $kui-shadow);
+    display: flex;
+    flex-direction: column;
+    font-family: var(--kui-font-family-text, $kui-font-family-text);
+    gap: var(--kui-space-40, $kui-space-40);
+    max-width: none;
+    padding: var(--kui-space-60, $kui-space-60);
+    position: relative;
+    text-align: left;
+    white-space: normal;
+    z-index: v-bind('zIndex');
+
+    .popover-close-button {
+      @include defaultButtonReset;
+
+      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      margin: var(--kui-space-60, $kui-space-60) var(--kui-space-60, $kui-space-60) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
+      outline: none;
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      &:hover, &:focus {
+        color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
+      }
+
+      &:focus-visible {
+        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+      }
+
+      .popover-close-icon {
+        pointer-events: none;
+      }
+    }
+
+    .popover-header {
+      align-items: baseline;
+      display: flex;
+
+      .popover-title {
+        color: var(--kui-color-text, $kui-color-text);
+        font-size: var(--kui-font-size-40, $kui-font-size-40);
+        font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+        line-height: var(--kui-line-height-30, $kui-line-height-30);
+
+        &.close-icon-spacing {
+          margin-right: var(--kui-space-60, $kui-space-60);
+        }
+      }
+    }
+
+    .popover-content {
+      color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+      font-size: var(--kui-font-size-20, $kui-font-size-20);
+      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+      line-height: var(--kui-line-height-20, $kui-line-height-20);
 
       &.close-icon-spacing {
         margin-right: var(--kui-space-60, $kui-space-60);
       }
     }
-  }
 
-  .popover-content {
-    color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-    font-size: var(--kui-font-size-20, $kui-font-size-20);
-    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-    line-height: var(--kui-line-height-20, $kui-line-height-20);
+    .popover-footer {
+      align-items: center;
+      display: flex;
+      gap: var(--kui-space-40, $kui-space-40);
+    }
 
-    &.close-icon-spacing {
+    // placement and caret styles
+
+    &[x-placement^="bottom"] {
+      margin-top: var(--kui-space-50, $kui-space-50);
+
+      @include kPopCaret;
+
+      &:after, &:before {
+        bottom: 100%;
+        left: 50%;
+      }
+
+      &:after {
+        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+        border-bottom-color: var(--kui-color-background, $kui-color-background);
+      }
+
+      &:before {
+        border-bottom-color: var(--kui-color-border, $kui-color-border);
+      }
+    }
+
+    &[x-placement^="top"] {
+      margin-bottom: var(--kui-space-60, $kui-space-60);
+
+      @include kPopCaret;
+
+      &:after, &:before {
+        left: 50%;
+        top: 100%;
+      }
+
+      &:after {
+        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+        border-top-color: var(--kui-color-background, $kui-color-background);
+      }
+
+      &:before {
+        border-top-color: var(--kui-color-border, $kui-color-border);
+      }
+    }
+
+    &[x-placement^="left"] {
       margin-right: var(--kui-space-60, $kui-space-60);
-    }
-  }
 
-  .popover-footer {
-    align-items: center;
-    display: flex;
-    gap: var(--kui-space-40, $kui-space-40);
-  }
+      @include kPopCaret;
 
-  // placement and caret styles
+      &:after, &:before {
+        left: 100%;
+        top: 50%;
+        transform: translate(50%, -50%);
+      }
 
-  &[x-placement^="bottom"] {
-    margin-top: var(--kui-space-50, $kui-space-50);
+      &:after {
+        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+        border-left-color: var(--kui-color-background, $kui-color-background);
+      }
 
-    @include kPopCaret;
-
-    &:after, &:before {
-      bottom: 100%;
-      left: 50%;
+      &:before {
+        border-left-color: var(--kui-color-border, $kui-color-border);
+      }
     }
 
-    &:after {
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      border-bottom-color: var(--kui-color-background, $kui-color-background);
+    &[x-placement^="right"] {
+      margin-left: var(--kui-space-60, $kui-space-60);
+
+      @include kPopCaret;
+
+      &:after, &:before {
+        right: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      &:after {
+        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+        border-right-color: var(--kui-color-background, $kui-color-background);
+      }
+
+      &:before {
+        border-right-color: var(--kui-color-border, $kui-color-border);
+      }
     }
 
-    &:before {
-      border-bottom-color: var(--kui-color-border, $kui-color-border);
-    }
-  }
-
-  &[x-placement^="top"] {
-    margin-bottom: var(--kui-space-60, $kui-space-60);
-
-    @include kPopCaret;
-
-    &:after, &:before {
-      left: 50%;
-      top: 100%;
+    &[x-placement^="top-start"],
+    &[x-placement^="bottom-start"] {
+      &:after, &:before {
+        left: $kPopCaretOffset;
+      }
     }
 
-    &:after {
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      border-top-color: var(--kui-color-background, $kui-color-background);
+    &[x-placement^="top-end"],
+    &[x-placement^="bottom-end"] {
+      &:after, &:before {
+        left: calc(100% - $kPopCaretOffset);
+      }
     }
 
-    &:before {
-      border-top-color: var(--kui-color-border, $kui-color-border);
-    }
-  }
-
-  &[x-placement^="left"] {
-    margin-right: var(--kui-space-60, $kui-space-60);
-
-    @include kPopCaret;
-
-    &:after, &:before {
-      left: 100%;
-      top: 50%;
-      transform: translate(50%, -50%);
+    &[x-placement^="right-start"],
+    &[x-placement^="left-start"] {
+      &:after, &:before {
+        top: $kPopCaretOffset;
+      }
     }
 
-    &:after {
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      border-left-color: var(--kui-color-background, $kui-color-background);
+    &[x-placement^="right-end"],
+    &[x-placement^="left-end"] {
+      &:after, &:before {
+        top: calc(100% - $kPopCaretOffset);
+      }
     }
 
-    &:before {
-      border-left-color: var(--kui-color-border, $kui-color-border);
-    }
-  }
-
-  &[x-placement^="right"] {
-    margin-left: var(--kui-space-60, $kui-space-60);
-
-    @include kPopCaret;
-
-    &:after, &:before {
-      right: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    &:after {
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      border-right-color: var(--kui-color-background, $kui-color-background);
-    }
-
-    &:before {
-      border-right-color: var(--kui-color-border, $kui-color-border);
-    }
-  }
-
-  &[x-placement^="top-start"],
-  &[x-placement^="bottom-start"] {
-    &:after, &:before {
-      left: $kPopCaretOffset;
-    }
-  }
-
-  &[x-placement^="top-end"],
-  &[x-placement^="bottom-end"] {
-    &:after, &:before {
-      left: calc(100% - $kPopCaretOffset);
-    }
-  }
-
-  &[x-placement^="right-start"],
-  &[x-placement^="left-start"] {
-    &:after, &:before {
-      top: $kPopCaretOffset;
-    }
-  }
-
-  &[x-placement^="right-end"],
-  &[x-placement^="left-end"] {
-    &:after, &:before {
-      top: calc(100% - $kPopCaretOffset);
-    }
-  }
-
-  &.hide-caret {
-    &:after,
-    &:before {
-      display: none;
+    &.hide-caret {
+      &:after,
+      &:before {
+        display: none;
+      }
     }
   }
 }
