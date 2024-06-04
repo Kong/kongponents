@@ -44,10 +44,7 @@
         />
       </div>
 
-      <template
-        v-if="!state.popoverOpen"
-        #content
-      >
+      <template #content>
         <!-- Custom | Relative toggle -->
         <KSegmentedControl
           v-if="hasTimePeriods && hasCalendar"
@@ -111,10 +108,7 @@
         </div>
       </template>
 
-      <template
-        v-if="!state.popoverOpen"
-        #footer
-      >
+      <template #footer>
         <div class="datetime-picker-footer-container">
           <KButton
             v-if="clearButton"
