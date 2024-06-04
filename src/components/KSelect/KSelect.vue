@@ -368,7 +368,7 @@ const hasDropdownFooter = computed((): boolean => !!(slots['dropdown-footer-text
 const defaultKPopAttributes = {
   popoverClasses: `select-popover ${hasDropdownFooter.value ? `has-${props.dropdownFooterTextPosition}-dropdown-footer` : ''}`,
   popoverTimeout: 0,
-  placement: 'bottomStart' as PopPlacements,
+  placement: 'bottom-start' as PopPlacements,
   hideCaret: true,
 }
 

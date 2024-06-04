@@ -56,7 +56,7 @@ Here are the different options:
 
 <ul>
   <li
-    v-for="p in ['auto', 'top', 'topStart', 'topEnd', 'left', 'leftStart', 'leftEnd', 'right', 'rightStart', 'rightEnd', 'bottom', 'bottomStart', 'bottomEnd']"
+    v-for="p in PopPlacementsArray"
     :key="p">
     <code>{{ p }}</code>
   </li>
@@ -67,13 +67,13 @@ Here are the different options:
     <KButton>bottom</KButton>
   </KTooltip>
   <KTooltip placement="top-end" text="A tooltip that appears on the top.">
-    <KButton>topEnd</KButton>
+    <KButton>top-end</KButton>
   </KTooltip>
   <KTooltip placement="left" text="A tooltip that appears on the left.">
     <KButton>left</KButton>
   </KTooltip>
   <KTooltip placement="bottom-start" text="A tooltip that appears on the bottom.">
-    <KButton>bottomStart</KButton>
+    <KButton>bottom-start</KButton>
   </KTooltip>
 </div>
 
@@ -161,6 +161,7 @@ The content slot allows you to slot in any html content
 
 <script setup lang="ts">
 import { InfoIcon } from '@kong/icons'
+import { PopPlacementsArray } from '@/types'
 </script>
 
 <style lang="scss" scoped>

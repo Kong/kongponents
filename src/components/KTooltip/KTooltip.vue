@@ -6,7 +6,7 @@
     hide-close-icon
     :max-width="maxWidth"
     :placement="placement"
-    :popover-classes="`k-tooltip ${computedClass}`"
+    popover-classes="k-tooltip"
     :popover-timeout="100"
     :position-fixed="positionFixed"
     trigger="hover"
@@ -61,7 +61,7 @@ const props = defineProps({
   */
   placement: {
     type: String as PropType<PopPlacements>,
-    default: 'bottom',
+    default: 'top',
     validator: (value: PopPlacements):boolean => {
       return PopPlacementsArray.includes(value)
     },
@@ -103,74 +103,59 @@ const slots = useSlots()
 const showTooltip = computed((): boolean => !!props.text || !!props.label || !!slots.content)
 
 const randomTooltipId = uuidv4()
-
-const computedClass = computed((): string => {
-  let placementClass = ''
-  const placementDirections = ['top', 'right', 'bottom', 'left']
-
-  placementDirections.forEach((direction) => {
-    if (props.placement.toLocaleLowerCase().includes(direction)) {
-      if (placementClass) {
-        placementClass += ` tooltip-${direction}`
-      } else {
-        placementClass = `tooltip-${direction}`
-      }
-    }
-  })
-
-  return placementClass
-})
 </script>
 
 <style lang="scss" scoped>
-:deep(.k-tooltip.popover .popover-container) {
-  background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
-  border: none;
-  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-  padding: var(--kui-space-30, $kui-space-30);
-  z-index: v-bind('zIndex');
+:deep(.k-tooltip.popover) {
+  .popover-container {
+    background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
+    border: none;
+    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+    padding: var(--kui-space-30, $kui-space-30);
+    z-index: v-bind('zIndex');
 
-  .popover-content {
-    color: var(--kui-color-text-inverse, $kui-color-text-inverse);
-    font-family: var(--kui-font-family-text, $kui-font-family-text);
-    font-size: var(--kui-font-size-20, $kui-font-size-20);
-    font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
-    line-height: var(--kui-line-height-20, $kui-line-height-20);
-
-    code {
-      color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
-    }
-
-    a {
+    .popover-content {
       color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+      font-family: var(--kui-font-family-text, $kui-font-family-text);
+      font-size: var(--kui-font-size-20, $kui-font-size-20);
+      font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+      line-height: var(--kui-line-height-20, $kui-line-height-20);
 
-      &:hover {
-        color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker);
+      code {
+        color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
       }
 
-      &:focus-visible {
-        color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
-      }
+      a {
+        color: var(--kui-color-text-inverse, $kui-color-text-inverse);
 
-      &:active {
-        color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
+        &:hover {
+          color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker);
+        }
+
+        &:focus-visible {
+          color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
+        }
+
+        &:active {
+          color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
+        }
       }
     }
   }
 
-  &.tooltip-top {
+  &[x-placement^="top"] .popover-container {
     margin-bottom: var(--kui-space-20, $kui-space-20);
   }
 
-  &.tooltip-right {
+  &[x-placement^="right"] .popover-container {
     margin-left: var(--kui-space-20, $kui-space-20);
   }
 
-  &.tooltip-bottom {
+  &[x-placement^="bottom"] .popover-container {
     margin-top: var(--kui-space-20, $kui-space-20);
   }
 
-  &.tooltip-left {
+  &[x-placement^="left"] .popover-container {
     margin-right: var(--kui-space-20, $kui-space-20);
   }
 }

@@ -422,6 +422,47 @@ $kPopCaretOffset: 16px;
 
     // placement and caret styles
 
+    &[x-placement^="top"] .popover-container {
+      @include kPopCaret;
+
+      margin-bottom: var(--kui-space-60, $kui-space-60);
+
+      &:after, &:before {
+        left: 50%;
+        top: 100%;
+      }
+
+      &:after {
+        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+        border-top-color: var(--kui-color-background, $kui-color-background);
+      }
+
+      &:before {
+        border-top-color: var(--kui-color-border, $kui-color-border);
+      }
+    }
+
+    &[x-placement^="right"] .popover-container {
+      @include kPopCaret;
+
+      margin-left: var(--kui-space-60, $kui-space-60);
+
+      &:after, &:before {
+        right: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      &:after {
+        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+        border-right-color: var(--kui-color-background, $kui-color-background);
+      }
+
+      &:before {
+        border-right-color: var(--kui-color-border, $kui-color-border);
+      }
+    }
+
     &[x-placement^="bottom"] .popover-container {
       @include kPopCaret;
 
@@ -442,30 +483,10 @@ $kPopCaretOffset: 16px;
       }
     }
 
-    &[x-placement^="top"] .popover-container {
-      margin-bottom: var(--kui-space-60, $kui-space-60);
-
-      @include kPopCaret;
-
-      &:after, &:before {
-        left: 50%;
-        top: 100%;
-      }
-
-      &:after {
-        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-        border-top-color: var(--kui-color-background, $kui-color-background);
-      }
-
-      &:before {
-        border-top-color: var(--kui-color-border, $kui-color-border);
-      }
-    }
-
     &[x-placement^="left"] .popover-container {
-      margin-right: var(--kui-space-60, $kui-space-60);
-
       @include kPopCaret;
+
+      margin-right: var(--kui-space-60, $kui-space-60);
 
       &:after, &:before {
         left: 100%;
@@ -483,27 +504,6 @@ $kPopCaretOffset: 16px;
       }
     }
 
-    &[x-placement^="right"] .popover-container {
-      margin-left: var(--kui-space-60, $kui-space-60);
-
-      @include kPopCaret;
-
-      &:after, &:before {
-        right: 100%;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-
-      &:after {
-        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-        border-right-color: var(--kui-color-background, $kui-color-background);
-      }
-
-      &:before {
-        border-right-color: var(--kui-color-border, $kui-color-border);
-      }
-    }
-
     &[x-placement^="top-start"] .popover-container,
     &[x-placement^="bottom-start"] .popover-container {
       &:after, &:before {
@@ -511,17 +511,17 @@ $kPopCaretOffset: 16px;
       }
     }
 
-    &[x-placement^="top-end"] .popover-container,
-    &[x-placement^="bottom-end"] .popover-container {
-      &:after, &:before {
-        left: calc(100% - $kPopCaretOffset);
-      }
-    }
-
     &[x-placement^="right-start"] .popover-container,
     &[x-placement^="left-start"] .popover-container {
       &:after, &:before {
         top: $kPopCaretOffset;
+      }
+    }
+
+    &[x-placement^="top-end"] .popover-container,
+    &[x-placement^="bottom-end"] .popover-container {
+      &:after, &:before {
+        left: calc(100% - $kPopCaretOffset);
       }
     }
 
