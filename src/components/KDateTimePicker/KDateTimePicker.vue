@@ -6,14 +6,15 @@
     :style="widthStyle"
   >
     <KPop
+      ref="kPop"
       :disabled="disabled"
       hide-caret
       hide-close-icon
-      :hide-popover="state.hidePopover"
       :placement="popoverPlacement"
       position-fixed
       width="auto"
-      @open="state.hidePopover = false"
+      @close="state.popoverOpen = false"
+      @open="state.popoverOpen = true"
     >
       <div
         class="datetime-picker-trigger-wrapper"
@@ -44,7 +45,7 @@
       </div>
 
       <template
-        v-if="!state.hidePopover"
+        v-if="!state.popoverOpen"
         #content
       >
         <!-- Custom | Relative toggle -->
@@ -111,7 +112,7 @@
       </template>
 
       <template
-        v-if="!state.hidePopover"
+        v-if="!state.popoverOpen"
         #footer
       >
         <div class="datetime-picker-footer-container">
@@ -278,6 +279,8 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: TimeRange | null): void
 }>()
 
+const kPop = ref<InstanceType<typeof KPop> | null>(null)
+
 // https://vcalendar.io/datepicker.html#model-config
 const modelConfig = { type: 'number' }
 
@@ -352,7 +355,7 @@ const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone
 const state = reactive<DateTimePickerState>({
   abbreviatedDisplay: props.placeholder,
   fullRangeDisplay: '',
-  hidePopover: false,
+  popoverOpen: false,
   selectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
   previouslySelectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
   selectedTimeframe: props.timePeriods[0]?.values[0],
@@ -487,7 +490,7 @@ const submitTimeFrame = async (): Promise<void> => {
     emit('update:modelValue', { start: state.selectedRange.start, end: null })
   }
 
-  state.hidePopover = true
+  kPop.value?.hidePopover()
   updateDisplay()
 }
 

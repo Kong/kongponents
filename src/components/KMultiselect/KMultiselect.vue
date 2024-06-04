@@ -27,7 +27,6 @@
           hide-close-icon
           v-bind="boundKPopAttributes"
           :position-fixed="positionFixed"
-          :target="`[id='${multiselectWrapperId}']`"
           @close="() => handleToggle(false, isToggled, toggle)"
           @open="() => handleToggle(true, isToggled, toggle)"
         >

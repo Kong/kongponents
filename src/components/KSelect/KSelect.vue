@@ -27,7 +27,6 @@
         close-on-popover-click
         hide-close-icon
         :position-fixed="positionFixed"
-        :target="`[id='${selectWrapperId}']`"
         @close="() => onClose(toggle, isToggled.value)"
         @open="() => onOpen(toggle)"
         @popover-click="() => onPopoverClick(toggle)"
