@@ -1,17 +1,6 @@
-export type Placement = 'auto'
-| 'top'
-| 'topStart'
-| 'topEnd'
-| 'left'
-| 'leftStart'
-| 'leftEnd'
-| 'right'
-| 'rightStart'
-| 'rightEnd'
-| 'bottom'
-| 'bottomStart'
-| 'bottomEnd'
+import type { PopPlacements } from '@/types'
 
+export type Placement = PopPlacements
 export interface TooltipAttributes {
   label?: string
   placement?: Placement

@@ -14,7 +14,7 @@
         v-if="format !== 'hidden'"
         :class="[textTooltipClasses]"
         data-testid="copy-tooltip-wrapper"
-        placement="bottomStart"
+        placement="bottom-start"
         position-fixed
         :text="textTooltipLabel"
       >
@@ -30,7 +30,7 @@
       <KTooltip
         class="text-icon-wrapper"
         max-width="500px"
-        placement="bottomStart"
+        placement="bottom-start"
         position-fixed
         :text="tooltipText"
       >
