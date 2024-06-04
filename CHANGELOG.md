@@ -1,3 +1,10 @@
+# [9.0.0-alpha.163](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.162...v9.0.0-alpha.163) (2024-06-04)
+
+
+### Bug Fixes
+
+* rebase alpha commits to fix invalid commit messages ([#2201](https://github.com/Kong/kongponents/issues/2201)) ([39c3564](https://github.com/Kong/kongponents/commit/39c356479d9c8737a0a7af241d47c07f2f09892b)), closes [#1995](https://github.com/Kong/kongponents/issues/1995) [#1994](https://github.com/Kong/kongponents/issues/1994) [#1993](https://github.com/Kong/kongponents/issues/1993) [#1990](https://github.com/Kong/kongponents/issues/1990) [#1991](https://github.com/Kong/kongponents/issues/1991) [#1997](https://github.com/Kong/kongponents/issues/1997) [#1999](https://github.com/Kong/kongponents/issues/1999) [#1999](https://github.com/Kong/kongponents/issues/1999) [#2001](https://github.com/Kong/kongponents/issues/2001) [#2001](https://github.com/Kong/kongponents/issues/2001) [#2002](https://github.com/Kong/kongponents/issues/2002) [#2002](https://github.com/Kong/kongponents/issues/2002) [#2004](https://github.com/Kong/kongponents/issues/2004) [#2007](https://github.com/Kong/kongponents/issues/2007) [#2006](https://github.com/Kong/kongponents/issues/2006) [#2010](https://github.com/Kong/kongponents/issues/2010) [#1963](https://github.com/Kong/kongponents/issues/1963) [#2003](https://github.com/Kong/kongponents/issues/2003) [#1989](https://github.com/Kong/kongponents/issues/1989) [#1998](https://github.com/Kong/kongponents/issues/1998) [#1988](https://github.com/Kong/kongponents/issues/1988)
+
 # [9.0.0-alpha.162](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.161...v9.0.0-alpha.162) (2024-06-03)
 
 
