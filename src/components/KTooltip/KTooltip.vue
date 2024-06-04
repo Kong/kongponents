@@ -11,6 +11,7 @@
     :position-fixed="positionFixed"
     trigger="hover"
     width="auto"
+    :z-index="zIndex"
   >
     <slot />
 
@@ -112,7 +113,6 @@ const randomTooltipId = uuidv4()
     border: none;
     border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
     padding: var(--kui-space-30, $kui-space-30);
-    z-index: v-bind('zIndex');
 
     .popover-content {
       color: var(--kui-color-text-inverse, $kui-color-text-inverse);

@@ -341,6 +341,7 @@ $kPopCaretOffset: 16px;
 
   .popover-trigger-wrapper {
     display: inline-block;
+    width: 100%;
   }
 
   .popover {
