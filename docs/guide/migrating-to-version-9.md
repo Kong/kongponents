@@ -342,6 +342,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 #### Constants, Types & Interfaces
 
 * `TimeRange` - `start` and `end` keys are now defined as `Date | null`
+* `hidePopover` property in `DateTimePickerState` interface has been renamed to `popoverOpen`
 
 ### KDropdownMenu
 
@@ -635,6 +636,8 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 * `testMode` prop has been removed
 * `onPopoverClick` prop has been removed. You can a combination of new `closeOnPopoverClick` prop and `popover-click` event instead
 * `positionFixed` prop default value has been changed to `true`
+* `hidePopover` prop has been removed. Instead, you can use exposed by the component `hidePopover` method
+* `target` prop has been removed (popover element is always mounted to `.k-popover` element)
 
 #### Slots
 
@@ -652,6 +655,7 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 * `k-popover-title` class has been replaced with `popover-title`
 * `k-popover-content` class has been replaced with `popover-content`
 * `k-popover-footer` class has been replaced with `popover-footer`
+* `k-popover` class has been replaced with `popover` (instead, `k-popover` class has been given to outer-most element)
 
 ### KPrompt
 

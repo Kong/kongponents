@@ -378,12 +378,6 @@ Maximum width of the popover container. Default value is `auto`.
 </KPop>
 ```
 
-### target
-
-This is the target element selector that the popover is appended to. By default its the KPop wrapper element.
-
-Example: `#my-element-id`
-
 ### tag
 
 KPop wrapper element type. Default value is `div`.
@@ -402,10 +396,6 @@ List of class names you want to assign to `.k-popover` element.
   </template>
 </KPop>
 ```
-
-### hidePopover
-
-Optional boolean flag to hide the popover. Useful for external events. Default value is `false`.
 
 ### zIndex
 
