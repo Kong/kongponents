@@ -30,45 +30,47 @@
         :style="popoverStyle"
         :x-placement="placement"
       >
-        <button
-          v-if="!hideCloseIcon"
-          ref="popoverCloseButton"
-          class="popover-close-button"
-          :tabindex="isVisible ? 0 : -1"
-          type="button"
-          @click="hidePopover"
-        >
-          <CloseIcon
-            class="popover-close-icon"
-            :size="KUI_ICON_SIZE_30"
-          />
-        </button>
-        <div
-          v-if="$slots.title || title"
-          class="popover-header"
-        >
+        <div class="popover-container">
+          <button
+            v-if="!hideCloseIcon"
+            ref="popoverCloseButton"
+            class="popover-close-button"
+            :tabindex="isVisible ? 0 : -1"
+            type="button"
+            @click="hidePopover"
+          >
+            <CloseIcon
+              class="popover-close-icon"
+              :size="KUI_ICON_SIZE_30"
+            />
+          </button>
           <div
             v-if="$slots.title || title"
-            :id="titleId"
-            class="popover-title"
-            :class="{ 'close-icon-spacing': !hideCloseIcon }"
+            class="popover-header"
           >
-            <slot name="title">
-              {{ title }}
-            </slot>
+            <div
+              v-if="$slots.title || title"
+              :id="titleId"
+              class="popover-title"
+              :class="{ 'close-icon-spacing': !hideCloseIcon }"
+            >
+              <slot name="title">
+                {{ title }}
+              </slot>
+            </div>
           </div>
-        </div>
-        <div
-          class="popover-content"
-          :class="{ 'close-icon-spacing': !hideCloseIcon && !($slots.title || title) }"
-        >
-          <slot name="content" />
-        </div>
-        <div
-          v-if="$slots.footer"
-          class="popover-footer"
-        >
-          <slot name="footer" />
+          <div
+            class="popover-content"
+            :class="{ 'close-icon-spacing': !hideCloseIcon && !($slots.title || title) }"
+          >
+            <slot name="content" />
+          </div>
+          <div
+            v-if="$slots.footer"
+            class="popover-footer"
+          >
+            <slot name="footer" />
+          </div>
         </div>
       </div>
     </Transition>
@@ -78,14 +80,13 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
 import type { PropType } from 'vue'
-import { computePosition, offset } from '@floating-ui/dom'
+import { useFloating } from '@floating-ui/vue'
 import type { PopPlacements, PopTrigger } from '@/types'
 import { PopPlacementsArray, PopTriggerArray } from '@/types'
 import { v4 as uuid4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import { CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
-import type { Placement } from '@floating-ui/dom'
 
 const props = defineProps({
   buttonText: {
@@ -207,26 +208,6 @@ const clickHandler = (event: Event) => {
   }
 }
 
-const updatePosition = () => {
-  if (popoverTrigger.value && popoverElement.value) {
-    computePosition(popoverTrigger.value, popoverElement.value, {
-      placement: props.placement as Placement,
-      middleware: [
-        // only need the offset for top and left placements
-        ...(props.placement.includes('top') || props.placement.includes('left') ? [offset(10)] : []),
-      ],
-    }).then(({ x, y }) => {
-      if (popoverElement.value) {
-        Object.assign(popoverElement.value.style, {
-          left: `${x}px`,
-          top: `${y}px`,
-          position: 'fixed',
-        })
-      }
-    })
-  }
-}
-
 const popoverStyle = computed(() => {
   return {
     width: getSizeFromString(props.width),
@@ -238,6 +219,11 @@ const popoverStyle = computed(() => {
 const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': props.hideCaret }])
 
 onMounted(() => {
+  useFloating(popoverTrigger, popoverElement, {
+    placement: props.placement,
+    strategy: 'fixed',
+  })
+
   if (document) {
     document.addEventListener('click', clickHandler)
 
@@ -283,15 +269,10 @@ onBeforeUnmount(() => {
       }
     }
   }
-
-  if (popoverElement.value) {
-    popoverElement.value.remove()
-  }
 })
 
 watch(isVisible, async (val) => {
   if (val) {
-    updatePosition()
     emit('open')
   } else {
     emit('close')
@@ -311,15 +292,6 @@ $kPopCaretShadowElementSize: 11px;
 $kPopCaretOffset: 16px;
 
 /* Component mixins */
-
-@mixin popoverInitialStyles {
-  // needs to be set for positioning to work smoothly
-  // https://floating-ui.com/docs/computePosition#initial-layout
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: max-content;
-}
 
 @mixin kPopCaret {
   &:after, &:before {
@@ -350,86 +322,88 @@ $kPopCaretOffset: 16px;
   }
 
   .popover {
-    @include popoverInitialStyles;
-
-    background-color: var(--kui-color-background, $kui-color-background);
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-    box-shadow: var(--kui-shadow, $kui-shadow);
-    display: flex;
-    flex-direction: column;
-    font-family: var(--kui-font-family-text, $kui-font-family-text);
-    gap: var(--kui-space-40, $kui-space-40);
-    max-width: none;
-    padding: var(--kui-space-60, $kui-space-60);
-    position: relative;
-    text-align: left;
-    white-space: normal;
     z-index: v-bind('zIndex');
 
-    .popover-close-button {
-      @include defaultButtonReset;
-
-      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-      margin: var(--kui-space-60, $kui-space-60) var(--kui-space-60, $kui-space-60) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
-      outline: none;
-      position: absolute;
-      right: 0;
-      top: 0;
-
-      &:hover, &:focus {
-        color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
-      }
-
-      &:focus-visible {
-        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
-      }
-
-      .popover-close-icon {
-        pointer-events: none;
-      }
-    }
-
-    .popover-header {
-      align-items: baseline;
+    // need to wrap popover content in a container because we cannot set position: relative; as that will break the floating positioning
+    .popover-container {
+      background-color: var(--kui-color-background, $kui-color-background);
+      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+      border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+      box-shadow: var(--kui-shadow, $kui-shadow);
       display: flex;
+      flex-direction: column;
+      font-family: var(--kui-font-family-text, $kui-font-family-text);
+      gap: var(--kui-space-40, $kui-space-40);
+      max-width: none;
+      padding: var(--kui-space-60, $kui-space-60);
+      position: relative;
+      text-align: left;
+      white-space: normal;
 
-      .popover-title {
-        color: var(--kui-color-text, $kui-color-text);
-        font-size: var(--kui-font-size-40, $kui-font-size-40);
-        font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
-        line-height: var(--kui-line-height-30, $kui-line-height-30);
+      .popover-close-button {
+        @include defaultButtonReset;
+
+        border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+        margin: var(--kui-space-60, $kui-space-60) var(--kui-space-60, $kui-space-60) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
+        outline: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        &:hover, &:focus {
+          color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
+        }
+
+        &:focus-visible {
+          box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+        }
+
+        .popover-close-icon {
+          pointer-events: none;
+        }
+      }
+
+      .popover-header {
+        align-items: baseline;
+        display: flex;
+
+        .popover-title {
+          color: var(--kui-color-text, $kui-color-text);
+          font-size: var(--kui-font-size-40, $kui-font-size-40);
+          font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+          line-height: var(--kui-line-height-30, $kui-line-height-30);
+
+          &.close-icon-spacing {
+            margin-right: var(--kui-space-60, $kui-space-60);
+          }
+        }
+      }
+
+      .popover-content {
+        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+        font-size: var(--kui-font-size-20, $kui-font-size-20);
+        font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+        line-height: var(--kui-line-height-20, $kui-line-height-20);
 
         &.close-icon-spacing {
           margin-right: var(--kui-space-60, $kui-space-60);
         }
       }
-    }
 
-    .popover-content {
-      color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-      font-size: var(--kui-font-size-20, $kui-font-size-20);
-      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-      line-height: var(--kui-line-height-20, $kui-line-height-20);
-
-      &.close-icon-spacing {
-        margin-right: var(--kui-space-60, $kui-space-60);
+      .popover-footer {
+        align-items: center;
+        display: flex;
+        gap: var(--kui-space-40, $kui-space-40);
       }
-    }
-
-    .popover-footer {
-      align-items: center;
-      display: flex;
-      gap: var(--kui-space-40, $kui-space-40);
     }
 
     // placement and caret styles
 
-    &[x-placement^="bottom"] {
-      margin-top: var(--kui-space-50, $kui-space-50);
-
+    &[x-placement^="bottom"] .popover-container {
       @include kPopCaret;
+
+      margin-top: var(--kui-space-50, $kui-space-50);
 
       &:after, &:before {
         bottom: 100%;
@@ -446,7 +420,7 @@ $kPopCaretOffset: 16px;
       }
     }
 
-    &[x-placement^="top"] {
+    &[x-placement^="top"] .popover-container {
       margin-bottom: var(--kui-space-60, $kui-space-60);
 
       @include kPopCaret;
@@ -466,7 +440,7 @@ $kPopCaretOffset: 16px;
       }
     }
 
-    &[x-placement^="left"] {
+    &[x-placement^="left"] .popover-container {
       margin-right: var(--kui-space-60, $kui-space-60);
 
       @include kPopCaret;
@@ -487,7 +461,7 @@ $kPopCaretOffset: 16px;
       }
     }
 
-    &[x-placement^="right"] {
+    &[x-placement^="right"] .popover-container {
       margin-left: var(--kui-space-60, $kui-space-60);
 
       @include kPopCaret;
@@ -508,35 +482,35 @@ $kPopCaretOffset: 16px;
       }
     }
 
-    &[x-placement^="top-start"],
-    &[x-placement^="bottom-start"] {
+    &[x-placement^="top-start"] .popover-container,
+    &[x-placement^="bottom-start"] .popover-container {
       &:after, &:before {
         left: $kPopCaretOffset;
       }
     }
 
-    &[x-placement^="top-end"],
-    &[x-placement^="bottom-end"] {
+    &[x-placement^="top-end"] .popover-container,
+    &[x-placement^="bottom-end"] .popover-container {
       &:after, &:before {
         left: calc(100% - $kPopCaretOffset);
       }
     }
 
-    &[x-placement^="right-start"],
-    &[x-placement^="left-start"] {
+    &[x-placement^="right-start"] .popover-container,
+    &[x-placement^="left-start"] .popover-container {
       &:after, &:before {
         top: $kPopCaretOffset;
       }
     }
 
-    &[x-placement^="right-end"],
-    &[x-placement^="left-end"] {
+    &[x-placement^="right-end"] .popover-container,
+    &[x-placement^="left-end"] .popover-container {
       &:after, &:before {
         top: calc(100% - $kPopCaretOffset);
       }
     }
 
-    &.hide-caret {
+    &.hide-caret .popover-container {
       &:after,
       &:before {
         display: none;
