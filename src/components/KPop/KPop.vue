@@ -28,7 +28,7 @@
         :class="popoverClassesObj"
         role="dialog"
         :style="popoverStyle"
-        :x-placement="placement"
+        :x-placement="calculatedPlacement"
       >
         <div class="popover-container">
           <button
@@ -80,7 +80,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
 import type { PropType } from 'vue'
-import { useFloating, autoUpdate } from '@floating-ui/vue'
+import { useFloating, autoUpdate, autoPlacement } from '@floating-ui/vue'
 import type { PopPlacements, PopTrigger } from '@/types'
 import { PopPlacementsArray, PopTriggerArray } from '@/types'
 import { v4 as uuid4 } from 'uuid'
@@ -100,7 +100,7 @@ const props = defineProps({
   placement: {
     type: String as PropType<PopPlacements>,
     validator: (value: PopPlacements): boolean => PopPlacementsArray.includes(value),
-    default: 'bottom',
+    default: 'auto',
   },
   trigger: {
     type: String as PropType<PopTrigger>,
@@ -223,9 +223,15 @@ const popoverStyle = computed(() => {
 
 const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': props.hideCaret }])
 
-const { floatingStyles } = useFloating(popoverTrigger, popoverElement, {
-  placement: props.placement,
+const { floatingStyles, placement: calculatedPlacement } = useFloating(popoverTrigger, popoverElement, {
+  ...(props.placement === 'auto' ? { middleware: [autoPlacement()] } : { placement: props.placement }),
   strategy: props.positionFixed ? 'fixed' : 'absolute',
+  /**
+   * floating-ui docs don't recommend using whileElementsMounted with v-show
+   * but otherwise the popover won't update its position even when using manual update method
+   * so we keep using autoUpdate for now
+   * Docs: https://floating-ui.com/docs/vue#anchoring
+   */
   whileElementsMounted: autoUpdate,
 })
 
@@ -340,7 +346,7 @@ $kPopCaretOffset: 16px;
   .popover {
     z-index: v-bind('zIndex');
 
-    // need to wrap popover content in a container because we cannot set position: relative; as that will break the floating positioning
+    // need to wrap popover content in a container because we cannot set position: relative; as that will break the floating-ui positioning
     .popover-container {
       background-color: var(--kui-color-background, $kui-color-background);
       border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
