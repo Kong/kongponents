@@ -80,7 +80,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
 import type { PropType } from 'vue'
-import { useFloating } from '@floating-ui/vue'
+import { useFloating, autoUpdate } from '@floating-ui/vue'
 import type { PopPlacements, PopTrigger } from '@/types'
 import { PopPlacementsArray, PopTriggerArray } from '@/types'
 import { v4 as uuid4 } from 'uuid'
@@ -151,6 +151,10 @@ const props = defineProps({
     type: Number,
     default: 1000,
   },
+  positionFixed: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const emit = defineEmits(['open', 'close', 'popover-click'])
@@ -171,7 +175,7 @@ const timer = ref<number | null>(null)
 const togglePopover = () => {
   if (!props.disabled) {
     if (!isVisible.value) {
-      isVisible.value = true
+      showPopover()
     } else {
       hidePopover()
     }
@@ -213,24 +217,28 @@ const popoverStyle = computed(() => {
     width: getSizeFromString(props.width),
     maxWidth: getSizeFromString(props.maxWidth),
     maxHeight: getSizeFromString(props.maxHeight),
+    ...floatingStyles.value,
   }
 })
 
 const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': props.hideCaret }])
 
-onMounted(() => {
-  useFloating(popoverTrigger, popoverElement, {
-    placement: props.placement,
-    strategy: 'fixed',
-  })
+const { floatingStyles } = useFloating(popoverTrigger, popoverElement, {
+  placement: props.placement,
+  strategy: props.positionFixed ? 'fixed' : 'absolute',
+  whileElementsMounted: autoUpdate,
+})
 
+onMounted(() => {
   if (document) {
     document.addEventListener('click', clickHandler)
 
     if (popoverTrigger.value) {
       if (props.trigger === 'hover') {
         popoverTrigger.value.addEventListener('mouseenter', showPopover)
+        popoverTrigger.value.addEventListener('focus', showPopover)
         popoverTrigger.value.addEventListener('mouseleave', hidePopover)
+        popoverTrigger.value.addEventListener('blur', hidePopover)
       } else {
         popoverTrigger.value.addEventListener('click', togglePopover)
       }
@@ -241,7 +249,9 @@ onMounted(() => {
 
       if (props.trigger === 'hover') {
         popoverElement.value.addEventListener('mouseenter', showPopover)
+        popoverElement.value.addEventListener('focusin', showPopover)
         popoverElement.value.addEventListener('mouseleave', hidePopover)
+        popoverElement.value.addEventListener('focusout', hidePopover)
       }
     }
   }
@@ -254,7 +264,9 @@ onBeforeUnmount(() => {
     if (popoverTrigger.value) {
       if (props.trigger === 'hover') {
         popoverTrigger.value.removeEventListener('mouseenter', showPopover)
+        popoverTrigger.value.removeEventListener('focus', showPopover)
         popoverTrigger.value.removeEventListener('mouseleave', hidePopover)
+        popoverTrigger.value.removeEventListener('blur', hidePopover)
       } else {
         popoverTrigger.value.removeEventListener('click', togglePopover)
       }
@@ -265,13 +277,15 @@ onBeforeUnmount(() => {
 
       if (props.trigger === 'hover') {
         popoverElement.value.removeEventListener('mouseenter', showPopover)
+        popoverElement.value.removeEventListener('focusin', showPopover)
         popoverElement.value.removeEventListener('mouseleave', hidePopover)
+        popoverElement.value.removeEventListener('focusout', hidePopover)
       }
     }
   }
 })
 
-watch(isVisible, async (val) => {
+watch(isVisible, (val) => {
   if (val) {
     emit('open')
   } else {
