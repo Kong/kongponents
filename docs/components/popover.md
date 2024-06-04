@@ -113,7 +113,7 @@ Accepted values are:
 
 ```html
 <KPop
-  placement="bottomEnd"
+  placement="bottom-end"
   button-text="Open popover"
 >
   <template #content>

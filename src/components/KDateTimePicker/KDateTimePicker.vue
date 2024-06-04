@@ -266,7 +266,7 @@ const props = defineProps({
    */
   popoverPlacement: {
     type: String as PropType<PopPlacements>,
-    default: 'bottomStart',
+    default: 'bottom-start',
     validator: (value: PopPlacements):boolean => {
       return PopPlacementsArray.includes(value)
     },
@@ -582,7 +582,7 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
 .k-datetime-picker {
   // For aesthetic purposes when relative time frames are present
   &.set-min-width {
-    .k-popover {
+    .popover {
       min-width: 360px;
     }
   }
@@ -642,7 +642,7 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
     }
   }
 
-  :deep(.k-popover) {
+  :deep(.popover) {
     border: var(--kui-border-width-10, kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
     max-height: 90vh;

@@ -53,7 +53,7 @@ describe('KTooltip', () => {
       },
     })
 
-    cy.get('.k-tooltip.k-popover').should('have.css', 'z-index', '9999')
+    cy.get('.k-tooltip.popover').should('have.css', 'z-index', '9999')
   })
 
   it('renders with custom zIndex', () => {
@@ -64,6 +64,6 @@ describe('KTooltip', () => {
       },
     })
 
-    cy.get('.k-tooltip.k-popover').should('have.css', 'z-index', '92929')
+    cy.get('.k-tooltip.popover').should('have.css', 'z-index', '92929')
   })
 })

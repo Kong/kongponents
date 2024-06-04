@@ -123,7 +123,7 @@ const computedClass = computed((): string => {
 </script>
 
 <style lang="scss" scoped>
-:deep(.k-tooltip.k-popover) {
+:deep(.k-tooltip.popover .popover-container) {
   background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
   border: none;
   border-radius: var(--kui-border-radius-20, $kui-border-radius-20);

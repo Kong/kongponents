@@ -66,13 +66,13 @@ Here are the different options:
   <KTooltip placement="bottom" text="A tooltip that appears on the bottom.">
     <KButton>bottom</KButton>
   </KTooltip>
-  <KTooltip placement="topEnd" text="A tooltip that appears on the top.">
+  <KTooltip placement="top-end" text="A tooltip that appears on the top.">
     <KButton>topEnd</KButton>
   </KTooltip>
   <KTooltip placement="left" text="A tooltip that appears on the left.">
     <KButton>left</KButton>
   </KTooltip>
-  <KTooltip placement="bottomStart" text="A tooltip that appears on the bottom.">
+  <KTooltip placement="bottom-start" text="A tooltip that appears on the bottom.">
     <KButton>bottomStart</KButton>
   </KTooltip>
 </div>

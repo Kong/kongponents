@@ -165,7 +165,7 @@ const defaultKPopAttributes = {
   popoverClasses: 'k-dropdown-popover',
   popoverTimeout: 0,
   positionFixed: true,
-  placement: 'bottomStart' as PopPlacements,
+  placement: 'bottom-start' as PopPlacements,
 }
 
 const boundKPopAttributes = {
@@ -228,7 +228,7 @@ onMounted(() => {
 .k-dropdown {
   width: fit-content;
 
-  :deep(.k-popover.k-dropdown-popover) {
+  :deep(.popover.k-dropdown-popover) {
     border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     margin-top: var(--kui-space-30, $kui-space-30);

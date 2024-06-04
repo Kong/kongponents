@@ -478,7 +478,7 @@ const getBadgeAppearance = (item?: MultiselectItem): BadgeAppearance => {
 
 const defaultKPopAttributes = {
   hideCaret: true,
-  placement: 'bottomStart' as PopPlacements,
+  placement: 'bottom-start' as PopPlacements,
   popoverTimeout: 0,
   popoverClasses: 'multiselect-popover',
 }
