@@ -72,7 +72,7 @@
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
-    "@babel/types": "^7.24.5",
+    "@babel/types": "^7.24.6",
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.1.0",
     "@cypress/vite-dev-server": "^5.0.7",
