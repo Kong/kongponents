@@ -1134,10 +1134,10 @@
   resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.9.1.tgz#3947e3019710d306865eef19aef3ec6c89c5a5b6"
   integrity sha512-8V21s7OEXcGAWDfPlcidjLlvAemz1KxgkpNSCWC9BCMGnmYRV/1hF7hzC0Dbjz6Q5uP3jnukI+e2bkKKrxANMQ==
 
-"@kong/icons@^1.9.2":
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.9.2.tgz#13b1c72af2616227ec0a0c3193658d53e8913519"
-  integrity sha512-XMLnCyaBE0xrrnY7DOLXVy2Q1F76AEsfi4mxEdVKfSGOkgV0dqVIHL34aqxo8OoSKUllcCKn/WW25X+YI65nCw==
+"@kong/icons@^1.9.3-pr.316.476141a.0":
+  version "1.9.3-pr.316.476141a.0"
+  resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.9.3-pr.316.476141a.0.tgz#4fbb34e4a6f542da5b6fb357fd3742515fd00267"
+  integrity sha512-TyMot6TWr1CDVqiWpJ+mB7zPwr/roSvdHyfMzJ/Fil6U4KuakuALsYpAB9oODFiXz5kN2IbZX9ISj4WDqWD/Kg==
 
 "@ljharb/through@^2.3.13":
   version "2.3.13"
