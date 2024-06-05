@@ -239,6 +239,8 @@ const { floatingStyles, placement: calculatedPlacement, update: updatePosition }
   strategy: props.positionFixed ? 'fixed' : 'absolute',
 })
 
+const floatingUpdates = ref<Function | null>(null)
+
 defineExpose({
   hidePopover,
 })
@@ -266,7 +268,9 @@ onMounted(() => {
 
   if (popoverTrigger.value && popoverElement.value) {
     // start the auto updates for the popover position
-    autoUpdate(popoverTrigger.value, popoverElement.value, updatePosition)
+    // autoUpdate cleanup function
+    // docs: https://floating-ui.com/docs/autoUpdate#usage
+    floatingUpdates.value = autoUpdate(popoverTrigger.value, popoverElement.value, updatePosition)
   }
 })
 
@@ -287,6 +291,11 @@ onBeforeUnmount(() => {
       popoverElement.value.removeEventListener('mouseleave', hidePopover)
       popoverElement.value.removeEventListener('focusout', hidePopover)
     }
+  }
+
+  if (floatingUpdates.value) {
+    // need to cleanup the auto updates
+    floatingUpdates.value()
   }
 })
 
