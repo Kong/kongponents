@@ -407,7 +407,6 @@
 import { inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { KUI_COLOR_BACKGROUND_PRIMARY, KUI_COLOR_TEXT_INVERSE } from '@kong/design-tokens'
 import { KongIcon, WarningOutlineIcon, CloseIcon } from '@kong/icons'
 
 const handleIconClick = (): void => {
