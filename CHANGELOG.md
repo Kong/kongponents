@@ -1,3 +1,10 @@
+# [9.0.0-alpha.164](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.163...v9.0.0-alpha.164) (2024-06-05)
+
+
+### Bug Fixes
+
+* misc alpha fixes ([#2207](https://github.com/Kong/kongponents/issues/2207)) ([13fa30f](https://github.com/Kong/kongponents/commit/13fa30f1dcaf3eda14a143f58acf50e0ff17229e))
+
 # [9.0.0-alpha.163](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.162...v9.0.0-alpha.163) (2024-06-04)
 
 
