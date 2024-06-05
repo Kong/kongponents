@@ -1,5 +1,3 @@
-const deprecatedUtilityClasses = require('./deprecated-classes.cjs')
-
 module.exports = {
   root: true,
   parserOptions: {
@@ -38,8 +36,6 @@ module.exports = {
     'vue/attributes-order': ['error', {
       alphabetical: true,
     }],
-    // Disallow Kongponents utility classes
-    'vue/no-restricted-class': ['error', ...deprecatedUtilityClasses],
     '@typescript-eslint/no-explicit-any': 'off',
     // Avoids false errors like “'NodeListOf' is not defined”.
     'no-undef': 'off',
