@@ -431,10 +431,7 @@ Slot for passing custom popover trigger element.
 When providing your custom element as popover trigger, make sure to set appropriate `tabindex` attribute in order to make popover accessible for assistive technology users.
 :::
 
-<KPop
-  width="auto"
-  hide-close-icon
->
+<KPop hide-close-icon>
   <KInput
     label="Password"
     type="password"
@@ -446,10 +443,7 @@ When providing your custom element as popover trigger, make sure to set appropri
 </KPop>
 
 ```html
-<KPop
-  width="auto"
-  hide-close-icon
->
+<KPop hide-close-icon>
   <KInput
     label="Password"
     type="password"
@@ -460,6 +454,54 @@ When providing your custom element as popover trigger, make sure to set appropri
   </template>
 </KPop>
 ```
+
+:::danger
+KPop logic is built on the presumption that trigger element is going to be in the DOM when the component is mounted. If you need to render the element conditionally, avoid setting `v-if` directive on the trigger element directly and render the entire KPop component conditionally instead.
+
+<span class="inline-title">
+  <CheckIcon :size="KUI_ICON_SIZE_30" :color="KUI_COLOR_TEXT_SUCCESS" /> <b>Correct:</b>
+</span>
+
+```html
+<KPop v-if="!loading">
+  <KButton>Open popover</KButton>
+  <template #content>
+    ...
+  </template>
+</KPop>
+```
+
+<span class="inline-title">
+  <CloseIcon :size="KUI_ICON_SIZE_30" :color="KUI_COLOR_TEXT_DANGER" /> <b>Incorrect:</b>
+</span>
+
+```html
+<KPop>
+  <KButton v-if="!loading">Open popover</KButton>
+  <template #content>
+    ...
+  </template>
+</KPop>
+```
+
+<span class="inline-title">
+  <CloseIcon :size="KUI_ICON_SIZE_30" :color="KUI_COLOR_TEXT_DANGER" /> <b>Incorrect:</b>
+</span>
+
+```html
+<KPop>
+  <template
+    #default
+    v-if="!loading"
+  >
+    <KButton>Open popover</KButton>
+  </template>
+  <template #content>
+    ...
+  </template>
+</KPop>
+```
+:::
 
 ### title
 
@@ -525,6 +567,8 @@ Fires when the popover content is clicked.
 
 <script setup lang="ts">
 import { PopPlacementsArray } from '@/types'
+import { CheckIcon, CloseIcon } from '@kong/icons'
+import { KUI_ICON_SIZE_30, KUI_COLOR_TEXT_SUCCESS, KUI_COLOR_TEXT_DANGER } from '@kong/design-tokens'
 
 const getDefaultPlacementMessage = (value: boolean) => `(default when <a href="#positionfixed"><code>positionFixed</code> prop</a> is <code>${value}</code>)`
 </script>
@@ -556,5 +600,15 @@ const getDefaultPlacementMessage = (value: boolean) => `(default when <a href="#
 
 .button-right {
   margin-left: $kui-space-auto;
+}
+
+.inline-title {
+  display: flex;
+  gap: $kui-space-30;
+  align-items: center;
+
+  &:not(:first-of-type) {
+    margin-top: $kui-space-40;
+  }
 }
 </style>
