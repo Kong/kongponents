@@ -82,7 +82,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
 import type { PropType } from 'vue'
-import { useFloating, autoUpdate, autoPlacement } from '@floating-ui/vue'
+import { useFloating, autoUpdate, autoPlacement, flip, shift } from '@floating-ui/vue'
 import type { PopPlacements, PopTrigger } from '@/types'
 import { PopPlacementsArray, PopTriggerArray } from '@/types'
 import { v4 as uuid4 } from 'uuid'
@@ -235,7 +235,7 @@ const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': 
 const popoverPlacement = computed((): PopPlacements => props.positionFixed ? props.placement : 'top')
 
 const { floatingStyles, placement: calculatedPlacement, update: updatePosition } = useFloating(popoverTrigger, popoverElement, {
-  ...(popoverPlacement.value === 'auto' ? { middleware: [autoPlacement()] } : { placement: popoverPlacement.value }),
+  ...(popoverPlacement.value === 'auto' ? { middleware: [autoPlacement()] } : { placement: popoverPlacement.value, middleware: [flip(), shift()] }),
   strategy: props.positionFixed ? 'fixed' : 'absolute',
 })
 
