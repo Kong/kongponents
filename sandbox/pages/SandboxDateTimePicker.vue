@@ -139,7 +139,7 @@
           <div>
             <KDateTimePicker
               mode="dateTime"
-              popover-placement="bottom-end"
+              popover-placement="top-end"
               range
             />
           </div>

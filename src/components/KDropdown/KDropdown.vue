@@ -18,7 +18,7 @@
           :is="tooltipComponent"
           class="dropdown-trigger"
           data-testid="dropdown-trigger"
-          :label="disabledTooltip"
+          :label="disabledTooltip ? disabledTooltip : undefined"
           :max-width="!!disabledTooltip ? '240' : undefined"
           :position="!!disabledTooltip ? 'bottom' : undefined"
           :position-fixed="!!disabledTooltip ? true : undefined"
