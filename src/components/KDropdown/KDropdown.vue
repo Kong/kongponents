@@ -221,7 +221,7 @@ onMounted(() => {
 .k-dropdown {
   width: fit-content;
 
-  :deep(.popover.k-dropdown-popover) {
+  :deep(.popover.k-dropdown-popover .popover-container) {
     border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     margin-top: var(--kui-space-30, $kui-space-30);

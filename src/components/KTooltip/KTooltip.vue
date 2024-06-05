@@ -62,7 +62,7 @@ const props = defineProps({
   */
   placement: {
     type: String as PropType<PopPlacements>,
-    default: 'top',
+    default: 'bottom',
     validator: (value: PopPlacements):boolean => {
       return PopPlacementsArray.includes(value)
     },

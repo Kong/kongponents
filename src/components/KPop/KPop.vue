@@ -34,6 +34,7 @@
           <button
             v-if="!hideCloseIcon"
             ref="popoverCloseButton"
+            aria-label="Close popover"
             class="popover-close-button"
             :tabindex="isVisible ? 0 : -1"
             type="button"
@@ -41,6 +42,7 @@
           >
             <CloseIcon
               class="popover-close-icon"
+              decorative
               :size="KUI_ICON_SIZE_30"
             />
           </button>
@@ -235,6 +237,10 @@ const { floatingStyles, placement: calculatedPlacement } = useFloating(popoverTr
   whileElementsMounted: autoUpdate,
 })
 
+defineExpose({
+  hidePopover,
+})
+
 onMounted(() => {
   if (document) {
     document.addEventListener('click', clickHandler)
@@ -297,10 +303,6 @@ watch(isVisible, (val) => {
   } else {
     emit('close')
   }
-})
-
-defineExpose({
-  hidePopover,
 })
 </script>
 
