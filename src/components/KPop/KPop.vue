@@ -175,21 +175,21 @@ const popoverTrigger = computed((): HTMLElement | null => triggerWrapperElement.
 const timer = ref<number | null>(null)
 
 const togglePopover = () => {
-  if (!props.disabled) {
-    if (!isVisible.value) {
-      showPopover()
-    } else {
-      hidePopover()
-    }
+  if (!isVisible.value) {
+    showPopover()
+  } else {
+    hidePopover()
   }
 }
 
 const showPopover = () => {
-  if (timer.value) {
-    clearTimeout(timer.value)
-  }
+  if (!props.disabled) {
+    if (timer.value) {
+      clearTimeout(timer.value)
+    }
 
-  isVisible.value = true
+    isVisible.value = true
+  }
 }
 
 const hidePopover = () => {
@@ -198,18 +198,25 @@ const hidePopover = () => {
   }, props.trigger === 'hover' ? props.popoverTimeout : 0)
 }
 
-const onPopoverClick = () => {
-  if (props.closeOnPopoverClick) {
-    hidePopover()
-  }
-
-  emit('popover-click')
-}
-
 const clickHandler = (event: Event) => {
   const target = event.target as HTMLElement
 
-  if (!kPopoverElement.value?.contains(target)) {
+  if (triggerWrapperElement.value?.contains(target) && !popoverElement.value?.contains(target)) {
+    // toggle popover if clicked within the trigger
+
+    togglePopover()
+  } else if (popoverElement.value?.contains(target) && !triggerWrapperElement.value?.contains(target)) {
+    // emit popover-click event if clicked within the popover
+    // also close the popover if closeOnPopoverClick is true
+
+    if (props.closeOnPopoverClick) {
+      hidePopover()
+    }
+
+    emit('popover-click')
+  } else if (isVisible.value && !kPopoverElement.value?.contains(target)) {
+    // close popover if clicked outside of the popover
+
     hidePopover()
   }
 }
@@ -245,28 +252,22 @@ defineExpose({
 
 onMounted(() => {
   if (document) {
+    // handle various click events to determine how to handle the click event in a generic clickHandler function
+    // we don't set any other click event listeners on purpose to avoid conflict of event listeners
     document.addEventListener('click', clickHandler)
 
-    if (popoverTrigger.value) {
-      if (props.trigger === 'hover') {
-        popoverTrigger.value.addEventListener('mouseenter', showPopover)
-        popoverTrigger.value.addEventListener('focus', showPopover)
-        popoverTrigger.value.addEventListener('mouseleave', hidePopover)
-        popoverTrigger.value.addEventListener('blur', hidePopover)
-      } else {
-        popoverTrigger.value.addEventListener('click', togglePopover)
-      }
+    if (popoverTrigger.value && props.trigger === 'hover') {
+      popoverTrigger.value.addEventListener('mouseenter', showPopover)
+      popoverTrigger.value.addEventListener('focus', showPopover)
+      popoverTrigger.value.addEventListener('mouseleave', hidePopover)
+      popoverTrigger.value.addEventListener('blur', hidePopover)
     }
 
-    if (popoverElement.value) {
-      popoverElement.value.addEventListener('click', onPopoverClick)
-
-      if (props.trigger === 'hover') {
-        popoverElement.value.addEventListener('mouseenter', showPopover)
-        popoverElement.value.addEventListener('focusin', showPopover)
-        popoverElement.value.addEventListener('mouseleave', hidePopover)
-        popoverElement.value.addEventListener('focusout', hidePopover)
-      }
+    if (popoverElement.value && props.trigger === 'hover') {
+      popoverElement.value.addEventListener('mouseenter', showPopover)
+      popoverElement.value.addEventListener('focusin', showPopover)
+      popoverElement.value.addEventListener('mouseleave', hidePopover)
+      popoverElement.value.addEventListener('focusout', hidePopover)
     }
   }
 })
@@ -275,26 +276,18 @@ onBeforeUnmount(() => {
   if (document) {
     document.removeEventListener('click', clickHandler)
 
-    if (popoverTrigger.value) {
-      if (props.trigger === 'hover') {
-        popoverTrigger.value.removeEventListener('mouseenter', showPopover)
-        popoverTrigger.value.removeEventListener('focus', showPopover)
-        popoverTrigger.value.removeEventListener('mouseleave', hidePopover)
-        popoverTrigger.value.removeEventListener('blur', hidePopover)
-      } else {
-        popoverTrigger.value.removeEventListener('click', togglePopover)
-      }
+    if (popoverTrigger.value && props.trigger === 'hover') {
+      popoverTrigger.value.removeEventListener('mouseenter', showPopover)
+      popoverTrigger.value.removeEventListener('focus', showPopover)
+      popoverTrigger.value.removeEventListener('mouseleave', hidePopover)
+      popoverTrigger.value.removeEventListener('blur', hidePopover)
     }
 
-    if (popoverElement.value) {
-      popoverElement.value.removeEventListener('click', onPopoverClick)
-
-      if (props.trigger === 'hover') {
-        popoverElement.value.removeEventListener('mouseenter', showPopover)
-        popoverElement.value.removeEventListener('focusin', showPopover)
-        popoverElement.value.removeEventListener('mouseleave', hidePopover)
-        popoverElement.value.removeEventListener('focusout', hidePopover)
-      }
+    if (popoverElement.value && props.trigger === 'hover') {
+      popoverElement.value.removeEventListener('mouseenter', showPopover)
+      popoverElement.value.removeEventListener('focusin', showPopover)
+      popoverElement.value.removeEventListener('mouseleave', hidePopover)
+      popoverElement.value.removeEventListener('focusout', hidePopover)
     }
   }
 })
