@@ -135,7 +135,7 @@ const props = defineProps({
   },
   maxWidth: {
     type: String,
-    default: 'auto',
+    default: '100vw', // need to set for Floating UI to work properly
   },
   maxHeight: {
     type: String,
@@ -223,7 +223,7 @@ const clickHandler = (event: Event) => {
 
 const popoverStyle = computed(() => {
   return {
-    width: getSizeFromString(props.width),
+    width: props.width === 'auto' ? 'max-content' : getSizeFromString(props.width), // need to set to max-content for Floating UI to work properly
     maxWidth: getSizeFromString(props.maxWidth),
     maxHeight: getSizeFromString(props.maxHeight),
     ...floatingStyles.value,

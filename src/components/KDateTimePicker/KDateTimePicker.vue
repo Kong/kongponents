@@ -12,7 +12,7 @@
       hide-close-icon
       :placement="popoverPlacement"
       position-fixed
-      width="auto"
+      width="max-content"
       @close="state.popoverOpen = false"
       @open="state.popoverOpen = true"
     >

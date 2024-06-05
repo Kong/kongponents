@@ -10,7 +10,7 @@
     :popover-timeout="100"
     :position-fixed="positionFixed"
     trigger="hover"
-    width="auto"
+    width="max-content"
     :z-index="zIndex"
   >
     <slot />

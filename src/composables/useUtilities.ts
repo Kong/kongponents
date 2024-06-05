@@ -232,6 +232,7 @@ export default function useUtilities() {
    */
   const getSizeFromString = (sizeStr: string): string => {
     return sizeStr === 'auto' ||
+      sizeStr === 'max-content' ||
       sizeStr.endsWith('%') ||
       sizeStr.endsWith('vw') ||
       sizeStr.endsWith('vh') ||
