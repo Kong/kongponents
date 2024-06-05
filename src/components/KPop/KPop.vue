@@ -201,7 +201,7 @@ const hidePopover = () => {
 const clickHandler = (event: Event) => {
   const target = event.target as HTMLElement
 
-  if (triggerWrapperElement.value?.contains(target) && !popoverElement.value?.contains(target)) {
+  if (popoverTrigger.value?.contains(target) && !popoverElement.value?.contains(target)) {
     // toggle popover if clicked within the trigger
 
     togglePopover()
@@ -234,16 +234,9 @@ const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': 
 
 const popoverPlacement = computed((): PopPlacements => props.positionFixed ? props.placement : 'top')
 
-const { floatingStyles, placement: calculatedPlacement } = useFloating(popoverTrigger, popoverElement, {
+const { floatingStyles, placement: calculatedPlacement, update: updatePosition } = useFloating(popoverTrigger, popoverElement, {
   ...(popoverPlacement.value === 'auto' ? { middleware: [autoPlacement()] } : { placement: popoverPlacement.value }),
   strategy: props.positionFixed ? 'fixed' : 'absolute',
-  /**
-   * floating-ui docs don't recommend using whileElementsMounted with v-show
-   * but otherwise the popover won't update its position even when using manual update method
-   * so we keep using autoUpdate for now
-   * Docs: https://floating-ui.com/docs/vue#anchoring
-   */
-  whileElementsMounted: autoUpdate,
 })
 
 defineExpose({
@@ -269,6 +262,10 @@ onMounted(() => {
       popoverElement.value.addEventListener('mouseleave', hidePopover)
       popoverElement.value.addEventListener('focusout', hidePopover)
     }
+  }
+
+  if (popoverTrigger.value && popoverElement.value) {
+    autoUpdate(popoverTrigger.value, popoverElement.value, updatePosition)
   }
 })
 
