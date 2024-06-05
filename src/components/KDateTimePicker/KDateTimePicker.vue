@@ -38,7 +38,7 @@
         <CalIcon
           v-if="icon"
           class="calendar-icon"
-          :color="KUI_COLOR_TEXT_NEUTRAL"
+          :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
           decorative
           :size="KUI_ICON_SIZE_40"
         />

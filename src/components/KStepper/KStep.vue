@@ -11,19 +11,19 @@
       <div class="step-circle">
         <CheckIcon
           v-if="state === 'completed'"
-          :color="KUI_COLOR_TEXT_INVERSE"
+          :color="`var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE})`"
           :size="KUI_ICON_SIZE_40"
           title="Completed"
         />
         <ProgressIcon
           v-else-if="state === 'pending'"
-          :color="KUI_COLOR_TEXT_PRIMARY"
+          :color="`var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})`"
           :size="KUI_ICON_SIZE_40"
           title="Pending"
         />
         <CloseIcon
           v-else-if="state === 'error'"
-          :color="KUI_COLOR_TEXT_INVERSE"
+          :color="`var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE})`"
           :size="KUI_ICON_SIZE_40"
           title="Error"
         />
