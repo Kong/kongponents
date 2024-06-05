@@ -94,7 +94,9 @@ Placement of the popover.
 Accepted values are:
 <ul>
   <li v-for="placement in PopPlacementsArray" :key="`${placement}-placement`">
-    <code>{{ placement }}</code> {{ placement === 'auto' ? '(default)' : '' }}
+    <code>{{ placement }}</code> 
+    <span v-if="placement === 'auto'" v-html="getDefaultPlacementMessage(true)" />
+    <span v-if="placement === 'top'" v-html="getDefaultPlacementMessage(false)" />
   </li>
 </ul>
 
@@ -268,13 +270,13 @@ Boolean to control whether or not the popover should close when a user clicks wi
 A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries. Defaults to `true`.
 
 <div class="position-fixed-container">
-  <KPop button-text="Fixed positioning" positioning="top">
+  <KPop button-text="Fixed positioning" placement="top">
     <template #content>
       Popover content.
     </template>
   </KPop>
 
-  <KPop :position-fixed="false" positioning="top">
+  <KPop :position-fixed="false" placement="top">
     <KButton appearance="danger">
       Non-fixed positioning
     </KButton>
@@ -523,6 +525,8 @@ Fires when the popover content is clicked.
 
 <script setup lang="ts">
 import { PopPlacementsArray } from '@/types'
+
+const getDefaultPlacementMessage = (value: boolean) => `(default when <a href="#positionfixed"><code>positionFixed</code> prop</a> is <code>${value}</code>)`
 </script>
 
 <style lang="scss" scoped>

@@ -225,8 +225,10 @@ const popoverStyle = computed(() => {
 
 const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': props.hideCaret }])
 
+const popoverPlacement = computed((): PopPlacements => props.positionFixed ? props.placement : 'top')
+
 const { floatingStyles, placement: calculatedPlacement } = useFloating(popoverTrigger, popoverElement, {
-  ...(props.placement === 'auto' ? { middleware: [autoPlacement()] } : { placement: props.placement }),
+  ...(popoverPlacement.value === 'auto' ? { middleware: [autoPlacement()] } : { placement: popoverPlacement.value }),
   strategy: props.positionFixed ? 'fixed' : 'absolute',
   /**
    * floating-ui docs don't recommend using whileElementsMounted with v-show
