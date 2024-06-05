@@ -270,7 +270,9 @@ onMounted(() => {
     // start the auto updates for the popover position
     // autoUpdate cleanup function
     // docs: https://floating-ui.com/docs/autoUpdate#usage
-    floatingUpdates.value = autoUpdate(popoverTrigger.value, popoverElement.value, updatePosition)
+    floatingUpdates.value = autoUpdate(popoverTrigger.value, popoverElement.value, updatePosition, {
+      elementResize: false, // fixes ResizeObserver loop issue
+    })
   }
 })
 
