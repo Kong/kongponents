@@ -47,7 +47,7 @@
                 @click="$emit('cancel')"
               >
                 <CloseIcon
-                  :color="KUI_COLOR_TEXT_NEUTRAL"
+                  :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
                   decorative
                 />
               </button>

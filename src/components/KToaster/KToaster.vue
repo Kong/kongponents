@@ -15,7 +15,7 @@
         <component
           :is="getToastIcon(toaster.appearance)"
           class="toaster-icon"
-          :color="KUI_COLOR_TEXT"
+          :color="`var(--kui-color-text, ${KUI_COLOR_TEXT})`"
           decorative
         />
       </div>
@@ -41,7 +41,7 @@
         @click.stop="$emit('close', toaster.key)"
       >
         <CloseIcon
-          :color="KUI_COLOR_TEXT_NEUTRAL_WEAK"
+          :color="`var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
           :size="KUI_ICON_SIZE_50"
         />
       </button>
