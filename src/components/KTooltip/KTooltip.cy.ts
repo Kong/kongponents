@@ -20,9 +20,6 @@ const rendersCorrectPosition = (variant: string) => {
       },
     })
 
-    // add some padding on the side so that tooltip doesn't collide with viewport
-    cy.get('.k-popover').invoke('css', 'padding', '150px')
-
     cy.get('button').click()
 
     cy.get('.k-tooltip').should('be.visible').and('have.text', `I'm on the ${variant} side!`)
