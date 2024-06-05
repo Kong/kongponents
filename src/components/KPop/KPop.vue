@@ -265,6 +265,7 @@ onMounted(() => {
   }
 
   if (popoverTrigger.value && popoverElement.value) {
+    // start the auto updates for the popover position
     autoUpdate(popoverTrigger.value, popoverElement.value, updatePosition)
   }
 })
