@@ -421,6 +421,8 @@ watch(pageCount, (newVal, oldVal) => {
       margin-left: var(--kui-space-30, $kui-space-30);
 
       :deep(.popover-content) {
+        border-bottom-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+        border-bottom-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
         max-height: 200px;
         overflow-y: auto;
       }
