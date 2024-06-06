@@ -139,27 +139,6 @@
           </KPop>
         </KComponent>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="positionFixed">
-        <KComponent
-          v-slot="{ data }"
-          :data="{ positionFixed: true }"
-        >
-          <KInputSwitch
-            v-model="data.positionFixed"
-            label="Position fixed"
-          />
-
-          <KPop
-            :key="data.positionFixed ? 'fixed' : 'absolute'"
-            button-text="Button"
-            :position-fixed="data.positionFixed"
-          >
-            <template #content>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </template>
-          </KPop>
-        </KComponent>
-      </SandboxSectionComponent>
 
       <!-- Slots -->
       <SandboxTitleComponent

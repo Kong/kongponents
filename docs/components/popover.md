@@ -95,8 +95,7 @@ Accepted values are:
 <ul>
   <li v-for="placement in PopPlacementsArray" :key="`${placement}-placement`">
     <code>{{ placement }}</code> 
-    <span v-if="placement === 'auto'" v-html="getDefaultPlacementMessage(true)" />
-    <span v-if="placement === 'top'" v-html="getDefaultPlacementMessage(false)" />
+    <span v-if="placement === 'auto'">(default)</span>
   </li>
 </ul>
 
@@ -261,38 +260,6 @@ Boolean to control whether or not the popover should close when a user clicks wi
     <KButton size="small">
       Click here
     </KButton>
-  </template>
-</KPop>
-```
-
-### positionFixed
-
-A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries. Defaults to `true`.
-
-<div class="position-fixed-container">
-  <KPop button-text="Fixed positioning" placement="top">
-    <template #content>
-      Popover content.
-    </template>
-  </KPop>
-
-  <KPop :position-fixed="false" placement="top">
-    <KButton appearance="danger">
-      Non-fixed positioning
-    </KButton>
-    <template #content>
-      Popover content.
-    </template>
-  </KPop>
-</div>
-
-```html
-<KPop
-  :position-fixed="false"
-  button-text="Open popover"
->
-  <template #content>
-    Popover content.
   </template>
 </KPop>
 ```
@@ -569,8 +536,6 @@ Fires when the popover content is clicked.
 import { PopPlacementsArray } from '@/types'
 import { CheckIcon, CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30, KUI_COLOR_TEXT_SUCCESS, KUI_COLOR_TEXT_DANGER } from '@kong/design-tokens'
-
-const getDefaultPlacementMessage = (value: boolean) => `(default when <a href="#positionfixed"><code>positionFixed</code> prop</a> is <code>${value}</code>)`
 </script>
 
 <style lang="scss" scoped>
@@ -584,18 +549,6 @@ const getDefaultPlacementMessage = (value: boolean) => `(default when <a href="#
   display: flex;
   flex-direction: column;
   gap: $kui-space-40;
-}
-
-.position-fixed-container {
-  background-color: $kui-color-background-neutral-weakest;
-  border: $kui-border-width-10 dashed $kui-color-border-neutral-weak;
-  width: fit-content;
-  padding: $kui-space-90;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  gap: $kui-space-50;
-  border-radius: $kui-border-radius-30;
 }
 
 .button-right {

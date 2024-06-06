@@ -156,10 +156,6 @@ const props = defineProps({
     type: Number,
     default: 1000,
   },
-  positionFixed: {
-    type: Boolean,
-    default: true,
-  },
 })
 
 const emit = defineEmits(['open', 'close', 'popover-click'])
@@ -234,19 +230,24 @@ const popoverStyles = computed(() => {
 
 const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': props.hideCaret }])
 
-const popoverPlacement = computed((): PopPlacements => props.positionFixed ? props.placement : 'top')
-
 const { floatingStyles, placement: calculatedPlacement, update: updatePosition } = useFloating(popoverTrigger, popoverElement, {
-  ...(popoverPlacement.value === 'auto' && { middleware: [autoPlacement()] }), // when placement is auto just use autoPlacement middleware
-  ...(popoverPlacement.value !== 'auto' && {
-    placement: popoverPlacement.value,
+  ...(props.placement === 'auto' && { middleware: [autoPlacement()] }), // when placement is auto just use autoPlacement middleware
+  ...(props.placement !== 'auto' && {
+    placement: props.placement,
     middleware: [
-      flip(),
-      shift(),
+      shift(), // Shifts the floating element to keep it in view.
+      flip(), // Changes the placement of the floating element to keep it in view.
+      /**
+       * ! Needs to be placed after flip middleware
+       * Need to use the size middleware to set the max-width and max-height of the popover
+       * So that it's can prefer the original position as much as possible
+       * Docs: https://floating-ui.com/docs/size#using-with-flip
+       */
       size({
-        apply({ elements, availableHeight }) {
+        apply({ elements, availableWidth, availableHeight }) {
           requestAnimationFrame(() => {
             Object.assign(elements.floating.style, {
+              maxWidth: `${availableWidth}px`,
               maxHeight: `${availableHeight}px`,
             })
           })
@@ -254,7 +255,7 @@ const { floatingStyles, placement: calculatedPlacement, update: updatePosition }
       }),
     ],
   }),
-  strategy: props.positionFixed ? 'fixed' : 'absolute',
+  strategy: 'fixed',
   transform: false,
 })
 

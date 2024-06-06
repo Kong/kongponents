@@ -639,6 +639,7 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 * `placement` prop options have changed, see [Constants, Types & Interfaces](#constants-types--interfaces-15) for more details
 * `hidePopover` prop has been removed. Instead, you can use exposed by the component `hidePopover` method
 * `target` prop has been removed (popover element is always mounted to `.k-popover` element)
+* `positionFixed` prop has been removed (popover element uses `position: fixed;` as a default)
 
 #### Slots
 
