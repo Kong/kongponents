@@ -7,7 +7,6 @@
       :is="showTooltip ? 'KTooltip' : 'div'"
       class="badge-content"
       :class="{ 'icon-after': !iconBefore }"
-      :position-fixed="showTooltip ? true : undefined"
     >
       <template
         v-if="showTooltip"

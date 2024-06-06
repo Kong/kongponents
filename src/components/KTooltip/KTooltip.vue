@@ -8,7 +8,6 @@
     :placement="placement"
     popover-classes="k-tooltip"
     :popover-timeout="100"
-    :position-fixed="positionFixed"
     trigger="hover"
     width="auto"
     :z-index="zIndex"
@@ -66,13 +65,6 @@ const props = defineProps({
     validator: (value: PopPlacements):boolean => {
       return PopPlacementsArray.includes(value)
     },
-  },
-  /**
-  * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
-  */
-  positionFixed: {
-    type: Boolean,
-    default: true,
   },
   /**
   * Set the max-width of the ktooltip

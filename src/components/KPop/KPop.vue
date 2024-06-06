@@ -370,6 +370,7 @@ $kPopCaretOffset: 16px;
 
   .popover {
     // need max-width: 100vw; and width: max-content; for Floating UI to work properly
+    // gets overwritten by the size middleware once the popover is positioned
     max-width: 100vw;
     width: max-content;
     z-index: v-bind('zIndex');

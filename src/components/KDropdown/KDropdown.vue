@@ -21,7 +21,6 @@
           :label="disabledTooltip ? disabledTooltip : undefined"
           :max-width="!!disabledTooltip ? '240' : undefined"
           :position="!!disabledTooltip ? 'bottom' : undefined"
-          :position-fixed="!!disabledTooltip ? true : undefined"
         >
           <slot
             :is-open="isToggled.value"
@@ -163,7 +162,6 @@ const defaultKPopAttributes = {
   hideCaret: true,
   popoverClasses: 'k-dropdown-popover',
   popoverTimeout: 0,
-  positionFixed: true,
   placement: 'bottom-start' as PopPlacements,
 }
 

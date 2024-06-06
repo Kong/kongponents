@@ -10,7 +10,6 @@
       v-if="hasTooltip"
       v-bind="tooltipAttributes"
       class="label-tooltip"
-      position-fixed
       :tooltip-id="tooltipId"
     >
       <InfoIcon

@@ -11,7 +11,6 @@
       hide-caret
       hide-close-icon
       :placement="popoverPlacement"
-      position-fixed
       width="auto"
       @close="state.popoverOpen = false"
       @open="state.popoverOpen = true"

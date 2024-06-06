@@ -26,7 +26,6 @@
           ref="popper"
           hide-close-icon
           v-bind="boundKPopAttributes"
-          :position-fixed="positionFixed"
           @close="() => handleToggle(false, isToggled, toggle)"
           @open="() => handleToggle(true, isToggled, toggle)"
         >
@@ -395,13 +394,6 @@ const props = defineProps({
     default: () => [],
     // Items must have a label & value
     validator: (items: MultiselectItem[]) => !items.length || (items.every(i => i.label !== undefined && i.value !== undefined) && itemValuesAreUnique(items)),
-  },
-  /**
-   * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
-   */
-  positionFixed: {
-    type: Boolean,
-    default: true,
   },
   /**
    * Override default filter functionality of case-insensitive search on label

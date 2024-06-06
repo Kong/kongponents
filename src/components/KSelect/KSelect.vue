@@ -26,7 +26,6 @@
         v-bind="boundKPopAttributes"
         close-on-popover-click
         hide-close-icon
-        :position-fixed="positionFixed"
         @close="() => onClose(toggle, isToggled.value)"
         @open="() => onOpen(toggle)"
         @popover-click="() => onPopoverClick(toggle)"
@@ -268,13 +267,6 @@ const props = defineProps({
     default: () => [],
     // Items must have a label & value
     validator: (items: SelectItem[]) => !items.length || items.every(i => i.label !== undefined && i.value !== undefined),
-  },
-  /**
-   * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
-   */
-  positionFixed: {
-    type: Boolean,
-    default: true,
   },
   /**
    * Control whether the input supports filtering.

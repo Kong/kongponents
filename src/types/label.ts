@@ -4,6 +4,5 @@ export type Placement = PopPlacements
 export interface TooltipAttributes {
   label?: string
   placement?: Placement
-  positionFixed?: boolean
   maxWidth?: string
 }

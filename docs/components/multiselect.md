@@ -301,10 +301,6 @@ Accepted values: `sticky` (default) and `static`.
 <KMultiselect dropdown-footer-text-position="static" dropdown-footer-text="Static dropdown footer text" :items="items" />
 ```
 
-### positionFixed
-
-Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `true`. See [`KPop` docs](popover.html#positionfixed) for more information.
-
 ### loading
 
 You can use the `loading` prop to show a loading indicator in place of the chevron while fetching data from API.

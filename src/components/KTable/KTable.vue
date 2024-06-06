@@ -150,7 +150,6 @@
                   <KTooltip
                     v-if="column.tooltip || $slots[getColumnTooltipSlotName(column.key)]"
                     :data-testid="getColumnTooltipSlotName(column.key)"
-                    position-fixed
                     :tooltip-id="`${getColumnTooltipSlotName(column.key)}-${tableId}`"
                   >
                     <InfoIcon

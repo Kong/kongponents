@@ -83,10 +83,6 @@ Here are the different options:
 </KTooltip>
 ```
 
-### positionFixed
-
-Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `true`. See [KPop docs](/components/popover#positionfixed) for more information.
-
 ### maxWidth
 
 You can set the maximum width of the tooltip container with the `maxWidth` property. `maxWidth` defaults to `auto`.

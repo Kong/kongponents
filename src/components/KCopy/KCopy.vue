@@ -15,7 +15,6 @@
         :class="[textTooltipClasses]"
         data-testid="copy-tooltip-wrapper"
         placement="bottom-start"
-        position-fixed
         :text="textTooltipLabel"
       >
         <div
@@ -31,7 +30,6 @@
         class="text-icon-wrapper"
         max-width="500px"
         placement="bottom-start"
-        position-fixed
         :text="tooltipText"
       >
         <KClipboardProvider v-slot="{ copyToClipboard }">
