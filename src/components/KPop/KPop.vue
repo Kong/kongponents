@@ -259,7 +259,7 @@ const { floatingStyles, placement: calculatedPlacement, update: updatePosition }
   transform: false,
 })
 
-const floatingUpdates = ref<Function | null>(null)
+const floatingUpdates = ref<() => void>()
 
 defineExpose({
   hidePopover,
