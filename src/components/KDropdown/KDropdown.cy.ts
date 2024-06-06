@@ -48,7 +48,7 @@ describe('KDropdown', () => {
       },
     })
 
-    cy.getTestId('dropdown-trigger').click()
+    cy.getTestId('dropdown-trigger').click({ force: true })
 
     cy.get('.k-dropdown-popover').invoke('width').should('eq', width)
   })
