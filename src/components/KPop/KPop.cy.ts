@@ -49,7 +49,7 @@ describe('KPop', () => {
       },
     })
     cy.get('.slottedEl').click()
-    cy.get('.popover').invoke('width').should('eq', width)
+    cy.get('.popover .popover-container').invoke('width').should('eq', width)
   })
 
   it('renders with correct title', () => {

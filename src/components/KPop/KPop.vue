@@ -27,10 +27,13 @@
         class="popover"
         :class="popoverClassesObj"
         role="dialog"
-        :style="popoverStyle"
+        :style="floatingStyles"
         :x-placement="calculatedPlacement"
       >
-        <div class="popover-container">
+        <div
+          class="popover-container"
+          :style="popoverStyles"
+        >
           <button
             v-if="!hideCloseIcon"
             ref="popoverCloseButton"
@@ -82,7 +85,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
 import type { PropType } from 'vue'
-import { useFloating, autoUpdate, autoPlacement, flip, shift } from '@floating-ui/vue'
+import { useFloating, autoUpdate, autoPlacement, flip, shift, size } from '@floating-ui/vue'
 import type { PopPlacements, PopTrigger } from '@/types'
 import { PopPlacementsArray, PopTriggerArray } from '@/types'
 import { v4 as uuid4 } from 'uuid'
@@ -135,7 +138,7 @@ const props = defineProps({
   },
   maxWidth: {
     type: String,
-    default: '100vw', // need to set for Floating UI to work properly
+    default: 'auto',
   },
   maxHeight: {
     type: String,
@@ -221,12 +224,11 @@ const clickHandler = (event: Event) => {
   }
 }
 
-const popoverStyle = computed(() => {
+const popoverStyles = computed(() => {
   return {
-    width: props.width === 'auto' ? 'max-content' : getSizeFromString(props.width), // need to set to max-content for Floating UI to work properly
+    width: getSizeFromString(props.width),
     maxWidth: getSizeFromString(props.maxWidth),
     maxHeight: getSizeFromString(props.maxHeight),
-    ...floatingStyles.value,
   }
 })
 
@@ -235,8 +237,25 @@ const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': 
 const popoverPlacement = computed((): PopPlacements => props.positionFixed ? props.placement : 'top')
 
 const { floatingStyles, placement: calculatedPlacement, update: updatePosition } = useFloating(popoverTrigger, popoverElement, {
-  ...(popoverPlacement.value === 'auto' ? { middleware: [autoPlacement()] } : { placement: popoverPlacement.value, middleware: [flip(), shift()] }),
+  ...(popoverPlacement.value === 'auto' && { middleware: [autoPlacement()] }), // when placement is auto just use autoPlacement middleware
+  ...(popoverPlacement.value !== 'auto' && {
+    placement: popoverPlacement.value,
+    middleware: [
+      flip(),
+      shift(),
+      size({
+        apply({ elements, availableHeight }) {
+          requestAnimationFrame(() => {
+            Object.assign(elements.floating.style, {
+              maxHeight: `${availableHeight}px`,
+            })
+          })
+        },
+      }),
+    ],
+  }),
   strategy: props.positionFixed ? 'fixed' : 'absolute',
+  transform: false,
 })
 
 const floatingUpdates = ref<Function | null>(null)
@@ -270,9 +289,7 @@ onMounted(() => {
     // start the auto updates for the popover position
     // autoUpdate cleanup function
     // docs: https://floating-ui.com/docs/autoUpdate#usage
-    floatingUpdates.value = autoUpdate(popoverTrigger.value, popoverElement.value, updatePosition, {
-      elementResize: false, // fixes ResizeObserver loop issue
-    })
+    floatingUpdates.value = autoUpdate(popoverTrigger.value, popoverElement.value, updatePosition)
   }
 })
 
@@ -351,6 +368,9 @@ $kPopCaretOffset: 16px;
   }
 
   .popover {
+    // need max-width: 100vw; and width: max-content; for Floating UI to work properly
+    max-width: 100vw;
+    width: max-content;
     z-index: v-bind('zIndex');
 
     // need to wrap popover content in a container because we cannot set position: relative; as that will break the floating-ui positioning
@@ -363,7 +383,6 @@ $kPopCaretOffset: 16px;
       flex-direction: column;
       font-family: var(--kui-font-family-text, $kui-font-family-text);
       gap: var(--kui-space-40, $kui-space-40);
-      max-width: none;
       padding: var(--kui-space-60, $kui-space-60);
       position: relative;
       text-align: left;
