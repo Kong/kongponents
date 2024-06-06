@@ -634,7 +634,7 @@ const handleFilterClick = (event: any) => {
   }
 }
 
-const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: Function) => {
+const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: () => any) => {
   if (open) {
     if (!isToggled.value) { // not already open
       filterString.value = ''
@@ -937,11 +937,11 @@ watch(stagingKey, () => {
 // make the popper recalculate it's position whenever the selections display
 // is updated in case we've grown a line
 watch(key, async () => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+
+  // @ts-ignore: allow checking for updatePopper
   if (popper.value && typeof popper.value.updatePopper === 'function') {
     await nextTick()
-    // @ts-ignore
+    // @ts-ignore: allow calling the method
     popper.value.updatePopper()
   }
 })
@@ -988,7 +988,12 @@ watch(() => props.items, (newValue, oldValue) => {
       unfilteredItems.value[i].selected = false
     }
 
-    unfilteredItems.value[i].key = `${unfilteredItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `multiselect-item-label-${i}`
+    let unfilteredItemKey = `${unfilteredItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}`
+    if (unfilteredItemKey.includes('undefined')) {
+      unfilteredItemKey = `multiselect-item-label-${i}`
+    }
+
+    unfilteredItems.value[i].key = unfilteredItemKey
     if (props.modelValue.includes(unfilteredItems.value[i].value) || unfilteredItems.value[i].selected) {
       const selectedItem = unfilteredItems.value[i]
       selectedItem.selected = true

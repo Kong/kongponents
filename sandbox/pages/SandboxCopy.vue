@@ -142,7 +142,7 @@ const uuid1: string = '2cf64827-6c70-4116-906b-4c9aae83fc4a'
 const kButtonKCopyElement = ref<InstanceType<typeof KCopy> | null>(null)
 
 const onButtonClick = () => {
-  // @ts-ignore
+  // @ts-ignore - function is exposed
   kButtonKCopyElement.value?.copy()
 }
 </script>

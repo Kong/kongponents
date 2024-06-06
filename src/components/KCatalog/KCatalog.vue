@@ -439,7 +439,9 @@ const catalogFetcherCacheKey = computed((): string => {
 })
 
 const query = ref('')
-const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => { query.value = q }, 350)
+const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => {
+  query.value = q
+}, 350)
 const search = generateDebouncedSearch(0) // generate a debounced function with zero delay (immediate)
 
 // ALL fetching is done through this useRequest / revalidate

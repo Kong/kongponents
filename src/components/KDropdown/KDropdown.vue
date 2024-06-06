@@ -91,7 +91,7 @@ const props = defineProps({
     type: String as PropType<ButtonAppearance>,
     default: 'primary',
     validator: (value: ButtonAppearance) => {
-      // @ts-ignore
+      // @ts-ignore: allow comparing string values
       if (value === 'menu' || value === 'selectionMenu') {
         console.warn('KDropdown: the usage for the `appearance` prop has changed. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kdropdownmenu')
       }

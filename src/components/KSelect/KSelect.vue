@@ -572,11 +572,11 @@ const onSelectWrapperClick = (event: Event): void => {
   }
 }
 
-const onPopoverClick = (toggle: Function) => {
+const onPopoverClick = (toggle: () => void) => {
   toggle()
 }
 
-const onClose = (toggle: Function, isToggled: boolean) => {
+const onClose = (toggle: () => void, isToggled: boolean) => {
   if (selectedItem.value) {
     filterQuery.value = selectedItem.value.label
   }
@@ -585,7 +585,7 @@ const onClose = (toggle: Function, isToggled: boolean) => {
   }
 }
 
-const onOpen = (toggle: Function) => {
+const onOpen = (toggle: () => void) => {
   if (props.enableFiltering) {
     filterQuery.value = ''
   }
@@ -624,7 +624,12 @@ watch(() => props.items, (newValue, oldValue) => {
       selectItems.value[i].selected = false
     }
 
-    selectItems.value[i].key = `${selectItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `select-item-label-${i}`
+    let selectItemKey = `${selectItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}`
+    if (selectItemKey.includes('undefined')) {
+      selectItemKey = `select-item-label-${i}`
+    }
+
+    selectItems.value[i].key = selectItemKey
     if (selectItems.value[i].value === props.modelValue || selectItems.value[i].selected) {
       selectItems.value[i].selected = true
       selectedItem.value = selectItems.value[i]
@@ -669,7 +674,9 @@ watch(selectedItem, (newVal, oldVal) => {
 
 onMounted(() => {
   if (selectWrapperElement.value) {
-    resizeObserver.value = ResizeObserverHelper.create(() => { actualElementWidth.value = `${selectWrapperElement.value?.offsetWidth}px` })
+    resizeObserver.value = ResizeObserverHelper.create(() => {
+      actualElementWidth.value = `${selectWrapperElement.value?.offsetWidth}px`
+    })
 
     resizeObserver.value.observe(selectWrapperElement.value as HTMLDivElement)
   }

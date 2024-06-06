@@ -155,7 +155,7 @@ const value = computed({
     return props.modelValue
   },
   set(newValue: string | number): void {
-    // @ts-ignore
+    // @ts-ignore: allow typing as Event
     handleInput({ target: { value: newValue } } as Event)
   },
 })
@@ -234,7 +234,7 @@ watch(charLimitExceeded, (newVal, oldVal) => {
 
 watch(value, (newVal, oldVal) => {
   if (newVal !== oldVal) {
-    // @ts-ignore
+    // @ts-ignore: allow typing as Event
     handleInput({ target: { value: newVal } } as Event)
   }
 })

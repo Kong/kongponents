@@ -465,7 +465,7 @@ const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
   if (!isSingleDatepicker.value) {
     return htmlFormat
       ? `<div>${format(start as Date, fmtStr)} -&nbsp;</div><div>${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}</div>`
-      : `${format(start as Date, fmtStr)} - ${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}` || ''
+      : `${format(start as Date, fmtStr)} - ${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}`
   } else {
     return `${format(start as Date, fmtStr)} ${tzAbbrev}`
   }
