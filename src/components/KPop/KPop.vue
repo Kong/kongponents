@@ -240,7 +240,7 @@ const { floatingStyles, placement: calculatedPlacement, update: updatePosition }
       /**
        * ! Needs to be placed after flip middleware
        * Need to use the size middleware to set the max-width and max-height of the popover
-       * So that it's can prefer the original position as much as possible
+       * So that it can prefer the original position as much as possible
        * Docs: https://floating-ui.com/docs/size#using-with-flip
        */
       size({
