@@ -260,7 +260,7 @@ describe('KMultiselect', () => {
     cy.getTestId('selection-badges-container').should('not.exist')
   })
 
-  it('allows slotting content into the items', async () => {
+  it('allows slotting content into the items', () => {
     const itemSlotContent = 'I am slotted baby!'
     const itemLabel = 'Label 1'
     const itemValue = 'label1'

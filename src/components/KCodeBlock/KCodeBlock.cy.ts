@@ -60,8 +60,7 @@ describe('KCodeBlock', () => {
     // Searches again in regular expression mode.
     const expectedLineNumbersForRegExp = [2, 3]
 
-    const regExpModeButton = cy.get('[data-testid="regexp-mode-button"]')
-    regExpModeButton.click()
+    cy.get('[data-testid="regexp-mode-button"]').click()
 
     cy.get('[data-testid="code-block-search-input"]').clear()
     cy.get('[data-testid="code-block-search-input"]').type('key[12]').then(() => {
@@ -104,8 +103,7 @@ describe('KCodeBlock', () => {
     const expectedMatchedTermsForRegExp = ['key1', 'key2']
     const expectedNumberOfMatchesForRegExp = 2
 
-    const regExpModeButton = cy.get('[data-testid="regexp-mode-button"]')
-    regExpModeButton.click()
+    cy.get('[data-testid="regexp-mode-button"]').click()
 
     cy.get('[data-testid="code-block-search-input"]').clear()
     cy.get('[data-testid="code-block-search-input"]').type('key[12]').then(() => {
@@ -131,30 +129,29 @@ describe('KCodeBlock', () => {
   it('can be interacted with using default shortcuts', () => {
     const id = 'code-block'
     renderComponent({ id, searchable: true, query: 'key' })
-    const codeBlock = cy.get('.k-code-block')
 
     // Tests that scoped shortcuts don’t work when focus is not within the code block.
     cy.document().trigger('keydown', { code: 'F3' })
     cy.get('.line-is-highlighted-match').should('not.exist')
 
-    codeBlock.trigger('keydown', { code: 'F3' })
+    cy.get('.k-code-block').trigger('keydown', { code: 'F3' })
     cy.get('.line-is-highlighted-match .line-anchor').invoke('attr', 'id').should('equal', `${id}-L2`)
 
-    codeBlock.trigger('keydown', { code: 'F3' })
+    cy.get('.k-code-block').trigger('keydown', { code: 'F3' })
     cy.get('.line-is-highlighted-match .line-anchor').invoke('attr', 'id').should('equal', `${id}-L3`)
 
-    codeBlock.trigger('keydown', { code: 'F3' })
+    cy.get('.k-code-block').trigger('keydown', { code: 'F3' })
     cy.get('.line-is-highlighted-match .line-anchor').invoke('attr', 'id').should('equal', `${id}-L4`)
 
-    codeBlock.trigger('keydown', { code: 'F3' })
+    cy.get('.k-code-block').trigger('keydown', { code: 'F3' })
     cy.get('.line-is-highlighted-match .line-anchor').invoke('attr', 'id').should('equal', `${id}-L2`)
 
-    codeBlock.trigger('keydown', { code: 'F3', shiftKey: true })
+    cy.get('.k-code-block').trigger('keydown', { code: 'F3', shiftKey: true })
     cy.get('.line-is-highlighted-match .line-anchor').invoke('attr', 'id').should('equal', `${id}-L4`)
 
     // Switches to filter mode using shortcut.
     cy.get('.filtered-code-block').should('not.exist')
-    codeBlock.trigger('keydown', { code: 'KeyF', altKey: true })
+    cy.get('.k-code-block').trigger('keydown', { code: 'KeyF', altKey: true })
     cy.get('.filtered-code-block').should('exist')
     cy.get('.matched-term').should('have.length', 3)
 
@@ -162,7 +159,7 @@ describe('KCodeBlock', () => {
     cy.get('[data-testid="code-block-search-input"]').clear()
     cy.get('[data-testid="code-block-search-input"]').type('key[12]')
 
-    codeBlock.trigger('keydown', { code: 'KeyR', altKey: true })
+    cy.get('.k-code-block').trigger('keydown', { code: 'KeyR', altKey: true })
     cy.get('.matched-term').should('have.length', 2)
   })
 

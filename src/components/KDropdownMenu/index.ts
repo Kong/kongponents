@@ -5,7 +5,7 @@ import { defineComponent, h } from 'vue'
 import KDropdown from '@/components/KDropdown.vue'
 
 export default defineComponent({
-  // eslint-disable-next-line vue/multi-word-component-names
+
   name: 'KDropdownMenu',
   setup(props, { attrs, slots, emit }) {
     console.warn("The Kongponents 'KDropdownMenu' component is deprecated and will be removed in a future release.\nPlease update all references of 'KDropdownMenu' to 'KDropdown'.\nKongponent Docs: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kdropdownmenu")

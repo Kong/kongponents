@@ -190,12 +190,12 @@ const onFileChange = (evt: any): void => {
   const inputElem = document.getElementById(inputId.value) as HTMLInputElement
 
   if (fileSize) {
-    // @ts-ignore
+    // @ts-ignore: allow pusing the file input value to the array
     fileClone.value.push(fileInput.value)
   } else {
-    // @ts-ignore
+    // @ts-ignore: allow pusing the file input value to the array
     inputElem.files = fileClone.value[fileClone.value.length - 1]
-    // @ts-ignore
+    // @ts-ignore: allow the type mismatch here
     fileInput.value = inputElem.files
 
     if (inputElem.files) {

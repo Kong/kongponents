@@ -129,7 +129,9 @@ describe('KCatalog', () => {
         props: {
           cacheIdentifier: 'general-props0',
           loading: false,
-          fetcher: () => { return { data: [], total: 0 } },
+          fetcher: () => {
+            return { data: [], total: 0 }
+          },
         },
         slots: {
           'empty-state': h('span', {}, emptySlotContent),
@@ -145,7 +147,9 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         props: {
           error: true,
-          fetcher: () => { return { data: [], total: 0 } },
+          fetcher: () => {
+            return { data: [], total: 0 }
+          },
         },
         slots: {
           'error-state': h('span', {}, errorSlotContent),
@@ -324,7 +328,9 @@ describe('KCatalog', () => {
     it('displays a loading skeletion when the "loading" prop is set to true"', () => {
       mount(KCatalog, {
         props: {
-          fetcher: () => { return { data: [], total: 0 } },
+          fetcher: () => {
+            return { data: [], total: 0 }
+          },
           loading: true,
         },
       })
@@ -335,7 +341,9 @@ describe('KCatalog', () => {
     it('displays an error state when the "error" prop is set to true"', () => {
       mount(KCatalog, {
         props: {
-          fetcher: () => { return { data: [], total: 0 } },
+          fetcher: () => {
+            return { data: [], total: 0 }
+          },
           error: true,
         },
       })
@@ -348,7 +356,9 @@ describe('KCatalog', () => {
 
       mount(KCatalog, {
         props: {
-          fetcher: () => { return { data: [], total: 0 } },
+          fetcher: () => {
+            return { data: [], total: 0 }
+          },
           error: true,
         },
         slots: {
@@ -412,7 +422,9 @@ describe('KCatalog', () => {
     it('does not display pagination when no data', () => {
       mount(KCatalog, {
         props: {
-          fetcher: () => { return { data: [], total: 0 } },
+          fetcher: () => {
+            return { data: [], total: 0 }
+          },
           paginationPageSizes: [10, 20, 30, 40],
         },
       })
@@ -424,7 +436,9 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         propsData: {
           cacheIdentifier: 'pagination5',
-          fetcher: () => { return { data: getItems(5), total: 5 } },
+          fetcher: () => {
+            return { data: getItems(5), total: 5 }
+          },
           loading: false,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,

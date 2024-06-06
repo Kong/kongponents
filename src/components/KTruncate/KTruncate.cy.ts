@@ -33,10 +33,9 @@ describe('KTruncate', () => {
       },
     })
 
-    const overflowingElement = cy.get('[data-testid="overflowing-element"]')
-    overflowingElement.should('not.be.visible')
+    cy.get('[data-testid="overflowing-element"]').should('not.be.visible')
     cy.get('[data-testid="expand-trigger-wrapper"]').click().then(() => {
-      overflowingElement.should('be.visible')
+      cy.get('[data-testid="overflowing-element"]').should('be.visible')
     })
   })
 

@@ -6,7 +6,7 @@
 
 export const isValidUrl = (string: string): boolean => {
   try {
-    // eslint-disable-next-line no-new
+
     new URL(string)
 
     // No error was thrown, so return true

@@ -170,7 +170,7 @@ describe('KSelect', () => {
     cy.getTestId('select-input').should('not.have.value')
   })
 
-  it('allows slotting content into the items', async () => {
+  it('allows slotting content into the items', () => {
     const itemSlotContent = 'I am slotted!'
     const itemLabel = 'Label 1'
     const itemValue = 'val1'
@@ -190,7 +190,7 @@ describe('KSelect', () => {
     cy.getTestId(`select-item-${itemValue}`).should('contain.text', itemSlotContent)
   })
 
-  it('reuses item template slot for selected item element when prop is true', async () => {
+  it('reuses item template slot for selected item element when prop is true', () => {
     const itemSlotContent = 'I am slotted!'
     const itemLabel = 'Label 1'
     const itemValue = 'val1'
@@ -346,7 +346,7 @@ describe('KSelect', () => {
     cy.get('.select-item').eq(4).should('contain.text', items[4].label)
   })
 
-  it('allows slotting selected item content', async () => {
+  it('allows slotting selected item content', () => {
     const selectedItemContent = 'I am slotted!'
     const itemLabel = 'Label 1'
     const itemValue = 'val1'
@@ -367,7 +367,7 @@ describe('KSelect', () => {
     cy.getTestId('selected-item-slot-content').should('be.visible').should('contain.text', selectedItemContent)
   })
 
-  it('displays placeholder correctly when selected item slot is present', async () => {
+  it('displays placeholder correctly when selected item slot is present', () => {
     const selectedItemContent = 'I am slotted!'
     const placeholderText = 'Placeholder text'
     const itemLabel = 'Label 1'
@@ -507,7 +507,7 @@ describe('KSelect', () => {
 
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'input')
       cy.wrap(Cypress.vueWrapper.emitted().input).should('have.length', 1)
-      // @ts-ignore
+      // @ts-ignore: object type is unknown
       cy.wrap(Cypress.vueWrapper.emitted().input[0][0]).should('be.equal', vals[0])
 
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'change')
@@ -537,12 +537,12 @@ describe('KSelect', () => {
     cy.getTestId('clear-selection-icon').trigger('click').then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'input')
       cy.wrap(Cypress.vueWrapper.emitted().input).should('have.length', 1)
-      // @ts-ignore
+      // @ts-ignore: object type is unknown
       cy.wrap(Cypress.vueWrapper.emitted().input[0][0]).should('be.equal', null)
 
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'change')
       cy.wrap(Cypress.vueWrapper.emitted().change).should('have.length', 1)
-      // @ts-ignore
+      // @ts-ignore: object type is unknown
       cy.wrap(Cypress.vueWrapper.emitted().change[0][0]).should('be.equal', null)
     })
   })
