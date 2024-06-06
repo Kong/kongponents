@@ -1,3 +1,10 @@
+# [9.0.0-alpha.165](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.164...v9.0.0-alpha.165) (2024-06-06)
+
+
+### Features
+
+* **eslint:** eslint v9 and shared configs [KHCP-11627] ([#2209](https://github.com/Kong/kongponents/issues/2209)) ([223f591](https://github.com/Kong/kongponents/commit/223f59174bf5a5e302b572d90438538064d29620))
+
 # [9.0.0-alpha.164](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.163...v9.0.0-alpha.164) (2024-06-05)
 
 
