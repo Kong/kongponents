@@ -29,10 +29,8 @@ describe('KDropdown', () => {
       },
     })
 
-    const triggerBtn = cy.getTestId('dropdown-trigger-button')
-
-    triggerBtn.should('contain.text', triggerTextProp)
-    triggerBtn.click()
+    cy.getTestId('dropdown-trigger-button').should('contain.text', triggerTextProp)
+    cy.getTestId('dropdown-trigger-button').click()
 
     cy.getTestId('dropdown-list').should('exist')
     cy.getTestId('dropdown-list').should('be.visible')
@@ -40,7 +38,7 @@ describe('KDropdown', () => {
     cy.getTestId('dropdown-item').eq(1).should('exist').should('contain.text', defaultMenuItems[1].label)
   })
 
-  it('renders with correct px width', async () => {
+  it('renders with correct px width', () => {
     const width = 350
 
     mount(KDropdown, {
@@ -50,8 +48,7 @@ describe('KDropdown', () => {
       },
     })
 
-    const triggerBtn = cy.getTestId('dropdown-trigger')
-    triggerBtn.click()
+    cy.getTestId('dropdown-trigger').click()
 
     cy.get('.k-dropdown-popover').invoke('width').should('eq', width)
   })
@@ -69,9 +66,8 @@ describe('KDropdown', () => {
     })
 
     // button disabled
-    const triggerBtn = cy.getTestId('dropdown-trigger')
     // hover
-    triggerBtn.trigger('mouseenter')
+    cy.getTestId('dropdown-trigger').trigger('mouseenter')
 
     cy.get('.k-tooltip').should('contain.text', tooltipText)
   })
@@ -101,15 +97,14 @@ describe('KDropdown', () => {
       },
     })
 
-    const triggerBtn = cy.getTestId('dropdown-trigger')
-    triggerBtn.click()
+    cy.getTestId('dropdown-trigger').click()
     cy.getTestId('dropdown-list').should('be.visible')
 
     cy.get('.dropdown-selected-option').should('exist')
     cy.get('.dropdown-selected-option').should('contain.text', selectedLabel)
   })
 
-  it('allows slotting content', async () => {
+  it('allows slotting content', () => {
     const itemSlotContent = 'I am slotted baby!'
     const triggerSlotContent = 'Click Me!'
 
@@ -120,11 +115,10 @@ describe('KDropdown', () => {
       },
     })
 
-    const triggerBtn = cy.getTestId('dropdown-trigger')
-    triggerBtn.click()
+    cy.getTestId('dropdown-trigger').click()
     cy.getTestId('dropdown-list').should('be.visible')
 
-    triggerBtn.should('contain.html', triggerSlotContent)
+    cy.getTestId('dropdown-trigger').should('contain.html', triggerSlotContent)
     cy.get('.k-dropdown-popover').should('contain.html', itemSlotContent)
   })
 
@@ -195,8 +189,7 @@ describe('KDropdown', () => {
       },
     })
 
-    const triggerBtn = cy.getTestId('dropdown-trigger')
-    triggerBtn.click()
+    cy.getTestId('dropdown-trigger').click()
     cy.getTestId('dropdown-list').should('be.visible')
 
     cy.getTestId('dropdown-list').eq(0).find('.k-dropdown-item').should('have.length', 6)

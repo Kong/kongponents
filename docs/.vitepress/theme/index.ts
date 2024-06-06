@@ -23,5 +23,5 @@ export default {
 
     // Register all Kongponents
     ctx.app.use(Kongponents)
-  }
+  },
 }

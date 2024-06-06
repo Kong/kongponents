@@ -132,7 +132,7 @@ describe('KTreeList', () => {
     cy.get(`[data-testid="tree-item-${ids[1]}"].selected [data-testid="tree-item-label"]`).should('contain.text', names[1])
   })
 
-  it('allows slotting content into the items', async () => {
+  it('allows slotting content into the items', () => {
     const itemName = 'Name 1'
     const itemId = 'name-id1'
     const itemIconSlot = '🐰'

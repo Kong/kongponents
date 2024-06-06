@@ -50,7 +50,7 @@ export async function createComponentFiles(name: string): Promise<void> {
   })
 
   // Create new files in src/component/{KComponentName}
-  // eslint-disable-next-line array-callback-return
+
   componentFilesToCreate.map((filename: string): void => {
     const originalFilePath = `${componentFilesTemplatePath}/${filename}`
     const stats = fs.statSync(originalFilePath)

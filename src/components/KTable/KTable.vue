@@ -733,6 +733,7 @@ const resizeHoverColumn = computed((): string => {
 })
 
 // get the resizable header divs to be used for the resize observers
+// eslint-disable-next-line no-undef
 const headerElems = computed((): NodeListOf<Element> | undefined => headerRow.value?.querySelectorAll('th.resizable'))
 const headerHeight = computed((): string => {
   const elem = headerElems.value?.item(0)
@@ -890,7 +891,9 @@ const tableFetcherCacheKey = computed((): string => {
 })
 
 const query = ref('')
-const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => { query.value = q }, 350)
+const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => {
+  query.value = q
+}, 350)
 const search = generateDebouncedSearch(0) // generate a debounced function with zero delay (immediate)
 
 // ALL fetching is done through this useRequest / _revalidate

@@ -19,4 +19,9 @@ export default [
       'cli/template',
     ],
   },
+  {
+    rules: {
+      'cypress/unsafe-to-chain-command': 'off',
+    },
+  },
 ]

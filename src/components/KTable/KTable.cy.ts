@@ -182,7 +182,9 @@ describe('KTable', () => {
       mount(KTable, {
         props: {
           headers: options.headers,
-          fetcher: () => { return { data: options.data } },
+          fetcher: () => {
+            return { data: options.data }
+          },
           disablePagination: true,
         },
         slots: {
@@ -197,7 +199,9 @@ describe('KTable', () => {
       mount(KTable, {
         props: {
           headers: options.headers,
-          fetcher: () => { return { data: options.data } },
+          fetcher: () => {
+            return { data: options.data }
+          },
           disablePagination: true,
         },
         slots: {
@@ -213,7 +217,9 @@ describe('KTable', () => {
       mount(KTable, {
         props: {
           headers: options.headers,
-          fetcher: () => { return { data: options.data } },
+          fetcher: () => {
+            return { data: options.data }
+          },
           rowHover: true,
         },
       })
@@ -225,7 +231,9 @@ describe('KTable', () => {
       mount(KTable, {
         props: {
           headers: options.headers,
-          fetcher: () => { return { data: options.data } },
+          fetcher: () => {
+            return { data: options.data }
+          },
           resizeColumns: true,
         },
       })
@@ -242,7 +250,9 @@ describe('KTable', () => {
       mount(KTable, {
         props: {
           headers: options.headers,
-          fetcher: () => { return { data: options.data } },
+          fetcher: () => {
+            return { data: options.data }
+          },
         },
       })
 
@@ -270,7 +280,9 @@ describe('KTable', () => {
       mount(KTable, {
         props: {
           headers: options.headers,
-          fetcher: () => { return { data: options.data } },
+          fetcher: () => {
+            return { data: options.data }
+          },
         },
       })
 
@@ -420,7 +432,9 @@ describe('KTable', () => {
       mount(KTable, {
         props: {
           headers: options.headers,
-          fetcher: () => { return { data: options.data } },
+          fetcher: () => {
+            return { data: options.data }
+          },
         },
       })
 
@@ -435,7 +449,9 @@ describe('KTable', () => {
       mount(KTable, {
         props: {
           headers: options.headers,
-          fetcher: () => { return { data: options.data } },
+          fetcher: () => {
+            return { data: options.data }
+          },
           sortable: false,
         },
       })
@@ -541,7 +557,9 @@ describe('KTable', () => {
     it('does not display pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
       mount(KTable, {
         propsData: {
-          fetcher: () => { return { data: options.data, total: options.data.length } },
+          fetcher: () => {
+            return { data: options.data, total: options.data.length }
+          },
           loading: false,
           headers: options.headers,
           paginationPageSizes: [10, 15, 20],
@@ -587,7 +605,9 @@ describe('KTable', () => {
     it('does not display offset-based pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
       mount(KTable, {
         propsData: {
-          fetcher: () => { return { data: options.data, offset: null } },
+          fetcher: () => {
+            return { data: options.data, offset: null }
+          },
           loading: false,
           headers: options.headers,
           paginationPageSizes: [10, 15, 20],

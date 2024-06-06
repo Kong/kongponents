@@ -99,9 +99,9 @@ const getDisabled = (option: SegmentedControlOption): boolean => {
 }
 
 const handleClick = (option: SegmentedControlOption): void => {
-  // @ts-ignore
+  // @ts-ignore: allow emitting a custom value
   emit('click', option.value)
-  // @ts-ignore
+  // @ts-ignore: allow emitting a custom value
   emit('update:modelValue', option.value)
 }
 </script>
