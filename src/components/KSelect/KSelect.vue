@@ -704,6 +704,7 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
 
   .select-wrapper {
     position: relative;
+    width: 100%;
   }
 
   .select-input {

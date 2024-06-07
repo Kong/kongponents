@@ -585,6 +585,7 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
 
   .datetime-picker-trigger-wrapper {
     position: relative;
+    width: 100%;
 
     .datetime-picker-trigger {
       @include inputDefaults;

@@ -372,7 +372,7 @@ $kPopCaretOffset: 16px;
   display: flex;
 
   .popover-trigger-wrapper {
-    display: inline-block;
+    display: inline-flex;
     width: 100%;
   }
 
