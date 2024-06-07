@@ -230,10 +230,18 @@ const popoverStyles = computed(() => {
 
 const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': props.hideCaret }])
 
+/**
+ * Backwards compatibility for the placement prop
+ * Converts the placement prop to the correct format for Floating UI
+ * E.g.: 'topStart' -> 'top-start'
+ * TODO: remove this once we've upgraded to v9 across the board
+ */
+const popoverPlacement = computed((): PopPlacements => props.placement.trim().replace(/ /g, '-').replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? '-' : '') + $.toLowerCase()).replace(/--+/g, '-').replace(/-+$/g, '') as PopPlacements)
+
 const { floatingStyles, placement: calculatedPlacement, update: updatePosition } = useFloating(popoverTrigger, popoverElement, {
-  ...(props.placement === 'auto' && { middleware: [autoPlacement()] }), // when placement is auto just use autoPlacement middleware
-  ...(props.placement !== 'auto' && {
-    placement: props.placement,
+  ...(popoverPlacement.value === 'auto' && { middleware: [autoPlacement()] }), // when placement is auto just use autoPlacement middleware
+  ...(popoverPlacement.value !== 'auto' && {
+    placement: popoverPlacement.value,
     middleware: [
       shift(), // Shifts the floating element to keep it in view.
       flip(), // Changes the placement of the floating element to keep it in view.
