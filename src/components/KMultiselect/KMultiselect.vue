@@ -653,7 +653,7 @@ const stageSelections = () => {
   setTimeout(() => {
     const elem = multiselectSelectionsStagingElement.value
 
-    if (!props.collapsedContext) {
+    if (props.collapsedContext) {
       // if it's collapsed don't do calculations, because we don't display badges
       stagingKey.value++
       return
