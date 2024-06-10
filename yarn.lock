@@ -1035,7 +1035,7 @@
   resolved "https://registry.yarnpkg.com/@eslint/object-schema/-/object-schema-2.1.3.tgz#e65ae80ee2927b4fd8c5c26b15ecacc2b2a6cc2a"
   integrity sha512-HAbhAYKfsAC2EkTqve00ibWIZlaU74Z1EHwAjYr4PXF0YU2VEA1zSIKSSpKszRLRWwHzzRZXvK632u+uXzvsvw==
 
-"@evilmartians/lefthook@^1.6.13":
+"@evilmartians/lefthook@^1.6.14":
   version "1.6.15"
   resolved "https://registry.yarnpkg.com/@evilmartians/lefthook/-/lefthook-1.6.15.tgz#c8230cea464b0f785bd2de236c3938f6a2d04987"
   integrity sha512-NEa9LHESB+2SpXWi/8inerXuZu47r6tN/IrpLCgqUdD+blfnvt+rGb/A1QFOsBVS3kBh6+u/kMvhhU8WutplJQ==
@@ -1158,10 +1158,10 @@
   dependencies:
     "@kong/icons" "^1.9.1"
 
-"@kong/design-tokens@^1.12.12":
-  version "1.12.12"
-  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.12.12.tgz#76198cc9ccabdee17d40f60b3219ae1d525b0eaf"
-  integrity sha512-2efq8GaNUBweF5tp2hd4iQG22TfbGdDBfRgTzWvYCixdtEI0MjacLsBTl/iiQEdsekxb5dmC3Dq4qy/bWpCrnQ==
+"@kong/design-tokens@^1.13.2":
+  version "1.13.2"
+  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.13.2.tgz#5c2c6ac3e22e7feac9ddaab49c99608555d0a2a8"
+  integrity sha512-BXI7Nv+wucuG9mw0faXhBgb3ryN9pnMkHntI9HKf0h9BnBvuR8F+iLoCm/Fwo6TZ0tlO5bZTMVk1xc85lnlhBA==
 
 "@kong/eslint-config-kong-ui@^1.0.3":
   version "1.0.3"
@@ -1182,15 +1182,15 @@
     typescript-eslint "^7.12.0"
     vue-eslint-parser "^9.4.3"
 
+"@kong/icons@^1.13.0":
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.13.0.tgz#34dc40ef4962a6504789cb117668c003481c531f"
+  integrity sha512-obKpD/dg3Ma4fbr2W1oXyvD18LMI+EMYPGeSksj69azMDRV+oVZVMlQ62t+C26TkrjQxPuI4WWOjVvbGc50IYg==
+
 "@kong/icons@^1.9.1":
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.9.1.tgz#3947e3019710d306865eef19aef3ec6c89c5a5b6"
   integrity sha512-8V21s7OEXcGAWDfPlcidjLlvAemz1KxgkpNSCWC9BCMGnmYRV/1hF7hzC0Dbjz6Q5uP3jnukI+e2bkKKrxANMQ==
-
-"@kong/icons@^1.9.2":
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.9.2.tgz#13b1c72af2616227ec0a0c3193658d53e8913519"
-  integrity sha512-XMLnCyaBE0xrrnY7DOLXVy2Q1F76AEsfi4mxEdVKfSGOkgV0dqVIHL34aqxo8OoSKUllcCKn/WW25X+YI65nCw==
 
 "@ljharb/through@^2.3.13":
   version "2.3.13"
@@ -8659,6 +8659,17 @@ vite@^5.2.11:
   version "5.2.11"
   resolved "https://registry.yarnpkg.com/vite/-/vite-5.2.11.tgz#726ec05555431735853417c3c0bfb36003ca0cbd"
   integrity sha512-HndV31LWW05i1BLPMUCE1B9E9GFbOu1MbenhS58FuK6owSO5qHm7GiCotrNY1YE5rMeQSFBGmT5ZaLEjFizgiQ==
+  dependencies:
+    esbuild "^0.20.1"
+    postcss "^8.4.38"
+    rollup "^4.13.0"
+  optionalDependencies:
+    fsevents "~2.3.3"
+
+vite@^5.2.12:
+  version "5.2.13"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-5.2.13.tgz#945ababcbe3d837ae2479c29f661cd20bc5e1a80"
+  integrity sha512-SSq1noJfY9pR3I1TUENL3rQYDQCFqgD+lM6fTRAM8Nv6Lsg5hDLaXkjETVeBt+7vZBCMoibD+6IWnT2mJ+Zb/A==
   dependencies:
     esbuild "^0.20.1"
     postcss "^8.4.38"
