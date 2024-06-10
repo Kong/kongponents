@@ -150,7 +150,6 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { ref, computed, onMounted, watch, useSlots } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
 import type {
   CatalogItem,
   CatalogPreferences,
@@ -173,7 +172,9 @@ import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KCatalogItem from './KCatalogItem.vue'
+import useGetRandomId from '@/composables/useGetRandomId'
 
+const { kongponentsId } = useGetRandomId()
 const { useRequest, useDebounce, useSwrvState } = useUtilities()
 
 const props = defineProps({
@@ -359,7 +360,7 @@ const emit = defineEmits<{
 
 const slots = useSlots()
 
-const catalogId = uuidv4()
+const catalogId = kongponentsId()
 const defaultFetcherProps = {
   page: 1,
   pageSize: 15,

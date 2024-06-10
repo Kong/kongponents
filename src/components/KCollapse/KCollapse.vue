@@ -69,14 +69,16 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, ref, useSlots, watch } from 'vue'
 import type { TriggerAlignment, HeaderTag } from '@/types'
 import { TriggerAlignmentArray, HeaderTags } from '@/types'
 import { ChevronRightIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
-import { v4 as uuidv4 } from 'uuid'
+import useGetRandomId from '@/composables/useGetRandomId'
+
+const { kongponentsId } = useGetRandomId()
 
 const props = defineProps({
   // Is the KCollapse collapsed? Defaults to true-->
@@ -113,7 +115,7 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void;
 }>()
 
-const contentId = uuidv4()
+const contentId = kongponentsId()
 
 const isCollapsed = ref<boolean>(true)
 const modelValueChanged = ref<boolean>(false)

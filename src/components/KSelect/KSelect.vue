@@ -194,7 +194,6 @@
 <script lang="ts">
 import type { Ref, PropType } from 'vue'
 import { ref, computed, watch, nextTick, useAttrs, useSlots, onUnmounted, onMounted } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -211,6 +210,7 @@ import type {
 import { ChevronDownIcon, CloseIcon, ProgressIcon } from '@kong/icons'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
+import useGetRandomId from '@/composables/useGetRandomId'
 
 export default {
   inheritAttrs: false,
@@ -218,6 +218,7 @@ export default {
 </script>
 
 <script setup lang="ts">
+const { kongponentsId } = useGetRandomId()
 const { getSizeFromString, stripRequiredLabel } = useUtilities()
 
 const props = defineProps({
@@ -380,9 +381,9 @@ const uniqueFilterQuery = computed((): boolean => {
   return true
 })
 
-const selectWrapperId = uuidv4() // unique id for the KPop target
+const selectWrapperId = kongponentsId() // unique id for the KPop target
 const selectedItem = ref<SelectItem | null>(null)
-const selectId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
+const selectId = computed((): string => attrs.id ? String(attrs.id) : kongponentsId())
 const selectItems = ref<SelectItem[]>([])
 const inputFocused = ref<boolean>(false)
 
@@ -466,7 +467,7 @@ const handleAddItem = (): void => {
   const pos = (selectItems.value?.length || 0) + 1
   const item: SelectItem = {
     label: sanitizeInput(filterQuery.value),
-    value: uuidv4(),
+    value: kongponentsId(),
     key: `${sanitizeInput(filterQuery.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
     custom: true,
   }

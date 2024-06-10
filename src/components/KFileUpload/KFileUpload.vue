@@ -69,8 +69,10 @@ import { computed, ref, useAttrs, useSlots } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
-import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
+import useGetRandomId from '@/composables/useGetRandomId'
+
+const { kongponentsId } = useGetRandomId()
 
 const props = defineProps({
   labelAttributes: {
@@ -126,7 +128,7 @@ const emit = defineEmits<{
 
 const { stripRequiredLabel } = useUtilities()
 
-const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
+const inputId = computed((): string => attrs.id ? String(attrs.id) : kongponentsId())
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')

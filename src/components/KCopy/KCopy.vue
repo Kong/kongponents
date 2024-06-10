@@ -56,12 +56,14 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
-import { v4 as uuid4 } from 'uuid'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { CopyIcon } from '@kong/icons'
 import KClipboardProvider from '@/components/KClipboardProvider'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import useGetRandomId from '@/composables/useGetRandomId'
+
+const { kongponentsId } = useGetRandomId()
 
 const props = defineProps({
   /**
@@ -139,7 +141,7 @@ const props = defineProps({
   },
 })
 
-const copyButtonElementId = uuid4()
+const copyButtonElementId = kongponentsId()
 
 const tooltipText = ref<string>('')
 const nonSuccessText = computed((): string => {

@@ -282,7 +282,6 @@
 <script lang="ts">
 import type { Ref, PropType } from 'vue'
 import { ref, computed, watch, nextTick, onMounted, onUnmounted, useAttrs, useSlots } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KBadge from '@/components/KBadge/KBadge.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -297,6 +296,7 @@ import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
 import { useEventListener } from '@vueuse/core'
+import useGetRandomId from '@/composables/useGetRandomId'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -319,6 +319,7 @@ export default {
 </script>
 
 <script setup lang="ts">
+const { kongponentsId } = useGetRandomId()
 const attrs = useAttrs()
 const slots = useSlots()
 
@@ -478,8 +479,8 @@ const defaultKPopAttributes = {
 const key = ref(0)
 const stagingKey = ref(0)
 
-const multiselectWrapperId = uuidv4() // unique id for the KPop target
-const multiselectId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
+const multiselectWrapperId = kongponentsId() // unique id for the KPop target
+const multiselectId = computed((): string => attrs.id ? String(attrs.id) : kongponentsId())
 
 const multiselectElement = ref<HTMLDivElement | null>(null)
 const multiselectInputElement = ref<HTMLDivElement | null>(null)
@@ -810,7 +811,7 @@ const handleAddItem = (): void => {
   const pos = unfilteredItems.value.length + 1
   const item: MultiselectItem = {
     label: sanitizeInput(filterString.value + ''),
-    value: uuidv4(),
+    value: kongponentsId(),
     key: `${sanitizeInput(filterString.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
   }
   emit('item-added', item)

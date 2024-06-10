@@ -47,10 +47,12 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, ref, useAttrs } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
+import useGetRandomId from '@/composables/useGetRandomId'
+
+const { kongponentsId } = useGetRandomId()
 
 const props = defineProps({
   /**
@@ -100,7 +102,7 @@ const attrs = useAttrs()
 
 const switchInputElement = ref<HTMLInputElement | null>(null)
 
-const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
+const inputId = computed((): string => attrs.id ? String(attrs.id) : kongponentsId())
 
 /**
 * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.

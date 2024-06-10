@@ -70,10 +70,12 @@
 import { computed, ref, watch, useSlots, useAttrs, onMounted, nextTick } from 'vue'
 import type { PropType } from 'vue'
 import type { LabelAttributes, LimitExceededData } from '@/types'
-import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import useGetRandomId from '@/composables/useGetRandomId'
+
+const { kongponentsId } = useGetRandomId()
 
 const props = defineProps({
   modelValue: {
@@ -144,8 +146,8 @@ const slots = useSlots()
 const attrs = useAttrs()
 
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
-const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
-const helpTextId = uuidv4()
+const inputId = computed((): string => attrs.id ? String(attrs.id) : kongponentsId())
+const helpTextId = kongponentsId()
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
 

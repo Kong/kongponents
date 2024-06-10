@@ -86,6 +86,7 @@ import { computed, useAttrs, useSlots } from 'vue'
 import type { RadioTypes, LabelAttributes } from '@/types'
 import { RadioTypesArray } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
+import useGetRandomId from '@/composables/useGetRandomId'
 
 export default {
   inheritAttrs: false,
@@ -93,8 +94,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-// need to import these in the setup block because it uses injected values
-import useGetRandomId from '@/composables/useGetRandomId'
+const { kongponentsId } = useGetRandomId()
 
 const props = defineProps({
   /**
@@ -161,7 +161,6 @@ const props = defineProps({
 })
 
 const slots = useSlots()
-const { kongponentsId } = useGetRandomId()
 
 const inputId = computed((): string => attrs.id ? String(attrs.id) : kongponentsId())
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
