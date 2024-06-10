@@ -49,7 +49,7 @@ describe('KPop', () => {
       },
     })
     cy.get('.slottedEl').click()
-    cy.get('.k-popover').invoke('width').should('eq', width)
+    cy.get('.popover .popover-container').invoke('width').should('eq', width)
   })
 
   it('renders with correct title', () => {
@@ -80,9 +80,9 @@ describe('KPop', () => {
       },
     })
 
-    cy.get('.k-popover').should('not.be.visible')
+    cy.get('.popover').should('not.be.visible')
     cy.get('.slottedEl').click()
-    cy.get('.k-popover').should('be.visible')
+    cy.get('.popover').should('be.visible')
   })
 
   it('shows element on hover', () => {
@@ -96,15 +96,15 @@ describe('KPop', () => {
       },
     })
 
-    cy.get('.k-popover').should('not.be.visible')
+    cy.get('.popover').should('not.be.visible')
     cy.get('.slottedEl').trigger('mouseenter')
-    cy.get('.k-popover').should('be.visible')
+    cy.get('.popover').should('be.visible')
   })
 
   it('renders with correct default zIndex', () => {
     mount(KPop)
 
-    cy.get('.k-popover').should('have.css', 'z-index', '1000')
+    cy.get('.popover').should('have.css', 'z-index', '1000')
   })
 
   it('renders with custom zIndex', () => {
@@ -114,7 +114,7 @@ describe('KPop', () => {
       },
     })
 
-    cy.get('.k-popover').should('have.css', 'z-index', '2200')
+    cy.get('.popover').should('have.css', 'z-index', '2200')
   })
 
   it('does not render close icon when prop is false', () => {
@@ -138,8 +138,8 @@ describe('KPop', () => {
     })
 
     cy.get('.slottedEl').click()
-    cy.get('.k-popover').should('be.visible')
+    cy.get('.popover').should('be.visible')
     cy.get('.popover-close-button').click()
-    cy.get('.k-popover').should('not.be.visible')
+    cy.get('.popover').should('not.be.visible')
   })
 })

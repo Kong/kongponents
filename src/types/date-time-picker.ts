@@ -42,7 +42,7 @@ export interface TimeFrameSection {
 export interface DateTimePickerState {
   abbreviatedDisplay: string
   fullRangeDisplay?: string
-  hidePopover: boolean
+  popoverOpen: boolean
   selectedRange: TimeRange
   previouslySelectedRange: TimeRange
   selectedTimeframe: TimePeriod

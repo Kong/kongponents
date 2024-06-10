@@ -281,7 +281,7 @@ import type { MultiselectItem } from '@/types'
 import { KongIcon } from '@kong/icons'
 
 const multiselectItems: MultiselectItem[] = [{
-  label: 'Service A',
+  label: 'Service A (long truncated with ellipsis item)',
   value: 'a',
   selected: true,
 }, {

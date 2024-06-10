@@ -18,7 +18,7 @@
       <SandboxSectionComponent title="popoverPlacement">
         <KDateTimePicker
           mode="dateTime"
-          popover-placement="bottomEnd"
+          popover-placement="bottom-end"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="clearButton">
@@ -139,7 +139,7 @@
           <div>
             <KDateTimePicker
               mode="dateTime"
-              popover-placement="bottomEnd"
+              popover-placement="bottom-end"
               range
             />
           </div>

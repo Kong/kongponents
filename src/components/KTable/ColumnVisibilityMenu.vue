@@ -2,11 +2,11 @@
   <div class="table-column-visibility-menu">
     <KDropdown
       data-testid="table-column-visibility-menu"
-      :kpop-attributes="{ placement: 'bottomEnd' }"
+      :kpop-attributes="{ placement: 'bottom-end' }"
       @toggle-dropdown="handleDropdownToggle"
     >
       <KTooltip
-        placement="bottomEnd"
+        placement="bottom-end"
         :text="isDropdownOpen ? undefined : 'Show/Hide Columns'"
       >
         <KButton

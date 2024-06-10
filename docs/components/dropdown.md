@@ -90,13 +90,13 @@ The width of the dropdown body (defaults to `auto`). Currently we support number
 Use the `kpopAttributes` prop to configure the KPop [props](/components/popover) dropdown.
 
 <ClientOnly>
-  <KDropdown trigger-text="Documentation" :kpop-attributes="{ placement: 'leftStart' }" :items="deepClone(defaultItems)" />
+  <KDropdown trigger-text="Documentation" :kpop-attributes="{ placement: 'left-start' }" :items="deepClone(defaultItems)" />
 </ClientOnly>
 
 ```html
 <KDropdown 
   trigger-text="Documentation"
-  :kpop-attributes="{ placement: 'leftStart' }"
+  :kpop-attributes="{ placement: 'left-start' }"
   :items="items"
 />
 ```

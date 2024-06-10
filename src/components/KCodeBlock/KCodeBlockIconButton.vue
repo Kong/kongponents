@@ -1,7 +1,7 @@
 <template>
   <KTooltip
     class="code-block-action-tooltip"
-    placement="bottomStart"
+    placement="bottom-start"
     :popover-timeout="300"
     :text="copyTooltipText"
   >

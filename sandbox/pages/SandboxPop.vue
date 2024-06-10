@@ -97,21 +97,6 @@
           </template>
         </KPop>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="hidePopover">
-        <p>
-          <span v-if="!hidingPopover">Hide popover: <code>false</code></span>
-          <span v-else>Hiding popover in: {{ timeoutValue }}</span>
-        </p>
-        <KPop :hide-popover="showPopover">
-          <KButton @click="startPopoverTimeout">
-            Button
-          </KButton>
-
-          <template #content>
-            Popover content.
-          </template>
-        </KPop>
-      </SandboxSectionComponent>
       <SandboxSectionComponent title="disabled">
         <KPop
           button-text="Button"
@@ -239,43 +224,58 @@
           </KPop>
         </KComponent>
       </SandboxSectionComponent>
+
+      <!-- Exposed Methods -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Exposed Methods"
+      />
+      <SandboxSectionComponent title="hidePopover">
+        <p>
+          <span v-if="!hidingPopover">Hide popover: <code>false</code></span>
+          <span v-else>Hiding popover in: {{ timeoutValue }}</span>
+        </p>
+        <KPop ref="kPop">
+          <KButton @click="startPopoverTimeout">
+            Button
+          </KButton>
+
+          <template #content>
+            Popover content.
+          </template>
+        </KPop>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
 
 <script setup lang="ts">
-import { inject, nextTick, ref, watch } from 'vue'
+import { inject, ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { PopPlacementsArray } from '@/types'
+import { KPop } from '@/components'
 
+const kPop = ref<InstanceType<typeof KPop> | null>(null)
 const hidingPopover = ref<boolean>(false)
 const interval = ref<any>(null)
-const showPopover = ref<boolean>(true)
 const timeoutValue = ref<number>(3)
 
 const startPopoverTimeout = () => {
   hidingPopover.value = true
 
   setTimeout(() => {
-    showPopover.value = false
+    kPop.value?.hidePopover()
+    clearInterval(interval.value)
+    hidingPopover.value = false
+    timeoutValue.value = 3
+    interval.value = null
   }, 3000)
 
   interval.value = setInterval(() => {
     timeoutValue.value -= 1
   }, 1000)
 }
-
-watch(showPopover, async (value) => {
-  if (!value) {
-    await nextTick()
-    clearInterval(interval.value)
-    hidingPopover.value = false
-    showPopover.value = true
-    timeoutValue.value = 3
-    interval.value = null
-  }
-})
 
 const onEvent = (message: string): void => {
   console.log(message)
