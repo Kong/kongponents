@@ -82,7 +82,7 @@
 
 <script lang="ts">
 import type { PropType } from 'vue'
-import { computed, useAttrs, useSlots } from 'vue'
+import { computed, inject, useAttrs, useSlots } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import type { RadioTypes, LabelAttributes } from '@/types'
 import { RadioTypesArray } from '@/types'
@@ -94,6 +94,8 @@ export default {
 </script>
 
 <script setup lang="ts">
+const kongponentsId = inject<() => string>('kongponentsId', uuidv4)
+
 const props = defineProps({
   /**
    * Sets whether or not radio is selected
@@ -160,7 +162,7 @@ const props = defineProps({
 
 const slots = useSlots()
 
-const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
+const inputId = computed((): string => attrs.id ? String(attrs.id) : kongponentsId())
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 const hasLabel = computed((): boolean => !!(props.label || slots.default))
 // for regular radio we only show description if there is a label or default slot

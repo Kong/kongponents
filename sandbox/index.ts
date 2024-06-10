@@ -55,6 +55,6 @@ app.provide('app-links', sandboxAppLinks)
 app.use(router)
 
 // Globally register components so they do not have to be imported
-app.use(Kongponents)
+app.use(Kongponents, { kongponentsId: () => 'kongponents-id' })
 
 app.mount('#app')
