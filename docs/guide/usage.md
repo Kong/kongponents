@@ -56,7 +56,7 @@ app.mount('#app')
 
 ### In-Component Registration
 
-```html
+```ts
 <script lang="ts">
 // YourComponent.vue
 
@@ -79,6 +79,42 @@ export default defineComponent({
 /* If using Vue-CLI and webpack, you can likely use
 this path instead: import '~@kong/kongponents/dist/style.css' */
 </style>
+```
+
+## SSR
+
+If you're using Kongponents in SSR mode, we advice [registering Kongponents as a Vue Plugin](#vue-plugin).
+
+Kongponents use external function to generate random strings that are mostly used in accessibility-related attributes. In server-side rendering, that will produce hydration mismatch because the function returns different values on server and client side. However, you can provide your own SSR-compatible function for generating random strings or ids through plugin options.
+
+```ts
+// main.ts (or Vue entry file)
+
+// Replace this with your function
+import { useId } from 'src/utils/useId'
+
+import { createApp } from 'vue'
+import Kongponents from '@kong/kongponents'
+
+// Import Kongponents styles
+import '@kong/kongponents/dist/style.css'
+
+const app = createApp(App)
+
+// Install and register all Kongponents as a plugin
+app.use(Kongponents, {
+  kongponentsId: useId
+})
+
+app.mount('#app')
+```
+
+Plugin options object accepts these parameters:
+
+```ts
+interface KongponentsPlugin {
+  kongponentsId: () => string
+}
 ```
 
 ## TypeScript interfaces
