@@ -1,4 +1,5 @@
 // All exports from all type files should be referenced and exported here.
+export * from './kongponents-plugin'
 export * from './alert'
 export * from './badge'
 export * from './breadcrumbs'

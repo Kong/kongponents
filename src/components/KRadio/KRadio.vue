@@ -82,11 +82,13 @@
 
 <script lang="ts">
 import type { PropType } from 'vue'
-import { computed, inject, useAttrs, useSlots } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
+import { computed, useAttrs, useSlots } from 'vue'
 import type { RadioTypes, LabelAttributes } from '@/types'
 import { RadioTypesArray } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
+import useGetRandomId from '@/composables/useGetRandomId'
+
+const { kongponentsId } = useGetRandomId()
 
 export default {
   inheritAttrs: false,
@@ -94,8 +96,6 @@ export default {
 </script>
 
 <script setup lang="ts">
-const kongponentsId = inject<() => string>('kongponentsId', uuidv4)
-
 const props = defineProps({
   /**
    * Sets whether or not radio is selected

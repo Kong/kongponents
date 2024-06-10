@@ -1,22 +1,15 @@
 import type { App } from 'vue'
 import * as components from './components' // Import all components
 import './styles/styles.scss' // Import all styles
-import { v4 as uuidv4 } from 'uuid'
-
-interface KongponentsOptions {
-  kongponentsId: () => string
-}
-
-const defaultKongponentsOptions: KongponentsOptions = {
-  kongponentsId: uuidv4,
-}
+import { kongponentsRandomIdFunction, defaultKongponentsPlugin } from '@/types'
+import type { KongponentsPlugin } from '@/types'
 
 // Export install function
 export default {
-  install: (app: App, options?: KongponentsOptions): void => {
-    const kongponentsOptions = Object.assign({}, defaultKongponentsOptions, options)
+  install: (app: App, options?: KongponentsPlugin): void => {
+    const kongponentsPlugin = Object.assign({}, defaultKongponentsPlugin, options)
 
-    app.provide('kongponentsId', kongponentsOptions.kongponentsId)
+    app.provide(kongponentsRandomIdFunction, kongponentsPlugin[kongponentsRandomIdFunction])
 
     for (const key in components) {
       // @ts-ignore: key is a valid string
