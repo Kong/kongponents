@@ -1129,10 +1129,10 @@
   dependencies:
     "@kong/icons" "^1.9.1"
 
-"@kong/design-tokens@^1.12.12":
-  version "1.12.12"
-  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.12.12.tgz#76198cc9ccabdee17d40f60b3219ae1d525b0eaf"
-  integrity sha512-2efq8GaNUBweF5tp2hd4iQG22TfbGdDBfRgTzWvYCixdtEI0MjacLsBTl/iiQEdsekxb5dmC3Dq4qy/bWpCrnQ==
+"@kong/design-tokens@^1.13.2":
+  version "1.13.2"
+  resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.13.2.tgz#5c2c6ac3e22e7feac9ddaab49c99608555d0a2a8"
+  integrity sha512-BXI7Nv+wucuG9mw0faXhBgb3ryN9pnMkHntI9HKf0h9BnBvuR8F+iLoCm/Fwo6TZ0tlO5bZTMVk1xc85lnlhBA==
 
 "@kong/eslint-config-kong-ui@^1.0.3":
   version "1.0.3"
@@ -1153,15 +1153,15 @@
     typescript-eslint "^7.12.0"
     vue-eslint-parser "^9.4.3"
 
+"@kong/icons@^1.13.0":
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.13.0.tgz#34dc40ef4962a6504789cb117668c003481c531f"
+  integrity sha512-obKpD/dg3Ma4fbr2W1oXyvD18LMI+EMYPGeSksj69azMDRV+oVZVMlQ62t+C26TkrjQxPuI4WWOjVvbGc50IYg==
+
 "@kong/icons@^1.9.1":
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.9.1.tgz#3947e3019710d306865eef19aef3ec6c89c5a5b6"
   integrity sha512-8V21s7OEXcGAWDfPlcidjLlvAemz1KxgkpNSCWC9BCMGnmYRV/1hF7hzC0Dbjz6Q5uP3jnukI+e2bkKKrxANMQ==
-
-"@kong/icons@^1.9.2":
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.9.2.tgz#13b1c72af2616227ec0a0c3193658d53e8913519"
-  integrity sha512-XMLnCyaBE0xrrnY7DOLXVy2Q1F76AEsfi4mxEdVKfSGOkgV0dqVIHL34aqxo8OoSKUllcCKn/WW25X+YI65nCw==
 
 "@ljharb/through@^2.3.13":
   version "2.3.13"
