@@ -7,6 +7,9 @@ import Kongponents from '../src'
 import { SandboxLayout } from '@kong-ui-public/sandbox-layout'
 import type { SandboxNavigationItem } from '@kong-ui-public/sandbox-layout'
 import '@kong-ui-public/sandbox-layout/dist/style.css'
+import { v4 as uuidv4 } from 'uuid'
+
+const kongponentsSandboxId = () => `kongponents-sandbox-${uuidv4()}`
 
 const app = createApp(App)
 
@@ -55,6 +58,6 @@ app.provide('app-links', sandboxAppLinks)
 app.use(router)
 
 // Globally register components so they do not have to be imported
-app.use(Kongponents, { kongponentsId: () => 'foobarbaz' })
+app.use(Kongponents, { kongponentsId: kongponentsSandboxId })
 
 app.mount('#app')

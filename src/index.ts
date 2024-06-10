@@ -9,7 +9,7 @@ export default {
   install: (app: App, options?: KongponentsPlugin): void => {
     const kongponentsPlugin = Object.assign({}, defaultKongponentsPlugin, options)
 
-    app.provide(kongponentsRandomIdFunction, kongponentsPlugin[kongponentsRandomIdFunction])
+    app.provide(kongponentsRandomIdFunction, kongponentsPlugin.kongponentsId)
 
     for (const key in components) {
       // @ts-ignore: key is a valid string
