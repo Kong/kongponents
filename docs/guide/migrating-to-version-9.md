@@ -342,6 +342,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 #### Constants, Types & Interfaces
 
 * `TimeRange` - `start` and `end` keys are now defined as `Date | null`
+* `hidePopover` property in `DateTimePickerState` interface has been renamed to `popoverOpen`
 
 ### KDropdownMenu
 
@@ -496,6 +497,10 @@ This component has been removed.
 * `k-input-label` class has been renamed to `k-label`
 * `is-required` class has been renamed to `required`
 
+#### Constant, Types & Interfaces
+
+* `positionFixed` parameter was removed from `TooltipAttributes` interface
+
 ### KMenu
 
 This component has been removed.
@@ -563,6 +568,7 @@ This component is deprecated and will be removed in the next major release.
 * default value of `collapsedContext` prop has changed to `true`
 * default value of `selectedRowCount` prop has changed to `1`
 * `expandSelected` prop has been removed
+* `positionFixed` prop has been removed
 
 #### Events
 
@@ -634,7 +640,16 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 * `popoverTransitions` prop has been removed
 * `testMode` prop has been removed
 * `onPopoverClick` prop has been removed. You can a combination of new `closeOnPopoverClick` prop and `popover-click` event instead
+<<<<<<< Updated upstream
 * `positionFixed` prop default value has been changed to `true`
+* `placement` prop options have changed, see [Constants, Types & Interfaces](#constants-types--interfaces-15) for more details
+* `hidePopover` prop has been removed. Instead, you can use the method `hidePopover` exposed by the component
+=======
+* `placement` prop options have changed, see _Constants, Types & Interfaces_ section for more details
+* `hidePopover` prop has been removed. Instead, you can use exposed by the component `hidePopover` method
+>>>>>>> Stashed changes
+* `target` prop has been removed (popover element is always mounted to `.k-popover` element)
+* `positionFixed` prop has been removed (popover element always uses `position: fixed`)
 
 #### Slots
 
@@ -652,6 +667,12 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 * `k-popover-title` class has been replaced with `popover-title`
 * `k-popover-content` class has been replaced with `popover-content`
 * `k-popover-footer` class has been replaced with `popover-footer`
+* `k-popover` class has been replaced with `popover` (instead, `k-popover` class has been given to outer-most element)
+
+#### Constants, Types & Interfaces
+
+* format of most placement options in `PopPlacementsArray` has changed: `topStart` -> `top-start`, `rightEnd` -> `right-end`, etc.
+  * same applies to `PopPlacements` type
 
 ### KPrompt
 
@@ -737,6 +758,7 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `overlayLabel` prop has been removed
 * `filterFunc` prop has been renamed to `filterFunction`
 * `autosuggest` prop has been removed and replaced with `enableFiltering` prop. Should you want to simply enable default component-handled filtering or perform async fetching behind the scenes, you can use this prop in combination with`@query-change` event to achieve that
+* `positionFixed` prop has been removed
 
 #### Events
 
@@ -908,7 +930,7 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 * `testMode` prop has been removed
 * `label` prop has been deprecated in favor of `text` prop
-* default value of `positionFixed` prop has been changed to `true`
+* `positionFixed` prop has been removed
 
 #### Structure
 

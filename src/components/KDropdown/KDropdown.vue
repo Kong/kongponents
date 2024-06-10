@@ -5,11 +5,11 @@
   >
     <KToggle v-slot="{ toggle, isToggled }">
       <KPop
+        ref="kPop"
         v-bind="boundKPopAttributes"
         :close-on-popover-click="!isToggled.value"
         data-testid="k-dropdown-popover"
         hide-close-icon
-        :hide-popover="hidePopover"
         @close="() => handleTriggerToggle(isToggled, toggle, false)"
         @open="() => handleTriggerToggle(isToggled, toggle, true)"
         @popover-click="() => handleTriggerToggle(isToggled, toggle, false)"
@@ -18,10 +18,9 @@
           :is="tooltipComponent"
           class="dropdown-trigger"
           data-testid="dropdown-trigger"
-          :label="disabledTooltip"
+          :label="disabledTooltip ? disabledTooltip : undefined"
           :max-width="!!disabledTooltip ? '240' : undefined"
           :position="!!disabledTooltip ? 'bottom' : undefined"
-          :position-fixed="!!disabledTooltip ? true : undefined"
         >
           <slot
             :is-open="isToggled.value"
@@ -72,7 +71,7 @@
 
 <script lang="ts" setup>
 import type { PropType, Ref } from 'vue'
-import { computed, onMounted, ref, watch, nextTick } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import type { ButtonAppearance, DropdownItem, PopPlacements } from '@/types'
 import { ButtonAppearances } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
@@ -156,16 +155,14 @@ const emit = defineEmits<{
   (e: 'change', value: DropdownItem): void;
 }>()
 
-const hidePopover = ref<boolean>(false)
-
 const tooltipComponent = computed(() => props.disabledTooltip ? KTooltip : 'div')
 
+const kPop = ref<InstanceType<typeof KPop> | null>(null)
 const defaultKPopAttributes = {
   hideCaret: true,
   popoverClasses: 'k-dropdown-popover',
   popoverTimeout: 0,
-  positionFixed: true,
-  placement: 'bottomStart' as PopPlacements,
+  placement: 'bottom-start' as PopPlacements,
 }
 
 const boundKPopAttributes = {
@@ -188,13 +185,7 @@ const handleSelection = (item: DropdownItem): void => {
 }
 
 const handleCloseDropdown = async (): Promise<void> => {
-  hidePopover.value = true
-
-  // reset the hidePopover value so it's ready for the next time the dropdown is opened
-  // need nextTick to ensure the popover is hidden before resetting the value
-  await nextTick(() => {
-    hidePopover.value = false
-  })
+  kPop.value?.hidePopover()
 }
 
 const handleTriggerToggle = (isToggled: Ref<boolean>, toggle: () => void, isOpen: boolean): void => {
@@ -228,7 +219,11 @@ onMounted(() => {
 .k-dropdown {
   width: fit-content;
 
-  :deep(.k-popover.k-dropdown-popover) {
+  .dropdown-trigger {
+    width: 100%;
+  }
+
+  :deep(.popover.k-dropdown-popover .popover-container) {
     border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     margin-top: var(--kui-space-30, $kui-space-30);

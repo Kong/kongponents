@@ -26,8 +26,6 @@
         v-bind="boundKPopAttributes"
         close-on-popover-click
         hide-close-icon
-        :position-fixed="positionFixed"
-        :target="`[id='${selectWrapperId}']`"
         @close="() => onClose(toggle, isToggled.value)"
         @open="() => onOpen(toggle)"
         @popover-click="() => onPopoverClick(toggle)"
@@ -271,13 +269,6 @@ const props = defineProps({
     validator: (items: SelectItem[]) => !items.length || items.every(i => i.label !== undefined && i.value !== undefined),
   },
   /**
-   * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
-   */
-  positionFixed: {
-    type: Boolean,
-    default: true,
-  },
-  /**
    * Control whether the input supports filtering.
    */
   enableFiltering: {
@@ -368,7 +359,7 @@ const hasDropdownFooter = computed((): boolean => !!(slots['dropdown-footer-text
 const defaultKPopAttributes = {
   popoverClasses: `select-popover ${hasDropdownFooter.value ? `has-${props.dropdownFooterTextPosition}-dropdown-footer` : ''}`,
   popoverTimeout: 0,
-  placement: 'bottomStart' as PopPlacements,
+  placement: 'bottom-start' as PopPlacements,
   hideCaret: true,
 }
 
@@ -713,6 +704,7 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
 
   .select-wrapper {
     position: relative;
+    width: 100%;
   }
 
   .select-input {
@@ -771,7 +763,7 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     }
   }
 
-  :deep(.select-popover.k-popover) {
+  :deep(.select-popover.popover .popover-container) {
     border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);

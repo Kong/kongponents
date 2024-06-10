@@ -1,8 +1,9 @@
 import { mount } from 'cypress/vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { h } from 'vue'
+import { PopPlacementsArray } from '@/types'
 
-const positions = ['top', 'topStart', 'topEnd', 'left', 'leftStart', 'leftEnd', 'right', 'rightStart', 'rightEnd', 'bottom', 'bottomStart', 'bottomEnd']
+const positions = PopPlacementsArray
 
 const rendersCorrectPosition = (variant: string) => {
   it(`renders tooltip to the ${variant} side`, () => {
@@ -53,7 +54,7 @@ describe('KTooltip', () => {
       },
     })
 
-    cy.get('.k-tooltip.k-popover').should('have.css', 'z-index', '9999')
+    cy.get('.k-tooltip.popover').should('have.css', 'z-index', '9999')
   })
 
   it('renders with custom zIndex', () => {
@@ -64,6 +65,6 @@ describe('KTooltip', () => {
       },
     })
 
-    cy.get('.k-tooltip.k-popover').should('have.css', 'z-index', '92929')
+    cy.get('.k-tooltip.popover').should('have.css', 'z-index', '92929')
   })
 })

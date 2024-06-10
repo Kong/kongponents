@@ -1,3 +1,10 @@
+# [9.0.0-alpha.166](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.165...v9.0.0-alpha.166) (2024-06-10)
+
+
+### Features
+
+* **kpop:** refactor using floating ui [KHCP-11957] ([#2204](https://github.com/Kong/kongponents/issues/2204)) ([b02ad11](https://github.com/Kong/kongponents/commit/b02ad11f8275d32ebe747e37fafdf4de2c8ed3fd))
+
 # [9.0.0-alpha.165](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.164...v9.0.0-alpha.165) (2024-06-06)
 
 

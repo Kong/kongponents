@@ -26,8 +26,6 @@
           ref="popper"
           hide-close-icon
           v-bind="boundKPopAttributes"
-          :position-fixed="positionFixed"
-          :target="`[id='${multiselectWrapperId}']`"
           @close="() => handleToggle(false, isToggled, toggle)"
           @open="() => handleToggle(true, isToggled, toggle)"
         >
@@ -398,13 +396,6 @@ const props = defineProps({
     validator: (items: MultiselectItem[]) => !items.length || (items.every(i => i.label !== undefined && i.value !== undefined) && itemValuesAreUnique(items)),
   },
   /**
-   * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
-   */
-  positionFixed: {
-    type: Boolean,
-    default: true,
-  },
-  /**
    * Override default filter functionality of case-insensitive search on label
    */
   filterFunction: {
@@ -478,7 +469,7 @@ const getBadgeAppearance = (item?: MultiselectItem): BadgeAppearance => {
 
 const defaultKPopAttributes = {
   hideCaret: true,
-  placement: 'bottomStart' as PopPlacements,
+  placement: 'bottom-start' as PopPlacements,
   popoverTimeout: 0,
   popoverClasses: 'multiselect-popover',
 }
@@ -662,7 +653,7 @@ const stageSelections = () => {
   setTimeout(() => {
     const elem = multiselectSelectionsStagingElement.value
 
-    if (!props.collapsedContext) {
+    if (props.collapsedContext) {
       // if it's collapsed don't do calculations, because we don't display badges
       stagingKey.value++
       return
@@ -1191,7 +1182,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     }
   }
 
-  :deep(.multiselect-popover) {
+  :deep(.multiselect-popover .popover-container) {
     border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);

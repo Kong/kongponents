@@ -360,10 +360,6 @@ Reuse the same display format provided via the [`item-template` slot](#itemtempl
 </KSelect>
 ```
 
-### positionFixed
-
-Use fixed positioning for the select dropdown to avoid content being clipped by the boundaries of its parent container. See [KPopover](/components/popover#positionfixed) docs for more information.
-
 ### enableItemCreation
 
 When used in conjunction with `enableFiltering` set to `true`, KSelect will suggest adding a new value when filtering produces no results.

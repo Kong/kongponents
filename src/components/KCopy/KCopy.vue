@@ -14,8 +14,7 @@
         v-if="format !== 'hidden'"
         :class="[textTooltipClasses]"
         data-testid="copy-tooltip-wrapper"
-        placement="bottomStart"
-        position-fixed
+        placement="bottom-start"
         :text="textTooltipLabel"
       >
         <div
@@ -30,8 +29,7 @@
       <KTooltip
         class="text-icon-wrapper"
         max-width="500px"
-        placement="bottomStart"
-        position-fixed
+        placement="bottom-start"
         :text="tooltipText"
       >
         <KClipboardProvider v-slot="{ copyToClipboard }">

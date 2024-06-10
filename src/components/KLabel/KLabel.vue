@@ -10,14 +10,13 @@
       v-if="hasTooltip"
       v-bind="tooltipAttributes"
       class="label-tooltip"
-      position-fixed
       :tooltip-id="tooltipId"
     >
       <InfoIcon
         class="tooltip-trigger-icon"
         :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
+        decorative
         tabindex="0"
-        title="More info"
       />
       <template #content>
         <slot name="tooltip">{{ info || help }}</slot>
