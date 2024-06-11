@@ -85,29 +85,32 @@ this path instead: import '~@kong/kongponents/dist/style.css' */
 
 If you're using Kongponents in SSR mode, we advice [registering Kongponents as a Vue Plugin](#vue-plugin).
 
-Kongponents use external function to generate random strings that are mostly used in accessibility-related attributes. In server-side rendering, that will produce hydration mismatch because the function returns different values on server and client side. However, you can provide your own SSR-compatible function for generating random strings or ids through plugin options.
+Kongponents uses an external function to generate UUID strings that are mostly used in accessibility-related attributes. 
+
+In server-side rendering, these unique ids will produce hydration mismatch errors because the function returns different values on the server and client. 
+
+You can provide your own SSR-compatible function for generating random strings or ids through the Vue plugin options.
+
+
+Here's an example of how to initialize the Kongponents plugin in a [Nuxt plugin](https://nuxt.com/docs/guide/directory-structure/plugins#vue-plugins).
 
 ```ts
-// main.ts (or Vue entry file)
+// plugins/kongponents.ts
 
-// Replace this with your function
-import { useId } from 'src/utils/useId'
-
-import { createApp } from 'vue'
+// Import Kongponents plugin
 import Kongponents from '@kong/kongponents'
 
 // Import Kongponents styles
 import '@kong/kongponents/dist/style.css'
 
-const app = createApp(App)
-
-// Install and register all Kongponents as a plugin
-app.use(Kongponents, {
-  kongponentsId: useId
+export default defineNuxtPlugin({
+  name: 'kongponents',
+  setup(nuxtApp) {
+    nuxtApp.vueApp.use(Kongponents, {
+      kongponentsId: useId // Utilize the `useId()` function from Nuxt/Vue (v3.5+)
+    })
+  },
 })
-
-app.mount('#app')
-```
 
 Plugin options object accepts these parameters:
 
