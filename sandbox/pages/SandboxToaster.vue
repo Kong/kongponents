@@ -5,9 +5,20 @@
   >
     <div class="ktoaster-sandbox">
       <SandboxSectionComponent>
-        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=497%3A9761&mode=dev&t=lcG4fMxcpZoeYwsC-1">
-          Figma
-        </KExternalLink>
+        <div>
+          <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=497%3A9761&mode=dev&t=lcG4fMxcpZoeYwsC-1">
+            Figma
+          </KExternalLink>
+        </div>
+
+        <div>
+          <KButton
+            appearance="danger"
+            @click="toaster.destroy()"
+          >
+            Destroy Toaster instance
+          </KButton>
+        </div>
       </SandboxSectionComponent>
 
       <!-- Props -->
@@ -75,12 +86,14 @@
 <script setup lang="ts">
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { inject } from 'vue'
+import { inject, getCurrentInstance, onBeforeUnmount } from 'vue'
+import type { ComponentInternalInstance } from 'vue'
 import { ToastManager } from '@/index'
 import type { Toast } from '@/types'
 import { InfoIcon, CheckCircleIcon, WarningIcon, ClearIcon, KongIcon } from '@kong/icons'
 
-const toaster = new ToastManager()
+const { appContext } = getCurrentInstance() as ComponentInternalInstance
+const toaster = new ToastManager(appContext)
 
 const openToaster = (argument: string) => {
   let options: string | Toast = {
@@ -153,6 +166,10 @@ const openToaster = (argument: string) => {
 
   toaster.open(options)
 }
+
+onBeforeUnmount(() => {
+  toaster.destroy()
+})
 </script>
 
 <style lang="scss" scoped>
