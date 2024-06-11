@@ -52,7 +52,7 @@
   </KModal>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, ref, useAttrs, watch, nextTick } from 'vue'
 import KModal from '@/components/KModal/KModal.vue'

@@ -23,7 +23,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { SelectItem } from '@/types'
 import type { PropType } from 'vue'
 

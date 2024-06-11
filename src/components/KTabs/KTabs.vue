@@ -47,7 +47,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { PropType } from 'vue'
 import { ref, watch } from 'vue'
 import type { Tab } from '@/types'

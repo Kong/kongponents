@@ -41,7 +41,7 @@ export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
 }
 </script>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 const props = defineProps({
   item: {
     type: Object as PropType<TreeListItem>,

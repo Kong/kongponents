@@ -45,7 +45,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { computed, ref, onUnmounted, watch } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import { onClickOutside } from '@vueuse/core'

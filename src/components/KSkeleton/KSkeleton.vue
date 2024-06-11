@@ -57,7 +57,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { PropType } from 'vue'
 import { onMounted, ref } from 'vue'
 import Skeleton from '@/components/KSkeleton/SkeletonBase.vue'

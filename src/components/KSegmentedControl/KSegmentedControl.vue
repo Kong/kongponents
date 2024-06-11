@@ -65,7 +65,7 @@ const validateItems = (items: SegmentedControlOption[] | string[]): boolean => {
 export default {}
 </script>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 const props = defineProps({
   modelValue: {
     type: [String, Number, Boolean],

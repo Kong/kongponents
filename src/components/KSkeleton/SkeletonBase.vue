@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 </script>
 

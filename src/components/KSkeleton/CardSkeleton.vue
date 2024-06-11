@@ -34,7 +34,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 import { KUI_SPACE_50 } from '@kong/design-tokens'

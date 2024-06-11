@@ -58,7 +58,7 @@ export default {
 }
 </script>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 const { uniqueIdFn } = useUniqueId()
 
 const props = defineProps({

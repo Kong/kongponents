@@ -34,7 +34,7 @@ The value provided to `v-model` should adhere to all the same constraints of the
   <pre>{{ JSON.stringify(myList) }}</pre>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { TreeListItem } from '@kong/kongponents'
 
 const items: TreeListItem[] = [

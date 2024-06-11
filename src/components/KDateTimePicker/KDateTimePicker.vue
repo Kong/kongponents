@@ -133,7 +133,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { format } from 'date-fns'

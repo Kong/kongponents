@@ -61,7 +61,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, useAttrs, useSlots } from 'vue'
 import type { LabelAttributes } from '@/types'

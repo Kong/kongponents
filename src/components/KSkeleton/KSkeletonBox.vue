@@ -5,7 +5,7 @@
   />
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { PropType } from 'vue'
 import type { SkeletonBoxHeight, SkeletonBoxWidth } from '@/types'
 import { SkeletonBoxHeightArray, SkeletonBoxWidthArray } from '@/types'

@@ -13,7 +13,7 @@
   </ol>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { PropType } from 'vue'
 import KStep from '@/components/KStepper/KStep.vue'
 import type { StepItem } from '@/types'

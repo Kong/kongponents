@@ -63,7 +63,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, ref, useAttrs, useSlots } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'

@@ -69,7 +69,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { PropType, Ref } from 'vue'
 import { computed, onMounted, ref, watch } from 'vue'
 import type { ButtonAppearance, DropdownItem, PopPlacements } from '@/types'

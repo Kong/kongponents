@@ -69,7 +69,7 @@ The `to` property can be a Vue router object or a URL. In most scenarios you wil
   <KBreadcrumbs :items="breadcrumbItems" />
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { BreadcrumbItem } from '@kong/kongponents'
 
 const breadcrumbItems: BreadcrumbItem[] = [{

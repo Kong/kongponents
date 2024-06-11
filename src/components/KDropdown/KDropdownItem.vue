@@ -24,7 +24,7 @@
   </li>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { DropdownItem, DropdownItemRenderedRecord, DropdownItemRenderedType, DropdownItemType } from '@/types'
 import type { PropType } from 'vue'
 import { computed, useAttrs } from 'vue'
