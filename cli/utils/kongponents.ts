@@ -1,6 +1,6 @@
 import pc from 'picocolors'
 import fs from 'fs'
-import { pascalCase, sleep, kongponentSrcPath, titleCaseComponentName, kongponentDocFilename } from './'
+import { pascalCase, sleep, kongponentSrcPath, titleCaseComponentName, kongponentDocFilename } from './index.js'
 import type { Spinner } from 'nanospinner'
 import { createSpinner } from 'nanospinner'
 
