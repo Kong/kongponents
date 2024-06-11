@@ -224,7 +224,7 @@ const setTruncation = (): void => {
   if (props.truncationLimit !== 'auto' && truncateLimitText.value) {
     isTruncated.value = true
   } else if (props.truncationLimit === 'auto' && copyTextElement.value) {
-    isTruncated.value = copyTextElement.value.offsetWidth < copyTextElement.value.scrollWidth
+    isTruncated.value = copyTextElement.value?.offsetWidth < copyTextElement.value?.scrollWidth
   }
 }
 

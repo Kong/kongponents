@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.0.0-alpha.167",
+  "version": "9.0.0-alpha.168",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -33,7 +33,7 @@
     "build": "yarn build:cli && yarn stylelint && yarn lint && yarn build:kongponents && yarn build:docs",
     "build:ci": "yarn build:kongponents && yarn build:docs",
     "commit": "cz",
-    "create-kongponent": "node --experimental-specifier-resolution=node ./bin/index.js",
+    "create-kongponent": "node ./bin/index.js",
     "sandbox:dev": "cross-env USE_SANDBOX=true vite",
     "sandbox:build": "cross-env USE_SANDBOX=true vite build && shx cp sandbox/dist/index.html sandbox/dist/404.html",
     "sandbox:build:netlify": "cross-env USE_SANDBOX=true USE_NETLIFY=true vite build && shx cp sandbox/dist/index.html sandbox/dist/404.html",
