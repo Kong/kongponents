@@ -3,11 +3,10 @@
     <template #default>
       <KButton
         appearance="tertiary"
+        icon
         size="small"
       >
-        <template #icon>
-          <MoreIcon />
-        </template>
+        <MoreIcon />
       </KButton>
     </template>
     <template #items>

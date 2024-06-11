@@ -411,87 +411,84 @@
       />
       <SandboxSectionComponent>
         <div class="horizontal-spacing">
-          <KButton size="large">
-            <template #icon>
-              <AddCircleIcon />
-            </template>
+          <KButton
+            icon
+            size="large"
+          >
+            <AddCircleIcon />
           </KButton>
           <KButton
             appearance="secondary"
+            icon
             size="large"
           >
-            <template #icon>
-              <ProfileIcon />
-            </template>
+            <ProfileIcon />
           </KButton>
           <KButton
             appearance="tertiary"
+            icon
             size="large"
           >
-            <template #icon>
-              <BookIcon />
-            </template>
+            <BookIcon />
           </KButton>
           <KButton
             appearance="danger"
+            icon
             size="large"
           >
-            <template #icon>
-              <DisabledIcon />
-            </template>
+            <DisabledIcon />
           </KButton>
         </div>
         <div class="horizontal-spacing">
-          <KButton>
-            <template #icon>
-              <AddCircleIcon />
-            </template>
-          </KButton>
-          <KButton appearance="secondary">
-            <template #icon>
-              <ProfileIcon />
-            </template>
-          </KButton>
-          <KButton appearance="tertiary">
-            <template #icon>
-              <BookIcon />
-            </template>
-          </KButton>
-          <KButton appearance="danger">
-            <template #icon>
-              <DisabledIcon />
-            </template>
-          </KButton>
-        </div>
-        <div class="horizontal-spacing">
-          <KButton size="small">
-            <template #icon>
-              <AddCircleIcon />
-            </template>
+          <KButton icon>
+            <AddCircleIcon />
           </KButton>
           <KButton
             appearance="secondary"
-            size="small"
+            icon
           >
-            <template #icon>
-              <ProfileIcon />
-            </template>
+            <ProfileIcon />
           </KButton>
           <KButton
             appearance="tertiary"
-            size="small"
+            icon
           >
-            <template #icon>
-              <BookIcon />
-            </template>
+            <BookIcon />
           </KButton>
           <KButton
             appearance="danger"
+            icon
+          >
+            <DisabledIcon />
+          </KButton>
+        </div>
+        <div class="horizontal-spacing">
+          <KButton
+            icon
             size="small"
           >
-            <template #icon>
-              <DisabledIcon />
-            </template>
+            <AddCircleIcon />
+          </KButton>
+          <KButton
+            appearance="secondary"
+            icon
+            size="small"
+          >
+            <ProfileIcon />
+          </KButton>
+          <KButton
+            appearance="tertiary"
+            icon
+            size="small"
+          >
+            <BookIcon />
+          </KButton>
+          <KButton
+            appearance="danger"
+            icon
+            size="small"
+          >
+            <DisabledIcon />
           </KButton>
         </div>
       </SandboxSectionComponent>
