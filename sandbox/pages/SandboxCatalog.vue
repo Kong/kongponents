@@ -105,10 +105,11 @@
             Card title
           </template>
           <template #card-actions>
-            <KButton size="small">
-              <template #icon>
-                <KongIcon />
-              </template>
+            <KButton
+              icon
+              size="small"
+            >
+              <KongIcon />
             </KButton>
           </template>
           <template #card-body>

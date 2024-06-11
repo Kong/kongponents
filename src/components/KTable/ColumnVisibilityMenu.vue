@@ -14,11 +14,10 @@
           aria-label="Show/Hide Columns"
           class="menu-button"
           data-testid="column-visibility-menu-button"
+          icon
           size="large"
         >
-          <template #icon>
-            <TableColumnsIcon decorative />
-          </template>
+          <TableColumnsIcon decorative />
         </KButton>
       </KTooltip>
 
