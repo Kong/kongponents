@@ -1,3 +1,10 @@
+# [9.0.0-alpha.167](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.166...v9.0.0-alpha.167) (2024-06-11)
+
+
+### Bug Fixes
+
+* **kbutton:** remove deprecated icon slot ([#2215](https://github.com/Kong/kongponents/issues/2215)) ([aaab4f9](https://github.com/Kong/kongponents/commit/aaab4f97ccc71637bb222ab6a49aa3e2378295db))
+
 # [9.0.0-alpha.166](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.165...v9.0.0-alpha.166) (2024-06-10)
 
 
