@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from 'uuid'
 
-export const kongponentsRandomIdFunction = 'kongponents-id' as const
+export const kongponentsGetUniqueId = 'kongponents-id' as const
 
 export interface KongponentsPlugin {
-  kongponentsId: () => string
+  uniqueIdFn: () => string
 }
 
 export const defaultKongponentsPlugin: KongponentsPlugin = {
-  kongponentsId: uuidv4,
+  uniqueIdFn: uuidv4,
 } as const
 

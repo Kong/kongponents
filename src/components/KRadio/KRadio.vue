@@ -86,7 +86,7 @@ import { computed, useAttrs, useSlots } from 'vue'
 import type { RadioTypes, LabelAttributes } from '@/types'
 import { RadioTypesArray } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
-import useGetRandomId from '@/composables/useGetRandomId'
+import useUniqueId from '@/composables/useUniqueId'
 
 export default {
   inheritAttrs: false,
@@ -94,7 +94,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-const { kongponentsId } = useGetRandomId()
+const { uniqueIdFn } = useUniqueId()
 
 const props = defineProps({
   /**
@@ -162,7 +162,7 @@ const props = defineProps({
 
 const slots = useSlots()
 
-const inputId = computed((): string => attrs.id ? String(attrs.id) : kongponentsId())
+const inputId = computed((): string => attrs.id ? String(attrs.id) : uniqueIdFn())
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 const hasLabel = computed((): boolean => !!(props.label || slots.default))
 // for regular radio we only show description if there is a label or default slot

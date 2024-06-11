@@ -172,9 +172,9 @@ import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KCatalogItem from './KCatalogItem.vue'
-import useGetRandomId from '@/composables/useGetRandomId'
+import useUniqueId from '@/composables/useUniqueId'
 
-const { kongponentsId } = useGetRandomId()
+const { uniqueIdFn } = useUniqueId()
 const { useRequest, useDebounce, useSwrvState } = useUtilities()
 
 const props = defineProps({
@@ -360,7 +360,7 @@ const emit = defineEmits<{
 
 const slots = useSlots()
 
-const catalogId = kongponentsId()
+const catalogId = uniqueIdFn()
 const defaultFetcherProps = {
   page: 1,
   pageSize: 15,

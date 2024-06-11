@@ -49,7 +49,7 @@ import { ref, computed, watch, useAttrs, useSlots } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import type { TextAreaLimitExceed } from '@/types'
-import useGetRandomId from '@/composables/useGetRandomId'
+import useUniqueId from '@/composables/useUniqueId'
 
 const DEFAULT_CHARACTER_LIMIT = 2048
 
@@ -59,7 +59,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-const { kongponentsId } = useGetRandomId()
+const { uniqueIdFn } = useUniqueId()
 
 const props = defineProps({
   modelValue: {
@@ -163,7 +163,7 @@ const value = computed({
   },
 })
 
-const textAreaId = computed((): string => (attrs.id ? String(attrs.id) : kongponentsId()))
+const textAreaId = computed((): string => (attrs.id ? String(attrs.id) : uniqueIdFn()))
 
 const modifiedAttrs = computed((): Record<string, any> => {
   const $attrs = { ...attrs }

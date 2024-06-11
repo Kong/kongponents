@@ -40,9 +40,9 @@ import type { PropType } from 'vue'
 import KPop from '@/components/KPop/KPop.vue'
 import type { PopPlacements } from '@/types'
 import { PopPlacementsArray } from '@/types'
-import useGetRandomId from '@/composables/useGetRandomId'
+import useUniqueId from '@/composables/useUniqueId'
 
-const { kongponentsId } = useGetRandomId()
+const { uniqueIdFn } = useUniqueId()
 
 defineOptions({
   inheritAttrs: false,
@@ -97,7 +97,7 @@ const slots = useSlots()
 
 const showTooltip = computed((): boolean => !!props.text || !!props.label || !!slots.content)
 
-const randomTooltipId = kongponentsId()
+const randomTooltipId = uniqueIdFn()
 </script>
 
 <style lang="scss" scoped>

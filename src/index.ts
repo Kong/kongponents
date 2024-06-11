@@ -1,7 +1,7 @@
 import type { App } from 'vue'
 import * as components from './components' // Import all components
 import './styles/styles.scss' // Import all styles
-import { kongponentsRandomIdFunction, defaultKongponentsPlugin } from '@/types'
+import { kongponentsGetUniqueId, defaultKongponentsPlugin } from '@/types'
 import type { KongponentsPlugin } from '@/types'
 
 // Export install function
@@ -9,7 +9,7 @@ export default {
   install: (app: App, options?: KongponentsPlugin): void => {
     const kongponentsPlugin = Object.assign({}, defaultKongponentsPlugin, options)
 
-    app.provide(kongponentsRandomIdFunction, kongponentsPlugin.kongponentsId)
+    app.provide(kongponentsGetUniqueId, kongponentsPlugin.uniqueIdFn)
 
     for (const key in components) {
       // @ts-ignore: key is a valid string

@@ -296,7 +296,7 @@ import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
 import { useEventListener } from '@vueuse/core'
-import useGetRandomId from '@/composables/useGetRandomId'
+import useUniqueId from '@/composables/useUniqueId'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -319,7 +319,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-const { kongponentsId } = useGetRandomId()
+const { uniqueIdFn } = useUniqueId()
 const attrs = useAttrs()
 const slots = useSlots()
 
@@ -479,8 +479,8 @@ const defaultKPopAttributes = {
 const key = ref(0)
 const stagingKey = ref(0)
 
-const multiselectWrapperId = kongponentsId() // unique id for the KPop target
-const multiselectId = computed((): string => attrs.id ? String(attrs.id) : kongponentsId())
+const multiselectWrapperId = uniqueIdFn() // unique id for the KPop target
+const multiselectId = computed((): string => attrs.id ? String(attrs.id) : uniqueIdFn())
 
 const multiselectElement = ref<HTMLDivElement | null>(null)
 const multiselectInputElement = ref<HTMLDivElement | null>(null)
@@ -811,7 +811,7 @@ const handleAddItem = (): void => {
   const pos = unfilteredItems.value.length + 1
   const item: MultiselectItem = {
     label: sanitizeInput(filterString.value + ''),
-    value: kongponentsId(),
+    value: uniqueIdFn(),
     key: `${sanitizeInput(filterString.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
   }
   emit('item-added', item)

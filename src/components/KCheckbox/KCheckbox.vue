@@ -68,9 +68,9 @@ import type { LabelAttributes } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { CheckSmallIcon, IndeterminateSmallIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
-import useGetRandomId from '@/composables/useGetRandomId'
+import useUniqueId from '@/composables/useUniqueId'
 
-const { kongponentsId } = useGetRandomId()
+const { uniqueIdFn } = useUniqueId()
 
 const props = defineProps({
   modelValue: {
@@ -112,7 +112,7 @@ const emit = defineEmits<{
 const slots = useSlots()
 const attrs = useAttrs()
 
-const inputId = computed((): string => attrs.id ? String(attrs.id) : kongponentsId())
+const inputId = computed((): string => attrs.id ? String(attrs.id) : uniqueIdFn())
 const hasLabel = computed((): boolean => !!(props.label || slots.default))
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 

@@ -103,6 +103,7 @@ import Kongponents from '@kong/kongponents'
 // Import Kongponents styles
 import '@kong/kongponents/dist/style.css'
 
+<<<<<<< Updated upstream
 export default defineNuxtPlugin({
   name: 'kongponents',
   setup(nuxtApp) {
@@ -110,13 +111,20 @@ export default defineNuxtPlugin({
       kongponentsId: useId // Utilize the `useId()` function from Nuxt/Vue (v3.5+)
     })
   },
+=======
+const app = createApp(App)
+
+// Install and register all Kongponents as a plugin
+app.use(Kongponents, {
+  uniqueIdFn: useId
+>>>>>>> Stashed changes
 })
 
 Plugin options object accepts these parameters:
 
 ```ts
 interface KongponentsPlugin {
-  kongponentsId: () => string
+  uniqueIdFn: () => string
 }
 ```
 
