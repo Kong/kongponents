@@ -98,7 +98,7 @@ const maxWidth = computed((): string => getSizeFromString(props.maxWidth))
 const setTruncation = async (): Promise<void> => {
   if (badgeTextElement.value) {
     await nextTick()
-    isTruncated.value = badgeTextElement.value.offsetWidth < badgeTextElement.value.scrollWidth
+    isTruncated.value = badgeTextElement.value?.offsetWidth < badgeTextElement.value?.scrollWidth
   }
 }
 
