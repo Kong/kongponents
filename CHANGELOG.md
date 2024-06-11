@@ -1,3 +1,10 @@
+# [9.0.0-alpha.168](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.167...v9.0.0-alpha.168) (2024-06-11)
+
+
+### Bug Fixes
+
+* **kbadge, kcopy:** minor fix ([#2218](https://github.com/Kong/kongponents/issues/2218)) ([bdf8f50](https://github.com/Kong/kongponents/commit/bdf8f5085f09ee64ead28bb7cee8fb96e2214719))
+
 # [9.0.0-alpha.167](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.166...v9.0.0-alpha.167) (2024-06-11)
 
 
