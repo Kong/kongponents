@@ -4,7 +4,7 @@ import pc from 'picocolors'
 import boxen from 'boxen'
 import inquirer from 'inquirer'
 import * as emoji from 'node-emoji'
-import { kebabCase, pascalCase, kongponentSrcPath, createComponentFiles } from './utils'
+import { kebabCase, pascalCase, kongponentSrcPath, createComponentFiles } from './utils/index.js'
 import fs from 'fs'
 
 const questions = [
