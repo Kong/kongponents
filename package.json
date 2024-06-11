@@ -80,7 +80,7 @@
     "@evilmartians/lefthook": "^1.6.14",
     "@kong-ui-public/sandbox-layout": "^2.1.0",
     "@kong/design-tokens": "^1.13.2",
-    "@kong/eslint-config-kong-ui": "^1.0.3",
+    "@kong/eslint-config-kong-ui": "^1.0.4",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/inquirer": "^9.0.7",
