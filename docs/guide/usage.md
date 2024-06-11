@@ -107,7 +107,7 @@ export default defineNuxtPlugin({
   name: 'kongponents',
   setup(nuxtApp) {
     nuxtApp.vueApp.use(Kongponents, {
-      kongponentsId: useId // Utilize the `useId()` function from Nuxt/Vue (v3.5+)
+      uniqueIdFn: () => useId(), // Utilize the `useId()` function from Nuxt/Vue (v3.5+)
     })
   },
 })
