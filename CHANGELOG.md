@@ -1,3 +1,24 @@
+# [9.0.0-alpha.171](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.170...v9.0.0-alpha.171) (2024-06-12)
+
+
+### Bug Fixes
+
+* **kdropdown:** close on popover click ([#2224](https://github.com/Kong/kongponents/issues/2224)) ([3f983f1](https://github.com/Kong/kongponents/commit/3f983f18a60a60c562c04d554f4f957865103081))
+
+# [9.0.0-alpha.170](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.169...v9.0.0-alpha.170) (2024-06-12)
+
+
+### Bug Fixes
+
+* **types:** module needs an export ([#2223](https://github.com/Kong/kongponents/issues/2223)) ([e6cce31](https://github.com/Kong/kongponents/commit/e6cce31fa7fc7eb62fd25ba2c3255106e1fa6d62))
+
+# [9.0.0-alpha.169](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.168...v9.0.0-alpha.169) (2024-06-12)
+
+
+### Bug Fixes
+
+* **kdropdown:** fix leaking styles ([#2221](https://github.com/Kong/kongponents/issues/2221)) ([7dc7ba8](https://github.com/Kong/kongponents/commit/7dc7ba8280e6d5bc7daed4b6d5f9c68d4b812d97))
+
 # [9.0.0-alpha.168](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.167...v9.0.0-alpha.168) (2024-06-11)
 
 

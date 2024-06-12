@@ -223,7 +223,7 @@
           trigger-text="Slotted content positioning"
           width="250"
         >
-          <template #items>
+          <template #items="{ closeDropdown }">
             <KDropdownItem>
               Updates
               <KBadge
@@ -233,7 +233,7 @@
                 14
               </KBadge>
             </KDropdownItem>
-            <KDropdownItem>
+            <KDropdownItem @click="handleItemClick">
               Support
               <KBadge
                 appearance="success"
@@ -241,7 +241,11 @@
               >
                 Enterprise
               </KBadge>
-              <ExternalLinkIcon class="dropdown-item-content-end" />
+              <KExternalLink
+                class="dropdown-item-content-end"
+                href="https://kongponents.konghq.com/"
+                @click.stop="closeDropdown"
+              />
             </KDropdownItem>
             <KDropdownItem>
               <BookIcon />
