@@ -214,6 +214,25 @@ We cannot control the `html` base font size and therefore these relative units a
 
 TODO: wip
 
+#### Attributes
+
+Sometimes you will need to generate a random string to be used as value for various attributes (e.g. accessibility-related attributes like `id`, `for`, `aria-labelledby`, etc.). To generate a random id you can use a `useUniqueId` composable:
+
+```ts
+<script setup lang="ts">
+import useUniqueId from '@/composables/useUniqueId'
+
+const id = useUniqueId()
+</script>
+```
+
+Then you need to use [`v-bind-once` directive](https://github.com/danielroe/vue-bind-once) to bind any attributes that could potentially produce hydration issues in SSR mode:
+
+```html
+<label v-bind-once="{ for: id }">Label</label>
+<input v-bind-once="{ id: id }" />
+```
+
 ## Testing your component
 
 You're free to play around with your component on the local instance of the docs site by running `yarn docs:dev`; however, you may also want to test your local changes in a consuming application.
