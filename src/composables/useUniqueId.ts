@@ -1,3 +1,3 @@
-import useUniqueId from '@/composables/useUniqueId'
+import { nanoid } from 'nanoid'
 
 export default nanoid as () => string
