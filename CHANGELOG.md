@@ -1,3 +1,10 @@
+# [9.0.0-alpha.169](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.168...v9.0.0-alpha.169) (2024-06-12)
+
+
+### Bug Fixes
+
+* **kdropdown:** fix leaking styles ([#2221](https://github.com/Kong/kongponents/issues/2221)) ([7dc7ba8](https://github.com/Kong/kongponents/commit/7dc7ba8280e6d5bc7daed4b6d5f9c68d4b812d97))
+
 # [9.0.0-alpha.168](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.167...v9.0.0-alpha.168) (2024-06-11)
 
 
