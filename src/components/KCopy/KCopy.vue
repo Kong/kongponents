@@ -203,8 +203,8 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
 }
 
 const copy = () => {
-  if (document.getElementById(copyButtonElementId)) {
-    document.getElementById(copyButtonElementId)?.click()
+  if (document?.getElementById(copyButtonElementId)) {
+    document?.getElementById(copyButtonElementId)?.click()
   }
 }
 

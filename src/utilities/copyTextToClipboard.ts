@@ -14,7 +14,7 @@ export async function copyTextToClipboard(text: string): Promise<boolean> {
     }
   }
 
-  const textArea = document.createElement('textarea')
+  const textArea = document?.createElement('textarea')
 
   // Styles for ensuring browser support
   textArea.style.position = 'fixed'
@@ -30,18 +30,18 @@ export async function copyTextToClipboard(text: string): Promise<boolean> {
 
   textArea.value = text
 
-  document.body.appendChild(textArea)
+  document?.body?.appendChild(textArea)
   textArea.focus()
   textArea.select()
 
   let isSuccess: boolean
 
   try {
-    isSuccess = document.execCommand('copy')
+    isSuccess = document?.execCommand('copy')
   } catch {
     isSuccess = false
   } finally {
-    document.body.removeChild(textArea)
+    document?.body?.removeChild(textArea)
   }
 
   return isSuccess

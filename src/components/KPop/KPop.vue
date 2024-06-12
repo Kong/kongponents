@@ -277,7 +277,7 @@ onMounted(() => {
   if (document) {
     // handle various click events to determine how to handle the click event in a generic clickHandler function
     // we don't set any other click event listeners on purpose to avoid conflict of event listeners
-    document.addEventListener('click', clickHandler)
+    document?.addEventListener('click', clickHandler)
 
     if (popoverTrigger.value && props.trigger === 'hover') {
       popoverTrigger.value.addEventListener('mouseenter', showPopover)
@@ -304,7 +304,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   if (document) {
-    document.removeEventListener('click', clickHandler)
+    document?.removeEventListener('click', clickHandler)
 
     if (popoverTrigger.value && props.trigger === 'hover') {
       popoverTrigger.value.removeEventListener('mouseenter', showPopover)

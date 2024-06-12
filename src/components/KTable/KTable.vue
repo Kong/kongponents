@@ -737,9 +737,9 @@ const headerElems = computed((): NodeListOf<Element> | undefined => headerRow.va
 const headerHeight = computed((): string => {
   const elem = headerElems.value?.item(0)
   if (elem) {
-    const styles = window.getComputedStyle(elem)
+    const styles = window?.getComputedStyle(elem)
 
-    if (styles.height) {
+    if (styles?.height) {
       return `${parseInt(styles.height, 10)}px`
     }
   }
@@ -757,7 +757,7 @@ const startResize = (evt: MouseEvent, colKey: string) => {
   let col: HTMLElement | null = null
   headerElems.value?.forEach((elem) => {
     if (elem.getAttribute('data-testid') === `table-header-${colKey}`) {
-      col = document.querySelector(`[data-tableid="${tableId}"] [data-testid="table-header-${colKey}"]`)
+      col = document?.querySelector(`[data-tableid="${tableId}"] [data-testid="table-header-${colKey}"]`)
     }
   })
 
@@ -784,8 +784,8 @@ const startResize = (evt: MouseEvent, colKey: string) => {
 
   if (col) {
     // set current column's width
-    const styles = window.getComputedStyle(col)
-    if (styles.width) {
+    const styles = window?.getComputedStyle(col)
+    if (styles?.width) {
       width = parseInt(styles.width, 10)
     }
 

@@ -187,7 +187,7 @@ const onFileChange = (evt: any): void => {
     emit('error', fileInput.value)
   }
 
-  const inputElem = document.getElementById(inputId) as HTMLInputElement
+  const inputElem = document?.getElementById(inputId) as HTMLInputElement
 
   if (fileSize) {
     // @ts-ignore: allow pusing the file input value to the array
@@ -214,7 +214,7 @@ const onButtonClick = (): void => {
     return
   }
 
-  const inputEl = document.getElementById(inputId) as HTMLInputElement
+  const inputEl = document?.getElementById(inputId) as HTMLInputElement
 
   if (inputEl) {
     // Simulate button click to trigger input click
