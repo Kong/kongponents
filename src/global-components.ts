@@ -51,3 +51,6 @@ declare module '@vue/runtime-core' {
     // {%%NEW_KONGPONENT%%} (do not remove comment)
   }
 }
+
+// Must have an export to be a module
+export {}
