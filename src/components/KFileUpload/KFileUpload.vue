@@ -192,7 +192,7 @@ const onFileChange = (evt: any): void => {
   if (fileSize) {
     // @ts-ignore: allow pusing the file input value to the array
     fileClone.value.push(fileInput.value)
-  } else {
+  } else if (inputElem) {
     // @ts-ignore: allow pusing the file input value to the array
     inputElem.files = fileClone.value[fileClone.value.length - 1]
     // @ts-ignore: allow the type mismatch here
