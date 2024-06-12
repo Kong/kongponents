@@ -5,7 +5,7 @@
   >
     <KLabel
       v-if="label"
-      :for="inputId"
+      v-bind-once="{ for: inputId }"
       v-bind="labelAttributes"
       :required="isRequired"
     >
@@ -31,8 +31,8 @@
         <slot name="before" />
       </div>
 
-      <!-- TODO: [beta] change input class to text-input -->
       <input
+        v-bind-once="{ id: inputId }"
         v-bind="modifiedAttrs"
         :aria-describedby="helpText ? helpTextId : undefined"
         :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
@@ -144,7 +144,7 @@ const slots = useSlots()
 const attrs = useAttrs()
 
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
-const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
+const inputId = attrs.id ? String(attrs.id) : uuidv4()
 const helpTextId = uuidv4()
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
@@ -168,11 +168,6 @@ const modifiedAttrs = computed((): Record<string, any> => {
   // use @input in template for v-model support
   delete $attrs.input
   delete $attrs.onInput
-
-  // if label prop is passed, set the id to the input to associate the label using for attribute
-  if (props.label) {
-    $attrs.id = inputId.value
-  }
 
   return $attrs
 })
