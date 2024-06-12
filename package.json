@@ -60,6 +60,7 @@
     "date-fns-tz": "^2.0.1",
     "focus-trap": "^7.5.4",
     "focus-trap-vue": "^4.0.3",
+    "nanoid": "^5.0.7",
     "sortablejs": "^1.15.2",
     "swrv": "^1.0.4",
     "uuid": "^9.0.1",
