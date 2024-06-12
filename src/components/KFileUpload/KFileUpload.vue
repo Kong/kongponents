@@ -27,6 +27,7 @@
 
       <KInput
         :key="fileInputKey"
+        ref="fileInputElement"
         v-bind-once="{ id: inputId }"
         :accept="accept"
         class="upload-input"
@@ -127,6 +128,7 @@ const emit = defineEmits<{
 const { stripRequiredLabel } = useUtilities()
 
 const inputId = attrs.id ? String(attrs.id) : useUniqueId()
+const fileInputElement = ref<InstanceType<typeof KInput> | null>(null)
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
@@ -187,7 +189,7 @@ const onFileChange = (evt: any): void => {
     emit('error', fileInput.value)
   }
 
-  const inputElem = document?.getElementById(inputId) as HTMLInputElement
+  const inputElem = fileInputElement.value?.$el?.querySelector('input') as HTMLInputElement
 
   if (fileSize) {
     // @ts-ignore: allow pusing the file input value to the array
@@ -214,7 +216,7 @@ const onButtonClick = (): void => {
     return
   }
 
-  const inputEl = document?.getElementById(inputId) as HTMLInputElement
+  const inputEl = fileInputElement.value?.$el?.querySelector('input') as HTMLInputElement
 
   if (inputEl) {
     // Simulate button click to trigger input click
