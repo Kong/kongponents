@@ -220,9 +220,9 @@ Sometimes you will need to generate a random string to be used as value for vari
 
 ```ts
 <script setup lang="ts">
-import { nanoid } from 'nanoid'
+import useUniqueId from '@/composables/useUniqueId'
 
-const id = nanoid()
+const id = useUniqueId()
 </script>
 ```
 

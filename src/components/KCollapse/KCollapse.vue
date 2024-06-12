@@ -76,7 +76,7 @@ import type { TriggerAlignment, HeaderTag } from '@/types'
 import { TriggerAlignmentArray, HeaderTags } from '@/types'
 import { ChevronRightIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
-import { nanoid } from 'nanoid'
+import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   // Is the KCollapse collapsed? Defaults to true-->
@@ -113,7 +113,7 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void;
 }>()
 
-const contentId = nanoid()
+const contentId = useUniqueId()
 
 const isCollapsed = ref<boolean>(true)
 const modelValueChanged = ref<boolean>(false)

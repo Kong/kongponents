@@ -32,7 +32,7 @@ import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { TooltipAttributes } from '@/types'
 import { InfoIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
-import { nanoid } from 'nanoid'
+import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   info: {
@@ -67,7 +67,7 @@ const slots = useSlots()
 
 const hasTooltip = computed((): boolean => !!(props.help || props.info || slots.tooltip))
 
-const tooltipId = nanoid()
+const tooltipId = useUniqueId()
 </script>
 
 <style lang="scss" scoped>

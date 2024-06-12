@@ -91,7 +91,7 @@ import { PopPlacementsArray, PopTriggerArray } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import { CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
-import { nanoid } from 'nanoid'
+import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   buttonText: {
@@ -162,8 +162,8 @@ const emit = defineEmits(['open', 'close', 'popover-click'])
 
 const { getSizeFromString } = useUtilities()
 
-const popoverId = nanoid()
-const titleId = nanoid()
+const popoverId = useUniqueId()
+const titleId = useUniqueId()
 const kPopoverElement = ref<HTMLElement | null>(null)
 const triggerWrapperElement = ref<HTMLElement | null>(null)
 const popoverElement = ref<HTMLElement | null>(null)

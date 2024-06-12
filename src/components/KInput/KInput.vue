@@ -72,7 +72,7 @@ import type { LabelAttributes, LimitExceededData } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
-import { nanoid } from 'nanoid'
+import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   modelValue: {
@@ -143,8 +143,8 @@ const slots = useSlots()
 const attrs = useAttrs()
 
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
-const inputId = attrs.id ? String(attrs.id) : nanoid()
-const helpTextId = nanoid()
+const inputId = attrs.id ? String(attrs.id) : useUniqueId()
+const helpTextId = useUniqueId()
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
 

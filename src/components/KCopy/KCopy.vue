@@ -61,7 +61,7 @@ import { CopyIcon } from '@kong/icons'
 import KClipboardProvider from '@/components/KClipboardProvider'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
-import { nanoid } from 'nanoid'
+import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   /**
@@ -139,7 +139,7 @@ const props = defineProps({
   },
 })
 
-const copyButtonElementId = nanoid()
+const copyButtonElementId = useUniqueId()
 
 const tooltipText = ref<string>('')
 const nonSuccessText = computed((): string => {
