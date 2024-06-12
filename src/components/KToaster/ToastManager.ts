@@ -17,7 +17,7 @@ const defaultZIndex = 10000
 export default class ToastManager {
   private toastersContainer: HTMLElement | null = null
   private toaster: VNode | null = null
-  private toasts: Ref<Toast[]> = ref<Toast[]>([])
+  public toasts: Ref<Toast[]> = ref<Toast[]>([])
 
   constructor(appContext: AppContext, options?: ToasterOptions) {
     // For SSR, prevents failing on the build)

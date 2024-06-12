@@ -877,8 +877,10 @@ Fired when the user changes the table's page size, performs sorting, resizes col
 <script setup lang="ts">
 import { AddIcon, SearchIcon, MoreIcon } from '@kong/icons'
 import { getCurrentInstance } from 'vue'
+import { ToastManager } from '@/index'
 
-const $toaster = getCurrentInstance()?.appContext.config.globalProperties.$toaster
+const { appContext } = getCurrentInstance()
+const toaster = new ToastManager(appContext)
 
 const basicHeaders = (actions: boolean = false, sortable: string | null = null, hidable: string | null = null) => {
   const keys = {
@@ -1081,15 +1083,15 @@ const numberedColumnsFetcher = () => {
 }
 
 const onRowClick = (event, row) => {
-  $toaster.open({ appearance: 'success', title: 'Row clicked! Row data:', message: row })
+  toaster.open({ appearance: 'success', title: 'Row clicked! Row data:', message: row })
 }
 
 const onButtonClick = () => {
-  $toaster.open({ appearance: 'system', title: 'Button clicked!', message: 'Button click is handled separately from row or cell clicks.' })
+  toaster.open({ appearance: 'system', title: 'Button clicked!', message: 'Button click is handled separately from row or cell clicks.' })
 }
 
 const onCellClick = (event, cell) => {
-  $toaster.open({ title: 'Cell clicked! Cell data:', message: cell })
+  toaster.open({ title: 'Cell clicked! Cell data:', message: cell })
 }
 </script>
 
