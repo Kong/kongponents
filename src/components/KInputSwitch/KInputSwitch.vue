@@ -5,8 +5,8 @@
   >
     <input
       v-bind="strippedAttrs"
-      :id="inputId"
       ref="switchInputElement"
+      v-bind-once="{ id: inputId }"
       :checked="modelValue"
       :disabled="disabled"
       tabindex="-1"
@@ -19,8 +19,8 @@
       :label="disabledTooltipText"
     >
       <span
+        v-bind-once="{ 'aria-labelledby': inputId }"
         :aria-checked="modelValue"
-        :aria-labelledby="inputId"
         class="switch-control"
         :class="{ 'checked': modelValue, 'disabled': disabled }"
         data-testid="switch-control"
@@ -38,7 +38,7 @@
 
     <KLabel
       v-if="label || $slots.label"
-      :for="inputId"
+      v-bind-once="{ for: inputId }"
     >
       <slot name="label">
         {{ label }}
@@ -50,7 +50,7 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import { computed, ref, useAttrs } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
+import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   /**
@@ -100,7 +100,7 @@ const attrs = useAttrs()
 
 const switchInputElement = ref<HTMLInputElement | null>(null)
 
-const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
+const inputId = attrs.id ? String(attrs.id) : useUniqueId()
 
 /**
 * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.

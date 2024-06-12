@@ -16,7 +16,7 @@
 
     <template #content>
       <div
-        :id="tooltipId || randomTooltipId"
+        v-bind-once="{ id: tooltipId || randomTooltipId }"
         role="tooltip"
       >
         <slot
@@ -40,7 +40,7 @@ import type { PropType } from 'vue'
 import KPop from '@/components/KPop/KPop.vue'
 import type { PopPlacements } from '@/types'
 import { PopPlacementsArray } from '@/types'
-import { v4 as uuidv4 } from 'uuid'
+import useUniqueId from '@/composables/useUniqueId'
 
 defineOptions({
   inheritAttrs: false,
@@ -95,7 +95,7 @@ const slots = useSlots()
 
 const showTooltip = computed((): boolean => !!props.text || !!props.label || !!slots.content)
 
-const randomTooltipId = uuidv4()
+const randomTooltipId = useUniqueId()
 </script>
 
 <style lang="scss" scoped>
