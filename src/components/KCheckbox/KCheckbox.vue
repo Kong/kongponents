@@ -68,7 +68,7 @@ import type { LabelAttributes } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { CheckSmallIcon, IndeterminateSmallIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
-import useUniqueId from '@/composables/useUniqueId'
+import { nanoid } from 'nanoid'
 
 const props = defineProps({
   modelValue: {
@@ -110,7 +110,7 @@ const emit = defineEmits<{
 const slots = useSlots()
 const attrs = useAttrs()
 
-const inputId = attrs.id ? String(attrs.id) : useUniqueId()
+const inputId = attrs.id ? String(attrs.id) : nanoid()
 const hasLabel = computed((): boolean => !!(props.label || slots.default))
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 

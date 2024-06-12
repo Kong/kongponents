@@ -172,7 +172,7 @@ import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KCatalogItem from './KCatalogItem.vue'
-import useUniqueId from '@/composables/useUniqueId'
+import { nanoid } from 'nanoid'
 
 const { useRequest, useDebounce, useSwrvState } = useUtilities()
 
@@ -359,7 +359,7 @@ const emit = defineEmits<{
 
 const slots = useSlots()
 
-const catalogId = useUniqueId()
+const catalogId = nanoid()
 const defaultFetcherProps = {
   page: 1,
   pageSize: 15,

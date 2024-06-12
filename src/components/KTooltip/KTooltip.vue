@@ -40,7 +40,7 @@ import type { PropType } from 'vue'
 import KPop from '@/components/KPop/KPop.vue'
 import type { PopPlacements } from '@/types'
 import { PopPlacementsArray } from '@/types'
-import useUniqueId from '@/composables/useUniqueId'
+import { nanoid } from 'nanoid'
 
 defineOptions({
   inheritAttrs: false,
@@ -95,7 +95,7 @@ const slots = useSlots()
 
 const showTooltip = computed((): boolean => !!props.text || !!props.label || !!slots.content)
 
-const randomTooltipId = useUniqueId()
+const randomTooltipId = nanoid()
 </script>
 
 <style lang="scss" scoped>

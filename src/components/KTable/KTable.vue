@@ -270,7 +270,7 @@ import type {
 import { EmptyStateIconVariants } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
-import useUniqueId from '@/composables/useUniqueId'
+import { nanoid } from 'nanoid'
 
 const { useDebounce, useRequest, useSwrvState, clientSideSorter: defaultClientSideSorter } = useUtilities()
 
@@ -502,7 +502,7 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 const slots = useSlots()
 
-const tableId = useUniqueId()
+const tableId = nanoid()
 const defaultFetcherProps = {
   pageSize: 15,
   page: 1,

@@ -86,7 +86,7 @@ import { computed, useAttrs, useSlots } from 'vue'
 import type { RadioTypes, LabelAttributes } from '@/types'
 import { RadioTypesArray } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
-import useUniqueId from '@/composables/useUniqueId'
+import { nanoid } from 'nanoid'
 
 export default {
   inheritAttrs: false,
@@ -161,7 +161,7 @@ const props = defineProps({
 const slots = useSlots()
 const attrs = useAttrs()
 
-const inputId = attrs.id ? String(attrs.id) : useUniqueId()
+const inputId = attrs.id ? String(attrs.id) : nanoid()
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 const hasLabel = computed((): boolean => !!(props.label || slots.default))
 // for regular radio we only show description if there is a label or default slot

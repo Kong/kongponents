@@ -50,7 +50,7 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import { computed, ref, useAttrs } from 'vue'
-import useUniqueId from '@/composables/useUniqueId'
+import { nanoid } from 'nanoid'
 
 const props = defineProps({
   /**
@@ -100,7 +100,7 @@ const attrs = useAttrs()
 
 const switchInputElement = ref<HTMLInputElement | null>(null)
 
-const inputId = attrs.id ? String(attrs.id) : useUniqueId()
+const inputId = attrs.id ? String(attrs.id) : nanoid()
 
 /**
 * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.

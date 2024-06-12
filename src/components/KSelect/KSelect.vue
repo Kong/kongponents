@@ -210,7 +210,7 @@ import type {
 import { ChevronDownIcon, CloseIcon, ProgressIcon } from '@kong/icons'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
-import useUniqueId from '@/composables/useUniqueId'
+import { nanoid } from 'nanoid'
 
 export default {
   inheritAttrs: false,
@@ -380,9 +380,9 @@ const uniqueFilterQuery = computed((): boolean => {
   return true
 })
 
-const selectWrapperId = useUniqueId() // unique id for the KPop target
+const selectWrapperId = nanoid() // unique id for the KPop target
 const selectedItem = ref<SelectItem | null>(null)
-const selectId = attrs.id ? String(attrs.id) : useUniqueId()
+const selectId = attrs.id ? String(attrs.id) : nanoid()
 const selectItems = ref<SelectItem[]>([])
 const inputFocused = ref<boolean>(false)
 
@@ -466,7 +466,7 @@ const handleAddItem = (): void => {
   const pos = (selectItems.value?.length || 0) + 1
   const item: SelectItem = {
     label: sanitizeInput(filterQuery.value),
-    value: useUniqueId(),
+    value: nanoid(),
     key: `${sanitizeInput(filterQuery.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
     custom: true,
   }

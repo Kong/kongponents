@@ -49,7 +49,7 @@ import { ref, computed, watch, useAttrs, useSlots } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import type { TextAreaLimitExceed } from '@/types'
-import useUniqueId from '@/composables/useUniqueId'
+import { nanoid } from 'nanoid'
 
 const DEFAULT_CHARACTER_LIMIT = 2048
 
@@ -161,7 +161,7 @@ const value = computed({
   },
 })
 
-const textAreaId = attrs.id ? String(attrs.id) : useUniqueId()
+const textAreaId = attrs.id ? String(attrs.id) : nanoid()
 
 const modifiedAttrs = computed((): Record<string, any> => {
   const $attrs = { ...attrs }

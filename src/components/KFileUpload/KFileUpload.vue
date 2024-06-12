@@ -71,7 +71,7 @@ import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import useUtilities from '@/composables/useUtilities'
-import useUniqueId from '@/composables/useUniqueId'
+import { nanoid } from 'nanoid'
 
 const props = defineProps({
   labelAttributes: {
@@ -127,7 +127,7 @@ const emit = defineEmits<{
 
 const { stripRequiredLabel } = useUtilities()
 
-const inputId = attrs.id ? String(attrs.id) : useUniqueId()
+const inputId = attrs.id ? String(attrs.id) : nanoid()
 const fileInputElement = ref<InstanceType<typeof KInput> | null>(null)
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
