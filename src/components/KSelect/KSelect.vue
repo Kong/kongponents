@@ -5,7 +5,7 @@
   >
     <KLabel
       v-if="label"
-      v-bind-for="{ for: selectId }"
+      v-bind-once="{ for: selectId }"
       v-bind="labelAttributes"
       data-testid="select-label"
       :required="isRequired"
