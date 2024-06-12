@@ -1,3 +1,10 @@
+# [9.0.0-alpha.170](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.169...v9.0.0-alpha.170) (2024-06-12)
+
+
+### Bug Fixes
+
+* **types:** module needs an export ([#2223](https://github.com/Kong/kongponents/issues/2223)) ([e6cce31](https://github.com/Kong/kongponents/commit/e6cce31fa7fc7eb62fd25ba2c3255106e1fa6d62))
+
 # [9.0.0-alpha.169](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.168...v9.0.0-alpha.169) (2024-06-12)
 
 
