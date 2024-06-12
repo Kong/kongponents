@@ -32,7 +32,7 @@
       </div>
 
       <input
-        v-bind-once="{ id: inputId, 'aria-describedby': helpText ? helpTextId : undefined }"
+        v-bind-once="{ id: inputId, ...(helpText && { 'aria-describedby': helpTextId }) }"
         v-bind="modifiedAttrs"
         :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
         class="input"
