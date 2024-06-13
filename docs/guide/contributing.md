@@ -220,7 +220,7 @@ Sometimes you will need to generate a random string to be used as value for vari
 
 To generate a unique id so that it is safe for SSR, you **must** use the `useUniqueId` composable in your component:
 
-```ts
+```html
 <script setup lang="ts">
 import useUniqueId from '@/composables/useUniqueId'
 
