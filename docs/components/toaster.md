@@ -9,13 +9,11 @@ The easiest way to use it is by creating a composable that you can use anywhere 
 ```ts
 // composables/useToaster
 
-import { getCurrentInstance, onBeforeUnmount } from 'vue'
-import type { ComponentInternalInstance } from 'vue'
-import { ToastManager } from '@kong/kongponents'
+import { onBeforeUnmount } from 'vue'
+import { ToastManager } from '@/index'
 
 export default function useToaster() {
-  const { appContext } = getCurrentInstance() as ComponentInternalInstance
-  const toaster = new ToastManager(appContext)
+  const toaster = new ToastManager()
 
   onBeforeUnmount(() => {
     toaster.destroy()
@@ -58,6 +56,18 @@ const showToast = (name: string) => {
 :::warning NOTE
 Don't forget to clean up the toaster instance by calling `toaster.destroy()` in `onBeforeUnmount`.
 :::
+
+Optionally, you can provide options object upon initialization. It takes one parameter:
+
+```ts
+interface ToasterOptions {
+  zIndex?: number
+}
+```
+
+```ts
+const toaster = new ToastManager({ zIndex: 1001 })
+```
 
 ## Arguments
 
@@ -230,12 +240,11 @@ const openNotification = (options: Toast | string): void => {
 
 <script setup lang="ts">
 import { InfoIcon, CheckCircleIcon, WarningIcon, ClearIcon, KongIcon } from '@kong/icons'
-import { getCurrentInstance, ref } from 'vue'
+import { ref } from 'vue'
 import type { ComponentInternalInstance } from 'vue'
 import { ToastManager } from '@/index'
 
-const { appContext } = getCurrentInstance()
-const toaster = new ToastManager(appContext)
+const toaster = new ToastManager()
 
 const toasts = ref([])
 const timeLeft = ref(4)

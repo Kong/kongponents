@@ -1,5 +1,5 @@
 import { createVNode, render, ref } from 'vue'
-import type { Ref, AppContext, VNode } from 'vue'
+import type { Ref, VNode } from 'vue'
 import type { Toast, ToasterAppearance, ToasterOptions } from '@/types'
 import { ToasterAppearances } from '@/types'
 import KToaster from '@/components/KToaster/KToaster.vue'
@@ -19,7 +19,7 @@ export default class ToastManager {
   private toaster: VNode | null = null
   public toasts: Ref<Toast[]> = ref<Toast[]>([])
 
-  constructor(appContext: AppContext, options?: ToasterOptions) {
+  constructor(options?: ToasterOptions) {
     // For SSR, prevents failing on the build)
     if (typeof document === 'undefined') return
 
@@ -32,7 +32,7 @@ export default class ToastManager {
       zIndex: options?.zIndex ? options.zIndex : defaultZIndex,
       onClose: (key: any) => this.close(key),
     })
-    this.toaster.appContext = { ...appContext }
+
     if (this.toastersContainer) {
       render(this.toaster, this.toastersContainer)
     }
@@ -71,7 +71,7 @@ export default class ToastManager {
 
   closeAll(): void {
     this.toasts.value.forEach(toast => clearTimeout(toast?.timer))
-    this.toasts.value.length = 0
+    this.toasts.value = []
   }
 
   public destroy() {

@@ -876,11 +876,9 @@ Fired when the user changes the table's page size, performs sorting, resizes col
 
 <script setup lang="ts">
 import { AddIcon, SearchIcon, MoreIcon } from '@kong/icons'
-import { getCurrentInstance } from 'vue'
 import { ToastManager } from '@/index'
 
-const { appContext } = getCurrentInstance()
-const toaster = new ToastManager(appContext)
+const toaster = new ToastManager()
 
 const basicHeaders = (actions: boolean = false, sortable: string | null = null, hidable: string | null = null) => {
   const keys = {
