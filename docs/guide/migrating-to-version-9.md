@@ -361,7 +361,7 @@ Component has been renamed to `KDropdown`
 #### Structure
 
 * `k-dropdown-menu` class has been removed (`k-dropdown` class remains)
-* `k-dropdown-menu-popover` `data-testid` attribute has been renamed to `k-dropdown-popover`
+* `k-dropdown-menu-popover` `data-testid` attribute has been renamed to `dropdown-popover`
 * `k-dropdown-trigger` class has been removed
 * `k-dropdown-trigger` `data-testid` attribute has been renamed to `dropdown-trigger`
 * `k-dropdown-btn` class has been renamed to `dropdown-trigger-button`

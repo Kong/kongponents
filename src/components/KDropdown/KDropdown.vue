@@ -8,7 +8,7 @@
         ref="kPop"
         v-bind="boundKPopAttributes"
         close-on-popover-click
-        data-testid="k-dropdown-popover"
+        data-testid="dropdown-popover"
         hide-close-icon
         @close="() => handleTriggerToggle(isToggled, toggle, false)"
         @open="() => handleTriggerToggle(isToggled, toggle, true)"
@@ -160,7 +160,7 @@ const tooltipComponent = computed(() => props.disabledTooltip ? KTooltip : 'div'
 const kPop = ref<InstanceType<typeof KPop> | null>(null)
 const defaultKPopAttributes = {
   hideCaret: true,
-  popoverClasses: 'k-dropdown-popover',
+  popoverClasses: 'dropdown-popover',
   popoverTimeout: 0,
   placement: 'bottom-start' as PopPlacements,
 }
@@ -223,7 +223,7 @@ onMounted(() => {
     width: 100%;
   }
 
-  :deep(.popover.k-dropdown-popover > .popover-container) {
+  :deep(.popover.dropdown-popover > .popover-container) {
     border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     margin-top: var(--kui-space-30, $kui-space-30);
