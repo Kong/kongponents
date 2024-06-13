@@ -36,4 +36,16 @@
       }
     }
   }
+
+  .k-alert {
+    p {
+      line-height: $kui-line-height-30; // .alert-message line-height
+    }
+  }
+
+  .k-empty-state {
+    p {
+      line-height: $kui-line-height-30; // .empty-state-message line-height
+    }
+  }
 }

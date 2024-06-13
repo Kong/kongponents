@@ -319,12 +319,3 @@ const onActionClick = (): void => {
   alert('Action button clicked!')
 }
 </script>
-
-<style lang="scss">
-// overwrite vitepress styles
-.k-empty-state {
-  p {
-    line-height: $kui-line-height-30; // .empty-state-message line-height
-  }
-}
-</style>
