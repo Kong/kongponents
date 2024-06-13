@@ -4,18 +4,7 @@
     title="KCheckbox"
   >
     <div class="kcheckbox-sandbox">
-      <!-- Figma -->
-      <SandboxTitleComponent
-        is-subtitle
-        title="Figma"
-      />
       <SandboxSectionComponent>
-        <div>
-          <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=283%3A2899&mode=dev">
-            Figma
-          </KExternalLink>
-        </div>
-
         <div class="grid-container standalone-container">
           <div class="vertical-spacing">
             <KCheckbox

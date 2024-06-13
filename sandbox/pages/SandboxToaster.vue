@@ -4,12 +4,6 @@
     title="KToaster"
   >
     <div class="ktoaster-sandbox">
-      <SandboxSectionComponent>
-        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=497%3A9761&mode=dev&t=lcG4fMxcpZoeYwsC-1">
-          Figma
-        </KExternalLink>
-      </SandboxSectionComponent>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle

@@ -1,24 +1,11 @@
 <template>
   <SandboxLayout
     :links="inject('app-links', [])"
-    title="KLabel"
+    title="KInputSwitch"
   >
     <div class="kinputswitch-sandbox">
-      <!-- Figma -->
-      <SandboxTitleComponent
-        is-subtitle
-        title="Figma"
-      />
       <SandboxSectionComponent>
-        <div>
-          <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=624%3A12900&mode=dev">
-            Figma
-          </KExternalLink>
-        </div>
-
-        <div>
-          <KInputSwitch v-model="vModel0" />
-        </div>
+        <KInputSwitch v-model="vModel0" />
       </SandboxSectionComponent>
 
       <!-- Props -->

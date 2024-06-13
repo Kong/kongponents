@@ -1,19 +1,9 @@
 <template>
   <SandboxLayout
     :links="inject('app-links', [])"
-    title="KButton"
+    title="KBadge"
   >
     <div class="kbadge-sandbox">
-      <SandboxTitleComponent
-        title="KBadge"
-      >
-        <template #description>
-          <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=467%3A10283&mode=dev">
-            Figma
-          </KExternalLink>
-        </template>
-      </SandboxTitleComponent>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle

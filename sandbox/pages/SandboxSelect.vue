@@ -4,10 +4,6 @@
     title="KSelect"
   >
     <div class="kselect-sandbox">
-      <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=283%3A2898&mode=dev">
-        Figma
-      </KExternalLink>
-
       <!-- Examples -->
       <SandboxTitleComponent
         is-subtitle

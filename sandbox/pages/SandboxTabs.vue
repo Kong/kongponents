@@ -4,12 +4,6 @@
     title="KTabs"
   >
     <div class="ktabs-sandbox">
-      <SandboxSectionComponent>
-        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=297%3A3525&mode=dev">
-          Figma
-        </KExternalLink>
-      </SandboxSectionComponent>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle

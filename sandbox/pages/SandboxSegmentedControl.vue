@@ -4,12 +4,6 @@
     title="KSegmentedControl"
   >
     <div class="ksegmentedcontrol-sandbox">
-      <SandboxSectionComponent>
-        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=1244%3A14989&mode=dev">
-          Figma
-        </KExternalLink>
-      </SandboxSectionComponent>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle

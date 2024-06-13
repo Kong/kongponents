@@ -4,12 +4,6 @@
     title="KStepper"
   >
     <div class="kstepper-sandbox">
-      <SandboxSectionComponent>
-        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=2760%3A12829&mode=dev&t=m6UqtRoz81rfy7Vk-1">
-          Figma
-        </KExternalLink>
-      </SandboxSectionComponent>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
