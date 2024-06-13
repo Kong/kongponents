@@ -218,7 +218,7 @@ TODO: wip
 
 Sometimes you will need to generate a random string to be used as value for various attributes (e.g. accessibility-related attributes like `id`, `for`, `aria-labelledby`, etc.). 
 
-To generate a random id so that it is safe for SSR, you **must** use the `useUniqueId` composable in your component:
+To generate a unique id so that it is safe for SSR, you **must** use the `useUniqueId` composable in your component:
 
 ```ts
 <script setup lang="ts">
@@ -228,7 +228,7 @@ const id = useUniqueId()
 </script>
 ```
 
-Then you must to use the [`v-bind-once` directive](https://github.com/danielroe/vue-bind-once) to bind the unique id to element attributes (this prevents hydration issues in SSR apps):
+Then you must use the [`v-bind-once` directive](https://github.com/danielroe/vue-bind-once) to bind the unique id to element attributes (this prevents hydration issues in SSR apps):
 
 ```html
 <label v-bind-once="{ for: id }">Label</label>
