@@ -10,7 +10,7 @@ The easiest way to use it is by creating a composable that you can use anywhere 
 // composables/useToaster
 
 import { onBeforeUnmount } from 'vue'
-import { ToastManager } from '@/index'
+import { ToastManager } from '@kong/kongponents'
 
 export default function useToaster() {
   const toaster = new ToastManager()
@@ -68,6 +68,10 @@ interface ToasterOptions {
 ```ts
 const toaster = new ToastManager({ zIndex: 1001 })
 ```
+
+:::warning NOTE
+If you are using Kongponents in SSR mode, it is advised that you **only initialize `ToastManager` on the client side**.
+:::
 
 ## Arguments
 

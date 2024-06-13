@@ -21,7 +21,11 @@ export default class ToastManager {
 
   constructor(options?: ToasterOptions) {
     // For SSR, prevents failing on the build)
-    if (typeof document === 'undefined') return
+    if (typeof document === 'undefined') {
+      console.warn('ToastManager can only be initialized on the client side. Docs: https://alpha--kongponents.netlify.app/components/toaster.html')
+
+      return
+    }
 
     this.toastersContainer = document.createElement('div')
     this.toastersContainer.id = toasterContainerId
