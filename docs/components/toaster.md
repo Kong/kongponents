@@ -61,7 +61,7 @@ Optionally, you can provide options object upon initialization. It takes one par
 
 ```ts
 interface ToasterOptions {
-  zIndex?: number
+  zIndex?: number // z-index of toast message element
 }
 ```
 
