@@ -1,3 +1,10 @@
+# [9.0.0-alpha.173](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.172...v9.0.0-alpha.173) (2024-06-14)
+
+
+### Features
+
+* switch from yarn to pnpm ([#2231](https://github.com/Kong/kongponents/issues/2231)) ([c8d4346](https://github.com/Kong/kongponents/commit/c8d434633d6340d2af79db0f9f84e4d213c37049))
+
 # [9.0.0-alpha.172](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.171...v9.0.0-alpha.172) (2024-06-14)
 
 
