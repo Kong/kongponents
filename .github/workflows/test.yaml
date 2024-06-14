@@ -47,22 +47,19 @@ jobs:
         with:
          fetch-depth: 0
 
-      - name: Use Node.js
-        uses: actions/setup-node@v4
+      - name: Setup PNPM with Dependencies
+        uses: ./.github/actions/setup-pnpm-with-dependencies/
         with:
-          node-version-file: '.nvmrc'
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+          force-install: true
 
       - name: Stylelint
-        run: yarn stylelint
+        run: pnpm stylelint
 
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
 
       - name: Build components and docs
-        run: yarn build:ci
+        run: pnpm build:ci
 
       - name: Publish Package Preview
         id: package-preview
@@ -79,7 +76,7 @@ jobs:
 
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN_PUBLIC_PUBLISH }}" > .npmrc
 
-          yarn version --prerelease --preid ${preid} --allow-branch ${{ github.head_ref }} --no-git-tag-version --yes --amend
+          pnpm version --prerelease --preid ${preid} --allow-branch ${{ github.head_ref }} --no-git-tag-version --yes --amend
 
           package_version=$(jq -r ".version" package.json)
           package=@kong/kongponents@"${package_version}"
@@ -122,7 +119,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           install: false
-          command: yarn test
+          command: pnpm test
 
       - name: Upload Cypress screenshots (on failure)
         uses: actions/upload-artifact@v4
@@ -137,15 +134,3 @@ jobs:
         with:
           name: cypress-videos
           path: cypress/videos
-
-      # This step will be skipped if being ran from the publish action with PREVENT_PERCY_TESTS: 'true'
-      # - name: Trigger Percy visual regression test for docs
-      #   timeout-minutes: 5
-      #   env:
-      #     PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-      #     PREVENT_PERCY_TESTS: ${{ secrets.PREVENT_PERCY_TESTS }}
-      #     # TODO: Change branch as branch name changes
-      #     PERCY_TARGET_BRANCH: alpha
-      #   if: "${{ env.PREVENT_PERCY_TESTS != 'true' }}"
-      #   run: |
-      #     npx @percy/cli snapshot docs/.vitepress/dist/ --exclude "**/404.html"

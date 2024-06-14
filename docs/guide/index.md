@@ -11,13 +11,13 @@ Kongponents is a Vue component library of frequently needed UI elements. They we
 To begin using Kongponents, start by installing the package into your project.
 
 ```sh
-yarn add @kong/kongponents
+pnpm add @kong/kongponents
 ```
 
 If you choose to utilize any of the [CSS custom properties (variables)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) included in the `@kong/kongponents` package and your project uses [PostCSS](https://postcss.org/), you will likely need use the [`postcss-custom-properties` PostCSS plugin](https://github.com/postcss/postcss-custom-properties) so that the variables are preserved in their original form.
 
 ```sh
-yarn add postcss-custom-properties --dev
+pnpm add postcss-custom-properties --dev
 ```
 
 Next, add a `postcss.config.js` file to your project with the following content

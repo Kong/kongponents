@@ -28,10 +28,10 @@
   "scripts": {
     "build:cli": "rimraf ./bin && tsc --project ./cli/tsconfig.json && chmod u+x ./bin/index.js",
     "build:docs": "vitepress build docs",
-    "build:kongponents": "yarn typecheck && vite build && vue-tsc -p './tsconfig.build.json' --emitDeclarationOnly && tsc-alias -p './tsconfig.build.json'",
+    "build:kongponents": "pnpm typecheck && vite build && vue-tsc -p './tsconfig.build.json' --emitDeclarationOnly && tsc-alias -p './tsconfig.build.json'",
     "build:visualize": "cross-env-shell BUILD_VISUALIZER=true vite build -m production",
-    "build": "yarn build:cli && yarn stylelint && yarn lint && yarn build:kongponents && yarn build:docs",
-    "build:ci": "yarn build:kongponents && yarn build:docs",
+    "build": "pnpm build:cli && pnpm stylelint && pnpm lint && pnpm build:kongponents && pnpm build:docs",
+    "build:ci": "pnpm build:kongponents && pnpm build:docs",
     "commit": "cz",
     "create-kongponent": "node ./bin/index.js",
     "sandbox:dev": "cross-env USE_SANDBOX=true vite",
@@ -179,9 +179,10 @@
   "engines": {
     "node": ">=v16.20.2"
   },
+  "packageManager": "pnpm@9.3.0",
   "volta": {
     "node": "18.19.1",
-    "yarn": "1.22.22"
+    "pnpm": "9.3.0"
   },
   "config": {
     "commitizen": {
