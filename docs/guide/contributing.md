@@ -10,40 +10,42 @@ Clone the Kongponents repository
 git clone https://github.com/Kong/kongponents.git
 ```
 
+Install `pnpm`. We recommend installing via the command shown here, substituting `9.3.0` with the version listed in the `package.json > volta.pnpm` field. For example, for version `9.3.0` you would use the command `curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=9.3.0 sh -`
+
 Install dependencies
 
 ```sh
-cd kongponents && yarn install --frozen-lockfile
+cd kongponents && pnpm install
 ```
 
 Next, let's generate [the CLI](#cli) that can be used to easy scaffold new Kongponent components. _This likely was ran automatically after installing dependencies._
 
 ```sh
-yarn build:cli
+pnpm build:cli
 ```
 
 Run the docs local dev server with hot-module reload
 
 ```sh
-yarn docs:dev
+pnpm docs:dev
 ```
 
 Build the docs and preview the built files locally
 
 ```sh
-yarn docs:preview
+pnpm docs:preview
 ```
 
 Perform a full build of all Kongponents and the Docs site
 
 ```sh
-yarn build
+pnpm build
 ```
 
 Perform a full build of all Kongponents and output a `/bundle-analyzer/stats-treemap.html` to view the output.
 
 ```sh
-yarn build:visualize
+pnpm build:visualize
 ```
 
 ## CLI
@@ -51,7 +53,7 @@ yarn build:visualize
 It is **highly recommended** to utilize the included CLI when creating new Kongponents as it will scaffold all the necessary files.
 
 ```sh
-yarn create-kongponent
+pnpm create-kongponent
 ```
 
 ## Create a new Kongponent
@@ -84,7 +86,7 @@ Once ran, this will be the resulting file structure:
 ### Important: Type Exports
 
 :::tip TIP
-As long as you create the new Kongponent via `yarn create-package` this step is automated.
+As long as you create the new Kongponent via `pnpm create-package` this step is automated.
 :::
 
 You **must** manually add the new component type to the module export located at `src/global-components.ts`. Just add your new component to the bottom of the list.
@@ -237,7 +239,7 @@ Then you must use the [`v-bind-once` directive](https://github.com/danielroe/vue
 
 ## Testing your component
 
-You're free to play around with your component on the local instance of the docs site by running `yarn docs:dev`; however, you may also want to test your local changes in a consuming application.
+You're free to play around with your component on the local instance of the docs site by running `pnpm docs:dev`; however, you may also want to test your local changes in a consuming application.
 
 1. Run `yarn link` from the root of the Kongponents repository
 
@@ -253,14 +255,14 @@ You're free to play around with your component on the local instance of the docs
 1. Build the Kongponents package
 
     ```sh
-    yarn build:kongponents
+    pnpm build:kongponents
     ```
 
     :::tip Note
     Alternatively, if you do not need to rebuild the types and would prefer to watch for changes, you can run just the `vite build` command with the `--watch` flag to automatically rebuild when you save changes.
 
     ```sh
-    yarn vite build --watch
+    pnpm vite build --watch
     ```
     :::
 
@@ -305,7 +307,7 @@ You're free to play around with your component on the local instance of the docs
     ✨  Done in 0.04s.
     ```
 
-1. At this point it is recommended you delete the `node_modules` folder in your consuming app and rerun `yarn install --frozen-lockfile` to fully clear the linkage.
+2. At this point it is recommended you delete the `node_modules` folder in your consuming app and rerun `pnpm install` to fully clear the linkage.
 
 ## Sandbox
 
@@ -314,7 +316,7 @@ The sandbox mode in Kongponents provides developers with a controlled environmen
 By using the sandbox mode, you can have confidence that components maintain their visual consistency, regardless of the context in which they are used.
 
 ```sh
-yarn dev:sandbox
+pnpm dev:sandbox
 ```
 
 ## Committing Changes
@@ -326,7 +328,7 @@ This repo uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.
 It is __highly recommended__ to use the following command in order to create your commits:
 
 ```sh
-yarn commit
+pnpm commit
 ```
 
 This will trigger the Commitizen interactive prompt for building your commit message and will allow you to preview your commit.

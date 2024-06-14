@@ -19,8 +19,7 @@
     "types": [
       "vite/client",
       "cypress",
-      "./cypress/support",
-      "web-bluetooth"
+      "./cypress/support"
     ],
     "paths": {
       "@/*": [
