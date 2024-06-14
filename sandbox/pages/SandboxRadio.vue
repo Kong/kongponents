@@ -4,18 +4,7 @@
     title="KRadio"
   >
     <div class="kradio-sandbox">
-      <!-- Figma -->
-      <SandboxTitleComponent
-        is-subtitle
-        title="Figma"
-      />
       <SandboxSectionComponent>
-        <div>
-          <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=763%3A12969&mode=dev">
-            Figma
-          </KExternalLink>
-        </div>
-
         <div class="grid-container standalone-container">
           <div class="vertical-spacing">
             <KRadio

@@ -1,18 +1,9 @@
 <template>
   <SandboxLayout
     :links="inject('app-links', [])"
-    title="KPagination"
+    title="KCollapse"
   >
-    <div class="kpagination-sandbox">
-      <!-- Figma -->
-      <SandboxTitleComponent
-        is-subtitle
-        title="Figma"
-      />
-      <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=2020%3A11254&mode=dev&t=z4m6LiZVAeHHwxSH-1">
-        Figma
-      </KExternalLink>
-
+    <div class="kcollapse-sandbox">
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle

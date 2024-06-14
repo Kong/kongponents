@@ -4,12 +4,6 @@
     title="KPop"
   >
     <div class="kpop-sandbox">
-      <SandboxSectionComponent>
-        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=1470%3A3448&mode=dev&t=qJAFUBmW2m9dkFvT-1">
-          Figma
-        </KExternalLink>
-      </SandboxSectionComponent>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle

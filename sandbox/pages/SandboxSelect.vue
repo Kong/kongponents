@@ -4,10 +4,6 @@
     title="KSelect"
   >
     <div class="kselect-sandbox">
-      <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=283%3A2898&mode=dev">
-        Figma
-      </KExternalLink>
-
       <!-- Examples -->
       <SandboxTitleComponent
         is-subtitle
@@ -124,16 +120,21 @@
           :items="selectItems"
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent
-        title="reuseItemTemplate"
-      >
+      <SandboxSectionComponent title="reuseItemTemplate">
         <KSelect
           :items="selectItems"
           reuse-item-template
         >
           <template #item-template="{ item }">
-            <KongIcon />
-            {{ item?.label }}!
+            <div class="custom-selected-item-container">
+              <div class="title">
+                <KongIcon />
+                {{ item?.label }}
+              </div>
+              <KBadge v-if="item.label.toLocaleLowerCase() === 'cats' || item.label.toLocaleLowerCase() === 'dogs'">
+                {{ item.label.toLocaleLowerCase() === 'cats' ? 'Feline' : 'Canine' }}
+              </KBadge>
+            </div>
           </template>
         </KSelect>
       </SandboxSectionComponent>
@@ -182,9 +183,7 @@
           </template>
         </KSelect>
       </SandboxSectionComponent>
-      <SandboxSectionComponent
-        title="itemTemplate"
-      >
+      <SandboxSectionComponent title="itemTemplate">
         <KSelect
           :items="selectItems"
         >
@@ -203,12 +202,20 @@
         title="selectedItemTemplate"
       >
         <KSelect
+          clearable
           enable-filtering
           :items="selectItems"
         >
           <template #selected-item-template="{ item }">
-            <KongIcon />
-            {{ item?.label }}
+            <div class="custom-selected-item-container">
+              <div class="title">
+                <KongIcon />
+                {{ item?.label }}
+              </div>
+              <KBadge v-if="item?.label.toLocaleLowerCase() === 'cats' || item?.label.toLocaleLowerCase() === 'dogs'">
+                {{ item?.label.toLocaleLowerCase() === 'cats' ? 'Feline' : 'Canine' }}
+              </KBadge>
+            </div>
           </template>
         </KSelect>
         <p>Truncation of long content is NOT handled by the component.</p>
@@ -433,6 +440,17 @@ onMounted(() => {
       color: $kui-color-text-neutral;
       display: block;
       font-size: $kui-font-size-20;
+    }
+  }
+
+  .custom-selected-item-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .title {
+      display: flex;
+      gap: $kui-space-30;
     }
   }
 }

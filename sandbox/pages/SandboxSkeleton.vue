@@ -4,12 +4,6 @@
     title="KSkeleton"
   >
     <div class="kskeleton-sandbox">
-      <SandboxSectionComponent>
-        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=2020%3A12479&mode=dev&t=uQGBuUCQfJdk9Uab-1">
-          Figma
-        </KExternalLink>
-      </SandboxSectionComponent>
-
       <SandboxSectionComponent title="default">
         <KSkeleton />
       </SandboxSectionComponent>

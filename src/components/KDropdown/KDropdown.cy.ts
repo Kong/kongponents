@@ -50,7 +50,7 @@ describe('KDropdown', () => {
 
     cy.getTestId('dropdown-trigger').click({ force: true })
 
-    cy.get('.k-dropdown-popover .popover-container').invoke('width').should('eq', width)
+    cy.get('.dropdown-popover .popover-container').invoke('width').should('eq', width)
   })
 
   it('renders disabled props when passed', () => {
@@ -119,7 +119,7 @@ describe('KDropdown', () => {
     cy.getTestId('dropdown-list').should('be.visible')
 
     cy.getTestId('dropdown-trigger').should('contain.html', triggerSlotContent)
-    cy.get('.k-dropdown-popover').should('contain.html', itemSlotContent)
+    cy.get('.dropdown-popover').should('contain.html', itemSlotContent)
   })
 
   it('correctly renders all item types and dividers', () => {

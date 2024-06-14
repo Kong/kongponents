@@ -4,16 +4,6 @@
     title="KCard"
   >
     <div class="kcard-sandbox">
-      <SandboxTitleComponent
-        title="KCard"
-      >
-        <template #description>
-          <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=1152%3A19831&mode=dev">
-            Figma
-          </KExternalLink>
-        </template>
-      </SandboxTitleComponent>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle

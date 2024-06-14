@@ -4,15 +4,6 @@
     title="KButton"
   >
     <div class="kbutton-sandbox">
-      <!-- Figma -->
-      <SandboxTitleComponent
-        is-subtitle
-        title="Figma"
-      />
-      <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=0%3A1&mode=dev">
-        Figma
-      </KExternalLink>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
