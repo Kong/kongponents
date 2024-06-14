@@ -70,11 +70,11 @@
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { inject } from 'vue'
-import { ToastManager } from '@/index'
 import type { Toast } from '@/types'
 import { InfoIcon, CheckCircleIcon, WarningIcon, ClearIcon, KongIcon } from '@kong/icons'
+import useSandboxToaster from '../composables/useSandboxToaster'
 
-const toaster = new ToastManager()
+const { toaster } = useSandboxToaster()
 
 const openToaster = (argument: string) => {
   let options: string | Toast = {

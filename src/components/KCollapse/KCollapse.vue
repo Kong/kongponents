@@ -21,7 +21,7 @@
           :toggle="toggleDisplay"
         >
           <button
-            :aria-controls="contentId"
+            v-bind-once="{ 'aria-controls': contentId }"
             :aria-expanded="!collapsedState"
             :aria-label="triggerLabel ? undefined : 'Toggle content'"
             class="collapse-trigger-content"
@@ -59,7 +59,7 @@
     <Transition name="kongponents-fade-transition">
       <div
         v-show="!collapsedState"
-        :id="contentId"
+        v-bind-once="{ id: contentId }"
         class="collapse-hidden-content"
         data-testid="collapse-hidden-content"
       >
@@ -76,7 +76,7 @@ import type { TriggerAlignment, HeaderTag } from '@/types'
 import { TriggerAlignmentArray, HeaderTags } from '@/types'
 import { ChevronRightIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
-import { v4 as uuidv4 } from 'uuid'
+import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   // Is the KCollapse collapsed? Defaults to true-->
@@ -113,7 +113,7 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void;
 }>()
 
-const contentId = uuidv4()
+const contentId = useUniqueId()
 
 const isCollapsed = ref<boolean>(true)
 const modelValueChanged = ref<boolean>(false)

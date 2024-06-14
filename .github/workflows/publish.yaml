@@ -30,7 +30,7 @@ jobs:
         - run-tests
       # Only run the publish action (including semantic-release) if files in the /src/ directory changed.
       # Should only run if files in the `src/` directory were changed
-      if: needs.get-changed-files.outputs.component-files-changed == 'true' || needs.get-changed-files.outputs.package-json-yarn-lock-files-changed == 'true'
+      if: needs.get-changed-files.outputs.component-files-changed == 'true' || needs.get-changed-files.outputs.package-json-pnpm-lock-files-changed == 'true'
       runs-on: ubuntu-latest
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN_PUBLIC_PUBLISH }}
@@ -40,7 +40,7 @@ jobs:
           with:
             token: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
-        - name: setup git
+        - name: Setup git
           run: |
             git config --global user.name 'kongponents-bot'
             git config --global user.email '95302551+kongponents-bot@users.noreply.github.com'
@@ -49,16 +49,11 @@ jobs:
           # Reference the env variable NPM_TOKEN here, not the secret
           run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
 
-        - name: Use Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version-file: '.nvmrc'
-
-        - name: Install dependencies
-          run: yarn install --frozen-lockfile
+        - name: Setup PNPM with Dependencies
+          uses: ./.github/actions/setup-pnpm-with-dependencies/
 
         - name: Build
-          run: yarn build:kongponents
+          run: pnpm build:kongponents
 
         - name: Semantic Release
           uses: cycjimmy/semantic-release-action@v4
@@ -70,7 +65,7 @@ jobs:
     name: No Component Tests needed
     needs:
       - get-changed-files
-    if: needs.get-changed-files.outputs.component-files-changed == 'false' && needs.get-changed-files.outputs.package-json-yarn-lock-files-changed == 'false'
+    if: needs.get-changed-files.outputs.component-files-changed == 'false' && needs.get-changed-files.outputs.package-json-pnpm-lock-files-changed == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Skip component tests
@@ -80,7 +75,7 @@ jobs:
     name: No Build and Publish needed
     needs:
       - get-changed-files
-    if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'false' && needs.get-changed-files.outputs.package-json-yarn-lock-files-changed == 'false'
+    if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'false' && needs.get-changed-files.outputs.package-json-pnpm-lock-files-changed == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Skip new release

@@ -29,6 +29,34 @@ app.use(Kongponents)
 app.mount('#app')
 ```
 
+### Using in Nuxt
+
+The majority of components are SSR-compatible so there is no extra configuration needed for using Kongponents in Nuxt or a server-side rendered project.
+
+```ts
+// plugins/kongponents.ts
+
+// Import the Kongponents Vue plugin
+import Kongponents from '@kong/kongponents'
+// Import Kongponents styles
+import '@kong/kongponents/dist/style.css'
+// In some NodeJS environments, the `crypto` module is not available by default, so import it and make it available on the server
+import crypto from 'node:crypto'
+
+export default defineNuxtPlugin({
+  name: 'kongponents',
+  setup(nuxtApp) {
+    // Inject the crypto module into the global scope if it is not already available
+    if (import.meta.server && typeof globalThis?.crypto === 'undefined') {
+      globalThis.crypto = globalThis.crypto || crypto
+    }
+    // Initialize the Kongponents Vue plugin
+    nuxtApp.vueApp.use(Kongponents)
+  },
+})
+```
+
+
 ## Individual components
 
 Alternatively, you can import and register just the components you intend to use.
@@ -40,6 +68,9 @@ Import and registration can be done individually in the app entry file (e.g. `ma
 ```ts
 // main.ts (or Vue entry file)
 
+// Kongponents rely on vue-bind-once directive to work properly
+// The Kongponents bundle includes the vue-bind-once package so you won't need to install it separately, but it does need to be registered
+import { BindOncePlugin } from 'vue-bind-once'
 import { createApp } from 'vue'
 import { KButton } from '@kong/kongponents'
 import '@kong/kongponents/dist/style.css'
@@ -47,6 +78,9 @@ import '@kong/kongponents/dist/style.css'
 // this path instead: import '~@kong/kongponents/dist/style.css'
 
 const app = createApp(App)
+
+// Register the vue-bind-once directive as a Vue Plugin
+app.use(BindOncePlugin)
 
 // Register an individual Kongponent
 app.component('KButton', KButton)
@@ -80,6 +114,8 @@ export default defineComponent({
 this path instead: import '~@kong/kongponents/dist/style.css' */
 </style>
 ```
+
+When using Kongponents individually like this you will still need to register [`vue-bind-once` plugin](https://github.com/danielroe/vue-bind-once). Please refer to [global registration](#global-registration) section for example.
 
 ## TypeScript interfaces
 

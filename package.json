@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.0.0-alpha.171",
+  "version": "9.0.0-alpha.173",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -28,10 +28,10 @@
   "scripts": {
     "build:cli": "rimraf ./bin && tsc --project ./cli/tsconfig.json && chmod u+x ./bin/index.js",
     "build:docs": "vitepress build docs",
-    "build:kongponents": "yarn typecheck && vite build && vue-tsc -p './tsconfig.build.json' --emitDeclarationOnly && tsc-alias -p './tsconfig.build.json'",
+    "build:kongponents": "pnpm typecheck && vite build && vue-tsc -p './tsconfig.build.json' --emitDeclarationOnly && tsc-alias -p './tsconfig.build.json'",
     "build:visualize": "cross-env-shell BUILD_VISUALIZER=true vite build -m production",
-    "build": "yarn build:cli && yarn stylelint && yarn lint && yarn build:kongponents && yarn build:docs",
-    "build:ci": "yarn build:kongponents && yarn build:docs",
+    "build": "pnpm build:cli && pnpm stylelint && pnpm lint && pnpm build:kongponents && pnpm build:docs",
+    "build:ci": "pnpm build:kongponents && pnpm build:docs",
     "commit": "cz",
     "create-kongponent": "node ./bin/index.js",
     "sandbox:dev": "cross-env USE_SANDBOX=true vite",
@@ -60,10 +60,11 @@
     "date-fns-tz": "^2.0.1",
     "focus-trap": "^7.5.4",
     "focus-trap-vue": "^4.0.3",
+    "nanoid": "^5.0.7",
     "sortablejs": "^1.15.2",
     "swrv": "^1.0.4",
-    "uuid": "^9.0.1",
     "v-calendar": "^3.1.2",
+    "vue-bind-once": "^0.2.1",
     "vue-draggable-next": "^2.2.1"
   },
   "peerDependencies": {
@@ -77,17 +78,15 @@
     "@commitlint/config-conventional": "^19.1.0",
     "@cypress/vite-dev-server": "^5.0.7",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
-    "@evilmartians/lefthook": "^1.6.14",
-    "@kong-ui-public/sandbox-layout": "^2.1.0",
+    "@evilmartians/lefthook": "^1.6.15",
+    "@kong-ui-public/sandbox-layout": "^2.1.5",
     "@kong/design-tokens": "^1.13.2",
-    "@kong/eslint-config-kong-ui": "^1.0.4",
+    "@kong/eslint-config-kong-ui": "^1.1.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/inquirer": "^9.0.7",
-    "@types/node": "^18.19.33",
-    "@types/node-emoji": "^2.1.0",
+    "@types/node": "^18.19.34",
     "@types/sortablejs": "^1.15.8",
-    "@types/uuid": "^9.0.8",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vue/compiler-core": "^3.4.27",
     "@vue/tsconfig": "^0.5.1",
@@ -112,7 +111,7 @@
     "rimraf": "^5.0.7",
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.72.0",
-    "semantic-release": "^22.0.12",
+    "semantic-release": "^23.1.1",
     "shx": "^0.3.4",
     "stylelint": "^16.3.1",
     "stylelint-config-html": "^1.1.0",
@@ -123,7 +122,7 @@
     "typescript": "^5.4.5",
     "vite": "^5.2.12",
     "vite-plugin-vue-devtools": "^7.0.27",
-    "vitepress": "^1.2.2",
+    "vitepress": "^1.2.3",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2",
     "vue-tsc": "^2.0.19"
@@ -179,9 +178,10 @@
   "engines": {
     "node": ">=v16.20.2"
   },
+  "packageManager": "pnpm@9.3.0",
   "volta": {
     "node": "18.19.1",
-    "yarn": "1.22.22"
+    "pnpm": "9.3.0"
   },
   "config": {
     "commitizen": {
