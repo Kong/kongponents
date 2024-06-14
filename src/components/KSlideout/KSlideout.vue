@@ -131,9 +131,9 @@ const handleClose = (e: any, forceClose = false): void => {
 const toggleEventListeners = (isActive: boolean): void => {
   if (typeof document !== 'undefined') {
     if (isActive) {
-      document.addEventListener('keydown', handleClose)
+      document?.addEventListener('keydown', handleClose)
     } else {
-      document.removeEventListener('keydown', handleClose)
+      document?.removeEventListener('keydown', handleClose)
     }
   }
 }

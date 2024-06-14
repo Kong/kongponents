@@ -82,6 +82,9 @@ describe('KRadio', () => {
       slots: {
         default: () => 'Hello',
       },
+      attrs: {
+        id: 'radio',
+      },
     })
 
     cy.get('label')

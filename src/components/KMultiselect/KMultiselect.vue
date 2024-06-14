@@ -6,9 +6,9 @@
   >
     <KLabel
       v-if="label"
+      v-bind-once="{ for: multiselectWrapperId }"
       v-bind="labelAttributes"
       :data-testid="labelAttributes['data-testid'] ? labelAttributes['data-testid'] : 'multiselect-label'"
-      :for="multiselectWrapperId"
       :required="isRequired"
     >
       {{ strippedLabel }}
@@ -30,8 +30,8 @@
           @open="() => handleToggle(true, isToggled, toggle)"
         >
           <div
-            :id="multiselectWrapperId"
             ref="multiselectElement"
+            v-bind-once="{ id: multiselectWrapperId }"
             class="multiselect-trigger"
             v-bind="modifiedAttrs"
             :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
@@ -42,8 +42,8 @@
           >
             <div v-if="collapsedContext">
               <KInput
-                :id="multiselectId"
                 ref="multiselectInputElement"
+                v-bind-once="{ id: multiselectId }"
                 autocapitalize="off"
                 autocomplete="off"
                 class="multiselect-input"
@@ -158,9 +158,9 @@
                 class="multiselect-input-wrapper"
               >
                 <KInput
-                  :id="multiselectId"
                   v-bind="modifiedAttrs"
                   ref="multiselectDropdownInputElement"
+                  v-bind-once="{ id: multiselectId }"
                   autocapitalize="off"
                   autocomplete="off"
                   class="multiselect-dropdown-input"
@@ -282,7 +282,6 @@
 <script lang="ts">
 import type { Ref, PropType } from 'vue'
 import { ref, computed, watch, nextTick, onMounted, onUnmounted, useAttrs, useSlots } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KBadge from '@/components/KBadge/KBadge.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -297,6 +296,7 @@ import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
 import { useEventListener } from '@vueuse/core'
+import useUniqueId from '@/composables/useUniqueId'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -478,8 +478,8 @@ const defaultKPopAttributes = {
 const key = ref(0)
 const stagingKey = ref(0)
 
-const multiselectWrapperId = uuidv4() // unique id for the KPop target
-const multiselectId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
+const multiselectWrapperId = useUniqueId() // unique id for the KPop target
+const multiselectId = attrs.id ? String(attrs.id) : useUniqueId()
 
 const multiselectElement = ref<HTMLDivElement | null>(null)
 const multiselectInputElement = ref<HTMLDivElement | null>(null)
@@ -635,7 +635,7 @@ const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: () =
 
       await nextTick()
 
-      const input = document.getElementById(multiselectId.value) as HTMLInputElement
+      const input = document?.getElementById(multiselectId) as HTMLInputElement
       input?.focus({ preventScroll: true })
     }
   } else {
@@ -810,7 +810,7 @@ const handleAddItem = (): void => {
   const pos = unfilteredItems.value.length + 1
   const item: MultiselectItem = {
     label: sanitizeInput(filterString.value + ''),
-    value: uuidv4(),
+    value: useUniqueId(),
     key: `${sanitizeInput(filterString.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
   }
   emit('item-added', item)
