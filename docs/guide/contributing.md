@@ -214,7 +214,28 @@ We cannot control the `html` base font size and therefore these relative units a
 
 #### Prop naming
 
-TODO: wip
+It's essential to choose context-aware and descriptive names. This practice ensures that the purpose and usage of each prop are clear to other developers. Additionally, avoid using prefixed props, as they can lead to redundancy and confusion. For example, instead of using `hasError`, simply use `error`, and replace `isSelected` with `selected`. This approach not only simplifies the prop names but also enhances the readability and maintainability of our codebase.
+
+#### Attributes
+
+Sometimes you will need to generate a random string to be used as value for various attributes (e.g. accessibility-related attributes like `id`, `for`, `aria-labelledby`, etc.). 
+
+To generate a unique id so that it is safe for SSR, you **must** use the `useUniqueId` composable in your component:
+
+```html
+<script setup lang="ts">
+import useUniqueId from '@/composables/useUniqueId'
+
+const id = useUniqueId()
+</script>
+```
+
+Then you must use the [`v-bind-once` directive](https://github.com/danielroe/vue-bind-once) to bind the unique id to element attributes (this prevents hydration issues in SSR apps):
+
+```html
+<label v-bind-once="{ for: id }">Label</label>
+<input v-bind-once="{ id: id }" />
+```
 
 ## Testing your component
 

@@ -5,9 +5,9 @@
   >
     <KLabel
       v-if="label"
+      v-bind-once="{ for: selectId }"
       v-bind="labelAttributes"
       data-testid="select-label"
-      :for="selectId"
       :required="isRequired"
     >
       {{ strippedLabel }}
@@ -31,15 +31,15 @@
         @popover-click="() => onPopoverClick(toggle)"
       >
         <div
-          :id="selectWrapperId"
           ref="selectWrapperElement"
+          v-bind-once="{ id: selectWrapperId }"
           class="select-wrapper"
           data-testid="select-wrapper"
           role="listbox"
           @click="onSelectWrapperClick"
         >
           <KInput
-            :id="selectId"
+            v-bind-once="{ id: selectId }"
             autocapitalize="off"
             autocomplete="off"
             class="select-input"
@@ -194,7 +194,6 @@
 <script lang="ts">
 import type { Ref, PropType } from 'vue'
 import { ref, computed, watch, nextTick, useAttrs, useSlots, onUnmounted, onMounted } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -211,6 +210,7 @@ import type {
 import { ChevronDownIcon, CloseIcon, ProgressIcon } from '@kong/icons'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
+import useUniqueId from '@/composables/useUniqueId'
 
 export default {
   inheritAttrs: false,
@@ -380,9 +380,9 @@ const uniqueFilterQuery = computed((): boolean => {
   return true
 })
 
-const selectWrapperId = uuidv4() // unique id for the KPop target
+const selectWrapperId = useUniqueId() // unique id for the KPop target
 const selectedItem = ref<SelectItem | null>(null)
-const selectId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
+const selectId = attrs.id ? String(attrs.id) : useUniqueId()
 const selectItems = ref<SelectItem[]>([])
 const inputFocused = ref<boolean>(false)
 
@@ -466,7 +466,7 @@ const handleAddItem = (): void => {
   const pos = (selectItems.value?.length || 0) + 1
   const item: SelectItem = {
     label: sanitizeInput(filterQuery.value),
-    value: uuidv4(),
+    value: useUniqueId(),
     key: `${sanitizeInput(filterQuery.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
     custom: true,
   }

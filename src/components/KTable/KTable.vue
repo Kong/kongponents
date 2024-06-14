@@ -86,12 +86,12 @@
         @scroll.passive="scrollHandler"
       >
         <table
+          v-bind-once="{ 'data-tableid': tableId }"
           class="table"
           :class="{
             'has-hover': rowHover,
             'is-clickable': isClickable
           }"
-          :data-tableid="tableId"
         >
           <thead :class="{ 'is-scrolled': isScrolled }">
             <tr
@@ -245,7 +245,6 @@
 <script setup lang="ts">
 import type { Ref, PropType } from 'vue'
 import { ref, watch, computed, onMounted, useAttrs, useSlots } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
@@ -271,6 +270,7 @@ import type {
 import { EmptyStateIconVariants } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
+import useUniqueId from '@/composables/useUniqueId'
 
 const { useDebounce, useRequest, useSwrvState, clientSideSorter: defaultClientSideSorter } = useUtilities()
 
@@ -502,7 +502,7 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 const slots = useSlots()
 
-const tableId = uuidv4()
+const tableId = useUniqueId()
 const defaultFetcherProps = {
   pageSize: 15,
   page: 1,
@@ -737,9 +737,9 @@ const headerElems = computed((): NodeListOf<Element> | undefined => headerRow.va
 const headerHeight = computed((): string => {
   const elem = headerElems.value?.item(0)
   if (elem) {
-    const styles = window.getComputedStyle(elem)
+    const styles = window?.getComputedStyle(elem)
 
-    if (styles.height) {
+    if (styles?.height) {
       return `${parseInt(styles.height, 10)}px`
     }
   }
@@ -757,7 +757,7 @@ const startResize = (evt: MouseEvent, colKey: string) => {
   let col: HTMLElement | null = null
   headerElems.value?.forEach((elem) => {
     if (elem.getAttribute('data-testid') === `table-header-${colKey}`) {
-      col = document.querySelector(`[data-tableid="${tableId}"] [data-testid="table-header-${colKey}"]`)
+      col = document?.querySelector(`[data-tableid="${tableId}"] [data-testid="table-header-${colKey}"]`)
     }
   })
 
@@ -784,8 +784,8 @@ const startResize = (evt: MouseEvent, colKey: string) => {
 
   if (col) {
     // set current column's width
-    const styles = window.getComputedStyle(col)
-    if (styles.width) {
+    const styles = window?.getComputedStyle(col)
+    if (styles?.width) {
       width = parseInt(styles.width, 10)
     }
 

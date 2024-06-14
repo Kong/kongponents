@@ -705,7 +705,7 @@ async function copyCode(event: Event): Promise<void> {
   if (hasCopiedCodeSuccessfully) {
     button.setAttribute('data-tooltip-text', 'Copied code!')
 
-    window.setTimeout(function() {
+    window?.setTimeout(function() {
       button.removeAttribute('data-tooltip-text')
     }, 1500)
   }
