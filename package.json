@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.0.0-alpha.170",
+  "version": "9.0.0-alpha.171",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -78,14 +78,14 @@
     "@commitlint/config-conventional": "^19.1.0",
     "@cypress/vite-dev-server": "^5.0.7",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
-    "@evilmartians/lefthook": "^1.6.14",
+    "@evilmartians/lefthook": "^1.6.15",
     "@kong-ui-public/sandbox-layout": "^2.1.0",
     "@kong/design-tokens": "^1.13.2",
     "@kong/eslint-config-kong-ui": "^1.1.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/inquirer": "^9.0.7",
-    "@types/node": "^18.19.33",
+    "@types/node": "^18.19.34",
     "@types/node-emoji": "^2.1.0",
     "@types/sortablejs": "^1.15.8",
     "@vitejs/plugin-vue": "^5.0.5",
@@ -123,7 +123,7 @@
     "typescript": "^5.4.5",
     "vite": "^5.2.12",
     "vite-plugin-vue-devtools": "^7.0.27",
-    "vitepress": "^1.2.2",
+    "vitepress": "^1.2.3",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2",
     "vue-tsc": "^2.0.19"
