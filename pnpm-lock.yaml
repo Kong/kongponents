@@ -70,7 +70,7 @@ importers:
         specifier: ^1.6.15
         version: 1.6.16
       '@kong-ui-public/sandbox-layout':
-        specifier: ^2.1.0
+        specifier: ^2.1.5
         version: 2.1.5(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.28(typescript@5.4.5)))(vue@3.4.28(typescript@5.4.5)))(vue@3.4.28(typescript@5.4.5))
       '@kong/design-tokens':
         specifier: ^1.13.2
@@ -772,6 +772,7 @@ packages:
 
   '@evilmartians/lefthook@1.6.16':
     resolution: {integrity: sha512-HeImp/u3rkCNghbukpz6/cBti3P/DB3YbqVVyK/DDMoGXGxl4GCycSpsk+0CZ1wCVherf47NfL0i96346CCk3A==}
+    cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
 
