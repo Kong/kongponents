@@ -31,14 +31,12 @@ app.mount('#app')
 
 ### Using in Nuxt
 
-All components are fully SSR-compatible so there is no extra configuration needed for using Kongponents in Nuxt.
+The majority of components are SSR-compatible so there is no extra configuration needed for using Kongponents in Nuxt or a server-side rendered project.
 
 ```ts
 // plugins/kongponents.ts
 
-/**
- * Import and configure the Kongponents component library Vue plugin
- */
+// Import the Kongponents Vue plugin
 import Kongponents from '@kong/kongponents'
 // Import Kongponents styles
 import '@kong/kongponents/dist/style.css'
@@ -73,8 +71,7 @@ Import and registration can be done individually in the app entry file (e.g. `ma
 import { createApp } from 'vue'
 import { KButton } from '@kong/kongponents'
 // Kongponents rely on vue-bind-once directive to work properly
-// Kongponents bundle it into the build so you won't have to install it
-// but you do need to register it
+// The Kongponents bundle includes the vue-bind-once package so you won't need to install it separately, but it does need to be registered
 import { BindOncePlugin } from 'vue-bind-once'
 import '@kong/kongponents/dist/style.css'
 // If using Vue-CLI and webpack, you can likely use
@@ -85,6 +82,7 @@ const app = createApp(App)
 // Register an individual Kongponent
 app.component('KButton', KButton)
 
+// Register the vue-bind-once directive as a Vue Plugin
 app.use(BindOncePlugin)
 
 app.mount('#app')
