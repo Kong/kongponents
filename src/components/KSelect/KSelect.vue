@@ -738,6 +738,8 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     box-sizing: border-box;
     inset: 0;
     margin-left: $kSelectInputPaddingX;
+    // accommodate for the caret
+    max-width: calc(v-bind('actualElementWidth') - $kSelectInputPaddingX - $kSelectInputIconSize - ($kSelectInputSlotSpacing * 2));
     overflow: hidden;
     padding: var(--kui-space-0, $kui-space-0); // override mixin
     pointer-events: none;
@@ -752,8 +754,8 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     }
 
     &.clearable {
-      // accommodate for the clear icon
-      max-width: calc(v-bind('actualElementWidth') - ($kSelectInputPaddingX * 2) - ($kSelectInputIconSize * 2) - ($kSelectInputSlotSpacing * 2));
+      // accommodate for the clear icon and caret
+      max-width: calc(v-bind('actualElementWidth') - ($kSelectInputPaddingX * 2) - ($kSelectInputIconSize * 2) - $kSelectInputSlotSpacing);
     }
   }
 
