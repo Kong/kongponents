@@ -22,6 +22,7 @@
       <div
         v-show="isVisible"
         :id="popoverId"
+        :key="popoverKey"
         ref="popoverElement"
         :aria-labelledby="$slots.title || title ? titleId : undefined"
         class="popover"
@@ -168,6 +169,7 @@ const kPopoverElement = ref<HTMLElement | null>(null)
 const triggerWrapperElement = ref<HTMLElement | null>(null)
 const popoverElement = ref<HTMLElement | null>(null)
 const isVisible = ref<boolean>(false)
+const popoverKey = ref(0)
 
 const popoverTrigger = computed((): HTMLElement | null => triggerWrapperElement.value && triggerWrapperElement.value?.children[0] ? triggerWrapperElement.value?.children[0] as HTMLElement : null)
 
@@ -187,6 +189,7 @@ const showPopover = () => {
       clearTimeout(timer.value)
     }
 
+    popoverKey.value++
     isVisible.value = true
   }
 }
