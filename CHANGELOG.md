@@ -1,3 +1,10 @@
+# [9.0.0-alpha.174](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.173...v9.0.0-alpha.174) (2024-06-14)
+
+
+### Features
+
+* **ktoaster:** refactor toastmanager [KHCP-11958] ([#2220](https://github.com/Kong/kongponents/issues/2220)) ([613d654](https://github.com/Kong/kongponents/commit/613d654345152c3cffc7b636dfbacaa1102dfb2a))
+
 # [9.0.0-alpha.173](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.172...v9.0.0-alpha.173) (2024-06-14)
 
 
