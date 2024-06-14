@@ -314,7 +314,7 @@ const defaultTimeRange: TimeRange = {
  * Dynamically choose the v-model
  * Single date is a Date, whereas a Date range is an object containing `start` and `end` dates
  */
-const calendarSingleDate = ref<Date|null>(props.modelValue?.start)
+const calendarSingleDate = ref<Date | null>(props.modelValue?.start)
 const calendarRange = ref<TimeRange>(props.modelValue || defaultTimeRange)
 const calendarVModel = isSingleDatepicker.value
   ? calendarSingleDate as DatePickerModel
