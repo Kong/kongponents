@@ -20,3 +20,7 @@ export const ToasterAppearances: ToasterAppearancesRecord = {
   warning: 'warning',
   system: 'system',
 }
+
+export interface ToasterOptions {
+  zIndex?: number
+}
