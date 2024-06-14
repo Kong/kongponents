@@ -1,3 +1,10 @@
+# [9.0.0-alpha.175](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.174...v9.0.0-alpha.175) (2024-06-14)
+
+
+### Bug Fixes
+
+* **kdropdown:** update dropdown popover selector ([#2225](https://github.com/Kong/kongponents/issues/2225)) ([70af6b7](https://github.com/Kong/kongponents/commit/70af6b72b761b4b1cd1066be92bde4b5d44877cc))
+
 # [9.0.0-alpha.174](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.173...v9.0.0-alpha.174) (2024-06-14)
 
 
