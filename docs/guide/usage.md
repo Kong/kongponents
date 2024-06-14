@@ -72,6 +72,10 @@ Import and registration can be done individually in the app entry file (e.g. `ma
 
 import { createApp } from 'vue'
 import { KButton } from '@kong/kongponents'
+// Kongponents rely on vue-bind-once directive to work properly
+// Kongponents bundle it into the build so you won't have to install it
+// but you do need to register it
+import { BindOncePlugin } from 'vue-bind-once'
 import '@kong/kongponents/dist/style.css'
 // If using Vue-CLI and webpack, you can likely use
 // this path instead: import '~@kong/kongponents/dist/style.css'
@@ -80,6 +84,8 @@ const app = createApp(App)
 
 // Register an individual Kongponent
 app.component('KButton', KButton)
+
+app.use(BindOncePlugin)
 
 app.mount('#app')
 ```
@@ -110,6 +116,8 @@ export default defineComponent({
 this path instead: import '~@kong/kongponents/dist/style.css' */
 </style>
 ```
+
+When using Kongponents individually like this you will still need to register [`vue-bind-once` plugin](https://github.com/danielroe/vue-bind-once). Please refer to [global registration](#global-registration) section for example.
 
 ## TypeScript interfaces
 
