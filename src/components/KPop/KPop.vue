@@ -10,7 +10,7 @@
     >
       <slot>
         <KButton
-          :aria-controls="popoverId || undefined"
+          v-bind-once="{ 'aria-controls': popoverId }"
           data-testid="popover-button"
         >
           {{ buttonText }}
@@ -21,8 +21,8 @@
     <Transition name="kongponents-fade-transition">
       <div
         v-show="isVisible"
-        :id="popoverId"
         ref="popoverElement"
+        v-bind-once="{ id: popoverId }"
         :aria-labelledby="$slots.title || title ? titleId : undefined"
         class="popover"
         :class="popoverClassesObj"
@@ -88,10 +88,10 @@ import type { PropType } from 'vue'
 import { useFloating, autoUpdate, autoPlacement, flip, shift, size } from '@floating-ui/vue'
 import type { PopPlacements, PopTrigger } from '@/types'
 import { PopPlacementsArray, PopTriggerArray } from '@/types'
-import { v4 as uuid4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import { CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   buttonText: {
@@ -162,8 +162,8 @@ const emit = defineEmits(['open', 'close', 'popover-click'])
 
 const { getSizeFromString } = useUtilities()
 
-const popoverId = uuid4()
-const titleId = uuid4()
+const popoverId = useUniqueId()
+const titleId = useUniqueId()
 const kPopoverElement = ref<HTMLElement | null>(null)
 const triggerWrapperElement = ref<HTMLElement | null>(null)
 const popoverElement = ref<HTMLElement | null>(null)
@@ -277,7 +277,7 @@ onMounted(() => {
   if (document) {
     // handle various click events to determine how to handle the click event in a generic clickHandler function
     // we don't set any other click event listeners on purpose to avoid conflict of event listeners
-    document.addEventListener('click', clickHandler)
+    document?.addEventListener('click', clickHandler)
 
     if (popoverTrigger.value && props.trigger === 'hover') {
       popoverTrigger.value.addEventListener('mouseenter', showPopover)
@@ -304,7 +304,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   if (document) {
-    document.removeEventListener('click', clickHandler)
+    document?.removeEventListener('click', clickHandler)
 
     if (popoverTrigger.value && props.trigger === 'hover') {
       popoverTrigger.value.removeEventListener('mouseenter', showPopover)

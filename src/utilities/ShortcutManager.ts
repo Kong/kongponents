@@ -65,11 +65,11 @@ export class ShortcutManager<CommandKeyword extends string> {
   }
 
   registerListener() {
-    document.addEventListener('keydown', this.boundTriggerShortcuts)
+    document?.addEventListener('keydown', this.boundTriggerShortcuts)
   }
 
   unRegisterListener() {
-    document.removeEventListener('keydown', this.boundTriggerShortcuts)
+    document?.removeEventListener('keydown', this.boundTriggerShortcuts)
   }
 
   triggerShortcuts(event: KeyboardEvent): void {

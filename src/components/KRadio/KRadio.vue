@@ -7,7 +7,7 @@
     ]"
   >
     <input
-      :id="inputId"
+      v-bind-once="{ id: inputId }"
       v-bind="modifiedAttrs"
       :aria-checked="isChecked"
       :checked="isChecked"
@@ -23,9 +23,9 @@
       :class="{ 'has-description': showDescription }"
     >
       <KLabel
+        v-bind-once="{ for: inputId }"
         v-bind="labelAttributes"
         class="radio-label"
-        :for="inputId"
       >
         <slot>{{ label }}</slot>
 
@@ -83,10 +83,10 @@
 <script lang="ts">
 import type { PropType } from 'vue'
 import { computed, useAttrs, useSlots } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
 import type { RadioTypes, LabelAttributes } from '@/types'
 import { RadioTypesArray } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
+import useUniqueId from '@/composables/useUniqueId'
 
 export default {
   inheritAttrs: false,
@@ -159,8 +159,9 @@ const props = defineProps({
 })
 
 const slots = useSlots()
+const attrs = useAttrs()
 
-const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
+const inputId = attrs.id ? String(attrs.id) : useUniqueId()
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 const hasLabel = computed((): boolean => !!(props.label || slots.default))
 // for regular radio we only show description if there is a label or default slot
@@ -180,7 +181,6 @@ const handleClick = (): void => {
   emit('update:modelValue', props.selectedValue)
 }
 
-const attrs = useAttrs()
 
 const modifiedAttrs = computed((): Record<string, any> => {
   const $attrs = { ...attrs }

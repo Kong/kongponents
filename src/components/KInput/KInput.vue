@@ -5,7 +5,7 @@
   >
     <KLabel
       v-if="label"
-      :for="inputId"
+      v-bind-once="{ for: inputId }"
       v-bind="labelAttributes"
       :required="isRequired"
     >
@@ -31,10 +31,9 @@
         <slot name="before" />
       </div>
 
-      <!-- TODO: [beta] change input class to text-input -->
       <input
+        v-bind-once="{ id: inputId, ...(helpText && { 'aria-describedby': helpTextId }) }"
         v-bind="modifiedAttrs"
-        :aria-describedby="helpText ? helpTextId : undefined"
         :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
         class="input"
         :value="getValue()"
@@ -56,8 +55,8 @@
     >
       <p
         v-if="helpText"
-        :id="helpTextId"
         :key="String(helpTextKey)"
+        v-bind-once="{ id: helpTextId }"
         class="help-text"
       >
         {{ helpText }}
@@ -70,10 +69,10 @@
 import { computed, ref, watch, useSlots, useAttrs, onMounted, nextTick } from 'vue'
 import type { PropType } from 'vue'
 import type { LabelAttributes, LimitExceededData } from '@/types'
-import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   modelValue: {
@@ -144,8 +143,8 @@ const slots = useSlots()
 const attrs = useAttrs()
 
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
-const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
-const helpTextId = uuidv4()
+const inputId = attrs.id ? String(attrs.id) : useUniqueId()
+const helpTextId = useUniqueId()
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
 
@@ -168,11 +167,6 @@ const modifiedAttrs = computed((): Record<string, any> => {
   // use @input in template for v-model support
   delete $attrs.input
   delete $attrs.onInput
-
-  // if label prop is passed, set the id to the input to associate the label using for attribute
-  if (props.label) {
-    $attrs.id = inputId.value
-  }
 
   return $attrs
 })
