@@ -1,3 +1,10 @@
+# [9.0.0-alpha.176](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.175...v9.0.0-alpha.176) (2024-06-15)
+
+
+### Bug Fixes
+
+* trigger release ([73f761f](https://github.com/Kong/kongponents/commit/73f761f1cd968c878b73a4ee83cc935b1e7238fd))
+
 # [9.0.0-alpha.175](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.174...v9.0.0-alpha.175) (2024-06-14)
 
 
