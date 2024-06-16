@@ -106,7 +106,7 @@ const props = defineProps({
     default: false,
     validator: (value: boolean): boolean => {
       if (value) {
-        console.warn('KTextArea: the `isResizable` prop is deprecated in favor of the `resizable` prop. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#ktextarea')
+        console.warn('KTextArea: the `isResizable` prop is deprecated in favor of the `resizable` prop. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#ktextarea')
       }
 
       return true
@@ -120,7 +120,7 @@ const props = defineProps({
     default: false,
     validator: (value: boolean): boolean => {
       if (value) {
-        console.warn('KTextArea: the `hasError` prop is deprecated in favor of the `error` prop. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#ktextarea')
+        console.warn('KTextArea: the `hasError` prop is deprecated in favor of the `error` prop. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#ktextarea')
       }
 
       return true

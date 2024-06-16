@@ -88,7 +88,7 @@ const props = defineProps({
     default: () => ({}),
     validator: (value: LabelAttributes): boolean => {
       if (value.help) {
-        console.warn('KInput: `help` property of `labelAttributes` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#klabel')
+        console.warn('KInput: `help` property of `labelAttributes` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#klabel')
       }
 
       return true
@@ -120,7 +120,7 @@ const props = defineProps({
     default: false,
     validator: (value: boolean): boolean => {
       if (value) {
-        console.warn('KInput: `hasError` prop is deprecated. Please use `error` prop instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kinput')
+        console.warn('KInput: `hasError` prop is deprecated. Please use `error` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kinput')
       }
 
       return true

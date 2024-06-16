@@ -8,7 +8,7 @@ export default defineComponent({
 
   name: 'KDropdownMenu',
   setup(props, { attrs, slots, emit }) {
-    console.warn("The Kongponents 'KDropdownMenu' component is deprecated and will be removed in a future release.\nPlease update all references of 'KDropdownMenu' to 'KDropdown'.\nKongponent Docs: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kdropdownmenu")
+    console.warn("The Kongponents 'KDropdownMenu' component is deprecated and will be removed in a future release.\nPlease update all references of 'KDropdownMenu' to 'KDropdown'.\nKongponent Docs: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kdropdownmenu")
 
     return () => h(KDropdown, {
       ...props,

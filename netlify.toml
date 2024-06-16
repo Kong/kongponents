@@ -1,12 +1,12 @@
 # Settings in the [build] context are global and are applied to all contexts
 # unless otherwise overridden by more specific contexts.
 #
-# Defaulting to the settings for the `main` branch (this covers `alpha` and `beta`)
+# Defaulting to the settings for the `main` branch
 [build]
   base = "/"
   command = "pnpm docs:build"
   publish = "/docs/.vitepress/dist"
-  environment = { NODE_VERSION = "18.19.0" }
+  environment = { NODE_VERSION = "20.14.0" }
 
 # ##############################
 # 'v7' branch

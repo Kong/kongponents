@@ -114,7 +114,7 @@ const props = defineProps({
     default: () => ({}),
     validator: (value: LabelAttributes): boolean => {
       if (value.help) {
-        console.warn('KRadio: `help` property of `labelAttributes` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#klabel')
+        console.warn('KRadio: `help` property of `labelAttributes` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#klabel')
       }
 
       return true
@@ -150,7 +150,7 @@ const props = defineProps({
     default: '',
     validator: (value: RadioTypes): boolean => {
       if (value) {
-        console.warn('KRadio: `type` prop is deprecated. Please use `card` prop instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kradio')
+        console.warn('KRadio: `type` prop is deprecated. Please use `card` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kradio')
       }
 
       return RadioTypesArray.includes(value)
