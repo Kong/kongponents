@@ -10,7 +10,7 @@ export default defineConfig({
   title: 'Kongponents',
   description: 'Kong UI Components & Style Guide',
   head: [
-    ['meta', { name: 'robots', content: 'noindex,nofollow' }], // TODO: Enable on a non-main deployed branch (e.g. `alpha`)
+    ['meta', { name: 'robots', content: 'noindex,nofollow' }], // TODO: Enable on a non-main deployed branch (e.g. `alpha`).
     ['meta', { name: 'theme-color', content: '#1456cb' }],
     ['meta', { name: 'msapplication-TileColor', content: '#1456cb' }],
     ['meta', { name: 'application-name', content: 'Kongponents' }],
