@@ -152,7 +152,7 @@ export default defineConfig({
         text: `v8.x`,
         items: [
           {
-            text: 'v9',
+            text: 'v9.x',
             link: 'https://kongponents.konghq.com',
             rel: 'nofollow'
           },
