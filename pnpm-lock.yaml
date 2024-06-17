@@ -52,16 +52,16 @@ importers:
         version: 2.2.1(sortablejs@1.15.2)(vue@3.4.28(typescript@5.4.5))
     devDependencies:
       '@babel/types':
-        specifier: ^7.24.6
+        specifier: ^7.24.7
         version: 7.24.7
       '@commitlint/cli':
         specifier: ^19.3.0
         version: 19.3.0(@types/node@20.14.2)(typescript@5.4.5)
       '@commitlint/config-conventional':
-        specifier: ^19.1.0
+        specifier: ^19.2.2
         version: 19.2.2
       '@cypress/vite-dev-server':
-        specifier: ^5.0.7
+        specifier: ^5.1.0
         version: 5.1.1
       '@digitalroute/cz-conventional-changelog-for-jira':
         specifier: ^8.0.1
@@ -88,7 +88,7 @@ importers:
         specifier: ^9.0.7
         version: 9.0.7
       '@types/node':
-        specifier: ^20.12.13
+        specifier: ^20.12.14
         version: 20.14.2
       '@types/sortablejs':
         specifier: ^1.15.8
@@ -103,13 +103,13 @@ importers:
         specifier: ^0.5.1
         version: 0.5.1
       '@vueuse/core':
-        specifier: ^10.9.0
+        specifier: ^10.10.0
         version: 10.11.0(vue@3.4.28(typescript@5.4.5))
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.38)
       axios:
-        specifier: ^1.6.8
+        specifier: ^1.7.2
         version: 1.7.2
       boxen:
         specifier: ^7.1.1
@@ -124,7 +124,7 @@ importers:
         specifier: ^7.0.3
         version: 7.0.3
       cypress:
-        specifier: ^13.7.3
+        specifier: ^13.11.0
         version: 13.11.0
       cypress-fail-fast:
         specifier: ^7.1.0
@@ -154,7 +154,7 @@ importers:
         specifier: ^13.3.10
         version: 13.3.10(postcss@8.4.38)
       postcss-html:
-        specifier: ^1.6.0
+        specifier: ^1.7.0
         version: 1.7.0
       rimraf:
         specifier: ^5.0.7
@@ -163,7 +163,7 @@ importers:
         specifier: ^5.12.0
         version: 5.12.0
       sass:
-        specifier: ^1.72.0
+        specifier: ^1.77.4
         version: 1.77.5
       semantic-release:
         specifier: ^23.1.1
@@ -172,7 +172,7 @@ importers:
         specifier: ^0.3.4
         version: 0.3.4
       stylelint:
-        specifier: ^16.3.1
+        specifier: ^16.6.1
         version: 16.6.1(typescript@5.4.5)
       stylelint-config-html:
         specifier: ^1.1.0
@@ -196,7 +196,7 @@ importers:
         specifier: ^5.2.12
         version: 5.3.1(@types/node@20.14.2)(sass@1.77.5)
       vite-plugin-vue-devtools:
-        specifier: ^7.0.27
+        specifier: ^7.2.1
         version: 7.2.1(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5))(vue@3.4.28(typescript@5.4.5))
       vitepress:
         specifier: ^1.2.3
@@ -846,6 +846,7 @@ packages:
   '@kong/kongponents@9.0.0-pr.2229.901d3f4d.0':
     resolution: {integrity: sha512-dULXWZ35lB4ufEg0XV9UOtM4IoxBBcO80i7z7Gjdc3Kw6rsKDr3hlADAiucDwyF3FxBkhX1t3a3I08s0syJ1gQ==}
     engines: {node: '>=v16.20.2'}
+    deprecated: Deprecated PR preview
     peerDependencies:
       axios: ^1.6.8
       vue: '>= 3.3.4 < 4'
