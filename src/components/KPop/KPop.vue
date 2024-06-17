@@ -18,7 +18,10 @@
       </slot>
     </div>
 
-    <Transition name="kongponents-fade-transition">
+    <Transition
+      mode="out-in"
+      name="kongponents-fade-transition"
+    >
       <div
         v-show="isVisible"
         :key="popoverKey"
