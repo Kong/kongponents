@@ -85,7 +85,7 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/inquirer": "^9.0.7",
-    "@types/node": "^20.12.14",
+    "@types/node": "^20.14.2",
     "@types/sortablejs": "^1.15.8",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vue/compiler-core": "^3.4.27",
