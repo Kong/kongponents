@@ -88,7 +88,7 @@ importers:
         specifier: ^9.0.7
         version: 9.0.7
       '@types/node':
-        specifier: ^20.12.14
+        specifier: ^20.14.2
         version: 20.14.2
       '@types/sortablejs':
         specifier: ^1.15.8
