@@ -42,7 +42,7 @@
           >
             <div v-if="collapsedContext">
               <KInput
-                :id="multiselectId"
+                :id="$attrs.id ? String($attrs.id) : undefined"
                 ref="multiselectInputElement"
                 autocapitalize="off"
                 autocomplete="off"
@@ -80,7 +80,7 @@
             >
               <KBadge
                 v-for="item, idx in visibleSelectedItems"
-                :key="`${multiselectId}-${item.key ? item.key : idx}-badge-${key}`"
+                :key="`${multiselectKey}-${item.key ? item.key : idx}-badge-${key}`"
                 :appearance="getBadgeAppearance(item)"
                 class="multiselect-selection-badge"
                 :icon-before="false"
@@ -159,7 +159,7 @@
               >
                 <KInput
                   v-bind="modifiedAttrs"
-                  :id="multiselectId"
+                  :id="$attrs.id ? String($attrs.id) : undefined"
                   ref="multiselectDropdownInputElement"
                   autocapitalize="off"
                   autocomplete="off"
@@ -254,7 +254,7 @@
       >
         <KBadge
           v-for="item, idx in visibleSelectedItemsStaging"
-          :key="`${multiselectId}-${item.key ? item.key : idx}-badge`"
+          :key="`${multiselectKey}-${item.key ? item.key : idx}-badge`"
           aria-hidden="true"
           class="multiselect-selection-badge"
           :icon-before="false"
@@ -478,8 +478,8 @@ const defaultKPopAttributes = {
 const key = ref(0)
 const stagingKey = ref(0)
 
-const multiselectWrapperId = useUniqueId() // unique id for the KPop target
-const multiselectId = attrs.id ? String(attrs.id) : useUniqueId()
+const multiselectWrapperId = useUniqueId() // unique id for the KLabel `for` attribute
+const multiselectKey = useUniqueId()
 
 const multiselectElement = ref<HTMLDivElement | null>(null)
 const multiselectInputElement = ref<InstanceType<typeof KInput> | null>(null)

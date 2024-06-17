@@ -40,7 +40,6 @@
           @click="onSelectWrapperClick"
         >
           <KInput
-            :id="selectId"
             ref="fileInputElement"
             autocapitalize="off"
             autocomplete="off"
@@ -387,7 +386,6 @@ const uniqueFilterQuery = computed((): boolean => {
 
 const selectWrapperId = useUniqueId() // unique id for the KPop target
 const selectedItem = ref<SelectItem | null>(null)
-const selectId = attrs.id ? String(attrs.id) : useUniqueId()
 const selectItems = ref<SelectItem[]>([])
 const inputFocused = ref<boolean>(false)
 

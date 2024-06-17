@@ -30,7 +30,7 @@
       </span>
 
       <KInput
-        :id="inputId"
+        v-bind="attrs"
         :key="fileInputKey"
         ref="fileInputElement"
         :accept="accept"
@@ -81,7 +81,6 @@ import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import useUtilities from '@/composables/useUtilities'
-import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   labelAttributes: {
@@ -145,7 +144,6 @@ const modifiedAttrs = computed(() => {
   return $attrs
 })
 
-const inputId = attrs.id ? String(attrs.id) : useUniqueId()
 const fileInputElement = ref<InstanceType<typeof KInput> | null>(null)
 const labelElement = ref<InstanceType<typeof KLabel> | null>(null)
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
