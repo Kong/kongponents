@@ -87,7 +87,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed, watch, nextTick } from 'vue'
 import type { PropType } from 'vue'
 import { useFloating, autoUpdate, autoPlacement, flip, shift, size } from '@floating-ui/vue'
 import type { PopPlacements, PopTrigger } from '@/types'
@@ -178,7 +178,7 @@ const popoverTrigger = computed((): HTMLElement | null => triggerWrapperElement.
 
 const timer = ref<number | null>(null)
 
-const togglePopover = () => {
+const togglePopover = async () => {
   if (!isVisible.value) {
     showPopover()
   } else {
@@ -186,13 +186,17 @@ const togglePopover = () => {
   }
 }
 
-const showPopover = () => {
+const showPopover = async () => {
   if (!props.disabled) {
     if (timer.value) {
       clearTimeout(timer.value)
     }
 
-    popoverKey.value++
+    if (props.placement !== 'auto') {
+      popoverKey.value++
+      await nextTick()
+    }
+
     isVisible.value = true
   }
 }
