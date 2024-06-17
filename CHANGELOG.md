@@ -1,3 +1,10 @@
+# [9.0.0-alpha.177](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.176...v9.0.0-alpha.177) (2024-06-17)
+
+
+### Bug Fixes
+
+* **kpop:** flip ([#2229](https://github.com/Kong/kongponents/issues/2229)) ([2c74dce](https://github.com/Kong/kongponents/commit/2c74dce7a6c76c0616506792b5f4262bdcd78821))
+
 # [9.0.0-alpha.176](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.175...v9.0.0-alpha.176) (2024-06-15)
 
 
