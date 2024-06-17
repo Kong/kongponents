@@ -18,10 +18,12 @@
       </slot>
     </div>
 
-    <Transition name="kongponents-fade-transition">
+    <Transition
+      :key="popoverKey"
+      name="kongponents-fade-transition"
+    >
       <div
         v-show="isVisible"
-        :key="popoverKey"
         ref="popoverElement"
         v-bind-once="{ id: popoverId }"
         :aria-labelledby="$slots.title || title ? titleId : undefined"
@@ -84,7 +86,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed, watch, nextTick } from 'vue'
 import type { PropType } from 'vue'
 import { useFloating, autoUpdate, autoPlacement, flip, shift, size } from '@floating-ui/vue'
 import type { PopPlacements, PopTrigger } from '@/types'
@@ -183,13 +185,16 @@ const togglePopover = () => {
   }
 }
 
-const showPopover = () => {
+const showPopover = async () => {
   if (!props.disabled) {
     if (timer.value) {
       clearTimeout(timer.value)
     }
 
-    popoverKey.value++
+    if (props.placement !== 'auto') {
+      popoverKey.value++
+      await nextTick() // wait for the Transition to update to ensure the animation works as expected
+    }
     isVisible.value = true
   }
 }
