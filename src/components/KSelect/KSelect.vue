@@ -39,6 +39,7 @@
           @click="onSelectWrapperClick"
         >
           <KInput
+            :id="selectId"
             autocapitalize="off"
             autocomplete="off"
             class="select-input"
