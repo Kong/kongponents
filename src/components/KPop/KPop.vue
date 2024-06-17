@@ -19,12 +19,12 @@
     </div>
 
     <Transition
+      :key="popoverKey"
       mode="out-in"
       name="kongponents-fade-transition"
     >
       <div
         v-show="isVisible"
-        :key="popoverKey"
         ref="popoverElement"
         v-bind-once="{ id: popoverId }"
         :aria-labelledby="$slots.title || title ? titleId : undefined"
