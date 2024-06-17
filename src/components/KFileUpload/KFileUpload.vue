@@ -1,5 +1,8 @@
 <template>
-  <div class="k-file-upload">
+  <div
+    class="k-file-upload"
+    v-bind="modifiedAttrs"
+  >
     <KLabel
       v-if="label"
       v-bind-once="{ for: inputId }"
@@ -26,9 +29,9 @@
       </span>
 
       <KInput
+        :id="inputId"
         :key="fileInputKey"
         ref="fileInputElement"
-        v-bind-once="{ id: inputId }"
         :accept="accept"
         class="upload-input"
         :disabled="disabled"
@@ -72,6 +75,10 @@ import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import useUtilities from '@/composables/useUtilities'
 import useUniqueId from '@/composables/useUniqueId'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = defineProps({
   labelAttributes: {
@@ -132,6 +139,14 @@ const fileInputElement = ref<InstanceType<typeof KInput> | null>(null)
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
+const modifiedAttrs = computed(() => {
+  const $attrs = { ...attrs }
+
+  // delete id because we bind id to the input element
+  delete $attrs.id
+
+  return $attrs
+})
 
 const hasFileSizeError = ref<boolean>(false)
 const fileSizeErrorMessage = computed((): string => {

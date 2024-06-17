@@ -39,7 +39,6 @@
           @click="onSelectWrapperClick"
         >
           <KInput
-            v-bind-once="{ id: selectId }"
             autocapitalize="off"
             autocomplete="off"
             class="select-input"
