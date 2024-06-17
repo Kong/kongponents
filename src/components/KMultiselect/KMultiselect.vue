@@ -42,8 +42,8 @@
           >
             <div v-if="collapsedContext">
               <KInput
+                :id="multiselectId"
                 ref="multiselectInputElement"
-                v-bind-once="{ id: multiselectId }"
                 autocapitalize="off"
                 autocomplete="off"
                 class="multiselect-input"
@@ -159,8 +159,8 @@
               >
                 <KInput
                   v-bind="modifiedAttrs"
+                  :id="multiselectId"
                   ref="multiselectDropdownInputElement"
-                  v-bind-once="{ id: multiselectId }"
                   autocapitalize="off"
                   autocomplete="off"
                   class="multiselect-dropdown-input"
@@ -482,7 +482,7 @@ const multiselectWrapperId = useUniqueId() // unique id for the KPop target
 const multiselectId = attrs.id ? String(attrs.id) : useUniqueId()
 
 const multiselectElement = ref<HTMLDivElement | null>(null)
-const multiselectInputElement = ref<HTMLDivElement | null>(null)
+const multiselectInputElement = ref<InstanceType<typeof KInput> | null>(null)
 const multiselectDropdownInputElement = ref<HTMLDivElement | null>(null)
 const multiselectSelectionsStagingElement = ref<HTMLDivElement>()
 
@@ -635,7 +635,7 @@ const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: () =
 
       await nextTick()
 
-      const input = document?.getElementById(multiselectId) as HTMLInputElement
+      const input = multiselectInputElement.value?.$el.querySelector('input') as HTMLInputElement
       input?.focus({ preventScroll: true })
     }
   } else {

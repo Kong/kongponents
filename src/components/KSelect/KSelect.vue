@@ -5,9 +5,10 @@
   >
     <KLabel
       v-if="label"
-      v-bind-once="{ for: selectId }"
+      ref="labelElement"
       v-bind="labelAttributes"
       data-testid="select-label"
+      :for="$attrs.id ? String($attrs.id) : undefined"
       :required="isRequired"
     >
       {{ strippedLabel }}
@@ -39,7 +40,8 @@
           @click="onSelectWrapperClick"
         >
           <KInput
-            v-bind-once="{ id: selectId }"
+            :id="selectId"
+            ref="fileInputElement"
             autocapitalize="off"
             autocomplete="off"
             class="select-input"
@@ -363,6 +365,9 @@ const defaultKPopAttributes = {
   hideCaret: true,
 }
 
+const fileInputElement = ref<InstanceType<typeof KInput> | null>(null)
+const labelElement = ref<InstanceType<typeof KLabel> | null>(null)
+
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 
 const filterQuery = ref<string>('')
@@ -671,6 +676,18 @@ onMounted(() => {
     })
 
     resizeObserver.value.observe(selectWrapperElement.value as HTMLDivElement)
+  }
+
+  /**
+   * Temporary fix for the issue where we can't use v-bind-once to pass id to a custom element (KInput)
+   * TODO: remove this once useId is released in Vue 3.5
+   */
+  if (!attrs.id) {
+    const inputElementId = fileInputElement.value?.$el?.querySelector('input')?.id
+
+    if (inputElementId) {
+      labelElement.value?.$el.setAttribute('for', inputElementId)
+    }
   }
 })
 
