@@ -1,3 +1,10 @@
+# [9.0.0-alpha.178](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.177...v9.0.0-alpha.178) (2024-06-17)
+
+
+### Bug Fixes
+
+* **kpop:** duplicate popover elements when transitioning ([#2239](https://github.com/Kong/kongponents/issues/2239)) ([b582c63](https://github.com/Kong/kongponents/commit/b582c63d1653a2e4b469be0aef87facf3715d944))
+
 # [9.0.0-alpha.177](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.176...v9.0.0-alpha.177) (2024-06-17)
 
 
