@@ -21,6 +21,7 @@
     <Transition name="kongponents-fade-transition">
       <div
         v-show="isVisible"
+        :key="popoverKey"
         ref="popoverElement"
         v-bind-once="{ id: popoverId }"
         :aria-labelledby="$slots.title || title ? titleId : undefined"
@@ -168,6 +169,7 @@ const kPopoverElement = ref<HTMLElement | null>(null)
 const triggerWrapperElement = ref<HTMLElement | null>(null)
 const popoverElement = ref<HTMLElement | null>(null)
 const isVisible = ref<boolean>(false)
+const popoverKey = ref<number>(0)
 
 const popoverTrigger = computed((): HTMLElement | null => triggerWrapperElement.value && triggerWrapperElement.value?.children[0] ? triggerWrapperElement.value?.children[0] as HTMLElement : null)
 
@@ -187,6 +189,7 @@ const showPopover = () => {
       clearTimeout(timer.value)
     }
 
+    popoverKey.value++
     isVisible.value = true
   }
 }
