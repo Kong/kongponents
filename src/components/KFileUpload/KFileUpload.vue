@@ -2,7 +2,7 @@
   <div class="k-file-upload">
     <KLabel
       v-if="label"
-      :for="inputId"
+      v-bind-once="{ for: inputId }"
       v-bind="labelAttributes"
       :required="isRequired"
     >
@@ -26,8 +26,9 @@
       </span>
 
       <KInput
-        :id="inputId"
         :key="fileInputKey"
+        ref="fileInputElement"
+        v-bind-once="{ id: inputId }"
         :accept="accept"
         class="upload-input"
         :disabled="disabled"
@@ -69,8 +70,8 @@ import { computed, ref, useAttrs, useSlots } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
-import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
+import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   labelAttributes: {
@@ -126,7 +127,8 @@ const emit = defineEmits<{
 
 const { stripRequiredLabel } = useUtilities()
 
-const inputId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
+const inputId = attrs.id ? String(attrs.id) : useUniqueId()
+const fileInputElement = ref<InstanceType<typeof KInput> | null>(null)
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
@@ -187,15 +189,15 @@ const onFileChange = (evt: any): void => {
     emit('error', fileInput.value)
   }
 
-  const inputElem = document.getElementById(inputId.value) as HTMLInputElement
+  const inputElem = fileInputElement.value?.$el?.querySelector('input') as HTMLInputElement
 
   if (fileSize) {
-    // @ts-ignore
+    // @ts-ignore: allow pusing the file input value to the array
     fileClone.value.push(fileInput.value)
-  } else {
-    // @ts-ignore
+  } else if (inputElem) {
+    // @ts-ignore: allow pusing the file input value to the array
     inputElem.files = fileClone.value[fileClone.value.length - 1]
-    // @ts-ignore
+    // @ts-ignore: allow the type mismatch here
     fileInput.value = inputElem.files
 
     if (inputElem.files) {
@@ -214,7 +216,7 @@ const onButtonClick = (): void => {
     return
   }
 
-  const inputEl = document.getElementById(inputId.value) as HTMLInputElement
+  const inputEl = fileInputElement.value?.$el?.querySelector('input') as HTMLInputElement
 
   if (inputEl) {
     // Simulate button click to trigger input click
@@ -244,8 +246,8 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
 /* Component styles */
 
 .k-file-upload {
-  :deep(.k-input-wrapper) input[type="file"]::-webkit-file-upload-button,
-  :deep(.k-input-wrapper) input[type="file"]::file-selector-button {
+  :deep(.k-input) input[type="file"]::-webkit-file-upload-button,
+  :deep(.k-input) input[type="file"]::file-selector-button {
     margin: 0;
     opacity: 0;
     padding: 0;
@@ -253,9 +255,9 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
     width: 0;
   }
 
-  :deep(.k-input-wrapper) input[type="file"],
-  :deep(.k-input-wrapper) input[type="file"][disabled] {
-    color: transparent;
+  :deep(.k-input) input[type="file"],
+  :deep(.k-input) input[type="file"][disabled] {
+    color: transparent !important;
   }
 
   :deep(.k-input) {

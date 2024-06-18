@@ -6,13 +6,14 @@
     :style="widthStyle"
   >
     <KPop
+      ref="kPop"
       :disabled="disabled"
       hide-caret
-      :hide-popover="state.hidePopover"
+      hide-close-icon
       :placement="popoverPlacement"
-      position-fixed
       width="auto"
-      @opened="state.hidePopover = false"
+      @close="state.popoverOpen = false"
+      @open="state.popoverOpen = true"
     >
       <div
         class="datetime-picker-trigger-wrapper"
@@ -36,16 +37,13 @@
         <CalIcon
           v-if="icon"
           class="calendar-icon"
-          :color="KUI_COLOR_TEXT_NEUTRAL"
+          :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
           decorative
           :size="KUI_ICON_SIZE_40"
         />
       </div>
 
-      <template
-        v-if="!state.hidePopover"
-        #content
-      >
+      <template #content>
         <!-- Custom | Relative toggle -->
         <KSegmentedControl
           v-if="hasTimePeriods && hasCalendar"
@@ -109,10 +107,7 @@
         </div>
       </template>
 
-      <template
-        v-if="!state.hidePopover"
-        #footer
-      >
+      <template #footer>
         <div class="datetime-picker-footer-container">
           <KButton
             v-if="clearButton"
@@ -265,7 +260,7 @@ const props = defineProps({
    */
   popoverPlacement: {
     type: String as PropType<PopPlacements>,
-    default: 'bottomStart',
+    default: 'bottom-start',
     validator: (value: PopPlacements):boolean => {
       return PopPlacementsArray.includes(value)
     },
@@ -276,6 +271,8 @@ const emit = defineEmits<{
   (e: 'change', value: TimeRange | null): void
   (e: 'update:modelValue', value: TimeRange | null): void
 }>()
+
+const kPop = ref<InstanceType<typeof KPop> | null>(null)
 
 // https://vcalendar.io/datepicker.html#model-config
 const modelConfig = { type: 'number' }
@@ -317,7 +314,7 @@ const defaultTimeRange: TimeRange = {
  * Dynamically choose the v-model
  * Single date is a Date, whereas a Date range is an object containing `start` and `end` dates
  */
-const calendarSingleDate = ref<Date|null>(props.modelValue?.start)
+const calendarSingleDate = ref<Date | null>(props.modelValue?.start)
 const calendarRange = ref<TimeRange>(props.modelValue || defaultTimeRange)
 const calendarVModel = isSingleDatepicker.value
   ? calendarSingleDate as DatePickerModel
@@ -351,7 +348,7 @@ const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone
 const state = reactive<DateTimePickerState>({
   abbreviatedDisplay: props.placeholder,
   fullRangeDisplay: '',
-  hidePopover: false,
+  popoverOpen: false,
   selectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
   previouslySelectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
   selectedTimeframe: props.timePeriods[0]?.values[0],
@@ -467,7 +464,7 @@ const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
   if (!isSingleDatepicker.value) {
     return htmlFormat
       ? `<div>${format(start as Date, fmtStr)} -&nbsp;</div><div>${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}</div>`
-      : `${format(start as Date, fmtStr)} - ${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}` || ''
+      : `${format(start as Date, fmtStr)} - ${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}`
   } else {
     return `${format(start as Date, fmtStr)} ${tzAbbrev}`
   }
@@ -486,7 +483,7 @@ const submitTimeFrame = async (): Promise<void> => {
     emit('update:modelValue', { start: state.selectedRange.start, end: null })
   }
 
-  state.hidePopover = true
+  kPop.value?.hidePopover()
   updateDisplay()
 }
 
@@ -581,13 +578,14 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
 .k-datetime-picker {
   // For aesthetic purposes when relative time frames are present
   &.set-min-width {
-    .k-popover {
+    .popover {
       min-width: 360px;
     }
   }
 
   .datetime-picker-trigger-wrapper {
     position: relative;
+    width: 100%;
 
     .datetime-picker-trigger {
       @include inputDefaults;
@@ -641,7 +639,7 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
     }
   }
 
-  :deep(.k-popover) {
+  :deep(.popover .popover-container) {
     border: var(--kui-border-width-10, kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
     max-height: 90vh;
@@ -650,7 +648,7 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
     overflow: hidden;
     padding: var(--kui-space-40, $kui-space-40);
 
-    .k-popover-content {
+    .popover-content {
       .datetime-picker-toggle {
         margin-bottom: var(--kui-space-40, $kui-space-40);
       }
@@ -701,7 +699,7 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
       }
     }
 
-    .k-popover-footer {
+    .popover-footer {
       margin: var(--kui-space-0, $kui-space-0);
       margin-top: var(--kui-space-40, $kui-space-40);
 

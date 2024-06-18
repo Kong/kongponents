@@ -4,18 +4,7 @@
     title="KRadio"
   >
     <div class="kradio-sandbox">
-      <!-- Figma -->
-      <SandboxTitleComponent
-        is-subtitle
-        title="Figma"
-      />
       <SandboxSectionComponent>
-        <div>
-          <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=763%3A12969&mode=dev">
-            Figma
-          </KExternalLink>
-        </div>
-
         <div class="grid-container standalone-container">
           <div class="vertical-spacing">
             <KRadio
@@ -197,12 +186,20 @@
         </div>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="labelAttributes">
-        <KRadio
-          v-model="modelValue0"
-          label="Label"
-          :label-attributes="{ info: 'Tooltip it is' }"
-          selected-value="foobar5"
-        />
+        <div class="vertical-spacing">
+          <KRadio
+            v-model="modelValue0"
+            label="Label"
+            :label-attributes="{ info: 'Tooltip it is' }"
+            selected-value="foobar5"
+          />
+          <KRadio
+            v-model="modelValue0"
+            label="Label"
+            :label-attributes="{ required: true }"
+            selected-value="foobar6"
+          />
+        </div>
       </SandboxSectionComponent>
 
       <!-- Slots -->
@@ -213,7 +210,7 @@
       <SandboxSectionComponent title="default">
         <KRadio
           v-model="modelValue0"
-          selected-value="foobar6"
+          selected-value="foobar7"
         >
           Label
         </KRadio>
@@ -222,7 +219,7 @@
         <KRadio
           v-model="modelValue0"
           label="Label"
-          selected-value="foobar7"
+          selected-value="foobar8"
         >
           <template #description>
             Lorem ipsum dolor sit amet.
@@ -232,7 +229,7 @@
       <SandboxSectionComponent title="default & description">
         <KRadio
           v-model="modelValue0"
-          selected-value="foobar8"
+          selected-value="foobar9"
         >
           Label
           <template #description>
@@ -243,7 +240,7 @@
       <SandboxSectionComponent title="tooltip">
         <KRadio
           v-model="modelValue0"
-          selected-value="foobar9"
+          selected-value="foobar10"
         >
           Label
           <template #tooltip>

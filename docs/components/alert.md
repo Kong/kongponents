@@ -255,12 +255,3 @@ const showAlert = ref<boolean>(true)
   gap: $kui-space-50;
 }
 </style>
-
-<style lang="scss">
-// overwrite vitepress styles
-.k-alert {
-  p {
-    line-height: $kui-line-height-30; // .alert-message line-height
-  }
-}
-</style>

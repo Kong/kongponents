@@ -112,8 +112,7 @@ describe('KDateTimePicker', () => {
 
     // Open the date time picker, click "Clear" and make sure default placeholder is shown
     cy.getTestId(timepickerInput).click()
-    const wrapper = cy.get('.k-popover-content')
-    wrapper.should('be.visible')
+    cy.get('.popover-content').should('be.visible')
     cy.getTestId(clearButton).should('exist')
     cy.getTestId(clearButton).eq(0).click()
     cy.getTestId(timepickerDisplay).should('contain.text', placeholderText)
@@ -159,11 +158,10 @@ describe('KDateTimePicker', () => {
       },
     })
 
-    const wrapper = cy.get('.k-datetime-picker')
-    wrapper.should('exist')
-    wrapper.getTestId(timepickerInput).should('exist')
-    wrapper.getTestId(timepickerInput).click()
-    wrapper.get('.vc-pane-container .vc-time-picker').should('exist')
+    cy.get('.k-datetime-picker').should('exist')
+    cy.get('.k-datetime-picker').getTestId(timepickerInput).should('exist')
+    cy.get('.k-datetime-picker').getTestId(timepickerInput).click()
+    cy.get('.k-datetime-picker').get('.vc-pane-container .vc-time-picker').should('exist')
   })
 
   it('displays a valid date when "Submit" is clicked', () => {
@@ -178,7 +176,7 @@ describe('KDateTimePicker', () => {
 
     // Open the date time picker, click "Submit"
     cy.getTestId(timepickerInput).click()
-    cy.get('.k-popover-content').should('be.visible')
+    cy.get('.popover-content').should('be.visible')
     cy.getTestId(clearButton).should('exist')
     cy.getTestId(submitButton).should('exist')
   })
@@ -195,7 +193,7 @@ describe('KDateTimePicker', () => {
 
     // Open the date time picker, click "Clear"
     cy.getTestId(timepickerInput).click()
-    cy.get('.k-popover-content').should('be.visible')
+    cy.get('.popover-content').should('be.visible')
     cy.getTestId(clearButton).should('exist')
     cy.getTestId(submitButton).should('exist')
 
@@ -237,7 +235,7 @@ describe('KDateTimePicker', () => {
 
     // Click on "6 hours", check whether selected class is applied
     cy.getTestId('select-timeframe-21600000').click()
-    cy.get('.k-popover-content').find('.timeframe-button.primary').should('contain.text', '6 hours')
+    cy.get('.popover-content').find('.timeframe-button.primary').should('contain.text', '6 hours')
   })
 
   it('renders custom calendar and relative time frames', { includeShadowDom: false }, () => {

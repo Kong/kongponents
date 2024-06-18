@@ -4,12 +4,6 @@
     title="KAlert"
   >
     <div class="kalert-sandbox">
-      <SandboxSectionComponent>
-        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=1105%3A733&mode=dev&t=6zTR9N7eIIoXGsX7-1">
-          Figma
-        </KExternalLink>
-      </SandboxSectionComponent>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle

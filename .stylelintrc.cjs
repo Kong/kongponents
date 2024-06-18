@@ -2,13 +2,13 @@ module.exports = {
   extends: [
     'stylelint-config-html',
     'stylelint-config-recommended-scss',
-    'stylelint-config-recommended-vue/scss'
+    'stylelint-config-recommended-vue/scss',
   ],
   overrides: [
     {
       files: [
         '**/*.vue',
-        '**/*.scss'
+        '**/*.scss',
       ],
       rules: {
         'unit-disallowed-list': [
@@ -16,23 +16,23 @@ module.exports = {
         ],
         // Only allow @kong/design-tokens CSS custom properties
         'custom-property-pattern': [
-          "^(kui).+$",
+          '^(kui).+$',
           {
             message: "Expected custom property \"%s\" to be sourced from @kong/design-tokens with prefix '--kui-'",
-          }
+          },
         ],
         'custom-property-no-missing-var-function': true,
         // Disable the following rules
         'no-descending-specificity': null,
-      }
-    }
+      },
+    },
   ],
   plugins: [
     'stylelint-order',
-    '@kong/design-tokens/stylelint-plugin'
+    '@kong/design-tokens/stylelint-plugin',
   ],
   rules: {
     'order/properties-alphabetical-order': true,
     '@kong/design-tokens/use-proper-token': true,
-  }
+  },
 }

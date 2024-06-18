@@ -6,9 +6,9 @@
   >
     <KLabel
       v-if="label"
+      v-bind-once="{ for: multiselectWrapperId }"
       v-bind="labelAttributes"
       :data-testid="labelAttributes['data-testid'] ? labelAttributes['data-testid'] : 'multiselect-label'"
-      :for="multiselectWrapperId"
       :required="isRequired"
     >
       {{ strippedLabel }}
@@ -24,18 +24,14 @@
       <KToggle v-slot="{ isToggled, toggle }">
         <KPop
           ref="popper"
+          hide-close-icon
           v-bind="boundKPopAttributes"
-          :on-popover-click="() => {
-            return
-          }"
-          :position-fixed="positionFixed"
-          :target="`[id='${multiselectWrapperId}']`"
-          @closed="() => handleToggle(false, isToggled, toggle)"
-          @opened="() => handleToggle(true, isToggled, toggle)"
+          @close="() => handleToggle(false, isToggled, toggle)"
+          @open="() => handleToggle(true, isToggled, toggle)"
         >
           <div
-            :id="multiselectWrapperId"
             ref="multiselectElement"
+            v-bind-once="{ id: multiselectWrapperId }"
             class="multiselect-trigger"
             v-bind="modifiedAttrs"
             :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
@@ -46,8 +42,8 @@
           >
             <div v-if="collapsedContext">
               <KInput
-                :id="multiselectId"
                 ref="multiselectInputElement"
+                v-bind-once="{ id: multiselectId }"
                 autocapitalize="off"
                 autocomplete="off"
                 class="multiselect-input"
@@ -162,9 +158,9 @@
                 class="multiselect-input-wrapper"
               >
                 <KInput
-                  :id="multiselectId"
                   v-bind="modifiedAttrs"
                   ref="multiselectDropdownInputElement"
+                  v-bind-once="{ id: multiselectId }"
                   autocapitalize="off"
                   autocomplete="off"
                   class="multiselect-dropdown-input"
@@ -286,7 +282,6 @@
 <script lang="ts">
 import type { Ref, PropType } from 'vue'
 import { ref, computed, watch, nextTick, onMounted, onUnmounted, useAttrs, useSlots } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KBadge from '@/components/KBadge/KBadge.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -301,6 +296,7 @@ import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
 import { useEventListener } from '@vueuse/core'
+import useUniqueId from '@/composables/useUniqueId'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -400,13 +396,6 @@ const props = defineProps({
     validator: (items: MultiselectItem[]) => !items.length || (items.every(i => i.label !== undefined && i.value !== undefined) && itemValuesAreUnique(items)),
   },
   /**
-   * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
-   */
-  positionFixed: {
-    type: Boolean,
-    default: true,
-  },
-  /**
    * Override default filter functionality of case-insensitive search on label
    */
   filterFunction: {
@@ -480,7 +469,7 @@ const getBadgeAppearance = (item?: MultiselectItem): BadgeAppearance => {
 
 const defaultKPopAttributes = {
   hideCaret: true,
-  placement: 'bottomStart' as PopPlacements,
+  placement: 'bottom-start' as PopPlacements,
   popoverTimeout: 0,
   popoverClasses: 'multiselect-popover',
 }
@@ -489,8 +478,8 @@ const defaultKPopAttributes = {
 const key = ref(0)
 const stagingKey = ref(0)
 
-const multiselectWrapperId = uuidv4() // unique id for the KPop target
-const multiselectId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
+const multiselectWrapperId = useUniqueId() // unique id for the KPop target
+const multiselectId = attrs.id ? String(attrs.id) : useUniqueId()
 
 const multiselectElement = ref<HTMLDivElement | null>(null)
 const multiselectInputElement = ref<HTMLDivElement | null>(null)
@@ -583,7 +572,7 @@ const createKPopAttributes = computed(() => {
   }
 })
 
-// Calculate the `.k-popover-content` max-height
+// Calculate the `.popover-content` max-height
 const popoverContentMaxHeight = computed((): string => getSizeFromString(props.dropdownMaxHeight))
 
 // TypeScript complains if I bind the original object
@@ -637,7 +626,7 @@ const handleFilterClick = (event: any) => {
   }
 }
 
-const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: Function) => {
+const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: () => any) => {
   if (open) {
     if (!isToggled.value) { // not already open
       filterString.value = ''
@@ -646,7 +635,7 @@ const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: Func
 
       await nextTick()
 
-      const input = document.getElementById(multiselectId.value) as HTMLInputElement
+      const input = document?.getElementById(multiselectId) as HTMLInputElement
       input?.focus({ preventScroll: true })
     }
   } else {
@@ -664,7 +653,7 @@ const stageSelections = () => {
   setTimeout(() => {
     const elem = multiselectSelectionsStagingElement.value
 
-    if (!props.collapsedContext) {
+    if (props.collapsedContext) {
       // if it's collapsed don't do calculations, because we don't display badges
       stagingKey.value++
       return
@@ -821,7 +810,7 @@ const handleAddItem = (): void => {
   const pos = unfilteredItems.value.length + 1
   const item: MultiselectItem = {
     label: sanitizeInput(filterString.value + ''),
-    value: uuidv4(),
+    value: useUniqueId(),
     key: `${sanitizeInput(filterString.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
   }
   emit('item-added', item)
@@ -940,11 +929,11 @@ watch(stagingKey, () => {
 // make the popper recalculate it's position whenever the selections display
 // is updated in case we've grown a line
 watch(key, async () => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+
+  // @ts-ignore: allow checking for updatePopper
   if (popper.value && typeof popper.value.updatePopper === 'function') {
     await nextTick()
-    // @ts-ignore
+    // @ts-ignore: allow calling the method
     popper.value.updatePopper()
   }
 })
@@ -991,7 +980,12 @@ watch(() => props.items, (newValue, oldValue) => {
       unfilteredItems.value[i].selected = false
     }
 
-    unfilteredItems.value[i].key = `${unfilteredItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `multiselect-item-label-${i}`
+    let unfilteredItemKey = `${unfilteredItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}`
+    if (unfilteredItemKey.includes('undefined')) {
+      unfilteredItemKey = `multiselect-item-label-${i}`
+    }
+
+    unfilteredItems.value[i].key = unfilteredItemKey
     if (props.modelValue.includes(unfilteredItems.value[i].value) || unfilteredItems.value[i].selected) {
       const selectedItem = unfilteredItems.value[i]
       selectedItem.selected = true
@@ -1115,7 +1109,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
   .hidden-selection-count-tooltip {
     cursor: pointer;
 
-    :deep(.k-popover-content) {
+    :deep(.popover-content) {
       @include truncate(3);
     }
   }
@@ -1188,7 +1182,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     }
   }
 
-  :deep(.multiselect-popover) {
+  :deep(.multiselect-popover .popover-container) {
     border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
@@ -1197,7 +1191,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
       padding-bottom: var(--kui-space-0, $kui-space-0);
     }
 
-    .k-popover-content {
+    .popover-content {
       @include kMultiselectPopoverMaxHeight;
 
       // when dropdown footer text position is sticky
@@ -1250,7 +1244,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
 
     // reset default margin from browser
     margin: 0;
-    margin-top: var(--kui-space-40, $kui-space-40);
+    margin-top: var(--kui-space-40, $kui-space-40) !important; // need important to override some overrides of default p margin in other components
   }
 
   &.multiselect-error {

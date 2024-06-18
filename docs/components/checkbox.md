@@ -45,13 +45,22 @@ Will place label text to the right of the checkbox. Can also be [slotted](#slots
 
  KCheckbox has an instance of KLabel for supporting tooltip text. Use the `labelAttributes` prop to configure the KLabel's [props](/components/label). This example shows using the `labelAttributes` to set up a tooltip, see the [slot](#slots) section if you want to slot HTML into the tooltip rather than use plain text.
 
-<KCheckbox v-model="labelAttributesCheckbox" label="Tooltips?" :label-attributes="{ info: 'I use the KLabel `info` prop' }" />
+<div class="vertical-spacing">
+  <KCheckbox v-model="labelAttributesCheckbox1" label="Tooltip" :label-attributes="{ info: 'I use the KLabel `info` prop' }" />
+  <KCheckbox v-model="labelAttributesCheckbox2" label="Required" :label-attributes="{ required: true }" />
+</div>
 
 ```html
 <KCheckbox
-  v-model="checked"
-  label="Tooltips?"
+  v-model="checked1"
+  label="Tooltip"
   :label-attributes="{ info: 'I use the KLabel `info` prop' }"
+/>
+
+<KCheckbox
+  v-model="checked2"
+  label="Required"
+  :label-attributes="{ required: true }"
 />
 ```
 
@@ -266,7 +275,8 @@ const vModelCheckbox = ref<boolean>(false)
 const descriptionPropCheckbox = ref<boolean>(false)
 const errorCheckbox = ref<boolean>(false)
 const labelCheckbox = ref<boolean>(false)
-const labelAttributesCheckbox = ref<boolean>(false)
+const labelAttributesCheckbox1 = ref<boolean>(false)
+const labelAttributesCheckbox2 = ref<boolean>(false)
 const disabledCheckbox = ref<boolean>(false)
 const disabledCheckedCheckbox = ref<boolean>(true)
 const themeChecked = ref<boolean>(true)

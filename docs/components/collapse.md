@@ -212,6 +212,36 @@ You may utilize the `trigger-content` slot (to control the anchor text) or the `
 </KCollapse>
 ```
 
+### title
+
+Slot for custom title content.
+
+<KCollapse>
+  <template #title>
+    <KongIcon
+      :color="KUI_COLOR_TEXT_NEUTRAL"
+      :size="KUI_ICON_SIZE_40"
+    />
+    Custom title
+  </template>
+
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</KCollapse>
+
+```html
+<KCollapse>
+  <template #title>
+    <KongIcon
+      :color="KUI_COLOR_TEXT_NEUTRAL"
+      :size="KUI_ICON_SIZE_40"
+    />
+    Custom title
+  </template>
+
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</KCollapse>
+```
+
 ## Events
 
 ### toggle
@@ -225,6 +255,8 @@ Emitted when the `modelValue` is changed.
 <script setup lang="ts">
 import { ref } from 'vue'
 import { HeaderTags } from '@/types'
+import { KongIcon } from '@kong/icons'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 const vModelCollapsed = ref<boolean>(true)
 </script>

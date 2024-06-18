@@ -13,6 +13,7 @@ export interface CatalogItem extends Record<string, any> {
   id?: string
   title: string
   description: string
+  /** Optional parameter to be used as key in v-for, has to be unique for each item */
   key?: string
 }
 

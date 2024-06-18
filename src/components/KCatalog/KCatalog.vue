@@ -86,9 +86,9 @@
 
     <div
       v-else
+      v-bind-once="{ 'data-tableid': catalogId }"
       class="catalog-page"
       :class="`card-${cardSize}`"
-      :data-tableid="catalogId"
     >
       <slot
         :data="data"
@@ -150,7 +150,6 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { ref, computed, onMounted, watch, useSlots } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
 import type {
   CatalogItem,
   CatalogPreferences,
@@ -173,6 +172,7 @@ import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KCatalogItem from './KCatalogItem.vue'
+import useUniqueId from '@/composables/useUniqueId'
 
 const { useRequest, useDebounce, useSwrvState } = useUtilities()
 
@@ -359,7 +359,7 @@ const emit = defineEmits<{
 
 const slots = useSlots()
 
-const catalogId = uuidv4()
+const catalogId = useUniqueId()
 const defaultFetcherProps = {
   page: 1,
   pageSize: 15,
@@ -439,7 +439,9 @@ const catalogFetcherCacheKey = computed((): string => {
 })
 
 const query = ref('')
-const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => { query.value = q }, 350)
+const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => {
+  query.value = q
+}, 350)
 const search = generateDebouncedSearch(0) // generate a debounced function with zero delay (immediate)
 
 // ALL fetching is done through this useRequest / revalidate

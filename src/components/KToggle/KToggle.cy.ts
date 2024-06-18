@@ -18,10 +18,8 @@ describe('KToggle', () => {
       },
     })
 
-    const button = cy.get('button')
-
-    button.should('have.text', 'click me no')
-    button.click()
-    button.should('have.text', 'click me yes')
+    cy.get('button').should('have.text', 'click me no')
+    cy.get('button').click()
+    cy.get('button').should('have.text', 'click me yes')
   })
 })

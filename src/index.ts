@@ -1,14 +1,17 @@
 import type { App } from 'vue'
 import * as components from './components' // Import all components
 import './styles/styles.scss' // Import all styles
+import { BindOncePlugin } from 'vue-bind-once'
 
-// Export install function
+// Export Vue plugin
 export default {
   install: (app: App): void => {
     for (const key in components) {
-      // @ts-ignore
+      // @ts-ignore: key is a valid string
       app.component(key, components[key])
     }
+
+    app.use(BindOncePlugin)
   },
 }
 

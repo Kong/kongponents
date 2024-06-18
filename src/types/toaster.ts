@@ -1,9 +1,12 @@
 export type ToasterAppearance = 'info' | 'success' | 'danger' | 'warning' | 'system'
 
 export interface Toast {
-  key?: any // unique identifier of toaster
-  title?: string // Title of toaster
-  message?: string // Text to display in toaster
+  /** Unique identifier of toaster */
+  key?: any
+  /** Title of toaster */
+  title?: string
+  /** Text to display in toaster */
+  message?: string
   appearance?: ToasterAppearance
   timeoutMilliseconds?: number
   timer?: any
@@ -16,4 +19,8 @@ export const ToasterAppearances: ToasterAppearancesRecord = {
   danger: 'danger',
   warning: 'warning',
   system: 'system',
+}
+
+export interface ToasterOptions {
+  zIndex?: number
 }

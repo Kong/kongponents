@@ -34,7 +34,7 @@ export default defineConfig({
     pageData.frontmatter.head ??= []
     pageData.frontmatter.head.push([
       'link',
-      { rel: 'canonical', href: canonicalUrl }
+      { rel: 'canonical', href: canonicalUrl },
     ])
   },
   sitemap: {
@@ -43,7 +43,7 @@ export default defineConfig({
   lastUpdated: true,
   markdown: {
     lineNumbers: true,
-    theme: 'material-theme-palenight'
+    theme: 'material-theme-palenight',
   },
   appearance: false, // Disable dark mode (If enabled, we'd first need to update Kongponent CSS to handle accordingly)
   themeConfig: {
@@ -69,12 +69,10 @@ export default defineConfig({
             { text: 'Empty State', link: '/components/empty-state' },
             { text: 'External Link', link: '/components/external-link' },
             { text: 'File Upload', link: '/components/file-upload' },
-            { text: 'Icon', link: '/components/icon' },
             { text: 'Input', link: '/components/input' },
             { text: 'Input Switch', link: '/components/input-switch' },
             { text: 'Label', link: '/components/label' },
             { text: 'Modal', link: '/components/modal' },
-            { text: 'Modal Fullscreen', link: '/components/modal-fullscreen' },
             { text: 'Multiselect', link: '/components/multiselect' },
             { text: 'Pagination', link: '/components/pagination' },
             { text: 'Popover', link: '/components/popover' },
@@ -92,7 +90,7 @@ export default defineConfig({
             { text: 'Tooltip', link: '/components/tooltip' },
             { text: 'Tree List', link: '/components/tree-list' },
             { text: 'Truncate', link: '/components/truncate' },
-          ]
+          ],
         },
         {
           text: 'Renderless',
@@ -101,7 +99,7 @@ export default defineConfig({
             { text: 'KClipboardProvider', link: '/components/renderless/clipboard-provider' },
             { text: 'KToggle', link: '/components/renderless/toggle' },
             { text: 'KComponent', link: '/components/renderless/k-component' },
-          ]
+          ],
         },
       ],
       // Guide Sidebar
@@ -113,21 +111,21 @@ export default defineConfig({
             { text: 'Getting Started', link: '/guide/' },
             { text: 'Usage', link: '/guide/usage' },
             { text: 'Theming', link: '/guide/theming' },
-          ]
+          ],
         },
         {
           text: 'Migrations',
           collapsed: false,
           items: [
             { text: 'Migrating to v9', link: '/guide/migrating-to-version-9' },
-          ]
+          ],
         },
         {
           text: 'Contributing',
           collapsed: false,
           items: [
             { text: 'Setup', link: '/guide/contributing' },
-          ]
+          ],
         },
       ],
     },
@@ -136,17 +134,17 @@ export default defineConfig({
       { text: 'Guide', link: '/guide/', activeMatch: '/guide/' },
       { text: 'Components', link: '/components/alert', activeMatch: '/components/' },
       {
-        text: `v9-alpha`,
+        text: 'v9-alpha',
         items: [
           {
             text: 'v8.x',
             link: 'https://kongponents.konghq.com',
-            rel: 'nofollow'
+            rel: 'nofollow',
           },
           {
             text: 'v7.x',
             link: 'https://v7--kongponents.netlify.app',
-            rel: 'nofollow'
+            rel: 'nofollow',
           },
         ],
       },
@@ -159,22 +157,22 @@ export default defineConfig({
     ],
     footer: {
       message: 'Released under the Apache-2.0 License.',
-      copyright: 'Copyright © 2019-present <a href="https://konghq.com" target="_blank">Kong, Inc.</a>'
+      copyright: 'Copyright © 2019-present <a href="https://konghq.com" target="_blank">Kong, Inc.</a>',
     },
     editLink: {
       pattern: 'https://github.com/Kong/kongponents/edit/main/docs/:path',
-      text: 'Edit this page on GitHub'
+      text: 'Edit this page on GitHub',
     },
     outline: [2, 3],
     algolia: {
       appId: '63M5R2GSFP',
       apiKey: 'ff2ad6c629df9c094a93a92a500added',
-      indexName: 'kongponents-konghq'
+      indexName: 'kongponents-konghq',
     },
   },
   vite: {
     plugins: [
       VueDevTools(),
-    ]
-  }
+    ],
+  },
 })

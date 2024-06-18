@@ -5,9 +5,9 @@
   >
     <KLabel
       v-if="label"
+      v-bind-once="{ for: selectId }"
       v-bind="labelAttributes"
       data-testid="select-label"
-      :for="selectId"
       :required="isRequired"
     >
       {{ strippedLabel }}
@@ -24,22 +24,22 @@
       <KPop
         ref="popperElement"
         v-bind="boundKPopAttributes"
-        :on-popover-click="() => onPopoverClick(toggle, isToggled.value)"
-        :position-fixed="positionFixed"
-        :target="`[id='${selectWrapperId}']`"
-        @closed="() => onClose(toggle, isToggled.value)"
-        @opened="() => onOpen(toggle)"
+        close-on-popover-click
+        hide-close-icon
+        @close="() => onClose(toggle, isToggled.value)"
+        @open="() => onOpen(toggle)"
+        @popover-click="() => onPopoverClick(toggle)"
       >
         <div
-          :id="selectWrapperId"
           ref="selectWrapperElement"
+          v-bind-once="{ id: selectWrapperId }"
           class="select-wrapper"
           data-testid="select-wrapper"
           role="listbox"
           @click="onSelectWrapperClick"
         >
           <KInput
-            :id="selectId"
+            v-bind-once="{ id: selectId }"
             autocapitalize="off"
             autocomplete="off"
             class="select-input"
@@ -194,7 +194,6 @@
 <script lang="ts">
 import type { Ref, PropType } from 'vue'
 import { ref, computed, watch, nextTick, useAttrs, useSlots, onUnmounted, onMounted } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -211,6 +210,7 @@ import type {
 import { ChevronDownIcon, CloseIcon, ProgressIcon } from '@kong/icons'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
+import useUniqueId from '@/composables/useUniqueId'
 
 export default {
   inheritAttrs: false,
@@ -267,13 +267,6 @@ const props = defineProps({
     default: () => [],
     // Items must have a label & value
     validator: (items: SelectItem[]) => !items.length || items.every(i => i.label !== undefined && i.value !== undefined),
-  },
-  /**
-   * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
-   */
-  positionFixed: {
-    type: Boolean,
-    default: true,
   },
   /**
    * Control whether the input supports filtering.
@@ -366,7 +359,7 @@ const hasDropdownFooter = computed((): boolean => !!(slots['dropdown-footer-text
 const defaultKPopAttributes = {
   popoverClasses: `select-popover ${hasDropdownFooter.value ? `has-${props.dropdownFooterTextPosition}-dropdown-footer` : ''}`,
   popoverTimeout: 0,
-  placement: 'bottomStart' as PopPlacements,
+  placement: 'bottom-start' as PopPlacements,
   hideCaret: true,
 }
 
@@ -387,9 +380,9 @@ const uniqueFilterQuery = computed((): boolean => {
   return true
 })
 
-const selectWrapperId = uuidv4() // unique id for the KPop target
+const selectWrapperId = useUniqueId() // unique id for the KPop target
 const selectedItem = ref<SelectItem | null>(null)
-const selectId = computed((): string => attrs.id ? String(attrs.id) : uuidv4())
+const selectId = attrs.id ? String(attrs.id) : useUniqueId()
 const selectItems = ref<SelectItem[]>([])
 const inputFocused = ref<boolean>(false)
 
@@ -434,7 +427,7 @@ const createKPopAttributes = computed(() => {
   }
 })
 
-// Calculate the `.k-popover-content` max-height
+// Calculate the `.popover-content` max-height
 const popoverContentMaxHeight = computed((): string => getSizeFromString(props.dropdownMaxHeight))
 
 // TypeScript complains if I bind the original object
@@ -473,7 +466,7 @@ const handleAddItem = (): void => {
   const pos = (selectItems.value?.length || 0) + 1
   const item: SelectItem = {
     label: sanitizeInput(filterQuery.value),
-    value: uuidv4(),
+    value: useUniqueId(),
     key: `${sanitizeInput(filterQuery.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
     custom: true,
   }
@@ -523,6 +516,10 @@ const clearSelection = (): void => {
   })
   selectedItem.value = null
   filterQuery.value = ''
+  // this 'input' event must be emitted for v-model binding to work properly
+  emit('input', null)
+  emit('change', null)
+  emit('update:modelValue', null)
 }
 
 const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
@@ -567,13 +564,11 @@ const onSelectWrapperClick = (event: Event): void => {
   }
 }
 
-const onPopoverClick = (toggle: Function, isToggled: boolean) => {
+const onPopoverClick = (toggle: () => void) => {
   toggle()
-
-  return isToggled
 }
 
-const onClose = (toggle: Function, isToggled: boolean) => {
+const onClose = (toggle: () => void, isToggled: boolean) => {
   if (selectedItem.value) {
     filterQuery.value = selectedItem.value.label
   }
@@ -582,7 +577,7 @@ const onClose = (toggle: Function, isToggled: boolean) => {
   }
 }
 
-const onOpen = (toggle: Function) => {
+const onOpen = (toggle: () => void) => {
   if (props.enableFiltering) {
     filterQuery.value = ''
   }
@@ -621,7 +616,12 @@ watch(() => props.items, (newValue, oldValue) => {
       selectItems.value[i].selected = false
     }
 
-    selectItems.value[i].key = `${selectItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}` || `select-item-label-${i}`
+    let selectItemKey = `${selectItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}`
+    if (selectItemKey.includes('undefined')) {
+      selectItemKey = `select-item-label-${i}`
+    }
+
+    selectItems.value[i].key = selectItemKey
     if (selectItems.value[i].value === props.modelValue || selectItems.value[i].selected) {
       selectItems.value[i].selected = true
       selectedItem.value = selectItems.value[i]
@@ -655,25 +655,20 @@ watch(filterQuery, (q: string) => {
 })
 
 watch(selectedItem, (newVal, oldVal) => {
-  if (newVal) {
-    if (newVal !== oldVal) {
-      emit('selected', newVal)
-      // this 'input' event must be emitted for v-model binding to work properly
-      emit('input', newVal.value)
-      emit('change', newVal)
-      emit('update:modelValue', newVal.value)
-    }
-  } else {
+  if (newVal && newVal !== oldVal) {
+    emit('selected', newVal)
     // this 'input' event must be emitted for v-model binding to work properly
-    emit('input', null)
-    emit('change', null)
-    emit('update:modelValue', null)
+    emit('input', newVal.value)
+    emit('change', newVal)
+    emit('update:modelValue', newVal.value)
   }
 }, { deep: true })
 
 onMounted(() => {
   if (selectWrapperElement.value) {
-    resizeObserver.value = ResizeObserverHelper.create(() => { actualElementWidth.value = `${selectWrapperElement.value?.offsetWidth}px` })
+    resizeObserver.value = ResizeObserverHelper.create(() => {
+      actualElementWidth.value = `${selectWrapperElement.value?.offsetWidth}px`
+    })
 
     resizeObserver.value.observe(selectWrapperElement.value as HTMLDivElement)
   }
@@ -709,6 +704,7 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
 
   .select-wrapper {
     position: relative;
+    width: 100%;
   }
 
   .select-input {
@@ -742,6 +738,8 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     box-sizing: border-box;
     inset: 0;
     margin-left: $kSelectInputPaddingX;
+    // accommodate for the caret
+    max-width: calc(v-bind('actualElementWidth') - $kSelectInputPaddingX - $kSelectInputIconSize - ($kSelectInputSlotSpacing * 2));
     overflow: hidden;
     padding: var(--kui-space-0, $kui-space-0); // override mixin
     pointer-events: none;
@@ -756,8 +754,8 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     }
 
     &.clearable {
-      // accommodate for the clear icon
-      max-width: calc(v-bind('actualElementWidth') - ($kSelectInputPaddingX * 2) - ($kSelectInputIconSize * 2) - ($kSelectInputSlotSpacing * 2));
+      // accommodate for the clear icon and caret
+      max-width: calc(v-bind('actualElementWidth') - ($kSelectInputPaddingX * 2) - ($kSelectInputIconSize * 2) - $kSelectInputSlotSpacing);
     }
   }
 
@@ -767,7 +765,7 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     }
   }
 
-  :deep(.select-popover.k-popover) {
+  :deep(.select-popover.popover .popover-container) {
     border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
@@ -812,7 +810,7 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
 
     // reset default margin from browser
     margin: 0;
-    margin-top: var(--kui-space-40, $kui-space-40);
+    margin-top: var(--kui-space-40, $kui-space-40) !important; // need important to override some overrides of default p margin in other components
 
     &.select-error {
       color: var(--kui-color-text-danger, $kui-color-text-danger);

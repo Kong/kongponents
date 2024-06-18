@@ -38,11 +38,16 @@ features:
     linkText: View changes
 ---
 
-<style>
+<style lang="scss">
 /* Homepage Components button */
 .VPContent.is-home .VPButton.medium.alt[href^="/components/"] {
   color: #fff;
   border-color: #07a88d;
   background-color: #07a88d;
+
+  &:hover {
+    border-color: #06977E;
+    background-color: #06977E;
+  }
 }
 </style>

@@ -6,11 +6,13 @@
     >
       <component
         :is="titleTag"
-        v-if="title"
+        v-if="title || $slots.title"
         class="collapse-title"
         data-testid="collapse-title"
       >
-        {{ title }}
+        <slot name="title">
+          {{ title }}
+        </slot>
       </component>
       <div class="collapse-trigger">
         <slot
@@ -19,7 +21,7 @@
           :toggle="toggleDisplay"
         >
           <button
-            :aria-controls="contentId"
+            v-bind-once="{ 'aria-controls': contentId }"
             :aria-expanded="!collapsedState"
             :aria-label="triggerLabel ? undefined : 'Toggle content'"
             class="collapse-trigger-content"
@@ -57,7 +59,7 @@
     <Transition name="kongponents-fade-transition">
       <div
         v-show="!collapsedState"
-        :id="contentId"
+        v-bind-once="{ id: contentId }"
         class="collapse-hidden-content"
         data-testid="collapse-hidden-content"
       >
@@ -74,7 +76,7 @@ import type { TriggerAlignment, HeaderTag } from '@/types'
 import { TriggerAlignmentArray, HeaderTags } from '@/types'
 import { ChevronRightIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
-import { v4 as uuidv4 } from 'uuid'
+import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   // Is the KCollapse collapsed? Defaults to true-->
@@ -111,7 +113,7 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void;
 }>()
 
-const contentId = uuidv4()
+const contentId = useUniqueId()
 
 const isCollapsed = ref<boolean>(true)
 const modelValueChanged = ref<boolean>(false)
@@ -167,9 +169,12 @@ watch(modelComputed, (newVal, oldVal) => {
     margin-bottom: var(--kui-space-50, $kui-space-50);
 
     .collapse-title {
+      align-items: center;
       color: var(--kui-color-text, $kui-color-text);
+      display: flex;
       font-size: var(--kui-font-size-40, $kui-font-size-40);
       font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+      gap: var(--kui-space-50, $kui-space-50);
       letter-spacing: var(--kui-letter-spacing-minus-30, $kui-letter-spacing-minus-30);
       line-height: var(--kui-line-height-30, $kui-line-height-30);
       margin: var(--kui-space-0, $kui-space-0);
@@ -214,8 +219,13 @@ watch(modelComputed, (newVal, oldVal) => {
     }
 
     &.has-trailing-trigger {
+      align-items: center;
       display: flex;
       justify-content: space-between;
+
+      .collapse-title {
+        margin-bottom: var(--kui-space-0, $kui-space-0);
+      }
     }
   }
 

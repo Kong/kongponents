@@ -61,6 +61,16 @@ Use the `for` attribute to bind a label to an input element for accessibility.
 
 ## Slots
 
+### default
+
+Label content.
+
+<KLabel>Label Text</KLabel>
+
+```html
+<KLabel>Label Text</KLabel>
+```
+
 ### tooltip
 
 Should you need to utilize HTML in the tooltip, you may use the `tooltip` slot.

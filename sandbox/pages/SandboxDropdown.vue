@@ -4,15 +4,6 @@
     title="KDropdown"
   >
     <div class="kdropdown-sandbox">
-      <!-- Figma -->
-      <SandboxTitleComponent
-        is-subtitle
-        title="Figma"
-      />
-      <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=466%3A9443&mode=dev">
-        Figma
-      </KExternalLink>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
@@ -167,7 +158,7 @@
         <KDropdown width="220">
           <KButton
             appearance="secondary"
-            class="icon-button"
+            icon
           >
             <CogIcon />
           </KButton>
@@ -229,7 +220,7 @@
           trigger-text="Slotted content positioning"
           width="250"
         >
-          <template #items>
+          <template #items="{ closeDropdown }">
             <KDropdownItem>
               Updates
               <KBadge
@@ -239,7 +230,7 @@
                 14
               </KBadge>
             </KDropdownItem>
-            <KDropdownItem>
+            <KDropdownItem @click="handleItemClick">
               Support
               <KBadge
                 appearance="success"
@@ -247,7 +238,11 @@
               >
                 Enterprise
               </KBadge>
-              <ExternalLinkIcon class="dropdown-item-content-end" />
+              <KExternalLink
+                class="dropdown-item-content-end"
+                href="https://kongponents.konghq.com/"
+                @click.stop="closeDropdown"
+              />
             </KDropdownItem>
             <KDropdownItem>
               <BookIcon />

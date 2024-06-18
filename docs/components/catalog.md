@@ -97,7 +97,7 @@ interface CatalogItem {
   id?: string
   title: string
   description: string
-  key?: string
+  key?: string // optional parameter to be used as key in v-for, has to be unique for each item
 }
 ```
 
@@ -175,105 +175,22 @@ const itemDeleted = () => {
 
 Pass in a string of search input for server-side table filtering.
 
-### paginationTotalItems
+## Pagination
 
-Pass the total number of items in the set to populate the pagination text. See [KPagination component docs](/components/pagination) for more details.
+KCatalog uses KPagination component under the hood and exposes a few props as a way to modify how pagination looks and behaves in card catalogs. See [KPagination](/components/pagination.html#props) docs for more details and examples:
 
-If not provided the fetcher response should return a top-level property `total` or return a `data` property that is an array.
-
-### paginationNeighbors
-
-Pass in a number of pagination neighbors to be used by the pagination component. See more detail in the [KPagination component docs](/components/pagination.html#neighbors).
-
-### paginationPageSizes
-
-Pass in an array of page sizes for the page size dropdown. If not provided will default to the following:
-
-```ts
-[15, 30, 50, 75, 100]
-```
-
-### disablePaginationPageJump
-
-Set this to `true` to limit pagination navigation to `previous` / `next` page only.
-
-<KCatalog :fetcher="fetcher" :disablePaginationPageJump="true" :paginationPageSizes="[4, 5, 6]" :initial-fetcher-params="{ pageSize: 4, page: 1 }" />
-
-```html
-<KCatalog :disable-pagination-page-jump="true" :fetcher="fetcher" />
-```
+* `paginationTotalItems`
+* `paginationNeighbors`
+* `paginationPageSizes`
+* `disablePaginationPageJump`
 
 ### disablePagination
 
-Set this to `true` to remove the pagination bar when using a fetcher.
+Set this to `true` to hide pagination when using a fetcher.
 
 ### hidePaginationWhenOptional
 
-Set this to `true` to hide the pagination UI when the table record count is less than or equal to the `pageSize`.
-
-## KCatalogItem
-
-KCatalog generates a KCatalogItem for each item in the `items` property. At the most basic level, KCatalogItem is a wrapper around KCard to display correctly inside KCatalog. You can use the `body` slot of the KCatalog to manually create your own catalog items.
-
-### Props
-
-#### item
-
-Object instance of `CatalogItem` from which card content is built.
-
-#### truncate
-
-A boolean (default to `true`), whether or not to truncate the description text.
-
-```html
-<KCatalogItem :item="item" :truncate="false" class="catalog-item" />
-```
-
-### Slots
-
-#### card-title
-
-The title content for the card.
-
-#### card-body
-
-The body content for the card.
-
-#### card-footer
-
-The footer content for the card.
-
-<KCatalogItem>
-  <template #card-title>
-    Card Title
-  </template>
-  <template #card-body>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.
-  </template>
-  <template #card-footer>
-    <KBadge appearance="neutral">Card footer</KBadge>
-  </template>
-</KCatalogItem>
-
-```html
-<KCatalogItem>
-  <template #card-title>
-    Card Title
-  </template>
-  <template #card-body>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.
-  </template>
-  <template #card-footer>
-      <KBadge appearance="neutral">Card footer</KBadge>
-  </template>
-</KCatalogItem>
-```
-
-### Events
-
-#### click
-
-Fired when item is clicked. Event payload is item object.
+Set this to `true` to hide pagination when the table record count is less than or equal to the `pageSize`.
 
 ## States
 
@@ -293,7 +210,9 @@ Set the following props to handle empty state:
 - `emptyStateActionMessage` - Button text for empty state action
 - `emptyStateActionRoute` - Route for empty state action
 
+:::tip
 Should you want to display an icon inside of action button, you can use `empty-state-action-icon` slot.
+:::
 
 When empty state action button is clicked, KCatalog emits the `empty-state-action-click` event.
 
@@ -480,9 +399,13 @@ The `toolbar` slot allows you to slot catalog controls rendered at the top of th
 
 Slot content to be displayed when empty.
 
+### empty-state-action-icon
+
+Slot for icon to be displayed in front of action button text in empty state. See [empty state](#empty) section for example of usage of this slot.
+
 ### error-state
 
-Slot content to be displayed when in an error state.
+Slot content to be displayed when in error state.
 
 ## Events
 
@@ -519,6 +442,70 @@ Returns the `state` and `hasData` (boolean) of the catalog, `state` can be one o
 - `loading` - when the catalog is fetching new catalog data
 - `error` - when the catalog fetch failed
 - `success` - when the catalog fetch completed successfully
+
+## KCatalogItem
+
+KCatalog generates a KCatalogItem for each item in the `items` property. At the most basic level, KCatalogItem is a wrapper around KCard to display correctly inside KCatalog. You can use the `body` slot of the KCatalog to manually create your own catalog items.
+
+### Props
+
+#### item
+
+Object instance of `CatalogItem` from which card content is built.
+
+#### truncate
+
+A boolean (default to `true`), whether or not to truncate the description text.
+
+```html
+<KCatalogItem :item="item" :truncate="false" class="catalog-item" />
+```
+
+### Slots
+
+#### card-title
+
+The title content for the card.
+
+#### card-body
+
+The body content for the card.
+
+#### card-footer
+
+The footer content for the card.
+
+<KCatalogItem>
+  <template #card-title>
+    Card Title
+  </template>
+  <template #card-body>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.
+  </template>
+  <template #card-footer>
+    <KBadge appearance="neutral">Card footer</KBadge>
+  </template>
+</KCatalogItem>
+
+```html
+<KCatalogItem>
+  <template #card-title>
+    Card Title
+  </template>
+  <template #card-body>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.
+  </template>
+  <template #card-footer>
+      <KBadge appearance="neutral">Card footer</KBadge>
+  </template>
+</KCatalogItem>
+```
+
+### Events
+
+#### click
+
+Fired when item is clicked. Event payload is item object.
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'

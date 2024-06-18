@@ -47,7 +47,7 @@
                 @click="$emit('cancel')"
               >
                 <CloseIcon
-                  :color="KUI_COLOR_TEXT_NEUTRAL"
+                  :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
                   decorative
                 />
               </button>
@@ -234,9 +234,9 @@ const toggleFocusTrap = async (isActive: boolean): Promise<void> => {
 const toggleBodyScroll = (isScrollable: boolean): void => {
   if (typeof document !== 'undefined') {
     if (isScrollable) {
-      document.body.classList.remove('k-modal-overflow-hidden')
+      document?.body?.classList?.remove('k-modal-overflow-hidden')
     } else {
-      document.body.classList.add('k-modal-overflow-hidden')
+      document?.body?.classList?.add('k-modal-overflow-hidden')
     }
   }
 }
@@ -244,9 +244,9 @@ const toggleBodyScroll = (isScrollable: boolean): void => {
 const toggleEventListeners = (isActive: boolean): void => {
   if (typeof document !== 'undefined') {
     if (isActive) {
-      document.addEventListener('keydown', handleKeydown)
+      document?.addEventListener('keydown', handleKeydown)
     } else {
-      document.removeEventListener('keydown', handleKeydown)
+      document?.removeEventListener('keydown', handleKeydown)
     }
   }
 }

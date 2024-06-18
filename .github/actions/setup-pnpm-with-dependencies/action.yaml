@@ -1,0 +1,62 @@
+name: Setup PNPM with Dependencies
+description: Reusable composition of setup-node, cache, and pnpm install actions
+inputs:
+  nodejs-version:
+    description: 'Version of NodeJS to use (ex: 18.19.1)'
+    default: '18.19.1'
+  force-install:
+    description: When 'true', pnpm install will be executed regardless of a cache hit
+    required: false
+    default: 'false'
+  frozen-lockfile:
+    description: When false, pnpm install will use the --no-frozen-lockfile flag
+    required: false
+    default: 'true'
+outputs:
+  cache-hit:
+    description: Whether or not there was a cache hit
+    value: ${{ steps.dependency-cache.outputs.cache-hit }}
+runs:
+  using: composite
+  steps:
+
+    - name: get Node version
+      id: node-version
+      shell: bash
+      run: |
+        voltaNodeVersion=$(cat package.json|jq -r ".volta.node")
+        if [[ $voltaNodeVersion == null ]]; then
+          voltaNodeVersion="${{ inputs.nodejs-version }}"
+        fi
+        voltaPnpmVersion=$(cat package.json|jq -r ".volta.pnpm")
+        if [[ $voltaPnpmVersion == null ]]; then
+          voltaPnpmVersion="9.3.0"
+        fi
+
+        echo "node-version=${voltaNodeVersion}">> $GITHUB_OUTPUT
+        echo "pnpm-version=${voltaPnpmVersion}">> $GITHUB_OUTPUT
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ steps.node-version.outputs.node-version }}
+
+    - name: Install PNPM
+      shell: bash
+      run: |
+        npm i -g pnpm@${{ steps.node-version.outputs.pnpm-version }}
+        pnpm --version
+
+    - name: Dependency Cache
+      id: dependency-cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/Cypress
+          **/node_modules
+        key: pnpm-${{ steps.node-version.outputs.pnpm-version }}-${{ steps.node-version.outputs.node-version }}-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+    - name: Install Dependencies
+      if: ${{ inputs.force-install == 'true' || steps.dependency-cache.outputs.cache-hit != 'true' }}
+      shell: bash
+      run: pnpm i${{ inputs.frozen-lockfile == 'false' && ' --no-frozen-lockfile' || '' }}

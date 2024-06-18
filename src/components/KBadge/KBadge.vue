@@ -5,25 +5,22 @@
   >
     <component
       :is="showTooltip ? 'KTooltip' : 'div'"
-      class="badge-content"
-      :class="{ 'icon-after': !iconBefore }"
-      :position-fixed="showTooltip ? true : undefined"
+      :text="showTooltip ? tooltip : undefined"
     >
-      <template
-        v-if="showTooltip"
-        #content
-      >
-        {{ tooltip }}
-      </template>
-      <slot
-        v-if="$slots.icon"
-        name="icon"
-      />
       <div
-        ref="badgeTextElement"
-        class="badge-content-wrapper"
+        class="badge-content"
+        :class="{ 'icon-after': !iconBefore }"
       >
-        <slot />
+        <slot
+          v-if="$slots.icon"
+          name="icon"
+        />
+        <div
+          ref="badgeTextElement"
+          class="badge-content-wrapper"
+        >
+          <slot />
+        </div>
       </div>
     </component>
   </div>
@@ -31,13 +28,12 @@
 
 <script lang="ts">
 import type { PropType } from 'vue'
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, nextTick, onMounted } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { BadgeAppearance } from '@/types'
 import { BadgeAppearances, BadgeMethodAppearances } from '@/types'
 import useUtilities from '@/composables/useUtilities'
-import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 
 const { getSizeFromString } = useUtilities()
 
@@ -78,7 +74,7 @@ const props = defineProps({
    */
   maxWidth: {
     type: String,
-    default: '200px',
+    default: '200',
   },
   /**
    * A boolean whether or not to show the icon before the badge text (or after).
@@ -93,16 +89,16 @@ const isMethodBadge = computed(() => {
   return Object.keys(BadgeMethodAppearances).includes(props.appearance)
 })
 
-const badgeTextElement = ref<HTMLDivElement>()
+const badgeTextElement = ref<HTMLDivElement | null>()
 
-const resizeObserver = ref<ResizeObserverHelper>()
 const isTruncated = ref<boolean>(false)
 
 const maxWidth = computed((): string => getSizeFromString(props.maxWidth))
 
-const setTruncation = (): void => {
+const setTruncation = async (): Promise<void> => {
   if (badgeTextElement.value) {
-    isTruncated.value = badgeTextElement.value.offsetWidth < badgeTextElement.value.scrollWidth
+    await nextTick()
+    isTruncated.value = badgeTextElement.value?.offsetWidth < badgeTextElement.value?.scrollWidth
   }
 }
 
@@ -119,15 +115,7 @@ const showTooltip = computed((): boolean => {
 })
 
 onMounted(() => {
-  resizeObserver.value = ResizeObserverHelper.create(setTruncation)
-
-  resizeObserver.value.observe(badgeTextElement.value as HTMLDivElement)
-})
-
-onUnmounted(() => {
-  if (resizeObserver.value) {
-    resizeObserver.value.unobserve(badgeTextElement.value as HTMLDivElement)
-  }
+  setTruncation()
 })
 </script>
 

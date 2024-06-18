@@ -2,20 +2,22 @@
   <div class="table-column-visibility-menu">
     <KDropdown
       data-testid="table-column-visibility-menu"
-      :kpop-attributes="{ placement: 'bottomEnd' }"
+      :kpop-attributes="{ placement: 'bottom-end' }"
       @toggle-dropdown="handleDropdownToggle"
     >
-      <KTooltip text="Show/Hide Columns">
+      <KTooltip
+        placement="bottom-end"
+        :text="isDropdownOpen ? undefined : 'Show/Hide Columns'"
+      >
         <KButton
           appearance="secondary"
           aria-label="Show/Hide Columns"
           class="menu-button"
           data-testid="column-visibility-menu-button"
+          icon
           size="large"
         >
-          <template #icon>
-            <TableColumnsIcon decorative />
-          </template>
+          <TableColumnsIcon decorative />
         </KButton>
       </KTooltip>
 
@@ -73,7 +75,7 @@ import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KDropdownItem from '@/components/KDropdown/KDropdownItem.vue'
 
 const emit = defineEmits<{
-  (e: 'update:visibility', columnVisibility: Record<string, boolean>): void
+  (e: 'update', columnVisibility: Record<string, boolean>): void
 }>()
 
 const props = defineProps({
@@ -91,6 +93,7 @@ const props = defineProps({
   },
 })
 
+const isDropdownOpen = ref<boolean>(false)
 const visibilityMap = ref<Record<string, boolean>>({})
 const isDirty = ref(false)
 const menuItemsRef = ref<HTMLDivElement>()
@@ -106,11 +109,13 @@ const initVisibilityMap = (): void => {
 
 const handleApply = (): void => {
   // pass by ref problems
-  emit('update:visibility', JSON.parse(JSON.stringify(visibilityMap.value)))
+  emit('update', JSON.parse(JSON.stringify(visibilityMap.value)))
   isDirty.value = false
 }
 
 const handleDropdownToggle = (isOpen: boolean): void => {
+  isDropdownOpen.value = isOpen
+
   // set scroll classes on open
   if (isOpen && menuItemsRef.value) {
     setTimeout(() => {
@@ -145,7 +150,7 @@ const setOverflowClass = (el: HTMLDivElement) => {
 
 watch(() => props.visibilityPreferences, () => {
   initVisibilityMap()
-})
+}, { immediate: true })
 
 onMounted(() => {
   if (menuItemsRef.value) {

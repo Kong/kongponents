@@ -44,7 +44,7 @@ Prop for providing select item options. Supports grouping items under one group 
 interface SelectItem {
   label: string
   value: string | number
-  key?: string
+  key?: string // optional parameter that will be appended with `-selected` when selected
   selected?: boolean
   disabled?: boolean
   group?: string
@@ -359,10 +359,6 @@ Reuse the same display format provided via the [`item-template` slot](#itemtempl
   </template>
 </KSelect>
 ```
-
-### positionFixed
-
-Use fixed positioning for the select dropdown to avoid content being clipped by the boundaries of its parent container. See [KPopover](/components/popover#positionfixed) docs for more information.
 
 ### enableItemCreation
 

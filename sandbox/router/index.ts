@@ -7,7 +7,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  // @ts-ignore
+  // @ts-ignore - property exists
   document.title = to.meta.title
   next()
 })

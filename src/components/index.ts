@@ -24,7 +24,6 @@ export { default as KDropdownItem } from './KDropdown/KDropdownItem.vue'
 export { default as KDropdownMenu } from './KDropdown/KDropdown.vue' // KDropdown alias
 export { default as KEmptyState } from './KEmptyState/KEmptyState.vue'
 export { default as KFileUpload } from './KFileUpload/KFileUpload.vue'
-export { default as KIcon } from './KIcon/KIcon.vue'
 export { default as KInput } from './KInput/KInput.vue'
 export { default as KInputSwitch } from './KInputSwitch/KInputSwitch.vue'
 export { default as KLabel } from './KLabel/KLabel.vue'

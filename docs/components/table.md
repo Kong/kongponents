@@ -1,352 +1,302 @@
 # Table
 
-Pass a fetcher function to build a slot-able table.
+Component that takes care of fetching and rendering data in a table format.
+
+<KTable
+  :fetcher="basicFetcher"
+  :headers="basicHeaders()"
+/>
 
 ```html
-  <KTable :fetcher="fetcher" :headers="headers" />
+<KTable
+  :fetcher="fetcher"
+  :headers="headers"
+/>
 ```
-
-::: warning NOTE
-`KTable` implements `KIcon` which imports .svg files directly, so a loader may be needed in order to render these in your application such as the webpack
-[raw-loader](https://webpack.js.org/loaders/raw-loader/). [See here for more information](/#installation).
-:::
 
 ## Props
 
-### hasHover
+### headers
 
-Highlight the table row on hover. By default this is set to `true`. In the example we can set it to false as well.
+Array of objects that represent table columns along with some configurations that should apply to each of the columns (whether a column is sortable, hidable, etc).
 
-<KTable :fetcher="tableOptionsFetcher" :headers="tableOptionsHeaders" :hasHover="false" />
-
-```html
-  <KTable :fetcher="fetcher" :headers="headers" :hasHover="false" />
+```ts
+interface TableHeader {
+  key: string // must be unique for each column
+  label: string // visible column header text
+  sortable?: boolean // in a nutshell, this property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it
+  hidable?: boolean // allow toggling column visibility
+  tooltip?: string // when provided, an info icon will be rendered next to the column label, upon hovering on which the tooltip will be revealed
+  hideLabel?: boolean // whether column header text should be hidden (only visible to screen readers)
+  useSortHandlerFunction?: boolean // whether KTable should use function passed through sortHandlerFunction prop to apply sorting logic to this column
+}
 ```
 
-### hasSideBorder
-
-Adds left border to each table row. By default set to `false`. The colors can be overridden by themes.
-
-The below example demonstrates the disabled state:
-
-<KTable :fetcher="tableOptionsFetcher" :headers="tableOptionsHeaders" :hasSideBorder="true" />
-
-```html
-  <KTable :fetcher="fetcher" :headers="headers" :hasSideBorder="true" />
-```
-
-### hasError
-
-See [the State section](#error) about `hasError`
-
-### isLoading
-
-See [the State section](#loading) about `isLoading`
-
-### resizeColumns
-
-Allow table column width to be resizable. Adjusting a column's width will trigger an `@update:table-preferences` event.
-
-<KTable :fetcher="tableOptionsFetcher" :headers="resizeHeaders" resize-columns />
-
-```html
-  <KTable :fetcher="fetcher" :headers="headers" resize-columns />
-```
-
-### disablePaginationPageJump
-
-Set this to `true` to limit pagination navigation to `previous` / `next` page only.
-
-<KTable :fetcher="tableOptionsFetcher" :headers="tableOptionsHeaders" :disablePaginationPageJump="true" />
-
-```html
-  <KTable :fetcher="fetcher" :headers="headers" :disablePaginationPageJump="true" />
-```
-
-### disablePagination
-
-Set this to `true` to remove the pagination bar when using a fetcher.
-
-### hidePaginationWhenOptional
-
-Set this to `true` to hide the pagination UI when the table record count is less than or equal to the `pageSize`.
-
-### disableSorting
-
-Set this to `true` to disable ablity to sort.
-
-### enableClientSort
-
-Set this prop to `true` to enable client side sorting if using a fetcher that returns unpaginatinated data.
-This functionality may be flaky.
-
-### sortHandlerFn
-
-Use a custom sort handler function to handle sorting table data for specific columns
-
-::: tip NOTE
-
-1. In order for a column to use the custom sort handler function, `useSortHandlerFn` must be set to `true` in the [headers](#headers) object
-
-2. Sort handler functions can take four params:
-
-- `key`: the key of the column to be sorted
-- `prevKey`: the key of the column previously sorted
-- `sortColumnOrder`: the order in which to sort the column (`asc` or `desc`)
-- `data`: the data returned from the fetcher function response
+:::tip NOTE
+If at least one column is `hidable` in the table, KTable will render a dropdown on the right of the table toolbar, directly above the table, which will provide an interface for showing/hiding columns to the user.
 :::
 
-#### sortHandlerFn Example
+For an example of `headers` prop usage please refer to [`fetcher` prop documentation](#fetcher) below.
 
-Here the `last_seen` column is set to use the custom sort handler function via the `useSortHandlerFn` property set in the table header object. The function passed into the `sortHandlerFn` prop sorts and returns the table data. The other columns use the default built-in client side sort function because the `useSortHandlerFn` property is not set in the header objects.
+### fetcher
 
-<KTable :fetcher="sortHandlerFnFetcher" :headers="sortHandlerFnHeaders" :sortHandlerFn="sortHandlerFn" enable-client-sort />
+Function that handles data fetching, server-side search and pagination. It takes a single param as an argument which you can conveniently pass as a prop (see [`initialFetcherParams` prop](#initialfetcherparams) for details).
 
-```html
+Fetcher function is expected to return an object with the following properties:
+* `data` - an array of objects to populate table with
+* `total` - the total count of items (if using pagination)
+
+<KTable
+  :fetcher="hardcodedFetcher"
+  :headers="basicHeaders(false, 'username', 'email')"
+  :sort-handler-function="basicSortHandlerFunction"
+  client-sort
+/>
+
+```vue
 <template>
   <KTable
     :fetcher="fetcher"
+    client-sort
     :headers="headers"
-    :sortHandlerFn="sortHandlerFn"
-    enable-client-sort
+    :sort-handler-function="sortHandlerFunction"
   />
 </template>
 
-<script lang="ts">
-export default {
-  data () {
-    return {
-      headers: [
-        { label: 'Host', key: 'hostname', sortable: true },
-        { label: 'Version', key: 'version', sortable: true },
-        { label: 'Connected', key: 'connected', sortable: true },
-        { label: 'Last Seen', key: 'last_seen', sortable: true, useSortHandlerFn: true }
-      ],
-    }
+<script setup lang="ts">
+const headers = [
+  { key: 'name', label: 'Full Name' },
+  {
+    key: 'username',
+    label: 'Username',
+    sortable: true,
+    tooltip: 'Unique for each user.',
+    useSortHandlerFunction: true
   },
-  methods: {
-    sortHandlerFn({ key, prevKey, sortColumnOrder, data}) {
-      return data.sort((a, b) => {
-        if (key === 'last_seen') {
-          if (sortColumnOrder === 'asc') {
-            if (a.last_ping > b.last_ping) {
-              return 1
-            } else if (a.last_ping < b.last_ping) {
-              return -1
-            }
-            return 0
-          } else {
-            if (a.last_ping > b.last_ping) {
-              return -1
-            } else if (a.last_ping < b.last_ping) {
-              return 1
-            }
-            return 0
-          }
-        }
-      })
+  {
+    key: 'email',
+    label: 'Email',
+    hidable: true
+  },
+]
+
+const fetcher = async (): Promise<any> => {
+  // Fake delay
+  await new Promise((resolve) => setTimeout(resolve, 2000))
+
+  const responseData = [
+    {
+      id: 1,
+      // notice that property keys in data object correspond to each respective key in headers const
+      name: 'Leanne Graham', 
+      username: 'Bret',
+      email: 'Sincere@april.biz'
     },
-    fetcher() {
-      return {
-        data: [
-          {
-            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
-            version: '2.8.0.0-enterprise-edition',
-            hostname: '99e591ae3776',
-            last_ping: 1648855072,
-            connected: 'Disconnected',
-            last_seen: '6 days ago'
-          },
-          {
-            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
-            version: '2.7.0.0-enterprise-edition',
-            hostname: '19e591ae3776',
-            last_ping: 1649362660,
-            connected: 'Connected',
-            last_seen: '3 hours ago',
-          },
-          {
-            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
-            version: '2.8.1.0-enterprise-edition',
-            hostname: '79e591ae3776',
-            last_ping: 1649355460,
-            connected: 'Connected',
-            last_seen: '5 hours ago',
-          },
-          {
-            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
-            version: '2.6.0.0-enterprise-edition',
-            hostname: '89e591ae3776',
-            last_ping: 1648155072,
-            connected: 'Disconnected',
-            last_seen: '14 days ago'
-          },
-          {
-            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
-            version: '2.8.2.0-enterprise-edition',
-            hostname: '59e591ae3776',
-            last_ping: 1649855072,
-            connected: 'Connected',
-            last_seen: 'Just now'
-          },
-        ]
-      }
+    {
+      id: 2,
+      name: 'Ervin Howell',
+      username: 'Antonette',
+      email: 'Shanna@melissa.tv'
     },
+    ...
+  ]
+
+  return {
+    data: responseData,
+    total: responseData.length,
   }
+}
+
+const sortHandlerFunction = ({ key, sortColumnOrder, data }) => {
+  return data.sort((a, b) => {
+    if (key === 'username') {
+      if (sortColumnOrder === 'asc') {
+        if (a.username > b.username) {
+          return 1
+        } else if (a.username < b.username) {
+          return -1
+        }
+
+        return 0
+      } else {
+        if (a.username > b.username) {
+          return -1
+        } else if (a.username < b.username) {
+          return 1
+        }
+
+        return 0
+      }
+    }
+
+    return data
+  })
 }
 </script>
 ```
 
-### fetcher
-
-Use a custom fetcher function to fetch table data and leverage server-side search, sort and pagination.
-
-::: tip NOTE
-All fetcher functions should take a single param. This parameter is a JSON
-object supporting the following properties:
-
-- Pagination support:
-  - `page`: the currently visible page - starts at `1`
-  - `pageSize`: the number of items to display per page
-  - `offset`: the value of the offset for offset-based pagination. `offset` **MUST** be included in the fetcher params for offset-based pagination to work properly.
-  - `hasNextPage`: a boolean value indicating if the next page exists in case of using cursor (`offset`) pagination. This is used to determine disable state of the prev/next page buttons. By default the value is `true`
-- Sort support:
-  - `sortColumnKey`: the column to sort by's `key` defined in the `headers` prop
-  - `sortColumnOrder`: can be 'asc' or 'desc'
-- Search support:
-  - `query`: a text string to filter table data on
+:::tip NOTE
+Notice that in the example above the _Username_ column is `sortable` and the _Email_ column is `hidable`. In this example sorting is handled on the client side, however should you want to apply server-side logic to handle sorting, you can bind your logic to the [`sort` event](#sort) and perform re-fetching of data as needed.
 :::
 
-::: tip NOTE
-All fetcher functions should return a JSON object. This JSON object should contain the following properties:
+### initialFetcherParams
 
-- `total` - the total count of items (if using pagination)
-- `data` - an array of JSON objects to populate the table with
-:::
+Fetcher function takes a single param - an object with the following properties:
 
-Example fetcher function:
-
-```js
-fetcher(payload) {
-  const params = {
-    _limit: payload.pageSize,
-    _page: payload.page
-  }
-
-  if (query) {
-    params.q = payload.query
-    params._page = 1
-  }
-
-  if (sortKey) {
-    params._sort = payload.sortColumnKey
-    params._order = payload.sortColumnOrder
-  }
-
-  return axios.get('/user_list', {
-    baseURL: 'https://kongponents.dev/api',
-    params
-  }).then(res => {
-    return {
-      total: res.total,
-      data: res.data
-    }
-  })
+```ts
+interface FetcherParams {
+  pageSize?: number // the number of items to display per page
+  page?: number // the currently visible page
+  query?: string // a text string to filter table data on (defined in the searchInput prop)
+  sortColumnKey?: string // sortable column key (defined in the headers prop)
+  sortColumnOrder?: 'asc' | 'desc' // sorting order
+  offset?: string | null // the value of the offset for offset-based pagination. offset MUST be included in the fetcher params for offset-based pagination to work properly
 }
 ```
 
-The `fetcher` function does not actually need to make an API call. Tables that can get their data synchronously can be modified to use a `fetcher` that returns the static data object.
+For ease of configuration, all properties in the `initialFetcherParams` object have default fallback values:
 
-::: tip NOTE
-Remember that the `fetcher` function is responsible for managing pagination/sort/search. So if returning a static data object these features should be explicitly disabled.
-:::
+```ts
+{ 
+  pageSize: 15,
+  page: 1,
+  query: '',
+  sortColumnKey: '',
+  sortColumnOrder: '',
+  offset: null
+}
+```
 
-<KTable :fetcher="() => {
-  return {
-    data: [
-      {
-        name: 'Basic Auth',
-        id: '517526354743085',
-        enabled: 'true'
-      },
-      {
-        name: 'Website Desktop',
-        id: '328027447731198',
-        enabled: 'false'
-      },
-      {
-        name: 'Android App',
-        id: '405383051040955',
-        enabled: 'true'
-      }
-    ]
-  }}"
-  :initial-fetcher-params="{
-    sortColumnKey: 'name',
-    sortColumnOrder: 'asc'
-  }"
-  :headers="[
-    { label: 'Name', key: 'name', sortable: true },
-    { label: 'Id', key: 'id', sortable: true },
-    { label: 'Enabled', key: 'enabled', sortable: false }
-  ]"
-  hidePaginationWhenOptional
-  :enableClientSort="true"
+### loading
+
+Boolean to control whether the component should display the loading state. When not explicitly set, KTable will display the loading state until the function passed for the [`fetcher` prop](#fetcher) resolves.
+
+<KTable
+  loading
+  :fetcher="basicFetcher"
+  :headers="basicHeaders()"
 />
 
 ```html
-<template>
-  <KTable
-    :fetcher="() => {
-      return {
-        data: [
-          {
-            name: 'Basic Auth',
-            id: '517526354743085',
-            enabled: 'true'
-          },
-          {
-            name: 'Website Desktop',
-            id: '328027447731198',
-            enabled: 'false'
-          },
-          {
-            name: 'Android App',
-            id: '405383051040955',
-            enabled: 'true'
-          }
-        ]
-      }
-    }"
-    :initial-fetcher-params="{
-      sortColumnKey: 'name',
-      sortColumnOrder: 'asc'
-    }"
-    :headers="[
-      { label: 'Name', key: 'name', sortable: true },
-      { label: 'Id', key: 'id', sortable: true },
-      { label: 'Enabled', key: 'enabled', sortable: false }
-    ]"
-    hidePaginationWhenOptional
-    :enableClientSort="true"
-  />
-</template>
+<KTable
+  loading
+  :fetcher="fetcher"
+  :headers="headers"
+/>
 ```
+
+### error
+
+Boolean to control whether the component should display the error state. Defaults to `false`. See [error state](#error-1) section for more customization options.
+
+<KTable
+  error
+  :fetcher="basicFetcher"
+  :headers="basicHeaders()"
+/>
+
+```html
+<KTable
+  error
+  :fetcher="fetcher"
+  :headers="headers"
+/>
+```
+
+### resizeColumns
+
+Allow table column width to be resizable (defaults to `false`). Adjusting a column's width will trigger an [`update:table-preferences` event](#updatetable-preferences).
+
+<KTable
+  resize-columns
+  :fetcher="basicFetcher"
+  :headers="basicHeaders()"
+/>
+
+```html
+<KTable
+  resize-columns
+  :fetcher="fetcher"
+  :headers="headers"
+/>
+```
+
+### clientSort
+
+Boolean to enable client side sorting if using a fetcher that returns unpaginated data. Defaults to `false`. Use this in conjunction with [`sortHandlerFunction` prop](#sorthandlerfunction).
+
+### sortHandlerFunction
+
+Pass a custom sort handler function to handle sorting table data for specific columns.
+
+:::warning WARNING
+If [`clientSort` prop](#clientsort) is `true` but no `sortHandlerFunction` provided, KTable will apply some default logic for client side sorting. This may produce unexpected results. We recommend **always** providing a `sortHandlerFunction` when using client side sorting.
+:::
+
+The function can take an object with these properties as the only argument:
+
+```ts
+interface SortHandlerFunctionParam {
+  key: string // the key of the column to be sorted
+  prevKey: string // the key of the column previously sorted
+  sortColumnOrder: 'asc' | 'desc' // the order in which to sort the column (asc or desc)
+  data: Array<any> // the data returned from the fetcher function response
+}
+```
+
+:::tip NOTE
+Please note that you have to set [`clientSort` prop](#clientsort) to `true` as well as to pass `sortable: true` and `useSortHandlerFunction: true` in the respective [headers object](#headers) to make a column sortable via `sortHandlerFunction`.
+:::
+
+Please refer to [`fetcher` prop documentation](#fetcher) for example.
+
+### rowHover
+
+Boolean to control whether table should display hover state upon hovering rows. Defaults to `true`.
+
+### tablePreferences
+
+Table preferences object for persisting some configs.
+
+```ts
+interface TablePreferences {
+  pageSize?: number // the number of items to display per page
+  sortColumnKey?: string // the column to sort by's `key` defined in the table headers
+  sortColumnOrder?: SortColumnOrder // the order by which to sort the column, one of `asc` or `desc`
+  columnWidths?: Record<string, number> // the customized column widths, if resizing is allowed
+  columnVisibility?: Record<string, boolean> // column visibility, if visibility is toggleable
+}
+```
+
+<KTable
+  :table-preferences="{ columnVisibility: { email: false } }"
+  :fetcher="basicFetcher"
+  :headers="basicHeaders(false, null, 'email')"
+/>
+
+```html
+<KTable
+  :table-preferences="{ columnVisibility: { email: false } }"
+  :fetcher="fetcher"
+  :headers="headers"
+/>
+```
+
 ### cacheIdentifier
 
 The fetcher functionality makes use of [SWRV](https://docs-swrv.netlify.app/) to handle caching of response data. In order to take advantage of this caching, SWRV needs a way to identify which cache entry is associated with the table.
 
 The identifier should be a string and will default to `''` if not provided. In that scenario, we will generate a random ID for the identifier every time the table is mounted.
 
-::: danger Danger
-This identifier must be unique across all `KTable` instances across the entire Vue app, otherwise there is a risk that SWRV will return the cached data of the wrong table.
+:::danger DANGER
+This identifier must be unique across all KTable instances across the entire Vue app, otherwise there is a risk that [SWRV](https://docs-swrv.netlify.app/) will return the cached data of the wrong table.
 :::
 
 ### fetcherCacheKey
 
 Whenever the cache key is changed the fetcher will automatically be called and attempt to fetch new table data.
 
-```html
+```vue
 <template>
   <KTable
     cache-identifier="fetcher-cache-key-example-table"
@@ -356,1765 +306,797 @@ Whenever the cache key is changed the fetcher will automatically be called and a
   />
 </template>
 
-<script>
-export default {
-  data () {
-    return {
-      cacheKey: 1
-    }
-  },
-  methods: {
-    itemDeleted () {
-      // take an action on the DOM
-      cacheKey++ // triggers refetch
-    }
-  }
+<script setup lang="ts">
+const cacheKey = ref<number>(1)
+
+const itemDeleted = (): void => {
+  cacheKey.value++ // triggers refetch or reactivity
 }
 </script>
 ```
 
-An alternate implementation is to apply a `key` attribute to the `KTable` in conjunction with a `fetcher` and the SWRV `revalidate` function. To prevent unnecessary calls on mount, the `key` `ref` should have an initial value of `0`.
+An alternate implementation is to apply a `key` attribute to the KTable in conjunction with a `fetcher` and the [SWRV](https://docs-swrv.netlify.app/) `revalidate` function. To prevent unnecessary calls on mount, the `key` `ref` should have an initial value of `0`.
 
-Since the `fetcher` function will handle the intial GET of the data, we want the cache key for the `revalidate` function to evaluate to `falsey` on page load (to avoid an unnecessary duplicate call), and will manually call `revalidate()` and increment the `key` to trigger a refetch and redraw of the table.
+Since the `fetcher` function will handle the initial fetch of the data, we want the cache key for the `revalidate` function to be a falsey value on page load (to avoid an unnecessary duplicate call), and will manually call `revalidate()` and increment the `key` to trigger a refetch and redraw of the table.
 
 ```html
 <template>
   <KTable :key="key" :fetcher="fetcher" :headers="headers" />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+const key = ref<string>(0) // initialized to zero
 
-export default defineComponent({
-  setup () {
-    const key = ref(0) // initialized to zero
-    const fetcher = async ({ pageSize, page, query, offset = null }) => {
-      try {
-        const res = await services.getAll(pageSize, offset)
+const fetcher = async ({ pageSize, page, query, offset = null }) => {
+  try {
+    const res = await services.getAll(pageSize, offset)
 
-        // handle data
-      } catch (error) {
-        // handle error
-      }
-    }
-
-    const { revalidate } = composables.useRequest(
-      () => key.value && `service-list-${key.value}`, // will evaluate to falsey on mount, preventing an extra call
-      () => { return fetcher() }
-    )
-
-    const handleDelete = (id) => {
-      try {
-        const res = await services.delete(id)
-
-        key.value++
-        revalidate()
-      } catch (error) {
-        // handle error
-      }
-    }
-
-    return {
-      key,
-      fetcher,
-      headers,
-      handleDelete
-    }
+    // handle data
+  } catch (error) {
+    // handle error
   }
-})
+}
+
+const { revalidate } = composables.useRequest(
+  () => key.value && `service-list-${key.value}`, // will evaluate to falsey on mount, preventing an extra call
+  () => { return fetcher() }
+)
+
+const handleDelete = (id): void => {
+  try {
+    const res = await services.delete(id)
+
+    key.value++
+    revalidate()
+  } catch (error) {
+    // handle error
+  }
+}
 </script>
 ```
 
 ### searchInput
 
-Pass in a string of search input for server-side table filtering. See [the Server-side function section](#server-side-functions) for an example.
+Pass in a string of search input for server-side table filtering.
 
-### headers
+### sortable
 
-Pass in an array of header objects for the table.
+Set this to `false` to disable ability to sort.
 
-| Parameter          | Type    | Description                                                                                                                                |
-| :----------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------- |
-| `key`              | string  | A unique key for the column                                                                                                                |
-| `label`            | string  | The label displayed on the table for the column                                                                                            |
-| `sortable`         | boolean | Enables or disables server-side sorting for the column (`false` by default)                                                                |
-| `hidable`          | boolean | Enable show/hide for this column                                                                                                           |
-| `hideLabel`        | boolean | Hides or displays the column label (useful for actions columns)                                                                            |
-| `useSortHandlerFn` | boolean | Uses the function passed in the [sortHandlerFn](#sorthandlerfn) prop to sort the column data instead of the default client sorter function |
+### rowAttrs
 
-::: tip NOTE
-`sortable` columns emit a `sort` event when clicked, returns:
+Function for adding custom attributes to each row. The function should return an object with `key: value` pairs for each attribute.
 
-  ```json
-  {
-    prevKey,        // the previously sorted column
-    sortColumnKey,  // the column being sorted now
-    sortColumnOrder // the sort direction (asc/desc)
-  }
-  ```
-
-:::
-
-Example headers array:
-
-```html
-<script>
-  export default {
-    data() {
-      return {
-        headers: [
-          { key: 'name', label: 'Name', sortable: true },
-          { key: 'email', label: 'Email', sortable: true },
-          { key: 'department', label: 'department', sortable: true },
-          { key: 'start_date', label: 'Start Date', sortable: true, hidable: true },
-          { key: 'actions', label: '', sortable: false, hideLabel: true },
-        ]
-      }
-    }
-  }
-</script>
-```
-
-#### hidable
-
-Using this modal will cause the column visibility menu to be displayed above the table after any toolbar content. Hovering over a column with `hidable: true` will trigger the display of a hide button in the header. An `@update:table-preferences` event is emitted whenever changes are applied.
-
-<KTable :fetcher="tableHideColumnFetcher" :headers="hideColumnHeaders" :table-preferences="hidablePreferences" @update:table-preferences="(tablePrefs) => hidablePreferences.columnVisibility = tablePrefs.columnVisibility" />
-
-```html
-<template>
-  <KTable
-    :fetcher="fetcher"
-    :headers="headers"
-    :table-preferences="myPreferences"
-    @update:table-preferences="(newTablePreferences: TablePreferences) => {
-      myPreferences.columnVisibility = newTablePreferences.columnVisibility
-    }"
-  />
-</template>
-
-<script lang="ts">
-  export default {
-    data() {
-      return {
-        headers: [
-          { label: 'Host', key: 'hostname' },
-          { label: 'Version', key: 'version' },
-          { label: 'Connected', key: 'connected' },
-          { label: 'Last Ping', key: 'last_ping', hidable: true },
-          { label: 'Last Seen', key: 'last_seen', hidable: true },
-        ]
-      }
-    }
-  }
-</script>
-```
-
-### initialFetcherParams
-
-Pass in an object of parameters for the initial fetcher function call. If not provided, will default to the following values:
-
-```js
-{ pageSize: 15, page: 1, query: '', sortColumnKey: '', sortColumnOrder: '' }
-```
-
-### paginationTotalItems
-
-Pass the total number of items in the set to populate the pagination text:
-
-```html
-1 to 20 of <paginationTotalItems>
-```
-
-If not provided the fetcher response should return a top-level property `total` or return a `data` property that is an array.
-
-### paginationNeighbors
-
-Pass in a number of pagination neighbors to be used by the pagination component. See more detail in the [Pagination](/components/pagination.html#neighbors) docs.
-
-### paginationPageSizes
-
-Pass in an array of page sizes for the page size dropdown. If not provided will default to the following:
-
-```js
-[15, 30, 50, 75, 100]
-```
-
-### paginationType
-
-Pass in the type of pagination to be used. Options are `default` (page/pageSize) or `offset` (offset/pageSize)
+The passed function receives row value object as an argument.
 
 <KTable
-  :fetcher="offsetPaginationFetcher"
-  :headers="offsetPaginationHeaders"
-  :initial-fetcher-params="{ pageSize: offsetPaginationPageSize }"
-  pagination-type="offset" />
+  :fetcher="basicFetcher"
+  :headers="basicHeaders()"
+  :row-attrs="(row) => { return { 'data-testid': `row-${row.id}` } }"
+/>
 
 ```html
-<template>
-  <KTable
-    :fetcher="fetcher"
-    :headers="headers"
-    pagination-type="offset"
-  />
-</template>
-```
-
-## Row Attributes
-
-A prop to add custom properties to individual rows. The row object is passed as a param.
-
-`rowAttrs` - This prop takes a function that returns an object comprising the attributes.
-
-<KTable :fetcher="tableOptionsRowAttrsFetcher" :headers="tableOptionsRowAttrsHeaders" :rowAttrs="rowAttrsFn" />
-
-```html
-<template>
-  <KTable :fetcher="fetcher" :headers="headers" :rowAttrs="rowAttrsFn" />
-</template>
-
-<script>
-export default {
-  methods: {
-    rowAttrsFn (rowItem) {
-      return {
-        class: {
-          'enabled': rowItem.enabled === 'true',
-          'disabled': rowItem.enabled === 'false'
-        },
-        'data-testid': 'row-item'
-      }
-    }
-  }
-}
-</script>
-
-<style lang="scss">
-.k-table {
-  tr.enabled:hover {
-    --KTableHover: #ccffe1;
-  }
-
-  tr.disabled:hover {
-    --KTableHover: #fff9e6;
-  }
-}
-</style>
-```
-
-## Cell Attributes
-
-A prop to add custom properties to individual table cells or groups of cells. The cell attributes object is passed as a param.
-
-`cellAttrs` - This prop takes a function that returns an object comprising the attributes.
-
-| Parameter   | Description                                         |
-| :---------- | :-------------------------------------------------- |
-| `headerKey` | The header key of the column containing the cell    |
-| `row`       | The contents of the row containing the cell         |
-| `rowIndex`  | The zero-based index of the row containing the cell |
-| `colIndex`  | The zero-based index of the cell within a row       |
-
-<KTable :headers="tableOptionsCellAttrsHeaders" :fetcher="tableOptionsCellAttrsFetcher" :cellAttrs="cellAttrsFn" />
-
-```html
-<template>
-  <KTable :fetcher="fetcher" :headers="headers" :cellAttrs="cellAttrsFn" />
-</template>
-
-<script>
-export default {
-  methods: {
-    cellAttrsFn ({ headerKey, row, rowIndex, colIndex }) {
-      /**
-       * Sets cell background color based on data returned in
-       * the row parameter and the index of the cell
-       */
-      const backgroundColor = () => {
-        if (row.company && row.company === 'Google') {
-          if (colIndex === 0) {
-            return '#4285F4'
-          } else if (colIndex === 1) {
-            return '#DB4437'
-          } else {
-            return '#F4B400'
-          }
-        }
-
-        return ''
-      }
-
-      /**
-       * Returns an object of attributes to be applied to cells
-       */
-      return {
-        class: {
-          'truncated-keys': headerKey === 'description' || headerKey === 'name',
-        },
-        'datatest-id': `row-${rowIndex + 1}-col-${headerKey}`,
-        style: {
-          'maxWidth': headerKey === 'description' ? '50ch' : headerKey === 'name' ? '22ch' : '25ch',
-          'backgroundColor': backgroundColor(),
-        },
-      }
-    }
-  }
-}
-</script>
-
-<style lang="scss">
-.truncated-keys {
-  line-height: initial;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-</style>
-```
-
-## Events
-
-Bind DOM [events](https://developer.mozilla.org/en-US/docs/Web/Events) to various parts of the table. We support events on both table rows and cells, but must be careful with clickable content in rows when row click is enabled. You can also add logic to check for `metakey` to support cmd/ctrl when clicking. Examples highlighted below.
-
-::: tip NOTE
-Styles and other accessibility-related attributes to indicate whether a row can be clicked are automatically applied when a value that does not evaluate to `undefined` is provided for an event handler.
-
-If you want to conditionally apply an event handler to `@row:click`, the value must evaluate to either a callback function, or `undefined`.
-
-If you always provide a function as the value for `@row:click` the table will not be able to correctly determine whether the row should be clickable without executing the callback.
-
-<h4><KIcon icon="check" size="22" color="green" style="vertical-align: sub;" class="horizontal-spacing" />Correct Usage</h4>
-
-```
-@row:click="isAllowedBool ? handleRowClick : undefined"
-```
-
-<h4><KIcon icon="disabled" size="22" color="red" style="vertical-align: sub;" class="horizontal-spacing" />Incorrect Usage</h4>
-
-```
-@row:click="(evt, row) => isAllowedBool ? handleRowClick(evt, row) : undefined"
-```
-
-:::
-
-### Rows
-
-`@row:{event}` - returns the `Event`, the row item, and the type: `row`
-`row-click` - Event is emitted whenever a row is clicked and the row handler is fired, returns the row `data`
-
-To avoid firing row clicks by accident, the row click handler ignores events coming from `a`, `button`, `input`, and `select` elements (unless they have the `disabled` attribute). As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
-
-<KInputSwitch v-model="enableRowClick" :label="enableRowClick ? 'Row clicks enabled' : 'Row clicks disabled'" />
-
-<KTable :headers="tableOptionsLinkHeaders" :fetcher="tableOptionsLinkFetcher" @row:click="enableRowClick ? handleRowClick : undefined">
-  <template #company="{ rowValue }">
-    <a @click="linkHander">{{rowValue.label}}</a>
-  </template>
-  <template #actions>
-    <div>
-      <KButton appearance="secondary" @click="buttonHandler">
-        Fire Button Handler!
-      </KButton>
-    </div>
-  </template>
-  <template #input>
-    <KInput type="text" placeholder="Need help?" />
-    <KInput type="text" placeholder="Row click me" disabled />
-  </template>
-</KTable>
-
-```html
-<KInputSwitch v-model="enableRowClick" :label="enableRowClick ? 'Row clicks enabled' : 'Row clicks disabled'" />
-
 <KTable
+  :row-attrs="(row) => { return { 'data-testid': `row-${row.id}` } }"
   :fetcher="fetcher"
   :headers="headers"
-  @row:click="enableRowClick ? handleRowClick : undefined">
-  <template #company="{rowValue}">
-    <!-- .stop not needed on @click because we ignore clicks from anchors -->
-    <a @click="linkHander">{{rowValue.label}}</a>
-  </template>
-  <template #actions>
-    <div>
-      <!-- .stop not needed on @click because we ignore clicks from buttons -->
-      <KButton
-        appearance="secondary"
-        @click="buttonHandler">
-        Fire Button Handler!
-      </KButton>
-    </div>
-  </template>
-  <template #input>
-    <!-- no special handling needed because click events on input elements are ignored -->
-    <KInput type="text" placeholder="Need help?" />
-    <!-- row click is triggered when clicking disabled elements -->
-    <KInput type="text" placeholder="Row click me" disabled />
-  </template>
-</KTable>
-
-<script>
-export default {
-  data() {
-    return {
-      row: null,
-      eventType: ''
-    }
-  },
-  methods: {
-    handleRowClick(e, row) {
-      const metaKeyPressed = e.metaKey || e.ctrlKey
-
-      if (metaKeyPressed) {
-        this.$toaster.open('MetaKey row click')
-      } else {
-        this.$toaster.open('Row click event fired!')
-      }
-    },
-    linkHander (e) {
-      alert('a link was clicked')
-    },
-    buttonHandler (e) {
-      alert('a button was pressed')
-    }
-  }
-}
-</script>
+/>
 ```
 
-Click events tied to non-ignored elements (not `a`, `button`, `input`, `select`) must use the `.stop` keyword to stop propagation firing the row click handler.
+### cellAttrs
 
-Using a `KPop` inside of a clickable row requires some special handling. Non-clickable content must be wrapped in a `div` with the `@click.stop` attribute to prevent the row click handler from firing if a user clicks content inside of the popover. Any handlers on non-ignored elements will need to have `.stop`.
+Function for adding custom attributes to each table cell. The function should return an object with `key: value` pairs for each attribute.
 
-<KTable :headers="tableOptionsLinkHeaders2" :fetcher="tableOptionsLinkFetcher" @row:click="handleRowClick">
-  <template #company="{rowValue}">
-    <a @click="linkHander">{{rowValue.label}}</a>
-  </template>
-  <template #wrapped>
-    <div>Row click event <div class="eventful-row" @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div></div>
-  </template>
-  <template #other>
-    <div>
-      <KPop title="Cool header">
-        <KButton appearance="tertiary">
-          <template #icon>
-            <KIcon
-              icon="more"
-              color="grey"
-              size="16"
-            />
-          </template>
-        </KButton>
-        <template #content>
-          <div @click.stop>Clicking me does nothing!</div>
-          <div @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div>
-        </template>
-      </KPop>
-    </div>
-  </template>
-</KTable>
+The passed function receives an object with these parameters as an argument:
+```ts
+{
+  headerKey: string // header key
+  row: object // row value
+  rowIndex: number // row index
+  colIndex: index // column index
+}
+```
+
+<KTable
+  :fetcher="basicFetcher"
+  :headers="basicHeaders()"
+  :cell-attrs="({ headerKey, row }) => { return { 'data-testid': `column-${headerKey}-row-${row.id}` } }"
+/>
 
 ```html
 <KTable
+  :cell-attrs="({ headerKey, row }) => { return { 'data-testid': `column-${headerKey}-row-${row.id}` } }"
   :fetcher="fetcher"
   :headers="headers"
-  @row:click="handleRowClick">
-  <template #company="{rowValue}">
-    <a @click="linkHander">{{rowValue.label}}</a>
-  </template>
-  <template #wrapped>
-    <!-- We have a click event on a div, div clicks are not ignored so we need .stop -->
-    <div>Row click event <div @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div></div>
-  </template>
-  <template #other>
-    <div>
-      <KPop title="Cool header">
-        <KButton appearance="tertiary">
-          <template #icon>
-            <KIcon
-              icon="more"
-              color="grey"
-              size="16"
-            />
-          </template>
-        </KButton>
-        <template #content>
-          <!-- non-clickable content in a KPop MUST be wrapped in a div with @click.stop to prevent row click firing on content click -->
-          <div @click.stop>Clicking me does nothing!</div>
-          <!-- an example where we want a click event to fire from the popover, requires .stop on the @click -->
-          <div @click.stop="buttonHandler"><KBadge appearance="success">Button click</KBadge></div>
-        </template>
-      </KPop>
-    </div>
-  </template>
-</KTable>
+/>
 ```
 
-### Cells
+## Pagination
 
-`@cell:{event}` - returns the `Event`, the cell value, and the type: `cell`
-`cell-click` - Event is emitted whenever a cell is clicked and the cell handler is fired, returns the cell `data`
+KTable uses KPagination component under the hood and exposes a few props as a way to modify how pagination looks and behaves in tables. See [KPagination](/components/pagination.html#props) docs for more details and examples:
 
-<template>
-  <div>
-    <div v-if="eventType">
-      {{eventType}} on: {{row}}
-    </div>
-    <div v-else>Waiting</div>
-    <KTable
-      :headers="tableOptionsHeaders"
-      :fetcher="tableOptionsFetcher"
-      @row:click="actionRow"
-      @cell:mouseover="actionRow"
-    />
-  </div>
-</template>
+* `paginationTotalItems`
+* `paginationNeighbors`
+* `paginationPageSizes`
+* `paginationOffset`
+* `disablePaginationPageJump`
 
-#### Example
+### disablePagination
 
-```html
-<template>
-  <div>
-    <div v-if="eventType">
-      {{eventType}} on: {{row}}
-    </div>
-    <div v-else>Waiting</div>
-    <KTable
-      :fetcher="fetcher"
-      :headers="headers"
-      @row:click="actionRow"
-      @cell:mouseover="actionRow"
-    />
-  </div>
-</template>
+Set this to `true` to hide pagination when using a fetcher.
 
-<template>
-  <KCard>
-    <template #default>
-      <div v-if="eventType">
-        {{eventType}} on: {{row}}
-      </div>
-      <div v-else>Waiting</div>
-      <KTable
-        :fetcher="fetcher"
-        :headers="headers"
-        has-hover
-        @row:click="actionRow"
-        @cell:mouseover="actionRow"
-      />
-    </template>
-  </KCard>
-</template>
+### hidePaginationWhenOptional
 
-<script>
-export default {
-  data() {
-    return {
-      row: null,
-      eventType: ''
-    }
-  },
-  methods: {
-    actionRow (e, row, type) {
-      this.eventType = e.type
-      this.row = row
-    }
-  }
-}
-</script>
-```
-
-### Other Events
-
-#### Sorting
-
-`@sort` - Fired when the user clicks on a sortable column heading
-
-Returns a payload that containing information about the sort action:
-
-```json
-{
-  /** The previous column to sort by's `key` defined in the table headers */
-  prevKey: string,
-  /** The current column to sort by's `key` defined in the table headers */
-  sortColumnKey: string,
-  /** The order by which to sort the column, one of `asc` or `desc` */
-  sortColumnOrder: 'asc' | 'desc'
-}
-```
-
-#### Table Preferences
-
-`@update:table-preferences` - Fired when the user changes the table's `pageSize`, `sortColumnKey`, or `sortColumnOrder`.
-
-Returns a payload that adheres to the `TablePreferences` interface:
-
-```ts
-interface TablePreferences {
-  /** The number of items to display per page */
-  pageSize?: number
-  /** The column to sort by's `key` defined in the table headers */
-  sortColumnKey?: string
-  /** The order by which to sort the column, one of `asc` or `desc` */
-  sortColumnOrder?: 'asc' | 'desc'
-  /** The customized column widths, if resizing is allowed */
-  columnWidths?: Record<string, number>
-  /** Column visibility, if visibility is toggleable */
-  columnVisibility?: Record<string, boolean>
-}
-```
-
-#### Table State
-
-`@state` - Fired when the table state changes.
-
-Returns the `state` and `hasData` (boolean) of the table, `state` can be one of:
-- `loading` - when the table is fetching new table data
-- `error` - when the table fetch failed
-- `success` - when the table fetch completed successfully
-
-## Slots
-
-### Toolbar
-
-The `toolbar` slot allows you to slot table controls rendered right above the `<table>` element such as a search input or other UI elements. It provides the [SWRV](https://docs-swrv.netlify.app/) `state` and `hasData` in the slot param.
-
-```ts
-{
-  state: {
-    hasData: boolean
-    state: string
-  }
-}
-```
-
-If utilizing multiple elements, we recommend adding `display: flex; width: 100%;` to the root slot tag.
-
-<KTable :fetcher="tableOptionsFetcher" :headers="tableOptionsHeaders" :hasHover="false">
-  <template #toolbar="{ state }">
-    <div class="toolbar-container">
-      <KInput v-if="state.hasData" placeholder="Search" />
-      <KSelect appearance="select" :items="[{ label: 'First option', value: '1', selected: true }, { label: 'Another option', value: '2'}]" />
-    </div>
-  </template>
-</KTable>
-
-```html
-<KTable :fetcher="fetcher" :headers="headers">
-  <template #toolbar="{ state }">
-    <div class="toolbar-container">
-      <KInput v-if="state.hasData" placeholder="Search" />
-      <KSelect appearance="select" :items="[{ label: 'Ascending', value: 'asc', selected: true }, { label: 'Descending', value: 'desc'}]" />
-    </div>
-  </template>
-</KTable>
-
-<style lang="scss">
-.toolbar-container {
-  display: flex;
-  justify-content: space-between;
-}
-</style>
-```
-
-### Column Header and Cell
-
-Both column cells & header cells are slottable in KTable. Use slots to gain access to the row data.
-
-- `column-{column-key}` - Will slot the header cell
-- `{column-key}` - Will slot the column cell of a given row
-
-#### Column Header
-
-<KTable :headers="tableOptionsHeaders" :fetcher="tableOptionsFetcher">
-  <template #column-name="{ column }">
-    {{ column.label.toUpperCase() }}
-  </template>
-</KTable>
-
-```html
-<template>
-  <KTable :fetcher="fetcher" :headers="headers">
-    <!-- Slot column header "name" -->
-    <template #column-name="{ column }">
-      {{ column.label.toUpperCase() }}
-    </template>
-  </KTable>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      headers: [
-        { key: 'name', label: 'Name', sortable: false },
-        { key: 'id', label: 'ID', sortable: false },
-        { key: 'enabled', label: 'Enabled', sortable: false }
-      ]
-    }
-  }
-}
-</script>
-```
-
-#### Column Cell
-
-This example uses the [`KDropdown`](/components/dropdown) component as the slot content for the `actions` column.
-
-<div>
-  <KTable
-    :headers="tableOptionsHeaders"
-    :fetcher="tableOptionsFetcher">
-    <template #enabled="{rowValue}">
-      <span v-if="rowValue" style="color: green">&#10003;</span>
-      <span v-else style="color: red">&#10007;</span>
-    </template>
-    <template #actions>
-      <KDropdown>
-        <template #default>
-          <KButton
-            appearance="tertiary"
-            size="small"
-          >
-            <template #icon>
-              <KIcon
-                icon="more"
-                color="grey"
-                size="16"
-              />
-            </template>
-          </KButton>
-        </template>
-        <template #items>
-          <KDropdownItem @click="clickHandler('Edit clicked!')">
-            Edit
-          </KDropdownItem>
-          <KDropdownItem
-            has-divider
-            danger
-            @click="clickHandler('Delete clicked!')"
-          >
-            Delete
-          </KDropdownItem>
-        </template>
-      </KDropdown>
-    </template>
-  </KTable>
-</div>
-
-```html
-<template>
-  <KTable
-    :fetcher="fetcher"
-    :headers="headers"
-  >
-    <!-- Slot each "enabled" cell in each row & add icon if matching value -->
-    <template #enabled="{rowValue}">
-      <span v-if="rowValue" style="color: green">&#10003;</span>
-      <span v-else style="color: red">&#10007;</span>
-    </template>
-    <!-- Slot each "actions" cell in each row & link -->
-    <template #actions>
-      <KDropdown>
-        <template #default>
-          <KButton
-            appearance="tertiary"
-            size="small"
-          >
-            <template #icon>
-              <KIcon
-                icon="more"
-                color="grey"
-                size="16"
-              />
-            </template>
-          </KButton>
-        </template>
-        <template #items>
-          <KDropdownItem @click="clickHandler('Edit clicked!')">
-            Edit
-          </KDropdownItem>
-          <KDropdownItem
-            has-divider
-            danger
-            @click="clickHandler('Delete clicked!')"
-          >
-            Delete
-          </KDropdownItem>
-        </template>
-      </KDropdown>
-    </template>
-  </KTable>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      headers: [
-        { key: 'name', label: 'Name', sortable: false },
-        { key: 'id', label: 'ID', sortable: false },
-        { key: 'enabled', label: 'Enabled', sortable: false }
-      ]
-    }
-  }
-}
-</script>
-```
-
-#### Built-in slot styles
-
-Here is another example of how to use slot to completely customize content inside the cell.
-
-::: tip TIP
-You can choose utilize the `.k-table-cell-title` and `.k-table-cell-description` classes within the slot as shown in the example below to leverage preconfigured multi-line styles.
-:::
-
-<div>
-  <KTable
-    :headers="cellSlotHeaders"
-    :fetcher="cellSlotFetcher"
-    :cellAttrs="cellSlotAttrs"
-    :enableClientSort="true"
-    hidePaginationWhenOptional
-    >
-    <template #name="{row}">
-      <img class="horizontal-spacing" src="/img/kong-logomark.png" :alt="row.img.alt">
-      <div>
-        <div class="k-table-cell-title">{{row.name}}</div>
-        <div class="k-table-cell-description">{{row.description}}</div>
-      </div>
-    </template>
-  </KTable>
-</div>
-
-```html
-<template>
-  <KTable
-    :cellAttrs="cellAttrsFn"
-    :enableClientSort="true"
-    :fetcher="fetcher"
-    :headers="headers"
-    hidePaginationWhenOptional
-  >
-    <template #name="{row}">
-      <img :alt="row.img.alt" :src="row.img.src">
-      <div>
-        <div class="k-table-cell-title">{{ row.name }}</div>
-        <div class="k-table-cell-description">{{ row.description }}</div>
-      </div>
-    </template>
-  </KTable>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      headers: [
-        { label: 'Name', key: 'name', sortable: true },
-        { label: 'ID', key: 'id' },
-        { label: 'Enabled', key: 'enabled' }
-      ],
-    }
-  },
-  methods: {
-    fetcher() {
-      return {
-        data: [
-          {
-            name: 'Basic Auth',
-            img: {
-              src: '/img/kong-logo.png',
-              alt: 'Basic Auth Icon',
-            },
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-            id: '517526354743085',
-            enabled: 'true',
-          },
-          {
-            name: 'Website Desktop',
-            img: {
-              src: '/img/kong-logo.png',
-              alt: 'Website Desktop Icon',
-            },
-            description: 'Ut enim ad minim veniam',
-            id: '328027447731198',
-            enabled: 'false',
-          },
-          {
-            name: 'Android App',
-            img: {
-              src: '/img/kong-logo.png',
-              alt: 'Android App Icon',
-            },
-            description: 'Excepteur sint occaecat cupidatat non proident',
-            id: '405383051040955',
-            enabled: 'true',
-          },
-        ],
-      }
-    },
-    cellAttrsFn({ headerKey }) {
-      if (headerKey === 'name') {
-        return { class: 'custom-layout-cell' }
-      }
-    },
-  },
-}
-</script>
-
-<style lang="scss">
-.k-table {
-  td.custom-layout-cell {
-    display: flex;
-  }
-}
-</style>
-```
-
-### State Slots
-
-KTable has built-in state management for loading, empty, and error states. You can either use the props described in
-the section below or completely slot in your own content.
-
-- `empty-state` - Slot content to be displayed when empty
-- `error-state` - Slot content to be displayed when in an error state
-- `empty-state-action-icon` - Slot for slotting an icon to be rendered to the left of button text in empty state action button
-
-<KCard>
-  <template #default>
-    <KTable :fetcher="emptyFetcher" :headers="headers">
-      <template #empty-state>
-        <div style="text-align: center;">
-          <KIcon icon="warning" />
-          <div>No Content!!!</div>
-        </div>
-      </template>
-      <template #error-state>
-        <KIcon icon="error" />
-        Something went wrong
-      </template>
-    </KTable>
-  </template>
-</KCard>
-
-```html
-<template>
-  <KTable :fetcher="() => { return { data: [] } }" :headers="headers">
-    <template #empty-state>
-      <KIcon icon="warning" />
-      No Content!!!
-    </template>
-    <template #error-state>
-      <KIcon icon="error" />
-      Something went wrong
-    </template>
-  </KTable>
-</template>
-```
+Set this to `true` to hide pagination when the table record count is less than or equal to the `pageSize`.
 
 ## States
 
 ### Empty
 
-Set the following properties to handle empty state:
+<KTable 
+  :fetcher="emptyFetcher"
+  :headers="basicHeaders()"
+/>
+
+```html
+<KTable 
+  :fetcher="emptyFetcher"
+  :headers="headers"
+/>
+```
+
+Set the following props to handle empty state:
 
 - `emptyStateTitle` - Title text for empty state
 - `emptyStateMessage` - Message for empty state
-- `emptyStateActionRoute` - Route for empty state action
+- `emptyStateIconVariant` - Icon variant for empty state (see [KEmptyState component props](/components/empty-state#iconvariant))
 - `emptyStateActionMessage` - Button text for empty state action
-- `emptyStateIconVariant` - Prop set empty state icon variant. See [KEmptyState component docs](/components/empty-state#iconvariant) for details
+- `emptyStateActionRoute` - Route for empty state action
 
-If using a CTA button, a `@ktable-empty-state-cta-clicked` event is fired when clicked.
+:::tip
+Should you want to display an icon inside of action button, you can use `empty-state-action-icon` slot.
+:::
 
-#### Default Empty State Messaging
+When empty state action button is clicked, KTable emits the `empty-state-action-click` event.
 
-<br/>
-<KCard>
-  <template #default>
-    <KTable :fetcher="() => { return { data: [] } }" />
+<KTable 
+  :fetcher="emptyFetcher"
+  :headers="basicHeaders()"
+  empty-state-title="No Workspaces exist"
+  empty-state-message="Adding a new Workspace will populate this catalog."
+  empty-state-icon-variant="kong"
+  empty-state-action-message="Create a Workspace"
+  empty-state-action-route="/"
+>
+  <template #empty-state-action-icon>
+    <AddIcon />
   </template>
-</KCard>
+</KTable>
 
 ```html
-<template>
-  <KCard>
-    <template #default>
-      <KTable :fetcher="fetcher" :headers="headers" />
-    </template>
-  </KCard>
-</template>
-```
-
-#### Empty State Full Example
-
-<br/>
-<KCard>
-  <template #default>
-    <KTable
-      :fetcher="() => { return { data: [] } }"
-      emptyStateTitle="No Workspaces exist"
-      emptyStateMessage="Adding a new Workspace will populate this table."
-      emptyStateActionMessage="Create a Workspace"
-      emptyStateActionButtonIcon="plus"
-      emptyStateActionRoute="#empty-state-full-example"
-      empty-state-icon-variant="kong">
-      <template #empty-state-action-icon>
-        <AddIcon />
-      </template>
-    </KTable>
+<KTable 
+  :fetcher="emptyFetcher"
+  :headers="headers"
+  empty-state-title="No Workspaces exist"
+  empty-state-message="Adding a new Workspace will populate this table."
+  empty-state-icon-variant="kong"
+  empty-state-action-message="Create a Workspace"
+  empty-state-action-route="/"
+>
+  <template #empty-state-action-icon>
+    <AddIcon />
   </template>
-</KCard>
-
-```html
-<!-- Using a route string -->
-<template>
-  <KCard>
-    <template #default>
-      <KTable
-        :fetcher="fetcher"
-        :headers="headers"
-        emptyStateTitle="No Workspaces exist"
-        emptyStateMessage="Adding a new Workspace will populate this table."
-        emptyStateActionMessage="Create a Workspace"
-        emptyStateActionButtonIcon="plus"
-        emptyStateActionRoute="create-workspace"
-        empty-state-icon-variant="kong">
-        <template #empty-state-action-icon>
-          <AddIcon />
-        </template>
-      </KTable>
-    </template>
-  </KCard>
-</template>
-
-<!-- Using a route object -->
-<template>
-  <KCard>
-    <template #default>
-      <KTable
-        :fetcher="fetcher"
-        :headers="headers"
-        emptyStateTitle="No Workspaces exist"
-        emptyStateMessage="Adding a new Workspace will populate this table."
-        emptyStateActionMessage="Create a Workspace"
-        emptyStateActionRoute="{
-          name: 'create-workspace',
-          params: {
-            organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
-          }
-        }"
-        empty-state-icon-variant="kong">
-        <template #empty-state-action-icon>
-          <AddIcon />
-        </template>
-      </KTable>
-    </template>
-  </KCard>
-</template>
+</KTable>
 ```
 
 ### Error
 
-Set the following properties to handle error state:
+Set the `error` prop to `true` to enable the error state.
 
-- `hasError` - Boolean to toggle error state
+<KTable
+  error
+  :fetcher="basicFetcher"
+  :headers="basicHeaders()"
+/>
+
+```html
+<KTable
+  error
+  :fetcher="fetcher"
+  :headers="headers"
+/>
+```
+
+Set the following properties to customize error state:
+
 - `errorStateTitle` - Title text for error state
 - `errorStateMessage` - Message for error state
-- `errorStateIcon` - Icon for error state
-- `errorStateIconColor` - Color for error state icon
-- `errorStateIconSize` - Size for error state icon
-- `errorStateActionRoute` - Route for error state action
 - `errorStateActionMessage` - Button text for error state action
+- `errorStateActionRoute` - Route for error state action
 
-If using a CTA button, a `ktable-error-cta-clicked` event is fired when clicked.
+A `error-action-click` event is fired when error state action button is clicked.
 
-#### Default Error State Messaging
-
-<br/>
-<KCard>
-  <template #default>
-    <KTable :fetcher="() => { return { data: [] } }" :hasError="true" />
-  </template>
-</KCard>
-
-```html
-<template>
-  <KCard>
-    <template #default>
-      <KTable :fetcher="fetcher" :headers="headers" :hasError="true" />
-    </template>
-  </KCard>
-</template>
-```
-
-#### Error State Full Example
-
-<br/>
-<KCard>
-  <template #default>
-    <KTable
-      :fetcher="() => { return { data: [] } }"
-      :hasError="true"
-      errorStateTitle="Something went wrong"
-      errorStateMessage="We are not able to load the data for this table."
-      errorStateActionMessage="Report an Issue"
-      errorStateActionRoute="#error-state-full-example"
-      errorStateIcon="dangerCircle"
-      errorStateIconColor="#e6173a"
-      errorStateIconSize="35" />
-  </template>
-</KCard>
+<KTable
+  :fetcher="basicFetcher"
+  :headers="basicHeaders()"
+  error
+  error-state-title="Something went wrong"
+  error-state-message="Error loading data."
+  error-state-action-message="Report an Issue"
+  error-state-action-route="/"
+/>
 
 ```html
-<!-- Using a route string -->
-<template>
-  <KCard>
-    <template #default>
-      <KTable
-        :fetcher="fetcher"
-        :headers="headers"
-        :hasError="true"
-        errorStateTitle="Something went wrong"
-        errorStateMessage="We are not able to load the data for this table."
-        errorStateActionMessage="Report an Issue"
-        errorStateActionRoute="report-issue"
-        errorStateIcon="dangerCircle"
-        errorStateIconColor="#e6173a"
-        errorStateIconSize="35" />
-    </template>
-  </KCard>
-</template>
-
-<!-- Using a route object -->
-<template>
-  <KCard>
-    <template #default>
-      <KTable
-        :fetcher="fetcher"
-        :headers="headers"
-        :hasError="true"
-        errorStateTitle="Something went wrong"
-        errorStateMessage="We are not able to load the data for this table."
-        errorStateActionMessage="Report an Issue"
-        errorStateActionRoute="{
-          name: 'report-issue',
-          params: {
-            organizationId: 'd27e40e0-c9ac-43e2-8be8-54862fab45ea'
-          }
-        }"
-        errorStateIcon="dangerCircle"
-        errorStateIconColor="#e6173a"
-        errorStateIconSize="35" />
-    </template>
-  </KCard>
-</template>
+<KTable
+  error
+  :fetcher="fetcher"
+  :headers="headers"
+  error-state-title="Something went wrong"
+  error-state-message="Error loading data."
+  error-state-action-message="Report an Issue"
+  error-state-action-route="/"
+/>
 ```
 
-### Loading
+## Slots
 
-Set the `isLoading` prop to `true` to enable the loading state.
+### Column Header
 
-<KCard>
-  <template #default>
-    <KTable
-      :fetcher="() => { return { data: [] } }"
-      :isLoading="true"
-      class="my-0" />
-  </template>
-</KCard>
+You can slot in your custom content into each column header. For that, use column `key` value prefixed with `column-*` like in the example below.
 
-```html
-<template>
-<KCard>
-  <template #default>
-    <KTable
-      :fetcher="fetcher"
-      :headers="headers"
-      :isLoading="true" />
-  </template>
-</KCard>
-</template>
-```
+Slot props:
+* `column` - column header object
 
-## Server-side functions
-
-Pass a fetcher function to enable server-side search, sort and pagination. The fetcher function should structure the ajax request URL in such a way that enables server side sort, search and pagination per the requirements of the API being used.
-
-::: tip NOTE
-The loading state is handled automatically. When the `fetcher` is called the internal loading state is triggered and will be resolved when the fetcher returns. You can override this behavior using the `isLoading` prop.
+:::tip NOTE
+Header slot container is a `display: flex;` element that takes care of spacing between slotted items so you can slot in your items without having to worry about adding margin between them.
 :::
 
-<KTable :fetcher="fetcher" :headers="headers" />
-
-```
-Example URL
-
-https://kongponents.dev/api/components?_page=1&_limit=10&_sort=name&_order=desc
-```
+<KTable
+  :fetcher="basicFetcher"
+  :headers="basicHeaders()"
+>
+  <template #column-email="{ column }">
+    {{ column.label }} <KBadge>Beta</KBadge>
+  </template>
+</KTable>
 
 ```html
-<!-- Example Component Usage -->
-
-<KCard>
-  <template #default>
-    <KInput placeholder="Search" v-model="search" type="search" />
-    <KTable
-      cache-identifier="server-side-functions-table"
-      :fetcher="fetcher"
-      :initial-fetcher-params="{
-        pageSize: 15,
-        page: 1,
-        query: '',
-        sortColumnKey: '',
-        sortColumnOrder: ''
-      }"
-      :headers="[
-        { label: 'Title', key: 'title', sortable: true },
-        { label: 'Description', key: 'description', sortable: true },
-        { label: 'Enabled', key: 'enabled', sortable: false }
-      ]"
-      :search-input="search"
-    />
+<KTable
+  :fetcher="fetcher"
+  :headers="headers"
+>
+  <template #column-email="{ column }">
+    {{ column.label }} <KBadge>Beta</KBadge>
   </template>
-</KCard>
+</KTable>
 ```
 
-```js
-// Example Fetcher Function
+### Cell
 
-fetcher(payload) {
-  const { pageSize, page, query, sortColumnKey, sortColumnOrder, offset } = payload
+You can slot in each individual cell content. Each cell slot is name after the `key` it corresponds to.
 
-  const params = {
-    _limit: pageSize,
-    _page: page
+Slot props:
+* `row` - table row object
+* `rowKey` - table row index
+* `rowValue` - the cell value
+
+<KTable
+  :fetcher="basicFetcher"
+  :headers="basicHeaders(true)"
+  :row-hover="false"
+>
+  <template #email="{ rowValue }">
+    <KCopy :text="rowValue" />
+  </template>
+  <template #actions>
+    <KDropdown>
+      <template #default>
+        <KButton
+          appearance="tertiary"
+          size="small"
+        >
+          <template #icon>
+            <MoreIcon />
+          </template>
+        </KButton>
+      </template>
+      <template #items>
+        <KDropdownItem>
+          Edit
+        </KDropdownItem>
+        <KDropdownItem
+          danger
+          has-divider
+        >
+          Delete
+        </KDropdownItem>
+      </template>
+    </KDropdown>
+  </template>
+</KTable>
+
+```vue
+<template>
+  <KTable
+    :fetcher="fetcher"
+    :headers="headers"
+    :row-hover="false"
+  >
+    <template #email="{ rowValue }">
+      <KCopy :text="rowValue" />
+    </template>
+    <template #actions>
+      <KDropdown>
+        <template #default>
+          <KButton
+            appearance="tertiary"
+            size="small"
+          >
+            <template #icon>
+              <MoreIcon />
+            </template>
+          </KButton>
+        </template>
+        <template #items>
+          <KDropdownItem>
+            Edit
+          </KDropdownItem>
+          <KDropdownItem
+            danger
+            has-divider
+          >
+            Delete
+          </KDropdownItem>
+        </template>
+      </KDropdown>
+    </template>
+  </KTable>
+</template>
+
+<script setup lang="ts">
+const headers = [
+  { key: 'name', label: 'Full Name' },
+  { key: 'username', label: 'Username' },
+  { key: 'email', label: 'Email' },
+  {
+    key: 'actions',
+    label: 'Row actions',
+    hideLabel: true
+  },
+]
+
+const fetcher = () => {
+  // fetcher logic
+}
+</script>
+```
+
+### Header Tooltip
+
+If you want to utilize HTML in the column header's tooltip, use the slot. Similar to column header slot, use column `key` value prefixed with `tooltip-*` like in the example below.
+
+Slot props:
+* `column` - column header object
+
+<KTable
+  :fetcher="basicFetcher"
+  :headers="basicHeaders()"
+>
+  <template #tooltip-email>
+    HubSpot Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code>
+  </template>
+</KTable>
+
+```html
+<KTable
+  :fetcher="fetcher"
+  :headers="headers"
+>
+  <template #tooltip-email>
+    HubSpot Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code>
+  </template>
+</KTable>
+```
+
+### toolbar
+
+Toolbar is rendered directly above the table. Useful for slotting table controls like search or filter fields.
+
+Slot props:
+* `state` - table state object (refer to [`state` event docs](#state) for more details)
+
+:::tip NOTE
+Toolbar slot container is a `display: flex;` element that takes care of spacing between slotted items so you can slot in your items without having to worry about adding margin between them.
+:::
+
+<KTable
+  :fetcher="basicFetcher"
+  :headers="basicHeaders()"
+>
+  <template #toolbar>
+    <KInput placeholder="Search">
+      <template #before>
+        <SearchIcon />
+      </template>
+    </KInput>
+    <KButton size="large">
+      <AddIcon /> Add user
+    </KButton>
+  </template>
+</KTable>
+
+```html
+<KTable
+  :fetcher="fetcher"
+  :headers="headers"
+>
+  <template #toolbar>
+    <KInput placeholder="Search">
+      <template #before>
+        <SearchIcon />
+      </template>
+    </KInput>
+    <KButton size="large">
+      <AddIcon /> Add user
+    </KButton>
+  </template>
+</KTable>
+```
+
+### empty-state
+
+Slot content to be displayed when empty.
+
+### empty-state-action-icon
+
+Slot for icon to be displayed in front of action button text in empty state. See [empty state](#empty) section for example of usage of this slot.
+
+### error-state
+
+Slot content to be displayed when in error state.
+
+## Events
+
+### Row Events
+
+`@row:{event}` - returns the `Event`, the row item, and the type. `row-click` event is emitted whenever a row is clicked and the row click event handler is fired, returns the row `data`.
+
+To avoid firing row clicks by accident, the row click handler ignores events coming from `a`, `button`, `label`, `input`, and `select` elements (unless they have the `disabled` attribute). As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
+
+<KComponent v-slot="{ data }" :data="{ rowClickEnabled: true }">
+  <div class="vertical-container">
+    <KInputSwitch
+      v-model="data.rowClickEnabled"
+      label="Row clicks"
+    />
+    <KTable
+      :fetcher="numberedColumnsFetcher"
+      :headers="numberedHeaders"
+      hide-pagination-when-optional
+      @row:click="data.rowClickEnabled ? onRowClick : undefined"
+    >
+      <template #column1>
+        <KButton @click="onButtonClick">Fire button click handler</KButton>
+      </template>
+      <template #column2>
+        <KInput label="Table input" />
+      </template>
+      <template #column3>
+        <KExternalLink href="https://kongponents.konghq.com/">External link</KExternalLink>
+      </template>
+    </KTable>
+  </div>
+</KComponent>
+
+```html
+<KTable
+  :fetcher="fetcher"
+  :headers="headers"
+  @row:click="onRowClick"
+/>
+```
+
+### Cell Events
+
+`@cell:{event}` - returns the `Event`, the cell value, and the type. `cell-click` event is emitted whenever a cell is clicked and the cell click event handler is fired, returns the cell `data`.
+
+<KComponent v-slot="{ data }" :data="{ cellClickEnabled: true }">
+  <div class="vertical-container">
+    <KInputSwitch
+      v-model="data.cellClickEnabled"
+      label="Cell clicks"
+    />
+    <KTable
+      :fetcher="numberedColumnsFetcher"
+      :headers="numberedHeaders"
+      hide-pagination-when-optional
+      @cell:click="data.cellClickEnabled ? onCellClick : undefined"
+    >
+      <template #column1>
+        <KButton @click="onButtonClick">Fire button click handler</KButton>
+      </template>
+      <template #column2>
+        <KInput label="Table input" />
+      </template>
+      <template #column3>
+        <KExternalLink href="https://kongponents.konghq.com/">External link</KExternalLink>
+      </template>
+    </KTable>
+  </div>
+</KComponent>
+
+```html
+<KTable
+  :fetcher="fetcher"
+  :headers="headers"
+  @cell:click="onCellClick"
+/>
+```
+
+### sort
+
+Fired when user clicks on a sortable column heading. Event payload is object of type `TableSortPayload`:
+
+```ts
+interface TableSortPayload {
+  prevKey: string
+  sortColumnKey: string
+  sortColumnOrder: string
+}
+```
+
+### state
+
+Fired when the table state changes. Returns an object of type `TableStatePayload`:
+
+```ts
+interface TableStatePayload {
+  state: TableState
+  hasData: boolean
+}
+
+type TableState = 'loading' | 'error' | 'success' | 'empty'
+```
+
+### empty-state-action-click
+
+Emitted when empty state action button is clocked.
+
+### error-action-click
+
+Emitted when error state action button is clicked.
+
+### update:table-preferences
+
+Fired when the user changes the table's page size, performs sorting, resizes columns or toggles column visibility. Event payload is object of type `TablePreferences` interface (see [`tablePreferences` prop](#tablepreferences) for details).
+
+:::warning WARNING
+`update:table-preferences` event only fires when KTable is in `success` state (see [`state` event](#state) for details).
+:::
+
+<script setup lang="ts">
+import { AddIcon, SearchIcon, MoreIcon } from '@kong/icons'
+import { ToastManager } from '@/index'
+
+const toaster = new ToastManager()
+
+const basicHeaders = (actions: boolean = false, sortable: string | null = null, hidable: string | null = null) => {
+  const keys = {
+    name: { 
+      key: 'name',
+      label: 'Full Name'
+    },
+    username: {
+      key: 'username',
+      label: 'Username',
+      tooltip: 'Unique for each user.'
+    },
+    email: { 
+      key: 'email',
+      label: 'Email' 
+    },
+    ...(actions && { 
+      actions: {
+        key: 'actions',
+        label: 'Row actions',
+        hideLabel: true
+      },
+    })
   }
 
-  if (query) {
-    params.q = query
-    params._page = 1
-  }
-
-  if (sortKey) {
-    params._sort = sortColumnKey
-    params._order = sortColumnOrder
-  }
-
-  if (offset) {
-    params._offset = offset
-  }
-
-  return axios.get('/user_list', {
-    baseURL: 'https://kongponents.dev/api',
-    params
-  }).then(res => {
-    return {
-      total: res.total,
-      data: res.data
+  const headers = []
+  for (const [key, value] of Object.entries(keys)) {
+    if ((!sortable && !hidable) || (sortable !== key && hidable !== key)) {
+      headers.push({ ...value })
+    } else if (sortable && sortable === key) {
+      headers.push({ ...value, sortable: true, useSortHandlerFunction: true })
+    } else if (hidable && hidable === key) {
+      headers.push({ ...value, hidable: true })
     }
+  }
+
+  return headers
+}
+
+const basicFetcher = async (): Promise<any> => {
+  // Fake delay
+  await new Promise((resolve) => setTimeout(resolve, 2000))
+
+  const response = await fetch('https://jsonplaceholder.typicode.com/users')
+  const responseData = await response.json()
+
+  return {
+    data: responseData,
+    total: responseData.length,
+  }
+}
+
+// use hardcoded response instead of basicFetcher when you need data in the table to match the data in the example
+// in case data returned by https://jsonplaceholder.typicode.com/users endpoint ever changes
+const hardcodedFetcher = async (): Promise<any> => {
+  // Fake delay
+  await new Promise((resolve) => setTimeout(resolve, 2000))
+
+  const responseData = [
+    {
+      id: 1,
+      name: 'Leanne Graham',
+      username: 'Bret',
+      email: 'Sincere@april.biz'
+    },
+    {
+      id: 2,
+      name: 'Ervin Howell',
+      username: 'Antonette',
+      email: 'Shanna@melissa.tv'
+    },
+    {
+      id: 3,
+      name: 'Clementine Bauch',
+      username: 'Samantha',
+      email: 'Nathan@yesenia.net'
+    },
+    {
+      id: 4,
+      name: 'Patricia Lebsack',
+      username: 'Karianne',
+      email: 'Julianne.OConner@kory.org'
+    },
+    {
+      id: 5,
+      name: 'Chelsey Dietrich',
+      username: 'Kamren',
+      email: 'Lucio_Hettinger@annie.ca'
+    },
+    {
+      id: 6,
+      name: 'Mrs. Dennis Schulist',
+      username: 'Leopoldo_Corkery',
+      email: 'Karley_Dach@jasper.info'
+    },
+    {
+      id: 7,
+      name: 'Kurtis Weissnat',
+      username: 'Elwyn.Skiles',
+      email: 'Telly.Hoeger@billy.biz'
+    },
+    {
+      id: 8,
+      name: 'Nicholas Runolfsdottir V',
+      username: 'Maxime_Nienow',
+      email: 'Sherwood@rosamond.me'
+    },
+    {
+      id: 9,
+      name: 'Glenna Reichert',
+      username: 'Delphine',
+      email: 'Chaim_McDermott@dana.io'
+    },
+    {
+      id: 10,
+      name: 'Clementina DuBuque',
+      username: 'Moriah.Stanton',
+      email: 'Rey.Padberg@karina.biz'
+    }
+  ]
+
+  return {
+    data: responseData,
+    total: responseData.length,
+  }
+}
+
+const basicSortHandlerFunction = ({ key, sortColumnOrder, data }: any) => {
+  return data.sort((a: any, b: any) => {
+    if (key === 'username') {
+      if (sortColumnOrder === 'asc') {
+        if (a.username > b.username) {
+          return 1
+        } else if (a.username < b.username) {
+          return -1
+        }
+
+        return 0
+      } else {
+        if (a.username > b.username) {
+          return -1
+        } else if (a.username < b.username) {
+          return 1
+        }
+
+        return 0
+      }
+    }
+
+    return data
   })
 }
-```
 
-<!-- The markdownlint disable below is necessary due to some syntax in the <script> tags - `yarn lint` will not pass without this -->
-<!-- markdownlint-disable MD011 MD037 -->
+const emptyFetcher = async (): Promise<any> => {
+  // Fake delay
+  await new Promise((resolve) => setTimeout(resolve, 2000))
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { AddIcon } from '@kong/icons'
-
-export default defineComponent({
-  components: {
-    AddIcon
-  },
-  data() {
-    return {
-      row: null,
-      eventType: '',
-      enableRowClick: true,
-      offsetPaginationPageSize: 15,
-      offsetPaginationData: {},
-      hidablePreferences: {},
-      headers: [
-        { label: 'Title', key: 'title', sortable: true },
-        { label: 'Description', key: 'description', sortable: true },
-        { label: 'Enabled', key: 'enabled', sortable: false }
-      ],
-      resizeHeaders: [
-        { label: 'Name', key: 'name' },
-        { label: 'ID', key: 'id' },
-        { label: 'Enabled', key: 'enabled' },
-      ],
-      tableOptionsHeaders: [
-        { label: 'Name', key: 'name' },
-        { label: 'ID', key: 'id' },
-        { label: 'Enabled', key: 'enabled' },
-        { key: 'actions', hideLabel: true }
-      ],
-      hideColumnHeaders: [
-        { label: 'Host', key: 'hostname' },
-        { label: 'Version', key: 'version' },
-        { label: 'Connected', key: 'connected' },
-        { label: 'Last Ping', key: 'last_ping', hidable: true },
-        { label: 'Last Seen', key: 'last_seen', hidable: true },
-      ],
-      tableOptionsRowAttrsHeaders: [
-        { label: 'Type', key: 'type' },
-        { label: 'Value', key: 'value' },
-        { label: 'Enabled', key: 'enabled'}
-      ],
-      tableOptionsLinkHeaders: [
-        { label: 'Company', key: 'company' },
-        { label: 'Input', key: 'input' },
-        { key: 'actions', hideLabel: true }
-      ],
-      tableOptionsLinkHeaders2: [
-        { label: 'Company', key: 'company' },
-        { label: 'Wrapped', key: 'wrapped' },
-        { label: 'Pop', key: 'other' }
-      ],
-      tableOptionsCellAttrsHeaders: [
-        { label: 'Name', key: 'name' },
-        { label: 'Company', key: 'company' },
-        { label: 'Description', key: 'description' }
-      ],
-      sortHandlerFnHeaders: [
-        { label: 'Host', key: 'hostname', sortable: true },
-        { label: 'Version', key: 'version', sortable: true },
-        { label: 'Connected', key: 'connected', sortable: true },
-        { label: 'Last Seen', key: 'last_seen', sortable: true, useSortHandlerFn: true }
-      ],
-      offsetPaginationHeaders: [
-        { label: 'Host', key: 'hostname', sortable: false },
-        { label: 'Version', key: 'version', sortable: false },
-        { label: 'Connected', key: 'connected', sortable: false },
-        { label: 'Last Seen', key: 'last_seen', sortable: false }
-      ],
-      cellSlotHeaders: [
-        { label: 'Name', key: 'name', sortable: true },
-        { label: 'ID', key: 'id' },
-        { label: 'Enabled', key: 'enabled' }
-      ]
-    }
-  },
-  methods: {
-    resolveAfter5MiliSec(count, pageSize, page, sortKey, sortOrder) {
-      // simulate pagination and sort
-      let limit = count
-      if ((pageSize *page) < count) {
-        limit = pageSize
-      }
-      let myItems = []
-      for (let i = ((page-1)* pageSize); i < limit; i++) {
-          let offset = sortOrder === 'asc' ? count-i : i+1
-          myItems.push({
-            title: "Item " + offset,
-            description: "The item's description for number " + offset,
-            enabled: offset % 2 === 0
-          })
-        }
-
-      return new Promise(resolve => {
-        setTimeout(() => {
-          resolve(myItems);
-        }, 500);
-      });
-    },
-    async fetcher(payload) {
-      const params = {
-        _limit: payload.pageSize,
-        _page: payload.page,
-        data: await this.resolveAfter5MiliSec(20, payload.pageSize, payload.page, payload.sortColumnKey, payload.sortColumnOrder),
-        total: 20
-      }
-      return params
-    },
-    tableOptionsFetcher () {
-      return {
-        data: [
-          {
-            name: 'Basic Auth',
-            id: '517526354743085',
-            enabled: 'true'
-          },
-          {
-            name: 'Website Desktop',
-            id: '328027447731198',
-            enabled: 'false'
-          },
-          {
-            name: 'Android App',
-            id: '405383051040955',
-            enabled: 'true'
-          }
-        ]
-      }
-    },
-    emptyFetcher () {
-      return { data: [] }
-    },
-    tableHideColumnFetcher () {
-      return {
-        data: [{
-          id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
-          version: '2.8.0.0-enterprise-edition',
-          hostname: '99e591ae3776',
-          last_ping: 1648855072,
-          connected: 'Disconnected',
-          last_seen: '6 days ago'
-        },
-        {
-          id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
-          version: '2.7.0.0-enterprise-edition',
-          hostname: '19e591ae3776',
-          last_ping: 1649362660,
-          connected: 'Connected',
-          last_seen: '3 hours ago',
-        },
-        {
-          id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
-          version: '2.8.1.0-enterprise-edition',
-          hostname: '79e591ae3776',
-          last_ping: 1649355460,
-          connected: 'Connected',
-          last_seen: '5 hours ago',
-        },
-        {
-          id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
-          version: '2.6.0.0-enterprise-edition',
-          hostname: '89e591ae3776',
-          last_ping: 1648155072,
-          connected: 'Disconnected',
-          last_seen: '14 days ago'
-        }]
-      }
-    },
-    tableOptionsLinkFetcher () {
-      return {
-        data: [
-          { company: { href: 'http://www.creative.com', label: 'Creative Labs' } },
-          { company: { href: 'http://www.bang-olufsen.com', label: 'Bang&Olufsen' } },
-          { company: { href: 'http://www.klipsch.com', label: 'Klipsch' } },
-          { company: { href: 'http://www.bose.com', label: 'Bose'} },
-          { company: { href: 'http://www.sennheiser.com', label: 'Sennheiser'} }
-        ]
-      }
-    },
-    tableOptionsRowAttrsFetcher () {
-      return {
-        data: [
-          {
-            type: 'desktop',
-            value: 'Windows 10',
-            enabled: 'true'
-          },
-          {
-            type: 'phone',
-            value: 'LineageOS',
-            enabled: 'false'
-          },
-          {
-            type: 'tablet',
-            value: 'ipadOS',
-            enabled: 'true'
-          }
-        ]
-      }
-    },
-    tableOptionsCellAttrsFetcher() {
-      return {
-        data: [
-          {
-            name: 'SageMaker',
-            company: 'Amazon',
-            description: 'Amazon SageMaker is a fully-managed service that enables developers and data scientists to quickly and easily build, train, and deploy machine learning models at any scale. Amazon SageMaker removes all the barriers that typically slow down developers who want to use machine learning.',
-          },
-          {
-            name: 'Azure Machine Learning Studio',
-            company: 'Microsoft',
-            description: 'Azure Machine Learning Studio is a GUI-based integrated development environment for constructing and operationalizing Machine Learning workflow on Azure.',
-          },
-          {
-            name: 'IBM Watson Machine Learning',
-            company: 'IBM',
-            description: 'IBM Watson Studio accelerates the machine and deep learning workflows required to infuse AI into your business to drive innovation.',
-          },
-          {
-            name: 'TensorFlow',
-            company: 'Google',
-            description: 'TensorFlow is an open source software library for numerical computation using data flow graphs.',
-          },
-        ]
-      }
-    },
-    sortHandlerFn({ key, prevKey, sortColumnOrder, data}) {
-      return data.sort((a, b) => {
-        if (key === 'last_seen') {
-          if (sortColumnOrder === 'asc') {
-            if (a.last_ping < b.last_ping) {
-              return 1
-            } else if (a.last_ping > b.last_ping) {
-              return -1
-            }
-
-            return 0
-          } else {
-            if (a.last_ping < b.last_ping) {
-              return -1
-            } else if (a.last_ping > b.last_ping) {
-              return 1
-            }
-
-            return 0
-          }
-        }
-      })
-    },
-    sortHandlerFnFetcher() {
-      return {
-        data: [
-          {
-            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
-            version: '2.8.0.0-enterprise-edition',
-            hostname: '99e591ae3776',
-            last_ping: 1648855072,
-            connected: 'Disconnected',
-            last_seen: '6 days ago'
-          },
-          {
-            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
-            version: '2.7.0.0-enterprise-edition',
-            hostname: '19e591ae3776',
-            last_ping: 1649362660,
-            connected: 'Connected',
-            last_seen: '3 hours ago',
-          },
-          {
-            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
-            version: '2.8.1.0-enterprise-edition',
-            hostname: '79e591ae3776',
-            last_ping: 1649355460,
-            connected: 'Connected',
-            last_seen: '5 hours ago',
-          },
-          {
-            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
-            version: '2.6.0.0-enterprise-edition',
-            hostname: '89e591ae3776',
-            last_ping: 1648155072,
-            connected: 'Disconnected',
-            last_seen: '14 days ago'
-          },
-          {
-            id: '08cc7d81-a9d8-4ae1-a42f-8d4e5a919d07',
-            version: '2.8.2.0-enterprise-edition',
-            hostname: '59e591ae3776',
-            last_ping: 1649855072,
-            connected: 'Connected',
-            last_seen: 'Just now'
-          },
-        ]
-      }
-    },
-    actionRow (e, row, type) {
-      this.eventType = e.type
-      this.row = row
-    },
-    handleRowClick(e, row) {
-      const metaKeyPressed = e.metaKey || e.ctrlKey
-
-      if (metaKeyPressed) {
-        this.$toaster.open('MetaKey row click')
-      } else {
-        this.$toaster.open('Row click event fired!')
-      }
-    },
-    linkHander (e) {
-      alert('a link was clicked')
-    },
-    buttonHandler (e) {
-      alert('a button was pressed')
-    },
-    clickHandler (msg) {
-      this.$toaster.open(msg)
-    },
-    rowAttrsFn (rowItem) {
-      return {
-        class: {
-          'enabled': rowItem.enabled === 'true',
-          'disabled': rowItem.enabled === 'false'
-        },
-        'data-testid': 'row-item'
-      }
-    },
-    cellAttrsFn ({ headerKey, row, rowIndex, colIndex }) {
-      /**
-       * Sets cell background color based on data returned in
-       * the row parameter and the index of the cell
-       */
-      const backgroundColor = () => {
-        if (row.company && row.company === 'Google') {
-          if (colIndex === 0) {
-            return '#4285F4'
-          } else if (colIndex === 1) {
-            return '#DB4437'
-          } else {
-            return '#F4B400'
-          }
-        }
-
-        return ''
-      }
-
-      /**
-       * Returns an object of attributes to be applied to cells
-       */
-      return {
-        class: {
-          'truncated-keys': headerKey === 'description' || headerKey === 'name',
-        },
-        'datatest-id': `row-${rowIndex + 1}-col-${headerKey}`,
-        style: {
-          'maxWidth': headerKey==='description' ? '50ch' : headerKey === 'name' ? '22ch' : '25ch',
-          'backgroundColor': backgroundColor(),
-        },
-      }
-    },
-    async generateOffsetPaginationTableData(pgSize) {
-      const pageSize = pgSize || this.offsetPaginationPageSize
-      const data = []
-      const offsetObj = {}
-      const offsetVal = 'offset'
-
-      for (let i = 0; i < 50; i++) {
-        data.push({
-          id: `08cc7d81-a9d8-4ae1-a42f-8d4e5a919d0${i}`,
-          version: '2.8.0.0-enterprise-edition',
-          hostname: `99e591ae377${i}`,
-          last_ping: 1648855072,
-          connected: 'Connected',
-          last_seen: `${i} days ago`
-        })
-      }
-
-      const totalPages = Math.ceil(data.length / pageSize)
-
-      for (let i = 0; i < totalPages; i++) {
-        const start = i * pageSize
-        const end = pageSize * (i + 1)
-
-        offsetObj[`${offsetVal}_${i}`] = { data: [], pagination: { offset: '' } }
-        offsetObj[`${offsetVal}_${i}`].data = data.slice(start, end)
-
-        if (i < totalPages - 1) {
-          offsetObj[`${offsetVal}_${i}`].pagination.offset = `${offsetVal}_${i + 1}`
-        }
-      }
-
-      this.offsetPaginationData = offsetObj
-    },
-    async offsetPaginationFetcher({ pageSize, offset }) {
-      if (pageSize !== this.offsetPaginationPageSize) {
-        this.offsetPaginationPageSize = pageSize
-        this.generateOffsetPaginationTableData()
-      }
-
-      return offset
-        ? this.offsetPaginationData[offset]
-        : Object.values(this.offsetPaginationData)[0]
-    },
-    cellSlotFetcher () {
-      return {
-        data: [
-          {
-            name:'Basic Auth',
-            img: {
-              alt: 'Basic Auth Icon'
-            },
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-            id: '517526354743085',
-            enabled: 'true'
-          },
-          {
-            name: 'Website Desktop',
-            img: {
-              alt: 'Website Desktop Icon'
-            },
-            description: 'Ut enim ad minim veniam',
-            id: '328027447731198',
-            enabled: 'false'
-          },
-          {
-            name: 'Android App',
-            img: {
-              alt: 'Android App Icon'
-            },
-            description: 'Excepteur sint occaecat cupidatat non proident',
-            id: '405383051040955',
-            enabled: 'true'
-          }
-        ]
-      }
-    },
-    cellSlotAttrs ({ headerKey }) {
-      if (headerKey === 'name') {
-        return { class: 'custom-layout-cell' }
-      }
-    }
-  },
-  mounted() {
-    this.generateOffsetPaginationTableData()
+  return {
+    data: [],
+    total: 0,
   }
-})
+}
+
+const numberedHeaders = [
+  {
+    key: 'column1',
+    label: 'Column 1'
+  },
+  {
+    key: 'column2',
+    label: 'Column 2'
+  },
+  {
+    key: 'column3',
+    label: 'Column 3'
+  }
+]
+
+const numberedColumnsFetcher = () => {
+  return {
+    data: [
+      { 
+        column1: 'Row 1 cell 1',
+        column2: 'Row 1 cell 2',
+        column3: 'Row 1 cell 3'
+      },
+      { 
+        column1: 'Row 2 cell 1',
+        column2: 'Row 2 cell 2',
+        column3: 'Row 2 cell 3'
+      },
+      { 
+        column1: 'Row 3 cell 1',
+        column2: 'Row 3 cell 2',
+        column3: 'Row 3 cell 3'
+      }
+    ],
+    total: 3
+  }
+}
+
+const onRowClick = (event, row) => {
+  toaster.open({ appearance: 'success', title: 'Row clicked! Row data:', message: row })
+}
+
+const onButtonClick = () => {
+  toaster.open({ appearance: 'system', title: 'Button clicked!', message: 'Button click is handled separately from row or cell clicks.' })
+}
+
+const onCellClick = (event, cell) => {
+  toaster.open({ title: 'Cell clicked! Cell data:', message: cell })
+}
 </script>
 
-<style lang="scss">
-.k-table {
-  display: table;
-
-  th, tr, td {
-    border: unset;
-  }
-
-  td.custom-layout-cell {
-    display: flex;
-
-    img {
-      width: 30px;
-      object-fit: contain;
-    }
-
-    .k-table-cell-description {
-      max-width: 240px;
-    }
-  }
-}
-
-.horizontal-spacing {
-  margin-right: $kui-space-40;
-}
-
-.truncated-keys {
-  line-height: initial;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.k-table-cell-description {
-  line-height: initial;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.eventful-row {
-  display: inline-block;
-}
-
-.toolbar-container {
+<style lang="scss" scoped>
+.vertical-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: $kui-space-50;
 }
 </style>

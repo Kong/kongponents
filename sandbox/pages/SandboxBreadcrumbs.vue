@@ -4,12 +4,6 @@
     title="KBreadcrumbs"
   >
     <div class="kbreadcrumbs-sandbox">
-      <SandboxSectionComponent>
-        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=470%3A22444&mode=dev&t=tS1kk3tqkOVTlZ8a-1">
-          Figma
-        </KExternalLink>
-      </SandboxSectionComponent>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle

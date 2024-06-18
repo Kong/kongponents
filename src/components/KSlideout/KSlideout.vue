@@ -32,7 +32,7 @@
             @click.stop="$emit('close')"
           >
             <CloseIcon
-              :color="KUI_COLOR_TEXT_NEUTRAL"
+              :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
               decorative
             />
           </button>
@@ -131,9 +131,9 @@ const handleClose = (e: any, forceClose = false): void => {
 const toggleEventListeners = (isActive: boolean): void => {
   if (typeof document !== 'undefined') {
     if (isActive) {
-      document.addEventListener('keydown', handleClose)
+      document?.addEventListener('keydown', handleClose)
     } else {
-      document.removeEventListener('keydown', handleClose)
+      document?.removeEventListener('keydown', handleClose)
     }
   }
 }

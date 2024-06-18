@@ -25,7 +25,7 @@ This repo uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.
 It is __highly recommended__ to use the following command in order to create your commits:
 
 ```sh
-yarn commit
+pnpm commit
 ```
 
 This will trigger the Commitizen interactive prompt for building your commit message.

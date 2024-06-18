@@ -24,9 +24,8 @@ describe('KComponent', () => {
       },
     })
 
-    const button = cy.get('.k-button')
-    button.should('contain.text', 'clicked me 0 times!')
-    button.click()
-    button.should('contain.text', 'clicked me 1 times!')
+    cy.get('.k-button').should('contain.text', 'clicked me 0 times!')
+    cy.get('.k-button').click()
+    cy.get('.k-button').should('contain.text', 'clicked me 1 times!')
   })
 })

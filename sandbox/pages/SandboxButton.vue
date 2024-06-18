@@ -4,15 +4,6 @@
     title="KButton"
   >
     <div class="kbutton-sandbox">
-      <!-- Figma -->
-      <SandboxTitleComponent
-        is-subtitle
-        title="Figma"
-      />
-      <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=0%3A1&mode=dev">
-        Figma
-      </KExternalLink>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
@@ -411,280 +402,84 @@
       />
       <SandboxSectionComponent>
         <div class="horizontal-spacing">
-          <KButton size="large">
-            <template #icon>
-              <AddCircleIcon />
-            </template>
+          <KButton
+            icon
+            size="large"
+          >
+            <AddCircleIcon />
           </KButton>
           <KButton
             appearance="secondary"
+            icon
             size="large"
           >
-            <template #icon>
-              <ProfileIcon />
-            </template>
+            <ProfileIcon />
           </KButton>
           <KButton
             appearance="tertiary"
+            icon
             size="large"
           >
-            <template #icon>
-              <BookIcon />
-            </template>
+            <BookIcon />
           </KButton>
           <KButton
             appearance="danger"
+            icon
             size="large"
           >
-            <template #icon>
-              <DisabledIcon />
-            </template>
+            <DisabledIcon />
           </KButton>
         </div>
         <div class="horizontal-spacing">
-          <KButton>
-            <template #icon>
-              <AddCircleIcon />
-            </template>
-          </KButton>
-          <KButton appearance="secondary">
-            <template #icon>
-              <ProfileIcon />
-            </template>
-          </KButton>
-          <KButton appearance="tertiary">
-            <template #icon>
-              <BookIcon />
-            </template>
-          </KButton>
-          <KButton appearance="danger">
-            <template #icon>
-              <DisabledIcon />
-            </template>
-          </KButton>
-        </div>
-        <div class="horizontal-spacing">
-          <KButton size="small">
-            <template #icon>
-              <AddCircleIcon />
-            </template>
+          <KButton icon>
+            <AddCircleIcon />
           </KButton>
           <KButton
             appearance="secondary"
-            size="small"
+            icon
           >
-            <template #icon>
-              <ProfileIcon />
-            </template>
+            <ProfileIcon />
           </KButton>
           <KButton
             appearance="tertiary"
-            size="small"
+            icon
           >
-            <template #icon>
-              <BookIcon />
-            </template>
+            <BookIcon />
           </KButton>
           <KButton
             appearance="danger"
-            size="small"
+            icon
           >
-            <template #icon>
-              <DisabledIcon />
-            </template>
+            <DisabledIcon />
           </KButton>
         </div>
-      </SandboxSectionComponent>
-
-      <!-- Legacy -->
-      <SandboxTitleComponent
-        is-subtitle
-        title="Legacy"
-      />
-      <SandboxSectionComponent
-        description="Using KIcon."
-        title="Prop: icon"
-      >
         <div class="horizontal-spacing">
           <KButton
-            icon="chevronDown"
-            size="large"
+            icon
+            size="small"
           >
-            Primary
+            <AddCircleIcon />
           </KButton>
           <KButton
             appearance="secondary"
-            icon="chevronDown"
-            size="large"
+            icon
+            size="small"
           >
-            Secondary
+            <ProfileIcon />
           </KButton>
           <KButton
             appearance="tertiary"
-            icon="chevronDown"
-            size="large"
+            icon
+            size="small"
           >
-            Tertiary
+            <BookIcon />
           </KButton>
           <KButton
             appearance="danger"
-            icon="chevronDown"
-            size="large"
-          >
-            Danger
-          </KButton>
-        </div>
-        <div class="horizontal-spacing">
-          <KButton icon="chevronDown">
-            Primary
-          </KButton>
-          <KButton
-            appearance="secondary"
-            icon="chevronDown"
-          >
-            Secondary
-          </KButton>
-          <KButton
-            appearance="tertiary"
-            icon="chevronDown"
-          >
-            Tertiary
-          </KButton>
-          <KButton
-            appearance="danger"
-            icon="chevronDown"
-          >
-            Danger
-          </KButton>
-        </div>
-        <div class="horizontal-spacing">
-          <KButton
-            icon="chevronDown"
+            icon
             size="small"
           >
-            Primary
-          </KButton>
-          <KButton
-            appearance="secondary"
-            icon="chevronDown"
-            size="small"
-          >
-            Secondary
-          </KButton>
-          <KButton
-            appearance="tertiary"
-            icon="chevronDown"
-            size="small"
-          >
-            Tertiary
-          </KButton>
-          <KButton
-            appearance="danger"
-            icon="chevronDown"
-            size="small"
-          >
-            Danger
-          </KButton>
-        </div>
-      </SandboxSectionComponent>
-      <SandboxSectionComponent
-        description="When KIcon is slotted in through icon slot, we can't control the icon color unless we pass color prop to KIcon."
-        title="Slot: icon"
-      >
-        <div class="horizontal-spacing">
-          <KButton size="large">
-            Primary
-            <template #icon>
-              <KIcon icon="trash" />
-            </template>
-          </KButton>
-          <KButton
-            appearance="secondary"
-            size="large"
-          >
-            Secondary
-            <template #icon>
-              <KIcon icon="trash" />
-            </template>
-          </KButton>
-          <KButton
-            appearance="tertiary"
-            size="large"
-          >
-            Tertiary
-            <template #icon>
-              <KIcon icon="trash" />
-            </template>
-          </KButton>
-          <KButton
-            appearance="danger"
-            size="large"
-          >
-            Danger
-            <template #icon>
-              <KIcon icon="trash" />
-            </template>
-          </KButton>
-        </div>
-        <div class="horizontal-spacing">
-          <KButton>
-            Primary
-            <template #icon>
-              <KIcon icon="trash" />
-            </template>
-          </KButton>
-          <KButton appearance="secondary">
-            Secondary
-            <template #icon>
-              <KIcon icon="trash" />
-            </template>
-          </KButton>
-          <KButton appearance="tertiary">
-            Tertiary
-            <template #icon>
-              <KIcon icon="trash" />
-            </template>
-          </KButton>
-          <KButton appearance="danger">
-            Danger
-            <template #icon>
-              <KIcon icon="trash" />
-            </template>
-          </KButton>
-        </div>
-        <div class="horizontal-spacing">
-          <KButton size="small">
-            Primary
-            <template #icon>
-              <KIcon icon="trash" />
-            </template>
-          </KButton>
-          <KButton
-            appearance="secondary"
-            size="small"
-          >
-            Secondary
-            <template #icon>
-              <KIcon icon="trash" />
-            </template>
-          </KButton>
-          <KButton
-            appearance="tertiary"
-            size="small"
-          >
-            Tertiary
-            <template #icon>
-              <KIcon icon="trash" />
-            </template>
-          </KButton>
-          <KButton
-            appearance="danger"
-            size="small"
-          >
-            Danger
-            <template #icon>
-              <KIcon icon="trash" />
-            </template>
+            <DisabledIcon />
           </KButton>
         </div>
       </SandboxSectionComponent>

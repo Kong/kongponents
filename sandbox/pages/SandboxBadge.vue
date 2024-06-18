@@ -1,19 +1,9 @@
 <template>
   <SandboxLayout
     :links="inject('app-links', [])"
-    title="KButton"
+    title="KBadge"
   >
     <div class="kbadge-sandbox">
-      <SandboxTitleComponent
-        title="KBadge"
-      >
-        <template #description>
-          <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=467%3A10283&mode=dev">
-            Figma
-          </KExternalLink>
-        </template>
-      </SandboxTitleComponent>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
@@ -74,14 +64,6 @@
         </div>
         <KBadge appearance="connect">
           Long truncating method badge
-        </KBadge>
-      </SandboxSectionComponent>
-      <SandboxSectionComponent title="backgroundColor & color">
-        <KBadge
-          :background-color="KUI_COLOR_BACKGROUND_PRIMARY_WEAK"
-          :color="KUI_COLOR_TEXT_INVERSE"
-        >
-          Custom
         </KBadge>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="tooltip">
@@ -415,7 +397,6 @@
 import { inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { KUI_COLOR_BACKGROUND_PRIMARY_WEAK, KUI_COLOR_TEXT_INVERSE } from '@kong/design-tokens'
 import { KongIcon, WarningOutlineIcon, CloseIcon } from '@kong/icons'
 
 const handleIconClick = (): void => {

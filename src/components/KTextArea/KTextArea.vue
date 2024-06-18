@@ -5,7 +5,7 @@
   >
     <KLabel
       v-if="label"
-      :for="textAreaId"
+      v-bind-once="{ for: textAreaId }"
       v-bind="labelAttributes"
       :required="isRequired"
     >
@@ -19,8 +19,8 @@
     </KLabel>
 
     <textarea
+      v-bind-once="{ id: textAreaId }"
       v-bind="modifiedAttrs"
-      :id="textAreaId"
       :aria-invalid="ariaInvalid"
       class="input-textarea"
       :class="[resizable || isResizable ? 'resizable' : undefined]"
@@ -46,10 +46,10 @@
 
 <script lang="ts">
 import { ref, computed, watch, useAttrs, useSlots } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import type { TextAreaLimitExceed } from '@/types'
+import useUniqueId from '@/composables/useUniqueId'
 
 const DEFAULT_CHARACTER_LIMIT = 2048
 
@@ -161,7 +161,7 @@ const value = computed({
   },
 })
 
-const textAreaId = computed((): string => (attrs.id ? String(attrs.id) : uuidv4()))
+const textAreaId = attrs.id ? String(attrs.id) : useUniqueId()
 
 const modifiedAttrs = computed((): Record<string, any> => {
   const $attrs = { ...attrs }
@@ -200,7 +200,7 @@ const helpText = computed((): string => {
 
   // if character limit exceeded, return that error message
   if (charLimitExceeded.value) {
-    return `${currValue.value.toString().length} / ${characterLimit}`
+    return `${currValue.value?.toString().length} / ${characterLimit}`
   }
 
   // otherwise return the help text
@@ -270,7 +270,7 @@ $kTextAreaPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin,
 
     // reset default margin from browser
     margin: 0;
-    margin-top: var(--kui-space-40, $kui-space-40);
+    margin-top: var(--kui-space-40, $kui-space-40) !important; // need important to override some overrides of default p margin in other components
   }
 
   .input-textarea {

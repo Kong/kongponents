@@ -5,33 +5,33 @@
   >
     <KToggle v-slot="{ toggle, isToggled }">
       <KPop
+        ref="kPop"
         v-bind="boundKPopAttributes"
-        data-testid="k-dropdown-popover"
-        :hide-popover="hidePopover"
-        :on-popover-click="() => handleTriggerToggle(isToggled, toggle, false)"
-        @closed="() => handleTriggerToggle(isToggled, toggle, false)"
-        @opened="() => handleTriggerToggle(isToggled, toggle, true)"
+        close-on-popover-click
+        data-testid="dropdown-popover"
+        hide-close-icon
+        @close="() => handleTriggerToggle(isToggled, toggle, false)"
+        @open="() => handleTriggerToggle(isToggled, toggle, true)"
+        @popover-click="() => handleTriggerToggle(isToggled, toggle, false)"
       >
         <component
           :is="tooltipComponent"
           class="dropdown-trigger"
           data-testid="dropdown-trigger"
-          :label="disabledTooltip"
+          :label="disabledTooltip ? disabledTooltip : undefined"
           :max-width="!!disabledTooltip ? '240' : undefined"
           :position="!!disabledTooltip ? 'bottom' : undefined"
-          :position-fixed="!!disabledTooltip ? true : undefined"
         >
           <slot
             :is-open="isToggled.value"
             name="default"
           >
             <KButton
-              v-if="triggerButtonText || icon"
+              v-if="triggerButtonText"
               :appearance="appearance"
               class="dropdown-trigger-button"
               data-testid="dropdown-trigger-button"
               :disabled="disabled"
-              :icon="icon"
             >
               {{ triggerButtonText }}
               <ChevronDownIcon
@@ -71,7 +71,7 @@
 
 <script lang="ts" setup>
 import type { PropType, Ref } from 'vue'
-import { computed, onMounted, ref, watch, nextTick } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import type { ButtonAppearance, DropdownItem, PopPlacements } from '@/types'
 import { ButtonAppearances } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
@@ -90,7 +90,7 @@ const props = defineProps({
     type: String as PropType<ButtonAppearance>,
     default: 'primary',
     validator: (value: ButtonAppearance) => {
-      // @ts-ignore
+      // @ts-ignore: allow comparing string values
       if (value === 'menu' || value === 'selectionMenu') {
         console.warn('KDropdown: the usage for the `appearance` prop has changed. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kdropdownmenu')
       }
@@ -101,21 +101,6 @@ const props = defineProps({
   triggerText: {
     type: String,
     default: '',
-  },
-  /**
-   * @deprecated
-   * TODO: [beta] remove this prop
-   */
-  icon: {
-    type: String,
-    default: '',
-    validator: (value: string): boolean => {
-      if (value) {
-        console.warn('KDropdown: `icon` prop is deprecated. Please slot an icon into the `default` slot instead. See KButton docs for more details: https://alpha--kongponents.netlify.app/components/button.html#default')
-      }
-
-      return true
-    },
   },
   showCaret: {
     type: Boolean,
@@ -170,16 +155,14 @@ const emit = defineEmits<{
   (e: 'change', value: DropdownItem): void;
 }>()
 
-const hidePopover = ref<boolean>(false)
-
 const tooltipComponent = computed(() => props.disabledTooltip ? KTooltip : 'div')
 
+const kPop = ref<InstanceType<typeof KPop> | null>(null)
 const defaultKPopAttributes = {
   hideCaret: true,
-  popoverClasses: 'k-dropdown-popover',
+  popoverClasses: 'dropdown-popover',
   popoverTimeout: 0,
-  positionFixed: true,
-  placement: 'bottomStart' as PopPlacements,
+  placement: 'bottom-start' as PopPlacements,
 }
 
 const boundKPopAttributes = {
@@ -202,23 +185,15 @@ const handleSelection = (item: DropdownItem): void => {
 }
 
 const handleCloseDropdown = async (): Promise<void> => {
-  hidePopover.value = true
-
-  // reset the hidePopover value so it's ready for the next time the dropdown is opened
-  // need nextTick to ensure the popover is hidden before resetting the value
-  await nextTick(() => {
-    hidePopover.value = false
-  })
+  kPop.value?.hidePopover()
 }
 
-const handleTriggerToggle = (isToggled: Ref<boolean>, toggle: () => void, isOpen: boolean): boolean => {
+const handleTriggerToggle = (isToggled: Ref<boolean>, toggle: () => void, isOpen: boolean): void => {
   // avoid toggling twice for the same event
   if (isToggled.value !== isOpen) {
     toggle()
     emit('toggleDropdown', isToggled.value)
   }
-
-  return isToggled.value
 }
 
 watch(selectedItem, (newVal, oldVal): void => {
@@ -244,7 +219,11 @@ onMounted(() => {
 .k-dropdown {
   width: fit-content;
 
-  :deep(.k-popover.k-dropdown-popover) {
+  .dropdown-trigger {
+    width: 100%;
+  }
+
+  :deep(.popover.dropdown-popover > .popover-container) {
     border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     margin-top: var(--kui-space-30, $kui-space-30);

@@ -1,7 +1,7 @@
 import type * as components from './components'
 
 // All Kongponents should be added to the list
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   export interface GlobalComponents {
     KAlert: typeof components.KAlert
     KBadge: typeof components.KBadge
@@ -22,7 +22,6 @@ declare module '@vue/runtime-core' {
     KEmptyState: typeof components.KEmptyState
     KExternalLink: typeof components.KExternalLink
     KFileUpload: typeof components.KFileUpload
-    KIcon: typeof components.KIcon
     KInput: typeof components.KInput
     KInputSwitch: typeof components.KInputSwitch
     KLabel: typeof components.KLabel
@@ -52,3 +51,6 @@ declare module '@vue/runtime-core' {
     // {%%NEW_KONGPONENT%%} (do not remove comment)
   }
 }
+
+// Must have an export to be a module
+export {}

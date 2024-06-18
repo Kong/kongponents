@@ -4,15 +4,6 @@
     title="KPagination"
   >
     <div class="kpagination-sandbox">
-      <!-- Figma -->
-      <SandboxTitleComponent
-        is-subtitle
-        title="Figma"
-      />
-      <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=2020%3A12478&mode=dev">
-        Figma
-      </KExternalLink>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle

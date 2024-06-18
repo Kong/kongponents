@@ -4,12 +4,6 @@
     title="KTreeList"
   >
     <div class="ktreelist-sandbox">
-      <SandboxSectionComponent>
-        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=2020%3A12779&mode=dev&t=sqzAn4PCrvEoYpdz-1">
-          Figma
-        </KExternalLink>
-      </SandboxSectionComponent>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle

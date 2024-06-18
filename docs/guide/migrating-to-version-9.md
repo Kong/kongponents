@@ -129,11 +129,11 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 * `showCaret` prop is removed
 * `caretColor` prop is removed
 * `isRounded` prop is removed
-* `icon` prop has changed to boolean (TODO: [beta])
+* `icon` prop has changed to `boolean`. Use it when only content you're passing to KButton is an icon to make KButton square
 
 #### Slots
 
-* `icon` slot is removed (TODO: [beta])
+* `icon` slot has been deprecated. Please use `default` slot instead
 
 #### Structure
 
@@ -342,6 +342,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 #### Constants, Types & Interfaces
 
 * `TimeRange` - `start` and `end` keys are now defined as `Date | null`
+* `hidePopover` property in `DateTimePickerState` interface has been renamed to `popoverOpen`
 
 ### KDropdownMenu
 
@@ -353,14 +354,14 @@ Component has been renamed to `KDropdown`
 * `appearance` prop has been changed in favor of the `selectionMenu` prop for the selection menu functionality. `appearance` now controls the underlying `KButton` `appearance` prop (note that default `appearance` for component when `selectionMenu` is `true` changed from `tertiary` to `primary`)
 * `buttonAppearance` prop has been removed in favor of `appearance`, still controlling the `KButton` `appearance` prop
 * `testMode` prop has been removed
-* `icon` prop is removed (TODO: [beta])
+* `icon` prop is removed
 * `caretColor` prop is removed
 * `isDangerous` `KDropdownItem` prop has been deprecated in favor of `danger`
 
 #### Structure
 
 * `k-dropdown-menu` class has been removed (`k-dropdown` class remains)
-* `k-dropdown-menu-popover` `data-testid` attribute has been renamed to `k-dropdown-popover`
+* `k-dropdown-menu-popover` `data-testid` attribute has been renamed to `dropdown-popover`
 * `k-dropdown-trigger` class has been removed
 * `k-dropdown-trigger` `data-testid` attribute has been renamed to `dropdown-trigger`
 * `k-dropdown-btn` class has been renamed to `dropdown-trigger-button`
@@ -433,6 +434,7 @@ No breaking changes.
 
 ### KIcon
 
+This component has been removed.
 
 ### KInlineEdit
 
@@ -462,6 +464,8 @@ This component has been removed.
 * `form-control` class has been removed
 * `over-char-limit` class has been removed
 * `help` class has been changed to `help-text`
+* `k-input-wrapper` class has been changed to `k-input`
+* `input.k-input` element class has been changed to `.input`
 
 #### Constants, Types & Interfaces
 
@@ -492,6 +496,10 @@ This component has been removed.
 
 * `k-input-label` class has been renamed to `k-label`
 * `is-required` class has been renamed to `required`
+
+#### Constant, Types & Interfaces
+
+* `positionFixed` parameter was removed from `TooltipAttributes` interface
 
 ### KMenu
 
@@ -548,6 +556,7 @@ This component has been removed. Please refer to KBadge component which has been
 
 ### KModalFullscreen
 
+This component is deprecated and will be removed in the next major release.
 
 ### KMultiselect
 
@@ -559,6 +568,7 @@ This component has been removed. Please refer to KBadge component which has been
 * default value of `collapsedContext` prop has changed to `true`
 * default value of `selectedRowCount` prop has changed to `1`
 * `expandSelected` prop has been removed
+* `positionFixed` prop has been removed
 
 #### Events
 
@@ -621,8 +631,42 @@ KPagination now uses [KDropdown](/components/dropdown) instead of [KSelect](/com
 * `PageSizeChangedData` interface has been renamed to `PageSizeChangeData`
 * `PaginationType` type has been removed
 
-### KPopover
+### KPop
 
+#### Props
+
+* `isSvg` prop has been removed
+* default value of `buttonText` prop has changed
+* `popoverTransitions` prop has been removed
+* `testMode` prop has been removed
+* `onPopoverClick` prop has been removed. You can a combination of new `closeOnPopoverClick` prop and `popover-click` event instead
+* `placement` prop options have changed, see _Constants, Types & Interfaces_ section for more details
+* `hidePopover` prop has been removed. Instead, you can use exposed by the component `hidePopover` method
+* `target` prop has been removed (popover element is always mounted to `.k-popover` element)
+* `positionFixed` prop has been removed (popover element always uses `position: fixed`)
+
+#### Slots
+
+* `actions` slot has been removed
+
+#### Events
+
+* `opened` event has been renamed to `open`
+* `closed` event has been renamed to `close`
+
+#### Structure
+
+* `kpop-button` ... has been replaced with `popover-button`
+* `k-popover-header` class has been replaced with `popover-header`
+* `k-popover-title` class has been replaced with `popover-title`
+* `k-popover-content` class has been replaced with `popover-content`
+* `k-popover-footer` class has been replaced with `popover-footer`
+* `k-popover` class has been replaced with `popover` (instead, `k-popover` class has been given to outer-most element)
+
+#### Constants, Types & Interfaces
+
+* format of most placement options in `PopPlacementsArray` has changed: `topStart` -> `top-start`, `rightEnd` -> `right-end`, etc.
+  * same applies to `PopPlacements` type
 
 ### KPrompt
 
@@ -708,6 +752,7 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 * `overlayLabel` prop has been removed
 * `filterFunc` prop has been renamed to `filterFunction`
 * `autosuggest` prop has been removed and replaced with `enableFiltering` prop. Should you want to simply enable default component-handled filtering or perform async fetching behind the scenes, you can use this prop in combination with`@query-change` event to achieve that
+* `positionFixed` prop has been removed
 
 #### Events
 
@@ -781,10 +826,53 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 #### Props
 
+* `hasHover` prop has been removed and replaced with `rowHover` prop
+* `hasSideBorder` prop has been removed
+* `hasError` prop has been removed and replaced with `error` prop
+* `isLoading` prop has been removed and replaced with `loading` prop
+* `disableSorting` prop has been removed and replaced with `sortable` prop (defaults to `true`)
+* `enableClientSort` prop has been removed and replaced with `clientSort` prop
+* `sortHandlerFn` prop has been removed and replaced with `sortHandlerFunction` prop
 * `emptyStateIcon` prop has been removed. You can use the new `emptyStateIconVariant` prop instead
 * `emptyStateIconColor` prop has been removed
 * `emptyStateIconSize` prop has been removed
 * `emptyStateActionButtonIcon` prop has been removed. You can use the new `empty-state-action-icon` slot instead
+* `errorStateIcon` prop has been removed
+* `errorStateIconColor` prop has been removed
+* `errorStateIconSize` prop has been removed
+* `options` prop (deprecated) has been removed
+* `sortOrder` prop (deprecated) has been removed
+* `testMode` prop has been removed
+* `paginationType` prop has been removed. You can use new `paginationOffset` prop instead
+
+#### Events
+
+* `ktable-error-cta-clicked` event has been renamed to `error-action-click`
+* `ktable-empty-state-cta-clicked` event has been renamed to `empty-state-action-click`
+
+#### Structure
+
+* `k-table-container` class has been changed to `k-table`
+* `k-table-toolbar` class and `data-testid` attribute has been changed to `table-toolbar`
+* `k-table-skeleton` `data-testid` attribute has been changed to `table-skeleton`
+* `k-table-error-state` class and `data-testid` attribute has been changed to `table-error-state`
+* `k-table-empty-state` class and `data-testid` attribute has been changed to `table-empty-state`
+* `k-table-wrapper` class has been changed to `table-wrapper`
+* `table.k-table` class has been changed to `table`
+* `k-table-headers` class has been changed to `table-headers`
+* `k-table-header-*` `data-testid` attribute has been changed to `table-header-*`
+* `k-table-pagination` class and `data-testid` attribute has been changed to `table-pagination`
+* `caret` class has been changed to `sort-icon`
+
+#### Constants, Types & Interfaces
+
+* `useSortHandlerFn` parameter in `TableHeader` interface has been renamed to `useSortHandlerFunction`
+* `TableSortOrderArray` const has been removed
+* `TableSortOrder` type has been removed
+* `TableTestModeArray` const has been removed
+* `TableTestMode` type has been removed
+* `TablePaginationTypeArray` const has been removed
+* `TablePaginationType` type has been removed 
 
 ### KTabs
 
@@ -816,8 +904,6 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 ### KToaster
 
-#### Attributes
-
 #### Structure
 
 * `toaster-container-outer` class has been replaced with `k-toaster`
@@ -838,7 +924,7 @@ Removed as of `v9`. Use `KBreadcumbs` instead.
 
 * `testMode` prop has been removed
 * `label` prop has been deprecated in favor of `text` prop
-* default value of `positionFixed` prop has been changed to `true`
+* `positionFixed` prop has been removed
 
 #### Structure
 

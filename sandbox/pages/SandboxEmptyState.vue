@@ -4,12 +4,6 @@
     title="KEmptyState"
   >
     <div class="kemptystate-sandbox">
-      <SandboxSectionComponent>
-        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=2020%3A11252&mode=dev&t=oHjbEUosoGUvnzuN-1">
-          Figma
-        </KExternalLink>
-      </SandboxSectionComponent>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle

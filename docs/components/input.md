@@ -251,7 +251,7 @@ Should you decide to use your own custom icons, you can use design tokens export
 We also recommend setting the icon style `color` property to a value of `currentColor` to utilize default KInput styling for slotted content.
 :::
 
-### labelTooltip
+### label-tooltip
 
 If you want to utilize HTML in the input label's tooltip, use the slot.
 

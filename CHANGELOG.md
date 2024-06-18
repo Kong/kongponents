@@ -1,3 +1,364 @@
+# [9.0.0-alpha.178](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.177...v9.0.0-alpha.178) (2024-06-17)
+
+
+### Bug Fixes
+
+* **kpop:** duplicate popover elements when transitioning ([#2239](https://github.com/Kong/kongponents/issues/2239)) ([b582c63](https://github.com/Kong/kongponents/commit/b582c63d1653a2e4b469be0aef87facf3715d944))
+
+# [9.0.0-alpha.177](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.176...v9.0.0-alpha.177) (2024-06-17)
+
+
+### Bug Fixes
+
+* **kpop:** flip ([#2229](https://github.com/Kong/kongponents/issues/2229)) ([2c74dce](https://github.com/Kong/kongponents/commit/2c74dce7a6c76c0616506792b5f4262bdcd78821))
+
+# [9.0.0-alpha.176](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.175...v9.0.0-alpha.176) (2024-06-15)
+
+
+### Bug Fixes
+
+* trigger release ([73f761f](https://github.com/Kong/kongponents/commit/73f761f1cd968c878b73a4ee83cc935b1e7238fd))
+
+# [9.0.0-alpha.175](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.174...v9.0.0-alpha.175) (2024-06-14)
+
+
+### Bug Fixes
+
+* **kdropdown:** update dropdown popover selector ([#2225](https://github.com/Kong/kongponents/issues/2225)) ([70af6b7](https://github.com/Kong/kongponents/commit/70af6b72b761b4b1cd1066be92bde4b5d44877cc))
+
+# [9.0.0-alpha.174](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.173...v9.0.0-alpha.174) (2024-06-14)
+
+
+### Features
+
+* **ktoaster:** refactor toastmanager [KHCP-11958] ([#2220](https://github.com/Kong/kongponents/issues/2220)) ([613d654](https://github.com/Kong/kongponents/commit/613d654345152c3cffc7b636dfbacaa1102dfb2a))
+
+# [9.0.0-alpha.173](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.172...v9.0.0-alpha.173) (2024-06-14)
+
+
+### Features
+
+* switch from yarn to pnpm ([#2231](https://github.com/Kong/kongponents/issues/2231)) ([c8d4346](https://github.com/Kong/kongponents/commit/c8d434633d6340d2af79db0f9f84e4d213c37049))
+
+# [9.0.0-alpha.172](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.171...v9.0.0-alpha.172) (2024-06-14)
+
+
+### Features
+
+* ssr-friendlify components ([#2222](https://github.com/Kong/kongponents/issues/2222)) ([2cdfd4e](https://github.com/Kong/kongponents/commit/2cdfd4e8a3dad10e347066a5288ccf57e498cc04))
+
+# [9.0.0-alpha.171](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.170...v9.0.0-alpha.171) (2024-06-12)
+
+
+### Bug Fixes
+
+* **kdropdown:** close on popover click ([#2224](https://github.com/Kong/kongponents/issues/2224)) ([3f983f1](https://github.com/Kong/kongponents/commit/3f983f18a60a60c562c04d554f4f957865103081))
+
+# [9.0.0-alpha.170](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.169...v9.0.0-alpha.170) (2024-06-12)
+
+
+### Bug Fixes
+
+* **types:** module needs an export ([#2223](https://github.com/Kong/kongponents/issues/2223)) ([e6cce31](https://github.com/Kong/kongponents/commit/e6cce31fa7fc7eb62fd25ba2c3255106e1fa6d62))
+
+# [9.0.0-alpha.169](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.168...v9.0.0-alpha.169) (2024-06-12)
+
+
+### Bug Fixes
+
+* **kdropdown:** fix leaking styles ([#2221](https://github.com/Kong/kongponents/issues/2221)) ([7dc7ba8](https://github.com/Kong/kongponents/commit/7dc7ba8280e6d5bc7daed4b6d5f9c68d4b812d97))
+
+# [9.0.0-alpha.168](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.167...v9.0.0-alpha.168) (2024-06-11)
+
+
+### Bug Fixes
+
+* **kbadge, kcopy:** minor fix ([#2218](https://github.com/Kong/kongponents/issues/2218)) ([bdf8f50](https://github.com/Kong/kongponents/commit/bdf8f5085f09ee64ead28bb7cee8fb96e2214719))
+
+# [9.0.0-alpha.167](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.166...v9.0.0-alpha.167) (2024-06-11)
+
+
+### Bug Fixes
+
+* **kbutton:** remove deprecated icon slot ([#2215](https://github.com/Kong/kongponents/issues/2215)) ([aaab4f9](https://github.com/Kong/kongponents/commit/aaab4f97ccc71637bb222ab6a49aa3e2378295db))
+
+# [9.0.0-alpha.166](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.165...v9.0.0-alpha.166) (2024-06-10)
+
+
+### Features
+
+* **kpop:** refactor using floating ui [KHCP-11957] ([#2204](https://github.com/Kong/kongponents/issues/2204)) ([b02ad11](https://github.com/Kong/kongponents/commit/b02ad11f8275d32ebe747e37fafdf4de2c8ed3fd))
+
+# [9.0.0-alpha.165](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.164...v9.0.0-alpha.165) (2024-06-06)
+
+
+### Features
+
+* **eslint:** eslint v9 and shared configs [KHCP-11627] ([#2209](https://github.com/Kong/kongponents/issues/2209)) ([223f591](https://github.com/Kong/kongponents/commit/223f59174bf5a5e302b572d90438538064d29620))
+
+# [9.0.0-alpha.164](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.163...v9.0.0-alpha.164) (2024-06-05)
+
+
+### Bug Fixes
+
+* misc alpha fixes ([#2207](https://github.com/Kong/kongponents/issues/2207)) ([13fa30f](https://github.com/Kong/kongponents/commit/13fa30f1dcaf3eda14a143f58acf50e0ff17229e))
+
+# [9.0.0-alpha.163](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.162...v9.0.0-alpha.163) (2024-06-04)
+
+
+### Bug Fixes
+
+* rebase alpha commits to fix invalid commit messages ([#2201](https://github.com/Kong/kongponents/issues/2201)) ([39c3564](https://github.com/Kong/kongponents/commit/39c356479d9c8737a0a7af241d47c07f2f09892b)), closes [#1995](https://github.com/Kong/kongponents/issues/1995) [#1994](https://github.com/Kong/kongponents/issues/1994) [#1993](https://github.com/Kong/kongponents/issues/1993) [#1990](https://github.com/Kong/kongponents/issues/1990) [#1991](https://github.com/Kong/kongponents/issues/1991) [#1997](https://github.com/Kong/kongponents/issues/1997) [#1999](https://github.com/Kong/kongponents/issues/1999) [#1999](https://github.com/Kong/kongponents/issues/1999) [#2001](https://github.com/Kong/kongponents/issues/2001) [#2001](https://github.com/Kong/kongponents/issues/2001) [#2002](https://github.com/Kong/kongponents/issues/2002) [#2002](https://github.com/Kong/kongponents/issues/2002) [#2004](https://github.com/Kong/kongponents/issues/2004) [#2007](https://github.com/Kong/kongponents/issues/2007) [#2006](https://github.com/Kong/kongponents/issues/2006) [#2010](https://github.com/Kong/kongponents/issues/2010) [#1963](https://github.com/Kong/kongponents/issues/1963) [#2003](https://github.com/Kong/kongponents/issues/2003) [#1989](https://github.com/Kong/kongponents/issues/1989) [#1998](https://github.com/Kong/kongponents/issues/1998) [#1988](https://github.com/Kong/kongponents/issues/1988)
+
+# [9.0.0-alpha.162](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.161...v9.0.0-alpha.162) (2024-06-03)
+
+
+### Bug Fixes
+
+* add question marks before tostring [KHCP-12065] ([#2200](https://github.com/Kong/kongponents/issues/2200)) ([bd6cee7](https://github.com/Kong/kongponents/commit/bd6cee776c38365acc79a00ff3b4937a4a984c6d))
+
+# [9.0.0-alpha.161](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.160...v9.0.0-alpha.161) (2024-05-28)
+
+
+### Bug Fixes
+
+* **kradio, kcheckbox:** fix label alignment ([#2195](https://github.com/Kong/kongponents/issues/2195)) ([cad802e](https://github.com/Kong/kongponents/commit/cad802efd7431a372230351f77b6e85f236c2cfc))
+
+# [9.0.0-alpha.160](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.159...v9.0.0-alpha.160) (2024-05-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.9.2 ([#2194](https://github.com/Kong/kongponents/issues/2194)) ([864c2d1](https://github.com/Kong/kongponents/commit/864c2d1b11bc7b27b1e40e702d0f24bea82046e0))
+
+# [9.0.0-alpha.159](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.158...v9.0.0-alpha.159) (2024-05-22)
+
+
+### Bug Fixes
+
+* **kinput:** update classes ([#2182](https://github.com/Kong/kongponents/issues/2182)) ([58e97e6](https://github.com/Kong/kongponents/commit/58e97e6d8d903d0e52bafdbc7be12b2febd13438))
+
+# [9.0.0-alpha.158](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.157...v9.0.0-alpha.158) (2024-05-21)
+
+
+### Bug Fixes
+
+* **ktable:** emit preferences only in success state [KHCP-11890] ([#2191](https://github.com/Kong/kongponents/issues/2191)) ([a442a18](https://github.com/Kong/kongponents/commit/a442a1843d36ed2b84eb6a97f11ec93673d43a49))
+
+# [9.0.0-alpha.157](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.156...v9.0.0-alpha.157) (2024-05-21)
+
+
+### Features
+
+* **kicon:** remove component [KHCP-8983] ([#2183](https://github.com/Kong/kongponents/issues/2183)) ([e625cf8](https://github.com/Kong/kongponents/commit/e625cf817f5b834d69ef991fa5d6c617a6dd07bd))
+
+# [9.0.0-alpha.156](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.155...v9.0.0-alpha.156) (2024-05-15)
+
+
+### Bug Fixes
+
+* **styles:** remove tmp variables, old mixins [KHCP-8944] ([#2181](https://github.com/Kong/kongponents/issues/2181)) ([0548cba](https://github.com/Kong/kongponents/commit/0548cba4fd917add82b78459dba2828136dc3846))
+
+# [9.0.0-alpha.155](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.154...v9.0.0-alpha.155) (2024-05-15)
+
+
+### Features
+
+* **kpop:** component reskin [KHCP-8994] ([#2176](https://github.com/Kong/kongponents/issues/2176)) ([99e513a](https://github.com/Kong/kongponents/commit/99e513aefcf8642ba85de3325504e4858e38b158))
+
+# [9.0.0-alpha.154](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.153...v9.0.0-alpha.154) (2024-05-09)
+
+
+### Bug Fixes
+
+* trigger release ([dfa61cf](https://github.com/Kong/kongponents/commit/dfa61cf88018714611485b3a5845691853300d09))
+
+
+### Features
+
+* **ktable:** component reskin [KHCP-9002] ([#2151](https://github.com/Kong/kongponents/issues/2151)) ([4e60986](https://github.com/Kong/kongponents/commit/4e609865084dbe180147b946906e54aed6fcb25d)), closes [#2144](https://github.com/Kong/kongponents/issues/2144) [#2144](https://github.com/Kong/kongponents/issues/2144) [#2145](https://github.com/Kong/kongponents/issues/2145) [#2124](https://github.com/Kong/kongponents/issues/2124) [#2100](https://github.com/Kong/kongponents/issues/2100) [#2125](https://github.com/Kong/kongponents/issues/2125)
+
+# [9.0.0-alpha.153](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.152...v9.0.0-alpha.153) (2024-05-09)
+
+
+### Bug Fixes
+
+* **kfileupload:** force transparent color for the input element ([#2177](https://github.com/Kong/kongponents/issues/2177)) ([b42e177](https://github.com/Kong/kongponents/commit/b42e177a9fea2716fe697d7f58b26e19e8127aa7))
+* **ktooltip:** suppress vue attr passthrough warning ([#2178](https://github.com/Kong/kongponents/issues/2178)) ([1230889](https://github.com/Kong/kongponents/commit/1230889ceb7222434918654e7439c014ce735135))
+
+# [9.0.0-alpha.152](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.151...v9.0.0-alpha.152) (2024-05-07)
+
+
+### Bug Fixes
+
+* **kcollapse:** add title slot ([#2174](https://github.com/Kong/kongponents/issues/2174)) ([7407eb8](https://github.com/Kong/kongponents/commit/7407eb83273c12a63840c84c87a2a268310cb56b))
+
+# [9.0.0-alpha.151](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.150...v9.0.0-alpha.151) (2024-05-07)
+
+
+### Bug Fixes
+
+* **kselect:** avoid incorrect event triggering with null ([#2168](https://github.com/Kong/kongponents/issues/2168)) ([aa75dea](https://github.com/Kong/kongponents/commit/aa75dea5a070d0deddb8a242e627a365f2508963))
+
+# [9.0.0-alpha.150](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.149...v9.0.0-alpha.150) (2024-05-01)
+
+
+### Bug Fixes
+
+* **ktable:** init col visibility [khcp-11730] ([#2169](https://github.com/Kong/kongponents/issues/2169)) ([b86bfc5](https://github.com/Kong/kongponents/commit/b86bfc57d489960a30368429b032bd85b8cca957))
+
+# [9.0.0-alpha.149](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.148...v9.0.0-alpha.149) (2024-04-25)
+
+
+### Bug Fixes
+
+* **kradio, kcheckbox:** required field indicator [KHCP-11503] ([#2159](https://github.com/Kong/kongponents/issues/2159)) ([fdd617e](https://github.com/Kong/kongponents/commit/fdd617e4252fc09a06248ff27cfe45445cd05352))
+
+# [9.0.0-alpha.148](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.147...v9.0.0-alpha.148) (2024-04-24)
+
+
+### Bug Fixes
+
+* tags ([#2158](https://github.com/Kong/kongponents/issues/2158)) ([5bb23aa](https://github.com/Kong/kongponents/commit/5bb23aad473e4eaaa6fb8fc371882ed67d01617b))
+
+# [9.0.0-alpha.144](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.143...v9.0.0-alpha.144) (2024-04-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.9.0 ([#2144](https://github.com/Kong/kongponents/issues/2144)) ([04d688d](https://github.com/Kong/kongponents/commit/04d688de916858104fa8e58081a7c44de7c77813))
+* **deps:** update dependency @kong/icons to ^1.9.1 ([#2155](https://github.com/Kong/kongponents/issues/2155)) ([c3ad0ca](https://github.com/Kong/kongponents/commit/c3ad0cadb9c86616d99a620de766f81719d9414e))
+* **kinput:** add aria label to associate helper text with input [KHCP-11030] ([#2138](https://github.com/Kong/kongponents/issues/2138)) ([4b3ea54](https://github.com/Kong/kongponents/commit/4b3ea5452a2b7259d8a2b4f53574ac9329ee13aa))
+* **kselect:** fix double emits bug ([#2156](https://github.com/Kong/kongponents/issues/2156)) ([bcf23f4](https://github.com/Kong/kongponents/commit/bcf23f4cf3e9c1553f655a00fc217fe834605fc1))
+* **ktable:** column visibility design feedback ([#2152](https://github.com/Kong/kongponents/issues/2152)) ([717b6a9](https://github.com/Kong/kongponents/commit/717b6a9037ad680497dc6726288b8e32236cb7dd))
+* release tags ([b990c8c](https://github.com/Kong/kongponents/commit/b990c8cd9aa3d785ea5c257ef3362b293da70d21))
+* release tags ([05ae8fb](https://github.com/Kong/kongponents/commit/05ae8fb485a82852169928f89ab201fe5d0fb17a))
+* tags ([6898fca](https://github.com/Kong/kongponents/commit/6898fca5bcad10a991eff07edfeef1fd81d95dde))
+* tags ([1fe1673](https://github.com/Kong/kongponents/commit/1fe16739a7373a7b7e52f82671891f0b2c7485ff))
+* trigger release ([b2c1f99](https://github.com/Kong/kongponents/commit/b2c1f99751615b9135819fef89edcd4dea80fb16))
+* trigger release ([417f35b](https://github.com/Kong/kongponents/commit/417f35b5923bad9801566be26a707034683168aa))
+
+
+### Features
+
+* **kcatalogitem:** add card-footer slot ([#2154](https://github.com/Kong/kongponents/issues/2154)) ([e26025b](https://github.com/Kong/kongponents/commit/e26025b2ce0c2e7753c8b8633f7ee30749c53b91))
+* **kcodeblock, kcatalog, kcollapse, kstepper:** components reskin ([#2124](https://github.com/Kong/kongponents/issues/2124)) ([c3bfe87](https://github.com/Kong/kongponents/commit/c3bfe87da67e975910dbcf2b2fee0b28db217361)), closes [#2100](https://github.com/Kong/kongponents/issues/2100) [#2125](https://github.com/Kong/kongponents/issues/2125)
+* trigger release maybe ([994da0b](https://github.com/Kong/kongponents/commit/994da0b389fe4214a78264ce4ebcffa9bfed95fd))
+* trigger release maybe ([60272f2](https://github.com/Kong/kongponents/commit/60272f281b85965e460cb66913960d85472aab43))
+* trigger release maybe ([206298c](https://github.com/Kong/kongponents/commit/206298c41c2acabc6566fcfa7d40663137e6b156))
+
+# [9.0.0-alpha.144](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.143...v9.0.0-alpha.144) (2024-04-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.9.0 ([#2144](https://github.com/Kong/kongponents/issues/2144)) ([04d688d](https://github.com/Kong/kongponents/commit/04d688de916858104fa8e58081a7c44de7c77813))
+* **deps:** update dependency @kong/icons to ^1.9.1 ([#2155](https://github.com/Kong/kongponents/issues/2155)) ([c3ad0ca](https://github.com/Kong/kongponents/commit/c3ad0cadb9c86616d99a620de766f81719d9414e))
+* **kinput:** add aria label to associate helper text with input [KHCP-11030] ([#2138](https://github.com/Kong/kongponents/issues/2138)) ([4b3ea54](https://github.com/Kong/kongponents/commit/4b3ea5452a2b7259d8a2b4f53574ac9329ee13aa))
+* **kselect:** fix double emits bug ([#2156](https://github.com/Kong/kongponents/issues/2156)) ([bcf23f4](https://github.com/Kong/kongponents/commit/bcf23f4cf3e9c1553f655a00fc217fe834605fc1))
+* **ktable:** column visibility design feedback ([#2152](https://github.com/Kong/kongponents/issues/2152)) ([717b6a9](https://github.com/Kong/kongponents/commit/717b6a9037ad680497dc6726288b8e32236cb7dd))
+* release tags ([b990c8c](https://github.com/Kong/kongponents/commit/b990c8cd9aa3d785ea5c257ef3362b293da70d21))
+* release tags ([05ae8fb](https://github.com/Kong/kongponents/commit/05ae8fb485a82852169928f89ab201fe5d0fb17a))
+* tags ([1fe1673](https://github.com/Kong/kongponents/commit/1fe16739a7373a7b7e52f82671891f0b2c7485ff))
+* trigger release ([b2c1f99](https://github.com/Kong/kongponents/commit/b2c1f99751615b9135819fef89edcd4dea80fb16))
+* trigger release ([417f35b](https://github.com/Kong/kongponents/commit/417f35b5923bad9801566be26a707034683168aa))
+
+
+### Features
+
+* **kcatalogitem:** add card-footer slot ([#2154](https://github.com/Kong/kongponents/issues/2154)) ([e26025b](https://github.com/Kong/kongponents/commit/e26025b2ce0c2e7753c8b8633f7ee30749c53b91))
+* **kcodeblock, kcatalog, kcollapse, kstepper:** components reskin ([#2124](https://github.com/Kong/kongponents/issues/2124)) ([c3bfe87](https://github.com/Kong/kongponents/commit/c3bfe87da67e975910dbcf2b2fee0b28db217361)), closes [#2100](https://github.com/Kong/kongponents/issues/2100) [#2125](https://github.com/Kong/kongponents/issues/2125)
+* trigger release maybe ([994da0b](https://github.com/Kong/kongponents/commit/994da0b389fe4214a78264ce4ebcffa9bfed95fd))
+* trigger release maybe ([60272f2](https://github.com/Kong/kongponents/commit/60272f281b85965e460cb66913960d85472aab43))
+* trigger release maybe ([206298c](https://github.com/Kong/kongponents/commit/206298c41c2acabc6566fcfa7d40663137e6b156))
+
+# [9.0.0-alpha.144](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.143...v9.0.0-alpha.144) (2024-04-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.9.0 ([#2144](https://github.com/Kong/kongponents/issues/2144)) ([04d688d](https://github.com/Kong/kongponents/commit/04d688de916858104fa8e58081a7c44de7c77813))
+* **deps:** update dependency @kong/icons to ^1.9.1 ([#2155](https://github.com/Kong/kongponents/issues/2155)) ([c3ad0ca](https://github.com/Kong/kongponents/commit/c3ad0cadb9c86616d99a620de766f81719d9414e))
+* **kinput:** add aria label to associate helper text with input [KHCP-11030] ([#2138](https://github.com/Kong/kongponents/issues/2138)) ([4b3ea54](https://github.com/Kong/kongponents/commit/4b3ea5452a2b7259d8a2b4f53574ac9329ee13aa))
+* **kselect:** fix double emits bug ([#2156](https://github.com/Kong/kongponents/issues/2156)) ([bcf23f4](https://github.com/Kong/kongponents/commit/bcf23f4cf3e9c1553f655a00fc217fe834605fc1))
+* **ktable:** column visibility design feedback ([#2152](https://github.com/Kong/kongponents/issues/2152)) ([717b6a9](https://github.com/Kong/kongponents/commit/717b6a9037ad680497dc6726288b8e32236cb7dd))
+* release tags ([b990c8c](https://github.com/Kong/kongponents/commit/b990c8cd9aa3d785ea5c257ef3362b293da70d21))
+* release tags ([05ae8fb](https://github.com/Kong/kongponents/commit/05ae8fb485a82852169928f89ab201fe5d0fb17a))
+* trigger release ([b2c1f99](https://github.com/Kong/kongponents/commit/b2c1f99751615b9135819fef89edcd4dea80fb16))
+* trigger release ([417f35b](https://github.com/Kong/kongponents/commit/417f35b5923bad9801566be26a707034683168aa))
+
+
+### Features
+
+* **kcatalogitem:** add card-footer slot ([#2154](https://github.com/Kong/kongponents/issues/2154)) ([e26025b](https://github.com/Kong/kongponents/commit/e26025b2ce0c2e7753c8b8633f7ee30749c53b91))
+* **kcodeblock, kcatalog, kcollapse, kstepper:** components reskin ([#2124](https://github.com/Kong/kongponents/issues/2124)) ([c3bfe87](https://github.com/Kong/kongponents/commit/c3bfe87da67e975910dbcf2b2fee0b28db217361)), closes [#2100](https://github.com/Kong/kongponents/issues/2100) [#2125](https://github.com/Kong/kongponents/issues/2125)
+* trigger release maybe ([994da0b](https://github.com/Kong/kongponents/commit/994da0b389fe4214a78264ce4ebcffa9bfed95fd))
+* trigger release maybe ([60272f2](https://github.com/Kong/kongponents/commit/60272f281b85965e460cb66913960d85472aab43))
+* trigger release maybe ([206298c](https://github.com/Kong/kongponents/commit/206298c41c2acabc6566fcfa7d40663137e6b156))
+
+# [9.0.0-alpha.144](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.143...v9.0.0-alpha.144) (2024-04-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.9.0 ([#2144](https://github.com/Kong/kongponents/issues/2144)) ([04d688d](https://github.com/Kong/kongponents/commit/04d688de916858104fa8e58081a7c44de7c77813))
+* **deps:** update dependency @kong/icons to ^1.9.1 ([#2155](https://github.com/Kong/kongponents/issues/2155)) ([c3ad0ca](https://github.com/Kong/kongponents/commit/c3ad0cadb9c86616d99a620de766f81719d9414e))
+* **kinput:** add aria label to associate helper text with input [KHCP-11030] ([#2138](https://github.com/Kong/kongponents/issues/2138)) ([4b3ea54](https://github.com/Kong/kongponents/commit/4b3ea5452a2b7259d8a2b4f53574ac9329ee13aa))
+* **kselect:** fix double emits bug ([#2156](https://github.com/Kong/kongponents/issues/2156)) ([bcf23f4](https://github.com/Kong/kongponents/commit/bcf23f4cf3e9c1553f655a00fc217fe834605fc1))
+* **ktable:** column visibility design feedback ([#2152](https://github.com/Kong/kongponents/issues/2152)) ([717b6a9](https://github.com/Kong/kongponents/commit/717b6a9037ad680497dc6726288b8e32236cb7dd))
+* release tags ([b990c8c](https://github.com/Kong/kongponents/commit/b990c8cd9aa3d785ea5c257ef3362b293da70d21))
+* release tags ([05ae8fb](https://github.com/Kong/kongponents/commit/05ae8fb485a82852169928f89ab201fe5d0fb17a))
+* trigger release ([b2c1f99](https://github.com/Kong/kongponents/commit/b2c1f99751615b9135819fef89edcd4dea80fb16))
+* trigger release ([417f35b](https://github.com/Kong/kongponents/commit/417f35b5923bad9801566be26a707034683168aa))
+
+
+### Features
+
+* **kcatalogitem:** add card-footer slot ([#2154](https://github.com/Kong/kongponents/issues/2154)) ([e26025b](https://github.com/Kong/kongponents/commit/e26025b2ce0c2e7753c8b8633f7ee30749c53b91))
+* **kcodeblock, kcatalog, kcollapse, kstepper:** components reskin ([#2124](https://github.com/Kong/kongponents/issues/2124)) ([c3bfe87](https://github.com/Kong/kongponents/commit/c3bfe87da67e975910dbcf2b2fee0b28db217361)), closes [#2100](https://github.com/Kong/kongponents/issues/2100) [#2125](https://github.com/Kong/kongponents/issues/2125)
+* trigger release maybe ([206298c](https://github.com/Kong/kongponents/commit/206298c41c2acabc6566fcfa7d40663137e6b156))
+
+# [9.0.0-alpha.144](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.143...v9.0.0-alpha.144) (2024-04-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.9.0 ([#2144](https://github.com/Kong/kongponents/issues/2144)) ([04d688d](https://github.com/Kong/kongponents/commit/04d688de916858104fa8e58081a7c44de7c77813))
+* **deps:** update dependency @kong/icons to ^1.9.1 ([#2155](https://github.com/Kong/kongponents/issues/2155)) ([c3ad0ca](https://github.com/Kong/kongponents/commit/c3ad0cadb9c86616d99a620de766f81719d9414e))
+* **kinput:** add aria label to associate helper text with input [KHCP-11030] ([#2138](https://github.com/Kong/kongponents/issues/2138)) ([4b3ea54](https://github.com/Kong/kongponents/commit/4b3ea5452a2b7259d8a2b4f53574ac9329ee13aa))
+* **kselect:** fix double emits bug ([#2156](https://github.com/Kong/kongponents/issues/2156)) ([bcf23f4](https://github.com/Kong/kongponents/commit/bcf23f4cf3e9c1553f655a00fc217fe834605fc1))
+* **ktable:** column visibility design feedback ([#2152](https://github.com/Kong/kongponents/issues/2152)) ([717b6a9](https://github.com/Kong/kongponents/commit/717b6a9037ad680497dc6726288b8e32236cb7dd))
+* release tags ([b990c8c](https://github.com/Kong/kongponents/commit/b990c8cd9aa3d785ea5c257ef3362b293da70d21))
+* release tags ([05ae8fb](https://github.com/Kong/kongponents/commit/05ae8fb485a82852169928f89ab201fe5d0fb17a))
+* trigger release ([b2c1f99](https://github.com/Kong/kongponents/commit/b2c1f99751615b9135819fef89edcd4dea80fb16))
+* trigger release ([417f35b](https://github.com/Kong/kongponents/commit/417f35b5923bad9801566be26a707034683168aa))
+
+
+### Features
+
+* **kcatalogitem:** add card-footer slot ([#2154](https://github.com/Kong/kongponents/issues/2154)) ([e26025b](https://github.com/Kong/kongponents/commit/e26025b2ce0c2e7753c8b8633f7ee30749c53b91))
+* **kcodeblock, kcatalog, kcollapse, kstepper:** components reskin ([#2124](https://github.com/Kong/kongponents/issues/2124)) ([c3bfe87](https://github.com/Kong/kongponents/commit/c3bfe87da67e975910dbcf2b2fee0b28db217361)), closes [#2100](https://github.com/Kong/kongponents/issues/2100) [#2125](https://github.com/Kong/kongponents/issues/2125)
+
+# [9.0.0-alpha.144](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.143...v9.0.0-alpha.144) (2024-04-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.9.0 ([#2144](https://github.com/Kong/kongponents/issues/2144)) ([04d688d](https://github.com/Kong/kongponents/commit/04d688de916858104fa8e58081a7c44de7c77813))
+* **deps:** update dependency @kong/icons to ^1.9.1 ([#2155](https://github.com/Kong/kongponents/issues/2155)) ([c3ad0ca](https://github.com/Kong/kongponents/commit/c3ad0cadb9c86616d99a620de766f81719d9414e))
+* **kinput:** add aria label to associate helper text with input [KHCP-11030] ([#2138](https://github.com/Kong/kongponents/issues/2138)) ([4b3ea54](https://github.com/Kong/kongponents/commit/4b3ea5452a2b7259d8a2b4f53574ac9329ee13aa))
+* **kselect:** fix double emits bug ([#2156](https://github.com/Kong/kongponents/issues/2156)) ([bcf23f4](https://github.com/Kong/kongponents/commit/bcf23f4cf3e9c1553f655a00fc217fe834605fc1))
+* **ktable:** column visibility design feedback ([#2152](https://github.com/Kong/kongponents/issues/2152)) ([717b6a9](https://github.com/Kong/kongponents/commit/717b6a9037ad680497dc6726288b8e32236cb7dd))
+* release tags ([05ae8fb](https://github.com/Kong/kongponents/commit/05ae8fb485a82852169928f89ab201fe5d0fb17a))
+* trigger release ([b2c1f99](https://github.com/Kong/kongponents/commit/b2c1f99751615b9135819fef89edcd4dea80fb16))
+* trigger release ([417f35b](https://github.com/Kong/kongponents/commit/417f35b5923bad9801566be26a707034683168aa))
+
+
+### Features
+
+* **kcatalogitem:** add card-footer slot ([#2154](https://github.com/Kong/kongponents/issues/2154)) ([e26025b](https://github.com/Kong/kongponents/commit/e26025b2ce0c2e7753c8b8633f7ee30749c53b91))
+* **kcodeblock, kcatalog, kcollapse, kstepper:** components reskin ([#2124](https://github.com/Kong/kongponents/issues/2124)) ([c3bfe87](https://github.com/Kong/kongponents/commit/c3bfe87da67e975910dbcf2b2fee0b28db217361)), closes [#2100](https://github.com/Kong/kongponents/issues/2100) [#2125](https://github.com/Kong/kongponents/issues/2125)
+
 # [9.0.0-alpha.144](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.143...v9.0.0-alpha.144) (2024-04-24)
 
 

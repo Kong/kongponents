@@ -4,12 +4,6 @@
     title="KDateTimePicker"
   >
     <div class="kdatetimepicker-sandbox">
-      <SandboxSectionComponent>
-        <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=2020%3A11255&mode=dev&t=7C3HUCeWQiS7AhA7-1">
-          Figma
-        </KExternalLink>
-      </SandboxSectionComponent>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
@@ -18,7 +12,7 @@
       <SandboxSectionComponent title="popoverPlacement">
         <KDateTimePicker
           mode="dateTime"
-          popover-placement="bottomEnd"
+          popover-placement="bottom-end"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="clearButton">
@@ -139,7 +133,7 @@
           <div>
             <KDateTimePicker
               mode="dateTime"
-              popover-placement="bottomEnd"
+              popover-placement="bottom-end"
               range
             />
           </div>

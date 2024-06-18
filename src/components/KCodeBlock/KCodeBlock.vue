@@ -396,7 +396,7 @@ const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
 
 const totalLines = computed((): number[] => Array.from({ length: props.code?.split('\n').length }, (_, index) => index + 1))
-const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value.length - 1].toString().length + 'ch')
+const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value.length - 1]?.toString().length + 'ch')
 const linePrefix = computed((): string => props.id.toLowerCase().replace(/\s+/g, '-'))
 const isProcessing = computed((): boolean => props.processing || isProcessingInternally.value)
 const isShowingFilteredCode = computed((): boolean => isFilterMode.value && filteredCode.value !== '')
@@ -705,7 +705,7 @@ async function copyCode(event: Event): Promise<void> {
   if (hasCopiedCodeSuccessfully) {
     button.setAttribute('data-tooltip-text', 'Copied code!')
 
-    window.setTimeout(function() {
+    window?.setTimeout(function() {
       button.removeAttribute('data-tooltip-text')
     }, 1500)
   }
@@ -715,6 +715,11 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
 </script>
 
 <style lang="scss" scoped>
+/* Component variables */
+
+// background color for the matching line (search or filter) in dark theme
+$kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't have a token for this
+
 /* Component mixins */
 
 @mixin kCodeBlockTypography {
@@ -893,7 +898,7 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
 
             &.line-is-match {
               &::before {
-                background-color: $tmp-color-white-opaque-12; // we don't have a token for this now and we might not ever need one so using a temp variable
+                background-color: $kCodeBlockDarkLineMatchBackgroundColor;
               }
 
               &.line-is-highlighted-match {

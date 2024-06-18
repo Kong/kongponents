@@ -15,7 +15,7 @@ KCard is a styled container that organizes related content and actions.
     >
       <KButton
         appearance="tertiary"
-        class="icon-button"
+        icon
         size="small"
       >
         <MoreIcon />
@@ -148,7 +148,7 @@ Bottom drawer of the card. Useful for providing contextual information.
     >
       <KButton
         appearance="tertiary"
-        class="icon-button"
+        icon
         size="small"
       >
         <MoreIcon />

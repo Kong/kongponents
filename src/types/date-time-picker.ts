@@ -25,7 +25,8 @@ export interface TimeRange {
 }
 
 export interface TimePeriod {
-  key: string // unique identifier
+  /** Unique identifier */
+  key: string
   display: string
   timeframeText: string
   timeframeLength: () => string
@@ -41,7 +42,7 @@ export interface TimeFrameSection {
 export interface DateTimePickerState {
   abbreviatedDisplay: string
   fullRangeDisplay?: string
-  hidePopover: boolean
+  popoverOpen: boolean
   selectedRange: TimeRange
   previouslySelectedRange: TimeRange
   selectedTimeframe: TimePeriod

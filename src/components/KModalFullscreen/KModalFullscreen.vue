@@ -47,7 +47,7 @@
           <div class="k-modal-fullscreen-title">
             <span class="header-icon">
               <slot name="header-icon">
-                <KIcon :icon="iconString" />
+                <KongIcon :color="KUI_COLOR_TEXT_DECORATIVE_AQUA" />
               </slot>
             </span>
             <span class="header-content">
@@ -104,8 +104,9 @@
 import type { PropType } from 'vue'
 import { watch, ref, computed, onMounted, onUnmounted, onBeforeUnmount, nextTick } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
 import type { ButtonAppearance } from '@/types'
+import { KongIcon } from '@kong/icons'
+import { KUI_COLOR_TEXT_DECORATIVE_AQUA } from '@kong/design-tokens'
 
 const props = defineProps({
   /**
@@ -165,7 +166,8 @@ const props = defineProps({
     default: 'secondary',
   },
   /**
-  *  Pass the type of icon for the header on the left
+  * @deprecated
+  * Pass the type of icon for the header on the left
   */
   iconString: {
     type: String,
@@ -217,7 +219,7 @@ const proceed = () => {
 onMounted(() => {
   document.addEventListener('keydown', handleKeydown)
 
-  console.warn("The Kongponents 'KFullScreenModal' component is deprecated and will be removed in the 9.0.0-beta.0 release.\nWe suggest using 'KModal' component instead.\nDocs: https://alpha--kongponents.netlify.app/components/modal.html#fullscreen")
+  console.warn("The Kongponents 'KFullScreenModal' component is deprecated and will be removed in the next major release.\nWe suggest using 'KModal' component instead.\nDocs: https://alpha--kongponents.netlify.app/components/modal.html#fullscreen")
 })
 
 onBeforeUnmount(() => {
@@ -405,9 +407,5 @@ $fullscreen-modal-padding: 64px;
   margin-bottom: var(--kui-space-auto, $kui-space-auto) !important;
   margin-top: var(--kui-space-auto, $kui-space-auto) !important;
   padding-right: var(--kui-space-40, $kui-space-40) !important;
-  .kong-icon.kong-icon-kong {
-    position: relative;
-    top: 1px;
-  }
 }
 </style>

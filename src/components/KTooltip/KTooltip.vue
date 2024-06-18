@@ -3,19 +3,20 @@
     v-if="showTooltip"
     v-bind="$attrs"
     hide-caret
+    hide-close-icon
     :max-width="maxWidth"
     :placement="placement"
-    :popover-classes="`k-tooltip ${computedClass}`"
+    popover-classes="k-tooltip"
     :popover-timeout="100"
-    :position-fixed="positionFixed"
     trigger="hover"
     width="auto"
+    :z-index="zIndex"
   >
     <slot />
 
     <template #content>
       <div
-        :id="tooltipId || randomTooltipId"
+        v-bind-once="{ id: tooltipId || randomTooltipId }"
         role="tooltip"
       >
         <slot
@@ -39,7 +40,11 @@ import type { PropType } from 'vue'
 import KPop from '@/components/KPop/KPop.vue'
 import type { PopPlacements } from '@/types'
 import { PopPlacementsArray } from '@/types'
-import { v4 as uuidv4 } from 'uuid'
+import useUniqueId from '@/composables/useUniqueId'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = defineProps({
   /**
@@ -60,13 +65,6 @@ const props = defineProps({
     validator: (value: PopPlacements):boolean => {
       return PopPlacementsArray.includes(value)
     },
-  },
-  /**
-  * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
-  */
-  positionFixed: {
-    type: Boolean,
-    default: true,
   },
   /**
   * Set the max-width of the ktooltip
@@ -97,73 +95,60 @@ const slots = useSlots()
 
 const showTooltip = computed((): boolean => !!props.text || !!props.label || !!slots.content)
 
-const randomTooltipId = uuidv4()
-
-const computedClass = computed((): string => {
-  let placementClass = ''
-  const placementDirections = ['top', 'right', 'bottom', 'left']
-
-  placementDirections.forEach((direction) => {
-    if (props.placement.toLocaleLowerCase().includes(direction)) {
-      if (placementClass) {
-        placementClass += ` tooltip-${direction}`
-      } else {
-        placementClass = `tooltip-${direction}`
-      }
-    }
-  })
-
-  return placementClass
-})
+const randomTooltipId = useUniqueId()
 </script>
 
 <style lang="scss" scoped>
-:deep(.k-tooltip.k-popover) {
-  background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
-  border: none;
-  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-  color: var(--kui-color-text-inverse, $kui-color-text-inverse);
-  font-family: var(--kui-font-family-text, $kui-font-family-text);
-  font-size: var(--kui-font-size-20, $kui-font-size-20);
-  font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
-  line-height: var(--kui-line-height-20, $kui-line-height-20);
-  padding: var(--kui-space-30, $kui-space-30);
-  z-index: v-bind('zIndex');
+:deep(.k-tooltip.popover) {
+  .popover-container {
+    background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
+    border: none;
+    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+    padding: var(--kui-space-30, $kui-space-30);
 
-  &.tooltip-top {
+    .popover-content {
+      color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+      font-family: var(--kui-font-family-text, $kui-font-family-text);
+      font-size: var(--kui-font-size-20, $kui-font-size-20);
+      font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+      line-height: var(--kui-line-height-20, $kui-line-height-20);
+
+      code {
+        color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
+      }
+
+      a {
+        color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+
+        &:hover {
+          color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker);
+        }
+
+        &:focus-visible {
+          color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
+        }
+
+        &:active {
+          color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
+        }
+      }
+    }
+  }
+
+  &[x-placement^="top"] .popover-container {
     margin-bottom: var(--kui-space-20, $kui-space-20);
   }
 
-  &.tooltip-right {
+  &[x-placement^="right"] .popover-container {
     margin-left: var(--kui-space-20, $kui-space-20);
   }
 
-  &.tooltip-bottom {
+  &[x-placement^="bottom"] .popover-container {
     margin-top: var(--kui-space-20, $kui-space-20);
   }
 
-  &.tooltip-left {
+  &[x-placement^="left"] .popover-container {
     margin-right: var(--kui-space-20, $kui-space-20);
-  }
-
-  code {
-    color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
-  }
-
-  a {
-    color: var(--kui-color-text-inverse, $kui-color-text-inverse);
-
-    &:hover {
-      color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker);
-    }
-
-    &:focus-visible {
-      color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
-    }
-
-    &:active {
-      color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
-    }
   }
 }
 </style>

@@ -14,8 +14,7 @@
         v-if="format !== 'hidden'"
         :class="[textTooltipClasses]"
         data-testid="copy-tooltip-wrapper"
-        placement="bottomStart"
-        position-fixed
+        placement="bottom-start"
         :text="textTooltipLabel"
       >
         <div
@@ -30,13 +29,12 @@
       <KTooltip
         class="text-icon-wrapper"
         max-width="500px"
-        placement="bottomStart"
-        position-fixed
+        placement="bottom-start"
         :text="tooltipText"
       >
         <KClipboardProvider v-slot="{ copyToClipboard }">
           <button
-            :id="copyButtonElementId"
+            v-bind-once="{ id: copyButtonElementId }"
             :aria-label="tooltipText"
             class="copy-to-clipboard-button"
             data-testid="copy-to-clipboard"
@@ -58,12 +56,12 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
-import { v4 as uuid4 } from 'uuid'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { CopyIcon } from '@kong/icons'
 import KClipboardProvider from '@/components/KClipboardProvider'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   /**
@@ -141,7 +139,7 @@ const props = defineProps({
   },
 })
 
-const copyButtonElementId = uuid4()
+const copyButtonElementId = useUniqueId()
 
 const tooltipText = ref<string>('')
 const nonSuccessText = computed((): string => {
@@ -205,8 +203,8 @@ const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
 }
 
 const copy = () => {
-  if (document.getElementById(copyButtonElementId)) {
-    document.getElementById(copyButtonElementId)?.click()
+  if (document?.getElementById(copyButtonElementId)) {
+    document?.getElementById(copyButtonElementId)?.click()
   }
 }
 
@@ -226,7 +224,7 @@ const setTruncation = (): void => {
   if (props.truncationLimit !== 'auto' && truncateLimitText.value) {
     isTruncated.value = true
   } else if (props.truncationLimit === 'auto' && copyTextElement.value) {
-    isTruncated.value = copyTextElement.value.offsetWidth < copyTextElement.value.scrollWidth
+    isTruncated.value = copyTextElement.value?.offsetWidth < copyTextElement.value?.scrollWidth
   }
 }
 

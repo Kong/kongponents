@@ -22,7 +22,6 @@
 # Dev tools
 /.eslintrc.js @adamdehaven @jillztom
 /.stylelintrc.cjs @adamdehaven @jillztom @portikM
-/deprecated-classes.cjs @adamdehaven @jillztom @portikM
 /.gitignore @adamdehaven @jillztom @kaiarrowood
 /vite.config.ts @adamdehaven @jillztom
 
@@ -30,4 +29,4 @@
 # Allow Kongponents BOT to approve dependabot updates
 # These rules MUST remain at the bottom as the last entry
 package.json @kongponents-bot @Kong/team-core-ui @adamdehaven @jillztom @kaiarrowood
-yarn.lock @kongponents-bot @Kong/team-core-ui @adamdehaven @jillztom @kaiarrowood
+pnpm-lock.yaml @kongponents-bot @Kong/team-core-ui @adamdehaven @jillztom @kaiarrowood

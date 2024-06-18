@@ -129,6 +129,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxPagination.vue'),
   },
   {
+    path: '/pop',
+    name: 'pop',
+    meta: { title: 'Pop Sandbox' },
+    component: () => import('../pages/SandboxPop.vue'),
+  },
+  {
     path: '/radio',
     name: 'radio',
     meta: { title: 'Radio Sandbox' },
@@ -168,7 +174,7 @@ const componentRoutes: RouteRecordRaw[] = [
     path: '/table',
     name: 'table',
     meta: { title: 'Table Sandbox' },
-    component: () => import('../pages/SandboxTable.vue'),
+    component: () => import('../pages/SandboxTable/SandboxTable.vue'),
   },
   {
     path: '/tabs',

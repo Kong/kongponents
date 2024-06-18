@@ -1,6 +1,6 @@
 <template>
   <label
-    :aria-describedby="hasTooltip ? tooltipId : undefined"
+    v-bind-once="{ ...(hasTooltip && { 'aria-describedby': tooltipId }) }"
     class="k-label"
     :class="{ 'required': required }"
   >
@@ -10,14 +10,13 @@
       v-if="hasTooltip"
       v-bind="tooltipAttributes"
       class="label-tooltip"
-      position-fixed
       :tooltip-id="tooltipId"
     >
       <InfoIcon
         class="tooltip-trigger-icon"
         :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
+        decorative
         tabindex="0"
-        title="More info"
       />
       <template #content>
         <slot name="tooltip">{{ info || help }}</slot>
@@ -33,7 +32,7 @@ import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { TooltipAttributes } from '@/types'
 import { InfoIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
-import { v4 as uuidv4 } from 'uuid'
+import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   info: {
@@ -68,7 +67,7 @@ const slots = useSlots()
 
 const hasTooltip = computed((): boolean => !!(props.help || props.info || slots.tooltip))
 
-const tooltipId = uuidv4()
+const tooltipId = useUniqueId()
 </script>
 
 <style lang="scss" scoped>

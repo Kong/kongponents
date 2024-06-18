@@ -4,15 +4,6 @@
     title="KCodeBlock"
   >
     <div class="kcodeblock-sandbox">
-      <!-- Figma -->
-      <SandboxTitleComponent
-        is-subtitle
-        title="Figma"
-      />
-      <KExternalLink href="https://www.figma.com/file/Yze0SWXl5nKjR0rFdilljK/Components?type=design&node-id=2020%3A11253&mode=dev&t=wfYkBJZ5Ry0OUS2m-1">
-        Figma
-      </KExternalLink>
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
