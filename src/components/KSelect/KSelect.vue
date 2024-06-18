@@ -54,7 +54,7 @@
             :model-value="filterQuery"
             :placeholder="selectedItem && !enableFiltering ? selectedItem.label : placeholderText"
             :readonly="isReadonly"
-            v-bind="modifiedAttrs"
+            v-bind="attrs.id ? { id: String(attrs.id), ...modifiedAttrs } : { ...modifiedAttrs }"
             @blur="onInputBlur"
             @focus="onInputFocus"
             @keypress="onInputKeypress"

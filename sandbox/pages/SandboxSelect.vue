@@ -4,6 +4,7 @@
     title="KSelect"
   >
     <KSelect
+      id="foobar-here"
       :items="selectItems"
       label="Label"
     />
