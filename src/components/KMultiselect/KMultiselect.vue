@@ -42,7 +42,6 @@
           >
             <div v-if="collapsedContext">
               <KInput
-                :id="$attrs.id ? String($attrs.id) : undefined"
                 ref="multiselectInputElement"
                 autocapitalize="off"
                 autocomplete="off"
@@ -158,8 +157,6 @@
                 class="multiselect-input-wrapper"
               >
                 <KInput
-                  v-bind="modifiedAttrs"
-                  :id="$attrs.id ? String($attrs.id) : undefined"
                   ref="multiselectDropdownInputElement"
                   autocapitalize="off"
                   autocomplete="off"
@@ -478,7 +475,7 @@ const defaultKPopAttributes = {
 const key = ref(0)
 const stagingKey = ref(0)
 
-const multiselectWrapperId = useUniqueId() // unique id for the KLabel `for` attribute
+const multiselectWrapperId = attrs.id ? String(attrs.id) : useUniqueId() // unique id for the KLabel `for` attribute
 const multiselectKey = useUniqueId()
 
 const multiselectElement = ref<HTMLDivElement | null>(null)

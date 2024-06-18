@@ -30,7 +30,7 @@
       </span>
 
       <KInput
-        v-bind="attrs"
+        v-bind="attrs.id ? { id: String(attrs.id) } : {}"
         :key="fileInputKey"
         ref="fileInputElement"
         :accept="accept"
