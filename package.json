@@ -76,7 +76,7 @@
     "@babel/types": "^7.24.7",
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
-    "@cypress/vite-dev-server": "^5.1.0",
+    "@cypress/vite-dev-server": "^5.1.1",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@evilmartians/lefthook": "^1.6.15",
     "@kong-ui-public/sandbox-layout": "^2.1.6",
@@ -120,12 +120,12 @@
     "stylelint-order": "^6.0.4",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.4.5",
-    "vite": "^5.2.12",
+    "vite": "^5.2.13",
     "vite-plugin-vue-devtools": "^7.2.1",
     "vitepress": "^1.2.3",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2",
-    "vue-tsc": "^2.0.19"
+    "vue-tsc": "^2.0.20"
   },
   "resolutions": {
     "rollup": "npm:@rollup/wasm-node"
