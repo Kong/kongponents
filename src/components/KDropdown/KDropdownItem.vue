@@ -138,7 +138,7 @@ const strippedAttrs = computed((): typeof attrs => {
 
   // remove some attributes because we want them on wrapper element not the trigger element
   delete modifiedAttrs.class
-  delete modifiedAttrs.disable
+  delete modifiedAttrs.disabled
   delete modifiedAttrs.style
 
   return modifiedAttrs
