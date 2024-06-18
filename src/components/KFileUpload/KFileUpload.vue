@@ -267,6 +267,11 @@ const setLabelAttributes = () => {
   }
 }
 
+watch(fileInputKey, async () => {
+  await nextTick()
+  setLabelAttributes()
+})
+
 watch(() => attrs.id, async () => {
   fileInputKey.value++
   await nextTick()

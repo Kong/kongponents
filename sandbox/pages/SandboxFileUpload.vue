@@ -3,7 +3,14 @@
     :links="inject('app-links', [])"
     title="KFileUpload"
   >
-    <div class="kfileupload-sandbox">
+    <KFileUpload
+      :accept="['image/*']"
+      label="Label"
+    />
+    <div
+      v-if="false"
+      class="kfileupload-sandbox"
+    >
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
