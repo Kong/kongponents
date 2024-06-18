@@ -40,6 +40,7 @@
           @click="onSelectWrapperClick"
         >
           <KInput
+            :key="inputKey"
             ref="inputElement"
             autocapitalize="off"
             autocomplete="off"
@@ -364,6 +365,7 @@ const defaultKPopAttributes = {
   hideCaret: true,
 }
 
+const inputKey = ref<number>(0)
 const inputElement = ref<InstanceType<typeof KInput> | null>(null)
 const labelElement = ref<InstanceType<typeof KLabel> | null>(null)
 
@@ -587,6 +589,20 @@ const onOpen = (toggle: () => void) => {
   toggle()
 }
 
+const setLabelAttributes = () => {
+  /**
+   * Temporary fix for the issue where we can't use v-bind-once to pass id to a custom element (KInput)
+   * TODO: remove this once useId is released in Vue 3.5
+   */
+  if (!attrs.id) {
+    const inputElementId = inputElement.value?.$el?.querySelector('input')?.id
+
+    if (inputElementId) {
+      labelElement.value?.$el?.setAttribute('for', inputElementId)
+    }
+  }
+}
+
 watch(value, (newVal, oldVal) => {
   if (newVal !== oldVal) {
     const item = selectItems.value?.filter((item: SelectItem) => item.value === newVal)
@@ -667,6 +683,12 @@ watch(selectedItem, (newVal, oldVal) => {
   }
 }, { deep: true })
 
+watch(() => attrs.id, async () => {
+  inputKey.value++
+  await nextTick()
+  setLabelAttributes()
+}, { immediate: true })
+
 onMounted(() => {
   if (selectWrapperElement.value) {
     resizeObserver.value = ResizeObserverHelper.create(() => {
@@ -676,17 +698,7 @@ onMounted(() => {
     resizeObserver.value.observe(selectWrapperElement.value as HTMLDivElement)
   }
 
-  /**
-   * Temporary fix for the issue where we can't use v-bind-once to pass id to a custom element (KInput)
-   * TODO: remove this once useId is released in Vue 3.5
-   */
-  if (!attrs.id) {
-    const inputElementId = inputElement.value?.$el?.querySelector('input')?.id
-
-    if (inputElementId) {
-      labelElement.value?.$el?.setAttribute('for', inputElementId)
-    }
-  }
+  setLabelAttributes()
 })
 
 onUnmounted(() => {

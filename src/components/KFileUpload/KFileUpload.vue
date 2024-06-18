@@ -76,7 +76,7 @@ export default {
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, ref, useAttrs, useSlots, onMounted } from 'vue'
+import { computed, ref, useAttrs, useSlots, onMounted, watch, nextTick } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
@@ -182,7 +182,7 @@ const hasUploadError = ref<boolean>(false)
 // This holds the FileList
 const fileInput = ref<File[]>([])
 // To clear the input value after reset
-const fileInputKey = ref(0)
+const fileInputKey = ref<number>(0)
 // File fakepath
 const fileValue = ref<string>('')
 // Array to store the previously selected FileList when user clicks reopen the file uploader and clicks on Cancel
@@ -253,7 +253,7 @@ const resetInput = (): void => {
   emit('file-removed')
 }
 
-onMounted(() => {
+const setLabelAttributes = () => {
   /**
    * Temporary fix for the issue where we can't use v-bind-once to pass id to a custom element (KInput)
    * TODO: remove this once useId is released in Vue 3.5
@@ -265,6 +265,16 @@ onMounted(() => {
       labelElement.value?.$el?.setAttribute('for', inputElementId)
     }
   }
+}
+
+watch(() => attrs.id, async () => {
+  fileInputKey.value++
+  await nextTick()
+  setLabelAttributes()
+}, { immediate: true })
+
+onMounted(() => {
+  setLabelAttributes()
 })
 </script>
 
