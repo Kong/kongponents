@@ -6,7 +6,7 @@
       'disabled': disabled,
       'danger': danger || isDangerous,
       'dropdown-selected-option': selected,
-    }, $attrs.class]"
+    }, $attrs.class, $attrs.style]"
     data-testid="dropdown-item"
   >
     <component
@@ -138,7 +138,8 @@ const strippedAttrs = computed((): typeof attrs => {
 
   // remove some attributes because we want them on wrapper element not the trigger element
   delete modifiedAttrs.class
-  delete modifiedAttrs.disabled
+  delete modifiedAttrs.disable
+  delete modifiedAttrs.style
 
   return modifiedAttrs
 })
