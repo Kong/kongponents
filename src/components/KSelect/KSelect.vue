@@ -40,7 +40,7 @@
           @click="onSelectWrapperClick"
         >
           <KInput
-            ref="fileInputElement"
+            ref="inputElement"
             autocapitalize="off"
             autocomplete="off"
             class="select-input"
@@ -364,7 +364,7 @@ const defaultKPopAttributes = {
   hideCaret: true,
 }
 
-const fileInputElement = ref<InstanceType<typeof KInput> | null>(null)
+const inputElement = ref<InstanceType<typeof KInput> | null>(null)
 const labelElement = ref<InstanceType<typeof KLabel> | null>(null)
 
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
@@ -681,10 +681,10 @@ onMounted(() => {
    * TODO: remove this once useId is released in Vue 3.5
    */
   if (!attrs.id) {
-    const inputElementId = fileInputElement.value?.$el?.querySelector('input')?.id
+    const inputElementId = inputElement.value?.$el?.querySelector('input')?.id
 
     if (inputElementId) {
-      labelElement.value?.$el.setAttribute('for', inputElementId)
+      labelElement.value?.$el?.setAttribute('for', inputElementId)
     }
   }
 })

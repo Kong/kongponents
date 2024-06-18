@@ -262,7 +262,7 @@ onMounted(() => {
     const inputElementId = fileInputElement.value?.$el?.querySelector('input')?.id
 
     if (inputElementId) {
-      labelElement.value?.$el.setAttribute('for', inputElementId)
+      labelElement.value?.$el?.setAttribute('for', inputElementId)
     }
   }
 })
