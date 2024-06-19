@@ -272,10 +272,8 @@ watch(fileInputKey, async () => {
   setLabelAttributes()
 })
 
-watch(() => attrs.id, async () => {
+watch(() => attrs.id, () => {
   fileInputKey.value++
-  await nextTick()
-  setLabelAttributes()
 }, { immediate: true })
 
 onMounted(() => {
