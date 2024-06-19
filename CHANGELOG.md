@@ -1,3 +1,10 @@
+# [9.0.0-alpha.179](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.178...v9.0.0-alpha.179) (2024-06-19)
+
+
+### Bug Fixes
+
+* **kfileupload, kselect, kmultiselect:** kinput id [KHCP-12336] ([#2241](https://github.com/Kong/kongponents/issues/2241)) ([528280d](https://github.com/Kong/kongponents/commit/528280db3c7c710c7c42a65df04ee674c6baf765))
+
 # [9.0.0-alpha.178](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.177...v9.0.0-alpha.178) (2024-06-17)
 
 

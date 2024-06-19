@@ -5,9 +5,10 @@
   >
     <KLabel
       v-if="label"
-      v-bind-once="{ for: selectId }"
+      ref="labelElement"
       v-bind="labelAttributes"
       data-testid="select-label"
+      :for="$attrs.id ? String($attrs.id) : undefined"
       :required="isRequired"
     >
       {{ strippedLabel }}
@@ -39,7 +40,8 @@
           @click="onSelectWrapperClick"
         >
           <KInput
-            v-bind-once="{ id: selectId }"
+            :key="inputKey"
+            ref="inputElement"
             autocapitalize="off"
             autocomplete="off"
             class="select-input"
@@ -52,7 +54,7 @@
             :model-value="filterQuery"
             :placeholder="selectedItem && !enableFiltering ? selectedItem.label : placeholderText"
             :readonly="isReadonly"
-            v-bind="modifiedAttrs"
+            v-bind="attrs.id ? { id: String(attrs.id), ...modifiedAttrs } : { ...modifiedAttrs }"
             @blur="onInputBlur"
             @focus="onInputFocus"
             @keypress="onInputKeypress"
@@ -191,7 +193,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { Ref, PropType } from 'vue'
 import { ref, computed, watch, nextTick, useAttrs, useSlots, onUnmounted, onMounted } from 'vue'
 import useUtilities from '@/composables/useUtilities'
@@ -212,12 +214,10 @@ import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
 import useUniqueId from '@/composables/useUniqueId'
 
-export default {
+defineOptions({
   inheritAttrs: false,
-}
-</script>
+})
 
-<script setup lang="ts">
 const { getSizeFromString, stripRequiredLabel } = useUtilities()
 
 const props = defineProps({
@@ -363,6 +363,10 @@ const defaultKPopAttributes = {
   hideCaret: true,
 }
 
+const inputKey = ref<number>(0)
+const inputElement = ref<InstanceType<typeof KInput> | null>(null)
+const labelElement = ref<InstanceType<typeof KLabel> | null>(null)
+
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 
 const filterQuery = ref<string>('')
@@ -382,7 +386,6 @@ const uniqueFilterQuery = computed((): boolean => {
 
 const selectWrapperId = useUniqueId() // unique id for the KPop target
 const selectedItem = ref<SelectItem | null>(null)
-const selectId = attrs.id ? String(attrs.id) : useUniqueId()
 const selectItems = ref<SelectItem[]>([])
 const inputFocused = ref<boolean>(false)
 
@@ -584,6 +587,20 @@ const onOpen = (toggle: () => void) => {
   toggle()
 }
 
+const setLabelAttributes = () => {
+  /**
+   * Temporary fix for the issue where we can't use v-bind-once to pass id to a custom element (KInput)
+   * TODO: remove this once useId is released in Vue 3.5
+   */
+  if (!attrs.id) {
+    const inputElementId = inputElement.value?.$el?.querySelector('input')?.id
+
+    if (inputElementId) {
+      labelElement.value?.$el?.setAttribute('for', inputElementId)
+    }
+  }
+}
+
 watch(value, (newVal, oldVal) => {
   if (newVal !== oldVal) {
     const item = selectItems.value?.filter((item: SelectItem) => item.value === newVal)
@@ -664,6 +681,12 @@ watch(selectedItem, (newVal, oldVal) => {
   }
 }, { deep: true })
 
+watch(() => attrs.id, async () => {
+  inputKey.value++
+  await nextTick()
+  setLabelAttributes()
+}, { immediate: true })
+
 onMounted(() => {
   if (selectWrapperElement.value) {
     resizeObserver.value = ResizeObserverHelper.create(() => {
@@ -672,6 +695,8 @@ onMounted(() => {
 
     resizeObserver.value.observe(selectWrapperElement.value as HTMLDivElement)
   }
+
+  setLabelAttributes()
 })
 
 onUnmounted(() => {
