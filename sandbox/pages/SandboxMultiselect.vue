@@ -3,14 +3,7 @@
     :links="inject('app-links', [])"
     title="KMultiselect"
   >
-    <KMultiselect
-      :items="multiselectItems"
-      label="Label"
-    />
-    <div
-      v-if="false"
-      class="kmultiselect-sandbox"
-    >
+    <div class="kmultiselect-sandbox">
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle

@@ -3,15 +3,7 @@
     :links="inject('app-links', [])"
     title="KSelect"
   >
-    <KSelect
-      id="foobar-here"
-      :items="selectItems"
-      label="Label"
-    />
-    <div
-      v-if="false"
-      class="kselect-sandbox"
-    >
+    <div class="kselect-sandbox">
       <!-- Examples -->
       <SandboxTitleComponent
         is-subtitle
