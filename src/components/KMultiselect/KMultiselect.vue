@@ -309,13 +309,13 @@ const itemValuesAreUnique = (items: MultiselectItem[]): boolean => {
 
   return vals.length === uniqueValues.size
 }
-
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <script setup lang="ts">
+defineOptions({
+  inheritAttrs: false,
+})
+
 const attrs = useAttrs()
 const slots = useSlots()
 

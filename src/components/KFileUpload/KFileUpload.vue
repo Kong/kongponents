@@ -68,13 +68,11 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  inheritAttrs: false,
-}
-</script>
-
 <script lang="ts" setup>
+defineOptions({
+  inheritAttrs: false,
+})
+
 import type { PropType } from 'vue'
 import { computed, ref, useAttrs, useSlots, onMounted, watch, nextTick } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'

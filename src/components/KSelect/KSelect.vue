@@ -193,7 +193,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { Ref, PropType } from 'vue'
 import { ref, computed, watch, nextTick, useAttrs, useSlots, onUnmounted, onMounted } from 'vue'
 import useUtilities from '@/composables/useUtilities'
@@ -214,12 +214,10 @@ import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
 import useUniqueId from '@/composables/useUniqueId'
 
-export default {
+defineOptions({
   inheritAttrs: false,
-}
-</script>
+})
 
-<script setup lang="ts">
 const { getSizeFromString, stripRequiredLabel } = useUtilities()
 
 const props = defineProps({
