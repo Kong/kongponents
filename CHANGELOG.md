@@ -1,3 +1,10 @@
+# [9.0.0-alpha.180](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.179...v9.0.0-alpha.180) (2024-06-20)
+
+
+### Bug Fixes
+
+* **kdropdownitem:** attribute handling ([#2157](https://github.com/Kong/kongponents/issues/2157)) ([8a78dd5](https://github.com/Kong/kongponents/commit/8a78dd50473b8f297165285ba1bf6291b320749e))
+
 # [9.0.0-alpha.179](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.178...v9.0.0-alpha.179) (2024-06-19)
 
 
