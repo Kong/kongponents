@@ -196,14 +196,14 @@ describe('KDropdown', () => {
     cy.getTestId('dropdown-list').eq(0).find('.has-divider').should('have.length', 2)
     cy.getTestId('dropdown-list').eq(0).find('.danger').should('have.length', 1)
 
-    cy.get('[data-testid="button"] button').should('be.visible')
-    cy.get('[data-testid="disabled-button"] button').should('be.visible')
+    cy.get('button[data-testid="button"]').should('be.visible')
+    cy.get('button[data-testid="disabled-button"]').should('be.visible')
 
-    cy.get('[data-testid="router-link"] router-link').should('be.visible')
-    cy.get('[data-testid="disabled-router-link"] router-link').should('be.visible')
+    cy.get('router-link[data-testid="router-link"]').should('be.visible')
+    cy.get('router-link[data-testid="disabled-router-link"]').should('be.visible')
 
-    cy.get('[data-testid="external-link"] a').should('be.visible')
-    cy.get('[data-testid="disabled-external-link"] a').should('be.visible')
+    cy.get('a[data-testid="external-link"]').should('be.visible')
+    cy.get('a[data-testid="disabled-external-link"]').should('be.visible')
   })
 })
 
@@ -228,11 +228,11 @@ describe('KDropdownItem', () => {
       },
     })
 
-    cy.getTestId('dropdown-item').should('not.exist')
-    cy.getTestId(testIdAttr).should('be.visible')
-    cy.getTestId(testIdAttr).find('[data-testid="dropdown-item-trigger"]').should('have.attr', 'target', '_blank')
+    cy.get(`li[data-testid="dropdown-item"].${boundClass}`).should('be.visible')
+    cy.get(`li[data-testid="dropdown-item"] [data-testid="${testIdAttr}"]`).should('be.visible')
+    cy.get(`li[data-testid="dropdown-item"] [data-testid="${testIdAttr}"]`).should('have.attr', 'target', '_blank')
     // making sure classes don't leak to trigger element
-    cy.getTestId('dropdown-item-trigger').not(`.${boundClass}`).should('have.length', 1)
+    cy.get(`li[data-testid="dropdown-item"] [data-testid="${testIdAttr}"]`).not(`.${boundClass}`).should('have.length', 1)
   })
 
   it('correctly handles disabled state on links', () => {

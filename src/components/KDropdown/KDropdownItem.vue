@@ -1,12 +1,12 @@
 <template>
   <li
     class="k-dropdown-item"
-    :class="{
+    :class="[{
       'has-divider': hasDivider,
       'disabled': disabled,
       'danger': danger || isDangerous,
-      'dropdown-selected-option': selected
-    }"
+      'dropdown-selected-option': selected,
+    }, $attrs.class, $attrs.style]"
     data-testid="dropdown-item"
   >
     <component
@@ -28,6 +28,10 @@
 import type { DropdownItem, DropdownItemRenderedRecord, DropdownItemRenderedType, DropdownItemType } from '@/types'
 import type { PropType } from 'vue'
 import { computed, useAttrs } from 'vue'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const attrs = useAttrs()
 
@@ -134,8 +138,6 @@ const strippedAttrs = computed((): typeof attrs => {
   delete modifiedAttrs.class
   delete modifiedAttrs.disabled
   delete modifiedAttrs.style
-  // Ensure the `data-testid` attribute is only applied to the top-most element
-  delete modifiedAttrs['data-testid']
 
   return modifiedAttrs
 })
