@@ -52,17 +52,6 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 * `AlertSize` type has been removed
 * `AlertType` type has been removed
 * `AlertDismissType` type has been removed
-
-#### Props
-
-#### Slots
-
-#### Events
-
-#### Structure
-
-#### Constants, Types & Interfaces
-
 * `appearances` const is no longer exported by the KAlert component. Instead, you can import `AlertAppearances` from `@kong/kongponents` directly.
 
 ### KBadge
@@ -290,14 +279,6 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 * `k-code-block-secondary-actions` class has been changed to `code-block-secondary-actions`
 * `k-code-block-copy-button` class and `data-testid` attribute has been changed to `code-block-copy-button`
 * `k-matched-term` `class` has been replaced with `matched-term`
-
-#### Slots
-
-#### Events
-
-#### Structure
-
-#### Constants, Types & Interfaces
 
 ### KCollapse
 
