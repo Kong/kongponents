@@ -24,17 +24,15 @@
   </li>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import type { DropdownItem, DropdownItemRenderedRecord, DropdownItemRenderedType, DropdownItemType } from '@/types'
 import type { PropType } from 'vue'
 import { computed, useAttrs } from 'vue'
 
-export default {
+defineOptions({
   inheritAttrs: false,
-}
-</script>
+})
 
-<script lang="ts" setup>
 const attrs = useAttrs()
 
 const props = defineProps({
