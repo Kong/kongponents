@@ -10,6 +10,8 @@ export default {
     '@stylistic/stylelint-plugin',
   ],
   rules: {
+    // Disallow relative font units since we don't know the base font size in other apps
+    'unit-disallowed-list': ['rem', 'em'],
     'order/properties-alphabetical-order': true,
     '@kong/design-tokens/use-proper-token': true,
     '@stylistic/indentation': [2, { baseIndentLevel: 0 }],
