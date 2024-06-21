@@ -205,10 +205,10 @@ importers:
         specifier: ^3.4.27
         version: 3.4.28(typescript@5.4.5)
       vue-router:
-        specifier: ^4.3.2
+        specifier: ^4.3.3
         version: 4.3.3(vue@3.4.28(typescript@5.4.5))
       vue-tsc:
-        specifier: ^2.0.20
+        specifier: ^2.0.21
         version: 2.0.21(typescript@5.4.5)
 
 packages:

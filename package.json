@@ -70,7 +70,7 @@
   "peerDependencies": {
     "axios": "^1.7.2",
     "vue": ">= 3.3.4 < 4",
-    "vue-router": "^4.3.2"
+    "vue-router": "^4.3.3"
   },
   "devDependencies": {
     "@babel/types": "^7.24.7",
@@ -124,8 +124,8 @@
     "vite-plugin-vue-devtools": "^7.2.1",
     "vitepress": "^1.2.3",
     "vue": "^3.4.27",
-    "vue-router": "^4.3.2",
-    "vue-tsc": "^2.0.20"
+    "vue-router": "^4.3.3",
+    "vue-tsc": "^2.0.21"
   },
   "resolutions": {
     "rollup": "npm:@rollup/wasm-node"
