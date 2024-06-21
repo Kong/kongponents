@@ -180,19 +180,19 @@ $kBadgeMethodWidth: 85px;
 
   &.success {
     @include badgeAppearance(var(--kui-color-background-success-weakest, $kui-color-background-success-weakest),
-      var(--kui-color-text-success, $kui-color-text-success),
+    var(--kui-color-text-success, $kui-color-text-success),
       var(--kui-color-text-success-strong, $kui-color-text-success-strong));
   }
 
   &.warning {
     @include badgeAppearance(var(--kui-color-background-warning-weakest, $kui-color-background-warning-weakest),
-      var(--kui-color-text-warning, $kui-color-text-warning),
+    var(--kui-color-text-warning, $kui-color-text-warning),
       var(--kui-color-text-warning-strong, $kui-color-text-warning-strong));
   }
 
   &.danger {
     @include badgeAppearance(var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest),
-      var(--kui-color-text-danger, $kui-color-text-danger),
+    var(--kui-color-text-danger, $kui-color-text-danger),
       var(--kui-color-text-danger-strong, $kui-color-text-danger-strong));
   }
 
@@ -202,68 +202,68 @@ $kBadgeMethodWidth: 85px;
 
   &.neutral {
     @include badgeAppearance(var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker),
-      var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong),
+    var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong),
       var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
   }
 
   // methods
   &.connect {
     @include badgeAppearance(var(--kui-method-color-background-connect, $kui-method-color-background-connect),
-      var(--kui-method-color-text-connect, $kui-method-color-text-connect),
+    var(--kui-method-color-text-connect, $kui-method-color-text-connect),
       var(--kui-method-color-text-connect-strong, $kui-method-color-text-connect-strong));
   }
 
   &.custom {
     @include badgeAppearance(var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak),
-      var(--kui-color-text, $kui-color-text),
+    var(--kui-color-text, $kui-color-text),
       var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
   }
 
   &.delete {
     @include badgeAppearance(var(--kui-method-color-background-delete, $kui-method-color-background-delete),
-      var(--kui-method-color-text-delete, $kui-method-color-text-delete),
+    var(--kui-method-color-text-delete, $kui-method-color-text-delete),
       var(--kui-method-color-text-delete-strong, $kui-method-color-text-delete-strong));
   }
 
   &.get {
     @include badgeAppearance(var(--kui-method-color-background-get, $kui-method-color-background-get),
-      var(--kui-method-color-text-get, $kui-method-color-text-get),
+    var(--kui-method-color-text-get, $kui-method-color-text-get),
       var(--kui-method-color-text-get-strong, $kui-method-color-text-get-strong));
   }
 
   &.head {
     @include badgeAppearance(var(--kui-method-color-background-head, $kui-method-color-background-head),
-      var(--kui-method-color-text-head, $kui-method-color-text-head),
+    var(--kui-method-color-text-head, $kui-method-color-text-head),
       var(--kui-method-color-text-head-strong, $kui-method-color-text-head-strong));
   }
 
   &.options {
     @include badgeAppearance(var(--kui-method-color-background-options, $kui-method-color-background-options),
-      var(--kui-method-color-text-options, $kui-method-color-text-options),
+    var(--kui-method-color-text-options, $kui-method-color-text-options),
       var(--kui-method-color-text-options-strong, $kui-method-color-text-options-strong));
   }
 
   &.patch {
     @include badgeAppearance(var(--kui-method-color-background-patch, $kui-method-color-background-patch),
-      var(--kui-method-color-text-patch, $kui-method-color-text-patch),
+    var(--kui-method-color-text-patch, $kui-method-color-text-patch),
       var(--kui-method-color-text-patch-strong, $kui-method-color-text-patch-strong));
   }
 
   &.post {
     @include badgeAppearance(var(--kui-method-color-background-post, $kui-method-color-background-post),
-      var(--kui-method-color-text-post, $kui-method-color-text-post),
+    var(--kui-method-color-text-post, $kui-method-color-text-post),
       var(--kui-method-color-text-post-strong, $kui-method-color-text-post-strong));
   }
 
   &.put {
     @include badgeAppearance(var(--kui-method-color-background-put, $kui-method-color-background-put),
-      var(--kui-method-color-text-put, $kui-method-color-text-put),
+    var(--kui-method-color-text-put, $kui-method-color-text-put),
       var(--kui-method-color-text-put-strong, $kui-method-color-text-put-strong));
   }
 
   &.trace {
     @include badgeAppearance(var(--kui-method-color-background-trace, $kui-method-color-background-trace),
-      var(--kui-method-color-text-trace, $kui-method-color-text-trace),
+    var(--kui-method-color-text-trace, $kui-method-color-text-trace),
       var(--kui-method-color-text-trace-strong, $kui-method-color-text-trace-strong));
   }
 }
