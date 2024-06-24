@@ -251,7 +251,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
   .dropdown-item-trigger {
     background-color: var(--kui-color-background, $kui-color-background);
     border: 0;
-    color: var(--kui-color-text-neutral, $kui-color-text);
+    color: var(--kui-color-text, $kui-color-text);
     cursor: pointer;
     display: flex;
     flex: 1;
