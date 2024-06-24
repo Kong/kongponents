@@ -1,3 +1,10 @@
+# [9.0.0-alpha.182](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.181...v9.0.0-alpha.182) (2024-06-24)
+
+
+### Bug Fixes
+
+* inconsistent tokens ([#2246](https://github.com/Kong/kongponents/issues/2246)) ([3dbddfd](https://github.com/Kong/kongponents/commit/3dbddfd3383852de97751e0ab15eebee3afb2367))
+
 # [9.0.0-alpha.181](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.180...v9.0.0-alpha.181) (2024-06-24)
 
 
