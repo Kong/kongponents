@@ -1,6 +1,6 @@
 import pc from 'picocolors'
 import fs from 'fs'
-import { pascalCase, sleep, kongponentSrcPath, titleCaseComponentName, kongponentDocFilename } from './'
+import { pascalCase, sleep, kongponentSrcPath, titleCaseComponentName, kongponentDocFilename } from './index.js'
 import type { Spinner } from 'nanospinner'
 import { createSpinner } from 'nanospinner'
 
@@ -50,7 +50,7 @@ export async function createComponentFiles(name: string): Promise<void> {
   })
 
   // Create new files in src/component/{KComponentName}
-  // eslint-disable-next-line array-callback-return
+
   componentFilesToCreate.map((filename: string): void => {
     const originalFilePath = `${componentFilesTemplatePath}/${filename}`
     const stats = fs.statSync(originalFilePath)
@@ -59,7 +59,9 @@ export async function createComponentFiles(name: string): Promise<void> {
     if (stats.isFile()) {
       const newFilePath = `${kongponentSrcPath(componentName)}/${filename.replace(/Template/g, componentName)}`
       // Replace template strings
-      const fileContent = fs.readFileSync(originalFilePath, 'utf8').replace(/{%%KONGPONENT_NAME%%}/g, componentName)
+      const fileContent = fs.readFileSync(originalFilePath, 'utf8')
+        .replace(/{%%KONGPONENT_KEBAB_CASE_NAME%%}/g, name)
+        .replace(/{%%KONGPONENT_NAME%%}/g, componentName)
 
       fs.writeFileSync(newFilePath, fileContent, 'utf8')
     }

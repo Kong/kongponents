@@ -3,9 +3,19 @@
     "github>Kong/public-shared-renovate:kong-frontend-config"
   ],
   "baseBranches": [
-    "alpha"
+    "main"
   ],
-  "ignoreDeps": [
-    "v-calendar"
+  "packageRules": [
+    {
+      "groupName": "node engines range",
+      "groupSlug": "node-engines",
+      "matchPackageNames": [
+        "node"
+      ],
+      "matchDepTypes": [
+        "engines"
+      ],
+      "rangeStrategy": "widen"
+    }
   ]
 }

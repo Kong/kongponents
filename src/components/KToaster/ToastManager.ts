@@ -1,81 +1,87 @@
-import KToaster from './KToaster.vue'
-import type { Ref } from 'vue'
-import { createApp, h, ref } from 'vue'
-import type { AlertAppearance, Toast } from '@/types'
-import { toasterAppearances } from '@/types'
+import { createVNode, render, ref } from 'vue'
+import type { Ref, VNode } from 'vue'
+import type { Toast, ToasterAppearance, ToasterOptions } from '@/types'
+import { ToasterAppearances } from '@/types'
+import KToaster from '@/components/KToaster/KToaster.vue'
+import useUniqueId from '@/composables/useUniqueId'
 
-const APPEARANCES = Object.keys(toasterAppearances)
+const toasterContainerId = 'kongponents-toaster-container'
 
-const DEFAULTS = {
-  id: 'toaster-container',
-  timeout: 5000,
-  appearance: toasterAppearances.info,
+const toasterDefaults = {
+  timeoutMilliseconds: 5000,
+  appearance: ToasterAppearances.info,
 }
 
+const defaultZIndex = 10000
+
 export default class ToastManager {
-  public toasters: Ref<Toast[]>
-  public timeout: number
-  public appearance: string
-  public id: string
+  private toastersContainer: HTMLElement | null = null
+  private toaster: VNode | null = null
+  public toasts: Ref<Toast[]> = ref<Toast[]>([])
 
-  constructor(id = DEFAULTS.id, timeout = DEFAULTS.timeout, appearance = DEFAULTS.appearance) {
-    this.toasters = ref<Toast[]>([])
+  constructor(options?: ToasterOptions) {
+    // For SSR, prevents failing on the build)
+    if (typeof document === 'undefined') {
+      console.warn('ToastManager can only be initialized on the client side. Docs: https://kongponents.konghq.com/components/toaster.html')
 
-    this.timeout = timeout
-    this.appearance = appearance
-    this.id = id
+      return
+    }
 
-    this.mount()
-  }
+    this.toastersContainer = document.createElement('div')
+    this.toastersContainer.id = toasterContainerId
+    document.body.appendChild(this.toastersContainer)
 
-  mount() {
-    // For SSR (still works on VuePress/VitePress site, but prevents failing on the build)
-    if (typeof document === 'undefined') return
-
-    // Create a component container for the notification to bind to
-    const notificationContainer = document.createElement('div')
-    notificationContainer.id = this.id
-    document.body.appendChild(notificationContainer)
-
-    const Toast = h(KToaster, {
-      toasterState: this.toasters.value,
+    this.toaster = createVNode(KToaster, {
+      toasterState: this.toasts.value,
+      zIndex: options?.zIndex ? options.zIndex : defaultZIndex,
       onClose: (key: any) => this.close(key),
     })
 
-    createApp(Toast).mount(`#${this.id}`)
+    if (this.toastersContainer) {
+      render(this.toaster, this.toastersContainer)
+    }
   }
 
   setTimer(key: any, timeout: number): number {
     return setTimeout(() => this.close(key), timeout)
   }
 
-  open(args: Record<string, any> | string): void {
+  public open(args: Record<string, any> | string): void {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const { key, timeoutMilliseconds, appearance, message } = args
+    const { key, timeoutMilliseconds, appearance, message, title } = args
 
-    const _key: any = key || (this.toasters.value.length) + new Date().getTime()
-    const _appearance: AlertAppearance = (appearance && APPEARANCES.indexOf(appearance) !== -1) ? appearance : this.appearance
-    const timer: number = this.setTimer(_key, timeoutMilliseconds || this.timeout)
+    const toastKey: any = key || useUniqueId()
+    const toastAppearance: ToasterAppearance = (appearance && Object.keys(ToasterAppearances).indexOf(appearance) !== -1) ? appearance : toasterDefaults.appearance
+    const timer: number = this.setTimer(key, timeoutMilliseconds || toasterDefaults.timeoutMilliseconds)
+    const toasterMessage = typeof args === 'string' ? args : message
 
     // Add toaster to state
-    this.toasters.value.push({
-      key: _key,
-      appearance: _appearance,
-      message: message || args,
+    this.toasts.value.push({
+      key: toastKey,
+      appearance: toastAppearance,
+      title,
+      message: toasterMessage,
       timer,
-      timeoutMilliseconds: timeoutMilliseconds || this.timeout,
+      timeoutMilliseconds: timeoutMilliseconds || toasterDefaults.timeoutMilliseconds,
     })
   }
 
   close(key: any): void {
-    const i: number = this.toasters.value?.findIndex(n => key === n.key)
-    clearTimeout(this.toasters.value[i]?.timer)
-    this.toasters.value.splice(i, 1)
+    const i: number = this.toasts.value?.findIndex(n => key === n.key)
+    clearTimeout(this.toasts.value[i]?.timer)
+    this.toasts.value.splice(i, 1)
   }
 
   closeAll(): void {
-    this.toasters.value.forEach(toast => clearTimeout(toast?.timer))
-    this.toasters.value.length = 0
+    this.toasts.value.forEach(toast => clearTimeout(toast?.timer))
+    this.toasts.value = []
+  }
+
+  public destroy() {
+    if (this.toastersContainer) {
+      render(null, this.toastersContainer)
+      this.toastersContainer.remove()
+    }
   }
 }

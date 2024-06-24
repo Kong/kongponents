@@ -1,61 +1,64 @@
 # Collapse
 
-**KCollapse** - A collapsible section.
+KCollapse is a collapsible section of content.
 
 <KCollapse trigger-label="View more info">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 </KCollapse>
 
 ```html
 <KCollapse trigger-label="View more info">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 </KCollapse>
 ```
 
 ## Props
 
-::: tip NOTE
-  We have wrapped the following all of the following examples in a `KCard` to better show the boundaries of the component. We have included the `KCard` code in the code snippet for the example directly below, but omitted it from following examples to simplify the code snippets.
-:::
-
 ### title
 
 Use this prop to apply a title to the collapsible section.
 
-<KCard>
-  <template #body>
-    <KCollapse title="Look Mah!" trigger-label="View more info">
-      Can you see me now?
-    </KCollapse>
-  </template>
-</KCard>
+<KCollapse title="Section title" trigger-label="View more info">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</KCollapse>
 
 ```html
-<KCard>
-  <template #body>
-    <KCollapse title="Look Mah!" trigger-label="View more info">
-      Can you see me now?
-    </KCollapse>
-  </template>
-</KCard>
+<KCollapse title="Section title" trigger-label="View more info">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</KCollapse>
 ```
+
+### titleTag
+
+Provide the HTML element tag name you want the title to be rendered inside. Defaults to `div`.
+
+Accepted values are:
+<ul>
+  <li v-for="tag in HeaderTags" :key="`${tag}-header-tag`">
+    <code>{{ tag }}</code>
+  </li>
+</ul>
 
 ### triggerAlignment
 
 You can customize the alignment of the trigger. `leading` or `trailing` (default) alignment is supported.
 If a `title` is specified, the trigger will be inline with `trailing` alignment, or displayed beneath the `title` with `leading` alignment.
 
-<KCard>
-  <template #body>
-    <KCollapse title="Look Mah!" trigger-label="What?" trigger-alignment="leading">
-      Can you see me now?
-    </KCollapse>
-  </template>
-</KCard>
+<KCollapse 
+  trigger-alignment="leading" 
+  title="Section title" 
+  trigger-label="View more info"
+>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</KCollapse>
 
 ```html
-<KCollapse title="Look Mah!" trigger-label="What?" trigger-alignment="leading">
-  Can you see me now?
+<KCollapse 
+  trigger-alignment="leading" 
+  title="Section title" 
+  trigger-label="View more info"
+>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 </KCollapse>
 ```
 
@@ -63,33 +66,25 @@ If a `title` is specified, the trigger will be inline with `trailing` alignment,
 
 Use this prop to customize the content to that will toggle the collapsed state of the component. The label will be displayed to the right of a caret that indicates the state of the hidden content.
 
-<KCard>
-  <template #body>
-    <KCollapse trigger-label="I am the trigger">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
-    </KCollapse>
-  </template>
-</KCard>
+<KCollapse trigger-label="Reveal more info">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</KCollapse>
 
 ```html
-<KCollapse trigger-label="I am the trigger">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
+<KCollapse trigger-label="Reveal more info">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 </KCollapse>
 ```
 
 If no label is provided, only a caret will be displayed.
 
-<KCard>
-  <template #body>
-    <KCollapse>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
-    </KCollapse>
-  </template>
-</KCard>
+<KCollapse>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</KCollapse>
 
 ```html
 <KCollapse>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 </KCollapse>
 ```
 
@@ -97,195 +92,179 @@ If no label is provided, only a caret will be displayed.
 
 KCollapse can be controlled with `v-model`.
 
-<div class="collapse-wrapper">
-  <div>
-    <KLabel>Is Collapsed:&nbsp;</KLabel>
-    {{ myIsCollapsed }}
+<KCollapse trigger-label="View more info" v-model="vModelCollapsed">
+  <div class="vertical-container">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    <div>
+      <KButton @click="vModelCollapsed = true">Collapse</KButton>
+    </div>
   </div>
-  <KButton @click="myIsCollapsed = !myIsCollapsed">Another trigger</KButton>
-</div>
-<KCard>
-  <template #body>
-    <KCollapse trigger-label="View more info" v-model="myIsCollapsed">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
-    </KCollapse>
-  </template>
-</KCard>
-
-```html
-<div class="collapse-wrapper">
-  <div>
-    <KLabel>Is Collapsed:&nbsp;</KLabel>
-    {{ myIsCollapsed }}
-  </div>
-  <KButton @click="myIsCollapsed = !myIsCollapsed">Another trigger</KButton>
-</div>
-
-<KCollapse trigger-label="View more info" v-model="myIsCollapsed">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
 </KCollapse>
+
+```vue
+<template>
+  <KCollapse v-model="isCollapsed" trigger-label="View more info">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    
+    <KButton @click="isCollapsed = true">Collapse</KButton>
+  </KCollapse>
+</template>
+
+<script setup lang="ts">
+const isCollapsed = ref<boolean>(true)
+</script>
 ```
 
 ### modelValue
 
 To set the default state (collapsed or expanded) without binding to v-model you can use the `modelValue` prop.
 
-<KCard>
-  <template #body>
-    <KCollapse title="Look Mah!" :model-value="false">
-      I am expanded by default
-    </KCollapse>
-  </template>
-</KCard>
+<KCollapse :model-value="false" trigger-label="View more info">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</KCollapse>
 
 ```html
-<KCollapse title="Look Mah!" :model-value="false">
-  I am expanded by default
+<KCollapse :model-value="false" trigger-label="View more info">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 </KCollapse>
 ```
 
 ## Slots
 
-- `default` - Content to be hidden or shown when clicking the trigger
-- `visible-content` - Content displayed above the collapsible content that is always visible
-- `trigger-content` - Contents of the trigger link anchor; click handling is built-in
-- `trigger` - Completely control the trigger, including managing click events
-  - `isCollapsed` boolean and `toggle` function available as slot params
+### default
 
-::: tip NOTE
-  You may utilize the `trigger-content` slot (to control the anchor text) or the `trigger` slot (to control the content of the entire trigger), but not both; if utilizing the `trigger` slot the `trigger-content` slot will not render.
-:::
+Content to be hidden or shown when clicking the trigger.
 
-<KCard>
-  <template #body>
-    <KCollapse title="Look Mah!">
-      <template #trigger-content>
-        <div class="trigger-wrapper">
-          <KIcon icon="help" color="currentColor" :size="KUI_ICON_SIZE_30" class="icon-style" />
-          Toggle
-        </div>
-      </template>
-      <template #visible-content>
-        <KCard body="I am content that is always visible" />
-      </template>
-      <KCard body="I am only visible when expanded" />
-    </KCollapse>
+### visible-content
+
+Content displayed above the collapsible content that is always visible.
+
+<KCollapse title="Section title" trigger-label="View more info">
+  <template #visible-content>
+    This content is always visible.
   </template>
-</KCard>
+
+  This is hidden content. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</KCollapse>
 
 ```html
-<KCollapse title="Look Mah!">
-  <template #trigger-content>
-    <div class="trigger-wrapper">
-      <KIcon icon="help" class="icon-style" />
-      Toggle
-    </div>
-  </template>
+<KCollapse title="Section title" trigger-label="View more info">
   <template #visible-content>
-    <KCard body="I am content that is always visible" />
+    This content is always visible.
   </template>
 
-  <KCard body="I am only visible when expanded" />
+  This is the hidden content. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 </KCollapse>
 ```
 
-If you want complete control of the trigger content and events, you can use the `trigger` slot.
-We provide the `isCollapsed` Vue 'ref' and the `toggle()` function as slot props.
+### trigger-content
 
-<KCard>
-  <template #body>
-    <KCollapse title="Look Mah!">
-      <template #trigger="{ isCollapsed, toggle }">
-        <KButton @click="toggle()">{{ isCollapsed ? 'Click to expand' : 'Click to collapse' }}</KButton>
-      </template>
-      Can you see me now?
-    </KCollapse>
+Contents of the trigger link anchor; click handling is built-in.
+
+<KCollapse>
+  <template #trigger-content>
+    Custom trigger content
   </template>
-</KCard>
+
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</KCollapse>
 
 ```html
-<KCollapse title="Look Mah!">
-  <template #trigger="{ isCollapsed, toggle }">
-    <KButton @click="toggle()">
-      {{ isCollapsed ? 'Click to expand' : 'Click to collapse' }}
-    </KButton>
+<KCollapse>
+  <template #trigger-content>
+    Custom trigger content
   </template>
 
-  Can you see me now?
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</KCollapse>
+```
+
+### trigger
+
+Completely control the trigger, including managing click events. Slot props:
+
+- `isCollapsed` - boolean that reflects current state of collapse component
+- `toggle` - function to toggle collapse state
+
+::: tip NOTE
+You may utilize the `trigger-content` slot (to control the anchor text) or the `trigger` slot (to control the content of the entire trigger), but not both; when `trigger` slot is used, the `trigger-content` slot will not render.
+:::
+
+<KCollapse>
+  <template #trigger="{ isCollapsed, toggle }">
+    <KButton @click="toggle()">
+      {{ isCollapsed ? 'Expand' : 'Collapse' }}
+    </KButton>
+  </template>
+  
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</KCollapse>
+
+```html
+<KCollapse>
+  <template #trigger="{ isCollapsed, toggle }">
+    <KButton @click="toggle()">
+      {{ isCollapsed ? 'Expand' : 'Collapse' }}
+    </KButton>
+  </template>
+  
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</KCollapse>
+```
+
+### title
+
+Slot for custom title content.
+
+<KCollapse>
+  <template #title>
+    <KongIcon
+      :color="KUI_COLOR_TEXT_NEUTRAL"
+      :size="KUI_ICON_SIZE_40"
+    />
+    Custom title
+  </template>
+
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</KCollapse>
+
+```html
+<KCollapse>
+  <template #title>
+    <KongIcon
+      :color="KUI_COLOR_TEXT_NEUTRAL"
+      :size="KUI_ICON_SIZE_40"
+    />
+    Custom title
+  </template>
+
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 </KCollapse>
 ```
 
 ## Events
 
-- `@toggled` - Emitted when the trigger is clicked
-- `@update:modelValue` - Emitted when the `modelValue` is changed
+### toggle
 
-## Theming
+Emitted when the trigger is clicked.
 
-| Variable                | Purpose                    |
-| :---------------------- | :------------------------- |
-| `KCollapseTriggerColor` | Color of trigger text/icon |
+### update:modelValue
 
-An example of theming the collapse:
+Emitted when the `modelValue` is changed.
 
-> Note: We are scoping the overrides to a wrapper in this example
+<script setup lang="ts">
+import { ref } from 'vue'
+import { HeaderTags } from '@/types'
+import { KongIcon } from '@kong/icons'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
-<KCard>
-  <template #body>
-    <div class="k-collapse-wrapper">
-      <KCollapse trigger-label="View more info">
-        Can you see me now?
-      </KCollapse>
-    </div>
-  </template>
-</KCard>
-
-```html
-<template>
-  <div class="k-collapse-wrapper">
-    <KCollapse trigger-label="View more info">
-      Can you see me now?
-    </KCollapse>
-  </div>
-</template>
-
-<style lang="scss">
-.k-collapse-wrapper {
-  --KCollapseTriggerColor: red;
-}
-</style>
-```
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
-
-export default defineComponent({
-  data() {
-    return {
-      myIsCollapsed: true
-    }
-  },
-})
+const vModelCollapsed = ref<boolean>(true)
 </script>
 
 <style lang="scss" scoped>
-.collapse-wrapper {
-  margin-bottom: $kui-space-50 !important;
-}
-
-.icon-style {
-  margin-right: $kui-space-40 !important;
-  color: $kui-color-text-primary;
-}
-
-.trigger-wrapper {
-  display: flex !important;
-}
-</style>
-
-<style lang="scss">
-.k-collapse-wrapper {
-  --KCollapseTriggerColor: red;
+.vertical-container {
+  display: flex;
+  flex-direction: column;
+  gap: $kui-space-50;
 }
 </style>

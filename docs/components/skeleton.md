@@ -1,12 +1,10 @@
-# Skeleton / Loading State
+# Skeleton
 
-**KSkeleton** is used as a placeholder component while the primary content is still loading.
+KSkeleton is used as a placeholder component while the primary content is still loading.
 
 ## Props
 
 ### type
-
-- `type`
 
 There are 7 different types of loading states that KSkeleton supports: `card`, `table`, `form`, `spinner`, `fullscreen-kong`, `fullscreen-generic`, and a generic loading state. Defaults to a generic loading state. The following example shows a `form` type KSKeleton.
 
@@ -21,30 +19,28 @@ There are 7 different types of loading states that KSkeleton supports: `card`, `
 The number of milliseconds to wait before showing the skeleton state. Defaults to `0`.
 
 <KComponent :data="{ isLoading: false }" v-slot="{ data }">
-  <div>
-    <KButton class="vertical-spacing" @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</KButton>
-      <div v-if="!data.isLoading">
-        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-      </div>
-      <KSkeleton v-else="data.isLoading" delay-milliseconds="200" />
+  <div class="vertical-spacing-container">
+    <KInputSwitch v-model="data.isLoading" label="Loading" />
+    <div v-if="!data.isLoading">
+      <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+    </div>
+    <KSkeleton v-else="data.isLoading" delay-milliseconds="200" />
   </div>
 </KComponent>
 
 ```html
 <KComponent :data="{ isLoading: false }" v-slot="{ data }">
-  <div>
-    <KButton @click="()=>(data.isLoading=!data.isLoading)">Toggle loading - {{data.isLoading?'on':'off'}}</KButton>
-      <div v-if="!data.isLoading">
-        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-      </div>
-      <KSkeleton v-else="data.isLoading" delay-milliseconds="200" />
+  <KInputSwitch v-model="data.isLoading" label="Loading" />
+  <div v-if="!data.isLoading">
+    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
   </div>
+  <KSkeleton v-else="data.isLoading" delay-milliseconds="200" />
 </KComponent>
 ```
 
 ## Generic Loading State
 
-By default, **KSkeleton** will load a generic loading state. There are no props for this state.
+By default, KSkeleton will load a generic loading state. There are no props for this state.
 
 <KSkeleton />
 
@@ -54,7 +50,7 @@ By default, **KSkeleton** will load a generic loading state. There are no props 
 
 ## Card Loading State
 
-This loading state is using for card type components, like **KCard** or similar.
+This loading state is using for card type components, like [KCard](/components/card) or similar.
 
 <KSkeleton type="card" />
 
@@ -66,10 +62,20 @@ This loading state is using for card type components, like **KCard** or similar.
 
 Used for displaying the number of cards in this loading state. Defaults to 1. The following example shows 3 cards.
 
-<KSkeleton type="card" :card-count="3" />
+<KSkeleton :card-count="2" type="card" />
 
 ```html
-<KSkeleton type="card" :card-count="3" />
+<KSkeleton :card-count="2" type="card" />
+```
+
+### cardMaxWidth
+
+Prop to specify width of each card. If not specified, KSkeleton will try to size them automatically in order to fit a maximum of 3 cards in a row without wrapping. If `cardCount` is `1` (or not specified) the maximum width a card will span is `470px`.
+
+<KSkeleton card-max-width="100%" type="card" />
+
+```html
+<KSkeleton card-max-width="100%" type="card" />
 ```
 
 ## Form Loading State
@@ -134,9 +140,13 @@ Used for controlling the progress indicator.
 
 Defaults to `false`, you can use this prop to hide the progress indicator.
 
-<div>
-  <KButton class="horizontal-spacing" @click="clickNoProgress()">Click for no progress indicator</KButton>
-  <KButton @click="clicked()">Click for default progress behavior</KButton>
+### zIndex
+
+Defaults to `10500`, you can use this prop to control the `z-index` value of the full-screen skeleton container
+
+<div class="horizontal-spacing-container">
+  <KButton @click="onClickNoProgress">Click for no progress indicator</KButton>
+  <KButton @click="onClick">Click for default progress behavior</KButton>
   <KSkeleton
     v-if="loadingNone"
     :delay-milliseconds="0"
@@ -151,8 +161,8 @@ Defaults to `false`, you can use this prop to hide the progress indicator.
 </div>
 
 ```html
-<KButton @click="clickNoProgress()">Click for no progress indicator</KButton>
-<KButton @click="clicked()">Click for default progress behavior</KButton>
+<KButton @click="onClickNoProgress">Click for no progress indicator</KButton>
+<KButton @click="onClick">Click for default progress behavior</KButton>
 
 <KSkeleton
   v-if="loadingNone"
@@ -169,7 +179,7 @@ Defaults to `false`, you can use this prop to hide the progress indicator.
 ```
 
 <div>
-  <KButton @click="clickProgress()">Click me to simulate progress manually</KButton>
+  <KButton @click="onClickProgress">Click me to simulate progress manually</KButton>
 
   <KSkeleton
     v-if="loadingManually"
@@ -179,9 +189,9 @@ Defaults to `false`, you can use this prop to hide the progress indicator.
   />
 </div>
 
-```html
+```vue
 <template>
-  <KButton @click="clickProgress()">Click me to simulate progress manually</KButton>
+  <KButton @click="onClickProgress">Click me to simulate progress manually</KButton>
 
   <KSkeleton
     v-if="loadingManually"
@@ -192,20 +202,20 @@ Defaults to `false`, you can use this prop to hide the progress indicator.
 </template>
 
 <script setup lang="ts">
-  const loadingManually = ref(false)
-  const progress = ref(0)
+const loadingManually = ref(false)
+const progress = ref(0)
 
-  const clickProgress = () => {
-    progress.value = 0
-    loadingManually.value = true
-    const interval = setInterval(() => {
-      progress.value = progress.value + 20
-      if (progress.value >= 100) {
-        loadingManually.value = false
-        clearInterval(interval)
-      }
-    }, 500)
-  },
+const onClickProgress = () => {
+  progress.value = 0
+  loadingManually.value = true
+  const interval = setInterval(() => {
+    progress.value = progress.value + 20
+    if (progress.value >= 100) {
+      loadingManually.value = false
+      clearInterval(interval)
+    }
+  }, 500)
+}
 </script>
 ```
 
@@ -215,10 +225,17 @@ KSkeleton package uses a component to render the placeholder content `<KSkeleton
 
 ### Box Props
 
-| Prop   | Allowed Values                                        | Description                                                                               |
-| :----- | :---------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| width  | '1' (default), '2', '5', '6', '10', '50', '75', '100' | Width of the skeleton box in relative units. Values 10, 50, 75, 100 are percentage based. |
-| height | '1' (default), '2'                                    | Height of the skeleton box in relative units                                              |
+#### width
+
+Width of the skeleton box in relative units. Values `10`, `50`, `75`, `100` are percentage-based.
+
+Accepted values: `1` (default), `2`, `5`, `6`, `10`, `50`, `75`, `100`.
+
+#### height
+
+Height of the skeleton box in relative units.
+
+Accepted values: `1` (default), `2`.
 
 <KSkeletonBox />
 <KSkeletonBox width="2" height="2"/>
@@ -236,8 +253,8 @@ KSkeleton package uses a component to render the placeholder content `<KSkeleton
 
 For example, here is a card skeleton with different arrangement of placeholders:
 
-<KSkeleton class="k-skeleton-modified" type="card" :card-count="3">
-  <template v-slot:card-header>
+<KSkeleton class="k-skeleton-modified" type="card" :card-count="2">
+  <template #card-header>
     <div class="skeleton-header-container">
       <div>
         <KSkeletonBox width="5" />
@@ -245,10 +262,10 @@ For example, here is a card skeleton with different arrangement of placeholders:
       <hr>
     </div>
   </template>
-  <template v-slot:card-content>
+  <template #card-content>
     <KSkeletonBox width="100"/>
   </template>
-  <template v-slot:card-footer>
+  <template #card-footer>
     <div class="skeleton-header-container">
       <div>
         <KSkeletonBox width="5" />
@@ -258,8 +275,8 @@ For example, here is a card skeleton with different arrangement of placeholders:
 </KSkeleton>
 
 ```html
-<KSkeleton type="card" :card-count="3">
-  <template v-slot:card-header>
+<KSkeleton type="card" :card-count="2">
+  <template #card-header>
     <div>
       <div>
         <KSkeletonBox width="5" />
@@ -267,7 +284,7 @@ For example, here is a card skeleton with different arrangement of placeholders:
       <hr>
     </div>
   </template>
-  <template v-slot:card-footer>
+  <template #card-footer>
     <div>
       <div>
         <KSkeletonBox width="5" />
@@ -280,7 +297,7 @@ For example, here is a card skeleton with different arrangement of placeholders:
 And another example:
 
 <KSkeleton type="card">
-  <template v-slot:card-header>
+  <template #card-header>
     <div>
       <div>
         <KSkeletonBox width="5" />
@@ -288,7 +305,7 @@ And another example:
       <hr>
     </div>
   </template>
-  <template v-slot:card-content>
+  <template #card-content>
     <div>
       <template v-for="i in 8">
         <KSkeletonBox width="5" />
@@ -298,7 +315,7 @@ And another example:
       </template>
     </div>
   </template>
-  <template v-slot:card-footer>
+  <template #card-footer>
     <KSkeletonBox width="100" />
   </template>
 </KSkeleton>
@@ -306,7 +323,7 @@ And another example:
 ```html
 <template>
   <KSkeleton type="card">
-    <template v-slot:card-header>
+    <template #card-header>
       <div>
         <div>
           <KSkeletonBox width="5" />
@@ -314,7 +331,7 @@ And another example:
         <hr>
       </div>
     </template>
-    <template v-slot:card-content>
+    <template #card-content>
       <div>
         <template v-for="i in 8">
           <KSkeletonBox width="5" />
@@ -324,106 +341,64 @@ And another example:
         </template>
       </div>
     </template>
-    <template v-slot:card-footer>
+    <template #card-footer>
       <KSkeletonBox width="100" />
     </template>
   </KSkeleton>
 </template>
 ```
 
-## Theming
+<script setup lang="ts">
+import { ref } from 'vue'
 
-| Variable                                       | Purpose                                                                                                                                                                    |
-| :--------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--KSkeletonFullScreenMargin`                  | Margin around full screen variant. Useful for when you want to show full screen loader under header or next to sidebar since the full screen component has fixed position. |
-| `--KSkeletonFullScreenProgressBackgroundColor` | Progress bar background color.                                                                                                                                             |
-| `--KSkeletonFullScreenProgressColor`           | Progress bar fill color.                                                                                                                                                   |
-| `--KSkeletonFullScreenSpinnerColor`            | Generic spinner icon fill color.                                                                                                                                           |
-| `--KSkeletonCardWidth`                         | Width of the card. Default is 33%                                                                                                                                          |
+const loading = ref(false)
+const loadingNone = ref(false)
+const loadingButton = ref(false)
+const loadingManually = ref(false)
+const loadingTheming = ref(false)
+const progress = ref(0)
 
-### Examples
+const onClick = () => {
+  loading.value = true
+  setTimeout(() => {
+    loading.value = false
+  }, 1000)
+}
 
-To reveal the header on this docs page during full page loader, click the button below.
+const onClickNoProgress = () => {
+  loadingNone.value = true
+  setTimeout(() => {
+    loadingNone.value = false
+  }, 1000)
+}
 
-<div class="k-skeleton-full-screen-margin">
-  <KButton @click="clickedTheming()">themed full screen loader</KButton>
-  <KSkeleton v-if="loadingTheming" type="fullscreen-kong" :delay-milliseconds="0" />
-</div>
-
-```html
-<div class="k-skeleton-full-screen-margin">
-  <KButton @click="clickedTheming()">themed full screen loader</KButton>
-  <KSkeleton v-if="loadingTheming" type="fullscreen-kong" :delay-milliseconds="0" />
-</div>
-```
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  data () {
-    return {
-      loading: false,
-      loadingNone: false,
-      loadingButton: false,
-      loadingManually: false,
-      loadingTheming: false,
-      progress: 0
+const onClickProgress = () => {
+  progress.value = 0
+  loadingManually.value = true
+  const interval = setInterval(() => {
+    progress.value += 20
+    if (progress.value >= 100) {
+      loadingManually.value = false
+      clearInterval(interval)
     }
-  },
-  methods: {
-    clicked() {
-      this.loading = true
-      setTimeout(() => {
-        this.loading = false
-      }, 1000)
-    },
-
-    clickNoProgress() {
-      this.loadingNone = true
-      setTimeout(() => {
-        this.loadingNone = false
-      }, 1000)
-    },
-
-    clickProgress () {
-      this.progress = 0
-      this.loadingManually = true
-      const interval = setInterval(() => {
-        this.progress = this.progress + 20
-        if (this.progress >= 100) {
-          this.loadingManually = false
-          clearInterval(interval)
-        }
-      }, 500)
-    },
-
-    clickedTheming() {
-      this.loadingTheming = true
-      setTimeout(() => {
-        this.loadingTheming = false
-      }, 1000)
-    },
-
-    clickedButton() {
-      this.loadingButton = true
-      setTimeout(() => {
-        this.loadingButton = false
-      }, 5000)
-    }
-  }
-})
+  }, 500)
+}
 </script>
 
-<style>
-.k-skeleton-full-screen-margin {
-  --KSkeletonFullScreenMargin: 58px 0 0;
-  --KSkeletonFullScreenProgressColor: grey;
-}
-.k-skeleton-modified {
-  --KSkeletonCardWidth: calc(33% - 16px);
-}
+<style lang="scss" scoped>
 .skeleton-header-container {
   width: 100%;
+}
+
+.vertical-spacing-container {
+  display: flex;
+  flex-direction: column;
+  gap: $kui-space-50;
+}
+
+.horizontal-spacing-container {
+  display: flex;
+  gap: $kui-space-50;
+  flex-wrap: wrap;
 }
 </style>

@@ -1,22 +1,15 @@
 <template>
+  <div class="{%%KONGPONENT_KEBAB_CASE_NAME%%}">
     <!-- TODO: The <div> tag here is just a placeholder for your component content. -->
-  <div></div>
+  </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: '{%%KONGPONENT_NAME%%}',
-  props: {},
-  setup() {
-    // TODO
-  },
-})
+<script setup lang="ts">
+// TODO: Add component script logic
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
-
+.{%%KONGPONENT_KEBAB_CASE_NAME%%} {
+  // TODO: Top-level wrapper class for component styles
+}
 </style>

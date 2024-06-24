@@ -1,17 +1,18 @@
 <template>
-  <div class="k-card-catalog">
-    <div
+  <div class="k-catalog">
+    <component
+      :is="titleTag"
       v-if="title"
-      class="k-card-catalog-title"
-      data-testid="k-catalog-title"
+      class="catalog-title"
+      data-testid="catalog-title"
     >
-      <h3>{{ title }}</h3>
-    </div>
+      {{ title }}
+    </component>
 
     <div
       v-if="hasToolbarSlot"
-      class="k-catalog-toolbar"
-      data-testid="k-catalog-toolbar"
+      class="catalog-toolbar"
+      data-testid="catalog-toolbar"
     >
       <slot
         name="toolbar"
@@ -20,61 +21,32 @@
     </div>
 
     <KSkeleton
-      v-if="(!testMode || testMode === 'loading') && (isCatalogLoading || isLoading || isRevalidating) && !hasError"
+      v-if="showLoading"
       :card-count="4"
-      class="k-skeleton-grid"
-      data-testid="k-catalog-skeleton"
+      class="catalog-skeleton-loader"
+      data-testid="catalog-skeleton-loader"
       type="card"
-    >
-      <template #card-header>
-        <KSkeletonBox
-          class="k-catalog-skeleton-header"
-          width="6"
-        />
-      </template>
-
-      <template #card-content>
-        <KSkeletonBox width="75" />
-      </template>
-
-      <template #card-footer>
-        <div class="k-catalog-skeleton-footer-container">
-          <KSkeletonBox
-            width="2"
-          />
-          <KSkeletonBox width="5" />
-        </div>
-      </template>
-    </KSkeleton>
+    />
 
     <div
-      v-else-if="hasError"
-      class="k-catalog-error-state"
-      data-testid="k-card-catalog-error-state"
+      v-else-if="error"
+      class="catalog-error-state"
+      data-testid="catalog-error-state"
     >
       <slot name="error-state">
         <KEmptyState
-          :cta-is-hidden="!errorStateActionMessage || !errorStateActionRoute"
-          :icon="errorStateIcon || ''"
-          :icon-color="errorStateIconColor"
-          :icon-size="errorStateIconSize"
-          is-error
+          icon-variant="error"
+          :message="errorStateMessage"
+          :title="errorStateTitle"
         >
-          <template #title>
-            {{ errorStateTitle }}
-          </template>
-
-          <template #message>
-            {{ errorStateMessage }}
-          </template>
-
-          <template #cta>
+          <template
+            v-if="!!errorStateActionMessage"
+            #action
+          >
             <KButton
-              v-if="errorStateActionMessage"
-              appearance="primary"
               :data-testid="getTestIdString(errorStateActionMessage)"
               :to="errorStateActionRoute ? errorStateActionRoute : undefined"
-              @click="$emit('kcatalog-error-cta-clicked')"
+              @click="$emit('error-action-click')"
             >
               {{ errorStateActionMessage }}
             </KButton>
@@ -84,34 +56,27 @@
     </div>
 
     <div
-      v-else-if="!hasError && (!isCatalogLoading && !isLoading && !isRevalidating) && (data && !data.length)"
-      class="k-catalog-empty-state"
-      data-testid="k-card-catalog-empty-state"
+      v-else-if="showEmptyState"
+      class="catalog-empty-state"
+      data-testid="catalog-empty-state"
     >
       <slot name="empty-state">
         <KEmptyState
-          :cta-is-hidden="!emptyStateActionMessage || !emptyStateActionRoute"
-          :icon="emptyStateIcon || ''"
-          :icon-color="emptyStateIconColor"
-          :icon-size="emptyStateIconSize"
+          :icon-variant="emptyStateIconVariant"
+          :message="emptyStateMessage"
+          :title="emptyStateTitle"
         >
-          <template #title>
-            {{ emptyStateTitle }}
-          </template>
-
-          <template #message>
-            {{ emptyStateMessage }}
-          </template>
-
-          <template #cta>
+          <template
+            v-if="!!emptyStateActionMessage"
+            #action
+          >
             <KButton
-              v-if="emptyStateActionMessage"
-              :appearance="searchInput ? 'btn-link' : 'primary'"
+              :appearance="searchInput ? 'tertiary' : 'primary'"
               :data-testid="getTestIdString(emptyStateActionMessage)"
-              :icon="emptyStateActionButtonIcon"
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
-              @click="$emit('kcatalog-empty-state-cta-clicked')"
+              @click="$emit('empty-state-action-click')"
             >
+              <slot name="empty-state-action-icon" />
               {{ emptyStateActionMessage }}
             </KButton>
           </template>
@@ -121,9 +86,9 @@
 
     <div
       v-else
-      class="k-catalog-page"
-      :class="`k-card-${cardSize}`"
-      :data-tableid="catalogId"
+      v-bind-once="{ 'data-tableid': catalogId }"
+      class="catalog-page"
+      :class="`card-${cardSize}`"
     >
       <slot
         :data="data"
@@ -131,67 +96,60 @@
       >
         <KCatalogItem
           v-for="(item, idx) in data"
-          :key="item.key ? item.key : `k-catalog-item-${idx}`"
+          :key="item.key ? item.key : `catalog-${catalogId}-item-${idx}`"
           class="catalog-item"
-          :data-testid="item.id ? item.id : `k-catalog-item-${idx}`"
+          :data-testid="item.id ? item.id : `catalog-item-${idx}`"
           :item="(item as CatalogItem)"
-          :test-mode="!!testMode || undefined"
-          :truncate="!noTruncation"
-          @click="$emit('card:click', item)"
+          :truncate="truncateDescription"
+          @click="$emit('card-click', item)"
         >
-          <template #cardTitle>
+          <template #card-title>
             <slot
               :item="item"
-              name="cardTitle"
+              name="card-title"
             >
               {{ item.title }}
             </slot>
           </template>
 
-          <template #cardActions>
+          <template #card-actions>
             <slot
               :item="item"
-              name="cardActions"
+              name="card-actions"
             />
           </template>
 
-          <template #cardBody>
+          <template #card-body>
             <slot
               :item="item"
-              name="cardBody"
+              name="card-body"
             >
               {{ item.description }}
             </slot>
           </template>
         </KCatalogItem>
       </slot>
-
-      <div
-        v-if="!disablePagination && fetcher && !(hidePaginationWhenOptional && total <= paginationPageSizes[0])"
-        class="card-pagination"
-        data-testid="k-catalog-pagination"
-      >
-        <KPagination
-          class="k-catalog-pagination"
-          :current-page="page"
-          :disable-page-jump="disablePaginationPageJump"
-          :initial-page-size="pageSize"
-          :neighbors="paginationNeighbors"
-          :page-sizes="paginationPageSizes"
-          :test-mode="!!testMode || undefined"
-          :total-count="total"
-          @page-changed="pageChangeHandler"
-          @page-size-changed="pageSizeChangeHandler"
-        />
-      </div>
     </div>
+
+    <KPagination
+      v-if="!disablePagination && fetcher && !(hidePaginationWhenOptional && total <= paginationPageSizes[0]) && !error && data && data.length"
+      class="card-pagination"
+      :current-page="page"
+      data-testid="catalog-pagination"
+      :disable-page-jump="disablePaginationPageJump"
+      :initial-page-size="pageSize"
+      :neighbors="paginationNeighbors"
+      :page-sizes="paginationPageSizes"
+      :total-count="total"
+      @page-change="pageChangeHandler"
+      @page-size-change="pageSizeChangeHandler"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { ref, computed, onMounted, watch, useSlots } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
 import type {
   CatalogItem,
   CatalogPreferences,
@@ -199,27 +157,34 @@ import type {
   SwrvStateData,
   CardSize,
   CatalogState,
-  PageChangedData,
-  PageSizeChangedData,
+  PageChangeData,
+  PageSizeChangeData,
+  EmptyStateIconVariant,
+  HeaderTag,
 } from '@/types'
 import {
   CardSizeArray,
+  EmptyStateIconVariants,
 } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
-import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KCatalogItem from './KCatalogItem.vue'
+import useUniqueId from '@/composables/useUniqueId'
 
 const { useRequest, useDebounce, useSwrvState } = useUtilities()
 
 const props = defineProps({
+  titleTag: {
+    type: String as PropType<HeaderTag>,
+    default: 'div',
+  },
   /**
    * A prop to pass in to display skeleton to indicate loading
    */
-  isLoading: {
+  loading: {
     type: Boolean,
     default: false,
   },
@@ -238,9 +203,9 @@ const props = defineProps({
   /**
    * Disable truncation of the KCard's 'description'
    */
-  noTruncation: {
+  truncateDescription: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   /**
    * A prop to pass in a custom empty state title
@@ -270,38 +235,14 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  /**
-   * A prop to pass in a custom empty state action message
-   */
-  emptyStateActionButtonIcon: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a custom empty state icon
-   */
-  emptyStateIcon: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a color for the empty state icon
-   */
-  emptyStateIconColor: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a size for the empty state icon
-   */
-  emptyStateIconSize: {
-    type: String,
-    default: '50',
+  emptyStateIconVariant: {
+    type: String as PropType<EmptyStateIconVariant>,
+    default: EmptyStateIconVariants.Default,
   },
   /**
    * A prop that enables the error state
    */
-  hasError: {
+  error: {
     type: Boolean,
     default: false,
   },
@@ -332,27 +273,6 @@ const props = defineProps({
   errorStateActionMessage: {
     type: String,
     default: '',
-  },
-  /**
-   * A prop to pass in a custom error state icon
-   */
-  errorStateIcon: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a color for the error state icon
-   */
-  errorStateIconColor: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a size for the error state icon
-   */
-  errorStateIconSize: {
-    type: String,
-    default: '50',
   },
   /**
    * A prop to pass in a fetcher function to enable server-side pagination
@@ -427,28 +347,19 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  /**
-   * for testing only, strips out generated ids and avoid loading state in tests.
-   * 'true' - no id's no loading
-   * 'loading' - no id's but allow loading
-   */
-  testMode: {
-    type: [String, Boolean],
-    default: false,
-  },
 })
 
 const emit = defineEmits<{
-  (e: 'card:click', item: CatalogItem): void
-  (e: 'kcatalog-error-cta-clicked'): void
-  (e: 'kcatalog-empty-state-cta-clicked'): void
+  (e: 'card-click', item: CatalogItem): void
+  (e: 'error-action-click'): void
+  (e: 'empty-state-action-click'): void
   (e: 'update:catalog-preferences', preferences: CatalogPreferences): void
   (e: 'state', value: { state: CatalogState, hasData: boolean }): void
 }>()
 
 const slots = useSlots()
 
-const catalogId = computed((): string => props.testMode ? 'test-catalog-id-1234' : uuidv4())
+const catalogId = useUniqueId()
 const defaultFetcherProps = {
   page: 1,
   pageSize: 15,
@@ -462,6 +373,11 @@ const page = ref<number>(1)
 const pageSize = ref<number>(15)
 const hasInitialized = ref<boolean>(false)
 const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
+
+// show loading if fetching, loading prop is `true` or if revalidating (swrv state)
+const showLoading = computed((): boolean => (isCatalogLoading.value || props.loading || isRevalidating.value) && !props.error)
+// show empty state if not loading and no data
+const showEmptyState = computed((): boolean => !showLoading.value && data.value && !data.value.length)
 
 // Store the catalogPreferences in a computed property to utilize in the watcher
 const catalogPreferences = computed((): CatalogPreferences => ({
@@ -510,7 +426,7 @@ const catalogFetcherCacheKey = computed((): string => {
   }
 
   // Set the default identifier to a random string
-  let identifierKey: string = catalogId.value
+  let identifierKey: string = catalogId
   if (props.cacheIdentifier) {
     identifierKey = props.cacheIdentifier
   }
@@ -523,7 +439,9 @@ const catalogFetcherCacheKey = computed((): string => {
 })
 
 const query = ref('')
-const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => { query.value = q }, 350)
+const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => {
+  query.value = q
+}, 350)
 const search = generateDebouncedSearch(0) // generate a debounced function with zero delay (immediate)
 
 // ALL fetching is done through this useRequest / revalidate
@@ -542,11 +460,11 @@ const stateData = computed((): SwrvStateData => ({
 }))
 const catalogState = computed((): CatalogState => isCatalogLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
 
-const pageChangeHandler = ({ page: newPage }: PageChangedData): void => {
+const pageChangeHandler = ({ page: newPage }: PageChangeData): void => {
   page.value = newPage
 }
 
-const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangedData): void => {
+const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData): void => {
   pageSize.value = newPageSize
   page.value = 1
 }
@@ -627,75 +545,35 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
+.k-catalog {
+  display: flex;
+  flex-direction: column;
+  gap: var(--kui-space-70, $kui-space-70);
 
-.k-card-catalog {
-  .k-card-catalog-title {
-    color: var(--blue-600, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+  .catalog-title {
+    font-family: var(--kui-font-family-text, $kui-font-family-text);
+    font-size: var(--kui-font-size-60, $kui-font-size-60);
+    font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+    line-height: var(--kui-line-height-50, $kui-line-height-50);
   }
 
-  .k-catalog-page {
-    display: grid;
-    grid-gap: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  }
-}
-
-.k-catalog-toolbar {
-  margin-bottom: var(--kui-space-80, $kui-space-80) !important;
-
-  & > :deep(*) {
+  .catalog-toolbar {
     display: flex;
-  }
-}
-</style>
-
-<style lang="scss">
-@import '@/styles/variables';
-@import '@/styles/functions';
-
-.k-card-catalog {
-  $cardHeight: 181px;
-
-  .k-skeleton-grid {
-    .skeleton-card {
-      height: $cardHeight;
-
-      .k-catalog-skeleton-header {
-        justify-content: center !important;
-        margin-bottom: var(--kui-space-50, $kui-space-50) !important;
-        width: 100% !important;
-      }
-
-      .k-catalog-skeleton-footer-container {
-        > :not(:last-child) {
-          margin-right: var(--kui-space-40, $kui-space-40) !important;
-        }
-      }
-    }
+    gap: var(--kui-space-40, $kui-space-40);
   }
 
-  .k-catalog-page {
-    &.k-card-small {
+  .catalog-page {
+    display: grid;
+    grid-gap: var(--kui-space-70, $kui-space-70);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+    &.card-small {
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
 
-    &.k-card-large {
+    &.card-large {
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     }
-
-    a.catalog-item, a.catalog-item:focus, a.catalog-item:hover {
-      text-decoration: none;
-    }
-  }
-
-  .card-pagination {
-    grid-column: 1 / -1;
-  }
-
-  .k-catalog-pagination {
-    padding: var(--kui-space-20, $kui-space-20) !important;
   }
 }
 </style>

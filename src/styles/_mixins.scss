@@ -1,122 +1,23 @@
-/// Replace `$search` with `$replace` in `$string`
-/// @param {String} $string - Initial string
-/// @param {String} $search - Substring to replace
-/// @param {String} $replace ('') - New value
-/// @return {String} - Updated string
-// Example Usage:
-// .selector {
-//   $string: 'The answer to life the universe and everything is 42.';
-//   content: str-replace($string, 'e', 'xoxo');
-// }
-@function str-replace($string, $search, $replace: "") {
-  /* stylelint-disable-next-line scss/no-global-function-names */
-  $index: str-index($string, $search);
+@import "@/styles/mixins/inputs";
+@import "@/styles/mixins/label";
+@import "@/styles/mixins/input-select";
+@import "@/styles/mixins/cards";
+@import "@/styles/mixins/badges";
+@import "@/styles/mixins/loaders";
+@import "@/styles/mixins/buttons";
 
-  @if $index {
-    /* stylelint-disable-next-line scss/operator-no-newline-after */
-    @return str-slice($string, 1, $index - 1) + $replace +
-      str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+/* Common mixins for all components */
+
+@mixin truncate($lines: 0) {
+  // if lines is 0, truncate with ellipsis, otherwise truncate with line clamp
+  @if $lines == 0 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    overflow: hidden;
   }
-
-  @return $string;
-}
-
-@mixin input-default {
-  background-color: var(--KInputBackground, var(--white, #ffffff));
-  box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300, #e7e7ec)) !important;
-  transition: color 0.1s ease, box-shadow 0.1s ease;
-}
-
-@mixin input-focus {
-  box-shadow: inset 0 0 0 1px var(--KInputFocus, var(--blue-400, #3972d5)) !important;
-  outline: none !important;
-  transition: all 0.1s ease;
-}
-
-@mixin textarea-default {
-  background-color: var(--KInputBackground, var(--white, #ffffff));
-  box-shadow: none !important;
-  outline: 1px solid var(--KInputBorder, var(--grey-300, #e7e7ec)) !important;
-  transition: color 0.1s ease, box-shadow 0.1s ease;
-}
-
-@mixin textarea-hover {
-  box-shadow: none !important;
-  outline: 1px solid var(--KInputHover, var(--blue-200, #bdd3f9)) !important;
-  transition: all 0.1s ease;
-}
-
-@mixin textarea-focus {
-  box-shadow: none !important;
-  outline: 1px solid var(--blue-400, #3972d5) !important;
-  transition: all 0.1s ease;
-}
-
-@mixin input-hover {
-  box-shadow: inset 0 0 0 1px var(--KInputHover, var(--blue-200, #bdd3f9)) !important;
-  transition: all 0.1s ease;
-}
-
-@mixin input-readonly {
-  background-color: var(--KInputReadonlyBackground, var(--grey-100, #f8f8fa));
-  box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300, #e7e7ec)) !important;
-  transition: all 0.1s ease;
-}
-
-@mixin input-disabled {
-  background-color: var(--KInputDisabledBackground, var(--grey-100, #f8f8fa));
-  box-shadow: inset 0 0 0 1px var(--KInputBorder, var(--grey-300, #e7e7ec)) !important;
-  cursor: not-allowed;
-  font-style: italic;
-  transition: all 0.1s ease;
-}
-
-@mixin fullscreen-loading-container {
-  align-items: center;
-  background: var(--white, #ffffff);
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  left: 0;
-  margin: var(--KSkeletonFullScreenMargin, 0);
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 10500;
-}
-
-@mixin truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-// this mixin is only meant to be used within non-visual-button mixin to avoid code duplication
-@mixin non-visual-button-rules {
-  background-color: var(--kui-color-background-transparent, $kui-color-background-transparent) !important;
-  border: none !important;
-  cursor: pointer !important;
-  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular) !important;
-}
-
-@mixin non-visual-button {
-  @include non-visual-button-rules;
-
-  &:focus,
-  &:hover {
-    @include non-visual-button-rules;
-  }
-}
-
-@mixin visually-hidden {
-  border: 0 !important;
-  clip: rect(0, 0, 0, 0) !important;
-  height: 1px !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  padding: 0 !important;
-  position: absolute !important;
-  white-space: nowrap !important;
-  width: 1px !important;
 }

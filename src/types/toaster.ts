@@ -1,12 +1,26 @@
-import type { AlertAppearance, AlertAppearanceRecord } from '@/types/alert'
-import { appearances } from '@/components/KAlert/KAlert.vue'
+export type ToasterAppearance = 'info' | 'success' | 'danger' | 'warning' | 'system'
 
 export interface Toast {
-  key?: any // unique identifier of toaster
-  appearance?: AlertAppearance
-  message: string // Text to display in toaster
-  timer?: any
+  /** Unique identifier of toaster */
+  key?: any
+  /** Title of toaster */
+  title?: string
+  /** Text to display in toaster */
+  message?: string
+  appearance?: ToasterAppearance
   timeoutMilliseconds?: number
+  timer?: any
 }
 
-export const toasterAppearances: AlertAppearanceRecord = appearances
+export type ToasterAppearancesRecord = Record<ToasterAppearance, ToasterAppearance>
+export const ToasterAppearances: ToasterAppearancesRecord = {
+  info: 'info',
+  success: 'success',
+  danger: 'danger',
+  warning: 'warning',
+  system: 'system',
+}
+
+export interface ToasterOptions {
+  zIndex?: number
+}

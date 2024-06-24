@@ -18,9 +18,9 @@ describe('KCollapse', () => {
       },
     })
 
-    cy.getTestId('k-collapse-title').should('exist')
-    cy.getTestId('k-collapse-title').should('contain.text', title)
-    cy.getTestId('k-collapse-trigger-label').should('contain.text', triggerLabel)
+    cy.getTestId('collapse-title').should('exist')
+    cy.getTestId('collapse-title').should('contain.text', title)
+    cy.getTestId('collapse-trigger-label').should('contain.text', triggerLabel)
   })
 
   it('displays a caret for trigger if no label provided', () => {
@@ -32,7 +32,7 @@ describe('KCollapse', () => {
       },
     })
 
-    cy.getTestId('k-collapse-trigger-icon').should('exist')
+    cy.getTestId('collapse-trigger-icon').should('exist')
   })
 
   it('allows using leading trigger alignment', () => {
@@ -49,8 +49,8 @@ describe('KCollapse', () => {
       },
     })
 
-    cy.getTestId('k-collapse-trigger-label').should('contain.text', triggerLabel)
-    cy.get('.k-collapse-heading').should('not.have.class', 'has-trailing-trigger')
+    cy.getTestId('collapse-trigger-label').should('contain.text', triggerLabel)
+    cy.get('.collapse-heading').should('not.have.class', 'has-trailing-trigger')
   })
 
   it('correctly shows and hides content with trigger click', () => {
@@ -66,12 +66,12 @@ describe('KCollapse', () => {
       },
     })
 
-    cy.getTestId('k-collapse-trigger-label').should('contain.text', triggerLabel)
+    cy.getTestId('collapse-trigger-label').should('contain.text', triggerLabel)
     // hidden by default
-    cy.getTestId('k-collapse-hidden-content').should('not.be.visible')
+    cy.getTestId('collapse-hidden-content').should('not.be.visible')
     // visible when clicked
-    cy.getTestId('k-collapse-trigger-label').click()
-    cy.getTestId('k-collapse-hidden-content').should('be.visible')
+    cy.getTestId('collapse-trigger-label').click()
+    cy.getTestId('collapse-hidden-content').should('be.visible')
   })
 
   it('allows content to be expanded by default', () => {
@@ -86,13 +86,13 @@ describe('KCollapse', () => {
       },
     })
 
-    cy.getTestId('k-collapse-trigger-content').should('exist')
+    cy.getTestId('collapse-trigger-content').should('exist')
     // visible by default
-    cy.getTestId('k-collapse-hidden-content').should('be.visible')
-    cy.getTestId('k-collapse-hidden-content').should('contain.text', collapseContent)
+    cy.getTestId('collapse-hidden-content').should('be.visible')
+    cy.getTestId('collapse-hidden-content').should('contain.text', collapseContent)
     // hidden when clicked
-    cy.getTestId('k-collapse-trigger-content').click()
-    cy.getTestId('k-collapse-hidden-content').should('not.be.visible')
+    cy.getTestId('collapse-trigger-content').click()
+    cy.getTestId('collapse-hidden-content').should('not.be.visible')
   })
 
   it('renders proper content when using slots', () => {
@@ -108,14 +108,32 @@ describe('KCollapse', () => {
       },
     })
 
-    cy.getTestId('k-collapse-trigger-content').should('contain.text', triggerContent)
-    cy.getTestId('k-collapse-visible-content').should('exist')
-    cy.getTestId('k-collapse-visible-content').should('contain.text', visibleContent)
+    cy.getTestId('collapse-trigger-content').should('contain.text', triggerContent)
+    cy.getTestId('collapse-visible-content').should('exist')
+    cy.getTestId('collapse-visible-content').should('contain.text', visibleContent)
     // hidden by default
-    cy.getTestId('k-collapse-hidden-content').should('not.be.visible')
+    cy.getTestId('collapse-hidden-content').should('not.be.visible')
     // visible when clicked
-    cy.getTestId('k-collapse-trigger-content').click()
-    cy.getTestId('k-collapse-hidden-content').should('be.visible')
-    cy.getTestId('k-collapse-hidden-content').should('contain.text', collapseContent)
+    cy.getTestId('collapse-trigger-content').click()
+    cy.getTestId('collapse-hidden-content').should('be.visible')
+    cy.getTestId('collapse-hidden-content').should('contain.text', collapseContent)
+  })
+
+  it('renders title slot when using slots', () => {
+    const title = 'Awesome title'
+    const triggerLabel = 'Awesome label'
+    const collapseContent = 'Can you see me?'
+
+    mount(KCollapse, {
+      props: {
+        triggerLabel,
+      },
+      slots: {
+        title: h('div', { 'data-testid': 'custom-title' }, title),
+        default: h('div', {}, collapseContent),
+      },
+    })
+
+    cy.getTestId('custom-title').should('contain.text', title)
   })
 })

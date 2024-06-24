@@ -10,12 +10,12 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "noEmit": false,
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "types": [
       "@types/inquirer",
-      "@types/node",
-      "@types/node-emoji"
+      "@types/node"
     ]
   },
   "include": [

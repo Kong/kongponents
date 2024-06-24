@@ -1,248 +1,288 @@
 # Toaster
 
-**KToaster** - a popup notification typically used to show the result of an action. The toaster can close on its own but can also be manually dismissed.
+KToaster a popup notification component. The toaster will close automatically after a set timeout or can be dismissed by clicking on the close icon.
 
-KToaster is used via the `ToastManager` instance. All rendering is controlled from ToastManager via an intuitive, imperative api. It is recommended that you initialize `ToastManager` in your app via [`app.config.globalProperties`](https://vuejs.org/api/application.html#app-config-globalproperties) to allow you to access it on any component instance inside your application.
+KToaster is used via the `ToastManager` instance. All rendering is controlled from `ToastManager` via an intuitive API.
 
-```ts
-// main.ts
-
-import { createApp } from 'vue'
-import { ToastManager } from '@kong/kongponents'
-
-const app = createApp()
-
-// Available inside any component template in the application, and also on 'this' of any component instance
-app.config.globalProperties.$toaster = new ToastManager()
-```
-
-For TypeScript, you should also augment the global property in your vue declaration file
+The easiest way to use it is by creating a composable that you can use anywhere in your app. This way you don't have to initialize `ToastManager` in every component.
 
 ```ts
+// composables/useToaster
+
+import { onBeforeUnmount } from 'vue'
 import { ToastManager } from '@kong/kongponents'
 
-declare module 'vue' {
-  interface ComponentCustomProperties {
-    $toaster: typeof ToastManager
-  }
+export default function useToaster() {
+  const toaster = new ToastManager()
+
+  onBeforeUnmount(() => {
+    toaster.destroy()
+  })
+
+  return { toaster }
 }
 ```
 
-Once `ToastManager` is added as a global property, you can access it's methods via `this.$toaster`
+Once `ToastManager` instance is initialized, you can use it's methods to show toast messages:
 
-<KButton @click="$toaster.open('Basic Notification')">Open Toaster</KButton>
+<KButton @click="toaster.open({ title: 'Basic Notification', message: 'Detailed message' })">Open Toaster</KButton>
 
-```html
-<KButton @click="$toaster.open('Basic Toaster')">Open Toaster</KButton>
-```
+```vue
+<template>
+  <KButton @click="toaster.open({ title: 'Basic Notification', message: 'Detailed message' })">Open Toaster</KButton>
+</template>
 
-or within the `setup()` function in your component
+<script setup lang="ts">
+import useToaster from '~/composables/useToaster'
 
-```html
-<script lang="ts">
-import { defineComponent, getCurrentInstance } from 'vue'
-
-export default defineComponent({
-  setup() {
-    const $toaster = getCurrentInstance()?.appContext.config.globalProperties.$toaster
-
-    const showToast = (name: string) => {
-      $toaster.open(`Wow, ${name} is looking toasty!`)
-    }
-
-    return { showToast }
-  }
-})
+const { toaster } = useToaster()
 </script>
 ```
 
-::: warning NOTE
-Using `getCurrentInstance` is a replacement of Vue 2's Vue.prototype which is no longer present in Vue 3. As with anything global, this should be used sparingly.
+or call them from within the `setup()` function in your component:
 
-If a global property conflicts with a component’s own property, the component's own property will have higher priority.
+```ts
+<script setup lang="ts">
+import useToaster from '~/composables/useToaster'
+
+const { toaster } = useToaster()
+
+const showToast = (name: string) => {
+  toaster.open(`Hello ${name}!`)
+}
+</script>
+```
+
+:::warning NOTE
+Don't forget to clean up the toaster instance by calling `toaster.destroy()` in `onBeforeUnmount`.
+:::
+
+Optionally, you can provide options object upon initialization. It takes one parameter:
+
+```ts
+interface ToasterOptions {
+  zIndex?: number // z-index of toast message element
+}
+```
+
+```ts
+const toaster = new ToastManager({ zIndex: 1001 })
+```
+
+:::warning NOTE
+If you are using Kongponents in SSR mode, it is advised that you **only initialize `ToastManager` on the client side**.
 :::
 
 ## Arguments
 
-### message
+KToaster is the underlying component rendered by the `ToastManager` instance, so all component properties are passed down via `ToastManager.open()` methods' arguments. The accepted argument type is `string` or object that is instance of `Toast`.
 
-The default argument passed to the toaster is the message.
+```ts
+interface Toast {
+  key?: any // optional, unique identifier of a toast
+  title?: string
+  message?: string
+  appearance?: ToasterAppearance
+  timeoutMilliseconds?: number
+}
+```
 
-<KButton @click="$toaster.open('Default message here')">Open Toaster</KButton>
+### title
+
+Notification title.
+
+<KButton @click="toaster.open({ title: 'Notification Title' })">Open Toaster</KButton>
 
 ```html
-<KButton @click="$toaster.open('Default message here')">Open Toaster</KButton>
+<KButton @click="toaster.open({ title: 'Notification Title' })">Open Toaster</KButton>
+```
+
+### message
+
+The message string that allows for displaying longer strings of text to the user. This prop is good for more detailed messages.
+
+Alternatively, if you provide a string as the only argument to the `open()` method, it will be treated as message.
+
+<div class="horizontal-container">
+  <KButton @click="toaster.open({ 
+    title: 'Title',
+    message: 'Detailed message. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' })"
+  >
+    Open Toaster
+  </KButton>
+  <KButton @click="toaster.open('String will become a message.')" appearance="secondary">Open Toaster</KButton>
+</div>
+
+```html
+<KButton @click="toaster.open({ 
+  title: 'Title',
+  message: 'Detailed message. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' })"
+>
+  Open Toaster
+</KButton>
+<KButton @click="toaster.open('String will become a message.')" appearance="secondary">Open Toaster</KButton>
 ```
 
 ### appearance
 
-The Toaster uses the same appearance values as [KAlert](/components/alert) and are applied the same way.
+Depending on the nature of notification, you might want to use different appearances. KToaster supports these 5 appearances:
 
-<KButton class="my-button" appearance="primary" @click="openNotification({'appearance': 'info', 'message':'This toaster has info appearance'})">Open Toaster</KButton>
-<KButton class="success my-button" appearance="primary" @click="openNotification({'appearance': 'success', 'message':'This toaster has success appearance'})">Open Toaster</KButton>
-<KButton class="my-button" appearance="danger" @click="openNotification({'appearance': 'danger', 'message':'This toaster has danger appearance'})">Open Toaster</KButton>
-<KButton class="warning my-button" appearance="primary" @click="openNotification({'appearance': 'warning', 'message':'This toaster has warning appearance'})">Open Toaster</KButton>
+* `info` (default)
+* `success`
+* `danger`
+* `warning`
+* `system`
 
-```html
-<template>
-  <KButton @click="openNotification(toasterOptions)">Open Toaster</KButton>
-</template>
+<div class="horizontal-container">
+  <KButton @click="toaster.open({ title: 'Info', appearance: 'info' })">
+    <InfoIcon />
+    Info
+  </KButton>
+  <KButton @click="toaster.open({ title: 'Success', appearance: 'success' })">
+    <CheckCircleIcon />
+    Success
+  </KButton>
+  <KButton
+    @click="toaster.open({ title: 'Danger', appearance: 'danger' })"
+    appearance="danger"
+  >
+    <ClearIcon />
+    Danger
+  </KButton>
+  <KButton @click="toaster.open({ title: 'Warning', appearance: 'warning' })">
+    <WarningIcon />
+    Warning
+  </KButton>
+  <KButton
+    @click="toaster.open({ title: 'System', appearance: 'system' })"
+    appearance="secondary"
+  >
+    <KongIcon />
+    System
+  </KButton>
+</div>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  data() {
-    return {
-      toasterOptions: {
-        appearance: 'danger',
-        message: 'This toaster is a danger appearance',
-      },
-    }
-  },
-  methods: {
-    openNotification(options: Record<string, any> | string) {
-      this.$toaster.open(options)
-    }
-  },
-})
-</script>
+```ts
+toaster.open({ title: 'Warning', appearance: 'warning' })
 ```
 
-### timeout
+### timeoutMilliseconds
 
-The default timeout, in milliseconds, is `5000` (5 seconds) however you can change this to by passing an override argument.
+The default timeout, in milliseconds, is `5000` (5 seconds) however you can change this to by passing the `timeoutMilliseconds` property.
 
-- `timeoutMilliseconds`
+<KButton :disabled="timeLeft <= 3" @click="openNotificationElapse({ timeoutMilliseconds: 3000, appearance: 'success', title: 'Notification', message: `This toaster has a 3 second timeout` })">
+  {{timeLeft > 3 ? 'Open Toaster' : `Closing in ${timeLeft} seconds` }}
+</KButton>
 
-<KButton :disabled="timeLeft <= 3" @click="openNotificationElapse({timeoutMilliseconds: 3000, 'appearance': 'success', 'message': `This toaster has a 3 second timeout`})">{{timeLeft > 3 ? 'Open Toaster' : `Closing in ${timeLeft} seconds` }}</KButton>
-
-```html
+```vue
 <template>
   <KButton @click="openNotification(toasterOptions)">Open Toaster</KButton>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import type { Toast } from '@kong/kongponents'
 
-export default defineComponent({
-  data() {
-    return {
-      toasterOptions: {
-        appearance: 'success',
-        timeoutMilliseconds: 3000,
-        message: 'This toaster has a 3 second timeout'
-      },
-    }
-  },
-  methods: {
-    openNotification(options: Record<string, any> | string) {
-      this.$toaster.open(options)
-    }
-  }
-})
+const toasterOptions: Toast = {
+  appearance: 'success',
+  timeoutMilliseconds: 3000,
+  title: 'Notification',
+  message: 'This toaster has a 3 second timeout'
+}
+
+const openNotification = (options: Toast | string) => {
+  toaster.open(options)
+}
 </script>
 ```
 
 ## Toaster State
 
-You can view the current state of active toasters by calling `this.$toaster.toasters`. Click the buttons below to watch the state change
+You can view the current state of active toasts by calling `ToastManager.toasts`. Click the buttons below to watch the state change
 
-<KButton class="success my-button" appearance="primary" @click="openNotification({timeoutMilliseconds: 10000, message: 'Success Notification', appearance: 'success'})">Open Toaster</KButton>
-<KButton appearance="danger" @click="openNotification({'appearance': 'danger', 'message': 'Danger Notification'})" class="my-button">Open Toaster</KButton>
-<KButton @click="openNotification('Basic Notification')">Open Toaster</KButton>
+<div class="horizontal-container">
+  <KButton @click="openNotification({ timeoutMilliseconds: 10000, title: 'Info Notification', appearance: 'info' })">
+    Open Toaster
+  </KButton>
+  <KButton
+    @click="openNotification({ title: 'Danger Notification', appearance: 'danger' })"
+    appearance="danger"
+  >
+    Open Toaster
+  </KButton>
+  <KButton
+    @click="openNotification('Basic Notification')"
+    appearance="secondary"
+  >
+    Open Toaster
+  </KButton>
+</div>
 
-<pre class="language-json">
-<code>
-{{ JSON.stringify(toasters || [], null, 2) }}
-</code>
+<pre class="fixed-height-data-container">
+  {{ JSON.stringify(toasts || [], null, 2) }}
 </pre>
 
-```html
+```vue
 <template>
-  <KButton class="success" appearance="primary" @click="openNotification({timeoutMilliseconds: 10000, message: 'Success Notification', appearance: 'success'})">Open Toaster</KButton>
-  <KButton appearance="danger" @click="openNotification({'appearance': 'danger', 'message': 'Danger Notification'})">Open Toaster</KButton>
-  <KButton @click="openNotification('Basic Notification')">Open Toaster</KButton>
+  <KButton @click="openNotification({ timeoutMilliseconds: 10000, title: 'Info Notification', appearance: 'info' })">
+    Open Toaster
+  </KButton>
+
+  {{ toasts }}
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import type { Toast } from '@kong/kongponents'
 
-export default defineComponent({
-  data() {
-    return {
-      toasters: []
-    }
-  },
-  methods: {
-    openNotification(options: Record<string, any> | string) {
-      this.$toaster.open(options)
-      this.toasters = this.$toaster.toasters
-    }
-  }
-})
+const toasts = ref<Toast>([])
+
+const openNotification = (options: Toast | string): void => {
+  toaster.open(options)
+  toasts.value = toaster.toasts.value
+}
 </script>
 ```
 
-## Variations
+<script setup lang="ts">
+import { InfoIcon, CheckCircleIcon, WarningIcon, ClearIcon, KongIcon } from '@kong/icons'
+import { ref } from 'vue'
+import type { ComponentInternalInstance } from 'vue'
+import { ToastManager } from '@/index'
 
-### Long Content
+const toaster = new ToastManager()
 
-<br>
-<KButton @click="openNotification(`Before you release that email you're writing to spin up a new centralized decision-making group, it's worth talking about the four ways these groups consistently fail. They tend to be domineering, bottlenecked, status-oriented, or inert.`)" class="my-button">Prose</KButton>
+const toasts = ref([])
+const timeLeft = ref(4)
 
-<KButton @click="openNotification({message:`Proxy error: Could not proxy request /api/service_packages?fields=&s=%7B%22%24and%22%3A%5B%7B%22name%22%3A%7B%22%24contL%22%3A%22%22%7D%7D%5D%7D&filter=&or=&sort=created_at%2CDESC&join=&limit=100&offset=0&page=1 from localhost:8080 to http://localhost:3000 (ECONNREFUSED).`, appearance: 'danger'})">Raw error message</KButton>
+const openNotification = (options: Toast | string): void => {
+  toaster.open(options)
+  toasts.value = toaster.toasts.value
+}
 
-<script lang="ts">
-import { defineComponent, getCurrentInstance, ref } from 'vue'
+const openNotificationElapse = (options: Toast | string): void => {
+  toaster.open(options)
+  toasts.value = toaster.toasts.value
+  timeLeft.value -= 1
 
-export default defineComponent({
-  setup() {
-    const $toaster = getCurrentInstance()?.appContext.config.globalProperties.$toaster
-    const toasters = ref([])
-    const timeLeft = ref(4)
+  const interval = setInterval(() => {
+    timeLeft.value -= 1
 
-    const openNotification = (options: Record<string, any> | string): void => {
-      $toaster.open(options)
-      toasters.value = $toaster.toasters.value
+    if (timeLeft.value === 0){
+      timeLeft.value = 4
+      clearInterval(interval)
     }
-
-    const openNotificationElapse = (options: Record<string, any> | string): void => {
-      $toaster.open(options)
-      toasters.value = $toaster.toasters.value
-      timeLeft.value -= 1
-      const interval = setInterval(() => {
-        timeLeft.value -= 1
-        if (timeLeft.value === 0){
-          timeLeft.value = 4
-          clearInterval(interval)
-        }
-      }, 1000)
-    }
-
-    return {
-      toasters,
-      timeLeft,
-      openNotification,
-      openNotificationElapse,
-    }
-  },
-})
+  }, 1000)
+}
 </script>
 
-<style lang="scss">
-.my-button {
-  margin-right: 4px !important;
+<style lang="scss" scoped>
+.horizontal-container {
+  display: flex;
+  gap: $kui-space-50;
+  flex-wrap: wrap;
 }
-.success.k-button {
-  --KButtonPrimaryBase: #42d782;
-  --KButtonPrimaryHover: #84e5ae;
-  --KButtonPrimaryActive: #07a88d;
-}
-.warning.k-button {
-  --KButtonPrimaryBase: #ffd68c;
-  --KButtonPrimaryHover: #ffe6ba;
-  --KButtonPrimaryActive: #ffe6ba;
-  color: $kui-color-text !important;
+
+.fixed-height-data-container {
+  height: 300px;
+  overflow-y: auto;
 }
 </style>

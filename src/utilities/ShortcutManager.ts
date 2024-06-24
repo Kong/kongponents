@@ -65,11 +65,11 @@ export class ShortcutManager<CommandKeyword extends string> {
   }
 
   registerListener() {
-    document.addEventListener('keydown', this.boundTriggerShortcuts)
+    document?.addEventListener('keydown', this.boundTriggerShortcuts)
   }
 
   unRegisterListener() {
-    document.removeEventListener('keydown', this.boundTriggerShortcuts)
+    document?.removeEventListener('keydown', this.boundTriggerShortcuts)
   }
 
   triggerShortcuts(event: KeyboardEvent): void {
@@ -78,6 +78,10 @@ export class ShortcutManager<CommandKeyword extends string> {
 }
 
 function triggerShortcuts<CommandKeyword extends string>(event: KeyboardEvent, keyMap: Record<string, CommandKeyword>, commands: Record<CommandKeyword, Command>): void {
+  if (!event.code) {
+    return
+  }
+
   const code = normalizeKeyCode(event.code)
   const shortcut = [
     event.ctrlKey ? 'ctrl' : '',
@@ -114,8 +118,8 @@ function triggerShortcuts<CommandKeyword extends string>(event: KeyboardEvent, k
 }
 
 function normalizeKeyCode(code: string): string {
-  // Returns relevant modifier keys as the empty string which is going to be filtered out.
-  if (MODIFIER_KEY_CODES.includes(code)) {
+  // If keycode is a relevant modifier key or an invalid string, return empty string.
+  if (!code || MODIFIER_KEY_CODES.includes(code)) {
     return ''
   }
 

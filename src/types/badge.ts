@@ -1,20 +1,27 @@
-export type BadgeAppearance = 'default' | 'success' | 'danger' | 'warning' | 'info' | 'custom' | 'neutral'
+export type BadgeMethodAppearance = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' | 'connect' | 'trace' | 'custom'
+export type BadgeAppearance = 'info' | 'success' | 'warning' | 'danger' | 'neutral' | 'decorative' | BadgeMethodAppearance
+export type BadgeMethodAppearanceRecord = Record<BadgeMethodAppearance, BadgeMethodAppearance>
 export type BadgeAppearanceRecord = Record<BadgeAppearance, BadgeAppearance>
 
-export type BadgeShape = 'rounded' | 'rectangular'
-export type BadgeShapeRecord = Record<BadgeShape, BadgeShape>
-
-export const BadgeAppearances: BadgeAppearanceRecord = {
-  default: 'default',
-  success: 'success',
-  danger: 'danger',
-  info: 'info',
-  warning: 'warning',
+export const BadgeMethodAppearances: BadgeMethodAppearanceRecord = {
+  get: 'get',
+  post: 'post',
+  put: 'put',
+  delete: 'delete',
+  patch: 'patch',
+  options: 'options',
+  head: 'head',
+  connect: 'connect',
+  trace: 'trace',
   custom: 'custom',
-  neutral: 'neutral',
 } as const
 
-export const BadgeShapes: BadgeShapeRecord = {
-  rounded: 'rounded',
-  rectangular: 'rectangular',
+export const BadgeAppearances: BadgeAppearanceRecord = {
+  info: 'info',
+  success: 'success',
+  warning: 'warning',
+  danger: 'danger',
+  decorative: 'decorative',
+  neutral: 'neutral',
+  ...BadgeMethodAppearances,
 } as const

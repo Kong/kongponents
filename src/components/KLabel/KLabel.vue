@@ -1,25 +1,25 @@
 <template>
-  <label class="k-input-label">
+  <label
+    v-bind-once="{ ...(hasTooltip && { 'aria-describedby': tooltipId }) }"
+    class="k-label"
+    :class="{ 'required': required }"
+  >
     <slot />
-    <span
-      v-if="required"
-      class="is-required"
-    >*</span>
+
     <KTooltip
       v-if="hasTooltip"
       v-bind="tooltipAttributes"
       class="label-tooltip"
-      position-fixed
-      :test-mode="!!testMode || undefined"
+      :tooltip-id="tooltipId"
     >
-      <KIcon
-        :color="`var(--black-25, var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK}))`"
-        hide-title
-        :icon="help ? 'help' : 'infoFilled'"
-        :size="KUI_ICON_SIZE_30"
+      <InfoIcon
+        class="tooltip-trigger-icon"
+        :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
+        decorative
+        tabindex="0"
       />
       <template #content>
-        <slot name="tooltip">{{ help || info }}</slot>
+        <slot name="tooltip">{{ info || help }}</slot>
       </template>
     </KTooltip>
   </label>
@@ -28,16 +28,13 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, useSlots } from 'vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { TooltipAttributes } from '@/types'
-import { KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { InfoIcon } from '@kong/icons'
+import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
+import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
-  help: {
-    type: String,
-    default: '',
-  },
   info: {
     type: String,
     default: '',
@@ -51,39 +48,75 @@ const props = defineProps({
     default: () => ({}),
   },
   /**
-   * Test mode - for testing only, strips out generated ids
+   * @deprecated in favor of `info` prop
    */
-  testMode: {
-    type: Boolean,
-    default: false,
+  help: {
+    type: String,
+    default: '',
+    validator: (value: string): boolean => {
+      if (value) {
+        console.warn('KLabel: `help` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#klabel')
+      }
+
+      return true
+    },
   },
 })
 
 const slots = useSlots()
 
-const hasTooltip = computed((): boolean => !!(props.info || props.help || slots.tooltip))
+const hasTooltip = computed((): boolean => !!(props.help || props.info || slots.tooltip))
+
+const tooltipId = useUniqueId()
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
+/* Component variables */
 
-.k-input-label {
+$kLabelSpacingX: var(--kui-space-40, $kui-space-40);
+$kLabelRequiredDotSize: 6px;
+
+/* Component styles */
+
+.k-label {
+  @include labelDefaults;
+
+  align-items: center;
+  display: inline-flex;
+  margin-bottom: var(--kui-space-40, $kui-space-40);
+
+  &.required {
+    margin-left: calc($kLabelSpacingX + $kLabelRequiredDotSize); // 6px to compensate for the 6px width of the dot
+    position: relative;
+
+    &::before {
+      background-color: var(--kui-color-background-danger, $kui-color-background-danger);
+      border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
+      bottom: calc(50% - 2px); // place the dot in the middle of the text
+      content: '';
+      height: $kLabelRequiredDotSize;
+      left: 0px;
+      margin-left: calc((-1 * $kLabelSpacingX) - $kLabelRequiredDotSize); // -6px to compensate for the 6px width
+      position: absolute;
+      width: $kLabelRequiredDotSize;
+    }
+  }
+
   .label-tooltip {
-    :deep(.kong-icon) {
-      &.kong-icon-help,
-      &.kong-icon-info {
-        cursor: pointer;
-        height: 16px;
-      }
+    margin-left: $kLabelSpacingX;
+
+    .tooltip-trigger-icon {
+      cursor: help;
+      height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+      width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
     }
 
     :deep(.k-tooltip) {
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
 
       code {
-        background-color: var(--grey-500, var(--kui-color-background-neutral, $kui-color-background-neutral));
-        color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
+        background-color: var(--kui-color-background-neutral, $kui-color-background-neutral);
+        color: var(--kui-color-text-inverse, $kui-color-text-inverse);
       }
     }
   }

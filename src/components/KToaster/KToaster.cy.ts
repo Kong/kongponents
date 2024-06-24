@@ -1,24 +1,14 @@
 import { mount } from 'cypress/vue'
 import KToaster from '@/components/KToaster/KToaster.vue'
-import ToastManager from '@/components/KToaster/ToastManager'
-
-// Instance for all tests
-const tm = new ToastManager()
-
-// Close all existing toasts before each test, and delay to allow animation to complete
-beforeEach(() => {
-  tm.closeAll()
-  cy.wait(500)
-})
 
 describe('KToaster', () => {
   describe('KToaster.vue', () => {
     it('renders toaster', () => {
       const toasts = []
-      toasts.push({ message: 'hey toasty' })
-      toasts.push({ appearance: 'success', message: 'hey toasty' })
-      toasts.push({ appearance: 'danger', message: 'hey toasty' })
-      toasts.push({ appearance: 'danger', message: 'hey toasty' })
+      toasts.push({ title: 'I have a toast', message: 'hey toasty' })
+      toasts.push({ title: 'I have a toast', appearance: 'success', message: 'hey toasty' })
+      toasts.push({ title: 'I have a toast', appearance: 'danger', message: 'hey toasty' })
+      toasts.push({ title: 'I have a toast', appearance: 'danger', message: 'hey toasty' })
 
       mount(KToaster, {
         props: {
@@ -26,72 +16,62 @@ describe('KToaster', () => {
         },
       })
 
-      cy.get('body').find('div[role="alert"].success').its('length').should('eq', 1)
-      cy.get('body').find('div[role="alert"].danger').its('length').should('eq', 2)
-      cy.get('body').find('.toaster-item div.k-alert-msg').its('length').should('eq', 4)
-    })
-  })
-
-  describe('ToastManager', () => {
-    it('opens toasters', () => {
-      tm.open('hey toasty')
-      tm.open({ message: 'yo toasty' })
-      tm.open({ key: 2, message: 'there has been an alert' })
-      cy.get('body .toaster-item').its('length').should('eq', 3)
+      cy.get('.k-toaster').should('exist')
+      cy.get('.k-toaster').find('div[role="alert"].danger').its('length').should('eq', 2)
+      cy.get('.k-toaster').find('.toaster .toaster-message').its('length').should('eq', 4)
     })
 
-    it('opens toasters - invalid appearance', () => {
-      tm.open({ message: 'invalid appearance', appearance: 'info' })
-      cy.get('body .toaster-item').its('length').should('eq', 1)
+    it('renders all elements in toaster correctly - message passed', () => {
+      const title = 'I have a toast'
+      const message = 'hey toasty'
 
-      cy.wrap(tm.toasters.value).its('length').should('eq', 1)
-      cy.wrap(tm.toasters.value[0].appearance).should('eq', 'info')
-    })
-
-    it('dismisses toasters after default timeout', () => {
-      tm.open('hey toasty')
-      tm.open('hey toasty')
-
-      cy.wrap(tm.toasters.value).its('length').should('eq', 2).then(() => {
-        cy.wait(4900)
-        return cy.wrap(tm.toasters.value).its('length').should('eq', 2)
-      }).then(() => {
-        cy.wait(100)
-        return cy.wrap(tm.toasters.value).its('length').should('eq', 0)
+      mount(KToaster, {
+        props: {
+          toasterState: [{ title, message }],
+        },
       })
+
+      cy.get('.toaster .toaster-icon').should('be.visible')
+      cy.get('.toaster .toaster-title').contains(title)
+      cy.get('.toaster .toaster-message').contains(message)
+      cy.get('.toaster .toaster-close-icon').should('be.visible')
     })
 
-    it('dismisses toasters after timeout per toast', () => {
-      tm.open({ message: 'hey toasty', timeoutMilliseconds: 1000 })
-      tm.open({ message: 'hey toasty', timeoutMilliseconds: 2000 })
-      tm.open({ message: 'hey toasty', timeoutMilliseconds: 3000 })
-      tm.open({ message: 'hey toasty' }) // default 5000 milliseconds
+    it('renders all elements in toaster correctly - message not passed', () => {
+      const title = 'I have a toast'
 
-      cy.wrap(tm.toasters.value).its('length').should('eq', 4).then(() => {
-        cy.wait(1000)
-        return cy.wrap(tm.toasters.value).its('length').should('eq', 3)
-      }).then(() => {
-        cy.wait(1000)
-        return cy.wrap(tm.toasters.value).its('length').should('eq', 2)
-      }).then(() => {
-        cy.wait(1000)
-        return cy.wrap(tm.toasters.value).its('length').should('eq', 1)
-      }).then(() => {
-        cy.wait(1000)
-        return cy.wrap(tm.toasters.value).its('length').should('eq', 0)
+      mount(KToaster, {
+        props: {
+          toasterState: [{ title }],
+        },
       })
+
+      cy.get('.toaster .toaster-icon').should('be.visible')
+      cy.get('.toaster .toaster-title').contains(title)
+      cy.get('.toaster .toaster-message').should('not.exist')
+      cy.get('.toaster .toaster-close-icon').should('be.visible')
     })
 
-    it('closes toasters', () => {
-      tm.open({ key: '#123', message: 'hey toasty' })
-      tm.open({ key: '#345', message: 'another toasty message' })
+    it('renders toast with correct default z-index', () => {
 
-      cy.wrap(tm.toasters.value).its('length').should('eq', 2).then(() => {
-        tm.close('#345')
-
-        cy.wrap(tm.toasters.value).its('length').should('eq', 1)
-        cy.wrap(tm.toasters.value[0].key).should('eq', '#123')
+      mount(KToaster, {
+        props: {
+          toasterState: [{ title: 'I have a toast' }],
+        },
       })
+
+      cy.get('.k-toaster').should('have.css', 'z-index', '10000')
+    })
+
+    it('renders toast with custom z-index', () => {
+      mount(KToaster, {
+        props: {
+          toasterState: [{ title: 'I have a toast' }],
+          zIndex: 9999,
+        },
+      })
+
+      cy.get('.k-toaster').should('have.css', 'z-index', '9999')
     })
   })
 })

@@ -1,5 +1,5 @@
 export interface SegmentedControlOption {
   label?: string
-  value: string | number | boolean
+  value: string | number
   disabled?: boolean
 }

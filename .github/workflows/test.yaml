@@ -2,6 +2,11 @@ name: Tests
 
 on:
   pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - labeled
     branches:
       - main
       - alpha
@@ -42,26 +47,26 @@ jobs:
         with:
          fetch-depth: 0
 
-      - name: Use Node.js
-        uses: actions/setup-node@v3
+      - name: Setup PNPM with Dependencies
+        uses: ./.github/actions/setup-pnpm-with-dependencies/
         with:
-          node-version-file: '.nvmrc'
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+          force-install: true
 
       - name: Stylelint
-        run: yarn stylelint
+        run: pnpm stylelint
 
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
 
       - name: Build components and docs
-        run: yarn build:ci
+        run: pnpm build:ci
 
       - name: Publish Package Preview
         id: package-preview
-        if: github.event_name == 'pull_request' && github.actor != 'renovate[bot]'
+        # Do not run for `alpha` or `beta` branches
+        if: github.event_name == 'pull_request' && (github.actor != 'renovate[bot]' || contains(github.event.pull_request.labels.*.name, 'create preview package'))
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN_PUBLIC_PUBLISH }}
         run: |
           git config user.email "konnectx-engineers+kongponents-bot@konghq.com"
           git config user.name "Kong UI Bot"
@@ -70,11 +75,10 @@ jobs:
           tag="pr-${{ github.event.pull_request.number }}"
           echo "preid=${preid}"
 
-          git checkout ${{ github.head_ref }}
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
 
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN_PUBLIC_PUBLISH }}" > .npmrc
-
-          yarn version --prerelease --preid ${preid} --allow-branch ${{ github.head_ref }} --no-git-tag-version --yes --amend
+          # Use pnpm to bump the version for the prerelease
+          pnpm version prerelease --preid ${preid} --no-git-tag-version --yes --amend
 
           package_version=$(jq -r ".version" package.json)
           package=@kong/kongponents@"${package_version}"
@@ -87,7 +91,7 @@ jobs:
 
           npm_instructions=""
 
-          pkg=$(npm publish --no-git-checks --access public --report-summary --tag "${tag}" | grep "+ "| sed 's/+ //')
+          pkg=$(pnpm publish --no-git-checks --access public --report-summary --tag "${tag}" | grep "+ "| sed 's/+ //')
 
           if [[ -z "${pkg}" ]]; then
             echo "Error publishing package"
@@ -117,29 +121,18 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           install: false
-          command: yarn test
+          command: pnpm test
 
       - name: Upload Cypress screenshots (on failure)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
 
       - name: Upload Cypress videos (always)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
           path: cypress/videos
-
-      # This step will be skipped if being ran from the publish action with PREVENT_PERCY_TESTS: 'true'
-      - name: Trigger Percy visual regression test for docs
-        timeout-minutes: 5
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-          PREVENT_PERCY_TESTS: ${{ secrets.PREVENT_PERCY_TESTS }}
-          PERCY_TARGET_BRANCH: main
-        if: "${{ env.PREVENT_PERCY_TESTS != 'true' }}"
-        run: |
-          npx @percy/cli snapshot docs/.vitepress/dist/ --exclude "**/404.html"

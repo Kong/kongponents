@@ -6,12 +6,16 @@
       class="skeleton-table-row"
     >
       <slot>
-        <KSkeletonBox
+        <div
           v-for="cell in columns"
           :key="cell"
-          class="skeleton-cell"
-          :width="calcWidth(cell, columns || 6)"
-        />
+          class="skeleton-cell-container"
+        >
+          <KSkeletonBox
+            class="skeleton-cell"
+            :width="calcWidth(cell, row)"
+          />
+        </div>
       </slot>
     </div>
   </div>
@@ -28,64 +32,49 @@ defineProps({
   },
   columns: {
     type: Number,
-    default: 6,
+    default: 4,
   },
 })
 
-const calcWidth = (cell: number, columns: number): SkeletonBoxWidth => {
-  if ([3, 4].indexOf(cell) === -1 && cell !== columns) return '10'
-  if ([3, 4].indexOf(cell) > -1 || cell === columns) return '6'
-  return '1'
+const calcWidth = (cell: number, row: number): SkeletonBoxWidth => {
+  if (cell === 1 && row === 1) return '25'
+  if (cell !== 1 && row !== 1) return '25'
+
+  return '50'
 }
 
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
-
-$screen-lg: $kui-breakpoint-tablet;
-$screen-md: $kui-breakpoint-phablet;
-
 .skeleton-table-wrapper {
   overflow: hidden;
   width: 100%;
 
   .skeleton-table-row {
     display: flex;
-    flex-direction: row;
-    margin-bottom: var(--kui-space-90, $kui-space-90);
-    /** Hide columns on smaller screens */
+    gap: var(--kui-space-20, $kui-space-20);
+    padding: var(--kui-space-60, $kui-space-60) var(--kui-space-40, $kui-space-40);
+    width: 100%;
 
-    .skeleton-cell {
-      margin-right: var(--kui-space-90, $kui-space-90) !important;
-
-      &:last-child {
-        margin-right: var(--kui-space-0, $kui-space-0) !important;
-        width: 100% !important;
-      }
+    &:not(:last-child) {
+      border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     }
 
-    @media only screen and (max-width: $screen-lg) {
-      .skeleton-cell {
-        &:nth-of-type(n + 5) {
-          display: none;
-        }
-        &:nth-of-type(4) {
-          margin-left: var(--kui-space-auto, $kui-space-auto);
-          margin-right: var(--kui-space-0, $kui-space-0);
-        }
+    .skeleton-cell-container {
+      width: calc(100% / v-bind('columns'));
+
+      &:first-child {
+        width: 50%;
       }
-    }
-    @media only screen and (max-width: $screen-md) {
-      .skeleton-cell {
-        &:nth-of-type(n + 3) {
-          display: none;
-        }
-        &:nth-of-type(2) {
-          margin-left: var(--kui-space-auto, $kui-space-auto);
-          margin-right: var(--kui-space-0, $kui-space-0);
-          width: 96px;
+
+      &:nth-child(even) {
+        display: none;
+      }
+
+      // hide half of the columns on mobile
+      @media (min-width: $kui-breakpoint-mobile) {
+        &:nth-child(even) {
+          display: block;
         }
       }
     }

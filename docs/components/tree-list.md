@@ -1,6 +1,6 @@
 # Tree List
 
-**KTreeList** - A drag-n-drop reorderable list component.
+KTreeList is a drag-n-drop reorderable list component.
 
 <KTreeList :items="defaultItems" />
 
@@ -12,20 +12,21 @@
 
 ### v-model
 
-`KTreeList` works with v-model for data binding.
+KTreeList works with v-model for data binding.
 
-::: tip NOTE
+:::tip NOTE
 The value provided to `v-model` should adhere to all the same constraints of the `items` property.
 :::
 
-<div>
+<div class="vertical-container">
   <KTreeList class="tree-wrapper" v-model="myList" />
-  <br>
-  <KButton @click="reset">Reset</KButton>
-  <div class="value-wrapper"><b>Value:</b> <pre class="json hide-from-percy">{{ JSON.stringify(myList) }}</pre></div>
+  <div>
+    <KButton @click="reset">Reset</KButton>
+  </div>
+  <div class="value-wrapper"><b>Value:</b> <pre class="json hide-from-percy">{{ JSON.stringify(myList, null, 2) }}</pre></div>
 </div>
 
-```html
+```vue
 <template>
   <KTreeList v-model="myList" />
   <KButton @click="reset">Reset</KButton>
@@ -34,46 +35,36 @@ The value provided to `v-model` should adhere to all the same constraints of the
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import type { TreeListItem } from '@kong/kongponents'
 
-const myList = ref([
+const items: TreeListItem[] = [
   {
-    name: "Cats",
-    id: 'cats'
-    selected: true
+    name: 'Components',
+    id: 'components-folder',
+    children: [
+      {
+        name: 'ProfileCard.vue',
+        id: 'profile-card',
+      },
+    ],
   },
   {
-    name: "Dogs",
-    id: 'dogs',
-    children: [{
-      name: "Puppies",
-      id: 'puppies'
-    }]
-  },
-  {
-    name: "Bunnies",
-    id: 'bunnies'
-  }])
+    name: 'Pages',
+    id: 'pages-folder',
+    children: [
+      {
+        name: 'Home.vue',
+        id: 'home',
+      },
+      ...
+    ]
+  }
+]
 
-  const reset = () => {
-    myList.value = [{
-      name: "Cats",
-      id: 'cats',
-      selected: true
-    },
-    {
-      name: "Dogs",
-      id: 'dogs',
-      children: [{
-        name: "Puppies",
-        id: 'puppies'
-      }]
-    },
-    {
-      name: "Bunnies",
-      id: 'bunnies'
-    }
-  ]
+const myList = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
+
+const reset = (): void => {
+  myList.value = JSON.parse(JSON.stringify(items))
 }
 </script>
 ```
@@ -82,52 +73,83 @@ const myList = ref([
 
 An array of items that make up the tree.
 
-Item properties:
+```ts
+interface TreeListItem {
+  name: string // text displayed as the label for the item
+  id: string // a unique `string` used to identify the item (note: `id`'s must be unique across all items and their children)
+  selected?: boolean
+  children?: TreeListItem[] // an array of items that will be treated as children of the current item
+}
+```
 
-- `name` (required) - text displayed as the label for the item
-- `id` (required) - a unique `string` used to identify the item (Note: `id`'s must be unique across all items and their children)
-- `selected` - boolean to indicate whether the current item is selected or not
-- `icon` - string of the `KIcon` icon name to be displayed to the left of the item `name` (defaults to `documentList`, specify `none` to not display any icon)
-- `children` - an array of items that will be styled as children of the current item (Note: all children must have the same property constraints as `items`)
-
-::: danger
+:::danger
 You cannot use `v-model` with the `items` prop. You must use one or the other.
 :::
 
 <KTreeList :items="defaultItems2" />
 
-```html
+```vue
 <template>
   <KTreeList :items="items" />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import type { TreeListItem } from '@kong/kongponents'
 
-const items = ref([
+const items = ref<TreeListItem[]>([
   {
-    name: "Cats",
-    id: 'cats'
+    name: 'Components',
+    id: 'components-folder',
+    children: [
+      {
+        name: 'ProfileCard.vue',
+        id: 'profile-card',
+      },
+    ],
   },
   {
-    name: "Dogs",
-    id: 'dogs',
+    name: 'Pages',
+    id: 'pages-folder',
+    children: [
+      {
+        name: 'Home.vue',
+        id: 'home',
+      },
+      {
+        name: 'User',
+        id: 'user-folder',
+        children: [
+          {
+            name: 'UserList.vue',
+            id: 'user-list',
+          },
+          {
+            name: 'UserDetail.vue',
+            id: 'user-detail',
+          },
+          {
+            name: 'Settings',
+            id: 'settings-folder',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Types',
+    id: 'types-folder',
     children: [{
-      name: "Puppies",
-      id: 'puppies'
-    }]
+      name: 'user.d.ts',
+      id: 'user-types',
+    }],
   },
-  {
-    name: "Bunnies",
-    id: 'bunnies'
-  }
 ])
 </script>
 ```
 
 ### disableDrag
 
-Boolean (defaults to `false`) to turn off drag-n-drop reordering of the list.
+Boolean to turn off drag-n-drop reordering of the list. Defaults to `false`.
 
 <KTreeList disable-drag :items="disableItems" />
 
@@ -137,42 +159,68 @@ Boolean (defaults to `false`) to turn off drag-n-drop reordering of the list.
 
 ### maxDepth
 
-Use this prop to customize the maximum supported depth of the tree. We default to a max depth of `3`.
+Use this prop to customize the maximum supported depth of the tree. The default value is `3`. The maximum supported value for `maxDepth` is 5.
 
-::: tip NOTE
-The maximum supported value for `maxDepth` is 5.
+:::tip NOTE
+Try moving any item under the Settings item in the example below and compare it to any other example on this page.
 :::
 
-<KTreeList :items="maxLevelsItems" :max-depth="5" />
+<KTreeList :max-depth="4" :items="maxLevelsItems" />
 
 ```html
-<KTreeList :items="items" :max-depth="5" />
+<KTreeList :max-depth="4" :items="items" />
 ```
 
 ### width
 
-You can pass a `width` string for the entire tree. By default it will take the full width. Currently we support numbers (will be converted to `px`), `auto`, and `percentages` for width.
+You can pass a `width` string for the entire tree. By default it will take the full width.
 
-<KTreeList :items="widthItems" width="70%" />
+<KTreeList width="50%" :items="widthItems" />
 
 ```html
-<KTreeList :items="items" width="70%" />
+<KTreeList width="50%" :items="items" />
+```
+
+### hideIcons
+
+Boolean to hide icons. Defaults to `false`.
+
+<KTreeList hide-icons :items="hideIconsItems" />
+
+```html
+<KTreeList hide-icons :items="items" />
 ```
 
 ## Slots
 
-`KTreeList` allows you to customize individual tree items via the item slots. The slots provide the current `item` data as a slot param.
+KTreeList allows you to customize individual tree items via the item slots. The slots provide the current `item` data as a slot param.
 
-- `item-icon` - slot for content displayed to the left of the item name in place of the default icon
-- `item-label` - slot for the main content of an item (defaults to the `name` of the item)
+### item-icon
 
-<KTreeList class="slot-example" :items="slotItems">
+Slot for content displayed to the left of the item name in place of the default icon.
+
+:::tip NOTE
+When you provide an icon through `item-icon` slot it will be displayed regardless what [`hideIcons` prop](#hideicons) value is.
+:::
+
+### item-label
+
+Slot for the main content of an item (defaults to the `name` of the item).
+
+<KTreeList :items="slotItems">
   <template #item-icon="{ item }">
-    {{ item.id === 'cats' ? '😸' : item.id === 'bunnies' ? '🐰' : '🐶' }}
+    <InboxIcon v-if="item.id.includes('folder')" />
+    <DataObjectIcon
+      v-else
+      :color="item.selected ? KUI_COLOR_TEXT_DECORATIVE_PURPLE : KUI_COLOR_TEXT_DECORATIVE_PURPLE_STRONG"
+    />
   </template>
   <template #item-label="{ item }">
-    <span class="slot-color-purple">
-    Animal: {{ item.name }}
+    <span v-if="item.id.includes('folder')">
+      <strong>{{ item.name }}</strong>
+    </span>
+    <span v-else>
+      {{ item.name }}
     </span>
   </template>
 </KTreeList>
@@ -180,11 +228,18 @@ You can pass a `width` string for the entire tree. By default it will take the f
 ```html
 <KTreeList :items="items">
   <template #item-icon="{ item }">
-    {{ item.id === 'cats' ? '😸' : item.id === 'bunnies' ? '🐰' : '🐶' }}
+    <InboxIcon v-if="item.id.includes('folder')" />
+    <DataObjectIcon
+      v-else
+      :color="item.selected ? KUI_COLOR_TEXT_DECORATIVE_PURPLE : KUI_COLOR_TEXT_DECORATIVE_PURPLE_STRONG"
+    />
   </template>
   <template #item-label="{ item }">
-    <span class="slot-color-purple">
-    Animal: {{ item.name }}
+    <span v-if="item.id.includes('folder')">
+      <strong>{{ item.name }}</strong>
+    </span>
+    <span v-else>
+      {{ item.name }}
     </span>
   </template>
 </KTreeList>
@@ -192,327 +247,119 @@ You can pass a `width` string for the entire tree. By default it will take the f
 
 ## Events
 
-- `@change` - emitted when there is a change to the root level items
-  - returns `items` - an array of tree items; `target` - the changed item
-- `@child-change` - emitted when an item is added or removed at the non-root level
-  - returns `parentId` - id of the parent item; `children` - an array of tree items; `target` - the changed item
-  - **Note:** two separate `child-change` events will fire if an item is moved from one parent to another
-- `@selected` - emitted when you click (and don't drag) an item; returns the selected item's data
+### change
 
-<div>
-  <KLabel>Selected: </KLabel> {{ mySelection && mySelection.name || '' }}
-  <br>
-  <KLabel>Items:</KLabel>
-  <pre class="json hide-from-percy">{{ JSON.stringify(eventItems) }}</pre>
-  <KTreeList
-    :items="eventItems"
-    class="tree-wrapper-2"
-    @selected="(item) => mySelection = item"
-    @change="({ items }) => eventItems = items"
-    @child-change="handleChildChange"
-  />
-</div>
+Emitted when there is a change to the root level items. Event payload is object instance of `ChangeEvent`.
 
-```html
-<template>
-  <KLabel>Selected: </KLabel> {{ mySelection && mySelection.name || '' }}
-  <KLabel>Items: </KLabel> {{ myItems }}
-  <KTreeList
-    :items="myItems"
-    @selected="(item) => mySelection = item"
-    @change="({ items }) => myItems = items"
-    @child-change="handleChildChange"
-  />
-</template>
-
-<script lang="ts" setup>
-  import { ref } from 'vue'
-
-  const mySelection = ref(null)
-  const handleChildChange = (data) => {
-    const { parentId, children, target } = data
-    const changedParent = myItems.value.find(item => item.id === parentId)
-    changedParent.children = children
-  }
-</script>
-```
-
-## Theming
-
-| Variable                              | Purpose                                                                                      |
-| :------------------------------------ | :------------------------------------------------------------------------------------------- |
-| `--KTreeListItemText`                 | Text color for the item name                                                                 |
-| `--KTreeListItemSelectedBorder`       | Border color of a selected item and color of indicator bar when dragging an item             |
-| `--KTreeListItemSelectedBackground`   | Background color of a selected item                                                          |
-| `--KTreeListItemUnselectedBorder`     | Border color of an unselected item and color of connecting line between parents and children |
-| `--KTreeListItemUnselectedBackground` | Background color of an unselected item                                                       |
-| `--KTreeListDropZoneHeight`           | Number of pixels between tree items                                                          |
-
-An example of changing the theming might look like this:
-
-<KTreeList class="themed-tree" :items="themeItems" />
-
-```html
-<template>
-  <KTreeList class="themed-tree" :items="items" />
-</template>
-
-<style>
-.themed-tree {
-  --KTreeListItemText: #473cfb;
-  --KTreeListItemSelectedBorder: #ffd68c;
-  --KTreeListItemSelectedBackground: #ffe6ba;
-  --KTreeListItemUnselectedBorder: #9396fc;
-  --KTreeListItemUnselectedBackground: #eaf4fb;
-  --KTreeListDropZoneHeight: 8px;
+```ts
+interface ChangeEvent {
+  items: TreeListItem[]
+  target: TreeListItem // the changed item
 }
-</style>
 ```
 
-<script lang="ts" setup>
-import { ref } from 'vue'
+### child-change
 
-const mySelection = ref(null)
+Emitted when an item is added or removed at the non-root level. Event payload is object instance of `ChildChangeEvent`.
+
+```ts
+interface ChildChangeEvent {
+  parentId: string // id of the parent item
+  children: TreeListItem[]
+  target: TreeListItem // the changed item
+}
+```
+:::tip NOTE
+Two separate `child-change` events will fire if an item is moved from one parent to another.
+:::
+
+### selected
+
+Emitted when you click (and don't drag) an item. Returns the selected item's data.
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { InboxIcon, DataObjectIcon } from '@kong/icons'
+import { KUI_COLOR_TEXT_DECORATIVE_PURPLE, KUI_COLOR_TEXT_DECORATIVE_PURPLE_STRONG } from '@kong/design-tokens'
+
+const mySelection = ref<TreeListItem | null>(null)
+
+const items: TreeListItem[] = [
+  {
+    name: 'Components',
+    id: 'components-folder',
+    children: [
+      {
+        name: 'ProfileCard.vue',
+        id: 'profile-card',
+      },
+    ],
+  },
+  {
+    name: 'Pages',
+    id: 'pages-folder',
+    children: [
+      {
+        name: 'Home.vue',
+        id: 'home',
+      },
+      {
+        name: 'User',
+        id: 'user-folder',
+        children: [
+          {
+            name: 'UserList.vue',
+            id: 'user-list',
+          },
+          {
+            name: 'UserDetail.vue',
+            id: 'user-detail',
+          },
+          {
+            name: 'Settings',
+            id: 'settings-folder',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Types',
+    id: 'types-folder',
+    children: [{
+      name: 'user.d.ts',
+      id: 'user-types',
+    }],
+  },
+]
 
 // each example must have it's own list because cloning
 // breaks drag-n-drop functionality
-const myList = ref([
-  {
-    name: "Cats",
-    id: 'cats',
-    selected: true
-  },
-  {
-    name: "Dogs",
-    id: 'dogs',
-    children: [{
-      name: "Puppies",
-      id: 'puppies'
-    }]
-  },
-  {
-    name: "Bunnies",
-    id: 'bunnies'
-  }
-])
+const myList = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
-const defaultItems = ref([
-  {
-    name: "Cats",
-    id: 'cats'
-  },
-  {
-    name: "Dogs",
-    id: 'dogs',
-    children: [{
-      name: "Puppies",
-      id: 'puppies'
-    }]
-  },
-  {
-    name: "Bunnies",
-    id: 'bunnies'
-  }
-])
+const defaultItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
-const defaultItems2 = ref([
-  {
-    name: "Cats",
-    id: 'cats'
-  },
-  {
-    name: "Dogs",
-    id: 'dogs',
-    children: [{
-      name: "Puppies",
-      id: 'puppies'
-    }]
-  },
-  {
-    name: "Bunnies",
-    id: 'bunnies'
-  }
-])
+const defaultItems2 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
-const disableItems = ref([
-  {
-    name: "Cats",
-    id: 'cats'
-  },
-  {
-    name: "Dogs",
-    id: 'dogs',
-    children: [{
-      name: "Puppies",
-      id: 'puppies'
-    }]
-  },
-  {
-    name: "Bunnies",
-    id: 'bunnies'
-  }
-])
+const disableItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
-const maxLevelsItems = ref([{
-  name: "Bunnies",
-  id: 'bunnies',
-  children: [{
-    name: "Cats",
-    id: 'cats',
-    children: [{
-      name: "Dogs",
-      id: "dogs",
-      children: [{
-        name: "Elephants",
-        id: 'elephants',
-        children: [
-          {
-            name: "Fish",
-            id: 'fish'
-          },
-          {
-            name: "Goats",
-            id: 'goats'
-          }
-        ]
-      }]
-    }]
-  }]
-}])
+const maxLevelsItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
-const widthItems = ref([
-  {
-    name: "Cats",
-    id: 'cats'
-  },
-  {
-    name: "Dogs",
-    id: 'dogs',
-    children: [{
-      name: "Puppies",
-      id: 'puppies'
-    }]
-  },
-  {
-    name: "Bunnies",
-    id: 'bunnies'
-  }
-])
+const widthItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
-const slotItems = ref([
-  {
-    name: "Cats",
-    id: 'cats'
-  },
-  {
-    name: "Dogs",
-    id: 'dogs',
-    children: [{
-      name: "Puppies",
-      id: 'puppies'
-    }]
-  },
-  {
-    name: "Bunnies",
-    id: 'bunnies'
-  }
-])
+const hideIconsItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
-const eventItems = ref([
-  {
-    name: "Cats",
-    id: 'cats'
-  },
-  {
-    name: "Dogs",
-    id: 'dogs',
-    children: [{
-      name: "Puppies",
-      id: 'puppies'
-    }]
-  },
-  {
-    name: "Bunnies",
-    id: 'bunnies'
-  }
-])
+const slotItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
-const themeItems = ref([
-  {
-    name: "Cats",
-    id: 'cats',
-    selected: true
-  },
-  {
-    name: "Dogs",
-    id: 'dogs',
-    children: [{
-      name: "Puppies",
-      id: 'puppies'
-    }]
-  },
-  {
-    name: "Bunnies",
-    id: 'bunnies'
-  }
-])
-
-const reset = () => {
-  myList.value = [
-    {
-      name: "Cats",
-      id: 'cats',
-      selected: true
-    },
-    {
-      name: "Dogs",
-      id: 'dogs',
-      children: [{
-        name: "Puppies",
-        id: 'puppies'
-      }]
-    },
-    {
-      name: "Bunnies",
-      id: 'bunnies'
-    }
-  ]
-}
-
-const handleChildChange = (data) => {
-  const { parentId, children, target } = data
-  const changedParent = eventItems.value.find(item => item.id === parentId)
-  changedParent.children = children
+const reset = (): void => {
+  myList.value = JSON.parse(JSON.stringify(items))
 }
 </script>
 
-<style scoped lang="scss">
-.slot-example :deep(.k-tree-item) .k-tree-item-icon {
-  line-height: 1.4;
-}
-
-.tree-wrapper {
-  margin-top: 8px;
-}
-
-.tree-wrapper-2 {
-  margin-top: 12px;
-}
-
-.value-wrapper {
-  margin-top: 32px;
-}
-
-.slot-color-purple {
-  color: #473cfb;
-}
-
-.themed-tree {
-  --KTreeListItemText: #473cfb;
-  --KTreeListItemSelectedBorder: #ffd68c;
-  --KTreeListItemSelectedBackground: #ffe6ba;
-  --KTreeListItemUnselectedBorder: #9396fc;
-  --KTreeListItemUnselectedBackground: #eaf4fb;
-  --KTreeListDropZoneHeight: 8px;
+<style lang="scss" scoped>
+.vertical-container {
+  display: flex;
+  flex-direction: column;
+  gap: $kui-space-50;
 }
 </style>

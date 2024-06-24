@@ -1,45 +1,40 @@
 <template>
-  <a
-    class="k-tree-item"
+  <button
+    class="tree-item"
     :class="{
       'not-draggable': disabled,
       'selected': item.selected
     }"
-    :data-testid="`k-tree-item-${item.id}`"
-    href="#"
-    role="button"
+    :data-testid="`tree-item-${item.id}`"
+    :draggable="!disabled"
+    type="button"
     @click.prevent="handleClick"
   >
     <div
       v-if="hasIcon"
-      class="k-tree-item-icon"
-      data-testid="k-tree-item-icon"
+      class="tree-item-icon"
+      data-testid="tree-item-icon"
     >
       <slot name="item-icon">
-        <KIcon
-          :icon="itemIcon"
-          :secondary-color="iconSecondaryColor"
-          :size="KUI_ICON_SIZE_40"
-        />
+        <ServiceDocumentIcon decorative />
       </slot>
     </div>
     <div
-      class="k-tree-item-label"
-      data-testid="k-tree-item-label"
+      class="tree-item-label"
+      data-testid="tree-item-label"
     >
       <slot name="item-label">
         {{ item.name }}
       </slot>
     </div>
-  </a>
+  </button>
 </template>
 
 <script lang="ts">
 import type { PropType } from 'vue'
 import { computed, useSlots } from 'vue'
 import type { TreeListItem } from '@/types'
-import { KUI_ICON_SIZE_40, KUI_COLOR_BORDER_DISABLED } from '@kong/design-tokens'
-import KIcon from '@/components/KIcon/KIcon.vue'
+import { ServiceDocumentIcon } from '@kong/icons'
 
 export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
   return items.every(i => i.name !== undefined && i.id !== undefined && (!i.children?.length || itemsHaveRequiredProps(i.children)))
@@ -57,6 +52,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  hideIcons: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits<{
@@ -65,18 +64,7 @@ const emit = defineEmits<{
 
 const slots = useSlots()
 
-const hasIcon = computed((): boolean => props.item.icon !== 'none' || !!slots['item-icon'])
-const itemIcon = computed((): string => props.item.icon ? props.item.icon : 'documentList')
-
-const iconSecondaryColor = computed((): string | undefined => {
-  if (itemIcon.value === 'documentList') {
-    return props.item.selected
-      ? 'var(--KTreeListItemSelectedBorder, currentColor)'
-      : `var(--KTreeListItemUnselectedBorder, var(--kui-color-border-disabled, ${KUI_COLOR_BORDER_DISABLED}))`
-  }
-
-  return undefined
-})
+const hasIcon = computed((): boolean => !props.hideIcons || !!slots['item-icon'])
 
 const handleClick = () => {
   emit('selected', props.item)
@@ -84,36 +72,53 @@ const handleClick = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/functions';
-@import '@/styles/tmp-variables';
-
-.k-tree-item {
+.tree-item {
   align-items: center;
-  background-color: var(--KTreeListItemUnselectedBackground, var(--kui-color-background, $kui-color-background));
-  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--KTreeListItemUnselectedBorder, var(--kui-color-border-disabled, $kui-color-border-disabled));
-  border-radius: $kui-border-radius-40;
-  color: var(--KTreeListItemText, var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest));
+  background-color: var(--kui-color-background, $kui-color-background);
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-disabled, $kui-color-border-disabled);
+  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+  color: var(--kui-color-text, $kui-color-text);
   display: flex;
-  padding: var(--kui-space-20, $kui-space-20);
+  font-size: var(--kui-font-size-30, $kui-font-size-30);
+  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+  gap: var(--kui-space-20, $kui-space-20);
+  line-height: var(--kui-line-height-30, $kui-line-height-30);
+  outline: none;
+  padding: var(--kui-space-30, $kui-space-30);
   text-decoration: none;
+  transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, border-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
+  user-select: none;
+  width: 100%;
 
-  .k-tree-item-icon {
-    line-height: var(--kui-line-height-20, $kui-line-height-20);
-    margin-right: var(--kui-space-40, $kui-space-40) !important;
+  .tree-item-icon,
+  :deep(#{$kongponentsKongIconSelector}) {
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+    transition: color $kongponentsTransitionDurTimingFunc;
+    width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+  }
+
+  .tree-item-label {
+    text-align: left;
   }
 
   &.selected {
-    background-color: var(--KTreeListItemSelectedBackground, $tmp-color-teal-100);
-    border-color: var(--KTreeListItemSelectedBorder, $tmp-color-teal-200);
+    background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+    border-color: var(--kui-color-border-neutral-weaker, $kui-color-border-neutral-weaker);
 
-    .k-tree-item-icon { /** so we can use currentColor in script section */
-      color: var(--KTreeListItemSelectedBorder, $tmp-color-teal-200);
+    .tree-item-icon {
+      color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
     }
   }
 
   &:hover {
-    color: var(--KTreeListItemText, var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest));
+    background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
     cursor: grab;
+  }
+
+  &:focus-visible {
+    background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+    box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
   }
 
   &.not-draggable {

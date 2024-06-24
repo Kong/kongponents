@@ -33,10 +33,9 @@ describe('KTruncate', () => {
       },
     })
 
-    const overflowingElement = cy.get('[data-testid="overflowing-element"]')
-    overflowingElement.should('not.be.visible')
+    cy.get('[data-testid="overflowing-element"]').should('not.be.visible')
     cy.get('[data-testid="expand-trigger-wrapper"]').click().then(() => {
-      overflowingElement.should('be.visible')
+      cy.get('[data-testid="overflowing-element"]').should('be.visible')
     })
   })
 
@@ -55,11 +54,11 @@ describe('KTruncate', () => {
     cy.get('[data-testid="expand-trigger-wrapper"]').should('contain.text', expandTriggerContent).click()
   })
 
-  it('render expanded when isExpanded prop is true and render content passed in through expand trigger slot', () => {
+  it('render expanded when expanded prop is true and render content passed in through expand trigger slot', () => {
     const collapseTriggerContent = 'Collapse'
     mount(KTruncate, {
       props: {
-        isExpanded: true,
+        expanded: true,
       },
       slots: {
         default: [

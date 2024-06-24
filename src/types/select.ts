@@ -1,17 +1,16 @@
-import type { AnyElementOf } from '@/types/utils'
-
 export interface SelectItem extends Record<string, any> {
   label: string
   value: string | number
+  /** Optional parameter that will be appended with `-selected` when selected */
   key?: string
   selected?: boolean
   disabled?: boolean
   group?: string
 }
 
-export interface SelectFilterFnParams {
-  items: SelectItem[]
+export interface SelectFilterFunctionParams {
   query: string
+  items: SelectItem[]
 }
 
 export interface SelectItemWithGroup extends SelectItem {
@@ -19,7 +18,3 @@ export interface SelectItemWithGroup extends SelectItem {
 }
 
 export type SelectDropdownFooterTextPosition = 'sticky' | 'static'
-
-export const SelectAppearanceArray = ['dropdown', 'select', 'button'] as const
-
-export type SelectAppearance = AnyElementOf<typeof SelectAppearanceArray>

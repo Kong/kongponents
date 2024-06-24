@@ -44,7 +44,7 @@ export default function useUtilities() {
     })
 
     const data = computed(() => {
-      // @ts-ignore
+      // @ts-ignore: data exists on the response
       return response.value?.data
     })
 
@@ -235,7 +235,8 @@ export default function useUtilities() {
       sizeStr.endsWith('%') ||
       sizeStr.endsWith('vw') ||
       sizeStr.endsWith('vh') ||
-      sizeStr.endsWith('px')
+      sizeStr.endsWith('px') ||
+      sizeStr.includes('calc(')
       ? sizeStr
       : sizeStr + 'px'
   }
@@ -245,7 +246,7 @@ export default function useUtilities() {
    * @param val Object to be cloned
    * @returns Cloned object
    */
-  const cloneDeep = (val: Object) => {
+  const cloneDeep = (val: Record<string, any>) => {
     if (!val) {
       return
     }

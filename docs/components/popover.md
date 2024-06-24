@@ -1,766 +1,567 @@
 # Popover
 
-**KPop** is a popover component that is used when you need something with more detailed content then fits inside a tooltip. KPop has three slots; only two is necessary is to be filled to populate the component with content. The title prop must be passed in and the main slot and the content slot must be populated in for the popover to display anything.
+KPop is a popover component that comes in handy when you need to display more content than can fit in a tooltip.
 
-For example a button:
-
-<KPop title="Cool header">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I am some sample text!
-  </template>
-</KPop>
+<KComponent
+  v-slot="{ data }"
+  :data="{ data1: false, data2: true }"
+>
+  <KPop
+    button-text="Open popover"
+    title="Communications settings"
+    width="350"
+  >
+    <template #content>
+      <div class="vertical-container">
+        <KInputSwitch label="Receive marketing communications" v-model="data.data1" />
+        <KInputSwitch label="Receive important updates" v-model="data.data2" />
+      </div>
+    </template>
+    <template #footer>
+      <KButton class="button-right">Apply</KButton>
+    </template>
+  </KPop>
+</KComponent>
 
 ```html
-<KPop title="Cool header">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I am some sample text!
+<KPop
+  button-text="Open popover"
+  title="Communications settings"
+  width="350"
+>
+  <template #content>
+    <KInputSwitch label="Receive marketing communications" />
+    <KInputSwitch label="Receive important updates" />
+  </template>
+  <template #footer>
+    <KButton>Apply</KButton>
   </template>
 </KPop>
 ```
+
+:::tip NOTE
+Check out [KTooltip](/components/tooltip) if you're looking for a component for showing tooltips. KPop is ideal for displaying more complex popover dialogs that might need to have interactive elements.
+:::
 
 ## Props
 
 ### buttonText
 
-This is the text that will be displayed on the button that triggers the popover if not using
-the default slot.
+Popover trigger button text. If you want to use your custom element as a popover trigger, check out the [`default` slot](#default).
 
-<KPop title="Cool header" buttonText="Click Me!">
-  <template v-slot:content>
-    You clicked me!
+<KPop button-text="Open popover">
+  <template #content>
+    Popover content.
   </template>
 </KPop>
 
 ```html
-<KPop title="Cool header" buttonText="Click Me!">
-  <template v-slot:content>
-    You clicked me!
+<KPop button-text="Open popover">
+  <template #content>
+    Popover content.
   </template>
 </KPop>
 ```
-
-### target
-
-This is the target `element` that the <code>popover</code> is appended to. By default its the body tag.
-
-<KPop title="Cool header" target=".theme-default-content">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I am a popover, inside the <code>.theme-default-content</code> selector so
-    I can get some of the stylings inside the theme!
-  </template>
-</KPop>
-
-```html
-<KPop title="Cool header" target=".theme-default-content">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I am a popover, inside the <code>.theme-default-content</code> selector so
-    I can get some of the stylings inside the theme!
-  </template>
-</KPop>
-```
-
-### tag
-
-This is the tag that the popover is wrapped around. By default its the div tag.
-
-```html
-<KPop title="Cool header" tag="details">
-  <KButton>button</KButton>
-  <template v-slot:content>I am inside a &lt;details/&gt; block!</template>
-</KPop>
-```
-
-<KPop title="Cool header" tag="details">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I am inside a &lt;details/&gt; block!
-  </template>
-</KPop>
 
 ### title
 
-This is the Title of the popover. Either this or the title slot needs to be filled.
+Popover container title. Can also be [slotted](#title-1).
 
-<KPop title="I am a new sample header">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I am some sample text!
+<KPop
+  title="Popover title"
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
   </template>
 </KPop>
 
 ```html
-<KPop title="I am a new sample header">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I am some sample text!
-  </template>
-</KPop>
-```
-
-or alternatively, via the slot:
-
-<KPop>
-  <template v-slot:default>
-    <KButton>button</KButton>
-  </template>
-  <template v-slot:title>I am a new sample header</template>
-  <template v-slot:content>I am some sample text!</template>
-</KPop>
-
-```html
-<KPop>
-  <template>
-    <KButton>button</KButton>
-  </template>
-  <template v-slot:title>I am a new sample header</template>
-  <template v-slot:content>I am some sample text!</template>
-</KPop>
-```
-
-### trigger
-
-What the popover is triggered by - by default it's triggered on click.
-
-Here are the different options:
-
-- `click`
-- `hover`
-
-<KPop title="Cool header" trigger="hover">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I am triggered on hover!
-  </template>
-</KPop>
-
-```html
-<KPop title="Cool header" trigger="hover">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I am triggered on hover!
+<KPop
+  title="Popover title"
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
   </template>
 </KPop>
 ```
 
 ### placement
 
-The position of where the popover appears - by default it appears on top.
+Placement of the popover.
 
-Here are the different options:
-
+Accepted values are:
 <ul>
-  <li
-    v-for="p in positions"
-    :key="p">
-    <code>{{ p }}</code>
+  <li v-for="placement in PopPlacementsArray" :key="`${placement}-placement`">
+    <code>{{ placement }}</code> 
+    <span v-if="placement === 'auto'">(default)</span>
   </li>
 </ul>
 
-<select class="k-input" v-model="selectedPosition">
-  <option
-    v-for="p in positions"
-    :key="p"
-    :value="p">{{ p }}</option>
-</select>
-<br>
-
-<KPop title="Cool header" trigger="hover" :placement="selectedPosition">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I am placed on the {{ selectedPosition }}!
-  </template>
-</KPop>
-
-```html
-<template>
-  <select v-model="selectedPosition">
-    <option
-      v-for="p in positions"
-      :key="p"
-      :value="p">{{ p }}</option>
-  </select>
-
-  <KPop title="Cool header" trigger="hover" :placement="selectedPosition">
-    <KButton>button</KButton>
-    <template v-slot:content>
-      I am placed on the {{ selectedPosition }}!
-    </template>
-  </KPop>
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  data () {
-    return {
-      selectedPosition: 'auto',
-      positions: [
-        'auto',
-        'top',
-        'topStart',
-        'topEnd',
-        'left',
-        'leftStart',
-        'leftEnd',
-        'right',
-        'rightStart',
-        'rightEnd',
-        'bottom',
-        'bottomStart',
-        'bottomEnd'
-      ]
-    }
-  }
-})
-</script>
-```
-
-### positionFixed
-
-Use fixed positioning of the popover to avoid content being clipped by parental boundaries - defaults to `false`.
-
-<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: salmon;">
+<div class="horizontal-container">
   <KPop
-    title="Look Mah!"
-    width="170"
-    placement="right"
+    v-for="placement in PopPlacementsArray"
+    :key="placement"
+    :button-text="placement"
+    :placement="placement"
   >
-    <KButton>Click</KButton>
-    <template v-slot:content>
-      My parent is too small 😭
+    <template #content>
+      Popover content.
     </template>
   </KPop>
 </div>
 
 ```html
-<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: salmon;">
-  <KPop
-    title="Look Mah!"
-    width="170"
-    placement="right"
-  >
-    <KButton>Click</KButton>
-    <template v-slot:content>
-      My parent is too small 😭
-    </template>
-  </KPop>
-</div>
-```
-
-<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: lightblue;">
-  <KPop
-    title="Look Mah!"
-    width="170"
-    placement="right"
-    :position-fixed="true"
-  >
-    <KButton>Click</KButton>
-    <template v-slot:content>
-      My parent is too small, but I don't care 😎
-    </template>
-  </KPop>
-</div>
-
-```html
-<div style="width: 300px; height: 125px; position: relative; overflow: hidden; z-index: 1; background-color: lightblue;">
-  <KPop
-    title="Look Mah!"
-    width="170"
-    placement="right"
-    :position-fixed="true"
-  >
-    <KButton>Click</KButton>
-    <template v-slot:content>
-      My parent is too small, but I don't care 😎
-    </template>
-  </KPop>
-</div>
-```
-
-### width
-
-The width of the popover body - by default it is `200px`. Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
-
-<KPop title="Cool header" width="300">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I am 300 pixels wide!
-  </template>
-</KPop>
-
-```html
-<KPop title="Cool header" width="300">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I am 300 pixels wide!
+<KPop
+  placement="bottom-end"
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
   </template>
 </KPop>
 ```
 
-### maxWidth
+### trigger
 
-The max width of the popover body - by default it is `auto`.
+Whether popover should be opened on trigger element click or mouseover.
 
-<KPop title="Cool header" width="auto" max-width="500">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide!
+Accepted values are:
+- `click` (default)
+- `hover`
+
+<KPop
+  trigger="hover"
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
   </template>
 </KPop>
 
 ```html
-<KPop title="Cool header" max-width="500">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide! I am 500 pixels wide!
-  </template>
-</KPop>
-```
-
-### popoverClasses
-
-Custom classes that you want to append to the popover - by default it has a `k-popover` class on it.
-
-```html
-<KPop title="Cool header" popoverClasses="my-class">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I have a custom my-class class on me!
-  </template>
-</KPop>
-```
-
-### popoverTransitions
-
-Custom transitions that you want the popover to have - by default it uses a `fade` transition.
-
-```html
-<KPop title="Cool header" popoverTransitions="slide">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I use a slide transition!
+<KPop
+  trigger="hover"
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
   </template>
 </KPop>
 ```
 
 ### popoverTimeout
 
-Custom timeout setting that you want the popover to have - by default it is set to 300 milliseconds.
+When [`trigger` prop](#trigger) is `hover`, you can provide a timeout for popover to wait before it closes. Default value is 300 milliseconds.
 
-<KPop title="Cool header" :popover-timeout="1000" trigger="hover">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I have a 1 second timeout!
+<KPop
+  :popover-timeout="3000"
+  trigger="hover"
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
   </template>
 </KPop>
 
 ```html
-<KPop title="Cool header" :popover-timeout="1000">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I have a 1 second timeout!
-  </template>
-</KPop>
-```
-
-### hidePopover
-
-You can pass in an optional flag to trigger the popover to hide - useful for external events like zooming or panning - by default it is set to `false`.
-
-```html
-<KPop title="Cool header" hidePopover="zoom()">
-  <KButton>button</KButton>
-  <template v-slot:content>
-  I am hidden depending on the outcome of the zoom function!
+<KPop
+  :popover-timeout="3000"
+  trigger="hover"
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
   </template>
 </KPop>
 ```
 
 ### disabled
 
-You can pass in an optional flag to disable the popover - by default it is set to `false`.
+Boolean to control whether popover should be disabled. Defaults to `false`.
+
+<KPop
+  disabled
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
+  </template>
+</KPop>
 
 ```html
-<KPop title="Cool header" disabled="true">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    I do not trigger because I am disabled!
+<KPop
+  disabled
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
   </template>
 </KPop>
 ```
 
 ### hideCaret
 
-You can pass in an optional flag to not show the caret on the edge of the popover.
+Boolean to control whether the popover caret should be visible. Defaults to `false`.
 
-<KPop title="Cool header" hide-caret placement="right">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    Look ma, no caret!
+<KPop
+  hide-caret
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
   </template>
 </KPop>
 
 ```html
-<KPop title="Cool header" hide-caret placement="right">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    Look ma, no caret!
+<KPop
+  hide-caret
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
   </template>
 </KPop>
 ```
 
-### onPopoverClick
+### closeOnPopoverClick
 
-You can pass in an optional callback function to trigger when the popup is already open and the trigger method is click.
+Boolean to control whether or not the popover should close when a user clicks within the popover content. Default to `false`.
 
-The callback function can optionally return a boolean, which will show or hide the popup depending on the value of the boolean.
+<KComponent
+  v-slot="{ data }"
+  :data="{ closeOnPopoverClick: false }"
+>
+  <div class="vertical-container">
+    <KInputSwitch
+      v-model="data.closeOnPopoverClick"
+      label="Close on popover click"
+    />
+    <KPop
+      :close-on-popover-click="data.closeOnPopoverClick"
+      button-text="Open popover"
+    >
+      <template #content>
+        <KButton size="small">
+          Click here
+        </KButton>
+      </template>
+    </KPop>
+  </div>
+</KComponent>
 
-<KPop title="Cool header" :on-popover-click="toggle">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    The first time you click the button, I will close when you click here once.
-    The second time you click the button, I will close when you click here twice.
+```html
+<KPop
+  close-on-popover-click
+  button-text="Open popover"
+>
+  <template #content>
+    <KButton size="small">
+      Click here
+    </KButton>
+  </template>
+</KPop>
+```
+
+### hideCloseIcon
+
+Boolean to hide close button in popover content.
+
+<KComponent
+  v-slot="{ data }"
+  :data="{ hideCloseIcon: false }"
+>
+  <div class="vertical-container">
+    <KInputSwitch
+      v-model="data.hideCloseIcon"
+      label="Hide close icon"
+    />
+    <KPop
+      button-text="Open popover"
+      :hide-close-icon="data.hideCloseIcon"
+    >
+      <template #content>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </template>
+    </KPop>
+  </div>
+</KComponent>
+
+```html
+<KPop
+  hide-close-icon
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
+  </template>
+</KPop>
+```
+
+### width
+
+Width of the popover container. Default value is `200px`.
+
+<KPop
+  width="500"
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
   </template>
 </KPop>
 
 ```html
-<KPop title="Cool header" :on-popover-click="toggle">
-  <KButton>button</KButton>
-  <template v-slot:content>
-    The first time you click the button, I will close when you click here once.
-    The second time you click the button, I will close when you click here twice.
+<KPop
+  width="500"
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
+  </template>
+</KPop>
+```
+
+### maxWidth
+
+Maximum width of the popover container. Default value is `auto`.
+
+<KPop
+  max-width="120"
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
   </template>
 </KPop>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
-
-export default defineComponent({
-  setup() {
-    const isToggled = ref(true)
-    const toggle = (): void => {
-      isToggled.value = !isToggled.value
-      return isToggled.value
-    }
-
-    return { isToggled }
-  }
-})
-</script>
+```html
+<KPop
+  max-width="120"
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
+  </template>
+</KPop>
 ```
 
-### isSVG
+### tag
 
-To support `<KPop>` being able to be used inside an svg tag, use the `isSvg` prop. This will wrap the content of the KPop in a `<foreignObject>` tag, so that normal HTML content can be injected into the popover.
+KPop wrapper element type. Default value is `div`.
 
-<svg style="cursor: pointer; height: 20px; width: 20px; margin-right: 16px;" v-for="light in [{ color: 'red', value: 'red'}, { color: 'yellow', value: 'gold'}, { color: 'green', value: 'lime'}]">
-  <KPop trigger="hover" :title="light.color" :is-svg="true" tag="svg" :popover-timeout="10">
-    <template v-slot:content>
-      <p>{{ light.color }} means {{ light.color == 'green' ? 'GO!' : (light.color == 'red' ? 'STOP!' : 'SLOW DOWN!') }}</p>
-    </template>
-    <rect :fill="`${light.value}`" width="20" height="20" rx="20" ry="20"></rect>
-  </KPop>
-</svg>
+### popoverClasses
+
+List of class names you want to assign to `.k-popover` element.
 
 ```html
-<svg v-for="light in ['red', 'gold', 'lime']">
-  <KPop trigger="hover" title="Light" :is-svg="true" tag="g" :popover-timeout="10">
-    <template v-slot:content>
-      <p>{{ light }} means {{ light == 'green' ? 'GO!' : (light == 'red' ? 'STOP!' : 'SLOW DOWN!') }}</p>
-    </template>
-    <rect :fill="`${light}`" width="20" height="20" rx="20" ry="20"></rect>
-  </KPop>
-</svg>
+<KPop
+  popover-classes="foo bar"
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
+  </template>
+</KPop>
 ```
+
+### zIndex
+
+Pass a number to use for the `z-index` property. Default value is `1000`.
 
 ## Slots
 
-- `default` There is a main slot that takes in the element you want the popover to be triggered over.
+### content
 
-```html
-<KPop title="Cool header">
-  <!-- Your element goes here -->
-  <KButton>button</KButton>
-</KPop>
-```
+Slot for passing popover content.
 
-- `title`
-
-There is an optional title slot that can take in an element for the title. The title could alternatively be populated via the prop.
-
-```html
-<KPop title="Cool header">
-  <!-- Your element goes here -->
-  <KButton>button</KButton>
-  <!-- Your title goes here -->
-  <template v-slot:title>
-    My Title
-  </template>
-</KPop>
-```
-
-- `actions`
-
-An optional slot for an actions button in the upper right corner of the popover.
-
-```html
-<KPop title="Cool header">
-  <!-- Your element goes here -->
-  <KButton>button</KButton>
-  <!-- Your content goes here -->
-  <template v-slot:actions>
-    View All
-  </template>
-</KPop>
-```
-
-- `content`
-
-This is the slot that takes in the content of the popover.
-
-```html
-<KPop title="Cool header">
-  <!-- Your element goes here -->
-  <KButton>button</KButton>
-  <!-- Your content goes here -->
-  <template v-slot:content>
-    I am some cool content
-  </template>
-</KPop>
-```
-
-- `footer`
-
-This is an optional slot that takes in content for the footer bar. This typically is an actionable element like
-a button or link.
-
-```html
-<KPop title="Cool header">
-  <!-- Your element goes here -->
-  <KButton>button</KButton>
-  <!-- Your footer content goes here -->
-  <template v-slot:footer>
-    View All
-  </template>
-</KPop>
-```
-
-Example:
-
-<KPop title="Notifications" :on-popover-click="toggle" width="500">
-  <KButton>Fire!</KButton>
-  <template v-slot:title>
-    <div>Notifications</div>
-  </template>
-  <template v-slot:actions>
-    <KButton appearance="btn-link" size="small">Mark all as read</KButton>
-  </template>
-  <template v-slot:content>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eleifend lorem ut ex tempus, a tincidunt elit hendrerit. Nunc eu ex vestibulum, consequat tellus sed, pharetra magna.
-  </template>
-  <template v-slot:footer>
-    <KButton size="small">View all notifications</KButton>
+<KPop button-text="Open popover">
+  <template #content>
+    Popover content.
   </template>
 </KPop>
 
 ```html
-<KPop title="Notifications" :on-popover-click="toggle" width="500">
-  <KButton>Fire!</KButton>
-  <template v-slot:title>
-    <div>Notifications</div>
-  </template>
-  <template v-slot:actions>
-    <KButton appearance="btn-link" size="small">Mark all as read</KButton>
-  </template>
-  <template v-slot:content>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eleifend lorem ut ex tempus, a tincidunt elit hendrerit. Nunc eu ex vestibulum, consequat tellus sed, pharetra magna.
-  </template>
-  <template v-slot:footer>
-    <KButton size="small">View all notifications</KButton>
+<KPop button-text="Open popover">
+  <template #content>
+    Popover content.
   </template>
 </KPop>
 ```
 
-## Usage
+### default
 
-### Events / Loading Content
+Slot for passing custom popover trigger element.
 
-- `opened` - emitted once the popover has been opened
-- `closed` - emitted when the popover has been triggered closed (emits on all triggers)
-
-<KPop @opened="loadSomething" @closed="onClose">
-  <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
-  <template v-slot:content>
-    <div style="justify-content: center;" class="loading-container">
-      <KIcon v-if="currentState == 'pending'" icon="spinner" color="purple" />
-      <div>{{ message }}</div>
-    </div>
-  </template>
-</KPop>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  data () {
-    return {
-      selectedPosition: 'auto',
-      positions: [
-        'auto',
-        'top',
-        'topStart',
-        'topEnd',
-        'left',
-        'leftStart',
-        'leftEnd',
-        'right',
-        'rightStart',
-        'rightEnd',
-        'bottom',
-        'bottomStart',
-        'bottomEnd'
-      ],
-      currentState: 'idle',
-      states: {
-        'idle': 'pending',
-        'pending': 'idle'
-      },
-      count: 0,
-      isToggled: true,
-      timeout: null
-    }
-  },
-  computed: {
-    buttonText () {
-      return {
-        'pending': 'Loading something...',
-        'idle': 'Load something'
-      }[this.currentState]
-    },
-    message () {
-      return {
-        'pending': `Loading ${this.count}...`,
-        'idle': 'Loaded!'
-      }[this.currentState]
-    }
-  },
-  methods: {
-    loadSomething () {
-      this.transition()
-      this.timeout = setTimeout(() => {
-        this.count+=1
-        this.transition()
-      }, 2000)
-    },
-    toggle () {
-      this.isToggled = !this.isToggled
-      return this.isToggled
-    },
-    onClose () {
-      clearTimeout(this.timeout)
-      if (this.currentState == 'pending') {
-        this.transition()
-      }
-    },
-    transition() {
-      this.currentState = this.states[this.currentState]
-    }
-  }
-})
-</script>
-
-```html
-<KPop @opened="loadSomething" @closed="onClose">
-  <KButton :disabled="currentState == 'pending'">{{ buttonText }}</KButton>
-  <template v-slot:content>
-    <div style="justify-content: center;">
-      <KIcon v-if="currentState == 'pending'" icon="spinner" color="purple" />
-      <div>{{ message }}</div>
-    </div>
-  </template>
-</KPop>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  data () {
-    return {
-      currentState: 'idle',
-      states: {
-        'idle': 'pending',
-        'pending': 'idle'
-      },
-      count: 0,
-      timeout: null
-    }
-  },
-  computed: {
-    buttonText () {
-      return {
-        'pending': 'Loading something...',
-        'idle': 'Load something'
-      }[this.currentState]
-    },
-    message () {
-      return {
-        'pending': `Loading ${this.count}...`,
-        'idle': 'Loaded!'
-      }[this.currentState]
-    }
-  },
-  methods: {
-    loadSomething () {
-      this.transition()
-      this.timeout = setTimeout(() => {
-        this.count+=1
-        this.transition()
-      }, 2000)
-    },
-    onClose () {
-      clearTimeout(this.timeout)
-      this.transition()
-    },
-    transition() {
-      this.currentState = this.states[this.currentState]
-    }
-  }
-})
-</script>
-```
-
-## Theming
-
-| Variable           | Purpose                         |
-| :----------------- | :------------------------------ |
-| `--KPopBackground` | Primary background color        |
-| `--KPopBorder`     | Primary border color            |
-| `--KPopBodySize`   | Font size of the body content   |
-| `--KPopColor`      | Text color of the content       |
-| `--KPopHeaderSize` | Font size of the header content |
-| `--KPopPaddingY`   | Vertical top/bottom spacing     |
-| `--KPopPaddingX`   | Horizontal left/right padding   |
-
-## Browser Compatibility
-
-::: warning
-For Internet Explorer 11 and below, the Popover component will not work due to `Node.contains` not being supported by the browser.
-You will have to manually polyfill this functionality if you choose to support IE11 or below.
+:::tip NOTE
+When providing your custom element as popover trigger, make sure to set appropriate `tabindex` attribute in order to make popover accessible for assistive technology users.
 :::
 
-<style scoped>
-select {
-  height: 38px;
-  background-color: #fff !important;
-  width: 250px;
+<KPop hide-close-icon>
+  <KInput
+    label="Password"
+    type="password"
+    placeholder="Enter a strong password"
+  />
+  <template #content>
+    Must contain at least one special character: *!&#.
+  </template>
+</KPop>
+
+```html
+<KPop hide-close-icon>
+  <KInput
+    label="Password"
+    type="password"
+    placeholder="Enter a strong password"
+  />
+  <template #content>
+    Must contain at least one special character: *!&#.
+  </template>
+</KPop>
+```
+
+:::danger
+KPop logic is built on the presumption that trigger element is going to be in the DOM when the component is mounted. If you need to render the element conditionally, avoid setting `v-if` directive on the trigger element directly and render the entire KPop component conditionally instead.
+
+<span class="inline-title">
+  <CheckIcon :size="KUI_ICON_SIZE_30" :color="KUI_COLOR_TEXT_SUCCESS" /> <b>Correct:</b>
+</span>
+
+```html
+<KPop v-if="!loading">
+  <KButton>Open popover</KButton>
+  <template #content>
+    ...
+  </template>
+</KPop>
+```
+
+<span class="inline-title">
+  <CloseIcon :size="KUI_ICON_SIZE_30" :color="KUI_COLOR_TEXT_DANGER" /> <b>Incorrect:</b>
+</span>
+
+```html
+<KPop>
+  <KButton v-if="!loading">Open popover</KButton>
+  <template #content>
+    ...
+  </template>
+</KPop>
+```
+
+<span class="inline-title">
+  <CloseIcon :size="KUI_ICON_SIZE_30" :color="KUI_COLOR_TEXT_DANGER" /> <b>Incorrect:</b>
+</span>
+
+```html
+<KPop>
+  <template
+    #default
+    v-if="!loading"
+  >
+    <KButton>Open popover</KButton>
+  </template>
+  <template #content>
+    ...
+  </template>
+</KPop>
+```
+:::
+
+### title
+
+Slot for passing custom popover title.
+
+<KPop button-text="Open popover">
+  <template #title>
+    Popover title
+  </template>
+  <template #content>
+    Popover content.
+  </template>
+</KPop>
+
+```html
+<KPop button-text="Open popover">
+  <template #title>
+    Popover title
+  </template>
+  <template #content>
+    Popover content.
+  </template>
+</KPop>
+```
+
+### footer
+
+Slot for passing footer content that goes directly underneath main popover content.
+
+<KPop button-text="Open popover">
+  <template #content>
+    Popover content.
+  </template>
+  <template #footer>
+    <KBadge>Footer</KBadge>
+  </template>
+</KPop>
+
+```html
+<KPop button-text="Open popover">
+  <template #content>
+    Popover content.
+  </template>
+  <template #footer>
+    <KBadge>Footer</KBadge>
+  </template>
+</KPop>
+```
+
+## Events
+
+### open
+
+Fires when the popover is opened.
+
+### close
+
+Fires when the popover is closed.
+
+### popover-click
+
+Fires when the popover content is clicked.
+
+<script setup lang="ts">
+import { PopPlacementsArray } from '@/types'
+import { CheckIcon, CloseIcon } from '@kong/icons'
+import { KUI_ICON_SIZE_30, KUI_COLOR_TEXT_SUCCESS, KUI_COLOR_TEXT_DANGER } from '@kong/design-tokens'
+</script>
+
+<style lang="scss" scoped>
+.horizontal-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $kui-space-50;
 }
 
-.loading-container {
+.vertical-container {
   display: flex;
+  flex-direction: column;
+  gap: $kui-space-40;
+}
+
+.button-right {
+  margin-left: $kui-space-auto;
+}
+
+.inline-title {
+  display: flex;
+  gap: $kui-space-30;
+  align-items: center;
+
+  &:not(:first-of-type) {
+    margin-top: $kui-space-40;
+  }
 }
 </style>

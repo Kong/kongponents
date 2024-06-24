@@ -1,259 +1,187 @@
 # Segmented Control
 
-**KSegmentedControl** is used a like radio button group and is meant to toggle between mutually exclusive options.
+KSegmentedControl is used a like radio button group and is meant to toggle between mutually exclusive options.
 
-<KComponent :data="{ selected: 'Like it?' }" v-slot="{ data }">
-  <KSegmentedControl :options="['Like it?','Love it!']" v-model="data.selected" @click="x => data.selected = x" />
-</KComponent>
+<KSegmentedControl :options="options" v-model="vModel1" />
 
 ```html
-<KComponent :data="{ selected: 'Like it?' }" v-slot="{ data }">
-  <KSegmentedControl :options="['Like it?','Love it!']" v-model="data.selected" @click="x => data.selected = x" />
-</KComponent>
+<KSegmentedControl :options="options" v-model="selectedOption" />
 ```
 
 ## Props
 
-### options - required
+### options
 
 An array of options for each button.
+
+<KSegmentedControl :options="stringOptions" v-model="vModel2" />
+
+```html
+<KSegmentedControl :options="['Item One', 'Item Two', 'Item Three']" v-model="selectedOption" />
+```
 
 Can be provided as an array of unique strings, or as a json key value pair in order to use a custom label. Must match the type interface shown below:
 
 ```ts
 export interface SegmentedControlOption {
   label?: string
-  value: string | number | boolean
+  value: string | number
   disabled?: boolean
 }
-
-// Component props reference
-{
-  options: {
-    type: Array as PropType<SegmentedControlOption[] | string[]>,
-    required: true,
-  }
-}
 ```
 
-<KComponent :data="{ selected: 'left' }" v-slot="{ data }">
-  <KSegmentedControl :options="[{label:'Left',value:'left'},{label:'Middle',value:'middle'},{label:'Right',value:'right'}]" v-model="data.selected" @click="x => data.selected = x" />
-</KComponent>
+<KSegmentedControl :options="optionsDisabled" v-model="vModel3" />
 
 ```html
-<KComponent :data="{ selected: 'left' }" v-slot="{ data }">
-  <KSegmentedControl :options="[{label:'Left',value:'left'},{label:'Right',value:'right'}]" v-model="data.selected" @click="x => data.selected = x" />
-</KComponent>
+<KSegmentedControl 
+  :options="[
+    { label: 'Item 1', value: 'item-one' },
+    { label: 'Item 2', value: 'item-two', disabled: true },
+    { label: 'Item 3', value: 'item-three' },
+  ]"
+  v-model="selectedOption"
+/>
 ```
 
-### v-model - required
+### v-model
 
 The value of the currently selected option.
 
-<KComponent :data="{ selected: '1h' }" v-slot="{ data }">
-  <KSegmentedControl :options="['5m','30m','1h','6h','24h','all']" v-model="data.selected" @click="x => data.selected = x" />
-</KComponent>
+<KSegmentedControl :options="['1h', '3h', '5h', '12h', '24h', 'All']" v-model="vModel4" />
+<div class="value-example-container">
+Selected option: {{ vModel4 || 'none' }}
+</div>
 
 ```html
-<KComponent :data="{ selected: '1h' }" v-slot="{ data }">
-  <KSegmentedControl :options="['5m','30m','1h','6h','24h','all']" v-model="data.selected" @click="x => data.selected = x" />
-</KComponent>
+<KSegmentedControl :options="['1h', '3h', '5h', '12h', '24h', 'All']" v-model="selectedOption" />
+Selected option: {{ selectedOption || 'none' }}
 ```
 
-### isDisabled
+### size
 
-You can pass in an optional flag to disable the control or an individual button - by default it is set to `false`.
+KSegmentedControl comes in two sizes: `small` (default) and `large`.
 
-<KSegmentedControl :options="['On','Off']" selected="On" :isDisabled="true" />
+Small:
+
+<KSegmentedControl size="small" :options="options" v-model="vModel5" />
 
 ```html
-<KSegmentedControl :options="['On','Off']" selected="On" :isDisabled="true" />
+<KSegmentedControl size="small" :options="options" v-model="selectedOption" />
 ```
 
-<KComponent :data="{ selected: '1' }" v-slot="{ data }">
-  <KSegmentedControl :options="[{label:'pick me',value:'1'},{label:'disabled',value:'2',disabled: true},{label:'or me',value:'3'}]" v-model="data.selected" @click="x => data.selected = x" />
-</KComponent>
+Large:
+
+<KSegmentedControl size="large" :options="options" v-model="vModel6" />
 
 ```html
-<KComponent :data="{ selected: '1' }" v-slot="{ data }">
-  <KSegmentedControl :options="[{label:'pick me',value:'1'},{label:'disabled',value:'2',disabled: true},{label:'or me',value:'3'}]" v-model="data.selected" @click="x => data.selected = x" />
-</KComponent>
+<KSegmentedControl size="large" :options="options" v-model="selectedOption" />
 ```
 
-### allowPointerEvents
+### disabled
 
-By default, CSS `pointer-events` is set to `none` for the Segmented Control button slots. Set this prop to `true` to change the behavior to `pointer-events: auto`.
+Use this slot to disable all options at once.
+
+<KSegmentedControl disabled :options="['Item One', 'Item Two', 'Item Three']" v-model="vModel7" />
+
+```html
+<KSegmentedControl disabled :options="['Item One', 'Item Two', 'Item Three']" v-model="selectedOption" />
+```
 
 ## Slots
 
+### option-label
+
 You can customize each option's content using the `option-label` slot. The option's data is provided as a slot param.
 
-<KComponent :data="{ selected: 'cat' }" v-slot="{ data }">
-  <KSegmentedControl
-    v-model="data.selected"
-    :options="[{
-      label: 'Cat',
-      value: 'cat'
-    },
-    {
-      label: 'Dog',
-      value: 'dog'
-    },
-    {
-      label: 'Bunny',
-      value: 'bunny'
-    }]"
-    @click="x => data.selected = x"
-  >
-    <template #option-label="{ option }">
-      <div class="k-segmented-control-option">
-        <div class="k-segmented-control-value">
-          {{ option.value === 'dog' ? '🐶' : option.value === 'cat' ? '😸' : '🐰' }}
-        </div>
-        {{ option.label }}
-      </div>
-    </template>
-  </KSegmentedControl>
-</KComponent>
+<KSegmentedControl
+  :options="options"
+  v-model="vModel8"
+>
+  <template #option-label="{ option }">
+    Option {{ option.label }}
+  </template>
+</KSegmentedControl>
 
 ```html
-<KComponent :data="{ selected: '1' }" v-slot="{ data }">
-  <KSegmentedControl
-    v-model="data.selected"
-    :options="[{
-      label: 'Cat',
-      value: 'cat'
-    },
-    {
-      label: 'Dog',
-      value: 'dog'
-    },
-    {
-      label: 'Bunny',
-      value: 'bunny'
-    }]"
-    @click="x => data.selected = x"
-  >
-    <template #option-label="{option}">
-      <div class="k-segmented-control-option">
-        <div class="k-segmented-control-value">
-          {{ option.value === 'dog' ? '🐶' : option.value === 'cat' ? '😸' : '🐰' }}
-        </div>
-        {{ option.label }}
-      </div>
-    </template>
-  </KSegmentedControl>
-</KComponent>
-
-<style>
-.k-segmented-control-option {
-  display: inline-block !important;
-}
-.k-segmented-control-value {
-    margin-bottom: $kui-space-10 !important;
-}
-</style>
+<KSegmentedControl
+  :options="options"
+  v-model="selectedOption"
+>
+  <template #option-label="{ option }">
+    Option {{ option.label }}
+  </template>
+</KSegmentedControl>
 ```
 
 ## Events
 
-You can bind normal DOM events to `KSegmentedControl`
+### update:modelValue
 
-<KComponent :data="{ selected: 'On' }" v-slot="{ data }">
-  <KSegmentedControl class="k-segmented-control" :options="['On','Off']" v-model="data.selected" @click="x => sayHello(x) || (data.selected = x)" />
-</KComponent>
+KSegmentedControl emits two events on option click with the same payload. The payload is newly selected option (or, if parameter passed through `options` prop is array of objects, the event payload is `option.value`).
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  methods: {
-    sayHello (state) {
-      alert(`The state is set to: ${state}`)
-    }
-  }
-})
-</script>
+<KSegmentedControl :options="['Item One', 'Item Two', 'Item Three']" v-model="vModel9" />
+<div class="value-example-container">
+Emitted value: <code>{{ vModel9 || 'none' }}</code>
+</div>
 
 ```html
-<KComponent :data="{ selected: 'On' }" v-slot="{ data }">
-  <KSegmentedControl class="k-segmented-control" :options="['On','Off']" v-model="data.selected" @click="state => sayHello(state, data)" />
-</KComponent>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  methods: {
-    sayHello (state, data) {
-      data.selected = state
-      alert(`The state is set to: ${state}`)
-    }
-  }
-})
-</script>
-
-<style>
-.k-segmented-control {
-  margin-top: $kui-space-10 !important;
-}
-</style>
+<KSegmentedControl :options="['Item One', 'Item Two', 'Item Three']" v-model="selectedOption" />
+Selected option: {{ selectedOption || 'none' }}
 ```
 
-## Theming
+:::tip NOTE
+Note that when options is an array of strings, the value emitted by KSegmentedControl will be lower case, all spaces will be replaced by dash (`-`) symbol.
+:::
 
-| Variable                                  | Purpose                                   |
-| :---------------------------------------- | :---------------------------------------- |
-| `--KSegmentedControlText`                 | Option text color                         |
-| `--KSegmentedControlSelectedBackground`   | Option background color when selected     |
-| `--KSegmentedControlSelectedBorder`       | Option border color when selected         |
-| `--KSegmentedControlUnselectedBackground` | Option background color when not selected |
-| `--KSegmentedControlUnselectedBorder`     | Option border color when not selected     |
-| `--KSegmentedControlGap`                  | Gap between the options                   |
+### click
 
-An Example of changing the KSegmentedControl to a purple theme instead of blue might look like:
+Similarly, you can bind any logic related to option select to the `@click` event.
 
-<KComponent :data="{ selected: 'Like it' }" v-slot="{ data }">
-  <KSegmentedControl
-      v-model="data.selected"
-      :options="['Like it', 'Theme it', 'Love it']"
-      class="purple-segment"
-      @click="x => data.selected = x"
-    />
-</KComponent>
+<KSegmentedControl @click="onOptionClick" :options="options" v-model="vModel10" />
 
-```html
+```vue
 <template>
-  <KComponent :data="{ selected: 'Like it' }" v-slot="{ data }">
-    <KSegmentedControl
-      v-model="data.selected"
-      :options="['Like it', 'Theme it', 'Love it']"
-      class="purple-segment"
-      @click="x => data.selected = x"
-    />
-  </KComponent>
+  <KSegmentedControl @click="onOptionClick" :options="options" v-model="selectedOption" />
 </template>
 
-<style>
-.purple-segment {
-  --KSegmentedControlText: #473cfb;
-  --KSegmentedControlSelectedBackground: white;
-  --KSegmentedControlSelectedBorder: #9396fc;
-  --KSegmentedControlUnselectedBackground: #f2f6fe;
-  --KSegmentedControlUnselectedBorder: #0364ac;
-  --KSegmentedControlGap: 12px;
+<script setup lang="ts">
+const onOptionClick = (value: string): void => {
+  alert(`Option ${value} clicked`)
 }
-</style>
+</script>
 ```
 
-<style scoped lang="scss">
-.purple-segment {
-  --KSegmentedControlText: #473cfb;
-  --KSegmentedControlSelectedBackground: white;
-  --KSegmentedControlSelectedBorder: #9396fc;
-  --KSegmentedControlUnselectedBackground: #f2f6fe;
-  --KSegmentedControlUnselectedBorder: #0364ac;
-  --KSegmentedControlGap: 12px;
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import type { SegmentedControlOption } from '@/types/segmented-control'
+
+const options: SegmentedControlOption[] = [
+  { label: 'Item 1', value: 'item-one' },
+  { label: 'Item 2', value: 'item-two' },
+  { label: 'Item 3', value: 'item-three' },
+]
+const optionsDisabled = [...options].map(option => option.value === 'item-two' ? { ...option, disabled: true } : option)
+const stringOptions: string[] = ['Item One', 'Item Two', 'Item Three']
+
+const vModel1 = ref<string>('item-one')
+const vModel2 = ref<string>('')
+const vModel3 = ref<string>('')
+const vModel4 = ref<string>('')
+const vModel5 = ref<string>('')
+const vModel6 = ref<string>('')
+const vModel7 = ref<string>('')
+const vModel8 = ref<string>('')
+const vModel9 = ref<string>('')
+const vModel10 = ref<string>('')
+
+const onOptionClick = (value: string): void => {
+  alert(`Option ${value} clicked`)
+}
+</script>
+
+<style lang="scss" scoped>
+.value-example-container {
+  margin-top: $kui-space-50;
 }
 </style>
-

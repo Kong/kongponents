@@ -9,7 +9,6 @@ export default defineComponent({
     },
   },
   emits: ['toggled'],
-
   setup(props, { slots, emit }) {
     const isToggled = ref(props.toggled)
 
@@ -34,7 +33,7 @@ export default defineComponent({
   Example usage:
 
     <KToggle>
-      <button v-slot:default="{isToggled, toggle}" @click="toggle">
+      <button #default="{isToggled, toggle}" @click="toggle">
         {{ isToggled ? 'hello' : 'goodbye' }}
       </button>
       ^^------add slotted content

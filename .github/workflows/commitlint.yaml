@@ -5,6 +5,7 @@ on:
 
 jobs:
   commitlint:
+    timeout-minutes: ${{ fromJSON(vars.GHA_DEFAULT_TIMEOUT) }}
     if: ${{ github.actor != 'renovate[bot]' }}
     runs-on: ubuntu-latest
     steps:
@@ -16,6 +17,6 @@ jobs:
       - name: Remove tsconfig
         run: rm tsconfig.json
 
-      - uses: wagoid/commitlint-github-action@v5.4.3
+      - uses: wagoid/commitlint-github-action@v6.0.1
         with:
-          configFile: commitlint.config.cjs
+          configFile: commitlint.config.ts

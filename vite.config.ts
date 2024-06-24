@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import VueDevTools from 'vite-plugin-vue-devtools'
 import path, { join } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 
@@ -17,6 +18,7 @@ const buildVisualizerPlugin = process.env.BUILD_VISUALIZER
 export default defineConfig({
   plugins: [
     vue(),
+    VueDevTools(),
   ],
   resolve: {
     alias: {
@@ -29,27 +31,36 @@ export default defineConfig({
     devSourcemap: true,
     preprocessorOptions: {
       scss: {
-        // Inject the @kong/design-tokens SCSS variables to make them available for all components.
+        // Inject the @kong/design-tokens SCSS variables, kongponents variables and mixins to make them available for all components.
         // This is not needed in host applications.
-        additionalData: '@import "@kong/design-tokens/tokens/scss/variables";',
+        additionalData: `
+          @import "@kong/design-tokens/tokens/scss/variables";
+          @import "@/styles/vars";
+          @import "@/styles/mixins";
+        `,
       },
     },
   },
+  base: process.env.USE_SANDBOX && !process.env.USE_NETLIFY ? '/kongponents/' : '/',
   build: {
-    lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
-      name: 'Kongponents',
-      fileName: (format) => `kongponents.${format}.js`,
-    },
+    lib: process.env.USE_SANDBOX
+      ? undefined
+      : {
+        entry: path.resolve(__dirname, 'src/index.ts'),
+        name: 'Kongponents',
+        fileName: (format) => `kongponents.${format}.js`,
+      },
     minify: true,
     sourcemap: !!process.env.BUILD_VISUALIZER,
     rollupOptions: {
-      external: ['vue', 'vue-router'],
+      external: process.env.USE_SANDBOX ? undefined : ['vue', 'vue-router'],
       output: {
-        globals: {
-          vue: 'Vue',
-          'vue-router': 'VueRouter',
-        },
+        globals: process.env.USE_SANDBOX
+          ? undefined
+          : {
+            vue: 'Vue',
+            'vue-router': 'VueRouter',
+          },
         exports: 'named',
       },
       plugins: [

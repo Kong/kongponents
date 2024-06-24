@@ -1,0 +1,29 @@
+/* Loaders styles */
+
+@mixin fullScreenLoadingContainer($zIndex: 10500) {
+  align-items: center;
+  background: var(--kui-color-background, $kui-color-background);
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  margin: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: $zIndex;
+}
+
+@mixin fullScreenLoadingProgressBar {
+  background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+  border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
+  margin-top: var(--kui-space-60, $kui-space-60);
+  max-width: 350px;
+
+  .progress-bar {
+    background-color: var(--kui-color-background-primary, $kui-color-background-primary);
+    border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
+    height: 5px;
+  }
+}

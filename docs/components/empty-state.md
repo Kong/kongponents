@@ -1,287 +1,321 @@
 # EmptyState
 
-**KEmptyState** is used as a placeholder card when the primary content is not available or empty. It can also optionally be used as an error state.
+KEmptyState is used as a placeholder card when the primary content is not available or empty. It can also optionally be used as an error state.
 
-<KEmptyState cta-text="CTA button">
-  <template v-slot:title>Title</template>
-  <template v-slot:message>Message</template>
-</KEmptyState>
+<KEmptyState
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State Content"
+/>
 
 ```html
-<KEmptyState cta-text="CTA button">
-  <template v-slot:title>EmptyState Title</template>
-  <template v-slot:message>EmptyState Message</template>
-</KEmptyState>
+<KEmptyState
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State Content"
+/>
 ```
 
 ## Props
 
-### ctaIsHidden
+### title
 
-Boolean value used to hide the call to action button.
+String to display as title.
 
-<KEmptyState cta-is-hidden>
-  <template v-slot:title>No content</template>
-  <template v-slot:message>You do not have any content here 😉️</template>
+<KEmptyState
+  title="Empty State Title"
+  action-button-text="Action"
+/>
+
+```html
+<KEmptyState
+  title="Empty State Title"
+  action-button-text="Action"
+/>
+```
+
+### message
+
+Text under the title. Ideal for providing a detailed explanation to the user on why they are seeing this screen. Can also be [slotted](#default).
+
+<KEmptyState
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State Content"
+/>
+
+```html
+<KEmptyState
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State Content"
+/>
+```
+
+### actionButtonText
+
+Button text under the message.
+
+:::tip NOTE
+The button **won't be rendered** if this prop is not provided.
+:::
+
+<KEmptyState
+  action-button-text="Refresh"
+  title="Empty State Action Button"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+/>
+
+```html
+<KEmptyState
+  action-button-text="Refresh"
+  title="Empty State Action Button"
+  message="Lorem ipsum dolor sit amet..."
+/>
+```
+
+### actionButtonVisible
+
+Boolean to show/hide action button. Defaults to `true`.
+
+<KComponent
+  v-slot="{ data }"
+  :data="{ actionButtonVisible: true }"
+>
+  <KInputSwitch
+    v-model="data.actionButtonVisible"
+    label="Action button visible"
+  />
+
+  <KEmptyState
+    :action-button-visible="data.actionButtonVisible"
+    action-button-text="Action"
+    message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+    title="Empty State Action Button"
+  />
+</KComponent>
+
+```html
+<KEmptyState
+  :action-button-visible="false"
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State Action Button"
+/>
+```
+
+### actionButtonDisabled
+
+Boolean to control whether action button should be enabled or disabled. Defaults to `false`.
+
+<KComponent
+  v-slot="{ data }"
+  :data="{ actionButtonEnabled: true }"
+>
+  <KInputSwitch
+    v-model="data.actionButtonEnabled"
+    label="Action button enabled"
+  />
+
+  <KEmptyState
+    :action-button-disabled="!data.actionButtonEnabled"
+    action-button-text="Action"
+    message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+    title="Empty State Action Button"
+  />
+</KComponent>
+
+```html
+<KEmptyState
+  action-button-disabled
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State Action Button"
+/>
+```
+
+### iconVariant
+
+Depending on context in which you need to display empty state message component to the user, you may want it to have different appearances. `iconVariant` prop provides a few options to easily swap the icon to better fit the context in which the component is displayed. Should you want to use your custom icon, you can use the [`icon` slot](#icon).
+
+Accepted values:
+* `default` (default)
+* `error`
+* `search`
+* `kong`
+
+<KEmptyState
+  icon-variant="error"
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State Error"
+/>
+
+```html
+<KEmptyState
+  icon-variant="error"
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State Error"
+/>
+```
+
+<KEmptyState
+  icon-variant="search"
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State Search"
+/>
+
+```html
+<KEmptyState
+  icon-variant="search"
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State Search"
+/>
+```
+
+## Slots
+
+### default
+
+Slot for passing message content. When provided, takes precedence over the [`message` prop](#message).
+
+<KEmptyState
+  action-button-text="Action"
+  title="Empty State Slotted Content"
+>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh. <KExternalLink href="https://kongponents.konghq.com/">Learn more</KExternalLink>
 </KEmptyState>
 
 ```html
-<KEmptyState cta-is-hidden>
-  <template v-slot:title>No content</template>
-  <template v-slot:message>You do not have any content here 😉️</template>
+<KEmptyState
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State Slotted Content"
+>
+  Lorem ipsum dolor sit amet... <KExternalLink href="https://kongponents.konghq.com/">Learn more</KExternalLink>
 </KEmptyState>
 ```
 
-You can also use this to move your call to action into the message text.
+### title
 
-<KEmptyState cta-is-hidden>
-  <template v-slot:title>No services</template>
-  <template v-slot:message><router-link to="/">Add a service</router-link> to begin proxying traffic.</template>
-</KEmptyState>
+Slot for passing title text.
 
-```html
-<KEmptyState cta-is-hidden>
-  <template v-slot:title>No services</template>
-  <template v-slot:message><router-link>Add a service</router-link> to begin proxying traffic</template>
-</KEmptyState>
-```
-
-### ctaText
-
-A string to be used as the text content of the call to action button.
-
-<KEmptyState cta-text="Button text">
-  <template v-slot:title>No Content</template>
-  <template v-slot:message>You do not have any content here 😉️</template>
-</KEmptyState>
-
-```html
-<KEmptyState cta-text="Button text">
-  <template v-slot:title>No Content</template>
-  <template v-slot:message>You do not have any content here 😉️</template>
-</KEmptyState>
-```
-
-### handleClick
-
-A function that is passed as the click handler for the call to action button
-
-<KEmptyState cta-text="Click me!" :handle-click="clickFunction">
-  <template v-slot:title>No content</template>
-  <template v-slot:message>You do not have any content here 😉️</template>
-</KEmptyState>
-
-```html
-<KEmptyState cta-text="Click me!" :handle-click="clickFunction">
-  <template v-slot:title>No content</template>
-  <template v-slot:message>You do not have any content here 😉️</template>
-</KEmptyState>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  setup() {
-    const clickFunction = (): void => {
-      alert('you clicked me!')
-    }
-
-    return {
-      clickFunction,
-    }
-  },
-})
-</script>
-```
-
-### isError
-
-A flag denoting whether or not the message is an error message. If so, a warning icon is displayed above the title slot. Keep in mind that `cta-is-hidden` should also be set to true if you do not want a button to render in the error state.
-
-<KEmptyState :cta-is-hidden="true" :is-error="true">
-  <template v-slot:message>
-    <h3>
-      Error: Something broke
-    </h3>
+<KEmptyState
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Lorem Ipsum Dolor Sit Amet"
+>
+  <template #title>
+    Empty State Slotted Title
   </template>
 </KEmptyState>
 
 ```html
-<KEmptyState :cta-is-hidden="true" :is-error="true">
-  <template v-slot:message>
-    <h3>
-      Error: Something broke
-    </h3>
+<KEmptyState
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet..."
+  title="Lorem Ipsum Dolor Sit Amet"
+>
+  <template #title>
+    <h1>Empty State Slotted Title</h1>
   </template>
 </KEmptyState>
 ```
 
 ### icon
 
-A string for the `KIcon` name to be displayed directly above the title. Specifying a value for `icon` will automatically indicate that it should be visible.
+Slot for providing custom icon.
 
-<KEmptyState :cta-is-hidden="true" icon="support">
-  <template v-slot:message>
-    <h3>
-      Call me!
-    </h3>
+<KEmptyState
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State Slotted Icon"
+>
+  <template #icon>
+    <KongIcon />
   </template>
 </KEmptyState>
 
 ```html
-<KEmptyState :cta-is-hidden="true" icon="support">
-  <template v-slot:message>
-    <h3>
-      Call me!
-    </h3>
+<KEmptyState
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet.."
+  title="Empty State Slotted Icon"
+>
+  <template #icon>
+    <KongIcon />
   </template>
 </KEmptyState>
 ```
 
-### iconSize
+### action
 
-A number denoting the size of the icon to be displayed above the empty state message. The default size is 50.
+Slot for providing your custom action button.
 
-<KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40">
-  <template v-slot:message>
-    <h3>
-      Error: Something broke and now this size 40 warning icon is displayed.
-    </h3>
+<KEmptyState
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State Slotted Action Button"
+>
+  <template #action>
+    <KButton>
+      <AddCircleIcon />
+      Create New
+    </KButton>
   </template>
 </KEmptyState>
 
 ```html
-<KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40">
-  <template v-slot:message>
-    <h3>
-      Error: Something broke and now this size 40 warning icon is displayed.
-    </h3>
+<KEmptyState
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State Slotted Action Button"
+>
+  <template #action>
+    <KButton>
+      <AddCircleIcon />
+      Create New
+    </KButton>
   </template>
 </KEmptyState>
 ```
 
-### iconColor
+## Events
 
-A string denoting the color of the icon to be displayed above the empty state message.
 
-<KEmptyState icon="people" icon-size="40" icon-color="#5996ff">
-  <template v-slot:title>No users exist</template>
-  <template v-slot:message>
-      Adding new users will populate this table.
-  </template>
-  <template v-slot:cta>
-    <KButton appearance="primary">Add a user</KButton>
-  </template>
-</KEmptyState>
+### click-action
 
-```html
-<KEmptyState :cta-is-hidden="true" :is-error="true" icon-size="40" icon-color="#5996ff">
-  <template v-slot:title>No users exist</template>
-  <template v-slot:message>
-      Adding new users will populate this table.
-  </template>
-  <template v-slot:cta>
-    <KButton appearance="primary">Add a user</KButton>
-  </template>
-</KEmptyState>
-```
+Emitted when action button is clicked.
 
-### iconSecondaryColor
+<KEmptyState
+  @click-action="onActionClick"
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State Events"
+/>
 
-A string denoting the secondary color of the icon to be displayed above the empty state message.
+```vue
+<template>
+  <KEmptyState
+    @click-action="onActionClick"
+    action-button-text="Action"
+    message="Lorem ipsum dolor sit amet..."
+    title="Empty State Events"
+  />
+</template>
 
-<KEmptyState cta-is-hidden icon="warning" icon-color="#0b172d" icon-secondary-color="#ffd68c">
-  <template #title>No users exist</template>
-  <template #message>
-      Adding new users will populate this table.
-  </template>
-</KEmptyState>
-
-```html
-<KEmptyState cta-is-hidden icon="warning" icon-color="#0b172d" icon-secondary-color="#ffd68c">
-  <template #title>No users exist</template>
-  <template #message>
-      Adding new users will populate this table.
-  </template>
-</KEmptyState>
-```
-
-## Slots
-
-`KEmptyState` has 3 named slots used, `title`, `message`, and `cta`. You can use the props outlined about to control the text and click handler of the button or hide it altogether. You can also use the `cta` slot to pass anything you want!
-
-<KEmptyState icon="kong">
-  <template v-slot:title>Look mah!</template>
-  <template v-slot:message>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>
-  <template v-slot:cta>
-    <KButton appearance="danger" size="small">Danger button</KButton>
-  </template>
-</KEmptyState>
-
-```html
-<KEmptyState icon="kong">
-  <template v-slot:cta>
-  <template v-slot:title>Look mah!</template>
-  <template v-slot:message>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo libero. Nullam accumsan quis ipsum vitae tempus. Integer non pharetra orci. Suspendisse potenti.</template>
-    <KButton appearance="danger" size="small">Danger button</KButton>
-  </template>
-</KEmptyState>
-```
-
-## Theming
-
-| Variable | Purpose
-|:-------- |:-------
-| `--KEmptyTitleColor`| Replaces title text color
-| `--KEmptyContentColor`| Replaces content text color
-| `--KEmptyBackground`| Replaces background color of the empty state
-
-An Example of what using theming might look like.
-
-<div class="custom-empty-state">
-  <KEmptyState cta-text="CTA button">
-    <template v-slot:title>Title</template>
-    <template v-slot:message>Message</template>
-  </KEmptyState>
-</div>
-
-```html
-<div class="custom-empty-state">
-  <KEmptyState cta-text="CTA button">
-    <template v-slot:title>EmptyState Title</template>
-    <template v-slot:message>EmptyState Message</template>
-  </KEmptyState>
-</div>
-
-<style scoped lang="scss">
-.custom-empty-state {
-  --KEmptyTitleColor: #556B2F;
-  --KEmptyContentColor: #C71585;
-  --KEmptyBackground: #FFF0F5;
+<script setup lang="ts">
+const onActionClick = (): void => {
+  alert('Action button clicked!')
 }
-</style>
+</script>
 ```
 
-<style scoped lang="scss">
-.custom-empty-state {
-  --KEmptyTitleColor: #556B2F;
-  --KEmptyContentColor: #C71585;
-  --KEmptyBackground: #FFF0F5;
+<script setup lang="ts">
+import { KongIcon, AddCircleIcon } from '@kong/icons'
+
+const onActionClick = (): void => {
+  alert('Action button clicked!')
 }
-</style>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  setup() {
-    const clickFunction = (): void => {
-      alert('you clicked me!')
-    }
-
-    return {
-      clickFunction,
-    }
-  },
-})
 </script>

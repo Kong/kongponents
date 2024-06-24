@@ -1,0 +1,238 @@
+<template>
+  <div
+    class="k-dropdown"
+    :class="{ 'selection-dropdown-menu': selectionMenu }"
+  >
+    <KToggle v-slot="{ toggle, isToggled }">
+      <KPop
+        ref="kPop"
+        v-bind="boundKPopAttributes"
+        close-on-popover-click
+        data-testid="dropdown-popover"
+        hide-close-icon
+        @close="() => handleTriggerToggle(isToggled, toggle, false)"
+        @open="() => handleTriggerToggle(isToggled, toggle, true)"
+        @popover-click="() => handleTriggerToggle(isToggled, toggle, false)"
+      >
+        <component
+          :is="tooltipComponent"
+          class="dropdown-trigger"
+          data-testid="dropdown-trigger"
+          :label="disabledTooltip ? disabledTooltip : undefined"
+          :max-width="!!disabledTooltip ? '240' : undefined"
+          :position="!!disabledTooltip ? 'bottom' : undefined"
+        >
+          <slot
+            :is-open="isToggled.value"
+            name="default"
+          >
+            <KButton
+              v-if="triggerButtonText"
+              :appearance="appearance"
+              class="dropdown-trigger-button"
+              data-testid="dropdown-trigger-button"
+              :disabled="disabled"
+            >
+              {{ triggerButtonText }}
+              <ChevronDownIcon
+                v-if="showCaret"
+                decorative
+              />
+            </KButton>
+          </slot>
+        </component>
+        <template #content>
+          <ul
+            class="dropdown-list"
+            data-testid="dropdown-list"
+          >
+            <slot
+              :close-dropdown="handleCloseDropdown"
+              :handle-selection="handleSelection"
+              :items="items"
+              name="items"
+            >
+              <KDropdownItem
+                v-for="(item, idx) in items"
+                v-bind="item"
+                :key="`${item.label}-${idx}`"
+                :item="item"
+                :selected="selectionMenu && selectedItem?.value === item.value"
+                :selection-menu-child="selectionMenu"
+                @change="handleSelection"
+              />
+            </slot>
+          </ul>
+        </template>
+      </KPop>
+    </KToggle>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import type { PropType, Ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
+import type { ButtonAppearance, DropdownItem, PopPlacements } from '@/types'
+import { ButtonAppearances } from '@/types'
+import KButton from '@/components/KButton/KButton.vue'
+import KTooltip from '@/components/KTooltip/KTooltip.vue'
+import KPop from '@/components/KPop/KPop.vue'
+import KToggle from '@/components/KToggle'
+import KDropdownItem from './KDropdownItem.vue'
+import { ChevronDownIcon } from '@kong/icons'
+
+const props = defineProps({
+  selectionMenu: {
+    type: Boolean,
+    default: false,
+  },
+  appearance: {
+    type: String as PropType<ButtonAppearance>,
+    default: 'primary',
+    validator: (value: ButtonAppearance) => {
+      // @ts-ignore: allow comparing string values
+      if (value === 'menu' || value === 'selectionMenu') {
+        console.warn('KDropdown: the usage for the `appearance` prop has changed. Please see the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kdropdownmenu')
+      }
+
+      return Object.values(ButtonAppearances).includes(value)
+    },
+  },
+  triggerText: {
+    type: String,
+    default: '',
+  },
+  showCaret: {
+    type: Boolean,
+    default: false,
+  },
+  width: {
+    type: String,
+    default: '',
+  },
+  /**
+   * kpopAttributes is used to pass properties directly to the wrapped KPop component
+   * Commonly-overridden properties include:
+   * - placement
+   * - popoverClasses
+   * - target
+   */
+  kpopAttributes: {
+    type: Object,
+    default: null,
+  },
+  items: {
+    type: Array as PropType<Array<DropdownItem>>,
+    default: () => [],
+    validator: (items: DropdownItem[]) => !items.length || items.every(i => i.label !== undefined),
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  disabledTooltip: {
+    type: String,
+    default: '',
+  },
+  /**
+   * @deprecated in favor of the "triggerText" prop
+   */
+  label: {
+    type: String,
+    default: '',
+    validator: (value: string) => {
+      if (value) {
+        console.warn('KDropdown: `label` prop is deprecated. Please use `triggerText` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kdropdownmenu')
+      }
+
+      return true
+    },
+  },
+})
+
+const emit = defineEmits<{
+  (e: 'toggleDropdown', value: boolean): void;
+  (e: 'change', value: DropdownItem): void;
+}>()
+
+const tooltipComponent = computed(() => props.disabledTooltip ? KTooltip : 'div')
+
+const kPop = ref<InstanceType<typeof KPop> | null>(null)
+const defaultKPopAttributes = {
+  hideCaret: true,
+  popoverClasses: 'dropdown-popover',
+  popoverTimeout: 0,
+  placement: 'bottom-start' as PopPlacements,
+}
+
+const boundKPopAttributes = {
+  ...defaultKPopAttributes,
+  ...props.kpopAttributes,
+  width: props.width ? props.width : undefined,
+  popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes?.popoverClasses || ''}`,
+}
+
+const triggerButtonText = computed((): string => selectedItem.value?.label || props.triggerText || props.label)
+
+const selectedItem = ref<DropdownItem>()
+
+const handleSelection = (item: DropdownItem): void => {
+  if (!props.selectionMenu) {
+    return
+  }
+
+  selectedItem.value = item
+}
+
+const handleCloseDropdown = async (): Promise<void> => {
+  kPop.value?.hidePopover()
+}
+
+const handleTriggerToggle = (isToggled: Ref<boolean>, toggle: () => void, isOpen: boolean): void => {
+  // avoid toggling twice for the same event
+  if (isToggled.value !== isOpen) {
+    toggle()
+    emit('toggleDropdown', isToggled.value)
+  }
+}
+
+watch(selectedItem, (newVal, oldVal): void => {
+  if (newVal && newVal !== oldVal) {
+    emit('change', newVal)
+  }
+})
+
+onMounted(() => {
+  if (props.items) {
+    const selectionArr = props.items.filter(item => item.selected)
+
+    if (selectionArr.length) {
+      selectedItem.value = selectionArr[0]
+    }
+  }
+})
+</script>
+
+<style lang="scss" scoped>
+/* Component styles */
+
+.k-dropdown {
+  width: fit-content;
+
+  .dropdown-trigger {
+    width: 100%;
+  }
+
+  :deep(.popover.dropdown-popover > .popover-container) {
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    margin-top: var(--kui-space-30, $kui-space-30);
+    padding: var(--kui-space-0, $kui-space-0);
+
+    ul {
+      margin: 0;
+      padding: var(--kui-space-20, $kui-space-20) 0;
+    }
+  }
+}
+</style>

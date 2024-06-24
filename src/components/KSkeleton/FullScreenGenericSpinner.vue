@@ -34,6 +34,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  zIndex: {
+    type: Number,
+    default: 10500,
+  },
 })
 
 const timer = ref(0)
@@ -57,65 +61,53 @@ onMounted(() => {
 onUnmounted(() => {
   clearInterval(timer.value)
 })
-
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/tmp-variables';
-@import '@/styles/mixins';
-@import '@/styles/functions';
-
 .fullscreen-loading-container {
-  @include fullscreen-loading-container;
-  .progress {
-    background-color: var(--KSkeletonFullScreenProgressBackgroundColor, var(--grey-200, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest)));
-    border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
-    margin-top: var(--kui-space-60, $kui-space-60);
-    max-width: 350px;
+  @include fullScreenLoadingContainer(v-bind('zIndex'));
 
-    .progress-bar {
-      background-color: var(--KSkeletonFullScreenProgressColor, var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary)));
-      border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
-      height: 5px;
-    }
+  .progress {
+    @include fullScreenLoadingProgressBar;
   }
 
   .spinner-loader {
     :after {
       border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
-      height: 183px;
-      width: 183px;
+      height: 130px;
+      width: 130px;
     }
+
     animation: spinnerAnimation 1.4s infinite linear;
-    border-bottom: $tmp-border-width-10 solid var(--grey-200, $tmp-color-gray-200);
-    border-left: 10px solid var(--KSkeletonFullScreenSpinnerColor, var(--blue-500, var(--kui-color-border-primary, $kui-color-border-primary)));
+    border-bottom: 8px solid var(--kui-color-border, $kui-color-border);
+    border-left: 8px solid var(--kui-color-border-primary, $kui-color-border-primary);
     border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
-    border-right: $tmp-border-width-10 solid var(--grey-200, $tmp-color-gray-200);
-    border-top: $tmp-border-width-10 solid var(--grey-200, $tmp-color-gray-200);
+    border-right: 8px solid var(--kui-color-border, $kui-color-border);
+    border-top: 8px solid var(--kui-color-border, $kui-color-border);
     font-size: var(--kui-font-size-10, $kui-font-size-10);
-    height: 183px;
+    height: 130px;
     margin: var(--kui-space-120, $kui-space-120) var(--kui-space-auto, $kui-space-auto);
     position: relative;
     transform: translateZ(0);
-    width: 183px;
+    width: 130px;
   }
 
-@-webkit-keyframes spinnerAnimation {
-  0% {
-    transform: rotate(0deg);
+  @-webkit-keyframes spinnerAnimation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
-  100% {
-    transform: rotate(360deg);
+
+  @keyframes spinnerAnimation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
-}
-@keyframes spinnerAnimation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 }
 </style>

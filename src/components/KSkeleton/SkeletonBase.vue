@@ -11,7 +11,7 @@
       />
       <KSkeletonBox
         height="1"
-        width="75"
+        width="100"
       />
     </slot>
   </div>
@@ -22,9 +22,7 @@ import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
 .skeleton-loader {
-  width: 80%;
+  width: 100%;
 }
 </style>

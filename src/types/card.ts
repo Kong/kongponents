@@ -1,5 +1,3 @@
-import type { AnyElementOf } from '@/types/utils'
+export type HeaderTag = 'div' | 'p' | 'span' | 'a' | 'legend' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
-export const BorderVariantsArray = ['borderTop', 'noBorder', 'border'] as const
-
-export type BorderVariant = AnyElementOf<typeof BorderVariantsArray>
+export const HeaderTags: HeaderTag[] = ['div', 'p', 'span', 'a', 'legend', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']

@@ -6,52 +6,57 @@
     :style="widthStyle"
   >
     <KPop
+      ref="kPop"
+      :disabled="disabled"
       hide-caret
-      :hide-popover="state.hidePopover"
-      placement="bottomStart"
-      position-fixed
+      hide-close-icon
+      :placement="popoverPlacement"
       width="auto"
-      @opened="state.hidePopover = false"
+      @close="state.popoverOpen = false"
+      @open="state.popoverOpen = true"
     >
-      <KButton
-        aria-role="input"
-        class="timepicker-input"
-        :class="{ 'set-min-width': hasTimePeriods }"
-        data-testid="k-datetime-picker-input"
-        :is-rounded="false"
-        size="large"
-        :style="widthStyle"
+      <div
+        class="datetime-picker-trigger-wrapper"
+        :class="{ 'disabled': disabled }"
       >
-        <KIcon
+        <div
+          class="datetime-picker-trigger"
+          :class="{ 'disabled': disabled }"
+          data-testid="datetime-picker-trigger"
+          role="button"
+          :style="widthStyle"
+          :tabindex="disabled ? -1 : 0"
+        >
+          <span
+            class="datetime-picker-display"
+            :class="{ 'has-icon': icon, 'disabled': disabled }"
+            data-testid="datetime-picker-display"
+            v-html="state.abbreviatedDisplay"
+          />
+        </div>
+        <CalIcon
           v-if="icon"
           class="calendar-icon"
-          :color="`var(--grey-500, var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL}))`"
-          icon="calendar"
-          :size="KUI_ICON_SIZE_30"
+          :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
+          decorative
+          :size="KUI_ICON_SIZE_40"
         />
-        <div
-          class="timepicker-display"
-          data-testid="k-datetime-picker-display"
-          v-html="state.abbreviatedDisplay"
-        />
-      </KButton>
-      <template
-        v-if="!state.hidePopover"
-        #content
-      >
+      </div>
+
+      <template #content>
         <!-- Custom | Relative toggle -->
         <KSegmentedControl
           v-if="hasTimePeriods && hasCalendar"
           v-model="state.tabName"
           class="datetime-picker-toggle"
-          data-testid="k-datetime-picker-toggle"
+          data-testid="datetime-picker-toggle"
           :options="[
             { label: 'Relative', value: 'relative' },
             { label: 'Custom', value: 'custom' }
           ]"
           @click="(selected: string) => state.tabName = selected"
         />
-        <!-- Single date / time or range readout -->
+        <!-- Time range readout -->
         <p
           v-if="!showCalendar"
           class="range-display"
@@ -60,19 +65,22 @@
         </p>
         <DatePicker
           v-if="hasCalendar && showCalendar"
-          v-model="selectedCalendarRange"
+          v-model="calendarVModel"
+          borderless
+          color="blue"
           :drag-attribute="calendarDragAttributes"
-          is-expanded
-          :is-range="range"
+          expanded
+          :is-range="!isSingleDatepicker"
           :max-date="maxDate"
           :min-date="minDate"
-          :minute-increment="minuteIncrement"
           :mode="impliedMode"
           :model-config="modelConfig"
+          :rules="vCalendarRules"
           :select-attribute="calendarSelectAttributes"
+          transparent
         />
         <div
-          v-else-if="hasTimePeriods"
+          v-else-if="hasTimePeriods && !isSingleDatepicker"
           class="relative-periods-container"
         >
           <div
@@ -87,12 +95,9 @@
               <KButton
                 v-for="(timeFrame, itemIdx) in item.values"
                 :key="`time-${itemIdx}`"
-                appearance="outline"
-                class="timeframe-btn"
-                :class="{ 'selected-option': timeFrame.key === state.selectedTimeframe.key }"
-                :data-testid="'select-timeframe-' + timeFrame.timeframeLength()"
-                :is-rounded="false"
-                size="medium"
+                :appearance="getTimeframeButtonAppearance(timeFrame)"
+                class="timeframe-button"
+                :data-testid="`select-timeframe-${timeFrame.timeframeLength()}`"
                 @click="changeRelativeTimeframe(timeFrame)"
               >
                 {{ ucWord(timeFrame.timeframeText) }}
@@ -101,29 +106,23 @@
           </div>
         </div>
       </template>
-      <template
-        v-if="!state.hidePopover"
-        #footer
-      >
+
+      <template #footer>
         <div class="datetime-picker-footer-container">
           <KButton
             v-if="clearButton"
-            appearance="btn-link"
-            class="action-btn"
-            data-testid="k-datetime-picker-clear"
-            :is-rounded="false"
-            size="medium"
+            appearance="tertiary"
+            class="action-button"
+            data-testid="datetime-picker-clear"
             @click="clearSelection()"
           >
             Clear
           </KButton>
           <KButton
-            appearance="btn-link"
-            class="action-btn"
-            data-testid="k-datetime-picker-submit"
+            appearance="tertiary"
+            class="action-button"
+            data-testid="datetime-picker-submit"
             :disabled="submitDisabled"
-            :is-rounded="false"
-            size="medium"
             @click="submitTimeFrame()"
           >
             Apply
@@ -141,13 +140,16 @@ import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 import { DatePicker } from 'v-calendar'
 import KButton from '@/components/KButton/KButton.vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.vue'
 import 'v-calendar/dist/style.css'
-import type { DateTimePickerState, TimeFrameSection, TimePeriod, TimeRange, Mode, CSSProperties } from '@/types'
-import { ModeArray } from '@/types'
-import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { ModeArray, ModeArrayCustom, ModeArrayRelative, ModeDateOnly, TimepickerMode, PopPlacementsArray } from '@/types'
+import type { DateTimePickerState, TimeFrameSection, TimePeriod, TimeRange, Mode, CSSProperties, DatePickerModel, ButtonAppearance, PopPlacements } from '@/types'
+import { CalIcon } from '@kong/icons'
+import useUtilities from '@/composables/useUtilities'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+
+const { getSizeFromString } = useUtilities()
 
 const props = defineProps({
   clearButton: {
@@ -161,13 +163,11 @@ const props = defineProps({
     default: true,
   },
   modelValue: {
-    type: [Object, Date, String] as PropType<TimeRange | Date | string>,
+    type: Object as PropType<TimeRange>,
     required: false,
-    default: '',
-    validator: (value: TimeRange | string): boolean => {
-      return typeof value === 'string'
-        ? value === ''
-        : value instanceof Date || (value.start !== undefined && value.end !== undefined)
+    default: () => ({ start: null, end: null }),
+    validator: (value: TimeRange): boolean => {
+      return value instanceof Date || (value.start !== undefined && value.end !== undefined)
     },
   },
   /**
@@ -185,14 +185,6 @@ const props = defineProps({
     type: Date,
     required: false,
     default: null,
-  },
-  /**
-   * Sets a custom interval for the minute select dropdown
-   */
-  minuteIncrement: {
-    type: Number,
-    required: false,
-    default: 5,
   },
   /**
    * Determines which `v-calendar` type to initialize.
@@ -257,59 +249,96 @@ const props = defineProps({
   width: {
     type: String,
     required: false,
-    default: 'auto',
+    default: '100%',
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * Define which side the popover displays
+   */
+  popoverPlacement: {
+    type: String as PropType<PopPlacements>,
+    default: 'bottom-start',
+    validator: (value: PopPlacements):boolean => {
+      return PopPlacementsArray.includes(value)
+    },
   },
 })
 
 const emit = defineEmits<{
-  (e: 'change', value: TimeRange | string | Date): void
-  (e: 'update:modelValue', value: TimeRange | string | Date): void
+  (e: 'change', value: TimeRange | null): void
+  (e: 'update:modelValue', value: TimeRange | null): void
 }>()
+
+const kPop = ref<InstanceType<typeof KPop> | null>(null)
 
 // https://vcalendar.io/datepicker.html#model-config
 const modelConfig = { type: 'number' }
+
+// TODO: Resolve type issues in a cleaner fashion
 const calendarSelectAttributes = {
+  key: 'select-calendar',
   highlight: {
-    start: { class: 'vcal-day-start' },
-    base: { class: 'vcal-day-base' },
-    end: { class: 'vcal-day-end' },
+    start: { contentClass: 'vcal-day-start' },
+    base: { contentClass: 'vcal-day-base' },
+    end: { contentClass: 'vcal-day-end' },
   },
-}
+} as any
+
+// TODO: Resolve type issues in a cleaner fashion
 const calendarDragAttributes = {
+  key: 'select-drag',
   highlight: {
-    start: { class: 'vcal-day-drag-start' },
-    base: { class: 'vcal-day-drag-base' },
-    end: { class: 'vcal-day-drag-end' },
+    start: { contentClass: 'vcal-day-drag-start' },
+    base: { contentClass: 'vcal-day-drag-base' },
+    end: { contentClass: 'vcal-day-drag-end' },
   },
-}
+} as any
 
-const selectedCalendarRange = ref<TimeRange | Date | string>(props.modelValue)
-
-const hasCalendar = computed((): boolean => props.mode !== 'relative')
+// Booleans
+const hasCalendar = computed((): boolean => props.mode !== TimepickerMode.Relative)
+const isSingleDatepicker = computed((): boolean => ModeArrayCustom.includes(props.mode) && !props.range)
 const hasTimePeriods = computed((): boolean => props?.timePeriods?.length > 0)
 const showCalendar = computed((): boolean => state.tabName === 'custom' || !hasTimePeriods.value)
-const submitDisabled = computed((): boolean => {
-  // If either the calendar is in range selection mode, or relative time frames
-  // are present, check whether both `start` and `end` are set;
-  // Otherwise, it's a single date or time, so only check `start`
-  return props.range || hasTimePeriods.value
-    ? !state.selectedRange.start || !state.selectedRange.end
-    : !state.selectedRange.start
+const submitDisabled = ref<boolean>(true)
+
+const defaultTimeRange: TimeRange = {
+  start: null,
+  end: null,
+  timePeriodsKey: '',
+}
+
+/**
+ * Dynamically choose the v-model
+ * Single date is a Date, whereas a Date range is an object containing `start` and `end` dates
+ */
+const calendarSingleDate = ref<Date | null>(props.modelValue?.start)
+const calendarRange = ref<TimeRange>(props.modelValue || defaultTimeRange)
+const calendarVModel = isSingleDatepicker.value
+  ? calendarSingleDate as DatePickerModel
+  : calendarRange as DatePickerModel
+
+// `minute-increment` has been deprecated in favor of the time `rules` object
+// https://vcalendar.io/datepicker/time-rules.html
+const vCalendarRules = ref({
+  minutes: [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55],
 })
 
 const widthStyle = computed((): CSSProperties => {
   return {
-    width: props.width === 'auto' || props.width.endsWith('%') || props.width.endsWith('px') ? props.width : props.width + 'px',
+    width: getSizeFromString(props.width),
   }
 })
 
 const impliedMode = computed((): string => {
-  if (props.mode === 'relativeDateTime') {
+  if (props.mode === TimepickerMode.RelativeDateTime) {
     return 'dateTime'
-  } else if (props.mode === 'relativeDate') {
+  } else if (props.mode === TimepickerMode.RelativeDate) {
     return 'date'
   } else {
-    // Values that are safe to be passed verbatim to v-calendar
+    // Modes that are safe to be passed verbatim to v-calendar
     return props.mode
   }
 })
@@ -319,49 +348,58 @@ const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone
 const state = reactive<DateTimePickerState>({
   abbreviatedDisplay: props.placeholder,
   fullRangeDisplay: '',
-  hidePopover: false,
+  popoverOpen: false,
   selectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
   previouslySelectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
   selectedTimeframe: props.timePeriods[0]?.values[0],
   previouslySelectedTimeframe: props.timePeriods[0]?.values[0],
-  tabName: 'custom',
+  tabName: 'relative',
 })
 
 /**
-     * Updates our internal (read: separate) state of currently selected `v-calendar` value(s)
-     * @param {object | string | null} vCalValue Object containing a pair of `start` and `end` timestamps,
-     * or a single timestamp. Can be `null` if current selection is cleared.
-     */
-const changeCalendarRange = (vCalValue: TimeRange | Date | number | string): void => {
-  let start: Date | number, end: Date | number
+ * Tracks internal `v-calendar` state
+ * @param {TimeRange | Date | string} vCalValue Object containing a pair of `start` and `end` timestamps.
+ * Defaults to today's date if current selection is cleared.
+ */
+const changeCalendarRange = (vCalValue: TimeRange | null): void => {
+  if (!vCalValue) return
 
-  if (vCalValue) {
-    // If value is an object, this is a time range. Else, a single date or time value.
-    if ((vCalValue as TimeRange).start && (vCalValue as TimeRange).end) {
-      start = new Date((vCalValue as TimeRange).start)
-      end = new Date((vCalValue as TimeRange).end)
-    } else {
-      start = new Date(Number(vCalValue))
-      end = 0
-    }
+  const isCleared = !isSingleDatepicker.value
+    ? !(vCalValue as TimeRange).start || !(vCalValue as TimeRange).end
+    : !(vCalValue as TimeRange).start
 
-    // Set emitted value when v-calendar selection is made. In the case of a single date / time
-    // picker, only the `start` value will be provided.
-    // The `timePeriodsKey` param only applies to relative timeframes,
-    // not `v-calendar` selections; however, this keeps the object "shape" consistent.
-    state.selectedRange = state.previouslySelectedRange = {
-      start,
-      end,
-      timePeriodsKey: '',
-    }
+  const start: Date | number | null = vCalValue?.start || new Date()
+  const end: Date | number | null = vCalValue?.end || null
+
+  submitDisabled.value = !!isCleared
+
+  /**
+   * Set our v-calendar v-model
+   */
+  if (!isSingleDatepicker.value && vCalValue && (vCalValue as TimeRange).start && (vCalValue as TimeRange).end) {
+    calendarRange.value.start = start
+    calendarRange.value.end = end
+  } else if (vCalValue && (vCalValue as TimeRange).start) {
+    calendarSingleDate.value = start
+  }
+
+  /**
+   * Set our internal state, used for display purposes, and for the emitted value when "Apply" is clicked.
+   * The `timePeriodsKey` param only applies to relative timeframes, not `v-calendar` selections;
+   * We return an empty string to keep the object shape consistent.
+   */
+  state.selectedRange = state.previouslySelectedRange = {
+    start,
+    end,
+    timePeriodsKey: '',
   }
 }
 
 /**
-     * Updates both the input field value, and the full time frame readout
-     * when a relative time frame button is clicked
-     * @param {*} timeframe
-     */
+ * Updates both the input field value, and the full time frame readout
+ * when a relative time frame button is clicked
+ * @param {*} timeframe
+ */
 const changeRelativeTimeframe = (timeframe: TimePeriod): void => {
   state.selectedTimeframe = state.previouslySelectedTimeframe = timeframe
 
@@ -377,92 +415,89 @@ const changeRelativeTimeframe = (timeframe: TimePeriod): void => {
   }
 
   state.fullRangeDisplay = formatDisplayDate(state.selectedRange, false)
+  submitDisabled.value = false
 }
 
 /**
-     * Clears any previously made choices, and emits the result of this action
-     * back to the parent.
-     */
+ * Clears any previously made choices, and emits the result of this action
+ * back to the parent.
+ */
 const clearSelection = (): void => {
-  selectedCalendarRange.value = ''
+  calendarRange.value = defaultTimeRange
+  calendarSingleDate.value = null
+
   state.abbreviatedDisplay = props.placeholder
   state.fullRangeDisplay = ''
-  state.selectedRange = { start: 0, end: 0, timePeriodsKey: '' }
 
+  // Set the relative timeframe to the smallest increment, eg: `15m`
   if (hasTimePeriods.value) {
     state.selectedTimeframe = props.timePeriods[0]?.values[0]
   }
 
-  // If a range, emit an object with empty `start`, `end`, `timePeriods`;
-  // Else, emit empty string for single date/time picker
-  if (props.range || props.mode === 'relative') {
-    emit('change', state.selectedRange)
-    emit('update:modelValue', state.selectedRange)
-  } else {
-    emit('change', '')
-    emit('update:modelValue', '')
-  }
+  state.selectedRange = state.previouslySelectedRange = defaultTimeRange
+
+  // Emit an object with empty `start`, `end`, `timePeriods`;
+  emit('change', state.selectedRange)
+  emit('update:modelValue', state.selectedRange)
 }
 
 /**
-     * Displays selected date/time/range as a human readable string.
-     * The date formatting string is dynamically determined based on
-     * the current mode of the instance (Custom vs Relative)
-     * @param {*} range A set of `start` and `end` Unix timestamps∂
-     */
+ * Displays selected date/time/range as a human readable string.
+ * The date formatting string is dynamically determined based on
+ * the current mode of the instance (Custom vs Relative)
+ * @param {*} range A set of `start` and `end` Unix timestamps∂
+ */
 const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
   const { start, end } = range
   let fmtStr = 'PP hh:mm a'
-  const tzAbbrev = formatInTimeZone(start, localTz, '(z)')
+
+  const tzAbbrev = formatInTimeZone((start as Date), localTz, '(z)')
 
   // Determines the human timestamp readout format string; subject to change
   if (!hasCalendar.value && hasTimePeriods.value) {
     fmtStr = 'PP hh:mm a'
-  } else if (props.mode === 'date') {
+  } else if (ModeDateOnly.includes(props.mode)) {
     fmtStr = 'PP'
   }
-  // Determine whether to display a formatting time range, or a single value in input field
-  if (props.range) {
+
+  // Display a formatted time range
+  if (!isSingleDatepicker.value) {
     return htmlFormat
-      ? `<div>${format(start, fmtStr)} -&nbsp;</div><div>${formatInTimeZone(end, localTz, fmtStr)} ${tzAbbrev}</div>`
-      : `${format(start, fmtStr)} - ${formatInTimeZone(end, localTz, fmtStr)} ${tzAbbrev}`
-  } else if (start) {
-    return `${format(start, fmtStr)} ${tzAbbrev}`
+      ? `<div>${format(start as Date, fmtStr)} -&nbsp;</div><div>${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}</div>`
+      : `${format(start as Date, fmtStr)} - ${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}`
   } else {
-    return ''
+    return `${format(start as Date, fmtStr)} ${tzAbbrev}`
   }
 }
 
 /**
-     * Once a selection is made, emit value back to parent.
-     * If a range date picker, send the full range (start and end); else, a single `start` Date.
-     */
+ * Once a selection is made, emit value back to parent.
+ * Emits `start`, `end` and the optional `timePeriodsKey`.
+ */
 const submitTimeFrame = async (): Promise<void> => {
-  if (props.range || hasTimePeriods.value) {
+  if (!isSingleDatepicker.value) {
     emit('change', state.selectedRange)
     emit('update:modelValue', state.selectedRange)
   } else {
-    const singleDate: Date = new Date(state.selectedRange.start)
-    emit('change', singleDate)
-    emit('update:modelValue', singleDate)
+    emit('change', { start: state.selectedRange.start, end: null })
+    emit('update:modelValue', { start: state.selectedRange.start, end: null })
   }
 
-  state.hidePopover = true
+  kPop.value?.hidePopover()
   updateDisplay()
 }
 
 /**
-     * Updates the input field value as a visual confirmation after a choice is made
-     *
-     * If a time range (custom or relative) determine which tab has focus,
-     * then update input field text.
-     * Else, update input field text for single date / time instance
-     */
+ * Updates the input field value as a visual confirmation after a choice is made
+ *
+ * If the calendar tab has focus, display the time range and timezone
+ * Otherwise, display the chosen relative timeframe
+ */
 const updateDisplay = (): void => {
-  if (props.range && hasTimePeriods.value && !showCalendar.value) {
-    state.abbreviatedDisplay = state.selectedTimeframe.display
-  } else {
+  if (showCalendar.value && !!state.selectedRange?.start) {
     state.abbreviatedDisplay = formatDisplayDate(state.selectedRange, true)
+  } else if (hasTimePeriods.value && !showCalendar.value) {
+    state.abbreviatedDisplay = state.selectedTimeframe.display
   }
 }
 
@@ -470,19 +505,31 @@ const ucWord = (val: string): string => {
   return val.charAt(0).toUpperCase() + val.slice(1)
 }
 
+const getTimeframeButtonAppearance = (timeframe: TimePeriod): ButtonAppearance => {
+  return state.selectedTimeframe.key === timeframe.key ? 'primary' : 'secondary'
+}
+
 /**
-     * Saves the internal state (range or single value) whenever
-     * the `v-calendar` instance is interacted with.
-     */
-watch(selectedCalendarRange, (newValue, oldValue) => {
+ * Triggers when `v-calendar` instance is in single date/time mode
+ */
+watch(calendarSingleDate, (newValue, oldValue) => {
   if (newValue !== undefined && newValue !== oldValue) {
-    changeCalendarRange(newValue)
+    changeCalendarRange({ start: newValue, end: null, timePeriodsKey: '' } as TimeRange)
   }
 }, { immediate: true })
 
 /**
-     * Reinstate previous selection whenever user toggles between Relative and Custom tabs
-     */
+ * Triggers when `v-calendar` instance is in date range mode
+ */
+watch(calendarRange, (newValue, oldValue) => {
+  if (newValue !== undefined && newValue !== oldValue) {
+    changeCalendarRange(newValue as TimeRange)
+  }
+}, { immediate: true })
+
+/**
+ * Reinstate previous selection whenever user toggles between Relative and Custom tabs
+ */
 watch(() => state.tabName, (newValue, oldValue) => {
   if (oldValue !== undefined && newValue === 'relative') {
     changeRelativeTimeframe(state.previouslySelectedTimeframe)
@@ -491,177 +538,175 @@ watch(() => state.tabName, (newValue, oldValue) => {
   }
 })
 
+/**
+ * Selects either "Relative" or "Custom" tab, saves the incoming default value to internal state,
+ * then updates the input field to display the human-readable time frame.
+ */
 onMounted(() => {
-  // Select the tab based on incoming defaults; save the default value to our internal
-  // state and update the input field to display the human-readable date/time.
-  if (props.modelValue) {
-    if ('timePeriodsKey' in (props.modelValue as TimeRange)) {
-      state.tabName = 'relative'
-      for (const section of props.timePeriods) {
-        const selectedTimeframe = section.values.find(e => e.key === (props.modelValue as TimeRange).timePeriodsKey)
-        if (selectedTimeframe) {
-          changeRelativeTimeframe(selectedTimeframe)
-          updateDisplay()
-          break
-        }
+  if (ModeArrayRelative.includes(props.mode) && props.modelValue?.timePeriodsKey) {
+    state.tabName = 'relative'
+    submitDisabled.value = false
+
+    for (const section of props.timePeriods) {
+      const selectedTimeframe = section.values.find(e => e.key === props.modelValue.timePeriodsKey)
+
+      if (selectedTimeframe) {
+        changeRelativeTimeframe(selectedTimeframe)
+        updateDisplay()
+        break
       }
-    } else {
-      state.tabName = 'custom'
-      changeCalendarRange(props.modelValue)
+    }
+  } else {
+    state.tabName = 'custom'
+    changeCalendarRange(props.modelValue)
+
+    if ((props.modelValue?.start && props.modelValue?.end) || (isSingleDatepicker.value && props.modelValue?.start)) {
       updateDisplay()
     }
   }
 })
 </script>
 
-<style lang="scss">
-@import '@/styles/variables';
-@import '@/styles/functions';
-@import '@/styles/mixins';
+<style lang="scss" scoped>
+/* Component variables */
 
-$timepicker-min-width: 360px;
-$margin: var(--kui-space-30, $kui-space-30);
+$kDateTimePickerInputPaddingX: var(--kui-space-50, $kui-space-50); // corresponds to mixin, search for variable name in mixins
+$kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin
+
+/* Component styles */
 
 .k-datetime-picker {
-  max-width: 100%; // Prevent overflowing the container
-
   // For aesthetic purposes when relative time frames are present
   &.set-min-width {
-    .k-popover {
-      min-width: $timepicker-min-width;
+    .popover {
+      min-width: 360px;
     }
   }
 
-  .timepicker-input {
-    --KButtonOutlineColor: var(--grey-500, var(--kui-color-text-neutral, #{$kui-color-text-neutral}));
-    --KButtonOutlineActive: var(--white, var(--kui-color-background, #{$kui-color-background}));
-    border: none;
-    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular); // token value change
-    // Prevent overflowing the container
-    max-width: 100%;
-    padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) !important;
-    // Styling button as input via mixin
-    @include input-default;
+  .datetime-picker-trigger-wrapper {
+    position: relative;
+    width: 100%;
 
-    .calendar-icon {
-      margin-right: var(--kui-space-20, $kui-space-20) !important;
-    }
+    .datetime-picker-trigger {
+      @include inputDefaults;
 
-    &.set-min-width {
-      min-width: $timepicker-min-width;
-    }
-    &:hover {
-      // Styling button as input via mixin
-      @include input-hover;
-    }
-    &:focus,
-    &:active {
-      // Styling button as input via mixin
-      @include input-focus;
-    }
-    .timepicker-display {
-      color: var(--black-70, var(--kui-color-text, $kui-color-text));
-      display: flex !important;
-      flex-wrap: wrap;
-      font-size: var(--kui-font-size-40, $kui-font-size-40) !important;
+      cursor: pointer;
+      display: inline-flex;
 
-      div {
-        font-size: var(--kui-font-size-40, $kui-font-size-40);
-        line-height: var(--kui-line-height-30, $kui-line-height-30);
-        margin: var(--kui-space-0, $kui-space-0);
-        padding: var(--kui-space-0, $kui-space-0);
-        text-align: left;
+      &:hover {
+        @include inputHover;
+      }
+
+      &:focus {
+        @include inputFocus;
+      }
+
+      &.disabled {
+        @include inputDisabled;
+        pointer-events: none;
+
+        .datetime-picker-display {
+          color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
+        }
+      }
+
+      .datetime-picker-display {
+        @include inputText;
+
+        display: flex;
+        flex-wrap: wrap;
+        pointer-events: none;
         white-space: nowrap;
-        width: auto;
+
+        &.has-icon {
+          // icon size + icon spacing
+          /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+          margin-left: calc(var(--kui-icon-size-40, $kui-icon-size-40) + var(--kui-space-40, $kui-space-40));
+        }
       }
     }
+
+    .calendar-icon {
+      left: $kDateTimePickerInputPaddingX;
+      margin-top: 2px; // align icon vertically with input text
+      pointer-events: none;
+      position: absolute;
+      top: $kDateTimePickerInputPaddingY;
+    }
+
+    &.disabled {
+      cursor: not-allowed;
+    }
   }
 
-  .k-popover {
+  :deep(.popover .popover-container) {
+    border: var(--kui-border-width-10, kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
     max-height: 90vh;
     max-width: 350px;
+    min-width: 290px;
     overflow: hidden;
-    padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
+    padding: var(--kui-space-40, $kui-space-40);
 
-    &[x-placement^=bottom] {
-      margin-top: var(--kui-space-10, $kui-space-10);
-    }
-
-    &[x-placement^=top] {
-      margin-bottom: var(--kui-space-10, $kui-space-10);
-    }
-
-    .k-popover-content {
+    .popover-content {
       .datetime-picker-toggle {
-        margin-bottom: var(--kui-space-60, $kui-space-60) !important;
-        width: 100% !important;
+        margin-bottom: var(--kui-space-40, $kui-space-40);
       }
 
       .range-display {
-        margin: var(--kui-space-0, $kui-space-0) auto var(--kui-space-0, $kui-space-0);
+        font-size: var(--kui-font-size-20, $kui-font-size-20);
+        font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+        line-height: var(--kui-line-height-20, $kui-line-height-20);
+        margin: var(--kui-space-0, $kui-space-0);
+        margin-bottom: var(--kui-space-40, $kui-space-40);
       }
 
       .relative-periods-container {
-        display: flex !important;
-        flex-direction: column !important;
+        display: flex;
+        flex-direction: column;
       }
 
       .timeframe-section {
-        display: flex !important;
-        flex-direction: column !important;
+        display: flex;
+        flex-direction: column;
+
+        &:not(:last-child) {
+          margin-bottom: var(--kui-space-40, $kui-space-40);
+        }
 
         .timeframe-section-title {
-          font-size: var(--kui-font-size-30, $kui-font-size-30) !important;
+          color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+          font-size: var(--kui-font-size-20, $kui-font-size-20);
           font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-          margin-bottom: var(--spacing-xs, var(--kui-space-20, $kui-space-20)) !important;
-          margin-top: var(--kui-space-40, $kui-space-40) !important;
+          line-height: var(--kui-line-height-20, $kui-line-height-20);
+          margin-bottom: var(--kui-space-20, $kui-space-20);
         }
+
         .timeframe-buttons {
-          display: flex !important;
-          flex-wrap: wrap;
+          display: grid;
+          gap: var(--kui-space-40, $kui-space-40);
+          grid-template-columns: repeat(3, 1fr);
 
-          .timeframe-btn {
-            // Only 2 of 3 columns will have a right margin; subtract margin / 2
-            flex: 0 calc(33% - 3px);
-            font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
-            font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-            justify-content: center;
-            margin-bottom: $margin;
-            margin-right: $margin;
-            padding: var(--spacing-sm, var(--kui-space-50, $kui-space-50)) var(--spacing-md, var(--kui-space-60, $kui-space-60));
+          .timeframe-button {
+            @include truncate;
 
-            &.selected-option {
-              background-color: var(--blue-500, var(--kui-color-background-primary, $kui-color-background-primary));
-              color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
-              font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular); // token value change
-            }
-            &:nth-child(3n) {
-              margin-right: var(--kui-space-0, $kui-space-0);
-            }
-            // TODO this override should be applied to Kongponents button
-            &:focus {
-              box-shadow: none;
-            }
+            border-width: var(--kui-border-width-10, $kui-border-width-10);
+            display: block;
+            font-size: var(--kui-font-size-20, $kui-font-size-20);
+            line-height: var(--kui-line-height-20, $kui-line-height-20);
           }
         }
       }
     }
 
-    .k-popover-footer {
-      margin: var(--spacing-md, var(--kui-space-60, $kui-space-60)) auto var(--kui-space-0, $kui-space-0);
+    .popover-footer {
+      margin: var(--kui-space-0, $kui-space-0);
+      margin-top: var(--kui-space-40, $kui-space-40);
 
       .datetime-picker-footer-container {
-        display: flex !important;
-        justify-content: flex-end !important;
-
-        // Apply / Clear buttons
-        // TODO these overrides should be applied to Kongponents button
-        .action-btn {
-          padding: var(--kui-space-0, $kui-space-0) var(--spacing-md, var(--kui-space-60, $kui-space-60)) var(--spacing-xs, var(--kui-space-40, $kui-space-40));
-          &:focus {
-            box-shadow: none;
-          }
-        }
+        display: flex;
+        gap: var(--kui-space-40, $kui-space-40);
+        justify-content: flex-end;
       }
     }
   }
@@ -669,234 +714,235 @@ $margin: var(--kui-space-30, $kui-space-30);
 </style>
 
 <style lang="scss">
-@import '@/styles/variables';
-@import '@/styles/tmp-variables';
-@import '@/styles/functions';
+// v-calendar style overrides
+// needs to be unscoped
 
-// v-calendar overrides
+/* Unscoped component mixins */
+
+@mixin vCalendarCssVarsOverrides {
+  // stylelint-disable custom-property-pattern
+
+  --vc-white: var(--kui-color-text-inverse, #{$kui-color-text-inverse});
+  --vc-focus-ring: var(--kui-shadow-focus, #{$kui-shadow-focus});
+
+  --vc-header-arrow-color: var(--kui-color-text-neutral, #{$kui-color-text-neutral});
+  --vc-header-title-color: var(--kui-color-text, #{$kui-color-text});
+  --vc-nav-title-color: var(--kui-color-text, #{$kui-color-text});
+  // unset hover color here to control hover manually
+  --vc-day-content-hover-bg: var(--kui-color-background-transparent, #{$kui-color-background-transparent});
+  --vc-weekday-color: var(--kui-color-text-neutral, #{$kui-color-text-neutral});
+  --vc-select-color: var(--kui-color-text, #{$kui-color-text});
+
+  --vc-font-family: var(--kui-font-family-text, #{$kui-font-family-text});
+  --vc-text-sm: var(--kui-font-size-20, #{$kui-font-size-20});
+  --vc-font-bold: var(--kui-font-weight-semibold, #{$kui-font-weight-semibold});
+
+  .vc-blue {
+    --vc-accent-200: var(--kui-color-background-primary-weakest, #{$kui-color-background-primary-weakest});
+    --vc-accent-600: var(--kui-color-background-primary, #{$kui-color-background-primary});
+    --vc-accent-900: var(--kui-color-text, #{$kui-color-text});
+  }
+}
+
+@mixin vCalendarNavItem {
+  background-color: var(--kui-color-background, $kui-color-background);
+
+  &:hover:not([disabled]) {
+    background-color: var(--kui-color-background, $kui-color-background);
+    color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
+  }
+}
+
+@mixin vCalendarNavTitle {
+  background-color: var(--kui-color-background, $kui-color-background);
+  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+
+  &:hover:not([disabled]) {
+    color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+    opacity: 1;
+  }
+}
+
+/* Unscoped component styles */
+
 .k-datetime-picker {
-  $highlight-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
-  $selected-color: var(--kui-color-background-primary, $kui-color-background-primary);
-  $text-color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-  $text-color-darker: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+  @include vCalendarCssVarsOverrides;
 
   .vc-container {
-    border: var(--kui-border-width-0, $kui-border-width-0);
+    @include vCalendarCssVarsOverrides;
 
-    .vc-time-icon {
-      display: none;
-    }
-    .vc-bordered {
-      border: var(--kui-border-width-0, $kui-border-width-0);
-    }
+    border: none;
+    width: 100%;
 
-    // disabled day
-    .vc-day-content.is-disabled {
-      pointer-events: none;
+    // generic button styles (mostly apples to arrow buttons and month and year (between the arrows))
+    button {
+      @include vCalendarNavItem;
     }
 
-    // Day text within hover selection or post-selection
-    .vc-highlights + .vc-day-content {
+    // month and year (between the arrow buttons)
+    .vc-title {
+      @include vCalendarNavTitle;
+    }
+
+    // day
+    .vc-day {
+      color: var(--kui-color-text, $kui-color-text);
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
 
-      &:focus {
-        background-color: $selected-color;
-      }
-    }
-
-    .vc-highlights:has(.vcal-day-start, .vcal-day-end, .vcal-day-drag-start, .vcal-day-drag-end) + .vc-day-content {
-      color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
-    }
-
-    .vc-nav-popover-container {
-      background-color: var(--white, var(--kui-color-background, $kui-color-background));
-      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-      color: $text-color;
-
-      .vc-nav-container {
-        .vc-nav-arrow {
-          background-color: var(--white, var(--kui-color-background, $kui-color-background));
-
-          &:active,
-          &:focus {
-            border: var(--kui-border-width-20, $kui-border-width-20) solid var(--white, $tmp-color-white); // token needed
-          }
-        }
-        // Calendar year
-        .vc-nav-header .vc-nav-title {
-          color: $text-color;
-
-          &:hover {
-            background-color: var(--white, var(--kui-color-background, $kui-color-background));
-            color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-          }
-          &:active,
-          &:focus {
-            border: var(--kui-border-width-20, $kui-border-width-20) solid var(--white, $tmp-color-white); // token needed
-          }
-        }
-
-        // Calendar months in mini-popover
-        .vc-nav-items {
-          .vc-nav-item {
-            color: $text-color;
-
-            &:hover {
-              background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-              box-shadow: none;
-              color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-            }
-            // Currently selected month
-            &.is-current {
-              border-color: var(--kui-color-border-transparent, $kui-color-border-transparent);
-            }
-            // Month that has focus (tab navigation supported)
-            &.is-active {
-              background-color: $selected-color;
-              box-shadow: none;
-              color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
-              font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-            }
-            // Disabled month
-            &.is-disabled {
-              color: var(--grey-400, var(--kui-color-text-disabled, $kui-color-text-disabled));
-              cursor: not-allowed;
-              opacity: 1;
-            }
-          }
-        }
-      }
-    }
-
-    .vc-time-picker {
-      border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--white, $tmp-color-white) !important; // token needed
-
-      &:last-of-type {
-        padding-bottom: var(--kui-space-0, $kui-space-0);
-      }
-      .vc-date .vc-weekday,
-      .vc-date .vc-month,
-      .vc-date .vc-year {
-        color: $text-color !important;
-      }
-    }
-
-    .vc-pane-container {
-      // Minimize top padding
-      .vc-arrows-container,
-      .vc-header {
-        padding: var(--kui-space-10, $kui-space-10) var(--kui-space-60, $kui-space-60) var(--kui-space-0, $kui-space-0);
-      }
-
-      .vc-header {
-        // Month + Year
-        margin-bottom: var(--kui-space-40, $kui-space-40);
-
-        .vc-title {
-          color: $text-color;
-          font-size: var(--type-md, var(--kui-font-size-40, $kui-font-size-40));
-          &:hover,
-          &:active {
-            color: $text-color-darker;
-          }
-        }
-      }
-      // Calendar content (weekday headings and full month)
-      .vc-weeks {
-        margin-top: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
-
-        .vc-weekday {
-          color: $text-color;
-        }
-      }
-    }
-    .vc-pane-container,
-    .vc-time-picker {
-      // Time Range
-      .vc-select select {
-        background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-        border: var(--kui-border-width-20, $kui-border-width-20) solid $tmp-color-gray-weaker;
-        color: $text-color-darker;
-
-        &:hover {
-          color: $text-color-darker;
-        }
-        &:focus {
+      // today
+      &.is-today {
+        .vc-day-content {
           background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-          border: var(--kui-border-width-20, $kui-border-width-20) solid $tmp-color-gray-weaker;
-          color: $text-color-darker;
 
-          + .vc-select-arrow {
-            color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+          &.vcal-day-base,
+          &.vcal-day-drag-base {
+            background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
           }
-        }
-      }
-      .vc-time-month, .vc-time-day, .vc-time-year {
-        color: $text-color-darker;
-      }
-      .vc-month, .vc-day {
-        color: $text-color-darker;
-      }
 
-      // AM / PM highlights
-      .vc-am-pm {
-        background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-        color: $text-color-darker;
-
-        button {
-          &:active,
-          &:hover {
-            color: $text-color-darker;
-          }
-          &:focus {
-            border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
-          }
-          &.active {
-            background-color: $selected-color;
-
-            &:hover,
-            &:focus {
-              background-color: $selected-color;
-              border-color: $selected-color;
-              color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
-            }
-            &:active {
-              background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
-              border-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
-              color: var(--white, var(--kui-color-text-inverse, $kui-color-text-inverse));
-            }
+          &.vcal-day-start,
+          &.vcal-drag-day-start
+          &.vcal-day-end,
+          &.vcal-drag-day-end,
+          &.vc-highlight-content-solid {
+            background-color: var(--kui-color-background-primary, $kui-color-background-primary);
           }
         }
       }
 
-      // Date Range - Post selection
-      .vc-highlight.vcal-day-start,
-      .vc-highlight.vcal-day-end {
-        background-color: $selected-color;
-      }
-      .vc-highlight.vcal-day-base,
-      .vc-highlight.vc-highlight-base-middle {
-        background-color: $highlight-color;
-      }
-
-      // Date Range - during selection
-      .vcal-day-drag-start,
-      .vcal-day-drag-end {
-        background-color: $selected-color;
-        border: var(--kui-border-width-20, $kui-border-width-20) solid $selected-color;
-      }
       .vc-day-content {
-        &:hover {
-          background-color: var(--white, var(--kui-color-background, $kui-color-background));
-          border: var(--kui-border-width-20, $kui-border-width-20) solid $selected-color;
-          color: $selected-color;
+        &:hover:not(.vc-disabled) {
+          background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+        }
+
+        &.vcal-day-base {
+          &:hover {
+            background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
+          }
+        }
+
+        // range start and end
+        &.vcal-day-start,
+        &.vcal-drag-day-start
+        &.vcal-day-end,
+        &.vcal-drag-day-end,
+        &.vc-highlight-content-solid {
+          &:hover {
+            background-color: var(--kui-color-background-primary-strong, $kui-color-background-primary-strong) !important;
+          }
+        }
+
+        &.vc-disabled {
+          color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+          opacity: 1;
+          pointer-events: none;
+        }
+      }
+    }
+
+    // time picker
+    .vc-time-picker {
+      align-items: flex-start;
+      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+      border: none;
+      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+      opacity: 1;
+      width: 100%;
+
+      .vc-time-select-group {
+        border: none;
+
+        .vc-base-icon {
+          display: none;
+        }
+
+        .vc-base-select {
+          &:last-child {
+            margin-left: var(--kui-space-20, $kui-space-20);
+          }
+
+          select {
+            background-color: var(--kui-color-background, $kui-color-background);
+            border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+          }
+        }
+
+      }
+
+      .vc-time-header {
+        text-transform: none;
+      }
+
+      .vc-time-weekday,
+      .vc-time-month,
+      .vc-time-day,
+      .vc-time-year {
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+
+        &:not(:first-child) {
+          margin-left: var(--kui-space-10, $kui-space-10);
         }
       }
 
-      // Start / end "outer edge" background color
-      .vc-highlight.vc-highlight-base-start,
-      .vc-highlight.vc-highlight-base-end {
-        background-color: $highlight-color;
+      // disabled
+      &.vc-invalid {
+        select {
+          background-color: var(--kui-color-background-disabled, $kui-color-background-disabled) !important;
+          color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
+        }
+      }
+    }
+  }
+
+  // month/year picker flyout container
+  .vc-popover-content {
+    @include vCalendarCssVarsOverrides;
+
+    background-color: var(--kui-color-background, $kui-color-background);
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    box-shadow: var(--kui-shadow, $kui-shadow);
+    width: 100%;
+
+    .vc-popover-caret {
+      display: none;
+    }
+
+    .vc-nav-header {
+      margin-bottom: var(--kui-space-40, $kui-space-40);
+
+      // months/years arrow buttons
+      .vc-nav-arrow {
+        @include vCalendarNavItem;
+      }
+
+      // month/year title (between the arrows)
+      .vc-nav-title {
+        @include vCalendarNavTitle;
+      }
+    }
+
+    .vc-nav-item {
+      background-color: var(--kui-color-background, $kui-color-background);
+      box-shadow: none !important;
+      color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+      font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+
+      &:hover:not([disabled]) {
+        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+      }
+
+      &.is-active {
+        background-color: var(--kui-color-background-primary, $kui-color-background-primary) !important;
+        color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+      }
+
+      &.is-current {
+        background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+      }
+
+      &[disabled] {
+        color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+        opacity: 1;
+        pointer-events: none;
       }
     }
   }

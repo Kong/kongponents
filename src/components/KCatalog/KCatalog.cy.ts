@@ -45,15 +45,6 @@ const largeDataSet = [
   },
 ]
 
-/**
- * ALL TESTS MUST USE testMode
- * We generate unique IDs for reference by aria properties. Test mode strips these out
- * allowing for successful snapshot verification.
- * props: {
- *   testMode: 'true' || 'loading'
- * }
- */
-
 describe('KCatalog', () => {
   function getItems(count: number) {
     const myItems = []
@@ -80,7 +71,6 @@ describe('KCatalog', () => {
       mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props',
-          testMode: 'true',
           title,
           fetcher: () => {
             return { data: getItems(total), total }
@@ -88,17 +78,16 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.get('.k-card-catalog-title').should('contain', title)
-      cy.get('.k-catalog-page').should('exist')
-      cy.get('.k-card-catalog-item').should('have.length', total)
+      cy.get('.catalog-title').should('contain', title)
+      cy.get('.catalog-page').should('exist')
+      cy.get('.k-catalog-item').should('have.length', total)
     })
 
     it('renders slots when passed', () => {
-      const slotContent = 'Look mah! No props (except testMode)'
+      const slotContent = 'Look mah! No props'
 
       mount(KCatalog, {
         props: {
-          testMode: 'true',
           cacheIdentifier: 'general-props1',
           fetcher: () => {
             return { data: getItems(1), total: 1 }
@@ -109,7 +98,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.get('.k-catalog-page').should('contain', slotContent)
+      cy.get('.catalog-page').should('contain', slotContent)
     })
 
     it('renders slotted cards when passed', () => {
@@ -118,61 +107,61 @@ describe('KCatalog', () => {
 
       mount(KCatalog, {
         props: {
-          testMode: 'true',
           cacheIdentifier: 'general-props1',
           fetcher: () => {
             return { data: getItems(1), total: 1 }
           },
         },
         slots: {
-          cardTitle: h('span', {}, slotHeader),
-          cardBody: h('span', {}, slotBody),
+          'card-title': h('span', {}, slotHeader),
+          'card-body': h('span', {}, slotBody),
         },
       })
 
-      cy.get('.k-card-title').should('contain', slotHeader)
-      cy.get('.k-card-body').should('contain', slotBody)
+      cy.get('.card-title').should('contain', slotHeader)
+      cy.get('.card-content').should('contain', slotBody)
     })
 
     it('renders slots when passed (with empty)', () => {
-      const emptySlotContent = 'Look mah! I am empty! (except testMode)'
+      const emptySlotContent = 'Look mah! I am empty!'
 
       mount(KCatalog, {
         props: {
-          testMode: 'true',
           cacheIdentifier: 'general-props0',
-          isLoading: false,
-          fetcher: () => { return { data: [], total: 0 } },
+          loading: false,
+          fetcher: () => {
+            return { data: [], total: 0 }
+          },
         },
         slots: {
           'empty-state': h('span', {}, emptySlotContent),
         },
       })
 
-      cy.get('[data-testid="k-card-catalog-empty-state"]').should('contain', emptySlotContent)
+      cy.get('[data-testid="catalog-empty-state"]').should('contain', emptySlotContent)
     })
 
     it('renders slots when passed (with error)', () => {
-      const errorSlotContent = 'Look mah! I am erroneous! (except testMode)'
+      const errorSlotContent = 'Look mah! I am erroneous!'
 
       mount(KCatalog, {
         props: {
-          testMode: 'true',
-          hasError: true,
-          fetcher: () => { return { data: [], total: 0 } },
+          error: true,
+          fetcher: () => {
+            return { data: [], total: 0 }
+          },
         },
         slots: {
           'error-state': h('span', {}, errorSlotContent),
         },
       })
 
-      cy.getTestId('k-card-catalog-error-state').should('contain', errorSlotContent)
+      cy.getTestId('catalog-error-state').should('contain', errorSlotContent)
     })
 
     it('renders content in the toolbar slot', () => {
       mount(KCatalog, {
         props: {
-          testMode: 'true',
           cacheIdentifier: 'general-props1',
           fetcher: () => {
             return { data: getItems(1), total: 1 }
@@ -184,8 +173,8 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.get('.k-card-catalog .k-catalog-toolbar').find('button').should('be.visible')
-      cy.get('.k-card-catalog .k-catalog-toolbar button').should('contain.text', 'Toolbar button')
+      cy.get('.k-catalog .catalog-toolbar').find('button').should('be.visible')
+      cy.get('.k-catalog .catalog-toolbar button').should('contain.text', 'Toolbar button')
     })
 
     it('can change card sizes - small', () => {
@@ -193,7 +182,6 @@ describe('KCatalog', () => {
 
       mount(KCatalog, {
         props: {
-          testMode: 'true',
           cacheIdentifier: 'general-props',
           fetcher: () => {
             return { data: getItems(total), total }
@@ -202,7 +190,7 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.get('.k-card-small .catalog-item').should('have.length', total)
+      cy.get('.card-small .catalog-item').should('have.length', total)
     })
 
     it('can change card sizes - large', () => {
@@ -210,7 +198,6 @@ describe('KCatalog', () => {
 
       mount(KCatalog, {
         props: {
-          testMode: 'true',
           cacheIdentifier: 'general-props',
           fetcher: () => {
             return { data: getItems(total), total }
@@ -219,13 +206,12 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.get('.k-card-large .catalog-item').should('have.length', total)
+      cy.get('.card-large .catalog-item').should('have.length', total)
     })
 
     it('handles truncation', () => {
       mount(KCatalog, {
         props: {
-          testMode: 'true',
           cacheIdentifier: 'general-props-long',
           fetcher: () => {
             return { data: [longItem], total: 1 }
@@ -239,12 +225,11 @@ describe('KCatalog', () => {
     it('can disable truncation', () => {
       mount(KCatalog, {
         props: {
-          testMode: 'true',
           cacheIdentifier: 'general-props-long',
           fetcher: () => {
             return { data: [longItem], total: 1 }
           },
-          noTruncation: true,
+          truncateDescription: false,
         },
       })
 
@@ -262,9 +247,8 @@ describe('KCatalog', () => {
 
       mount(KCatalog, {
         propsData: {
-          testMode: 'true',
           fetcher: fns.fetcher,
-          isLoading: false,
+          loading: false,
           paginationPageSizes: [10, 15, 20],
           searchInput: '',
           cacheIdentifier: 'search-example',
@@ -293,18 +277,17 @@ describe('KCatalog', () => {
     it('emits an event when card is clicked', () => {
       mount(KCatalog, {
         props: {
-          testMode: 'true',
           cacheIdentifier: 'general-props-long',
           fetcher: () => {
             return { data: [longItem], total: 1 }
           },
-          noTruncation: true,
+          truncateDescription: false,
         },
       })
 
-      cy.get('.k-card-catalog .catalog-item').first().click().then(() => {
+      cy.get('.k-catalog .catalog-item').first().click().then(() => {
         // Check for emitted event
-        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'card:click')
+        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'card-click')
       })
     })
   })
@@ -321,16 +304,15 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.get('.empty-state-wrapper').should('be.visible')
+      cy.get('.k-empty-state').should('be.visible')
     })
 
     it('displays an empty state when no data is available (slot)', () => {
-      const emptySlotContent = 'Look mah! I am empty! (except testMode)'
+      const emptySlotContent = 'Look mah! I am empty!'
       const fetcher = () => new Promise(resolve => resolve({ data: [] }))
 
       mount(KCatalog, {
         props: {
-          testMode: 'true',
           cacheIdentifier: 'pagination',
           fetcher,
           pageSize: 4,
@@ -340,49 +322,51 @@ describe('KCatalog', () => {
         },
       })
 
-      cy.getTestId('k-card-catalog-empty-state').should('contain.text', emptySlotContent)
+      cy.getTestId('catalog-empty-state').should('contain.text', emptySlotContent)
     })
 
-    it('displays a loading skeletion when the "isLoading" prop is set to true"', () => {
+    it('displays a loading skeletion when the "loading" prop is set to true"', () => {
       mount(KCatalog, {
         props: {
-          testMode: 'loading',
-          fetcher: () => { return { data: [], total: 0 } },
-          isLoading: true,
+          fetcher: () => {
+            return { data: [], total: 0 }
+          },
+          loading: true,
         },
       })
 
-      cy.get('.skeleton-card-wrapper').should('be.visible')
+      cy.get('.catalog-skeleton-loader').should('be.visible')
     })
 
-    it('displays an error state when the "hasError" prop is set to true"', () => {
+    it('displays an error state when the "error" prop is set to true"', () => {
       mount(KCatalog, {
         props: {
-          testMode: 'true',
-          fetcher: () => { return { data: [], total: 0 } },
-          hasError: true,
+          fetcher: () => {
+            return { data: [], total: 0 }
+          },
+          error: true,
         },
       })
 
-      cy.get('.empty-state-wrapper').should('be.visible')
-      cy.get('.is-error').should('be.visible')
+      cy.get('.k-empty-state.error').should('be.visible')
     })
 
     it('displays an error state (slot)', () => {
-      const errorSlotContent = 'Look mah! I am erroneous! (except testMode)'
+      const errorSlotContent = 'Look mah! I am erroneous!'
 
       mount(KCatalog, {
         props: {
-          testMode: 'true',
-          fetcher: () => { return { data: [], total: 0 } },
-          hasError: true,
+          fetcher: () => {
+            return { data: [], total: 0 }
+          },
+          error: true,
         },
         slots: {
           'error-state': () => h('span', {}, errorSlotContent),
         },
       })
 
-      cy.getTestId('k-card-catalog-error-state').should('contain.text', errorSlotContent)
+      cy.getTestId('catalog-error-state').should('contain.text', errorSlotContent)
     })
 
     it('displays a loading state and not an empty state when pending response', () => {
@@ -392,15 +376,14 @@ describe('KCatalog', () => {
 
       mount(KCatalog, {
         props: {
-          testMode: 'loading',
           fetcher: slowFetcher,
           cacheIdentifier: 'loading-test',
           paginationPageSizes: [10, 20, 30, 40],
         },
       })
 
-      cy.get('.skeleton-card-wrapper').should('be.visible')
-      cy.get('.empty-state-wrapper').should('not.exist')
+      cy.get('.catalog-skeleton-loader').should('be.visible')
+      cy.get('.k-empty-state').should('not.exist')
     })
   })
 
@@ -408,94 +391,92 @@ describe('KCatalog', () => {
     it('displays pagination when fetcher is provided', () => {
       mount(KCatalog, {
         props: {
-          testMode: 'true',
           cacheIdentifier: 'pagination2',
           fetcher: () => {
             return { data: largeDataSet, total: 10 }
           },
-          isLoading: false,
+          loading: false,
           paginationPageSizes: [10, 20, 30, 40],
         },
       })
 
-      cy.getTestId('k-catalog-pagination').should('be.visible')
+      cy.getTestId('catalog-pagination').should('be.visible')
     })
 
     it('allows disabling pagination', () => {
       mount(KCatalog, {
         props: {
-          testMode: 'true',
           cacheIdentifier: 'pagination2',
           fetcher: () => {
             return { data: largeDataSet, total: 10 }
           },
-          isLoading: false,
+          loading: false,
           paginationPageSizes: [10, 20, 30, 40],
           disablePagination: true,
         },
       })
 
-      cy.getTestId('k-catalog-pagination').should('not.exist')
+      cy.getTestId('catalog-pagination').should('not.exist')
     })
 
-    it('does not display pagination when no fetcher', () => {
+    it('does not display pagination when no data', () => {
       mount(KCatalog, {
         props: {
-          testMode: 'true',
-          fetcher: () => { return { data: [], total: 0 } },
+          fetcher: () => {
+            return { data: [], total: 0 }
+          },
           paginationPageSizes: [10, 20, 30, 40],
         },
       })
 
-      cy.getTestId('k-catalog-pagination').should('not.exist')
+      cy.getTestId('catalog-pagination').should('not.exist')
     })
 
     it('does not display pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
       mount(KCatalog, {
         propsData: {
-          testMode: 'true',
           cacheIdentifier: 'pagination5',
-          fetcher: () => { return { data: getItems(5), total: 5 } },
-          isLoading: false,
+          fetcher: () => {
+            return { data: getItems(5), total: 5 }
+          },
+          loading: false,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
         },
       })
 
-      cy.getTestId('k-pagination-container').should('not.exist')
+      cy.getTestId('catalog-pagination').should('not.exist')
     })
 
     it('does not display pagination when hidePaginationWhenOptional is true and total is equal to pageSize', () => {
       mount(KCatalog, {
         propsData: {
-          testMode: 'true',
           cacheIdentifier: 'pagination',
           fetcher: () => {
             return { data: largeDataSet, total: 10 }
           },
-          isLoading: false,
+          loading: false,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
         },
       })
 
-      cy.getTestId('k-pagination-container').should('not.exist')
+      cy.getTestId('catalog-pagination').should('not.exist')
     })
 
     it('does display pagination when total is greater than pageSize', () => {
       mount(KCatalog, {
         propsData: {
-          testMode: 'true',
           fetcher: () => {
-            return { total: 25 }
+            return { data: getItems(25), total: 25 }
           },
-          isLoading: false,
+          loading: false,
           hidePaginationWhenOptional: true,
           cacheIdentifier: 'pagination-example',
         },
       })
 
-      cy.getTestId('k-pagination-container').should('exist')
+      cy.getTestId('catalog-pagination').should('exist')
     })
   })
 })

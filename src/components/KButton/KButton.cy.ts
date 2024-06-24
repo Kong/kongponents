@@ -1,8 +1,9 @@
 import { mount } from 'cypress/vue'
-import KButton, { appearances } from '@/components/KButton/KButton.vue'
+import KButton from '@/components/KButton/KButton.vue'
+import { ButtonAppearances, ButtonSizes } from '@/types'
 
 const rendersCorrectAppearance = (variant: string) => {
-  it(`renders kbutton with the ${variant} appearance`, () => {
+  it(`renders KButton with the ${variant} appearance`, () => {
     mount(KButton, {
       props: {
         appearance: variant,
@@ -16,47 +17,39 @@ const rendersCorrectAppearance = (variant: string) => {
   })
 }
 
+const rendersCorrectSize = (size: string) => {
+  it(`sets ${size} class when size passed`, () => {
+    mount(KButton, {
+      props: {
+        size,
+      },
+      slots: {
+        default: () => size.charAt(0).toUpperCase() + size.substr(1).toLowerCase(),
+      },
+    })
+
+    cy.get('.k-button').should('have.class', size)
+  })
+}
+
 describe('KButton', () => {
-  // Loop through appearances
-  Object.values(appearances).map(a => rendersCorrectAppearance(a))
+  // Loop through ButtonAppearances
+  Object.values(ButtonAppearances).map(a => rendersCorrectAppearance(a))
 
-  it('sets small class when size passed', () => {
+  // Loop through ButtonSizes
+  Object.values(ButtonSizes).map(s => rendersCorrectSize(s))
+
+  it('sets icon-button class when icon prop is `true` passed', () => {
     mount(KButton, {
       props: {
-        size: 'small',
+        icon: true,
       },
       slots: {
-        default: () => 'Small Button',
+        default: () => 'Pretend I am an icon',
       },
     })
 
-    cy.get('.k-button').should('have.class', 'small')
-  })
-
-  it('sets medium class when size passed', () => {
-    mount(KButton, {
-      props: {
-        size: 'medium',
-      },
-      slots: {
-        default: () => 'Medium Button',
-      },
-    })
-
-    cy.get('.k-button').should('have.class', 'medium')
-  })
-
-  it('sets large class when size passed', () => {
-    mount(KButton, {
-      props: {
-        size: 'large',
-      },
-      slots: {
-        default: () => 'Large Button',
-      },
-    })
-
-    cy.get('.k-button').should('have.class', 'large')
+    cy.get('.k-button').should('have.class', 'icon-button')
   })
 
   it('renders a native link with KButton styles', () => {
@@ -74,19 +67,7 @@ describe('KButton', () => {
     cy.get('a').invoke('attr', 'href').should('eq', 'https://google.com')
   })
 
-  it('renders an icon when using icon prop', () => {
-    mount(KButton, {
-      props: {
-        icon: 'spinner',
-      },
-      slots: {
-        default: () => 'Click me',
-      },
-    })
-
-    cy.get('.k-button .k-button-icon').should('be.visible')
-  })
-
+  // TODO: remove this when we remove icon slot
   it('renders an icon when using icon slot', () => {
     const iconText = 'Pretend I am an icon'
     mount(KButton, {

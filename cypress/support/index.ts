@@ -6,11 +6,11 @@ import 'cypress-fail-fast'
 import '@/styles/styles.scss'
 
 Cypress.Commands.add('getTestId', (dataTestId: string): Chainable => {
-  return cy.get(`[data-testid=${dataTestId}]`)
+  return cy.get(`[data-testid="${dataTestId}"]`)
 })
 
-Cypress.Commands.add('findTestId', (dataTestId: string): Chainable => {
-  return cy.find(`[data-testid=${dataTestId}]`)
+Cypress.Commands.add('findTestId', { prevSubject: 'element' }, (subject, dataTestId: string): any => {
+  return cy.wrap(subject).find(`[data-testid="${dataTestId}"]`)
 })
 
 Cypress.Commands.add('mount', (component: ComputedOptions, options = {}): Chainable => {

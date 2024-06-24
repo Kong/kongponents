@@ -9,7 +9,6 @@ const exampleTimeFrames = [
     values: [
       TimePeriods.get(TimeframeKeys.FIFTEEN_MIN),
       TimePeriods.get(TimeframeKeys.ONE_HOUR),
-      TimePeriods.get(TimeframeKeys.THREE_HOUR),
       TimePeriods.get(TimeframeKeys.SIX_HOUR),
       TimePeriods.get(TimeframeKeys.TWELVE_HOUR),
       TimePeriods.get(TimeframeKeys.ONE_DAY),
@@ -39,57 +38,70 @@ const todayDateTimeString = format(new Date(today), 'PP hh:mm a')
 const twoDaysAgo = new Date(today.getTime() - (2 * 24 * 60 * 60 * 1000))
 const minDate = new Date(today.getTime() - (365 * 24 * 60 * 60 * 1000))
 const maxDate = today
+const singleDate = {
+  start: today,
+  end: null,
+  timePeriodsKey: '',
+}
 const defaultTimeRange = {
   start: twoDaysAgo,
   end: today,
+  timePeriodsKey: TimeframeKeys.ONE_DAY,
+}
+const emptyTimeRange = {
+  start: null,
+  end: null,
+  timePeriodKey: null,
 }
 
-const timepickerInput = 'k-datetime-picker-input'
-const submitButton = 'k-datetime-picker-submit'
-const clearButton = 'k-datetime-picker-clear'
-const segmentedToggle = 'k-datetime-picker-toggle'
+const timepickerInput = 'datetime-picker-trigger'
+const timepickerDisplay = 'datetime-picker-display'
+const submitButton = 'datetime-picker-submit'
+const clearButton = 'datetime-picker-clear'
+const segmentedToggle = 'datetime-picker-toggle'
 
 describe('KDateTimePicker', () => {
   it('renders without calendar icon', () => {
     mount(KDateTimePicker, {
       props: {
         mode: 'date',
-        modelValue: today,
-        range: false,
+        modelValue: singleDate,
         icon: false,
+        range: false,
       },
     })
 
     cy.getTestId(timepickerInput).should('exist')
-    cy.getTestId(timepickerInput).find('.kong-icon').should('not.exist')
+    cy.getTestId(timepickerInput).find('.calendar-icon').should('not.exist')
     cy.getTestId(clearButton).should('not.exist')
   })
 
   it('renders with clear button', () => {
     mount(KDateTimePicker, {
       props: {
-        mode: 'date',
-        modelValue: today,
+        mode: 'dateTime',
+        modelValue: singleDate,
         clearButton: true,
-        range: false,
         icon: false,
+        range: false,
       },
     })
 
     cy.getTestId(timepickerInput).should('exist')
     cy.getTestId(clearButton).should('exist')
+    cy.getTestId(timepickerDisplay).should('contain.text', todayDateTimeString)
   })
 
-  it('renders a single date picker with placeholder message and correct width', () => {
+  it('renders a date picker with placeholder message and correct width', () => {
     const placeholderText = 'Customer-facing message'
     const width = 500
 
     mount(KDateTimePicker, {
       props: {
-        mode: 'date',
-        modelValue: today,
-        placeholder: placeholderText,
         clearButton: true,
+        mode: 'date',
+        modelValue: singleDate,
+        placeholder: placeholderText,
         range: false,
         width: width + '',
       },
@@ -100,40 +112,39 @@ describe('KDateTimePicker', () => {
 
     // Open the date time picker, click "Clear" and make sure default placeholder is shown
     cy.getTestId(timepickerInput).click()
-    const wrapper = cy.get('.k-popover-content')
-    wrapper.should('be.visible')
+    cy.get('.popover-content').should('be.visible')
     cy.getTestId(clearButton).should('exist')
     cy.getTestId(clearButton).eq(0).click()
-    cy.getTestId(timepickerInput).should('contain.text', placeholderText)
+    cy.getTestId(timepickerDisplay).should('contain.text', placeholderText)
   })
 
-  it('renders range date picker', () => {
+  it('renders a date picker', () => {
     mount(KDateTimePicker, {
       props: {
         mode: 'date',
-        modelValue: defaultTimeRange,
-        range: true,
-      },
-    })
-    cy.getTestId(timepickerInput).should('exist')
-    cy.getTestId(timepickerInput).click()
-    cy.get('.vc-pane-container').should('exist')
-    cy.get('.vc-pane-container').find('.vc-time-select').should('not.exist')
-  })
-
-  it('renders a single date and time picker', () => {
-    mount(KDateTimePicker, {
-      props: {
-        mode: 'dateTime',
-        modelValue: today,
+        modelValue: singleDate,
         range: false,
       },
     })
     cy.getTestId(timepickerInput).should('exist')
     cy.getTestId(timepickerInput).click()
     cy.get('.vc-pane-container').should('exist')
-    cy.get('.vc-pane-container').find('.vc-time-select').should('exist')
-    cy.getTestId(timepickerInput).find('.timepicker-display').should('contain.text', todayDateTimeString)
+    cy.get('.vc-pane-container').find('.vc-time-picker').should('not.exist')
+  })
+
+  it('renders a single date and time picker', () => {
+    mount(KDateTimePicker, {
+      props: {
+        mode: 'dateTime',
+        modelValue: singleDate,
+        range: false,
+      },
+    })
+    cy.getTestId(timepickerInput).should('exist')
+    cy.getTestId(timepickerInput).click()
+    cy.get('.vc-pane-container').should('exist')
+    cy.get('.vc-pane-container').find('.vc-time-picker').should('exist')
+    cy.getTestId(timepickerDisplay).should('contain.text', todayDateTimeString)
   })
 
   it('renders a range date and time picker', () => {
@@ -141,18 +152,16 @@ describe('KDateTimePicker', () => {
       props: {
         mode: 'dateTime',
         modelValue: defaultTimeRange,
-        range: true,
-        minuteIncrement: '5',
         minDate,
         maxDate,
+        range: true,
       },
     })
 
-    const wrapper = cy.get('.k-datetime-picker')
-    wrapper.should('exist')
-    wrapper.getTestId(timepickerInput).should('exist')
-    wrapper.getTestId(timepickerInput).click()
-    wrapper.get('.vc-pane-container .vc-time-select').should('exist')
+    cy.get('.k-datetime-picker').should('exist')
+    cy.get('.k-datetime-picker').getTestId(timepickerInput).should('exist')
+    cy.get('.k-datetime-picker').getTestId(timepickerInput).click()
+    cy.get('.k-datetime-picker').get('.vc-pane-container .vc-time-picker').should('exist')
   })
 
   it('displays a valid date when "Submit" is clicked', () => {
@@ -160,14 +169,14 @@ describe('KDateTimePicker', () => {
       props: {
         mode: 'date',
         clearButton: true,
-        modelValue: today,
-        range: false,
+        modelValue: defaultTimeRange,
+        range: true,
       },
     })
 
     // Open the date time picker, click "Submit"
     cy.getTestId(timepickerInput).click()
-    cy.get('.k-popover-content').should('be.visible')
+    cy.get('.popover-content').should('be.visible')
     cy.getTestId(clearButton).should('exist')
     cy.getTestId(submitButton).should('exist')
   })
@@ -175,16 +184,16 @@ describe('KDateTimePicker', () => {
   it('disables "Apply" button when "Clear" is clicked', () => {
     mount(KDateTimePicker, {
       props: {
-        mode: 'date',
-        modelValue: today,
         clearButton: true,
-        range: false,
+        mode: 'date',
+        modelValue: defaultTimeRange,
+        range: true,
       },
     })
 
     // Open the date time picker, click "Clear"
     cy.getTestId(timepickerInput).click()
-    cy.get('.k-popover-content').should('be.visible')
+    cy.get('.popover-content').should('be.visible')
     cy.getTestId(clearButton).should('exist')
     cy.getTestId(submitButton).should('exist')
 
@@ -197,7 +206,7 @@ describe('KDateTimePicker', () => {
     mount(KDateTimePicker, {
       props: {
         mode: 'date',
-        modelValue: today,
+        modelValue: singleDate,
         range: false,
       },
     })
@@ -207,14 +216,14 @@ describe('KDateTimePicker', () => {
     cy.getTestId(submitButton).eq(0).click()
 
     // Check emitted raw date value, and the displayed value - should be the same, if rounded
-    cy.getTestId(timepickerInput).find('.timepicker-display').should('contain.text', todayDateString)
+    cy.getTestId(timepickerDisplay).should('contain.text', todayDateString)
   })
 
   it('renders relative time frames, and makes a selection', () => {
     mount(KDateTimePicker, {
       props: {
         mode: 'relative',
-        modelValue: today,
+        modelValue: defaultTimeRange,
         range: true,
         timePeriods: exampleTimeFrames,
       },
@@ -224,9 +233,9 @@ describe('KDateTimePicker', () => {
     cy.get('.timeframe-section').should('exist')
     cy.get('.timeframe-buttons').should('exist')
 
-    // Click on "3 hours", check whether selected class is applied
-    cy.getTestId('select-timeframe-10800000').eq(0).click()
-    cy.get('.k-popover-content').find('.timeframe-btn.selected-option').should('contain.text', '3 hours')
+    // Click on "6 hours", check whether selected class is applied
+    cy.getTestId('select-timeframe-21600000').click()
+    cy.get('.popover-content').find('.timeframe-button.primary').should('contain.text', '6 hours')
   })
 
   it('renders custom calendar and relative time frames', { includeShadowDom: false }, () => {
@@ -234,21 +243,21 @@ describe('KDateTimePicker', () => {
       props: {
         mode: 'dateTime',
         modelValue: defaultTimeRange,
-        range: true,
         minDate,
         maxDate,
+        range: true,
         timePeriods: exampleTimeFrames,
       },
     })
     cy.getTestId(timepickerInput).click()
 
     // Check that time frames render
-    cy.getTestId(segmentedToggle).find('button[name="relative"]').eq(0).click()
+    cy.getTestId(segmentedToggle).find('button[data-testid="relative-option"]').eq(0).click()
     cy.get('.timeframe-section').should('exist')
     cy.get('.timeframe-buttons').should('exist')
 
     // Check that calendar month and 2 x time selection inputs show up
-    cy.getTestId(segmentedToggle).find('button[name="custom"]').eq(0).click()
+    cy.getTestId(segmentedToggle).find('button[data-testid="custom-option"]').eq(0).click()
     cy.get('.k-datetime-picker .vc-pane-container .vc-weeks').should('exist')
   })
 
@@ -256,16 +265,71 @@ describe('KDateTimePicker', () => {
     mount(KDateTimePicker, {
       props: {
         mode: 'relativeDate',
-        modelValue: today,
+        modelValue: defaultTimeRange,
         range: true,
         timePeriods: exampleTimeFrames,
       },
     })
 
     cy.getTestId(timepickerInput).click()
-    cy.getTestId(segmentedToggle).find('button[name="custom"]').eq(0).click()
+    cy.getTestId(segmentedToggle).find('button[data-testid="custom-option"]').eq(0).click()
     // On the calendar side, we should see the month view, but not the time picker
     cy.get('.k-datetime-picker .vc-pane-container .vc-weeks').should('exist')
     cy.get('.k-datetime-picker .vc-pane-container .vc-time-picker').should('not.exist')
+  })
+
+  it('renders date only calendar and displays time range in `PP` format', () => {
+    mount(KDateTimePicker, {
+      props: {
+        mode: 'date',
+        range: true,
+        modelValue: defaultTimeRange,
+      },
+    })
+
+    cy.getTestId(timepickerDisplay).should('contain.text', todayDateString)
+  })
+
+  it('renders relativeDateTime calendar and displays time range in `PP hh:mm a` format', () => {
+    mount(KDateTimePicker, {
+      props: {
+        mode: 'dateTime',
+        modelValue: defaultTimeRange,
+        range: true,
+      },
+    })
+
+    cy.getTestId(timepickerDisplay).should('contain.text', todayDateTimeString)
+  })
+
+  it('renders calendar, even if seeded with an invalid date range', () => {
+    const placeholderText = 'Please choose valid start and end dates'
+
+    mount(KDateTimePicker, {
+      props: {
+        mode: 'relativeDate',
+        modelValue: emptyTimeRange,
+        placeholder: placeholderText,
+        range: true,
+        timePeriods: exampleTimeFrames,
+      },
+    })
+
+    cy.getTestId(timepickerInput).click()
+    cy.getTestId(segmentedToggle).find('button[data-testid="custom-option"]').eq(0).click()
+
+    cy.get('.k-datetime-picker .vc-pane-container .vc-weeks').should('exist')
+    cy.get('.k-datetime-picker .vc-pane-container .vc-time-picker').should('not.exist')
+
+    cy.getTestId(timepickerDisplay).should('contain.text', placeholderText)
+
+    // "Apply" button should be disabled
+    cy.getTestId(submitButton).should('be.disabled')
+
+    // If a timeframe is selected, "Apply" should be re-enabled
+    cy.getTestId(segmentedToggle).find('button[data-testid="relative-option"]').eq(0).click()
+    cy.getTestId('select-timeframe-86400000').click()
+    cy.getTestId(submitButton).eq(0).click()
+    cy.getTestId(timepickerDisplay).should('contain.text', 'Last 24 hours')
   })
 })

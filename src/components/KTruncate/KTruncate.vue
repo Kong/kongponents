@@ -2,13 +2,13 @@
   <div
     ref="kTruncateWrapper"
     class="k-truncate"
-    :class="[expanded ? 'expanded' : '', `k-truncate-${isTextContent ? 'text' : 'content'}`]"
+    :class="[expanded ? 'expanded' : '', `truncate-${truncateText ? 'text' : 'content'}`]"
     :style="widthStyle"
   >
     <!-- Order switched for ease when using keyboard navigation -->
     <div
-      v-if="!isTextContent && showToggle"
-      class="k-truncate-expand-controls"
+      v-if="!truncateText && showToggle"
+      class="truncate-expand-controls"
     >
       <div
         v-if="!expanded"
@@ -19,49 +19,48 @@
           name="expand-trigger"
           :truncated-count="truncatedCount"
         >
-          <KButton
-            appearance="btn-link"
+          <button
+            :aria-label="`Show ${truncatedCount} more items`"
             class="expand-trigger"
-            @click="handleToggleClick"
+            type="button"
+            @click.stop="handleToggleClick"
           >
             {{ truncatedCount }}
-          </KButton>
+          </button>
         </slot>
       </div>
     </div>
     <div
       ref="kTruncateContainer"
-      class="k-truncate-container"
+      class="truncate-container"
     >
       <slot name="default" />
       <div
-        v-if="!isTextContent && expanded"
+        v-if="!truncateText && expanded"
         data-testid="collapse-trigger-wrapper"
       >
         <slot
           :collapse="handleToggleClick"
           name="collapse-trigger"
         >
-          <KButton
-            appearance="primary"
+          <button
+            aria-label="Collapse content"
             class="collapse-trigger"
-            is-rounded
-            @click="handleToggleClick"
+            type="button"
+            @click.stop="handleToggleClick"
           >
-            <KIcon
-              :color="`var(--KTruncateCollapseIconColor, var(--blue-500, var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})))`"
-              icon="chevronUp"
-              :size="KUI_ICON_SIZE_10"
-              title="Show less"
+            <ChevronUpIcon
+              decorative
+              :size="KUI_ICON_SIZE_30"
             />
-          </KButton>
+          </button>
         </slot>
       </div>
     </div>
     <div
-      v-if="isTextContent && (showToggle || expanded)"
+      v-if="truncateText && (showToggle || expanded)"
       ref="textToggleControls"
-      class="k-truncate-collapse-controls"
+      class="truncate-collapse-controls"
     >
       <div
         v-if="!expanded"
@@ -72,9 +71,9 @@
           name="expand-trigger"
         >
           <KButton
-            appearance="btn-link"
-            class="expand-trigger"
-            @click="handleToggleClick"
+            appearance="tertiary"
+            size="small"
+            @click.stop="handleToggleClick"
           >
             Show more
           </KButton>
@@ -86,9 +85,9 @@
           name="collapse-trigger"
         >
           <KButton
-            appearance="btn-link"
-            class="collapse-trigger"
-            @click="handleToggleClick"
+            appearance="tertiary"
+            size="small"
+            @click.stop="handleToggleClick"
           >
             Show less
           </KButton>
@@ -99,10 +98,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, ref, nextTick, computed } from 'vue'
+import { onMounted, onUnmounted, ref, nextTick, computed } from 'vue'
 import useUtilities from '@/composables/useUtilities'
-import KIcon from '@/components/KIcon/KIcon.vue'
-import { KUI_COLOR_TEXT_PRIMARY, KUI_ICON_SIZE_10, KUI_SPACE_40 } from '@kong/design-tokens'
+import { ChevronUpIcon } from '@kong/icons'
+import { KUI_ICON_SIZE_30, KUI_SPACE_40 } from '@kong/design-tokens'
+import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 
 const { getSizeFromString } = useUtilities()
 
@@ -112,11 +112,11 @@ const props = defineProps({
     default: 1,
     validator: (value: number): boolean => value > 0,
   },
-  isTextContent: {
+  truncateText: {
     type: Boolean,
     default: false,
   },
-  isExpanded: {
+  expanded: {
     type: Boolean,
     default: false,
   },
@@ -126,11 +126,11 @@ const props = defineProps({
   },
 })
 
-const expanded = ref<boolean>(props.isExpanded)
+const expanded = ref<boolean>(props.expanded)
 
 const showToggle = ref<boolean>(false)
 
-const resizeObserver = ref()
+const resizeObserver = ref<ResizeObserverHelper>()
 
 const kTruncateContainer = ref<HTMLDivElement>()
 const kTruncateWrapper = ref<HTMLDivElement>()
@@ -151,7 +151,7 @@ const truncatedCount = ref<number>(0)
  * For example if rows is 2 and all elements are equal height if 22px, wrapper height will be set to 54px (2 * 22 + gap).
  */
 const setWrapperHeight = async (): Promise<void> => {
-  if (props.isTextContent) {
+  if (props.truncateText) {
     return
   }
 
@@ -179,7 +179,7 @@ const setWrapperHeight = async (): Promise<void> => {
 const updateToggleVisibility = (): void => {
   if (kTruncateContainer.value && kTruncateWrapper.value) {
     // in case with text content, need to compare scrollHeight value
-    const containerHeightProperty = props.isTextContent ? kTruncateContainer.value.scrollHeight : kTruncateContainer.value.offsetHeight
+    const containerHeightProperty = props.truncateText ? kTruncateContainer.value.scrollHeight : kTruncateContainer.value.offsetHeight
     const textToggleControlsHeight = textToggleControls.value ? textToggleControls.value.offsetHeight : 0
     /**
      * In case with text content, toggle controls element is rendered below content, so adds up to wrapper height.
@@ -192,7 +192,7 @@ const updateToggleVisibility = (): void => {
 
 // Counts elements that are wrapped to the hidden rows and therefore are not visible.
 const countExcessElements = (): void => {
-  if (props.isTextContent) {
+  if (props.truncateText) {
     return
   }
 
@@ -202,7 +202,7 @@ const countExcessElements = (): void => {
     for (let i = 0; i < children.length; i++) {
       /**
        * If element's offsetTop
-       * (offset from the nearest relatively positioned parent, which is .k-truncate-container)
+       * (offset from the nearest relatively positioned parent, which is .truncate-container)
        * is greater than the wrapper element height - means it's not visible
        */
       if (children[i].offsetTop > kTruncateWrapper.value.offsetHeight) {
@@ -235,52 +235,90 @@ const widthStyle = computed((): Record<string, string> => {
 })
 
 onMounted(() => {
-  resizeObserver.value = new ResizeObserver(entries => {
-    // Wrapper 'window.requestAnimationFrame' is needed for disabling "ResizeObserver loop limit exceeded" error in DD
-    window.requestAnimationFrame(() => {
-      if (!Array.isArray(entries) || !entries.length) {
-        return
-      }
-      // Actual code
-      setWrapperHeight()
-    })
-  })
+  resizeObserver.value = ResizeObserverHelper.create(setWrapperHeight)
+
   resizeObserver.value.observe(kTruncateContainer.value as HTMLDivElement)
   updateToggleVisibility()
 })
 
-onBeforeUnmount(() => {
-  if (resizeObserver.value) {
-    resizeObserver.value.unobserve(kTruncateContainer.value)
-  }
+onUnmounted(() => {
+  resizeObserver.value?.unobserve(kTruncateContainer.value as HTMLDivElement)
 })
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
-
 .k-truncate {
   align-items: flex-start;
   display: flex;
   overflow: hidden;
   padding: var(--kui-space-20, $kui-space-20);
 
-  .k-truncate-expand-controls {
-    align-items: flex-end !important;
-    display: flex !important;
-    height: 100% !important;
+  .truncate-expand-controls {
+    align-items: flex-end;
+    display: flex;
+    height: 100%;
+
+    .expand-trigger {
+      background: var(--kui-color-background-transparent, $kui-color-background-transparent);
+      border: 0;
+      border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
+      color: var(--kui-color-text-primary, $kui-color-text-primary);
+      font-family: var(--kui-font-family-text, $kui-font-family-text);
+      font-size: var(--kui-font-size-10, $kui-font-size-10);
+      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+      line-height: var(--kui-line-height-10, $kui-line-height-10);
+      padding: var(--kui-space-10, $kui-space-10);
+
+      &:focus, &:active {
+        outline: none;
+      }
+
+      &:focus-visible {
+        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+      }
+
+      &:hover {
+        color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+      }
+
+      &:focus {
+        color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+      }
+    }
   }
 
-  .expand-trigger,
   .collapse-trigger {
-    --KButtonLink: var(--KTruncateToggleColor, var(--blue-500, var(--kui-color-text-primary, #{$kui-color-text-primary})));
-    --KButtonPrimaryBase: var(--KTruncateCollapseBackground, var(--blue-100, var(--kui-color-background-primary-weakest, #{$kui-color-background-primary-weakest})));
-    --KButtonPrimaryHover: var(--KTruncateCollapseHover, var(--blue-200, var(--kui-color-background-primary-weaker, #{$kui-color-background-primary-weaker})));
-    --KButtonPrimaryActive: var(--KTruncateCollapseHover, var(--blue-200, var(--kui-color-background-primary-weaker, #{$kui-color-background-primary-weaker})));
+    @include defaultButtonReset;
+
+    background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+    border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
+    color: var(--kui-color-text-primary, $kui-color-text-primary);
+    outline: none;
+    padding: var(--kui-space-20, $kui-space-20);
+
+    &:focus-visible {
+      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+    }
+
+    &:hover {
+      background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
+
+      :deep(#{$kongponentsKongIconSelector}) {
+        color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong) !important;
+      }
+    }
+
+    &:focus,
+    &:focus-within {
+      background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
+
+      :deep(#{$kongponentsKongIconSelector}) {
+        color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger) !important;
+      }
+    }
   }
 
-  &.k-truncate-content {
+  &.truncate-content {
     display: flex;
     flex-direction: row-reverse;
     height: v-bind('wrapperHeight');
@@ -288,7 +326,7 @@ onBeforeUnmount(() => {
     &.expanded {
       height: auto;
     }
-    .k-truncate-container {
+    .truncate-container {
       display: flex;
       flex-wrap: wrap;
       gap: v-bind('gap');
@@ -297,50 +335,31 @@ onBeforeUnmount(() => {
     }
 
     .expand-trigger {
-      font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
-
       &::before {
         content: '+';
-        margin-right: -7px;
-      }
-    }
-    .collapse-trigger {
-      padding: var(--spacing-xxs, var(--kui-space-20, $kui-space-20));
-
-      &:focus, &:active {
-        box-shadow: none;
-      }
-
-      &:focus-within {
-        background-color: var(--KTruncateCollapseHover, var(--blue-200, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest)));
-        outline: -webkit-focus-ring-color auto 1px;
       }
     }
   }
-  &.k-truncate-text {
+  &.truncate-text {
     display: flex;
     flex-direction: column;
 
-    .k-truncate-container {
+    .truncate-container {
       -webkit-box-orient: vertical;
       display: -webkit-box;
       -webkit-line-clamp: v-bind('props.rows');
       overflow: hidden;
     }
     &.expanded {
-      .k-truncate-container {
+      .truncate-container {
         display: block;
       }
     }
-    .expand-trigger,
-    .collapse-trigger {
-      font-size: var(--type-xs, var(--kui-font-size-20, $kui-font-size-20));
-    }
   }
 
-  .k-truncate-collapse-controls {
-    margin-top: var(--kui-space-40, $kui-space-40) !important;
-    place-self: flex-end !important;
+  .truncate-collapse-controls {
+    margin-top: var(--kui-space-40, $kui-space-40);
+    place-self: flex-end;
   }
 }
 </style>

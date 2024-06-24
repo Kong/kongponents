@@ -1,143 +1,142 @@
 <template>
   <nav
-    aria-label="Pagination Navigation"
-    data-testid="k-pagination-container"
+    class="k-pagination"
+    data-testid="k-pagination"
   >
-    <div class="card-pagination-bar">
-      <template v-if="paginationType === 'default'">
-        <span
-          class="pagination-text"
-          data-testid="visible-items"
-        >
-          <span class="pagination-text-pages">{{ pagesString }}</span>
-          {{ pageCountString }}
-        </span>
-        <ul class="pagination-button-container">
-          <li
-            class="pagination-button square"
-            :class="{ disabled: backDisabled }"
-            data-testid="prev-btn"
+    <template v-if="!offset">
+      <span
+        class="pagination-text"
+        data-testid="visible-items"
+      >
+        <span class="pagination-text-pages">{{ pagesString }}</span>
+        {{ pageCountString }}
+      </span>
+      <ul class="pagination-button-container">
+        <li>
+          <KButton
+            appearance="tertiary"
+            aria-label="Go to the previous page"
+            class="pagination-button arrow"
+            data-testid="previous-button"
+            :disabled="backDisabled"
+            type="button"
+            @click="pageBack"
           >
-            <a
-              aria-label="Go to the previous page"
-              href="#"
-              @click.prevent="pageBack"
-            >
-              <KIcon
-                class="pagination-arrow-icon"
-                :class="{ 'is-direction-disabled': backDisabled }"
-                color="currentColor"
-                icon="arrowLeft"
-                :size="KUI_ICON_SIZE_30"
-                view-box="0 0 16 14"
-              />
-            </a>
-          </li>
-          <li
-            v-if="!disablePageJump && firstDetached"
+            <BackIcon
+              class="pagination-arrow-icon"
+              decorative
+            />
+          </KButton>
+        </li>
+        <li v-if="!disablePageJump && firstDetached">
+          <button
+            aria-label="Go to the first page"
             class="pagination-button"
-            data-testid="page-1-btn"
+            data-testid="page-1-button"
+            type="button"
+            @click="changePage(1)"
           >
-            <a
-              aria-label="Go to the first page"
-              href="#"
-              @click.prevent="changePage(1)"
-            >1</a>
-          </li>
-          <li
-            v-if="!disablePageJump && firstDetached"
-            class="pagination-button placeholder"
-          >
-            ...
-          </li>
-          <li
-            v-for="page in pagesVisible"
-            :key="page"
+            1
+          </button>
+        </li>
+        <li
+          v-if="!disablePageJump && firstDetached"
+          class="pagination-button placeholder"
+        >
+          ...
+        </li>
+        <li
+          v-for="page in pagesVisible"
+          :key="page"
+        >
+          <button
+            :aria-current="page == currentlySelectedPage && 'page' || undefined"
+            :aria-label="`Go to page ${ page }`"
             class="pagination-button"
             :class="{ active: page == currentlySelectedPage }"
-            :data-testid="`page-${ page }-btn`"
+            :data-testid="`page-${ page }-button`"
+            type="button"
+            @click="changePage(page)"
           >
-            <a
-              :aria-current="page == currentlySelectedPage && 'page' || undefined"
-              :aria-label="`Go to page ${ page }`"
-              href="#"
-              @click.prevent="changePage(page)"
-            >{{ page }}</a>
-          </li>
-          <li
-            v-if="!disablePageJump && lastDetached"
-            class="pagination-button placeholder"
-          >
-            ...
-          </li>
-          <li
-            v-if="!disablePageJump && lastDetached"
+            {{ page }}
+          </button>
+        </li>
+        <li
+          v-if="!disablePageJump && lastDetached"
+          class="pagination-button placeholder"
+        >
+          ...
+        </li>
+        <li v-if="!disablePageJump && lastDetached">
+          <button
+            aria-label="Go to the last page"
             class="pagination-button"
+            data-testid="last-button"
+            type="button"
+            @click="changePage(pageCount)"
           >
-            <a
-              aria-label="Go to the last page"
-              data-testid="last-btn"
-              href="#"
-              @click.prevent="changePage(pageCount)"
-            >{{ pageCount }}</a>
-          </li>
-          <li
-            class="pagination-button square"
-            :class="{ disabled: forwardDisabled }"
-            data-testid="next-btn"
+            {{ pageCount }}
+          </button>
+        </li>
+        <li>
+          <KButton
+            appearance="tertiary"
+            aria-label="Go to the next page"
+            class="pagination-button arrow"
+            data-testid="next-button"
+            :disabled="forwardDisabled ? true : undefined"
+            type="button"
+            @click="pageForward"
           >
-            <a
-              aria-label="Go to the next page"
-              href="#"
-              @click.prevent="pageForward"
-            >
-              <KIcon
-                class="pagination-arrow-icon"
-                :class="{ 'is-direction-disabled': forwardDisabled }"
-                color="currentColor"
-                icon="arrowRight"
-                :size="KUI_ICON_SIZE_30"
-                view-box="0 0 16 14"
-              />
-            </a>
-          </li>
-        </ul>
-      </template>
-      <PaginationOffset
-        v-else
-        :next-button-disabled="offsetNextButtonDisabled"
-        :prev-button-disabled="offsetPrevButtonDisabled"
-        @get-next-offset="getNextOffset"
-        @get-prev-offset="getPrevOffset"
-      />
-      <span
-        class="page-size-select"
+            <ForwardIcon
+              class="pagination-arrow-icon"
+              decorative
+            />
+          </KButton>
+        </li>
+      </ul>
+    </template>
+    <PaginationOffset
+      v-else
+      :next-button-disabled="offsetNextButtonDisabled"
+      :previous-button-disabled="offsetPreviousButtonDisabled"
+      @get-next-offset="getNextOffset"
+      @get-previous-offset="getPreviousOffset"
+    />
+    <div class="page-size-select">
+      <KDropdown
+        class="page-size-dropdown"
         data-testid="page-size-dropdown"
+        :disabled="pageSizeOptions.length <= 1"
+        :items="pageSizeOptions"
+        :kpop-attributes="kpopAttrs"
+        selection-menu
+        @change="updatePageSize"
       >
-        <KSelect
-          appearance="button"
-          :button-text="pageSizeText"
-          :items="pageSizeOptions"
-          :kpop-attributes="kpopAttrs"
-          :placeholder="`${ currentPageSize } items per page`"
-          position-fixed
-          :test-mode="!!testMode || undefined"
-          width="205"
-          @selected="updatePageSize"
-        />
-      </span>
+        <KButton
+          appearance="tertiary"
+          data-testid="page-size-dropdown-trigger"
+          :disabled="pageSizeOptions.length <= 1"
+          type="button"
+        >
+          {{ pageSizeText }}<ChevronDownIcon
+            v-if="pageSizeOptions.length > 1"
+            decorative
+          />
+        </KButton>
+      </KDropdown>
     </div>
   </nav>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { Ref, PropType } from 'vue'
 import { ref, computed, watch } from 'vue'
-import KIcon from '@/components/KIcon/KIcon.vue'
-import KSelect from '@/components/KSelect/KSelect.vue'
+import KDropdown from '@/components/KDropdown/KDropdown.vue'
+import KButton from '@/components/KButton/KButton.vue'
 import PaginationOffset from './PaginationOffset.vue'
-import type { PaginationType, PageSizeChangedData, PageChangedData } from '@/types'
-import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import type { PageSizeChangeData, PageChangeData, DropdownItem } from '@/types'
+import { BackIcon, ForwardIcon, ChevronDownIcon } from '@kong/icons'
 
 const kpopAttrs = {
   placement: 'top',
@@ -177,12 +176,11 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  paginationType: {
-    type: String as PropType<PaginationType>,
-    default: 'default',
-    validator: (value: PaginationType) => ['default', 'offset'].includes(value),
+  offset: {
+    type: Boolean,
+    default: false,
   },
-  offsetPrevButtonDisabled: {
+  offsetPreviousButtonDisabled: {
     type: Boolean,
     default: false,
   },
@@ -190,20 +188,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  /**
-     * Test mode - for testing only, strips out generated ids
-     */
-  testMode: {
-    type: Boolean,
-    default: false,
-  },
 })
 
 const emit = defineEmits<{
-  (e: 'pageChanged', val: PageChangedData): void
-  (e: 'pageSizeChanged', val: PageSizeChangedData): void
+  (e: 'pageChange', val: PageChangeData): void
+  (e: 'pageSizeChange', val: PageSizeChangeData): void
   (e: 'getNextOffset'): void
-  (e: 'getPrevOffset'): void
+  (e: 'getPreviousOffset'): void
 }>()
 
 const currPage: Ref<number> = ref(props.currentPage ? props.currentPage : 1)
@@ -213,8 +204,9 @@ const pageSizeOptions = props.pageSizes.map((size, i) => ({
   label: `${size}`,
   key: `size-${i}`,
   value: size,
+  selected: size === currentPageSize.value,
 }))
-const pageSizeText = ref('')
+const pageSizeText = computed((): string => `${currentPageSize.value} ${currentPageSize.value === 1 ? 'item per page' : ' items per page'}`)
 
 const getVisiblePages = (currPage: number, pageCount: number, firstDetached: boolean, lastDetached: boolean): number[] => {
   if (props.disablePageJump) {
@@ -243,8 +235,8 @@ const getVisiblePages = (currPage: number, pageCount: number, firstDetached: boo
   return pages
 }
 
-const backDisabled = ref(currPage.value === 1)
-const forwardDisabled = ref(currPage.value === pageCount.value)
+const backDisabled = ref<boolean>(currPage.value === 1)
+const forwardDisabled = ref<boolean>(currPage.value === pageCount.value)
 
 const startCount = computed((): number => (currPage.value - 1) * currentPageSize.value + 1)
 const endCount = computed((): number => {
@@ -256,7 +248,7 @@ const endCount = computed((): number => {
 const pagesString = computed((): string => `${startCount.value} to ${endCount.value}`)
 const pageCountString = computed((): string => ` of ${props.totalCount}`)
 const currentlySelectedPage = computed((): number => props.currentPage ? props.currentPage : currPage.value)
-const firstDetached = ref(false)
+const firstDetached = ref<boolean>(false)
 const lastDetached = ref(pageCount.value > 5 + 2 * props.neighbors)
 const pagesVisible = ref(getVisiblePages(
   currentlySelectedPage.value,
@@ -266,15 +258,11 @@ const pagesVisible = ref(getVisiblePages(
 ))
 
 const pageForward = ():void => {
-  if (forwardDisabled.value) return
-
   currPage.value++
   updatePage()
 }
 
 const pageBack = ():void => {
-  if (backDisabled.value) return
-
   currPage.value--
   updatePage()
 }
@@ -299,8 +287,10 @@ const updatePage = (): void => {
     firstDetached.value = currPage.value >= props.neighbors + 4
     lastDetached.value = currPage.value <= pageCount.value - props.neighbors - 3
   }
+
   pagesVisible.value = getVisiblePages(currPage.value, pageCount.value, firstDetached.value, lastDetached.value)
-  emit('pageChanged', {
+
+  emit('pageChange', {
     page: currPage.value,
     pageCount: pageCount.value,
     firstItem: startCount.value,
@@ -309,15 +299,18 @@ const updatePage = (): void => {
   })
 }
 
-const updatePageSize = (event: any): void => {
-  currentPageSize.value = event.value
-  pageSizeText.value = currentPageSize.value + ' items per page'
-  emit('pageSizeChanged', {
-    pageSize: currentPageSize.value,
-    pageCount: pageCount.value,
-  })
-  if (props.currentPage !== 1) {
-    changePage(1)
+const updatePageSize = (item: DropdownItem): void => {
+  if (currentPageSize.value !== item.value) {
+    currentPageSize.value = item.value as number
+
+    emit('pageSizeChange', {
+      pageSize: currentPageSize.value,
+      pageCount: pageCount.value,
+    })
+
+    if (props.currentPage !== 1) {
+      changePage(1)
+    }
   }
 }
 
@@ -325,8 +318,8 @@ const getNextOffset = (): void => {
   emit('getNextOffset')
 }
 
-const getPrevOffset = (): void => {
-  emit('getPrevOffset')
+const getPreviousOffset = (): void => {
+  emit('getPreviousOffset')
 }
 
 watch(() => props.currentPage, (newVal, oldVal) => {
@@ -352,127 +345,88 @@ watch(pageCount, (newVal, oldVal) => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
-
-.card-pagination-bar {
+.k-pagination {
   align-items: center;
   display: flex;
+  font-family: var(--kui-font-family-text, $kui-font-family-text);
   justify-content: space-between;
   margin-top: var(--kui-space-20, $kui-space-20);
-}
+  padding: var(--kui-space-20, $kui-space-20);
+  width: 100%;
 
-.pagination-text {
-  color: var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral));
-  font-size: var(--kui-font-size-30, $kui-font-size-30);
-  font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
-  min-width: 115px;
+  .pagination-text {
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    font-size: var(--kui-font-size-30, $kui-font-size-30);
+    font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+    line-height: var(--kui-line-height-30, $kui-line-height-30);
+    min-width: 125px; // to prevent jumping when the text changes
 
-  &-pages {
-    color: var(--kui-color-text, $kui-color-text);
-  }
-}
-
-.page-size-select {
-  --KButtonLink: var(--KPaginationPageSizeColor, var(--kui-color-text-primary, #{$kui-color-text-primary}));
-  --KButtonOutlineBorder: var(--KPaginationPageSizeColor, var(--kui-color-border-primary, #{$kui-color-border-primary}));
-  --KButtonFontSize: var(--type-sm, var(--kui-font-size-30, #{$kui-font-size-30}));
-  color: var(--blue-400, var(--kui-color-text-primary, #{$kui-color-text-primary}));
-  font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-  line-height: var(--kui-line-height-30, $kui-line-height-30);
-}
-
-.pagination-button-container {
-  display: flex;
-  list-style: none;
-  text-align: center;
-
-  a {
-    display: block;
-    font-weight: initial;
-    text-decoration: none !important;
+    .pagination-text-pages {
+      color: var(--kui-color-text, $kui-color-text);
+    }
   }
 
-  .pagination-button {
-    align-self: center;
-    background-color: white;
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--KPaginationBorderColor, var(--grey-300, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak)));
-    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-    color: var(--KPaginationColor, var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-neutral)));
-    cursor: pointer;
-    font-size: var(--kui-font-size-20, $kui-font-size-20);
-    font-weight: initial;
-    height: 32px;
-    line-height: var(--kui-line-height-20, $kui-line-height-20);
-    margin: var(--kui-space-0, $kui-space-0) var(--kui-space-30, $kui-space-30);
-    min-width: 32px;
+  .pagination-button-container {
+    display: flex;
+    gap: var(--kui-space-40, $kui-space-40);
+    list-style: none;
+    margin: var(--kui-space-0, $kui-space-0);
+    padding: var(--kui-space-0, $kui-space-0);
+    text-align: center;
 
-    .pagination-arrow-icon {
-      color: var(--KPaginationColor, var(--blue-400, var(--kui-color-text-primary, $kui-color-text-primary)));
-
-      &.is-direction-disabled {
-        color: var(--KPaginationDisabledColor, var(--grey-500, var(--kui-color-text-neutral, $kui-color-text-primary)))
-      }
-    }
-
-     &:not(.square) {
-      background-color: var(--KPaginationBackgroundColor, var(--kui-color-background, $kui-color-background));
-    }
-
-    a, div {
+    .pagination-button {
+      // styles for the arrow and page number buttons
+      // since arrow uses KButton, it takes care of certain styles
+      height: 32px;
+      min-width: 32px;
       padding: var(--kui-space-30, $kui-space-30);
-    }
 
-    &.square {
-      border: none;
-    }
+      &:not(.arrow) {
+        background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
+        border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+        border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+        color: var(--kui-color-text-primary, $kui-color-text-primary);
+        cursor: pointer;
+        font-size: var(--kui-font-size-30, $kui-font-size-30);
+        font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+        line-height: var(--kui-line-height-30, $kui-line-height-30);
+        transition: background-color $kongponentsTransitionDurTimingFunc border-color $kongponentsTransitionDurTimingFunc;
 
-    &.placeholder {
-      align-items: center;
-      color: var(--KPaginationColor, var(--kui-color-text-neutral, $kui-color-text-neutral));
-      cursor: initial;
-      display: flex;
-      justify-content: center;
-    }
+        &:hover:not(.placeholder),
+        &:focus:not(.placeholder) {
+          border-color: var(--kui-color-border-primary, $kui-color-border-primary) !important;
+        }
 
-    &:focus:not(.placeholder),
-    &:hover:not(.placeholder) {
-      border-color: var(--KPaginationActiveColor, var(--kui-color-border-primary, $kui-color-border-primary));
-      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-      color: var(--KPaginationActiveColor, var(--kui-color-text-primary, $kui-color-text-primary));
-    }
+        &:focus-visible {
+          box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+        }
 
-    &.disabled:focus:not(.placeholder),
-    &.disabled:hover:not(.placeholder) {
-      border-color: var(--grey-200, var(--kui-color-border, $kui-color-border));
-      color: var(--black-45, var(--kui-color-text, $kui-color-text));
-    }
+        &.placeholder {
+          align-items: center;
+          cursor: initial;
+          display: flex;
+          justify-content: center;
+        }
 
-    &.disabled {
-      a {
-        cursor: not-allowed !important;
-      }
-    }
-
-    &.active {
-      background-color: var(--KPaginationActiveBackgroundColor, var(--blue-100, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest)));
-      border-color: var(--KPaginationActiveBorderColor, var(--blue-200, var(--kui-color-border-primary-weak, $kui-color-border-primary-weak)));
-      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-      color: var(--KPaginationActiveColor, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
-      outline: none;
-
-      a {
-        color: var(--KPaginationActiveColor, var(--kui-color-text-primary, $kui-color-text-primary));
+        &.active {
+          background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+          border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+        }
       }
     }
   }
-}
-</style>
 
-<style lang="scss">
-.page-size-select {
-  .k-select-pop-button[x-placement^="top"] {
-    margin-bottom: var(--kui-space-10, $kui-space-10);
+  .page-size-select {
+    .page-size-dropdown {
+      margin-left: var(--kui-space-30, $kui-space-30);
+
+      :deep(.popover-content) {
+        border-bottom-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+        border-bottom-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+        max-height: 200px;
+        overflow-y: auto;
+      }
+    }
   }
 }
 </style>

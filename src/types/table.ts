@@ -1,5 +1,3 @@
-import type { AnyElementOf } from '@/types/utils'
-
 export type SortColumnOrder = 'asc' | 'desc'
 
 export interface TablePreferences {
@@ -9,36 +7,39 @@ export interface TablePreferences {
   sortColumnKey?: string
   /** The order by which to sort the column, one of `asc` or `desc` */
   sortColumnOrder?: SortColumnOrder
+  /** The customized column widths, if resizing is allowed */
+  columnWidths?: Record<string, number>
+  /** Column visibility, if visibility is toggleable */
+  columnVisibility?: Record<string, boolean>
 }
 
-export const TablePaginationTypeArray = ['default', 'offset'] as const
-
-export type TablePaginationType = AnyElementOf<typeof TablePaginationTypeArray>
-
 export interface TableHeader {
+  /** Must be unique for each column */
   key: string
+  /** Visible column header text */
   label: string
+  /** In a nutshell, this property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it */
   sortable?: boolean
+  /** Allow toggling column visibility */
+  hidable?: boolean
+  /** When provided, an info icon will be rendered next to the column label, upon hovering on which the tooltip will be revealed */
+  tooltip?: string
+  /** Whether column header text should be hidden (only visible to screen readers) */
   hideLabel?: boolean
-  useSortHandlerFn?: boolean
+  /** Whether KTable should use function passed through sortHandlerFunction prop to apply sorting logic to this column */
+  useSortHandlerFunction?: boolean
 }
 
 /**
- * Provide a type interface for KTable `column-*` slot names.
+ * Provide a type interface for KTable `column-*` and `tooltip-*` slot names.
  *
  * This helps TypeScript infer the slot name in the template section so that
  * the slot props can be resolved.
  */
 export type TableColumnSlotName = `column-${string}`
+export type TableColumnTooltipSlotName = `tooltip-${string}`
 
-export type TableState = 'loading' | 'error' | 'success'
-
-export const TableSortOrderArray = ['ascending', 'descending', ''] as const
-
-export type TableSortOrder = AnyElementOf<typeof TableSortOrderArray>
-
-export const TableTestModeArray = ['true', 'loading'] as const
-export type TableTestMode = AnyElementOf<typeof TableTestModeArray>
+export type TableState = 'loading' | 'error' | 'success' | 'empty'
 
 export interface TableSortPayload {
   prevKey: string

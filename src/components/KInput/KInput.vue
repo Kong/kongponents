@@ -1,130 +1,78 @@
 <template>
   <div
-    class="k-input-wrapper"
-    :class="[$attrs.class, {'input-error' : charLimitExceeded || hasError || String($attrs.class || '').includes('input-error')}]"
+    class="k-input"
+    :class="[$attrs.class, { 'input-error' : charLimitExceeded || error || hasError }]"
   >
-    <div
-      v-if="label && overlayLabel"
-      :class="`k-input-label-wrapper-${size}`"
+    <KLabel
+      v-if="label"
+      v-bind-once="{ for: inputId }"
+      v-bind="labelAttributes"
+      :required="isRequired"
     >
-      <div class="text-on-input">
-        <label
-          v-bind="labelAttributes"
-          :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
-          :for="inputId"
-        >
-          <span>{{ strippedLabel }}</span>
-          <span
-            v-if="isRequired"
-            class="is-required"
-          >*</span>
-        </label>
-        <input
-          v-bind="modifiedAttrs"
-          :id="inputId"
-          :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
-          class="form-control k-input"
-          :class="{ [`k-input-${size}`]: size, [`has-icon icon-${iconPosition}`]: $slots['icon'] }"
-          :value="getValue()"
-          @blur="() => isFocused = false"
-          @focus="() => isFocused = true"
-          @input="handleInput"
-          @mouseenter="() => isHovered = true"
-          @mouseleave="() => isHovered = false"
-        >
+      {{ strippedLabel }}
+
+      <template
+        v-if="hasLabelTooltip"
+        #tooltip
+      >
+        <slot name="label-tooltip" />
+      </template>
+    </KLabel>
+
+    <div
+      class="input-element-wrapper"
+      :class="{ 'has-before-content': $slots.before, 'has-after-content': $slots.after }"
+    >
+      <div
+        v-if="$slots.before"
+        ref="beforeSlotElement"
+        class="before-content-wrapper"
+      >
+        <slot name="before" />
       </div>
-      <p
-        v-if="charLimitExceeded || hasError"
-        class="has-error"
-        :class="{ 'over-char-limit': charLimitExceeded }"
-      >
-        {{ charLimitExceededError || errorMessage }}
-      </p>
-    </div>
 
-    <div
-      v-else-if="label"
-      :class="`k-input-label-wrapper-${size}`"
-    >
-      <KLabel
-        :for="inputId"
-        v-bind="labelAttributes"
-        :required="isRequired"
-      >
-        {{ strippedLabel }}
-
-        <template
-          v-if="hasLabelTooltip"
-          #tooltip
-        >
-          <slot name="label-tooltip" />
-        </template>
-      </KLabel>
       <input
+        v-bind-once="{ id: inputId, ...(helpText && { 'aria-describedby': helpTextId }) }"
         v-bind="modifiedAttrs"
-        :id="inputId"
-        :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
-        class="form-control k-input"
-        :class="{ [`k-input-${size}`]: size, [`has-icon icon-${iconPosition}`]: $slots['icon'] }"
+        :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
+        class="input"
         :value="getValue()"
         @input="handleInput"
       >
-      <p
-        v-if="charLimitExceeded || hasError"
-        class="has-error"
-        :class="{ 'over-char-limit': charLimitExceeded }"
+
+      <div
+        v-if="$slots.after"
+        ref="afterSlotElement"
+        class="after-content-wrapper"
       >
-        {{ charLimitExceededError || errorMessage }}
+        <slot name="after" />
+      </div>
+    </div>
+
+    <Transition
+      mode="out-in"
+      name="kongponents-fade-transition"
+    >
+      <p
+        v-if="helpText"
+        :key="String(helpTextKey)"
+        v-bind-once="{ id: helpTextId }"
+        class="help-text"
+      >
+        {{ helpText }}
       </p>
-    </div>
-
-    <input
-      v-else
-      v-bind="modifiedAttrs"
-      :aria-invalid="hasError || charLimitExceeded ? 'true' : undefined"
-      class="form-control k-input"
-      :class="{ [`k-input-${size}`]: size, [`has-icon icon-${iconPosition}`]: $slots['icon'] }"
-      :value="getValue()"
-      @input="handleInput"
-    >
-
-    <p
-      v-if="(charLimitExceeded || hasError) && !label"
-      class="has-error"
-      :class="{ 'over-char-limit': charLimitExceeded }"
-    >
-      {{ charLimitExceededError || errorMessage }}
-    </p>
-
-    <p
-      v-if="help"
-      class="help"
-    >
-      {{ help }}
-    </p>
-
-    <div
-      v-if="$slots['icon']"
-      ref="icon"
-      class="input-icon"
-      :class="{ 'clickable': isIconClickable }"
-      :tabindex="isIconClickable ? 0 : -1"
-      @click="handleIconClick"
-      @keyup.enter="handleIconClick"
-    >
-      <slot name="icon" />
-    </div>
+    </Transition>
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
+import { computed, ref, watch, useSlots, useAttrs, onMounted, nextTick } from 'vue'
 import type { PropType } from 'vue'
-import { computed, ref, watch, onMounted, useSlots, useAttrs } from 'vue'
-import type { IconPosition, Size, LabelAttributes, LimitExceededData } from '@/types'
-import { SizeArray, IconPositionArray } from '@/types'
-import { v4 as uuidv4 } from 'uuid'
+import type { LabelAttributes, LimitExceededData } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
+import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   modelValue: {
@@ -135,27 +83,22 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  /**
-     * Overlay the label on the input's border
-     */
-  overlayLabel: {
-    type: Boolean,
-    default: false,
-  },
   labelAttributes: {
     type: Object as PropType<LabelAttributes>,
     default: () => ({}),
+    validator: (value: LabelAttributes): boolean => {
+      if (value.help) {
+        console.warn('KInput: `help` property of `labelAttributes` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#klabel')
+      }
+
+      return true
+    },
   },
   help: {
     type: String,
     default: '',
   },
-  size: {
-    type: String as PropType<Size>,
-    default: 'medium',
-    validator: (value: Size) => SizeArray.includes(value),
-  },
-  hasError: {
+  error: {
     type: Boolean,
     default: false,
   },
@@ -169,17 +112,19 @@ const props = defineProps({
     // Ensure the characterLimit is greater than zero
     validator: (limit: number): boolean => limit > 0,
   },
-  iconPosition: {
-    type: String as PropType<IconPosition>,
-    default: 'start',
-    validator: (value: IconPosition) => IconPositionArray.includes(value),
-  },
   /**
-     * Test mode - for testing only, strips out generated ids
-     */
-  testMode: {
+   * @deprecated in favor of `error`
+   */
+  hasError: {
     type: Boolean,
     default: false,
+    validator: (value: boolean): boolean => {
+      if (value) {
+        console.warn('KInput: `hasError` prop is deprecated. Please use `error` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kinput')
+      }
+
+      return true
+    },
   },
 })
 
@@ -191,27 +136,25 @@ const emit = defineEmits<{
 
 const currValue = ref<string>('') // We need this so that we don't lose the updated value on hover/blur event with label
 const modelValueChanged = ref<boolean>(false) // Determine if the original value was modified by the user
-const isFocused = ref<boolean>(false)
-const isHovered = ref<boolean>(false)
-const icon = ref<HTMLDivElement | null>(null)
+const helpTextKey = ref<number>(0)
 
 const { stripRequiredLabel } = useUtilities()
 const slots = useSlots()
 const attrs = useAttrs()
 
-const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
-const isReadonly = computed((): boolean => attrs?.readonly !== undefined && String(attrs?.readonly) !== 'false')
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
-const inputId = computed((): string => attrs.id ? String(attrs.id) : props.testMode ? 'test-input-id-1234' : uuidv4())
+const inputId = attrs.id ? String(attrs.id) : useUniqueId()
+const helpTextId = useUniqueId()
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
-const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
+const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
+
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
   get(): string | number {
     return props.modelValue
   },
   set(newValue: string | number): void {
-    // @ts-ignore
+    // @ts-ignore: allow typing as Event
     handleInput({ target: { value: newValue } } as Event)
   },
 })
@@ -243,17 +186,31 @@ const charLimitExceeded = computed((): boolean => {
   return !!props.characterLimit && length > props.characterLimit
 })
 
-const charLimitExceededError = computed((): string => {
+const charLimitExceededErrorMessage = computed((): string => {
   if (!charLimitExceeded.value) {
     return ''
   }
 
   return modelValueChanged.value
-    ? `${currValue.value.toString().length} / ${props.characterLimit}`
-    : `${props.modelValue.toString().length} / ${props.characterLimit}`
+    ? `${currValue.value?.toString().length} / ${props.characterLimit}`
+    : `${props.modelValue?.toString().length} / ${props.characterLimit}`
 })
 
-const isIconClickable = computed((): boolean => !!attrs['onIcon:click'])
+const helpText = computed((): string => {
+  // if character limit exceeded, return that error message
+  if (charLimitExceeded.value) {
+    return charLimitExceededErrorMessage.value
+  }
+
+  // if error prop is true and there is an error message, return that
+  if ((props.error || props.hasError) && props.errorMessage) {
+    return props.errorMessage
+  }
+
+  // otherwise return the help text
+  // if error prop is true it danger styles will be applied
+  return props.help
+})
 
 watch(charLimitExceeded, (newVal, oldVal) => {
   if (newVal !== oldVal) {
@@ -263,12 +220,15 @@ watch(charLimitExceeded, (newVal, oldVal) => {
       characterLimit: props.characterLimit,
       limitExceeded: newVal,
     })
+
+    // bump the key to trigger the transition
+    helpTextKey.value += 1
   }
 })
 
 watch(value, (newVal, oldVal) => {
   if (newVal !== oldVal) {
-    // @ts-ignore
+    // @ts-ignore: allow typing as Event
     handleInput({ target: { value: newVal } } as Event)
   }
 })
@@ -293,21 +253,27 @@ const getValue = (): string | number => {
   return currValue.value || modelValueChanged.value ? currValue.value : props.modelValue
 }
 
-const handleIconClick = (event: Event): void => {
-  if (isIconClickable.value) {
-    // call event listener callback function directly as a workaround
-    // adding 'icon:click' to emits will remove it from attributes so isIconClickable.value always returns false
-    const callback = attrs['onIcon:click']
-
-    if (typeof callback === 'function') {
-      callback(event)
-    }
+watch(() => props.error, (newVal, oldVal) => {
+  if (newVal !== oldVal) {
+    // bump the key to trigger the transition
+    helpTextKey.value += 1
   }
-}
+})
 
-onMounted(() => {
-  if (icon.value && isIconClickable.value) {
-    icon.value.role = 'button'
+const beforeSlotElement = ref<HTMLElement | null>(null)
+const afterSlotElement = ref<HTMLElement | null>(null)
+const beforeSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot icon size
+const afterSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot icon size
+
+onMounted(async () => {
+  await nextTick() // wait for the slots content to render
+
+  if (beforeSlotElement.value?.offsetWidth) {
+    beforeSlotElementWidth.value = beforeSlotElement.value.offsetWidth + 'px'
+  }
+
+  if (afterSlotElement.value?.offsetWidth) {
+    afterSlotElementWidth.value = afterSlotElement.value.offsetWidth + 'px'
   }
 })
 </script>
@@ -319,169 +285,154 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
-@import '@/styles/functions';
+/* Component variables */
+// Only add variables here sparingly for ease of use when the same value needs to be referenced for display logic.
 
-.form-control {
-  box-shadow: none !important;
+$kInputPaddingX: var(--kui-space-50, $kui-space-50); // corresponds to mixin, search for variable name in mixins
+$kInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40); // $kSelectInputIconSize
+$kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpacing
 
-  &.has-icon {
-    $kInputLineHeight: var(--kui-line-height-40, $kui-line-height-40);
-    // TODO: this block is repetitive and can be refactored into a mixin
-    // input size medium
-    $kInputMediumSizingY: var(--kui-space-40, $kui-space-40);
-    $kInputMediumSizingX: var(--spacing-md, var(--kui-space-60, $kui-space-60));
-    $kInputMediumIconSize: var(--kui-icon-size-50, $kui-icon-size-50);
+/* Component styles */
 
-    ~ .input-icon {
-      // (height of entire element (paddings + line height) - icon size) / 2
-      top: calc((($kInputMediumSizingY + $kInputMediumSizingY + $kInputLineHeight) - $kInputMediumIconSize) / 2);
+.k-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
-      :deep(svg) {
-        height: $kInputMediumIconSize;
-        width: $kInputMediumIconSize;
-      }
-    }
-
-    &.icon-start {
-      padding-left: calc($kInputMediumSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputMediumIconSize) !important; // account for icon offset and width
-      ~ .input-icon {
-        left: $kInputMediumSizingX;
-      }
-    }
-
-    &.icon-end {
-      padding-right: calc($kInputMediumSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputMediumIconSize) !important; // account for icon offset and width
-      ~ .input-icon {
-        right: $kInputMediumSizingX;
-      }
-    }
-
-    // input size small
-    $kInputSmallSizingY: var(--spacing-xs, var(--kui-space-40, $kui-space-40));
-    $kInputSmallSizingX: var(--spacing-sm, var(--kui-space-50, $kui-space-50));
-    $kInputSmallIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
-
-    &.k-input-small {
-      ~ .input-icon {
-        // (height of entire element (paddings + line height) - icon size) / 2
-        top: calc((($kInputSmallSizingY + $kInputSmallSizingY + $kInputLineHeight) - $kInputSmallIconSize) / 2);
-
-        :deep(svg) {
-          height: $kInputSmallIconSize;
-          width: $kInputSmallIconSize;
-        }
-      }
-
-      &.icon-start {
-        padding-left: calc($kInputSmallSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputSmallIconSize) !important; // account for icon offset and width
-        ~ .input-icon {
-          left: $kInputSmallSizingX;
-        }
-      }
-      &.icon-end {
-        padding-right: calc($kInputSmallSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputSmallIconSize) !important; // account for icon offset and width
-        ~ .input-icon {
-          right: $kInputSmallSizingX;
-        }
-      }
-    }
-
-    // input size large
-    $kInputLargeSizingY: var(--spacing-md, var(--kui-space-60, $kui-space-60));
-    $kInputLargeSizingX: var(--spacing-lg, var(--kui-space-80, $kui-space-80));
-    $kInputLargeIconSize: var(--kui-icon-size-60, $kui-icon-size-60);
-
-    &.k-input-large {
-      ~ .input-icon {
-        // (height of entire element (paddings + line height) - icon size) / 2
-        top: calc((($kInputLargeSizingY + $kInputLargeSizingY + $kInputLineHeight) - $kInputLargeIconSize) / 2);
-
-        :deep(svg) {
-          height: $kInputLargeIconSize;
-          width: $kInputLargeIconSize;
-        }
-      }
-
-      &.icon-start {
-        padding-left: calc($kInputLargeSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputLargeIconSize) !important; // account for icon offset and width
-        ~ .input-icon {
-          left: $kInputLargeSizingX;
-        }
-      }
-      &.icon-end {
-        padding-right: calc($kInputLargeSizingX + var(--spacing-xs, var(--kui-space-40, $kui-space-40)) + $kInputLargeIconSize) !important; // account for icon offset and width
-        ~ .input-icon {
-          right: $kInputLargeSizingX;
-        }
-      }
-    }
-  }
-}
-
-.help {
-  color: var(--black-45, var(--kui-color-text, $kui-color-text));
-  display: block;
-  font-size: var(--type-sm, var(--kui-font-size-30, $kui-font-size-30));
-  margin: var(--spacing-xs, var(--kui-space-40, $kui-space-40)) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
-}
-
-.input-icon {
-  align-items: center;
-  display: inline-flex;
-  pointer-events: none;
-  position: absolute;
-
-  &.clickable {
-    cursor: pointer;
-    pointer-events: auto;
-  }
-}
-
-.has-error {
-  color: var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger));
-  font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
-}
-
-.k-input-wrapper {
-  position: relative;
-
-  input.k-input {
-    -webkit-appearance: none;
-  }
-
-  & .k-input-label-wrapper-large .has-error,
-  & .k-input-large + .has-error {
-    font-size: var(--kui-font-size-20, $kui-font-size-20);
-    line-height: var(--kui-line-height-20, $kui-line-height-20);
-    margin-top: var(--kui-space-20, $kui-space-20);
-  }
-
-  & .k-input-label-wrapper-medium .has-error,
-  & .k-input-medium + .has-error {
-    font-size: var(--kui-font-size-10, $kui-font-size-10);
-    line-height: var(--kui-line-height-10, $kui-line-height-10);
-    margin-top: var(--kui-space-10, $kui-space-10);
-  }
-
-  & .k-input-label-wrapper-small .has-error,
-  & .k-input-small + .has-error {
-    font-size: var(--kui-font-size-10, $kui-font-size-10);
-    line-height: var(--kui-line-height-10, $kui-line-height-10);
-    margin-top: var(--kui-space-10, $kui-space-10);
-  }
-
-  .text-on-input label:not(.disabled):not(.readonly).hovered,
-  .text-on-input label:not(.disabled):not(.readonly):hover {
-    color: var(--KInputHover, var(--blue-500, var(--kui-color-text-primary, $kui-color-text-primary)));
-  }
-
+  // error styles
   &.input-error {
-    .text-on-input label.hovered,
-    .text-on-input label:hover,
-    .text-on-input label.focused,
-    .text-on-input label:focus {
-      color: var(--red-500, var(--kui-color-text-danger, $kui-color-text-danger)) !important;
+    .input, .input[type="file"] {
+      @include inputError;
+
+      &:hover {
+        @include inputErrorHover;
+      }
+
+      &:focus {
+        @include inputErrorFocus;
+      }
+    }
+
+    .help-text {
+      color: var(--kui-color-text-danger, $kui-color-text-danger);
+    }
+  }
+
+  .help-text {
+    @include inputHelpText;
+
+    // reset default margin from browser
+    margin: 0;
+    margin-top: var(--kui-space-40, $kui-space-40) !important; // need important to override some overrides of default p margin in other components
+  }
+
+  // slots styles
+  .input-element-wrapper {
+    position: relative;
+
+    .before-content-wrapper,
+    .after-content-wrapper {
+      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      display: inline-flex;
+      gap: var(--kui-space-10, $kui-space-10);
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+
+      // enforce icon size exported by @kong/icons because it's defined by the design system
+      :deep(#{$kongponentsKongIconSelector}) {
+        height: $kInputIconSize !important;
+        width: $kInputIconSize !important;
+      }
+
+      :deep([role="button"]:not(.k-button)), :deep(button:not(.k-button)) {
+        @include defaultButtonReset;
+
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+
+        &:not([disabled]) {
+          border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+          cursor: pointer;
+          outline: none;
+
+          &:hover, &:focus, &:focus-visible {
+            color: var(--kui-color-text, $kui-color-text) !important;
+          }
+
+          &:focus-visible {
+            box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+          }
+        }
+
+        &[disabled] {
+          color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
+          pointer-events: none;
+        }
+      }
+    }
+
+    .before-content-wrapper {
+      left: 0;
+      margin-left: $kInputPaddingX;
+    }
+
+    .after-content-wrapper {
+      margin-right: $kInputPaddingX;
+      right: 0;
+    }
+
+    &.has-before-content {
+      .input {
+        // if there is a before slot, add padding to the left of the input
+        // standard padding + slot with + space between icon and input
+        padding-left: calc($kInputPaddingX + v-bind('beforeSlotElementWidth') + $kInputSlotSpacing);
+      }
+    }
+
+    &.has-after-content {
+      .input {
+        // if there is a after slot, add padding to the right of the input
+        // standard padding + slot with + space between icon and input
+        padding-right: calc($kInputPaddingX + v-bind('afterSlotElementWidth') + $kInputSlotSpacing);
+      }
+    }
+  }
+}
+
+.input {
+  @include inputDefaults;
+
+  &:hover {
+    @include inputHover;
+  }
+
+  &:focus {
+    @include inputFocus;
+  }
+
+  &:disabled {
+    @include inputDisabled;
+  }
+
+  &:read-only {
+    @include inputReadOnly;
+
+    // by default type="file" is read-only so we need to apply default input styles to override read-only styles
+    &[type="file"] {
+      @include inputDefaults;
+      cursor: pointer;
+
+      &:hover {
+        @include inputHover;
+      }
+
+      &:focus {
+        @include inputFocus;
+      }
+
+      &:disabled {
+        @include inputDisabled;
+      }
     }
   }
 }

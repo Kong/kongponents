@@ -3,24 +3,27 @@
     v-if="showTooltip"
     v-bind="$attrs"
     hide-caret
+    hide-close-icon
     :max-width="maxWidth"
     :placement="placement"
-    :popover-classes="`k-tooltip ${computedClass}`"
-    :popover-timeout="0"
-    :position-fixed="positionFixed"
-    :test-mode="!!testMode || undefined"
+    popover-classes="k-tooltip"
+    :popover-timeout="100"
     trigger="hover"
     width="auto"
+    :z-index="zIndex"
   >
     <slot />
 
     <template #content>
-      <div role="tooltip">
+      <div
+        v-bind-once="{ id: tooltipId || randomTooltipId }"
+        role="tooltip"
+      >
         <slot
-          :label="label"
+          :label="text || label"
           name="content"
         >
-          {{ label }}
+          {{ text || label }}
         </slot>
       </div>
     </template>
@@ -37,12 +40,17 @@ import type { PropType } from 'vue'
 import KPop from '@/components/KPop/KPop.vue'
 import type { PopPlacements } from '@/types'
 import { PopPlacementsArray } from '@/types'
+import useUniqueId from '@/composables/useUniqueId'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = defineProps({
   /**
   * Text to show in tooltip
   */
-  label: {
+  text: {
     type: String,
     required: false,
     default: '',
@@ -59,80 +67,88 @@ const props = defineProps({
     },
   },
   /**
-  * A flag to use fixed positioning of the popover to avoid content being clipped by parental boundaries.
-  */
-  positionFixed: {
-    type: Boolean,
-    default: false,
-  },
-  /**
   * Set the max-width of the ktooltip
   */
   maxWidth: {
     type: String,
     default: 'auto',
   },
+
   /**
-  * Test mode - for testing only, strips out generated ids
-  */
-  testMode: {
-    type: Boolean,
-    default: false,
+   * @deprecated in favor of text prop
+   */
+  label: {
+    type: String,
+    default: '',
+  },
+  tooltipId: {
+    type: String,
+    default: '',
+  },
+  zIndex: {
+    type: Number,
+    default: 9999,
   },
 })
 
 const slots = useSlots()
-const showTooltip = computed((): boolean => !!props.label || !!slots.content)
 
-const computedClass = computed((): string => {
-  let result = ''
-  switch (props.placement) {
-    case 'top':
-      result = 'k-tooltip-top'
-      break
-    case 'right':
-      result = 'k-tooltip-right'
-      break
-    case 'bottom':
-      result = 'k-tooltip-bottom'
-      break
-    case 'left':
-      result = 'k-tooltip-left'
-      break
-  }
+const showTooltip = computed((): boolean => !!props.text || !!props.label || !!slots.content)
 
-  return result
-})
+const randomTooltipId = useUniqueId()
 </script>
 
-<style lang="scss">
-@import '@/styles/variables';
-@import '@/styles/functions';
+<style lang="scss" scoped>
+:deep(.k-tooltip.popover) {
+  .popover-container {
+    background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
+    border: none;
+    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+    padding: var(--kui-space-30, $kui-space-30);
 
-.k-tooltip.k-popover {
-  --KPopColor: var(--KTooltipColor, var(--white, var(--kui-color-text-inverse, #{$kui-color-text-inverse})));
-  --KPopBackground: var(--KTooltipBackground, var(--black-400, var(--kui-color-background-neutral-stronger, #{$kui-color-background-neutral-stronger})));
-  --KPopBodySize: var(--type-sm, var(--kui-font-size-30, #{$kui-font-size-30}));
-  --KPopPaddingX: var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
-  --KPopPaddingY: var(--spacing-xs, var(--kui-space-40, #{$kui-space-40}));
-  --KPopBorder: none;
-  pointer-events: none;
-  z-index: 9999;
-}
+    .popover-content {
+      color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+      font-family: var(--kui-font-family-text, $kui-font-family-text);
+      font-size: var(--kui-font-size-20, $kui-font-size-20);
+      font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+      line-height: var(--kui-line-height-20, $kui-line-height-20);
 
-.k-tooltip-top {
-  margin-bottom: var(--kui-space-10, $kui-space-10) !important;
-}
+      code {
+        color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
+      }
 
-.k-tooltip-right {
-  margin-left: var(--kui-space-10, $kui-space-10) !important;
-}
+      a {
+        color: var(--kui-color-text-inverse, $kui-color-text-inverse);
 
-.k-tooltip-bottom {
-  margin-top: var(--kui-space-10, $kui-space-10) !important;
-}
+        &:hover {
+          color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker);
+        }
 
-.k-tooltip-left {
-  margin-right: var(--kui-space-10, $kui-space-10) !important;
+        &:focus-visible {
+          color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
+        }
+
+        &:active {
+          color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
+        }
+      }
+    }
+  }
+
+  &[x-placement^="top"] .popover-container {
+    margin-bottom: var(--kui-space-20, $kui-space-20);
+  }
+
+  &[x-placement^="right"] .popover-container {
+    margin-left: var(--kui-space-20, $kui-space-20);
+  }
+
+  &[x-placement^="bottom"] .popover-container {
+    margin-top: var(--kui-space-20, $kui-space-20);
+  }
+
+  &[x-placement^="left"] .popover-container {
+    margin-right: var(--kui-space-20, $kui-space-20);
+  }
 }
 </style>

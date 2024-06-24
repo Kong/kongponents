@@ -4,12 +4,11 @@ export interface MultiselectItem {
   key?: string
   selected?: boolean
   disabled?: boolean
-  disabledTooltipText?: string
   custom?: boolean
   group?: string
 }
 
-export interface MultiselectFilterFnParams {
+export interface MultiselectFilterFunctionParams {
   items: MultiselectItem[]
   query: string
 }
