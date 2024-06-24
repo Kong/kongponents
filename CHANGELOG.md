@@ -1,3 +1,14 @@
+# [9.0.0-alpha.181](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.180...v9.0.0-alpha.181) (2024-06-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.14.0 ([#2247](https://github.com/Kong/kongponents/issues/2247)) ([74ec42d](https://github.com/Kong/kongponents/commit/74ec42d46ef572ed1419373c5ae6002dde185bd8))
+* stylelint ([f38fdda](https://github.com/Kong/kongponents/commit/f38fdda99c28c771c56ecbe6a7616ba2e76906f7))
+* stylelint ([912e622](https://github.com/Kong/kongponents/commit/912e6227eca6ef4d88884fb408679f7d70202f0b))
+* stylelint ([4eacc3d](https://github.com/Kong/kongponents/commit/4eacc3dd26162a5095f06f9a41dfa116bd447cd4))
+* stylelint ([0f55571](https://github.com/Kong/kongponents/commit/0f555713ad50b9c141954d63de46cfa1005c4d1a))
+
 # [9.0.0-alpha.180](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.179...v9.0.0-alpha.180) (2024-06-20)
 
 
