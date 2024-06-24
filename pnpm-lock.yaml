@@ -15,8 +15,8 @@ importers:
         specifier: ^1.0.6
         version: 1.0.6(vue@3.4.28(typescript@5.4.5))
       '@kong/icons':
-        specifier: ^1.13.0
-        version: 1.13.0(vue@3.4.28(typescript@5.4.5))
+        specifier: ^1.14.0
+        version: 1.14.0(vue@3.4.28(typescript@5.4.5))
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
@@ -775,6 +775,7 @@ packages:
 
   '@evilmartians/lefthook@1.6.16':
     resolution: {integrity: sha512-HeImp/u3rkCNghbukpz6/cBti3P/DB3YbqVVyK/DDMoGXGxl4GCycSpsk+0CZ1wCVherf47NfL0i96346CCk3A==}
+    cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -839,8 +840,8 @@ packages:
     peerDependencies:
       eslint: '>= 9.4.0'
 
-  '@kong/icons@1.13.0':
-    resolution: {integrity: sha512-obKpD/dg3Ma4fbr2W1oXyvD18LMI+EMYPGeSksj69azMDRV+oVZVMlQ62t+C26TkrjQxPuI4WWOjVvbGc50IYg==}
+  '@kong/icons@1.14.0':
+    resolution: {integrity: sha512-eNhWJ9sms1mLMe8emyVh7LxUbekNHJk8aNpqrsuZ7WL1TWErF8pkMECyvIjM8VXr+lsU6itHcZ7KyP+dPgMuPw==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       vue: '>= 3.3.4 < 4'
@@ -5288,7 +5289,7 @@ snapshots:
 
   '@kong-ui-public/sandbox-layout@2.1.7(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.28(typescript@5.4.5)))(vue@3.4.28(typescript@5.4.5)))(vue@3.4.28(typescript@5.4.5))':
     dependencies:
-      '@kong/icons': 1.13.0(vue@3.4.28(typescript@5.4.5))
+      '@kong/icons': 1.14.0(vue@3.4.28(typescript@5.4.5))
       '@kong/kongponents': 9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.28(typescript@5.4.5)))(vue@3.4.28(typescript@5.4.5))
       vue: 3.4.28(typescript@5.4.5)
 
@@ -5314,14 +5315,14 @@ snapshots:
       - supports-color
       - typescript
 
-  '@kong/icons@1.13.0(vue@3.4.28(typescript@5.4.5))':
+  '@kong/icons@1.14.0(vue@3.4.28(typescript@5.4.5))':
     dependencies:
       vue: 3.4.28(typescript@5.4.5)
 
   '@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.28(typescript@5.4.5)))(vue@3.4.28(typescript@5.4.5))':
     dependencies:
       '@floating-ui/vue': 1.0.6(vue@3.4.28(typescript@5.4.5))
-      '@kong/icons': 1.13.0(vue@3.4.28(typescript@5.4.5))
+      '@kong/icons': 1.14.0(vue@3.4.28(typescript@5.4.5))
       '@popperjs/core': 2.11.8
       axios: 1.7.2
       date-fns: 2.30.0
