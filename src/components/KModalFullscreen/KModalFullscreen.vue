@@ -219,7 +219,7 @@ const proceed = () => {
 onMounted(() => {
   document.addEventListener('keydown', handleKeydown)
 
-  console.warn("The Kongponents 'KFullScreenModal' component is deprecated and will be removed in the next major release.\nWe suggest using 'KModal' component instead.\nDocs: https://alpha--kongponents.netlify.app/components/modal.html#fullscreen")
+  console.warn("The Kongponents 'KFullScreenModal' component is deprecated and will be removed in the next major release.\nWe suggest using 'KModal' component instead.\nDocs: https://kongponents.konghq.com/components/modal.html#fullscreen")
 })
 
 onBeforeUnmount(() => {

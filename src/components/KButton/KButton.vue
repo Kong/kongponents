@@ -63,7 +63,7 @@ const props = defineProps({
     default: false,
     validator: (value: string | boolean): boolean => {
       if (typeof value === 'string') {
-        console.warn('KButton: `icon` prop usage has changed. Please refer to the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kbutton')
+        console.warn('KButton: `icon` prop usage has changed. Please refer to the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kbutton')
 
         return false
       }
@@ -112,7 +112,7 @@ const strippedAttrs = computed((): typeof attrs => {
 
 onMounted(() => {
   if (slots.icon) {
-    console.warn('KButton: `icon` slot is deprecated. Please slot an icon into the `default` slot instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kbutton')
+    console.warn('KButton: `icon` slot is deprecated. Please slot an icon into the `default` slot instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kbutton')
   }
 })
 </script>

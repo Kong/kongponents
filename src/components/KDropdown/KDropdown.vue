@@ -92,7 +92,7 @@ const props = defineProps({
     validator: (value: ButtonAppearance) => {
       // @ts-ignore: allow comparing string values
       if (value === 'menu' || value === 'selectionMenu') {
-        console.warn('KDropdown: the usage for the `appearance` prop has changed. Please see the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kdropdownmenu')
+        console.warn('KDropdown: the usage for the `appearance` prop has changed. Please see the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kdropdownmenu')
       }
 
       return Object.values(ButtonAppearances).includes(value)
@@ -142,7 +142,7 @@ const props = defineProps({
     default: '',
     validator: (value: string) => {
       if (value) {
-        console.warn('KDropdown: `label` prop is deprecated. Please use `triggerText` prop instead. See the migration guide for more details: https://alpha--kongponents.netlify.app/guide/migrating-to-version-9.html#kdropdownmenu')
+        console.warn('KDropdown: `label` prop is deprecated. Please use `triggerText` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kdropdownmenu')
       }
 
       return true
