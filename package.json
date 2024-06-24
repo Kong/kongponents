@@ -50,8 +50,7 @@
     "test": "cypress run --component -b chrome",
     "test:open": "cypress open --component -b chrome",
     "test:spec": "cypress run --component -b chrome --spec",
-    "semantic-release": "semantic-release",
-    "postinstall": "pnpm lefthook install"
+    "semantic-release": "semantic-release"
   },
   "dependencies": {
     "@floating-ui/vue": "^1.0.6",
