@@ -1,21 +1,21 @@
 # Theming
 
-::: danger TODO
-Rewrite this page for `@kong/design-tokens`
-:::
+Kongponents utilize [`@kong/design-tokens`](https://github.com/Kong/design-tokens) under the hood to offer deep customization of colors and other styles.
 
-## CSS Variables
+The easiest way to customize styles is to utilize the CSS Custom Properties to override the defaults, as shown here:
 
-You can override or "theme" some parts of components by setting corresponding [CSS Custom Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) in your `:root: {}` CSS rule or within a scoped class, for example:
-
-```scss
+```html
+<style>
+// You may scope the variable to `root:` to change the variable for your whole application...
 :root {
-  --KInputError: firebrick;
+  --kui-color-text-primary: green;
 }
 
-.custom-input-container {
-  --KInputBackground: #007ac1;
+// ...or scope the variable to a specific container to keep the changes isolated to a specific element and its children.
+table .my-table-row {
+  --kui-color-text-primary: purple;
 }
+</style>
 ```
 
-## Examples
+See the [Kong Design Tokens](https://github.com/Kong/design-tokens) repository for more examples and [the list of available tokens](https://github.com/Kong/design-tokens/blob/main/TOKENS.md).
