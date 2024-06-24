@@ -21,8 +21,6 @@ export default defineConfig({
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'true' }],
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap', crossorigin: 'true' }],
-    // Algolia Search
-    // ['link', { rel: 'preconnect', href: 'https://6MM6JXMAAD-dsn.algolia.net', crossorigin: 'true' }],
   ],
   transformPageData(pageData) {
     // Add canonical URLs
@@ -46,6 +44,9 @@ export default defineConfig({
   },
   appearance: false, // Disable dark mode (If enabled, we'd first need to update Kongponent CSS to handle accordingly)
   themeConfig: {
+    search: {
+      provider: 'local',
+    },
     sidebar: {
       // Components sidebar
       '/components/': [
@@ -163,11 +164,6 @@ export default defineConfig({
       text: 'Edit this page on GitHub',
     },
     outline: [2, 3],
-    algolia: {
-      appId: '63M5R2GSFP',
-      apiKey: 'ff2ad6c629df9c094a93a92a500added',
-      indexName: 'kongponents-konghq',
-    },
   },
   vite: {
     plugins: [
