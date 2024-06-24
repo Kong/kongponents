@@ -1,3 +1,10 @@
+## [9.0.3](https://github.com/Kong/kongponents/compare/v9.0.2...v9.0.3) (2024-06-24)
+
+
+### Bug Fixes
+
+* use local search ([106923d](https://github.com/Kong/kongponents/commit/106923d97af14f24a89d54e0c0612605e329baf0))
+
 ## [9.0.2](https://github.com/Kong/kongponents/compare/v9.0.1...v9.0.2) (2024-06-24)
 
 
