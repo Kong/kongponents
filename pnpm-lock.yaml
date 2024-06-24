@@ -67,7 +67,7 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(@types/node@20.14.2)(typescript@5.4.5)
       '@evilmartians/lefthook':
-        specifier: ^1.6.15
+        specifier: ^1.6.16
         version: 1.6.16
       '@kong-ui-public/sandbox-layout':
         specifier: ^2.1.7
@@ -100,13 +100,13 @@ importers:
         specifier: ^5.0.5
         version: 5.0.5(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5))(vue@3.4.28(typescript@5.4.5))
       '@vue/compiler-core':
-        specifier: ^3.4.27
+        specifier: ^3.4.28
         version: 3.4.28
       '@vue/tsconfig':
         specifier: ^0.5.1
         version: 0.5.1
       '@vueuse/core':
-        specifier: ^10.10.0
+        specifier: ^10.10.1
         version: 10.11.0(vue@3.4.28(typescript@5.4.5))
       autoprefixer:
         specifier: ^10.4.19
@@ -166,7 +166,7 @@ importers:
         specifier: ^5.12.0
         version: 5.12.0
       sass:
-        specifier: ^1.77.4
+        specifier: ^1.77.5
         version: 1.77.5
       semantic-release:
         specifier: ^24.0.0
@@ -196,7 +196,7 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
       vite:
-        specifier: ^5.2.13
+        specifier: ^5.3.1
         version: 5.3.1(@types/node@20.14.2)(sass@1.77.5)
       vite-plugin-vue-devtools:
         specifier: ^7.2.1
@@ -205,7 +205,7 @@ importers:
         specifier: ^1.2.3
         version: 1.2.3(@algolia/client-search@4.23.3)(@types/node@20.14.2)(axios@1.7.2)(postcss@8.4.38)(sass@1.77.5)(search-insights@2.14.0)(sortablejs@1.15.2)(typescript@5.4.5)
       vue:
-        specifier: ^3.4.27
+        specifier: ^3.4.28
         version: 3.4.28(typescript@5.4.5)
       vue-router:
         specifier: ^4.3.3
