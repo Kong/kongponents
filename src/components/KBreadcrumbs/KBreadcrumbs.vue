@@ -146,11 +146,11 @@ export default {
         outline: none;
 
         &:hover {
-          background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weaker);
+          background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
         }
 
         &:focus-visible {
-          background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weaker);
+          background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
           box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
         }
       }

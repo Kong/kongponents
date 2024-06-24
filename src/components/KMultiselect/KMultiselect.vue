@@ -43,7 +43,6 @@
             <div v-if="collapsedContext">
               <KInput
                 ref="multiselectInputElement"
-                v-bind-once="{ id: multiselectId }"
                 autocapitalize="off"
                 autocomplete="off"
                 class="multiselect-input"
@@ -80,7 +79,7 @@
             >
               <KBadge
                 v-for="item, idx in visibleSelectedItems"
-                :key="`${multiselectId}-${item.key ? item.key : idx}-badge-${key}`"
+                :key="`${multiselectKey}-${item.key ? item.key : idx}-badge-${key}`"
                 :appearance="getBadgeAppearance(item)"
                 class="multiselect-selection-badge"
                 :icon-before="false"
@@ -158,9 +157,7 @@
                 class="multiselect-input-wrapper"
               >
                 <KInput
-                  v-bind="modifiedAttrs"
                   ref="multiselectDropdownInputElement"
-                  v-bind-once="{ id: multiselectId }"
                   autocapitalize="off"
                   autocomplete="off"
                   class="multiselect-dropdown-input"
@@ -254,7 +251,7 @@
       >
         <KBadge
           v-for="item, idx in visibleSelectedItemsStaging"
-          :key="`${multiselectId}-${item.key ? item.key : idx}-badge`"
+          :key="`${multiselectKey}-${item.key ? item.key : idx}-badge`"
           aria-hidden="true"
           class="multiselect-selection-badge"
           :icon-before="false"
@@ -312,13 +309,13 @@ const itemValuesAreUnique = (items: MultiselectItem[]): boolean => {
 
   return vals.length === uniqueValues.size
 }
-
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <script setup lang="ts">
+defineOptions({
+  inheritAttrs: false,
+})
+
 const attrs = useAttrs()
 const slots = useSlots()
 
@@ -478,11 +475,11 @@ const defaultKPopAttributes = {
 const key = ref(0)
 const stagingKey = ref(0)
 
-const multiselectWrapperId = useUniqueId() // unique id for the KPop target
-const multiselectId = attrs.id ? String(attrs.id) : useUniqueId()
+const multiselectWrapperId = attrs.id ? String(attrs.id) : useUniqueId() // unique id for the KLabel `for` attribute
+const multiselectKey = useUniqueId()
 
 const multiselectElement = ref<HTMLDivElement | null>(null)
-const multiselectInputElement = ref<HTMLDivElement | null>(null)
+const multiselectInputElement = ref<InstanceType<typeof KInput> | null>(null)
 const multiselectDropdownInputElement = ref<HTMLDivElement | null>(null)
 const multiselectSelectionsStagingElement = ref<HTMLDivElement>()
 
@@ -635,7 +632,7 @@ const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: () =
 
       await nextTick()
 
-      const input = document?.getElementById(multiselectId) as HTMLInputElement
+      const input = multiselectInputElement.value?.$el.querySelector('input') as HTMLInputElement
       input?.focus({ preventScroll: true })
     }
   } else {

@@ -1,3 +1,49 @@
+# [9.0.0-alpha.182](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.181...v9.0.0-alpha.182) (2024-06-24)
+
+
+### Bug Fixes
+
+* inconsistent tokens ([#2246](https://github.com/Kong/kongponents/issues/2246)) ([3dbddfd](https://github.com/Kong/kongponents/commit/3dbddfd3383852de97751e0ab15eebee3afb2367))
+
+# [9.0.0-alpha.181](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.180...v9.0.0-alpha.181) (2024-06-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.14.0 ([#2247](https://github.com/Kong/kongponents/issues/2247)) ([74ec42d](https://github.com/Kong/kongponents/commit/74ec42d46ef572ed1419373c5ae6002dde185bd8))
+* stylelint ([f38fdda](https://github.com/Kong/kongponents/commit/f38fdda99c28c771c56ecbe6a7616ba2e76906f7))
+* stylelint ([912e622](https://github.com/Kong/kongponents/commit/912e6227eca6ef4d88884fb408679f7d70202f0b))
+* stylelint ([4eacc3d](https://github.com/Kong/kongponents/commit/4eacc3dd26162a5095f06f9a41dfa116bd447cd4))
+* stylelint ([0f55571](https://github.com/Kong/kongponents/commit/0f555713ad50b9c141954d63de46cfa1005c4d1a))
+
+# [9.0.0-alpha.180](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.179...v9.0.0-alpha.180) (2024-06-20)
+
+
+### Bug Fixes
+
+* **kdropdownitem:** attribute handling ([#2157](https://github.com/Kong/kongponents/issues/2157)) ([8a78dd5](https://github.com/Kong/kongponents/commit/8a78dd50473b8f297165285ba1bf6291b320749e))
+
+# [9.0.0-alpha.179](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.178...v9.0.0-alpha.179) (2024-06-19)
+
+
+### Bug Fixes
+
+* **kfileupload, kselect, kmultiselect:** kinput id [KHCP-12336] ([#2241](https://github.com/Kong/kongponents/issues/2241)) ([528280d](https://github.com/Kong/kongponents/commit/528280db3c7c710c7c42a65df04ee674c6baf765))
+
+# [9.0.0-alpha.178](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.177...v9.0.0-alpha.178) (2024-06-17)
+
+
+### Bug Fixes
+
+* **kpop:** duplicate popover elements when transitioning ([#2239](https://github.com/Kong/kongponents/issues/2239)) ([b582c63](https://github.com/Kong/kongponents/commit/b582c63d1653a2e4b469be0aef87facf3715d944))
+
+# [9.0.0-alpha.177](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.176...v9.0.0-alpha.177) (2024-06-17)
+
+
+### Bug Fixes
+
+* **kpop:** flip ([#2229](https://github.com/Kong/kongponents/issues/2229)) ([2c74dce](https://github.com/Kong/kongponents/commit/2c74dce7a6c76c0616506792b5f4262bdcd78821))
+
 # [9.0.0-alpha.176](https://github.com/Kong/kongponents/compare/v9.0.0-alpha.175...v9.0.0-alpha.176) (2024-06-15)
 
 

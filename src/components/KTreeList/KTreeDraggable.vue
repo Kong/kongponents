@@ -276,7 +276,7 @@ $kTreeListBar: 12px;
   }
 
   // style while dragging an item
- .tree-item-dragged {
+  .tree-item-dragged {
     cursor: move !important; /* fallback: no `url()` support or images disabled */
     cursor: grabbing !important; /* W3C standards syntax, should come last */
 

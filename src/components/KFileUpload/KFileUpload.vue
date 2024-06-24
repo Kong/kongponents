@@ -1,9 +1,13 @@
 <template>
-  <div class="k-file-upload">
+  <div
+    class="k-file-upload"
+    v-bind="modifiedAttrs"
+  >
     <KLabel
       v-if="label"
-      v-bind-once="{ for: inputId }"
       v-bind="labelAttributes"
+      ref="labelElement"
+      :for="$attrs.id ? String($attrs.id) : undefined"
       :required="isRequired"
     >
       {{ strippedLabel }}
@@ -26,9 +30,9 @@
       </span>
 
       <KInput
+        v-bind="attrs.id ? { id: String(attrs.id) } : {}"
         :key="fileInputKey"
         ref="fileInputElement"
-        v-bind-once="{ id: inputId }"
         :accept="accept"
         class="upload-input"
         :disabled="disabled"
@@ -65,13 +69,16 @@
 </template>
 
 <script lang="ts" setup>
+defineOptions({
+  inheritAttrs: false,
+})
+
 import type { PropType } from 'vue'
-import { computed, ref, useAttrs, useSlots } from 'vue'
+import { computed, ref, useAttrs, useSlots, onMounted, watch, nextTick } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import useUtilities from '@/composables/useUtilities'
-import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   labelAttributes: {
@@ -127,8 +134,16 @@ const emit = defineEmits<{
 
 const { stripRequiredLabel } = useUtilities()
 
-const inputId = attrs.id ? String(attrs.id) : useUniqueId()
+const modifiedAttrs = computed(() => {
+  const $attrs = { ...attrs }
+
+  delete $attrs.id // delete id because we bind id to the input element
+
+  return $attrs
+})
+
 const fileInputElement = ref<InstanceType<typeof KInput> | null>(null)
+const labelElement = ref<InstanceType<typeof KLabel> | null>(null)
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
@@ -165,7 +180,7 @@ const hasUploadError = ref<boolean>(false)
 // This holds the FileList
 const fileInput = ref<File[]>([])
 // To clear the input value after reset
-const fileInputKey = ref(0)
+const fileInputKey = ref<number>(0)
 // File fakepath
 const fileValue = ref<string>('')
 // Array to store the previously selected FileList when user clicks reopen the file uploader and clicks on Cancel
@@ -235,6 +250,33 @@ const resetInput = (): void => {
 
   emit('file-removed')
 }
+
+const setLabelAttributes = () => {
+  /**
+   * Temporary fix for the issue where we can't use v-bind-once to pass id to a custom element (KInput)
+   * TODO: remove this once useId is released in Vue 3.5
+   */
+  if (!attrs.id) {
+    const inputElementId = fileInputElement.value?.$el?.querySelector('input')?.id
+
+    if (inputElementId) {
+      labelElement.value?.$el?.setAttribute('for', inputElementId)
+    }
+  }
+}
+
+watch(fileInputKey, async () => {
+  await nextTick()
+  setLabelAttributes()
+})
+
+watch(() => attrs.id, () => {
+  fileInputKey.value++
+}, { immediate: true })
+
+onMounted(() => {
+  setLabelAttributes()
+})
 </script>
 
 <style lang="scss" scoped>
@@ -258,10 +300,6 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
   :deep(.k-input) input[type="file"],
   :deep(.k-input) input[type="file"][disabled] {
     color: transparent !important;
-  }
-
-  :deep(.k-input) {
-    padding-right: 90px !important; // offset to account for button
   }
 
   .file-upload-input-wrapper {

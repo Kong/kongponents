@@ -18,7 +18,10 @@
       </slot>
     </div>
 
-    <Transition name="kongponents-fade-transition">
+    <Transition
+      :key="popoverKey"
+      name="kongponents-fade-transition"
+    >
       <div
         v-show="isVisible"
         ref="popoverElement"
@@ -83,7 +86,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed, watch, nextTick } from 'vue'
 import type { PropType } from 'vue'
 import { useFloating, autoUpdate, autoPlacement, flip, shift, size } from '@floating-ui/vue'
 import type { PopPlacements, PopTrigger } from '@/types'
@@ -168,6 +171,7 @@ const kPopoverElement = ref<HTMLElement | null>(null)
 const triggerWrapperElement = ref<HTMLElement | null>(null)
 const popoverElement = ref<HTMLElement | null>(null)
 const isVisible = ref<boolean>(false)
+const popoverKey = ref<number>(0)
 
 const popoverTrigger = computed((): HTMLElement | null => triggerWrapperElement.value && triggerWrapperElement.value?.children[0] ? triggerWrapperElement.value?.children[0] as HTMLElement : null)
 
@@ -181,12 +185,16 @@ const togglePopover = () => {
   }
 }
 
-const showPopover = () => {
+const showPopover = async () => {
   if (!props.disabled) {
     if (timer.value) {
       clearTimeout(timer.value)
     }
 
+    if (props.placement !== 'auto') {
+      popoverKey.value++
+      await nextTick() // wait for the Transition to update to ensure the animation works as expected
+    }
     isVisible.value = true
   }
 }

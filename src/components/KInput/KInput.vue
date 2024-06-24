@@ -345,7 +345,7 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
         width: $kInputIconSize !important;
       }
 
-      :deep([role="button"]), :deep(button) {
+      :deep([role="button"]:not(.k-button)), :deep(button:not(.k-button)) {
         @include defaultButtonReset;
 
         color: var(--kui-color-text-neutral, $kui-color-text-neutral);

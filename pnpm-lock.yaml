@@ -15,8 +15,8 @@ importers:
         specifier: ^1.0.6
         version: 1.0.6(vue@3.4.28(typescript@5.4.5))
       '@kong/icons':
-        specifier: ^1.13.0
-        version: 1.13.0(vue@3.4.28(typescript@5.4.5))
+        specifier: ^1.14.0
+        version: 1.14.0(vue@3.4.28(typescript@5.4.5))
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
@@ -52,16 +52,16 @@ importers:
         version: 2.2.1(sortablejs@1.15.2)(vue@3.4.28(typescript@5.4.5))
     devDependencies:
       '@babel/types':
-        specifier: ^7.24.6
+        specifier: ^7.24.7
         version: 7.24.7
       '@commitlint/cli':
         specifier: ^19.3.0
         version: 19.3.0(@types/node@20.14.2)(typescript@5.4.5)
       '@commitlint/config-conventional':
-        specifier: ^19.1.0
+        specifier: ^19.2.2
         version: 19.2.2
       '@cypress/vite-dev-server':
-        specifier: ^5.0.7
+        specifier: ^5.1.1
         version: 5.1.1
       '@digitalroute/cz-conventional-changelog-for-jira':
         specifier: ^8.0.1
@@ -70,8 +70,8 @@ importers:
         specifier: ^1.6.15
         version: 1.6.16
       '@kong-ui-public/sandbox-layout':
-        specifier: ^2.1.6
-        version: 2.1.6(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.28(typescript@5.4.5)))(vue@3.4.28(typescript@5.4.5)))(vue@3.4.28(typescript@5.4.5))
+        specifier: ^2.1.7
+        version: 2.1.7(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.28(typescript@5.4.5)))(vue@3.4.28(typescript@5.4.5)))(vue@3.4.28(typescript@5.4.5))
       '@kong/design-tokens':
         specifier: ^1.13.2
         version: 1.13.2
@@ -80,15 +80,18 @@ importers:
         version: 1.1.0(eslint@9.4.0)(typescript@5.4.5)
       '@semantic-release/changelog':
         specifier: ^6.0.3
-        version: 6.0.3(semantic-release@23.1.1(typescript@5.4.5))
+        version: 6.0.3(semantic-release@24.0.0(typescript@5.4.5))
       '@semantic-release/git':
         specifier: ^10.0.1
-        version: 10.0.1(semantic-release@23.1.1(typescript@5.4.5))
+        version: 10.0.1(semantic-release@24.0.0(typescript@5.4.5))
+      '@stylistic/stylelint-plugin':
+        specifier: ^2.1.2
+        version: 2.1.2(stylelint@16.6.1(typescript@5.4.5))
       '@types/inquirer':
         specifier: ^9.0.7
         version: 9.0.7
       '@types/node':
-        specifier: ^20.12.13
+        specifier: ^20.14.2
         version: 20.14.2
       '@types/sortablejs':
         specifier: ^1.15.8
@@ -103,13 +106,13 @@ importers:
         specifier: ^0.5.1
         version: 0.5.1
       '@vueuse/core':
-        specifier: ^10.9.0
+        specifier: ^10.10.0
         version: 10.11.0(vue@3.4.28(typescript@5.4.5))
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.38)
       axios:
-        specifier: ^1.6.8
+        specifier: ^1.7.2
         version: 1.7.2
       boxen:
         specifier: ^7.1.1
@@ -124,7 +127,7 @@ importers:
         specifier: ^7.0.3
         version: 7.0.3
       cypress:
-        specifier: ^13.7.3
+        specifier: ^13.11.0
         version: 13.11.0
       cypress-fail-fast:
         specifier: ^7.1.0
@@ -154,7 +157,7 @@ importers:
         specifier: ^13.3.10
         version: 13.3.10(postcss@8.4.38)
       postcss-html:
-        specifier: ^1.6.0
+        specifier: ^1.7.0
         version: 1.7.0
       rimraf:
         specifier: ^5.0.7
@@ -163,16 +166,16 @@ importers:
         specifier: ^5.12.0
         version: 5.12.0
       sass:
-        specifier: ^1.72.0
+        specifier: ^1.77.4
         version: 1.77.5
       semantic-release:
-        specifier: ^23.1.1
-        version: 23.1.1(typescript@5.4.5)
+        specifier: ^24.0.0
+        version: 24.0.0(typescript@5.4.5)
       shx:
         specifier: ^0.3.4
         version: 0.3.4
       stylelint:
-        specifier: ^16.3.1
+        specifier: ^16.6.1
         version: 16.6.1(typescript@5.4.5)
       stylelint-config-html:
         specifier: ^1.1.0
@@ -193,10 +196,10 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
       vite:
-        specifier: ^5.2.12
+        specifier: ^5.2.13
         version: 5.3.1(@types/node@20.14.2)(sass@1.77.5)
       vite-plugin-vue-devtools:
-        specifier: ^7.0.27
+        specifier: ^7.2.1
         version: 7.2.1(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5))(vue@3.4.28(typescript@5.4.5))
       vitepress:
         specifier: ^1.2.3
@@ -205,10 +208,10 @@ importers:
         specifier: ^3.4.27
         version: 3.4.28(typescript@5.4.5)
       vue-router:
-        specifier: ^4.3.2
+        specifier: ^4.3.3
         version: 4.3.3(vue@3.4.28(typescript@5.4.5))
       vue-tsc:
-        specifier: ^2.0.19
+        specifier: ^2.0.21
         version: 2.0.21(typescript@5.4.5)
 
 packages:
@@ -822,10 +825,10 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@kong-ui-public/sandbox-layout@2.1.6':
-    resolution: {integrity: sha512-Ol4+ocLrR6GW2C4Ja5S9Iu9NzomDTgpOXlltiAqngZXRu5XK11se4MtruZj+Fsyk62TQMNFUs2WhmIbCA0+Mlw==}
+  '@kong-ui-public/sandbox-layout@2.1.7':
+    resolution: {integrity: sha512-c0QlmmcFcorX9PPCsycCPL0fMbE7q9O+YOW2s2FOUdRvhMv0kK1x4VamJD8xpyPFKzxEeSyFAraMND5iZBaXbw==}
     peerDependencies:
-      '@kong/kongponents': ^9.0.0-alpha.175
+      '@kong/kongponents': ^9.0.0-alpha.180
       vue: '>= 3.3.13 < 4'
 
   '@kong/design-tokens@1.13.2':
@@ -837,8 +840,8 @@ packages:
     peerDependencies:
       eslint: '>= 9.4.0'
 
-  '@kong/icons@1.13.0':
-    resolution: {integrity: sha512-obKpD/dg3Ma4fbr2W1oXyvD18LMI+EMYPGeSksj69azMDRV+oVZVMlQ62t+C26TkrjQxPuI4WWOjVvbGc50IYg==}
+  '@kong/icons@1.14.0':
+    resolution: {integrity: sha512-eNhWJ9sms1mLMe8emyVh7LxUbekNHJk8aNpqrsuZ7WL1TWErF8pkMECyvIjM8VXr+lsU6itHcZ7KyP+dPgMuPw==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       vue: '>= 3.3.4 < 4'
@@ -846,6 +849,7 @@ packages:
   '@kong/kongponents@9.0.0-pr.2229.901d3f4d.0':
     resolution: {integrity: sha512-dULXWZ35lB4ufEg0XV9UOtM4IoxBBcO80i7z7Gjdc3Kw6rsKDr3hlADAiucDwyF3FxBkhX1t3a3I08s0syJ1gQ==}
     engines: {node: '>=v16.20.2'}
+    deprecated: Deprecated PR preview
     peerDependencies:
       axios: ^1.6.8
       vue: '>= 3.3.4 < 4'
@@ -960,8 +964,8 @@ packages:
     peerDependencies:
       semantic-release: '>=18.0.0'
 
-  '@semantic-release/commit-analyzer@12.0.0':
-    resolution: {integrity: sha512-qG+md5gdes+xa8zP7lIo1fWE17zRdO8yMCaxh9lyL65TQleoSv8WHHOqRURfghTytUh+NpkSyBprQ5hrkxOKVQ==}
+  '@semantic-release/commit-analyzer@13.0.0':
+    resolution: {integrity: sha512-KtXWczvTAB1ZFZ6B4O+w8HkfYm/OgQb1dUGNFZtDgQ0csggrmkq8sTxhd+lwGF8kMb59/RnG9o4Tn7M/I8dQ9Q==}
     engines: {node: '>=20.8.1'}
     peerDependencies:
       semantic-release: '>=20.1.0'
@@ -992,8 +996,8 @@ packages:
     peerDependencies:
       semantic-release: '>=20.1.0'
 
-  '@semantic-release/release-notes-generator@13.0.0':
-    resolution: {integrity: sha512-LEeZWb340keMYuREMyxrODPXJJ0JOL8D/mCl74B4LdzbxhtXV2LrPN2QBEcGJrlQhoqLO0RhxQb6masHytKw+A==}
+  '@semantic-release/release-notes-generator@14.0.0':
+    resolution: {integrity: sha512-XRxwr4e46yUMaXT8KGFBlRJlp5+NOMaufdq8qaEWlcJ7cT4Pn/iRmDGglZ2TgDe6GVP+u1boXFEnSs7N8Yzhng==}
     engines: {node: '>=20.8.1'}
     peerDependencies:
       semantic-release: '>=20.1.0'
@@ -1045,6 +1049,12 @@ packages:
     peerDependencies:
       eslint: '>=8.40.0'
 
+  '@stylistic/stylelint-plugin@2.1.2':
+    resolution: {integrity: sha512-JsSqu0Y3vsX+PBl+DwULxC0cIv9C1yIcq1MXkx7pBOGtTqU26a75I8MPYMiEYvrsXgsKLi65xVgy1iLVSZquJA==}
+    engines: {node: ^18.12 || >=20.9}
+    peerDependencies:
+      stylelint: ^16.0.2
+
   '@types/conventional-commits-parser@5.0.0':
     resolution: {integrity: sha512-loB369iXNmAZglwWATL+WRe+CRMmmBPtpolYzIebFaX4YA3x+BEfLqhUAV9WanycKI3TG1IMr5bMJDajDKLlUQ==}
 
@@ -1080,6 +1090,9 @@ packages:
 
   '@types/resize-observer-browser@0.1.11':
     resolution: {integrity: sha512-cNw5iH8JkMkb3QkCoe7DaZiawbDQEUX8t7iuQaRTyLOyQCR2h+ibBD4GJt7p5yhUHrlOeL7ZtbxNHeipqNsBzQ==}
+
+  '@types/semver@7.5.8':
+    resolution: {integrity: sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==}
 
   '@types/sinonjs__fake-timers@8.1.1':
     resolution: {integrity: sha512-0kSuKjAS0TrGLJ0M/+8MaFkGsQhZpB6pxOmvS3K8FYI72K//YmdfoW9X2qPsAKh1mkwxGD5zib9s1FIFed6E8g==}
@@ -1678,25 +1691,34 @@ packages:
     resolution: {integrity: sha512-ROjNchA9LgfNMTTFSIWPzebCwOGFdgkEq45EnvvrmSLvCtAw0HSmrCs7/ty+wAeYUZyNay0YMUNYFTRL72PkBQ==}
     engines: {node: '>=16'}
 
+  conventional-changelog-angular@8.0.0:
+    resolution: {integrity: sha512-CLf+zr6St0wIxos4bmaKHRXWAcsCXrJU6F4VdNDrGRK3B8LDLKoX3zuMV5GhtbGkVR/LohZ6MT6im43vZLSjmA==}
+    engines: {node: '>=18'}
+
   conventional-changelog-conventionalcommits@7.0.2:
     resolution: {integrity: sha512-NKXYmMR/Hr1DevQegFB4MwfM5Vv0m4UIxKZTTYuD98lpTknaZlSRrDOG4X7wIXpGkfsYxZTghUN+Qq+T0YQI7w==}
     engines: {node: '>=16'}
 
-  conventional-changelog-writer@7.0.1:
-    resolution: {integrity: sha512-Uo+R9neH3r/foIvQ0MKcsXkX642hdm9odUp7TqgFS7BsalTcjzRlIfWZrZR1gbxOozKucaKt5KAbjW8J8xRSmA==}
-    engines: {node: '>=16'}
+  conventional-changelog-writer@8.0.0:
+    resolution: {integrity: sha512-TQcoYGRatlAnT2qEWDON/XSfnVG38JzA7E0wcGScu7RElQBkg9WWgZd1peCWFcWDh1xfb2CfsrcvOn1bbSzztA==}
+    engines: {node: '>=18'}
     hasBin: true
 
   conventional-commit-types@3.0.0:
     resolution: {integrity: sha512-SmmCYnOniSsAa9GqWOeLqc179lfr5TRu5b4QFDkbsrJ5TZjPJx85wtOr3zn+1dbeNiXDKGPbZ72IKbPhLXh/Lg==}
 
-  conventional-commits-filter@4.0.0:
-    resolution: {integrity: sha512-rnpnibcSOdFcdclpFwWa+pPlZJhXE7l+XK04zxhbWrhgpR96h33QLz8hITTXbcYICxVr3HZFtbtUAQ+4LdBo9A==}
-    engines: {node: '>=16'}
+  conventional-commits-filter@5.0.0:
+    resolution: {integrity: sha512-tQMagCOC59EVgNZcC5zl7XqO30Wki9i9J3acbUvkaosCT6JX3EeFwJD7Qqp4MCikRnzS18WXV3BLIQ66ytu6+Q==}
+    engines: {node: '>=18'}
 
   conventional-commits-parser@5.0.0:
     resolution: {integrity: sha512-ZPMl0ZJbw74iS9LuX9YIAiW8pfM5p3yh2o/NbXHbkFuZzY5jvdi5jFycEOkmBW5H5I7nA+D6f3UcsCLP2vvSEA==}
     engines: {node: '>=16'}
+    hasBin: true
+
+  conventional-commits-parser@6.0.0:
+    resolution: {integrity: sha512-TbsINLp48XeMXR8EvGjTnKGsZqBemisPoyWESlpRyR8lif0lcwzqz+NMtYSj1ooF/WYjSuu7wX0CtdeeMEQAmA==}
+    engines: {node: '>=18'}
     hasBin: true
 
   convert-hrtime@5.0.0:
@@ -3794,8 +3816,8 @@ packages:
   search-insights@2.14.0:
     resolution: {integrity: sha512-OLN6MsPMCghDOqlCtsIsYgtsC0pnwVTyT9Mu6A3ewOj1DxvzZF6COrn2g86E/c05xbktB0XN04m/t1Z+n+fTGw==}
 
-  semantic-release@23.1.1:
-    resolution: {integrity: sha512-qqJDBhbtHsjUEMsojWKGuL5lQFCJuPtiXKEIlFKyTzDDGTAE/oyvznaP8GeOr5PvcqBJ6LQz4JCENWPLeehSpA==}
+  semantic-release@24.0.0:
+    resolution: {integrity: sha512-v46CRPw+9eI3ZuYGF2oAjqPqsfbnfFTwLBgQsv/lch4goD09ytwOTESMN4QIrx/wPLxUGey60/NMx+ANQtWRsA==}
     engines: {node: '>=20.8.1'}
     hasBin: true
 
@@ -3996,6 +4018,9 @@ packages:
   strip-json-comments@3.1.1:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
+
+  style-search@0.1.0:
+    resolution: {integrity: sha512-Dj1Okke1C3uKKwQcetra4jSuk0DqbzbYtXipzFlFMZtowbF1x7BKJwB9AayVMyFARvU8EDrZdcax4At/452cAg==}
 
   stylelint-config-html@1.1.0:
     resolution: {integrity: sha512-IZv4IVESjKLumUGi+HWeb7skgO6/g4VMuAYrJdlqQFndgbj6WJAXPhaysvBiXefX79upBdQVumgYcdd17gCpjQ==}
@@ -5262,9 +5287,9 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  '@kong-ui-public/sandbox-layout@2.1.6(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.28(typescript@5.4.5)))(vue@3.4.28(typescript@5.4.5)))(vue@3.4.28(typescript@5.4.5))':
+  '@kong-ui-public/sandbox-layout@2.1.7(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.28(typescript@5.4.5)))(vue@3.4.28(typescript@5.4.5)))(vue@3.4.28(typescript@5.4.5))':
     dependencies:
-      '@kong/icons': 1.13.0(vue@3.4.28(typescript@5.4.5))
+      '@kong/icons': 1.14.0(vue@3.4.28(typescript@5.4.5))
       '@kong/kongponents': 9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.28(typescript@5.4.5)))(vue@3.4.28(typescript@5.4.5))
       vue: 3.4.28(typescript@5.4.5)
 
@@ -5290,14 +5315,14 @@ snapshots:
       - supports-color
       - typescript
 
-  '@kong/icons@1.13.0(vue@3.4.28(typescript@5.4.5))':
+  '@kong/icons@1.14.0(vue@3.4.28(typescript@5.4.5))':
     dependencies:
       vue: 3.4.28(typescript@5.4.5)
 
   '@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.28(typescript@5.4.5)))(vue@3.4.28(typescript@5.4.5))':
     dependencies:
       '@floating-ui/vue': 1.0.6(vue@3.4.28(typescript@5.4.5))
-      '@kong/icons': 1.13.0(vue@3.4.28(typescript@5.4.5))
+      '@kong/icons': 1.14.0(vue@3.4.28(typescript@5.4.5))
       '@popperjs/core': 2.11.8
       axios: 1.7.2
       date-fns: 2.30.0
@@ -5421,24 +5446,25 @@ snapshots:
 
   '@sec-ant/readable-stream@0.4.1': {}
 
-  '@semantic-release/changelog@6.0.3(semantic-release@23.1.1(typescript@5.4.5))':
+  '@semantic-release/changelog@6.0.3(semantic-release@24.0.0(typescript@5.4.5))':
     dependencies:
       '@semantic-release/error': 3.0.0
       aggregate-error: 3.1.0
       fs-extra: 11.2.0
       lodash: 4.17.21
-      semantic-release: 23.1.1(typescript@5.4.5)
+      semantic-release: 24.0.0(typescript@5.4.5)
 
-  '@semantic-release/commit-analyzer@12.0.0(semantic-release@23.1.1(typescript@5.4.5))':
+  '@semantic-release/commit-analyzer@13.0.0(semantic-release@24.0.0(typescript@5.4.5))':
     dependencies:
-      conventional-changelog-angular: 7.0.0
-      conventional-commits-filter: 4.0.0
-      conventional-commits-parser: 5.0.0
+      conventional-changelog-angular: 8.0.0
+      conventional-changelog-writer: 8.0.0
+      conventional-commits-filter: 5.0.0
+      conventional-commits-parser: 6.0.0
       debug: 4.3.5(supports-color@8.1.1)
       import-from-esm: 1.3.4
       lodash-es: 4.17.21
       micromatch: 4.0.7
-      semantic-release: 23.1.1(typescript@5.4.5)
+      semantic-release: 24.0.0(typescript@5.4.5)
     transitivePeerDependencies:
       - supports-color
 
@@ -5446,7 +5472,7 @@ snapshots:
 
   '@semantic-release/error@4.0.0': {}
 
-  '@semantic-release/git@10.0.1(semantic-release@23.1.1(typescript@5.4.5))':
+  '@semantic-release/git@10.0.1(semantic-release@24.0.0(typescript@5.4.5))':
     dependencies:
       '@semantic-release/error': 3.0.0
       aggregate-error: 3.1.0
@@ -5456,11 +5482,11 @@ snapshots:
       lodash: 4.17.21
       micromatch: 4.0.7
       p-reduce: 2.1.0
-      semantic-release: 23.1.1(typescript@5.4.5)
+      semantic-release: 24.0.0(typescript@5.4.5)
     transitivePeerDependencies:
       - supports-color
 
-  '@semantic-release/github@10.0.6(semantic-release@23.1.1(typescript@5.4.5))':
+  '@semantic-release/github@10.0.6(semantic-release@24.0.0(typescript@5.4.5))':
     dependencies:
       '@octokit/core': 6.1.2
       '@octokit/plugin-paginate-rest': 11.3.0(@octokit/core@6.1.2)
@@ -5477,12 +5503,12 @@ snapshots:
       lodash-es: 4.17.21
       mime: 4.0.3
       p-filter: 4.1.0
-      semantic-release: 23.1.1(typescript@5.4.5)
+      semantic-release: 24.0.0(typescript@5.4.5)
       url-join: 5.0.0
     transitivePeerDependencies:
       - supports-color
 
-  '@semantic-release/npm@12.0.1(semantic-release@23.1.1(typescript@5.4.5))':
+  '@semantic-release/npm@12.0.1(semantic-release@24.0.0(typescript@5.4.5))':
     dependencies:
       '@semantic-release/error': 4.0.0
       aggregate-error: 5.0.0
@@ -5495,23 +5521,23 @@ snapshots:
       rc: 1.2.8
       read-pkg: 9.0.1
       registry-auth-token: 5.0.2
-      semantic-release: 23.1.1(typescript@5.4.5)
+      semantic-release: 24.0.0(typescript@5.4.5)
       semver: 7.6.2
       tempy: 3.1.0
 
-  '@semantic-release/release-notes-generator@13.0.0(semantic-release@23.1.1(typescript@5.4.5))':
+  '@semantic-release/release-notes-generator@14.0.0(semantic-release@24.0.0(typescript@5.4.5))':
     dependencies:
-      conventional-changelog-angular: 7.0.0
-      conventional-changelog-writer: 7.0.1
-      conventional-commits-filter: 4.0.0
-      conventional-commits-parser: 5.0.0
+      conventional-changelog-angular: 8.0.0
+      conventional-changelog-writer: 8.0.0
+      conventional-commits-filter: 5.0.0
+      conventional-commits-parser: 6.0.0
       debug: 4.3.5(supports-color@8.1.1)
       get-stream: 7.0.1
       import-from-esm: 1.3.4
       into-stream: 7.0.0
       lodash-es: 4.17.21
       read-pkg-up: 11.0.0
-      semantic-release: 23.1.1(typescript@5.4.5)
+      semantic-release: 24.0.0(typescript@5.4.5)
     transitivePeerDependencies:
       - supports-color
 
@@ -5574,6 +5600,17 @@ snapshots:
       - supports-color
       - typescript
 
+  '@stylistic/stylelint-plugin@2.1.2(stylelint@16.6.1(typescript@5.4.5))':
+    dependencies:
+      '@csstools/css-parser-algorithms': 2.6.3(@csstools/css-tokenizer@2.3.1)
+      '@csstools/css-tokenizer': 2.3.1
+      '@csstools/media-query-list-parser': 2.1.11(@csstools/css-parser-algorithms@2.6.3(@csstools/css-tokenizer@2.3.1))(@csstools/css-tokenizer@2.3.1)
+      is-plain-object: 5.0.0
+      postcss-selector-parser: 6.1.0
+      postcss-value-parser: 4.2.0
+      style-search: 0.1.0
+      stylelint: 16.6.1(typescript@5.4.5)
+
   '@types/conventional-commits-parser@5.0.0':
     dependencies:
       '@types/node': 20.14.2
@@ -5610,6 +5647,8 @@ snapshots:
   '@types/normalize-package-data@2.4.4': {}
 
   '@types/resize-observer-browser@0.1.11': {}
+
+  '@types/semver@7.5.8': {}
 
   '@types/sinonjs__fake-timers@8.1.1': {}
 
@@ -6304,22 +6343,25 @@ snapshots:
     dependencies:
       compare-func: 2.0.0
 
+  conventional-changelog-angular@8.0.0:
+    dependencies:
+      compare-func: 2.0.0
+
   conventional-changelog-conventionalcommits@7.0.2:
     dependencies:
       compare-func: 2.0.0
 
-  conventional-changelog-writer@7.0.1:
+  conventional-changelog-writer@8.0.0:
     dependencies:
-      conventional-commits-filter: 4.0.0
+      '@types/semver': 7.5.8
+      conventional-commits-filter: 5.0.0
       handlebars: 4.7.8
-      json-stringify-safe: 5.0.1
-      meow: 12.1.1
+      meow: 13.2.0
       semver: 7.6.2
-      split2: 4.2.0
 
   conventional-commit-types@3.0.0: {}
 
-  conventional-commits-filter@4.0.0: {}
+  conventional-commits-filter@5.0.0: {}
 
   conventional-commits-parser@5.0.0:
     dependencies:
@@ -6327,6 +6369,10 @@ snapshots:
       is-text-path: 2.0.0
       meow: 12.1.1
       split2: 4.2.0
+
+  conventional-commits-parser@6.0.0:
+    dependencies:
+      meow: 13.2.0
 
   convert-hrtime@5.0.0: {}
 
@@ -8454,13 +8500,13 @@ snapshots:
 
   search-insights@2.14.0: {}
 
-  semantic-release@23.1.1(typescript@5.4.5):
+  semantic-release@24.0.0(typescript@5.4.5):
     dependencies:
-      '@semantic-release/commit-analyzer': 12.0.0(semantic-release@23.1.1(typescript@5.4.5))
+      '@semantic-release/commit-analyzer': 13.0.0(semantic-release@24.0.0(typescript@5.4.5))
       '@semantic-release/error': 4.0.0
-      '@semantic-release/github': 10.0.6(semantic-release@23.1.1(typescript@5.4.5))
-      '@semantic-release/npm': 12.0.1(semantic-release@23.1.1(typescript@5.4.5))
-      '@semantic-release/release-notes-generator': 13.0.0(semantic-release@23.1.1(typescript@5.4.5))
+      '@semantic-release/github': 10.0.6(semantic-release@24.0.0(typescript@5.4.5))
+      '@semantic-release/npm': 12.0.1(semantic-release@24.0.0(typescript@5.4.5))
+      '@semantic-release/release-notes-generator': 14.0.0(semantic-release@24.0.0(typescript@5.4.5))
       aggregate-error: 5.0.0
       cosmiconfig: 9.0.0(typescript@5.4.5)
       debug: 4.3.5(supports-color@8.1.1)
@@ -8690,6 +8736,8 @@ snapshots:
   strip-json-comments@2.0.1: {}
 
   strip-json-comments@3.1.1: {}
+
+  style-search@0.1.0: {}
 
   stylelint-config-html@1.1.0(postcss-html@1.7.0)(stylelint@16.6.1(typescript@5.4.5)):
     dependencies:

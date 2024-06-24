@@ -28,13 +28,13 @@ defineProps({
 .skeleton-box {
   animation: kSkeletonGradient 4s ease infinite;
   background: linear-gradient(
-      -70deg,
-      var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) 0%,
-      var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) 40%,
-      var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest) 50%,
-      var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) 60%,
-      var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) 100%
-    )
+    -70deg,
+    var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) 0%,
+    var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) 40%,
+    var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest) 50%,
+    var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) 60%,
+    var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) 100%
+  )
     repeat;
   background-size: 400% 100%;
   border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
