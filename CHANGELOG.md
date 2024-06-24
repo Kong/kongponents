@@ -1,3 +1,10 @@
+## [9.0.2](https://github.com/Kong/kongponents/compare/v9.0.1...v9.0.2) (2024-06-24)
+
+
+### Bug Fixes
+
+* remove postinstall ([46a05ca](https://github.com/Kong/kongponents/commit/46a05cac89d69b4c8083a0ce614c04684c0bbf0b))
+
 ## [9.0.1](https://github.com/Kong/kongponents/compare/v9.0.0...v9.0.1) (2024-06-24)
 
 
