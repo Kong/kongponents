@@ -24,8 +24,8 @@ importers:
         specifier: ^2.30.0
         version: 2.30.0
       date-fns-tz:
-        specifier: ^2.0.1
-        version: 2.0.1(date-fns@2.30.0)
+        specifier: ^3.1.3
+        version: 3.1.3(date-fns@2.30.0)
       focus-trap:
         specifier: ^7.5.4
         version: 7.5.4
@@ -1830,6 +1830,11 @@ packages:
     resolution: {integrity: sha512-fJCG3Pwx8HUoLhkepdsP7Z5RsucUi+ZBOxyM5d0ZZ6c4SdYustq0VMmOu6Wf7bli+yS/Jwp91TOCqn9jMcVrUA==}
     peerDependencies:
       date-fns: 2.x
+
+  date-fns-tz@3.1.3:
+    resolution: {integrity: sha512-ZfbMu+nbzW0mEzC8VZrLiSWvUIaI3aRHeq33mTe7Y38UctKukgqPR4nTDwcwS4d64Gf8GghnVsroBuMY3eiTeA==}
+    peerDependencies:
+      date-fns: ^3.0.0
 
   date-fns@2.30.0:
     resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
@@ -6532,6 +6537,10 @@ snapshots:
       is-data-view: 1.0.1
 
   date-fns-tz@2.0.1(date-fns@2.30.0):
+    dependencies:
+      date-fns: 2.30.0
+
+  date-fns-tz@3.1.3(date-fns@2.30.0):
     dependencies:
       date-fns: 2.30.0
 
