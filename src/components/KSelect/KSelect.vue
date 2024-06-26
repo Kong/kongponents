@@ -63,21 +63,23 @@
             @update:model-value="onQueryChange"
           >
             <template #after>
-              <button
-                v-if="isClearVisible"
-                aria-label="Clear"
-                class="clear-selection-button"
-                data-testid="clear-selection-icon"
-                type="button"
-                @click="clearSelection"
-              >
-                <CloseIcon decorative />
-              </button>
-              <ChevronDownIcon
-                class="chevron-down-icon"
-                :class="{ 'disabled': isDisabled }"
-                decorative
-              />
+              <div style="display: flex; gap: 2px;">
+                <button
+                  v-if="isClearVisible"
+                  aria-label="Clear"
+                  class="clear-selection-button"
+                  data-testid="clear-selection-icon"
+                  type="button"
+                  @click="clearSelection"
+                >
+                  <CloseIcon decorative />
+                </button>
+                <ChevronDownIcon
+                  class="chevron-down-icon"
+                  :class="{ 'disabled': isDisabled }"
+                  decorative
+                />
+              </div>
             </template>
             <template
               v-if="$slots['label-tooltip']"
