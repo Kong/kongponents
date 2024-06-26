@@ -408,7 +408,9 @@ const value = computed({
 })
 
 const elementWidth = computed((): string => getSizeFromString(props.width || '100%'))
-const actualElementWidth = ref<string>('') // the pixel value of the element width for KPop container
+// the pixel value of the element width for KPop container
+// initialize to 100% to prevent jumping when the element width is calculated
+const actualElementWidth = ref<string>('100%')
 
 const modifiedAttrs = computed(() => {
   const $attrs = { ...attrs }

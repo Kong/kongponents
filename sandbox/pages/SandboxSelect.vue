@@ -3,7 +3,28 @@
     :links="inject('app-links', [])"
     title="KSelect"
   >
-    <div class="kselect-sandbox">
+    <KSelect
+      clearable
+      enable-filtering
+      :items="selectItems"
+    >
+      <template #selected-item-template="{ item }">
+        <div class="custom-selected-item-container">
+          <div class="title">
+            <KongIcon />
+            {{ item?.label }}
+          </div>
+          <KBadge v-if="item?.label.toLocaleLowerCase() === 'cats' || item?.label.toLocaleLowerCase() === 'dogs'">
+            {{ item?.label.toLocaleLowerCase() === 'cats' ? 'Feline' : 'Canine' }}
+          </KBadge>
+        </div>
+      </template>
+    </KSelect>
+
+    <div
+      v-if="false"
+      class="kselect-sandbox"
+    >
       <!-- Examples -->
       <SandboxTitleComponent
         is-subtitle
@@ -442,16 +463,16 @@ onMounted(() => {
       font-size: $kui-font-size-20;
     }
   }
+}
 
-  .custom-selected-item-container {
+.custom-selected-item-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  .title {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-
-    .title {
-      display: flex;
-      gap: $kui-space-30;
-    }
+    gap: $kui-space-30;
   }
 }
 </style>
