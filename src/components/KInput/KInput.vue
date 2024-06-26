@@ -262,8 +262,8 @@ watch(() => props.error, (newVal, oldVal) => {
 
 const beforeSlotElement = ref<HTMLElement | null>(null)
 const afterSlotElement = ref<HTMLElement | null>(null)
-const beforeSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot icon size
-const afterSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot icon size
+const beforeSlotElementWidth = ref<string>('42px') // default to slot icon size
+const afterSlotElementWidth = ref<string>('42px') // default to slot icon size
 
 onMounted(async () => {
   await nextTick() // wait for the slots content to render
