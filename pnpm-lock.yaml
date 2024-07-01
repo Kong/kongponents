@@ -76,8 +76,8 @@ importers:
         specifier: ^1.13.2
         version: 1.13.2
       '@kong/eslint-config-kong-ui':
-        specifier: ^1.1.0
-        version: 1.1.0(eslint@9.5.0)(typescript@5.4.5)
+        specifier: ^1.1.1
+        version: 1.1.1(eslint@9.5.0)(typescript@5.4.5)
       '@semantic-release/changelog':
         specifier: ^6.0.3
         version: 6.0.3(semantic-release@24.0.0(typescript@5.4.5))
@@ -765,10 +765,6 @@ packages:
     resolution: {integrity: sha512-4Bfj15dVJdoy3RfZmmo86RK1Fwzn6SstsvK9JS+BaVKqC6QQQQyXekNaC+g+LKNgkQ+2VhGAzm6hO40AhMR3zQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@eslint/js@9.4.0':
-    resolution: {integrity: sha512-fdI7VJjP3Rvc70lC4xkFXHB0fiPeojiL1PxVG6t1ZvXQrarj893PweuBTujxDUFk0Fxj4R7PIIAZ/aiiyZPZcg==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
   '@eslint/js@9.5.0':
     resolution: {integrity: sha512-A7+AOT2ICkodvtsWnxZP4Xxk3NbZ3VMHd8oihydLRGrJgqqdEz1qSeEgXYyT/Cu8h1TWWsQRejIx48mtjZ5y1w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -838,8 +834,8 @@ packages:
   '@kong/design-tokens@1.13.2':
     resolution: {integrity: sha512-BXI7Nv+wucuG9mw0faXhBgb3ryN9pnMkHntI9HKf0h9BnBvuR8F+iLoCm/Fwo6TZ0tlO5bZTMVk1xc85lnlhBA==}
 
-  '@kong/eslint-config-kong-ui@1.1.0':
-    resolution: {integrity: sha512-PSZaL7IhVLmbojwpBPaKIfxLIBBLnYFIjjrr5Nbz0Ia4cSYFqdwkdFB3t5PnjLHWwQr0IpLgN5e2vGe1n9Hpig==}
+  '@kong/eslint-config-kong-ui@1.1.1':
+    resolution: {integrity: sha512-L66Nqif4KcWlaSX9xb9WToMh9JbcxGrRb6tF1hz36GsZZaBsk6cHdVKVXUjPA7jgtkE1aUHpzQO1IM/UMLQCQg==}
     engines: {node: '>=18.0.0 || >=20.13.1'}
     peerDependencies:
       eslint: '>= 9.4.0'
@@ -5248,8 +5244,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@eslint/js@9.4.0': {}
-
   '@eslint/js@9.5.0': {}
 
   '@eslint/object-schema@2.1.4': {}
@@ -5316,11 +5310,11 @@ snapshots:
 
   '@kong/design-tokens@1.13.2': {}
 
-  '@kong/eslint-config-kong-ui@1.1.0(eslint@9.5.0)(typescript@5.4.5)':
+  '@kong/eslint-config-kong-ui@1.1.1(eslint@9.5.0)(typescript@5.4.5)':
     dependencies:
       '@eslint/compat': 1.1.0
       '@eslint/eslintrc': 3.1.0
-      '@eslint/js': 9.4.0
+      '@eslint/js': 9.5.0
       '@stylistic/eslint-plugin': 2.1.0(eslint@9.5.0)(typescript@5.4.5)
       eslint: 9.5.0
       eslint-plugin-cypress: 3.3.0(eslint@9.5.0)
