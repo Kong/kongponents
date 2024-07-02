@@ -425,6 +425,36 @@ describe('KTable', () => {
       cy.get('.table').find('.sort-icon').last().click()
       cy.get('.table').find('td:nth-child(4)').first().should('has.text', 'Just now')
     })
+
+    it('reacts to changes in headers', () => {
+      mount(KTable, {
+        propsData: {
+          fetcher: () => {
+            return {
+              data: largeDataSet,
+            }
+          },
+          loading: false,
+          headers: [
+            { label: 'Name', key: 'name' },
+          ],
+        },
+      }).then((component) => {
+        cy.get('.table').find('th').should('have.length', 1)
+        cy.getTestId('table-header-name').should('be.visible').then(() => {
+          component.wrapper.setProps({
+            headers: [
+              { label: 'Name', key: 'name' },
+              { label: 'ID', key: 'id' },
+            ],
+          }).then(() => {
+            cy.get('.table').find('th').should('have.length', 2)
+            cy.getTestId('table-header-id').should('be.visible')
+            cy.get('.table').find('td').eq(1).should('contain', '517526354743085')
+          })
+        })
+      })
+    })
   })
 
   describe('sorting', () => {
