@@ -868,6 +868,13 @@ const initData = () => {
   hasInitialized.value = true
 }
 
+// Ensure `props.headers` are reactive.
+watch(() => props.headers as TableHeader[], (newVal: TableHeader[]) => {
+  if (newVal && newVal.length) {
+    tableHeaders.value = newVal
+  }
+})
+
 const previousOffset = computed((): string | null => offsets.value[page.value - 1])
 
 // once `initData()` finishes, setting tableFetcherCacheKey to non-falsey value triggers fetch of data
