@@ -70,7 +70,7 @@
   "peerDependencies": {
     "axios": "^1.7.2",
     "vue": ">= 3.3.4 < 4",
-    "vue-router": "^4.3.3"
+    "vue-router": "^4.4.0"
   },
   "devDependencies": {
     "@babel/types": "^7.24.7",
@@ -98,7 +98,7 @@
     "commitizen": "^4.3.0",
     "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
-    "cypress": "^13.11.0",
+    "cypress": "^13.12.0",
     "cypress-fail-fast": "^7.1.0",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^9.5.0",
@@ -120,12 +120,12 @@
     "stylelint-config-recommended-vue": "^1.5.0",
     "stylelint-order": "^6.0.4",
     "tsc-alias": "^1.8.10",
-    "typescript": "^5.4.5",
+    "typescript": "^5.5.2",
     "vite": "^5.3.1",
-    "vite-plugin-vue-devtools": "^7.2.1",
+    "vite-plugin-vue-devtools": "^7.3.3",
     "vitepress": "^1.2.3",
     "vue": "^3.4.29",
-    "vue-router": "^4.3.3",
+    "vue-router": "^4.4.0",
     "vue-tsc": "^2.0.21"
   },
   "resolutions": {
@@ -179,10 +179,10 @@
   "engines": {
     "node": ">=v16.20.2 || >=18.12.1 || >=20.14.0"
   },
-  "packageManager": "pnpm@9.3.0",
+  "packageManager": "pnpm@9.4.0",
   "volta": {
-    "node": "20.14.0",
-    "pnpm": "9.3.0"
+    "node": "20.15.0",
+    "pnpm": "9.4.0"
   },
   "config": {
     "commitizen": {
