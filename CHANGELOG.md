@@ -1,3 +1,10 @@
+## [9.0.5](https://github.com/Kong/kongponents/compare/v9.0.4...v9.0.5) (2024-07-03)
+
+
+### Bug Fixes
+
+* **ktable:** `props.headers` should be reactive [MA-3028] ([#2262](https://github.com/Kong/kongponents/issues/2262)) ([8c54b56](https://github.com/Kong/kongponents/commit/8c54b5607de529766e60bfed6d2956e4d429be7b))
+
 ## [9.0.4](https://github.com/Kong/kongponents/compare/v9.0.3...v9.0.4) (2024-06-24)
 
 
