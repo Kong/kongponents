@@ -86,10 +86,10 @@
     "@semantic-release/git": "^10.0.1",
     "@stylistic/stylelint-plugin": "^2.1.2",
     "@types/inquirer": "^9.0.7",
-    "@types/node": "^20.14.7",
+    "@types/node": "^20.14.8",
     "@types/sortablejs": "^1.15.8",
     "@vitejs/plugin-vue": "^5.0.5",
-    "@vue/compiler-core": "^3.4.29",
+    "@vue/compiler-core": "^3.4.30",
     "@vue/tsconfig": "^0.5.1",
     "@vueuse/core": "^10.11.0",
     "autoprefixer": "^10.4.19",
@@ -124,9 +124,9 @@
     "vite": "^5.3.1",
     "vite-plugin-vue-devtools": "^7.2.1",
     "vitepress": "^1.2.3",
-    "vue": "^3.4.29",
+    "vue": "^3.4.30",
     "vue-router": "^4.3.3",
-    "vue-tsc": "^2.0.21"
+    "vue-tsc": "^2.0.22"
   },
   "resolutions": {
     "rollup": "npm:@rollup/wasm-node"
