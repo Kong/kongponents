@@ -432,7 +432,7 @@ const props = defineProps({
    * A prop to pass in an array of headers for the table
    */
   headers: {
-    type: Array,
+    type: Array as PropType<TableHeader[]>,
     default: () => [],
   },
   /**
@@ -861,12 +861,19 @@ const initData = () => {
 
   // get table headers
   if (props.headers && props.headers.length) {
-    tableHeaders.value = props.headers as TableHeader[]
+    tableHeaders.value = props.headers
   }
 
   // trigger setting of tableFetcherCacheKey
   hasInitialized.value = true
 }
+
+// Ensure `props.headers` are reactive.
+watch(() => props.headers, (newVal: TableHeader[]) => {
+  if (newVal && newVal.length) {
+    tableHeaders.value = newVal
+  }
+}, { deep: true })
 
 const previousOffset = computed((): string | null => offsets.value[page.value - 1])
 
