@@ -1,3 +1,10 @@
+## [9.0.7](https://github.com/Kong/kongponents/compare/v9.0.6...v9.0.7) (2024-07-05)
+
+
+### Bug Fixes
+
+* **kmultiselect:** autofocus on input upon opening [KHCP-12491] ([#2266](https://github.com/Kong/kongponents/issues/2266)) ([c45c10e](https://github.com/Kong/kongponents/commit/c45c10ec299144701bb7a7db1c498da72ea081ee))
+
 ## [9.0.6](https://github.com/Kong/kongponents/compare/v9.0.5...v9.0.6) (2024-07-05)
 
 
