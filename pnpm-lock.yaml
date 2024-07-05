@@ -12,8 +12,8 @@ importers:
   .:
     dependencies:
       '@floating-ui/vue':
-        specifier: ^1.0.6
-        version: 1.0.6(vue@3.4.30(typescript@5.4.5))
+        specifier: ^1.0.7
+        version: 1.1.1(vue@3.4.30(typescript@5.4.5))
       '@kong/icons':
         specifier: ^1.14.1
         version: 1.14.1(vue@3.4.30(typescript@5.4.5))
@@ -785,11 +785,11 @@ packages:
   '@floating-ui/dom@1.6.5':
     resolution: {integrity: sha512-Nsdud2X65Dz+1RHjAIP0t8z5e2ff/IRbei6BqFrl1urT8sDVzM1HMQ+R0XcU5ceRfyO3I6ayeqIfh+6Wb8LGTw==}
 
-  '@floating-ui/utils@0.2.2':
-    resolution: {integrity: sha512-J4yDIIthosAsRZ5CPYP/jQvUAQtlZTTD/4suA08/FEnlxqW3sKS9iAhgsa9VYLZ6vDHn/ixJgIqRQPotoBjxIw==}
+  '@floating-ui/utils@0.2.4':
+    resolution: {integrity: sha512-dWO2pw8hhi+WrXq1YJy2yCuWoL20PddgGaqTgVe4cOS9Q6qklXCiA1tJEqX6BEwRNSCP84/afac9hd4MS+zEUA==}
 
-  '@floating-ui/vue@1.0.6':
-    resolution: {integrity: sha512-EdrOljjkpkkqZnrpqUcPoz9NvHxuTjUtSInh6GMv3+Mcy+giY2cE2pHh9rpacRcZ2eMSCxel9jWkWXTjLmY55w==}
+  '@floating-ui/vue@1.1.1':
+    resolution: {integrity: sha512-cyawjk9etPZPl/RVtMRnWrwtAhWbPVSrRVYARgOzhLIqxr0k2up1APrrFjqP9QwRQ0AwjKSvbWg4YC6jESutow==}
 
   '@humanwhocodes/module-importer@1.0.1':
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
@@ -5240,19 +5240,19 @@ snapshots:
 
   '@floating-ui/core@1.6.2':
     dependencies:
-      '@floating-ui/utils': 0.2.2
+      '@floating-ui/utils': 0.2.4
 
   '@floating-ui/dom@1.6.5':
     dependencies:
       '@floating-ui/core': 1.6.2
-      '@floating-ui/utils': 0.2.2
+      '@floating-ui/utils': 0.2.4
 
-  '@floating-ui/utils@0.2.2': {}
+  '@floating-ui/utils@0.2.4': {}
 
-  '@floating-ui/vue@1.0.6(vue@3.4.30(typescript@5.4.5))':
+  '@floating-ui/vue@1.1.1(vue@3.4.30(typescript@5.4.5))':
     dependencies:
       '@floating-ui/dom': 1.6.5
-      '@floating-ui/utils': 0.2.2
+      '@floating-ui/utils': 0.2.4
       vue-demi: 0.14.8(vue@3.4.30(typescript@5.4.5))
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -5324,7 +5324,7 @@ snapshots:
 
   '@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.30(typescript@5.4.5)))(vue@3.4.30(typescript@5.4.5))':
     dependencies:
-      '@floating-ui/vue': 1.0.6(vue@3.4.30(typescript@5.4.5))
+      '@floating-ui/vue': 1.1.1(vue@3.4.30(typescript@5.4.5))
       '@kong/icons': 1.14.1(vue@3.4.30(typescript@5.4.5))
       '@popperjs/core': 2.11.8
       axios: 1.7.2
