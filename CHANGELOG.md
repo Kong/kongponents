@@ -1,3 +1,10 @@
+## [9.0.6](https://github.com/Kong/kongponents/compare/v9.0.5...v9.0.6) (2024-07-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @floating-ui/vue to ^1.0.7 ([#2265](https://github.com/Kong/kongponents/issues/2265)) ([ce09910](https://github.com/Kong/kongponents/commit/ce0991099f1fff77135b1f82cf245e2dd9d476c7))
+
 ## [9.0.5](https://github.com/Kong/kongponents/compare/v9.0.4...v9.0.5) (2024-07-03)
 
 
