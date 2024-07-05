@@ -480,7 +480,7 @@ const multiselectKey = useUniqueId()
 
 const multiselectElement = ref<HTMLDivElement | null>(null)
 const multiselectInputElement = ref<InstanceType<typeof KInput> | null>(null)
-const multiselectDropdownInputElement = ref<HTMLDivElement | null>(null)
+const multiselectDropdownInputElement = ref<InstanceType<typeof KInput> | null>(null)
 const multiselectSelectionsStagingElement = ref<HTMLDivElement>()
 
 // filter and selection
@@ -630,9 +630,9 @@ const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: () =
       toggle()
       sortItems()
 
-      await nextTick()
+      await nextTick() // wait for the dropdown to open
 
-      const input = multiselectInputElement.value?.$el.querySelector('input') as HTMLInputElement
+      const input = multiselectDropdownInputElement.value?.$el?.querySelector('input') as HTMLInputElement
       input?.focus({ preventScroll: true })
     }
   } else {
