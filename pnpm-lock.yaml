@@ -73,8 +73,8 @@ importers:
         specifier: ^2.1.9
         version: 2.1.9(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5))
       '@kong/design-tokens':
-        specifier: ^1.14.0
-        version: 1.14.0
+        specifier: ^1.15.1
+        version: 1.15.1
       '@kong/eslint-config-kong-ui':
         specifier: ^1.1.1
         version: 1.1.1(eslint@9.5.0)(typescript@5.4.5)
@@ -831,8 +831,8 @@ packages:
       '@kong/kongponents': ^9.0.4
       vue: '>= 3.3.13 < 4'
 
-  '@kong/design-tokens@1.14.0':
-    resolution: {integrity: sha512-hWBHlUeg4KFIPOQb6UOlhqal9SizH7456zswLLoEQ1oKIkT8afar0HDOQmIGpqjr5W0Gl1JlWvLOTfVf/FWVKQ==}
+  '@kong/design-tokens@1.15.1':
+    resolution: {integrity: sha512-dDgAZIF3nFENKcMHHFDZg62W/Tkrt6YRS+BF61nWOImTV/zuhpupUF4FBvrcWc/QdilI/nSMwNDYEqpOO/gMyA==}
 
   '@kong/eslint-config-kong-ui@1.1.1':
     resolution: {integrity: sha512-L66Nqif4KcWlaSX9xb9WToMh9JbcxGrRb6tF1hz36GsZZaBsk6cHdVKVXUjPA7jgtkE1aUHpzQO1IM/UMLQCQg==}
@@ -5315,7 +5315,7 @@ snapshots:
       '@kong/kongponents': 9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5))
       vue: 3.4.31(typescript@5.4.5)
 
-  '@kong/design-tokens@1.14.0': {}
+  '@kong/design-tokens@1.15.1': {}
 
   '@kong/eslint-config-kong-ui@1.1.1(eslint@9.5.0)(typescript@5.4.5)':
     dependencies:
