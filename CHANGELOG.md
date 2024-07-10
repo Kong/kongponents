@@ -1,3 +1,10 @@
+## [9.0.9](https://github.com/Kong/kongponents/compare/v9.0.8...v9.0.9) (2024-07-10)
+
+
+### Bug Fixes
+
+* **kmultiselect:** duplicate placeholder [KHCP-12560] ([#2274](https://github.com/Kong/kongponents/issues/2274)) ([f4542de](https://github.com/Kong/kongponents/commit/f4542de08e625c61445f872af1f57c8f3c08a35d))
+
 ## [9.0.8](https://github.com/Kong/kongponents/compare/v9.0.7...v9.0.8) (2024-07-08)
 
 
