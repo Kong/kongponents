@@ -48,6 +48,7 @@
                 class="multiselect-input"
                 :class="{ 'is-readonly': isReadonly }"
                 data-testid="multiselect-input"
+                :disabled="isDisabled"
                 :model-value="filterString"
                 :placeholder="placeholderText"
                 :readonly="isReadonly ? true : undefined"
