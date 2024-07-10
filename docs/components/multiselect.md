@@ -544,11 +544,11 @@ const debouncedHandler = debounce(function (val) {
 You can pass any input attribute and it will get properly bound to the element.
 
 <ClientOnly>
-  <KMultiselect disabled placeholder="I am disabled" :items="[{ label: 'test', value: 'test' }]" />
+  <KMultiselect disabled :items="[{ label: 'test', value: 'test' }]" />
 </ClientOnly>
 
 ```html
-<KMultiselect disabled placeholder="I am disabled" :items="[{ label: 'test', value: 'test' }]" />
+<KMultiselect disabled :items="[{ label: 'test', value: 'test' }]" />
 ```
 
 ### required

@@ -48,8 +48,9 @@
                 class="multiselect-input"
                 :class="{ 'is-readonly': isReadonly }"
                 data-testid="multiselect-input"
+                :disabled="isDisabled"
                 :model-value="filterString"
-                :placeholder="getPlaceholderText"
+                :placeholder="placeholderText"
                 :readonly="isReadonly ? true : undefined"
                 type="text"
                 @blur="() => isFocused = false"
@@ -69,7 +70,7 @@
               v-else-if="!selectedItems.length"
               class="expanded-selection-empty"
             >
-              {{ getPlaceholderText }}
+              {{ selectedItemsText }}
             </div>
             <div
               v-else
@@ -593,11 +594,11 @@ const numericWidthStyle = computed(() => {
   }
 })
 
-const getPlaceholderText = computed((): string => {
-  if (selectedItems.value.length === 0) {
-    return props.placeholder ? props.placeholder : '0 items selected'
-  }
+const placeholderText = computed(() => {
+  return selectedItems.value.length ? selectedItemsText.value : props.placeholder || 'Filter...'
+})
 
+const selectedItemsText = computed((): string => {
   if (selectedItems.value.length === 1) {
     return `${selectedItems.value.length} item selected`
   }
