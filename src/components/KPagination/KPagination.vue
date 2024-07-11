@@ -1,5 +1,6 @@
 <template>
   <nav
+    ref="kPaginationElement"
     class="k-pagination"
     data-testid="k-pagination"
   >
@@ -131,12 +132,13 @@
 
 <script setup lang="ts">
 import type { Ref, PropType } from 'vue'
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import PaginationOffset from './PaginationOffset.vue'
 import type { PageSizeChangeData, PageChangeData, DropdownItem } from '@/types'
 import { BackIcon, ForwardIcon, ChevronDownIcon } from '@kong/icons'
+import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 
 const kpopAttrs = {
   placement: 'top',
@@ -197,6 +199,9 @@ const emit = defineEmits<{
   (e: 'getPreviousOffset'): void
 }>()
 
+const kPaginationElement = ref<HTMLElement | null>(null)
+const resizeObserver = ref<ResizeObserverHelper>()
+
 const currPage: Ref<number> = ref(props.currentPage ? props.currentPage : 1)
 const currentPageSize: Ref<number> = ref(props.initialPageSize ? props.initialPageSize : props.pageSizes[0])
 const pageCount = computed((): number => Math.ceil(props.totalCount / currentPageSize.value))
@@ -207,31 +212,73 @@ const pageSizeOptions = props.pageSizes.map((size, i) => ({
   selected: size === currentPageSize.value,
 }))
 const pageSizeText = computed((): string => `${currentPageSize.value} ${currentPageSize.value === 1 ? 'item per page' : ' items per page'}`)
+/**
+ * KPagination will try to display specified number of neighbors
+ * However, if it will detect overflow, it will try to reduce the number of neighbors to a minimum of 1
+ */
+const fittingNeighbors = ref<number>(props.neighbors)
+/**
+ * By default KPagination tries to display 3 items sequentially
+ * However, if it will detect overflow, it will try to reduce the number of items to a minimum of 1
+ */
+const sequentialItemsVisible = ref<number>(3)
+
+const hasOverflow = async (): Promise<boolean> => {
+  await nextTick() // wait for the DOM to update
+
+  if (!kPaginationElement.value) {
+    return false
+  }
+
+  return kPaginationElement.value.scrollWidth > kPaginationElement.value.clientWidth
+}
+
+/**
+ * Check if the pagination has overflow and reduce the number of neighbors or sequential items visible if possible
+ */
+const fixOverflow = async (): Promise<void> => {
+  const overflowDetected = await hasOverflow()
+
+  if (overflowDetected && (fittingNeighbors.value > 1 || sequentialItemsVisible.value > 1)) {
+    if (fittingNeighbors.value > 1) {
+      fittingNeighbors.value--
+    } else if (sequentialItemsVisible.value > 1) {
+      sequentialItemsVisible.value--
+    }
+
+    pagesVisible.value = getVisiblePages(currPage.value, pageCount.value, firstDetached.value, lastDetached.value)
+  }
+}
 
 const getVisiblePages = (currPage: number, pageCount: number, firstDetached: boolean, lastDetached: boolean): number[] => {
   if (props.disablePageJump) {
     return []
   }
+
   let pages = [...Array(pageCount).keys()].map((n) => n + 1)
-  const visiblePages = 5 + 2 * props.neighbors
+  const visiblePages = (sequentialItemsVisible.value + 2) + (2 * fittingNeighbors.value)
+
   // All pages fit on one screen
   if (pages.length <= visiblePages) {
     return pages
   }
+
+
   if (!firstDetached) {
     // First pages
-    pages = pages.filter((n) => n <= props.neighbors * 2 + 3)
+    pages = pages.filter((n) => n <= (fittingNeighbors.value * 2) + sequentialItemsVisible.value)
   } else if (firstDetached && lastDetached) {
     // Middle pages (if they do not fit on one screen)
     pages = pages.filter(
       (n) =>
-        n > currPage - props.neighbors - 1 &&
-            n < currPage + props.neighbors + 1,
+        n > currPage - fittingNeighbors.value - 1 &&
+            n < currPage + fittingNeighbors.value + 1,
     )
   } else if (firstDetached && !lastDetached) {
     // Last pages
-    pages = pages.filter((n) => n > pageCount - props.neighbors * 2 - 3)
+    pages = pages.filter((n) => n > pageCount - (fittingNeighbors.value * 2) - sequentialItemsVisible.value)
   }
+
   return pages
 }
 
@@ -249,12 +296,12 @@ const pagesString = computed((): string => `${startCount.value} to ${endCount.va
 const pageCountString = computed((): string => ` of ${props.totalCount}`)
 const currentlySelectedPage = computed((): number => props.currentPage ? props.currentPage : currPage.value)
 const firstDetached = ref<boolean>(false)
-const lastDetached = ref(pageCount.value > 5 + 2 * props.neighbors)
-const pagesVisible = ref(getVisiblePages(
+const lastDetached = ref<boolean>(pageCount.value > (sequentialItemsVisible.value + 2) + (2 * fittingNeighbors.value))
+const pagesVisible = ref<Array<number>>(getVisiblePages(
   currentlySelectedPage.value,
   pageCount.value,
   false,
-  pageCount.value > 5 + 2 * props.neighbors,
+  lastDetached.value,
 ))
 
 const pageForward = ():void => {
@@ -278,14 +325,14 @@ const updatePage = (): void => {
   backDisabled.value = currPage.value === 1
   // The view will hold
   // Selected page, first page, last page, 2 placeholders and 2 * neighbors
-  const visiblePages = 5 + 2 * props.neighbors
+  const visiblePages = 5 + 2 * fittingNeighbors.value
   if (pageCount.value <= visiblePages) {
     // All pages will fit in screen
     firstDetached.value = false
     lastDetached.value = false
   } else {
-    firstDetached.value = currPage.value >= props.neighbors + 4
-    lastDetached.value = currPage.value <= pageCount.value - props.neighbors - 3
+    firstDetached.value = currPage.value >= fittingNeighbors.value + (sequentialItemsVisible.value + 1)
+    lastDetached.value = currPage.value <= pageCount.value - fittingNeighbors.value - sequentialItemsVisible.value
   }
 
   pagesVisible.value = getVisiblePages(currPage.value, pageCount.value, firstDetached.value, lastDetached.value)
@@ -331,15 +378,35 @@ watch(() => props.currentPage, (newVal, oldVal) => {
 // recalc if the total number of items changed (which changed pageCount)
 watch(pageCount, (newVal, oldVal) => {
   if (newVal !== oldVal) {
+    forwardDisabled.value = currPage.value === newVal
+    lastDetached.value = newVal > (sequentialItemsVisible.value + 2) + (2 * fittingNeighbors.value)
+
     pagesVisible.value = getVisiblePages(
       currentlySelectedPage.value,
       newVal,
       false,
-      newVal > 5 + 2 * props.neighbors,
+      lastDetached.value,
     )
+  }
+})
 
-    forwardDisabled.value = currPage.value === newVal
-    lastDetached.value = newVal > 5 + 2 * props.neighbors
+watch(pagesVisible, () => {
+  if (!props.disablePageJump && !props.offset) {
+    fixOverflow()
+  }
+})
+
+onMounted(() => {
+  if (!props.disablePageJump && !props.offset) {
+    resizeObserver.value = ResizeObserverHelper.create(fixOverflow)
+
+    resizeObserver.value.observe(kPaginationElement.value as HTMLDivElement)
+  }
+})
+
+onUnmounted(() => {
+  if (!props.disablePageJump && !props.offset) {
+    resizeObserver.value?.unobserve(kPaginationElement.value as HTMLDivElement)
   }
 })
 </script>
@@ -360,6 +427,7 @@ watch(pageCount, (newVal, oldVal) => {
     font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
     line-height: var(--kui-line-height-30, $kui-line-height-30);
     min-width: 125px; // to prevent jumping when the text changes
+    white-space: nowrap;
 
     .pagination-text-pages {
       color: var(--kui-color-text, $kui-color-text);

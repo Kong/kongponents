@@ -35,12 +35,17 @@
           @page-size-change="handlePageSizeChange"
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="neighbors">
-        <KPagination
-          :neighbors="3"
-          :page-size="15"
-          :total-count="1000"
-        />
+      <SandboxSectionComponent
+        description="Setting a way too high number of visible neighbors here (20) but KPagination detects overflow and reduces the number of visible neighbors down to acceptable number (minimum of 1)."
+        title="neighbors"
+      >
+        <div class="neighbors-wrapper">
+          <KPagination
+            :neighbors="20"
+            :page-size="15"
+            :total-count="1000"
+          />
+        </div>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="disablePageJump">
         <KPagination
@@ -81,3 +86,18 @@ const handlePageSizeChange = (obj: any) => {
   console.log(obj)
 }
 </script>
+
+<style lang="scss" scoped>
+.kpagination-sandbox {
+  .neighbors-wrapper {
+    border: $kui-border-width-10 solid $kui-color-border;
+    display: flex;
+    flex-direction: column;
+    gap: $kui-space-40;
+    max-width: 100%;
+    overflow-x: auto;
+    padding: $kui-space-70;
+    resize: horizontal;
+  }
+}
+</style>
