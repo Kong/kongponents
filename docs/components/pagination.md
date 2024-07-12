@@ -73,10 +73,18 @@ const visibleLetters = ref<string>(['a', 'b', 'c'])
 
 A number that sets the neighboring pages visible to the left and right of the center page when ellipsis are visible on both sides. By default, 1 neighbor is shown. For bigger sets of data we want user to see more pages to go through the pagination faster.
 
-<KPagination :total-count="1000" :neighbors="2" />
+<KPagination :neighbors="2" :total-count="1000" />
 
 ```html
-<KPagination :total-count="1000" :neighbors="2" />
+<KPagination :neighbors="2" :total-count="1000" />
+```
+
+If KPagination detects horizontal overflow it will automatically reduce number of displayed neighbors down to a number at which it fits into the parent container without overflowing, ignoring the value provided through `neighbors` prop. It will always display at least 1 neighbor. See the example below where value passed through the `neighbors` prop is unreasonably high but KPagination only displays as many items as it can without overflowing.
+
+<KPagination :neighbors="20" :total-count="1000" />
+
+```html
+<KPagination :neighbors="20" :total-count="1000" />
 ```
 
 ### disablePageJump
