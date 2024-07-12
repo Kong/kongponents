@@ -427,7 +427,7 @@ Set this to `true` to hide pagination when using a fetcher.
 
 ### hidePaginationWhenOptional
 
-Set this to `true` to hide pagination when the table record count is less than or equal to the `pageSize`.
+Set this to `true` to hide pagination when the table record count is less than or equal to the `paginationPageSizes`.
 
 ## States
 
