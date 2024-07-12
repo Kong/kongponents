@@ -440,7 +440,7 @@ onUnmounted(() => {
   padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
   width: 100%;
 
-  @media (min-width: $kui-breakpoint-mobile) {
+  @media (min-width: $kui-breakpoint-phablet) {
     padding: var(--kui-space-20, $kui-space-20);
   }
 
