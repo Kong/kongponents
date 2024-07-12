@@ -2,6 +2,7 @@
   <nav
     ref="kPaginationElement"
     class="k-pagination"
+    :class="{ 'full': !disablePageJump && !offset }"
     data-testid="k-pagination"
   >
     <template v-if="!offset">
@@ -105,6 +106,15 @@
       @get-previous-offset="getPreviousOffset"
     />
     <div class="page-size-select">
+      <span
+        v-if="!disablePageJump && !offset"
+        class="pagination-text-mobile"
+        data-testid="visible-items"
+      >
+        <span class="pagination-text-pages">{{ pagesString }}</span>
+        {{ pageCountString }}
+      </span>
+
       <KDropdown
         class="page-size-dropdown"
         data-testid="page-size-dropdown"
@@ -120,7 +130,9 @@
           :disabled="pageSizeOptions.length <= 1"
           type="button"
         >
-          {{ pageSizeText }}<ChevronDownIcon
+          {{ pageSizeText }}
+
+          <ChevronDownIcon
             v-if="pageSizeOptions.length > 1"
             decorative
           />
@@ -421,7 +433,69 @@ onUnmounted(() => {
   padding: var(--kui-space-20, $kui-space-20);
   width: 100%;
 
-  .pagination-text {
+  &.full {
+    flex-direction: column;
+    gap: var(--kui-space-50, $kui-space-50);
+
+    @media (min-width: $kui-breakpoint-mobile) {
+      flex-direction: row;
+    }
+
+    .pagination-text {
+      display: none;
+
+      @media (min-width: $kui-breakpoint-mobile) {
+        display: block;
+      }
+    }
+
+    .pagination-text-mobile {
+      @media (min-width: $kui-breakpoint-mobile) {
+        display: none;
+      }
+    }
+
+    .pagination-button-container {
+      width: 100%;
+
+      @media (min-width: $kui-breakpoint-mobile) {
+        width: auto;
+      }
+
+      li {
+        &:first-child {
+          margin-right: var(--kui-space-auto, $kui-space-auto);
+
+          @media (min-width: $kui-breakpoint-mobile) {
+            margin-right: var(--kui-space-0, $kui-space-0);
+          }
+        }
+
+        &:last-child {
+          margin-left: var(--kui-space-auto, $kui-space-auto);
+
+          @media (min-width: $kui-breakpoint-mobile) {
+            margin-right: var(--kui-space-0, $kui-space-0);
+          }
+        }
+      }
+    }
+
+    .page-size-select {
+      align-items: center;
+      display: flex;
+      gap: var(--kui-space-20, $kui-space-20);
+      justify-content: space-between;
+      width: 100%;
+
+      @media (min-width: $kui-breakpoint-mobile) {
+        width: auto;
+      }
+    }
+  }
+
+  .pagination-text,
+  .pagination-text-mobile {
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
     font-size: var(--kui-font-size-30, $kui-font-size-30);
     font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
