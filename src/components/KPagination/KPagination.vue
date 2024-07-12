@@ -251,10 +251,13 @@ const hasOverflow = async (): Promise<boolean> => {
 const fixOverflow = async (): Promise<void> => {
   const overflowDetected = await hasOverflow()
 
+  // if overflow detected and we can reduce the number of neighbors or sequential items visible
   if (overflowDetected && (fittingNeighbors.value > 1 || sequentialItemsVisible.value > 1)) {
+    // first reduce the number of neighbors till we reach the minimum
     if (fittingNeighbors.value > 1) {
       fittingNeighbors.value--
     } else if (sequentialItemsVisible.value > 1) {
+      // if we still have overflow, reduce the number of sequential items visible till we reach the minimum
       sequentialItemsVisible.value--
     }
 
@@ -268,6 +271,10 @@ const getVisiblePages = (currPage: number, pageCount: number, firstDetached: boo
   }
 
   let pages = [...Array(pageCount).keys()].map((n) => n + 1)
+  // KPagination will attempt to display at least five sequential items (e.g. [1, 2, 3, 4, 5, ..., 10])
+  // However if there is not enough space, it will reduce the number of sequential items visible to a minimum of 3
+  // and display fitting number of neighbors (e.g. [1, 2, 3, ..., 10])
+  // going even lower than 3 sequential items visible is not recommended as it might make the pagination hard to navigate
   const visiblePages = (sequentialItemsVisible.value + 2) + (2 * fittingNeighbors.value)
 
   // All pages fit on one screen
