@@ -70,8 +70,8 @@ importers:
         specifier: ^1.6.18
         version: 1.6.18
       '@kong-ui-public/sandbox-layout':
-        specifier: ^2.1.13
-        version: 2.1.13(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5))
+        specifier: ^2.1.14
+        version: 2.1.14(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5))
       '@kong/design-tokens':
         specifier: ^1.15.1
         version: 1.15.1
@@ -785,7 +785,6 @@ packages:
 
   '@evilmartians/lefthook@1.6.18':
     resolution: {integrity: sha512-nvJ1uYgz/F1DbykTMIiI2nUZctVmijUYkqdGqmGkrL0ImEKFjWxk1jZg6pULJ5vWxsArfUFJiFuOhUnUhyMbig==}
-    cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -835,8 +834,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@kong-ui-public/sandbox-layout@2.1.13':
-    resolution: {integrity: sha512-HTENcSSNPWKi95u59v2p758V/ilNUxFJ/iG665U04+Yb52qI2EBatjIsmfKTdMyOdZ9YjFsKFJnKai59xMceTA==}
+  '@kong-ui-public/sandbox-layout@2.1.14':
+    resolution: {integrity: sha512-Jw9FcSfJObdydmiLqwZkx9w71NHBRlI+Dhdewy9MP36D0UMU6lkQbR0e6/6MDYL/Wo3EFd2L5Fl5xbGH/+IJRg==}
     peerDependencies:
       '@kong/kongponents': ^9.0.8
       vue: '>= 3.3.13 < 4'
@@ -5325,7 +5324,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  '@kong-ui-public/sandbox-layout@2.1.13(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5))':
+  '@kong-ui-public/sandbox-layout@2.1.14(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5))':
     dependencies:
       '@kong/icons': 1.14.2(vue@3.4.31(typescript@5.4.5))
       '@kong/kongponents': 9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5))
