@@ -2,7 +2,7 @@
   <nav
     ref="kPaginationElement"
     class="k-pagination"
-    :class="{ 'full': !disablePageJump && !offset }"
+    :class="{ 'page-jump': !disablePageJump && !offset }"
     data-testid="k-pagination"
   >
     <template v-if="!offset">
@@ -437,10 +437,14 @@ onUnmounted(() => {
   font-family: var(--kui-font-family-text, $kui-font-family-text);
   justify-content: space-between;
   margin-top: var(--kui-space-20, $kui-space-20);
-  padding: var(--kui-space-20, $kui-space-20);
+  padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
   width: 100%;
 
-  &.full {
+  @media (min-width: $kui-breakpoint-mobile) {
+    padding: var(--kui-space-20, $kui-space-20);
+  }
+
+  &.page-jump {
     flex-direction: column;
     gap: var(--kui-space-50, $kui-space-50);
 
