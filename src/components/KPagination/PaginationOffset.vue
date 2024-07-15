@@ -7,7 +7,7 @@
       data-testid="previous-button"
       :disabled="previousButtonDisabled"
       icon
-      :size="isMobile ? 'small' : 'medium'"
+      :size="isWideScreen ? 'medium' : 'small'"
       type="button"
       @click.prevent="emit('getPreviousOffset')"
     >
