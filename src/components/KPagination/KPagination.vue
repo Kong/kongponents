@@ -530,9 +530,14 @@ onUnmounted(() => {
     .pagination-button {
       // styles for the arrow and page number buttons
       // since arrow uses KButton, it takes care of certain styles
-      height: 32px;
-      min-width: 32px;
-      padding: var(--kui-space-30, $kui-space-30);
+      height: 28px;
+      min-width: 28px;
+
+      @media (min-width: $kui-breakpoint-mobile) {
+        height: 32px;
+        min-width: 32px;
+        padding: var(--kui-space-30, $kui-space-30);
+      }
 
       &:not(.arrow) {
         background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
@@ -540,10 +545,15 @@ onUnmounted(() => {
         border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
         color: var(--kui-color-text-primary, $kui-color-text-primary);
         cursor: pointer;
-        font-size: var(--kui-font-size-30, $kui-font-size-30);
+        font-size: var(--kui-font-size-20, $kui-font-size-20);
         font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-        line-height: var(--kui-line-height-30, $kui-line-height-30);
+        line-height: var(--kui-line-height-20, $kui-line-height-20);
         transition: background-color $kongponentsTransitionDurTimingFunc border-color $kongponentsTransitionDurTimingFunc;
+
+        @media (min-width: $kui-breakpoint-mobile) {
+          font-size: var(--kui-font-size-30, $kui-font-size-30);
+          line-height: var(--kui-line-height-30, $kui-line-height-30);
+        }
 
         &:hover:not(.placeholder),
         &:focus:not(.placeholder) {
@@ -564,6 +574,18 @@ onUnmounted(() => {
         &.active {
           background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
           border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+        }
+      }
+
+      &.arrow {
+        .pagination-arrow-icon {
+          height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+          width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+
+          @media (min-width: $kui-breakpoint-mobile) {
+            height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+            width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+          }
         }
       }
     }
