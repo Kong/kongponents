@@ -742,10 +742,10 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
 
     &.hide-model-value {
       :deep(input) {
-        color: transparent;
+        color: transparent !important;
 
         &::placeholder {
-          color: transparent;
+          color: transparent !important;
         }
       }
     }
