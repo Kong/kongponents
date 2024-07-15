@@ -1,3 +1,10 @@
+## [9.0.11](https://github.com/Kong/kongponents/compare/v9.0.10...v9.0.11) (2024-07-15)
+
+
+### Bug Fixes
+
+* **kselect:** custom selected item template model value ([#2281](https://github.com/Kong/kongponents/issues/2281)) ([6ae0b04](https://github.com/Kong/kongponents/commit/6ae0b047d86f49de17a81e199b49516cde22d744))
+
 ## [9.0.10](https://github.com/Kong/kongponents/compare/v9.0.9...v9.0.10) (2024-07-11)
 
 
