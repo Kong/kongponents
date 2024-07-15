@@ -157,3 +157,7 @@ Next, ensure the `tsconfig.json` of your host application is set up to properly 
   ]
 }
 ```
+
+## Icons
+
+Kongponents sources all icons from [@kong/icons](https://github.com/Kong/icons) library. If you wish to use standalone icons in your project please refer to the documentation for instructions.
