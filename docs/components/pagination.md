@@ -79,7 +79,7 @@ A number that sets the neighboring pages visible to the left and right of the ce
 <KPagination :neighbors="2" :total-count="1000" />
 ```
 
-If KPagination detects horizontal overflow it will automatically reduce number of displayed neighbors down to a number at which it fits into the parent container without overflowing, ignoring the value provided through `neighbors` prop. It will always display at least 1 neighbor. See the example below where value passed through the `neighbors` prop is unreasonably high but KPagination only displays as many items as it can without overflowing.
+If KPagination detects horizontal overflow it will automatically reduce number of displayed neighbors down to a number at which it fits into the parent container without overflowing, ignoring the value provided through `neighbors` prop. It will always display at least 1 neighbor. See the example below where value passed through the `neighbors` prop is unreasonably high but KPagination only displays as many items as it can fit in without overflowing.
 
 <KPagination :neighbors="20" :total-count="1000" />
 
