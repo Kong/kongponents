@@ -8,6 +8,7 @@
     <template v-if="!offset">
       <!-- hidden on mobile (below kui-breakpoint-mobile) -->
       <span
+        v-if="isWideScreen"
         class="pagination-text"
         data-testid="visible-items"
       >
@@ -17,24 +18,6 @@
 
       <ul class="pagination-button-container">
         <li>
-          <!-- hidden on large (above kui-breakpoint-mobile) -->
-          <KButton
-            appearance="tertiary"
-            aria-label="Go to the previous page"
-            class="pagination-button arrow mobile"
-            data-testid="previous-button"
-            :disabled="backDisabled"
-            icon
-            size="small"
-            type="button"
-            @click="pageBack"
-          >
-            <BackIcon
-              class="pagination-arrow-icon"
-              decorative
-            />
-          </KButton>
-          <!-- hidden on mobile (below kui-breakpoint-mobile) -->
           <KButton
             appearance="tertiary"
             aria-label="Go to the previous page"
@@ -42,6 +25,7 @@
             data-testid="previous-button"
             :disabled="backDisabled"
             icon
+            :size="isWideScreen ? 'medium' : 'small'"
             type="button"
             @click="pageBack"
           >
@@ -102,24 +86,6 @@
           </button>
         </li>
         <li>
-          <!-- hidden on large (above kui-breakpoint-mobile) -->
-          <KButton
-            appearance="tertiary"
-            aria-label="Go to the next page"
-            class="pagination-button arrow mobile"
-            data-testid="next-button"
-            :disabled="forwardDisabled ? true : undefined"
-            icon
-            size="small"
-            type="button"
-            @click="pageForward"
-          >
-            <ForwardIcon
-              class="pagination-arrow-icon"
-              decorative
-            />
-          </KButton>
-          <!-- hidden on mobile (below kui-breakpoint-mobile) -->
           <KButton
             appearance="tertiary"
             aria-label="Go to the next page"
@@ -127,6 +93,7 @@
             data-testid="next-button"
             :disabled="forwardDisabled ? true : undefined"
             icon
+            :size="isWideScreen ? 'medium' : 'small'"
             type="button"
             @click="pageForward"
           >
@@ -148,8 +115,8 @@
     <div class="page-size-select">
       <!-- hidden on large (above kui-breakpoint-mobile) -->
       <span
-        v-if="!disablePageJump && !offset"
-        class="pagination-text-mobile"
+        v-if="!isWideScreen && !disablePageJump && !offset"
+        class="pagination-text"
         data-testid="visible-items"
       >
         <span class="pagination-text-pages">{{ pagesString }}</span>
@@ -165,29 +132,12 @@
         selection-menu
         @change="updatePageSize"
       >
-        <!-- hidden on large (above kui-breakpoint-mobile) -->
-        <KButton
-          appearance="tertiary"
-          class="page-size-dropdown-trigger-mobile"
-          data-testid="page-size-dropdown-trigger"
-          :disabled="pageSizeOptions.length <= 1"
-          size="small"
-          type="button"
-        >
-          {{ pageSizeText }}
-
-          <ChevronDownIcon
-            v-if="pageSizeOptions.length > 1"
-            decorative
-          />
-        </KButton>
-
-        <!-- hidden on mobile (below kui-breakpoint-mobile) -->
         <KButton
           appearance="tertiary"
           class="page-size-dropdown-trigger"
           data-testid="page-size-dropdown-trigger"
           :disabled="pageSizeOptions.length <= 1"
+          :size="isWideScreen ? 'medium' : 'small'"
           type="button"
         >
           {{ pageSizeText }}
@@ -211,6 +161,8 @@ import PaginationOffset from './PaginationOffset.vue'
 import type { PageSizeChangeData, PageChangeData, DropdownItem } from '@/types'
 import { BackIcon, ForwardIcon, ChevronDownIcon } from '@kong/icons'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
+import { useMediaQuery } from '@vueuse/core'
+import { KUI_BREAKPOINT_MOBILE } from '@kong/design-tokens'
 
 const kpopAttrs = {
   placement: 'top',
@@ -273,6 +225,8 @@ const emit = defineEmits<{
 
 const kPaginationElement = ref<HTMLElement | null>(null)
 const resizeObserver = ref<ResizeObserverHelper>()
+
+const isWideScreen = useMediaQuery(`(min-width: ${KUI_BREAKPOINT_MOBILE})`)
 
 const currPage: Ref<number> = ref(props.currentPage ? props.currentPage : 1)
 const currentPageSize: Ref<number> = ref(props.initialPageSize ? props.initialPageSize : props.pageSizes[0])
@@ -508,20 +462,6 @@ onUnmounted(() => {
       flex-direction: row;
     }
 
-    .pagination-text {
-      display: none;
-
-      &-mobile {
-        @media (min-width: $kui-breakpoint-mobile) {
-          display: none;
-        }
-      }
-
-      @media (min-width: $kui-breakpoint-mobile) {
-        display: block;
-      }
-    }
-
     .pagination-button-container {
       width: calc(100% - 8px); // 8px is so that box-shadow doesn't get cut off in focus-visible
 
@@ -561,8 +501,7 @@ onUnmounted(() => {
     }
   }
 
-  .pagination-text,
-  .pagination-text-mobile {
+  .pagination-text {
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
@@ -637,22 +576,6 @@ onUnmounted(() => {
           border-color: var(--kui-color-border-primary, $kui-color-border-primary);
         }
       }
-
-      &.arrow {
-        &:not(.mobile) {
-          display: none;
-
-          @media (min-width: $kui-breakpoint-mobile) {
-            display: flex;
-          }
-        }
-
-        &.mobile {
-          @media (min-width: $kui-breakpoint-mobile) {
-            display: none;
-          }
-        }
-      }
     }
   }
 
@@ -660,20 +583,6 @@ onUnmounted(() => {
     .page-size-dropdown {
       margin-left: var(--kui-space-30, $kui-space-30);
       margin-right: var(--kui-space-20, $kui-space-20); // need little spacing on the right so that box-shadow doesn't get cut off in focus-visible
-
-      .page-size-dropdown-trigger {
-        display: none;
-
-        &-mobile {
-          @media (min-width: $kui-breakpoint-mobile) {
-            display: none;
-          }
-        }
-
-        @media (min-width: $kui-breakpoint-mobile) {
-          display: flex;
-        }
-      }
 
       :deep(.popover-content) {
         border-bottom-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
