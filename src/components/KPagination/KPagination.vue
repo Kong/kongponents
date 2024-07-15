@@ -6,6 +6,7 @@
     data-testid="k-pagination"
   >
     <template v-if="!offset">
+      <!-- hidden on mobile (below kui-breakpoint-mobile) -->
       <span
         class="pagination-text"
         data-testid="visible-items"
@@ -13,14 +14,34 @@
         <span class="pagination-text-pages">{{ pagesString }}</span>
         {{ pageCountString }}
       </span>
+
       <ul class="pagination-button-container">
         <li>
+          <!-- hidden on large (above kui-breakpoint-mobile) -->
+          <KButton
+            appearance="tertiary"
+            aria-label="Go to the previous page"
+            class="pagination-button arrow mobile"
+            data-testid="previous-button"
+            :disabled="backDisabled"
+            icon
+            size="small"
+            type="button"
+            @click="pageBack"
+          >
+            <BackIcon
+              class="pagination-arrow-icon"
+              decorative
+            />
+          </KButton>
+          <!-- hidden on mobile (below kui-breakpoint-mobile) -->
           <KButton
             appearance="tertiary"
             aria-label="Go to the previous page"
             class="pagination-button arrow"
             data-testid="previous-button"
             :disabled="backDisabled"
+            icon
             type="button"
             @click="pageBack"
           >
@@ -81,12 +102,31 @@
           </button>
         </li>
         <li>
+          <!-- hidden on large (above kui-breakpoint-mobile) -->
+          <KButton
+            appearance="tertiary"
+            aria-label="Go to the next page"
+            class="pagination-button arrow mobile"
+            data-testid="next-button"
+            :disabled="forwardDisabled ? true : undefined"
+            icon
+            size="small"
+            type="button"
+            @click="pageForward"
+          >
+            <ForwardIcon
+              class="pagination-arrow-icon"
+              decorative
+            />
+          </KButton>
+          <!-- hidden on mobile (below kui-breakpoint-mobile) -->
           <KButton
             appearance="tertiary"
             aria-label="Go to the next page"
             class="pagination-button arrow"
             data-testid="next-button"
             :disabled="forwardDisabled ? true : undefined"
+            icon
             type="button"
             @click="pageForward"
           >
@@ -106,6 +146,7 @@
       @get-previous-offset="getPreviousOffset"
     />
     <div class="page-size-select">
+      <!-- hidden on large (above kui-breakpoint-mobile) -->
       <span
         v-if="!disablePageJump && !offset"
         class="pagination-text-mobile"
@@ -124,8 +165,27 @@
         selection-menu
         @change="updatePageSize"
       >
+        <!-- hidden on large (above kui-breakpoint-mobile) -->
         <KButton
           appearance="tertiary"
+          class="page-size-dropdown-trigger-mobile"
+          data-testid="page-size-dropdown-trigger"
+          :disabled="pageSizeOptions.length <= 1"
+          size="small"
+          type="button"
+        >
+          {{ pageSizeText }}
+
+          <ChevronDownIcon
+            v-if="pageSizeOptions.length > 1"
+            decorative
+          />
+        </KButton>
+
+        <!-- hidden on mobile (below kui-breakpoint-mobile) -->
+        <KButton
+          appearance="tertiary"
+          class="page-size-dropdown-trigger"
           data-testid="page-size-dropdown-trigger"
           :disabled="pageSizeOptions.length <= 1"
           type="button"
@@ -440,10 +500,6 @@ onUnmounted(() => {
   padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
   width: 100%;
 
-  @media (min-width: $kui-breakpoint-phablet) {
-    padding: var(--kui-space-20, $kui-space-20);
-  }
-
   &.page-jump {
     flex-direction: column;
     gap: var(--kui-space-50, $kui-space-50);
@@ -455,19 +511,19 @@ onUnmounted(() => {
     .pagination-text {
       display: none;
 
+      &-mobile {
+        @media (min-width: $kui-breakpoint-mobile) {
+          display: none;
+        }
+      }
+
       @media (min-width: $kui-breakpoint-mobile) {
         display: block;
       }
     }
 
-    .pagination-text-mobile {
-      @media (min-width: $kui-breakpoint-mobile) {
-        display: none;
-      }
-    }
-
     .pagination-button-container {
-      width: 100%;
+      width: calc(100% - 8px); // 8px is so that box-shadow doesn't get cut off in focus-visible
 
       @media (min-width: $kui-breakpoint-mobile) {
         width: auto;
@@ -508,11 +564,16 @@ onUnmounted(() => {
   .pagination-text,
   .pagination-text-mobile {
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-    font-size: var(--kui-font-size-30, $kui-font-size-30);
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
     font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
-    line-height: var(--kui-line-height-30, $kui-line-height-30);
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
     min-width: 125px; // to prevent jumping when the text changes
     white-space: nowrap;
+
+    @media (min-width: $kui-breakpoint-mobile) {
+      font-size: var(--kui-font-size-30, $kui-font-size-30);
+      line-height: var(--kui-line-height-30, $kui-line-height-30);
+    }
 
     .pagination-text-pages {
       color: var(--kui-color-text, $kui-color-text);
@@ -536,7 +597,6 @@ onUnmounted(() => {
       @media (min-width: $kui-breakpoint-mobile) {
         height: 32px;
         min-width: 32px;
-        padding: var(--kui-space-30, $kui-space-30);
       }
 
       &:not(.arrow) {
@@ -553,6 +613,7 @@ onUnmounted(() => {
         @media (min-width: $kui-breakpoint-mobile) {
           font-size: var(--kui-font-size-30, $kui-font-size-30);
           line-height: var(--kui-line-height-30, $kui-line-height-30);
+          padding: var(--kui-space-30, $kui-space-30);
         }
 
         &:hover:not(.placeholder),
@@ -578,13 +639,17 @@ onUnmounted(() => {
       }
 
       &.arrow {
-        .pagination-arrow-icon {
-          height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
-          width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+        &:not(.mobile) {
+          display: none;
 
           @media (min-width: $kui-breakpoint-mobile) {
-            height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
-            width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+            display: flex;
+          }
+        }
+
+        &.mobile {
+          @media (min-width: $kui-breakpoint-mobile) {
+            display: none;
           }
         }
       }
@@ -594,6 +659,21 @@ onUnmounted(() => {
   .page-size-select {
     .page-size-dropdown {
       margin-left: var(--kui-space-30, $kui-space-30);
+      margin-right: var(--kui-space-20, $kui-space-20); // need little spacing on the right so that box-shadow doesn't get cut off in focus-visible
+
+      .page-size-dropdown-trigger {
+        display: none;
+
+        &-mobile {
+          @media (min-width: $kui-breakpoint-mobile) {
+            display: none;
+          }
+        }
+
+        @media (min-width: $kui-breakpoint-mobile) {
+          display: flex;
+        }
+      }
 
       :deep(.popover-content) {
         border-bottom-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
