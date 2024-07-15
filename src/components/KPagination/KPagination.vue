@@ -6,7 +6,6 @@
     data-testid="k-pagination"
   >
     <template v-if="!offset">
-      <!-- hidden on mobile (below kui-breakpoint-mobile) -->
       <span
         v-if="isWideScreen"
         class="pagination-text"
@@ -113,7 +112,6 @@
       @get-previous-offset="getPreviousOffset"
     />
     <div class="page-size-select">
-      <!-- hidden on large (above kui-breakpoint-mobile) -->
       <span
         v-if="!isWideScreen && !disablePageJump && !offset"
         class="pagination-text"
