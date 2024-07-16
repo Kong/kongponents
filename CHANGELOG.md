@@ -1,3 +1,10 @@
+## [9.0.15](https://github.com/Kong/kongponents/compare/v9.0.14...v9.0.15) (2024-07-16)
+
+
+### Bug Fixes
+
+* **kskeleton:** box sizing ([#2286](https://github.com/Kong/kongponents/issues/2286)) ([94b2330](https://github.com/Kong/kongponents/commit/94b23301e08f6d1645708a180cdb040935666440))
+
 ## [9.0.14](https://github.com/Kong/kongponents/compare/v9.0.13...v9.0.14) (2024-07-16)
 
 
