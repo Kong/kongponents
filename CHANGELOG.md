@@ -1,3 +1,11 @@
+## [9.0.13](https://github.com/Kong/kongponents/compare/v9.0.12...v9.0.13) (2024-07-16)
+
+
+### Bug Fixes
+
+* **kpagination:** detect and fix overflow [KHCP-10930] ([#2277](https://github.com/Kong/kongponents/issues/2277)) ([13dd7ad](https://github.com/Kong/kongponents/commit/13dd7ad9177fd7065273cb7c64ee58ea5809ec38))
+* **kselect:** blur input on click ([#2282](https://github.com/Kong/kongponents/issues/2282)) ([cf92ae7](https://github.com/Kong/kongponents/commit/cf92ae7f093c81434fd329beb0756454f430aad6))
+
 ## [9.0.12](https://github.com/Kong/kongponents/compare/v9.0.11...v9.0.12) (2024-07-16)
 
 
