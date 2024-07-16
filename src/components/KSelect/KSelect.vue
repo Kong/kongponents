@@ -45,9 +45,7 @@
             autocapitalize="off"
             autocomplete="off"
             class="select-input"
-            :class="{ 'filtering-disabled': !enableFiltering,
-                      'hide-model-value': hasCustomSelectedItem && (!enableFiltering || !isToggled.value)
-            }"
+            :class="{ 'filtering-disabled': !enableFiltering, 'hide-model-value': hasCustomSelectedItem && (!enableFiltering || !isToggled.value), 'input-has-focus': inputFocused || isToggled.value }"
             data-testid="select-input"
             :disabled="isDisabled"
             :error="error"
@@ -56,6 +54,7 @@
             :readonly="isReadonly"
             v-bind="attrs.id ? { id: String(attrs.id), ...modifiedAttrs } : { ...modifiedAttrs }"
             @blur="onInputBlur"
+            @click="onInputClick"
             @focus="onInputFocus"
             @keypress="onInputKeypress"
             @keyup="(evt: any) => triggerFocus(evt, isToggled)"
@@ -554,6 +553,14 @@ const onInputBlur = (): void => {
   inputFocused.value = false
 }
 
+const onInputClick = (): void => {
+  // If filtering is not enabled, the internal KInput still steals focus when clicked.
+  // This will blur the input and prevent the keyboard from activating on mobile.
+  if (!props.enableFiltering) {
+    inputElement.value?.$el?.querySelector('input')?.blur()
+  }
+}
+
 const onSelectWrapperClick = (event: Event): void => {
   /**
    * The component is designed so that most of the time it propagates click events
@@ -747,6 +754,12 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
         &::placeholder {
           color: transparent !important;
         }
+      }
+    }
+
+    &.input-has-focus {
+      :deep(input) {
+        @include inputFocus;
       }
     }
   }
