@@ -45,9 +45,7 @@
             autocapitalize="off"
             autocomplete="off"
             class="select-input"
-            :class="{ 'filtering-disabled': !enableFiltering,
-                      'hide-model-value': hasCustomSelectedItem && (!enableFiltering || !isToggled.value)
-            }"
+            :class="{ 'filtering-disabled': !enableFiltering, 'hide-model-value': hasCustomSelectedItem && (!enableFiltering || !isToggled.value) }"
             data-testid="select-input"
             :disabled="isDisabled"
             :error="error"
@@ -56,6 +54,7 @@
             :readonly="isReadonly"
             v-bind="attrs.id ? { id: String(attrs.id), ...modifiedAttrs } : { ...modifiedAttrs }"
             @blur="onInputBlur"
+            @click="onInputClick"
             @focus="onInputFocus"
             @keypress="onInputKeypress"
             @keyup="(evt: any) => triggerFocus(evt, isToggled)"
@@ -552,6 +551,12 @@ const onInputFocus = (): void => {
 
 const onInputBlur = (): void => {
   inputFocused.value = false
+}
+
+const onInputClick = (): void => {
+  if (!props.enableFiltering) {
+    inputElement.value?.$el?.querySelector('input')?.blur()
+  }
 }
 
 const onSelectWrapperClick = (event: Event): void => {
