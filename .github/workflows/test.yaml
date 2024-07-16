@@ -17,15 +17,6 @@ on:
 
   # Allow workflow to be called by another workflow
   workflow_call:
-    # Must define secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
-    secrets:
-      # Normally, this should not be passed as Percy should only run on PR
-      PERCY_TOKEN:
-        description: 'The PERCY_TOKEN passed from the caller workflow as it is not available within workflow_call.'
-        required: true
-      PREVENT_PERCY_TESTS:
-        description: 'Pass false to prevent the Percy visual regression tests from running.'
-        required: true
 
 jobs:
   test:
@@ -60,6 +51,16 @@ jobs:
 
       - name: Build components and docs
         run: pnpm build:ci
+
+      # Upload artifact for `publish` workflow if this is a push event
+      - name: Upload build artifacts
+        if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: kongponents-ci-build-output-artifact
+          path: |
+            dist
+            docs/.vitepress/dist
 
       - name: Publish Package Preview
         id: package-preview
