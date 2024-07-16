@@ -6,17 +6,22 @@
       class="pagination-button"
       data-testid="previous-button"
       :disabled="previousButtonDisabled"
+      icon
+      :size="isWideScreen ? 'medium' : 'small'"
       type="button"
       @click.prevent="emit('getPreviousOffset')"
     >
       <BackIcon decorative />
     </KButton>
+
     <KButton
       appearance="tertiary"
       aria-label="Go to the next page"
       class="pagination-button"
       data-testid="next-button"
       :disabled="nextButtonDisabled"
+      icon
+      :size="isWideScreen ? 'medium' : 'small'"
       type="button"
       @click.prevent="emit('getNextOffset')"
     >
@@ -27,6 +32,8 @@
 
 <script setup lang="ts">
 import { BackIcon, ForwardIcon } from '@kong/icons'
+import { useMediaQuery } from '@vueuse/core'
+import { KUI_BREAKPOINT_MOBILE } from '@kong/design-tokens'
 
 defineProps({
   previousButtonDisabled: {
@@ -43,15 +50,14 @@ const emit = defineEmits<{
   (e: 'getPreviousOffset'): void
   (e: 'getNextOffset'): void
 }>()
+
+const isWideScreen = useMediaQuery(`(min-width: ${KUI_BREAKPOINT_MOBILE})`)
 </script>
 
 <style lang="scss" scoped>
 .pagination-offset-button-container {
   display: flex;
   gap: var(--kui-space-40, $kui-space-40);
-
-  .pagination-button {
-    padding: var(--kui-space-30, $kui-space-30);
-  }
+  margin-left: var(--kui-space-20, $kui-space-20); // need little spacing on the left so that box-shadow doesn't get cut off in focus-visible
 }
 </style>

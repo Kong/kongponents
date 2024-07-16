@@ -742,7 +742,7 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
   .select-input {
     &.filtering-disabled {
       :deep(input:not([disabled])) {
-        caret-color: transparent;
+        caret-color: transparent !important;
         cursor: pointer;
       }
     }
