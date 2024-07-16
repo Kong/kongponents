@@ -234,6 +234,11 @@ const widthStyle = computed((): Record<string, string> => {
   }
 })
 
+defineExpose({
+  toggle: handleToggleClick,
+  truncatedCount,
+})
+
 onMounted(() => {
   resizeObserver.value = ResizeObserverHelper.create(setWrapperHeight)
 
