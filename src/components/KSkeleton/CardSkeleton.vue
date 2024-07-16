@@ -80,6 +80,7 @@ const cardMaxWidth = computed((): string => {
   .skeleton-card {
     border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: var(--kui-space-90, $kui-space-90);
