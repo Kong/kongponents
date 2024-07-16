@@ -7,6 +7,10 @@ on:
       - alpha
       - beta
 
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   get-changed-files:
     name: Get Changed Files
@@ -17,11 +21,6 @@ jobs:
     needs:
       - get-changed-files
     uses: ./.github/workflows/test.yaml
-    # Must pass in secrets here so that the calling workflow can pass in the NPM_TOKEN needed to install private packages.
-    secrets:
-      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-      # We MUST run Percy tests on publish to update our baseline images
-      PREVENT_PERCY_TESTS: 'false'
 
   publish:
       name: Build and Publish Kongponents
@@ -52,8 +51,13 @@ jobs:
         - name: Setup PNPM with Dependencies
           uses: ./.github/actions/setup-pnpm-with-dependencies/
 
-        - name: Build
-          run: pnpm build:kongponents
+        - name: Download Build Artifacts
+          uses: actions/download-artifact@v4
+          with:
+            name: kongponents-ci-build-output-artifact
+            path: |
+              dist
+              docs/.vitepress/dist
 
         - name: Semantic Release
           uses: cycjimmy/semantic-release-action@v4
