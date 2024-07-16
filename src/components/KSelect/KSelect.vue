@@ -45,7 +45,7 @@
             autocapitalize="off"
             autocomplete="off"
             class="select-input"
-            :class="{ 'filtering-disabled': !enableFiltering, 'hide-model-value': hasCustomSelectedItem && (!enableFiltering || !isToggled.value) }"
+            :class="{ 'filtering-disabled': !enableFiltering, 'hide-model-value': hasCustomSelectedItem && (!enableFiltering || !isToggled.value), 'input-has-focus': inputFocused || isToggled.value }"
             data-testid="select-input"
             :disabled="isDisabled"
             :error="error"
@@ -754,6 +754,12 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
         &::placeholder {
           color: transparent !important;
         }
+      }
+    }
+
+    &.input-has-focus {
+      :deep(input) {
+        @include inputFocus;
       }
     }
   }
