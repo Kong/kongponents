@@ -1,3 +1,10 @@
+## [9.0.14](https://github.com/Kong/kongponents/compare/v9.0.13...v9.0.14) (2024-07-16)
+
+
+### Bug Fixes
+
+* trigger ci ([#2284](https://github.com/Kong/kongponents/issues/2284)) ([02e72e9](https://github.com/Kong/kongponents/commit/02e72e9fa2569e8f7e2b624a58d3dd4902f5e7c5))
+
 ## [9.0.13](https://github.com/Kong/kongponents/compare/v9.0.12...v9.0.13) (2024-07-16)
 
 
