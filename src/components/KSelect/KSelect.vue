@@ -554,7 +554,7 @@ const onInputBlur = (): void => {
 }
 
 const onInputClick = (): void => {
-  // If filtering is not enabled, the internal KInput still steals focus when clicked.
+  // If filtering is not enabled, the internal KInput activates the keyboard on mobile when clicked even though it's not needed.
   // This will blur the input and prevent the keyboard from activating on mobile.
   if (!props.enableFiltering) {
     inputElement.value?.$el?.querySelector('input')?.blur()
