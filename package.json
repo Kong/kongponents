@@ -53,7 +53,7 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "@floating-ui/vue": "^1.1.0",
+    "@floating-ui/vue": "^1.1.1",
     "@kong/icons": "^1.14.3",
     "@popperjs/core": "^2.11.8",
     "date-fns": "^2.30.0",
@@ -86,7 +86,7 @@
     "@semantic-release/git": "^10.0.1",
     "@stylistic/stylelint-plugin": "^2.1.2",
     "@types/inquirer": "^9.0.7",
-    "@types/node": "^20.14.9",
+    "@types/node": "^20.14.10",
     "@types/sortablejs": "^1.15.8",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vue/compiler-core": "^3.4.31",
@@ -109,7 +109,7 @@
     "postcss-cli": "^11.0.0",
     "postcss-custom-properties": "^13.3.11",
     "postcss-html": "^1.7.0",
-    "rimraf": "^5.0.7",
+    "rimraf": "^5.0.8",
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.77.6",
     "semantic-release": "^24.0.0",
@@ -121,12 +121,12 @@
     "stylelint-order": "^6.0.4",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.4.5",
-    "vite": "^5.3.2",
+    "vite": "^5.3.3",
     "vite-plugin-vue-devtools": "^7.2.1",
     "vitepress": "^1.2.3",
     "vue": "^3.4.31",
     "vue-router": "^4.3.3",
-    "vue-tsc": "^2.0.24"
+    "vue-tsc": "^2.0.26"
   },
   "resolutions": {
     "rollup": "npm:@rollup/wasm-node"
