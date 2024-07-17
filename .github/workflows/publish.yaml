@@ -55,11 +55,6 @@ jobs:
           uses: actions/download-artifact@v4
           with:
             name: kongponents-ci-build-output-artifact
-            path: |
-              dist/**
-              ./package.json
-              ./README.md
-              ./LICENSE
 
         - name: Semantic Release
           uses: cycjimmy/semantic-release-action@v4

@@ -22,7 +22,7 @@ export default class ToastManager {
   constructor(options?: ToasterOptions) {
     // For SSR, prevents failing on the build)
     if (typeof document === 'undefined') {
-      console.warn('ToastManager should only be initialized in a browser environment. Docs: https://kongponents.konghq.com/components/toaster.html')
+      console.warn('ToastManager should only be initialized in the browser environment. Docs: https://kongponents.konghq.com/components/toaster.html')
 
       return
     }
