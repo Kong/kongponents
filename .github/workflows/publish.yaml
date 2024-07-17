@@ -56,8 +56,10 @@ jobs:
           with:
             name: kongponents-ci-build-output-artifact
             path: |
-              dist
-              docs/.vitepress/dist
+              dist/**
+              ./package.json
+              ./README.md
+              ./LICENSE
 
         - name: Semantic Release
           uses: cycjimmy/semantic-release-action@v4
