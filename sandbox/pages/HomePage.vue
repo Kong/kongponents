@@ -19,25 +19,5 @@
 </template>
 
 <script setup lang="ts">
-import { inject, onMounted, onUnmounted, ref } from 'vue'
-import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
-
-const resizeObserverContainer = ref<HTMLElement | null>(null)
-const resizeObserver = ref<ResizeObserverHelper>()
-
-const onResizeCallback = () => {
-  const elWidth = resizeObserverContainer.value?.offsetWidth
-  if (resizeObserverContainer.value) {
-    resizeObserverContainer.value.style.width = `${elWidth! + 10}px`
-  }
-}
-
-onMounted(() => {
-  resizeObserver.value = ResizeObserverHelper.create(onResizeCallback)
-  resizeObserver.value.observe(resizeObserverContainer.value as HTMLDivElement)
-})
-
-onUnmounted(() => {
-  resizeObserver.value?.unobserve(resizeObserverContainer.value as HTMLDivElement)
-})
+import { inject } from 'vue'
 </script>

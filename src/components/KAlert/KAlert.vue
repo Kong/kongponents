@@ -42,16 +42,20 @@
       @keyup.enter="$emit('dismiss')"
       @keyup.space="$emit('dismiss')"
     />
+    <div ref="resizeObserverContainer">
+      Resize Observer
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import type { PropType } from 'vue'
 import type { AlertAppearance } from '@/types'
 import { AlertAppearances } from '@/types'
 import { InfoIcon, CheckCircleIcon, WarningIcon, ClearIcon, CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 
 type AlertIcon = typeof InfoIcon // all icons are the same type so we can use any of them
 
@@ -96,6 +100,27 @@ const getAlertIcon = computed((): AlertIcon => {
     default:
       return InfoIcon // info as default in case of invalid appearance
   }
+})
+
+
+const resizeObserverContainer = ref<HTMLElement | null>(null)
+const resizeObserver = ref<ResizeObserverHelper>()
+
+const onResizeCallback = () => {
+  const elWidth = resizeObserverContainer.value?.offsetWidth
+
+  if (resizeObserverContainer.value) {
+    resizeObserverContainer.value.style.width = `${elWidth! + 10}px`
+  }
+}
+
+onMounted(() => {
+  resizeObserver.value = ResizeObserverHelper.create(onResizeCallback)
+  resizeObserver.value.observe(resizeObserverContainer.value as HTMLDivElement)
+})
+
+onUnmounted(() => {
+  resizeObserver.value?.unobserve(resizeObserverContainer.value as HTMLDivElement)
 })
 </script>
 
