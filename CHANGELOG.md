@@ -1,3 +1,10 @@
+## [9.0.17](https://github.com/Kong/kongponents/compare/v9.0.16...v9.0.17) (2024-07-17)
+
+
+### Bug Fixes
+
+* **artifacts:** include dist artifacts ([c7fd644](https://github.com/Kong/kongponents/commit/c7fd644027ff30d94b7950acf8369a9fe1074585))
+
 ## [9.0.16](https://github.com/Kong/kongponents/compare/v9.0.15...v9.0.16) (2024-07-17)
 
 
