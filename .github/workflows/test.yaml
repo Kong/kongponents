@@ -59,8 +59,10 @@ jobs:
         with:
           name: kongponents-ci-build-output-artifact
           path: |
-            dist
-            docs/.vitepress/dist
+            dist/**
+            ./package.json
+            ./README.md
+            ./LICENSE
 
       - name: Publish Package Preview
         id: package-preview
