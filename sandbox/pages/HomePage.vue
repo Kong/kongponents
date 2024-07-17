@@ -11,9 +11,6 @@
       <p>
         By using the sandbox, you can verify that components maintain their visual consistency, regardless of the host app in which they are used.
       </p>
-      <div ref="resizeObserverContainer">
-        Resize Observer
-      </div>
     </div>
   </SandboxLayout>
 </template>
