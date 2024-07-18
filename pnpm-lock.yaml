@@ -70,8 +70,8 @@ importers:
         specifier: ^1.6.18
         version: 1.6.18
       '@kong-ui-public/sandbox-layout':
-        specifier: ^2.1.15
-        version: 2.1.15(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5))
+        specifier: ^2.1.16
+        version: 2.1.16(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5))
       '@kong/design-tokens':
         specifier: ^1.15.2
         version: 1.15.2
@@ -835,10 +835,10 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@kong-ui-public/sandbox-layout@2.1.15':
-    resolution: {integrity: sha512-mkhTPEj54E5cr2anEyN/8KiOnviQvhRAbfDktelMrF9ioziaWe0tFgb/dyRUZrZ4jV8MVf3Hwng7DHxFNhLasg==}
+  '@kong-ui-public/sandbox-layout@2.1.16':
+    resolution: {integrity: sha512-dPfv3Cx8KN/FeMwmNOz19xbT3xDiGkiuB98Fv736oqHtFm2z7PV5NdZNibaJ9IFqpyy8aPLYPRq1xWbaySYbzA==}
     peerDependencies:
-      '@kong/kongponents': ^9.0.8
+      '@kong/kongponents': ^9.0.17
       vue: '>= 3.3.13 < 4'
 
   '@kong/design-tokens@1.15.2':
@@ -5331,7 +5331,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  '@kong-ui-public/sandbox-layout@2.1.15(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5))':
+  '@kong-ui-public/sandbox-layout@2.1.16(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5))':
     dependencies:
       '@kong/icons': 1.15.0(vue@3.4.31(typescript@5.4.5))
       '@kong/kongponents': 9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5))
@@ -5370,7 +5370,7 @@ snapshots:
   '@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5))':
     dependencies:
       '@floating-ui/vue': 1.1.1(vue@3.4.31(typescript@5.4.5))
-      '@kong/icons': 1.14.3(vue@3.4.31(typescript@5.4.5))
+      '@kong/icons': 1.15.0(vue@3.4.31(typescript@5.4.5))
       '@popperjs/core': 2.11.8
       axios: 1.7.2
       date-fns: 2.30.0
