@@ -67,8 +67,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(@types/node@20.14.10)(typescript@5.4.5)
       '@evilmartians/lefthook':
-        specifier: ^1.6.18
-        version: 1.6.18
+        specifier: ^1.6.22
+        version: 1.7.3
       '@kong-ui-public/sandbox-layout':
         specifier: ^2.1.16
         version: 2.1.16(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.2)(vue-router@4.3.3(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5)))(vue@3.4.31(typescript@5.4.5))
@@ -160,7 +160,7 @@ importers:
         specifier: ^1.7.0
         version: 1.7.0
       rimraf:
-        specifier: ^5.0.8
+        specifier: ^5.0.9
         version: 5.0.9
       rollup-plugin-visualizer:
         specifier: ^5.12.0
@@ -783,8 +783,8 @@ packages:
     resolution: {integrity: sha512-BsWiH1yFGjXXS2yvrf5LyuoSIIbPrGUWob917o+BTKuZ7qJdxX8aJLRxs1fS9n6r7vESrq1OUqb68dANcFXuQQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@evilmartians/lefthook@1.6.18':
-    resolution: {integrity: sha512-nvJ1uYgz/F1DbykTMIiI2nUZctVmijUYkqdGqmGkrL0ImEKFjWxk1jZg6pULJ5vWxsArfUFJiFuOhUnUhyMbig==}
+  '@evilmartians/lefthook@1.7.3':
+    resolution: {integrity: sha512-DEhTJxy5sNjchj/nMXpqyUzjUrB07nIFOJzbAVEjOrj0ap3q4SwUKcHtgYC5q9Lyta1h6ZfuKU6wc+0NbTTnpg==}
     cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
@@ -5277,7 +5277,7 @@ snapshots:
 
   '@eslint/object-schema@2.1.4': {}
 
-  '@evilmartians/lefthook@1.6.18': {}
+  '@evilmartians/lefthook@1.7.3': {}
 
   '@floating-ui/core@1.6.2':
     dependencies:
