@@ -73,12 +73,12 @@
     "vue-router": "^4.3.3"
   },
   "devDependencies": {
-    "@babel/types": "^7.24.7",
+    "@babel/types": "^7.24.8",
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@cypress/vite-dev-server": "^5.1.1",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
-    "@evilmartians/lefthook": "^1.6.22",
+    "@evilmartians/lefthook": "^1.7.2",
     "@kong-ui-public/sandbox-layout": "^2.1.16",
     "@kong/design-tokens": "^1.15.2",
     "@kong/eslint-config-kong-ui": "^1.1.1",
@@ -111,7 +111,7 @@
     "postcss-html": "^1.7.0",
     "rimraf": "^5.0.9",
     "rollup-plugin-visualizer": "^5.12.0",
-    "sass": "^1.77.6",
+    "sass": "^1.77.8",
     "semantic-release": "^24.0.0",
     "shx": "^0.3.4",
     "stylelint": "^16.6.1",
