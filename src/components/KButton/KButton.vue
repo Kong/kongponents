@@ -149,23 +149,6 @@ export default {
   }
 }
 
-@mixin kButtonMediumSize {
-  font-size: var(--kui-font-size-30, $kui-font-size-30);
-  gap: var(--kui-space-30, $kui-space-30);
-  line-height: var(--kui-line-height-30, $kui-line-height-30);
-  padding: var(--kui-space-20, $kui-space-20) var(--kui-space-40, $kui-space-40);
-
-  &.icon-button {
-    padding: var(--kui-space-20, $kui-space-20);
-  }
-
-  // enforce icon size exported by @kong/icons because it's defined by the design system
-  :deep(#{$kongponentsKongIconSelector}) {
-    height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
-    width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
-  }
-}
-
 /* Component styles */
 
 .k-button {

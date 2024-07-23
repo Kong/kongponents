@@ -7,8 +7,7 @@
   >
     <template v-if="!offset">
       <span
-        v-if="isWideScreen"
-        class="pagination-text"
+        class="pagination-text large-screen"
         data-testid="visible-items"
       >
         <span class="pagination-text-pages">{{ pagesString }}</span>
@@ -24,7 +23,7 @@
             data-testid="previous-button"
             :disabled="backDisabled"
             icon
-            :size="isWideScreen ? 'medium' : 'small'"
+            size="small"
             type="button"
             @click="pageBack"
           >
@@ -92,7 +91,7 @@
             data-testid="next-button"
             :disabled="forwardDisabled ? true : undefined"
             icon
-            :size="isWideScreen ? 'medium' : 'small'"
+            size="small"
             type="button"
             @click="pageForward"
           >
@@ -113,8 +112,8 @@
     />
     <div class="page-size-select">
       <span
-        v-if="!isWideScreen && !disablePageJump && !offset"
-        class="pagination-text"
+        v-if="!disablePageJump && !offset"
+        class="pagination-text small-screen"
         data-testid="visible-items"
       >
         <span class="pagination-text-pages">{{ pagesString }}</span>
@@ -135,7 +134,7 @@
           class="page-size-dropdown-trigger"
           data-testid="page-size-dropdown-trigger"
           :disabled="pageSizeOptions.length <= 1"
-          :size="isWideScreen ? 'medium' : 'small'"
+          size="small"
           type="button"
         >
           {{ pageSizeText }}
@@ -159,8 +158,6 @@ import PaginationOffset from './PaginationOffset.vue'
 import type { PageSizeChangeData, PageChangeData, DropdownItem } from '@/types'
 import { BackIcon, ForwardIcon, ChevronDownIcon } from '@kong/icons'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
-import { useMediaQuery } from '@vueuse/core'
-import { KUI_BREAKPOINT_MOBILE } from '@kong/design-tokens'
 
 const kpopAttrs = {
   placement: 'top',
@@ -223,8 +220,6 @@ const emit = defineEmits<{
 
 const kPaginationElement = ref<HTMLElement | null>(null)
 const resizeObserver = ref<ResizeObserverHelper>()
-
-const isWideScreen = useMediaQuery(`(min-width: ${KUI_BREAKPOINT_MOBILE})`)
 
 const currPage: Ref<number> = ref(props.currentPage ? props.currentPage : 1)
 const currentPageSize: Ref<number> = ref(props.initialPageSize ? props.initialPageSize : props.pageSizes[0])
@@ -515,6 +510,22 @@ onUnmounted(() => {
     .pagination-text-pages {
       color: var(--kui-color-text, $kui-color-text);
     }
+
+    &.small-screen {
+      display: block;
+
+      @media (min-width: $kui-breakpoint-mobile) {
+        display: none;
+      }
+    }
+
+    &.large-screen {
+      display: none;
+
+      @media (min-width: $kui-breakpoint-mobile) {
+        display: block;
+      }
+    }
   }
 
   .pagination-button-container {
@@ -574,6 +585,13 @@ onUnmounted(() => {
           border-color: var(--kui-color-border-primary, $kui-color-border-primary);
         }
       }
+
+      &.arrow {
+        @media (min-width: $kui-breakpoint-mobile) {
+          // apply KButton medium size styles on screen larger than mobile
+          @include kButtonMediumSize;
+        }
+      }
     }
   }
 
@@ -587,6 +605,13 @@ onUnmounted(() => {
         border-bottom-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
         max-height: 200px;
         overflow-y: auto;
+      }
+
+      .page-size-dropdown-trigger {
+        @media (min-width: $kui-breakpoint-mobile) {
+          // apply KButton medium size styles on screen larger than mobile
+          @include kButtonMediumSize;
+        }
       }
     }
   }
