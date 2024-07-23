@@ -1,3 +1,10 @@
+## [9.0.19](https://github.com/Kong/kongponents/compare/v9.0.18...v9.0.19) (2024-07-23)
+
+
+### Bug Fixes
+
+* **kpagination:** remove dynamic size props [KHCP-12680] ([#2301](https://github.com/Kong/kongponents/issues/2301)) ([92ac40a](https://github.com/Kong/kongponents/commit/92ac40a226bdd75ca0b61b728ec16b85fffbfef2))
+
 ## [9.0.18](https://github.com/Kong/kongponents/compare/v9.0.17...v9.0.18) (2024-07-22)
 
 
