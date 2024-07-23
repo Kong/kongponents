@@ -1,3 +1,31 @@
+## [9.0.18](https://github.com/Kong/kongponents/compare/v9.0.17...v9.0.18) (2024-07-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.15.1 ([#2298](https://github.com/Kong/kongponents/issues/2298)) ([8de54cc](https://github.com/Kong/kongponents/commit/8de54ccf3962581d3ceb8a2724c54636c31965ee))
+
+## [9.0.17](https://github.com/Kong/kongponents/compare/v9.0.16...v9.0.17) (2024-07-17)
+
+
+### Bug Fixes
+
+* **artifacts:** include dist artifacts ([c7fd644](https://github.com/Kong/kongponents/commit/c7fd644027ff30d94b7950acf8369a9fe1074585))
+
+## [9.0.16](https://github.com/Kong/kongponents/compare/v9.0.15...v9.0.16) (2024-07-17)
+
+
+### Bug Fixes
+
+* dist artifacts ([#2289](https://github.com/Kong/kongponents/issues/2289)) ([28a24e4](https://github.com/Kong/kongponents/commit/28a24e4f97c810a41de2cb8b31fd080a2cb44bb5))
+
+## [9.0.15](https://github.com/Kong/kongponents/compare/v9.0.14...v9.0.15) (2024-07-16)
+
+
+### Bug Fixes
+
+* **kskeleton:** box sizing ([#2286](https://github.com/Kong/kongponents/issues/2286)) ([94b2330](https://github.com/Kong/kongponents/commit/94b23301e08f6d1645708a180cdb040935666440))
+
 ## [9.0.14](https://github.com/Kong/kongponents/compare/v9.0.13...v9.0.14) (2024-07-16)
 
 
