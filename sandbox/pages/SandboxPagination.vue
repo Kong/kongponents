@@ -17,6 +17,7 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="pageSizes">
         <KPagination
+          :current-page="7"
           :page-sizes="[10, 20, 30, 40]"
           :total-count="100"
           @page-size-change="handlePageSizeChange"
@@ -30,6 +31,15 @@
       <SandboxSectionComponent title="initialPageSize">
         <KPagination
           :initial-page-size="20"
+          :page-sizes="[10, 20, 30, 40]"
+          :total-count="100"
+          @page-size-change="handlePageSizeChange"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="initialPage">
+        <KPagination
+          :current-page="7"
+          :initial-page-size="10"
           :page-sizes="[10, 20, 30, 40]"
           :total-count="100"
           @page-size-change="handlePageSizeChange"
