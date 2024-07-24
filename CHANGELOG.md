@@ -1,3 +1,10 @@
+## [9.0.20](https://github.com/Kong/kongponents/compare/v9.0.19...v9.0.20) (2024-07-24)
+
+
+### Bug Fixes
+
+* **kcodeblock:** correct the line height for single line code block ([#2302](https://github.com/Kong/kongponents/issues/2302)) ([8e7fa1a](https://github.com/Kong/kongponents/commit/8e7fa1afc96c59573ed8ff4e5f3739254a28b5f0))
+
 ## [9.0.19](https://github.com/Kong/kongponents/compare/v9.0.18...v9.0.19) (2024-07-23)
 
 
