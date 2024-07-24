@@ -841,6 +841,10 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       &.single-line {
         grid-template-columns: auto;
         padding-right: var(--kui-space-100, $kui-space-100);
+
+        code {
+          line-height: var(--kui-line-height-60, $kui-line-height-60);
+        }
       }
     }
 
