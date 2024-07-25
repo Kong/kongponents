@@ -102,6 +102,12 @@
           show-icon
           title="This is a dismissible alert with super long title, super long message and icon. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         />
+        <KAlert
+          dismissible
+          message="This is a really long message with unbreakable word 1IfLzvISgP/MW3ddl8DBDXAEX2Njz4urmQZAQ+MYy8Y5IY8nIiRs3XO+G/8Wtz6/+oSd3uYRwUbK1YxCQRFjX+4X2ZMBF1V/Zoox2UyKGT/zm1GL3NiskUNVdSvQtNpWBQUHAwIwFwYJKwYBBAGCNxQCBAoMCGNlcnRUeXBlMCMGCSsGAQQBgjcVAgQWBBQBAQEBAQEBAQEBAQEBAQEBAQEBATAcBgkrBgEEAYI3FQcEDzANBgUpAQEBAQIBCgIBVQQDHh4AawBvAG4AbgBlAGMAdAAtAGQAZQBmAGEAdQBsAHQwHhcNMjQwNzI0MDgzODA3WhcNMzQwNzI0MDgzODA3WjA0MTIwCQYDVQQGEwJVUzAlBgNVBAMeHgBrAG8AFDATBgkrBgEEAYI3FQEEBgIEABQACjALBgkqhkiG9w0BAQ0DggEBABRXflxHNEO0"
+          show-icon
+          title="This a really long title with unbreakable word MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDJ2fL1cYjvw8eaCORQKgCq/Qen0lOBFC5O8YWm795FPrqwa/tJAatvyJdkN5mHH8CTBsax+NDsk082LR5f9HnWLunmYg11e8DKx+IQz1x1VbNgpCbWj4pBFjnVQHdR3xR1SOHodmnzpqtca/rWfIA8eZi9OUxmWgdYpfLhqqYbvxwgZsvKYZGC7LsUkGHHtAgMBAAECggEAB/X/WdBgNXvuGgLMG0D+R6EZuaPX7jDbHkIiDs/6ObxJzHJyI9bo9+K3AG/TDBEhGrXmaa8BjYqqm7M/ZEUJpcOLTAht2w8aLwHVz0rEY7HVCbIqLDdLCv7Pj+DcuMupxAfymbXcCFVjVU8wxKnkB+e1TKbfAK1Yh8SNMZ5ZFrlBwrBVDRt1t9ONAxc1aSJi112."
+        />
       </SandboxSectionComponent>
 
       <!-- Slots -->

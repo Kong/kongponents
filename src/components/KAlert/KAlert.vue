@@ -157,6 +157,11 @@ const getAlertIcon = computed((): AlertIcon => {
         margin: 0;
       }
     }
+
+    .alert-title,
+    .alert-message p {
+      word-break: break-word;
+    }
   }
 
   .alert-dismiss-icon {
