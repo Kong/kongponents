@@ -44,15 +44,6 @@
           @page-size-change="handlePageSizeChange"
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="initialPage">
-        <KPagination
-          :current-page="7"
-          :initial-page-size="10"
-          :page-sizes="[10, 20, 30, 40]"
-          :total-count="100"
-          @page-size-change="handlePageSizeChange"
-        />
-      </SandboxSectionComponent>
       <SandboxSectionComponent
         description="Setting a way too high number of visible neighbors here (20) but KPagination detects overflow and reduces the number of visible neighbors down to acceptable number (minimum of 1)."
         title="neighbors"
