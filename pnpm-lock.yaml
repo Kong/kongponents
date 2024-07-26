@@ -52,7 +52,7 @@ importers:
         version: 2.2.1(sortablejs@1.15.2)(vue@3.4.31(typescript@5.5.4))
     devDependencies:
       '@babel/types':
-        specifier: ^7.24.8
+        specifier: ^7.24.9
         version: 7.24.9
       '@commitlint/cli':
         specifier: ^19.3.0
