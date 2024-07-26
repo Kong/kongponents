@@ -15,9 +15,17 @@
           @page-size-change="handlePageSizeChange"
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="currentPage">
+        <KPagination
+          :current-page="currentPage"
+          :items="currentPageItems"
+          :page-sizes="[10, 20, 30, 40]"
+          :total-count="currentPageItems.length"
+          @page-change="handleCurrentPage"
+        />
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="pageSizes">
         <KPagination
-          :current-page="7"
           :page-sizes="[10, 20, 30, 40]"
           :total-count="100"
           @page-size-change="handlePageSizeChange"
@@ -88,13 +96,22 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject, ref, computed } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
+import type { PageChangeData, PageSizeChangeData } from '@/types'
 
-const handlePageSizeChange = (obj: any) => {
+const handlePageSizeChange = (obj: PageSizeChangeData) => {
   console.log(obj)
 }
+
+const currentPage = ref<number>(7)
+const currentPageItems = computed(() => Array.from({ length: 200 }, (_, index) => index + 1))
+const handleCurrentPage = ({ page }: PageChangeData) => {
+  currentPage.value = page
+}
+
+
 </script>
 
 <style lang="scss" scoped>
