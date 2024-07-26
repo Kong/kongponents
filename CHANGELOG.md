@@ -1,3 +1,10 @@
+## [9.0.21](https://github.com/Kong/kongponents/compare/v9.0.20...v9.0.21) (2024-07-26)
+
+
+### Bug Fixes
+
+* **kalert:** break the word to prevent a long text overflow ([#2304](https://github.com/Kong/kongponents/issues/2304)) ([8771f22](https://github.com/Kong/kongponents/commit/8771f2253552c67be4d2b7e952dd15b22e642bef))
+
 ## [9.0.20](https://github.com/Kong/kongponents/compare/v9.0.19...v9.0.20) (2024-07-24)
 
 
