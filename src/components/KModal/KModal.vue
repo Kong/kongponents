@@ -161,6 +161,11 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  /** Close the modal when the user presses the `Escape` key */
+  closeOnEscape: {
+    type: Boolean,
+    default: true,
+  },
   hideCloseIcon: {
     type: Boolean,
     default: false,
@@ -207,7 +212,7 @@ const showHeader = computed((): boolean => {
 
 const handleKeydown = (event: any): void => {
   // close on escape key press
-  if (props.visible && event.key === 'Escape') {
+  if (props.visible && props.closeOnEscape && event.key === 'Escape') {
     close(true)
   }
 }
