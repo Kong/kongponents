@@ -1,3 +1,10 @@
+# [9.1.0](https://github.com/Kong/kongponents/compare/v9.0.21...v9.1.0) (2024-07-29)
+
+
+### Features
+
+* **kmodal:** add close-on-escape prop ([#2308](https://github.com/Kong/kongponents/issues/2308)) ([f465d2a](https://github.com/Kong/kongponents/commit/f465d2aa1a4fa9965cd78b1e1f0bf816a6106c7b))
+
 ## [9.0.21](https://github.com/Kong/kongponents/compare/v9.0.20...v9.0.21) (2024-07-26)
 
 
