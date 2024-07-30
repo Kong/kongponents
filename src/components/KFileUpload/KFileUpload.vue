@@ -307,16 +307,25 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
 
     .file-upload-input-text {
       @include inputText;
-      @include truncate;
 
-      left: 0;
-      margin-left: $kFileUploadInputPaddingX;
-      margin-top: $kFileUploadInputPaddingY;
-      max-width: 90%;
-      pointer-events: none;
-      position: absolute;
-      top: 0;
-      z-index: 1;
+      // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+      // stylelint-disable-next-line no-duplicate-selectors
+      & {
+        @include truncate;
+      }
+
+      // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+      // stylelint-disable-next-line no-duplicate-selectors
+      & {
+        left: 0;
+        margin-left: $kFileUploadInputPaddingX;
+        margin-top: $kFileUploadInputPaddingY;
+        max-width: 90%;
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        z-index: 1;
+      }
 
       &.placeholder {
         color: var(--kui-color-text-neutral, $kui-color-text-neutral);

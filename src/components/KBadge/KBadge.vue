@@ -129,7 +129,12 @@ $kBadgeMethodWidth: 85px;
 .k-badge {
   // apply info appearance by default (in case of invalid appearance)
   @include badgeAppearance;
-  @include badgeWrapper;
+
+  // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+  // stylelint-disable-next-line no-duplicate-selectors
+  & {
+    @include badgeWrapper;
+  }
 
   > div:not(.k-popover) {
     display: flex;

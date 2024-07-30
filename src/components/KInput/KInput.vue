@@ -321,9 +321,13 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
   .help-text {
     @include inputHelpText;
 
-    // reset default margin from browser
-    margin: 0;
-    margin-top: var(--kui-space-40, $kui-space-40) !important; // need important to override some overrides of default p margin in other components
+    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+    // stylelint-disable-next-line no-duplicate-selectors
+    & {
+      // reset default margin from browser
+      margin: 0;
+      margin-top: var(--kui-space-40, $kui-space-40) !important; // need important to override some overrides of default p margin in other components
+    }
   }
 
   // slots styles
@@ -348,7 +352,11 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
       :deep([role="button"]:not(.k-button)), :deep(button:not(.k-button)) {
         @include defaultButtonReset;
 
-        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+        // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+        // stylelint-disable-next-line no-duplicate-selectors
+        & {
+          color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+        }
 
         &:not([disabled]) {
           border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
@@ -420,7 +428,12 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
     // by default type="file" is read-only so we need to apply default input styles to override read-only styles
     &[type="file"] {
       @include inputDefaults;
-      cursor: pointer;
+
+      // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+      // stylelint-disable-next-line no-duplicate-selectors
+      & {
+        cursor: pointer;
+      }
 
       &:hover {
         @include inputHover;

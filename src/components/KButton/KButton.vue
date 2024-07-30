@@ -153,22 +153,31 @@ export default {
 
 .k-button {
   @include kButtonPrimaryAppearance; // primary appearance is the default (in case of invalid appearance)
-  @include kButtonMediumSize; // medium size is the default (in case of invalid size)
 
-  align-items: center;
-  border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-  cursor: pointer;
-  display: inline-flex;
-  font-family: var(--kui-font-family-text, $kui-font-family-text);
-  font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-  justify-content: center;
-  // Remove tap color highlight on mobile Safari
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-  text-decoration: none;
-  transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, border-color $kongponentsTransitionDurTimingFunc;
-  user-select: none;
-  vertical-align: middle;
-  white-space: nowrap;
+  // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+  // stylelint-disable-next-line no-duplicate-selectors
+  & {
+    @include kButtonMediumSize; // medium size is the default (in case of invalid size)
+  }
+
+  // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+  // stylelint-disable-next-line no-duplicate-selectors
+  & {
+    align-items: center;
+    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    cursor: pointer;
+    display: inline-flex;
+    font-family: var(--kui-font-family-text, $kui-font-family-text);
+    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+    justify-content: center;
+    // Remove tap color highlight on mobile Safari
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    text-decoration: none;
+    transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, border-color $kongponentsTransitionDurTimingFunc;
+    user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
 
   &:focus, &:active, &:focus-visible {
     outline: none;
