@@ -1,3 +1,10 @@
+## [9.1.4](https://github.com/Kong/kongponents/compare/v9.1.3...v9.1.4) (2024-07-30)
+
+
+### Bug Fixes
+
+* sass mixed decls deprecation [KHCP-12750] ([#2316](https://github.com/Kong/kongponents/issues/2316)) ([86c5769](https://github.com/Kong/kongponents/commit/86c5769d62beb9c60f0eed790d11bbb575774fd3))
+
 ## [9.1.3](https://github.com/Kong/kongponents/compare/v9.1.2...v9.1.3) (2024-07-30)
 
 
