@@ -1,3 +1,10 @@
+## [9.1.1](https://github.com/Kong/kongponents/compare/v9.1.0...v9.1.1) (2024-07-30)
+
+
+### Bug Fixes
+
+* **ktoaster:** add box-sizing ([#2313](https://github.com/Kong/kongponents/issues/2313)) ([0af11c1](https://github.com/Kong/kongponents/commit/0af11c1cf443bec2c58a2fa1f204c9ac0c9fea69))
+
 # [9.1.0](https://github.com/Kong/kongponents/compare/v9.0.21...v9.1.0) (2024-07-29)
 
 
