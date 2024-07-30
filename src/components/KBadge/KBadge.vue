@@ -131,6 +131,10 @@ $kBadgeMethodWidth: 85px;
   @include badgeAppearance;
   @include badgeWrapper;
 
+  > div:not(.k-popover) {
+    display: flex;
+  }
+
   .badge-content {
     @include badgeContent;
 
