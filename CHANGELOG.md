@@ -1,3 +1,10 @@
+## [9.1.3](https://github.com/Kong/kongponents/compare/v9.1.2...v9.1.3) (2024-07-30)
+
+
+### Bug Fixes
+
+* **types:** ensure all component types are exported ([#2315](https://github.com/Kong/kongponents/issues/2315)) ([ccc0865](https://github.com/Kong/kongponents/commit/ccc0865fff52d9445604a7ecf680ca7f1e4e6e20))
+
 ## [9.1.2](https://github.com/Kong/kongponents/compare/v9.1.1...v9.1.2) (2024-07-30)
 
 
