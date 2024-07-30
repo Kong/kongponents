@@ -1,3 +1,24 @@
+## [9.1.1](https://github.com/Kong/kongponents/compare/v9.1.0...v9.1.1) (2024-07-30)
+
+
+### Bug Fixes
+
+* **ktoaster:** add box-sizing ([#2313](https://github.com/Kong/kongponents/issues/2313)) ([0af11c1](https://github.com/Kong/kongponents/commit/0af11c1cf443bec2c58a2fa1f204c9ac0c9fea69))
+
+# [9.1.0](https://github.com/Kong/kongponents/compare/v9.0.21...v9.1.0) (2024-07-29)
+
+
+### Features
+
+* **kmodal:** add close-on-escape prop ([#2308](https://github.com/Kong/kongponents/issues/2308)) ([f465d2a](https://github.com/Kong/kongponents/commit/f465d2aa1a4fa9965cd78b1e1f0bf816a6106c7b))
+
+## [9.0.21](https://github.com/Kong/kongponents/compare/v9.0.20...v9.0.21) (2024-07-26)
+
+
+### Bug Fixes
+
+* **kalert:** break the word to prevent a long text overflow ([#2304](https://github.com/Kong/kongponents/issues/2304)) ([8771f22](https://github.com/Kong/kongponents/commit/8771f2253552c67be4d2b7e952dd15b22e642bef))
+
 ## [9.0.20](https://github.com/Kong/kongponents/compare/v9.0.19...v9.0.20) (2024-07-24)
 
 

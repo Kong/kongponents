@@ -430,6 +430,10 @@ Whether clicking on backdrop should close the modal (by emitting the [`cancel` e
 </KModal>
 ```
 
+### closeOnEscape
+
+Whether pressing the <kbd>Escape</kbd> key should close the modal (by emitting the [`cancel` event](#cancel)). Defaults to `true`.
+
 ### tabbableOptions
 
 Options to be passed to [`focus-trap`](https://github.com/focus-trap/focus-trap), which is responsible for trapping focus inside the modal box.
@@ -679,7 +683,7 @@ KModal takes care of placement and spacing between the buttons when using `foote
 By default KModal provides you with the standard layout: modal header (optional), content section and footer. However, should you need to make a custom modal, you can use `content` slot for your content. It will provide you with just a wrapper container with white background.
 
 :::warning IMPORTANT
-Focus-trap requires at least one tabbable element to be present in modal at all times. You can learn more about what elements are considered tabbable [here](https://github.com/focus-trap/tabbable). Make sure your modal has at least one element with non-negative `tabindex` attribute (for example close icon with `role="button"` and `tabindex="0"` attributes). 
+Focus-trap requires at least one tabbable element to be present in modal at all times. You can learn more about what elements are considered tabbable [here](https://github.com/focus-trap/tabbable). Make sure your modal has at least one element with non-negative `tabindex` attribute (for example close icon with `role="button"` and `tabindex="0"` attributes).
 :::
 
 <KButton @click="modal22Visible = true">Modal</KButton>
@@ -753,7 +757,7 @@ Emitted when action button is clicked.
 
 ### cancel
 
-Emitted when cancel button or close icon (when not hidden) is clicked. 
+Emitted when cancel button or close icon (when not hidden) is clicked.
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
