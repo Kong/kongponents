@@ -409,13 +409,17 @@ $kPopCaretOffset: 16px;
       .popover-close-button {
         @include defaultButtonReset;
 
-        border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-        margin: var(--kui-space-60, $kui-space-60) var(--kui-space-60, $kui-space-60) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
-        outline: none;
-        position: absolute;
-        right: 0;
-        top: 0;
+        // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+        // stylelint-disable-next-line no-duplicate-selectors
+        & {
+          border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+          color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+          margin: var(--kui-space-60, $kui-space-60) var(--kui-space-60, $kui-space-60) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
+          outline: none;
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
 
         &:hover, &:focus {
           color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
@@ -469,7 +473,11 @@ $kPopCaretOffset: 16px;
     &[x-placement^="top"] .popover-container {
       @include kPopCaret;
 
-      margin-bottom: var(--kui-space-60, $kui-space-60);
+      // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+      // stylelint-disable-next-line no-duplicate-selectors
+      & {
+        margin-bottom: var(--kui-space-60, $kui-space-60);
+      }
 
       &:after, &:before {
         left: 50%;
@@ -489,7 +497,11 @@ $kPopCaretOffset: 16px;
     &[x-placement^="right"] .popover-container {
       @include kPopCaret;
 
-      margin-left: var(--kui-space-60, $kui-space-60);
+      // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+      // stylelint-disable-next-line no-duplicate-selectors
+      & {
+        margin-left: var(--kui-space-60, $kui-space-60);
+      }
 
       &:after, &:before {
         right: 100%;
@@ -510,7 +522,11 @@ $kPopCaretOffset: 16px;
     &[x-placement^="bottom"] .popover-container {
       @include kPopCaret;
 
-      margin-top: var(--kui-space-50, $kui-space-50);
+      // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+      // stylelint-disable-next-line no-duplicate-selectors
+      & {
+        margin-top: var(--kui-space-50, $kui-space-50);
+      }
 
       &:after, &:before {
         bottom: 100%;
@@ -530,7 +546,11 @@ $kPopCaretOffset: 16px;
     &[x-placement^="left"] .popover-container {
       @include kPopCaret;
 
-      margin-right: var(--kui-space-60, $kui-space-60);
+      // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+      // stylelint-disable-next-line no-duplicate-selectors
+      & {
+        margin-right: var(--kui-space-60, $kui-space-60);
+      }
 
       &:after, &:before {
         left: 100%;

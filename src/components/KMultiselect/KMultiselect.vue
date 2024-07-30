@@ -1072,12 +1072,16 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
   .expanded-selection-empty {
     @include inputText;
 
-    color: var(--kui-color-text-neutral, $kui-color-text-neutral); // override mixin with placeholder text color
-    font-size: var(--kui-font-size-30, $kui-font-size-30); // override mixin with placeholder font size
-    padding-bottom: $kMultiselectInputPaddingY;
-    padding-left: $kMultiselectInputPaddingX;
-    padding-right: $kMultiselectSelectionsPaddingRight;
-    padding-top: $kMultiselectInputPaddingY;
+    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+    // stylelint-disable-next-line no-duplicate-selectors
+    & {
+      color: var(--kui-color-text-neutral, $kui-color-text-neutral); // override mixin with placeholder text color
+      font-size: var(--kui-font-size-30, $kui-font-size-30); // override mixin with placeholder font size
+      padding-bottom: $kMultiselectInputPaddingY;
+      padding-left: $kMultiselectInputPaddingX;
+      padding-right: $kMultiselectSelectionsPaddingRight;
+      padding-top: $kMultiselectInputPaddingY;
+    }
   }
 
   .selection-badges-container {
@@ -1133,10 +1137,14 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
   .multiselect-trigger {
     @include inputBoxShadow;
 
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    width: 100%;
+    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+    // stylelint-disable-next-line no-duplicate-selectors
+    & {
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      width: 100%;
+    }
 
     &.hovered {
       @include inputHover;
@@ -1240,9 +1248,13 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
   .help-text {
     @include inputHelpText;
 
-    // reset default margin from browser
-    margin: 0;
-    margin-top: var(--kui-space-40, $kui-space-40) !important; // need important to override some overrides of default p margin in other components
+    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+    // stylelint-disable-next-line no-duplicate-selectors
+    & {
+      // reset default margin from browser
+      margin: 0;
+      margin-top: var(--kui-space-40, $kui-space-40) !important; // need important to override some overrides of default p margin in other components
+    }
   }
 
   &.multiselect-error {

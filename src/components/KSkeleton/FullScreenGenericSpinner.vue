@@ -72,12 +72,6 @@ onUnmounted(() => {
   }
 
   .spinner-loader {
-    :after {
-      border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
-      height: 130px;
-      width: 130px;
-    }
-
     animation: spinnerAnimation 1.4s infinite linear;
     border-bottom: 8px solid var(--kui-color-border, $kui-color-border);
     border-left: 8px solid var(--kui-color-border-primary, $kui-color-border-primary);
@@ -96,6 +90,7 @@ onUnmounted(() => {
     0% {
       transform: rotate(0deg);
     }
+
     100% {
       transform: rotate(360deg);
     }
@@ -105,6 +100,7 @@ onUnmounted(() => {
     0% {
       transform: rotate(0deg);
     }
+
     100% {
       transform: rotate(360deg);
     }

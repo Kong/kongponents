@@ -590,8 +590,12 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
     .datetime-picker-trigger {
       @include inputDefaults;
 
-      cursor: pointer;
-      display: inline-flex;
+      // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+      // stylelint-disable-next-line no-duplicate-selectors
+      & {
+        cursor: pointer;
+        display: inline-flex;
+      }
 
       &:hover {
         @include inputHover;
@@ -603,7 +607,12 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
 
       &.disabled {
         @include inputDisabled;
-        pointer-events: none;
+
+        // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+        // stylelint-disable-next-line no-duplicate-selectors
+        & {
+          pointer-events: none;
+        }
 
         .datetime-picker-display {
           color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
@@ -613,10 +622,14 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
       .datetime-picker-display {
         @include inputText;
 
-        display: flex;
-        flex-wrap: wrap;
-        pointer-events: none;
-        white-space: nowrap;
+        // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+        // stylelint-disable-next-line no-duplicate-selectors
+        & {
+          display: flex;
+          flex-wrap: wrap;
+          pointer-events: none;
+          white-space: nowrap;
+        }
 
         &.has-icon {
           // icon size + icon spacing
@@ -771,8 +784,12 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
   .vc-container {
     @include vCalendarCssVarsOverrides;
 
-    border: none;
-    width: 100%;
+    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+    // stylelint-disable-next-line no-duplicate-selectors
+    & {
+      border: none;
+      width: 100%;
+    }
 
     // generic button styles (mostly apples to arrow buttons and month and year (between the arrows))
     button {
@@ -865,7 +882,6 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
             border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
           }
         }
-
       }
 
       .vc-time-header {
@@ -897,10 +913,14 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
   .vc-popover-content {
     @include vCalendarCssVarsOverrides;
 
-    background-color: var(--kui-color-background, $kui-color-background);
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    box-shadow: var(--kui-shadow, $kui-shadow);
-    width: 100%;
+    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+    // stylelint-disable-next-line no-duplicate-selectors
+    & {
+      background-color: var(--kui-color-background, $kui-color-background);
+      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+      box-shadow: var(--kui-shadow, $kui-shadow);
+      width: 100%;
+    }
 
     .vc-popover-caret {
       display: none;

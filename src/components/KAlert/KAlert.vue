@@ -122,10 +122,14 @@ const getAlertIcon = computed((): AlertIcon => {
 .k-alert {
   @include kAlertAppearance;
 
-  border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-  display: flex;
-  gap: var(--kui-space-30, $kui-space-30);
-  padding: var(--kui-space-50, $kui-space-50);
+  // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+  // stylelint-disable-next-line no-duplicate-selectors
+  & {
+    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    display: flex;
+    gap: var(--kui-space-30, $kui-space-30);
+    padding: var(--kui-space-50, $kui-space-50);
+  }
 
   .alert-icon-container {
     :deep(#{$kongponentsKongIconSelector}) { // target the slotted icon
