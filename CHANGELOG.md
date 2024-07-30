@@ -1,3 +1,10 @@
+## [9.1.2](https://github.com/Kong/kongponents/compare/v9.1.1...v9.1.2) (2024-07-30)
+
+
+### Bug Fixes
+
+* **kbadge:** badge with icon bottom spacing ([#2314](https://github.com/Kong/kongponents/issues/2314)) ([c21dc94](https://github.com/Kong/kongponents/commit/c21dc94c80f7d10cd449af23011c693c2b93412b))
+
 ## [9.1.1](https://github.com/Kong/kongponents/compare/v9.1.0...v9.1.1) (2024-07-30)
 
 
