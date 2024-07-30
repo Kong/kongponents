@@ -115,6 +115,7 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
     background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     box-shadow: var(--kui-shadow, $kui-shadow);
+    box-sizing: border-box;
     color: var(--kui-color-text-inverse, $kui-color-text-inverse);
     display: flex;
     gap: var(--kui-space-50, $kui-space-50);
