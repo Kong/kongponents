@@ -117,7 +117,7 @@ const props = defineProps({
   },
   errorMessage: {
     type: String,
-    default: 'Please enter the text as indicated above.',
+    default: 'You must enter the text as indicated above to confirm.',
   },
 })
 
