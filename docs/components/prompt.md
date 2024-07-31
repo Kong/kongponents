@@ -86,7 +86,7 @@ A string to be displayed as the prompt dialog title. Can also be [slotted](#titl
 
 ### confirmationText
 
-A string the user must type before the action button becomes enabled. Pressing _Enter_ after typing in the confirmation text will trigger proceed action too.
+A string the user must type before the action button becomes enabled. Pressing `Enter` in the confirmation text input will trigger the `proceed` action.
 
 <KButton @click="prompt4Visible = true">Prompt</KButton>
 <KPrompt
