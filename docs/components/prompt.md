@@ -356,7 +356,7 @@ interface ModalAttributes {
 
 ### errorMessage
 
-Error message text that will be displayed once user attempts to proceed after having typed in the wrong confirmation prompt. Default value is "Confirmation text does not match.".
+Error message text that will be displayed once user attempts to proceed after having typed in the wrong confirmation prompt. Default value is "Please enter the text as indicated above.".
 
 <KButton @click="prompt14Visible = true">Prompt</KButton>
 <KPrompt
