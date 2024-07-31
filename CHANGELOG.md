@@ -1,3 +1,10 @@
+## [9.1.7](https://github.com/Kong/kongponents/compare/v9.1.6...v9.1.7) (2024-07-31)
+
+
+### Bug Fixes
+
+* **kprompt:** hide error message once confirm text typed in ([#2318](https://github.com/Kong/kongponents/issues/2318)) ([c6d6c78](https://github.com/Kong/kongponents/commit/c6d6c786374287c3f5f8c38c48a9a78486b0ab18))
+
 ## [9.1.6](https://github.com/Kong/kongponents/compare/v9.1.5...v9.1.6) (2024-07-31)
 
 
