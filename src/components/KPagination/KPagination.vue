@@ -288,8 +288,6 @@ const getVisiblePages = (currPage: number, pageCount: number, firstDetached: boo
   if (pages.length <= visiblePages) {
     return pages
   }
-
-
   if (!firstDetached) {
     // First pages
     pages = pages.filter((n) => n <= (fittingNeighbors.value * 2) + sequentialItemsVisible.value)
@@ -304,12 +302,12 @@ const getVisiblePages = (currPage: number, pageCount: number, firstDetached: boo
     // Last pages
     pages = pages.filter((n) => n > pageCount - (fittingNeighbors.value * 2) - sequentialItemsVisible.value)
   }
-
   return pages
 }
 
 const backDisabled = ref<boolean>(currPage.value === 1)
 const forwardDisabled = ref<boolean>(currPage.value === pageCount.value)
+
 
 const startCount = computed((): number => (currPage.value - 1) * currentPageSize.value + 1)
 const endCount = computed((): number => {
@@ -321,12 +319,12 @@ const endCount = computed((): number => {
 const pagesString = computed((): string => `${startCount.value} to ${endCount.value}`)
 const pageCountString = computed((): string => ` of ${props.totalCount}`)
 const currentlySelectedPage = computed((): number => props.currentPage ? props.currentPage : currPage.value)
-const firstDetached = ref<boolean>(false)
+const firstDetached = ref<boolean>(currentlySelectedPage.value >= fittingNeighbors.value + (sequentialItemsVisible.value + 1))
 const lastDetached = ref<boolean>(pageCount.value > (sequentialItemsVisible.value + 2) + (2 * fittingNeighbors.value))
 const pagesVisible = ref<Array<number>>(getVisiblePages(
   currentlySelectedPage.value,
   pageCount.value,
-  false,
+  firstDetached.value,
   lastDetached.value,
 ))
 
