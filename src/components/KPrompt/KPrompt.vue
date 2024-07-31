@@ -12,7 +12,7 @@
     :title="title || 'Confirm your action'"
     :visible="visible"
     @cancel="$emit('cancel')"
-    @proceed="$emit('proceed')"
+    @proceed="handleProceed"
   >
     <template
       v-if="$slots.title"
@@ -46,6 +46,9 @@
           autocapitalize="off"
           autocomplete="off"
           data-testid="confirmation-input"
+          :error="displayErrorState"
+          :error-message="errorMessage"
+          @keydown.enter.prevent="onEnter"
         />
       </div>
     </template>
@@ -54,7 +57,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, ref, useAttrs, watch, nextTick } from 'vue'
+import { computed, ref, useAttrs, watch } from 'vue'
 import KModal from '@/components/KModal/KModal.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import type { ButtonAppearance, ModalAttributes } from '@/types'
@@ -112,11 +115,15 @@ const props = defineProps({
     type: Object as PropType<ModalAttributes>,
     default: () => ({}),
   },
+  errorMessage: {
+    type: String,
+    default: 'You must enter the text as indicated above to confirm.',
+  },
 })
 
 const attrs = useAttrs()
 
-defineEmits<{
+const emit = defineEmits<{
   (e: 'cancel'): void
   (e: 'proceed'): void
 }>()
@@ -139,6 +146,7 @@ const sanitizedAttrs = computed(() => {
 })
 
 const confirmationInput = ref<string>('')
+const displayErrorState = ref<boolean>(false)
 
 const actionButtonDisabledValue = computed(() => {
   if (props.actionButtonDisabled) {
@@ -152,10 +160,23 @@ const confirmationPromptText = computed((): string[] => {
   return props.confirmationPrompt.split('{confirmationText}')
 })
 
-watch(() => props.visible, async (visible: boolean) => {
-  if (visible) {
-    await nextTick()
+const handleProceed = () => {
+  displayErrorState.value = false
+  emit('proceed')
+}
+
+const onEnter = () => {
+  if (!actionButtonDisabledValue.value) {
+    handleProceed()
+  } else {
+    displayErrorState.value = true
+  }
+}
+
+watch(() => props.visible, (visible: boolean) => {
+  if (!visible) {
     confirmationInput.value = ''
+    displayErrorState.value = false
   }
 })
 </script>
