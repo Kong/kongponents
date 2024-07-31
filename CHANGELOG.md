@@ -1,3 +1,10 @@
+## [9.1.5](https://github.com/Kong/kongponents/compare/v9.1.4...v9.1.5) (2024-07-31)
+
+
+### Bug Fixes
+
+* **kpagination:** ensure currentPage is highlighted ([#2307](https://github.com/Kong/kongponents/issues/2307)) ([626e435](https://github.com/Kong/kongponents/commit/626e4357d44eba25fb3e32486d3ca2e30f305f33))
+
 ## [9.1.4](https://github.com/Kong/kongponents/compare/v9.1.3...v9.1.4) (2024-07-30)
 
 
