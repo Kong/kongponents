@@ -12,7 +12,7 @@
     :title="title || 'Confirm your action'"
     :visible="visible"
     @cancel="$emit('cancel')"
-    @proceed="handleProceed"
+    @proceed="$emit('proceed')"
   >
     <template
       v-if="$slots.title"
@@ -160,14 +160,9 @@ const confirmationPromptText = computed((): string[] => {
   return props.confirmationPrompt.split('{confirmationText}')
 })
 
-const handleProceed = () => {
-  displayErrorState.value = false
-  emit('proceed')
-}
-
 const onEnter = () => {
   if (!actionButtonDisabledValue.value) {
-    handleProceed()
+    emit('proceed')
   } else {
     displayErrorState.value = true
   }
@@ -176,6 +171,12 @@ const onEnter = () => {
 watch(() => props.visible, (visible: boolean) => {
   if (!visible) {
     confirmationInput.value = ''
+    displayErrorState.value = false
+  }
+})
+
+watch(confirmationInput, (value: string) => {
+  if (value && value === props.confirmationText) {
     displayErrorState.value = false
   }
 })
