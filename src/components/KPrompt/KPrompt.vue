@@ -12,7 +12,7 @@
     :title="title || 'Confirm your action'"
     :visible="visible"
     @cancel="$emit('cancel')"
-    @proceed="$emit('proceed')"
+    @proceed="handleProceed"
   >
     <template
       v-if="$slots.title"
@@ -46,6 +46,8 @@
           autocapitalize="off"
           autocomplete="off"
           data-testid="confirmation-input"
+          :error="displayErrorState"
+          :error-message="errorMessage"
           @keydown.enter.prevent="onEnter"
         />
       </div>
@@ -113,6 +115,10 @@ const props = defineProps({
     type: Object as PropType<ModalAttributes>,
     default: () => ({}),
   },
+  errorMessage: {
+    type: String,
+    default: 'Confirmation text does not match.',
+  },
 })
 
 const attrs = useAttrs()
@@ -140,6 +146,7 @@ const sanitizedAttrs = computed(() => {
 })
 
 const confirmationInput = ref<string>('')
+const displayErrorState = ref<boolean>(false)
 
 const actionButtonDisabledValue = computed(() => {
   if (props.actionButtonDisabled) {
@@ -153,9 +160,16 @@ const confirmationPromptText = computed((): string[] => {
   return props.confirmationPrompt.split('{confirmationText}')
 })
 
+const handleProceed = () => {
+  displayErrorState.value = false
+  emit('proceed')
+}
+
 const onEnter = () => {
   if (!actionButtonDisabledValue.value) {
-    emit('proceed')
+    handleProceed()
+  } else {
+    displayErrorState.value = true
   }
 }
 

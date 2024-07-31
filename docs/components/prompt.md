@@ -354,16 +354,41 @@ interface ModalAttributes {
 />
 ```
 
+### errorMessage
+
+Error message text that will be displayed once user attempts to proceed after having typed in the wrong confirmation prompt. Default value is "Confirmation text does not match.".
+
+<KButton @click="prompt14Visible = true">Prompt</KButton>
+<KPrompt
+  confirmation-text="confirm"
+  error-message="Wrong confirmation text entered."
+  confirmation-prompt="Type in something other than {confirmationText} and press Enter."
+  :visible="prompt14Visible"
+  @cancel="closeAllPrompts"
+  @proceed="closeAllPrompts"
+/>
+
+```html
+<KPrompt
+  error-message="Wrong confirmation text entered."
+  confirmation-text="confirm"
+  confirmation-prompt="Type in something other than {confirmationText} and press Enter."
+  :visible="promptVisible"
+  @cancel="handlePromptClose"
+  @proceed="handlePromptProceed"
+/>
+```
+
 ## Slots
 
 ### default
 
 Slot for prompt content.
 
-<KButton @click="prompt14Visible = true">Prompt</KButton>
+<KButton @click="prompt15Visible = true">Prompt</KButton>
 <KPrompt
   title="Prompt"
-  :visible="prompt14Visible"
+  :visible="prompt15Visible"
   @cancel="closeAllPrompts"
   @proceed="closeAllPrompts"
 >
@@ -389,10 +414,10 @@ Slot for prompt content.
 
 Slot for title string.
 
-<KButton @click="prompt15Visible = true">Prompt</KButton>
+<KButton @click="prompt16Visible = true">Prompt</KButton>
 <KPrompt
   title="Title"
-  :visible="prompt15Visible"
+  :visible="prompt16Visible"
   @cancel="closeAllPrompts"
   @proceed="closeAllPrompts"
 >
@@ -444,6 +469,7 @@ const closeAllPrompts = () => {
   prompt13Visible.value = false
   prompt14Visible.value = false
   prompt15Visible.value = false
+  prompt16Visible.value = false
 }
 
 const prompt1Visible = ref<boolean>(false)
@@ -461,6 +487,7 @@ const prompt12Visible = ref<boolean>(false)
 const prompt13Visible = ref<boolean>(false)
 const prompt14Visible = ref<boolean>(false)
 const prompt15Visible = ref<boolean>(false)
+const prompt16Visible = ref<boolean>(false)
 </script>
 
 <style lang="scss" scoped>
