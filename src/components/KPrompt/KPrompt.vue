@@ -46,6 +46,7 @@
           autocapitalize="off"
           autocomplete="off"
           data-testid="confirmation-input"
+          @keydown.enter.prevent="onEnter"
         />
       </div>
     </template>
@@ -116,7 +117,7 @@ const props = defineProps({
 
 const attrs = useAttrs()
 
-defineEmits<{
+const emit = defineEmits<{
   (e: 'cancel'): void
   (e: 'proceed'): void
 }>()
@@ -151,6 +152,12 @@ const actionButtonDisabledValue = computed(() => {
 const confirmationPromptText = computed((): string[] => {
   return props.confirmationPrompt.split('{confirmationText}')
 })
+
+const onEnter = () => {
+  if (!actionButtonDisabledValue.value) {
+    emit('proceed')
+  }
+}
 
 watch(() => props.visible, async (visible: boolean) => {
   if (visible) {
