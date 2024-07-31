@@ -57,7 +57,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, ref, useAttrs, watch, nextTick } from 'vue'
+import { computed, ref, useAttrs, watch } from 'vue'
 import KModal from '@/components/KModal/KModal.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import type { ButtonAppearance, ModalAttributes } from '@/types'
@@ -173,10 +173,10 @@ const onEnter = () => {
   }
 }
 
-watch(() => props.visible, async (visible: boolean) => {
-  if (visible) {
-    await nextTick()
+watch(() => props.visible, (visible: boolean) => {
+  if (!visible) {
     confirmationInput.value = ''
+    displayErrorState.value = false
   }
 })
 </script>
