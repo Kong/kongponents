@@ -1,3 +1,10 @@
+## [9.1.6](https://github.com/Kong/kongponents/compare/v9.1.5...v9.1.6) (2024-07-31)
+
+
+### Bug Fixes
+
+* **kprompt:** proceed on enter ([#2317](https://github.com/Kong/kongponents/issues/2317)) ([9babd3c](https://github.com/Kong/kongponents/commit/9babd3c5e4893a80311b400ab0f6033684b7f5fc))
+
 ## [9.1.5](https://github.com/Kong/kongponents/compare/v9.1.4...v9.1.5) (2024-07-31)
 
 
