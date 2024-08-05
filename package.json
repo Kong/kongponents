@@ -78,7 +78,7 @@
     "@commitlint/config-conventional": "^19.2.2",
     "@cypress/vite-dev-server": "^5.1.1",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
-    "@evilmartians/lefthook": "^1.7.5",
+    "@evilmartians/lefthook": "^1.7.7",
     "@kong-ui-public/sandbox-layout": "^2.1.18",
     "@kong/design-tokens": "^1.15.3",
     "@kong/eslint-config-kong-ui": "^1.1.1",
@@ -86,10 +86,10 @@
     "@semantic-release/git": "^10.0.1",
     "@stylistic/stylelint-plugin": "^2.1.2",
     "@types/inquirer": "^9.0.7",
-    "@types/node": "^20.14.11",
+    "@types/node": "^20.14.12",
     "@types/sortablejs": "^1.15.8",
     "@vitejs/plugin-vue": "^5.0.5",
-    "@vue/compiler-core": "^3.4.33",
+    "@vue/compiler-core": "^3.4.34",
     "@vue/tsconfig": "^0.5.1",
     "@vueuse/core": "^10.11.0",
     "autoprefixer": "^10.4.19",
@@ -121,12 +121,12 @@
     "stylelint-order": "^6.0.4",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.5.4",
-    "vite": "^5.3.4",
-    "vite-plugin-vue-devtools": "^7.3.6",
+    "vite": "^5.3.5",
+    "vite-plugin-vue-devtools": "^7.3.7",
     "vitepress": "^1.3.1",
-    "vue": "^3.4.33",
+    "vue": "^3.4.34",
     "vue-router": "^4.4.0",
-    "vue-tsc": "^2.0.28"
+    "vue-tsc": "^2.0.29"
   },
   "resolutions": {
     "rollup": "npm:@rollup/wasm-node"
