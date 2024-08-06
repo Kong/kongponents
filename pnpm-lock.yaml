@@ -67,7 +67,7 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(@types/node@20.14.14)(typescript@5.5.4)
       '@evilmartians/lefthook':
-        specifier: ^1.7.7
+        specifier: ^1.7.9
         version: 1.7.11
       '@kong-ui-public/sandbox-layout':
         specifier: ^2.1.18
