@@ -288,7 +288,12 @@ onMounted(() => {
     document?.addEventListener('click', clickHandler)
 
     if (popoverTrigger.value) {
-      popoverTrigger.value.querySelector('button[data-dropdown-trigger="true"]')?.setAttribute('aria-controls', popoverId)
+      // determine the element to bind aria-controls attribute to
+      // data-dropdown-trigger is used to determine the default (not slotted) KDropdown trigger
+      const ariaControlsElement = popoverTrigger.value.querySelector('button[data-dropdown-trigger="true"]') || popoverTrigger.value
+      if (!ariaControlsElement.hasAttribute('aria-controls')) {
+        ariaControlsElement.setAttribute('aria-controls', popoverId)
+      }
 
       if (props.trigger === 'hover') {
         popoverTrigger.value.addEventListener('mouseenter', showPopover)
