@@ -288,7 +288,7 @@ onMounted(() => {
     document?.addEventListener('click', clickHandler)
 
     if (popoverTrigger.value) {
-      popoverTrigger.value.setAttribute('aria-controls', popoverId)
+      popoverTrigger.value.querySelector('button[data-dropdown-trigger="true"]')?.setAttribute('aria-controls', popoverId)
 
       if (props.trigger === 'hover') {
         popoverTrigger.value.addEventListener('mouseenter', showPopover)
