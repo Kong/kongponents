@@ -29,6 +29,7 @@
             <KButton
               v-if="triggerButtonText"
               :appearance="appearance"
+              :aria-label="isToggled.value ? 'Close dropdown' : 'Open dropdown'"
               class="dropdown-trigger-button"
               data-testid="dropdown-trigger-button"
               :disabled="disabled"

@@ -76,6 +76,7 @@ const showCardHeader = computed((): boolean => {
     justify-content: space-between;
 
     .card-title {
+      align-items: center;
       color: var(--kui-color-text, $kui-color-text);
       font-size: var(--kui-font-size-40, $kui-font-size-40);
       font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
