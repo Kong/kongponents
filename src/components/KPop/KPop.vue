@@ -287,11 +287,15 @@ onMounted(() => {
     // we don't set any other click event listeners on purpose to avoid conflict of event listeners
     document?.addEventListener('click', clickHandler)
 
-    if (popoverTrigger.value && props.trigger === 'hover') {
-      popoverTrigger.value.addEventListener('mouseenter', showPopover)
-      popoverTrigger.value.addEventListener('focus', showPopover)
-      popoverTrigger.value.addEventListener('mouseleave', hidePopover)
-      popoverTrigger.value.addEventListener('blur', hidePopover)
+    if (popoverTrigger.value) {
+      popoverTrigger.value.setAttribute('aria-controls', popoverId)
+
+      if (props.trigger === 'hover') {
+        popoverTrigger.value.addEventListener('mouseenter', showPopover)
+        popoverTrigger.value.addEventListener('focus', showPopover)
+        popoverTrigger.value.addEventListener('mouseleave', hidePopover)
+        popoverTrigger.value.addEventListener('blur', hidePopover)
+      }
     }
 
     if (popoverElement.value && props.trigger === 'hover') {
