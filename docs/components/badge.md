@@ -16,7 +16,7 @@ KBadge component takes one of the following appearance values:
 
 | Standard     | Methods   |
 | ------------ | --------- |
-| `info`       | `connect` |
+| `info` (default)       | `connect` |
 | `success`    | `custom`  |
 | `warning`    | `delete`  |
 | `danger`     | `get`     |
