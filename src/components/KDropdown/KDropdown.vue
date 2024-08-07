@@ -30,6 +30,7 @@
               v-if="triggerButtonText"
               :appearance="appearance"
               class="dropdown-trigger-button"
+              data-dropdown-trigger="true"
               data-testid="dropdown-trigger-button"
               :disabled="disabled"
             >

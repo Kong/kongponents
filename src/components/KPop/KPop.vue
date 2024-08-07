@@ -287,11 +287,20 @@ onMounted(() => {
     // we don't set any other click event listeners on purpose to avoid conflict of event listeners
     document?.addEventListener('click', clickHandler)
 
-    if (popoverTrigger.value && props.trigger === 'hover') {
-      popoverTrigger.value.addEventListener('mouseenter', showPopover)
-      popoverTrigger.value.addEventListener('focus', showPopover)
-      popoverTrigger.value.addEventListener('mouseleave', hidePopover)
-      popoverTrigger.value.addEventListener('blur', hidePopover)
+    if (popoverTrigger.value) {
+      // determine the element to bind aria-controls attribute to
+      // data-dropdown-trigger is used to determine the default (not slotted) KDropdown trigger
+      const ariaControlsElement = popoverTrigger.value.querySelector('button[data-dropdown-trigger="true"]') || popoverTrigger.value
+      if (!ariaControlsElement.hasAttribute('aria-controls')) {
+        ariaControlsElement.setAttribute('aria-controls', popoverId)
+      }
+
+      if (props.trigger === 'hover') {
+        popoverTrigger.value.addEventListener('mouseenter', showPopover)
+        popoverTrigger.value.addEventListener('focus', showPopover)
+        popoverTrigger.value.addEventListener('mouseleave', hidePopover)
+        popoverTrigger.value.addEventListener('blur', hidePopover)
+      }
     }
 
     if (popoverElement.value && props.trigger === 'hover') {

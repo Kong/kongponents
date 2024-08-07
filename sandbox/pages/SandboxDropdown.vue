@@ -267,19 +267,6 @@
         title="Legacy"
       />
       <SandboxSectionComponent
-        title="Prop: icon"
-      >
-        <KDropdown
-          icon="gear"
-          :items="[
-            { label: 'Home', to: { name: 'home' } },
-            { label: 'KAlert', to: { name: 'alert' } },
-            { label: 'Stay', to: { name: 'dropdown' } }
-          ]"
-          trigger-text="Icon prop"
-        />
-      </SandboxSectionComponent>
-      <SandboxSectionComponent
         title="Props: label & appearance"
       >
         <KDropdown
