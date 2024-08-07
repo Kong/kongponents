@@ -1,3 +1,10 @@
+## [9.1.8](https://github.com/Kong/kongponents/compare/v9.1.7...v9.1.8) (2024-08-07)
+
+
+### Bug Fixes
+
+* **kdropdown:** trigger element aria-label [KHCP-12832] ([#2326](https://github.com/Kong/kongponents/issues/2326)) ([365abb7](https://github.com/Kong/kongponents/commit/365abb7f6f752da0bdd02aa227419c292c4fccc8))
+
 ## [9.1.7](https://github.com/Kong/kongponents/compare/v9.1.6...v9.1.7) (2024-07-31)
 
 
