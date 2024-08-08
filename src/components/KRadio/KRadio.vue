@@ -497,5 +497,9 @@ $kRadioDotSize: 6px;
       }
     }
   }
+
+  & + .k-radio {
+    margin-top: var(--kui-space-40, $kui-space-40);
+  }
 }
 </style>
