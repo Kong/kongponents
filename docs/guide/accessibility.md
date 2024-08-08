@@ -1,6 +1,8 @@
 # Accessibility
 
-Most components follow high accessibility standards out of the box. In same cases, you do need to provide additional attributes depending on your use-case.
+Kongponents are designed with accessibility in mind, offering most components that adhere to high accessibility standards by out of the box. 
+
+For certain use cases, you may need to provide additional attributes or structures to ensure optimal accessibility.
 
 ## KAlert
 
