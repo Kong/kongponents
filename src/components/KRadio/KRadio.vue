@@ -498,8 +498,10 @@ $kRadioDotSize: 6px;
     }
   }
 
-  & + .k-radio {
-    margin-top: var(--kui-space-40, $kui-space-40);
+  &:not(.radio-card).has-description {
+    & + .k-radio:not(.radio-card).has-description {
+      margin-top: var(--kui-space-40, $kui-space-40);
+    }
   }
 }
 </style>
