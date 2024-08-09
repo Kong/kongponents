@@ -111,6 +111,7 @@ export default defineConfig({
             { text: 'Getting Started', link: '/guide/' },
             { text: 'Usage', link: '/guide/usage' },
             { text: 'Theming', link: '/guide/theming' },
+            { text: 'Accessibility', link: '/guide/accessibility' },
           ],
         },
         {
