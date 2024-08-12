@@ -79,6 +79,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  closeOnEscape: {
+    type: Boolean,
+    default: true,
+  },
   title: {
     type: String,
     default: '',
@@ -123,7 +127,7 @@ onClickOutside(
 
 const handleClose = (e: any, forceClose = false): void => {
   // close on escape key
-  if ((props.visible && e.keyCode === 27) || forceClose) {
+  if ((props.visible && e.keyCode === 27 && props.closeOnEscape) || forceClose) {
     emit('close')
   }
 }
