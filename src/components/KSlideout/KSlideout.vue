@@ -126,7 +126,7 @@ onClickOutside(
 )
 
 const handleClose = (e: any, forceClose = false): void => {
-  // close on escape key
+  // close on escape key if the closeOnEscape prop is true
   if ((props.visible && e.keyCode === 27 && props.closeOnEscape) || forceClose) {
     emit('close')
   }
