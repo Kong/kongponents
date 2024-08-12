@@ -1,3 +1,15 @@
+# [9.2.0](https://github.com/Kong/kongponents/compare/v9.1.8...v9.2.0) (2024-08-12)
+
+
+### Bug Fixes
+
+* trigger deploy ([726d191](https://github.com/Kong/kongponents/commit/726d1916867dd5e7ff4a40ce025b50541bdb1b1a))
+
+
+### Features
+
+* **kslideout:** close on escape ([b45cf0a](https://github.com/Kong/kongponents/commit/b45cf0aa27f14ba327805b8cdc925a4eec9b9e9b))
+
 ## [9.1.8](https://github.com/Kong/kongponents/compare/v9.1.7...v9.1.8) (2024-08-07)
 
 
