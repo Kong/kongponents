@@ -1,3 +1,10 @@
+## [9.2.1](https://github.com/Kong/kongponents/compare/v9.2.0...v9.2.1) (2024-08-12)
+
+
+### Bug Fixes
+
+* cli ([ca308a0](https://github.com/Kong/kongponents/commit/ca308a024b69ef936a040f6719af80ce57797612))
+
 # [9.2.0](https://github.com/Kong/kongponents/compare/v9.1.8...v9.2.0) (2024-08-12)
 
 
