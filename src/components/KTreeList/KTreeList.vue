@@ -111,6 +111,14 @@ const emit = defineEmits<{
   (event: 'selected', item: TreeListItem): void
 }>()
 
+const { useDebounce } = useUtilities()
+
+// use debounce function to avoid emitting multiple same events at once
+// even a 1ms debounce will do the trick
+const { debouncedFn: debouncedEmit } = useDebounce((item: TreeListItem) => {
+  emit('selected', item)
+}, 1)
+
 const internalList = ref<TreeListItem[]>([])
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
@@ -145,7 +153,8 @@ const handleSelection = (itemToSelect: TreeListItem, list?: TreeListItem[]): voi
       handleSelection(itemToSelect, item.children)
     }
   })
-  emit('selected', itemToSelect)
+
+  debouncedEmit(itemToSelect)
 }
 
 const handleChangeEvent = (data: ChangeEvent): void => {
@@ -207,6 +216,7 @@ onMounted(() => {
 // needs to stay unscoped as it's targeting specific deeply nested elements
 .k-tree-list {
   font-family: var(--kui-font-family-text, $kui-font-family-text);
+  width: 100%;
 
   & > .tree-draggable > .tree-item-container {
     &:before {
