@@ -1,5 +1,5 @@
 <template>
-  <div class="k-data-table">
+  <div class="k-table-view">
     <div
       v-if="hasToolbarSlot"
       class="table-toolbar"
@@ -194,23 +194,30 @@
               :tabindex="isClickable ? 0 : null"
             >
               <td
-                v-for="(value, index) in visibleHeaders"
-                v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
+                v-for="(header, index) in visibleHeaders"
+                v-bind="cellAttrs({ headerKey: header.key, row, rowIndex, colIndex: index })"
                 :key="`table-${tableId}-cell-${index}`"
                 :class="{
-                  'resize-hover': resizeColumns && resizeHoverColumn === value.key && index !== visibleHeaders.length - 1,
+                  'resize-hover': resizeColumns && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
+                  'has-link': row.to,
                 }"
-                :style="columnStyles[value.key]"
-                v-on="tdlisteners(row[value.key], row)"
+                :style="columnStyles[header.key]"
+                v-on="tdlisteners(row[header.key], row)"
               >
-                <slot
-                  :name="value.key"
-                  :row="getGeneric(row)"
-                  :row-key="rowIndex"
-                  :row-value="row[value.key]"
+                <component
+                  :is="row.to ? typeof row.to === 'object' ? 'router-link' : 'a' : 'div'"
+                  :class="{ 'row-link': row.to, 'row-cell-wrapper': !row.to }"
+                  v-bind="rowLinkAttrs(row)"
                 >
-                  {{ row[value.key] }}
-                </slot>
+                  <slot
+                    :name="header.key"
+                    :row="getGeneric(row)"
+                    :row-key="rowIndex"
+                    :row-value="row[header.key]"
+                  >
+                    {{ row[header.key] }}
+                  </slot>
+                </component>
               </td>
             </tr>
           </tbody>
@@ -239,6 +246,7 @@ import type {
   TablePreferences,
   TableHeader,
   TableData,
+  TableDataEntry,
   TableColumnSlotName,
   TableColumnTooltipSlotName,
   SortColumnOrder,
@@ -700,6 +708,17 @@ const scrollHandler = (event: any): void => {
   }
 }
 
+const rowLinkAttrs = (row: TableDataEntry): Record<string, any> => {
+  const isRouterLink = row.to && typeof row.to === 'object'
+  const isAnchor = row.to && typeof row.to === 'string'
+
+  return {
+    ...(isRouterLink && { to: row.to }),
+    ...(isAnchor && { href: row.to }),
+    ...((isRouterLink || isAnchor) && row.target && { target: row.target }),
+  }
+}
+
 // Store the tablePreferences in a computed property to utilize in the watcher
 const tablePreferences = computed((): TablePreferences => ({
   sortColumnKey: sortColumnKey.value,
@@ -738,7 +757,7 @@ watch(hasColumnVisibilityMenu, (newVal) => {
 </script>
 
 <style lang="scss" scoped>
-.k-data-table {
+.k-table-view {
   @include table;
 
   .table-after {

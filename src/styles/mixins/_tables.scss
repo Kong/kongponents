@@ -28,9 +28,12 @@
       td {
         @include truncate;
 
-        padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
         vertical-align: middle;
         white-space: nowrap;
+
+        &:not(td.has-link) {
+          padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+        }
       }
 
       thead {
@@ -187,6 +190,17 @@
               // creates a 2px "border" on the right - can't use the border because it will "jump"
               box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0
                 var(--kui-color-border, $kui-color-border) inset;
+            }
+
+            .row-link {
+              color: var(--kui-color-text, $kui-color-text);
+              display: block;
+              padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+              text-decoration: none;
+            }
+
+            .row-cell-wrapper {
+              display: contents;
             }
           }
         }

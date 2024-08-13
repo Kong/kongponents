@@ -48,10 +48,10 @@ declare module 'vue' {
     ToastManager: typeof components.ToastManager
     KTruncate: typeof components.KTruncate
     KCopy: typeof components.KCopy
-    KDataTable: typeof components.KDataTable
+    KTableView: typeof components.KTableView
     // {%%NEW_KONGPONENT%%} (do not remove comment)
   }
 }
 
 // Must have an export to be a module
-export {}
+export { }

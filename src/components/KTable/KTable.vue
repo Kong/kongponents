@@ -197,22 +197,22 @@
               :tabindex="isClickable ? 0 : null"
             >
               <td
-                v-for="(value, index) in visibleHeaders"
-                v-bind="cellAttrs({ headerKey: value.key, row, rowIndex, colIndex: index })"
+                v-for="(header, index) in visibleHeaders"
+                v-bind="cellAttrs({ headerKey: header.key, row, rowIndex, colIndex: index })"
                 :key="`table-${tableId}-cell-${index}`"
                 :class="{
-                  'resize-hover': resizeColumns && resizeHoverColumn === value.key && index !== visibleHeaders.length - 1,
+                  'resize-hover': resizeColumns && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
                 }"
-                :style="columnStyles[value.key]"
-                v-on="tdlisteners(row[value.key], row)"
+                :style="columnStyles[header.key]"
+                v-on="tdlisteners(row[header.key], row)"
               >
                 <slot
-                  :name="value.key"
+                  :name="header.key"
                   :row="getGeneric(row)"
                   :row-key="rowIndex"
-                  :row-value="row[value.key]"
+                  :row-value="row[header.key]"
                 >
-                  {{ row[value.key] }}
+                  {{ row[header.key] }}
                 </slot>
               </td>
             </tr>

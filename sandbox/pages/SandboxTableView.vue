@@ -1,9 +1,9 @@
 <template>
   <SandboxLayout
     :links="inject('app-links', [])"
-    title="KDataTable"
+    title="KTableView"
   >
-    <div class="k-data-table-sandbox">
+    <div class="k-table-view-sandbox">
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
@@ -26,7 +26,7 @@
             />
           </div>
 
-          <KDataTable
+          <KTableView
             :key="data.tableKey"
             :data="data.tableEmptyState ? [] : tableData"
             empty-state-action-message="Empty state action"
@@ -41,11 +41,11 @@
             <template #actions>
               <SandboxTableActions />
             </template>
-          </KDataTable>
+          </KTableView>
         </KComponent>
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        description="This table has clickable rows."
+        description="First 2 rows in this table are links. The rest of the rows are clickable."
         title="loading & resizeColumns & error & errorStateTitle & errorStateMessage & errorStateActionMessage & errorStateActionRoute"
       >
         <KComponent
@@ -63,8 +63,8 @@
             />
           </div>
 
-          <KDataTable
-            :data="tableData"
+          <KTableView
+            :data="tableDataWithLinks"
             empty-state-action-message="Add new item"
             :error="data.tableErrorState"
             error-state-action-message="Error state action"
@@ -79,7 +79,7 @@
             <template #actions>
               <SandboxTableActions />
             </template>
-          </KDataTable>
+          </KTableView>
         </KComponent>
       </SandboxSectionComponent>
 
@@ -88,9 +88,12 @@
         is-subtitle
         title="Slots"
       />
-      <SandboxSectionComponent title="column header & column tooltip & cell">
-        <KDataTable
-          :data="tableData"
+      <SandboxSectionComponent
+        description="First 2 rows in this table are links."
+        title="column header & column tooltip & cell"
+      >
+        <KTableView
+          :data="tableDataWithLinks"
           :headers="headers()"
         >
           <template #column-username>
@@ -101,16 +104,24 @@
           <template #tooltip-email>
             Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code>
           </template>
+          <template #username="{ rowValue }">
+            <KExternalLink
+              class="username-link"
+              href="https://kongponents.konghq.com/components/alert.html"
+            >
+              @{{ rowValue }}
+            </KExternalLink>
+          </template>
           <template #email="{ rowValue }">
             <KCopy :text="rowValue" />
           </template>
           <template #actions>
             <SandboxTableActions />
           </template>
-        </KDataTable>
+        </KTableView>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="toolbar">
-        <KDataTable
+        <KTableView
           :data="tableData"
           :headers="headers()"
         >
@@ -123,10 +134,10 @@
           <template #actions>
             <SandboxTableActions />
           </template>
-        </KDataTable>
+        </KTableView>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="after">
-        <KDataTable
+        <KTableView
           :data="tableData"
           :headers="headers()"
         >
@@ -136,10 +147,10 @@
           <template #actions>
             <SandboxTableActions />
           </template>
-        </KDataTable>
+        </KTableView>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="error-state">
-        <KDataTable
+        <KTableView
           :data="tableData"
           error
           :headers="headers()"
@@ -152,10 +163,10 @@
               title="Slotted error state title"
             />
           </template>
-        </KDataTable>
+        </KTableView>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="empty-state">
-        <KDataTable
+        <KTableView
           :data="[]"
           :headers="headers()"
         >
@@ -166,10 +177,10 @@
               title="Slotted empty state title"
             />
           </template>
-        </KDataTable>
+        </KTableView>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="empty-state-action-icon">
-        <KDataTable
+        <KTableView
           :data="[]"
           empty-state-action-message="Empty state action"
           :headers="headers()"
@@ -177,7 +188,7 @@
           <template #empty-state-action-icon>
             <AddIcon />
           </template>
-        </KDataTable>
+        </KTableView>
       </SandboxSectionComponent>
     </div>
   </SandboxLayout>
@@ -263,6 +274,14 @@ const tableData: TableData = [
   },
 ]
 
+const tableDataWithLinks = tableData.map((item, i) => {
+  return {
+    ...item,
+    ...(i === 0 && { to: { name: 'home' } }),
+    ...(i === 1 && { to: 'https://kongponents.konghq.com/', target: '_blank' }),
+  }
+})
+
 const sortHandlerFunction = ({ key, sortColumnOrder, data }: any) => {
   return data.sort((a: any, b: any) => {
     if (key === 'username') {
@@ -295,11 +314,15 @@ const onRowClick = (row: any) => {
 </script>
 
 <style lang="scss" scoped>
-.k-data-table-sandbox {
+.k-table-view-sandbox {
   .horizontal-container {
     display: flex;
     flex-wrap: wrap;
     gap: $kui-space-50;
+  }
+
+  .username-link {
+    text-transform: lowercase;
   }
 }
 </style>

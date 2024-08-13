@@ -1,3 +1,5 @@
+import type { RouteLocationRaw } from 'vue-router'
+
 export type SortColumnOrder = 'asc' | 'desc'
 
 export interface TablePreferences {
@@ -13,7 +15,13 @@ export interface TablePreferences {
   columnVisibility?: Record<string, boolean>
 }
 
-export type TableData = Array<Record<string, any>>
+export interface TableDataEntry {
+  [key: string]: any
+  to?: RouteLocationRaw | string
+  target?: string
+}
+
+export type TableData = Array<TableDataEntry>
 
 export interface TableHeader {
   /** Must be unique for each column */

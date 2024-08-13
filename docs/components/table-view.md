@@ -1,12 +1,12 @@
-# Data Table
+# Table
 
-KDataTable should be described here in the first paragraph.
+KTableView should be described here in the first paragraph.
 
-<KDataTable />
+<KTableView />
 
 ```html
 <template>
-  <KDataTable />
+  <KTableView />
 </template>
 
 <script setup lang="ts">
@@ -22,12 +22,12 @@ Description of `examplePropName`
 
 Actual component using `examplePropName`:
 
-<KDataTable :example-prop-name="true" />
+<KTableView :example-prop-name="true" />
 
 ```html
-<KDataTable example-prop-name="variation1" />
-<KDataTable example-prop-name="variation2" />
-<KDataTable example-prop-name="variation3" />
+<KTableView example-prop-name="variation1" />
+<KTableView example-prop-name="variation2" />
+<KTableView example-prop-name="variation3" />
 ```
 
 ## Slots
@@ -41,9 +41,9 @@ Default slot description.
 Slot description.
 
 ```html
-<KDataTable>
+<KTableView>
   here is some slot content
-</KDataTable>
+</KTableView>
 ```
 
 ## Events
