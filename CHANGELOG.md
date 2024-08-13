@@ -1,3 +1,10 @@
+## [9.2.2](https://github.com/Kong/kongponents/compare/v9.2.1...v9.2.2) (2024-08-13)
+
+
+### Bug Fixes
+
+* **ktreelist:** fix multiple emits ([#2334](https://github.com/Kong/kongponents/issues/2334)) ([a167050](https://github.com/Kong/kongponents/commit/a16705054c9faa80102455a0315c324d26278eb5))
+
 ## [9.2.1](https://github.com/Kong/kongponents/compare/v9.2.0...v9.2.1) (2024-08-12)
 
 
