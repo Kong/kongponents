@@ -137,6 +137,7 @@ const handleSelection = (itemToSelect: TreeListItem, list?: TreeListItem[]): voi
   editList.forEach((item: TreeListItem) => {
     if (item.id === itemToSelect.id) {
       item.selected = true
+      emit('selected', itemToSelect)
     } else {
       item.selected = false
     }
@@ -145,7 +146,6 @@ const handleSelection = (itemToSelect: TreeListItem, list?: TreeListItem[]): voi
       handleSelection(itemToSelect, item.children)
     }
   })
-  emit('selected', itemToSelect)
 }
 
 const handleChangeEvent = (data: ChangeEvent): void => {
@@ -207,6 +207,7 @@ onMounted(() => {
 // needs to stay unscoped as it's targeting specific deeply nested elements
 .k-tree-list {
   font-family: var(--kui-font-family-text, $kui-font-family-text);
+  width: 100%;
 
   & > .tree-draggable > .tree-item-container {
     &:before {
