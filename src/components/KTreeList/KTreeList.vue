@@ -111,14 +111,6 @@ const emit = defineEmits<{
   (event: 'selected', item: TreeListItem): void
 }>()
 
-const { useDebounce } = useUtilities()
-
-// use debounce function to avoid emitting multiple same events at once
-// even a 1ms debounce will do the trick
-const { debouncedFn: debouncedEmit } = useDebounce((item: TreeListItem) => {
-  emit('selected', item)
-}, 1)
-
 const internalList = ref<TreeListItem[]>([])
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
@@ -145,6 +137,7 @@ const handleSelection = (itemToSelect: TreeListItem, list?: TreeListItem[]): voi
   editList.forEach((item: TreeListItem) => {
     if (item.id === itemToSelect.id) {
       item.selected = true
+      emit('selected', itemToSelect)
     } else {
       item.selected = false
     }
@@ -153,8 +146,6 @@ const handleSelection = (itemToSelect: TreeListItem, list?: TreeListItem[]): voi
       handleSelection(itemToSelect, item.children)
     }
   })
-
-  debouncedEmit(itemToSelect)
 }
 
 const handleChangeEvent = (data: ChangeEvent): void => {
