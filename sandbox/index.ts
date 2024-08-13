@@ -25,6 +25,7 @@ const sandboxAppLinks: SandboxNavigationItem[] = ([
   { name: 'KCodeBlock', to: { name: 'codeblock' } },
   { name: 'KCollapse', to: { name: 'collapse' } },
   { name: 'KCopy', to: { name: 'copy' } },
+  { name: 'KDataTable', to: { name: 'data-table' } },
   { name: 'KDateTimePicker', to: { name: 'datetimepicker' } },
   { name: 'KDropdown', to: { name: 'dropdown' } },
   { name: 'KEmptyState', to: { name: 'emptystate' } },

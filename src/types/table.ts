@@ -13,6 +13,8 @@ export interface TablePreferences {
   columnVisibility?: Record<string, boolean>
 }
 
+export type TableData = Array<Record<string, any>>
+
 export interface TableHeader {
   /** Must be unique for each column */
   key: string

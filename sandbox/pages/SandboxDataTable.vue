@@ -1,15 +1,15 @@
 <template>
   <SandboxLayout
     :links="inject('app-links', [])"
-    title="KTable"
+    title="KDataTable"
   >
-    <div class="ktable-sandbox">
+    <div class="k-data-table-sandbox">
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
         title="Props"
       />
-      <SandboxSectionComponent title="rowHover & emptyStateIconVariant & emptyStateTitle & emptyStateMessage & emptyStateActionMessage & emptyStateActionRoute & sortHandlerFunction">
+      <SandboxSectionComponent title="rowHover & emptyStateIconVariant & emptyStateTitle & emptyStateMessage & emptyStateActionMessage & emptyStateActionRoute & emptyStateButtonAppearance">
         <KComponent
           v-slot="{ data }"
           :data="{ tableKey: 0, tableRowHover: false, tableEmptyState: false }"
@@ -26,23 +26,22 @@
             />
           </div>
 
-          <KTable
+          <KDataTable
             :key="data.tableKey"
-            client-sort
+            :data="data.tableEmptyState ? [] : tableData"
             empty-state-action-message="Empty state action"
             empty-state-action-route="/"
+            empty-state-button-appearance="secondary"
             empty-state-icon-variant="kong"
             empty-state-message="Empty state message"
             empty-state-title="Empty state title"
-            :fetcher="data.tableEmptyState ? emptyFetcher : fetcher"
             :headers="headers(false, true)"
             :row-hover="data.tableRowHover"
-            :sort-handler-function="sortHandlerFunction"
           >
             <template #actions>
               <SandboxTableActions />
             </template>
-          </KTable>
+          </KDataTable>
         </KComponent>
       </SandboxSectionComponent>
       <SandboxSectionComponent
@@ -64,14 +63,14 @@
             />
           </div>
 
-          <KTable
+          <KDataTable
+            :data="tableData"
             empty-state-action-message="Add new item"
             :error="data.tableErrorState"
             error-state-action-message="Error state action"
             error-state-action-route="/"
             error-state-message="Error state message"
             error-state-title="Error state title"
-            :fetcher="fetcher"
             :headers="headers(true)"
             :loading="data.tableLoadingState"
             resize-columns
@@ -80,7 +79,7 @@
             <template #actions>
               <SandboxTableActions />
             </template>
-          </KTable>
+          </KDataTable>
         </KComponent>
       </SandboxSectionComponent>
 
@@ -90,8 +89,8 @@
         title="Slots"
       />
       <SandboxSectionComponent title="column header & column tooltip & cell">
-        <KTable
-          :fetcher="fetcher"
+        <KDataTable
+          :data="tableData"
           :headers="headers()"
         >
           <template #column-username>
@@ -108,11 +107,11 @@
           <template #actions>
             <SandboxTableActions />
           </template>
-        </KTable>
+        </KDataTable>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="toolbar">
-        <KTable
-          :fetcher="fetcher"
+        <KDataTable
+          :data="tableData"
           :headers="headers()"
         >
           <template #toolbar>
@@ -124,12 +123,25 @@
           <template #actions>
             <SandboxTableActions />
           </template>
-        </KTable>
+        </KDataTable>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="after">
+        <KDataTable
+          :data="tableData"
+          :headers="headers()"
+        >
+          <template #after>
+            <KPagination :total-count="10" />
+          </template>
+          <template #actions>
+            <SandboxTableActions />
+          </template>
+        </KDataTable>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="error-state">
-        <KTable
+        <KDataTable
+          :data="tableData"
           error
-          :fetcher="fetcher"
           :headers="headers()"
         >
           <template #error-state>
@@ -140,11 +152,11 @@
               title="Slotted error state title"
             />
           </template>
-        </KTable>
+        </KDataTable>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="empty-state">
-        <KTable
-          :fetcher="emptyFetcher"
+        <KDataTable
+          :data="[]"
           :headers="headers()"
         >
           <template #empty-state>
@@ -154,18 +166,18 @@
               title="Slotted empty state title"
             />
           </template>
-        </KTable>
+        </KDataTable>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="empty-state-action-icon">
-        <KTable
+        <KDataTable
+          :data="[]"
           empty-state-action-message="Empty state action"
-          :fetcher="emptyFetcher"
           :headers="headers()"
         >
           <template #empty-state-action-icon>
             <AddIcon />
           </template>
-        </KTable>
+        </KDataTable>
       </SandboxSectionComponent>
     </div>
   </SandboxLayout>
@@ -173,49 +185,83 @@
 
 <script setup lang="ts">
 import { inject } from 'vue'
-import SandboxTitleComponent from '../../components/SandboxTitleComponent.vue'
-import SandboxSectionComponent from '../../components/SandboxSectionComponent.vue'
-import SandboxTableActions from './SandboxTableActions.vue'
+import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
+import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
+import type { TableHeader, TableData } from '@/types'
+import SandboxTableActions from './SandboxTable/SandboxTableActions.vue'
 import { AddIcon } from '@kong/icons'
-import type { TableHeader } from '@/types'
 
 const headers = (hidable: boolean = false, sortable: boolean = false): TableHeader[] => {
   return [
     { key: 'name', label: 'Full Name' },
-    {
-      key: 'username',
-      label: 'Username',
-      tooltip: 'Columns with a tooltip.',
-      sortable,
-      ...(sortable && { useSortHandlerFunction: true }),
-    },
+    { key: 'username', label: 'Username', tooltip: 'Columns with a tooltip.', sortable },
     { key: 'email', label: 'Email', hidable },
     { key: 'actions', label: 'Row actions', hideLabel: true },
   ]
 }
 
-const fetcher = async (): Promise<any> => {
-  // Fake delay
-  await new Promise((resolve) => setTimeout(resolve, 2000))
-
-  const response = await fetch('https://jsonplaceholder.typicode.com/users')
-  const responseData = await response.json()
-
-  return {
-    data: responseData,
-    total: responseData.length,
-  }
-}
-
-const emptyFetcher = async (): Promise<any> => {
-  // Fake delay
-  await new Promise((resolve) => setTimeout(resolve, 2000))
-
-  return {
-    data: [],
-    total: 0,
-  }
-}
+const tableData: TableData = [
+  {
+    id: 1,
+    name: 'Leanne Graham',
+    username: 'Bret',
+    email: 'Sincere@april.biz',
+  },
+  {
+    id: 2,
+    name: 'Ervin Howell',
+    username: 'Antonette',
+    email: 'Shanna@melissa.tv',
+  },
+  {
+    id: 3,
+    name: 'Clementine Bauch',
+    username: 'Samantha',
+    email: 'Nathan@yesenia.net',
+  },
+  {
+    id: 4,
+    name: 'Patricia Lebsack',
+    username: 'Karianne',
+    email: 'Julianne.OConner@kory.org',
+  },
+  {
+    id: 5,
+    name: 'Chelsey Dietrich',
+    username: 'Kamren',
+    email: 'Lucio_Hettinger@annie.ca',
+  },
+  {
+    id: 6,
+    name: 'Mrs. Dennis Schulist',
+    username: 'Leopoldo_Corkery',
+    email: 'Karley_Dach@jasper.info',
+  },
+  {
+    id: 7,
+    name: 'Kurtis Weissnat',
+    username: 'Elwyn.Skiles',
+    email: 'Telly.Hoeger@billy.biz',
+  },
+  {
+    id: 8,
+    name: 'Nicholas Runolfsdottir V',
+    username: 'Maxime_Nienow',
+    email: 'Sherwood@rosamond.me',
+  },
+  {
+    id: 9,
+    name: 'Glenna Reichert',
+    username: 'Delphine',
+    email: 'Chaim_McDermott@dana.io',
+  },
+  {
+    id: 10,
+    name: 'Clementina DuBuque',
+    username: 'Moriah.Stanton',
+    email: 'Rey.Padberg@karina.biz',
+  },
+]
 
 const sortHandlerFunction = ({ key, sortColumnOrder, data }: any) => {
   return data.sort((a: any, b: any) => {
@@ -249,9 +295,11 @@ const onRowClick = (row: any) => {
 </script>
 
 <style lang="scss" scoped>
-.horizontal-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: $kui-space-50;
+.k-data-table-sandbox {
+  .horizontal-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $kui-space-50;
+  }
 }
 </style>

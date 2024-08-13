@@ -1,14 +1,11 @@
 <template>
-  <div class="k-table">
+  <div class="k-data-table">
     <div
       v-if="hasToolbarSlot"
       class="table-toolbar"
       data-testid="table-toolbar"
     >
-      <slot
-        name="toolbar"
-        :state="stateData"
-      />
+      <slot name="toolbar" />
       <ColumnVisibilityMenu
         v-if="hasColumnVisibilityMenu"
         :columns="visibilityColumns"
@@ -19,7 +16,7 @@
     </div>
 
     <KSkeleton
-      v-if="(isTableLoading || loading || isRevalidating) && !error"
+      v-if="loading && !error"
       data-testid="table-skeleton"
       type="table"
     />
@@ -52,7 +49,7 @@
     </div>
 
     <div
-      v-else-if="!error && (!isTableLoading && !loading && !isRevalidating) && (data && !data.length)"
+      v-else-if="!error && !loading && (data && !data.length)"
       class="table-empty-state"
       data-testid="table-empty-state"
     >
@@ -67,7 +64,7 @@
             #action
           >
             <KButton
-              :appearance="searchInput ? 'tertiary' : 'primary'"
+              :appearance="emptyStateButtonAppearance"
               :data-testid="getTestIdString(emptyStateActionMessage)"
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
               @click="$emit('empty-state-action-click')"
@@ -220,59 +217,40 @@
         </table>
       </div>
 
-      <KPagination
-        v-if="shouldShowPagination"
-        class="table-pagination"
-        :current-page="page"
-        data-testid="table-pagination"
-        :disable-page-jump="disablePaginationPageJump"
-        :initial-page-size="pageSize"
-        :neighbors="paginationNeighbors"
-        :offset="paginationOffset"
-        :offset-next-button-disabled="!offset || !hasNextPage"
-        :offset-previous-button-disabled="!previousOffset"
-        :page-sizes="paginationPageSizes"
-        :total-count="total"
-        @get-next-offset="getNextOffsetHandler"
-        @get-previous-offset="getPrevOffsetHandler"
-        @page-change="pageChangeHandler"
-        @page-size-change="pageSizeChangeHandler"
-      />
+      <div
+        v-if="$slots.after"
+        class="table-after"
+      >
+        <slot name="after" />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Ref, PropType } from 'vue'
-import { ref, watch, computed, onMounted, useAttrs, useSlots } from 'vue'
+import type { PropType } from 'vue'
+import { ref, watch, computed, useAttrs, useSlots } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
-import KPagination from '@/components/KPagination/KPagination.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { InfoIcon, ArrowDownIcon } from '@kong/icons'
-import useUtilities from '@/composables/useUtilities'
 import type {
   TablePreferences,
   TableHeader,
+  TableData,
   TableColumnSlotName,
   TableColumnTooltipSlotName,
-  SwrvState,
-  SwrvStateData,
-  TableState,
-  PageChangeData,
-  PageSizeChangeData,
   SortColumnOrder,
   TableSortPayload,
   TableStatePayload,
   EmptyStateIconVariant,
+  ButtonAppearance,
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
-import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
+import ColumnVisibilityMenu from './../KTable/ColumnVisibilityMenu.vue'
 import useUniqueId from '@/composables/useUniqueId'
-
-const { useDebounce, useRequest, useSwrvState, clientSideSorter: defaultClientSideSorter } = useUtilities()
 
 const props = defineProps({
   /**
@@ -291,23 +269,11 @@ const props = defineProps({
     default: () => ({}),
   },
   /**
-   * Enable client side sort - only do this if using a fetcher
-   * that returns static data
-   */
-  clientSort: {
-    type: Boolean,
-    default: false,
-  },
-  /**
    * Enables hover highlighting to table rows
    */
   rowHover: {
     type: Boolean,
     default: true,
-  },
-  sortHandlerFunction: {
-    type: Function,
-    default: () => ({}),
   },
   /**
    * A function that conditionally specifies row attributes on each row
@@ -362,6 +328,10 @@ const props = defineProps({
     type: String as PropType<EmptyStateIconVariant>,
     default: EmptyStateIconVariants.Default,
   },
+  emptyStateButtonAppearance: {
+    type: String as PropType<ButtonAppearance>,
+    default: 'primary',
+  },
   /**
    * A prop that enables the error state
    */
@@ -398,94 +368,19 @@ const props = defineProps({
     default: '',
   },
   /**
-   * A prop to pass in a fetcher function to enable server-side search, sort
-   * and pagination
-   */
-  fetcher: {
-    type: Function,
-    default: undefined,
-    required: true,
-  },
-  /**
-   * A prop to trigger a revalidate of the fetcher function. Modifying this value
-   * will trigger a manual refetch of the table data.
-   */
-  fetcherCacheKey: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop used to uniquely identify this table in the swrv cache
-   */
-  cacheIdentifier: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a search string for server-side search
-   */
-  searchInput: {
-    type: String,
-    default: '',
-  },
-  /**
    * A prop to pass in an array of headers for the table
    */
   headers: {
     type: Array as PropType<TableHeader[]>,
     default: () => [],
   },
-  /**
-   * A prop to pass in an object of intial params for the initial fetcher function call
-   */
-  initialFetcherParams: {
-    type: Object,
-    default: null,
-  },
-  /**
-   * A prop to pass in the number of pagination neighbors used by the pagination component
-   */
-  paginationNeighbors: {
-    type: Number,
-    default: 1,
-  },
-  /**
-   * A prop to pass in an array of page sizes used by the pagination component
-   */
-  paginationPageSizes: {
-    type: Array as PropType<number[]>,
-    default: () => ([15, 30, 50, 75, 100]),
-    validator: (pageSizes: number[]): boolean => !!pageSizes.length && pageSizes.every(i => typeof i === 'number'),
-  },
-  /**
-   * A prop to pass the total number of items in the set for the pagination text
-   */
-  paginationTotalItems: {
-    type: Number,
-    default: null,
-  },
-  disablePaginationPageJump: {
-    type: Boolean,
-    default: false,
+  data: {
+    type: Array as PropType<TableData>,
+    default: () => [],
   },
   sortable: {
     type: Boolean,
     default: true,
-  },
-  disablePagination: {
-    type: Boolean,
-    default: false,
-  },
-  paginationOffset: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * A prop to pass to hide pagination for total table records is less than or equal to pagesize
-   */
-  hidePaginationWhenOptional: {
-    type: Boolean,
-    default: false,
   },
 })
 
@@ -503,15 +398,6 @@ const attrs = useAttrs()
 const slots = useSlots()
 
 const tableId = useUniqueId()
-const defaultFetcherProps = {
-  pageSize: 15,
-  page: 1,
-  query: '',
-  sortColumnKey: '',
-  sortColumnOrder: 'desc',
-  offset: null,
-}
-const data = ref<Record<string, any>[]>([])
 const headerRow = ref<HTMLDivElement>()
 // all headers
 const tableHeaders = ref<TableHeader[]>([])
@@ -527,7 +413,7 @@ const hasHidableColumns = computed((): boolean => tableHeaders.value.filter((hea
 const hasColumnVisibilityMenu = computed((): boolean => {
   // has hidable columns, no error/loading/empty state
   return !!(hasHidableColumns.value &&
-    !props.error && !isTableLoading.value && !props.loading && (data.value && data.value.length))
+    !props.error && !props.loading && !props.loading && (props.data && props.data.length))
 })
 // columns whose visibility can be toggled
 const visibilityColumns = computed((): TableHeader[] => tableHeaders.value.filter((header: TableHeader) => header.hidable))
@@ -535,19 +421,10 @@ const visibilityColumns = computed((): TableHeader[] => tableHeaders.value.filte
 const visibilityPreferences = computed((): Record<string, boolean> => hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
 // current column visibility state
 const columnVisibility = ref<Record<string, boolean>>(hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
-const total = ref(0)
 const isScrolled = ref(false)
-const page = ref(1)
-const pageSize = ref(15)
-const filterQuery = ref('')
 const sortColumnKey = ref('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
-const offset: Ref<string | null> = ref(null)
-const offsets: Ref<Array<any>> = ref([])
-const hasNextPage = ref(true)
 const isClickable = ref(false)
-const hasInitialized = ref(false)
-const nextPageClicked = ref(false)
 const hasToolbarSlot = computed((): boolean => !!slots.toolbar || hasColumnVisibilityMenu.value)
 
 /**
@@ -783,136 +660,15 @@ const startResize = (evt: MouseEvent, colKey: string) => {
   }
 }
 
-const isInitialFetch = ref(true)
-const fetchData = async () => {
-  const searchInput = props.searchInput
-
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const res = await props.fetcher({
-    pageSize: pageSize.value,
-    page: page.value,
-    query: searchInput || filterQuery.value,
-    sortColumnKey: sortColumnKey.value,
-    sortColumnOrder: sortColumnOrder.value,
-    offset: offset.value,
-  })
-  data.value = res.data as Record<string, any>[]
-  total.value = props.paginationTotalItems || res.total || res.data?.length
-
-  if (props.paginationOffset) {
-    if (!res.pagination?.offset) {
-      offset.value = null
-
-      // reset to first page if no pagiantion data is returned unless the "next page" button was clicked
-      // this will ensure buttons display the correct state for cases like search
-      if (!nextPageClicked.value) {
-        page.value = 1
-      }
-    } else {
-      offset.value = res.pagination.offset
-
-      if (!offsets.value[page.value]) {
-        offsets.value.push(res.pagination.offset)
-      }
-    }
-
-    hasNextPage.value = (res.pagination && 'hasNextPage' in res.pagination) ? res.pagination.hasNextPage : true
-  }
-
-  nextPageClicked.value = false
-  isInitialFetch.value = false
-
-  return res
-}
-
-const initData = () => {
-  const fetcherParams = {
-    ...defaultFetcherProps,
-    ...props.initialFetcherParams,
-  }
-  // don't allow overriding default settings with `undefined` values
-  page.value = fetcherParams.page ?? defaultFetcherProps.page
-  pageSize.value = fetcherParams.pageSize ?? defaultFetcherProps.pageSize
-  filterQuery.value = fetcherParams.query ?? defaultFetcherProps.query
-  sortColumnKey.value = fetcherParams.sortColumnKey ?? defaultFetcherProps.sortColumnKey
-  sortColumnOrder.value = fetcherParams.sortColumnOrder as SortColumnOrder ?? defaultFetcherProps.sortColumnOrder as SortColumnOrder
-
-  if (props.clientSort && sortColumnKey.value && sortColumnOrder.value) {
-    defaultClientSideSorter(sortColumnKey.value, '', sortColumnOrder.value, data.value)
-  }
-
-  if (props.paginationOffset) {
-    offset.value = fetcherParams.offset
-    offsets.value.push(fetcherParams.offset)
-  }
-
-  // get table headers
-  if (props.headers && props.headers.length) {
-    tableHeaders.value = props.headers
-  }
-
-  // trigger setting of tableFetcherCacheKey
-  hasInitialized.value = true
-}
-
 // Ensure `props.headers` are reactive.
 watch(() => props.headers, (newVal: TableHeader[]) => {
   if (newVal && newVal.length) {
     tableHeaders.value = newVal
   }
-}, { deep: true })
-
-const previousOffset = computed((): string | null => offsets.value[page.value - 1])
-
-// once `initData()` finishes, setting tableFetcherCacheKey to non-falsey value triggers fetch of data
-const tableFetcherCacheKey = computed((): string => {
-  if (!props.fetcher || !hasInitialized.value) {
-    return ''
-  }
-
-  // Set the default identifier to a random string
-  let identifierKey: string = tableId
-  if (props.cacheIdentifier) {
-    identifierKey = props.cacheIdentifier
-  }
-
-  if (props.fetcherCacheKey) {
-    identifierKey += `-${props.fetcherCacheKey}`
-  }
-
-  return `k-table_${identifierKey}`
-})
-
-const query = ref('')
-const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => {
-  query.value = q
-}, 350)
-const search = generateDebouncedSearch(0) // generate a debounced function with zero delay (immediate)
-
-// ALL fetching is done through this useRequest / _revalidate
-// don't fire until tableFetcherCacheKey is set
-const { data: fetcherData, error: fetcherError, revalidate: _revalidate, isValidating: fetcherIsValidating } = useRequest(
-  () => tableFetcherCacheKey.value,
-  () => fetchData(),
-  { revalidateOnFocus: false, revalidateDebounce: 0 },
-)
-
-const { state, hasData, swrvState } = useSwrvState(fetcherData, fetcherError, fetcherIsValidating)
-const isTableLoading = ref<boolean>(true)
-const stateData = computed((): SwrvStateData => ({
-  hasData: hasData.value,
-  state: state.value as SwrvState,
-}))
-const tableState = computed((): TableState => isTableLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
-const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
-const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)
+}, { deep: true, immediate: true })
 
 const sortClickHandler = (header: TableHeader): void => {
-  const { key, useSortHandlerFunction } = header
-  const prevKey = sortColumnKey.value + '' // avoid pass by ref
-
-  page.value = 1
+  const { key } = header
 
   if (sortColumnKey.value) {
     if (key === sortColumnKey.value) {
@@ -924,42 +680,11 @@ const sortClickHandler = (header: TableHeader): void => {
     } else {
       sortColumnKey.value = key
       sortColumnOrder.value = 'asc'
-      offsets.value = [null]
     }
   } else {
     sortColumnKey.value = key
     sortColumnOrder.value = 'asc'
-    offsets.value = [null]
   }
-
-  if (props.clientSort) {
-    if (useSortHandlerFunction && props.sortHandlerFunction) {
-      props.sortHandlerFunction({
-        key,
-        prevKey,
-        sortColumnOrder: sortColumnOrder.value,
-        data: data.value,
-      })
-    } else {
-      defaultClientSideSorter(key, prevKey, sortColumnOrder.value, data.value)
-    }
-  } else if (!props.paginationOffset) {
-    debouncedRevalidate()
-  }
-
-  // Emit an event whenever one of the tablePreferences are updated
-  emitTablePreferences()
-}
-
-const pageChangeHandler = ({ page: newPage }: PageChangeData) => {
-  page.value = newPage
-}
-
-const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData) => {
-  offsets.value = [null]
-  offset.value = null
-  pageSize.value = newPageSize
-  page.value = 1
 
   // Emit an event whenever one of the tablePreferences are updated
   emitTablePreferences()
@@ -977,7 +702,6 @@ const scrollHandler = (event: any): void => {
 
 // Store the tablePreferences in a computed property to utilize in the watcher
 const tablePreferences = computed((): TablePreferences => ({
-  pageSize: pageSize.value,
   sortColumnKey: sortColumnKey.value,
   sortColumnOrder: sortColumnOrder.value as 'asc' | 'desc',
   ...(props.resizeColumns ? { columnWidths: columnWidths.value } : {}),
@@ -985,31 +709,8 @@ const tablePreferences = computed((): TablePreferences => ({
 }))
 
 const emitTablePreferences = (): void => {
-  if (tableState.value === 'success') {
-    emit('update:table-preferences', tablePreferences.value)
-  }
+  emit('update:table-preferences', tablePreferences.value)
 }
-
-const getNextOffsetHandler = (): void => {
-  page.value++
-  nextPageClicked.value = true
-}
-
-const getPrevOffsetHandler = (): void => {
-  page.value--
-  offset.value = previousOffset.value
-}
-
-// fetcher must be defined, disablePagination must be false
-// if using standard pagination with hidePaginationWhenOptional
-//  - hide if total <= min pagesize
-// if using offset-based pagination with hidePaginationWhenOptional
-//  - hide if neither previous/next offset exists and current data set count is < min pagesize
-const shouldShowPagination = computed((): boolean => {
-  return !!(props.fetcher && !props.disablePagination &&
-        !(!props.paginationOffset && props.hidePaginationWhenOptional && total.value <= props.paginationPageSizes[0]) &&
-        !(props.paginationOffset && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value && data.value.length < props.paginationPageSizes[0]))
-})
 
 const getTestIdString = (message: string): string => {
   const msg = message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
@@ -1028,92 +729,19 @@ watch([columnVisibility, tableHeaders], (newVals) => {
   }
 }, { deep: true, immediate: true })
 
-watch(fetcherData, (fetchedData: any) => {
-  if (fetchedData?.length && !data.value.length) {
-    data.value = fetchedData
-  }
-}, { deep: true, immediate: true })
-
-// we want to tie loader to 'pending' since 'validating' is triggered even when pulling from cache, which should result in no loader
-// however, if this is a manual revalidation (triggered by page change, query, etc), display loader when validating
-watch(state, () => {
-  switch (state.value) {
-    case swrvState.PENDING:
-      isTableLoading.value = true
-      break
-    case swrvState.VALIDATING_HAS_DATA:
-      isTableLoading.value = isRevalidating.value
-      break
-    default:
-      isTableLoading.value = false
-      break
-  }
-}, { immediate: true })
-
-watch([stateData, tableState], (newData) => {
-  emit('state', {
-    state: newData?.[1], // newData[tableState]
-    hasData: newData?.[0]?.hasData, // newData[stateData].hasData
-  })
-})
-
-// handles debounce of search input
-watch(() => props.searchInput, (newValue: string) => {
-  if (page.value !== 1) {
-    page.value = 1
-  }
-
-  if (newValue === '') {
-    search(newValue)
-  } else {
-    debouncedSearch(newValue)
-  }
-}, { immediate: true })
-
-const isRevalidating = ref<boolean>(false)
-watch([query, page, pageSize], async (newData, oldData) => {
-  const oldQuery = oldData?.[0]
-  const newQuery = newData[0]
-  const newPage = newData[1]
-
-  if (newQuery !== oldQuery && newPage !== 1) {
-    page.value = 1
-    offsets.value = [null]
-    offset.value = null
-  }
-
-  // don't revalidate until we have finished initializing and made initial fetch
-  if (hasInitialized.value && !isInitialFetch.value) {
-    isRevalidating.value = true
-
-    if (newQuery !== '' && newQuery !== oldQuery) {
-      // handles debounce of search request
-      await debouncedRevalidate()
-    } else {
-      await revalidate()
-    }
-
-    isRevalidating.value = false
-  }
-}, { deep: true, immediate: true })
-
 // because hasColumnVisibilityMenu also accounts for error/loading/empty state, we need to watch it
 watch(hasColumnVisibilityMenu, (newVal) => {
   if (newVal) {
     columnVisibility.value = props.tablePreferences.columnVisibility || {}
   }
 }, { immediate: true })
-
-onMounted(() => {
-  initData()
-})
 </script>
 
 <style lang="scss" scoped>
-.k-table {
+.k-data-table {
   @include table;
 
-  .table-pagination {
+  .table-after {
     margin-top: var(--kui-space-70, $kui-space-70);
   }
 }
