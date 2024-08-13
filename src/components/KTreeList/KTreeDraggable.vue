@@ -2,6 +2,7 @@
   <VueDraggableNext
     v-bind="draggableAttrs"
     class="tree-draggable"
+    direction="vertical"
     :disabled="disableDrag"
     :group="{ name: 'k-tree-list', put: !maxLevelReached }"
     :level="level"

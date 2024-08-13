@@ -6,7 +6,7 @@
       'selected': item.selected
     }"
     :data-testid="`tree-item-${item.id}`"
-    :draggable="!disabled"
+    draggable="false"
     type="button"
     @click.prevent="handleClick"
   >
@@ -42,6 +42,10 @@ export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
 </script>
 
 <script lang="ts" setup>
+/**
+ * button.tree-item has draggable="false" attribute to prevent native drag events in order to let vue-draggable-next handle dragging
+ */
+
 const props = defineProps({
   item: {
     type: Object as PropType<TreeListItem>,
