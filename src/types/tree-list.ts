@@ -9,8 +9,8 @@ export interface TreeListChangeEvent {
   items: TreeListItem[]
   target: {
     element: TreeListItem
-    newIndex: number
-    oldIndex: number
+    newIndex?: number
+    oldIndex?: number
   }
 }
 
@@ -19,8 +19,8 @@ export interface TreeListChildChangeEvent {
   children: TreeListItem[]
   target: {
     element: TreeListItem
-    newIndex: number
-    oldIndex: number
+    newIndex?: number
+    oldIndex?: number
   }
 }
 
