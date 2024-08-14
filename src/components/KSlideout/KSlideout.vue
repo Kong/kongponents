@@ -181,6 +181,7 @@ onUnmounted(() => {
       padding-right: var(--kui-space-70, $kui-space-70);
 
       .slideout-title {
+        align-items: center;
         display: flex;
         flex: 1;
         font-family: var(--kui-font-family-text, $kui-font-family-text);
@@ -223,6 +224,10 @@ onUnmounted(() => {
 
       :deep(> *:last-child) {
         padding-bottom: var(--kui-space-70, $kui-space-70); // add padding to the last child to add some spacing before bottom of the page
+      }
+
+      :deep(> p) {
+        margin: var(--kui-space-0, $kui-space-0);
       }
     }
   }

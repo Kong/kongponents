@@ -249,24 +249,32 @@ Slot for the main content of an item (defaults to the `name` of the item).
 
 ### change
 
-Emitted when there is a change to the root level items. Event payload is object instance of `ChangeEvent`.
+Emitted when there is a change to the root level items. Event payload is object instance of `TreeListChangeEvent`.
 
 ```ts
-interface ChangeEvent {
+interface TreeListChangeEvent {
   items: TreeListItem[]
-  target: TreeListItem // the changed item
+  target: {
+    element: TreeListItem
+    newIndex: number
+    oldIndex: number
+  }
 }
 ```
 
 ### child-change
 
-Emitted when an item is added or removed at the non-root level. Event payload is object instance of `ChildChangeEvent`.
+Emitted when an item is added or removed at the non-root level. Event payload is object instance of `TreeListChildChangeEvent`.
 
 ```ts
-interface ChildChangeEvent {
-  parentId: string // id of the parent item
+interface TreeListChildChangeEvent {
+  parentId: string
   children: TreeListItem[]
-  target: TreeListItem // the changed item
+  target: {
+    element: TreeListItem
+    newIndex: number
+    oldIndex: number
+  }
 }
 ```
 :::tip NOTE

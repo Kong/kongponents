@@ -241,11 +241,11 @@ KRadio emits two events with same payload.
 
 ### change
 
-Fired on change, returns radio [selectedVale](#selectedvalue).
+Fired on change, returns radio [selectedValue](#selectedvalue).
 
 ### update:modelValue
 
-Fired on change, returns radio [selectedVale](#selectedvalue).
+Fired on change, returns radio [selectedValue](#selectedvalue).
 
 <script setup lang="ts">
 import { ref } from 'vue'

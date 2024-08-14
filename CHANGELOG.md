@@ -1,3 +1,17 @@
+## [9.2.3](https://github.com/Kong/kongponents/compare/v9.2.2...v9.2.3) (2024-08-14)
+
+
+### Bug Fixes
+
+* **ktreelist:** type interfaces ([#2339](https://github.com/Kong/kongponents/issues/2339)) ([4bb9422](https://github.com/Kong/kongponents/commit/4bb9422bb20bfa4590a608dad762c96df7a85709))
+
+## [9.2.2](https://github.com/Kong/kongponents/compare/v9.2.1...v9.2.2) (2024-08-13)
+
+
+### Bug Fixes
+
+* **ktreelist:** fix multiple emits ([#2334](https://github.com/Kong/kongponents/issues/2334)) ([a167050](https://github.com/Kong/kongponents/commit/a16705054c9faa80102455a0315c324d26278eb5))
+
 ## [9.2.1](https://github.com/Kong/kongponents/compare/v9.2.0...v9.2.1) (2024-08-12)
 
 
