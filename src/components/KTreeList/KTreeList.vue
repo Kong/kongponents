@@ -39,7 +39,7 @@ import useUtilities from '@/composables/useUtilities'
 import KTreeDraggable from '@/components/KTreeList/KTreeDraggable.vue'
 import { getMaximumDepth } from './KTreeDraggable.vue'
 import { itemsHaveRequiredProps } from './KTreeItem.vue'
-import type { TreeListItem, ChangeEvent, ChildChangeEvent } from '@/types'
+import type { TreeListItem, TreeListChangeEvent, TreeListChildChangeEvent } from '@/types'
 
 const getIds = (items: TreeListItem[], ids: string[]): string[] => {
   items.forEach((item: TreeListItem) => {
@@ -106,8 +106,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (event: 'change', data: ChangeEvent): void,
-  (event: 'child-change', data: ChildChangeEvent): void,
+  (event: 'change', data: TreeListChangeEvent): void,
+  (event: 'child-change', data: TreeListChildChangeEvent): void,
   (event: 'selected', item: TreeListItem): void
 }>()
 
@@ -148,11 +148,11 @@ const handleSelection = (itemToSelect: TreeListItem, list?: TreeListItem[]): voi
   })
 }
 
-const handleChangeEvent = (data: ChangeEvent): void => {
+const handleChangeEvent = (data: TreeListChangeEvent): void => {
   emit('change', data)
 }
 
-const handleChildChangeEvent = (data: ChildChangeEvent): void => {
+const handleChildChangeEvent = (data: TreeListChildChangeEvent): void => {
   emit('child-change', data)
 }
 
