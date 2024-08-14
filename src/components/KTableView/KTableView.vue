@@ -86,7 +86,7 @@
           v-bind-once="{ 'data-tableid': tableId }"
           class="table"
           :class="{
-            'has-hover': rowHover,
+            'has-hover': rowHover && !isActionsDropdownHovered,
             'is-clickable': isClickable
           }"
         >
@@ -137,7 +137,7 @@
                     <span
                       class="table-header-label"
                       :class="{
-                        'sr-only': column.hideLabel,
+                        'sr-only': column.hideLabel || (column.key === TableViewHeaderKeys.ACTIONS && column.hideLabel !== false),
                       }"
                     >
                       {{ column.label ? column.label : column.key }}
@@ -205,11 +205,12 @@
                 v-on="tdlisteners(row[header.key], row)"
               >
                 <component
-                  :is="row.to ? typeof row.to === 'object' ? 'router-link' : 'a' : 'div'"
+                  :is="rowLinkAttrs(row, header.key).component || 'div'"
                   :class="{ 'row-link': row.to, 'row-cell-wrapper': !row.to }"
-                  v-bind="rowLinkAttrs(row)"
+                  v-bind="rowLinkAttrs(row, header.key)"
                 >
                   <slot
+                    v-if="header.key !== TableViewHeaderKeys.ACTIONS"
                     :name="header.key"
                     :row="getGeneric(row)"
                     :row-key="rowIndex"
@@ -217,6 +218,35 @@
                   >
                     {{ row[header.key] }}
                   </slot>
+
+                  <KDropdown
+                    v-else
+                    class="actions-dropdown"
+                    :kpop-attributes="{ placement: 'bottom-end' }"
+                  >
+                    <KButton
+                      appearance="tertiary"
+                      :aria-label="header.label"
+                      class="actions-dropdown-trigger"
+                      icon
+                      size="small"
+                      @mouseleave="isActionsDropdownHovered = false"
+                      @mouseover="isActionsDropdownHovered = true"
+                    >
+                      <MoreIcon
+                        class="more-icon"
+                        decorative
+                      />
+                    </KButton>
+
+                    <template #items>
+                      <slot
+                        :name="`${TableViewHeaderKeys.ACTIONS}-items`"
+                        :row="getGeneric(row)"
+                        :row-value="row[header.key]"
+                      />
+                    </template>
+                  </KDropdown>
                 </component>
               </td>
             </tr>
@@ -241,10 +271,10 @@ import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
-import { InfoIcon, ArrowDownIcon } from '@kong/icons'
+import { InfoIcon, ArrowDownIcon, MoreIcon } from '@kong/icons'
 import type {
   TablePreferences,
-  TableHeader,
+  TableViewHeader,
   TableData,
   TableDataEntry,
   TableColumnSlotName,
@@ -255,7 +285,7 @@ import type {
   EmptyStateIconVariant,
   ButtonAppearance,
 } from '@/types'
-import { EmptyStateIconVariants } from '@/types'
+import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './../KTable/ColumnVisibilityMenu.vue'
 import useUniqueId from '@/composables/useUniqueId'
@@ -379,7 +409,7 @@ const props = defineProps({
    * A prop to pass in an array of headers for the table
    */
   headers: {
-    type: Array as PropType<TableHeader[]>,
+    type: Array as PropType<TableViewHeader[]>,
     default: () => [],
   },
   data: {
@@ -408,23 +438,23 @@ const slots = useSlots()
 const tableId = useUniqueId()
 const headerRow = ref<HTMLDivElement>()
 // all headers
-const tableHeaders = ref<TableHeader[]>([])
+const tableHeaders = ref<TableViewHeader[]>([])
 // currently visible headers
-const visibleHeaders = ref<TableHeader[]>([])
+const visibleHeaders = ref<TableViewHeader[]>([])
 // highest priority - column currently being resized (mouse may be completely outside the column)
 const resizingColumn = ref('')
 // column the user is currently hovering over the resize handle for (may be hovered on the adjacent column to what we want to resize)
 const resizerHoveredColumn = ref('')
 // lowest priority - currently hovered resizable column (mouse is somewhere in the <th>)
 const currentHoveredColumn = ref('')
-const hasHidableColumns = computed((): boolean => tableHeaders.value.filter((header: TableHeader) => header.hidable).length > 0)
+const hasHidableColumns = computed((): boolean => tableHeaders.value.filter((header: TableViewHeader) => header.hidable).length > 0)
 const hasColumnVisibilityMenu = computed((): boolean => {
   // has hidable columns, no error/loading/empty state
   return !!(hasHidableColumns.value &&
     !props.error && !props.loading && !props.loading && (props.data && props.data.length))
 })
 // columns whose visibility can be toggled
-const visibilityColumns = computed((): TableHeader[] => tableHeaders.value.filter((header: TableHeader) => header.hidable))
+const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable))
 // visibility preferences from the host app (initialized by app)
 const visibilityPreferences = computed((): Record<string, boolean> => hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
 // current column visibility state
@@ -434,6 +464,7 @@ const sortColumnKey = ref('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
 const isClickable = ref(false)
 const hasToolbarSlot = computed((): boolean => !!slots.toolbar || hasColumnVisibilityMenu.value)
+const isActionsDropdownHovered = ref<boolean>(false)
 
 /**
  * Utilize a helper function to generate the column slot name.
@@ -551,7 +582,10 @@ const tdlisteners = computed((): any => {
   }
 })
 
-const columnWidths = ref<Record<string, number>>(props.resizeColumns ? props.tablePreferences.columnWidths || {} : {})
+// default column widths for better UX
+// actions column is always 54px (padding-left + button width + padding-right adds up to 54px)
+const defaultColumnWidths = { actions: 54 }
+const columnWidths = ref<Record<string, number>>(props.resizeColumns ? props.tablePreferences.columnWidths || defaultColumnWidths : defaultColumnWidths)
 const columnStyles = computed(() => {
   const styles: Record<string, any> = {}
   for (const colKey in columnWidths.value) {
@@ -569,7 +603,7 @@ const columnStyles = computed(() => {
   return styles
 })
 
-const getHeaderClasses = (column: TableHeader, index: number): Record<string, boolean> => {
+const getHeaderClasses = (column: TableViewHeader, index: number): Record<string, boolean> => {
   return {
     // display the resize handle on the right side of the column if resizeColumns is enabled, hovering current column, and not the last column
     'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && index !== visibleHeaders.value.length - 1,
@@ -669,13 +703,13 @@ const startResize = (evt: MouseEvent, colKey: string) => {
 }
 
 // Ensure `props.headers` are reactive.
-watch(() => props.headers, (newVal: TableHeader[]) => {
+watch(() => props.headers, (newVal: TableViewHeader[]) => {
   if (newVal && newVal.length) {
     tableHeaders.value = newVal
   }
 }, { deep: true, immediate: true })
 
-const sortClickHandler = (header: TableHeader): void => {
+const sortClickHandler = (header: TableViewHeader): void => {
   const { key } = header
 
   if (sortColumnKey.value) {
@@ -708,14 +742,23 @@ const scrollHandler = (event: any): void => {
   }
 }
 
-const rowLinkAttrs = (row: TableDataEntry): Record<string, any> => {
+// returns attributes for the wrapper element in each row link
+const rowLinkAttrs = (row: TableDataEntry, columnKey: string): Record<string, any> => {
+  // if the column is the actions column, return an empty object
+  if (columnKey === TableViewHeaderKeys.ACTIONS) {
+    return {}
+  }
+
   const isRouterLink = row.to && typeof row.to === 'object'
   const isAnchor = row.to && typeof row.to === 'string'
 
   return {
+    ...((isRouterLink || isAnchor) && {
+      component: isRouterLink ? 'router-link' : 'a',
+      ...(row.target && { target: row.target }),
+    }),
     ...(isRouterLink && { to: row.to }),
     ...(isAnchor && { href: row.to }),
-    ...((isRouterLink || isAnchor) && row.target && { target: row.target }),
   }
 }
 
@@ -740,7 +783,7 @@ const getTestIdString = (message: string): string => {
 watch([columnVisibility, tableHeaders], (newVals) => {
   const newVisibility = newVals[0]
   const newHeaders = newVals[1]
-  const newVisibleHeaders = newHeaders.filter((header: TableHeader) => newVisibility[header.key] !== false)
+  const newVisibleHeaders = newHeaders.filter((header: TableViewHeader) => newVisibility[header.key] !== false)
 
   if (JSON.stringify(newVisibleHeaders) !== JSON.stringify(visibleHeaders.value)) {
     visibleHeaders.value = newVisibleHeaders
@@ -759,6 +802,54 @@ watch(hasColumnVisibilityMenu, (newVal) => {
 <style lang="scss" scoped>
 .k-table-view {
   @include table;
+
+  table {
+    tbody {
+      tr {
+        td {
+          .row-link {
+            color: var(--kui-color-text, $kui-color-text);
+            display: block;
+            padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+            text-decoration: none;
+          }
+
+          .row-cell-wrapper {
+            display: contents;
+          }
+
+          .actions-dropdown {
+            .actions-dropdown-trigger {
+              color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+
+              &:hover:not(:disabled):not(:focus):not(:active) {
+                background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+                color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+              }
+
+              &:focus-visible {
+                background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+                color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+              }
+
+              &:active {
+                background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+                color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
+              }
+
+              .more-icon {
+                pointer-events: none;
+              }
+            }
+          }
+
+          &.has-link {
+            padding: var(--kui-space-0, $kui-space-0);
+          }
+        }
+      }
+    }
+  }
 
   .table-after {
     margin-top: var(--kui-space-70, $kui-space-70);

@@ -19,7 +19,7 @@
     overflow: auto;
     width: 100%;
 
-    .table {
+    table {
       border-collapse: collapse;
       max-width: 100%;
       width: 100%;
@@ -28,12 +28,9 @@
       td {
         @include truncate;
 
+        padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
         vertical-align: middle;
         white-space: nowrap;
-
-        &:not(td.has-link) {
-          padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
-        }
       }
 
       thead {
@@ -210,10 +207,6 @@
       &.has-hover {
         tbody tr:hover {
           background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-
-          td {
-            border-color: var(--kui-color-border-primary-weakest, $kui-color-border-primary-weakest);
-          }
         }
       }
 

@@ -17,7 +17,9 @@ export interface TablePreferences {
 
 export interface TableDataEntry {
   [key: string]: any
+  /** RouteLocationRaw or url string for row link */
   to?: RouteLocationRaw | string
+  /** Target for row link */
   target?: string
 }
 
@@ -38,6 +40,15 @@ export interface TableHeader {
   hideLabel?: boolean
   /** Whether KTable should use function passed through sortHandlerFunction prop to apply sorting logic to this column */
   useSortHandlerFunction?: boolean
+}
+
+export enum TableViewHeaderKeys {
+  ACTIONS = 'actions',
+}
+
+export interface TableViewHeader extends Omit<TableHeader, 'useSortHandlerFunction'> {
+  /** Must be unique for each column. If 'actions' value is provided, the column is treated as a column that only displays action dropdown menus for each row and no label (hideLabel: true) */
+  key: string | `${TableViewHeaderKeys}`
 }
 
 /**

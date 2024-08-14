@@ -1,0 +1,11 @@
+<template>
+  <KDropdownItem>
+    Edit
+  </KDropdownItem>
+  <KDropdownItem
+    danger
+    has-divider
+  >
+    Delete
+  </KDropdownItem>
+</template>

@@ -38,8 +38,8 @@
             :headers="headers(false, true)"
             :row-hover="data.tableRowHover"
           >
-            <template #actions>
-              <SandboxTableActions />
+            <template #actions-items>
+              <SandboxTableViewActions />
             </template>
           </KTableView>
         </KComponent>
@@ -76,8 +76,8 @@
             resize-columns
             @row:click="(_event: any, row: any) => onRowClick(row)"
           >
-            <template #actions>
-              <SandboxTableActions />
+            <template #actions-items>
+              <SandboxTableViewActions />
             </template>
           </KTableView>
         </KComponent>
@@ -115,8 +115,8 @@
           <template #email="{ rowValue }">
             <KCopy :text="rowValue" />
           </template>
-          <template #actions>
-            <SandboxTableActions />
+          <template #actions-items>
+            <SandboxTableViewActions />
           </template>
         </KTableView>
       </SandboxSectionComponent>
@@ -131,8 +131,8 @@
               <AddIcon /> Add user
             </KButton>
           </template>
-          <template #actions>
-            <SandboxTableActions />
+          <template #actions-items>
+            <SandboxTableViewActions />
           </template>
         </KTableView>
       </SandboxSectionComponent>
@@ -144,8 +144,8 @@
           <template #after>
             <KPagination :total-count="10" />
           </template>
-          <template #actions>
-            <SandboxTableActions />
+          <template #actions-items>
+            <SandboxTableViewActions />
           </template>
         </KTableView>
       </SandboxSectionComponent>
@@ -196,10 +196,10 @@
 
 <script setup lang="ts">
 import { inject } from 'vue'
-import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
-import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
+import SandboxTitleComponent from '../../components/SandboxTitleComponent.vue'
+import SandboxSectionComponent from '../../components/SandboxSectionComponent.vue'
 import type { TableHeader, TableData } from '@/types'
-import SandboxTableActions from './SandboxTable/SandboxTableActions.vue'
+import SandboxTableViewActions from './SandboxTableViewActions.vue'
 import { AddIcon } from '@kong/icons'
 
 const headers = (hidable: boolean = false, sortable: boolean = false): TableHeader[] => {
@@ -207,7 +207,7 @@ const headers = (hidable: boolean = false, sortable: boolean = false): TableHead
     { key: 'name', label: 'Full Name' },
     { key: 'username', label: 'Username', tooltip: 'Columns with a tooltip.', sortable },
     { key: 'email', label: 'Email', hidable },
-    { key: 'actions', label: 'Row actions', hideLabel: true },
+    { key: 'actions', label: 'Row actions' },
   ]
 }
 
@@ -281,32 +281,6 @@ const tableDataWithLinks = tableData.map((item, i) => {
     ...(i === 1 && { to: 'https://kongponents.konghq.com/', target: '_blank' }),
   }
 })
-
-const sortHandlerFunction = ({ key, sortColumnOrder, data }: any) => {
-  return data.sort((a: any, b: any) => {
-    if (key === 'username') {
-      if (sortColumnOrder === 'asc') {
-        if (a.username > b.username) {
-          return 1
-        } else if (a.username < b.username) {
-          return -1
-        }
-
-        return 0
-      } else {
-        if (a.username > b.username) {
-          return -1
-        } else if (a.username < b.username) {
-          return 1
-        }
-
-        return 0
-      }
-    }
-
-    return data
-  })
-}
 
 const onRowClick = (row: any) => {
   alert(`Row clicked:' ${JSON.stringify(row)}`)
