@@ -28,7 +28,7 @@
 
           <KTableView
             :key="data.tableKey"
-            :data="data.tableEmptyState ? [] : tableData"
+            :data="data.tableEmptyState ? [] : sortedData"
             empty-state-action-message="Empty state action"
             empty-state-action-route="/"
             empty-state-button-appearance="secondary"
@@ -37,6 +37,7 @@
             empty-state-title="Empty state title"
             :headers="headers(false, true)"
             :row-hover="data.tableRowHover"
+            @sort="sortData"
           >
             <template #actions-items>
               <SandboxTableViewActions />
@@ -195,10 +196,10 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
 import SandboxTitleComponent from '../../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../../components/SandboxSectionComponent.vue'
-import type { TableHeader, TableData } from '@/types'
+import type { TableHeader, TableData, TableDataEntry, TableSortPayload } from '@/types'
 import SandboxTableViewActions from './SandboxTableViewActions.vue'
 import { AddIcon } from '@kong/icons'
 
@@ -274,6 +275,8 @@ const tableData: TableData = [
   },
 ]
 
+const sortedData = ref<TableData>(tableData)
+
 const tableDataWithLinks = tableData.map((item, i) => {
   return {
     ...item,
@@ -284,6 +287,37 @@ const tableDataWithLinks = tableData.map((item, i) => {
 
 const onRowClick = (row: any) => {
   alert(`Row clicked:' ${JSON.stringify(row)}`)
+}
+
+const sortData = (sortData: TableSortPayload): void => {
+  const data = [...tableData]
+  const { sortColumnKey, sortColumnOrder } = sortData || { sortColumnKey: 'username', sortColumnOrder: 'asc' }
+
+  data.sort((a: TableDataEntry, b: TableDataEntry) => {
+    if (sortColumnKey === 'username') {
+      if (sortColumnOrder === 'asc') {
+        if (a.username > b.username) {
+          return 1
+        } else if (a.username < b.username) {
+          return -1
+        }
+
+        return 0
+      } else {
+        if (a.username > b.username) {
+          return -1
+        } else if (a.username < b.username) {
+          return 1
+        }
+
+        return 0
+      }
+    }
+
+    return 0
+  })
+
+  sortedData.value = data
 }
 </script>
 

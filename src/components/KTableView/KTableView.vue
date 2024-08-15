@@ -98,13 +98,13 @@
               <th
                 v-for="(column, index) in visibleHeaders"
                 :key="`table-${tableId}-headers-${index}`"
-                :aria-sort="sortable && column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
+                :aria-sort="column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
                 class="table-headers"
                 :class="getHeaderClasses(column, index)"
                 :data-testid="`table-header-${column.key}`"
                 :style="columnStyles[column.key]"
                 @click="() => {
-                  if (sortable && column.sortable) {
+                  if (column.sortable) {
                     $emit('sort', {
                       prevKey: sortColumnKey,
                       sortColumnKey: column.key,
@@ -166,7 +166,7 @@
                   </KTooltip>
 
                   <ArrowDownIcon
-                    v-if="sortable && !column.hideLabel && column.sortable"
+                    v-if="!column.hideLabel && column.key !== TableViewHeaderKeys.ACTIONS && column.sortable"
                     class="sort-icon"
                     :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
                     :size="KUI_ICON_SIZE_30"
@@ -222,6 +222,7 @@
                   <KDropdown
                     v-else
                     class="actions-dropdown"
+                    data-testid="actions-dropdown"
                     :kpop-attributes="{ placement: 'bottom-end' }"
                   >
                     <KButton
@@ -416,10 +417,6 @@ const props = defineProps({
     type: Array as PropType<TableData>,
     default: () => [],
   },
-  sortable: {
-    type: Boolean,
-    default: true,
-  },
 })
 
 const emit = defineEmits<{
@@ -429,7 +426,6 @@ const emit = defineEmits<{
   (e: 'empty-state-action-click'): void
   (e: 'update:table-preferences', preferences: TablePreferences): void
   (e: 'sort', value: TableSortPayload): void
-  (e: 'state', value: TableStatePayload): void
 }>()
 
 const attrs = useAttrs()
@@ -609,10 +605,10 @@ const getHeaderClasses = (column: TableViewHeader, index: number): Record<string
     'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && index !== visibleHeaders.value.length - 1,
     resizable: props.resizeColumns,
     // display sort control if column is sortable, label is visible, and sorting is not disabled
-    sortable: props.sortable && !column.hideLabel && !!column.sortable,
+    sortable: !column.hideLabel && !!column.sortable,
     // display active sorting styles if column is currently sorted
-    'active-sort': props.sortable && !column.hideLabel && !!column.sortable && column.key === sortColumnKey.value,
-    [sortColumnOrder.value]: props.sortable && column.key === sortColumnKey.value && !column.hideLabel,
+    'active-sort': !column.hideLabel && !!column.sortable && column.key === sortColumnKey.value,
+    [sortColumnOrder.value]: column.key === sortColumnKey.value && !column.hideLabel,
     'is-scrolled': isScrolled.value,
     'has-tooltip': !!column.tooltip,
   }

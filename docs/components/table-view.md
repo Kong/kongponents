@@ -1,57 +1,1011 @@
-# Table
+# Table View
 
-KTableView should be described here in the first paragraph.
+Component for displaying data in table format.
 
-<KTableView />
+:::tip NOTE
+KTableView is a display-only component, it does not provide any data management capabilities like fetching, pagination, sorting or searching. If you are looking for a component that includes those functions out of the box, check out [KTable](/components/table).
+:::
+
+<KTableView
+  :data="basicData"
+  :headers="basicHeaders()"
+/>
 
 ```html
-<template>
-  <KTableView />
-</template>
-
-<script setup lang="ts">
-// Example code goes here
-</script>
+<KTableView
+  :data="tableData"
+  :headers="headers"
+/>
 ```
 
 ## Props
 
-### examplePropName
+### headers
 
-Description of `examplePropName`
+Array of objects that represent table columns along with some configurations that should apply to each of the columns (whether a column is sortable, hidable, etc).
 
-Actual component using `examplePropName`:
+```ts
+interface TableViewHeader {
+  key: string | 'actions' // must be unique for each column, see Reserved Header Keys section for more information about 'actions' key value
+  label: string // visible column header text
+  sortable?: boolean // in a nutshell, this property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it
+  hidable?: boolean // allow toggling column visibility
+  tooltip?: string // when provided, an info icon will be rendered next to the column label, upon hovering on which the tooltip will be revealed
+  hideLabel?: boolean // whether column header text should be hidden (only visible to screen readers)
+}
+```
 
-<KTableView :example-prop-name="true" />
+:::tip NOTE
+If at least one column is `hidable` in the table, KTableView will render a dropdown on the right of the table toolbar, directly above the table, which will provide an interface for showing/hiding columns to the user.
+:::
+
+For an example of `headers` prop usage please refer to [`data` prop documentation](#data) below.
+
+#### Reserved Header Keys
+
+:::warning NOTE
+This feature is only available in KTableView and not available in [KTable](/components/table).
+:::
+
+- `actions` - the column is treated as a column that only displays action dropdown menus for each row and displays no label (as if `hideLabel` was `true`, however you can still display the label by setting `hideLabel` parameter to `false`). KViewTable will automatically render the trigger button with an icon, however you will need to pass dropdown items through the [`actions-items` slot](#actions-items).
+
+### data
+
+Data to be rendered in the table. Accepted type is array of objects where each key should correspond to a certain `key` in [`headers` prop](#headers).
+
+```ts
+interface TableDataEntry {
+  [key: string]: any
+  to?: RouteLocationRaw | string // see Reserved Data Keys for more info
+  target?: string
+}
+
+type TableData = Array<TableDataEntry>
+```
+
+<KTableView
+  :data="basicDataSortable"
+  :headers="basicHeaders(true, 'username', 'email')"
+  @sort="sortBasicData"
+>
+  <template #actions-items>
+    <KDropdownItem>
+      Edit
+    </KDropdownItem>
+    <KDropdownItem
+      danger
+      has-divider
+    >
+      Delete
+    </KDropdownItem>
+  </template>
+</KTableView>
+
+```vue
+<template>
+  <KTableView
+    :data="tableData"
+    :headers="headers"
+    @sort="sortData"
+  >
+    <template #actions-items>
+      <KDropdownItem>
+        Edit
+      </KDropdownItem>
+      <KDropdownItem
+        danger
+        has-divider
+      >
+        Delete
+      </KDropdownItem>
+    </template>
+  </KTableView>
+</template>
+
+<script setup lang="ts">
+import type { TableViewHeader, TableData, TableDataEntry } from '@kong/kongponents'
+
+const headers: Array<TableViewHeader> = [
+  {
+    key: 'name', 
+    label: 'Full Name', 
+  },
+  {
+    key: 'username',
+    label: 'Username',
+    sortable: true,
+    tooltip: 'Unique for each user.',
+  },
+  {
+    key: 'email',
+    label: 'Email',
+    hidable: true,
+  },
+  {
+    key: 'actions',
+    label: 'Row actions',
+  },
+]
+
+const tableData = ref<TableData>([
+  {
+    id: 1,
+    // notice that property keys in data object correspond to each respective key in headers const
+    name: 'Leanne Graham', 
+    username: 'Bret',
+    email: 'Sincere@april.biz'
+  },
+  {
+    id: 2,
+    name: 'Ervin Howell',
+    username: 'Antonette',
+    email: 'Shanna@melissa.tv'
+  },
+  ...
+])
+
+const sortData = (sortData: TableSortPayload): void => {
+  const data = [...tableData.value]
+  const { sortColumnKey, sortColumnOrder } = sortData || { sortColumnKey: 'username', sortColumnOrder: 'asc' }
+
+  data.sort((a: TableDataEntry, b: TableDataEntry) => {
+    if (sortColumnKey === 'username') {
+      if (sortColumnOrder === 'asc') {
+        if (a.username > b.username) {
+          return 1
+        } else if (a.username < b.username) {
+          return -1
+        }
+
+        return 0
+      } else {
+        if (a.username > b.username) {
+          return -1
+        } else if (a.username < b.username) {
+          return 1
+        }
+
+        return 0
+      }
+    }
+
+    return 0
+  })
+
+  tableData.value = data
+}
+</script>
+```
+
+:::tip NOTE
+Notice that in the example above the _Username_ column is `sortable` and the _Email_ column is `hidable`.
+:::
+
+#### Reserved Data Keys
+
+:::warning NOTE
+This feature is only available in KTableView and not available in [KTable](/components/table).
+:::
+
+- `to` - if you wish to make the whole row a link, you can pass `to` parameter in each `data` entry. If an object is passed, it will be rendered as `<router-link>` component or otherwise if a string is passed, it will be rendered as an anchor tag. Clicking anywhere on table row will trigger route change. Refer to the example below for usage.
+- `target` - target attribute for row links.
+
+<KTableView
+  :data="tableDataWithLinks"
+  :headers="basicHeaders()"
+/>
+
+```vue
+<template>
+  <KTableView
+    :data="tableData"
+    :headers="headers"
+  />
+</template>
+
+<script setup lang="ts">
+import type { TableViewHeader, TableData } from '@kong/kongponents'
+
+const headers: Array<TableViewHeader> = [
+  {
+    key: 'name', 
+    label: 'Full Name', 
+  },
+  ...
+]
+
+const tableData = ref<TableData>([
+  {
+    id: 1,
+    // notice that property keys in data object correspond to each respective key in headers const
+    name: 'Leanne Graham', 
+    username: 'Bret',
+    email: 'Sincere@april.biz',
+    to: 'https://kongponents.konghq.com/',
+    target: '_blank',
+  },
+  {
+    id: 2,
+    name: 'Ervin Howell',
+    username: 'Antonette',
+    email: 'Shanna@melissa.tv',
+    to: 'https://kongponents.konghq.com/',
+    target: '_blank',
+  },
+  ...
+])
+</script>
+```
+
+### loading
+
+Boolean to control whether the component should display the loading state.
+
+<KTableView
+  loading
+  :data="basicData"
+  :headers="basicHeaders()"
+/>
 
 ```html
-<KTableView example-prop-name="variation1" />
-<KTableView example-prop-name="variation2" />
-<KTableView example-prop-name="variation3" />
+<KTableView
+  loading
+  :data="tableData"
+  :headers="headers"
+/>
+```
+
+### error
+
+Boolean to control whether the component should display the error state. Defaults to `false`. See [error state](#error-1) section for more customization options.
+
+<KTableView
+  error
+  :data="basicData"
+  :headers="basicHeaders()"
+/>
+
+```html
+<KTableView
+  error
+  :data="tableData"
+  :headers="headers"
+/>
+```
+
+### resizeColumns
+
+Allow table column width to be resizable (defaults to `false`). Adjusting a column's width will trigger an [`update:table-preferences` event](#updatetable-preferences).
+
+<KTableView
+  resize-columns
+  :data="basicData"
+  :headers="basicHeaders()"
+/>
+
+```html
+<KTableView
+  resize-columns
+  :data="tableData"
+  :headers="headers"
+/>
+```
+
+### rowHover
+
+Boolean to control whether table should display hover state upon hovering rows. Defaults to `true`.
+
+### tablePreferences
+
+Table preferences object for persisting some configs.
+
+```ts
+interface TablePreferences {
+  pageSize?: number // the number of items to display per page
+  sortColumnKey?: string // the column to sort by's `key` defined in the table headers
+  sortColumnOrder?: SortColumnOrder // the order by which to sort the column, one of `asc` or `desc`
+  columnWidths?: Record<string, number> // the customized column widths, if resizing is allowed
+  columnVisibility?: Record<string, boolean> // column visibility, if visibility is toggleable
+}
+```
+
+<KTableView
+  :table-preferences="{ columnVisibility: { email: false } }"
+  :data="basicData"
+  :headers="basicHeaders(false, null, 'email')"
+/>
+
+```html
+<KTableView
+  :table-preferences="{ columnVisibility: { email: false } }"
+  :data="tableData"
+  :headers="headers"
+/>
+```
+
+### rowAttrs
+
+Function for adding custom attributes to each row. The function should return an object with `key: value` pairs for each attribute.
+
+The passed function receives row value object as an argument.
+
+<KTableView
+  :data="basicData"
+  :headers="basicHeaders()"
+  :row-attrs="(row) => { return { 'data-testid': `row-${row.id}` } }"
+/>
+
+```html
+<KTableView
+  :row-attrs="(row) => { return { 'data-testid': `row-${row.id}` } }"
+  :data="tableData"
+  :headers="headers"
+/>
+```
+
+### cellAttrs
+
+Function for adding custom attributes to each table cell. The function should return an object with `key: value` pairs for each attribute.
+
+The passed function receives an object with these parameters as an argument:
+```ts
+{
+  headerKey: string // header key
+  row: object // row value
+  rowIndex: number // row index
+  colIndex: index // column index
+}
+```
+
+<KTableView
+  :data="basicData"
+  :headers="basicHeaders()"
+  :cell-attrs="({ headerKey, row }) => { return { 'data-testid': `column-${headerKey}-row-${row.id}` } }"
+/>
+
+```html
+<KTableView
+  :cell-attrs="({ headerKey, row }) => { return { 'data-testid': `column-${headerKey}-row-${row.id}` } }"
+  :data="tableData"
+  :headers="headers"
+/>
+```
+
+## States
+
+### Empty
+
+<KTableView 
+  :data="[]"
+  :headers="basicHeaders()"
+/>
+
+```html
+<KTableView 
+  :data="[]"
+  :headers="headers"
+/>
+```
+
+Set the following props to handle empty state:
+
+- `emptyStateTitle` - Title text for empty state
+- `emptyStateMessage` - Message for empty state
+- `emptyStateIconVariant` - Icon variant for empty state (see [KEmptyState component props](/components/empty-state#iconvariant))
+- `emptyStateActionMessage` - Button text for empty state action
+- `emptyStateActionRoute` - Route for empty state action
+- `emptyStateButtonAppearance` - Appearance of empty state action button. See [KButton `appearance` prop](/components/button#appearance) for details
+
+:::tip
+Should you want to display an icon inside of action button, you can use `empty-state-action-icon` slot.
+:::
+
+When empty state action button is clicked, KTableView emits the `empty-state-action-click` event.
+
+<KTableView 
+  :data="[]"
+  :headers="basicHeaders()"
+  empty-state-title="No Workspaces exist"
+  empty-state-message="Adding a new Workspace will populate this catalog."
+  empty-state-icon-variant="kong"
+  empty-state-action-message="Create a Workspace"
+  empty-state-action-route="/"
+  empty-state-button-appearance="secondary"
+>
+  <template #empty-state-action-icon>
+    <AddIcon />
+  </template>
+</KTableView>
+
+```html
+<KTableView 
+  :data="[]"
+  :headers="headers"
+  empty-state-title="No Workspaces exist"
+  empty-state-message="Adding a new Workspace will populate this table."
+  empty-state-icon-variant="kong"
+  empty-state-action-message="Create a Workspace"
+  empty-state-action-route="/"
+  empty-state-button-appearance="secondary"
+>
+  <template #empty-state-action-icon>
+    <AddIcon />
+  </template>
+</KTableView>
+```
+
+### Error
+
+Set the `error` prop to `true` to enable the error state.
+
+<KTableView
+  error
+  :data="basicData"
+  :headers="basicHeaders()"
+/>
+
+```html
+<KTableView
+  error
+  :data="tableData"
+  :headers="headers"
+/>
+```
+
+Set the following properties to customize error state:
+
+- `errorStateTitle` - Title text for error state
+- `errorStateMessage` - Message for error state
+- `errorStateActionMessage` - Button text for error state action
+- `errorStateActionRoute` - Route for error state action
+
+A `error-action-click` event is fired when error state action button is clicked.
+
+<KTableView
+  :data="basicData"
+  :headers="basicHeaders()"
+  error
+  error-state-title="Something went wrong"
+  error-state-message="Error loading data."
+  error-state-action-message="Report an Issue"
+  error-state-action-route="/"
+/>
+
+```html
+<KTableView
+  error
+  :data="tableData"
+  :headers="headers"
+  error-state-title="Something went wrong"
+  error-state-message="Error loading data."
+  error-state-action-message="Report an Issue"
+  error-state-action-route="/"
+/>
 ```
 
 ## Slots
 
-### default
+### Column Header
 
-Default slot description.
+You can slot in your custom content into each column header. For that, use column `key` value prefixed with `column-*` like in the example below.
 
-### slotName
+Slot props:
+* `column` - column header object
 
-Slot description.
+:::tip NOTE
+Header slot container is a `display: flex;` element that takes care of spacing between slotted items so you can slot in your items without having to worry about adding margin between them.
+:::
+
+<KTableView
+  :data="basicData"
+  :headers="basicHeaders()"
+>
+  <template #column-email="{ column }">
+    {{ column.label }} <KBadge>Beta</KBadge>
+  </template>
+</KTableView>
 
 ```html
-<KTableView>
-  here is some slot content
+<KTableView
+  :data="tableData"
+  :headers="headers"
+>
+  <template #column-email="{ column }">
+    {{ column.label }} <KBadge>Beta</KBadge>
+  </template>
+</KTableView>
+```
+
+### Cell
+
+You can slot in each individual cell content. Each cell slot is name after the `key` it corresponds to.
+
+Slot props:
+* `row` - table row object
+* `rowKey` - table row index
+* `rowValue` - the cell value
+
+:::warning NOTE
+This slot is not supported for [`actions` column](#reserved-header-keys).
+:::
+
+<KTableView
+  :data="basicData"
+  :headers="basicHeaders()"
+>
+  <template #email="{ rowValue }">
+    <KCopy :text="rowValue" />
+  </template>
+</KTableView>
+
+```html
+<KTableView
+  :data="tableData"
+  :headers="headers"
+>
+  <template #email="{ rowValue }">
+    <KCopy :text="rowValue" />
+  </template>
+</KTableView>
+```
+
+### Header Tooltip
+
+If you want to utilize HTML in the column header's tooltip, use the slot. Similar to column header slot, use column `key` value prefixed with `tooltip-*` like in the example below.
+
+Slot props:
+* `column` - column header object
+
+<KTableView
+  :data="basicData"
+  :headers="basicHeaders()"
+>
+  <template #tooltip-email>
+    HubSpot Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code>
+  </template>
+</KTableView>
+
+```html
+<KTableView
+  :data="tableData"
+  :headers="headers"
+>
+  <template #tooltip-email>
+    HubSpot Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code>
+  </template>
+</KTableView>
+```
+
+### toolbar
+
+Toolbar is rendered directly above the table. Useful for slotting table controls like search or filter fields.
+
+:::tip NOTE
+Toolbar slot container is a `display: flex;` element that takes care of spacing between slotted items so you can slot in your items without having to worry about adding margin between them.
+:::
+
+<KTableView
+  :data="basicData"
+  :headers="basicHeaders()"
+>
+  <template #toolbar>
+    <KInput placeholder="Search">
+      <template #before>
+        <SearchIcon />
+      </template>
+    </KInput>
+    <KButton size="large">
+      <AddIcon /> Add user
+    </KButton>
+  </template>
+</KTableView>
+
+```html
+<KTableView
+  :data="tableData"
+  :headers="headers"
+>
+  <template #toolbar>
+    <KInput placeholder="Search">
+      <template #before>
+        <SearchIcon />
+      </template>
+    </KInput>
+    <KButton size="large">
+      <AddIcon /> Add user
+    </KButton>
+  </template>
+</KTableView>
+```
+
+### empty-state
+
+Slot content to be displayed when empty.
+
+### empty-state-action-icon
+
+Slot for icon to be displayed in front of action button text in empty state. See [empty state](#empty) section for example of usage of this slot.
+
+### error-state
+
+Slot content to be displayed when in error state.
+
+### actions-items
+
+:::warning NOTE
+This slot is only available in KTableView and not available in [KTable](/components/table).
+:::
+
+Slot for passing actions dropdown items. See [KDropdownItem component docs](/components/dropdown#kdropdownitem) for details.
+
+Slot props:
+* `row` - table row object
+* `rowKey` - table row index
+
+:::tip NOTE
+This slot is only available when `actions` header hey is present in [`headers` prop](#reserved-header-keys).
+:::
+
+<KTableView
+  :data="basicData"
+  :headers="basicHeaders(true)"
+>
+  <template #actions-items>
+    <KDropdownItem>
+      Edit
+    </KDropdownItem>
+    <KDropdownItem
+      danger
+      has-divider
+    >
+      Delete
+    </KDropdownItem>
+  </template>
+</KTableView>
+
+```html
+<KTableView
+  :data="tableData"
+  :headers="headers"
+>
+  <template #actions-items>
+    <KDropdownItem>
+      Edit
+    </KDropdownItem>
+    <KDropdownItem
+      danger
+      has-divider
+    >
+      Delete
+    </KDropdownItem>
+  </template>
+</KTableView>
+```
+
+### after
+
+:::warning NOTE
+This slot is only available in KTableView and not available in [KTable](/components/table).
+:::
+
+Slot for content that should be rendered below the table. For example, could be used for displaying pagination component.
+
+<KTableView
+  :data="basicData"
+  :headers="basicHeaders()"
+>
+  <template #after>
+    <KPagination :total-count="10" />
+  </template>
+</KTableView>
+
+```html
+<KTableView
+  :data="tableData"
+  :headers="headers"
+>
+  <template #after>
+    <KPagination :total-count="10" />
+  </template>
 </KTableView>
 ```
 
 ## Events
 
-### change
+### Row Events
 
-Emitted when...
+`@row:{event}` - returns the `Event`, the row item, and the type. `row-click` event is emitted whenever a row is clicked and the row click event handler is fired, returns the row `data`.
+
+To avoid firing row clicks by accident, the row click handler ignores events coming from `a`, `button`, `label`, `input`, and `select` elements (unless they have the `disabled` attribute). As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
+
+<KComponent v-slot="{ data }" :data="{ rowClickEnabled: true }">
+  <div class="vertical-container">
+    <KInputSwitch
+      v-model="data.rowClickEnabled"
+      label="Row clicks"
+    />
+    <KTableView
+      :data="numberedColumnsData"
+      :headers="numberedHeaders"
+      @row:click="data.rowClickEnabled ? onRowClick : undefined"
+    >
+      <template #column1>
+        <KButton @click="onButtonClick">Fire button click handler</KButton>
+      </template>
+      <template #column2>
+        <KInput label="Table input" />
+      </template>
+      <template #column3>
+        <KExternalLink href="https://kongponents.konghq.com/">External link</KExternalLink>
+      </template>
+    </KTableView>
+  </div>
+</KComponent>
+
+```html
+<KTableView
+  :data="tableData"
+  :headers="headers"
+  @row:click="onRowClick"
+/>
+```
+
+### Cell Events
+
+`@cell:{event}` - returns the `Event`, the cell value, and the type. `cell-click` event is emitted whenever a cell is clicked and the cell click event handler is fired, returns the cell `data`.
+
+<KComponent v-slot="{ data }" :data="{ cellClickEnabled: true }">
+  <div class="vertical-container">
+    <KInputSwitch
+      v-model="data.cellClickEnabled"
+      label="Cell clicks"
+    />
+    <KTableView
+      :data="numberedColumnsData"
+      :headers="numberedHeaders"
+      @cell:click="data.cellClickEnabled ? onCellClick : undefined"
+    >
+      <template #column1>
+        <KButton @click="onButtonClick">Fire button click handler</KButton>
+      </template>
+      <template #column2>
+        <KInput label="Table input" />
+      </template>
+      <template #column3>
+        <KExternalLink href="https://kongponents.konghq.com/">External link</KExternalLink>
+      </template>
+    </KTableView>
+  </div>
+</KComponent>
+
+```html
+<KTableView
+  :data="tableData"
+  :headers="headers"
+  @cell:click="onCellClick"
+/>
+```
+
+### sort
+
+Fired when user clicks on a sortable column heading. Event payload is object of type `TableSortPayload`:
+
+```ts
+interface TableSortPayload {
+  prevKey: string
+  sortColumnKey: string
+  sortColumnOrder: string
+}
+```
+
+Refer to [`data` prop usage](#data) for example.
+
+### empty-state-action-click
+
+Emitted when empty state action button is clocked.
+
+### error-action-click
+
+Emitted when error state action button is clicked.
+
+### update:table-preferences
+
+Fired when the user performs sorting, resizes columns or toggles column visibility. Event payload is object of type `TablePreferences` interface (see [`tablePreferences` prop](#tablepreferences) for details).
 
 <script setup lang="ts">
-// Docs page script code goes here
+import { ref } from 'vue'
+import { AddIcon, SearchIcon, MoreIcon } from '@kong/icons'
+import { ToastManager } from '@/index'
+
+const toaster = new ToastManager()
+
+const basicHeaders = (actions: boolean = false, sortable: string | null = null, hidable: string | null = null): Array<TableViewHeader> => {
+  const keys = {
+    name: { 
+      key: 'name',
+      label: 'Full Name'
+    },
+    username: {
+      key: 'username',
+      label: 'Username',
+      tooltip: 'Unique for each user.'
+    },
+    email: { 
+      key: 'email',
+      label: 'Email' 
+    },
+    ...(actions && { 
+      actions: {
+        key: 'actions',
+        label: 'Row actions',
+      },
+    })
+  }
+
+  const headers = []
+  for (const [key, value] of Object.entries(keys)) {
+    if ((!sortable && !hidable) || (sortable !== key && hidable !== key)) {
+      headers.push({ ...value })
+    } else if (sortable && sortable === key) {
+      headers.push({ ...value, sortable: true })
+    } else if (hidable && hidable === key) {
+      headers.push({ ...value, hidable: true })
+    }
+  }
+
+  return headers
+}
+
+const basicData: TableData = [
+  {
+    id: 1,
+    name: 'Leanne Graham',
+    username: 'Bret',
+    email: 'Sincere@april.biz',
+  },
+  {
+    id: 2,
+    name: 'Ervin Howell',
+    username: 'Antonette',
+    email: 'Shanna@melissa.tv',
+  },
+  {
+    id: 3,
+    name: 'Clementine Bauch',
+    username: 'Samantha',
+    email: 'Nathan@yesenia.net',
+  },
+  {
+    id: 4,
+    name: 'Patricia Lebsack',
+    username: 'Karianne',
+    email: 'Julianne.OConner@kory.org',
+  },
+  {
+    id: 5,
+    name: 'Chelsey Dietrich',
+    username: 'Kamren',
+    email: 'Lucio_Hettinger@annie.ca',
+  },
+  {
+    id: 6,
+    name: 'Mrs. Dennis Schulist',
+    username: 'Leopoldo_Corkery',
+    email: 'Karley_Dach@jasper.info',
+  },
+  {
+    id: 7,
+    name: 'Kurtis Weissnat',
+    username: 'Elwyn.Skiles',
+    email: 'Telly.Hoeger@billy.biz',
+  },
+  {
+    id: 8,
+    name: 'Nicholas Runolfsdottir V',
+    username: 'Maxime_Nienow',
+    email: 'Sherwood@rosamond.me',
+  },
+  {
+    id: 9,
+    name: 'Glenna Reichert',
+    username: 'Delphine',
+    email: 'Chaim_McDermott@dana.io',
+  },
+  {
+    id: 10,
+    name: 'Clementina DuBuque',
+    username: 'Moriah.Stanton',
+    email: 'Rey.Padberg@karina.biz',
+  },
+]
+
+const basicDataSortable = ref<TableData>(basicData)
+
+const sortBasicData = (sortData: TableSortPayload): void => {
+  const data = [...basicData]
+  const { sortColumnKey, sortColumnOrder } = sortData || { sortColumnKey: 'username', sortColumnOrder: 'asc' }
+
+  data.sort((a: TableDataEntry, b: TableDataEntry) => {
+    if (sortColumnKey === 'username') {
+      if (sortColumnOrder === 'asc') {
+        if (a.username > b.username) {
+          return 1
+        } else if (a.username < b.username) {
+          return -1
+        }
+
+        return 0
+      } else {
+        if (a.username > b.username) {
+          return -1
+        } else if (a.username < b.username) {
+          return 1
+        }
+
+        return 0
+      }
+    }
+
+    return 0
+  })
+
+  basicDataSortable.value = data
+}
+
+const tableDataWithLinks = basicData.map((item, i) => {
+  return { ...item, to: 'https://kongponents.konghq.com/', target: '_blank' }
+})
+
+const numberedHeaders: Array<TableViewHeader> = [
+  {
+    key: 'column1',
+    label: 'Column 1'
+  },
+  {
+    key: 'column2',
+    label: 'Column 2'
+  },
+  {
+    key: 'column3',
+    label: 'Column 3'
+  }
+]
+
+const numberedColumnsData: TableData = [
+  { 
+    column1: 'Row 1 cell 1',
+    column2: 'Row 1 cell 2',
+    column3: 'Row 1 cell 3'
+  },
+  { 
+    column1: 'Row 2 cell 1',
+    column2: 'Row 2 cell 2',
+    column3: 'Row 2 cell 3'
+  },
+  { 
+    column1: 'Row 3 cell 1',
+    column2: 'Row 3 cell 2',
+    column3: 'Row 3 cell 3'
+  }
+]
+
+const onRowClick = (event, row) => {
+  toaster.open({ appearance: 'success', title: 'Row clicked! Row data:', message: row })
+}
+
+const onButtonClick = () => {
+  toaster.open({ appearance: 'system', title: 'Button clicked!', message: 'Button click is handled separately from row or cell clicks.' })
+}
+
+const onCellClick = (event, cell) => {
+  toaster.open({ title: 'Cell clicked! Cell data:', message: cell })
+}
 </script>
+
+<style lang="scss" scoped>
+.vertical-container {
+  display: flex;
+  flex-direction: column;
+  gap: $kui-space-50;
+}
+</style>
