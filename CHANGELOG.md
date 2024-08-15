@@ -1,3 +1,10 @@
+# [9.3.0](https://github.com/Kong/kongponents/compare/v9.2.3...v9.3.0) (2024-08-15)
+
+
+### Features
+
+* **kradio:** support setting to null ([#2342](https://github.com/Kong/kongponents/issues/2342)) ([3300b9d](https://github.com/Kong/kongponents/commit/3300b9d47b725f5b365bec0e8eb32d1d2bb1794e))
+
 ## [9.2.3](https://github.com/Kong/kongponents/compare/v9.2.2...v9.2.3) (2024-08-14)
 
 
