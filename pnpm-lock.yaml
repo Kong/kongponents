@@ -70,8 +70,8 @@ importers:
         specifier: ^1.7.11
         version: 1.7.11
       '@kong-ui-public/sandbox-layout':
-        specifier: ^2.1.19
-        version: 2.1.19(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.3)(vue-router@4.4.3(vue@3.4.37(typescript@5.5.4)))(vue@3.4.37(typescript@5.5.4)))(vue@3.4.37(typescript@5.5.4))
+        specifier: ^2.1.21
+        version: 2.1.21(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.3)(vue-router@4.4.3(vue@3.4.37(typescript@5.5.4)))(vue@3.4.37(typescript@5.5.4)))(vue@3.4.37(typescript@5.5.4))
       '@kong/design-tokens':
         specifier: ^1.16.0
         version: 1.16.0
@@ -833,10 +833,10 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@kong-ui-public/sandbox-layout@2.1.19':
-    resolution: {integrity: sha512-650dEmtqdGqall1j7M3qZZ+oQCZYLRM6/pQL+yUcAT2AYd4QHcO8bOCyQ5BhuO8iTuJCJPjDib1XbRS+uhYRVw==}
+  '@kong-ui-public/sandbox-layout@2.1.21':
+    resolution: {integrity: sha512-bwOqiiR4yrhUavcK+6LupqNBdeU17pIzqBP7OR+aBFQbXP/7htqn2ieXgleAiUDUlcDNAXx3JbMFhJVD5+PDVA==}
     peerDependencies:
-      '@kong/kongponents': ^9.1.7
+      '@kong/kongponents': ^9.3.0
       vue: '>= 3.3.13 < 4'
 
   '@kong/design-tokens@1.16.0':
@@ -5390,7 +5390,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  '@kong-ui-public/sandbox-layout@2.1.19(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.3)(vue-router@4.4.3(vue@3.4.37(typescript@5.5.4)))(vue@3.4.37(typescript@5.5.4)))(vue@3.4.37(typescript@5.5.4))':
+  '@kong-ui-public/sandbox-layout@2.1.21(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.3)(vue-router@4.4.3(vue@3.4.37(typescript@5.5.4)))(vue@3.4.37(typescript@5.5.4)))(vue@3.4.37(typescript@5.5.4))':
     dependencies:
       '@kong/icons': 1.15.1(vue@3.4.37(typescript@5.5.4))
       '@kong/kongponents': 9.0.0-pr.2229.901d3f4d.0(axios@1.7.3)(vue-router@4.4.3(vue@3.4.37(typescript@5.5.4)))(vue@3.4.37(typescript@5.5.4))
