@@ -130,8 +130,8 @@ importers:
         specifier: ^13.13.2
         version: 13.13.2
       cypress-fail-fast:
-        specifier: ^7.1.0
-        version: 7.1.0(cypress@13.13.2)
+        specifier: ^7.1.1
+        version: 7.1.1(cypress@13.13.2)
       cz-conventional-changelog:
         specifier: 3.3.0
         version: 3.3.0(@types/node@20.14.14)(typescript@5.5.4)
@@ -1844,8 +1844,8 @@ packages:
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
-  cypress-fail-fast@7.1.0:
-    resolution: {integrity: sha512-OnN5WqSP49yHKoitq+FmMG/+nUvat6NdFLNUQgVJYbmDdgyiiS1aI33S8+AuRb4zRZR5+5/eq53p/oL+a/m2Tw==}
+  cypress-fail-fast@7.1.1:
+    resolution: {integrity: sha512-9qPXikVY20OWdc97DO2++0AS4IF9kB+vuPhP8/0wXchcnFIsiCiwvQhOEBSdVHr1mZi87h0Z8jYEB4VLPzNkGg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       cypress: '>=8.0.0'
@@ -6616,7 +6616,7 @@ snapshots:
 
   csstype@3.1.3: {}
 
-  cypress-fail-fast@7.1.0(cypress@13.13.2):
+  cypress-fail-fast@7.1.1(cypress@13.13.2):
     dependencies:
       chalk: 4.1.2
       cypress: 13.13.2
