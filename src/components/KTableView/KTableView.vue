@@ -282,7 +282,6 @@ import type {
   TableColumnTooltipSlotName,
   SortColumnOrder,
   TableSortPayload,
-  TableStatePayload,
   EmptyStateIconVariant,
   ButtonAppearance,
 } from '@/types'
