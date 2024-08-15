@@ -411,6 +411,24 @@ The passed function receives an object with these parameters as an argument:
 />
 ```
 
+### maxHeight
+
+Pass a number (px) you want to limit table height to. If the height table exceeds the specified number, it will be scrollable. Table header is a `position: sticky;` element and will always be visible.
+
+<KTable
+  max-height="300"
+  :fetcher="basicFetcher"
+  :headers="basicHeaders()"
+/>
+
+```html
+<KTable
+  max-height="300"
+  :fetcher="fetcher"
+  :headers="headers"
+/>
+```
+
 ## Pagination
 
 KTable uses KPagination component under the hood and exposes a few props as a way to modify how pagination looks and behaves in tables. See [KPagination](/components/pagination.html#props) docs for more details and examples:

@@ -80,6 +80,7 @@
     <div v-else>
       <div
         class="table-wrapper"
+        :style="tableWrapperStyles"
         @scroll.passive="scrollHandler"
       >
         <table
@@ -289,6 +290,7 @@ import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './../KTable/ColumnVisibilityMenu.vue'
 import useUniqueId from '@/composables/useUniqueId'
+import useUtilities from '@/composables/useUtilities'
 
 const props = defineProps({
   /**
@@ -416,6 +418,10 @@ const props = defineProps({
     type: Array as PropType<TableData>,
     default: () => [],
   },
+  maxHeight: {
+    type: String,
+    default: 'none',
+  },
 })
 
 const emit = defineEmits<{
@@ -431,6 +437,8 @@ const attrs = useAttrs()
 const slots = useSlots()
 
 const tableId = useUniqueId()
+const { getSizeFromString } = useUtilities()
+
 const headerRow = ref<HTMLDivElement>()
 // all headers
 const tableHeaders = ref<TableViewHeader[]>([])
@@ -460,6 +468,9 @@ const sortColumnOrder = ref<SortColumnOrder>('desc')
 const isClickable = ref(false)
 const hasToolbarSlot = computed((): boolean => !!slots.toolbar || hasColumnVisibilityMenu.value)
 const isActionsDropdownHovered = ref<boolean>(false)
+const tableWrapperStyles = computed((): Record<string, string> => ({
+  maxHeight: getSizeFromString(props.maxHeight),
+}))
 
 /**
  * Utilize a helper function to generate the column slot name.
@@ -728,10 +739,10 @@ const sortClickHandler = (header: TableViewHeader): void => {
 }
 
 const scrollHandler = (event: any): void => {
-  if (event && event.target && event.target.scrollTop) {
+  if (event && event.target && typeof event.target.scrollTop === 'number') {
     if (event.target.scrollTop > 1) {
       isScrolled.value = true
-    } else if (event.target.scrollTop) {
+    } else if (event.target.scrollTop === 0) {
       isScrolled.value = !isScrolled.value
     }
   }

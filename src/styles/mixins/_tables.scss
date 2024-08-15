@@ -40,7 +40,7 @@
         top: 0;
 
         &.is-scrolled {
-          border-bottom: none;
+          background-color: var(--kui-color-background, $kui-color-background);
         }
 
         tr {
@@ -62,9 +62,9 @@
           }
 
           &.is-scrolled {
-            border-bottom: none;
-
             &:after {
+              border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
+                var(--kui-color-border, $kui-color-border);
               box-shadow: var(--kui-shadow, $kui-shadow);
               opacity: 1;
               transition: opacity $kongponentsTransitionDurTimingFunc;

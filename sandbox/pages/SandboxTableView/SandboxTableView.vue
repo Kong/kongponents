@@ -9,7 +9,7 @@
         is-subtitle
         title="Props"
       />
-      <SandboxSectionComponent title="rowHover & emptyStateIconVariant & emptyStateTitle & emptyStateMessage & emptyStateActionMessage & emptyStateActionRoute & emptyStateButtonAppearance">
+      <SandboxSectionComponent title="rowHover & emptyStateIconVariant & emptyStateTitle & emptyStateMessage & emptyStateActionMessage & emptyStateActionRoute & emptyStateButtonAppearance & maxHeight">
         <KComponent
           v-slot="{ data }"
           :data="{ tableKey: 0, tableRowHover: false, tableEmptyState: false }"
@@ -36,6 +36,7 @@
             empty-state-message="Empty state message"
             empty-state-title="Empty state title"
             :headers="headers(false, true)"
+            max-height="300"
             :row-hover="data.tableRowHover"
             @sort="sortData"
           >
