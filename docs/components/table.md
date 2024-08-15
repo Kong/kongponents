@@ -2,6 +2,10 @@
 
 Component that takes care of fetching and rendering data in a table format.
 
+:::tip NOTE
+If you are looking for a display-only component for rendering data in table format, check out [KTableView](/components/table-view).
+:::
+
 <KTable
   :fetcher="basicFetcher"
   :headers="basicHeaders()"
