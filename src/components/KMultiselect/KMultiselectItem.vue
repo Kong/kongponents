@@ -6,6 +6,7 @@
     role="listitem"
   >
     <div
+      :aria-selected="item.selected"
       class="multiselect-item-container"
       role="option"
     >
