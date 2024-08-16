@@ -659,6 +659,16 @@ const resizeHoverColumn = computed((): string => {
 // get the resizable header divs to be used for the resize observers
 // eslint-disable-next-line no-undef
 const headerElems = computed((): NodeListOf<Element> | undefined => headerRow.value?.querySelectorAll('th.resizable'))
+const headerHeight = computed((): string => {
+  const elem = headerElems.value?.item(0)
+  if (elem) {
+    const styles = window?.getComputedStyle(elem)
+    if (styles?.height) {
+      return `${parseInt(styles.height, 10)}px`
+    }
+  }
+  return 'auto'
+})
 
 const startResize = (evt: MouseEvent, colKey: string) => {
   let x = 0
@@ -810,6 +820,14 @@ watch(hasColumnVisibilityMenu, (newVal) => {
   @include table;
 
   table {
+    thead {
+      tr {
+        .resize-handle {
+          height: v-bind('headerHeight');
+        }
+      }
+    }
+
     tbody {
       tr {
         td {

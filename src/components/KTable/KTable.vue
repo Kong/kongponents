@@ -742,6 +742,16 @@ const resizeHoverColumn = computed((): string => {
 // get the resizable header divs to be used for the resize observers
 // eslint-disable-next-line no-undef
 const headerElems = computed((): NodeListOf<Element> | undefined => headerRow.value?.querySelectorAll('th.resizable'))
+const headerHeight = computed((): string => {
+  const elem = headerElems.value?.item(0)
+  if (elem) {
+    const styles = window?.getComputedStyle(elem)
+    if (styles?.height) {
+      return `${parseInt(styles.height, 10)}px`
+    }
+  }
+  return 'auto'
+})
 
 const startResize = (evt: MouseEvent, colKey: string) => {
   let x = 0
@@ -1120,6 +1130,16 @@ onMounted(() => {
 <style lang="scss" scoped>
 .k-table {
   @include table;
+
+  table {
+    thead {
+      tr {
+        .resize-handle {
+          height: v-bind('headerHeight');
+        }
+      }
+    }
+  }
 
   .table-pagination {
     margin-top: var(--kui-space-70, $kui-space-70);

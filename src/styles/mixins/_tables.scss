@@ -96,8 +96,8 @@
               }
 
               .resize-handle {
+                // height property is set in component style block since it's bound to the calculated value
                 cursor: col-resize;
-                height: v-bind("headerHeight");
                 position: absolute;
                 right: 0;
                 top: 0;
