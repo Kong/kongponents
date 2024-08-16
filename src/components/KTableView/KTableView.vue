@@ -189,10 +189,10 @@
           <tbody>
             <tr
               v-for="(row, rowIndex) in data"
-              v-bind="rowAttrs(row)"
+              v-bind="getRowAttrs(row)"
               :key="`table-${tableId}-row-${rowIndex}`"
-              :role="isClickable ? 'link' : null"
-              :tabindex="isClickable ? 0 : null"
+              :role="isClickable ? 'link' : undefined"
+              :tabindex="isClickable ? 0 : undefined"
             >
               <td
                 v-for="(header, index) in visibleHeaders"
@@ -200,15 +200,15 @@
                 :key="`table-${tableId}-cell-${index}`"
                 :class="{
                   'resize-hover': resizeColumns && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
-                  'has-link': row.to,
+                  'row-link': !!rowAttrs(row).to,
                 }"
                 :style="columnStyles[header.key]"
                 v-on="tdlisteners(row[header.key], row)"
               >
                 <component
-                  :is="rowLinkAttrs(row, header.key).component || 'div'"
-                  :class="{ 'row-link': row.to, 'row-cell-wrapper': !row.to }"
-                  v-bind="rowLinkAttrs(row, header.key)"
+                  :is="getRowLinkComponent(row, header.key)"
+                  class="cell-wrapper"
+                  v-bind="getRowLinkAttrs(row, header.key)"
                 >
                   <slot
                     v-if="header.key !== TableViewHeaderKeys.ACTIONS"
@@ -278,13 +278,13 @@ import type {
   TablePreferences,
   TableViewHeader,
   TableData,
-  TableDataEntry,
   TableColumnSlotName,
   TableColumnTooltipSlotName,
   SortColumnOrder,
   TableSortPayload,
   EmptyStateIconVariant,
   ButtonAppearance,
+  TableRowAttributes,
 } from '@/types'
 import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
@@ -319,7 +319,7 @@ const props = defineProps({
    * A function that conditionally specifies row attributes on each row
    */
   rowAttrs: {
-    type: Function,
+    type: Function as PropType<(row: Record<string, any>) => TableRowAttributes>,
     default: () => ({}),
   },
   /**
@@ -758,23 +758,41 @@ const scrollHandler = (event: any): void => {
   }
 }
 
+// remove to and target from row attributes because we use them for the row link
+const getRowAttrs = (row: Record<string, any>): TableRowAttributes => {
+  const { to, target, ...rest } = props.rowAttrs(row)
+
+  return rest
+}
+
+// determine the component to use for the row link
+const getRowLinkComponent = (row: Record<string, any>, columnKey: string): string => {
+  const { to } = props.rowAttrs(row)
+
+  if (!to || columnKey === TableViewHeaderKeys.ACTIONS) {
+    return 'div'
+  }
+
+  return typeof to === 'object' ? 'router-link' : 'a'
+}
+
 // returns attributes for the wrapper element in each row link
-const rowLinkAttrs = (row: TableDataEntry, columnKey: string): Record<string, any> => {
+const getRowLinkAttrs = (row: Record<string, any>, columnKey: string): TableRowAttributes => {
   // if the column is the actions column, return an empty object
   if (columnKey === TableViewHeaderKeys.ACTIONS) {
     return {}
   }
 
-  const isRouterLink = row.to && typeof row.to === 'object'
-  const isAnchor = row.to && typeof row.to === 'string'
+  const { to, target } = props.rowAttrs(row)
+  const isRouterLink = to && typeof to === 'object'
+  const isAnchor = to && typeof to === 'string'
 
   return {
+    ...(isRouterLink && { to: to }),
+    ...(isAnchor && { href: to }),
     ...((isRouterLink || isAnchor) && {
-      component: isRouterLink ? 'router-link' : 'a',
-      ...(row.target && { target: row.target }),
+      ...(target && { target: target }),
     }),
-    ...(isRouterLink && { to: row.to }),
-    ...(isAnchor && { href: row.to }),
   }
 }
 
@@ -831,17 +849,6 @@ watch(hasColumnVisibilityMenu, (newVal) => {
     tbody {
       tr {
         td {
-          .row-link {
-            color: var(--kui-color-text, $kui-color-text);
-            display: block;
-            padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
-            text-decoration: none;
-          }
-
-          .row-cell-wrapper {
-            display: contents;
-          }
-
           .actions-dropdown {
             .actions-dropdown-trigger {
               color: var(--kui-color-text-neutral, $kui-color-text-neutral);
@@ -867,8 +874,15 @@ watch(hasColumnVisibilityMenu, (newVal) => {
             }
           }
 
-          &.has-link {
+          &.row-link {
             padding: var(--kui-space-0, $kui-space-0);
+
+            a.cell-wrapper {
+              color: var(--kui-color-text, $kui-color-text);
+              display: block;
+              padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+              text-decoration: none;
+            }
           }
         }
       }

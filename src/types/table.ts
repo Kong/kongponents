@@ -15,15 +15,7 @@ export interface TablePreferences {
   columnVisibility?: Record<string, boolean>
 }
 
-export interface TableDataEntry {
-  [key: string]: any
-  /** RouteLocationRaw or url string for row link */
-  to?: RouteLocationRaw | string
-  /** Target for row link */
-  target?: string
-}
-
-export type TableData = Array<TableDataEntry>
+export type TableData = Array<Record<string, any>>
 
 export interface TableHeader {
   /** Must be unique for each column */
@@ -70,4 +62,12 @@ export interface TableSortPayload {
 export interface TableStatePayload {
   state: TableState
   hasData: boolean
+}
+
+export interface TableRowAttributes {
+  [key: string]: string | RouteLocationRaw | undefined
+  /** RouteLocationRaw or url string for row link */
+  to?: RouteLocationRaw | string
+  /** Target for row link */
+  target?: '_self' | '_blank' | '_parent' | '_top'
 }

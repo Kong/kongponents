@@ -54,13 +54,7 @@ This feature is only available in KTableView and not available in [KTable](/comp
 Data to be rendered in the table. Accepted type is array of objects where each key should correspond to a certain `key` in [`headers` prop](#headers).
 
 ```ts
-interface TableDataEntry {
-  [key: string]: any
-  to?: RouteLocationRaw | string // see Reserved Data Keys for more info
-  target?: string
-}
-
-type TableData = Array<TableDataEntry>
+type TableData = Array<Record<string, any>>
 ```
 
 <KTableView
@@ -103,7 +97,7 @@ type TableData = Array<TableDataEntry>
 </template>
 
 <script setup lang="ts">
-import type { TableViewHeader, TableData, TableDataEntry } from '@kong/kongponents'
+import type { TableViewHeader, TableData } from '@kong/kongponents'
 
 const headers: Array<TableViewHeader> = [
   {
@@ -148,7 +142,7 @@ const sortData = (sortData: TableSortPayload): void => {
   const data = [...tableData.value]
   const { sortColumnKey, sortColumnOrder } = sortData || { sortColumnKey: 'username', sortColumnOrder: 'asc' }
 
-  data.sort((a: TableDataEntry, b: TableDataEntry) => {
+  data.sort((a: Record<string, any>, b: Record<string, any>) => {
     if (sortColumnKey === 'username') {
       if (sortColumnOrder === 'asc') {
         if (a.username > b.username) {
@@ -180,62 +174,6 @@ const sortData = (sortData: TableSortPayload): void => {
 :::tip NOTE
 Notice that in the example above the _Username_ column is `sortable` and the _Email_ column is `hidable`.
 :::
-
-#### Reserved Data Keys
-
-:::warning NOTE
-This feature is only available in KTableView and not available in [KTable](/components/table).
-:::
-
-- `to` - if you wish to make the whole row a link, you can pass `to` parameter in each `data` entry. If an object is passed, it will be rendered as `<router-link>` component or otherwise if a string is passed, it will be rendered as an anchor tag. Clicking anywhere on table row will trigger route change. Refer to the example below for usage.
-- `target` - target attribute for row links.
-
-<KTableView
-  :data="tableDataWithLinks"
-  :headers="basicHeaders()"
-/>
-
-```vue
-<template>
-  <KTableView
-    :data="tableData"
-    :headers="headers"
-  />
-</template>
-
-<script setup lang="ts">
-import type { TableViewHeader, TableData } from '@kong/kongponents'
-
-const headers: Array<TableViewHeader> = [
-  {
-    key: 'name', 
-    label: 'Full Name', 
-  },
-  ...
-]
-
-const tableData = ref<TableData>([
-  {
-    id: 1,
-    // notice that property keys in data object correspond to each respective key in headers const
-    name: 'Leanne Graham', 
-    username: 'Bret',
-    email: 'Sincere@april.biz',
-    to: 'https://kongponents.konghq.com/',
-    target: '_blank',
-  },
-  {
-    id: 2,
-    name: 'Ervin Howell',
-    username: 'Antonette',
-    email: 'Shanna@melissa.tv',
-    to: 'https://kongponents.konghq.com/',
-    target: '_blank',
-  },
-  ...
-])
-</script>
-```
 
 ### loading
 
@@ -325,7 +263,17 @@ interface TablePreferences {
 
 ### rowAttrs
 
-Function for adding custom attributes to each row. The function should return an object with `key: value` pairs for each attribute.
+Function for adding custom attributes to each row. The function should return an object of type `TableRowAttributes`:
+
+```ts
+interface TableRowAttributes {
+  [key: string]: string | RouteLocationRaw | undefined
+  /** RouteLocationRaw or url string for row link */
+  to?: RouteLocationRaw | string
+  /** Target for row link */
+  target?: '_self' | '_blank' | '_parent' | '_top'
+}
+```
 
 The passed function receives row value object as an argument.
 
@@ -341,6 +289,42 @@ The passed function receives row value object as an argument.
   :data="tableData"
   :headers="headers"
 />
+```
+
+#### Row links
+
+You can pass optional `to: RouteLocationRaw | string` parameter in the returned object to turn the entire row into a link.
+
+<KTableView
+  :row-attrs="getRowLinks"
+  :data="basicData"
+  :headers="basicHeaders()"
+/>
+
+```vue
+<template>
+  <KTableView
+    :row-attrs="getRowAttrs"
+    :data="tableData"
+    :headers="headers"
+  />
+</template>
+
+
+<script setup lang="ts">
+import type { TableRowAttributes } from '@kong/kongponents'
+
+const headers = [...]
+
+const tableData = [...]
+
+const getRowAttrs = (row: Record<string, any>): TableRowAttributes => ({
+  // using static route for demonstration purposes
+  // but you can generate dynamic routes based on the row data
+  to: { name: 'home' }, // pass a string to render the link as an anchor element instead of a router-link
+  target: '_blank',
+})
+</script>
 ```
 
 ### cellAttrs
@@ -943,7 +927,7 @@ const sortBasicData = (sortData: TableSortPayload): void => {
   const data = [...basicData]
   const { sortColumnKey, sortColumnOrder } = sortData || { sortColumnKey: 'username', sortColumnOrder: 'asc' }
 
-  data.sort((a: TableDataEntry, b: TableDataEntry) => {
+  data.sort((a: Record<string, any>, b: Record<string, any>) => {
     if (sortColumnKey === 'username') {
       if (sortColumnOrder === 'asc') {
         if (a.username > b.username) {
@@ -970,8 +954,11 @@ const sortBasicData = (sortData: TableSortPayload): void => {
   basicDataSortable.value = data
 }
 
-const tableDataWithLinks = basicData.map((item, i) => {
-  return { ...item, to: 'https://kongponents.konghq.com/', target: '_blank' }
+const getRowLinks = (row: Record<string, any>): TableRowAttributes => ({
+  // using static route for demonstration purposes
+  // but you can generate dynamic routes based on the row data
+  to: { path: '/' }, // pass a string to render the link as an anchor element instead of a router-link
+  target: '_blank',
 })
 
 const numberedHeaders: Array<TableViewHeader> = [

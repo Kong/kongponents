@@ -47,7 +47,7 @@
         </KComponent>
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        description="This table has clickable rows."
+        description="All rows in this table are clickable."
         title="loading & resizeColumns & error & errorStateTitle & errorStateMessage & errorStateActionMessage & errorStateActionRoute"
       >
         <KComponent
