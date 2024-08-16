@@ -73,7 +73,7 @@
     "vue-router": "^4.4.2"
   },
   "devDependencies": {
-    "@babel/types": "^7.24.9",
+    "@babel/types": "^7.25.2",
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@cypress/vite-dev-server": "^5.1.1",
@@ -88,7 +88,7 @@
     "@types/inquirer": "^9.0.7",
     "@types/node": "^20.14.14",
     "@types/sortablejs": "^1.15.8",
-    "@vitejs/plugin-vue": "^5.0.5",
+    "@vitejs/plugin-vue": "^5.1.2",
     "@vue/compiler-core": "^3.4.35",
     "@vue/tsconfig": "^0.5.1",
     "@vueuse/core": "^10.11.0",
@@ -101,7 +101,7 @@
     "cypress": "^13.13.2",
     "cypress-fail-fast": "^7.1.1",
     "cz-conventional-changelog": "3.3.0",
-    "eslint": "^9.7.0",
+    "eslint": "^9.8.0",
     "inquirer": "^9.3.6",
     "nanospinner": "^1.1.0",
     "node-emoji": "^2.1.3",
@@ -114,7 +114,7 @@
     "sass": "^1.77.8",
     "semantic-release": "^24.0.0",
     "shx": "^0.3.4",
-    "stylelint": "^16.7.0",
+    "stylelint": "^16.8.1",
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-recommended-scss": "^14.1.0",
     "stylelint-config-recommended-vue": "^1.5.0",
@@ -181,7 +181,7 @@
   },
   "packageManager": "pnpm@9.6.0",
   "volta": {
-    "node": "20.15.1",
+    "node": "20.16.0",
     "pnpm": "9.6.0"
   },
   "config": {
