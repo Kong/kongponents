@@ -102,6 +102,7 @@
     "cypress-fail-fast": "^7.1.1",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^9.8.0",
+    "eslint-plugin-vuejs-accessibility": "^2.4.1",
     "inquirer": "^9.3.6",
     "nanospinner": "^1.1.0",
     "node-emoji": "^2.1.3",
