@@ -36,7 +36,7 @@ interface TableViewHeader {
 ```
 
 :::tip NOTE
-If at least one column is `hidable` in the table, KTableView will render a dropdown on the right of the table toolbar, directly above the table, which will provide an interface for showing/hiding columns to the user.
+If at least one column is `hidable` in the table, KTableView will render a dropdown on the right of the table toolbar directly above the table, which will provide an interface for showing/hiding columns to the user.
 :::
 
 For an example of `headers` prop usage please refer to [`data` prop documentation](#data) below.
@@ -51,10 +51,10 @@ This feature is only available in KTableView and not available in [KTable](/comp
 
 ### data
 
-Data to be rendered in the table. Accepted type is array of objects where each key should correspond to a certain `key` in [`headers` prop](#headers).
+Data to be rendered in the table. Accepted interface is an array of objects where each property key should have a corresponding `key` in the [`headers` prop](#headers).
 
 ```ts
-type TableData = Array<Record<string, any>>
+type TableData = Record<string, any>[]
 ```
 
 <KTableView
@@ -235,7 +235,7 @@ Boolean to control whether table should display hover state upon hovering rows. 
 
 ### tablePreferences
 
-Table preferences object for persisting some configs.
+Table preferences object for persisting some configuration options.
 
 ```ts
 interface TablePreferences {
@@ -358,7 +358,7 @@ The passed function receives an object with these parameters as an argument:
 
 ### maxHeight
 
-Pass a number (px) you want to limit table height to. If the height table exceeds the specified number, it will be scrollable. Table header is a `position: sticky;` element and will always be visible.
+Limit the table height by passing a number, in pixels. If the table height exceeds the specified number, it will be scrollable. Table header is a `position: sticky;` element and will always be visible.
 
 <KTableView
   max-height="300"
@@ -435,10 +435,10 @@ Set the following props to handle empty state:
 - `emptyStateButtonAppearance` - Appearance of empty state action button. See [KButton `appearance` prop](/components/button#appearance) for details
 
 :::tip
-Should you want to display an icon inside of action button, you can use `empty-state-action-icon` slot.
+To display an icon inside of action button, you can use the `empty-state-action-icon` slot.
 :::
 
-When empty state action button is clicked, KTableView emits the `empty-state-action-click` event.
+When the empty state action button is clicked, KTableView emits the `empty-state-action-click` event.
 
 <KTableView 
   :data="[]"
@@ -490,12 +490,12 @@ Set the `error` prop to `true` to enable the error state.
 />
 ```
 
-Set the following properties to customize error state:
+Set the following properties to customize the error state:
 
-- `errorStateTitle` - Title text for error state
-- `errorStateMessage` - Message for error state
-- `errorStateActionMessage` - Button text for error state action
-- `errorStateActionRoute` - Route for error state action
+- `errorStateTitle` - Title text for the error state
+- `errorStateMessage` - Message for the error state
+- `errorStateActionMessage` - Button text for the error state action
+- `errorStateActionRoute` - Route for the error state action
 
 A `error-action-click` event is fired when error state action button is clicked.
 
@@ -556,7 +556,7 @@ Header slot container is a `display: flex;` element that takes care of spacing b
 
 ### Cell
 
-You can slot in each individual cell content. Each cell slot is name after the `key` it corresponds to.
+You can provide each individual cell's content via slot. Each cell slot is named after the header `key` it corresponds to.
 
 Slot props:
 * `row` - table row object
@@ -564,7 +564,7 @@ Slot props:
 * `rowValue` - the cell value
 
 :::warning NOTE
-This slot is not supported for [`actions` column](#reserved-header-keys).
+This slot is not supported for the [`actions` column](#reserved-header-keys).
 :::
 
 <KTableView
@@ -589,7 +589,7 @@ This slot is not supported for [`actions` column](#reserved-header-keys).
 
 ### Header Tooltip
 
-If you want to utilize HTML in the column header's tooltip, use the slot. Similar to column header slot, use column `key` value prefixed with `tooltip-*` like in the example below.
+Utilize HTML in the column header's tooltip by utilizing this slot. Similar to the column header slot, it uses the column `key` value prefixed with `tooltip-*` as shown in the example below.
 
 Slot props:
 * `column` - column header object
@@ -616,7 +616,7 @@ Slot props:
 
 ### toolbar
 
-Toolbar is rendered directly above the table. Useful for slotting table controls like search or filter fields.
+The toolbar is rendered directly above the table and is useful for providing table controls like search or filter fields.
 
 :::tip NOTE
 Toolbar slot container is a `display: flex;` element that takes care of spacing between slotted items so you can slot in your items without having to worry about adding margin between them.
@@ -674,14 +674,14 @@ Slot content to be displayed when in error state.
 This slot is only available in KTableView and not available in [KTable](/components/table).
 :::
 
-Slot for passing actions dropdown items. See [KDropdownItem component docs](/components/dropdown#kdropdownitem) for details.
+Slot for passing action dropdown items. See [KDropdownItem component docs](/components/dropdown#kdropdownitem) for details.
 
 Slot props:
 * `row` - table row object
 * `rowKey` - table row index
 
 :::tip NOTE
-This slot is only available when `actions` header hey is present in [`headers` prop](#reserved-header-keys).
+This slot is only available when the `actions` header key is present in [`headers`](#reserved-header-keys).
 :::
 
 <KTableView

@@ -15,7 +15,7 @@ export interface TablePreferences {
   columnVisibility?: Record<string, boolean>
 }
 
-export type TableData = Array<Record<string, any>>
+export type TableData = Record<string, any>[]
 
 export interface TableHeader {
   /** Must be unique for each column */
