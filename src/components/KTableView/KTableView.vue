@@ -295,6 +295,7 @@ import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './../KTable/ColumnVisibilityMenu.vue'
 import useUniqueId from '@/composables/useUniqueId'
 import useUtilities from '@/composables/useUtilities'
+import type { RouteLocationRaw } from 'vue-router'
 
 enum TableViewHeaderKeys {
   ACTIONS = 'actions',
@@ -369,7 +370,7 @@ const props = defineProps({
    * A prop to pass in a custom empty state action route
    */
   emptyStateActionRoute: {
-    type: [Object, String],
+    type: [Object as PropType<RouteLocationRaw>, String],
     default: null,
   },
   /**
@@ -412,7 +413,7 @@ const props = defineProps({
    * A prop to pass in a custom error state action route
    */
   errorStateActionRoute: {
-    type: [Object, String],
+    type: [Object as PropType<RouteLocationRaw>, String],
     default: null,
   },
   /**
