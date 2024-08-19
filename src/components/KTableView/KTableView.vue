@@ -247,22 +247,16 @@
         </table>
       </div>
 
-      <div
-        v-if="!hidePagination || $slots.after"
-        class="table-after"
-      >
-        <slot name="after">
-          <KPagination
-            class="table-pagination"
-            data-testid="table-pagination"
-            v-bind="paginationAttributes"
-            @get-next-offset="$emit('get-next-offset')"
-            @get-previous-offset="$emit('get-previous-offset')"
-            @page-change="$emit('page-change', $event)"
-            @page-size-change="onPaginationPageSizeChange"
-          />
-        </slot>
-      </div>
+      <KPagination
+        v-if="!hidePagination"
+        class="table-pagination"
+        data-testid="table-pagination"
+        v-bind="paginationAttributes"
+        @get-next-offset="$emit('get-next-offset')"
+        @get-previous-offset="$emit('get-previous-offset')"
+        @page-change="$emit('page-change', $event)"
+        @page-size-change="onPaginationPageSizeChange"
+      />
     </div>
   </div>
 </template>
@@ -370,7 +364,7 @@ const props = defineProps({
    * A prop to pass in a custom empty state action route
    */
   emptyStateActionRoute: {
-    type: [Object as PropType<RouteLocationRaw>, String],
+    type: [Object, String] as PropType<RouteLocationRaw | string>,
     default: null,
   },
   /**
@@ -413,7 +407,7 @@ const props = defineProps({
    * A prop to pass in a custom error state action route
    */
   errorStateActionRoute: {
-    type: [Object as PropType<RouteLocationRaw>, String],
+    type: [Object, String] as PropType<RouteLocationRaw | string>,
     default: null,
   },
   /**
@@ -929,10 +923,6 @@ watch(hasColumnVisibilityMenu, (newVal) => {
         }
       }
     }
-  }
-
-  .table-after {
-    margin-top: var(--kui-space-70, $kui-space-70);
   }
 }
 </style>

@@ -1140,9 +1140,5 @@ onMounted(() => {
       }
     }
   }
-
-  .table-pagination {
-    margin-top: var(--kui-space-70, $kui-space-70);
-  }
 }
 </style>
