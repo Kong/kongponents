@@ -37,8 +37,8 @@
             #action
           >
             <KButton
-              :data-testid="getTestIdString(errorStateActionMessage)"
-              :to="errorStateActionRoute ? errorStateActionRoute : undefined"
+              data-testid="error-state-action"
+              :to="errorStateActionRoute"
               @click="$emit('error-action-click')"
             >
               {{ errorStateActionMessage }}
@@ -65,8 +65,8 @@
           >
             <KButton
               :appearance="emptyStateButtonAppearance"
-              :data-testid="getTestIdString(emptyStateActionMessage)"
-              :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
+              data-testid="empty-state-action"
+              :to="emptyStateActionRoute"
               @click="$emit('empty-state-action-click')"
             >
               <slot name="empty-state-action-icon" />
@@ -104,16 +104,7 @@
                 :class="getHeaderClasses(column, index)"
                 :data-testid="`table-header-${column.key}`"
                 :style="columnStyles[column.key]"
-                @click="() => {
-                  if (column.sortable) {
-                    $emit('sort', {
-                      prevKey: sortColumnKey,
-                      sortColumnKey: column.key,
-                      sortColumnOrder: sortColumnOrder === 'asc' ? 'desc' : 'asc' // display opposite because sortColumnOrder outdated
-                    })
-                    sortClickHandler(column)
-                  }
-                }"
+                @click="() => onHeaderClick(column)"
                 @mouseleave="currentHoveredColumn = ''"
                 @mouseover="currentHoveredColumn = column.key"
               >
@@ -379,7 +370,7 @@ const props = defineProps({
    */
   emptyStateActionRoute: {
     type: [Object, String],
-    default: '',
+    default: null,
   },
   /**
    * A prop to pass in a custom empty state action message
@@ -422,7 +413,7 @@ const props = defineProps({
    */
   errorStateActionRoute: {
     type: [Object, String],
-    default: '',
+    default: null,
   },
   /**
    * A prop to pass in a custom error state action message
@@ -660,6 +651,17 @@ const getHeaderClasses = (column: TableViewHeader, index: number): Record<string
   }
 }
 
+const onHeaderClick = (column: TableViewHeader) => {
+  if (column.sortable) {
+    emit('sort', {
+      prevKey: sortColumnKey.value,
+      sortColumnKey: column.key,
+      sortColumnOrder: sortColumnOrder.value === 'asc' ? 'desc' : 'asc', // display opposite because sortColumnOrder outdated
+    })
+    sortClickHandler(column)
+  }
+}
+
 /**
  * We have to track the state of all three hover events because
  * they have differing priorities that can have clashing styles.
@@ -851,12 +853,6 @@ const tablePreferences = computed((): TablePreferences => ({
 
 const emitTablePreferences = (): void => {
   emit('update:table-preferences', tablePreferences.value)
-}
-
-const getTestIdString = (message: string): string => {
-  const msg = message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
-
-  return msg
 }
 
 watch([columnVisibility, tableHeaders], (newVals) => {
