@@ -248,7 +248,7 @@
       </div>
 
       <KPagination
-        v-if="!hidePagination"
+        v-if="!hidePagination || !data.length"
         class="table-pagination"
         data-testid="table-pagination"
         v-bind="paginationAttributes"
@@ -290,6 +290,7 @@ import ColumnVisibilityMenu from './../KTable/ColumnVisibilityMenu.vue'
 import useUniqueId from '@/composables/useUniqueId'
 import useUtilities from '@/composables/useUtilities'
 import type { RouteLocationRaw } from 'vue-router'
+import KPagination from '@/components/KPagination/KPagination.vue'
 
 enum TableViewHeaderKeys {
   ACTIONS = 'actions',

@@ -265,8 +265,24 @@ describe('KTableView', () => {
       cy.get('th').eq(options.headers.indexOf(options.headers.find((header => header.key === 'actions'))!)).find('.table-header-label').should('have.class', 'sr-only')
     })
 
-    it.skip('displays each cell as link when configured', () => {
-      // TODO
+    it('displays each row as link when rowLink prop is provided', () => {
+      mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+          rowLink: () => ({
+            to: '/link',
+          }),
+        },
+      })
+
+      cy.get('table tbody td').each(($el) => {
+        cy.wrap($el).should('have.class', 'row-link').should('be.visible')
+      })
+
+      cy.get('table tbody td>a.cell-wrapper').each(($el) => {
+        cy.wrap($el).should('be.visible')
+      })
     })
   })
 
@@ -325,6 +341,57 @@ describe('KTableView', () => {
         cy.get('th').eq(0).should('have.class', 'active-sort')
         cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 1)
       })
+    })
+  })
+
+  describe('pagination', () => {
+    it('displays pagination when data is provided', () => {
+      mount(KTableView, {
+        props: {
+          data: options.data,
+          headers: options.headers,
+        },
+      })
+
+      cy.getTestId('table-pagination').should('be.visible')
+    })
+
+    it('does not display pagination when hidePagination prop is true', () => {
+      mount(KTableView, {
+        props: {
+          data: options.data,
+          headers: options.headers,
+          hidePagination: true,
+        },
+      })
+
+      cy.getTestId('table-pagination').should('not.exist')
+    })
+
+    it('does not display pagination when data is empty', () => {
+      mount(KTableView, {
+        props: {
+          data: [],
+          headers: options.headers,
+        },
+      })
+
+      cy.getTestId('table-pagination').should('not.exist')
+    })
+
+    it('passes the correct props to the pagination component', () => {
+      mount(KTableView, {
+        props: {
+          data: options.data,
+          headers: options.headers,
+          paginationAttributes: {
+            totalCount: 100,
+            currentPage: 2,
+          },
+        },
+      })
+
+      cy.getTestId('visible-items').eq(0).should('contain.text', '16 to 30  of 100')
     })
   })
 })
