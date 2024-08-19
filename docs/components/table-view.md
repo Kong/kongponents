@@ -3,7 +3,7 @@
 Component for displaying data in table format.
 
 :::tip NOTE
-KTableView is a display-only component, it does not provide any data management capabilities like fetching, server-side sorting or searching. If you are looking for a component that includes those functions out of the box, check out [KTable](/components/table).
+KTableView does not handle data management capabilities like data fetching, functional pagination, sorting or searching. If you are looking for a component that integrates with the data layer, check out [KTable](/components/table).
 :::
 
 <KTableView
