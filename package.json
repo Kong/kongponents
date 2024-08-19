@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.3.1",
+  "version": "9.3.2",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -53,7 +53,7 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "@floating-ui/vue": "^1.1.3",
+    "@floating-ui/vue": "^1.1.4",
     "@kong/icons": "^1.15.1",
     "@popperjs/core": "^2.11.8",
     "date-fns": "^2.30.0",
@@ -70,17 +70,17 @@
   "peerDependencies": {
     "axios": "^1.7.3",
     "vue": ">= 3.3.4 < 4",
-    "vue-router": "^4.4.2"
+    "vue-router": "^4.4.3"
   },
   "devDependencies": {
     "@babel/types": "^7.25.2",
-    "@commitlint/cli": "^19.3.0",
+    "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@cypress/vite-dev-server": "^5.1.1",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@evilmartians/lefthook": "^1.7.11",
     "@kong-ui-public/sandbox-layout": "^2.1.21",
-    "@kong/design-tokens": "^1.16.0",
+    "@kong/design-tokens": "^1.17.2",
     "@kong/eslint-config-kong-ui": "^1.1.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
@@ -89,12 +89,12 @@
     "@types/node": "^20.14.14",
     "@types/sortablejs": "^1.15.8",
     "@vitejs/plugin-vue": "^5.1.2",
-    "@vue/compiler-core": "^3.4.35",
+    "@vue/compiler-core": "^3.4.37",
     "@vue/tsconfig": "^0.5.1",
-    "@vueuse/core": "^10.11.0",
+    "@vueuse/core": "^10.11.1",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.3",
-    "boxen": "^8.0.0",
+    "boxen": "^8.0.1",
     "commitizen": "^4.3.0",
     "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
@@ -121,11 +121,11 @@
     "stylelint-order": "^6.0.4",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.5.4",
-    "vite": "^5.3.5",
+    "vite": "^5.4.0",
     "vite-plugin-vue-devtools": "^7.3.7",
     "vitepress": "^1.3.2",
-    "vue": "^3.4.35",
-    "vue-router": "^4.4.2",
+    "vue": "^3.4.37",
+    "vue-router": "^4.4.3",
     "vue-tsc": "^2.0.29"
   },
   "resolutions": {
@@ -179,10 +179,10 @@
   "engines": {
     "node": ">=v16.20.2 || >=18.12.1 || >=20.14.0"
   },
-  "packageManager": "pnpm@9.6.0",
+  "packageManager": "pnpm@9.7.0",
   "volta": {
     "node": "20.16.0",
-    "pnpm": "9.6.0"
+    "pnpm": "9.7.0"
   },
   "config": {
     "commitizen": {
