@@ -15,7 +15,7 @@ export interface TablePreferences {
   columnVisibility?: Record<string, boolean>
 }
 
-export type TableData = Record<string, any>[]
+export type TableViewData = Record<string, any>[]
 
 export interface TableHeader {
   /** Must be unique for each column */
@@ -34,14 +34,7 @@ export interface TableHeader {
   useSortHandlerFunction?: boolean
 }
 
-export enum TableViewHeaderKeys {
-  ACTIONS = 'actions',
-}
-
-export interface TableViewHeader extends Omit<TableHeader, 'useSortHandlerFunction'> {
-  /** Must be unique for each column. If 'actions' value is provided, the column is treated as a column that only displays action dropdown menus for each row and no label (hideLabel: true) */
-  key: string | `${TableViewHeaderKeys}`
-}
+export interface TableViewHeader extends Omit<TableHeader, 'useSortHandlerFunction'> { }
 
 /**
  * Provide a type interface for KTable `column-*` and `tooltip-*` slot names.

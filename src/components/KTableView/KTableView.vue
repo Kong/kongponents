@@ -243,7 +243,7 @@
 
                     <template #items>
                       <slot
-                        :name="`${TableViewHeaderKeys.ACTIONS}-items`"
+                        name="action-items"
                         :row="getGeneric(row)"
                         :row-value="row[header.key]"
                       />
@@ -287,7 +287,7 @@ import { InfoIcon, ArrowDownIcon, MoreIcon } from '@kong/icons'
 import type {
   TablePreferences,
   TableViewHeader,
-  TableData,
+  TableViewData,
   TableColumnSlotName,
   TableColumnTooltipSlotName,
   SortColumnOrder,
@@ -299,11 +299,15 @@ import type {
   PageChangeData,
   PageSizeChangeData,
 } from '@/types'
-import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
+import { EmptyStateIconVariants } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './../KTable/ColumnVisibilityMenu.vue'
 import useUniqueId from '@/composables/useUniqueId'
 import useUtilities from '@/composables/useUtilities'
+
+enum TableViewHeaderKeys {
+  ACTIONS = 'actions',
+}
 
 const props = defineProps({
   /**
@@ -435,7 +439,7 @@ const props = defineProps({
     default: () => [],
   },
   data: {
-    type: Array as PropType<TableData>,
+    type: Array as PropType<TableViewData>,
     default: () => [],
   },
   maxHeight: {

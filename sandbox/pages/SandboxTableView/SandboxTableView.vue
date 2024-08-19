@@ -40,7 +40,7 @@
             :row-hover="data.tableRowHover"
             @sort="sortData"
           >
-            <template #actions-items>
+            <template #action-items>
               <SandboxTableViewActions />
             </template>
           </KTableView>
@@ -83,7 +83,7 @@
             resize-columns
             @row:click="(_event: any, row: any) => onRowClick(row)"
           >
-            <template #actions-items>
+            <template #action-items>
               <SandboxTableViewActions />
             </template>
           </KTableView>
@@ -95,7 +95,7 @@
           :headers="headers()"
           :row-link="getRowLinksRouter"
         >
-          <template #actions-items>
+          <template #action-items>
             <SandboxTableViewActions />
           </template>
           <template #username="{ rowValue }">
@@ -117,7 +117,7 @@
           :headers="headers()"
           :row-link="getRowLinksAnchor"
         >
-          <template #actions-items>
+          <template #action-items>
             <SandboxTableViewActions />
           </template>
           <template #username="{ rowValue }">
@@ -157,7 +157,7 @@
           <template #email="{ rowValue }">
             <KCopy :text="rowValue" />
           </template>
-          <template #actions-items>
+          <template #action-items>
             <SandboxTableViewActions />
           </template>
         </KTableView>
@@ -173,7 +173,7 @@
               <AddIcon /> Add user
             </KButton>
           </template>
-          <template #actions-items>
+          <template #action-items>
             <SandboxTableViewActions />
           </template>
         </KTableView>
@@ -186,7 +186,7 @@
           <template #after>
             <KPagination :total-count="10" />
           </template>
-          <template #actions-items>
+          <template #action-items>
             <SandboxTableViewActions />
           </template>
         </KTableView>
@@ -240,7 +240,7 @@
 import { inject, ref } from 'vue'
 import SandboxTitleComponent from '../../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../../components/SandboxSectionComponent.vue'
-import type { TableHeader, TableData, TableSortPayload, RowLink } from '@/types'
+import type { TableHeader, TableViewData, TableSortPayload, RowLink } from '@/types'
 import SandboxTableViewActions from './SandboxTableViewActions.vue'
 import { AddIcon } from '@kong/icons'
 
@@ -253,7 +253,7 @@ const headers = (hidable: boolean = false, sortable: boolean = false): TableHead
   ]
 }
 
-const tableData: TableData = [
+const tableData: TableViewData = [
   {
     id: 1,
     name: 'Leanne Graham',
@@ -316,7 +316,7 @@ const tableData: TableData = [
   },
 ]
 
-const sortedData = ref<TableData>(tableData)
+const sortedData = ref<TableViewData>(tableData)
 
 const onRowClick = (row: any) => {
   alert(`Row clicked:' ${JSON.stringify(row)}`)

@@ -26,7 +26,7 @@ Array of objects that represent table columns along with some configurations tha
 
 ```ts
 interface TableViewHeader {
-  key: string | 'actions' // must be unique for each column, see Reserved Header Keys section for more information about 'actions' key value
+  key: string // must be unique for each column, see Reserved Header Keys section for more information about 'actions' key value
   label: string // visible column header text
   sortable?: boolean // in a nutshell, this property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it
   hidable?: boolean // allow toggling column visibility
@@ -43,18 +43,14 @@ For an example of `headers` prop usage please refer to [`data` prop documentatio
 
 #### Reserved Header Keys
 
-:::warning NOTE
-This feature is only available in KTableView and not available in [KTable](/components/table).
-:::
-
-- `actions` - the column is treated as a column that only displays action dropdown menus for each row and displays no label (as if `hideLabel` was `true`, however you can still display the label by setting `hideLabel` parameter to `false`). KViewTable will automatically render the trigger button with an icon, however you will need to pass dropdown items through the [`actions-items` slot](#actions-items).
+- `actions` - the column displays an actions [KDropdow](/components/dropdown) button for each row and displays no label (as if `hideLabel` was `true`; you can set `hideLabel` parameter to `false` to show the label). KTableView will automatically render the actions dropdown button with an icon and you simply need to provide dropdown items via the [`action-items` slot](#action-items).
 
 ### data
 
 Data to be rendered in the table. Accepted interface is an array of objects where each property key should have a corresponding `key` in the [`headers` prop](#headers).
 
 ```ts
-type TableData = Record<string, any>[]
+type TableViewData = Record<string, any>[]
 ```
 
 <KTableView
@@ -62,7 +58,7 @@ type TableData = Record<string, any>[]
   :headers="basicHeaders(true, 'username', 'email')"
   @sort="sortBasicData"
 >
-  <template #actions-items>
+  <template #action-items>
     <KDropdownItem>
       Edit
     </KDropdownItem>
@@ -82,7 +78,7 @@ type TableData = Record<string, any>[]
     :headers="headers"
     @sort="sortData"
   >
-    <template #actions-items>
+    <template #action-items>
       <KDropdownItem>
         Edit
       </KDropdownItem>
@@ -97,7 +93,7 @@ type TableData = Record<string, any>[]
 </template>
 
 <script setup lang="ts">
-import type { TableViewHeader, TableData } from '@kong/kongponents'
+import type { TableViewHeader, TableViewData } from '@kong/kongponents'
 
 const headers: Array<TableViewHeader> = [
   {
@@ -121,7 +117,7 @@ const headers: Array<TableViewHeader> = [
   },
 ]
 
-const tableData = ref<TableData>([
+const tableData = ref<TableViewData>([
   {
     id: 1,
     // notice that property keys in data object correspond to each respective key in headers const
@@ -177,7 +173,7 @@ Notice that in the example above the _Username_ column is `sortable` and the _Em
 
 ### loading
 
-Boolean to control whether the component should display the loading state.
+Boolean to control whether the component should display the loading state. Defaults to `false`.
 
 <KTableView
   loading
@@ -282,10 +278,6 @@ The passed function receives row value object as an argument.
 ```
 
 ### rowLink
-
-:::warning NOTE
-This prop is only available in KTableView and not available in [KTable](/components/table).
-:::
 
 Function for turning row into a link. The function receives row value object as an argument and should return an object with two optional parameters:
 
@@ -497,7 +489,7 @@ Set the following properties to customize the error state:
 - `errorStateActionMessage` - Button text for the error state action
 - `errorStateActionRoute` - Route for the error state action
 
-A `error-action-click` event is fired when error state action button is clicked.
+A `error-action-click` event is emitted when error state action button is clicked.
 
 <KTableView
   :data="basicData"
@@ -529,10 +521,6 @@ You can slot in your custom content into each column header. For that, use colum
 
 Slot props:
 * `column` - column header object
-
-:::tip NOTE
-Header slot container is a `display: flex;` element that takes care of spacing between slotted items so you can slot in your items without having to worry about adding margin between them.
-:::
 
 <KTableView
   :data="basicData"
@@ -618,10 +606,6 @@ Slot props:
 
 The toolbar is rendered directly above the table and is useful for providing table controls like search or filter fields.
 
-:::tip NOTE
-Toolbar slot container is a `display: flex;` element that takes care of spacing between slotted items so you can slot in your items without having to worry about adding margin between them.
-:::
-
 <KTableView
   :data="basicData"
   :headers="basicHeaders()"
@@ -668,11 +652,7 @@ Slot for icon to be displayed in front of action button text in empty state. See
 
 Slot content to be displayed when in error state.
 
-### actions-items
-
-:::warning NOTE
-This slot is only available in KTableView and not available in [KTable](/components/table).
-:::
+### action-items
 
 Slot for passing action dropdown items. See [KDropdownItem component docs](/components/dropdown#kdropdownitem) for details.
 
@@ -688,7 +668,7 @@ This slot is only available when the `actions` header key is present in [`header
   :data="basicData"
   :headers="basicHeaders(true)"
 >
-  <template #actions-items>
+  <template #action-items>
     <KDropdownItem>
       Edit
     </KDropdownItem>
@@ -706,7 +686,7 @@ This slot is only available when the `actions` header key is present in [`header
   :data="tableData"
   :headers="headers"
 >
-  <template #actions-items>
+  <template #action-items>
     <KDropdownItem>
       Edit
     </KDropdownItem>
@@ -721,10 +701,6 @@ This slot is only available when the `actions` header key is present in [`header
 ```
 
 ### after
-
-:::warning NOTE
-This slot is only available in KTableView and not available in [KTable](/components/table).
-:::
 
 Slot for content that should be rendered below the table. For example, could be used for displaying custom pagination component.
 
@@ -759,7 +735,7 @@ Slot for content that should be rendered below the table. For example, could be 
 
 ### Row Events
 
-`@row:{event}` - returns the `Event`, the row item, and the type. `row-click` event is emitted whenever a row is clicked and the row click event handler is fired, returns the row `data`.
+`@row:{event}` - returns the `Event`, the row item, and the type. `row-click` event is emitted whenever a row is clicked and the row click event handler is emitted, returns the row `data`.
 
 To avoid firing row clicks by accident, the row click handler ignores events coming from `a`, `button`, `label`, `input`, and `select` elements (unless they have the `disabled` attribute). As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
 
@@ -797,7 +773,7 @@ To avoid firing row clicks by accident, the row click handler ignores events com
 
 ### Cell Events
 
-`@cell:{event}` - returns the `Event`, the cell value, and the type. `cell-click` event is emitted whenever a cell is clicked and the cell click event handler is fired, returns the cell `data`.
+`@cell:{event}` - returns the `Event`, the cell value, and the type. `cell-click` event is emitted whenever a cell is clicked and the cell click event handler is emitted, returns the cell `data`.
 
 <KComponent v-slot="{ data }" :data="{ cellClickEnabled: true }">
   <div class="vertical-container">
@@ -837,7 +813,7 @@ KTableView propagates all events emitted by underlying pagination component. See
 
 ### sort
 
-Fired when user clicks on a sortable column heading. Event payload is object of type `TableSortPayload`:
+Emitted when user clicks on a sortable column heading. Event payload is object of type `TableSortPayload`:
 
 ```ts
 interface TableSortPayload {
@@ -859,7 +835,7 @@ Emitted when error state action button is clicked.
 
 ### update:table-preferences
 
-Fired when the user performs sorting, resizes columns or toggles column visibility. Event payload is object of type `TablePreferences` interface (see [`tablePreferences` prop](#tablepreferences) for details).
+Emitted when the user performs sorting, resizes columns or toggles column visibility. Event payload is object of type `TablePreferences` interface (see [`tablePreferences` prop](#tablepreferences) for details).
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -905,7 +881,7 @@ const basicHeaders = (actions: boolean = false, sortable: string | null = null, 
   return headers
 }
 
-const basicData: TableData = [
+const basicData: TableViewData = [
   {
     id: 1,
     name: 'Leanne Graham',
@@ -968,7 +944,7 @@ const basicData: TableData = [
   },
 ]
 
-const basicDataSortable = ref<TableData>(basicData)
+const basicDataSortable = ref<TableViewData>(basicData)
 
 const sortBasicData = (sortData: TableSortPayload): void => {
   const data = [...basicData]
@@ -1023,7 +999,7 @@ const numberedHeaders: Array<TableViewHeader> = [
   }
 ]
 
-const numberedColumnsData: TableData = [
+const numberedColumnsData: TableViewData = [
   { 
     column1: 'Row 1 cell 1',
     column2: 'Row 1 cell 2',
