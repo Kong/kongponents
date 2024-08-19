@@ -84,6 +84,50 @@
           </KTableView>
         </KComponent>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="rowLink (router-link)">
+        <KTableView
+          :data="sortedData"
+          :headers="headers()"
+          :row-link="getRowLinksRouter"
+        >
+          <template #actions-items>
+            <SandboxTableViewActions />
+          </template>
+          <template #username="{ rowValue }">
+            <KExternalLink
+              class="username-link"
+              href="https://kongponents.konghq.com/components/alert.html"
+            >
+              @{{ rowValue }}
+            </KExternalLink>
+          </template>
+          <template #email="{ rowValue }">
+            <KCopy :text="rowValue" />
+          </template>
+        </KTableView>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="rowLink (anchor)">
+        <KTableView
+          :data="sortedData"
+          :headers="headers()"
+          :row-link="getRowLinksAnchor"
+        >
+          <template #actions-items>
+            <SandboxTableViewActions />
+          </template>
+          <template #username="{ rowValue }">
+            <KExternalLink
+              class="username-link"
+              href="https://kongponents.konghq.com/components/alert.html"
+            >
+              @{{ rowValue }}
+            </KExternalLink>
+          </template>
+          <template #email="{ rowValue }">
+            <KCopy :text="rowValue" />
+          </template>
+        </KTableView>
+      </SandboxSectionComponent>
 
       <!-- Slots -->
       <SandboxTitleComponent
@@ -183,56 +227,6 @@
           </template>
         </KTableView>
       </SandboxSectionComponent>
-
-      <!-- Usage -->
-      <SandboxTitleComponent
-        is-subtitle
-        title="Usage"
-      />
-      <SandboxSectionComponent title="Row links (router-link)">
-        <KTableView
-          :data="sortedData"
-          :headers="headers()"
-          :row-attrs="getRowLinksRouter"
-        >
-          <template #actions-items>
-            <SandboxTableViewActions />
-          </template>
-          <template #username="{ rowValue }">
-            <KExternalLink
-              class="username-link"
-              href="https://kongponents.konghq.com/components/alert.html"
-            >
-              @{{ rowValue }}
-            </KExternalLink>
-          </template>
-          <template #email="{ rowValue }">
-            <KCopy :text="rowValue" />
-          </template>
-        </KTableView>
-      </SandboxSectionComponent>
-      <SandboxSectionComponent title="Row links (anchor)">
-        <KTableView
-          :data="sortedData"
-          :headers="headers()"
-          :row-attrs="getRowLinksAnchor"
-        >
-          <template #actions-items>
-            <SandboxTableViewActions />
-          </template>
-          <template #username="{ rowValue }">
-            <KExternalLink
-              class="username-link"
-              href="https://kongponents.konghq.com/components/alert.html"
-            >
-              @{{ rowValue }}
-            </KExternalLink>
-          </template>
-          <template #email="{ rowValue }">
-            <KCopy :text="rowValue" />
-          </template>
-        </KTableView>
-      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
@@ -241,7 +235,7 @@
 import { inject, ref } from 'vue'
 import SandboxTitleComponent from '../../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../../components/SandboxSectionComponent.vue'
-import type { TableHeader, TableData, TableSortPayload, TableRowAttributes } from '@/types'
+import type { TableHeader, TableData, TableSortPayload, RowLink } from '@/types'
 import SandboxTableViewActions from './SandboxTableViewActions.vue'
 import { AddIcon } from '@kong/icons'
 
@@ -354,18 +348,16 @@ const sortData = (sortData: TableSortPayload): void => {
   sortedData.value = data
 }
 
-const getRowLinksRouter = (row: Record<string, any>): TableRowAttributes => ({
+const getRowLinksRouter = (row: Record<string, any>): RowLink => ({
   // using static route for demonstration purposes
   // but you can generate dynamic routes based on the row data
   to: { name: 'home' }, // pass a string to render the link as an anchor element instead of a router-link
   target: '_blank',
-  'data-testid': 'row-route-link',
 })
 
-const getRowLinksAnchor = (row: Record<string, any>): TableRowAttributes => ({
+const getRowLinksAnchor = (row: Record<string, any>): RowLink => ({
   to: 'https://kongponents.konghq.com/',
   target: '_blank',
-  'data-testid': 'row-anchor-link',
 })
 </script>
 

@@ -189,7 +189,7 @@
           <tbody>
             <tr
               v-for="(row, rowIndex) in data"
-              v-bind="getRowAttrs(row)"
+              v-bind="rowAttrs(row)"
               :key="`table-${tableId}-row-${rowIndex}`"
               :role="isClickable ? 'link' : undefined"
               :tabindex="isClickable ? 0 : undefined"
@@ -200,7 +200,7 @@
                 :key="`table-${tableId}-cell-${index}`"
                 :class="{
                   'resize-hover': resizeColumns && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
-                  'row-link': !!rowAttrs(row).to,
+                  'row-link': !!rowLink(row).to,
                 }"
                 :style="columnStyles[header.key]"
                 v-on="tdlisteners(row[header.key], row)"
@@ -284,7 +284,7 @@ import type {
   TableSortPayload,
   EmptyStateIconVariant,
   ButtonAppearance,
-  TableRowAttributes,
+  RowLink,
 } from '@/types'
 import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
@@ -319,7 +319,14 @@ const props = defineProps({
    * A function that conditionally specifies row attributes on each row
    */
   rowAttrs: {
-    type: Function as PropType<(row: Record<string, any>) => TableRowAttributes>,
+    type: Function as PropType<(row: Record<string, any>) => Record<string, string>>,
+    default: () => ({}),
+  },
+  /**
+   * A function that conditionally turns a row into a link
+   */
+  rowLink: {
+    type: Function as PropType<(row: Record<string, any>) => Record<string, string>>,
     default: () => ({}),
   },
   /**
@@ -758,16 +765,9 @@ const scrollHandler = (event: any): void => {
   }
 }
 
-// remove to and target from row attributes because we use them for the row link
-const getRowAttrs = (row: Record<string, any>): TableRowAttributes => {
-  const { to, target, ...rest } = props.rowAttrs(row)
-
-  return rest
-}
-
 // determine the component to use for the row link
 const getRowLinkComponent = (row: Record<string, any>, columnKey: string): string => {
-  const { to } = props.rowAttrs(row)
+  const { to } = props.rowLink(row)
 
   if (!to || columnKey === TableViewHeaderKeys.ACTIONS) {
     return 'div'
@@ -777,13 +777,13 @@ const getRowLinkComponent = (row: Record<string, any>, columnKey: string): strin
 }
 
 // returns attributes for the wrapper element in each row link
-const getRowLinkAttrs = (row: Record<string, any>, columnKey: string): TableRowAttributes => {
+const getRowLinkAttrs = (row: Record<string, any>, columnKey: string): Record<string, any> => {
   // if the column is the actions column, return an empty object
   if (columnKey === TableViewHeaderKeys.ACTIONS) {
     return {}
   }
 
-  const { to, target } = props.rowAttrs(row)
+  const { to, target } = props.rowLink(row)
   const isRouterLink = to && typeof to === 'object'
   const isAnchor = to && typeof to === 'string'
 

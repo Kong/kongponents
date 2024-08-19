@@ -263,17 +263,7 @@ interface TablePreferences {
 
 ### rowAttrs
 
-Function for adding custom attributes to each row. The function should return an object of type `TableRowAttributes`:
-
-```ts
-interface TableRowAttributes {
-  [key: string]: string | RouteLocationRaw | undefined
-  /** RouteLocationRaw or url string for row link */
-  to?: RouteLocationRaw | string
-  /** Target for row link */
-  target?: '_self' | '_blank' | '_parent' | '_top'
-}
-```
+Function for adding custom attributes to each row. The function should return an object with `key: value` pairs for each attribute.
 
 The passed function receives row value object as an argument.
 
@@ -291,12 +281,23 @@ The passed function receives row value object as an argument.
 />
 ```
 
-#### Row links
+### rowLink
 
-You can pass optional `to: RouteLocationRaw | string` parameter in the returned object to turn the entire row into a link.
+:::warning NOTE
+This prop is only available in KTableView and not available in [KTable](/components/table).
+:::
+
+Function for turning row into a link. The function receives row value object as an argument and should return an object with two optional parameters:
+
+```ts
+interface RowLink {
+  to?: RouteLocationRaw | string // RouteLocationRaw or url string for row link
+  target?: '_self' | '_blank' | '_parent' | '_top' // Target for row link
+}
+```
 
 <KTableView
-  :row-attrs="getRowLinks"
+  :row-link="getRowLink"
   :data="basicData"
   :headers="basicHeaders()"
 />
@@ -304,7 +305,7 @@ You can pass optional `to: RouteLocationRaw | string` parameter in the returned 
 ```vue
 <template>
   <KTableView
-    :row-attrs="getRowAttrs"
+    :row-link="getRowLink"
     :data="tableData"
     :headers="headers"
   />
@@ -312,13 +313,13 @@ You can pass optional `to: RouteLocationRaw | string` parameter in the returned 
 
 
 <script setup lang="ts">
-import type { TableRowAttributes } from '@kong/kongponents'
+import type { RowLink } from '@kong/kongponents'
 
 const headers = [...]
 
 const tableData = [...]
 
-const getRowAttrs = (row: Record<string, any>): TableRowAttributes => ({
+const getRowLink = (row: Record<string, any>): RowLink => ({
   // using static route for demonstration purposes
   // but you can generate dynamic routes based on the row data
   to: { name: 'home' }, // pass a string to render the link as an anchor element instead of a router-link
@@ -954,7 +955,7 @@ const sortBasicData = (sortData: TableSortPayload): void => {
   basicDataSortable.value = data
 }
 
-const getRowLinks = (row: Record<string, any>): TableRowAttributes => ({
+const getRowLink = (row: Record<string, any>): TableRowAttributes => ({
   // using static route for demonstration purposes
   // but you can generate dynamic routes based on the row data
   to: { path: '/' }, // pass a string to render the link as an anchor element instead of a router-link

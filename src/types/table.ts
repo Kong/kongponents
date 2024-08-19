@@ -64,8 +64,7 @@ export interface TableStatePayload {
   hasData: boolean
 }
 
-export interface TableRowAttributes {
-  [key: string]: string | RouteLocationRaw | undefined
+export interface RowLink {
   /** RouteLocationRaw or url string for row link */
   to?: RouteLocationRaw | string
   /** Target for row link */
