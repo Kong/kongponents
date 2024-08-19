@@ -231,7 +231,7 @@ Boolean to control whether table should display hover state upon hovering rows. 
 
 ### tablePreferences
 
-Table preferences object for persisting some configuration options.
+Table preferences object for some configuration options.
 
 ```ts
 interface TablePreferences {
