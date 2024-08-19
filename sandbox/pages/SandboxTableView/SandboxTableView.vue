@@ -48,11 +48,11 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent
         description="All rows in this table are clickable."
-        title="loading & resizeColumns & error & errorStateTitle & errorStateMessage & errorStateActionMessage & errorStateActionRoute"
+        title="loading & resizeColumns & error & errorStateTitle & errorStateMessage & errorStateActionMessage & errorStateActionRoute & hidePagination"
       >
         <KComponent
           v-slot="{ data }"
-          :data="{ tableLoadingState: false, tableErrorState: false }"
+          :data="{ tableLoadingState: false, tableErrorState: false, hidePagination: false }"
         >
           <div class="horizontal-container">
             <KInputSwitch
@@ -62,6 +62,10 @@
             <KInputSwitch
               v-model="data.tableErrorState"
               label="Error state"
+            />
+            <KInputSwitch
+              v-model="data.hidePagination"
+              label="Hide pagination"
             />
           </div>
 
@@ -74,6 +78,7 @@
             error-state-message="Error state message"
             error-state-title="Error state title"
             :headers="headers(true)"
+            :hide-pagination="data.hidePagination"
             :loading="data.tableLoadingState"
             resize-columns
             @row:click="(_event: any, row: any) => onRowClick(row)"

@@ -257,10 +257,20 @@
       </div>
 
       <div
-        v-if="$slots.after"
+        v-if="!hidePagination || $slots.after"
         class="table-after"
       >
-        <slot name="after" />
+        <slot name="after">
+          <KPagination
+            class="table-pagination"
+            data-testid="table-pagination"
+            v-bind="paginationAttributes"
+            @get-next-offset="$emit('get-next-offset')"
+            @get-previous-offset="$emit('get-previous-offset')"
+            @page-change="$emit('page-change', $event)"
+            @page-size-change="onPaginationPageSizeChange"
+          />
+        </slot>
       </div>
     </div>
   </div>
@@ -285,6 +295,9 @@ import type {
   EmptyStateIconVariant,
   ButtonAppearance,
   RowLink,
+  TablePaginationAttributes,
+  PageChangeData,
+  PageSizeChangeData,
 } from '@/types'
 import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
@@ -326,7 +339,7 @@ const props = defineProps({
    * A function that conditionally turns a row into a link
    */
   rowLink: {
-    type: Function as PropType<(row: Record<string, any>) => Record<string, string>>,
+    type: Function as PropType<(row: Record<string, any>) => RowLink>,
     default: () => ({}),
   },
   /**
@@ -429,6 +442,14 @@ const props = defineProps({
     type: String,
     default: 'none',
   },
+  hidePagination: {
+    type: Boolean,
+    default: false,
+  },
+  paginationAttributes: {
+    type: Object as PropType<TablePaginationAttributes>,
+    default: () => ({}),
+  },
 })
 
 const emit = defineEmits<{
@@ -438,6 +459,10 @@ const emit = defineEmits<{
   (e: 'empty-state-action-click'): void
   (e: 'update:table-preferences', preferences: TablePreferences): void
   (e: 'sort', value: TableSortPayload): void
+  (e: 'page-change', val: PageChangeData): void
+  (e: 'page-size-change', val: PageSizeChangeData): void
+  (e: 'get-next-offset'): void
+  (e: 'get-previous-offset'): void
 }>()
 
 const attrs = useAttrs()
@@ -796,12 +821,28 @@ const getRowLinkAttrs = (row: Record<string, any>, columnKey: string): Record<st
   }
 }
 
+const getInitialPageSize = (): number | null => {
+  if (props.paginationAttributes.initialPageSize) {
+    return props.paginationAttributes.initialPageSize
+  } else if (props.paginationAttributes.pageSizes) {
+    return props.paginationAttributes.pageSizes[0]
+  }
+
+  return null
+}
+const paginationPageSize = ref<number | null>(getInitialPageSize())
+const onPaginationPageSizeChange = (data: PageSizeChangeData): void => {
+  paginationPageSize.value = data.pageSize
+  emit('page-size-change', data)
+}
+
 // Store the tablePreferences in a computed property to utilize in the watcher
 const tablePreferences = computed((): TablePreferences => ({
   sortColumnKey: sortColumnKey.value,
   sortColumnOrder: sortColumnOrder.value as 'asc' | 'desc',
   ...(props.resizeColumns ? { columnWidths: columnWidths.value } : {}),
   ...(hasHidableColumns.value ? { columnVisibility: columnVisibility.value } : {}),
+  ...(paginationPageSize.value && !props.hidePagination && { pageSize: paginationPageSize.value }),
 }))
 
 const emitTablePreferences = (): void => {

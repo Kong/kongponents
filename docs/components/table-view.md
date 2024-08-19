@@ -374,6 +374,41 @@ Pass a number (px) you want to limit table height to. If the height table exceed
 />
 ```
 
+### paginationAttributes
+
+Object to be passed to underlying pagination component. See [KPagination props](/components/pagination#props) for more details. Expects an object of type `TablePaginationAttributes`:
+
+```ts
+interface TablePaginationAttributes {
+  totalCount?: number
+  pageSizes?: number[]
+  initialPageSize?: number
+  currentPage?: number
+  offset?: boolean
+  disablePageJump?: boolean
+  offsetPreviousButtonDisabled?: boolean
+  offsetNextButtonDisabled?: boolean
+}
+```
+
+<KTableView
+  :pagination-attributes="{ totalCount: 100, currentPage: 3 }"
+  :data="basicData"
+  :headers="basicHeaders()"
+/>
+
+```html
+<KTableView
+  :pagination-attributes="{ totalCount: 100, currentPage: 3 }"
+  :data="tableData"
+  :headers="headers"
+/>
+```
+
+### hidePagination
+
+A boolean to hide pagination element (defaults to `false`).
+
 ## States
 
 ### Empty
@@ -691,14 +726,17 @@ This slot is only available when `actions` header hey is present in [`headers` p
 This slot is only available in KTableView and not available in [KTable](/components/table).
 :::
 
-Slot for content that should be rendered below the table. For example, could be used for displaying pagination component.
+Slot for content that should be rendered below the table. For example, could be used for displaying custom pagination component.
 
 <KTableView
   :data="basicData"
   :headers="basicHeaders()"
 >
   <template #after>
-    <KPagination :total-count="10" />
+    <KPagination
+      :items="basicData"
+      :total-count="basicData.length"
+    />
   </template>
 </KTableView>
 
@@ -708,7 +746,11 @@ Slot for content that should be rendered below the table. For example, could be 
   :headers="headers"
 >
   <template #after>
-    <KPagination :total-count="10" />
+    <KPagination
+      :items="tableData"
+      :total-count="tableData.length"
+      @page-change="onPageChange"
+    />
   </template>
 </KTableView>
 ```
@@ -788,6 +830,10 @@ To avoid firing row clicks by accident, the row click handler ignores events com
   @cell:click="onCellClick"
 />
 ```
+
+### Pagination Events
+
+KTableView propagates all events emitted by underlying pagination component. See [KPagination docs](/components/pagination#events) for more details.
 
 ### sort
 

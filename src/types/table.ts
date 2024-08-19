@@ -70,3 +70,14 @@ export interface RowLink {
   /** Target for row link */
   target?: '_self' | '_blank' | '_parent' | '_top'
 }
+
+export interface TablePaginationAttributes {
+  totalCount?: number
+  pageSizes?: number[]
+  initialPageSize?: number
+  currentPage?: number
+  offset?: boolean
+  disablePageJump?: boolean
+  offsetPreviousButtonDisabled?: boolean
+  offsetNextButtonDisabled?: boolean
+}
