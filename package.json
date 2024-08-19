@@ -74,7 +74,7 @@
   },
   "devDependencies": {
     "@babel/types": "^7.25.2",
-    "@commitlint/cli": "^19.3.0",
+    "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@cypress/vite-dev-server": "^5.1.1",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
@@ -121,7 +121,7 @@
     "stylelint-order": "^6.0.4",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.5.4",
-    "vite": "^5.3.5",
+    "vite": "^5.4.0",
     "vite-plugin-vue-devtools": "^7.3.7",
     "vitepress": "^1.3.2",
     "vue": "^3.4.37",
@@ -179,10 +179,10 @@
   "engines": {
     "node": ">=v16.20.2 || >=18.12.1 || >=20.14.0"
   },
-  "packageManager": "pnpm@9.6.0",
+  "packageManager": "pnpm@9.7.0",
   "volta": {
     "node": "20.16.0",
-    "pnpm": "9.6.0"
+    "pnpm": "9.7.0"
   },
   "config": {
     "commitizen": {
