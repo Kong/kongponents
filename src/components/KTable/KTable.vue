@@ -798,6 +798,7 @@ const startResize = (evt: MouseEvent, colKey: string) => {
 const isInitialFetch = ref(true)
 const fetchData = async () => {
   const searchInput = props.searchInput
+  console.log(offset.value)
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
