@@ -1082,6 +1082,12 @@ watch(() => props.searchInput, (newValue: string) => {
   }
 }, { immediate: true })
 
+watch(() => props.fetcherCacheKey, () => {
+  page.value = 1
+  offsets.value = [null]
+  offset.value = null
+})
+
 const isRevalidating = ref<boolean>(false)
 watch([query, page, pageSize], async (newData, oldData) => {
   const oldQuery = oldData?.[0]
