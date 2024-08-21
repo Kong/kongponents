@@ -1,6 +1,5 @@
 import eslintKongUiConfig from '@kong/eslint-config-kong-ui'
 import eslintKongUiConfigCypress from '@kong/eslint-config-kong-ui/cypress'
-import pluginVueA11y from 'eslint-plugin-vuejs-accessibility'
 
 export default [
   ...eslintKongUiConfig,
@@ -12,7 +11,6 @@ export default [
       '**/cypress/**',
     ],
   })),
-  ...pluginVueA11y.configs['flat/recommended'],
   {
     ignores: [
       'docs/.vitepress/.temp/',
