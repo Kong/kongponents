@@ -3,7 +3,6 @@
     :key="item.key"
     class="multiselect-item"
     :data-testid="`multiselect-item-${item.value}`"
-    role="listitem"
   >
     <div
       :aria-selected="item.selected"
