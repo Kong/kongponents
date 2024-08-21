@@ -1,14 +1,12 @@
 <template>
   <div
     :key="item.key"
+    :aria-selected="item.selected"
     class="select-item"
     :data-testid="`select-item-${item.value}`"
+    role="option"
   >
-    <div
-      :aria-selected="item.selected"
-      class="select-item-container"
-      role="option"
-    >
+    <div class="select-item-container">
       <button
         :class="{ selected: item.selected }"
         :disabled="item.disabled === true ? true : undefined"
