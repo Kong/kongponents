@@ -9,12 +9,14 @@ KTableView does not handle data management capabilities like data fetching, func
 <KTableView
   :data="basicData"
   :headers="basicHeaders()"
+  hide-pagination
 />
 
 ```html
 <KTableView
   :data="tableData"
   :headers="headers"
+  hide-pagination
 />
 ```
 
@@ -26,12 +28,18 @@ Array of objects that represent table columns along with some configurations tha
 
 ```ts
 interface TableViewHeader {
-  key: string // must be unique for each column, see Reserved Header Keys section for more information about 'actions' key value
-  label: string // visible column header text
-  sortable?: boolean // in a nutshell, this property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it
-  hidable?: boolean // allow toggling column visibility
-  tooltip?: string // when provided, an info icon will be rendered next to the column label, upon hovering on which the tooltip will be revealed
-  hideLabel?: boolean // whether column header text should be hidden (only visible to screen readers)
+  /** must be unique for each column, see Reserved Header Keys section for more information about 'actions' key value */
+  key: string
+  /** visible column header text */
+  label: string
+  /** in a nutshell, this property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it */
+  sortable?: boolean
+  /** allow toggling column visibility */
+  hidable?: boolean
+  /** when provided, an info icon will be rendered next to the column label, upon hovering on which the tooltip will be revealed */
+  tooltip?: string
+  /** whether column header text should be hidden (only visible to screen readers) */
+  hideLabel?: boolean
 }
 ```
 
@@ -43,7 +51,7 @@ For an example of `headers` prop usage please refer to [`data` prop documentatio
 
 #### Reserved Header Keys
 
-- `actions` - the column displays an actions [KDropdow](/components/dropdown) button for each row and displays no label (as if `hideLabel` was `true`; you can set `hideLabel` parameter to `false` to show the label). KTableView will automatically render the actions dropdown button with an icon and you simply need to provide dropdown items via the [`action-items` slot](#action-items).
+- `actions` - the column displays an actions [KDropdown](/components/dropdown) button for each row and displays no label (as if `hideLabel` was `true`; you can set `hideLabel` parameter to `false` to show the label). KTableView will automatically render the actions dropdown button with an icon and you simply need to provide dropdown items via the [`action-items` slot](#action-items).
 
 ### data
 
@@ -57,6 +65,7 @@ type TableViewData = Record<string, any>[]
   :data="basicDataSortable"
   :headers="basicHeaders(true, 'username', 'email')"
   @sort="sortBasicData"
+  hide-pagination
 >
   <template #action-items>
     <KDropdownItem>
@@ -77,6 +86,7 @@ type TableViewData = Record<string, any>[]
     :data="tableData"
     :headers="headers"
     @sort="sortData"
+    hide-pagination
   >
     <template #action-items>
       <KDropdownItem>
@@ -197,6 +207,7 @@ Boolean to control whether the component should display the error state. Default
   error
   :data="basicData"
   :headers="basicHeaders()"
+  hide-pagination
 />
 
 ```html
@@ -204,6 +215,7 @@ Boolean to control whether the component should display the error state. Default
   error
   :data="tableData"
   :headers="headers"
+  hide-pagination
 />
 ```
 
@@ -215,6 +227,7 @@ Allow table column width to be resizable (defaults to `false`). Adjusting a colu
   resize-columns
   :data="basicData"
   :headers="basicHeaders()"
+  hide-pagination
 />
 
 ```html
@@ -222,6 +235,7 @@ Allow table column width to be resizable (defaults to `false`). Adjusting a colu
   resize-columns
   :data="tableData"
   :headers="headers"
+  hide-pagination
 />
 ```
 
@@ -231,15 +245,20 @@ Boolean to control whether table should display hover state upon hovering rows. 
 
 ### tablePreferences
 
-Table preferences object for some configuration options.
+Can be used to pass object with locally stored preferences for different table configuration options. For example, when user resizes a column in a given table, `update:table-preferences` event will be emitted - you can then save the value and re-apply it next time user encounters this table.
 
 ```ts
 interface TablePreferences {
-  pageSize?: number // the number of items to display per page
-  sortColumnKey?: string // the column to sort by's `key` defined in the table headers
-  sortColumnOrder?: SortColumnOrder // the order by which to sort the column, one of `asc` or `desc`
-  columnWidths?: Record<string, number> // the customized column widths, if resizing is allowed
-  columnVisibility?: Record<string, boolean> // column visibility, if visibility is toggleable
+  /** the number of items to display per page */
+  pageSize?: number
+  /** the column to sort by's `key` defined in the table headers */
+  sortColumnKey?: string
+  /** the order by which to sort the column, one of `asc` or `desc` */
+  sortColumnOrder?: SortColumnOrder
+  /** the customized column widths, if resizing is allowed */
+  columnWidths?: Record<string, number>
+  /** column visibility, if visibility is toggleable */
+  columnVisibility?: Record<string, boolean>
 }
 ```
 
@@ -247,6 +266,7 @@ interface TablePreferences {
   :table-preferences="{ columnVisibility: { email: false } }"
   :data="basicData"
   :headers="basicHeaders(false, null, 'email')"
+  hide-pagination
 />
 
 ```html
@@ -254,6 +274,7 @@ interface TablePreferences {
   :table-preferences="{ columnVisibility: { email: false } }"
   :data="tableData"
   :headers="headers"
+  hide-pagination
 />
 ```
 
@@ -267,6 +288,7 @@ The passed function receives row value object as an argument.
   :data="basicData"
   :headers="basicHeaders()"
   :row-attrs="(row) => { return { 'data-testid': `row-${row.id}` } }"
+  hide-pagination
 />
 
 ```html
@@ -274,6 +296,7 @@ The passed function receives row value object as an argument.
   :row-attrs="(row) => { return { 'data-testid': `row-${row.id}` } }"
   :data="tableData"
   :headers="headers"
+  hide-pagination
 />
 ```
 
@@ -283,8 +306,10 @@ Function for turning row into a link. The function receives row value object as 
 
 ```ts
 interface RowLink {
-  to?: RouteLocationRaw | string // RouteLocationRaw or url string for row link
-  target?: '_self' | '_blank' | '_parent' | '_top' // Target for row link
+  /** RouteLocationRaw or url string for row link */
+  to?: RouteLocationRaw | string
+  /** Target for row link */
+  target?: '_self' | '_blank' | '_parent' | '_top'
 }
 ```
 
@@ -292,6 +317,7 @@ interface RowLink {
   :row-link="getRowLink"
   :data="basicData"
   :headers="basicHeaders()"
+  hide-pagination
 />
 
 ```vue
@@ -300,6 +326,7 @@ interface RowLink {
     :row-link="getRowLink"
     :data="tableData"
     :headers="headers"
+    hide-pagination
   />
 </template>
 
@@ -338,6 +365,7 @@ The passed function receives an object with these parameters as an argument:
   :data="basicData"
   :headers="basicHeaders()"
   :cell-attrs="({ headerKey, row }) => { return { 'data-testid': `column-${headerKey}-row-${row.id}` } }"
+  hide-pagination
 />
 
 ```html
@@ -345,6 +373,7 @@ The passed function receives an object with these parameters as an argument:
   :cell-attrs="({ headerKey, row }) => { return { 'data-testid': `column-${headerKey}-row-${row.id}` } }"
   :data="tableData"
   :headers="headers"
+  hide-pagination
 />
 ```
 
@@ -356,6 +385,7 @@ Limit the table height by passing a number, in pixels. If the table height excee
   max-height="300"
   :data="basicData"
   :headers="basicHeaders()"
+  hide-pagination
 />
 
 ```html
@@ -363,6 +393,7 @@ Limit the table height by passing a number, in pixels. If the table height excee
   max-height="300"
   :data="tableData"
   :headers="headers"
+  hide-pagination
 />
 ```
 
@@ -384,14 +415,14 @@ interface TablePaginationAttributes {
 ```
 
 <KTableView
-  :pagination-attributes="{ totalCount: 100, currentPage: 3 }"
+  :pagination-attributes="{ totalCount: basicData.length, pageSizes: [10] }"
   :data="basicData"
   :headers="basicHeaders()"
 />
 
 ```html
 <KTableView
-  :pagination-attributes="{ totalCount: 100, currentPage: 3 }"
+  :pagination-attributes="{ totalCount: basicData.length, pageSizes: [10] }"
   :data="tableData"
   :headers="headers"
 />
@@ -525,6 +556,7 @@ Slot props:
 <KTableView
   :data="basicData"
   :headers="basicHeaders()"
+  hide-pagination
 >
   <template #column-email="{ column }">
     {{ column.label }} <KBadge>Beta</KBadge>
@@ -535,6 +567,7 @@ Slot props:
 <KTableView
   :data="tableData"
   :headers="headers"
+  hide-pagination
 >
   <template #column-email="{ column }">
     {{ column.label }} <KBadge>Beta</KBadge>
@@ -558,6 +591,7 @@ This slot is not supported for the [`actions` column](#reserved-header-keys).
 <KTableView
   :data="basicData"
   :headers="basicHeaders()"
+  hide-pagination
 >
   <template #email="{ rowValue }">
     <KCopy :text="rowValue" />
@@ -568,6 +602,7 @@ This slot is not supported for the [`actions` column](#reserved-header-keys).
 <KTableView
   :data="tableData"
   :headers="headers"
+  hide-pagination
 >
   <template #email="{ rowValue }">
     <KCopy :text="rowValue" />
@@ -585,6 +620,7 @@ Slot props:
 <KTableView
   :data="basicData"
   :headers="basicHeaders()"
+  hide-pagination
 >
   <template #tooltip-email>
     HubSpot Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code>
@@ -595,6 +631,7 @@ Slot props:
 <KTableView
   :data="tableData"
   :headers="headers"
+  hide-pagination
 >
   <template #tooltip-email>
     HubSpot Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code>
@@ -609,6 +646,7 @@ The toolbar is rendered directly above the table and is useful for providing tab
 <KTableView
   :data="basicData"
   :headers="basicHeaders()"
+  hide-pagination
 >
   <template #toolbar>
     <KInput placeholder="Search">
@@ -626,6 +664,7 @@ The toolbar is rendered directly above the table and is useful for providing tab
 <KTableView
   :data="tableData"
   :headers="headers"
+  hide-pagination
 >
   <template #toolbar>
     <KInput placeholder="Search">
@@ -667,6 +706,7 @@ This slot is only available when the `actions` header key is present in [`header
 <KTableView
   :data="basicData"
   :headers="basicHeaders(true)"
+  hide-pagination
 >
   <template #action-items>
     <KDropdownItem>
@@ -685,6 +725,7 @@ This slot is only available when the `actions` header key is present in [`header
 <KTableView
   :data="tableData"
   :headers="headers"
+  hide-pagination
 >
   <template #action-items>
     <KDropdownItem>
@@ -696,37 +737,6 @@ This slot is only available when the `actions` header key is present in [`header
     >
       Delete
     </KDropdownItem>
-  </template>
-</KTableView>
-```
-
-### after
-
-Slot for content that should be rendered below the table. For example, could be used for displaying custom pagination component.
-
-<KTableView
-  :data="basicData"
-  :headers="basicHeaders()"
->
-  <template #after>
-    <KPagination
-      :items="basicData"
-      :total-count="basicData.length"
-    />
-  </template>
-</KTableView>
-
-```html
-<KTableView
-  :data="tableData"
-  :headers="headers"
->
-  <template #after>
-    <KPagination
-      :items="tableData"
-      :total-count="tableData.length"
-      @page-change="onPageChange"
-    />
   </template>
 </KTableView>
 ```
@@ -749,6 +759,7 @@ To avoid firing row clicks by accident, the row click handler ignores events com
       :data="numberedColumnsData"
       :headers="numberedHeaders"
       @row:click="data.rowClickEnabled ? onRowClick : undefined"
+      hide-pagination
     >
       <template #column1>
         <KButton @click="onButtonClick">Fire button click handler</KButton>
@@ -768,6 +779,7 @@ To avoid firing row clicks by accident, the row click handler ignores events com
   :data="tableData"
   :headers="headers"
   @row:click="onRowClick"
+  hide-pagination
 />
 ```
 
@@ -785,6 +797,7 @@ To avoid firing row clicks by accident, the row click handler ignores events com
       :data="numberedColumnsData"
       :headers="numberedHeaders"
       @cell:click="data.cellClickEnabled ? onCellClick : undefined"
+      hide-pagination
     >
       <template #column1>
         <KButton @click="onButtonClick">Fire button click handler</KButton>
@@ -804,6 +817,7 @@ To avoid firing row clicks by accident, the row click handler ignores events com
   :data="tableData"
   :headers="headers"
   @cell:click="onCellClick"
+  hide-pagination
 />
 ```
 
