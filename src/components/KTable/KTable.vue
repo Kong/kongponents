@@ -1082,14 +1082,6 @@ watch(() => props.searchInput, (newValue: string) => {
   }
 }, { immediate: true })
 
-// watch(() => props.fetcherCacheKey, () => {
-//   // when fetcherCacheKey changes, reset page to 1
-//   // don't need to call revalidate here because useRequest will revalidate on cache key change
-//   page.value = 1
-//   offsets.value = [null]
-//   offset.value = null
-// })
-
 const isRevalidating = ref<boolean>(false)
 watch([query, page, pageSize], async (newData, oldData) => {
   const oldQuery = oldData?.[0]
@@ -1123,6 +1115,11 @@ watch(hasColumnVisibilityMenu, (newVal) => {
     columnVisibility.value = props.tablePreferences.columnVisibility || {}
   }
 }, { immediate: true })
+
+watch(offsets, (val) => {
+  console.log('KTable offsets', val)
+  console.log('KTable page', page.value)
+})
 
 onMounted(() => {
   initData()
