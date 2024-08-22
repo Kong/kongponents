@@ -1121,10 +1121,6 @@ watch(page, (val) => {
   console.log('KTable page', val)
 })
 
-watch(offsets, (val) => {
-  console.log('KTable offsets', val)
-}, { deep: true })
-
 onMounted(() => {
   initData()
 })
