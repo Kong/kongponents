@@ -1116,9 +1116,12 @@ watch(hasColumnVisibilityMenu, (newVal) => {
   }
 }, { immediate: true })
 
+watch(page, (val) => {
+  console.log('KTable page', val)
+}, { deep: true })
+
 watch(offsets, (val) => {
   console.log('KTable offsets', val)
-  console.log('KTable page', page.value)
 }, { deep: true })
 
 onMounted(() => {
