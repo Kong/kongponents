@@ -200,12 +200,6 @@ const componentRoutes: RouteRecordRaw[] = [
     meta: { title: 'Tree List Sandbox' },
     component: () => import('../pages/SandboxTreeList.vue'),
   },
-  {
-    path: '/ktable-debugging',
-    name: 'ktable-debugging',
-    meta: { title: 'KTable' },
-    component: () => import('../pages/KTableDebugging.vue'),
-  },
 ]
 
 export default componentRoutes
