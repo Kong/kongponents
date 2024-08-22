@@ -819,6 +819,7 @@ const fetchData = async () => {
       // reset to first page if no pagiantion data is returned unless the "next page" button was clicked
       // this will ensure buttons display the correct state for cases like search
       if (!nextPageClicked.value) {
+        console.log('here in fetcher')
         page.value = 1
       }
     } else {
@@ -925,6 +926,7 @@ const sortClickHandler = (header: TableHeader): void => {
   const { key, useSortHandlerFunction } = header
   const prevKey = sortColumnKey.value + '' // avoid pass by ref
 
+  console.log('here sorta')
   page.value = 1
 
   if (sortColumnKey.value) {
@@ -972,6 +974,7 @@ const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData) =>
   offsets.value = [null]
   offset.value = null
   pageSize.value = newPageSize
+  console.log('here, changing page size')
   page.value = 1
 
   // Emit an event whenever one of the tablePreferences are updated
@@ -1073,6 +1076,7 @@ watch([stateData, tableState], (newData) => {
 // handles debounce of search input
 watch(() => props.searchInput, (newValue: string) => {
   if (page.value !== 1) {
+    console.log('here, searching')
     page.value = 1
   }
 
@@ -1090,6 +1094,7 @@ watch([query, page, pageSize], async (newData, oldData) => {
   const newPage = newData[1]
 
   if (newQuery !== oldQuery && newPage !== 1) {
+    console.log('here here', page.value)
     page.value = 1
     offsets.value = [null]
     offset.value = null
