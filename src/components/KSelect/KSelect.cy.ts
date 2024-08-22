@@ -501,7 +501,7 @@ describe('KSelect', () => {
     })
 
     cy.get('.select-input input').click()
-    cy.getTestId(`select-item-${vals[0]}`).eq(0).click({ force: true }).then(() => {
+    cy.getTestId(`select-item-${vals[0]}`).click().then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'selected')
       cy.wrap(Cypress.vueWrapper.emitted().selected).should('have.length', 1)
 

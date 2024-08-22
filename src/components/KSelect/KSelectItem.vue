@@ -1,19 +1,18 @@
 <template>
   <div
     :key="item.key"
+    :aria-selected="item.selected"
     class="select-item"
     :data-testid="`select-item-${item.value}`"
-    @click="handleClick"
+    role="option"
   >
-    <div
-      class="select-item-container"
-      role="option"
-    >
+    <div class="select-item-container">
       <button
         :class="{ selected: item.selected }"
         :disabled="item.disabled === true ? true : undefined"
         type="button"
         :value="item.value"
+        @click="handleClick"
       >
         <span class="select-item-label">
           <slot name="content">{{ item.label }}</slot>
