@@ -845,6 +845,7 @@ const initData = () => {
   }
   // don't allow overriding default settings with `undefined` values
   page.value = fetcherParams.page ?? defaultFetcherProps.page
+  console.log('initData page', page.value)
   pageSize.value = fetcherParams.pageSize ?? defaultFetcherProps.pageSize
   filterQuery.value = fetcherParams.query ?? defaultFetcherProps.query
   sortColumnKey.value = fetcherParams.sortColumnKey ?? defaultFetcherProps.sortColumnKey
@@ -1118,7 +1119,7 @@ watch(hasColumnVisibilityMenu, (newVal) => {
 
 watch(page, (val) => {
   console.log('KTable page', val)
-}, { deep: true })
+})
 
 watch(offsets, (val) => {
   console.log('KTable offsets', val)
