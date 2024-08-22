@@ -1,3 +1,10 @@
+## [9.3.3](https://github.com/Kong/kongponents/compare/v9.3.2...v9.3.3) (2024-08-21)
+
+
+### Bug Fixes
+
+* fixable eslint-plugin-vuejs-accessibility issues [KHCP-11024] ([#2345](https://github.com/Kong/kongponents/issues/2345)) ([059f37e](https://github.com/Kong/kongponents/commit/059f37ec8421a0395c42d64a09e4711d75575d92))
+
 ## [9.3.2](https://github.com/Kong/kongponents/compare/v9.3.1...v9.3.2) (2024-08-19)
 
 

@@ -26,7 +26,7 @@
             :aria-label="triggerLabel ? undefined : 'Toggle content'"
             class="collapse-trigger-content"
             data-testid="collapse-trigger-content"
-            role="button"
+            type="button"
             @click.prevent.stop="toggleDisplay()"
           >
             <slot name="trigger-content">
