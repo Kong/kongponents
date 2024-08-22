@@ -9,14 +9,14 @@ KTableView does not handle data management capabilities like data fetching, func
 <KTableView
   :data="basicData"
   :headers="basicHeaders()"
-  hide-pagination
+  :pagination-attributes="{ totalCount: basicData.length }"
 />
 
 ```html
 <KTableView
   :data="tableData"
   :headers="headers"
-  hide-pagination
+  :pagination-attributes="{ totalCount: tableData.length }"
 />
 ```
 
@@ -65,7 +65,7 @@ type TableViewData = Record<string, any>[]
   :data="basicDataSortable"
   :headers="basicHeaders(true, 'username', 'email')"
   @sort="sortBasicData"
-  hide-pagination
+  :pagination-attributes="{ totalCount: basicData.length }"
 >
   <template #action-items>
     <KDropdownItem>
@@ -86,7 +86,7 @@ type TableViewData = Record<string, any>[]
     :data="tableData"
     :headers="headers"
     @sort="sortData"
-    hide-pagination
+    :pagination-attributes="{ totalCount: tableData.length }"
   >
     <template #action-items>
       <KDropdownItem>
@@ -207,7 +207,7 @@ Boolean to control whether the component should display the error state. Default
   error
   :data="basicData"
   :headers="basicHeaders()"
-  hide-pagination
+  :pagination-attributes="{ totalCount: basicData.length }"
 />
 
 ```html
@@ -215,7 +215,7 @@ Boolean to control whether the component should display the error state. Default
   error
   :data="tableData"
   :headers="headers"
-  hide-pagination
+  :pagination-attributes="{ totalCount: tableData.length }"
 />
 ```
 
@@ -227,7 +227,7 @@ Allow table column width to be resizable (defaults to `false`). Adjusting a colu
   resize-columns
   :data="basicData"
   :headers="basicHeaders()"
-  hide-pagination
+  :pagination-attributes="{ totalCount: basicData.length }"
 />
 
 ```html
@@ -235,7 +235,7 @@ Allow table column width to be resizable (defaults to `false`). Adjusting a colu
   resize-columns
   :data="tableData"
   :headers="headers"
-  hide-pagination
+  :pagination-attributes="{ totalCount: tableData.length }"
 />
 ```
 
@@ -266,7 +266,7 @@ interface TablePreferences {
   :table-preferences="{ columnVisibility: { email: false } }"
   :data="basicData"
   :headers="basicHeaders(false, null, 'email')"
-  hide-pagination
+  :pagination-attributes="{ totalCount: basicData.length }"
 />
 
 ```html
@@ -274,7 +274,7 @@ interface TablePreferences {
   :table-preferences="{ columnVisibility: { email: false } }"
   :data="tableData"
   :headers="headers"
-  hide-pagination
+  :pagination-attributes="{ totalCount: tableData.length }"
 />
 ```
 
@@ -288,7 +288,7 @@ The passed function receives row value object as an argument.
   :data="basicData"
   :headers="basicHeaders()"
   :row-attrs="(row) => { return { 'data-testid': `row-${row.id}` } }"
-  hide-pagination
+  :pagination-attributes="{ totalCount: basicData.length }"
 />
 
 ```html
@@ -296,7 +296,7 @@ The passed function receives row value object as an argument.
   :row-attrs="(row) => { return { 'data-testid': `row-${row.id}` } }"
   :data="tableData"
   :headers="headers"
-  hide-pagination
+  :pagination-attributes="{ totalCount: tableData.length }"
 />
 ```
 
@@ -317,7 +317,7 @@ interface RowLink {
   :row-link="getRowLink"
   :data="basicData"
   :headers="basicHeaders()"
-  hide-pagination
+  :pagination-attributes="{ totalCount: basicData.length }"
 />
 
 ```vue
@@ -326,7 +326,7 @@ interface RowLink {
     :row-link="getRowLink"
     :data="tableData"
     :headers="headers"
-    hide-pagination
+    :pagination-attributes="{ totalCount: tableData.length }"
   />
 </template>
 
@@ -365,7 +365,7 @@ The passed function receives an object with these parameters as an argument:
   :data="basicData"
   :headers="basicHeaders()"
   :cell-attrs="({ headerKey, row }) => { return { 'data-testid': `column-${headerKey}-row-${row.id}` } }"
-  hide-pagination
+  :pagination-attributes="{ totalCount: basicData.length }"
 />
 
 ```html
@@ -373,7 +373,7 @@ The passed function receives an object with these parameters as an argument:
   :cell-attrs="({ headerKey, row }) => { return { 'data-testid': `column-${headerKey}-row-${row.id}` } }"
   :data="tableData"
   :headers="headers"
-  hide-pagination
+  :pagination-attributes="{ totalCount: tableData.length }"
 />
 ```
 
@@ -385,7 +385,7 @@ Limit the table height by passing a number, in pixels. If the table height excee
   max-height="300"
   :data="basicData"
   :headers="basicHeaders()"
-  hide-pagination
+  :pagination-attributes="{ totalCount: basicData.length }"
 />
 
 ```html
@@ -393,7 +393,7 @@ Limit the table height by passing a number, in pixels. If the table height excee
   max-height="300"
   :data="tableData"
   :headers="headers"
-  hide-pagination
+  :pagination-attributes="{ totalCount: tableData.length }"
 />
 ```
 
@@ -556,7 +556,7 @@ Slot props:
 <KTableView
   :data="basicData"
   :headers="basicHeaders()"
-  hide-pagination
+  :pagination-attributes="{ totalCount: basicData.length }"
 >
   <template #column-email="{ column }">
     {{ column.label }} <KBadge>Beta</KBadge>
@@ -567,7 +567,7 @@ Slot props:
 <KTableView
   :data="tableData"
   :headers="headers"
-  hide-pagination
+  :pagination-attributes="{ totalCount: tableData.length }"
 >
   <template #column-email="{ column }">
     {{ column.label }} <KBadge>Beta</KBadge>
@@ -591,7 +591,7 @@ This slot is not supported for the [`actions` column](#reserved-header-keys).
 <KTableView
   :data="basicData"
   :headers="basicHeaders()"
-  hide-pagination
+  :pagination-attributes="{ totalCount: basicData.length }"
 >
   <template #email="{ rowValue }">
     <KCopy :text="rowValue" />
@@ -602,7 +602,7 @@ This slot is not supported for the [`actions` column](#reserved-header-keys).
 <KTableView
   :data="tableData"
   :headers="headers"
-  hide-pagination
+  :pagination-attributes="{ totalCount: tableData.length }"
 >
   <template #email="{ rowValue }">
     <KCopy :text="rowValue" />
@@ -620,7 +620,7 @@ Slot props:
 <KTableView
   :data="basicData"
   :headers="basicHeaders()"
-  hide-pagination
+  :pagination-attributes="{ totalCount: basicData.length }"
 >
   <template #tooltip-email>
     HubSpot Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code>
@@ -631,7 +631,7 @@ Slot props:
 <KTableView
   :data="tableData"
   :headers="headers"
-  hide-pagination
+  :pagination-attributes="{ totalCount: tableData.length }"
 >
   <template #tooltip-email>
     HubSpot Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code>
@@ -646,7 +646,7 @@ The toolbar is rendered directly above the table and is useful for providing tab
 <KTableView
   :data="basicData"
   :headers="basicHeaders()"
-  hide-pagination
+  :pagination-attributes="{ totalCount: basicData.length }"
 >
   <template #toolbar>
     <KInput placeholder="Search">
@@ -664,7 +664,7 @@ The toolbar is rendered directly above the table and is useful for providing tab
 <KTableView
   :data="tableData"
   :headers="headers"
-  hide-pagination
+  :pagination-attributes="{ totalCount: tableData.length }"
 >
   <template #toolbar>
     <KInput placeholder="Search">
@@ -706,7 +706,7 @@ This slot is only available when the `actions` header key is present in [`header
 <KTableView
   :data="basicData"
   :headers="basicHeaders(true)"
-  hide-pagination
+  :pagination-attributes="{ totalCount: basicData.length }"
 >
   <template #action-items>
     <KDropdownItem>
@@ -725,7 +725,7 @@ This slot is only available when the `actions` header key is present in [`header
 <KTableView
   :data="tableData"
   :headers="headers"
-  hide-pagination
+  :pagination-attributes="{ totalCount: tableData.length }"
 >
   <template #action-items>
     <KDropdownItem>

@@ -248,7 +248,7 @@
       </div>
 
       <KPagination
-        v-if="!hidePagination || !data.length"
+        v-if="showPagination"
         class="table-pagination"
         data-testid="table-pagination"
         v-bind="paginationAttributes"
@@ -751,6 +751,18 @@ const startResize = (evt: MouseEvent, colKey: string) => {
     document?.addEventListener('mouseup', mouseUpHandler)
   }
 }
+
+const showPagination = computed((): boolean => {
+  if (props.hidePagination) {
+    return false
+  }
+
+  if (props.data && props.data.length && props.paginationAttributes.totalCount && props.paginationAttributes.totalCount <= props.data.length) {
+    return false
+  }
+
+  return true
+})
 
 // Ensure `props.headers` are reactive.
 watch(() => props.headers, (newVal: TableViewHeader[]) => {
