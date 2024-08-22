@@ -818,10 +818,10 @@ const fetchData = async () => {
 
       // reset to first page if no pagiantion data is returned unless the "next page" button was clicked
       // this will ensure buttons display the correct state for cases like search
-      if (!nextPageClicked.value) {
-        console.log('here in fetcher')
-        page.value = 1
-      }
+      // if (!nextPageClicked.value) {
+      //   console.log('here in fetcher')
+      //   page.value = 1
+      // }
     } else {
       offset.value = res.pagination.offset
 
