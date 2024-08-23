@@ -229,7 +229,7 @@
         :initial-page-size="pageSize"
         :neighbors="paginationNeighbors"
         :offset="paginationOffset"
-        :offset-next-button-disabled="!offset || !hasNextPage"
+        :offset-next-button-disabled="!nextOffset || !hasNextPage"
         :offset-previous-button-disabled="!previousOffset"
         :page-sizes="paginationPageSizes"
         :total-count="total"
@@ -813,9 +813,9 @@ const fetchData = async () => {
 
   if (props.paginationOffset) {
     if (!res.pagination?.offset) {
-      offset.value = null
+      nextOffset.value = null
     } else {
-      offset.value = res.pagination.offset
+      nextOffset.value = res.pagination.offset
 
       if (!offsets.value[page.value]) {
         offsets.value.push(res.pagination.offset)
@@ -868,6 +868,7 @@ watch(() => props.headers, (newVal: TableHeader[]) => {
 }, { deep: true })
 
 const previousOffset = computed((): string | null => offsets.value[page.value - 1])
+const nextOffset = ref<string | null>(null)
 
 // once `initData()` finishes, setting tableFetcherCacheKey to non-falsey value triggers fetch of data
 const tableFetcherCacheKey = computed((): string => {
@@ -996,6 +997,7 @@ const emitTablePreferences = (): void => {
 
 const getNextOffsetHandler = (): void => {
   page.value++
+  offset.value = nextOffset.value
 }
 
 const getPrevOffsetHandler = (): void => {
@@ -1011,7 +1013,7 @@ const getPrevOffsetHandler = (): void => {
 const shouldShowPagination = computed((): boolean => {
   return !!(props.fetcher && !props.disablePagination &&
         !(!props.paginationOffset && props.hidePaginationWhenOptional && total.value <= props.paginationPageSizes[0]) &&
-        !(props.paginationOffset && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value && data.value.length < props.paginationPageSizes[0]))
+        !(props.paginationOffset && props.hidePaginationWhenOptional && !previousOffset.value && !nextOffset.value && data.value.length < props.paginationPageSizes[0]))
 })
 
 const getTestIdString = (message: string): string => {
