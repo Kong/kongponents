@@ -565,7 +565,6 @@ const tdlisteners = computed((): any => {
       ...rowListeners,
       ...cellListeners,
       click(e: any) {
-        console.log(e.target)
         const targetClasses = e.target.className
         let isIgnored = ignoredElements.includes(e.target.tagName.toLowerCase())
         let isPopoverContent = false
