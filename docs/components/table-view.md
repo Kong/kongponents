@@ -753,6 +753,8 @@ To avoid firing row clicks by accident, the row click handler ignores events com
 
 The table in the example below contains buttons, inputs and links to demonstrate how KTableView handles clicks on different interactive elements within the table as well as clicks on its rows.
 
+Try clicking below on the table row, and then within elements inside the table cells.
+
 <KComponent v-slot="{ data }" :data="{ rowClickEnabled: true }">
   <div class="vertical-container">
     <KInputSwitch
