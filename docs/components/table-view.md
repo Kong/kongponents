@@ -415,15 +415,16 @@ interface TablePaginationAttributes {
 ```
 
 <KTableView
-  :pagination-attributes="{ totalCount: basicData.length, pageSizes: [10] }"
-  :data="basicData"
+  :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [10] }"
+  :data="paginatedData"
   :headers="basicHeaders()"
+  @page-change="onPageChange"
 />
 
 ```html
 <KTableView
-  :pagination-attributes="{ totalCount: basicData.length, pageSizes: [10] }"
-  :data="tableData"
+  :pagination-attributes="{ totalCount: tableData.length, pageSizes: [10] }"
+  :data="paginatedData"
   :headers="headers"
 />
 ```
@@ -749,6 +750,8 @@ This slot is only available when the `actions` header key is present in [`header
 
 To avoid firing row clicks by accident, the row click handler ignores events coming from `a`, `button`, `label`, `input`, and `select` elements (unless they have the `disabled` attribute). As such click handlers attached to these element types do not require stopping propagation via `@click.stop`.
 
+The table in the example below contains buttons, inputs and links to demonstrate how KTableView handles clicks on different interactive elements within the table as well as clicks on its rows.
+
 <KComponent v-slot="{ data }" :data="{ rowClickEnabled: true }">
   <div class="vertical-container">
     <KInputSwitch
@@ -762,7 +765,7 @@ To avoid firing row clicks by accident, the row click handler ignores events com
       hide-pagination
     >
       <template #column1>
-        <KButton @click="onButtonClick">Fire button click handler</KButton>
+        <KButton @click="onButtonClick">Button with click handler</KButton>
       </template>
       <template #column2>
         <KInput label="Table input" />
@@ -787,6 +790,8 @@ To avoid firing row clicks by accident, the row click handler ignores events com
 
 `@cell:{event}` - returns the `Event`, the cell value, and the type. `cell-click` event is emitted whenever a cell is clicked and the cell click event handler is emitted, returns the cell `data`.
 
+The table in the example below contains buttons to demonstrate how KTableView handles clicks on different interactive elements within the table as well as clicks on its cells.
+
 <KComponent v-slot="{ data }" :data="{ cellClickEnabled: true }">
   <div class="vertical-container">
     <KInputSwitch
@@ -800,13 +805,7 @@ To avoid firing row clicks by accident, the row click handler ignores events com
       hide-pagination
     >
       <template #column1>
-        <KButton @click="onButtonClick">Fire button click handler</KButton>
-      </template>
-      <template #column2>
-        <KInput label="Table input" />
-      </template>
-      <template #column3>
-        <KExternalLink href="https://kongponents.konghq.com/">External link</KExternalLink>
+        <KButton appearance="secondary" @click="onButtonClick">Button with click handler</KButton>
       </template>
     </KTableView>
   </div>
@@ -990,6 +989,30 @@ const sortBasicData = (sortData: TableSortPayload): void => {
 
   basicDataSortable.value = data
 }
+
+const extraRecords: TableViewData = [
+  {
+    id: 1,
+    name: 'Chris Lo',
+    username: 'Krislow',
+    email: 'dj@kris.low',
+  },
+  {
+    id: 2,
+    name: 'Vitaliy Yarmak',
+    username: 'Tamarack',
+    email: 'Right@sail.xyz',
+  },
+]
+const basicPaginatedData: TableViewData = [...basicData, ...extraRecords]
+const paginatedData = ref<TableViewData>(basicPaginatedData.slice(0, 10))
+const onPageChange = ({ page }: PageChangeData) => {
+  if (page === 1) {
+    paginatedData.value = basicPaginatedData.slice(0, 10)
+  } else {
+    paginatedData.value = basicPaginatedData.slice(10)
+  }
+} 
 
 const getRowLink = (row: Record<string, any>): TableRowAttributes => ({
   // using static route for demonstration purposes
