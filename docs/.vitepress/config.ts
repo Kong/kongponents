@@ -84,6 +84,7 @@ export default defineConfig({
             { text: 'Slideout', link: '/components/slideout' },
             { text: 'Stepper', link: '/components/stepper' },
             { text: 'Table', link: '/components/table' },
+            { text: 'Table View', link: '/components/table-view' },
             { text: 'Tabs', link: '/components/tabs' },
             { text: 'Textarea', link: '/components/textarea' },
             { text: 'Toaster', link: '/components/toaster' },

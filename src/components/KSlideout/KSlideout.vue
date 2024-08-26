@@ -79,6 +79,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  closeOnEscape: {
+    type: Boolean,
+    default: true,
+  },
   title: {
     type: String,
     default: '',
@@ -122,8 +126,8 @@ onClickOutside(
 )
 
 const handleClose = (e: any, forceClose = false): void => {
-  // close on escape key
-  if ((props.visible && e.keyCode === 27) || forceClose) {
+  // close on escape key if the closeOnEscape prop is true
+  if ((props.visible && e.keyCode === 27 && props.closeOnEscape) || forceClose) {
     emit('close')
   }
 }
@@ -177,6 +181,7 @@ onUnmounted(() => {
       padding-right: var(--kui-space-70, $kui-space-70);
 
       .slideout-title {
+        align-items: center;
         display: flex;
         flex: 1;
         font-family: var(--kui-font-family-text, $kui-font-family-text);
@@ -219,6 +224,10 @@ onUnmounted(() => {
 
       :deep(> *:last-child) {
         padding-bottom: var(--kui-space-70, $kui-space-70); // add padding to the last child to add some spacing before bottom of the page
+      }
+
+      :deep(> p) {
+        margin: var(--kui-space-0, $kui-space-0);
       }
     }
   }

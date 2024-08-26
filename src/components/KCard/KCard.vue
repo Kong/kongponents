@@ -82,6 +82,8 @@ const showCardHeader = computed((): boolean => {
       font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
       line-height: var(--kui-line-height-30, $kui-line-height-30);
       margin: var(--kui-space-0, $kui-space-0);
+      text-align: left;
+      width: 100%;
     }
 
     .card-actions {

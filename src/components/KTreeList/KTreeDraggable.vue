@@ -2,6 +2,7 @@
   <VueDraggableNext
     v-bind="draggableAttrs"
     class="tree-draggable"
+    direction="vertical"
     :disabled="disableDrag"
     :group="{ name: 'k-tree-list', put: !maxLevelReached }"
     :level="level"
@@ -80,7 +81,7 @@
 import type { PropType } from 'vue'
 import { computed, ref, watch, onMounted } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
-import type { TreeListItem, ChangeEvent, ChildChangeEvent } from '@/types'
+import type { TreeListItem, TreeListChangeEvent, TreeListChildChangeEvent } from '@/types'
 import KTreeItem from '@/components/KTreeList/KTreeItem.vue'
 
 /**
@@ -126,8 +127,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (event: 'change', data: ChangeEvent): void,
-  (event: 'child-change', data: ChildChangeEvent): void,
+  (event: 'change', data: TreeListChangeEvent): void,
+  (event: 'child-change', data: TreeListChildChangeEvent): void,
   (event: 'selected', item: TreeListItem): void
 }>()
 

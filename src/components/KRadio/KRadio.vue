@@ -99,7 +99,7 @@ const props = defineProps({
    * Sets whether or not radio is selected
    */
   modelValue: {
-    type: [String, Number, Boolean, Object],
+    type: [String, Number, Boolean, Object, null] as PropType<string | number | boolean | object | null>,
     required: true,
   },
   /**
@@ -172,8 +172,8 @@ const hasTooltip = computed((): boolean => !!slots.tooltip)
 const isChecked = computed((): boolean => props.selectedValue === props.modelValue)
 
 const emit = defineEmits<{
-  (e: 'change', value: string | boolean | number | object): void
-  (e: 'update:modelValue', value: string | boolean | number | object): void
+  (e: 'change', value: string | boolean | number | object | null): void
+  (e: 'update:modelValue', value: string | boolean | number | object | null): void
 }>()
 
 const handleClick = (): void => {

@@ -9,7 +9,7 @@
         is-subtitle
         title="Props"
       />
-      <SandboxSectionComponent title="rowHover & emptyStateIconVariant & emptyStateTitle & emptyStateMessage & emptyStateActionMessage & emptyStateActionRoute & sortHandlerFunction">
+      <SandboxSectionComponent title="rowHover & emptyStateIconVariant & emptyStateTitle & emptyStateMessage & emptyStateActionMessage & emptyStateActionRoute & sortHandlerFunction & maxHeight">
         <KComponent
           v-slot="{ data }"
           :data="{ tableKey: 0, tableRowHover: false, tableEmptyState: false }"
@@ -36,7 +36,7 @@
             empty-state-title="Empty state title"
             :fetcher="data.tableEmptyState ? emptyFetcher : fetcher"
             :headers="headers(false, true)"
-            resize-columns
+            max-height="300"
             :row-hover="data.tableRowHover"
             :sort-handler-function="sortHandlerFunction"
           >
@@ -47,7 +47,7 @@
         </KComponent>
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        description="This table has clickable rows."
+        description="All rows in this table are clickable."
         title="loading & resizeColumns & error & errorStateTitle & errorStateMessage & errorStateActionMessage & errorStateActionRoute"
       >
         <KComponent

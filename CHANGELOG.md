@@ -1,3 +1,64 @@
+## [9.3.3](https://github.com/Kong/kongponents/compare/v9.3.2...v9.3.3) (2024-08-21)
+
+
+### Bug Fixes
+
+* fixable eslint-plugin-vuejs-accessibility issues [KHCP-11024] ([#2345](https://github.com/Kong/kongponents/issues/2345)) ([059f37e](https://github.com/Kong/kongponents/commit/059f37ec8421a0395c42d64a09e4711d75575d92))
+
+## [9.3.2](https://github.com/Kong/kongponents/compare/v9.3.1...v9.3.2) (2024-08-19)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies with stable version ([#2346](https://github.com/Kong/kongponents/issues/2346)) ([5d16b9c](https://github.com/Kong/kongponents/commit/5d16b9c2fa2b8f25ff4291333a76fec61b71da26))
+
+## [9.3.1](https://github.com/Kong/kongponents/compare/v9.3.0...v9.3.1) (2024-08-16)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies with stable version ([#2344](https://github.com/Kong/kongponents/issues/2344)) ([8b36b6c](https://github.com/Kong/kongponents/commit/8b36b6c5b550159645a074b241371ee4e5b593e9))
+
+# [9.3.0](https://github.com/Kong/kongponents/compare/v9.2.3...v9.3.0) (2024-08-15)
+
+
+### Features
+
+* **kradio:** support setting to null ([#2342](https://github.com/Kong/kongponents/issues/2342)) ([3300b9d](https://github.com/Kong/kongponents/commit/3300b9d47b725f5b365bec0e8eb32d1d2bb1794e))
+
+## [9.2.3](https://github.com/Kong/kongponents/compare/v9.2.2...v9.2.3) (2024-08-14)
+
+
+### Bug Fixes
+
+* **ktreelist:** type interfaces ([#2339](https://github.com/Kong/kongponents/issues/2339)) ([4bb9422](https://github.com/Kong/kongponents/commit/4bb9422bb20bfa4590a608dad762c96df7a85709))
+
+## [9.2.2](https://github.com/Kong/kongponents/compare/v9.2.1...v9.2.2) (2024-08-13)
+
+
+### Bug Fixes
+
+* **ktreelist:** fix multiple emits ([#2334](https://github.com/Kong/kongponents/issues/2334)) ([a167050](https://github.com/Kong/kongponents/commit/a16705054c9faa80102455a0315c324d26278eb5))
+
+## [9.2.1](https://github.com/Kong/kongponents/compare/v9.2.0...v9.2.1) (2024-08-12)
+
+
+### Bug Fixes
+
+* cli ([ca308a0](https://github.com/Kong/kongponents/commit/ca308a024b69ef936a040f6719af80ce57797612))
+
+# [9.2.0](https://github.com/Kong/kongponents/compare/v9.1.8...v9.2.0) (2024-08-12)
+
+
+### Bug Fixes
+
+* trigger deploy ([726d191](https://github.com/Kong/kongponents/commit/726d1916867dd5e7ff4a40ce025b50541bdb1b1a))
+
+
+### Features
+
+* **kslideout:** close on escape ([b45cf0a](https://github.com/Kong/kongponents/commit/b45cf0aa27f14ba327805b8cdc925a4eec9b9e9b))
+
 ## [9.1.8](https://github.com/Kong/kongponents/compare/v9.1.7...v9.1.8) (2024-08-07)
 
 

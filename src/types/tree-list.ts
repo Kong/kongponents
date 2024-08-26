@@ -5,15 +5,23 @@ export interface TreeListItem {
   children?: TreeListItem[]
 }
 
-export interface ChangeEvent {
+export interface TreeListChangeEvent {
   items: TreeListItem[]
-  target: TreeListItem
+  target: {
+    element: TreeListItem
+    newIndex?: number
+    oldIndex?: number
+  }
 }
 
-export interface ChildChangeEvent {
+export interface TreeListChildChangeEvent {
   parentId: string
   children: TreeListItem[]
-  target: TreeListItem
+  target: {
+    element: TreeListItem
+    newIndex?: number
+    oldIndex?: number
+  }
 }
 
 export interface DropEvent {

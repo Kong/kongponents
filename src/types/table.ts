@@ -1,3 +1,5 @@
+import type { RouteLocationRaw } from 'vue-router'
+
 export type SortColumnOrder = 'asc' | 'desc'
 
 export interface TablePreferences {
@@ -12,6 +14,8 @@ export interface TablePreferences {
   /** Column visibility, if visibility is toggleable */
   columnVisibility?: Record<string, boolean>
 }
+
+export type TableViewData = Record<string, any>[]
 
 export interface TableHeader {
   /** Must be unique for each column */
@@ -29,6 +33,8 @@ export interface TableHeader {
   /** Whether KTable should use function passed through sortHandlerFunction prop to apply sorting logic to this column */
   useSortHandlerFunction?: boolean
 }
+
+export interface TableViewHeader extends Omit<TableHeader, 'useSortHandlerFunction'> { }
 
 /**
  * Provide a type interface for KTable `column-*` and `tooltip-*` slot names.
@@ -49,4 +55,22 @@ export interface TableSortPayload {
 export interface TableStatePayload {
   state: TableState
   hasData: boolean
+}
+
+export interface RowLink {
+  /** RouteLocationRaw or url string for row link */
+  to?: RouteLocationRaw | string
+  /** Target for row link */
+  target?: '_self' | '_blank' | '_parent' | '_top'
+}
+
+export interface TablePaginationAttributes {
+  totalCount?: number
+  pageSizes?: number[]
+  initialPageSize?: number
+  currentPage?: number
+  offset?: boolean
+  disablePageJump?: boolean
+  offsetPreviousButtonDisabled?: boolean
+  offsetNextButtonDisabled?: boolean
 }

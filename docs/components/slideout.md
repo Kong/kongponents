@@ -196,7 +196,7 @@ A boolean whether or not the slideout should have background overlay. Defaults t
 
 A boolean whether on not the slideout should close when user clicks outside the slideout content area. Defaults to `true`.
 
-When set to false, the user can only close the slideout by pressing <kbd>Escape</kbd> or clicking the close button.
+When set to false, the user can only close the slideout by clicking the close button (or pressing <kbd>Escape</kbd> if [`closeOnEscape`](#closeonescape) is set to `true`).
 
 <KComponent
   v-slot="{ data }"
@@ -224,6 +224,10 @@ When set to false, the user can only close the slideout by pressing <kbd>Escape<
   @close="hideSlideout"
 />
 ```
+
+### closeOnEscape
+
+Whether pressing the <kbd>Escape</kbd> key should close the modal (by emitting the [`close` event](#close)). Defaults to `true`.
 
 ### maxWidth
 
@@ -353,7 +357,7 @@ Slot for custom title.
 
 ### close
 
-Emitted when the close icon is clicked, anything outside the slideout content area is clicked (when [`closeOnBlur` prop](#closeonblur) is set to `false`), or the `esc` key is pressed.
+Emitted when the close icon is clicked, anything outside the slideout content area is clicked (when [`closeOnBlur` prop](#closeonblur) is set to `false`), or the `esc` key is pressed (when [`closeOnEscape` prop](#closeonescape) is set to `false`).
 
 <script setup lang="ts">
 import { KongIcon } from '@kong/icons'
