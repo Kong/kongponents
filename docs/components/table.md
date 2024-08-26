@@ -2,6 +2,10 @@
 
 Component that takes care of fetching and rendering data in a table format.
 
+:::tip NOTE
+If you are looking for a simpler table component that does not integrate data fetching, check out [KTableView](/components/table-view).
+:::
+
 <KTable
   :fetcher="basicFetcher"
   :headers="basicHeaders()"
@@ -406,6 +410,24 @@ The passed function receives an object with these parameters as an argument:
 ```html
 <KTable
   :cell-attrs="({ headerKey, row }) => { return { 'data-testid': `column-${headerKey}-row-${row.id}` } }"
+  :fetcher="fetcher"
+  :headers="headers"
+/>
+```
+
+### maxHeight
+
+Pass a number (px) you want to limit table height to. If the height table exceeds the specified number, it will be scrollable. Table header is a `position: sticky;` element and will always be visible.
+
+<KTable
+  max-height="300"
+  :fetcher="basicFetcher"
+  :headers="basicHeaders()"
+/>
+
+```html
+<KTable
+  max-height="300"
   :fetcher="fetcher"
   :headers="headers"
 />
