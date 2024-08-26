@@ -790,7 +790,7 @@ The table in the example below contains buttons, inputs and links to demonstrate
 
 `@cell:{event}` - returns the `Event`, the cell value, and the type. `cell-click` event is emitted whenever a cell is clicked and the cell click event handler is emitted, returns the cell `data`.
 
-The table in the example below contains buttons to demonstrate how KTableView handles clicks on different interactive elements within the table as well as clicks on its cells.
+The table in the example below contains buttons, inputs and links to demonstrate how KTableView handles clicks on different interactive elements within the table as well as clicks on its cells.
 
 <KComponent v-slot="{ data }" :data="{ cellClickEnabled: true }">
   <div class="vertical-container">
@@ -806,6 +806,12 @@ The table in the example below contains buttons to demonstrate how KTableView ha
     >
       <template #column1>
         <KButton appearance="secondary" @click="onButtonClick">Button with click handler</KButton>
+      </template>
+      <template #column2="{ rowKey }">
+        <KInputSwitch v-model="toggleModel[rowKey]" />
+      </template>
+      <template #column3>
+        <KExternalLink hide-icon href="https://kongponents.konghq.com/">External link</KExternalLink>
       </template>
     </KTableView>
   </div>
@@ -1065,6 +1071,8 @@ const onButtonClick = () => {
 const onCellClick = (event, cell) => {
   toaster.open({ title: 'Cell clicked! Cell data:', message: cell })
 }
+
+const toggleModel = ref<boolean[]>([false, false, false])
 </script>
 
 <style lang="scss" scoped>

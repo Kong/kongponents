@@ -555,7 +555,7 @@ const tdlisteners = computed((): any => {
   return (entity: any, rowData: any) => {
     const rowListeners = pluckListeners('onRow:', attrs)(rowData, 'row')
     const cellListeners = pluckListeners('onCell:', attrs)(entity, 'cell')
-    const ignoredElements = ['a', 'button', 'label', 'input', 'select']
+    const ignoredElements = ['a', 'button', 'label', 'input', 'select', 'span[role="checkbox"]']
 
     if (rowListeners.click) {
       isClickable.value = true
@@ -565,6 +565,7 @@ const tdlisteners = computed((): any => {
       ...rowListeners,
       ...cellListeners,
       click(e: any) {
+        console.log(e.target)
         const targetClasses = e.target.className
         let isIgnored = ignoredElements.includes(e.target.tagName.toLowerCase())
         let isPopoverContent = false
