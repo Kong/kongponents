@@ -2,7 +2,9 @@
   <KSelectItem
     v-for="item in nonGroupedItems"
     :key="item.key"
+    ref="kSelectItem"
     :item="item"
+    @arrow-down="() => shiftFocus(item.key)"
     @selected="handleItemSelect"
   >
     <template #content>
@@ -26,7 +28,9 @@
     <KSelectItem
       v-for="item in getGroupItems(group)"
       :key="item.key"
+      ref="kSelectItem"
       :item="item"
+      @arrow-down="() => shiftFocus(item.key)"
       @selected="handleItemSelect"
     >
       <template #content>
@@ -40,8 +44,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from 'vue'
 import type { PropType } from 'vue'
-import { computed } from 'vue'
 import type { SelectItem, SelectItemWithGroup } from '@/types'
 import KSelectItem from '@/components/KSelect/KSelectItem.vue'
 
@@ -67,6 +71,30 @@ const groups = computed((): string[] =>
     .map(item => item.group))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())))
 
 const getGroupItems = (group: string) => props.items?.filter(item => item.group === group)
+
+const kSelectItem = ref<InstanceType<typeof KSelectItem>[] | null>(null)
+
+const setFocus = () => {
+  if (kSelectItem.value) {
+    kSelectItem.value[0]?.$el?.querySelector('button').focus()
+  }
+}
+
+const shiftFocus = (key: string) => {
+  const index = props.items.findIndex(item => item.key === key)
+
+  if (index < props.items.length - 1) {
+    if (!props.items[index + 1].disabled) {
+      kSelectItem.value?.[index + 1]?.$el?.querySelector('button').focus()
+    } else {
+      if (index + 2 < props.items.length - 1) {
+        shiftFocus(props.items[index + 1].key!)
+      }
+    }
+  }
+}
+
+defineExpose({ setFocus })
 </script>
 
 <style lang="scss" scoped>

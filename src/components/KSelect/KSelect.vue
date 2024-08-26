@@ -124,6 +124,7 @@
               data-propagate-clicks="false"
             >
               <KSelectItems
+                ref="kSelectItems"
                 :items="filteredItems"
                 @selected="handleItemSelect"
               >
@@ -524,6 +525,8 @@ const clearSelection = (): void => {
   emit('update:modelValue', null)
 }
 
+const kSelectItems = ref<InstanceType<typeof KSelectItems> | null>(null)
+
 const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
   // Ignore `esc` key
   if (evt.keyCode === 27) {
@@ -534,6 +537,10 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
   const inputElem = selectWrapperElement.value?.children[0] as HTMLInputElement
   if (!isToggled.value && inputElem) { // simulate click to trigger dropdown open
     inputElem.click()
+  }
+
+  if (evt.code === 'ArrowDown' && isToggled.value) {
+    kSelectItems.value?.setFocus()
   }
 }
 
