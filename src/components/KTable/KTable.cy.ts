@@ -4,6 +4,15 @@ import KTable from '@/components/KTable/KTable.vue'
 import { offsetPaginationHeaders, offsetPaginationFetcher } from '../../../mocks/KTableMockData'
 import type { TableHeader } from '@/types'
 
+interface FetchParams {
+  pageSize: number
+  page: number
+  query?: string
+  sortColumnKey?: string
+  sortColumnOrder?: 'asc' | 'desc'
+  offset?: string | null
+}
+
 const largeDataSet = [
   {
     name: 'Basic Auth',
@@ -665,6 +674,124 @@ describe('KTable', () => {
       })
 
       cy.getTestId('table-pagination').should('be.visible')
+    })
+
+    it('refetch with paginationOffset: true', () => {
+      const data: Array<{ name: string }> = []
+      for (let i = 0; i < 12; i++) {
+        data.push({ name: 'row' + i })
+      }
+      const fns = {
+        fetcher: (params: FetchParams) => {
+          const { pageSize, page, offset } = params
+          const start = offset ? Number(offset) : 0
+          return {
+            data: data.slice(start, start + pageSize),
+            pagination: {
+              offset: `${start + pageSize}`,
+              page,
+            },
+          }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      mount(KTable, {
+        propsData: {
+          fetcher: fns.fetcher,
+          initialFetcherParams: { pageSize: 10 },
+          loading: false,
+          headers: options.headers,
+          paginationPageSizes: [10],
+          paginationOffset: true,
+          hidePaginationWhenOptional: true,
+          fetcherCacheKey: '0',
+        },
+      })
+
+      // page 1
+      cy.getTestId('table-pagination').should('be.visible')
+      cy.get('.table tbody').find('tr').should('have.length', 10)
+      cy.get('.table tbody').should('contain.text', 'row0')
+      cy.get('@fetcher')
+        .should('have.callCount', 1) // ensure fetcher is NOT called twice on load
+        .should('have.been.calledWith', { pageSize: 10, page: 1, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+        .then(() => cy.wrap(Cypress.vueWrapper.setProps({ fetcherCacheKey: '1' }))) // manually trigger refetch
+        .get('@fetcher')
+        .should('have.callCount', 2)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 1, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+
+      // page 2
+      cy.getTestId('next-button').click()
+      cy.get('.table tbody').find('tr').should('have.length', 2)
+      cy.get('.table tbody').should('contain.text', 'row10')
+      cy.get('@fetcher')
+        .should('have.callCount', 3)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 2, offset: '10', query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+        .then(() => cy.wrap(Cypress.vueWrapper.setProps({ fetcherCacheKey: '2' }))) // manually trigger refetch
+        .get('@fetcher')
+        .should('have.callCount', 4)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 2, offset: '10', query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+    })
+
+    it('refetch with paginationOffset: false', () => {
+      const data: Array<{ name: string }> = []
+      for (let i = 0; i < 12; i++) {
+        data.push({ name: 'row' + i })
+      }
+      const fns = {
+        fetcher: (params: FetchParams) => {
+          const { pageSize, page } = params
+          return {
+            data: data.slice((page - 1) * pageSize, page * pageSize),
+            total: data.length,
+          }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      mount(KTable, {
+        propsData: {
+          fetcher: fns.fetcher,
+          initialFetcherParams: { pageSize: 10 },
+          loading: false,
+          headers: options.headers,
+          paginationPageSizes: [10],
+          paginationOffset: false,
+          hidePaginationWhenOptional: true,
+          fetcherCacheKey: '0',
+        },
+      })
+
+      // page 1
+      cy.getTestId('table-pagination').should('be.visible')
+      cy.get('.table tbody').find('tr').should('have.length', 10)
+      cy.get('.table tbody').should('contain.text', 'row0')
+      cy.get('@fetcher')
+        .should('have.callCount', 1) // ensure fetcher is NOT called twice on load
+        .should('have.been.calledWith', { pageSize: 10, page: 1, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+        .then(() => cy.wrap(Cypress.vueWrapper.setProps({ fetcherCacheKey: '1' }))) // manually trigger refetch
+        .get('@fetcher')
+        .should('have.callCount', 2)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 1, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+
+      // page 2
+      cy.getTestId('next-button').click()
+      cy.get('.table tbody').find('tr').should('have.length', 2)
+      cy.get('.table tbody').should('contain.text', 'row10')
+      cy.get('@fetcher')
+        .should('have.callCount', 3)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 2, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+        .then(() => cy.wrap(Cypress.vueWrapper.setProps({ fetcherCacheKey: '2' }))) // manually trigger refetch
+        .get('@fetcher')
+        .should('have.callCount', 4)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 2, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
     })
   })
 
