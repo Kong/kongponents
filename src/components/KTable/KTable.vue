@@ -825,6 +825,15 @@ const fetchData = async () => {
     hasNextPage.value = (res.pagination && 'hasNextPage' in res.pagination) ? res.pagination.hasNextPage : true
   }
 
+  // if the data is empty and the page is greater than 1,
+  // e.g. user deletes the last item on the last page,
+  // reset the page to 1
+  if (data.value.length === 0 && page.value > 1) {
+    page.value = 1
+    offsets.value = [null]
+    offset.value = null
+  }
+
   isInitialFetch.value = false
 
   return res
