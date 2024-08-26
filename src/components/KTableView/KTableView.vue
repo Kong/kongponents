@@ -182,8 +182,8 @@
               v-for="(row, rowIndex) in data"
               v-bind="rowAttrs(row)"
               :key="`table-${tableId}-row-${rowIndex}`"
-              :role="isClickable ? 'link' : undefined"
-              :tabindex="isClickable ? 0 : undefined"
+              :role="!!rowLink(row).to ? 'link' : undefined"
+              :tabindex="isClickable || !!rowLink(row).to ? 0 : undefined"
             >
               <td
                 v-for="(header, index) in visibleHeaders"
@@ -557,7 +557,7 @@ const tdlisteners = computed((): any => {
     const cellListeners = pluckListeners('onCell:', attrs)(entity, 'cell')
     const ignoredElements = ['a', 'button', 'label', 'input', 'select', 'span[role="checkbox"]']
 
-    if (rowListeners.click) {
+    if (rowListeners.click || cellListeners.click) {
       isClickable.value = true
     }
 

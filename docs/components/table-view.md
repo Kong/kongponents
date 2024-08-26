@@ -415,15 +415,16 @@ interface TablePaginationAttributes {
 ```
 
 <KTableView
-  :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [10] }"
+  :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
   :data="paginatedData"
   :headers="basicHeaders()"
   @page-change="onPageChange"
+  @page-size-change="onPageSizeChange"
 />
 
 ```html
 <KTableView
-  :pagination-attributes="{ totalCount: tableData.length, pageSizes: [10] }"
+  :pagination-attributes="{ totalCount: tableData.length, pageSizes: [5, 10] }"
   :data="paginatedData"
   :headers="headers"
 />
@@ -1011,14 +1012,18 @@ const extraRecords: TableViewData = [
   },
 ]
 const basicPaginatedData: TableViewData = [...basicData, ...extraRecords]
-const paginatedData = ref<TableViewData>(basicPaginatedData.slice(0, 10))
+const paginatedPageSize = ref<number>(5)
+const paginatedData = ref<TableViewData>(basicPaginatedData.slice(0, paginatedPageSize.value))
 const onPageChange = ({ page }: PageChangeData) => {
   if (page === 1) {
-    paginatedData.value = basicPaginatedData.slice(0, 10)
+    paginatedData.value = basicPaginatedData.slice(0, paginatedPageSize.value)
   } else {
-    paginatedData.value = basicPaginatedData.slice(10)
+    paginatedData.value = basicPaginatedData.slice((paginatedPageSize.value * (page - 1)), (paginatedPageSize.value * (page - 1)) + paginatedPageSize.value)
   }
-} 
+}
+const onPageSizeChange = ({ pageSize }: PageChangeData) => {
+  paginatedPageSize.value = pageSize
+}
 
 const getRowLink = (row: Record<string, any>): TableRowAttributes => ({
   // using static route for demonstration purposes
