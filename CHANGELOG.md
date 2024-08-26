@@ -1,3 +1,10 @@
+# [9.4.0](https://github.com/Kong/kongponents/compare/v9.3.3...v9.4.0) (2024-08-26)
+
+
+### Features
+
+* **ktableview:** add component [KHCP-9499] ([#2338](https://github.com/Kong/kongponents/issues/2338)) ([5b1ae1b](https://github.com/Kong/kongponents/commit/5b1ae1bd00a5f047a08d852244c2cd8d11b9ba53))
+
 ## [9.3.3](https://github.com/Kong/kongponents/compare/v9.3.2...v9.3.3) (2024-08-21)
 
 
