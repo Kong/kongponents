@@ -1,3 +1,10 @@
+## [9.4.1](https://github.com/Kong/kongponents/compare/v9.4.0...v9.4.1) (2024-08-27)
+
+
+### Bug Fixes
+
+* **ktable:** store offset of next page in nextOffset ([#2355](https://github.com/Kong/kongponents/issues/2355)) ([bf1821e](https://github.com/Kong/kongponents/commit/bf1821ecd8e3e538764846e72ab9d19731c9725a))
+
 # [9.4.0](https://github.com/Kong/kongponents/compare/v9.3.3...v9.4.0) (2024-08-26)
 
 
