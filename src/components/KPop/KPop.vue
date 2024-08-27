@@ -279,6 +279,7 @@ const floatingUpdates = ref<() => void>()
 
 defineExpose({
   hidePopover,
+  showPopover,
 })
 
 onMounted(() => {
