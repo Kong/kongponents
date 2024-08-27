@@ -159,7 +159,7 @@ In the example below, try toggling grouping on and off and dragging items from o
 >
   <KInputSwitch
     v-model="data.grouping"
-    label="Grouping"
+    :label="data.grouping ? 'Same group' : 'Different groups'"
   />
   <div class="group-container">
     <KTreeList :items="groupedItems" />

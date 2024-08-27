@@ -19,36 +19,39 @@
         >
           <KInputSwitch
             v-model="data.grouping"
-            label="Grouping"
+            :label="data.grouping ? 'Same group' : 'Different groups'"
           />
-          <KTreeList
-            :group="data.grouping ? 'i-stand-alone' : undefined"
-            :items="items2"
-          />
+          <div class="groups-example">
+            <KTreeList :items="items2" />
+            <KTreeList
+              :group="data.grouping ? 'i-stand-alone' : undefined"
+              :items="items3"
+            />
+          </div>
         </KComponent>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="disableDrag">
         <KTreeList
           disable-drag
-          :items="items3"
+          :items="items4"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="maxDepth">
         <KTreeList
-          :items="items4"
+          :items="items5"
           :max-depth="4"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="width">
         <KTreeList
-          :items="items5"
+          :items="items6"
           width="300"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="hideIcons">
         <KTreeList
           hide-icons
-          :items="items6"
+          :items="items7"
         />
       </SandboxSectionComponent>
 
@@ -58,7 +61,7 @@
         title="Slots"
       />
       <SandboxSectionComponent title="item-icon">
-        <KTreeList :items="items7">
+        <KTreeList :items="items8">
           <template #item-icon="{ item }">
             <InboxIcon
               v-if="item.id.includes('folder')"
@@ -68,7 +71,7 @@
         </KTreeList>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="item-label">
-        <KTreeList :items="items8">
+        <KTreeList :items="items9">
           <template #item-label="{ item }">
             <span v-if="item.id.includes('folder')">
               <strong>{{ item.name }}</strong>
@@ -148,4 +151,17 @@ const items5 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items6 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items7 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items8 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
+const items9 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 </script>
+
+<style lang="scss" scoped>
+.groups-example {
+  display: flex;
+  flex-direction: column;
+  gap: $kui-space-40;
+
+  @media (min-width: $kui-breakpoint-mobile) {
+    flex-direction: row;
+  }
+}
+</style>
