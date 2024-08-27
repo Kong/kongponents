@@ -12,28 +12,43 @@
       <SandboxSectionComponent title="item">
         <KTreeList :items="items1" />
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="group">
+        <KComponent
+          v-slot="{ data }"
+          :data="{ grouping: true }"
+        >
+          <KInputSwitch
+            v-model="data.grouping"
+            label="Grouping"
+          />
+          <KTreeList
+            :group="data.grouping ? 'i-stand-alone' : undefined"
+            :items="items2"
+          />
+        </KComponent>
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="disableDrag">
         <KTreeList
           disable-drag
-          :items="items2"
+          :items="items3"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="maxDepth">
         <KTreeList
-          :items="items3"
+          :items="items4"
           :max-depth="4"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="width">
         <KTreeList
-          :items="items4"
+          :items="items5"
           width="300"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="hideIcons">
         <KTreeList
           hide-icons
-          :items="items5"
+          :items="items6"
         />
       </SandboxSectionComponent>
 
@@ -43,7 +58,7 @@
         title="Slots"
       />
       <SandboxSectionComponent title="item-icon">
-        <KTreeList :items="items6">
+        <KTreeList :items="items7">
           <template #item-icon="{ item }">
             <InboxIcon
               v-if="item.id.includes('folder')"
@@ -53,7 +68,7 @@
         </KTreeList>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="item-label">
-        <KTreeList :items="items7">
+        <KTreeList :items="items8">
           <template #item-label="{ item }">
             <span v-if="item.id.includes('folder')">
               <strong>{{ item.name }}</strong>
@@ -132,4 +147,5 @@ const items4 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items5 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items6 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items7 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
+const items8 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 </script>
