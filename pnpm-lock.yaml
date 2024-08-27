@@ -67,7 +67,7 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(@types/node@20.16.1)(typescript@5.5.4)
       '@evilmartians/lefthook':
-        specifier: ^1.7.12
+        specifier: ^1.7.13
         version: 1.7.14
       '@kong-ui-public/sandbox-layout':
         specifier: ^2.1.21
@@ -91,7 +91,7 @@ importers:
         specifier: ^9.0.7
         version: 9.0.7
       '@types/node':
-        specifier: ^20.14.15
+        specifier: ^20.15.0
         version: 20.16.1
       '@types/sortablejs':
         specifier: ^1.15.8
@@ -965,8 +965,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.21.0':
-    resolution: {integrity: sha512-CqLrY1oc68dyB44h4qfAa/4LM+R+xvqaJSTBV0hWeLXiIdXhgrHlaalXOTrL5vWz+mgnyzlUgy3bhTkZjKt1LQ==}
+  '@rollup/wasm-node@4.21.1':
+    resolution: {integrity: sha512-U91HbBWWbyevXQAsW5/NTbfsOP1QoKFeyuQNWbo2dQTnfx5W1iVq7Ma1ul+Kp36oj5Cb8nj8D7e1PlRc02u/oQ==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -5598,7 +5598,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@rollup/wasm-node@4.21.0':
+  '@rollup/wasm-node@4.21.1':
     dependencies:
       '@types/estree': 1.0.5
     optionalDependencies:
@@ -9448,7 +9448,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.41
-      rollup: '@rollup/wasm-node@4.21.0'
+      rollup: '@rollup/wasm-node@4.21.1'
     optionalDependencies:
       '@types/node': 20.16.1
       fsevents: 2.3.3
