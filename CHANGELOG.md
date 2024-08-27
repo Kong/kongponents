@@ -1,3 +1,10 @@
+# [9.5.0](https://github.com/Kong/kongponents/compare/v9.4.1...v9.5.0) (2024-08-27)
+
+
+### Features
+
+* **kpop:** expose show-popover function ([#2362](https://github.com/Kong/kongponents/issues/2362)) ([79ecb03](https://github.com/Kong/kongponents/commit/79ecb03287b9cb94e3fdb36aa027e3bce71bc94b))
+
 ## [9.4.1](https://github.com/Kong/kongponents/compare/v9.4.0...v9.4.1) (2024-08-27)
 
 
