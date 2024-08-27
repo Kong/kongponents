@@ -230,7 +230,7 @@
         :initial-page-size="pageSize"
         :neighbors="paginationNeighbors"
         :offset="paginationOffset"
-        :offset-next-button-disabled="!offset || !hasNextPage"
+        :offset-next-button-disabled="!nextOffset || !hasNextPage"
         :offset-previous-button-disabled="!previousOffset"
         :page-sizes="paginationPageSizes"
         :total-count="total"
@@ -552,7 +552,6 @@ const offsets: Ref<Array<any>> = ref([])
 const hasNextPage = ref(true)
 const isClickable = ref(false)
 const hasInitialized = ref(false)
-const nextPageClicked = ref(false)
 const hasToolbarSlot = computed((): boolean => !!slots.toolbar || hasColumnVisibilityMenu.value)
 const tableWrapperStyles = computed((): Record<string, string> => ({
   maxHeight: getSizeFromString(props.maxHeight),
@@ -820,15 +819,9 @@ const fetchData = async () => {
 
   if (props.paginationOffset) {
     if (!res.pagination?.offset) {
-      offset.value = null
-
-      // reset to first page if no pagiantion data is returned unless the "next page" button was clicked
-      // this will ensure buttons display the correct state for cases like search
-      if (!nextPageClicked.value) {
-        page.value = 1
-      }
+      nextOffset.value = null
     } else {
-      offset.value = res.pagination.offset
+      nextOffset.value = res.pagination.offset
 
       if (!offsets.value[page.value]) {
         offsets.value.push(res.pagination.offset)
@@ -838,7 +831,15 @@ const fetchData = async () => {
     hasNextPage.value = (res.pagination && 'hasNextPage' in res.pagination) ? res.pagination.hasNextPage : true
   }
 
-  nextPageClicked.value = false
+  // if the data is empty and the page is greater than 1,
+  // e.g. user deletes the last item on the last page,
+  // reset the page to 1
+  if (data.value.length === 0 && page.value > 1) {
+    page.value = 1
+    offsets.value = [null]
+    offset.value = null
+  }
+
   isInitialFetch.value = false
 
   return res
@@ -882,6 +883,7 @@ watch(() => props.headers, (newVal: TableHeader[]) => {
 }, { deep: true })
 
 const previousOffset = computed((): string | null => offsets.value[page.value - 1])
+const nextOffset = ref<string | null>(null)
 
 // once `initData()` finishes, setting tableFetcherCacheKey to non-falsey value triggers fetch of data
 const tableFetcherCacheKey = computed((): string => {
@@ -1010,7 +1012,7 @@ const emitTablePreferences = (): void => {
 
 const getNextOffsetHandler = (): void => {
   page.value++
-  nextPageClicked.value = true
+  offset.value = nextOffset.value
 }
 
 const getPrevOffsetHandler = (): void => {
@@ -1026,7 +1028,7 @@ const getPrevOffsetHandler = (): void => {
 const shouldShowPagination = computed((): boolean => {
   return !!(props.fetcher && !props.disablePagination &&
         !(!props.paginationOffset && props.hidePaginationWhenOptional && total.value <= props.paginationPageSizes[0]) &&
-        !(props.paginationOffset && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value && data.value.length < props.paginationPageSizes[0]))
+        !(props.paginationOffset && props.hidePaginationWhenOptional && !previousOffset.value && !nextOffset.value && data.value.length < props.paginationPageSizes[0]))
 })
 
 const getTestIdString = (message: string): string => {
