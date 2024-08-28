@@ -1,3 +1,10 @@
+## [9.5.1](https://github.com/Kong/kongponents/compare/v9.5.0...v9.5.1) (2024-08-28)
+
+
+### Bug Fixes
+
+* **ktreelist:** add group prop [KHCP-13028] ([#2361](https://github.com/Kong/kongponents/issues/2361)) ([b2c4999](https://github.com/Kong/kongponents/commit/b2c4999c517573643c2febd230510845f1a715fc))
+
 # [9.5.0](https://github.com/Kong/kongponents/compare/v9.4.1...v9.5.0) (2024-08-27)
 
 
