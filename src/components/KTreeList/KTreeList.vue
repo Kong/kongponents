@@ -5,7 +5,9 @@
     :style="width ? widthStyle : undefined"
   >
     <KTreeDraggable
+      :data-testid="`k-tree-list-${group}`"
       :disable-drag="disableDrag"
+      :group="group"
       :hide-icons="hideIcons"
       :items="internalList"
       :max-depth="maxDepth"
@@ -102,6 +104,10 @@ const props = defineProps({
   hideIcons: {
     type: Boolean,
     default: false,
+  },
+  group: {
+    type: String,
+    default: 'k-tree-list',
   },
 })
 

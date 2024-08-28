@@ -157,4 +157,44 @@ describe('KTreeList', () => {
     cy.get(`[data-testid="tree-item-${itemId}"] [data-testid="tree-item-icon"]`).should('contain.text', itemIconSlot)
     cy.get(`[data-testid="tree-item-${itemId}"] [data-testid="tree-item-label"]`).should('contain.text', 'Hello ' + itemName)
   })
+
+  it('handles group prop correctly when not provided', () => {
+    const names = ['Name 1', 'Name 2']
+    const ids = ['name-id1', 'name-id2']
+
+    mount(KTreeList, {
+      props: {
+        items: [{
+          name: names[0],
+          id: ids[0],
+        }, {
+          name: names[1],
+          id: ids[1],
+        }],
+      },
+    })
+
+    cy.getTestId('k-tree-list').findTestId('k-tree-list-k-tree-list').should('be.visible')
+  })
+
+  it('handles group prop correctly when provided', () => {
+    const names = ['Name 1', 'Name 2']
+    const ids = ['name-id1', 'name-id2']
+    const group = 'i-stand-alone'
+
+    mount(KTreeList, {
+      props: {
+        items: [{
+          name: names[0],
+          id: ids[0],
+        }, {
+          name: names[1],
+          id: ids[1],
+        }],
+        group,
+      },
+    })
+
+    cy.getTestId('k-tree-list').findTestId(`k-tree-list-${group}`).should('be.visible')
+  })
 })

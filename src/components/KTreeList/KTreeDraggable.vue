@@ -4,7 +4,7 @@
     class="tree-draggable"
     direction="vertical"
     :disabled="disableDrag"
-    :group="{ name: 'k-tree-list', put: !maxLevelReached }"
+    :group="{ name: group, pull: [group], put: maxLevelReached ? [] : [group] }"
     :level="level"
     :list="internalList"
     :move="checkMove"
@@ -49,6 +49,7 @@
       <KTreeDraggable
         :key="`tree-item-${element.id}-children-${key}`"
         :disable-drag="disableDrag"
+        :group="group"
         :hide-icons="hideIcons"
         :items="getElementChildren(element)"
         :level="level + 1"
@@ -123,6 +124,10 @@ const props = defineProps({
   hideIcons: {
     type: Boolean,
     default: false,
+  },
+  group: {
+    type: String,
+    default: 'k-tree-list',
   },
 })
 
