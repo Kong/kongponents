@@ -6,13 +6,47 @@
       data-testid="table-toolbar"
     >
       <slot name="toolbar" />
-      <ColumnVisibilityMenu
-        v-if="hasColumnVisibilityMenu"
-        :columns="visibilityColumns"
-        :table-id="tableId"
-        :visibility-preferences="visibilityPreferences"
-        @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
-      />
+
+      <div class="toolbar-default-items-container">
+        <KDropdown
+          v-if="hasBulkActions"
+          class="bulk-actions-dropdown"
+          data-testid="bulk-actions-dropdown"
+          :disabled="!bulkActionsSelectedRowsCount"
+          :kpop-attributes="{ placement: 'bottom-end' }"
+        >
+          <KTooltip
+            placement="bottom-end"
+            :text="`Bulk Actions${bulkActionsSelectedRowsCount ? '' : ' (at least one row must be selected)'}`"
+          >
+            <KButton
+              appearance="secondary"
+              :aria-label="tableHeaders.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)!.label"
+              class="bulk-actions-dropdown-trigger"
+              :disabled="!bulkActionsSelectedRowsCount"
+              icon
+              size="large"
+            >
+              <MoreIcon
+                class="more-icon"
+                decorative
+              />
+            </KButton>
+          </KTooltip>
+
+          <template #items>
+            <slot name="bulk-action-items" />
+          </template>
+        </KDropdown>
+
+        <ColumnVisibilityMenu
+          v-if="hasColumnVisibilityMenu"
+          :columns="visibilityColumns"
+          :table-id="tableId"
+          :visibility-preferences="visibilityPreferences"
+          @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
+        />
+      </div>
     </div>
 
     <KSkeleton
@@ -485,6 +519,7 @@ const emit = defineEmits<{
   (e: 'page-size-change', val: PageSizeChangeData): void
   (e: 'get-next-offset'): void
   (e: 'get-previous-offset'): void
+  (e: 'bulk-actions-select', data: TableViewData): void
 }>()
 
 const attrs = useAttrs()
@@ -527,6 +562,7 @@ const tableWrapperStyles = computed((): Record<string, string> => ({
 }))
 
 const tableData = ref<TableViewData>([...props.data].map((row) => ({ ...row, selected: false })))
+const hasBulkActions = computed((): boolean => tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS))
 const bulkActionsSelectedRowsCount = computed((): string => {
   const selectedRowsCount = tableData.value.filter((row) => row.selected).length
 
@@ -977,6 +1013,10 @@ watch(() => props.data, (newVal) => {
   const newData = [...newDataWithoutSelected].map((row) => ({ ...row, selected: false }))
   // update the tableData with the new data
   tableData.value = [...selectedRows, ...newData]
+}, { deep: true })
+
+watch(tableData, (newVal) => {
+  emit('bulk-actions-select', newVal.filter((row) => row.selected))
 }, { deep: true })
 </script>
 

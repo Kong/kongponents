@@ -172,8 +172,6 @@ onBeforeMount(() => {
 
 <style lang="scss" scoped>
 .table-column-visibility-menu {
-  margin-left: var(--kui-space-auto, $kui-space-auto);
-
   .menu-items-wrapper {
     $bottom-mask-size: 0px;
     -webkit-mask-image: linear-gradient(to bottom, black calc(100% - $bottom-mask-size), transparent 100%);
