@@ -37,6 +37,7 @@
             empty-state-title="Empty state title"
             :headers="headers(false, true)"
             max-height="300"
+            :pagination-attributes="{ totalCount: sortedData.length }"
             :row-hover="data.tableRowHover"
             @sort="sortData"
           >
@@ -80,6 +81,7 @@
             :headers="headers(true)"
             :hide-pagination="data.hidePagination"
             :loading="data.tableLoadingState"
+            :pagination-attributes="{ totalCount: tableData.length }"
             resize-columns
             @row:click="(_event: any, row: any) => onRowClick(row)"
           >
@@ -91,8 +93,9 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="rowLink (router-link)">
         <KTableView
-          :data="sortedData"
+          :data="tableData"
           :headers="headers()"
+          :pagination-attributes="{ totalCount: tableData.length }"
           :row-link="getRowLinksRouter"
         >
           <template #action-items>
@@ -113,8 +116,9 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="rowLink (anchor)">
         <KTableView
-          :data="sortedData"
+          :data="tableData"
           :headers="headers()"
+          :pagination-attributes="{ totalCount: tableData.length }"
           :row-link="getRowLinksAnchor"
         >
           <template #action-items>
@@ -145,6 +149,7 @@
         <KTableView
           :data="tableData"
           :headers="headers()"
+          :pagination-attributes="{ totalCount: tableData.length }"
         >
           <template #column-username>
             Username
@@ -166,6 +171,7 @@
         <KTableView
           :data="tableData"
           :headers="headers()"
+          :pagination-attributes="{ totalCount: tableData.length }"
         >
           <template #toolbar>
             <KInput />
@@ -178,24 +184,12 @@
           </template>
         </KTableView>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="after">
-        <KTableView
-          :data="tableData"
-          :headers="headers()"
-        >
-          <template #after>
-            <KPagination :total-count="10" />
-          </template>
-          <template #action-items>
-            <SandboxTableViewActions />
-          </template>
-        </KTableView>
-      </SandboxSectionComponent>
       <SandboxSectionComponent title="error-state">
         <KTableView
           :data="tableData"
           error
           :headers="headers()"
+          :pagination-attributes="{ totalCount: tableData.length }"
         >
           <template #error-state>
             <KEmptyState
