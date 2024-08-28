@@ -49,7 +49,7 @@
     </div>
 
     <div
-      v-else-if="!error && !loading && (data && !data.length)"
+      v-else-if="!error && !loading && (tableData && !tableData.length)"
       class="table-empty-state"
       data-testid="table-empty-state"
     >
@@ -123,6 +123,7 @@
                   :class="{ 'resized': resizingColumn === column.key }"
                 >
                   <slot
+                    v-if="column.key !== TableViewHeaderKeys.BULK_ACTIONS"
                     :column="getGeneric(column)"
                     :name="getColumnSlotName(column.key)"
                   >
@@ -135,6 +136,27 @@
                       {{ column.label ? column.label : column.key }}
                     </span>
                   </slot>
+                  <div
+                    v-else
+                    class="table-header-bulk-actions-container"
+                  >
+                    <KCheckbox
+                      v-model="bulkActionsAll"
+                      :aria-label="column.label"
+                      class="table-header-bulk-actions-checkbox"
+                      data-testid="table-header-bulk-actions-checkbox"
+                      :indeterminate="isBulkActionsIndeterminate"
+                      @change="handleIndeterminateChange"
+                    />
+                    <Transition name="kongponents-fade-transition">
+                      <span
+                        v-if="bulkActionsSelectedRowsCount"
+                        class="table-header-bulk-actions-count"
+                      >
+                        ({{ bulkActionsSelectedRowsCount }})
+                      </span>
+                    </Transition>
+                  </div>
 
                   <KTooltip
                     v-if="column.tooltip || $slots[getColumnTooltipSlotName(column.key)]"
@@ -158,7 +180,7 @@
                   </KTooltip>
 
                   <ArrowDownIcon
-                    v-if="!column.hideLabel && column.key !== TableViewHeaderKeys.ACTIONS && column.sortable"
+                    v-if="!column.hideLabel && column.key !== TableViewHeaderKeys.ACTIONS && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.sortable"
                     class="sort-icon"
                     :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
                     :size="KUI_ICON_SIZE_30"
@@ -179,7 +201,7 @@
 
           <tbody>
             <tr
-              v-for="(row, rowIndex) in data"
+              v-for="(row, rowIndex) in tableData"
               v-bind="rowAttrs(row)"
               :key="`table-${tableId}-row-${rowIndex}`"
               :role="!!rowLink(row).to ? 'link' : undefined"
@@ -202,7 +224,7 @@
                   v-bind="getRowLinkAttrs(row, header.key)"
                 >
                   <slot
-                    v-if="header.key !== TableViewHeaderKeys.ACTIONS"
+                    v-if="header.key !== TableViewHeaderKeys.ACTIONS && header.key !== TableViewHeaderKeys.BULK_ACTIONS"
                     :name="header.key"
                     :row="getGeneric(row)"
                     :row-key="rowIndex"
@@ -212,7 +234,7 @@
                   </slot>
 
                   <KDropdown
-                    v-else
+                    v-else-if="header.key === TableViewHeaderKeys.ACTIONS"
                     class="actions-dropdown"
                     data-testid="actions-dropdown"
                     :kpop-attributes="{ placement: 'bottom-end' }"
@@ -240,6 +262,14 @@
                       />
                     </template>
                   </KDropdown>
+
+                  <KCheckbox
+                    v-else-if="header.key === TableViewHeaderKeys.BULK_ACTIONS"
+                    v-model="row.selected"
+                    :aria-label="header.label"
+                    class="bulk-actions-checkbox"
+                    data-testid="bulk-actions-checkbox"
+                  />
                 </component>
               </td>
             </tr>
@@ -294,6 +324,7 @@ import KPagination from '@/components/KPagination/KPagination.vue'
 
 enum TableViewHeaderKeys {
   ACTIONS = 'actions',
+  BULK_ACTIONS = 'bulkActions',
 }
 
 const props = defineProps({
@@ -477,7 +508,7 @@ const hasHidableColumns = computed((): boolean => tableHeaders.value.filter((hea
 const hasColumnVisibilityMenu = computed((): boolean => {
   // has hidable columns, no error/loading/empty state
   return !!(hasHidableColumns.value &&
-    !props.error && !props.loading && !props.loading && (props.data && props.data.length))
+    !props.error && !props.loading && !props.loading && (tableData.value && tableData.value.length))
 })
 // columns whose visibility can be toggled
 const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable))
@@ -494,6 +525,25 @@ const isActionsDropdownHovered = ref<boolean>(false)
 const tableWrapperStyles = computed((): Record<string, string> => ({
   maxHeight: getSizeFromString(props.maxHeight),
 }))
+
+const tableData = ref<TableViewData>([...props.data].map((row) => ({ ...row, selected: false })))
+const bulkActionsSelectedRowsCount = computed((): string => {
+  const selectedRowsCount = tableData.value.filter((row) => row.selected).length
+
+  if (!selectedRowsCount) {
+    return ''
+  }
+
+  if (selectedRowsCount > 1000) {
+    return '1k+'
+  }
+
+  if (selectedRowsCount > 100) {
+    return '99+'
+  }
+
+  return String(selectedRowsCount)
+})
 
 /**
  * Utilize a helper function to generate the column slot name.
@@ -611,9 +661,12 @@ const tdlisteners = computed((): any => {
   }
 })
 
-// default column widths for better UX
-// actions column is always 54px (padding-left + button width + padding-right adds up to 54px)
-const defaultColumnWidths = { actions: 54 }
+/**
+ * Default column widths for better UX
+ * actions column is always 54px (padding-left + button width + padding-right adds up to 54px)
+ * bulkActions column is always 67px (padding-left + checkbox width + count + padding-right adds up to 67px)
+ */
+const defaultColumnWidths = { actions: 54, bulkActions: 84 }
 const columnWidths = ref<Record<string, number>>(props.resizeColumns ? props.tablePreferences.columnWidths || defaultColumnWidths : defaultColumnWidths)
 const columnStyles = computed(() => {
   const styles: Record<string, any> = {}
@@ -648,7 +701,7 @@ const getHeaderClasses = (column: TableViewHeader, index: number): Record<string
 }
 
 const onHeaderClick = (column: TableViewHeader) => {
-  if (column.sortable) {
+  if (column.sortable && column.key !== TableViewHeaderKeys.ACTIONS && column.key !== TableViewHeaderKeys.BULK_ACTIONS) {
     emit('sort', {
       prevKey: sortColumnKey.value,
       sortColumnKey: column.key,
@@ -757,7 +810,7 @@ const showPagination = computed((): boolean => {
     return false
   }
 
-  if (props.data && props.data.length && props.paginationAttributes.totalCount && props.paginationAttributes.totalCount <= props.data.length) {
+  if (tableData.value && tableData.value.length && props.paginationAttributes.totalCount && props.paginationAttributes.totalCount <= tableData.value.length) {
     return false
   }
 
@@ -808,7 +861,7 @@ const scrollHandler = (event: any): void => {
 const getRowLinkComponent = (row: Record<string, any>, columnKey: string): string => {
   const { to } = props.rowLink(row)
 
-  if (!to || columnKey === TableViewHeaderKeys.ACTIONS) {
+  if (!to || columnKey === TableViewHeaderKeys.ACTIONS || columnKey === TableViewHeaderKeys.BULK_ACTIONS) {
     return 'div'
   }
 
@@ -818,7 +871,7 @@ const getRowLinkComponent = (row: Record<string, any>, columnKey: string): strin
 // returns attributes for the wrapper element in each row link
 const getRowLinkAttrs = (row: Record<string, any>, columnKey: string): Record<string, any> => {
   // if the column is the actions column, return an empty object
-  if (columnKey === TableViewHeaderKeys.ACTIONS) {
+  if (columnKey === TableViewHeaderKeys.ACTIONS || columnKey === TableViewHeaderKeys.BULK_ACTIONS) {
     return {}
   }
 
@@ -880,6 +933,51 @@ watch(hasColumnVisibilityMenu, (newVal) => {
     columnVisibility.value = props.tablePreferences.columnVisibility || {}
   }
 }, { immediate: true })
+
+const bulkActionsAll = ref<boolean>(false)
+
+const isBulkActionsIndeterminate = computed((): boolean => {
+  return !!tableData.value.filter((row) => row.selected).length && !!tableData.value.filter((row) => !row.value).length
+})
+
+const handleIndeterminateChange = (value: boolean) => {
+  if (value) {
+    tableData.value = [...tableData.value].map((row) => ({ ...row, selected: true }))
+  } else {
+    // unselect and reset all
+    tableData.value = [...props.data].map((row) => ({ ...row, selected: false }))
+  }
+}
+
+watch(tableData, (value) => {
+  // all are selected
+  if (value.filter((row) => row.selected).length === value.length) {
+    bulkActionsAll.value = true
+  // all are unselected
+  } else if (value.filter((row) => !row.selected).length === value.length) {
+    bulkActionsAll.value = false
+  // some are selected
+  } else {
+    bulkActionsAll.value = false
+  }
+}, { deep: true })
+
+/**
+ * Watch for changes in the data prop and update the tableData
+ * We want to display the selected rows from the previous data prop value
+ */
+watch(() => props.data, (newVal) => {
+  // get the selected rows from the previous data prop value
+  const selectedRows = tableData.value.filter((row) => row.selected)
+  // remove the selected property from the selected rows
+  const selectedRowsData = selectedRows.map(({ selected, ...rest }) => rest)
+  // get the new data without the selected rows (to avoid duplicates)
+  const newDataWithoutSelected = newVal.filter((row) => !selectedRowsData.some((selectedRow) => JSON.stringify(selectedRow) === JSON.stringify(row)))
+  // add the selected rows to the new data
+  const newData = [...newDataWithoutSelected].map((row) => ({ ...row, selected: false }))
+  // update the tableData with the new data
+  tableData.value = [...selectedRows, ...newData]
+}, { deep: true })
 </script>
 
 <style lang="scss" scoped>

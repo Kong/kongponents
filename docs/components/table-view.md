@@ -1023,7 +1023,7 @@ const onPageChange = ({ page }: PageChangeData) => {
     paginatedData.value = basicPaginatedData.slice((paginatedPageSize.value * (page - 1)), (paginatedPageSize.value * (page - 1)) + paginatedPageSize.value)
   }
 }
-const onPageSizeChange = ({ pageSize }: PageChangeData) => {
+const onPageSizeChange = ({ pageSize }: PageSizeChangeData) => {
   paginatedPageSize.value = pageSize
 }
 

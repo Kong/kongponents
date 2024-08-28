@@ -226,6 +226,15 @@
           </template>
         </KTableView>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="bulk-actions">
+        <KTableView
+          :data="paginatedData"
+          :headers="headers(true, false, true)"
+          :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
+          @page-change="onPageChange"
+          @page-size-change="onPageSizeChange"
+        />
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
@@ -234,12 +243,13 @@
 import { inject, ref } from 'vue'
 import SandboxTitleComponent from '../../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../../components/SandboxSectionComponent.vue'
-import type { TableHeader, TableViewData, TableSortPayload, RowLink } from '@/types'
+import type { TableHeader, TableViewData, TableSortPayload, RowLink, PageChangeData, PageSizeChangeData } from '@/types'
 import SandboxTableViewActions from './SandboxTableViewActions.vue'
 import { AddIcon } from '@kong/icons'
 
-const headers = (hidable: boolean = false, sortable: boolean = false): TableHeader[] => {
+const headers = (hidable: boolean = false, sortable: boolean = false, bulkActions: boolean = false): TableHeader[] => {
   return [
+    ...(bulkActions ? [{ key: 'bulkActions', label: 'Bulk actions' }] : []),
     { key: 'name', label: 'Full Name' },
     { key: 'username', label: 'Username', tooltip: 'Columns with a tooltip.', sortable },
     { key: 'email', label: 'Email', hidable },
@@ -358,6 +368,34 @@ const getRowLinksAnchor = (row: Record<string, any>): RowLink => ({
   to: 'https://kongponents.konghq.com/',
   target: '_blank',
 })
+
+const extraRecords: TableViewData = [
+  {
+    id: 1,
+    name: 'Chris Lo',
+    username: 'Krislow',
+    email: 'dj@kris.low',
+  },
+  {
+    id: 2,
+    name: 'Vitaliy Yarmak',
+    username: 'Tamarack',
+    email: 'Right@sail.xyz',
+  },
+]
+const basicPaginatedData: TableViewData = [...tableData, ...extraRecords]
+const paginatedPageSize = ref<number>(5)
+const paginatedData = ref<TableViewData>(basicPaginatedData.slice(0, paginatedPageSize.value))
+const onPageChange = ({ page }: PageChangeData) => {
+  if (page === 1) {
+    paginatedData.value = basicPaginatedData.slice(0, paginatedPageSize.value)
+  } else {
+    paginatedData.value = basicPaginatedData.slice((paginatedPageSize.value * (page - 1)), (paginatedPageSize.value * (page - 1)) + paginatedPageSize.value)
+  }
+}
+const onPageSizeChange = ({ pageSize }: PageSizeChangeData) => {
+  paginatedPageSize.value = pageSize
+}
 </script>
 
 <style lang="scss" scoped>
