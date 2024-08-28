@@ -149,7 +149,7 @@ const items = ref<TreeListItem[]>([
 
 ### group
 
-To drag elements from one list into another, both lists must have the same `group` value. Defaults to `k-tree-list` (meaning that elements from one list on a page can be dragged into another, unless a different `name` value is provided for one of them).
+To drag elements from one list into another, both lists must have the same `group` value. Defaults to `k-tree-list` (meaning that elements from one list on a page can be dragged into another, unless a different `group` value is provided for one of them).
 
 In the example below, try toggling the grouping on and off and dragging items from one list into another.
 
