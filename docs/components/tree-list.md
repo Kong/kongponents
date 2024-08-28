@@ -151,7 +151,7 @@ const items = ref<TreeListItem[]>([
 
 To drag elements from one list into another, both lists must have the same `group` value. Defaults to `k-tree-list` (meaning that elements from one list on a page can be dragged into another, unless a different `name` value is provided for one of them).
 
-In the example below, try toggling grouping on and off and dragging items from one list into another.
+In the example below, try toggling the grouping on and off and dragging items from one list into another.
 
 <KComponent
   v-slot="{ data }"
@@ -159,7 +159,7 @@ In the example below, try toggling grouping on and off and dragging items from o
 >
   <KInputSwitch
     v-model="data.grouping"
-    :label="data.grouping ? 'Same group' : 'Different groups'"
+    :label="data.grouping ? 'Different groups' : 'Same group'"
   />
   <div class="group-container">
     <KTreeList :items="groupedItems" />

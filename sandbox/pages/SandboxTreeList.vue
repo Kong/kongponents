@@ -19,7 +19,7 @@
         >
           <KInputSwitch
             v-model="data.grouping"
-            :label="data.grouping ? 'Same group' : 'Different groups'"
+            :label="data.grouping ? 'Different groups' : 'Same group'"
           />
           <div class="groups-example">
             <KTreeList :items="items2" />
