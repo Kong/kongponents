@@ -23,6 +23,7 @@
               appearance="secondary"
               :aria-label="tableHeaders.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)!.label"
               class="bulk-actions-dropdown-trigger"
+              data-testid="bulk-actions-dropdown-trigger"
               :disabled="!bulkActionsSelectedRowsCount"
               icon
               size="large"
@@ -355,6 +356,7 @@ import useUniqueId from '@/composables/useUniqueId'
 import useUtilities from '@/composables/useUtilities'
 import type { RouteLocationRaw } from 'vue-router'
 import KPagination from '@/components/KPagination/KPagination.vue'
+import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 
 enum TableViewHeaderKeys {
   ACTIONS = 'actions',
@@ -555,7 +557,7 @@ const isScrolled = ref(false)
 const sortColumnKey = ref('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
 const isClickable = ref(false)
-const hasToolbarSlot = computed((): boolean => !!slots.toolbar || hasColumnVisibilityMenu.value)
+const hasToolbarSlot = computed((): boolean => !!slots.toolbar || hasColumnVisibilityMenu.value || hasBulkActions.value)
 const isActionsDropdownHovered = ref<boolean>(false)
 const tableWrapperStyles = computed((): Record<string, string> => ({
   maxHeight: getSizeFromString(props.maxHeight),
