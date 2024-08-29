@@ -37,6 +37,12 @@
         padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
         vertical-align: middle;
         white-space: nowrap;
+
+        &.sticky-column {
+          background-color: var(--kui-color-background, $kui-color-background);
+          left: 0;
+          position: sticky;
+        }
       }
 
       thead {

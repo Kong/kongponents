@@ -227,21 +227,23 @@
         </KTableView>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="bulk-actions">
-        <KTableView
-          :data="paginatedData"
-          :headers="headers(true, false, true)"
-          :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
-          @bulk-actions-select="onBulkActionsSelect"
-          @page-change="onPageChange"
-          @page-size-change="onPageSizeChange"
-        >
-          <template #bulk-action-items>
-            <SandboxTableViewActions :count="selectedData.length" />
-          </template>
-          <template #action-items>
-            <SandboxTableViewActions />
-          </template>
-        </KTableView>
+        <div class="resizable-table">
+          <KTableView
+            :data="paginatedData"
+            :headers="headers(true, false, true)"
+            :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
+            @bulk-actions-select="onBulkActionsSelect"
+            @page-change="onPageChange"
+            @page-size-change="onPageSizeChange"
+          >
+            <template #bulk-action-items>
+              <SandboxTableViewActions :count="selectedData.length" />
+            </template>
+            <template #action-items>
+              <SandboxTableViewActions />
+            </template>
+          </KTableView>
+        </div>
       </SandboxSectionComponent>
     </div>
   </SandboxLayout>
@@ -422,6 +424,13 @@ const onBulkActionsSelect = (data: TableViewData) => {
 
   .username-link {
     text-transform: lowercase;
+  }
+
+  .resizable-table {
+    max-width: 100%;
+    min-width: 515px;
+    overflow-x: auto;
+    resize: horizontal;
   }
 }
 </style>

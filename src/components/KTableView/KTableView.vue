@@ -126,10 +126,10 @@
             'is-clickable': isClickable
           }"
         >
-          <thead :class="{ 'is-scrolled': isScrolled }">
+          <thead :class="{ 'is-scrolled': isScrolledVertically }">
             <tr
               ref="headerRow"
-              :class="{ 'is-scrolled': isScrolled }"
+              :class="{ 'is-scrolled': isScrolledVertically }"
             >
               <th
                 v-for="(column, index) in visibleHeaders"
@@ -249,6 +249,7 @@
                 :class="{
                   'resize-hover': resizeColumns && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
                   'row-link': !!rowLink(row).to,
+                  'sticky-column': header.key === TableViewHeaderKeys.BULK_ACTIONS && isScrolledHorizontally,
                 }"
                 :style="columnStyles[header.key]"
                 v-on="tdlisteners(row[header.key], row)"
@@ -553,7 +554,8 @@ const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.f
 const visibilityPreferences = computed((): Record<string, boolean> => hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
 // current column visibility state
 const columnVisibility = ref<Record<string, boolean>>(hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
-const isScrolled = ref(false)
+const isScrolledVertically = ref<boolean>(false)
+const isScrolledHorizontally = ref<boolean>(false)
 const sortColumnKey = ref('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
 const isClickable = ref(false)
@@ -734,8 +736,9 @@ const getHeaderClasses = (column: TableViewHeader, index: number): Record<string
     // display active sorting styles if column is currently sorted
     'active-sort': !column.hideLabel && !!column.sortable && column.key === sortColumnKey.value,
     [sortColumnOrder.value]: column.key === sortColumnKey.value && !column.hideLabel,
-    'is-scrolled': isScrolled.value,
+    'is-scrolled': isScrolledVertically.value,
     'has-tooltip': !!column.tooltip,
+    'sticky-column': column.key === TableViewHeaderKeys.BULK_ACTIONS && isScrolledHorizontally.value,
   }
 }
 
@@ -887,11 +890,17 @@ const sortClickHandler = (header: TableViewHeader): void => {
 }
 
 const scrollHandler = (event: any): void => {
-  if (event && event.target && typeof event.target.scrollTop === 'number') {
+  if (event && event.target && (typeof event.target.scrollTop === 'number' || typeof event.target.scrollLeft === 'number')) {
     if (event.target.scrollTop > 1) {
-      isScrolled.value = true
+      isScrolledVertically.value = true
     } else if (event.target.scrollTop === 0) {
-      isScrolled.value = !isScrolled.value
+      isScrolledVertically.value = false
+    }
+
+    if (event.target.scrollLeft > 1) {
+      isScrolledHorizontally.value = true
+    } else if (event.target.scrollLeft === 0) {
+      isScrolledHorizontally.value = false
     }
   }
 }
