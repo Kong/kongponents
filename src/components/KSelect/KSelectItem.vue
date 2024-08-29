@@ -39,6 +39,7 @@ const props = defineProps({
 const emit = defineEmits<{
   (e: 'selected', value: SelectItem): void;
   (e: 'arrow-down'): void;
+  (e: 'arrow-up'): void;
 }>()
 
 const handleClick = (e: MouseEvent): void => {
@@ -55,6 +56,9 @@ const onKeyPress = (event: any) => {
   if (event.code === 'ArrowDown') {
     event.preventDefault()
     emit('arrow-down')
+  } else if ((event.code === 'ArrowUp')) {
+    event.preventDefault()
+    emit('arrow-up')
   }
 }
 </script>

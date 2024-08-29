@@ -539,7 +539,7 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
     inputElem.click()
   }
 
-  if (evt.code === 'ArrowDown' && isToggled.value) {
+  if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp') && isToggled.value) {
     kSelectItems.value?.setFocus()
   }
 }

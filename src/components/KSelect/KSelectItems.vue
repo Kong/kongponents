@@ -4,7 +4,8 @@
     :key="item.key"
     ref="kSelectItem"
     :item="item"
-    @arrow-down="() => shiftFocus(item.key)"
+    @arrow-down="() => shiftFocus(item.key, 'down')"
+    @arrow-up="() => shiftFocus(item.key, 'up')"
     @selected="handleItemSelect"
   >
     <template #content>
@@ -30,7 +31,8 @@
       :key="item.key"
       ref="kSelectItem"
       :item="item"
-      @arrow-down="() => shiftFocus(item.key)"
+      @arrow-down="() => shiftFocus(item.key, 'down')"
+      @arrow-up="() => shiftFocus(item.key, 'up')"
       @selected="handleItemSelect"
     >
       <template #content>
@@ -80,16 +82,25 @@ const setFocus = () => {
   }
 }
 
-const shiftFocus = (key: string) => {
+const shiftFocus = (key: SelectItem['key'], direction: 'down' | 'up') => {
   const index = props.items.findIndex(item => item.key === key)
+  if (index === -1) return // Exit if the item is not found
 
-  if (index < props.items.length - 1) {
-    if (!props.items[index + 1].disabled) {
-      kSelectItem.value?.[index + 1]?.$el?.querySelector('button').focus()
+  // determine step for navigation
+  const step = direction === 'down' ? 1 : -1
+  const isValidIndex = direction === 'down'
+    ? index + step < props.items.length
+    : index + step >= 0
+
+  if (isValidIndex) {
+    const nextIndex = index + step
+
+    if (props.items[nextIndex].disabled) {
+      // find the next valid index if the current one is disabled
+      shiftFocus(props.items[nextIndex].key!, direction)
     } else {
-      if (index + 2 < props.items.length - 1) {
-        shiftFocus(props.items[index + 1].key!)
-      }
+      // focus the button
+      kSelectItem.value?.[nextIndex]?.$el?.querySelector('button')?.focus()
     }
   }
 }
