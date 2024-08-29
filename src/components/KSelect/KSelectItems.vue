@@ -88,7 +88,10 @@ const setFocus = (index: number = 0) => {
 
 const shiftFocus = (key: SelectItem['key'], direction: 'down' | 'up') => {
   const index = props.items.findIndex(item => item.key === key)
-  if (index === -1) return // Exit if the item is not found
+
+  if (index === -1) {
+    return // Exit if the item is not found
+  }
 
   // determine step for navigation
   const step = direction === 'down' ? 1 : -1
