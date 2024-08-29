@@ -76,9 +76,13 @@ const getGroupItems = (group: string) => props.items?.filter(item => item.group 
 
 const kSelectItem = ref<InstanceType<typeof KSelectItem>[] | null>(null)
 
-const setFocus = () => {
+const setFocus = (index: number = 0) => {
   if (kSelectItem.value) {
-    kSelectItem.value[0]?.$el?.querySelector('button').focus()
+    if (!props.items[index].disabled) {
+      kSelectItem.value[index]?.$el?.querySelector('button').focus()
+    } else {
+      setFocus(index + 1)
+    }
   }
 }
 
