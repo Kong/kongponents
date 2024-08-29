@@ -564,9 +564,10 @@ const tableWrapperStyles = computed((): Record<string, string> => ({
 }))
 
 const tableData = ref<TableViewData>([...props.data].map((row) => ({ ...row, selected: false })))
+const bulkActionsSelectedRows = ref<TableViewData>([])
 const hasBulkActions = computed((): boolean => tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS))
 const bulkActionsSelectedRowsCount = computed((): string => {
-  const selectedRowsCount = tableData.value.filter((row) => row.selected).length
+  const selectedRowsCount = bulkActionsSelectedRows.value.length
 
   if (!selectedRowsCount) {
     return ''
@@ -1005,20 +1006,36 @@ watch(tableData, (value) => {
  * We want to display the selected rows from the previous data prop value
  */
 watch(() => props.data, (newVal) => {
-  // get the selected rows from the previous data prop value
-  const selectedRows = tableData.value.filter((row) => row.selected)
-  // remove the selected property from the selected rows
-  const selectedRowsData = selectedRows.map(({ selected, ...rest }) => rest)
-  // get the new data without the selected rows (to avoid duplicates)
-  const newDataWithoutSelected = newVal.filter((row) => !selectedRowsData.some((selectedRow) => JSON.stringify(selectedRow) === JSON.stringify(row)))
-  // add the selected rows to the new data
-  const newData = [...newDataWithoutSelected].map((row) => ({ ...row, selected: false }))
-  // update the tableData with the new data
-  tableData.value = [...selectedRows, ...newData]
+  tableData.value = []
+
+  newVal.forEach((row) => {
+    const selectedRow = bulkActionsSelectedRows.value.find((selectedRow) => JSON.stringify(selectedRow) === JSON.stringify(row))
+
+    if (selectedRow) {
+      tableData.value.push({ ...row, selected: true })
+    } else {
+      tableData.value.push({ ...row, selected: false })
+    }
+  })
 }, { deep: true })
 
 watch(tableData, (newVal) => {
-  emit('bulk-actions-select', newVal.filter((row) => row.selected))
+  const newSelectedRows = newVal.filter((row) => row.selected).map(({ selected, ...rest }) => rest)
+
+  const oldSelectedRows: TableViewData = []
+  bulkActionsSelectedRows.value.forEach((selectedRow) => {
+    const row = props.data.find((row) => JSON.stringify(row) === JSON.stringify(selectedRow))
+
+    if (!row) {
+      oldSelectedRows.push(selectedRow)
+    }
+  })
+
+  bulkActionsSelectedRows.value = [...oldSelectedRows, ...newSelectedRows]
+}, { deep: true })
+
+watch(bulkActionsSelectedRows, (newVal) => {
+  emit('bulk-actions-select', newVal)
 }, { deep: true })
 </script>
 
