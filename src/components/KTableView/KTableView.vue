@@ -1011,24 +1011,28 @@ watch(hasColumnVisibilityMenu, (newVal) => {
 const bulkActionsAll = ref<boolean>(false)
 
 const isBulkActionsIndeterminate = computed((): boolean => {
-  return !!tableData.value.filter((row) => row.selected).length && !!tableData.value.filter((row) => !row.value).length
+  const selectableRows = tableData.value.filter((row) => !props.rowAttrs(row).bulkActionsDisabled)
+
+  return !!selectableRows.filter((row) => row.selected).length && !!selectableRows.filter((row) => !row.selected).length
 })
 
 const handleIndeterminateChange = (value: boolean) => {
   if (value) {
-    tableData.value = [...tableData.value].map((row) => ({ ...row, selected: true }))
+    tableData.value = [...tableData.value].map((row) => ({ ...row, selected: props.rowAttrs(row).bulkActionsDisabled ? false : true }))
   } else {
     // unselect and reset all
     tableData.value = [...props.data].map((row) => ({ ...row, selected: false }))
   }
 }
 
-watch(tableData, (value) => {
+watch(tableData, (newVal) => {
+  const selectableRows = newVal.filter((row) => !props.rowAttrs(row).bulkActionsDisabled)
+
   // all are selected
-  if (value.filter((row) => row.selected).length === value.length) {
+  if (selectableRows.filter((row) => row.selected).length === selectableRows.length) {
     bulkActionsAll.value = true
   // all are unselected
-  } else if (value.filter((row) => !row.selected).length === value.length) {
+  } else if (selectableRows.filter((row) => !row.selected).length === selectableRows.length) {
     bulkActionsAll.value = false
   // some are selected
   } else {
