@@ -232,6 +232,7 @@
             :data="paginatedData"
             :headers="headers(true, false, true)"
             :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
+            resize-columns
             @bulk-actions-select="onBulkActionsSelect"
             @page-change="onPageChange"
             @page-size-change="onPageSizeChange"
@@ -259,11 +260,11 @@ import { AddIcon } from '@kong/icons'
 
 const headers = (hidable: boolean = false, sortable: boolean = false, bulkActions: boolean = false): TableHeader[] => {
   return [
-    ...(bulkActions ? [{ key: 'bulkActions', label: 'Bulk actions' }] : []),
+    { key: 'actions', label: 'Row actions' },
     { key: 'name', label: 'Full Name' },
     { key: 'username', label: 'Username', tooltip: 'Columns with a tooltip.', sortable },
     { key: 'email', label: 'Email', hidable },
-    { key: 'actions', label: 'Row actions' },
+    ...(bulkActions ? [{ key: 'bulkActions', label: 'Bulk actions' }] : []),
   ]
 }
 

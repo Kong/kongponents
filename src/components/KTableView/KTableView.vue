@@ -8,37 +8,15 @@
       <slot name="toolbar" />
 
       <div class="toolbar-default-items-container">
-        <KDropdown
+        <BulkActionsDropdown
           v-if="hasBulkActions"
-          class="bulk-actions-dropdown"
-          data-testid="bulk-actions-dropdown"
+          :button-label="tableHeaders.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)!.label"
           :disabled="!bulkActionsSelectedRowsCount"
-          :kpop-attributes="{ placement: 'bottom-end' }"
         >
-          <KTooltip
-            placement="bottom-end"
-            :text="`Bulk Actions${bulkActionsSelectedRowsCount ? '' : ' (at least one row must be selected)'}`"
-          >
-            <KButton
-              appearance="secondary"
-              :aria-label="tableHeaders.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)!.label"
-              class="bulk-actions-dropdown-trigger"
-              data-testid="bulk-actions-dropdown-trigger"
-              :disabled="!bulkActionsSelectedRowsCount"
-              icon
-              size="large"
-            >
-              <MoreIcon
-                class="more-icon"
-                decorative
-              />
-            </KButton>
-          </KTooltip>
-
           <template #items>
             <slot name="bulk-action-items" />
           </template>
-        </KDropdown>
+        </BulkActionsDropdown>
 
         <ColumnVisibilityMenu
           v-if="hasColumnVisibilityMenu"
@@ -357,7 +335,9 @@ import useUniqueId from '@/composables/useUniqueId'
 import useUtilities from '@/composables/useUtilities'
 import type { RouteLocationRaw } from 'vue-router'
 import KPagination from '@/components/KPagination/KPagination.vue'
+import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
+import BulkActionsDropdown from './BulkActionsDropdown.vue'
 
 enum TableViewHeaderKeys {
   ACTIONS = 'actions',
@@ -549,7 +529,7 @@ const hasColumnVisibilityMenu = computed((): boolean => {
     !props.error && !props.loading && !props.loading && (tableData.value && tableData.value.length))
 })
 // columns whose visibility can be toggled
-const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable))
+const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable && header.key !== TableViewHeaderKeys.BULK_ACTIONS))
 // visibility preferences from the host app (initialized by app)
 const visibilityPreferences = computed((): Record<string, boolean> => hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
 // current column visibility state
@@ -862,7 +842,26 @@ const showPagination = computed((): boolean => {
 // Ensure `props.headers` are reactive.
 watch(() => props.headers, (newVal: TableViewHeader[]) => {
   if (newVal && newVal.length) {
-    tableHeaders.value = newVal
+    // Reorder the headers to ensure bulk actions are first and actions are last
+    const headers: TableViewHeader[] = []
+    const bulkActionsHeader = newVal.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)
+    const actionsHeader = newVal.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.ACTIONS)
+
+    if (bulkActionsHeader) {
+      headers.push(bulkActionsHeader)
+    }
+
+    newVal.forEach((header) => {
+      if (header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS) {
+        headers.push(header)
+      }
+    })
+
+    if (actionsHeader) {
+      headers.push(actionsHeader)
+    }
+
+    tableHeaders.value = headers
   }
 }, { deep: true, immediate: true })
 
