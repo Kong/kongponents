@@ -83,6 +83,7 @@ const options = {
       name: 'Website Desktop',
       id: '328027447731198',
       enabled: 'false',
+      bulkActionsDisabled: true,
     },
     {
       name: 'Android App',
@@ -327,15 +328,26 @@ describe('KTableView', () => {
       })
     })
 
-    it.skip('handles bulk actions disabled state correctly', () => {
+    it.only('handles bulk actions disabled state correctly', () => {
       mount(KTableView, {
         props: {
           headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
           data: options.data,
+          rowAttrs: (row: Record<string, any>): Record<string, any> => {
+            if (row.bulkActionsDisabled) {
+              return { bulkActionsDisabled: true }
+            }
+
+            return {}
+          },
         },
       })
 
-      // TODO
+      const disabledCheckboxIndex = options.data.indexOf(options.data.find((row) => row.bulkActionsDisabled)!)
+      const enabledCheckboxIndex = (options.data.length - disabledCheckboxIndex) === options.data.length ? options.data.length - 1 : options.data.length - disabledCheckboxIndex
+
+      cy.getTestId('bulk-actions-checkbox').eq(enabledCheckboxIndex).should('not.be.disabled')
+      cy.getTestId('bulk-actions-checkbox').eq(disabledCheckboxIndex).should('be.disabled')
     })
   })
 
