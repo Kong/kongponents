@@ -1001,13 +1001,13 @@ const sortBasicData = (sortData: TableSortPayload): void => {
 
 const extraRecords: TableViewData = [
   {
-    id: 1,
+    id: 11,
     name: 'Chris Lo',
     username: 'Krislow',
     email: 'dj@kris.low',
   },
   {
-    id: 2,
+    id: 12,
     name: 'Vitaliy Yarmak',
     username: 'Tamarack',
     email: 'Right@sail.xyz',

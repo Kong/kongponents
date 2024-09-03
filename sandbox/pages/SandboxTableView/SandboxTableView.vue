@@ -233,6 +233,7 @@
             :headers="headers(true, false, true)"
             :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
             resize-columns
+            :row-attrs="getBulkActions"
             @bulk-actions-select="onBulkActionsSelect"
             @page-change="onPageChange"
             @page-size-change="onPageSizeChange"
@@ -382,13 +383,13 @@ const getRowLinksAnchor = (row: Record<string, any>): RowLink => ({
 
 const extraRecords: TableViewData = [
   {
-    id: 1,
+    id: 11,
     name: 'Chris Lo',
     username: 'Krislow',
     email: 'dj@kris.low',
   },
   {
-    id: 2,
+    id: 12,
     name: 'Vitaliy Yarmak',
     username: 'Tamarack',
     email: 'Right@sail.xyz',
@@ -412,6 +413,21 @@ const selectedData = ref<TableViewData>([])
 const onBulkActionsSelect = (data: TableViewData) => {
   console.log('Selected data:', data)
   selectedData.value = data
+}
+
+const getBulkActions = (data: Record<string, any>): Record<string, any> => {
+  if (data.id === 2) {
+    return { bulkActionsDisabled: true }
+  }
+
+  if (data.id === 3) {
+    return {
+      bulkActionsDisabled: true,
+      bulkActionsTooltip: 'This row is disabled.',
+    }
+  }
+
+  return {}
 }
 </script>
 

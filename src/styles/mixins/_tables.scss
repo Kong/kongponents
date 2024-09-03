@@ -211,15 +211,48 @@
                 var(--kui-color-border, $kui-color-border) inset;
             }
 
-            .row-link {
-              color: var(--kui-color-text, $kui-color-text);
-              display: block;
-              padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
-              text-decoration: none;
+            .actions-dropdown {
+              .actions-dropdown-trigger {
+                color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+
+                &:hover:not(:disabled):not(:focus):not(:active) {
+                  background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+                  color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+                }
+
+                &:focus-visible {
+                  background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+                  color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+                }
+
+                &:active {
+                  background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+                  color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
+                }
+
+                .more-icon {
+                  pointer-events: none;
+                }
+              }
             }
 
-            .row-cell-wrapper {
-              display: contents;
+            .row-bulk-actions {
+              display: flex;
+
+              .bulk-actions-tooltip-trigger {
+                cursor: help;
+              }
+            }
+
+            &.row-link {
+              padding: var(--kui-space-0, $kui-space-0);
+
+              a.cell-wrapper {
+                color: var(--kui-color-text, $kui-color-text);
+                display: block;
+                padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+                text-decoration: none;
+              }
             }
           }
         }

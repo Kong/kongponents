@@ -180,6 +180,7 @@
                       class="header-tooltip-trigger"
                       :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
                       :size="KUI_ICON_SIZE_30"
+                      tabindex="0"
                     />
 
                     <template #content>
@@ -215,7 +216,7 @@
           <tbody>
             <tr
               v-for="(row, rowIndex) in tableData"
-              v-bind="rowAttrs(row)"
+              v-bind="getRowAttrs(row)"
               :key="`table-${tableId}-row-${rowIndex}`"
               :role="!!rowLink(row).to ? 'link' : undefined"
               :tabindex="isClickable || !!rowLink(row).to ? 0 : undefined"
@@ -277,13 +278,30 @@
                     </template>
                   </KDropdown>
 
-                  <KCheckbox
+                  <div
                     v-else-if="header.key === TableViewHeaderKeys.BULK_ACTIONS"
-                    v-model="row.selected"
-                    :aria-label="header.label"
-                    class="bulk-actions-checkbox"
-                    data-testid="bulk-actions-checkbox"
-                  />
+                    class="row-bulk-actions"
+                  >
+                    <KCheckbox
+                      v-model="row.selected"
+                      :aria-label="header.label"
+                      class="bulk-actions-checkbox"
+                      data-testid="bulk-actions-checkbox"
+                      :disabled="rowAttrs(row).bulkActionsDisabled"
+                    />
+
+                    <KTooltip
+                      v-if="rowAttrs(row).bulkActionsDisabled && rowAttrs(row).bulkActionsTooltip"
+                      :text="rowAttrs(row).bulkActionsTooltip"
+                    >
+                      <InfoIcon
+                        class="bulk-actions-tooltip-trigger"
+                        :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
+                        :size="KUI_ICON_SIZE_30"
+                        tabindex="0"
+                      />
+                    </KTooltip>
+                  </div>
                 </component>
               </td>
             </tr>
@@ -685,7 +703,7 @@ const tdlisteners = computed((): any => {
 /**
  * Default column widths for better UX
  * actions column is always 54px (padding-left + button width + padding-right adds up to 54px)
- * bulkActions column is always 67px (padding-left + checkbox width + count + padding-right adds up to 67px)
+ * bulkActions column is always 84px (padding-left + checkbox width + count + padding-right adds up to 84px)
  */
 const defaultColumnWidths = { actions: 54, bulkActions: 84 }
 const columnWidths = ref<Record<string, number>>(props.resizeColumns ? props.tablePreferences.columnWidths || defaultColumnWidths : defaultColumnWidths)
@@ -904,6 +922,15 @@ const scrollHandler = (event: any): void => {
   }
 }
 
+/**
+ * Returns the attributes for each row, removing the bulkActionsDisabled and bulkActionsTooltip attributes
+ */
+const getRowAttrs = (row: Record<string, any>): Record<string, any> => {
+  const { bulkActionsDisabled, bulkActionsTooltip, ...rest } = props.rowAttrs(row)
+
+  return rest
+}
+
 // determine the component to use for the row link
 const getRowLinkComponent = (row: Record<string, any>, columnKey: string): string => {
   const { to } = props.rowLink(row)
@@ -1056,48 +1083,6 @@ watch(bulkActionsSelectedRows, (newVal) => {
       tr {
         .resize-handle {
           height: v-bind('headerHeight');
-        }
-      }
-    }
-
-    tbody {
-      tr {
-        td {
-          .actions-dropdown {
-            .actions-dropdown-trigger {
-              color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-
-              &:hover:not(:disabled):not(:focus):not(:active) {
-                background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-                color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
-              }
-
-              &:focus-visible {
-                background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-                color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-              }
-
-              &:active {
-                background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-                color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
-              }
-
-              .more-icon {
-                pointer-events: none;
-              }
-            }
-          }
-
-          &.row-link {
-            padding: var(--kui-space-0, $kui-space-0);
-
-            a.cell-wrapper {
-              color: var(--kui-color-text, $kui-color-text);
-              display: block;
-              padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
-              text-decoration: none;
-            }
-          }
         }
       }
     }
