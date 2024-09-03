@@ -13,7 +13,8 @@
         type="button"
         :value="item.value"
         @click="handleClick"
-        @keydown="onKeyPress"
+        @keydown.down.prevent="$emit('arrow-down')"
+        @keydown.up.prevent="$emit('arrow-up')"
       >
         <span class="select-item-label">
           <slot name="content">{{ item.label }}</slot>
@@ -50,16 +51,6 @@ const handleClick = (e: MouseEvent): void => {
   }
 
   emit('selected', props.item)
-}
-
-const onKeyPress = (event: any) => {
-  if (event.code === 'ArrowDown') {
-    event.preventDefault()
-    emit('arrow-down')
-  } else if ((event.code === 'ArrowUp')) {
-    event.preventDefault()
-    emit('arrow-up')
-  }
 }
 </script>
 
