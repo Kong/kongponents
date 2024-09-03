@@ -216,7 +216,7 @@
           <tbody>
             <tr
               v-for="(row, rowIndex) in tableData"
-              v-bind="getRowAttrs(row)"
+              v-bind="rowAttrs(row)"
               :key="`table-${tableId}-row-${rowIndex}`"
               :role="!!rowLink(row).to ? 'link' : undefined"
               :tabindex="isClickable || !!rowLink(row).to ? 0 : undefined"
@@ -287,12 +287,12 @@
                       :aria-label="header.label"
                       class="bulk-actions-checkbox"
                       data-testid="bulk-actions-checkbox"
-                      :disabled="rowAttrs(row).bulkActionsDisabled"
+                      :disabled="!getRowBulkActionEnabled(row)"
                     />
 
                     <KTooltip
-                      v-if="rowAttrs(row).bulkActionsDisabled && rowAttrs(row).bulkActionsTooltip"
-                      :text="rowAttrs(row).bulkActionsTooltip"
+                      v-if="!getRowBulkActionEnabled(row) && getRowBulkActionTooltip(row)"
+                      :text="getRowBulkActionTooltip(row)"
                     >
                       <InfoIcon
                         class="bulk-actions-tooltip-trigger"
@@ -345,6 +345,7 @@ import type {
   TablePaginationAttributes,
   PageChangeData,
   PageSizeChangeData,
+  RowBulkAction,
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
@@ -397,6 +398,13 @@ const props = defineProps({
    */
   rowLink: {
     type: Function as PropType<(row: Record<string, any>) => RowLink>,
+    default: () => ({}),
+  },
+  /**
+   * A function that conditionally specifies whether bulk actions are disabled for a row and the tooltip to display
+   */
+  rowBulkAction: {
+    type: Function as PropType<(row: Record<string, any>) => RowBulkAction>,
     default: () => ({}),
   },
   /**
@@ -922,13 +930,24 @@ const scrollHandler = (event: any): void => {
   }
 }
 
-/**
- * Returns the attributes for each row, removing the bulkActionsDisabled and bulkActionsTooltip attributes
- */
-const getRowAttrs = (row: Record<string, any>): Record<string, any> => {
-  const { bulkActionsDisabled, bulkActionsTooltip, ...rest } = props.rowAttrs(row)
+const getRowBulkActionEnabled = (row: Record<string, any>): boolean => {
+  const rowBulkAction = props.rowBulkAction(row)
 
-  return rest
+  if (typeof rowBulkAction === 'boolean') {
+    return rowBulkAction
+  }
+
+  return !rowBulkAction.disabled
+}
+
+const getRowBulkActionTooltip = (row: Record<string, any>): string => {
+  const rowBulkAction = props.rowBulkAction(row)
+
+  if (typeof rowBulkAction === 'boolean') {
+    return ''
+  }
+
+  return rowBulkAction.disabledTooltip || ''
 }
 
 // determine the component to use for the row link
@@ -1011,14 +1030,14 @@ watch(hasColumnVisibilityMenu, (newVal) => {
 const bulkActionsAll = ref<boolean>(false)
 
 const isBulkActionsIndeterminate = computed((): boolean => {
-  const selectableRows = tableData.value.filter((row) => !props.rowAttrs(row).bulkActionsDisabled)
+  const selectableRows = tableData.value.filter((row) => getRowBulkActionEnabled(row))
 
   return !!selectableRows.filter((row) => row.selected).length && !!selectableRows.filter((row) => !row.selected).length
 })
 
 const handleIndeterminateChange = (value: boolean) => {
   if (value) {
-    tableData.value = [...tableData.value].map((row) => ({ ...row, selected: props.rowAttrs(row).bulkActionsDisabled ? false : true }))
+    tableData.value = [...tableData.value].map((row) => ({ ...row, selected: getRowBulkActionEnabled(row) }))
   } else {
     // unselect and reset all
     tableData.value = [...props.data].map((row) => ({ ...row, selected: false }))
@@ -1026,7 +1045,7 @@ const handleIndeterminateChange = (value: boolean) => {
 }
 
 watch(tableData, (newVal) => {
-  const selectableRows = newVal.filter((row) => !props.rowAttrs(row).bulkActionsDisabled)
+  const selectableRows = newVal.filter((row) => getRowBulkActionEnabled(row))
 
   // all are selected
   if (selectableRows.filter((row) => row.selected).length === selectableRows.length) {

@@ -74,3 +74,5 @@ export interface TablePaginationAttributes {
   offsetPreviousButtonDisabled?: boolean
   offsetNextButtonDisabled?: boolean
 }
+
+export type RowBulkAction = boolean | { disabled: boolean, disabledTooltip?: string }

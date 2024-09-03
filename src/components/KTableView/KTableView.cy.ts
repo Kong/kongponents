@@ -1,7 +1,7 @@
 import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KTableView from '@/components/KTableView/KTableView.vue'
-import type { TableHeader } from '@/types'
+import type { TableHeader, RowBulkAction } from '@/types'
 
 const largeDataSet = [
   {
@@ -328,17 +328,17 @@ describe('KTableView', () => {
       })
     })
 
-    it.only('handles bulk actions disabled state correctly', () => {
+    it('handles bulk actions disabled state correctly', () => {
       mount(KTableView, {
         props: {
           headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
           data: options.data,
-          rowAttrs: (row: Record<string, any>): Record<string, any> => {
+          rowBulkAction: (row: Record<string, any>): RowBulkAction => {
             if (row.bulkActionsDisabled) {
-              return { bulkActionsDisabled: true }
+              return false
             }
 
-            return {}
+            return true
           },
         },
       })

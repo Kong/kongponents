@@ -233,7 +233,7 @@
             :headers="headers(true, false, true)"
             :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
             resize-columns
-            :row-attrs="getBulkActions"
+            :row-bulk-action="getBulkActions"
             @bulk-actions-select="onBulkActionsSelect"
             @page-change="onPageChange"
             @page-size-change="onPageSizeChange"
@@ -255,7 +255,7 @@
 import { inject, ref } from 'vue'
 import SandboxTitleComponent from '../../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../../components/SandboxSectionComponent.vue'
-import type { TableHeader, TableViewData, TableSortPayload, RowLink, PageChangeData, PageSizeChangeData } from '@/types'
+import type { TableHeader, TableViewData, TableSortPayload, RowLink, PageChangeData, PageSizeChangeData, RowBulkAction } from '@/types'
 import SandboxTableViewActions from './SandboxTableViewActions.vue'
 import { AddIcon } from '@kong/icons'
 
@@ -415,19 +415,23 @@ const onBulkActionsSelect = (data: TableViewData) => {
   selectedData.value = data
 }
 
-const getBulkActions = (data: Record<string, any>): Record<string, any> => {
+const getBulkActions = (data: Record<string, any>): RowBulkAction => {
   if (data.id === 2) {
-    return { bulkActionsDisabled: true }
+    return false
   }
 
   if (data.id === 3) {
+    return { disabled: true }
+  }
+
+  if (data.id === 4) {
     return {
-      bulkActionsDisabled: true,
-      bulkActionsTooltip: 'This row is disabled.',
+      disabled: true,
+      disabledTooltip: 'This row is disabled.',
     }
   }
 
-  return {}
+  return true
 }
 </script>
 
