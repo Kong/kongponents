@@ -352,12 +352,12 @@ const getRowLink = (row: Record<string, any>): RowLink => ({
 </script>
 ```
 
-### rowBulkAction
+### rowBulkActionEnabled
 
 Function for controlling row selection (enabled vs. disabled). Helpful for making some rows unavailable for bulk actions selection. The function receives row value object as an argument and should return a boolean or an object with two parameters:
 
 ```ts
-type RowBulkAction = boolean | { disabled: boolean, disabledTooltip?: string }
+type RowBulkAction = boolean | { enabled: boolean, disabledTooltip?: string }
 ```
 
 When the function returns a boolean value of `true`, bulk action selection will be enabled for the row. 
@@ -367,7 +367,7 @@ When `false` is returned, the bulk action checkbox will be disabled.
 If an object is returned, the `enabled` property determines if the row can be selected. The `disabledTooltip` property will show the string as a tooltip message when the disabled checkbox is hovered.
 
 <KTableView
-  :row-bulk-action="getRowBulkAction"
+  :row-bulk-action-enabled="getRowBulkAction"
   :data="basicData"
   :headers="basicHeaders(false, null, null, true)"
   :pagination-attributes="{ totalCount: basicData.length }"
@@ -382,7 +382,7 @@ If an object is returned, the `enabled` property determines if the row can be se
 ```vue
 <template>
   <KTableView
-    :row-bulk-action="getRowBulkAction"
+    :row-bulk-action-enabled="getRowBulkActionEnabled"
     :data="tableData"
     :headers="headers"
     :pagination-attributes="{ totalCount: tableData.length }"
@@ -400,6 +400,7 @@ import type { RowBulkAction } from '@kong/kongponents'
 
 ...
 
+<<<<<<< Updated upstream
 const getRowBulkAction = (row: Record<string, any>): RowBulkAction => {
   if (row.id === 2) {
     return false
@@ -407,12 +408,26 @@ const getRowBulkAction = (row: Record<string, any>): RowBulkAction => {
 
   if (row.id === 3) {
     return { disabled: true }
+=======
+const getRowBulkActionEnabled = (data: Record<string, any>): RowBulkAction => {
+  if (data.id === 2) {
+    return false
+  }
+
+  if (data.id === 3) {
+    return { enabled: false }
+>>>>>>> Stashed changes
   }
 
   if (row.id === 4) {
     return {
+<<<<<<< Updated upstream
       disabled: true,
       disabledTooltip: 'This row cannot be selected.',
+=======
+      enabled: false,
+      disabledTooltip: 'This row is disabled.',
+>>>>>>> Stashed changes
     }
   }
 
@@ -1277,12 +1292,12 @@ const getRowBulkAction = (data: Record<string, any>): RowBulkAction => {
   }
 
   if (data.id === 3) {
-    return { disabled: true }
+    return { enabled: false }
   }
 
   if (data.id === 4) {
     return {
-      disabled: true,
+      enabled: false,
       disabledTooltip: 'This row is disabled.',
     }
   }

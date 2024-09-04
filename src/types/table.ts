@@ -75,4 +75,4 @@ export interface TablePaginationAttributes {
   offsetNextButtonDisabled?: boolean
 }
 
-export type RowBulkAction = boolean | { disabled: boolean, disabledTooltip?: string }
+export type RowBulkAction = boolean | { enabled: boolean, disabledTooltip?: string }

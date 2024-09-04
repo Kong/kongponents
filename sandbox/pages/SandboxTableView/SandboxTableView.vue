@@ -231,7 +231,6 @@
           :data="paginatedData"
           :headers="headers(false, false, true)"
           :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
-          :row-bulk-action="getRowBulkAction"
           @page-change="onPageChange"
         >
           <template #bulk-actions="{ selectedRows }">
@@ -260,7 +259,7 @@
             :headers="headers(true, false, true)"
             :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
             resize-columns
-            :row-bulk-action="getRowBulkAction"
+            :row-bulk-action-enabled="getRowBulkAction"
             @bulk-actions-select="onBulkActionsSelect"
             @page-change="onPageChange"
             @page-size-change="onPageSizeChange"
@@ -448,12 +447,12 @@ const getRowBulkAction = (data: Record<string, any>): RowBulkAction => {
   }
 
   if (data.id === 3) {
-    return { disabled: true }
+    return { enabled: false }
   }
 
   if (data.id === 4) {
     return {
-      disabled: true,
+      enabled: false,
       disabledTooltip: 'This row is disabled.',
     }
   }

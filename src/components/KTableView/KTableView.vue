@@ -412,9 +412,9 @@ const props = defineProps({
   /**
    * A function that conditionally specifies whether bulk actions are disabled for a row and the tooltip to display
    */
-  rowBulkAction: {
+  rowBulkActionEnabled: {
     type: Function as PropType<(row: Record<string, any>) => RowBulkAction>,
-    default: () => ({}),
+    default: () => true,
   },
   /**
    * A function that conditionally specifies cell attributes
@@ -588,10 +588,6 @@ const bulkActionsSelectedRowsCount = computed((): string => {
 
   if (!selectedRowsCount) {
     return ''
-  }
-
-  if (selectedRowsCount > 1000) {
-    return '1k+'
   }
 
   if (selectedRowsCount > 100) {
@@ -877,7 +873,10 @@ const showPagination = computed((): boolean => {
 // Ensure `props.headers` are reactive.
 watch(() => props.headers, (newVal: TableViewHeader[]) => {
   if (newVal && newVal.length) {
-    // Reorder the headers to ensure bulk actions are first and actions are last
+    /**
+     * Reorder the headers to ensure bulk actions are first and actions are last
+     */
+
     const headers: TableViewHeader[] = []
     const bulkActionsHeader = newVal.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)
     const actionsHeader = newVal.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.ACTIONS)
@@ -940,23 +939,31 @@ const scrollHandler = (event: any): void => {
 }
 
 const getRowBulkActionEnabled = (row: Record<string, any>): boolean => {
-  const rowBulkAction = props.rowBulkAction(row)
-
-  if (typeof rowBulkAction === 'boolean') {
-    return rowBulkAction
+  if (typeof props.rowBulkActionEnabled !== 'function') {
+	  return false
   }
 
-  return !rowBulkAction.disabled
+  const rowBulkActionEnabled = props.rowBulkActionEnabled(row)
+
+  if (typeof rowBulkActionEnabled === 'boolean') {
+    return rowBulkActionEnabled
+  }
+
+  return rowBulkActionEnabled.enabled
 }
 
 const getRowBulkActionTooltip = (row: Record<string, any>): string => {
-  const rowBulkAction = props.rowBulkAction(row)
+  if (typeof props.rowBulkActionEnabled !== 'function') {
+	  return ''
+  }
 
-  if (typeof rowBulkAction === 'boolean') {
+  const rowBulkActionEnabled = props.rowBulkActionEnabled(row)
+
+  if (typeof rowBulkActionEnabled === 'boolean') {
     return ''
   }
 
-  return rowBulkAction.disabledTooltip || ''
+  return rowBulkActionEnabled.disabledTooltip || ''
 }
 
 // determine the component to use for the row link
@@ -1039,13 +1046,16 @@ watch(hasColumnVisibilityMenu, (newVal) => {
 const bulkActionsAll = ref<boolean>(false)
 
 const isBulkActionsIndeterminate = computed((): boolean => {
+  // ignore thee disabled rows
   const selectableRows = tableData.value.filter((row) => getRowBulkActionEnabled(row))
 
+  // it is indeterminate if there are selected and unselected rows
   return !!selectableRows.filter((row) => row.selected).length && !!selectableRows.filter((row) => !row.selected).length
 })
 
 const handleIndeterminateChange = (value: boolean) => {
   if (value) {
+    // select all selectable rows
     tableData.value = [...tableData.value].map((row) => ({ ...row, selected: getRowBulkActionEnabled(row) }))
   } else {
     // unselect and reset all
@@ -1054,6 +1064,8 @@ const handleIndeterminateChange = (value: boolean) => {
 }
 
 watch(tableData, (newVal) => {
+  /** update the bulkActionsAll value */
+
   const selectableRows = newVal.filter((row) => getRowBulkActionEnabled(row))
 
   // all are selected
@@ -1066,6 +1078,21 @@ watch(tableData, (newVal) => {
   } else {
     bulkActionsAll.value = false
   }
+
+  /** update the selected rows */
+
+  const newSelectedRows = newVal.filter((row) => row.selected).map(({ selected, ...rest }) => rest)
+
+  const oldSelectedRows: TableViewData = []
+  bulkActionsSelectedRows.value.forEach((selectedRow) => {
+    const row = props.data.find((row) => JSON.stringify(row) === JSON.stringify(selectedRow))
+
+    if (!row) {
+      oldSelectedRows.push(selectedRow)
+    }
+  })
+
+  bulkActionsSelectedRows.value = [...oldSelectedRows, ...newSelectedRows]
 }, { deep: true })
 
 /**
@@ -1084,21 +1111,6 @@ watch(() => props.data, (newVal) => {
       tableData.value.push({ ...row, selected: false })
     }
   })
-}, { deep: true })
-
-watch(tableData, (newVal) => {
-  const newSelectedRows = newVal.filter((row) => row.selected).map(({ selected, ...rest }) => rest)
-
-  const oldSelectedRows: TableViewData = []
-  bulkActionsSelectedRows.value.forEach((selectedRow) => {
-    const row = props.data.find((row) => JSON.stringify(row) === JSON.stringify(selectedRow))
-
-    if (!row) {
-      oldSelectedRows.push(selectedRow)
-    }
-  })
-
-  bulkActionsSelectedRows.value = [...oldSelectedRows, ...newSelectedRows]
 }, { deep: true })
 
 watch(bulkActionsSelectedRows, (newVal) => {
