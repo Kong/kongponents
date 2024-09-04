@@ -8,15 +8,24 @@
       <slot name="toolbar" />
 
       <div class="toolbar-default-items-container">
-        <BulkActionsDropdown
+        <slot
           v-if="hasBulkActions"
-          :button-label="tableHeaders.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)!.label"
-          :disabled="!bulkActionsSelectedRowsCount"
+          name="bulk-actions"
+          :selected-rows="bulkActionsSelectedRows"
         >
-          <template #items>
-            <slot name="bulk-action-items" />
-          </template>
-        </BulkActionsDropdown>
+          <BulkActionsDropdown
+            v-if="!$slots['bulk-actions']"
+            :button-label="tableHeaders.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)!.label"
+            :disabled="!bulkActionsSelectedRowsCount"
+          >
+            <template #items>
+              <slot
+                name="bulk-action-items"
+                :selected-rows="bulkActionsSelectedRows"
+              />
+            </template>
+          </BulkActionsDropdown>
+        </slot>
 
         <ColumnVisibilityMenu
           v-if="hasColumnVisibilityMenu"

@@ -226,13 +226,34 @@
           </template>
         </KTableView>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="bulk-actions">
+        <KTableView
+          :data="paginatedData"
+          :headers="headers(false, false, true)"
+          :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
+          :row-bulk-action="getRowBulkAction"
+          @page-change="onPageChange"
+        >
+          <template #bulk-actions="{ selectedRows }">
+            <KButton
+              appearance="danger"
+              :disabled="!selectedRows.length"
+            >
+              Bulk Delete ({{ selectedRows.length }} items selected)
+            </KButton>
+          </template>
+          <template #action-items>
+            <SandboxTableViewActions />
+          </template>
+        </KTableView>
+      </SandboxSectionComponent>
 
       <!-- Usage -->
       <SandboxTitleComponent
         is-subtitle
         title="Usage"
       />
-      <SandboxSectionComponent title="Bulk actions">
+      <SandboxSectionComponent title="Bulk Actions">
         <div class="resizable-table">
           <KTableView
             :data="paginatedData"

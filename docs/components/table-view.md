@@ -354,7 +354,7 @@ const getRowLink = (row: Record<string, any>): RowLink => ({
 
 ### rowBulkAction
 
-Function for making selected rows unavailable for bulk actions selection conditionally. The function receives row value object as an argument and should return a boolean or an object with two parameters:
+Function for controlling row selection (enabled vs. disabled). Helpful for making some rows unavailable for bulk actions selection. The function receives row value object as an argument and should return a boolean or an object with two parameters:
 
 ```ts
 type RowBulkAction = boolean | { disabled: boolean, disabledTooltip?: string }
@@ -364,16 +364,13 @@ When function returns a boolean `true`, a row will be enabled. Otherwise, when `
 
 <KTableView
   :row-bulk-action="getRowBulkAction"
-  :data="paginatedData"
+  :data="basicData"
   :headers="basicHeaders(false, null, null, true)"
-  :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
-  @page-change="onPageChange"
-  @page-size-change="onPageSizeChange"
-  @bulk-actions-select="onBulkActionsSelect"
+  :pagination-attributes="{ totalCount: basicData.length }"
 >
-  <template #bulk-action-items>
+  <template #bulk-action-items="{ selectedRows }">
     <KDropdownItem danger>
-      Delete ({{ selectedData.length }} items)
+      Delete ({{ selectedRows.length }} items)
     </KDropdownItem>
   </template>
 </KTableView>
@@ -382,13 +379,13 @@ When function returns a boolean `true`, a row will be enabled. Otherwise, when `
 <template>
   <KTableView
     :row-bulk-action="getRowBulkAction"
-    :data="paginatedData"
+    :data="tableData"
     :headers="headers"
-    :pagination-attributes="{ totalCount: tableData.length, pageSizes: [5, 10] }"
+    :pagination-attributes="{ totalCount: tableData.length }"
   >
-    <template #bulk-action-items>
+    <template #bulk-action-items="{ selectedRows }">
       <KDropdownItem danger>
-        Delete ({{ selectedData.length }} items)
+        Delete ({{ selectedRows.length }} items)
       </KDropdownItem>
     </template>
   </KTableView>
@@ -818,19 +815,23 @@ This slot is only available when the `actions` header key is present in [`header
 
 ### bulk-action-items
 
-Slot for passing bulk actions dropdown items. See also: [`bulk-actions-select` event](#bulk-actions-select).
+Slot for passing bulk actions dropdown items.
+
+Slot props:
+- `selectedRows` - array of selected table row objects
+
+See also: [`bulk-actions-select` event](#bulk-actions-select).
 
 <KTableView
-  :data="paginatedData"
+  :data="paginatedData1"
   :headers="basicHeaders(false, null, null, true)"
   :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
-  @page-change="onPageChange"
-  @page-size-change="onPageSizeChange"
-  @bulk-actions-select="onBulkActionsSelect"
+  @page-change="onPageChange1"
+  @page-size-change="onPageSizeChange1"
 >
-  <template #bulk-action-items>
+  <template #bulk-action-items="{ selectedRows }">
     <KDropdownItem danger>
-      Delete ({{ selectedData.length }} items)
+      Delete ({{ selectedRows.length }} items)
     </KDropdownItem>
   </template>
 </KTableView>
@@ -841,11 +842,10 @@ Slot for passing bulk actions dropdown items. See also: [`bulk-actions-select` e
     :data="paginatedData"
     :headers="headers"
     :pagination-attributes="{ totalCount: tableData.length, pageSizes: [5, 10] }"
-    @bulk-actions-select="onBulkActionsSelect"
   >
-    <template #bulk-action-items>
+    <template #bulk-action-items="{ selectedRows }">
       <KDropdownItem danger>
-        Delete ({{ selectedData.length }} items)
+        Delete ({{ selectedRows.length }} items)
       </KDropdownItem>
     </template>
   </KTableView>
@@ -862,15 +862,48 @@ const headers: Array<TableViewHeader> = [
   ...
 ]
 
-const selectedData = ref<TableViewData>([])
-
-const onBulkActionsSelect = (data: TableViewData) => {
-  selectedData.value = data
-}
-
 const tableData = ref<TableViewData>([ ... ])
 const paginatedData = tableData.slice(...)
 </script>
+```
+
+### bulk-actions
+
+Slot for passing custom bulk actions trigger element. Content provided through this slot will replace default bulk actions dropdown.
+
+Slot props:
+- `selectedRows` - array of selected table row objects
+
+<KTableView
+  :data="basicData"
+  :headers="basicHeaders(false, null, null, true)"
+  :pagination-attributes="{ totalCount: basicData.length }"
+>
+  <template #bulk-actions="{ selectedRows }">
+    <KButton
+      appearance="danger"
+      :disabled="!selectedRows.length"
+    >
+      Bulk Delete ({{ selectedRows.length }} items selected)
+    </KButton>
+  </template>
+</KTableView>
+
+```html
+<KTableView
+  :data="tableData"
+  :headers="headers"
+  :pagination-attributes="{ totalCount: tableData.length }"
+>
+  <template #bulk-actions="{ selectedRows }">
+    <KButton
+      appearance="danger"
+      :disabled="!selectedRows.length"
+    >
+      Bulk Delete ({{ selectedRows.length }} items selected)
+    </KButton>
+  </template>
+</KTableView>
 ```
 
 ## Events
@@ -1167,6 +1200,19 @@ const onPageSizeChange = ({ pageSize }: PageSizeChangeData) => {
   paginatedPageSize.value = pageSize
 }
 
+const paginatedPageSize1 = ref<number>(5)
+const paginatedData1 = ref<TableViewData>(basicPaginatedData.slice(0, paginatedPageSize1.value))
+const onPageChange1 = ({ page }: PageChangeData) => {
+  if (page === 1) {
+    paginatedData1.value = basicPaginatedData.slice(0, paginatedPageSize1.value)
+  } else {
+    paginatedData1.value = basicPaginatedData.slice((paginatedPageSize1.value * (page - 1)), (paginatedPageSize1.value * (page - 1)) + paginatedPageSize1.value)
+  }
+}
+const onPageSizeChange1 = ({ pageSize }: PageSizeChangeData) => {
+  paginatedPageSize1.value = pageSize
+}
+
 const getRowLink = (row: Record<string, any>): TableRowAttributes => ({
   // using static route for demonstration purposes
   // but you can generate dynamic routes based on the row data
@@ -1220,11 +1266,6 @@ const onCellClick = (event, cell) => {
 }
 
 const toggleModel = ref<boolean[]>([false, false, false])
-
-const selectedData = ref<TableViewData>([])
-const onBulkActionsSelect = (data: TableViewData) => {
-  selectedData.value = data
-}
 
 const getRowBulkAction = (data: Record<string, any>): RowBulkAction => {
   if (data.id === 2) {
