@@ -51,7 +51,12 @@ For an example of `headers` prop usage please refer to [`data` prop documentatio
 
 #### Reserved Header Keys
 
-- `actions` - the column displays an actions [KDropdown](/components/dropdown) button for each row and displays no label (as if `hideLabel` was `true`; you can set `hideLabel` parameter to `false` to show the label). KTableView will automatically render the actions dropdown button with an icon and you simply need to provide dropdown items via the [`action-items` slot](#action-items).
+- `bulkActions` - the column displays checkboxes for each row. Column header displays a checkbox clicking on which will check or uncheck all table rows and selected rows count. Apart from that, KTableView will render a dropdown on the right of the table toolbar directly above the table and you simply need to provide dropdown items via the [`bulk-action-items` slot](#bulk-action-items). Refer to the [`bulk-action-items` slot](#bulk-action-items) for the example.
+- `actions` - the column displays an actions [KDropdown](/components/dropdown) button for each row and displays no label (as if `hideLabel` was `true`; you can set `hideLabel` parameter to `false` to show the label). KTableView will automatically render the actions dropdown and you simply need to provide dropdown items via the [`action-items` slot](#action-items).
+
+:::tip NOTE
+KTableView automatically displays `bulkActions` as the first and `actions` as the last column in the table.
+::: 
 
 ### data
 
@@ -344,6 +349,73 @@ const getRowLink = (row: Record<string, any>): RowLink => ({
   to: { name: 'home' }, // pass a string to render the link as an anchor element instead of a router-link
   target: '_blank',
 })
+</script>
+```
+
+### rowBulkAction
+
+Function for making selected rows unavailable for bulk actions selection conditionally. The function receives row value object as an argument and should return a boolean or an object with two parameters:
+
+```ts
+type RowBulkAction = boolean | { disabled: boolean, disabledTooltip?: string }
+```
+
+When function returns a boolean `true`, a row will be enabled. Otherwise, when `false` is returned, it will be disabled. Alternatively, it can return an object (helpful when you need to display a tooltip explaining why the row is unavailable for bulk actions selection).
+
+<KTableView
+  :row-bulk-action="getBulkActions"
+  :data="paginatedData"
+  :headers="basicHeaders(false, null, null, true)"
+  :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
+  @page-change="onPageChange"
+  @page-size-change="onPageSizeChange"
+  @bulk-actions-select="onBulkActionsSelect"
+>
+  <template #bulk-action-items>
+    <KDropdownItem danger>
+      Delete ({{ selectedData.length }} items)
+    </KDropdownItem>
+  </template>
+</KTableView>
+
+```vue
+<template>
+  <KTableView
+    :data="paginatedData"
+    :headers="headers"
+    :pagination-attributes="{ totalCount: tableData.length, pageSizes: [5, 10] }"
+  >
+    <template #bulk-action-items>
+      <KDropdownItem danger>
+        Delete ({{ selectedData.length }} items)
+      </KDropdownItem>
+    </template>
+  </KTableView>
+</template>
+
+<script setup lang="ts">
+import type { RowBulkAction } from '@kong/kongponents'
+
+...
+
+const getBulkActions = (data: Record<string, any>): RowBulkAction => {
+  if (data.id === 2) {
+    return false
+  }
+
+  if (data.id === 3) {
+    return { disabled: true }
+  }
+
+  if (data.id === 4) {
+    return {
+      disabled: true,
+      disabledTooltip: 'This row is disabled.',
+    }
+  }
+
+  return true
+}
 </script>
 ```
 
@@ -743,6 +815,62 @@ This slot is only available when the `actions` header key is present in [`header
 </KTableView>
 ```
 
+### bulk-action-items
+
+Slot for passing bulk actions dropdown items. See also: [`bulk-actions-select` event](#bulk-actions-select).
+
+<KTableView
+  :data="paginatedData"
+  :headers="basicHeaders(false, null, null, true)"
+  :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
+  @page-change="onPageChange"
+  @page-size-change="onPageSizeChange"
+  @bulk-actions-select="onBulkActionsSelect"
+>
+  <template #bulk-action-items>
+    <KDropdownItem danger>
+      Delete ({{ selectedData.length }} items)
+    </KDropdownItem>
+  </template>
+</KTableView>
+
+```vue
+<template>
+  <KTableView
+    :data="paginatedData"
+    :headers="headers"
+    :pagination-attributes="{ totalCount: tableData.length, pageSizes: [5, 10] }"
+  >
+    <template #bulk-action-items>
+      <KDropdownItem danger>
+        Delete ({{ selectedData.length }} items)
+      </KDropdownItem>
+    </template>
+  </KTableView>
+</template>
+
+<script setup lang="ts">
+import type { TableViewHeader, TableViewData } from '@kong/kongponents'
+
+const headers: Array<TableViewHeader> = [
+  {
+    key: 'bulkActions', 
+    label: 'Bulk actions', 
+  },
+  ...
+]
+
+const selectedData = ref<TableViewData>([])
+
+const onBulkActionsSelect = (data: TableViewData) => {
+  selectedData.value = data
+}
+
+const tableData = ref<TableViewData>([ ... ])
+const paginatedData = tableData.slice(...)
+</script>
+```
+
 ## Events
 
 ### Row Events
@@ -859,6 +987,10 @@ Emitted when error state action button is clicked.
 
 Emitted when the user performs sorting, resizes columns or toggles column visibility. Event payload is object of type `TablePreferences` interface (see [`tablePreferences` prop](#tablepreferences) for details).
 
+### bulk-actions-select
+
+Emitted when user interacts with checkboxes in bulk actions column. Payload is array of selected table row objects.
+
 <script setup lang="ts">
 import { ref } from 'vue'
 import { AddIcon, SearchIcon, MoreIcon } from '@kong/icons'
@@ -866,8 +998,14 @@ import { ToastManager } from '@/index'
 
 const toaster = new ToastManager()
 
-const basicHeaders = (actions: boolean = false, sortable: string | null = null, hidable: string | null = null): Array<TableViewHeader> => {
+const basicHeaders = (actions: boolean = false, sortable: string | null = null, hidable: string | null = null, bulkActions: boolean = false): Array<TableViewHeader> => {
   const keys = {
+    ...(bulkActions && { 
+      actions: {
+        key: 'bulkActions',
+        label: 'Bulk actions',
+      },
+    }),
     name: { 
       key: 'name',
       label: 'Full Name'
@@ -1080,6 +1218,30 @@ const onCellClick = (event, cell) => {
 }
 
 const toggleModel = ref<boolean[]>([false, false, false])
+
+const selectedData = ref<TableViewData>([])
+const onBulkActionsSelect = (data: TableViewData) => {
+  selectedData.value = data
+}
+
+const getBulkActions = (data: Record<string, any>): RowBulkAction => {
+  if (data.id === 2) {
+    return false
+  }
+
+  if (data.id === 3) {
+    return { disabled: true }
+  }
+
+  if (data.id === 4) {
+    return {
+      disabled: true,
+      disabledTooltip: 'This row is disabled.',
+    }
+  }
+
+  return true
+}
 </script>
 
 <style lang="scss" scoped>
