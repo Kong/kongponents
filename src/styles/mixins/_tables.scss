@@ -239,14 +239,6 @@
               }
             }
 
-            .row-bulk-actions {
-              display: flex;
-
-              .bulk-actions-tooltip-trigger {
-                cursor: help;
-              }
-            }
-
             &.row-link {
               padding: var(--kui-space-0, $kui-space-0);
 

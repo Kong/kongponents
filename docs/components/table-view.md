@@ -400,12 +400,12 @@ import type { RowBulkAction } from '@kong/kongponents'
 
 ...
 
-const getRowBulkActionEnabled = (data: Record<string, any>): RowBulkAction => {
-  if (data.id === 2) {
+const getRowBulkActionEnabled = (row: Record<string, any>): RowBulkAction => {
+  if (row.id === 2) {
     return false
   }
 
-  if (data.id === 3) {
+  if (row.id === 3) {
     return { enabled: false }
   }
 

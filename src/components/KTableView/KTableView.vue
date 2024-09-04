@@ -183,6 +183,7 @@
                   <KTooltip
                     v-if="column.tooltip || $slots[getColumnTooltipSlotName(column.key)]"
                     :data-testid="getColumnTooltipSlotName(column.key)"
+                    max-width="300"
                     :tooltip-id="`${getColumnTooltipSlotName(column.key)}-${tableId}`"
                   >
                     <InfoIcon
@@ -287,9 +288,11 @@
                     </template>
                   </KDropdown>
 
-                  <div
+                  <KTooltip
                     v-else-if="header.key === TableViewHeaderKeys.BULK_ACTIONS"
-                    class="row-bulk-actions"
+                    max-width="200"
+                    placement="bottom-start"
+                    :text="getRowBulkActionTooltip(row)"
                   >
                     <KCheckbox
                       v-model="row.selected"
@@ -298,19 +301,7 @@
                       data-testid="bulk-actions-checkbox"
                       :disabled="!getRowBulkActionEnabled(row)"
                     />
-
-                    <KTooltip
-                      v-if="!getRowBulkActionEnabled(row) && getRowBulkActionTooltip(row)"
-                      :text="getRowBulkActionTooltip(row)"
-                    >
-                      <InfoIcon
-                        class="bulk-actions-tooltip-trigger"
-                        :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
-                        :size="KUI_ICON_SIZE_30"
-                        tabindex="0"
-                      />
-                    </KTooltip>
-                  </div>
+                  </KTooltip>
                 </component>
               </td>
             </tr>
