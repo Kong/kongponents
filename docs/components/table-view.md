@@ -363,7 +363,7 @@ type RowBulkAction = boolean | { disabled: boolean, disabledTooltip?: string }
 When function returns a boolean `true`, a row will be enabled. Otherwise, when `false` is returned, it will be disabled. Alternatively, it can return an object (helpful when you need to display a tooltip explaining why the row is unavailable for bulk actions selection).
 
 <KTableView
-  :row-bulk-action="getBulkActions"
+  :row-bulk-action="getRowBulkAction"
   :data="paginatedData"
   :headers="basicHeaders(false, null, null, true)"
   :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
@@ -381,6 +381,7 @@ When function returns a boolean `true`, a row will be enabled. Otherwise, when `
 ```vue
 <template>
   <KTableView
+    :row-bulk-action="getRowBulkAction"
     :data="paginatedData"
     :headers="headers"
     :pagination-attributes="{ totalCount: tableData.length, pageSizes: [5, 10] }"
@@ -398,7 +399,7 @@ import type { RowBulkAction } from '@kong/kongponents'
 
 ...
 
-const getBulkActions = (data: Record<string, any>): RowBulkAction => {
+const getRowBulkAction = (data: Record<string, any>): RowBulkAction => {
   if (data.id === 2) {
     return false
   }
@@ -840,6 +841,7 @@ Slot for passing bulk actions dropdown items. See also: [`bulk-actions-select` e
     :data="paginatedData"
     :headers="headers"
     :pagination-attributes="{ totalCount: tableData.length, pageSizes: [5, 10] }"
+    @bulk-actions-select="onBulkActionsSelect"
   >
     <template #bulk-action-items>
       <KDropdownItem danger>
@@ -1224,7 +1226,7 @@ const onBulkActionsSelect = (data: TableViewData) => {
   selectedData.value = data
 }
 
-const getBulkActions = (data: Record<string, any>): RowBulkAction => {
+const getRowBulkAction = (data: Record<string, any>): RowBulkAction => {
   if (data.id === 2) {
     return false
   }

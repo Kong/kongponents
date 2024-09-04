@@ -233,7 +233,7 @@
             :headers="headers(true, false, true)"
             :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
             resize-columns
-            :row-bulk-action="getBulkActions"
+            :row-bulk-action="getRowBulkAction"
             @bulk-actions-select="onBulkActionsSelect"
             @page-change="onPageChange"
             @page-size-change="onPageSizeChange"
@@ -415,7 +415,7 @@ const onBulkActionsSelect = (data: TableViewData) => {
   selectedData.value = data
 }
 
-const getBulkActions = (data: Record<string, any>): RowBulkAction => {
+const getRowBulkAction = (data: Record<string, any>): RowBulkAction => {
   if (data.id === 2) {
     return false
   }
