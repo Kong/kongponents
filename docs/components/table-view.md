@@ -55,7 +55,7 @@ For an example of `headers` prop usage please refer to [`data` prop documentatio
 - `actions` - the column displays an actions [KDropdown](/components/dropdown) button for each row and displays no label (as if `hideLabel` was `true`; you can set `hideLabel` parameter to `false` to show the label). KTableView will automatically render the actions dropdown and you simply need to provide dropdown items via the [`action-items` slot](#action-items).
 
 :::tip NOTE
-KTableView automatically displays `bulkActions` as the first and `actions` as the last column in the table.
+KTableView automatically displays the bulk action checkbox as the first column, and `actions` menu as the last column, when enabled.
 ::: 
 
 ### data
@@ -360,7 +360,11 @@ Function for controlling row selection (enabled vs. disabled). Helpful for makin
 type RowBulkAction = boolean | { disabled: boolean, disabledTooltip?: string }
 ```
 
-When function returns a boolean `true`, a row will be enabled. Otherwise, when `false` is returned, it will be disabled. Alternatively, it can return an object (helpful when you need to display a tooltip explaining why the row is unavailable for bulk actions selection).
+When the function returns a boolean value of `true`, bulk action selection will be enabled for the row. 
+
+When `false` is returned, the bulk action checkbox will be disabled. 
+
+If an object is returned, the `enabled` property determines if the row can be selected. The `disabledTooltip` property will show the string as a tooltip message when the disabled checkbox is hovered.
 
 <KTableView
   :row-bulk-action="getRowBulkAction"
@@ -396,19 +400,19 @@ import type { RowBulkAction } from '@kong/kongponents'
 
 ...
 
-const getRowBulkAction = (data: Record<string, any>): RowBulkAction => {
-  if (data.id === 2) {
+const getRowBulkAction = (row: Record<string, any>): RowBulkAction => {
+  if (row.id === 2) {
     return false
   }
 
-  if (data.id === 3) {
+  if (row.id === 3) {
     return { disabled: true }
   }
 
-  if (data.id === 4) {
+  if (row.id === 4) {
     return {
       disabled: true,
-      disabledTooltip: 'This row is disabled.',
+      disabledTooltip: 'This row cannot be selected.',
     }
   }
 

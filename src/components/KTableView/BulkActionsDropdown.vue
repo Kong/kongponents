@@ -7,7 +7,7 @@
   >
     <KTooltip
       placement="bottom-end"
-      :text="`Bulk Actions${disabled ? ' (at least one row must be selected)' : ''}`"
+      text="Selected Row Actions"
     >
       <KButton
         appearance="secondary"
