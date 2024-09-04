@@ -333,7 +333,7 @@ describe('KTableView', () => {
         props: {
           headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
           data: options.data,
-          rowBulkAction: (row: Record<string, any>): RowBulkAction => {
+          rowBulkActionEnabled: (row: Record<string, any>): RowBulkAction => {
             if (row.bulkActionsDisabled) {
               return false
             }
