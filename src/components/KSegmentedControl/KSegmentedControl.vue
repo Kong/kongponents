@@ -121,9 +121,9 @@ $kSegmentedControlSmallHeight: 32px;
   .segmented-control-button {
     align-items: center;
     background-color: var(--kui-color-background, $kui-color-background);
-    border-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
+    border-color: var(--kui-color-border-primary, $kui-color-border-primary);
     border-style: solid;
-    border-width: var(--kui-border-width-10, $kui-border-width-10);
+    border-width: var(--kui-border-width-20, $kui-border-width-20);
     color: var(--kui-color-text-primary, $kui-color-text-primary);
     cursor: pointer;
     display: flex;
@@ -145,7 +145,7 @@ $kSegmentedControlSmallHeight: 32px;
     &:not(:first-child) {
       // offset the border of the previous button
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      margin-left: calc(var(--kui-border-width-10, $kui-border-width-10) * -1);
+      margin-left: calc(var(--kui-border-width-20, $kui-border-width-20) * -1);
     }
 
     &:first-child {
@@ -165,25 +165,25 @@ $kSegmentedControlSmallHeight: 32px;
     }
 
     &:hover:not([disabled]) {
-      border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+      border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
       color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
       z-index: 2;
     }
 
     &:focus:not([disabled]) {
-      border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
+      border-color: var(--kui-color-border-primary-stronger, $kui-color-border-primary-stronger);
       color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
       z-index: 3;
     }
 
     &:active:not([disabled]) {
-      border-color: var(--kui-color-border-primary-stronger, $kui-color-border-primary-stronger);
+      border-color: var(--kui-color-border-primary-strongest, $kui-color-border-primary-strongest);
       color: var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest);
       z-index: 3;
     }
 
     &:focus-visible:not([disabled]) {
-      border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+      border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
       box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
       color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
       z-index: 3;
@@ -202,8 +202,8 @@ $kSegmentedControlSmallHeight: 32px;
 
     &.selected {
       background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-      border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
-      color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+      border-color: var(--kui-color-border-primary-stronger, $kui-color-border-primary-stronger);
+      color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
       z-index: 2;
     }
 
