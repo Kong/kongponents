@@ -1,3 +1,10 @@
+## [9.5.2](https://github.com/Kong/kongponents/compare/v9.5.1...v9.5.2) (2024-09-04)
+
+
+### Bug Fixes
+
+* **ksegmentedcontrol:** bump border width and colors [KHCP-13152] ([#2372](https://github.com/Kong/kongponents/issues/2372)) ([d7de55a](https://github.com/Kong/kongponents/commit/d7de55a7403f60fef8290f83574f59cf4b1c4b52))
+
 ## [9.5.1](https://github.com/Kong/kongponents/compare/v9.5.0...v9.5.1) (2024-08-28)
 
 
