@@ -400,15 +400,6 @@ import type { RowBulkAction } from '@kong/kongponents'
 
 ...
 
-<<<<<<< Updated upstream
-const getRowBulkAction = (row: Record<string, any>): RowBulkAction => {
-  if (row.id === 2) {
-    return false
-  }
-
-  if (row.id === 3) {
-    return { disabled: true }
-=======
 const getRowBulkActionEnabled = (data: Record<string, any>): RowBulkAction => {
   if (data.id === 2) {
     return false
@@ -416,18 +407,12 @@ const getRowBulkActionEnabled = (data: Record<string, any>): RowBulkAction => {
 
   if (data.id === 3) {
     return { enabled: false }
->>>>>>> Stashed changes
   }
 
   if (row.id === 4) {
     return {
-<<<<<<< Updated upstream
-      disabled: true,
-      disabledTooltip: 'This row cannot be selected.',
-=======
       enabled: false,
       disabledTooltip: 'This row is disabled.',
->>>>>>> Stashed changes
     }
   }
 
@@ -834,7 +819,7 @@ This slot is only available when the `actions` header key is present in [`header
 
 ### bulk-action-items
 
-Slot for passing bulk actions dropdown items.
+Slot for passing bulk action dropdown items.
 
 Slot props:
 - `selectedRows` - array of selected table row objects
