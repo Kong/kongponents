@@ -110,6 +110,22 @@
           </template>
         </KSegmentedControl>
       </SandboxSectionComponent>
+
+      <!-- Usage -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Usage"
+      />
+      <SandboxSectionComponent title="KSegmentedControl and KInput">
+        <div class="input-container">
+          <KInput placeholder="Type something..." />
+          <KSegmentedControl
+            v-model="vModel"
+            :options="items"
+            size="large"
+          />
+        </div>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
@@ -128,3 +144,12 @@ const items = [
   { label: 'Item 3', value: 'item3', disabled: true },
 ]
 </script>
+
+<style lang="scss" scoped>
+.ksegmentedcontrol-sandbox {
+  .input-container {
+    display: flex;
+    gap: $kui-space-40;
+  }
+}
+</style>
