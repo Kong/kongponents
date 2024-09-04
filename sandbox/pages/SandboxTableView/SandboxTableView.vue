@@ -226,7 +226,13 @@
           </template>
         </KTableView>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="bulk-actions">
+
+      <!-- Usage -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Usage"
+      />
+      <SandboxSectionComponent title="Bulk actions">
         <div class="resizable-table">
           <KTableView
             :data="paginatedData"

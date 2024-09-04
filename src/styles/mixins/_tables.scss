@@ -43,7 +43,8 @@
         &.sticky-column {
           background-color: var(--kui-color-background, $kui-color-background);
           left: 0;
-          position: sticky;
+          position: sticky !important;
+          z-index: 1;
         }
       }
 
