@@ -2,7 +2,10 @@
   <KSelectItem
     v-for="item in nonGroupedItems"
     :key="item.key"
+    ref="kSelectItem"
     :item="item"
+    @arrow-down="() => shiftFocus(item.key, 'down')"
+    @arrow-up="() => shiftFocus(item.key, 'up')"
     @selected="handleItemSelect"
   >
     <template #content>
@@ -26,7 +29,10 @@
     <KSelectItem
       v-for="item in getGroupItems(group)"
       :key="item.key"
+      ref="kSelectItem"
       :item="item"
+      @arrow-down="() => shiftFocus(item.key, 'down')"
+      @arrow-up="() => shiftFocus(item.key, 'up')"
       @selected="handleItemSelect"
     >
       <template #content>
@@ -40,8 +46,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from 'vue'
 import type { PropType } from 'vue'
-import { computed } from 'vue'
 import type { SelectItem, SelectItemWithGroup } from '@/types'
 import KSelectItem from '@/components/KSelect/KSelectItem.vue'
 
@@ -67,6 +73,46 @@ const groups = computed((): string[] =>
     .map(item => item.group))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())))
 
 const getGroupItems = (group: string) => props.items?.filter(item => item.group === group)
+
+const kSelectItem = ref<InstanceType<typeof KSelectItem>[] | null>(null)
+
+const setFocus = (index: number = 0) => {
+  if (kSelectItem.value) {
+    if (!props.items[index].disabled) {
+      kSelectItem.value[index]?.$el?.querySelector('button').focus()
+    } else {
+      setFocus(index + 1)
+    }
+  }
+}
+
+const shiftFocus = (key: SelectItem['key'], direction: 'down' | 'up') => {
+  const index = props.items.findIndex(item => item.key === key)
+
+  if (index === -1) {
+    return // Exit if the item is not found
+  }
+
+  // determine step for navigation
+  const step = direction === 'down' ? 1 : -1
+  const isValidIndex = direction === 'down'
+    ? index + step < props.items.length
+    : index + step >= 0
+
+  if (isValidIndex) {
+    const nextIndex = index + step
+
+    if (props.items[nextIndex].disabled) {
+      // find the next valid index if the current one is disabled
+      shiftFocus(props.items[nextIndex].key!, direction)
+    } else {
+      // focus the button
+      kSelectItem.value?.[nextIndex]?.$el?.querySelector('button')?.focus()
+    }
+  }
+}
+
+defineExpose({ setFocus })
 </script>
 
 <style lang="scss" scoped>

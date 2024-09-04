@@ -13,6 +13,8 @@
         type="button"
         :value="item.value"
         @click="handleClick"
+        @keydown.down.prevent="$emit('arrow-down')"
+        @keydown.up.prevent="$emit('arrow-up')"
       >
         <span class="select-item-label">
           <slot name="content">{{ item.label }}</slot>
@@ -37,6 +39,8 @@ const props = defineProps({
 
 const emit = defineEmits<{
   (e: 'selected', value: SelectItem): void;
+  (e: 'arrow-down'): void;
+  (e: 'arrow-up'): void;
 }>()
 
 const handleClick = (e: MouseEvent): void => {

@@ -124,6 +124,7 @@
               data-propagate-clicks="false"
             >
               <KSelectItems
+                ref="kSelectItems"
                 :items="filteredItems"
                 @selected="handleItemSelect"
               >
@@ -212,6 +213,7 @@ import { ChevronDownIcon, CloseIcon, ProgressIcon } from '@kong/icons'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
 import useUniqueId from '@/composables/useUniqueId'
+import { useEventListener } from '@vueuse/core'
 
 defineOptions({
   inheritAttrs: false,
@@ -346,6 +348,8 @@ const emit = defineEmits<{
 
 const attrs = useAttrs()
 const slots = useSlots()
+
+const isDropdownOpen = ref<boolean>(false)
 
 const resizeObserver = ref<ResizeObserverHelper>()
 
@@ -524,7 +528,9 @@ const clearSelection = (): void => {
   emit('update:modelValue', null)
 }
 
-const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
+const kSelectItems = ref<InstanceType<typeof KSelectItems> | null>(null)
+
+const triggerFocus = (evt: any, isToggled: Ref<boolean>): void => {
   // Ignore `esc` key
   if (evt.keyCode === 27) {
     isToggled.value = false
@@ -534,6 +540,10 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
   const inputElem = selectWrapperElement.value?.children[0] as HTMLInputElement
   if (!isToggled.value && inputElem) { // simulate click to trigger dropdown open
     inputElem.click()
+  }
+
+  if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp') && isToggled.value) {
+    kSelectItems.value?.setFocus()
   }
 }
 
@@ -579,18 +589,24 @@ const onPopoverClick = (toggle: () => void) => {
 }
 
 const onClose = (toggle: () => void, isToggled: boolean) => {
+  isDropdownOpen.value = false
+
   if (selectedItem.value) {
     filterQuery.value = selectedItem.value.label
   }
+
   if (isToggled) {
     toggle()
   }
 }
 
 const onOpen = (toggle: () => void) => {
+  isDropdownOpen.value = true
+
   if (props.enableFiltering) {
     filterQuery.value = ''
   }
+
   toggle()
 }
 
@@ -704,6 +720,16 @@ onMounted(() => {
   }
 
   setLabelAttributes()
+
+  useEventListener(document, 'keydown', (event: any) => {
+    // When enableFiltering is false, the KInput doesn't have focus so we need to handle arrow key events here
+    if (!props.enableFiltering && document.activeElement?.tagName === 'BODY' && !inputFocused.value && isDropdownOpen.value) {
+      if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
+        event.preventDefault()
+        kSelectItems.value?.setFocus()
+      }
+    }
+  })
 })
 
 onUnmounted(() => {
