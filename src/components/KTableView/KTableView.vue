@@ -292,7 +292,7 @@
                     v-else-if="header.key === TableViewHeaderKeys.BULK_ACTIONS"
                     max-width="200"
                     placement="bottom-start"
-                    :text="getRowBulkActionTooltip(row)"
+                    :text="getRowBulkActionEnabled(row) ? undefined : getRowBulkActionTooltip(row)"
                   >
                     <KCheckbox
                       v-model="row.selected"
