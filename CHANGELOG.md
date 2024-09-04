@@ -1,3 +1,10 @@
+## [9.5.3](https://github.com/Kong/kongponents/compare/v9.5.2...v9.5.3) (2024-09-04)
+
+
+### Bug Fixes
+
+* **kselect:** arrow down navigation [KHCP-12967] ([#2358](https://github.com/Kong/kongponents/issues/2358)) ([62fbe64](https://github.com/Kong/kongponents/commit/62fbe64ce8fc882fcfbf2f7cae53ef0318a34f18))
+
 ## [9.5.2](https://github.com/Kong/kongponents/compare/v9.5.1...v9.5.2) (2024-09-04)
 
 
