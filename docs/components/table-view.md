@@ -51,7 +51,7 @@ For an example of `headers` prop usage please refer to [`data` prop documentatio
 
 #### Reserved Header Keys
 
-- `bulkActions` - the column displays checkboxes for each row. Column header displays a checkbox clicking on which will check or uncheck all table rows and selected rows count. Apart from that, KTableView will render a dropdown on the right of the table toolbar directly above the table and you simply need to provide dropdown items via the [`bulk-action-items` slot](#bulk-action-items). Refer to the [`bulk-action-items` slot](#bulk-action-items) for the example.
+- `bulkActions` - the column displays checkboxes for each row. Column header displays a checkbox clicking on which will check or uncheck all table rows. Apart from that, KTableView will render a dropdown on the right of the table toolbar directly above the table and you simply need to provide dropdown items via the [`bulk-action-items` slot](#bulk-action-items). Refer to the [`bulk-action-items` slot](#bulk-action-items) for the example.
 - `actions` - the column displays an actions [KDropdown](/components/dropdown) button for each row and displays no label (as if `hideLabel` was `true`; you can set `hideLabel` parameter to `false` to show the label). KTableView will automatically render the actions dropdown and you simply need to provide dropdown items via the [`action-items` slot](#action-items).
 
 :::tip NOTE
@@ -354,7 +354,7 @@ const getRowLink = (row: Record<string, any>): RowLink => ({
 
 ### rowBulkActionEnabled
 
-Function for controlling row selection (enabled vs. disabled). Helpful for making some rows unavailable for bulk actions selection. The function receives row value object as an argument and should return a boolean or an object with two parameters:
+Function for controlling row selection (enabled vs. disabled). Helpful for making some rows unavailable for bulk actions selection. The function receives the row data object as a parameter and must return a `boolean`, or an object that matches the following interface:
 
 ```ts
 type RowBulkAction = boolean | { enabled: boolean, disabledTooltip?: string }

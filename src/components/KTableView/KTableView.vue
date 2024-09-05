@@ -16,6 +16,7 @@
           <BulkActionsDropdown
             v-if="!$slots['bulk-actions']"
             :button-label="tableHeaders.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)!.label"
+            :count="bulkActionsSelectedRowsCount"
             :disabled="!bulkActionsSelectedRowsCount"
           >
             <template #items>
@@ -164,20 +165,12 @@
                   >
                     <KCheckbox
                       v-model="bulkActionsAll"
-                      :aria-label="column.label"
+                      aria-label="Toggle selection for all rows"
                       class="table-header-bulk-actions-checkbox"
                       data-testid="table-header-bulk-actions-checkbox"
                       :indeterminate="isBulkActionsIndeterminate"
                       @change="handleIndeterminateChange"
                     />
-                    <Transition name="kongponents-fade-transition">
-                      <span
-                        v-if="bulkActionsSelectedRowsCount"
-                        class="table-header-bulk-actions-count"
-                      >
-                        ({{ bulkActionsSelectedRowsCount }})
-                      </span>
-                    </Transition>
                   </div>
 
                   <KTooltip
@@ -296,7 +289,7 @@
                   >
                     <KCheckbox
                       v-model="row.selected"
-                      :aria-label="header.label"
+                      aria-label="Toggle row selection"
                       class="bulk-actions-checkbox"
                       data-testid="bulk-actions-checkbox"
                       :disabled="!getRowBulkActionEnabled(row)"
@@ -707,9 +700,9 @@ const tdlisteners = computed((): any => {
 /**
  * Default column widths for better UX
  * actions column is always 54px (padding-left + button width + padding-right adds up to 54px)
- * bulkActions column is always 84px (padding-left + checkbox width + count + padding-right adds up to 84px)
+ * bulkActions column is always 56px (padding-left + checkbox width + padding-right adds up to 56px)
  */
-const defaultColumnWidths = { actions: 54, bulkActions: 84 }
+const defaultColumnWidths = { actions: 54, bulkActions: 56 }
 const columnWidths = ref<Record<string, number>>(props.resizeColumns ? props.tablePreferences.columnWidths || defaultColumnWidths : defaultColumnWidths)
 const columnStyles = computed(() => {
   const styles: Record<string, any> = {}

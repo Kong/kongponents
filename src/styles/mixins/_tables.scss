@@ -173,13 +173,7 @@
               }
 
               .table-header-bulk-actions-container {
-                align-items: flex-end;
                 display: flex;
-
-                .table-header-bulk-actions-count {
-                  font-size: var(--kui-font-size-20, $kui-font-size-20);
-                  line-height: var(--kui-line-height-20, $kui-line-height-20);
-                }
               }
             }
 

@@ -22,6 +22,14 @@
           class="more-icon"
           decorative
         />
+        <Transition name="kongponents-fade-transition">
+          <span
+            v-if="count"
+            class="bulk-actions-dropdown-trigger-count"
+          >
+            ({{ count }})
+          </span>
+        </Transition>
       </KButton>
     </KTooltip>
 
@@ -42,9 +50,28 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  count: {
+    type: String,
+    default: '',
+  },
   buttonLabel: {
     type: String,
     default: '',
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.bulk-actions-dropdown {
+  .bulk-actions-dropdown-trigger {
+    align-items: flex-end;
+    gap: var(--kui-space-0, $kui-space-0);
+
+    .bulk-actions-dropdown-trigger-count {
+      font-size: var(--kui-font-size-30, $kui-font-size-30);
+      line-height: var(--kui-line-height-30, $kui-line-height-30);
+      margin-right: var(--kui-space-20, $kui-space-20);
+    }
+  }
+}
+</style>
