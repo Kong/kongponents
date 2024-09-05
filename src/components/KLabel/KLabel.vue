@@ -115,7 +115,7 @@ $kLabelRequiredDotSize: 6px;
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
 
       code {
-        background-color: var(--kui-color-background-neutral, $kui-color-background-neutral);
+        background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
         color: var(--kui-color-text-inverse, $kui-color-text-inverse);
       }
     }
