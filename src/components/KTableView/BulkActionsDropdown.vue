@@ -27,7 +27,7 @@
             v-if="count"
             class="bulk-actions-dropdown-trigger-count"
           >
-            ({{ count }})
+            {{ count }}
           </span>
         </Transition>
       </KButton>
