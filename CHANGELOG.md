@@ -1,3 +1,10 @@
+## [9.5.5](https://github.com/Kong/kongponents/compare/v9.5.4...v9.5.5) (2024-09-06)
+
+
+### Bug Fixes
+
+* **ktable, ktableview:** `resizeColumns` should ignore right clicks ([#2375](https://github.com/Kong/kongponents/issues/2375)) ([4a0e2f6](https://github.com/Kong/kongponents/commit/4a0e2f67aa04e10e7d94d25320fb778f5ddcfe2f))
+
 ## [9.5.4](https://github.com/Kong/kongponents/compare/v9.5.3...v9.5.4) (2024-09-05)
 
 
