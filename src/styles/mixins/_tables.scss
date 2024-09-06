@@ -169,12 +169,9 @@
 
       tbody {
         tr {
+          border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
+            var(--kui-color-border, $kui-color-border);
           height: 48px;
-
-          &:not(:last-child) {
-            border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
-              var(--kui-color-border, $kui-color-border);
-          }
 
           td {
             color: var(--kui-color-text, $kui-color-text);
@@ -200,12 +197,29 @@
               display: contents;
             }
           }
+
+          &.collapsible-row {
+            background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+            height: auto;
+
+            td {
+              padding: var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0)
+                var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+              white-space: normal;
+
+              .collapsible-content-wrapper {
+                max-height: 250px;
+                overflow-y: auto;
+                padding-right: var(--kui-space-50, $kui-space-50);
+              }
+            }
+          }
         }
       }
 
       // Variants
       &.has-hover {
-        tbody tr:hover {
+        tbody tr:not(.collapsible-row):hover {
           background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
         }
       }

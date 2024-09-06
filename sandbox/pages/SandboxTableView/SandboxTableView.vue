@@ -37,6 +37,7 @@
             empty-state-title="Empty state title"
             :headers="headers(false, true)"
             max-height="300"
+            :pagination-attributes="{ totalCount: sortedData.length }"
             :row-hover="data.tableRowHover"
             @sort="sortData"
           >
@@ -80,6 +81,7 @@
             :headers="headers(true)"
             :hide-pagination="data.hidePagination"
             :loading="data.tableLoadingState"
+            :pagination-attributes="{ totalCount: sortedData.length }"
             resize-columns
             @row:click="(_event: any, row: any) => onRowClick(row)"
           >
@@ -93,6 +95,7 @@
         <KTableView
           :data="sortedData"
           :headers="headers()"
+          :pagination-attributes="{ totalCount: sortedData.length }"
           :row-link="getRowLinksRouter"
         >
           <template #action-items>
@@ -115,6 +118,7 @@
         <KTableView
           :data="sortedData"
           :headers="headers()"
+          :pagination-attributes="{ totalCount: sortedData.length }"
           :row-link="getRowLinksAnchor"
         >
           <template #action-items>
@@ -145,6 +149,7 @@
         <KTableView
           :data="tableData"
           :headers="headers()"
+          :pagination-attributes="{ totalCount: sortedData.length }"
         >
           <template #column-username>
             Username
@@ -166,25 +171,13 @@
         <KTableView
           :data="tableData"
           :headers="headers()"
+          :pagination-attributes="{ totalCount: sortedData.length }"
         >
           <template #toolbar>
             <KInput />
             <KButton size="large">
               <AddIcon /> Add user
             </KButton>
-          </template>
-          <template #action-items>
-            <SandboxTableViewActions />
-          </template>
-        </KTableView>
-      </SandboxSectionComponent>
-      <SandboxSectionComponent title="after">
-        <KTableView
-          :data="tableData"
-          :headers="headers()"
-        >
-          <template #after>
-            <KPagination :total-count="10" />
           </template>
           <template #action-items>
             <SandboxTableViewActions />
@@ -229,6 +222,17 @@
         >
           <template #empty-state-action-icon>
             <AddIcon />
+          </template>
+        </KTableView>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="row-expand">
+        <KTableView
+          :data="tableData"
+          :headers="headers()"
+          :pagination-attributes="{ totalCount: sortedData.length }"
+        >
+          <template #action-items>
+            <SandboxTableViewActions />
           </template>
         </KTableView>
       </SandboxSectionComponent>

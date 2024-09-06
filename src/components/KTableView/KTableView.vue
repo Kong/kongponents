@@ -178,71 +178,90 @@
           </thead>
 
           <tbody>
-            <tr
+            <template
               v-for="(row, rowIndex) in data"
-              v-bind="rowAttrs(row)"
               :key="`table-${tableId}-row-${rowIndex}`"
-              :role="!!rowLink(row).to ? 'link' : undefined"
-              :tabindex="isClickable || !!rowLink(row).to ? 0 : undefined"
             >
-              <td
-                v-for="(header, index) in visibleHeaders"
-                v-bind="cellAttrs({ headerKey: header.key, row, rowIndex, colIndex: index })"
-                :key="`table-${tableId}-cell-${index}`"
-                :class="{
-                  'resize-hover': resizeColumns && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
-                  'row-link': !!rowLink(row).to,
-                }"
-                :style="columnStyles[header.key]"
-                v-on="tdlisteners(row[header.key], row)"
+              <tr
+                :role="!!rowLink(row).to ? 'link' : undefined"
+                :tabindex="isClickable || !!rowLink(row).to ? 0 : undefined"
+                v-bind="rowAttrs(row)"
               >
-                <component
-                  :is="getRowLinkComponent(row, header.key)"
-                  class="cell-wrapper"
-                  v-bind="getRowLinkAttrs(row, header.key)"
+                <td
+                  v-for="(header, index) in visibleHeaders"
+                  :key="`table-${tableId}-cell-${index}`"
+                  :class="{
+                    'resize-hover': resizeColumns && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
+                    'row-link': !!rowLink(row).to,
+                  }"
+                  :style="columnStyles[header.key]"
+                  v-bind="cellAttrs({ headerKey: header.key, row, rowIndex, colIndex: index })"
+                  v-on="tdlisteners(row[header.key], row)"
                 >
-                  <slot
-                    v-if="header.key !== TableViewHeaderKeys.ACTIONS"
-                    :name="header.key"
-                    :row="getGeneric(row)"
-                    :row-key="rowIndex"
-                    :row-value="row[header.key]"
+                  <component
+                    :is="getRowLinkComponent(row, header.key)"
+                    class="cell-wrapper"
+                    v-bind="getRowLinkAttrs(row, header.key)"
                   >
-                    {{ row[header.key] }}
-                  </slot>
-
-                  <KDropdown
-                    v-else
-                    class="actions-dropdown"
-                    data-testid="actions-dropdown"
-                    :kpop-attributes="{ placement: 'bottom-end' }"
-                  >
-                    <KButton
-                      appearance="tertiary"
-                      :aria-label="header.label"
-                      class="actions-dropdown-trigger"
-                      icon
-                      size="small"
-                      @mouseleave="isActionsDropdownHovered = false"
-                      @mouseover="isActionsDropdownHovered = true"
+                    <slot
+                      v-if="header.key !== TableViewHeaderKeys.ACTIONS"
+                      :name="header.key"
+                      :row="getGeneric(row)"
+                      :row-key="rowIndex"
+                      :row-value="row[header.key]"
                     >
-                      <MoreIcon
-                        class="more-icon"
-                        decorative
-                      />
-                    </KButton>
+                      {{ row[header.key] }}
+                    </slot>
 
-                    <template #items>
-                      <slot
-                        name="action-items"
-                        :row="getGeneric(row)"
-                        :row-value="row[header.key]"
-                      />
-                    </template>
-                  </KDropdown>
-                </component>
-              </td>
-            </tr>
+                    <KDropdown
+                      v-else
+                      class="actions-dropdown"
+                      data-testid="actions-dropdown"
+                      :kpop-attributes="{ placement: 'bottom-end' }"
+                    >
+                      <KButton
+                        appearance="tertiary"
+                        :aria-label="header.label"
+                        class="actions-dropdown-trigger"
+                        icon
+                        size="small"
+                        @mouseleave="isActionsDropdownHovered = false"
+                        @mouseover="isActionsDropdownHovered = true"
+                      >
+                        <MoreIcon
+                          class="more-icon"
+                          decorative
+                        />
+                      </KButton>
+
+                      <template #items>
+                        <slot
+                          name="action-items"
+                          :row="getGeneric(row)"
+                          :row-value="row[header.key]"
+                        />
+                      </template>
+                    </KDropdown>
+                  </component>
+                </td>
+              </tr>
+              <tr
+                v-show="true"
+                class="collapsible-row"
+              >
+                <td :colspan="visibleHeaders.length">
+                  <div class="collapsible-content-wrapper">
+                    Lorem ipsum odor amet, consectetuer adipiscing elit. Vitae rutrum interdum dis elementum; consequat maximus potenti felis. Faucibus eget vel, efficitur vitae ullamcorper velit. Aliquam aliquam fusce sollicitudin dolor lorem aenean. Rutrum ligula diam mollis felis egestas arcu. Odio urna leo pharetra luctus urna adipiscing suscipit nisl. Eleifend natoque lacus scelerisque suspendisse libero pulvinar ut lectus. Ac parturient fringilla lacinia fusce natoque semper.
+                    Turpis pellentesque eu ad risus proin hendrerit litora. Sollicitudin facilisi per diam netus; at commodo ornare. Justo efficitur hendrerit augue blandit himenaeos suspendisse; mattis habitasse. Aliquet iaculis nibh ante et rutrum sollicitudin tincidunt enim. Suspendisse orci ac proin metus consectetur vel primis. Dictumst imperdiet nulla habitant donec gravida vel nulla in. Eleifend augue ligula convallis eros odio. Erat integer nibh mattis varius senectus.
+                    Sodales nisl sem aliquet neque scelerisque. Dapibus mauris leo commodo; nulla adipiscing purus ultricies porttitor laoreet. Dignissim sociosqu cras sollicitudin iaculis magna ex. Elit lacus tincidunt dapibus adipiscing tortor eros dui felis. Orci hendrerit senectus himenaeos ligula cursus in. Turpis dignissim duis nunc neque ornare congue primis aenean natoque. Himenaeos mollis dui dolor laoreet mauris aliquam hendrerit scelerisque.
+                    Sagittis lectus fringilla iaculis semper egestas mattis venenatis. Mollis parturient primis; pharetra leo neque faucibus nibh. Porttitor scelerisque magnis pellentesque nec vel etiam fames quisque. Senectus dictumst nisl enim sagittis primis magnis habitasse finibus torquent. Efficitur turpis hendrerit posuere dictum fusce nostra taciti donec. Parturient ut blandit ligula euismod taciti velit. Mollis urna nunc tellus; cras consequat volutpat turpis. Maximus egestas platea mauris mollis mollis conubia. Euismod scelerisque quam mauris parturient eleifend nostra. Mollis tempor hendrerit hendrerit praesent aliquet himenaeos dignissim.
+                    Dignissim penatibus velit sapien vehicula sodales suspendisse iaculis massa. Cubilia aenean morbi scelerisque eu imperdiet odio primis. Mollis netus natoque, euismod felis tempor nibh. In nostra nulla eros ac orci suspendisse luctus porta. Parturient cras turpis faucibus ut sed nunc lacus. At et fermentum sapien tristique ac primis. Interdum vivamus orci velit sed arcu in. Eros aptent primis suscipit parturient curae enim.
+                    Rutrum aliquam phasellus duis pellentesque torquent fermentum. Feugiat odio consequat cursus blandit tristique erat amet. Ornare scelerisque id erat lectus at erat. Dui nostra interdum tortor, turpis arcu dis. Netus fermentum lobortis primis fermentum velit ultrices nam condimentum? Dictum montes maximus senectus; quis varius scelerisque non ridiculus. Curae malesuada porttitor finibus venenatis mi faucibus. Velit blandit dis mauris laoreet ornare molestie.
+                    Ante torquent faucibus nascetur ultricies eros varius odio. Cubilia sodales maximus tellus leo cubilia lorem facilisis. Blandit egestas suspendisse torquent dolor; torquent commodo id nullam. Etiam facilisi faucibus litora quisque aptent vestibulum dapibus. Maecenas risus fermentum facilisis suspendisse imperdiet nascetur porta. Vehicula malesuada sollicitudin viverra in ac habitasse ligula. Adipiscing porta neque nullam pharetra est luctus pharetra. Consequat sapien parturient nisl augue ultricies placerat maximus convallis. Consectetur metus lacinia; euismod mollis class tortor.
+                  </div>
+                </td>
+              </tr>
+            </template>
           </tbody>
         </table>
       </div>
