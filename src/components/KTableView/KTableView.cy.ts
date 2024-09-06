@@ -295,7 +295,7 @@ describe('KTableView', () => {
           data: options.data,
         },
         slots: {
-          'bulk-actions': () => h('span', {}, 'Bulk action'),
+          'bulk-action-items': () => h('span', {}, 'Bulk action'),
         },
       })
 
