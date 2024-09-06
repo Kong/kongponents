@@ -169,9 +169,12 @@
 
       tbody {
         tr {
-          border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
-            var(--kui-color-border, $kui-color-border);
           height: 48px;
+
+          &:not(:last-child) {
+            border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
+              var(--kui-color-border, $kui-color-border);
+          }
 
           td {
             color: var(--kui-color-text, $kui-color-text);
@@ -196,9 +199,45 @@
             .row-cell-wrapper {
               display: contents;
             }
+
+            .expandable-row-control-container {
+              display: flex;
+
+              .expandable-row-control {
+                @include defaultButtonReset;
+
+                color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+
+                &:hover,
+                &:focus,
+                &:focus-visible {
+                  color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+                }
+
+                &:focus-visible {
+                  box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+                }
+
+                .expandable-row-control-icon {
+                  height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+                  transition: transform $kongponentsTransitionDurTimingFunc;
+                  width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+                }
+
+                &.expanded {
+                  .expandable-row-control-icon {
+                    transform: rotate(90deg);
+                  }
+                }
+              }
+            }
           }
 
-          &.collapsible-row {
+          &.last-row {
+            border-bottom: none;
+          }
+
+          &.expandable-content-row {
             background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
             height: auto;
 
@@ -207,7 +246,7 @@
                 var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
               white-space: normal;
 
-              .collapsible-content-wrapper {
+              .expandable-content-wrapper {
                 max-height: 250px;
                 overflow-y: auto;
                 padding-right: var(--kui-space-50, $kui-space-50);
@@ -219,7 +258,7 @@
 
       // Variants
       &.has-hover {
-        tbody tr:not(.collapsible-row):hover {
+        tbody tr:not(.expandable-content-row):hover {
           background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
         }
       }
