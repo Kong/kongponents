@@ -51,11 +51,11 @@ For an example of `headers` prop usage please refer to [`data` prop documentatio
 
 #### Reserved Header Keys
 
-- `bulkActions` - the column displays checkboxes for each row. Column header displays a checkbox clicking on which will check or uncheck all table rows. Apart from that, KTableView will render a dropdown on the right of the table toolbar directly above the table and you simply need to provide dropdown items via the [`bulk-action-items` slot](#bulk-action-items). Refer to the [`bulk-action-items` slot](#bulk-action-items) for the example.
+- `bulkActions` - the column displays individual checkboxes to allow selecting individual rows, while the column header displays a checkbox will check or uncheck all visible table rows. KTableView will render a dropdown on the right of the table toolbar directly above the table and you simply need to provide dropdown items via the [`bulk-action-items` slot](#bulk-action-items). Refer to the [`bulk-action-items` slot](#bulk-action-items) for the example.
 - `actions` - the column displays an actions [KDropdown](/components/dropdown) button for each row and displays no label (as if `hideLabel` was `true`; you can set `hideLabel` parameter to `false` to show the label). KTableView will automatically render the actions dropdown and you simply need to provide dropdown items via the [`action-items` slot](#action-items).
 
 :::tip NOTE
-KTableView automatically displays the bulk action checkbox as the first column, and `actions` menu as the last column, when enabled.
+KTableView automatically displays the bulk action checkbox as the first column, and the `actions` menu in the last column, when enabled.
 ::: 
 
 ### data
@@ -354,7 +354,7 @@ const getRowLink = (row: Record<string, any>): RowLink => ({
 
 ### rowBulkActionEnabled
 
-Function for controlling row selection (enabled vs. disabled). Helpful for making some rows unavailable for bulk actions selection. The function receives the row data object as a parameter and must return a `boolean`, or an object that matches the following interface:
+Function for enabling or disabling row selection when `bulkActions` are enabled for the table. Helpful for making some rows unavailable for bulk actions selection. The function receives the row data object as a parameter and must return a `boolean` or an object that matches the following interface:
 
 ```ts
 type RowBulkAction = boolean | { enabled: boolean, disabledTooltip?: string }
@@ -364,7 +364,7 @@ When the function returns a boolean value of `true`, bulk action selection will 
 
 When `false` is returned, the bulk action checkbox will be disabled. 
 
-If an object is returned, the `enabled` property determines if the row can be selected. The `disabledTooltip` property will show the string as a tooltip message when the disabled checkbox is hovered.
+If an object is returned, the `enabled` property determines if the row can be selected. The `disabledTooltip` value, if provided, will show the string as a tooltip message if the user hovers over the disabled checkbox.
 
 <KTableView
   :row-bulk-action-enabled="getRowBulkAction"
