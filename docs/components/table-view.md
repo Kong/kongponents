@@ -32,7 +32,7 @@ interface TableViewHeader {
   key: string
   /** visible column header text */
   label: string
-  /** in a nutshell, this property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it */
+  /** this property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it */
   sortable?: boolean
   /** allow toggling column visibility */
   hidable?: boolean
@@ -627,6 +627,7 @@ A `error-action-click` event is emitted when error state action button is clicke
 You can slot in your custom content into each column header. For that, use column `key` value prefixed with `column-*` like in the example below.
 
 Slot props:
+
 * `column` - column header object
 
 <KTableView
@@ -656,6 +657,7 @@ Slot props:
 You can provide each individual cell's content via slot. Each cell slot is named after the header `key` it corresponds to.
 
 Slot props:
+
 * `row` - table row object
 * `rowKey` - table row index
 * `rowValue` - the cell value
@@ -691,6 +693,7 @@ This slot is not supported for the [`actions` column](#reserved-header-keys).
 Utilize HTML in the column header's tooltip by utilizing this slot. Similar to the column header slot, it uses the column `key` value prefixed with `tooltip-*` as shown in the example below.
 
 Slot props:
+
 * `column` - column header object
 
 <KTableView
@@ -772,6 +775,7 @@ Slot content to be displayed when in error state.
 Slot for passing action dropdown items. See [KDropdownItem component docs](/components/dropdown#kdropdownitem) for details.
 
 Slot props:
+
 * `row` - table row object
 * `rowKey` - table row index
 
@@ -821,10 +825,15 @@ This slot is only available when the `actions` header key is present in [`header
 
 Slot for passing bulk action dropdown items.
 
+:::warning IMPORTANT
+Content must be provided through either this or [`bulk-actions` slot](#bulk-actions) when bulk actions is enabled for the table, otherwise bulk actions column won't be rendered.
+:::
+
 Slot props:
+
 - `selectedRows` - array of selected table row objects
 
-See also: [`bulk-actions-select` event](#bulk-actions-select).
+See also: [`row-select` event](#row-select).
 
 <KTableView
   :data="paginatedData1"
@@ -876,6 +885,7 @@ const paginatedData = tableData.slice(...)
 Slot for passing custom bulk actions trigger element. Content provided through this slot will replace default bulk actions dropdown.
 
 Slot props:
+
 - `selectedRows` - array of selected table row objects
 
 <KTableView
@@ -888,7 +898,7 @@ Slot props:
       appearance="danger"
       :disabled="!selectedRows.length"
     >
-      Bulk Delete ({{ selectedRows.length }} items selected)
+      Delete ({{ selectedRows.length }} items selected)
     </KButton>
   </template>
 </KTableView>
@@ -904,7 +914,7 @@ Slot props:
       appearance="danger"
       :disabled="!selectedRows.length"
     >
-      Bulk Delete ({{ selectedRows.length }} items selected)
+      Delete ({{ selectedRows.length }} items selected)
     </KButton>
   </template>
 </KTableView>
@@ -1026,7 +1036,7 @@ Emitted when error state action button is clicked.
 
 Emitted when the user performs sorting, resizes columns or toggles column visibility. Event payload is object of type `TablePreferences` interface (see [`tablePreferences` prop](#tablepreferences) for details).
 
-### bulk-actions-select
+### row-select
 
 Emitted when user interacts with checkboxes in bulk actions column. Payload is array of selected table row objects.
 

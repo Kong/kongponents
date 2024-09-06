@@ -521,7 +521,7 @@ const emit = defineEmits<{
   (e: 'page-size-change', val: PageSizeChangeData): void
   (e: 'get-next-offset'): void
   (e: 'get-previous-offset'): void
-  (e: 'bulk-actions-select', data: TableViewData): void
+  (e: 'row-select', data: TableViewData): void
 }>()
 
 const attrs = useAttrs()
@@ -566,7 +566,7 @@ const tableWrapperStyles = computed((): Record<string, string> => ({
 
 const tableData = ref<TableViewData>([...props.data].map((row) => ({ ...row, selected: false })))
 const bulkActionsSelectedRows = ref<TableViewData>([])
-const hasBulkActions = computed((): boolean => tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS))
+const hasBulkActions = computed((): boolean => tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']))
 const bulkActionsSelectedRowsCount = computed((): string => {
   const selectedRowsCount = bulkActionsSelectedRows.value.length
 
@@ -1012,7 +1012,13 @@ const emitTablePreferences = (): void => {
 watch([columnVisibility, tableHeaders], (newVals) => {
   const newVisibility = newVals[0]
   const newHeaders = newVals[1]
-  const newVisibleHeaders = newHeaders.filter((header: TableViewHeader) => newVisibility[header.key] !== false)
+  const newVisibleHeaders = newHeaders.filter((header: TableViewHeader) => {
+    if (header.key === TableViewHeaderKeys.BULK_ACTIONS) {
+      return hasBulkActions.value
+    }
+
+    return newVisibility[header.key] !== false
+  })
 
   if (JSON.stringify(newVisibleHeaders) !== JSON.stringify(visibleHeaders.value)) {
     visibleHeaders.value = newVisibleHeaders
@@ -1065,6 +1071,7 @@ watch(tableData, (newVal) => {
 
   /** update the selected rows */
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const newSelectedRows = newVal.filter((row) => row.selected).map(({ selected, ...rest }) => rest)
 
   const oldSelectedRows: TableViewData = []
@@ -1098,8 +1105,8 @@ watch(() => props.data, (newVal) => {
 }, { deep: true })
 
 watch(bulkActionsSelectedRows, (newVal) => {
-  emit('bulk-actions-select', newVal)
-}, { deep: true })
+  emit('row-select', newVal)
+})
 </script>
 
 <style lang="scss" scoped>

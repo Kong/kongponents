@@ -22,7 +22,7 @@ export interface TableHeader {
   key: string
   /** Visible column header text */
   label?: string
-  /** In a nutshell, this property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it */
+  /** This property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it */
   sortable?: boolean
   /** Allow toggling column visibility */
   hidable?: boolean

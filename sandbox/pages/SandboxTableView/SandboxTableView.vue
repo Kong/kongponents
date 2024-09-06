@@ -238,7 +238,7 @@
               appearance="danger"
               :disabled="!selectedRows.length"
             >
-              Bulk Delete ({{ selectedRows.length }} items selected)
+              Delete {{ selectedRows.length ? `${selectedRows.length} items` : '' }}
             </KButton>
           </template>
           <template #action-items>
@@ -260,9 +260,9 @@
             :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
             resize-columns
             :row-bulk-action-enabled="getRowBulkAction"
-            @bulk-actions-select="onBulkActionsSelect"
             @page-change="onPageChange"
             @page-size-change="onPageSizeChange"
+            @row-select="onBulkActionsSelect"
           >
             <template #bulk-action-items>
               <SandboxTableViewActions :count="selectedData.length" />
