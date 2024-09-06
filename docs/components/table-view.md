@@ -366,6 +366,8 @@ When `false` is returned, the bulk action checkbox will be disabled.
 
 If an object is returned, the `enabled` property determines if the row can be selected. The `disabledTooltip` value, if provided, will show the string as a tooltip message if the user hovers over the disabled checkbox.
 
+Default value is `() => true`.
+
 <KTableView
   :row-bulk-action-enabled="getRowBulkAction"
   :data="basicData"

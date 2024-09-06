@@ -394,7 +394,7 @@ const props = defineProps({
     default: () => ({}),
   },
   /**
-   * A function that conditionally specifies whether bulk actions are disabled for a row and the tooltip to display
+   * A function that conditionally specifies whether bulk actions are disabled for a row and the tooltip to display. Default value: () => true
    */
   rowBulkActionEnabled: {
     type: Function as PropType<(row: Record<string, any>) => RowBulkAction>,
