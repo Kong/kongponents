@@ -114,6 +114,7 @@ const randomTooltipId = useUniqueId()
       line-height: var(--kui-line-height-20, $kui-line-height-20);
 
       code {
+        background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
         color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
       }
 

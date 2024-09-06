@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.5.3",
+  "version": "9.5.5",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -91,7 +91,7 @@
     "@vitejs/plugin-vue": "^5.1.2",
     "@vue/compiler-core": "^3.4.38",
     "@vue/tsconfig": "^0.5.1",
-    "@vueuse/core": "^10.11.1",
+    "@vueuse/core": "^11.0.1",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.5",
     "boxen": "^8.0.1",
@@ -179,10 +179,10 @@
   "engines": {
     "node": ">=v16.20.2 || >=18.12.1 || >=20.14.0"
   },
-  "packageManager": "pnpm@9.7.1",
+  "packageManager": "pnpm@9.9.0",
   "volta": {
-    "node": "20.16.0",
-    "pnpm": "9.7.1"
+    "node": "20.17.0",
+    "pnpm": "9.9.0"
   },
   "config": {
     "commitizen": {

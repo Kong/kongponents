@@ -1,3 +1,17 @@
+## [9.5.5](https://github.com/Kong/kongponents/compare/v9.5.4...v9.5.5) (2024-09-06)
+
+
+### Bug Fixes
+
+* **ktable, ktableview:** `resizeColumns` should ignore right clicks ([#2375](https://github.com/Kong/kongponents/issues/2375)) ([4a0e2f6](https://github.com/Kong/kongponents/commit/4a0e2f67aa04e10e7d94d25320fb778f5ddcfe2f))
+
+## [9.5.4](https://github.com/Kong/kongponents/compare/v9.5.3...v9.5.4) (2024-09-05)
+
+
+### Bug Fixes
+
+* **ktooltip, klabel:** slotted code background color ([#2374](https://github.com/Kong/kongponents/issues/2374)) ([1aed04a](https://github.com/Kong/kongponents/commit/1aed04ac9e51e72c48fcab6325abf4cefe8fd363))
+
 ## [9.5.3](https://github.com/Kong/kongponents/compare/v9.5.2...v9.5.3) (2024-09-04)
 
 
