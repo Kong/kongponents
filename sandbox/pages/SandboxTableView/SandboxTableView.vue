@@ -395,6 +395,7 @@ const sortData = (sortData: TableSortPayload): void => {
   sortedData.value = data
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getRowLinksRouter = (row: Record<string, any>): RowLink => ({
   // using static route for demonstration purposes
   // but you can generate dynamic routes based on the row data
@@ -402,6 +403,7 @@ const getRowLinksRouter = (row: Record<string, any>): RowLink => ({
   target: '_blank',
 })
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getRowLinksAnchor = (row: Record<string, any>): RowLink => ({
   to: 'https://kongponents.konghq.com/',
   target: '_blank',
