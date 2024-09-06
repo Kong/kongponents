@@ -64,7 +64,6 @@ defineProps({
 <style lang="scss" scoped>
 .bulk-actions-dropdown {
   .bulk-actions-dropdown-trigger {
-    align-items: flex-end;
     gap: var(--kui-space-0, $kui-space-0);
 
     .bulk-actions-dropdown-trigger-count {
