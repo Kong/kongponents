@@ -753,6 +753,11 @@ const headerHeight = computed((): string => {
 })
 
 const startResize = (evt: MouseEvent, colKey: string) => {
+  // right clicks should be ignored
+  if (evt.button !== 0) {
+    return
+  }
+
   let x = 0
   let width = 0
 
