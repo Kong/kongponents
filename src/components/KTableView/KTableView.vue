@@ -317,7 +317,10 @@
                   </div>
                 </td>
               </tr>
-              <Transition name="kongponents-fade-transition">
+              <Transition
+                v-if="expandableRows"
+                name="kongponents-fade-transition"
+              >
                 <tr
                   v-show="expandedRows.includes(rowIndex)"
                   :id="`table-${tableId}-row-${rowIndex}-expandable-content`"
@@ -548,7 +551,7 @@ const props = defineProps({
     type: Object as PropType<TablePaginationAttributes>,
     default: () => ({}),
   },
-  expendableRows: {
+  expandableRows: {
     type: Boolean,
     default: false,
   },
@@ -911,19 +914,14 @@ watch(() => props.headers, (newVal: TableViewHeader[]) => {
      * Reorder the headers to ensure bulk actions are first and actions are last
      */
 
-    const headers: TableViewHeader[] = []
+    const headers: TableViewHeader[] = newVal.filter((header) => header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS)
+
     const bulkActionsHeader = newVal.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)
     const actionsHeader = newVal.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.ACTIONS)
 
     if (bulkActionsHeader) {
-      headers.push(bulkActionsHeader)
+      headers.unshift(bulkActionsHeader)
     }
-
-    newVal.forEach((header) => {
-      if (header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS) {
-        headers.push(header)
-      }
-    })
 
     if (actionsHeader) {
       headers.push(actionsHeader)
@@ -1080,13 +1078,13 @@ watch([columnVisibility, tableHeaders], (newVals) => {
     return newVisibility[header.key] !== false
   })
 
-  // remove the expandable row header if it exists to avoid duplicates as it always needs to be first
+  // remove the expandable row header if it exists because it has special handling
   if (newVisibleHeaders.find((header) => header.key === TableViewHeaderKeys.EXPANDABLE)) {
     newVisibleHeaders = newVisibleHeaders.filter((header) => header.key !== TableViewHeaderKeys.EXPANDABLE)
   }
 
   // add the expandable row header if expandable rows are enabled
-  if (props.expendableRows) {
+  if (props.expandableRows) {
     newVisibleHeaders.unshift(expandableRowHeader)
   }
 

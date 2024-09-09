@@ -137,10 +137,10 @@
           </template>
         </KTableView>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="expendableRows">
+      <SandboxSectionComponent title="expandableRows">
         <KTableView
           :data="tableData"
-          expendable-rows
+          expandable-rows
           :headers="headers()"
           :pagination-attributes="{ totalCount: tableData.length }"
         >
@@ -284,6 +284,26 @@
             </template>
           </KTableView>
         </div>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="Bulk Actions & Expandable Rows">
+        <KTableView
+          :data="paginatedData"
+          expandable-rows
+          :headers="headers(true, false, true)"
+          :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
+          resize-columns
+          :row-bulk-action-enabled="getRowBulkAction"
+          @page-change="onPageChange"
+          @page-size-change="onPageSizeChange"
+          @row-select="onBulkActionsSelect"
+        >
+          <template #bulk-action-items>
+            <SandboxTableViewActions :count="selectedData.length" />
+          </template>
+          <template #action-items>
+            <SandboxTableViewActions />
+          </template>
+        </KTableView>
       </SandboxSectionComponent>
     </div>
   </SandboxLayout>
