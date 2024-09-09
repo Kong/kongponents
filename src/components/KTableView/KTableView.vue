@@ -548,6 +548,10 @@ const props = defineProps({
     type: Object as PropType<TablePaginationAttributes>,
     default: () => ({}),
   },
+  expendableRows: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits<{
@@ -1068,7 +1072,7 @@ const toggleRow = (rowIndex: number): void => {
 watch([columnVisibility, tableHeaders], (newVals) => {
   const newVisibility = newVals[0]
   const newHeaders = newVals[1]
-  const newVisibleHeaders = newHeaders.filter((header: TableViewHeader) => {
+  let newVisibleHeaders = newHeaders.filter((header: TableViewHeader) => {
     if (header.key === TableViewHeaderKeys.BULK_ACTIONS) {
       return hasBulkActions.value
     }
@@ -1076,7 +1080,15 @@ watch([columnVisibility, tableHeaders], (newVals) => {
     return newVisibility[header.key] !== false
   })
 
-  newVisibleHeaders.unshift(expandableRowHeader)
+  // remove the expandable row header if it exists to avoid duplicates as it always needs to be first
+  if (newVisibleHeaders.find((header) => header.key === TableViewHeaderKeys.EXPANDABLE)) {
+    newVisibleHeaders = newVisibleHeaders.filter((header) => header.key !== TableViewHeaderKeys.EXPANDABLE)
+  }
+
+  // add the expandable row header if expandable rows are enabled
+  if (props.expendableRows) {
+    newVisibleHeaders.unshift(expandableRowHeader)
+  }
 
   if (JSON.stringify(newVisibleHeaders) !== JSON.stringify(visibleHeaders.value)) {
     visibleHeaders.value = newVisibleHeaders

@@ -137,9 +137,10 @@
           </template>
         </KTableView>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="row-expand">
+      <SandboxSectionComponent title="expendableRows">
         <KTableView
           :data="tableData"
+          expendable-rows
           :headers="headers()"
           :pagination-attributes="{ totalCount: tableData.length }"
         >
