@@ -1,3 +1,10 @@
+# [9.6.0](https://github.com/Kong/kongponents/compare/v9.5.5...v9.6.0) (2024-09-09)
+
+
+### Features
+
+* **ktableview:** add bulk actions feature [KHCP-13106] ([#2365](https://github.com/Kong/kongponents/issues/2365)) ([cd8ceb5](https://github.com/Kong/kongponents/commit/cd8ceb518e219e16795a169c353aeb0d46807436))
+
 ## [9.5.5](https://github.com/Kong/kongponents/compare/v9.5.4...v9.5.5) (2024-09-06)
 
 

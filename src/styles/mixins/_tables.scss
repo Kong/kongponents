@@ -12,7 +12,15 @@
   .table-toolbar {
     display: flex;
     gap: var(--kui-space-50, $kui-space-50);
+    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0)
+      var(--kui-space-20, $kui-space-20); // prevents focus outline in toolbar elements from being cut off
     width: 100%;
+
+    .toolbar-default-items-container {
+      display: flex;
+      gap: var(--kui-space-50, $kui-space-50);
+      margin-left: var(--kui-space-auto, $kui-space-auto);
+    }
   }
 
   .table-wrapper {
@@ -31,6 +39,13 @@
         padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
         vertical-align: middle;
         white-space: nowrap;
+
+        &.sticky-column {
+          background-color: var(--kui-color-background, $kui-color-background);
+          left: 0;
+          position: sticky !important;
+          z-index: 1;
+        }
       }
 
       thead {
@@ -156,6 +171,10 @@
               .sort-icon {
                 flex-shrink: 0;
               }
+
+              .table-header-bulk-actions-container {
+                display: flex;
+              }
             }
 
             &.resize-hover {
@@ -189,15 +208,40 @@
                 var(--kui-color-border, $kui-color-border) inset;
             }
 
-            .row-link {
-              color: var(--kui-color-text, $kui-color-text);
-              display: block;
-              padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
-              text-decoration: none;
+            .actions-dropdown {
+              .actions-dropdown-trigger {
+                color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+
+                &:hover:not(:disabled):not(:focus):not(:active) {
+                  background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+                  color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+                }
+
+                &:focus-visible {
+                  background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+                  color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+                }
+
+                &:active {
+                  background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+                  color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
+                }
+
+                .more-icon {
+                  pointer-events: none;
+                }
+              }
             }
 
-            .row-cell-wrapper {
-              display: contents;
+            &.row-link {
+              padding: var(--kui-space-0, $kui-space-0);
+
+              a.cell-wrapper {
+                color: var(--kui-color-text, $kui-color-text);
+                display: block;
+                padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+                text-decoration: none;
+              }
             }
 
             .expandable-row-control-container {
