@@ -31,6 +31,7 @@
         <ColumnVisibilityMenu
           v-if="hasColumnVisibilityMenu"
           :columns="visibilityColumns"
+          :disabled="loading"
           :table-id="tableId"
           :visibility-preferences="visibilityPreferences"
           @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
