@@ -242,6 +242,10 @@
                 padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
                 text-decoration: none;
               }
+
+              .expandable-row-control-container {
+                padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+              }
             }
 
             .expandable-row-control-container {
