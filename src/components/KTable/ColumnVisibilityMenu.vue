@@ -2,6 +2,7 @@
   <div class="table-column-visibility-menu">
     <KDropdown
       data-testid="table-column-visibility-menu"
+      :disabled="disabled"
       :kpop-attributes="{ placement: 'bottom-end' }"
       @toggle-dropdown="handleDropdownToggle"
     >
@@ -14,6 +15,7 @@
           aria-label="Show/Hide Columns"
           class="menu-button"
           data-testid="column-visibility-menu-button"
+          :disabled="disabled"
           icon
           size="large"
         >
@@ -79,6 +81,10 @@ const emit = defineEmits<{
 }>()
 
 const props = defineProps({
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
   columns: {
     type: Array as PropType<TableHeader[]>,
     required: true,
