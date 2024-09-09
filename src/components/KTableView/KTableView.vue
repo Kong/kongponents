@@ -17,7 +17,7 @@
             v-if="!$slots['bulk-actions']"
             :button-label="tableHeaders.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)!.label"
             :count="bulkActionsSelectedRowsCount"
-            :disabled="!bulkActionsSelectedRowsCount"
+            :disabled="!bulkActionsSelectedRowsCount || loading"
           >
             <template #items>
               <slot
