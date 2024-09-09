@@ -17,7 +17,7 @@
             v-if="!$slots['bulk-actions']"
             :button-label="tableHeaders.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)!.label"
             :count="bulkActionsSelectedRowsCount"
-            :disabled="!bulkActionsSelectedRowsCount || loading"
+            :disabled="!bulkActionsSelectedRowsCount || loading || !tableData.length"
           >
             <template #items>
               <slot
@@ -31,7 +31,7 @@
         <ColumnVisibilityMenu
           v-if="hasColumnVisibilityMenu"
           :columns="visibilityColumns"
-          :disabled="loading"
+          :disabled="loading || !tableData.length"
           :table-id="tableId"
           :visibility-preferences="visibilityPreferences"
           @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
@@ -543,11 +543,7 @@ const resizerHoveredColumn = ref('')
 // lowest priority - currently hovered resizable column (mouse is somewhere in the <th>)
 const currentHoveredColumn = ref('')
 const hasHidableColumns = computed((): boolean => tableHeaders.value.filter((header: TableViewHeader) => header.hidable).length > 0)
-const hasColumnVisibilityMenu = computed((): boolean => {
-  // has hidable columns, no error/loading/empty state
-  return !!(hasHidableColumns.value &&
-    !props.error && (props.data && props.data.length))
-})
+const hasColumnVisibilityMenu = computed((): boolean => !!(!props.error && hasHidableColumns.value))
 // columns whose visibility can be toggled
 const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable && header.key !== TableViewHeaderKeys.BULK_ACTIONS))
 // visibility preferences from the host app (initialized by app)
@@ -567,7 +563,7 @@ const tableWrapperStyles = computed((): Record<string, string> => ({
 
 const tableData = ref<TableViewData>([...props.data].map((row) => ({ ...row, selected: false })))
 const bulkActionsSelectedRows = ref<TableViewData>([])
-const hasBulkActions = computed((): boolean => tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']))
+const hasBulkActions = computed((): boolean => !props.error && tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']))
 const bulkActionsSelectedRowsCount = computed((): string => {
   const selectedRowsCount = bulkActionsSelectedRows.value.length
 
@@ -1032,7 +1028,7 @@ watch([columnVisibility, tableHeaders], (newVals) => {
   }
 }, { deep: true, immediate: true })
 
-// because hasColumnVisibilityMenu also accounts for error/loading/empty state, we need to watch it
+// because hasColumnVisibilityMenu also accounts for error state, we need to watch it
 watch(hasColumnVisibilityMenu, (newVal) => {
   if (newVal) {
     columnVisibility.value = props.tablePreferences.columnVisibility || {}

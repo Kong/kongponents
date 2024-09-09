@@ -12,7 +12,7 @@
       <ColumnVisibilityMenu
         v-if="hasColumnVisibilityMenu"
         :columns="visibilityColumns"
-        :disabled="isTableLoading || loading"
+        :disabled="isTableLoading || loading || !data || !data.length"
         :table-id="tableId"
         :visibility-preferences="visibilityPreferences"
         @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
@@ -530,11 +530,7 @@ const resizerHoveredColumn = ref('')
 // lowest priority - currently hovered resizable column (mouse is somewhere in the <th>)
 const currentHoveredColumn = ref('')
 const hasHidableColumns = computed((): boolean => tableHeaders.value.filter((header: TableHeader) => header.hidable).length > 0)
-const hasColumnVisibilityMenu = computed((): boolean => {
-  // has hidable columns, no error/loading/empty state
-  return !!(hasHidableColumns.value &&
-    !props.error && (data.value && data.value.length))
-})
+const hasColumnVisibilityMenu = computed((): boolean => !!(!props.error && hasHidableColumns.value))
 // columns whose visibility can be toggled
 const visibilityColumns = computed((): TableHeader[] => tableHeaders.value.filter((header: TableHeader) => header.hidable))
 // visibility preferences from the host app (initialized by app)
@@ -1123,7 +1119,7 @@ watch([query, page, pageSize], async (newData, oldData) => {
   }
 }, { deep: true, immediate: true })
 
-// because hasColumnVisibilityMenu also accounts for error/loading/empty state, we need to watch it
+// because hasColumnVisibilityMenu also accounts for error state, we need to watch it
 watch(hasColumnVisibilityMenu, (newVal) => {
   if (newVal) {
     columnVisibility.value = props.tablePreferences.columnVisibility || {}
