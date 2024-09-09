@@ -9,6 +9,7 @@
       <ColumnVisibilityMenu
         v-if="hasColumnVisibilityMenu"
         :columns="visibilityColumns"
+        :disabled="loading"
         :table-id="tableId"
         :visibility-preferences="visibilityPreferences"
         @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
@@ -477,7 +478,7 @@ const hasHidableColumns = computed((): boolean => tableHeaders.value.filter((hea
 const hasColumnVisibilityMenu = computed((): boolean => {
   // has hidable columns, no error/loading/empty state
   return !!(hasHidableColumns.value &&
-    !props.error && !props.loading && !props.loading && (props.data && props.data.length))
+    !props.error && (props.data && props.data.length))
 })
 // columns whose visibility can be toggled
 const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable))
