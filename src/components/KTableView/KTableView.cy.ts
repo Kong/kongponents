@@ -1,7 +1,7 @@
 import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KTableView from '@/components/KTableView/KTableView.vue'
-import type { TableHeader } from '@/types'
+import type { TableHeader, RowBulkAction } from '@/types'
 
 const largeDataSet = [
   {
@@ -83,6 +83,7 @@ const options = {
       name: 'Website Desktop',
       id: '328027447731198',
       enabled: 'false',
+      bulkActionsDisabled: true,
     },
     {
       name: 'Android App',
@@ -253,18 +254,6 @@ describe('KTableView', () => {
       cy.getTestId(`tooltip-${options.headers[0].key}`).should('be.visible')
     })
 
-    it('displays actions dropdown when actions key is provided', () => {
-      mount(KTableView, {
-        props: {
-          headers: options.headers,
-          data: options.data,
-        },
-      })
-
-      cy.getTestId('actions-dropdown').should('be.visible').and('have.length', options.data.length)
-      cy.get('th').eq(options.headers.indexOf(options.headers.find((header => header.key === 'actions'))!)).find('.table-header-label').should('have.class', 'sr-only')
-    })
-
     it('displays each row as link when rowLink prop is provided', () => {
       mount(KTableView, {
         props: {
@@ -283,6 +272,91 @@ describe('KTableView', () => {
       cy.get('table tbody td>a.cell-wrapper').each(($el) => {
         cy.wrap($el).should('be.visible')
       })
+    })
+  })
+
+  describe('reserved header keys', () => {
+    it('displays actions dropdown when actions key is provided', () => {
+      mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+        },
+      })
+
+      cy.getTestId('actions-dropdown').should('be.visible').and('have.length', options.data.length)
+      cy.get('th').eq(options.headers.indexOf(options.headers.find((header => header.key === 'actions'))!)).find('.table-header-label').should('have.class', 'sr-only')
+    })
+
+    it('displays bulk actions column and dropdown when bulkActions key is provided', () => {
+      mount(KTableView, {
+        props: {
+          headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
+          data: options.data,
+        },
+        slots: {
+          'bulk-action-items': () => h('span', {}, 'Bulk action'),
+        },
+      })
+
+      cy.getTestId('bulk-actions-dropdown').should('be.visible')
+      cy.getTestId('bulk-actions-dropdown-trigger').should('be.visible').and('be.disabled')
+      cy.get('th').eq(0).findTestId('table-header-bulk-actions-checkbox').should('be.visible')
+      cy.getTestId('bulk-actions-checkbox').should('have.length', options.data.length)
+      cy.getTestId('bulk-actions-checkbox').eq(0).click()
+      cy.getTestId('bulk-actions-dropdown-trigger').and('not.be.disabled')
+    })
+
+    it('handles bulk actions indeterminate state correctly and emits event', () => {
+      mount(KTableView, {
+        props: {
+          headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
+          data: options.data,
+        },
+        slots: {
+          'bulk-actions': () => h('span', {}, 'Bulk action'),
+        },
+      })
+
+      cy.getTestId('bulk-actions-checkbox').eq(0).click()
+      cy.getTestId('bulk-actions-checkbox').eq(1).click()
+      cy.getTestId('bulk-actions-checkbox').eq(0).should('be.checked')
+      cy.getTestId('bulk-actions-checkbox').eq(1).should('be.checked')
+      cy.getTestId('bulk-actions-checkbox').eq(2).should('not.be.checked')
+      cy.getTestId('table-header-bulk-actions-checkbox').should('not.be.checked')
+      cy.getTestId('indeterminate-icon').should('exist')
+      cy.getTestId('table-header-bulk-actions-checkbox').click().then(() => {
+        cy.getTestId('bulk-actions-checkbox').eq(2).should('be.checked')
+        cy.getTestId('indeterminate-icon').should('not.exist')
+
+        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'row-select').and('have.length', 3)
+        cy.wrap(Cypress.vueWrapper.emitted('row-select')?.[2][0]).should('have.length', options.data.length)
+      })
+    })
+
+    it('handles bulk actions disabled state correctly', () => {
+      mount(KTableView, {
+        props: {
+          headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
+          data: options.data,
+          rowBulkActionEnabled: (row: Record<string, any>): RowBulkAction => {
+            if (row.bulkActionsDisabled) {
+              return false
+            }
+
+            return true
+          },
+        },
+        slots: {
+          'bulk-actions': () => h('span', {}, 'Bulk action'),
+        },
+      })
+
+      const disabledCheckboxIndex = options.data.indexOf(options.data.find((row) => row.bulkActionsDisabled)!)
+      const enabledCheckboxIndex = (options.data.length - disabledCheckboxIndex) === options.data.length ? options.data.length - 1 : options.data.length - disabledCheckboxIndex
+
+      cy.getTestId('bulk-actions-checkbox').eq(enabledCheckboxIndex).should('not.be.disabled')
+      cy.getTestId('bulk-actions-checkbox').eq(disabledCheckboxIndex).should('be.disabled')
     })
   })
 

@@ -37,6 +37,7 @@
             empty-state-title="Empty state title"
             :headers="headers(false, true)"
             max-height="300"
+            :pagination-attributes="{ totalCount: sortedData.length }"
             :row-hover="data.tableRowHover"
             @sort="sortData"
           >
@@ -80,6 +81,7 @@
             :headers="headers(true)"
             :hide-pagination="data.hidePagination"
             :loading="data.tableLoadingState"
+            :pagination-attributes="{ totalCount: tableData.length }"
             resize-columns
             @row:click="(_event: any, row: any) => onRowClick(row)"
           >
@@ -91,8 +93,9 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="rowLink (router-link)">
         <KTableView
-          :data="sortedData"
+          :data="tableData"
           :headers="headers()"
+          :pagination-attributes="{ totalCount: tableData.length }"
           :row-link="getRowLinksRouter"
         >
           <template #action-items>
@@ -113,8 +116,9 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="rowLink (anchor)">
         <KTableView
-          :data="sortedData"
+          :data="tableData"
           :headers="headers()"
+          :pagination-attributes="{ totalCount: tableData.length }"
           :row-link="getRowLinksAnchor"
         >
           <template #action-items>
@@ -145,6 +149,7 @@
         <KTableView
           :data="tableData"
           :headers="headers()"
+          :pagination-attributes="{ totalCount: tableData.length }"
         >
           <template #column-username>
             Username
@@ -166,6 +171,7 @@
         <KTableView
           :data="tableData"
           :headers="headers()"
+          :pagination-attributes="{ totalCount: tableData.length }"
         >
           <template #toolbar>
             <KInput />
@@ -178,24 +184,12 @@
           </template>
         </KTableView>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="after">
-        <KTableView
-          :data="tableData"
-          :headers="headers()"
-        >
-          <template #after>
-            <KPagination :total-count="10" />
-          </template>
-          <template #action-items>
-            <SandboxTableViewActions />
-          </template>
-        </KTableView>
-      </SandboxSectionComponent>
       <SandboxSectionComponent title="error-state">
         <KTableView
           :data="tableData"
           error
           :headers="headers()"
+          :pagination-attributes="{ totalCount: tableData.length }"
         >
           <template #error-state>
             <KEmptyState
@@ -232,6 +226,53 @@
           </template>
         </KTableView>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="bulk-actions">
+        <KTableView
+          :data="paginatedData"
+          :headers="headers(false, false, true)"
+          :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
+          @page-change="onPageChange"
+        >
+          <template #bulk-actions="{ selectedRows }">
+            <KButton
+              appearance="danger"
+              :disabled="!selectedRows.length"
+            >
+              Delete {{ selectedRows.length ? `${selectedRows.length} items` : '' }}
+            </KButton>
+          </template>
+          <template #action-items>
+            <SandboxTableViewActions />
+          </template>
+        </KTableView>
+      </SandboxSectionComponent>
+
+      <!-- Usage -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Usage"
+      />
+      <SandboxSectionComponent title="Bulk Actions">
+        <div class="resizable-table">
+          <KTableView
+            :data="paginatedData"
+            :headers="headers(true, false, true)"
+            :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
+            resize-columns
+            :row-bulk-action-enabled="getRowBulkAction"
+            @page-change="onPageChange"
+            @page-size-change="onPageSizeChange"
+            @row-select="onBulkActionsSelect"
+          >
+            <template #bulk-action-items>
+              <SandboxTableViewActions :count="selectedData.length" />
+            </template>
+            <template #action-items>
+              <SandboxTableViewActions />
+            </template>
+          </KTableView>
+        </div>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
@@ -240,16 +281,17 @@
 import { inject, ref } from 'vue'
 import SandboxTitleComponent from '../../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../../components/SandboxSectionComponent.vue'
-import type { TableHeader, TableViewData, TableSortPayload, RowLink } from '@/types'
+import type { TableHeader, TableViewData, TableSortPayload, RowLink, PageChangeData, PageSizeChangeData, RowBulkAction } from '@/types'
 import SandboxTableViewActions from './SandboxTableViewActions.vue'
 import { AddIcon } from '@kong/icons'
 
-const headers = (hidable: boolean = false, sortable: boolean = false): TableHeader[] => {
+const headers = (hidable: boolean = false, sortable: boolean = false, bulkActions: boolean = false): TableHeader[] => {
   return [
+    { key: 'actions', label: 'Row actions' },
     { key: 'name', label: 'Full Name' },
     { key: 'username', label: 'Username', tooltip: 'Columns with a tooltip.', sortable },
     { key: 'email', label: 'Email', hidable },
-    { key: 'actions', label: 'Row actions' },
+    ...(bulkActions ? [{ key: 'bulkActions', label: 'Bulk actions' }] : []),
   ]
 }
 
@@ -353,6 +395,7 @@ const sortData = (sortData: TableSortPayload): void => {
   sortedData.value = data
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getRowLinksRouter = (row: Record<string, any>): RowLink => ({
   // using static route for demonstration purposes
   // but you can generate dynamic routes based on the row data
@@ -360,10 +403,64 @@ const getRowLinksRouter = (row: Record<string, any>): RowLink => ({
   target: '_blank',
 })
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getRowLinksAnchor = (row: Record<string, any>): RowLink => ({
   to: 'https://kongponents.konghq.com/',
   target: '_blank',
 })
+
+const extraRecords: TableViewData = [
+  {
+    id: 11,
+    name: 'Chris Lo',
+    username: 'Krislow',
+    email: 'dj@kris.low',
+  },
+  {
+    id: 12,
+    name: 'Vitaliy Yarmak',
+    username: 'Tamarack',
+    email: 'Right@sail.xyz',
+  },
+]
+const basicPaginatedData: TableViewData = [...tableData, ...extraRecords]
+const paginatedPageSize = ref<number>(5)
+const paginatedData = ref<TableViewData>(basicPaginatedData.slice(0, paginatedPageSize.value))
+const onPageChange = ({ page }: PageChangeData) => {
+  if (page === 1) {
+    paginatedData.value = basicPaginatedData.slice(0, paginatedPageSize.value)
+  } else {
+    paginatedData.value = basicPaginatedData.slice((paginatedPageSize.value * (page - 1)), (paginatedPageSize.value * (page - 1)) + paginatedPageSize.value)
+  }
+}
+const onPageSizeChange = ({ pageSize }: PageSizeChangeData) => {
+  paginatedPageSize.value = pageSize
+}
+
+const selectedData = ref<TableViewData>([])
+const onBulkActionsSelect = (data: TableViewData) => {
+  console.log('Selected data:', data)
+  selectedData.value = data
+}
+
+const getRowBulkAction = (data: Record<string, any>): RowBulkAction => {
+  if (data.id === 2) {
+    return false
+  }
+
+  if (data.id === 3) {
+    return { enabled: false }
+  }
+
+  if (data.id === 4) {
+    return {
+      enabled: false,
+      disabledTooltip: 'This row is disabled.',
+    }
+  }
+
+  return true
+}
 </script>
 
 <style lang="scss" scoped>
@@ -376,6 +473,13 @@ const getRowLinksAnchor = (row: Record<string, any>): RowLink => ({
 
   .username-link {
     text-transform: lowercase;
+  }
+
+  .resizable-table {
+    max-width: 100%;
+    min-width: 515px;
+    overflow-x: auto;
+    resize: horizontal;
   }
 }
 </style>

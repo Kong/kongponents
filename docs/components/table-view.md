@@ -32,7 +32,7 @@ interface TableViewHeader {
   key: string
   /** visible column header text */
   label: string
-  /** in a nutshell, this property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it */
+  /** this property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it */
   sortable?: boolean
   /** allow toggling column visibility */
   hidable?: boolean
@@ -51,7 +51,12 @@ For an example of `headers` prop usage please refer to [`data` prop documentatio
 
 #### Reserved Header Keys
 
-- `actions` - the column displays an actions [KDropdown](/components/dropdown) button for each row and displays no label (as if `hideLabel` was `true`; you can set `hideLabel` parameter to `false` to show the label). KTableView will automatically render the actions dropdown button with an icon and you simply need to provide dropdown items via the [`action-items` slot](#action-items).
+- `bulkActions` - the column displays individual checkboxes to allow selecting individual rows, while the column header displays a checkbox will check or uncheck all visible table rows. KTableView will render a dropdown on the right of the table toolbar directly above the table and you simply need to provide dropdown items via the [`bulk-action-items` slot](#bulk-action-items). Refer to the [`bulk-action-items` slot](#bulk-action-items) for the example.
+- `actions` - the column displays an actions [KDropdown](/components/dropdown) button for each row and displays no label (as if `hideLabel` was `true`; you can set `hideLabel` parameter to `false` to show the label). KTableView will automatically render the actions dropdown and you simply need to provide dropdown items via the [`action-items` slot](#action-items).
+
+:::tip NOTE
+KTableView automatically displays the bulk action checkbox as the first column, and the `actions` menu in the last column, when enabled.
+::: 
 
 ### data
 
@@ -347,6 +352,77 @@ const getRowLink = (row: Record<string, any>): RowLink => ({
 </script>
 ```
 
+### rowBulkActionEnabled
+
+Function for enabling or disabling row selection when `bulkActions` are enabled for the table. Helpful for making some rows unavailable for bulk actions selection. The function receives the row data object as a parameter and must return a `boolean` or an object that matches the following interface:
+
+```ts
+type RowBulkAction = boolean | { enabled: boolean, disabledTooltip?: string }
+```
+
+When the function returns a boolean value of `true`, bulk action selection will be enabled for the row. 
+
+When `false` is returned, the bulk action checkbox will be disabled. 
+
+If an object is returned, the `enabled` property determines if the row can be selected. The `disabledTooltip` value, if provided, will show the string as a tooltip message if the user hovers over the disabled checkbox.
+
+Default value is `() => true`.
+
+<KTableView
+  :row-bulk-action-enabled="getRowBulkAction"
+  :data="basicData"
+  :headers="basicHeaders(false, null, null, true)"
+  :pagination-attributes="{ totalCount: basicData.length }"
+>
+  <template #bulk-action-items="{ selectedRows }">
+    <KDropdownItem danger>
+      Delete ({{ selectedRows.length }} items)
+    </KDropdownItem>
+  </template>
+</KTableView>
+
+```vue
+<template>
+  <KTableView
+    :row-bulk-action-enabled="getRowBulkActionEnabled"
+    :data="tableData"
+    :headers="headers"
+    :pagination-attributes="{ totalCount: tableData.length }"
+  >
+    <template #bulk-action-items="{ selectedRows }">
+      <KDropdownItem danger>
+        Delete ({{ selectedRows.length }} items)
+      </KDropdownItem>
+    </template>
+  </KTableView>
+</template>
+
+<script setup lang="ts">
+import type { RowBulkAction } from '@kong/kongponents'
+
+...
+
+const getRowBulkActionEnabled = (row: Record<string, any>): RowBulkAction => {
+  if (row.id === 2) {
+    return false
+  }
+
+  if (row.id === 3) {
+    return { enabled: false }
+  }
+
+  if (row.id === 4) {
+    return {
+      enabled: false,
+      disabledTooltip: 'This row is disabled.',
+    }
+  }
+
+  return true
+}
+</script>
+```
+
 ### cellAttrs
 
 Function for adding custom attributes to each table cell. The function should return an object with `key: value` pairs for each attribute.
@@ -553,6 +629,7 @@ A `error-action-click` event is emitted when error state action button is clicke
 You can slot in your custom content into each column header. For that, use column `key` value prefixed with `column-*` like in the example below.
 
 Slot props:
+
 * `column` - column header object
 
 <KTableView
@@ -582,6 +659,7 @@ Slot props:
 You can provide each individual cell's content via slot. Each cell slot is named after the header `key` it corresponds to.
 
 Slot props:
+
 * `row` - table row object
 * `rowKey` - table row index
 * `rowValue` - the cell value
@@ -617,6 +695,7 @@ This slot is not supported for the [`actions` column](#reserved-header-keys).
 Utilize HTML in the column header's tooltip by utilizing this slot. Similar to the column header slot, it uses the column `key` value prefixed with `tooltip-*` as shown in the example below.
 
 Slot props:
+
 * `column` - column header object
 
 <KTableView
@@ -698,6 +777,7 @@ Slot content to be displayed when in error state.
 Slot for passing action dropdown items. See [KDropdownItem component docs](/components/dropdown#kdropdownitem) for details.
 
 Slot props:
+
 * `row` - table row object
 * `rowKey` - table row index
 
@@ -739,6 +819,105 @@ This slot is only available when the `actions` header key is present in [`header
     >
       Delete
     </KDropdownItem>
+  </template>
+</KTableView>
+```
+
+### bulk-action-items
+
+Slot for passing bulk action dropdown items.
+
+:::warning IMPORTANT
+Content must be provided through either this or [`bulk-actions` slot](#bulk-actions) when bulk actions is enabled for the table, otherwise bulk actions column won't be rendered.
+:::
+
+Slot props:
+
+- `selectedRows` - array of selected table row objects
+
+See also: [`row-select` event](#row-select).
+
+<KTableView
+  :data="paginatedData1"
+  :headers="basicHeaders(false, null, null, true)"
+  :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
+  @page-change="onPageChange1"
+  @page-size-change="onPageSizeChange1"
+>
+  <template #bulk-action-items="{ selectedRows }">
+    <KDropdownItem danger>
+      Delete ({{ selectedRows.length }} items)
+    </KDropdownItem>
+  </template>
+</KTableView>
+
+```vue
+<template>
+  <KTableView
+    :data="paginatedData"
+    :headers="headers"
+    :pagination-attributes="{ totalCount: tableData.length, pageSizes: [5, 10] }"
+  >
+    <template #bulk-action-items="{ selectedRows }">
+      <KDropdownItem danger>
+        Delete ({{ selectedRows.length }} items)
+      </KDropdownItem>
+    </template>
+  </KTableView>
+</template>
+
+<script setup lang="ts">
+import type { TableViewHeader, TableViewData } from '@kong/kongponents'
+
+const headers: Array<TableViewHeader> = [
+  {
+    key: 'bulkActions', 
+    label: 'Bulk actions', 
+  },
+  ...
+]
+
+const tableData = ref<TableViewData>([ ... ])
+const paginatedData = tableData.slice(...)
+</script>
+```
+
+### bulk-actions
+
+Slot for passing custom bulk actions trigger element. Content provided through this slot will replace default bulk actions dropdown.
+
+Slot props:
+
+- `selectedRows` - array of selected table row objects
+
+<KTableView
+  :data="basicData"
+  :headers="basicHeaders(false, null, null, true)"
+  :pagination-attributes="{ totalCount: basicData.length }"
+>
+  <template #bulk-actions="{ selectedRows }">
+    <KButton
+      appearance="danger"
+      :disabled="!selectedRows.length"
+    >
+      Delete ({{ selectedRows.length }} items selected)
+    </KButton>
+  </template>
+</KTableView>
+
+```html
+<KTableView
+  :data="tableData"
+  :headers="headers"
+  :pagination-attributes="{ totalCount: tableData.length }"
+>
+  <template #bulk-actions="{ selectedRows }">
+    <KButton
+      appearance="danger"
+      :disabled="!selectedRows.length"
+    >
+      Delete ({{ selectedRows.length }} items selected)
+    </KButton>
   </template>
 </KTableView>
 ```
@@ -859,6 +1038,10 @@ Emitted when error state action button is clicked.
 
 Emitted when the user performs sorting, resizes columns or toggles column visibility. Event payload is object of type `TablePreferences` interface (see [`tablePreferences` prop](#tablepreferences) for details).
 
+### row-select
+
+Emitted when user interacts with checkboxes in bulk actions column. Payload is array of selected table row objects.
+
 <script setup lang="ts">
 import { ref } from 'vue'
 import { AddIcon, SearchIcon, MoreIcon } from '@kong/icons'
@@ -866,8 +1049,14 @@ import { ToastManager } from '@/index'
 
 const toaster = new ToastManager()
 
-const basicHeaders = (actions: boolean = false, sortable: string | null = null, hidable: string | null = null): Array<TableViewHeader> => {
+const basicHeaders = (actions: boolean = false, sortable: string | null = null, hidable: string | null = null, bulkActions: boolean = false): Array<TableViewHeader> => {
   const keys = {
+    ...(bulkActions && { 
+      actions: {
+        key: 'bulkActions',
+        label: 'Bulk actions',
+      },
+    }),
     name: { 
       key: 'name',
       label: 'Full Name'
@@ -1001,13 +1190,13 @@ const sortBasicData = (sortData: TableSortPayload): void => {
 
 const extraRecords: TableViewData = [
   {
-    id: 1,
+    id: 11,
     name: 'Chris Lo',
     username: 'Krislow',
     email: 'dj@kris.low',
   },
   {
-    id: 2,
+    id: 12,
     name: 'Vitaliy Yarmak',
     username: 'Tamarack',
     email: 'Right@sail.xyz',
@@ -1023,8 +1212,21 @@ const onPageChange = ({ page }: PageChangeData) => {
     paginatedData.value = basicPaginatedData.slice((paginatedPageSize.value * (page - 1)), (paginatedPageSize.value * (page - 1)) + paginatedPageSize.value)
   }
 }
-const onPageSizeChange = ({ pageSize }: PageChangeData) => {
+const onPageSizeChange = ({ pageSize }: PageSizeChangeData) => {
   paginatedPageSize.value = pageSize
+}
+
+const paginatedPageSize1 = ref<number>(5)
+const paginatedData1 = ref<TableViewData>(basicPaginatedData.slice(0, paginatedPageSize1.value))
+const onPageChange1 = ({ page }: PageChangeData) => {
+  if (page === 1) {
+    paginatedData1.value = basicPaginatedData.slice(0, paginatedPageSize1.value)
+  } else {
+    paginatedData1.value = basicPaginatedData.slice((paginatedPageSize1.value * (page - 1)), (paginatedPageSize1.value * (page - 1)) + paginatedPageSize1.value)
+  }
+}
+const onPageSizeChange1 = ({ pageSize }: PageSizeChangeData) => {
+  paginatedPageSize1.value = pageSize
 }
 
 const getRowLink = (row: Record<string, any>): TableRowAttributes => ({
@@ -1080,6 +1282,25 @@ const onCellClick = (event, cell) => {
 }
 
 const toggleModel = ref<boolean[]>([false, false, false])
+
+const getRowBulkAction = (data: Record<string, any>): RowBulkAction => {
+  if (data.id === 2) {
+    return false
+  }
+
+  if (data.id === 3) {
+    return { enabled: false }
+  }
+
+  if (data.id === 4) {
+    return {
+      enabled: false,
+      disabledTooltip: 'This row is disabled.',
+    }
+  }
+
+  return true
+}
 </script>
 
 <style lang="scss" scoped>

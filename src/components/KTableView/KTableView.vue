@@ -6,14 +6,36 @@
       data-testid="table-toolbar"
     >
       <slot name="toolbar" />
-      <ColumnVisibilityMenu
-        v-if="hasColumnVisibilityMenu"
-        :columns="visibilityColumns"
-        :disabled="loading"
-        :table-id="tableId"
-        :visibility-preferences="visibilityPreferences"
-        @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
-      />
+
+      <div class="toolbar-default-items-container">
+        <slot
+          v-if="hasBulkActions"
+          name="bulk-actions"
+          :selected-rows="bulkActionsSelectedRows"
+        >
+          <BulkActionsDropdown
+            v-if="!$slots['bulk-actions']"
+            :button-label="tableHeaders.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)!.label"
+            :count="bulkActionsSelectedRowsCount"
+            :disabled="!bulkActionsSelectedRowsCount || loading"
+          >
+            <template #items>
+              <slot
+                name="bulk-action-items"
+                :selected-rows="bulkActionsSelectedRows"
+              />
+            </template>
+          </BulkActionsDropdown>
+        </slot>
+
+        <ColumnVisibilityMenu
+          v-if="hasColumnVisibilityMenu"
+          :columns="visibilityColumns"
+          :table-id="tableId"
+          :visibility-preferences="visibilityPreferences"
+          @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
+        />
+      </div>
     </div>
 
     <KSkeleton
@@ -50,7 +72,7 @@
     </div>
 
     <div
-      v-else-if="!error && !loading && (data && !data.length)"
+      v-else-if="!error && !loading && (tableData && !tableData.length)"
       class="table-empty-state"
       data-testid="table-empty-state"
     >
@@ -92,10 +114,10 @@
             'is-clickable': isClickable
           }"
         >
-          <thead :class="{ 'is-scrolled': isScrolled }">
+          <thead :class="{ 'is-scrolled': isScrolledVertically }">
             <tr
               ref="headerRow"
-              :class="{ 'is-scrolled': isScrolled }"
+              :class="{ 'is-scrolled': isScrolledVertically }"
             >
               <th
                 v-for="(column, index) in visibleHeaders"
@@ -124,6 +146,7 @@
                   :class="{ 'resized': resizingColumn === column.key }"
                 >
                   <slot
+                    v-if="column.key !== TableViewHeaderKeys.BULK_ACTIONS"
                     :column="getGeneric(column)"
                     :name="getColumnSlotName(column.key)"
                   >
@@ -136,16 +159,31 @@
                       {{ column.label ? column.label : column.key }}
                     </span>
                   </slot>
+                  <div
+                    v-else
+                    class="table-header-bulk-actions-container"
+                  >
+                    <KCheckbox
+                      v-model="bulkActionsAll"
+                      aria-label="Toggle selection for all rows"
+                      class="table-header-bulk-actions-checkbox"
+                      data-testid="table-header-bulk-actions-checkbox"
+                      :indeterminate="isBulkActionsIndeterminate"
+                      @change="handleIndeterminateChange"
+                    />
+                  </div>
 
                   <KTooltip
                     v-if="column.tooltip || $slots[getColumnTooltipSlotName(column.key)]"
                     :data-testid="getColumnTooltipSlotName(column.key)"
+                    max-width="300"
                     :tooltip-id="`${getColumnTooltipSlotName(column.key)}-${tableId}`"
                   >
                     <InfoIcon
                       class="header-tooltip-trigger"
                       :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
                       :size="KUI_ICON_SIZE_30"
+                      tabindex="0"
                     />
 
                     <template #content>
@@ -159,7 +197,7 @@
                   </KTooltip>
 
                   <ArrowDownIcon
-                    v-if="!column.hideLabel && column.key !== TableViewHeaderKeys.ACTIONS && column.sortable"
+                    v-if="!column.hideLabel && column.key !== TableViewHeaderKeys.ACTIONS && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.sortable"
                     class="sort-icon"
                     :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
                     :size="KUI_ICON_SIZE_30"
@@ -180,7 +218,7 @@
 
           <tbody>
             <tr
-              v-for="(row, rowIndex) in data"
+              v-for="(row, rowIndex) in tableData"
               v-bind="rowAttrs(row)"
               :key="`table-${tableId}-row-${rowIndex}`"
               :role="!!rowLink(row).to ? 'link' : undefined"
@@ -193,6 +231,7 @@
                 :class="{
                   'resize-hover': resizeColumns && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
                   'row-link': !!rowLink(row).to,
+                  'sticky-column': header.key === TableViewHeaderKeys.BULK_ACTIONS && isScrolledHorizontally,
                 }"
                 :style="columnStyles[header.key]"
                 v-on="tdlisteners(row[header.key], row)"
@@ -203,7 +242,7 @@
                   v-bind="getRowLinkAttrs(row, header.key)"
                 >
                   <slot
-                    v-if="header.key !== TableViewHeaderKeys.ACTIONS"
+                    v-if="header.key !== TableViewHeaderKeys.ACTIONS && header.key !== TableViewHeaderKeys.BULK_ACTIONS"
                     :name="header.key"
                     :row="getGeneric(row)"
                     :row-key="rowIndex"
@@ -213,7 +252,7 @@
                   </slot>
 
                   <KDropdown
-                    v-else
+                    v-else-if="header.key === TableViewHeaderKeys.ACTIONS"
                     class="actions-dropdown"
                     data-testid="actions-dropdown"
                     :kpop-attributes="{ placement: 'bottom-end' }"
@@ -241,6 +280,21 @@
                       />
                     </template>
                   </KDropdown>
+
+                  <KTooltip
+                    v-else-if="header.key === TableViewHeaderKeys.BULK_ACTIONS"
+                    max-width="200"
+                    placement="bottom-start"
+                    :text="getRowBulkActionEnabled(row) ? undefined : getRowBulkActionTooltip(row)"
+                  >
+                    <KCheckbox
+                      v-model="row.selected"
+                      aria-label="Toggle row selection"
+                      class="bulk-actions-checkbox"
+                      data-testid="bulk-actions-checkbox"
+                      :disabled="!getRowBulkActionEnabled(row)"
+                    />
+                  </KTooltip>
                 </component>
               </td>
             </tr>
@@ -284,6 +338,7 @@ import type {
   TablePaginationAttributes,
   PageChangeData,
   PageSizeChangeData,
+  RowBulkAction,
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
@@ -292,9 +347,13 @@ import useUniqueId from '@/composables/useUniqueId'
 import useUtilities from '@/composables/useUtilities'
 import type { RouteLocationRaw } from 'vue-router'
 import KPagination from '@/components/KPagination/KPagination.vue'
+import KDropdown from '@/components/KDropdown/KDropdown.vue'
+import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
+import BulkActionsDropdown from './BulkActionsDropdown.vue'
 
 enum TableViewHeaderKeys {
   ACTIONS = 'actions',
+  BULK_ACTIONS = 'bulkActions',
 }
 
 const props = defineProps({
@@ -333,6 +392,13 @@ const props = defineProps({
   rowLink: {
     type: Function as PropType<(row: Record<string, any>) => RowLink>,
     default: () => ({}),
+  },
+  /**
+   * A function that conditionally specifies whether bulk actions are disabled for a row and the tooltip to display. Default value: () => true
+   */
+  rowBulkActionEnabled: {
+    type: Function as PropType<(row: Record<string, any>) => RowBulkAction>,
+    default: () => true,
   },
   /**
    * A function that conditionally specifies cell attributes
@@ -455,6 +521,7 @@ const emit = defineEmits<{
   (e: 'page-size-change', val: PageSizeChangeData): void
   (e: 'get-next-offset'): void
   (e: 'get-previous-offset'): void
+  (e: 'row-select', data: TableViewData): void
 }>()
 
 const attrs = useAttrs()
@@ -481,20 +548,38 @@ const hasColumnVisibilityMenu = computed((): boolean => {
     !props.error && (props.data && props.data.length))
 })
 // columns whose visibility can be toggled
-const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable))
+const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable && header.key !== TableViewHeaderKeys.BULK_ACTIONS))
 // visibility preferences from the host app (initialized by app)
 const visibilityPreferences = computed((): Record<string, boolean> => hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
 // current column visibility state
 const columnVisibility = ref<Record<string, boolean>>(hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
-const isScrolled = ref(false)
+const isScrolledVertically = ref<boolean>(false)
+const isScrolledHorizontally = ref<boolean>(false)
 const sortColumnKey = ref('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
 const isClickable = ref(false)
-const hasToolbarSlot = computed((): boolean => !!slots.toolbar || hasColumnVisibilityMenu.value)
+const hasToolbarSlot = computed((): boolean => !!slots.toolbar || hasColumnVisibilityMenu.value || hasBulkActions.value)
 const isActionsDropdownHovered = ref<boolean>(false)
 const tableWrapperStyles = computed((): Record<string, string> => ({
   maxHeight: getSizeFromString(props.maxHeight),
 }))
+
+const tableData = ref<TableViewData>([...props.data].map((row) => ({ ...row, selected: false })))
+const bulkActionsSelectedRows = ref<TableViewData>([])
+const hasBulkActions = computed((): boolean => tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']))
+const bulkActionsSelectedRowsCount = computed((): string => {
+  const selectedRowsCount = bulkActionsSelectedRows.value.length
+
+  if (!selectedRowsCount) {
+    return ''
+  }
+
+  if (selectedRowsCount > 100) {
+    return '99+'
+  }
+
+  return String(selectedRowsCount)
+})
 
 /**
  * Utilize a helper function to generate the column slot name.
@@ -612,9 +697,12 @@ const tdlisteners = computed((): any => {
   }
 })
 
-// default column widths for better UX
-// actions column is always 54px (padding-left + button width + padding-right adds up to 54px)
-const defaultColumnWidths = { actions: 54 }
+/**
+ * Default column widths for better UX
+ * actions column is always 54px (padding-left + button width + padding-right adds up to 54px)
+ * bulkActions column is always 56px (padding-left + checkbox width + padding-right adds up to 56px)
+ */
+const defaultColumnWidths = { actions: 54, bulkActions: 56 }
 const columnWidths = ref<Record<string, number>>(props.resizeColumns ? props.tablePreferences.columnWidths || defaultColumnWidths : defaultColumnWidths)
 const columnStyles = computed(() => {
   const styles: Record<string, any> = {}
@@ -643,13 +731,14 @@ const getHeaderClasses = (column: TableViewHeader, index: number): Record<string
     // display active sorting styles if column is currently sorted
     'active-sort': !column.hideLabel && !!column.sortable && column.key === sortColumnKey.value,
     [sortColumnOrder.value]: column.key === sortColumnKey.value && !column.hideLabel,
-    'is-scrolled': isScrolled.value,
+    'is-scrolled': isScrolledVertically.value,
     'has-tooltip': !!column.tooltip,
+    'sticky-column': column.key === TableViewHeaderKeys.BULK_ACTIONS && isScrolledHorizontally.value,
   }
 }
 
 const onHeaderClick = (column: TableViewHeader) => {
-  if (column.sortable) {
+  if (column.sortable && column.key !== TableViewHeaderKeys.ACTIONS && column.key !== TableViewHeaderKeys.BULK_ACTIONS) {
     emit('sort', {
       prevKey: sortColumnKey.value,
       sortColumnKey: column.key,
@@ -763,7 +852,7 @@ const showPagination = computed((): boolean => {
     return false
   }
 
-  if (props.data && props.data.length && props.paginationAttributes.totalCount && props.paginationAttributes.totalCount <= props.data.length) {
+  if (tableData.value && tableData.value.length && props.paginationAttributes.totalCount && props.paginationAttributes.totalCount <= tableData.value.length) {
     return false
   }
 
@@ -773,7 +862,29 @@ const showPagination = computed((): boolean => {
 // Ensure `props.headers` are reactive.
 watch(() => props.headers, (newVal: TableViewHeader[]) => {
   if (newVal && newVal.length) {
-    tableHeaders.value = newVal
+    /**
+     * Reorder the headers to ensure bulk actions are first and actions are last
+     */
+
+    const headers: TableViewHeader[] = []
+    const bulkActionsHeader = newVal.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)
+    const actionsHeader = newVal.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.ACTIONS)
+
+    if (bulkActionsHeader) {
+      headers.push(bulkActionsHeader)
+    }
+
+    newVal.forEach((header) => {
+      if (header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS) {
+        headers.push(header)
+      }
+    })
+
+    if (actionsHeader) {
+      headers.push(actionsHeader)
+    }
+
+    tableHeaders.value = headers
   }
 }, { deep: true, immediate: true })
 
@@ -801,20 +912,54 @@ const sortClickHandler = (header: TableViewHeader): void => {
 }
 
 const scrollHandler = (event: any): void => {
-  if (event && event.target && typeof event.target.scrollTop === 'number') {
+  if (event && event.target && (typeof event.target.scrollTop === 'number' || typeof event.target.scrollLeft === 'number')) {
     if (event.target.scrollTop > 1) {
-      isScrolled.value = true
+      isScrolledVertically.value = true
     } else if (event.target.scrollTop === 0) {
-      isScrolled.value = !isScrolled.value
+      isScrolledVertically.value = false
+    }
+
+    if (event.target.scrollLeft > 1) {
+      isScrolledHorizontally.value = true
+    } else if (event.target.scrollLeft === 0) {
+      isScrolledHorizontally.value = false
     }
   }
+}
+
+const getRowBulkActionEnabled = (row: Record<string, any>): boolean => {
+  if (typeof props.rowBulkActionEnabled !== 'function') {
+	  return false
+  }
+
+  const rowBulkActionEnabled = props.rowBulkActionEnabled(row)
+
+  if (typeof rowBulkActionEnabled === 'boolean') {
+    return rowBulkActionEnabled
+  }
+
+  return rowBulkActionEnabled.enabled
+}
+
+const getRowBulkActionTooltip = (row: Record<string, any>): string => {
+  if (typeof props.rowBulkActionEnabled !== 'function') {
+	  return ''
+  }
+
+  const rowBulkActionEnabled = props.rowBulkActionEnabled(row)
+
+  if (typeof rowBulkActionEnabled === 'boolean') {
+    return ''
+  }
+
+  return rowBulkActionEnabled.disabledTooltip || ''
 }
 
 // determine the component to use for the row link
 const getRowLinkComponent = (row: Record<string, any>, columnKey: string): string => {
   const { to } = props.rowLink(row)
 
-  if (!to || columnKey === TableViewHeaderKeys.ACTIONS) {
+  if (!to || columnKey === TableViewHeaderKeys.ACTIONS || columnKey === TableViewHeaderKeys.BULK_ACTIONS) {
     return 'div'
   }
 
@@ -824,7 +969,7 @@ const getRowLinkComponent = (row: Record<string, any>, columnKey: string): strin
 // returns attributes for the wrapper element in each row link
 const getRowLinkAttrs = (row: Record<string, any>, columnKey: string): Record<string, any> => {
   // if the column is the actions column, return an empty object
-  if (columnKey === TableViewHeaderKeys.ACTIONS) {
+  if (columnKey === TableViewHeaderKeys.ACTIONS || columnKey === TableViewHeaderKeys.BULK_ACTIONS) {
     return {}
   }
 
@@ -872,7 +1017,13 @@ const emitTablePreferences = (): void => {
 watch([columnVisibility, tableHeaders], (newVals) => {
   const newVisibility = newVals[0]
   const newHeaders = newVals[1]
-  const newVisibleHeaders = newHeaders.filter((header: TableViewHeader) => newVisibility[header.key] !== false)
+  const newVisibleHeaders = newHeaders.filter((header: TableViewHeader) => {
+    if (header.key === TableViewHeaderKeys.BULK_ACTIONS) {
+      return hasBulkActions.value
+    }
+
+    return newVisibility[header.key] !== false
+  })
 
   if (JSON.stringify(newVisibleHeaders) !== JSON.stringify(visibleHeaders.value)) {
     visibleHeaders.value = newVisibleHeaders
@@ -886,6 +1037,81 @@ watch(hasColumnVisibilityMenu, (newVal) => {
     columnVisibility.value = props.tablePreferences.columnVisibility || {}
   }
 }, { immediate: true })
+
+const bulkActionsAll = ref<boolean>(false)
+
+const isBulkActionsIndeterminate = computed((): boolean => {
+  // ignore thee disabled rows
+  const selectableRows = tableData.value.filter((row) => getRowBulkActionEnabled(row))
+
+  // it is indeterminate if there are selected and unselected rows
+  return !!selectableRows.filter((row) => row.selected).length && !!selectableRows.filter((row) => !row.selected).length
+})
+
+const handleIndeterminateChange = (value: boolean) => {
+  if (value) {
+    // select all selectable rows
+    tableData.value = [...tableData.value].map((row) => ({ ...row, selected: getRowBulkActionEnabled(row) }))
+  } else {
+    // unselect and reset all
+    tableData.value = [...props.data].map((row) => ({ ...row, selected: false }))
+  }
+}
+
+watch(tableData, (newVal) => {
+  /** update the bulkActionsAll value */
+
+  const selectableRows = newVal.filter((row) => getRowBulkActionEnabled(row))
+
+  // all are selected
+  if (selectableRows.filter((row) => row.selected).length === selectableRows.length) {
+    bulkActionsAll.value = true
+  // all are unselected
+  } else if (selectableRows.filter((row) => !row.selected).length === selectableRows.length) {
+    bulkActionsAll.value = false
+  // some are selected
+  } else {
+    bulkActionsAll.value = false
+  }
+
+  /** update the selected rows */
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const newSelectedRows = newVal.filter((row) => row.selected).map(({ selected, ...rest }) => rest)
+
+  const oldSelectedRows: TableViewData = []
+  bulkActionsSelectedRows.value.forEach((selectedRow) => {
+    const row = props.data.find((row) => JSON.stringify(row) === JSON.stringify(selectedRow))
+
+    if (!row) {
+      oldSelectedRows.push(selectedRow)
+    }
+  })
+
+  bulkActionsSelectedRows.value = [...oldSelectedRows, ...newSelectedRows]
+}, { deep: true })
+
+/**
+ * Watch for changes in the data prop and update the tableData
+ * We want to display the selected rows from the previous data prop value
+ */
+watch(() => props.data, (newVal) => {
+  tableData.value = []
+
+  newVal.forEach((row) => {
+    const selectedRow = bulkActionsSelectedRows.value.find((selectedRow) => JSON.stringify(selectedRow) === JSON.stringify(row))
+
+    if (selectedRow) {
+      tableData.value.push({ ...row, selected: true })
+    } else {
+      tableData.value.push({ ...row, selected: false })
+    }
+  })
+}, { deep: true })
+
+watch(bulkActionsSelectedRows, (newVal) => {
+  emit('row-select', newVal)
+})
 </script>
 
 <style lang="scss" scoped>
@@ -897,48 +1123,6 @@ watch(hasColumnVisibilityMenu, (newVal) => {
       tr {
         .resize-handle {
           height: v-bind('headerHeight');
-        }
-      }
-    }
-
-    tbody {
-      tr {
-        td {
-          .actions-dropdown {
-            .actions-dropdown-trigger {
-              color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-
-              &:hover:not(:disabled):not(:focus):not(:active) {
-                background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-                color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
-              }
-
-              &:focus-visible {
-                background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-                color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-              }
-
-              &:active {
-                background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-                color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
-              }
-
-              .more-icon {
-                pointer-events: none;
-              }
-            }
-          }
-
-          &.row-link {
-            padding: var(--kui-space-0, $kui-space-0);
-
-            a.cell-wrapper {
-              color: var(--kui-color-text, $kui-color-text);
-              display: block;
-              padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
-              text-decoration: none;
-            }
-          }
         }
       }
     }
