@@ -66,7 +66,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onBeforeMount, onMounted, type PropType } from 'vue'
+import { ref, watch, onBeforeMount, onMounted, type PropType, nextTick } from 'vue'
 import type { TableHeader } from '@/types'
 import { TableColumnsIcon } from '@kong/icons'
 import KButton from '@/components/KButton/KButton.vue'
@@ -118,11 +118,11 @@ const handleDropdownToggle = (isOpen: boolean): void => {
 
   // set scroll classes on open
   if (isOpen && menuItemsRef.value) {
-    setTimeout(() => {
+    nextTick(() => {
       if (menuItemsRef.value) {
         setOverflowClass(menuItemsRef.value)
       }
-    }, 500)
+    })
   }
   // reset the map if the dropdown is closed without applying changes
   if (!isOpen && isDirty.value) {
