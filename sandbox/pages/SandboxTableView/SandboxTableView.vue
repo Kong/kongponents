@@ -271,14 +271,13 @@
         <KTableView
           :data="tableData"
           expandable-rows
-          :headers="headers(true)"
+          :headers="headers()"
           :pagination-attributes="{ totalCount: tableData.length }"
-          resize-columns
         >
           <template #action-items>
             <SandboxTableViewActions />
           </template>
-          <template #row-expanded="{ headers: nestedHeaders, columnWidths }">
+          <template #row-expanded="{ nestedHeaders, columnWidths }">
             <KTableView
               :data="tableData"
               :headers="nestedHeaders"
@@ -347,6 +346,98 @@
             Dignissim penatibus velit sapien vehicula sodales suspendisse iaculis massa. Cubilia aenean morbi scelerisque eu imperdiet odio primis. Mollis netus natoque, euismod felis tempor nibh. In nostra nulla eros ac orci suspendisse luctus porta. Parturient cras turpis faucibus ut sed nunc lacus. At et fermentum sapien tristique ac primis. Interdum vivamus orci velit sed arcu in. Eros aptent primis suscipit parturient curae enim.
             Rutrum aliquam phasellus duis pellentesque torquent fermentum. Feugiat odio consequat cursus blandit tristique erat amet. Ornare scelerisque id erat lectus at erat. Dui nostra interdum tortor, turpis arcu dis. Netus fermentum lobortis primis fermentum velit ultrices nam condimentum? Dictum montes maximus senectus; quis varius scelerisque non ridiculus. Curae malesuada porttitor finibus venenatis mi faucibus. Velit blandit dis mauris laoreet ornare molestie.
             Ante torquent faucibus nascetur ultricies eros varius odio. Cubilia sodales maximus tellus leo cubilia lorem facilisis. Blandit egestas suspendisse torquent dolor; torquent commodo id nullam. Etiam facilisi faucibus litora quisque aptent vestibulum dapibus. Maecenas risus fermentum facilisis suspendisse imperdiet nascetur porta. Vehicula malesuada sollicitudin viverra in ac habitasse ligula. Adipiscing porta neque nullam pharetra est luctus pharetra. Consequat sapien parturient nisl augue ultricies placerat maximus convallis. Consectetur metus lacinia; euismod mollis class tortor.
+          </template>
+        </KTableView>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="Bulk Actions & Nested Table">
+        <KTableView
+          :data="paginatedData"
+          expandable-rows
+          :headers="headers(true, false, true)"
+          :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
+          resize-columns
+          :row-bulk-action-enabled="getRowBulkAction"
+          @page-change="onPageChange"
+          @page-size-change="onPageSizeChange"
+          @row-select="onBulkActionsSelect"
+        >
+          <template #bulk-action-items>
+            <SandboxTableViewActions :count="selectedData.length" />
+          </template>
+          <template #action-items>
+            <SandboxTableViewActions />
+          </template>
+          <template #row-expanded="{ nestedHeaders, columnWidths }">
+            <KTableView
+              :data="tableData"
+              :headers="nestedHeaders"
+              hide-header
+              nested
+              :pagination-attributes="{ totalCount: tableData.length }"
+              :table-preferences="{ columnWidths }"
+            >
+              <template #action-items>
+                <SandboxTableViewActions />
+              </template>
+            </KTableView>
+          </template>
+        </KTableView>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        description="In both parent and nested tables, the first two rows are links and the rest are clickable."
+        title="Nested Table With Row Links & Row Cliks"
+      >
+        <KTableView
+          :data="tableData"
+          expandable-rows
+          :headers="headers(true)"
+          :pagination-attributes="{ totalCount: tableData.length }"
+          resize-columns
+          :row-link="getRowOneTwoLink"
+          @row:click="(_event: any, row: any) => onRowClick(row)"
+        >
+          <template #action-items>
+            <SandboxTableViewActions />
+          </template>
+          <template #row-expanded="{ nestedHeaders, columnWidths }">
+            <KTableView
+              :data="tableData"
+              :headers="nestedHeaders"
+              hide-header
+              nested
+              :pagination-attributes="{ totalCount: tableData.length }"
+              :row-link="getRowOneTwoLink"
+              :table-preferences="{ columnWidths }"
+              @row:click="(_event: any, row: any) => onRowClick(row)"
+            >
+              <template #action-items>
+                <SandboxTableViewActions />
+              </template>
+            </KTableView>
+          </template>
+        </KTableView>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="Nested Table With It's Own Header">
+        <KTableView
+          :data="tableData"
+          expandable-rows
+          :headers="headers()"
+          :pagination-attributes="{ totalCount: tableData.length }"
+        >
+          <template #action-items>
+            <SandboxTableViewActions />
+          </template>
+          <template #row-expanded>
+            <KTableView
+              :data="tableData"
+              :headers="headers()"
+              nested
+              :pagination-attributes="{ totalCount: tableData.length }"
+            >
+              <template #action-items>
+                <SandboxTableViewActions />
+              </template>
+            </KTableView>
           </template>
         </KTableView>
       </SandboxSectionComponent>
@@ -537,6 +628,18 @@ const getRowBulkAction = (data: Record<string, any>): RowBulkAction => {
   }
 
   return true
+}
+
+const getRowOneTwoLink = (row: Record<string, any>): RowLink => {
+  if (row.id === 1) {
+    return getRowLinksRouter(row)
+  }
+
+  if (row.id === 2) {
+    return getRowLinksAnchor(row)
+  }
+
+  return {}
 }
 </script>
 

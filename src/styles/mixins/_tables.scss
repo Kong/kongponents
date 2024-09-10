@@ -2,6 +2,7 @@
   /* Local variables */
   $tableThPaddingY: var(--kui-space-50, $kui-space-50);
   $tableCaretIconSize: var(--kui-icon-size-30, $kui-icon-size-30);
+  $expandedRowMaxHeight: 250px;
 
   /* Styles */
   background-color: var(--kui-color-background, $kui-color-background);
@@ -237,10 +238,13 @@
             &.row-link {
               padding: var(--kui-space-0, $kui-space-0);
 
+              .cell-wrapper {
+                padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+              }
+
               a.cell-wrapper {
                 color: var(--kui-color-text, $kui-color-text);
                 display: block;
-                padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
                 text-decoration: none;
               }
 
@@ -303,11 +307,12 @@
                 display: flex;
                 flex-direction: column;
                 gap: var(--kui-space-40, $kui-space-40);
-                max-height: 250px;
+                max-height: $expandedRowMaxHeight;
                 overflow-y: auto;
                 padding-right: var(--kui-space-50, $kui-space-50);
 
                 &:has(.k-table-view) {
+                  max-height: none;
                   padding-right: var(--kui-space-0, $kui-space-0);
                 }
 
@@ -315,11 +320,28 @@
                 :deep(.k-table-view) {
                   background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
 
+                  .table-wrapper {
+                    max-height: $expandedRowMaxHeight;
+                  }
+
+                  tr.is-scrolled {
+                    background-color: var(
+                      --kui-color-background-neutral-weakest,
+                      $kui-color-background-neutral-weakest
+                    );
+                  }
+
                   &.hide-header {
                     th,
                     td {
                       &:first-child {
                         padding-left: calc(var(--kui-space-60, $kui-space-60) * 3 + $tableCaretIconSize);
+
+                        &.row-link {
+                          .cell-wrapper {
+                            padding-left: var(--kui-space-0, $kui-space-0);
+                          }
+                        }
                       }
 
                       &:last-child {

@@ -328,7 +328,7 @@
                 </td>
               </tr>
               <Transition
-                v-if="expandableRows"
+                v-if="expandableRows && !nested"
                 name="kongponents-fade-transition"
               >
                 <tr
@@ -340,8 +340,8 @@
                     <div class="expandable-content-wrapper">
                       <slot
                         :column-widths="actualColumnWidths"
-                        :headers="getNestedTableHeaders"
                         name="row-expanded"
+                        :nested-headers="getNestedTableHeaders"
                         :row="getGeneric(row)"
                         :row-key="rowIndex"
                       />
@@ -1133,9 +1133,9 @@ const setActualColumnWidths = (): void => {
     }
 
     // reduce last column width to account for scrollbar
-    // scrollbar is roughly 14px (tested in Chrome, Firefox and Safari)
+    // scrollbar is roughly 15px (tested in Chrome, Firefox and Safari)
     if (index === headers.length - 1) {
-      width -= 14
+      width -= 15
     }
 
     widths[key!] = width
@@ -1161,7 +1161,7 @@ watch([columnVisibility, tableHeaders], (newVals) => {
   }
 
   // add the expandable row header if expandable rows are enabled
-  if (props.expandableRows) {
+  if (props.expandableRows && !props.nested) {
     newVisibleHeaders.unshift(expandableRowHeader)
   }
 
@@ -1251,6 +1251,8 @@ watch(() => props.data, (newVal) => {
       tableData.value.push({ ...row, selected: false })
     }
   })
+
+  expandedRows.value = []
 }, { deep: true })
 
 watch(bulkActionsSelectedRows, (newVal) => {
