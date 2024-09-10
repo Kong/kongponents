@@ -142,7 +142,7 @@
                 @mouseover="currentHoveredColumn = column.key"
               >
                 <div
-                  v-if="resizeColumns && index !== 0"
+                  v-if="resizeColumns && !nested && index !== 0"
                   class="resize-handle previous"
                   @click.stop
                   @mousedown="startResize($event, visibleHeaders[index - 1].key)"
@@ -215,7 +215,7 @@
                 </div>
 
                 <div
-                  v-if="resizeColumns && index !== visibleHeaders.length - 1"
+                  v-if="resizeColumns && !nested && index !== visibleHeaders.length - 1"
                   class="resize-handle"
                   @click.stop
                   @mousedown="startResize($event, column.key)"
@@ -241,7 +241,7 @@
                   v-for="(header, index) in visibleHeaders"
                   :key="`table-${tableId}-cell-${index}`"
                   :class="{
-                    'resize-hover': resizeColumns && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
+                    'resize-hover': resizeColumns && !nested && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
                     'row-link': !!rowLink(row).to,
                   }"
                   :style="columnStyles[header.key]"
@@ -561,11 +561,24 @@ const props = defineProps({
     type: Object as PropType<TablePaginationAttributes>,
     default: () => ({}),
   },
+  /**
+   * Enable expandable rows
+   */
   expandableRows: {
     type: Boolean,
     default: false,
   },
+  /**
+   * Hide the table header
+   */
   hideHeader: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * Nested table
+   */
+  nested: {
     type: Boolean,
     default: false,
   },
@@ -619,7 +632,7 @@ const isScrolledHorizontally = ref<boolean>(false)
 const sortColumnKey = ref('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
 const isClickable = ref(false)
-const hasToolbarSlot = computed((): boolean => !!slots.toolbar || hasColumnVisibilityMenu.value || hasBulkActions.value)
+const hasToolbarSlot = computed((): boolean => !props.nested && (!!slots.toolbar || hasColumnVisibilityMenu.value || hasBulkActions.value))
 const isActionsDropdownHovered = ref<boolean>(false)
 const tableWrapperStyles = computed((): Record<string, string> => ({
   maxHeight: getSizeFromString(props.maxHeight),
@@ -627,7 +640,7 @@ const tableWrapperStyles = computed((): Record<string, string> => ({
 
 const tableData = ref<TableViewData>([...props.data].map((row) => ({ ...row, selected: false })))
 const bulkActionsSelectedRows = ref<TableViewData>([])
-const hasBulkActions = computed((): boolean => !props.error && tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']))
+const hasBulkActions = computed((): boolean => !props.nested && !props.error && tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']))
 const bulkActionsSelectedRowsCount = computed((): string => {
   const selectedRowsCount = bulkActionsSelectedRows.value.length
 
@@ -787,8 +800,8 @@ const columnStyles = computed(() => {
 const getHeaderClasses = (column: TableViewHeader, index: number): Record<string, boolean> => {
   return {
     // display the resize handle on the right side of the column if resizeColumns is enabled, hovering current column, and not the last column
-    'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && index !== visibleHeaders.value.length - 1,
-    resizable: props.resizeColumns,
+    'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && !props.nested && index !== visibleHeaders.value.length - 1,
+    resizable: props.resizeColumns && !props.nested,
     // display sort control if column is sortable, label is visible, and sorting is not disabled
     sortable: !column.hideLabel && !!column.sortable,
     // display active sorting styles if column is currently sorted
@@ -1075,6 +1088,9 @@ const emitTablePreferences = (): void => {
   emit('update:table-preferences', tablePreferences.value)
 }
 
+/**
+ * Toggle visibility of expendable row content
+ */
 const expandableRowHeader = { key: TableViewHeaderKeys.EXPANDABLE, label: 'Expandable rows controls', hideLabel: true }
 const expandedRows = ref<number[]>([])
 const toggleRow = async (rowIndex: number): Promise<void> => {
@@ -1088,10 +1104,13 @@ const toggleRow = async (rowIndex: number): Promise<void> => {
   }
 }
 
-const getNestedTableHeaders = computed((): TableViewHeader[] => {
-  return visibleHeaders.value.filter((header: TableViewHeader) => header.key !== TableViewHeaderKeys.EXPANDABLE)
-})
+// Get the headers for the nested table
+const getNestedTableHeaders = computed((): TableViewHeader[] => visibleHeaders.value.filter((header: TableViewHeader) => header.key !== TableViewHeaderKeys.EXPANDABLE && header.key !== TableViewHeaderKeys.BULK_ACTIONS))
 
+/**
+ * Function that calculates client width of each column and sets the actualColumnWidths
+ * actualColumnWidths passed as slot prop to the nested table
+ */
 const actualColumnWidths = ref<Record<string, number>>({})
 const setActualColumnWidths = (): void => {
   const table = document?.querySelector(`[data-tableid="${tableId}"]`)
@@ -1105,8 +1124,10 @@ const setActualColumnWidths = (): void => {
       return
     }
 
-    let width = header.clientWidth
+    let width = header.getBoundingClientRect().width
 
+    // first column is the expandable row column which isn't present in the nested table
+    // so for the nested table, we need to add the width of the expandable row column so that the nested table aligns with the parent table
     if (index === 1) {
       width += expandableColumnWidth
     }

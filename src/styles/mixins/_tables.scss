@@ -300,6 +300,9 @@
               }
 
               .expandable-content-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: var(--kui-space-40, $kui-space-40);
                 max-height: 250px;
                 overflow-y: auto;
                 padding-right: var(--kui-space-50, $kui-space-50);

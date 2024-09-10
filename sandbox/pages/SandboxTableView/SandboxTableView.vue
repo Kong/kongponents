@@ -283,6 +283,7 @@
               :data="tableData"
               :headers="nestedHeaders"
               hide-header
+              nested
               :pagination-attributes="{ totalCount: tableData.length }"
               :table-preferences="{ columnWidths }"
             >
