@@ -10,7 +10,10 @@
     >
       <slot name="toolbar" />
 
-      <div class="toolbar-default-items-container">
+      <div
+        v-if="hasBulkActions || hasColumnVisibilityMenu"
+        class="toolbar-default-items-container"
+      >
         <slot
           v-if="hasBulkActions"
           name="bulk-actions"
@@ -624,7 +627,7 @@ const tableWrapperStyles = computed((): Record<string, string> => ({
 
 const tableData = ref<TableViewData>([...props.data].map((row) => ({ ...row, selected: false })))
 const bulkActionsSelectedRows = ref<TableViewData>([])
-const hasBulkActions = computed((): boolean => tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']))
+const hasBulkActions = computed((): boolean => !props.error && tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']))
 const bulkActionsSelectedRowsCount = computed((): string => {
   const selectedRowsCount = bulkActionsSelectedRows.value.length
 

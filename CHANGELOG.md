@@ -1,3 +1,10 @@
+## [9.6.1](https://github.com/Kong/kongponents/compare/v9.6.0...v9.6.1) (2024-09-09)
+
+
+### Bug Fixes
+
+* **ktableview:** minor fix ([#2381](https://github.com/Kong/kongponents/issues/2381)) ([5d531f1](https://github.com/Kong/kongponents/commit/5d531f1d78fdb79cff899dd88becadc53fbb671e))
+
 # [9.6.0](https://github.com/Kong/kongponents/compare/v9.5.5...v9.6.0) (2024-09-09)
 
 
