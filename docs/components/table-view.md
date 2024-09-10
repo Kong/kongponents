@@ -510,6 +510,48 @@ interface TablePaginationAttributes {
 
 A boolean to hide pagination element (defaults to `false`).
 
+### expandableRows
+
+A boolean to enable expanding each table row. Useful for providing additional information. Defaults to `false`.
+
+<KTableView
+  :data="basicData"
+  expandable-rows
+  :headers="basicHeaders()"
+  :pagination-attributes="{ totalCount: basicData.length }"
+>
+  <template #row-expanded>
+    Lorem ipsum odor amet, consectetuer adipiscing elit. Vitae rutrum interdum dis elementum; consequat maximus potenti felis. Faucibus eget vel, efficitur vitae ullamcorper velit. Aliquam aliquam fusce sollicitudin dolor lorem aenean. Rutrum ligula diam mollis felis egestas arcu. Odio urna leo pharetra luctus urna adipiscing suscipit nisl. Eleifend natoque lacus scelerisque suspendisse libero pulvinar ut lectus. Ac parturient fringilla lacinia fusce natoque semper.
+    Turpis pellentesque eu ad risus proin hendrerit litora. Sollicitudin facilisi per diam netus; at commodo ornare. Justo efficitur hendrerit augue blandit himenaeos suspendisse; mattis habitasse. Aliquet iaculis nibh ante et rutrum sollicitudin tincidunt enim. Suspendisse orci ac proin metus consectetur vel primis. Dictumst imperdiet nulla habitant donec gravida vel nulla in. Eleifend augue ligula convallis eros odio. Erat integer nibh mattis varius senectus.
+    Sodales nisl sem aliquet neque scelerisque. Dapibus mauris leo commodo; nulla adipiscing purus ultricies porttitor laoreet. Dignissim sociosqu cras sollicitudin iaculis magna ex. Elit lacus tincidunt dapibus adipiscing tortor eros dui felis. Orci hendrerit senectus himenaeos ligula cursus in. Turpis dignissim duis nunc neque ornare congue primis aenean natoque. Himenaeos mollis dui dolor laoreet mauris aliquam hendrerit scelerisque.
+    Sagittis lectus fringilla iaculis semper egestas mattis venenatis. Mollis parturient primis; pharetra leo neque faucibus nibh. Porttitor scelerisque magnis pellentesque nec vel etiam fames quisque. Senectus dictumst nisl enim sagittis primis magnis habitasse finibus torquent. Efficitur turpis hendrerit posuere dictum fusce nostra taciti donec. Parturient ut blandit ligula euismod taciti velit. Mollis urna nunc tellus; cras consequat volutpat turpis. Maximus egestas platea mauris mollis mollis conubia. Euismod scelerisque quam mauris parturient eleifend nostra. Mollis tempor hendrerit hendrerit praesent aliquet himenaeos dignissim.
+    Dignissim penatibus velit sapien vehicula sodales suspendisse iaculis massa. Cubilia aenean morbi scelerisque eu imperdiet odio primis. Mollis netus natoque, euismod felis tempor nibh. In nostra nulla eros ac orci suspendisse luctus porta. Parturient cras turpis faucibus ut sed nunc lacus. At et fermentum sapien tristique ac primis. Interdum vivamus orci velit sed arcu in. Eros aptent primis suscipit parturient curae enim.
+    Rutrum aliquam phasellus duis pellentesque torquent fermentum. Feugiat odio consequat cursus blandit tristique erat amet. Ornare scelerisque id erat lectus at erat. Dui nostra interdum tortor, turpis arcu dis. Netus fermentum lobortis primis fermentum velit ultrices nam condimentum? Dictum montes maximus senectus; quis varius scelerisque non ridiculus. Curae malesuada porttitor finibus venenatis mi faucibus. Velit blandit dis mauris laoreet ornare molestie.
+    Ante torquent faucibus nascetur ultricies eros varius odio. Cubilia sodales maximus tellus leo cubilia lorem facilisis. Blandit egestas suspendisse torquent dolor; torquent commodo id nullam. Etiam facilisi faucibus litora quisque aptent vestibulum dapibus. Maecenas risus fermentum facilisis suspendisse imperdiet nascetur porta. Vehicula malesuada sollicitudin viverra in ac habitasse ligula. Adipiscing porta neque nullam pharetra est luctus pharetra. Consequat sapien parturient nisl augue ultricies placerat maximus convallis. Consectetur metus lacinia; euismod mollis class tortor.
+  </template>
+</KTableView>
+
+```html
+<KTableView
+  :data="tableData"
+  expandable-rows
+  :headers="headers"
+  :pagination-attributes="{ totalCount: tableData.length }"
+>
+  <template #row-expanded>
+    Lorem ipsum odor amet...
+  </template>
+</KTableView>
+```
+
+### hideHeader
+
+A boolean to hide table header. Only recomended when used in nested table. Refer to [Expandable Rows](#expandable-rows) section documentation for more details. Defaults to `false`.
+
+### nested
+
+A boolean to disable some of the table features like column visibility, column resizing, bulk actions and hide toolbar element in nested tables. Refer to [Expandable Rows](#expandable-rows) section documentation for more details. Defaults to `false`.
+
 ## States
 
 ### Empty
@@ -621,6 +663,135 @@ A `error-action-click` event is emitted when error state action button is clicke
   error-state-action-route="/"
 />
 ```
+
+## Expandable Rows
+
+Data presented in a table often requires futher clarification or specification. The [`expandableRows` prop](#expandablerows) allows each row to be toggled, revealing or hiding additional information without the need to navigate away from the current view. Any content can be passed using the [`row-expanded` slot](#row-expanded). However, when displaying a nested table in expanded rows, there are a few important considerations to be aware of.
+
+### Nested Table With Different Columns
+
+A nested table represents data that differs from the parent table but is loosely related. This type of nested table does not require any special handling other than setting the [`nested` prop](#nested) to `true`.
+
+Notice that column vibility, column resizing and bulk actions features, as well as `toolbar` slot, are disabled in nested tables.
+
+<KTableView
+  :headers="teamsHeaders"
+  :data="teamsData"
+  expandable-rows
+  resize-columns
+  :pagination-attributes="{ totalCount: teamsData.length }"
+>
+  <template #row-expanded>
+    <KTableView
+      :headers="basicHeaders()"
+      :data="basicData"
+      nested
+      :pagination-attributes="{ totalCount: basicData.length }"
+    />
+  </template>
+</KTableView>
+
+```html
+<KTableView
+  :headers="parentHeaders"
+  :data="parentData"
+  expandable-rows
+  resize-columns
+  :pagination-attributes="{ totalCount: parentData.length }"
+>
+  <template #row-expanded>
+    <KTableView
+      :headers="nestedHeaders"
+      :data="nestedData"
+      nested
+      :pagination-attributes="{ totalCount: nestedData.length }"
+    />
+  </template>
+</KTableView>
+```
+
+:::tip NOTE
+Both parent and nested tables in this example contain static data for demonstration purposes.
+:::
+
+### Nested Table With Same Columns
+  
+A nested table that complements the parent table requires some special handling:
+
+* The `nested` prop must be set to `true`
+* Table headers can be hidden using the [`hideHeader` prop](#hideheader). Value still need to be passed through the `headers` prop, and this is where the `nestedHeaders` slot prop becomes useful. It returns an array of header objects, simplifying the synchronization of column visibility when it is enabled in the parent table
+* To better align the columns of the parent and nested tables, the `columnWidths` slot prop can be utilized. It returns an object that can be passed to the nested table through the [`tablePreferences` prop](#tablepreferences). Each time a column is resized in the parent table, the nested table will be updated accordingly
+
+:::warning NOTE
+If bulk actions is enabled in parent table, it will be disabled in the nested table.
+:::
+
+<KTableView
+  :headers="cpGroupsHeaders"
+  :data="cpGroupsData"
+  expandable-rows
+  resize-columns
+  :pagination-attributes="{ totalCount: cpGroupsData.length }"
+>
+  <template #action-items>
+    <KDropdownItem>
+      Edit
+    </KDropdownItem>
+    <KDropdownItem
+      danger
+      has-divider
+    >
+      Delete
+    </KDropdownItem>
+  </template>
+  <template #row-expanded="{ nestedHeaders, columnWidths }">
+    <KTableView
+      :headers="nestedHeaders"
+      :data="cpData"
+      hide-header
+      nested
+      :pagination-attributes="{ totalCount: cpData.length }"
+      :table-preferences="{ columnWidths }"
+    >
+      <template #action-items>
+        <KDropdownItem>
+          Edit
+        </KDropdownItem>
+        <KDropdownItem
+          danger
+          has-divider
+        >
+          Delete
+        </KDropdownItem>
+      </template>
+    </KTableView>
+  </template>
+</KTableView>
+
+```html
+<KTableView
+  :headers="parentHeaders"
+  :data="parentData"
+  expandable-rows
+  resize-columns
+  :pagination-attributes="{ totalCount: parentData.length }"
+>
+  <template #row-expanded="{ nestedHeaders, columnWidths }">
+    <KTableView
+      :headers="nestedHeaders"
+      :data="nestedData"
+      hide-header
+      nested
+      :pagination-attributes="{ totalCount: nestedData.length }"
+      :table-preferences="{ columnWidths }"
+    />
+  </template>
+</KTableView>
+```
+
+:::tip NOTE
+Both parent and nested tables in this example contain static data for demonstration purposes.
+:::
 
 ## Slots
 
@@ -918,6 +1089,47 @@ Slot props:
     >
       Delete ({{ selectedRows.length }} items selected)
     </KButton>
+  </template>
+</KTableView>
+```
+
+### row-expanded
+
+Slot for passing custom content that will be revealed once user expands one of the table rows when [`expandableRows` prop](#expandablerows) is `true`.
+
+Slot props:
+
+* `row` - table row object
+* `rowKey` - table row index
+* `headers` - array of table headers objects to be passed to the nested table. See [Expandable Rows](#expandable-rows) section documentation for more details
+* `columnWidths` - an object where each key represents a table column, and its corresponding value specifies the width to be used for that column in a nested table. Refer to [Expandable Rows](#expandable-rows) section documentation for more details
+
+<KTableView
+  :data="basicData"
+  expandable-rows
+  :headers="basicHeaders()"
+  :pagination-attributes="{ totalCount: basicData.length }"
+>
+  <template #row-expanded>
+    Lorem ipsum odor amet, consectetuer adipiscing elit. Vitae rutrum interdum dis elementum; consequat maximus potenti felis. Faucibus eget vel, efficitur vitae ullamcorper velit. Aliquam aliquam fusce sollicitudin dolor lorem aenean. Rutrum ligula diam mollis felis egestas arcu. Odio urna leo pharetra luctus urna adipiscing suscipit nisl. Eleifend natoque lacus scelerisque suspendisse libero pulvinar ut lectus. Ac parturient fringilla lacinia fusce natoque semper.
+    Turpis pellentesque eu ad risus proin hendrerit litora. Sollicitudin facilisi per diam netus; at commodo ornare. Justo efficitur hendrerit augue blandit himenaeos suspendisse; mattis habitasse. Aliquet iaculis nibh ante et rutrum sollicitudin tincidunt enim. Suspendisse orci ac proin metus consectetur vel primis. Dictumst imperdiet nulla habitant donec gravida vel nulla in. Eleifend augue ligula convallis eros odio. Erat integer nibh mattis varius senectus.
+    Sodales nisl sem aliquet neque scelerisque. Dapibus mauris leo commodo; nulla adipiscing purus ultricies porttitor laoreet. Dignissim sociosqu cras sollicitudin iaculis magna ex. Elit lacus tincidunt dapibus adipiscing tortor eros dui felis. Orci hendrerit senectus himenaeos ligula cursus in. Turpis dignissim duis nunc neque ornare congue primis aenean natoque. Himenaeos mollis dui dolor laoreet mauris aliquam hendrerit scelerisque.
+    Sagittis lectus fringilla iaculis semper egestas mattis venenatis. Mollis parturient primis; pharetra leo neque faucibus nibh. Porttitor scelerisque magnis pellentesque nec vel etiam fames quisque. Senectus dictumst nisl enim sagittis primis magnis habitasse finibus torquent. Efficitur turpis hendrerit posuere dictum fusce nostra taciti donec. Parturient ut blandit ligula euismod taciti velit. Mollis urna nunc tellus; cras consequat volutpat turpis. Maximus egestas platea mauris mollis mollis conubia. Euismod scelerisque quam mauris parturient eleifend nostra. Mollis tempor hendrerit hendrerit praesent aliquet himenaeos dignissim.
+    Dignissim penatibus velit sapien vehicula sodales suspendisse iaculis massa. Cubilia aenean morbi scelerisque eu imperdiet odio primis. Mollis netus natoque, euismod felis tempor nibh. In nostra nulla eros ac orci suspendisse luctus porta. Parturient cras turpis faucibus ut sed nunc lacus. At et fermentum sapien tristique ac primis. Interdum vivamus orci velit sed arcu in. Eros aptent primis suscipit parturient curae enim.
+    Rutrum aliquam phasellus duis pellentesque torquent fermentum. Feugiat odio consequat cursus blandit tristique erat amet. Ornare scelerisque id erat lectus at erat. Dui nostra interdum tortor, turpis arcu dis. Netus fermentum lobortis primis fermentum velit ultrices nam condimentum? Dictum montes maximus senectus; quis varius scelerisque non ridiculus. Curae malesuada porttitor finibus venenatis mi faucibus. Velit blandit dis mauris laoreet ornare molestie.
+    Ante torquent faucibus nascetur ultricies eros varius odio. Cubilia sodales maximus tellus leo cubilia lorem facilisis. Blandit egestas suspendisse torquent dolor; torquent commodo id nullam. Etiam facilisi faucibus litora quisque aptent vestibulum dapibus. Maecenas risus fermentum facilisis suspendisse imperdiet nascetur porta. Vehicula malesuada sollicitudin viverra in ac habitasse ligula. Adipiscing porta neque nullam pharetra est luctus pharetra. Consequat sapien parturient nisl augue ultricies placerat maximus convallis. Consectetur metus lacinia; euismod mollis class tortor.
+  </template>
+</KTableView>
+
+```html
+<KTableView
+  :data="tableData"
+  expandable-rows
+  :headers="headers"
+  :pagination-attributes="{ totalCount: tableData.length }"
+>
+  <template #row-expanded>
+    Lorem ipsum odor amet...
   </template>
 </KTableView>
 ```
@@ -1301,6 +1513,121 @@ const getRowBulkAction = (data: Record<string, any>): RowBulkAction => {
 
   return true
 }
+
+const teamsHeaders: TableViewHeader[] = [
+  {
+    key: 'name',
+    label: 'Team Name',
+  },
+  {
+    key: 'manager',
+    label: 'Manager',
+  },
+  {
+    key: 'channel',
+    label: 'Slack Channel',
+    hidable: true,
+  },
+]
+
+const teamsData: TableViewData = [
+  {
+    name: 'Design',
+    manager: 'Leanne Graham',
+    channel: '#team-design',
+  },
+  {
+    name: 'Engineering',
+    manager: 'Ervin Howell',
+    channel: '#team-engineering',
+  },
+  {
+    name: 'Data',
+    manager: 'Clementine Bauch',
+    channel: '#team-data',
+  },
+  {
+    name: 'Support',
+    manager: 'Patricia Lebsack',
+    channel: '#team-support',
+  },
+]
+
+const cpGroupsHeaders: TableViewHeader[] = [
+  {
+    key: 'name',
+    label: 'Control Plane',
+  },
+  {
+    key: 'type',
+    label: 'Type',
+  },
+  {
+    key: 'nodes',
+    label: 'Nodes',
+    hidable: true,
+  },
+  {
+    key: 'actions',
+    label: 'Row actions',
+  }
+]
+
+const cpGroupsData: TableViewData = [
+  {
+    name: 'Group 1',
+    type: 'Control Plane Group',
+    nodes: 3,
+  },
+  {
+    name: 'Group 2',
+    type: 'Control Plane Group',
+    nodes: 3,
+  },
+  {
+    name: 'Group 3',
+    type: 'Control Plane Group',
+    nodes: 3,
+  },
+  {
+    name: 'Group 4',
+    type: 'Control Plane Group',
+    nodes: 3,
+  },
+]
+
+const cpData: TableViewData = [
+  {
+    name: 'Control Plane 1',
+    type: 'Self-Managed Gateway',
+    nodes: 2,
+  },
+  {
+    name: 'Control Plane 2',
+    type: 'Self-Managed Gateway',
+    nodes: 1,
+  },
+  {
+    name: 'Control Plane 3',
+    type: 'Self-Managed Gateway',
+    nodes: 0,
+  },
+  {
+    name: 'Control Plane 4',
+    type: 'Self-Managed Gateway',
+    nodes: 0,
+  },
+  {
+    name: 'Control Plane 5',
+    type: 'Self-Managed Gateway',
+    nodes: 0,
+  },
+  {
+    name: 'Control Plane 6',
+    type: 'Self-Managed Gateway',
+    nodes: 0,
+  },
+]
 </script>
 
 <style lang="scss" scoped>
