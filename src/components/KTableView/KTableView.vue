@@ -1,5 +1,8 @@
 <template>
-  <div class="k-table-view">
+  <div
+    class="k-table-view"
+    :class="{ 'hide-header': hideHeader }"
+  >
     <div
       v-if="hasToolbarSlot"
       class="table-toolbar"
@@ -114,7 +117,10 @@
             'is-clickable': isClickable
           }"
         >
-          <thead :class="{ 'is-scrolled': isScrolledVertically }">
+          <thead
+            v-if="!hideHeader"
+            :class="{ 'is-scrolled': isScrolledVertically }"
+          >
             <tr
               ref="headerRow"
               :class="{ 'is-scrolled': isScrolledVertically }"
@@ -125,6 +131,7 @@
                 :aria-sort="column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
                 class="table-headers"
                 :class="getHeaderClasses(column, index)"
+                :data-key="column.key"
                 :data-testid="`table-header-${column.key}`"
                 :style="columnStyles[column.key]"
                 @click="() => onHeaderClick(column)"
@@ -328,13 +335,13 @@
                 >
                   <td :colspan="visibleHeaders.length">
                     <div class="expandable-content-wrapper">
-                      Lorem ipsum odor amet, consectetuer adipiscing elit. Vitae rutrum interdum dis elementum; consequat maximus potenti felis. Faucibus eget vel, efficitur vitae ullamcorper velit. Aliquam aliquam fusce sollicitudin dolor lorem aenean. Rutrum ligula diam mollis felis egestas arcu. Odio urna leo pharetra luctus urna adipiscing suscipit nisl. Eleifend natoque lacus scelerisque suspendisse libero pulvinar ut lectus. Ac parturient fringilla lacinia fusce natoque semper.
-                      Turpis pellentesque eu ad risus proin hendrerit litora. Sollicitudin facilisi per diam netus; at commodo ornare. Justo efficitur hendrerit augue blandit himenaeos suspendisse; mattis habitasse. Aliquet iaculis nibh ante et rutrum sollicitudin tincidunt enim. Suspendisse orci ac proin metus consectetur vel primis. Dictumst imperdiet nulla habitant donec gravida vel nulla in. Eleifend augue ligula convallis eros odio. Erat integer nibh mattis varius senectus.
-                      Sodales nisl sem aliquet neque scelerisque. Dapibus mauris leo commodo; nulla adipiscing purus ultricies porttitor laoreet. Dignissim sociosqu cras sollicitudin iaculis magna ex. Elit lacus tincidunt dapibus adipiscing tortor eros dui felis. Orci hendrerit senectus himenaeos ligula cursus in. Turpis dignissim duis nunc neque ornare congue primis aenean natoque. Himenaeos mollis dui dolor laoreet mauris aliquam hendrerit scelerisque.
-                      Sagittis lectus fringilla iaculis semper egestas mattis venenatis. Mollis parturient primis; pharetra leo neque faucibus nibh. Porttitor scelerisque magnis pellentesque nec vel etiam fames quisque. Senectus dictumst nisl enim sagittis primis magnis habitasse finibus torquent. Efficitur turpis hendrerit posuere dictum fusce nostra taciti donec. Parturient ut blandit ligula euismod taciti velit. Mollis urna nunc tellus; cras consequat volutpat turpis. Maximus egestas platea mauris mollis mollis conubia. Euismod scelerisque quam mauris parturient eleifend nostra. Mollis tempor hendrerit hendrerit praesent aliquet himenaeos dignissim.
-                      Dignissim penatibus velit sapien vehicula sodales suspendisse iaculis massa. Cubilia aenean morbi scelerisque eu imperdiet odio primis. Mollis netus natoque, euismod felis tempor nibh. In nostra nulla eros ac orci suspendisse luctus porta. Parturient cras turpis faucibus ut sed nunc lacus. At et fermentum sapien tristique ac primis. Interdum vivamus orci velit sed arcu in. Eros aptent primis suscipit parturient curae enim.
-                      Rutrum aliquam phasellus duis pellentesque torquent fermentum. Feugiat odio consequat cursus blandit tristique erat amet. Ornare scelerisque id erat lectus at erat. Dui nostra interdum tortor, turpis arcu dis. Netus fermentum lobortis primis fermentum velit ultrices nam condimentum? Dictum montes maximus senectus; quis varius scelerisque non ridiculus. Curae malesuada porttitor finibus venenatis mi faucibus. Velit blandit dis mauris laoreet ornare molestie.
-                      Ante torquent faucibus nascetur ultricies eros varius odio. Cubilia sodales maximus tellus leo cubilia lorem facilisis. Blandit egestas suspendisse torquent dolor; torquent commodo id nullam. Etiam facilisi faucibus litora quisque aptent vestibulum dapibus. Maecenas risus fermentum facilisis suspendisse imperdiet nascetur porta. Vehicula malesuada sollicitudin viverra in ac habitasse ligula. Adipiscing porta neque nullam pharetra est luctus pharetra. Consequat sapien parturient nisl augue ultricies placerat maximus convallis. Consectetur metus lacinia; euismod mollis class tortor.
+                      <slot
+                        :column-widths="actualColumnWidths"
+                        :headers="getNestedTableHeaders"
+                        name="row-expanded"
+                        :row="getGeneric(row)"
+                        :row-key="rowIndex"
+                      />
                     </div>
                   </td>
                 </tr>
@@ -360,7 +367,7 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { ref, watch, computed, useAttrs, useSlots } from 'vue'
+import { ref, watch, computed, useAttrs, useSlots, nextTick } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
@@ -383,7 +390,7 @@ import type {
   RowBulkAction,
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
-import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './../KTable/ColumnVisibilityMenu.vue'
 import useUniqueId from '@/composables/useUniqueId'
 import useUtilities from '@/composables/useUtilities'
@@ -552,6 +559,10 @@ const props = defineProps({
     default: () => ({}),
   },
   expandableRows: {
+    type: Boolean,
+    default: false,
+  },
+  hideHeader: {
     type: Boolean,
     default: false,
   },
@@ -744,14 +755,15 @@ const tdlisteners = computed((): any => {
   }
 })
 
+const expandableColumnWidth = (parseInt(KUI_SPACE_60) * 2) + parseInt(KUI_ICON_SIZE_30)
 /**
  * Default column widths for better UX
  * expandable column is always 48px (padding-left + chevron width + padding-right adds up to 48px)
  * bulkActions column is always 56px (padding-left + checkbox width + padding-right adds up to 56px)
  * actions column is always 54px (padding-left + button width + padding-right adds up to 54px)
  */
-const defaultColumnWidths = { expandable: 48, bulkActions: 56, actions: 54 }
-const columnWidths = ref<Record<string, number>>(props.resizeColumns ? props.tablePreferences.columnWidths || defaultColumnWidths : defaultColumnWidths)
+const defaultColumnWidths = { expandable: expandableColumnWidth, bulkActions: 56, actions: 54 }
+const columnWidths = ref<Record<string, number>>(props.tablePreferences?.columnWidths || defaultColumnWidths)
 const columnStyles = computed(() => {
   const styles: Record<string, any> = {}
   for (const colKey in columnWidths.value) {
@@ -877,6 +889,9 @@ const startResize = (evt: MouseEvent, colKey: string) => {
     document?.removeEventListener('mousemove', mouseMoveHandler)
     document?.removeEventListener('mouseup', mouseUpHandler)
     emitTablePreferences()
+    if (props.expandableRows) {
+      setActualColumnWidths()
+    }
   }
 
   // get mouse position
@@ -1059,12 +1074,50 @@ const emitTablePreferences = (): void => {
 
 const expandableRowHeader = { key: TableViewHeaderKeys.EXPANDABLE, label: 'Expandable rows controls', hideLabel: true }
 const expandedRows = ref<number[]>([])
-const toggleRow = (rowIndex: number): void => {
+const toggleRow = async (rowIndex: number): Promise<void> => {
+  setActualColumnWidths()
+  await nextTick()
+
   if (expandedRows.value.includes(rowIndex)) {
     expandedRows.value = expandedRows.value.filter((row) => row !== rowIndex)
   } else {
     expandedRows.value = [...expandedRows.value, rowIndex]
   }
+}
+
+const getNestedTableHeaders = computed((): TableViewHeader[] => {
+  return visibleHeaders.value.filter((header: TableViewHeader) => header.key !== TableViewHeaderKeys.EXPANDABLE)
+})
+
+const actualColumnWidths = ref<Record<string, number>>({})
+const setActualColumnWidths = (): void => {
+  const table = document?.querySelector(`[data-tableid="${tableId}"]`)
+  const headers = table?.querySelectorAll('th')
+  const widths: Record<string, number> = {}
+
+  headers?.forEach((header, index) => {
+    const key = header.getAttribute('data-key')
+
+    if (key === TableViewHeaderKeys.EXPANDABLE) {
+      return
+    }
+
+    let width = header.clientWidth
+
+    if (index === 1) {
+      width += expandableColumnWidth
+    }
+
+    // reduce last column width to account for scrollbar
+    // scrollbar is roughly 14px (tested in Chrome, Firefox and Safari)
+    if (index === headers.length - 1) {
+      width -= 14
+    }
+
+    widths[key!] = width
+  })
+
+  actualColumnWidths.value = widths
 }
 
 watch([columnVisibility, tableHeaders], (newVals) => {
@@ -1091,6 +1144,10 @@ watch([columnVisibility, tableHeaders], (newVals) => {
   if (JSON.stringify(newVisibleHeaders) !== JSON.stringify(visibleHeaders.value)) {
     visibleHeaders.value = newVisibleHeaders
     emitTablePreferences()
+  }
+
+  if (props.expandableRows) {
+    setActualColumnWidths()
   }
 }, { deep: true, immediate: true })
 
@@ -1174,6 +1231,12 @@ watch(() => props.data, (newVal) => {
 
 watch(bulkActionsSelectedRows, (newVal) => {
   emit('row-select', newVal)
+})
+
+watch(() => props.tablePreferences, (newVal) => {
+  if (newVal?.columnWidths) {
+    columnWidths.value = newVal.columnWidths
+  }
 })
 </script>
 

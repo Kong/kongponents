@@ -1,6 +1,7 @@
 @mixin table {
   /* Local variables */
   $tableThPaddingY: var(--kui-space-50, $kui-space-50);
+  $tableCaretIconSize: var(--kui-icon-size-30, $kui-icon-size-30);
 
   /* Styles */
   background-color: var(--kui-color-background, $kui-color-background);
@@ -267,9 +268,9 @@
                 }
 
                 .expandable-row-control-icon {
-                  height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+                  height: $tableCaretIconSize !important;
                   transition: transform $kongponentsTransitionDurTimingFunc;
-                  width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+                  width: $tableCaretIconSize !important;
                 }
 
                 &.expanded {
@@ -289,15 +290,42 @@
             background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
             height: auto;
 
-            td {
+            > td {
               padding: var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0)
                 var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
               white-space: normal;
+
+              &:has(.k-table-view) {
+                padding: var(--kui-space-0, $kui-space-0);
+              }
 
               .expandable-content-wrapper {
                 max-height: 250px;
                 overflow-y: auto;
                 padding-right: var(--kui-space-50, $kui-space-50);
+
+                &:has(.k-table-view) {
+                  padding-right: var(--kui-space-0, $kui-space-0);
+                }
+
+                /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+                :deep(.k-table-view) {
+                  background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+
+                  &.hide-header {
+                    th,
+                    td {
+                      &:first-child {
+                        padding-left: calc(var(--kui-space-60, $kui-space-60) * 3 + $tableCaretIconSize);
+                      }
+
+                      &:last-child {
+                        // reduce padding-right to account for scrollbar
+                        padding-right: var(--kui-space-20, $kui-space-20);
+                      }
+                    }
+                  }
+                }
               }
             }
           }
