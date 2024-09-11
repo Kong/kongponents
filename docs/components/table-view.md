@@ -672,7 +672,7 @@ Data presented in a table often requires futher clarification or specification. 
 
 A nested table represents data that differs from the parent table but is loosely related. This type of nested table does not require any special handling other than setting the [`nested` prop](#nested) to `true`.
 
-Notice that column vibility, column resizing and bulk actions features, as well as `toolbar` slot, are disabled in nested tables.
+Notice that column visibility, column resizing and bulk actions features, as well as `toolbar` slot, are disabled in nested tables.
 
 <KTableView
   :headers="teamsHeaders"

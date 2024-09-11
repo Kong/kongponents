@@ -350,6 +350,13 @@
                       }
                     }
                   }
+
+                  .k-empty-state {
+                    background-color: var(
+                      --kui-color-background-neutral-weakest,
+                      $kui-color-background-neutral-weakest
+                    );
+                  }
                 }
               }
             }

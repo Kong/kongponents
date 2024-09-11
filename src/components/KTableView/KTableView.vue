@@ -320,6 +320,8 @@
                       aria-label="Toggle row expandable content"
                       class="expandable-row-control"
                       :class="{ 'expanded': expandedRows.includes(rowIndex) }"
+                      data-testid="expandable-row-control"
+                      type="button"
                       @click="toggleRow(rowIndex)"
                     >
                       <ChevronRightIcon class="expandable-row-control-icon" />
@@ -335,6 +337,7 @@
                   v-show="expandedRows.includes(rowIndex)"
                   :id="`table-${tableId}-row-${rowIndex}-expandable-content`"
                   class="expandable-content-row"
+                  data-testid="expandable-content-row"
                 >
                   <td :colspan="visibleHeaders.length">
                     <div class="expandable-content-wrapper">
