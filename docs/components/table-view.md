@@ -546,7 +546,7 @@ A boolean to enable expanding each table row. Useful for providing additional in
 
 ### hideHeader
 
-A boolean to hide table header. Only recomended when used in nested table. Refer to [Expandable Rows](#expandable-rows) section documentation for more details. Defaults to `false`.
+A boolean to hide table headers. Only recomended when used in nested table. Refer to [Expandable Rows](#expandable-rows) section documentation for more details. Defaults to `false`.
 
 ### nested
 
