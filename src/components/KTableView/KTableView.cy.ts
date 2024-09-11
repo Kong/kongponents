@@ -468,4 +468,116 @@ describe('KTableView', () => {
       cy.getTestId('visible-items').eq(0).should('contain.text', '16 to 30  of 100')
     })
   })
+
+  describe('expandable rows and nested tables', () => {
+    it('displays expand trigger for each row when expandableRows prop is true', () => {
+      mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+          expandableRows: true,
+        },
+      })
+
+      cy.getTestId('expandable-row-control').should('have.length', options.data.length).should('be.visible')
+      cy.getTestId('expandable-content-row').should('have.length', options.data.length)
+    })
+
+    it('displays content provided through row-expanded slot', () => {
+      mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+          expandableRows: true,
+        },
+        slots: {
+          'row-expanded': '<span data-testid="slotted-expandable-content">Expandable content</span>',
+        },
+      })
+
+      cy.getTestId('expandable-content-row').findTestId('slotted-expandable-content').should('not.be.visible')
+      cy.getTestId('expandable-row-control').eq(0).click().then(() => {
+        cy.getTestId('expandable-content-row').eq(0).findTestId('slotted-expandable-content').should('be.visible')
+
+        cy.getTestId('expandable-row-control').eq(1).click().then(() => {
+          cy.getTestId('expandable-content-row').eq(1).findTestId('slotted-expandable-content').should('be.visible')
+
+          cy.getTestId('expandable-row-control').eq(0).click().then(() => {
+            cy.getTestId('expandable-content-row').eq(0).findTestId('slotted-expandable-content').should('not.be.visible')
+            cy.getTestId('expandable-content-row').eq(1).findTestId('slotted-expandable-content').should('be.visible')
+          })
+        })
+      })
+    })
+
+    it('does not display table header when hideHeader prop is true', () => {
+      mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+          hideHeader: true,
+        },
+      })
+
+      cy.get('thead').should('not.exist')
+    })
+
+    it('disables column visibility, column resizing and bulk actions features and does not render toolbar slot when nested prop is true', () => {
+      mount(KTableView, {
+        props: {
+          headers: [...options.headers, { ...options.headers[1], hidable: true }, { label: 'Bulk actions', key: 'bulkActions' }],
+          data: options.data,
+          resizeColumns: true,
+          nested: true,
+        },
+        slots: {
+          'bulk-action-items': () => h('span', {}, 'Bulk action'),
+          'toolbar': '<span data-testid="slotted-toolbar-content">Toolbar content</span>',
+        },
+      })
+
+      // column visibility
+      cy.getTestId('column-visibility-menu-button').should('not.exist')
+
+      // column resizing
+      cy.get('.table').find('th').should('not.have.class', 'resizable')
+      cy.get('.resize-handle').should('not.exist')
+
+      // bulk actions
+      cy.getTestId('bulk-actions-dropdown').should('not.exist')
+      cy.getTestId('table-header-bulk-actions-checkbox').should('not.exist')
+      cy.getTestId('bulk-actions-checkbox').should('not.exist')
+
+      // toolbar slot
+      cy.getTestId('slotted-toolbar-content').should('not.exist')
+    })
+
+    it('collapses all expanded rows when table data changes', () => {
+      mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+          expandableRows: true,
+        },
+      }).then(component => {
+        cy.getTestId('expandable-content-row').eq(0).should('not.be.visible')
+        cy.getTestId('expandable-content-row').eq(1).should('not.be.visible')
+
+        cy.getTestId('expandable-row-control').eq(0).click().then(() => {
+          cy.getTestId('expandable-content-row').eq(0).should('be.visible')
+
+          cy.getTestId('expandable-row-control').eq(1).click().then(() => {
+            cy.getTestId('expandable-content-row').eq(1).should('be.visible').then(() => {
+              component.wrapper.setProps({
+                data: [...options.data.splice(0, options.data.length - 1)],
+              }).then(() => {
+                cy.getTestId('expandable-content-row').eq(0).should('not.be.visible')
+                cy.getTestId('expandable-content-row').eq(1).should('not.be.visible')
+              })
+            })
+          })
+        })
+      })
+    })
+  })
 })
