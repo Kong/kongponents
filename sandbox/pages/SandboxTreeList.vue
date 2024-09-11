@@ -73,12 +73,36 @@
       <SandboxSectionComponent title="item-label">
         <KTreeList :items="items9">
           <template #item-label="{ item }">
-            <span v-if="item.id.includes('folder')">
-              <strong>{{ item.name }}</strong>
-            </span>
-            <span v-else>
-              {{ item.name }}
-            </span>
+            <div class="slotted-item-container">
+              <span v-if="item.id.includes('folder')">
+                <strong>{{ item.name }}</strong>
+              </span>
+              <span v-else>
+                {{ item.name }}
+              </span>
+
+              <KDropdown :kpop-attributes="{ placement: 'bottom-end' }">
+                <KButton
+                  appearance="tertiary"
+                  icon
+                  size="small"
+                >
+                  <MoreIcon />
+                </KButton>
+
+                <template #items>
+                  <KDropdownItem>
+                    Edit
+                  </KDropdownItem>
+                  <KDropdownItem
+                    danger
+                    has-divider
+                  >
+                    Delete
+                  </KDropdownItem>
+                </template>
+              </KDropdown>
+            </div>
           </template>
         </KTreeList>
       </SandboxSectionComponent>
@@ -91,7 +115,7 @@ import { inject, ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import type { TreeListItem } from '@/types'
-import { InboxIcon } from '@kong/icons'
+import { InboxIcon, MoreIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_DECORATIVE_PURPLE, KUI_COLOR_TEXT_DECORATIVE_PURPLE_STRONG } from '@kong/design-tokens'
 
 const defaultItems = [
@@ -163,5 +187,12 @@ const items9 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
   @media (min-width: $kui-breakpoint-mobile) {
     flex-direction: row;
   }
+}
+
+.slotted-item-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 </style>
