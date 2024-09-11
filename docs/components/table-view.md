@@ -544,7 +544,7 @@ A boolean to enable expanding each table row. Useful for providing additional in
 </KTableView>
 ```
 
-### hideHeader
+### hideHeaders
 
 A boolean to hide table headers. Only recomended when used in nested table. Refer to [Expandable Rows](#expandable-rows) section documentation for more details. Defaults to `false`.
 
@@ -719,7 +719,7 @@ Both parent and nested tables in this example contain static data for demonstrat
 A nested table that complements the parent table requires some special handling:
 
 * The `nested` prop must be set to `true`
-* Table headers can be hidden using the [`hideHeader` prop](#hideheader). Value still need to be passed through the `headers` prop, and this is where the `nestedHeaders` slot prop becomes useful. It returns an array of header objects, simplifying the synchronization of column visibility when it is enabled in the parent table
+* Table headers can be hidden using the [`hideHeaders` prop](#hideHeaders). Value still need to be passed through the `headers` prop, and this is where the `nestedHeaders` slot prop becomes useful. It returns an array of header objects, simplifying the synchronization of column visibility when it is enabled in the parent table
 * To better align the columns of the parent and nested tables, the `columnWidths` slot prop can be utilized. It returns an object that can be passed to the nested table through the [`tablePreferences` prop](#tablepreferences). Each time a column is resized in the parent table, the nested table will be updated accordingly
 
 :::warning NOTE
@@ -748,7 +748,7 @@ If bulk actions is enabled in parent table, it will be disabled in the nested ta
     <KTableView
       :headers="nestedHeaders"
       :data="cpData"
-      hide-header
+      hide-headers
       nested
       :pagination-attributes="{ totalCount: cpData.length }"
       :table-preferences="{ columnWidths }"
@@ -780,7 +780,7 @@ If bulk actions is enabled in parent table, it will be disabled in the nested ta
     <KTableView
       :headers="nestedHeaders"
       :data="nestedData"
-      hide-header
+      hide-headers
       nested
       :pagination-attributes="{ totalCount: nestedData.length }"
       :table-preferences="{ columnWidths }"
@@ -1253,6 +1253,10 @@ Emitted when the user performs sorting, resizes columns or toggles column visibi
 ### row-select
 
 Emitted when user interacts with checkboxes in bulk actions column. Payload is array of selected table row objects.
+
+### row-expand
+
+Emitted when row is expanded (when [`expandableRows` prop](#expandablerows) is `true`). Payload is expanded row data.
 
 <script setup lang="ts">
 import { ref } from 'vue'

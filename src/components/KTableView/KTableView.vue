@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-table-view"
-    :class="{ 'hide-header': hideHeader }"
+    :class="{ 'hide-headers': hideHeaders }"
   >
     <div
       v-if="hasToolbarSlot"
@@ -121,7 +121,7 @@
           }"
         >
           <thead
-            v-if="!hideHeader"
+            v-if="!hideHeaders"
             :class="{ 'is-scrolled': isScrolledVertically }"
           >
             <tr
@@ -322,7 +322,7 @@
                       :class="{ 'expanded': expandedRows.includes(rowIndex) }"
                       data-testid="expandable-row-control"
                       type="button"
-                      @click="toggleRow(rowIndex)"
+                      @click="toggleRow(rowIndex, row)"
                     >
                       <ChevronRightIcon class="expandable-row-control-icon" />
                     </button>
@@ -570,7 +570,7 @@ const props = defineProps({
   /**
    * Hide the table header
    */
-  hideHeader: {
+  hideHeaders: {
     type: Boolean,
     default: false,
   },
@@ -595,6 +595,7 @@ const emit = defineEmits<{
   (e: 'get-next-offset'): void
   (e: 'get-previous-offset'): void
   (e: 'row-select', data: TableViewData): void
+  (e: 'row-expand', data: any): void
 }>()
 
 const attrs = useAttrs()
@@ -1092,7 +1093,7 @@ const emitTablePreferences = (): void => {
  */
 const expandableRowHeader = { key: TableViewHeaderKeys.EXPANDABLE, label: 'Expandable rows controls', hideLabel: true }
 const expandedRows = ref<number[]>([])
-const toggleRow = async (rowIndex: number): Promise<void> => {
+const toggleRow = async (rowIndex: number, row: any): Promise<void> => {
   setActualColumnWidths()
   await nextTick()
 
@@ -1100,6 +1101,7 @@ const toggleRow = async (rowIndex: number): Promise<void> => {
     expandedRows.value = expandedRows.value.filter((row) => row !== rowIndex)
   } else {
     expandedRows.value = [...expandedRows.value, rowIndex]
+    emit('row-expand', row)
   }
 }
 

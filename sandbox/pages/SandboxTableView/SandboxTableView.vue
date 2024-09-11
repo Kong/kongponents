@@ -281,7 +281,7 @@
             <KTableView
               :data="tableData"
               :headers="nestedHeaders"
-              hide-header
+              hide-headers
               nested
               :pagination-attributes="{ totalCount: tableData.length }"
               :table-preferences="{ columnWidths }"
@@ -371,7 +371,7 @@
             <KTableView
               :data="tableData"
               :headers="nestedHeaders"
-              hide-header
+              hide-headers
               nested
               :pagination-attributes="{ totalCount: tableData.length }"
               :table-preferences="{ columnWidths }"
@@ -403,7 +403,7 @@
             <KTableView
               :data="tableData"
               :headers="nestedHeaders"
-              hide-header
+              hide-headers
               nested
               :pagination-attributes="{ totalCount: tableData.length }"
               :row-link="getRowOneTwoLink"

@@ -510,12 +510,27 @@ describe('KTableView', () => {
       })
     })
 
-    it('does not display table header when hideHeader prop is true', () => {
+    it('emits row-expand event when row is expanded', () => {
       mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
-          hideHeader: true,
+          expandableRows: true,
+        },
+      })
+
+      cy.getTestId('expandable-row-control').eq(0).click().then(() => {
+        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'row-expand').and('have.length', 1)
+      })
+    })
+
+
+    it('does not display table header when hideHeaders prop is true', () => {
+      mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+          hideHeaders: true,
         },
       })
 
