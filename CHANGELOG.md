@@ -1,3 +1,17 @@
+## [9.6.3](https://github.com/Kong/kongponents/compare/v9.6.2...v9.6.3) (2024-09-11)
+
+
+### Bug Fixes
+
+* **kcard:** actions content wrapping ([#2386](https://github.com/Kong/kongponents/issues/2386)) ([42fe5ff](https://github.com/Kong/kongponents/commit/42fe5ff5faeb1af30b14b5557668a6eaae8962ab))
+
+## [9.6.2](https://github.com/Kong/kongponents/compare/v9.6.1...v9.6.2) (2024-09-11)
+
+
+### Bug Fixes
+
+* **ktable:** mask delay of column visibility menu ([#2382](https://github.com/Kong/kongponents/issues/2382)) ([3dbc773](https://github.com/Kong/kongponents/commit/3dbc7739d0d53a05eba634fa30b189a725164e9e))
+
 ## [9.6.1](https://github.com/Kong/kongponents/compare/v9.6.0...v9.6.1) (2024-09-09)
 
 
