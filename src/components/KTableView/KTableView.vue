@@ -329,29 +329,25 @@
                   </div>
                 </td>
               </tr>
-              <Transition
+              <tr
                 v-if="expandableRows && !nested"
-                name="kongponents-fade-transition"
+                v-show="expandedRows.includes(rowIndex)"
+                :id="`table-${tableId}-row-${rowIndex}-expandable-content`"
+                class="expandable-content-row"
+                data-testid="expandable-content-row"
               >
-                <tr
-                  v-show="expandedRows.includes(rowIndex)"
-                  :id="`table-${tableId}-row-${rowIndex}-expandable-content`"
-                  class="expandable-content-row"
-                  data-testid="expandable-content-row"
-                >
-                  <td :colspan="visibleHeaders.length">
-                    <div class="expandable-content-wrapper">
-                      <slot
-                        :column-widths="actualColumnWidths"
-                        name="row-expanded"
-                        :nested-headers="getNestedTableHeaders"
-                        :row="getGeneric(row)"
-                        :row-key="rowIndex"
-                      />
-                    </div>
-                  </td>
-                </tr>
-              </Transition>
+                <td :colspan="visibleHeaders.length">
+                  <div class="expandable-content-wrapper">
+                    <slot
+                      :column-widths="actualColumnWidths"
+                      name="row-expanded"
+                      :nested-headers="getNestedTableHeaders"
+                      :row="getGeneric(row)"
+                      :row-key="rowIndex"
+                    />
+                  </div>
+                </td>
+              </tr>
             </template>
           </tbody>
         </table>
