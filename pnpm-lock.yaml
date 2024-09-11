@@ -112,7 +112,7 @@ importers:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.38)
       axios:
-        specifier: ^1.7.6
+        specifier: ^1.7.7
         version: 1.7.7
       boxen:
         specifier: ^8.0.1
@@ -211,7 +211,7 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3(vue@3.4.38(typescript@5.5.4))
       vue-tsc:
-        specifier: ^2.1.2
+        specifier: ^2.1.4
         version: 2.1.6(typescript@5.5.4)
 
 packages:
