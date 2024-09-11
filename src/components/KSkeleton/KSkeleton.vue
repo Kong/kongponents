@@ -115,9 +115,12 @@ const props = defineProps({
   },
 })
 
-const isVisible = ref(false)
+const isVisible = ref(props.delayMilliseconds === 0)
 
 onMounted(() => {
+  if (isVisible.value) {
+    return
+  }
   setTimeout(() => {
     isVisible.value = true
   }, props.delayMilliseconds)
