@@ -832,7 +832,6 @@ You can provide each individual cell's content via slot. Each cell slot is named
 Slot props:
 
 * `row` - table row object
-* `rowKey` - table row index
 * `rowValue` - the cell value
 
 :::warning NOTE

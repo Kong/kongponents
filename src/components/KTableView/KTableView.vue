@@ -343,7 +343,6 @@
                       name="row-expanded"
                       :nested-headers="getNestedTableHeaders"
                       :row="getGeneric(row)"
-                      :row-key="rowIndex"
                     />
                   </div>
                 </td>
