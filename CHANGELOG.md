@@ -1,3 +1,10 @@
+## [9.6.4](https://github.com/Kong/kongponents/compare/v9.6.3...v9.6.4) (2024-09-11)
+
+
+### Bug Fixes
+
+* **skeleton:** layout shifting due to delayed rendering ([#2383](https://github.com/Kong/kongponents/issues/2383)) ([77c4a20](https://github.com/Kong/kongponents/commit/77c4a204a88c4b223db5744afd1c11638dce41d2))
+
 ## [9.6.3](https://github.com/Kong/kongponents/compare/v9.6.2...v9.6.3) (2024-09-11)
 
 

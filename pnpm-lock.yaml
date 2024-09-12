@@ -36,8 +36,8 @@ importers:
         specifier: ^5.0.7
         version: 5.0.7
       sortablejs:
-        specifier: ^1.15.2
-        version: 1.15.2
+        specifier: ^1.15.3
+        version: 1.15.3
       swrv:
         specifier: ^1.0.4
         version: 1.0.4(vue@3.4.38(typescript@5.5.4))
@@ -49,7 +49,7 @@ importers:
         version: 0.2.1(vue@3.4.38(typescript@5.5.4))
       vue-draggable-next:
         specifier: ^2.2.1
-        version: 2.2.1(sortablejs@1.15.2)(vue@3.4.38(typescript@5.5.4))
+        version: 2.2.1(sortablejs@1.15.3)(vue@3.4.38(typescript@5.5.4))
     devDependencies:
       '@babel/types':
         specifier: ^7.25.6
@@ -70,8 +70,8 @@ importers:
         specifier: ^1.7.14
         version: 1.7.14
       '@kong-ui-public/sandbox-layout':
-        specifier: ^2.1.24
-        version: 2.1.24(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.3(vue@3.4.38(typescript@5.5.4)))(vue@3.4.38(typescript@5.5.4)))(vue@3.4.38(typescript@5.5.4))
+        specifier: ^2.1.25
+        version: 2.1.25(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.3(vue@3.4.38(typescript@5.5.4)))(vue@3.4.38(typescript@5.5.4)))(vue@3.4.38(typescript@5.5.4))
       '@kong/design-tokens':
         specifier: ^1.17.2
         version: 1.17.2
@@ -91,7 +91,7 @@ importers:
         specifier: ^9.0.7
         version: 9.0.7
       '@types/node':
-        specifier: ^20.16.2
+        specifier: ^20.16.3
         version: 20.16.5
       '@types/sortablejs':
         specifier: ^1.15.8
@@ -203,7 +203,7 @@ importers:
         version: 7.4.4(vite@5.4.2(@types/node@20.16.5)(sass@1.77.8))(vue@3.4.38(typescript@5.5.4))
       vitepress:
         specifier: ^1.3.4
-        version: 1.3.4(@algolia/client-search@4.23.3)(@types/node@20.16.5)(axios@1.7.7)(postcss@8.4.38)(sass@1.77.8)(search-insights@2.14.0)(sortablejs@1.15.2)(typescript@5.5.4)
+        version: 1.3.4(@algolia/client-search@4.23.3)(@types/node@20.16.5)(axios@1.7.7)(postcss@8.4.38)(sass@1.77.8)(search-insights@2.14.0)(sortablejs@1.15.3)(typescript@5.5.4)
       vue:
         specifier: ^3.4.38
         version: 3.4.38(typescript@5.5.4)
@@ -840,8 +840,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@kong-ui-public/sandbox-layout@2.1.24':
-    resolution: {integrity: sha512-8V/eETKJulgWPlQXULIE3bUTTlaTuCwiOajU6rOi2IugOwM+XzxiejYJKO1ynXIWc9WCFdPs4Tq/sLRt4DMz+Q==}
+  '@kong-ui-public/sandbox-layout@2.1.25':
+    resolution: {integrity: sha512-FQPt+nrJ2ON7wb0CQ0tQ9NlAgu5zdcZG4Rl3X8tGGMgCrfJmXi7NpciGBPHwWfDQ7ktrxCnmIHFfnSNb0ziNQw==}
     peerDependencies:
       '@kong/kongponents': ^9.5.5
       vue: '>= 3.3.13 < 4'
@@ -3992,8 +3992,8 @@ packages:
     resolution: {integrity: sha512-qMCMfhY040cVHT43K9BFygqYbUPFZKHOg7K73mtTWJRb8pyP3fzf4Ixd5SzdEJQ6MRUg/WBnOLxghZtKKurENQ==}
     engines: {node: '>=10'}
 
-  sortablejs@1.15.2:
-    resolution: {integrity: sha512-FJF5jgdfvoKn1MAKSdGs33bIqLi3LmsgVTliuX6iITj834F+JRQZN90Z93yql8h0K2t0RwDPBmxwlbZfDcxNZA==}
+  sortablejs@1.15.3:
+    resolution: {integrity: sha512-zdK3/kwwAK1cJgy1rwl1YtNTbRmc8qW/+vgXf75A7NHag5of4pyI6uK86ktmQETyWRH7IGaE73uZOOBcGxgqZg==}
 
   source-map-js@1.2.0:
     resolution: {integrity: sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==}
@@ -5434,7 +5434,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  '@kong-ui-public/sandbox-layout@2.1.24(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.3(vue@3.4.38(typescript@5.5.4)))(vue@3.4.38(typescript@5.5.4)))(vue@3.4.38(typescript@5.5.4))':
+  '@kong-ui-public/sandbox-layout@2.1.25(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.3(vue@3.4.38(typescript@5.5.4)))(vue@3.4.38(typescript@5.5.4)))(vue@3.4.38(typescript@5.5.4))':
     dependencies:
       '@kong/icons': 1.15.1(vue@3.4.38(typescript@5.5.4))
       '@kong/kongponents': 9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.3(vue@3.4.38(typescript@5.5.4)))(vue@3.4.38(typescript@5.5.4))
@@ -5476,12 +5476,12 @@ snapshots:
       date-fns-tz: 2.0.1(date-fns@2.30.0)
       focus-trap: 7.5.4
       focus-trap-vue: 4.0.3(focus-trap@7.5.4)(vue@3.4.38(typescript@5.5.4))
-      sortablejs: 1.15.2
+      sortablejs: 1.15.3
       swrv: 1.0.4(vue@3.4.38(typescript@5.5.4))
       uuid: 9.0.1
       v-calendar: 3.1.2(@popperjs/core@2.11.8)(vue@3.4.38(typescript@5.5.4))
       vue: 3.4.38(typescript@5.5.4)
-      vue-draggable-next: 2.2.1(sortablejs@1.15.2)(vue@3.4.38(typescript@5.5.4))
+      vue-draggable-next: 2.2.1(sortablejs@1.15.3)(vue@3.4.38(typescript@5.5.4))
       vue-router: 4.4.3(vue@3.4.38(typescript@5.5.4))
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -6075,7 +6075,7 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@vueuse/integrations@11.0.3(axios@1.7.7)(focus-trap@7.5.4)(sortablejs@1.15.2)(vue@3.4.38(typescript@5.5.4))':
+  '@vueuse/integrations@11.0.3(axios@1.7.7)(focus-trap@7.5.4)(sortablejs@1.15.3)(vue@3.4.38(typescript@5.5.4))':
     dependencies:
       '@vueuse/core': 11.0.3(vue@3.4.38(typescript@5.5.4))
       '@vueuse/shared': 11.0.3(vue@3.4.38(typescript@5.5.4))
@@ -6083,7 +6083,7 @@ snapshots:
     optionalDependencies:
       axios: 1.7.7
       focus-trap: 7.5.4
-      sortablejs: 1.15.2
+      sortablejs: 1.15.3
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -8838,7 +8838,7 @@ snapshots:
       astral-regex: 2.0.0
       is-fullwidth-code-point: 3.0.0
 
-  sortablejs@1.15.2: {}
+  sortablejs@1.15.3: {}
 
   source-map-js@1.2.0: {}
 
@@ -9389,7 +9389,7 @@ snapshots:
       fsevents: 2.3.3
       sass: 1.77.8
 
-  vitepress@1.3.4(@algolia/client-search@4.23.3)(@types/node@20.16.5)(axios@1.7.7)(postcss@8.4.38)(sass@1.77.8)(search-insights@2.14.0)(sortablejs@1.15.2)(typescript@5.5.4):
+  vitepress@1.3.4(@algolia/client-search@4.23.3)(@types/node@20.16.5)(axios@1.7.7)(postcss@8.4.38)(sass@1.77.8)(search-insights@2.14.0)(sortablejs@1.15.3)(typescript@5.5.4):
     dependencies:
       '@docsearch/css': 3.6.1
       '@docsearch/js': 3.6.1(@algolia/client-search@4.23.3)(search-insights@2.14.0)
@@ -9400,7 +9400,7 @@ snapshots:
       '@vue/devtools-api': 7.3.9
       '@vue/shared': 3.4.38
       '@vueuse/core': 11.0.3(vue@3.4.38(typescript@5.5.4))
-      '@vueuse/integrations': 11.0.3(axios@1.7.7)(focus-trap@7.5.4)(sortablejs@1.15.2)(vue@3.4.38(typescript@5.5.4))
+      '@vueuse/integrations': 11.0.3(axios@1.7.7)(focus-trap@7.5.4)(sortablejs@1.15.3)(vue@3.4.38(typescript@5.5.4))
       focus-trap: 7.5.4
       mark.js: 8.11.1
       minisearch: 7.1.0
@@ -9452,9 +9452,9 @@ snapshots:
     dependencies:
       vue: 3.4.38(typescript@5.5.4)
 
-  vue-draggable-next@2.2.1(sortablejs@1.15.2)(vue@3.4.38(typescript@5.5.4)):
+  vue-draggable-next@2.2.1(sortablejs@1.15.3)(vue@3.4.38(typescript@5.5.4)):
     dependencies:
-      sortablejs: 1.15.2
+      sortablejs: 1.15.3
       vue: 3.4.38(typescript@5.5.4)
 
   vue-eslint-parser@9.4.3(eslint@9.9.1(jiti@1.21.6)):
