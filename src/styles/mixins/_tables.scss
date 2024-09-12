@@ -309,7 +309,7 @@
                 gap: var(--kui-space-40, $kui-space-40);
                 max-height: $expandedRowMaxHeight;
                 overflow-y: auto;
-                padding-right: var(--kui-space-50, $kui-space-50);
+                padding-right: var(--kui-space-60, $kui-space-60);
 
                 &:has(.k-table-view) {
                   max-height: none;
