@@ -78,17 +78,20 @@ const options = {
       name: 'Basic Auth',
       id: '517526354743085',
       enabled: 'true',
+      expandable: true,
     },
     {
       name: 'Website Desktop',
       id: '328027447731198',
       enabled: 'false',
       bulkActionsDisabled: true,
+      expandable: false,
     },
     {
       name: 'Android App',
       id: '405383051040955',
       enabled: 'true',
+      expandable: false,
     },
   ],
 }
@@ -470,17 +473,17 @@ describe('KTableView', () => {
   })
 
   describe('expandable rows and nested tables', () => {
-    it('displays expand trigger for each row when rowExpandable prop is true', () => {
+    it('displays expand trigger for each row when function passed via rowExpandable prop returns true', () => {
       mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
-          rowExpandable: () => true,
+          rowExpandable: (row: any) => row.expandable,
         },
       })
 
-      cy.getTestId('expandable-row-control').should('have.length', options.data.length).should('be.visible')
-      cy.getTestId('expandable-content-row').should('have.length', options.data.length)
+      cy.getTestId('expandable-row-control').should('have.length', options.data.filter(row => row.expandable).length).should('be.visible')
+      cy.getTestId('expandable-content-row').should('have.length', options.data.filter(row => row.expandable).length)
     })
 
     it('displays content provided through row-expanded slot', () => {
@@ -494,6 +497,9 @@ describe('KTableView', () => {
           'row-expanded': '<span data-testid="slotted-expandable-content">Expandable content</span>',
         },
       })
+
+      cy.getTestId('expandable-row-control').should('have.length', options.data.length).should('be.visible')
+      cy.getTestId('expandable-content-row').should('have.length', options.data.length)
 
       cy.getTestId('expandable-content-row').findTestId('slotted-expandable-content').should('not.be.visible')
       cy.getTestId('expandable-row-control').eq(0).click().then(() => {
