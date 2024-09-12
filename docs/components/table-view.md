@@ -510,15 +510,15 @@ interface TablePaginationAttributes {
 
 A boolean to hide pagination element (defaults to `false`).
 
-### expandableRows
+### rowExpandable
 
-A boolean to enable expanding each table row. Useful for providing additional information. Defaults to `false`.
+Function for making a row expandable. The function receives row value object as an argument and should return a boolean value. Default value is `() => false`.
 
 <KTableView
-  :data="basicData"
-  expandable-rows
-  :headers="basicHeaders()"
-  :pagination-attributes="{ totalCount: basicData.length }"
+  :data="userTypeData"
+  :row-expandable="(row) => row.type.toLowerCase() === 'external'"
+  :headers="userTypeHeaders"
+  :pagination-attributes="{ totalCount: userTypeData.length }"
 >
   <template #row-expanded>
     Lorem ipsum odor amet, consectetuer adipiscing elit. Vitae rutrum interdum dis elementum; consequat maximus potenti felis. Faucibus eget vel, efficitur vitae ullamcorper velit. Aliquam aliquam fusce sollicitudin dolor lorem aenean. Rutrum ligula diam mollis felis egestas arcu. Odio urna leo pharetra luctus urna adipiscing suscipit nisl. Eleifend natoque lacus scelerisque suspendisse libero pulvinar ut lectus. Ac parturient fringilla lacinia fusce natoque semper.
@@ -534,7 +534,7 @@ A boolean to enable expanding each table row. Useful for providing additional in
 ```html
 <KTableView
   :data="tableData"
-  expandable-rows
+  :row-expandable="(row) => row.type.toLowerCase() === 'external'"
   :headers="headers"
   :pagination-attributes="{ totalCount: tableData.length }"
 >
@@ -666,7 +666,7 @@ A `error-action-click` event is emitted when error state action button is clicke
 
 ## Expandable Rows
 
-Data presented in a table often requires futher clarification or specification. The [`expandableRows` prop](#expandablerows) allows each row to be toggled, revealing or hiding additional information without the need to navigate away from the current view. Any content can be passed using the [`row-expanded` slot](#row-expanded). However, when displaying a nested table in expanded rows, there are a few important considerations to be aware of.
+Data presented in a table often requires futher clarification or specification. The [`rowExpandable` prop](#rowexpandable) allows some rows to be toggled, revealing or hiding additional information without the need to navigate away from the current view. Any content can be passed using the [`row-expanded` slot](#row-expanded). However, when displaying a nested table in expanded rows, there are a few important considerations to be aware of.
 
 ### Nested Table With Different Columns
 
@@ -677,7 +677,7 @@ Notice that column visibility, column resizing and bulk actions features, as wel
 <KTableView
   :headers="teamsHeaders"
   :data="teamsData"
-  expandable-rows
+  :row-expandable="() => true"
   resize-columns
   :pagination-attributes="{ totalCount: teamsData.length }"
 >
@@ -695,7 +695,7 @@ Notice that column visibility, column resizing and bulk actions features, as wel
 <KTableView
   :headers="parentHeaders"
   :data="parentData"
-  expandable-rows
+  :row-expandable="() => true"
   resize-columns
   :pagination-attributes="{ totalCount: parentData.length }"
 >
@@ -729,7 +729,7 @@ If bulk actions is enabled in parent table, it will be disabled in the nested ta
 <KTableView
   :headers="cpGroupsHeaders"
   :data="cpGroupsData"
-  expandable-rows
+  :row-expandable="(row) => row.type === 'Control Plane Group'"
   resize-columns
   :pagination-attributes="{ totalCount: cpGroupsData.length }"
 >
@@ -772,7 +772,7 @@ If bulk actions is enabled in parent table, it will be disabled in the nested ta
 <KTableView
   :headers="parentHeaders"
   :data="parentData"
-  expandable-rows
+  :row-expandable="(row) => row.type === 'Control Plane Group'"
   resize-columns
   :pagination-attributes="{ totalCount: parentData.length }"
 >
@@ -832,6 +832,7 @@ You can provide each individual cell's content via slot. Each cell slot is named
 Slot props:
 
 * `row` - table row object
+* `rowKey` - table row index
 * `rowValue` - the cell value
 
 :::warning NOTE
@@ -949,7 +950,6 @@ Slot for passing action dropdown items. See [KDropdownItem component docs](/comp
 Slot props:
 
 * `row` - table row object
-* `rowKey` - table row index
 
 :::tip NOTE
 This slot is only available when the `actions` header key is present in [`headers`](#reserved-header-keys).
@@ -1094,18 +1094,17 @@ Slot props:
 
 ### row-expanded
 
-Slot for passing custom content that will be revealed once user expands one of the table rows when [`expandableRows` prop](#expandablerows) is `true`.
+Slot for passing custom content that will be revealed once user expands one of the table rows when [`rowExpandable` prop](#rowexpandable) is `true`.
 
 Slot props:
 
 * `row` - table row object
-* `rowKey` - table row index
 * `headers` - array of table headers objects to be passed to the nested table. See [Expandable Rows](#expandable-rows) section documentation for more details
 * `columnWidths` - an object where each key represents a table column, and its corresponding value specifies the width to be used for that column in a nested table. Refer to [Expandable Rows](#expandable-rows) section documentation for more details
 
 <KTableView
   :data="basicData"
-  expandable-rows
+  :row-expandable="() => true"
   :headers="basicHeaders()"
   :pagination-attributes="{ totalCount: basicData.length }"
 >
@@ -1123,7 +1122,7 @@ Slot props:
 ```html
 <KTableView
   :data="tableData"
-  expandable-rows
+  :row-expandable="() => true"row-expandable
   :headers="headers"
   :pagination-attributes="{ totalCount: tableData.length }"
 >
@@ -1255,7 +1254,7 @@ Emitted when user interacts with checkboxes in bulk actions column. Payload is a
 
 ### row-expand
 
-Emitted when row is expanded (when [`expandableRows` prop](#expandablerows) is `true`). Payload is expanded row data.
+Emitted when row is expanded (when [`rowExpandable` prop](#rowexpandable) is `true`). Payload is expanded row data.
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -1517,6 +1516,9 @@ const getRowBulkAction = (data: Record<string, any>): RowBulkAction => {
   return true
 }
 
+const userTypeHeaders = [...basicHeaders().filter(header => header.key !== 'email'), { key: 'type', label: 'Type' }]
+const userTypeData: TableViewData = basicData.map(row => row.id % 2 === 0 ? { ...row, type: 'External' } : { ...row, type: 'Internal' })
+
 const teamsHeaders: TableViewHeader[] = [
   {
     key: 'name',
@@ -1591,6 +1593,11 @@ const cpGroupsData: TableViewData = [
     name: 'Group 3',
     type: 'Control Plane Group',
     nodes: 3,
+  },
+  {
+    name: 'Cloud 1',
+    type: 'Cloud Gateway',
+    nodes: 2,
   },
   {
     name: 'Group 4',

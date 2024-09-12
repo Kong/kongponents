@@ -470,12 +470,12 @@ describe('KTableView', () => {
   })
 
   describe('expandable rows and nested tables', () => {
-    it('displays expand trigger for each row when expandableRows prop is true', () => {
+    it('displays expand trigger for each row when rowExpandable prop is true', () => {
       mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
-          expandableRows: true,
+          rowExpandable: () => true,
         },
       })
 
@@ -488,7 +488,7 @@ describe('KTableView', () => {
         props: {
           headers: options.headers,
           data: options.data,
-          expandableRows: true,
+          rowExpandable: () => true,
         },
         slots: {
           'row-expanded': '<span data-testid="slotted-expandable-content">Expandable content</span>',
@@ -515,7 +515,7 @@ describe('KTableView', () => {
         props: {
           headers: options.headers,
           data: options.data,
-          expandableRows: true,
+          rowExpandable: () => true,
         },
       })
 
@@ -572,7 +572,7 @@ describe('KTableView', () => {
         props: {
           headers: options.headers,
           data: options.data,
-          expandableRows: true,
+          rowExpandable: () => true,
         },
       }).then(component => {
         cy.getTestId('expandable-content-row').eq(0).should('not.be.visible')

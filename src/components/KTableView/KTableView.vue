@@ -304,14 +304,13 @@
                         <slot
                           name="action-items"
                           :row="getGeneric(row)"
-                          :row-value="row[header.key]"
                         />
                       </template>
                     </KDropdown>
                   </component>
 
                   <div
-                    v-else
+                    v-else-if="rowExpandable(row)"
                     class="expandable-row-control-container"
                   >
                     <button
@@ -330,7 +329,7 @@
                 </td>
               </tr>
               <tr
-                v-if="expandableRows && !nested"
+                v-if="hasExpandableRows && rowExpandable(row)"
                 v-show="expandedRows.includes(rowIndex)"
                 :id="`table-${tableId}-row-${rowIndex}-expandable-content`"
                 class="expandable-content-row"
@@ -562,9 +561,9 @@ const props = defineProps({
   /**
    * Enable expandable rows
    */
-  expandableRows: {
-    type: Boolean,
-    default: false,
+  rowExpandable: {
+    type: Function as PropType<(row: Record<string, any>) => boolean>,
+    default: () => false,
   },
   /**
    * Hide the table header
@@ -904,7 +903,7 @@ const startResize = (evt: MouseEvent, colKey: string) => {
     document?.removeEventListener('mousemove', mouseMoveHandler)
     document?.removeEventListener('mouseup', mouseUpHandler)
     emitTablePreferences()
-    if (props.expandableRows) {
+    if (hasExpandableRows.value) {
       setActualColumnWidths()
     }
   }
@@ -1087,6 +1086,7 @@ const emitTablePreferences = (): void => {
   emit('update:table-preferences', tablePreferences.value)
 }
 
+const hasExpandableRows = computed((): boolean => !props.nested && props.data.some((row) => props.rowExpandable(row)))
 /**
  * Toggle visibility of expendable row content
  */
@@ -1161,7 +1161,7 @@ watch([columnVisibility, tableHeaders], (newVals) => {
   }
 
   // add the expandable row header if expandable rows are enabled
-  if (props.expandableRows && !props.nested) {
+  if (hasExpandableRows.value) {
     newVisibleHeaders.unshift(expandableRowHeader)
   }
 
@@ -1170,7 +1170,7 @@ watch([columnVisibility, tableHeaders], (newVals) => {
     emitTablePreferences()
   }
 
-  if (props.expandableRows) {
+  if (hasExpandableRows.value) {
     setActualColumnWidths()
   }
 }, { deep: true, immediate: true })

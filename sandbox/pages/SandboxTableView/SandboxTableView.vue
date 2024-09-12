@@ -137,12 +137,12 @@
           </template>
         </KTableView>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="expandableRows">
+      <SandboxSectionComponent title="rowExpandable">
         <KTableView
           :data="tableData"
-          expandable-rows
           :headers="headers()"
           :pagination-attributes="{ totalCount: tableData.length }"
+          :row-expandable="getRowExpandable"
         >
           <template #action-items>
             <SandboxTableViewActions />
@@ -270,9 +270,9 @@
       <SandboxSectionComponent title="row-expanded">
         <KTableView
           :data="tableData"
-          expandable-rows
           :headers="headers()"
           :pagination-attributes="{ totalCount: tableData.length }"
+          :row-expandable="() => true"
         >
           <template #action-items>
             <SandboxTableViewActions />
@@ -281,7 +281,7 @@
             <KTableView
               :data="tableData"
               :headers="nestedHeaders"
-              hide-headers
+              hide-header
               nested
               :pagination-attributes="{ totalCount: tableData.length }"
               :table-preferences="{ columnWidths }"
@@ -323,11 +323,11 @@
       <SandboxSectionComponent title="Bulk Actions & Expandable Rows">
         <KTableView
           :data="paginatedData"
-          expandable-rows
           :headers="headers(true, false, true)"
           :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
           resize-columns
           :row-bulk-action-enabled="getRowBulkAction"
+          :row-expandable="() => true"
           @page-change="onPageChange"
           @page-size-change="onPageSizeChange"
           @row-select="onBulkActionsSelect"
@@ -352,11 +352,11 @@
       <SandboxSectionComponent title="Bulk Actions & Nested Table">
         <KTableView
           :data="paginatedData"
-          expandable-rows
           :headers="headers(true, false, true)"
           :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
           resize-columns
           :row-bulk-action-enabled="getRowBulkAction"
+          :row-expandable="() => true"
           @page-change="onPageChange"
           @page-size-change="onPageSizeChange"
           @row-select="onBulkActionsSelect"
@@ -371,7 +371,7 @@
             <KTableView
               :data="tableData"
               :headers="nestedHeaders"
-              hide-headers
+              hide-header
               nested
               :pagination-attributes="{ totalCount: tableData.length }"
               :table-preferences="{ columnWidths }"
@@ -389,10 +389,10 @@
       >
         <KTableView
           :data="tableData"
-          expandable-rows
           :headers="headers(true)"
           :pagination-attributes="{ totalCount: tableData.length }"
           resize-columns
+          :row-expandable="() => true"
           :row-link="getRowOneTwoLink"
           @row:click="(_event: any, row: any) => onRowClick(row)"
         >
@@ -403,7 +403,7 @@
             <KTableView
               :data="tableData"
               :headers="nestedHeaders"
-              hide-headers
+              hide-header
               nested
               :pagination-attributes="{ totalCount: tableData.length }"
               :row-link="getRowOneTwoLink"
@@ -420,9 +420,9 @@
       <SandboxSectionComponent title="Nested Table With It's Own Header">
         <KTableView
           :data="tableData"
-          expandable-rows
           :headers="headers()"
           :pagination-attributes="{ totalCount: tableData.length }"
+          :row-expandable="() => true"
         >
           <template #action-items>
             <SandboxTableViewActions />
@@ -629,6 +629,8 @@ const getRowBulkAction = (data: Record<string, any>): RowBulkAction => {
 
   return true
 }
+
+const getRowExpandable = (row: Record<string, any>): boolean => row.id % 2 === 0
 
 const getRowOneTwoLink = (row: Record<string, any>): RowLink => {
   if (row.id === 1) {
