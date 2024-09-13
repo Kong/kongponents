@@ -1,3 +1,10 @@
+## [9.6.6](https://github.com/Kong/kongponents/compare/v9.6.5...v9.6.6) (2024-09-13)
+
+
+### Bug Fixes
+
+* **ktable:** column visibility alignment ([#2393](https://github.com/Kong/kongponents/issues/2393)) ([a372765](https://github.com/Kong/kongponents/commit/a372765d95bc54a14f85c5d89393e85037a77ac3))
+
 ## [9.6.5](https://github.com/Kong/kongponents/compare/v9.6.4...v9.6.5) (2024-09-13)
 
 
