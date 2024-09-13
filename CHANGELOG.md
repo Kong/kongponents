@@ -1,3 +1,25 @@
+## [9.6.6](https://github.com/Kong/kongponents/compare/v9.6.5...v9.6.6) (2024-09-13)
+
+
+### Bug Fixes
+
+* **ktable:** column visibility alignment ([#2393](https://github.com/Kong/kongponents/issues/2393)) ([a372765](https://github.com/Kong/kongponents/commit/a372765d95bc54a14f85c5d89393e85037a77ac3))
+
+## [9.6.5](https://github.com/Kong/kongponents/compare/v9.6.4...v9.6.5) (2024-09-13)
+
+
+### Bug Fixes
+
+* **kcodeblock:** keyboard shortcut for copy should work ([#2385](https://github.com/Kong/kongponents/issues/2385)) ([d1bd965](https://github.com/Kong/kongponents/commit/d1bd9651a1240d5b2f240e7478edcd58401ab39a))
+* **kcopy:** truncated text should have max-width on tooltip ([#2388](https://github.com/Kong/kongponents/issues/2388)) ([43cc04f](https://github.com/Kong/kongponents/commit/43cc04fab7fd81d323a03665d60330f20f5b5962))
+
+## [9.6.4](https://github.com/Kong/kongponents/compare/v9.6.3...v9.6.4) (2024-09-11)
+
+
+### Bug Fixes
+
+* **skeleton:** layout shifting due to delayed rendering ([#2383](https://github.com/Kong/kongponents/issues/2383)) ([77c4a20](https://github.com/Kong/kongponents/commit/77c4a204a88c4b223db5744afd1c11638dce41d2))
+
 ## [9.6.3](https://github.com/Kong/kongponents/compare/v9.6.2...v9.6.3) (2024-09-11)
 
 
