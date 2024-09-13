@@ -14,6 +14,7 @@
         v-if="format !== 'hidden'"
         :class="[textTooltipClasses]"
         data-testid="copy-tooltip-wrapper"
+        max-width="500px"
         placement="bottom-start"
         :text="textTooltipLabel"
       >
