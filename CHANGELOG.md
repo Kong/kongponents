@@ -1,3 +1,11 @@
+## [9.6.5](https://github.com/Kong/kongponents/compare/v9.6.4...v9.6.5) (2024-09-13)
+
+
+### Bug Fixes
+
+* **kcodeblock:** keyboard shortcut for copy should work ([#2385](https://github.com/Kong/kongponents/issues/2385)) ([d1bd965](https://github.com/Kong/kongponents/commit/d1bd9651a1240d5b2f240e7478edcd58401ab39a))
+* **kcopy:** truncated text should have max-width on tooltip ([#2388](https://github.com/Kong/kongponents/issues/2388)) ([43cc04f](https://github.com/Kong/kongponents/commit/43cc04fab7fd81d323a03665d60330f20f5b5962))
+
 ## [9.6.4](https://github.com/Kong/kongponents/compare/v9.6.3...v9.6.4) (2024-09-11)
 
 
