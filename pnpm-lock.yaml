@@ -67,8 +67,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(@types/node@20.16.5)(typescript@5.5.4)
       '@evilmartians/lefthook':
-        specifier: ^1.7.14
-        version: 1.7.14
+        specifier: ^1.7.15
+        version: 1.7.15
       '@kong-ui-public/sandbox-layout':
         specifier: ^2.1.25
         version: 2.1.25(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.3(vue@3.4.38(typescript@5.5.4)))(vue@3.4.38(typescript@5.5.4)))(vue@3.4.38(typescript@5.5.4))
@@ -788,8 +788,8 @@ packages:
     resolution: {integrity: sha512-BsWiH1yFGjXXS2yvrf5LyuoSIIbPrGUWob917o+BTKuZ7qJdxX8aJLRxs1fS9n6r7vESrq1OUqb68dANcFXuQQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@evilmartians/lefthook@1.7.14':
-    resolution: {integrity: sha512-0FPRdmd7hIZXjTQKQjLnmqxx4xGRIM1oGN9pJ4PyI14tOqEAwstmLIbauqQpTVTj3MAPeylsQVXh9RGaq/F2/A==}
+  '@evilmartians/lefthook@1.7.15':
+    resolution: {integrity: sha512-YgKTw9noH/SG0aOaPgrZNRgY7iJ0FuIVfvdB/aGsNulYLqiFnJyID2sfCaQ7PsGaFng2wdFBhmK/wbnb8+qPcA==}
     cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
@@ -962,8 +962,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.21.2':
-    resolution: {integrity: sha512-AJCfdXkpe5EX+jfWOMYuFl3ZomTQyfx4V4geRmChdTwAo05FdpnobwqtYn0mo7Mf1qVN7mniI7kdG98vKDVd2g==}
+  '@rollup/wasm-node@4.21.3':
+    resolution: {integrity: sha512-uZFl4GXMgyllfuKjY/zlXxTxDs+G/LB7snVENskpJt7IIXw6cD1yqi3eBeGM8NxE9kuxrNB0Qr1QLNtDYTlqeQ==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -5380,7 +5380,7 @@ snapshots:
 
   '@eslint/object-schema@2.1.4': {}
 
-  '@evilmartians/lefthook@1.7.14': {}
+  '@evilmartians/lefthook@1.7.15': {}
 
   '@floating-ui/core@1.6.2':
     dependencies:
@@ -5581,7 +5581,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@rollup/wasm-node@4.21.2':
+  '@rollup/wasm-node@4.21.3':
     dependencies:
       '@types/estree': 1.0.5
     optionalDependencies:
@@ -9383,7 +9383,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.41
-      rollup: '@rollup/wasm-node@4.21.2'
+      rollup: '@rollup/wasm-node@4.21.3'
     optionalDependencies:
       '@types/node': 20.16.5
       fsevents: 2.3.3
