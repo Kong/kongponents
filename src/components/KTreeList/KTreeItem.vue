@@ -73,7 +73,7 @@ const hasIcon = computed((): boolean => !props.hideIcons || !!slots['item-icon']
 
 const handleClick = (event: any) => {
   if (event.target) {
-    const ignoredElements = 'a:not(.disabled), button:not([data-tree-item-trigger]):not(:disabled), label, input:not(:disabled), select:not(:disabled)'
+    const ignoredElements = 'a:not(.disabled), button:not([data-tree-item-trigger]), label, input, select'
 
     // check whether parent of target is not an ignored elem
     if (event.target.closest(ignoredElements) !== null) {
