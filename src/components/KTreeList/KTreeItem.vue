@@ -6,6 +6,7 @@
       'selected': item.selected
     }"
     :data-testid="`tree-item-${item.id}`"
+    data-tree-item-trigger="true"
     draggable="false"
     type="button"
     @click.prevent="handleClick"
@@ -70,7 +71,16 @@ const slots = useSlots()
 
 const hasIcon = computed((): boolean => !props.hideIcons || !!slots['item-icon'])
 
-const handleClick = () => {
+const handleClick = (event: any) => {
+  if (event.target) {
+    const ignoredElements = 'a:not(.disabled), button:not([data-tree-item-trigger]), label, input, select'
+
+    // check whether parent of target is not an ignored elem
+    if (event.target.closest(ignoredElements) !== null) {
+      return
+    }
+  }
+
   emit('selected', props.item)
 }
 </script>
@@ -104,6 +114,7 @@ const handleClick = () => {
 
   .tree-item-label {
     text-align: left;
+    width: 100%;
   }
 
   &.selected {
@@ -112,6 +123,7 @@ const handleClick = () => {
 
     .tree-item-icon {
       color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+      pointer-events: none;
     }
   }
 
