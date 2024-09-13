@@ -2,6 +2,7 @@
   <div class="table-column-visibility-menu">
     <KDropdown
       data-testid="table-column-visibility-menu"
+      :disabled="disabled"
       :kpop-attributes="{ placement: 'bottom-end' }"
       @toggle-dropdown="handleDropdownToggle"
     >
@@ -14,6 +15,7 @@
           aria-label="Show/Hide Columns"
           class="menu-button"
           data-testid="column-visibility-menu-button"
+          :disabled="disabled"
           icon
           size="large"
         >
@@ -90,6 +92,10 @@ const props = defineProps({
   visibilityPreferences: {
     type: Object as PropType<Record<string, boolean>>,
     default: () => ({}),
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
   },
 })
 

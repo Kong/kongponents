@@ -9,9 +9,10 @@
         name="toolbar"
         :state="stateData"
       />
+
       <ColumnVisibilityMenu
-        v-if="hasColumnVisibilityMenu"
         :columns="visibilityColumns"
+        :disabled="columnVisibilityDisabled"
         :table-id="tableId"
         :visibility-preferences="visibilityPreferences"
         @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
@@ -530,10 +531,18 @@ const resizerHoveredColumn = ref('')
 const currentHoveredColumn = ref('')
 const hasHidableColumns = computed((): boolean => tableHeaders.value.filter((header: TableHeader) => header.hidable).length > 0)
 const hasColumnVisibilityMenu = computed((): boolean => {
-  // has hidable columns, no error/loading/empty state
-  return !!(hasHidableColumns.value &&
-    !props.error && !isTableLoading.value && !props.loading && (data.value && data.value.length))
+  if (!hasHidableColumns.value || props.error) {
+    return false
+  }
+
+  if (slots.toolbar) {
+    // when toolbar slot is present, we want to disable column visibility menu rather than hide it in certain states
+    return true
+  }
+
+  return !isTableLoading.value && !props.loading && data.value && !!data.value.length
 })
+const columnVisibilityDisabled = computed((): boolean => isTableLoading.value || props.loading || !(data.value && data.value.length))
 // columns whose visibility can be toggled
 const visibilityColumns = computed((): TableHeader[] => tableHeaders.value.filter((header: TableHeader) => header.hidable))
 // visibility preferences from the host app (initialized by app)
