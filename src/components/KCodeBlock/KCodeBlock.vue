@@ -5,6 +5,7 @@
     class="k-code-block"
     :class="[`theme-${theme}`]"
     data-testid="k-code-block"
+    tabindex="-1"
   >
     <div
       v-if="showCodeBlockActions"
@@ -232,7 +233,7 @@ import KCodeBlockIconButton from './KCodeBlockIconButton.vue'
 const { getSizeFromString } = useUtilities()
 
 const IS_MAYBE_MAC = window?.navigator?.platform?.toLowerCase().includes('mac')
-const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Options' : 'Alt'
+const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Option' : 'Alt'
 
 // Debounces the search handler which ensures that we don’t trigger several searches while the user is still typing.
 const debouncedHandleSearchInputValue = debounce(handleSearchInputValue, 150)
