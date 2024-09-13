@@ -1,3 +1,10 @@
+## [9.6.7](https://github.com/Kong/kongponents/compare/v9.6.6...v9.6.7) (2024-09-13)
+
+
+### Bug Fixes
+
+* **ktreeitem:** ignore clicks on some slotted elements [KHCP-13213] ([#2389](https://github.com/Kong/kongponents/issues/2389)) ([4703a08](https://github.com/Kong/kongponents/commit/4703a085df6f165e09c8e069627dcc6e05a653a1))
+
 ## [9.6.6](https://github.com/Kong/kongponents/compare/v9.6.5...v9.6.6) (2024-09-13)
 
 
