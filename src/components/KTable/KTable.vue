@@ -10,13 +10,18 @@
         :state="stateData"
       />
 
-      <ColumnVisibilityMenu
-        :columns="visibilityColumns"
-        :disabled="columnVisibilityDisabled"
-        :table-id="tableId"
-        :visibility-preferences="visibilityPreferences"
-        @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
-      />
+      <div
+        v-if="hasColumnVisibilityMenu"
+        class="toolbar-default-items-container"
+      >
+        <ColumnVisibilityMenu
+          :columns="visibilityColumns"
+          :disabled="columnVisibilityDisabled"
+          :table-id="tableId"
+          :visibility-preferences="visibilityPreferences"
+          @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
+        />
+      </div>
     </div>
 
     <KSkeleton

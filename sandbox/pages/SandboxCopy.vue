@@ -35,6 +35,15 @@
           :text="uuid1"
           truncate
         />
+        <KCopy
+          :text="desc1"
+          truncate
+        />
+        <KCopy
+          badge
+          :text="desc1"
+          truncate
+        />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="truncationLimit">
         <KCopy
@@ -138,6 +147,7 @@ import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import KCopy from '@/components/KCopy/KCopy.vue'
 
 const uuid1: string = '2cf64827-6c70-4116-906b-4c9aae83fc4a'
+const desc1: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 
 const kButtonKCopyElement = ref<InstanceType<typeof KCopy> | null>(null)
 

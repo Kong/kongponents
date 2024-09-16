@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.6.4",
+  "version": "9.7.0",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -58,7 +58,7 @@
     "@popperjs/core": "^2.11.8",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.1",
-    "focus-trap": "^7.5.4",
+    "focus-trap": "^7.6.0",
     "focus-trap-vue": "^4.0.3",
     "nanoid": "^5.0.7",
     "sortablejs": "^1.15.3",
@@ -74,12 +74,12 @@
   },
   "devDependencies": {
     "@babel/types": "^7.25.6",
-    "@commitlint/cli": "^19.4.1",
-    "@commitlint/config-conventional": "^19.4.1",
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
     "@cypress/vite-dev-server": "^5.2.0",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
-    "@evilmartians/lefthook": "^1.7.14",
-    "@kong-ui-public/sandbox-layout": "^2.1.25",
+    "@evilmartians/lefthook": "^1.7.15",
+    "@kong-ui-public/sandbox-layout": "^2.1.26",
     "@kong/design-tokens": "^1.17.2",
     "@kong/eslint-config-kong-ui": "^1.1.1",
     "@semantic-release/changelog": "^6.0.3",
@@ -89,7 +89,7 @@
     "@types/node": "^20.16.3",
     "@types/sortablejs": "^1.15.8",
     "@vitejs/plugin-vue": "^5.1.3",
-    "@vue/compiler-core": "^3.4.38",
+    "@vue/compiler-core": "^3.5.4",
     "@vue/tsconfig": "^0.5.1",
     "@vueuse/core": "^11.0.3",
     "autoprefixer": "^10.4.20",
@@ -101,17 +101,17 @@
     "cypress": "^13.14.1",
     "cypress-fail-fast": "^7.1.1",
     "cz-conventional-changelog": "3.3.0",
-    "eslint": "^9.9.1",
+    "eslint": "^9.10.0",
     "inquirer": "^9.3.6",
     "nanospinner": "^1.1.0",
     "node-emoji": "^2.1.3",
-    "picocolors": "^1.0.1",
+    "picocolors": "^1.1.0",
     "postcss-cli": "^11.0.0",
     "postcss-custom-properties": "^14.0.1",
     "postcss-html": "^1.7.0",
     "rimraf": "^6.0.1",
     "rollup-plugin-visualizer": "^5.12.0",
-    "sass": "^1.77.8",
+    "sass": "^1.78.0",
     "semantic-release": "^24.1.0",
     "shx": "^0.3.4",
     "stylelint": "^16.9.0",
@@ -120,11 +120,11 @@
     "stylelint-config-recommended-vue": "^1.5.0",
     "stylelint-order": "^6.0.4",
     "tsc-alias": "^1.8.10",
-    "typescript": "^5.5.4",
+    "typescript": "^5.6.2",
     "vite": "^5.4.2",
     "vite-plugin-vue-devtools": "^7.3.9",
     "vitepress": "^1.3.4",
-    "vue": "^3.4.38",
+    "vue": "^3.5.4",
     "vue-router": "^4.4.3",
     "vue-tsc": "^2.1.4"
   },
@@ -179,10 +179,10 @@
   "engines": {
     "node": ">=v16.20.2 || >=18.12.1 || >=20.14.0"
   },
-  "packageManager": "pnpm@9.9.0",
+  "packageManager": "pnpm@9.10.0",
   "volta": {
     "node": "20.17.0",
-    "pnpm": "9.9.0"
+    "pnpm": "9.10.0"
   },
   "config": {
     "commitizen": {

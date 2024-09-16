@@ -1,3 +1,32 @@
+# [9.7.0](https://github.com/Kong/kongponents/compare/v9.6.7...v9.7.0) (2024-09-16)
+
+
+### Features
+
+* **ktableview:** add expandable rows feature [KHCP-13108] ([#2376](https://github.com/Kong/kongponents/issues/2376)) ([4880981](https://github.com/Kong/kongponents/commit/4880981f2744a697ab8b47df1553957e1eff60d0))
+
+## [9.6.7](https://github.com/Kong/kongponents/compare/v9.6.6...v9.6.7) (2024-09-13)
+
+
+### Bug Fixes
+
+* **ktreeitem:** ignore clicks on some slotted elements [KHCP-13213] ([#2389](https://github.com/Kong/kongponents/issues/2389)) ([4703a08](https://github.com/Kong/kongponents/commit/4703a085df6f165e09c8e069627dcc6e05a653a1))
+
+## [9.6.6](https://github.com/Kong/kongponents/compare/v9.6.5...v9.6.6) (2024-09-13)
+
+
+### Bug Fixes
+
+* **ktable:** column visibility alignment ([#2393](https://github.com/Kong/kongponents/issues/2393)) ([a372765](https://github.com/Kong/kongponents/commit/a372765d95bc54a14f85c5d89393e85037a77ac3))
+
+## [9.6.5](https://github.com/Kong/kongponents/compare/v9.6.4...v9.6.5) (2024-09-13)
+
+
+### Bug Fixes
+
+* **kcodeblock:** keyboard shortcut for copy should work ([#2385](https://github.com/Kong/kongponents/issues/2385)) ([d1bd965](https://github.com/Kong/kongponents/commit/d1bd9651a1240d5b2f240e7478edcd58401ab39a))
+* **kcopy:** truncated text should have max-width on tooltip ([#2388](https://github.com/Kong/kongponents/issues/2388)) ([43cc04f](https://github.com/Kong/kongponents/commit/43cc04fab7fd81d323a03665d60330f20f5b5962))
+
 ## [9.6.4](https://github.com/Kong/kongponents/compare/v9.6.3...v9.6.4) (2024-09-11)
 
 
