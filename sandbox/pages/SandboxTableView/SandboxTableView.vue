@@ -4,6 +4,57 @@
     title="KTableView"
   >
     <div class="k-table-view-sandbox">
+      <SandboxSectionComponent title="Toolbar default items">
+        <KComponent
+          v-slot="{ data }"
+          :data="{ tableLoadingState: false, tableEmptyState: false, tableHidableHeaders: true, tableBulkActions: false, tableToolbar: false }"
+        >
+          <div class="horizontal-container">
+            <KInputSwitch
+              v-model="data.tableLoadingState"
+              label="Loading state"
+            />
+            <KInputSwitch
+              v-model="data.tableEmptyState"
+              label="Empty state"
+            />
+            <KInputSwitch
+              v-model="data.tableHidableHeaders"
+              label="Hidable headers"
+            />
+            <KInputSwitch
+              v-model="data.tableBulkActions"
+              label="Bulk actions"
+            />
+            <KInputSwitch
+              v-model="data.tableToolbar"
+              label="Toolbar content"
+            />
+          </div>
+
+          <KTableView
+            :key="data.tableKey"
+            :data="data.tableEmptyState ? [] : tableData"
+            :headers="headers(data.tableHidableHeaders, false, data.tableBulkActions)"
+            :loading="data.tableLoadingState"
+            :pagination-attributes="{ totalCount: tableData.length }"
+          >
+            <template
+              v-if="data.tableToolbar"
+              #toolbar
+            >
+              foobar
+            </template>
+            <template #bulk-action-items>
+              <SandboxTableViewActions :count="selectedData.length" />
+            </template>
+            <template #action-items>
+              <SandboxTableViewActions />
+            </template>
+          </KTableView>
+        </KComponent>
+      </SandboxSectionComponent>
+
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
@@ -12,7 +63,7 @@
       <SandboxSectionComponent title="rowHover & emptyStateIconVariant & emptyStateTitle & emptyStateMessage & emptyStateActionMessage & emptyStateActionRoute & emptyStateButtonAppearance & maxHeight">
         <KComponent
           v-slot="{ data }"
-          :data="{ tableKey: 0, tableRowHover: false, tableEmptyState: false }"
+          :data="{ tableRowHover: false, tableEmptyState: false }"
         >
           <div class="horizontal-container">
             <KInputSwitch
@@ -22,7 +73,6 @@
             <KInputSwitch
               v-model="data.tableEmptyState"
               label="Empty state"
-              @change="data.tableKey++"
             />
           </div>
 
