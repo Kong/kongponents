@@ -625,6 +625,7 @@ const hasColumnVisibilityMenu = computed((): boolean => {
     return true
   }
 
+  // show when not loading and there is data
   return !props.loading && !!tableData.value && !!tableData.value.length
 })
 const columnVisibilityDisabled = computed((): boolean => props.loading || !(tableData.value && tableData.value.length))
