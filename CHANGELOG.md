@@ -1,3 +1,10 @@
+# [9.7.0](https://github.com/Kong/kongponents/compare/v9.6.7...v9.7.0) (2024-09-16)
+
+
+### Features
+
+* **ktableview:** add expandable rows feature [KHCP-13108] ([#2376](https://github.com/Kong/kongponents/issues/2376)) ([4880981](https://github.com/Kong/kongponents/commit/4880981f2744a697ab8b47df1553957e1eff60d0))
+
 ## [9.6.7](https://github.com/Kong/kongponents/compare/v9.6.6...v9.6.7) (2024-09-13)
 
 
