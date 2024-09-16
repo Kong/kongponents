@@ -545,7 +545,8 @@ const hasColumnVisibilityMenu = computed((): boolean => {
     return true
   }
 
-  return !isTableLoading.value && !props.loading && data.value && !!data.value.length
+  // show when not loading and there is data
+  return !isTableLoading.value && !props.loading && !!data.value && !!data.value.length
 })
 const columnVisibilityDisabled = computed((): boolean => isTableLoading.value || props.loading || !(data.value && data.value.length))
 // columns whose visibility can be toggled
