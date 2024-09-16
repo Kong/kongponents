@@ -1,5 +1,8 @@
 <template>
-  <div class="k-table-view">
+  <div
+    class="k-table-view"
+    :class="{ 'hide-headers': hideHeaders }"
+  >
     <div
       v-if="hasToolbarSlot"
       class="table-toolbar"
@@ -117,7 +120,10 @@
             'is-clickable': isClickable
           }"
         >
-          <thead :class="{ 'is-scrolled': isScrolledVertically }">
+          <thead
+            v-if="!hideHeaders"
+            :class="{ 'is-scrolled': isScrolledVertically }"
+          >
             <tr
               ref="headerRow"
               :class="{ 'is-scrolled': isScrolledVertically }"
@@ -128,6 +134,7 @@
                 :aria-sort="column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
                 class="table-headers"
                 :class="getHeaderClasses(column, index)"
+                :data-key="column.key"
                 :data-testid="`table-header-${column.key}`"
                 :style="columnStyles[column.key]"
                 @click="() => onHeaderClick(column)"
@@ -135,7 +142,7 @@
                 @mouseover="currentHoveredColumn = column.key"
               >
                 <div
-                  v-if="resizeColumns && index !== 0"
+                  v-if="resizeColumns && !nested && index !== 0"
                   class="resize-handle previous"
                   @click.stop
                   @mousedown="startResize($event, visibleHeaders[index - 1].key)"
@@ -200,7 +207,7 @@
                   </KTooltip>
 
                   <ArrowDownIcon
-                    v-if="!column.hideLabel && column.key !== TableViewHeaderKeys.ACTIONS && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.sortable"
+                    v-if="!column.hideLabel && column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS"
                     class="sort-icon"
                     :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
                     :size="KUI_ICON_SIZE_30"
@@ -208,7 +215,7 @@
                 </div>
 
                 <div
-                  v-if="resizeColumns && index !== visibleHeaders.length - 1"
+                  v-if="resizeColumns && !nested && index !== visibleHeaders.length - 1"
                   class="resize-handle"
                   @click.stop
                   @mousedown="startResize($event, column.key)"
@@ -220,87 +227,126 @@
           </thead>
 
           <tbody>
-            <tr
+            <template
               v-for="(row, rowIndex) in tableData"
-              v-bind="rowAttrs(row)"
               :key="`table-${tableId}-row-${rowIndex}`"
-              :role="!!rowLink(row).to ? 'link' : undefined"
-              :tabindex="isClickable || !!rowLink(row).to ? 0 : undefined"
             >
-              <td
-                v-for="(header, index) in visibleHeaders"
-                v-bind="cellAttrs({ headerKey: header.key, row, rowIndex, colIndex: index })"
-                :key="`table-${tableId}-cell-${index}`"
-                :class="{
-                  'resize-hover': resizeColumns && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
-                  'row-link': !!rowLink(row).to,
-                  'sticky-column': header.key === TableViewHeaderKeys.BULK_ACTIONS && isScrolledHorizontally,
-                }"
-                :style="columnStyles[header.key]"
-                v-on="tdlisteners(row[header.key], row)"
+              <tr
+                :class="{ 'last-row': rowIndex === tableData.length - 1 && !expandedRows.includes(rowIndex) }"
+                :role="!!rowLink(row).to ? 'link' : undefined"
+                :tabindex="isClickable || !!rowLink(row).to ? 0 : undefined"
+                v-bind="rowAttrs(row)"
               >
-                <component
-                  :is="getRowLinkComponent(row, header.key)"
-                  class="cell-wrapper"
-                  v-bind="getRowLinkAttrs(row, header.key)"
+                <td
+                  v-for="(header, index) in visibleHeaders"
+                  :key="`table-${tableId}-cell-${index}`"
+                  :class="{
+                    'resize-hover': resizeColumns && !nested && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
+                    'row-link': !!rowLink(row).to,
+                  }"
+                  :style="columnStyles[header.key]"
+                  v-bind="cellAttrs({ headerKey: header.key, row, rowIndex, colIndex: index })"
+                  v-on="tdlisteners(row[header.key], row)"
                 >
-                  <slot
-                    v-if="header.key !== TableViewHeaderKeys.ACTIONS && header.key !== TableViewHeaderKeys.BULK_ACTIONS"
-                    :name="header.key"
-                    :row="getGeneric(row)"
-                    :row-key="rowIndex"
-                    :row-value="row[header.key]"
+                  <component
+                    :is="getRowLinkComponent(row, header.key)"
+                    v-if="header.key !== TableViewHeaderKeys.EXPANDABLE"
+                    class="cell-wrapper"
+                    v-bind="getRowLinkAttrs(row, header.key)"
                   >
-                    {{ row[header.key] }}
-                  </slot>
-
-                  <KDropdown
-                    v-else-if="header.key === TableViewHeaderKeys.ACTIONS"
-                    class="actions-dropdown"
-                    data-testid="actions-dropdown"
-                    :kpop-attributes="{ placement: 'bottom-end' }"
-                  >
-                    <KButton
-                      appearance="tertiary"
-                      :aria-label="header.label"
-                      class="actions-dropdown-trigger"
-                      icon
-                      size="small"
-                      @mouseleave="isActionsDropdownHovered = false"
-                      @mouseover="isActionsDropdownHovered = true"
+                    <slot
+                      v-if="header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS"
+                      :name="header.key"
+                      :row="getGeneric(row)"
+                      :row-key="rowIndex"
+                      :row-value="row[header.key]"
                     >
-                      <MoreIcon
-                        class="more-icon"
-                        decorative
-                      />
-                    </KButton>
+                      {{ row[header.key] }}
+                    </slot>
 
-                    <template #items>
-                      <slot
-                        name="action-items"
-                        :row="getGeneric(row)"
-                        :row-value="row[header.key]"
+                    <KTooltip
+                      v-else-if="header.key === TableViewHeaderKeys.BULK_ACTIONS"
+                      max-width="200"
+                      placement="bottom-start"
+                      :text="getRowBulkActionEnabled(row) ? undefined : getRowBulkActionTooltip(row)"
+                    >
+                      <KCheckbox
+                        v-model="row.selected"
+                        aria-label="Toggle row selection"
+                        class="bulk-actions-checkbox"
+                        data-testid="bulk-actions-checkbox"
+                        :disabled="!getRowBulkActionEnabled(row)"
                       />
-                    </template>
-                  </KDropdown>
+                    </KTooltip>
 
-                  <KTooltip
-                    v-else-if="header.key === TableViewHeaderKeys.BULK_ACTIONS"
-                    max-width="200"
-                    placement="bottom-start"
-                    :text="getRowBulkActionEnabled(row) ? undefined : getRowBulkActionTooltip(row)"
+                    <KDropdown
+                      v-else-if="header.key === TableViewHeaderKeys.ACTIONS"
+                      class="actions-dropdown"
+                      data-testid="actions-dropdown"
+                      :kpop-attributes="{ placement: 'bottom-end' }"
+                    >
+                      <KButton
+                        appearance="tertiary"
+                        :aria-label="header.label"
+                        class="actions-dropdown-trigger"
+                        icon
+                        size="small"
+                        @mouseleave="isActionsDropdownHovered = false"
+                        @mouseover="isActionsDropdownHovered = true"
+                      >
+                        <MoreIcon
+                          class="more-icon"
+                          decorative
+                        />
+                      </KButton>
+
+                      <template #items>
+                        <slot
+                          name="action-items"
+                          :row="getGeneric(row)"
+                        />
+                      </template>
+                    </KDropdown>
+                  </component>
+
+                  <div
+                    v-else-if="rowExpandable(row)"
+                    class="expandable-row-control-container"
                   >
-                    <KCheckbox
-                      v-model="row.selected"
-                      aria-label="Toggle row selection"
-                      class="bulk-actions-checkbox"
-                      data-testid="bulk-actions-checkbox"
-                      :disabled="!getRowBulkActionEnabled(row)"
+                    <button
+                      :aria-controls="`table-${tableId}-row-${rowIndex}-expandable-content`"
+                      :aria-expanded="expandedRows.includes(rowIndex)"
+                      aria-label="Toggle row expandable content"
+                      class="expandable-row-control"
+                      :class="{ 'expanded': expandedRows.includes(rowIndex) }"
+                      data-testid="expandable-row-control"
+                      type="button"
+                      @click="toggleRow(rowIndex, row)"
+                    >
+                      <ChevronRightIcon class="expandable-row-control-icon" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                v-if="hasExpandableRows && rowExpandable(row)"
+                v-show="expandedRows.includes(rowIndex)"
+                :id="`table-${tableId}-row-${rowIndex}-expandable-content`"
+                class="expandable-content-row"
+                data-testid="expandable-content-row"
+              >
+                <td :colspan="visibleHeaders.length">
+                  <div class="expandable-content-wrapper">
+                    <slot
+                      :column-widths="actualColumnWidths"
+                      name="row-expanded"
+                      :nested-headers="getNestedTableHeaders"
+                      :row="getGeneric(row)"
                     />
-                  </KTooltip>
-                </component>
-              </td>
-            </tr>
+                  </div>
+                </td>
+              </tr>
+            </template>
           </tbody>
         </table>
       </div>
@@ -321,12 +367,12 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { ref, watch, computed, useAttrs, useSlots } from 'vue'
+import { ref, watch, computed, useAttrs, useSlots, nextTick } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
-import { InfoIcon, ArrowDownIcon, MoreIcon } from '@kong/icons'
+import { InfoIcon, ArrowDownIcon, MoreIcon, ChevronRightIcon } from '@kong/icons'
 import type {
   TablePreferences,
   TableViewHeader,
@@ -344,7 +390,7 @@ import type {
   RowBulkAction,
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
-import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './../KTable/ColumnVisibilityMenu.vue'
 import useUniqueId from '@/composables/useUniqueId'
 import useUtilities from '@/composables/useUtilities'
@@ -355,6 +401,7 @@ import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 import BulkActionsDropdown from './BulkActionsDropdown.vue'
 
 enum TableViewHeaderKeys {
+  EXPANDABLE = 'expandable',
   ACTIONS = 'actions',
   BULK_ACTIONS = 'bulkActions',
 }
@@ -511,6 +558,27 @@ const props = defineProps({
     type: Object as PropType<TablePaginationAttributes>,
     default: () => ({}),
   },
+  /**
+   * Enable expandable rows
+   */
+  rowExpandable: {
+    type: Function as PropType<(row: Record<string, any>) => boolean>,
+    default: () => false,
+  },
+  /**
+   * Hide the table header
+   */
+  hideHeaders: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * Nested table
+   */
+  nested: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits<{
@@ -525,6 +593,7 @@ const emit = defineEmits<{
   (e: 'get-next-offset'): void
   (e: 'get-previous-offset'): void
   (e: 'row-select', data: TableViewData): void
+  (e: 'row-expand', data: any): void
 }>()
 
 const attrs = useAttrs()
@@ -551,7 +620,7 @@ const hasColumnVisibilityMenu = computed((): boolean => {
     !props.error && !props.loading && !props.loading && (tableData.value && tableData.value.length))
 })
 // columns whose visibility can be toggled
-const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable && header.key !== TableViewHeaderKeys.BULK_ACTIONS))
+const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable && header.key !== TableViewHeaderKeys.EXPANDABLE && header.key !== TableViewHeaderKeys.BULK_ACTIONS))
 // visibility preferences from the host app (initialized by app)
 const visibilityPreferences = computed((): Record<string, boolean> => hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
 // current column visibility state
@@ -561,7 +630,7 @@ const isScrolledHorizontally = ref<boolean>(false)
 const sortColumnKey = ref('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
 const isClickable = ref(false)
-const hasToolbarSlot = computed((): boolean => !!slots.toolbar || hasColumnVisibilityMenu.value || hasBulkActions.value)
+const hasToolbarSlot = computed((): boolean => !props.nested && (!!slots.toolbar || hasColumnVisibilityMenu.value || hasBulkActions.value))
 const isActionsDropdownHovered = ref<boolean>(false)
 const tableWrapperStyles = computed((): Record<string, string> => ({
   maxHeight: getSizeFromString(props.maxHeight),
@@ -569,7 +638,7 @@ const tableWrapperStyles = computed((): Record<string, string> => ({
 
 const tableData = ref<TableViewData>([...props.data].map((row) => ({ ...row, selected: false })))
 const bulkActionsSelectedRows = ref<TableViewData>([])
-const hasBulkActions = computed((): boolean => !props.error && tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']))
+const hasBulkActions = computed((): boolean => !props.nested && !props.error && tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']))
 const bulkActionsSelectedRowsCount = computed((): string => {
   const selectedRowsCount = bulkActionsSelectedRows.value.length
 
@@ -700,13 +769,15 @@ const tdlisteners = computed((): any => {
   }
 })
 
+const expandableColumnWidth = (parseInt(KUI_SPACE_60) * 2) + parseInt(KUI_ICON_SIZE_30)
 /**
  * Default column widths for better UX
- * actions column is always 54px (padding-left + button width + padding-right adds up to 54px)
+ * expandable column is always 48px (padding-left + chevron width + padding-right adds up to 48px)
  * bulkActions column is always 56px (padding-left + checkbox width + padding-right adds up to 56px)
+ * actions column is always 54px (padding-left + button width + padding-right adds up to 54px)
  */
-const defaultColumnWidths = { actions: 54, bulkActions: 56 }
-const columnWidths = ref<Record<string, number>>(props.resizeColumns ? props.tablePreferences.columnWidths || defaultColumnWidths : defaultColumnWidths)
+const defaultColumnWidths = { expandable: expandableColumnWidth, bulkActions: 56, actions: 54 }
+const columnWidths = ref<Record<string, number>>(props.tablePreferences?.columnWidths || defaultColumnWidths)
 const columnStyles = computed(() => {
   const styles: Record<string, any> = {}
   for (const colKey in columnWidths.value) {
@@ -727,8 +798,8 @@ const columnStyles = computed(() => {
 const getHeaderClasses = (column: TableViewHeader, index: number): Record<string, boolean> => {
   return {
     // display the resize handle on the right side of the column if resizeColumns is enabled, hovering current column, and not the last column
-    'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && index !== visibleHeaders.value.length - 1,
-    resizable: props.resizeColumns,
+    'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && !props.nested && index !== visibleHeaders.value.length - 1,
+    resizable: props.resizeColumns && !props.nested,
     // display sort control if column is sortable, label is visible, and sorting is not disabled
     sortable: !column.hideLabel && !!column.sortable,
     // display active sorting styles if column is currently sorted
@@ -741,7 +812,7 @@ const getHeaderClasses = (column: TableViewHeader, index: number): Record<string
 }
 
 const onHeaderClick = (column: TableViewHeader) => {
-  if (column.sortable && column.key !== TableViewHeaderKeys.ACTIONS && column.key !== TableViewHeaderKeys.BULK_ACTIONS) {
+  if (column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS) {
     emit('sort', {
       prevKey: sortColumnKey.value,
       sortColumnKey: column.key,
@@ -832,6 +903,9 @@ const startResize = (evt: MouseEvent, colKey: string) => {
     document?.removeEventListener('mousemove', mouseMoveHandler)
     document?.removeEventListener('mouseup', mouseUpHandler)
     emitTablePreferences()
+    if (hasExpandableRows.value) {
+      setActualColumnWidths()
+    }
   }
 
   // get mouse position
@@ -869,19 +943,14 @@ watch(() => props.headers, (newVal: TableViewHeader[]) => {
      * Reorder the headers to ensure bulk actions are first and actions are last
      */
 
-    const headers: TableViewHeader[] = []
+    const headers: TableViewHeader[] = newVal.filter((header) => header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS)
+
     const bulkActionsHeader = newVal.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)
     const actionsHeader = newVal.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.ACTIONS)
 
     if (bulkActionsHeader) {
-      headers.push(bulkActionsHeader)
+      headers.unshift(bulkActionsHeader)
     }
-
-    newVal.forEach((header) => {
-      if (header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS) {
-        headers.push(header)
-      }
-    })
 
     if (actionsHeader) {
       headers.push(actionsHeader)
@@ -962,7 +1031,7 @@ const getRowBulkActionTooltip = (row: Record<string, any>): string => {
 const getRowLinkComponent = (row: Record<string, any>, columnKey: string): string => {
   const { to } = props.rowLink(row)
 
-  if (!to || columnKey === TableViewHeaderKeys.ACTIONS || columnKey === TableViewHeaderKeys.BULK_ACTIONS) {
+  if (!to || columnKey === TableViewHeaderKeys.BULK_ACTIONS || columnKey === TableViewHeaderKeys.ACTIONS) {
     return 'div'
   }
 
@@ -972,7 +1041,7 @@ const getRowLinkComponent = (row: Record<string, any>, columnKey: string): strin
 // returns attributes for the wrapper element in each row link
 const getRowLinkAttrs = (row: Record<string, any>, columnKey: string): Record<string, any> => {
   // if the column is the actions column, return an empty object
-  if (columnKey === TableViewHeaderKeys.ACTIONS || columnKey === TableViewHeaderKeys.BULK_ACTIONS) {
+  if (columnKey === TableViewHeaderKeys.BULK_ACTIONS || columnKey === TableViewHeaderKeys.ACTIONS) {
     return {}
   }
 
@@ -1017,10 +1086,68 @@ const emitTablePreferences = (): void => {
   emit('update:table-preferences', tablePreferences.value)
 }
 
+const hasExpandableRows = computed((): boolean => !props.nested && props.data.some((row) => props.rowExpandable(row)))
+/**
+ * Toggle visibility of expendable row content
+ */
+const expandableRowHeader = { key: TableViewHeaderKeys.EXPANDABLE, label: 'Expandable rows controls', hideLabel: true }
+const expandedRows = ref<number[]>([])
+const toggleRow = async (rowIndex: number, row: any): Promise<void> => {
+  setActualColumnWidths()
+  await nextTick()
+
+  if (expandedRows.value.includes(rowIndex)) {
+    expandedRows.value = expandedRows.value.filter((row) => row !== rowIndex)
+  } else {
+    expandedRows.value = [...expandedRows.value, rowIndex]
+    emit('row-expand', row)
+  }
+}
+
+// Get the headers for the nested table
+const getNestedTableHeaders = computed((): TableViewHeader[] => visibleHeaders.value.filter((header: TableViewHeader) => header.key !== TableViewHeaderKeys.EXPANDABLE && header.key !== TableViewHeaderKeys.BULK_ACTIONS))
+
+/**
+ * Function that calculates client width of each column and sets the actualColumnWidths
+ * actualColumnWidths passed as slot prop to the nested table
+ */
+const actualColumnWidths = ref<Record<string, number>>({})
+const setActualColumnWidths = (): void => {
+  const table = document?.querySelector(`[data-tableid="${tableId}"]`)
+  const headers = table?.querySelectorAll('th')
+  const widths: Record<string, number> = {}
+
+  headers?.forEach((header, index) => {
+    const key = header.getAttribute('data-key')
+
+    if (key === TableViewHeaderKeys.EXPANDABLE) {
+      return
+    }
+
+    let width = header.getBoundingClientRect().width
+
+    // first column is the expandable row column which isn't present in the nested table
+    // so for the nested table, we need to add the width of the expandable row column so that the nested table aligns with the parent table
+    if (index === 1) {
+      width += expandableColumnWidth
+    }
+
+    // reduce last column width to account for scrollbar
+    // scrollbar is roughly 15px (tested in Chrome, Firefox and Safari)
+    if (index === headers.length - 1) {
+      width -= 15
+    }
+
+    widths[key!] = width
+  })
+
+  actualColumnWidths.value = widths
+}
+
 watch([columnVisibility, tableHeaders], (newVals) => {
   const newVisibility = newVals[0]
   const newHeaders = newVals[1]
-  const newVisibleHeaders = newHeaders.filter((header: TableViewHeader) => {
+  let newVisibleHeaders = newHeaders.filter((header: TableViewHeader) => {
     if (header.key === TableViewHeaderKeys.BULK_ACTIONS) {
       return hasBulkActions.value
     }
@@ -1028,9 +1155,23 @@ watch([columnVisibility, tableHeaders], (newVals) => {
     return newVisibility[header.key] !== false
   })
 
+  // remove the expandable row header if it exists because it has special handling
+  if (newVisibleHeaders.find((header) => header.key === TableViewHeaderKeys.EXPANDABLE)) {
+    newVisibleHeaders = newVisibleHeaders.filter((header) => header.key !== TableViewHeaderKeys.EXPANDABLE)
+  }
+
+  // add the expandable row header if expandable rows are enabled
+  if (hasExpandableRows.value) {
+    newVisibleHeaders.unshift(expandableRowHeader)
+  }
+
   if (JSON.stringify(newVisibleHeaders) !== JSON.stringify(visibleHeaders.value)) {
     visibleHeaders.value = newVisibleHeaders
     emitTablePreferences()
+  }
+
+  if (hasExpandableRows.value) {
+    setActualColumnWidths()
   }
 }, { deep: true, immediate: true })
 
@@ -1110,10 +1251,18 @@ watch(() => props.data, (newVal) => {
       tableData.value.push({ ...row, selected: false })
     }
   })
+
+  expandedRows.value = []
 }, { deep: true })
 
 watch(bulkActionsSelectedRows, (newVal) => {
   emit('row-select', newVal)
+})
+
+watch(() => props.tablePreferences, (newVal) => {
+  if (newVal?.columnWidths) {
+    columnWidths.value = newVal.columnWidths
+  }
 })
 </script>
 

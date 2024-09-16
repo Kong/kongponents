@@ -1,6 +1,8 @@
 @mixin table {
   /* Local variables */
   $tableThPaddingY: var(--kui-space-50, $kui-space-50);
+  $tableCaretIconSize: var(--kui-icon-size-30, $kui-icon-size-30);
+  $expandedRowMaxHeight: 250px;
 
   /* Styles */
   background-color: var(--kui-color-background, $kui-color-background);
@@ -236,11 +238,126 @@
             &.row-link {
               padding: var(--kui-space-0, $kui-space-0);
 
+              .cell-wrapper {
+                padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+              }
+
               a.cell-wrapper {
                 color: var(--kui-color-text, $kui-color-text);
                 display: block;
-                padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
                 text-decoration: none;
+              }
+
+              .expandable-row-control-container {
+                padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+              }
+            }
+
+            .expandable-row-control-container {
+              display: flex;
+
+              .expandable-row-control {
+                @include defaultButtonReset;
+
+                color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+
+                &:hover,
+                &:focus,
+                &:focus-visible {
+                  color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+                }
+
+                &:focus-visible {
+                  box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+                }
+
+                .expandable-row-control-icon {
+                  height: $tableCaretIconSize !important;
+                  transition: transform $kongponentsTransitionDurTimingFunc;
+                  width: $tableCaretIconSize !important;
+                }
+
+                &.expanded {
+                  .expandable-row-control-icon {
+                    transform: rotate(90deg);
+                  }
+                }
+              }
+            }
+          }
+
+          &.last-row {
+            border-bottom: none;
+          }
+
+          &.expandable-content-row {
+            background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+            height: auto;
+
+            > td {
+              padding: var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0)
+                var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+              white-space: normal;
+
+              &:has(.k-table-view) {
+                padding: var(--kui-space-0, $kui-space-0);
+              }
+
+              .expandable-content-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: var(--kui-space-40, $kui-space-40);
+                max-height: $expandedRowMaxHeight;
+                overflow-y: auto;
+                padding-right: var(--kui-space-60, $kui-space-60);
+
+                &:has(.k-table-view) {
+                  max-height: none;
+                  padding-right: var(--kui-space-0, $kui-space-0);
+                }
+
+                /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+                :deep(.k-table-view) {
+                  background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+
+                  .table-wrapper {
+                    max-height: $expandedRowMaxHeight;
+                  }
+
+                  tr.is-scrolled {
+                    background-color: var(
+                      --kui-color-background-neutral-weakest,
+                      $kui-color-background-neutral-weakest
+                    );
+                  }
+
+                  &.hide-headers {
+                    th,
+                    td {
+                      &:first-child {
+                        padding-left: calc(var(--kui-space-60, $kui-space-60) * 3 + $tableCaretIconSize);
+
+                        &.row-link {
+                          .cell-wrapper {
+                            padding-left: var(--kui-space-0, $kui-space-0);
+                          }
+                        }
+                      }
+
+                      &:last-child {
+                        // reduce padding-right to account for scrollbar
+                        padding-right: var(--kui-space-20, $kui-space-20);
+                      }
+                    }
+                  }
+
+                  .k-empty-state {
+                    background-color: var(
+                      --kui-color-background-neutral-weakest,
+                      $kui-color-background-neutral-weakest
+                    );
+                  }
+                }
               }
             }
           }
@@ -249,7 +366,7 @@
 
       // Variants
       &.has-hover {
-        tbody tr:hover {
+        tbody tr:not(.expandable-content-row):hover {
           background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
         }
       }
