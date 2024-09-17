@@ -4,6 +4,36 @@
     title="KTableView"
   >
     <div class="k-table-view-sandbox">
+      <SandboxSectionComponent title="Conditional Toolbar">
+        <KComponent
+          v-slot="{ data }"
+          :data="{ tableKey: 0, tableToolbar: false }"
+        >
+          <KInputSwitch
+            v-model="data.tableToolbar"
+            label="Table toolbar"
+            @change="data.tableKey++"
+          />
+
+          <KTableView
+            :key="data.tableKey"
+            :data="tableData"
+            :headers="headers()"
+            :pagination-attributes="{ totalCount: tableData.length }"
+          >
+            <template
+              v-if="data.tableToolbar"
+              #toolbar
+            >
+              foo bar
+            </template>
+            <template #action-items>
+              <SandboxTableViewActions />
+            </template>
+          </KTableView>
+        </KComponent>
+      </SandboxSectionComponent>
+
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
