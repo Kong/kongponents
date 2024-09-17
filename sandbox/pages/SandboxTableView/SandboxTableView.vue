@@ -12,7 +12,7 @@
       <SandboxSectionComponent title="rowHover & emptyStateIconVariant & emptyStateTitle & emptyStateMessage & emptyStateActionMessage & emptyStateActionRoute & emptyStateButtonAppearance & maxHeight">
         <KComponent
           v-slot="{ data }"
-          :data="{ tableKey: 0, tableRowHover: false, tableEmptyState: false }"
+          :data="{ tableRowHover: false, tableEmptyState: false }"
         >
           <div class="horizontal-container">
             <KInputSwitch
@@ -22,7 +22,6 @@
             <KInputSwitch
               v-model="data.tableEmptyState"
               label="Empty state"
-              @change="data.tableKey++"
             />
           </div>
 

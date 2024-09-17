@@ -11,11 +11,11 @@
       <slot name="toolbar" />
 
       <div
-        v-if="hasBulkActions || hasColumnVisibilityMenu"
+        v-if="showBulkActionsToolbar || hasColumnVisibilityMenu"
         class="toolbar-default-items-container"
       >
         <slot
-          v-if="hasBulkActions"
+          v-if="showBulkActionsToolbar"
           name="bulk-actions"
           :selected-rows="bulkActionsSelectedRows"
         >
@@ -23,7 +23,7 @@
             v-if="!$slots['bulk-actions']"
             :button-label="tableHeaders.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)!.label"
             :count="bulkActionsSelectedRowsCount"
-            :disabled="!bulkActionsSelectedRowsCount || loading"
+            :disabled="!bulkActionsSelectedRowsCount || loading || !tableData.length"
           >
             <template #items>
               <slot
@@ -37,6 +37,7 @@
         <ColumnVisibilityMenu
           v-if="hasColumnVisibilityMenu"
           :columns="visibilityColumns"
+          :disabled="columnVisibilityDisabled"
           :table-id="tableId"
           :visibility-preferences="visibilityPreferences"
           @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
@@ -615,10 +616,19 @@ const resizerHoveredColumn = ref('')
 const currentHoveredColumn = ref('')
 const hasHidableColumns = computed((): boolean => tableHeaders.value.filter((header: TableViewHeader) => header.hidable).length > 0)
 const hasColumnVisibilityMenu = computed((): boolean => {
-  // has hidable columns, no error/loading/empty state
-  return !!(hasHidableColumns.value &&
-    !props.error && !props.loading && !props.loading && (tableData.value && tableData.value.length))
+  if (props.nested || !hasHidableColumns.value || props.error) {
+    return false
+  }
+
+  if (slots.toolbar) {
+    // when toolbar slot is present, we want to disable column visibility menu rather than hide it in certain states
+    return true
+  }
+
+  // show when not loading and there is data
+  return !props.loading && !!tableData.value && !!tableData.value.length
 })
+const columnVisibilityDisabled = computed((): boolean => props.loading || !(tableData.value && tableData.value.length))
 // columns whose visibility can be toggled
 const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable && header.key !== TableViewHeaderKeys.EXPANDABLE && header.key !== TableViewHeaderKeys.BULK_ACTIONS))
 // visibility preferences from the host app (initialized by app)
@@ -630,7 +640,7 @@ const isScrolledHorizontally = ref<boolean>(false)
 const sortColumnKey = ref('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
 const isClickable = ref(false)
-const hasToolbarSlot = computed((): boolean => !props.nested && (!!slots.toolbar || hasColumnVisibilityMenu.value || hasBulkActions.value))
+const hasToolbarSlot = computed((): boolean => !props.nested && (!!slots.toolbar || hasColumnVisibilityMenu.value || showBulkActionsToolbar.value))
 const isActionsDropdownHovered = ref<boolean>(false)
 const tableWrapperStyles = computed((): Record<string, string> => ({
   maxHeight: getSizeFromString(props.maxHeight),
@@ -639,6 +649,19 @@ const tableWrapperStyles = computed((): Record<string, string> => ({
 const tableData = ref<TableViewData>([...props.data].map((row) => ({ ...row, selected: false })))
 const bulkActionsSelectedRows = ref<TableViewData>([])
 const hasBulkActions = computed((): boolean => !props.nested && !props.error && tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']))
+const showBulkActionsToolbar = computed((): boolean => {
+  if (props.nested || !hasBulkActions.value || props.error) {
+    return false
+  }
+
+  if (slots.toolbar) {
+    // when toolbar slot is present, we want to disable bulk actions dropdown rather than hide it in certain states
+    return true
+  }
+
+  // show when not loading and there is data
+  return !props.loading && !!tableData.value && !!tableData.value.length
+})
 const bulkActionsSelectedRowsCount = computed((): string => {
   const selectedRowsCount = bulkActionsSelectedRows.value.length
 
