@@ -1,3 +1,10 @@
+## [9.7.1](https://github.com/Kong/kongponents/compare/v9.7.0...v9.7.1) (2024-09-17)
+
+
+### Bug Fixes
+
+* **ktableview:** disable column visibility dropdown [KHCP-13248] ([#2392](https://github.com/Kong/kongponents/issues/2392)) ([65890a2](https://github.com/Kong/kongponents/commit/65890a23018290321bb8315de454ffd9e4d37aca))
+
 # [9.7.0](https://github.com/Kong/kongponents/compare/v9.6.7...v9.7.0) (2024-09-16)
 
 
