@@ -392,7 +392,7 @@ import type {
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
-import ColumnVisibilityMenu from './../KTable/ColumnVisibilityMenu.vue'
+import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
 import useUniqueId from '@/composables/useUniqueId'
 import useUtilities from '@/composables/useUtilities'
 import type { RouteLocationRaw } from 'vue-router'
