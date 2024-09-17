@@ -931,6 +931,11 @@ The toolbar is rendered directly above the table and is useful for providing tab
 </KTableView>
 ```
 
+:::tip NOTE
+If `toolbar` slot is not empty, the column visibility and/or bulk actions (whichever is enabled) dropdowns in the toolbar will be **disabled** when not actionable.
+If it is empty, the column visibility and/or bulk actions dropdowns will be **hidden** when not actionable.
+:::
+
 ### empty-state
 
 Slot content to be displayed when empty.
