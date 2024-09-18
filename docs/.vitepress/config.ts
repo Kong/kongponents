@@ -83,6 +83,7 @@ export default defineConfig({
             { text: 'Skeleton', link: '/components/skeleton' },
             { text: 'Slideout', link: '/components/slideout' },
             { text: 'Stepper', link: '/components/stepper' },
+            { text: 'Table Data', link: '/components/table-data' },
             { text: 'Table View', link: '/components/table-view' },
             { text: 'Tabs', link: '/components/tabs' },
             { text: 'Textarea', link: '/components/textarea' },
