@@ -1136,6 +1136,7 @@ watch(hasColumnVisibilityMenu, (newVal) => {
 
 onMounted(() => {
   console.warn("The Kongponents 'KTable' component is deprecated and will be removed in the next major release.\nWe suggest using 'KTableData' component instead.\nDocs: https://kongponents.konghq.com/components/table-data.html")
+
   initData()
 })
 </script>

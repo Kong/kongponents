@@ -17,6 +17,9 @@ export interface TablePreferences {
 
 export type TableViewData = Record<string, any>[]
 
+/**
+ * @deprecated in favor of TableDataHeader
+ */
 export interface TableHeader {
   /** Must be unique for each column */
   key: string
@@ -35,6 +38,8 @@ export interface TableHeader {
 }
 
 export interface TableViewHeader extends Omit<TableHeader, 'useSortHandlerFunction'> { }
+
+export interface TableDataHeader extends TableHeader { }
 
 /**
  * Provide a type interface for KTable `column-*` and `tooltip-*` slot names.
