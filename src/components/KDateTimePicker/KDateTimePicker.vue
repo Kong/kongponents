@@ -403,7 +403,6 @@ const changeCalendarRange = (vCalValue: TimeRange | null): void => {
 const changeRelativeTimeframe = (timeframe: TimePeriod, autoSubmit: boolean = false): void => {
   state.selectedTimeframe = state.previouslySelectedTimeframe = timeframe
 
-  console.warn('>>>> changeRelativeTimeframe called. <<<')
   // Format the start/end values as human readable date
   const start: Date = state.selectedTimeframe.start()
   const end: Date = state.selectedTimeframe.end()
