@@ -329,7 +329,6 @@ describe('KDateTimePicker', () => {
     // If a timeframe is selected, "Apply" should be re-enabled
     cy.getTestId(segmentedToggle).find('button[data-testid="relative-option"]').eq(0).click()
     cy.getTestId('select-timeframe-86400000').click()
-    cy.getTestId(submitButton).eq(0).click()
     cy.getTestId(timepickerDisplay).should('contain.text', 'Last 24 hours')
   })
 })
