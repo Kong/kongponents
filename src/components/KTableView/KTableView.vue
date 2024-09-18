@@ -1167,9 +1167,10 @@ const setActualColumnWidths = (): void => {
   actualColumnWidths.value = widths
 }
 
-watch([columnVisibility, tableHeaders], (newVals) => {
+watch([columnVisibility, tableHeaders, hasExpandableRows], (newVals) => {
   const newVisibility = newVals[0]
   const newHeaders = newVals[1]
+  const newExpandableRows = newVals[2]
   let newVisibleHeaders = newHeaders.filter((header: TableViewHeader) => {
     if (header.key === TableViewHeaderKeys.BULK_ACTIONS) {
       return hasBulkActions.value
@@ -1184,7 +1185,7 @@ watch([columnVisibility, tableHeaders], (newVals) => {
   }
 
   // add the expandable row header if expandable rows are enabled
-  if (hasExpandableRows.value) {
+  if (newExpandableRows) {
     newVisibleHeaders.unshift(expandableRowHeader)
   }
 
@@ -1193,7 +1194,7 @@ watch([columnVisibility, tableHeaders], (newVals) => {
     emitTablePreferences()
   }
 
-  if (hasExpandableRows.value) {
+  if (newExpandableRows) {
     setActualColumnWidths()
   }
 }, { deep: true, immediate: true })

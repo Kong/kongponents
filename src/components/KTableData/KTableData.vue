@@ -87,28 +87,6 @@
     </template>
 
     <template
-      v-if="$slots['action-items']"
-      #action-items="{ row }"
-    >
-      <slot
-        name="action-items"
-        :row="row"
-      />
-    </template>
-
-    <template
-      v-if="$slots['row-expanded']"
-      #row-expanded="{ columnWidths, nestedHeaders, row }"
-    >
-      <slot
-        :column-widths="columnWidths"
-        name="row-expanded"
-        :nested-headers="nestedHeaders"
-        :row="row"
-      />
-    </template>
-
-    <template
       v-for="slot in getHeaderSlots"
       :key="slot"
       #[slot]="{ column }"
@@ -142,6 +120,28 @@
         :row-value="rowValue"
       />
     </template>
+
+    <template
+      v-if="$slots['action-items']"
+      #action-items="{ row }"
+    >
+      <slot
+        name="action-items"
+        :row="row"
+      />
+    </template>
+
+    <template
+      v-if="$slots['row-expanded']"
+      #row-expanded="{ columnWidths, nestedHeaders, row }"
+    >
+      <slot
+        :column-widths="columnWidths"
+        name="row-expanded"
+        :nested-headers="nestedHeaders"
+        :row="row"
+      />
+    </template>
   </KTableView>
 </template>
 
@@ -153,8 +153,6 @@ import useUtilities from '@/composables/useUtilities'
 import type {
   TablePreferences,
   TableDataHeader,
-  TableColumnSlotName,
-  TableColumnTooltipSlotName,
   SortColumnOrder,
   TableSortPayload,
   EmptyStateIconVariant,
@@ -365,21 +363,13 @@ const emit = defineEmits<{
 }>()
 
 const tableId = useUniqueId()
-const defaultFetcherProps = {
-  pageSize: 15,
-  page: 1,
-  query: '',
-  sortColumnKey: '',
-  sortColumnOrder: 'desc',
-  offset: null,
-}
 
 const tableData = ref<Record<string, any>[]>([])
 const tableHeaders = computed((): TableDataHeader[] => props.sortable ? props.headers : props.headers.map((header) => ({ ...header, sortable: false })))
 
 const total = ref<number>(0)
 const page = ref<number>(1)
-const pageSize = ref<number>(15)
+const pageSize = ref<number>(props.paginationAttributes?.initialPageSize || 15)
 const filterQuery = ref<string>('')
 const sortColumnKey = ref<string>('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
@@ -387,6 +377,15 @@ const offset: Ref<string | null> = ref(null)
 const offsets: Ref<Array<any>> = ref([])
 const hasNextPage = ref<boolean>(true)
 const hasInitialized = ref<boolean>(false)
+
+const defaultFetcherProps = {
+  pageSize: pageSize.value,
+  page: 1,
+  query: '',
+  sortColumnKey: '',
+  sortColumnOrder: 'desc',
+  offset: null,
+}
 
 const tablePaginationAttributes = computed((): TablePaginationAttributes => ({ ...props.paginationAttributes, totalCount: total.value, initialPageSize: pageSize.value, currentPage: page.value }))
 
@@ -546,7 +545,7 @@ const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortO
   if (props.clientSort) {
     if (useSortHandlerFunction && props.sortHandlerFunction) {
       props.sortHandlerFunction({
-        columnKey,
+        key: columnKey,
         prevKey,
         sortColumnOrder: sortColumnOrder.value,
         data: tableData.value,

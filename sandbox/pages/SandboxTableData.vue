@@ -1,38 +1,46 @@
 <template>
   <SandboxLayout
     :links="inject('app-links', [])"
-    title="KTableView"
+    title="KTableData"
   >
-    <div class="k-table-view-sandbox">
+    <div class="k-table-data-sandbox">
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
         title="Props"
       />
-      <SandboxSectionComponent title="rowHover & maxHeight">
+      <SandboxSectionComponent title="rowHover & maxHeight & clientSort & sortHandlerFunction & sortable">
         <KComponent
           v-slot="{ data }"
-          :data="{ tableRowHover: false }"
+          :data="{ tableKey: 0, tableRowHover: false, tableSortable: true }"
         >
           <div class="horizontal-container">
             <KInputSwitch
               v-model="data.tableRowHover"
               label="Has hover"
+              @change="data.tableKey++"
+            />
+            <KInputSwitch
+              v-model="data.tableSortable"
+              label="Sortable"
+              @change="data.tableKey++"
             />
           </div>
 
-          <KTableView
-            :data="data.tableEmptyState ? [] : sortedData"
+          <KTableData
+            :key="data.tableKey"
+            client-sort
+            :fetcher="fetcher"
             :headers="headers(false, true)"
             max-height="300"
-            :pagination-attributes="{ totalCount: sortedData.length }"
             :row-hover="data.tableRowHover"
-            @sort="sortData"
+            :sort-handler-function="sortHandlerFunction"
+            :sortable="data.tableSortable"
           >
             <template #action-items>
               <SandboxTableViewActions />
             </template>
-          </KTableView>
+          </KTableData>
         </KComponent>
       </SandboxSectionComponent>
       <SandboxSectionComponent
@@ -41,25 +49,28 @@
       >
         <KComponent
           v-slot="{ data }"
-          :data="{ tableLoadingState: false, tableErrorState: false, tableEmptyState: false }"
+          :data="{ tableKey: 0, tableLoadingState: false, tableErrorState: false }"
         >
           <div class="horizontal-container">
             <KInputSwitch
               v-model="data.tableLoadingState"
               label="Loading state"
+              @change="data.tableKey++"
             />
             <KInputSwitch
               v-model="data.tableErrorState"
               label="Error state"
+              @change="data.tableKey++"
             />
             <KInputSwitch
               v-model="data.tableEmptyState"
               label="Empty state"
+              @change="data.tableKey++"
             />
           </div>
 
-          <KTableView
-            :data="data.tableEmptyState ? [] : tableData"
+          <KTableData
+            :key="data.tableKey"
             empty-state-action-message="Add new item"
             empty-state-action-route="/"
             empty-state-button-appearance="secondary"
@@ -71,23 +82,22 @@
             error-state-action-route="/"
             error-state-message="Error state message"
             error-state-title="Error state title"
+            :fetcher="data.tableEmptyState ? emptyFetcher : fetcher"
             :headers="headers(true)"
             :loading="data.tableLoadingState"
-            :pagination-attributes="{ totalCount: tableData.length }"
             resize-columns
             @row:click="(_event: any, row: any) => onRowClick(row)"
           >
             <template #action-items>
               <SandboxTableViewActions />
             </template>
-          </KTableView>
+          </KTableData>
         </KComponent>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="rowLink (router-link)">
-        <KTableView
-          :data="tableData"
+        <KTableData
+          :fetcher="fetcher"
           :headers="headers()"
-          :pagination-attributes="{ totalCount: tableData.length }"
           :row-link="getRowLinksRouter"
         >
           <template #action-items>
@@ -104,13 +114,12 @@
           <template #email="{ rowValue }">
             <KCopy :text="rowValue" />
           </template>
-        </KTableView>
+        </KTableData>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="rowLink (anchor)">
-        <KTableView
-          :data="tableData"
+        <KTableData
+          :fetcher="fetcher"
           :headers="headers()"
-          :pagination-attributes="{ totalCount: tableData.length }"
           :row-link="getRowLinksAnchor"
         >
           <template #action-items>
@@ -127,13 +136,12 @@
           <template #email="{ rowValue }">
             <KCopy :text="rowValue" />
           </template>
-        </KTableView>
+        </KTableData>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="rowExpandable">
-        <KTableView
-          :data="tableData"
+        <KTableData
+          :fetcher="fetcher"
           :headers="headers()"
-          :pagination-attributes="{ totalCount: tableData.length }"
           :row-expandable="getRowExpandable"
         >
           <template #action-items>
@@ -148,7 +156,7 @@
             Rutrum aliquam phasellus duis pellentesque torquent fermentum. Feugiat odio consequat cursus blandit tristique erat amet. Ornare scelerisque id erat lectus at erat. Dui nostra interdum tortor, turpis arcu dis. Netus fermentum lobortis primis fermentum velit ultrices nam condimentum? Dictum montes maximus senectus; quis varius scelerisque non ridiculus. Curae malesuada porttitor finibus venenatis mi faucibus. Velit blandit dis mauris laoreet ornare molestie.
             Ante torquent faucibus nascetur ultricies eros varius odio. Cubilia sodales maximus tellus leo cubilia lorem facilisis. Blandit egestas suspendisse torquent dolor; torquent commodo id nullam. Etiam facilisi faucibus litora quisque aptent vestibulum dapibus. Maecenas risus fermentum facilisis suspendisse imperdiet nascetur porta. Vehicula malesuada sollicitudin viverra in ac habitasse ligula. Adipiscing porta neque nullam pharetra est luctus pharetra. Consequat sapien parturient nisl augue ultricies placerat maximus convallis. Consectetur metus lacinia; euismod mollis class tortor.
           </template>
-        </KTableView>
+        </KTableData>
       </SandboxSectionComponent>
 
       <!-- Slots -->
@@ -159,10 +167,9 @@
       <SandboxSectionComponent
         title="column header & column tooltip & cell"
       >
-        <KTableView
-          :data="tableData"
+        <KTableData
+          :fetcher="fetcher"
           :headers="headers()"
-          :pagination-attributes="{ totalCount: tableData.length }"
         >
           <template #column-username>
             Username
@@ -178,13 +185,12 @@
           <template #action-items>
             <SandboxTableViewActions />
           </template>
-        </KTableView>
+        </KTableData>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="toolbar">
-        <KTableView
-          :data="tableData"
+        <KTableData
+          :fetcher="fetcher"
           :headers="headers()"
-          :pagination-attributes="{ totalCount: tableData.length }"
         >
           <template #toolbar>
             <KInput />
@@ -195,14 +201,13 @@
           <template #action-items>
             <SandboxTableViewActions />
           </template>
-        </KTableView>
+        </KTableData>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="error-state">
-        <KTableView
-          :data="tableData"
+        <KTableData
           error
+          :fetcher="fetcher"
           :headers="headers()"
-          :pagination-attributes="{ totalCount: tableData.length }"
         >
           <template #error-state>
             <KEmptyState
@@ -212,11 +217,11 @@
               title="Slotted error state title"
             />
           </template>
-        </KTableView>
+        </KTableData>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="empty-state">
-        <KTableView
-          :data="[]"
+        <KTableData
+          :fetcher="emptyFetcher"
           :headers="headers()"
         >
           <template #empty-state>
@@ -226,25 +231,23 @@
               title="Slotted empty state title"
             />
           </template>
-        </KTableView>
+        </KTableData>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="empty-state-action-icon">
-        <KTableView
-          :data="[]"
+        <KTableData
           empty-state-action-message="Empty state action"
+          :fetcher="emptyFetcher"
           :headers="headers()"
         >
           <template #empty-state-action-icon>
             <AddIcon />
           </template>
-        </KTableView>
+        </KTableData>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="bulk-actions">
-        <KTableView
-          :data="paginatedData"
+        <KTableData
+          :fetcher="fetcher"
           :headers="headers(false, false, true)"
-          :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
-          @page-change="onPageChange"
         >
           <template #bulk-actions="{ selectedRows }">
             <KButton
@@ -257,33 +260,31 @@
           <template #action-items>
             <SandboxTableViewActions />
           </template>
-        </KTableView>
+        </KTableData>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="row-expanded">
-        <KTableView
-          :data="tableData"
+        <KTableData
+          :fetcher="fetcher"
           :headers="headers()"
-          :pagination-attributes="{ totalCount: tableData.length }"
           :row-expandable="() => true"
         >
           <template #action-items>
             <SandboxTableViewActions />
           </template>
           <template #row-expanded="{ nestedHeaders, columnWidths }">
-            <KTableView
-              :data="tableData"
+            <KTableData
+              :fetcher="fetcher"
               :headers="nestedHeaders"
               hide-headers
               nested
-              :pagination-attributes="{ totalCount: tableData.length }"
               :table-preferences="{ columnWidths }"
             >
               <template #action-items>
                 <SandboxTableViewActions />
               </template>
-            </KTableView>
+            </KTableData>
           </template>
-        </KTableView>
+        </KTableData>
       </SandboxSectionComponent>
 
       <!-- Usage -->
@@ -293,14 +294,11 @@
       />
       <SandboxSectionComponent title="Bulk Actions">
         <div class="resizable-table">
-          <KTableView
-            :data="paginatedData"
+          <KTableData
+            :fetcher="fetcher"
             :headers="headers(true, false, true)"
-            :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
             resize-columns
             :row-bulk-action-enabled="getRowBulkAction"
-            @page-change="onPageChange"
-            @page-size-change="onPageSizeChange"
             @row-select="onBulkActionsSelect"
           >
             <template #bulk-action-items>
@@ -309,19 +307,16 @@
             <template #action-items>
               <SandboxTableViewActions />
             </template>
-          </KTableView>
+          </KTableData>
         </div>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="Bulk Actions & Expandable Rows">
-        <KTableView
-          :data="paginatedData"
+        <KTableData
+          :fetcher="fetcher"
           :headers="headers(true, false, true)"
-          :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
           resize-columns
           :row-bulk-action-enabled="getRowBulkAction"
           :row-expandable="() => true"
-          @page-change="onPageChange"
-          @page-size-change="onPageSizeChange"
           @row-select="onBulkActionsSelect"
         >
           <template #bulk-action-items>
@@ -339,18 +334,15 @@
             Rutrum aliquam phasellus duis pellentesque torquent fermentum. Feugiat odio consequat cursus blandit tristique erat amet. Ornare scelerisque id erat lectus at erat. Dui nostra interdum tortor, turpis arcu dis. Netus fermentum lobortis primis fermentum velit ultrices nam condimentum? Dictum montes maximus senectus; quis varius scelerisque non ridiculus. Curae malesuada porttitor finibus venenatis mi faucibus. Velit blandit dis mauris laoreet ornare molestie.
             Ante torquent faucibus nascetur ultricies eros varius odio. Cubilia sodales maximus tellus leo cubilia lorem facilisis. Blandit egestas suspendisse torquent dolor; torquent commodo id nullam. Etiam facilisi faucibus litora quisque aptent vestibulum dapibus. Maecenas risus fermentum facilisis suspendisse imperdiet nascetur porta. Vehicula malesuada sollicitudin viverra in ac habitasse ligula. Adipiscing porta neque nullam pharetra est luctus pharetra. Consequat sapien parturient nisl augue ultricies placerat maximus convallis. Consectetur metus lacinia; euismod mollis class tortor.
           </template>
-        </KTableView>
+        </KTableData>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="Bulk Actions & Nested Table">
-        <KTableView
-          :data="paginatedData"
+        <KTableData
+          :fetcher="fetcher"
           :headers="headers(true, false, true)"
-          :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
           resize-columns
           :row-bulk-action-enabled="getRowBulkAction"
           :row-expandable="() => true"
-          @page-change="onPageChange"
-          @page-size-change="onPageSizeChange"
           @row-select="onBulkActionsSelect"
         >
           <template #bulk-action-items>
@@ -360,29 +352,27 @@
             <SandboxTableViewActions />
           </template>
           <template #row-expanded="{ nestedHeaders, columnWidths }">
-            <KTableView
-              :data="tableData"
+            <KTableData
+              :fetcher="fetcher"
               :headers="nestedHeaders"
               hide-headers
               nested
-              :pagination-attributes="{ totalCount: tableData.length }"
               :table-preferences="{ columnWidths }"
             >
               <template #action-items>
                 <SandboxTableViewActions />
               </template>
-            </KTableView>
+            </KTableData>
           </template>
-        </KTableView>
+        </KTableData>
       </SandboxSectionComponent>
       <SandboxSectionComponent
         description="In both parent and nested tables, the first two rows are links and the rest are clickable."
         title="Nested Table With Row Links & Row Cliks"
       >
-        <KTableView
-          :data="tableData"
+        <KTableData
+          :fetcher="fetcher"
           :headers="headers(true)"
-          :pagination-attributes="{ totalCount: tableData.length }"
           resize-columns
           :row-expandable="() => true"
           :row-link="getRowOneTwoLink"
@@ -392,12 +382,11 @@
             <SandboxTableViewActions />
           </template>
           <template #row-expanded="{ nestedHeaders, columnWidths }">
-            <KTableView
-              :data="tableData"
+            <KTableData
+              :fetcher="fetcher"
               :headers="nestedHeaders"
               hide-headers
               nested
-              :pagination-attributes="{ totalCount: tableData.length }"
               :row-link="getRowOneTwoLink"
               :table-preferences="{ columnWidths }"
               @row:click="(_event: any, row: any) => onRowClick(row)"
@@ -405,33 +394,31 @@
               <template #action-items>
                 <SandboxTableViewActions />
               </template>
-            </KTableView>
+            </KTableData>
           </template>
-        </KTableView>
+        </KTableData>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="Nested Table With It's Own Header">
-        <KTableView
-          :data="tableData"
+        <KTableData
+          :fetcher="fetcher"
           :headers="headers()"
-          :pagination-attributes="{ totalCount: tableData.length }"
           :row-expandable="() => true"
         >
           <template #action-items>
             <SandboxTableViewActions />
           </template>
           <template #row-expanded>
-            <KTableView
-              :data="tableData"
+            <KTableData
+              :fetcher="fetcher"
               :headers="headers()"
               nested
-              :pagination-attributes="{ totalCount: tableData.length }"
             >
               <template #action-items>
                 <SandboxTableViewActions />
               </template>
-            </KTableView>
+            </KTableData>
           </template>
-        </KTableView>
+        </KTableData>
       </SandboxSectionComponent>
     </div>
   </SandboxLayout>
@@ -439,97 +426,54 @@
 
 <script setup lang="ts">
 import { inject, ref } from 'vue'
-import SandboxTitleComponent from '../../components/SandboxTitleComponent.vue'
-import SandboxSectionComponent from '../../components/SandboxSectionComponent.vue'
-import type { TableHeader, TableViewData, TableSortPayload, RowLink, PageChangeData, PageSizeChangeData, RowBulkAction } from '@/types'
-import SandboxTableViewActions from './SandboxTableViewActions.vue'
+import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
+import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
+import type { TableDataHeader, TableViewData, RowLink, RowBulkAction } from '@/types'
+import SandboxTableViewActions from './SandboxTableView/SandboxTableViewActions.vue'
 import { AddIcon } from '@kong/icons'
 
-const headers = (hidable: boolean = false, sortable: boolean = false, bulkActions: boolean = false): TableHeader[] => {
+const headers = (hidable: boolean = false, sortable: boolean = false, bulkActions: boolean = false): TableDataHeader[] => {
   return [
     { key: 'actions', label: 'Row actions' },
     { key: 'name', label: 'Full Name' },
-    { key: 'username', label: 'Username', tooltip: 'Columns with a tooltip.', sortable },
+    {
+      key: 'username',
+      label: 'Username',
+      tooltip: 'Columns with a tooltip.',
+      sortable,
+      ...(sortable && { useSortHandlerFunction: true }),
+    },
     { key: 'email', label: 'Email', hidable },
     ...(bulkActions ? [{ key: 'bulkActions', label: 'Bulk actions' }] : []),
   ]
 }
 
-const tableData: TableViewData = [
-  {
-    id: 1,
-    name: 'Leanne Graham',
-    username: 'Bret',
-    email: 'Sincere@april.biz',
-  },
-  {
-    id: 2,
-    name: 'Ervin Howell',
-    username: 'Antonette',
-    email: 'Shanna@melissa.tv',
-  },
-  {
-    id: 3,
-    name: 'Clementine Bauch',
-    username: 'Samantha',
-    email: 'Nathan@yesenia.net',
-  },
-  {
-    id: 4,
-    name: 'Patricia Lebsack',
-    username: 'Karianne',
-    email: 'Julianne.OConner@kory.org',
-  },
-  {
-    id: 5,
-    name: 'Chelsey Dietrich',
-    username: 'Kamren',
-    email: 'Lucio_Hettinger@annie.ca',
-  },
-  {
-    id: 6,
-    name: 'Mrs. Dennis Schulist',
-    username: 'Leopoldo_Corkery',
-    email: 'Karley_Dach@jasper.info',
-  },
-  {
-    id: 7,
-    name: 'Kurtis Weissnat',
-    username: 'Elwyn.Skiles',
-    email: 'Telly.Hoeger@billy.biz',
-  },
-  {
-    id: 8,
-    name: 'Nicholas Runolfsdottir V',
-    username: 'Maxime_Nienow',
-    email: 'Sherwood@rosamond.me',
-  },
-  {
-    id: 9,
-    name: 'Glenna Reichert',
-    username: 'Delphine',
-    email: 'Chaim_McDermott@dana.io',
-  },
-  {
-    id: 10,
-    name: 'Clementina DuBuque',
-    username: 'Moriah.Stanton',
-    email: 'Rey.Padberg@karina.biz',
-  },
-]
+const fetcher = async (): Promise<any> => {
+  // Fake delay
+  await new Promise((resolve) => setTimeout(resolve, 2000))
 
-const sortedData = ref<TableViewData>(tableData)
+  const response = await fetch('https://jsonplaceholder.typicode.com/users')
+  const responseData = await response.json()
 
-const onRowClick = (row: any) => {
-  alert(`Row clicked:' ${JSON.stringify(row)}`)
+  return {
+    data: responseData,
+    total: responseData.length,
+  }
 }
 
-const sortData = (sortData: TableSortPayload): void => {
-  const data = [...tableData]
-  const { sortColumnKey, sortColumnOrder } = sortData || { sortColumnKey: 'username', sortColumnOrder: 'asc' }
+const emptyFetcher = async (): Promise<any> => {
+  // Fake delay
+  await new Promise((resolve) => setTimeout(resolve, 2000))
 
-  data.sort((a: Record<string, any>, b: Record<string, any>) => {
-    if (sortColumnKey === 'username') {
+  return {
+    data: [],
+    total: 0,
+  }
+}
+
+const sortHandlerFunction = ({ key, sortColumnOrder, data }: any) => {
+  return data.sort((a: any, b: any) => {
+    if (key === 'username') {
       if (sortColumnOrder === 'asc') {
         if (a.username > b.username) {
           return 1
@@ -549,10 +493,12 @@ const sortData = (sortData: TableSortPayload): void => {
       }
     }
 
-    return 0
+    return data
   })
+}
 
-  sortedData.value = data
+const onRowClick = (row: any) => {
+  alert(`Row clicked:' ${JSON.stringify(row)}`)
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -568,34 +514,6 @@ const getRowLinksAnchor = (row: Record<string, any>): RowLink => ({
   to: 'https://kongponents.konghq.com/',
   target: '_blank',
 })
-
-const extraRecords: TableViewData = [
-  {
-    id: 11,
-    name: 'Chris Lo',
-    username: 'Krislow',
-    email: 'dj@kris.low',
-  },
-  {
-    id: 12,
-    name: 'Vitaliy Yarmak',
-    username: 'Tamarack',
-    email: 'Right@sail.xyz',
-  },
-]
-const basicPaginatedData: TableViewData = [...tableData, ...extraRecords]
-const paginatedPageSize = ref<number>(5)
-const paginatedData = ref<TableViewData>(basicPaginatedData.slice(0, paginatedPageSize.value))
-const onPageChange = ({ page }: PageChangeData) => {
-  if (page === 1) {
-    paginatedData.value = basicPaginatedData.slice(0, paginatedPageSize.value)
-  } else {
-    paginatedData.value = basicPaginatedData.slice((paginatedPageSize.value * (page - 1)), (paginatedPageSize.value * (page - 1)) + paginatedPageSize.value)
-  }
-}
-const onPageSizeChange = ({ pageSize }: PageSizeChangeData) => {
-  paginatedPageSize.value = pageSize
-}
 
 const selectedData = ref<TableViewData>([])
 const onBulkActionsSelect = (data: TableViewData) => {
@@ -638,7 +556,7 @@ const getRowOneTwoLink = (row: Record<string, any>): RowLink => {
 </script>
 
 <style lang="scss" scoped>
-.k-table-view-sandbox {
+.k-table-data-sandbox {
   .horizontal-container {
     display: flex;
     flex-wrap: wrap;
