@@ -2,9 +2,9 @@
 
 Component for displaying data in table format.
 
-:::tip NOTE
+<!-- :::tip NOTE
 KTableView does not handle data management capabilities like data fetching, functional pagination, sorting or searching. If you are looking for a component that integrates with the data layer, check out [KTable](/components/table).
-:::
+::: -->
 
 <KTableView
   :data="basicData"
