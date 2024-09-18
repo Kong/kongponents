@@ -153,6 +153,8 @@ import useUtilities from '@/composables/useUtilities'
 import type {
   TablePreferences,
   TableDataHeader,
+  TableColumnSlotName,
+  TableColumnTooltipSlotName,
   SortColumnOrder,
   TableSortPayload,
   EmptyStateIconVariant,
@@ -389,20 +391,20 @@ const defaultFetcherProps = {
 
 const tablePaginationAttributes = computed((): TablePaginationAttributes => ({ ...props.paginationAttributes, totalCount: total.value, initialPageSize: pageSize.value, currentPage: page.value }))
 
-const getHeaderSlots = computed((): string[] => {
+const getHeaderSlots = computed((): TableColumnSlotName[] => {
   if (!slots) {
     return []
   }
 
-  return Object.keys(slots).filter((slot) => slot.startsWith('column-'))
+  return Object.keys(slots).filter((slot) => slot.startsWith('column-')) as TableColumnSlotName[]
 })
 
-const getHeaderTooltipSlots = computed((): string[] => {
+const getHeaderTooltipSlots = computed((): TableColumnTooltipSlotName[] => {
   if (!slots) {
     return []
   }
 
-  return Object.keys(slots).filter((slot) => slot.startsWith('tooltip-'))
+  return Object.keys(slots).filter((slot) => slot.startsWith('tooltip-')) as TableColumnTooltipSlotName[]
 })
 
 const getCellSlots = computed((): string[] => {
