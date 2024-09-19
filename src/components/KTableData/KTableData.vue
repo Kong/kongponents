@@ -17,6 +17,7 @@
     :headers="tableHeaders"
     :hide-headers="hideHeaders"
     :hide-pagination="hidePagination || !showPagination"
+    :hide-pagination-when-optional="hidePaginationWhenOptional"
     :loading="loading || isTableLoading"
     :max-height="maxHeight"
     :nested="nested"
@@ -342,7 +343,7 @@ const props = defineProps({
     default: true,
   },
   /**
-   * A prop to pass to hide pagination for total table records is less than or equal to pagesize
+   * A boolean to hide pagination when total table records number is less than or equal to page size
    */
   hidePaginationWhenOptional: {
     type: Boolean,
@@ -389,7 +390,12 @@ const defaultFetcherProps = {
   offset: null,
 }
 
-const tablePaginationAttributes = computed((): TablePaginationAttributes => ({ ...props.paginationAttributes, totalCount: total.value, initialPageSize: pageSize.value, currentPage: page.value }))
+const tablePaginationAttributes = computed((): TablePaginationAttributes => ({
+  ...props.paginationAttributes,
+  totalCount: total.value,
+  initialPageSize: pageSize.value,
+  currentPage: page.value,
+}))
 
 const getHeaderSlots = computed((): TableColumnSlotName[] => {
   if (!slots) {

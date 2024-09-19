@@ -580,6 +580,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  /**
+   * A boolean to hide pagination when total table records number is less than or equal to page size
+   */
+  hidePaginationWhenOptional: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const emit = defineEmits<{
@@ -952,7 +959,8 @@ const showPagination = computed((): boolean => {
     return false
   }
 
-  if (tableData.value && tableData.value.length && props.paginationAttributes.totalCount && props.paginationAttributes.totalCount <= tableData.value.length) {
+  // hide pagination when total table records number is less than or equal to page size
+  if (props.hidePaginationWhenOptional && tableData.value && tableData.value.length && props.paginationAttributes.totalCount && props.paginationAttributes.totalCount <= tableData.value.length) {
     return false
   }
 

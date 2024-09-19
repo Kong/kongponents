@@ -510,6 +510,10 @@ interface TablePaginationAttributes {
 
 A boolean to hide pagination element (defaults to `false`).
 
+### hidePaginationWhenOptional
+
+Set this to `true` to hide pagination when the table record count is less than or equal to the page size. Defaults to `true`.
+
 ### rowExpandable
 
 Function for making a row expandable. The function receives row value object as an argument and should return a boolean value. Default value is `() => false`.
