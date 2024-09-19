@@ -1,3 +1,10 @@
+# [9.8.0](https://github.com/Kong/kongponents/compare/v9.7.1...v9.8.0) (2024-09-19)
+
+
+### Features
+
+* autosubmit timeframe button clicks [MA-3223] ([#2404](https://github.com/Kong/kongponents/issues/2404)) ([466a79e](https://github.com/Kong/kongponents/commit/466a79e4c36879cedf545f2173b8ebfb58a3cc04))
+
 ## [9.7.1](https://github.com/Kong/kongponents/compare/v9.7.0...v9.7.1) (2024-09-17)
 
 
