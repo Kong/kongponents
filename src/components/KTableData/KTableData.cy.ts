@@ -137,7 +137,7 @@ describe('KTableData', () => {
       cy.getTestId('table-empty-state').should('contain.text', emptySlotContent)
     })
 
-    it('displays a loading skeletion when the "loading" prop is set to true"', () => {
+    it('displays a loading skeleton when the loading prop is set to true', () => {
       mount(KTableData, {
         props: {
           loading: true,
@@ -147,7 +147,7 @@ describe('KTableData', () => {
       cy.get('.skeleton-table-wrapper').should('be.visible')
     })
 
-    it('displays an error state when the "error" prop is set to true"', () => {
+    it('displays an error state when the error prop is set to true', () => {
       mount(KTableData, {
         props: {
           error: true,
@@ -193,7 +193,7 @@ describe('KTableData', () => {
   })
 
   describe('default', () => {
-    it('renders link in a cell slot', () => {
+    it('renders content in a cell slot', () => {
       mount(KTableData, {
         props: {
           headers: options.headers,
@@ -428,6 +428,7 @@ describe('KTableData', () => {
           ],
         }
       }
+
       mount(KTableData, {
         props: {
           fetcher: sortHandlerFnFetcher,
@@ -527,7 +528,7 @@ describe('KTableData', () => {
       cy.getTestId('table-pagination').should('be.visible')
     })
 
-    it('does not display pagination when pagination disabled', () => {
+    it('does not display pagination when pagination hidden', () => {
       mount(KTableData, {
         props: {
           fetcher: () => {
@@ -558,7 +559,7 @@ describe('KTableData', () => {
       cy.getTestId('table-pagination').should('not.exist')
     })
 
-    it('does not display pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
+    it('does not display pagination when hidePaginationWhenOptional is true and total is less than page size', () => {
       mount(KTableData, {
         props: {
           fetcher: () => {
@@ -567,6 +568,7 @@ describe('KTableData', () => {
           loading: false,
           headers: options.headers,
           paginationAttributes: {
+            initialPageSize: options.data.length + 1,
             pageSizes: [10, 15, 20],
           },
           hidePaginationWhenOptional: true,
@@ -576,7 +578,7 @@ describe('KTableData', () => {
       cy.getTestId('table-pagination').should('not.exist')
     })
 
-    it('does not display pagination when hidePaginationWhenOptional is true and total is equal to min pageSize', () => {
+    it('does not display pagination when hidePaginationWhenOptional is true and total is equal to page size', () => {
       mount(KTableData, {
         props: {
           fetcher: () => {
@@ -585,6 +587,7 @@ describe('KTableData', () => {
           loading: false,
           headers: options.headers,
           paginationAttributes: {
+            initialPageSize: largeDataSet.length,
             pageSizes: [12, 15, 20],
           },
           hidePaginationWhenOptional: true,
@@ -594,7 +597,7 @@ describe('KTableData', () => {
       cy.getTestId('table-pagination').should('not.exist')
     })
 
-    it('does display pagination when total is greater than min pageSize', () => {
+    it('does display pagination when total is greater than page size', () => {
       mount(KTableData, {
         props: {
           fetcher: () => {
@@ -603,6 +606,7 @@ describe('KTableData', () => {
           loading: false,
           headers: options.headers,
           paginationAttributes: {
+            initialPageSize: largeDataSet.length - 1,
             pageSizes: [10, 15, 20],
           },
           hidePaginationWhenOptional: true,
@@ -612,7 +616,7 @@ describe('KTableData', () => {
       cy.getTestId('table-pagination').should('be.visible')
     })
 
-    it('does not display offset-based pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
+    it('does not display offset-based pagination when hidePaginationWhenOptional is true and total is less than page size', () => {
       mount(KTableData, {
         props: {
           fetcher: () => {
@@ -621,6 +625,7 @@ describe('KTableData', () => {
           loading: false,
           headers: options.headers,
           paginationAttributes: {
+            initialPageSize: 15,
             pageSizes: [10, 15, 20],
           },
           hidePaginationWhenOptional: true,
@@ -632,7 +637,7 @@ describe('KTableData', () => {
       cy.getTestId('table-pagination').should('not.exist')
     })
 
-    it('does display offset-based pagination when total is greater than min pageSize', () => {
+    it('does display offset-based pagination when total is greater than page size', () => {
       mount(KTableData, {
         props: {
           fetcher: () => {
@@ -642,6 +647,7 @@ describe('KTableData', () => {
           initialFetcherParams: { offset: 'abc' },
           headers: options.headers,
           paginationAttributes: {
+            initialPageSize: largeDataSet.length - 1,
             pageSizes: [10, 15, 20],
             totalCount: largeDataSet.length + 1,
           },
