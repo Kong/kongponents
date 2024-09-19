@@ -24,12 +24,25 @@
       </KTooltip>
 
       <template #items>
+        <KInput
+          v-model="searchColumnInMenu"
+          class="search-input"
+          placeholder="Search..."
+          type="text"
+          @click.stop
+          @input="handleSearch"
+        >
+          <template #before>
+            <SearchIcon decorative />
+          </template>
+        </KInput>
+
         <div
           ref="menuItemsRef"
           class="menu-items-wrapper"
         >
           <KDropdownItem
-            v-for="col in columns"
+            v-for="col in filteredItems"
             :key="col.key"
             class="column-visibility-menu-item"
             :data-testid="`column-visibility-menu-item-${col.key}`"
@@ -68,13 +81,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onBeforeMount, onMounted, type PropType, nextTick } from 'vue'
+import { ref, watch, onBeforeMount, onMounted, type PropType, nextTick, computed } from 'vue'
 import type { TableHeader } from '@/types'
-import { TableColumnsIcon } from '@kong/icons'
+import { SearchIcon, TableColumnsIcon } from '@kong/icons'
 import KButton from '@/components/KButton/KButton.vue'
 import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KDropdownItem from '@/components/KDropdown/KDropdownItem.vue'
+import KInput from '@/components/KInput/KInput.vue'
 
 const emit = defineEmits<{
   (e: 'update', columnVisibility: Record<string, boolean>): void
@@ -103,6 +117,7 @@ const isDropdownOpen = ref<boolean>(false)
 const visibilityMap = ref<Record<string, boolean>>({})
 const isDirty = ref(false)
 const menuItemsRef = ref<HTMLDivElement>()
+const searchColumnInMenu = ref('')
 
 const initVisibilityMap = (): void => {
   visibilityMap.value = props.columns.reduce((acc, col: TableHeader) => {
@@ -113,10 +128,25 @@ const initVisibilityMap = (): void => {
   isDirty.value = false
 }
 
+const handleSearch = (search: any) => {
+  searchColumnInMenu.value = search
+}
+
+const filteredItems = computed((): TableHeader[] => {
+  if (!searchColumnInMenu.value) {
+    return props.columns
+  }
+
+  return props.columns.filter(item => {
+    return item.key.toLowerCase().includes(searchColumnInMenu.value.toLowerCase())
+  })
+})
+
 const handleApply = (): void => {
   // pass by ref problems
   emit('update', JSON.parse(JSON.stringify(visibilityMap.value)))
   isDirty.value = false
+  searchColumnInMenu.value = ''
 }
 
 const handleDropdownToggle = (isOpen: boolean): void => {
@@ -133,6 +163,11 @@ const handleDropdownToggle = (isOpen: boolean): void => {
   // reset the map if the dropdown is closed without applying changes
   if (!isOpen && isDirty.value) {
     initVisibilityMap()
+  }
+
+  // reset the search if the dropdown is closed
+  if (!isOpen) {
+    searchColumnInMenu.value = ''
   }
 }
 
