@@ -98,7 +98,7 @@
                 :appearance="getTimeframeButtonAppearance(timeFrame)"
                 class="timeframe-button"
                 :data-testid="`select-timeframe-${timeFrame.timeframeLength()}`"
-                @click="changeRelativeTimeframe(timeFrame)"
+                @click="changeRelativeTimeframe(timeFrame, true)"
               >
                 {{ ucWord(timeFrame.timeframeText) }}
               </KButton>
@@ -119,6 +119,7 @@
             Clear
           </KButton>
           <KButton
+            v-if="showCalendar"
             appearance="tertiary"
             class="action-button"
             data-testid="datetime-picker-submit"
@@ -400,7 +401,7 @@ const changeCalendarRange = (vCalValue: TimeRange | null): void => {
  * when a relative time frame button is clicked
  * @param {*} timeframe
  */
-const changeRelativeTimeframe = (timeframe: TimePeriod): void => {
+const changeRelativeTimeframe = (timeframe: TimePeriod, autoSubmit: boolean = false): void => {
   state.selectedTimeframe = state.previouslySelectedTimeframe = timeframe
 
   // Format the start/end values as human readable date
@@ -416,6 +417,10 @@ const changeRelativeTimeframe = (timeframe: TimePeriod): void => {
 
   state.fullRangeDisplay = formatDisplayDate(state.selectedRange, false)
   submitDisabled.value = false
+
+  if (autoSubmit) {
+    submitTimeFrame()
+  }
 }
 
 /**

@@ -73,6 +73,7 @@ describe('KDateTimePicker', () => {
 
     cy.getTestId(timepickerInput).should('exist')
     cy.getTestId(timepickerInput).find('.calendar-icon').should('not.exist')
+    cy.getTestId(submitButton).should('exist')
     cy.getTestId(clearButton).should('not.exist')
   })
 
@@ -113,6 +114,7 @@ describe('KDateTimePicker', () => {
     // Open the date time picker, click "Clear" and make sure default placeholder is shown
     cy.getTestId(timepickerInput).click()
     cy.get('.popover-content').should('be.visible')
+    cy.getTestId(submitButton).should('exist')
     cy.getTestId(clearButton).should('exist')
     cy.getTestId(clearButton).eq(0).click()
     cy.getTestId(timepickerDisplay).should('contain.text', placeholderText)
@@ -129,6 +131,7 @@ describe('KDateTimePicker', () => {
     cy.getTestId(timepickerInput).should('exist')
     cy.getTestId(timepickerInput).click()
     cy.get('.vc-pane-container').should('exist')
+    cy.getTestId(submitButton).should('exist')
     cy.get('.vc-pane-container').find('.vc-time-picker').should('not.exist')
   })
 
@@ -140,6 +143,8 @@ describe('KDateTimePicker', () => {
         range: false,
       },
     })
+
+    cy.getTestId(submitButton).should('exist')
     cy.getTestId(timepickerInput).should('exist')
     cy.getTestId(timepickerInput).click()
     cy.get('.vc-pane-container').should('exist')
@@ -159,6 +164,8 @@ describe('KDateTimePicker', () => {
     })
 
     cy.get('.k-datetime-picker').should('exist')
+    cy.getTestId(submitButton).should('exist')
+
     cy.get('.k-datetime-picker').getTestId(timepickerInput).should('exist')
     cy.get('.k-datetime-picker').getTestId(timepickerInput).click()
     cy.get('.k-datetime-picker').get('.vc-pane-container .vc-time-picker').should('exist')
@@ -229,6 +236,8 @@ describe('KDateTimePicker', () => {
       },
     })
 
+    cy.getTestId(submitButton).should('not.exist')
+
     cy.getTestId(timepickerInput).click()
     cy.get('.timeframe-section').should('exist')
     cy.get('.timeframe-buttons').should('exist')
@@ -250,14 +259,17 @@ describe('KDateTimePicker', () => {
       },
     })
     cy.getTestId(timepickerInput).click()
+    cy.getTestId(submitButton).should('exist')
 
     // Check that time frames render
     cy.getTestId(segmentedToggle).find('button[data-testid="relative-option"]').eq(0).click()
+    cy.getTestId(submitButton).should('not.exist')
     cy.get('.timeframe-section').should('exist')
     cy.get('.timeframe-buttons').should('exist')
 
     // Check that calendar month and 2 x time selection inputs show up
     cy.getTestId(segmentedToggle).find('button[data-testid="custom-option"]').eq(0).click()
+    cy.getTestId(submitButton).should('exist')
     cy.get('.k-datetime-picker .vc-pane-container .vc-weeks').should('exist')
   })
 
@@ -329,7 +341,6 @@ describe('KDateTimePicker', () => {
     // If a timeframe is selected, "Apply" should be re-enabled
     cy.getTestId(segmentedToggle).find('button[data-testid="relative-option"]').eq(0).click()
     cy.getTestId('select-timeframe-86400000').click()
-    cy.getTestId(submitButton).eq(0).click()
     cy.getTestId(timepickerDisplay).should('contain.text', 'Last 24 hours')
   })
 })
