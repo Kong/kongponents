@@ -119,6 +119,7 @@
             Clear
           </KButton>
           <KButton
+            v-if="showCalendar"
             appearance="tertiary"
             class="action-button"
             data-testid="datetime-picker-submit"
