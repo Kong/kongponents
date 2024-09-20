@@ -287,9 +287,9 @@ const handleDelete = (id): void => {
 </script>
 ```
 
-### searchQuery
+### searchInput
 
-Pass in a string of search input for server-side table filtering.
+Pass in a string of search query for server-side table filtering.
 
 ### sortable
 

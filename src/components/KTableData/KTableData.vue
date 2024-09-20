@@ -5,7 +5,7 @@
     :data="tableData"
     :empty-state-action-message="emptyStateActionMessage"
     :empty-state-action-route="emptyStateActionRoute"
-    :empty-state-button-appearance="emptyStateButtonAppearance"
+    :empty-state-button-appearance="getEmptyStateButtonAppearance"
     :empty-state-icon-variant="emptyStateIconVariant"
     :empty-state-message="emptyStateMessage"
     :empty-state-title="emptyStateTitle"
@@ -237,7 +237,7 @@ const props = defineProps({
   },
   emptyStateButtonAppearance: {
     type: String as PropType<ButtonAppearance>,
-    default: 'primary',
+    default: null,
   },
   error: {
     type: Boolean,
@@ -317,7 +317,7 @@ const props = defineProps({
   /**
    * A prop to pass in a search string for server-side search
    */
-  searchQuery: {
+  searchInput: {
     type: String,
     default: '',
   },
@@ -370,6 +370,13 @@ const tableId = useUniqueId()
 
 const tableData = ref<Record<string, any>[]>([])
 const tableHeaders = computed((): TableDataHeader[] => props.sortable ? props.headers : props.headers.map((header) => ({ ...header, sortable: false })))
+const getEmptyStateButtonAppearance = computed((): ButtonAppearance => {
+  if (props.emptyStateButtonAppearance) {
+    return props.emptyStateButtonAppearance
+  }
+
+  return props.searchInput ? 'tertiary' : 'primary'
+})
 
 const total = ref<number>(0)
 const page = ref<number>(1)
@@ -424,14 +431,14 @@ const getCellSlots = computed((): string[] => {
 
 const isInitialFetch = ref<boolean>(true)
 const fetchData = async () => {
-  const searchQuery = props.searchQuery
+  const searchInput = props.searchInput
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const res = await props.fetcher({
     pageSize: pageSize.value,
     page: page.value,
-    query: searchQuery || filterQuery.value,
+    query: searchInput || filterQuery.value,
     sortColumnKey: sortColumnKey.value,
     sortColumnOrder: sortColumnOrder.value,
     offset: offset.value,
@@ -650,7 +657,7 @@ watch([stateData, tableState], (newData) => {
 })
 
 // handles debounce of search query
-watch(() => props.searchQuery, (newValue: string) => {
+watch(() => props.searchInput, (newValue: string) => {
   if (page.value !== 1) {
     page.value = 1
   }
