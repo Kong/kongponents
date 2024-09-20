@@ -81,3 +81,14 @@ export interface TablePaginationAttributes {
 }
 
 export type RowBulkAction = boolean | { enabled: boolean, disabledTooltip?: string }
+
+export interface SortHandlerFunctionParam {
+  /** The key of the column to be sorted */
+  key: string
+  /** The key of the column previously sorted */
+  prevKey: string
+  /** The order in which to sort the column (asc or desc) */
+  sortColumnOrder: 'asc' | 'desc'
+  /** The data returned from the fetcher function response */
+  data: Array<any>
+}

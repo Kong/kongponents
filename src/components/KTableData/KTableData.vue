@@ -169,6 +169,7 @@ import type {
   TableStatePayload,
   SwrvState,
   SwrvStateData,
+  SortHandlerFunctionParam,
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
 import useUniqueId from '@/composables/useUniqueId'
@@ -316,7 +317,7 @@ const props = defineProps({
   /**
    * A prop to pass in a search string for server-side search
    */
-  searchInput: {
+  searchQuery: {
     type: String,
     default: '',
   },
@@ -335,7 +336,7 @@ const props = defineProps({
     default: false,
   },
   sortHandlerFunction: {
-    type: Function,
+    type: Function as PropType<(param: SortHandlerFunctionParam) => Record<string, any>[]>,
     default: () => ({}),
   },
   sortable: {
@@ -423,14 +424,14 @@ const getCellSlots = computed((): string[] => {
 
 const isInitialFetch = ref<boolean>(true)
 const fetchData = async () => {
-  const searchInput = props.searchInput
+  const searchQuery = props.searchQuery
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const res = await props.fetcher({
     pageSize: pageSize.value,
     page: page.value,
-    query: searchInput || filterQuery.value,
+    query: searchQuery || filterQuery.value,
     sortColumnKey: sortColumnKey.value,
     sortColumnOrder: sortColumnOrder.value,
     offset: offset.value,
@@ -541,6 +542,12 @@ const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortO
   const header: TableDataHeader = tableHeaders.value.find((header) => header.key === columnKey)!
   const { useSortHandlerFunction } = header
 
+  emit('sort', {
+    prevKey,
+    sortColumnKey: columnKey,
+    sortColumnOrder: sortOrder,
+  })
+
   page.value = 1
 
   if (!sortColumnKey.value || columnKey !== sortColumnKey.value) {
@@ -642,8 +649,8 @@ watch([stateData, tableState], (newData) => {
   })
 })
 
-// handles debounce of search input
-watch(() => props.searchInput, (newValue: string) => {
+// handles debounce of search query
+watch(() => props.searchQuery, (newValue: string) => {
   if (page.value !== 1) {
     page.value = 1
   }
