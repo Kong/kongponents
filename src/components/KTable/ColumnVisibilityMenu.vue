@@ -25,7 +25,7 @@
 
       <template #items>
         <KInput
-          v-if="filteredItems.length > 5"
+          v-if="searchColumnInMenu || filteredItems.length > 5"
           v-model.trim="searchColumnInMenu"
           class="search-input"
           data-testid="search-input"
@@ -209,6 +209,9 @@ const setOverflowClass = (el: HTMLDivElement) => {
 
 watch(() => props.visibilityPreferences, () => {
   initVisibilityMap()
+}, { immediate: true })
+
+watch(() => searchColumnInMenu.value, () => {
   if (menuItemsRef.value) {
     setOverflowClass(menuItemsRef.value)
   }
