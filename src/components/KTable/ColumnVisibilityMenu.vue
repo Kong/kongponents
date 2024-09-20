@@ -25,15 +25,32 @@
 
       <template #items>
         <KInput
-          v-model="searchColumnInMenu"
+          v-if="filteredItems.length > 5"
+          v-model.trim="searchColumnInMenu"
           class="search-input"
-          placeholder="Search..."
+          data-testid="search-input"
+          placeholder="Search columns"
           type="search"
           @click.stop
           @input="handleSearch"
         >
           <template #before>
             <SearchIcon decorative />
+          </template>
+          <template
+            v-if="searchColumnInMenu"
+            #after
+          >
+            <KButton
+              appearance="tertiary"
+              class="clear-search"
+              data-testid="clear-search-button"
+              icon
+              size="small"
+              @click.stop="() => searchColumnInMenu = ''"
+            >
+              <CloseIcon decorative />
+            </KButton>
           </template>
         </KInput>
 
@@ -83,7 +100,8 @@
 <script setup lang="ts">
 import { ref, watch, onBeforeMount, onMounted, type PropType, nextTick, computed } from 'vue'
 import type { TableHeader } from '@/types'
-import { SearchIcon, TableColumnsIcon } from '@kong/icons'
+import { debounce } from '@/utilities/debounce'
+import { SearchIcon, CloseIcon, TableColumnsIcon } from '@kong/icons'
 import KButton from '@/components/KButton/KButton.vue'
 import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
@@ -128,9 +146,9 @@ const initVisibilityMap = (): void => {
   isDirty.value = false
 }
 
-const handleSearch = (search: any) => {
+const handleSearch = debounce((search: any) => {
   searchColumnInMenu.value = search
-}
+}, 150)
 
 const filteredItems = computed((): TableHeader[] => {
   if (!searchColumnInMenu.value) {
@@ -191,6 +209,9 @@ const setOverflowClass = (el: HTMLDivElement) => {
 
 watch(() => props.visibilityPreferences, () => {
   initVisibilityMap()
+  if (menuItemsRef.value) {
+    setOverflowClass(menuItemsRef.value)
+  }
 }, { immediate: true })
 
 onMounted(() => {
@@ -242,6 +263,16 @@ onBeforeMount(() => {
     cursor: pointer;
     margin-bottom: var(--kui-space-0, $kui-space-0);
     margin-left: calc(-1 * var(--kui-space-40, $kui-space-40)); // because dropdown item container and checkbox both have default spacing, reduce it
+  }
+
+  :deep(.k-input).search-input {
+    padding-bottom: $kui-space-20;
+    padding-left: $kui-space-20;
+    padding-right: $kui-space-20;
+    ::-webkit-search-cancel-button {
+      /* hide the default "X" button */
+      -webkit-appearance: none;
+    }
   }
 }
 </style>
