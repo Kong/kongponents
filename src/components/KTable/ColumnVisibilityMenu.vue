@@ -28,7 +28,7 @@
           v-model="searchColumnInMenu"
           class="search-input"
           placeholder="Search..."
-          type="text"
+          type="search"
           @click.stop
           @input="handleSearch"
         >
@@ -138,7 +138,7 @@ const filteredItems = computed((): TableHeader[] => {
   }
 
   return props.columns.filter(item => {
-    return item.key.toLowerCase().includes(searchColumnInMenu.value.toLowerCase())
+    return (item.label ? item.label : item.key).toLowerCase().includes(searchColumnInMenu.value.toLowerCase())
   })
 })
 
