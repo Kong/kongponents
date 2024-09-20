@@ -148,6 +148,9 @@ const initVisibilityMap = (): void => {
 
 const handleSearch = debounce((search: any) => {
   searchColumnInMenu.value = search
+  if (menuItemsRef.value) {
+    setOverflowClass(menuItemsRef.value)
+  }
 }, 150)
 
 const filteredItems = computed((): TableHeader[] => {
@@ -209,12 +212,6 @@ const setOverflowClass = (el: HTMLDivElement) => {
 
 watch(() => props.visibilityPreferences, () => {
   initVisibilityMap()
-}, { immediate: true })
-
-watch(() => searchColumnInMenu.value, () => {
-  if (menuItemsRef.value) {
-    setOverflowClass(menuItemsRef.value)
-  }
 }, { immediate: true })
 
 onMounted(() => {
