@@ -62,7 +62,6 @@
             />
 
             <KInput
-              class="full-width-input"
               :error="data.errorState"
               error-message="This is errorMessage."
               help="This is help text. When error is true, this text will be red. When error is true and errorMessage is set, this text will be replaced by the errorMessage."
@@ -81,13 +80,18 @@
             />
 
             <KInput
-              class="full-width-input"
               :error="data.errorState"
               error-message="This is errorMessage."
               label="Label"
             />
           </KComponent>
         </div>
+        <KInput
+          :error="!!validationError"
+          :error-message="validationError"
+          label="Label"
+          @update:model-value="validate"
+        />
       </SandboxSectionComponent>
 
       <SandboxSectionComponent
@@ -227,10 +231,19 @@
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { SearchIcon, KongIcon, CopyIcon } from '@kong/icons'
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
 
 const onSlotContentClick = (slotName: string) => {
   alert(`You clicked on ${slotName} slot content`)
+}
+
+const validationError = ref('')
+const validate = (value: string) => {
+  if (value.includes('a')) {
+    validationError.value = 'That is invalid!'
+  } else {
+    validationError.value = ''
+  }
 }
 </script>
 
