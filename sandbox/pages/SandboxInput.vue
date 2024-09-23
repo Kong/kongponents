@@ -52,21 +52,22 @@
         title="errorMessage"
       >
         <div class="toggle-container">
-          <KToggle v-slot="{isToggled, toggle}">
+          <KComponent
+            v-slot="{ data }"
+            :data="{ errorState: false }"
+          >
+            <KInputSwitch
+              v-model="data.errorState"
+              label="Error"
+            />
+
             <KInput
               class="full-width-input"
-              :error="isToggled.value"
+              :error="data.errorState"
               error-message="This is errorMessage."
-              help="This is help text. When error is true, this text will be red. When error is true and errorMessage is set, this text will be replaced by the errorMessage."
               label="Label"
             />
-            <KButton
-              size="small"
-              @click="toggle"
-            >
-              Toggle error
-            </KButton>
-          </KToggle>
+          </KComponent>
         </div>
       </SandboxSectionComponent>
 
