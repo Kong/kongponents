@@ -58,7 +58,26 @@
           >
             <KInputSwitch
               v-model="data.errorState"
-              label="Error"
+              label="Error (has help text)"
+            />
+
+            <KInput
+              class="full-width-input"
+              :error="data.errorState"
+              error-message="This is errorMessage."
+              help="This is help text. When error is true, this text will be red. When error is true and errorMessage is set, this text will be replaced by the errorMessage."
+              label="Label"
+            />
+          </KComponent>
+        </div>
+        <div class="toggle-container">
+          <KComponent
+            v-slot="{ data }"
+            :data="{ errorState: false }"
+          >
+            <KInputSwitch
+              v-model="data.errorState"
+              label="Error (doesn't have help text)"
             />
 
             <KInput
