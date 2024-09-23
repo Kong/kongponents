@@ -89,6 +89,7 @@
         <KInput
           :error="!!validationError"
           :error-message="validationError"
+          help="Help text."
           label="Label"
           @update:model-value="validate"
         />
