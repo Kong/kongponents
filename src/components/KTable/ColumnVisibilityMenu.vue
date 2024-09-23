@@ -27,6 +27,7 @@
         <KInput
           v-if="searchColumnInMenu || filteredItems.length > 5"
           v-model.trim="searchColumnInMenu"
+          autocomplete="off"
           class="search-input"
           data-testid="search-input"
           placeholder="Search columns"
@@ -151,7 +152,7 @@ const handleSearch = debounce((search: any) => {
   if (menuItemsRef.value) {
     setOverflowClass(menuItemsRef.value)
   }
-}, 150)
+}, 500)
 
 const filteredItems = computed((): TableHeader[] => {
   if (!searchColumnInMenu.value) {
