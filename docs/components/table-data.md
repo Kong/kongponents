@@ -1,6 +1,6 @@
 # Table Data
 
-Component that takes care of fetching and rendering data in a table format.
+A table component that wraps [KTableView](/components/table-view) with built-in data fetching functionality.
 
 :::tip NOTE
 If you are looking for a simpler table component that does not integrate data fetching, check out [KTableView](/components/table-view).
@@ -18,15 +18,17 @@ If you are looking for a simpler table component that does not integrate data fe
 />
 ```
 
-## Underlying KTableView Component
+## Base KTableView Component
 
-KTableData uses KTableView component providing data fetching layer on top. KTableData supports all KTableView [props](/components/table-view#props) (with the exception of `data` prop, which is replaced with [`fetcher` prop](#fetcher) in KTableData), [slots](/components/table-view#slots) and [events](/components/table-view#events) (with the exception of [pagination events](/components/table-view#pagination-events) which are not emitted by KTableData). `headers` and `hidePaginationWhenOptional` props as well as `update:table-preferences` event are handled slightly differently in KTableData. See below sections for details.
+KTableData wraps the KTableView component, adding data fetching functionality. 
+
+KTableData supports all [KTableView props](/components/table-view#props) (with the exception of `data` prop, which is replaced with [`fetcher` prop](#fetcher) in KTableData), [slots](/components/table-view#slots) and [events](/components/table-view#events) (with the exception of [pagination events](/components/table-view#pagination-events) which are not emitted by KTableData). `headers` and `hidePaginationWhenOptional` props as well as `update:table-preferences` event are handled slightly differently in KTableData. See below sections for details.
 
 ## Props
 
 ### headers
 
-In addition to all header object properties supported in KTableView, KTableData also allows specifying whether a column should be sortable via a function provided via [`sortHandlerFunction` prop](#sorthandlerfunction).
+In addition to all header object properties supported by KTableView, KTableData also allows specifying whether a column should be sortable  by providing a [`sortHandlerFunction` prop](#sorthandlerfunction).
 
 ```ts
 interface TableDataHeader {
@@ -53,7 +55,7 @@ For an example of `headers` prop usage please refer to [`fetcher` prop documenta
 
 Function that handles data fetching, server-side search and pagination. It takes a single param as an argument which you can conveniently pass as a prop (see [`initialFetcherParams` prop](#initialfetcherparams) for details).
 
-Fetcher function is expected to return an object with the following properties:
+The fetcher function is expected to return an object with the following properties:
 
 * `data` - an array of objects to populate table with
 * `total` - the total count of items (if using pagination)
@@ -150,21 +152,21 @@ const sortHandlerFunction = ({ key, sortColumnOrder, data }) => {
 ```
 
 :::tip NOTE
-Notice that in the example above the _Username_ column is `sortable`. In this example sorting is handled on the client side, however should you want to apply server-side logic to handle sorting, you can bind your logic to the [`sort` event](#sort) and perform re-fetching of data as needed.
+Notice in the example above the _Username_ column is `sortable`. In this example sorting is handled client-side; however, should you want to apply server-side logic to handle sorting, you can bind your logic to the [`sort` event](#sort) and perform re-fetching of data as needed.
 :::
 
 ### initialFetcherParams
 
-Fetcher function takes a single param - an object with the following properties:
+The fetcher function accepts a single parameter, an object with the following properties:
 
 ```ts
 interface FetcherParams {
   pageSize?: number // the number of items to display per page
-  page?: number // the currently visible page
+  page?: number // the currently active page
   query?: string // a text string to filter table data on (defined in the searchInput prop)
   sortColumnKey?: string // sortable column key (defined in the headers prop)
   sortColumnOrder?: 'asc' | 'desc' // sorting order
-  offset?: string | null // the value of the offset for offset-based pagination. offset MUST be included in the fetcher params for offset-based pagination to work properly
+  offset?: string | null // the value of the offset for offset-based pagination. Offset must be included in the fetcher params for offset-based pagination to work properly
 }
 ```
 
@@ -183,14 +185,14 @@ For ease of configuration, all properties in the `initialFetcherParams` object h
 
 ### clientSort
 
-Boolean to enable client side sorting if using a fetcher that returns unpaginated data. Defaults to `false`. Use this in conjunction with [`sortHandlerFunction` prop](#sorthandlerfunction).
+Boolean to enable client-side sorting if using a fetcher that returns unpaginated data. Defaults to `false`. Use this in conjunction with [`sortHandlerFunction` prop](#sorthandlerfunction).
 
 ### sortHandlerFunction
 
 Pass a custom sort handler function to handle sorting table data for specific columns.
 
 :::warning WARNING
-If [`clientSort` prop](#clientsort) is `true` but no `sortHandlerFunction` provided, KTableData will apply some default logic for client side sorting. This may produce unexpected results. We recommend **always** providing a `sortHandlerFunction` when using client side sorting.
+If [`clientSort` prop](#clientsort) is `true` but no `sortHandlerFunction` provided, KTableData will apply some default logic for client side sorting. This may produce unexpected results. We recommend **always** providing a `sortHandlerFunction` when using client-side sorting.
 :::
 
 The function can take an object with these properties as the only argument and should return sorted array of table record objects:
@@ -212,7 +214,7 @@ interface SortHandlerFunctionParam {
 Please note that you have to set [`clientSort` prop](#clientsort) to `true` as well as to pass `sortable: true` and `useSortHandlerFunction: true` in the respective [headers object](#headers) to make a column sortable via `sortHandlerFunction`.
 :::
 
-Please refer to [`fetcher` prop documentation](#fetcher) for example.
+Please refer to the [`fetcher` prop documentation](#fetcher) for an example.
 
 ### cacheIdentifier
 
