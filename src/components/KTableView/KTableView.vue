@@ -1176,9 +1176,8 @@ const setActualColumnWidths = (): void => {
 }
 
 watch([columnVisibility, tableHeaders, hasExpandableRows], (newVals) => {
-  const newVisibility = newVals[0]
-  const newHeaders = newVals[1]
-  const newExpandableRows = newVals[2]
+  const [newVisibility, newHeaders, newExpandableRows] = newVals
+
   let newVisibleHeaders = newHeaders.filter((header: TableViewHeader) => {
     if (header.key === TableViewHeaderKeys.BULK_ACTIONS) {
       return hasBulkActions.value

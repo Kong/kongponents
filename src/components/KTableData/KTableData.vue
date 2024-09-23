@@ -335,6 +335,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  /**
+   * A prop to pass in a function to handle sorting on the client side
+   */
   sortHandlerFunction: {
     type: Function as PropType<(param: SortHandlerFunctionParam) => Record<string, any>[]>,
     default: () => ({}),
@@ -350,6 +353,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  /**
+   * A boolean to hide the toolbar slot
+   */
   hideToolbar: {
     type: Boolean,
     default: false,
@@ -357,8 +363,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'cell-click', value: { data: any }): void
-  (e: 'row-click', value: { data: any }): void
+  (e: 'cell-click', value: { data: Record<string, any> }): void
+  (e: 'row-click', value: { data: Record<string, any> }): void
   (e: 'error-action-click'): void
   (e: 'empty-state-action-click'): void
   (e: 'update:table-preferences', preferences: TablePreferences): void
@@ -433,8 +439,7 @@ const isInitialFetch = ref<boolean>(true)
 const fetchData = async () => {
   const searchInput = props.searchInput
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  // @ts-ignore - fetcher is required and will always be defined
   const res = await props.fetcher({
     pageSize: pageSize.value,
     page: page.value,
@@ -446,6 +451,7 @@ const fetchData = async () => {
   tableData.value = res.data as Record<string, any>[]
   total.value = props.paginationAttributes?.totalCount || res.total || res.data?.length
 
+  // if using offset-based pagination, set the next offset
   if (props.paginationAttributes?.offset) {
     if (!res.pagination?.offset) {
       nextOffset.value = null
@@ -457,6 +463,7 @@ const fetchData = async () => {
       }
     }
 
+    // look for hasNextPage in the response, otherwise default to true
     hasNextPage.value = (res.pagination && 'hasNextPage' in res.pagination) ? res.pagination.hasNextPage : true
   }
 
@@ -627,7 +634,7 @@ const showPagination = computed((): boolean => {
         !(props.paginationAttributes?.offset && props.hidePaginationWhenOptional && !previousOffset.value && !nextOffset.value && props.paginationAttributes?.pageSizes && tableData.value.length < props.paginationAttributes?.pageSizes[0]))
 })
 
-watch(fetcherData, (fetchedData: any) => {
+watch(fetcherData, (fetchedData: Record<string, any>[]) => {
   if (fetchedData?.length && !tableData.value.length) {
     tableData.value = fetchedData
   }
@@ -649,31 +656,32 @@ watch(state, () => {
   }
 }, { immediate: true })
 
-watch([stateData, tableState], (newData) => {
+watch([stateData, tableState], (newState) => {
+  const [newStateData, newTableState] = newState
+
   emit('state', {
-    state: newData?.[1], // newData[tableState]
-    hasData: newData?.[0]?.hasData, // newData[stateData].hasData
+    state: newTableState,
+    hasData: newStateData.hasData,
   })
 })
 
 // handles debounce of search query
-watch(() => props.searchInput, (newValue: string) => {
+watch(() => props.searchInput, (newSearchInput: string) => {
   if (page.value !== 1) {
     page.value = 1
   }
 
-  if (newValue === '') {
-    search(newValue)
+  if (newSearchInput === '') {
+    search(newSearchInput)
   } else {
-    debouncedSearch(newValue)
+    debouncedSearch(newSearchInput)
   }
 }, { immediate: true })
 
 const isRevalidating = ref<boolean>(false)
 watch([query, page, pageSize], async (newData, oldData) => {
-  const oldQuery = oldData?.[0]
-  const newQuery = newData[0]
-  const newPage = newData[1]
+  const [oldQuery] = oldData
+  const [newQuery, newPage] = newData
 
   if (newQuery !== oldQuery && newPage !== 1) {
     page.value = 1

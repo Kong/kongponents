@@ -90,5 +90,5 @@ export interface SortHandlerFunctionParam {
   /** The order in which to sort the column (asc or desc) */
   sortColumnOrder: 'asc' | 'desc'
   /** The data returned from the fetcher function response */
-  data: Array<any>
+  data: Array<Record<string, any>>
 }

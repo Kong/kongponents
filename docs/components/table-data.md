@@ -53,7 +53,7 @@ For an example of `headers` prop usage please refer to [`fetcher` prop documenta
 
 ### fetcher
 
-Function that handles data fetching, server-side search and pagination. It takes a single param as an argument which you can conveniently pass as a prop (see [`initialFetcherParams` prop](#initialfetcherparams) for details).
+Function that handles data fetching and pagination. It takes a single param as an argument which you can conveniently pass as a prop (see [`initialFetcherParams` prop](#initialfetcherparams) for details).
 
 The fetcher function is expected to return an object with the following properties:
 
@@ -152,7 +152,7 @@ const sortHandlerFunction = ({ key, sortColumnOrder, data }) => {
 ```
 
 :::tip NOTE
-Notice in the example above the _Username_ column is `sortable`. In this example sorting is handled client-side; however, should you want to apply server-side logic to handle sorting, you can bind your logic to the [`sort` event](#sort) and perform re-fetching of data as needed.
+Notice in the example above the _Username_ column is `sortable`. In this example sorting is handled client-side; however, should you want to handle sorting differently (e.g. make a call to the back-end to apply server-side logic), you can bind your logic to the [`sort` event](#sort) and perform re-fetching of data as needed.
 :::
 
 ### initialFetcherParams
@@ -291,7 +291,7 @@ const handleDelete = (id): void => {
 
 ### searchInput
 
-Pass in a string of search query for server-side table filtering.
+A string that will passed to fetcher function and can be used to modify the API request to perform data filtering.
 
 ### sortable
 
