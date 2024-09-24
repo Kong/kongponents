@@ -228,7 +228,7 @@ const {
   searchInput = '',
   initialFetcherParams = null,
   clientSort = false,
-  sortHandlerFunction = () => ({}),
+  sortHandlerFunction = null,
   sortable = true,
   hideToolbar = false,
 } = defineProps<TableDataProps>()
