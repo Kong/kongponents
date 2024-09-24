@@ -121,93 +121,93 @@ export interface TableProps {
   /**
    * Allow columns to be resized
    */
-  resizeColumns: boolean
+  resizeColumns?: boolean
   /**
    * Used to customize the initial state of the table.
    * Column visibility/width.
    */
-  tablePreferences: TablePreferences
+  tablePreferences?: TablePreferences
   /**
    * Enables hover highlighting to table rows
    */
-  rowHover: boolean
+  rowHover?: boolean
   /**
    * A function that conditionally specifies row attributes on each row
    */
-  rowAttrs: (row: Record<string, any>) => Record<string, string>
+  rowAttrs?: (row: Record<string, any>) => Record<string, string>
   /**
    * A function that conditionally turns a row into a link
    */
-  rowLink: (row: Record<string, any>) => RowLink
+  rowLink?: (row: Record<string, any>) => RowLink
   /**
    * A function that conditionally specifies whether bulk actions are disabled for a row and the tooltip to display. Default value: () => true
    */
-  rowBulkActionEnabled: (row: Record<string, any>) => RowBulkAction
+  rowBulkActionEnabled?: (row: Record<string, any>) => RowBulkAction
   /**
    * A function that conditionally specifies cell attributes
    */
-  cellAttrs: (param: CellAttrsParam) => Record<string, string>
+  cellAttrs?: (param: CellAttrsParam) => Record<string, string>
   /**
    * A prop that enables a loading skeleton
    */
-  loading: boolean
+  loading?: boolean
   /**
    * A prop to pass in a custom empty state title
    */
-  emptyStateTitle: string
+  emptyStateTitle?: string
   /**
    * A prop to pass in a custom empty state message
    */
-  emptyStateMessage: string
+  emptyStateMessage?: string
   /**
    * A prop to pass in a custom empty state action route
    */
-  emptyStateActionRoute: RouteLocationRaw | string
+  emptyStateActionRoute?: RouteLocationRaw | string
   /**
    * A prop to pass in a custom empty state action message
    */
-  emptyStateActionMessage: string
-  emptyStateIconVariant: EmptyStateIconVariant
-  emptyStateButtonAppearance: ButtonAppearance
+  emptyStateActionMessage?: string
+  emptyStateIconVariant?: EmptyStateIconVariant
+  emptyStateButtonAppearance?: ButtonAppearance
   /**
    * A prop that enables the error state
    */
-  error: boolean
+  error?: boolean
   /**
    * A prop to pass in a custom error state title
    */
-  errorStateTitle: string
+  errorStateTitle?: string
   /**
    * A prop to pass in a custom error state message
    */
-  errorStateMessage: string
+  errorStateMessage?: string
   /**
    * A prop to pass in a custom error state action route
    */
-  errorStateActionRoute: RouteLocationRaw | string
+  errorStateActionRoute?: RouteLocationRaw | string
   /**
    * A prop to pass in a custom error state action message
    */
-  errorStateActionMessage: string
-  maxHeight: string,
-  hidePagination: boolean
-  paginationAttributes: TablePaginationAttributes
+  errorStateActionMessage?: string
+  maxHeight?: string,
+  hidePagination?: boolean
+  paginationAttributes?: TablePaginationAttributes
   /**
    * Enable expandable rows
    */
-  rowExpandable: (row: Record<string, any>) => boolean
+  rowExpandable?: (row: Record<string, any>) => boolean
   /**
    * Hide the table header
    */
-  hideHeaders: boolean
+  hideHeaders?: boolean
   /**
    * Nested table
    */
-  nested: boolean
+  nested?: boolean
   /**
    * A boolean to hide pagination when total table records number is less than or equal to page size
    */
-  hidePaginationWhenOptional: boolean
+  hidePaginationWhenOptional?: boolean
 }
 
 export interface TableDataFetcherParams {

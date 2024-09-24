@@ -180,15 +180,15 @@ interface TableDataProps extends TableProps {
    * A prop to pass in an array of headers for the table
    */
   headers: TableDataHeader[]
-  fetcherCacheKey: string
-  cacheIdentifier: string
-  searchInput: string
-  initialFetcherParams: TableDataFetcherParams
-  clientSort: boolean
-  sortHandlerFunction: (param: SortHandlerFunctionParam) => Record<string, any>[]
-  sortable: boolean
-  hidePaginationWhenOptional: boolean
-  hideToolbar: boolean
+  fetcherCacheKey?: string
+  cacheIdentifier?: string
+  searchInput?: string
+  initialFetcherParams?: TableDataFetcherParams
+  clientSort?: boolean
+  sortHandlerFunction?: (param: SortHandlerFunctionParam) => Record<string, any>[]
+  sortable?: boolean
+  hidePaginationWhenOptional?: boolean
+  hideToolbar?: boolean
 }
 
 const {
