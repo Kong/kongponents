@@ -354,12 +354,16 @@ const fetchData = async () => {
   return res
 }
 
+/**
+ * Initialize the table with the initial data
+ */
 const initData = () => {
   const fetcherParams = {
     ...defaultFetcherProps,
     ...initialFetcherParams,
   }
-  // don't allow overriding default settings with `undefined` values
+
+  // don't allow overriding default settings with undefined values
   page.value = fetcherParams.page ?? defaultFetcherProps.page
   pageSize.value = fetcherParams.pageSize ?? defaultFetcherProps.pageSize
   filterQuery.value = fetcherParams.query ?? defaultFetcherProps.query
@@ -382,7 +386,7 @@ const initData = () => {
 const previousOffset = computed((): string | null => offsets.value[page.value - 1])
 const nextOffset = ref<string | null>(null)
 
-// once `initData()` finishes, setting tableFetcherCacheKey to non-falsey value triggers fetch of data
+// once initData() finishes, setting tableFetcherCacheKey to non-falsey value triggers fetch of data
 const tableFetcherCacheKey = computed((): string => {
   if (!fetcher || !hasInitialized.value) {
     return ''
