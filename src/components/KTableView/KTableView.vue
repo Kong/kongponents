@@ -430,8 +430,6 @@ const {
   errorStateMessage = 'Data cannot be displayed due to an error.',
   errorStateActionRoute = null,
   errorStateActionMessage = '',
-  headers = [],
-  data = [],
   maxHeight = 'none',
   hidePagination = false,
   paginationAttributes = {},
@@ -439,6 +437,11 @@ const {
   hideHeaders = false,
   nested = false,
   hidePaginationWhenOptional = true,
+  /**
+   * KTableData props defaults
+   */
+  data = [],
+  headers = [],
 } = defineProps<TableViewProps>()
 
 const emit = defineEmits<{

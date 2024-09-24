@@ -209,3 +209,30 @@ export interface TableProps {
    */
   hidePaginationWhenOptional: boolean
 }
+
+export interface TableDataFetcherParams {
+  /**
+   * The number of items to display per page.
+   */
+  pageSize?: number
+  /**
+   * The currently active page.
+   */
+  page?: number
+  /**
+   * A text string to filter table data on (defined in the searchInput prop).
+   */
+  query?: string
+  /**
+   * Sortable column key (defined in the headers prop).
+   */
+  sortColumnKey?: string
+  /**
+   * Sorting order.
+   */
+  sortColumnOrder?: 'asc' | 'desc'
+  /**
+   * The value of the offset for offset-based pagination. Offset must be included in the fetcher params for offset-based pagination to work properly.
+   */
+  offset?: string | null
+}

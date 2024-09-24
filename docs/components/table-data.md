@@ -160,13 +160,31 @@ Notice in the example above the _Username_ column is `sortable`. In this example
 The fetcher function accepts a single parameter, an object with the following properties:
 
 ```ts
-interface FetcherParams {
-  pageSize?: number // the number of items to display per page
-  page?: number // the currently active page
-  query?: string // a text string to filter table data on (defined in the searchInput prop)
-  sortColumnKey?: string // sortable column key (defined in the headers prop)
-  sortColumnOrder?: 'asc' | 'desc' // sorting order
-  offset?: string | null // the value of the offset for offset-based pagination. Offset must be included in the fetcher params for offset-based pagination to work properly
+interface TableDataFetcherParams {
+  /**
+   * The number of items to display per page.
+   */
+  pageSize?: number
+  /**
+   * The currently active page.
+   */
+  page?: number
+  /**
+   * A text string to filter table data on (defined in the searchInput prop).
+   */
+  query?: string
+  /**
+   * Sortable column key (defined in the headers prop).
+   */
+  sortColumnKey?: string
+  /**
+   * Sorting order.
+   */
+  sortColumnOrder?: 'asc' | 'desc'
+  /**
+   * The value of the offset for offset-based pagination. Offset must be included in the fetcher params for offset-based pagination to work properly.
+   */
+  offset?: string | null
 }
 ```
 
