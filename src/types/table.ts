@@ -1,4 +1,5 @@
 import type { RouteLocationRaw } from 'vue-router'
+import type { ButtonAppearance, EmptyStateIconVariant } from '@/types'
 
 export type SortColumnOrder = 'asc' | 'desc'
 
@@ -37,9 +38,25 @@ export interface TableHeader {
   useSortHandlerFunction?: boolean
 }
 
-export interface TableViewHeader extends Omit<TableHeader, 'useSortHandlerFunction'> { }
+export interface TableViewHeader {
+  /** Must be unique for each column */
+  key: string
+  /** Visible column header text */
+  label?: string
+  /** This property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it */
+  sortable?: boolean
+  /** Allow toggling column visibility */
+  hidable?: boolean
+  /** When provided, an info icon will be rendered next to the column label, upon hovering on which the tooltip will be revealed */
+  tooltip?: string
+  /** Whether column header text should be hidden (only visible to screen readers) */
+  hideLabel?: boolean
+}
 
-export interface TableDataHeader extends TableHeader { }
+export interface TableDataHeader extends TableViewHeader {
+  /** Whether KTable should use function passed through sortHandlerFunction prop to apply sorting logic to this column */
+  useSortHandlerFunction?: boolean
+}
 
 /**
  * Provide a type interface for KTable `column-*` and `tooltip-*` slot names.
@@ -91,4 +108,104 @@ export interface SortHandlerFunctionParam {
   sortColumnOrder: 'asc' | 'desc'
   /** The data returned from the fetcher function response */
   data: Array<Record<string, any>>
+}
+
+export interface CellAttrsParam {
+  headerKey: string
+  row: Record<string, any>
+  rowIndex: number
+  colIndex: number
+}
+
+export interface TableProps {
+  /**
+   * Allow columns to be resized
+   */
+  resizeColumns: boolean
+  /**
+   * Used to customize the initial state of the table.
+   * Column visibility/width.
+   */
+  tablePreferences: TablePreferences
+  /**
+   * Enables hover highlighting to table rows
+   */
+  rowHover: boolean
+  /**
+   * A function that conditionally specifies row attributes on each row
+   */
+  rowAttrs: (row: Record<string, any>) => Record<string, string>
+  /**
+   * A function that conditionally turns a row into a link
+   */
+  rowLink: (row: Record<string, any>) => RowLink
+  /**
+   * A function that conditionally specifies whether bulk actions are disabled for a row and the tooltip to display. Default value: () => true
+   */
+  rowBulkActionEnabled: (row: Record<string, any>) => RowBulkAction
+  /**
+   * A function that conditionally specifies cell attributes
+   */
+  cellAttrs: (param: CellAttrsParam) => Record<string, string>
+  /**
+   * A prop that enables a loading skeleton
+   */
+  loading: boolean
+  /**
+   * A prop to pass in a custom empty state title
+   */
+  emptyStateTitle: string
+  /**
+   * A prop to pass in a custom empty state message
+   */
+  emptyStateMessage: string
+  /**
+   * A prop to pass in a custom empty state action route
+   */
+  emptyStateActionRoute: RouteLocationRaw | string
+  /**
+   * A prop to pass in a custom empty state action message
+   */
+  emptyStateActionMessage: string
+  emptyStateIconVariant: EmptyStateIconVariant
+  emptyStateButtonAppearance: ButtonAppearance
+  /**
+   * A prop that enables the error state
+   */
+  error: boolean
+  /**
+   * A prop to pass in a custom error state title
+   */
+  errorStateTitle: string
+  /**
+   * A prop to pass in a custom error state message
+   */
+  errorStateMessage: string
+  /**
+   * A prop to pass in a custom error state action route
+   */
+  errorStateActionRoute: RouteLocationRaw | string
+  /**
+   * A prop to pass in a custom error state action message
+   */
+  errorStateActionMessage: string
+  maxHeight: string,
+  hidePagination: boolean
+  paginationAttributes: TablePaginationAttributes
+  /**
+   * Enable expandable rows
+   */
+  rowExpandable: (row: Record<string, any>) => boolean
+  /**
+   * Hide the table header
+   */
+  hideHeaders: boolean
+  /**
+   * Nested table
+   */
+  nested: boolean
+  /**
+   * A boolean to hide pagination when total table records number is less than or equal to page size
+   */
+  hidePaginationWhenOptional: boolean
 }
