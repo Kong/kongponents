@@ -561,9 +561,7 @@ const getColumnTooltipSlotName = (columnKey: string): TableColumnTooltipSlotName
  * we strip the types to something generic before we put it in the slot for use.
  * @param obj The object to strip the type from
  */
-const getGeneric = (obj: Record<string, any>): any => {
-  return obj as unknown as any
-}
+const getGeneric = <RowOrColumn extends Record<string, any>>(obj: RowOrColumn): RowOrColumn => obj
 
 /**
  * Grabs listeners from attrs matching a prefix to attach the
@@ -814,8 +812,8 @@ const showPagination = computed((): boolean => {
     return false
   }
 
-  // hide pagination when total table records number is less than or equal to page size
-  if (hidePaginationWhenOptional && tableData.value && tableData.value.length && paginationAttributes.totalCount && paginationAttributes.totalCount <= tableData.value.length) {
+  // hide pagination when total table records number is less than page size
+  if (hidePaginationWhenOptional && tableData.value && tableData.value.length && paginationAttributes.totalCount && paginationAttributes.totalCount < tableData.value.length) {
     return false
   }
 
