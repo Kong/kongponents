@@ -18,6 +18,7 @@
     :hide-headers="hideHeaders"
     :hide-pagination="hidePagination || !showPagination"
     :hide-pagination-when-optional="hidePaginationWhenOptional"
+    :hide-toolbar="hideToolbar"
     :loading="loading || isTableLoading"
     :max-height="maxHeight"
     :nested="nested"
@@ -200,6 +201,7 @@ const props = withDefaults(defineProps<TableDataProps>(), {
   hideHeaders: false,
   nested: false,
   hidePaginationWhenOptional: false,
+  hideToolbar: false,
   /**
    * KTableData props defaults
    */
@@ -210,7 +212,6 @@ const props = withDefaults(defineProps<TableDataProps>(), {
   initialFetcherParams: () => ({}),
   clientSort: false,
   sortable: true,
-  hideToolbar: false,
 })
 
 const slots = useSlots()

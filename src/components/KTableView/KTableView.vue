@@ -428,6 +428,7 @@ const props = withDefaults(defineProps<TableViewProps>(), {
   hideHeaders: false,
   nested: false,
   hidePaginationWhenOptional: true,
+  hideToolbar: false,
   /**
    * KTableData props defaults
    */
@@ -493,7 +494,7 @@ const isScrolledHorizontally = ref<boolean>(false)
 const sortColumnKey = ref('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
 const isClickable = ref(false)
-const hasToolbarSlot = computed((): boolean => !props.nested && (!!slots.toolbar || hasColumnVisibilityMenu.value || showBulkActionsToolbar.value))
+const hasToolbarSlot = computed((): boolean => !props.hideToolbar && !props.nested && (!!slots.toolbar || hasColumnVisibilityMenu.value || showBulkActionsToolbar.value))
 const isActionsDropdownHovered = ref<boolean>(false)
 const tableWrapperStyles = computed((): Record<string, string> => ({
   maxHeight: getSizeFromString(props.maxHeight),

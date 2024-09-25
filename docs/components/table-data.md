@@ -319,10 +319,6 @@ Set this to `false` to disable ability to sort.
 
 Set this to `true` to hide pagination when the table record count is less than or equal to the page size. Defaults to `false`.
 
-### hideToolbar
-
-Prop for hiding toolbar. Useful when elements provided in the toolbar are not actionable (for example, when toolbar contains filter controls, however the fetcher returns no results as there are no records to filter by).
-
 ## Events
 
 ### state

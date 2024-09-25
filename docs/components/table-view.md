@@ -556,6 +556,10 @@ A boolean to hide table headers. Only recomended when used in nested table. Refe
 
 A boolean to disable some of the table features like column visibility, column resizing, bulk actions and hide toolbar element in nested tables. Refer to [Expandable Rows](#expandable-rows) section documentation for more details. Defaults to `false`.
 
+### hideToolbar
+
+Prop for hiding toolbar. Useful when elements provided in the toolbar are not actionable (for example, when toolbar contains filter controls, however the fetcher returns no results as there are no records to filter by).
+
 ## States
 
 ### Empty

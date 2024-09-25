@@ -208,6 +208,10 @@ interface TablePropsShared {
    * A boolean to hide pagination when total table records number is less than or equal to page size
    */
   hidePaginationWhenOptional?: boolean
+  /**
+   * A prop for hiding the toolbar
+   */
+  hideToolbar?: boolean
 }
 
 export interface TableViewProps extends TablePropsShared {
@@ -232,7 +236,6 @@ export interface TableDataProps extends TablePropsShared {
   sortHandlerFunction?: (param: SortHandlerFunctionParam) => Record<string, any>[]
   sortable?: boolean
   hidePaginationWhenOptional?: boolean
-  hideToolbar?: boolean
 }
 
 export interface TableDataFetcherParams {
