@@ -183,14 +183,11 @@ const props = withDefaults(defineProps<TableDataProps>(), {
   loading: false,
   emptyStateTitle: 'No Data',
   emptyStateMessage: 'There is no data to display.',
-  // emptyStateActionRoute: null,
   emptyStateActionMessage: '',
   emptyStateIconVariant: EmptyStateIconVariants.Default,
-  // emptyStateButtonAppearance: '',
   error: false,
   errorStateTitle: 'An error occurred',
   errorStateMessage: 'Data cannot be displayed due to an error.',
-  // errorStateActionRoute: null,
   errorStateActionMessage: '',
   maxHeight: 'none',
   hidePagination: false,
@@ -203,13 +200,11 @@ const props = withDefaults(defineProps<TableDataProps>(), {
    * KTableData props defaults
    */
   headers: () => ([]),
-  // fetcher: () => Promise.resolve({}),
   fetcherCacheKey: '',
   cacheIdentifier: '',
   searchInput: '',
   initialFetcherParams: () => ({}),
   clientSort: false,
-  // sortHandlerFunction: null,
   sortable: true,
   hideToolbar: false,
 })
