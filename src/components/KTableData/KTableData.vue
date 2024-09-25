@@ -35,6 +35,8 @@
     @get-previous-offset="getPreviousOffsetHandler"
     @page-change="pageChangeHandler"
     @page-size-change="pageSizeChangeHandler"
+    @row-expand="($event) => emit('row-expand', $event)"
+    @row-select="($event) => emit('row-select', $event)"
     @sort="sortHandler"
     @update:table-preferences="tableViewPreferences = $event"
   >
@@ -223,6 +225,8 @@ const emit = defineEmits<{
   (e: 'update:table-preferences', preferences: TablePreferences): void
   (e: 'sort', value: TableSortPayload): void
   (e: 'state', value: TableStatePayload): void
+  (e: 'row-select', data: Record<string, any>[]): void
+  (e: 'row-expand', data: any): void
 }>()
 
 const tableId = useUniqueId()
