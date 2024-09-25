@@ -44,6 +44,7 @@
           >
             <KButton
               appearance="tertiary"
+              aria-label="Clear search"
               class="clear-search"
               data-testid="clear-search-button"
               icon
@@ -99,7 +100,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onBeforeMount, onMounted, type PropType, nextTick, computed } from 'vue'
+import { ref, watch, onBeforeMount, onMounted, nextTick, computed } from 'vue'
+import type { PropType } from 'vue'
 import type { TableHeader } from '@/types'
 import { debounce } from '@/utilities/debounce'
 import { SearchIcon, CloseIcon, TableColumnsIcon } from '@kong/icons'
@@ -268,6 +270,7 @@ onBeforeMount(() => {
 
   :deep(.k-input).search-input {
     padding: $kui-space-10 $kui-space-30 $kui-space-30 $kui-space-30;
+
     ::-webkit-search-cancel-button {
       /* hide the default "X" button */
       -webkit-appearance: none;
