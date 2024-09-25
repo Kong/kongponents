@@ -117,7 +117,7 @@ export interface CellAttrsParam {
   colIndex: number
 }
 
-export interface TableProps {
+interface TablePropsShared {
   /**
    * Allow columns to be resized
    */
@@ -208,6 +208,31 @@ export interface TableProps {
    * A boolean to hide pagination when total table records number is less than or equal to page size
    */
   hidePaginationWhenOptional?: boolean
+}
+
+export interface TableViewProps extends TablePropsShared {
+  data: TableViewData
+  /**
+   * A prop to pass in an array of headers for the table
+   */
+  headers: TableViewHeader[]
+}
+
+export interface TableDataProps extends TablePropsShared {
+  fetcher: (param: TableDataFetcherParams) => Promise<any>
+  /**
+   * A prop to pass in an array of headers for the table
+   */
+  headers: TableDataHeader[]
+  fetcherCacheKey?: string
+  cacheIdentifier?: string
+  searchInput?: string
+  initialFetcherParams?: TableDataFetcherParams
+  clientSort?: boolean
+  sortHandlerFunction?: (param: SortHandlerFunctionParam) => Record<string, any>[]
+  sortable?: boolean
+  hidePaginationWhenOptional?: boolean
+  hideToolbar?: boolean
 }
 
 export interface TableDataFetcherParams {

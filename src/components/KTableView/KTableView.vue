@@ -384,7 +384,7 @@ import type {
   RowLink,
   PageChangeData,
   PageSizeChangeData,
-  TableProps,
+  TableViewProps,
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
@@ -400,14 +400,6 @@ enum TableViewHeaderKeys {
   EXPANDABLE = 'expandable',
   ACTIONS = 'actions',
   BULK_ACTIONS = 'bulkActions',
-}
-
-interface TableViewProps extends TableProps {
-  data: TableViewData
-  /**
-   * A prop to pass in an array of headers for the table
-   */
-  headers: TableViewHeader[]
 }
 
 const {
@@ -561,7 +553,9 @@ const getColumnTooltipSlotName = (columnKey: string): TableColumnTooltipSlotName
  * we strip the types to something generic before we put it in the slot for use.
  * @param obj The object to strip the type from
  */
-const getGeneric = <RowOrColumn extends Record<string, any>>(obj: RowOrColumn): RowOrColumn => obj
+const getGeneric = (obj: Record<string, any>): any => {
+  return obj as unknown as any
+}
 
 /**
  * Grabs listeners from attrs matching a prefix to attach the

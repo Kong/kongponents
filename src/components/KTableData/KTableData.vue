@@ -167,29 +167,10 @@ import type {
   TableStatePayload,
   SwrvState,
   SwrvStateData,
-  SortHandlerFunctionParam,
-  TableProps,
-  TableDataFetcherParams,
+  TableDataProps,
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
 import useUniqueId from '@/composables/useUniqueId'
-
-interface TableDataProps extends TableProps {
-  fetcher: (param: TableDataFetcherParams) => Promise<any>
-  /**
-   * A prop to pass in an array of headers for the table
-   */
-  headers: TableDataHeader[]
-  fetcherCacheKey?: string
-  cacheIdentifier?: string
-  searchInput?: string
-  initialFetcherParams?: TableDataFetcherParams
-  clientSort?: boolean
-  sortHandlerFunction?: (param: SortHandlerFunctionParam) => Record<string, any>[]
-  sortable?: boolean
-  hidePaginationWhenOptional?: boolean
-  hideToolbar?: boolean
-}
 
 const {
   resizeColumns = false,
