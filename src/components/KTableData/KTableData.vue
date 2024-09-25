@@ -29,6 +29,8 @@
     :row-hover="rowHover"
     :row-link="rowLink"
     :table-preferences="tablePreferences"
+    @empty-state-action-click="emit('empty-state-action-click')"
+    @error-action-click="emit('error-action-click')"
     @get-next-offset="getNextOffsetHandler"
     @get-previous-offset="getPreviousOffsetHandler"
     @page-change="pageChangeHandler"
