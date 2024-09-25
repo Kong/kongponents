@@ -1,3 +1,10 @@
+## [9.8.2](https://github.com/Kong/kongponents/compare/v9.8.1...v9.8.2) (2024-09-25)
+
+
+### Bug Fixes
+
+* **table:** search box for table column hide/show dropdown [khcp-13105] ([#2406](https://github.com/Kong/kongponents/issues/2406)) ([6d8c496](https://github.com/Kong/kongponents/commit/6d8c496b2e275ac7b8276ad337254442022b4c72))
+
 ## [9.8.1](https://github.com/Kong/kongponents/compare/v9.8.0...v9.8.1) (2024-09-23)
 
 
