@@ -290,6 +290,7 @@
                         appearance="tertiary"
                         :aria-label="header.label"
                         class="actions-dropdown-trigger"
+                        data-testid="row-actions-dropdown-trigger"
                         icon
                         size="small"
                         @mouseleave="isActionsDropdownHovered = false"
