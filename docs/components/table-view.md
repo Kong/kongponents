@@ -1121,7 +1121,7 @@ Slot props:
     <div class="expanded-row-content">
       <div class="badges-container">
         <KCopy
-          :text="row.id"
+          :text="String(row.id)"
           badge
           badge-label="ID:"
         />
@@ -1159,7 +1159,7 @@ Slot props:
   <template #row-expanded="{ row }">
     <div>
       <KCopy
-        :text="row.id"
+        :text="String(row.id)"
         badge
         badge-label="ID:"
       />
