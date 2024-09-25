@@ -172,47 +172,47 @@ import type {
 import { EmptyStateIconVariants } from '@/types'
 import useUniqueId from '@/composables/useUniqueId'
 
-const {
-  resizeColumns = false,
-  tablePreferences = {},
-  rowHover = true,
-  rowAttrs = () => ({}),
-  rowLink = () => ({} as RowLink),
-  rowBulkActionEnabled = () => true,
-  cellAttrs = () => ({}),
-  loading = false,
-  emptyStateTitle = 'No Data',
-  emptyStateMessage = 'There is no data to display.',
-  emptyStateActionRoute = null,
-  emptyStateActionMessage = '',
-  emptyStateIconVariant = EmptyStateIconVariants.Default,
-  emptyStateButtonAppearance = '',
-  error = false,
-  errorStateTitle = 'An error occurred',
-  errorStateMessage = 'Data cannot be displayed due to an error.',
-  errorStateActionRoute = null,
-  errorStateActionMessage = '',
-  maxHeight = 'none',
-  hidePagination = false,
-  paginationAttributes = {},
-  rowExpandable = () => false,
-  hideHeaders = false,
-  nested = false,
-  hidePaginationWhenOptional = false,
+const props = withDefaults(defineProps<TableDataProps>(), {
+  resizeColumns: false,
+  tablePreferences: () => ({}),
+  rowHover: true,
+  rowAttrs: () => ({}),
+  rowLink: () => ({} as RowLink),
+  rowBulkActionEnabled: () => true,
+  cellAttrs: () => ({}),
+  loading: false,
+  emptyStateTitle: 'No Data',
+  emptyStateMessage: 'There is no data to display.',
+  // emptyStateActionRoute: null,
+  emptyStateActionMessage: '',
+  emptyStateIconVariant: EmptyStateIconVariants.Default,
+  // emptyStateButtonAppearance: '',
+  error: false,
+  errorStateTitle: 'An error occurred',
+  errorStateMessage: 'Data cannot be displayed due to an error.',
+  // errorStateActionRoute: null,
+  errorStateActionMessage: '',
+  maxHeight: 'none',
+  hidePagination: false,
+  paginationAttributes: () => ({}),
+  rowExpandable: () => false,
+  hideHeaders: false,
+  nested: false,
+  hidePaginationWhenOptional: false,
   /**
    * KTableData props defaults
    */
-  headers = [],
-  fetcher = null,
-  fetcherCacheKey = '',
-  cacheIdentifier = '',
-  searchInput = '',
-  initialFetcherParams = null,
-  clientSort = false,
-  sortHandlerFunction = null,
-  sortable = true,
-  hideToolbar = false,
-} = defineProps<TableDataProps>()
+  headers: () => ([]),
+  // fetcher: () => Promise.resolve({}),
+  fetcherCacheKey: '',
+  cacheIdentifier: '',
+  searchInput: '',
+  initialFetcherParams: () => ({}),
+  clientSort: false,
+  // sortHandlerFunction: null,
+  sortable: true,
+  hideToolbar: false,
+})
 
 const slots = useSlots()
 
@@ -231,18 +231,18 @@ const emit = defineEmits<{
 const tableId = useUniqueId()
 
 const tableData = ref<Record<string, any>[]>([])
-const tableHeaders = computed((): TableDataHeader[] => sortable ? headers : headers.map((header) => ({ ...header, sortable: false })))
+const tableHeaders = computed((): TableDataHeader[] => props.sortable ? props.headers : props.headers.map((header) => ({ ...header, sortable: false })))
 const getEmptyStateButtonAppearance = computed((): ButtonAppearance => {
-  if (emptyStateButtonAppearance) {
-    return emptyStateButtonAppearance
+  if (props.emptyStateButtonAppearance) {
+    return props.emptyStateButtonAppearance
   }
 
-  return searchInput ? 'tertiary' : 'primary'
+  return props.searchInput ? 'tertiary' : 'primary'
 })
 
 const total = ref<number>(0)
 const page = ref<number>(1)
-const pageSize = ref<number>(paginationAttributes?.initialPageSize || 15)
+const pageSize = ref<number>(props.paginationAttributes?.initialPageSize || 15)
 const filterQuery = ref<string>('')
 const sortColumnKey = ref<string>('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
@@ -261,7 +261,7 @@ const defaultFetcherProps = {
 }
 
 const tablePaginationAttributes = computed((): TablePaginationAttributes => ({
-  ...paginationAttributes,
+  ...props.paginationAttributes,
   totalCount: total.value,
   initialPageSize: pageSize.value,
   currentPage: page.value,
@@ -296,19 +296,19 @@ const getCellSlots = computed((): string[] => {
 const isInitialFetch = ref<boolean>(true)
 const fetchData = async () => {
   // @ts-ignore - fetcher is required and will always be defined
-  const res = await fetcher({
+  const res = await props.fetcher({
     pageSize: pageSize.value,
     page: page.value,
-    query: searchInput || filterQuery.value,
+    query: props.searchInput || filterQuery.value,
     sortColumnKey: sortColumnKey.value,
     sortColumnOrder: sortColumnOrder.value,
     offset: offset.value,
   })
   tableData.value = res.data as Record<string, any>[]
-  total.value = paginationAttributes?.totalCount || res.total || res.data?.length || 0
+  total.value = props.paginationAttributes?.totalCount || res.total || res.data?.length || 0
 
   // if using offset-based pagination, set the next offset
-  if (paginationAttributes?.offset) {
+  if (props.paginationAttributes?.offset) {
     if (!res.pagination?.offset) {
       nextOffset.value = null
     } else {
@@ -343,7 +343,7 @@ const fetchData = async () => {
 const initData = () => {
   const fetcherParams = {
     ...defaultFetcherProps,
-    ...initialFetcherParams,
+    ...props.initialFetcherParams,
   }
 
   // don't allow overriding default settings with undefined values
@@ -353,11 +353,11 @@ const initData = () => {
   sortColumnKey.value = fetcherParams.sortColumnKey ?? defaultFetcherProps.sortColumnKey
   sortColumnOrder.value = fetcherParams.sortColumnOrder as SortColumnOrder ?? defaultFetcherProps.sortColumnOrder as SortColumnOrder
 
-  if (clientSort && sortColumnKey.value && sortColumnOrder.value) {
+  if (props.clientSort && sortColumnKey.value && sortColumnOrder.value) {
     defaultClientSideSorter(sortColumnKey.value, '', sortColumnOrder.value, tableData.value)
   }
 
-  if (paginationAttributes?.offset) {
+  if (props.paginationAttributes?.offset) {
     offset.value = fetcherParams.offset
     offsets.value.push(fetcherParams.offset)
   }
@@ -371,18 +371,18 @@ const nextOffset = ref<string | null>(null)
 
 // once initData() finishes, setting tableFetcherCacheKey to non-falsey value triggers fetch of data
 const tableFetcherCacheKey = computed((): string => {
-  if (!fetcher || !hasInitialized.value) {
+  if (!props.fetcher || !hasInitialized.value) {
     return ''
   }
 
   // Set the default identifier to a random string
   let identifierKey: string = tableId
-  if (cacheIdentifier) {
-    identifierKey = cacheIdentifier
+  if (props.cacheIdentifier) {
+    identifierKey = props.cacheIdentifier
   }
 
-  if (fetcherCacheKey) {
-    identifierKey += `-${fetcherCacheKey}`
+  if (props.fetcherCacheKey) {
+    identifierKey += `-${props.fetcherCacheKey}`
   }
 
   return `k-table_${identifierKey}`
@@ -431,9 +431,9 @@ const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortO
   sortColumnKey.value = columnKey
   sortColumnOrder.value = sortOrder as SortColumnOrder
 
-  if (clientSort) {
-    if (useSortHandlerFunction && sortHandlerFunction) {
-      sortHandlerFunction({
+  if (props.clientSort) {
+    if (useSortHandlerFunction && props.sortHandlerFunction) {
+      props.sortHandlerFunction({
         key: columnKey,
         prevKey,
         sortColumnOrder: sortColumnOrder.value,
@@ -442,7 +442,7 @@ const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortO
     } else {
       defaultClientSideSorter(columnKey, prevKey, sortColumnOrder.value, tableData.value)
     }
-  } else if (!paginationAttributes?.offset) {
+  } else if (!props.paginationAttributes?.offset) {
     debouncedRevalidate()
   }
 
@@ -489,9 +489,9 @@ const getPreviousOffsetHandler = (): void => {
 // if using offset-based pagination with hidePaginationWhenOptional
 //  - hide if neither previous/next offset exists and current data set count is < min pagesize
 const showPagination = computed((): boolean => {
-  return !!(fetcher && !hidePagination &&
-        !(!paginationAttributes?.offset && hidePaginationWhenOptional && paginationAttributes?.pageSizes && total.value <= paginationAttributes?.pageSizes[0]) &&
-        !(paginationAttributes?.offset && hidePaginationWhenOptional && !previousOffset.value && !nextOffset.value && paginationAttributes?.pageSizes && tableData.value.length < paginationAttributes?.pageSizes[0]))
+  return !!(!props.hidePagination &&
+        !(!props.paginationAttributes?.offset && props.hidePaginationWhenOptional && props.paginationAttributes?.pageSizes && total.value <= props.paginationAttributes?.pageSizes[0]) &&
+        !(props.paginationAttributes?.offset && props.hidePaginationWhenOptional && !previousOffset.value && !nextOffset.value && props.paginationAttributes?.pageSizes && tableData.value.length < props.paginationAttributes?.pageSizes[0]))
 })
 
 watch(fetcherData, (fetchedData: Record<string, any>[]) => {
@@ -526,7 +526,7 @@ watch([stateData, tableState], (newState) => {
 })
 
 // handles debounce of search query
-watch(() => searchInput, (newSearchInput: string) => {
+watch(() => props.searchInput, (newSearchInput: string) => {
   if (page.value !== 1) {
     page.value = 1
   }
