@@ -265,6 +265,8 @@ const tablePaginationAttributes = computed((): TablePaginationAttributes => ({
   totalCount: total.value,
   initialPageSize: pageSize.value,
   currentPage: page.value,
+  offsetPreviousButtonDisabled: !previousOffset.value,
+  offsetNextButtonDisabled: !nextOffset.value || !hasNextPage.value,
 }))
 
 const getHeaderSlots = computed((): TableColumnSlotName[] => {
