@@ -70,8 +70,8 @@ importers:
         specifier: ^1.7.15
         version: 1.7.15
       '@kong-ui-public/sandbox-layout':
-        specifier: ^2.1.32
-        version: 2.1.32(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2))
+        specifier: ^2.1.33
+        version: 2.1.33(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2))
       '@kong/design-tokens':
         specifier: ^1.17.2
         version: 1.17.2
@@ -860,8 +860,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@kong-ui-public/sandbox-layout@2.1.32':
-    resolution: {integrity: sha512-n+Geqmd7PLFEUdSWO78lh/p/qb48u/oF6CHyE1TJWBKW0/pq9k87xyW6k0EDtmad5Ms1UaOzqSGdYTjH0tb53Q==}
+  '@kong-ui-public/sandbox-layout@2.1.33':
+    resolution: {integrity: sha512-XFyIuYVNXgd0oU9R/8HN2cb0D81xXPczkMMu31gL4VN4kFqs/uYQ43w9EvYLrpfnvd0CycNURU2EEMmL/uN0bg==}
     peerDependencies:
       '@kong/kongponents': ^9.8.1
       vue: '>= 3.3.13 < 4'
@@ -878,6 +878,12 @@ packages:
 
   '@kong/icons@1.15.2':
     resolution: {integrity: sha512-PB0I1tLybeuxZGUFcUK0zwnFj2FdoAakC1l+kobh0x56BLb/YaNixRUimaTd950hBWhFf3+X6uwamE9dfVIS7A==}
+    engines: {node: '>=18.17.0', pnpm: '>=9.7.0'}
+    peerDependencies:
+      vue: '>= 3.3.4 < 4'
+
+  '@kong/icons@1.17.0':
+    resolution: {integrity: sha512-HqKU4pI/yxSe+C3PkOSpUNOf6HsJSHVz9nS4Z2JzasH0lhMSPMPBotD5Is9+TDC5mwbRNe43/3OcxuLc58PTaA==}
     engines: {node: '>=18.17.0', pnpm: '>=9.7.0'}
     peerDependencies:
       vue: '>= 3.3.4 < 4'
@@ -5515,9 +5521,9 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@kong-ui-public/sandbox-layout@2.1.32(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2))':
+  '@kong-ui-public/sandbox-layout@2.1.33(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2))':
     dependencies:
-      '@kong/icons': 1.15.2(vue@3.5.8(typescript@5.6.2))
+      '@kong/icons': 1.17.0(vue@3.5.8(typescript@5.6.2))
       '@kong/kongponents': 9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2))
       vue: 3.5.8(typescript@5.6.2)
 
@@ -5544,6 +5550,10 @@ snapshots:
       - typescript
 
   '@kong/icons@1.15.2(vue@3.5.8(typescript@5.6.2))':
+    dependencies:
+      vue: 3.5.8(typescript@5.6.2)
+
+  '@kong/icons@1.17.0(vue@3.5.8(typescript@5.6.2))':
     dependencies:
       vue: 3.5.8(typescript@5.6.2)
 
