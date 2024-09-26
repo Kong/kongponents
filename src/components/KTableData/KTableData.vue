@@ -17,7 +17,7 @@
     :headers="tableHeaders"
     :hide-headers="hideHeaders"
     :hide-pagination="hidePagination || !showPagination"
-    :hide-pagination-when-optional="hidePaginationWhenOptional"
+    :hide-pagination-when-optional="false"
     :hide-toolbar="hideToolbar"
     :loading="loading || isTableLoading"
     :max-height="maxHeight"
@@ -36,8 +36,8 @@
     @get-previous-offset="getPreviousOffsetHandler"
     @page-change="pageChangeHandler"
     @page-size-change="pageSizeChangeHandler"
-    @row-expand="($event) => emit('row-expand', $event)"
-    @row-select="($event) => emit('row-select', $event)"
+    @row-expand="($event: Record<string, any>) => emit('row-expand', $event)"
+    @row-select="($event: Record<string, any>[]) => emit('row-select', $event)"
     @sort="sortHandler"
     @update:table-preferences="tableViewPreferences = $event"
   >
@@ -176,6 +176,7 @@ import type {
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
 import useUniqueId from '@/composables/useUniqueId'
+import { getInitialPageSize } from '@/utilities'
 
 const props = withDefaults(defineProps<TableDataProps>(), {
   resizeColumns: false,
@@ -244,7 +245,7 @@ const getEmptyStateButtonAppearance = computed((): ButtonAppearance => {
 
 const total = ref<number>(0)
 const page = ref<number>(1)
-const pageSize = ref<number>(props.paginationAttributes?.initialPageSize || 15)
+const pageSize = ref<number>(getInitialPageSize(props.tablePreferences, props.paginationAttributes))
 const filterQuery = ref<string>('')
 const sortColumnKey = ref<string>('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
@@ -485,15 +486,23 @@ const getPreviousOffsetHandler = (): void => {
   offset.value = previousOffset.value
 }
 
-// fetcher must be defined, hidePagination must be false
-// if using standard pagination with hidePaginationWhenOptional
-//  - hide if total <= min pagesize
-// if using offset-based pagination with hidePaginationWhenOptional
-//  - hide if neither previous/next offset exists and current data set count is < min pagesize
 const showPagination = computed((): boolean => {
-  return !!(!props.hidePagination &&
-        !(!props.paginationAttributes?.offset && props.hidePaginationWhenOptional && props.paginationAttributes?.pageSizes && total.value <= props.paginationAttributes?.pageSizes[0]) &&
-        !(props.paginationAttributes?.offset && props.hidePaginationWhenOptional && !previousOffset.value && !nextOffset.value && props.paginationAttributes?.pageSizes && tableData.value.length < props.paginationAttributes?.pageSizes[0]))
+  // if fetcher is not defined or hidePagination is true, don't show pagination
+  if (!props.fetcher || props.hidePagination) {
+    return false
+  }
+
+  if (props.hidePaginationWhenOptional && page.value === 1) {
+    if (!props.paginationAttributes?.offset) {
+      // if using cursor-based pagination, hide pagination when number of items is less than pageSize
+      return total.value > pageSize.value
+    } else {
+      // if using offset-based pagination, hide pagination when neither previous nor next offset is available and total items is less than pageSize
+      return !!previousOffset.value || !!nextOffset.value || tableData.value.length >= pageSize.value
+    }
+  }
+
+  return true
 })
 
 watch(fetcherData, (fetchedData: Record<string, any>[]) => {

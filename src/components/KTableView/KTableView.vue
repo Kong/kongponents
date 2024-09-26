@@ -396,6 +396,7 @@ import KPagination from '@/components/KPagination/KPagination.vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 import BulkActionsDropdown from './BulkActionsDropdown.vue'
+import { getInitialPageSize } from '@/utilities'
 
 enum TableViewHeaderKeys {
   EXPANDABLE = 'expandable',
@@ -806,8 +807,8 @@ const showPagination = computed((): boolean => {
     return false
   }
 
-  // hide pagination when total table records number is less than page size
-  if (props.hidePaginationWhenOptional && tableData.value && tableData.value.length && props.paginationAttributes.totalCount && props.paginationAttributes.totalCount < tableData.value.length) {
+  // hide pagination when total table records number is less or equal to provided records count
+  if (props.hidePaginationWhenOptional && tableData.value && tableData.value.length && props.paginationAttributes.totalCount && props.paginationAttributes.totalCount <= tableData.value.length) {
     return false
   }
 
@@ -936,16 +937,8 @@ const getRowLinkAttrs = (row: Record<string, any>, columnKey: string): Record<st
   }
 }
 
-const getInitialPageSize = (): number | null => {
-  if (props.paginationAttributes.initialPageSize) {
-    return props.paginationAttributes.initialPageSize
-  } else if (props.paginationAttributes.pageSizes) {
-    return props.paginationAttributes.pageSizes[0]
-  }
 
-  return null
-}
-const paginationPageSize = ref<number | null>(getInitialPageSize())
+const paginationPageSize = ref<number>(getInitialPageSize(props.tablePreferences, props.paginationAttributes))
 const onPaginationPageSizeChange = (data: PageSizeChangeData): void => {
   paginationPageSize.value = data.pageSize
   emit('page-size-change', data)
