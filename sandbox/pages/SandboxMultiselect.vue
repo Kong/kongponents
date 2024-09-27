@@ -165,13 +165,14 @@
         <KMultiselect
           :items="multiselectItemsUnselected"
           label="I have a placeholder"
-          placeholder="Placeholder"
+          placeholder="Trigger element placeholder"
+          search-placeholder="Search placeholder"
         />
         <KMultiselect
           collapsed-context
           :items="multiselectItemsUnselected"
-          label="I have a placeholder"
-          placeholder="Placeholder"
+          label="I have a placeholder (collapsedContext)"
+          search-placeholder="Search placeholder"
         />
       </SandboxSectionComponent>
 
