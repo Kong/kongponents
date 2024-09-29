@@ -1,5 +1,7 @@
 import type { TablePreferences, TablePaginationAttributes } from '@/types'
 
+export const DEFAULT_PAGE_SIZE = 15
+
 /**
  * @description Get the initial page size for the table
  * @param {TablePreferences} tablePreferences
@@ -15,5 +17,5 @@ export const getInitialPageSize = (tablePreferences: TablePreferences, paginatio
     return paginationAttributes.pageSizes[0]
   }
 
-  return 15 // default page size
+  return DEFAULT_PAGE_SIZE
 }

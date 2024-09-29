@@ -176,7 +176,7 @@ import type {
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
 import useUniqueId from '@/composables/useUniqueId'
-import { getInitialPageSize } from '@/utilities'
+import { getInitialPageSize, DEFAULT_PAGE_SIZE } from '@/utilities'
 
 const props = withDefaults(defineProps<TableDataProps>(), {
   resizeColumns: false,
@@ -492,13 +492,16 @@ const showPagination = computed((): boolean => {
     return false
   }
 
+  const minPageSize = props.paginationAttributes?.pageSizes?.[0] ?? DEFAULT_PAGE_SIZE
+
+  // this logic is built around min page size so that pagination doesn't disappear when a higher value is selected and hidePaginationWhenOptional is true
   if (props.hidePaginationWhenOptional && page.value === 1) {
     if (!props.paginationAttributes?.offset) {
-      // if using cursor-based pagination, hide pagination when number of items is less than pageSize
-      return total.value > pageSize.value
+      // if using cursor-based pagination, hide pagination when number of items is less than min page size
+      return total.value > minPageSize
     } else {
-      // if using offset-based pagination, hide pagination when neither previous nor next offset is available and total items is less than min pageSize
-      return !!previousOffset.value || !!nextOffset.value || tableData.value.length >= (tablePaginationAttributes.value.pageSizes?.[0] ?? 15)
+      // if using offset-based pagination, hide pagination when neither previous nor next offset is available and total items is less than min page size
+      return !!previousOffset.value || !!nextOffset.value || tableData.value.length >= minPageSize
     }
   }
 
