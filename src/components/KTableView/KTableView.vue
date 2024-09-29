@@ -272,7 +272,7 @@
                       :text="getRowBulkActionEnabled(row) ? undefined : getRowBulkActionTooltip(row)"
                     >
                       <KCheckbox
-                        v-model="row.selected"
+                        v-model="row.bulkActionsSelected"
                         aria-label="Toggle row selection"
                         class="bulk-actions-checkbox"
                         data-testid="bulk-actions-checkbox"
@@ -501,7 +501,7 @@ const tableWrapperStyles = computed((): Record<string, string> => ({
   maxHeight: getSizeFromString(props.maxHeight),
 }))
 
-const tableData = ref<TableViewData>([...props.data].map((row) => ({ ...row, selected: false })))
+const tableData = ref<TableViewData>([...props.data].map((row) => ({ ...row, bulkActionsSelected: false })))
 const bulkActionsSelectedRows = ref<TableViewData>([])
 const hasBulkActions = computed((): boolean => !props.nested && !props.error && tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']))
 const showBulkActionsToolbar = computed((): boolean => {
@@ -1060,16 +1060,16 @@ const isBulkActionsIndeterminate = computed((): boolean => {
   const selectableRows = tableData.value.filter((row) => getRowBulkActionEnabled(row))
 
   // it is indeterminate if there are selected and unselected rows
-  return !!selectableRows.filter((row) => row.selected).length && !!selectableRows.filter((row) => !row.selected).length
+  return !!selectableRows.filter((row) => row.bulkActionsSelected).length && !!selectableRows.filter((row) => !row.bulkActionsSelected).length
 })
 
 const handleIndeterminateChange = (value: boolean) => {
   if (value) {
     // select all selectable rows
-    tableData.value = [...tableData.value].map((row) => ({ ...row, selected: getRowBulkActionEnabled(row) }))
+    tableData.value = [...tableData.value].map((row) => ({ ...row, bulkActionsSelected: getRowBulkActionEnabled(row) }))
   } else {
     // unselect and reset all
-    tableData.value = [...props.data].map((row) => ({ ...row, selected: false }))
+    tableData.value = [...props.data].map((row) => ({ ...row, bulkActionsSelected: false }))
   }
 }
 
@@ -1079,10 +1079,10 @@ watch(tableData, (newVal) => {
   const selectableRows = newVal.filter((row) => getRowBulkActionEnabled(row))
 
   // all are selected
-  if (selectableRows.filter((row) => row.selected).length === selectableRows.length) {
+  if (selectableRows.filter((row) => row.bulkActionsSelected).length === selectableRows.length) {
     bulkActionsAll.value = true
   // all are unselected
-  } else if (selectableRows.filter((row) => !row.selected).length === selectableRows.length) {
+  } else if (selectableRows.filter((row) => !row.bulkActionsSelected).length === selectableRows.length) {
     bulkActionsAll.value = false
   // some are selected
   } else {
@@ -1092,7 +1092,7 @@ watch(tableData, (newVal) => {
   /** update the selected rows */
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const newSelectedRows = newVal.filter((row) => row.selected).map(({ selected, ...rest }) => rest)
+  const newSelectedRows = newVal.filter((row) => row.bulkActionsSelected).map(({ bulkActionsSelected, ...rest }) => rest)
 
   const oldSelectedRows: TableViewData = []
   bulkActionsSelectedRows.value.forEach((selectedRow) => {
@@ -1117,9 +1117,9 @@ watch(() => props.data, (newVal) => {
     const selectedRow = bulkActionsSelectedRows.value.find((selectedRow) => JSON.stringify(selectedRow) === JSON.stringify(row))
 
     if (selectedRow) {
-      tableData.value.push({ ...row, selected: true })
+      tableData.value.push({ ...row, bulkActionsSelected: true })
     } else {
-      tableData.value.push({ ...row, selected: false })
+      tableData.value.push({ ...row, bulkActionsSelected: false })
     }
   })
 
