@@ -497,8 +497,8 @@ const showPagination = computed((): boolean => {
       // if using cursor-based pagination, hide pagination when number of items is less than pageSize
       return total.value > pageSize.value
     } else {
-      // if using offset-based pagination, hide pagination when neither previous nor next offset is available and total items is less than pageSize
-      return !!previousOffset.value || !!nextOffset.value || tableData.value.length >= pageSize.value
+      // if using offset-based pagination, hide pagination when neither previous nor next offset is available and total items is less than min pageSize
+      return !!previousOffset.value || !!nextOffset.value || tableData.value.length >= (tablePaginationAttributes.value.pageSizes?.[0] ?? 15)
     }
   }
 
