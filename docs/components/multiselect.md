@@ -539,6 +539,55 @@ const debouncedHandler = debounce(function (val) {
 </script>
 ```
 
+### placeholder
+
+Text to be displayed inside of the dropdown trigger element (only applies when [`collapsedContext` prop](#collapsedcontext) is `false`). See [`searchPlaceholder` prop](#searchplaceholder) if you want to set a placeholder in the dropdown search input.
+
+<KMultiselect
+  placeholder="Select one or more items"
+  :items="deepClone(defaultItemsUnselect)"
+/>
+
+```html
+<KMultiselect
+  placeholder="Select one or more items"
+  :items="items"
+/>
+```
+
+### searchPlaceholder
+
+Search input placeholder (when [`collapsedContext` prop](#collapsedcontext) is `false`, acts as placeholder in dropdown input).
+
+<div class="vertical-container">
+  <KMultiselect
+    label="Multiselect with a placeholder"
+    search-placeholder="Search"
+    :items="deepClone(defaultItemsUnselect)"
+  />
+
+  <KMultiselect
+    label="Multiselect with a placeholder (collapsedContext)"
+    collapsed-context
+    search-placeholder="Search"
+    :items="deepClone(defaultItemsUnselect)"
+  />
+</div>
+
+```html
+<KMultiselect
+  search-placeholder="Search"
+  label="Multiselect with a placeholder"
+  :items="items"
+/>
+<KMultiselect
+  search-placeholder="Search"
+  collapsed-context
+  label="Multiselect with a placeholder (collapsedContext)"
+  :items="items"
+/>
+```
+
 ## Attribute Binding
 
 You can pass any input attribute and it will get properly bound to the element.
@@ -1104,5 +1153,11 @@ export default defineComponent({
   .item-description {
     color: $kui-color-text-neutral;
   }
+}
+
+.vertical-container {
+  display: flex;
+  flex-direction: column;
+  gap: $kui-space-50;
 }
 </style>
