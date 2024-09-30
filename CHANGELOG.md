@@ -1,3 +1,10 @@
+# [9.9.0](https://github.com/Kong/kongponents/compare/v9.8.4...v9.9.0) (2024-09-30)
+
+
+### Features
+
+* **kmultiselect:** add search-placeholder prop [KHCP-13352] ([#2419](https://github.com/Kong/kongponents/issues/2419)) ([4062052](https://github.com/Kong/kongponents/commit/4062052e302b581ece97a04eaea6a2c930efc2dc))
+
 ## [9.8.4](https://github.com/Kong/kongponents/compare/v9.8.3...v9.8.4) (2024-09-30)
 
 
