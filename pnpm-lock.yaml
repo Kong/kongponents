@@ -15,8 +15,8 @@ importers:
         specifier: ^1.1.5
         version: 1.1.5(vue@3.5.8(typescript@5.6.2))
       '@kong/icons':
-        specifier: ^1.18.0
-        version: 1.18.0(vue@3.5.8(typescript@5.6.2))
+        specifier: ^1.18.1
+        version: 1.18.1(vue@3.5.8(typescript@5.6.2))
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
@@ -876,8 +876,8 @@ packages:
     peerDependencies:
       eslint: '>= 9.4.0'
 
-  '@kong/icons@1.18.0':
-    resolution: {integrity: sha512-wjQTeo0gRLj87CFrea3YBePK1TQQKeQdSc/yLb7IdK9ng4pXunqhJq7w7nU43YrHKnbw+YZ+s/id+wSgdE3fQA==}
+  '@kong/icons@1.18.1':
+    resolution: {integrity: sha512-1dQvgKYSS7phg8FiaEyizmy2vk2L412yzRT7FHUuLLtVr4yEAjbYsVgNeD2zHoWQCO0y/SDGVZoOa2SqP0kQ7g==}
     engines: {node: '>=18.17.0', pnpm: '>=9.7.0'}
     peerDependencies:
       vue: '>= 3.3.4 < 4'
@@ -5503,7 +5503,7 @@ snapshots:
 
   '@kong-ui-public/sandbox-layout@2.1.36(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2))':
     dependencies:
-      '@kong/icons': 1.18.0(vue@3.5.8(typescript@5.6.2))
+      '@kong/icons': 1.18.1(vue@3.5.8(typescript@5.6.2))
       '@kong/kongponents': 9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2))
       vue: 3.5.8(typescript@5.6.2)
 
@@ -5529,14 +5529,14 @@ snapshots:
       - supports-color
       - typescript
 
-  '@kong/icons@1.18.0(vue@3.5.8(typescript@5.6.2))':
+  '@kong/icons@1.18.1(vue@3.5.8(typescript@5.6.2))':
     dependencies:
       vue: 3.5.8(typescript@5.6.2)
 
   '@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2))':
     dependencies:
       '@floating-ui/vue': 1.1.5(vue@3.5.8(typescript@5.6.2))
-      '@kong/icons': 1.18.0(vue@3.5.8(typescript@5.6.2))
+      '@kong/icons': 1.18.1(vue@3.5.8(typescript@5.6.2))
       '@popperjs/core': 2.11.8
       axios: 1.7.7
       date-fns: 2.30.0
