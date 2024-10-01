@@ -1,3 +1,10 @@
+# [9.10.0](https://github.com/Kong/kongponents/compare/v9.9.1...v9.10.0) (2024-10-01)
+
+
+### Features
+
+* **kcatalog:** support offest pagination [KHCP-13325] ([#2424](https://github.com/Kong/kongponents/issues/2424)) ([e00860b](https://github.com/Kong/kongponents/commit/e00860ba035925fc0acfeef586107b3a5b3001e0))
+
 ## [9.9.1](https://github.com/Kong/kongponents/compare/v9.9.0...v9.9.1) (2024-10-01)
 
 
