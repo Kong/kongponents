@@ -291,6 +291,24 @@ describe('KTableView', () => {
       cy.get('th').eq(options.headers.indexOf(options.headers.find((header => header.key === 'actions'))!)).find('.table-header-label').should('have.class', 'sr-only')
     })
 
+    it('bulk actions in not enabled when rowKey prop is not provided', () => {
+      mount(KTableView, {
+        props: {
+          headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
+          data: options.data,
+        },
+        slots: {
+          'bulk-action-items': () => h('span', {}, 'Bulk action'),
+        },
+      })
+
+      cy.getTestId('bulk-actions-dropdown').should('not.exist')
+      cy.getTestId('table-header-bulk-actions-checkbox').should('not.exist')
+      cy.get('th').eq(0).findTestId('table-header-bulk-actions-checkbox').should('not.exist')
+      cy.getTestId('bulk-actions-checkbox').should('have.length', 0)
+    })
+
+
     it('displays bulk actions column and dropdown when bulkActions key is provided', () => {
       mount(KTableView, {
         props: {
