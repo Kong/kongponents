@@ -296,6 +296,7 @@ describe('KTableView', () => {
         props: {
           headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
           data: options.data,
+          rowKey: 'id',
         },
         slots: {
           'bulk-action-items': () => h('span', {}, 'Bulk action'),
@@ -315,6 +316,7 @@ describe('KTableView', () => {
         props: {
           headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
           data: options.data,
+          rowKey: 'id',
         },
         slots: {
           'bulk-actions': () => h('span', {}, 'Bulk action'),
@@ -332,8 +334,8 @@ describe('KTableView', () => {
         cy.getTestId('bulk-actions-checkbox').eq(2).should('be.checked')
         cy.getTestId('indeterminate-icon').should('not.exist')
 
-        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'row-select').and('have.length', 3)
-        cy.wrap(Cypress.vueWrapper.emitted('row-select')?.[2][0]).should('have.length', options.data.length)
+        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'row-select').and('have.length', 4)
+        cy.wrap(Cypress.vueWrapper.emitted('row-select')?.[3][0]).should('have.length', options.data.length)
       })
     })
 
@@ -349,6 +351,7 @@ describe('KTableView', () => {
 
             return true
           },
+          rowKey: 'id',
         },
         slots: {
           'bulk-actions': () => h('span', {}, 'Bulk action'),
@@ -550,6 +553,7 @@ describe('KTableView', () => {
           data: options.data,
           resizeColumns: true,
           nested: true,
+          rowKey: 'id',
         },
         slots: {
           'bulk-action-items': () => h('span', {}, 'Bulk action'),
