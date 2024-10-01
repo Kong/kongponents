@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.9.0",
+  "version": "9.9.1",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "@floating-ui/vue": "^1.1.5",
-    "@kong/icons": "^1.18.0",
+    "@kong/icons": "^1.18.1",
     "@popperjs/core": "^2.11.8",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.1",
@@ -79,7 +79,7 @@
     "@cypress/vite-dev-server": "^5.2.0",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@evilmartians/lefthook": "^1.7.15",
-    "@kong-ui-public/sandbox-layout": "^2.1.36",
+    "@kong-ui-public/sandbox-layout": "^2.1.38",
     "@kong/design-tokens": "^1.17.2",
     "@kong/eslint-config-kong-ui": "^1.1.1",
     "@semantic-release/changelog": "^6.0.3",
@@ -91,7 +91,7 @@
     "@vitejs/plugin-vue": "^5.1.4",
     "@vue/compiler-core": "^3.5.6",
     "@vue/tsconfig": "^0.5.1",
-    "@vueuse/core": "^11.0.3",
+    "@vueuse/core": "^11.1.0",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.7",
     "boxen": "^8.0.1",
@@ -111,7 +111,7 @@
     "postcss-html": "^1.7.0",
     "rimraf": "^6.0.1",
     "rollup-plugin-visualizer": "^5.12.0",
-    "sass": "^1.78.0",
+    "sass": "^1.79.1",
     "semantic-release": "^24.1.1",
     "shx": "^0.3.4",
     "stylelint": "^16.9.0",
