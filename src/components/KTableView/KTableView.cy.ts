@@ -314,7 +314,7 @@ describe('KTableView', () => {
         props: {
           headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
           data: options.data,
-          rowKey: 'id',
+          rowKey: ({ id }: Record<string, any>) => `row-${id}-key`,
         },
         slots: {
           'bulk-action-items': () => h('span', {}, 'Bulk action'),
