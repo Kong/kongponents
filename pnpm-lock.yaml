@@ -70,8 +70,8 @@ importers:
         specifier: ^1.7.15
         version: 1.7.15
       '@kong-ui-public/sandbox-layout':
-        specifier: ^2.1.36
-        version: 2.1.36(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2))
+        specifier: ^2.1.38
+        version: 2.1.38(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2))
       '@kong/design-tokens':
         specifier: ^1.17.2
         version: 1.17.2
@@ -860,10 +860,10 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@kong-ui-public/sandbox-layout@2.1.36':
-    resolution: {integrity: sha512-s6AogAAIO85h0PWK4Xz2m7Ckt8wrIlonfWGwspqVlT7VlFSFFA0ybKP3f0Qqbph9qibeYnrBHjdE5kW+HEzY7Q==}
+  '@kong-ui-public/sandbox-layout@2.1.38':
+    resolution: {integrity: sha512-c/1aiFw+TNjxhkVwa3ugyowFSUiSx0McX3yNDXYKGSgTdqWFROnFFhlBMs3QHZbcdjBmvvJSsTMt6g8TuyLI/g==}
     peerDependencies:
-      '@kong/kongponents': ^9.8.3
+      '@kong/kongponents': ^9.9.1
       vue: '>= 3.3.13 < 4'
 
   '@kong/design-tokens@1.17.2':
@@ -982,8 +982,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.22.5':
-    resolution: {integrity: sha512-42RTxk/g1NFaTRT7yo9T0K1OeJPS7xXAWQdUaajjmPPzZmfWjcms+tns8IQkwSlVrBB3EvE2y/FGwGwHmFAqEg==}
+  '@rollup/wasm-node@4.23.0':
+    resolution: {integrity: sha512-jEeXqGlX+FpWml3/A15rv1mgNqhY5dyvtX8U5w2ff0p5PkxIjU1Y/GABHEjkoE7EF29ayGBtKR6kUZ+JELtjyg==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -5501,7 +5501,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@kong-ui-public/sandbox-layout@2.1.36(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2))':
+  '@kong-ui-public/sandbox-layout@2.1.38(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2))':
     dependencies:
       '@kong/icons': 1.18.1(vue@3.5.8(typescript@5.6.2))
       '@kong/kongponents': 9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.8(typescript@5.6.2)))(vue@3.5.8(typescript@5.6.2))
@@ -5648,7 +5648,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@rollup/wasm-node@4.22.5':
+  '@rollup/wasm-node@4.23.0':
     dependencies:
       '@types/estree': 1.0.6
     optionalDependencies:
@@ -9486,7 +9486,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
-      rollup: '@rollup/wasm-node@4.22.5'
+      rollup: '@rollup/wasm-node@4.23.0'
     optionalDependencies:
       '@types/node': 20.16.5
       fsevents: 2.3.3
