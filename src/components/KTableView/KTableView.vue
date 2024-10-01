@@ -131,7 +131,7 @@
             >
               <th
                 v-for="(column, index) in visibleHeaders"
-                :key="`table-${tableId}-headers-${index}`"
+                :key="`table-${tableId}-headers-${column.key}`"
                 :aria-sort="column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
                 class="table-headers"
                 :class="getHeaderClasses(column, index)"
@@ -230,7 +230,7 @@
           <tbody>
             <template
               v-for="(row, rowIndex) in data"
-              :key="`table-${tableId}-row-${rowIndex}`"
+              :key="`table-${tableId}-row-${getRowKey(row) ?? useUniqueId()}`"
             >
               <tr
                 :class="{ 'last-row': rowIndex === data.length - 1 && !expandedRows.includes(rowIndex) }"
@@ -240,7 +240,7 @@
               >
                 <td
                   v-for="(header, index) in visibleHeaders"
-                  :key="`table-${tableId}-cell-${index}`"
+                  :key="`table-${tableId}-cell-${header.key}-${useUniqueId()}`"
                   :class="{
                     'resize-hover': resizeColumns && !nested && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
                     'row-link': !!rowLink(row).to,
