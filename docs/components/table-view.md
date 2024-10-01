@@ -51,12 +51,26 @@ For an example of `headers` prop usage please refer to [`data` prop documentatio
 
 #### Reserved Header Keys
 
-- `bulkActions` - the column displays individual checkboxes to allow selecting individual rows, while the column header displays a checkbox will check or uncheck all visible table rows. KTableView will render a dropdown on the right of the table toolbar directly above the table and you simply need to provide dropdown items via the [`bulk-action-items` slot](#bulk-action-items). Refer to the [`bulk-action-items` slot](#bulk-action-items) for the example.
-- `actions` - the column displays an actions [KDropdown](/components/dropdown) button for each row and displays no label (as if `hideLabel` was `true`; you can set `hideLabel` parameter to `false` to show the label). KTableView will automatically render the actions dropdown and you simply need to provide dropdown items via the [`action-items` slot](#action-items).
+Some header key values are treated specially.
+
+##### bulkActions
+
+The column displays individual checkboxes to allow selecting individual rows, while the column header displays a checkbox will check or uncheck all visible table rows. KTableView will render a dropdown on the right of the table toolbar directly above the table and you simply need to provide dropdown items via the [`bulk-action-items` slot](#bulk-action-items). Refer to the [`bulk-action-items` slot](#bulk-action-items) for the example.
+
+:::warning IMPORTANT
+Bulk actions column won't be rendered in case if:
+
+- neither [`bulk-action-items`](#bulk-action-items), nor [`bulk-actions`](#bulk-actions) slots are provided
+- [`rowKey` prop](#rowkey) prop is not provided
+:::
+
+##### actions
+
+The column displays an actions [KDropdown](/components/dropdown) button for each row and displays no label (as if `hideLabel` was `true`; you can set `hideLabel` parameter to `false` to show the label). KTableView will automatically render the actions dropdown and you simply need to provide dropdown items via the [`action-items` slot](#action-items).
 
 :::tip NOTE
 KTableView automatically displays the bulk action checkbox as the first column, and the `actions` menu in the last column, when enabled.
-::: 
+:::
 
 ### data
 
@@ -352,6 +366,30 @@ const getRowLink = (row: Record<string, any>): RowLink => ({
 </script>
 ```
 
+### rowKey
+
+Certain features of KTableView, such as bulk actions, require a unique identifier for each row of table data. The `rowKey` prop provides a way to define which property of the row object should serve as this unique identifier or to generate a custom unique value for each row. This prop accepts either a string or a function: `string | ((row: Record<string, any>) => string)`.
+
+If a string is provided, the value of `row[rowKey]` is used as the unique identifier.
+
+```html
+<KTableView
+  row-key="id"
+  :data="tableData"
+  :headers="headers"
+/>
+```
+
+Alternatively, if a function is passed, it allows for the creation of a custom identifier based on the row data passed to the function.
+
+```html
+<KTableView
+  :row-key="({ id, username }: Record<string, any>) => username + id"
+  :data="tableData"
+  :headers="headers"
+/>
+```
+
 ### rowBulkActionEnabled
 
 Function for enabling or disabling row selection when `bulkActions` are enabled for the table. Helpful for making some rows unavailable for bulk actions selection. The function receives the row data object as a parameter and must return a `boolean` or an object that matches the following interface:
@@ -370,6 +408,7 @@ Default value is `() => true`.
 
 <KTableView
   :row-bulk-action-enabled="getRowBulkAction"
+  row-key="id"
   :data="basicData"
   :headers="basicHeaders(false, null, null, true)"
   :pagination-attributes="{ totalCount: basicData.length }"
@@ -385,6 +424,7 @@ Default value is `() => true`.
 <template>
   <KTableView
     :row-bulk-action-enabled="getRowBulkActionEnabled"
+    row-key="id"
     :data="tableData"
     :headers="headers"
     :pagination-attributes="{ totalCount: tableData.length }"
@@ -1002,10 +1042,6 @@ This slot is only available when the `actions` header key is present in [`header
 
 Slot for passing bulk action dropdown items.
 
-:::warning IMPORTANT
-Content must be provided through either this or [`bulk-actions` slot](#bulk-actions) when bulk actions is enabled for the table, otherwise bulk actions column won't be rendered.
-:::
-
 Slot props:
 
 - `selectedRows` - array of selected table row objects
@@ -1015,6 +1051,7 @@ See also: [`row-select` event](#row-select).
 <KTableView
   :data="paginatedData1"
   :headers="basicHeaders(false, null, null, true)"
+  row-key="id"
   :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
   @page-change="onPageChange1"
   @page-size-change="onPageSizeChange1"
@@ -1031,6 +1068,7 @@ See also: [`row-select` event](#row-select).
   <KTableView
     :data="paginatedData"
     :headers="headers"
+    row-key="id"
     :pagination-attributes="{ totalCount: tableData.length, pageSizes: [5, 10] }"
   >
     <template #bulk-action-items="{ selectedRows }">
@@ -1068,6 +1106,7 @@ Slot props:
 <KTableView
   :data="basicData"
   :headers="basicHeaders(false, null, null, true)"
+  row-key="id"
   :pagination-attributes="{ totalCount: basicData.length }"
 >
   <template #bulk-actions="{ selectedRows }">
@@ -1084,6 +1123,7 @@ Slot props:
 <KTableView
   :data="tableData"
   :headers="headers"
+  row-key="id"
   :pagination-attributes="{ totalCount: tableData.length }"
 >
   <template #bulk-actions="{ selectedRows }">
