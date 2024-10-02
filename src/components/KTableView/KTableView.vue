@@ -617,11 +617,15 @@ const tableId = useUniqueId()
 const { getSizeFromString } = useUtilities()
 
 const getRowKey = (row: Record<string, any>): string => {
-  if (typeof props.rowKey === 'function') {
+  if (typeof props.rowKey === 'function' && typeof props.rowKey(row) === 'string') {
     return props.rowKey(row)
   }
 
-  return row[props.rowKey] ? String(row[props.rowKey]) : ''
+  if (typeof props.rowKey === 'string' && !!(props.rowKey in row) && typeof row[props.rowKey] === 'string') {
+    return row[props.rowKey]
+  }
+
+  return ''
 }
 
 const headerRow = ref<HTMLDivElement>()
@@ -668,7 +672,7 @@ const tableWrapperStyles = computed((): Record<string, string> => ({
 }))
 
 const bulkActionsSelectedRows = ref<TableViewData>([])
-const hasBulkActions = computed((): boolean => !!props.rowKey && !props.nested && !props.error && tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']))
+const hasBulkActions = computed((): boolean => !props.nested && !props.error && tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']) && !!props.data.every((row) => getRowKey(row)))
 const dataSelectState = ref<DataSelectState[]>([])
 const showBulkActionsToolbar = computed((): boolean => {
   if (props.nested || !hasBulkActions.value || props.error) {

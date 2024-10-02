@@ -251,7 +251,7 @@
           :data="paginatedData"
           :headers="headers(false, false, true)"
           :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
-          row-key="id"
+          :row-key="({ id }: Record<string, any>) => String(id)"
           @page-change="onPageChange"
         >
           <template #bulk-actions="{ selectedRows }">

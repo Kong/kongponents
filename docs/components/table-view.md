@@ -43,11 +43,48 @@ interface TableViewHeader {
 }
 ```
 
+<KTableView
+  :data="basicData"
+  :headers="basicHeaders(false, null, 'email')"
+  :pagination-attributes="{ totalCount: basicData.length }"
+/>
+
+```vue
+<template>
+  <KTableView
+    :data="tableData"
+    :headers="headers"
+    :pagination-attributes="{ totalCount: tableData.length }"
+  />
+</template>
+
+<script setup lang="ts">
+import type { TableViewHeader, TableViewData } from '@kong/kongponents'
+
+const headers: Array<TableViewHeader> = [
+  {
+    key: 'name', 
+    label: 'Full Name', 
+  },
+  {
+    key: 'username',
+    label: 'Username',
+    tooltip: 'Unique for each user.',
+  },
+  {
+    key: 'email',
+    label: 'Email',
+    hidable: true,
+  },
+]
+
+const tableData = ref<TableViewData>([...])
+</script>
+```
+
 :::tip NOTE
 If at least one column is `hidable` in the table, KTableView will render a dropdown on the right of the table toolbar directly above the table, which will provide an interface for showing/hiding columns to the user.
 :::
-
-For an example of `headers` prop usage please refer to [`data` prop documentation](#data) below.
 
 #### Reserved Header Keys
 
@@ -55,7 +92,7 @@ Some header key values are treated specially.
 
 ##### bulkActions
 
-The column displays individual checkboxes to allow selecting individual rows, while the column header displays a checkbox will check or uncheck all visible table rows. KTableView will render a dropdown on the right of the table toolbar directly above the table and you simply need to provide dropdown items via the [`bulk-action-items` slot](#bulk-action-items). Refer to the [`bulk-action-items` slot](#bulk-action-items) for the example.
+The column displays individual checkboxes to allow selecting individual rows, while the column header displays a checkbox will check or uncheck all visible table rows. KTableView will render a dropdown on the right of the table toolbar directly above the table and you simply need to provide dropdown items via the [`bulk-action-items` slot](#bulk-action-items).
 
 :::warning IMPORTANT
 Bulk actions column won't be rendered in case if:
@@ -64,6 +101,50 @@ Bulk actions column won't be rendered in case if:
 - [`rowKey` prop](#rowkey) prop is not provided
 :::
 
+<KTableView
+  :data="basicData"
+  :headers="basicHeaders(false, null, null, true)"
+  :row-key="({ id }: Record<string, any>) => String(id)"
+  :pagination-attributes="{ totalCount: basicData.length }"
+>
+  <template #bulk-action-items="{ selectedRows }">
+    <KDropdownItem danger>
+      Delete ({{ selectedRows.length }} items)
+    </KDropdownItem>
+  </template>
+</KTableView>
+
+```vue
+<template>
+  <KTableView
+    :data="tableData"
+    :headers="headers"
+    row-key="id"
+    :pagination-attributes="{ totalCount: tableData.length }"
+  >
+    <template #bulk-action-items="{ selectedRows }">
+      <KDropdownItem danger>
+        Delete ({{ selectedRows.length }} items)
+      </KDropdownItem>
+    </template>
+  </KTableView>
+</template>
+
+<script setup lang="ts">
+import type { TableViewHeader, TableViewData } from '@kong/kongponents'
+
+const headers: Array<TableViewHeader> = [
+  {
+    key: 'bulkActions', 
+    label: 'Bulk actions', 
+  },
+  ...
+]
+
+const tableData = ref<TableViewData>([ ... ])
+</script>
+```
+
 ##### actions
 
 The column displays an actions [KDropdown](/components/dropdown) button for each row and displays no label (as if `hideLabel` was `true`; you can set `hideLabel` parameter to `false` to show the label). KTableView will automatically render the actions dropdown and you simply need to provide dropdown items via the [`action-items` slot](#action-items).
@@ -71,6 +152,60 @@ The column displays an actions [KDropdown](/components/dropdown) button for each
 :::tip NOTE
 KTableView automatically displays the bulk action checkbox as the first column, and the `actions` menu in the last column, when enabled.
 :::
+
+<KTableView
+  :data="basicData"
+  :headers="basicHeaders(true)"
+  :pagination-attributes="{ totalCount: basicData.length }"
+>
+  <template #action-items>
+    <KDropdownItem>
+      Edit
+    </KDropdownItem>
+    <KDropdownItem
+      danger
+      has-divider
+    >
+      Delete
+    </KDropdownItem>
+  </template>
+</KTableView>
+
+```vue
+<template>
+  <KTableView
+    :data="tableData"
+    :headers="headers"
+    :pagination-attributes="{ totalCount: tableData.length }"
+  >
+    <template #action-items>
+      <KDropdownItem>
+        Edit
+      </KDropdownItem>
+      <KDropdownItem
+        danger
+        has-divider
+      >
+        Delete
+      </KDropdownItem>
+    </template>
+  </KTableView>
+</template>
+
+<script setup lang="ts">
+import type { TableViewHeader, TableViewData } from '@kong/kongponents'
+
+const headers: Array<TableViewHeader> = [
+  {
+    key: 'actions',
+    label: 'Row actions',
+  },
+  ...
+]
+
+const tableData = ref<TableViewData>([...])
+</script>
+```
 
 ### data
 
@@ -368,9 +503,19 @@ const getRowLink = (row: Record<string, any>): RowLink => ({
 
 ### rowKey
 
-Certain features of KTableView, such as bulk actions, require a unique identifier for each row of table data. The `rowKey` prop provides a way to define which property of the row object should serve as this unique identifier or to generate a custom unique value for each row. This prop accepts either a string or a function: `string | ((row: Record<string, any>) => string)`.
+Certain features of KTableView require a unique identifier to utilize for each row of table data.
 
-If a string is provided, the value of `row[rowKey]` is used as the unique identifier.
+The `rowKey` prop provides a way to define which property of the `row` object should serve as this unique identifier, or to generate a custom unique identifier for each row.
+
+:::tip NOTE
+`rowKey` is required for these KTableView features:
+
+* [bulk actions](#bulkactions)
+:::
+
+The `rowKey` prop accepts either a unique string or a function that returns a unique string: `string | ((row: Record<string, any>) => string)`.
+
+If a string is provided which corresponds to a property of the `row`, the unique identifier will utilize the `row[rowKey]` as the unique identifier.
 
 ```html
 <KTableView
@@ -390,6 +535,10 @@ Alternatively, if a function is passed, it allows for the creation of a custom i
 />
 ```
 
+:::warning IMPORTANT
+The value provided through the `rowKey` prop must be unique for each `row` of data, even for paginated data.
+:::
+
 ### rowBulkActionEnabled
 
 Function for enabling or disabling row selection when `bulkActions` are enabled for the table. Helpful for making some rows unavailable for bulk actions selection. The function receives the row data object as a parameter and must return a `boolean` or an object that matches the following interface:
@@ -408,7 +557,7 @@ Default value is `() => true`.
 
 <KTableView
   :row-bulk-action-enabled="getRowBulkAction"
-  row-key="id"
+  :row-key="({ id }: Record<string, any>) => String(id)"
   :data="basicData"
   :headers="basicHeaders(false, null, null, true)"
   :pagination-attributes="{ totalCount: basicData.length }"
@@ -1051,7 +1200,7 @@ See also: [`row-select` event](#row-select).
 <KTableView
   :data="paginatedData1"
   :headers="basicHeaders(false, null, null, true)"
-  row-key="id"
+  :row-key="({ id }: Record<string, any>) => String(id)"
   :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
   @page-change="onPageChange1"
   @page-size-change="onPageSizeChange1"
@@ -1106,7 +1255,7 @@ Slot props:
 <KTableView
   :data="basicData"
   :headers="basicHeaders(false, null, null, true)"
-  row-key="id"
+  :row-key="({ id }: Record<string, any>) => String(id)"
   :pagination-attributes="{ totalCount: basicData.length }"
 >
   <template #bulk-actions="{ selectedRows }">
