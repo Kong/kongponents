@@ -168,12 +168,14 @@
                   type="text"
                   @click.stop
                   @focus="triggerInitialFocus"
+                  @keyup="onDropdownInputKeyup"
                   @keyup.enter.stop
                   @update:model-value="onQueryChange"
                 />
               </div>
               <div aria-live="polite">
                 <KMultiselectItems
+                  ref="kMultiselectItems"
                   :items="sortedItems"
                   @selected="handleItemSelect"
                 >
@@ -452,6 +454,8 @@ const emit = defineEmits<{
   (e: 'item-added', value: MultiselectItem): void
   (e: 'item-removed', value: MultiselectItem): void
 }>()
+
+const kMultiselectItems = ref<InstanceType<typeof KMultiselectItems> | null>(null)
 
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
@@ -826,12 +830,16 @@ const handleAddItem = (): void => {
   filterString.value = ''
 }
 
-// sort dropdown items. Selected items displayed before unselected items
+// Sort items. Non-grouped items are displayed first, then grouped items.
+// Within non-grouped and grouped items, selected items are displayed first.
 const sortItems = () => {
-  const selItems = filteredItems.value.filter((item: MultiselectItem) => item.selected)
-  const unselItems = filteredItems.value.filter((item: MultiselectItem) => !item.selected)
+  const selectedItems = filteredItems.value.filter((item: MultiselectItem) => item.selected)
+  const unselectedItems = filteredItems.value.filter((item: MultiselectItem) => !item.selected)
+  const allItems = [...selectedItems, ...unselectedItems]
+  const ungroupedItems = allItems.filter(item => !item.group)
+  const groupedItems = allItems.filter(item => item.group).sort((a, b) => a.group.toLowerCase().localeCompare(b.group.toLowerCase()))
 
-  sortedItems.value = selItems.concat(unselItems)
+  sortedItems.value = [...ungroupedItems, ...groupedItems]
 }
 
 const clearSelection = (): void => {
@@ -884,6 +892,16 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
   // `esc` key closes
   if (evt.keyCode === 27) {
     isToggled.value = false
+  }
+
+  if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp')) {
+    kMultiselectItems.value?.setFocus()
+  }
+}
+
+const onDropdownInputKeyup = (event: any) => {
+  if ((event.code === 'ArrowDown' || event.code === 'ArrowUp')) {
+    kMultiselectItems.value?.setFocus()
   }
 }
 
@@ -1155,7 +1173,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
       width: 100%;
     }
 
-    &.hovered {
+    &.hovered, &:hover {
       @include inputHover;
     }
 
