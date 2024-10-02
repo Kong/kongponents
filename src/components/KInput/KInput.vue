@@ -35,7 +35,7 @@
         v-bind-once="{ id: inputId, ...(helpText && { 'aria-describedby': helpTextId }) }"
         :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
         class="input"
-        type="text"
+        :type="type"
         v-bind="modifiedAttrs"
         :value="getValue()"
         @input="handleInput"
@@ -126,6 +126,11 @@ const props = defineProps({
 
       return true
     },
+  },
+  type: {
+    type: String,
+    required: false,
+    default: 'text',
   },
 })
 
