@@ -33,9 +33,10 @@
 
       <input
         v-bind-once="{ id: inputId, ...(helpText && { 'aria-describedby': helpTextId }) }"
-        v-bind="modifiedAttrs"
         :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
         class="input"
+        type="text"
+        v-bind="modifiedAttrs"
         :value="getValue()"
         @input="handleInput"
       >
