@@ -4,6 +4,7 @@ KModal is a pop-up modal component with a background overlay.
 
 :::tip NOTE
 If your use-case matches one of the scenarios below, consider using [KPrompt](/components/prompt) instead:
+
 * you need a simple pop-up dialog to ask user to confirm their action
 * the user performed an action and you first require them to provide input text
 * you don't need many customization options for a simple modal with action buttons
@@ -688,26 +689,24 @@ Focus-trap requires at least one tabbable element to be present in modal at all 
 
 <KButton @click="modal22Visible = true">Modal</KButton>
 
-<div class="custom-modal-content">
-  <KModal :visible="modal22Visible" @proceed="closeAllModals">
-    <template #content>
-      <div class="modal-content">
-        <img src="/img/dark-demo.png" alt="Circuit board" />
-        <div class="info-container">
-          <h3>Welcome to Gateway Manager!</h3>
-          <p>Optimize Kong Gateway and Ingress Controller deployments across hybrid, multi-cloud, and Kubernetes environments. Get single-pane management, a 99.99% SLA, and seamless day-2 operations.</p>
-          <KButton @click="closeAllModals">Show me around</KButton>
-        </div>
+<KModal :visible="modal22Visible" @proceed="closeAllModals">
+  <template #content>
+    <div class="custom-modal-content">
+      <img src="/img/dark-demo.png" alt="Circuit board" />
+      <div class="info-container">
+        <h3>Welcome to Gateway Manager!</h3>
+        <p>Optimize Kong Gateway and Ingress Controller deployments across hybrid, multi-cloud, and Kubernetesenvironments. Get single-pane management, a 99.99% SLA, and seamless day-2 operations.</p>
+        <KButton @click="closeAllModals">Show me around</KButton>
       </div>
-    </template>
-  </KModal>
-</div>
+    </div>
+  </template>
+</KModal>
 
 ```vue
 <template>
   <KModal :visible="modalVisible" @proceed="handleModalProceed">
     <template #content>
-      <div class="modal-content">
+      <div class="custom-modal-content">
         <img src="/img/gateway-manager.png" alt="Gateway Manager" />
         <div class="info-container">
           <h3>Welcome to Gateway Manager!</h3>
@@ -724,7 +723,7 @@ const modalVisible = ref<boolean>(false)
 </script>
 
 <style lang="scss" scoped>
-.modal-content {
+.custom-modal-content {
   img {
     border-top-left-radius: $kui-border-radius-40;
     border-top-right-radius: $kui-border-radius-40;
@@ -736,6 +735,10 @@ const modalVisible = ref<boolean>(false)
     gap: $kui-space-60;
     padding: $kui-space-80;
     text-align: center;
+
+    h3, p {
+      margin: 0;
+    }
 
     p {
       color: $kui-color-text-neutral;
@@ -832,26 +835,24 @@ watch(modal17Visible, (newValue) => {
 }
 
 .custom-modal-content {
-  .modal-content {
-    img {
-      border-top-left-radius: $kui-border-radius-40;
-      border-top-right-radius: $kui-border-radius-40;
-    }
+  img {
+    border-top-left-radius: $kui-border-radius-40;
+    border-top-right-radius: $kui-border-radius-40;
+  }
 
-    .info-container {
-      display: flex;
-      flex-direction: column;
-      gap: $kui-space-60;
-      padding: $kui-space-80;
-      text-align: center;
-
-      p {
-        color: $kui-color-text-neutral;
-      }
-    }
+  .info-container {
+    display: flex;
+    flex-direction: column;
+    gap: $kui-space-60;
+    padding: $kui-space-80;
+    text-align: center;
 
     h3, p {
       margin: 0;
+    }
+
+    p {
+      color: $kui-color-text-neutral;
     }
   }
 }
