@@ -554,7 +554,7 @@ const props = defineProps({
     default: () => [],
   },
   /**
-   * A prop to pass row object key to be used as a unique identifier
+   * Provide the name of the data property keyto utilize as a unique identifier, or a function that receives the `row` object as a parameter that generates a unique identifier string for each row.
    */
   rowKey: {
     type: [String, Function] as PropType<string | ((row: Record<string, any>) => string)>,
