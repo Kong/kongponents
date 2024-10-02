@@ -76,3 +76,9 @@ export interface TablePaginationAttributes {
 }
 
 export type RowBulkAction = boolean | { enabled: boolean, disabledTooltip?: string }
+
+export interface DataSelectState {
+  rowKey: string
+  selected: boolean
+  disabled: boolean
+}

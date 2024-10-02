@@ -389,6 +389,7 @@ import type {
   PageChangeData,
   PageSizeChangeData,
   RowBulkAction,
+  DataSelectState,
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
@@ -405,12 +406,6 @@ enum TableViewHeaderKeys {
   EXPANDABLE = 'expandable',
   ACTIONS = 'actions',
   BULK_ACTIONS = 'bulkActions',
-}
-
-interface DataSelectState {
-  rowKey: string
-  selected: boolean
-  disabled: boolean
 }
 
 const props = defineProps({
