@@ -101,6 +101,10 @@
       />
       <SandboxSectionComponent>
         <KInput
+          label="Type"
+          type="password"
+        />
+        <KInput
           label="Placeholder"
           placeholder="This input has a placeholder"
         />
