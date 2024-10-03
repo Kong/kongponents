@@ -39,6 +39,8 @@
             role="listbox"
             :tabindex="isDisabled || isReadonly || collapsedContext ? -1 : 0"
             @click="handleFilterClick"
+            @keydown.enter="onTriggerKeypress"
+            @keydown.space="onTriggerKeypress"
           >
             <div v-if="collapsedContext">
               <KInput
@@ -510,7 +512,7 @@ const uniqueFilterStr = computed((): boolean => {
 
   return true
 })
-const popper = ref(null)
+const popper = ref<InstanceType<typeof KPop> | null>(null)
 
 // A clone of `props.items`, normalized.  May contain additional custom items that have been created.
 const unfilteredItems: Ref<MultiselectItem[]> = ref([])
@@ -897,6 +899,10 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
   if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp')) {
     kMultiselectItems.value?.setFocus()
   }
+}
+
+const onTriggerKeypress = () => {
+  popper.value?.showPopover()
 }
 
 const onDropdownInputKeyup = (event: any) => {
