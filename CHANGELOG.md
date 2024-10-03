@@ -1,3 +1,59 @@
+## [9.10.1](https://github.com/Kong/kongponents/compare/v9.10.0...v9.10.1) (2024-10-03)
+
+
+### Bug Fixes
+
+* **kinput:** default type attribute [KHCP-13525] ([#2434](https://github.com/Kong/kongponents/issues/2434)) ([03892c0](https://github.com/Kong/kongponents/commit/03892c0e06ed0b847e737eb1b34c38f3d537ea81))
+
+# [9.10.0](https://github.com/Kong/kongponents/compare/v9.9.1...v9.10.0) (2024-10-01)
+
+
+### Features
+
+* **kcatalog:** support offest pagination [KHCP-13325] ([#2424](https://github.com/Kong/kongponents/issues/2424)) ([e00860b](https://github.com/Kong/kongponents/commit/e00860ba035925fc0acfeef586107b3a5b3001e0))
+
+## [9.9.1](https://github.com/Kong/kongponents/compare/v9.9.0...v9.9.1) (2024-10-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.18.1 ([#2425](https://github.com/Kong/kongponents/issues/2425)) ([c917dc5](https://github.com/Kong/kongponents/commit/c917dc570b491de897ac0ecd9cc3ba0943f443bb))
+
+# [9.9.0](https://github.com/Kong/kongponents/compare/v9.8.4...v9.9.0) (2024-09-30)
+
+
+### Features
+
+* **kmultiselect:** add search-placeholder prop [KHCP-13352] ([#2419](https://github.com/Kong/kongponents/issues/2419)) ([4062052](https://github.com/Kong/kongponents/commit/4062052e302b581ece97a04eaea6a2c930efc2dc))
+
+## [9.8.4](https://github.com/Kong/kongponents/compare/v9.8.3...v9.8.4) (2024-09-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.18.0 ([#2423](https://github.com/Kong/kongponents/issues/2423)) ([5d8a26d](https://github.com/Kong/kongponents/commit/5d8a26d78f24c290438b3142fcefa612e7c7cfd3))
+
+## [9.8.3](https://github.com/Kong/kongponents/compare/v9.8.2...v9.8.3) (2024-09-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @floating-ui/vue to ^1.1.5 ([#2417](https://github.com/Kong/kongponents/issues/2417)) ([c0929bc](https://github.com/Kong/kongponents/commit/c0929bc8d3b51fedd686c75d84ff6e59767ce7ac))
+
+## [9.8.2](https://github.com/Kong/kongponents/compare/v9.8.1...v9.8.2) (2024-09-25)
+
+
+### Bug Fixes
+
+* **table:** search box for table column hide/show dropdown [khcp-13105] ([#2406](https://github.com/Kong/kongponents/issues/2406)) ([6d8c496](https://github.com/Kong/kongponents/commit/6d8c496b2e275ac7b8276ad337254442022b4c72))
+
+## [9.8.1](https://github.com/Kong/kongponents/compare/v9.8.0...v9.8.1) (2024-09-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.15.2 ([#2411](https://github.com/Kong/kongponents/issues/2411)) ([2456fdd](https://github.com/Kong/kongponents/commit/2456fddd2307b7b4236c8ddd09ac88783e0356dc))
+
 # [9.8.0](https://github.com/Kong/kongponents/compare/v9.7.1...v9.8.0) (2024-09-19)
 
 

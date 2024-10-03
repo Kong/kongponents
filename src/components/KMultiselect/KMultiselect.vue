@@ -50,7 +50,7 @@
                 data-testid="multiselect-input"
                 :disabled="isDisabled"
                 :model-value="filterString"
-                :placeholder="placeholderText"
+                :placeholder="triggerElementText"
                 :readonly="isReadonly ? true : undefined"
                 type="text"
                 @blur="() => isFocused = false"
@@ -70,7 +70,7 @@
               v-else-if="!selectedItems.length"
               class="expanded-selection-empty"
             >
-              {{ selectedItemsText }}
+              {{ triggerElementText }}
             </div>
             <div
               v-else
@@ -164,7 +164,7 @@
                   class="multiselect-dropdown-input"
                   data-testid="multiselect-dropdown-input"
                   :model-value="filterString"
-                  :placeholder="placeholder ? placeholder : 'Filter...'"
+                  :placeholder="searchPlaceholder || DEFAULT_SEARCH_PLACEHOLDER"
                   type="text"
                   @click.stop
                   @focus="triggerInitialFocus"
@@ -322,6 +322,7 @@ const slots = useSlots()
 
 const { getSizeFromString, cloneDeep, stripRequiredLabel } = useUtilities()
 const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 36
+const DEFAULT_SEARCH_PLACEHOLDER = 'Filter...'
 
 const props = defineProps({
   modelValue: {
@@ -345,6 +346,10 @@ const props = defineProps({
     default: () => ({}),
   },
   placeholder: {
+    type: String,
+    default: '',
+  },
+  searchPlaceholder: {
     type: String,
     default: '',
   },
@@ -594,11 +599,15 @@ const numericWidthStyle = computed(() => {
   }
 })
 
-const placeholderText = computed(() => {
-  return selectedItems.value.length ? selectedItemsText.value : props.placeholder || 'Filter...'
-})
+const triggerElementText = computed((): string => {
+  if (selectedItems.value.length === 0) {
+    if (!props.collapsedContext && props.placeholder) {
+      return props.placeholder
+    } else if (props.collapsedContext && props.searchPlaceholder) {
+      return props.searchPlaceholder
+    }
+  }
 
-const selectedItemsText = computed((): string => {
   if (selectedItems.value.length === 1) {
     return `${selectedItems.value.length} item selected`
   }

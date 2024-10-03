@@ -352,26 +352,63 @@ describe('KMultiselect', () => {
       })
   })
 
-  it('only shows placeholder when collapsedContext is true', () => {
+  it('displays placeholder and searchPlaceholder props correctly', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
+    const placeholder = 'Select something'
+    const searchPlaceholder = 'Search here'
 
     mount(KMultiselect, {
       props: {
-        collapsedContext: true,
+        placeholder,
+        searchPlaceholder,
         items: [{
           label: labels[0],
           value: vals[0],
-          selected: true,
         }, {
           label: labels[1],
           value: vals[1],
-          selected: true,
         }],
       },
     })
 
     cy.getTestId('selection-badges-container').should('not.exist')
+    cy.get('.expanded-selection-empty').should('be.visible').should('contain.text', placeholder)
+
+    cy.getTestId('multiselect-trigger').click()
+    cy.getTestId('multiselect-dropdown-input').should('have.attr', 'placeholder', searchPlaceholder)
+
+    cy.get('.multiselect-item').eq(0).click()
+    cy.get('.expanded-selection-empty').should('not.exist')
+    cy.getTestId('selection-badges-container').should('be.visible')
+  })
+
+  it('handles searchPlaceholder prop correctly when collapsedContext is true', () => {
+    const labels = ['Label 1', 'Label 2']
+    const vals = ['label1', 'label2']
+    const searchPlaceholder = 'Search here'
+
+    mount(KMultiselect, {
+      props: {
+        collapsedContext: true,
+        searchPlaceholder,
+        items: [{
+          label: labels[0],
+          value: vals[0],
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }],
+      },
+    })
+
+    cy.getTestId('selection-badges-container').should('not.exist')
+
+    cy.get('.multiselect-trigger input').should('have.attr', 'placeholder', searchPlaceholder)
+
+    cy.getTestId('multiselect-trigger').click()
+    cy.get('.multiselect-item').eq(0).click()
+    cy.get('.multiselect-item').eq(1).click()
 
     cy.get('.multiselect-trigger input').should('have.attr', 'placeholder', '2 items selected')
   })

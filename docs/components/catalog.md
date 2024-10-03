@@ -182,6 +182,7 @@ KCatalog uses KPagination component under the hood and exposes a few props as a 
 * `paginationTotalItems`
 * `paginationNeighbors`
 * `paginationPageSizes`
+* `paginationOffset`
 * `disablePaginationPageJump`
 
 ### disablePagination
