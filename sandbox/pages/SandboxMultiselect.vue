@@ -281,36 +281,44 @@ import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import type { MultiselectItem } from '@/types'
 import { KongIcon } from '@kong/icons'
 
-const multiselectItems: MultiselectItem[] = [{
-  label: 'Service A (long truncated with ellipsis item)',
-  value: 'a',
-  selected: true,
-}, {
-  label: 'Service B',
-  value: 'b',
-}, {
-  label: 'Service F',
-  value: 'f',
-  disabled: true,
-  selected: true,
-}, {
-  label: 'Service A1',
-  value: 'a1',
-  group: 'Series 1',
-}, {
-  label: 'Service B1',
-  value: 'b1',
-  group: 'Series 1',
-  selected: true,
-}, {
-  label: 'Service A2',
-  value: 'a2',
-  group: 'Series 2',
-}, {
-  label: 'Service B2',
-  value: 'b2',
-  group: 'Series 2',
-}]
+const multiselectItems: MultiselectItem[] = [
+  {
+    label: 'Service B2',
+    value: 'b2',
+    group: 'Series 2',
+  },
+  {
+    label: 'Service A (long truncated with ellipsis item)',
+    value: 'a',
+    selected: true,
+  },
+  {
+    label: 'Service B',
+    value: 'b',
+  },
+  {
+    label: 'Service F',
+    value: 'f',
+    disabled: true,
+    selected: true,
+  },
+  {
+    label: 'Service A1',
+    value: 'a1',
+    group: 'Series 1',
+  },
+  {
+    label: 'Service B1',
+    value: 'b1',
+    group: 'Series 1',
+    selected: true,
+  },
+  {
+    label: 'Service A2',
+    value: 'a2',
+    group: 'Series 2',
+  },
+]
 
 const multiselectItemsSelected = JSON.parse(JSON.stringify(multiselectItems)).map((item: MultiselectItem) => {
   item.selected = true
