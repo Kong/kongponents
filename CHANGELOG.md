@@ -1,3 +1,10 @@
+## [9.10.3](https://github.com/Kong/kongponents/compare/v9.10.2...v9.10.3) (2024-10-04)
+
+
+### Bug Fixes
+
+* **kmultiselect:** arrow keys navigation [KHCP-13121] ([#2433](https://github.com/Kong/kongponents/issues/2433)) ([b26825a](https://github.com/Kong/kongponents/commit/b26825ab3f7c7f0afd6aacfc098d8211ddaeca96))
+
 ## [9.10.2](https://github.com/Kong/kongponents/compare/v9.10.1...v9.10.2) (2024-10-04)
 
 
