@@ -1,3 +1,17 @@
+## [9.10.2](https://github.com/Kong/kongponents/compare/v9.10.1...v9.10.2) (2024-10-04)
+
+
+### Bug Fixes
+
+* **kmultiselect:** make sure bound attributes override default ([#2407](https://github.com/Kong/kongponents/issues/2407)) ([06cbcdd](https://github.com/Kong/kongponents/commit/06cbcdd0e6478f6e5e8a75c8c15c4510451aef4a))
+
+## [9.10.1](https://github.com/Kong/kongponents/compare/v9.10.0...v9.10.1) (2024-10-03)
+
+
+### Bug Fixes
+
+* **kinput:** default type attribute [KHCP-13525] ([#2434](https://github.com/Kong/kongponents/issues/2434)) ([03892c0](https://github.com/Kong/kongponents/commit/03892c0e06ed0b847e737eb1b34c38f3d537ea81))
+
 # [9.10.0](https://github.com/Kong/kongponents/compare/v9.9.1...v9.10.0) (2024-10-01)
 
 
