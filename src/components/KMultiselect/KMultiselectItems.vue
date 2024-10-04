@@ -26,7 +26,7 @@
     </span>
     <KMultiselectItem
       v-for="(item, idx) in getGroupItems(group)"
-      :key="`${item.key ? item.key : idx}-item`"
+      :key="`${item.key ? item.key : group + '-' + idx + '-item'}`"
       ref="kMultiselectItem"
       :item="item"
       @arrow-down="() => shiftFocus(item.key, 'down')"
@@ -62,7 +62,7 @@ const emit = defineEmits(['selected'])
 
 const kMultiselectItem = ref<InstanceType<typeof KMultiselectItem>[] | null>(null)
 
-const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => emit('selected', item, isNew)
+const handleItemSelect = (item: MultiselectItem) => emit('selected', item)
 
 const nonGroupedItems = computed((): MultiselectItem[] => props.items?.filter(item => !item.group))
 const groups = computed((): string[] => [...new Set((props.items?.filter(item => item.group))?.map(item => item.group!))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())))

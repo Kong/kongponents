@@ -701,7 +701,6 @@ const handleMultipleItemsSelect = (items: MultiselectItem[]) => {
     const selectedItem = unfilteredItems.value.filter(anItem => anItem.value === itemToSelect.value)?.[0] || null
 
     selectedItem.selected = true
-    selectedItem.key = selectedItem?.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
     // if it isn't already in selectedItems, add it
     if (!selectedItems.value.filter(anItem => anItem.value === selectedItem.value).length) {
       selectedItems.value.push(selectedItem)
@@ -724,7 +723,6 @@ const handleMultipleItemsDeselect = (items: MultiselectItem[], restage = false) 
 
     // deselect item
     itemToDeselect.selected = false
-    itemToDeselect.key = itemToDeselect.key?.replace(/-selected/gi, '')
 
     // if some items are hidden grab the first hidden one and add it into the visible array
     if (invisibleSelectedItemsStaging.value.length) {
@@ -777,7 +775,6 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
     }
     // deselect item
     selectedItem.selected = false
-    selectedItem.key = selectedItem.key?.replace(/-selected/gi, '')
 
     // if some items are hidden grab the first hidden one and add it into the visible array
     if (invisibleSelectedItemsStaging.value.length) {
@@ -795,7 +792,6 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
     }
   } else { // newly selected item
     selectedItem.selected = true
-    selectedItem.key = selectedItem.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
     selectedItems.value.push(selectedItem)
     visibleSelectedItemsStaging.value.push(selectedItem)
     // track it if it's a newly added item
@@ -851,7 +847,6 @@ const clearSelection = (): void => {
     }
 
     anItem.selected = false
-    anItem.key = anItem?.key?.replace(/-selected/gi, '')
 
     if (anItem.custom) {
       // we must emit that we are removing each item before we actually clear them since this is our only reference
@@ -1020,7 +1015,6 @@ watch(() => props.items, (newValue, oldValue) => {
     if (props.modelValue.includes(unfilteredItems.value[i].value) || unfilteredItems.value[i].selected) {
       const selectedItem = unfilteredItems.value[i]
       selectedItem.selected = true
-      selectedItem.key = selectedItem.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
       // if it isn't already in the selectedItems array, add it
       if (!selectedItems.value.filter(anItem => anItem.value === selectedItem.value).length) {
         selectedItems.value.push(selectedItem)
