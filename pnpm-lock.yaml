@@ -136,7 +136,7 @@ importers:
         specifier: 3.3.0
         version: 3.3.0(@types/node@20.16.10)(typescript@5.6.2)
       eslint:
-        specifier: ^9.11.0
+        specifier: ^9.11.1
         version: 9.11.1(jiti@1.21.6)
       inquirer:
         specifier: ^9.3.6
