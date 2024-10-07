@@ -297,34 +297,42 @@ import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { KongIcon } from '@kong/icons'
 import type { SelectItem } from '@/types'
 
-const selectItems: SelectItem[] = [{
-  label: 'Cats',
-  value: 'cats',
-  selected: true,
-}, {
-  label: 'Dogs',
-  value: 'dogs',
-}, {
-  label: 'Bunnies',
-  value: 'bunnies',
-  disabled: true,
-}, {
-  label: 'Duck',
-  value: 'duck',
-  group: 'Birds',
-}, {
-  label: 'Oriole',
-  value: 'oriole',
-  group: 'Birds',
-}, {
-  label: 'Trout',
-  value: 'trout',
-  group: 'Fish',
-}, {
-  label: 'Salmon',
-  value: 'salmon',
-  group: 'Fish',
-}]
+const selectItems: SelectItem[] = [
+  {
+    label: 'Salmon',
+    value: 'salmon',
+    group: 'Fish',
+  },
+  {
+    label: 'Cats',
+    value: 'cats',
+    selected: true,
+  },
+  {
+    label: 'Dogs',
+    value: 'dogs',
+  },
+  {
+    label: 'Bunnies',
+    value: 'bunnies',
+    disabled: true,
+  },
+  {
+    label: 'Duck',
+    value: 'duck',
+    group: 'Birds',
+  },
+  {
+    label: 'Trout',
+    value: 'trout',
+    group: 'Fish',
+  },
+  {
+    label: 'Oriole',
+    value: 'oriole',
+    group: 'Birds',
+  },
+]
 
 const vModel = ref<string>('cats')
 

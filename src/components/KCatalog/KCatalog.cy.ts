@@ -45,6 +45,13 @@ const largeDataSet = [
   },
 ]
 
+interface FetchParams {
+  pageSize: number
+  page: number
+  query?: string
+  offset?: string | null
+}
+
 describe('KCatalog', () => {
   function getItems(count: number) {
     const myItems = []
@@ -325,7 +332,7 @@ describe('KCatalog', () => {
       cy.getTestId('catalog-empty-state').should('contain.text', emptySlotContent)
     })
 
-    it('displays a loading skeletion when the "loading" prop is set to true"', () => {
+    it('displays a loading skeletion when the loading prop is set to true', () => {
       mount(KCatalog, {
         props: {
           fetcher: () => {
@@ -338,7 +345,7 @@ describe('KCatalog', () => {
       cy.get('.catalog-skeleton-loader').should('be.visible')
     })
 
-    it('displays an error state when the "error" prop is set to true"', () => {
+    it('displays an error state when the error prop is set to true', () => {
       mount(KCatalog, {
         props: {
           fetcher: () => {
@@ -435,13 +442,30 @@ describe('KCatalog', () => {
     it('does not display pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
       mount(KCatalog, {
         propsData: {
-          cacheIdentifier: 'pagination5',
+          cacheIdentifier: 'pagination-offset1',
           fetcher: () => {
             return { data: getItems(5), total: 5 }
           },
           loading: false,
           paginationPageSizes: [10, 15, 20],
           hidePaginationWhenOptional: true,
+        },
+      })
+
+      cy.getTestId('catalog-pagination').should('not.exist')
+    })
+
+    it('does not display offset-based pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
+      mount(KCatalog, {
+        propsData: {
+          cacheIdentifier: 'pagination5',
+          fetcher: () => {
+            return { data: getItems(5), offset: null }
+          },
+          loading: false,
+          paginationPageSizes: [10, 15, 20],
+          hidePaginationWhenOptional: true,
+          PaginationOffset: true,
         },
       })
 
@@ -477,6 +501,136 @@ describe('KCatalog', () => {
       })
 
       cy.getTestId('catalog-pagination').should('exist')
+    })
+
+    it('does display offset-based pagination when total is greater than pageSize', () => {
+      mount(KCatalog, {
+        propsData: {
+          fetcher: () => {
+            return { data: getItems(25), offset: 'abc' }
+          },
+          loading: false,
+          hidePaginationWhenOptional: true,
+          cacheIdentifier: 'pagination-offset2',
+          paginationOffset: true,
+        },
+      })
+
+      cy.getTestId('catalog-pagination').should('exist')
+    })
+
+    it('refetch with paginationOffset: true', () => {
+      const data: Array<{ title: string }> = []
+      for (let i = 0; i < 12; i++) {
+        data.push({ title: 'item' + i })
+      }
+      const fns = {
+        fetcher: (params: FetchParams) => {
+          const { pageSize, page, offset } = params
+          const start = offset ? Number(offset) : 0
+          return {
+            data: data.slice(start, start + pageSize),
+            pagination: {
+              offset: `${start + pageSize}`,
+              page,
+            },
+          }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      mount(KCatalog, {
+        propsData: {
+          fetcher: fns.fetcher,
+          initialFetcherParams: { pageSize: 10 },
+          loading: false,
+          paginationPageSizes: [10],
+          paginationOffset: true,
+          hidePaginationWhenOptional: true,
+          fetcherCacheKey: '0',
+        },
+      })
+
+      // page 1
+      cy.getTestId('catalog-pagination').should('be.visible')
+      cy.get('.k-catalog-item').should('have.length', 10)
+      cy.get('@fetcher')
+        .should('have.callCount', 1) // ensure fetcher is NOT called twice on load
+        .should('have.been.calledWith', { pageSize: 10, page: 1, offset: null, query: '' })
+        .then(() => cy.wrap(Cypress.vueWrapper.setProps({ fetcherCacheKey: '1' }))) // manually trigger refetch
+        .get('@fetcher')
+        .should('have.callCount', 2)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 1, offset: null, query: '' })
+
+      // page 2
+      cy.getTestId('next-button').click()
+      cy.get('.k-catalog-item').should('have.length', 2)
+      cy.get('@fetcher')
+        .should('have.callCount', 3)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 2, offset: '10', query: '' })
+        .then(() => cy.wrap(Cypress.vueWrapper.setProps({ fetcherCacheKey: '2' }))) // manually trigger refetch
+        .get('@fetcher')
+        .should('have.callCount', 4)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 2, offset: '10', query: '' })
+    })
+
+    it('refetch with paginationOffset: false', () => {
+      const data: Array<{ title: string }> = []
+      for (let i = 0; i < 12; i++) {
+        data.push({ title: 'item' + i })
+      }
+      const fns = {
+        fetcher: (params: FetchParams) => {
+          const { pageSize, page } = params
+          return {
+            data: data.slice((page - 1) * pageSize, page * pageSize),
+            total: data.length,
+          }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      mount(KCatalog, {
+        propsData: {
+          fetcher: fns.fetcher,
+          initialFetcherParams: { pageSize: 10 },
+          loading: false,
+          paginationPageSizes: [10],
+          paginationOffset: false,
+          hidePaginationWhenOptional: true,
+          fetcherCacheKey: '0',
+        },
+      })
+
+      // page 1
+      cy.getTestId('catalog-pagination').should('be.visible')
+      cy.get('.k-catalog-item').should('have.length', 10)
+      // cy.get('.table tbody').should('contain.text', 'row0')
+      cy.get('@fetcher')
+        .should('have.callCount', 1) // ensure fetcher is NOT called twice on load
+        .should('have.been.calledWith', { pageSize: 10, page: 1, offset: null, query: '' })
+        .then(() => cy.wrap(Cypress.vueWrapper.setProps({ fetcherCacheKey: '1' }))) // manually trigger refetch
+        .get('@fetcher')
+        .should('have.callCount', 2)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 1, offset: null, query: '' })
+
+      // page 2
+      cy.getTestId('next-button').click()
+      cy.get('.k-catalog-item').should('have.length', 2)
+      // cy.get('.table tbody').should('contain.text', 'row10')
+      cy.get('@fetcher')
+        .should('have.callCount', 3)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 2, offset: null, query: '' })
+        .then(() => cy.wrap(Cypress.vueWrapper.setProps({ fetcherCacheKey: '2' }))) // manually trigger refetch
+        .get('@fetcher')
+        .should('have.callCount', 4)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 2, offset: null, query: '' })
     })
   })
 })
