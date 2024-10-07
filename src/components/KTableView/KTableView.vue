@@ -391,7 +391,7 @@ import type {
   RowBulkAction,
   DataSelectState,
 } from '@/types'
-import { EmptyStateIconVariants } from '@/types'
+import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './../KTable/ColumnVisibilityMenu.vue'
 import useUniqueId from '@/composables/useUniqueId'
@@ -401,12 +401,6 @@ import KPagination from '@/components/KPagination/KPagination.vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 import BulkActionsDropdown from './BulkActionsDropdown.vue'
-
-enum TableViewHeaderKeys {
-  EXPANDABLE = 'expandable',
-  ACTIONS = 'actions',
-  BULK_ACTIONS = 'bulkActions',
-}
 
 const props = defineProps({
   /**

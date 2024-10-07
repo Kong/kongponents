@@ -82,3 +82,9 @@ export interface DataSelectState {
   selected: boolean
   disabled: boolean
 }
+
+export enum TableViewHeaderKeys {
+  EXPANDABLE = 'expandable',
+  ACTIONS = 'actions',
+  BULK_ACTIONS = 'bulkActions',
+}
