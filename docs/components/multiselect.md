@@ -180,6 +180,75 @@ const trackNewItems = (item, added) => {
 </script>
 ```
 
+### itemCreationValidator
+
+Prop for passing a function for input validation when item creation is enabled. The function takes query input string as a single parameter and should return a `boolean` value. When a function passed through `itemCreationValidator` returns `false`, add new value button will be disabled.
+
+<KMultiselect
+  :filter-function="itemCreationValidatorFilterFunction"
+  :item-creation-validator="itemCreationValidator"
+  :items="deepClone(defaultItems)"
+  enable-filtering
+  enable-item-creation
+>
+  <template
+    v-if="showNewItemValidationError"
+    #dropdown-footer-text
+  >
+    <span class="item-creation-validation-error-message">
+      New item should be at least 3 characters long.
+    </span>
+  </template>
+</KMultiselect>
+
+```vue
+<template>
+  <KMultiselect
+    :item-creation-validator="itemCreationValidator"
+    :filter-function="filterFunction"
+    :items="items"
+    enable-filtering
+    enable-item-creation
+  >
+    <template
+      v-if="showNewItemValidationError"
+      #dropdown-footer-text
+    >
+      <span class="item-creation-validation-error-message">
+        New item should be at least 3 characters long.
+      </span>
+    </template>
+  </KMultiselect>
+</template>
+
+<script setup lang="ts">
+import type { MultiselectFilterFunctionParams, MultiselectItem } from '@kong/kongponents'
+
+const items: MultiselectItem = [...]
+
+const showNewItemValidationError = ref<boolean>(false)
+const itemCreationValidator = (value: string) => value.length >= 3
+
+const filterFunction = ({ items, query }: MultiselectFilterFunctionParams) => {
+  const filteredItems = items.filter((item: MultiselectItem) => item.label?.toLowerCase().includes(query?.toLowerCase()))
+
+  if (query && !filteredItems.length) {
+    showNewItemValidationError.value = !itemCreationValidator(query)
+  } else {
+    showNewItemValidationError.value = false
+  }
+
+  return filteredItems
+}
+</script>
+
+<style lang="scss" scoped>
+.item-creation-validation-error-message {
+  color: $kui-color-text-danger;
+}
+</style>
+```
+
 ### label
 
 The label for the select.
@@ -1014,6 +1083,7 @@ export default defineComponent({
       defaultItemsForDebouncedAutosuggest: [],
       itemsForDebouncedAutosuggest: [],
       loadingForDebounced: false,
+      showNewItemValidationError: false,
     }
   },
   methods: {
@@ -1102,6 +1172,20 @@ export default defineComponent({
         const itemSelected = selectedItems.filter(sItem => sItem.value === item.value).length
         item.selected = itemSelected ? true : false
       })
+    },
+    itemCreationValidator (value: string) {
+      return value.length >= 3
+    },
+    itemCreationValidatorFilterFunction ({ items, query }: MultiselectFilterFunctionParams) {
+      const filteredItems = items.filter((item: MultiselectItem) => item.label?.toLowerCase().includes(query?.toLowerCase()))
+
+      if (query && !filteredItems.length) {
+        this.showNewItemValidationError = !this.itemCreationValidator(query)
+      } else {
+        this.showNewItemValidationError = false
+      }
+
+      return filteredItems
     }
   },
   computed: {
@@ -1159,5 +1243,9 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: $kui-space-50;
+}
+
+.item-creation-validation-error-message {
+  color: $kui-color-text-danger;
 }
 </style>
