@@ -86,7 +86,7 @@
     "@semantic-release/git": "^10.0.1",
     "@stylistic/stylelint-plugin": "^3.0.1",
     "@types/inquirer": "^9.0.7",
-    "@types/node": "^20.16.7",
+    "@types/node": "^20.16.9",
     "@types/sortablejs": "^1.15.8",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vue/compiler-core": "^3.5.8",
