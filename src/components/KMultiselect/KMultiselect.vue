@@ -194,7 +194,7 @@
                   key="multiselect-add-item"
                   class="multiselect-add-item"
                   data-testid="multiselect-add-item"
-                  :item="{ label: `${filterString} (Add new value)`, value: 'add_item' }"
+                  :item="{ label: `${filterString} (Add new value)`, value: 'add_item', disabled: !itemCreationValidator(filterString) }"
                   @selected="handleAddItem"
                 >
                   <template #content>
@@ -221,7 +221,7 @@
               </div>
             </div>
             <div
-              v-if="hasDropdownFooter"
+              v-if="dropdownFooterText || $slots['dropdown-footer-text']"
               class="dropdown-footer"
               :class="`dropdown-footer-${dropdownFooterTextPosition}`"
               data-testid="dropdown-footer"
@@ -445,6 +445,13 @@ const props = defineProps({
     type: String as PropType<DropdownFooterTextPosition>,
     default: 'sticky',
   },
+  /**
+   * Validator function for item creation.
+   */
+  itemCreationValidator: {
+    type: Function,
+    default: () => true,
+  },
 })
 
 const emit = defineEmits<{
@@ -462,7 +469,6 @@ const kMultiselectItems = ref<InstanceType<typeof KMultiselectItems> | null>(nul
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
-const hasDropdownFooter = computed((): boolean => !!(props.dropdownFooterText || slots['dropdown-footer-text']))
 
 const getBadgeAppearance = (item?: MultiselectItem): BadgeAppearance => {
   if (isDisabled.value || isReadonly.value || item?.disabled) {
@@ -499,7 +505,7 @@ const multiselectSelectionsStagingElement = ref<HTMLDivElement>()
 const selectionsMaxHeight = computed((): number => {
   return props.selectedRowCount * SELECTED_ITEMS_SINGLE_LINE_HEIGHT
 })
-const filterString = ref('')
+const filterString = ref<string>('')
 // whether or not filter string matches an existing item's label
 const uniqueFilterStr = computed((): boolean => {
   if (!filterString.value) {
@@ -574,7 +580,7 @@ const createKPopAttributes = computed(() => {
   return {
     ...defaultKPopAttributes,
     ...props.kpopAttributes,
-    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} ${hasDropdownFooter.value ? 'has-dropdown-footer' : ''}`,
+    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} ${props.dropdownFooterText || slots['dropdown-footer-text'] ? 'has-dropdown-footer' : ''}`,
     width: numericWidth.value + 'px',
     maxWidth: numericWidth.value + 'px',
     disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),
