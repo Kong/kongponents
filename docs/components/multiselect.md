@@ -182,7 +182,7 @@ const trackNewItems = (item, added) => {
 
 ### itemCreationValidator
 
-Prop for passing a function for input validation when item creation is enabled. The function takes query input string as a single parameter and should return a `boolean` value. When a function passed through `itemCreationValidator` returns `false`, add new value button will be disabled.
+Prop for passing a function for input validation when item creation is enabled. The function takes query input string as a single parameter and must return a `boolean` value. When a function passed through `itemCreationValidator` returns `false`, the _Add new value_ button will be disabled.
 
 <KMultiselect
   :filter-function="itemCreationValidatorFilterFunction"
