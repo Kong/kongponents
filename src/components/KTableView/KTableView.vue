@@ -230,7 +230,7 @@
           <tbody>
             <template
               v-for="(row, rowIndex) in data"
-              :key="`table-${tableId}-row-${getRowKey(row) ?? useUniqueId()}`"
+              :key="rowKeyMap.get(row)"
             >
               <tr
                 :class="{ 'last-row': rowIndex === data.length - 1 && !expandedRows.includes(rowIndex) }"
@@ -240,7 +240,7 @@
               >
                 <td
                   v-for="(header, index) in visibleHeaders"
-                  :key="`table-${tableId}-cell-${header.key}-${useUniqueId()}`"
+                  :key="`${rowKeyMap.get(row)}-cell-${header.key}`"
                   :class="{
                     'resize-hover': resizeColumns && !nested && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
                     'row-link': !!rowLink(row).to,
@@ -690,6 +690,7 @@ const bulkActionsSelectedRowsCount = computed((): string => {
   return String(selectedRowsCount)
 })
 
+const rowKeyMap = ref<WeakMap<Record<string, any>, string>>(new WeakMap())
 /**
  * Utilize a helper function to generate the column slot name.
  * This helps TypeScript infer the slot name in the template section so that the slot props can be resolved.
@@ -1247,6 +1248,15 @@ const handleIndeterminateChange = (value: boolean) => {
  */
 watch([() => props.data, dataSelectState], (newVals) => {
   const [newData, newDataSelectState] = newVals
+
+  // update the rowKeyMap
+  newData.forEach((row) => {
+    if (!rowKeyMap.value.get(row)) {
+      const uniqueRowKey = getRowKey(row) || useUniqueId()
+
+      rowKeyMap.value.set(row, `table-${tableId}-row-${uniqueRowKey}`)
+    }
+  })
 
   if (hasBulkActions.value) {
     // add new rows to the dataSelectState
