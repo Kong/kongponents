@@ -180,6 +180,67 @@ const trackNewItems = (item, added) => {
 </script>
 ```
 
+### itemCreationValidator
+
+Prop for passing a function for input validation when item creation is enabled. The function takes query input string as a single parameter and must return a `boolean` value. When a function passed through `itemCreationValidator` returns `false`, the _Add new value_ button will be disabled.
+
+<KMultiselect
+  :item-creation-validator="itemCreationValidator"
+  :items="deepClone(defaultItems)"
+  enable-filtering
+  enable-item-creation
+  @query-change="onItemCreationQueryChange"
+>
+  <template
+    v-if="showNewItemValidationError"
+    #dropdown-footer-text
+  >
+    <span class="item-creation-validation-error-message">
+      New item should be at least 3 characters long.
+    </span>
+  </template>
+</KMultiselect>
+
+```vue
+<template>
+  <KMultiselect
+    :item-creation-validator="itemCreationValidator"
+    :items="items"
+    enable-filtering
+    enable-item-creation
+    @query-change="onQueryChange"
+  >
+    <template
+      v-if="showNewItemValidationError"
+      #dropdown-footer-text
+    >
+      <span class="item-creation-validation-error-message">
+        New item should be at least 3 characters long.
+      </span>
+    </template>
+  </KMultiselect>
+</template>
+
+<script setup lang="ts">
+import type { MultiselectItem } from '@kong/kongponents'
+
+const items: MultiselectItem = [...]
+
+const showNewItemValidationError = ref<boolean>(false)
+const itemCreationValidator = (value: string) => value.length >= 3
+
+const onQueryChange = (query: string): void => {
+  showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
+}
+</script>
+
+<style lang="scss" scoped>
+.item-creation-validation-error-message {
+  color: $kui-color-text-danger;
+}
+</style>
+```
+
 ### label
 
 The label for the select.
@@ -1014,6 +1075,7 @@ export default defineComponent({
       defaultItemsForDebouncedAutosuggest: [],
       itemsForDebouncedAutosuggest: [],
       loadingForDebounced: false,
+      showNewItemValidationError: false,
     }
   },
   methods: {
@@ -1102,6 +1164,12 @@ export default defineComponent({
         const itemSelected = selectedItems.filter(sItem => sItem.value === item.value).length
         item.selected = itemSelected ? true : false
       })
+    },
+    itemCreationValidator (value: string) {
+      return value.length >= 3
+    },
+    onItemCreationQueryChange (query: string) {
+      this.showNewItemValidationError = query ? !this.itemCreationValidator(query) : false
     }
   },
   computed: {
@@ -1159,5 +1227,9 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: $kui-space-50;
+}
+
+.item-creation-validation-error-message {
+  color: $kui-color-text-danger;
 }
 </style>

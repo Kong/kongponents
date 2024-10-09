@@ -181,7 +181,8 @@ describe('KMultiselect', () => {
     cy.get('input').clear()
     // add new item
     cy.get('input').type(newItem)
-    cy.getTestId('multiselect-add-item').should('contain.text', newItem).click()
+    cy.getTestId('multiselect-add-item').should('contain.text', newItem)
+    cy.getTestId('multiselect-add-item').find('button').should('be.enabled').click()
     // search is cleared
     cy.get('input').should('not.contain.text', newItem)
     // item displays in selections
@@ -199,6 +200,33 @@ describe('KMultiselect', () => {
     cy.get('input').clear()
     cy.get('input').type(newItem)
     cy.get('.multiselect-item .selected .multiselect-item-label').should('not.exist')
+  })
+
+  it('renders add new value button disabled when itemCreationValidator returns false', () => {
+    const labels = ['Label 1', 'Label 2']
+    const vals = ['label1', 'label2']
+    const newItem = 'Rock me'
+
+    mount(KMultiselect, {
+      props: {
+        items: [{
+          label: labels[0],
+          value: vals[0],
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }],
+        enableItemCreation: true,
+        itemCreationValidator: () => false,
+      },
+    })
+
+    cy.getTestId('multiselect-trigger').click()
+
+    // add new item
+    cy.get('input').type(newItem)
+    cy.getTestId('multiselect-add-item').should('contain.text', newItem)
+    cy.getTestId('multiselect-add-item').find('button').should('be.disabled')
   })
 
   it('clears added items when clicking clear all with enableItemCreation', () => {
