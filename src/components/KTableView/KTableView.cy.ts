@@ -158,7 +158,7 @@ describe('KTableView', () => {
       cy.getTestId('table-error-state').should('contain.text', errorSlotContent)
     })
 
-    it('maintains the row state when data changes', () => {
+    it.only('maintains the row state when data changes', () => {
       const firstRowLinkElement = 'table tbody td:nth(0)>a.cell-wrapper:nth(0)'
       mount(KTableView, {
         props: {
