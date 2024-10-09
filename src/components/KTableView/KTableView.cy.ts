@@ -157,6 +157,30 @@ describe('KTableView', () => {
 
       cy.getTestId('table-error-state').should('contain.text', errorSlotContent)
     })
+
+    it('maintains the row state when data changes', () => {
+      const firstRowLinkElement = 'table tbody td:nth(0)>a.cell-wrapper:nth(0)'
+      mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+          rowLink: () => ({
+            to: '/link',
+          }),
+        },
+      }).then(component => {
+        cy.get(firstRowLinkElement).should('be.visible')
+        cy.get(firstRowLinkElement).focus().then(() => {
+          cy.get(firstRowLinkElement).should('have.focus').then(() => {
+            component.wrapper.setProps({
+              data: [...options.data].splice(1, options.data.length - 1),
+            }).then(() => {
+              cy.get(firstRowLinkElement).should('not.have.focus')
+            })
+          })
+        })
+      })
+    })
   })
 
   describe('default', () => {
@@ -612,7 +636,7 @@ describe('KTableView', () => {
           cy.getTestId('expandable-row-control').eq(1).click().then(() => {
             cy.getTestId('expandable-content-row').eq(1).should('be.visible').then(() => {
               component.wrapper.setProps({
-                data: [...options.data.splice(0, options.data.length - 1)],
+                data: [...options.data].splice(0, options.data.length - 1),
               }).then(() => {
                 cy.getTestId('expandable-content-row').eq(0).should('not.be.visible')
                 cy.getTestId('expandable-content-row').eq(1).should('not.be.visible')

@@ -1258,6 +1258,7 @@ watch([() => props.data, dataSelectState], (newVals) => {
     }
   })
 
+  // logic that applies only when bulk actions are enabled
   if (hasBulkActions.value) {
     // add new rows to the dataSelectState
     newData.forEach((row) => {
