@@ -77,7 +77,7 @@ export interface TablePaginationAttributes {
 
 export type RowBulkAction = boolean | { enabled: boolean, disabledTooltip?: string }
 
-export interface DataSelectState {
+export interface TableViewSelectState {
   rowKey: string
   selected: boolean
   disabled: boolean

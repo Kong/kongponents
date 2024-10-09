@@ -389,7 +389,7 @@ import type {
   PageChangeData,
   PageSizeChangeData,
   RowBulkAction,
-  DataSelectState,
+  TableViewSelectState,
 } from '@/types'
 import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
@@ -662,7 +662,7 @@ const tableWrapperStyles = computed((): Record<string, string> => ({
 
 const bulkActionsSelectedRows = ref<TableViewData>([])
 const hasBulkActions = computed((): boolean => !props.nested && !props.error && tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']) && !!props.data.every((row) => getRowKey(row)))
-const dataSelectState = ref<DataSelectState[]>([])
+const dataSelectState = ref<TableViewSelectState[]>([])
 const showBulkActionsToolbar = computed((): boolean => {
   if (props.nested || !hasBulkActions.value || props.error) {
     return false
@@ -1037,7 +1037,7 @@ const scrollHandler = (event: any): void => {
   }
 }
 
-const getRowState = (row: Record<string, any>): DataSelectState | undefined => {
+const getRowState = (row: Record<string, any>): TableViewSelectState | undefined => {
   return dataSelectState.value.find((rowState) => rowState.rowKey === getRowKey(row))
 }
 
