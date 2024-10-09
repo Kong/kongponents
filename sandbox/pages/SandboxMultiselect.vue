@@ -368,7 +368,9 @@ const example1ModelJson = computed(() => JSON.stringify(example1Selected.value, 
 const showNewItemValidationError = ref<boolean>(false)
 const itemCreationValidator = (value: string) => value.length >= 3
 
-const onItemCreationQueryChange = (query: string) => showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
+const onItemCreationQueryChange = (query: string): void => {
+  showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
+}
 </script>
 
 <style lang="scss" scoped>

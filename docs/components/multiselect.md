@@ -229,7 +229,9 @@ const items: MultiselectItem = [...]
 const showNewItemValidationError = ref<boolean>(false)
 const itemCreationValidator = (value: string) => value.length >= 3
 
-const onQueryChange = (query: string) => showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
+const onQueryChange = (query: string): void => {
+  showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
+}
 </script>
 
 <style lang="scss" scoped>
