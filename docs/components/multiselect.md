@@ -185,11 +185,11 @@ const trackNewItems = (item, added) => {
 Prop for passing a function for input validation when item creation is enabled. The function takes query input string as a single parameter and must return a `boolean` value. When a function passed through `itemCreationValidator` returns `false`, the _Add new value_ button will be disabled.
 
 <KMultiselect
-  :filter-function="itemCreationValidatorFilterFunction"
   :item-creation-validator="itemCreationValidator"
   :items="deepClone(defaultItems)"
   enable-filtering
   enable-item-creation
+  @query-change="onItemCreationQueryChange"
 >
   <template
     v-if="showNewItemValidationError"
@@ -205,10 +205,10 @@ Prop for passing a function for input validation when item creation is enabled. 
 <template>
   <KMultiselect
     :item-creation-validator="itemCreationValidator"
-    :filter-function="filterFunction"
     :items="items"
     enable-filtering
     enable-item-creation
+    @query-change="onQueryChange"
   >
     <template
       v-if="showNewItemValidationError"
@@ -222,24 +222,14 @@ Prop for passing a function for input validation when item creation is enabled. 
 </template>
 
 <script setup lang="ts">
-import type { MultiselectFilterFunctionParams, MultiselectItem } from '@kong/kongponents'
+import type { MultiselectItem } from '@kong/kongponents'
 
 const items: MultiselectItem = [...]
 
 const showNewItemValidationError = ref<boolean>(false)
 const itemCreationValidator = (value: string) => value.length >= 3
 
-const filterFunction = ({ items, query }: MultiselectFilterFunctionParams) => {
-  const filteredItems = items.filter((item: MultiselectItem) => item.label?.toLowerCase().includes(query?.toLowerCase()))
-
-  if (query && !filteredItems.length) {
-    showNewItemValidationError.value = !itemCreationValidator(query)
-  } else {
-    showNewItemValidationError.value = false
-  }
-
-  return filteredItems
-}
+const onQueryChange = (query: string) => showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
 </script>
 
 <style lang="scss" scoped>
@@ -1176,16 +1166,8 @@ export default defineComponent({
     itemCreationValidator (value: string) {
       return value.length >= 3
     },
-    itemCreationValidatorFilterFunction ({ items, query }: MultiselectFilterFunctionParams) {
-      const filteredItems = items.filter((item: MultiselectItem) => item.label?.toLowerCase().includes(query?.toLowerCase()))
-
-      if (query && !filteredItems.length) {
-        this.showNewItemValidationError = !this.itemCreationValidator(query)
-      } else {
-        this.showNewItemValidationError = false
-      }
-
-      return filteredItems
+    onItemCreationQueryChange (query: string) {
+      this.showNewItemValidationError = query ? !this.itemCreationValidator(query) : false
     }
   },
   computed: {

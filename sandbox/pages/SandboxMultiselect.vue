@@ -122,9 +122,9 @@
         <KMultiselect
           enable-filtering
           enable-item-creation
-          :filter-function="itemCreationValidatorFilterFunction"
           :item-creation-validator="itemCreationValidator"
           :items="multiselectItems"
+          @query-change="onItemCreationQueryChange"
         >
           <template
             v-if="showNewItemValidationError"
@@ -292,7 +292,7 @@
 import { computed, ref, inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import type { MultiselectItem, MultiselectFilterFunctionParams } from '@/types'
+import type { MultiselectItem } from '@/types'
 import { KongIcon } from '@kong/icons'
 
 const multiselectItems: MultiselectItem[] = [
@@ -368,17 +368,7 @@ const example1ModelJson = computed(() => JSON.stringify(example1Selected.value, 
 const showNewItemValidationError = ref<boolean>(false)
 const itemCreationValidator = (value: string) => value.length >= 3
 
-const itemCreationValidatorFilterFunction = ({ items, query }: MultiselectFilterFunctionParams) => {
-  const filteredItems = items.filter((item: MultiselectItem) => item.label?.toLowerCase().includes(query?.toLowerCase()))
-
-  if (query && !filteredItems.length) {
-    showNewItemValidationError.value = !itemCreationValidator(query)
-  } else {
-    showNewItemValidationError.value = false
-  }
-
-  return filteredItems
-}
+const onItemCreationQueryChange = (query: string) => showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
 </script>
 
 <style lang="scss" scoped>
