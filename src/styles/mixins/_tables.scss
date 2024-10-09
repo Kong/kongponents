@@ -95,7 +95,6 @@
             line-height: var(--kui-line-height-30, $kui-line-height-30);
             padding: $tableThPaddingY var(--kui-space-60, $kui-space-60);
             text-align: left;
-            vertical-align: bottom;
 
             &.resizable {
               // set min width so the column can't be collapsed to nothing - avoiding bad UX
@@ -376,6 +375,11 @@
           cursor: pointer;
         }
       }
+    }
+
+    .bulk-actions-checkbox,
+    .table-header-bulk-actions-checkbox {
+      display: flex;
     }
   }
 
