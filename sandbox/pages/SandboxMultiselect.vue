@@ -112,13 +112,27 @@
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        title="enableItemCreation"
+        title="enableItemCreation & itemCreationValidator"
       >
         <KMultiselect
           enable-filtering
           enable-item-creation
           :items="multiselectItems"
         />
+        <KMultiselect
+          enable-filtering
+          enable-item-creation
+          :item-creation-validator="itemCreationValidator"
+          :items="multiselectItems"
+          @query-change="onItemCreationQueryChange"
+        >
+          <template
+            v-if="showNewItemValidationError"
+            #dropdown-footer-text
+          >
+            <span class="item-creation-validation-error-message">New item should be at least 3 characters long.</span>
+          </template>
+        </KMultiselect>
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="required"
@@ -350,6 +364,13 @@ const example1DeselectItem = () => {
 }
 
 const example1ModelJson = computed(() => JSON.stringify(example1Selected.value, undefined, 2))
+
+const showNewItemValidationError = ref<boolean>(false)
+const itemCreationValidator = (value: string) => value.length >= 3
+
+const onItemCreationQueryChange = (query: string): void => {
+  showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
+}
 </script>
 
 <style lang="scss" scoped>
@@ -378,6 +399,10 @@ const example1ModelJson = computed(() => JSON.stringify(example1Selected.value, 
     display: flex;
     flex-direction: row;
     gap: $kui-space-30;
+  }
+
+  .item-creation-validation-error-message {
+    color: $kui-color-text-danger;
   }
 }
 </style>
