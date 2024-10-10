@@ -28,6 +28,7 @@
     :row-bulk-action-enabled="rowBulkActionEnabled"
     :row-expandable="rowExpandable"
     :row-hover="rowHover"
+    :row-key="rowKey"
     :row-link="rowLink"
     :table-preferences="tablePreferences"
     @empty-state-action-click="emit('empty-state-action-click')"
@@ -185,6 +186,7 @@ const props = withDefaults(defineProps<TableDataProps>(), {
   rowAttrs: () => ({}),
   rowLink: () => ({} as RowLink),
   rowBulkActionEnabled: () => true,
+  rowKey: '',
   cellAttrs: () => ({}),
   loading: false,
   emptyStateTitle: 'No Data',

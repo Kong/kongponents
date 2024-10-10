@@ -244,6 +244,7 @@
           :data="paginatedData"
           :headers="headers(false, false, true)"
           :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
+          :row-key="({ id }: Record<string, any>) => String(id)"
           @page-change="onPageChange"
         >
           <template #bulk-actions="{ selectedRows }">
@@ -299,6 +300,7 @@
             :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
             resize-columns
             :row-bulk-action-enabled="getRowBulkAction"
+            :row-key="({ id }: Record<string, any>) => String(id)"
             @page-change="onPageChange"
             @page-size-change="onPageSizeChange"
             @row-select="onBulkActionsSelect"

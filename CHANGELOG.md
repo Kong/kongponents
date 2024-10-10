@@ -1,3 +1,66 @@
+# [9.11.0](https://github.com/Kong/kongponents/compare/v9.10.4...v9.11.0) (2024-10-10)
+
+
+### Features
+
+* **ktableview:** add row-key prop [KHCP-13502] ([#2427](https://github.com/Kong/kongponents/issues/2427)) ([4d3208a](https://github.com/Kong/kongponents/commit/4d3208aad47a609610420072a4eea29127f656c6))
+
+## [9.10.4](https://github.com/Kong/kongponents/compare/v9.10.3...v9.10.4) (2024-10-09)
+
+
+### Bug Fixes
+
+* **kmultiselect:** add item-creation-validator prop [KHCP-13541] ([#2443](https://github.com/Kong/kongponents/issues/2443)) ([939e513](https://github.com/Kong/kongponents/commit/939e513be0bd87a015469841d42a15daef98f8c9))
+
+## [9.10.3](https://github.com/Kong/kongponents/compare/v9.10.2...v9.10.3) (2024-10-04)
+
+
+### Bug Fixes
+
+* **kmultiselect:** arrow keys navigation [KHCP-13121] ([#2433](https://github.com/Kong/kongponents/issues/2433)) ([b26825a](https://github.com/Kong/kongponents/commit/b26825ab3f7c7f0afd6aacfc098d8211ddaeca96))
+
+## [9.10.2](https://github.com/Kong/kongponents/compare/v9.10.1...v9.10.2) (2024-10-04)
+
+
+### Bug Fixes
+
+* **kmultiselect:** make sure bound attributes override default ([#2407](https://github.com/Kong/kongponents/issues/2407)) ([06cbcdd](https://github.com/Kong/kongponents/commit/06cbcdd0e6478f6e5e8a75c8c15c4510451aef4a))
+
+## [9.10.1](https://github.com/Kong/kongponents/compare/v9.10.0...v9.10.1) (2024-10-03)
+
+
+### Bug Fixes
+
+* **kinput:** default type attribute [KHCP-13525] ([#2434](https://github.com/Kong/kongponents/issues/2434)) ([03892c0](https://github.com/Kong/kongponents/commit/03892c0e06ed0b847e737eb1b34c38f3d537ea81))
+
+# [9.10.0](https://github.com/Kong/kongponents/compare/v9.9.1...v9.10.0) (2024-10-01)
+
+
+### Features
+
+* **kcatalog:** support offest pagination [KHCP-13325] ([#2424](https://github.com/Kong/kongponents/issues/2424)) ([e00860b](https://github.com/Kong/kongponents/commit/e00860ba035925fc0acfeef586107b3a5b3001e0))
+
+## [9.9.1](https://github.com/Kong/kongponents/compare/v9.9.0...v9.9.1) (2024-10-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.18.1 ([#2425](https://github.com/Kong/kongponents/issues/2425)) ([c917dc5](https://github.com/Kong/kongponents/commit/c917dc570b491de897ac0ecd9cc3ba0943f443bb))
+
+# [9.9.0](https://github.com/Kong/kongponents/compare/v9.8.4...v9.9.0) (2024-09-30)
+
+
+### Features
+
+* **kmultiselect:** add search-placeholder prop [KHCP-13352] ([#2419](https://github.com/Kong/kongponents/issues/2419)) ([4062052](https://github.com/Kong/kongponents/commit/4062052e302b581ece97a04eaea6a2c930efc2dc))
+
+## [9.8.4](https://github.com/Kong/kongponents/compare/v9.8.3...v9.8.4) (2024-09-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.18.0 ([#2423](https://github.com/Kong/kongponents/issues/2423)) ([5d8a26d](https://github.com/Kong/kongponents/commit/5d8a26d78f24c290438b3142fcefa612e7c7cfd3))
+
 ## [9.8.3](https://github.com/Kong/kongponents/compare/v9.8.2...v9.8.3) (2024-09-27)
 
 

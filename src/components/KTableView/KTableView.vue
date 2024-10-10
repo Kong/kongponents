@@ -23,7 +23,7 @@
             v-if="!$slots['bulk-actions']"
             :button-label="tableHeaders.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)!.label"
             :count="bulkActionsSelectedRowsCount"
-            :disabled="!bulkActionsSelectedRowsCount || loading || !tableData.length"
+            :disabled="!bulkActionsSelectedRowsCount || loading || !data.length"
           >
             <template #items>
               <slot
@@ -79,7 +79,7 @@
     </div>
 
     <div
-      v-else-if="!error && !loading && (tableData && !tableData.length)"
+      v-else-if="!error && !loading && (data && !data.length)"
       class="table-empty-state"
       data-testid="table-empty-state"
     >
@@ -131,7 +131,7 @@
             >
               <th
                 v-for="(column, index) in visibleHeaders"
-                :key="`table-${tableId}-headers-${index}`"
+                :key="`table-${tableId}-headers-${column.key}`"
                 :aria-sort="column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
                 class="table-headers"
                 :class="getHeaderClasses(column, index)"
@@ -229,18 +229,18 @@
 
           <tbody>
             <template
-              v-for="(row, rowIndex) in tableData"
-              :key="`table-${tableId}-row-${rowIndex}`"
+              v-for="(row, rowIndex) in data"
+              :key="rowKeyMap.get(row)"
             >
               <tr
-                :class="{ 'last-row': rowIndex === tableData.length - 1 && !expandedRows.includes(rowIndex) }"
+                :class="{ 'last-row': rowIndex === data.length - 1 && !expandedRows.includes(rowIndex) }"
                 :role="!!rowLink(row).to ? 'link' : undefined"
                 :tabindex="isClickable || !!rowLink(row).to ? 0 : undefined"
                 v-bind="rowAttrs(row)"
               >
                 <td
                   v-for="(header, index) in visibleHeaders"
-                  :key="`table-${tableId}-cell-${index}`"
+                  :key="`${rowKeyMap.get(row)}-cell-${header.key}`"
                   :class="{
                     'resize-hover': resizeColumns && !nested && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
                     'row-link': !!rowLink(row).to,
@@ -266,13 +266,13 @@
                     </slot>
 
                     <KTooltip
-                      v-else-if="header.key === TableViewHeaderKeys.BULK_ACTIONS"
+                      v-else-if="header.key === TableViewHeaderKeys.BULK_ACTIONS && getRowState(row)"
                       max-width="200"
                       placement="bottom-start"
                       :text="getRowBulkActionEnabled(row) ? undefined : getRowBulkActionTooltip(row)"
                     >
                       <KCheckbox
-                        v-model="row.bulkActionsSelected"
+                        v-model="getRowState(row)!.selected"
                         aria-label="Toggle row selection"
                         class="bulk-actions-checkbox"
                         data-testid="bulk-actions-checkbox"
@@ -386,8 +386,9 @@ import type {
   PageChangeData,
   PageSizeChangeData,
   TableViewProps,
+  TableViewSelectState,
 } from '@/types'
-import { EmptyStateIconVariants } from '@/types'
+import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
 import useUniqueId from '@/composables/useUniqueId'
@@ -398,12 +399,6 @@ import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 import BulkActionsDropdown from './BulkActionsDropdown.vue'
 import { getInitialPageSize } from '@/utilities'
 
-enum TableViewHeaderKeys {
-  EXPANDABLE = 'expandable',
-  ACTIONS = 'actions',
-  BULK_ACTIONS = 'bulkActions',
-}
-
 const props = withDefaults(defineProps<TableViewProps>(), {
   resizeColumns: false,
   tablePreferences: () => ({}),
@@ -411,6 +406,7 @@ const props = withDefaults(defineProps<TableViewProps>(), {
   rowAttrs: () => ({}),
   rowLink: () => ({} as RowLink),
   rowBulkActionEnabled: () => true,
+  rowKey: '',
   cellAttrs: () => ({}),
   loading: false,
   emptyStateTitle: 'No Data',
@@ -458,6 +454,18 @@ const slots = useSlots()
 const tableId = useUniqueId()
 const { getSizeFromString } = useUtilities()
 
+const getRowKey = (row: Record<string, any>): string => {
+  if (typeof props.rowKey === 'function' && typeof props.rowKey(row) === 'string') {
+    return props.rowKey(row)
+  }
+
+  if (typeof props.rowKey === 'string' && !!(props.rowKey in row) && typeof row[props.rowKey] === 'string') {
+    return row[props.rowKey]
+  }
+
+  return ''
+}
+
 const headerRow = ref<HTMLDivElement>()
 // all headers
 const tableHeaders = ref<TableViewHeader[]>([])
@@ -481,9 +489,9 @@ const hasColumnVisibilityMenu = computed((): boolean => {
   }
 
   // show when not loading and there is data
-  return !props.loading && !!tableData.value && !!tableData.value.length
+  return !props.loading && !!props.data && !!props.data.length
 })
-const columnVisibilityDisabled = computed((): boolean => props.loading || !(tableData.value && tableData.value.length))
+const columnVisibilityDisabled = computed((): boolean => props.loading || !(props.data && props.data.length))
 // columns whose visibility can be toggled
 const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable && header.key !== TableViewHeaderKeys.EXPANDABLE && header.key !== TableViewHeaderKeys.BULK_ACTIONS))
 // visibility preferences from the host app (initialized by app)
@@ -501,9 +509,9 @@ const tableWrapperStyles = computed((): Record<string, string> => ({
   maxHeight: getSizeFromString(props.maxHeight),
 }))
 
-const tableData = ref<TableViewData>([...props.data].map((row) => ({ ...row, bulkActionsSelected: false })))
 const bulkActionsSelectedRows = ref<TableViewData>([])
-const hasBulkActions = computed((): boolean => !props.nested && !props.error && tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']))
+const hasBulkActions = computed((): boolean => !props.nested && !props.error && tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']) && !!props.data.every((row) => getRowKey(row)))
+const dataSelectState = ref<TableViewSelectState[]>([])
 const showBulkActionsToolbar = computed((): boolean => {
   if (props.nested || !hasBulkActions.value || props.error) {
     return false
@@ -515,7 +523,7 @@ const showBulkActionsToolbar = computed((): boolean => {
   }
 
   // show when not loading and there is data
-  return !props.loading && !!tableData.value && !!tableData.value.length
+  return !props.loading && !!props.data && !!props.data.length
 })
 const bulkActionsSelectedRowsCount = computed((): string => {
   const selectedRowsCount = bulkActionsSelectedRows.value.length
@@ -531,6 +539,7 @@ const bulkActionsSelectedRowsCount = computed((): string => {
   return String(selectedRowsCount)
 })
 
+const rowKeyMap = ref<WeakMap<Record<string, any>, string>>(new WeakMap())
 /**
  * Utilize a helper function to generate the column slot name.
  * This helps TypeScript infer the slot name in the template section so that the slot props can be resolved.
@@ -807,8 +816,7 @@ const showPagination = computed((): boolean => {
     return false
   }
 
-  // hide pagination when total table records number is less or equal to provided records count
-  if (props.hidePaginationWhenOptional && tableData.value && tableData.value.length && props.paginationAttributes.totalCount && props.paginationAttributes.totalCount <= tableData.value.length) {
+  if (props.hidePaginationWhenOptional && props.data && props.data.length && props.paginationAttributes.totalCount && props.paginationAttributes.totalCount <= props.data.length) {
     return false
   }
 
@@ -876,6 +884,10 @@ const scrollHandler = (event: any): void => {
       isScrolledHorizontally.value = false
     }
   }
+}
+
+const getRowState = (row: Record<string, any>): TableViewSelectState | undefined => {
+  return dataSelectState.value.find((rowState) => rowState.rowKey === getRowKey(row))
 }
 
 const getRowBulkActionEnabled = (row: Record<string, any>): boolean => {
@@ -1057,74 +1069,92 @@ const bulkActionsAll = ref<boolean>(false)
 
 const isBulkActionsIndeterminate = computed((): boolean => {
   // ignore thee disabled rows
-  const selectableRows = tableData.value.filter((row) => getRowBulkActionEnabled(row))
+  const selectableRowsState = dataSelectState.value.filter((rowState) => !rowState.disabled && props.data.find((row) => getRowKey(row) === rowState.rowKey))
 
   // it is indeterminate if there are selected and unselected rows
-  return !!selectableRows.filter((row) => row.bulkActionsSelected).length && !!selectableRows.filter((row) => !row.bulkActionsSelected).length
+  return !!selectableRowsState.filter((rowState) => rowState.selected).length && !!selectableRowsState.filter((rowState) => !rowState.selected).length
 })
 
 const handleIndeterminateChange = (value: boolean) => {
-  if (value) {
-    // select all selectable rows
-    tableData.value = [...tableData.value].map((row) => ({ ...row, bulkActionsSelected: getRowBulkActionEnabled(row) }))
-  } else {
-    // unselect and reset all
-    tableData.value = [...props.data].map((row) => ({ ...row, bulkActionsSelected: false }))
-  }
+  // assign the value to all selectable rows which will result in either selecting or deselecting all selectable rows
+  dataSelectState.value.forEach((rowState) => {
+    if (props.data.find((row) => getRowKey(row) === rowState.rowKey) && !rowState.disabled) {
+      rowState.selected = value
+    }
+  })
 }
 
-watch(tableData, (newVal) => {
-  /** update the bulkActionsAll value */
+/**
+ * Watch for changes in data and dataSelectState
+ */
+watch([() => props.data, dataSelectState], (newVals) => {
+  const [newData, newDataSelectState] = newVals
 
-  const selectableRows = newVal.filter((row) => getRowBulkActionEnabled(row))
+  // update the rowKeyMap
+  newData.forEach((row) => {
+    if (!rowKeyMap.value.get(row)) {
+      const uniqueRowKey = getRowKey(row) || useUniqueId()
 
-  // all are selected
-  if (selectableRows.filter((row) => row.bulkActionsSelected).length === selectableRows.length) {
-    bulkActionsAll.value = true
-  // all are unselected
-  } else if (selectableRows.filter((row) => !row.bulkActionsSelected).length === selectableRows.length) {
-    bulkActionsAll.value = false
-  // some are selected
-  } else {
-    bulkActionsAll.value = false
+      rowKeyMap.value.set(row, `table-${tableId}-row-${uniqueRowKey}`)
+    }
+  })
+
+  // logic that applies only when bulk actions are enabled
+  if (hasBulkActions.value) {
+    // add new rows to the dataSelectState
+    newData.forEach((row) => {
+      if (!getRowState(row)) {
+        dataSelectState.value.push({
+          rowKey: getRowKey(row),
+          selected: false,
+          disabled: !getRowBulkActionEnabled(row),
+        })
+      }
+    })
+
+    /** update the bulkActionsAll value */
+
+    const selectableRowsState = newDataSelectState.filter((rowState) => !rowState.disabled && newData.find((row) => getRowKey(row) === rowState.rowKey))
+
+    // all are selected
+    if (selectableRowsState.filter((rowState) => rowState.selected).length === selectableRowsState.length) {
+      bulkActionsAll.value = true
+      // all are unselected
+    } else if (selectableRowsState.filter((rowState) => !rowState.selected).length === selectableRowsState.length) {
+      bulkActionsAll.value = false
+      // some are selected
+    } else {
+      bulkActionsAll.value = false
+    }
+
+    /** update bulkActionsSelectedRows */
+
+    // find all selected rows from the new state
+    const newSelectedRows: TableViewData = newData.filter((row) => {
+      const rowState = newDataSelectState.find((rowState) => rowState.rowKey === getRowKey(row))
+
+      if (rowState && rowState.selected) {
+        return true
+      }
+
+      return false
+    })
+
+    // find all selected rows from the old state
+    const oldSelectedRows: TableViewData = []
+    bulkActionsSelectedRows.value.forEach((selectedRow) => {
+      const row = newData.find((dataRow) => getRowKey(selectedRow) === getRowKey(dataRow))
+
+      if (!row) {
+        oldSelectedRows.push(selectedRow)
+      }
+    })
+
+    bulkActionsSelectedRows.value = [...oldSelectedRows, ...newSelectedRows]
   }
 
-  /** update the selected rows */
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const newSelectedRows = newVal.filter((row) => row.bulkActionsSelected).map(({ bulkActionsSelected, ...rest }) => rest)
-
-  const oldSelectedRows: TableViewData = []
-  bulkActionsSelectedRows.value.forEach((selectedRow) => {
-    const row = props.data.find((row: Record<string, any>) => JSON.stringify(row) === JSON.stringify(selectedRow))
-
-    if (!row) {
-      oldSelectedRows.push(selectedRow)
-    }
-  })
-
-  bulkActionsSelectedRows.value = [...oldSelectedRows, ...newSelectedRows]
-}, { deep: true })
-
-/**
- * Watch for changes in the data prop and update the tableData
- * We want to display the selected rows from the previous data prop value
- */
-watch(() => props.data, (newVal) => {
-  tableData.value = []
-
-  newVal.forEach((row: Record<string, any>) => {
-    const selectedRow = bulkActionsSelectedRows.value.find((selectedRow) => JSON.stringify(selectedRow) === JSON.stringify(row))
-
-    if (selectedRow) {
-      tableData.value.push({ ...row, bulkActionsSelected: true })
-    } else {
-      tableData.value.push({ ...row, bulkActionsSelected: false })
-    }
-  })
-
   expandedRows.value = []
-}, { deep: true })
+}, { deep: true, immediate: true })
 
 watch(bulkActionsSelectedRows, (newVal) => {
   emit('row-select', newVal)

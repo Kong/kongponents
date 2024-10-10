@@ -447,12 +447,20 @@ const hasCustomSelectedItem = computed((): boolean => !!(selectedItem.value &&
   (slots['selected-item-template'] || (props.reuseItemTemplate && slots['item-template']))))
 
 const filteredItems = computed((): SelectItem[] => {
+  let allItems: SelectItem[] = []
+
   // if filtering is not enabled or filter function returns true
   if (!props.enableFiltering || props.filterFunction({ query: filterQuery.value, items: selectItems.value }) === true) {
-    return selectItems.value
+    allItems = selectItems.value
+  } else {
+    allItems = props.filterFunction({ query: filterQuery.value, items: selectItems.value }) as SelectItem[]
   }
 
-  return props.filterFunction({ query: filterQuery.value, items: selectItems.value }) as SelectItem[]
+  // Group items by group in alphabetical order, ungrouped items first
+  const ungroupedItems = allItems.filter(item => !item.group)
+  const groupedItems = allItems.filter(item => item.group).sort((a, b) => a.group!.toLowerCase().localeCompare(b.group!.toLowerCase()))
+
+  return [...ungroupedItems, ...groupedItems]
 })
 
 const onInputKeypress = (event: Event) => {

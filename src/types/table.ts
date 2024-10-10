@@ -144,6 +144,10 @@ interface TablePropsShared {
    */
   rowBulkActionEnabled?: (row: Record<string, any>) => RowBulkAction
   /**
+   * Provide the name of the data property key to utilize as a unique identifier, or a function that receives the `row` object as a parameter that generates a unique identifier string for each row.
+   */
+  rowKey?: string | ((row: Record<string, any>) => string),
+  /**
    * A function that conditionally specifies cell attributes
    */
   cellAttrs?: (param: CellAttrsParam) => Record<string, string>
@@ -263,4 +267,16 @@ export interface TableDataFetcherParams {
    * The value of the offset for offset-based pagination. Offset must be included in the fetcher params for offset-based pagination to work properly.
    */
   offset?: string | null
+}
+
+export interface TableViewSelectState {
+  rowKey: string
+  selected: boolean
+  disabled: boolean
+}
+
+export enum TableViewHeaderKeys {
+  EXPANDABLE = 'expandable',
+  ACTIONS = 'actions',
+  BULK_ACTIONS = 'bulkActions',
 }
