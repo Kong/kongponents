@@ -248,6 +248,7 @@
         <KTableData
           :fetcher="fetcher"
           :headers="headers(false, false, true)"
+          :row-key="({ id }: Record<string, any>) => String(id)"
         >
           <template #bulk-actions="{ selectedRows }">
             <KButton
@@ -299,6 +300,7 @@
             :headers="headers(true, false, true)"
             resize-columns
             :row-bulk-action-enabled="getRowBulkAction"
+            :row-key="({ id }: Record<string, any>) => String(id)"
             @row-select="onBulkActionsSelect"
           >
             <template #bulk-action-items>
@@ -317,6 +319,7 @@
           resize-columns
           :row-bulk-action-enabled="getRowBulkAction"
           :row-expandable="() => true"
+          :row-key="({ id }: Record<string, any>) => String(id)"
           @row-select="onBulkActionsSelect"
         >
           <template #bulk-action-items>
@@ -343,6 +346,7 @@
           resize-columns
           :row-bulk-action-enabled="getRowBulkAction"
           :row-expandable="() => true"
+          :row-key="({ id }: Record<string, any>) => String(id)"
           @row-select="onBulkActionsSelect"
         >
           <template #bulk-action-items>

@@ -322,6 +322,7 @@
           resize-columns
           :row-bulk-action-enabled="getRowBulkAction"
           :row-expandable="() => true"
+          :row-key="({ id }: Record<string, any>) => String(id)"
           @page-change="onPageChange"
           @page-size-change="onPageSizeChange"
           @row-select="onBulkActionsSelect"
@@ -351,6 +352,7 @@
           resize-columns
           :row-bulk-action-enabled="getRowBulkAction"
           :row-expandable="() => true"
+          :row-key="({ id }: Record<string, any>) => String(id)"
           @page-change="onPageChange"
           @page-size-change="onPageSizeChange"
           @row-select="onBulkActionsSelect"

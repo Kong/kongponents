@@ -812,7 +812,7 @@ const startResize = (evt: MouseEvent, colKey: string) => {
 }
 
 const showPagination = computed((): boolean => {
-  if (props.hidePagination) {
+  if (props.hidePagination || props.nested) {
     return false
   }
 
