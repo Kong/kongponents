@@ -1,3 +1,10 @@
+# [9.11.0](https://github.com/Kong/kongponents/compare/v9.10.4...v9.11.0) (2024-10-10)
+
+
+### Features
+
+* **ktableview:** add row-key prop [KHCP-13502] ([#2427](https://github.com/Kong/kongponents/issues/2427)) ([4d3208a](https://github.com/Kong/kongponents/commit/4d3208aad47a609610420072a4eea29127f656c6))
+
 ## [9.10.4](https://github.com/Kong/kongponents/compare/v9.10.3...v9.10.4) (2024-10-09)
 
 

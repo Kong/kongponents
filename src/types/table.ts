@@ -76,3 +76,15 @@ export interface TablePaginationAttributes {
 }
 
 export type RowBulkAction = boolean | { enabled: boolean, disabledTooltip?: string }
+
+export interface TableViewSelectState {
+  rowKey: string
+  selected: boolean
+  disabled: boolean
+}
+
+export enum TableViewHeaderKeys {
+  EXPANDABLE = 'expandable',
+  ACTIONS = 'actions',
+  BULK_ACTIONS = 'bulkActions',
+}
