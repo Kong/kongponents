@@ -157,6 +157,30 @@ describe('KTableView', () => {
 
       cy.getTestId('table-error-state').should('contain.text', errorSlotContent)
     })
+
+    it('maintains the row state when data changes', () => {
+      const firstRowLinkElement = 'table tbody td:nth(0)>a.cell-wrapper:nth(0)'
+      mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+          rowLink: () => ({
+            to: '/link',
+          }),
+        },
+      }).then(component => {
+        cy.get(firstRowLinkElement).should('be.visible')
+        cy.get(firstRowLinkElement).focus().then(() => {
+          cy.get(firstRowLinkElement).should('have.focus').then(() => {
+            component.wrapper.setProps({
+              data: [...options.data].splice(1, options.data.length - 1),
+            }).then(() => {
+              cy.get(firstRowLinkElement).should('not.have.focus')
+            })
+          })
+        })
+      })
+    })
   })
 
   describe('default', () => {
@@ -291,11 +315,30 @@ describe('KTableView', () => {
       cy.get('th').eq(options.headers.indexOf(options.headers.find((header => header.key === 'actions'))!)).find('.table-header-label').should('have.class', 'sr-only')
     })
 
+    it('bulk actions in not enabled when rowKey prop is not provided', () => {
+      mount(KTableView, {
+        props: {
+          headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
+          data: options.data,
+        },
+        slots: {
+          'bulk-action-items': () => h('span', {}, 'Bulk action'),
+        },
+      })
+
+      cy.getTestId('bulk-actions-dropdown').should('not.exist')
+      cy.getTestId('table-header-bulk-actions-checkbox').should('not.exist')
+      cy.get('th').eq(0).findTestId('table-header-bulk-actions-checkbox').should('not.exist')
+      cy.getTestId('bulk-actions-checkbox').should('have.length', 0)
+    })
+
+
     it('displays bulk actions column and dropdown when bulkActions key is provided', () => {
       mount(KTableView, {
         props: {
           headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
           data: options.data,
+          rowKey: ({ id }: Record<string, any>) => `row-${id}-key`,
         },
         slots: {
           'bulk-action-items': () => h('span', {}, 'Bulk action'),
@@ -315,6 +358,7 @@ describe('KTableView', () => {
         props: {
           headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
           data: options.data,
+          rowKey: 'id',
         },
         slots: {
           'bulk-actions': () => h('span', {}, 'Bulk action'),
@@ -332,8 +376,8 @@ describe('KTableView', () => {
         cy.getTestId('bulk-actions-checkbox').eq(2).should('be.checked')
         cy.getTestId('indeterminate-icon').should('not.exist')
 
-        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'row-select').and('have.length', 3)
-        cy.wrap(Cypress.vueWrapper.emitted('row-select')?.[2][0]).should('have.length', options.data.length)
+        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'row-select').and('have.length', 4)
+        cy.wrap(Cypress.vueWrapper.emitted('row-select')?.[3][0]).should('have.length', options.data.length)
       })
     })
 
@@ -349,6 +393,7 @@ describe('KTableView', () => {
 
             return true
           },
+          rowKey: 'id',
         },
         slots: {
           'bulk-actions': () => h('span', {}, 'Bulk action'),
@@ -550,6 +595,7 @@ describe('KTableView', () => {
           data: options.data,
           resizeColumns: true,
           nested: true,
+          rowKey: 'id',
         },
         slots: {
           'bulk-action-items': () => h('span', {}, 'Bulk action'),
@@ -590,7 +636,7 @@ describe('KTableView', () => {
           cy.getTestId('expandable-row-control').eq(1).click().then(() => {
             cy.getTestId('expandable-content-row').eq(1).should('be.visible').then(() => {
               component.wrapper.setProps({
-                data: [...options.data.splice(0, options.data.length - 1)],
+                data: [...options.data].splice(0, options.data.length - 1),
               }).then(() => {
                 cy.getTestId('expandable-content-row').eq(0).should('not.be.visible')
                 cy.getTestId('expandable-content-row').eq(1).should('not.be.visible')
