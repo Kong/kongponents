@@ -121,20 +121,20 @@ You may also specify a native `maxlength` attribute on the KInput to limit the n
 ```
 :::
 
-### showMaskingToggle
+### showPasswordMaskToggle
 
-When passing `type="password"`, setting `showMaskingToggle` to `true` will render an eye icon to the right of input clicking on which allows toggling masking the input value on and off. Defaults to `false`.
+When passing `type="password"`, setting `showPasswordMaskToggle` to `true` will render an eye icon to the right of input clicking on which allows toggling masking the input value on and off. Defaults to `false`.
 
 <KInput
   model-value="qwerty12345"
-  show-masking-toggle
+  show-password-mask-toggle
   type="password"
 />
 
 
 ```html
 <KInput
-  show-masking-toggle
+  show-password-mask-toggle
   type="password"
 />
 ```

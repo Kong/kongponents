@@ -21,7 +21,7 @@
 
     <div
       class="input-element-wrapper"
-      :class="{ 'has-before-content': $slots.before, 'has-after-content': $slots.after }"
+      :class="{ 'has-before-content': $slots.before, 'has-after-content': $slots.after || (type === 'password' && showPasswordMaskToggle) }"
     >
       <div
         v-if="$slots.before"
@@ -42,12 +42,12 @@
       >
 
       <div
-        v-if="$slots.after || (type === 'password' && showMaskingToggle)"
+        v-if="$slots.after || (type === 'password' && showPasswordMaskToggle)"
         ref="afterSlotElement"
         class="after-content-wrapper"
       >
         <button
-          v-if="type === 'password' && showMaskingToggle"
+          v-if="type === 'password' && showPasswordMaskToggle"
           :aria-label="`${maskValue ? 'Hide' : 'Show'} value`"
           class="mask-value-toggle-button"
           @click.stop="maskValue = !maskValue"
@@ -152,7 +152,7 @@ const props = defineProps({
     required: false,
     default: 'text',
   },
-  showMaskingToggle: {
+  showPasswordMaskToggle: {
     type: Boolean,
     default: false,
   },
