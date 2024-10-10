@@ -295,10 +295,10 @@ const afterSlotElement = ref<HTMLElement | null>(null)
 const beforeSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot icon size
 const afterSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot icon size
 
+const maskValue = ref<boolean>(false)
 const inputType = computed((): string => {
   return props.type === 'password' && maskValue.value ? 'text' : props.type
 })
-const maskValue = ref<boolean>(false)
 
 onMounted(async () => {
   await nextTick() // wait for the slots content to render

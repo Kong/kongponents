@@ -140,7 +140,7 @@ When passing `type="password"`, setting `showMaskingToggle` to `true` will rende
 ```
 
 :::warning WARNING
-When masking toggle is enabled, the eye icon takes precedence over any content passed through the [`after` slot](#before-and-after).
+When this prop is enabled, the icon button takes precedence over any content passed through the [`after` slot](#before-and-after).
 :::
 
 ## Attribute Binding
