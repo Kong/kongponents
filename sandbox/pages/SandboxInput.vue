@@ -93,6 +93,13 @@
           </KToggle>
         </div>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="showPasswordMaskToggle">
+        <KInput
+          model-value="qwerty12345"
+          show-password-mask-toggle
+          type="password"
+        />
+      </SandboxSectionComponent>
 
       <!-- Attributes -->
       <SandboxTitleComponent

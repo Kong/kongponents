@@ -161,4 +161,39 @@ describe('KInput', () => {
 
     cy.get('.k-input').find(`[data-testid="${afterSlot}"]`).should('be.visible')
   })
+
+  it('toggle masking button is not rendered when showPasswordMaskToggle is true but type is not password', () => {
+    mount(KInput, {
+      props: {
+        type: 'text',
+        showPasswordMaskToggle: true,
+      },
+    })
+
+    cy.get('.k-input .mask-value-toggle-button').should('not.exist')
+  })
+
+  it('toggle masking functionality behaves correctly when showPasswordMaskToggle is true and input type is password', () => {
+    const afterSlot = 'after-slot'
+
+    mount(KInput, {
+      props: {
+        type: 'password',
+        showPasswordMaskToggle: true,
+      },
+      slots: {
+        after: `<span data-testid="${afterSlot}">After slot</span>`,
+      },
+    })
+
+    cy.get('.k-input .mask-value-toggle-button').should('be.visible')
+    cy.get('.k-input input').should('have.attr', 'type', 'password')
+    cy.get('.k-input .mask-value-toggle-button').click()
+    cy.get('.k-input input').should('have.attr', 'type', 'text')
+    cy.get('.k-input .mask-value-toggle-button').click()
+    cy.get('.k-input input').should('have.attr', 'type', 'password')
+
+    // user-provided after slot should be rendered
+    cy.get('.k-input').find(`[data-testid="${afterSlot}"]`).should('not.exist')
+  })
 })
