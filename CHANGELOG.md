@@ -1,3 +1,10 @@
+## [9.11.1](https://github.com/Kong/kongponents/compare/v9.11.0...v9.11.1) (2024-10-11)
+
+
+### Bug Fixes
+
+* **kinput:** add show-masking-toggle prop [KHCP-13466] ([#2448](https://github.com/Kong/kongponents/issues/2448)) ([0c876d0](https://github.com/Kong/kongponents/commit/0c876d0d5c0235ec7eaab1cf05f250ec90106caa))
+
 # [9.11.0](https://github.com/Kong/kongponents/compare/v9.10.4...v9.11.0) (2024-10-10)
 
 
