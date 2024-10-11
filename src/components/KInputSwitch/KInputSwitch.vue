@@ -7,7 +7,7 @@
       v-bind="strippedAttrs"
       ref="switchInputElement"
       v-bind-once="{ id: inputId }"
-      :checked="modelValue"
+      :checked="!!modelValue"
       :disabled="disabled"
       tabindex="-1"
       type="checkbox"
@@ -20,7 +20,7 @@
     >
       <span
         v-bind-once="{ 'aria-labelledby': inputId }"
-        :aria-checked="modelValue"
+        :aria-checked="!!modelValue"
         class="switch-control"
         :class="{ 'checked': modelValue, 'disabled': disabled }"
         data-testid="switch-control"
@@ -57,7 +57,7 @@ const props = defineProps({
   * Sets whether or not toggle is checked
   */
   modelValue: {
-    type: Boolean,
+    type: [Boolean, null],
     default: false,
     required: true,
   },
