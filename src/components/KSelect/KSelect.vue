@@ -223,7 +223,7 @@ const { getSizeFromString, stripRequiredLabel } = useUtilities()
 
 const props = defineProps({
   modelValue: {
-    type: [String, Number],
+    type: [String, Number, null],
     default: '',
   },
   kpopAttributes: {
@@ -397,7 +397,7 @@ const selectWrapperElement = ref<HTMLDivElement>() // div element that wraps the
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
-  get(): string | number {
+  get(): string | number | null {
     return props.modelValue
   },
   set(newValue: string | number): void {

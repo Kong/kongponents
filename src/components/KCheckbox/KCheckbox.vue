@@ -10,7 +10,7 @@
       <input
         v-bind-once="{ id: inputId }"
         v-bind="modifiedAttrs"
-        :aria-checked="modelValue"
+        :aria-checked="!!modelValue"
         class="checkbox-input"
         type="checkbox"
         @change="handleChange"
@@ -72,7 +72,7 @@ import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   modelValue: {
-    type: Boolean,
+    type: [Boolean, null],
     default: false,
     required: true,
   },
