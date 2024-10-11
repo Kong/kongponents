@@ -485,6 +485,7 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
     }
   }
 
+  // hide default password reveal icon in Edge
   &::-ms-reveal {
     display: none;
   }
