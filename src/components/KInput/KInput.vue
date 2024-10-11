@@ -52,11 +52,11 @@
           class="mask-value-toggle-button"
           @click.stop="maskValue = !maskValue"
         >
-          <VisibilityIcon
+          <VisibilityOffIcon
             v-if="maskValue"
             decorative
           />
-          <VisibilityOffIcon
+          <VisibilityIcon
             v-else
             decorative
           />
@@ -483,6 +483,10 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
         @include inputDisabled;
       }
     }
+  }
+
+  &::-ms-reveal {
+    display: none;
   }
 }
 </style>
