@@ -1,3 +1,10 @@
+## [9.11.2](https://github.com/Kong/kongponents/compare/v9.11.1...v9.11.2) (2024-10-12)
+
+
+### Bug Fixes
+
+* **ktable:** bulk actions checkboxes should be valign center ([#2446](https://github.com/Kong/kongponents/issues/2446)) ([cfca76a](https://github.com/Kong/kongponents/commit/cfca76ad00bd54ea164fad314e195834cfd56e98))
+
 ## [9.11.1](https://github.com/Kong/kongponents/compare/v9.11.0...v9.11.1) (2024-10-11)
 
 
