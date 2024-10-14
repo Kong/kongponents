@@ -7,5 +7,5 @@ export default {
     'scope-case': [2, 'always', 'lower-case'],
   },
   ignores: [(message) => /^chore\(release\): .+$/m.test(message)],
-  helpUrl: 'https://kongponents.konghq.com/contributing/getting-started.html',
+  helpUrl: 'https://kongponents.konghq.com/guide/contributing.html',
 }
