@@ -67,7 +67,7 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(@types/node@20.16.10)(typescript@5.6.2)
       '@evilmartians/lefthook':
-        specifier: ^1.7.17
+        specifier: ^1.7.18
         version: 1.7.18
       '@kong-ui-public/sandbox-layout':
         specifier: ^2.1.42
@@ -810,6 +810,7 @@ packages:
 
   '@evilmartians/lefthook@1.7.18':
     resolution: {integrity: sha512-BIJBQtC7xKOedxESlB0wVG6M32ftjK+5vnID9I5CjRDE/6KcCpcK366AyG0eHGdPK1TVty81QalxZqSTxWRXPw==}
+    cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
 
