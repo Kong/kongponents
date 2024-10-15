@@ -1,3 +1,11 @@
+## [9.11.5](https://github.com/Kong/kongponents/compare/v9.11.4...v9.11.5) (2024-10-15)
+
+
+### Bug Fixes
+
+* **kinput:** prevent focus loss on icon/button click ([#2453](https://github.com/Kong/kongponents/issues/2453)) ([c536de7](https://github.com/Kong/kongponents/commit/c536de7afc846a0b54804fa75bb986bb3d729da4))
+* **klabel:** fix aria attributes on tooltip icon ([#2454](https://github.com/Kong/kongponents/issues/2454)) ([7201572](https://github.com/Kong/kongponents/commit/72015727498152ada0ccd9c6de74f844c6cc7bca))
+
 ## [9.11.4](https://github.com/Kong/kongponents/compare/v9.11.3...v9.11.4) (2024-10-15)
 
 
