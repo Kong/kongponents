@@ -110,6 +110,9 @@ export interface SortHandlerFunctionParam {
   data: Array<Record<string, any>>
 }
 
+/**
+ * Parameter object for the cellAttrs prop function
+ */
 export interface CellAttrsParam {
   headerKey: string
   row: Record<string, any>
