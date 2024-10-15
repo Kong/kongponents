@@ -319,7 +319,10 @@ const endCount = computed((): number => {
 const pagesString = computed((): string => `${startCount.value} to ${endCount.value}`)
 const pageCountString = computed((): string => ` of ${props.totalCount}`)
 const currentlySelectedPage = computed((): number => props.currentPage ? props.currentPage : currPage.value)
-const firstDetached = ref<boolean>(currentlySelectedPage.value >= fittingNeighbors.value + (sequentialItemsVisible.value + 1))
+
+// Selected page, first page, last page, 2 placeholders and 2 * neighbors
+const visiblePages = computed((): number => 5 + 2 * fittingNeighbors.value)
+const firstDetached = ref<boolean>(currentlySelectedPage.value >= fittingNeighbors.value + (sequentialItemsVisible.value + 1) && pageCount.value > visiblePages.value)
 const lastDetached = ref<boolean>(pageCount.value > (sequentialItemsVisible.value + 2) + (2 * fittingNeighbors.value))
 const pagesVisible = ref<Array<number>>(getVisiblePages(
   currentlySelectedPage.value,
@@ -348,9 +351,7 @@ const updatePage = (): void => {
   forwardDisabled.value = lastEntry >= props.totalCount
   backDisabled.value = currPage.value === 1
   // The view will hold
-  // Selected page, first page, last page, 2 placeholders and 2 * neighbors
-  const visiblePages = 5 + 2 * fittingNeighbors.value
-  if (pageCount.value <= visiblePages) {
+  if (pageCount.value <= visiblePages.value) {
     // All pages will fit in screen
     firstDetached.value = false
     lastDetached.value = false
