@@ -1,3 +1,10 @@
+## [9.11.3](https://github.com/Kong/kongponents/compare/v9.11.2...v9.11.3) (2024-10-15)
+
+
+### Bug Fixes
+
+* update the helpUrl ([#2458](https://github.com/Kong/kongponents/issues/2458)) ([56e7a39](https://github.com/Kong/kongponents/commit/56e7a39513e3a772b11d892965ef1e75497e2103))
+
 ## [9.11.2](https://github.com/Kong/kongponents/compare/v9.11.1...v9.11.2) (2024-10-12)
 
 
