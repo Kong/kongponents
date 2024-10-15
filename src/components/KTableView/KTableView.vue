@@ -816,7 +816,7 @@ const showPagination = computed((): boolean => {
     return false
   }
 
-  if (props.hidePaginationWhenOptional && props.data && props.data.length && props.paginationAttributes.totalCount && props.paginationAttributes.totalCount <= props.data.length) {
+  if (props.hidePaginationWhenOptional && !!props.data.length && props.paginationAttributes.totalCount && props.paginationAttributes.totalCount <= props.data.length) {
     return false
   }
 

@@ -4,7 +4,7 @@
 KTable has been deprecated. Please use [KTableData](/components/table-data) instead.
 :::
 
-Component that takes care of fetching and rendering data in a table format.
+A table component that takes care of fetching and rendering data in a table format.
 
 <KTable
   :fetcher="basicFetcher"
