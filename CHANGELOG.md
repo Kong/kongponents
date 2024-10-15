@@ -1,3 +1,10 @@
+## [9.11.4](https://github.com/Kong/kongponents/compare/v9.11.3...v9.11.4) (2024-10-15)
+
+
+### Bug Fixes
+
+* **kpagination:** ensure firstDetached consistency [KM-580] ([#2452](https://github.com/Kong/kongponents/issues/2452)) ([18a2e3a](https://github.com/Kong/kongponents/commit/18a2e3a47b40defe69ef7800a5416660d24b40ae))
+
 ## [9.11.3](https://github.com/Kong/kongponents/compare/v9.11.2...v9.11.3) (2024-10-15)
 
 
