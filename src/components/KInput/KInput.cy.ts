@@ -188,11 +188,11 @@ describe('KInput', () => {
 
     cy.get('.k-input .mask-value-toggle-button').should('be.visible')
     cy.get('.k-input input').should('have.attr', 'type', 'password')
+    cy.get('.k-input input').focus()
     cy.get('.k-input .mask-value-toggle-button').click()
     cy.get('.k-input input').should('have.attr', 'type', 'text')
     cy.get('.k-input .mask-value-toggle-button').click()
-    cy.get('.k-input input').should('have.attr', 'type', 'password')
-
+    cy.get('.k-input input').should('have.attr', 'type', 'password').should('be.focused')
     // user-provided after slot should be rendered
     cy.get('.k-input').find(`[data-testid="${afterSlot}"]`).should('not.exist')
   })
