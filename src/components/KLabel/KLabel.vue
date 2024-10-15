@@ -1,6 +1,5 @@
 <template>
   <label
-    v-bind-once="{ ...(hasTooltip && { 'aria-describedby': tooltipId }) }"
     class="k-label"
     :class="{ 'required': required }"
   >
@@ -13,9 +12,9 @@
       :tooltip-id="tooltipId"
     >
       <InfoIcon
+        v-bind-once="{ 'aria-describedby': tooltipId }"
         class="tooltip-trigger-icon"
         :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
-        decorative
         tabindex="0"
       />
       <template #content>
