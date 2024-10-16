@@ -424,7 +424,7 @@ const props = withDefaults(defineProps<TableViewProps>(), {
   rowExpandable: () => false,
   hideHeaders: false,
   nested: false,
-  hidePaginationWhenOptional: true,
+  hidePaginationWhenOptional: false,
   hideToolbar: false,
   /**
    * KTableData props defaults

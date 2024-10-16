@@ -20,9 +20,9 @@ If you are looking for a simpler table component that does not integrate data fe
 
 ## Base KTableView Component
 
-KTableData wraps the KTableView component, adding data fetching functionality. 
+KTableData wraps the KTableView component, adding data fetching functionality.
 
-KTableData supports all [KTableView props](/components/table-view#props) (with the exception of `data` prop, which is replaced with [`fetcher` prop](#fetcher) in KTableData), [slots](/components/table-view#slots) and [events](/components/table-view#events) (with the exception of [pagination events](/components/table-view#pagination-events) which are not emitted by KTableData). `headers` and `hidePaginationWhenOptional` props as well as `update:table-preferences` event are handled slightly differently in KTableData. See below sections for details.
+KTableData supports all [KTableView props](/components/table-view#props), except for the `data` prop, which is replaced by the [`fetcher` prop](#fetcher). It also supports [slots](/components/table-view#slots) and [events](/components/table-view#events), except for [pagination events](/components/table-view#pagination-events), which KTableData does not emit. Additionally, the `headers` prop and the `update:table-preferences` event are handled differently in KTableData. See the sections below for more details.
 
 ## Props
 
@@ -314,10 +314,6 @@ A string that will passed to fetcher function and can be used to modify the API 
 ### sortable
 
 Set this to `false` to disable ability to sort.
-
-### hidePaginationWhenOptional
-
-Set this to `true` to hide pagination when the table record count is less than or equal to the page size. Defaults to `false`.
 
 ## Events
 
