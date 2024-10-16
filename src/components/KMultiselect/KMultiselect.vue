@@ -330,7 +330,7 @@ const DEFAULT_SEARCH_PLACEHOLDER = 'Filter...'
 
 const props = defineProps({
   modelValue: {
-    type: Array as PropType<string[]>,
+    type: [Array, null] as PropType<string[] | null>,
     default: () => [],
   },
   label: {
@@ -554,14 +554,14 @@ const isReadonly = computed((): boolean => attrs?.readonly !== undefined && Stri
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
   get(): string[] {
-    return props.modelValue
+    return props.modelValue || []
   },
-  set(newValue: string[]): void {
-    const items = unfilteredItems.value.filter((item: MultiselectItem) => newValue.includes(item.value))
+  set(newValue: string[] | null): void {
+    const items = unfilteredItems.value.filter((item: MultiselectItem) => newValue?.includes(item.value))
 
     if (items.length) {
       handleMultipleItemsSelect(items)
-    } else if (!newValue.length) {
+    } else if (!newValue?.length) {
       clearSelection()
     }
   },
@@ -1018,7 +1018,7 @@ watch(() => props.items, (newValue, oldValue) => {
     }
 
     unfilteredItems.value[i].key = unfilteredItemKey
-    if (props.modelValue.includes(unfilteredItems.value[i].value) || unfilteredItems.value[i].selected) {
+    if (props.modelValue?.includes(unfilteredItems.value[i].value) || unfilteredItems.value[i].selected) {
       const selectedItem = unfilteredItems.value[i]
       selectedItem.selected = true
       // if it isn't already in the selectedItems array, add it
