@@ -1,10 +1,10 @@
 # Table
 
-Component that takes care of fetching and rendering data in a table format.
-
-:::tip NOTE
-If you are looking for a simpler table component that does not integrate data fetching, check out [KTableView](/components/table-view).
+:::danger DANGER
+KTable has been deprecated. Please use [KTableData](/components/table-data) instead.
 :::
+
+A table component that takes care of fetching and rendering data in a table format.
 
 <KTable
   :fetcher="basicFetcher"

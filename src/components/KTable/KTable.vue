@@ -275,7 +275,7 @@ import type {
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
-import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
+import ColumnVisibilityMenu from './../KTableView/ColumnVisibilityMenu.vue'
 import useUniqueId from '@/composables/useUniqueId'
 
 const { useDebounce, useRequest, useSwrvState, clientSideSorter: defaultClientSideSorter, getSizeFromString } = useUtilities()
@@ -1136,6 +1136,8 @@ watch(hasColumnVisibilityMenu, (newVal) => {
 }, { immediate: true })
 
 onMounted(() => {
+  console.warn("The Kongponents 'KTable' component is deprecated and will be removed in the next major release.\nWe suggest using 'KTableData' component instead.\nDocs: https://kongponents.konghq.com/components/table-data.html")
+
   initData()
 })
 </script>

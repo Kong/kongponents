@@ -3,7 +3,7 @@
 Component for displaying data in table format.
 
 :::tip NOTE
-KTableView does not handle data management capabilities like data fetching, functional pagination, sorting or searching. If you are looking for a component that integrates with the data layer, check out [KTable](/components/table).
+KTableView does not handle data management capabilities like data fetching, functional pagination, sorting or searching. If you are looking for a component that integrates with the data layer, check out [KTableData](/components/table-data).
 :::
 
 <KTableView
@@ -699,6 +699,10 @@ interface TablePaginationAttributes {
 
 A boolean to hide pagination element (defaults to `false`).
 
+### hidePaginationWhenOptional
+
+Set this to `true` to hide pagination when the table record count is less than or equal to the page size. Defaults to `false`.
+
 ### rowExpandable
 
 Function for making a row expandable. The function receives row value object as an argument and should return a boolean value. Default value is `() => false`.
@@ -740,6 +744,10 @@ A boolean to hide table headers. Only recomended when used in nested table. Refe
 ### nested
 
 A boolean to disable some of the table features like column visibility, column resizing, bulk actions and hide toolbar element in nested tables. Refer to [Expandable Rows](#expandable-rows) section documentation for more details. Defaults to `false`.
+
+### hideToolbar
+
+Prop for hiding toolbar. Useful when elements provided in the toolbar are not actionable (for example, when toolbar contains filter controls, however the fetcher returns no results as there are no records to filter by).
 
 ## States
 
@@ -1302,14 +1310,35 @@ Slot props:
   :headers="basicHeaders()"
   :pagination-attributes="{ totalCount: basicData.length }"
 >
-  <template #row-expanded>
-    Lorem ipsum odor amet, consectetuer adipiscing elit. Vitae rutrum interdum dis elementum; consequat maximus potenti felis. Faucibus eget vel, efficitur vitae ullamcorper velit. Aliquam aliquam fusce sollicitudin dolor lorem aenean. Rutrum ligula diam mollis felis egestas arcu. Odio urna leo pharetra luctus urna adipiscing suscipit nisl. Eleifend natoque lacus scelerisque suspendisse libero pulvinar ut lectus. Ac parturient fringilla lacinia fusce natoque semper.
-    Turpis pellentesque eu ad risus proin hendrerit litora. Sollicitudin facilisi per diam netus; at commodo ornare. Justo efficitur hendrerit augue blandit himenaeos suspendisse; mattis habitasse. Aliquet iaculis nibh ante et rutrum sollicitudin tincidunt enim. Suspendisse orci ac proin metus consectetur vel primis. Dictumst imperdiet nulla habitant donec gravida vel nulla in. Eleifend augue ligula convallis eros odio. Erat integer nibh mattis varius senectus.
-    Sodales nisl sem aliquet neque scelerisque. Dapibus mauris leo commodo; nulla adipiscing purus ultricies porttitor laoreet. Dignissim sociosqu cras sollicitudin iaculis magna ex. Elit lacus tincidunt dapibus adipiscing tortor eros dui felis. Orci hendrerit senectus himenaeos ligula cursus in. Turpis dignissim duis nunc neque ornare congue primis aenean natoque. Himenaeos mollis dui dolor laoreet mauris aliquam hendrerit scelerisque.
-    Sagittis lectus fringilla iaculis semper egestas mattis venenatis. Mollis parturient primis; pharetra leo neque faucibus nibh. Porttitor scelerisque magnis pellentesque nec vel etiam fames quisque. Senectus dictumst nisl enim sagittis primis magnis habitasse finibus torquent. Efficitur turpis hendrerit posuere dictum fusce nostra taciti donec. Parturient ut blandit ligula euismod taciti velit. Mollis urna nunc tellus; cras consequat volutpat turpis. Maximus egestas platea mauris mollis mollis conubia. Euismod scelerisque quam mauris parturient eleifend nostra. Mollis tempor hendrerit hendrerit praesent aliquet himenaeos dignissim.
-    Dignissim penatibus velit sapien vehicula sodales suspendisse iaculis massa. Cubilia aenean morbi scelerisque eu imperdiet odio primis. Mollis netus natoque, euismod felis tempor nibh. In nostra nulla eros ac orci suspendisse luctus porta. Parturient cras turpis faucibus ut sed nunc lacus. At et fermentum sapien tristique ac primis. Interdum vivamus orci velit sed arcu in. Eros aptent primis suscipit parturient curae enim.
-    Rutrum aliquam phasellus duis pellentesque torquent fermentum. Feugiat odio consequat cursus blandit tristique erat amet. Ornare scelerisque id erat lectus at erat. Dui nostra interdum tortor, turpis arcu dis. Netus fermentum lobortis primis fermentum velit ultrices nam condimentum? Dictum montes maximus senectus; quis varius scelerisque non ridiculus. Curae malesuada porttitor finibus venenatis mi faucibus. Velit blandit dis mauris laoreet ornare molestie.
-    Ante torquent faucibus nascetur ultricies eros varius odio. Cubilia sodales maximus tellus leo cubilia lorem facilisis. Blandit egestas suspendisse torquent dolor; torquent commodo id nullam. Etiam facilisi faucibus litora quisque aptent vestibulum dapibus. Maecenas risus fermentum facilisis suspendisse imperdiet nascetur porta. Vehicula malesuada sollicitudin viverra in ac habitasse ligula. Adipiscing porta neque nullam pharetra est luctus pharetra. Consequat sapien parturient nisl augue ultricies placerat maximus convallis. Consectetur metus lacinia; euismod mollis class tortor.
+  <template #row-expanded="{ row }">
+    <div class="expanded-row-content">
+      <div class="badges-container">
+        <KCopy
+          :text="String(row.id)"
+          badge
+          badge-label="ID:"
+        />
+        <div>
+          Joined on:
+          <KBadge appearance="info" max-width="100">
+            {{ new Date() }}
+          </KBadge>
+        </div>
+        <div>
+          Email verification status:
+          <KBadge :appearance="row.id % 3 ? 'success' : 'danger'">
+            {{ row.id % 3 ? '' : 'Not' }} Verified
+          </KBadge>
+        </div>
+      </div>
+      Lorem ipsum odor amet, consectetuer adipiscing elit. Vitae rutrum interdum dis elementum; consequat maximus potenti felis. Faucibus eget vel, efficitur vitae ullamcorper velit. Aliquam aliquam fusce sollicitudin dolor lorem aenean. Rutrum ligula diam mollis felis egestas arcu. Odio urna leo pharetra luctus urna adipiscing suscipit nisl. Eleifend natoque lacus scelerisque suspendisse libero pulvinar ut lectus. Ac parturient fringilla lacinia fusce natoque semper.
+      Turpis pellentesque eu ad risus proin hendrerit litora. Sollicitudin facilisi per diam netus; at commodo ornare. Justo efficitur hendrerit augue blandit himenaeos suspendisse; mattis habitasse. Aliquet iaculis nibh ante et rutrum sollicitudin tincidunt enim. Suspendisse orci ac proin metus consectetur vel primis. Dictumst imperdiet nulla habitant donec gravida vel nulla in. Eleifend augue ligula convallis eros odio. Erat integer nibh mattis varius senectus.
+      Sodales nisl sem aliquet neque scelerisque. Dapibus mauris leo commodo; nulla adipiscing purus ultricies porttitor laoreet. Dignissim sociosqu cras sollicitudin iaculis magna ex. Elit lacus tincidunt dapibus adipiscing tortor eros dui felis. Orci hendrerit senectus himenaeos ligula cursus in. Turpis dignissim duis nunc neque ornare congue primis aenean natoque. Himenaeos mollis dui dolor laoreet mauris aliquam hendrerit scelerisque.
+      Sagittis lectus fringilla iaculis semper egestas mattis venenatis. Mollis parturient primis; pharetra leo neque faucibus nibh. Porttitor scelerisque magnis pellentesque nec vel etiam fames quisque. Senectus dictumst nisl enim sagittis primis magnis habitasse finibus torquent. Efficitur turpis hendrerit posuere dictum fusce nostra taciti donec. Parturient ut blandit ligula euismod taciti velit. Mollis urna nunc tellus; cras consequat volutpat turpis. Maximus egestas platea mauris mollis mollis conubia. Euismod scelerisque quam mauris parturient eleifend nostra. Mollis tempor hendrerit hendrerit praesent aliquet himenaeos dignissim.
+      Dignissim penatibus velit sapien vehicula sodales suspendisse iaculis massa. Cubilia aenean morbi scelerisque eu imperdiet odio primis. Mollis netus natoque, euismod felis tempor nibh. In nostra nulla eros ac orci suspendisse luctus porta. Parturient cras turpis faucibus ut sed nunc lacus. At et fermentum sapien tristique ac primis. Interdum vivamus orci velit sed arcu in. Eros aptent primis suscipit parturient curae enim.
+      Rutrum aliquam phasellus duis pellentesque torquent fermentum. Feugiat odio consequat cursus blandit tristique erat amet. Ornare scelerisque id erat lectus at erat. Dui nostra interdum tortor, turpis arcu dis. Netus fermentum lobortis primis fermentum velit ultrices nam condimentum? Dictum montes maximus senectus; quis varius scelerisque non ridiculus. Curae malesuada porttitor finibus venenatis mi faucibus. Velit blandit dis mauris laoreet ornare molestie.
+      Ante torquent faucibus nascetur ultricies eros varius odio. Cubilia sodales maximus tellus leo cubilia lorem facilisis. Blandit egestas suspendisse torquent dolor; torquent commodo id nullam. Etiam facilisi faucibus litora quisque aptent vestibulum dapibus. Maecenas risus fermentum facilisis suspendisse imperdiet nascetur porta. Vehicula malesuada sollicitudin viverra in ac habitasse ligula. Adipiscing porta neque nullam pharetra est luctus pharetra. Consequat sapien parturient nisl augue ultricies placerat maximus convallis. Consectetur metus lacinia; euismod mollis class tortor.
+    </div>
   </template>
 </KTableView>
 
@@ -1320,7 +1349,26 @@ Slot props:
   :headers="headers"
   :pagination-attributes="{ totalCount: tableData.length }"
 >
-  <template #row-expanded>
+  <template #row-expanded="{ row }">
+    <div>
+      <KCopy
+        :text="String(row.id)"
+        badge
+        badge-label="ID:"
+      />
+      <div>
+        Joined on:
+        <KBadge appearance="info">
+          {{ new Date() }}
+        </KBadge>
+      </div>
+      <div>
+        Email verification status:
+        <KBadge :appearance="row.emailVerified ? 'success' : 'danger'">
+          {{ row.emailVerified ? '' : 'Not' }} Verified
+        </KBadge>
+      </div>
+    </div>
     Lorem ipsum odor amet...
   </template>
 </KTableView>
@@ -1839,5 +1887,16 @@ const cpData: TableViewData = [
   display: flex;
   flex-direction: column;
   gap: $kui-space-50;
+}
+
+.expanded-row-content { 
+  display: flex;
+  flex-direction: column;
+  gap: $kui-space-40;
+
+  .badges-container {
+    display: flex;
+    gap: $kui-space-50;
+  }
 }
 </style>

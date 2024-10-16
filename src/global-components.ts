@@ -49,6 +49,7 @@ declare module 'vue' {
     KTruncate: typeof components.KTruncate
     KCopy: typeof components.KCopy
     KTableView: typeof components.KTableView
+    KTableData: typeof components.KTableData
     // {%%NEW_KONGPONENT%%} (do not remove comment)
   }
 }

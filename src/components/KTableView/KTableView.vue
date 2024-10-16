@@ -68,7 +68,7 @@
           >
             <KButton
               data-testid="error-state-action"
-              :to="errorStateActionRoute"
+              :to="errorStateActionRoute!"
               @click="$emit('error-action-click')"
             >
               {{ errorStateActionMessage }}
@@ -96,7 +96,7 @@
             <KButton
               :appearance="emptyStateButtonAppearance"
               data-testid="empty-state-action"
-              :to="emptyStateActionRoute"
+              :to="emptyStateActionRoute!"
               @click="$emit('empty-state-action-click')"
             >
               <slot name="empty-state-action-icon" />
@@ -290,6 +290,7 @@
                         appearance="tertiary"
                         :aria-label="header.label"
                         class="actions-dropdown-trigger"
+                        data-testid="row-actions-dropdown-trigger"
                         icon
                         size="small"
                         @mouseleave="isActionsDropdownHovered = false"
@@ -367,7 +368,6 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue'
 import { ref, watch, computed, useAttrs, useSlots, nextTick } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
@@ -382,206 +382,55 @@ import type {
   TableColumnTooltipSlotName,
   SortColumnOrder,
   TableSortPayload,
-  EmptyStateIconVariant,
-  ButtonAppearance,
   RowLink,
-  TablePaginationAttributes,
   PageChangeData,
   PageSizeChangeData,
-  RowBulkAction,
+  TableViewProps,
   TableViewSelectState,
 } from '@/types'
 import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
-import ColumnVisibilityMenu from './../KTable/ColumnVisibilityMenu.vue'
+import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
 import useUniqueId from '@/composables/useUniqueId'
 import useUtilities from '@/composables/useUtilities'
-import type { RouteLocationRaw } from 'vue-router'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 import BulkActionsDropdown from './BulkActionsDropdown.vue'
+import { getInitialPageSize } from '@/utilities'
 
-const props = defineProps({
+const props = withDefaults(defineProps<TableViewProps>(), {
+  resizeColumns: false,
+  tablePreferences: () => ({}),
+  rowHover: true,
+  rowAttrs: () => ({}),
+  rowLink: () => ({} as RowLink),
+  rowBulkActionEnabled: () => true,
+  rowKey: '',
+  cellAttrs: () => ({}),
+  loading: false,
+  emptyStateTitle: 'No Data',
+  emptyStateMessage: 'There is no data to display.',
+  emptyStateActionMessage: '',
+  emptyStateIconVariant: EmptyStateIconVariants.Default,
+  emptyStateButtonAppearance: 'primary',
+  error: false,
+  errorStateTitle: 'An error occurred',
+  errorStateMessage: 'Data cannot be displayed due to an error.',
+  errorStateActionMessage :'',
+  maxHeight: 'none',
+  hidePagination: false,
+  paginationAttributes: () => ({}),
+  rowExpandable: () => false,
+  hideHeaders: false,
+  nested: false,
+  hidePaginationWhenOptional: false,
+  hideToolbar: false,
   /**
-   * Allow columns to be resized
+   * KTableData props defaults
    */
-  resizeColumns: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Used to customize the initial state of the table.
-   * Column visibility/width.
-   */
-  tablePreferences: {
-    type: Object as PropType<TablePreferences>,
-    default: () => ({}),
-  },
-  /**
-   * Enables hover highlighting to table rows
-   */
-  rowHover: {
-    type: Boolean,
-    default: true,
-  },
-  /**
-   * A function that conditionally specifies row attributes on each row
-   */
-  rowAttrs: {
-    type: Function as PropType<(row: Record<string, any>) => Record<string, string>>,
-    default: () => ({}),
-  },
-  /**
-   * A function that conditionally turns a row into a link
-   */
-  rowLink: {
-    type: Function as PropType<(row: Record<string, any>) => RowLink>,
-    default: () => ({}),
-  },
-  /**
-   * A function that conditionally specifies whether bulk actions are disabled for a row and the tooltip to display. Default value: () => true
-   */
-  rowBulkActionEnabled: {
-    type: Function as PropType<(row: Record<string, any>) => RowBulkAction>,
-    default: () => true,
-  },
-  /**
-   * A function that conditionally specifies cell attributes
-   */
-  cellAttrs: {
-    type: Function,
-    default: () => ({}),
-  },
-  /**
-   * A prop that enables a loading skeleton
-   */
-  loading: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * A prop to pass in a custom empty state title
-   */
-  emptyStateTitle: {
-    type: String,
-    default: 'No Data',
-  },
-  /**
-   * A prop to pass in a custom empty state message
-   */
-  emptyStateMessage: {
-    type: String,
-    default: 'There is no data to display.',
-  },
-  /**
-   * A prop to pass in a custom empty state action route
-   */
-  emptyStateActionRoute: {
-    type: [Object, String] as PropType<RouteLocationRaw | string>,
-    default: null,
-  },
-  /**
-   * A prop to pass in a custom empty state action message
-   */
-  emptyStateActionMessage: {
-    type: String,
-    default: '',
-  },
-  emptyStateIconVariant: {
-    type: String as PropType<EmptyStateIconVariant>,
-    default: EmptyStateIconVariants.Default,
-  },
-  emptyStateButtonAppearance: {
-    type: String as PropType<ButtonAppearance>,
-    default: 'primary',
-  },
-  /**
-   * A prop that enables the error state
-   */
-  error: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * A prop to pass in a custom error state title
-   */
-  errorStateTitle: {
-    type: String,
-    default: 'An error occurred',
-  },
-  /**
-   * A prop to pass in a custom error state message
-   */
-  errorStateMessage: {
-    type: String,
-    default: 'Data cannot be displayed due to an error.',
-  },
-  /**
-   * A prop to pass in a custom error state action route
-   */
-  errorStateActionRoute: {
-    type: [Object, String] as PropType<RouteLocationRaw | string>,
-    default: null,
-  },
-  /**
-   * A prop to pass in a custom error state action message
-   */
-  errorStateActionMessage: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in an array of headers for the table
-   */
-  headers: {
-    type: Array as PropType<TableViewHeader[]>,
-    default: () => [],
-  },
-  data: {
-    type: Array as PropType<TableViewData>,
-    default: () => [],
-  },
-  /**
-   * Provide the name of the data property keyto utilize as a unique identifier, or a function that receives the `row` object as a parameter that generates a unique identifier string for each row.
-   */
-  rowKey: {
-    type: [String, Function] as PropType<string | ((row: Record<string, any>) => string)>,
-    default: '',
-  },
-  maxHeight: {
-    type: String,
-    default: 'none',
-  },
-  hidePagination: {
-    type: Boolean,
-    default: false,
-  },
-  paginationAttributes: {
-    type: Object as PropType<TablePaginationAttributes>,
-    default: () => ({}),
-  },
-  /**
-   * Enable expandable rows
-   */
-  rowExpandable: {
-    type: Function as PropType<(row: Record<string, any>) => boolean>,
-    default: () => false,
-  },
-  /**
-   * Hide the table header
-   */
-  hideHeaders: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Nested table
-   */
-  nested: {
-    type: Boolean,
-    default: false,
-  },
+  data: () => ([]),
+  headers: () => ([]),
 })
 
 const emit = defineEmits<{
@@ -654,7 +503,7 @@ const isScrolledHorizontally = ref<boolean>(false)
 const sortColumnKey = ref('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
 const isClickable = ref(false)
-const hasToolbarSlot = computed((): boolean => !props.nested && (!!slots.toolbar || hasColumnVisibilityMenu.value || showBulkActionsToolbar.value))
+const hasToolbarSlot = computed((): boolean => !props.hideToolbar && !props.nested && (!!slots.toolbar || hasColumnVisibilityMenu.value || showBulkActionsToolbar.value))
 const isActionsDropdownHovered = ref<boolean>(false)
 const tableWrapperStyles = computed((): Record<string, string> => ({
   maxHeight: getSizeFromString(props.maxHeight),
@@ -835,7 +684,7 @@ const columnStyles = computed(() => {
 
 const getHeaderClasses = (column: TableViewHeader, index: number): Record<string, boolean> => {
   return {
-    // display the resize handle on the right side of the column if resizeColumns is enabled, hovering current column, and not the last column
+    // display the resize handle on the right side of the column if props.resizeColumns is enabled, hovering current column, and not the last column
     'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && !props.nested && index !== visibleHeaders.value.length - 1,
     resizable: props.resizeColumns && !props.nested,
     // display sort control if column is sortable, label is visible, and sorting is not disabled
@@ -963,11 +812,11 @@ const startResize = (evt: MouseEvent, colKey: string) => {
 }
 
 const showPagination = computed((): boolean => {
-  if (props.hidePagination) {
+  if (props.hidePagination || props.nested) {
     return false
   }
 
-  if (props.data && props.data.length && props.paginationAttributes.totalCount && props.paginationAttributes.totalCount <= props.data.length) {
+  if (props.hidePaginationWhenOptional && !!props.data.length && props.paginationAttributes.totalCount && props.paginationAttributes.totalCount <= props.data.length) {
     return false
   }
 
@@ -1043,35 +892,35 @@ const getRowState = (row: Record<string, any>): TableViewSelectState | undefined
 
 const getRowBulkActionEnabled = (row: Record<string, any>): boolean => {
   if (typeof props.rowBulkActionEnabled !== 'function') {
-	  return false
+    return false
   }
 
-  const rowBulkActionEnabled = props.rowBulkActionEnabled(row)
+  const rowBulkActionEnabledValue = props.rowBulkActionEnabled(row)
 
-  if (typeof rowBulkActionEnabled === 'boolean') {
-    return rowBulkActionEnabled
+  if (typeof rowBulkActionEnabledValue === 'boolean') {
+    return rowBulkActionEnabledValue
   }
 
-  return rowBulkActionEnabled.enabled
+  return rowBulkActionEnabledValue.enabled
 }
 
 const getRowBulkActionTooltip = (row: Record<string, any>): string => {
   if (typeof props.rowBulkActionEnabled !== 'function') {
-	  return ''
-  }
-
-  const rowBulkActionEnabled = props.rowBulkActionEnabled(row)
-
-  if (typeof rowBulkActionEnabled === 'boolean') {
     return ''
   }
 
-  return rowBulkActionEnabled.disabledTooltip || ''
+  const rowBulkActionEnabledValue = props.rowBulkActionEnabled(row)
+
+  if (typeof rowBulkActionEnabledValue === 'boolean') {
+    return ''
+  }
+
+  return rowBulkActionEnabledValue.disabledTooltip || ''
 }
 
 // determine the component to use for the row link
 const getRowLinkComponent = (row: Record<string, any>, columnKey: string): string => {
-  const { to } = props.rowLink(row)
+  const { to }: { to?: string | object } = props.rowLink(row)
 
   if (!to || columnKey === TableViewHeaderKeys.BULK_ACTIONS || columnKey === TableViewHeaderKeys.ACTIONS) {
     return 'div'
@@ -1087,7 +936,7 @@ const getRowLinkAttrs = (row: Record<string, any>, columnKey: string): Record<st
     return {}
   }
 
-  const { to, target } = props.rowLink(row)
+  const { to, target }: { to?: string | object, target?: string } = props.rowLink(row)
   const isRouterLink = to && typeof to === 'object'
   const isAnchor = to && typeof to === 'string'
 
@@ -1100,23 +949,15 @@ const getRowLinkAttrs = (row: Record<string, any>, columnKey: string): Record<st
   }
 }
 
-const getInitialPageSize = (): number | null => {
-  if (props.paginationAttributes.initialPageSize) {
-    return props.paginationAttributes.initialPageSize
-  } else if (props.paginationAttributes.pageSizes) {
-    return props.paginationAttributes.pageSizes[0]
-  }
 
-  return null
-}
-const paginationPageSize = ref<number | null>(getInitialPageSize())
+const paginationPageSize = ref<number>(getInitialPageSize(props.tablePreferences, props.paginationAttributes))
 const onPaginationPageSizeChange = (data: PageSizeChangeData): void => {
   paginationPageSize.value = data.pageSize
   emit('page-size-change', data)
 }
 
 // Store the tablePreferences in a computed property to utilize in the watcher
-const tablePreferences = computed((): TablePreferences => ({
+const computedTablePreferences = computed((): TablePreferences => ({
   sortColumnKey: sortColumnKey.value,
   sortColumnOrder: sortColumnOrder.value as 'asc' | 'desc',
   ...(props.resizeColumns ? { columnWidths: columnWidths.value } : {}),
@@ -1125,10 +966,10 @@ const tablePreferences = computed((): TablePreferences => ({
 }))
 
 const emitTablePreferences = (): void => {
-  emit('update:table-preferences', tablePreferences.value)
+  emit('update:table-preferences', computedTablePreferences.value)
 }
 
-const hasExpandableRows = computed((): boolean => !props.nested && props.data.some((row) => props.rowExpandable(row)))
+const hasExpandableRows = computed((): boolean => !props.nested && props.data.some((row: Record<string, any>) => props.rowExpandable(row)))
 /**
  * Toggle visibility of expendable row content
  */
@@ -1186,9 +1027,9 @@ const setActualColumnWidths = (): void => {
   actualColumnWidths.value = widths
 }
 
-watch([columnVisibility, tableHeaders], (newVals) => {
-  const newVisibility = newVals[0]
-  const newHeaders = newVals[1]
+watch([columnVisibility, tableHeaders, hasExpandableRows], (newVals) => {
+  const [newVisibility, newHeaders, newExpandableRows] = newVals
+
   let newVisibleHeaders = newHeaders.filter((header: TableViewHeader) => {
     if (header.key === TableViewHeaderKeys.BULK_ACTIONS) {
       return hasBulkActions.value
@@ -1203,7 +1044,7 @@ watch([columnVisibility, tableHeaders], (newVals) => {
   }
 
   // add the expandable row header if expandable rows are enabled
-  if (hasExpandableRows.value) {
+  if (newExpandableRows) {
     newVisibleHeaders.unshift(expandableRowHeader)
   }
 
@@ -1212,7 +1053,7 @@ watch([columnVisibility, tableHeaders], (newVals) => {
     emitTablePreferences()
   }
 
-  if (hasExpandableRows.value) {
+  if (newExpandableRows) {
     setActualColumnWidths()
   }
 }, { deep: true, immediate: true })

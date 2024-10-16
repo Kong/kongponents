@@ -70,6 +70,7 @@ defineProps({
       font-size: var(--kui-font-size-30, $kui-font-size-30);
       line-height: var(--kui-line-height-30, $kui-line-height-30);
       margin-right: var(--kui-space-20, $kui-space-20);
+      min-width: 2ch; // Prevents the button from resizing when the count changes
     }
   }
 }

@@ -177,6 +177,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxTableView/SandboxTableView.vue'),
   },
   {
+    path: '/table-data',
+    name: 'table-data',
+    meta: { title: 'Table Data Sandbox' },
+    component: () => import('../pages/SandboxTableData.vue'),
+  },
+  {
     path: '/table',
     name: 'table',
     meta: { title: 'Table Sandbox' },
