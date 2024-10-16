@@ -1,3 +1,10 @@
+# [9.12.0](https://github.com/Kong/kongponents/compare/v9.11.5...v9.12.0) (2024-10-16)
+
+
+### Features
+
+* **ktabledata:** create component [KHCP-13110] ([#2405](https://github.com/Kong/kongponents/issues/2405)) ([7393468](https://github.com/Kong/kongponents/commit/7393468db925e967844ecf7ce4deb0f358ab668a))
+
 ## [9.11.5](https://github.com/Kong/kongponents/compare/v9.11.4...v9.11.5) (2024-10-15)
 
 
