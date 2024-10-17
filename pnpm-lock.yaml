@@ -70,8 +70,8 @@ importers:
         specifier: ^1.7.18
         version: 1.7.18
       '@kong-ui-public/sandbox-layout':
-        specifier: ^2.1.45
-        version: 2.1.45(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.11(typescript@5.6.2)))(vue@3.5.11(typescript@5.6.2)))(vue@3.5.11(typescript@5.6.2))
+        specifier: ^2.1.46
+        version: 2.1.46(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.11(typescript@5.6.2)))(vue@3.5.11(typescript@5.6.2)))(vue@3.5.11(typescript@5.6.2))
       '@kong/design-tokens':
         specifier: ^1.17.2
         version: 1.17.2
@@ -872,8 +872,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@kong-ui-public/sandbox-layout@2.1.45':
-    resolution: {integrity: sha512-TXlQkIaAQN23ap0dd1ri77wZs19OHPrYo2JZrM4/Bk9YFJcRJ9ai+7CXMy6fqhiIToRfsyYCoe0qlu8Y7qMRxg==}
+  '@kong-ui-public/sandbox-layout@2.1.46':
+    resolution: {integrity: sha512-obXwNZeFMwvLNwAYN8QHwS8Caaji4pSm0uzMnSdg3wOZfIfk2yw0CgkfEu4RurAODIxf62/qxJqtMDRytMx12A==}
     peerDependencies:
       '@kong/kongponents': ^9.11.2
       vue: '>= 3.3.13 < 4'
@@ -5741,7 +5741,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@kong-ui-public/sandbox-layout@2.1.45(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.11(typescript@5.6.2)))(vue@3.5.11(typescript@5.6.2)))(vue@3.5.11(typescript@5.6.2))':
+  '@kong-ui-public/sandbox-layout@2.1.46(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.11(typescript@5.6.2)))(vue@3.5.11(typescript@5.6.2)))(vue@3.5.11(typescript@5.6.2))':
     dependencies:
       '@kong/icons': 1.18.1(vue@3.5.11(typescript@5.6.2))
       '@kong/kongponents': 9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.11(typescript@5.6.2)))(vue@3.5.11(typescript@5.6.2))
