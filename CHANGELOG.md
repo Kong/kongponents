@@ -1,3 +1,10 @@
+## [9.12.1](https://github.com/Kong/kongponents/compare/v9.12.0...v9.12.1) (2024-10-17)
+
+
+### Bug Fixes
+
+* **ktabledata:** show loading when revalidating ([#2466](https://github.com/Kong/kongponents/issues/2466)) ([b92d720](https://github.com/Kong/kongponents/commit/b92d720d3696cdb56cedc244920618a8dcb14583))
+
 # [9.12.0](https://github.com/Kong/kongponents/compare/v9.11.5...v9.12.0) (2024-10-16)
 
 
