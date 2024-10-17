@@ -400,7 +400,7 @@ const value = computed({
   get(): string | number | null {
     return props.modelValue
   },
-  set(newValue: string | number): void {
+  set(newValue: string | number | null): void {
     const item = selectItems.value?.filter((item: SelectItem) => item.value === newValue)
     if (item?.length) {
       handleItemSelect(item[0])
