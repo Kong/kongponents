@@ -19,7 +19,7 @@
     :hide-pagination="hidePagination || !showPagination"
     :hide-pagination-when-optional="false"
     :hide-toolbar="hideToolbar"
-    :loading="loading || isTableLoading"
+    :loading="loading || isTableLoading || isRevalidating"
     :max-height="maxHeight"
     :nested="nested"
     :pagination-attributes="tablePaginationAttributes"
