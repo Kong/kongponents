@@ -337,7 +337,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'selected', item: SelectItem): void
+  (e: 'selected', item: SelectItem | null): void
   (e: 'input', value: string | number | null): void
   (e: 'change', item: SelectItem | null): void
   (e: 'update:modelValue', value: string | number | null): void
