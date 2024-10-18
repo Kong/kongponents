@@ -21,6 +21,10 @@ The Button component can take 1 of 5 appearance values:
 - `danger`
 - `none`
 
+:::tip NOTE
+`appearance="none"` is used in scenarios where custom styles are needed while retaining the basic behavior of `KButton`. When enabled, the size and icon props will not be supported and do not need to be supported.
+:::
+
 <div class="spacing-container">
   <KButton appearance="primary">Primary</KButton>
   <KButton appearance="secondary">Secondary</KButton>

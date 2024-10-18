@@ -2,7 +2,14 @@
   <component
     :is="buttonType"
     class="k-button"
-    :class="[buttonSize, buttonAppearance, { 'icon-button': icon === true || (!$slots.default && $slots.icon /* TODO: remove this once we remove icon slot */) }]"
+    :class="[
+      buttonSize,
+      buttonAppearance,
+      {
+        'icon-button': appearance !== 'none' &&
+          (icon === true || (!$slots.default && $slots.icon /* TODO: remove this once we remove icon slot */))
+      }
+    ]"
     :disabled="disabled ? disabled : undefined"
     :tabindex="disabled && buttonType !== 'button' ? '-1' : undefined"
     :type="type"
@@ -115,10 +122,14 @@ const buttonSize = computed((): ButtonSize | null => {
 const strippedAttrs = computed((): typeof attrs => {
   const modifiedAttrs = Object.assign({}, attrs)
 
-  if (props.to && typeof props.to === 'string') {
-    modifiedAttrs.href = props.to
-  } else if (props.to) {
-    modifiedAttrs.to = props.to
+  if (props.disabled) {
+    modifiedAttrs.href = null
+  } else {
+    if (props.to && typeof props.to === 'string') {
+      modifiedAttrs.href = props.to
+    } else if (props.to) {
+      modifiedAttrs.to = props.to
+    }
   }
 
   if (props.disabled !== undefined && props.disabled !== false) {
@@ -313,6 +324,7 @@ export default {
   &:where(.none) {
     all: unset;
     align-items: center;
+    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     box-sizing: border-box;
     cursor: pointer;
     display: inline-flex;
@@ -320,6 +332,10 @@ export default {
     transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, border-color $kongponentsTransitionDurTimingFunc;
     user-select: none;
     white-space: nowrap;
+
+    &:where(.disabled, [disabled]) {
+      color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+    }
   }
 
   /* Sizes */
