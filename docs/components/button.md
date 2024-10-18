@@ -13,18 +13,20 @@ and configuration options.
 
 ### appearance
 
-The Button component can take 1 of 4 appearance values:
+The Button component can take 1 of 5 appearance values:
 
 - `primary`
 - `secondary`
 - `tertiary`
 - `danger`
+- `none`
 
 <div class="spacing-container">
   <KButton appearance="primary">Primary</KButton>
   <KButton appearance="secondary">Secondary</KButton>
   <KButton appearance="tertiary">Tertiary</KButton>
   <KButton appearance="danger">Danger</KButton>
+  <KButton appearance="none">None</KButton>
 </div>
 
 ```html
@@ -32,6 +34,7 @@ The Button component can take 1 of 4 appearance values:
 <KButton appearance="secondary">Secondary</KButton>
 <KButton appearance="tertiary">Tertiary</KButton>
 <KButton appearance="danger">Danger</KButton>
+<KButton appearance="none">None</KButton>
 ```
 
 ### size
