@@ -109,7 +109,7 @@ export default defineComponent({
 
 <style>
 /* Import Kongponents styles here, or in the <script> tag */
-@import '@kong/kongponents/dist/style.css';
+@use '@kong/kongponents/dist/style.css';
 /* If using Vue-CLI and webpack, you can likely use
 this path instead: import '~@kong/kongponents/dist/style.css' */
 </style>
