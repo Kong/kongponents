@@ -13,18 +13,24 @@ and configuration options.
 
 ### appearance
 
-The Button component can take 1 of 4 appearance values:
+The Button component can take 1 of 5 appearance values:
 
 - `primary`
 - `secondary`
 - `tertiary`
 - `danger`
+- `none`
+
+:::tip NOTE
+`appearance="none"` is used in scenarios where custom styles are needed while retaining the basic behavior of `KButton`. When enabled, the `size` and `icon` props will not be supported (and there's no need to support them).
+:::
 
 <div class="spacing-container">
   <KButton appearance="primary">Primary</KButton>
   <KButton appearance="secondary">Secondary</KButton>
   <KButton appearance="tertiary">Tertiary</KButton>
   <KButton appearance="danger">Danger</KButton>
+  <KButton appearance="none">None</KButton>
 </div>
 
 ```html
@@ -32,6 +38,7 @@ The Button component can take 1 of 4 appearance values:
 <KButton appearance="secondary">Secondary</KButton>
 <KButton appearance="tertiary">Tertiary</KButton>
 <KButton appearance="danger">Danger</KButton>
+<KButton appearance="none">None</KButton>
 ```
 
 ### size
