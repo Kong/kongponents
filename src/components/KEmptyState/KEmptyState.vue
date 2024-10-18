@@ -118,6 +118,7 @@ const getIconColor = computed((): string => {
 .k-empty-state {
   align-items: center;
   background-color: var(--kui-color-background, $kui-color-background);
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   font-family: var(--kui-font-family-text, $kui-font-family-text);

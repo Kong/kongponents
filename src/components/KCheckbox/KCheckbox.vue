@@ -192,7 +192,7 @@ export default {
     position: relative;
 
     &.has-label {
-      margin-top: 3px; // align with label
+      margin-top: 2px; // align with label
     }
   }
 
@@ -280,6 +280,7 @@ export default {
 
     .checkbox-label {
       cursor: pointer;
+      display: flex;
       margin: 0;
 
       &.required {

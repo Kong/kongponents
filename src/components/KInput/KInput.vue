@@ -51,6 +51,8 @@
           :aria-label="`${maskValue ? 'Hide' : 'Show'} value`"
           class="mask-value-toggle-button"
           @click.stop="maskValue = !maskValue"
+          @mousedown.prevent
+          @mouseup.prevent
         >
           <VisibilityOffIcon
             v-if="maskValue"
@@ -382,6 +384,12 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
       :deep(#{$kongponentsKongIconSelector}) {
         height: $kInputIconSize !important;
         width: $kInputIconSize !important;
+      }
+
+      // enhance the experience for most common cases that icon only slots should not
+      // prevent the input from being focused by click on the icon
+      &:has(> #{$kongponentsKongIconSelector}:not(button):not([role="button"]):only-child) {
+        pointer-events: none;
       }
 
       :deep([role="button"]:not(.k-button)), :deep(button:not(.k-button)),

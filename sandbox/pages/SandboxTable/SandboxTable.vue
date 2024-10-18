@@ -1,7 +1,7 @@
 <template>
   <SandboxLayout
     :links="inject('app-links', [])"
-    title="KTable"
+    title="KTable (deprecated)"
   >
     <div class="ktable-sandbox">
       <!-- Props -->

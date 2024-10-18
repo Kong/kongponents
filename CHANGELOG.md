@@ -1,3 +1,46 @@
+## [9.12.1](https://github.com/Kong/kongponents/compare/v9.12.0...v9.12.1) (2024-10-17)
+
+
+### Bug Fixes
+
+* **ktabledata:** show loading when revalidating ([#2466](https://github.com/Kong/kongponents/issues/2466)) ([b92d720](https://github.com/Kong/kongponents/commit/b92d720d3696cdb56cedc244920618a8dcb14583))
+
+# [9.12.0](https://github.com/Kong/kongponents/compare/v9.11.5...v9.12.0) (2024-10-16)
+
+
+### Features
+
+* **ktabledata:** create component [KHCP-13110] ([#2405](https://github.com/Kong/kongponents/issues/2405)) ([7393468](https://github.com/Kong/kongponents/commit/7393468db925e967844ecf7ce4deb0f358ab668a))
+
+## [9.11.5](https://github.com/Kong/kongponents/compare/v9.11.4...v9.11.5) (2024-10-15)
+
+
+### Bug Fixes
+
+* **kinput:** prevent focus loss on icon/button click ([#2453](https://github.com/Kong/kongponents/issues/2453)) ([c536de7](https://github.com/Kong/kongponents/commit/c536de7afc846a0b54804fa75bb986bb3d729da4))
+* **klabel:** fix aria attributes on tooltip icon ([#2454](https://github.com/Kong/kongponents/issues/2454)) ([7201572](https://github.com/Kong/kongponents/commit/72015727498152ada0ccd9c6de74f844c6cc7bca))
+
+## [9.11.4](https://github.com/Kong/kongponents/compare/v9.11.3...v9.11.4) (2024-10-15)
+
+
+### Bug Fixes
+
+* **kpagination:** ensure firstDetached consistency [KM-580] ([#2452](https://github.com/Kong/kongponents/issues/2452)) ([18a2e3a](https://github.com/Kong/kongponents/commit/18a2e3a47b40defe69ef7800a5416660d24b40ae))
+
+## [9.11.3](https://github.com/Kong/kongponents/compare/v9.11.2...v9.11.3) (2024-10-15)
+
+
+### Bug Fixes
+
+* update the helpUrl ([#2458](https://github.com/Kong/kongponents/issues/2458)) ([56e7a39](https://github.com/Kong/kongponents/commit/56e7a39513e3a772b11d892965ef1e75497e2103))
+
+## [9.11.2](https://github.com/Kong/kongponents/compare/v9.11.1...v9.11.2) (2024-10-12)
+
+
+### Bug Fixes
+
+* **ktable:** bulk actions checkboxes should be valign center ([#2446](https://github.com/Kong/kongponents/issues/2446)) ([cfca76a](https://github.com/Kong/kongponents/commit/cfca76ad00bd54ea164fad314e195834cfd56e98))
+
 ## [9.11.1](https://github.com/Kong/kongponents/compare/v9.11.0...v9.11.1) (2024-10-11)
 
 
