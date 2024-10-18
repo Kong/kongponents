@@ -2,10 +2,12 @@
   <component
     :is="buttonType"
     class="k-button"
-    :class="[size, appearance, { 'icon-button': icon === true || (!$slots.default && $slots.icon /* TODO: remove this once we remove icon slot */) }]"
+    :class="[buttonSize, buttonAppearance, { 'icon-button': icon === true || (!$slots.default && $slots.icon /* TODO: remove this once we remove icon slot */) }]"
     :disabled="disabled ? disabled : undefined"
+    :tabindex="disabled && buttonType !== 'button' ? '-1' : undefined"
     :type="type"
     v-bind="strippedAttrs"
+    v-on="listeners"
   >
     <!-- @deprecated -->
     <!-- KButton: `icon` slot will be removed in the next major release -->
@@ -86,6 +88,24 @@ const buttonType = computed((): string => {
   return 'button'
 })
 
+const buttonAppearance = computed((): ButtonAppearance | [ButtonAppearance, string] => {
+  // If the appearance is invalid, output both to keep backwards compatibility
+  // in case some of the tests rely on the invalid appearance output
+  if (Object.values(ButtonAppearances).indexOf(props.appearance) === -1) {
+    return ['primary', props.appearance]
+  }
+
+  return props.appearance
+})
+
+const buttonSize = computed((): ButtonSize | null => {
+  if (props.appearance === 'none') {
+    return null
+  }
+
+  return props.size
+})
+
 /**
 * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.
 * Vue 3 no longer removes attribute if the value is boolean false. Instead, it's set as attr="false".
@@ -110,6 +130,25 @@ const strippedAttrs = computed((): typeof attrs => {
   return modifiedAttrs
 })
 
+const stop = (event: Event) => {
+  event.preventDefault()
+  event.stopPropagation()
+}
+
+const listeners = computed(() => {
+  if (!props.disabled || buttonType.value === 'button') {
+    return {}
+  }
+
+  // Only prevent clicks on disabled links, emulating the same behavior as a disabled button
+  return {
+    clickCapture: stop,
+    dblclickCapture: stop,
+    mousedownCapture: stop,
+    mouseupCapture: stop,
+  }
+})
+
 onMounted(() => {
   if (slots.icon) {
     console.warn('KButton: `icon` slot is deprecated. Please slot an icon into the `default` slot instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kbutton')
@@ -124,36 +163,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* Component mixins */
-
-@mixin kButtonPrimaryAppearance {
-  background-color: var(--kui-color-background-primary, $kui-color-background-primary);
-  border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
-  color: var(--kui-color-text-inverse, $kui-color-text-inverse);
-
-  &:hover:not(:disabled):not(:focus):not(:active) {
-    background-color: var(--kui-color-background-primary-strong, $kui-color-background-primary-strong);
-  }
-
-  &:focus-visible {
-    background-color: var(--kui-color-background-primary-stronger, $kui-color-background-primary-stronger);
-  }
-
-  &:active {
-    background-color: var(--kui-color-background-primary-strongest, $kui-color-background-primary-strongest);
-  }
-
-  &:disabled, &[disabled] {
-    background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
-    color: var(--kui-color-text-disabled, $kui-color-text-disabled);
-  }
-}
-
 /* Component styles */
 
 .k-button {
-  @include kButtonPrimaryAppearance; // primary appearance is the default (in case of invalid appearance)
-
   // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
   // stylelint-disable-next-line no-duplicate-selectors
   & {
@@ -192,15 +204,29 @@ export default {
     cursor: not-allowed;
   }
 
-  // remove pointer events from only <a>
-  &[disabled]:not(:disabled) {
-    pointer-events: none;
-  }
-
   /* Appearances */
 
   &.primary {
-    @include kButtonPrimaryAppearance;
+    background-color: var(--kui-color-background-primary, $kui-color-background-primary);
+    border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
+    color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+
+    &:hover:not(:disabled):not([disabled]):not(:focus):not(:active) {
+      background-color: var(--kui-color-background-primary-strong, $kui-color-background-primary-strong);
+    }
+
+    &:focus-visible {
+      background-color: var(--kui-color-background-primary-stronger, $kui-color-background-primary-stronger);
+    }
+
+    &:active {
+      background-color: var(--kui-color-background-primary-strongest, $kui-color-background-primary-strongest);
+    }
+
+    &:disabled, &[disabled] {
+      background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+      color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+    }
   }
 
   &.secondary {
@@ -208,7 +234,7 @@ export default {
     border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-primary, $kui-color-border-primary);
     color: var(--kui-color-text-primary, $kui-color-text-primary);
 
-    &:hover:not(:disabled):not(:focus):not(:active) {
+    &:hover:not(:disabled):not([disabled]):not(:focus):not(:active) {
       background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
       border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
       color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
@@ -238,7 +264,7 @@ export default {
     border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
     color: var(--kui-color-text-primary, $kui-color-text-primary);
 
-    &:hover:not(:disabled):not(:focus):not(:active) {
+    &:hover:not(:disabled):not([disabled]):not(:focus):not(:active) {
       background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
       color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
     }
@@ -264,7 +290,7 @@ export default {
     border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
     color: var(--kui-color-text-inverse, $kui-color-text-inverse);
 
-    &:hover:not(:disabled):not(:focus):not(:active) {
+    &:hover:not(:disabled):not([disabled]):not(:focus):not(:active) {
       background-color: var(--kui-color-background-danger-strong, $kui-color-background-danger-strong);
     }
 
@@ -280,6 +306,20 @@ export default {
       background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
       color: var(--kui-color-text-disabled, $kui-color-text-disabled);
     }
+  }
+
+  // reset the style of a button to bare minimum
+  // using :where() here to make style override easier
+  &:where(.none) {
+    all: unset;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, border-color $kongponentsTransitionDurTimingFunc;
+    user-select: none;
+    white-space: nowrap;
   }
 
   /* Sizes */

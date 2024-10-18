@@ -13,7 +13,7 @@
         title="appearance"
       >
         <template #description>
-          KButton component takes 1 of 4 appearance values:
+          KButton component takes 1 of 5 appearance values:
           <ul>
             <li>
               <em>primary</em> - default value
@@ -26,6 +26,9 @@
             </li>
             <li>
               <em>danger</em>
+            </li>
+            <li>
+              <em>none</em>
             </li>
           </ul>
         </template>
@@ -51,6 +54,12 @@
           >
             Danger
           </KButton>
+          <KButton
+            appearance="none"
+            @click="test"
+          >
+            None
+          </KButton>
         </div>
         <div class="horizontal-spacing">
           <KButton
@@ -75,6 +84,13 @@
           </KButton>
           <KButton
             appearance="danger"
+            disabled
+            @click="test"
+          >
+            Disabled
+          </KButton>
+          <KButton
+            appearance="none"
             disabled
             @click="test"
           >
@@ -189,6 +205,13 @@
             Danger
           </KButton>
           <KButton
+            appearance="none"
+            target="_blank"
+            to="https://kongponents.konghq.com/"
+          >
+            None
+          </KButton>
+          <KButton
             disabled
             target="_blank"
             to="https://kongponents.konghq.com/"
@@ -228,6 +251,13 @@
             :to="{ name: 'home' }"
           >
             Danger
+          </KButton>
+          <KButton
+            appearance="none"
+            target="_blank"
+            :to="{ name: 'home' }"
+          >
+            None
           </KButton>
           <KButton
             disabled
@@ -274,6 +304,13 @@
             <AddCircleIcon />
             Danger
           </KButton>
+          <KButton
+            appearance="none"
+            size="large"
+          >
+            <AddCircleIcon />
+            None
+          </KButton>
         </div>
         <div class="horizontal-spacing">
           <KButton>
@@ -291,6 +328,10 @@
           <KButton appearance="danger">
             <AddCircleIcon />
             Danger
+          </KButton>
+          <KButton appearance="none">
+            <AddCircleIcon />
+            None
           </KButton>
         </div>
         <div class="horizontal-spacing">
@@ -318,6 +359,13 @@
           >
             <AddCircleIcon />
             Danger
+          </KButton>
+          <KButton
+            appearance="none"
+            size="small"
+          >
+            <AddCircleIcon />
+            None
           </KButton>
         </div>
         <!-- icon after -->
@@ -347,6 +395,13 @@
             Danger
             <ChevronDownIcon />
           </KButton>
+          <KButton
+            appearance="none"
+            size="large"
+          >
+            None
+            <ChevronDownIcon />
+          </KButton>
         </div>
         <div class="horizontal-spacing">
           <KButton>
@@ -363,6 +418,10 @@
           </KButton>
           <KButton appearance="danger">
             Danger
+            <ChevronDownIcon />
+          </KButton>
+          <KButton appearance="none">
+            None
             <ChevronDownIcon />
           </KButton>
         </div>
@@ -390,6 +449,13 @@
             size="small"
           >
             Danger
+            <ChevronDownIcon />
+          </KButton>
+          <KButton
+            appearance="none"
+            size="small"
+          >
+            None
             <ChevronDownIcon />
           </KButton>
         </div>
@@ -429,6 +495,13 @@
           >
             <DisabledIcon />
           </KButton>
+          <KButton
+            appearance="none"
+            icon
+            size="large"
+          >
+            <AddCircleIcon />
+          </KButton>
         </div>
         <div class="horizontal-spacing">
           <KButton icon>
@@ -452,6 +525,12 @@
           >
             <DisabledIcon />
           </KButton>
+          <KButton
+            appearance="none"
+            icon
+          >
+            <AddCircleIcon />
+          </KButton>
         </div>
         <div class="horizontal-spacing">
           <KButton
@@ -480,6 +559,36 @@
             size="small"
           >
             <DisabledIcon />
+          </KButton>
+          <KButton
+            appearance="none"
+            icon
+            size="small"
+          >
+            <AddCircleIcon />
+          </KButton>
+        </div>
+      </SandboxSectionComponent>
+      <SandboxTitleComponent
+        is-subtitle
+        title="Custom button"
+      />
+      <SandboxSectionComponent>
+        <div class="horizontal-spacing">
+          <KButton
+            appearance="none"
+            class="custom-button"
+            @click="test"
+          >
+            Custom
+          </KButton>
+          <KButton
+            appearance="none"
+            class="custom-button"
+            disabled
+            @click="test"
+          >
+            Custom
           </KButton>
         </div>
       </SandboxSectionComponent>
@@ -505,6 +614,25 @@ const test = () => {
     display: flex;
     flex-wrap: wrap;
     gap: $kui-space-50;
+  }
+}
+
+/* Low-specificity styles should be able to override */
+.custom-button {
+  background-color: #42b883;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 8px 16px;
+
+  &:hover:not(:disabled) {
+    background-color: #33a06f;
+    transition-duration: .2s;
+  }
+
+  &:disabled {
+    opacity: 0.3;
   }
 }
 </style>
