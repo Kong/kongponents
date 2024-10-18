@@ -223,7 +223,7 @@ const { getSizeFromString, stripRequiredLabel } = useUtilities()
 
 const props = defineProps({
   modelValue: {
-    type: [String, Number],
+    type: [String, Number, null],
     default: '',
   },
   kpopAttributes: {
@@ -337,7 +337,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'selected', item: SelectItem): void
+  (e: 'selected', item: SelectItem | null): void
   (e: 'input', value: string | number | null): void
   (e: 'change', item: SelectItem | null): void
   (e: 'update:modelValue', value: string | number | null): void
@@ -397,10 +397,10 @@ const selectWrapperElement = ref<HTMLDivElement>() // div element that wraps the
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
-  get(): string | number {
+  get(): string | number | null {
     return props.modelValue
   },
-  set(newValue: string | number): void {
+  set(newValue: string | number | null): void {
     const item = selectItems.value?.filter((item: SelectItem) => item.value === newValue)
     if (item?.length) {
       handleItemSelect(item[0])
