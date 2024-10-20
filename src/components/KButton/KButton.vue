@@ -2,14 +2,7 @@
   <component
     :is="buttonType"
     class="k-button"
-    :class="[
-      buttonSize,
-      buttonAppearance,
-      {
-        'icon-button': appearance !== 'none' &&
-          (icon === true || (!$slots.default && $slots.icon /* TODO: remove this once we remove icon slot */))
-      }
-    ]"
+    :class="[buttonSize, buttonAppearance, { 'icon-button': icon === true || (!$slots.default && $slots.icon /* TODO: remove this once we remove icon slot */) }]"
     :disabled="disabled ? disabled : undefined"
     :tabindex="disabled && buttonType !== 'button' ? '-1' : undefined"
     :type="type"
@@ -106,7 +99,7 @@ const buttonAppearance = computed((): ButtonAppearance | [ButtonAppearance, stri
 })
 
 const buttonSize = computed((): ButtonSize | null => {
-  if (props.appearance === 'none') {
+  if (props.appearance === 'none' && !props.icon) {
     return null
   }
 
@@ -335,6 +328,11 @@ export default {
 
     &:where(.disabled, [disabled]) {
       color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+    }
+
+    &:where(.icon-button) {
+      border-color: transparent;
+      border-style: solid;
     }
   }
 
