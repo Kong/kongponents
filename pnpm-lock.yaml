@@ -70,7 +70,7 @@ importers:
         specifier: ^1.7.18
         version: 1.7.18
       '@kong-ui-public/sandbox-layout':
-        specifier: ^2.1.48
+        specifier: ^2.1.49
         version: 2.1.49(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.11(typescript@5.6.3)))(vue@3.5.11(typescript@5.6.3)))(vue@3.5.11(typescript@5.6.3))
       '@kong/design-tokens':
         specifier: ^1.17.2
