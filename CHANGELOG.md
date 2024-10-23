@@ -1,3 +1,10 @@
+# [9.13.0](https://github.com/Kong/kongponents/compare/v9.12.1...v9.13.0) (2024-10-23)
+
+
+### Features
+
+* **kbutton:** add appearance="none" to button ([#2469](https://github.com/Kong/kongponents/issues/2469)) ([30fb03a](https://github.com/Kong/kongponents/commit/30fb03a00be86059ceb0bfc07a3eae85efbc57fc))
+
 ## [9.12.1](https://github.com/Kong/kongponents/compare/v9.12.0...v9.12.1) (2024-10-17)
 
 
