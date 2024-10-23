@@ -102,6 +102,7 @@
         description="Here we pass an invalid value to the appearance prop (see the error in the console) which the KButton handles by falling back to primary appearance."
         title="invalid value"
       >
+        <!-- @vue-expect-error -->
         <KButton appearance="outline">
           Still Primary
         </KButton>
@@ -304,13 +305,6 @@
             <AddCircleIcon />
             Danger
           </KButton>
-          <KButton
-            appearance="none"
-            size="large"
-          >
-            <AddCircleIcon />
-            None
-          </KButton>
         </div>
         <div class="horizontal-spacing">
           <KButton>
@@ -328,10 +322,6 @@
           <KButton appearance="danger">
             <AddCircleIcon />
             Danger
-          </KButton>
-          <KButton appearance="none">
-            <AddCircleIcon />
-            None
           </KButton>
         </div>
         <div class="horizontal-spacing">
@@ -359,13 +349,6 @@
           >
             <AddCircleIcon />
             Danger
-          </KButton>
-          <KButton
-            appearance="none"
-            size="small"
-          >
-            <AddCircleIcon />
-            None
           </KButton>
         </div>
         <!-- icon after -->

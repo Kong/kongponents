@@ -22,7 +22,9 @@ The Button component can take 1 of 5 appearance values:
 - `none`
 
 :::tip NOTE
-Use `appearance="none"` to apply custom styles while keeping KButton's basic functionality. When this is enabled, the `size` prop won’t work unless `icon` is set to `true`.
+Use `appearance="none"` to get an unstyled button, making it easier to customize from scratch. This removes the built-in styling but retains the button's functionality.
+
+When `appearance="none"` is set, the `size` prop only works if `icon` is `true`; otherwise, `size` has no effect.
 :::
 
 <div class="spacing-container">
