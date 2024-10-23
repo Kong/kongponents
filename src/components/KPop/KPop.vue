@@ -185,6 +185,22 @@ const togglePopover = () => {
   }
 }
 
+const cancelFloatingUpdates = () => {
+  if (floatingUpdates.value) {
+    floatingUpdates.value()
+  }
+}
+
+const startFloatingUpdates = () => {
+  cancelFloatingUpdates()
+  if (popoverTrigger.value && popoverElement.value) {
+    // start the auto updates for the popover position
+    // autoUpdate cleanup function
+    // docs: https://floating-ui.com/docs/autoUpdate#usage
+    floatingUpdates.value = autoUpdate(popoverTrigger.value, popoverElement.value, updatePosition)
+  }
+}
+
 const showPopover = async () => {
   if (!props.disabled) {
     if (timer.value) {
@@ -195,12 +211,14 @@ const showPopover = async () => {
       popoverKey.value++
       await nextTick() // wait for the Transition to update to ensure the animation works as expected
     }
+    startFloatingUpdates()
     isVisible.value = true
   }
 }
 
 const hidePopover = () => {
   timer.value = setTimeout(() => {
+    cancelFloatingUpdates()
     isVisible.value = false
   }, props.trigger === 'hover' ? props.popoverTimeout : 0)
 }
@@ -311,13 +329,6 @@ onMounted(() => {
       popoverElement.value.addEventListener('focusout', hidePopover)
     }
   }
-
-  if (popoverTrigger.value && popoverElement.value) {
-    // start the auto updates for the popover position
-    // autoUpdate cleanup function
-    // docs: https://floating-ui.com/docs/autoUpdate#usage
-    floatingUpdates.value = autoUpdate(popoverTrigger.value, popoverElement.value, updatePosition)
-  }
 })
 
 onBeforeUnmount(() => {
@@ -339,10 +350,7 @@ onBeforeUnmount(() => {
     }
   }
 
-  if (floatingUpdates.value) {
-    // need to cleanup the auto updates
-    floatingUpdates.value()
-  }
+  cancelFloatingUpdates()
 })
 
 watch(isVisible, (val) => {
