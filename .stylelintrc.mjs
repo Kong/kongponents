@@ -12,7 +12,10 @@ export default {
   rules: {
     // Disallow relative font units since we don't know the base font size in other apps
     'unit-disallowed-list': ['rem', 'em'],
-    'order/properties-alphabetical-order': true,
+    'order/properties-order': [
+      ['all'],
+      { 'unspecified': 'bottomAlphabetical' },
+	  ],
     '@kong/design-tokens/use-proper-token': true,
     '@stylistic/indentation': [2, { baseIndentLevel: 0 }],
     // Only allow @kong/design-tokens or `--kong-ui-*` CSS custom properties
