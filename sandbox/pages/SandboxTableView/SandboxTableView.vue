@@ -439,12 +439,13 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="Table Inputs">
         <KTableView
-          :data="tableDataInput"
-          :headers="tableInputHeaders"
+          :data="tableInpustData"
+          :headers="tableInputsHeaders"
           hide-pagination
+          row-key="id"
         >
           <template #value="{ row }">
-            <KInput v-model="formData[row.id]" />
+            <KInput v-model="tableInputsFormData[row.id]" />
           </template>
         </KTableView>
       </SandboxSectionComponent>
@@ -651,21 +652,21 @@ const getRowOneTwoLink = (row: Record<string, any>): RowLink => {
   return {}
 }
 
-const formData = reactive<Record<string, string>>({
+const tableInputsFormData = reactive<Record<string, string>>({
   foo: '',
   bar: '',
 })
 
-const tableInputHeaders: TableViewHeader[] = [{ key: 'value', label: 'Value' }]
+const tableInputsHeaders: TableViewHeader[] = [{ key: 'value', label: 'Value' }]
 
-const tableDataInput = computed((): TableViewData => [
+const tableInpustData = computed((): TableViewData => [
   {
     id: 'foo',
-    value: formData.foo,
+    value: tableInputsFormData.foo,
   },
   {
     id: 'bar',
-    value: formData.bar,
+    value: tableInputsFormData.bar,
   },
 ])
 </script>
