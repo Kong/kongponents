@@ -89,7 +89,7 @@
     "@types/node": "^20.16.11",
     "@types/sortablejs": "^1.15.8",
     "@vitejs/plugin-vue": "^5.1.4",
-    "@vue/compiler-core": "^3.5.11",
+    "@vue/compiler-core": "^3.5.12",
     "@vue/tsconfig": "^0.5.1",
     "@vueuse/core": "^11.1.0",
     "autoprefixer": "^10.4.20",
@@ -124,7 +124,7 @@
     "vite": "^5.4.8",
     "vite-plugin-vue-devtools": "^7.4.6",
     "vitepress": "^1.3.4",
-    "vue": "^3.5.11",
+    "vue": "^3.5.12",
     "vue-router": "^4.4.5",
     "vue-tsc": "^2.1.6"
   },
