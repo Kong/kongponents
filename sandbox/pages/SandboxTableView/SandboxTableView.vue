@@ -437,19 +437,31 @@
           </template>
         </KTableView>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="Table Inputs">
+        <KTableView
+          :data="tableInpustData"
+          :headers="tableInputsHeaders"
+          hide-pagination
+          row-key="id"
+        >
+          <template #value="{ row }">
+            <KInput v-model="tableInputsFormData[row.id]" />
+          </template>
+        </KTableView>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
 
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { computed, inject, reactive, ref } from 'vue'
 import SandboxTitleComponent from '../../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../../components/SandboxSectionComponent.vue'
-import type { TableHeader, TableViewData, TableSortPayload, RowLink, PageChangeData, PageSizeChangeData, RowBulkAction } from '@/types'
+import type { TableViewHeader, TableViewData, TableSortPayload, RowLink, PageChangeData, PageSizeChangeData, RowBulkAction } from '@/types'
 import SandboxTableViewActions from './SandboxTableViewActions.vue'
 import { AddIcon } from '@kong/icons'
 
-const headers = (hidable: boolean = false, sortable: boolean = false, bulkActions: boolean = false): TableHeader[] => {
+const headers = (hidable: boolean = false, sortable: boolean = false, bulkActions: boolean = false): TableViewHeader[] => {
   return [
     { key: 'actions', label: 'Row actions' },
     { key: 'name', label: 'Full Name' },
@@ -639,6 +651,24 @@ const getRowOneTwoLink = (row: Record<string, any>): RowLink => {
 
   return {}
 }
+
+const tableInputsFormData = reactive<Record<string, string>>({
+  foo: '',
+  bar: '',
+})
+
+const tableInputsHeaders: TableViewHeader[] = [{ key: 'value', label: 'Value' }]
+
+const tableInpustData = computed((): TableViewData => [
+  {
+    id: 'foo',
+    value: tableInputsFormData.foo,
+  },
+  {
+    id: 'bar',
+    value: tableInputsFormData.bar,
+  },
+])
 </script>
 
 <style lang="scss" scoped>
