@@ -167,6 +167,10 @@ watch(() => props.modelValue, (newTabHash) => {
 
         .tab-link {
           color: var(--kui-color-text, $kui-color-text);
+
+          a, :deep(a) {
+            color: var(--kui-color-text, $kui-color-text);
+          }
         }
       }
     }
