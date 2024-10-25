@@ -141,7 +141,7 @@ watch(() => props.modelValue, (newTabHash) => {
         }
 
         a, :deep(a) {
-          // color: var(--kui-color-text, $kui-color-text);
+          color: var(--kui-color-text-neutral, $kui-color-text-neutral);
           text-decoration: none;
         }
 
