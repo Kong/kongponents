@@ -102,7 +102,7 @@ const getAnchorTabindex = (tab: Tab): string => {
     return '-1'
   }
 
-  return props.anchorTabindex >= -1 && props.anchorTabindex <= 32767 ? String(props.anchorTabindex) : '0'
+  return typeof props.anchorTabindex === 'number' && props.anchorTabindex >= -1 && props.anchorTabindex <= 32767 ? String(props.anchorTabindex) : '0'
 }
 
 watch(() => props.modelValue, (newTabHash) => {
