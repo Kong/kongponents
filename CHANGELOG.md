@@ -1,3 +1,10 @@
+## [9.13.1](https://github.com/Kong/kongponents/compare/v9.13.0...v9.13.1) (2024-10-25)
+
+
+### Bug Fixes
+
+* **ktabs:** slotted anchor link ([#2480](https://github.com/Kong/kongponents/issues/2480)) ([72ae295](https://github.com/Kong/kongponents/commit/72ae295ce1d7c58743a45835556073c424060868))
+
 # [9.13.0](https://github.com/Kong/kongponents/compare/v9.12.1...v9.13.0) (2024-10-23)
 
 
