@@ -76,9 +76,9 @@ const props = defineProps({
     default: false,
   },
   anchorTabindex: {
-    type: String as PropType<'0' | '-1'>,
-    default: '0',
-    validator: (val: string): boolean => ['0', '-1'].includes(val),
+    type: Number,
+    default: 0,
+    validator: (val: number): boolean => val >= -1 && val <= 32767,
   },
 })
 
@@ -102,7 +102,7 @@ const getAnchorTabindex = (tab: Tab): string => {
     return '-1'
   }
 
-  return ['0', '-1'].includes(props.anchorTabindex) ? props.anchorTabindex : '0'
+  return props.anchorTabindex >= -1 && props.anchorTabindex <= 32767 ? String(props.anchorTabindex) : '0'
 }
 
 watch(() => props.modelValue, (newTabHash) => {
