@@ -17,7 +17,7 @@
           class="tab-link"
           :class="{ 'has-panels': !hidePanels, disabled: tab.disabled }"
           role="tab"
-          :tabindex="tab.disabled ? '-1' : anchorTabindex"
+          :tabindex="getAnchorTabindex(tab)"
           @click.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
           @keydown.enter.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
           @keydown.space.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
@@ -76,9 +76,9 @@ const props = defineProps({
     default: false,
   },
   anchorTabindex: {
-    type: String,
+    type: String as PropType<'0' | '-1'>,
     default: '0',
-    validator: (val: string): boolean => val === '0' || val === '-1',
+    validator: (val: string): boolean => ['0', '-1'].includes(val),
   },
 })
 
@@ -96,6 +96,14 @@ const handleTabChange = (tab: string): void => {
 }
 
 const getTabSlotName = (tabHash: string): string => tabHash.replace('#', '')
+
+const getAnchorTabindex = (tab: Tab): string => {
+  if (tab.disabled) {
+    return '-1'
+  }
+
+  return ['0', '-1'].includes(props.anchorTabindex) ? props.anchorTabindex : '0'
+}
 
 watch(() => props.modelValue, (newTabHash) => {
   activeTab.value = newTabHash

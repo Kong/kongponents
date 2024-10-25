@@ -178,7 +178,7 @@ const tabChange = (hash: string): void => {
 
 ### anchorTabindex
 
-This prop allows setting a custom `tabindex` for the tab anchor element. It’s useful when passing a custom interactive element, like a link, through the [`anchor` slot](#anchor-panel), ensuring that only the slotted element is focusable by resetting the default anchor `tabindex`. Default value is `0`.
+This prop allows setting a custom `tabindex` for the tab anchor element. It’s useful when passing a custom interactive element, like a link, through the [`anchor` slot](#anchor-panel), ensuring that only the slotted element is focusable by resetting the default anchor `tabindex`. Default value is `0`. Accepted values are `0` and `-1`.
 
 #### Dynamic RouterView
 
