@@ -17,12 +17,12 @@
           class="tab-link"
           :class="{ 'has-panels': !hidePanels, disabled: tab.disabled }"
           role="tab"
-          :tabindex="tab.disabled ? '-1' : '0'"
+          :tabindex="tab.disabled ? '-1' : anchorTabindex"
           @click.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
           @keydown.enter.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
           @keydown.space.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
         >
-          <slot :name="`${tab.hash.replace('#','')}-anchor`">
+          <slot :name="`${getTabSlotName(tab.hash)}-anchor`">
             <span>{{ tab.title }}</span>
           </slot>
         </div>
@@ -34,13 +34,13 @@
         v-for="(tab, i) in tabs"
         :id="`panel-${i}`"
         :key="tab.hash"
-        :aria-labelledby="`${tab.hash.replace('#','')}-tab`"
+        :aria-labelledby="`${getTabSlotName(tab.hash)}-tab`"
         class="tab-container"
         role="tabpanel"
       >
         <slot
           v-if="activeTab === tab.hash"
-          :name="tab.hash.replace('#','')"
+          :name="getTabSlotName(tab.hash)"
         />
       </div>
     </template>
@@ -75,6 +75,11 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  anchorTabindex: {
+    type: String,
+    default: '0',
+    validator: (val: string): boolean => val === '0' || val === '-1',
+  },
 })
 
 const emit = defineEmits<{
@@ -90,6 +95,8 @@ const handleTabChange = (tab: string): void => {
   emit('update:modelValue', tab)
 }
 
+const getTabSlotName = (tabHash: string): string => tabHash.replace('#', '')
+
 watch(() => props.modelValue, (newTabHash) => {
   activeTab.value = newTabHash
   emit('change', newTabHash)
@@ -98,6 +105,14 @@ watch(() => props.modelValue, (newTabHash) => {
 </script>
 
 <style lang="scss" scoped>
+@mixin kTabsFocus {
+  background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+  border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+  box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+  color: var(--kui-color-text, $kui-color-text);
+  outline: none;
+}
+
 .k-tabs {
   ul {
     border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
@@ -143,6 +158,10 @@ watch(() => props.modelValue, (newTabHash) => {
         a, :deep(a) {
           color: var(--kui-color-text-neutral, $kui-color-text-neutral);
           text-decoration: none;
+
+          &:focus-visible {
+            @include kTabsFocus;
+          }
         }
 
         &:hover:not(.disabled) {
@@ -150,10 +169,7 @@ watch(() => props.modelValue, (newTabHash) => {
         }
 
         &:focus-visible {
-          background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-          box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
-          color: var(--kui-color-text, $kui-color-text);
-          outline: none;
+          @include kTabsFocus;
         }
 
         &.disabled {

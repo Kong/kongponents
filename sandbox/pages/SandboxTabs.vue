@@ -111,6 +111,7 @@
       />
       <SandboxSectionComponent title="Dynamic router view without panels">
         <KTabs
+          anchor-tabindex="-1"
           hide-panels
           :tabs="dynamicRouterViewItems"
           @change="(hash: string) => $router.replace({ hash })"
