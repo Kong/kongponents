@@ -518,11 +518,28 @@ The `rowKey` prop accepts either a unique string or a function that returns a un
 If a string is provided which corresponds to a property of the `row`, the unique identifier will utilize the `row[rowKey]` as the unique identifier.
 
 ```html
-<KTableView
-  row-key="id"
-  :data="tableData"
-  :headers="headers"
-/>
+<template>
+  <KTableView
+    row-key="id"
+    :data="tableData"
+    :headers="headers"
+  />
+</template>
+
+<script setup lang="ts">
+import type { TableViewData } from '@kong/kongponents'
+
+const tableData: TableViewData = [
+  {
+    id: 'a70642b3-20f2-4658-b459-fe1cbcf9e315',
+    ...
+  },
+  {
+    id: '58c599a9-f453-41f3-9e64-0a7fc6caedad',
+    ...
+  }
+]
+</script>
 ```
 
 Alternatively, if a function is passed, it allows for the creation of a custom identifier based on the row data passed to the function.
