@@ -597,7 +597,7 @@ A slot alternative for [`dropdownFooterText` prop](#dropdownfootertext).
 
 ### loading
 
-Content to be displayed when [`loading` prop](#loading-1) is `true`. Note that this prop only applies when `enableFiltering` is `true`.
+Content to be displayed when [`loading` prop](#loading-1) is `true`. Note that this slot only applies when `enableFiltering` is `true`.
 
 <ClientOnly>
   <KToggle toggled v-slot="{ isToggled, toggle }">
@@ -642,7 +642,7 @@ Slot to display custom content when items is empty or no items match filter quer
 
 ### label-tooltip
 
-Use this prop to pass any custom content to label tooltip.
+Use this slot to pass any custom content to label tooltip.
 
 <ClientOnly>
   <KSelect label="Label" :items="selectItems">
@@ -655,6 +655,18 @@ Use this prop to pass any custom content to label tooltip.
   <template #label-tooltip>Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code></template>
 </KSelect>
 ```
+
+### before
+
+Use this slot for inserting icons before the input field.
+
+<ClientOnly>
+  <KSelect :items="selectItems">
+    <template #before>
+      <SearchIcon />
+    </template>
+  </KSelect>
+</ClientOnly>
 
 ## Events
 
@@ -684,7 +696,7 @@ Event payload is removed [item](#items).
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { KongIcon } from '@kong/icons'
+import { KongIcon, SearchIcon } from '@kong/icons'
 
 const selectItems: SelectItem[] = [{
   label: 'Service A',
