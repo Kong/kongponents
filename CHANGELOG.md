@@ -1,3 +1,10 @@
+# [9.14.0](https://github.com/Kong/kongponents/compare/v9.13.1...v9.14.0) (2024-10-26)
+
+
+### Features
+
+* **kselect:** add `before` slot ([#2481](https://github.com/Kong/kongponents/issues/2481)) ([dfb5f07](https://github.com/Kong/kongponents/commit/dfb5f07b540ddda74e28887f5efa17fc1744b0c4))
+
 ## [9.13.1](https://github.com/Kong/kongponents/compare/v9.13.0...v9.13.1) (2024-10-25)
 
 
