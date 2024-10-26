@@ -183,6 +183,15 @@
           </template>
         </KSelect>
       </SandboxSectionComponent>
+      <SandboxSectionComponent
+        title="before"
+      >
+        <KSelect :items="selectItems">
+          <template #before>
+            <KongIcon />
+          </template>
+        </KSelect>
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="itemTemplate">
         <KSelect
           :items="selectItems"

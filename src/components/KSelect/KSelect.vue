@@ -61,6 +61,12 @@
             @keyup.enter.stop
             @update:model-value="onQueryChange"
           >
+            <template
+              v-if="slots.before"
+              #before
+            >
+              <slot name="before" />
+            </template>
             <template #after>
               <button
                 v-if="isClearVisible"
