@@ -56,6 +56,7 @@
             @blur="onInputBlur"
             @click="onInputClick"
             @focus="onInputFocus"
+            @keydown.enter="onInputEnter"
             @keypress="onInputKeypress"
             @keyup="(evt: any) => triggerFocus(evt, isToggled)"
             @keyup.enter.stop
@@ -474,6 +475,12 @@ const onInputKeypress = (event: Event) => {
   if (!props.enableFiltering) {
     event.preventDefault()
     return false
+  }
+}
+
+const onInputEnter = (): void => {
+  if (!filteredItems.value.length && props.enableItemCreation) {
+    handleAddItem()
   }
 }
 
