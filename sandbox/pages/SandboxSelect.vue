@@ -139,13 +139,27 @@
         </KSelect>
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        title="enableItemCreation"
+        title="enableItemCreation & itemCreationValidator"
       >
         <KSelect
           enable-filtering
           enable-item-creation
           :items="selectItems"
         />
+        <KSelect
+          enable-filtering
+          enable-item-creation
+          :item-creation-validator="itemCreationValidator"
+          :items="selectItems"
+          @query-change="onItemCreationQueryChange"
+        >
+          <template
+            v-if="showNewItemValidationError"
+            #dropdown-footer-text
+          >
+            <span class="item-creation-validation-error-message">New item should be at least 3 characters long.</span>
+          </template>
+        </KSelect>
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="required"
@@ -419,6 +433,13 @@ const handeAsyncItemRemoved = (item: SelectItem): void => {
   selectItemsInitial.value = selectItemsInitial.value.filter(i => i.value !== item.value)
 }
 
+const showNewItemValidationError = ref<boolean>(false)
+const itemCreationValidator = (value: string) => value.length >= 3
+
+const onItemCreationQueryChange = (query: string): void => {
+  showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
+}
+
 onMounted(() => {
   setAsyncItems()
 })
@@ -469,6 +490,10 @@ onMounted(() => {
       display: flex;
       gap: $kui-space-30;
     }
+  }
+
+  .item-creation-validation-error-message {
+    color: $kui-color-text-danger;
   }
 }
 </style>

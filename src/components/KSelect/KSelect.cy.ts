@@ -423,7 +423,8 @@ describe('KSelect', () => {
     cy.get('input').clear()
     // add new item
     cy.get('input').type(newItem)
-    cy.getTestId('select-add-item').should('contain.text', newItem).click()
+    cy.getTestId('select-add-item').should('contain.text', newItem)
+    cy.getTestId('select-add-item').find('button').should('be.enabled').click()
     // search is cleared
     cy.get('input').should('not.contain.text', newItem)
     // displays selected item correctly
@@ -440,6 +441,32 @@ describe('KSelect', () => {
     cy.get('input').clear()
     cy.get('input').type(newItem)
     cy.getTestId('select-add-item').should('be.visible').should('contain.text', newItem)
+  })
+
+  it('renders add new value button disabled when itemCreationValidator returns false', () => {
+    const labels = ['Label 1', 'Label 2']
+    const vals = ['val1', 'val2']
+    const newItem = 'Rock me'
+
+    mount(KSelect, {
+      props: {
+        items: [{
+          label: labels[0],
+          value: vals[0],
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }],
+        enableItemCreation: true,
+        enableFiltering: true,
+        itemCreationValidator: () => false,
+      },
+    })
+
+    cy.get('.select-input').click()
+    cy.get('input').type(newItem)
+    cy.getTestId('select-add-item').should('contain.text', newItem)
+    cy.getTestId('select-add-item').find('button').should('be.disabled')
   })
 
   it('updates selected status after items are mutated', () => {

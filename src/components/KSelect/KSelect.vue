@@ -151,7 +151,7 @@
                 key="select-add-item"
                 class="select-add-item"
                 data-testid="select-add-item"
-                :item="{ label: `${filterQuery} (Add new value)`, value: 'add_item' }"
+                :item="{ label: `${filterQuery} (Add new value)`, value: 'add_item', disabled: !itemCreationValidator(filterQuery) }"
                 @selected="handleAddItem"
               >
                 <template #content>
@@ -162,7 +162,7 @@
                 </template>
               </KSelectItem>
               <div
-                v-if="hasDropdownFooter && dropdownFooterTextPosition === 'static'"
+                v-if="(dropdownFooterText || $slots['dropdown-footer-text']) && dropdownFooterTextPosition === 'static'"
                 class="dropdown-footer dropdown-footer-static"
               >
                 <slot name="dropdown-footer-text">
@@ -179,7 +179,7 @@
             </div>
           </div>
           <div
-            v-if="hasDropdownFooter && dropdownFooterTextPosition === 'sticky'"
+            v-if="(dropdownFooterText || $slots['dropdown-footer-text']) && dropdownFooterTextPosition === 'sticky'"
             class="dropdown-footer dropdown-footer-sticky"
           >
             <slot name="dropdown-footer-text">
@@ -332,6 +332,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  /**
+   * Validator function for item creation.
+   */
+  itemCreationValidator: {
+    type: Function,
+    default: () => true,
+  },
   error: {
     type: Boolean,
     default: false,
@@ -363,10 +370,9 @@ const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info |
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const isDisabled = computed((): boolean => attrs.disabled !== undefined && String(attrs.disabled) !== 'false')
 const isReadonly = computed((): boolean => attrs.readonly !== undefined && String(attrs.readonly) !== 'false')
-const hasDropdownFooter = computed((): boolean => !!(slots['dropdown-footer-text'] || props.dropdownFooterText))
 
 const defaultKPopAttributes = {
-  popoverClasses: `select-popover ${hasDropdownFooter.value ? `has-${props.dropdownFooterTextPosition}-dropdown-footer` : ''}`,
+  popoverClasses: `select-popover ${props.dropdownFooterText || slots['dropdown-footer-text'] ? `has-${props.dropdownFooterTextPosition}-dropdown-footer` : ''}`,
   popoverTimeout: 0,
   placement: 'bottom-start' as PopPlacements,
   hideCaret: true,
