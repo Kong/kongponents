@@ -484,7 +484,7 @@ const onInputKeypress = (event: Event) => {
 }
 
 const handleAddItem = (): void => {
-  if (!props.enableItemCreation || !filterQuery.value || !uniqueFilterQuery.value) {
+  if (!props.enableItemCreation || !filterQuery.value || !uniqueFilterQuery.value || !props.itemCreationValidator(filterQuery.value)) {
     // do nothing if not enabled or no label or label already exists
     return
   }
