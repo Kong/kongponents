@@ -607,6 +607,8 @@ const onClose = (toggle: () => void, isToggled: boolean) => {
 
   if (selectedItem.value) {
     filterQuery.value = selectedItem.value.label
+  } else {
+    filterQuery.value = ''
   }
 
   if (isToggled) {
