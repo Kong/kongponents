@@ -153,7 +153,7 @@ interface TablePropsShared {
   /**
    * A function that conditionally specifies cell attributes
    */
-  cellAttrs?: (param: CellAttrsParam) => Record<string, string>
+  cellAttrs?: (param: CellAttrsParam) => Record<string, any>
   /**
    * A prop that enables a loading skeleton
    */
