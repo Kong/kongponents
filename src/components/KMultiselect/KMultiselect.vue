@@ -62,6 +62,7 @@
                   }
                 }"
                 @focus="onInputFocus"
+                @keydown.enter="onInputEnter"
                 @keyup="(evt: any) => triggerFocus(evt, isToggled)"
                 @mouseenter="() => isHovered = true"
                 @mouseleave="() => isHovered = false"
@@ -170,6 +171,7 @@
                   type="text"
                   @click.stop
                   @focus="triggerInitialFocus"
+                  @keydown.enter="onInputEnter"
                   @keyup="onDropdownInputKeyup"
                   @keyup.enter.stop
                   @update:model-value="onQueryChange"
@@ -815,9 +817,15 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
   emit('update:modelValue', selectedVals)
 }
 
+const onInputEnter = (): void => {
+  if (!filteredItems.value.length && props.enableItemCreation) {
+    handleAddItem()
+  }
+}
+
 // add an item with `enter`
 const handleAddItem = (): void => {
-  if (!props.enableItemCreation || !filterString.value || !uniqueFilterStr.value) {
+  if (!props.enableItemCreation || !filterString.value || !uniqueFilterStr.value || !props.itemCreationValidator(filterString.value)) {
     // do nothing if not enabled or no label or label already exists
     return
   }

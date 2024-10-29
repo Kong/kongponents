@@ -56,6 +56,7 @@
             @blur="onInputBlur"
             @click="onInputClick"
             @focus="onInputFocus"
+            @keydown.enter="onInputEnter"
             @keypress="onInputKeypress"
             @keyup="(evt: any) => triggerFocus(evt, isToggled)"
             @keyup.enter.stop
@@ -477,6 +478,12 @@ const onInputKeypress = (event: Event) => {
   }
 }
 
+const onInputEnter = (): void => {
+  if (!filteredItems.value.length && props.enableItemCreation) {
+    handleAddItem()
+  }
+}
+
 const handleAddItem = (): void => {
   if (!props.enableItemCreation || !filterQuery.value || !uniqueFilterQuery.value) {
     // do nothing if not enabled or no label or label already exists
@@ -607,6 +614,8 @@ const onClose = (toggle: () => void, isToggled: boolean) => {
 
   if (selectedItem.value) {
     filterQuery.value = selectedItem.value.label
+  } else {
+    filterQuery.value = ''
   }
 
   if (isToggled) {
