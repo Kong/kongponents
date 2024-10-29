@@ -1,3 +1,10 @@
+## [9.14.1](https://github.com/Kong/kongponents/compare/v9.14.0...v9.14.1) (2024-10-29)
+
+
+### Bug Fixes
+
+* **kselect:** clear filter on blur [KHCP-13444] ([#2486](https://github.com/Kong/kongponents/issues/2486)) ([83da311](https://github.com/Kong/kongponents/commit/83da3114c4e1b62ceb09014d89b2be52b4bee2cf))
+
 # [9.14.0](https://github.com/Kong/kongponents/compare/v9.13.1...v9.14.0) (2024-10-26)
 
 
