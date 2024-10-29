@@ -1,3 +1,10 @@
+## [9.14.2](https://github.com/Kong/kongponents/compare/v9.14.1...v9.14.2) (2024-10-29)
+
+
+### Bug Fixes
+
+* **ktableview, ktabledata:** cell-attrs prop type ([#2490](https://github.com/Kong/kongponents/issues/2490)) ([7e28e39](https://github.com/Kong/kongponents/commit/7e28e39fb58b27acd878386141c43fd74594e71e))
+
 ## [9.14.1](https://github.com/Kong/kongponents/compare/v9.14.0...v9.14.1) (2024-10-29)
 
 
