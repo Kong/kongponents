@@ -143,7 +143,7 @@ describe('KSelect', () => {
     cy.getTestId(`select-item-${vals[0]}`).should('contain.text', labels[0])
     cy.getTestId(`select-item-${vals[1]}`).should('not.exist')
 
-    cy.getTestId(`select-item-${vals[0]}`).eq(0).click({ force: true })
+    cy.getTestId(`select-item-${vals[0]}`).click()
     cy.getTestId('select-input').should('have.value', labels[0])
   })
 
