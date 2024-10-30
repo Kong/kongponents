@@ -1,3 +1,10 @@
+## [9.14.4](https://github.com/Kong/kongponents/compare/v9.14.3...v9.14.4) (2024-10-30)
+
+
+### Bug Fixes
+
+* **kbutton:** pass to as long as it's a router-link [KM-644] ([#2491](https://github.com/Kong/kongponents/issues/2491)) ([cb1ff3b](https://github.com/Kong/kongponents/commit/cb1ff3b372b84dbed4105a4d18387d715d1c0e04))
+
 ## [9.14.3](https://github.com/Kong/kongponents/compare/v9.14.2...v9.14.3) (2024-10-30)
 
 
