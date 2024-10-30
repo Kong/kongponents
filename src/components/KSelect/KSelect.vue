@@ -717,7 +717,9 @@ watch(() => props.items, (newValue, oldValue) => {
 }, { deep: true, immediate: true })
 
 watch(filterQuery, (query: string) => {
-  if (!skipQueryChangeEmit.value || !query || uniqueFilterQuery.value) {
+  const isUnique = selectItems.value?.filter((item: SelectItem) => item.label === query)?.length
+
+  if (!skipQueryChangeEmit.value || !query || isUnique) {
     emit('query-change', query)
   }
   skipQueryChangeEmit.value = false
