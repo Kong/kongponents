@@ -18,10 +18,7 @@
       </slot>
     </div>
 
-    <Transition
-      :key="popoverKey"
-      name="kongponents-fade-transition"
-    >
+    <Transition name="kongponents-fade-transition">
       <div
         v-show="isVisible"
         ref="popoverElement"
@@ -86,9 +83,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, computed, watch, nextTick } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
 import type { PropType } from 'vue'
-import { useFloating, autoUpdate, autoPlacement, flip, shift, size } from '@floating-ui/vue'
+import { useFloating, autoUpdate, autoPlacement, flip, shift } from '@floating-ui/vue'
 import type { PopPlacements, PopTrigger } from '@/types'
 import { PopPlacementsArray, PopTriggerArray } from '@/types'
 import useUtilities from '@/composables/useUtilities'
@@ -171,7 +168,6 @@ const kPopoverElement = ref<HTMLElement | null>(null)
 const triggerWrapperElement = ref<HTMLElement | null>(null)
 const popoverElement = ref<HTMLElement | null>(null)
 const isVisible = ref<boolean>(false)
-const popoverKey = ref<number>(0)
 
 const popoverTrigger = computed((): HTMLElement | null => triggerWrapperElement.value && triggerWrapperElement.value?.children[0] ? triggerWrapperElement.value?.children[0] as HTMLElement : null)
 
@@ -207,10 +203,6 @@ const showPopover = async () => {
       clearTimeout(timer.value)
     }
 
-    if (props.placement !== 'auto') {
-      popoverKey.value++
-      await nextTick() // wait for the Transition to update to ensure the animation works as expected
-    }
     startFloatingUpdates()
     isVisible.value = true
   }
@@ -271,22 +263,6 @@ const { floatingStyles, placement: calculatedPlacement, update: updatePosition }
     middleware: [
       shift(), // Shifts the floating element to keep it in view.
       flip(), // Changes the placement of the floating element to keep it in view.
-      /**
-       * ! Needs to be placed after flip middleware
-       * Need to use the size middleware to set the max-width and max-height of the popover
-       * So that it can prefer the original position as much as possible
-       * Docs: https://floating-ui.com/docs/size#using-with-flip
-       */
-      size({
-        apply({ elements, availableWidth, availableHeight }) {
-          requestAnimationFrame(() => {
-            Object.assign(elements.floating.style, {
-              maxWidth: `${availableWidth}px`,
-              maxHeight: `${availableHeight}px`,
-            })
-          })
-        },
-      }),
     ],
   }),
   strategy: 'fixed',
