@@ -1,3 +1,10 @@
+## [9.14.3](https://github.com/Kong/kongponents/compare/v9.14.2...v9.14.3) (2024-10-30)
+
+
+### Bug Fixes
+
+* **kpop:** not enterable ([#2483](https://github.com/Kong/kongponents/issues/2483)) ([9bc3d3a](https://github.com/Kong/kongponents/commit/9bc3d3a7507de2370697c7b24defb2805ce82df0))
+
 ## [9.14.2](https://github.com/Kong/kongponents/compare/v9.14.1...v9.14.2) (2024-10-29)
 
 
