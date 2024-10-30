@@ -96,4 +96,19 @@ describe('KButton', () => {
 
     cy.get('.k-button').should('not.have.attr', 'disabled')
   })
+
+  it('should not throw error when `to` prop is an object and disabled is true', () => {
+    expect(() => cy.mountWithProdRouter(
+      KButton,
+      {
+        props: {
+          to: { name: 'home' },
+          disabled: true,
+        },
+        slots: {
+          default: () => 'Click me',
+        },
+      },
+    )).to.not.throw()
+  })
 })

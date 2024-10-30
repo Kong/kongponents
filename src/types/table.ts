@@ -137,7 +137,7 @@ interface TablePropsShared {
   /**
    * A function that conditionally specifies row attributes on each row
    */
-  rowAttrs?: (row: Record<string, any>) => Record<string, string>
+  rowAttrs?: (row: Record<string, any>) => Record<string, any>
   /**
    * A function that conditionally turns a row into a link
    */
@@ -153,7 +153,7 @@ interface TablePropsShared {
   /**
    * A function that conditionally specifies cell attributes
    */
-  cellAttrs?: (param: CellAttrsParam) => Record<string, string>
+  cellAttrs?: (param: CellAttrsParam) => Record<string, any>
   /**
    * A prop that enables a loading skeleton
    */

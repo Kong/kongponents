@@ -1,3 +1,24 @@
+## [9.14.4](https://github.com/Kong/kongponents/compare/v9.14.3...v9.14.4) (2024-10-30)
+
+
+### Bug Fixes
+
+* **kbutton:** pass to as long as it's a router-link [KM-644] ([#2491](https://github.com/Kong/kongponents/issues/2491)) ([cb1ff3b](https://github.com/Kong/kongponents/commit/cb1ff3b372b84dbed4105a4d18387d715d1c0e04))
+
+## [9.14.3](https://github.com/Kong/kongponents/compare/v9.14.2...v9.14.3) (2024-10-30)
+
+
+### Bug Fixes
+
+* **kpop:** not enterable ([#2483](https://github.com/Kong/kongponents/issues/2483)) ([9bc3d3a](https://github.com/Kong/kongponents/commit/9bc3d3a7507de2370697c7b24defb2805ce82df0))
+
+## [9.14.2](https://github.com/Kong/kongponents/compare/v9.14.1...v9.14.2) (2024-10-29)
+
+
+### Bug Fixes
+
+* **ktableview, ktabledata:** cell-attrs prop type ([#2490](https://github.com/Kong/kongponents/issues/2490)) ([7e28e39](https://github.com/Kong/kongponents/commit/7e28e39fb58b27acd878386141c43fd74594e71e))
+
 ## [9.14.1](https://github.com/Kong/kongponents/compare/v9.14.0...v9.14.1) (2024-10-29)
 
 
