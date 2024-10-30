@@ -717,11 +717,11 @@ watch(() => props.items, (newValue, oldValue) => {
 }, { deep: true, immediate: true })
 
 watch(filterQuery, (query: string) => {
-  if (!skipQueryChangeEmit.value) {
+  if (!skipQueryChangeEmit.value || !query || uniqueFilterQuery.value) {
     emit('query-change', query)
   }
   skipQueryChangeEmit.value = false
-}, { immediate: true })
+})
 
 watch(selectedItem, (newVal, oldVal) => {
   if (newVal && newVal !== oldVal) {

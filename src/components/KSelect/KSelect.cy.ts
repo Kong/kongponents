@@ -226,7 +226,6 @@ describe('KSelect', () => {
     })
 
     cy.get('input').type('a').then(() => {
-      cy.get('@onQueryChange').should('have.been.calledWith', '')
       cy.get('@onQueryChange').should('have.been.calledWith', 'a')
     }).then(() => {
       cy.wrap(Cypress.vueWrapper.setProps({ loading: true })).getTestId('select-loading').should('exist')
@@ -245,7 +244,7 @@ describe('KSelect', () => {
 
   it('handles query change correctly', () => {
     const itemLabel = 'Label 1'
-    let emitCount = 1 // 1 for initial query change
+    let emitCount = 0
 
     mount(KSelect, {
       props: {
