@@ -379,6 +379,7 @@ const labelElement = ref<InstanceType<typeof KLabel> | null>(null)
 
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 
+const skipQueryChangeEmit = ref<boolean>(false)
 const filterQuery = ref<string>('')
 
 // whether or not filter string matches an existing item's label
@@ -529,6 +530,7 @@ const handleItemSelect = (item: SelectItem, isNew?: boolean) => {
     }
   })
 
+  skipQueryChangeEmit.value = true
   filterQuery.value = item.label
 }
 
@@ -576,8 +578,6 @@ const onQueryChange = (query: string) => {
 
 const onInputFocus = (): void => {
   inputFocused.value = true
-
-  emit('query-change', filterQuery.value)
 }
 
 const onInputBlur = (): void => {
@@ -613,6 +613,7 @@ const onClose = (toggle: () => void, isToggled: boolean) => {
   isDropdownOpen.value = false
 
   if (selectedItem.value) {
+    skipQueryChangeEmit.value = true
     filterQuery.value = selectedItem.value.label
   } else {
     filterQuery.value = ''
@@ -691,6 +692,7 @@ watch(() => props.items, (newValue, oldValue) => {
       selectItems.value[i].key += '-selected'
 
       if (!inputFocused.value) {
+        skipQueryChangeEmit.value = true
         filterQuery.value = selectedItem.value.label
       }
     }
@@ -713,8 +715,11 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 }, { deep: true, immediate: true })
 
-watch(filterQuery, (q: string) => {
-  emit('query-change', q)
+watch(filterQuery, (query: string) => {
+  if (!skipQueryChangeEmit.value || !query) {
+    emit('query-change', query)
+  }
+  skipQueryChangeEmit.value = false
 })
 
 watch(selectedItem, (newVal, oldVal) => {
