@@ -67,8 +67,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(@types/node@20.16.13)(typescript@5.6.3)
       '@evilmartians/lefthook':
-        specifier: ^1.7.18
-        version: 1.7.18
+        specifier: ^1.7.21
+        version: 1.8.2
       '@kong-ui-public/sandbox-layout':
         specifier: ^2.1.51
         version: 2.1.51(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.12(typescript@5.6.3)))(vue@3.5.12(typescript@5.6.3)))(vue@3.5.12(typescript@5.6.3))
@@ -166,7 +166,7 @@ importers:
         specifier: ^5.12.0
         version: 5.12.0
       sass:
-        specifier: ^1.79.6
+        specifier: ^1.80.2
         version: 1.80.4
       semantic-release:
         specifier: ^24.1.2
@@ -814,8 +814,8 @@ packages:
     resolution: {integrity: sha512-vH9PiIMMwvhCx31Af3HiGzsVNULDbyVkHXwlemn/B0TFj/00ho3y55efXrUZTfQipxoHC5u4xq6zblww1zm1Ig==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@evilmartians/lefthook@1.7.18':
-    resolution: {integrity: sha512-BIJBQtC7xKOedxESlB0wVG6M32ftjK+5vnID9I5CjRDE/6KcCpcK366AyG0eHGdPK1TVty81QalxZqSTxWRXPw==}
+  '@evilmartians/lefthook@1.8.2':
+    resolution: {integrity: sha512-SZdQk3W9q7tcJwnSwEMUubQqVIK7SHxv52hEAnV7o3nPI+xKcmd+rN0hZIJg07wjBaJRAjzdvoQySKQQYPW5Qw==}
     cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
@@ -1072,8 +1072,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.24.2':
-    resolution: {integrity: sha512-IguLcLWwK36BDePr5B6qpLTygh2CFVVCXF2Wc+cPnTe93J6t6gGQipwV3W0Cb9eTcFj8IvYpZF/BLl2jIMMKyA==}
+  '@rollup/wasm-node@4.24.3':
+    resolution: {integrity: sha512-lahpprfoJKm88bgp2IrDI/VRyZocsvGvemSkhrsbBTj9yqhkyIb7W5CZAdZWgeAibO5EIk2cN0yWCHcjohL1YQ==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -5683,7 +5683,7 @@ snapshots:
     dependencies:
       levn: 0.4.1
 
-  '@evilmartians/lefthook@1.7.18': {}
+  '@evilmartians/lefthook@1.8.2': {}
 
   '@floating-ui/core@1.6.2':
     dependencies:
@@ -5947,7 +5947,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@rollup/wasm-node@4.24.2':
+  '@rollup/wasm-node@4.24.3':
     dependencies:
       '@types/estree': 1.0.6
     optionalDependencies:
@@ -9908,7 +9908,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
-      rollup: '@rollup/wasm-node@4.24.2'
+      rollup: '@rollup/wasm-node@4.24.3'
     optionalDependencies:
       '@types/node': 20.16.13
       fsevents: 2.3.3
