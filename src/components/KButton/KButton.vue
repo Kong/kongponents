@@ -115,13 +115,16 @@ const buttonSize = computed((): ButtonSize | null => {
 const strippedAttrs = computed((): typeof attrs => {
   const modifiedAttrs = Object.assign({}, attrs)
 
-  if (props.disabled) {
-    modifiedAttrs.href = null
-  } else {
-    if (props.to && typeof props.to === 'string') {
+  if (props.to) {
+    if (typeof props.to === 'string') {
       modifiedAttrs.href = props.to
-    } else if (props.to) {
+    } else {
+      // `to` prop is nessessary for router-link to successfully render
       modifiedAttrs.to = props.to
+    }
+    if (props.disabled) {
+      // Set href to null so that user cannot bypass by right clicking it and opening in new tab
+      modifiedAttrs.href = null
     }
   }
 

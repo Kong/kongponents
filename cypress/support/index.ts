@@ -1,5 +1,5 @@
 import { mount } from 'cypress/vue'
-//  vue-router only throws uncaught errors in production mode
+// vue-router only throws uncaught errors in production mode
 import { createMemoryHistory, createRouter } from 'vue-router/dist/vue-router.prod.cjs'
 import type { RouteRecordRaw } from 'vue-router'
 import type { App, ComputedOptions } from 'vue'
