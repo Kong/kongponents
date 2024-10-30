@@ -720,7 +720,7 @@ watch(filterQuery, (query: string) => {
     emit('query-change', query)
   }
   skipQueryChangeEmit.value = false
-})
+}, { immediate: true })
 
 watch(selectedItem, (newVal, oldVal) => {
   if (newVal && newVal !== oldVal) {
