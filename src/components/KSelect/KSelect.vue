@@ -379,6 +379,7 @@ const labelElement = ref<InstanceType<typeof KLabel> | null>(null)
 
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 
+// sometimes (e.g. when selecting an item) we don't want to emit the query change event
 const skipQueryChangeEmit = ref<boolean>(false)
 const filterQuery = ref<string>('')
 
