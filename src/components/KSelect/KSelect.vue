@@ -337,7 +337,7 @@ const props = defineProps({
    * Validator function for item creation.
    */
   itemCreationValidator: {
-    type: Function,
+    type: Function as PropType<() => boolean>,
     default: () => true,
   },
   error: {
