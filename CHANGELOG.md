@@ -1,3 +1,10 @@
+## [9.14.5](https://github.com/Kong/kongponents/compare/v9.14.4...v9.14.5) (2024-10-31)
+
+
+### Bug Fixes
+
+* **kselect:** don't emit query-change on select [KHCP-13895] ([#2493](https://github.com/Kong/kongponents/issues/2493)) ([87b11ea](https://github.com/Kong/kongponents/commit/87b11eaaf995129574e8fd68f9be5016b8c7860c))
+
 ## [9.14.4](https://github.com/Kong/kongponents/compare/v9.14.3...v9.14.4) (2024-10-30)
 
 
