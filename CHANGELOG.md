@@ -1,3 +1,10 @@
+## [9.14.6](https://github.com/Kong/kongponents/compare/v9.14.5...v9.14.6) (2024-10-31)
+
+
+### Bug Fixes
+
+* **kselect:** add item-creation-validator prop [KHCP-13862] ([#2485](https://github.com/Kong/kongponents/issues/2485)) ([bf31855](https://github.com/Kong/kongponents/commit/bf318553d9e4097193b37f4949a26c6c6b23aaec))
+
 ## [9.14.5](https://github.com/Kong/kongponents/compare/v9.14.4...v9.14.5) (2024-10-31)
 
 
