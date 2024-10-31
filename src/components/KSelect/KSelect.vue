@@ -717,9 +717,12 @@ watch(() => props.items, (newValue, oldValue) => {
 }, { deep: true, immediate: true })
 
 watch(filterQuery, (query: string) => {
-  if (!skipQueryChangeEmit.value || !query) {
-    emit('query-change', query)
+  // skip emitting query change when the query is the selected item's label
+  if (skipQueryChangeEmit.value && query) {
+    return
   }
+
+  emit('query-change', query)
   skipQueryChangeEmit.value = false
 })
 
