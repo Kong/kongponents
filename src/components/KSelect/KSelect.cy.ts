@@ -212,8 +212,10 @@ describe('KSelect', () => {
     cy.getTestId('item-slot-content').should('be.visible').should('contain.text', itemSlotContent)
   })
 
-  it('handles all states correctly when `enableFiltering` is `true`', () => {
+  it('handles all states correctly when enableFiltering is true', () => {
     const onQueryChange = cy.spy().as('onQueryChange')
+    const itemLabel = 'Label 1'
+
     mount(KSelect, {
       props: {
         enableFiltering: true,
@@ -224,20 +226,49 @@ describe('KSelect', () => {
     })
 
     cy.get('input').type('a').then(() => {
-      cy.get('@onQueryChange').should('have.been.calledWith', '')
       cy.get('@onQueryChange').should('have.been.calledWith', 'a')
     }).then(() => {
       cy.wrap(Cypress.vueWrapper.setProps({ loading: true })).getTestId('select-loading').should('exist')
     }).then(() => {
       cy.wrap(Cypress.vueWrapper.setProps({ loading: false })).getTestId('select-loading').should('not.exist')
     }).then(() => {
-      cy.wrap(Cypress.vueWrapper.setProps({ items: [{ label: 'Label 1', value: 'label1' }] })).getTestId('select-item-label1').should('contain.text', 'Label 1')
+      cy.wrap(Cypress.vueWrapper.setProps({ items: [{ label: itemLabel, value: 'label1' }] })).getTestId('select-item-label1').should('contain.text', itemLabel)
     }).then(() => {
       cy.getTestId('select-item-label1').trigger('click')
-      cy.get('input').should('have.value', 'Label 1')
+      cy.get('input').should('have.value', itemLabel)
       cy.getTestId('select-input').trigger('click')
       cy.get('[data-testid="select-item-label1"] button').should('have.class', 'selected')
       cy.get('@onQueryChange').should('have.been.calledWith', '')
+    })
+  })
+
+  it('handles query change correctly', () => {
+    const itemLabel = 'Label 1'
+    let emitCount = 0
+
+    mount(KSelect, {
+      props: {
+        enableFiltering: true,
+        loading: false,
+        items: [{ label: itemLabel, value: 'label1' }],
+      },
+    })
+
+    cy.get('input').type(itemLabel).then(() => {
+      emitCount += itemLabel.length // 1 emit for each character typed
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'query-change')
+      cy.wrap(Cypress.vueWrapper.emitted()['query-change']).should('have.length', emitCount)
+      cy.getTestId('select-item-label1').trigger('click')
+      // selecting an item should not emit query change
+      cy.wrap(Cypress.vueWrapper.emitted()['query-change']).should('have.length', emitCount)
+      cy.getTestId('select-input').trigger('click').then(() => {
+        emitCount += 1 // 1 for resetting query when opening dropdown
+        // simulate pasting a value
+        cy.get('input').invoke('val', itemLabel).trigger('input').then(() => {
+          emitCount += 1 // 1 for pasting the value
+          cy.wrap(Cypress.vueWrapper.emitted()['query-change']).should('have.length', emitCount)
+        })
+      })
     })
   })
 
