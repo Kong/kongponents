@@ -372,6 +372,71 @@ When used in conjunction with `enableFiltering` set to `true`, KSelect will sugg
 <KSelect enable-item-creation enable-filtering placeholder="Try searching for 'service d'" :items="selectItems" />
 ```
 
+### itemCreationValidator
+
+Prop for passing a function for input validation when item creation is enabled.
+
+The function takes the query input string as a single parameter and must return a `boolean` value.
+
+When the function passed through `itemCreationValidator` returns `false`, the "Add new value" button will be disabled.
+
+<KSelect
+  enable-filtering
+  enable-item-creation
+  :item-creation-validator="itemCreationValidator"
+  :items="selectItemsUnselected"
+  @query-change="onItemCreationQueryChange"
+>
+  <template
+    v-if="showNewItemValidationError"
+    #dropdown-footer-text
+  >
+    <span class="item-creation-validation-error-message">
+      New item should be at least 3 characters long.
+    </span>
+  </template>
+</KSelect>
+
+```vue
+<template>
+  <KSelect
+    enable-filtering
+    enable-item-creation
+    :item-creation-validator="itemCreationValidator"
+    :items="selectItems"
+    @query-change="onQueryChange"
+  >
+    <template
+      v-if="showNewItemValidationError"
+      #dropdown-footer-text
+    >
+      <span class="item-creation-validation-error-message">
+        New item should be at least 3 characters long.
+      </span>
+    </template>
+  </KSelect>
+</template>
+
+<script setup lang="ts">
+import type { SelectItem } from '@kong/kongponents'
+
+const selectItems: SelectItem[] = [...]
+
+const showNewItemValidationError = ref<boolean>(false)
+const itemCreationValidator = (value: string) => value.length >= 3
+
+const onQueryChange = (query: string): void => {
+  showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
+}
+</script>
+
+<style lang="scss" scoped>
+.item-creation-validation-error-message {
+  color: $kui-color-text-danger;
+}
+</style>
+```
+
 ### loading
 
 Pass `true` to display loader instead of items in the dropdown. KSelect's `item` prop is reactive to changes by design, so that should you need to perform async item fetching/filtering you can execute that logic within the host app and pass items back to KSelect. 
@@ -758,6 +823,13 @@ const fetchAsyncItems = (): void => {
 }
 
 const vModel = ref<string>('f')
+
+const showNewItemValidationError = ref<boolean>(false)
+const itemCreationValidator = (value: string) => value.length >= 3
+
+const onItemCreationQueryChange = (query: string): void => {
+  showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
+}
 </script>
 
 <style lang="scss" scoped>
@@ -785,5 +857,9 @@ const vModel = ref<string>('f')
     display: block;
     font-size: $kui-font-size-20;
   }
+}
+
+.item-creation-validation-error-message {
+  color: $kui-color-text-danger;
 }
 </style>

@@ -451,7 +451,7 @@ const props = defineProps({
    * Validator function for item creation.
    */
   itemCreationValidator: {
-    type: Function,
+    type: Function as PropType<(query: string) => boolean>,
     default: () => true,
   },
 })
