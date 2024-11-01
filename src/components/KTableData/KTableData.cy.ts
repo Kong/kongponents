@@ -805,7 +805,6 @@ describe('KTableData', () => {
         .get('@fetcher')
         .should('have.callCount', 1) // fetcher's 1st call
         .should('returned', { data: [{ query: '' }] })
-        .wait(1000)
         .get('@fetcher')
         .should('have.callCount', 1) // ensure fetcher is NOT called twice on load
         .then(() => cy.wrap(Cypress.vueWrapper.setProps({ searchInput: 'some-keyword' })))
