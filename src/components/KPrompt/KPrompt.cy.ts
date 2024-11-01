@@ -1,9 +1,8 @@
-import { mount } from 'cypress/vue'
 import KPrompt from '@/components/KPrompt/KPrompt.vue'
 
 describe('KPrompt', () => {
   it('renders closed when visible is false', () => {
-    mount(KPrompt, {
+    cy.mount(KPrompt, {
       props: {
         visible: false,
       },
@@ -13,7 +12,7 @@ describe('KPrompt', () => {
   })
 
   it('renders open when visible is true', () => {
-    mount(KPrompt, {
+    cy.mount(KPrompt, {
       props: {
         visible: true,
       },
@@ -23,7 +22,7 @@ describe('KPrompt', () => {
   })
 
   it('renders action buttons and close icon by default', () => {
-    mount(KPrompt, {
+    cy.mount(KPrompt, {
       props: {
         visible: true,
       },
@@ -37,7 +36,7 @@ describe('KPrompt', () => {
   it('renders title when passed through prop', () => {
     const title = 'Modal Title'
 
-    mount(KPrompt, {
+    cy.mount(KPrompt, {
       props: {
         visible: true,
         title,
@@ -50,7 +49,7 @@ describe('KPrompt', () => {
   it('renders title when passed through slot', () => {
     const title = 'Slotted Title'
 
-    mount(KPrompt, {
+    cy.mount(KPrompt, {
       props: {
         visible: true,
         title: 'Modal Title',
@@ -66,7 +65,7 @@ describe('KPrompt', () => {
   it('renders message when passed through prop', () => {
     const message = 'Modal Message'
 
-    mount(KPrompt, {
+    cy.mount(KPrompt, {
       props: {
         visible: true,
         message,
@@ -79,7 +78,7 @@ describe('KPrompt', () => {
   it('renders content passed through default slot over message prop', () => {
     const content = 'Modal Content'
 
-    mount(KPrompt, {
+    cy.mount(KPrompt, {
       props: {
         visible: true,
         message: 'Modal Message',
@@ -98,7 +97,7 @@ describe('KPrompt', () => {
     const appearance = 'danger'
     const disabled = true
 
-    mount(KPrompt, {
+    cy.mount(KPrompt, {
       props: {
         visible: true,
         actionButtonText: text,
@@ -115,7 +114,7 @@ describe('KPrompt', () => {
     const appearance = 'danger'
     const disabled = true
 
-    mount(KPrompt, {
+    cy.mount(KPrompt, {
       props: {
         visible: true,
         cancelButtonText: text,
@@ -130,7 +129,7 @@ describe('KPrompt', () => {
   it('renders modal with correct width when passed through modalAttributes prop', () => {
     const widthHeight = '123px'
 
-    mount(KPrompt, {
+    cy.mount(KPrompt, {
       props: {
         visible: true,
         modalAttributes: {
@@ -145,7 +144,7 @@ describe('KPrompt', () => {
   })
 
   it('emits proceed event when action button is clicked', () => {
-    mount(KPrompt, {
+    cy.mount(KPrompt, {
       props: {
         visible: true,
       },
@@ -157,7 +156,7 @@ describe('KPrompt', () => {
   })
 
   it('emits cancel event when cancel button is clicked', () => {
-    mount(KPrompt, {
+    cy.mount(KPrompt, {
       props: {
         visible: true,
       },
@@ -169,7 +168,7 @@ describe('KPrompt', () => {
   })
 
   it('emits cancel event when backdrop is clicked and closeOnBackdropClick is true', () => {
-    mount(KPrompt, {
+    cy.mount(KPrompt, {
       props: {
         visible: true,
         modalAttributes: {
@@ -187,7 +186,7 @@ describe('KPrompt', () => {
     const confirmationText = 'Confirmation Text'
     const confirmationPrompt = 'Confirmation {confirmationText} Prompt'
 
-    mount(KPrompt, {
+    cy.mount(KPrompt, {
       props: {
         visible: true,
         confirmationPrompt,
@@ -202,7 +201,7 @@ describe('KPrompt', () => {
   it('action button behaves correctly when confirmationText is passed', () => {
     const confirmationText = 'Confirmation Text'
 
-    mount(KPrompt, {
+    cy.mount(KPrompt, {
       props: {
         visible: true,
         confirmationText,

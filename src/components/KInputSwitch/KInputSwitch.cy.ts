@@ -1,9 +1,8 @@
-import { mount } from 'cypress/vue'
 import KInputSwitch from '@/components/KInputSwitch/KInputSwitch.vue'
 
 describe('KInputSwitch', () => {
   it('shows as checked when prop passed', () => {
-    mount(KInputSwitch, {
+    cy.mount(KInputSwitch, {
       props: {
         modelValue: true,
       },
@@ -13,7 +12,7 @@ describe('KInputSwitch', () => {
   })
 
   it('emits checked value on click', () => {
-    mount(KInputSwitch, {
+    cy.mount(KInputSwitch, {
       props: {
         modelValue: true,
       },
@@ -27,7 +26,7 @@ describe('KInputSwitch', () => {
   })
 
   it('does not emit checked value on click when disabled', () => {
-    mount(KInputSwitch, {
+    cy.mount(KInputSwitch, {
       props: {
         modelValue: true,
         disabled: true,

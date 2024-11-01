@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import KCopy from '@/components/KCopy/KCopy.vue'
 
 const text = '1234567890ABCDEFG'
@@ -6,7 +5,7 @@ const container = '.k-copy'
 
 describe('KCopy', () => {
   it('renders with default props', () => {
-    mount(KCopy, {
+    cy.mount(KCopy, {
       props: {
         text,
       },
@@ -24,7 +23,7 @@ describe('KCopy', () => {
 
   it('renders with `badge` set to true', () => {
     const badge = 'Id:'
-    mount(KCopy, {
+    cy.mount(KCopy, {
       props: {
         text,
         badge: true,
@@ -37,7 +36,7 @@ describe('KCopy', () => {
   })
 
   it('renders with `truncated` set to false', () => {
-    mount(KCopy, {
+    cy.mount(KCopy, {
       props: {
         text,
         truncate: false,
@@ -56,7 +55,7 @@ describe('KCopy', () => {
   })
 
   it('renders with `monospace` set to false', () => {
-    mount(KCopy, {
+    cy.mount(KCopy, {
       props: {
         text,
         monospace: false,
@@ -74,7 +73,7 @@ describe('KCopy', () => {
   })
 
   it('renders with `format` set to `hidden`', () => {
-    mount(KCopy, {
+    cy.mount(KCopy, {
       props: {
         text,
         format: 'hidden',
@@ -88,7 +87,7 @@ describe('KCopy', () => {
   })
 
   it('renders with `format` set to `redacted`', () => {
-    mount(KCopy, {
+    cy.mount(KCopy, {
       props: {
         text,
         format: 'redacted',
@@ -106,7 +105,7 @@ describe('KCopy', () => {
   })
 
   it('renders with `format` set to `deleted`', () => {
-    mount(KCopy, {
+    cy.mount(KCopy, {
       props: {
         text,
         format: 'deleted',
@@ -127,7 +126,7 @@ describe('KCopy', () => {
     it('renders with `copyTooltip` prop set', () => {
       const tooltipText = 'Click to copy!'
 
-      mount(KCopy, {
+      cy.mount(KCopy, {
         props: {
           text,
           copyTooltip: tooltipText,
@@ -142,7 +141,7 @@ describe('KCopy', () => {
     it('renders with `textTooltip` prop set', () => {
       const tooltipText = 'Custom tooltip text!'
 
-      mount(KCopy, {
+      cy.mount(KCopy, {
         props: {
           text,
           textTooltip: tooltipText,
@@ -158,7 +157,7 @@ describe('KCopy', () => {
       const tooltipText = 'Click to copy'
       const successText = 'Copied!'
 
-      mount(KCopy, {
+      cy.mount(KCopy, {
         props: {
           text,
           copyTooltip: tooltipText,

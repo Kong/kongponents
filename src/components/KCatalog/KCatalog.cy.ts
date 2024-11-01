@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KCatalog from '@/components/KCatalog/KCatalog.vue'
 
@@ -75,7 +74,7 @@ describe('KCatalog', () => {
     it('renders proper cards when using props', () => {
       const title = 'Cool beans!'
       const total = 5
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props',
           title,
@@ -93,7 +92,7 @@ describe('KCatalog', () => {
     it('renders slots when passed', () => {
       const slotContent = 'Look mah! No props'
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props1',
           fetcher: () => {
@@ -112,7 +111,7 @@ describe('KCatalog', () => {
       const slotHeader = 'Look mah!'
       const slotBody = 'My body'
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props1',
           fetcher: () => {
@@ -132,7 +131,7 @@ describe('KCatalog', () => {
     it('renders slots when passed (with empty)', () => {
       const emptySlotContent = 'Look mah! I am empty!'
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props0',
           loading: false,
@@ -151,7 +150,7 @@ describe('KCatalog', () => {
     it('renders slots when passed (with error)', () => {
       const errorSlotContent = 'Look mah! I am erroneous!'
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           error: true,
           fetcher: () => {
@@ -167,7 +166,7 @@ describe('KCatalog', () => {
     })
 
     it('renders content in the toolbar slot', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props1',
           fetcher: () => {
@@ -187,7 +186,7 @@ describe('KCatalog', () => {
     it('can change card sizes - small', () => {
       const total = 5
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props',
           fetcher: () => {
@@ -203,7 +202,7 @@ describe('KCatalog', () => {
     it('can change card sizes - large', () => {
       const total = 5
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props',
           fetcher: () => {
@@ -217,7 +216,7 @@ describe('KCatalog', () => {
     })
 
     it('handles truncation', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props-long',
           fetcher: () => {
@@ -230,7 +229,7 @@ describe('KCatalog', () => {
     })
 
     it('can disable truncation', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props-long',
           fetcher: () => {
@@ -252,7 +251,7 @@ describe('KCatalog', () => {
 
       cy.spy(fns, 'fetcher').as('fetcher')
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         propsData: {
           fetcher: fns.fetcher,
           loading: false,
@@ -282,7 +281,7 @@ describe('KCatalog', () => {
     })
 
     it('emits an event when card is clicked', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props-long',
           fetcher: () => {
@@ -303,7 +302,7 @@ describe('KCatalog', () => {
     it('displays an empty state when no data is available', () => {
       const fetcher = () => new Promise(resolve => resolve({ data: [] }))
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           fetcher,
           cacheIdentifier: 'pagination',
@@ -318,7 +317,7 @@ describe('KCatalog', () => {
       const emptySlotContent = 'Look mah! I am empty!'
       const fetcher = () => new Promise(resolve => resolve({ data: [] }))
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'pagination',
           fetcher,
@@ -333,7 +332,7 @@ describe('KCatalog', () => {
     })
 
     it('displays a loading skeletion when the loading prop is set to true', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           fetcher: () => {
             return { data: [], total: 0 }
@@ -346,7 +345,7 @@ describe('KCatalog', () => {
     })
 
     it('displays an error state when the error prop is set to true', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           fetcher: () => {
             return { data: [], total: 0 }
@@ -361,7 +360,7 @@ describe('KCatalog', () => {
     it('displays an error state (slot)', () => {
       const errorSlotContent = 'Look mah! I am erroneous!'
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           fetcher: () => {
             return { data: [], total: 0 }
@@ -381,7 +380,7 @@ describe('KCatalog', () => {
         return new Promise((resolve) => setTimeout(resolve, 2500))
       }
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           fetcher: slowFetcher,
           cacheIdentifier: 'loading-test',
@@ -396,7 +395,7 @@ describe('KCatalog', () => {
 
   describe('pagination', () => {
     it('displays pagination when fetcher is provided', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'pagination2',
           fetcher: () => {
@@ -411,7 +410,7 @@ describe('KCatalog', () => {
     })
 
     it('allows disabling pagination', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'pagination2',
           fetcher: () => {
@@ -427,7 +426,7 @@ describe('KCatalog', () => {
     })
 
     it('does not display pagination when no data', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           fetcher: () => {
             return { data: [], total: 0 }
@@ -440,7 +439,7 @@ describe('KCatalog', () => {
     })
 
     it('does not display pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         propsData: {
           cacheIdentifier: 'pagination-offset1',
           fetcher: () => {
@@ -456,7 +455,7 @@ describe('KCatalog', () => {
     })
 
     it('does not display offset-based pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         propsData: {
           cacheIdentifier: 'pagination5',
           fetcher: () => {
@@ -473,7 +472,7 @@ describe('KCatalog', () => {
     })
 
     it('does not display pagination when hidePaginationWhenOptional is true and total is equal to pageSize', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         propsData: {
           cacheIdentifier: 'pagination',
           fetcher: () => {
@@ -489,7 +488,7 @@ describe('KCatalog', () => {
     })
 
     it('does display pagination when total is greater than pageSize', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         propsData: {
           fetcher: () => {
             return { data: getItems(25), total: 25 }
@@ -504,7 +503,7 @@ describe('KCatalog', () => {
     })
 
     it('does display offset-based pagination when total is greater than pageSize', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         propsData: {
           fetcher: () => {
             return { data: getItems(25), offset: 'abc' }
@@ -539,7 +538,7 @@ describe('KCatalog', () => {
       }
       cy.spy(fns, 'fetcher').as('fetcher')
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         propsData: {
           fetcher: fns.fetcher,
           initialFetcherParams: { pageSize: 10 },
@@ -593,7 +592,7 @@ describe('KCatalog', () => {
       }
       cy.spy(fns, 'fetcher').as('fetcher')
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         propsData: {
           fetcher: fns.fetcher,
           initialFetcherParams: { pageSize: 10 },

@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 
 import KCodeBlock from './KCodeBlock.vue'
 
@@ -9,7 +8,7 @@ const code = `{
 }`
 
 function renderComponent(props = {}) {
-  return mount(KCodeBlock, {
+  return cy.mount(KCodeBlock, {
     props: {
       language: 'json',
       code,

@@ -1,9 +1,8 @@
-import { mount } from 'cypress/vue'
 import KTruncate from '@/components/KTruncate/KTruncate.vue'
 
 describe('KTruncate', () => {
   it('should not truncate content when is not overflowing', () => {
-    mount(KTruncate, {
+    cy.mount(KTruncate, {
       props: {
         rows: 3,
       },
@@ -20,7 +19,7 @@ describe('KTruncate', () => {
   })
 
   it('should truncate overflowing content and show it when expanded', () => {
-    mount(KTruncate, {
+    cy.mount(KTruncate, {
       props: {
         rows: 2,
       },
@@ -41,7 +40,7 @@ describe('KTruncate', () => {
 
   it('render content passed in through expand trigger slot', () => {
     const expandTriggerContent = 'Expand'
-    mount(KTruncate, {
+    cy.mount(KTruncate, {
       slots: {
         default: [
           '<span style="width: 100%;">Visible element</span>',
@@ -56,7 +55,7 @@ describe('KTruncate', () => {
 
   it('render expanded when expanded prop is true and render content passed in through expand trigger slot', () => {
     const collapseTriggerContent = 'Collapse'
-    mount(KTruncate, {
+    cy.mount(KTruncate, {
       props: {
         expanded: true,
       },

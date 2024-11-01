@@ -1,10 +1,9 @@
-import { mount } from 'cypress/vue'
 import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 
 describe('KCheckbox', () => {
   it('shows as checked when prop passed', () => {
     const model = true
-    mount(KCheckbox, {
+    cy.mount(KCheckbox, {
       props: {
         modelValue: model,
       },
@@ -16,7 +15,7 @@ describe('KCheckbox', () => {
   it('emits checked value on click', () => {
     const model = false
 
-    mount(KCheckbox, {
+    cy.mount(KCheckbox, {
       props: {
         modelValue: model,
       },
@@ -37,7 +36,7 @@ describe('KCheckbox', () => {
     const label = 'Some label'
     const description = 'Some description'
 
-    mount(KCheckbox, {
+    cy.mount(KCheckbox, {
       props: {
         modelValue: false,
         label,
@@ -55,7 +54,7 @@ describe('KCheckbox', () => {
     const defaultSlot = 'default-slot'
     const descriptionSlot = 'description-slot'
 
-    mount(KCheckbox, {
+    cy.mount(KCheckbox, {
       props: {
         modelValue: false,
         label,
@@ -74,7 +73,7 @@ describe('KCheckbox', () => {
   })
 
   it('renders correctly in indeterminate state', () => {
-    mount(KCheckbox, {
+    cy.mount(KCheckbox, {
       props: {
         modelValue: false,
         label: 'Indeterminate label',

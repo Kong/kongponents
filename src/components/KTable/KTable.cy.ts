@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KTable from '@/components/KTable/KTable.vue'
 import { offsetPaginationHeaders, offsetPaginationFetcher } from '../../../mocks/KTableMockData'
@@ -105,7 +104,7 @@ const options = {
 describe('KTable', () => {
   describe('states', () => {
     it('displays an empty state when no data is available', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         props: {
           fetcher: () => ({ data: [] }),
           headers: options.headers,
@@ -119,7 +118,7 @@ describe('KTable', () => {
     it('displays an empty state when no data is available (slot)', () => {
       const emptySlotContent = 'Look mah! I am empty!'
       const fetcher = () => new Promise(resolve => resolve({ data: [] }))
-      mount(KTable, {
+      cy.mount(KTable, {
         props: {
           fetcher,
           headers: options.headers,
@@ -134,7 +133,7 @@ describe('KTable', () => {
     })
 
     it('displays a loading skeletion when the "loading" prop is set to true"', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         props: {
           loading: true,
         },
@@ -144,7 +143,7 @@ describe('KTable', () => {
     })
 
     it('displays an error state when the "error" prop is set to true"', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         props: {
           error: true,
         },
@@ -155,7 +154,7 @@ describe('KTable', () => {
 
     it('displays an error state (slot)', () => {
       const errorSlotContent = 'Look mah! I am erroneous!'
-      mount(KTable, {
+      cy.mount(KTable, {
         props: {
           error: true,
         },
@@ -172,7 +171,7 @@ describe('KTable', () => {
         return new Promise((resolve) => setTimeout(resolve, 2500))
       }
 
-      mount(KTable, {
+      cy.mount(KTable, {
         props: {
           fetcher: slowFetcher,
           headers: options.headers,
@@ -188,7 +187,7 @@ describe('KTable', () => {
 
   describe('default', () => {
     it('renders link in action slot', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         props: {
           headers: options.headers,
           fetcher: () => {
@@ -205,7 +204,7 @@ describe('KTable', () => {
     })
 
     it('renders content in the toolbar slot', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         props: {
           headers: options.headers,
           fetcher: () => {
@@ -223,7 +222,7 @@ describe('KTable', () => {
     })
 
     it('has hover class when passed', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         props: {
           headers: options.headers,
           fetcher: () => {
@@ -237,7 +236,7 @@ describe('KTable', () => {
     })
 
     it('renders column resize toggles when resizeColumns is set', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         props: {
           headers: options.headers,
           fetcher: () => {
@@ -256,7 +255,7 @@ describe('KTable', () => {
       options.headers[1].hidable = true
       const modifiedHeaderKey = options.headers[1].key
 
-      mount(KTable, {
+      cy.mount(KTable, {
         props: {
           headers: options.headers,
           fetcher: () => {
@@ -286,7 +285,7 @@ describe('KTable', () => {
     it('renders tooltip when provided in headers', () => {
       options.headers[0].tooltip = 'This is a tooltip'
 
-      mount(KTable, {
+      cy.mount(KTable, {
         props: {
           headers: options.headers,
           fetcher: () => {
@@ -301,7 +300,7 @@ describe('KTable', () => {
 
   describe('data revalidates and changes as expected', () => {
     it('when clicking a specific page number for non-offset pagination', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         propsData: {
           initialFetcherParams: {
             page: 1,
@@ -329,7 +328,7 @@ describe('KTable', () => {
     })
 
     it('when clicking arrows for offset based pagination', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         propsData: {
           fetcher: offsetPaginationFetcher,
           loading: false,
@@ -345,7 +344,7 @@ describe('KTable', () => {
     })
 
     it('when page size is changed', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         propsData: {
           fetcher: () => {
             return {
@@ -420,7 +419,7 @@ describe('KTable', () => {
           ],
         }
       }
-      mount(KTable, {
+      cy.mount(KTable, {
         propsData: {
           fetcher: sortHandlerFnFetcher,
           loading: false,
@@ -436,7 +435,7 @@ describe('KTable', () => {
     })
 
     it('reacts to changes in headers', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         propsData: {
           fetcher: () => {
             return {
@@ -468,7 +467,7 @@ describe('KTable', () => {
 
   describe('sorting', () => {
     it('should have sortable class when passed', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         props: {
           headers: options.headers,
           fetcher: () => {
@@ -485,7 +484,7 @@ describe('KTable', () => {
     })
 
     it('should allow disabling sorting', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         props: {
           headers: options.headers,
           fetcher: () => {
@@ -504,7 +503,7 @@ describe('KTable', () => {
   // describe('events', () => {
   //   it('@row:event', () => {
   //     const evtTrigger = jest.fn()
-  //     mount(KTable, {
+  //     cy.mount(KTable, {
   //       localVue,
   //       attachToDocument: true,
   //       props: {
@@ -522,7 +521,7 @@ describe('KTable', () => {
 
   // it('@cell:event', () => {
   //   const evtTrigger = jest.fn()
-  //   mount(KTable, {
+  //   cy.mount(KTable, {
   //     localVue,
   //     attachToDocument: true,
   //     props: {
@@ -552,7 +551,7 @@ describe('KTable', () => {
 
   describe('pagination', () => {
     it('displays pagination when fetcher provided', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         props: {
           fetcher: () => {
             return { data: largeDataSet, total: largeDataSet.length }
@@ -567,7 +566,7 @@ describe('KTable', () => {
     })
 
     it('does not display pagination when pagination disabled', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         props: {
           fetcher: () => {
             return { data: largeDataSet, total: largeDataSet.length }
@@ -583,7 +582,7 @@ describe('KTable', () => {
     })
 
     it('does not display pagination when no fetcher', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         props: {
           options,
           paginationPageSizes: [10, 20, 30, 40],
@@ -594,7 +593,7 @@ describe('KTable', () => {
     })
 
     it('does not display pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         propsData: {
           fetcher: () => {
             return { data: options.data, total: options.data.length }
@@ -610,7 +609,7 @@ describe('KTable', () => {
     })
 
     it('does not display pagination when hidePaginationWhenOptional is true and total is equal to min pageSize', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         propsData: {
           fetcher: () => {
             return { data: largeDataSet, total: largeDataSet.length }
@@ -626,7 +625,7 @@ describe('KTable', () => {
     })
 
     it('does display pagination when total is greater than min pageSize', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         propsData: {
           fetcher: () => {
             return { data: largeDataSet, total: largeDataSet.length }
@@ -642,7 +641,7 @@ describe('KTable', () => {
     })
 
     it('does not display offset-based pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         propsData: {
           fetcher: () => {
             return { data: options.data, offset: null }
@@ -660,7 +659,7 @@ describe('KTable', () => {
     })
 
     it('does display offset-based pagination when total is greater than min pageSize', () => {
-      mount(KTable, {
+      cy.mount(KTable, {
         propsData: {
           fetcher: () => {
             return { data: largeDataSet, offset: 'abc' }
@@ -696,7 +695,7 @@ describe('KTable', () => {
       }
       cy.spy(fns, 'fetcher').as('fetcher')
 
-      mount(KTable, {
+      cy.mount(KTable, {
         propsData: {
           fetcher: fns.fetcher,
           initialFetcherParams: { pageSize: 10 },
@@ -753,7 +752,7 @@ describe('KTable', () => {
       }
       cy.spy(fns, 'fetcher').as('fetcher')
 
-      mount(KTable, {
+      cy.mount(KTable, {
         propsData: {
           fetcher: fns.fetcher,
           initialFetcherParams: { pageSize: 10 },
@@ -805,7 +804,7 @@ describe('KTable', () => {
 
       cy.spy(fns, 'fetcher').as('fetcher')
 
-      mount(KTable, {
+      cy.mount(KTable, {
         propsData: {
           fetcher: fns.fetcher,
           loading: false,

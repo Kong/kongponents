@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.vue'
 
 describe('KSegmentedControl', () => {
@@ -8,7 +7,7 @@ describe('KSegmentedControl', () => {
       { label: 'Item 2', value: 'item2' },
     ]
 
-    mount(KSegmentedControl, {
+    cy.mount(KSegmentedControl, {
       props: {
         options: items,
         modelValue: items[1].value,
@@ -27,7 +26,7 @@ describe('KSegmentedControl', () => {
       { label: 'Item 2', value: 'item2' },
     ]
 
-    mount(KSegmentedControl, {
+    cy.mount(KSegmentedControl, {
       props: {
         options: items,
         modelValue: items[1].value,
@@ -47,7 +46,7 @@ describe('KSegmentedControl', () => {
   })
 
   it('disables an item if option is set to disabled', () => {
-    mount(KSegmentedControl, {
+    cy.mount(KSegmentedControl, {
       props: {
         options: [
           {
@@ -74,7 +73,7 @@ describe('KSegmentedControl', () => {
   })
 
   it('renders all items disabled when disabled prop is true', () => {
-    mount(KSegmentedControl, {
+    cy.mount(KSegmentedControl, {
       props: {
         options: [
           {
@@ -106,7 +105,7 @@ describe('KSegmentedControl', () => {
       { label: 'Item 2', value: 'item2' },
     ]
 
-    mount(KSegmentedControl, {
+    cy.mount(KSegmentedControl, {
       props: {
         options: items,
         modelValue: items[1].value,

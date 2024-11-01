@@ -1,9 +1,8 @@
-import { mount } from 'cypress/vue'
 import KRadio from '@/components/KRadio/KRadio.vue'
 
 describe('KRadio', () => {
   it('shows as not selected when modelValue is true', () => {
-    mount(KRadio, {
+    cy.mount(KRadio, {
       props: {
         modelValue: false,
         selectedValue: true,
@@ -14,7 +13,7 @@ describe('KRadio', () => {
   })
 
   it('shows as selected when modelValue is true', () => {
-    mount(KRadio, {
+    cy.mount(KRadio, {
       props: {
         modelValue: true,
         selectedValue: true,
@@ -25,7 +24,7 @@ describe('KRadio', () => {
   })
 
   it('emits checked value on click', () => {
-    mount(KRadio, {
+    cy.mount(KRadio, {
       props: {
         modelValue: false,
         selectedValue: true,
@@ -44,7 +43,7 @@ describe('KRadio', () => {
   it('renders the default slot content when card prop is true', () => {
     const slotText = 'Hello world'
 
-    mount(KRadio, {
+    cy.mount(KRadio, {
       props: {
         modelValue: false,
         selectedValue: true,
@@ -60,7 +59,7 @@ describe('KRadio', () => {
   })
 
   it('renders input element hidden when card prop is true', () => {
-    mount(KRadio, {
+    cy.mount(KRadio, {
       props: {
         modelValue: false,
         selectedValue: true,
@@ -73,7 +72,7 @@ describe('KRadio', () => {
   })
 
   it('emits checked value on click within entire label element when card prop is true', () => {
-    mount(KRadio, {
+    cy.mount(KRadio, {
       props: {
         modelValue: false,
         selectedValue: true,
@@ -97,7 +96,7 @@ describe('KRadio', () => {
   })
 
   it('should not be selectable when disabled and card prop is true', () => {
-    mount(KRadio, {
+    cy.mount(KRadio, {
       props: {
         modelValue: false,
         selectedValue: true,

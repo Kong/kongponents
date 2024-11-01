@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KTabs from '@/components/KTabs/KTabs.vue'
 
@@ -10,7 +9,7 @@ const TABS = [
 
 describe('KTabs', () => {
   it('first tab is set if hash not found', () => {
-    mount(KTabs, {
+    cy.mount(KTabs, {
       props: {
         tabs: TABS,
       },
@@ -20,7 +19,7 @@ describe('KTabs', () => {
   })
 
   it('sets correct tab if default tab prop', () => {
-    mount(KTabs, {
+    cy.mount(KTabs, {
       props: {
         tabs: TABS,
         modelValue: '#books',
@@ -31,7 +30,7 @@ describe('KTabs', () => {
   })
 
   it('emits change event on click', () => {
-    mount(KTabs, {
+    cy.mount(KTabs, {
       props: {
         tabs: TABS,
       },
@@ -48,7 +47,7 @@ describe('KTabs', () => {
     const moviesSlot = 'I love pictures'
     const booksSlot = 'I love pictures'
 
-    mount(KTabs, {
+    cy.mount(KTabs, {
       props: {
         tabs: TABS,
         hidePanels: true,
@@ -83,7 +82,7 @@ describe('KTabs', () => {
       { hash: '#books', title: 'Books' },
     ]
 
-    mount(KTabs, {
+    cy.mount(KTabs, {
       props: {
         tabs,
       },
@@ -101,7 +100,7 @@ describe('KTabs', () => {
       const moviesSlot = 'I love pictures'
       const booksSlot = 'I love pictures'
 
-      mount(KTabs, {
+      cy.mount(KTabs, {
         props: {
           tabs: TABS,
         },
@@ -128,7 +127,7 @@ describe('KTabs', () => {
       const moviesSlot = 'I love pictures'
       const booksSlot = 'I love pictures'
 
-      mount(KTabs, {
+      cy.mount(KTabs, {
         props: {
           tabs: TABS,
         },

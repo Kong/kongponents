@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import KStepper from '@/components/KStepper/KStepper.vue'
 
 const longSteps = [
@@ -18,7 +17,7 @@ const stepTypes = [
 
 describe('KStepper', () => {
   it('renders steps', () => {
-    mount(KStepper, {
+    cy.mount(KStepper, {
       props: {
         steps: longSteps,
       },
@@ -32,7 +31,7 @@ describe('KStepper', () => {
   it('renders with maxLabelWidth', () => {
     const width = 100
 
-    mount(KStepper, {
+    cy.mount(KStepper, {
       props: {
         maxLabelWidth: width + '',
         steps: longSteps,
@@ -45,7 +44,7 @@ describe('KStepper', () => {
   })
 
   it('renders each step type', () => {
-    mount(KStepper, {
+    cy.mount(KStepper, {
       props: {
         steps: stepTypes,
       },

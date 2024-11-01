@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import KToaster from '@/components/KToaster/KToaster.vue'
 
 describe('KToaster', () => {
@@ -10,7 +9,7 @@ describe('KToaster', () => {
       toasts.push({ title: 'I have a toast', appearance: 'danger', message: 'hey toasty' })
       toasts.push({ title: 'I have a toast', appearance: 'danger', message: 'hey toasty' })
 
-      mount(KToaster, {
+      cy.mount(KToaster, {
         props: {
           toasterState: toasts,
         },
@@ -25,7 +24,7 @@ describe('KToaster', () => {
       const title = 'I have a toast'
       const message = 'hey toasty'
 
-      mount(KToaster, {
+      cy.mount(KToaster, {
         props: {
           toasterState: [{ title, message }],
         },
@@ -40,7 +39,7 @@ describe('KToaster', () => {
     it('renders all elements in toaster correctly - message not passed', () => {
       const title = 'I have a toast'
 
-      mount(KToaster, {
+      cy.mount(KToaster, {
         props: {
           toasterState: [{ title }],
         },
@@ -54,7 +53,7 @@ describe('KToaster', () => {
 
     it('renders toast with correct default z-index', () => {
 
-      mount(KToaster, {
+      cy.mount(KToaster, {
         props: {
           toasterState: [{ title: 'I have a toast' }],
         },
@@ -64,7 +63,7 @@ describe('KToaster', () => {
     })
 
     it('renders toast with custom z-index', () => {
-      mount(KToaster, {
+      cy.mount(KToaster, {
         props: {
           toasterState: [{ title: 'I have a toast' }],
           zIndex: 9999,

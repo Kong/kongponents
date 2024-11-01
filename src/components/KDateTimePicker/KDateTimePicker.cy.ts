@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import { format } from 'date-fns'
 import { TimePeriods, TimeframeKeys } from '@mocks/KDateTimePickerMockData'
 import KDateTimePicker from '@/components/KDateTimePicker/KDateTimePicker.vue'
@@ -62,7 +61,7 @@ const segmentedToggle = 'datetime-picker-toggle'
 
 describe('KDateTimePicker', () => {
   it('renders without calendar icon', () => {
-    mount(KDateTimePicker, {
+    cy.mount(KDateTimePicker, {
       props: {
         mode: 'date',
         modelValue: singleDate,
@@ -78,7 +77,7 @@ describe('KDateTimePicker', () => {
   })
 
   it('renders with clear button', () => {
-    mount(KDateTimePicker, {
+    cy.mount(KDateTimePicker, {
       props: {
         mode: 'dateTime',
         modelValue: singleDate,
@@ -97,7 +96,7 @@ describe('KDateTimePicker', () => {
     const placeholderText = 'Customer-facing message'
     const width = 500
 
-    mount(KDateTimePicker, {
+    cy.mount(KDateTimePicker, {
       props: {
         clearButton: true,
         mode: 'date',
@@ -121,7 +120,7 @@ describe('KDateTimePicker', () => {
   })
 
   it('renders a date picker', () => {
-    mount(KDateTimePicker, {
+    cy.mount(KDateTimePicker, {
       props: {
         mode: 'date',
         modelValue: singleDate,
@@ -136,7 +135,7 @@ describe('KDateTimePicker', () => {
   })
 
   it('renders a single date and time picker', () => {
-    mount(KDateTimePicker, {
+    cy.mount(KDateTimePicker, {
       props: {
         mode: 'dateTime',
         modelValue: singleDate,
@@ -153,7 +152,7 @@ describe('KDateTimePicker', () => {
   })
 
   it('renders a range date and time picker', () => {
-    mount(KDateTimePicker, {
+    cy.mount(KDateTimePicker, {
       props: {
         mode: 'dateTime',
         modelValue: defaultTimeRange,
@@ -172,7 +171,7 @@ describe('KDateTimePicker', () => {
   })
 
   it('displays a valid date when "Submit" is clicked', () => {
-    mount(KDateTimePicker, {
+    cy.mount(KDateTimePicker, {
       props: {
         mode: 'date',
         clearButton: true,
@@ -189,7 +188,7 @@ describe('KDateTimePicker', () => {
   })
 
   it('disables "Apply" button when "Clear" is clicked', () => {
-    mount(KDateTimePicker, {
+    cy.mount(KDateTimePicker, {
       props: {
         clearButton: true,
         mode: 'date',
@@ -210,7 +209,7 @@ describe('KDateTimePicker', () => {
   })
 
   it('displays todays date after clicking "Apply', () => {
-    mount(KDateTimePicker, {
+    cy.mount(KDateTimePicker, {
       props: {
         mode: 'date',
         modelValue: singleDate,
@@ -227,7 +226,7 @@ describe('KDateTimePicker', () => {
   })
 
   it('renders relative time frames, and makes a selection', () => {
-    mount(KDateTimePicker, {
+    cy.mount(KDateTimePicker, {
       props: {
         mode: 'relative',
         modelValue: defaultTimeRange,
@@ -248,7 +247,7 @@ describe('KDateTimePicker', () => {
   })
 
   it('renders custom calendar and relative time frames', { includeShadowDom: false }, () => {
-    mount(KDateTimePicker, {
+    cy.mount(KDateTimePicker, {
       props: {
         mode: 'dateTime',
         modelValue: defaultTimeRange,
@@ -274,7 +273,7 @@ describe('KDateTimePicker', () => {
   })
 
   it('renders calendar with only the day (month) selection, but not time', () => {
-    mount(KDateTimePicker, {
+    cy.mount(KDateTimePicker, {
       props: {
         mode: 'relativeDate',
         modelValue: defaultTimeRange,
@@ -291,7 +290,7 @@ describe('KDateTimePicker', () => {
   })
 
   it('renders date only calendar and displays time range in `PP` format', () => {
-    mount(KDateTimePicker, {
+    cy.mount(KDateTimePicker, {
       props: {
         mode: 'date',
         range: true,
@@ -303,7 +302,7 @@ describe('KDateTimePicker', () => {
   })
 
   it('renders relativeDateTime calendar and displays time range in `PP hh:mm a` format', () => {
-    mount(KDateTimePicker, {
+    cy.mount(KDateTimePicker, {
       props: {
         mode: 'dateTime',
         modelValue: defaultTimeRange,
@@ -317,7 +316,7 @@ describe('KDateTimePicker', () => {
   it('renders calendar, even if seeded with an invalid date range', () => {
     const placeholderText = 'Please choose valid start and end dates'
 
-    mount(KDateTimePicker, {
+    cy.mount(KDateTimePicker, {
       props: {
         mode: 'relativeDate',
         modelValue: emptyTimeRange,

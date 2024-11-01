@@ -1,9 +1,8 @@
-import { mount } from 'cypress/vue'
 import KModal from '@/components/KModal/KModal.vue'
 
 describe('KModal', () => {
   it('renders closed when visible is false', () => {
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: false,
       },
@@ -13,7 +12,7 @@ describe('KModal', () => {
   })
 
   it('renders open when visible is true', () => {
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
       },
@@ -23,7 +22,7 @@ describe('KModal', () => {
   })
 
   it('renders action buttons and close icon by default', () => {
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
       },
@@ -37,7 +36,7 @@ describe('KModal', () => {
   it('renders title when passed through prop', () => {
     const title = 'Modal Title'
 
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
         title,
@@ -50,7 +49,7 @@ describe('KModal', () => {
   it('renders title when passed through slot', () => {
     const title = 'Slotted Title'
 
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
         title: 'Modal Title',
@@ -66,7 +65,7 @@ describe('KModal', () => {
   it('renders content when passed through slot', () => {
     const content = 'Modal Content'
 
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
       },
@@ -83,7 +82,7 @@ describe('KModal', () => {
     const appearance = 'danger'
     const disabled = true
 
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
         actionButtonText: text,
@@ -100,7 +99,7 @@ describe('KModal', () => {
     const appearance = 'danger'
     const disabled = true
 
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
         cancelButtonText: text,
@@ -113,7 +112,7 @@ describe('KModal', () => {
   })
 
   it('does not render cancel button when hideCancelButton is true', () => {
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
         hideCancelButton: true,
@@ -126,7 +125,7 @@ describe('KModal', () => {
   it('renders footer slot when passed', () => {
     const footer = 'Modal Footer'
 
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
       },
@@ -143,7 +142,7 @@ describe('KModal', () => {
   it('renders footer-actions slot when passed', () => {
     const footerActions = 'Modal Footer Actions'
 
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
       },
@@ -160,7 +159,7 @@ describe('KModal', () => {
   it('renders custom content over default content when passed through content slot', () => {
     const modalContent = 'Modal Content'
 
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
       },
@@ -176,7 +175,7 @@ describe('KModal', () => {
   })
 
   it('does not render close icon when hideCloseIcon is true', () => {
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
         hideCloseIcon: true,
@@ -189,7 +188,7 @@ describe('KModal', () => {
   it('renders modal with correct maxWidth when prop is passed', () => {
     const maxWidth = '123px'
 
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
         maxWidth,
@@ -202,7 +201,7 @@ describe('KModal', () => {
   it('renders modal with correct maxHeight when prop is passed', () => {
     const maxHeight = '123px'
 
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
         maxHeight,
@@ -213,7 +212,7 @@ describe('KModal', () => {
   })
 
   it('renders full screen modal when fullScreen prop is true', () => {
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
         fullScreen: true,
@@ -225,7 +224,7 @@ describe('KModal', () => {
 
   it('renders modal with correct zIndex when prop is passed', () => {
 
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
         zIndex: 1200,
@@ -239,7 +238,7 @@ describe('KModal', () => {
 
   it('renders modal with correct default zIndex when prop is not passed', () => {
 
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
       },
@@ -249,7 +248,7 @@ describe('KModal', () => {
   })
 
   it('emits proceed event when action button is clicked', () => {
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
       },
@@ -261,7 +260,7 @@ describe('KModal', () => {
   })
 
   it('emits cancel event when cancel button is clicked', () => {
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
       },
@@ -273,7 +272,7 @@ describe('KModal', () => {
   })
 
   it('does not close modal on backdrop click when closeOnBackdropClick is false', () => {
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
         closeOnBackdropClick: false,
@@ -286,7 +285,7 @@ describe('KModal', () => {
   })
 
   it('emits cancel event when backdrop is clicked and closeOnBackdropClick is true', () => {
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
         closeOnBackdropClick: true,
@@ -299,7 +298,7 @@ describe('KModal', () => {
   })
 
   it('sets focus on first input field when inputAutofocus is true', () => {
-    mount(KModal, {
+    cy.mount(KModal, {
       props: {
         visible: true,
         inputAutofocus: true,

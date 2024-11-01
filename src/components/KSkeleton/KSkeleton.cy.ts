@@ -1,16 +1,15 @@
-import { mount } from 'cypress/vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 
 describe('KSkeleton', () => {
   describe('variants', () => {
     it('renders generic skeleton state by default', () => {
-      mount(KSkeleton)
+      cy.mount(KSkeleton)
 
       cy.get('.skeleton-loader').should('exist')
     })
 
     it('renders form skeleton state with 4 rows by default', () => {
-      mount(KSkeleton, {
+      cy.mount(KSkeleton, {
         props: {
           type: 'form',
         },
@@ -21,7 +20,7 @@ describe('KSkeleton', () => {
     })
 
     it('renders card skeleton state with 2 cards', () => {
-      mount(KSkeleton, {
+      cy.mount(KSkeleton, {
         props: {
           type: 'card',
           cardCount: 2,
@@ -33,7 +32,7 @@ describe('KSkeleton', () => {
     })
 
     it('renders table skeleton state with 6 rows by default', () => {
-      mount(KSkeleton, {
+      cy.mount(KSkeleton, {
         props: {
           type: 'table',
         },
@@ -44,7 +43,7 @@ describe('KSkeleton', () => {
     })
 
     it('renders spinner skeleton state', () => {
-      mount(KSkeleton, {
+      cy.mount(KSkeleton, {
         props: {
           type: 'spinner',
         },
@@ -54,7 +53,7 @@ describe('KSkeleton', () => {
     })
 
     it('renders full screen loader with progress bar', () => {
-      mount(KSkeleton, {
+      cy.mount(KSkeleton, {
         props: {
           type: 'fullscreen-kong',
         },
@@ -66,7 +65,7 @@ describe('KSkeleton', () => {
     })
 
     it('renders full screen loader with custom zIndex', () => {
-      mount(KSkeleton, {
+      cy.mount(KSkeleton, {
         props: {
           type: 'fullscreen-kong',
           zIndex: 12000,
@@ -79,7 +78,7 @@ describe('KSkeleton', () => {
     })
 
     it('renders full screen generic loader with progress bar', () => {
-      mount(KSkeleton, {
+      cy.mount(KSkeleton, {
         props: {
           type: 'fullscreen-generic',
         },
@@ -91,7 +90,7 @@ describe('KSkeleton', () => {
     })
 
     it('renders full screen generic loader with custom zIndex', () => {
-      mount(KSkeleton, {
+      cy.mount(KSkeleton, {
         props: {
           type: 'fullscreen-generic',
           zIndex: 12000,

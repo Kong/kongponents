@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import KSlideout from '@/components/KSlideout/KSlideout.vue'
 import { h } from 'vue'
 
@@ -7,7 +6,7 @@ describe('KSlideout', () => {
     const contentHeading = 'What\'s up default slot'
     const contentSentence = 'Default slots are the easiest'
 
-    mount(KSlideout, {
+    cy.mount(KSlideout, {
       props: {
         visible: true,
       },
@@ -26,7 +25,7 @@ describe('KSlideout', () => {
   it('renders props when passed', () => {
     const titleProp = 'Hello!'
 
-    mount(KSlideout, {
+    cy.mount(KSlideout, {
       props: {
         visible: true,
         title: titleProp,
@@ -38,7 +37,7 @@ describe('KSlideout', () => {
 
   it('renders with correct default z-index', () => {
 
-    mount(KSlideout, {
+    cy.mount(KSlideout, {
       props: {
         visible: true,
       },
@@ -50,7 +49,7 @@ describe('KSlideout', () => {
 
   it('renders with custom z-index', () => {
 
-    mount(KSlideout, {
+    cy.mount(KSlideout, {
       props: {
         visible: true,
         zIndex: 92929,
@@ -62,7 +61,7 @@ describe('KSlideout', () => {
   })
 
   it('renders close icon on right', () => {
-    mount(KSlideout, {
+    cy.mount(KSlideout, {
       props: {
         visible: true,
       },
@@ -72,7 +71,7 @@ describe('KSlideout', () => {
   })
 
   it('emits close event when backdrop is clicked', () => {
-    mount(KSlideout, {
+    cy.mount(KSlideout, {
       props: {
         visible: true,
         onClose: cy.spy().as('onCloseSpy'),
@@ -92,7 +91,7 @@ describe('KSlideout', () => {
   })
 
   it('emits close event when esc key pressed', () => {
-    mount(KSlideout, {
+    cy.mount(KSlideout, {
       props: {
         visible: true,
       },
@@ -104,7 +103,7 @@ describe('KSlideout', () => {
   })
 
   it('does not emit close event when closeOnBlur prop is false', () => {
-    mount(KSlideout, {
+    cy.mount(KSlideout, {
       props: {
         visible: true,
         preventCloseOnBlur: true,

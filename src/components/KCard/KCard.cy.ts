@@ -1,9 +1,8 @@
-import { mount } from 'cypress/vue'
 import KCard from '@/components/KCard/KCard.vue'
 
 describe('KCard', () => {
   it('renders empty card element when no props or slots are passed', () => {
-    mount(KCard)
+    cy.mount(KCard)
 
     cy.get('.k-card').should('be.visible')
     cy.get('.k-card').find('card-header').should('not.exist')
@@ -15,7 +14,7 @@ describe('KCard', () => {
     const titleProp = 'Title prop'
     const titleTag = 'h5'
 
-    mount(KCard, {
+    cy.mount(KCard, {
       props: {
         title: titleProp,
         titleTag,
@@ -29,7 +28,7 @@ describe('KCard', () => {
     const titleProp = 'Test title'
     const titleText = 'I am the title'
 
-    mount(KCard, {
+    cy.mount(KCard, {
       props: {
         title: titleProp,
       },
