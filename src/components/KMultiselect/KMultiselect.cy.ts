@@ -643,4 +643,34 @@ describe('KMultiselect', () => {
       })
     })
   })
+
+  it('should not cause form submission when enter key is pressed while filtering', () => {
+    const onSubmit = cy.spy().as('onSubmit')
+
+    ;[false, true].forEach(collapsedContext => {
+      cy.mount(() => h('form', {
+        onSubmit: (e: Event) => {
+          e.preventDefault()
+          onSubmit()
+        },
+      }, [
+        h(KMultiselect, {
+          items: [
+            { label: 'Label 1', value: 'val1' },
+            { label: 'Label 2', value: 'val2' },
+          ],
+          enableFiltering: true,
+          collapsedContext,
+        }),
+        h('button', { type: 'submit' }, 'Submit'),
+      ]))
+
+      cy.get('.multiselect-trigger').trigger('click')
+      cy.get('input')
+        .type('Label{enter}')
+        .then(() => {
+          cy.get('@onSubmit').should('not.have.been.called')
+        })
+    })
+  })
 })

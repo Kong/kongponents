@@ -486,10 +486,12 @@ const onInputKeypress = (event: Event) => {
   }
 }
 
-const onInputEnter = (): void => {
+const onInputEnter = (e: KeyboardEvent): void => {
   if (!filteredItems.value.length && props.enableItemCreation) {
     handleAddItem()
   }
+
+  e.preventDefault()
 }
 
 const handleAddItem = (): void => {

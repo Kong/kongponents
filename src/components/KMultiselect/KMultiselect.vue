@@ -817,10 +817,12 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
   emit('update:modelValue', selectedVals)
 }
 
-const onInputEnter = (): void => {
+const onInputEnter = (e: KeyboardEvent): void => {
   if (!filteredItems.value.length && props.enableItemCreation) {
     handleAddItem()
   }
+
+  e.preventDefault()
 }
 
 // add an item with `enter`

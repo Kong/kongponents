@@ -603,4 +603,31 @@ describe('KSelect', () => {
       cy.wrap(Cypress.vueWrapper.emitted().change[0][0]).should('be.equal', null)
     })
   })
+
+  it('should not cause form submission when enter key is pressed while filtering', () => {
+    const onSubmit = cy.spy().as('onSubmit')
+
+    cy.mount(() => h('form', {
+      onSubmit: (e: Event) => {
+        e.preventDefault()
+        onSubmit()
+      },
+    }, [
+      h(KSelect, {
+        items: [
+          { label: 'Label 1', value: 'val1' },
+          { label: 'Label 2', value: 'val2' },
+        ],
+        enableFiltering: true,
+      }),
+      h('button', { type: 'submit' }, 'Submit'),
+    ]))
+
+    cy.getTestId('select-input').trigger('click')
+    cy.get('input')
+      .type('Label{enter}')
+      .then(() => {
+        cy.get('@onSubmit').should('not.have.been.called')
+      })
+  })
 })
