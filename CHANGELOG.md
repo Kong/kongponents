@@ -1,3 +1,10 @@
+## [9.14.7](https://github.com/Kong/kongponents/compare/v9.14.6...v9.14.7) (2024-11-01)
+
+
+### Bug Fixes
+
+* **test:** fix cypress testing issues ([#2496](https://github.com/Kong/kongponents/issues/2496)) ([8276041](https://github.com/Kong/kongponents/commit/82760412fac166aca92936afaa437f48f0e8c06e))
+
 ## [9.14.6](https://github.com/Kong/kongponents/compare/v9.14.5...v9.14.6) (2024-10-31)
 
 
