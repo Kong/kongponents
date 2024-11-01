@@ -1,11 +1,10 @@
 import { h } from 'vue'
-import { mount } from 'cypress/vue'
 import KAlert from '@/components/KAlert/KAlert.vue'
 import { AlertAppearances } from '@/types'
 
 const rendersCorrectVariant = (variant: string) => {
   it(`renders ${variant} variant`, () => {
-    mount(KAlert, {
+    cy.mount(KAlert, {
       props: {
         appearance: `${variant}`,
         alertMessage: `I am ${variant}`,
@@ -21,7 +20,7 @@ describe('KAlert', () => {
   Object.keys(AlertAppearances).map(v => rendersCorrectVariant(v))
 
   it('renders info variant when no appearance prop', () => {
-    mount(KAlert, {
+    cy.mount(KAlert, {
       props: {
         alertMessage: 'I should be info!',
       },
@@ -31,7 +30,7 @@ describe('KAlert', () => {
   })
 
   it('renders all elements correctly when props are not passed', () => {
-    mount(KAlert)
+    cy.mount(KAlert)
 
     cy.get('.k-alert').should('exist')
     cy.get('.alert-icon-container').should('not.exist')
@@ -44,7 +43,7 @@ describe('KAlert', () => {
   it('renders title when passed as a prop', () => {
     const title = 'I am a title'
 
-    mount(KAlert, {
+    cy.mount(KAlert, {
       props: {
         title,
       },
@@ -56,7 +55,7 @@ describe('KAlert', () => {
   it('renders message when passed as a prop', () => {
     const message = 'I am a message'
 
-    mount(KAlert, {
+    cy.mount(KAlert, {
       props: {
         message,
       },
@@ -66,7 +65,7 @@ describe('KAlert', () => {
   })
 
   it('renders icon and dismiss button when props are passed', () => {
-    mount(KAlert, {
+    cy.mount(KAlert, {
       props: {
         showIcon: true,
         dismissible: true,
@@ -81,7 +80,7 @@ describe('KAlert', () => {
     const message = 'I am a message'
     const defaultSlotContent = 'Default'
 
-    mount(KAlert, {
+    cy.mount(KAlert, {
       props: {
         message,
       },
@@ -97,7 +96,7 @@ describe('KAlert', () => {
     const iconSlotContent = 'icon slot content'
     const testId = 'slotted-icon'
 
-    mount(KAlert, {
+    cy.mount(KAlert, {
       slots: {
         icon: h('div', { 'data-testid': testId }, iconSlotContent),
       },
@@ -108,7 +107,7 @@ describe('KAlert', () => {
   })
 
   it('emits dismiss event when dismiss button is clicked', () => {
-    mount(KAlert, {
+    cy.mount(KAlert, {
       props: {
         dismissible: true,
       },

@@ -1,11 +1,10 @@
-import { mount } from 'cypress/vue'
 import KExternalLink from '@/components/KExternalLink/KExternalLink.vue'
 
 describe('KExternalLink', () => {
   it('should not render link element when passed invalid href', () => {
     const linkHref = 'kongponents'
     const linkText = 'This is external link'
-    mount(KExternalLink, {
+    cy.mount(KExternalLink, {
       props: {
         href: linkHref,
       },
@@ -20,7 +19,7 @@ describe('KExternalLink', () => {
   it('should render link with href attribute', () => {
     const linkHref = 'https://kongponents.konghq.com/'
     const linkText = 'This is external link'
-    mount(KExternalLink, {
+    cy.mount(KExternalLink, {
       props: {
         href: linkHref,
       },

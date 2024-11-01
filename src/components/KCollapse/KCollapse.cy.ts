@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KCollapse from '@/components/KCollapse/KCollapse.vue'
 
@@ -8,7 +7,7 @@ describe('KCollapse', () => {
     const triggerLabel = 'Awesome label'
     const collapseContent = 'Can you see me?'
 
-    mount(KCollapse, {
+    cy.mount(KCollapse, {
       props: {
         title,
         triggerLabel,
@@ -26,7 +25,7 @@ describe('KCollapse', () => {
   it('displays a caret for trigger if no label provided', () => {
     const collapseContent = 'Can you see me?'
 
-    mount(KCollapse, {
+    cy.mount(KCollapse, {
       slots: {
         default: h('div', {}, collapseContent),
       },
@@ -39,7 +38,7 @@ describe('KCollapse', () => {
     const triggerLabel = 'Awesome label'
     const collapseContent = 'Can you see me?'
 
-    mount(KCollapse, {
+    cy.mount(KCollapse, {
       props: {
         triggerLabel,
         triggerAlignment: 'leading',
@@ -57,7 +56,7 @@ describe('KCollapse', () => {
     const triggerLabel = 'Awesome label'
     const collapseContent = 'Can you see me?'
 
-    mount(KCollapse, {
+    cy.mount(KCollapse, {
       props: {
         triggerLabel,
       },
@@ -77,7 +76,7 @@ describe('KCollapse', () => {
   it('allows content to be expanded by default', () => {
     const collapseContent = 'Can you see me?'
 
-    mount(KCollapse, {
+    cy.mount(KCollapse, {
       props: {
         modelValue: false,
       },
@@ -100,7 +99,7 @@ describe('KCollapse', () => {
     const visibleContent = 'Always visible awesomeness'
     const collapseContent = 'Can you see me?'
 
-    mount(KCollapse, {
+    cy.mount(KCollapse, {
       slots: {
         'trigger-content': h('div', {}, triggerContent),
         'visible-content': h('div', {}, visibleContent),
@@ -124,7 +123,7 @@ describe('KCollapse', () => {
     const triggerLabel = 'Awesome label'
     const collapseContent = 'Can you see me?'
 
-    mount(KCollapse, {
+    cy.mount(KCollapse, {
       props: {
         triggerLabel,
       },

@@ -1,10 +1,9 @@
-import { mount } from 'cypress/vue'
 import KFileUpload from '@/components/KFileUpload/KFileUpload.vue'
 
 describe('KFileUpload', () => {
   it('renders text when value is passed', () => {
     const text = 'I am a label'
-    mount(KFileUpload, {
+    cy.mount(KFileUpload, {
       props: {
         accept: ['.md'],
         label: text,
@@ -16,7 +15,7 @@ describe('KFileUpload', () => {
 
   it('renders label with labelAttributes applied', () => {
     const labelText = 'A Label Text'
-    mount(KFileUpload, {
+    cy.mount(KFileUpload, {
       props: {
         accept: ['.md'],
         label: labelText,
@@ -31,7 +30,7 @@ describe('KFileUpload', () => {
   })
 
   it('should emit correct event when a file is selected, removed', () => {
-    mount(KFileUpload, {
+    cy.mount(KFileUpload, {
       props: {
         accept: ['.md'],
       },
@@ -47,7 +46,7 @@ describe('KFileUpload', () => {
   })
 
   it('triggers input click on button click', () => {
-    mount(KFileUpload, {
+    cy.mount(KFileUpload, {
       props: {
         accept: ['.md'],
       },
@@ -64,7 +63,7 @@ describe('KFileUpload', () => {
   })
 
   it('should emit error event when there is an error with file upload', () => {
-    mount(KFileUpload, {
+    cy.mount(KFileUpload, {
       props: {
         accept: ['.md'],
         maxFileSize: 0,

@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KTableView from '@/components/KTableView/KTableView.vue'
 import type { TableHeader, RowBulkAction } from '@/types'
@@ -99,7 +98,7 @@ const options = {
 describe('KTableView', () => {
   describe('states', () => {
     it('displays an empty state when no data is available', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           data: [],
           headers: options.headers,
@@ -111,7 +110,7 @@ describe('KTableView', () => {
 
     it('displays an empty state when no data is available (slot)', () => {
       const emptySlotContent = 'Look mah! I am empty!'
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           data: [],
           headers: options.headers,
@@ -125,7 +124,7 @@ describe('KTableView', () => {
     })
 
     it('displays a loading skeletion when the "loading" prop is set to true"', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           loading: true,
         },
@@ -135,7 +134,7 @@ describe('KTableView', () => {
     })
 
     it('displays an error state when the "error" prop is set to true"', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           error: true,
         },
@@ -146,7 +145,7 @@ describe('KTableView', () => {
 
     it('displays an error state (slot)', () => {
       const errorSlotContent = 'Look mah! I am erroneous!'
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           error: true,
         },
@@ -160,7 +159,7 @@ describe('KTableView', () => {
 
     it('maintains the row state when data changes', () => {
       const firstRowLinkElement = 'table tbody td:nth(0)>a.cell-wrapper:nth(0)'
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
@@ -185,7 +184,7 @@ describe('KTableView', () => {
 
   describe('default', () => {
     it('renders link in action slot', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
@@ -199,7 +198,7 @@ describe('KTableView', () => {
     })
 
     it('renders content in the toolbar slot', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
@@ -214,7 +213,7 @@ describe('KTableView', () => {
     })
 
     it('has hover class when passed', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
@@ -226,7 +225,7 @@ describe('KTableView', () => {
     })
 
     it('renders column resize toggles when resizeColumns is set', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
@@ -243,7 +242,7 @@ describe('KTableView', () => {
       options.headers[1].hidable = true
       const modifiedHeaderKey = options.headers[1].key
 
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
@@ -271,7 +270,7 @@ describe('KTableView', () => {
     it('renders tooltip when provided in headers', () => {
       options.headers[0].tooltip = 'This is a tooltip'
 
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
@@ -282,7 +281,7 @@ describe('KTableView', () => {
     })
 
     it('displays each row as link when rowLink prop is provided', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
@@ -304,7 +303,7 @@ describe('KTableView', () => {
 
   describe('reserved header keys', () => {
     it('displays actions dropdown when actions key is provided', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
@@ -316,7 +315,7 @@ describe('KTableView', () => {
     })
 
     it('bulk actions in not enabled when rowKey prop is not provided', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
           data: options.data,
@@ -334,7 +333,7 @@ describe('KTableView', () => {
 
 
     it('displays bulk actions column and dropdown when bulkActions key is provided', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
           data: options.data,
@@ -354,7 +353,7 @@ describe('KTableView', () => {
     })
 
     it('handles bulk actions indeterminate state correctly and emits event', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
           data: options.data,
@@ -382,7 +381,7 @@ describe('KTableView', () => {
     })
 
     it('handles bulk actions disabled state correctly', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
           data: options.data,
@@ -410,7 +409,7 @@ describe('KTableView', () => {
 
   describe('handles prop changes as expected', () => {
     it('reacts to changes in headers', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         propsData: {
           data: largeDataSet,
           headers: [
@@ -437,7 +436,7 @@ describe('KTableView', () => {
 
   describe('sorting', () => {
     it('should have sortable class when passed', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
@@ -452,7 +451,7 @@ describe('KTableView', () => {
     })
 
     it('should emit event when sortable column is clicked', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
@@ -468,7 +467,7 @@ describe('KTableView', () => {
 
   describe('pagination', () => {
     it('displays pagination when data is provided', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           data: options.data,
           headers: options.headers,
@@ -479,7 +478,7 @@ describe('KTableView', () => {
     })
 
     it('does not display pagination when hidePagination prop is true', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           data: options.data,
           headers: options.headers,
@@ -491,7 +490,7 @@ describe('KTableView', () => {
     })
 
     it('does not display pagination when data is empty', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           data: [],
           headers: options.headers,
@@ -502,7 +501,7 @@ describe('KTableView', () => {
     })
 
     it('passes the correct props to the pagination component', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           data: options.data,
           headers: options.headers,
@@ -519,7 +518,7 @@ describe('KTableView', () => {
 
   describe('expandable rows and nested tables', () => {
     it('displays expand trigger for each row when function passed via rowExpandable prop returns true', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
@@ -532,7 +531,7 @@ describe('KTableView', () => {
     })
 
     it('displays content provided through row-expanded slot', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
@@ -562,7 +561,7 @@ describe('KTableView', () => {
     })
 
     it('emits row-expand event when row is expanded', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
@@ -577,7 +576,7 @@ describe('KTableView', () => {
 
 
     it('does not display table header when hideHeaders prop is true', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
@@ -589,7 +588,7 @@ describe('KTableView', () => {
     })
 
     it('disables column visibility, column resizing and bulk actions features and does not render toolbar slot when nested prop is true', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: [...options.headers, { ...options.headers[1], hidable: true }, { label: 'Bulk actions', key: 'bulkActions' }],
           data: options.data,
@@ -620,7 +619,7 @@ describe('KTableView', () => {
     })
 
     it('collapses all expanded rows when table data changes', () => {
-      mount(KTableView, {
+      cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,

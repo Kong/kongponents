@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { h } from 'vue'
 import { PopPlacementsArray } from '@/types'
@@ -9,7 +8,7 @@ const rendersCorrectPosition = (variant: string) => {
   it(`renders tooltip to the ${variant} side`, () => {
     const text = 'Button text'
 
-    mount(KTooltip, {
+    cy.mount(KTooltip, {
       props: {
         placement: variant,
         text: `I'm on the ${variant} side!`,
@@ -33,7 +32,7 @@ describe('KTooltip', () => {
   it('renders the default slot content but not the tooltip if the text prop is empty', () => {
     const text = 'Button text'
 
-    mount(KTooltip, {
+    cy.mount(KTooltip, {
       props: {
         trigger: 'click',
       },
@@ -48,7 +47,7 @@ describe('KTooltip', () => {
   })
 
   it('renders with correct default zIndex', () => {
-    mount(KTooltip, {
+    cy.mount(KTooltip, {
       props: {
         text: 'sample text',
       },
@@ -58,7 +57,7 @@ describe('KTooltip', () => {
   })
 
   it('renders with custom zIndex', () => {
-    mount(KTooltip, {
+    cy.mount(KTooltip, {
       props: {
         text: 'sample text',
         zIndex: 92929,

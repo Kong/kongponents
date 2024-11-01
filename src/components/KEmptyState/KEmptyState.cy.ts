@@ -1,12 +1,11 @@
 import { h } from 'vue'
-import { mount } from 'cypress/vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 
 describe('KEmptyState', () => {
   ['default', 'error', 'config', 'file', 'search', 'kong'].forEach((variant) => {
     it(`renders ${variant} icon variant correctly`, () => {
       it('renders all elements correctly', () => {
-        mount(KEmptyState)
+        cy.mount(KEmptyState)
 
         cy.get(`.k-empty-state.${variant}`).should('be.visible')
       })
@@ -14,7 +13,7 @@ describe('KEmptyState', () => {
   })
 
   it('renders all elements correctly', () => {
-    mount(KEmptyState)
+    cy.mount(KEmptyState)
 
     cy.get('.k-empty-state').should('be.visible')
     cy.get('.empty-state-icon').should('be.visible')
@@ -27,7 +26,7 @@ describe('KEmptyState', () => {
     const title = 'Title'
     const message = 'Message'
 
-    mount(KEmptyState, {
+    cy.mount(KEmptyState, {
       props: {
         title,
         message,
@@ -41,7 +40,7 @@ describe('KEmptyState', () => {
   it('renders action button when provided button text', () => {
     const actionButtonText = 'Action'
 
-    mount(KEmptyState, {
+    cy.mount(KEmptyState, {
       props: {
         actionButtonText,
       },
@@ -51,7 +50,7 @@ describe('KEmptyState', () => {
   })
 
   it('does not render action button when hidden', () => {
-    mount(KEmptyState, {
+    cy.mount(KEmptyState, {
       props: {
         actionButtonVisible: false,
         actionButtonText: 'Action',
@@ -62,7 +61,7 @@ describe('KEmptyState', () => {
   })
 
   it('correctly handles action button disabled state', () => {
-    mount(KEmptyState, {
+    cy.mount(KEmptyState, {
       props: {
         actionButtonText: 'Action',
         actionButtonDisabled: true,
@@ -76,7 +75,7 @@ describe('KEmptyState', () => {
     const content = 'Content'
     const testId = 'slotted-message'
 
-    mount(KEmptyState, {
+    cy.mount(KEmptyState, {
       props: {
         message: 'Message',
       },
@@ -92,7 +91,7 @@ describe('KEmptyState', () => {
     const iconSlotContent = 'icon slot content'
     const testId = 'slotted-icon'
 
-    mount(KEmptyState, {
+    cy.mount(KEmptyState, {
       slots: {
         icon: h('div', { 'data-testid': testId }, iconSlotContent),
       },
@@ -103,7 +102,7 @@ describe('KEmptyState', () => {
   })
 
   it('emits event when action button is clicked', () => {
-    mount(KEmptyState, {
+    cy.mount(KEmptyState, {
       props: {
         actionButtonText: 'Action',
       },

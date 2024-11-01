@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import KTreeList from '@/components/KTreeList/KTreeList.vue'
 import { h } from 'vue'
 
@@ -7,7 +6,7 @@ describe('KTreeList', () => {
     const names = ['Name 1', 'Name 2', 'Name 3']
     const ids = ['name-id1', 'name-id2', 'name-id3']
 
-    mount(KTreeList, {
+    cy.mount(KTreeList, {
       props: {
         items: [{
           name: names[0],
@@ -30,7 +29,7 @@ describe('KTreeList', () => {
   it('renders with correct px maxWidth', () => {
     const width = 350
 
-    mount(KTreeList, {
+    cy.mount(KTreeList, {
       props: {
         width: width + '',
         items: [{
@@ -48,7 +47,7 @@ describe('KTreeList', () => {
     const names = ['Name 1', 'Name 2']
     const ids = ['name-id1', 'name-id2']
 
-    mount(KTreeList, {
+    cy.mount(KTreeList, {
       props: {
         items: [{
           name: names[0],
@@ -68,7 +67,7 @@ describe('KTreeList', () => {
   })
 
   it('correctly renders with disableDrag', () => {
-    mount(KTreeList, {
+    cy.mount(KTreeList, {
       props: {
         items: [{ name: 'Name 1', id: 'name-id1' }],
         disableDrag: true,
@@ -83,7 +82,7 @@ describe('KTreeList', () => {
     const names = ['Name 1', 'Name 2']
     const ids = ['name-id1', 'name-id2']
 
-    mount(KTreeList, {
+    cy.mount(KTreeList, {
       props: {
         items: [{
           name: names[0],
@@ -110,7 +109,7 @@ describe('KTreeList', () => {
     const names = ['Name 1', 'Name 2']
     const ids = ['name-id1', 'name-id2']
 
-    mount(KTreeList, {
+    cy.mount(KTreeList, {
       props: {
         items: [{
           name: names[0],
@@ -137,7 +136,7 @@ describe('KTreeList', () => {
     const itemId = 'name-id1'
     const itemIconSlot = '🐰'
 
-    mount(KTreeList, {
+    cy.mount(KTreeList, {
       props: {
         appearance: 'button',
         items: [{
@@ -162,7 +161,7 @@ describe('KTreeList', () => {
     const names = ['Name 1', 'Name 2']
     const ids = ['name-id1', 'name-id2']
 
-    mount(KTreeList, {
+    cy.mount(KTreeList, {
       props: {
         items: [{
           name: names[0],
@@ -182,7 +181,7 @@ describe('KTreeList', () => {
     const ids = ['name-id1', 'name-id2']
     const group = 'i-stand-alone'
 
-    mount(KTreeList, {
+    cy.mount(KTreeList, {
       props: {
         items: [{
           name: names[0],

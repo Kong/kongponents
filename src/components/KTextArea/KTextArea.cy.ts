@@ -1,10 +1,9 @@
-import { mount } from 'cypress/vue'
 import KTextArea from '@/components/KTextArea/KTextArea.vue'
 
 describe('KTextArea', () => {
   it('renders text when value is passed', () => {
     const value = 'Howdy!'
-    mount(KTextArea, {
+    cy.mount(KTextArea, {
       props: {
         modelValue: value,
       },
@@ -15,7 +14,7 @@ describe('KTextArea', () => {
 
   it('renders `label` when value is passed', () => {
     const labelText = 'A Label!'
-    mount(KTextArea, {
+    cy.mount(KTextArea, {
       props: {
         label: labelText,
       },
@@ -26,7 +25,7 @@ describe('KTextArea', () => {
 
   it('renders label with `labelAttributes` applied', () => {
     const labelText = 'A Label'
-    mount(KTextArea, {
+    cy.mount(KTextArea, {
       props: {
         label: labelText,
         labelAttributes: {
@@ -40,7 +39,7 @@ describe('KTextArea', () => {
   })
 
   it('handles `required` attribute correctly', () => {
-    mount(KTextArea, {
+    cy.mount(KTextArea, {
       props: {
         label: 'A label',
         required: true,
@@ -51,7 +50,7 @@ describe('KTextArea', () => {
   })
 
   it('renders textarea when `rows` prop is passed in', () => {
-    mount(KTextArea, {
+    cy.mount(KTextArea, {
       props: {
         rows: 2,
       },
@@ -64,7 +63,7 @@ describe('KTextArea', () => {
     const value1 = 'hey'
     const value2 = 'hey, dude'
 
-    mount(KTextArea, {
+    cy.mount(KTextArea, {
       props: {
         modelValue: value1,
       },
@@ -84,7 +83,7 @@ describe('KTextArea', () => {
     const textCharCount = 28
     const charLimit = 5
 
-    mount(KTextArea, {
+    cy.mount(KTextArea, {
       props: {
         characterLimit: charLimit,
       },
@@ -97,7 +96,7 @@ describe('KTextArea', () => {
   it('falls back to default character limit if `characterLimit` is `true`', () => {
     const string = new Array(2049).join('a') // default character limit is 2048
 
-    mount(KTextArea, {
+    cy.mount(KTextArea, {
       props: {
         characterLimit: true,
         modelValue: string,
@@ -112,7 +111,7 @@ describe('KTextArea', () => {
   it('does not show character limit error when `characterLimit` is `false`', () => {
     const string = new Array(2049).join('a') // default character limit is 2048
 
-    mount(KTextArea, {
+    cy.mount(KTextArea, {
       props: {
         characterLimit: false,
         modelValue: string,
@@ -125,7 +124,7 @@ describe('KTextArea', () => {
   })
 
   it('should handle `resizable` prop correctly', () => {
-    mount(KTextArea, {
+    cy.mount(KTextArea, {
       props: {
         resizable: true,
       },

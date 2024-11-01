@@ -1,10 +1,9 @@
-import { mount } from 'cypress/vue'
 import KToggle from '@/components/KToggle'
 import { h } from 'vue'
 
 describe('KToggle', () => {
   it('toggles content', () => {
-    mount(KToggle, {
+    cy.mount(KToggle, {
       slots: {
         default: (props) => {
           return h('button',

@@ -1,11 +1,10 @@
-import { mount } from 'cypress/vue'
 import KBadge from '@/components/KBadge/KBadge.vue'
 import type { BadgeAppearance } from '@/types'
 import { BadgeAppearances } from '@/types'
 
 const rendersCorrectAppearance = (variant: BadgeAppearance) => {
   it(`renders KBadge with the ${variant} appearance`, () => {
-    mount(KBadge, {
+    cy.mount(KBadge, {
       props: {
         appearance: variant,
       },
@@ -23,7 +22,7 @@ describe('KBadge', () => {
   Object.keys(BadgeAppearances).map(a => rendersCorrectAppearance(a as BadgeAppearance))
 
   it('defaults to info `appearance`', () => {
-    mount(KBadge, {
+    cy.mount(KBadge, {
       slots: {
         default: () => 'Hello!',
       },
@@ -35,7 +34,7 @@ describe('KBadge', () => {
   it('displays `tooltip` at all times', () => {
     const tooltipText = 'Hello! Long badge with truncated text here'
 
-    mount(KBadge, {
+    cy.mount(KBadge, {
       props: {
         tooltip: tooltipText,
       },
@@ -50,7 +49,7 @@ describe('KBadge', () => {
   it('when `truncationText` is true, only displays `tooltip` if truncated', () => {
     const tooltipText = 'Hello!'
 
-    mount(KBadge, {
+    cy.mount(KBadge, {
       props: {
         tooltip: tooltipText,
         truncationTooltip: true,
@@ -65,7 +64,7 @@ describe('KBadge', () => {
 
   it('it should apply `maxWidth` prop when provided', () => {
     const maxWidth = '10px'
-    mount(KBadge, {
+    cy.mount(KBadge, {
       props: {
         maxWidth,
       },
@@ -78,7 +77,7 @@ describe('KBadge', () => {
   })
 
   it('renders the icon slot', () => {
-    mount(KBadge, {
+    cy.mount(KBadge, {
       slots: {
         icon: '<span data-testid="icon">Icon</span>',
       },

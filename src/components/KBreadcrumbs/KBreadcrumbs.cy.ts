@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import KBreadcrumbs from '@/components/KBreadcrumbs/KBreadcrumbs.vue'
 import type { BreadcrumbItem } from '@/types'
 
@@ -10,7 +9,7 @@ describe('KBreadcrumbs', () => {
       text: 'Go to Kong Docs',
     }] as BreadcrumbItem[]
 
-    mount(KBreadcrumbs, {
+    cy.mount(KBreadcrumbs, {
       props: {
         items,
       },
@@ -20,7 +19,7 @@ describe('KBreadcrumbs', () => {
   })
 
   it('correctly renders an non-link breadcrumbs', () => {
-    mount(KBreadcrumbs, {
+    cy.mount(KBreadcrumbs, {
       props: {
         items: [
           {
@@ -43,7 +42,7 @@ describe('KBreadcrumbs', () => {
   it('renders custom divider when using slot', () => {
     const customDivider = 'custom_divider'
 
-    mount(KBreadcrumbs, {
+    cy.mount(KBreadcrumbs, {
       props: {
         items: [
           {
@@ -70,7 +69,7 @@ describe('KBreadcrumbs', () => {
   it('renders custom icon when using slot', () => {
     const customIcon = 'custom_icon'
 
-    mount(KBreadcrumbs, {
+    cy.mount(KBreadcrumbs, {
       props: {
         items: [
           {
@@ -90,7 +89,7 @@ describe('KBreadcrumbs', () => {
   })
 
   it('renders breadcrumb links without needing a router', () => {
-    mount(KBreadcrumbs, {
+    cy.mount(KBreadcrumbs, {
       props: {
         items: [
           {

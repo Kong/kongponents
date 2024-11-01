@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import KPop from '@/components/KPop/KPop.vue'
 import { h } from 'vue'
 
@@ -7,7 +6,7 @@ describe('KPop', () => {
     const popButtonText = 'Click Me!'
     const popTitle = 'Cool Beans!'
 
-    mount(KPop, {
+    cy.mount(KPop, {
       props: {
         buttonText: popButtonText,
         title: popTitle,
@@ -23,7 +22,7 @@ describe('KPop', () => {
     const popContent = 'Pop Content'
     const popFooter = 'Pop Footer'
 
-    mount(KPop, {
+    cy.mount(KPop, {
       props: {
       },
       slots: {
@@ -40,7 +39,7 @@ describe('KPop', () => {
 
   it('renders with correct px width', () => {
     const width = 300
-    mount(KPop, {
+    cy.mount(KPop, {
       props: {
         width: width + '',
       },
@@ -54,7 +53,7 @@ describe('KPop', () => {
 
   it('renders with correct title', () => {
     const title = 'Cool Beans!'
-    mount(KPop, {
+    cy.mount(KPop, {
       props: {
         title,
       },
@@ -63,7 +62,7 @@ describe('KPop', () => {
   })
 
   it('has no title if no prop', () => {
-    mount(KPop, {
+    cy.mount(KPop, {
       props: {
       },
     })
@@ -71,7 +70,7 @@ describe('KPop', () => {
   })
 
   it('shows element on click', () => {
-    mount(KPop, {
+    cy.mount(KPop, {
       props: {
         title: 'Popover Title',
       },
@@ -86,7 +85,7 @@ describe('KPop', () => {
   })
 
   it('shows element on hover', () => {
-    mount(KPop, {
+    cy.mount(KPop, {
       props: {
         title: 'Popover Title',
         trigger: 'hover',
@@ -102,13 +101,13 @@ describe('KPop', () => {
   })
 
   it('renders with correct default zIndex', () => {
-    mount(KPop)
+    cy.mount(KPop)
 
     cy.get('.popover').should('have.css', 'z-index', '1000')
   })
 
   it('renders with custom zIndex', () => {
-    mount(KPop, {
+    cy.mount(KPop, {
       props: {
         zIndex: 2200,
       },
@@ -118,7 +117,7 @@ describe('KPop', () => {
   })
 
   it('does not render close icon when prop is false', () => {
-    mount(KPop, {
+    cy.mount(KPop, {
       props: {
         hideCloseIcon: true,
       },
@@ -128,7 +127,7 @@ describe('KPop', () => {
   })
 
   it('closes popover when close button is clicked', () => {
-    mount(KPop, {
+    cy.mount(KPop, {
       props: {
         title: 'Popover Title',
       },

@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KSelect from '@/components/KSelect/KSelect.vue'
 
@@ -7,7 +6,7 @@ describe('KSelect', () => {
     const labels = ['Label 1', 'Label 2', 'Label 3']
     const vals = ['val1', 'val2', 'val3']
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: labels[0],
@@ -34,7 +33,7 @@ describe('KSelect', () => {
   it('renders with selected item', () => {
     const selectedLabel = 'Label 1'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{ label: selectedLabel, value: 'val1', selected: true }],
       },
@@ -44,7 +43,7 @@ describe('KSelect', () => {
   })
 
   it('renders with disabled item', () => {
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{ label: 'Label 1', value: 'val1', disabled: true }],
       },
@@ -56,7 +55,7 @@ describe('KSelect', () => {
   it('renders with correct px width', () => {
     const width = 350
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         width: width + '',
         items: [{
@@ -73,7 +72,7 @@ describe('KSelect', () => {
   it('renders with correct label', () => {
     const labelText = 'Cool Beans!'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         label: labelText,
         items: [{
@@ -88,7 +87,7 @@ describe('KSelect', () => {
 
   it('renders label with labelAttributes applied', () => {
     const labelText = 'A Label'
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         label: labelText,
         labelAttributes: {
@@ -106,7 +105,7 @@ describe('KSelect', () => {
   })
 
   it('handles the `required` state correctly', () => {
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         label: 'A Label',
         required: true,
@@ -120,7 +119,7 @@ describe('KSelect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['val1', 'val2']
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         enableFiltering: true,
         items: [{
@@ -151,7 +150,7 @@ describe('KSelect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['val1', 'val2']
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: labels[0],
@@ -175,7 +174,7 @@ describe('KSelect', () => {
     const itemLabel = 'Label 1'
     const itemValue = 'val1'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: itemLabel,
@@ -195,7 +194,7 @@ describe('KSelect', () => {
     const itemLabel = 'Label 1'
     const itemValue = 'val1'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: itemLabel,
@@ -216,7 +215,7 @@ describe('KSelect', () => {
     const onQueryChange = cy.spy().as('onQueryChange')
     const itemLabel = 'Label 1'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         enableFiltering: true,
         loading: false,
@@ -246,7 +245,7 @@ describe('KSelect', () => {
     const itemLabel = 'Label 1'
     let emitCount = 0
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         enableFiltering: true,
         loading: false,
@@ -276,7 +275,7 @@ describe('KSelect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: labels[0],
@@ -300,7 +299,7 @@ describe('KSelect', () => {
     const vals = ['val1', 'val2', 'val3']
     const dropdownFooterText = 'Dropdown footer text'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: labels[0],
@@ -326,7 +325,7 @@ describe('KSelect', () => {
     const vals = ['label1', 'label2', 'label3']
     const dropdownFooterText = 'Dropdown footer text'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: labels[0],
@@ -361,7 +360,7 @@ describe('KSelect', () => {
       { label: 'Label 4', value: 'value4', group: group2Title },
     ]
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items,
       },
@@ -382,7 +381,7 @@ describe('KSelect', () => {
     const itemLabel = 'Label 1'
     const itemValue = 'val1'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: itemLabel,
@@ -404,7 +403,7 @@ describe('KSelect', () => {
     const itemLabel = 'Label 1'
     const itemValue = 'label1'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         placeholder: placeholderText,
         enableFiltering: true,
@@ -430,7 +429,7 @@ describe('KSelect', () => {
     const vals = ['val1', 'val2']
     const newItem = 'Rock me'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: labels[0],
@@ -479,7 +478,7 @@ describe('KSelect', () => {
     const vals = ['val1', 'val2']
     const newItem = 'Rock me'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: labels[0],
@@ -504,7 +503,7 @@ describe('KSelect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['val1', 'val2']
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: labels[0],
@@ -545,7 +544,7 @@ describe('KSelect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['val1', 'val2']
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         modelValue: '',
         items: [{
@@ -577,7 +576,7 @@ describe('KSelect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['val1', 'val2']
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         modelValue: 'val1',
         items: [{

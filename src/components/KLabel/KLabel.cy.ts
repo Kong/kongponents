@@ -1,11 +1,10 @@
-import { mount } from 'cypress/vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { h } from 'vue'
 
 describe('KLabel', () => {
   it('renders a plain label by default', () => {
     const text = 'Full Name'
-    mount(KLabel, {
+    cy.mount(KLabel, {
       props: {
       },
       slots: {
@@ -17,7 +16,7 @@ describe('KLabel', () => {
   })
 
   it('renders a red dot when `required` is true', () => {
-    mount(KLabel, {
+    cy.mount(KLabel, {
       props: {
         required: true,
       },
@@ -42,7 +41,7 @@ describe('KLabel', () => {
   })
 
   it('renders a tooltip when `info` prop is provided', () => {
-    mount(KLabel, {
+    cy.mount(KLabel, {
       props: {
         info: 'This is a tooltip',
       },
@@ -55,7 +54,7 @@ describe('KLabel', () => {
   })
 
   it('renders a tooltip when `tooltip` slot is used', () => {
-    mount(KLabel, {
+    cy.mount(KLabel, {
       props: {
       },
       slots: {
@@ -69,7 +68,7 @@ describe('KLabel', () => {
 
   it('passes the `for` attribute to label when `for` is provided', () => {
     const id = 'test-id'
-    mount(KLabel, {
+    cy.mount(KLabel, {
       props: {
         for: id,
       },

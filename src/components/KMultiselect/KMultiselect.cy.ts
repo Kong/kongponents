@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KMultiselect from '@/components/KMultiselect/KMultiselect.vue'
 
@@ -7,7 +6,7 @@ describe('KMultiselect', () => {
     const labels = ['Label 1', 'Label 2', 'Label 3']
     const vals = ['label1', 'label2', 'label3']
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -35,7 +34,7 @@ describe('KMultiselect', () => {
     const selectedLabel = 'Label 1'
     const selectedLabel2 = 'Label 2'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [
           { label: selectedLabel, value: 'label1', selected: true },
@@ -57,7 +56,7 @@ describe('KMultiselect', () => {
     const labels = ['Label 1', 'Label 2', 'Label 3']
     const vals = ['label1', 'label2', 'label3']
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [
           { label: labels[0], value: vals[0], disabled: true },
@@ -74,7 +73,7 @@ describe('KMultiselect', () => {
   it('renders with correct px width', () => {
     const width = 350
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         width: width + '',
         items: [{
@@ -91,7 +90,7 @@ describe('KMultiselect', () => {
   it('renders with correct label', () => {
     const labelText = 'Cool Beans!'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         label: labelText,
         items: [{
@@ -106,7 +105,7 @@ describe('KMultiselect', () => {
 
   it('renders label with labelAttributes applied', () => {
     const labelText = 'A Label'
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         label: labelText,
         labelAttributes: {
@@ -127,7 +126,7 @@ describe('KMultiselect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -158,7 +157,7 @@ describe('KMultiselect', () => {
     const vals = ['label1', 'label2']
     const newItem = 'Rock me'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -207,7 +206,7 @@ describe('KMultiselect', () => {
     const vals = ['label1', 'label2']
     const newItem = 'Rock me'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -234,7 +233,7 @@ describe('KMultiselect', () => {
     const vals = ['label1', 'label2']
     const newItem = 'Rock me'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -269,7 +268,7 @@ describe('KMultiselect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -293,7 +292,7 @@ describe('KMultiselect', () => {
     const itemLabel = 'Label 1'
     const itemValue = 'label1'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: itemLabel,
@@ -310,7 +309,7 @@ describe('KMultiselect', () => {
 
   it('works in autosuggest mode', () => {
     const onQueryChange = cy.spy().as('onQueryChange')
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         autosuggest: true,
         loading: false,
@@ -345,7 +344,7 @@ describe('KMultiselect', () => {
 
     const items = (allItems.slice(0, 10))
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         autosuggest: true,
         selectedRowCount: 1,
@@ -386,7 +385,7 @@ describe('KMultiselect', () => {
     const placeholder = 'Select something'
     const searchPlaceholder = 'Search here'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         placeholder,
         searchPlaceholder,
@@ -416,7 +415,7 @@ describe('KMultiselect', () => {
     const vals = ['label1', 'label2']
     const searchPlaceholder = 'Search here'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         collapsedContext: true,
         searchPlaceholder,
@@ -445,7 +444,7 @@ describe('KMultiselect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -471,7 +470,7 @@ describe('KMultiselect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -496,7 +495,7 @@ describe('KMultiselect', () => {
     const vals = ['label1', 'label2', 'label3']
     const dropdownFooterText = 'Dropdown footer text'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -522,7 +521,7 @@ describe('KMultiselect', () => {
     const vals = ['label1', 'label2', 'label3']
     const dropdownFooterText = 'Dropdown footer text'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -557,7 +556,7 @@ describe('KMultiselect', () => {
       { label: 'Label 4', value: 'value4', group: group2Title },
     ]
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items,
       },
@@ -582,7 +581,7 @@ describe('KMultiselect', () => {
 
     const startTime = Date.now()
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items,
       },
@@ -601,7 +600,7 @@ describe('KMultiselect', () => {
 
     const currentItems = allItems.slice(0, 2)
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: currentItems,
         modelValue: ['label1', 'label2'],
