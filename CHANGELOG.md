@@ -1,3 +1,10 @@
+## [9.14.8](https://github.com/Kong/kongponents/compare/v9.14.7...v9.14.8) (2024-11-01)
+
+
+### Bug Fixes
+
+* **kselect,kmultiselect:** enter should not submit form while filtering ([#2497](https://github.com/Kong/kongponents/issues/2497)) ([adbf36b](https://github.com/Kong/kongponents/commit/adbf36b82f92b03a54ad643f305fcfe1a4af3ace))
+
 ## [9.14.7](https://github.com/Kong/kongponents/compare/v9.14.6...v9.14.7) (2024-11-01)
 
 
