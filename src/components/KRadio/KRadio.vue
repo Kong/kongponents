@@ -12,7 +12,7 @@
       :aria-checked="isChecked"
       :checked="isChecked"
       class="radio-input"
-      :class="{ 'hidden': !cardShowRadio }"
+      :class="{ 'hidden': card && !cardShowRadio }"
       :disabled="isDisabled"
       type="radio"
       @click="handleClick"
