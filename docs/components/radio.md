@@ -171,6 +171,98 @@ const cardRadio = ref<string>('')
 </script>
 ```
 
+### cardOrientation
+
+Prop for changing card orientation. Default value is `vertical`, the alternative to which is `horizontal`.
+
+<KRadio
+  v-model="horizontalCard"
+  card
+  card-orientation="horizontal"
+  description="Choose this option if you want your APIs to only be accessible from within your private network."
+  label="Private"
+  selected-value="private"
+>
+  <KBadge appearance="success">
+    Recommended
+  </KBadge>
+</KRadio>
+<KRadio
+  v-model="horizontalCard"
+  card
+  card-orientation="horizontal"
+  description="Choose this option if you want your APIs to be publicly accessible by anyone on the internet."
+  label="Public"
+  selected-value="public"
+/>
+
+```html
+<KRadio
+  card-orientation="horizontal"
+  v-model="cardRadio"
+  description="Choose this option if you want your APIs to only be accessible from within your private network."
+  card
+  label="Private"
+  selected-value="private"
+>
+  <KBadge appearance="success">
+    Recommended
+  </KBadge>
+</KRadio>
+<KRadio
+  card-orientation="horizontal"
+  v-model="cardRadio"
+  description="Choose this option if you want your APIs to be publicly accessible by anyone on the internet."
+  card
+  label="Public"
+  selected-value="public"
+/>
+```
+
+### showCardRadio
+
+Prop to show or hide radio button in card. Default value is `true`.
+
+<div class="vertical-spacing">
+  <KRadio
+    v-model="showRadio"
+    card
+    :card-show-radio="false"
+    label="Vertical"
+    description="Vertical radio card with hidden radio button."
+    :selected-value="false"
+  />
+  <KRadio
+    v-model="showRadio"
+    card
+    card-orientation="horizontal"
+    :card-show-radio="false"
+    label="Horizontal"
+    description="Horizontal radio card with hidden radio button."
+    :selected-value="true"
+  />
+</div>
+
+```html
+<KRadio
+  :card-show-radio="false"
+  v-model="radioCard"
+  card
+  label="Vertical"
+  description="Vertical radio card with hidden radio button."
+  :selected-value="false"
+/>
+<KRadio
+  :card-show-radio="false"
+  v-model="radioCard"
+  card
+  card-orientation="horizontal"
+  label="Horizontal"
+  description="Horizontal radio card with hidden radio button."
+  :selected-value="true"
+/>
+```
+
 ## Slots
 
 ### default
@@ -190,12 +282,18 @@ Content passed in to the `default` slot will be shown as the label content. The 
   Label goes here. The radio is {{ checked ? "selected" : "not selected" }}
 </KRadio>
 ```
+
 :::warning NOTE
 To preserve a valid HTML structure, avoid slotting in block-level elements such as a `div` into the `default` slot as it will be rendered inside a `label` element. This also applies to card-style radio.
 :::
 
 :::tip TIP
-When `card` prop is true, the content passed to the `default` slot will render directly above the label. Should you want to customize the layout inside the card you can omit using the `label` and `description` props and style content passed through the `default` slot yourself.
+When `card` prop is true, the content passed to the `default` slot be will rendered:
+
+* directly above the label if [`cardOrientation` prop](#cardorientation) is `vertical`
+* to the right of label and description of `cardOrientation` prop is `horizontal`
+
+Should you want to customize the layout inside the card you can omit using the `label` and `description` props and style content passed through the `default` slot yourself.
 :::
 
 ### description
@@ -258,6 +356,10 @@ const radioValue = ref<boolean| string | object>('string')
 const defaultSlotModelValue = ref<boolean>(false)
 
 const cardRadio = ref<string>('')
+
+const horizontalCard = ref<string>('')
+
+const showRadio = ref<boolean | null>(null)
 
 const labelPropRadio = ref<boolean>(false)
 
