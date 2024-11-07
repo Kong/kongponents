@@ -213,7 +213,8 @@ const kRadioClasses = computed((): Record<string, boolean> => {
     checked: isChecked.value,
     'has-description': showDescription.value,
     'card-horizontal': props.card && props.cardOrientation === 'horizontal',
-    'card-vertical': props.card && props.cardOrientation === 'vertical',
+    // Add vertical class for `vertical` or an invalid prop value
+    'card-vertical': props.card && props.cardOrientation !== 'horizontal',
   }
 })
 </script>

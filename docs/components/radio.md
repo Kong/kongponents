@@ -173,7 +173,9 @@ const cardRadio = ref<string>('')
 
 ### cardOrientation
 
-Prop for changing card orientation. Default value is `vertical`, the alternative to which is `horizontal`.
+Used alongside the [`card` prop](/components/radio#card) to set the orientation of the card layout.
+
+Accepted values are `vertical` (shown above) or `horizontal`. Defaults to `vertical`.
 
 <KRadio
   v-model="horizontalCard"
@@ -293,7 +295,7 @@ When `card` prop is true, the content passed to the `default` slot be will rende
 * directly above the label if [`cardOrientation` prop](#cardorientation) is `vertical`
 * to the right of label and description of `cardOrientation` prop is `horizontal`
 
-Should you want to customize the layout inside the card you can omit using the `label` and `description` props and style content passed through the `default` slot yourself.
+Should you want to customize the layout inside the card you can omit the `label` and `description` props and style content passed through the `default` slot yourself.
 :::
 
 ### description
