@@ -12,8 +12,9 @@
       :aria-checked="isChecked"
       :checked="isChecked"
       class="radio-input"
-      :class="{ 'hidden': card && !cardShowRadio }"
+      :class="{ 'hidden': card && !cardRadioVisible }"
       :disabled="isDisabled"
+      :tabindex="card || isDisabled || isChecked ? -1 : 0"
       type="radio"
       @click="handleClick"
     >
@@ -51,9 +52,9 @@
     <label
       v-else-if="label || $slots.default"
       class="radio-card-wrapper radio-label-wrapper"
-      :class="{ 'has-label': label, 'has-description': showCardDescription, 'show-radio': cardShowRadio }"
+      :class="{ 'has-label': label, 'has-description': showCardDescription, 'show-radio': cardRadioVisible }"
       :for="inputId"
-      :tabindex="isDisabled ? -1 : 0"
+      :tabindex="isDisabled || isChecked ? -1 : 0"
       @keydown.space.prevent
       @keyup.space="handleClick"
     >
@@ -148,7 +149,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  cardShowRadio: {
+  cardRadioVisible: {
     type: Boolean,
     default: true,
   },

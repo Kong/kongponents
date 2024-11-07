@@ -72,13 +72,13 @@ describe('KRadio', () => {
     cy.get('input').should('be.visible')
   })
 
-  it('renders input element hidden when cardShowRadio prop is false', () => {
+  it('renders input element hidden when cardRadioVisible prop is false', () => {
     cy.mount(KRadio, {
       props: {
         modelValue: false,
         selectedValue: true,
         card: true,
-        cardShowRadio: false,
+        cardRadioVisible: false,
         label: 'Some label',
       },
     })

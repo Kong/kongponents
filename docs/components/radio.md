@@ -221,7 +221,7 @@ Accepted values are `vertical` (shown above) or `horizontal`. Defaults to `verti
 />
 ```
 
-### showCardRadio
+### cardRadioVisible
 
 Prop to show or hide radio button in card. Default value is `true`.
 
@@ -229,7 +229,7 @@ Prop to show or hide radio button in card. Default value is `true`.
   <KRadio
     v-model="showRadio"
     card
-    :card-show-radio="false"
+    :card-radio-visible="false"
     label="Vertical"
     description="Vertical radio card with hidden radio button."
     :selected-value="false"
@@ -238,7 +238,7 @@ Prop to show or hide radio button in card. Default value is `true`.
     v-model="showRadio"
     card
     card-orientation="horizontal"
-    :card-show-radio="false"
+    :card-radio-visible="false"
     label="Horizontal"
     description="Horizontal radio card with hidden radio button."
     :selected-value="true"
@@ -247,7 +247,7 @@ Prop to show or hide radio button in card. Default value is `true`.
 
 ```html
 <KRadio
-  :card-show-radio="false"
+  :card-radio-visible="false"
   v-model="radioCard"
   card
   label="Vertical"
@@ -255,7 +255,7 @@ Prop to show or hide radio button in card. Default value is `true`.
   :selected-value="false"
 />
 <KRadio
-  :card-show-radio="false"
+  :card-radio-visible="false"
   v-model="radioCard"
   card
   card-orientation="horizontal"

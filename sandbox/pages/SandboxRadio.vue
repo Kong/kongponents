@@ -211,11 +211,11 @@
           </KBadge>
         </KRadio>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="cardShowRadio">
+      <SandboxSectionComponent title="cardRadioVisible">
         <KRadio
           v-model="modelValue3"
           card
-          :card-show-radio="false"
+          :card-radio-visible="false"
           description="Lorem ipsum dolor sit amet."
           label="Vertical"
           :selected-value="false"
@@ -224,7 +224,7 @@
           v-model="modelValue3"
           card
           card-orientation="horizontal"
-          :card-show-radio="false"
+          :card-radio-visible="false"
           description="Lorem ipsum dolor sit amet."
           label="Horizontal"
           :selected-value="true"
