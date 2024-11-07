@@ -52,7 +52,7 @@ importers:
         version: 2.2.1(sortablejs@1.15.3)(vue@3.5.12(typescript@5.6.3))
     devDependencies:
       '@babel/types':
-        specifier: ^7.25.9
+        specifier: ^7.26.0
         version: 7.26.0
       '@commitlint/cli':
         specifier: ^19.5.0
@@ -91,7 +91,7 @@ importers:
         specifier: ^9.0.7
         version: 9.0.7
       '@types/node':
-        specifier: ^20.17.0
+        specifier: ^20.17.1
         version: 20.17.6
       '@types/sortablejs':
         specifier: ^1.15.8
@@ -169,7 +169,7 @@ importers:
         specifier: ^1.80.4
         version: 1.80.4
       semantic-release:
-        specifier: ^24.1.3
+        specifier: ^24.2.0
         version: 24.2.0(typescript@5.6.3)
       shx:
         specifier: ^0.3.4
@@ -376,10 +376,6 @@ packages:
 
   '@babel/helper-string-parser@7.25.9':
     resolution: {integrity: sha512-4A/SCr/2KLd5jrtOMFzaKjVtAei3+2r/NChoBNoZ3EyP/+GlhoaEGoWOZUmFmoITP7zOJyHIMm+DYRd8o3PvHA==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/helper-validator-identifier@7.25.7':
-    resolution: {integrity: sha512-AM6TzwYqGChO45oiuPqwL2t20/HdMC1rTPAesnBCgPCSF1x3oN9MVUwQV2iyz4xqWrctwK5RNC8LV22kaQCNYg==}
     engines: {node: '>=6.9.0'}
 
   '@babel/helper-validator-identifier@7.25.9':
@@ -5172,7 +5168,7 @@ snapshots:
       '@babel/helper-module-imports': 7.24.7
       '@babel/helper-simple-access': 7.24.7
       '@babel/helper-split-export-declaration': 7.24.7
-      '@babel/helper-validator-identifier': 7.25.7
+      '@babel/helper-validator-identifier': 7.25.9
     transitivePeerDependencies:
       - supports-color
 
@@ -5211,8 +5207,6 @@ snapshots:
 
   '@babel/helper-string-parser@7.25.9': {}
 
-  '@babel/helper-validator-identifier@7.25.7': {}
-
   '@babel/helper-validator-identifier@7.25.9': {}
 
   '@babel/helper-validator-option@7.24.7': {}
@@ -5224,7 +5218,7 @@ snapshots:
 
   '@babel/highlight@7.24.7':
     dependencies:
-      '@babel/helper-validator-identifier': 7.25.7
+      '@babel/helper-validator-identifier': 7.25.9
       chalk: 2.4.2
       js-tokens: 4.0.0
       picocolors: 1.1.1
