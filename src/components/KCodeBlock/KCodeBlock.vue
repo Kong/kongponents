@@ -703,11 +703,12 @@ async function copyCode(event: Event): Promise<void> {
   const button = (event.target as Element).closest('button') as HTMLButtonElement
 
   const hasCopiedCodeSuccessfully = await copyTextToClipboard(props.code)
+
   if (hasCopiedCodeSuccessfully) {
-    button.setAttribute('data-tooltip-text', 'Copied code!')
+    button?.setAttribute('data-tooltip-text', 'Copied code!')
 
     window?.setTimeout(function() {
-      button.removeAttribute('data-tooltip-text')
+      button?.removeAttribute('data-tooltip-text')
     }, 1500)
   }
 }
