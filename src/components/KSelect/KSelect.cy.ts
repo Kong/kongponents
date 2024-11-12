@@ -451,6 +451,10 @@ describe('KSelect', () => {
     cy.get('input').type(labels[0])
     cy.getTestId('select-add-item').should('not.exist')
     cy.get('input').clear()
+    // allows adding item substring of existing label
+    cy.get('input').type(labels[0].substring(0, labels[0].length - 1))
+    cy.getTestId('select-add-item').should('be.visible').should('contain.text', labels[0].substring(0, labels[0].length - 1))
+    cy.get('input').clear()
     // add new item
     cy.get('input').type(newItem)
     cy.getTestId('select-add-item').should('contain.text', newItem)

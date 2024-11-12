@@ -148,7 +148,7 @@
                 :item="{ label: 'No results', value: 'no_results', disabled: true }"
               />
               <KSelectItem
-                v-if="!filteredItems.length && uniqueFilterQuery && !$slots.empty && enableItemCreation"
+                v-if="uniqueFilterQuery && !$slots.empty && enableItemCreation"
                 key="select-add-item"
                 class="select-add-item"
                 data-testid="select-add-item"

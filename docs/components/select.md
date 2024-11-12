@@ -362,7 +362,15 @@ Reuse the same display format provided via the [`item-template` slot](#itemtempl
 
 ### enableItemCreation
 
-When used in conjunction with `enableFiltering` set to `true`, KSelect will suggest adding a new value when filtering produces no results.
+KSelect can offer users the ability to add custom items to the list by typing the item they want to and then **clicking the** `... (Add new value)` **item at the bottom of the list**, which will also automatically select it.
+
+Newly created items will have a `label` consisting of the user input and a randomly generated id for the `value` to ensure uniqueness. The item will also have an attribute `custom` set to `true`. This action triggers an `item-added` event containing the added item data.
+
+Deselecting the item will completely remove it from the list and underlying data, and trigger a `item-removed` event containing the removed item's data.
+
+:::tip NOTE
+You cannot add an item if the `label` matches the `label` of a pre-existing item. In that scenario the `... (Add new value)` item will not be displayed.
+:::
 
 <ClientOnly>
   <KSelect enable-item-creation enable-filtering placeholder="Try searching for 'service d'" :items="selectItemsUnselected" />
