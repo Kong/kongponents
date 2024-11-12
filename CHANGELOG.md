@@ -1,3 +1,10 @@
+## [9.14.11](https://github.com/Kong/kongponents/compare/v9.14.10...v9.14.11) (2024-11-12)
+
+
+### Bug Fixes
+
+* **kselect:** item creation logic [KHCP-13908] ([#2512](https://github.com/Kong/kongponents/issues/2512)) ([03611ce](https://github.com/Kong/kongponents/commit/03611cef030337dfaac60de3d8d25d6f4196756e))
+
 ## [9.14.10](https://github.com/Kong/kongponents/compare/v9.14.9...v9.14.10) (2024-11-12)
 
 
