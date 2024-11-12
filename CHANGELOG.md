@@ -1,3 +1,10 @@
+## [9.14.9](https://github.com/Kong/kongponents/compare/v9.14.8...v9.14.9) (2024-11-12)
+
+
+### Bug Fixes
+
+* **kcodeblock:** type error ([#2511](https://github.com/Kong/kongponents/issues/2511)) ([e348876](https://github.com/Kong/kongponents/commit/e348876e9138c058746c949a906c02d9e17da483))
+
 ## [9.14.8](https://github.com/Kong/kongponents/compare/v9.14.7...v9.14.8) (2024-11-01)
 
 
