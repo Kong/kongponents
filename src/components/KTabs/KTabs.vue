@@ -87,7 +87,7 @@ const emit = defineEmits<{
   (e: 'change', val: string): void
 }>()
 
-const activeTab = ref<string>(props.modelValue ? props.modelValue : props.tabs[0].hash)
+const activeTab = ref<string>(props.modelValue ? props.modelValue : props.tabs[0]?.hash)
 
 const handleTabChange = (tab: string): void => {
   activeTab.value = tab
