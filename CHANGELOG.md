@@ -1,3 +1,10 @@
+## [9.14.10](https://github.com/Kong/kongponents/compare/v9.14.9...v9.14.10) (2024-11-12)
+
+
+### Bug Fixes
+
+* **ktabs:** minor fix ([#2513](https://github.com/Kong/kongponents/issues/2513)) ([38ecf93](https://github.com/Kong/kongponents/commit/38ecf937475c89fc08b3e3efe8c4402310e87356))
+
 ## [9.14.9](https://github.com/Kong/kongponents/compare/v9.14.8...v9.14.9) (2024-11-12)
 
 
