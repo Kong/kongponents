@@ -229,6 +229,7 @@ const emit = defineEmits<{
   (e: 'update:table-preferences', preferences: TablePreferences): void
   (e: 'sort', value: TableSortPayload): void
   (e: 'state', value: TableStatePayload): void
+  (e: 'data', data: any): void
   (e: 'row-select', data: Record<string, any>[]): void
   (e: 'row-expand', data: any): void
 }>()
@@ -416,6 +417,7 @@ const stateData = computed((): SwrvStateData => ({
 const tableState = computed((): TableState => isTableLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
 const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
 const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)
+defineExpose({ revalidate }) // expose revalidate function to parent component
 
 const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortOrder }: TableSortPayload): void => {
   const header: TableDataHeader = tableHeaders.value.find((header) => header.key === columnKey)!
@@ -513,6 +515,7 @@ const showPagination = computed((): boolean => {
 watch(fetcherData, (fetchedData: Record<string, any>[]) => {
   if (fetchedData?.length && !tableData.value.length) {
     tableData.value = fetchedData
+    emit('data', fetchedData) // emit data to father component when data is fetched
   }
 }, { deep: true, immediate: true })
 
