@@ -12,7 +12,9 @@
       :aria-checked="isChecked"
       :checked="isChecked"
       class="radio-input"
+      :class="{ 'hidden': card && !cardRadioVisible }"
       :disabled="isDisabled"
+      :tabindex="card || isDisabled || isChecked ? -1 : 0"
       type="radio"
       @click="handleClick"
     >
@@ -50,9 +52,9 @@
     <label
       v-else-if="label || $slots.default"
       class="radio-card-wrapper radio-label-wrapper"
-      :class="{ 'has-label': label, 'has-description': showCardDescription }"
+      :class="{ 'has-label': label, 'has-description': showCardDescription, 'show-radio': cardRadioVisible }"
       :for="inputId"
-      :tabindex="isDisabled ? -1 : 0"
+      :tabindex="isDisabled || isChecked ? -1 : 0"
       @keydown.space.prevent
       @keyup.space="handleClick"
     >
@@ -63,18 +65,23 @@
         <slot />
       </span>
       <span
-        v-if="label"
-        class="radio-label"
+        v-if="label || showCardDescription"
+        class="card-label-container"
       >
-        {{ label }}
-      </span>
-      <span
-        v-if="showCardDescription"
-        class="radio-description"
-      >
-        <slot name="description">
-          {{ description }}
-        </slot>
+        <span
+          v-if="label"
+          class="radio-label"
+        >
+          {{ label }}
+        </span>
+        <span
+          v-if="showCardDescription"
+          class="radio-description"
+        >
+          <slot name="description">
+            {{ description }}
+          </slot>
+        </span>
       </span>
     </label>
   </div>
@@ -142,6 +149,15 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  cardRadioVisible: {
+    type: Boolean,
+    default: true,
+  },
+  cardOrientation: {
+    type: String as PropType<'horizontal' | 'vertical'>,
+    default: 'vertical',
+    validator: (value: 'horizontal' | 'vertical'): boolean => ['horizontal', 'vertical'].includes(value),
+  },
   /**
    * @deprecated in favor of `card`
    */
@@ -181,7 +197,6 @@ const handleClick = (): void => {
   emit('update:modelValue', props.selectedValue)
 }
 
-
 const modifiedAttrs = computed((): Record<string, any> => {
   const $attrs = { ...attrs }
 
@@ -198,6 +213,9 @@ const kRadioClasses = computed((): Record<string, boolean> => {
     'input-error': props.error,
     checked: isChecked.value,
     'has-description': showDescription.value,
+    'card-horizontal': props.card && props.cardOrientation === 'horizontal',
+    // Add vertical class for `vertical` or an invalid prop value
+    'card-vertical': props.card && props.cardOrientation !== 'horizontal',
   }
 })
 </script>
@@ -340,24 +358,17 @@ $kRadioDotSize: 6px;
 
   /* Card styles */
   &.radio-card {
+    position: relative;
     width: 100%;
 
-    .radio-input {
-      display: none;
-    }
-
     .radio-card-wrapper {
-      align-items: center;
       background-color: var(--kui-color-background, $kui-color-background);
       border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
       box-shadow: var(--kui-shadow-border, $kui-shadow-border);
       cursor: pointer;
-      display: flex;
-      flex-direction: column;
       height: 100%;
       outline: none;
       padding: var(--kui-space-70, $kui-space-70);
-      text-align: center;
       transition: box-shadow $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc;
       width: 100%;
 
@@ -379,17 +390,77 @@ $kRadioDotSize: 6px;
         transition: color $kongponentsTransitionDurTimingFunc;
       }
 
-      &.has-label, &.has-description {
-        .card-content-wrapper {
-          height: auto;
-          margin-bottom: var(--kui-space-40, $kui-space-40);
+      .card-label-container {
+        display: flex;
+        flex-direction: column;
+
+        .radio-label {
+          @include labelDefaults;
+
+          transition: color $kongponentsTransitionDurTimingFunc;
+        }
+      }
+    }
+
+    .radio-input {
+      left: 0;
+      position: absolute;
+      top: 0;
+
+      &.hidden {
+        display: none;
+      }
+    }
+
+    &.card-vertical {
+      .radio-card-wrapper {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        &.has-label, &.has-description {
+          .card-content-wrapper {
+            height: auto;
+            margin-bottom: var(--kui-space-40, $kui-space-40);
+          }
         }
       }
 
-      .radio-label {
-        @include labelDefaults;
+      .radio-input {
+        margin-left: var(--kui-space-50, $kui-space-50);
+        margin-top: var(--kui-space-50, $kui-space-50);
+      }
+    }
 
-        transition: color $kongponentsTransitionDurTimingFunc;
+    &.card-horizontal {
+      .radio-card-wrapper {
+        display: flex;
+
+        &.has-label, &.has-description {
+          &:has(.card-content-wrapper) {
+            flex-direction: row-reverse;
+            gap: var(--kui-space-50, $kui-space-50);
+            justify-content: space-between;
+          }
+
+          .card-content-wrapper {
+            align-self: center;
+          }
+        }
+
+        &.show-radio {
+          padding-left: var(--kui-space-110, $kui-space-110);
+        }
+      }
+
+      .radio-input {
+        margin-left: var(--kui-space-70, $kui-space-70);
+        margin-top: var(--kui-space-80, $kui-space-80);
+      }
+
+      & + .k-radio.radio-card.card-horizontal {
+        margin-top: var(--kui-space-40, $kui-space-40);
       }
     }
 

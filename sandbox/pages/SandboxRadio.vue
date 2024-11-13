@@ -185,6 +185,51 @@
           </KRadio>
         </div>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="cardOrientation">
+        <KRadio
+          v-model="modelValue4"
+          card
+          card-orientation="horizontal"
+          description="Lorem ipsum dolor sit amet."
+          label="Horizontal 1"
+          :selected-value="true"
+        >
+          <KBadge appearance="success">
+            Recommended
+          </KBadge>
+        </KRadio>
+        <KRadio
+          v-model="modelValue4"
+          card
+          card-orientation="horizontal"
+          description="Lorem ipsum dolor sit amet."
+          label="Horizontal 2"
+          :selected-value="false"
+        >
+          <KBadge appearance="info">
+            Default
+          </KBadge>
+        </KRadio>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="cardRadioVisible">
+        <KRadio
+          v-model="modelValue3"
+          card
+          :card-radio-visible="false"
+          description="Lorem ipsum dolor sit amet."
+          label="Vertical"
+          :selected-value="false"
+        />
+        <KRadio
+          v-model="modelValue3"
+          card
+          card-orientation="horizontal"
+          :card-radio-visible="false"
+          description="Lorem ipsum dolor sit amet."
+          label="Horizontal"
+          :selected-value="true"
+        />
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="labelAttributes">
         <div class="vertical-spacing">
           <KRadio
@@ -258,9 +303,11 @@ import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { KongIcon, LockIcon } from '@kong/icons'
 
-const modelValue0 = ref('foobar')
-const modelValue1 = ref('barfoo')
-const modelValue2 = ref('card0')
+const modelValue0 = ref<string>('foobar')
+const modelValue1 = ref<string>('barfoo')
+const modelValue2 = ref<string>('card0')
+const modelValue3 = ref<boolean>(false)
+const modelValue4 = ref<boolean>(true)
 </script>
 
 <style lang="scss" scoped>
