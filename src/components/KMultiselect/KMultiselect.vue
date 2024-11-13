@@ -818,7 +818,7 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
 }
 
 const onInputEnter = (e: KeyboardEvent): void => {
-  if (!filteredItems.value.length && props.enableItemCreation) {
+  if (props.enableItemCreation) {
     handleAddItem()
   }
 
