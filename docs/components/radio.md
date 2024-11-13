@@ -215,8 +215,8 @@ Accepted values are `vertical` (shown above) or `horizontal`. Defaults to `verti
   card-orientation="horizontal"
   v-model="cardRadio"
   description="Choose this option if you want your APIs to be publicly accessible by anyone on the internet."
-  card
   label="Public"
+  card
   selected-value="public"
 />
 ```
@@ -225,22 +225,44 @@ Accepted values are `vertical` (shown above) or `horizontal`. Defaults to `verti
 
 Prop to show or hide radio button in card. Default value is `true`.
 
-<div class="vertical-spacing">
+Vertical:
+<div class="cards-container">
   <KRadio
-    v-model="showRadio"
+    v-model="showRadioVertical"
     card
     :card-radio-visible="false"
-    label="Vertical"
-    description="Vertical radio card with hidden radio button."
+    description="Choose this option if you want your APIs to only be accessible from within your private network."
+    label="Private"
     :selected-value="false"
   />
   <KRadio
-    v-model="showRadio"
+    v-model="showRadioVertical"
+    card
+    :card-radio-visible="false"
+    description="Choose this option if you want your APIs to be publicly accessible by anyone on the internet."
+    label="Public"
+    :selected-value="true"
+  />
+</div>
+
+Horizontal:
+<div class="vertical-spacing">
+  <KRadio
+    v-model="showRadioHorizontal"
     card
     card-orientation="horizontal"
     :card-radio-visible="false"
-    label="Horizontal"
-    description="Horizontal radio card with hidden radio button."
+    description="Choose this option if you want your APIs to only be accessible from within your private network."
+    label="Private"
+    :selected-value="false"
+  />
+  <KRadio
+    v-model="showRadioHorizontal"
+    card
+    card-orientation="horizontal"
+    :card-radio-visible="false"
+    description="Choose this option if you want your APIs to be publicly accessible by anyone on the internet."
+    label="Public"
     :selected-value="true"
   />
 </div>
@@ -361,7 +383,8 @@ const cardRadio = ref<string>('')
 
 const horizontalCard = ref<string>('')
 
-const showRadio = ref<boolean | null>(null)
+const showRadioVertical = ref<boolean | null>(null)
+const showRadioHorizontal = ref<boolean | null>(null)
 
 const labelPropRadio = ref<boolean>(false)
 
