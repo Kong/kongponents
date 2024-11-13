@@ -1,3 +1,10 @@
+## [9.14.13](https://github.com/Kong/kongponents/compare/v9.14.12...v9.14.13) (2024-11-13)
+
+
+### Bug Fixes
+
+* **kselect, kmultiselect:** create item on enter logic ([#2514](https://github.com/Kong/kongponents/issues/2514)) ([f982c25](https://github.com/Kong/kongponents/commit/f982c25dcb8634afe4a353ae769bda64a762d74d))
+
 ## [9.14.12](https://github.com/Kong/kongponents/compare/v9.14.11...v9.14.12) (2024-11-13)
 
 
