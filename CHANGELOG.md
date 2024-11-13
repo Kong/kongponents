@@ -1,3 +1,10 @@
+## [9.14.12](https://github.com/Kong/kongponents/compare/v9.14.11...v9.14.12) (2024-11-13)
+
+
+### Bug Fixes
+
+* **kradio:** show-card-radio and card-orientation props [KHCP-13540] ([#2504](https://github.com/Kong/kongponents/issues/2504)) ([61b1d74](https://github.com/Kong/kongponents/commit/61b1d742e08a76b1e2a040f050c17ffef4646935))
+
 ## [9.14.11](https://github.com/Kong/kongponents/compare/v9.14.10...v9.14.11) (2024-11-12)
 
 
