@@ -70,8 +70,8 @@ importers:
         specifier: ^1.8.1
         version: 1.8.2
       '@kong-ui-public/sandbox-layout':
-        specifier: ^2.1.53
-        version: 2.1.53(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.12(typescript@5.6.3)))(vue@3.5.12(typescript@5.6.3)))(vue@3.5.12(typescript@5.6.3))
+        specifier: ^2.1.54
+        version: 2.1.54(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.12(typescript@5.6.3)))(vue@3.5.12(typescript@5.6.3)))(vue@3.5.12(typescript@5.6.3))
       '@kong/design-tokens':
         specifier: ^1.17.2
         version: 1.17.2
@@ -878,8 +878,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@kong-ui-public/sandbox-layout@2.1.53':
-    resolution: {integrity: sha512-nCCn9jQuC63iJ+ZYMSlgCW9x2S6KmnSR6x9zE4saQUqqYQLa9O0lsD9vTX7pBURWaneK4KOTh4lZ2YFXEOJmYg==}
+  '@kong-ui-public/sandbox-layout@2.1.54':
+    resolution: {integrity: sha512-NseKouv0fcDwDKvQFnlqSfeCSk1lBL6TU/17hgRHogh3Jc56QyTA1L+AAAkN8AoBOB5pLR5Ypg41tSMTXsluRw==}
     peerDependencies:
       '@kong/kongponents': ^9.14.8
       vue: '>= 3.3.13 < 4'
@@ -897,12 +897,6 @@ packages:
   '@kong/icons@1.18.1':
     resolution: {integrity: sha512-1dQvgKYSS7phg8FiaEyizmy2vk2L412yzRT7FHUuLLtVr4yEAjbYsVgNeD2zHoWQCO0y/SDGVZoOa2SqP0kQ7g==}
     engines: {node: '>=18.17.0', pnpm: '>=9.7.0'}
-    peerDependencies:
-      vue: '>= 3.3.4 < 4'
-
-  '@kong/icons@1.18.2':
-    resolution: {integrity: sha512-8h1j8O2syZG+gBKNYcXwtYkoS2DUIchBdQ83BiRx/RG1gRrbMoG9TfXXBBVcYG16VjoeJJqbBRqakYZ30bRd/w==}
-    engines: {node: '>=18.17.0', pnpm: '>=9.12.2'}
     peerDependencies:
       vue: '>= 3.3.4 < 4'
 
@@ -1088,8 +1082,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.25.0':
-    resolution: {integrity: sha512-Brhz6gK/43E9lpMkbcfg06hRHctpMkbmy1JzOU2JWub3teujTNqou1xWTQgt9CRu15WGTt78t7p7rNxGIBZv+g==}
+  '@rollup/wasm-node@4.26.0':
+    resolution: {integrity: sha512-Jp8J0pSP6AFePI0ijz9flUwU6/ZACZ8DTWkNE6mJHuZF0GCjRYRgq7b+76Kq2nTbYgPXLcBCyhy9xTTUaTWDoQ==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -5748,7 +5742,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@kong-ui-public/sandbox-layout@2.1.53(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.12(typescript@5.6.3)))(vue@3.5.12(typescript@5.6.3)))(vue@3.5.12(typescript@5.6.3))':
+  '@kong-ui-public/sandbox-layout@2.1.54(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.12(typescript@5.6.3)))(vue@3.5.12(typescript@5.6.3)))(vue@3.5.12(typescript@5.6.3))':
     dependencies:
       '@kong/icons': 1.19.1(vue@3.5.12(typescript@5.6.3))
       '@kong/kongponents': 9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.12(typescript@5.6.3)))(vue@3.5.12(typescript@5.6.3))
@@ -5780,10 +5774,6 @@ snapshots:
     dependencies:
       vue: 3.5.12(typescript@5.6.3)
 
-  '@kong/icons@1.18.2(vue@3.5.12(typescript@5.6.3))':
-    dependencies:
-      vue: 3.5.12(typescript@5.6.3)
-
   '@kong/icons@1.19.1(vue@3.5.12(typescript@5.6.3))':
     dependencies:
       vue: 3.5.12(typescript@5.6.3)
@@ -5791,7 +5781,7 @@ snapshots:
   '@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.12(typescript@5.6.3)))(vue@3.5.12(typescript@5.6.3))':
     dependencies:
       '@floating-ui/vue': 1.1.5(vue@3.5.12(typescript@5.6.3))
-      '@kong/icons': 1.18.2(vue@3.5.12(typescript@5.6.3))
+      '@kong/icons': 1.19.1(vue@3.5.12(typescript@5.6.3))
       '@popperjs/core': 2.11.8
       axios: 1.7.7
       date-fns: 2.30.0
@@ -5959,7 +5949,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@rollup/wasm-node@4.25.0':
+  '@rollup/wasm-node@4.26.0':
     dependencies:
       '@types/estree': 1.0.6
     optionalDependencies:
@@ -9907,7 +9897,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
-      rollup: '@rollup/wasm-node@4.25.0'
+      rollup: '@rollup/wasm-node@4.26.0'
     optionalDependencies:
       '@types/node': 20.17.6
       fsevents: 2.3.3
