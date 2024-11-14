@@ -1,3 +1,5 @@
+@use "@kong/design-tokens/tokens/scss/variables" as *;
+
 /*
 Shared SCSS variables that are used in Kongponents styles but are not exported.
 Each must start with `$kongponents` prefix to avoid conflicts with other libraries.

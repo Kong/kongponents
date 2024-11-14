@@ -1,3 +1,8 @@
+@use "@kong/design-tokens/tokens/scss/variables" as *;
+@use "@/styles/vars" as *;
+@use "@/styles/mixins/common" as *;
+@use "@/styles/mixins/buttons" as *;
+
 @mixin table {
   /* Local variables */
   $tableThPaddingY: var(--kui-space-50, $kui-space-50);

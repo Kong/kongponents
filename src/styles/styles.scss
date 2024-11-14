@@ -1,7 +1,8 @@
 /*! KONGPONENTS_STYLES */
 // Do not remove the comment above - allows other apps to identify the style block
 
-@import "transitions";
+@use "transitions" as *;
+@use "@kong/design-tokens/tokens/scss/variables" as *;
 
 :root {
   body {
