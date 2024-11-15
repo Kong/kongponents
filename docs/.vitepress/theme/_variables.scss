@@ -1,5 +1,8 @@
+/* stylelint-disable custom-property-pattern */
 // Override predefined CSS variables of the default VitePress theme
 // https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+
+@use "@kong/design-tokens/tokens/scss/variables" as *;
 
 :root {
   --vp-button-brand-bg: #{$kui-color-background-primary};
