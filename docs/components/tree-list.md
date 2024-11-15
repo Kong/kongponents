@@ -23,7 +23,7 @@ The value provided to `v-model` should adhere to all the same constraints of the
   <div>
     <KButton @click="reset">Reset</KButton>
   </div>
-  <div class="value-wrapper"><b>Value:</b> <pre class="json hide-from-percy">{{ JSON.stringify(myList, null, 2) }}</pre></div>
+  <div class="value-wrapper"><b>Value:</b> <pre class="json">{{ JSON.stringify(myList, null, 2) }}</pre></div>
 </div>
 
 ```vue
