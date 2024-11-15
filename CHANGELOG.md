@@ -1,3 +1,10 @@
+## [9.14.14](https://github.com/Kong/kongponents/compare/v9.14.13...v9.14.14) (2024-11-15)
+
+
+### Bug Fixes
+
+* sass [@import](https://github.com/import) to [@use](https://github.com/use) [KHCP-13755] ([#2518](https://github.com/Kong/kongponents/issues/2518)) ([b3ec945](https://github.com/Kong/kongponents/commit/b3ec945f84532bd0d4e4e4e7fb6920b11c6fb487))
+
 ## [9.14.13](https://github.com/Kong/kongponents/compare/v9.14.12...v9.14.13) (2024-11-13)
 
 
