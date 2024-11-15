@@ -1,3 +1,5 @@
+@use "@kong/design-tokens/tokens/scss/variables" as *;
+
 /* Common mixins for all components */
 
 @mixin truncate($lines: 0) {
@@ -12,4 +14,12 @@
     -webkit-line-clamp: $lines;
     overflow: hidden;
   }
+}
+
+@mixin defaultButtonReset {
+  background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: var(--kui-space-0, $kui-space-0);
 }

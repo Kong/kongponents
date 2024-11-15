@@ -3,14 +3,6 @@
 
 /* Buttons mixins */
 
-@mixin defaultButtonReset {
-  background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-  border: none;
-  color: inherit;
-  cursor: pointer;
-  padding: var(--kui-space-0, $kui-space-0);
-}
-
 @mixin kButtonMediumSize {
   font-size: var(--kui-font-size-30, $kui-font-size-30);
   gap: var(--kui-space-30, $kui-space-30);
