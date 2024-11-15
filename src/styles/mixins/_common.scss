@@ -1,0 +1,25 @@
+@use "@kong/design-tokens/tokens/scss/variables" as *;
+
+/* Common mixins for all components */
+
+@mixin truncate($lines: 0) {
+  // if lines is 0, truncate with ellipsis, otherwise truncate with line clamp
+  @if $lines == 0 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    overflow: hidden;
+  }
+}
+
+@mixin defaultButtonReset {
+  background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: var(--kui-space-0, $kui-space-0);
+}

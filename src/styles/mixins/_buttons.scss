@@ -1,12 +1,7 @@
-/* Buttons mixins */
+@use "@kong/design-tokens/tokens/scss/variables" as *;
+@use "@/styles/vars" as *;
 
-@mixin defaultButtonReset {
-  background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-  border: none;
-  color: inherit;
-  cursor: pointer;
-  padding: var(--kui-space-0, $kui-space-0);
-}
+/* Buttons mixins */
 
 @mixin kButtonMediumSize {
   font-size: var(--kui-font-size-30, $kui-font-size-30);
