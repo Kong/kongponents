@@ -790,6 +790,7 @@ const startResize = (evt: MouseEvent, colKey: string) => {
     document?.removeEventListener('mousemove', mouseMoveHandler)
     document?.removeEventListener('mouseup', mouseUpHandler)
     emitTablePreferences()
+
     if (hasExpandableRows.value) {
       setActualColumnWidths()
     }
@@ -954,6 +955,9 @@ const paginationPageSize = ref<number>(getInitialPageSize(props.tablePreferences
 const onPaginationPageSizeChange = (data: PageSizeChangeData): void => {
   paginationPageSize.value = data.pageSize
   emit('page-size-change', data)
+
+  // Emit an event whenever one of the tablePreferences are updated
+  emitTablePreferences()
 }
 
 // Store the tablePreferences in a computed property to utilize in the watcher

@@ -40,7 +40,7 @@
     @row-expand="($event: Record<string, any>) => emit('row-expand', $event)"
     @row-select="($event: Record<string, any>[]) => emit('row-select', $event)"
     @sort="sortHandler"
-    @update:table-preferences="tableViewPreferences = $event"
+    @update:table-preferences="tablePreferencesUpdateHandler"
   >
     <template
       v-if="$slots.toolbar && !hideToolbar"
@@ -258,11 +258,11 @@ const hasInitialized = ref<boolean>(false)
 
 const defaultFetcherProps = {
   pageSize: pageSize.value,
-  page: 1,
-  query: '',
-  sortColumnKey: '',
-  sortColumnOrder: 'desc',
-  offset: null,
+  page: page.value,
+  query: filterQuery.value,
+  sortColumnKey: sortColumnKey.value,
+  sortColumnOrder: sortColumnOrder.value,
+  offset: offset.value,
 }
 
 const tablePaginationAttributes = computed((): TablePaginationAttributes => ({
@@ -450,9 +450,6 @@ const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortO
   } else if (!props.paginationAttributes?.offset) {
     debouncedRevalidate()
   }
-
-  // Emit an event whenever one of the tablePreferences are updated
-  emitTablePreferences()
 }
 
 const pageChangeHandler = ({ page: newPage }: PageChangeData) => {
@@ -464,13 +461,25 @@ const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData) =>
   offset.value = null
   pageSize.value = newPageSize
   page.value = 1
+}
+
+const tablePreferencesUpdateHandler = ({ columnWidths: newColumnWidth, columnVisibility: newColumnVisibility }: TablePreferences) => {
+  tableViewColumnWidths.value = newColumnWidth
+  tableViewColumnVisibility.value = newColumnVisibility
 
   // Emit an event whenever one of the tablePreferences are updated
   emitTablePreferences()
 }
 
-const tableViewPreferences = ref<TablePreferences>({})
-const tableDataPreferences = computed((): TablePreferences => ({ pageSize: pageSize.value, ...tableViewPreferences.value }))
+const tableViewColumnWidths = ref<Record<string, number> | undefined>({})
+const tableViewColumnVisibility = ref<Record<string, boolean> | undefined>({})
+const tableDataPreferences = computed((): TablePreferences => ({
+  pageSize: pageSize.value,
+  sortColumnKey: sortColumnKey.value,
+  sortColumnOrder: sortColumnOrder.value,
+  ...(tableViewColumnWidths.value ? { columnWidths: tableViewColumnWidths.value } : {}),
+  ...(tableViewColumnVisibility.value ? { columnVisibility: tableViewColumnVisibility.value } : {}),
+}))
 
 const emitTablePreferences = (): void => {
   if (tableState.value === 'success') {
@@ -579,10 +588,6 @@ watch([query, page, pageSize], async (newData, oldData) => {
     isRevalidating.value = false
   }
 }, { deep: true, immediate: true })
-
-watch(tableDataPreferences, () => {
-  emitTablePreferences()
-}, { immediate: true })
 
 onMounted(() => {
   initData()
