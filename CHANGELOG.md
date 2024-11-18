@@ -1,3 +1,10 @@
+## [9.14.15](https://github.com/Kong/kongponents/compare/v9.14.14...v9.14.15) (2024-11-18)
+
+
+### Bug Fixes
+
+* **ktableview, ktabledata:** table updates event [KHCP-14032] ([#2520](https://github.com/Kong/kongponents/issues/2520)) ([ce27dca](https://github.com/Kong/kongponents/commit/ce27dca7d240a446da879b5f25d82c461fffa403))
+
 ## [9.14.14](https://github.com/Kong/kongponents/compare/v9.14.13...v9.14.14) (2024-11-15)
 
 
