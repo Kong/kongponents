@@ -1,3 +1,10 @@
+## [9.14.16](https://github.com/Kong/kongponents/compare/v9.14.15...v9.14.16) (2024-11-21)
+
+
+### Bug Fixes
+
+* **kinputswitch:** fix events race condition ([#2523](https://github.com/Kong/kongponents/issues/2523)) ([6e3626f](https://github.com/Kong/kongponents/commit/6e3626f949df0bc0a11ffd6cd0dcc4dafa9f8a1b))
+
 ## [9.14.15](https://github.com/Kong/kongponents/compare/v9.14.14...v9.14.15) (2024-11-18)
 
 
