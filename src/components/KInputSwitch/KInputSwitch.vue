@@ -133,9 +133,9 @@ const propagateInputEvent = (event: Event): void => {
 
 const handleChange = (event: Event): void => {
   if (props.modelValue !== (event.target as HTMLInputElement).checked) {
+    emit('update:modelValue', (event.target as HTMLInputElement).checked)
     emit('change', (event.target as HTMLInputElement).checked)
     emit('input', (event.target as HTMLInputElement).checked)
-    emit('update:modelValue', (event.target as HTMLInputElement).checked)
   }
 }
 </script>
