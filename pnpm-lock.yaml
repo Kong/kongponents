@@ -103,8 +103,8 @@ importers:
         specifier: ^3.5.12
         version: 3.5.12
       '@vue/tsconfig':
-        specifier: ^0.5.1
-        version: 0.5.1
+        specifier: ^0.6.0
+        version: 0.6.0(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3))
       '@vueuse/core':
         specifier: ^11.1.0
         version: 11.1.0(vue@3.5.12(typescript@5.6.3))
@@ -908,12 +908,6 @@ packages:
     peerDependencies:
       vue: '>= 3.3.4 < 4'
 
-  '@kong/icons@1.19.1':
-    resolution: {integrity: sha512-YzwIQA4YH6N0Hwl2XT5ckEGXVzW2Ed1uoL8WjOGiyI6lUJa9W3n2DaHL+rQGZl/mW3KVR0J5+R7SzeYuzIvxzA==}
-    engines: {node: '>=18.17.0', pnpm: '>=9.12.2'}
-    peerDependencies:
-      vue: '>= 3.3.4 < 4'
-
   '@kong/icons@1.20.0':
     resolution: {integrity: sha512-prFxS9qavUMFADgsVBQN4IWvj6/8YKA/xgudMGKWz1yighoilsihjU5tm1nP/rzXHVm0VUaZlkp8XpMCW0LnsQ==}
     engines: {node: '>=18.17.0', pnpm: '>=9.12.3'}
@@ -1096,8 +1090,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.27.3':
-    resolution: {integrity: sha512-HlaetiNZq+cdDeebt6KagcsKeAWDTs+LZVBYBLIq+m6POIUXPMexJ+KwCU/cgqdtDhzUj7e8a144Gzo1YB58Ow==}
+  '@rollup/wasm-node@4.27.4':
+    resolution: {integrity: sha512-Q1b1A1RAP4Pp4qwU59n4819nJ4v4CDgBbY1/FbC1pW5PmHHI36yyqDMB0BW/F+3lLDt0KDd+t7tBrki9oSEg/w==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -1435,8 +1429,16 @@ packages:
   '@vue/shared@3.5.12':
     resolution: {integrity: sha512-L2RPSAwUFbgZH20etwrXyVyCBu9OxRSi8T/38QsvnkJyvq2LufW2lDCOzm7t/U9C1mkhJGWYfCuFBCmIuNivrg==}
 
-  '@vue/tsconfig@0.5.1':
-    resolution: {integrity: sha512-VcZK7MvpjuTPx2w6blwnwZAu5/LgBUtejFOi3pPGQFXQN5Ela03FUtd2Qtg4yWGGissVL0dr6Ro1LfOFh+PCuQ==}
+  '@vue/tsconfig@0.6.0':
+    resolution: {integrity: sha512-MHXNd6lzugsEHvuA6l1GqrF5jROqUon8sP/HInLPnthJiYvB0VvpHMywg7em1dBZfFZNBSkR68qH37zOdRHmCw==}
+    peerDependencies:
+      typescript: 5.x
+      vue: ^3.3.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+      vue:
+        optional: true
 
   '@vueuse/core@11.0.3':
     resolution: {integrity: sha512-RENlh64+SYA9XMExmmH1a3TPqeIuJBNNB/63GT35MZI+zpru3oMRUA6cEFr9HmGqEgUisurwGwnIieF6qu3aXw==}
@@ -5808,10 +5810,6 @@ snapshots:
     dependencies:
       vue: 3.5.12(typescript@5.6.3)
 
-  '@kong/icons@1.19.1(vue@3.5.12(typescript@5.6.3))':
-    dependencies:
-      vue: 3.5.12(typescript@5.6.3)
-
   '@kong/icons@1.20.0(vue@3.5.12(typescript@5.6.3))':
     dependencies:
       vue: 3.5.12(typescript@5.6.3)
@@ -5819,7 +5817,7 @@ snapshots:
   '@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.7)(vue-router@4.4.5(vue@3.5.12(typescript@5.6.3)))(vue@3.5.12(typescript@5.6.3))':
     dependencies:
       '@floating-ui/vue': 1.1.5(vue@3.5.12(typescript@5.6.3))
-      '@kong/icons': 1.19.1(vue@3.5.12(typescript@5.6.3))
+      '@kong/icons': 1.20.0(vue@3.5.12(typescript@5.6.3))
       '@popperjs/core': 2.11.8
       axios: 1.7.7
       date-fns: 2.30.0
@@ -5988,7 +5986,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@rollup/wasm-node@4.27.3':
+  '@rollup/wasm-node@4.27.4':
     dependencies:
       '@types/estree': 1.0.6
     optionalDependencies:
@@ -6504,7 +6502,10 @@ snapshots:
 
   '@vue/shared@3.5.12': {}
 
-  '@vue/tsconfig@0.5.1': {}
+  '@vue/tsconfig@0.6.0(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3))':
+    optionalDependencies:
+      typescript: 5.6.3
+      vue: 3.5.12(typescript@5.6.3)
 
   '@vueuse/core@11.0.3(vue@3.5.12(typescript@5.6.3))':
     dependencies:
@@ -9956,7 +9957,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
-      rollup: '@rollup/wasm-node@4.27.3'
+      rollup: '@rollup/wasm-node@4.27.4'
     optionalDependencies:
       '@types/node': 20.17.6
       fsevents: 2.3.3
