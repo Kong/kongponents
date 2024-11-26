@@ -78,6 +78,7 @@ const options = {
       id: '517526354743085',
       enabled: 'true',
       expandable: true,
+      expanded: true,
     },
     {
       name: 'Website Desktop',
@@ -560,7 +561,29 @@ describe('KTableView', () => {
       })
     })
 
-    it('emits row-expand event when row is expanded', () => {
+    it('renders a row expanded when rowExpanded prop returns true', () => {
+      cy.mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+          rowExpandable: () => true,
+          rowExpanded: (row: any) => row.expanded,
+        },
+        slots: {
+          'row-expanded': '<span data-testid="slotted-expandable-content">Expandable content</span>',
+        },
+      })
+
+      cy.getTestId('expandable-row-control').should('have.length', options.data.length).should('be.visible')
+      cy.getTestId('expandable-content-row').should('have.length', options.data.length)
+
+      cy.getTestId('expandable-content-row').findTestId('slotted-expandable-content').should('be.visible')
+      cy.getTestId('expandable-row-control').eq(0).click().then(() => {
+        cy.getTestId('expandable-content-row').eq(0).findTestId('slotted-expandable-content').should('not.be.visible')
+      })
+    })
+
+    it('emits update:row-expanded event when row is expanded and collapsed', () => {
       cy.mount(KTableView, {
         props: {
           headers: options.headers,
@@ -570,7 +593,11 @@ describe('KTableView', () => {
       })
 
       cy.getTestId('expandable-row-control').eq(0).click().then(() => {
-        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'row-expand').and('have.length', 1)
+        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'update:row-expanded').and('have.length', 1)
+
+        cy.getTestId('expandable-row-control').eq(0).click().then(() => {
+          cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'update:row-expanded').and('have.length', 2)
+        })
       })
     })
 
