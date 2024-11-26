@@ -129,12 +129,13 @@
           </template>
         </KTableView>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="rowExpandable">
+      <SandboxSectionComponent title="rowExpandable & rowExpanded">
         <KTableView
           :data="tableData"
           :headers="headers()"
           :pagination-attributes="{ totalCount: tableData.length }"
           :row-expandable="getRowExpandable"
+          :row-expanded="getRowExpanded"
         >
           <template #action-items>
             <SandboxTableViewActions />
@@ -627,6 +628,8 @@ const getRowBulkAction = (data: Record<string, any>): RowBulkAction => {
 }
 
 const getRowExpandable = (row: Record<string, any>): boolean => row.id % 2 === 0
+
+const getRowExpanded = (row: Record<string, any>): boolean => row.id % 4 === 0
 
 const getRowOneTwoLink = (row: Record<string, any>): RowLink => {
   if (row.id === 1) {

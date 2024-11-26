@@ -387,6 +387,7 @@ import type {
   PageSizeChangeData,
   TableViewProps,
   TableViewSelectState,
+  RowExpandPayload,
 } from '@/types'
 import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
@@ -422,12 +423,13 @@ const props = withDefaults(defineProps<TableViewProps>(), {
   hidePagination: false,
   paginationAttributes: () => ({}),
   rowExpandable: () => false,
+  rowExpanded: () => false,
   hideHeaders: false,
   nested: false,
   hidePaginationWhenOptional: false,
   hideToolbar: false,
   /**
-   * KTableData props defaults
+   * KTableView props defaults
    */
   data: () => ([]),
   headers: () => ([]),
@@ -445,7 +447,7 @@ const emit = defineEmits<{
   (e: 'get-next-offset'): void
   (e: 'get-previous-offset'): void
   (e: 'row-select', data: TableViewData): void
-  (e: 'row-expand', data: any): void
+  (e: 'update:row-expanded', data: RowExpandPayload): void
 }>()
 
 const attrs = useAttrs()
@@ -974,20 +976,35 @@ const emitTablePreferences = (): void => {
 }
 
 const hasExpandableRows = computed((): boolean => !props.nested && props.data.some((row: Record<string, any>) => props.rowExpandable(row)))
+const expandableRowHeader = { key: TableViewHeaderKeys.EXPANDABLE, label: 'Expandable rows controls', hideLabel: true }
+/**
+ * Get the expanded rows from the prop
+ */
+const getExpandedRows = (): number[] => {
+  const initialExpandedRows: number[] = []
+
+  props.data.forEach((row, index) => {
+    if (props.rowExpanded(row)) {
+      initialExpandedRows.push(index)
+    }
+  })
+
+  return initialExpandedRows
+}
+const expandedRows = ref<number[]>(getExpandedRows())
 /**
  * Toggle visibility of expendable row content
  */
-const expandableRowHeader = { key: TableViewHeaderKeys.EXPANDABLE, label: 'Expandable rows controls', hideLabel: true }
-const expandedRows = ref<number[]>([])
 const toggleRow = async (rowIndex: number, row: any): Promise<void> => {
   setActualColumnWidths()
   await nextTick()
 
   if (expandedRows.value.includes(rowIndex)) {
     expandedRows.value = expandedRows.value.filter((row) => row !== rowIndex)
+    emit('update:row-expanded', { row, expanded: false })
   } else {
     expandedRows.value = [...expandedRows.value, rowIndex]
-    emit('row-expand', row)
+    emit('update:row-expanded', { row, expanded: true })
   }
 }
 
@@ -1157,7 +1174,7 @@ watch([() => props.data, dataSelectState], (newVals) => {
     bulkActionsSelectedRows.value = [...oldSelectedRows, ...newSelectedRows]
   }
 
-  expandedRows.value = []
+  expandedRows.value = getExpandedRows()
 }, { deep: true, immediate: true })
 
 watch(bulkActionsSelectedRows, (newVal) => {
