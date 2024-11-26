@@ -756,7 +756,7 @@ Function for making a row expandable. The function receives row value object as 
 
 ### rowExpanded
 
-Use this prop to specify initial expanded / collapsed state for each data row. The function receives row value object as an argument and should return a boolean value. Default value is `() => false`. When returned value is `true`, a row is rendered expanded.
+Use this prop to specify the initial expanded / collapsed state for each data row. The function receives the row value object as an argument and should return a boolean value. Default value is `() => false`. When returned value is `true`, a row is rendered expanded.
 
 <KTableView
   :data="userTypeData"
