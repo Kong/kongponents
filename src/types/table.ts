@@ -204,6 +204,10 @@ interface TablePropsShared {
    */
   rowExpandable?: (row: Record<string, any>) => boolean
   /**
+   * A function that conditionally specifies whether a row is expanded or not
+   */
+  rowExpanded?: (row: Record<string, any>) => boolean
+  /**
    * Hide the table header
    */
   hideHeaders?: boolean
@@ -282,4 +286,9 @@ export enum TableViewHeaderKeys {
   EXPANDABLE = 'expandable',
   ACTIONS = 'actions',
   BULK_ACTIONS = 'bulkActions',
+}
+
+export interface RowExpandPayload {
+  row: Record<string, any>
+  state: boolean
 }
