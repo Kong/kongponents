@@ -18,24 +18,52 @@
       <SandboxSectionComponent title="appearance">
         <KAlert
           appearance="info"
-          message="This is info alert."
           title="Info"
-        />
+        >
+          This is info alert.
+          <a
+            href="https://kongponents.konghq.com/components/alert.html"
+            target="_blank"
+          >
+            Link
+          </a>
+        </KAlert>
         <KAlert
           appearance="success"
-          message="This is success alert."
           title="Success"
-        />
+        >
+          This is success alert.
+          <a
+            href="https://kongponents.konghq.com/components/alert.html"
+            target="_blank"
+          >
+            Link
+          </a>
+        </KAlert>
         <KAlert
           appearance="warning"
-          message="This is warning alert."
           title="Warning"
-        />
+        >
+          This is warning alert.
+          <a
+            href="https://kongponents.konghq.com/components/alert.html"
+            target="_blank"
+          >
+            Link
+          </a>
+        </KAlert>
         <KAlert
           appearance="danger"
-          message="This is danger alert."
           title="Danger"
-        />
+        >
+          This is danger alert.
+          <a
+            href="https://kongponents.konghq.com/components/alert.html"
+            target="_blank"
+          >
+            Link
+          </a>
+        </KAlert>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="showIcon">
         <KAlert

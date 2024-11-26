@@ -105,14 +105,26 @@ const getAlertIcon = computed((): AlertIcon => {
 @mixin kAlertAppearance(
   $backgroundColor: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest),
   $textColor: var(--kui-color-text-primary, $kui-color-text-primary),
-  $dismissIconHoverColor: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong)) {
+  $hoverColor: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong)) {
   background-color: $backgroundColor;
   color: $textColor;
 
   .alert-dismiss-icon {
     &:hover,
     &:focus {
-      color: $dismissIconHoverColor !important;
+      color: $hoverColor !important;
+    }
+  }
+
+  .alert-content {
+    .alert-message {
+      :slotted(a) {
+        color: $textColor;
+
+        &:hover {
+          color: $hoverColor;
+        }
+      }
     }
   }
 }
