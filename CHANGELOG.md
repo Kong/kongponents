@@ -1,3 +1,11 @@
+## [9.14.17](https://github.com/Kong/kongponents/compare/v9.14.16...v9.14.17) (2024-11-26)
+
+
+### Bug Fixes
+
+* **kalert:** slotted links default styling [KHCP-14152] ([#2528](https://github.com/Kong/kongponents/issues/2528)) ([631a287](https://github.com/Kong/kongponents/commit/631a287f2b49967cfa62cd3fc4e6097773bd9249))
+* **ktableview:** row-expanded prop and event [KHCP-14243] ([#2527](https://github.com/Kong/kongponents/issues/2527)) ([eb92309](https://github.com/Kong/kongponents/commit/eb923099bddd3e5ec51c113cba60579c45ecde7c))
+
 ## [9.14.16](https://github.com/Kong/kongponents/compare/v9.14.15...v9.14.16) (2024-11-21)
 
 
