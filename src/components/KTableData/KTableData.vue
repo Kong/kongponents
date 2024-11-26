@@ -27,6 +27,7 @@
     :row-attrs="rowAttrs"
     :row-bulk-action-enabled="rowBulkActionEnabled"
     :row-expandable="rowExpandable"
+    :row-expanded="rowExpanded"
     :row-hover="rowHover"
     :row-key="rowKey"
     :row-link="rowLink"
@@ -37,9 +38,9 @@
     @get-previous-offset="getPreviousOffsetHandler"
     @page-change="pageChangeHandler"
     @page-size-change="pageSizeChangeHandler"
-    @row-expand="($event: Record<string, any>) => emit('row-expand', $event)"
     @row-select="($event: Record<string, any>[]) => emit('row-select', $event)"
     @sort="sortHandler"
+    @update:row-expanded="($event: RowExpandPayload) => emit('update:row-expanded', $event)"
     @update:table-preferences="tablePreferencesUpdateHandler"
   >
     <template
@@ -174,6 +175,7 @@ import type {
   SwrvState,
   SwrvStateData,
   TableDataProps,
+  RowExpandPayload,
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
 import useUniqueId from '@/composables/useUniqueId'
@@ -201,6 +203,7 @@ const props = withDefaults(defineProps<TableDataProps>(), {
   hidePagination: false,
   paginationAttributes: () => ({}),
   rowExpandable: () => false,
+  rowExpanded: () => false,
   hideHeaders: false,
   nested: false,
   hidePaginationWhenOptional: false,
@@ -230,7 +233,7 @@ const emit = defineEmits<{
   (e: 'sort', value: TableSortPayload): void
   (e: 'state', value: TableStatePayload): void
   (e: 'row-select', data: Record<string, any>[]): void
-  (e: 'row-expand', data: any): void
+  (e: 'update:row-expanded', data: RowExpandPayload): void
 }>()
 
 const tableId = useUniqueId()
