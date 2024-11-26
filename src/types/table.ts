@@ -290,5 +290,5 @@ export enum TableViewHeaderKeys {
 
 export interface RowExpandPayload {
   row: Record<string, any>
-  state: boolean
+  expanded: boolean
 }

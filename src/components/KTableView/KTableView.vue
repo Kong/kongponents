@@ -1001,10 +1001,10 @@ const toggleRow = async (rowIndex: number, row: any): Promise<void> => {
 
   if (expandedRows.value.includes(rowIndex)) {
     expandedRows.value = expandedRows.value.filter((row) => row !== rowIndex)
-    emit('update:row-expanded', { row, state: false })
+    emit('update:row-expanded', { row, expanded: false })
   } else {
     expandedRows.value = [...expandedRows.value, rowIndex]
-    emit('update:row-expanded', { row, state: true })
+    emit('update:row-expanded', { row, expanded: true })
   }
 }
 
