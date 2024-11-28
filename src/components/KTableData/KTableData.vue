@@ -303,15 +303,7 @@ const getCellSlots = computed((): string[] => {
 
 const isInitialFetch = ref<boolean>(true)
 const fetchData = async () => {
-  // @ts-ignore - fetcher is required and will always be defined
-  const res = await props.fetcher({
-    pageSize: pageSize.value,
-    page: page.value,
-    query: props.searchInput || filterQuery.value,
-    sortColumnKey: sortColumnKey.value,
-    sortColumnOrder: sortColumnOrder.value,
-    offset: offset.value,
-  })
+  const res = await props.fetcher(fetcherParams.value)
   tableData.value = res.data as Record<string, any>[]
   total.value = props.paginationAttributes?.totalCount || res.total || res.data?.length || 0
 
@@ -377,6 +369,15 @@ const initData = () => {
 const previousOffset = computed((): string | null => offsets.value[page.value - 1])
 const nextOffset = ref<string | null>(null)
 
+const fetcherParams = computed(() => ({
+  pageSize: pageSize.value,
+  page: page.value,
+  query: props.searchInput || filterQuery.value,
+  sortColumnKey: sortColumnKey.value,
+  sortColumnOrder: sortColumnOrder.value,
+  offset: offset.value,
+}))
+
 // once initData() finishes, setting tableFetcherCacheKey to non-falsey value triggers fetch of data
 const tableFetcherCacheKey = computed((): string => {
   if (!props.fetcher || !hasInitialized.value) {
@@ -388,6 +389,8 @@ const tableFetcherCacheKey = computed((): string => {
   if (props.cacheIdentifier) {
     identifierKey = props.cacheIdentifier
   }
+
+  identifierKey += `-${JSON.stringify(fetcherParams.value)}`
 
   if (props.fetcherCacheKey) {
     identifierKey += `-${props.fetcherCacheKey}`
