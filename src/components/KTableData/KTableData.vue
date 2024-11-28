@@ -301,6 +301,15 @@ const getCellSlots = computed((): string[] => {
   return Object.keys(slots).filter((slot) => tableHeaders.value.some((header) => header.key === slot))
 })
 
+const fetcherParams = computed(() => ({
+  pageSize: pageSize.value,
+  page: page.value,
+  query: props.searchInput || filterQuery.value,
+  sortColumnKey: sortColumnKey.value,
+  sortColumnOrder: sortColumnOrder.value,
+  offset: offset.value,
+}))
+
 const isInitialFetch = ref<boolean>(true)
 const fetchData = async () => {
   const res = await props.fetcher(fetcherParams.value)
@@ -368,15 +377,6 @@ const initData = () => {
 
 const previousOffset = computed((): string | null => offsets.value[page.value - 1])
 const nextOffset = ref<string | null>(null)
-
-const fetcherParams = computed(() => ({
-  pageSize: pageSize.value,
-  page: page.value,
-  query: props.searchInput || filterQuery.value,
-  sortColumnKey: sortColumnKey.value,
-  sortColumnOrder: sortColumnOrder.value,
-  offset: offset.value,
-}))
 
 // once initData() finishes, setting tableFetcherCacheKey to non-falsey value triggers fetch of data
 const tableFetcherCacheKey = computed((): string => {
