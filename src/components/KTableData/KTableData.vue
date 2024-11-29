@@ -554,6 +554,8 @@ watch([stateData, tableState], (newState) => {
     state: newTableState,
     hasData: newStateData.hasData,
   })
+
+  console.log(state, tableFetcherCacheKey.value)
 })
 
 // handles debounce of search query
