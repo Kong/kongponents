@@ -2,7 +2,7 @@
   <div class="k-tabs">
     <ul
       aria-label="Tabs"
-      role="tablist"
+      :role="isNav ? 'navigation' : 'tablist'"
     >
       <li
         v-for="tab in tabs"
@@ -17,13 +17,16 @@
           :aria-selected="hidePanels ? undefined : (activeTab === tab.hash ? 'true' : 'false')"
           class="tab-link"
           :class="{ disabled: tab.disabled }"
-          role="tab"
-          :tabindex="!tab.disabled ? 0 : -1"
+          :role="isNav ? 'link' : 'tab'"
+          :tabindex="getAnchorTabindex(tab)"
           v-bind="tabComponent(tab).attributes"
           @click="!tab.disabled ? handleTabChange(tab.hash) : undefined"
+          @click.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
+          @keydown.enter.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
+          @keydown.space.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
         >
           <slot :name="`${getTabSlotName(tab.hash)}-anchor`">
-            {{ tab.title }}
+            <span>{{ tab.title }}</span>
           </slot>
         </component>
       </li>
@@ -49,7 +52,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import type { Tab } from '@/types'
 
 const props = defineProps({
@@ -75,6 +78,14 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  /**
+   * @deprecated
+   */
+  anchorTabindex: {
+    type: Number,
+    default: 0,
+    validator: (val: number): boolean => val >= -1 && val <= 32767,
+  },
 })
 
 const emit = defineEmits<{
@@ -84,6 +95,8 @@ const emit = defineEmits<{
 
 const activeTab = ref<string>(props.modelValue ? props.modelValue : props.tabs[0]?.hash)
 
+const isNav = computed((): boolean => props.tabs.every(tab => tab.to))
+
 const handleTabChange = (tab: string): void => {
   activeTab.value = tab
   emit('change', tab)
@@ -91,6 +104,14 @@ const handleTabChange = (tab: string): void => {
 }
 
 const getTabSlotName = (tabHash: string): string => tabHash.replace('#', '')
+
+const getAnchorTabindex = (tab: Tab): string => {
+  if (tab.disabled) {
+    return '-1'
+  }
+
+  return typeof props.anchorTabindex === 'number' && props.anchorTabindex >= -1 && props.anchorTabindex <= 32767 ? String(props.anchorTabindex) : '0'
+}
 
 const tabComponent = (tab: Tab) => {
   if (tab.to) {
@@ -101,7 +122,7 @@ const tabComponent = (tab: Tab) => {
     }
   }
 
-  return { tag: 'button', attributes: { ...(tab.disabled && { disabled: true }) } }
+  return { tag: 'div', attributes: {} }
 }
 
 watch(() => props.modelValue, (newTabHash) => {
@@ -160,7 +181,7 @@ watch(() => props.modelValue, (newTabHash) => {
         transition: color $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
         user-select: none;
 
-        &:hover:not(:disabled):not(.disabled) {
+        &:hover:not(.disabled) {
           background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
         }
 
@@ -168,7 +189,6 @@ watch(() => props.modelValue, (newTabHash) => {
           @include kTabsFocus;
         }
 
-        &:disabled,
         &.disabled {
           color: var(--kui-color-text-disabled, $kui-color-text-disabled);
           cursor: not-allowed;
