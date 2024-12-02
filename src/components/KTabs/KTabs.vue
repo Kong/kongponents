@@ -2,7 +2,7 @@
   <div class="k-tabs">
     <ul
       aria-label="Tabs"
-      :role="isNav ? 'navigation' : 'tablist'"
+      role="tablist"
     >
       <li
         v-for="tab in tabs"
@@ -17,7 +17,7 @@
           :aria-selected="hidePanels ? undefined : (activeTab === tab.hash ? 'true' : 'false')"
           class="tab-link"
           :class="{ disabled: tab.disabled }"
-          :role="isNav ? 'link' : 'tab'"
+          role="tab"
           :tabindex="getAnchorTabindex(tab)"
           v-bind="tabComponent(tab).attributes"
           @click="!tab.disabled ? handleTabChange(tab.hash) : undefined"
@@ -94,8 +94,6 @@ const emit = defineEmits<{
 }>()
 
 const activeTab = ref<string>(props.modelValue ? props.modelValue : props.tabs[0]?.hash)
-
-const isNav = computed((): boolean => props.tabs.every(tab => tab.to))
 
 const handleTabChange = (tab: string): void => {
   activeTab.value = tab
