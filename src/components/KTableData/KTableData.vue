@@ -304,7 +304,7 @@ const getCellSlots = computed((): string[] => {
 const fetcherParams = computed(() => ({
   pageSize: pageSize.value,
   page: page.value,
-  query: props.searchInput || filterQuery.value,
+  query: filterQuery.value,
   sortColumnKey: sortColumnKey.value,
   sortColumnOrder: sortColumnOrder.value,
   offset: offset.value,
@@ -399,9 +399,8 @@ const tableFetcherCacheKey = computed((): string => {
   return `k-table_${identifierKey}`
 })
 
-const query = ref('')
 const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => {
-  query.value = q
+  filterQuery.value = q
 }, 350)
 const search = generateDebouncedSearch(0) // generate a debounced function with zero delay (immediate)
 
@@ -420,8 +419,7 @@ const stateData = computed((): SwrvStateData => ({
   state: state.value as SwrvState,
 }))
 const tableState = computed((): TableState => isTableLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
-const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
-const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)
+const { debouncedFn: debouncedRevalidate } = useDebounce(_revalidate, 500)
 
 const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortOrder }: TableSortPayload): void => {
   const header: TableDataHeader = tableHeaders.value.find((header) => header.key === columnKey)!
@@ -550,10 +548,6 @@ watch([stateData, tableState], (newState) => {
 
 // handles debounce of search query
 watch(() => props.searchInput, (newSearchInput: string) => {
-  if (page.value !== 1) {
-    page.value = 1
-  }
-
   if (newSearchInput === '') {
     search(newSearchInput)
   } else {
@@ -561,11 +555,11 @@ watch(() => props.searchInput, (newSearchInput: string) => {
   }
 }, { immediate: true })
 
-watch([query, page, pageSize], async (newData, oldData) => {
+watch([filterQuery, pageSize], async (newData, oldData) => {
   const [oldQuery] = oldData
-  const [newQuery, newPage] = newData
+  const [newQuery] = newData
 
-  if (newQuery !== oldQuery && newPage !== 1) {
+  if (newQuery !== oldQuery && page.value !== 1) {
     page.value = 1
     offsets.value = [null]
     offset.value = null

@@ -810,14 +810,17 @@ describe('KTableData', () => {
         .then(() => cy.wrap(Cypress.vueWrapper.setProps({ searchInput: 'some-keyword' })))
 
       // fetcher call should be delayed (> 350ms for search func + 500ms for revalidate func)
+      cy.get('@fetcher', { timeout: 200 })
+        .should('have.callCount', 1)
       cy.get('@fetcher', { timeout: 1000 }) // fetcher's 2nd call
         .should('have.callCount', 2) // fetcher should be called once
         .should('returned', { data: [{ query: 'some-keyword' }] })
         .then(() => cy.wrap(Cypress.vueWrapper.setProps({ searchInput: '' })))
 
       // fetcher should not be called as this state is already cached
-      cy.get('@fetcher', { timeout: 1000 })
-        .should('have.callCount', 2) // fetcher's 3rd call
+      cy.get('@fetcher', { timeout: 200 })
+        .should('have.callCount', 3) // fetcher's 3rd call
+        .should('returned', { data: [{ query: '' }] })
     })
   })
 })
