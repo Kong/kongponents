@@ -1,3 +1,10 @@
+## [9.14.18](https://github.com/Kong/kongponents/compare/v9.14.17...v9.14.18) (2024-12-03)
+
+
+### Bug Fixes
+
+* **ktabs:** allow tab anchors to be links [KHCP-13866] ([#2532](https://github.com/Kong/kongponents/issues/2532)) ([cdf5caa](https://github.com/Kong/kongponents/commit/cdf5caad086047d1f0023820769e3fb54d95f0f5))
+
 ## [9.14.17](https://github.com/Kong/kongponents/compare/v9.14.16...v9.14.17) (2024-11-26)
 
 
