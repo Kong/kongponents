@@ -1,3 +1,10 @@
+## [9.14.19](https://github.com/Kong/kongponents/compare/v9.14.18...v9.14.19) (2024-12-03)
+
+
+### Bug Fixes
+
+* **ktableview:** align nested table with parent [KHCP-14265] ([#2533](https://github.com/Kong/kongponents/issues/2533)) ([21ed3ec](https://github.com/Kong/kongponents/commit/21ed3ec232205d3c8f177104748d3b25fb04c017))
+
 ## [9.14.18](https://github.com/Kong/kongponents/compare/v9.14.17...v9.14.18) (2024-12-03)
 
 
