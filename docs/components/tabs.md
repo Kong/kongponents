@@ -81,6 +81,45 @@ interface Tab {
 </KTabs>
 ```
 
+#### Tabs as links
+
+Passing the `to` property for each tab object enables rendering tabs as links. If a string is provided, it will be used as the `href` attribute in the rendered `a` element. If an object is provided, the tab will be rendered as a `router-link`.
+
+:::tip TIP
+When creating tab links, it is recommended to set the [`hidePanels` prop](#hidepanels) to `true`, as page changes typically do not involve the use of [`panel` slots](#slots).
+:::
+
+<KTabs :tabs="linkTabs" hide-panels v-model="linkTabValue" />
+
+{{ linkTabValue }}
+
+```vue
+<template>
+  <KTabs :tabs="linkTabs" hide-panels />
+
+  <router-view v-slot="{ route }">
+    {{ route.hash }}
+  </router-view>
+</template>
+
+<script setup lang="ts">
+import { Tab } from '@kong/kongponents'
+
+const linkTabs = ref<Tab[]>([
+  {
+    hash: '#tab1',
+    title: 'Tab 1',
+    to: '#tab-link-1'
+  },
+  {
+    hash: '#tab2',
+    title: 'Tab 2',
+    to: '#tab-link-2'
+  },
+])
+</script>
+```
+
 ### v-model
 
 KTabs will set the first tab in the `tabs` array as active. You can override this by passing in the hash of any other tab to be used with `v-model`.
@@ -264,43 +303,6 @@ import type { Tab } from '@kong/kongponents'
 const tabs = ref<Tab[]>([
   { hash: '#tab1', title: 'Tab 1' },
   { hash: '#tab2', title: 'Tab 2' },
-])
-</script>
-```
-
-## Usage
-
-### Tab links
-
-Passing `to` property for each tab object allows to render tabs as links. If a string is passed, it will be used in `href` attribute in the rendered `a` element. If an object is passed, the tab will be rendered as a `router-link`.
-
-<KTabs :tabs="linkTabs" hide-panels v-model="linkTabValue" />
-
-{{ linkTabValue }}
-
-```vue
-<template>
-  <KTabs :tabs="linkTabs" hide-panels />
-
-  <router-view v-slot="{ route }">
-    {{ route.hash }}
-  </router-view>
-</template>
-
-<script setup lang="ts">
-import { Tab } from '@kong/kongponents'
-
-const linkTabs = ref<Tab[]>([
-  {
-    hash: '#tab1',
-    title: 'Tab 1',
-    to: '#tab-link-1'
-  },
-  {
-    hash: '#tab2',
-    title: 'Tab 2',
-    to: '#tab-link-2'
-  },
 ])
 </script>
 ```

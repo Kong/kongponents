@@ -52,7 +52,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import type { Tab } from '@/types'
 
 const props = defineProps({
