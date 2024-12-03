@@ -334,19 +334,20 @@
                     );
                   }
 
-                  &.hide-headers {
-                    th,
-                    td {
-                      &:first-child {
-                        padding-left: calc(var(--kui-space-60, $kui-space-60) * 3 + $tableCaretIconSize);
+                  th,
+                  td {
+                    &:first-child {
+                      // align first column of the nested table with the first column of the parent table
+                      padding-left: calc(var(--kui-space-60, $kui-space-60) * 3 + $tableCaretIconSize);
 
-                        &.row-link {
-                          .cell-wrapper {
-                            padding-left: var(--kui-space-0, $kui-space-0);
-                          }
+                      &.row-link {
+                        .cell-wrapper {
+                          padding-left: var(--kui-space-0, $kui-space-0);
                         }
                       }
+                    }
 
+                    &.hide-headers {
                       &:last-child {
                         // reduce padding-right to account for scrollbar
                         padding-right: var(--kui-space-20, $kui-space-20);
