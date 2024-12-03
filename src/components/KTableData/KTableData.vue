@@ -19,7 +19,7 @@
     :hide-pagination="hidePagination || !showPagination"
     :hide-pagination-when-optional="false"
     :hide-toolbar="hideToolbar"
-    :loading="loading || isTableLoading || isRevalidating"
+    :loading="loading || isTableLoading"
     :max-height="maxHeight"
     :nested="nested"
     :pagination-attributes="tablePaginationAttributes"
@@ -534,17 +534,7 @@ watch(fetcherData, (fetchedData: Record<string, any>[]) => {
 // we want to tie loader to 'pending' since 'validating' is triggered even when pulling from cache, which should result in no loader
 // however, if this is a manual revalidation (triggered by page change, query, etc), display loader when validating
 watch(state, () => {
-  switch (state.value) {
-    case swrvState.PENDING:
-      isTableLoading.value = true
-      break
-    case swrvState.VALIDATING_HAS_DATA:
-      isTableLoading.value = isRevalidating.value
-      break
-    default:
-      isTableLoading.value = false
-      break
-  }
+  isTableLoading.value = state.value === swrvState.PENDING
 }, { immediate: true })
 
 watch([stateData, tableState], (newState) => {
@@ -571,7 +561,6 @@ watch(() => props.searchInput, (newSearchInput: string) => {
   }
 }, { immediate: true })
 
-const isRevalidating = ref<boolean>(false)
 watch([query, page, pageSize], async (newData, oldData) => {
   const [oldQuery] = oldData
   const [newQuery, newPage] = newData
@@ -580,20 +569,6 @@ watch([query, page, pageSize], async (newData, oldData) => {
     page.value = 1
     offsets.value = [null]
     offset.value = null
-  }
-
-  // don't revalidate until we have finished initializing and made initial fetch
-  if (hasInitialized.value && !isInitialFetch.value) {
-    isRevalidating.value = true
-
-    if (newQuery !== '' && newQuery !== oldQuery) {
-      // handles debounce of search request
-      await debouncedRevalidate()
-    } else {
-      await revalidate()
-    }
-
-    isRevalidating.value = false
   }
 }, { deep: true, immediate: true })
 

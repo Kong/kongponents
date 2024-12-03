@@ -709,13 +709,12 @@ describe('KTableData', () => {
       cy.get('.table tbody').find('tr').should('have.length', 2)
       cy.get('.table tbody').should('contain.text', 'row10')
       cy.get('@fetcher')
-        // TODO: Investigate why fetcher is called twice here
-        .should('have.callCount', 4)
+        .should('have.callCount', 3)
         .its('lastCall')
         .should('have.been.calledWith', { pageSize: 10, page: 2, offset: '10', query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
         .then(() => cy.wrap(Cypress.vueWrapper.setProps({ fetcherCacheKey: '2' }))) // manually trigger refetch
         .get('@fetcher')
-        .should('have.callCount', 5)
+        .should('have.callCount', 4)
         .its('lastCall')
         .should('have.been.calledWith', { pageSize: 10, page: 2, offset: '10', query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
     })
@@ -768,13 +767,12 @@ describe('KTableData', () => {
       cy.get('.table tbody').find('tr').should('have.length', 2)
       cy.get('.table tbody').should('contain.text', 'row10')
       cy.get('@fetcher')
-        // TODO: Investigate why fetcher is called twice here
-        .should('have.callCount', 4)
+        .should('have.callCount', 3)
         .its('lastCall')
         .should('have.been.calledWith', { pageSize: 10, page: 2, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
         .then(() => cy.wrap(Cypress.vueWrapper.setProps({ fetcherCacheKey: '2' }))) // manually trigger refetch
         .get('@fetcher')
-        .should('have.callCount', 5)
+        .should('have.callCount', 4)
         .its('lastCall')
         .should('have.been.calledWith', { pageSize: 10, page: 2, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
     })
