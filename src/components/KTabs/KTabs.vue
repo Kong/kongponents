@@ -11,13 +11,16 @@
         class="tab-item"
         :class="{ active: activeTab === tab.hash }"
       >
-        <div
+        <component
+          :is="tabComponent(tab).tag"
           :aria-controls="hidePanels ? undefined : `panel-${tab.hash}`"
           :aria-selected="hidePanels ? undefined : (activeTab === tab.hash ? 'true' : 'false')"
           class="tab-link"
-          :class="{ 'has-panels': !hidePanels, disabled: tab.disabled }"
+          :class="{ disabled: tab.disabled }"
           role="tab"
           :tabindex="getAnchorTabindex(tab)"
+          v-bind="tabComponent(tab).attributes"
+          @click="!tab.disabled ? handleTabChange(tab.hash) : undefined"
           @click.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
           @keydown.enter.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
           @keydown.space.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
@@ -25,7 +28,7 @@
           <slot :name="`${getTabSlotName(tab.hash)}-anchor`">
             <span>{{ tab.title }}</span>
           </slot>
-        </div>
+        </component>
       </li>
     </ul>
 
@@ -75,6 +78,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  /**
+   * @deprecated
+   */
   anchorTabindex: {
     type: Number,
     default: 0,
@@ -105,6 +111,18 @@ const getAnchorTabindex = (tab: Tab): string => {
   return typeof props.anchorTabindex === 'number' && props.anchorTabindex >= -1 && props.anchorTabindex <= 32767 ? String(props.anchorTabindex) : '0'
 }
 
+const tabComponent = (tab: Tab) => {
+  if (tab.to) {
+    if (typeof tab.to === 'string') {
+      return { tag: 'a', attributes: { href: tab.disabled ? undefined : tab.to } }
+    } else if (typeof tab.to === 'object') {
+      return { tag: 'router-link', attributes: { to: tab.disabled ? undefined : tab.to } }
+    }
+  }
+
+  return { tag: 'div', attributes: {} }
+}
+
 watch(() => props.modelValue, (newTabHash) => {
   activeTab.value = newTabHash
   emit('change', newTabHash)
@@ -125,11 +143,7 @@ watch(() => props.modelValue, (newTabHash) => {
   ul {
     border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     display: flex;
-    font-family: var(--kui-font-family-text, $kui-font-family-text);
-    font-size: var(--kui-font-size-30, $kui-font-size-30);
-    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
     gap: var(--kui-space-40, $kui-space-40);
-    line-height: var(--kui-line-height-40, $kui-line-height-40);
     list-style: none;
     margin-bottom: var(--kui-space-70, $kui-space-70);
     margin-top: var(--kui-space-0, $kui-space-0);
@@ -148,29 +162,22 @@ watch(() => props.modelValue, (newTabHash) => {
       white-space: nowrap;
 
       .tab-link {
+        @include defaultButtonReset;
+        align-items: center;
+
         border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
         color: var(--kui-color-text-neutral, $kui-color-text-neutral);
         cursor: pointer;
         display: inline-flex;
+        font-family: var(--kui-font-family-text, $kui-font-family-text);
+        font-size: var(--kui-font-size-30, $kui-font-size-30);
+        font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
         gap: var(--kui-space-40, $kui-space-40);
+        line-height: var(--kui-line-height-40, $kui-line-height-40);
+        padding: var(--kui-space-30, $kui-space-30) var(--kui-space-50, $kui-space-50);
         text-decoration: none;
         transition: color $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
         user-select: none;
-
-        // Applies the padding to the tab’s content when not showing panels which is typically used for placing links inside KTabs for navigational tabs. Otherwise, clicking the tab outside of the link’s box will mark it as active but won’t actually navigate.
-        &.has-panels,
-        &:not(.has-panels) :deep(> *) {
-          padding: var(--kui-space-30, $kui-space-30) var(--kui-space-50, $kui-space-50);
-        }
-
-        a, :deep(a) {
-          color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-          text-decoration: none;
-
-          &:focus-visible {
-            @include kTabsFocus;
-          }
-        }
 
         &:hover:not(.disabled) {
           background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
@@ -183,6 +190,15 @@ watch(() => props.modelValue, (newTabHash) => {
         &.disabled {
           color: var(--kui-color-text-disabled, $kui-color-text-disabled);
           cursor: not-allowed;
+        }
+
+        :slotted(a) {
+          color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+          text-decoration: none;
+
+          &:focus-visible {
+            @include kTabsFocus;
+          }
         }
       }
 

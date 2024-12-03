@@ -30,11 +30,17 @@ Required prop, which is an array of tab objects with the following interface:
 
 ```ts
 interface Tab {
-  hash: string // has to be unique, corresponds to the panel slot name
+  hash: string
   title: string
-  disabled?: boolean
+  disabled?: boolean,
+  to?: string | object
 }
 ```
+
+* `hash` - has to be unique, corresponds to the panel slot name
+* `title` - title to be displayed in the tab
+* `disabled` - whether or not tab is disabled
+* `to` - if present, tab will be rendered as either a `router-link` or an `a`
 
 <KTabs :tabs="tabsWithDisabled">
   <template #tab1>
@@ -73,6 +79,45 @@ interface Tab {
     <p>Tab 3 content</p>
   </template>
 </KTabs>
+```
+
+#### Tabs as links
+
+Passing the `to` property for each tab object enables rendering tabs as links. If a string is provided, it will be used as the `href` attribute in the rendered `a` element. If an object is provided, the tab will be rendered as a `router-link`.
+
+:::tip TIP
+When creating tab links, it is recommended to set the [`hidePanels` prop](#hidepanels) to `true`, as page changes typically do not involve the use of [`panel` slots](#slots).
+:::
+
+<KTabs :tabs="linkTabs" hide-panels v-model="linkTabValue" />
+
+{{ linkTabValue }}
+
+```vue
+<template>
+  <KTabs :tabs="linkTabs" hide-panels />
+
+  <router-view v-slot="{ route }">
+    {{ route.hash }}
+  </router-view>
+</template>
+
+<script setup lang="ts">
+import { Tab } from '@kong/kongponents'
+
+const linkTabs = ref<Tab[]>([
+  {
+    hash: '#tab1',
+    title: 'Tab 1',
+    to: '#tab-link-1'
+  },
+  {
+    hash: '#tab2',
+    title: 'Tab 2',
+    to: '#tab-link-2'
+  },
+])
+</script>
 ```
 
 ### v-model
@@ -174,41 +219,6 @@ const tabChange = (hash: string): void => {
   currentTab.value = hash
 }
 </script>
-```
-
-### anchorTabindex
-
-This prop allows setting a custom `tabindex` for the tab anchor element. It’s useful when passing a custom interactive element, like a link, through the [`anchor` slot](#anchor-panel), ensuring that only the slotted element is focusable by resetting the default anchor `tabindex`. Default value is `0`.
-
-#### Dynamic RouterView
-
-Here's an example (code only) of utilizing a dynamic `router-view` component within the host app:
-
-```html
-<KTabs
-  hide-panels
-  :tabs="tabs"
->
-  <template
-    v-for="tab in tabs"
-    :key="`${tab.hash}-anchor`"
-    #[`${tab.hash}-anchor`]
-  >
-    <router-link
-      :to="{
-        name: tab.hash.split('?').shift(),
-        hash: `#${tab.hash.split('?').pop()}`,
-      }"
-    >
-      {{ tab.title }}
-    </router-link>
-  </template>
-</KTabs>
-
-<router-view v-slot="{ route }">
-  <h3>Router View content</h3>
-  <p>{{ route.path }}{{ route.hash }}</p>
-</router-view>
 ```
 
 ## Slots
@@ -320,6 +330,20 @@ const slottedTabs = ref<Tab[]>([
   { hash: '#notifications', title: 'Notifications' },
   { hash: '#docs', title: 'Documentation' },
   { hash: '#disabled', title: 'Disabled', disabled: true }
+])
+
+const linkTabValue = ref<string>('#tab-link-1')
+const linkTabs = ref<Tab[]>([
+  {
+    hash: '#tab-link-1',
+    title: 'Tab 1',
+    to: '#tab-link-1',
+  },
+  {
+    hash: '#tab-link-2',
+    title: 'Tab 2',
+    to: '#tab-link-2',
+  },
 ])
 
 const panelsActiveHash = ref('#gateway')

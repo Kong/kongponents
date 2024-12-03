@@ -42,7 +42,7 @@ describe('KTabs', () => {
     })
   })
 
-  it('hides the panel content when `hidePanels` is true', () => {
+  it('hides the panel content when hidePanels is true', () => {
     const picturesSlot = 'I love pictures'
     const moviesSlot = 'I love pictures'
     const booksSlot = 'I love pictures'
@@ -75,7 +75,7 @@ describe('KTabs', () => {
 
   // handles disabled item correctly
 
-  it('disables the tab item when `disabled` is true', () => {
+  it('disables the tab item when disabled is true', () => {
     const tabs = [
       { hash: '#pictures', title: 'Pictures' },
       { hash: '#movies', title: 'Movies', disabled: true },
@@ -92,6 +92,38 @@ describe('KTabs', () => {
     cy.get('.tab-item').eq(1).click().then(() => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('not.have.property', 'change')
     })
+  })
+
+  it('renders the tab as a link if tab.to is present', () => {
+    const tabs = [
+      { hash: '#pictures', title: 'Pictures' },
+      { hash: '#movies', title: 'Movies', to: '/movies' },
+      { hash: '#books', title: 'Books' },
+    ]
+
+    cy.mount(KTabs, {
+      props: {
+        tabs,
+      },
+    })
+
+    cy.get('.tab-item .tab-link').eq(1).should('have.attr', 'href', '/movies')
+  })
+
+  it('renders the tab as a link with no href attribute if tab.to is present and tab.disabled is true', () => {
+    const tabs = [
+      { hash: '#pictures', title: 'Pictures' },
+      { hash: '#movies', title: 'Movies', to: '/movies', disabled: true },
+      { hash: '#books', title: 'Books' },
+    ]
+
+    cy.mount(KTabs, {
+      props: {
+        tabs,
+      },
+    })
+
+    cy.get('.tab-item .tab-link').eq(1).should('not.have.attr', 'href')
   })
 
   describe('slots', () => {

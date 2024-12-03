@@ -111,25 +111,11 @@
       />
       <SandboxSectionComponent title="Dynamic router view without panels">
         <KTabs
-          :anchor-tabindex="-1"
           hide-panels
           :tabs="dynamicRouterViewItems"
           @change="(hash: string) => $router.replace({ hash })"
-        >
-          <template #one-anchor>
-            <router-link :to="{ hash: '#one' }">
-              One
-            </router-link>
-          </template>
-          <template #two-anchor>
-            <router-link :to="{ hash: '#two' }">
-              Two
-            </router-link>
-          </template>
-        </KTabs>
-        <router-view
-          v-slot="{route}"
-        >
+        />
+        <router-view v-slot="{ route }">
           <p>{{ route.path }}{{ route.hash }}</p>
         </router-view>
       </SandboxSectionComponent>
@@ -174,10 +160,12 @@ const dynamicRouterViewItems = [
   {
     title: 'One',
     hash: '#one',
+    to: { hash: '#one' },
   },
   {
     title: 'Two',
     hash: '#two',
+    to: { hash: '#two' },
   },
 ]
 </script>
