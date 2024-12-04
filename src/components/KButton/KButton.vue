@@ -12,7 +12,7 @@
     <!-- @deprecated -->
     <!-- KButton: `icon` slot will be removed in the next major release -->
     <slot name="icon" />
-    <slot />
+    <slot mdc-unwrap="p" />
   </component>
 </template>
 

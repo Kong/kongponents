@@ -16,6 +16,7 @@
       >
         <slot
           :expand="handleToggleClick"
+          mdc-unwrap="p"
           name="expand-trigger"
           :truncated-count="truncatedCount"
         >
@@ -34,13 +35,17 @@
       ref="kTruncateContainer"
       class="truncate-container"
     >
-      <slot name="default" />
+      <slot
+        mdc-unwrap="p"
+        name="default"
+      />
       <div
         v-if="!truncateText && expanded"
         data-testid="collapse-trigger-wrapper"
       >
         <slot
           :collapse="handleToggleClick"
+          mdc-unwrap="p"
           name="collapse-trigger"
         >
           <button
@@ -68,6 +73,7 @@
       >
         <slot
           :expand="handleToggleClick"
+          mdc-unwrap="p"
           name="expand-trigger"
         >
           <KButton
@@ -82,6 +88,7 @@
       <div v-if="expanded">
         <slot
           :collapse="handleToggleClick"
+          mdc-unwrap="p"
           name="collapse-trigger"
         >
           <KButton

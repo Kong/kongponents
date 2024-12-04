@@ -40,7 +40,10 @@
       v-if="label || $slots.label"
       v-bind-once="{ for: inputId }"
     >
-      <slot name="label">
+      <slot
+        mdc-unwrap="p"
+        name="label"
+      >
         {{ label }}
       </slot>
     </KLabel>

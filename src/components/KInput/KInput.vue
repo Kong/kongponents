@@ -28,7 +28,10 @@
         ref="beforeSlotElement"
         class="before-content-wrapper"
       >
-        <slot name="before" />
+        <slot
+          mdc-unwrap="p"
+          name="before"
+        />
       </div>
 
       <input
@@ -66,6 +69,7 @@
 
         <slot
           v-else
+          mdc-unwrap="p"
           name="after"
         />
       </div>

@@ -210,7 +210,10 @@
           <CopyIcon decorative />
         </KCodeBlockIconButton>
 
-        <slot name="secondary-actions" />
+        <slot
+          mdc-unwrap="p"
+          name="secondary-actions"
+        />
       </div>
     </div>
   </div>
