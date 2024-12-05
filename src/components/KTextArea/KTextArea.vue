@@ -5,7 +5,7 @@
   >
     <KLabel
       v-if="label"
-      v-bind-once="{ for: textAreaId }"
+      :for="textAreaId"
       v-bind="labelAttributes"
       :required="isRequired"
     >
@@ -19,7 +19,7 @@
     </KLabel>
 
     <textarea
-      v-bind-once="{ id: textAreaId }"
+      :id="textAreaId"
       v-bind="modifiedAttrs"
       :aria-invalid="ariaInvalid"
       class="input-textarea"

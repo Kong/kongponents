@@ -10,7 +10,7 @@
     >
       <slot>
         <KButton
-          v-bind-once="{ 'aria-controls': popoverId }"
+          :aria-controls="popoverId"
           data-testid="popover-button"
         >
           {{ buttonText }}
@@ -21,8 +21,8 @@
     <Transition name="kongponents-fade-transition">
       <div
         v-show="isVisible"
+        :id="popoverId"
         ref="popoverElement"
-        v-bind-once="{ id: popoverId }"
         :aria-labelledby="$slots.title || title ? titleId : undefined"
         class="popover"
         :class="popoverClassesObj"

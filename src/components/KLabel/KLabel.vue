@@ -12,7 +12,7 @@
       :tooltip-id="tooltipId"
     >
       <InfoIcon
-        v-bind-once="{ 'aria-describedby': tooltipId }"
+        :aria-describedby="tooltipId"
         class="tooltip-trigger-icon"
         :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
         tabindex="0"

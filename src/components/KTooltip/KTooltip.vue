@@ -16,7 +16,7 @@
 
     <template #content>
       <div
-        v-bind-once="{ id: tooltipId || randomTooltipId }"
+        :id="tooltipId || randomTooltipId"
         role="tooltip"
       >
         <slot

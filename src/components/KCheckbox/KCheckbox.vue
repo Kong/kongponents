@@ -8,7 +8,7 @@
       :class="{ 'has-label': hasLabel }"
     >
       <input
-        v-bind-once="{ id: inputId }"
+        :id="inputId"
         v-bind="modifiedAttrs"
         :aria-checked="modelValue"
         class="checkbox-input"
@@ -36,9 +36,9 @@
     <div class="checkbox-label-wrapper">
       <KLabel
         v-if="hasLabel"
-        v-bind-once="{ for: inputId }"
         v-bind="labelAttributes"
         class="checkbox-label"
+        :for="inputId"
       >
         <slot>{{ label }}</slot>
 

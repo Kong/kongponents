@@ -21,7 +21,7 @@
           :toggle="toggleDisplay"
         >
           <button
-            v-bind-once="{ 'aria-controls': contentId }"
+            :aria-controls="contentId"
             :aria-expanded="!collapsedState"
             :aria-label="triggerLabel ? undefined : 'Toggle content'"
             class="collapse-trigger-content"
@@ -59,7 +59,7 @@
     <Transition name="kongponents-fade-transition">
       <div
         v-show="!collapsedState"
-        v-bind-once="{ id: contentId }"
+        :id="contentId"
         class="collapse-hidden-content"
         data-testid="collapse-hidden-content"
       >

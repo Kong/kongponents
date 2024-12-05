@@ -35,7 +35,7 @@
       >
         <KClipboardProvider v-slot="{ copyToClipboard }">
           <button
-            v-bind-once="{ id: copyButtonElementId }"
+            :id="copyButtonElementId"
             :aria-label="tooltipText"
             class="copy-to-clipboard-button"
             data-testid="copy-to-clipboard"

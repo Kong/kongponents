@@ -6,9 +6,9 @@
   >
     <KLabel
       v-if="label"
-      v-bind-once="{ for: multiselectWrapperId }"
       v-bind="labelAttributes"
       :data-testid="labelAttributes['data-testid'] ? labelAttributes['data-testid'] : 'multiselect-label'"
+      :for="multiselectWrapperId"
       :required="isRequired"
     >
       {{ strippedLabel }}
@@ -30,8 +30,8 @@
           @open="() => handleToggle(true, isToggled, toggle)"
         >
           <div
+            :id="multiselectWrapperId"
             ref="multiselectElement"
-            v-bind-once="{ id: multiselectWrapperId }"
             class="multiselect-trigger"
             :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
             data-testid="multiselect-trigger"

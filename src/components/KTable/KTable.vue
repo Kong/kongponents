@@ -92,12 +92,12 @@
         @scroll.passive="scrollHandler"
       >
         <table
-          v-bind-once="{ 'data-tableid': tableId }"
           class="table"
           :class="{
             'has-hover': rowHover,
             'is-clickable': isClickable
           }"
+          :data-tableid="tableId"
         >
           <thead :class="{ 'is-scrolled': isScrolled }">
             <tr

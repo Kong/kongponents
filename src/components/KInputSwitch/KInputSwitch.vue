@@ -5,8 +5,8 @@
   >
     <input
       v-bind="strippedAttrs"
+      :id="inputId"
       ref="switchInputElement"
-      v-bind-once="{ id: inputId }"
       :checked="modelValue"
       :disabled="disabled"
       tabindex="-1"
@@ -19,8 +19,8 @@
       :label="disabledTooltipText"
     >
       <span
-        v-bind-once="{ 'aria-labelledby': inputId }"
         :aria-checked="modelValue"
+        :aria-labelledby="inputId"
         class="switch-control"
         :class="{ 'checked': modelValue, 'disabled': disabled }"
         data-testid="switch-control"
@@ -38,7 +38,7 @@
 
     <KLabel
       v-if="label || $slots.label"
-      v-bind-once="{ for: inputId }"
+      :for="inputId"
     >
       <slot name="label">
         {{ label }}

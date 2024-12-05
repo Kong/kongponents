@@ -86,9 +86,9 @@
 
     <div
       v-else
-      v-bind-once="{ 'data-tableid': catalogId }"
       class="catalog-page"
       :class="`card-${cardSize}`"
+      :data-tableid="catalogId"
     >
       <slot
         :data="data"

@@ -7,7 +7,7 @@
     ]"
   >
     <input
-      v-bind-once="{ id: inputId }"
+      :id="inputId"
       v-bind="modifiedAttrs"
       :aria-checked="isChecked"
       :checked="isChecked"
@@ -25,9 +25,9 @@
       :class="{ 'has-description': showDescription }"
     >
       <KLabel
-        v-bind-once="{ for: inputId }"
         v-bind="labelAttributes"
         class="radio-label"
+        :for="inputId"
       >
         <slot>{{ label }}</slot>
 

@@ -5,7 +5,7 @@
   >
     <KLabel
       v-if="label"
-      v-bind-once="{ for: inputId }"
+      :for="inputId"
       v-bind="labelAttributes"
       :required="isRequired"
     >
@@ -32,7 +32,8 @@
       </div>
 
       <input
-        v-bind-once="{ id: inputId, ...(helpText && { 'aria-describedby': helpTextId }) }"
+        :id="inputId"
+        :aria-describedby="helpText ? helpTextId : undefined"
         :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
         class="input"
         :type="inputType"
@@ -77,8 +78,8 @@
     >
       <p
         v-if="helpText"
+        :id="helpTextId"
         :key="String(helpTextKey)"
-        v-bind-once="{ id: helpTextId }"
         class="help-text"
       >
         {{ helpText }}

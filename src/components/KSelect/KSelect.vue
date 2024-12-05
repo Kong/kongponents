@@ -8,7 +8,7 @@
       ref="labelElement"
       v-bind="labelAttributes"
       data-testid="select-label"
-      :for="$attrs.id ? String($attrs.id) : undefined"
+      :for="selectInputId"
       :required="isRequired"
     >
       {{ strippedLabel }}
@@ -32,14 +32,15 @@
         @popover-click="() => onPopoverClick(toggle)"
       >
         <div
+          :id="selectWrapperId"
           ref="selectWrapperElement"
-          v-bind-once="{ id: selectWrapperId }"
           class="select-wrapper"
           data-testid="select-wrapper"
           role="listbox"
           @click="onSelectWrapperClick"
         >
           <KInput
+            :id="selectInputId"
             :key="inputKey"
             ref="inputElement"
             autocapitalize="off"
@@ -52,7 +53,7 @@
             :model-value="filterQuery"
             :placeholder="selectedItem && !enableFiltering ? selectedItem.label : placeholderText"
             :readonly="isReadonly"
-            v-bind="attrs.id ? { id: String(attrs.id), ...modifiedAttrs } : { ...modifiedAttrs }"
+            v-bind="modifiedAttrs"
             @blur="onInputBlur"
             @click="onInputClick"
             @focus="onInputFocus"
@@ -363,6 +364,8 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 const slots = useSlots()
 
+const selectInputId = attrs.id ? String(attrs.id) : useUniqueId()
+
 const isDropdownOpen = ref<boolean>(false)
 
 const resizeObserver = ref<ResizeObserverHelper>()
@@ -643,20 +646,6 @@ const onOpen = (toggle: () => void) => {
   toggle()
 }
 
-const setLabelAttributes = () => {
-  /**
-   * Temporary fix for the issue where we can't use v-bind-once to pass id to a custom element (KInput)
-   * TODO: remove this once useId is released in Vue 3.5
-   */
-  if (!attrs.id) {
-    const inputElementId = inputElement.value?.$el?.querySelector('input')?.id
-
-    if (inputElementId) {
-      labelElement.value?.$el?.setAttribute('for', inputElementId)
-    }
-  }
-}
-
 watch(value, (newVal, oldVal) => {
   if (newVal !== oldVal) {
     const item = selectItems.value?.filter((item: SelectItem) => item.value === newVal)
@@ -744,12 +733,6 @@ watch(selectedItem, (newVal, oldVal) => {
   }
 }, { deep: true })
 
-watch(() => attrs.id, async () => {
-  inputKey.value++
-  await nextTick()
-  setLabelAttributes()
-}, { immediate: true })
-
 onMounted(() => {
   if (selectWrapperElement.value) {
     resizeObserver.value = ResizeObserverHelper.create(() => {
@@ -758,8 +741,6 @@ onMounted(() => {
 
     resizeObserver.value.observe(selectWrapperElement.value as HTMLDivElement)
   }
-
-  setLabelAttributes()
 
   useEventListener(document, 'keydown', (event: any) => {
     // When enableFiltering is false, the KInput doesn't have focus so we need to handle arrow key events here
