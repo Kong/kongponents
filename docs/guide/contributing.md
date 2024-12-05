@@ -230,6 +230,20 @@ const id = useId()
 </script>
 ```
 
+Note that `useId` can only be used at the root of the setup function. If you need a random string in template or in any of your component functions (e.g. to give each `key` in a `v-for` loop a unique value), you can use `nanoid`:
+
+```vue
+<template>
+  <div v-for="entry in array" :key="nanoid()">
+    <!-- some content -->
+  </div>
+</template>
+
+<script setup lang="ts">
+import { nanoid } from 'nanoid'
+</script>
+```
+
 ## Testing your component
 
 You're free to play around with your component on the local instance of the docs site by running `pnpm docs:dev`; however, you may also want to test your local changes in a consuming application.
