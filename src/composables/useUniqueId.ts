@@ -1,3 +1,3 @@
-import { nanoid } from 'nanoid'
+import { useId } from 'vue'
 
-export default nanoid as () => string
+export default useId as () => string
