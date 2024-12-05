@@ -71,12 +71,11 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, ref, useSlots, watch } from 'vue'
+import { computed, ref, useId, useSlots, watch } from 'vue'
 import type { TriggerAlignment, HeaderTag } from '@/types'
 import { TriggerAlignmentArray, HeaderTags } from '@/types'
 import { ChevronRightIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
-import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   // Is the KCollapse collapsed? Defaults to true-->
@@ -113,7 +112,7 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void;
 }>()
 
-const contentId = useUniqueId()
+const contentId = useId()
 
 const isCollapsed = ref<boolean>(true)
 const modelValueChanged = ref<boolean>(false)

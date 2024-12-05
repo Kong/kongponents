@@ -26,12 +26,11 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed, useSlots } from 'vue'
+import { computed, useId, useSlots } from 'vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { TooltipAttributes } from '@/types'
 import { InfoIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
-import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   info: {
@@ -66,7 +65,7 @@ const slots = useSlots()
 
 const hasTooltip = computed((): boolean => !!(props.help || props.info || slots.tooltip))
 
-const tooltipId = useUniqueId()
+const tooltipId = useId()
 </script>
 
 <style lang="scss" scoped>

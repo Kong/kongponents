@@ -203,7 +203,7 @@
 
 <script setup lang="ts">
 import type { Ref, PropType } from 'vue'
-import { ref, computed, watch, nextTick, useAttrs, useSlots, onUnmounted, onMounted } from 'vue'
+import { ref, computed, watch, nextTick, useAttrs, useSlots, onUnmounted, onMounted, useId } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -220,7 +220,6 @@ import type {
 import { ChevronDownIcon, CloseIcon, ProgressIcon } from '@kong/icons'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
-import useUniqueId from '@/composables/useUniqueId'
 import { useEventListener } from '@vueuse/core'
 
 defineOptions({
@@ -364,7 +363,7 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 const slots = useSlots()
 
-const selectInputId = attrs.id ? String(attrs.id) : useUniqueId()
+const selectInputId = attrs.id ? String(attrs.id) : useId()
 
 const isDropdownOpen = ref<boolean>(false)
 
@@ -405,7 +404,7 @@ const uniqueFilterQuery = computed((): boolean => {
   return true
 })
 
-const selectWrapperId = useUniqueId() // unique id for the KPop target
+const selectWrapperId = useId() // unique id for the KPop target
 const selectedItem = ref<SelectItem | null>(null)
 const selectItems = ref<SelectItem[]>([])
 const inputFocused = ref<boolean>(false)
@@ -506,7 +505,7 @@ const handleAddItem = (): void => {
   const pos = (selectItems.value?.length || 0) + 1
   const item: SelectItem = {
     label: sanitizeInput(filterQuery.value),
-    value: useUniqueId(),
+    value: useId(),
     key: `${sanitizeInput(filterQuery.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
     custom: true,
   }

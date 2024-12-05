@@ -45,11 +45,10 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, watch, useAttrs, useSlots } from 'vue'
+import { ref, computed, watch, useAttrs, useSlots, useId } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import type { TextAreaLimitExceed } from '@/types'
-import useUniqueId from '@/composables/useUniqueId'
 
 const DEFAULT_CHARACTER_LIMIT = 2048
 
@@ -161,7 +160,7 @@ const value = computed({
   },
 })
 
-const textAreaId = attrs.id ? String(attrs.id) : useUniqueId()
+const textAreaId = attrs.id ? String(attrs.id) : useId()
 
 const modifiedAttrs = computed((): Record<string, any> => {
   const $attrs = { ...attrs }

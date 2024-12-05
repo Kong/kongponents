@@ -74,12 +74,11 @@ defineOptions({
 })
 
 import type { PropType } from 'vue'
-import { computed, ref, useAttrs, useSlots, watch } from 'vue'
+import { computed, ref, useAttrs, useId, useSlots, watch } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import useUtilities from '@/composables/useUtilities'
-import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   labelAttributes: {
@@ -135,7 +134,7 @@ const emit = defineEmits<{
 
 const { stripRequiredLabel } = useUtilities()
 
-const fileInputId = attrs.id ? String(attrs.id) : useUniqueId()
+const fileInputId = attrs.id ? String(attrs.id) : useId()
 
 const modifiedAttrs = computed(() => {
   const $attrs = { ...attrs }

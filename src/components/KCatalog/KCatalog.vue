@@ -154,7 +154,7 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { ref, computed, onMounted, watch, useSlots } from 'vue'
+import { ref, computed, onMounted, watch, useSlots, useId } from 'vue'
 import type {
   CatalogItem,
   CatalogPreferences,
@@ -177,7 +177,6 @@ import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KCatalogItem from './KCatalogItem.vue'
-import useUniqueId from '@/composables/useUniqueId'
 
 const { useRequest, useDebounce, useSwrvState } = useUtilities()
 const DEFAULT_PAGE_SIZE = 15
@@ -372,7 +371,7 @@ const emit = defineEmits<{
 
 const slots = useSlots()
 
-const catalogId = useUniqueId()
+const catalogId = useId()
 
 const getInitialPageSize = (): number => {
   const initialPageSize = props.paginationPageSizes?.[0]
