@@ -3,7 +3,6 @@ import { mount } from 'cypress/vue'
 import { createMemoryHistory, createRouter } from 'vue-router/dist/vue-router.prod.cjs'
 import type { RouteRecordRaw } from 'vue-router'
 import type { App, ComputedOptions } from 'vue'
-import { BindOncePlugin } from 'vue-bind-once'
 import Chainable = Cypress.Chainable
 import 'cypress-fail-fast'
 // Import Kongponent styles
@@ -38,7 +37,7 @@ Cypress.Commands.add('mount', (component: ComputedOptions, options = {}): Chaina
         app.use(options.router)
       }
     },
-  }, BindOncePlugin)
+  })
 
   return mount(component, options)
 })
