@@ -220,13 +220,13 @@ It's essential to choose context-aware and descriptive names. This practice ensu
 
 Sometimes you will need to generate a random string to be used as value for various attributes (e.g. accessibility-related attributes like `id`, `for`, `aria-labelledby`, etc.).
 
-To generate a unique id so that it is safe for SSR, you **must** use the `useUniqueId` composable in your component:
+To generate a unique id so that it is safe for SSR, you **must** use the [`useId` composable](https://vuejs.org/api/composition-api-helpers#useid) in your component:
 
 ```html
 <script setup lang="ts">
-import useUniqueId from '@/composables/useUniqueId'
+import { useId } from 'vue'
 
-const id = useUniqueId()
+const id = useId()
 </script>
 ```
 
