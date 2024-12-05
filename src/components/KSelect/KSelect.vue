@@ -221,6 +221,7 @@ import { ChevronDownIcon, CloseIcon, ProgressIcon } from '@kong/icons'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
 import { useEventListener } from '@vueuse/core'
+import { nanoid } from 'nanoid'
 
 defineOptions({
   inheritAttrs: false,
@@ -505,7 +506,7 @@ const handleAddItem = (): void => {
   const pos = (selectItems.value?.length || 0) + 1
   const item: SelectItem = {
     label: sanitizeInput(filterQuery.value),
-    value: useId(),
+    value: nanoid(),
     key: `${sanitizeInput(filterQuery.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
     custom: true,
   }

@@ -300,6 +300,7 @@ import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
 import { useEventListener } from '@vueuse/core'
+import { nanoid } from 'nanoid'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -834,7 +835,7 @@ const handleAddItem = (): void => {
   const pos = unfilteredItems.value.length + 1
   const item: MultiselectItem = {
     label: sanitizeInput(filterString.value + ''),
-    value: useId(),
+    value: nanoid(),
     key: `${sanitizeInput(filterString.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
   }
   emit('item-added', item)
