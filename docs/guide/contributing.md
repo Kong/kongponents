@@ -218,23 +218,30 @@ It's essential to choose context-aware and descriptive names. This practice ensu
 
 #### Attributes
 
-Sometimes you will need to generate a random string to be used as value for various attributes (e.g. accessibility-related attributes like `id`, `for`, `aria-labelledby`, etc.). 
+Sometimes you will need to generate a random string to be used as value for various attributes (e.g. accessibility-related attributes like `id`, `for`, `aria-labelledby`, etc.).
 
-To generate a unique id so that it is safe for SSR, you **must** use the `useUniqueId` composable in your component:
+To generate a unique id so that it is safe for SSR, you **must** use the [`useId` composable](https://vuejs.org/api/composition-api-helpers#useid) in your component:
 
 ```html
 <script setup lang="ts">
-import useUniqueId from '@/composables/useUniqueId'
+import { useId } from 'vue'
 
-const id = useUniqueId()
+const id = useId()
 </script>
 ```
 
-Then you must use the [`v-bind-once` directive](https://github.com/danielroe/vue-bind-once) to bind the unique id to element attributes (this prevents hydration issues in SSR apps):
+Note that `useId` can only be used at the root of the setup function. If you need a random string in template or in any of your component functions (e.g. to give each `key` in a `v-for` loop a unique value), you can use `nanoid`:
 
-```html
-<label v-bind-once="{ for: id }">Label</label>
-<input v-bind-once="{ id: id }" />
+```vue
+<template>
+  <div v-for="entry in array" :key="nanoid()">
+    <!-- some content -->
+  </div>
+</template>
+
+<script setup lang="ts">
+import { nanoid } from 'nanoid'
+</script>
 ```
 
 ## Testing your component
