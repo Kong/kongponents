@@ -1,3 +1,10 @@
+## [9.14.20](https://github.com/Kong/kongponents/compare/v9.14.19...v9.14.20) (2024-12-06)
+
+
+### Bug Fixes
+
+* **kradio:** remove horizontal card vertical spacing ([#2526](https://github.com/Kong/kongponents/issues/2526)) ([d4dc2b7](https://github.com/Kong/kongponents/commit/d4dc2b772dad039a95a67f6fce6f3909d1e49ca4))
+
 ## [9.14.19](https://github.com/Kong/kongponents/compare/v9.14.18...v9.14.19) (2024-12-03)
 
 
