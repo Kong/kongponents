@@ -11,6 +11,7 @@
       @click="handleClick(option)"
     >
       <slot
+        mdc-unwrap="p"
         name="option-label"
         :option="option"
       >

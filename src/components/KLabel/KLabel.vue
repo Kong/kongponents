@@ -3,7 +3,7 @@
     class="k-label"
     :class="{ 'required': required }"
   >
-    <slot />
+    <slot mdc-unwrap="p" />
 
     <KTooltip
       v-if="hasTooltip"

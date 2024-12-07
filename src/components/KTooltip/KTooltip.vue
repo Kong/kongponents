@@ -12,7 +12,7 @@
     width="auto"
     :z-index="zIndex"
   >
-    <slot />
+    <slot mdc-unwrap="p" />
 
     <template #content>
       <div
@@ -21,6 +21,7 @@
       >
         <slot
           :label="text || label"
+          mdc-unwrap="p"
           name="content"
         >
           {{ text || label }}

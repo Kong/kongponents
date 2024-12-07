@@ -13,13 +13,14 @@
       >
         <slot
           v-if="$slots.icon"
+          mdc-unwrap="p"
           name="icon"
         />
         <div
           ref="badgeTextElement"
           class="badge-content-wrapper"
         >
-          <slot />
+          <slot mdc-unwrap="p" />
         </div>
       </div>
     </component>

@@ -7,7 +7,10 @@
       v-if="showIcon || $slots.icon"
       class="alert-icon-container"
     >
-      <slot name="icon">
+      <slot
+        mdc-unwrap="p"
+        name="icon"
+      >
         <component
           :is="getAlertIcon"
           class="alert-icon"
@@ -27,7 +30,7 @@
         v-if="message || $slots.default"
         class="alert-message"
       >
-        <slot>
+        <slot mdc-unwrap="p">
           <p>{{ message }}</p>
         </slot>
       </div>

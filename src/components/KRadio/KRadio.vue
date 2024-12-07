@@ -29,7 +29,9 @@
         v-bind="labelAttributes"
         class="radio-label"
       >
-        <slot>{{ label }}</slot>
+        <slot mdc-unwrap="p">
+          {{ label }}
+        </slot>
 
         <template
           v-if="hasTooltip"
@@ -43,7 +45,10 @@
         v-if="showDescription"
         class="radio-description"
       >
-        <slot name="description">
+        <slot
+          mdc-unwrap="p"
+          name="description"
+        >
           <p>{{ description }}</p>
         </slot>
       </div>
@@ -62,7 +67,7 @@
         v-if="$slots.default"
         class="card-content-wrapper"
       >
-        <slot />
+        <slot mdc-unwrap="p" />
       </span>
       <span
         v-if="label || showCardDescription"
@@ -78,7 +83,10 @@
           v-if="showCardDescription"
           class="radio-description"
         >
-          <slot name="description">
+          <slot
+            mdc-unwrap="p"
+            name="description"
+          >
             {{ description }}
           </slot>
         </span>
