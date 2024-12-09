@@ -230,17 +230,17 @@ const id = useId()
 </script>
 ```
 
-Note that `useId` can only be used at the root of the setup function. If you need a random string in template or in any of your component functions (e.g. to give each `key` in a `v-for` loop a unique value), you can use `nanoid`:
+Note that `useId` can only be used at the root of the setup function. If you need a random string in template or in any of your component functions (e.g. to give each `key` in a `v-for` loop a unique value), you can use `getUniqueStringId` helper function:
 
 ```vue
 <template>
-  <div v-for="entry in array" :key="nanoid()">
+  <div v-for="entry in array" :key="getUniqueStringId()">
     <!-- some content -->
   </div>
 </template>
 
 <script setup lang="ts">
-import { nanoid } from 'nanoid'
+import { getUniqueStringId } from '@/utilities'
 </script>
 ```
 

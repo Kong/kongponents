@@ -3,7 +3,7 @@ import type { Ref, VNode } from 'vue'
 import type { Toast, ToasterAppearance, ToasterOptions } from '@/types'
 import { ToasterAppearances } from '@/types'
 import KToaster from '@/components/KToaster/KToaster.vue'
-import { nanoid } from 'nanoid'
+import { getUniqueStringId } from '@/utilities'
 
 const toasterContainerId = 'kongponents-toaster-container'
 
@@ -51,7 +51,7 @@ export default class ToastManager {
     // @ts-ignore
     const { key, timeoutMilliseconds, appearance, message, title } = args
 
-    const toastKey: any = key || nanoid()
+    const toastKey: any = key || getUniqueStringId()
     const toastAppearance: ToasterAppearance = (appearance && Object.keys(ToasterAppearances).indexOf(appearance) !== -1) ? appearance : toasterDefaults.appearance
     const timer: number = this.setTimer(key, timeoutMilliseconds || toasterDefaults.timeoutMilliseconds)
     const toasterMessage = typeof args === 'string' ? args : message

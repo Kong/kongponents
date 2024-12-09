@@ -397,8 +397,7 @@ import KPagination from '@/components/KPagination/KPagination.vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 import BulkActionsDropdown from './BulkActionsDropdown.vue'
-import { getInitialPageSize } from '@/utilities'
-import { nanoid } from 'nanoid'
+import { getInitialPageSize, getUniqueStringId } from '@/utilities'
 
 const props = withDefaults(defineProps<TableViewProps>(), {
   resizeColumns: false,
@@ -1114,7 +1113,7 @@ watch([() => props.data, dataSelectState], (newVals) => {
   // update the rowKeyMap
   newData.forEach((row) => {
     if (!rowKeyMap.value.get(row)) {
-      const uniqueRowKey = getRowKey(row) || nanoid()
+      const uniqueRowKey = getRowKey(row) || getUniqueStringId()
 
       rowKeyMap.value.set(row, `table-${tableId}-row-${uniqueRowKey}`)
     }
