@@ -114,12 +114,12 @@
         @scroll.passive="scrollHandler"
       >
         <table
-          v-bind-once="{ 'data-tableid': tableId }"
           class="table"
           :class="{
             'has-hover': rowHover && !isActionsDropdownHovered,
             'is-clickable': isClickable
           }"
+          :data-tableid="tableId"
         >
           <thead
             v-if="!hideHeaders"
@@ -368,7 +368,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed, useAttrs, useSlots, nextTick } from 'vue'
+import { ref, watch, computed, useAttrs, useSlots, nextTick, useId } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
@@ -392,13 +392,12 @@ import type {
 import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
-import useUniqueId from '@/composables/useUniqueId'
 import useUtilities from '@/composables/useUtilities'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 import BulkActionsDropdown from './BulkActionsDropdown.vue'
-import { getInitialPageSize } from '@/utilities'
+import { getInitialPageSize, getUniqueStringId } from '@/utilities'
 
 const props = withDefaults(defineProps<TableViewProps>(), {
   resizeColumns: false,
@@ -453,7 +452,7 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 const slots = useSlots()
 
-const tableId = useUniqueId()
+const tableId = useId()
 const { getSizeFromString } = useUtilities()
 
 const getRowKey = (row: Record<string, any>): string => {
@@ -1114,7 +1113,7 @@ watch([() => props.data, dataSelectState], (newVals) => {
   // update the rowKeyMap
   newData.forEach((row) => {
     if (!rowKeyMap.value.get(row)) {
-      const uniqueRowKey = getRowKey(row) || useUniqueId()
+      const uniqueRowKey = getRowKey(row) || getUniqueStringId()
 
       rowKeyMap.value.set(row, `table-${tableId}-row-${uniqueRowKey}`)
     }
