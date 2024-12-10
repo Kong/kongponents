@@ -234,13 +234,18 @@ Note that `useId` can only be used at the root of the setup function. If you nee
 
 ```vue
 <template>
-  <div v-for="entry in array" :key="getUniqueStringId()">
+  <div v-for="item in items" :key="item.id">
     <!-- some content -->
   </div>
 </template>
 
 <script setup lang="ts">
 import { getUniqueStringId } from '@/utilities'
+
+const items = myArray.map(item => ({
+  ...item,
+  id: getUniqueStringId(), // add a unique id
+}))
 </script>
 ```
 
