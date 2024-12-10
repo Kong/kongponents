@@ -230,7 +230,7 @@ const id = useId()
 </script>
 ```
 
-Note that `useId` can only be used at the root of the setup function. If you need a random string in template or in any of your component functions (e.g. to give each `key` in a `v-for` loop a unique value), you can use `getUniqueStringId` helper function:
+Note that `useId` can only be used at the root of the setup function. If you need a random ID in a template or in any of your component functions (e.g. to give each `key` in a `v-for` loop a unique value), you should use the `getUniqueStringId` helper function:
 
 ```vue
 <template>
