@@ -1,3 +1,10 @@
+## [9.14.21](https://github.com/Kong/kongponents/compare/v9.14.20...v9.14.21) (2024-12-10)
+
+
+### Bug Fixes
+
+* **link:** apply styles to deep ([84a4e9f](https://github.com/Kong/kongponents/commit/84a4e9f75c7bff9b136ae3e89d7cc2be51dbcc3f))
+
 ## [9.14.20](https://github.com/Kong/kongponents/compare/v9.14.19...v9.14.20) (2024-12-06)
 
 
