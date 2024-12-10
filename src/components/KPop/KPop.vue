@@ -10,7 +10,7 @@
     >
       <slot>
         <KButton
-          v-bind-once="{ 'aria-controls': popoverId }"
+          :aria-controls="popoverId"
           data-testid="popover-button"
         >
           {{ buttonText }}
@@ -21,8 +21,8 @@
     <Transition name="kongponents-fade-transition">
       <div
         v-show="isVisible"
+        :id="popoverId"
         ref="popoverElement"
-        v-bind-once="{ id: popoverId }"
         :aria-labelledby="$slots.title || title ? titleId : undefined"
         class="popover"
         :class="popoverClassesObj"
@@ -83,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed, watch, useId } from 'vue'
 import type { PropType } from 'vue'
 import { useFloating, autoUpdate, autoPlacement, flip, shift } from '@floating-ui/vue'
 import type { PopPlacements, PopTrigger } from '@/types'
@@ -92,7 +92,6 @@ import KButton from '@/components/KButton/KButton.vue'
 import useUtilities from '@/composables/useUtilities'
 import { CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
-import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   buttonText: {
@@ -163,8 +162,8 @@ const emit = defineEmits(['open', 'close', 'popover-click'])
 
 const { getSizeFromString } = useUtilities()
 
-const popoverId = useUniqueId()
-const titleId = useUniqueId()
+const popoverId = useId()
+const titleId = useId()
 const kPopoverElement = ref<HTMLElement | null>(null)
 const triggerWrapperElement = ref<HTMLElement | null>(null)
 const popoverElement = ref<HTMLElement | null>(null)

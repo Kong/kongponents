@@ -92,12 +92,12 @@
         @scroll.passive="scrollHandler"
       >
         <table
-          v-bind-once="{ 'data-tableid': tableId }"
           class="table"
           :class="{
             'has-hover': rowHover,
             'is-clickable': isClickable
           }"
+          :data-tableid="tableId"
         >
           <thead :class="{ 'is-scrolled': isScrolled }">
             <tr
@@ -250,7 +250,7 @@
 
 <script setup lang="ts">
 import type { Ref, PropType } from 'vue'
-import { ref, watch, computed, onMounted, useAttrs, useSlots } from 'vue'
+import { ref, watch, computed, onMounted, useAttrs, useSlots, useId } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
@@ -276,7 +276,6 @@ import type {
 import { EmptyStateIconVariants } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './../KTableView/ColumnVisibilityMenu.vue'
-import useUniqueId from '@/composables/useUniqueId'
 
 const { useDebounce, useRequest, useSwrvState, clientSideSorter: defaultClientSideSorter, getSizeFromString } = useUtilities()
 
@@ -512,7 +511,7 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 const slots = useSlots()
 
-const tableId = useUniqueId()
+const tableId = useId()
 const defaultFetcherProps = {
   pageSize: 15,
   page: 1,
