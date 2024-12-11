@@ -1,5 +1,5 @@
-import { defineNuxtModule, createResolver, addComponentsDir, useLogger /*, addComponent */ } from '@nuxt/kit'
-// import { kebabCase, pascalCase } from 'scule'
+import { defineNuxtModule, createResolver, /*addComponentsDir, */ useLogger , addComponent } from '@nuxt/kit'
+import { kebabCase, pascalCase } from 'scule'
 
 export interface ModuleOptions {
   // Define module options here as needed
@@ -18,36 +18,37 @@ export default defineNuxtModule<ModuleOptions>({
     logger.start('Initializing Kongponents')
 
     // Import all components
-    // const components = await import(resolver.resolve('../src/components/index.ts'))
+    const components = await import(resolver.resolve('../src/components/index.ts'))
 
-    // let componentCount = 0
+    let componentCount = 0
 
     // Loop through the imported components
-    // Object.entries(components).forEach(([name, component]: [string, any]) => {
-    //   if (component) {
-    //     addComponent({
-    //       name,
-    //       filePath: component, // The file path of the component
-    //       global: true,
-    //       kebabName: kebabCase(name),
-    //       pascalName: pascalCase(name),
-    //     })
-    //     // Increment component count
-    //     componentCount++
-    //   }
-    // })
-
-    // logger.success(`Globally registered ${componentCount} components`)
-
-    addComponentsDir({
-      path: resolver.resolve('../src/components/'),
-      extensions: ['vue'],
-      pattern: '**/*.vue',
-      pathPrefix: false,
-      prefix: '',
-      global: true,
+    Object.entries(components).forEach(([name, component]: [string, any]) => {
+      if (component) {
+        addComponent({
+          name,
+          filePath: component, // The file path of the component
+          global: true,
+          kebabName: kebabCase(name),
+          pascalName: pascalCase(name),
+        })
+        // Increment component count
+        componentCount++
+      }
     })
 
-    logger.success('Globally registered all Kongponents')
+    logger.success(`Globally registered ${componentCount} components`)
+
+    // 🥲 this doesn't work
+    // addComponentsDir({
+    //   path: resolver.resolve('../src/components/'),
+    //   extensions: ['vue'],
+    //   pattern: '**/*.vue',
+    //   pathPrefix: false,
+    //   prefix: '',
+    //   global: true,
+    // })
+
+    // logger.success('Globally registered all Kongponents')
   },
 })
