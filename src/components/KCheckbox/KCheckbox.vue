@@ -40,7 +40,9 @@
         v-bind="labelAttributes"
         class="checkbox-label"
       >
-        <slot>{{ label }}</slot>
+        <slot mdc-unwrap="p">
+          {{ label }}
+        </slot>
 
         <template
           v-if="hasTooltip"
@@ -53,7 +55,10 @@
         v-if="showDescription"
         class="checkbox-description"
       >
-        <slot name="description">
+        <slot
+          mdc-unwrap="p"
+          name="description"
+        >
           <p>{{ description }}</p>
         </slot>
       </div>
