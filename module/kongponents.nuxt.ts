@@ -17,25 +17,31 @@ export default defineNuxtModule<ModuleOptions>({
 
     logger.start('Initializing Kongponents')
 
-    // Import all components
-    const components = await import(resolver.resolve('../src/components/index.ts'))
-
     let componentCount = 0
 
+    const allComponents = [
+      {
+        name: 'KInput',
+        filePath: resolver.resolve('../src/components/KInput/KInput.vue'),
+      },
+      {
+        name: 'KButton',
+        filePath: resolver.resolve('../src/components/KButton/KButton.vue'),
+      },
+    ]
+
     // Loop through the imported components
-    Object.entries(components).forEach(([name, component]: [string, any]) => {
-      if (component) {
-        addComponent({
-          name,
-          filePath: component, // The file path of the component
-          global: true,
-          kebabName: kebabCase(name),
-          pascalName: pascalCase(name),
-        })
-        // Increment component count
-        componentCount++
-      }
-    })
+    for (const c of allComponents) {
+      addComponent({
+        name: c.name,
+        filePath: c.filePath,
+        global: true,
+        kebabName: kebabCase(c.name),
+        pascalName: pascalCase(c.name),
+      })
+      // Increment component count
+      componentCount++
+    }
 
     logger.success(`Globally registered ${componentCount} components`)
 
