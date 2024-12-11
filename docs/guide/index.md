@@ -149,3 +149,16 @@ You must import the CSS from the `@kong/kongponents` package along with Vue.
   Kongponents for Vue</a> by Kong, Inc.
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>
+
+## Nuxt Module
+
+You can also install Kongponents as a [Nuxt module](https://nuxt.com/docs/guide/directory-structure/modules).
+
+1. Follow the [package install instructions](#install)
+2. Add the Kongponents module to your `nuxt.config.ts`
+
+```typescript
+export default defineNuxtConfig({
+  modules: ['@kong/kongponents/nuxt'],
+})
+```

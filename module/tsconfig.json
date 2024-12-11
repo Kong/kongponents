@@ -1,0 +1,20 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "vite/client",
+      "@nuxt/schema"
+    ],
+    "outDir": "../dist/nuxt",
+    "declarationDir": "../dist/nuxt",
+  },
+  "include": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "src/**",
+    "sandbox",
+    "node_modules",
+    "dist",
+  ],
+}

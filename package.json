@@ -22,13 +22,19 @@
       "require": "./dist/kongponents.umd.js",
       "types": "./dist/types/index.d.ts"
     },
+    "./nuxt": {
+      "import": "./dist/nuxt/kongponents-nuxt.es.js",
+      "require": "./dist/nuxt/kongponents-nuxt.cjs",
+      "types": "./dist/nuxt/kongponents.nuxt.d.ts"
+    },
     "./package.json": "./package.json",
     "./dist/*": "./dist/*"
   },
   "scripts": {
     "build:cli": "rimraf ./bin && tsc --project ./cli/tsconfig.json && chmod u+x ./bin/index.js",
     "build:docs": "vitepress build docs",
-    "build:kongponents": "pnpm typecheck && vite build && vue-tsc -p './tsconfig.build.json' --emitDeclarationOnly && tsc-alias -p './tsconfig.build.json'",
+    "build:kongponents": "pnpm typecheck && vite build && vue-tsc -p './tsconfig.build.json' --emitDeclarationOnly && tsc-alias -p './tsconfig.build.json' && pnpm build:nuxt:module",
+    "build:nuxt:module": "vue-tsc -p './module/tsconfig.json' --noEmit && vite build --config vite.config.nuxt.module.ts && vue-tsc -p './module/tsconfig.json' --emitDeclarationOnly",
     "build:visualize": "cross-env-shell BUILD_VISUALIZER=true vite build -m production",
     "build": "pnpm build:cli && pnpm stylelint && pnpm lint && pnpm build:kongponents && pnpm build:docs",
     "build:ci": "pnpm build:kongponents && pnpm build:docs",
@@ -82,6 +88,8 @@
     "@kong-ui-public/sandbox-layout": "^2.1.59",
     "@kong/design-tokens": "^1.17.2",
     "@kong/eslint-config-kong-ui": "^1.1.2",
+    "@nuxt/kit": "^3.14.1592",
+    "@nuxt/schema": "^3.14.1592",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@stylistic/stylelint-plugin": "^3.1.1",

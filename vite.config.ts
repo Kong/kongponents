@@ -52,7 +52,7 @@ export default defineConfig({
     minify: true,
     sourcemap: !!process.env.BUILD_VISUALIZER,
     rollupOptions: {
-      external: process.env.USE_SANDBOX ? undefined : ['vue', 'vue-router'],
+      external: process.env.USE_SANDBOX ? undefined : ['vue', 'vue-router', '@nuxt/kit'],
       output: {
         globals: process.env.USE_SANDBOX
           ? undefined
