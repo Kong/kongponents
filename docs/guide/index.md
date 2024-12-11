@@ -162,3 +162,7 @@ export default defineNuxtConfig({
   modules: ['@kong/kongponents/nuxt'],
 })
 ```
+
+:::warning NOTE
+Several Kongponents perform their own data fetching via **axios** and **swrv** that may not be ideal in a Nuxt application, e.g. `KTableData`. We recommend not utilizing these components in your Nuxt project.
+:::
