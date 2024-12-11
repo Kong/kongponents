@@ -466,10 +466,6 @@ $kRadioDotSize: 6px;
         margin-left: var(--kui-space-70, $kui-space-70);
         margin-top: var(--kui-space-80, $kui-space-80);
       }
-
-      & + .k-radio.radio-card.card-horizontal {
-        margin-top: var(--kui-space-40, $kui-space-40);
-      }
     }
 
     &.checked.radio-card:not(.disabled) {
