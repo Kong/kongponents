@@ -1,3 +1,10 @@
+## [9.14.22](https://github.com/Kong/kongponents/compare/v9.14.21...v9.14.22) (2024-12-12)
+
+
+### Bug Fixes
+
+* remove vue-bind-once [KHCP-14269] ([#2535](https://github.com/Kong/kongponents/issues/2535)) ([6d31fae](https://github.com/Kong/kongponents/commit/6d31fae3635f29c49ae22d07402b260c893f4b8c))
+
 ## [9.14.21](https://github.com/Kong/kongponents/compare/v9.14.20...v9.14.21) (2024-12-10)
 
 
