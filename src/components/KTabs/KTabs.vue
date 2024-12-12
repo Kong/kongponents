@@ -192,7 +192,8 @@ watch(() => props.modelValue, (newTabHash) => {
           cursor: not-allowed;
         }
 
-        :slotted(a) {
+        :slotted(a),
+        :deep(a) {
           color: var(--kui-color-text-neutral, $kui-color-text-neutral);
           text-decoration: none;
 
