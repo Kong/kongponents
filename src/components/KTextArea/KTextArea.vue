@@ -160,7 +160,8 @@ const value = computed({
   },
 })
 
-const textAreaId = attrs.id ? String(attrs.id) : useId()
+const defaultId = useId()
+const textAreaId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
 
 const modifiedAttrs = computed((): Record<string, any> => {
   const $attrs = { ...attrs }

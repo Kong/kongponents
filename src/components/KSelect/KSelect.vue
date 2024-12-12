@@ -364,7 +364,8 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 const slots = useSlots()
 
-const selectInputId = attrs.id ? String(attrs.id) : useId()
+const defaultId = useId()
+const selectInputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
 
 const isDropdownOpen = ref<boolean>(false)
 

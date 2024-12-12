@@ -109,7 +109,8 @@ const emit = defineEmits<{
 const slots = useSlots()
 const attrs = useAttrs()
 
-const inputId = attrs.id ? String(attrs.id) : useId()
+const defaultId = useId()
+const inputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
 const hasLabel = computed((): boolean => !!(props.label || slots.default))
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 

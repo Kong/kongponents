@@ -99,7 +99,8 @@ const attrs = useAttrs()
 
 const switchInputElement = ref<HTMLInputElement | null>(null)
 
-const inputId = attrs.id ? String(attrs.id) : useId()
+const defaultId = useId()
+const inputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
 
 /**
 * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.

@@ -176,7 +176,8 @@ const props = defineProps({
 const slots = useSlots()
 const attrs = useAttrs()
 
-const inputId = attrs.id ? String(attrs.id) : useId()
+const defaultId = useId()
+const inputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 const hasLabel = computed((): boolean => !!(props.label || slots.default))
 // for regular radio we only show description if there is a label or default slot

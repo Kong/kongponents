@@ -495,7 +495,8 @@ const defaultKPopAttributes = {
 const key = ref(0)
 const stagingKey = ref(0)
 
-const multiselectWrapperId = attrs.id ? String(attrs.id) : useId() // unique id for the KLabel `for` attribute
+const defaultId = useId()
+const multiselectWrapperId = computed((): string => attrs.id ? String(attrs.id) : defaultId) // unique id for the KLabel `for` attribute
 const multiselectKey = useId()
 
 const multiselectElement = ref<HTMLDivElement | null>(null)

@@ -134,7 +134,8 @@ const emit = defineEmits<{
 
 const { stripRequiredLabel } = useUtilities()
 
-const fileInputId = attrs.id ? String(attrs.id) : useId()
+const defaultId = useId()
+const fileInputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
 
 const modifiedAttrs = computed(() => {
   const $attrs = { ...attrs }
