@@ -8,7 +8,7 @@
       :class="{ 'has-label': hasLabel }"
     >
       <input
-        v-bind-once="{ id: inputId }"
+        :id="inputId"
         v-bind="modifiedAttrs"
         :aria-checked="modelValue"
         class="checkbox-input"
@@ -36,9 +36,9 @@
     <div class="checkbox-label-wrapper">
       <KLabel
         v-if="hasLabel"
-        v-bind-once="{ for: inputId }"
         v-bind="labelAttributes"
         class="checkbox-label"
+        :for="inputId"
       >
         <slot>{{ label }}</slot>
 
@@ -63,12 +63,11 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, useAttrs, useSlots } from 'vue'
+import { computed, useAttrs, useId, useSlots } from 'vue'
 import type { LabelAttributes } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { CheckSmallIcon, IndeterminateSmallIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
-import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   modelValue: {
@@ -110,7 +109,8 @@ const emit = defineEmits<{
 const slots = useSlots()
 const attrs = useAttrs()
 
-const inputId = attrs.id ? String(attrs.id) : useUniqueId()
+const defaultId = useId()
+const inputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
 const hasLabel = computed((): boolean => !!(props.label || slots.default))
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 

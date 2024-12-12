@@ -6,9 +6,9 @@
   >
     <KLabel
       v-if="label"
-      v-bind-once="{ for: multiselectWrapperId }"
       v-bind="labelAttributes"
       :data-testid="labelAttributes['data-testid'] ? labelAttributes['data-testid'] : 'multiselect-label'"
+      :for="multiselectWrapperId"
       :required="isRequired"
     >
       {{ strippedLabel }}
@@ -30,8 +30,8 @@
           @open="() => handleToggle(true, isToggled, toggle)"
         >
           <div
+            :id="multiselectWrapperId"
             ref="multiselectElement"
-            v-bind-once="{ id: multiselectWrapperId }"
             class="multiselect-trigger"
             :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
             data-testid="multiselect-trigger"
@@ -285,7 +285,7 @@
 
 <script lang="ts">
 import type { Ref, PropType } from 'vue'
-import { ref, computed, watch, nextTick, onMounted, onUnmounted, useAttrs, useSlots } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onUnmounted, useAttrs, useSlots, useId } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KBadge from '@/components/KBadge/KBadge.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -300,7 +300,7 @@ import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
 import { useEventListener } from '@vueuse/core'
-import useUniqueId from '@/composables/useUniqueId'
+import { getUniqueStringId } from '@/utilities'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -495,8 +495,9 @@ const defaultKPopAttributes = {
 const key = ref(0)
 const stagingKey = ref(0)
 
-const multiselectWrapperId = attrs.id ? String(attrs.id) : useUniqueId() // unique id for the KLabel `for` attribute
-const multiselectKey = useUniqueId()
+const defaultId = useId()
+const multiselectWrapperId = computed((): string => attrs.id ? String(attrs.id) : defaultId) // unique id for the KLabel `for` attribute
+const multiselectKey = useId()
 
 const multiselectElement = ref<HTMLDivElement | null>(null)
 const multiselectInputElement = ref<InstanceType<typeof KInput> | null>(null)
@@ -835,7 +836,7 @@ const handleAddItem = (): void => {
   const pos = unfilteredItems.value.length + 1
   const item: MultiselectItem = {
     label: sanitizeInput(filterString.value + ''),
-    value: useUniqueId(),
+    value: getUniqueStringId(),
     key: `${sanitizeInput(filterString.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
   }
   emit('item-added', item)
