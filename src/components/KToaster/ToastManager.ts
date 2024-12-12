@@ -51,7 +51,7 @@ export default class ToastManager {
     // @ts-ignore
     const { key, timeoutMilliseconds, appearance, message, title } = args
 
-    const toastKey: string = key || getUniqueStringId()
+    const toastKey: string = key ? String(key) : getUniqueStringId()
     const toastAppearance: ToasterAppearance = (appearance && Object.keys(ToasterAppearances).indexOf(appearance) !== -1) ? appearance : toasterDefaults.appearance
     const timer: number = this.setTimer(key, timeoutMilliseconds || toasterDefaults.timeoutMilliseconds)
     const toasterMessage = typeof args === 'string' ? args : message
