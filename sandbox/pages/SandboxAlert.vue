@@ -20,49 +20,61 @@
           appearance="info"
           title="Info"
         >
-          This is info alert.
-          <a
-            href="https://kongponents.konghq.com/components/alert.html"
-            target="_blank"
-          >
-            Link
-          </a>
+          <div class="appearance-content">
+            This is info alert.
+            <a
+              href="https://kongponents.konghq.com/components/alert.html"
+              target="_blank"
+            >
+              Link
+            </a>
+            <code>someCodeHere: true</code>
+          </div>
         </KAlert>
         <KAlert
           appearance="success"
           title="Success"
         >
-          This is success alert.
-          <a
-            href="https://kongponents.konghq.com/components/alert.html"
-            target="_blank"
-          >
-            Link
-          </a>
+          <div class="appearance-content">
+            This is success alert.
+            <a
+              href="https://kongponents.konghq.com/components/alert.html"
+              target="_blank"
+            >
+              Link
+            </a>
+            <code>someCodeHere: true</code>
+          </div>
         </KAlert>
         <KAlert
           appearance="warning"
           title="Warning"
         >
-          This is warning alert.
-          <a
-            href="https://kongponents.konghq.com/components/alert.html"
-            target="_blank"
-          >
-            Link
-          </a>
+          <div class="appearance-content">
+            This is warning alert.
+            <a
+              href="https://kongponents.konghq.com/components/alert.html"
+              target="_blank"
+            >
+              Link
+            </a>
+            <code>someCodeHere: true</code>
+          </div>
         </KAlert>
         <KAlert
           appearance="danger"
           title="Danger"
         >
-          This is danger alert.
-          <a
-            href="https://kongponents.konghq.com/components/alert.html"
-            target="_blank"
-          >
-            Link
-          </a>
+          <div class="appearance-content">
+            This is danger alert.
+            <a
+              href="https://kongponents.konghq.com/components/alert.html"
+              target="_blank"
+            >
+              Link
+            </a>
+            <code>someCodeHere: true</code>
+          </div>
         </KAlert>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="showIcon">
@@ -165,3 +177,12 @@ import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { KongIcon } from '@kong/icons'
 </script>
+
+<style scoped lang="scss">
+.kalert-sandbox {
+  .appearance-content {
+    display: flex;
+    gap: $kui-space-40;
+  }
+}
+</style>
