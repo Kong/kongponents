@@ -179,8 +179,10 @@ import { KongIcon } from '@kong/icons'
 </script>
 
 <style scoped lang="scss">
-.appearance-content {
-  display: flex;
-  gap: $kui-space-40;
+.kalert-sandbox {
+  .appearance-content {
+    display: flex;
+    gap: $kui-space-40;
+  }
 }
 </style>

@@ -216,7 +216,7 @@ const getAlertIcon = computed((): AlertIcon => {
       var(--kui-color-background-success-weakest, $kui-color-background-success-weakest),
       var(--kui-color-text-success, $kui-color-text-success),
       var(--kui-color-text-success-strong, $kui-color-text-success-strong),
-      #B5FFEE /** kui-color-background-success-weaker */);
+      #B5FFEE); // we don't have a kui-color-background-success-weaker token so use hardcoded value
   }
 
   &.warning {
@@ -224,7 +224,7 @@ const getAlertIcon = computed((): AlertIcon => {
       var(--kui-color-background-warning-weakest, $kui-color-background-warning-weakest),
       var(--kui-color-text-warning, $kui-color-text-warning),
       var(--kui-color-text-warning-strong, $kui-color-text-warning-strong),
-      #FFF296 /** kui-color-background-warning-weaker */);
+      #FFF296); // we don't have a kui-color-background-warning-weaker token so use hardcoded value
   }
 
   &.danger {
