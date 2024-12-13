@@ -1,3 +1,10 @@
+## [9.14.23](https://github.com/Kong/kongponents/compare/v9.14.22...v9.14.23) (2024-12-13)
+
+
+### Bug Fixes
+
+* **kalert:** default slotted code styles [KHCP-14406] ([#2540](https://github.com/Kong/kongponents/issues/2540)) ([4cff45d](https://github.com/Kong/kongponents/commit/4cff45de35729a1bf4db1406a542aef37f2b07d8))
+
 ## [9.14.22](https://github.com/Kong/kongponents/compare/v9.14.21...v9.14.22) (2024-12-12)
 
 
