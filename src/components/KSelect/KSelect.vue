@@ -671,11 +671,12 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 
   for (let i = 0; i < selectItems.value?.length; i++) {
-    // Ensure each item has a `selected` property
+    // Ensure each item has a selected property
     if (selectItems.value[i].selected === undefined) {
       selectItems.value[i].selected = false
     }
 
+    // ensure each item has a unique key property
     let selectItemKey = `${selectItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}`
     if (selectItemKey.includes('undefined')) {
       selectItemKey = `select-item-label-${i}`
