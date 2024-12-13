@@ -528,12 +528,10 @@ const handleItemSelect = (item: SelectItem, isNew?: boolean) => {
     if (anItem.key === item.key) {
       // select the item
       anItem.selected = true
-      anItem.key = anItem?.key?.includes('-selected') ? anItem.key : `${anItem.key}-selected`
       selectedItem.value = anItem
     } else if (anItem.selected) {
       // deselect previously selected item
       anItem.selected = false
-      anItem.key = anItem?.key?.replace(/-selected/gi, '')
       if (anItem.custom) {
         selectItems.value?.splice(i, 1)
         emit('item-removed', anItem)
@@ -550,7 +548,6 @@ const handleItemSelect = (item: SelectItem, isNew?: boolean) => {
 const clearSelection = (): void => {
   selectItems.value?.forEach((anItem, i) => {
     anItem.selected = false
-    anItem.key = anItem?.key?.replace(/-selected/gi, '')
     if (anItem.custom) {
       selectItems.value?.splice(i, 1)
       emit('item-removed', anItem)
@@ -674,11 +671,12 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 
   for (let i = 0; i < selectItems.value?.length; i++) {
-    // Ensure each item has a `selected` property
+    // Ensure each item has a selected property
     if (selectItems.value[i].selected === undefined) {
       selectItems.value[i].selected = false
     }
 
+    // ensure each item has a unique key property
     let selectItemKey = `${selectItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}`
     if (selectItemKey.includes('undefined')) {
       selectItemKey = `select-item-label-${i}`
@@ -688,7 +686,6 @@ watch(() => props.items, (newValue, oldValue) => {
     if (selectItems.value[i].value === props.modelValue || selectItems.value[i].selected) {
       selectItems.value[i].selected = true
       selectedItem.value = selectItems.value[i]
-      selectItems.value[i].key += '-selected'
 
       if (!inputFocused.value) {
         skipQueryChangeEmit.value = true
