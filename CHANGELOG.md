@@ -1,3 +1,10 @@
+## [9.14.24](https://github.com/Kong/kongponents/compare/v9.14.23...v9.14.24) (2024-12-13)
+
+
+### Bug Fixes
+
+* **kselect:** remove altering slected item key [KHCP-13749] ([#2541](https://github.com/Kong/kongponents/issues/2541)) ([7db6274](https://github.com/Kong/kongponents/commit/7db6274cd1d47a74d01a8d1d32695a4d2756b6dc))
+
 ## [9.14.23](https://github.com/Kong/kongponents/compare/v9.14.22...v9.14.23) (2024-12-13)
 
 
