@@ -32,6 +32,7 @@
 
 <script setup lang="ts">
 import { BackIcon, ForwardIcon } from '@kong/icons'
+import KButton from '@/components/KButton/KButton.vue'
 
 defineProps({
   previousButtonDisabled: {

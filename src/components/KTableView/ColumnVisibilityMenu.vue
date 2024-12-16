@@ -103,7 +103,7 @@
 <script setup lang="ts">
 import { ref, watch, onBeforeMount, onMounted, nextTick, computed } from 'vue'
 import type { PropType } from 'vue'
-import type { TableHeader } from '@/types'
+import type { TableDataHeader } from '@/types'
 import { debounce } from '@/utilities/debounce'
 import { SearchIcon, CloseIcon, TableColumnsIcon } from '@kong/icons'
 import KButton from '@/components/KButton/KButton.vue'
@@ -111,6 +111,8 @@ import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KDropdownItem from '@/components/KDropdown/KDropdownItem.vue'
 import KInput from '@/components/KInput/KInput.vue'
+import KTooltip from '@/components/KTooltip/KTooltip.vue'
+import KLabel from '@/components/KLabel/KLabel.vue'
 
 const emit = defineEmits<{
   (e: 'update', columnVisibility: Record<string, boolean>): void
@@ -118,7 +120,7 @@ const emit = defineEmits<{
 
 const props = defineProps({
   columns: {
-    type: Array as PropType<TableHeader[]>,
+    type: Array as PropType<TableDataHeader[]>,
     required: true,
   },
   tableId: {
@@ -142,7 +144,7 @@ const menuItemsRef = ref<HTMLDivElement>()
 const searchColumnInMenu = ref('')
 
 const initVisibilityMap = (): void => {
-  visibilityMap.value = props.columns.reduce((acc, col: TableHeader) => {
+  visibilityMap.value = props.columns.reduce((acc, col: TableDataHeader) => {
     acc[col.key] = props.visibilityPreferences[col.key] === undefined ? true : props.visibilityPreferences[col.key]
 
     return acc
@@ -157,7 +159,7 @@ const handleSearch = debounce((search: any) => {
   }
 }, 500)
 
-const filteredItems = computed((): TableHeader[] => {
+const filteredItems = computed((): TableDataHeader[] => {
   if (!searchColumnInMenu.value) {
     return props.columns
   }
