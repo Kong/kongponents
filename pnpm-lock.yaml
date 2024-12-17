@@ -15,8 +15,8 @@ importers:
         specifier: ^1.1.5
         version: 1.1.5(vue@3.5.12(typescript@5.6.3))
       '@kong/icons':
-        specifier: ^1.18.1
-        version: 1.18.1(vue@3.5.12(typescript@5.6.3))
+        specifier: ^1.18.2
+        version: 1.20.0(vue@3.5.12(typescript@5.6.3))
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
@@ -821,6 +821,7 @@ packages:
 
   '@evilmartians/lefthook@1.8.2':
     resolution: {integrity: sha512-SZdQk3W9q7tcJwnSwEMUubQqVIK7SHxv52hEAnV7o3nPI+xKcmd+rN0hZIJg07wjBaJRAjzdvoQySKQQYPW5Qw==}
+    cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -897,12 +898,6 @@ packages:
     engines: {node: '>=18.0.0 || >=20.13.1'}
     peerDependencies:
       eslint: '>= 9.4.0'
-
-  '@kong/icons@1.18.1':
-    resolution: {integrity: sha512-1dQvgKYSS7phg8FiaEyizmy2vk2L412yzRT7FHUuLLtVr4yEAjbYsVgNeD2zHoWQCO0y/SDGVZoOa2SqP0kQ7g==}
-    engines: {node: '>=18.17.0', pnpm: '>=9.7.0'}
-    peerDependencies:
-      vue: '>= 3.3.4 < 4'
 
   '@kong/icons@1.20.0':
     resolution: {integrity: sha512-prFxS9qavUMFADgsVBQN4IWvj6/8YKA/xgudMGKWz1yighoilsihjU5tm1nP/rzXHVm0VUaZlkp8XpMCW0LnsQ==}
@@ -5802,10 +5797,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
       - typescript
-
-  '@kong/icons@1.18.1(vue@3.5.12(typescript@5.6.3))':
-    dependencies:
-      vue: 3.5.12(typescript@5.6.3)
 
   '@kong/icons@1.20.0(vue@3.5.12(typescript@5.6.3))':
     dependencies:
