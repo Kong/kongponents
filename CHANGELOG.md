@@ -1,3 +1,10 @@
+## [9.14.25](https://github.com/Kong/kongponents/compare/v9.14.24...v9.14.25) (2024-12-17)
+
+
+### Bug Fixes
+
+* **kpagination,ktableview:** add missing import ([#2542](https://github.com/Kong/kongponents/issues/2542)) ([fdff434](https://github.com/Kong/kongponents/commit/fdff434a676bb49b0ea30fdfb5df2f70052f17c6))
+
 ## [9.14.24](https://github.com/Kong/kongponents/compare/v9.14.23...v9.14.24) (2024-12-13)
 
 
