@@ -22,7 +22,7 @@
       "import": "./dist/kongponents.es.js",
       "require": "./dist/kongponents.umd.js"
     },
-    "./style.css": "./dist/kongponents.css",
+    "./dist/style.css": "./dist/kongponents.css",
     "./package.json": "./package.json",
     "./dist/*": "./dist/*"
   },
