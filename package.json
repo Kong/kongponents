@@ -12,6 +12,7 @@
   "module": "./dist/kongponents.es.js",
   "files": [
     "dist",
+    "src",
     "bin"
   ],
   "types": "dist/types/index.d.ts",

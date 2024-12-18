@@ -1,5 +1,5 @@
-import { defineNuxtModule, createResolver, /*addComponentsDir, */ useLogger , addComponent } from '@nuxt/kit'
-import { kebabCase, pascalCase } from 'scule'
+import { defineNuxtModule, createResolver, addComponentsDir, useLogger /*, addComponent */ } from '@nuxt/kit'
+// import { kebabCase, pascalCase } from 'scule'
 
 export interface ModuleOptions {
   // Define module options here as needed
@@ -17,44 +17,46 @@ export default defineNuxtModule<ModuleOptions>({
 
     logger.start('Initializing Kongponents')
 
-    let componentCount = 0
+    // let componentCount = 0
 
-    const allComponents = [
-      {
-        name: 'KInput',
-        filePath: resolver.resolve('../src/components/KInput/KInput.vue'),
-      },
-      {
-        name: 'KButton',
-        filePath: resolver.resolve('../src/components/KButton/KButton.vue'),
-      },
-    ]
+    // const allComponents = [
+    //   {
+    //     name: 'KInput',
+    //     filePath: resolver.resolve('../src/components/KInput/KInput.vue'),
+    //   },
+    //   {
+    //     name: 'KButton',
+    //     filePath: resolver.resolve('../src/components/KButton/KButton.vue'),
+    //   },
+    // ]
 
-    // Loop through the imported components
-    for (const c of allComponents) {
-      addComponent({
-        name: c.name,
-        filePath: c.filePath,
-        global: true,
-        kebabName: kebabCase(c.name),
-        pascalName: pascalCase(c.name),
-      })
-      // Increment component count
-      componentCount++
-    }
+    // // Loop through the imported components
+    // for (const c of allComponents) {
+    //   addComponent({
+    //     name: c.name,
+    //     filePath: c.filePath,
+    //     global: true,
+    //     kebabName: kebabCase(c.name),
+    //     pascalName: pascalCase(c.name),
+    //   })
+    //   // Increment component count
+    //   componentCount++
+    // }
 
-    logger.success(`Globally registered ${componentCount} components`)
+    // logger.success(`Globally registered ${componentCount} components`)
 
     // 🥲 this doesn't work
-    // addComponentsDir({
-    //   path: resolver.resolve('../src/components/'),
-    //   extensions: ['vue'],
-    //   pattern: '**/*.vue',
-    //   pathPrefix: false,
-    //   prefix: '',
-    //   global: true,
-    // })
+    addComponentsDir({
+      path: resolver.resolve('../src/components/'),
+      extensions: ['vue'],
+      pattern: '**/*.vue',
+      pathPrefix: false,
+      prefix: '',
+      global: true,
+    })
 
-    // logger.success('Globally registered all Kongponents')
+    // TODO: Add KToggle
+
+    logger.success('Globally registered all Kongponents')
   },
 })
