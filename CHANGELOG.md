@@ -1,3 +1,10 @@
+## [9.14.26](https://github.com/Kong/kongponents/compare/v9.14.25...v9.14.26) (2024-12-18)
+
+
+### Bug Fixes
+
+* **ktableview:** sort order when changing sort column [KHCP-14449] ([#2543](https://github.com/Kong/kongponents/issues/2543)) ([a970987](https://github.com/Kong/kongponents/commit/a97098794742b42fb97d3df756df591697fafd72))
+
 ## [9.14.25](https://github.com/Kong/kongponents/compare/v9.14.24...v9.14.25) (2024-12-17)
 
 
