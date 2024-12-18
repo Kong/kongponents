@@ -1,3 +1,31 @@
+## [9.14.25](https://github.com/Kong/kongponents/compare/v9.14.24...v9.14.25) (2024-12-17)
+
+
+### Bug Fixes
+
+* **kpagination,ktableview:** add missing import ([#2542](https://github.com/Kong/kongponents/issues/2542)) ([fdff434](https://github.com/Kong/kongponents/commit/fdff434a676bb49b0ea30fdfb5df2f70052f17c6))
+
+## [9.14.24](https://github.com/Kong/kongponents/compare/v9.14.23...v9.14.24) (2024-12-13)
+
+
+### Bug Fixes
+
+* **kselect:** remove altering slected item key [KHCP-13749] ([#2541](https://github.com/Kong/kongponents/issues/2541)) ([7db6274](https://github.com/Kong/kongponents/commit/7db6274cd1d47a74d01a8d1d32695a4d2756b6dc))
+
+## [9.14.23](https://github.com/Kong/kongponents/compare/v9.14.22...v9.14.23) (2024-12-13)
+
+
+### Bug Fixes
+
+* **kalert:** default slotted code styles [KHCP-14406] ([#2540](https://github.com/Kong/kongponents/issues/2540)) ([4cff45d](https://github.com/Kong/kongponents/commit/4cff45de35729a1bf4db1406a542aef37f2b07d8))
+
+## [9.14.22](https://github.com/Kong/kongponents/compare/v9.14.21...v9.14.22) (2024-12-12)
+
+
+### Bug Fixes
+
+* remove vue-bind-once [KHCP-14269] ([#2535](https://github.com/Kong/kongponents/issues/2535)) ([6d31fae](https://github.com/Kong/kongponents/commit/6d31fae3635f29c49ae22d07402b260c893f4b8c))
+
 ## [9.14.21](https://github.com/Kong/kongponents/compare/v9.14.20...v9.14.21) (2024-12-10)
 
 

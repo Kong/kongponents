@@ -155,7 +155,7 @@
 
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import { ref, watch, computed, onMounted, useSlots } from 'vue'
+import { ref, watch, computed, onMounted, useSlots, useId } from 'vue'
 import KTableView from '@/components/KTableView/KTableView.vue'
 import useUtilities from '@/composables/useUtilities'
 import type {
@@ -178,7 +178,6 @@ import type {
   RowExpandPayload,
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
-import useUniqueId from '@/composables/useUniqueId'
 import { getInitialPageSize, DEFAULT_PAGE_SIZE } from '@/utilities'
 
 const props = withDefaults(defineProps<TableDataProps>(), {
@@ -236,7 +235,7 @@ const emit = defineEmits<{
   (e: 'update:row-expanded', data: RowExpandPayload): void
 }>()
 
-const tableId = useUniqueId()
+const tableId = useId()
 
 const tableData = ref<Record<string, any>[]>([])
 const tableHeaders = computed((): TableDataHeader[] => props.sortable ? props.headers : props.headers.map((header) => ({ ...header, sortable: false })))

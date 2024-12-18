@@ -725,15 +725,6 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
 // background color for the matching line (search or filter) in dark theme
 $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't have a token for this
 
-/* Component mixins */
-
-@mixin kCodeBlockTypography {
-  font-family: var(--kui-font-family-code, $kui-font-family-code);
-  font-size: var(--kui-font-size-20, $kui-font-size-20);
-  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-  line-height: var(--kui-line-height-30, $kui-line-height-30);
-}
-
 /* Component styles */
 
 .k-code-block {
@@ -795,7 +786,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
         user-select: none;
 
         .line {
-          @include kCodeBlockTypography;
+          @include codeTypography;
 
           display: inline-flex;
           justify-content: flex-end;
@@ -834,7 +825,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       }
 
       code {
-        @include kCodeBlockTypography;
+        @include codeTypography;
 
         color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
         display: block;

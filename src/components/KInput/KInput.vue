@@ -5,7 +5,7 @@
   >
     <KLabel
       v-if="label"
-      v-bind-once="{ for: inputId }"
+      :for="inputId"
       v-bind="labelAttributes"
       :required="isRequired"
     >
@@ -35,7 +35,8 @@
       </div>
 
       <input
-        v-bind-once="{ id: inputId, ...(helpText && { 'aria-describedby': helpTextId }) }"
+        :id="inputId"
+        :aria-describedby="helpText ? helpTextId : undefined"
         :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
         class="input"
         :type="inputType"
@@ -81,8 +82,8 @@
     >
       <p
         v-if="helpText"
+        :id="helpTextId"
         :key="String(helpTextKey)"
-        v-bind-once="{ id: helpTextId }"
         class="help-text"
       >
         {{ helpText }}
@@ -92,13 +93,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, useSlots, useAttrs, onMounted, nextTick } from 'vue'
+import { computed, ref, watch, useSlots, useAttrs, onMounted, nextTick, useId } from 'vue'
 import type { PropType } from 'vue'
 import type { LabelAttributes, LimitExceededData } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
-import useUniqueId from '@/composables/useUniqueId'
 import { VisibilityIcon, VisibilityOffIcon } from '@kong/icons'
 
 const props = defineProps({
@@ -179,8 +179,9 @@ const slots = useSlots()
 const attrs = useAttrs()
 
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
-const inputId = attrs.id ? String(attrs.id) : useUniqueId()
-const helpTextId = useUniqueId()
+const defaultId = useId()
+const inputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
+const helpTextId = useId()
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
 
