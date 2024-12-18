@@ -18,10 +18,11 @@
   "typings": "dist/types",
   "exports": {
     ".": {
+      "types": "./dist/types/index.d.ts",
       "import": "./dist/kongponents.es.js",
-      "require": "./dist/kongponents.umd.js",
-      "types": "./dist/types/index.d.ts"
+      "require": "./dist/kongponents.umd.js"
     },
+    "./dist/style.css": "./dist/kongponents.css",
     "./package.json": "./package.json",
     "./dist/*": "./dist/*"
   },
@@ -120,7 +121,7 @@
     "stylelint-order": "^6.0.4",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.6.3",
-    "vite": "^5.4.10",
+    "vite": "^6.0.2",
     "vite-plugin-vue-devtools": "^7.4.6",
     "vitepress": "^1.3.4",
     "vue": "^3.5.12",
