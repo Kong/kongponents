@@ -779,7 +779,7 @@ describe('KTableData', () => {
   })
 
   describe('misc', () => {
-    it('triggers the internal search and revalidate after clearing the search input', () => {
+    it('triggers the internal search and show cached results after clearing the search input', () => {
       const fns = {
         fetcher: ({ query }: { query: string }) => {
           return { data: [{ query }] }
@@ -810,13 +810,15 @@ describe('KTableData', () => {
         .then(() => cy.wrap(Cypress.vueWrapper.setProps({ searchInput: 'some-keyword' })))
 
       // fetcher call should be delayed (> 350ms for search func + 500ms for revalidate func)
+      cy.get('@fetcher', { timeout: 200 })
+        .should('have.callCount', 1)
       cy.get('@fetcher', { timeout: 1000 }) // fetcher's 2nd call
         .should('have.callCount', 2) // fetcher should be called once
         .should('returned', { data: [{ query: 'some-keyword' }] })
         .then(() => cy.wrap(Cypress.vueWrapper.setProps({ searchInput: '' })))
 
-      // fetcher should be called immediately (< 350ms for search func)
-      cy.get('@fetcher', { timeout: 350 })
+      // fetcher should not be called as this state is already cached
+      cy.get('@fetcher', { timeout: 200 })
         .should('have.callCount', 3) // fetcher's 3rd call
         .should('returned', { data: [{ query: '' }] })
     })
