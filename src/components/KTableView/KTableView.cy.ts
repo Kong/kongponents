@@ -68,7 +68,7 @@ const largeDataSet = [
 const options = {
   headers: [
     { label: 'Name', key: 'name', sortable: true },
-    { label: 'ID', key: 'id', sortable: false },
+    { label: 'ID', key: 'id', sortable: true },
     { label: 'Enabled', key: 'enabled', sortable: false },
     { label: '', key: 'actions', sortable: false },
   ] as TableHeader[],
@@ -445,7 +445,7 @@ describe('KTableView', () => {
       })
 
       cy.get('th').each(($el, index) => {
-        if (index === 0) {
+        if (index <= 1) {
           cy.wrap($el).should('have.class', 'sortable')
         }
       })
@@ -462,6 +462,23 @@ describe('KTableView', () => {
       cy.get('th').eq(0).click().then(() => {
         cy.get('th').eq(0).should('have.class', 'active-sort')
         cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 1)
+      })
+    })
+
+    it('should emit correct sort order when changing sort column', () => {
+      cy.mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+        },
+      })
+      cy.get('th').eq(0).click().then(() => {
+        cy.wrap(Cypress.vueWrapper.emitted('sort')).should('have.length', 1)
+        cy.wrap(Cypress.vueWrapper.emitted('sort')?.[0]?.[0]).should('have.property', 'sortColumnOrder', 'asc')
+        cy.get('th').eq(1).click().then(() => {
+          cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 2)
+          cy.wrap(Cypress.vueWrapper.emitted('sort')?.[1]?.[0]).should('have.property', 'sortColumnOrder', 'asc')
+        })
       })
     })
   })
