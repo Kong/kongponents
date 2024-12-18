@@ -701,10 +701,14 @@ const getHeaderClasses = (column: TableViewHeader, index: number): Record<string
 
 const onHeaderClick = (column: TableViewHeader) => {
   if (column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS) {
+    let newSortColumnOrder = 'asc'
+    if (column.key === sortColumnKey.value && sortColumnOrder.value === 'asc') {
+      newSortColumnOrder = 'desc'
+    }
     emit('sort', {
       prevKey: sortColumnKey.value,
       sortColumnKey: column.key,
-      sortColumnOrder: sortColumnOrder.value === 'asc' ? 'desc' : 'asc', // display opposite because sortColumnOrder outdated
+      sortColumnOrder: newSortColumnOrder,
     })
     sortClickHandler(column)
   }
