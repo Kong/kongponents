@@ -128,6 +128,7 @@ const getAlertIcon = computed((): AlertIcon => {
         }
       }
 
+      :deep(code),
       :slotted(code) {
         background-color: $codeBackgroundColor;
         color: $hoverColor;
@@ -180,6 +181,7 @@ const getAlertIcon = computed((): AlertIcon => {
         margin: 0;
       }
 
+      :deep(code),
       :slotted(code) {
         @include codeTypography;
 
