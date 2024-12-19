@@ -1,3 +1,10 @@
+## [9.14.27](https://github.com/Kong/kongponents/compare/v9.14.26...v9.14.27) (2024-12-19)
+
+
+### Bug Fixes
+
+* **kbutton:** add text-align ([#2547](https://github.com/Kong/kongponents/issues/2547)) ([8462c1d](https://github.com/Kong/kongponents/commit/8462c1d94580617f0517744972d87ef705304e75))
+
 ## [9.14.26](https://github.com/Kong/kongponents/compare/v9.14.25...v9.14.26) (2024-12-18)
 
 
