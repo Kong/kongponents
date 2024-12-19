@@ -1,3 +1,10 @@
+## [9.14.28](https://github.com/Kong/kongponents/compare/v9.14.27...v9.14.28) (2024-12-19)
+
+
+### Bug Fixes
+
+* **kalert:** code style ([#2548](https://github.com/Kong/kongponents/issues/2548)) ([e7ac271](https://github.com/Kong/kongponents/commit/e7ac2711c6b828ee0bbdaf79553b1bd38d2133bb))
+
 ## [9.14.27](https://github.com/Kong/kongponents/compare/v9.14.26...v9.14.27) (2024-12-19)
 
 
