@@ -191,6 +191,7 @@ export default {
     justify-content: center;
     // Remove tap color highlight on mobile Safari
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    text-align: center;
     text-decoration: none;
     transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, border-color $kongponentsTransitionDurTimingFunc;
     user-select: none;
@@ -325,6 +326,7 @@ export default {
     cursor: pointer;
     display: inline-flex;
     justify-content: center;
+    text-align: center;
     transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, border-color $kongponentsTransitionDurTimingFunc;
     user-select: none;
     white-space: nowrap;
