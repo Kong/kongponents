@@ -21,23 +21,13 @@ export default function useUtilities() {
     fn?: fetcherFn<AxiosResponse<Data>>,
     config?: IConfig,
   ) => {
-    const useSwrvFn =
-      typeof useSWRV === 'function'
-        ? useSWRV
-        : () => ({
-          // must return refs for consistent return types
-          data: ref({}),
-          error: ref(),
-          isValidating: ref(false),
-          mutate: () => ({}),
-        })
-
     const {
       data: response,
       error,
       isValidating,
+      isLoading,
       mutate: revalidate,
-    } = useSwrvFn<AxiosResponse<Data>, AxiosError<Error>>(key, fn, {
+    } = useSWRV<AxiosResponse<Data>, AxiosError<Error>>(key, fn, {
       revalidateDebounce: 500,
       dedupingInterval: 100,
       ...config,
@@ -53,6 +43,7 @@ export default function useUtilities() {
       response,
       error,
       isValidating,
+      isLoading,
       revalidate,
     }
   }

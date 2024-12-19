@@ -42,8 +42,8 @@ importers:
         specifier: ^1.15.3
         version: 1.15.3
       swrv:
-        specifier: ^1.0.4
-        version: 1.0.4(vue@3.5.12(typescript@5.6.3))
+        specifier: 1.1.0-beta.2
+        version: 1.1.0-beta.2(vue@3.5.12(typescript@5.6.3))
       v-calendar:
         specifier: ^3.1.2
         version: 3.1.2(@popperjs/core@2.11.8)(vue@3.5.12(typescript@5.6.3))
@@ -982,7 +982,6 @@ packages:
 
   '@evilmartians/lefthook@1.8.2':
     resolution: {integrity: sha512-SZdQk3W9q7tcJwnSwEMUubQqVIK7SHxv52hEAnV7o3nPI+xKcmd+rN0hZIJg07wjBaJRAjzdvoQySKQQYPW5Qw==}
-    cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -4751,6 +4750,11 @@ packages:
 
   swrv@1.0.4:
     resolution: {integrity: sha512-zjEkcP8Ywmj+xOJW3lIT65ciY/4AL4e/Or7Gj0MzU3zBJNMdJiT8geVZhINavnlHRMMCcJLHhraLTAiDOTmQ9g==}
+    peerDependencies:
+      vue: '>=3.2.26 < 4'
+
+  swrv@1.1.0-beta.2:
+    resolution: {integrity: sha512-1xitdUp0e2f7FLmZ7rRgcSrnWPqX33cbKwuy8VdEmJZT7K/41E/EPTlFu0yhVaVSYsbAlEDYx+WE7/8o+kQiBQ==}
     peerDependencies:
       vue: '>=3.2.26 < 4'
 
@@ -10205,6 +10209,10 @@ snapshots:
   svg-tags@1.0.0: {}
 
   swrv@1.0.4(vue@3.5.12(typescript@5.6.3)):
+    dependencies:
+      vue: 3.5.12(typescript@5.6.3)
+
+  swrv@1.1.0-beta.2(vue@3.5.12(typescript@5.6.3)):
     dependencies:
       vue: 3.5.12(typescript@5.6.3)
 

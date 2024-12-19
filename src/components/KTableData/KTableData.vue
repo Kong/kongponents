@@ -19,7 +19,7 @@
     :hide-pagination="hidePagination || !showPagination"
     :hide-pagination-when-optional="false"
     :hide-toolbar="hideToolbar"
-    :loading="loading || isTableLoading || isRevalidating"
+    :loading="loading || fetcherIsLoading"
     :max-height="maxHeight"
     :nested="nested"
     :pagination-attributes="tablePaginationAttributes"
@@ -250,7 +250,7 @@ const getEmptyStateButtonAppearance = computed((): ButtonAppearance => {
 const total = ref<number>(0)
 const page = ref<number>(1)
 const pageSize = ref<number>(getInitialPageSize(props.tablePreferences, props.paginationAttributes))
-const filterQuery = ref<string>('')
+const filterQuery = ref<string>(props.searchInput ?? '')
 const sortColumnKey = ref<string>('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
 const offset: Ref<string | null> = ref(null)
@@ -300,44 +300,19 @@ const getCellSlots = computed((): string[] => {
   return Object.keys(slots).filter((slot) => tableHeaders.value.some((header) => header.key === slot))
 })
 
+const fetcherParams = computed(() => ({
+  pageSize: pageSize.value,
+  page: page.value,
+  query: filterQuery.value,
+  sortColumnKey: sortColumnKey.value,
+  sortColumnOrder: sortColumnOrder.value,
+  offset: offset.value,
+}))
+
 const isInitialFetch = ref<boolean>(true)
 const fetchData = async () => {
   // @ts-ignore - fetcher is required and will always be defined
-  const res = await props.fetcher({
-    pageSize: pageSize.value,
-    page: page.value,
-    query: props.searchInput || filterQuery.value,
-    sortColumnKey: sortColumnKey.value,
-    sortColumnOrder: sortColumnOrder.value,
-    offset: offset.value,
-  })
-  tableData.value = res.data as Record<string, any>[]
-  total.value = props.paginationAttributes?.totalCount || res.total || res.data?.length || 0
-
-  // if using offset-based pagination, set the next offset
-  if (props.paginationAttributes?.offset) {
-    if (!res.pagination?.offset) {
-      nextOffset.value = null
-    } else {
-      nextOffset.value = res.pagination.offset
-
-      if (!offsets.value[page.value]) {
-        offsets.value.push(res.pagination.offset)
-      }
-    }
-
-    // look for hasNextPage in the response, otherwise default to true
-    hasNextPage.value = (res.pagination && 'hasNextPage' in res.pagination) ? res.pagination.hasNextPage : true
-  }
-
-  // if the data is empty and the page is greater than 1,
-  // e.g. user deletes the last item on the last page,
-  // reset the page to 1
-  if (tableData.value.length === 0 && page.value > 1) {
-    page.value = 1
-    offsets.value = [null]
-    offset.value = null
-  }
+  const res = await props.fetcher(fetcherParams.value)
 
   isInitialFetch.value = false
 
@@ -388,6 +363,8 @@ const tableFetcherCacheKey = computed((): string => {
     identifierKey = props.cacheIdentifier
   }
 
+  identifierKey += `-${JSON.stringify(fetcherParams.value)}`
+
   if (props.fetcherCacheKey) {
     identifierKey += `-${props.fetcherCacheKey}`
   }
@@ -395,29 +372,35 @@ const tableFetcherCacheKey = computed((): string => {
   return `k-table_${identifierKey}`
 })
 
-const query = ref('')
+watch(tableFetcherCacheKey, (key: string) => console.log(key))
+
 const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => {
-  query.value = q
+  filterQuery.value = q
 }, 350)
 const search = generateDebouncedSearch(0) // generate a debounced function with zero delay (immediate)
 
 // ALL fetching is done through this useRequest / _revalidate
 // don't fire until tableFetcherCacheKey is set
-const { data: fetcherData, error: fetcherError, revalidate: _revalidate, isValidating: fetcherIsValidating } = useRequest(
+const {
+  data: fetcherData,
+  response: fetcherResponse,
+  error: fetcherError,
+  revalidate: _revalidate,
+  isValidating: fetcherIsValidating,
+  isLoading: fetcherIsLoading,
+} = useRequest(
   () => tableFetcherCacheKey.value,
   () => fetchData(),
   { revalidateOnFocus: false, revalidateDebounce: 0 },
 )
 
-const { state, hasData, swrvState } = useSwrvState(fetcherData, fetcherError, fetcherIsValidating)
-const isTableLoading = ref<boolean>(true)
+const { state, hasData } = useSwrvState(fetcherData, fetcherError, fetcherIsValidating)
 const stateData = computed((): SwrvStateData => ({
   hasData: hasData.value,
   state: state.value as SwrvState,
 }))
-const tableState = computed((): TableState => isTableLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
-const { debouncedFn: debouncedRevalidate, generateDebouncedFn: generateDebouncedRevalidate } = useDebounce(_revalidate, 500)
-const revalidate = generateDebouncedRevalidate(0) // generate a debounced function with zero delay (immediate)
+const tableState = computed((): TableState => fetcherIsLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
+const { debouncedFn: debouncedRevalidate } = useDebounce(_revalidate, 500)
 
 const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortOrder }: TableSortPayload): void => {
   const header: TableDataHeader = tableHeaders.value.find((header) => header.key === columnKey)!
@@ -521,27 +504,39 @@ const showPagination = computed((): boolean => {
   return true
 })
 
-watch(fetcherData, (fetchedData: Record<string, any>[]) => {
-  if (fetchedData?.length && !tableData.value.length) {
-    tableData.value = fetchedData
+watch(fetcherResponse, (res: Record<string, any>) => {
+  if (!res?.data) {
+    return
+  }
+
+  tableData.value = res.data as Record<string, any>[]
+  total.value = props.paginationAttributes?.totalCount || res.total || res.data?.length || 0
+
+  // if using offset-based pagination, set the next offset
+  if (props.paginationAttributes?.offset) {
+    if (!res.pagination?.offset) {
+      nextOffset.value = null
+    } else {
+      nextOffset.value = res.pagination.offset
+
+      if (!offsets.value[page.value]) {
+        offsets.value.push(res.pagination.offset)
+      }
+    }
+
+    // look for hasNextPage in the response, otherwise default to true
+    hasNextPage.value = (res.pagination && 'hasNextPage' in res.pagination) ? res.pagination.hasNextPage : true
+  }
+
+  // if the data is empty and the page is greater than 1,
+  // e.g. user deletes the last item on the last page,
+  // reset the page to 1
+  if (tableData.value.length === 0 && page.value > 1) {
+    page.value = 1
+    offsets.value = [null]
+    offset.value = null
   }
 }, { deep: true, immediate: true })
-
-// we want to tie loader to 'pending' since 'validating' is triggered even when pulling from cache, which should result in no loader
-// however, if this is a manual revalidation (triggered by page change, query, etc), display loader when validating
-watch(state, () => {
-  switch (state.value) {
-    case swrvState.PENDING:
-      isTableLoading.value = true
-      break
-    case swrvState.VALIDATING_HAS_DATA:
-      isTableLoading.value = isRevalidating.value
-      break
-    default:
-      isTableLoading.value = false
-      break
-  }
-}, { immediate: true })
 
 watch([stateData, tableState], (newState) => {
   const [newStateData, newTableState] = newState
@@ -554,10 +549,6 @@ watch([stateData, tableState], (newState) => {
 
 // handles debounce of search query
 watch(() => props.searchInput, (newSearchInput: string) => {
-  if (page.value !== 1) {
-    page.value = 1
-  }
-
   if (newSearchInput === '') {
     search(newSearchInput)
   } else {
@@ -565,29 +556,14 @@ watch(() => props.searchInput, (newSearchInput: string) => {
   }
 }, { immediate: true })
 
-const isRevalidating = ref<boolean>(false)
-watch([query, page, pageSize], async (newData, oldData) => {
+watch([filterQuery, pageSize], async (newData, oldData) => {
   const [oldQuery] = oldData
-  const [newQuery, newPage] = newData
+  const [newQuery] = newData
 
-  if (newQuery !== oldQuery && newPage !== 1) {
+  if (newQuery !== oldQuery && page.value !== 1) {
     page.value = 1
     offsets.value = [null]
     offset.value = null
-  }
-
-  // don't revalidate until we have finished initializing and made initial fetch
-  if (hasInitialized.value && !isInitialFetch.value) {
-    isRevalidating.value = true
-
-    if (newQuery !== '' && newQuery !== oldQuery) {
-      // handles debounce of search request
-      await debouncedRevalidate()
-    } else {
-      await revalidate()
-    }
-
-    isRevalidating.value = false
   }
 }, { deep: true, immediate: true })
 
