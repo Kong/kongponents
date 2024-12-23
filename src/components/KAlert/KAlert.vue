@@ -50,7 +50,7 @@ import { computed } from 'vue'
 import type { PropType } from 'vue'
 import type { AlertAppearance } from '@/types'
 import { AlertAppearances } from '@/types'
-import { InfoIcon, CheckCircleIcon, WarningIcon, ClearIcon, CloseIcon } from '@kong/icons'
+import { InfoIcon, CheckCircleIcon, WarningIcon, DangerIcon, CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 type AlertIcon = typeof InfoIcon // all icons are the same type so we can use any of them
@@ -92,7 +92,7 @@ const getAlertIcon = computed((): AlertIcon => {
     case AlertAppearances.warning:
       return WarningIcon
     case AlertAppearances.danger:
-      return ClearIcon
+      return DangerIcon
     default:
       return InfoIcon // info as default in case of invalid appearance
   }
