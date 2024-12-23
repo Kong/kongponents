@@ -1,3 +1,10 @@
+## [9.14.29](https://github.com/Kong/kongponents/compare/v9.14.28...v9.14.29) (2024-12-23)
+
+
+### Bug Fixes
+
+* **kalert:** use proper danger icon ([#2550](https://github.com/Kong/kongponents/issues/2550)) ([4b92584](https://github.com/Kong/kongponents/commit/4b92584ad2518bda1e605f47bd803bd444e10a0d))
+
 ## [9.14.28](https://github.com/Kong/kongponents/compare/v9.14.27...v9.14.28) (2024-12-19)
 
 
