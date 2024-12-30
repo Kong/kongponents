@@ -1,3 +1,10 @@
+## [9.14.30](https://github.com/Kong/kongponents/compare/v9.14.29...v9.14.30) (2024-12-30)
+
+
+### Bug Fixes
+
+* **kcodeblock:** fix maxHeight and getSizeFromString util ([#2554](https://github.com/Kong/kongponents/issues/2554)) ([974a707](https://github.com/Kong/kongponents/commit/974a707a1e126ff430f0a5a0ce51164c730ade76))
+
 ## [9.14.29](https://github.com/Kong/kongponents/compare/v9.14.28...v9.14.29) (2024-12-23)
 
 
