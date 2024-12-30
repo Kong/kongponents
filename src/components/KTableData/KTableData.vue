@@ -276,12 +276,20 @@ const tablePaginationAttributes = computed((): TablePaginationAttributes => ({
   offsetNextButtonDisabled: !nextOffset.value || !hasNextPage.value,
 }))
 
+function isTableColumnSlotName(slot: string): slot is TableColumnSlotName {
+  return slot.startsWith('column-')
+}
+
+function isTableColumnTooltipSlotName(slot: string): slot is TableColumnTooltipSlotName {
+  return slot.startsWith('tooltip-')
+}
+
 const getHeaderSlots = computed((): TableColumnSlotName[] => {
   if (!slots) {
     return []
   }
 
-  return Object.keys(slots).filter((slot) => slot.startsWith('column-')) as TableColumnSlotName[]
+  return Object.keys(slots).filter(isTableColumnSlotName)
 })
 
 const getHeaderTooltipSlots = computed((): TableColumnTooltipSlotName[] => {
@@ -289,7 +297,7 @@ const getHeaderTooltipSlots = computed((): TableColumnTooltipSlotName[] => {
     return []
   }
 
-  return Object.keys(slots).filter((slot) => slot.startsWith('tooltip-')) as TableColumnTooltipSlotName[]
+  return Object.keys(slots).filter(isTableColumnTooltipSlotName)
 })
 
 const getCellSlots = computed((): string[] => {
@@ -311,7 +319,6 @@ const fetcherParams = computed(() => ({
 
 const isInitialFetch = ref<boolean>(true)
 const fetchData = async () => {
-  // @ts-ignore - fetcher is required and will always be defined
   const res = await props.fetcher(fetcherParams.value)
 
   isInitialFetch.value = false
@@ -397,7 +404,7 @@ const {
 const { state, hasData } = useSwrvState(fetcherData, fetcherError, fetcherIsValidating)
 const stateData = computed((): SwrvStateData => ({
   hasData: hasData.value,
-  state: state.value as SwrvState,
+  state: state.value,
 }))
 const tableState = computed((): TableState => fetcherIsLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
 const { debouncedFn: debouncedRevalidate } = useDebounce(_revalidate, 500)
