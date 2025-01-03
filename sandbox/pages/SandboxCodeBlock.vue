@@ -33,6 +33,29 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent
         class="limited-width"
+        title="highlightedLineNumbers"
+      >
+        <KCodeBlock
+          id="highlighted-codeblock"
+          :code="code"
+          :highlighted-line-numbers="[2,4,6]"
+          language="json"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        class="limited-width"
+        title="highlightedLineNumbers & searchable"
+      >
+        <KCodeBlock
+          id="highlighted-and-searchable"
+          :code="code"
+          :highlighted-line-numbers="[2,4,6]"
+          language="json"
+          searchable
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        class="limited-width"
         title="singleLine"
       >
         <KCodeBlock
