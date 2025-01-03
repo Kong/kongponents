@@ -291,6 +291,15 @@ const props = defineProps({
   },
 
   /**
+   * The line numbers for the lines to highlight by default. **Default: `[]`**.
+   */
+  highlightedLineNumbers: {
+    type: Array as PropType<number[]>,
+    required: false,
+    default: () => [],
+  },
+
+  /**
    * Allows controlling the processing state from outside the component. This allows a parent component to show the processing icon when it’s, for example, currently syntax highlighting the code. **Default: `false`**.
    */
   processing: {
@@ -445,6 +454,10 @@ watch(() => isRegExpMode.value, function() {
   updateMatchingLineNumbers()
 })
 
+watch(() => props.highlightedLineNumbers, function() {
+  setDefaultMatchingLineNumbers()
+})
+
 watch(() => isShowingFilteredCode.value, async function() {
   // Moves the focus to the code block so that code block-scoped shortcuts still work. That’s necessary because toggling filter mode changes which pre element is rendered. In doing so, the currently focused element is removed from the DOM and in response, the browser moves the focus to document.body.
   if (document?.activeElement?.tagName === 'PRE') {
@@ -528,7 +541,12 @@ onMounted(function() {
   shortcutManager.registerListener()
 
   emitCodeBlockRenderEvent()
-  updateMatchingLineNumbers()
+
+  if (props.highlightedLineNumbers.length > 0) {
+    setDefaultMatchingLineNumbers()
+  } else {
+    updateMatchingLineNumbers()
+  }
 })
 
 onBeforeUnmount(function() {
@@ -575,6 +593,18 @@ function handleSearch(): void {
 function handleSearchInputValue(): void {
   emit('query-change', searchQuery.value)
   updateMatchingLineNumbers()
+}
+
+function setDefaultMatchingLineNumbers(): void {
+  isProcessingInternally.value = true
+  regExpError.value = null
+
+  matchingLineNumbers.value = Array.from(new Set(props.highlightedLineNumbers))
+  numberOfMatches.value = matchingLineNumbers.value.length
+
+  emitMatchingLinesChangeEvent()
+
+  isProcessingInternally.value = false
 }
 
 function updateMatchingLineNumbers(): void {
