@@ -542,7 +542,7 @@ onMounted(function() {
 
   emitCodeBlockRenderEvent()
 
-  if (props.highlightedLineNumbers.length > 0) {
+  if (!props.query && props.highlightedLineNumbers.length) {
     setDefaultMatchingLineNumbers()
   } else {
     updateMatchingLineNumbers()
