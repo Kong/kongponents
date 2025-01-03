@@ -1,3 +1,10 @@
+# [9.15.0](https://github.com/Kong/kongponents/compare/v9.14.30...v9.15.0) (2025-01-03)
+
+
+### Features
+
+* **kcodeblock:** add highlighted line numbers prop ([#2555](https://github.com/Kong/kongponents/issues/2555)) ([fdfb16a](https://github.com/Kong/kongponents/commit/fdfb16a1fbc2a7c30c8b72e55cd08fa02ca31bde))
+
 ## [9.14.30](https://github.com/Kong/kongponents/compare/v9.14.29...v9.14.30) (2024-12-30)
 
 
