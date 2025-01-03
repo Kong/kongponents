@@ -98,7 +98,9 @@ Boolean to control whether to show or hide the search bar and related action but
 
 ### highlightedLineNumbers
 
-An array of the line numbers to highlight by default in the codeblock. If search is enabled, search results will override the default highlighted lines and be cleared once the search query is cleared
+An array of line numbers to initially highlight in the code block. 
+
+If search is enabled, matching results will be highlighted in place of the provided line numbers, and all highlighted lines will be cleared once the search query is cleared.
 
 <ClientOnly>
   <KCodeBlock
