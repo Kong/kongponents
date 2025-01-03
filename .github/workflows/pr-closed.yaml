@@ -1,8 +1,7 @@
 name: On closing PR
 on:
-  pull_request_target:
-    types:
-      - closed
+  pull_request:
+    types: ['closed']
 
 jobs:
   remove-pr-preview-comment:
