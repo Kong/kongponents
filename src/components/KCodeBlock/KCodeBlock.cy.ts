@@ -140,13 +140,13 @@ describe('KCodeBlock', () => {
   it('shows matching results when initializing with query', () => {
     renderComponent({ id: 'code-block', searchable: true, query: 'key' })
 
-    // should highlight 2, 3, 4
     cy.get('.line-is-match').should('have.length', 3)
   })
 
   it('matching results when initializing with query overrides highlightedNumberLines', () => {
     renderComponent({ id: 'code-block', searchable: true, query: 'key', highlightedLineNumbers: [1] })
 
+    // should highlight 2, 3, 4
     cy.get('.line-is-match').should('have.length', 3)
   })
 
