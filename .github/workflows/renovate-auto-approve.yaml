@@ -1,0 +1,24 @@
+---
+name: Renovate Bot dependency updates PR auto-merge
+
+permissions:
+  pull-requests: write
+  contents: write
+
+on:
+  pull_request:
+    types: ['opened']
+
+jobs:
+  renovate-autoapprove:
+    timeout-minutes: ${{ fromJSON(vars.GHA_DEFAULT_TIMEOUT) }}
+    runs-on: ubuntu-latest
+    # Do not auto-approve branches `alpha` or `beta`
+    if: github.actor == 'renovate[bot]' && !contains(github.head_ref || github.ref_name, 'alpha') && !contains(github.head_ref || github.ref_name, 'beta')
+    steps:
+      - name: Approve a PR
+        run: gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          # Use the bot account PAT to allow auto-approve and merge the PRs
+          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
