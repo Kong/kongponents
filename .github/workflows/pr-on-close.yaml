@@ -1,0 +1,22 @@
+name: On PR close
+on:
+  pull_request:
+    types: ['closed']
+
+jobs:
+  remove-pr-preview-comment:
+    timeout-minutes: ${{ fromJSON(vars.GHA_DEFAULT_TIMEOUT) }}
+    name: Remove PR preview comment from PR
+    runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN_PUBLIC_PUBLISH }}
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Remove preview consumption comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: pr_preview_consumption
+          delete: true
+          GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
