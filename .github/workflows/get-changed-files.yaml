@@ -20,7 +20,7 @@ jobs:
   get-changed-files:
     timeout-minutes: ${{ fromJSON(vars.GHA_DEFAULT_TIMEOUT) }}
     name: Check changed files
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     outputs:
       component-files-changed: ${{ steps.component-files-changed.outputs.any_modified }}
       docs-files-changed: ${{ steps.docs-files-changed.outputs.any_modified }}
@@ -33,7 +33,7 @@ jobs:
           fetch-depth: 2
 
       - name: Check if component (`src` directory) files have changed
-        uses: tj-actions/changed-files@v44
+        uses: tj-actions/changed-files@v45
         id: component-files-changed
         # Return 'true' for any directories listed here that changed
         with:
@@ -41,7 +41,7 @@ jobs:
             src/**
 
       - name: Check if docs (`docs` directory) files have changed
-        uses: tj-actions/changed-files@v44
+        uses: tj-actions/changed-files@v45
         id: docs-files-changed
         # Return 'true' for any directories listed here that changed
         with:
@@ -49,7 +49,7 @@ jobs:
             docs/**
 
       - name: Check if files changed in `src/`, `docs/`, or `cypress/` directories
-        uses: tj-actions/changed-files@v44
+        uses: tj-actions/changed-files@v45
         id: components-or-docs-or-cypress-files-changed
         # Return 'true' for any directories listed here that changed
         with:
@@ -59,7 +59,7 @@ jobs:
             cypress/**
 
       - name: Check if package.json or pnpm.lock files changed
-        uses: tj-actions/changed-files@v44
+        uses: tj-actions/changed-files@v45
         id: package-json-pnpm-lock-files-changed
         # Return 'true' for any directories listed here that changed
         with:

@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KDropdownItem from '@/components/KDropdown/KDropdownItem.vue'
@@ -22,7 +21,7 @@ describe('KDropdown', () => {
   it('renders props when passed', () => {
     const triggerTextProp = 'Drop it!'
 
-    mount(KDropdown, {
+    cy.mount(KDropdown, {
       props: {
         triggerText: triggerTextProp,
         items: defaultMenuItems,
@@ -41,7 +40,7 @@ describe('KDropdown', () => {
   it('renders with correct px width', () => {
     const width = 350
 
-    mount(KDropdown, {
+    cy.mount(KDropdown, {
       props: {
         width: width + '',
         items: defaultMenuItems,
@@ -56,7 +55,7 @@ describe('KDropdown', () => {
   it('renders disabled props when passed', () => {
     const tooltipText = 'A sweet tooltip'
 
-    mount(KDropdown, {
+    cy.mount(KDropdown, {
       props: {
         triggerText: 'Click me',
         disabled: true,
@@ -73,7 +72,7 @@ describe('KDropdown', () => {
   })
 
   it('renders correctly when selectionMenu', () => {
-    mount(KDropdown, {
+    cy.mount(KDropdown, {
       props: {
         selectionMenu: true,
         items: selectionMenuItems,
@@ -86,7 +85,7 @@ describe('KDropdown', () => {
   it('renders with selected item', () => {
     const selectedLabel = 'Label 1'
 
-    mount(KDropdown, {
+    cy.mount(KDropdown, {
       props: {
         triggerText: 'Click me',
         selectionMenu: true,
@@ -108,7 +107,7 @@ describe('KDropdown', () => {
     const itemSlotContent = 'I am slotted baby!'
     const triggerSlotContent = 'Click Me!'
 
-    mount(KDropdown, {
+    cy.mount(KDropdown, {
       slots: {
         items: h('span', {}, itemSlotContent),
         default: h('button', {}, triggerSlotContent),
@@ -173,7 +172,7 @@ describe('KDropdown', () => {
       Disabled external link
     </KDropdownItem>`
 
-    mount(KDropdown, {
+    cy.mount(KDropdown, {
       props: {
         triggerText: 'Click me',
         class: 'test-dropdown',
@@ -214,7 +213,7 @@ describe('KDropdownItem', () => {
     const testIdAttr = 'dropdown-item-test'
     const boundClass = 'some-random-class'
 
-    mount(KDropdownItem, {
+    cy.mount(KDropdownItem, {
       props: {
         item: {
           label: 'You are here',
@@ -236,7 +235,7 @@ describe('KDropdownItem', () => {
   })
 
   it('correctly handles disabled state on links', () => {
-    mount(KDropdownItem, {
+    cy.mount(KDropdownItem, {
       props: {
         item: {
           label: 'You are here',
@@ -253,7 +252,7 @@ describe('KDropdownItem', () => {
   })
 
   it('correctly handles disabled state on button', () => {
-    mount(KDropdownItem, {
+    cy.mount(KDropdownItem, {
       props: {
         item: {
           label: 'You are here',

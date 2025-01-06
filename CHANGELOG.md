@@ -1,3 +1,510 @@
+# [9.15.0](https://github.com/Kong/kongponents/compare/v9.14.30...v9.15.0) (2025-01-03)
+
+
+### Features
+
+* **kcodeblock:** add highlighted line numbers prop ([#2555](https://github.com/Kong/kongponents/issues/2555)) ([fdfb16a](https://github.com/Kong/kongponents/commit/fdfb16a1fbc2a7c30c8b72e55cd08fa02ca31bde))
+
+## [9.14.30](https://github.com/Kong/kongponents/compare/v9.14.29...v9.14.30) (2024-12-30)
+
+
+### Bug Fixes
+
+* **kcodeblock:** fix maxHeight and getSizeFromString util ([#2554](https://github.com/Kong/kongponents/issues/2554)) ([974a707](https://github.com/Kong/kongponents/commit/974a707a1e126ff430f0a5a0ce51164c730ade76))
+
+## [9.14.29](https://github.com/Kong/kongponents/compare/v9.14.28...v9.14.29) (2024-12-23)
+
+
+### Bug Fixes
+
+* **kalert:** use proper danger icon ([#2550](https://github.com/Kong/kongponents/issues/2550)) ([4b92584](https://github.com/Kong/kongponents/commit/4b92584ad2518bda1e605f47bd803bd444e10a0d))
+
+## [9.14.28](https://github.com/Kong/kongponents/compare/v9.14.27...v9.14.28) (2024-12-19)
+
+
+### Bug Fixes
+
+* **kalert:** code style ([#2548](https://github.com/Kong/kongponents/issues/2548)) ([e7ac271](https://github.com/Kong/kongponents/commit/e7ac2711c6b828ee0bbdaf79553b1bd38d2133bb))
+
+## [9.14.27](https://github.com/Kong/kongponents/compare/v9.14.26...v9.14.27) (2024-12-19)
+
+
+### Bug Fixes
+
+* **kbutton:** add text-align ([#2547](https://github.com/Kong/kongponents/issues/2547)) ([8462c1d](https://github.com/Kong/kongponents/commit/8462c1d94580617f0517744972d87ef705304e75))
+
+## [9.14.26](https://github.com/Kong/kongponents/compare/v9.14.25...v9.14.26) (2024-12-18)
+
+
+### Bug Fixes
+
+* **ktableview:** sort order when changing sort column [KHCP-14449] ([#2543](https://github.com/Kong/kongponents/issues/2543)) ([a970987](https://github.com/Kong/kongponents/commit/a97098794742b42fb97d3df756df591697fafd72))
+
+## [9.14.25](https://github.com/Kong/kongponents/compare/v9.14.24...v9.14.25) (2024-12-17)
+
+
+### Bug Fixes
+
+* **kpagination,ktableview:** add missing import ([#2542](https://github.com/Kong/kongponents/issues/2542)) ([fdff434](https://github.com/Kong/kongponents/commit/fdff434a676bb49b0ea30fdfb5df2f70052f17c6))
+
+## [9.14.24](https://github.com/Kong/kongponents/compare/v9.14.23...v9.14.24) (2024-12-13)
+
+
+### Bug Fixes
+
+* **kselect:** remove altering slected item key [KHCP-13749] ([#2541](https://github.com/Kong/kongponents/issues/2541)) ([7db6274](https://github.com/Kong/kongponents/commit/7db6274cd1d47a74d01a8d1d32695a4d2756b6dc))
+
+## [9.14.23](https://github.com/Kong/kongponents/compare/v9.14.22...v9.14.23) (2024-12-13)
+
+
+### Bug Fixes
+
+* **kalert:** default slotted code styles [KHCP-14406] ([#2540](https://github.com/Kong/kongponents/issues/2540)) ([4cff45d](https://github.com/Kong/kongponents/commit/4cff45de35729a1bf4db1406a542aef37f2b07d8))
+
+## [9.14.22](https://github.com/Kong/kongponents/compare/v9.14.21...v9.14.22) (2024-12-12)
+
+
+### Bug Fixes
+
+* remove vue-bind-once [KHCP-14269] ([#2535](https://github.com/Kong/kongponents/issues/2535)) ([6d31fae](https://github.com/Kong/kongponents/commit/6d31fae3635f29c49ae22d07402b260c893f4b8c))
+
+## [9.14.21](https://github.com/Kong/kongponents/compare/v9.14.20...v9.14.21) (2024-12-10)
+
+
+### Bug Fixes
+
+* **link:** apply styles to deep ([84a4e9f](https://github.com/Kong/kongponents/commit/84a4e9f75c7bff9b136ae3e89d7cc2be51dbcc3f))
+
+## [9.14.20](https://github.com/Kong/kongponents/compare/v9.14.19...v9.14.20) (2024-12-06)
+
+
+### Bug Fixes
+
+* **kradio:** remove horizontal card vertical spacing ([#2526](https://github.com/Kong/kongponents/issues/2526)) ([d4dc2b7](https://github.com/Kong/kongponents/commit/d4dc2b772dad039a95a67f6fce6f3909d1e49ca4))
+
+## [9.14.19](https://github.com/Kong/kongponents/compare/v9.14.18...v9.14.19) (2024-12-03)
+
+
+### Bug Fixes
+
+* **ktableview:** align nested table with parent [KHCP-14265] ([#2533](https://github.com/Kong/kongponents/issues/2533)) ([21ed3ec](https://github.com/Kong/kongponents/commit/21ed3ec232205d3c8f177104748d3b25fb04c017))
+
+## [9.14.18](https://github.com/Kong/kongponents/compare/v9.14.17...v9.14.18) (2024-12-03)
+
+
+### Bug Fixes
+
+* **ktabs:** allow tab anchors to be links [KHCP-13866] ([#2532](https://github.com/Kong/kongponents/issues/2532)) ([cdf5caa](https://github.com/Kong/kongponents/commit/cdf5caad086047d1f0023820769e3fb54d95f0f5))
+
+## [9.14.17](https://github.com/Kong/kongponents/compare/v9.14.16...v9.14.17) (2024-11-26)
+
+
+### Bug Fixes
+
+* **kalert:** slotted links default styling [KHCP-14152] ([#2528](https://github.com/Kong/kongponents/issues/2528)) ([631a287](https://github.com/Kong/kongponents/commit/631a287f2b49967cfa62cd3fc4e6097773bd9249))
+* **ktableview:** row-expanded prop and event [KHCP-14243] ([#2527](https://github.com/Kong/kongponents/issues/2527)) ([eb92309](https://github.com/Kong/kongponents/commit/eb923099bddd3e5ec51c113cba60579c45ecde7c))
+
+## [9.14.16](https://github.com/Kong/kongponents/compare/v9.14.15...v9.14.16) (2024-11-21)
+
+
+### Bug Fixes
+
+* **kinputswitch:** fix events race condition ([#2523](https://github.com/Kong/kongponents/issues/2523)) ([6e3626f](https://github.com/Kong/kongponents/commit/6e3626f949df0bc0a11ffd6cd0dcc4dafa9f8a1b))
+
+## [9.14.15](https://github.com/Kong/kongponents/compare/v9.14.14...v9.14.15) (2024-11-18)
+
+
+### Bug Fixes
+
+* **ktableview, ktabledata:** table updates event [KHCP-14032] ([#2520](https://github.com/Kong/kongponents/issues/2520)) ([ce27dca](https://github.com/Kong/kongponents/commit/ce27dca7d240a446da879b5f25d82c461fffa403))
+
+## [9.14.14](https://github.com/Kong/kongponents/compare/v9.14.13...v9.14.14) (2024-11-15)
+
+
+### Bug Fixes
+
+* sass [@import](https://github.com/import) to [@use](https://github.com/use) [KHCP-13755] ([#2518](https://github.com/Kong/kongponents/issues/2518)) ([b3ec945](https://github.com/Kong/kongponents/commit/b3ec945f84532bd0d4e4e4e7fb6920b11c6fb487))
+
+## [9.14.13](https://github.com/Kong/kongponents/compare/v9.14.12...v9.14.13) (2024-11-13)
+
+
+### Bug Fixes
+
+* **kselect, kmultiselect:** create item on enter logic ([#2514](https://github.com/Kong/kongponents/issues/2514)) ([f982c25](https://github.com/Kong/kongponents/commit/f982c25dcb8634afe4a353ae769bda64a762d74d))
+
+## [9.14.12](https://github.com/Kong/kongponents/compare/v9.14.11...v9.14.12) (2024-11-13)
+
+
+### Bug Fixes
+
+* **kradio:** show-card-radio and card-orientation props [KHCP-13540] ([#2504](https://github.com/Kong/kongponents/issues/2504)) ([61b1d74](https://github.com/Kong/kongponents/commit/61b1d742e08a76b1e2a040f050c17ffef4646935))
+
+## [9.14.11](https://github.com/Kong/kongponents/compare/v9.14.10...v9.14.11) (2024-11-12)
+
+
+### Bug Fixes
+
+* **kselect:** item creation logic [KHCP-13908] ([#2512](https://github.com/Kong/kongponents/issues/2512)) ([03611ce](https://github.com/Kong/kongponents/commit/03611cef030337dfaac60de3d8d25d6f4196756e))
+
+## [9.14.10](https://github.com/Kong/kongponents/compare/v9.14.9...v9.14.10) (2024-11-12)
+
+
+### Bug Fixes
+
+* **ktabs:** minor fix ([#2513](https://github.com/Kong/kongponents/issues/2513)) ([38ecf93](https://github.com/Kong/kongponents/commit/38ecf937475c89fc08b3e3efe8c4402310e87356))
+
+## [9.14.9](https://github.com/Kong/kongponents/compare/v9.14.8...v9.14.9) (2024-11-12)
+
+
+### Bug Fixes
+
+* **kcodeblock:** type error ([#2511](https://github.com/Kong/kongponents/issues/2511)) ([e348876](https://github.com/Kong/kongponents/commit/e348876e9138c058746c949a906c02d9e17da483))
+
+## [9.14.8](https://github.com/Kong/kongponents/compare/v9.14.7...v9.14.8) (2024-11-01)
+
+
+### Bug Fixes
+
+* **kselect,kmultiselect:** enter should not submit form while filtering ([#2497](https://github.com/Kong/kongponents/issues/2497)) ([adbf36b](https://github.com/Kong/kongponents/commit/adbf36b82f92b03a54ad643f305fcfe1a4af3ace))
+
+## [9.14.7](https://github.com/Kong/kongponents/compare/v9.14.6...v9.14.7) (2024-11-01)
+
+
+### Bug Fixes
+
+* **test:** fix cypress testing issues ([#2496](https://github.com/Kong/kongponents/issues/2496)) ([8276041](https://github.com/Kong/kongponents/commit/82760412fac166aca92936afaa437f48f0e8c06e))
+
+## [9.14.6](https://github.com/Kong/kongponents/compare/v9.14.5...v9.14.6) (2024-10-31)
+
+
+### Bug Fixes
+
+* **kselect:** add item-creation-validator prop [KHCP-13862] ([#2485](https://github.com/Kong/kongponents/issues/2485)) ([bf31855](https://github.com/Kong/kongponents/commit/bf318553d9e4097193b37f4949a26c6c6b23aaec))
+
+## [9.14.5](https://github.com/Kong/kongponents/compare/v9.14.4...v9.14.5) (2024-10-31)
+
+
+### Bug Fixes
+
+* **kselect:** don't emit query-change on select [KHCP-13895] ([#2493](https://github.com/Kong/kongponents/issues/2493)) ([87b11ea](https://github.com/Kong/kongponents/commit/87b11eaaf995129574e8fd68f9be5016b8c7860c))
+
+## [9.14.4](https://github.com/Kong/kongponents/compare/v9.14.3...v9.14.4) (2024-10-30)
+
+
+### Bug Fixes
+
+* **kbutton:** pass to as long as it's a router-link [KM-644] ([#2491](https://github.com/Kong/kongponents/issues/2491)) ([cb1ff3b](https://github.com/Kong/kongponents/commit/cb1ff3b372b84dbed4105a4d18387d715d1c0e04))
+
+## [9.14.3](https://github.com/Kong/kongponents/compare/v9.14.2...v9.14.3) (2024-10-30)
+
+
+### Bug Fixes
+
+* **kpop:** not enterable ([#2483](https://github.com/Kong/kongponents/issues/2483)) ([9bc3d3a](https://github.com/Kong/kongponents/commit/9bc3d3a7507de2370697c7b24defb2805ce82df0))
+
+## [9.14.2](https://github.com/Kong/kongponents/compare/v9.14.1...v9.14.2) (2024-10-29)
+
+
+### Bug Fixes
+
+* **ktableview, ktabledata:** cell-attrs prop type ([#2490](https://github.com/Kong/kongponents/issues/2490)) ([7e28e39](https://github.com/Kong/kongponents/commit/7e28e39fb58b27acd878386141c43fd74594e71e))
+
+## [9.14.1](https://github.com/Kong/kongponents/compare/v9.14.0...v9.14.1) (2024-10-29)
+
+
+### Bug Fixes
+
+* **kselect:** clear filter on blur [KHCP-13444] ([#2486](https://github.com/Kong/kongponents/issues/2486)) ([83da311](https://github.com/Kong/kongponents/commit/83da3114c4e1b62ceb09014d89b2be52b4bee2cf))
+
+# [9.14.0](https://github.com/Kong/kongponents/compare/v9.13.1...v9.14.0) (2024-10-26)
+
+
+### Features
+
+* **kselect:** add `before` slot ([#2481](https://github.com/Kong/kongponents/issues/2481)) ([dfb5f07](https://github.com/Kong/kongponents/commit/dfb5f07b540ddda74e28887f5efa17fc1744b0c4))
+
+## [9.13.1](https://github.com/Kong/kongponents/compare/v9.13.0...v9.13.1) (2024-10-25)
+
+
+### Bug Fixes
+
+* **ktabs:** slotted anchor link ([#2480](https://github.com/Kong/kongponents/issues/2480)) ([72ae295](https://github.com/Kong/kongponents/commit/72ae295ce1d7c58743a45835556073c424060868))
+
+# [9.13.0](https://github.com/Kong/kongponents/compare/v9.12.1...v9.13.0) (2024-10-23)
+
+
+### Features
+
+* **kbutton:** add appearance="none" to button ([#2469](https://github.com/Kong/kongponents/issues/2469)) ([30fb03a](https://github.com/Kong/kongponents/commit/30fb03a00be86059ceb0bfc07a3eae85efbc57fc))
+
+## [9.12.1](https://github.com/Kong/kongponents/compare/v9.12.0...v9.12.1) (2024-10-17)
+
+
+### Bug Fixes
+
+* **ktabledata:** show loading when revalidating ([#2466](https://github.com/Kong/kongponents/issues/2466)) ([b92d720](https://github.com/Kong/kongponents/commit/b92d720d3696cdb56cedc244920618a8dcb14583))
+
+# [9.12.0](https://github.com/Kong/kongponents/compare/v9.11.5...v9.12.0) (2024-10-16)
+
+
+### Features
+
+* **ktabledata:** create component [KHCP-13110] ([#2405](https://github.com/Kong/kongponents/issues/2405)) ([7393468](https://github.com/Kong/kongponents/commit/7393468db925e967844ecf7ce4deb0f358ab668a))
+
+## [9.11.5](https://github.com/Kong/kongponents/compare/v9.11.4...v9.11.5) (2024-10-15)
+
+
+### Bug Fixes
+
+* **kinput:** prevent focus loss on icon/button click ([#2453](https://github.com/Kong/kongponents/issues/2453)) ([c536de7](https://github.com/Kong/kongponents/commit/c536de7afc846a0b54804fa75bb986bb3d729da4))
+* **klabel:** fix aria attributes on tooltip icon ([#2454](https://github.com/Kong/kongponents/issues/2454)) ([7201572](https://github.com/Kong/kongponents/commit/72015727498152ada0ccd9c6de74f844c6cc7bca))
+
+## [9.11.4](https://github.com/Kong/kongponents/compare/v9.11.3...v9.11.4) (2024-10-15)
+
+
+### Bug Fixes
+
+* **kpagination:** ensure firstDetached consistency [KM-580] ([#2452](https://github.com/Kong/kongponents/issues/2452)) ([18a2e3a](https://github.com/Kong/kongponents/commit/18a2e3a47b40defe69ef7800a5416660d24b40ae))
+
+## [9.11.3](https://github.com/Kong/kongponents/compare/v9.11.2...v9.11.3) (2024-10-15)
+
+
+### Bug Fixes
+
+* update the helpUrl ([#2458](https://github.com/Kong/kongponents/issues/2458)) ([56e7a39](https://github.com/Kong/kongponents/commit/56e7a39513e3a772b11d892965ef1e75497e2103))
+
+## [9.11.2](https://github.com/Kong/kongponents/compare/v9.11.1...v9.11.2) (2024-10-12)
+
+
+### Bug Fixes
+
+* **ktable:** bulk actions checkboxes should be valign center ([#2446](https://github.com/Kong/kongponents/issues/2446)) ([cfca76a](https://github.com/Kong/kongponents/commit/cfca76ad00bd54ea164fad314e195834cfd56e98))
+
+## [9.11.1](https://github.com/Kong/kongponents/compare/v9.11.0...v9.11.1) (2024-10-11)
+
+
+### Bug Fixes
+
+* **kinput:** add show-masking-toggle prop [KHCP-13466] ([#2448](https://github.com/Kong/kongponents/issues/2448)) ([0c876d0](https://github.com/Kong/kongponents/commit/0c876d0d5c0235ec7eaab1cf05f250ec90106caa))
+
+# [9.11.0](https://github.com/Kong/kongponents/compare/v9.10.4...v9.11.0) (2024-10-10)
+
+
+### Features
+
+* **ktableview:** add row-key prop [KHCP-13502] ([#2427](https://github.com/Kong/kongponents/issues/2427)) ([4d3208a](https://github.com/Kong/kongponents/commit/4d3208aad47a609610420072a4eea29127f656c6))
+
+## [9.10.4](https://github.com/Kong/kongponents/compare/v9.10.3...v9.10.4) (2024-10-09)
+
+
+### Bug Fixes
+
+* **kmultiselect:** add item-creation-validator prop [KHCP-13541] ([#2443](https://github.com/Kong/kongponents/issues/2443)) ([939e513](https://github.com/Kong/kongponents/commit/939e513be0bd87a015469841d42a15daef98f8c9))
+
+## [9.10.3](https://github.com/Kong/kongponents/compare/v9.10.2...v9.10.3) (2024-10-04)
+
+
+### Bug Fixes
+
+* **kmultiselect:** arrow keys navigation [KHCP-13121] ([#2433](https://github.com/Kong/kongponents/issues/2433)) ([b26825a](https://github.com/Kong/kongponents/commit/b26825ab3f7c7f0afd6aacfc098d8211ddaeca96))
+
+## [9.10.2](https://github.com/Kong/kongponents/compare/v9.10.1...v9.10.2) (2024-10-04)
+
+
+### Bug Fixes
+
+* **kmultiselect:** make sure bound attributes override default ([#2407](https://github.com/Kong/kongponents/issues/2407)) ([06cbcdd](https://github.com/Kong/kongponents/commit/06cbcdd0e6478f6e5e8a75c8c15c4510451aef4a))
+
+## [9.10.1](https://github.com/Kong/kongponents/compare/v9.10.0...v9.10.1) (2024-10-03)
+
+
+### Bug Fixes
+
+* **kinput:** default type attribute [KHCP-13525] ([#2434](https://github.com/Kong/kongponents/issues/2434)) ([03892c0](https://github.com/Kong/kongponents/commit/03892c0e06ed0b847e737eb1b34c38f3d537ea81))
+
+# [9.10.0](https://github.com/Kong/kongponents/compare/v9.9.1...v9.10.0) (2024-10-01)
+
+
+### Features
+
+* **kcatalog:** support offest pagination [KHCP-13325] ([#2424](https://github.com/Kong/kongponents/issues/2424)) ([e00860b](https://github.com/Kong/kongponents/commit/e00860ba035925fc0acfeef586107b3a5b3001e0))
+
+## [9.9.1](https://github.com/Kong/kongponents/compare/v9.9.0...v9.9.1) (2024-10-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.18.1 ([#2425](https://github.com/Kong/kongponents/issues/2425)) ([c917dc5](https://github.com/Kong/kongponents/commit/c917dc570b491de897ac0ecd9cc3ba0943f443bb))
+
+# [9.9.0](https://github.com/Kong/kongponents/compare/v9.8.4...v9.9.0) (2024-09-30)
+
+
+### Features
+
+* **kmultiselect:** add search-placeholder prop [KHCP-13352] ([#2419](https://github.com/Kong/kongponents/issues/2419)) ([4062052](https://github.com/Kong/kongponents/commit/4062052e302b581ece97a04eaea6a2c930efc2dc))
+
+## [9.8.4](https://github.com/Kong/kongponents/compare/v9.8.3...v9.8.4) (2024-09-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.18.0 ([#2423](https://github.com/Kong/kongponents/issues/2423)) ([5d8a26d](https://github.com/Kong/kongponents/commit/5d8a26d78f24c290438b3142fcefa612e7c7cfd3))
+
+## [9.8.3](https://github.com/Kong/kongponents/compare/v9.8.2...v9.8.3) (2024-09-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @floating-ui/vue to ^1.1.5 ([#2417](https://github.com/Kong/kongponents/issues/2417)) ([c0929bc](https://github.com/Kong/kongponents/commit/c0929bc8d3b51fedd686c75d84ff6e59767ce7ac))
+
+## [9.8.2](https://github.com/Kong/kongponents/compare/v9.8.1...v9.8.2) (2024-09-25)
+
+
+### Bug Fixes
+
+* **table:** search box for table column hide/show dropdown [khcp-13105] ([#2406](https://github.com/Kong/kongponents/issues/2406)) ([6d8c496](https://github.com/Kong/kongponents/commit/6d8c496b2e275ac7b8276ad337254442022b4c72))
+
+## [9.8.1](https://github.com/Kong/kongponents/compare/v9.8.0...v9.8.1) (2024-09-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.15.2 ([#2411](https://github.com/Kong/kongponents/issues/2411)) ([2456fdd](https://github.com/Kong/kongponents/commit/2456fddd2307b7b4236c8ddd09ac88783e0356dc))
+
+# [9.8.0](https://github.com/Kong/kongponents/compare/v9.7.1...v9.8.0) (2024-09-19)
+
+
+### Features
+
+* autosubmit timeframe button clicks [MA-3223] ([#2404](https://github.com/Kong/kongponents/issues/2404)) ([466a79e](https://github.com/Kong/kongponents/commit/466a79e4c36879cedf545f2173b8ebfb58a3cc04))
+
+## [9.7.1](https://github.com/Kong/kongponents/compare/v9.7.0...v9.7.1) (2024-09-17)
+
+
+### Bug Fixes
+
+* **ktableview:** disable column visibility dropdown [KHCP-13248] ([#2392](https://github.com/Kong/kongponents/issues/2392)) ([65890a2](https://github.com/Kong/kongponents/commit/65890a23018290321bb8315de454ffd9e4d37aca))
+
+# [9.7.0](https://github.com/Kong/kongponents/compare/v9.6.7...v9.7.0) (2024-09-16)
+
+
+### Features
+
+* **ktableview:** add expandable rows feature [KHCP-13108] ([#2376](https://github.com/Kong/kongponents/issues/2376)) ([4880981](https://github.com/Kong/kongponents/commit/4880981f2744a697ab8b47df1553957e1eff60d0))
+
+## [9.6.7](https://github.com/Kong/kongponents/compare/v9.6.6...v9.6.7) (2024-09-13)
+
+
+### Bug Fixes
+
+* **ktreeitem:** ignore clicks on some slotted elements [KHCP-13213] ([#2389](https://github.com/Kong/kongponents/issues/2389)) ([4703a08](https://github.com/Kong/kongponents/commit/4703a085df6f165e09c8e069627dcc6e05a653a1))
+
+## [9.6.6](https://github.com/Kong/kongponents/compare/v9.6.5...v9.6.6) (2024-09-13)
+
+
+### Bug Fixes
+
+* **ktable:** column visibility alignment ([#2393](https://github.com/Kong/kongponents/issues/2393)) ([a372765](https://github.com/Kong/kongponents/commit/a372765d95bc54a14f85c5d89393e85037a77ac3))
+
+## [9.6.5](https://github.com/Kong/kongponents/compare/v9.6.4...v9.6.5) (2024-09-13)
+
+
+### Bug Fixes
+
+* **kcodeblock:** keyboard shortcut for copy should work ([#2385](https://github.com/Kong/kongponents/issues/2385)) ([d1bd965](https://github.com/Kong/kongponents/commit/d1bd9651a1240d5b2f240e7478edcd58401ab39a))
+* **kcopy:** truncated text should have max-width on tooltip ([#2388](https://github.com/Kong/kongponents/issues/2388)) ([43cc04f](https://github.com/Kong/kongponents/commit/43cc04fab7fd81d323a03665d60330f20f5b5962))
+
+## [9.6.4](https://github.com/Kong/kongponents/compare/v9.6.3...v9.6.4) (2024-09-11)
+
+
+### Bug Fixes
+
+* **skeleton:** layout shifting due to delayed rendering ([#2383](https://github.com/Kong/kongponents/issues/2383)) ([77c4a20](https://github.com/Kong/kongponents/commit/77c4a204a88c4b223db5744afd1c11638dce41d2))
+
+## [9.6.3](https://github.com/Kong/kongponents/compare/v9.6.2...v9.6.3) (2024-09-11)
+
+
+### Bug Fixes
+
+* **kcard:** actions content wrapping ([#2386](https://github.com/Kong/kongponents/issues/2386)) ([42fe5ff](https://github.com/Kong/kongponents/commit/42fe5ff5faeb1af30b14b5557668a6eaae8962ab))
+
+## [9.6.2](https://github.com/Kong/kongponents/compare/v9.6.1...v9.6.2) (2024-09-11)
+
+
+### Bug Fixes
+
+* **ktable:** mask delay of column visibility menu ([#2382](https://github.com/Kong/kongponents/issues/2382)) ([3dbc773](https://github.com/Kong/kongponents/commit/3dbc7739d0d53a05eba634fa30b189a725164e9e))
+
+## [9.6.1](https://github.com/Kong/kongponents/compare/v9.6.0...v9.6.1) (2024-09-09)
+
+
+### Bug Fixes
+
+* **ktableview:** minor fix ([#2381](https://github.com/Kong/kongponents/issues/2381)) ([5d531f1](https://github.com/Kong/kongponents/commit/5d531f1d78fdb79cff899dd88becadc53fbb671e))
+
+# [9.6.0](https://github.com/Kong/kongponents/compare/v9.5.5...v9.6.0) (2024-09-09)
+
+
+### Features
+
+* **ktableview:** add bulk actions feature [KHCP-13106] ([#2365](https://github.com/Kong/kongponents/issues/2365)) ([cd8ceb5](https://github.com/Kong/kongponents/commit/cd8ceb518e219e16795a169c353aeb0d46807436))
+
+## [9.5.5](https://github.com/Kong/kongponents/compare/v9.5.4...v9.5.5) (2024-09-06)
+
+
+### Bug Fixes
+
+* **ktable, ktableview:** `resizeColumns` should ignore right clicks ([#2375](https://github.com/Kong/kongponents/issues/2375)) ([4a0e2f6](https://github.com/Kong/kongponents/commit/4a0e2f67aa04e10e7d94d25320fb778f5ddcfe2f))
+
+## [9.5.4](https://github.com/Kong/kongponents/compare/v9.5.3...v9.5.4) (2024-09-05)
+
+
+### Bug Fixes
+
+* **ktooltip, klabel:** slotted code background color ([#2374](https://github.com/Kong/kongponents/issues/2374)) ([1aed04a](https://github.com/Kong/kongponents/commit/1aed04ac9e51e72c48fcab6325abf4cefe8fd363))
+
+## [9.5.3](https://github.com/Kong/kongponents/compare/v9.5.2...v9.5.3) (2024-09-04)
+
+
+### Bug Fixes
+
+* **kselect:** arrow down navigation [KHCP-12967] ([#2358](https://github.com/Kong/kongponents/issues/2358)) ([62fbe64](https://github.com/Kong/kongponents/commit/62fbe64ce8fc882fcfbf2f7cae53ef0318a34f18))
+
+## [9.5.2](https://github.com/Kong/kongponents/compare/v9.5.1...v9.5.2) (2024-09-04)
+
+
+### Bug Fixes
+
+* **ksegmentedcontrol:** bump border width and colors [KHCP-13152] ([#2372](https://github.com/Kong/kongponents/issues/2372)) ([d7de55a](https://github.com/Kong/kongponents/commit/d7de55a7403f60fef8290f83574f59cf4b1c4b52))
+
+## [9.5.1](https://github.com/Kong/kongponents/compare/v9.5.0...v9.5.1) (2024-08-28)
+
+
+### Bug Fixes
+
+* **ktreelist:** add group prop [KHCP-13028] ([#2361](https://github.com/Kong/kongponents/issues/2361)) ([b2c4999](https://github.com/Kong/kongponents/commit/b2c4999c517573643c2febd230510845f1a715fc))
+
+# [9.5.0](https://github.com/Kong/kongponents/compare/v9.4.1...v9.5.0) (2024-08-27)
+
+
+### Features
+
+* **kpop:** expose show-popover function ([#2362](https://github.com/Kong/kongponents/issues/2362)) ([79ecb03](https://github.com/Kong/kongponents/commit/79ecb03287b9cb94e3fdb36aa027e3bce71bc94b))
+
+## [9.4.1](https://github.com/Kong/kongponents/compare/v9.4.0...v9.4.1) (2024-08-27)
+
+
+### Bug Fixes
+
+* **ktable:** store offset of next page in nextOffset ([#2355](https://github.com/Kong/kongponents/issues/2355)) ([bf1821e](https://github.com/Kong/kongponents/commit/bf1821ecd8e3e538764846e72ab9d19731c9725a))
+
+# [9.4.0](https://github.com/Kong/kongponents/compare/v9.3.3...v9.4.0) (2024-08-26)
+
+
+### Features
+
+* **ktableview:** add component [KHCP-9499] ([#2338](https://github.com/Kong/kongponents/issues/2338)) ([5b1ae1b](https://github.com/Kong/kongponents/commit/5b1ae1bd00a5f047a08d852244c2cd8d11b9ba53))
+
 ## [9.3.3](https://github.com/Kong/kongponents/compare/v9.3.2...v9.3.3) (2024-08-21)
 
 

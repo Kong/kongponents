@@ -6,9 +6,9 @@
   >
     <KLabel
       v-if="label"
-      v-bind-once="{ for: multiselectWrapperId }"
       v-bind="labelAttributes"
       :data-testid="labelAttributes['data-testid'] ? labelAttributes['data-testid'] : 'multiselect-label'"
+      :for="multiselectWrapperId"
       :required="isRequired"
     >
       {{ strippedLabel }}
@@ -30,15 +30,17 @@
           @open="() => handleToggle(true, isToggled, toggle)"
         >
           <div
+            :id="multiselectWrapperId"
             ref="multiselectElement"
-            v-bind-once="{ id: multiselectWrapperId }"
             class="multiselect-trigger"
-            v-bind="modifiedAttrs"
             :class="{ focused: isFocused, hovered: isHovered, disabled: isDisabled, readonly: isReadonly }"
             data-testid="multiselect-trigger"
             role="listbox"
             :tabindex="isDisabled || isReadonly || collapsedContext ? -1 : 0"
+            v-bind="modifiedAttrs"
             @click="handleFilterClick"
+            @keydown.enter="onTriggerKeypress"
+            @keydown.space="onTriggerKeypress"
           >
             <div v-if="collapsedContext">
               <KInput
@@ -50,7 +52,7 @@
                 data-testid="multiselect-input"
                 :disabled="isDisabled"
                 :model-value="filterString"
-                :placeholder="placeholderText"
+                :placeholder="triggerElementText"
                 :readonly="isReadonly ? true : undefined"
                 type="text"
                 @blur="() => isFocused = false"
@@ -60,6 +62,7 @@
                   }
                 }"
                 @focus="onInputFocus"
+                @keydown.enter="onInputEnter"
                 @keyup="(evt: any) => triggerFocus(evt, isToggled)"
                 @mouseenter="() => isHovered = true"
                 @mouseleave="() => isHovered = false"
@@ -70,7 +73,7 @@
               v-else-if="!selectedItems.length"
               class="expanded-selection-empty"
             >
-              {{ selectedItemsText }}
+              {{ triggerElementText }}
             </div>
             <div
               v-else
@@ -164,16 +167,19 @@
                   class="multiselect-dropdown-input"
                   data-testid="multiselect-dropdown-input"
                   :model-value="filterString"
-                  :placeholder="placeholder ? placeholder : 'Filter...'"
+                  :placeholder="searchPlaceholder || DEFAULT_SEARCH_PLACEHOLDER"
                   type="text"
                   @click.stop
                   @focus="triggerInitialFocus"
+                  @keydown.enter="onInputEnter"
+                  @keyup="onDropdownInputKeyup"
                   @keyup.enter.stop
                   @update:model-value="onQueryChange"
                 />
               </div>
               <div aria-live="polite">
                 <KMultiselectItems
+                  ref="kMultiselectItems"
                   :items="sortedItems"
                   @selected="handleItemSelect"
                 >
@@ -190,7 +196,7 @@
                   key="multiselect-add-item"
                   class="multiselect-add-item"
                   data-testid="multiselect-add-item"
-                  :item="{ label: `${filterString} (Add new value)`, value: 'add_item' }"
+                  :item="{ label: `${filterString} (Add new value)`, value: 'add_item', disabled: !itemCreationValidator(filterString) }"
                   @selected="handleAddItem"
                 >
                   <template #content>
@@ -217,7 +223,7 @@
               </div>
             </div>
             <div
-              v-if="hasDropdownFooter"
+              v-if="dropdownFooterText || $slots['dropdown-footer-text']"
               class="dropdown-footer"
               :class="`dropdown-footer-${dropdownFooterTextPosition}`"
               data-testid="dropdown-footer"
@@ -279,7 +285,7 @@
 
 <script lang="ts">
 import type { Ref, PropType } from 'vue'
-import { ref, computed, watch, nextTick, onMounted, onUnmounted, useAttrs, useSlots } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onUnmounted, useAttrs, useSlots, useId } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KBadge from '@/components/KBadge/KBadge.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -294,7 +300,7 @@ import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
 import { useEventListener } from '@vueuse/core'
-import useUniqueId from '@/composables/useUniqueId'
+import { getUniqueStringId } from '@/utilities'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -322,6 +328,7 @@ const slots = useSlots()
 
 const { getSizeFromString, cloneDeep, stripRequiredLabel } = useUtilities()
 const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 36
+const DEFAULT_SEARCH_PLACEHOLDER = 'Filter...'
 
 const props = defineProps({
   modelValue: {
@@ -345,6 +352,10 @@ const props = defineProps({
     default: () => ({}),
   },
   placeholder: {
+    type: String,
+    default: '',
+  },
+  searchPlaceholder: {
     type: String,
     default: '',
   },
@@ -436,6 +447,13 @@ const props = defineProps({
     type: String as PropType<DropdownFooterTextPosition>,
     default: 'sticky',
   },
+  /**
+   * Validator function for item creation.
+   */
+  itemCreationValidator: {
+    type: Function as PropType<(query: string) => boolean>,
+    default: () => true,
+  },
 })
 
 const emit = defineEmits<{
@@ -448,10 +466,11 @@ const emit = defineEmits<{
   (e: 'item-removed', value: MultiselectItem): void
 }>()
 
+const kMultiselectItems = ref<InstanceType<typeof KMultiselectItems> | null>(null)
+
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
-const hasDropdownFooter = computed((): boolean => !!(props.dropdownFooterText || slots['dropdown-footer-text']))
 
 const getBadgeAppearance = (item?: MultiselectItem): BadgeAppearance => {
   if (isDisabled.value || isReadonly.value || item?.disabled) {
@@ -476,8 +495,9 @@ const defaultKPopAttributes = {
 const key = ref(0)
 const stagingKey = ref(0)
 
-const multiselectWrapperId = attrs.id ? String(attrs.id) : useUniqueId() // unique id for the KLabel `for` attribute
-const multiselectKey = useUniqueId()
+const defaultId = useId()
+const multiselectWrapperId = computed((): string => attrs.id ? String(attrs.id) : defaultId) // unique id for the KLabel `for` attribute
+const multiselectKey = useId()
 
 const multiselectElement = ref<HTMLDivElement | null>(null)
 const multiselectInputElement = ref<InstanceType<typeof KInput> | null>(null)
@@ -488,7 +508,7 @@ const multiselectSelectionsStagingElement = ref<HTMLDivElement>()
 const selectionsMaxHeight = computed((): number => {
   return props.selectedRowCount * SELECTED_ITEMS_SINGLE_LINE_HEIGHT
 })
-const filterString = ref('')
+const filterString = ref<string>('')
 // whether or not filter string matches an existing item's label
 const uniqueFilterStr = computed((): boolean => {
   if (!filterString.value) {
@@ -501,7 +521,7 @@ const uniqueFilterStr = computed((): boolean => {
 
   return true
 })
-const popper = ref(null)
+const popper = ref<InstanceType<typeof KPop> | null>(null)
 
 // A clone of `props.items`, normalized.  May contain additional custom items that have been created.
 const unfilteredItems: Ref<MultiselectItem[]> = ref([])
@@ -563,7 +583,7 @@ const createKPopAttributes = computed(() => {
   return {
     ...defaultKPopAttributes,
     ...props.kpopAttributes,
-    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} ${hasDropdownFooter.value ? 'has-dropdown-footer' : ''}`,
+    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} ${props.dropdownFooterText || slots['dropdown-footer-text'] ? 'has-dropdown-footer' : ''}`,
     width: numericWidth.value + 'px',
     maxWidth: numericWidth.value + 'px',
     disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),
@@ -594,11 +614,15 @@ const numericWidthStyle = computed(() => {
   }
 })
 
-const placeholderText = computed(() => {
-  return selectedItems.value.length ? selectedItemsText.value : props.placeholder || 'Filter...'
-})
+const triggerElementText = computed((): string => {
+  if (selectedItems.value.length === 0) {
+    if (!props.collapsedContext && props.placeholder) {
+      return props.placeholder
+    } else if (props.collapsedContext && props.searchPlaceholder) {
+      return props.searchPlaceholder
+    }
+  }
 
-const selectedItemsText = computed((): string => {
   if (selectedItems.value.length === 1) {
     return `${selectedItems.value.length} item selected`
   }
@@ -686,7 +710,6 @@ const handleMultipleItemsSelect = (items: MultiselectItem[]) => {
     const selectedItem = unfilteredItems.value.filter(anItem => anItem.value === itemToSelect.value)?.[0] || null
 
     selectedItem.selected = true
-    selectedItem.key = selectedItem?.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
     // if it isn't already in selectedItems, add it
     if (!selectedItems.value.filter(anItem => anItem.value === selectedItem.value).length) {
       selectedItems.value.push(selectedItem)
@@ -709,7 +732,6 @@ const handleMultipleItemsDeselect = (items: MultiselectItem[], restage = false) 
 
     // deselect item
     itemToDeselect.selected = false
-    itemToDeselect.key = itemToDeselect.key?.replace(/-selected/gi, '')
 
     // if some items are hidden grab the first hidden one and add it into the visible array
     if (invisibleSelectedItemsStaging.value.length) {
@@ -762,7 +784,6 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
     }
     // deselect item
     selectedItem.selected = false
-    selectedItem.key = selectedItem.key?.replace(/-selected/gi, '')
 
     // if some items are hidden grab the first hidden one and add it into the visible array
     if (invisibleSelectedItemsStaging.value.length) {
@@ -780,7 +801,6 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
     }
   } else { // newly selected item
     selectedItem.selected = true
-    selectedItem.key = selectedItem.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
     selectedItems.value.push(selectedItem)
     visibleSelectedItemsStaging.value.push(selectedItem)
     // track it if it's a newly added item
@@ -798,9 +818,17 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
   emit('update:modelValue', selectedVals)
 }
 
+const onInputEnter = (e: KeyboardEvent): void => {
+  if (props.enableItemCreation) {
+    handleAddItem()
+  }
+
+  e.preventDefault()
+}
+
 // add an item with `enter`
 const handleAddItem = (): void => {
-  if (!props.enableItemCreation || !filterString.value || !uniqueFilterStr.value) {
+  if (!props.enableItemCreation || !filterString.value || !uniqueFilterStr.value || !props.itemCreationValidator(filterString.value)) {
     // do nothing if not enabled or no label or label already exists
     return
   }
@@ -808,7 +836,7 @@ const handleAddItem = (): void => {
   const pos = unfilteredItems.value.length + 1
   const item: MultiselectItem = {
     label: sanitizeInput(filterString.value + ''),
-    value: useUniqueId(),
+    value: getUniqueStringId(),
     key: `${sanitizeInput(filterString.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
   }
   emit('item-added', item)
@@ -817,12 +845,16 @@ const handleAddItem = (): void => {
   filterString.value = ''
 }
 
-// sort dropdown items. Selected items displayed before unselected items
+// Sort items. Non-grouped items are displayed first, then grouped items.
+// Within non-grouped and grouped items, selected items are displayed first.
 const sortItems = () => {
-  const selItems = filteredItems.value.filter((item: MultiselectItem) => item.selected)
-  const unselItems = filteredItems.value.filter((item: MultiselectItem) => !item.selected)
+  const selectedItems = filteredItems.value.filter((item: MultiselectItem) => item.selected)
+  const unselectedItems = filteredItems.value.filter((item: MultiselectItem) => !item.selected)
+  const allItems = [...selectedItems, ...unselectedItems]
+  const ungroupedItems = allItems.filter(item => !item.group)
+  const groupedItems = allItems.filter(item => item.group).sort((a, b) => a.group.toLowerCase().localeCompare(b.group.toLowerCase()))
 
-  sortedItems.value = selItems.concat(unselItems)
+  sortedItems.value = [...ungroupedItems, ...groupedItems]
 }
 
 const clearSelection = (): void => {
@@ -832,7 +864,6 @@ const clearSelection = (): void => {
     }
 
     anItem.selected = false
-    anItem.key = anItem?.key?.replace(/-selected/gi, '')
 
     if (anItem.custom) {
       // we must emit that we are removing each item before we actually clear them since this is our only reference
@@ -875,6 +906,20 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
   // `esc` key closes
   if (evt.keyCode === 27) {
     isToggled.value = false
+  }
+
+  if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp')) {
+    kMultiselectItems.value?.setFocus()
+  }
+}
+
+const onTriggerKeypress = () => {
+  popper.value?.showPopover()
+}
+
+const onDropdownInputKeyup = (event: any) => {
+  if ((event.code === 'ArrowDown' || event.code === 'ArrowUp')) {
+    kMultiselectItems.value?.setFocus()
   }
 }
 
@@ -987,7 +1032,6 @@ watch(() => props.items, (newValue, oldValue) => {
     if (props.modelValue.includes(unfilteredItems.value[i].value) || unfilteredItems.value[i].selected) {
       const selectedItem = unfilteredItems.value[i]
       selectedItem.selected = true
-      selectedItem.key = selectedItem.key?.includes('-selected') ? selectedItem.key : `${selectedItem.key}-selected`
       // if it isn't already in the selectedItems array, add it
       if (!selectedItems.value.filter(anItem => anItem.value === selectedItem.value).length) {
         selectedItems.value.push(selectedItem)
@@ -1146,7 +1190,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
       width: 100%;
     }
 
-    &.hovered {
+    &.hovered, &:hover {
       @include inputHover;
     }
 

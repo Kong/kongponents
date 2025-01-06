@@ -1,6 +1,6 @@
 import type { Replace } from '@/types/utils'
 
-export type ButtonAppearance = 'primary' | 'secondary' | 'tertiary' | 'danger'
+export type ButtonAppearance = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'none'
 export type ButtonAppearanceRecord = Record<Replace<ButtonAppearance, '-', ''>, ButtonAppearance>
 
 export type ButtonSize = 'large' | 'medium' | 'small'
@@ -11,6 +11,7 @@ export const ButtonAppearances: ButtonAppearanceRecord = {
   secondary: 'secondary',
   tertiary: 'tertiary',
   danger: 'danger',
+  none: 'none',
 }
 
 export const ButtonSizes: ButtonSizeRecord = {

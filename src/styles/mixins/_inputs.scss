@@ -1,7 +1,9 @@
+@use "@kong/design-tokens/tokens/scss/variables" as *;
+
 /* This file imports mixins with styles used in all types of inputs and contains some shared mixins */
 
-@import "@/styles/mixins/input-text";
-@import "@/styles/mixins/input-radio-checkbox";
+@forward "@/styles/mixins/input-text";
+@forward "@/styles/mixins/input-radio-checkbox";
 
 /* Common mixins */
 

@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KSelect from '@/components/KSelect/KSelect.vue'
 
@@ -7,7 +6,7 @@ describe('KSelect', () => {
     const labels = ['Label 1', 'Label 2', 'Label 3']
     const vals = ['val1', 'val2', 'val3']
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: labels[0],
@@ -34,7 +33,7 @@ describe('KSelect', () => {
   it('renders with selected item', () => {
     const selectedLabel = 'Label 1'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{ label: selectedLabel, value: 'val1', selected: true }],
       },
@@ -44,7 +43,7 @@ describe('KSelect', () => {
   })
 
   it('renders with disabled item', () => {
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{ label: 'Label 1', value: 'val1', disabled: true }],
       },
@@ -56,7 +55,7 @@ describe('KSelect', () => {
   it('renders with correct px width', () => {
     const width = 350
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         width: width + '',
         items: [{
@@ -73,7 +72,7 @@ describe('KSelect', () => {
   it('renders with correct label', () => {
     const labelText = 'Cool Beans!'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         label: labelText,
         items: [{
@@ -88,7 +87,7 @@ describe('KSelect', () => {
 
   it('renders label with labelAttributes applied', () => {
     const labelText = 'A Label'
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         label: labelText,
         labelAttributes: {
@@ -106,7 +105,7 @@ describe('KSelect', () => {
   })
 
   it('handles the `required` state correctly', () => {
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         label: 'A Label',
         required: true,
@@ -120,7 +119,7 @@ describe('KSelect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['val1', 'val2']
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         enableFiltering: true,
         items: [{
@@ -143,7 +142,7 @@ describe('KSelect', () => {
     cy.getTestId(`select-item-${vals[0]}`).should('contain.text', labels[0])
     cy.getTestId(`select-item-${vals[1]}`).should('not.exist')
 
-    cy.getTestId(`select-item-${vals[0]}`).eq(0).click({ force: true })
+    cy.getTestId(`select-item-${vals[0]}`).click()
     cy.getTestId('select-input').should('have.value', labels[0])
   })
 
@@ -151,7 +150,7 @@ describe('KSelect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['val1', 'val2']
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: labels[0],
@@ -175,7 +174,7 @@ describe('KSelect', () => {
     const itemLabel = 'Label 1'
     const itemValue = 'val1'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: itemLabel,
@@ -195,7 +194,7 @@ describe('KSelect', () => {
     const itemLabel = 'Label 1'
     const itemValue = 'val1'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: itemLabel,
@@ -212,9 +211,11 @@ describe('KSelect', () => {
     cy.getTestId('item-slot-content').should('be.visible').should('contain.text', itemSlotContent)
   })
 
-  it('handles all states correctly when `enableFiltering` is `true`', () => {
+  it('handles all states correctly when enableFiltering is true', () => {
     const onQueryChange = cy.spy().as('onQueryChange')
-    mount(KSelect, {
+    const itemLabel = 'Label 1'
+
+    cy.mount(KSelect, {
       props: {
         enableFiltering: true,
         loading: false,
@@ -224,20 +225,49 @@ describe('KSelect', () => {
     })
 
     cy.get('input').type('a').then(() => {
-      cy.get('@onQueryChange').should('have.been.calledWith', '')
       cy.get('@onQueryChange').should('have.been.calledWith', 'a')
     }).then(() => {
       cy.wrap(Cypress.vueWrapper.setProps({ loading: true })).getTestId('select-loading').should('exist')
     }).then(() => {
       cy.wrap(Cypress.vueWrapper.setProps({ loading: false })).getTestId('select-loading').should('not.exist')
     }).then(() => {
-      cy.wrap(Cypress.vueWrapper.setProps({ items: [{ label: 'Label 1', value: 'label1' }] })).getTestId('select-item-label1').should('contain.text', 'Label 1')
+      cy.wrap(Cypress.vueWrapper.setProps({ items: [{ label: itemLabel, value: 'label1' }] })).getTestId('select-item-label1').should('contain.text', itemLabel)
     }).then(() => {
       cy.getTestId('select-item-label1').trigger('click')
-      cy.get('input').should('have.value', 'Label 1')
+      cy.get('input').should('have.value', itemLabel)
       cy.getTestId('select-input').trigger('click')
       cy.get('[data-testid="select-item-label1"] button').should('have.class', 'selected')
       cy.get('@onQueryChange').should('have.been.calledWith', '')
+    })
+  })
+
+  it('handles query change correctly', () => {
+    const itemLabel = 'Label 1'
+    let emitCount = 0
+
+    cy.mount(KSelect, {
+      props: {
+        enableFiltering: true,
+        loading: false,
+        items: [{ label: itemLabel, value: 'label1' }],
+      },
+    })
+
+    cy.get('input').type(itemLabel).then(() => {
+      emitCount += itemLabel.length // 1 emit for each character typed
+      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'query-change')
+      cy.wrap(Cypress.vueWrapper.emitted()['query-change']).should('have.length', emitCount)
+      cy.getTestId('select-item-label1').trigger('click')
+      // selecting an item should not emit query change
+      cy.wrap(Cypress.vueWrapper.emitted()['query-change']).should('have.length', emitCount)
+      cy.getTestId('select-input').trigger('click').then(() => {
+        emitCount += 1 // 1 for resetting query when opening dropdown
+        // simulate pasting a value
+        cy.get('input').invoke('val', itemLabel).trigger('input').then(() => {
+          emitCount += 1 // 1 for pasting the value
+          cy.wrap(Cypress.vueWrapper.emitted()['query-change']).should('have.length', emitCount)
+        })
+      })
     })
   })
 
@@ -245,7 +275,7 @@ describe('KSelect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: labels[0],
@@ -269,7 +299,7 @@ describe('KSelect', () => {
     const vals = ['val1', 'val2', 'val3']
     const dropdownFooterText = 'Dropdown footer text'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: labels[0],
@@ -295,7 +325,7 @@ describe('KSelect', () => {
     const vals = ['label1', 'label2', 'label3']
     const dropdownFooterText = 'Dropdown footer text'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: labels[0],
@@ -330,7 +360,7 @@ describe('KSelect', () => {
       { label: 'Label 4', value: 'value4', group: group2Title },
     ]
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items,
       },
@@ -351,7 +381,7 @@ describe('KSelect', () => {
     const itemLabel = 'Label 1'
     const itemValue = 'val1'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: itemLabel,
@@ -373,7 +403,7 @@ describe('KSelect', () => {
     const itemLabel = 'Label 1'
     const itemValue = 'label1'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         placeholder: placeholderText,
         enableFiltering: true,
@@ -399,7 +429,7 @@ describe('KSelect', () => {
     const vals = ['val1', 'val2']
     const newItem = 'Rock me'
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: labels[0],
@@ -421,9 +451,14 @@ describe('KSelect', () => {
     cy.get('input').type(labels[0])
     cy.getTestId('select-add-item').should('not.exist')
     cy.get('input').clear()
+    // allows adding item substring of existing label
+    cy.get('input').type(labels[0].substring(0, labels[0].length - 1))
+    cy.getTestId('select-add-item').should('be.visible').should('contain.text', labels[0].substring(0, labels[0].length - 1))
+    cy.get('input').clear()
     // add new item
     cy.get('input').type(newItem)
-    cy.getTestId('select-add-item').should('contain.text', newItem).click()
+    cy.getTestId('select-add-item').should('contain.text', newItem)
+    cy.getTestId('select-add-item').find('button').should('be.enabled').click()
     // search is cleared
     cy.get('input').should('not.contain.text', newItem)
     // displays selected item correctly
@@ -442,11 +477,37 @@ describe('KSelect', () => {
     cy.getTestId('select-add-item').should('be.visible').should('contain.text', newItem)
   })
 
+  it('renders add new value button disabled when itemCreationValidator returns false', () => {
+    const labels = ['Label 1', 'Label 2']
+    const vals = ['val1', 'val2']
+    const newItem = 'Rock me'
+
+    cy.mount(KSelect, {
+      props: {
+        items: [{
+          label: labels[0],
+          value: vals[0],
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }],
+        enableItemCreation: true,
+        enableFiltering: true,
+        itemCreationValidator: () => false,
+      },
+    })
+
+    cy.get('.select-input').click()
+    cy.get('input').type(newItem)
+    cy.getTestId('select-add-item').should('contain.text', newItem)
+    cy.getTestId('select-add-item').find('button').should('be.disabled')
+  })
+
   it('updates selected status after items are mutated', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['val1', 'val2']
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         items: [{
           label: labels[0],
@@ -487,7 +548,7 @@ describe('KSelect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['val1', 'val2']
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         modelValue: '',
         items: [{
@@ -519,7 +580,7 @@ describe('KSelect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['val1', 'val2']
 
-    mount(KSelect, {
+    cy.mount(KSelect, {
       props: {
         modelValue: 'val1',
         items: [{
@@ -545,5 +606,32 @@ describe('KSelect', () => {
       // @ts-ignore: object type is unknown
       cy.wrap(Cypress.vueWrapper.emitted().change[0][0]).should('be.equal', null)
     })
+  })
+
+  it('should not cause form submission when enter key is pressed while filtering', () => {
+    const onSubmit = cy.spy().as('onSubmit')
+
+    cy.mount(() => h('form', {
+      onSubmit: (e: Event) => {
+        e.preventDefault()
+        onSubmit()
+      },
+    }, [
+      h(KSelect, {
+        items: [
+          { label: 'Label 1', value: 'val1' },
+          { label: 'Label 2', value: 'val2' },
+        ],
+        enableFiltering: true,
+      }),
+      h('button', { type: 'submit' }, 'Submit'),
+    ]))
+
+    cy.getTestId('select-input').trigger('click')
+    cy.get('input')
+      .type('Label{enter}')
+      .then(() => {
+        cy.get('@onSubmit').should('not.have.been.called')
+      })
   })
 })

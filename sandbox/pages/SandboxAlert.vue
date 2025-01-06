@@ -18,24 +18,64 @@
       <SandboxSectionComponent title="appearance">
         <KAlert
           appearance="info"
-          message="This is info alert."
           title="Info"
-        />
+        >
+          <div class="appearance-content">
+            This is info alert.
+            <a
+              href="https://kongponents.konghq.com/components/alert.html"
+              target="_blank"
+            >
+              Link
+            </a>
+            <code>someCodeHere: true</code>
+          </div>
+        </KAlert>
         <KAlert
           appearance="success"
-          message="This is success alert."
           title="Success"
-        />
+        >
+          <div class="appearance-content">
+            This is success alert.
+            <a
+              href="https://kongponents.konghq.com/components/alert.html"
+              target="_blank"
+            >
+              Link
+            </a>
+            <code>someCodeHere: true</code>
+          </div>
+        </KAlert>
         <KAlert
           appearance="warning"
-          message="This is warning alert."
           title="Warning"
-        />
+        >
+          <div class="appearance-content">
+            This is warning alert.
+            <a
+              href="https://kongponents.konghq.com/components/alert.html"
+              target="_blank"
+            >
+              Link
+            </a>
+            <code>someCodeHere: true</code>
+          </div>
+        </KAlert>
         <KAlert
           appearance="danger"
-          message="This is danger alert."
           title="Danger"
-        />
+        >
+          <div class="appearance-content">
+            This is danger alert.
+            <a
+              href="https://kongponents.konghq.com/components/alert.html"
+              target="_blank"
+            >
+              Link
+            </a>
+            <code>someCodeHere: true</code>
+          </div>
+        </KAlert>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="showIcon">
         <KAlert
@@ -137,3 +177,12 @@ import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { KongIcon } from '@kong/icons'
 </script>
+
+<style scoped lang="scss">
+.kalert-sandbox {
+  .appearance-content {
+    display: flex;
+    gap: $kui-space-40;
+  }
+}
+</style>

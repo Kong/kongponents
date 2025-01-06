@@ -31,12 +31,11 @@ export default defineConfig({
     devSourcemap: true,
     preprocessorOptions: {
       scss: {
+        api: 'modern',
         // Inject the @kong/design-tokens SCSS variables, kongponents variables and mixins to make them available for all components.
         // This is not needed in host applications.
         additionalData: `
-          @import "@kong/design-tokens/tokens/scss/variables";
-          @import "@/styles/vars";
-          @import "@/styles/mixins";
+          @use "@/styles/globals" as *;
         `,
       },
     },

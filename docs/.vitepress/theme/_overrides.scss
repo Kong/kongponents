@@ -1,3 +1,5 @@
+@use "@kong/design-tokens/tokens/scss/variables" as *;
+
 // Theme overrides; all should be nested inside of the `.vp-doc` class
 .vp-doc {
   /* stylelint-disable-next-line custom-property-pattern */

@@ -1,10 +1,9 @@
-import { mount } from 'cypress/vue'
 import KButton from '@/components/KButton/KButton.vue'
 import { ButtonAppearances, ButtonSizes } from '@/types'
 
 const rendersCorrectAppearance = (variant: string) => {
   it(`renders KButton with the ${variant} appearance`, () => {
-    mount(KButton, {
+    cy.mount(KButton, {
       props: {
         appearance: variant,
       },
@@ -19,7 +18,7 @@ const rendersCorrectAppearance = (variant: string) => {
 
 const rendersCorrectSize = (size: string) => {
   it(`sets ${size} class when size passed`, () => {
-    mount(KButton, {
+    cy.mount(KButton, {
       props: {
         size,
       },
@@ -40,7 +39,7 @@ describe('KButton', () => {
   Object.values(ButtonSizes).map(s => rendersCorrectSize(s))
 
   it('sets icon-button class when icon prop is `true` passed', () => {
-    mount(KButton, {
+    cy.mount(KButton, {
       props: {
         icon: true,
       },
@@ -53,7 +52,7 @@ describe('KButton', () => {
   })
 
   it('renders a native link with KButton styles', () => {
-    mount(KButton, {
+    cy.mount(KButton, {
       props: {
         to: 'https://google.com',
         appearance: 'secondary',
@@ -70,7 +69,7 @@ describe('KButton', () => {
   // TODO: remove this when we remove icon slot
   it('renders an icon when using icon slot', () => {
     const iconText = 'Pretend I am an icon'
-    mount(KButton, {
+    cy.mount(KButton, {
       props: {
         icon: 'spinner',
       },
@@ -84,7 +83,7 @@ describe('KButton', () => {
   })
 
   it('strips falsy disabled attribute on native link', () => {
-    mount(KButton, {
+    cy.mount(KButton, {
       props: {
         to: 'https://google.com',
         disabled: false,
@@ -95,5 +94,20 @@ describe('KButton', () => {
     })
 
     cy.get('.k-button').should('not.have.attr', 'disabled')
+  })
+
+  it('should not throw error when `to` prop is an object and disabled is true', () => {
+    expect(() => cy.mountWithProdRouter(
+      KButton,
+      {
+        props: {
+          to: { name: 'home' },
+          disabled: true,
+        },
+        slots: {
+          default: () => 'Click me',
+        },
+      },
+    )).to.not.throw()
   })
 })

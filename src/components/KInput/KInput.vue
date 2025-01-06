@@ -5,7 +5,7 @@
   >
     <KLabel
       v-if="label"
-      v-bind-once="{ for: inputId }"
+      :for="inputId"
       v-bind="labelAttributes"
       :required="isRequired"
     >
@@ -21,7 +21,7 @@
 
     <div
       class="input-element-wrapper"
-      :class="{ 'has-before-content': $slots.before, 'has-after-content': $slots.after }"
+      :class="{ 'has-before-content': $slots.before, 'has-after-content': $slots.after || (type === 'password' && showPasswordMaskToggle) }"
     >
       <div
         v-if="$slots.before"
@@ -32,20 +32,43 @@
       </div>
 
       <input
-        v-bind-once="{ id: inputId, ...(helpText && { 'aria-describedby': helpTextId }) }"
-        v-bind="modifiedAttrs"
+        :id="inputId"
+        :aria-describedby="helpText ? helpTextId : undefined"
         :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
         class="input"
+        :type="inputType"
+        v-bind="modifiedAttrs"
         :value="getValue()"
         @input="handleInput"
       >
 
       <div
-        v-if="$slots.after"
+        v-if="$slots.after || (type === 'password' && showPasswordMaskToggle)"
         ref="afterSlotElement"
         class="after-content-wrapper"
       >
-        <slot name="after" />
+        <button
+          v-if="type === 'password' && showPasswordMaskToggle"
+          :aria-label="`${maskValue ? 'Hide' : 'Show'} value`"
+          class="mask-value-toggle-button"
+          @click.stop="maskValue = !maskValue"
+          @mousedown.prevent
+          @mouseup.prevent
+        >
+          <VisibilityOffIcon
+            v-if="maskValue"
+            decorative
+          />
+          <VisibilityIcon
+            v-else
+            decorative
+          />
+        </button>
+
+        <slot
+          v-else
+          name="after"
+        />
       </div>
     </div>
 
@@ -55,8 +78,8 @@
     >
       <p
         v-if="helpText"
+        :id="helpTextId"
         :key="String(helpTextKey)"
-        v-bind-once="{ id: helpTextId }"
         class="help-text"
       >
         {{ helpText }}
@@ -66,13 +89,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, useSlots, useAttrs, onMounted, nextTick } from 'vue'
+import { computed, ref, watch, useSlots, useAttrs, onMounted, nextTick, useId } from 'vue'
 import type { PropType } from 'vue'
 import type { LabelAttributes, LimitExceededData } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
-import useUniqueId from '@/composables/useUniqueId'
+import { VisibilityIcon, VisibilityOffIcon } from '@kong/icons'
 
 const props = defineProps({
   modelValue: {
@@ -126,6 +149,15 @@ const props = defineProps({
       return true
     },
   },
+  type: {
+    type: String,
+    required: false,
+    default: 'text',
+  },
+  showPasswordMaskToggle: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits<{
@@ -143,8 +175,9 @@ const slots = useSlots()
 const attrs = useAttrs()
 
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
-const inputId = attrs.id ? String(attrs.id) : useUniqueId()
-const helpTextId = useUniqueId()
+const defaultId = useId()
+const inputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
+const helpTextId = useId()
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
 
@@ -265,6 +298,11 @@ const afterSlotElement = ref<HTMLElement | null>(null)
 const beforeSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot icon size
 const afterSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot icon size
 
+const maskValue = ref<boolean>(false)
+const inputType = computed((): string => {
+  return props.type === 'password' && maskValue.value ? 'text' : props.type
+})
+
 onMounted(async () => {
   await nextTick() // wait for the slots content to render
 
@@ -349,7 +387,14 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
         width: $kInputIconSize !important;
       }
 
-      :deep([role="button"]:not(.k-button)), :deep(button:not(.k-button)) {
+      // enhance the experience for most common cases that icon only slots should not
+      // prevent the input from being focused by click on the icon
+      &:has(> #{$kongponentsKongIconSelector}:not(button):not([role="button"]):only-child) {
+        pointer-events: none;
+      }
+
+      :deep([role="button"]:not(.k-button)), :deep(button:not(.k-button)),
+      .mask-value-toggle-button {
         @include defaultButtonReset;
 
         // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
@@ -447,6 +492,11 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
         @include inputDisabled;
       }
     }
+  }
+
+  // hide default password reveal icon in Edge
+  &::-ms-reveal {
+    display: none;
   }
 }
 </style>

@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 
 describe('KPagination', () => {
@@ -7,7 +6,7 @@ describe('KPagination', () => {
 
   it('correctly renders props', () => {
     const currPage = 2
-    mount(KPagination, {
+    cy.mount(KPagination, {
       props: {
         totalCount: 9,
         pageSizes,
@@ -27,7 +26,7 @@ describe('KPagination', () => {
   })
 
   it('goes to first page', () => {
-    mount(KPagination, {
+    cy.mount(KPagination, {
       props: {
         totalCount: 9,
         pageSizes: [2, 4, 6],
@@ -45,7 +44,7 @@ describe('KPagination', () => {
   })
 
   it('goes to previous page', () => {
-    mount(KPagination, {
+    cy.mount(KPagination, {
       props: {
         totalCount: 9,
         pageSizes: [2, 4, 6],
@@ -62,7 +61,7 @@ describe('KPagination', () => {
   })
 
   it('can change page size', () => {
-    mount(KPagination, {
+    cy.mount(KPagination, {
       props: {
         totalCount: 9,
         pageSizes: [2, 4, 6],

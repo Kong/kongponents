@@ -96,6 +96,30 @@ Boolean to control whether to show or hide the search bar and related action but
 />
 ```
 
+### highlightedLineNumbers
+
+An array of line numbers to initially highlight in the code block. 
+
+If search is enabled, matching results will be highlighted in place of the provided line numbers, and all highlighted lines will be cleared once the search query is cleared.
+
+<ClientOnly>
+  <KCodeBlock
+    id="code-block-highlight"
+    :code="code"
+    language="json"
+    :highlighted-line-numbers="[2,4,6]"
+  />
+</ClientOnly>
+
+```html
+<KCodeBlock
+  id="code-block-highlight"
+  :code="code"
+  language="json"
+  :highlighted-line-numbers="[2,4,6]"
+/>
+```
+
 ### singleLine
 
 Whether the code passed into the component should be displayed on a single line. Defaults to `false`.

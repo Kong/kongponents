@@ -7,7 +7,7 @@
       v-if="label"
       v-bind="labelAttributes"
       ref="labelElement"
-      :for="$attrs.id ? String($attrs.id) : undefined"
+      :for="fileInputId"
       :required="isRequired"
     >
       {{ strippedLabel }}
@@ -30,7 +30,7 @@
       </span>
 
       <KInput
-        v-bind="attrs.id ? { id: String(attrs.id) } : {}"
+        :id="fileInputId"
         :key="fileInputKey"
         ref="fileInputElement"
         :accept="accept"
@@ -74,7 +74,7 @@ defineOptions({
 })
 
 import type { PropType } from 'vue'
-import { computed, ref, useAttrs, useSlots, onMounted, watch, nextTick } from 'vue'
+import { computed, ref, useAttrs, useId, useSlots, watch } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
@@ -133,6 +133,9 @@ const emit = defineEmits<{
 }>()
 
 const { stripRequiredLabel } = useUtilities()
+
+const defaultId = useId()
+const fileInputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
 
 const modifiedAttrs = computed(() => {
   const $attrs = { ...attrs }
@@ -251,32 +254,9 @@ const resetInput = (): void => {
   emit('file-removed')
 }
 
-const setLabelAttributes = () => {
-  /**
-   * Temporary fix for the issue where we can't use v-bind-once to pass id to a custom element (KInput)
-   * TODO: remove this once useId is released in Vue 3.5
-   */
-  if (!attrs.id) {
-    const inputElementId = fileInputElement.value?.$el?.querySelector('input')?.id
-
-    if (inputElementId) {
-      labelElement.value?.$el?.setAttribute('for', inputElementId)
-    }
-  }
-}
-
-watch(fileInputKey, async () => {
-  await nextTick()
-  setLabelAttributes()
-})
-
 watch(() => attrs.id, () => {
   fileInputKey.value++
 }, { immediate: true })
-
-onMounted(() => {
-  setLabelAttributes()
-})
 </script>
 
 <style lang="scss" scoped>

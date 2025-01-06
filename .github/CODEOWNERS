@@ -1,7 +1,7 @@
 # These owners will be the default owners for everything in
 # the repo. They will be requested for review whenever someone
 # opens a PR, unless a later match takes precedence.
-* @Kong/team-core-ui
+* @Kong/team-core-ui 
 
 # Workflows & CI
 /.github/ @adamdehaven @jillztom
@@ -19,6 +19,9 @@
 # Component export config
 /src/index.ts @adamdehaven @jillztom
 
+# Components
+/src/components/ @Kong/team-core-ui @adamdehaven @jillztom @Justineo
+
 # Dev tools
 /.eslintrc.js @adamdehaven @jillztom
 /.stylelintrc.cjs @adamdehaven @jillztom @portikM
@@ -28,5 +31,5 @@
 # Dependabot approvals
 # Allow Kongponents BOT to approve dependabot updates
 # These rules MUST remain at the bottom as the last entry
-package.json @kongponents-bot @Kong/team-core-ui @adamdehaven @jillztom @kaiarrowood
-pnpm-lock.yaml @kongponents-bot @Kong/team-core-ui @adamdehaven @jillztom @kaiarrowood
+package.json @kongponents-bot @Kong/team-core-ui @adamdehaven @jillztom @kaiarrowood @Justineo
+pnpm-lock.yaml @kongponents-bot @Kong/team-core-ui @adamdehaven @jillztom @kaiarrowood @Justineo

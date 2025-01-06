@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KMultiselect from '@/components/KMultiselect/KMultiselect.vue'
 
@@ -7,7 +6,7 @@ describe('KMultiselect', () => {
     const labels = ['Label 1', 'Label 2', 'Label 3']
     const vals = ['label1', 'label2', 'label3']
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -35,7 +34,7 @@ describe('KMultiselect', () => {
     const selectedLabel = 'Label 1'
     const selectedLabel2 = 'Label 2'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [
           { label: selectedLabel, value: 'label1', selected: true },
@@ -57,7 +56,7 @@ describe('KMultiselect', () => {
     const labels = ['Label 1', 'Label 2', 'Label 3']
     const vals = ['label1', 'label2', 'label3']
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [
           { label: labels[0], value: vals[0], disabled: true },
@@ -74,7 +73,7 @@ describe('KMultiselect', () => {
   it('renders with correct px width', () => {
     const width = 350
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         width: width + '',
         items: [{
@@ -91,7 +90,7 @@ describe('KMultiselect', () => {
   it('renders with correct label', () => {
     const labelText = 'Cool Beans!'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         label: labelText,
         items: [{
@@ -106,7 +105,7 @@ describe('KMultiselect', () => {
 
   it('renders label with labelAttributes applied', () => {
     const labelText = 'A Label'
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         label: labelText,
         labelAttributes: {
@@ -127,7 +126,7 @@ describe('KMultiselect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -158,7 +157,7 @@ describe('KMultiselect', () => {
     const vals = ['label1', 'label2']
     const newItem = 'Rock me'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -181,7 +180,8 @@ describe('KMultiselect', () => {
     cy.get('input').clear()
     // add new item
     cy.get('input').type(newItem)
-    cy.getTestId('multiselect-add-item').should('contain.text', newItem).click()
+    cy.getTestId('multiselect-add-item').should('contain.text', newItem)
+    cy.getTestId('multiselect-add-item').find('button').should('be.enabled').click()
     // search is cleared
     cy.get('input').should('not.contain.text', newItem)
     // item displays in selections
@@ -201,12 +201,39 @@ describe('KMultiselect', () => {
     cy.get('.multiselect-item .selected .multiselect-item-label').should('not.exist')
   })
 
+  it('renders add new value button disabled when itemCreationValidator returns false', () => {
+    const labels = ['Label 1', 'Label 2']
+    const vals = ['label1', 'label2']
+    const newItem = 'Rock me'
+
+    cy.mount(KMultiselect, {
+      props: {
+        items: [{
+          label: labels[0],
+          value: vals[0],
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }],
+        enableItemCreation: true,
+        itemCreationValidator: () => false,
+      },
+    })
+
+    cy.getTestId('multiselect-trigger').click()
+
+    // add new item
+    cy.get('input').type(newItem)
+    cy.getTestId('multiselect-add-item').should('contain.text', newItem)
+    cy.getTestId('multiselect-add-item').find('button').should('be.disabled')
+  })
+
   it('clears added items when clicking clear all with enableItemCreation', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
     const newItem = 'Rock me'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -241,7 +268,7 @@ describe('KMultiselect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -265,7 +292,7 @@ describe('KMultiselect', () => {
     const itemLabel = 'Label 1'
     const itemValue = 'label1'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: itemLabel,
@@ -282,7 +309,7 @@ describe('KMultiselect', () => {
 
   it('works in autosuggest mode', () => {
     const onQueryChange = cy.spy().as('onQueryChange')
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         autosuggest: true,
         loading: false,
@@ -317,7 +344,7 @@ describe('KMultiselect', () => {
 
     const items = (allItems.slice(0, 10))
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         autosuggest: true,
         selectedRowCount: 1,
@@ -352,26 +379,63 @@ describe('KMultiselect', () => {
       })
   })
 
-  it('only shows placeholder when collapsedContext is true', () => {
+  it('displays placeholder and searchPlaceholder props correctly', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
+    const placeholder = 'Select something'
+    const searchPlaceholder = 'Search here'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
-        collapsedContext: true,
+        placeholder,
+        searchPlaceholder,
         items: [{
           label: labels[0],
           value: vals[0],
-          selected: true,
         }, {
           label: labels[1],
           value: vals[1],
-          selected: true,
         }],
       },
     })
 
     cy.getTestId('selection-badges-container').should('not.exist')
+    cy.get('.expanded-selection-empty').should('be.visible').should('contain.text', placeholder)
+
+    cy.getTestId('multiselect-trigger').click()
+    cy.getTestId('multiselect-dropdown-input').should('have.attr', 'placeholder', searchPlaceholder)
+
+    cy.get('.multiselect-item').eq(0).click()
+    cy.get('.expanded-selection-empty').should('not.exist')
+    cy.getTestId('selection-badges-container').should('be.visible')
+  })
+
+  it('handles searchPlaceholder prop correctly when collapsedContext is true', () => {
+    const labels = ['Label 1', 'Label 2']
+    const vals = ['label1', 'label2']
+    const searchPlaceholder = 'Search here'
+
+    cy.mount(KMultiselect, {
+      props: {
+        collapsedContext: true,
+        searchPlaceholder,
+        items: [{
+          label: labels[0],
+          value: vals[0],
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }],
+      },
+    })
+
+    cy.getTestId('selection-badges-container').should('not.exist')
+
+    cy.get('.multiselect-trigger input').should('have.attr', 'placeholder', searchPlaceholder)
+
+    cy.getTestId('multiselect-trigger').click()
+    cy.get('.multiselect-item').eq(0).click()
+    cy.get('.multiselect-item').eq(1).click()
 
     cy.get('.multiselect-trigger input').should('have.attr', 'placeholder', '2 items selected')
   })
@@ -380,7 +444,7 @@ describe('KMultiselect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -406,7 +470,7 @@ describe('KMultiselect', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -431,7 +495,7 @@ describe('KMultiselect', () => {
     const vals = ['label1', 'label2', 'label3']
     const dropdownFooterText = 'Dropdown footer text'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -457,7 +521,7 @@ describe('KMultiselect', () => {
     const vals = ['label1', 'label2', 'label3']
     const dropdownFooterText = 'Dropdown footer text'
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: [{
           label: labels[0],
@@ -492,7 +556,7 @@ describe('KMultiselect', () => {
       { label: 'Label 4', value: 'value4', group: group2Title },
     ]
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items,
       },
@@ -517,7 +581,7 @@ describe('KMultiselect', () => {
 
     const startTime = Date.now()
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items,
       },
@@ -536,7 +600,7 @@ describe('KMultiselect', () => {
 
     const currentItems = allItems.slice(0, 2)
 
-    mount(KMultiselect, {
+    cy.mount(KMultiselect, {
       props: {
         items: currentItems,
         modelValue: ['label1', 'label2'],
@@ -577,6 +641,36 @@ describe('KMultiselect', () => {
           })
         })
       })
+    })
+  })
+
+  it('should not cause form submission when enter key is pressed while filtering', () => {
+    const onSubmit = cy.spy().as('onSubmit')
+
+    ;[false, true].forEach(collapsedContext => {
+      cy.mount(() => h('form', {
+        onSubmit: (e: Event) => {
+          e.preventDefault()
+          onSubmit()
+        },
+      }, [
+        h(KMultiselect, {
+          items: [
+            { label: 'Label 1', value: 'val1' },
+            { label: 'Label 2', value: 'val2' },
+          ],
+          enableFiltering: true,
+          collapsedContext,
+        }),
+        h('button', { type: 'submit' }, 'Submit'),
+      ]))
+
+      cy.get('.multiselect-trigger').trigger('click')
+      cy.get('input')
+        .type('Label{enter}')
+        .then(() => {
+          cy.get('@onSubmit').should('not.have.been.called')
+        })
     })
   })
 })

@@ -86,9 +86,9 @@
 
     <div
       v-else
-      v-bind-once="{ 'data-tableid': catalogId }"
       class="catalog-page"
       :class="`card-${cardSize}`"
+      :data-tableid="catalogId"
     >
       <slot
         :data="data"
@@ -132,15 +132,20 @@
     </div>
 
     <KPagination
-      v-if="!disablePagination && fetcher && !(hidePaginationWhenOptional && total <= paginationPageSizes[0]) && !error && data && data.length"
+      v-if="showPagination"
       class="card-pagination"
       :current-page="page"
       data-testid="catalog-pagination"
       :disable-page-jump="disablePaginationPageJump"
       :initial-page-size="pageSize"
       :neighbors="paginationNeighbors"
+      :offset="paginationOffset"
+      :offset-next-button-disabled="!nextOffset || !hasNextPage"
+      :offset-previous-button-disabled="!previousOffset"
       :page-sizes="paginationPageSizes"
       :total-count="total"
+      @get-next-offset="getNextOffsetHandler"
+      @get-previous-offset="getPrevOffsetHandler"
       @page-change="pageChangeHandler"
       @page-size-change="pageSizeChangeHandler"
     />
@@ -149,7 +154,7 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { ref, computed, onMounted, watch, useSlots } from 'vue'
+import { ref, computed, onMounted, watch, useSlots, useId } from 'vue'
 import type {
   CatalogItem,
   CatalogPreferences,
@@ -172,9 +177,9 @@ import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KCatalogItem from './KCatalogItem.vue'
-import useUniqueId from '@/composables/useUniqueId'
 
 const { useRequest, useDebounce, useSwrvState } = useUtilities()
+const DEFAULT_PAGE_SIZE = 15
 
 const props = defineProps({
   titleTag: {
@@ -347,6 +352,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  /**
+   * Boolean prop to enable offset-based pagination
+   */
+  paginationOffset: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits<{
@@ -359,20 +371,37 @@ const emit = defineEmits<{
 
 const slots = useSlots()
 
-const catalogId = useUniqueId()
-const defaultFetcherProps = {
-  page: 1,
-  pageSize: 15,
-  query: '',
+const catalogId = useId()
+
+const getInitialPageSize = (): number => {
+  const initialPageSize = props.paginationPageSizes?.[0]
+
+  if (initialPageSize) {
+    return initialPageSize
+  }
+
+  return DEFAULT_PAGE_SIZE
 }
 
 const data = ref<CatalogItem[]>([])
 const total = ref<number>(0)
 const filterQuery = ref<string>('')
 const page = ref<number>(1)
-const pageSize = ref<number>(15)
+const pageSize = ref<number>(getInitialPageSize())
+const offset = ref<string | null>(null)
+const offsets = ref<Array<any>>([])
+const previousOffset = computed((): string | null => offsets.value[page.value - 1])
+const nextOffset = ref<string | null>(null)
+const hasNextPage = ref<boolean>(true)
 const hasInitialized = ref<boolean>(false)
 const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
+
+const defaultFetcherProps = {
+  page: 1,
+  pageSize: pageSize.value,
+  query: '',
+  offset: null,
+}
 
 // show loading if fetching, loading prop is `true` or if revalidating (swrv state)
 const showLoading = computed((): boolean => (isCatalogLoading.value || props.loading || isRevalidating.value) && !props.error)
@@ -393,10 +422,34 @@ const fetchData = async () => {
     query: searchInput || filterQuery.value,
     pageSize: pageSize.value,
     page: page.value,
+    offset: offset.value,
   })
 
   data.value = res.data as CatalogItem[]
   total.value = props.paginationTotalItems || res.total || res.data?.length
+
+  if (props.paginationOffset) {
+    if (!res.pagination?.offset) {
+      nextOffset.value = null
+    } else {
+      nextOffset.value = res.pagination.offset
+
+      if (!offsets.value[page.value]) {
+        offsets.value.push(res.pagination.offset)
+      }
+    }
+
+    hasNextPage.value = (res.pagination && 'hasNextPage' in res.pagination) ? res.pagination.hasNextPage : true
+  }
+
+  // if the data is empty and the page is greater than 1,
+  // e.g. user deletes the last item on the last page,
+  // reset the page to 1
+  if (data.value.length === 0 && page.value > 1) {
+    page.value = 1
+    offsets.value = [null]
+    offset.value = null
+  }
 
   isInitialFetch.value = false
 
@@ -414,6 +467,11 @@ const initData = () => {
   page.value = fetcherParams.page ?? defaultFetcherProps.page
   pageSize.value = fetcherParams.pageSize ?? defaultFetcherProps.pageSize
   filterQuery.value = fetcherParams.query ?? defaultFetcherProps.query
+
+  if (props.paginationOffset) {
+    offset.value = fetcherParams.offset
+    offsets.value.push(fetcherParams.offset)
+  }
 
   // trigger setting of catalogFetcherCacheKey
   hasInitialized.value = true
@@ -465,13 +523,47 @@ const pageChangeHandler = ({ page: newPage }: PageChangeData): void => {
 }
 
 const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData): void => {
+  offsets.value = [null]
+  offset.value = null
   pageSize.value = newPageSize
   page.value = 1
+}
+
+const getNextOffsetHandler = (): void => {
+  page.value++
+  offset.value = nextOffset.value
+}
+
+const getPrevOffsetHandler = (): void => {
+  page.value--
+  offset.value = previousOffset.value
 }
 
 const getTestIdString = (message: string): string => {
   return message.toLowerCase().replace(/[^[a-z0-9]/gi, '-')
 }
+
+const showPagination = computed((): boolean => {
+  // if fetcher is not defined or disablePagination is true, don't show pagination
+  if (!props.fetcher || props.disablePagination || !data.value || !data.value.length || props.error) {
+    return false
+  }
+
+  const minPageSize = props.paginationPageSizes?.[0] ?? DEFAULT_PAGE_SIZE
+
+  // this logic is built around min page size so that pagination doesn't disappear when a higher value is selected and hidePaginationWhenOptional is true
+  if (props.hidePaginationWhenOptional && page.value === 1) {
+    if (!props.paginationOffset) {
+      // if using cursor-based pagination, hide pagination when number of items is less than min page size
+      return total.value > minPageSize
+    } else {
+      // if using offset-based pagination, hide pagination when neither previous nor next offset is available and total items is less than min page size
+      return !!previousOffset.value || !!nextOffset.value || data.value.length >= minPageSize
+    }
+  }
+
+  return true
+})
 
 watch(fetcherData, (fetchedData: any) => {
   if (fetchedData?.length && !data.value.length) {
@@ -522,6 +614,8 @@ watch([query, page, pageSize], async (newData, oldData) => {
 
   if (newQuery !== oldQuery && newPage !== 1) {
     page.value = 1
+    offsets.value = [null]
+    offset.value = null
   }
 
   // don't revalidate until we have finished initializing and made initial fetch

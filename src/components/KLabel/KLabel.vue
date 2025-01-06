@@ -1,6 +1,5 @@
 <template>
   <label
-    v-bind-once="{ ...(hasTooltip && { 'aria-describedby': tooltipId }) }"
     class="k-label"
     :class="{ 'required': required }"
   >
@@ -13,9 +12,9 @@
       :tooltip-id="tooltipId"
     >
       <InfoIcon
+        :aria-describedby="tooltipId"
         class="tooltip-trigger-icon"
         :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
-        decorative
         tabindex="0"
       />
       <template #content>
@@ -27,12 +26,11 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed, useSlots } from 'vue'
+import { computed, useId, useSlots } from 'vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { TooltipAttributes } from '@/types'
 import { InfoIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
-import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   info: {
@@ -67,7 +65,7 @@ const slots = useSlots()
 
 const hasTooltip = computed((): boolean => !!(props.help || props.info || slots.tooltip))
 
-const tooltipId = useUniqueId()
+const tooltipId = useId()
 </script>
 
 <style lang="scss" scoped>
@@ -115,7 +113,7 @@ $kLabelRequiredDotSize: 6px;
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
 
       code {
-        background-color: var(--kui-color-background-neutral, $kui-color-background-neutral);
+        background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
         color: var(--kui-color-text-inverse, $kui-color-text-inverse);
       }
     }

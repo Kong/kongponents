@@ -44,7 +44,7 @@ Prop for providing select item options. Supports grouping items under one group 
 interface SelectItem {
   label: string
   value: string | number
-  key?: string // optional parameter that will be appended with `-selected` when selected
+  key?: string
   selected?: boolean
   disabled?: boolean
   group?: string
@@ -362,7 +362,15 @@ Reuse the same display format provided via the [`item-template` slot](#itemtempl
 
 ### enableItemCreation
 
-When used in conjunction with `enableFiltering` set to `true`, KSelect will suggest adding a new value when filtering produces no results.
+KSelect can offer users the ability to add custom items to the list by typing the item they want to and then **clicking the** `... (Add new value)` **item at the bottom of the list**, which will also automatically select it.
+
+Newly created items will have a `label` consisting of the user input and a randomly generated id for the `value` to ensure uniqueness. The item will also have an attribute `custom` set to `true`. This action triggers an `item-added` event containing the added item data.
+
+Deselecting the item will completely remove it from the list and underlying data, and trigger a `item-removed` event containing the removed item's data.
+
+:::tip NOTE
+You cannot add an item if the `label` matches the `label` of a pre-existing item. In that scenario the `... (Add new value)` item will not be displayed.
+:::
 
 <ClientOnly>
   <KSelect enable-item-creation enable-filtering placeholder="Try searching for 'service d'" :items="selectItemsUnselected" />
@@ -370,6 +378,71 @@ When used in conjunction with `enableFiltering` set to `true`, KSelect will sugg
 
 ```html
 <KSelect enable-item-creation enable-filtering placeholder="Try searching for 'service d'" :items="selectItems" />
+```
+
+### itemCreationValidator
+
+Prop for passing a function for input validation when item creation is enabled.
+
+The function takes the query input string as a single parameter and must return a `boolean` value.
+
+When the function passed through `itemCreationValidator` returns `false`, the "Add new value" button will be disabled.
+
+<KSelect
+  enable-filtering
+  enable-item-creation
+  :item-creation-validator="itemCreationValidator"
+  :items="selectItemsUnselected"
+  @query-change="onItemCreationQueryChange"
+>
+  <template
+    v-if="showNewItemValidationError"
+    #dropdown-footer-text
+  >
+    <span class="item-creation-validation-error-message">
+      New item should be at least 3 characters long.
+    </span>
+  </template>
+</KSelect>
+
+```vue
+<template>
+  <KSelect
+    enable-filtering
+    enable-item-creation
+    :item-creation-validator="itemCreationValidator"
+    :items="selectItems"
+    @query-change="onQueryChange"
+  >
+    <template
+      v-if="showNewItemValidationError"
+      #dropdown-footer-text
+    >
+      <span class="item-creation-validation-error-message">
+        New item should be at least 3 characters long.
+      </span>
+    </template>
+  </KSelect>
+</template>
+
+<script setup lang="ts">
+import type { SelectItem } from '@kong/kongponents'
+
+const selectItems: SelectItem[] = [...]
+
+const showNewItemValidationError = ref<boolean>(false)
+const itemCreationValidator = (value: string) => value.length >= 3
+
+const onQueryChange = (query: string): void => {
+  showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
+}
+</script>
+
+<style lang="scss" scoped>
+.item-creation-validation-error-message {
+  color: $kui-color-text-danger;
+}
+</style>
 ```
 
 ### loading
@@ -597,7 +670,7 @@ A slot alternative for [`dropdownFooterText` prop](#dropdownfootertext).
 
 ### loading
 
-Content to be displayed when [`loading` prop](#loading-1) is `true`. Note that this prop only applies when `enableFiltering` is `true`.
+Content to be displayed when [`loading` prop](#loading-1) is `true`. Note that this slot only applies when `enableFiltering` is `true`.
 
 <ClientOnly>
   <KToggle toggled v-slot="{ isToggled, toggle }">
@@ -642,7 +715,7 @@ Slot to display custom content when items is empty or no items match filter quer
 
 ### label-tooltip
 
-Use this prop to pass any custom content to label tooltip.
+Use this slot to pass any custom content to label tooltip.
 
 <ClientOnly>
   <KSelect label="Label" :items="selectItems">
@@ -655,6 +728,18 @@ Use this prop to pass any custom content to label tooltip.
   <template #label-tooltip>Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code></template>
 </KSelect>
 ```
+
+### before
+
+Use this slot for inserting icons before the input field.
+
+<ClientOnly>
+  <KSelect :items="selectItems">
+    <template #before>
+      <SearchIcon />
+    </template>
+  </KSelect>
+</ClientOnly>
 
 ## Events
 
@@ -684,7 +769,7 @@ Event payload is removed [item](#items).
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { KongIcon } from '@kong/icons'
+import { KongIcon, SearchIcon } from '@kong/icons'
 
 const selectItems: SelectItem[] = [{
   label: 'Service A',
@@ -746,6 +831,13 @@ const fetchAsyncItems = (): void => {
 }
 
 const vModel = ref<string>('f')
+
+const showNewItemValidationError = ref<boolean>(false)
+const itemCreationValidator = (value: string) => value.length >= 3
+
+const onItemCreationQueryChange = (query: string): void => {
+  showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
+}
 </script>
 
 <style lang="scss" scoped>
@@ -773,5 +865,9 @@ const vModel = ref<string>('f')
     display: block;
     font-size: $kui-font-size-20;
   }
+}
+
+.item-creation-validation-error-message {
+  color: $kui-color-text-danger;
 }
 </style>

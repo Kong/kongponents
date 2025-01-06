@@ -9,13 +9,13 @@ e.g.
 - visible / not visible
 
 <KCard>
-  <template #body>
-    <KToggle v-slot="{isToggled, toggle}">
+  <KToggle v-slot="{isToggled, toggle}">
+    <div>
       <KButton @click="toggle">
         {{ isToggled.value ? 'Toggled' : 'Not toggled' }}
       </KButton>
-    </KToggle>
-  </template>
+    </div>
+  </KToggle>
 </KCard>
 
 ```html
@@ -50,16 +50,14 @@ For instance, here we are toggling the state on `mouseover` and toggling back on
 `mouseout`.
 
 <KCard>
-  <template #body>
-    <KToggle :toggled="true" v-slot="{isToggled, toggle}">
-      <div
-        :style="{color: isToggled.value ? 'green' : 'red'}"
-        @mouseover="toggle"
-        @mouseout="toggle">
-        {{ isToggled.value ? 'Yes' : 'No' }}
-      </div>
-    </KToggle>
-  </template>
+  <KToggle :toggled="true" v-slot="{isToggled, toggle}">
+    <div
+      :style="{color: isToggled.value ? 'green' : 'red'}"
+      @mouseover="toggle"
+      @mouseout="toggle">
+      {{ isToggled.value ? 'Yes' : 'No' }}
+    </div>
+  </KToggle>
 </KCard>
 
 ```html
@@ -77,11 +75,11 @@ For instance, here we are toggling the state on `mouseover` and toggling back on
 | `toggled` | `isToggled` Boolean |
 
 <KCard>
-  <template #body>
-    <KToggle v-slot="{ toggle }" @toggled="sayHello">
+  <KToggle v-slot="{ toggle }" @toggled="sayHello">
+    <div>
       <KButton @click="toggle">Keep clicking me</KButton>
-    </KToggle>
-  </template>
+    </div>
+  </KToggle>
 </KCard>
 
 ```html
@@ -107,21 +105,19 @@ them and placing them inside `KToggle`'s default slot.
 
 <br/>
 <KCard>
-  <template #body>
-    <KToggle v-slot="{ isToggled, toggle }">
-      <div>
-        <KButton @click="toggle">
-          Show Modal
-        </KButton>
-        <KModal
-          :isVisible="isToggled.value"
-          title="Look Mah!"
-          content="I got toggles!"
-          @proceed="toggle"
-          @canceled="toggle" />
-      </div>
-    </KToggle>
-  </template>
+  <KToggle v-slot="{ isToggled, toggle }">
+    <div>
+      <KButton @click="toggle">
+        Show Modal
+      </KButton>
+      <KModal
+        :visible="isToggled.value"
+        title="Look Mah!"
+        content="I got toggles!"
+        @proceed="toggle"
+        @cancel="toggle" />
+    </div>
+  </KToggle>
 </KCard>
 
 ```html
@@ -130,7 +126,7 @@ them and placing them inside `KToggle`'s default slot.
     <KButton @click="toggle">
       Show Modal
     </KButton>
-    <KModal :isVisible="isToggled.value" title="Look Mah!" content="I got toggles!" @proceed="toggle" @canceled="toggle" />
+    <KModal :visible="isToggled.value" title="Look Mah!" content="I got toggles!" @proceed="toggle" @cancel="toggle" />
   </div>
 </KToggle>
 ```
@@ -139,18 +135,16 @@ them and placing them inside `KToggle`'s default slot.
 
 <br/>
 <KCard style="min-height: 100px;">
-  <template #body>
-    <KToggle v-slot="{isToggled, toggle}">
-      <div>
-        <KButton @click="toggle" class="vertical-spacing">
-          {{ isToggled.value ? 'Collapse' : 'Expand' }}
-        </KButton>
-        <KAlert
-          v-if="isToggled.value"
-          alertMessage="Every day, once a day, give yourself a present." />
-      </div>
-    </KToggle>
-  </template>
+  <KToggle v-slot="{isToggled, toggle}">
+    <div>
+      <KButton @click="toggle" class="vertical-spacing">
+        {{ isToggled.value ? 'Collapse' : 'Expand' }}
+      </KButton>
+      <KAlert
+        v-if="isToggled.value"
+        message="Every day, once a day, give yourself a present." />
+    </div>
+  </KToggle>
 </KCard>
 
 ```html
@@ -159,7 +153,7 @@ them and placing them inside `KToggle`'s default slot.
     <KButton @click="toggle">
       {{ isToggled.value ? 'Collapse' : 'Expand' }}
     </KButton>
-    <KAlert v-if="isToggled.value" alertMessage="Every day, once a day, give yourself a present." />
+    <KAlert v-if="isToggled.value" message="Every day, once a day, give yourself a present." />
   </div>
 </KToggle>
 ```
@@ -168,20 +162,18 @@ them and placing them inside `KToggle`'s default slot.
 
 <br/>
 <KCard style="min-height: 100px;">
-  <template #body>
-    <KToggle v-slot="{isToggled, toggle}">
-      <div>
-        <KButton @click="toggle" class="vertical-spacing">
-          {{ isToggled.value ? 'Collapse' : 'Expand' }}
-        </KButton>
-        <transition name="expand">
-          <KAlert
-            v-if="isToggled.value"
-            alertMessage="Every day, once a day, give yourself a present." />
-        </transition>
-      </div>
-    </KToggle>
-  </template>
+  <KToggle v-slot="{isToggled, toggle}">
+    <div>
+      <KButton @click="toggle" class="vertical-spacing">
+        {{ isToggled.value ? 'Collapse' : 'Expand' }}
+      </KButton>
+      <transition name="expand">
+        <KAlert
+          v-if="isToggled.value"
+          message="Every day, once a day, give yourself a present." />
+      </transition>
+    </div>
+  </KToggle>
 </KCard>
 
 ```html
@@ -191,7 +183,7 @@ them and placing them inside `KToggle`'s default slot.
       {{ isToggled.value ? 'Collapse' : 'Expand' }}
     </KButton>
     <transition name="expand">
-      <KAlert v-if="isToggled.value" alertMessage="Every day, once a day, give yourself a present." />
+      <KAlert v-if="isToggled.value" message="Every day, once a day, give yourself a present." />
     </transition>
   </div>
 </KToggle>

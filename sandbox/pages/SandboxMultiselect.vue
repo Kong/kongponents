@@ -112,13 +112,27 @@
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        title="enableItemCreation"
+        title="enableItemCreation & itemCreationValidator"
       >
         <KMultiselect
           enable-filtering
           enable-item-creation
           :items="multiselectItems"
         />
+        <KMultiselect
+          enable-filtering
+          enable-item-creation
+          :item-creation-validator="itemCreationValidator"
+          :items="multiselectItems"
+          @query-change="onItemCreationQueryChange"
+        >
+          <template
+            v-if="showNewItemValidationError"
+            #dropdown-footer-text
+          >
+            <span class="item-creation-validation-error-message">New item should be at least 3 characters long.</span>
+          </template>
+        </KMultiselect>
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="required"
@@ -165,13 +179,14 @@
         <KMultiselect
           :items="multiselectItemsUnselected"
           label="I have a placeholder"
-          placeholder="Placeholder"
+          placeholder="Trigger element placeholder"
+          search-placeholder="Search placeholder"
         />
         <KMultiselect
           collapsed-context
           :items="multiselectItemsUnselected"
-          label="I have a placeholder"
-          placeholder="Placeholder"
+          label="I have a placeholder (collapsedContext)"
+          search-placeholder="Search placeholder"
         />
       </SandboxSectionComponent>
 
@@ -280,36 +295,44 @@ import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import type { MultiselectItem } from '@/types'
 import { KongIcon } from '@kong/icons'
 
-const multiselectItems: MultiselectItem[] = [{
-  label: 'Service A (long truncated with ellipsis item)',
-  value: 'a',
-  selected: true,
-}, {
-  label: 'Service B',
-  value: 'b',
-}, {
-  label: 'Service F',
-  value: 'f',
-  disabled: true,
-  selected: true,
-}, {
-  label: 'Service A1',
-  value: 'a1',
-  group: 'Series 1',
-}, {
-  label: 'Service B1',
-  value: 'b1',
-  group: 'Series 1',
-  selected: true,
-}, {
-  label: 'Service A2',
-  value: 'a2',
-  group: 'Series 2',
-}, {
-  label: 'Service B2',
-  value: 'b2',
-  group: 'Series 2',
-}]
+const multiselectItems: MultiselectItem[] = [
+  {
+    label: 'Service B2',
+    value: 'b2',
+    group: 'Series 2',
+  },
+  {
+    label: 'Service A (long truncated with ellipsis item)',
+    value: 'a',
+    selected: true,
+  },
+  {
+    label: 'Service B',
+    value: 'b',
+  },
+  {
+    label: 'Service F',
+    value: 'f',
+    disabled: true,
+    selected: true,
+  },
+  {
+    label: 'Service A1',
+    value: 'a1',
+    group: 'Series 1',
+  },
+  {
+    label: 'Service B1',
+    value: 'b1',
+    group: 'Series 1',
+    selected: true,
+  },
+  {
+    label: 'Service A2',
+    value: 'a2',
+    group: 'Series 2',
+  },
+]
 
 const multiselectItemsSelected = JSON.parse(JSON.stringify(multiselectItems)).map((item: MultiselectItem) => {
   item.selected = true
@@ -341,6 +364,13 @@ const example1DeselectItem = () => {
 }
 
 const example1ModelJson = computed(() => JSON.stringify(example1Selected.value, undefined, 2))
+
+const showNewItemValidationError = ref<boolean>(false)
+const itemCreationValidator = (value: string) => value.length >= 3
+
+const onItemCreationQueryChange = (query: string): void => {
+  showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
+}
 </script>
 
 <style lang="scss" scoped>
@@ -369,6 +399,10 @@ const example1ModelJson = computed(() => JSON.stringify(example1Selected.value, 
     display: flex;
     flex-direction: row;
     gap: $kui-space-30;
+  }
+
+  .item-creation-validation-error-message {
+    color: $kui-color-text-danger;
   }
 }
 </style>

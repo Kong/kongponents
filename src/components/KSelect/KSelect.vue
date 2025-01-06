@@ -8,7 +8,7 @@
       ref="labelElement"
       v-bind="labelAttributes"
       data-testid="select-label"
-      :for="$attrs.id ? String($attrs.id) : undefined"
+      :for="selectInputId"
       :required="isRequired"
     >
       {{ strippedLabel }}
@@ -32,14 +32,15 @@
         @popover-click="() => onPopoverClick(toggle)"
       >
         <div
+          :id="selectWrapperId"
           ref="selectWrapperElement"
-          v-bind-once="{ id: selectWrapperId }"
           class="select-wrapper"
           data-testid="select-wrapper"
           role="listbox"
           @click="onSelectWrapperClick"
         >
           <KInput
+            :id="selectInputId"
             :key="inputKey"
             ref="inputElement"
             autocapitalize="off"
@@ -52,15 +53,22 @@
             :model-value="filterQuery"
             :placeholder="selectedItem && !enableFiltering ? selectedItem.label : placeholderText"
             :readonly="isReadonly"
-            v-bind="attrs.id ? { id: String(attrs.id), ...modifiedAttrs } : { ...modifiedAttrs }"
+            v-bind="modifiedAttrs"
             @blur="onInputBlur"
             @click="onInputClick"
             @focus="onInputFocus"
+            @keydown.enter="onInputEnter"
             @keypress="onInputKeypress"
             @keyup="(evt: any) => triggerFocus(evt, isToggled)"
             @keyup.enter.stop
             @update:model-value="onQueryChange"
           >
+            <template
+              v-if="slots.before"
+              #before
+            >
+              <slot name="before" />
+            </template>
             <template #after>
               <button
                 v-if="isClearVisible"
@@ -124,6 +132,7 @@
               data-propagate-clicks="false"
             >
               <KSelectItems
+                ref="kSelectItems"
                 :items="filteredItems"
                 @selected="handleItemSelect"
               >
@@ -140,11 +149,11 @@
                 :item="{ label: 'No results', value: 'no_results', disabled: true }"
               />
               <KSelectItem
-                v-if="!filteredItems.length && uniqueFilterQuery && !$slots.empty && enableItemCreation"
+                v-if="uniqueFilterQuery && !$slots.empty && enableItemCreation"
                 key="select-add-item"
                 class="select-add-item"
                 data-testid="select-add-item"
-                :item="{ label: `${filterQuery} (Add new value)`, value: 'add_item' }"
+                :item="{ label: `${filterQuery} (Add new value)`, value: 'add_item', disabled: !itemCreationValidator(filterQuery) }"
                 @selected="handleAddItem"
               >
                 <template #content>
@@ -155,7 +164,7 @@
                 </template>
               </KSelectItem>
               <div
-                v-if="hasDropdownFooter && dropdownFooterTextPosition === 'static'"
+                v-if="(dropdownFooterText || $slots['dropdown-footer-text']) && dropdownFooterTextPosition === 'static'"
                 class="dropdown-footer dropdown-footer-static"
               >
                 <slot name="dropdown-footer-text">
@@ -172,7 +181,7 @@
             </div>
           </div>
           <div
-            v-if="hasDropdownFooter && dropdownFooterTextPosition === 'sticky'"
+            v-if="(dropdownFooterText || $slots['dropdown-footer-text']) && dropdownFooterTextPosition === 'sticky'"
             class="dropdown-footer dropdown-footer-sticky"
           >
             <slot name="dropdown-footer-text">
@@ -194,7 +203,7 @@
 
 <script setup lang="ts">
 import type { Ref, PropType } from 'vue'
-import { ref, computed, watch, nextTick, useAttrs, useSlots, onUnmounted, onMounted } from 'vue'
+import { ref, computed, watch, nextTick, useAttrs, useSlots, onUnmounted, onMounted, useId } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -211,7 +220,8 @@ import type {
 import { ChevronDownIcon, CloseIcon, ProgressIcon } from '@kong/icons'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
-import useUniqueId from '@/composables/useUniqueId'
+import { useEventListener } from '@vueuse/core'
+import { getUniqueStringId } from '@/utilities'
 
 defineOptions({
   inheritAttrs: false,
@@ -324,6 +334,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  /**
+   * Validator function for item creation.
+   */
+  itemCreationValidator: {
+    type: Function as PropType<(query: string) => boolean>,
+    default: () => true,
+  },
   error: {
     type: Boolean,
     default: false,
@@ -347,16 +364,20 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 const slots = useSlots()
 
+const defaultId = useId()
+const selectInputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
+
+const isDropdownOpen = ref<boolean>(false)
+
 const resizeObserver = ref<ResizeObserverHelper>()
 
 const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const isDisabled = computed((): boolean => attrs.disabled !== undefined && String(attrs.disabled) !== 'false')
 const isReadonly = computed((): boolean => attrs.readonly !== undefined && String(attrs.readonly) !== 'false')
-const hasDropdownFooter = computed((): boolean => !!(slots['dropdown-footer-text'] || props.dropdownFooterText))
 
 const defaultKPopAttributes = {
-  popoverClasses: `select-popover ${hasDropdownFooter.value ? `has-${props.dropdownFooterTextPosition}-dropdown-footer` : ''}`,
+  popoverClasses: `select-popover ${props.dropdownFooterText || slots['dropdown-footer-text'] ? `has-${props.dropdownFooterTextPosition}-dropdown-footer` : ''}`,
   popoverTimeout: 0,
   placement: 'bottom-start' as PopPlacements,
   hideCaret: true,
@@ -368,6 +389,8 @@ const labelElement = ref<InstanceType<typeof KLabel> | null>(null)
 
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 
+// sometimes (e.g. when selecting an item) we don't want to emit the query change event
+const skipQueryChangeEmit = ref<boolean>(false)
 const filterQuery = ref<string>('')
 
 // whether or not filter string matches an existing item's label
@@ -383,7 +406,7 @@ const uniqueFilterQuery = computed((): boolean => {
   return true
 })
 
-const selectWrapperId = useUniqueId() // unique id for the KPop target
+const selectWrapperId = useId() // unique id for the KPop target
 const selectedItem = ref<SelectItem | null>(null)
 const selectItems = ref<SelectItem[]>([])
 const inputFocused = ref<boolean>(false)
@@ -443,12 +466,20 @@ const hasCustomSelectedItem = computed((): boolean => !!(selectedItem.value &&
   (slots['selected-item-template'] || (props.reuseItemTemplate && slots['item-template']))))
 
 const filteredItems = computed((): SelectItem[] => {
+  let allItems: SelectItem[] = []
+
   // if filtering is not enabled or filter function returns true
   if (!props.enableFiltering || props.filterFunction({ query: filterQuery.value, items: selectItems.value }) === true) {
-    return selectItems.value
+    allItems = selectItems.value
+  } else {
+    allItems = props.filterFunction({ query: filterQuery.value, items: selectItems.value }) as SelectItem[]
   }
 
-  return props.filterFunction({ query: filterQuery.value, items: selectItems.value }) as SelectItem[]
+  // Group items by group in alphabetical order, ungrouped items first
+  const ungroupedItems = allItems.filter(item => !item.group)
+  const groupedItems = allItems.filter(item => item.group).sort((a, b) => a.group!.toLowerCase().localeCompare(b.group!.toLowerCase()))
+
+  return [...ungroupedItems, ...groupedItems]
 })
 
 const onInputKeypress = (event: Event) => {
@@ -459,8 +490,16 @@ const onInputKeypress = (event: Event) => {
   }
 }
 
+const onInputEnter = (e: KeyboardEvent): void => {
+  if (props.enableItemCreation) {
+    handleAddItem()
+  }
+
+  e.preventDefault()
+}
+
 const handleAddItem = (): void => {
-  if (!props.enableItemCreation || !filterQuery.value || !uniqueFilterQuery.value) {
+  if (!props.enableItemCreation || !filterQuery.value || !uniqueFilterQuery.value || !props.itemCreationValidator(filterQuery.value)) {
     // do nothing if not enabled or no label or label already exists
     return
   }
@@ -468,7 +507,7 @@ const handleAddItem = (): void => {
   const pos = (selectItems.value?.length || 0) + 1
   const item: SelectItem = {
     label: sanitizeInput(filterQuery.value),
-    value: useUniqueId(),
+    value: getUniqueStringId(),
     key: `${sanitizeInput(filterQuery.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
     custom: true,
   }
@@ -489,12 +528,10 @@ const handleItemSelect = (item: SelectItem, isNew?: boolean) => {
     if (anItem.key === item.key) {
       // select the item
       anItem.selected = true
-      anItem.key = anItem?.key?.includes('-selected') ? anItem.key : `${anItem.key}-selected`
       selectedItem.value = anItem
     } else if (anItem.selected) {
       // deselect previously selected item
       anItem.selected = false
-      anItem.key = anItem?.key?.replace(/-selected/gi, '')
       if (anItem.custom) {
         selectItems.value?.splice(i, 1)
         emit('item-removed', anItem)
@@ -504,13 +541,13 @@ const handleItemSelect = (item: SelectItem, isNew?: boolean) => {
     }
   })
 
+  skipQueryChangeEmit.value = true
   filterQuery.value = item.label
 }
 
 const clearSelection = (): void => {
   selectItems.value?.forEach((anItem, i) => {
     anItem.selected = false
-    anItem.key = anItem?.key?.replace(/-selected/gi, '')
     if (anItem.custom) {
       selectItems.value?.splice(i, 1)
       emit('item-removed', anItem)
@@ -524,7 +561,9 @@ const clearSelection = (): void => {
   emit('update:modelValue', null)
 }
 
-const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
+const kSelectItems = ref<InstanceType<typeof KSelectItems> | null>(null)
+
+const triggerFocus = (evt: any, isToggled: Ref<boolean>): void => {
   // Ignore `esc` key
   if (evt.keyCode === 27) {
     isToggled.value = false
@@ -534,6 +573,10 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
   const inputElem = selectWrapperElement.value?.children[0] as HTMLInputElement
   if (!isToggled.value && inputElem) { // simulate click to trigger dropdown open
     inputElem.click()
+  }
+
+  if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp') && isToggled.value) {
+    kSelectItems.value?.setFocus()
   }
 }
 
@@ -545,8 +588,6 @@ const onQueryChange = (query: string) => {
 
 const onInputFocus = (): void => {
   inputFocused.value = true
-
-  emit('query-change', filterQuery.value)
 }
 
 const onInputBlur = (): void => {
@@ -579,33 +620,28 @@ const onPopoverClick = (toggle: () => void) => {
 }
 
 const onClose = (toggle: () => void, isToggled: boolean) => {
+  isDropdownOpen.value = false
+
   if (selectedItem.value) {
+    skipQueryChangeEmit.value = true
     filterQuery.value = selectedItem.value.label
+  } else {
+    filterQuery.value = ''
   }
+
   if (isToggled) {
     toggle()
   }
 }
 
 const onOpen = (toggle: () => void) => {
+  isDropdownOpen.value = true
+
   if (props.enableFiltering) {
     filterQuery.value = ''
   }
+
   toggle()
-}
-
-const setLabelAttributes = () => {
-  /**
-   * Temporary fix for the issue where we can't use v-bind-once to pass id to a custom element (KInput)
-   * TODO: remove this once useId is released in Vue 3.5
-   */
-  if (!attrs.id) {
-    const inputElementId = inputElement.value?.$el?.querySelector('input')?.id
-
-    if (inputElementId) {
-      labelElement.value?.$el?.setAttribute('for', inputElementId)
-    }
-  }
 }
 
 watch(value, (newVal, oldVal) => {
@@ -635,11 +671,12 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 
   for (let i = 0; i < selectItems.value?.length; i++) {
-    // Ensure each item has a `selected` property
+    // Ensure each item has a selected property
     if (selectItems.value[i].selected === undefined) {
       selectItems.value[i].selected = false
     }
 
+    // ensure each item has a unique key property
     let selectItemKey = `${selectItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}`
     if (selectItemKey.includes('undefined')) {
       selectItemKey = `select-item-label-${i}`
@@ -649,9 +686,9 @@ watch(() => props.items, (newValue, oldValue) => {
     if (selectItems.value[i].value === props.modelValue || selectItems.value[i].selected) {
       selectItems.value[i].selected = true
       selectedItem.value = selectItems.value[i]
-      selectItems.value[i].key += '-selected'
 
       if (!inputFocused.value) {
+        skipQueryChangeEmit.value = true
         filterQuery.value = selectedItem.value.label
       }
     }
@@ -674,8 +711,14 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 }, { deep: true, immediate: true })
 
-watch(filterQuery, (q: string) => {
-  emit('query-change', q)
+watch(filterQuery, (query: string) => {
+  // skip emitting query change when the query is the selected item's label
+  if (skipQueryChangeEmit.value && query) {
+    return
+  }
+
+  emit('query-change', query)
+  skipQueryChangeEmit.value = false
 })
 
 watch(selectedItem, (newVal, oldVal) => {
@@ -688,12 +731,6 @@ watch(selectedItem, (newVal, oldVal) => {
   }
 }, { deep: true })
 
-watch(() => attrs.id, async () => {
-  inputKey.value++
-  await nextTick()
-  setLabelAttributes()
-}, { immediate: true })
-
 onMounted(() => {
   if (selectWrapperElement.value) {
     resizeObserver.value = ResizeObserverHelper.create(() => {
@@ -703,7 +740,15 @@ onMounted(() => {
     resizeObserver.value.observe(selectWrapperElement.value as HTMLDivElement)
   }
 
-  setLabelAttributes()
+  useEventListener(document, 'keydown', (event: any) => {
+    // When enableFiltering is false, the KInput doesn't have focus so we need to handle arrow key events here
+    if (!props.enableFiltering && document.activeElement?.tagName === 'BODY' && !inputFocused.value && isDropdownOpen.value) {
+      if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
+        event.preventDefault()
+        kSelectItems.value?.setFocus()
+      }
+    }
+  })
 })
 
 onUnmounted(() => {

@@ -1,6 +1,12 @@
+@use "@kong/design-tokens/tokens/scss/variables" as *;
+@use "@/styles/vars" as *;
+@use "@/styles/mixins/common" as *;
+
 @mixin table {
   /* Local variables */
   $tableThPaddingY: var(--kui-space-50, $kui-space-50);
+  $tableCaretIconSize: var(--kui-icon-size-30, $kui-icon-size-30);
+  $expandedRowMaxHeight: 250px;
 
   /* Styles */
   background-color: var(--kui-color-background, $kui-color-background);
@@ -12,7 +18,15 @@
   .table-toolbar {
     display: flex;
     gap: var(--kui-space-50, $kui-space-50);
+    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0)
+      var(--kui-space-20, $kui-space-20); // prevents focus outline in toolbar elements from being cut off
     width: 100%;
+
+    .toolbar-default-items-container {
+      display: flex;
+      gap: var(--kui-space-50, $kui-space-50);
+      margin-left: var(--kui-space-auto, $kui-space-auto);
+    }
   }
 
   .table-wrapper {
@@ -31,6 +45,13 @@
         padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
         vertical-align: middle;
         white-space: nowrap;
+
+        &.sticky-column {
+          background-color: var(--kui-color-background, $kui-color-background);
+          left: 0;
+          position: sticky !important;
+          z-index: 1;
+        }
       }
 
       thead {
@@ -78,7 +99,6 @@
             line-height: var(--kui-line-height-30, $kui-line-height-30);
             padding: $tableThPaddingY var(--kui-space-60, $kui-space-60);
             text-align: left;
-            vertical-align: bottom;
 
             &.resizable {
               // set min width so the column can't be collapsed to nothing - avoiding bad UX
@@ -156,6 +176,10 @@
               .sort-icon {
                 flex-shrink: 0;
               }
+
+              .table-header-bulk-actions-container {
+                display: flex;
+              }
             }
 
             &.resize-hover {
@@ -189,15 +213,156 @@
                 var(--kui-color-border, $kui-color-border) inset;
             }
 
-            .row-link {
-              color: var(--kui-color-text, $kui-color-text);
-              display: block;
-              padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
-              text-decoration: none;
+            .actions-dropdown {
+              .actions-dropdown-trigger {
+                color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+
+                &:hover:not(:disabled):not(:focus):not(:active) {
+                  background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+                  color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+                }
+
+                &:focus-visible {
+                  background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+                  color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+                }
+
+                &:active {
+                  background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+                  color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
+                }
+
+                .more-icon {
+                  pointer-events: none;
+                }
+              }
             }
 
-            .row-cell-wrapper {
-              display: contents;
+            &.row-link {
+              padding: var(--kui-space-0, $kui-space-0);
+
+              .cell-wrapper {
+                padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+              }
+
+              a.cell-wrapper {
+                color: var(--kui-color-text, $kui-color-text);
+                display: block;
+                text-decoration: none;
+              }
+
+              .expandable-row-control-container {
+                padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+              }
+            }
+
+            .expandable-row-control-container {
+              display: flex;
+
+              .expandable-row-control {
+                @include defaultButtonReset;
+
+                color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+
+                &:hover,
+                &:focus,
+                &:focus-visible {
+                  color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+                }
+
+                &:focus-visible {
+                  box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+                }
+
+                .expandable-row-control-icon {
+                  height: $tableCaretIconSize !important;
+                  transition: transform $kongponentsTransitionDurTimingFunc;
+                  width: $tableCaretIconSize !important;
+                }
+
+                &.expanded {
+                  .expandable-row-control-icon {
+                    transform: rotate(90deg);
+                  }
+                }
+              }
+            }
+          }
+
+          &.last-row {
+            border-bottom: none;
+          }
+
+          &.expandable-content-row {
+            background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+            height: auto;
+
+            > td {
+              padding: var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0)
+                var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+              white-space: normal;
+
+              &:has(.k-table-view) {
+                padding: var(--kui-space-0, $kui-space-0);
+              }
+
+              .expandable-content-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: var(--kui-space-40, $kui-space-40);
+                max-height: $expandedRowMaxHeight;
+                overflow-y: auto;
+                padding-right: var(--kui-space-60, $kui-space-60);
+
+                &:has(.k-table-view) {
+                  max-height: none;
+                  padding-right: var(--kui-space-0, $kui-space-0);
+                }
+
+                /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+                :deep(.k-table-view) {
+                  background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+
+                  .table-wrapper {
+                    max-height: $expandedRowMaxHeight;
+                  }
+
+                  tr.is-scrolled {
+                    background-color: var(
+                      --kui-color-background-neutral-weakest,
+                      $kui-color-background-neutral-weakest
+                    );
+                  }
+
+                  th,
+                  td {
+                    &:first-child {
+                      // align first column of the nested table with the first column of the parent table
+                      padding-left: calc(var(--kui-space-60, $kui-space-60) * 3 + $tableCaretIconSize);
+
+                      &.row-link {
+                        .cell-wrapper {
+                          padding-left: var(--kui-space-0, $kui-space-0);
+                        }
+                      }
+                    }
+
+                    &.hide-headers {
+                      &:last-child {
+                        // reduce padding-right to account for scrollbar
+                        padding-right: var(--kui-space-20, $kui-space-20);
+                      }
+                    }
+                  }
+
+                  .k-empty-state {
+                    background-color: var(
+                      --kui-color-background-neutral-weakest,
+                      $kui-color-background-neutral-weakest
+                    );
+                  }
+                }
+              }
             }
           }
         }
@@ -205,7 +370,7 @@
 
       // Variants
       &.has-hover {
-        tbody tr:hover {
+        tbody tr:not(.expandable-content-row):hover {
           background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
         }
       }
@@ -215,6 +380,11 @@
           cursor: pointer;
         }
       }
+    }
+
+    .bulk-actions-checkbox,
+    .table-header-bulk-actions-checkbox {
+      display: flex;
     }
   }
 

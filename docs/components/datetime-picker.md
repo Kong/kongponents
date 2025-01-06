@@ -141,7 +141,7 @@ Set the `v-model` to [Single date time picker](#single-date-time-picker-v-model)
     :range="false"
   />
   <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ singleDateEmpty }}</pre></div>
+  <div>Emitted value: <pre class="json">{{ singleDateEmpty }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -168,7 +168,7 @@ Setting the `v-model` to [Single date time picker](#single-date-time-picker-v-mo
     :range="false"
   />
   <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ singleDateToday }}</pre></div>
+  <div>Emitted value: <pre class="json">{{ singleDateToday }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -195,7 +195,7 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model).
     :range="true"
   />
   <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ dateRangeWeek }}</pre></div>
+  <div>Emitted value: <pre class="json">{{ dateRangeWeek }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -222,7 +222,7 @@ Set the `v-model` to [Range date time picker](#range-date-time-picker-v-model)
     :range="true"
   />
   <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ dateRangeWeek }}</pre></div>
+  <div>Emitted value: <pre class="json">{{ dateRangeWeek }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -255,7 +255,7 @@ This instance makes use of the optional `minDate` and `maxDate` parameters.
     :time-periods="exampleTimeFrames"
   />
   <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ dateRangeWeek }}</pre></div>
+  <div>Emitted value: <pre class="json">{{ dateRangeWeek }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -314,7 +314,7 @@ Passing in a `timePeriodsKey` causes the instance to default to the "Relative" t
     :time-periods="exampleTimeFrames"
   />
   <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ dateRangeWeekRelative }}</pre></div>
+  <div>Emitted value: <pre class="json">{{ dateRangeWeekRelative }}</pre></div>
 </ClientOnly>
 
 ```html
@@ -370,7 +370,7 @@ This utilizes the same time frames as the previous example; however, in this cas
     :time-periods="exampleTimeFrames"
   />
   <br/>
-  <div>Emitted value: <pre class="json hide-from-percy">{{ oneHourRelativeOnly }}</pre></div>
+  <div>Emitted value: <pre class="json">{{ oneHourRelativeOnly }}</pre></div>
 </ClientOnly>
 
 ```html

@@ -5,6 +5,7 @@
     class="k-code-block"
     :class="[`theme-${theme}`]"
     data-testid="k-code-block"
+    tabindex="-1"
   >
     <div
       v-if="showCodeBlockActions"
@@ -232,7 +233,7 @@ import KCodeBlockIconButton from './KCodeBlockIconButton.vue'
 const { getSizeFromString } = useUtilities()
 
 const IS_MAYBE_MAC = window?.navigator?.platform?.toLowerCase().includes('mac')
-const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Options' : 'Alt'
+const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Option' : 'Alt'
 
 // Debounces the search handler which ensures that we don’t trigger several searches while the user is still typing.
 const debouncedHandleSearchInputValue = debounce(handleSearchInputValue, 150)
@@ -287,6 +288,15 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: false,
+  },
+
+  /**
+   * The line numbers for the lines to highlight by default. **Default: `[]`**.
+   */
+  highlightedLineNumbers: {
+    type: Array as PropType<number[]>,
+    required: false,
+    default: () => [],
   },
 
   /**
@@ -396,7 +406,7 @@ const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
 
 const totalLines = computed((): number[] => Array.from({ length: props.code?.split('\n').length }, (_, index) => index + 1))
-const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value.length - 1]?.toString().length + 'ch')
+const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value?.length - 1]?.toString().length + 'ch')
 const linePrefix = computed((): string => props.id.toLowerCase().replace(/\s+/g, '-'))
 const isProcessing = computed((): boolean => props.processing || isProcessingInternally.value)
 const isShowingFilteredCode = computed((): boolean => isFilterMode.value && filteredCode.value !== '')
@@ -443,6 +453,10 @@ watch(() => isRegExpMode.value, function() {
   // Updates the matching line numbers because the matches can be different for the same query between normal and regexp mode.
   updateMatchingLineNumbers()
 })
+
+watch(() => props.highlightedLineNumbers, function() {
+  setDefaultMatchingLineNumbers()
+}, { deep: true })
 
 watch(() => isShowingFilteredCode.value, async function() {
   // Moves the focus to the code block so that code block-scoped shortcuts still work. That’s necessary because toggling filter mode changes which pre element is rendered. In doing so, the currently focused element is removed from the DOM and in response, the browser moves the focus to document.body.
@@ -527,7 +541,12 @@ onMounted(function() {
   shortcutManager.registerListener()
 
   emitCodeBlockRenderEvent()
-  updateMatchingLineNumbers()
+
+  if (!props.query && props.highlightedLineNumbers.length) {
+    setDefaultMatchingLineNumbers()
+  } else {
+    updateMatchingLineNumbers()
+  }
 })
 
 onBeforeUnmount(function() {
@@ -574,6 +593,18 @@ function handleSearch(): void {
 function handleSearchInputValue(): void {
   emit('query-change', searchQuery.value)
   updateMatchingLineNumbers()
+}
+
+function setDefaultMatchingLineNumbers(): void {
+  isProcessingInternally.value = true
+  regExpError.value = null
+
+  matchingLineNumbers.value = Array.from(new Set(props.highlightedLineNumbers))
+  numberOfMatches.value = matchingLineNumbers.value.length
+
+  emitMatchingLinesChangeEvent()
+
+  isProcessingInternally.value = false
 }
 
 function updateMatchingLineNumbers(): void {
@@ -702,11 +733,12 @@ async function copyCode(event: Event): Promise<void> {
   const button = (event.target as Element).closest('button') as HTMLButtonElement
 
   const hasCopiedCodeSuccessfully = await copyTextToClipboard(props.code)
+
   if (hasCopiedCodeSuccessfully) {
-    button.setAttribute('data-tooltip-text', 'Copied code!')
+    button?.setAttribute('data-tooltip-text', 'Copied code!')
 
     window?.setTimeout(function() {
-      button.removeAttribute('data-tooltip-text')
+      button?.removeAttribute('data-tooltip-text')
     }, 1500)
   }
 }
@@ -719,15 +751,6 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
 
 // background color for the matching line (search or filter) in dark theme
 $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't have a token for this
-
-/* Component mixins */
-
-@mixin kCodeBlockTypography {
-  font-family: var(--kui-font-family-code, $kui-font-family-code);
-  font-size: var(--kui-font-size-20, $kui-font-size-20);
-  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-  line-height: var(--kui-line-height-30, $kui-line-height-30);
-}
 
 /* Component styles */
 
@@ -790,7 +813,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
         user-select: none;
 
         .line {
-          @include kCodeBlockTypography;
+          @include codeTypography;
 
           display: inline-flex;
           justify-content: flex-end;
@@ -829,7 +852,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       }
 
       code {
-        @include kCodeBlockTypography;
+        @include codeTypography;
 
         color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
         display: block;

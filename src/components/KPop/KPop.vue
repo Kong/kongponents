@@ -10,7 +10,7 @@
     >
       <slot>
         <KButton
-          v-bind-once="{ 'aria-controls': popoverId }"
+          :aria-controls="popoverId"
           data-testid="popover-button"
         >
           {{ buttonText }}
@@ -18,14 +18,11 @@
       </slot>
     </div>
 
-    <Transition
-      :key="popoverKey"
-      name="kongponents-fade-transition"
-    >
+    <Transition name="kongponents-fade-transition">
       <div
         v-show="isVisible"
+        :id="popoverId"
         ref="popoverElement"
-        v-bind-once="{ id: popoverId }"
         :aria-labelledby="$slots.title || title ? titleId : undefined"
         class="popover"
         :class="popoverClassesObj"
@@ -86,15 +83,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, computed, watch, nextTick } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed, watch, useId } from 'vue'
 import type { PropType } from 'vue'
-import { useFloating, autoUpdate, autoPlacement, flip, shift, size } from '@floating-ui/vue'
+import { useFloating, autoUpdate, autoPlacement, flip, shift } from '@floating-ui/vue'
 import type { PopPlacements, PopTrigger } from '@/types'
 import { PopPlacementsArray, PopTriggerArray } from '@/types'
+import KButton from '@/components/KButton/KButton.vue'
 import useUtilities from '@/composables/useUtilities'
 import { CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
-import useUniqueId from '@/composables/useUniqueId'
 
 const props = defineProps({
   buttonText: {
@@ -165,13 +162,12 @@ const emit = defineEmits(['open', 'close', 'popover-click'])
 
 const { getSizeFromString } = useUtilities()
 
-const popoverId = useUniqueId()
-const titleId = useUniqueId()
+const popoverId = useId()
+const titleId = useId()
 const kPopoverElement = ref<HTMLElement | null>(null)
 const triggerWrapperElement = ref<HTMLElement | null>(null)
 const popoverElement = ref<HTMLElement | null>(null)
 const isVisible = ref<boolean>(false)
-const popoverKey = ref<number>(0)
 
 const popoverTrigger = computed((): HTMLElement | null => triggerWrapperElement.value && triggerWrapperElement.value?.children[0] ? triggerWrapperElement.value?.children[0] as HTMLElement : null)
 
@@ -185,22 +181,36 @@ const togglePopover = () => {
   }
 }
 
+const cancelFloatingUpdates = () => {
+  if (floatingUpdates.value) {
+    floatingUpdates.value()
+  }
+}
+
+const startFloatingUpdates = () => {
+  cancelFloatingUpdates()
+  if (popoverTrigger.value && popoverElement.value) {
+    // start the auto updates for the popover position
+    // autoUpdate cleanup function
+    // docs: https://floating-ui.com/docs/autoUpdate#usage
+    floatingUpdates.value = autoUpdate(popoverTrigger.value, popoverElement.value, updatePosition)
+  }
+}
+
 const showPopover = async () => {
   if (!props.disabled) {
     if (timer.value) {
       clearTimeout(timer.value)
     }
 
-    if (props.placement !== 'auto') {
-      popoverKey.value++
-      await nextTick() // wait for the Transition to update to ensure the animation works as expected
-    }
+    startFloatingUpdates()
     isVisible.value = true
   }
 }
 
 const hidePopover = () => {
   timer.value = setTimeout(() => {
+    cancelFloatingUpdates()
     isVisible.value = false
   }, props.trigger === 'hover' ? props.popoverTimeout : 0)
 }
@@ -253,22 +263,6 @@ const { floatingStyles, placement: calculatedPlacement, update: updatePosition }
     middleware: [
       shift(), // Shifts the floating element to keep it in view.
       flip(), // Changes the placement of the floating element to keep it in view.
-      /**
-       * ! Needs to be placed after flip middleware
-       * Need to use the size middleware to set the max-width and max-height of the popover
-       * So that it can prefer the original position as much as possible
-       * Docs: https://floating-ui.com/docs/size#using-with-flip
-       */
-      size({
-        apply({ elements, availableWidth, availableHeight }) {
-          requestAnimationFrame(() => {
-            Object.assign(elements.floating.style, {
-              maxWidth: `${availableWidth}px`,
-              maxHeight: `${availableHeight}px`,
-            })
-          })
-        },
-      }),
     ],
   }),
   strategy: 'fixed',
@@ -279,6 +273,7 @@ const floatingUpdates = ref<() => void>()
 
 defineExpose({
   hidePopover,
+  showPopover,
 })
 
 onMounted(() => {
@@ -310,13 +305,6 @@ onMounted(() => {
       popoverElement.value.addEventListener('focusout', hidePopover)
     }
   }
-
-  if (popoverTrigger.value && popoverElement.value) {
-    // start the auto updates for the popover position
-    // autoUpdate cleanup function
-    // docs: https://floating-ui.com/docs/autoUpdate#usage
-    floatingUpdates.value = autoUpdate(popoverTrigger.value, popoverElement.value, updatePosition)
-  }
 })
 
 onBeforeUnmount(() => {
@@ -338,10 +326,7 @@ onBeforeUnmount(() => {
     }
   }
 
-  if (floatingUpdates.value) {
-    // need to cleanup the auto updates
-    floatingUpdates.value()
-  }
+  cancelFloatingUpdates()
 })
 
 watch(isVisible, (val) => {

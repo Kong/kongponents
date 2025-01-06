@@ -9,13 +9,18 @@
         name="toolbar"
         :state="stateData"
       />
-      <ColumnVisibilityMenu
+
+      <div
         v-if="hasColumnVisibilityMenu"
-        :columns="visibilityColumns"
-        :table-id="tableId"
-        :visibility-preferences="visibilityPreferences"
-        @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
-      />
+        class="toolbar-default-items-container"
+      >
+        <ColumnVisibilityMenu
+          :columns="visibilityColumns"
+          :table-id="tableId"
+          :visibility-preferences="visibilityPreferences"
+          @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
+        />
+      </div>
     </div>
 
     <KSkeleton
@@ -87,12 +92,12 @@
         @scroll.passive="scrollHandler"
       >
         <table
-          v-bind-once="{ 'data-tableid': tableId }"
           class="table"
           :class="{
             'has-hover': rowHover,
             'is-clickable': isClickable
           }"
+          :data-tableid="tableId"
         >
           <thead :class="{ 'is-scrolled': isScrolled }">
             <tr
@@ -230,7 +235,7 @@
         :initial-page-size="pageSize"
         :neighbors="paginationNeighbors"
         :offset="paginationOffset"
-        :offset-next-button-disabled="!offset || !hasNextPage"
+        :offset-next-button-disabled="!nextOffset || !hasNextPage"
         :offset-previous-button-disabled="!previousOffset"
         :page-sizes="paginationPageSizes"
         :total-count="total"
@@ -245,7 +250,7 @@
 
 <script setup lang="ts">
 import type { Ref, PropType } from 'vue'
-import { ref, watch, computed, onMounted, useAttrs, useSlots } from 'vue'
+import { ref, watch, computed, onMounted, useAttrs, useSlots, useId } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
@@ -270,8 +275,7 @@ import type {
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
-import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
-import useUniqueId from '@/composables/useUniqueId'
+import ColumnVisibilityMenu from './../KTableView/ColumnVisibilityMenu.vue'
 
 const { useDebounce, useRequest, useSwrvState, clientSideSorter: defaultClientSideSorter, getSizeFromString } = useUtilities()
 
@@ -507,7 +511,7 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 const slots = useSlots()
 
-const tableId = useUniqueId()
+const tableId = useId()
 const defaultFetcherProps = {
   pageSize: 15,
   page: 1,
@@ -552,7 +556,6 @@ const offsets: Ref<Array<any>> = ref([])
 const hasNextPage = ref(true)
 const isClickable = ref(false)
 const hasInitialized = ref(false)
-const nextPageClicked = ref(false)
 const hasToolbarSlot = computed((): boolean => !!slots.toolbar || hasColumnVisibilityMenu.value)
 const tableWrapperStyles = computed((): Record<string, string> => ({
   maxHeight: getSizeFromString(props.maxHeight),
@@ -754,6 +757,11 @@ const headerHeight = computed((): string => {
 })
 
 const startResize = (evt: MouseEvent, colKey: string) => {
+  // right clicks should be ignored
+  if (evt.button !== 0) {
+    return
+  }
+
   let x = 0
   let width = 0
 
@@ -815,20 +823,15 @@ const fetchData = async () => {
     sortColumnOrder: sortColumnOrder.value,
     offset: offset.value,
   })
+
   data.value = res.data as Record<string, any>[]
   total.value = props.paginationTotalItems || res.total || res.data?.length
 
   if (props.paginationOffset) {
     if (!res.pagination?.offset) {
-      offset.value = null
-
-      // reset to first page if no pagiantion data is returned unless the "next page" button was clicked
-      // this will ensure buttons display the correct state for cases like search
-      if (!nextPageClicked.value) {
-        page.value = 1
-      }
+      nextOffset.value = null
     } else {
-      offset.value = res.pagination.offset
+      nextOffset.value = res.pagination.offset
 
       if (!offsets.value[page.value]) {
         offsets.value.push(res.pagination.offset)
@@ -838,7 +841,15 @@ const fetchData = async () => {
     hasNextPage.value = (res.pagination && 'hasNextPage' in res.pagination) ? res.pagination.hasNextPage : true
   }
 
-  nextPageClicked.value = false
+  // if the data is empty and the page is greater than 1,
+  // e.g. user deletes the last item on the last page,
+  // reset the page to 1
+  if (data.value.length === 0 && page.value > 1) {
+    page.value = 1
+    offsets.value = [null]
+    offset.value = null
+  }
+
   isInitialFetch.value = false
 
   return res
@@ -882,6 +893,7 @@ watch(() => props.headers, (newVal: TableHeader[]) => {
 }, { deep: true })
 
 const previousOffset = computed((): string | null => offsets.value[page.value - 1])
+const nextOffset = ref<string | null>(null)
 
 // once `initData()` finishes, setting tableFetcherCacheKey to non-falsey value triggers fetch of data
 const tableFetcherCacheKey = computed((): string => {
@@ -1010,7 +1022,7 @@ const emitTablePreferences = (): void => {
 
 const getNextOffsetHandler = (): void => {
   page.value++
-  nextPageClicked.value = true
+  offset.value = nextOffset.value
 }
 
 const getPrevOffsetHandler = (): void => {
@@ -1026,7 +1038,7 @@ const getPrevOffsetHandler = (): void => {
 const shouldShowPagination = computed((): boolean => {
   return !!(props.fetcher && !props.disablePagination &&
         !(!props.paginationOffset && props.hidePaginationWhenOptional && total.value <= props.paginationPageSizes[0]) &&
-        !(props.paginationOffset && props.hidePaginationWhenOptional && !previousOffset.value && !offset.value && data.value.length < props.paginationPageSizes[0]))
+        !(props.paginationOffset && props.hidePaginationWhenOptional && !previousOffset.value && !nextOffset.value && data.value.length < props.paginationPageSizes[0]))
 })
 
 const getTestIdString = (message: string): string => {
@@ -1123,6 +1135,8 @@ watch(hasColumnVisibilityMenu, (newVal) => {
 }, { immediate: true })
 
 onMounted(() => {
+  console.warn("The Kongponents 'KTable' component is deprecated and will be removed in the next major release.\nWe suggest using 'KTableData' component instead.\nDocs: https://kongponents.konghq.com/components/table-data.html")
+
   initData()
 })
 </script>

@@ -1,18 +1,48 @@
 <template>
-  <div class="k-table-view">
+  <div
+    class="k-table-view"
+    :class="{ 'hide-headers': hideHeaders }"
+  >
     <div
       v-if="hasToolbarSlot"
       class="table-toolbar"
       data-testid="table-toolbar"
     >
       <slot name="toolbar" />
-      <ColumnVisibilityMenu
-        v-if="hasColumnVisibilityMenu"
-        :columns="visibilityColumns"
-        :table-id="tableId"
-        :visibility-preferences="visibilityPreferences"
-        @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
-      />
+
+      <div
+        v-if="showBulkActionsToolbar || hasColumnVisibilityMenu"
+        class="toolbar-default-items-container"
+      >
+        <slot
+          v-if="showBulkActionsToolbar"
+          name="bulk-actions"
+          :selected-rows="bulkActionsSelectedRows"
+        >
+          <BulkActionsDropdown
+            v-if="!$slots['bulk-actions']"
+            :button-label="tableHeaders.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)!.label"
+            :count="bulkActionsSelectedRowsCount"
+            :disabled="!bulkActionsSelectedRowsCount || loading || !data.length"
+          >
+            <template #items>
+              <slot
+                name="bulk-action-items"
+                :selected-rows="bulkActionsSelectedRows"
+              />
+            </template>
+          </BulkActionsDropdown>
+        </slot>
+
+        <ColumnVisibilityMenu
+          v-if="hasColumnVisibilityMenu"
+          :columns="visibilityColumns"
+          :disabled="columnVisibilityDisabled"
+          :table-id="tableId"
+          :visibility-preferences="visibilityPreferences"
+          @update="(columnMap: Record<string, boolean>) => columnVisibility = columnMap"
+        />
+      </div>
     </div>
 
     <KSkeleton
@@ -38,7 +68,7 @@
           >
             <KButton
               data-testid="error-state-action"
-              :to="errorStateActionRoute"
+              :to="errorStateActionRoute!"
               @click="$emit('error-action-click')"
             >
               {{ errorStateActionMessage }}
@@ -66,7 +96,7 @@
             <KButton
               :appearance="emptyStateButtonAppearance"
               data-testid="empty-state-action"
-              :to="emptyStateActionRoute"
+              :to="emptyStateActionRoute!"
               @click="$emit('empty-state-action-click')"
             >
               <slot name="empty-state-action-icon" />
@@ -84,24 +114,28 @@
         @scroll.passive="scrollHandler"
       >
         <table
-          v-bind-once="{ 'data-tableid': tableId }"
           class="table"
           :class="{
             'has-hover': rowHover && !isActionsDropdownHovered,
             'is-clickable': isClickable
           }"
+          :data-tableid="tableId"
         >
-          <thead :class="{ 'is-scrolled': isScrolled }">
+          <thead
+            v-if="!hideHeaders"
+            :class="{ 'is-scrolled': isScrolledVertically }"
+          >
             <tr
               ref="headerRow"
-              :class="{ 'is-scrolled': isScrolled }"
+              :class="{ 'is-scrolled': isScrolledVertically }"
             >
               <th
                 v-for="(column, index) in visibleHeaders"
-                :key="`table-${tableId}-headers-${index}`"
+                :key="`table-${tableId}-headers-${column.key}`"
                 :aria-sort="column.key === sortColumnKey ? (sortColumnOrder === 'asc' ? 'ascending' : 'descending') : undefined"
                 class="table-headers"
                 :class="getHeaderClasses(column, index)"
+                :data-key="column.key"
                 :data-testid="`table-header-${column.key}`"
                 :style="columnStyles[column.key]"
                 @click="() => onHeaderClick(column)"
@@ -109,7 +143,7 @@
                 @mouseover="currentHoveredColumn = column.key"
               >
                 <div
-                  v-if="resizeColumns && index !== 0"
+                  v-if="resizeColumns && !nested && index !== 0"
                   class="resize-handle previous"
                   @click.stop
                   @mousedown="startResize($event, visibleHeaders[index - 1].key)"
@@ -123,6 +157,7 @@
                   :class="{ 'resized': resizingColumn === column.key }"
                 >
                   <slot
+                    v-if="column.key !== TableViewHeaderKeys.BULK_ACTIONS"
                     :column="getGeneric(column)"
                     :name="getColumnSlotName(column.key)"
                   >
@@ -135,16 +170,31 @@
                       {{ column.label ? column.label : column.key }}
                     </span>
                   </slot>
+                  <div
+                    v-else
+                    class="table-header-bulk-actions-container"
+                  >
+                    <KCheckbox
+                      v-model="bulkActionsAll"
+                      aria-label="Toggle selection for all rows"
+                      class="table-header-bulk-actions-checkbox"
+                      data-testid="table-header-bulk-actions-checkbox"
+                      :indeterminate="isBulkActionsIndeterminate"
+                      @change="handleIndeterminateChange"
+                    />
+                  </div>
 
                   <KTooltip
                     v-if="column.tooltip || $slots[getColumnTooltipSlotName(column.key)]"
                     :data-testid="getColumnTooltipSlotName(column.key)"
+                    max-width="300"
                     :tooltip-id="`${getColumnTooltipSlotName(column.key)}-${tableId}`"
                   >
                     <InfoIcon
                       class="header-tooltip-trigger"
                       :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
                       :size="KUI_ICON_SIZE_30"
+                      tabindex="0"
                     />
 
                     <template #content>
@@ -158,7 +208,7 @@
                   </KTooltip>
 
                   <ArrowDownIcon
-                    v-if="!column.hideLabel && column.key !== TableViewHeaderKeys.ACTIONS && column.sortable"
+                    v-if="!column.hideLabel && column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS"
                     class="sort-icon"
                     :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
                     :size="KUI_ICON_SIZE_30"
@@ -166,7 +216,7 @@
                 </div>
 
                 <div
-                  v-if="resizeColumns && index !== visibleHeaders.length - 1"
+                  v-if="resizeColumns && !nested && index !== visibleHeaders.length - 1"
                   class="resize-handle"
                   @click.stop
                   @mousedown="startResize($event, column.key)"
@@ -178,71 +228,127 @@
           </thead>
 
           <tbody>
-            <tr
+            <template
               v-for="(row, rowIndex) in data"
-              v-bind="rowAttrs(row)"
-              :key="`table-${tableId}-row-${rowIndex}`"
-              :role="!!rowLink(row).to ? 'link' : undefined"
-              :tabindex="isClickable || !!rowLink(row).to ? 0 : undefined"
+              :key="rowKeyMap.get(row)"
             >
-              <td
-                v-for="(header, index) in visibleHeaders"
-                v-bind="cellAttrs({ headerKey: header.key, row, rowIndex, colIndex: index })"
-                :key="`table-${tableId}-cell-${index}`"
-                :class="{
-                  'resize-hover': resizeColumns && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
-                  'row-link': !!rowLink(row).to,
-                }"
-                :style="columnStyles[header.key]"
-                v-on="tdlisteners(row[header.key], row)"
+              <tr
+                :class="{ 'last-row': rowIndex === data.length - 1 && !expandedRows.includes(rowIndex) }"
+                :role="!!rowLink(row).to ? 'link' : undefined"
+                :tabindex="isClickable || !!rowLink(row).to ? 0 : undefined"
+                v-bind="rowAttrs(row)"
               >
-                <component
-                  :is="getRowLinkComponent(row, header.key)"
-                  class="cell-wrapper"
-                  v-bind="getRowLinkAttrs(row, header.key)"
+                <td
+                  v-for="(header, index) in visibleHeaders"
+                  :key="`${rowKeyMap.get(row)}-cell-${header.key}`"
+                  :class="{
+                    'resize-hover': resizeColumns && !nested && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
+                    'row-link': !!rowLink(row).to,
+                  }"
+                  :style="columnStyles[header.key]"
+                  v-bind="cellAttrs({ headerKey: header.key, row, rowIndex, colIndex: index })"
+                  v-on="tdlisteners(row[header.key], row)"
                 >
-                  <slot
-                    v-if="header.key !== TableViewHeaderKeys.ACTIONS"
-                    :name="header.key"
-                    :row="getGeneric(row)"
-                    :row-key="rowIndex"
-                    :row-value="row[header.key]"
+                  <component
+                    :is="getRowLinkComponent(row, header.key)"
+                    v-if="header.key !== TableViewHeaderKeys.EXPANDABLE"
+                    class="cell-wrapper"
+                    v-bind="getRowLinkAttrs(row, header.key)"
                   >
-                    {{ row[header.key] }}
-                  </slot>
-
-                  <KDropdown
-                    v-else
-                    class="actions-dropdown"
-                    data-testid="actions-dropdown"
-                    :kpop-attributes="{ placement: 'bottom-end' }"
-                  >
-                    <KButton
-                      appearance="tertiary"
-                      :aria-label="header.label"
-                      class="actions-dropdown-trigger"
-                      icon
-                      size="small"
-                      @mouseleave="isActionsDropdownHovered = false"
-                      @mouseover="isActionsDropdownHovered = true"
+                    <slot
+                      v-if="header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS"
+                      :name="header.key"
+                      :row="getGeneric(row)"
+                      :row-key="rowIndex"
+                      :row-value="row[header.key]"
                     >
-                      <MoreIcon
-                        class="more-icon"
-                        decorative
-                      />
-                    </KButton>
+                      {{ row[header.key] }}
+                    </slot>
 
-                    <template #items>
-                      <slot
-                        name="action-items"
-                        :row="getGeneric(row)"
-                        :row-value="row[header.key]"
+                    <KTooltip
+                      v-else-if="header.key === TableViewHeaderKeys.BULK_ACTIONS && getRowState(row)"
+                      max-width="200"
+                      placement="bottom-start"
+                      :text="getRowBulkActionEnabled(row) ? undefined : getRowBulkActionTooltip(row)"
+                    >
+                      <KCheckbox
+                        v-model="getRowState(row)!.selected"
+                        aria-label="Toggle row selection"
+                        class="bulk-actions-checkbox"
+                        data-testid="bulk-actions-checkbox"
+                        :disabled="!getRowBulkActionEnabled(row)"
                       />
-                    </template>
-                  </KDropdown>
-                </component>
-              </td>
-            </tr>
+                    </KTooltip>
+
+                    <KDropdown
+                      v-else-if="header.key === TableViewHeaderKeys.ACTIONS"
+                      class="actions-dropdown"
+                      data-testid="actions-dropdown"
+                      :kpop-attributes="{ placement: 'bottom-end' }"
+                    >
+                      <KButton
+                        appearance="tertiary"
+                        :aria-label="header.label"
+                        class="actions-dropdown-trigger"
+                        data-testid="row-actions-dropdown-trigger"
+                        icon
+                        size="small"
+                        @mouseleave="isActionsDropdownHovered = false"
+                        @mouseover="isActionsDropdownHovered = true"
+                      >
+                        <MoreIcon
+                          class="more-icon"
+                          decorative
+                        />
+                      </KButton>
+
+                      <template #items>
+                        <slot
+                          name="action-items"
+                          :row="getGeneric(row)"
+                        />
+                      </template>
+                    </KDropdown>
+                  </component>
+
+                  <div
+                    v-else-if="rowExpandable(row)"
+                    class="expandable-row-control-container"
+                  >
+                    <button
+                      :aria-controls="`table-${tableId}-row-${rowIndex}-expandable-content`"
+                      :aria-expanded="expandedRows.includes(rowIndex)"
+                      aria-label="Toggle row expandable content"
+                      class="expandable-row-control"
+                      :class="{ 'expanded': expandedRows.includes(rowIndex) }"
+                      data-testid="expandable-row-control"
+                      type="button"
+                      @click="toggleRow(rowIndex, row)"
+                    >
+                      <ChevronRightIcon class="expandable-row-control-icon" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                v-if="hasExpandableRows && rowExpandable(row)"
+                v-show="expandedRows.includes(rowIndex)"
+                :id="`table-${tableId}-row-${rowIndex}-expandable-content`"
+                class="expandable-content-row"
+                data-testid="expandable-content-row"
+              >
+                <td :colspan="visibleHeaders.length">
+                  <div class="expandable-content-wrapper">
+                    <slot
+                      :column-widths="actualColumnWidths"
+                      name="row-expanded"
+                      :nested-headers="getNestedTableHeaders"
+                      :row="getGeneric(row)"
+                    />
+                  </div>
+                </td>
+              </tr>
+            </template>
           </tbody>
         </table>
       </div>
@@ -262,13 +368,12 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue'
-import { ref, watch, computed, useAttrs, useSlots } from 'vue'
+import { ref, watch, computed, useAttrs, useSlots, nextTick, useId } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
-import { InfoIcon, ArrowDownIcon, MoreIcon } from '@kong/icons'
+import { InfoIcon, ArrowDownIcon, MoreIcon, ChevronRightIcon } from '@kong/icons'
 import type {
   TablePreferences,
   TableViewHeader,
@@ -277,170 +382,56 @@ import type {
   TableColumnTooltipSlotName,
   SortColumnOrder,
   TableSortPayload,
-  EmptyStateIconVariant,
-  ButtonAppearance,
   RowLink,
-  TablePaginationAttributes,
   PageChangeData,
   PageSizeChangeData,
+  TableViewProps,
+  TableViewSelectState,
+  RowExpandPayload,
 } from '@/types'
-import { EmptyStateIconVariants } from '@/types'
-import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
-import ColumnVisibilityMenu from './../KTable/ColumnVisibilityMenu.vue'
-import useUniqueId from '@/composables/useUniqueId'
+import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
+import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
 import useUtilities from '@/composables/useUtilities'
-import type { RouteLocationRaw } from 'vue-router'
 import KPagination from '@/components/KPagination/KPagination.vue'
+import KDropdown from '@/components/KDropdown/KDropdown.vue'
+import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
+import BulkActionsDropdown from './BulkActionsDropdown.vue'
+import { getInitialPageSize, getUniqueStringId } from '@/utilities'
 
-enum TableViewHeaderKeys {
-  ACTIONS = 'actions',
-}
-
-const props = defineProps({
+const props = withDefaults(defineProps<TableViewProps>(), {
+  resizeColumns: false,
+  tablePreferences: () => ({}),
+  rowHover: true,
+  rowAttrs: () => ({}),
+  rowLink: () => ({} as RowLink),
+  rowBulkActionEnabled: () => true,
+  rowKey: '',
+  cellAttrs: () => ({}),
+  loading: false,
+  emptyStateTitle: 'No Data',
+  emptyStateMessage: 'There is no data to display.',
+  emptyStateActionMessage: '',
+  emptyStateIconVariant: EmptyStateIconVariants.Default,
+  emptyStateButtonAppearance: 'primary',
+  error: false,
+  errorStateTitle: 'An error occurred',
+  errorStateMessage: 'Data cannot be displayed due to an error.',
+  errorStateActionMessage :'',
+  maxHeight: 'none',
+  hidePagination: false,
+  paginationAttributes: () => ({}),
+  rowExpandable: () => false,
+  rowExpanded: () => false,
+  hideHeaders: false,
+  nested: false,
+  hidePaginationWhenOptional: false,
+  hideToolbar: false,
   /**
-   * Allow columns to be resized
+   * KTableView props defaults
    */
-  resizeColumns: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Used to customize the initial state of the table.
-   * Column visibility/width.
-   */
-  tablePreferences: {
-    type: Object as PropType<TablePreferences>,
-    default: () => ({}),
-  },
-  /**
-   * Enables hover highlighting to table rows
-   */
-  rowHover: {
-    type: Boolean,
-    default: true,
-  },
-  /**
-   * A function that conditionally specifies row attributes on each row
-   */
-  rowAttrs: {
-    type: Function as PropType<(row: Record<string, any>) => Record<string, string>>,
-    default: () => ({}),
-  },
-  /**
-   * A function that conditionally turns a row into a link
-   */
-  rowLink: {
-    type: Function as PropType<(row: Record<string, any>) => RowLink>,
-    default: () => ({}),
-  },
-  /**
-   * A function that conditionally specifies cell attributes
-   */
-  cellAttrs: {
-    type: Function,
-    default: () => ({}),
-  },
-  /**
-   * A prop that enables a loading skeleton
-   */
-  loading: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * A prop to pass in a custom empty state title
-   */
-  emptyStateTitle: {
-    type: String,
-    default: 'No Data',
-  },
-  /**
-   * A prop to pass in a custom empty state message
-   */
-  emptyStateMessage: {
-    type: String,
-    default: 'There is no data to display.',
-  },
-  /**
-   * A prop to pass in a custom empty state action route
-   */
-  emptyStateActionRoute: {
-    type: [Object, String] as PropType<RouteLocationRaw | string>,
-    default: null,
-  },
-  /**
-   * A prop to pass in a custom empty state action message
-   */
-  emptyStateActionMessage: {
-    type: String,
-    default: '',
-  },
-  emptyStateIconVariant: {
-    type: String as PropType<EmptyStateIconVariant>,
-    default: EmptyStateIconVariants.Default,
-  },
-  emptyStateButtonAppearance: {
-    type: String as PropType<ButtonAppearance>,
-    default: 'primary',
-  },
-  /**
-   * A prop that enables the error state
-   */
-  error: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * A prop to pass in a custom error state title
-   */
-  errorStateTitle: {
-    type: String,
-    default: 'An error occurred',
-  },
-  /**
-   * A prop to pass in a custom error state message
-   */
-  errorStateMessage: {
-    type: String,
-    default: 'Data cannot be displayed due to an error.',
-  },
-  /**
-   * A prop to pass in a custom error state action route
-   */
-  errorStateActionRoute: {
-    type: [Object, String] as PropType<RouteLocationRaw | string>,
-    default: null,
-  },
-  /**
-   * A prop to pass in a custom error state action message
-   */
-  errorStateActionMessage: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in an array of headers for the table
-   */
-  headers: {
-    type: Array as PropType<TableViewHeader[]>,
-    default: () => [],
-  },
-  data: {
-    type: Array as PropType<TableViewData>,
-    default: () => [],
-  },
-  maxHeight: {
-    type: String,
-    default: 'none',
-  },
-  hidePagination: {
-    type: Boolean,
-    default: false,
-  },
-  paginationAttributes: {
-    type: Object as PropType<TablePaginationAttributes>,
-    default: () => ({}),
-  },
+  data: () => ([]),
+  headers: () => ([]),
 })
 
 const emit = defineEmits<{
@@ -454,13 +445,27 @@ const emit = defineEmits<{
   (e: 'page-size-change', val: PageSizeChangeData): void
   (e: 'get-next-offset'): void
   (e: 'get-previous-offset'): void
+  (e: 'row-select', data: TableViewData): void
+  (e: 'update:row-expanded', data: RowExpandPayload): void
 }>()
 
 const attrs = useAttrs()
 const slots = useSlots()
 
-const tableId = useUniqueId()
+const tableId = useId()
 const { getSizeFromString } = useUtilities()
+
+const getRowKey = (row: Record<string, any>): string => {
+  if (typeof props.rowKey === 'function' && typeof props.rowKey(row) === 'string') {
+    return props.rowKey(row)
+  }
+
+  if (typeof props.rowKey === 'string' && !!(props.rowKey in row) && typeof row[props.rowKey] === 'string') {
+    return row[props.rowKey]
+  }
+
+  return ''
+}
 
 const headerRow = ref<HTMLDivElement>()
 // all headers
@@ -475,26 +480,67 @@ const resizerHoveredColumn = ref('')
 const currentHoveredColumn = ref('')
 const hasHidableColumns = computed((): boolean => tableHeaders.value.filter((header: TableViewHeader) => header.hidable).length > 0)
 const hasColumnVisibilityMenu = computed((): boolean => {
-  // has hidable columns, no error/loading/empty state
-  return !!(hasHidableColumns.value &&
-    !props.error && !props.loading && !props.loading && (props.data && props.data.length))
+  if (props.nested || !hasHidableColumns.value || props.error) {
+    return false
+  }
+
+  if (slots.toolbar) {
+    // when toolbar slot is present, we want to disable column visibility menu rather than hide it in certain states
+    return true
+  }
+
+  // show when not loading and there is data
+  return !props.loading && !!props.data && !!props.data.length
 })
+const columnVisibilityDisabled = computed((): boolean => props.loading || !(props.data && props.data.length))
 // columns whose visibility can be toggled
-const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable))
+const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable && header.key !== TableViewHeaderKeys.EXPANDABLE && header.key !== TableViewHeaderKeys.BULK_ACTIONS))
 // visibility preferences from the host app (initialized by app)
 const visibilityPreferences = computed((): Record<string, boolean> => hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
 // current column visibility state
 const columnVisibility = ref<Record<string, boolean>>(hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
-const isScrolled = ref(false)
+const isScrolledVertically = ref<boolean>(false)
+const isScrolledHorizontally = ref<boolean>(false)
 const sortColumnKey = ref('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
 const isClickable = ref(false)
-const hasToolbarSlot = computed((): boolean => !!slots.toolbar || hasColumnVisibilityMenu.value)
+const hasToolbarSlot = computed((): boolean => !props.hideToolbar && !props.nested && (!!slots.toolbar || hasColumnVisibilityMenu.value || showBulkActionsToolbar.value))
 const isActionsDropdownHovered = ref<boolean>(false)
 const tableWrapperStyles = computed((): Record<string, string> => ({
   maxHeight: getSizeFromString(props.maxHeight),
 }))
 
+const bulkActionsSelectedRows = ref<TableViewData>([])
+const hasBulkActions = computed((): boolean => !props.nested && !props.error && tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']) && !!props.data.every((row) => getRowKey(row)))
+const dataSelectState = ref<TableViewSelectState[]>([])
+const showBulkActionsToolbar = computed((): boolean => {
+  if (props.nested || !hasBulkActions.value || props.error) {
+    return false
+  }
+
+  if (slots.toolbar) {
+    // when toolbar slot is present, we want to disable bulk actions dropdown rather than hide it in certain states
+    return true
+  }
+
+  // show when not loading and there is data
+  return !props.loading && !!props.data && !!props.data.length
+})
+const bulkActionsSelectedRowsCount = computed((): string => {
+  const selectedRowsCount = bulkActionsSelectedRows.value.length
+
+  if (!selectedRowsCount) {
+    return ''
+  }
+
+  if (selectedRowsCount > 100) {
+    return '99+'
+  }
+
+  return String(selectedRowsCount)
+})
+
+const rowKeyMap = ref<WeakMap<Record<string, any>, string>>(new WeakMap())
 /**
  * Utilize a helper function to generate the column slot name.
  * This helps TypeScript infer the slot name in the template section so that the slot props can be resolved.
@@ -611,10 +657,15 @@ const tdlisteners = computed((): any => {
   }
 })
 
-// default column widths for better UX
-// actions column is always 54px (padding-left + button width + padding-right adds up to 54px)
-const defaultColumnWidths = { actions: 54 }
-const columnWidths = ref<Record<string, number>>(props.resizeColumns ? props.tablePreferences.columnWidths || defaultColumnWidths : defaultColumnWidths)
+const expandableColumnWidth = (parseInt(KUI_SPACE_60) * 2) + parseInt(KUI_ICON_SIZE_30)
+/**
+ * Default column widths for better UX
+ * expandable column is always 48px (padding-left + chevron width + padding-right adds up to 48px)
+ * bulkActions column is always 56px (padding-left + checkbox width + padding-right adds up to 56px)
+ * actions column is always 54px (padding-left + button width + padding-right adds up to 54px)
+ */
+const defaultColumnWidths = { expandable: expandableColumnWidth, bulkActions: 56, actions: 54 }
+const columnWidths = ref<Record<string, number>>(props.tablePreferences?.columnWidths || defaultColumnWidths)
 const columnStyles = computed(() => {
   const styles: Record<string, any> = {}
   for (const colKey in columnWidths.value) {
@@ -634,25 +685,30 @@ const columnStyles = computed(() => {
 
 const getHeaderClasses = (column: TableViewHeader, index: number): Record<string, boolean> => {
   return {
-    // display the resize handle on the right side of the column if resizeColumns is enabled, hovering current column, and not the last column
-    'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && index !== visibleHeaders.value.length - 1,
-    resizable: props.resizeColumns,
+    // display the resize handle on the right side of the column if props.resizeColumns is enabled, hovering current column, and not the last column
+    'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && !props.nested && index !== visibleHeaders.value.length - 1,
+    resizable: props.resizeColumns && !props.nested,
     // display sort control if column is sortable, label is visible, and sorting is not disabled
     sortable: !column.hideLabel && !!column.sortable,
     // display active sorting styles if column is currently sorted
     'active-sort': !column.hideLabel && !!column.sortable && column.key === sortColumnKey.value,
     [sortColumnOrder.value]: column.key === sortColumnKey.value && !column.hideLabel,
-    'is-scrolled': isScrolled.value,
+    'is-scrolled': isScrolledVertically.value,
     'has-tooltip': !!column.tooltip,
+    'sticky-column': column.key === TableViewHeaderKeys.BULK_ACTIONS && isScrolledHorizontally.value,
   }
 }
 
 const onHeaderClick = (column: TableViewHeader) => {
-  if (column.sortable) {
+  if (column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS) {
+    let newSortColumnOrder = 'asc'
+    if (column.key === sortColumnKey.value && sortColumnOrder.value === 'asc') {
+      newSortColumnOrder = 'desc'
+    }
     emit('sort', {
       prevKey: sortColumnKey.value,
       sortColumnKey: column.key,
-      sortColumnOrder: sortColumnOrder.value === 'asc' ? 'desc' : 'asc', // display opposite because sortColumnOrder outdated
+      sortColumnOrder: newSortColumnOrder,
     })
     sortClickHandler(column)
   }
@@ -705,6 +761,11 @@ const headerHeight = computed((): string => {
 })
 
 const startResize = (evt: MouseEvent, colKey: string) => {
+  // right clicks should be ignored
+  if (evt.button !== 0) {
+    return
+  }
+
   let x = 0
   let width = 0
 
@@ -734,6 +795,10 @@ const startResize = (evt: MouseEvent, colKey: string) => {
     document?.removeEventListener('mousemove', mouseMoveHandler)
     document?.removeEventListener('mouseup', mouseUpHandler)
     emitTablePreferences()
+
+    if (hasExpandableRows.value) {
+      setActualColumnWidths()
+    }
   }
 
   // get mouse position
@@ -753,11 +818,11 @@ const startResize = (evt: MouseEvent, colKey: string) => {
 }
 
 const showPagination = computed((): boolean => {
-  if (props.hidePagination) {
+  if (props.hidePagination || props.nested) {
     return false
   }
 
-  if (props.data && props.data.length && props.paginationAttributes.totalCount && props.paginationAttributes.totalCount <= props.data.length) {
+  if (props.hidePaginationWhenOptional && !!props.data.length && props.paginationAttributes.totalCount && props.paginationAttributes.totalCount <= props.data.length) {
     return false
   }
 
@@ -767,7 +832,24 @@ const showPagination = computed((): boolean => {
 // Ensure `props.headers` are reactive.
 watch(() => props.headers, (newVal: TableViewHeader[]) => {
   if (newVal && newVal.length) {
-    tableHeaders.value = newVal
+    /**
+     * Reorder the headers to ensure bulk actions are first and actions are last
+     */
+
+    const headers: TableViewHeader[] = newVal.filter((header) => header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS)
+
+    const bulkActionsHeader = newVal.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)
+    const actionsHeader = newVal.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.ACTIONS)
+
+    if (bulkActionsHeader) {
+      headers.unshift(bulkActionsHeader)
+    }
+
+    if (actionsHeader) {
+      headers.push(actionsHeader)
+    }
+
+    tableHeaders.value = headers
   }
 }, { deep: true, immediate: true })
 
@@ -795,20 +877,58 @@ const sortClickHandler = (header: TableViewHeader): void => {
 }
 
 const scrollHandler = (event: any): void => {
-  if (event && event.target && typeof event.target.scrollTop === 'number') {
+  if (event && event.target && (typeof event.target.scrollTop === 'number' || typeof event.target.scrollLeft === 'number')) {
     if (event.target.scrollTop > 1) {
-      isScrolled.value = true
+      isScrolledVertically.value = true
     } else if (event.target.scrollTop === 0) {
-      isScrolled.value = !isScrolled.value
+      isScrolledVertically.value = false
+    }
+
+    if (event.target.scrollLeft > 1) {
+      isScrolledHorizontally.value = true
+    } else if (event.target.scrollLeft === 0) {
+      isScrolledHorizontally.value = false
     }
   }
 }
 
+const getRowState = (row: Record<string, any>): TableViewSelectState | undefined => {
+  return dataSelectState.value.find((rowState) => rowState.rowKey === getRowKey(row))
+}
+
+const getRowBulkActionEnabled = (row: Record<string, any>): boolean => {
+  if (typeof props.rowBulkActionEnabled !== 'function') {
+    return false
+  }
+
+  const rowBulkActionEnabledValue = props.rowBulkActionEnabled(row)
+
+  if (typeof rowBulkActionEnabledValue === 'boolean') {
+    return rowBulkActionEnabledValue
+  }
+
+  return rowBulkActionEnabledValue.enabled
+}
+
+const getRowBulkActionTooltip = (row: Record<string, any>): string => {
+  if (typeof props.rowBulkActionEnabled !== 'function') {
+    return ''
+  }
+
+  const rowBulkActionEnabledValue = props.rowBulkActionEnabled(row)
+
+  if (typeof rowBulkActionEnabledValue === 'boolean') {
+    return ''
+  }
+
+  return rowBulkActionEnabledValue.disabledTooltip || ''
+}
+
 // determine the component to use for the row link
 const getRowLinkComponent = (row: Record<string, any>, columnKey: string): string => {
-  const { to } = props.rowLink(row)
+  const { to }: { to?: string | object } = props.rowLink(row)
 
-  if (!to || columnKey === TableViewHeaderKeys.ACTIONS) {
+  if (!to || columnKey === TableViewHeaderKeys.BULK_ACTIONS || columnKey === TableViewHeaderKeys.ACTIONS) {
     return 'div'
   }
 
@@ -818,11 +938,11 @@ const getRowLinkComponent = (row: Record<string, any>, columnKey: string): strin
 // returns attributes for the wrapper element in each row link
 const getRowLinkAttrs = (row: Record<string, any>, columnKey: string): Record<string, any> => {
   // if the column is the actions column, return an empty object
-  if (columnKey === TableViewHeaderKeys.ACTIONS) {
+  if (columnKey === TableViewHeaderKeys.BULK_ACTIONS || columnKey === TableViewHeaderKeys.ACTIONS) {
     return {}
   }
 
-  const { to, target } = props.rowLink(row)
+  const { to, target }: { to?: string | object, target?: string } = props.rowLink(row)
   const isRouterLink = to && typeof to === 'object'
   const isAnchor = to && typeof to === 'string'
 
@@ -835,23 +955,18 @@ const getRowLinkAttrs = (row: Record<string, any>, columnKey: string): Record<st
   }
 }
 
-const getInitialPageSize = (): number | null => {
-  if (props.paginationAttributes.initialPageSize) {
-    return props.paginationAttributes.initialPageSize
-  } else if (props.paginationAttributes.pageSizes) {
-    return props.paginationAttributes.pageSizes[0]
-  }
 
-  return null
-}
-const paginationPageSize = ref<number | null>(getInitialPageSize())
+const paginationPageSize = ref<number>(getInitialPageSize(props.tablePreferences, props.paginationAttributes))
 const onPaginationPageSizeChange = (data: PageSizeChangeData): void => {
   paginationPageSize.value = data.pageSize
   emit('page-size-change', data)
+
+  // Emit an event whenever one of the tablePreferences are updated
+  emitTablePreferences()
 }
 
 // Store the tablePreferences in a computed property to utilize in the watcher
-const tablePreferences = computed((): TablePreferences => ({
+const computedTablePreferences = computed((): TablePreferences => ({
   sortColumnKey: sortColumnKey.value,
   sortColumnOrder: sortColumnOrder.value as 'asc' | 'desc',
   ...(props.resizeColumns ? { columnWidths: columnWidths.value } : {}),
@@ -860,17 +975,110 @@ const tablePreferences = computed((): TablePreferences => ({
 }))
 
 const emitTablePreferences = (): void => {
-  emit('update:table-preferences', tablePreferences.value)
+  emit('update:table-preferences', computedTablePreferences.value)
 }
 
-watch([columnVisibility, tableHeaders], (newVals) => {
-  const newVisibility = newVals[0]
-  const newHeaders = newVals[1]
-  const newVisibleHeaders = newHeaders.filter((header: TableViewHeader) => newVisibility[header.key] !== false)
+const hasExpandableRows = computed((): boolean => !props.nested && props.data.some((row: Record<string, any>) => props.rowExpandable(row)))
+const expandableRowHeader = { key: TableViewHeaderKeys.EXPANDABLE, label: 'Expandable rows controls', hideLabel: true }
+/**
+ * Get the expanded rows from the prop
+ */
+const getExpandedRows = (): number[] => {
+  const initialExpandedRows: number[] = []
+
+  props.data.forEach((row, index) => {
+    if (props.rowExpanded(row)) {
+      initialExpandedRows.push(index)
+    }
+  })
+
+  return initialExpandedRows
+}
+const expandedRows = ref<number[]>(getExpandedRows())
+/**
+ * Toggle visibility of expendable row content
+ */
+const toggleRow = async (rowIndex: number, row: any): Promise<void> => {
+  setActualColumnWidths()
+  await nextTick()
+
+  if (expandedRows.value.includes(rowIndex)) {
+    expandedRows.value = expandedRows.value.filter((row) => row !== rowIndex)
+    emit('update:row-expanded', { row, expanded: false })
+  } else {
+    expandedRows.value = [...expandedRows.value, rowIndex]
+    emit('update:row-expanded', { row, expanded: true })
+  }
+}
+
+// Get the headers for the nested table
+const getNestedTableHeaders = computed((): TableViewHeader[] => visibleHeaders.value.filter((header: TableViewHeader) => header.key !== TableViewHeaderKeys.EXPANDABLE && header.key !== TableViewHeaderKeys.BULK_ACTIONS))
+
+/**
+ * Function that calculates client width of each column and sets the actualColumnWidths
+ * actualColumnWidths passed as slot prop to the nested table
+ */
+const actualColumnWidths = ref<Record<string, number>>({})
+const setActualColumnWidths = (): void => {
+  const table = document?.querySelector(`[data-tableid="${tableId}"]`)
+  const headers = table?.querySelectorAll('th')
+  const widths: Record<string, number> = {}
+
+  headers?.forEach((header, index) => {
+    const key = header.getAttribute('data-key')
+
+    if (key === TableViewHeaderKeys.EXPANDABLE) {
+      return
+    }
+
+    let width = header.getBoundingClientRect().width
+
+    // first column is the expandable row column which isn't present in the nested table
+    // so for the nested table, we need to add the width of the expandable row column so that the nested table aligns with the parent table
+    if (index === 1) {
+      width += expandableColumnWidth
+    }
+
+    // reduce last column width to account for scrollbar
+    // scrollbar is roughly 15px (tested in Chrome, Firefox and Safari)
+    if (index === headers.length - 1) {
+      width -= 15
+    }
+
+    widths[key!] = width
+  })
+
+  actualColumnWidths.value = widths
+}
+
+watch([columnVisibility, tableHeaders, hasExpandableRows], (newVals) => {
+  const [newVisibility, newHeaders, newExpandableRows] = newVals
+
+  let newVisibleHeaders = newHeaders.filter((header: TableViewHeader) => {
+    if (header.key === TableViewHeaderKeys.BULK_ACTIONS) {
+      return hasBulkActions.value
+    }
+
+    return newVisibility[header.key] !== false
+  })
+
+  // remove the expandable row header if it exists because it has special handling
+  if (newVisibleHeaders.find((header) => header.key === TableViewHeaderKeys.EXPANDABLE)) {
+    newVisibleHeaders = newVisibleHeaders.filter((header) => header.key !== TableViewHeaderKeys.EXPANDABLE)
+  }
+
+  // add the expandable row header if expandable rows are enabled
+  if (newExpandableRows) {
+    newVisibleHeaders.unshift(expandableRowHeader)
+  }
 
   if (JSON.stringify(newVisibleHeaders) !== JSON.stringify(visibleHeaders.value)) {
     visibleHeaders.value = newVisibleHeaders
     emitTablePreferences()
+  }
+
+  if (newExpandableRows) {
+    setActualColumnWidths()
   }
 }, { deep: true, immediate: true })
 
@@ -880,6 +1088,107 @@ watch(hasColumnVisibilityMenu, (newVal) => {
     columnVisibility.value = props.tablePreferences.columnVisibility || {}
   }
 }, { immediate: true })
+
+const bulkActionsAll = ref<boolean>(false)
+
+const isBulkActionsIndeterminate = computed((): boolean => {
+  // ignore thee disabled rows
+  const selectableRowsState = dataSelectState.value.filter((rowState) => !rowState.disabled && props.data.find((row) => getRowKey(row) === rowState.rowKey))
+
+  // it is indeterminate if there are selected and unselected rows
+  return !!selectableRowsState.filter((rowState) => rowState.selected).length && !!selectableRowsState.filter((rowState) => !rowState.selected).length
+})
+
+const handleIndeterminateChange = (value: boolean) => {
+  // assign the value to all selectable rows which will result in either selecting or deselecting all selectable rows
+  dataSelectState.value.forEach((rowState) => {
+    if (props.data.find((row) => getRowKey(row) === rowState.rowKey) && !rowState.disabled) {
+      rowState.selected = value
+    }
+  })
+}
+
+/**
+ * Watch for changes in data and dataSelectState
+ */
+watch([() => props.data, dataSelectState], (newVals) => {
+  const [newData, newDataSelectState] = newVals
+
+  // update the rowKeyMap
+  newData.forEach((row) => {
+    if (!rowKeyMap.value.get(row)) {
+      const uniqueRowKey = getRowKey(row) || getUniqueStringId()
+
+      rowKeyMap.value.set(row, `table-${tableId}-row-${uniqueRowKey}`)
+    }
+  })
+
+  // logic that applies only when bulk actions are enabled
+  if (hasBulkActions.value) {
+    // add new rows to the dataSelectState
+    newData.forEach((row) => {
+      if (!getRowState(row)) {
+        dataSelectState.value.push({
+          rowKey: getRowKey(row),
+          selected: false,
+          disabled: !getRowBulkActionEnabled(row),
+        })
+      }
+    })
+
+    /** update the bulkActionsAll value */
+
+    const selectableRowsState = newDataSelectState.filter((rowState) => !rowState.disabled && newData.find((row) => getRowKey(row) === rowState.rowKey))
+
+    // all are selected
+    if (selectableRowsState.filter((rowState) => rowState.selected).length === selectableRowsState.length) {
+      bulkActionsAll.value = true
+      // all are unselected
+    } else if (selectableRowsState.filter((rowState) => !rowState.selected).length === selectableRowsState.length) {
+      bulkActionsAll.value = false
+      // some are selected
+    } else {
+      bulkActionsAll.value = false
+    }
+
+    /** update bulkActionsSelectedRows */
+
+    // find all selected rows from the new state
+    const newSelectedRows: TableViewData = newData.filter((row) => {
+      const rowState = newDataSelectState.find((rowState) => rowState.rowKey === getRowKey(row))
+
+      if (rowState && rowState.selected) {
+        return true
+      }
+
+      return false
+    })
+
+    // find all selected rows from the old state
+    const oldSelectedRows: TableViewData = []
+    bulkActionsSelectedRows.value.forEach((selectedRow) => {
+      const row = newData.find((dataRow) => getRowKey(selectedRow) === getRowKey(dataRow))
+
+      if (!row) {
+        oldSelectedRows.push(selectedRow)
+      }
+    })
+
+    bulkActionsSelectedRows.value = [...oldSelectedRows, ...newSelectedRows]
+  }
+
+  expandedRows.value = getExpandedRows()
+}, { deep: true, immediate: true })
+
+watch(bulkActionsSelectedRows, (newVal) => {
+  emit('row-select', newVal)
+})
+
+watch(() => props.tablePreferences, (newVal) => {
+  if (newVal?.columnWidths) {
+    columnWidths.value = newVal.columnWidths
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -891,48 +1200,6 @@ watch(hasColumnVisibilityMenu, (newVal) => {
       tr {
         .resize-handle {
           height: v-bind('headerHeight');
-        }
-      }
-    }
-
-    tbody {
-      tr {
-        td {
-          .actions-dropdown {
-            .actions-dropdown-trigger {
-              color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-
-              &:hover:not(:disabled):not(:focus):not(:active) {
-                background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-                color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
-              }
-
-              &:focus-visible {
-                background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-                color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-              }
-
-              &:active {
-                background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-                color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
-              }
-
-              .more-icon {
-                pointer-events: none;
-              }
-            }
-          }
-
-          &.row-link {
-            padding: var(--kui-space-0, $kui-space-0);
-
-            a.cell-wrapper {
-              color: var(--kui-color-text, $kui-color-text);
-              display: block;
-              padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
-              text-decoration: none;
-            }
-          }
         }
       }
     }

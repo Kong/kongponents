@@ -1,8 +1,7 @@
 // Import predefined CSS variable overrides of the default VitePress theme
 // https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
-@import "./variables";
-@import "./overrides";
-@import "./percy";
+@use "./variables";
+@use "./overrides";
 
 html,
 body {

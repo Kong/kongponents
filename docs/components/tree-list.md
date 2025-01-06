@@ -23,7 +23,7 @@ The value provided to `v-model` should adhere to all the same constraints of the
   <div>
     <KButton @click="reset">Reset</KButton>
   </div>
-  <div class="value-wrapper"><b>Value:</b> <pre class="json hide-from-percy">{{ JSON.stringify(myList, null, 2) }}</pre></div>
+  <div class="value-wrapper"><b>Value:</b> <pre class="json">{{ JSON.stringify(myList, null, 2) }}</pre></div>
 </div>
 
 ```vue
@@ -145,6 +145,30 @@ const items = ref<TreeListItem[]>([
   },
 ])
 </script>
+```
+
+### group
+
+To drag elements from one list into another, both lists must have the same `group` value. Defaults to `k-tree-list` (meaning that elements from one list on a page can be dragged into another, unless a different `group` value is provided for one of them).
+
+In the example below, try toggling the grouping on and off and dragging items from one list into another.
+
+<KComponent
+  v-slot="{ data }"
+  :data="{ grouping: true }"
+>
+  <KInputSwitch
+    v-model="data.grouping"
+    :label="data.grouping ? 'Different groups' : 'Same group'"
+  />
+  <div class="group-container">
+    <KTreeList :items="groupedItems" />
+    <KTreeList :group="data.grouping ? 'i-stand-alone' : undefined" :items="groupedItems2" />
+  </div>
+</KComponent>
+
+```html
+<KTreeList group="group-name" :items="items" />
 ```
 
 ### disableDrag
@@ -349,6 +373,10 @@ const defaultItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
 const defaultItems2 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
+const groupedItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
+
+const groupedItems2 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
+
 const disableItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
 const maxLevelsItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
@@ -369,5 +397,15 @@ const reset = (): void => {
   display: flex;
   flex-direction: column;
   gap: $kui-space-50;
+}
+
+.group-container {
+  display: flex;
+  flex-direction: column;
+  gap: $kui-space-40;
+
+  @media (min-width: $kui-breakpoint-mobile) {
+    flex-direction: row;
+  }
 }
 </style>

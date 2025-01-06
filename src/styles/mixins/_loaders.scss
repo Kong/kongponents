@@ -1,3 +1,5 @@
+@use "@kong/design-tokens/tokens/scss/variables" as *;
+
 /* Loaders styles */
 
 @mixin fullScreenLoadingContainer($zIndex: 10500) {

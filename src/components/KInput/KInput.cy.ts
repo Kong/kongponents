@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import KInput from '@/components/KInput/KInput.vue'
 import { h } from 'vue'
 
@@ -6,7 +5,7 @@ describe('KInput', () => {
   it('renders text when value is passed', () => {
     const text = 'Hello'
 
-    mount(KInput, {
+    cy.mount(KInput, {
       props: {
         modelValue: text, // e.g. v-model
       },
@@ -17,7 +16,7 @@ describe('KInput', () => {
 
   it('renders `null` modelValue as empty string', () => {
     // @ts-ignore - to allow passing an invalid modelValue
-    mount(KInput, {
+    cy.mount(KInput, {
       props: {
         modelValue: null, // e.g. v-model
       },
@@ -28,7 +27,7 @@ describe('KInput', () => {
   })
 
   it('renders `undefined` modelValue as empty string', () => {
-    mount(KInput, {
+    cy.mount(KInput, {
       props: {
         modelValue: undefined, // e.g. v-model
       },
@@ -41,7 +40,7 @@ describe('KInput', () => {
   it('renders label when value is passed', () => {
     const label = 'A label'
 
-    mount(KInput, {
+    cy.mount(KInput, {
       props: {
         label,
       },
@@ -53,7 +52,7 @@ describe('KInput', () => {
   it('renders label with labelAttributes applied', () => {
     const label = 'A label'
 
-    mount(KInput, {
+    cy.mount(KInput, {
       props: {
         label,
         labelAttributes: {
@@ -69,7 +68,7 @@ describe('KInput', () => {
   it('renders label and tooltip with `label-tooltip` slot applied', () => {
     const label = 'A label'
 
-    mount(KInput, {
+    cy.mount(KInput, {
       props: {
         label,
       },
@@ -83,7 +82,7 @@ describe('KInput', () => {
   })
 
   it('handles `required` attribute correctly', () => {
-    mount(KInput, {
+    cy.mount(KInput, {
       props: {
         label: 'A label',
         required: true,
@@ -96,7 +95,7 @@ describe('KInput', () => {
   it('renders help when value is passed', () => {
     const helpText = 'I am helpful'
 
-    mount(KInput, {
+    cy.mount(KInput, {
       props: {
         help: helpText,
       },
@@ -109,7 +108,7 @@ describe('KInput', () => {
     const textCharCount = 28
     const charLimit = 5
 
-    mount(KInput, {
+    cy.mount(KInput, {
       props: {
         characterLimit: charLimit,
       },
@@ -123,7 +122,7 @@ describe('KInput', () => {
     const inputValue = 'hey'
     const newValue = 'hey, dude'
 
-    mount(KInput, {
+    cy.mount(KInput, {
       props: {
         modelValue: inputValue,
       },
@@ -141,7 +140,7 @@ describe('KInput', () => {
   it('renders before slot when passed', () => {
     const beforeSlot = 'before-slot'
 
-    mount(KInput, {
+    cy.mount(KInput, {
       slots: {
         before: `<span data-testid="${beforeSlot}">Before slot</span>`,
       },
@@ -153,12 +152,47 @@ describe('KInput', () => {
   it('renders after slot when passed', () => {
     const afterSlot = 'after-slot'
 
-    mount(KInput, {
+    cy.mount(KInput, {
       slots: {
         after: `<span data-testid="${afterSlot}">After slot</span>`,
       },
     })
 
     cy.get('.k-input').find(`[data-testid="${afterSlot}"]`).should('be.visible')
+  })
+
+  it('toggle masking button is not rendered when showPasswordMaskToggle is true but type is not password', () => {
+    cy.mount(KInput, {
+      props: {
+        type: 'text',
+        showPasswordMaskToggle: true,
+      },
+    })
+
+    cy.get('.k-input .mask-value-toggle-button').should('not.exist')
+  })
+
+  it('toggle masking functionality behaves correctly when showPasswordMaskToggle is true and input type is password', () => {
+    const afterSlot = 'after-slot'
+
+    cy.mount(KInput, {
+      props: {
+        type: 'password',
+        showPasswordMaskToggle: true,
+      },
+      slots: {
+        after: `<span data-testid="${afterSlot}">After slot</span>`,
+      },
+    })
+
+    cy.get('.k-input .mask-value-toggle-button').should('be.visible')
+    cy.get('.k-input input').should('have.attr', 'type', 'password')
+    cy.get('.k-input input').focus()
+    cy.get('.k-input .mask-value-toggle-button').click()
+    cy.get('.k-input input').should('have.attr', 'type', 'text')
+    cy.get('.k-input .mask-value-toggle-button').click()
+    cy.get('.k-input input').should('have.attr', 'type', 'password').should('be.focused')
+    // user-provided after slot should be rendered
+    cy.get('.k-input').find(`[data-testid="${afterSlot}"]`).should('not.exist')
   })
 })

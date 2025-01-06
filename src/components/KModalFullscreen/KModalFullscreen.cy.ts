@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KModalFullscreen from '@/components/KModalFullscreen/KModalFullscreen.vue'
 
@@ -10,7 +9,7 @@ describe('KModalFullscreen', () => {
     const bodyHeaderDescription = 'This is some body header description text'
     const bodyText = 'This is some body text'
 
-    mount(KModalFullscreen, {
+    cy.mount(KModalFullscreen, {
       props: {
         isVisible: true,
         title: headerText,
@@ -35,7 +34,7 @@ describe('KModalFullscreen', () => {
   it('renders proper content when using action-buttons slot', () => {
     const actionButtonsText = 'This is some action buttons text'
 
-    mount(KModalFullscreen, {
+    cy.mount(KModalFullscreen, {
       props: {
         isVisible: true,
         title: 'Test Me',
@@ -55,7 +54,7 @@ describe('KModalFullscreen', () => {
     const bodyHeader = 'Sweet prop bodyHeader'
     const bodyHeaderDescription = 'Sweet prop bodyHeaderDescription'
 
-    mount(KModalFullscreen, {
+    cy.mount(KModalFullscreen, {
       props: {
         isVisible: true,
         title,
@@ -74,7 +73,7 @@ describe('KModalFullscreen', () => {
   })
 
   it('emits close when hitting escape', () => {
-    mount(KModalFullscreen, {
+    cy.mount(KModalFullscreen, {
       props: {
         title: 'Test Me',
         isVisible: true,
@@ -89,7 +88,7 @@ describe('KModalFullscreen', () => {
   it('renders proper content when using footer-content slot', () => {
     const footerContentText = 'This is some footer text'
 
-    mount(KModalFullscreen, {
+    cy.mount(KModalFullscreen, {
       props: {
         isVisible: true,
         title: 'Test Me',

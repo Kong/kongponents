@@ -139,13 +139,27 @@
         </KSelect>
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        title="enableItemCreation"
+        title="enableItemCreation & itemCreationValidator"
       >
         <KSelect
           enable-filtering
           enable-item-creation
           :items="selectItems"
         />
+        <KSelect
+          enable-filtering
+          enable-item-creation
+          :item-creation-validator="itemCreationValidator"
+          :items="selectItems"
+          @query-change="onItemCreationQueryChange"
+        >
+          <template
+            v-if="showNewItemValidationError"
+            #dropdown-footer-text
+          >
+            <span class="item-creation-validation-error-message">New item should be at least 3 characters long.</span>
+          </template>
+        </KSelect>
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="required"
@@ -180,6 +194,15 @@
         >
           <template #label-tooltip>
             Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code>
+          </template>
+        </KSelect>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        title="before"
+      >
+        <KSelect :items="selectItems">
+          <template #before>
+            <KongIcon />
           </template>
         </KSelect>
       </SandboxSectionComponent>
@@ -297,34 +320,42 @@ import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { KongIcon } from '@kong/icons'
 import type { SelectItem } from '@/types'
 
-const selectItems: SelectItem[] = [{
-  label: 'Cats',
-  value: 'cats',
-  selected: true,
-}, {
-  label: 'Dogs',
-  value: 'dogs',
-}, {
-  label: 'Bunnies',
-  value: 'bunnies',
-  disabled: true,
-}, {
-  label: 'Duck',
-  value: 'duck',
-  group: 'Birds',
-}, {
-  label: 'Oriole',
-  value: 'oriole',
-  group: 'Birds',
-}, {
-  label: 'Trout',
-  value: 'trout',
-  group: 'Fish',
-}, {
-  label: 'Salmon',
-  value: 'salmon',
-  group: 'Fish',
-}]
+const selectItems: SelectItem[] = [
+  {
+    label: 'Salmon',
+    value: 'salmon',
+    group: 'Fish',
+  },
+  {
+    label: 'Cats',
+    value: 'cats',
+    selected: true,
+  },
+  {
+    label: 'Dogs',
+    value: 'dogs',
+  },
+  {
+    label: 'Bunnies',
+    value: 'bunnies',
+    disabled: true,
+  },
+  {
+    label: 'Duck',
+    value: 'duck',
+    group: 'Birds',
+  },
+  {
+    label: 'Trout',
+    value: 'trout',
+    group: 'Fish',
+  },
+  {
+    label: 'Oriole',
+    value: 'oriole',
+    group: 'Birds',
+  },
+]
 
 const vModel = ref<string>('cats')
 
@@ -402,6 +433,13 @@ const handeAsyncItemRemoved = (item: SelectItem): void => {
   selectItemsInitial.value = selectItemsInitial.value.filter(i => i.value !== item.value)
 }
 
+const showNewItemValidationError = ref<boolean>(false)
+const itemCreationValidator = (value: string) => value.length >= 3
+
+const onItemCreationQueryChange = (query: string): void => {
+  showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
+}
+
 onMounted(() => {
   setAsyncItems()
 })
@@ -452,6 +490,10 @@ onMounted(() => {
       display: flex;
       gap: $kui-space-30;
     }
+  }
+
+  .item-creation-validation-error-message {
+    color: $kui-color-text-danger;
   }
 }
 </style>

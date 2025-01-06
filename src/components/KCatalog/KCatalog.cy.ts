@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KCatalog from '@/components/KCatalog/KCatalog.vue'
 
@@ -45,6 +44,13 @@ const largeDataSet = [
   },
 ]
 
+interface FetchParams {
+  pageSize: number
+  page: number
+  query?: string
+  offset?: string | null
+}
+
 describe('KCatalog', () => {
   function getItems(count: number) {
     const myItems = []
@@ -68,7 +74,7 @@ describe('KCatalog', () => {
     it('renders proper cards when using props', () => {
       const title = 'Cool beans!'
       const total = 5
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props',
           title,
@@ -86,7 +92,7 @@ describe('KCatalog', () => {
     it('renders slots when passed', () => {
       const slotContent = 'Look mah! No props'
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props1',
           fetcher: () => {
@@ -105,7 +111,7 @@ describe('KCatalog', () => {
       const slotHeader = 'Look mah!'
       const slotBody = 'My body'
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props1',
           fetcher: () => {
@@ -125,7 +131,7 @@ describe('KCatalog', () => {
     it('renders slots when passed (with empty)', () => {
       const emptySlotContent = 'Look mah! I am empty!'
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props0',
           loading: false,
@@ -144,7 +150,7 @@ describe('KCatalog', () => {
     it('renders slots when passed (with error)', () => {
       const errorSlotContent = 'Look mah! I am erroneous!'
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           error: true,
           fetcher: () => {
@@ -160,7 +166,7 @@ describe('KCatalog', () => {
     })
 
     it('renders content in the toolbar slot', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props1',
           fetcher: () => {
@@ -180,7 +186,7 @@ describe('KCatalog', () => {
     it('can change card sizes - small', () => {
       const total = 5
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props',
           fetcher: () => {
@@ -196,7 +202,7 @@ describe('KCatalog', () => {
     it('can change card sizes - large', () => {
       const total = 5
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props',
           fetcher: () => {
@@ -210,7 +216,7 @@ describe('KCatalog', () => {
     })
 
     it('handles truncation', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props-long',
           fetcher: () => {
@@ -223,7 +229,7 @@ describe('KCatalog', () => {
     })
 
     it('can disable truncation', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props-long',
           fetcher: () => {
@@ -245,7 +251,7 @@ describe('KCatalog', () => {
 
       cy.spy(fns, 'fetcher').as('fetcher')
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         propsData: {
           fetcher: fns.fetcher,
           loading: false,
@@ -257,7 +263,6 @@ describe('KCatalog', () => {
         .get('@fetcher')
         .should('have.callCount', 1) // fetcher's 1st call
         .should('returned', { data: [{ query: '' }], total: 1 })
-        .wait(1000)
         .get('@fetcher')
         .should('have.callCount', 1) // ensure fetcher is NOT called twice on load
         .then(() => cy.wrap(Cypress.vueWrapper.setProps({ searchInput: 'some-keyword' })))
@@ -275,7 +280,7 @@ describe('KCatalog', () => {
     })
 
     it('emits an event when card is clicked', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'general-props-long',
           fetcher: () => {
@@ -296,7 +301,7 @@ describe('KCatalog', () => {
     it('displays an empty state when no data is available', () => {
       const fetcher = () => new Promise(resolve => resolve({ data: [] }))
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           fetcher,
           cacheIdentifier: 'pagination',
@@ -311,7 +316,7 @@ describe('KCatalog', () => {
       const emptySlotContent = 'Look mah! I am empty!'
       const fetcher = () => new Promise(resolve => resolve({ data: [] }))
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'pagination',
           fetcher,
@@ -325,8 +330,8 @@ describe('KCatalog', () => {
       cy.getTestId('catalog-empty-state').should('contain.text', emptySlotContent)
     })
 
-    it('displays a loading skeletion when the "loading" prop is set to true"', () => {
-      mount(KCatalog, {
+    it('displays a loading skeletion when the loading prop is set to true', () => {
+      cy.mount(KCatalog, {
         props: {
           fetcher: () => {
             return { data: [], total: 0 }
@@ -338,8 +343,8 @@ describe('KCatalog', () => {
       cy.get('.catalog-skeleton-loader').should('be.visible')
     })
 
-    it('displays an error state when the "error" prop is set to true"', () => {
-      mount(KCatalog, {
+    it('displays an error state when the error prop is set to true', () => {
+      cy.mount(KCatalog, {
         props: {
           fetcher: () => {
             return { data: [], total: 0 }
@@ -354,7 +359,7 @@ describe('KCatalog', () => {
     it('displays an error state (slot)', () => {
       const errorSlotContent = 'Look mah! I am erroneous!'
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           fetcher: () => {
             return { data: [], total: 0 }
@@ -374,7 +379,7 @@ describe('KCatalog', () => {
         return new Promise((resolve) => setTimeout(resolve, 2500))
       }
 
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           fetcher: slowFetcher,
           cacheIdentifier: 'loading-test',
@@ -389,7 +394,7 @@ describe('KCatalog', () => {
 
   describe('pagination', () => {
     it('displays pagination when fetcher is provided', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'pagination2',
           fetcher: () => {
@@ -404,7 +409,7 @@ describe('KCatalog', () => {
     })
 
     it('allows disabling pagination', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           cacheIdentifier: 'pagination2',
           fetcher: () => {
@@ -420,7 +425,7 @@ describe('KCatalog', () => {
     })
 
     it('does not display pagination when no data', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         props: {
           fetcher: () => {
             return { data: [], total: 0 }
@@ -433,9 +438,9 @@ describe('KCatalog', () => {
     })
 
     it('does not display pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         propsData: {
-          cacheIdentifier: 'pagination5',
+          cacheIdentifier: 'pagination-offset1',
           fetcher: () => {
             return { data: getItems(5), total: 5 }
           },
@@ -448,8 +453,25 @@ describe('KCatalog', () => {
       cy.getTestId('catalog-pagination').should('not.exist')
     })
 
+    it('does not display offset-based pagination when hidePaginationWhenOptional is true and total is less than min pageSize', () => {
+      cy.mount(KCatalog, {
+        propsData: {
+          cacheIdentifier: 'pagination5',
+          fetcher: () => {
+            return { data: getItems(5), offset: null }
+          },
+          loading: false,
+          paginationPageSizes: [10, 15, 20],
+          hidePaginationWhenOptional: true,
+          PaginationOffset: true,
+        },
+      })
+
+      cy.getTestId('catalog-pagination').should('not.exist')
+    })
+
     it('does not display pagination when hidePaginationWhenOptional is true and total is equal to pageSize', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         propsData: {
           cacheIdentifier: 'pagination',
           fetcher: () => {
@@ -465,7 +487,7 @@ describe('KCatalog', () => {
     })
 
     it('does display pagination when total is greater than pageSize', () => {
-      mount(KCatalog, {
+      cy.mount(KCatalog, {
         propsData: {
           fetcher: () => {
             return { data: getItems(25), total: 25 }
@@ -477,6 +499,136 @@ describe('KCatalog', () => {
       })
 
       cy.getTestId('catalog-pagination').should('exist')
+    })
+
+    it('does display offset-based pagination when total is greater than pageSize', () => {
+      cy.mount(KCatalog, {
+        propsData: {
+          fetcher: () => {
+            return { data: getItems(25), offset: 'abc' }
+          },
+          loading: false,
+          hidePaginationWhenOptional: true,
+          cacheIdentifier: 'pagination-offset2',
+          paginationOffset: true,
+        },
+      })
+
+      cy.getTestId('catalog-pagination').should('exist')
+    })
+
+    it('refetch with paginationOffset: true', () => {
+      const data: Array<{ title: string }> = []
+      for (let i = 0; i < 12; i++) {
+        data.push({ title: 'item' + i })
+      }
+      const fns = {
+        fetcher: (params: FetchParams) => {
+          const { pageSize, page, offset } = params
+          const start = offset ? Number(offset) : 0
+          return {
+            data: data.slice(start, start + pageSize),
+            pagination: {
+              offset: `${start + pageSize}`,
+              page,
+            },
+          }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      cy.mount(KCatalog, {
+        propsData: {
+          fetcher: fns.fetcher,
+          initialFetcherParams: { pageSize: 10 },
+          loading: false,
+          paginationPageSizes: [10],
+          paginationOffset: true,
+          hidePaginationWhenOptional: true,
+          fetcherCacheKey: '0',
+        },
+      })
+
+      // page 1
+      cy.getTestId('catalog-pagination').should('be.visible')
+      cy.get('.k-catalog-item').should('have.length', 10)
+      cy.get('@fetcher')
+        .should('have.callCount', 1) // ensure fetcher is NOT called twice on load
+        .should('have.been.calledWith', { pageSize: 10, page: 1, offset: null, query: '' })
+        .then(() => cy.wrap(Cypress.vueWrapper.setProps({ fetcherCacheKey: '1' }))) // manually trigger refetch
+        .get('@fetcher')
+        .should('have.callCount', 2)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 1, offset: null, query: '' })
+
+      // page 2
+      cy.getTestId('next-button').click()
+      cy.get('.k-catalog-item').should('have.length', 2)
+      cy.get('@fetcher')
+        .should('have.callCount', 3)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 2, offset: '10', query: '' })
+        .then(() => cy.wrap(Cypress.vueWrapper.setProps({ fetcherCacheKey: '2' }))) // manually trigger refetch
+        .get('@fetcher')
+        .should('have.callCount', 4)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 2, offset: '10', query: '' })
+    })
+
+    it('refetch with paginationOffset: false', () => {
+      const data: Array<{ title: string }> = []
+      for (let i = 0; i < 12; i++) {
+        data.push({ title: 'item' + i })
+      }
+      const fns = {
+        fetcher: (params: FetchParams) => {
+          const { pageSize, page } = params
+          return {
+            data: data.slice((page - 1) * pageSize, page * pageSize),
+            total: data.length,
+          }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      cy.mount(KCatalog, {
+        propsData: {
+          fetcher: fns.fetcher,
+          initialFetcherParams: { pageSize: 10 },
+          loading: false,
+          paginationPageSizes: [10],
+          paginationOffset: false,
+          hidePaginationWhenOptional: true,
+          fetcherCacheKey: '0',
+        },
+      })
+
+      // page 1
+      cy.getTestId('catalog-pagination').should('be.visible')
+      cy.get('.k-catalog-item').should('have.length', 10)
+      // cy.get('.table tbody').should('contain.text', 'row0')
+      cy.get('@fetcher')
+        .should('have.callCount', 1) // ensure fetcher is NOT called twice on load
+        .should('have.been.calledWith', { pageSize: 10, page: 1, offset: null, query: '' })
+        .then(() => cy.wrap(Cypress.vueWrapper.setProps({ fetcherCacheKey: '1' }))) // manually trigger refetch
+        .get('@fetcher')
+        .should('have.callCount', 2)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 1, offset: null, query: '' })
+
+      // page 2
+      cy.getTestId('next-button').click()
+      cy.get('.k-catalog-item').should('have.length', 2)
+      // cy.get('.table tbody').should('contain.text', 'row10')
+      cy.get('@fetcher')
+        .should('have.callCount', 3)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 2, offset: null, query: '' })
+        .then(() => cy.wrap(Cypress.vueWrapper.setProps({ fetcherCacheKey: '2' }))) // manually trigger refetch
+        .get('@fetcher')
+        .should('have.callCount', 4)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 10, page: 2, offset: null, query: '' })
     })
   })
 })

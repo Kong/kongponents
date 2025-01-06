@@ -50,7 +50,7 @@ import { computed } from 'vue'
 import type { PropType } from 'vue'
 import type { AlertAppearance } from '@/types'
 import { AlertAppearances } from '@/types'
-import { InfoIcon, CheckCircleIcon, WarningIcon, ClearIcon, CloseIcon } from '@kong/icons'
+import { InfoIcon, CheckCircleIcon, WarningIcon, DangerIcon, CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 type AlertIcon = typeof InfoIcon // all icons are the same type so we can use any of them
@@ -92,7 +92,7 @@ const getAlertIcon = computed((): AlertIcon => {
     case AlertAppearances.warning:
       return WarningIcon
     case AlertAppearances.danger:
-      return ClearIcon
+      return DangerIcon
     default:
       return InfoIcon // info as default in case of invalid appearance
   }
@@ -105,14 +105,34 @@ const getAlertIcon = computed((): AlertIcon => {
 @mixin kAlertAppearance(
   $backgroundColor: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest),
   $textColor: var(--kui-color-text-primary, $kui-color-text-primary),
-  $dismissIconHoverColor: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong)) {
+  $hoverColor: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong),
+  $codeBackgroundColor: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker)) {
   background-color: $backgroundColor;
   color: $textColor;
 
   .alert-dismiss-icon {
     &:hover,
     &:focus {
-      color: $dismissIconHoverColor !important;
+      color: $hoverColor !important;
+    }
+  }
+
+  .alert-content {
+    .alert-message {
+      :slotted(a),
+      :deep(a) {
+        color: $textColor;
+
+        &:hover {
+          color: $hoverColor;
+        }
+      }
+
+      :deep(code),
+      :slotted(code) {
+        background-color: $codeBackgroundColor;
+        color: $hoverColor;
+      }
     }
   }
 }
@@ -160,6 +180,14 @@ const getAlertIcon = computed((): AlertIcon => {
       p {
         margin: 0;
       }
+
+      :deep(code),
+      :slotted(code) {
+        @include codeTypography;
+
+        border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+        padding: var(--kui-space-0, $kui-space-0) var(--kui-space-20, $kui-space-20);
+      }
     }
 
     .alert-title,
@@ -186,15 +214,27 @@ const getAlertIcon = computed((): AlertIcon => {
   }
 
   &.success {
-    @include kAlertAppearance(var(--kui-color-background-success-weakest, $kui-color-background-success-weakest), var(--kui-color-text-success, $kui-color-text-success), var(--kui-color-text-success-strong, $kui-color-text-success-strong));
+    @include kAlertAppearance(
+      var(--kui-color-background-success-weakest, $kui-color-background-success-weakest),
+      var(--kui-color-text-success, $kui-color-text-success),
+      var(--kui-color-text-success-strong, $kui-color-text-success-strong),
+      #B5FFEE); // we don't have a kui-color-background-success-weaker token so use hardcoded value
   }
 
   &.warning {
-    @include kAlertAppearance(var(--kui-color-background-warning-weakest, $kui-color-background-warning-weakest), var(--kui-color-text-warning, $kui-color-text-warning), var(--kui-color-text-warning-strong, $kui-color-text-warning-strong));
+    @include kAlertAppearance(
+      var(--kui-color-background-warning-weakest, $kui-color-background-warning-weakest),
+      var(--kui-color-text-warning, $kui-color-text-warning),
+      var(--kui-color-text-warning-strong, $kui-color-text-warning-strong),
+      #FFF296); // we don't have a kui-color-background-warning-weaker token so use hardcoded value
   }
 
   &.danger {
-    @include kAlertAppearance(var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest), var(--kui-color-text-danger, $kui-color-text-danger), var(--kui-color-text-danger-strong, $kui-color-text-danger-strong));
+    @include kAlertAppearance(
+      var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest),
+      var(--kui-color-text-danger, $kui-color-text-danger),
+      var(--kui-color-text-danger-strong, $kui-color-text-danger-strong),
+      var(--kui-color-background-danger-weaker, $kui-color-background-danger-weaker));
   }
 }
 </style>

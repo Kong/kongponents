@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 import { h } from 'vue'
 import KTabs from '@/components/KTabs/KTabs.vue'
 
@@ -10,7 +9,7 @@ const TABS = [
 
 describe('KTabs', () => {
   it('first tab is set if hash not found', () => {
-    mount(KTabs, {
+    cy.mount(KTabs, {
       props: {
         tabs: TABS,
       },
@@ -20,7 +19,7 @@ describe('KTabs', () => {
   })
 
   it('sets correct tab if default tab prop', () => {
-    mount(KTabs, {
+    cy.mount(KTabs, {
       props: {
         tabs: TABS,
         modelValue: '#books',
@@ -31,7 +30,7 @@ describe('KTabs', () => {
   })
 
   it('emits change event on click', () => {
-    mount(KTabs, {
+    cy.mount(KTabs, {
       props: {
         tabs: TABS,
       },
@@ -43,12 +42,12 @@ describe('KTabs', () => {
     })
   })
 
-  it('hides the panel content when `hidePanels` is true', () => {
+  it('hides the panel content when hidePanels is true', () => {
     const picturesSlot = 'I love pictures'
     const moviesSlot = 'I love pictures'
     const booksSlot = 'I love pictures'
 
-    mount(KTabs, {
+    cy.mount(KTabs, {
       props: {
         tabs: TABS,
         hidePanels: true,
@@ -76,14 +75,14 @@ describe('KTabs', () => {
 
   // handles disabled item correctly
 
-  it('disables the tab item when `disabled` is true', () => {
+  it('disables the tab item when disabled is true', () => {
     const tabs = [
       { hash: '#pictures', title: 'Pictures' },
       { hash: '#movies', title: 'Movies', disabled: true },
       { hash: '#books', title: 'Books' },
     ]
 
-    mount(KTabs, {
+    cy.mount(KTabs, {
       props: {
         tabs,
       },
@@ -95,13 +94,45 @@ describe('KTabs', () => {
     })
   })
 
+  it('renders the tab as a link if tab.to is present', () => {
+    const tabs = [
+      { hash: '#pictures', title: 'Pictures' },
+      { hash: '#movies', title: 'Movies', to: '/movies' },
+      { hash: '#books', title: 'Books' },
+    ]
+
+    cy.mount(KTabs, {
+      props: {
+        tabs,
+      },
+    })
+
+    cy.get('.tab-item .tab-link').eq(1).should('have.attr', 'href', '/movies')
+  })
+
+  it('renders the tab as a link with no href attribute if tab.to is present and tab.disabled is true', () => {
+    const tabs = [
+      { hash: '#pictures', title: 'Pictures' },
+      { hash: '#movies', title: 'Movies', to: '/movies', disabled: true },
+      { hash: '#books', title: 'Books' },
+    ]
+
+    cy.mount(KTabs, {
+      props: {
+        tabs,
+      },
+    })
+
+    cy.get('.tab-item .tab-link').eq(1).should('not.have.attr', 'href')
+  })
+
   describe('slots', () => {
     it('provides the #hash slot content', () => {
       const picturesSlot = 'I love pictures'
       const moviesSlot = 'I love pictures'
       const booksSlot = 'I love pictures'
 
-      mount(KTabs, {
+      cy.mount(KTabs, {
         props: {
           tabs: TABS,
         },
@@ -128,7 +159,7 @@ describe('KTabs', () => {
       const moviesSlot = 'I love pictures'
       const booksSlot = 'I love pictures'
 
-      mount(KTabs, {
+      cy.mount(KTabs, {
         props: {
           tabs: TABS,
         },

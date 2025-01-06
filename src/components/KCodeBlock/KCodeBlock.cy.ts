@@ -1,4 +1,3 @@
-import { mount } from 'cypress/vue'
 
 import KCodeBlock from './KCodeBlock.vue'
 
@@ -9,7 +8,7 @@ const code = `{
 }`
 
 function renderComponent(props = {}) {
-  return mount(KCodeBlock, {
+  return cy.mount(KCodeBlock, {
     props: {
       language: 'json',
       code,
@@ -77,6 +76,24 @@ describe('KCodeBlock', () => {
     }
   })
 
+  it('can highlight matching lines when initialized with highlightedLineNumbers', () => {
+    const id = 'code-block'
+    const expectedLineNumbers = [3, 4, 5]
+    renderComponent({
+      id,
+      highlightedLineNumbers: expectedLineNumbers,
+    })
+
+    cy.get('[data-testid="code-block-processing-icon"]').should('not.exist')
+
+    // Jumps to the next (i.e. first) match using F3 and checks that the highlighted line numbers are jumped to in order.
+    cy.get('.line-is-highlighted-match').should('not.exist')
+    for (const lineNumber of expectedLineNumbers) {
+      cy.get('[data-testid="k-code-block"]').trigger('keydown', { code: 'F3', bubbles: true })
+      cy.get(`.line-is-highlighted-match .line-anchor#${id}-L${lineNumber}`).should('be.visible')
+    }
+  })
+
   it('can be filtered to show only matching lines (like grep)', () => {
     renderComponent({ id: 'code-block', searchable: true })
 
@@ -123,6 +140,13 @@ describe('KCodeBlock', () => {
   it('shows matching results when initializing with query', () => {
     renderComponent({ id: 'code-block', searchable: true, query: 'key' })
 
+    cy.get('.line-is-match').should('have.length', 3)
+  })
+
+  it('matching results when initializing with query overrides highlightedNumberLines', () => {
+    renderComponent({ id: 'code-block', searchable: true, query: 'key', highlightedLineNumbers: [1] })
+
+    // should highlight 2, 3, 4
     cy.get('.line-is-match').should('have.length', 3)
   })
 
