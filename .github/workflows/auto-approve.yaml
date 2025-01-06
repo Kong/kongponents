@@ -5,7 +5,9 @@ permissions:
   pull-requests: write
   contents: write
 
-on: pull_request_target
+on:
+  pull_request:
+    types: ['opened']
 
 jobs:
   renovate-autoapprove:

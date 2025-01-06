@@ -1,3 +1,17 @@
+# [9.15.0](https://github.com/Kong/kongponents/compare/v9.14.30...v9.15.0) (2025-01-03)
+
+
+### Features
+
+* **kcodeblock:** add highlighted line numbers prop ([#2555](https://github.com/Kong/kongponents/issues/2555)) ([fdfb16a](https://github.com/Kong/kongponents/commit/fdfb16a1fbc2a7c30c8b72e55cd08fa02ca31bde))
+
+## [9.14.30](https://github.com/Kong/kongponents/compare/v9.14.29...v9.14.30) (2024-12-30)
+
+
+### Bug Fixes
+
+* **kcodeblock:** fix maxHeight and getSizeFromString util ([#2554](https://github.com/Kong/kongponents/issues/2554)) ([974a707](https://github.com/Kong/kongponents/commit/974a707a1e126ff430f0a5a0ce51164c730ade76))
+
 ## [9.14.29](https://github.com/Kong/kongponents/compare/v9.14.28...v9.14.29) (2024-12-23)
 
 
