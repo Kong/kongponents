@@ -101,9 +101,9 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'change', value: boolean): void;
-  (e: 'input', value: boolean): void;
-  (e: 'update:modelValue', value: boolean): void;
+  (e: 'change', value: boolean): void
+  (e: 'input', value: boolean): void
+  (e: 'update:modelValue', value: boolean): void
 }>()
 
 const slots = useSlots()

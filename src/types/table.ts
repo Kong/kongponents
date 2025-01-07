@@ -149,7 +149,7 @@ interface TablePropsShared {
   /**
    * Provide the name of the data property key to utilize as a unique identifier, or a function that receives the `row` object as a parameter that generates a unique identifier string for each row.
    */
-  rowKey?: string | ((row: Record<string, any>) => string),
+  rowKey?: string | ((row: Record<string, any>) => string)
   /**
    * A function that conditionally specifies cell attributes
    */
@@ -196,7 +196,7 @@ interface TablePropsShared {
    * A prop to pass in a custom error state action message
    */
   errorStateActionMessage?: string
-  maxHeight?: string,
+  maxHeight?: string
   hidePagination?: boolean
   paginationAttributes?: TablePaginationAttributes
   /**

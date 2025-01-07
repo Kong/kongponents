@@ -152,8 +152,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'toggleDropdown', value: boolean): void;
-  (e: 'change', value: DropdownItem): void;
+  (e: 'toggleDropdown', value: boolean): void
+  (e: 'change', value: DropdownItem): void
 }>()
 
 const tooltipComponent = computed(() => props.disabledTooltip ? KTooltip : 'div')

@@ -108,8 +108,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'toggle', value: boolean): void;
-  (e: 'update:modelValue', value: boolean): void;
+  (e: 'toggle', value: boolean): void
+  (e: 'update:modelValue', value: boolean): void
 }>()
 
 const contentId = useId()

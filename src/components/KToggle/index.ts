@@ -27,7 +27,7 @@ export default defineComponent({
         isToggled,
         toggle,
       })
-    } catch (_) {
+    } catch {
       console.error(`KToggle expects to have slot content.
 
   Example usage:
