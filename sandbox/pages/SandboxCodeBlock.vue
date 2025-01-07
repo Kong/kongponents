@@ -55,6 +55,34 @@
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent
+        class="limited-width syntax-highlighting"
+        title="programmatic highlightedLineNumbers & syntax highlighting"
+      >
+        <KCheckbox
+          v-model="highlightedToggle"
+          label="Highlighted"
+          @change="codeModified = true"
+        >
+          Toggle highlighted code
+        </KCheckbox>
+        <br>
+        <KLabel>Showing: {{ highlightedToggle ? 'Code chunk 1 [2-4]' : 'Code chunk 2 [6-8]' }}</KLabel>
+        <KCodeBlock
+          v-if="highlighter"
+          id="syntax-highlighted-codeblock"
+          :code="code"
+          :highlighted-line-numbers="highlightedLines"
+          language="json"
+          max-height="500"
+          searchable
+          theme="dark"
+          @code-block-render="highlight"
+        />
+        <div v-else>
+          Loading syntax highlighter...
+        </div>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
         class="limited-width"
         title="singleLine"
       >
@@ -176,18 +204,37 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import { computed, ref, inject, onBeforeMount, watch, nextTick } from 'vue'
+import type { CodeBlockEventData } from '@/types'
+import useShiki from '../composables/useShiki'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 
-const code = `{
+const { createHighlighter, highlighter } = useShiki()
+
+const origLines = [2,3,4]
+const newLines = [6,7,8]
+const highlightedLines = ref<number[]>(origLines)
+
+// checkbox causes updates to `code` computed as well as `highlightedLines`
+// track if code has been modified by toggling the checkbox
+const highlightedToggle = ref(true)
+const codeModified = ref(false)
+
+const highlight = async ({ codeElement, language, code }: CodeBlockEventData) => {
+  if (highlighter.value) {
+    codeElement.innerHTML = highlighter.value.codeToHtml(code, { lang: language, theme: 'material-theme-palenight' })
+  }
+}
+
+const code = computed((): string => `{
   "compilerOptions": {
     "target": "es2020",
     "module": "esnext",
     "moduleResolution": "node",
-    "allowUnreachableCode": false,
-    "exactOptionalPropertyTypes": true,
-    "noFallthroughCasesInSwitch": true,
+    "allowUnreachableCode": ${highlightedToggle.value ? 'false' : 'true'},
+    "exactOptionalPropertyTypes": ${highlightedToggle.value ? 'true' : 'false'},
+    "noFallthroughCasesInSwitch": ${highlightedToggle.value ? 'true' : 'false'},
     "noImplicitReturns": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
@@ -200,7 +247,7 @@ const code = `{
     "./types",
     "./particularly-long-value-that-will-inadvertently-cause-scrolling-for-narrower-containers"
   ]
-}`
+}`)
 
 const singleLineCode = `-----BEGIN CERTIFICATE-----
 MIIDlDCCAn6gAwIBAgIBATALBgkqhkiG9w0BAQ0wNDEyMAkGA1UEBhMCVVMwJQYD
@@ -224,10 +271,33 @@ nYKRWqogwSBtKPYAe115DLDULxe86Cu5neYTt5/kU7VjnLxhOhguWTIrGMSV0Jle
 Rl1IG8evLu2zWxN3wb451/Kf5lRFLUjfjuLD8tHMlpwVIxoHct9GuKV4W14cf2Q/
 cWMCwpGsAAE=
 -----END CERTIFICATE-----`
+
+watch(code, async () => {
+  if (codeModified.value) {
+    // wait for syntax highlighting to rerender
+    await nextTick().then(() => {
+      // highlight new lines
+      highlightedLines.value = highlightedToggle.value ? origLines : newLines
+      codeModified.value = false
+    })
+  }
+})
+
+onBeforeMount(async () => {
+  await createHighlighter()
+})
 </script>
 
 <style lang="scss" scoped>
 .limited-width {
   max-width: 90%;
+}
+
+.syntax-highlighting {
+  :deep(.k-code-block.theme-dark code>pre) {
+    // prevent overriding highlighted line background color
+    background-color: unset !important;
+    margin: 0;
+  }
 }
 </style>
