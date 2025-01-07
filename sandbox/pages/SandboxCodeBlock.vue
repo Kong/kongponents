@@ -43,13 +43,25 @@
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent
+        class="limited-width"
+        title="highlightedLineNumbers & searchable"
+      >
+        <KCodeBlock
+          id="highlighted-and-searchable"
+          :code="code"
+          :highlighted-line-numbers="[2,4,6]"
+          language="json"
+          searchable
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
         class="limited-width syntax-highlighting"
         title="programmatic highlightedLineNumbers & syntax highlighting"
       >
         <KCheckbox
           v-model="highlightedToggle"
           label="Highlighted"
-          @change="dirtyCode = true"
+          @change="codeModified = true"
         >
           Toggle highlighted code
         </KCheckbox>
@@ -62,24 +74,13 @@
           :highlighted-line-numbers="highlightedLines"
           language="json"
           max-height="500"
+          searchable
           theme="dark"
           @code-block-render="highlight"
         />
         <div v-else>
           Loading syntax highlighter...
         </div>
-      </SandboxSectionComponent>
-      <SandboxSectionComponent
-        class="limited-width"
-        title="highlightedLineNumbers & searchable"
-      >
-        <KCodeBlock
-          id="highlighted-and-searchable"
-          :code="code"
-          :highlighted-line-numbers="[2,4,6]"
-          language="json"
-          searchable
-        />
       </SandboxSectionComponent>
       <SandboxSectionComponent
         class="limited-width"
@@ -211,12 +212,14 @@ import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 
 const { createHighlighter, highlighter } = useShiki()
 
-const highlightedToggle = ref(true)
-const origLines = [1,2,3]
+const origLines = [2,3,4]
 const newLines = [5,6,7]
-
-const dirtyCode = ref(false)
 const highlightedLines = ref<number[]>(origLines)
+
+// checkbox causes updates to `code` computed as well as `highlightedLines`
+// track if code has been modified by toggling the checkbox
+const highlightedToggle = ref(true)
+const codeModified = ref(false)
 
 const highlight = async ({ codeElement, language, code }: CodeBlockEventData) => {
   if (highlighter.value) {
@@ -270,12 +273,12 @@ cWMCwpGsAAE=
 -----END CERTIFICATE-----`
 
 watch(code, async () => {
-  if (dirtyCode.value) {
+  if (codeModified.value) {
     // wait for syntax highlighting to rerender
     await nextTick().then(() => {
       // highlight new lines
       highlightedLines.value = highlightedToggle.value ? origLines : newLines
-      dirtyCode.value = false
+      codeModified.value = false
     })
   }
 })
