@@ -7,6 +7,39 @@ const code = `{
   "key3": [1, 2, 3]
 }`
 
+const longCode = `{
+  "key1": "string value",
+  "key2": 5681,
+  "key3": [1, 2, 3],
+  "key4": "string value",
+  "key5": 5681,
+  "key6": [1, 2, 3],
+  "key7": "string value",
+  "key8": 5681,
+  "key9": [1, 2, 3],
+  "key10": "string value",
+  "key11": 5681,
+  "key12": [1, 2, 3],
+  "key13": "string value",
+  "key14": 5681,
+  "key15": [1, 2, 3],
+  "key16": "string value",
+  "key17": 5681,
+  "key18": [1, 2, 3],
+  "key19": "string value",
+  "key20": 5681,
+  "key21": [1, 2, 3],
+  "key22": "string value",
+  "key23": 5681,
+  "key24": [1, 2, 3],
+  "key25": "string value",
+  "key26": 5681,
+  "key27": [1, 2, 3],
+  "key28": "string value",
+  "key29": 5681,
+  "key30": [1, 2, 3]
+}`
+
 function renderComponent(props = {}) {
   return cy.mount(KCodeBlock, {
     props: {
@@ -91,6 +124,35 @@ describe('KCodeBlock', () => {
     for (const lineNumber of expectedLineNumbers) {
       cy.get('[data-testid="k-code-block"]').trigger('keydown', { code: 'F3', bubbles: true })
       cy.get(`.line-is-highlighted-match .line-anchor#${id}-L${lineNumber}`).should('be.visible')
+    }
+  })
+
+  it('can highlight matching lines when initialized with highlightedLineNumbers in range expressions', () => {
+    const id = 'code-block'
+    const expectedLineNumbers = [1, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 30, 31, 32]
+    renderComponent({
+      id,
+      code: longCode,
+      highlightedLineNumbers: '10-3,4,6,12,1,13-13,30-34',
+    })
+
+    for (const lineNumber of expectedLineNumbers) {
+      console.log(lineNumber)
+      cy.get('.line').eq(lineNumber - 1).should('have.class', 'line-is-match')
+    }
+  })
+
+  it('can highlight matching lines when initialized with highlightedLineNumbers in range expressions', () => {
+    const id = 'code-block'
+    const expectedLineNumbers = [1, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 30, 31, 32]
+    renderComponent({
+      id,
+      code: longCode,
+      highlightedLineNumbers: [[10, 3], 4, 6, 12, 1, [13, 13], [30, 34]],
+    })
+
+    for (const lineNumber of expectedLineNumbers) {
+      cy.get('.line').eq(lineNumber - 1).should('have.class', 'line-is-match')
     }
   })
 

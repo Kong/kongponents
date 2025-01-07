@@ -6,6 +6,7 @@
     :class="[`theme-${theme}`]"
     data-testid="k-code-block"
     tabindex="-1"
+    @blur="currentLineIndex = null"
   >
     <div
       v-if="showCodeBlockActions"
@@ -216,6 +217,12 @@
   </div>
 </template>
 
+<script lang="ts">
+const IS_MAYBE_MAC = typeof window !== 'undefined' && window.navigator.platform.toLowerCase().includes('mac')
+const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Option' : 'Alt'
+const LINE_NUMBER_EXPRESSION_RE = /^\d+(-\d+)?(,\d+(-\d+)?)*$/
+</script>
+
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, useSlots, watch } from 'vue'
@@ -231,9 +238,6 @@ import { KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_NEUTRAL_STRONG, KUI_ICON_SIZE_30
 import KCodeBlockIconButton from './KCodeBlockIconButton.vue'
 
 const { getSizeFromString } = useUtilities()
-
-const IS_MAYBE_MAC = window?.navigator?.platform?.toLowerCase().includes('mac')
-const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Option' : 'Alt'
 
 // Debounces the search handler which ensures that we don’t trigger several searches while the user is still typing.
 const debouncedHandleSearchInputValue = debounce(handleSearchInputValue, 150)
@@ -294,9 +298,25 @@ const props = defineProps({
    * The line numbers for the lines to highlight by default. **Default: `[]`**.
    */
   highlightedLineNumbers: {
-    type: Array as PropType<number[]>,
-    required: false,
+    type: [String, Array] as PropType<string | (number | [number, number])[]>,
     default: () => [],
+    validator: (value: string | (number | [number, number])[]) => {
+      if (typeof value === 'string') {
+        return LINE_NUMBER_EXPRESSION_RE.test(value)
+      }
+
+      if (Array.isArray(value)) {
+        return value.every((line) => {
+          if (Array.isArray(line)) {
+            return line.length === 2 && line.every((number) => typeof number === 'number')
+          }
+
+          return typeof line === 'number'
+        })
+      }
+
+      return false
+    },
   },
 
   /**
@@ -599,7 +619,7 @@ function setDefaultMatchingLineNumbers(): void {
   isProcessingInternally.value = true
   regExpError.value = null
 
-  matchingLineNumbers.value = Array.from(new Set(props.highlightedLineNumbers))
+  matchingLineNumbers.value = normalizeHighlightedLines(props.highlightedLineNumbers)
   numberOfMatches.value = matchingLineNumbers.value.length
 
   emitMatchingLinesChangeEvent()
@@ -723,8 +743,10 @@ function jumpToMatch(direction: number): void {
 
   const line = codeBlock.value.querySelector(`#${linePrefix.value}-L${lineNumber}`)
   if (line instanceof HTMLElement) {
-    if (typeof line.scrollIntoView === 'function') {
-      line.scrollIntoView({ block: 'center' })
+    if ('scrollIntoViewIfNeeded' in line && typeof line.scrollIntoViewIfNeeded === 'function') {
+      line.scrollIntoViewIfNeeded(true)
+    } else {
+      line.scrollIntoView({ block: 'nearest' })
     }
   }
 }
@@ -744,6 +766,40 @@ async function copyCode(event: Event): Promise<void> {
 }
 
 const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEUTRAL_STRONG : KUI_COLOR_TEXT_INVERSE)
+
+function expressionToLines(expression: string, maxLines: number): number[] {
+  if (!LINE_NUMBER_EXPRESSION_RE.test(expression)) {
+    throw new Error('Invalid line number expression.')
+  }
+
+  const ranges = expression.split(',').map((part) => {
+    const [start, end] = part.split('-').map(Number)
+    return end == null ? start : [start, end] as [number, number]
+  })
+
+  return rangesToLines(ranges, maxLines)
+}
+
+function rangesToLines(ranges: (number | [number, number])[], maxLines: number): number[] {
+  const lines = ranges.flatMap((range) => {
+    if (typeof range === 'number') {
+      return range
+    }
+
+    let [start, end] = range[0] < range[1] ? range : [range[1], range[0]]
+    start = Math.max(1, start)
+    end = Math.min(maxLines, end)
+    return Array.from({ length: end - start + 1 }, (_, i) => i + start)
+  }).sort((a, b) => a - b)
+
+  return Array.from(new Set(lines))
+}
+
+function normalizeHighlightedLines(lines: string | (number | [number, number])[]): number[] {
+  return typeof lines === 'string'
+    ? expressionToLines(lines, totalLines.value.length)
+    : rangesToLines(lines, totalLines.value.length)
+}
 </script>
 
 <style lang="scss" scoped>
