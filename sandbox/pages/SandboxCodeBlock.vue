@@ -66,7 +66,7 @@
           Toggle highlighted code
         </KCheckbox>
         <br>
-        <KLabel>Showing: {{ highlightedToggle ? 'Code chunk 1 [1-3]' : 'Code chunk 2 [4-6]' }}</KLabel>
+        <KLabel>Showing: {{ highlightedToggle ? 'Code chunk 1 [2-4]' : 'Code chunk 2 [5-7]' }}</KLabel>
         <KCodeBlock
           v-if="highlighter"
           id="syntax-highlighted-codeblock"
