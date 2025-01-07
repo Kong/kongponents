@@ -218,9 +218,11 @@
 </template>
 
 <script lang="ts">
-const IS_MAYBE_MAC = typeof window !== 'undefined' && window.navigator.platform.toLowerCase().includes('mac')
+const IS_MAYBE_MAC = typeof navigator !== 'undefined' &&
+  ('userAgentData' in navigator && navigator.userAgentData === 'macOS' ||
+    navigator.platform.toLowerCase().includes('mac'))
 const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Option' : 'Alt'
-const LINE_NUMBER_EXPRESSION_RE = /^\d+(-\d+)?(,\d+(-\d+)?)*$/
+const LINE_NUMBER_EXPRESSION_REGEX = /^\d+(?:-\d+)?(?:,\d+(?:-\d+)?)*$/
 </script>
 
 <script setup lang="ts">
@@ -300,9 +302,9 @@ const props = defineProps({
   highlightedLineNumbers: {
     type: [String, Array] as PropType<string | (number | [number, number])[]>,
     default: () => [],
-    validator: (value: string | (number | [number, number])[]) => {
+    validator: (value: string | (number | [number, number])[]): boolean => {
       if (typeof value === 'string') {
-        return LINE_NUMBER_EXPRESSION_RE.test(value)
+        return LINE_NUMBER_EXPRESSION_REGEX.test(value)
       }
 
       if (Array.isArray(value)) {
@@ -425,6 +427,7 @@ const numberOfMatches = ref<number>(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
 
+// For checking if a line is highlighted in constant time.
 const matchingLineSet = computed(() => new Set(matchingLineNumbers.value))
 const totalLines = computed((): number[] => Array.from({ length: props.code?.split('\n').length }, (_, index) => index + 1))
 const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value?.length - 1]?.toString().length + 'ch')
@@ -768,31 +771,39 @@ async function copyCode(event: Event): Promise<void> {
 
 const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEUTRAL_STRONG : KUI_COLOR_TEXT_INVERSE)
 
+// '1,2,4-6' -> [1, 2, 4, 5, 6]
 function expressionToLines(expression: string, maxLines: number): number[] {
-  if (!LINE_NUMBER_EXPRESSION_RE.test(expression)) {
+  if (!LINE_NUMBER_EXPRESSION_REGEX.test(expression)) {
     throw new Error('Invalid line number expression.')
   }
 
   const ranges = expression.split(',').map((part) => {
     const [start, end] = part.split('-').map(Number)
+    // If there's no end, it's a single line, otherwise it's a range
     return end == null ? start : [start, end] as [number, number]
   })
 
   return rangesToLines(ranges, maxLines)
 }
 
+// [1, 2, [4, 6]] -> [1, 2, 4, 5, 6]
 function rangesToLines(ranges: (number | [number, number])[], maxLines: number): number[] {
   const lines = ranges.flatMap((range) => {
     if (typeof range === 'number') {
       return range
     }
 
+    // Ensure start is less than end
     let [start, end] = range[0] < range[1] ? range : [range[1], range[0]]
+
+    // Ensure start and end are within bounds
     start = Math.max(1, start)
     end = Math.min(maxLines, end)
+
     return Array.from({ length: end - start + 1 }, (_, i) => i + start)
   }).sort((a, b) => a - b)
 
+  // Ensure no duplicates
   return Array.from(new Set(lines))
 }
 
