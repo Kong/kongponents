@@ -66,7 +66,7 @@
           Toggle highlighted code
         </KCheckbox>
         <br>
-        <KLabel>Showing: {{ highlightedToggle ? 'Code chunk 1 [2-4]' : 'Code chunk 2 [5-7]' }}</KLabel>
+        <KLabel>Showing: {{ highlightedToggle ? 'Code chunk 1 [2-4]' : 'Code chunk 2 [6-8]' }}</KLabel>
         <KCodeBlock
           v-if="highlighter"
           id="syntax-highlighted-codeblock"
@@ -213,7 +213,7 @@ import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 const { createHighlighter, highlighter } = useShiki()
 
 const origLines = [2,3,4]
-const newLines = [5,6,7]
+const newLines = [6,7,8]
 const highlightedLines = ref<number[]>(origLines)
 
 // checkbox causes updates to `code` computed as well as `highlightedLines`
