@@ -179,7 +179,7 @@
             :key="line"
             class="line"
             :class="{
-              'line-is-match': matchingLineNumbers.includes(line),
+              'line-is-match': matchingLineSet.has(line),
               'line-is-highlighted-match': currentLineIndex !== null && line === matchingLineNumbers[currentLineIndex],
             }"
           >
@@ -425,6 +425,7 @@ const numberOfMatches = ref<number>(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
 
+const matchingLineSet = computed(() => new Set(matchingLineNumbers.value))
 const totalLines = computed((): number[] => Array.from({ length: props.code?.split('\n').length }, (_, index) => index + 1))
 const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value?.length - 1]?.toString().length + 'ch')
 const linePrefix = computed((): string => props.id.toLowerCase().replace(/\s+/g, '-'))
@@ -436,7 +437,7 @@ const filteredCode = computed((): string => {
   }
 
   return props.code?.split('\n')
-    .filter((_line, index) => matchingLineNumbers.value.includes(index + 1))
+    .filter((_line, index) => matchingLineSet.value.has(index + 1))
     .map((line) => {
       try {
         const regExp = new RegExp(searchQuery.value, 'gi')
