@@ -456,7 +456,7 @@ watch(() => isRegExpMode.value, function() {
 
 watch(() => props.highlightedLineNumbers, function() {
   setDefaultMatchingLineNumbers()
-}, { deep: true })
+}, { immediate: true, deep: true })
 
 watch(() => isShowingFilteredCode.value, async function() {
   // Moves the focus to the code block so that code block-scoped shortcuts still work. That’s necessary because toggling filter mode changes which pre element is rendered. In doing so, the currently focused element is removed from the DOM and in response, the browser moves the focus to document.body.
