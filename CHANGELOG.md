@@ -1,3 +1,10 @@
+# [9.16.0](https://github.com/Kong/kongponents/compare/v9.15.0...v9.16.0) (2025-01-08)
+
+
+### Features
+
+* **kcodeblock:** support line highlight syntax ([#2558](https://github.com/Kong/kongponents/issues/2558)) ([91a6031](https://github.com/Kong/kongponents/commit/91a6031e279f88fd691e2c57bac45a2e478046d8))
+
 # [9.15.0](https://github.com/Kong/kongponents/compare/v9.14.30...v9.15.0) (2025-01-03)
 
 
