@@ -217,14 +217,6 @@
   </div>
 </template>
 
-<script lang="ts">
-const IS_MAYBE_MAC = typeof navigator !== 'undefined' &&
-  ('userAgentData' in navigator && navigator.userAgentData === 'macOS' ||
-    navigator.platform.toLowerCase().includes('mac'))
-const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Option' : 'Alt'
-const LINE_NUMBER_EXPRESSION_REGEX = /^\d+(?:-\d+)?(?:,\d+(?:-\d+)?)*$/
-</script>
-
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, useSlots, watch } from 'vue'
@@ -233,11 +225,17 @@ import { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 import { debounce } from '@/utilities/debounce'
 import type { Command } from '@/utilities/ShortcutManager'
 import { ShortcutManager } from '@/utilities/ShortcutManager'
+import { LINE_NUMBER_EXPRESSION_REGEX, normalizeHighlightedLines } from '@/utilities/lineHighlighting'
 import type { CodeBlockEventData, CommandKeywords, Theme } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import { CopyIcon, SearchIcon, ProgressIcon, CloseIcon, RegexIcon, FilterIcon, ArrowUpIcon, ArrowDownIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_NEUTRAL_STRONG, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import KCodeBlockIconButton from './KCodeBlockIconButton.vue'
+
+const IS_MAYBE_MAC = typeof navigator !== 'undefined' &&
+  ('userAgentData' in navigator && navigator.userAgentData === 'macOS' ||
+    navigator.platform.toLowerCase().includes('mac'))
+const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Option' : 'Alt'
 
 const { getSizeFromString } = useUtilities()
 
@@ -623,7 +621,7 @@ function setDefaultMatchingLineNumbers(): void {
   isProcessingInternally.value = true
   regExpError.value = null
 
-  matchingLineNumbers.value = normalizeHighlightedLines(props.highlightedLineNumbers)
+  matchingLineNumbers.value = normalizeHighlightedLines(props.highlightedLineNumbers, totalLines.value.length)
   numberOfMatches.value = matchingLineNumbers.value.length
 
   emitMatchingLinesChangeEvent()
@@ -770,48 +768,6 @@ async function copyCode(event: Event): Promise<void> {
 }
 
 const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEUTRAL_STRONG : KUI_COLOR_TEXT_INVERSE)
-
-// '1,2,4-6' -> [1, 2, 4, 5, 6]
-function expressionToLines(expression: string, maxLines: number): number[] {
-  if (!LINE_NUMBER_EXPRESSION_REGEX.test(expression)) {
-    throw new Error('Invalid line number expression.')
-  }
-
-  const ranges = expression.split(',').map((part) => {
-    const [start, end] = part.split('-').map(Number)
-    // If there's no end, it's a single line, otherwise it's a range
-    return end == null ? start : [start, end] as [number, number]
-  })
-
-  return rangesToLines(ranges, maxLines)
-}
-
-// [1, 2, [4, 6]] -> [1, 2, 4, 5, 6]
-function rangesToLines(ranges: (number | [number, number])[], maxLines: number): number[] {
-  const lines = ranges.flatMap((range) => {
-    if (typeof range === 'number') {
-      return range
-    }
-
-    // Ensure start is less than end
-    let [start, end] = range[0] < range[1] ? range : [range[1], range[0]]
-
-    // Ensure start and end are within bounds
-    start = Math.max(1, start)
-    end = Math.min(maxLines, end)
-
-    return Array.from({ length: end - start + 1 }, (_, i) => i + start)
-  }).sort((a, b) => a - b)
-
-  // Ensure no duplicates
-  return Array.from(new Set(lines))
-}
-
-function normalizeHighlightedLines(lines: string | (number | [number, number])[]): number[] {
-  return typeof lines === 'string'
-    ? expressionToLines(lines, totalLines.value.length)
-    : rangesToLines(lines, totalLines.value.length)
-}
 </script>
 
 <style lang="scss" scoped>

@@ -137,7 +137,6 @@ describe('KCodeBlock', () => {
     })
 
     for (const lineNumber of expectedLineNumbers) {
-      console.log(lineNumber)
       cy.get('.line').eq(lineNumber - 1).should('have.class', 'line-is-match')
     }
   })
