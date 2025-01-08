@@ -6,6 +6,7 @@
     :class="[`theme-${theme}`]"
     data-testid="k-code-block"
     tabindex="-1"
+    @blur="currentLineIndex = null"
   >
     <div
       v-if="showCodeBlockActions"
@@ -178,7 +179,7 @@
             :key="line"
             class="line"
             :class="{
-              'line-is-match': matchingLineNumbers.includes(line),
+              'line-is-match': matchingLineSet.has(line),
               'line-is-highlighted-match': currentLineIndex !== null && line === matchingLineNumbers[currentLineIndex],
             }"
           >
@@ -224,6 +225,7 @@ import { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 import { debounce } from '@/utilities/debounce'
 import type { Command } from '@/utilities/ShortcutManager'
 import { ShortcutManager } from '@/utilities/ShortcutManager'
+import { LINE_NUMBER_EXPRESSION_REGEX, normalizeHighlightedLines } from '@/utilities/lineHighlighting'
 import type { CodeBlockEventData, CommandKeywords, Theme } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import { CopyIcon, SearchIcon, ProgressIcon, CloseIcon, RegexIcon, FilterIcon, ArrowUpIcon, ArrowDownIcon } from '@kong/icons'
@@ -232,7 +234,9 @@ import KCodeBlockIconButton from './KCodeBlockIconButton.vue'
 
 const { getSizeFromString } = useUtilities()
 
-const IS_MAYBE_MAC = window?.navigator?.platform?.toLowerCase().includes('mac')
+const IS_MAYBE_MAC = typeof navigator !== 'undefined' &&
+  ('userAgentData' in navigator && navigator.userAgentData === 'macOS' ||
+    navigator.platform.toLowerCase().includes('mac'))
 const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Option' : 'Alt'
 
 // Debounces the search handler which ensures that we don’t trigger several searches while the user is still typing.
@@ -294,9 +298,25 @@ const props = defineProps({
    * The line numbers for the lines to highlight by default. **Default: `[]`**.
    */
   highlightedLineNumbers: {
-    type: Array as PropType<number[]>,
-    required: false,
+    type: [String, Array] as PropType<string | (number | [number, number])[]>,
     default: () => [],
+    validator: (value: string | (number | [number, number])[]): boolean => {
+      if (typeof value === 'string') {
+        return LINE_NUMBER_EXPRESSION_REGEX.test(value)
+      }
+
+      if (Array.isArray(value)) {
+        return value.every((line) => {
+          if (Array.isArray(line)) {
+            return line.length === 2 && line.every((number) => typeof number === 'number')
+          }
+
+          return typeof line === 'number'
+        })
+      }
+
+      return false
+    },
   },
 
   /**
@@ -405,6 +425,8 @@ const numberOfMatches = ref<number>(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
 
+// For checking if a line is highlighted in constant time.
+const matchingLineSet = computed(() => new Set(matchingLineNumbers.value))
 const totalLines = computed((): number[] => Array.from({ length: props.code?.split('\n').length }, (_, index) => index + 1))
 const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value?.length - 1]?.toString().length + 'ch')
 const linePrefix = computed((): string => props.id.toLowerCase().replace(/\s+/g, '-'))
@@ -416,7 +438,7 @@ const filteredCode = computed((): string => {
   }
 
   return props.code?.split('\n')
-    .filter((_line, index) => matchingLineNumbers.value.includes(index + 1))
+    .filter((_line, index) => matchingLineSet.value.has(index + 1))
     .map((line) => {
       try {
         const regExp = new RegExp(searchQuery.value, 'gi')
@@ -599,7 +621,7 @@ function setDefaultMatchingLineNumbers(): void {
   isProcessingInternally.value = true
   regExpError.value = null
 
-  matchingLineNumbers.value = Array.from(new Set(props.highlightedLineNumbers))
+  matchingLineNumbers.value = normalizeHighlightedLines(props.highlightedLineNumbers, totalLines.value.length)
   numberOfMatches.value = matchingLineNumbers.value.length
 
   emitMatchingLinesChangeEvent()
@@ -723,8 +745,10 @@ function jumpToMatch(direction: number): void {
 
   const line = codeBlock.value.querySelector(`#${linePrefix.value}-L${lineNumber}`)
   if (line instanceof HTMLElement) {
-    if (typeof line.scrollIntoView === 'function') {
-      line.scrollIntoView({ block: 'center' })
+    if ('scrollIntoViewIfNeeded' in line && typeof line.scrollIntoViewIfNeeded === 'function') {
+      line.scrollIntoViewIfNeeded(true)
+    } else {
+      line.scrollIntoView({ block: 'nearest' })
     }
   }
 }

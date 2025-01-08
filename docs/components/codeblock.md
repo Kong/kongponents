@@ -98,7 +98,10 @@ Boolean to control whether to show or hide the search bar and related action but
 
 ### highlightedLineNumbers
 
-An array of line numbers to initially highlight in the code block. 
+An string or array specifying the line numbers to initially highlight in the code block.
+
+- String: Use a comma-separated list of line numbers or ranges, e.g., `"2,4,6"` or `"2,4,6-12"`. This syntax is commonly supported in Markdown code block extensions.
+- Array: Provide an array of line numbers or ranges, e.g., `[2, 4, 6]` or `[2, 4, [6, 12]]`.
 
 If search is enabled, matching results will be highlighted in place of the provided line numbers, and all highlighted lines will be cleared once the search query is cleared.
 
@@ -107,7 +110,7 @@ If search is enabled, matching results will be highlighted in place of the provi
     id="code-block-highlight"
     :code="code"
     language="json"
-    :highlighted-line-numbers="[2,4,6]"
+    highlighted-line-numbers="2,4,6-12"
   />
 </ClientOnly>
 
@@ -116,7 +119,7 @@ If search is enabled, matching results will be highlighted in place of the provi
   id="code-block-highlight"
   :code="code"
   language="json"
-  :highlighted-line-numbers="[2,4,6]"
+  highlighted-line-numbers="2,4,6-12"
 />
 ```
 

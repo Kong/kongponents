@@ -84,6 +84,17 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent
         class="limited-width"
+        title="highlightedLineNumbers expression"
+      >
+        <KCodeBlock
+          id="highlighted-expression"
+          :code="code"
+          highlighted-line-numbers="2,4,6-12,17-19"
+          language="json"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        class="limited-width"
         title="singleLine"
       >
         <KCodeBlock
