@@ -232,12 +232,12 @@ import { CopyIcon, SearchIcon, ProgressIcon, CloseIcon, RegexIcon, FilterIcon, A
 import { KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_NEUTRAL_STRONG, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import KCodeBlockIconButton from './KCodeBlockIconButton.vue'
 
+const { getSizeFromString } = useUtilities()
+
 const IS_MAYBE_MAC = typeof navigator !== 'undefined' &&
   ('userAgentData' in navigator && navigator.userAgentData === 'macOS' ||
     navigator.platform.toLowerCase().includes('mac'))
 const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Option' : 'Alt'
-
-const { getSizeFromString } = useUtilities()
 
 // Debounces the search handler which ensures that we don’t trigger several searches while the user is still typing.
 const debouncedHandleSearchInputValue = debounce(handleSearchInputValue, 150)
