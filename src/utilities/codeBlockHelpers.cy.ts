@@ -64,6 +64,7 @@ describe('escapeHTMLIfNeeded', () => {
     const escape = cy.spy((v: string) => v)
 
     expect(escapeHTMLIfNeeded('{ foo: "bar" }', regex, escape)).eq('{ foo: "bar" }')
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(escape).not.have.been.called
   })
 
