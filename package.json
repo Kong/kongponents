@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.15.0",
+  "version": "9.16.0",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -82,7 +82,7 @@
     "@evilmartians/lefthook": "^1.8.1",
     "@kong-ui-public/sandbox-layout": "^2.1.59",
     "@kong/design-tokens": "^1.17.2",
-    "@kong/eslint-config-kong-ui": "^1.1.2",
+    "@kong/eslint-config-kong-ui": "^1.1.6",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@stylistic/stylelint-plugin": "^3.1.1",
@@ -115,6 +115,7 @@
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.80.7",
     "semantic-release": "^24.2.0",
+    "shiki": "^1.26.1",
     "shx": "^0.3.4",
     "stylelint": "^16.9.0",
     "stylelint-config-html": "^1.1.0",

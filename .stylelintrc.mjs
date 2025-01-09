@@ -15,7 +15,7 @@ export default {
     'order/properties-order': [
       ['all'],
       { 'unspecified': 'bottomAlphabetical' },
-	  ],
+    ],
     '@kong/design-tokens/use-proper-token': true,
     '@stylistic/indentation': [2, { baseIndentLevel: 0 }],
     // Only allow @kong/design-tokens or `--kong-ui-*` CSS custom properties

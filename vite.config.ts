@@ -14,6 +14,9 @@ const buildVisualizerPlugin = process.env.BUILD_VISUALIZER
   })
   : undefined
 
+// !Important: always externalize `shiki/onig.wasm`
+const externalSandboxDependencies: string[] = ['shiki/onig.wasm']
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -52,7 +55,7 @@ export default defineConfig({
     minify: true,
     sourcemap: !!process.env.BUILD_VISUALIZER,
     rollupOptions: {
-      external: process.env.USE_SANDBOX ? undefined : ['vue', 'vue-router'],
+      external: process.env.USE_SANDBOX ? externalSandboxDependencies : ['vue', 'vue-router'],
       output: {
         globals: process.env.USE_SANDBOX
           ? undefined

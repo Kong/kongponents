@@ -132,8 +132,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (event: 'change', data: TreeListChangeEvent): void,
-  (event: 'child-change', data: TreeListChildChangeEvent): void,
+  (event: 'change', data: TreeListChangeEvent): void
+  (event: 'child-change', data: TreeListChildChangeEvent): void
   (event: 'selected', item: TreeListItem): void
 }>()
 

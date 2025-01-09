@@ -88,8 +88,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'click', event: string): void;
-  (e: 'update:modelValue', event: string): void;
+  (e: 'click', event: string): void
+  (e: 'update:modelValue', event: string): void
 }>()
 
 const normalizedOptions = ref(normalizeItems(props.options))

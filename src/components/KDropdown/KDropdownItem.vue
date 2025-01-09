@@ -89,8 +89,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'click', val: Event): void;
-  (e: 'change', item: DropdownItem): void;
+  (e: 'click', val: Event): void
+  (e: 'change', item: DropdownItem): void
 }>()
 
 const type = computed((): DropdownItemType => {

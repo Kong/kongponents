@@ -38,9 +38,9 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'selected', value: SelectItem): void;
-  (e: 'arrow-down'): void;
-  (e: 'arrow-up'): void;
+  (e: 'selected', value: SelectItem): void
+  (e: 'arrow-down'): void
+  (e: 'arrow-up'): void
 }>()
 
 const handleClick = (e: MouseEvent): void => {
