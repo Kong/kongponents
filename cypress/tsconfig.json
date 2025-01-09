@@ -15,10 +15,5 @@
       "node",
       "./support"
     ]
-  },
-  "include": [
-    "./support/index.d.ts",     // ensure your file is explicitly included
-    "./**/*.cy.ts",
-    "./**/*.d.ts"
-  ]
+  }
 }

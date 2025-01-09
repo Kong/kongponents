@@ -225,7 +225,13 @@ import { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 import { debounce } from '@/utilities/debounce'
 import type { Command } from '@/utilities/ShortcutManager'
 import { ShortcutManager } from '@/utilities/ShortcutManager'
-import { escapeHTMLIfNeeded, getMatchingLineNumbers, highlightMatchingChars, LINE_NUMBER_EXPRESSION_REGEX, normalizeHighlightedLines } from '@/utilities/codeBlockHelpers'
+import {
+  escapeHTMLIfNeeded,
+  getMatchingLineNumbers,
+  highlightMatchingChars,
+  LINE_NUMBER_EXPRESSION_REGEX,
+  normalizeHighlightedLines,
+} from '@/utilities/codeBlockHelpers'
 import type { CodeBlockEventData, CommandKeywords, Theme } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import { CopyIcon, SearchIcon, ProgressIcon, CloseIcon, RegexIcon, FilterIcon, ArrowUpIcon, ArrowDownIcon } from '@kong/icons'

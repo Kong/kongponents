@@ -8,14 +8,14 @@ declare global {
        * @param {string} dataTestId
        * @example cy.dataTestId('kong-auth-login-submit')
        */
-      getTestId(dataTestId: string): Chainable<JQuery<Element>>
+      getTestId(dataTestId: string): Chainable<Element>
 
       /**
        * @description Custom alias command for cy.find() to select DOM element by data-testid attribute.
        * @param {string} dataTestId
        * @example cy.findTestId('kong-auth-login-submit')
        */
-      findTestId(dataTestId: string): Chainable<JQuery<Element>>
+      findTestId(dataTestId: string): Chainable<Element>
 
       /**
        * @description Enhance `mount` from `cypress/vue` with our custom setup.
