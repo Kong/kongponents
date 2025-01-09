@@ -466,12 +466,12 @@ watch(() => props.code, async function() {
 
   // Changing the code causes the code block to be re-rendered.
   emitCodeBlockRenderEvent()
-  queueUpdateMatchingLineNumbers()
+  updateMatchingLineNumbers()
 })
 
 watch(() => isRegExpMode.value, function() {
   // Updates the matching line numbers because the matches can be different for the same query between normal and regexp mode.
-  queueUpdateMatchingLineNumbers()
+  updateMatchingLineNumbers()
 })
 
 watch(() => props.highlightedLineNumbers, function() {
@@ -490,7 +490,6 @@ watch(() => isShowingFilteredCode.value, async function() {
 
     // Turning off filter mode causes the full code block to be re-rendered.
     emitCodeBlockRenderEvent()
-    queueUpdateMatchingLineNumbers()
   }
 })
 
@@ -565,7 +564,7 @@ onMounted(function() {
   if (!props.query && props.highlightedLineNumbers.length) {
     setDefaultMatchingLineNumbers()
   } else {
-    queueUpdateMatchingLineNumbers()
+    updateMatchingLineNumbers()
   }
 })
 
@@ -612,7 +611,7 @@ function handleSearch(): void {
 
 function handleSearchInputValue(): void {
   emit('query-change', searchQuery.value)
-  queueUpdateMatchingLineNumbers()
+  updateMatchingLineNumbers()
 }
 
 function setDefaultMatchingLineNumbers(): void {
@@ -653,9 +652,6 @@ function updateMatchingLineNumbers(): void {
 
   isProcessingInternally.value = false
 }
-
-// Debounce the update function so that repeated calls within the same task will only trigger a single update.
-const queueUpdateMatchingLineNumbers = debounce(updateMatchingLineNumbers, 0)
 
 function clearQuery(): void {
   searchQuery.value = ''
