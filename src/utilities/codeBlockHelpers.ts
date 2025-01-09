@@ -1,0 +1,215 @@
+// =================================
+// Calculating matching line numbers
+// =================================
+
+import { escapeRegExp } from 'lodash-es'
+
+/**
+ * Build an array of character indices at which each line (0-based) starts.
+ * lineOffsets[i] = character index where line i starts in `code`.
+ */
+function buildLineOffsets(code: string): number[] {
+  const lineOffsets = [0]
+  for (let i = 0; i < code.length; i++) {
+    if (code[i] === '\n') {
+      lineOffsets.push(i + 1)
+    }
+  }
+  return lineOffsets
+}
+
+/**
+ * Binary search:
+ * Find which 1-based line number a particular character offset falls on.
+ * eg. findLineForOffset([0, 5, 10], 7) => 2
+ */
+function findLineForOffset(lineOffsets: number[], offset: number): number {
+  let low = 0
+  let high = lineOffsets.length - 1
+
+  while (low < high) {
+    const mid = (low + high + 1) >>> 1
+    if (lineOffsets[mid] <= offset) {
+      low = mid
+    } else {
+      high = mid - 1
+    }
+  }
+  // Convert from 0-based line index to 1-based
+  return low + 1
+}
+
+/**
+ * For an **exact** substring that can also cross multiple lines
+ * (because the substring might include '\n'),
+ * we do the same offset logic and collect each spanned line number.
+ */
+function getAllMatchingLineNumbersByExactMatch(code: string, query: string): number[] {
+  const lineOffsets = buildLineOffsets(code)
+  const allMatchedLineNumbers: number[] = []
+
+  let startPos = 0
+  while (true) {
+    const pos = code.indexOf(query, startPos)
+    if (pos === -1) break
+
+    const startOffset = pos
+    const endOffset = pos + query.length - 1
+
+    const startLine = findLineForOffset(lineOffsets, startOffset)
+    const endLine = findLineForOffset(lineOffsets, endOffset)
+
+    for (let line = startLine; line <= endLine; line++) {
+      // Avoid duplicates
+      if (allMatchedLineNumbers[allMatchedLineNumbers.length - 1] !== line) {
+        allMatchedLineNumbers.push(line)
+      }
+    }
+
+    // Advance for the next match
+    // (pos + 1) if you want overlapping matches,
+    // or (pos + query.length) if you don't want overlaps.
+    startPos = pos + 1
+  }
+
+  return allMatchedLineNumbers
+}
+
+/**
+ * For a **regex** that may span multiple lines, this returns
+ * an array of ALL line numbers (1-based) touched by each match.
+ *
+ * Example:
+ *   If a match starts on line 2 and ends on line 5, this adds
+ *   [2, 3, 4, 5] to the result array for that match.
+ */
+function getAllMatchingLineNumbersByRegExp(code: string, query: string): number[] {
+  // Build line start offsets once
+  const lineOffsets = buildLineOffsets(code)
+
+  const regExp = new RegExp(query, 'sg')
+
+  const allMatchedLineNumbers: number[] = []
+  let match
+
+  while ((match = regExp.exec(code)) !== null) {
+    // Start/end offsets of the matched text
+    const startOffset = match.index
+    const endOffset = match.index + match[0].length - 1
+
+    // Map offsets to line numbers
+    const startLine = findLineForOffset(lineOffsets, startOffset)
+    const endLine = findLineForOffset(lineOffsets, endOffset)
+
+    // Collect each line from startLine through endLine
+    for (let line = startLine; line <= endLine; line++) {
+      // Avoid duplicates
+      if (allMatchedLineNumbers[allMatchedLineNumbers.length - 1] !== line) {
+        allMatchedLineNumbers.push(line)
+      }
+    }
+  }
+
+  return allMatchedLineNumbers
+}
+
+export function getMatchingLineNumbers(code: string, query: string, isRegExpMode: boolean): number[] {
+  if (isRegExpMode) {
+    return getAllMatchingLineNumbersByRegExp(code, query)
+  } else {
+    return getAllMatchingLineNumbersByExactMatch(code, query)
+  }
+}
+
+// ================================
+// Highlighting matching characters
+// ================================
+const wrapMark = (match: string) => `<mark class="matched-term">${match}</mark>`
+
+// We only need to escape '<' and '&' characters as we can assure that the escaped output
+// will only be directly set as innerHTML and will not be concatenated with other strings
+// or used inside HTML attributes.
+const ESCAPE_REGEX = /[<&]/
+export function escapeInnerHTML(raw: string): string {
+  return raw.replace(/[&<]/g, (char: string) => char === '&' ? '&amp;' : '&lt;')
+}
+
+// Provide a fast path for escaping strings that don't contain special characters
+// especially useful for large bodies of text where the overhead of escaping is non-trivial
+// It also allows to only escape necessary characters.
+export function escapeHTMLIfNeeded(raw: string, regExp = ESCAPE_REGEX, escape = escapeInnerHTML): string {
+  return regExp.test(raw) ? escape(raw) : raw
+}
+
+export function highlightMatchingChars(code: string, query: string, isRegExpMode: boolean): string {
+  let regExp: RegExp
+  try {
+    // This RegExp mus have a capture group to work here
+    regExp = new RegExp(`((?:${isRegExpMode ? query : escapeRegExp(query)})+)`, 'sgi')
+  } catch {
+    return code
+  }
+
+  // This is a fast path for the common case where there are no special characters
+  if (!ESCAPE_REGEX.test(code)) {
+    return code.replace(regExp, wrapMark)
+  }
+
+  const parts = code.split(regExp)
+  const result: string[] = []
+
+  for (let i = 0; i < parts.length; i++) {
+    const escaped = escapeInnerHTML(parts[i])
+    result.push(i % 2 === 0 ? escaped : wrapMark(escaped))
+  }
+
+  return result.join('')
+}
+
+// ========================
+// Line highlighting syntax
+// ========================
+
+export const LINE_NUMBER_EXPRESSION_REGEX = /^\d+(?:-\d+)?(?:,\d+(?:-\d+)?)*$/
+
+// '1,2,4-6' -> [1, 2, 4, 5, 6]
+function expressionToLines(expression: string, maxLines: number): number[] {
+  if (!LINE_NUMBER_EXPRESSION_REGEX.test(expression)) {
+    throw new Error('Invalid line number expression.')
+  }
+
+  const ranges = expression.split(',').map((part) => {
+    const [start, end] = part.split('-').map(Number)
+    // If there's no end, it's a single line, otherwise it's a range
+    return end == null ? start : [start, end] as [number, number]
+  })
+
+  return rangesToLines(ranges, maxLines)
+}
+
+// [1, 2, [4, 6]] -> [1, 2, 4, 5, 6]
+function rangesToLines(ranges: (number | [number, number])[], maxLines: number): number[] {
+  const lines = ranges.flatMap((range) => {
+    if (typeof range === 'number') {
+      return range < 1 || range > maxLines ? [] : range
+    }
+
+    // Ensure start is less than end
+    let [start, end] = range[0] < range[1] ? range : [range[1], range[0]]
+
+    // Ensure start and end are within bounds
+    start = Math.max(1, start)
+    end = Math.min(maxLines, end)
+
+    return Array.from({ length: end - start + 1 }, (_, i) => i + start)
+  }).sort((a, b) => a - b)
+
+  // Ensure no duplicates
+  return Array.from(new Set(lines))
+}
+
+export function normalizeHighlightedLines(lines: string | (number | [number, number])[], maxLines: number): number[] {
+  return typeof lines === 'string'
+    ? expressionToLines(lines, maxLines)
+    : rangesToLines(lines, maxLines)
+}

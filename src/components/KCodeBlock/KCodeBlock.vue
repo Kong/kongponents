@@ -225,7 +225,7 @@ import { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 import { debounce } from '@/utilities/debounce'
 import type { Command } from '@/utilities/ShortcutManager'
 import { ShortcutManager } from '@/utilities/ShortcutManager'
-import { LINE_NUMBER_EXPRESSION_REGEX, normalizeHighlightedLines } from '@/utilities/lineHighlighting'
+import { escapeHTMLIfNeeded, getMatchingLineNumbers, highlightMatchingChars, LINE_NUMBER_EXPRESSION_REGEX, normalizeHighlightedLines } from '@/utilities/codeBlockHelpers'
 import type { CodeBlockEventData, CommandKeywords, Theme } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import { CopyIcon, SearchIcon, ProgressIcon, CloseIcon, RegexIcon, FilterIcon, ArrowUpIcon, ArrowDownIcon } from '@kong/icons'
@@ -432,33 +432,25 @@ const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.va
 const linePrefix = computed((): string => props.id.toLowerCase().replace(/\s+/g, '-'))
 const isProcessing = computed((): boolean => props.processing || isProcessingInternally.value)
 const isShowingFilteredCode = computed((): boolean => isFilterMode.value && filteredCode.value !== '')
+
 const filteredCode = computed((): string => {
-  if (searchQuery.value === '') {
+  if (searchQuery.value === '' || matchingLineNumbers.value.length === 0) {
     return ''
   }
 
-  return props.code?.split('\n')
-    .filter((_line, index) => matchingLineSet.value.has(index + 1))
-    .map((line) => {
-      try {
-        const regExp = new RegExp(searchQuery.value, 'gi')
-        return line.replace(regExp, (match) => `<span class="matched-term">${match}</span>`)
-      } catch {
-        return line
-      }
-    })
+  const filtered = props.code?.split('\n')
+    .filter((_, index) => matchingLineSet.value.has(index + 1))
     .join('\n')
+
+  return highlightMatchingChars(filtered, searchQuery.value, isRegExpMode.value)
 })
 const showCodeBlockActions = computed((): boolean => !props.singleLine && props.searchable)
 
-// This is in the case where a user is trying to render
-// HTML code, and it would render the actual tags inside
-// of the code block.
-const escapeUnsafeCharacters = (unescapedCodeString: string): string => {
-  return unescapedCodeString?.replaceAll('&', '&amp;')?.replaceAll('<', '&lt;')?.replaceAll('>', '&gt;')?.replaceAll('"', '&quot;')?.replaceAll("'", '&#039;')
-}
-
-const finalCode = computed(() => props.singleLine ? escapeUnsafeCharacters(props.code)?.replaceAll('\n', '') : escapeUnsafeCharacters(props.code))
+const finalCode = computed(() =>
+  props.singleLine
+    ? escapeHTMLIfNeeded(props.code)?.replaceAll('\n', '')
+    : escapeHTMLIfNeeded(props.code),
+)
 
 const maxHeightValue = computed(() => getSizeFromString(props.maxHeight))
 
@@ -468,12 +460,12 @@ watch(() => props.code, async function() {
 
   // Changing the code causes the code block to be re-rendered.
   emitCodeBlockRenderEvent()
-  updateMatchingLineNumbers()
+  queueUpdateMatchingLineNumbers()
 })
 
 watch(() => isRegExpMode.value, function() {
   // Updates the matching line numbers because the matches can be different for the same query between normal and regexp mode.
-  updateMatchingLineNumbers()
+  queueUpdateMatchingLineNumbers()
 })
 
 watch(() => props.highlightedLineNumbers, function() {
@@ -492,7 +484,7 @@ watch(() => isShowingFilteredCode.value, async function() {
 
     // Turning off filter mode causes the full code block to be re-rendered.
     emitCodeBlockRenderEvent()
-    updateMatchingLineNumbers()
+    queueUpdateMatchingLineNumbers()
   }
 })
 
@@ -567,7 +559,7 @@ onMounted(function() {
   if (!props.query && props.highlightedLineNumbers.length) {
     setDefaultMatchingLineNumbers()
   } else {
-    updateMatchingLineNumbers()
+    queueUpdateMatchingLineNumbers()
   }
 })
 
@@ -614,7 +606,7 @@ function handleSearch(): void {
 
 function handleSearchInputValue(): void {
   emit('query-change', searchQuery.value)
-  updateMatchingLineNumbers()
+  queueUpdateMatchingLineNumbers()
 }
 
 function setDefaultMatchingLineNumbers(): void {
@@ -656,47 +648,8 @@ function updateMatchingLineNumbers(): void {
   isProcessingInternally.value = false
 }
 
-function getMatchingLineNumbers(code: string, query: string, isRegExpMode: boolean): number[] {
-  if (isRegExpMode) {
-    return getMatchingLineNumbersByRegExp(code, query)
-  } else {
-    return getMatchingLineNumbersByExactMatch(code, query)
-  }
-}
-
-function getMatchingLineNumbersByExactMatch(code: string, query: string): number[] {
-  const totalMatchingLineNumbers: number[] = []
-  let startPos = 0
-
-  while (startPos < code.length) {
-    const pos = code.indexOf(query, startPos)
-
-    if (pos === -1) {
-      break
-    }
-
-    const lineNumber = code.substring(0, pos)?.split('\n').length
-    totalMatchingLineNumbers.push(lineNumber)
-
-    startPos = pos + 1
-  }
-
-  return totalMatchingLineNumbers
-}
-
-function getMatchingLineNumbersByRegExp(code: string, query: string): number[] {
-  const matches = code.matchAll(new RegExp(query, 'g'))
-  const totalMatchingLineNumbers: number[] = []
-
-  for (const match of Array.from(matches)) {
-    if (match.index !== undefined) {
-      const lineNumber = code.substring(0, match.index)?.split('\n').length
-      totalMatchingLineNumbers.push(lineNumber)
-    }
-  }
-
-  return totalMatchingLineNumbers
-}
+// Debounce the update function so that repeated calls within the same task will only trigger a single update.
+const queueUpdateMatchingLineNumbers = debounce(updateMatchingLineNumbers, 0)
 
 function clearQuery(): void {
   searchQuery.value = ''
@@ -979,6 +932,10 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
         color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
       }
     }
+  }
+
+  .matched-term {
+    background-color: transparent;
   }
 }
 </style>
