@@ -1,4 +1,4 @@
-import { getMatchingLineNumbers, escapeInnerHTML, escapeHTMLIfNeeded, normalizeHighlightedLines, highlightMatchingChars } from './codeBlockHelpers'
+import { getMatchingLineNumbers, escapeInnerHTML, escapeHTMLIfNeeded, normalizeHighlightedLines, highlightMatchingChars, wrapMark } from './codeBlockHelpers'
 
 const code = `{
   "compilerOptions": {
@@ -77,20 +77,20 @@ describe('escapeHTMLIfNeeded', () => {
 })
 
 describe('highlightMatchingChars', () => {
-  it('wraps matched characters with <mark class="matched-term"> matched by exact match', () => {
+  it('wraps matched characters matched by exact match with a <mark> element', () => {
     expect(highlightMatchingChars(code, 'true', false)).eq(`{
   "compilerOptions": {
     "target": "es2020",
     "module": "esnext",
     "moduleResolution": "node",
     "allowUnreachableCode": false,
-    "exactOptionalPropertyTypes": <mark class="matched-term">true</mark>,
-    "noFallthroughCasesInSwitch": <mark class="matched-term">true</mark>,
-    "noImplicitReturns": <mark class="matched-term">true</mark>,
-    "noUncheckedIndexedAccess": <mark class="matched-term">true</mark>,
-    "noUnusedLocals": <mark class="matched-term">true</mark>,
-    "noUnusedParameters": <mark class="matched-term">true</mark>,
-    "strict": <mark class="matched-term">true</mark>,
+    "exactOptionalPropertyTypes": ${wrapMark('true')},
+    "noFallthroughCasesInSwitch": ${wrapMark('true')},
+    "noImplicitReturns": ${wrapMark('true')},
+    "noUncheckedIndexedAccess": ${wrapMark('true')},
+    "noUnusedLocals": ${wrapMark('true')},
+    "noUnusedParameters": ${wrapMark('true')},
+    "strict": ${wrapMark('true')},
     "jsx": "preserve"
   },
   "include": [
@@ -118,16 +118,16 @@ describe('highlightMatchingChars', () => {
     "jsx": "preserve"
   },
   "include": [
-    "<mark class="matched-term">.</mark>/src",
-    "<mark class="matched-term">.</mark>/types",
-    "<mark class="matched-term">.</mark>/particularly-long-value-that-will-inadvertently-cause-scrolling-for-narrower-containers"
+    "${wrapMark('.')}/src",
+    "${wrapMark('.')}/types",
+    "${wrapMark('.')}/particularly-long-value-that-will-inadvertently-cause-scrolling-for-narrower-containers"
   ],
-  "markup": "&lt;div class="title">Hello &amp; Hi<mark class="matched-term">.</mark>&lt;/div>",
+  "markup": "&lt;div class="title">Hello &amp; Hi${wrapMark('.')}&lt;/div>",
 }
 `)
   })
 
-  it('wraps matched characters with <mark class="matched-term"> matched by exact match', () => {
+  it('wraps matched characters matched by exact match with a <mark> element', () => {
     expect(highlightMatchingChars(code, '<div class="title">', false)).eq(`{
   "compilerOptions": {
     "target": "es2020",
@@ -148,25 +148,25 @@ describe('highlightMatchingChars', () => {
     "./types",
     "./particularly-long-value-that-will-inadvertently-cause-scrolling-for-narrower-containers"
   ],
-  "markup": "<mark class="matched-term">&lt;div class="title"></mark>Hello &amp; Hi.&lt;/div>",
+  "markup": "${wrapMark('&lt;div class="title">')}Hello &amp; Hi.&lt;/div>",
 }
 `)
   })
 
-  it('wraps matched characters with <mark class="matched-term"> matched by regexp', () => {
+  it('wraps matched characters matched by regexp with a <mark> element', () => {
     expect(highlightMatchingChars(code, 'true', true)).eq(`{
   "compilerOptions": {
     "target": "es2020",
     "module": "esnext",
     "moduleResolution": "node",
     "allowUnreachableCode": false,
-    "exactOptionalPropertyTypes": <mark class="matched-term">true</mark>,
-    "noFallthroughCasesInSwitch": <mark class="matched-term">true</mark>,
-    "noImplicitReturns": <mark class="matched-term">true</mark>,
-    "noUncheckedIndexedAccess": <mark class="matched-term">true</mark>,
-    "noUnusedLocals": <mark class="matched-term">true</mark>,
-    "noUnusedParameters": <mark class="matched-term">true</mark>,
-    "strict": <mark class="matched-term">true</mark>,
+    "exactOptionalPropertyTypes": ${wrapMark('true')},
+    "noFallthroughCasesInSwitch": ${wrapMark('true')},
+    "noImplicitReturns": ${wrapMark('true')},
+    "noUncheckedIndexedAccess": ${wrapMark('true')},
+    "noUnusedLocals": ${wrapMark('true')},
+    "noUnusedParameters": ${wrapMark('true')},
+    "strict": ${wrapMark('true')},
     "jsx": "preserve"
   },
   "include": [
@@ -178,7 +178,7 @@ describe('highlightMatchingChars', () => {
 }
 `)
 
-    expect(highlightMatchingChars(code, '.', true)).eq(`<mark class="matched-term">{
+    expect(highlightMatchingChars(code, '.', true)).eq(`${wrapMark(`{
   "compilerOptions": {
     "target": "es2020",
     "module": "esnext",
@@ -200,7 +200,7 @@ describe('highlightMatchingChars', () => {
   ],
   "markup": "&lt;div class="title">Hello &amp; Hi.&lt;/div>",
 }
-</mark>`)
+`)}`)
   })
 })
 

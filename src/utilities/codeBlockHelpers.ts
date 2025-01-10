@@ -129,7 +129,7 @@ export function getMatchingLineNumbers(code: string, query: string, isRegExpMode
 // ================================
 // Highlighting matching characters
 // ================================
-const wrapMark = (match: string) => `<mark class="matched-term">${match}</mark>`
+export const wrapMark = (match: string) => `<mark class="matched-term">${match}</mark>`
 
 // We only need to escape '<' and '&' characters as we can assure that the escaped output
 // will only be directly set as innerHTML and will not be concatenated with other strings
