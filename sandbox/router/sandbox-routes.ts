@@ -212,6 +212,12 @@ const componentRoutes: RouteRecordRaw[] = [
     meta: { title: 'Tree List Sandbox' },
     component: () => import('../pages/SandboxTreeList.vue'),
   },
+  {
+    path: '/table-view/sorting',
+    name: 'table-view-sorting',
+    meta: { title: 'Table View Sorting Sandbox (temporary)' },
+    component: () => import('../pages/SandboxTmpTableViewSorting.vue'),
+  },
 ]
 
 export default componentRoutes
