@@ -1,3 +1,10 @@
+## [9.16.1](https://github.com/Kong/kongponents/compare/v9.16.0...v9.16.1) (2025-01-10)
+
+
+### Bug Fixes
+
+* **kinput:** add type button to mask toggle ([#2563](https://github.com/Kong/kongponents/issues/2563)) ([e83637e](https://github.com/Kong/kongponents/commit/e83637e9da7db86f580bf518ffbede4995ea2317))
+
 # [9.16.0](https://github.com/Kong/kongponents/compare/v9.15.0...v9.16.0) (2025-01-08)
 
 
