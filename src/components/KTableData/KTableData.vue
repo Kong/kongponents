@@ -172,7 +172,6 @@ import type {
   PageSizeChangeData,
   TableState,
   TableStatePayload,
-  SwrvState,
   SwrvStateData,
   TableDataProps,
   RowExpandPayload,
