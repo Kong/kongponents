@@ -27,11 +27,16 @@ function findLineForOffset(lineOffsets: number[], offset: number): number {
   let low = 0
   let high = lineOffsets.length - 1
 
+  // Perform a binary search to find the highest line offset <= the given offset
+  // and that will be the line number.
   while (low < high) {
-    const mid = (low + high + 1) >>> 1
+    // Calculate the mid-point
+    const mid = Math.floor((low + high + 1) / 2)
     if (lineOffsets[mid] <= offset) {
+      // narrow the search to the upper half
       low = mid
     } else {
+      // narrow the search to the lower half
       high = mid - 1
     }
   }
@@ -144,7 +149,7 @@ export function escapeHTMLIfNeeded(raw: string, regExp = ESCAPE_REGEX, escape = 
 export function highlightMatchingChars(code: string, query: string, isRegExpMode: boolean): string {
   let regExp: RegExp
   try {
-    // This RegExp mus have a capture group to work here
+    // This RegExp must have a capture group to work here
     regExp = new RegExp(`((?:${isRegExpMode ? query : escapeRegExp(query)})+)`, 'sgi')
   } catch {
     return code
@@ -170,6 +175,14 @@ export function highlightMatchingChars(code: string, query: string, isRegExpMode
 // Line highlighting syntax
 // ========================
 
+/**
+ * A regular expression to match a line number expression.
+ * Examples of valid expressions:
+ * - "1" (a single line number)
+ * - "1-5" (a range of line numbers)
+ * - "1,3,5" (a list of individual line numbers)
+ * - "1-3,5,7-10" (a mix of ranges and individual numbers)
+ */
 export const LINE_NUMBER_EXPRESSION_REGEX = /^\d+(?:-\d+)?(?:,\d+(?:-\d+)?)*$/
 
 // '1,2,4-6' -> [1, 2, 4, 5, 6]
