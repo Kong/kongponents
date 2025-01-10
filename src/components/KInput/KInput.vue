@@ -51,6 +51,7 @@
           v-if="type === 'password' && showPasswordMaskToggle"
           :aria-label="`${maskValue ? 'Hide' : 'Show'} value`"
           class="mask-value-toggle-button"
+          type="button"
           @click.stop="maskValue = !maskValue"
           @mousedown.prevent
           @mouseup.prevent
