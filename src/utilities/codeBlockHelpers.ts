@@ -8,7 +8,7 @@ import { escapeRegExp } from 'lodash-es'
  * Build an array of character indices at which each line (0-based) starts.
  * lineOffsets[i] = character index where line i starts in `code`.
  */
-function buildLineOffsets(code: string): number[] {
+export function buildLineOffsets(code: string): number[] {
   const lineOffsets = [0]
   for (let i = 0; i < code.length; i++) {
     if (code[i] === '\n') {
@@ -45,12 +45,10 @@ function findLineForOffset(lineOffsets: number[], offset: number): number {
 }
 
 /**
- * For an **exact** substring that can also cross multiple lines
- * (because the substring might include '\n'),
- * we do the same offset logic and collect each spanned line number.
- */
-function getAllMatchingLineNumbersByExactMatch(code: string, query: string): number[] {
-  const lineOffsets = buildLineOffsets(code)
+ * For an **exact** substring, this returns an array of ALL line numbers
+ * (1-based) touched by each match.
+ * This assumes the query does NOT contain '\n' (no cross-line matches).
+ */function getAllMatchingLineNumbersByExactMatch(code: string, query: string, lineOffsets: number[]): number[] {
   const allMatchedLineNumbers: number[] = []
 
   let startPos = 0
@@ -58,23 +56,14 @@ function getAllMatchingLineNumbersByExactMatch(code: string, query: string): num
     const pos = code.indexOf(query, startPos)
     if (pos === -1) break
 
-    const startOffset = pos
-    const endOffset = pos + query.length - 1
+    const lineNumber = findLineForOffset(lineOffsets, pos)
+    allMatchedLineNumbers.push(lineNumber)
 
-    const startLine = findLineForOffset(lineOffsets, startOffset)
-    const endLine = findLineForOffset(lineOffsets, endOffset)
+    // lineNumber is 1-based, so it becomes the next line's start offset in the `lineOffsets` array
+    const nextLineOffset = lineNumber < lineOffsets.length ? lineOffsets[lineNumber] : code.length
 
-    for (let line = startLine; line <= endLine; line++) {
-      // Avoid duplicates
-      if (allMatchedLineNumbers[allMatchedLineNumbers.length - 1] !== line) {
-        allMatchedLineNumbers.push(line)
-      }
-    }
-
-    // Advance for the next match
-    // (pos + 1) if you want overlapping matches,
-    // or (pos + query.length) if you don't want overlaps.
-    startPos = pos + 1
+    // Move to the next character after the match
+    startPos = nextLineOffset
   }
 
   return allMatchedLineNumbers
@@ -88,10 +77,7 @@ function getAllMatchingLineNumbersByExactMatch(code: string, query: string): num
  *   If a match starts on line 2 and ends on line 5, this adds
  *   [2, 3, 4, 5] to the result array for that match.
  */
-function getAllMatchingLineNumbersByRegExp(code: string, query: string): number[] {
-  // Build line start offsets once
-  const lineOffsets = buildLineOffsets(code)
-
+function getAllMatchingLineNumbersByRegExp(code: string, query: string, lineOffsets: number[]): number[] {
   const regExp = new RegExp(query, 'sg')
 
   const allMatchedLineNumbers: number[] = []
@@ -118,11 +104,17 @@ function getAllMatchingLineNumbersByRegExp(code: string, query: string): number[
   return allMatchedLineNumbers
 }
 
-export function getMatchingLineNumbers(code: string, query: string, isRegExpMode: boolean): number[] {
+/**
+ * Get an array of line numbers (1-based) that contain matches for the given query.
+ * Both exact and regex matches are supported.
+ * Accepts a pre-built array of line offsets for better performance for repeated searches
+ * on the same code.
+ */
+export function getMatchingLineNumbers(code: string, query: string, isRegExpMode: boolean, lineOffsets = buildLineOffsets(code)): number[] {
   if (isRegExpMode) {
-    return getAllMatchingLineNumbersByRegExp(code, query)
+    return getAllMatchingLineNumbersByRegExp(code, query, lineOffsets)
   } else {
-    return getAllMatchingLineNumbersByExactMatch(code, query)
+    return getAllMatchingLineNumbersByExactMatch(code, query, lineOffsets)
   }
 }
 

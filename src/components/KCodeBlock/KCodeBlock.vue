@@ -226,6 +226,7 @@ import { debounce } from '@/utilities/debounce'
 import type { Command } from '@/utilities/ShortcutManager'
 import { ShortcutManager } from '@/utilities/ShortcutManager'
 import {
+  buildLineOffsets,
   escapeHTMLIfNeeded,
   getMatchingLineNumbers,
   highlightMatchingChars,
@@ -439,6 +440,9 @@ const linePrefix = computed((): string => props.id.toLowerCase().replace(/\s+/g,
 const isProcessing = computed((): boolean => props.processing || isProcessingInternally.value)
 const isShowingFilteredCode = computed((): boolean => isFilterMode.value && filteredCode.value !== '')
 
+// Cache the line offsets to avoid recalculating them on every search.
+const lineOffsets = computed(() => buildLineOffsets(props.code))
+
 const filteredCode = computed((): string => {
   if (searchQuery.value === '' || matchingLineNumbers.value.length === 0) {
     return ''
@@ -634,7 +638,12 @@ function updateMatchingLineNumbers(): void {
 
   if (searchQuery.value.length > 0) {
     try {
-      totalMatchingLineNumbers = getMatchingLineNumbers(props.code.toLowerCase(), searchQuery.value.toLowerCase(), isRegExpMode.value)
+      totalMatchingLineNumbers = getMatchingLineNumbers(
+        props.code.toLowerCase(),
+        searchQuery.value.toLowerCase(),
+        isRegExpMode.value,
+        lineOffsets.value,
+      )
     } catch (error) {
       if (error instanceof Error) {
         regExpError.value = error
