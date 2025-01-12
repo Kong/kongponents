@@ -48,7 +48,12 @@ function findLineForOffset(lineOffsets: number[], offset: number): number {
  * For an **exact** substring, this returns an array of ALL line numbers
  * (1-based) touched by each match.
  * This assumes the query does NOT contain '\n' (no cross-line matches).
- */function getAllMatchingLineNumbersByExactMatch(code: string, query: string, lineOffsets: number[]): number[] {
+ */
+function getAllMatchingLineNumbersByExactMatch(code: string, query: string, lineOffsets: number[]): number[] {
+  if (!code || !query) {
+    return []
+  }
+
   const allMatchedLineNumbers: number[] = []
 
   let startPos = 0
@@ -78,6 +83,10 @@ function findLineForOffset(lineOffsets: number[], offset: number): number {
  *   [2, 3, 4, 5] to the result array for that match.
  */
 function getAllMatchingLineNumbersByRegExp(code: string, query: string, lineOffsets: number[]): number[] {
+  if (!code || !query) {
+    return []
+  }
+
   const regExp = new RegExp(query, 'sg')
 
   const allMatchedLineNumbers: number[] = []
@@ -139,6 +148,10 @@ export function escapeHTMLIfNeeded(raw: string, regExp = ESCAPE_REGEX, escape = 
 }
 
 export function highlightMatchingChars(code: string, query: string, isRegExpMode: boolean): string {
+  if (!code || !query) {
+    return ''
+  }
+
   let regExp: RegExp
   try {
     // This RegExp must have a capture group to work here
