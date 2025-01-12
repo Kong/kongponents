@@ -154,8 +154,7 @@ export function highlightMatchingChars(code: string, query: string, isRegExpMode
 
   let regExp: RegExp
   try {
-    // This RegExp must have a capture group to work here
-    regExp = new RegExp(`((?:${isRegExpMode ? query : escapeRegExp(query)})+)`, 'sgi')
+    regExp = new RegExp(`(?:${isRegExpMode ? query : escapeRegExp(query)})+`, 'sgi')
   } catch {
     return code
   }
@@ -165,15 +164,22 @@ export function highlightMatchingChars(code: string, query: string, isRegExpMode
     return code.replace(regExp, wrapMark)
   }
 
-  const parts = code.split(regExp)
-  const result: string[] = []
+  let result = ''
+  let lastIndex = 0
+  let match: RegExpExecArray | null
 
-  for (let i = 0; i < parts.length; i++) {
-    const escaped = escapeInnerHTML(parts[i])
-    result.push(i % 2 === 0 ? escaped : wrapMark(escaped))
+  while ((match = regExp.exec(code)) !== null) {
+    const matchIndex = match.index
+    // escape last match end to current match start
+    result += escapeInnerHTML(code.slice(lastIndex, matchIndex))
+    // escape and wrap current match
+    result += wrapMark(escapeInnerHTML(match[0]))
+    lastIndex = matchIndex + match[0].length
   }
+  // escape the rest of the string
+  result += escapeInnerHTML(code.slice(lastIndex))
 
-  return result.join('')
+  return result
 }
 
 // ========================
