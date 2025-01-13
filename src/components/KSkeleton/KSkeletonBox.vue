@@ -46,27 +46,35 @@ defineProps({
     &-1 {
       width: 16px;
     }
+
     &-2 {
       width: 32px;
     }
+
     &-5 {
       width: 80px;
     }
+
     &-6 {
       width: 96px;
     }
+
     &-10 {
       width: 160px;
     }
+
     &-25 {
       width: 25%;
     }
+
     &-50 {
       width: 50%;
     }
+
     &-75 {
       width: 75%;
     }
+
     &-100 {
       width: 100%;
     }
@@ -76,6 +84,7 @@ defineProps({
     &-1 {
       height: 8px;
     }
+
     &-2 {
       height: 16px;
     }
@@ -90,6 +99,7 @@ defineProps({
     0% {
       background-position: 100% 50%;
     }
+
     100% {
       background-position: 0% 50%;
     }

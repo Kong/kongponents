@@ -326,6 +326,7 @@ onUnmounted(() => {
     &.expanded {
       height: auto;
     }
+
     .truncate-container {
       display: flex;
       flex-wrap: wrap;
@@ -340,6 +341,7 @@ onUnmounted(() => {
       }
     }
   }
+
   &.truncate-text {
     display: flex;
     flex-direction: column;
@@ -350,6 +352,7 @@ onUnmounted(() => {
       -webkit-line-clamp: v-bind('props.rows');
       overflow: hidden;
     }
+
     &.expanded {
       .truncate-container {
         display: block;
