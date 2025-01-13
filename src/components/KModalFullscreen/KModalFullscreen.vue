@@ -256,6 +256,7 @@ $fullscreen-modal-padding: 64px;
     @media (min-width: $kui-breakpoint-phablet) {
       padding-bottom: $fullscreen-modal-padding;
     }
+
     .k-modal-fullscreen-header {
       position: absolute;
     }
