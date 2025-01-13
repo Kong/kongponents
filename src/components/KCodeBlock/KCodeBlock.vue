@@ -210,8 +210,14 @@
         >
           <CopyIcon decorative />
         </KCodeBlockIconButton>
-
-        <slot name="secondary-actions" />
+        <div
+          class="secondary-actions"
+          tabindex="0"
+        >
+          <slot
+            name="secondary-actions"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -823,6 +829,22 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
     padding: var(--kui-space-40, $kui-space-40);
     position: relative;
 
+    @media (min-width: $kui-breakpoint-laptop) {
+      &:hover{
+        .code-block-secondary-actions{
+          opacity: 1;
+          :deep{
+            .code-block-copy-button{
+              opacity: 1;
+            }
+          }
+          .secondary-actions{
+            opacity: 1;
+          }
+        }
+
+      }
+    }
     pre {
       display: grid;
       gap: var(--kui-space-60, $kui-space-60);
@@ -904,6 +926,25 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       right: 0;
       top: 0;
       z-index: 1;
+
+      @media (min-width: $kui-breakpoint-laptop) {
+        .secondary-actions{
+          opacity: 0;
+          transition: opacity $kongponentsTransitionDurTimingFunc,border $kongponentsTransitionDurTimingFunc;
+          &:focus{
+            opacity: 1;
+          }
+        }
+        :deep{
+          .code-block-copy-button{
+            opacity: 0;
+            transition: opacity $kongponentsTransitionDurTimingFunc,border $kongponentsTransitionDurTimingFunc;
+            &:focus{
+              opacity: 1;
+            }
+          }
+        }
+      }
     }
   }
 
