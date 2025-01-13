@@ -159,10 +159,8 @@ export function highlightMatchingChars(code: string, query: string, isRegExpMode
     return code
   }
 
-  // This is a fast path for the common case where there are no special characters
-  if (!ESCAPE_REGEX.test(code)) {
-    return code.replace(regExp, wrapMark)
-  }
+  // We may take a fast path for the common case where there are no characters to escape
+  const skipEscape = !ESCAPE_REGEX.test(code)
 
   let result = ''
   let lastIndex = 0
@@ -171,13 +169,13 @@ export function highlightMatchingChars(code: string, query: string, isRegExpMode
   while ((match = regExp.exec(code)) !== null) {
     const matchIndex = match.index
     // escape last match end to current match start
-    result += escapeInnerHTML(code.slice(lastIndex, matchIndex))
+    result += skipEscape ? code.slice(lastIndex, matchIndex) : escapeInnerHTML(code.slice(lastIndex, matchIndex))
     // escape and wrap current match
-    result += wrapMark(escapeInnerHTML(match[0]))
+    result += wrapMark(skipEscape ? match[0] : escapeInnerHTML(match[0]))
     lastIndex = matchIndex + match[0].length
   }
   // escape the rest of the string
-  result += escapeInnerHTML(code.slice(lastIndex))
+  result += skipEscape ? code.slice(lastIndex) : escapeInnerHTML(code.slice(lastIndex))
 
   return result
 }
