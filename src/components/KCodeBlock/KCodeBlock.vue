@@ -830,15 +830,17 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
     position: relative;
 
     @media (min-width: $kui-breakpoint-laptop) {
-      &:hover{
-        .code-block-secondary-actions{
+      &:hover {
+        .code-block-secondary-actions {
           opacity: 1;
-          :deep{
-            .code-block-copy-button{
+
+          :deep {
+            .code-block-copy-button {
               opacity: 1;
             }
           }
-          .secondary-actions{
+
+          .secondary-actions {
             opacity: 1;
           }
         }
@@ -928,18 +930,21 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       z-index: 1;
 
       @media (min-width: $kui-breakpoint-laptop) {
-        .secondary-actions{
+        .secondary-actions {
           opacity: 0;
           transition: opacity $kongponentsTransitionDurTimingFunc,border $kongponentsTransitionDurTimingFunc;
-          &:focus{
+
+          &:focus {
             opacity: 1;
           }
         }
-        :deep{
-          .code-block-copy-button{
+
+        :deep {
+          .code-block-copy-button {
             opacity: 0;
             transition: opacity $kongponentsTransitionDurTimingFunc,border $kongponentsTransitionDurTimingFunc;
-            &:focus{
+
+            &:focus {
               opacity: 1;
             }
           }
