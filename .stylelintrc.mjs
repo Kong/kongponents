@@ -26,9 +26,9 @@ export default {
       },
     ],
     'custom-property-no-missing-var-function': true,
-    // Disable the following rules
-    'no-descending-specificity': null,
     'rule-empty-line-before': ['always', { ignore: ['after-comment', 'first-nested'] }],
     '@stylistic/block-opening-brace-space-before': 'always',
+    // Disable the following rules
+    'no-descending-specificity': null,
   },
 }
