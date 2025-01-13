@@ -189,9 +189,6 @@ importers:
       stylelint-order:
         specifier: ^6.0.4
         version: 6.0.4(stylelint@16.9.0(typescript@5.6.3))
-      stylelint-stylus:
-        specifier: ^1.0.0
-        version: 1.0.0(stylelint@16.9.0(typescript@5.6.3))
       tsc-alias:
         specifier: ^1.8.10
         version: 1.8.10
@@ -2611,9 +2608,6 @@ packages:
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
 
-  fast-diff@1.3.0:
-    resolution: {integrity: sha512-VxPP4NqbUjj6MaAOafWeUn2cXWLcCtljklUtZf0Ind4XQ+QPtmA0b18zZy0jIQx+ExRVCR/ZQpBmik5lXshNsw==}
-
   fast-glob@3.3.2:
     resolution: {integrity: sha512-oX2ruAFQwf/Orj8m737Y5adxDQO0LAB7/S5MnxCdTNDd4p6BsyIVsv9JQsATbTSq8KHRpLwIHbVlUNatxd+1Ow==}
     engines: {node: '>=8.6.0'}
@@ -3458,9 +3452,6 @@ packages:
   lodash.snakecase@4.1.1:
     resolution: {integrity: sha512-QZ1d4xoBHYUeuouhEq3lk3Uq7ldgyFXGBhg04+oRLnIz8o9T65Eh+8YdroUwn846zchkA9yDsDl5CVVaV2nqYw==}
 
-  lodash.sortedlastindex@4.1.0:
-    resolution: {integrity: sha512-s8xEQdsp2Tu5zUqVdFSe9C0kR8YlnAJYLqMdkh+pIRBRxF6/apWseLdHl3/+jv2I61dhPwtI/Ff+EqvCpc+N8w==}
-
   lodash.startcase@4.4.0:
     resolution: {integrity: sha512-+WKqsK294HMSc2jEbNgpHpd0JfIBhp7rEV4aqXWqFr6AlXov+SlcgB1Fv01y2kGe3Gc8nMW7VA0SrGuSkRfIEg==}
 
@@ -4091,10 +4082,6 @@ packages:
     resolution: {integrity: sha512-M9dkSrmU00t/jK7rF6BZSZauA5MAaBW4i5EnJXspMwt4iqTh/L9j6fgMnbElEOfyRyfLfVbIHj/R52zHzAPe1Q==}
     peerDependencies:
       postcss: ^8.4.20
-
-  postcss-styl@0.12.3:
-    resolution: {integrity: sha512-8I7Cd8sxiEITIp32xBK4K/Aj1ukX6vuWnx8oY/oAH35NfQI4OZaY5nd68Yx8HeN5S49uhQ6DL0rNk0ZBu/TaLg==}
-    engines: {node: ^8.10.0 || ^10.13.0 || ^11.10.1 || >=12.13.0}
 
   postcss-value-parser@4.2.0:
     resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
@@ -4739,16 +4726,6 @@ packages:
     engines: {node: '>=18.12.0'}
     peerDependencies:
       stylelint: ^16.0.2
-
-  stylelint-stylus@1.0.0:
-    resolution: {integrity: sha512-Sd9PY5ndU09PbH61ojs6yZ3HausS9OE7TgWwl8kZfwTQTTbYqCmk4Vy4wIWvDisN+C8jeHr3TBddlCQZg2yGMw==}
-    engines: {node: ^12 || >=14}
-    peerDependencies:
-      postcss-syntax: ^0.36.2
-      stylelint: ^13.2.1 || ^14 || ^15 || ^16
-    peerDependenciesMeta:
-      postcss-syntax:
-        optional: true
 
   stylelint@16.9.0:
     resolution: {integrity: sha512-31Nm3WjxGOBGpQqF43o3wO9L5AC36TPIe6030Lnm13H3vDMTcS21DrLh69bMX+DBilKqMMVLian4iG6ybBoNRQ==}
@@ -7112,7 +7089,8 @@ snapshots:
 
   at-least-node@1.0.0: {}
 
-  atob@2.1.2: {}
+  atob@2.1.2:
+    optional: true
 
   autoprefixer@10.4.20(postcss@8.4.38):
     dependencies:
@@ -7525,6 +7503,7 @@ snapshots:
       inherits: 2.0.4
       source-map: 0.6.1
       source-map-resolve: 0.6.0
+    optional: true
 
   cssesc@3.0.0: {}
 
@@ -7647,7 +7626,8 @@ snapshots:
     optionalDependencies:
       supports-color: 8.1.1
 
-  decode-uri-component@0.2.2: {}
+  decode-uri-component@0.2.2:
+    optional: true
 
   dedent@0.7.0: {}
 
@@ -8168,8 +8148,6 @@ snapshots:
   extsprintf@1.3.0: {}
 
   fast-deep-equal@3.1.3: {}
-
-  fast-diff@1.3.0: {}
 
   fast-glob@3.3.2:
     dependencies:
@@ -9011,8 +8989,6 @@ snapshots:
 
   lodash.snakecase@4.1.1: {}
 
-  lodash.sortedlastindex@4.1.0: {}
-
   lodash.startcase@4.4.0: {}
 
   lodash.truncate@4.4.2: {}
@@ -9518,16 +9494,6 @@ snapshots:
     dependencies:
       postcss: 8.4.38
 
-  postcss-styl@0.12.3:
-    dependencies:
-      debug: 4.3.6(supports-color@8.1.1)
-      fast-diff: 1.3.0
-      lodash.sortedlastindex: 4.1.0
-      postcss: 8.4.49
-      stylus: 0.57.0
-    transitivePeerDependencies:
-      - supports-color
-
   postcss-value-parser@4.2.0: {}
 
   postcss@8.4.38:
@@ -9862,7 +9828,8 @@ snapshots:
     optionalDependencies:
       '@parcel/watcher': 2.4.1
 
-  sax@1.2.4: {}
+  sax@1.2.4:
+    optional: true
 
   search-insights@2.14.0: {}
 
@@ -10013,6 +9980,7 @@ snapshots:
     dependencies:
       atob: 2.1.2
       decode-uri-component: 0.2.2
+    optional: true
 
   source-map@0.6.1: {}
 
@@ -10182,24 +10150,6 @@ snapshots:
       postcss-value-parser: 4.2.0
       stylelint: 16.9.0(typescript@5.6.3)
 
-  stylelint-stylus@1.0.0(stylelint@16.9.0(typescript@5.6.3)):
-    dependencies:
-      html-tags: 3.3.1
-      lodash: 4.17.21
-      mathml-tag-names: 2.1.3
-      postcss-html: 1.7.0
-      postcss-media-query-parser: 0.2.3
-      postcss-selector-parser: 6.1.2
-      postcss-styl: 0.12.3
-      postcss-value-parser: 4.2.0
-      semver: 7.6.3
-      style-search: 0.1.0
-      stylelint: 16.9.0(typescript@5.6.3)
-      stylelint-config-html: 1.1.0(postcss-html@1.7.0)(stylelint@16.9.0(typescript@5.6.3))
-      svg-tags: 1.0.0
-    transitivePeerDependencies:
-      - supports-color
-
   stylelint@16.9.0(typescript@5.6.3):
     dependencies:
       '@csstools/css-parser-algorithms': 3.0.1(@csstools/css-tokenizer@3.0.1)
@@ -10255,6 +10205,7 @@ snapshots:
       source-map: 0.7.4
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   super-regex@1.0.0:
     dependencies:

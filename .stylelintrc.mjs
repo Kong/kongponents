@@ -8,7 +8,6 @@ export default {
     'stylelint-order',
     '@kong/design-tokens/stylelint-plugin',
     '@stylistic/stylelint-plugin',
-    'stylelint-stylus',
   ],
   rules: {
     // Disallow relative font units since we don't know the base font size in other apps
@@ -30,6 +29,6 @@ export default {
     // Disable the following rules
     'no-descending-specificity': null,
     'rule-empty-line-before': ['always', { ignore: ['after-comment', 'first-nested'] }],
-    'stylus/block-opening-brace-space-before': 'always',
+    '@stylistic/block-opening-brace-space-before': 'always',
   },
 }
