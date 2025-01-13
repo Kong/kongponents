@@ -70,7 +70,7 @@
         <KCodeBlock
           v-if="highlighter"
           id="syntax-highlighted-codeblock"
-          :code="code"
+          :code="`${code}\n`.repeat(1000)"
           :highlighted-line-numbers="highlightedLines"
           language="json"
           max-height="500"
@@ -122,7 +122,7 @@
       >
         <KCodeBlock
           id="max-height-prop"
-          :code="code"
+          :code="`${code}\n`.repeat(1000)"
           language="json"
           max-height="200"
           searchable

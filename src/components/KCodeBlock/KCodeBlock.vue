@@ -789,25 +789,38 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
 
     pre {
       display: grid;
-      gap: var(--kui-space-60, $kui-space-60);
-      grid-template-columns: v-bind('maxLineNumberWidth') 1fr; // first column for line numbers, second column for code
       margin: var(--kui-space-0, $kui-space-0);
       min-height: 32px; // ensures that scroll bar doesn't show up when there's only one line of content (not to confuse with single line mode)
+      position: relative;
+
+      &:not(.single-line) {
+        display: flex;
+        margin-left: calc(var(--kui-space-40, $kui-space-40) * -1);
+        margin-right: calc(var(--kui-space-40, $kui-space-40) * -1);
+        padding-left: calc(v-bind('maxLineNumberWidth') + var(--kui-space-40, $kui-space-40) * 2);
+        padding-right: var(--kui-space-40, $kui-space-40);
+      }
 
       .line-number-rows {
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
         user-select: none;
 
         .line {
           @include codeTypography;
-
-          display: inline-flex;
-          justify-content: flex-end;
+          content-visibility: auto;
+          display: flex;
 
           .line-anchor {
             color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+            margin-left: var(--kui-space-40, $kui-space-40);
+            text-align: right;
+            width: v-bind('maxLineNumberWidth');
 
             &.hide-links {
               text-decoration: none;
@@ -825,7 +838,6 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
               left: 0;
               pointer-events: none;
               position: absolute;
-              right: 0;
               transition: border $kongponentsTransitionDurTimingFunc;
               width: 100%;
             }
@@ -850,7 +862,6 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       }
 
       &.single-line {
-        grid-template-columns: auto;
         padding-right: var(--kui-space-100, $kui-space-100);
 
         code {
