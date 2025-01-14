@@ -48,6 +48,7 @@ const sandboxAppLinks: SandboxNavigationItem[] = ([
   { name: 'KTextarea', to: { name: 'textarea' } },
   { name: 'KToaster', to: { name: 'toaster' } },
   { name: 'KTreeList', to: { name: 'treelist' } },
+  { name: 'KTableData 2', to: { name: 'table-data-2' } },
 ])
 
 // Provide the app links to the SandboxLayout components
