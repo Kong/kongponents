@@ -136,6 +136,13 @@
     </div>
 
     <div class="code-block-content">
+      <!--
+        This must be rendered before the lines; otherwise, 1Password's (yes, 1Password!) heuristics will cause the page
+        to freeze due to the use of `content-visibility: auto` on potentially huge amount of line number elements and
+        1Password will walk through them one by one to calculate layout metrics, this will cause the browser to schedule
+        layout recalculations after each element is processed. As our threshold for eager rendering is 2048 lines, browser
+        will have to layout for (lines - 2048) times.
+      -->
       <div
         v-if="showCopyButton || slots['secondary-actions']"
         class="code-block-secondary-actions"
