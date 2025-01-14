@@ -136,9 +136,29 @@
     </div>
 
     <div class="code-block-content">
+      <div
+        v-if="showCopyButton || slots['secondary-actions']"
+        class="code-block-secondary-actions"
+      >
+        <KCodeBlockIconButton
+          v-if="showCopyButton"
+          :aria-label="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
+          class="code-block-copy-button"
+          :copy-tooltip="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
+          data-testid="code-block-copy-button"
+          :theme="theme"
+          @click="copyCode"
+        >
+          <CopyIcon decorative />
+        </KCodeBlockIconButton>
+
+        <slot name="secondary-actions" />
+      </div>
+
       <!-- eslint-disable vue/no-v-html -->
       <pre
-        v-if="isShowingFilteredCode"
+        v-if="isShowingFilteredCode || hasRenderedFilteredCode"
+        v-show="isShowingFilteredCode"
         class="filtered-code-block"
         data-testid="filtered-code-block"
       >
@@ -162,7 +182,8 @@
       </pre>
 
       <pre
-        v-else
+        v-if="!isShowingFilteredCode || hasRenderedCode"
+        v-show="!isShowingFilteredCode"
         class="highlighted-code-block"
         :class="{
           'single-line': singleLine,
@@ -194,25 +215,6 @@
         <code v-html="finalCode" />
       </pre>
       <!-- eslint-enable vue/no-v-html -->
-
-      <div
-        v-if="showCopyButton || slots['secondary-actions']"
-        class="code-block-secondary-actions"
-      >
-        <KCodeBlockIconButton
-          v-if="showCopyButton"
-          :aria-label="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
-          class="code-block-copy-button"
-          :copy-tooltip="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
-          data-testid="code-block-copy-button"
-          :theme="theme"
-          @click="copyCode"
-        >
-          <CopyIcon decorative />
-        </KCodeBlockIconButton>
-
-        <slot name="secondary-actions" />
-      </div>
     </div>
   </div>
 </template>
@@ -220,9 +222,9 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, useSlots, watch } from 'vue'
+import { debounce } from 'lodash-es'
 import KInput from '@/components/KInput/KInput.vue'
 import { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
-import { debounce } from '@/utilities/debounce'
 import type { Command } from '@/utilities/ShortcutManager'
 import { ShortcutManager } from '@/utilities/ShortcutManager'
 import {
@@ -247,7 +249,10 @@ const IS_MAYBE_MAC = typeof navigator !== 'undefined' &&
 const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Option' : 'Alt'
 
 // Debounces the search handler which ensures that we don’t trigger several searches while the user is still typing.
-const debouncedHandleSearchInputValue = debounce(handleSearchInputValue, 150)
+// Use Lodash’s debounce function as it supports leading and trailing options.
+// Adding `leading: true` to the options ensures that the search is triggered immediately when the user types the first character,
+// mak
+const debouncedHandleSearchInputValue = debounce(handleSearchInputValue, 150, { leading: true, trailing: true })
 
 const props = defineProps({
   /**
@@ -431,11 +436,13 @@ const searchQuery = ref<string>(props.query)
 const numberOfMatches = ref<number>(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
+const hasRenderedCode = ref<boolean>(false)
+const hasRenderedFilteredCode = ref<boolean>(false)
 
 // For checking if a line is highlighted in constant time.
 const matchingLineSet = computed(() => new Set(matchingLineNumbers.value))
 const totalLines = computed((): number[] => Array.from({ length: props.code?.split('\n').length }, (_, index) => index + 1))
-const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value?.length - 1]?.toString().length + 'ch')
+const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value.length - 1].toString().length + 'ch')
 const linePrefix = computed((): string => props.id.toLowerCase().replace(/\s+/g, '-'))
 const isProcessing = computed((): boolean => props.processing || isProcessingInternally.value)
 const isShowingFilteredCode = computed((): boolean => isFilterMode.value && filteredCode.value !== '')
@@ -482,20 +489,15 @@ watch(() => props.highlightedLineNumbers, function() {
   setDefaultMatchingLineNumbers()
 }, { immediate: true, deep: true })
 
-watch(() => isShowingFilteredCode.value, async function() {
+watch(() => isShowingFilteredCode.value, async function(value) {
   // Moves the focus to the code block so that code block-scoped shortcuts still work. That’s necessary because toggling filter mode changes which pre element is rendered. In doing so, the currently focused element is removed from the DOM and in response, the browser moves the focus to document.body.
   if (document?.activeElement?.tagName === 'PRE') {
     codeBlock.value?.focus({ preventScroll: true })
   }
 
-  if (!isShowingFilteredCode.value) {
-  // Waits one Vue tick in which the code block is re-rendered. Only then does it make sense to emit the corresponding event. Otherwise, consuming components applying syntax highlighting would have to do this because if syntax highlighting is applied before re-rendering is done, re-rendering will effectively undo the syntax highlighting.
-    await nextTick()
-
-    // Turning off filter mode causes the full code block to be re-rendered.
-    emitCodeBlockRenderEvent()
-  }
-})
+  hasRenderedFilteredCode.value = hasRenderedFilteredCode.value || value
+  hasRenderedCode.value = hasRenderedCode.value || !value
+}, { immediate: true })
 
 /**
  * Maps shortcuts to their associated command keywords.
@@ -613,7 +615,10 @@ function handleSearch(): void {
   }
 }
 
-function handleSearchInputValue(): void {
+async function handleSearchInputValue(): Promise<void> {
+  // As we have a debounced version of this function and we are accessing searchQuery.value inside it,
+  // we need to ensure the leading callback can access the latest value by waiting for an extra tick.
+  await nextTick()
   emit('query-change', searchQuery.value)
   updateMatchingLineNumbers()
 }
@@ -813,8 +818,14 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
 
         .line {
           @include codeTypography;
-          content-visibility: auto;
           display: flex;
+
+          // Render only a subset of line numbers to improve performance.
+          // The rest will be rendered when they are scrolled into view
+          // this is a trade-off between performance and visual experience
+          &:nth-child(n + 2048) {
+            content-visibility: auto;
+          }
 
           .line-anchor {
             color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
@@ -902,7 +913,8 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
           color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker) !important;
         }
 
-        .clear-query-button {
+        // Sadly we need this to beat the specificity set by KInput for now
+        .clear-query-button:not([disabled]) {
           &:hover, &:focus, &:focus-visible {
             color: var(--kui-color-text-inverse, $kui-color-text-inverse) !important;
           }
