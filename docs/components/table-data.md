@@ -267,46 +267,6 @@ const itemDeleted = (): void => {
 </script>
 ```
 
-An alternate implementation is to apply a `key` attribute to the KTableData in conjunction with a `fetcher` and the [SWRV](https://docs-swrv.netlify.app/) `revalidate` function. To prevent unnecessary calls on mount, the `key` `ref` should have an initial value of `0`.
-
-Since the `fetcher` function will handle the initial fetch of the data, we want the cache key for the `revalidate` function to be a falsey value on page load (to avoid an unnecessary duplicate call), and will manually call `revalidate()` and increment the `key` to trigger a refetch and redraw of the table.
-
-```html
-<template>
-  <KTableData :key="key" :fetcher="fetcher" :headers="headers" />
-</template>
-
-<script setup lang="ts">
-const key = ref<string>(0) // initialized to zero
-
-const fetcher = async ({ pageSize, page, query, offset = null }) => {
-  try {
-    const res = await services.getAll(pageSize, offset)
-
-    // handle data
-  } catch (error) {
-    // handle error
-  }
-}
-
-const { revalidate } = composables.useRequest(
-  () => key.value && `service-list-${key.value}`, // will evaluate to falsey on mount, preventing an extra call
-  () => { return fetcher() }
-)
-
-const handleDelete = (id): void => {
-  try {
-    const res = await services.delete(id)
-
-    key.value++
-    revalidate()
-  } catch (error) {
-    // handle error
-  }
-}
-</script>
-```
-
 ### searchInput
 
 A string that will passed to fetcher function and can be used to modify the API request to perform data filtering.
