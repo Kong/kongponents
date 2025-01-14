@@ -443,6 +443,10 @@ const searchQuery = ref<string>(props.query)
 const numberOfMatches = ref<number>(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
+
+// If either original code or filtered code is ever rendered, keep them in the DOM
+// to avoid re-rendering them when switching between filtered and original code.
+// This makes the transition between the two states smoother.
 const hasRenderedCode = ref<boolean>(false)
 const hasRenderedFilteredCode = ref<boolean>(false)
 
@@ -470,9 +474,11 @@ const filteredCode = computed((): string => {
 })
 const showCodeBlockActions = computed((): boolean => !props.singleLine && props.searchable)
 
+// The final code to be rendered in the code block, needs to be escaped so that
+// we can safely render it as `v-html`.
 const finalCode = computed(() =>
   props.singleLine
-    ? escapeHTMLIfNeeded(props.code)?.replaceAll('\n', '')
+    ? escapeHTMLIfNeeded(props.code).replaceAll('\n', '')
     : escapeHTMLIfNeeded(props.code),
 )
 
@@ -502,6 +508,7 @@ watch(() => isShowingFilteredCode.value, async function(value) {
     codeBlock.value?.focus({ preventScroll: true })
   }
 
+  // Records that the filtered code has been rendered at least once.
   hasRenderedFilteredCode.value = hasRenderedFilteredCode.value || value
   hasRenderedCode.value = hasRenderedCode.value || !value
 }, { immediate: true })
