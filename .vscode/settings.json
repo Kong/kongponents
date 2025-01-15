@@ -44,5 +44,6 @@
   "scss.scannerExclude": [
     "**/.git",
     "**/bower_components"
-  ]
+  ],
+  "eslint.useFlatConfig": true
 }
