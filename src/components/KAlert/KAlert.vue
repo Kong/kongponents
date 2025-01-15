@@ -121,13 +121,15 @@ const getAlertIcon = computed((): AlertIcon => {
     .alert-message {
       :slotted(a),
       :deep(a) {
-        :not(a[type='button']) {
+        &:not([type='button']) {
           color: $textColor;
 
           &:hover {
             color: $hoverColor;
           }
         }
+
+
       }
 
       :deep(code),
