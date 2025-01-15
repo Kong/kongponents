@@ -214,9 +214,7 @@
           v-if="slots['secondary-actions']"
           class="secondary-actions"
         >
-          <slot
-            name="secondary-actions"
-          />
+          <slot name="secondary-actions" />
         </div>
       </div>
     </div>
@@ -830,21 +828,11 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
     position: relative;
 
     @media (min-width: $kui-breakpoint-laptop) {
-      &:hover {
-        .code-block-secondary-actions {
+      &:hover .code-block-secondary-actions {
+        .secondary-actions,
+        :deep( .code-block-copy-button) {
           opacity: 1;
-
-          :deep {
-            .code-block-copy-button {
-              opacity: 1;
-            }
-          }
-
-          .secondary-actions {
-            opacity: 1;
-          }
         }
-
       }
     }
 
@@ -931,28 +919,20 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       z-index: 1;
 
       @media (min-width: $kui-breakpoint-laptop) {
+        :deep(.code-block-copy-button),
         .secondary-actions {
           opacity: 0;
-          transition: opacity $kongponentsTransitionDurTimingFunc,border $kongponentsTransitionDurTimingFunc;
+          transition: opacity $kongponentsTransitionDurTimingFunc,  border $kongponentsTransitionDurTimingFunc;
 
-          &:focus {
+          &:focus-within {
             opacity: 1;
-          }
-        }
-
-        :deep {
-          .code-block-copy-button {
-            opacity: 0;
-            transition: opacity $kongponentsTransitionDurTimingFunc,border $kongponentsTransitionDurTimingFunc;
-
-            &:focus {
-              opacity: 1;
-            }
           }
         }
       }
     }
   }
+
+
 
   &.theme-dark {
     background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
