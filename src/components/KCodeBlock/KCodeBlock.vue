@@ -821,6 +821,18 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
     gap: var(--kui-space-40, $kui-space-40);
   }
 
+  @media (min-width: $kui-breakpoint-laptop) {
+    .code-block-secondary-actions {
+      opacity: 0;
+      transition: opacity $kongponentsTransitionDurTimingFunc,  border $kongponentsTransitionDurTimingFunc;
+    }
+
+    .code-block-secondary-actions:focus-within,
+    .code-block-content:hover .code-block-secondary-actions {
+      opacity: 1;
+    }
+  }
+
   .code-block-content {
     max-height: v-bind('maxHeightValue');
     overflow-y: auto;
@@ -917,18 +929,6 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       right: 0;
       top: 0;
       z-index: 1;
-
-      @media (min-width: $kui-breakpoint-laptop) {
-        :deep(.code-block-copy-button),
-        .secondary-actions {
-          opacity: 0;
-          transition: opacity $kongponentsTransitionDurTimingFunc,  border $kongponentsTransitionDurTimingFunc;
-
-          &:focus-within {
-            opacity: 1;
-          }
-        }
-      }
     }
   }
 
