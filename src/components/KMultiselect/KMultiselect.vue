@@ -579,7 +579,7 @@ const modifiedAttrs = computed(() => {
   return $attrs
 })
 
-const createKPopAttributes = computed(() => {
+const createKPopAttributes = computed((): Record<string, any> => {
   return {
     ...defaultKPopAttributes,
     ...props.kpopAttributes,
@@ -1135,6 +1135,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     gap: var(--kui-space-40, $kui-space-40);
     margin-bottom: $kMultiselectInputPaddingY;
     margin-top: $kMultiselectInputPaddingY;
+    min-height: 24px; // minimum height to prevent jumping when badges are removed or added
     padding-left: $kMultiselectInputPaddingX;
     padding-right: $kMultiselectSelectionsPaddingRight;
 
