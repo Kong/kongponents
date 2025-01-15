@@ -211,8 +211,8 @@
           <CopyIcon decorative />
         </KCodeBlockIconButton>
         <div
+          v-if="slots['secondary-actions']"
           class="secondary-actions"
-          tabindex="0"
         >
           <slot
             name="secondary-actions"
