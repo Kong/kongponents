@@ -15,6 +15,7 @@
       <KInput
         v-model="searchQuery"
         aria-label="Search"
+        autocomplete="off"
         class="code-block-search-input"
         data-testid="code-block-search-input"
         :error="regExpError !== null"
@@ -135,13 +136,15 @@
       </div>
     </div>
 
-    <div class="code-block-content">
+    <div
+      ref="codeBlockContent"
+      class="code-block-content"
+    >
       <!--
-        This must be rendered before the lines; otherwise, 1Password's (yes, 1Password!) heuristics will cause the page
-        to freeze due to the use of `content-visibility: auto` on potentially huge amount of line number elements and
-        1Password will walk through them one by one to calculate layout metrics, this will cause the browser to schedule
-        layout recalculations after each element is processed. As our threshold for eager rendering is 2048 lines, browser
-        will have to layout for (lines - 2048) times.
+        This was moved up before the lines because 1Password's (yes, 1Password!) heuristics will cause a delay because
+        it will walk through all line number elements one by one to calculate layout metrics, this will cause the
+        browser to schedule layout recalculations after each element is processed.
+        Though we are using virtual scrolling now, this still helps with the overall performance.
       -->
       <div
         v-if="showCopyButton || slots['secondary-actions']"
@@ -162,73 +165,69 @@
         <slot name="secondary-actions" />
       </div>
 
-      <!-- eslint-disable vue/no-v-html -->
-      <pre
+      <!--
+        Instead of using <pre> directly, the <component is="pre"> here acts as a workaround for
+        a potential bug of Vue itself. Because the <Virtualizer> fails to render its scoped slots
+        when it's wrapped inside a <pre> element.
+      -->
+      <!-- eslint-disable-next-line vue/require-component-is -->
+      <component
+        is="pre"
         v-if="isShowingFilteredCode || hasRenderedFilteredCode"
         v-show="isShowingFilteredCode"
         class="filtered-code-block"
         data-testid="filtered-code-block"
       >
-        <span
+        <Virtualizer
           v-if="!singleLine"
-          class="line-number-rows"
+          v-slot="{ item: line }"
+          v-bind="getVirtualizerProps(true)"
         >
-          <span
-            v-for="line in matchingLineNumbers"
-            :key="line"
-            class="line"
-          >
-            <a
-              :id="`${linePrefix}-L${line}`"
-              class="line-anchor"
-              :href="showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
-            >{{ line }}</a>
-          </span>
-        </span>
+          <a
+            :id="`${linePrefix}-L${line}`"
+            class="line-anchor"
+            :href="showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
+          >{{ line }}</a>
+        </Virtualizer>
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <code v-html="filteredCode" />
-      </pre>
+      </component>
 
-      <pre
+      <!-- eslint-disable-next-line vue/require-component-is -->
+      <component
+        is="pre"
         v-if="!isShowingFilteredCode || hasRenderedCode"
         v-show="!isShowingFilteredCode"
         class="highlighted-code-block"
         :class="{
-          'single-line': singleLine,
-          'show-copy-button': showCopyButton
+          'single-line': singleLine
         }"
         data-testid="highlighted-code-block"
       >
-        <span
+        <Virtualizer
           v-if="!singleLine"
-          class="line-number-rows"
+          ref="codeBlockLineNumbers"
+          v-slot="{ item: line }"
+          v-bind="getVirtualizerProps(false)"
         >
-          <span
-            v-for="line in totalLines"
-            :key="line"
-            class="line"
-            :class="{
-              'line-is-match': matchingLineSet.has(line),
-              'line-is-highlighted-match': currentLineIndex !== null && line === matchingLineNumbers[currentLineIndex],
-            }"
-          >
-            <a
-              :id="`${linePrefix}-L${line}`"
-              class="line-anchor"
-              :class="{ 'hide-links': !showLineNumberLinks }"
-              :href="showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
-            >{{ line }}</a>
-          </span>
-        </span>
+          <a
+            :id="`${linePrefix}-L${line}`"
+            class="line-anchor"
+            :class="{ 'hide-links': !showLineNumberLinks }"
+            :href="showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
+          >{{ line }}</a>
+        </Virtualizer>
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <code v-html="finalCode" />
-      </pre>
-      <!-- eslint-enable vue/no-v-html -->
+      </component>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, useSlots, watch } from 'vue'
+import { computed, nextTick, normalizeClass, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
+import { Virtualizer } from 'virtua/vue'
 import { debounce } from 'lodash-es'
 import KInput from '@/components/KInput/KInput.vue'
 import { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
@@ -245,7 +244,7 @@ import {
 import type { CodeBlockEventData, CommandKeywords, Theme } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import { CopyIcon, SearchIcon, ProgressIcon, CloseIcon, RegexIcon, FilterIcon, ArrowUpIcon, ArrowDownIcon } from '@kong/icons'
-import { KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_NEUTRAL_STRONG, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_NEUTRAL_STRONG, KUI_ICON_SIZE_30, KUI_LINE_HEIGHT_30 } from '@kong/design-tokens'
 import KCodeBlockIconButton from './KCodeBlockIconButton.vue'
 
 const { getSizeFromString } = useUtilities()
@@ -431,18 +430,26 @@ const emit = defineEmits<{
   (event: 'reg-exp-mode-change', data: boolean): void
 }>()
 
-const slots = useSlots()
+const slots = defineSlots<{
+  /**
+   * Additional actions to be displayed in the code block.
+   */
+  'secondary-actions': void
+}>()
 
 const query = ref<string>(props.query)
 const isProcessingInternally = ref<boolean>(false)
 const isRegExpMode = ref<boolean>(props.initialRegExpMode)
 const isFilterMode = ref<boolean>(props.initialFilterMode)
 const regExpError = ref<Error | null>(null)
-const codeBlock = ref<HTMLElement | null>(null)
 const searchQuery = ref<string>(props.query)
 const numberOfMatches = ref<number>(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
+
+const codeBlock = useTemplateRef('codeBlock')
+const codeBlockContent = useTemplateRef('codeBlockContent')
+const codeBlockLineNumbers = useTemplateRef('codeBlockLineNumbers')
 
 // If either original code or filtered code is ever rendered, keep them in the DOM
 // to avoid re-rendering them when switching between filtered and original code.
@@ -511,6 +518,10 @@ watch(() => isShowingFilteredCode.value, async function(value) {
   // Records that the filtered code has been rendered at least once.
   hasRenderedFilteredCode.value = hasRenderedFilteredCode.value || value
   hasRenderedCode.value = hasRenderedCode.value || !value
+
+  if (codeBlockContent.value) {
+    codeBlockContent.value.scrollTop = 0
+  }
 }, { immediate: true })
 
 /**
@@ -726,12 +737,16 @@ function jumpToMatch(direction: number): void {
     return
   }
 
-  const line = codeBlock.value.querySelector(`#${linePrefix.value}-L${lineNumber}`)
-  if (line instanceof HTMLElement) {
+  const line = codeBlock.value.querySelector<HTMLElement>(`#${linePrefix.value}-L${lineNumber}`)
+  if (line) {
     if ('scrollIntoViewIfNeeded' in line && typeof line.scrollIntoViewIfNeeded === 'function') {
       line.scrollIntoViewIfNeeded(true)
     } else {
       line.scrollIntoView({ block: 'nearest' })
+    }
+  } else {
+    if (codeBlockLineNumbers.value) {
+      codeBlockLineNumbers.value.scrollToIndex(lineNumber - 1, { align: 'center' })
     }
   }
 }
@@ -751,6 +766,31 @@ async function copyCode(event: Event): Promise<void> {
 }
 
 const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEUTRAL_STRONG : KUI_COLOR_TEXT_INVERSE)
+
+type VirtualizerProps = InstanceType<typeof Virtualizer>['$props']
+
+function getVirtualizerProps(filtered: boolean): VirtualizerProps {
+  return {
+    as: 'span',
+    class: 'line-number-rows',
+    data: filtered ? matchingLineNumbers.value : totalLines.value,
+    item: 'span',
+    itemProps: ({ item: line }) => ({
+      class: normalizeClass({
+        line: true,
+        'line-is-match': filtered ? false : matchingLineSet.value.has(line),
+        'line-is-highlighted-match': filtered ? false : currentLineIndex.value !== null && line === matchingLineNumbers.value[currentLineIndex.value],
+      }),
+    }),
+    overscan: 8,
+    itemSize: parseInt(KUI_LINE_HEIGHT_30, 10),
+    scrollRef: codeBlockContent.value ?? undefined,
+    style: {
+      position: 'absolute',
+      width: 'auto',
+    },
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -814,36 +854,29 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
 
       &:not(.single-line) {
         display: flex;
-        margin-left: calc(var(--kui-space-40, $kui-space-40) * -1);
-        margin-right: calc(var(--kui-space-40, $kui-space-40) * -1);
-        padding-left: calc(v-bind('maxLineNumberWidth') + var(--kui-space-40, $kui-space-40) * 2);
-        padding-right: var(--kui-space-40, $kui-space-40);
+        padding-left: calc(v-bind('maxLineNumberWidth') + var(--kui-space-60, $kui-space-60));
       }
 
       .line-number-rows {
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        left: 0;
+        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+        left: calc(var(--kui-space-40, $kui-space-40) * -1);
         position: absolute;
-        right: 0;
+        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+        right: calc(var(--kui-space-40, $kui-space-40) * -1);
         top: 0;
         user-select: none;
 
-        .line {
+        // Lines are rendered by Virtualizer now
+        :deep(.line) {
           @include codeTypography;
           display: flex;
-
-          // Render only a subset of line numbers to improve performance.
-          // The rest will be rendered when they are scrolled into view
-          // this is a trade-off between performance and visual experience
-          &:nth-child(n + 2048) {
-            content-visibility: auto;
-          }
+          padding-left: var(--kui-space-40, $kui-space-40);
 
           .line-anchor {
             color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
-            margin-left: var(--kui-space-40, $kui-space-40);
             text-align: right;
             width: v-bind('maxLineNumberWidth');
 
@@ -909,6 +942,8 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
 
   &.theme-dark {
     background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
+    // This improves scrollbar styles in dark mode
+    color-scheme: dark;
 
     .code-block-actions {
       border-bottom-color: var(--kui-color-border-inverse, $kui-color-border-inverse);
@@ -943,7 +978,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
     .code-block-content {
       pre {
         .line-number-rows {
-          .line {
+          :deep(.line) {
             .line-anchor {
               color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
             }

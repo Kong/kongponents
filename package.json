@@ -66,6 +66,7 @@
     "sortablejs": "^1.15.3",
     "swrv": "^1.0.4",
     "v-calendar": "^3.1.2",
+    "virtua": "^0.39.3",
     "vue-draggable-next": "^2.2.1"
   },
   "peerDependencies": {
