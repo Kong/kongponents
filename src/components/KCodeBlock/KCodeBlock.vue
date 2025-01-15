@@ -136,6 +136,24 @@
     </div>
 
     <div class="code-block-content">
+      <div
+        v-if="showCopyButton || slots['secondary-actions']"
+        class="code-block-secondary-actions"
+      >
+        <KCodeBlockIconButton
+          v-if="showCopyButton"
+          :aria-label="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
+          class="code-block-copy-button"
+          :copy-tooltip="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
+          data-testid="code-block-copy-button"
+          :theme="theme"
+          @click="copyCode"
+        >
+          <CopyIcon decorative />
+        </KCodeBlockIconButton>
+
+        <slot name="secondary-actions" />
+      </div>
       <!-- eslint-disable vue/no-v-html -->
       <pre
         v-if="isShowingFilteredCode"
@@ -194,25 +212,6 @@
         <code v-html="finalCode" />
       </pre>
       <!-- eslint-enable vue/no-v-html -->
-
-      <div
-        v-if="showCopyButton || slots['secondary-actions']"
-        class="code-block-secondary-actions"
-      >
-        <KCodeBlockIconButton
-          v-if="showCopyButton"
-          :aria-label="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
-          class="code-block-copy-button"
-          :copy-tooltip="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
-          data-testid="code-block-copy-button"
-          :theme="theme"
-          @click="copyCode"
-        >
-          <CopyIcon decorative />
-        </KCodeBlockIconButton>
-
-        <slot name="secondary-actions" />
-      </div>
     </div>
   </div>
 </template>
@@ -897,10 +896,11 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
 
     .code-block-secondary-actions {
       display: flex;
+      float: right;
       gap: var(--kui-space-40, $kui-space-40);
       margin-right: var(--kui-space-40, $kui-space-40);
       margin-top: var(--kui-space-40, $kui-space-40);
-      position: absolute;
+      position: sticky;
       right: 0;
       top: 0;
       z-index: 1;
