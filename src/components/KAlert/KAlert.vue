@@ -128,8 +128,6 @@ const getAlertIcon = computed((): AlertIcon => {
             color: $hoverColor;
           }
         }
-
-
       }
 
       :deep(code),
