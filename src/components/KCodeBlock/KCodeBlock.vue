@@ -898,8 +898,6 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       display: flex;
       float: right;
       gap: var(--kui-space-40, $kui-space-40);
-      margin-right: var(--kui-space-40, $kui-space-40);
-      margin-top: var(--kui-space-40, $kui-space-40);
       position: sticky;
       right: 0;
       top: 0;
