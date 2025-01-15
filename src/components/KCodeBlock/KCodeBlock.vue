@@ -839,15 +839,6 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
     padding: var(--kui-space-40, $kui-space-40);
     position: relative;
 
-    @media (min-width: $kui-breakpoint-laptop) {
-      &:hover .code-block-secondary-actions {
-        .secondary-actions,
-        :deep( .code-block-copy-button) {
-          opacity: 1;
-        }
-      }
-    }
-
     pre {
       display: grid;
       gap: var(--kui-space-60, $kui-space-60);
@@ -931,8 +922,6 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       z-index: 1;
     }
   }
-
-
 
   &.theme-dark {
     background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
