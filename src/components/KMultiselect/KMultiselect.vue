@@ -179,6 +179,7 @@
               </div>
               <div aria-live="polite">
                 <KMultiselectItems
+                  :key="kMultiselectItemsKey"
                   ref="kMultiselectItems"
                   :items="sortedItems"
                   @selected="handleItemSelect"
@@ -467,6 +468,7 @@ const emit = defineEmits<{
 }>()
 
 const kMultiselectItems = ref<InstanceType<typeof KMultiselectItems> | null>(null)
+const kMultiselectItemsKey = ref<number>(0)
 
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
@@ -985,6 +987,10 @@ watch(key, async () => {
 watch(filteredItems, () => {
   sortItems()
 })
+
+watch(sortedItems, () => {
+  kMultiselectItemsKey.value++
+}, { deep: true })
 
 // watch for programmatic changes to model
 watch(value, (newVal, oldVal) => {

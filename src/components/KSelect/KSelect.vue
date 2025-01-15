@@ -132,6 +132,7 @@
               data-propagate-clicks="false"
             >
               <KSelectItems
+                :key="kSelectItemsKey"
                 ref="kSelectItems"
                 :items="filteredItems"
                 @selected="handleItemSelect"
@@ -562,6 +563,7 @@ const clearSelection = (): void => {
 }
 
 const kSelectItems = ref<InstanceType<typeof KSelectItems> | null>(null)
+const kSelectItemsKey = ref<number>(0)
 
 const triggerFocus = (evt: any, isToggled: Ref<boolean>): void => {
   // Ignore `esc` key
@@ -720,6 +722,10 @@ watch(filterQuery, (query: string) => {
   emit('query-change', query)
   skipQueryChangeEmit.value = false
 })
+
+watch(filteredItems, () => {
+  kSelectItemsKey.value++
+}, { deep: true })
 
 watch(selectedItem, (newVal, oldVal) => {
   if (newVal && newVal !== oldVal) {

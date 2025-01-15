@@ -72,7 +72,7 @@ const getGroupItems = (group: string) => props.items?.filter(item => item.group 
 const setFocus = (index: number = 0) => {
   if (kMultiselectItem.value) {
     if (!props.items[index].disabled) {
-      kMultiselectItem.value[index]?.$el?.querySelector('button').focus()
+      kMultiselectItem.value[index]?.$el?.querySelector('button')?.focus()
     } else {
       setFocus(index + 1)
     }

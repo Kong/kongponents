@@ -15,6 +15,7 @@
       />
     </template>
   </KSelectItem>
+
   <div
     v-for="group in groups"
     :key="`${group}-group`"
@@ -77,7 +78,7 @@ const kSelectItem = ref<InstanceType<typeof KSelectItem>[] | null>(null)
 const setFocus = (index: number = 0) => {
   if (kSelectItem.value) {
     if (!props.items[index].disabled) {
-      kSelectItem.value[index]?.$el?.querySelector('button').focus()
+      kSelectItem.value[index]?.$el?.querySelector('button')?.focus()
     } else {
       setFocus(index + 1)
     }
