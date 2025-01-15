@@ -10,6 +10,7 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "allowImportingTsExtensions": false,
     "noEmit": false,
     "skipLibCheck": true,
     "resolveJsonModule": true,

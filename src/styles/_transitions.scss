@@ -27,6 +27,7 @@ All transitions names must follow `kongponents-<name>-transition` pattern to avo
   0% {
     transform: translateX(100%);
   }
+
   100% {
     transform: translateX(0%);
   }
@@ -46,6 +47,7 @@ All transitions names must follow `kongponents-<name>-transition` pattern to avo
   0% {
     transform: translateY(100%);
   }
+
   100% {
     transform: translateY(0%);
   }
