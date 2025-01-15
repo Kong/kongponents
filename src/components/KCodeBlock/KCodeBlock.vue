@@ -847,6 +847,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
 
       }
     }
+
     pre {
       display: grid;
       gap: var(--kui-space-60, $kui-space-60);
