@@ -824,7 +824,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
   @media (min-width: $kui-breakpoint-laptop) {
     .code-block-secondary-actions {
       opacity: 0;
-      transition: opacity $kongponentsTransitionDurTimingFunc,  border $kongponentsTransitionDurTimingFunc;
+      transition: opacity $kongponentsTransitionDurTimingFunc, border $kongponentsTransitionDurTimingFunc;
     }
 
     .code-block-secondary-actions:focus-within,
