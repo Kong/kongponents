@@ -134,8 +134,7 @@
         </KCodeBlockIconButton>
       </div>
     </div>
-
-    <div class="code-block-content">
+    <div class="secondary-actions-wrapper">
       <div
         v-if="showCopyButton || slots['secondary-actions']"
         class="code-block-secondary-actions"
@@ -154,6 +153,8 @@
 
         <slot name="secondary-actions" />
       </div>
+    </div>
+    <div class="code-block-content">
       <!-- eslint-disable vue/no-v-html -->
       <pre
         v-if="isShowingFilteredCode"
@@ -781,6 +782,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
   // light theme (treated as default)
   background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
   border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
+  position: relative;
 
   .code-block-actions {
     border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
@@ -805,6 +807,21 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
         line-height: var(--kui-line-height-20, $kui-line-height-20);
         white-space: nowrap;
       }
+    }
+  }
+
+  .secondary-actions-wrapper {
+    height:100%;
+    padding: var(--kui-space-40, $kui-space-40);
+    position: absolute;
+    right: 0px;
+
+    .code-block-secondary-actions {
+      gap: var(--kui-space-40, $kui-space-40);
+      position: sticky;
+      right: 0;
+      top: 0;
+      z-index: 2;
     }
   }
 
@@ -892,16 +909,6 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
           line-height: var(--kui-line-height-60, $kui-line-height-60);
         }
       }
-    }
-
-    .code-block-secondary-actions {
-      display: flex;
-      float: right;
-      gap: var(--kui-space-40, $kui-space-40);
-      position: sticky;
-      right: 0;
-      top: 0;
-      z-index: 1;
     }
   }
 
