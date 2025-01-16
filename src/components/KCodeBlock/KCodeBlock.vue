@@ -152,12 +152,8 @@
           >
             <CopyIcon decorative />
           </KCodeBlockIconButton>
-          <div
-            v-if="slots['secondary-actions']"
-            class="secondary-actions"
-          >
-            <slot name="secondary-actions" />
-          </div>
+
+          <slot name="secondary-actions" />
         </div>
       </div>
       <pre
