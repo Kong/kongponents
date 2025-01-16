@@ -1,3 +1,10 @@
+# [9.17.0](https://github.com/Kong/kongponents/compare/v9.16.4...v9.17.0) (2025-01-16)
+
+
+### Features
+
+* **kcodeblock:** trigger release ([376cf82](https://github.com/Kong/kongponents/commit/376cf82e6bd0c0f53e6afc638cdbca81a3916562))
+
 ## [9.16.4](https://github.com/Kong/kongponents/compare/v9.16.3...v9.16.4) (2025-01-16)
 
 
