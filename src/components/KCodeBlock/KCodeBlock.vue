@@ -221,7 +221,7 @@
       </pre>
       <!-- eslint-enable vue/no-v-html -->
       </div>
-</div>
+    </div>
   </div>
 </template>
 
@@ -817,6 +817,14 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
     }
   }
 
+  .code-block-actions,
+  .code-block-search-results-container,
+  .code-block-search-actions {
+    align-items: center;
+    display: flex;
+    gap: var(--kui-space-40, $kui-space-40);
+  }
+
   .code-block-content-wrapper {
     position: relative;
 
@@ -834,6 +842,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
         z-index: 2;
       }
     }
+
     @media (min-width: $kui-breakpoint-laptop) {
       .secondary-actions-wrapper {
         opacity: 0;
@@ -925,17 +934,6 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       }
     }
   }
-
-
-  .code-block-actions,
-  .code-block-search-results-container,
-  .code-block-search-actions {
-    align-items: center;
-    display: flex;
-    gap: var(--kui-space-40, $kui-space-40);
-  }
-
-
 
   &.theme-dark {
     background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
