@@ -1,3 +1,19 @@
+## [9.16.3](https://github.com/Kong/kongponents/compare/v9.16.2...v9.16.3) (2025-01-15)
+
+
+### Bug Fixes
+
+* **kalert:** kbutton text color within kalerts [KHCP-14565] ([#2571](https://github.com/Kong/kongponents/issues/2571)) ([195ce77](https://github.com/Kong/kongponents/commit/195ce7759fe94e7b36b78fdc7eb3a52805c9ee5f))
+
+## [9.16.2](https://github.com/Kong/kongponents/compare/v9.16.1...v9.16.2) (2025-01-15)
+
+
+### Bug Fixes
+
+* **kmultiselect:** select jump glitch [KHCP-14366] ([#2569](https://github.com/Kong/kongponents/issues/2569)) ([7d9fc69](https://github.com/Kong/kongponents/commit/7d9fc6921aca8900cd27c2d310cdb47aca37126a))
+* order ([04b2ddd](https://github.com/Kong/kongponents/commit/04b2ddd2910f437930c1e7aa854950e9e122b36e))
+* rule empty line and opening brace stylelint rules ([#2566](https://github.com/Kong/kongponents/issues/2566)) ([b9fbc3f](https://github.com/Kong/kongponents/commit/b9fbc3f9adfd855beb82aa68728ede70a4e72c20))
+
 ## [9.16.1](https://github.com/Kong/kongponents/compare/v9.16.0...v9.16.1) (2025-01-10)
 
 
