@@ -67,11 +67,15 @@ const onKeyDown = (event: Event) => {
   const { target, key } = event as KeyboardEvent
 
   if (key === 'ArrowDown' || key === 'ArrowUp') {
+    // find the items container element
     const kSelectItemsContainer = (target as HTMLElement).closest('.multiselect-items-container')
+    // all selectable items
     const selectableItemsElements = kSelectItemsContainer?.querySelectorAll('.multiselect-item button:not([disabled])')
 
     if (selectableItemsElements?.length) {
+      // find the current element index in the array
       const currentElementIndex = Array.from(selectableItemsElements).findIndex(el => el === target)
+      // move to the next or previous element
       const nextElementIndex = key === 'ArrowDown' ? currentElementIndex + 1 : currentElementIndex - 1
       const nextElement = selectableItemsElements[nextElementIndex] as HTMLButtonElement
 
