@@ -6,7 +6,7 @@ import './styles/styles.scss' // Import all styles
 export default {
   install: (app: App): void => {
     for (const key in components) {
-      // @ts-ignore: key is a valid string
+      // @ts-ignore - key is a valid string
       app.component(key, components[key])
     }
   },
