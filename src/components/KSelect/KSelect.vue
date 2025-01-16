@@ -128,12 +128,11 @@
             </div>
             <div
               v-else
+              ref="kSelectItemsContainer"
               class="select-items-container"
               data-propagate-clicks="false"
             >
               <KSelectItems
-                :key="kSelectItemsKey"
-                ref="kSelectItems"
                 :items="filteredItems"
                 @selected="handleItemSelect"
               >
@@ -562,8 +561,7 @@ const clearSelection = (): void => {
   emit('update:modelValue', null)
 }
 
-const kSelectItems = ref<InstanceType<typeof KSelectItems> | null>(null)
-const kSelectItemsKey = ref<number>(0)
+const kSelectItemsContainer = ref<HTMLDivElement | null>(null)
 
 const triggerFocus = (evt: any, isToggled: Ref<boolean>): void => {
   // Ignore `esc` key
@@ -578,7 +576,10 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>): void => {
   }
 
   if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp') && isToggled.value) {
-    kSelectItems.value?.setFocus()
+    const firstSelectableItemButtonElement = kSelectItemsContainer.value?.querySelectorAll('.select-item button:not([disabled])')[0] as HTMLButtonElement
+    if (firstSelectableItemButtonElement) {
+      firstSelectableItemButtonElement.focus()
+    }
   }
 }
 
@@ -723,10 +724,6 @@ watch(filterQuery, (query: string) => {
   skipQueryChangeEmit.value = false
 })
 
-watch(filteredItems, () => {
-  kSelectItemsKey.value++
-}, { deep: true })
-
 watch(selectedItem, (newVal, oldVal) => {
   if (newVal && newVal !== oldVal) {
     emit('selected', newVal)
@@ -751,7 +748,11 @@ onMounted(() => {
     if (!props.enableFiltering && document.activeElement?.tagName === 'BODY' && !inputFocused.value && isDropdownOpen.value) {
       if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
         event.preventDefault()
-        kSelectItems.value?.setFocus()
+
+        const firstSelectableItemButtonElement = kSelectItemsContainer.value?.querySelectorAll('.select-item button:not([disabled])')[0] as HTMLButtonElement
+        if (firstSelectableItemButtonElement) {
+          firstSelectableItemButtonElement.focus()
+        }
       }
     }
   })
