@@ -134,14 +134,13 @@
         </KCodeBlockIconButton>
       </div>
     </div>
-    <div class="code-block-content-wrapper">
+    <div class="code-block-content">
+      <!-- eslint-disable vue/no-v-html -->
       <div
         v-if="showCopyButton || slots['secondary-actions']"
         class="secondary-actions-wrapper"
       >
-        <div
-          class="code-block-secondary-actions"
-        >
+        <div class="code-block-secondary-actions">
           <KCodeBlockIconButton
             v-if="showCopyButton"
             :aria-label="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
@@ -161,13 +160,11 @@
           </div>
         </div>
       </div>
-      <div class="code-block-content">
-        <!-- eslint-disable vue/no-v-html -->
-        <pre
-          v-if="isShowingFilteredCode"
-          class="filtered-code-block"
-          data-testid="filtered-code-block"
-        >
+      <pre
+        v-if="isShowingFilteredCode"
+        class="filtered-code-block"
+        data-testid="filtered-code-block"
+      >
         <span
           v-if="!singleLine"
           class="line-number-rows"
@@ -186,16 +183,15 @@
         </span>
         <code v-html="filteredCode" />
       </pre>
-
-        <pre
-          v-else
-          class="highlighted-code-block"
-          :class="{
-            'single-line': singleLine,
-            'show-copy-button': showCopyButton
-          }"
-          data-testid="highlighted-code-block"
-        >
+      <pre
+        v-else
+        class="highlighted-code-block"
+        :class="{
+          'single-line': singleLine,
+          'show-copy-button': showCopyButton
+        }"
+        data-testid="highlighted-code-block"
+      >
         <span
           v-if="!singleLine"
           class="line-number-rows"
@@ -220,7 +216,6 @@
         <code v-html="finalCode" />
       </pre>
       <!-- eslint-enable vue/no-v-html -->
-      </div>
     </div>
   </div>
 </template>
@@ -825,115 +820,117 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
     gap: var(--kui-space-40, $kui-space-40);
   }
 
-  .code-block-content-wrapper {
+
+
+
+
+  @media (min-width: $kui-breakpoint-laptop) {
+    .secondary-actions-wrapper {
+      opacity: 0;
+      transition: opacity $kongponentsTransitionDurTimingFunc, border $kongponentsTransitionDurTimingFunc;
+    }
+
+    .secondary-actions-wrapper:focus-within,
+    .code-block-content:hover .secondary-actions-wrapper {
+      opacity: 1;
+    }
+  }
+
+  .code-block-content {
+    max-height: v-bind('maxHeightValue');
+    overflow-y: auto;
+    padding: var(--kui-space-40, $kui-space-40);
     position: relative;
 
     .secondary-actions-wrapper {
       height: 100%;
-      padding: var(--kui-space-40, $kui-space-40);
-      position: absolute;
+      position: sticky;
       right: 0px;
+      top: 0px;
+      z-index: 2;
+
 
       .code-block-secondary-actions {
         gap: var(--kui-space-40, $kui-space-40);
-        position: sticky;
+        position: absolute;
         right: 0;
         top: 0;
-        z-index: 2;
       }
     }
 
-    @media (min-width: $kui-breakpoint-laptop) {
-      .secondary-actions-wrapper {
-        opacity: 0;
-        transition: opacity $kongponentsTransitionDurTimingFunc, border $kongponentsTransitionDurTimingFunc;
-      }
+    pre {
+      display: grid;
+      gap: var(--kui-space-60, $kui-space-60);
+      grid-template-columns: v-bind('maxLineNumberWidth') 1fr; // first column for line numbers, second column for code
+      margin: var(--kui-space-0, $kui-space-0);
+      min-height: 32px; // ensures that scroll bar doesn't show up when there's only one line of content (not to confuse with single line mode)
 
-      .secondary-actions-wrapper:focus-within,
-      &:hover .secondary-actions-wrapper {
-        opacity: 1;
-      }
-    }
+      .line-number-rows {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        user-select: none;
 
-    .code-block-content {
-      max-height: v-bind('maxHeightValue');
-      overflow-y: auto;
-      padding: var(--kui-space-40, $kui-space-40);
-      position: relative;
-
-      pre {
-        display: grid;
-        gap: var(--kui-space-60, $kui-space-60);
-        grid-template-columns: v-bind('maxLineNumberWidth') 1fr; // first column for line numbers, second column for code
-        margin: var(--kui-space-0, $kui-space-0);
-        min-height: 32px; // ensures that scroll bar doesn't show up when there's only one line of content (not to confuse with single line mode)
-
-        .line-number-rows {
-          box-sizing: border-box;
-          display: flex;
-          flex-direction: column;
-          user-select: none;
-
-          .line {
-            @include codeTypography;
-
-            display: inline-flex;
-            justify-content: flex-end;
-
-            .line-anchor {
-              color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
-
-              &.hide-links {
-                text-decoration: none;
-              }
-            }
-
-            &.line-is-match {
-              .line-anchor {
-                z-index: 1;
-              }
-
-              &::before {
-                background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-                content: '\A0';
-                left: 0;
-                pointer-events: none;
-                position: absolute;
-                right: 0;
-                transition: border $kongponentsTransitionDurTimingFunc;
-                width: 100%;
-              }
-
-              &.line-is-highlighted-match {
-                &::before {
-                  border-left: var(--kui-border-width-30, $kui-border-width-30) solid var(--kui-color-border-primary, $kui-color-border-primary);
-                }
-              }
-            }
-          }
-        }
-
-        code {
+        .line {
           @include codeTypography;
 
-          color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
-          display: block;
-          min-width: 0;
-          overflow-x: auto;
-          z-index: 1;
-        }
+          display: inline-flex;
+          justify-content: flex-end;
 
-        &.single-line {
-          grid-template-columns: auto;
-          padding-right: var(--kui-space-100, $kui-space-100);
+          .line-anchor {
+            color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
 
-          code {
-            line-height: var(--kui-line-height-60, $kui-line-height-60);
+            &.hide-links {
+              text-decoration: none;
+            }
           }
+
+          &.line-is-match {
+            .line-anchor {
+              z-index: 1;
+            }
+
+            &::before {
+              background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+              content: '\A0';
+              left: 0;
+              pointer-events: none;
+              position: absolute;
+              right: 0;
+              transition: border $kongponentsTransitionDurTimingFunc;
+              width: 100%;
+            }
+
+            &.line-is-highlighted-match {
+              &::before {
+                border-left: var(--kui-border-width-30, $kui-border-width-30) solid var(--kui-color-border-primary, $kui-color-border-primary);
+              }
+            }
+          }
+        }
+      }
+
+      code {
+        @include codeTypography;
+
+        color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
+        display: block;
+        min-width: 0;
+        overflow-x: auto;
+        z-index: 1;
+      }
+
+      &.single-line {
+        grid-template-columns: auto;
+        padding-right: var(--kui-space-100, $kui-space-100);
+
+        code {
+          line-height: var(--kui-line-height-60, $kui-line-height-60);
         }
       }
     }
   }
+
 
   &.theme-dark {
     background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
