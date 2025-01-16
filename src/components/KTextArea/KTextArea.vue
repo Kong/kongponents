@@ -23,7 +23,10 @@
       v-bind="modifiedAttrs"
       :aria-invalid="ariaInvalid"
       class="input-textarea"
-      :class="[resizable || isResizable ? 'resizable' : undefined]"
+      :class="{
+        resizable: resizable || isResizable,
+        autosize,
+      }"
       :rows="rows"
       :value="getValue()"
       @input="inputHandler"
@@ -90,6 +93,10 @@ const props = defineProps({
     default: false,
   },
   resizable: {
+    type: Boolean,
+    default: false,
+  },
+  autosize: {
     type: Boolean,
     default: false,
   },
@@ -289,6 +296,11 @@ $kTextAreaPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin,
 
     &.resizable {
       resize: vertical;
+    }
+
+    &.autosize {
+      field-sizing: content;
+      min-height: calc(($kTextAreaLineHeight * v-bind('rows')) + ($kTextAreaPaddingY * 2));
     }
 
     &:hover {
