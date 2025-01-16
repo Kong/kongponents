@@ -184,9 +184,9 @@
           v-bind="getVirtualizerProps(true)"
         >
           <a
-            :id="`${linePrefix}-L${line}`"
+            :id="getLineId(line)"
             class="line-anchor"
-            :href="showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
+            :href="showLineNumberLinks ? `#${getLineId(line)}` : undefined"
           >{{ line }}</a>
         </Virtualizer>
         <!-- eslint-disable-next-line vue/no-v-html -->
@@ -211,10 +211,10 @@
           v-bind="getVirtualizerProps(false)"
         >
           <a
-            :id="`${linePrefix}-L${line}`"
+            :id="getLineId(line)"
             class="line-anchor"
             :class="{ 'hide-links': !showLineNumberLinks }"
-            :href="showLineNumberLinks ? `#${linePrefix}-L${line}` : undefined"
+            :href="showLineNumberLinks ? `#${getLineId(line)}` : undefined"
           >{{ line }}</a>
         </Virtualizer>
         <!-- eslint-disable-next-line vue/no-v-html -->
@@ -257,7 +257,7 @@ const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Option' : 'Alt'
 // Debounces the search handler which ensures that we don’t trigger several searches while the user is still typing.
 // Use Lodash’s debounce function as it supports leading and trailing options.
 // Adding `leading: true` to the options ensures that the search is triggered immediately when the user types the first character,
-// mak
+// making the search feel more responsive.
 const debouncedHandleSearchInputValue = debounce(handleSearchInputValue, 150, { leading: true, trailing: true })
 
 const props = defineProps({
@@ -461,9 +461,13 @@ const hasRenderedFilteredCode = ref<boolean>(false)
 const matchingLineSet = computed(() => new Set(matchingLineNumbers.value))
 const totalLines = computed((): number[] => Array.from({ length: props.code?.split('\n').length }, (_, index) => index + 1))
 const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value.length - 1].toString().length + 'ch')
-const linePrefix = computed((): string => props.id.toLowerCase().replace(/\s+/g, '-'))
 const isProcessing = computed((): boolean => props.processing || isProcessingInternally.value)
 const isShowingFilteredCode = computed((): boolean => isFilterMode.value && filteredCode.value !== '')
+
+const linePrefix = computed((): string => props.id.toLowerCase().replace(/\s+/g, '-'))
+function getLineId(line: number): string {
+  return `${linePrefix.value}-L${line}`
+}
 
 // Cache the line offsets to avoid recalculating them on every search.
 const lineOffsets = computed(() => buildLineOffsets(props.code))
@@ -737,7 +741,7 @@ function jumpToMatch(direction: number): void {
     return
   }
 
-  const line = codeBlock.value.querySelector<HTMLElement>(`#${linePrefix.value}-L${lineNumber}`)
+  const line = codeBlock.value.querySelector<HTMLElement>(`#${getLineId(lineNumber)}`)
   if (line) {
     if ('scrollIntoViewIfNeeded' in line && typeof line.scrollIntoViewIfNeeded === 'function') {
       line.scrollIntoViewIfNeeded(true)
@@ -769,8 +773,14 @@ const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEU
 
 type VirtualizerProps = InstanceType<typeof Virtualizer>['$props']
 
+// props definition see https://github.com/inokawa/virtua/blob/7539c2a0aa279f4c2be6eb6c268344e22404df11/src/vue/Virtualizer.tsx#L84-L141
 function getVirtualizerProps(filtered: boolean): VirtualizerProps {
   return {
+    // These props essentially renders a structure like this:
+    //
+    // <span class="line-number-rows">
+    //  <span class="line">...line number anchor...</span>
+    // </span>
     as: 'span',
     class: 'line-number-rows',
     data: filtered ? matchingLineNumbers.value : totalLines.value,
@@ -782,9 +792,17 @@ function getVirtualizerProps(filtered: boolean): VirtualizerProps {
         'line-is-highlighted-match': filtered ? false : currentLineIndex.value !== null && line === matchingLineNumbers.value[currentLineIndex.value],
       }),
     }),
+
+    // slightly increase the number of items to render to avoid blank items when scrolling fast
     overscan: 8,
+
+    // provide a fixed item height so that Virtualizer can skip estimation
     itemSize: parseInt(KUI_LINE_HEIGHT_30, 10),
+
+    // the scrollable container isn't the parentElement so we need to manually provide it
     scrollRef: codeBlockContent.value ?? undefined,
+
+    // to override the default `position: relative; width: 100%`.
     style: {
       position: 'absolute',
       width: 'auto',
