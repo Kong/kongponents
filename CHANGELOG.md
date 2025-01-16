@@ -1,3 +1,10 @@
+## [9.17.1](https://github.com/Kong/kongponents/compare/v9.17.0...v9.17.1) (2025-01-16)
+
+
+### Bug Fixes
+
+* **kcodeblock:** improve matching perf ([#2562](https://github.com/Kong/kongponents/issues/2562)) ([8525a29](https://github.com/Kong/kongponents/commit/8525a291dd926e3bdfbf466b45ac6b3b6aa918b3))
+
 # [9.17.0](https://github.com/Kong/kongponents/compare/v9.16.4...v9.17.0) (2025-01-16)
 
 
