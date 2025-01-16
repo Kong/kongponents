@@ -134,8 +134,27 @@
         </KCodeBlockIconButton>
       </div>
     </div>
-
     <div class="code-block-content">
+      <div
+        v-if="showCopyButton || slots['secondary-actions']"
+        class="secondary-actions-wrapper"
+      >
+        <div class="code-block-secondary-actions">
+          <KCodeBlockIconButton
+            v-if="showCopyButton"
+            :aria-label="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
+            class="code-block-copy-button"
+            :copy-tooltip="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
+            data-testid="code-block-copy-button"
+            :theme="theme"
+            @click="copyCode"
+          >
+            <CopyIcon decorative />
+          </KCodeBlockIconButton>
+
+          <slot name="secondary-actions" />
+        </div>
+      </div>
       <!-- eslint-disable vue/no-v-html -->
       <pre
         v-if="isShowingFilteredCode"
@@ -194,29 +213,6 @@
         <code v-html="finalCode" />
       </pre>
       <!-- eslint-enable vue/no-v-html -->
-
-      <div
-        v-if="showCopyButton || slots['secondary-actions']"
-        class="code-block-secondary-actions"
-      >
-        <KCodeBlockIconButton
-          v-if="showCopyButton"
-          :aria-label="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
-          class="code-block-copy-button"
-          :copy-tooltip="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
-          data-testid="code-block-copy-button"
-          :theme="theme"
-          @click="copyCode"
-        >
-          <CopyIcon decorative />
-        </KCodeBlockIconButton>
-        <div
-          v-if="slots['secondary-actions']"
-          class="secondary-actions"
-        >
-          <slot name="secondary-actions" />
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -821,23 +817,39 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
     gap: var(--kui-space-40, $kui-space-40);
   }
 
-  @media (min-width: $kui-breakpoint-laptop) {
-    .code-block-secondary-actions {
-      opacity: 0;
-      transition: opacity $kongponentsTransitionDurTimingFunc, border $kongponentsTransitionDurTimingFunc;
-    }
-
-    .code-block-secondary-actions:focus-within,
-    .code-block-content:hover .code-block-secondary-actions {
-      opacity: 1;
-    }
-  }
-
   .code-block-content {
     max-height: v-bind('maxHeightValue');
     overflow-y: auto;
     padding: var(--kui-space-40, $kui-space-40);
     position: relative;
+
+    @media (min-width: $kui-breakpoint-laptop) {
+      .secondary-actions-wrapper {
+        opacity: 0;
+        transition: opacity $kongponentsTransitionDurTimingFunc, border $kongponentsTransitionDurTimingFunc;
+      }
+
+      .secondary-actions-wrapper:focus-within,
+      &:hover .secondary-actions-wrapper {
+        opacity: 1;
+      }
+    }
+
+    .secondary-actions-wrapper {
+      height: 100%;
+      position: sticky;
+      right: 0px;
+      top: 0px;
+      z-index: 2;
+
+      .code-block-secondary-actions {
+        display: flex;
+        gap: var(--kui-space-40, $kui-space-40);
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
 
     pre {
       display: grid;
@@ -910,18 +922,8 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
         }
       }
     }
-
-    .code-block-secondary-actions {
-      display: flex;
-      gap: var(--kui-space-40, $kui-space-40);
-      margin-right: var(--kui-space-40, $kui-space-40);
-      margin-top: var(--kui-space-40, $kui-space-40);
-      position: absolute;
-      right: 0;
-      top: 0;
-      z-index: 1;
-    }
   }
+
 
   &.theme-dark {
     background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
