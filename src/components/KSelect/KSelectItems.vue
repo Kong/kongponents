@@ -75,7 +75,6 @@ const onKeyDown = (event: Event) => {
   if (key === 'ArrowDown' || key === 'ArrowUp') {
     const kSelectItemsContainer = (target as HTMLElement).closest('.select-items-container')
     const selectableItemsElements = kSelectItemsContainer?.querySelectorAll('.select-item button:not([disabled])')
-    console.log(selectableItemsElements?.length)
 
     if (selectableItemsElements?.length) {
       const currentElementIndex = Array.from(selectableItemsElements).findIndex(el => el === target)

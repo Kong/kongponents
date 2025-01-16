@@ -576,10 +576,14 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>): void => {
   }
 
   if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp') && isToggled.value) {
-    const firstSelectableItemButtonElement = kSelectItemsContainer.value?.querySelectorAll('.select-item button:not([disabled])')[0] as HTMLButtonElement
-    if (firstSelectableItemButtonElement) {
-      firstSelectableItemButtonElement.focus()
-    }
+    setArrowNavigationFocus()
+  }
+}
+
+const setArrowNavigationFocus = (): void => {
+  const firstSelectableItemButtonElement = kSelectItemsContainer.value?.querySelectorAll('.select-item button:not([disabled])')[0] as HTMLButtonElement
+  if (firstSelectableItemButtonElement) {
+    firstSelectableItemButtonElement.focus()
   }
 }
 
@@ -749,10 +753,7 @@ onMounted(() => {
       if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
         event.preventDefault()
 
-        const firstSelectableItemButtonElement = kSelectItemsContainer.value?.querySelectorAll('.select-item button:not([disabled])')[0] as HTMLButtonElement
-        if (firstSelectableItemButtonElement) {
-          firstSelectableItemButtonElement.focus()
-        }
+        setArrowNavigationFocus()
       }
     }
   })
