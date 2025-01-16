@@ -210,8 +210,12 @@
         >
           <CopyIcon decorative />
         </KCodeBlockIconButton>
-
-        <slot name="secondary-actions" />
+        <div
+          v-if="slots['secondary-actions']"
+          class="secondary-actions"
+        >
+          <slot name="secondary-actions" />
+        </div>
       </div>
     </div>
   </div>
@@ -815,6 +819,18 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
     align-items: center;
     display: flex;
     gap: var(--kui-space-40, $kui-space-40);
+  }
+
+  @media (min-width: $kui-breakpoint-laptop) {
+    .code-block-secondary-actions {
+      opacity: 0;
+      transition: opacity $kongponentsTransitionDurTimingFunc, border $kongponentsTransitionDurTimingFunc;
+    }
+
+    .code-block-secondary-actions:focus-within,
+    .code-block-content:hover .code-block-secondary-actions {
+      opacity: 1;
+    }
   }
 
   .code-block-content {
