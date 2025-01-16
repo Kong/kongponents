@@ -177,10 +177,12 @@
                   @update:model-value="onQueryChange"
                 />
               </div>
-              <div aria-live="polite">
+              <div
+                ref="kMultiselectItemsContainer"
+                aria-live="polite"
+                class="multiselect-items-container"
+              >
                 <KMultiselectItems
-                  :key="kMultiselectItemsKey"
-                  ref="kMultiselectItems"
                   :items="sortedItems"
                   @selected="handleItemSelect"
                 >
@@ -467,8 +469,7 @@ const emit = defineEmits<{
   (e: 'item-removed', value: MultiselectItem): void
 }>()
 
-const kMultiselectItems = ref<InstanceType<typeof KMultiselectItems> | null>(null)
-const kMultiselectItemsKey = ref<number>(0)
+const kMultiselectItemsContainer = ref<HTMLDivElement | null>(null)
 
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
@@ -911,7 +912,7 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
   }
 
   if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp')) {
-    kMultiselectItems.value?.setFocus()
+    setArrowNavigationFocus()
   }
 }
 
@@ -921,7 +922,14 @@ const onTriggerKeypress = () => {
 
 const onDropdownInputKeyup = (event: any) => {
   if ((event.code === 'ArrowDown' || event.code === 'ArrowUp')) {
-    kMultiselectItems.value?.setFocus()
+    setArrowNavigationFocus()
+  }
+}
+
+const setArrowNavigationFocus = (): void => {
+  const firstSelectableItemButtonElement = kMultiselectItemsContainer.value?.querySelectorAll('.multiselect-item button:not([disabled])')[0] as HTMLButtonElement
+  if (firstSelectableItemButtonElement) {
+    firstSelectableItemButtonElement.focus()
   }
 }
 
@@ -987,10 +995,6 @@ watch(key, async () => {
 watch(filteredItems, () => {
   sortItems()
 })
-
-watch(sortedItems, () => {
-  kMultiselectItemsKey.value++
-}, { deep: true })
 
 // watch for programmatic changes to model
 watch(value, (newVal, oldVal) => {

@@ -2,10 +2,8 @@
   <KMultiselectItem
     v-for="item, idx in nonGroupedItems"
     :key="`${item.key ? item.key : idx}-item`"
-    ref="kMultiselectItem"
     :item="item"
-    @arrow-down="() => shiftFocus(item.key, 'down')"
-    @arrow-up="() => shiftFocus(item.key, 'up')"
+    @keydown="onKeyDown"
     @selected="handleItemSelect"
   >
     <template #content>
@@ -27,10 +25,8 @@
     <KMultiselectItem
       v-for="(item, idx) in getGroupItems(group)"
       :key="`${item.key ? item.key : group + '-' + idx + '-item'}`"
-      ref="kMultiselectItem"
       :item="item"
-      @arrow-down="() => shiftFocus(item.key, 'down')"
-      @arrow-up="() => shiftFocus(item.key, 'up')"
+      @keydown="onKeyDown"
       @selected="handleItemSelect"
     >
       <template #content>
@@ -45,7 +41,7 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 import type { MultiselectItem } from '@/types'
 
@@ -60,8 +56,6 @@ const props = defineProps({
 
 const emit = defineEmits(['selected'])
 
-const kMultiselectItem = ref<InstanceType<typeof KMultiselectItem>[] | null>(null)
-
 const handleItemSelect = (item: MultiselectItem) => emit('selected', item)
 
 const nonGroupedItems = computed((): MultiselectItem[] => props.items?.filter(item => !item.group))
@@ -69,41 +63,24 @@ const groups = computed((): string[] => [...new Set((props.items?.filter(item =>
 
 const getGroupItems = (group: string) => props.items?.filter(item => item.group === group)
 
-const setFocus = (index: number = 0) => {
-  if (kMultiselectItem.value) {
-    if (!props.items[index].disabled) {
-      kMultiselectItem.value[index]?.$el?.querySelector('button')?.focus()
-    } else {
-      setFocus(index + 1)
+const onKeyDown = (event: Event) => {
+  const { target, key } = event as KeyboardEvent
+
+  if (key === 'ArrowDown' || key === 'ArrowUp') {
+    const kSelectItemsContainer = (target as HTMLElement).closest('.multiselect-items-container')
+    const selectableItemsElements = kSelectItemsContainer?.querySelectorAll('.multiselect-item button:not([disabled])')
+
+    if (selectableItemsElements?.length) {
+      const currentElementIndex = Array.from(selectableItemsElements).findIndex(el => el === target)
+      const nextElementIndex = key === 'ArrowDown' ? currentElementIndex + 1 : currentElementIndex - 1
+      const nextElement = selectableItemsElements[nextElementIndex] as HTMLButtonElement
+
+      if (nextElement) {
+        nextElement.focus()
+      }
     }
   }
 }
-
-const shiftFocus = (key: MultiselectItem['key'], direction: 'down' | 'up') => {
-  const index = props.items.findIndex(item => item.key === key)
-
-  if (index === -1) {
-    return // Exit if the item is not found
-  }
-
-  // determine step for navigation
-  const step = direction === 'down' ? 1 : -1
-  const isValidIndex = direction === 'down'
-    ? index + step < props.items.length
-    : index + step >= 0
-  if (isValidIndex) {
-    const nextIndex = index + step
-    if (props.items[nextIndex].disabled) {
-      // find the next valid index if the current one is disabled
-      shiftFocus(props.items[nextIndex].key!, direction)
-    } else {
-      // focus the button
-      kMultiselectItem.value?.[nextIndex]?.$el?.querySelector('button')?.focus()
-    }
-  }
-}
-
-defineExpose({ setFocus })
 </script>
 
 <style lang="scss" scoped>
