@@ -135,7 +135,6 @@
       </div>
     </div>
     <div class="code-block-content">
-      <!-- eslint-disable vue/no-v-html -->
       <div
         v-if="showCopyButton || slots['secondary-actions']"
         class="secondary-actions-wrapper"
@@ -156,6 +155,7 @@
           <slot name="secondary-actions" />
         </div>
       </div>
+      <!-- eslint-disable vue/no-v-html -->
       <pre
         v-if="isShowingFilteredCode"
         class="filtered-code-block"
