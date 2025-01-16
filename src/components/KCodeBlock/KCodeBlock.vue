@@ -183,6 +183,7 @@
         </span>
         <code v-html="filteredCode" />
       </pre>
+
       <pre
         v-else
         class="highlighted-code-block"
@@ -820,17 +821,13 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
     gap: var(--kui-space-40, $kui-space-40);
   }
 
-
-
-
-
   @media (min-width: $kui-breakpoint-laptop) {
-    .secondary-actions-wrapper {
+    .code-block-content .secondary-actions-wrapper {
       opacity: 0;
       transition: opacity $kongponentsTransitionDurTimingFunc, border $kongponentsTransitionDurTimingFunc;
     }
 
-    .secondary-actions-wrapper:focus-within,
+    .code-block-content .secondary-actions-wrapper:focus-within,
     .code-block-content:hover .secondary-actions-wrapper {
       opacity: 1;
     }
@@ -849,8 +846,8 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       top: 0px;
       z-index: 2;
 
-
       .code-block-secondary-actions {
+        display: flex;
         gap: var(--kui-space-40, $kui-space-40);
         position: absolute;
         right: 0;
