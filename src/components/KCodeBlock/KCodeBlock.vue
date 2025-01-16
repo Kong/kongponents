@@ -148,21 +148,23 @@
       -->
       <div
         v-if="showCopyButton || slots['secondary-actions']"
-        class="code-block-secondary-actions"
+        class="secondary-actions-wrapper"
       >
-        <KCodeBlockIconButton
-          v-if="showCopyButton"
-          :aria-label="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
-          class="code-block-copy-button"
-          :copy-tooltip="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
-          data-testid="code-block-copy-button"
-          :theme="theme"
-          @click="copyCode"
-        >
-          <CopyIcon decorative />
-        </KCodeBlockIconButton>
+        <div class="code-block-secondary-actions">
+          <KCodeBlockIconButton
+            v-if="showCopyButton"
+            :aria-label="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
+            class="code-block-copy-button"
+            :copy-tooltip="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
+            data-testid="code-block-copy-button"
+            :theme="theme"
+            @click="copyCode"
+          >
+            <CopyIcon decorative />
+          </KCodeBlockIconButton>
 
-        <slot name="secondary-actions" />
+          <slot name="secondary-actions" />
+        </div>
       </div>
 
       <!--
@@ -864,6 +866,34 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
     padding: var(--kui-space-40, $kui-space-40);
     position: relative;
 
+    @media (min-width: $kui-breakpoint-laptop) {
+      .secondary-actions-wrapper {
+        opacity: 0;
+        transition: opacity $kongponentsTransitionDurTimingFunc, border $kongponentsTransitionDurTimingFunc;
+      }
+
+      .secondary-actions-wrapper:focus-within,
+      &:hover .secondary-actions-wrapper {
+        opacity: 1;
+      }
+    }
+
+    .secondary-actions-wrapper {
+      height: 100%;
+      position: sticky;
+      right: 0px;
+      top: 0px;
+      z-index: 2;
+
+      .code-block-secondary-actions {
+        display: flex;
+        gap: var(--kui-space-40, $kui-space-40);
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
+
     pre {
       display: grid;
       margin: var(--kui-space-0, $kui-space-0);
@@ -944,17 +974,6 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
           line-height: var(--kui-line-height-60, $kui-line-height-60);
         }
       }
-    }
-
-    .code-block-secondary-actions {
-      display: flex;
-      gap: var(--kui-space-40, $kui-space-40);
-      margin-right: var(--kui-space-40, $kui-space-40);
-      margin-top: var(--kui-space-40, $kui-space-40);
-      position: absolute;
-      right: 0;
-      top: 0;
-      z-index: 1;
     }
   }
 

@@ -1,3 +1,17 @@
+## [9.16.4](https://github.com/Kong/kongponents/compare/v9.16.3...v9.16.4) (2025-01-16)
+
+
+### Bug Fixes
+
+* **ktabs:** add data-testid to list items ([#2574](https://github.com/Kong/kongponents/issues/2574)) ([bf80d75](https://github.com/Kong/kongponents/commit/bf80d7586493b53075f0ac43f07ef10eb1bd3c8c))
+
+## [9.16.3](https://github.com/Kong/kongponents/compare/v9.16.2...v9.16.3) (2025-01-15)
+
+
+### Bug Fixes
+
+* **kalert:** kbutton text color within kalerts [KHCP-14565] ([#2571](https://github.com/Kong/kongponents/issues/2571)) ([195ce77](https://github.com/Kong/kongponents/commit/195ce7759fe94e7b36b78fdc7eb3a52805c9ee5f))
+
 ## [9.16.2](https://github.com/Kong/kongponents/compare/v9.16.1...v9.16.2) (2025-01-15)
 
 

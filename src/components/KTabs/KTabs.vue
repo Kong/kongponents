@@ -10,6 +10,7 @@
         :key="tab.hash"
         class="tab-item"
         :class="{ active: activeTab === tab.hash }"
+        :data-testid="`${tab.hash.replace('#','')}-tab`"
       >
         <component
           :is="tabComponent(tab).tag"
