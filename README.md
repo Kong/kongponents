@@ -33,3 +33,11 @@ This will trigger the Commitizen interactive prompt for building your commit mes
 #### Enforcing Commit Format
 
 [Lefthook](https://github.com/evilmartians/lefthook) is used to manage Git Hooks within the repo. A `commit-msg` hook is automatically setup that enforces commit message stands with `commitlint`, see [`lefthook.yaml`](./lefthook.yaml).
+
+### Approvals and Releases
+
+- All pull requests require review and approval from authorized team members.
+- Automated approvals through workflows are strictly prohibited.
+  - There is an exception for automated pull request approvals originating from generated dependency updates that satisfy status checks and other requirements.
+- Protected branches require at least one approval from code owners.
+- All status checks must pass before a pull request may be merged.
