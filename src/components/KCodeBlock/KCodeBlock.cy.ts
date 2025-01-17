@@ -55,14 +55,14 @@ describe('KCodeBlock', () => {
     renderComponent({ id: 'code-block' })
 
     cy.get('.line').should('have.length', 5)
-    cy.get('[data-testid="code-block-copy-button"]').should('exist')
+    cy.get('[data-testid="code-block-copy-button-code-block"]').should('exist')
     cy.get('[data-testid="highlighted-code-block"]').contains(code)
   })
 
   it('has no copy button when props.showCopyButton is false', () => {
     renderComponent({ id: 'code-block', showCopyButton: false })
 
-    cy.get('[data-testid="code-block-copy-button"]').should('not.exist')
+    cy.get('[data-testid="code-block-copy-button-code-block"]').should('not.exist')
   })
 
   it('can be searched to highlight matching lines', () => {
