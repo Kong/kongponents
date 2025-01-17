@@ -8,7 +8,7 @@ Searching and filtering can happen by exact matches (the default) and by matchin
 
 <ClientOnly>
   <KCodeBlock
-    id="code-block-default"
+    id=""
     :code="code"
     language="json"
     searchable
