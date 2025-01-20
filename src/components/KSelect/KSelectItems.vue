@@ -108,9 +108,7 @@ const setItemFocus = (): void => {
   firstSelectableItem?.focus()
 }
 
-const onKeyPress = (event: Event) => {
-  const { target, key } = event as KeyboardEvent
-
+const onKeyPress = ({ target, key } : KeyboardEvent) => {
   if (key === 'ArrowDown' || key === 'ArrowUp') {
     // all selectable items
     const selectableItems = itemsContainer.value?.querySelectorAll<HTMLButtonElement>('.select-item button:not([disabled])')
