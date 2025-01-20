@@ -23,9 +23,12 @@
     >
       <KTreeItem
         :key="`tree-item-${element.id}-${key}`"
+        :collapsable="collapsable && !hasNoChildren(element)"
         :disabled="disableDrag"
         :hide-icons="hideIcons"
+        :initial-collapse="collapseAll"
         :item="element"
+        @expanded="handleExpandedEvent($event, element.id)"
         @selected="handleSelectionEvent"
       >
         <template
@@ -47,7 +50,10 @@
         </template>
       </KTreeItem>
       <KTreeDraggable
+        v-show="getChildrenVisibility(element.id)"
         :key="`tree-item-${element.id}-children-${key}`"
+        :collapsable="collapsable"
+        :collapse-all="collapseAll"
         :disable-drag="disableDrag"
         :group="group"
         :hide-icons="hideIcons"
@@ -95,6 +101,8 @@ export const getMaximumDepth = ({ children = [] }): number => {
 </script>
 
 <script setup lang="ts">
+import { nextTick } from 'vue'
+
 const props = defineProps({
   items: {
     type: Array as PropType<TreeListItem[]>,
@@ -128,6 +136,14 @@ const props = defineProps({
   group: {
     type: String,
     default: 'k-tree-list',
+  },
+  collapsable: {
+    type: Boolean,
+    default: false,
+  },
+  collapseAll: {
+    type: Boolean,
+    default: false,
   },
 })
 
@@ -182,6 +198,16 @@ const handleChildChangeEvent = (item: any): void => {
 
 const handleSelectionEvent = (item: TreeListItem): void => {
   emit('selected', item)
+}
+
+const childrenVisibilityMap = ref(new Map<string, boolean>())
+
+const handleExpandedEvent = (value: boolean, id: string): void => {
+  childrenVisibilityMap.value.set(id, value)
+}
+
+const getChildrenVisibility = (id: string): boolean => {
+  return props.collapsable ? !!childrenVisibilityMap.value.get(id) : true
 }
 
 const maxLevelReached = computed((): boolean => {
@@ -251,12 +277,31 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 })
 
-onMounted(() => {
+const triggerCollapse = (): void => {
+  internalList.value.forEach(item => {
+    childrenVisibilityMap.value.set(item.id, !props.collapseAll)
+  })
+}
+
+watch(() => props.collapseAll, (val, oldVal) => {
+  if (props.collapsable && val !== oldVal) {
+    triggerCollapse()
+  }
+})
+
+onMounted(async () => {
   internalList.value = props.items
 
   internalList.value.forEach((item: TreeListItem) => {
     if (!item.children) {
       item.children = []
+    }
+  })
+
+  // Handles correct initial collapsed/expanded state
+  await nextTick(() => {
+    if (props.collapsable) {
+      triggerCollapse()
     }
   })
 })

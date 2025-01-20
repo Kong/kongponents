@@ -54,6 +54,19 @@
           :items="items7"
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="collapsable">
+        <KTreeList
+          :collapsable="true"
+          :items="items10"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="collapseAll">
+        <KTreeList
+          :collapsable="true"
+          :collapse-all="true"
+          :items="items10"
+        />
+      </SandboxSectionComponent>
 
       <!-- Slots -->
       <SandboxTitleComponent
@@ -176,6 +189,7 @@ const items6 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items7 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items8 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items9 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
+const items10 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 </script>
 
 <style lang="scss" scoped>

@@ -3,7 +3,9 @@
     class="tree-item"
     :class="{
       'not-draggable': disabled,
-      'selected': item.selected
+      'selected': item.selected,
+      'expanded': collapsable && isExpanded,
+      'collapsed': collapsable && !isExpanded
     }"
     :data-testid="`tree-item-${item.id}`"
     data-tree-item-trigger="true"
@@ -11,6 +13,15 @@
     type="button"
     @click.prevent="handleClick"
   >
+    <component
+      :is="expandedIcon"
+      v-if="collapsable"
+      class="tree-item-expanded-icon"
+      data-testid="tree-item-expanded-icon"
+      role="button"
+      @click.stop="toggleItem"
+    />
+
     <div
       v-if="hasIcon"
       class="tree-item-icon"
@@ -35,7 +46,7 @@
 import type { PropType } from 'vue'
 import { computed, useSlots } from 'vue'
 import type { TreeListItem } from '@/types'
-import { ServiceDocumentIcon } from '@kong/icons'
+import { ServiceDocumentIcon, ChevronDownIcon, ChevronUpIcon } from '@kong/icons'
 
 export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
   return items.every(i => i.name !== undefined && i.id !== undefined && (!i.children?.length || itemsHaveRequiredProps(i.children)))
@@ -46,6 +57,7 @@ export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
 /**
  * button.tree-item has draggable="false" attribute to prevent native drag events in order to let vue-draggable-next handle dragging
  */
+import { ref, shallowRef, watch } from 'vue'
 
 const props = defineProps({
   item: {
@@ -61,10 +73,19 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  collapsable: {
+    type: Boolean,
+    default: false,
+  },
+  initialCollapse: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits<{
   (event: 'selected', item: TreeListItem): void
+  (event: 'expanded', val: boolean): void
 }>()
 
 const slots = useSlots()
@@ -82,6 +103,31 @@ const handleClick = (event: any) => {
   }
 
   emit('selected', props.item)
+}
+
+const isExpanded = ref<boolean>(true)
+
+const expandedIcon = shallowRef(ChevronUpIcon)
+
+const setExpandedIcon = (): void => {
+  expandedIcon.value = isExpanded.value ? ChevronUpIcon : ChevronDownIcon
+}
+
+watch(() => props.initialCollapse, (val, oldVal) => {
+  if (val !== oldVal) {
+    isExpanded.value = !val
+    setExpandedIcon()
+  }
+}, {
+  immediate: true,
+})
+
+const toggleItem = (): void => {
+  isExpanded.value = !isExpanded.value
+
+  setExpandedIcon()
+
+  emit('expanded', isExpanded.value)
 }
 </script>
 
@@ -139,6 +185,11 @@ const handleClick = (event: any) => {
 
   &.not-draggable {
     cursor: pointer;
+  }
+
+  &-expanded-icon {
+    cursor: pointer;
+    z-index: 10;
   }
 }
 </style>

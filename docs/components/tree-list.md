@@ -215,6 +215,26 @@ Boolean to hide icons. Defaults to `false`.
 <KTreeList hide-icons :items="items" />
 ```
 
+### collapsable
+
+Boolean to enable/disable collapse feature. Defaults to `false`.
+
+<KTreeList :collapsable="true" :items="collapsableItems" />
+
+```html
+<KTreeList :collapsable="true" :items="items" />
+```
+
+### collapseAll
+
+Boolean to collapse/expand all TreeListItems. Should be used only with `collapsable` prop. Defaults to `false`.
+
+<KTreeList :collapsable="true" :collapse-all="true" :items="collapsableItems" />
+
+```html
+<KTreeList :collapsable="true" :collapse-all="true" :items="items" />
+```
+
 ## Slots
 
 KTreeList allows you to customize individual tree items via the item slots. The slots provide the current `item` data as a slot param.
@@ -384,6 +404,8 @@ const maxLevelsItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 const widthItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
 const hideIconsItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
+
+const collapsableItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
 const slotItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
