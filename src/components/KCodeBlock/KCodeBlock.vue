@@ -156,7 +156,7 @@
             :aria-label="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
             class="code-block-copy-button"
             :copy-tooltip="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
-            data-testid="code-block-copy-button"
+            :data-testid="`code-block-copy-button-${id}`"
             :theme="theme"
             @click="copyCode"
           >
