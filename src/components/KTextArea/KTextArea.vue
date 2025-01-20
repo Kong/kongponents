@@ -18,19 +18,28 @@
       </template>
     </KLabel>
 
-    <textarea
-      :id="textAreaId"
-      v-bind="modifiedAttrs"
-      :aria-invalid="ariaInvalid"
-      class="input-textarea"
+    <div
+      class="input-wrapper"
       :class="{
-        resizable: resizable || isResizable,
         autosize,
+        legacy: !SUPPORT_FIELD_SIZING_CONTENT
       }"
-      :rows="rows"
-      :value="getValue()"
-      @input="inputHandler"
-    />
+      :data-value="SUPPORT_FIELD_SIZING_CONTENT ? null : currValue"
+    >
+      <textarea
+        :id="textAreaId"
+        v-bind="modifiedAttrs"
+        :aria-invalid="ariaInvalid"
+        class="input-textarea"
+        :class="{
+          resizable: resizable || isResizable,
+        }"
+        :rows="rows"
+        :value="getValue()"
+        @dblclick="restoreSizing"
+        @input="inputHandler"
+      />
+    </div>
 
     <Transition
       mode="out-in"
@@ -52,8 +61,12 @@ import { ref, computed, watch, useAttrs, useSlots, useId } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import type { TextAreaLimitExceed } from '@/types'
+import { cssSupports, getScrollbarSize, IS_MAYBE_FIREFOX } from '@/utilities/browser'
 
 const DEFAULT_CHARACTER_LIMIT = 2048
+// Firefox has the double click feature built in, so we don't need to calculate the size
+const RESIZE_HANDLE_SIZE = IS_MAYBE_FIREFOX ? 0 : getScrollbarSize()
+const SUPPORT_FIELD_SIZING_CONTENT = cssSupports('field-sizing', 'content')
 
 export default {
   inheritAttrs: false,
@@ -238,6 +251,21 @@ watch(value, (newVal, oldVal) => {
 const getValue = (): string => {
   return currValue.value ? currValue.value : props.modelValue
 }
+
+// Double click to restore sizing for browsers except Firefox
+// as Firefox has the double click feature built in.
+const restoreSizing = IS_MAYBE_FIREFOX ? () => {} : (e: MouseEvent): void => {
+  const { target, clientX, clientY } = e
+
+  if (!(target instanceof HTMLTextAreaElement)) {
+    return
+  }
+
+  const { right, bottom } = target.getBoundingClientRect()
+  if (clientX > right - RESIZE_HANDLE_SIZE && clientY > bottom - RESIZE_HANDLE_SIZE) {
+    target.style.height = ''
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -284,23 +312,47 @@ $kTextAreaPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin,
     }
   }
 
-  .input-textarea {
-    @include inputDefaults;
+  .input-wrapper {
+    display: contents;
 
-    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
-    // stylelint-disable-next-line no-duplicate-selectors
-    & {
-      min-height: calc(($kTextAreaLineHeight * 2) + ($kTextAreaPaddingY * 2)); // 2 lines + padding
-      resize: none;
-    }
+    &.autosize.legacy {
+      display: grid;
 
-    &.resizable {
-      resize: vertical;
+      &::after {
+        content: attr(data-value) " ";
+        visibility: hidden;
+        white-space: pre-wrap;
+      }
+
+      .input-textarea {
+        overflow: hidden;
+      }
     }
 
     &.autosize {
-      field-sizing: content;
-      min-height: calc(($kTextAreaLineHeight * v-bind('rows')) + ($kTextAreaPaddingY * 2));
+      .input-textarea {
+        field-sizing: content;
+        min-height: calc(($kTextAreaLineHeight * v-bind('rows')) + ($kTextAreaPaddingY * 2));
+      }
+    }
+  }
+
+  .input-wrapper.legacy::after,
+  .input-textarea {
+    @include inputDefaults;
+
+    // stylelint-disable-next-line no-duplicate-selectors
+    & {
+      grid-area: 1 / 1 / 2 / 2;
+    }
+  }
+
+  .input-textarea {
+    min-height: calc(($kTextAreaLineHeight * 2) + ($kTextAreaPaddingY * 2)); // 2 lines + padding
+    resize: none;
+
+    &.resizable {
+      resize: vertical;
     }
 
     &:hover {

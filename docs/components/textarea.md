@@ -54,10 +54,22 @@ You can specify `rows` to adjust the height of the textarea.
 
 Boolean value to allow vertically resizing using the drag handle in the right-hand corner of the textarea.
 
+Double-clicking the drag handle will reset the textarea to its default height.
+
 <KTextArea resizable />
 
 ```html
 <KTextArea resizable />
+```
+
+### autosize
+
+Boolean value to automatically adjust the height of the textarea based on its content.
+
+<KTextArea autosize />
+
+```html
+<KTextArea autosize />
 ```
 
 ### help

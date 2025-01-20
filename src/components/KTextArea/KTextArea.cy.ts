@@ -132,4 +132,23 @@ describe('KTextArea', () => {
 
     cy.get('textarea').should('have.class', 'resizable')
   })
+
+  it('should handle `autosize` prop correctly', () => {
+    cy.mount(KTextArea, {
+      props: {
+        autosize: true,
+        rows: 2,
+      },
+    })
+
+    cy.get('.input-wrapper').should('have.class', 'autosize')
+
+    cy.get('textarea').type('1\n2\n3\n4').then(($el) => {
+      const textarea = $el[0]
+      const { paddingTop, paddingBottom, lineHeight } = window.getComputedStyle(textarea)
+      const padding = parseFloat(paddingTop) + parseFloat(paddingBottom)
+      const lineHeightValue = parseFloat(lineHeight)
+      expect(textarea.offsetHeight).to.eq(4 * lineHeightValue + padding)
+    })
+  })
 })

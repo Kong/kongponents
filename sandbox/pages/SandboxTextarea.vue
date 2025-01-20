@@ -68,7 +68,7 @@
           autosize
           label="Label"
           resizable
-          :rows="6"
+          :rows="3"
         />
       </SandboxSectionComponent>
 
