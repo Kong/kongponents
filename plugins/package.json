@@ -1,0 +1,18 @@
+{
+  "name": "plugins",
+  "type": "module",
+  "version": "9.17.1",
+  "description": "Nuxt module for Kongponents",
+  "license": "MIT",
+  "sideEffects": false,
+  "scripts": {
+    "build": "unbuild",
+    "stub": "unbuild --stub"
+  },
+  "dependencies": {
+    "@kong/kongponents": "link:../src",
+    "@nuxt/kit": "^3.12.2",
+    "@nuxt/schema": "^3.12.2",
+    "unbuild": "^3.3.1"
+  }
+}

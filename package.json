@@ -22,6 +22,16 @@
       "import": "./dist/kongponents.es.js",
       "require": "./dist/kongponents.umd.js"
     },
+    "./nuxt": {
+      "import": {
+        "types": "./dist/nuxt/index.d.mts",
+        "default": "./dist/nuxt/index.mjs"
+      },
+      "require": {
+        "types": "./dist/nuxt/index.d.cts",
+        "default": "./dist/nuxt/index.cjs"
+      }
+    },
     "./dist/style.css": "./dist/kongponents.css",
     "./package.json": "./package.json",
     "./dist/*": "./dist/*"
