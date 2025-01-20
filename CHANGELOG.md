@@ -1,3 +1,10 @@
+## [9.17.2](https://github.com/Kong/kongponents/compare/v9.17.1...v9.17.2) (2025-01-20)
+
+
+### Bug Fixes
+
+* **kcodeblock:** updated copy button data-test-id [KHCP-14752] ([#2577](https://github.com/Kong/kongponents/issues/2577)) ([63bd9da](https://github.com/Kong/kongponents/commit/63bd9dacc1b1bc1b5941251a41ddf6399b99b736))
+
 ## [9.17.1](https://github.com/Kong/kongponents/compare/v9.17.0...v9.17.1) (2025-01-16)
 
 
