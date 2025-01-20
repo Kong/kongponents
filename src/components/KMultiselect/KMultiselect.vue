@@ -177,46 +177,30 @@
                   @update:model-value="onQueryChange"
                 />
               </div>
-              <div
-                ref="kMultiselectItemsContainer"
-                aria-live="polite"
-                class="multiselect-items-container"
+              <KMultiselectItems
+                ref="kMultiselectItems"
+                :filter-string="filterString"
+                :item-creation-enabled="enableItemCreation && uniqueFilterStr"
+                :item-creation-valid="itemCreationValidator(filterString)"
+                :items="sortedItems"
+                @add-item="handleAddItem"
+                @selected="handleItemSelect"
               >
-                <KMultiselectItems
-                  :items="sortedItems"
-                  @selected="handleItemSelect"
-                >
-                  <template #content="{ item }">
-                    <slot
-                      class="multiselect-item"
-                      :item="item"
-                      name="item-template"
-                    />
-                  </template>
-                </KMultiselectItems>
-                <KMultiselectItem
-                  v-if="enableItemCreation && uniqueFilterStr && !$slots.empty"
-                  key="multiselect-add-item"
-                  class="multiselect-add-item"
-                  data-testid="multiselect-add-item"
-                  :item="{ label: `${filterString} (Add new value)`, value: 'add_item', disabled: !itemCreationValidator(filterString) }"
-                  @selected="handleAddItem"
-                >
-                  <template #content>
-                    <div class="select-item-description">
-                      {{ filterString }}
-                      <span class="select-item-new-indicator">(Add new value)</span>
-                    </div>
-                  </template>
-                </KMultiselectItem>
-                <KMultiselectItem
-                  v-if="!sortedItems.length && !$slots.empty && !enableItemCreation"
-                  key="multiselect-empty-item"
-                  class="multiselect-empty-item"
-                  data-testid="multiselect-empty-item"
-                  :item="{ label: 'No results', value: 'no_results', disabled: true }"
-                />
-              </div>
+                <template #content="{ item }">
+                  <slot
+                    class="multiselect-item"
+                    :item="item"
+                    name="item-template"
+                  />
+                </template>
+              </KMultiselectItems>
+              <KMultiselectItem
+                v-if="!sortedItems.length && !$slots.empty && !enableItemCreation"
+                key="multiselect-empty-item"
+                class="multiselect-empty-item"
+                data-testid="multiselect-empty-item"
+                :item="{ label: 'No results', value: 'no_results', disabled: true }"
+              />
               <div
                 v-if="$slots.empty && !loading && !sortedItems.length"
                 class="multiselect-empty"
@@ -469,7 +453,7 @@ const emit = defineEmits<{
   (e: 'item-removed', value: MultiselectItem): void
 }>()
 
-const kMultiselectItemsContainer = ref<HTMLDivElement | null>(null)
+const kMultiselectItems = ref<InstanceType<typeof KMultiselectItems> | null>(null)
 
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
@@ -912,7 +896,7 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
   }
 
   if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp')) {
-    setArrowNavigationFocus()
+    kMultiselectItems.value?.setFocus()
   }
 }
 
@@ -922,14 +906,7 @@ const onTriggerKeypress = () => {
 
 const onDropdownInputKeyup = (event: any) => {
   if ((event.code === 'ArrowDown' || event.code === 'ArrowUp')) {
-    setArrowNavigationFocus()
-  }
-}
-
-const setArrowNavigationFocus = (): void => {
-  const firstSelectableItemButtonElement = kMultiselectItemsContainer.value?.querySelectorAll('.multiselect-item button:not([disabled])')[0] as HTMLButtonElement
-  if (firstSelectableItemButtonElement) {
-    firstSelectableItemButtonElement.focus()
+    kMultiselectItems.value?.setFocus()
   }
 }
 
