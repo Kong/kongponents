@@ -128,12 +128,16 @@
             </div>
             <div
               v-else
-              ref="kSelectItemsContainer"
               class="select-items-container"
               data-propagate-clicks="false"
             >
               <KSelectItems
+                ref="kSelectItems"
+                :filter-string="filterQuery"
+                :item-creation-enabled="enableItemCreation && uniqueFilterQuery"
+                :item-creation-valid="itemCreationValidator(filterQuery)"
                 :items="filteredItems"
+                @add-item="handleAddItem"
                 @selected="handleItemSelect"
               >
                 <template #content="{ item }">
@@ -148,21 +152,6 @@
                 v-if="!filteredItems.length && !$slots.empty && !enableItemCreation"
                 :item="{ label: 'No results', value: 'no_results', disabled: true }"
               />
-              <KSelectItem
-                v-if="uniqueFilterQuery && !$slots.empty && enableItemCreation"
-                key="select-add-item"
-                class="select-add-item"
-                data-testid="select-add-item"
-                :item="{ label: `${filterQuery} (Add new value)`, value: 'add_item', disabled: !itemCreationValidator(filterQuery) }"
-                @selected="handleAddItem"
-              >
-                <template #content>
-                  <div class="select-item-description">
-                    {{ filterQuery }}
-                    <span class="select-item-new-indicator">(Add new value)</span>
-                  </div>
-                </template>
-              </KSelectItem>
               <div
                 v-if="(dropdownFooterText || $slots['dropdown-footer-text']) && dropdownFooterTextPosition === 'static'"
                 class="dropdown-footer dropdown-footer-static"
@@ -561,7 +550,7 @@ const clearSelection = (): void => {
   emit('update:modelValue', null)
 }
 
-const kSelectItemsContainer = ref<HTMLDivElement | null>(null)
+const kSelectItems = ref<InstanceType<typeof KSelectItems> | null>(null)
 
 const triggerFocus = (evt: any, isToggled: Ref<boolean>): void => {
   // Ignore `esc` key
@@ -576,14 +565,7 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>): void => {
   }
 
   if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp') && isToggled.value) {
-    setArrowNavigationFocus()
-  }
-}
-
-const setArrowNavigationFocus = (): void => {
-  const firstSelectableItemButtonElement = kSelectItemsContainer.value?.querySelectorAll('.select-item button:not([disabled])')[0] as HTMLButtonElement
-  if (firstSelectableItemButtonElement) {
-    firstSelectableItemButtonElement.focus()
+    kSelectItems.value?.setFocus()
   }
 }
 
@@ -753,7 +735,7 @@ onMounted(() => {
       if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
         event.preventDefault()
 
-        setArrowNavigationFocus()
+        kSelectItems.value?.setFocus()
       }
     }
   })
@@ -774,13 +756,6 @@ $kSelectInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mix
 $kSelectInputIconSize: var(--kui-icon-size-40, $kui-icon-size-40); // corresponds to value in KInput.vue
 $kSelectInputSlotSpacing: var(--kui-space-40, $kui-space-40); // corresponds to value in KInput.vue
 $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)); // corresponds to mixin
-
-/* Component mixins */
-
-@mixin kSelectPopoverMaxHeight {
-  max-height: v-bind('popoverContentMaxHeight');
-  overflow-y: auto;
-}
 
 /* Component styles */
 
@@ -852,7 +827,8 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
 
   .select-popover {
     .select-items-container {
-      @include kSelectPopoverMaxHeight;
+      max-height: v-bind('popoverContentMaxHeight');
+      overflow-y: auto;
     }
   }
 

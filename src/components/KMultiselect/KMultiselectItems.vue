@@ -8,7 +8,7 @@
       v-for="item, idx in nonGroupedItems"
       :key="`${item.key ? item.key : idx}-item`"
       :item="item"
-      @keydown="arrowKeyNavigation"
+      @keydown="onKeyPress"
       @selected="handleItemSelect"
     >
       <template #content>
@@ -31,7 +31,7 @@
         v-for="(item, idx) in getGroupItems(group)"
         :key="`${item.key ? item.key : group + '-' + idx + '-item'}`"
         :item="item"
-        @keydown="arrowKeyNavigation"
+        @keydown="onKeyPress"
         @selected="handleItemSelect"
       >
         <template #content>
@@ -49,7 +49,7 @@
       class="multiselect-add-item"
       data-testid="multiselect-add-item"
       :item="{ label: `${filterString} (Add new value)`, value: 'add_item', disabled: !itemCreationValid }"
-      @keydown="arrowKeyNavigation"
+      @keydown="onKeyPress"
       @selected="$emit('add-item')"
     >
       <template #content>
@@ -89,7 +89,10 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['selected', 'add-item'])
+const emit = defineEmits<{
+  (e: 'selected', item: MultiselectItem): void
+  (e: 'add-item'): void
+}>()
 
 const handleItemSelect = (item: MultiselectItem) => emit('selected', item)
 
@@ -101,13 +104,11 @@ const getGroupItems = (group: string) => props.items?.filter(item => item.group 
 const itemsContainer = ref<HTMLDivElement | null>(null)
 
 const setItemFocus = (): void => {
-  const firstSelectableItemButtonElement = itemsContainer.value?.querySelectorAll<HTMLButtonElement>('.multiselect-item button:not([disabled])')[0]
-  if (firstSelectableItemButtonElement) {
-    firstSelectableItemButtonElement.focus()
-  }
+  const firstSelectableItem = itemsContainer.value?.querySelectorAll<HTMLButtonElement>('.multiselect-item button:not([disabled])')[0]
+  firstSelectableItem?.focus()
 }
 
-const arrowKeyNavigation = ({ target, key } : KeyboardEvent) => {
+const onKeyPress = ({ target, key } : KeyboardEvent) => {
   if (key === 'ArrowDown' || key === 'ArrowUp') {
     // all selectable items
     const selectableItems = itemsContainer.value?.querySelectorAll<HTMLButtonElement>('.multiselect-item button:not([disabled])')
