@@ -121,7 +121,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
       - name: Run Cypress component tests
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@fa88e4afe551e64c8827a4b9e379afc63d8f691a # v6.0.1
         with:
           install: false
           command: pnpm test
