@@ -898,6 +898,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       display: grid;
       margin: var(--kui-space-0, $kui-space-0);
       min-height: 32px; // ensures that scroll bar doesn't show up when there's only one line of content (not to confuse with single line mode)
+      overflow-x: hidden;
       position: relative;
 
       &:not(.single-line) {
