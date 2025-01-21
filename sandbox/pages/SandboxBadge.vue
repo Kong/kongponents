@@ -101,9 +101,62 @@
       <SandboxSectionComponent
         title="default"
       >
-        <KBadge>
-          <b>Default</b> slot
-        </KBadge>
+        <div class="horizontal-spacing">
+          <KBadge>
+            Info.
+            <KExternalLink
+              href="https://kongponents.konghq.com/components/badge.html"
+              target="_blank"
+            >
+              Link
+            </KExternalLink>
+          </KBadge>
+          <KBadge appearance="success">
+            Success.
+            <KExternalLink
+              href="https://kongponents.konghq.com/components/badge.html"
+              target="_blank"
+            >
+              Link
+            </KExternalLink>
+          </KBadge>
+          <KBadge appearance="warning">
+            Warning.
+            <KExternalLink
+              href="https://kongponents.konghq.com/components/badge.html"
+              target="_blank"
+            >
+              Link
+            </KExternalLink>
+          </KBadge>
+          <KBadge appearance="danger">
+            Danger.
+            <KExternalLink
+              href="https://kongponents.konghq.com/components/badge.html"
+              target="_blank"
+            >
+              Link
+            </KExternalLink>
+          </KBadge>
+          <KBadge appearance="decorative">
+            Decorative.
+            <KExternalLink
+              href="https://kongponents.konghq.com/components/badge.html"
+              target="_blank"
+            >
+              Link
+            </KExternalLink>
+          </KBadge>
+          <KBadge appearance="neutral">
+            Neutral.
+            <KExternalLink
+              href="https://kongponents.konghq.com/components/badge.html"
+              target="_blank"
+            >
+              Link
+            </KExternalLink>
+          </KBadge>
+        </div>
         <p>Using icon within the default slot basically becomes a don't unless you are willing to override some default component styles.</p>
         <div class="horizontal-spacing">
           <KBadge>
@@ -398,6 +451,7 @@ import { inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { KongIcon, WarningOutlineIcon, CloseIcon } from '@kong/icons'
+import KExternalLink from '@/components/KExternalLink/KExternalLink.vue'
 
 const handleIconClick = (): void => {
   alert('Icon clicked!')
