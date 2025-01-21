@@ -6,8 +6,8 @@ permissions:
   contents: write
 
 on:
-  pull_request:
-    types: ['opened']
+  # pull_request:
+  #   types: ['opened']
 
 jobs:
   renovate-autoapprove:
