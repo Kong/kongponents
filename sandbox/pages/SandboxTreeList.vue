@@ -64,7 +64,7 @@
         <KTreeList
           :collapsable="true"
           :collapse-all="true"
-          :items="items10"
+          :items="items11"
         />
       </SandboxSectionComponent>
 
@@ -190,6 +190,7 @@ const items7 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items8 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items9 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items10 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
+const items11 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 </script>
 
 <style lang="scss" scoped>

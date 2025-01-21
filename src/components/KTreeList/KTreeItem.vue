@@ -1,52 +1,61 @@
 <template>
-  <button
-    class="tree-item"
-    :class="{
-      'not-draggable': disabled,
-      'selected': item.selected,
-      'expanded': collapsable && isExpanded,
-      'collapsed': collapsable && !isExpanded
-    }"
-    :data-testid="`tree-item-${item.id}`"
-    data-tree-item-trigger="true"
-    draggable="false"
-    type="button"
-    @click.prevent="handleClick"
+  <div
+    class="tree-item-wrapper"
+    :data-testid="`tree-item-wrapper-${item.id}`"
   >
     <component
       :is="expandedIcon"
       v-if="collapsable"
+      :aria-controls="`tree-list-draggable-${controlsId}`"
+      :aria-expanded="isExpanded"
+      :aria-label="isExpanded ? 'Collapse' : 'Expand'"
       class="tree-item-expanded-icon"
       data-testid="tree-item-expanded-icon"
       role="button"
+      :size="KUI_ICON_SIZE_40"
+      tabindex="0"
       @click.stop="toggleItem"
     />
 
-    <div
-      v-if="hasIcon"
-      class="tree-item-icon"
-      data-testid="tree-item-icon"
+    <button
+      class="tree-item"
+      :class="{
+        'not-draggable': disabled,
+        'selected': item.selected,
+        'expanded': collapsable && isExpanded,
+        'collapsed': collapsable && !isExpanded
+      }"
+      :data-testid="`tree-item-${item.id}`"
+      data-tree-item-trigger="true"
+      draggable="false"
+      type="button"
+      @click.prevent="handleClick"
     >
-      <slot name="item-icon">
-        <ServiceDocumentIcon decorative />
-      </slot>
-    </div>
-    <div
-      class="tree-item-label"
-      data-testid="tree-item-label"
-    >
-      <slot name="item-label">
-        {{ item.name }}
-      </slot>
-    </div>
-  </button>
+      <div
+        v-if="hasIcon"
+        class="tree-item-icon"
+        data-testid="tree-item-icon"
+      >
+        <slot name="item-icon">
+          <ServiceDocumentIcon decorative />
+        </slot>
+      </div>
+      <div
+        class="tree-item-label"
+        data-testid="tree-item-label"
+      >
+        <slot name="item-label">
+          {{ item.name }}
+        </slot>
+      </div>
+    </button>
+  </div>
 </template>
 
 <script lang="ts">
 import type { PropType } from 'vue'
 import { computed, useSlots } from 'vue'
 import type { TreeListItem } from '@/types'
-import { ServiceDocumentIcon, ChevronDownIcon, ChevronUpIcon } from '@kong/icons'
 
 export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
   return items.every(i => i.name !== undefined && i.id !== undefined && (!i.children?.length || itemsHaveRequiredProps(i.children)))
@@ -57,7 +66,9 @@ export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
 /**
  * button.tree-item has draggable="false" attribute to prevent native drag events in order to let vue-draggable-next handle dragging
  */
-import { ref, shallowRef, watch } from 'vue'
+import { ref, shallowRef, useId, watch } from 'vue'
+import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import { ServiceDocumentIcon, ChevronDownIcon, ChevronRightIcon } from '@kong/icons'
 
 const props = defineProps({
   item: {
@@ -80,6 +91,10 @@ const props = defineProps({
   initialCollapse: {
     type: Boolean,
     default: false,
+  },
+  controlsId: {
+    type: String,
+    required: true,
   },
 })
 
@@ -107,10 +122,10 @@ const handleClick = (event: any) => {
 
 const isExpanded = ref<boolean>(true)
 
-const expandedIcon = shallowRef(ChevronUpIcon)
+const expandedIcon = shallowRef(ChevronRightIcon)
 
 const setExpandedIcon = (): void => {
-  expandedIcon.value = isExpanded.value ? ChevronUpIcon : ChevronDownIcon
+  expandedIcon.value = isExpanded.value ? ChevronRightIcon : ChevronDownIcon
 }
 
 watch(() => props.initialCollapse, (val, oldVal) => {
@@ -149,6 +164,12 @@ const toggleItem = (): void => {
   transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, border-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
   user-select: none;
   width: 100%;
+
+  &-wrapper {
+    align-items: center;
+    display: flex;
+    gap: $kui-space-40;
+  }
 
   .tree-item-icon,
   :deep(#{$kongponentsKongIconSelector}) {
@@ -189,7 +210,12 @@ const toggleItem = (): void => {
 
   &-expanded-icon {
     cursor: pointer;
-    z-index: 10;
+
+    &:focus-visible {
+      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+      outline: none;
+    }
   }
 }
 </style>

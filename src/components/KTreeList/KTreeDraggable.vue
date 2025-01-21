@@ -24,6 +24,7 @@
       <KTreeItem
         :key="`tree-item-${element.id}-${key}`"
         :collapsable="collapsable && !hasNoChildren(element)"
+        :controls-id="element.id"
         :disabled="disableDrag"
         :hide-icons="hideIcons"
         :initial-collapse="collapseAll"
@@ -51,6 +52,7 @@
       </KTreeItem>
       <KTreeDraggable
         v-show="getChildrenVisibility(element.id)"
+        :id="`tree-list-draggable-${element.id}`"
         :key="`tree-item-${element.id}-children-${key}`"
         :collapsable="collapsable"
         :collapse-all="collapseAll"
@@ -202,8 +204,8 @@ const handleSelectionEvent = (item: TreeListItem): void => {
 
 const childrenVisibilityMap = ref(new Map<string, boolean>())
 
-const handleExpandedEvent = (value: boolean, id: string): void => {
-  childrenVisibilityMap.value.set(id, value)
+const handleExpandedEvent = (visibility: boolean, id: string): void => {
+  childrenVisibilityMap.value.set(id, visibility)
 }
 
 const getChildrenVisibility = (id: string): boolean => {

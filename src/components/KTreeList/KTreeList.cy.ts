@@ -240,7 +240,7 @@ describe('KTreeList', () => {
     patentIds.forEach((id: string) => {
       cy.getTestId(`tree-item-${id}`).should('be.visible')
       cy.getTestId(`tree-item-${id}`).should('have.class', 'collapsed')
-      cy.getTestId('k-tree-list').find(`[data-testid="tree-item-${id}"] + .tree-draggable`).should('not.be.visible')
+      cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${id}"] + .tree-draggable`).should('not.be.visible')
     })
   })
 
@@ -288,7 +288,7 @@ describe('KTreeList', () => {
       cy.getTestId(`tree-item-${id}`).should('be.visible')
       cy.getTestId(`tree-item-${id}`).should('not.have.class', 'collapsed')
       cy.getTestId(`tree-item-${id}`).should('not.have.class', 'expanded')
-      cy.getTestId('k-tree-list').find(`[data-testid="tree-item-${id}"] + .tree-draggable`).should('be.visible')
+      cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${id}"] + .tree-draggable`).should('be.visible')
     })
   })
 
@@ -333,17 +333,17 @@ describe('KTreeList', () => {
 
     cy.getTestId(`tree-item-${patentIds[0]}`).should('be.visible')
     cy.getTestId(`tree-item-${patentIds[0]}`).should('have.class', 'expanded')
-    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-${patentIds[0]}"] + .tree-draggable`).should('be.visible')
+    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${patentIds[0]}"] + .tree-draggable`).should('be.visible')
 
-    cy.getTestId(`tree-item-${patentIds[0]}`).findTestId('tree-item-expanded-icon').trigger('click')
+    cy.getTestId(`tree-item-wrapper-${patentIds[0]}`).findTestId('tree-item-expanded-icon').trigger('click')
 
     // Check collapsed item
     cy.getTestId(`tree-item-${patentIds[0]}`).should('have.class', 'collapsed')
-    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-${patentIds[0]}"] + .tree-draggable`).should('not.be.visible')
+    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${patentIds[0]}"] + .tree-draggable`).should('not.be.visible')
 
     // Check expanded item
     cy.getTestId(`tree-item-${patentIds[1]}`).should('have.class', 'expanded')
-    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-${patentIds[1]}"] + .tree-draggable`).should('be.visible')
+    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${patentIds[1]}"] + .tree-draggable`).should('be.visible')
   })
 
   it('Next level list should not be affected of collapsing/expanding a parent', () => {
@@ -398,26 +398,26 @@ describe('KTreeList', () => {
 
     cy.getTestId(`tree-item-${patentIds[0]}`).should('be.visible')
     cy.getTestId(`tree-item-${patentIds[0]}`).should('have.class', 'expanded')
-    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-${patentIds[0]}"] + .tree-draggable`).should('be.visible')
+    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${patentIds[0]}"] + .tree-draggable`).should('be.visible')
 
     cy.getTestId(`tree-item-${childIds[0]}`).should('be.visible')
     cy.getTestId(`tree-item-${childIds[0]}`).should('have.class', 'expanded')
-    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-${childIds[0]}"] + .tree-draggable`).should('be.visible')
+    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${childIds[0]}"] + .tree-draggable`).should('be.visible')
 
-    cy.getTestId(`tree-item-${patentIds[0]}`).findTestId('tree-item-expanded-icon').trigger('click')
+    cy.getTestId(`tree-item-wrapper-${patentIds[0]}`).findTestId('tree-item-expanded-icon').trigger('click')
 
     // Check collapsed item
     cy.getTestId(`tree-item-${patentIds[0]}`).should('have.class', 'collapsed')
-    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-${patentIds[0]}"] + .tree-draggable`).should('not.be.visible')
+    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${patentIds[0]}"] + .tree-draggable`).should('not.be.visible')
 
-    cy.getTestId(`tree-item-${patentIds[0]}`).findTestId('tree-item-expanded-icon').trigger('click')
+    cy.getTestId(`tree-item-wrapper-${patentIds[0]}`).findTestId('tree-item-expanded-icon').trigger('click')
 
     // Check if parent and child items are expanded
     cy.getTestId(`tree-item-${patentIds[0]}`).should('have.class', 'expanded')
-    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-${patentIds[0]}"] + .tree-draggable`).should('be.visible')
+    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${patentIds[0]}"] + .tree-draggable`).should('be.visible')
 
     cy.getTestId(`tree-item-${childIds[0]}`).should('have.class', 'expanded')
-    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-${childIds[0]}"] + .tree-draggable`).should('be.visible')
+    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${childIds[0]}"] + .tree-draggable`).should('be.visible')
   })
 
   it('Caret icon should not exist if `collapsable` prop is set to `false`', () => {
