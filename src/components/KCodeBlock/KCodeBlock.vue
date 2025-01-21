@@ -967,7 +967,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
         z-index: 1;
 
         // making sure code block doesn't have double horizontal scrollbars
-        > pre {
+        pre {
           overflow: unset;
         }
       }
