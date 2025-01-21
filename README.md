@@ -34,7 +34,7 @@ This will trigger the Commitizen interactive prompt for building your commit mes
 
 [Lefthook](https://github.com/evilmartians/lefthook) is used to manage Git Hooks within the repo. A `commit-msg` hook is automatically setup that enforces commit message stands with `commitlint`, see [`lefthook.yaml`](./lefthook.yaml).
 
-### Approvals and Releases
+### Approvals
 
 - All pull requests require review and approval from authorized team members.
 - Automated approvals through workflows are strictly prohibited.
