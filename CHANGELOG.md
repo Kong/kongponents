@@ -1,3 +1,10 @@
+## [9.17.4](https://github.com/Kong/kongponents/compare/v9.17.3...v9.17.4) (2025-01-21)
+
+
+### Bug Fixes
+
+* **kselect:** fix selection color upon keyboard focus ([#2580](https://github.com/Kong/kongponents/issues/2580)) ([bdbdeba](https://github.com/Kong/kongponents/commit/bdbdebabb3f651d6eef5ec10cf7da602b49e99f0))
+
 ## [9.17.3](https://github.com/Kong/kongponents/compare/v9.17.2...v9.17.3) (2025-01-21)
 
 
