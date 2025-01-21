@@ -965,6 +965,11 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
         min-width: 0;
         overflow-x: auto;
         z-index: 1;
+
+        // making sure code block doesn't have double horizontal scrollbars
+        > pre {
+          overflow: unset;
+        }
       }
 
       &.single-line {
@@ -974,10 +979,6 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
           line-height: var(--kui-line-height-60, $kui-line-height-60);
         }
       }
-    }
-
-    > pre {
-      overflow-x: hidden;
     }
   }
 
