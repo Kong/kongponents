@@ -789,6 +789,10 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
       :deep(input:not([disabled])) {
         caret-color: transparent !important;
         cursor: pointer;
+
+        &::selection {
+          background-color: transparent;
+        }
       }
     }
 
@@ -798,6 +802,10 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
 
         &::placeholder {
           color: transparent !important;
+        }
+
+        &::selection {
+          background-color: transparent;
         }
       }
     }
