@@ -29,7 +29,6 @@
   background-color: $bgColor;
   color: $textColor;
 
-  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
   :deep([role="button"]):not([disabled]):not(#{$kongponentsKCopyTooltipWrapperSelector}):not(.badge-content) {
     &:hover,
     &:focus {
