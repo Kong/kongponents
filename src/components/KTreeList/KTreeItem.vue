@@ -3,13 +3,16 @@
     class="tree-item-wrapper"
     :data-testid="`tree-item-wrapper-${item.id}`"
   >
-    <component
-      :is="expandedIcon"
+    <ChevronDownIcon
       v-if="collapsable"
       :aria-controls="`tree-list-draggable-${controlsId}`"
       :aria-expanded="isExpanded"
       :aria-label="isExpanded ? 'Collapse' : 'Expand'"
       class="tree-item-expanded-icon"
+      :class="{
+        'collapsed': !isExpanded,
+        'expanded': isExpanded
+      }"
       data-testid="tree-item-expanded-icon"
       role="button"
       :size="KUI_ICON_SIZE_40"
@@ -66,9 +69,9 @@ export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
 /**
  * button.tree-item has draggable="false" attribute to prevent native drag events in order to let vue-draggable-next handle dragging
  */
-import { ref, shallowRef, useId, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
-import { ServiceDocumentIcon, ChevronDownIcon, ChevronRightIcon } from '@kong/icons'
+import { ServiceDocumentIcon, ChevronDownIcon } from '@kong/icons'
 
 const props = defineProps({
   item: {
@@ -122,16 +125,9 @@ const handleClick = (event: any) => {
 
 const isExpanded = ref<boolean>(true)
 
-const expandedIcon = shallowRef(ChevronRightIcon)
-
-const setExpandedIcon = (): void => {
-  expandedIcon.value = isExpanded.value ? ChevronRightIcon : ChevronDownIcon
-}
-
 watch(() => props.initialCollapse, (val, oldVal) => {
   if (val !== oldVal) {
     isExpanded.value = !val
-    setExpandedIcon()
   }
 }, {
   immediate: true,
@@ -139,8 +135,6 @@ watch(() => props.initialCollapse, (val, oldVal) => {
 
 const toggleItem = (): void => {
   isExpanded.value = !isExpanded.value
-
-  setExpandedIcon()
 
   emit('expanded', isExpanded.value)
 }
@@ -210,6 +204,15 @@ const toggleItem = (): void => {
 
   &-expanded-icon {
     cursor: pointer;
+    transition: 0.2s all linear;
+
+    &.collapsed {
+      transform: rotate(0);
+    }
+
+    &.expanded {
+      transform: rotate(-90deg);
+    }
 
     &:focus-visible {
       border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
