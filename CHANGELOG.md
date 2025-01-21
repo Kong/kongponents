@@ -1,3 +1,10 @@
+## [9.17.5](https://github.com/Kong/kongponents/compare/v9.17.4...v9.17.5) (2025-01-21)
+
+
+### Bug Fixes
+
+* **kbadge:** slotted link styles [KHCP-14774] ([#2585](https://github.com/Kong/kongponents/issues/2585)) ([6054bec](https://github.com/Kong/kongponents/commit/6054bec357b2c97dc073c781e4ed67f804b87bb5))
+
 ## [9.17.4](https://github.com/Kong/kongponents/compare/v9.17.3...v9.17.4) (2025-01-21)
 
 
