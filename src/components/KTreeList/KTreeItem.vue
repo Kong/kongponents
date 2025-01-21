@@ -14,7 +14,6 @@
         'expanded': isExpanded
       }"
       data-testid="tree-item-expanded-icon"
-      decorative
       role="button"
       :size="KUI_ICON_SIZE_40"
       tabindex="0"
