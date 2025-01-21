@@ -215,24 +215,24 @@ Boolean to hide icons. Defaults to `false`.
 <KTreeList hide-icons :items="items" />
 ```
 
-### collapsable
+### collapsible
 
 Boolean to enable/disable collapse feature. Defaults to `false`.
 
-<KTreeList :collapsable="true" :items="collapsableItems" />
+<KTreeList :collapsible="true" :items="collapsibleItems" />
 
 ```html
-<KTreeList :collapsable="true" :items="items" />
+<KTreeList :collapsible="true" :items="items" />
 ```
 
 ### collapseAll
 
-Boolean to collapse/expand all TreeListItems. Should be used only with `collapsable` prop. Defaults to `false`.
+Boolean to collapse/expand all TreeListItems. Should be used only with `collapsible` prop. Defaults to `false`.
 
-<KTreeList :collapsable="true" :collapse-all="true" :items="collapseAllItems" />
+<KTreeList :collapsible="true" :collapse-all="true" :items="collapseAllItems" />
 
 ```html
-<KTreeList :collapsable="true" :collapse-all="true" :items="items" />
+<KTreeList :collapsible="true" :collapse-all="true" :items="items" />
 ```
 
 ## Slots
@@ -405,7 +405,7 @@ const widthItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
 const hideIconsItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
-const collapsableItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
+const collapsibleItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
 const collapseAllItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 

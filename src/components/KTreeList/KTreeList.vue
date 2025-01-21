@@ -5,8 +5,8 @@
     :style="width ? widthStyle : undefined"
   >
     <KTreeDraggable
-      :collapsable="collapsable"
       :collapse-all="collapseAll"
+      :collapsible="collapsible"
       :data-testid="`k-tree-list-${group}`"
       :disable-drag="disableDrag"
       :group="group"
@@ -111,7 +111,7 @@ const props = defineProps({
     type: String,
     default: 'k-tree-list',
   },
-  collapsable: {
+  collapsible: {
     type: Boolean,
     default: false,
   },

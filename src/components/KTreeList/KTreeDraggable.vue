@@ -23,7 +23,7 @@
     >
       <KTreeItem
         :key="`tree-item-${element.id}-${key}`"
-        :collapsable="collapsable && !hasNoChildren(element)"
+        :collapsible="collapsible && !hasNoChildren(element)"
         :controls-id="element.id"
         :disabled="disableDrag"
         :hide-icons="hideIcons"
@@ -54,8 +54,11 @@
         v-show="getChildrenVisibility(element.id)"
         :id="`tree-list-draggable-${element.id}`"
         :key="`tree-item-${element.id}-children-${key}`"
-        :collapsable="collapsable"
+        :class="{
+          'collapsible': collapsible
+        }"
         :collapse-all="collapseAll"
+        :collapsible="collapsible"
         :disable-drag="disableDrag"
         :group="group"
         :hide-icons="hideIcons"
@@ -139,7 +142,7 @@ const props = defineProps({
     type: String,
     default: 'k-tree-list',
   },
-  collapsable: {
+  collapsible: {
     type: Boolean,
     default: false,
   },
@@ -209,7 +212,7 @@ const handleExpandedEvent = (visibility: boolean, id: string): void => {
 }
 
 const getChildrenVisibility = (id: string): boolean => {
-  return props.collapsable ? !!childrenVisibilityMap.value.get(id) : true
+  return props.collapsible ? !!childrenVisibilityMap.value.get(id) : true
 }
 
 const maxLevelReached = computed((): boolean => {
@@ -286,7 +289,7 @@ const triggerCollapse = (): void => {
 }
 
 watch(() => props.collapseAll, (val, oldVal) => {
-  if (props.collapsable && val !== oldVal) {
+  if (props.collapsible && val !== oldVal) {
     triggerCollapse()
   }
 })
@@ -302,7 +305,7 @@ onMounted(async () => {
 
   // Handles correct initial collapsed/expanded state
   await nextTick(() => {
-    if (props.collapsable) {
+    if (props.collapsible) {
       triggerCollapse()
     }
   })
@@ -316,6 +319,8 @@ $kTreeListDropZoneHeight: 6px;
 // no tokens for these two since the math requires them to be static
 $kTreeListIdent: 16px;
 $kTreeListBar: 12px;
+$kTreeListBarCollapsible: 30px;
+$kTreeListIdentCollapsible: 20px;
 
 /* Component styles */
 .tree-draggable {
@@ -356,6 +361,20 @@ $kTreeListBar: 12px;
   .tree-draggable {
     counter-reset: item;
     margin-left: $kTreeListIdent;
+
+    &.collapsible {
+      & .tree-item-container {
+        padding-left: $kTreeListIdentCollapsible;
+
+        &:before {
+          width: $kTreeListBarCollapsible;
+        }
+
+        &:after {
+          width: $kTreeListBarCollapsible;
+        }
+      }
+    }
   }
 
   .tree-item-container {

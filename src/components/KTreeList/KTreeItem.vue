@@ -4,7 +4,7 @@
     :data-testid="`tree-item-wrapper-${item.id}`"
   >
     <ChevronDownIcon
-      v-if="collapsable"
+      v-if="collapsible"
       :aria-controls="`tree-list-draggable-${controlsId}`"
       :aria-expanded="isExpanded"
       :aria-label="isExpanded ? 'Collapse' : 'Expand'"
@@ -14,6 +14,7 @@
         'expanded': isExpanded
       }"
       data-testid="tree-item-expanded-icon"
+      decorative
       role="button"
       :size="KUI_ICON_SIZE_40"
       tabindex="0"
@@ -25,8 +26,8 @@
       :class="{
         'not-draggable': disabled,
         'selected': item.selected,
-        'expanded': collapsable && isExpanded,
-        'collapsed': collapsable && !isExpanded
+        'expanded': collapsible && isExpanded,
+        'collapsed': collapsible && !isExpanded
       }"
       :data-testid="`tree-item-${item.id}`"
       data-tree-item-trigger="true"
@@ -87,7 +88,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  collapsable: {
+  collapsible: {
     type: Boolean,
     default: false,
   },
@@ -162,7 +163,7 @@ const toggleItem = (): void => {
   &-wrapper {
     align-items: center;
     display: flex;
-    gap: $kui-space-40;
+    gap: $kui-space-30;
   }
 
   .tree-item-icon,

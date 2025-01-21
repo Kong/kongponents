@@ -232,7 +232,7 @@ describe('KTreeList', () => {
             ],
           },
         ],
-        collapsable: true,
+        collapsible: true,
         collapseAll: true,
       },
     })
@@ -244,7 +244,7 @@ describe('KTreeList', () => {
     })
   })
 
-  it('`collapseAll` prop should be ignored if `collapsable` prop is not set to `true`', () => {
+  it('`collapseAll` prop should be ignored if `collapsible` prop is not set to `true`', () => {
     const patentIds = ['id1', 'id2']
 
     cy.mount(KTreeList, {
@@ -279,7 +279,7 @@ describe('KTreeList', () => {
             ],
           },
         ],
-        collapsable: false,
+        collapsible: false,
         collapseAll: true,
       },
     })
@@ -327,7 +327,7 @@ describe('KTreeList', () => {
             ],
           },
         ],
-        collapsable: true,
+        collapsible: true,
       },
     })
 
@@ -392,7 +392,7 @@ describe('KTreeList', () => {
             ],
           },
         ],
-        collapsable: true,
+        collapsible: true,
       },
     })
 
@@ -420,7 +420,7 @@ describe('KTreeList', () => {
     cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${childIds[0]}"] + .tree-draggable`).should('be.visible')
   })
 
-  it('Caret icon should not exist if `collapsable` prop is set to `false`', () => {
+  it('Caret icon should not exist if `collapsible` prop is set to `false`', () => {
     cy.mount(KTreeList, {
       props: {
         items: [
@@ -439,7 +439,7 @@ describe('KTreeList', () => {
             ],
           },
         ],
-        collapsable: false,
+        collapsible: false,
       },
     })
 

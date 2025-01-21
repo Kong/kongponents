@@ -54,16 +54,16 @@
           :items="items7"
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="collapsable">
+      <SandboxSectionComponent title="collapsible">
         <KTreeList
-          :collapsable="true"
+          :collapsible="true"
           :items="items10"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="collapseAll">
         <KTreeList
-          :collapsable="true"
           :collapse-all="true"
+          :collapsible="true"
           :items="items11"
         />
       </SandboxSectionComponent>
