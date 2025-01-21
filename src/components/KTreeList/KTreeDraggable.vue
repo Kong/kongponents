@@ -27,7 +27,7 @@
         :controls-id="element.id"
         :disabled="disableDrag"
         :hide-icons="hideIcons"
-        :initial-collapse="collapseAll"
+        :initial-collapse="collapseAllInitially"
         :item="element"
         @expanded="handleExpandedEvent($event, element.id)"
         @selected="handleSelectionEvent"
@@ -57,7 +57,7 @@
         :class="{
           'collapsible': collapsible
         }"
-        :collapse-all="collapseAll"
+        :collapse-all-initially="collapseAllInitially"
         :collapsible="collapsible"
         :disable-drag="disableDrag"
         :group="group"
@@ -146,7 +146,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  collapseAll: {
+  collapseAllInitially: {
     type: Boolean,
     default: false,
   },
@@ -282,17 +282,23 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 })
 
-const triggerCollapse = (): void => {
+const collapseAll = (): void => {
   internalList.value.forEach(item => {
-    childrenVisibilityMap.value.set(item.id, !props.collapseAll)
+    childrenVisibilityMap.value.set(item.id, false)
   })
 }
 
-watch(() => props.collapseAll, (val, oldVal) => {
-  if (props.collapsible && val !== oldVal) {
-    triggerCollapse()
-  }
-})
+const expandAll = (): void => {
+  internalList.value.forEach(item => {
+    childrenVisibilityMap.value.set(item.id, true)
+  })
+}
+
+const triggerCollapse = (): void => {
+  internalList.value.forEach(item => {
+    childrenVisibilityMap.value.set(item.id, !props.collapseAllInitially)
+  })
+}
 
 onMounted(async () => {
   internalList.value = props.items
@@ -310,6 +316,8 @@ onMounted(async () => {
     }
   })
 })
+
+defineExpose({ collapseAll, expandAll })
 </script>
 
 <style lang="scss" scoped>

@@ -225,14 +225,14 @@ Boolean to enable/disable collapse feature. Defaults to `false`.
 <KTreeList :collapsible="true" :items="items" />
 ```
 
-### collapseAll
+### collapseAllInitially
 
-Boolean to collapse/expand all TreeListItems. Should be used only with `collapsible` prop. Defaults to `false`.
+Boolean to initially collapse/expand all TreeListItems. Should be used only with `collapsible` prop. Defaults to `false`.
 
-<KTreeList :collapsible="true" :collapse-all="true" :items="collapseAllItems" />
+<KTreeList :collapsible="true" :collapse-all-initially="true" :items="collapseAllItems" />
 
 ```html
-<KTreeList :collapsible="true" :collapse-all="true" :items="items" />
+<KTreeList :collapsible="true" :collapse-all-initially="true" :items="items" />
 ```
 
 ## Slots
@@ -329,8 +329,52 @@ Two separate `child-change` events will fire if an item is moved from one parent
 
 Emitted when you click (and don't drag) an item. Returns the selected item's data.
 
+## Methods
+
+### collapseAll
+
+Allows to collapse all TreeList items when `collapsible` prop is set to `true`.
+
+
+
+### expandAll
+
+Allows to expand all TreeList items when `collapsible` prop is set to `true`.
+
+<KInputSwitch
+    v-model="toggleItems"
+    :label="toggleItems ? 'Collapse All' : 'Expand All'"
+/>
+
+<KTreeList :collapsible="true" :items="collapseOrExpandItems" ref="k-tree-ref" />
+
+```html
+<KInputSwitch
+    v-model="toggleItems"
+    :label="toggleItems ? 'Collapse All' : 'Expand All'"
+/>
+
+<KTreeList :collapsible="true" :items="items" ref="k-tree-ref" />
+```
+
+```typescript
+const toggleItems = ref<boolean>(true)
+
+const kTreeRef = useTemplateRef('k-tree-ref')
+
+watch(toggleItems, (val, oldVal) => {
+  if (val !== oldVal) {
+    if (val) {
+      kTreeRef.value?.expandAll()
+    } else {
+      kTreeRef.value?.collapseAll()
+    }
+  }
+})
+```
+
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, useTemplateRef, watch } from 'vue'
 import { InboxIcon, DataObjectIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_DECORATIVE_PURPLE, KUI_COLOR_TEXT_DECORATIVE_PURPLE_STRONG } from '@kong/design-tokens'
 
@@ -409,11 +453,27 @@ const collapsibleItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
 const collapseAllItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
+const collapseOrExpandItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
+
 const slotItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
 const reset = (): void => {
   myList.value = JSON.parse(JSON.stringify(items))
 }
+
+const toggleItems = ref<boolean>(true)
+
+const kTreeRef = useTemplateRef('k-tree-ref')
+
+watch(toggleItems, (val, oldVal) => {
+  if (val !== oldVal) {
+    if (val) {
+      kTreeRef.value?.expandAll()
+    } else {
+      kTreeRef.value?.collapseAll()
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -433,3 +493,4 @@ const reset = (): void => {
   }
 }
 </style>
+

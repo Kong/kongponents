@@ -205,7 +205,9 @@ const toggleItem = (): void => {
 
   &-expanded-icon {
     cursor: pointer;
-    transition: 0.2s all linear;
+    transition: 0.1s all linear;
+    // makes the button click easier on draggable wrapper
+    z-index: 10;
 
     &.collapsed {
       transform: rotate(0);
