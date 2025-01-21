@@ -36,6 +36,16 @@
       color: $hoverColor !important;
     }
   }
+
+  :deep(a) {
+    color: $textColor;
+    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+    text-decoration: none;
+
+    &:hover {
+      color: $hoverColor;
+    }
+  }
 }
 
 @mixin decorativeBadgeAppearance {
