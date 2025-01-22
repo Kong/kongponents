@@ -4,6 +4,7 @@
     class="tree-draggable"
     direction="vertical"
     :disabled="disableDrag"
+    filter=".tree-item-expanded-button"
     :group="{ name: group, pull: [group], put: maxLevelReached ? [] : [group] }"
     :level="level"
     :list="internalList"
