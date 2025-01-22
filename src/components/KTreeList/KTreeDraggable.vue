@@ -345,8 +345,8 @@ $kTreeListDropZoneHeight: 6px;
 // no tokens for these two since the math requires them to be static
 $kTreeListIdent: 16px;
 $kTreeListBar: 12px;
-$kTreeListBarCollapsible: 30px;
-$kTreeListIdentCollapsible: 20px;
+$kTreeListBarCollapsible: 16px;
+$kTreeListIdentCollapsible: 10px;
 
 /* Component styles */
 .tree-draggable {
@@ -394,6 +394,7 @@ $kTreeListIdentCollapsible: 20px;
 
         &:before {
           left: -4px;
+          top: -7px;
           width: $kTreeListBarCollapsible;
         }
 
@@ -404,11 +405,17 @@ $kTreeListIdentCollapsible: 20px;
 
         &.has-no-children {
           &:before {
-            width: 56px;
+            width: 33px;
           }
 
           &:after {
-            width: 56px;
+            width: 33px;
+          }
+        }
+
+        &:first-of-type {
+          &:before {
+            top: -3px;
           }
         }
       }

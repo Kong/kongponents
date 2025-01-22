@@ -182,7 +182,7 @@ defineExpose({ setExpandedValue, id: props.item?.id })
   width: 100%;
 
   &.no-children {
-    margin-left: 31px;
+    margin-left: 19px;
   }
 
   &-wrapper {
@@ -229,7 +229,7 @@ defineExpose({ setExpandedValue, id: props.item?.id })
 
   &-expanded-button {
     cursor: pointer;
-    padding: 6px;
+    padding: $kui-space-30;
     // makes the button click easier on draggable wrapper
     z-index: 10;
 
