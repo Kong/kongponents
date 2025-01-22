@@ -5,7 +5,6 @@
   >
     <KLabel
       v-if="label"
-      ref="labelElement"
       v-bind="labelAttributes"
       data-testid="select-label"
       :for="selectInputId"
@@ -192,7 +191,7 @@
 
 <script setup lang="ts">
 import type { Ref, PropType } from 'vue'
-import { ref, computed, watch, nextTick, useAttrs, useSlots, onUnmounted, onMounted, useId } from 'vue'
+import { ref, computed, watch, nextTick, useAttrs, useSlots, onUnmounted, onMounted, useId, useTemplateRef } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -373,8 +372,7 @@ const defaultKPopAttributes = {
 }
 
 const inputKey = ref<number>(0)
-const inputElement = ref<InstanceType<typeof KInput> | null>(null)
-const labelElement = ref<InstanceType<typeof KLabel> | null>(null)
+const inputRef = useTemplateRef('inputElement')
 
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
 
@@ -400,8 +398,8 @@ const selectedItem = ref<SelectItem | null>(null)
 const selectItems = ref<SelectItem[]>([])
 const inputFocused = ref<boolean>(false)
 
-const popperElement = ref<HTMLElement>()
-const selectWrapperElement = ref<HTMLDivElement>() // div element that wraps the input
+const popperRef = useTemplateRef('popperElement')
+const selectWrapperRef = useTemplateRef('selectWrapperElement') // div element that wraps the input
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
@@ -550,7 +548,7 @@ const clearSelection = (): void => {
   emit('update:modelValue', null)
 }
 
-const kSelectItems = ref<InstanceType<typeof KSelectItems> | null>(null)
+const selectItemsRef = useTemplateRef('kSelectItems')
 
 const triggerFocus = (evt: any, isToggled: Ref<boolean>): void => {
   // Ignore `esc` key
@@ -559,13 +557,13 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>): void => {
     return
   }
 
-  const inputElem = selectWrapperElement.value?.children[0] as HTMLInputElement
+  const inputElem = selectWrapperRef.value?.children[0] as HTMLInputElement
   if (!isToggled.value && inputElem) { // simulate click to trigger dropdown open
     inputElem.click()
   }
 
   if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp') && isToggled.value) {
-    kSelectItems.value?.setFocus()
+    selectItemsRef.value?.setFocus()
   }
 }
 
@@ -587,7 +585,7 @@ const onInputClick = (): void => {
   // If filtering is not enabled, the internal KInput activates the keyboard on mobile when clicked even though it's not needed.
   // This will blur the input and prevent the keyboard from activating on mobile.
   if (!props.enableFiltering) {
-    inputElement.value?.$el?.querySelector('input')?.blur()
+    inputRef.value?.$el?.querySelector('input')?.blur()
   }
 }
 
@@ -691,11 +689,11 @@ watch(() => props.items, (newValue, oldValue) => {
   // This prevents the popover from displaying "detached" from the KSelect
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  if (popperElement.value && typeof popperElement.value.updatePopper === 'function') {
+  if (popperRef.value && typeof popperRef.value.updatePopper === 'function') {
     nextTick(() => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      popperElement.value.updatePopper()
+      popperRef.value.updatePopper()
     })
   }
 }, { deep: true, immediate: true })
@@ -721,12 +719,12 @@ watch(selectedItem, (newVal, oldVal) => {
 }, { deep: true })
 
 onMounted(() => {
-  if (selectWrapperElement.value) {
+  if (selectWrapperRef.value) {
     resizeObserver.value = ResizeObserverHelper.create(() => {
-      actualElementWidth.value = `${selectWrapperElement.value?.offsetWidth}px`
+      actualElementWidth.value = `${selectWrapperRef.value?.offsetWidth}px`
     })
 
-    resizeObserver.value.observe(selectWrapperElement.value as HTMLDivElement)
+    resizeObserver.value.observe(selectWrapperRef.value as HTMLDivElement)
   }
 
   useEventListener(document, 'keydown', (event: any) => {
@@ -735,15 +733,15 @@ onMounted(() => {
       if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
         event.preventDefault()
 
-        kSelectItems.value?.setFocus()
+        selectItemsRef.value?.setFocus()
       }
     }
   })
 })
 
 onUnmounted(() => {
-  if (selectWrapperElement.value) {
-    resizeObserver.value?.unobserve(selectWrapperElement.value)
+  if (selectWrapperRef.value) {
+    resizeObserver.value?.unobserve(selectWrapperRef.value)
   }
 })
 </script>

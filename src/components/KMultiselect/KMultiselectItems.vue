@@ -64,7 +64,7 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed, ref } from 'vue'
+import { computed, useTemplateRef } from 'vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 import type { MultiselectItem } from '@/types'
 
@@ -101,17 +101,17 @@ const groups = computed((): string[] => [...new Set((props.items?.filter(item =>
 
 const getGroupItems = (group: string) => props.items?.filter(item => item.group === group)
 
-const itemsContainer = ref<HTMLDivElement | null>(null)
+const itemsContainerRef = useTemplateRef('itemsContainer')
 
 const setItemFocus = (): void => {
-  const firstSelectableItem = itemsContainer.value?.querySelectorAll<HTMLButtonElement>('.multiselect-item button:not([disabled])')[0]
+  const firstSelectableItem = itemsContainerRef.value?.querySelector<HTMLButtonElement>('.multiselect-item button:not(:disabled)')
   firstSelectableItem?.focus()
 }
 
 const onKeyPress = ({ target, key } : KeyboardEvent) => {
   if (key === 'ArrowDown' || key === 'ArrowUp') {
     // all selectable items
-    const selectableItems = itemsContainer.value?.querySelectorAll<HTMLButtonElement>('.multiselect-item button:not([disabled])')
+    const selectableItems = itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>('.multiselect-item button:not(:disabled)')
 
     if (selectableItems?.length) {
       // find the current element index in the array
