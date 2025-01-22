@@ -35,7 +35,7 @@ jobs:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN_PUBLIC_PUBLISH }}
       steps:
         - name: Checkout
-          uses: actions/checkout@v4
+          uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
           with:
             token: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
@@ -52,7 +52,7 @@ jobs:
           uses: ./.github/actions/setup-pnpm-with-dependencies/
 
         - name: Download Build Artifacts
-          uses: actions/download-artifact@v4
+          uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4
           with:
             name: kongponents-ci-build-output-artifact
 
