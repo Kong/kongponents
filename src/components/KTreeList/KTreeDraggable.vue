@@ -23,9 +23,15 @@
     >
       <KTreeItem
         :key="`tree-item-${element.id}-${key}`"
+        ref="tree-items"
+        :collapsible="collapsible"
+        :controls-id="element.id"
         :disabled="disableDrag"
+        :has-children="!hasNoChildren(element)"
         :hide-icons="hideIcons"
+        :initial-collapse="initialCollapseAll"
         :item="element"
+        @expanded="handleExpandedEvent($event, element.id)"
         @selected="handleSelectionEvent"
       >
         <template
@@ -47,10 +53,17 @@
         </template>
       </KTreeItem>
       <KTreeDraggable
+        v-show="getChildrenVisibility(element.id)"
+        :id="`tree-list-draggable-${element.id}`"
         :key="`tree-item-${element.id}-children-${key}`"
+        :class="{
+          'collapsible': collapsible
+        }"
+        :collapsible="collapsible"
         :disable-drag="disableDrag"
         :group="group"
         :hide-icons="hideIcons"
+        :initial-collapse-all="initialCollapseAll"
         :items="getElementChildren(element)"
         :level="level + 1"
         :max-depth="maxDepth"
@@ -95,6 +108,8 @@ export const getMaximumDepth = ({ children = [] }): number => {
 </script>
 
 <script setup lang="ts">
+import { nextTick, useTemplateRef } from 'vue'
+
 const props = defineProps({
   items: {
     type: Array as PropType<TreeListItem[]>,
@@ -128,6 +143,14 @@ const props = defineProps({
   group: {
     type: String,
     default: 'k-tree-list',
+  },
+  collapsible: {
+    type: Boolean,
+    default: false,
+  },
+  initialCollapseAll: {
+    type: Boolean,
+    default: false,
   },
 })
 
@@ -184,6 +207,38 @@ const handleSelectionEvent = (item: TreeListItem): void => {
   emit('selected', item)
 }
 
+const childrenVisibilityMap = ref(new Map<string, boolean>())
+
+const handleExpandedEvent = (visibility: boolean, id: string): void => {
+  childrenVisibilityMap.value.set(id, visibility)
+}
+
+const getChildrenVisibility = (id: string): boolean => {
+  return props.collapsible ? !!childrenVisibilityMap.value.get(id) : true
+}
+
+const treeItems = useTemplateRef<typeof KTreeItem[] | null>('tree-items')
+
+const collapseAll = (): void => {
+  internalList.value.forEach(item => {
+    childrenVisibilityMap.value.set(item.id, false)
+  })
+
+  treeItems.value?.forEach((item: typeof KTreeItem) => {
+    item?.setExpandedValue(false)
+  })
+}
+
+const expandAll = (): void => {
+  internalList.value.forEach(item => {
+    childrenVisibilityMap.value.set(item.id, true)
+  })
+
+  treeItems.value?.forEach((item: typeof KTreeItem) => {
+    item?.setExpandedValue(true)
+  })
+}
+
 const maxLevelReached = computed((): boolean => {
   return props.level > (props.maxDepth - 1)
 })
@@ -222,11 +277,17 @@ const onStartDrag = (draggedItem: any): void => {
   setDragCursor(true)
 }
 
-const onStopDrag = (): void => {
+const onStopDrag = async (): Promise<void> => {
   dragging.value = false
   setDragCursor(false)
 
   key.value++
+
+  // set previous icon state after DOM was re-rendered
+  await nextTick()
+  treeItems.value?.forEach((item: typeof KTreeItem) => {
+    item?.setExpandedValue(childrenVisibilityMap.value.get(item?.id))
+  })
 }
 
 // override cursor when dragging
@@ -251,7 +312,13 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 })
 
-onMounted(() => {
+const triggerCollapse = (): void => {
+  internalList.value.forEach(item => {
+    childrenVisibilityMap.value.set(item.id, !props.initialCollapseAll)
+  })
+}
+
+onMounted(async () => {
   internalList.value = props.items
 
   internalList.value.forEach((item: TreeListItem) => {
@@ -259,7 +326,15 @@ onMounted(() => {
       item.children = []
     }
   })
+
+  // Handles correct initial collapsed/expanded state
+  await nextTick()
+  if (props.collapsible) {
+    triggerCollapse()
+  }
 })
+
+defineExpose({ collapseAll, expandAll })
 </script>
 
 <style lang="scss" scoped>
@@ -269,6 +344,8 @@ $kTreeListDropZoneHeight: 6px;
 // no tokens for these two since the math requires them to be static
 $kTreeListIdent: 16px;
 $kTreeListBar: 12px;
+$kTreeListBarCollapsible: 16px;
+$kTreeListIdentCollapsible: 6px;
 
 /* Component styles */
 .tree-draggable {
@@ -309,6 +386,45 @@ $kTreeListBar: 12px;
   .tree-draggable {
     counter-reset: item;
     margin-left: $kTreeListIdent;
+
+    &.collapsible {
+      :deep(.tree-item.no-children) {
+        margin-left: 19px;
+      }
+
+      & .tree-item-container {
+        padding-left: $kTreeListIdentCollapsible;
+
+        &:before {
+          left: -4px;
+          top: -7px;
+          width: $kTreeListBarCollapsible;
+        }
+
+        &:after {
+          left: -4px;
+          width: $kTreeListBarCollapsible;
+        }
+
+        &.has-no-children {
+          padding-left: 18px;
+
+          &:before {
+            width: 40px;
+          }
+
+          &:after {
+            width: 40px;
+          }
+        }
+
+        &:first-of-type {
+          &:before {
+            top: -3px;
+          }
+        }
+      }
+    }
   }
 
   .tree-item-container {

@@ -55,6 +55,26 @@
         />
       </SandboxSectionComponent>
 
+      <SandboxSectionComponent title="collapsible">
+        <KInputSwitch
+          v-model="toggleItems"
+          :label="toggleItems ? 'Collapse All' : 'Expand All'"
+        />
+
+        <KTreeList
+          ref="k-tree-ref"
+          :collapsible="true"
+          :items="items10"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="initialCollapseAll">
+        <KTreeList
+          :collapsible="true"
+          :initial-collapse-all="true"
+          :items="items11"
+        />
+      </SandboxSectionComponent>
+
       <!-- Slots -->
       <SandboxTitleComponent
         is-subtitle
@@ -111,7 +131,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { inject, ref, watch, useTemplateRef } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import type { TreeListItem } from '@/types'
@@ -176,6 +196,21 @@ const items6 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items7 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items8 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items9 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
+const items10 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
+const items11 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
+
+const toggleItems = ref<boolean>(true)
+const kTreeRef = useTemplateRef('k-tree-ref')
+
+watch(toggleItems, (val, oldVal) => {
+  if (val !== oldVal) {
+    if (val) {
+      kTreeRef.value?.expandAll()
+    } else {
+      kTreeRef.value?.collapseAll()
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>

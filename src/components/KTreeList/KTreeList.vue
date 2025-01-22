@@ -5,10 +5,13 @@
     :style="width ? widthStyle : undefined"
   >
     <KTreeDraggable
+      ref="tree-draggable"
+      :collapsible="collapsible"
       :data-testid="`k-tree-list-${group}`"
       :disable-drag="disableDrag"
       :group="group"
       :hide-icons="hideIcons"
+      :initial-collapse-all="initialCollapseAll"
       :items="internalList"
       :max-depth="maxDepth"
       @change="handleChangeEvent"
@@ -77,6 +80,8 @@ const treeListIsValid = (items: TreeListItem[]): boolean => {
 </script>
 
 <script setup lang="ts">
+import { useTemplateRef } from 'vue'
+
 const props = defineProps({
   modelValue: {
     type: Array as PropType<TreeListItem[]>,
@@ -108,6 +113,14 @@ const props = defineProps({
   group: {
     type: String,
     default: 'k-tree-list',
+  },
+  collapsible: {
+    type: Boolean,
+    default: false,
+  },
+  initialCollapseAll: {
+    type: Boolean,
+    default: false,
   },
 })
 
@@ -185,6 +198,18 @@ watch(() => props.items, (newValue, oldValue) => {
     })
   }
 })
+
+const treeDraggable = useTemplateRef('tree-draggable')
+
+const collapseAll = (): void => {
+  treeDraggable.value?.collapseAll()
+}
+
+const expandAll = (): void => {
+  treeDraggable.value?.expandAll()
+}
+
+defineExpose({ collapseAll, expandAll })
 
 onMounted(() => {
   if (props.modelValue && props.items) {

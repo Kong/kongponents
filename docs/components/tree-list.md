@@ -215,6 +215,26 @@ Boolean to hide icons. Defaults to `false`.
 <KTreeList hide-icons :items="items" />
 ```
 
+### collapsible
+
+Boolean to enable/disable collapse feature. Defaults to `false`.
+
+<KTreeList :collapsible="true" :items="collapsibleItems" />
+
+```html
+<KTreeList :collapsible="true" :items="items" />
+```
+
+### initialCollapseAll
+
+Boolean to initially collapse/expand all TreeListItems. Should be used only with `collapsible` prop. Defaults to `false`.
+
+<KTreeList :collapsible="true" :initial-collapse-all="true" :items="collapseAllItems" />
+
+```html
+<KTreeList :collapsible="true" :initial-collapse-all="true" :items="items" />
+```
+
 ## Slots
 
 KTreeList allows you to customize individual tree items via the item slots. The slots provide the current `item` data as a slot param.
@@ -309,8 +329,52 @@ Two separate `child-change` events will fire if an item is moved from one parent
 
 Emitted when you click (and don't drag) an item. Returns the selected item's data.
 
+## Methods
+
+### collapseAll
+
+Allows to collapse all TreeList items when `collapsible` prop is set to `true`.
+
+
+
+### expandAll
+
+Allows to expand all TreeList items when `collapsible` prop is set to `true`.
+
+<KInputSwitch
+    v-model="toggleItems"
+    :label="toggleItems ? 'Collapse All' : 'Expand All'"
+/>
+
+<KTreeList :collapsible="true" :items="collapseOrExpandItems" ref="k-tree-ref" />
+
+```html
+<KInputSwitch
+    v-model="toggleItems"
+    :label="toggleItems ? 'Collapse All' : 'Expand All'"
+/>
+
+<KTreeList :collapsible="true" :items="items" ref="k-tree-ref" />
+```
+
+```typescript
+const toggleItems = ref<boolean>(true)
+
+const kTreeRef = useTemplateRef('k-tree-ref')
+
+watch(toggleItems, (val, oldVal) => {
+  if (val !== oldVal) {
+    if (val) {
+      kTreeRef.value?.expandAll()
+    } else {
+      kTreeRef.value?.collapseAll()
+    }
+  }
+})
+```
+
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, useTemplateRef, watch } from 'vue'
 import { InboxIcon, DataObjectIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_DECORATIVE_PURPLE, KUI_COLOR_TEXT_DECORATIVE_PURPLE_STRONG } from '@kong/design-tokens'
 
@@ -365,6 +429,59 @@ const items: TreeListItem[] = [
   },
 ]
 
+const collapseItems: TreeListItem[] = [
+  {
+    name: 'Components',
+    id: 'components-folder',
+    children: [
+      {
+        name: 'ProfileCard.vue',
+        id: 'profile-card',
+      },
+    ],
+  },
+  {
+    name: 'Pages',
+    id: 'pages-folder',
+    children: [
+      {
+        name: 'Home.vue',
+        id: 'home',
+      },
+      {
+        name: 'User',
+        id: 'user-folder',
+        children: [
+          {
+            name: 'UserList.vue',
+            id: 'user-list',
+          },
+          {
+            name: 'UserDetail.vue',
+            id: 'user-detail',
+          },
+          {
+            name: 'Settings',
+            id: 'settings-folder',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Types',
+    id: 'types-folder',
+    children: [{
+      name: 'user.d.ts',
+      id: 'user-types',
+    }],
+  },
+  {
+    name: 'Symbols',
+    id: 'types-symbols',
+  },
+]
+
 // each example must have it's own list because cloning
 // breaks drag-n-drop functionality
 const myList = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
@@ -385,11 +502,31 @@ const widthItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
 const hideIconsItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
+const collapsibleItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(collapseItems)))
+
+const collapseAllItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(collapseItems)))
+
+const collapseOrExpandItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(collapseItems)))
+
 const slotItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
 const reset = (): void => {
   myList.value = JSON.parse(JSON.stringify(items))
 }
+
+const toggleItems = ref<boolean>(true)
+
+const kTreeRef = useTemplateRef('k-tree-ref')
+
+watch(toggleItems, (val, oldVal) => {
+  if (val !== oldVal) {
+    if (val) {
+      kTreeRef.value?.expandAll()
+    } else {
+      kTreeRef.value?.collapseAll()
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -409,3 +546,4 @@ const reset = (): void => {
   }
 }
 </style>
+
