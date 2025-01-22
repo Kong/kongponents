@@ -284,10 +284,9 @@ const onStopDrag = async (): Promise<void> => {
   key.value++
 
   // set previous icon state after DOM was re-rendered
-  await nextTick(() => {
-    treeItems.value?.forEach((item: typeof KTreeItem) => {
-      item?.setExpandedValue(childrenVisibilityMap.value.get(item?.id))
-    })
+  await nextTick()
+  treeItems.value?.forEach((item: typeof KTreeItem) => {
+    item?.setExpandedValue(childrenVisibilityMap.value.get(item?.id))
   })
 }
 
