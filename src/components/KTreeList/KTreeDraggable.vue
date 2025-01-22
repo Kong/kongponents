@@ -389,6 +389,10 @@ $kTreeListIdentCollapsible: 6px;
     margin-left: $kTreeListIdent;
 
     &.collapsible {
+      :deep(.tree-item.no-children) {
+        margin-left: 19px;
+      }
+
       & .tree-item-container {
         padding-left: $kTreeListIdentCollapsible;
 

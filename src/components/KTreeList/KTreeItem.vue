@@ -182,7 +182,7 @@ defineExpose({ setExpandedValue, id: props.item?.id })
   width: 100%;
 
   &.no-children {
-    margin-left: 19px;
+    margin-left: 32px;
   }
 
   &-wrapper {
