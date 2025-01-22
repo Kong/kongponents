@@ -42,8 +42,8 @@ importers:
         specifier: ^1.15.3
         version: 1.15.3
       swrv:
-        specifier: 1.1.0-beta.2
-        version: 1.1.0-beta.2(vue@3.5.12(typescript@5.6.3))
+        specifier: 1.1.0
+        version: 1.1.0(vue@3.5.12(typescript@5.6.3))
       v-calendar:
         specifier: ^3.1.2
         version: 3.1.2(@popperjs/core@2.11.8)(vue@3.5.12(typescript@5.6.3))
@@ -4748,13 +4748,8 @@ packages:
   svg-tags@1.0.0:
     resolution: {integrity: sha512-ovssysQTa+luh7A5Weu3Rta6FJlFBBbInjOh722LIt6klpU2/HtdUbszju/G4devcvk8PGt7FCLv5wftu3THUA==}
 
-  swrv@1.0.4:
-    resolution: {integrity: sha512-zjEkcP8Ywmj+xOJW3lIT65ciY/4AL4e/Or7Gj0MzU3zBJNMdJiT8geVZhINavnlHRMMCcJLHhraLTAiDOTmQ9g==}
-    peerDependencies:
-      vue: '>=3.2.26 < 4'
-
-  swrv@1.1.0-beta.2:
-    resolution: {integrity: sha512-1xitdUp0e2f7FLmZ7rRgcSrnWPqX33cbKwuy8VdEmJZT7K/41E/EPTlFu0yhVaVSYsbAlEDYx+WE7/8o+kQiBQ==}
+  swrv@1.1.0:
+    resolution: {integrity: sha512-pjllRDr2s0iTwiE5Isvip51dZGR7GjLH1gCSVyE8bQnbAx6xackXsFdojau+1O5u98yHF5V73HQGOFxKUXO9gQ==}
     peerDependencies:
       vue: '>=3.2.26 < 4'
 
@@ -6223,7 +6218,7 @@ snapshots:
       focus-trap: 7.6.0
       focus-trap-vue: 4.0.3(focus-trap@7.6.0)(vue@3.5.12(typescript@5.6.3))
       sortablejs: 1.15.3
-      swrv: 1.0.4(vue@3.5.12(typescript@5.6.3))
+      swrv: 1.1.0(vue@3.5.12(typescript@5.6.3))
       uuid: 9.0.1
       v-calendar: 3.1.2(@popperjs/core@2.11.8)(vue@3.5.12(typescript@5.6.3))
       vue: 3.5.12(typescript@5.6.3)
@@ -10208,11 +10203,7 @@ snapshots:
 
   svg-tags@1.0.0: {}
 
-  swrv@1.0.4(vue@3.5.12(typescript@5.6.3)):
-    dependencies:
-      vue: 3.5.12(typescript@5.6.3)
-
-  swrv@1.1.0-beta.2(vue@3.5.12(typescript@5.6.3)):
+  swrv@1.1.0(vue@3.5.12(typescript@5.6.3)):
     dependencies:
       vue: 3.5.12(typescript@5.6.3)
 
