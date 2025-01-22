@@ -3,23 +3,33 @@
     class="tree-item-wrapper"
     :data-testid="`tree-item-wrapper-${item.id}`"
   >
-    <ChevronRightIcon
+    <span
       v-if="collapsible && hasChildren"
       :aria-controls="`tree-list-draggable-${controlsId}`"
       :aria-expanded="isExpanded"
       :aria-label="isExpanded ? 'Collapse' : 'Expand'"
-      class="tree-item-expanded-icon"
+      class="tree-item-expanded-button"
       :class="{
         'collapsed': !isExpanded,
         'expanded': isExpanded
       }"
-      data-testid="tree-item-expanded-icon"
+      data-testid="tree-item-expanded-button"
       role="button"
-      :size="KUI_ICON_SIZE_40"
-      tabindex="0"
       @click.stop="toggleItem"
       @keyup.enter="toggleItem"
-    />
+    >
+      <ChevronRightIcon
+        class="tree-item-expanded-icon"
+        :class="{
+          'collapsed': !isExpanded,
+          'expanded': isExpanded
+        }"
+        data-testid="tree-item-expanded-icon"
+        decorative
+        :size="KUI_ICON_SIZE_40"
+        tabindex="0"
+      />
+    </span>
 
     <button
       class="tree-item"
@@ -172,13 +182,12 @@ defineExpose({ setExpandedValue, id: props.item?.id })
   width: 100%;
 
   &.no-children {
-    margin-left: 26px;
+    margin-left: 31px;
   }
 
   &-wrapper {
-    align-items: center;
+    align-items: stretch;
     display: flex;
-    gap: $kui-space-30;
   }
 
   .tree-item-icon,
@@ -218,11 +227,21 @@ defineExpose({ setExpandedValue, id: props.item?.id })
     cursor: pointer;
   }
 
-  &-expanded-icon {
+  &-expanded-button {
     cursor: pointer;
-    transition: 0.1s all linear;
+    padding: 6px;
     // makes the button click easier on draggable wrapper
     z-index: 10;
+
+    &:focus-visible {
+      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+      outline: none;
+    }
+  }
+
+  &-expanded-icon {
+    transition: 0.1s all linear;
 
     &.collapsed {
       transform: rotate(0);
@@ -230,12 +249,6 @@ defineExpose({ setExpandedValue, id: props.item?.id })
 
     &.expanded {
       transform: rotate(90deg);
-    }
-
-    &:focus-visible {
-      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
-      outline: none;
     }
   }
 }

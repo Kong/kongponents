@@ -394,11 +394,23 @@ $kTreeListIdentCollapsible: 20px;
         padding-left: $kTreeListIdentCollapsible;
 
         &:before {
+          left: -4px;
           width: $kTreeListBarCollapsible;
         }
 
         &:after {
+          left: -4px;
           width: $kTreeListBarCollapsible;
+        }
+
+        &.has-no-children {
+          &:before {
+            width: 56px;
+          }
+
+          &:after {
+            width: 56px;
+          }
         }
       }
     }
