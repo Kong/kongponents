@@ -328,11 +328,10 @@ onMounted(async () => {
   })
 
   // Handles correct initial collapsed/expanded state
-  await nextTick(() => {
-    if (props.collapsible) {
-      triggerCollapse()
-    }
-  })
+  await nextTick()
+  if (props.collapsible) {
+    triggerCollapse()
+  }
 })
 
 defineExpose({ collapseAll, expandAll })
