@@ -1,5 +1,12 @@
 import KTextArea from '@/components/KTextArea/KTextArea.vue'
 
+function getRenderedRows(el: HTMLElement) {
+  const { paddingTop, paddingBottom, lineHeight } = window.getComputedStyle(el)
+  const padding = parseFloat(paddingTop) + parseFloat(paddingBottom)
+  const lineHeightValue = parseFloat(lineHeight)
+  return Math.round((el.offsetHeight - padding) / lineHeightValue)
+}
+
 describe('KTextArea', () => {
   it('renders text when value is passed', () => {
     const value = 'Howdy!'
@@ -143,12 +150,15 @@ describe('KTextArea', () => {
 
     cy.get('.input-wrapper').should('have.class', 'autosize')
 
-    cy.get('textarea').type('1\n2\n3\n4').then(($el) => {
-      const textarea = $el[0]
-      const { paddingTop, paddingBottom, lineHeight } = window.getComputedStyle(textarea)
-      const padding = parseFloat(paddingTop) + parseFloat(paddingBottom)
-      const lineHeightValue = parseFloat(lineHeight)
-      expect(textarea.offsetHeight).to.eq(4 * lineHeightValue + padding)
-    })
+    cy.get('textarea')
+      .type('1\n2\n3\n4').then(($el) => {
+        expect(getRenderedRows($el[0])).to.eq(4)
+      })
+      .type('\n5\n6').then(($el) => {
+        expect(getRenderedRows($el[0])).to.eq(6)
+      })
+      .type('{backspace}'.repeat(6)).then(($el) => {
+        expect(getRenderedRows($el[0])).to.eq(3)
+      })
   })
 })
