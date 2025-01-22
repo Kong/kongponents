@@ -3,8 +3,8 @@
     class="tree-item-wrapper"
     :data-testid="`tree-item-wrapper-${item.id}`"
   >
-    <ChevronDownIcon
-      v-if="collapsible"
+    <ChevronRightIcon
+      v-if="collapsible && hasChildren"
       :aria-controls="`tree-list-draggable-${controlsId}`"
       :aria-expanded="isExpanded"
       :aria-label="isExpanded ? 'Collapse' : 'Expand'"
@@ -18,6 +18,7 @@
       :size="KUI_ICON_SIZE_40"
       tabindex="0"
       @click.stop="toggleItem"
+      @keyup.enter="toggleItem"
     />
 
     <button
@@ -26,7 +27,8 @@
         'not-draggable': disabled,
         'selected': item.selected,
         'expanded': collapsible && isExpanded,
-        'collapsed': collapsible && !isExpanded
+        'collapsed': collapsible && !isExpanded,
+        'no-children': collapsible && !hasChildren
       }"
       :data-testid="`tree-item-${item.id}`"
       data-tree-item-trigger="true"
@@ -71,7 +73,7 @@ export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
  */
 import { ref, watch } from 'vue'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
-import { ServiceDocumentIcon, ChevronDownIcon } from '@kong/icons'
+import { ServiceDocumentIcon, ChevronRightIcon } from '@kong/icons'
 
 const props = defineProps({
   item: {
@@ -92,6 +94,10 @@ const props = defineProps({
     default: false,
   },
   initialCollapse: {
+    type: Boolean,
+    default: false,
+  },
+  hasChildren: {
     type: Boolean,
     default: false,
   },
@@ -125,6 +131,10 @@ const handleClick = (event: any) => {
 
 const isExpanded = ref<boolean>(true)
 
+const setExpandedValue = (expanded: boolean): void => {
+  isExpanded.value = expanded
+}
+
 watch(() => props.initialCollapse, (val, oldVal) => {
   if (val !== oldVal) {
     isExpanded.value = !val
@@ -138,6 +148,8 @@ const toggleItem = (): void => {
 
   emit('expanded', isExpanded.value)
 }
+
+defineExpose({ setExpandedValue, id: props.item?.id })
 </script>
 
 <style lang="scss" scoped>
@@ -158,6 +170,10 @@ const toggleItem = (): void => {
   transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, border-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
   user-select: none;
   width: 100%;
+
+  &.no-children {
+    margin-left: 26px;
+  }
 
   &-wrapper {
     align-items: center;
@@ -213,7 +229,7 @@ const toggleItem = (): void => {
     }
 
     &.expanded {
-      transform: rotate(-90deg);
+      transform: rotate(90deg);
     }
 
     &:focus-visible {

@@ -225,14 +225,14 @@ Boolean to enable/disable collapse feature. Defaults to `false`.
 <KTreeList :collapsible="true" :items="items" />
 ```
 
-### collapseAllInitially
+### initialCollapseAll
 
 Boolean to initially collapse/expand all TreeListItems. Should be used only with `collapsible` prop. Defaults to `false`.
 
-<KTreeList :collapsible="true" :collapse-all-initially="true" :items="collapseAllItems" />
+<KTreeList :collapsible="true" :initial-collapse-all="true" :items="collapseAllItems" />
 
 ```html
-<KTreeList :collapsible="true" :collapse-all-initially="true" :items="items" />
+<KTreeList :collapsible="true" :initial-collapse-all="true" :items="items" />
 ```
 
 ## Slots
@@ -429,6 +429,59 @@ const items: TreeListItem[] = [
   },
 ]
 
+const collapseItems: TreeListItem[] = [
+  {
+    name: 'Components',
+    id: 'components-folder',
+    children: [
+      {
+        name: 'ProfileCard.vue',
+        id: 'profile-card',
+      },
+    ],
+  },
+  {
+    name: 'Pages',
+    id: 'pages-folder',
+    children: [
+      {
+        name: 'Home.vue',
+        id: 'home',
+      },
+      {
+        name: 'User',
+        id: 'user-folder',
+        children: [
+          {
+            name: 'UserList.vue',
+            id: 'user-list',
+          },
+          {
+            name: 'UserDetail.vue',
+            id: 'user-detail',
+          },
+          {
+            name: 'Settings',
+            id: 'settings-folder',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Types',
+    id: 'types-folder',
+    children: [{
+      name: 'user.d.ts',
+      id: 'user-types',
+    }],
+  },
+  {
+    name: 'Symbols',
+    id: 'types-symbols',
+  },
+]
+
 // each example must have it's own list because cloning
 // breaks drag-n-drop functionality
 const myList = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
@@ -449,11 +502,11 @@ const widthItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
 const hideIconsItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 
-const collapsibleItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
+const collapsibleItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(collapseItems)))
 
-const collapseAllItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
+const collapseAllItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(collapseItems)))
 
-const collapseOrExpandItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
+const collapseOrExpandItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(collapseItems)))
 
 const slotItems = ref<TreeListItem[]>(JSON.parse(JSON.stringify(items)))
 

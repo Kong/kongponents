@@ -23,11 +23,13 @@
     >
       <KTreeItem
         :key="`tree-item-${element.id}-${key}`"
-        :collapsible="collapsible && !hasNoChildren(element)"
+        ref="tree-items"
+        :collapsible="collapsible"
         :controls-id="element.id"
         :disabled="disableDrag"
+        :has-children="!hasNoChildren(element)"
         :hide-icons="hideIcons"
-        :initial-collapse="collapseAllInitially"
+        :initial-collapse="initialCollapseAll"
         :item="element"
         @expanded="handleExpandedEvent($event, element.id)"
         @selected="handleSelectionEvent"
@@ -57,11 +59,11 @@
         :class="{
           'collapsible': collapsible
         }"
-        :collapse-all-initially="collapseAllInitially"
         :collapsible="collapsible"
         :disable-drag="disableDrag"
         :group="group"
         :hide-icons="hideIcons"
+        :initial-collapse-all="initialCollapseAll"
         :items="getElementChildren(element)"
         :level="level + 1"
         :max-depth="maxDepth"
@@ -106,7 +108,7 @@ export const getMaximumDepth = ({ children = [] }): number => {
 </script>
 
 <script setup lang="ts">
-import { nextTick } from 'vue'
+import { nextTick, useTemplateRef } from 'vue'
 
 const props = defineProps({
   items: {
@@ -146,7 +148,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  collapseAllInitially: {
+  initialCollapseAll: {
     type: Boolean,
     default: false,
   },
@@ -215,6 +217,28 @@ const getChildrenVisibility = (id: string): boolean => {
   return props.collapsible ? !!childrenVisibilityMap.value.get(id) : true
 }
 
+const treeItems = useTemplateRef<typeof KTreeItem[] | null>('tree-items')
+
+const collapseAll = (): void => {
+  internalList.value.forEach(item => {
+    childrenVisibilityMap.value.set(item.id, false)
+  })
+
+  treeItems.value?.forEach((item: typeof KTreeItem) => {
+    item?.setExpandedValue(false)
+  })
+}
+
+const expandAll = (): void => {
+  internalList.value.forEach(item => {
+    childrenVisibilityMap.value.set(item.id, true)
+  })
+
+  treeItems.value?.forEach((item: typeof KTreeItem) => {
+    item?.setExpandedValue(true)
+  })
+}
+
 const maxLevelReached = computed((): boolean => {
   return props.level > (props.maxDepth - 1)
 })
@@ -253,11 +277,18 @@ const onStartDrag = (draggedItem: any): void => {
   setDragCursor(true)
 }
 
-const onStopDrag = (): void => {
+const onStopDrag = async (): Promise<void> => {
   dragging.value = false
   setDragCursor(false)
 
   key.value++
+
+  // set previous icon state after DOM was re-rendered
+  await nextTick(() => {
+    treeItems.value?.forEach((item: typeof KTreeItem) => {
+      item?.setExpandedValue(childrenVisibilityMap.value.get(item?.id))
+    })
+  })
 }
 
 // override cursor when dragging
@@ -282,21 +313,9 @@ watch(() => props.items, (newValue, oldValue) => {
   }
 })
 
-const collapseAll = (): void => {
-  internalList.value.forEach(item => {
-    childrenVisibilityMap.value.set(item.id, false)
-  })
-}
-
-const expandAll = (): void => {
-  internalList.value.forEach(item => {
-    childrenVisibilityMap.value.set(item.id, true)
-  })
-}
-
 const triggerCollapse = (): void => {
   internalList.value.forEach(item => {
-    childrenVisibilityMap.value.set(item.id, !props.collapseAllInitially)
+    childrenVisibilityMap.value.set(item.id, !props.initialCollapseAll)
   })
 }
 

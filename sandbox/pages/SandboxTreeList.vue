@@ -67,10 +67,10 @@
           :items="items10"
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="collapseAllInitially">
+      <SandboxSectionComponent title="initialCollapseAll">
         <KTreeList
-          :collapse-all-initially="true"
           :collapsible="true"
+          :initial-collapse-all="true"
           :items="items11"
         />
       </SandboxSectionComponent>

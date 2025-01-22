@@ -197,7 +197,7 @@ describe('KTreeList', () => {
     cy.getTestId('k-tree-list').findTestId(`k-tree-list-${group}`).should('be.visible')
   })
 
-  it('all items should be collapsed if `collapseAllInitially` prop set to `true`', () => {
+  it('all items should be collapsed if `initialCollapseAll` prop set to `true`', () => {
     const patentIds = ['id1', 'id2']
 
     cy.mount(KTreeList, {
@@ -233,7 +233,7 @@ describe('KTreeList', () => {
           },
         ],
         collapsible: true,
-        collapseAllInitially: true,
+        initialCollapseAll: true,
       },
     })
 
@@ -244,7 +244,7 @@ describe('KTreeList', () => {
     })
   })
 
-  it('`collapseAllInitially` prop should be ignored if `collapsible` prop is not set to `true`', () => {
+  it('`initialCollapseAll` prop should be ignored if `collapsible` prop is not set to `true`', () => {
     const patentIds = ['id1', 'id2']
 
     cy.mount(KTreeList, {
@@ -280,7 +280,7 @@ describe('KTreeList', () => {
           },
         ],
         collapsible: false,
-        collapseAllInitially: true,
+        initialCollapseAll: true,
       },
     })
 

@@ -6,12 +6,12 @@
   >
     <KTreeDraggable
       ref="tree-draggable"
-      :collapse-all-initially="collapseAllInitially"
       :collapsible="collapsible"
       :data-testid="`k-tree-list-${group}`"
       :disable-drag="disableDrag"
       :group="group"
       :hide-icons="hideIcons"
+      :initial-collapse-all="initialCollapseAll"
       :items="internalList"
       :max-depth="maxDepth"
       @change="handleChangeEvent"
@@ -118,7 +118,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  collapseAllInitially: {
+  initialCollapseAll: {
     type: Boolean,
     default: false,
   },
