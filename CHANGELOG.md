@@ -1,3 +1,10 @@
+## [9.18.1](https://github.com/Kong/kongponents/compare/v9.18.0...v9.18.1) (2025-01-22)
+
+
+### Bug Fixes
+
+* **ktreelist:** collapse handle click behavior ([#2589](https://github.com/Kong/kongponents/issues/2589)) ([382282a](https://github.com/Kong/kongponents/commit/382282adde0d327e0fa63f11b148ad4c599534fe))
+
 # [9.18.0](https://github.com/Kong/kongponents/compare/v9.17.5...v9.18.0) (2025-01-22)
 
 
