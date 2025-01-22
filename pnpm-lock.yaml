@@ -64,8 +64,8 @@ importers:
         specifier: ^19.5.0
         version: 19.5.0
       '@cypress/vite-dev-server':
-        specifier: ^5.2.0
-        version: 5.2.0
+        specifier: ^6.0.0
+        version: 6.0.1(cypress@13.15.2)
       '@digitalroute/cz-conventional-changelog-for-jira':
         specifier: ^8.0.1
         version: 8.0.1(@types/node@20.17.6)(typescript@5.6.3)
@@ -611,8 +611,10 @@ packages:
     resolution: {integrity: sha512-fi0eVdCOtKu5Ed6+E8mYxUF6ZTFJDZvHogCBelM0xVXmrDEkyM22gRArQzq1YcHPm1V47Vf/iAD+WgVdUlJCGg==}
     engines: {node: '>= 6'}
 
-  '@cypress/vite-dev-server@5.2.0':
-    resolution: {integrity: sha512-7HuB1vaVri5wnsdZcIkcUd0SB1t5Sh7FT+dteL8A9Hpp+8ACeWjLUJQCZZaRHmuFTnw+bz496bJmFYgBR2Yz3A==}
+  '@cypress/vite-dev-server@6.0.1':
+    resolution: {integrity: sha512-JH8zH2cRxBrsh25FLYsw8pWn/VO2sMugr2uJPInFrNYvAhsvnhC2YrYMKFKW9nsMUZCw2EOCSMUZqmz2HMjLLA==}
+    peerDependencies:
+      cypress: '>=14.0.0'
 
   '@cypress/xvfb@1.2.4':
     resolution: {integrity: sha512-skbBzPggOVYCbnGgV+0dmBdW/s77ZkAOXIC1knS8NagwDjBrNC1LuXtQJeiN6l+m7lzmHtaoUw/ctJKdqkG57Q==}
@@ -5709,7 +5711,7 @@ snapshots:
   '@commitlint/is-ignored@19.5.0':
     dependencies:
       '@commitlint/types': 19.5.0
-      semver: 7.6.2
+      semver: 7.6.3
 
   '@commitlint/lint@19.5.0':
     dependencies:
@@ -5861,12 +5863,13 @@ snapshots:
       tunnel-agent: 0.6.0
       uuid: 8.3.2
 
-  '@cypress/vite-dev-server@5.2.0':
+  '@cypress/vite-dev-server@6.0.1(cypress@13.15.2)':
     dependencies:
+      cypress: 13.15.2
       debug: 4.3.6(supports-color@8.1.1)
       find-up: 6.3.0
       node-html-parser: 5.3.3
-      semver: 7.6.2
+      semver: 7.6.3
     transitivePeerDependencies:
       - supports-color
 
@@ -6461,7 +6464,7 @@ snapshots:
       read-pkg: 9.0.1
       registry-auth-token: 5.0.2
       semantic-release: 24.2.0(typescript@5.6.3)
-      semver: 7.6.2
+      semver: 7.6.3
       tempy: 3.1.0
 
   '@semantic-release/release-notes-generator@14.0.0(semantic-release@24.2.0(typescript@5.6.3))':
@@ -9852,7 +9855,7 @@ snapshots:
 
   semver-diff@4.0.0:
     dependencies:
-      semver: 7.6.2
+      semver: 7.6.3
 
   semver-regex@4.0.5: {}
 
