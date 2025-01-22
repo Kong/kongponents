@@ -46,9 +46,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, onUnmounted, watch } from 'vue'
+import { computed, useTemplateRef, onUnmounted, watch } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import { onClickOutside } from '@vueuse/core'
+import type { MaybeElementRef, MaybeElement } from '@vueuse/core'
 import { CloseIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
 
@@ -106,7 +107,7 @@ const emit = defineEmits<{
 }>()
 
 const { getSizeFromString } = useUtilities()
-const slideoutContainerElement = ref<HTMLElement | null>(null)
+const slideoutContainerElement = useTemplateRef('slideoutContainerElement')
 
 const offsetTopValue = computed((): string => {
   if (typeof props.offsetTop === 'number') {
@@ -116,14 +117,11 @@ const offsetTopValue = computed((): string => {
   return props.offsetTop
 })
 
-onClickOutside(
-  slideoutContainerElement,
-  (event) => {
-    if (event.isTrusted && props.closeOnBlur) {
-      emit('close')
-    }
-  },
-)
+onClickOutside(slideoutContainerElement as unknown as MaybeElementRef<MaybeElement>, (event) => {
+  if (event.isTrusted && props.closeOnBlur) {
+    emit('close')
+  }
+})
 
 const handleClose = (e: any, forceClose = false): void => {
   // close on escape key if the closeOnEscape prop is true
