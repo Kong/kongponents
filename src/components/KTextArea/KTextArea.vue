@@ -303,17 +303,22 @@ $kTextAreaPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin,
   .help-text {
     @include inputHelpText;
 
-    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
-    // stylelint-disable-next-line no-duplicate-selectors
-    & {
-      // reset default margin from browser
-      margin: 0;
-      margin-top: var(--kui-space-40, $kui-space-40) !important; // need important to override some overrides of default p margin in other components
-    }
+    // reset default margin from browser
+    margin: 0;
+    margin-top: var(--kui-space-40, $kui-space-40) !important; // need important to override some overrides of default p margin in other components
   }
 
   .input-wrapper {
     display: contents;
+
+    // https://chriscoyier.net/2023/09/29/css-solves-auto-expanding-textareas-probably-eventually/
+    // We use `field-sizing: content` for browsers that support it, and a grid fallback for those that don't.
+    &.autosize {
+      .input-textarea {
+        field-sizing: content;
+        min-height: calc(($kTextAreaLineHeight * v-bind('rows')) + ($kTextAreaPaddingY * 2));
+      }
+    }
 
     &.autosize.legacy {
       display: grid;
@@ -328,23 +333,14 @@ $kTextAreaPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin,
         overflow: hidden;
       }
     }
-
-    &.autosize {
-      .input-textarea {
-        field-sizing: content;
-        min-height: calc(($kTextAreaLineHeight * v-bind('rows')) + ($kTextAreaPaddingY * 2));
-      }
-    }
   }
 
   .input-wrapper.legacy::after,
   .input-textarea {
     @include inputDefaults;
 
-    // stylelint-disable-next-line no-duplicate-selectors
-    & {
-      grid-area: 1 / 1 / 2 / 2;
-    }
+    // required by the grid fallback
+    grid-area: 1 / 1 / 2 / 2;
   }
 
   .input-textarea {
