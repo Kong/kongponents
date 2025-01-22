@@ -18,11 +18,17 @@
       </template>
     </KLabel>
 
+    <!--
+      The wrapper element is required for the grid fallback for browsers that don’t support `field-sizing: content`.
+      The data-value attribute is used here to render the textarea content in the grid fallback. It’s rendered via
+      a CSS pseudo-element with `content: attr(data-value) " "`, ensuring it’s at least one line tall.
+      See https://chriscoyier.net/2023/09/29/css-solves-auto-expanding-textareas-probably-eventually/
+    -->
     <div
       class="input-wrapper"
       :class="{
         autosize,
-        legacy: !SUPPORT_FIELD_SIZING_CONTENT
+        legacy: autosize && !SUPPORT_FIELD_SIZING_CONTENT
       }"
       :data-value="SUPPORT_FIELD_SIZING_CONTENT ? null : currValue"
     >
@@ -309,9 +315,6 @@ $kTextAreaPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin,
   }
 
   .input-wrapper {
-    display: contents;
-
-    // https://chriscoyier.net/2023/09/29/css-solves-auto-expanding-textareas-probably-eventually/
     // We use `field-sizing: content` for browsers that support it, and a grid fallback for those that don't.
     &.autosize {
       .input-textarea {
@@ -324,6 +327,7 @@ $kTextAreaPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin,
       display: grid;
 
       &::after {
+        // The `data-value` attribute holds the textarea content for browsers that don’t support `field-sizing: content`.
         content: attr(data-value) " ";
         visibility: hidden;
         white-space: pre-wrap;
