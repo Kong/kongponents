@@ -1,3 +1,10 @@
+# [9.18.0](https://github.com/Kong/kongponents/compare/v9.17.5...v9.18.0) (2025-01-22)
+
+
+### Features
+
+* **ktreelist:** add collapse/expand option [KHCP-14716] ([#2583](https://github.com/Kong/kongponents/issues/2583)) ([a5490a3](https://github.com/Kong/kongponents/commit/a5490a3f12543848a38f9e6ac6197be995e7c4c6))
+
 ## [9.17.5](https://github.com/Kong/kongponents/compare/v9.17.4...v9.17.5) (2025-01-21)
 
 
