@@ -1,3 +1,10 @@
+## [9.18.2](https://github.com/Kong/kongponents/compare/v9.18.1...v9.18.2) (2025-01-23)
+
+
+### Bug Fixes
+
+* **kselect, kmultiselect:** filtered arrow navigation [KHCP-13956] ([#2573](https://github.com/Kong/kongponents/issues/2573)) ([7ff96d2](https://github.com/Kong/kongponents/commit/7ff96d29df0f2c4ad5cf956c640100d425d6d2fe))
+
 ## [9.18.1](https://github.com/Kong/kongponents/compare/v9.18.0...v9.18.1) (2025-01-22)
 
 
