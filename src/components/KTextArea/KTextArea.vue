@@ -25,7 +25,7 @@
       See https://chriscoyier.net/2023/09/29/css-solves-auto-expanding-textareas-probably-eventually/
     -->
     <div
-      class="input-wrapper"
+      class="input-textarea-wrapper"
       :class="{
         autosize,
         legacy: autosize && !SUPPORT_FIELD_SIZING_CONTENT
@@ -314,7 +314,7 @@ $kTextAreaPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin,
     margin-top: var(--kui-space-40, $kui-space-40) !important; // need important to override some overrides of default p margin in other components
   }
 
-  .input-wrapper {
+  .input-textarea-wrapper {
     // We use `field-sizing: content` for browsers that support it, and a grid fallback for those that don't.
     &.autosize {
       .input-textarea {
@@ -339,15 +339,21 @@ $kTextAreaPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin,
     }
   }
 
-  .input-wrapper.legacy::after,
+  .input-textarea-wrapper.legacy::after,
   .input-textarea {
     @include inputDefaults;
 
     // required by the grid fallback
-    grid-area: 1 / 1 / 2 / 2;
+    /* stylelint-disable-next-line no-duplicate-selectors */
+    & {
+      grid-area: 1 / 1 / 2 / 2;
+    }
   }
 
   .input-textarea {
+    // A fallback max-height. Referenced GitHub’s implementation for the current value.
+    // It’s highly unlikely that we would need an input box taller than the viewport—this isn’t a document editor.
+    max-height: calc(100vh - 200px);
     min-height: calc(($kTextAreaLineHeight * 2) + ($kTextAreaPaddingY * 2)); // 2 lines + padding
     resize: none;
 
