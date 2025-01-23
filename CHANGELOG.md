@@ -1,3 +1,10 @@
+## [9.18.3](https://github.com/Kong/kongponents/compare/v9.18.2...v9.18.3) (2025-01-23)
+
+
+### Bug Fixes
+
+* **stylelint:** add spacing rules ([#2591](https://github.com/Kong/kongponents/issues/2591)) ([9c3171a](https://github.com/Kong/kongponents/commit/9c3171a9e13d25a34fc5ae7048d1363494045d69))
+
 ## [9.18.2](https://github.com/Kong/kongponents/compare/v9.18.1...v9.18.2) (2025-01-23)
 
 
