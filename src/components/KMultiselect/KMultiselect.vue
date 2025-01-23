@@ -44,7 +44,6 @@
           >
             <div v-if="collapsedContext">
               <KInput
-                ref="multiselectInputElement"
                 autocapitalize="off"
                 autocomplete="off"
                 class="multiselect-input"
@@ -177,43 +176,30 @@
                   @update:model-value="onQueryChange"
                 />
               </div>
-              <div aria-live="polite">
-                <KMultiselectItems
-                  ref="kMultiselectItems"
-                  :items="sortedItems"
-                  @selected="handleItemSelect"
-                >
-                  <template #content="{ item }">
-                    <slot
-                      class="multiselect-item"
-                      :item="item"
-                      name="item-template"
-                    />
-                  </template>
-                </KMultiselectItems>
-                <KMultiselectItem
-                  v-if="enableItemCreation && uniqueFilterStr && !$slots.empty"
-                  key="multiselect-add-item"
-                  class="multiselect-add-item"
-                  data-testid="multiselect-add-item"
-                  :item="{ label: `${filterString} (Add new value)`, value: 'add_item', disabled: !itemCreationValidator(filterString) }"
-                  @selected="handleAddItem"
-                >
-                  <template #content>
-                    <div class="select-item-description">
-                      {{ filterString }}
-                      <span class="select-item-new-indicator">(Add new value)</span>
-                    </div>
-                  </template>
-                </KMultiselectItem>
-                <KMultiselectItem
-                  v-if="!sortedItems.length && !$slots.empty && !enableItemCreation"
-                  key="multiselect-empty-item"
-                  class="multiselect-empty-item"
-                  data-testid="multiselect-empty-item"
-                  :item="{ label: 'No results', value: 'no_results', disabled: true }"
-                />
-              </div>
+              <KMultiselectItems
+                ref="kMultiselectItems"
+                :filter-string="filterString"
+                :item-creation-enabled="enableItemCreation && uniqueFilterStr"
+                :item-creation-valid="itemCreationValidator(filterString)"
+                :items="sortedItems"
+                @add-item="handleAddItem"
+                @selected="handleItemSelect"
+              >
+                <template #content="{ item }">
+                  <slot
+                    class="multiselect-item"
+                    :item="item"
+                    name="item-template"
+                  />
+                </template>
+              </KMultiselectItems>
+              <KMultiselectItem
+                v-if="!sortedItems.length && !$slots.empty && !enableItemCreation"
+                key="multiselect-empty-item"
+                class="multiselect-empty-item"
+                data-testid="multiselect-empty-item"
+                :item="{ label: 'No results', value: 'no_results', disabled: true }"
+              />
               <div
                 v-if="$slots.empty && !loading && !sortedItems.length"
                 class="multiselect-empty"
@@ -285,7 +271,7 @@
 
 <script lang="ts">
 import type { Ref, PropType } from 'vue'
-import { ref, computed, watch, nextTick, onMounted, onUnmounted, useAttrs, useSlots, useId } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onUnmounted, useAttrs, useSlots, useId, useTemplateRef } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KBadge from '@/components/KBadge/KBadge.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -466,7 +452,7 @@ const emit = defineEmits<{
   (e: 'item-removed', value: MultiselectItem): void
 }>()
 
-const kMultiselectItems = ref<InstanceType<typeof KMultiselectItems> | null>(null)
+const multiselectItemsRef = useTemplateRef('kMultiselectItems')
 
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
@@ -499,10 +485,9 @@ const defaultId = useId()
 const multiselectWrapperId = computed((): string => attrs.id ? String(attrs.id) : defaultId) // unique id for the KLabel `for` attribute
 const multiselectKey = useId()
 
-const multiselectElement = ref<HTMLDivElement | null>(null)
-const multiselectInputElement = ref<InstanceType<typeof KInput> | null>(null)
-const multiselectDropdownInputElement = ref<InstanceType<typeof KInput> | null>(null)
-const multiselectSelectionsStagingElement = ref<HTMLDivElement>()
+const multiselectElementRef = useTemplateRef('multiselectElement')
+const multiselectDropdownInputElementRef = useTemplateRef('multiselectDropdownInputElement')
+const multiselectSelectionsStagingElementRef = useTemplateRef('multiselectSelectionsStagingElement')
 
 // filter and selection
 const selectionsMaxHeight = computed((): number => {
@@ -657,7 +642,7 @@ const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: () =
 
       await nextTick() // wait for the dropdown to open
 
-      const input = multiselectDropdownInputElement.value?.$el?.querySelector('input') as HTMLInputElement
+      const input = multiselectDropdownInputElementRef.value?.$el?.querySelector('input') as HTMLInputElement
       input?.focus({ preventScroll: true })
     }
   } else {
@@ -673,7 +658,7 @@ const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: () =
 const stageSelections = () => {
   // set timeout required to push the calculation to the end of the update lifecycle event queue
   setTimeout(() => {
-    const elem = multiselectSelectionsStagingElement.value
+    const elem = multiselectSelectionsStagingElementRef.value
 
     if (props.collapsedContext) {
       // if it's collapsed don't do calculations, because we don't display badges
@@ -909,7 +894,7 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
   }
 
   if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp')) {
-    kMultiselectItems.value?.setFocus()
+    multiselectItemsRef.value?.setFocus()
   }
 }
 
@@ -919,7 +904,7 @@ const onTriggerKeypress = () => {
 
 const onDropdownInputKeyup = (event: any) => {
   if ((event.code === 'ArrowDown' || event.code === 'ArrowUp')) {
-    kMultiselectItems.value?.setFocus()
+    multiselectItemsRef.value?.setFocus()
   }
 }
 
@@ -940,7 +925,7 @@ const triggerInitialFocus = (): void => {
 watch(stagingKey, () => {
   // set timeout required to push the calculation to the end of the update lifecycle event queue
   setTimeout(() => {
-    const elem = multiselectSelectionsStagingElement.value
+    const elem = multiselectSelectionsStagingElementRef.value
 
     if (props.collapsedContext) {
       // if collapsed, don't do all the calculations because we are not displaying badges
@@ -1062,7 +1047,7 @@ const numericWidth = ref<number>(300)
 const setNumericWidth = async (): Promise<void> => {
   numericWidth.value = 300
   await nextTick()
-  numericWidth.value = multiselectElement.value?.clientWidth || 300
+  numericWidth.value = multiselectElementRef.value?.clientWidth || 300
   stageSelections()
 }
 
@@ -1072,12 +1057,12 @@ onMounted(() => {
   useEventListener('resize', setNumericWidth) // automatically removes listener on unmount so no need to clean up
   resizeObserver.value = ResizeObserverHelper.create(setNumericWidth)
 
-  resizeObserver.value.observe(multiselectElement.value as HTMLDivElement)
+  resizeObserver.value.observe(multiselectElementRef.value as HTMLDivElement)
 })
 
 onUnmounted(() => {
-  if (resizeObserver.value && multiselectElement.value) {
-    resizeObserver.value.unobserve(multiselectElement.value)
+  if (resizeObserver.value && multiselectElementRef.value) {
+    resizeObserver.value.unobserve(multiselectElementRef.value)
   }
 })
 </script>

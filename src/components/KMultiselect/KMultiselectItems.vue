@@ -1,36 +1,14 @@
 <template>
-  <KMultiselectItem
-    v-for="item, idx in nonGroupedItems"
-    :key="`${item.key ? item.key : idx}-item`"
-    ref="kMultiselectItem"
-    :item="item"
-    @arrow-down="() => shiftFocus(item.key, 'down')"
-    @arrow-up="() => shiftFocus(item.key, 'up')"
-    @selected="handleItemSelect"
-  >
-    <template #content>
-      <slot
-        :item="item"
-        name="content"
-      />
-    </template>
-  </KMultiselectItem>
-
   <div
-    v-for="group in groups"
-    :key="`${group}-group`"
-    class="multiselect-group"
+    ref="itemsContainer"
+    aria-live="polite"
+    class="multiselect-items-container"
   >
-    <span class="multiselect-group-title">
-      {{ group }}
-    </span>
     <KMultiselectItem
-      v-for="(item, idx) in getGroupItems(group)"
-      :key="`${item.key ? item.key : group + '-' + idx + '-item'}`"
-      ref="kMultiselectItem"
+      v-for="item, idx in nonGroupedItems"
+      :key="`${item.key ? item.key : idx}-item`"
       :item="item"
-      @arrow-down="() => shiftFocus(item.key, 'down')"
-      @arrow-up="() => shiftFocus(item.key, 'up')"
+      @keydown="onKeyPress"
       @selected="handleItemSelect"
     >
       <template #content>
@@ -40,12 +18,53 @@
         />
       </template>
     </KMultiselectItem>
+
+    <div
+      v-for="group in groups"
+      :key="`${group}-group`"
+      class="multiselect-group"
+    >
+      <span class="multiselect-group-title">
+        {{ group }}
+      </span>
+      <KMultiselectItem
+        v-for="(item, idx) in getGroupItems(group)"
+        :key="`${item.key ? item.key : group + '-' + idx + '-item'}`"
+        :item="item"
+        @keydown="onKeyPress"
+        @selected="handleItemSelect"
+      >
+        <template #content>
+          <slot
+            :item="item"
+            name="content"
+          />
+        </template>
+      </KMultiselectItem>
+    </div>
+
+    <KMultiselectItem
+      v-if="itemCreationEnabled"
+      key="multiselect-add-item"
+      class="multiselect-add-item"
+      data-testid="multiselect-add-item"
+      :item="{ label: `${filterString} (Add new value)`, value: 'add_item', disabled: !itemCreationValid }"
+      @keydown="onKeyPress"
+      @selected="$emit('add-item')"
+    >
+      <template #content>
+        <div class="select-item-description">
+          {{ filterString }}
+          <span class="select-item-new-indicator">(Add new value)</span>
+        </div>
+      </template>
+    </KMultiselectItem>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed, ref } from 'vue'
+import { computed, useTemplateRef } from 'vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 import type { MultiselectItem } from '@/types'
 
@@ -56,11 +75,24 @@ const props = defineProps({
     // Items must have a label & value
     validator: (items: MultiselectItem[]) => !items.length || (items.every(i => i.label !== undefined && i.value !== undefined)),
   },
+  itemCreationEnabled: {
+    type: Boolean,
+    default: false,
+  },
+  filterString: {
+    type: String,
+    default: '',
+  },
+  itemCreationValid: {
+    type: Boolean,
+    default: true,
+  },
 })
 
-const emit = defineEmits(['selected'])
-
-const kMultiselectItem = ref<InstanceType<typeof KMultiselectItem>[] | null>(null)
+const emit = defineEmits<{
+  (e: 'selected', item: MultiselectItem): void
+  (e: 'add-item'): void
+}>()
 
 const handleItemSelect = (item: MultiselectItem) => emit('selected', item)
 
@@ -69,41 +101,31 @@ const groups = computed((): string[] => [...new Set((props.items?.filter(item =>
 
 const getGroupItems = (group: string) => props.items?.filter(item => item.group === group)
 
-const setFocus = (index: number = 0) => {
-  if (kMultiselectItem.value) {
-    if (!props.items[index].disabled) {
-      kMultiselectItem.value[index]?.$el?.querySelector('button').focus()
-    } else {
-      setFocus(index + 1)
+const itemsContainerRef = useTemplateRef('itemsContainer')
+
+const setItemFocus = (): void => {
+  const firstSelectableItem = itemsContainerRef.value?.querySelector<HTMLButtonElement>('.multiselect-item button:not(:disabled)')
+  firstSelectableItem?.focus()
+}
+
+const onKeyPress = ({ target, key } : KeyboardEvent) => {
+  if (key === 'ArrowDown' || key === 'ArrowUp') {
+    // all selectable items
+    const selectableItems = itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>('.multiselect-item button:not(:disabled)')
+
+    if (selectableItems?.length) {
+      // find the current element index in the array
+      const currentElementIndex = [...selectableItems].indexOf(target as HTMLButtonElement)
+      // move to the next or previous element
+      const nextElementIndex = key === 'ArrowDown' ? currentElementIndex + 1 : currentElementIndex - 1
+      const nextElement = selectableItems[nextElementIndex]
+
+      nextElement?.focus()
     }
   }
 }
 
-const shiftFocus = (key: MultiselectItem['key'], direction: 'down' | 'up') => {
-  const index = props.items.findIndex(item => item.key === key)
-
-  if (index === -1) {
-    return // Exit if the item is not found
-  }
-
-  // determine step for navigation
-  const step = direction === 'down' ? 1 : -1
-  const isValidIndex = direction === 'down'
-    ? index + step < props.items.length
-    : index + step >= 0
-  if (isValidIndex) {
-    const nextIndex = index + step
-    if (props.items[nextIndex].disabled) {
-      // find the next valid index if the current one is disabled
-      shiftFocus(props.items[nextIndex].key!, direction)
-    } else {
-      // focus the button
-      kMultiselectItem.value?.[nextIndex]?.$el?.querySelector('button')?.focus()
-    }
-  }
-}
-
-defineExpose({ setFocus })
+defineExpose({ setFocus: setItemFocus })
 </script>
 
 <style lang="scss" scoped>
