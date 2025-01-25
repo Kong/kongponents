@@ -23,15 +23,22 @@
       The data-value attribute is used here to render the textarea content in the grid fallback. It’s rendered via
       a CSS pseudo-element with `content: attr(data-value) " "`, ensuring it’s at least one line tall.
       See https://chriscoyier.net/2023/09/29/css-solves-auto-expanding-textareas-probably-eventually/
+      We are rendering the legacy mode on serverside so that it won't cause any flickering on the client side for
+      browsers that don't support `field-sizing: content`. Then for Chromium based browsers, we will switch to the
+      new mode on hydration. This will inevitably cause a hyration mismatch, but it's safe to ignore it as Chromium
+      based browsers also support the grid hack.
     -->
+    <!-- eslint-disable vue/no-restricted-static-attribute -->
     <div
       class="input-textarea-wrapper"
       :class="{
         autosize,
         legacy: autosize && !SUPPORT_FIELD_SIZING_CONTENT
       }"
+      data-allow-mismatch="class"
       :data-value="SUPPORT_FIELD_SIZING_CONTENT ? null : currValue"
     >
+      <!-- eslint-enable vue/no-restricted-static-attribute -->
       <textarea
         :id="textAreaId"
         v-bind="modifiedAttrs"
