@@ -79,8 +79,8 @@ importers:
         specifier: ^1.17.2
         version: 1.17.2
       '@kong/eslint-config-kong-ui':
-        specifier: ^1.2.2
-        version: 1.2.2(eslint@9.18.0(jiti@1.21.6))(typescript@5.6.3)
+        specifier: ^1.2.3
+        version: 1.2.4(eslint@9.18.0(jiti@1.21.6))(typescript@5.6.3)
       '@semantic-release/changelog':
         specifier: ^6.0.3
         version: 6.0.3(semantic-release@24.2.0(typescript@5.6.3))
@@ -962,10 +962,6 @@ packages:
     resolution: {integrity: sha512-grOjVNN8P3hjJn/eIETF1wwd12DdnwFDoyceUJLYYdkpbwq3nLi+4fqrTAONx7XDALqlL220wC/RHSC/QTI/0w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@eslint/js@9.17.0':
-    resolution: {integrity: sha512-Sxc4hqcs1kTu0iID3kcZDW3JHq2a77HO9P8CP6YEA/FpH3Ll8UXE2r/86Rz9YJLKme39S9vU5OWNjC6Xl0Cr3w==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
   '@eslint/js@9.18.0':
     resolution: {integrity: sha512-fK6L7rxcq6/z+AaQMtiFTkvbHkBLNlwyRxHpKawP0x3u9+NC6MQTnFW+AdpwC6gfHTW0051cokQgtTN2FqlxQA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -1052,8 +1048,8 @@ packages:
     resolution: {integrity: sha512-979FHvvqPkjdUmbUL7Q2+z04GiVLXqu+OgucD3krAczuTWGfbFG6mOzbO6QIZ7/YlFMbe/N7TH85yJ+YfA/uUg==}
     engines: {node: '>=18.19.1', pnpm: '>=9.7.0'}
 
-  '@kong/eslint-config-kong-ui@1.2.2':
-    resolution: {integrity: sha512-uOB0BkL4g1NMS4WARUO3HqxmJhjWSXxomeHW7wu0Lcl4uF/hlaNlyd2sLgm4bYdfSUOQtWVnyj2AZEMk6QmsIA==}
+  '@kong/eslint-config-kong-ui@1.2.4':
+    resolution: {integrity: sha512-DoYY1BNITrPP3N1BdN9KMryOSXGWlUUf1ko+ELDuGG2SerAOxyMxVIlP1YgbMjhHY6aFAaX1BH5qnX6W1bkYHg==}
     engines: {node: '>=18.0.0 || >=20.13.1'}
     peerDependencies:
       eslint: '>= 9.17.0'
@@ -1240,8 +1236,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.31.0':
-    resolution: {integrity: sha512-4N3ttsYqUIjCVHXRZ/AMJoaEONWhXFop8h6tOkX+n+PyuYAZFp+QRNRfD+VAn5NmUnLzwwmT4GaKFu5RAQSEvg==}
+  '@rollup/wasm-node@4.32.0':
+    resolution: {integrity: sha512-Dsr5270xEi7yFW3MjnLp+mBO+EW0qbdp+J+EPm+eCpA0nfYnWv/xExf85uTCBu18VVvGg0RTUqrUlwA/FUe2yQ==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -6131,8 +6127,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@eslint/js@9.17.0': {}
-
   '@eslint/js@9.18.0': {}
 
   '@eslint/object-schema@2.1.4': {}
@@ -6213,11 +6207,11 @@ snapshots:
 
   '@kong/design-tokens@1.17.2': {}
 
-  '@kong/eslint-config-kong-ui@1.2.2(eslint@9.18.0(jiti@1.21.6))(typescript@5.6.3)':
+  '@kong/eslint-config-kong-ui@1.2.4(eslint@9.18.0(jiti@1.21.6))(typescript@5.6.3)':
     dependencies:
       '@eslint/compat': 1.2.4(eslint@9.18.0(jiti@1.21.6))
       '@eslint/eslintrc': 3.2.0
-      '@eslint/js': 9.17.0
+      '@eslint/js': 9.18.0
       '@stylistic/eslint-plugin': 2.12.1(eslint@9.18.0(jiti@1.21.6))(typescript@5.6.3)
       eslint: 9.18.0(jiti@1.21.6)
       eslint-plugin-cypress: 3.6.0(eslint@9.18.0(jiti@1.21.6))
@@ -6410,7 +6404,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@rollup/wasm-node@4.31.0':
+  '@rollup/wasm-node@4.32.0':
     dependencies:
       '@types/estree': 1.0.6
     optionalDependencies:
@@ -10617,7 +10611,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
-      rollup: '@rollup/wasm-node@4.31.0'
+      rollup: '@rollup/wasm-node@4.32.0'
     optionalDependencies:
       '@types/node': 20.17.6
       fsevents: 2.3.3
@@ -10628,7 +10622,7 @@ snapshots:
     dependencies:
       esbuild: 0.24.0
       postcss: 8.4.49
-      rollup: '@rollup/wasm-node@4.31.0'
+      rollup: '@rollup/wasm-node@4.32.0'
     optionalDependencies:
       '@types/node': 20.17.6
       fsevents: 2.3.3
