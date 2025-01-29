@@ -79,7 +79,7 @@ importers:
         specifier: ^1.17.2
         version: 1.17.2
       '@kong/eslint-config-kong-ui':
-        specifier: ^1.2.3
+        specifier: ^1.2.4
         version: 1.2.4(eslint@9.18.0(jiti@1.21.6))(typescript@5.6.3)
       '@semantic-release/changelog':
         specifier: ^6.0.3
@@ -1242,8 +1242,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.32.0':
-    resolution: {integrity: sha512-Dsr5270xEi7yFW3MjnLp+mBO+EW0qbdp+J+EPm+eCpA0nfYnWv/xExf85uTCBu18VVvGg0RTUqrUlwA/FUe2yQ==}
+  '@rollup/wasm-node@4.32.1':
+    resolution: {integrity: sha512-uRPAWjmJRKS5pLGIy6ZCf+wVMjwkt6FSLBl3uv5GIda5UYY+XEemeJxl0+/D8ZBWbLTap+Nlx7/9FiJU56Baog==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -6371,7 +6371,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@rollup/wasm-node@4.32.0':
+  '@rollup/wasm-node@4.32.1':
     dependencies:
       '@types/estree': 1.0.6
     optionalDependencies:
@@ -10517,7 +10517,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
-      rollup: '@rollup/wasm-node@4.32.0'
+      rollup: '@rollup/wasm-node@4.32.1'
     optionalDependencies:
       '@types/node': 20.17.16
       fsevents: 2.3.3
@@ -10528,7 +10528,7 @@ snapshots:
     dependencies:
       esbuild: 0.24.2
       postcss: 8.4.49
-      rollup: '@rollup/wasm-node@4.32.0'
+      rollup: '@rollup/wasm-node@4.32.1'
     optionalDependencies:
       '@types/node': 20.17.16
       fsevents: 2.3.3
