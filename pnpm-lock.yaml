@@ -70,7 +70,7 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(@types/node@20.17.16)(typescript@5.6.3)
       '@evilmartians/lefthook':
-        specifier: ^1.10.5
+        specifier: ^1.10.10
         version: 1.10.10
       '@kong-ui-public/sandbox-layout':
         specifier: ^2.1.60
@@ -178,7 +178,7 @@ importers:
         specifier: ^24.2.1
         version: 24.2.1(typescript@5.6.3)
       shiki:
-        specifier: ^1.27.2
+        specifier: ^1.29.1
         version: 1.29.1
       shx:
         specifier: ^0.3.4
@@ -205,7 +205,7 @@ importers:
         specifier: ^5.6.3
         version: 5.6.3
       vite:
-        specifier: ^6.0.7
+        specifier: ^6.0.11
         version: 6.0.11(@types/node@20.17.16)(jiti@1.21.6)(sass-embedded@1.79.5)(sass@1.80.7)(yaml@2.4.5)
       vite-plugin-vue-devtools:
         specifier: ^7.4.6
@@ -1242,8 +1242,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.32.1':
-    resolution: {integrity: sha512-uRPAWjmJRKS5pLGIy6ZCf+wVMjwkt6FSLBl3uv5GIda5UYY+XEemeJxl0+/D8ZBWbLTap+Nlx7/9FiJU56Baog==}
+  '@rollup/wasm-node@4.34.0':
+    resolution: {integrity: sha512-TIec0kZZ3KpaaKp+e6XyeGxBVnr/PZnx+63yqC12D+S9z6YBJ3TTM13LjjMHu23oZUkVZghFITGPKciW804YHA==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -6371,7 +6371,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@rollup/wasm-node@4.32.1':
+  '@rollup/wasm-node@4.34.0':
     dependencies:
       '@types/estree': 1.0.6
     optionalDependencies:
@@ -10517,7 +10517,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
-      rollup: '@rollup/wasm-node@4.32.1'
+      rollup: '@rollup/wasm-node@4.34.0'
     optionalDependencies:
       '@types/node': 20.17.16
       fsevents: 2.3.3
@@ -10528,7 +10528,7 @@ snapshots:
     dependencies:
       esbuild: 0.24.2
       postcss: 8.4.49
-      rollup: '@rollup/wasm-node@4.32.1'
+      rollup: '@rollup/wasm-node@4.34.0'
     optionalDependencies:
       '@types/node': 20.17.16
       fsevents: 2.3.3
