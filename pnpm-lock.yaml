@@ -42,8 +42,8 @@ importers:
         specifier: ^1.15.6
         version: 1.15.6
       swrv:
-        specifier: ^1.0.4
-        version: 1.0.4(vue@3.5.13(typescript@5.6.3))
+        specifier: ^1.1.0
+        version: 1.1.0(vue@3.5.13(typescript@5.6.3))
       v-calendar:
         specifier: ^3.1.2
         version: 3.1.2(@popperjs/core@2.11.8)(vue@3.5.13(typescript@5.6.3))
@@ -982,7 +982,6 @@ packages:
 
   '@evilmartians/lefthook@1.10.10':
     resolution: {integrity: sha512-MRIA0zJzUBbmcbecI7QjI08li4ffpmZ6DeVydEiZSg0vSx5mElEMEjDEjkI60eSV0XOm7LRbQKz2rfW6NqH8Cw==}
-    cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -1242,8 +1241,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.34.0':
-    resolution: {integrity: sha512-TIec0kZZ3KpaaKp+e6XyeGxBVnr/PZnx+63yqC12D+S9z6YBJ3TTM13LjjMHu23oZUkVZghFITGPKciW804YHA==}
+  '@rollup/wasm-node@4.34.2':
+    resolution: {integrity: sha512-+lN8XHBdka9vIq0Hdsn1NLjdRYQXG1eoFCQws8K7KXPfw2jE0j1c3rSAi50pVrk9ykVPDJHoPq79twHOA5RvGg==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -4739,8 +4738,8 @@ packages:
   svg-tags@1.0.0:
     resolution: {integrity: sha512-ovssysQTa+luh7A5Weu3Rta6FJlFBBbInjOh722LIt6klpU2/HtdUbszju/G4devcvk8PGt7FCLv5wftu3THUA==}
 
-  swrv@1.0.4:
-    resolution: {integrity: sha512-zjEkcP8Ywmj+xOJW3lIT65ciY/4AL4e/Or7Gj0MzU3zBJNMdJiT8geVZhINavnlHRMMCcJLHhraLTAiDOTmQ9g==}
+  swrv@1.1.0:
+    resolution: {integrity: sha512-pjllRDr2s0iTwiE5Isvip51dZGR7GjLH1gCSVyE8bQnbAx6xackXsFdojau+1O5u98yHF5V73HQGOFxKUXO9gQ==}
     peerDependencies:
       vue: '>=3.2.26 < 4'
 
@@ -6210,7 +6209,7 @@ snapshots:
       focus-trap: 7.6.4
       focus-trap-vue: 4.0.3(focus-trap@7.6.4)(vue@3.5.13(typescript@5.6.3))
       sortablejs: 1.15.6
-      swrv: 1.0.4(vue@3.5.13(typescript@5.6.3))
+      swrv: 1.1.0(vue@3.5.13(typescript@5.6.3))
       uuid: 9.0.1
       v-calendar: 3.1.2(@popperjs/core@2.11.8)(vue@3.5.13(typescript@5.6.3))
       vue: 3.5.13(typescript@5.6.3)
@@ -6371,7 +6370,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@rollup/wasm-node@4.34.0':
+  '@rollup/wasm-node@4.34.2':
     dependencies:
       '@types/estree': 1.0.6
     optionalDependencies:
@@ -10180,7 +10179,7 @@ snapshots:
 
   svg-tags@1.0.0: {}
 
-  swrv@1.0.4(vue@3.5.13(typescript@5.6.3)):
+  swrv@1.1.0(vue@3.5.13(typescript@5.6.3)):
     dependencies:
       vue: 3.5.13(typescript@5.6.3)
 
@@ -10517,7 +10516,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
-      rollup: '@rollup/wasm-node@4.34.0'
+      rollup: '@rollup/wasm-node@4.34.2'
     optionalDependencies:
       '@types/node': 20.17.16
       fsevents: 2.3.3
@@ -10528,7 +10527,7 @@ snapshots:
     dependencies:
       esbuild: 0.24.2
       postcss: 8.4.49
-      rollup: '@rollup/wasm-node@4.34.0'
+      rollup: '@rollup/wasm-node@4.34.2'
     optionalDependencies:
       '@types/node': 20.17.16
       fsevents: 2.3.3

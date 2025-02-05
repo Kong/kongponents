@@ -64,7 +64,7 @@
     "lodash-es": "^4.17.21",
     "nanoid": "^5.0.9",
     "sortablejs": "^1.15.6",
-    "swrv": "^1.0.4",
+    "swrv": "^1.1.0",
     "v-calendar": "^3.1.2",
     "virtua": "^0.39.3",
     "vue-draggable-next": "^2.2.1"

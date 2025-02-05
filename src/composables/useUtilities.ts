@@ -4,6 +4,7 @@ import type { IConfig } from 'swrv'
 import useSWRV from 'swrv'
 import type { AxiosResponse, AxiosError } from 'axios'
 import type { IKey, fetcherFn } from 'swrv/dist/types'
+import type { SwrvState } from '@/types'
 
 const swrvState = {
   VALIDATING: 'VALIDATING',
@@ -13,7 +14,7 @@ const swrvState = {
   SUCCESS_HAS_DATA: 'SUCCESS_HAS_DATA',
   ERROR: 'ERROR',
   STALE_IF_ERROR: 'STALE_IF_ERROR',
-}
+} as const satisfies Record<string, SwrvState>
 
 export default function useUtilities() {
   const useRequest = <Data = unknown, Error = { message: string }>(
@@ -21,23 +22,13 @@ export default function useUtilities() {
     fn?: fetcherFn<AxiosResponse<Data>>,
     config?: IConfig,
   ) => {
-    const useSwrvFn =
-      typeof useSWRV === 'function'
-        ? useSWRV
-        : () => ({
-          // must return refs for consistent return types
-          data: ref({}),
-          error: ref(),
-          isValidating: ref(false),
-          mutate: () => ({}),
-        })
-
     const {
       data: response,
       error,
       isValidating,
+      isLoading,
       mutate: revalidate,
-    } = useSwrvFn<AxiosResponse<Data>, AxiosError<Error>>(key, fn, {
+    } = useSWRV<AxiosResponse<Data>, AxiosError<Error>>(key, fn, {
       revalidateDebounce: 500,
       dedupingInterval: 100,
       ...config,
@@ -53,6 +44,7 @@ export default function useUtilities() {
       response,
       error,
       isValidating,
+      isLoading,
       revalidate,
     }
   }
@@ -164,7 +156,7 @@ export default function useUtilities() {
   }
 
   const useSwrvState = (response: Ref<any>, error: Ref<any>, isValidating: Ref<boolean>) => {
-    const state = ref(swrvState.PENDING)
+    const state = ref<SwrvState>(swrvState.PENDING)
     const hasData = ref(false)
 
     watchEffect(() => {
