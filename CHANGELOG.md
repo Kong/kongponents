@@ -1,3 +1,24 @@
+## [9.18.5](https://github.com/Kong/kongponents/compare/v9.18.4...v9.18.5) (2025-02-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.20.4 ([#2599](https://github.com/Kong/kongponents/issues/2599)) ([e618037](https://github.com/Kong/kongponents/commit/e618037acaf454aa3d2c680b2813e43b65e666eb))
+
+## [9.18.4](https://github.com/Kong/kongponents/compare/v9.18.3...v9.18.4) (2025-01-27)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies with stable version ([#2507](https://github.com/Kong/kongponents/issues/2507)) ([0da1cc0](https://github.com/Kong/kongponents/commit/0da1cc0e1752ad0a16e184723995bc80d41288fa))
+
+## [9.18.3](https://github.com/Kong/kongponents/compare/v9.18.2...v9.18.3) (2025-01-23)
+
+
+### Bug Fixes
+
+* **stylelint:** add spacing rules ([#2591](https://github.com/Kong/kongponents/issues/2591)) ([9c3171a](https://github.com/Kong/kongponents/commit/9c3171a9e13d25a34fc5ae7048d1363494045d69))
+
 ## [9.18.2](https://github.com/Kong/kongponents/compare/v9.18.1...v9.18.2) (2025-01-23)
 
 
