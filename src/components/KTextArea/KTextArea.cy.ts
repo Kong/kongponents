@@ -1,5 +1,15 @@
 import KTextArea from '@/components/KTextArea/KTextArea.vue'
 
+// Helper function to get the number of rendered rows in a textarea
+function getRenderedRows(el: HTMLElement) {
+  const { paddingTop, paddingBottom, borderTopWidth, borderBottomWidth, lineHeight } = window.getComputedStyle(el)
+  const extraSpacing = [paddingTop, paddingBottom, borderTopWidth, borderBottomWidth]
+    .map((value) => parseFloat(value))
+    .reduce((acc, val) => acc + val, 0)
+  const lineHeightValue = parseFloat(lineHeight)
+  return Math.round((el.offsetHeight - extraSpacing) / lineHeightValue)
+}
+
 describe('KTextArea', () => {
   it('renders text when value is passed', () => {
     const value = 'Howdy!'
@@ -131,5 +141,44 @@ describe('KTextArea', () => {
     })
 
     cy.get('textarea').should('have.class', 'resizable')
+  })
+
+  it('should handle `autosize` prop correctly', () => {
+    cy.mount(KTextArea, {
+      props: {
+        autosize: true,
+        rows: 2,
+      },
+    })
+
+    cy.get('.input-textarea-wrapper').should('have.class', 'autosize')
+
+    cy.get('textarea')
+      .type('1\n2\n3\n4').then(($el) => {
+        expect(getRenderedRows($el[0])).to.eq(4)
+      })
+      .type('\n5\n6').then(($el) => {
+        expect(getRenderedRows($el[0])).to.eq(6)
+      })
+      .type('{backspace}'.repeat(6)).then(($el) => {
+        expect(getRenderedRows($el[0])).to.eq(3)
+      })
+  })
+
+  it('should not auto-adjust height when `autosize` is not provided', () => {
+    cy.mount(KTextArea, {
+      props: {
+        rows: 2,
+      },
+    })
+
+    cy.get('.input-textarea-wrapper').should('not.have.class', 'autosize')
+
+    cy.get('textarea')
+      .should('have.attr', 'rows', '2')
+      .type('1\n2\n3\n4')
+      .then(($el) => {
+        expect(getRenderedRows($el[0])).to.eq(2)
+      })
   })
 })

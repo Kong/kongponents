@@ -63,6 +63,14 @@
           :rows="2"
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="autosize">
+        <KTextArea
+          autosize
+          label="Label"
+          resizable
+          :rows="3"
+        />
+      </SandboxSectionComponent>
 
       <!-- Attributes -->
       <SandboxTitleComponent

@@ -248,12 +248,10 @@ import useUtilities from '@/composables/useUtilities'
 import { CopyIcon, SearchIcon, ProgressIcon, CloseIcon, RegexIcon, FilterIcon, ArrowUpIcon, ArrowDownIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_NEUTRAL_STRONG, KUI_ICON_SIZE_30, KUI_LINE_HEIGHT_30 } from '@kong/design-tokens'
 import KCodeBlockIconButton from './KCodeBlockIconButton.vue'
+import { IS_MAYBE_MAC } from '@/utilities/browser'
 
 const { getSizeFromString } = useUtilities()
 
-const IS_MAYBE_MAC = typeof navigator !== 'undefined' &&
-  ('userAgentData' in navigator && navigator.userAgentData === 'macOS' ||
-    navigator.platform.toLowerCase().includes('mac'))
 const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Option' : 'Alt'
 
 // Debounces the search handler which ensures that we don’t trigger several searches while the user is still typing.
