@@ -18,16 +18,41 @@
       </template>
     </KLabel>
 
-    <textarea
-      :id="textAreaId"
-      v-bind="modifiedAttrs"
-      :aria-invalid="ariaInvalid"
-      class="input-textarea"
-      :class="[resizable || isResizable ? 'resizable' : undefined]"
-      :rows="rows"
-      :value="getValue()"
-      @input="inputHandler"
-    />
+    <!--
+      The wrapper element is required for the grid fallback for browsers that don’t support `field-sizing: content`.
+      The data-value attribute is used here to render the textarea content in the grid fallback. It’s rendered via
+      a CSS pseudo-element with `content: attr(data-value) " "`, ensuring it’s at least one line tall.
+      See https://chriscoyier.net/2023/09/29/css-solves-auto-expanding-textareas-probably-eventually/
+      We are rendering the legacy mode on serverside so that it won't cause any flickering on the client side for
+      browsers that don't support `field-sizing: content`. Then for Chromium based browsers, we will switch to the
+      new mode on hydration. This will inevitably cause a hyration mismatch, but it's safe to ignore it as Chromium
+      based browsers also support the grid hack.
+    -->
+    <!-- eslint-disable vue/no-restricted-static-attribute -->
+    <div
+      class="input-textarea-wrapper"
+      :class="{
+        autosize,
+        legacy: autosize && !SUPPORT_FIELD_SIZING_CONTENT
+      }"
+      data-allow-mismatch="class"
+      :data-value="SUPPORT_FIELD_SIZING_CONTENT ? null : currValue"
+    >
+      <!-- eslint-enable vue/no-restricted-static-attribute -->
+      <textarea
+        :id="textAreaId"
+        v-bind="modifiedAttrs"
+        :aria-invalid="ariaInvalid"
+        class="input-textarea"
+        :class="{
+          resizable: resizable || isResizable,
+        }"
+        :rows="rows"
+        :value="getValue()"
+        @dblclick="restoreSizing"
+        @input="inputHandler"
+      />
+    </div>
 
     <Transition
       mode="out-in"
@@ -49,8 +74,12 @@ import { ref, computed, watch, useAttrs, useSlots, useId } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import type { TextAreaLimitExceed } from '@/types'
+import { cssSupports, getScrollbarSize, IS_MAYBE_FIREFOX } from '@/utilities/browser'
 
 const DEFAULT_CHARACTER_LIMIT = 2048
+// Firefox has the double click feature built in, so we don't need to calculate the size
+const RESIZE_HANDLE_SIZE = IS_MAYBE_FIREFOX ? 0 : getScrollbarSize()
+const SUPPORT_FIELD_SIZING_CONTENT = cssSupports('field-sizing', 'content')
 
 export default {
   inheritAttrs: false,
@@ -90,6 +119,10 @@ const props = defineProps({
     default: false,
   },
   resizable: {
+    type: Boolean,
+    default: false,
+  },
+  autosize: {
     type: Boolean,
     default: false,
   },
@@ -231,6 +264,21 @@ watch(value, (newVal, oldVal) => {
 const getValue = (): string => {
   return currValue.value ? currValue.value : props.modelValue
 }
+
+// Double click to restore sizing for browsers except Firefox
+// as Firefox has the double click feature built in.
+const restoreSizing = IS_MAYBE_FIREFOX ? () => {} : (e: MouseEvent): void => {
+  const { target, clientX, clientY } = e
+
+  if (!(target instanceof HTMLTextAreaElement)) {
+    return
+  }
+
+  const { right, bottom } = target.getBoundingClientRect()
+  if (clientX > right - RESIZE_HANDLE_SIZE && clientY > bottom - RESIZE_HANDLE_SIZE) {
+    target.style.height = ''
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -268,24 +316,53 @@ $kTextAreaPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin,
   .help-text {
     @include inputHelpText;
 
-    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
-    // stylelint-disable-next-line no-duplicate-selectors
+    // reset default margin from browser
+    margin: 0;
+    margin-top: var(--kui-space-40, $kui-space-40) !important; // need important to override some overrides of default p margin in other components
+  }
+
+  .input-textarea-wrapper {
+    // We use `field-sizing: content` for browsers that support it, and a grid fallback for those that don't.
+    &.autosize {
+      .input-textarea {
+        field-sizing: content;
+        min-height: calc(($kTextAreaLineHeight * v-bind('rows')) + ($kTextAreaPaddingY * 2));
+      }
+    }
+
+    &.autosize.legacy {
+      display: grid;
+
+      &::after {
+        // The `data-value` attribute holds the textarea content for browsers that don’t support `field-sizing: content`.
+        content: attr(data-value) " ";
+        visibility: hidden;
+        white-space: pre-wrap;
+      }
+
+      .input-textarea {
+        overflow: hidden;
+      }
+    }
+  }
+
+  .input-textarea-wrapper.legacy::after,
+  .input-textarea {
+    @include inputDefaults;
+
+    // required by the grid fallback
+    /* stylelint-disable-next-line no-duplicate-selectors */
     & {
-      // reset default margin from browser
-      margin: 0;
-      margin-top: var(--kui-space-40, $kui-space-40) !important; // need important to override some overrides of default p margin in other components
+      grid-area: 1 / 1 / 2 / 2;
     }
   }
 
   .input-textarea {
-    @include inputDefaults;
-
-    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
-    // stylelint-disable-next-line no-duplicate-selectors
-    & {
-      min-height: calc(($kTextAreaLineHeight * 2) + ($kTextAreaPaddingY * 2)); // 2 lines + padding
-      resize: none;
-    }
+    // A fallback max-height. Referenced GitHub’s implementation for the current value.
+    // It’s highly unlikely that we would need an input box taller than the viewport—this isn’t a document editor.
+    max-height: calc(100vh - 200px);
+    min-height: calc(($kTextAreaLineHeight * 2) + ($kTextAreaPaddingY * 2)); // 2 lines + padding
+    resize: none;
 
     &.resizable {
       resize: vertical;
