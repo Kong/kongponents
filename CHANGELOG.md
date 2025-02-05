@@ -1,3 +1,10 @@
+## [9.19.1](https://github.com/Kong/kongponents/compare/v9.19.0...v9.19.1) (2025-02-05)
+
+
+### Bug Fixes
+
+* **kcodeblock:** prevent unexpected horizontal scrollbar ([#2592](https://github.com/Kong/kongponents/issues/2592)) ([83316f7](https://github.com/Kong/kongponents/commit/83316f7ba688201259eebe3c043839cbb0f0551e))
+
 # [9.19.0](https://github.com/Kong/kongponents/compare/v9.18.5...v9.19.0) (2025-02-05)
 
 
