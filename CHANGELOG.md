@@ -1,3 +1,10 @@
+# [9.19.0](https://github.com/Kong/kongponents/compare/v9.18.5...v9.19.0) (2025-02-05)
+
+
+### Features
+
+* **ktextarea:** add `autosize` for `<KTextArea>` ([#2587](https://github.com/Kong/kongponents/issues/2587)) ([1d9d7c4](https://github.com/Kong/kongponents/commit/1d9d7c4de651dc8ff2740d9c061024ca8d23dc77))
+
 ## [9.18.5](https://github.com/Kong/kongponents/compare/v9.18.4...v9.18.5) (2025-02-03)
 
 
