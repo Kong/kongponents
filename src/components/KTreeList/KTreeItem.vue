@@ -1,41 +1,76 @@
 <template>
-  <button
-    class="tree-item"
-    :class="{
-      'not-draggable': disabled,
-      'selected': item.selected
-    }"
-    :data-testid="`tree-item-${item.id}`"
-    data-tree-item-trigger="true"
-    draggable="false"
-    type="button"
-    @click.prevent="handleClick"
+  <div
+    class="tree-item-wrapper"
+    :data-testid="`tree-item-wrapper-${item.id}`"
   >
-    <div
-      v-if="hasIcon"
-      class="tree-item-icon"
-      data-testid="tree-item-icon"
+    <span
+      v-if="collapsible && hasChildren"
+      :aria-controls="`tree-list-draggable-${controlsId}`"
+      :aria-expanded="isExpanded"
+      :aria-label="isExpanded ? 'Collapse' : 'Expand'"
+      class="tree-item-expanded-button"
+      :class="{
+        'collapsed': !isExpanded,
+        'expanded': isExpanded
+      }"
+      data-testid="tree-item-expanded-button"
+      role="button"
+      @click.stop="toggleItem"
+      @keyup.enter="toggleItem"
     >
-      <slot name="item-icon">
-        <ServiceDocumentIcon decorative />
-      </slot>
-    </div>
-    <div
-      class="tree-item-label"
-      data-testid="tree-item-label"
+      <ChevronRightIcon
+        class="tree-item-expanded-icon"
+        :class="{
+          'collapsed': !isExpanded,
+          'expanded': isExpanded
+        }"
+        data-testid="tree-item-expanded-icon"
+        decorative
+        :size="KUI_ICON_SIZE_40"
+        tabindex="0"
+      />
+    </span>
+
+    <button
+      class="tree-item"
+      :class="{
+        'not-draggable': disabled,
+        'selected': item.selected,
+        'expanded': collapsible && isExpanded,
+        'collapsed': collapsible && !isExpanded,
+        'no-children': collapsible && !hasChildren
+      }"
+      :data-testid="`tree-item-${item.id}`"
+      data-tree-item-trigger="true"
+      draggable="false"
+      type="button"
+      @click.prevent="handleClick"
     >
-      <slot name="item-label">
-        {{ item.name }}
-      </slot>
-    </div>
-  </button>
+      <div
+        v-if="hasIcon"
+        class="tree-item-icon"
+        data-testid="tree-item-icon"
+      >
+        <slot name="item-icon">
+          <ServiceDocumentIcon decorative />
+        </slot>
+      </div>
+      <div
+        class="tree-item-label"
+        data-testid="tree-item-label"
+      >
+        <slot name="item-label">
+          {{ item.name }}
+        </slot>
+      </div>
+    </button>
+  </div>
 </template>
 
 <script lang="ts">
 import type { PropType } from 'vue'
 import { computed, useSlots } from 'vue'
 import type { TreeListItem } from '@/types'
-import { ServiceDocumentIcon } from '@kong/icons'
 
 export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
   return items.every(i => i.name !== undefined && i.id !== undefined && (!i.children?.length || itemsHaveRequiredProps(i.children)))
@@ -46,6 +81,9 @@ export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
 /**
  * button.tree-item has draggable="false" attribute to prevent native drag events in order to let vue-draggable-next handle dragging
  */
+import { ref, watch } from 'vue'
+import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import { ServiceDocumentIcon, ChevronRightIcon } from '@kong/icons'
 
 const props = defineProps({
   item: {
@@ -61,10 +99,27 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  collapsible: {
+    type: Boolean,
+    default: false,
+  },
+  initialCollapse: {
+    type: Boolean,
+    default: false,
+  },
+  hasChildren: {
+    type: Boolean,
+    default: false,
+  },
+  controlsId: {
+    type: String,
+    required: true,
+  },
 })
 
 const emit = defineEmits<{
   (event: 'selected', item: TreeListItem): void
+  (event: 'expanded', val: boolean): void
 }>()
 
 const slots = useSlots()
@@ -83,6 +138,28 @@ const handleClick = (event: any) => {
 
   emit('selected', props.item)
 }
+
+const isExpanded = ref<boolean>(true)
+
+const setExpandedValue = (expanded: boolean): void => {
+  isExpanded.value = expanded
+}
+
+watch(() => props.initialCollapse, (val, oldVal) => {
+  if (val !== oldVal) {
+    isExpanded.value = !val
+  }
+}, {
+  immediate: true,
+})
+
+const toggleItem = (): void => {
+  isExpanded.value = !isExpanded.value
+
+  emit('expanded', isExpanded.value)
+}
+
+defineExpose({ setExpandedValue, id: props.item?.id })
 </script>
 
 <style lang="scss" scoped>
@@ -103,6 +180,15 @@ const handleClick = (event: any) => {
   transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, border-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
   user-select: none;
   width: 100%;
+
+  &.no-children {
+    margin-left: 32px;
+  }
+
+  &-wrapper {
+    align-items: stretch;
+    display: flex;
+  }
 
   .tree-item-icon,
   :deep(#{$kongponentsKongIconSelector}) {
@@ -139,6 +225,31 @@ const handleClick = (event: any) => {
 
   &.not-draggable {
     cursor: pointer;
+  }
+
+  &-expanded-button {
+    cursor: pointer;
+    padding: $kui-space-30;
+    // makes the button click easier on draggable wrapper
+    z-index: 10;
+
+    &:focus-visible {
+      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+      outline: none;
+    }
+  }
+
+  &-expanded-icon {
+    transition: 0.1s all linear;
+
+    &.collapsed {
+      transform: rotate(0);
+    }
+
+    &.expanded {
+      transform: rotate(90deg);
+    }
   }
 }
 </style>

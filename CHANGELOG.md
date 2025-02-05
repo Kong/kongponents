@@ -1,3 +1,24 @@
+## [9.18.2](https://github.com/Kong/kongponents/compare/v9.18.1...v9.18.2) (2025-01-23)
+
+
+### Bug Fixes
+
+* **kselect, kmultiselect:** filtered arrow navigation [KHCP-13956] ([#2573](https://github.com/Kong/kongponents/issues/2573)) ([7ff96d2](https://github.com/Kong/kongponents/commit/7ff96d29df0f2c4ad5cf956c640100d425d6d2fe))
+
+## [9.18.1](https://github.com/Kong/kongponents/compare/v9.18.0...v9.18.1) (2025-01-22)
+
+
+### Bug Fixes
+
+* **ktreelist:** collapse handle click behavior ([#2589](https://github.com/Kong/kongponents/issues/2589)) ([382282a](https://github.com/Kong/kongponents/commit/382282adde0d327e0fa63f11b148ad4c599534fe))
+
+# [9.18.0](https://github.com/Kong/kongponents/compare/v9.17.5...v9.18.0) (2025-01-22)
+
+
+### Features
+
+* **ktreelist:** add collapse/expand option [KHCP-14716] ([#2583](https://github.com/Kong/kongponents/issues/2583)) ([a5490a3](https://github.com/Kong/kongponents/commit/a5490a3f12543848a38f9e6ac6197be995e7c4c6))
+
 ## [9.17.5](https://github.com/Kong/kongponents/compare/v9.17.4...v9.17.5) (2025-01-21)
 
 

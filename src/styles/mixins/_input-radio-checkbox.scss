@@ -17,8 +17,7 @@
   margin: 0;
   margin-right: var(--kui-space-40, $kui-space-40);
   outline: none;
-  transition:
-    box-shadow $kongponentsTransitionDurTimingFunc,
+  transition: box-shadow $kongponentsTransitionDurTimingFunc,
     background-color $kongponentsTransitionDurTimingFunc;
   width: var(--kui-icon-size-30, $kui-icon-size-30);
 }

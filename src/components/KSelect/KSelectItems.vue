@@ -1,38 +1,10 @@
 <template>
-  <KSelectItem
-    v-for="item in nonGroupedItems"
-    :key="item.key"
-    ref="kSelectItem"
-    :item="item"
-    @arrow-down="() => shiftFocus(item.key, 'down')"
-    @arrow-up="() => shiftFocus(item.key, 'up')"
-    @selected="handleItemSelect"
-  >
-    <template #content>
-      <slot
-        :item="item"
-        name="content"
-      />
-    </template>
-  </KSelectItem>
-  <div
-    v-for="group in groups"
-    :key="`${group}-group`"
-    class="select-group"
-    data-propagate-clicks="false"
-  >
-    <span
-      class="select-group-title"
-    >
-      {{ group }}
-    </span>
+  <div ref="itemsContainer">
     <KSelectItem
-      v-for="item in getGroupItems(group)"
+      v-for="item in nonGroupedItems"
       :key="item.key"
-      ref="kSelectItem"
       :item="item"
-      @arrow-down="() => shiftFocus(item.key, 'down')"
-      @arrow-up="() => shiftFocus(item.key, 'up')"
+      @keydown="onKeyPress"
       @selected="handleItemSelect"
     >
       <template #content>
@@ -42,11 +14,55 @@
         />
       </template>
     </KSelectItem>
+
+    <div
+      v-for="group in groups"
+      :key="`${group}-group`"
+      class="select-group"
+      data-propagate-clicks="false"
+    >
+      <span
+        class="select-group-title"
+      >
+        {{ group }}
+      </span>
+      <KSelectItem
+        v-for="item in getGroupItems(group)"
+        :key="item.key"
+        :item="item"
+        @keydown="onKeyPress"
+        @selected="handleItemSelect"
+      >
+        <template #content>
+          <slot
+            :item="item"
+            name="content"
+          />
+        </template>
+      </KSelectItem>
+    </div>
+
+    <KSelectItem
+      v-if="itemCreationEnabled"
+      key="select-add-item"
+      class="select-add-item"
+      data-testid="select-add-item"
+      :item="{ label: `${filterString} (Add new value)`, value: 'add_item', disabled: !itemCreationValid }"
+      @keydown="onKeyPress"
+      @selected="$emit('add-item')"
+    >
+      <template #content>
+        <div class="select-item-description">
+          {{ filterString }}
+          <span class="select-item-new-indicator">(Add new value)</span>
+        </div>
+      </template>
+    </KSelectItem>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed, useTemplateRef } from 'vue'
 import type { PropType } from 'vue'
 import type { SelectItem } from '@/types'
 import KSelectItem from '@/components/KSelect/KSelectItem.vue'
@@ -59,10 +75,23 @@ const props = defineProps({
     // Items must have a label & value
     validator: (items: SelectItem[]) => !items.length || items.every(i => i.label !== undefined && i.value !== undefined),
   },
+  itemCreationEnabled: {
+    type: Boolean,
+    default: false,
+  },
+  filterString: {
+    type: String,
+    default: '',
+  },
+  itemCreationValid: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const emit = defineEmits<{
   (e: 'selected', item: SelectItem): void
+  (e: 'add-item'): void
 }>()
 
 const handleItemSelect = (item: SelectItem) => emit('selected', item)
@@ -72,45 +101,31 @@ const groups = computed((): string[] => [...new Set((props.items?.filter(item =>
 
 const getGroupItems = (group: string) => props.items?.filter(item => item.group === group)
 
-const kSelectItem = ref<InstanceType<typeof KSelectItem>[] | null>(null)
+const itemsContainerRef = useTemplateRef('itemsContainer')
 
-const setFocus = (index: number = 0) => {
-  if (kSelectItem.value) {
-    if (!props.items[index].disabled) {
-      kSelectItem.value[index]?.$el?.querySelector('button').focus()
-    } else {
-      setFocus(index + 1)
+const setItemFocus = (): void => {
+  const firstSelectableItem = itemsContainerRef.value?.querySelector<HTMLButtonElement>('.select-item button:not(:disabled)')
+  firstSelectableItem?.focus()
+}
+
+const onKeyPress = ({ target, key } : KeyboardEvent) => {
+  if (key === 'ArrowDown' || key === 'ArrowUp') {
+    // all selectable items
+    const selectableItems = itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>('.select-item button:not(:disabled)')
+
+    if (selectableItems?.length) {
+      // find the current element index in the array
+      const currentElementIndex = [...selectableItems].indexOf(target as HTMLButtonElement)
+      // move to the next or previous element
+      const nextElementIndex = key === 'ArrowDown' ? currentElementIndex + 1 : currentElementIndex - 1
+      const nextElement = selectableItems[nextElementIndex]
+
+      nextElement?.focus()
     }
   }
 }
 
-const shiftFocus = (key: SelectItem['key'], direction: 'down' | 'up') => {
-  const index = props.items.findIndex(item => item.key === key)
-
-  if (index === -1) {
-    return // Exit if the item is not found
-  }
-
-  // determine step for navigation
-  const step = direction === 'down' ? 1 : -1
-  const isValidIndex = direction === 'down'
-    ? index + step < props.items.length
-    : index + step >= 0
-
-  if (isValidIndex) {
-    const nextIndex = index + step
-
-    if (props.items[nextIndex].disabled) {
-      // find the next valid index if the current one is disabled
-      shiftFocus(props.items[nextIndex].key!, direction)
-    } else {
-      // focus the button
-      kSelectItem.value?.[nextIndex]?.$el?.querySelector('button')?.focus()
-    }
-  }
-}
-
-defineExpose({ setFocus })
+defineExpose({ setFocus: setItemFocus })
 </script>
 
 <style lang="scss" scoped>

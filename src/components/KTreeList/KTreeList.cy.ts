@@ -196,4 +196,253 @@ describe('KTreeList', () => {
 
     cy.getTestId('k-tree-list').findTestId(`k-tree-list-${group}`).should('be.visible')
   })
+
+  it('all items should be collapsed if `initialCollapseAll` prop set to `true`', () => {
+    const patentIds = ['id1', 'id2']
+
+    cy.mount(KTreeList, {
+      props: {
+        items: [
+          {
+            id: patentIds[0],
+            name: 'Name 1',
+            children: [
+              {
+                id: 'child-1-id1',
+                name: 'Child 1',
+              },
+              {
+                id: 'child-2-id1',
+                name: 'Child 2',
+              },
+            ],
+          },
+          {
+            id: patentIds[1],
+            name: 'Name 2',
+            children: [
+              {
+                id: 'child-3-id2',
+                name: 'Child 3',
+              },
+              {
+                id: 'child-4-id2',
+                name: 'Child 4',
+              },
+            ],
+          },
+        ],
+        collapsible: true,
+        initialCollapseAll: true,
+      },
+    })
+
+    patentIds.forEach((id: string) => {
+      cy.getTestId(`tree-item-${id}`).should('be.visible')
+      cy.getTestId(`tree-item-${id}`).should('have.class', 'collapsed')
+      cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${id}"] + .tree-draggable`).should('not.be.visible')
+    })
+  })
+
+  it('`initialCollapseAll` prop should be ignored if `collapsible` prop is not set to `true`', () => {
+    const patentIds = ['id1', 'id2']
+
+    cy.mount(KTreeList, {
+      props: {
+        items: [
+          {
+            id: patentIds[0],
+            name: 'Name 1',
+            children: [
+              {
+                id: 'child-1-id1',
+                name: 'Child 1',
+              },
+              {
+                id: 'child-2-id1',
+                name: 'Child 2',
+              },
+            ],
+          },
+          {
+            id: patentIds[1],
+            name: 'Name 2',
+            children: [
+              {
+                id: 'child-3-id2',
+                name: 'Child 3',
+              },
+              {
+                id: 'child-4-id2',
+                name: 'Child 4',
+              },
+            ],
+          },
+        ],
+        collapsible: false,
+        initialCollapseAll: true,
+      },
+    })
+
+    patentIds.forEach((id: string) => {
+      cy.getTestId(`tree-item-${id}`).should('be.visible')
+      cy.getTestId(`tree-item-${id}`).should('not.have.class', 'collapsed')
+      cy.getTestId(`tree-item-${id}`).should('not.have.class', 'expanded')
+      cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${id}"] + .tree-draggable`).should('be.visible')
+    })
+  })
+
+  it('Children list should be collapsed onclick a caret item', () => {
+    const patentIds = ['id1', 'id2']
+
+    cy.mount(KTreeList, {
+      props: {
+        items: [
+          {
+            id: patentIds[0],
+            name: 'Name 1',
+            children: [
+              {
+                id: 'child-1-id1',
+                name: 'Child 1',
+              },
+              {
+                id: 'child-2-id1',
+                name: 'Child 2',
+              },
+            ],
+          },
+          {
+            id: patentIds[1],
+            name: 'Name 2',
+            children: [
+              {
+                id: 'child-3-id2',
+                name: 'Child 3',
+              },
+              {
+                id: 'child-4-id2',
+                name: 'Child 4',
+              },
+            ],
+          },
+        ],
+        collapsible: true,
+      },
+    })
+
+    cy.getTestId(`tree-item-${patentIds[0]}`).should('be.visible')
+    cy.getTestId(`tree-item-${patentIds[0]}`).should('have.class', 'expanded')
+    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${patentIds[0]}"] + .tree-draggable`).should('be.visible')
+
+    cy.getTestId(`tree-item-wrapper-${patentIds[0]}`).findTestId('tree-item-expanded-button').trigger('click')
+
+    // Check collapsed item
+    cy.getTestId(`tree-item-${patentIds[0]}`).should('have.class', 'collapsed')
+    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${patentIds[0]}"] + .tree-draggable`).should('not.be.visible')
+
+    // Check expanded item
+    cy.getTestId(`tree-item-${patentIds[1]}`).should('have.class', 'expanded')
+    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${patentIds[1]}"] + .tree-draggable`).should('be.visible')
+  })
+
+  it('Next level list should not be affected of collapsing/expanding a parent', () => {
+    const patentIds = ['id1', 'id2']
+    const childIds = ['child-2-id1']
+
+    cy.mount(KTreeList, {
+      props: {
+        items: [
+          {
+            id: patentIds[0],
+            name: 'Name 1',
+            children: [
+              {
+                id: 'child-1-id1',
+                name: 'Child 1',
+              },
+              {
+                id: childIds[0],
+                name: 'Child 2',
+                children: [
+                  {
+                    id: 'subchild-1-2-id1',
+                    name: 'Subchild 1',
+                  },
+                  {
+                    id: 'subchild-2-2-id1',
+                    name: 'Subchild 2',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: patentIds[1],
+            name: 'Name 2',
+            children: [
+              {
+                id: 'child-3-id2',
+                name: 'Child 3',
+              },
+              {
+                id: 'child-4-id2',
+                name: 'Child 4',
+              },
+            ],
+          },
+        ],
+        collapsible: true,
+      },
+    })
+
+    cy.getTestId(`tree-item-${patentIds[0]}`).should('be.visible')
+    cy.getTestId(`tree-item-${patentIds[0]}`).should('have.class', 'expanded')
+    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${patentIds[0]}"] + .tree-draggable`).should('be.visible')
+
+    cy.getTestId(`tree-item-${childIds[0]}`).should('be.visible')
+    cy.getTestId(`tree-item-${childIds[0]}`).should('have.class', 'expanded')
+    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${childIds[0]}"] + .tree-draggable`).should('be.visible')
+
+    cy.getTestId(`tree-item-wrapper-${patentIds[0]}`).findTestId('tree-item-expanded-button').trigger('click')
+
+    // Check collapsed item
+    cy.getTestId(`tree-item-${patentIds[0]}`).should('have.class', 'collapsed')
+    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${patentIds[0]}"] + .tree-draggable`).should('not.be.visible')
+
+    cy.getTestId(`tree-item-wrapper-${patentIds[0]}`).findTestId('tree-item-expanded-button').trigger('click')
+
+    // Check if parent and child items are expanded
+    cy.getTestId(`tree-item-${patentIds[0]}`).should('have.class', 'expanded')
+    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${patentIds[0]}"] + .tree-draggable`).should('be.visible')
+
+    cy.getTestId(`tree-item-${childIds[0]}`).should('have.class', 'expanded')
+    cy.getTestId('k-tree-list').find(`[data-testid="tree-item-wrapper-${childIds[0]}"] + .tree-draggable`).should('be.visible')
+  })
+
+  it('Caret icon should not exist if `collapsible` prop is set to `false`', () => {
+    cy.mount(KTreeList, {
+      props: {
+        items: [
+          {
+            id: 'id1',
+            name: 'Name 1',
+            children: [
+              {
+                id: 'child-1-id1',
+                name: 'Child 1',
+              },
+              {
+                id: 'child-2-id1',
+                name: 'Child 2',
+              },
+            ],
+          },
+        ],
+        collapsible: false,
+      },
+    })
+
+    cy.getTestId('tree-item-id1').findTestId('tree-item-expanded-button').should('not.exist')
+  })
 })
