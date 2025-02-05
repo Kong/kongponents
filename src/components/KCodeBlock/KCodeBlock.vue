@@ -896,6 +896,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       display: grid;
       margin: var(--kui-space-0, $kui-space-0);
       min-height: 32px; // ensures that scroll bar doesn't show up when there's only one line of content (not to confuse with single line mode)
+      overflow: visible;
       position: relative;
 
       &:not(.single-line) {
@@ -918,6 +919,8 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
         // Lines are rendered by Virtualizer now
         :deep(.line) {
           @include codeTypography;
+
+          box-sizing: border-box;
           display: flex;
           padding-left: var(--kui-space-40, $kui-space-40);
 
