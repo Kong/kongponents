@@ -1,3 +1,10 @@
+# [9.20.0](https://github.com/Kong/kongponents/compare/v9.19.1...v9.20.0) (2025-02-05)
+
+
+### Features
+
+* improve caching for KTableData ([#2545](https://github.com/Kong/kongponents/issues/2545)) ([638c5fd](https://github.com/Kong/kongponents/commit/638c5fd4c4d2822f4a3dd47412fc341a520d453c))
+
 ## [9.19.1](https://github.com/Kong/kongponents/compare/v9.19.0...v9.19.1) (2025-02-05)
 
 
