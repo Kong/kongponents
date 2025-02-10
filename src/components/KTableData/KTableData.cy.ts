@@ -507,6 +507,33 @@ describe('KTableData', () => {
         cy.wrap($el).should('not.have.class', 'sortable')
       })
     })
+
+    it('should support client-side sorting', () => {
+      const fns = {
+        fetcher: () => {
+          return { data: options.data }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      cy.mount(KTableData, {
+        props: {
+          headers: options.headers,
+          clientSort: true,
+          fetcher: fns.fetcher,
+        },
+      })
+
+      cy.get('@fetcher')
+        .should('have.callCount', 1)
+
+      cy.get('th').eq(0).click()
+      cy.get('td').eq(0).should('contain.text', 'Android App')
+
+      cy.get('@fetcher')
+        .should('have.callCount', 1) // ensure fetcher is NOT called again on client-side sort
+
+    })
   })
 
   describe('pagination', () => {
