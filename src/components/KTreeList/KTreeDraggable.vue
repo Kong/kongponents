@@ -62,7 +62,7 @@
         }"
         :collapsible="collapsible"
         :disable-drag="disableDrag"
-        :filter="filter"
+        :filter="computedDragFilter"
         :group="group"
         :hide-icons="hideIcons"
         :initial-collapse-all="initialCollapseAll"
