@@ -308,15 +308,27 @@ describe('KModal', () => {
       },
     })
 
-    cy.get('[data-testid="modal-text"]')
-      .trigger('mousedown')
-      .trigger('mousemove', { clientX: 100, clientY: 100 })
-      .trigger('mouseup')
+    // select text
+    cy.get('[data-testid="modal-text"]').then(($el) => {
+      const doc = $el[0].ownerDocument
+      const range = doc.createRange()
+      range.selectNodeContents($el[0])
+      const selection = doc.getSelection()
+      selection?.removeAllRanges()
+      selection?.addRange(range)
+    })
 
-    cy.get('.k-modal .modal-backdrop').click('topRight')
+
+    // check if text is selected
+    cy.document().then((doc) => {
+      const selectedText = doc.getSelection()?.toString()
+      expect(selectedText).to.equal('Select this text to test')
+    })
 
 
-    cy.wrap(Cypress.vueWrapper.emitted()).should('not.have.property', 'cancel')
+    cy.get('.k-modal .modal-backdrop').click('topRight').then(() => {
+      cy.wrap(Cypress.vueWrapper.emitted()).should('not.have.property', 'cancel')
+    })
   })
 
   it('sets focus on first input field when inputAutofocus is true', () => {
