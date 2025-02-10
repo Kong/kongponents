@@ -75,10 +75,10 @@
     "vue-router": "^4.4.5"
   },
   "devDependencies": {
-    "@babel/types": "^7.26.5",
+    "@babel/types": "^7.26.7",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
-    "@cypress/vite-dev-server": "^6.0.1",
+    "@cypress/vite-dev-server": "^6.0.2",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@evilmartians/lefthook": "^1.10.10",
     "@kong-ui-public/sandbox-layout": "^2.1.60",
