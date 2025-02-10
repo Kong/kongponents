@@ -1,3 +1,11 @@
+## [9.20.1](https://github.com/Kong/kongponents/compare/v9.20.0...v9.20.1) (2025-02-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.21.1 ([#2608](https://github.com/Kong/kongponents/issues/2608)) ([191978d](https://github.com/Kong/kongponents/commit/191978d927ca49874e30d2f88ac05bde35222abb))
+* **ktabledata:** client sort should not trigger cache invalidation ([#2606](https://github.com/Kong/kongponents/issues/2606)) ([391ed28](https://github.com/Kong/kongponents/commit/391ed2817256ec2f64817a3996d6eb3f447d7ebb))
+
 # [9.20.0](https://github.com/Kong/kongponents/compare/v9.19.1...v9.20.0) (2025-02-05)
 
 
