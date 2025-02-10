@@ -1,3 +1,10 @@
+# [9.21.0](https://github.com/Kong/kongponents/compare/v9.20.1...v9.21.0) (2025-02-10)
+
+
+### Features
+
+* **ktreelist:** add prop to filter draggable element selectors ([#2610](https://github.com/Kong/kongponents/issues/2610)) ([23a27ca](https://github.com/Kong/kongponents/commit/23a27cae5b36aee5f1eed50142313c6ee8394035))
+
 ## [9.20.1](https://github.com/Kong/kongponents/compare/v9.20.0...v9.20.1) (2025-02-10)
 
 
