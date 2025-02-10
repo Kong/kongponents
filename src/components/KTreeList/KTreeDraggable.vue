@@ -4,7 +4,7 @@
     class="tree-draggable"
     direction="vertical"
     :disabled="disableDrag"
-    filter=".tree-item-expanded-button"
+    :filter="computedDragFilter"
     :group="{ name: group, pull: [group], put: maxLevelReached ? [] : [group] }"
     :level="level"
     :list="internalList"
@@ -62,6 +62,7 @@
         }"
         :collapsible="collapsible"
         :disable-drag="disableDrag"
+        :filter="computedDragFilter"
         :group="group"
         :hide-icons="hideIcons"
         :initial-collapse-all="initialCollapseAll"
@@ -121,6 +122,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  filter: {
+    type: [String, Function] as PropType<string | (() => string)>,
+    default: () => '',
+  },
   maxDepth: {
     type: Number,
     default: 3,
@@ -175,6 +180,12 @@ const draggableAttrs = {
   class: 'child-drop-zone',
 }
 const dragging = ref<boolean>(false)
+
+const computedDragFilter = computed((): string => {
+  const selectorList: string = typeof props.filter === 'function' ? props.filter() : props.filter
+  // Always append the internal `.tree-item-expanded-button` selector and separate selectors with a comma
+  return ['.tree-item-expanded-button', ...(selectorList.split(',').map(s => s.trim()).filter(Boolean))].join(', ')
+})
 
 const hasNoChildren = (item: TreeListItem): boolean => {
   return !internalList.value.filter(anItem => anItem.id === item.id)?.[0].children?.length

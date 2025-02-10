@@ -181,6 +181,16 @@ Boolean to turn off drag-n-drop reordering of the list. Defaults to `false`.
 <KTreeList disable-drag :items="items" />
 ```
 
+### ignoreDragSelectors
+
+A `string` or (`function` that returns a `string`) of selectors that should not result in dragging tree list items.
+
+For multiple selectors, you **must** pass in a comma-delimited list of selectors.
+
+```html
+<KTreeList ignore-drag-selectors=".button-element, .another-element > .nested-property" :items="items" />
+```
+
 ### maxDepth
 
 Use this prop to customize the maximum supported depth of the tree. The default value is `3`. The maximum supported value for `maxDepth` is 5.

@@ -36,6 +36,22 @@
           :items="items4"
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="ignoreDragSelectors">
+        <KTreeList
+          ignore-drag-selectors=".internal-button"
+          :items="items12"
+        >
+          <template #item-label="{ item }">
+            <KButton
+              appearance="secondary"
+              class="internal-button"
+              size="small"
+            >
+              {{ item.name }}
+            </KButton>
+          </template>
+        </KTreeList>
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="maxDepth">
         <KTreeList
           :items="items5"
@@ -198,6 +214,7 @@ const items8 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items9 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items10 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 const items11 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
+const items12 = ref<TreeListItem[]>(JSON.parse(JSON.stringify(defaultItems)))
 
 const toggleItems = ref<boolean>(true)
 const kTreeRef = useTemplateRef('k-tree-ref')
