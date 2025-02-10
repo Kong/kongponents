@@ -62,6 +62,7 @@
         }"
         :collapsible="collapsible"
         :disable-drag="disableDrag"
+        :filter="filter"
         :group="group"
         :hide-icons="hideIcons"
         :initial-collapse-all="initialCollapseAll"
@@ -182,8 +183,8 @@ const dragging = ref<boolean>(false)
 
 const computedDragFilter = computed((): string => {
   const selectorList: string = typeof props.filter === 'function' ? props.filter() : props.filter
-  // Always append the internal `.tree-item-expanded-button` selector
-  return `.tree-item-expanded-button ${selectorList}`
+  // Always append the internal `.tree-item-expanded-button` selector and separate selectors with a comma
+  return ['.tree-item-expanded-button', ...selectorList.split(' ').filter(Boolean)].join(', ')
 })
 
 const hasNoChildren = (item: TreeListItem): boolean => {
