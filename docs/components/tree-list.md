@@ -185,8 +185,10 @@ Boolean to turn off drag-n-drop reordering of the list. Defaults to `false`.
 
 A `string` or (`function` that returns a `string`) of selectors that should not result in dragging tree list items.
 
+For multiple selectors, you **must** pass in a comma-delimited list of selectors.
+
 ```html
-<KTreeList ignore-drag-selectors=".button-element .another-element" :items="items" />
+<KTreeList ignore-drag-selectors=".button-element, .another-element > .nested-property" :items="items" />
 ```
 
 ### maxDepth

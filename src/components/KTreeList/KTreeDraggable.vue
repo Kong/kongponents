@@ -184,7 +184,7 @@ const dragging = ref<boolean>(false)
 const computedDragFilter = computed((): string => {
   const selectorList: string = typeof props.filter === 'function' ? props.filter() : props.filter
   // Always append the internal `.tree-item-expanded-button` selector and separate selectors with a comma
-  return ['.tree-item-expanded-button', ...selectorList.split(' ').filter(Boolean)].join(', ')
+  return ['.tree-item-expanded-button', ...(selectorList.split(',').map(s => s.trim()).filter(Boolean))].join(', ')
 })
 
 const hasNoChildren = (item: TreeListItem): boolean => {
