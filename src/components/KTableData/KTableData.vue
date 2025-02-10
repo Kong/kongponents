@@ -307,13 +307,26 @@ const getCellSlots = computed((): string[] => {
   return Object.keys(slots).filter((slot) => tableHeaders.value.some((header) => header.key === slot))
 })
 
-const fetcherParams = computed(() => ({
+const sortParams = computed(() => ({
+  sortColumnKey: sortColumnKey.value,
+  sortColumnOrder: sortColumnOrder.value,
+}))
+
+// Params that are used in the cache key for the fetcher.
+// For client-side sorting, we don't need to include the sort params in the cache key otherwise the cache key will change on every sort,
+// which will cause the table to re-fetch data on every sort even though we don't need to fetch new data.
+const cacheKeyParams = computed(() => ({
   pageSize: pageSize.value,
   page: page.value,
   query: filterQuery.value,
-  sortColumnKey: sortColumnKey.value,
-  sortColumnOrder: sortColumnOrder.value,
   offset: offset.value,
+  ...props.clientSort ? {} : sortParams.value,
+}))
+
+// We still need all params for the fetcher
+const fetcherParams = computed(() => ({
+  ...cacheKeyParams.value,
+  ...sortParams.value,
 }))
 
 const isInitialFetch = ref<boolean>(true)
@@ -369,7 +382,7 @@ const tableFetcherCacheKey = computed((): string => {
     identifierKey = props.cacheIdentifier
   }
 
-  identifierKey += `-${JSON.stringify(fetcherParams.value)}`
+  identifierKey += `-${JSON.stringify(cacheKeyParams.value)}`
 
   if (props.fetcherCacheKey) {
     identifierKey += `-${props.fetcherCacheKey}`
@@ -377,8 +390,6 @@ const tableFetcherCacheKey = computed((): string => {
 
   return `k-table_${identifierKey}`
 })
-
-watch(tableFetcherCacheKey, (key: string) => console.log(key))
 
 const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => {
   filterQuery.value = q
