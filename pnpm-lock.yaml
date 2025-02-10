@@ -76,8 +76,8 @@ importers:
         specifier: ^2.1.60
         version: 2.1.60(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.9)(vue-router@4.4.5(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))
       '@kong/design-tokens':
-        specifier: ^1.17.2
-        version: 1.17.2
+        specifier: ^1.17.3
+        version: 1.17.3
       '@kong/eslint-config-kong-ui':
         specifier: ^1.2.4
         version: 1.2.4(eslint@9.18.0(jiti@1.21.6))(typescript@5.6.3)
@@ -1050,9 +1050,9 @@ packages:
       '@kong/kongponents': ^9.14.16
       vue: '>= 3.3.13 < 4'
 
-  '@kong/design-tokens@1.17.2':
-    resolution: {integrity: sha512-979FHvvqPkjdUmbUL7Q2+z04GiVLXqu+OgucD3krAczuTWGfbFG6mOzbO6QIZ7/YlFMbe/N7TH85yJ+YfA/uUg==}
-    engines: {node: '>=18.19.1', pnpm: '>=9.7.0'}
+  '@kong/design-tokens@1.17.3':
+    resolution: {integrity: sha512-se5r7q4Oam6mTQNRAIpZIuY4MGzIBRutGMVmjBe26UpXuQb/KwzkTZjhwDbBmavfKgU+HXHJka51cuH9D67oFw==}
+    engines: {node: '>=20.18.2', pnpm: '>=9.15.2'}
 
   '@kong/eslint-config-kong-ui@1.2.4':
     resolution: {integrity: sha512-DoYY1BNITrPP3N1BdN9KMryOSXGWlUUf1ko+ELDuGG2SerAOxyMxVIlP1YgbMjhHY6aFAaX1BH5qnX6W1bkYHg==}
@@ -1242,8 +1242,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.34.2':
-    resolution: {integrity: sha512-+lN8XHBdka9vIq0Hdsn1NLjdRYQXG1eoFCQws8K7KXPfw2jE0j1c3rSAi50pVrk9ykVPDJHoPq79twHOA5RvGg==}
+  '@rollup/wasm-node@4.34.6':
+    resolution: {integrity: sha512-ox1r6gJiOoyuma9h02LMtMtkyjBvYx3PezgTIk5SL+7Nn1pX0foieMHKDoRw510R8qZ/V2brd/7kQYVda+EDMg==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -6202,7 +6202,7 @@ snapshots:
       '@kong/kongponents': 9.0.0-pr.2229.901d3f4d.0(axios@1.7.9)(vue-router@4.4.5(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))
       vue: 3.5.13(typescript@5.6.3)
 
-  '@kong/design-tokens@1.17.2': {}
+  '@kong/design-tokens@1.17.3': {}
 
   '@kong/eslint-config-kong-ui@1.2.4(eslint@9.18.0(jiti@1.21.6))(typescript@5.6.3)':
     dependencies:
@@ -6401,7 +6401,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@rollup/wasm-node@4.34.2':
+  '@rollup/wasm-node@4.34.6':
     dependencies:
       '@types/estree': 1.0.6
     optionalDependencies:
@@ -10605,7 +10605,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
-      rollup: '@rollup/wasm-node@4.34.2'
+      rollup: '@rollup/wasm-node@4.34.6'
     optionalDependencies:
       '@types/node': 20.17.16
       fsevents: 2.3.3
@@ -10616,7 +10616,7 @@ snapshots:
     dependencies:
       esbuild: 0.24.2
       postcss: 8.4.49
-      rollup: '@rollup/wasm-node@4.34.2'
+      rollup: '@rollup/wasm-node@4.34.6'
     optionalDependencies:
       '@types/node': 20.17.16
       fsevents: 2.3.3
