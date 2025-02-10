@@ -9,6 +9,7 @@
       :collapsible="collapsible"
       :data-testid="`k-tree-list-${group}`"
       :disable-drag="disableDrag"
+      :filter="ignoreDragSelectors"
       :group="group"
       :hide-icons="hideIcons"
       :initial-collapse-all="initialCollapseAll"
@@ -96,6 +97,11 @@ const props = defineProps({
   disableDrag: {
     type: Boolean,
     default: false,
+  },
+  /** A `string` or `function` that returns a `string` of selectors that should not result in dragging tree list items. */
+  ignoreDragSelectors: {
+    type: [String, Function] as PropType<string | (() => string)>,
+    default: () => '',
   },
   maxDepth: {
     type: Number,
