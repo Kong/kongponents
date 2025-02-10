@@ -297,6 +297,28 @@ describe('KModal', () => {
     })
   })
 
+  it('does not emit cancel event when backdrop is clicked while text selected and closeOnBackdropClick is true', () => {
+    cy.mount(KModal, {
+      props: {
+        visible: true,
+        closeOnBackdropClick: true,
+      },
+      slots: {
+        default: '<p data-testid="modal-text">Select this text to test</p>',
+      },
+    })
+
+    cy.get('[data-testid="modal-text"]')
+      .trigger('mousedown')
+      .trigger('mousemove', { clientX: 100, clientY: 100 })
+      .trigger('mouseup')
+
+    cy.get('.k-modal .modal-backdrop').click('topRight')
+
+
+    cy.wrap(Cypress.vueWrapper.emitted()).should('not.have.property', 'cancel')
+  })
+
   it('sets focus on first input field when inputAutofocus is true', () => {
     cy.mount(KModal, {
       props: {
