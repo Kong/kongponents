@@ -94,6 +94,7 @@
 import type { PropType } from 'vue'
 import { computed, nextTick, onBeforeUnmount, ref, useAttrs, watch, useSlots } from 'vue'
 import { FocusTrap } from 'focus-trap-vue'
+import { useTextSelection } from '@vueuse/core'
 import KButton from '@/components/KButton/KButton.vue'
 import type { ButtonAppearance } from '@/types'
 import useUtilities from '@/composables/useUtilities'
@@ -192,6 +193,8 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 const slots = useSlots()
 
+const textSelection = useTextSelection()
+
 const focusTrapElement = ref<InstanceType<typeof FocusTrap> | null>(null)
 const modalWrapperElement = ref<HTMLElement | null>(null)
 
@@ -219,7 +222,7 @@ const handleKeydown = (event: any): void => {
 
 const close = (force = false, event?: any): void => {
   // Close if force === true or if the user clicks on .modal-backdrop
-  if (force || (event?.target?.classList?.contains('modal-backdrop') && props.closeOnBackdropClick)) {
+  if (force || (event?.target?.classList?.contains('modal-backdrop') && props.closeOnBackdropClick && !textSelection.text.value)) {
     emit('cancel')
   }
 }
