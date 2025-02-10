@@ -1,3 +1,10 @@
+## [9.21.1](https://github.com/Kong/kongponents/compare/v9.21.0...v9.21.1) (2025-02-10)
+
+
+### Bug Fixes
+
+* **kmodal:** prevent backdrop close when selecting text [KHCP-15048] ([#2609](https://github.com/Kong/kongponents/issues/2609)) ([25522c3](https://github.com/Kong/kongponents/commit/25522c39d995667609af98abe3ebd9386e06c024))
+
 # [9.21.0](https://github.com/Kong/kongponents/compare/v9.20.1...v9.21.0) (2025-02-10)
 
 
