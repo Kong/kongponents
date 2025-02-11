@@ -27,7 +27,7 @@ jobs:
 
       - name: Remove preview consumption comment
         if: github.event_name == 'pull_request'
-        uses: marocchino/sticky-pull-request-comment@331f8f5b4215f0445d3c07b4967662a32a2d3e31 # v2.9.0
+        uses: marocchino/sticky-pull-request-comment@52423e01640425a022ef5fd42c6fb5f633a02728 # v2.9.1
         with:
           header: pr_preview_consumption
           delete: true
@@ -109,7 +109,7 @@ jobs:
 
       - name: Provide preview link info
         if: ${{ steps.package-preview.outputs.npm_instructions != '' }}
-        uses: marocchino/sticky-pull-request-comment@331f8f5b4215f0445d3c07b4967662a32a2d3e31 # v2.9.0
+        uses: marocchino/sticky-pull-request-comment@52423e01640425a022ef5fd42c6fb5f633a02728 # v2.9.1
         with:
           header: pr_preview_consumption
           message: |
@@ -121,7 +121,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
 
       - name: Run Cypress component tests
-        uses: cypress-io/github-action@57b70560982e6a11d23d4b8bec7f8a487cdbb71b # v6.7.8
+        uses: cypress-io/github-action@7271bed2a170d73c0b08939cd192db51a1c46c50 # v6.7.10
         with:
           install: false
           command: pnpm test
