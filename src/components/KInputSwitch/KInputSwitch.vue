@@ -13,11 +13,10 @@
       type="checkbox"
       @input="handleChange"
     >
-    <component
-      :is="disabled && disabledTooltipText ? 'KTooltip' : 'div'"
+    <KTooltip
       v-bind="disabled && disabledTooltipText ? tooltipAttributes : {}"
       class="switch-control-wrapper"
-      :label="disabledTooltipText"
+      :text="disabled ? disabledTooltipText : ''"
     >
       <span
         :aria-checked="modelValue"
@@ -35,7 +34,7 @@
         <!-- white vertical bar that is visible when switch is enabled -->
         <span class="switch-control-enabled-bar" />
       </span>
-    </component>
+    </KTooltip>
 
     <KLabel
       v-if="label || $slots.label"
