@@ -1,3 +1,10 @@
+## [9.21.2](https://github.com/Kong/kongponents/compare/v9.21.1...v9.21.2) (2025-02-12)
+
+
+### Bug Fixes
+
+* **kinputswitch:** add tooltipattributes prop ([#2613](https://github.com/Kong/kongponents/issues/2613)) ([89c8ff9](https://github.com/Kong/kongponents/commit/89c8ff980112c5c319e2b01a764b0afc86628e59))
+
 ## [9.21.1](https://github.com/Kong/kongponents/compare/v9.21.0...v9.21.1) (2025-02-10)
 
 
