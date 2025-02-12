@@ -15,6 +15,7 @@
     >
     <component
       :is="disabled && disabledTooltipText ? 'KTooltip' : 'div'"
+      v-bind="disabled && disabledTooltipText ? tooltipAttributes : {}"
       class="switch-control-wrapper"
       :label="disabledTooltipText"
     >
@@ -50,6 +51,7 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import { computed, ref, useAttrs, useId } from 'vue'
+import type { TooltipAttributes } from '@/types'
 
 const props = defineProps({
   /**
@@ -79,6 +81,10 @@ const props = defineProps({
   disabledTooltipText: {
     type: String,
     default: '',
+  },
+  tooltipAttributes: {
+    type: Object as PropType<TooltipAttributes>,
+    default: () => ({}),
   },
   /**
    * Whether the label should be placed before the switch
