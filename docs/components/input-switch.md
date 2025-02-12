@@ -64,6 +64,10 @@ Use this prop to display tooltip text when KInputSwitch is disabled.
 <KInputSwitch disabled disabled-tooltip-text="Scale down this cluster first to enable editing" v-model="switchValue" />
 ```
 
+### tooltipAttributes
+
+Use the `tooltipAttributes` prop to configure the KTooltip's [props](/components/tooltip) when using the `disabledTooltipText` prop.
+
 ### HTML Attributes
 
 #### disabled
