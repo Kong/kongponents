@@ -75,4 +75,26 @@ describe('KPagination', () => {
     cy.get('[data-testid="dropdown-item-trigger"][value="4"]').click({ multiple: true, force: true })
     cy.getTestId('page-size-dropdown-trigger').contains('4 items per page')
   })
+
+  it('can keep visible pages after update total count', () => {
+    const initialCount = 50
+    const updatedCount = 75
+    const items = Array.from({ length: initialCount })
+
+    cy.mount(KPagination, {
+      props: {
+        totalCount: initialCount,
+        items,
+        pageSizes: [2, 4, 6],
+        currentPage: 7,
+        testMode: true,
+      },
+    }).then(({ wrapper }) => {
+      cy.get('.pagination-button.active').should('exist')
+
+      wrapper.setProps({ items: Array.from({ length: updatedCount }), totalCount: updatedCount }).then(() => {
+        cy.get('.pagination-button.active').should('exist')
+      })
+    })
+  })
 })
