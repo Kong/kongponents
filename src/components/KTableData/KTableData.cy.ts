@@ -189,6 +189,26 @@ describe('KTableData', () => {
       cy.get('.skeleton-table-wrapper').should('be.visible')
       cy.get('.k-empty-state').should('not.exist')
     })
+
+    it('does not display a loading state when `loading` is false, regardless of fetcher state', () => {
+      const slowFetcher = () => {
+        return new Promise((resolve) => setTimeout(resolve, 2500))
+      }
+
+      cy.mount(KTableData, {
+        props: {
+          fetcher: slowFetcher,
+          headers: options.headers,
+          cacheIdentifier: 'loading-test',
+          loading: false,
+          paginationAttributes: {
+            pageSizes: [10, 20, 30, 40],
+          },
+        },
+      })
+
+      cy.get('.skeleton-table-wrapper').should('not.exist')
+    })
   })
 
   describe('default', () => {
