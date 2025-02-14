@@ -3,13 +3,11 @@
     class="k-badge"
     :class="[appearance, { 'method': isMethodBadge }]"
   >
-    <component
-      :is="showTooltip ? 'KTooltip' : 'div'"
-      :text="showTooltip ? tooltip : undefined"
-    >
+    <KTooltip :text="showTooltip ? tooltip : undefined">
       <div
         class="badge-content"
         :class="{ 'icon-after': !iconBefore }"
+        :tabindex="showTooltip ? 0 : undefined"
       >
         <slot
           v-if="$slots.icon"
@@ -22,7 +20,7 @@
           <slot />
         </div>
       </div>
-    </component>
+    </KTooltip>
   </div>
 </template>
 

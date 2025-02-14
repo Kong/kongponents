@@ -127,6 +127,10 @@ A string to be used as `id` attribute on underlying `role="tooltip"` element. Us
 
 The `default` slot takes in the element you want the popover to be triggered over.
 
+:::tip NOTE
+Make sure to set appropriate `tabindex` attribute on your tooltip trigger element in order to make popover accessible for assistive technology users.
+:::
+
 ```html
 <KTooltip text="A simple tooltip.">
   <KButton>Button</KButton>
