@@ -38,6 +38,7 @@ const { getSizeFromString } = useUtilities()
 // Must explicitly define components so KTooltip works in tests
 export default {
   name: 'KBadge',
+  // eslint-disable-next-line vue/no-unused-components
   components: { KButton, KTooltip },
 }
 </script>
