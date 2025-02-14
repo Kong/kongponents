@@ -1,3 +1,10 @@
+## [9.21.3](https://github.com/Kong/kongponents/compare/v9.21.2...v9.21.3) (2025-02-14)
+
+
+### Bug Fixes
+
+* **ktreelist:** increase fallback tolerance ([#2617](https://github.com/Kong/kongponents/issues/2617)) ([fd69df0](https://github.com/Kong/kongponents/commit/fd69df01af811db02c33112d7681ae93b322603b))
+
 ## [9.21.2](https://github.com/Kong/kongponents/compare/v9.21.1...v9.21.2) (2025-02-12)
 
 
