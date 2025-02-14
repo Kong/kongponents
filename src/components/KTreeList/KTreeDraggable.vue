@@ -178,7 +178,7 @@ const draggableAttrs = {
   'ghost-class': 'tree-item-dragged',
   'drag-class': 'tree-item-grabbing',
   class: 'child-drop-zone',
-  'fallback-tolerance': 30,
+  'fallback-tolerance': 17,
 }
 const dragging = ref<boolean>(false)
 
