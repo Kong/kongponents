@@ -1,3 +1,10 @@
+## [9.21.4](https://github.com/Kong/kongponents/compare/v9.21.3...v9.21.4) (2025-02-14)
+
+
+### Bug Fixes
+
+* **kbadge:** tabindex when has tooltip ([#2618](https://github.com/Kong/kongponents/issues/2618)) ([2d893b6](https://github.com/Kong/kongponents/commit/2d893b630d2cf8f6be6371a1159c664f02db7df5))
+
 ## [9.21.3](https://github.com/Kong/kongponents/compare/v9.21.2...v9.21.3) (2025-02-14)
 
 
