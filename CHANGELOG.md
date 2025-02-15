@@ -1,3 +1,10 @@
+## [9.21.5](https://github.com/Kong/kongponents/compare/v9.21.4...v9.21.5) (2025-02-15)
+
+
+### Bug Fixes
+
+* **browser:** platform is undefined ([#2619](https://github.com/Kong/kongponents/issues/2619)) ([e561867](https://github.com/Kong/kongponents/commit/e5618677345a521affed9bae442aef9a61b23b5b))
+
 ## [9.21.4](https://github.com/Kong/kongponents/compare/v9.21.3...v9.21.4) (2025-02-14)
 
 
