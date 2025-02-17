@@ -587,4 +587,10 @@ watch([filterQuery, pageSize], async (newData, oldData) => {
 onMounted(() => {
   initData()
 })
+
+defineExpose({
+  revalidate: () => {
+    _revalidate()
+  },
+})
 </script>
