@@ -1,6 +1,6 @@
 export const IS_MAYBE_MAC = typeof navigator !== 'undefined' &&
   ('userAgentData' in navigator && navigator.userAgentData === 'macOS' ||
-    navigator.platform.toLowerCase().includes('mac'))
+    navigator.platform?.toLowerCase().includes('mac'))
 
 export const IS_MAYBE_FIREFOX = typeof navigator !== 'undefined' &&
   navigator.userAgent.includes('Firefox')

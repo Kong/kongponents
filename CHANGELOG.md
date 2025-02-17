@@ -1,3 +1,24 @@
+## [9.21.5](https://github.com/Kong/kongponents/compare/v9.21.4...v9.21.5) (2025-02-15)
+
+
+### Bug Fixes
+
+* **browser:** platform is undefined ([#2619](https://github.com/Kong/kongponents/issues/2619)) ([e561867](https://github.com/Kong/kongponents/commit/e5618677345a521affed9bae442aef9a61b23b5b))
+
+## [9.21.4](https://github.com/Kong/kongponents/compare/v9.21.3...v9.21.4) (2025-02-14)
+
+
+### Bug Fixes
+
+* **kbadge:** tabindex when has tooltip ([#2618](https://github.com/Kong/kongponents/issues/2618)) ([2d893b6](https://github.com/Kong/kongponents/commit/2d893b630d2cf8f6be6371a1159c664f02db7df5))
+
+## [9.21.3](https://github.com/Kong/kongponents/compare/v9.21.2...v9.21.3) (2025-02-14)
+
+
+### Bug Fixes
+
+* **ktreelist:** increase fallback tolerance ([#2617](https://github.com/Kong/kongponents/issues/2617)) ([fd69df0](https://github.com/Kong/kongponents/commit/fd69df01af811db02c33112d7681ae93b322603b))
+
 ## [9.21.2](https://github.com/Kong/kongponents/compare/v9.21.1...v9.21.2) (2025-02-12)
 
 
