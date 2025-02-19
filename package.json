@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.21.5",
+  "version": "9.21.6",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -66,7 +66,7 @@
     "sortablejs": "^1.15.6",
     "swrv": "^1.1.0",
     "v-calendar": "^3.1.2",
-    "virtua": "^0.39.3",
+    "virtua": "^0.40.0",
     "vue-draggable-next": "^2.2.1"
   },
   "peerDependencies": {
