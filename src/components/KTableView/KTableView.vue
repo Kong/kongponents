@@ -373,7 +373,10 @@
       />
       <div
         class="table-scroll-overlay right"
-        :class="{ 'overlay-visible': isScrollableRight }"
+        :class="{
+          'overlay-visible': isScrollableRight,
+          'scrollbar-offset': isScrollableVertically,
+        }"
       />
 
       <KPagination
@@ -421,6 +424,7 @@ import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 import BulkActionsDropdown from './BulkActionsDropdown.vue'
 import { getInitialPageSize, getUniqueStringId } from '@/utilities'
+import { getScrollbarSize } from '@/utilities/browser'
 
 const props = withDefaults(defineProps<TableViewProps>(), {
   resizeColumns: false,
@@ -525,6 +529,7 @@ const visibilityPreferences = computed((): Record<string, boolean> => hasColumnV
 const columnVisibility = ref<Record<string, boolean>>(hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
 
 const tableWrapperHeight = ref<string>('100%')
+const isScrollableVertically = ref<boolean>(false)
 const isScrolledVertically = ref<boolean>(false)
 const isScrolledHorizontally = ref<boolean>(false)
 const isScrollableRight = ref<boolean>(false)
@@ -536,6 +541,7 @@ const isActionsDropdownHovered = ref<boolean>(false)
 const tableWrapperStyles = computed((): Record<string, string> => ({
   maxHeight: getSizeFromString(props.maxHeight),
 }))
+const scrollbarWidth = computed((): string => `${getScrollbarSize()}px`)
 
 const bulkActionsSelectedRows = ref<TableViewData>([])
 const hasBulkActions = computed((): boolean => !props.nested && !props.error && tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']) && !!props.data.every((row) => getRowKey(row)))
@@ -691,8 +697,9 @@ const expandableColumnWidth = (parseInt(KUI_SPACE_60) * 2) + parseInt(KUI_ICON_S
  * bulkActions column is always 56px (padding-left + checkbox width + padding-right adds up to 56px)
  * actions column is always 54px (padding-left + button width + padding-right adds up to 54px)
  */
-const defaultColumnWidths = { expandable: expandableColumnWidth, bulkActions: 56, actions: 54 }
-const columnWidths = ref<Record<string, number>>(props.tablePreferences?.columnWidths || defaultColumnWidths)
+const DEFAULT_COLUMN_WIDTHS: Record<string, number> = { expandable: expandableColumnWidth, bulkActions: 56, actions: 54 }
+const DEFAULT_COLUMN_WIDTHS_PX: Record<string, string> = Object.keys(DEFAULT_COLUMN_WIDTHS).map((key) => ({ [key]: `${DEFAULT_COLUMN_WIDTHS[key]}px` })).reduce((acc, curr) => ({ ...acc, ...curr }), {})
+const columnWidths = ref<Record<string, number>>(props.tablePreferences?.columnWidths || DEFAULT_COLUMN_WIDTHS)
 const columnStyles = computed(() => {
   const styles: Record<string, any> = {}
   for (const colKey in columnWidths.value) {
@@ -906,6 +913,7 @@ const sortClickHandler = (header: TableViewHeader): void => {
 const scrollHandler = (event: any): void => {
   if (event && event.target && (typeof event.target.scrollTop === 'number' || typeof event.target.scrollLeft === 'number')) {
     if (event.target.scrollTop > 1) {
+      isScrollableVertically.value = true
       isScrolledVertically.value = true
     } else if (event.target.scrollTop === 0) {
       isScrolledVertically.value = false
@@ -1228,6 +1236,7 @@ watch(tableWrapperRef, (tableWrapper) => {
     // check if the table is scrollable horizontally
     isScrollableRight.value = tableWrapper.scrollWidth > tableWrapper.clientWidth
     tableWrapperHeight.value = tableWrapper.clientHeight + 'px'
+    isScrollableVertically.value = tableWrapper.scrollHeight > tableWrapper.clientHeight
   }
 })
 </script>
@@ -1250,7 +1259,11 @@ watch(tableWrapperRef, (tableWrapper) => {
     height: v-bind('tableWrapperHeight');
 
     &.left.has-bulk-actions {
-      left: 56px;
+      left: v-bind('DEFAULT_COLUMN_WIDTHS_PX.bulkActions');
+    }
+
+    &.right.scrollbar-offset {
+      right: v-bind('scrollbarWidth');
     }
   }
 }
