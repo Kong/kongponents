@@ -1,3 +1,10 @@
+# [9.22.0](https://github.com/Kong/kongponents/compare/v9.21.6...v9.22.0) (2025-02-27)
+
+
+### Features
+
+* **ktabledata:** expose revalidate method ([#2620](https://github.com/Kong/kongponents/issues/2620)) ([978bfcf](https://github.com/Kong/kongponents/commit/978bfcf548a078eca2954cb39d46dc79d238c710))
+
 ## [9.21.6](https://github.com/Kong/kongponents/compare/v9.21.5...v9.21.6) (2025-02-18)
 
 
