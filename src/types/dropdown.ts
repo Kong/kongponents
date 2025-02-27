@@ -18,6 +18,7 @@ export interface DropdownItemRenderedComponent {
   tag: string | Component
   onClick?: ((event: Event) => void)
   attrs: {
+    type?: 'button'
     class?: string
     isRounded?: boolean
     disabled?: boolean
