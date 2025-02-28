@@ -83,7 +83,7 @@
     "@evilmartians/lefthook": "^1.10.10",
     "@kong-ui-public/sandbox-layout": "^2.1.62",
     "@kong/design-tokens": "^1.17.3",
-    "@kong/eslint-config-kong-ui": "^1.2.5",
+    "@kong/eslint-config-kong-ui": "^1.2.6",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@stylistic/stylelint-plugin": "^3.1.2",
