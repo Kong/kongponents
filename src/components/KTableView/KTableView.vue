@@ -250,7 +250,7 @@
                   :class="{
                     'resize-hover': resizeColumns && !nested && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
                     'row-link': !!rowLink(row).to,
-                    'sticky-column': header.key === TableViewHeaderKeys.BULK_ACTIONS && isScrolledHorizontally
+                    'sticky-column': (header.key === TableViewHeaderKeys.BULK_ACTIONS || header.key === TableViewHeaderKeys.EXPANDABLE) && isScrolledHorizontally
                   }"
                   :style="columnStyles[header.key]"
                   v-bind="cellAttrs({ headerKey: header.key, row, rowIndex, colIndex: index })"
@@ -729,7 +729,7 @@ const getHeaderClasses = (column: TableViewHeader, index: number): Record<string
     [sortColumnOrder.value]: column.key === sortColumnKey.value && !column.hideLabel,
     'is-scrolled': isScrolledVertically.value,
     'has-tooltip': !!column.tooltip,
-    'sticky-column': column.key === TableViewHeaderKeys.BULK_ACTIONS && isScrolledHorizontally.value,
+    'sticky-column': (column.key === TableViewHeaderKeys.BULK_ACTIONS || column.key === TableViewHeaderKeys.EXPANDABLE) && isScrolledHorizontally.value,
   }
 }
 
