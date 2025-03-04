@@ -712,10 +712,10 @@ const expandableColumnWidth = (parseInt(KUI_SPACE_60) * 2) + parseInt(KUI_ICON_S
 /**
  * Default column widths for better UX
  * expandable column is always 48px (padding-left + chevron width + padding-right adds up to 48px)
- * bulkActions column is always 56px (padding-left + checkbox width + padding-right adds up to 56px)
+ * bulkActions column is also always 48px (padding-left + checkbox width + padding-right adds up to 48px)
  * actions column is always 54px (padding-left + button width + padding-right adds up to 54px)
  */
-const DEFAULT_COLUMN_WIDTHS: Record<string, number> = { expandable: expandableColumnWidth, bulkActions: 56, actions: 54 }
+const DEFAULT_COLUMN_WIDTHS: Record<string, number> = { expandable: expandableColumnWidth, bulkActions: 48, actions: 54 }
 const DEFAULT_COLUMN_WIDTHS_PX: Record<string, string> = Object.keys(DEFAULT_COLUMN_WIDTHS).map((key) => ({ [key]: `${DEFAULT_COLUMN_WIDTHS[key]}px` })).reduce((acc, curr) => ({ ...acc, ...curr }), {})
 const columnWidths = ref<Record<string, number>>(props.tablePreferences?.columnWidths || DEFAULT_COLUMN_WIDTHS)
 const columnStyles = computed(() => {

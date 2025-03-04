@@ -399,6 +399,14 @@
       .bulk-actions-checkbox,
       .table-header-bulk-actions-checkbox {
         display: flex;
+
+        :deep(input) {
+          margin: $kui-space-0;
+        }
+
+        :deep(.checkbox-icon) {
+          left: calc(50% + 1.4px) !important;
+        }
       }
     }
   }
