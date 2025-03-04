@@ -227,6 +227,14 @@
                   @mouseleave="resizerHoveredColumn = ''"
                   @mouseover="resizerHoveredColumn = column.key"
                 />
+
+                <div
+                  v-if="isLastStickyColumn(column.key)"
+                  class="scroll-overlay row-overlay left"
+                  :class="{
+                    'overlay-visible': isScrolledHorizontally,
+                  }"
+                />
               </th>
             </tr>
           </thead>
@@ -250,7 +258,9 @@
                   :class="{
                     'resize-hover': resizeColumns && !nested && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
                     'row-link': !!rowLink(row).to,
-                    'sticky-column': (header.key === TableViewHeaderKeys.BULK_ACTIONS || header.key === TableViewHeaderKeys.EXPANDABLE) && isScrolledHorizontally
+                    'sticky-column': (header.key === TableViewHeaderKeys.BULK_ACTIONS || header.key === TableViewHeaderKeys.EXPANDABLE) && isScrolledHorizontally,
+                    'second-sticky-column': header.key === TableViewHeaderKeys.BULK_ACTIONS && hasExpandableRows,
+                    'has-row-scroll-overlay': isLastStickyColumn(header.key),
                   }"
                   :style="columnStyles[header.key]"
                   v-bind="cellAttrs({ headerKey: header.key, row, rowIndex, colIndex: index })"
@@ -338,6 +348,14 @@
                       />
                     </button>
                   </div>
+
+                  <div
+                    v-if="isLastStickyColumn(header.key)"
+                    class="scroll-overlay row-overlay left"
+                    :class="{
+                      'overlay-visible': isScrolledHorizontally,
+                    }"
+                  />
                 </td>
               </tr>
               <tr
@@ -364,15 +382,14 @@
       </div>
 
       <div
-        v-if="!(hasBulkActions && hasExpandableRows)"
-        class="table-scroll-overlay left"
+        v-if="!hasBulkActions && !hasExpandableRows"
+        class="scroll-overlay table-overlay left"
         :class="{
           'overlay-visible': isScrolledHorizontally,
-          'has-bulk-actions': hasBulkActions,
         }"
       />
       <div
-        class="table-scroll-overlay right"
+        class="scroll-overlay table-overlay right"
         :class="{
           'overlay-visible': isScrollableRight,
           'scrollbar-offset': isScrollableVertically,
@@ -425,6 +442,7 @@ import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 import BulkActionsDropdown from './BulkActionsDropdown.vue'
 import { getInitialPageSize, getUniqueStringId } from '@/utilities'
 import { getScrollbarSize } from '@/utilities/browser'
+import { useResizeObserver } from '@vueuse/core'
 
 const props = withDefaults(defineProps<TableViewProps>(), {
   resizeColumns: false,
@@ -730,6 +748,8 @@ const getHeaderClasses = (column: TableViewHeader, index: number): Record<string
     'is-scrolled': isScrolledVertically.value,
     'has-tooltip': !!column.tooltip,
     'sticky-column': (column.key === TableViewHeaderKeys.BULK_ACTIONS || column.key === TableViewHeaderKeys.EXPANDABLE) && isScrolledHorizontally.value,
+    'second-sticky-column': column.key === TableViewHeaderKeys.BULK_ACTIONS && hasExpandableRows.value,
+    'has-row-scroll-overlay': isLastStickyColumn(column.key),
   }
 }
 
@@ -849,6 +869,22 @@ const startResize = (evt: MouseEvent, colKey: string) => {
     document?.addEventListener('mousemove', mouseMoveHandler)
     document?.addEventListener('mouseup', mouseUpHandler)
   }
+}
+
+const isLastStickyColumn = (columnKey: string): boolean => {
+  if (!isScrolledHorizontally.value) {
+    return false
+  }
+
+  if (hasBulkActions.value) {
+    return columnKey === TableViewHeaderKeys.BULK_ACTIONS
+  }
+
+  if (hasExpandableRows.value) {
+    return columnKey === TableViewHeaderKeys.EXPANDABLE
+  }
+
+  return false
 }
 
 const showPagination = computed((): boolean => {
@@ -1231,12 +1267,14 @@ watch(() => props.tablePreferences, (newVal) => {
   }
 })
 
-watch(tableWrapperRef, (tableWrapper) => {
-  if (tableWrapper) {
+useResizeObserver(tableWrapperRef, (entries) => {
+  const el = entries[0]?.target
+
+  if (el) {
     // check if the table is scrollable horizontally
-    isScrollableRight.value = tableWrapper.scrollWidth > tableWrapper.clientWidth
-    tableWrapperHeight.value = tableWrapper.clientHeight + 'px'
-    isScrollableVertically.value = tableWrapper.scrollHeight > tableWrapper.clientHeight
+    isScrollableRight.value = el.scrollWidth > el.clientWidth
+    tableWrapperHeight.value = el.clientHeight + 'px'
+    isScrollableVertically.value = el.scrollHeight > el.clientHeight
   }
 })
 </script>
@@ -1246,6 +1284,13 @@ watch(tableWrapperRef, (tableWrapper) => {
   @include table;
 
   table {
+    th,
+    td {
+      &.sticky-column.second-sticky-column {
+        left: v-bind('DEFAULT_COLUMN_WIDTHS_PX.expandable') !important;
+      }
+    }
+
     thead {
       tr {
         .resize-handle {
@@ -1255,12 +1300,8 @@ watch(tableWrapperRef, (tableWrapper) => {
     }
   }
 
-  .table-scroll-overlay {
+  .scroll-overlay.table-overlay {
     height: v-bind('tableWrapperHeight');
-
-    &.left.has-bulk-actions {
-      left: v-bind('DEFAULT_COLUMN_WIDTHS_PX.bulkActions');
-    }
 
     &.right.scrollbar-offset {
       right: v-bind('scrollbarWidth');
