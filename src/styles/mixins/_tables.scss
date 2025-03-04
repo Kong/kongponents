@@ -405,7 +405,7 @@
         }
 
         :deep(.checkbox-icon) {
-          left: calc(50% + 1.4px) !important;
+          left: calc(50% + 1.6px) !important; // because 1px is too little and 2px is too much
         }
       }
     }

@@ -147,7 +147,7 @@
                 @mouseover="currentHoveredColumn = column.key"
               >
                 <div
-                  v-if="resizeColumns && !nested && index !== 0"
+                  v-if="resizeColumns && !nested && index !== 0 && showResizeHandle(column, true)"
                   class="resize-handle previous"
                   @click.stop
                   @mousedown="startResize($event, visibleHeaders[index - 1].key)"
@@ -220,7 +220,7 @@
                 </div>
 
                 <div
-                  v-if="resizeColumns && !nested && index !== visibleHeaders.length - 1"
+                  v-if="resizeColumns && !nested && index !== visibleHeaders.length - 1 && showResizeHandle(column)"
                   class="resize-handle"
                   @click.stop
                   @mousedown="startResize($event, column.key)"
@@ -256,7 +256,7 @@
                   v-for="(header, index) in visibleHeaders"
                   :key="`${rowKeyMap.get(row)}-cell-${header.key}`"
                   :class="{
-                    'resize-hover': resizeColumns && !nested && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
+                    'resize-hover': resizeColumns && !nested && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1 && showResizeHandle(header),
                     'row-link': !!rowLink(row).to,
                     'sticky-column': (header.key === TableViewHeaderKeys.BULK_ACTIONS || header.key === TableViewHeaderKeys.EXPANDABLE) && isScrolledHorizontally,
                     'second-sticky-column': header.key === TableViewHeaderKeys.BULK_ACTIONS && hasExpandableRows,
@@ -540,7 +540,7 @@ const hasColumnVisibilityMenu = computed((): boolean => {
 })
 const columnVisibilityDisabled = computed((): boolean => props.loading || !(props.data && props.data.length))
 // columns whose visibility can be toggled
-const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable && header.key !== TableViewHeaderKeys.EXPANDABLE && header.key !== TableViewHeaderKeys.BULK_ACTIONS))
+const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable && !isSpecialColumn(header.key)))
 // visibility preferences from the host app (initialized by app)
 const visibilityPreferences = computed((): Record<string, boolean> => hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
 // current column visibility state
@@ -738,7 +738,7 @@ const columnStyles = computed(() => {
 const getHeaderClasses = (column: TableViewHeader, index: number): Record<string, boolean> => {
   return {
     // display the resize handle on the right side of the column if props.resizeColumns is enabled, hovering current column, and not the last column
-    'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && !props.nested && index !== visibleHeaders.value.length - 1,
+    'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && !props.nested && index !== visibleHeaders.value.length - 1 && showResizeHandle(column),
     resizable: props.resizeColumns && !props.nested,
     // display sort control if column is sortable, label is visible, and sorting is not disabled
     sortable: !column.hideLabel && !!column.sortable,
@@ -885,6 +885,21 @@ const isLastStickyColumn = (columnKey: string): boolean => {
   }
 
   return false
+}
+
+const isSpecialColumn = (columnKey: string): boolean => columnKey === TableViewHeaderKeys.EXPANDABLE || columnKey === TableViewHeaderKeys.BULK_ACTIONS || columnKey === TableViewHeaderKeys.ACTIONS
+const showResizeHandle = (column: TableViewHeader, previous: boolean = false): boolean => {
+  if (previous) {
+    if (visibleHeaders.value.indexOf(column) === visibleHeaders.value.length - 1) {
+      return false
+    }
+
+    const previousColumn = visibleHeaders.value[visibleHeaders.value.indexOf(column) - 1]
+    return !isSpecialColumn(previousColumn.key)
+  }
+
+  const nextColumn = visibleHeaders.value[visibleHeaders.value.indexOf(column) + 1]
+  return !isSpecialColumn(column.key) && !isSpecialColumn(nextColumn.key)
 }
 
 const showPagination = computed((): boolean => {
