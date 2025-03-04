@@ -871,6 +871,7 @@ const startResize = (evt: MouseEvent, colKey: string) => {
   }
 }
 
+// if table is scrollable horizontally, calculate which column is the last sticky column
 const isLastStickyColumn = (columnKey: string): boolean => {
   if (!isScrolledHorizontally.value) {
     return false
@@ -887,7 +888,12 @@ const isLastStickyColumn = (columnKey: string): boolean => {
   return false
 }
 
-const isSpecialColumn = (columnKey: string): boolean => columnKey === TableViewHeaderKeys.EXPANDABLE || columnKey === TableViewHeaderKeys.BULK_ACTIONS || columnKey === TableViewHeaderKeys.ACTIONS
+const isSpecialColumn = (columnKey: string): boolean =>
+  columnKey === TableViewHeaderKeys.EXPANDABLE ||
+  columnKey === TableViewHeaderKeys.BULK_ACTIONS ||
+  columnKey === TableViewHeaderKeys.ACTIONS
+
+// don't show the resize handle if the column is a special column
 const showResizeHandle = (column: TableViewHeader, previous: boolean = false): boolean => {
   if (previous) {
     if (visibleHeaders.value.indexOf(column) === visibleHeaders.value.length - 1) {
@@ -976,6 +982,7 @@ const scrollHandler = (event: any): void => {
       isScrolledHorizontally.value = false
     }
 
+    // determine if there's still room to scroll right
     if (event.target.scrollWidth === event.target.scrollLeft + event.target.clientWidth) {
       isScrollableRight.value = false
     } else {
