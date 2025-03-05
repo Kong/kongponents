@@ -1,4 +1,5 @@
 import type { AnyElementOf } from '@/types/utils'
+import type { offset } from '@floating-ui/vue'
 
 export const PopTriggerArray = ['click', 'hover'] as const
 
@@ -21,3 +22,9 @@ export const PopPlacementsArray = [
 ] as const
 
 export type PopPlacements = AnyElementOf<typeof PopPlacementsArray>
+
+export interface PopoverAttributes {
+  popoverClasses?: string
+  offset?: string
+}
+

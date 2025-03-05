@@ -204,6 +204,7 @@ import type {
   SelectItem,
   SelectFilterFunctionParams,
   SelectDropdownFooterTextPosition,
+  PopoverAttributes,
 } from '@/types'
 import { ChevronDownIcon, CloseIcon, ProgressIcon } from '@kong/icons'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
@@ -223,10 +224,8 @@ const props = defineProps({
     default: '',
   },
   kpopAttributes: {
-    type: Object,
-    default: () => ({
-      popoverClasses: '',
-    }),
+    type: Object as PropType<PopoverAttributes>,
+    default: () => {},
   },
   dropdownMaxHeight: {
     type: String,

@@ -280,7 +280,13 @@ import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
-import type { MultiselectItem, MultiselectFilterFunctionParams, DropdownFooterTextPosition, PopPlacements, BadgeAppearance } from '@/types'
+import type {
+  MultiselectItem,
+  MultiselectFilterFunctionParams,
+  DropdownFooterTextPosition,
+  PopPlacements,
+  BadgeAppearance,
+  PopoverAttributes } from '@/types'
 import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
@@ -346,10 +352,8 @@ const props = defineProps({
     default: '',
   },
   kpopAttributes: {
-    type: Object,
-    default: () => ({
-      popoverClasses: '',
-    }),
+    type: Object as PropType<PopoverAttributes>,
+    default: () => {},
   },
   dropdownMaxHeight: {
     type: String,
