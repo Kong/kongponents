@@ -155,13 +155,13 @@ import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import PaginationOffset from './PaginationOffset.vue'
-import type { PageSizeChangeData, PageChangeData, DropdownItem } from '@/types'
+import type { PageSizeChangeData, PageChangeData, DropdownItem, PopoverAttributes } from '@/types'
 import { BackIcon, ForwardIcon, ChevronDownIcon } from '@kong/icons'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 
 const kpopAttrs = {
   placement: 'top',
-}
+} as PopoverAttributes
 
 const props = defineProps({
   items: {
