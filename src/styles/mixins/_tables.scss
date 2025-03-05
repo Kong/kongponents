@@ -70,6 +70,7 @@
           height: 44px;
           position: sticky;
           top: 0;
+          z-index: 2;
 
           &.is-scrolled {
             background-color: var(--kui-color-background, $kui-color-background);
