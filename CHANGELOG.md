@@ -1,3 +1,17 @@
+## [9.22.1](https://github.com/Kong/kongponents/compare/v9.22.0...v9.22.1) (2025-03-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.21.2 ([#2631](https://github.com/Kong/kongponents/issues/2631)) ([70bc2f8](https://github.com/Kong/kongponents/commit/70bc2f84c5fcb21c2e718df10ca5f797378c1f15))
+
+# [9.22.0](https://github.com/Kong/kongponents/compare/v9.21.6...v9.22.0) (2025-02-27)
+
+
+### Features
+
+* **ktabledata:** expose revalidate method ([#2620](https://github.com/Kong/kongponents/issues/2620)) ([978bfcf](https://github.com/Kong/kongponents/commit/978bfcf548a078eca2954cb39d46dc79d238c710))
+
 ## [9.21.6](https://github.com/Kong/kongponents/compare/v9.21.5...v9.21.6) (2025-02-18)
 
 
