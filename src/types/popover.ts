@@ -24,6 +24,7 @@ export const PopPlacementsArray = [
 export type PopPlacements = AnyElementOf<typeof PopPlacementsArray>
 
 export interface PopoverAttributes {
+  placement?: PopPlacements
   popoverClasses?: string
   offset?: string
 }
