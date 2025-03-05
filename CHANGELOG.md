@@ -1,3 +1,10 @@
+## [9.22.2](https://github.com/Kong/kongponents/compare/v9.22.1...v9.22.2) (2025-03-05)
+
+
+### Bug Fixes
+
+* **kmodal:** kmodal not scrollable when content slot used [KHCP-15360] ([#2635](https://github.com/Kong/kongponents/issues/2635)) ([2fb7dab](https://github.com/Kong/kongponents/commit/2fb7dabd2665250cb46212f55437bbe591a135f8))
+
 ## [9.22.1](https://github.com/Kong/kongponents/compare/v9.22.0...v9.22.1) (2025-03-04)
 
 
