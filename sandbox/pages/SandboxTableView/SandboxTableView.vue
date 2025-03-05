@@ -322,6 +322,7 @@
           <KTableView
             :data="paginatedData"
             :headers="headers(true, false, true)"
+            max-height="250"
             :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
             resize-columns
             :row-bulk-action-enabled="getRowBulkAction"
@@ -666,7 +667,7 @@ const getRowOneTwoLink = (row: Record<string, any>): RowLink => {
     max-width: 100%;
     min-width: 515px;
     overflow-x: auto;
-    resize: horizontal;
+    resize: both;
   }
 }
 </style>
