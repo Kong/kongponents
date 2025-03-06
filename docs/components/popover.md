@@ -372,14 +372,14 @@ Pass a number to use for the `z-index` property. Default value is `1000`.
 
 ### offset
 
-Prop for specifying popover offset. Default value is `16px`.
+Prop for specifying popover offset (string). Default value is `16px`.
 
 <KPop
   offset="50px"
   button-text="Open popover"
 >
   <template #content>
-    Popover content.
+    Popover offset by 50px.
   </template>
 </KPop>
 

@@ -161,7 +161,7 @@ import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 
 const kpopAttrs = {
   placement: 'top',
-} as PopoverAttributes
+} satisfies PopoverAttributes
 
 const props = defineProps({
   items: {

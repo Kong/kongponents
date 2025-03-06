@@ -141,7 +141,7 @@
             placement="auto"
           >
             <template #content>
-              Popover content.
+              Popover offset by 40px.
             </template>
           </KPop>
           <KPop
@@ -150,7 +150,7 @@
             placement="top"
           >
             <template #content>
-              Popover content.
+              Popover offset by 40px.
             </template>
           </KPop>
           <KPop
@@ -159,7 +159,7 @@
             placement="bottom"
           >
             <template #content>
-              Popover content.
+              Popover offset by 40px.
             </template>
           </KPop>
           <KPop
@@ -168,7 +168,7 @@
             placement="left"
           >
             <template #content>
-              Popover content.
+              Popover offset by 40px.
             </template>
           </KPop>
           <KPop
@@ -177,25 +177,25 @@
             placement="right"
           >
             <template #content>
-              Popover content.
+              Popover offset by 40px.
             </template>
           </KPop>
           <KPop
             button-text="top-start"
-            :offset="KUI_SPACE_100"
+            :offset="KUI_SPACE_140"
             placement="top-start"
           >
             <template #content>
-              Popover content.
+              Popover offset by 80px.
             </template>
           </KPop>
           <KPop
             button-text="bottom-end"
-            :offset="KUI_SPACE_100"
+            :offset="KUI_SPACE_140"
             placement="bottom-end"
           >
             <template #content>
-              Popover content.
+              Popover offset by 80px.
             </template>
           </KPop>
         </div>
@@ -316,7 +316,7 @@
         <KTooltip
           :kpop-attributes="{ offset: KUI_SPACE_100 }"
           placement="right"
-          text="This is tooltip"
+          text="Tooltip offset by 40px."
         >
           <InfoIcon tabindex="0" />
         </KTooltip>
@@ -331,7 +331,7 @@ import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { PopPlacementsArray } from '@/types'
 import { KPop } from '@/components'
-import { KUI_SPACE_100 } from '@kong/design-tokens'
+import { KUI_SPACE_100, KUI_SPACE_140 } from '@kong/design-tokens'
 import { InfoIcon } from '@kong/icons'
 
 const kPop = ref<InstanceType<typeof KPop> | null>(null)

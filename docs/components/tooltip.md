@@ -128,7 +128,7 @@ Use the `kpopAttributes` prop to configure the underlying [KPop's props](/compon
 <KTooltip
   :kpop-attributes="{ offset: '50px' }"
   placement="right"
-  text="Simple tooltip."
+  text="Tooltip offset by 50px."
 >
   <InfoIcon />
 </KTooltip>
