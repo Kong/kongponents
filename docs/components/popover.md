@@ -389,7 +389,7 @@ Prop for specifying popover offset (string). Default value is `16px`.
   button-text="Open popover"
 >
   <template #content>
-    Popover content.
+    Popover offset by 50px.
   </template>
 </KPop>
 ```
