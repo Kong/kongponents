@@ -1,6 +1,6 @@
 import { h } from 'vue'
 import KTableView from '@/components/KTableView/KTableView.vue'
-import type { TableHeader, RowBulkAction } from '@/types'
+import type { TableViewHeader, RowBulkAction } from '@/types'
 
 const largeDataSet = [
   {
@@ -71,7 +71,7 @@ const options = {
     { label: 'ID', key: 'id', sortable: true },
     { label: 'Enabled', key: 'enabled', sortable: false },
     { label: '', key: 'actions', sortable: false },
-  ] as TableHeader[],
+  ] as TableViewHeader[],
   data: [
     {
       name: 'Basic Auth',
