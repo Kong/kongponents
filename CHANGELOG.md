@@ -1,3 +1,10 @@
+## [9.22.3](https://github.com/Kong/kongponents/compare/v9.22.2...v9.22.3) (2025-03-07)
+
+
+### Bug Fixes
+
+* **ktableview:** horizontal scroll overlay indicators [KHCP-15221] ([#2629](https://github.com/Kong/kongponents/issues/2629)) ([5782168](https://github.com/Kong/kongponents/commit/5782168b1ce5f15283bec327fcf9cb1e9bbd6ddf))
+
 ## [9.22.2](https://github.com/Kong/kongponents/compare/v9.22.1...v9.22.2) (2025-03-05)
 
 
