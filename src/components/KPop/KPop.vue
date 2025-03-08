@@ -91,7 +91,7 @@ import { PopPlacementsArray, PopTriggerArray } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
 import useUtilities from '@/composables/useUtilities'
 import { CloseIcon } from '@kong/icons'
-import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import { KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
 
 const props = defineProps({
   buttonText: {
@@ -155,6 +155,10 @@ const props = defineProps({
   zIndex: {
     type: Number,
     default: 1000,
+  },
+  offset: {
+    type: String,
+    default: KUI_SPACE_60,
   },
 })
 
@@ -252,7 +256,6 @@ const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': 
  * Backwards compatibility for the placement prop
  * Converts the placement prop to the correct format for Floating UI
  * E.g.: 'topStart' -> 'top-start'
- * TODO: remove this once we've upgraded to v9 across the board
  */
 const popoverPlacement = computed((): PopPlacements => props.placement.trim().replace(/ /g, '-').replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? '-' : '') + $.toLowerCase()).replace(/--+/g, '-').replace(/-+$/g, '') as PopPlacements)
 
@@ -270,6 +273,8 @@ const { floatingStyles, placement: calculatedPlacement, update: updatePosition }
 })
 
 const floatingUpdates = ref<() => void>()
+
+const popoverOffset = computed(() => getSizeFromString(props.offset))
 
 defineExpose({
   hidePopover,
@@ -470,7 +475,7 @@ $kPopCaretOffset: 16px;
       // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
       // stylelint-disable-next-line no-duplicate-selectors
       & {
-        margin-bottom: var(--kui-space-60, $kui-space-60);
+        margin-bottom: v-bind('popoverOffset');
       }
 
       &:after, &:before {
@@ -494,7 +499,7 @@ $kPopCaretOffset: 16px;
       // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
       // stylelint-disable-next-line no-duplicate-selectors
       & {
-        margin-left: var(--kui-space-60, $kui-space-60);
+        margin-left: v-bind('popoverOffset');
       }
 
       &:after, &:before {
@@ -519,7 +524,7 @@ $kPopCaretOffset: 16px;
       // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
       // stylelint-disable-next-line no-duplicate-selectors
       & {
-        margin-top: var(--kui-space-50, $kui-space-50);
+        margin-top: v-bind('popoverOffset');
       }
 
       &:after, &:before {
@@ -543,7 +548,7 @@ $kPopCaretOffset: 16px;
       // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
       // stylelint-disable-next-line no-duplicate-selectors
       & {
-        margin-right: var(--kui-space-60, $kui-space-60);
+        margin-right: v-bind('popoverOffset');
       }
 
       &:after, &:before {

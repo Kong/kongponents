@@ -73,7 +73,7 @@
 <script lang="ts" setup>
 import type { PropType, Ref } from 'vue'
 import { computed, onMounted, ref, watch } from 'vue'
-import type { ButtonAppearance, DropdownItem, PopPlacements } from '@/types'
+import type { ButtonAppearance, DropdownItem, PopPlacements, PopoverAttributes } from '@/types'
 import { ButtonAppearances } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
@@ -111,16 +111,9 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  /**
-   * kpopAttributes is used to pass properties directly to the wrapped KPop component
-   * Commonly-overridden properties include:
-   * - placement
-   * - popoverClasses
-   * - target
-   */
   kpopAttributes: {
-    type: Object,
-    default: null,
+    type: Object as PropType<PopoverAttributes>,
+    default: () => {},
   },
   items: {
     type: Array as PropType<Array<DropdownItem>>,

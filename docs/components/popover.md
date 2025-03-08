@@ -370,6 +370,30 @@ List of class names you want to assign to `.k-popover` element.
 
 Pass a number to use for the `z-index` property. Default value is `1000`.
 
+### offset
+
+Prop for specifying popover offset (string). Default value is `16px`.
+
+<KPop
+  offset="50px"
+  button-text="Open popover"
+>
+  <template #content>
+    Popover offset by 50px.
+  </template>
+</KPop>
+
+```html
+<KPop
+  offset="50px"
+  button-text="Open popover"
+>
+  <template #content>
+    Popover offset by 50px.
+  </template>
+</KPop>
+```
+
 ## Slots
 
 ### content
