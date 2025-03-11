@@ -212,6 +212,12 @@ const componentRoutes: RouteRecordRaw[] = [
     meta: { title: 'Tree List Sandbox' },
     component: () => import('../pages/SandboxTreeList.vue'),
   },
+  {
+    path: '/foobar',
+    name: 'foobar',
+    meta: { title: 'Async Bulk Actions' },
+    component: () => import('../pages/TableAsyncBulkActions.vue'),
+  },
 ]
 
 export default componentRoutes

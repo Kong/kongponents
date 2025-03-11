@@ -3,7 +3,29 @@
     :links="inject('app-links', [])"
     title="KTableView"
   >
-    <div class="k-table-view-sandbox">
+    <KTableView
+      :data="paginatedData"
+      :headers="headers(true, false, true)"
+      :pagination-attributes="{ totalCount: basicPaginatedData.length, pageSizes: [5, 10] }"
+      resize-columns
+      :row-bulk-action-enabled="getRowBulkAction"
+      :row-key="({ id }: Record<string, any>) => String(id)"
+      @page-change="onPageChange"
+      @page-size-change="onPageSizeChange"
+      @row-select="onBulkActionsSelect"
+    >
+      <template #bulk-action-items>
+        <SandboxTableViewActions :count="selectedData.length" />
+      </template>
+      <template #action-items>
+        <SandboxTableViewActions />
+      </template>
+    </KTableView>
+
+    <div
+      v-if="false"
+      class="k-table-view-sandbox"
+    >
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
