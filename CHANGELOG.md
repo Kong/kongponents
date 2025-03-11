@@ -1,3 +1,10 @@
+# [9.23.0](https://github.com/Kong/kongponents/compare/v9.22.3...v9.23.0) (2025-03-11)
+
+
+### Features
+
+* **kpop, ktooltip:** add offset prop [KHCP-15283] ([#2634](https://github.com/Kong/kongponents/issues/2634)) ([56791ae](https://github.com/Kong/kongponents/commit/56791aec43c7e3eb2a5ffb9055d62e37f93c3a3c))
+
 ## [9.22.3](https://github.com/Kong/kongponents/compare/v9.22.2...v9.22.3) (2025-03-07)
 
 
