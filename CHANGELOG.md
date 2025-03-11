@@ -1,3 +1,10 @@
+## [9.23.1](https://github.com/Kong/kongponents/compare/v9.23.0...v9.23.1) (2025-03-11)
+
+
+### Bug Fixes
+
+* **klabel:** required indicator icon not aligned properly [KM-1034] ([#2640](https://github.com/Kong/kongponents/issues/2640)) ([41a43ef](https://github.com/Kong/kongponents/commit/41a43efaf59ebaf78beaac7b8b095c2014f69df0))
+
 # [9.23.0](https://github.com/Kong/kongponents/compare/v9.22.3...v9.23.0) (2025-03-11)
 
 
