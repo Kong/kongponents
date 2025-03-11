@@ -26,6 +26,6 @@ export interface PopoverAttributes {
   placement?: PopPlacements
   popoverClasses?: string
   offset?: string
-  width?: string | number
+  width?: string
 }
 
