@@ -22,9 +22,10 @@ export const PopPlacementsArray = [
 
 export type PopPlacements = AnyElementOf<typeof PopPlacementsArray>
 
-export interface PopoverAttributes extends Record<string, any> {
+export interface PopoverAttributes {
   placement?: PopPlacements
   popoverClasses?: string
   offset?: string
+  width?: string | number
 }
 
