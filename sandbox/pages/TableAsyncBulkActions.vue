@@ -55,6 +55,7 @@ const fetchData = async (): Promise<void> => {
 
 watch(dataBulkActionsEnabledMap, async (map) => {
   if (Object.keys(map).length) {
+    // once data is fetched, we can start evaluating bulk actions for each row
     Object.keys(map).forEach(async (username) => {
       // Fake delay, here we would call canUserAccess to check permissions
       await new Promise((resolve) => setTimeout(resolve, 2000))
@@ -64,8 +65,9 @@ watch(dataBulkActionsEnabledMap, async (map) => {
       }
     })
 
-    dataBulkActionsEvaluated.value = true
-    tableKey.value ++
+    dataBulkActionsEvaluated.value = true // this ensures that we render all checkboxes disabled up until the moment once KTableView has been re-rendered and therefore can evaluate the new value of rowBulkActionEnabled
+    tableKey.value ++ // we need to force re-render because internal properties in KTableView relied on old value provided through rowBulkActionEnabled to determine states of some elements (namely, the checkbox in the table header)
+    // the reason why we want KTableView rather than KTableData here is because re-rendering would trigger fetcher function and we'd basically end up in an infinite loop
   }
 }, { deep: true })
 
