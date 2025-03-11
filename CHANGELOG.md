@@ -1,3 +1,10 @@
+## [9.23.2](https://github.com/Kong/kongponents/compare/v9.23.1...v9.23.2) (2025-03-11)
+
+
+### Bug Fixes
+
+* **types:** popover attributes allow width ([#2641](https://github.com/Kong/kongponents/issues/2641)) ([52d9f6f](https://github.com/Kong/kongponents/commit/52d9f6f265297b901fc08eab77fa895a43771d48))
+
 ## [9.23.1](https://github.com/Kong/kongponents/compare/v9.23.0...v9.23.1) (2025-03-11)
 
 
