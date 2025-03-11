@@ -66,6 +66,30 @@
           Tab 3 content
         </div>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="beforeChange">
+        <KTabs
+          :before-change="onBeforeTabChange"
+          :model-value="confirmedTab"
+          :tabs="items"
+        >
+          <template #tab1>
+            Tab 1 content
+          </template>
+          <template #tab2>
+            Tab 2 content
+          </template>
+          <template #tab3>
+            Tab 3 content
+          </template>
+        </KTabs>
+
+        <KPrompt
+          message="Notice that the tab doesn't change until you've confirmed your action."
+          :visible="confirmPromptVisible"
+          @cancel="onCancel"
+          @proceed="onConfirm"
+        />
+      </SandboxSectionComponent>
 
       <!-- Slots -->
       <SandboxTitleComponent
@@ -155,6 +179,7 @@ const items = [
 
 const vModel1 = ref<string>('#tab2')
 const vModel2 = ref<string>('#tab2')
+const confirmedTab = ref<string>('#tab1')
 
 const dynamicRouterViewItems = [
   {
@@ -168,4 +193,22 @@ const dynamicRouterViewItems = [
     to: { hash: '#two' },
   },
 ]
+
+const confirmPromptVisible = ref<boolean>(false)
+const targetTab = ref<string | null>(null)
+const onBeforeTabChange = (tab: string) => {
+  confirmPromptVisible.value = true
+  targetTab.value = tab
+
+  return false
+}
+const onConfirm = () => {
+  confirmPromptVisible.value = false
+  confirmedTab.value = targetTab.value!
+  targetTab.value = null
+}
+const onCancel = () => {
+  confirmPromptVisible.value = false
+  targetTab.value = null
+}
 </script>
