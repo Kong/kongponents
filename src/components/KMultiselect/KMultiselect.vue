@@ -280,7 +280,13 @@ import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle'
 import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
-import type { MultiselectItem, MultiselectFilterFunctionParams, DropdownFooterTextPosition, PopPlacements, BadgeAppearance } from '@/types'
+import type {
+  MultiselectItem,
+  MultiselectFilterFunctionParams,
+  DropdownFooterTextPosition,
+  PopPlacements,
+  BadgeAppearance,
+  PopoverAttributes } from '@/types'
 import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
@@ -346,10 +352,8 @@ const props = defineProps({
     default: '',
   },
   kpopAttributes: {
-    type: Object,
-    default: () => ({
-      popoverClasses: '',
-    }),
+    type: Object as PropType<PopoverAttributes>,
+    default: () => {},
   },
   dropdownMaxHeight: {
     type: String,
@@ -568,7 +572,7 @@ const createKPopAttributes = computed((): Record<string, any> => {
   return {
     ...defaultKPopAttributes,
     ...props.kpopAttributes,
-    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes.popoverClasses} ${props.dropdownFooterText || slots['dropdown-footer-text'] ? 'has-dropdown-footer' : ''}`,
+    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes?.popoverClasses ?? ''} ${props.dropdownFooterText || slots['dropdown-footer-text'] ? 'has-dropdown-footer' : ''}`,
     width: numericWidth.value + 'px',
     maxWidth: numericWidth.value + 'px',
     disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),
