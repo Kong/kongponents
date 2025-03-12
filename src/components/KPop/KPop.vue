@@ -21,6 +21,7 @@
 
     <Teleport
       defer
+      :disabled="!target"
       :to="target ? target : `#${popoverWrapperId}`"
     >
       <Transition name="kongponents-fade-transition">
