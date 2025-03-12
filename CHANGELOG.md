@@ -1,3 +1,10 @@
+## [9.23.3](https://github.com/Kong/kongponents/compare/v9.23.2...v9.23.3) (2025-03-12)
+
+
+### Bug Fixes
+
+* **ktable:** missing styles, no container class ([#2645](https://github.com/Kong/kongponents/issues/2645)) ([b283ecf](https://github.com/Kong/kongponents/commit/b283ecf27b4271647629fde5ae49ad09ff2ef378))
+
 ## [9.23.2](https://github.com/Kong/kongponents/compare/v9.23.1...v9.23.2) (2025-03-11)
 
 
