@@ -1,3 +1,24 @@
+## [9.23.2](https://github.com/Kong/kongponents/compare/v9.23.1...v9.23.2) (2025-03-11)
+
+
+### Bug Fixes
+
+* **types:** popover attributes allow width ([#2641](https://github.com/Kong/kongponents/issues/2641)) ([52d9f6f](https://github.com/Kong/kongponents/commit/52d9f6f265297b901fc08eab77fa895a43771d48))
+
+## [9.23.1](https://github.com/Kong/kongponents/compare/v9.23.0...v9.23.1) (2025-03-11)
+
+
+### Bug Fixes
+
+* **klabel:** required indicator icon not aligned properly [KM-1034] ([#2640](https://github.com/Kong/kongponents/issues/2640)) ([41a43ef](https://github.com/Kong/kongponents/commit/41a43efaf59ebaf78beaac7b8b095c2014f69df0))
+
+# [9.23.0](https://github.com/Kong/kongponents/compare/v9.22.3...v9.23.0) (2025-03-11)
+
+
+### Features
+
+* **kpop, ktooltip:** add offset prop [KHCP-15283] ([#2634](https://github.com/Kong/kongponents/issues/2634)) ([56791ae](https://github.com/Kong/kongponents/commit/56791aec43c7e3eb2a5ffb9055d62e37f93c3a3c))
+
 ## [9.22.3](https://github.com/Kong/kongponents/compare/v9.22.2...v9.22.3) (2025-03-07)
 
 
