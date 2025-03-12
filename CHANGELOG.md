@@ -1,3 +1,10 @@
+## [9.23.4](https://github.com/Kong/kongponents/compare/v9.23.3...v9.23.4) (2025-03-12)
+
+
+### Bug Fixes
+
+* **ktableview:** row links tabindex [KHCP-15202] ([#2643](https://github.com/Kong/kongponents/issues/2643)) ([2fe2746](https://github.com/Kong/kongponents/commit/2fe27469d1dd9e533de441c6e41e68a5f3702053))
+
 ## [9.23.3](https://github.com/Kong/kongponents/compare/v9.23.2...v9.23.3) (2025-03-12)
 
 
