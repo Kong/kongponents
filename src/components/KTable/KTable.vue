@@ -85,7 +85,10 @@
       </slot>
     </div>
 
-    <div v-else>
+    <div
+      v-else
+      class="table-container"
+    >
       <div
         class="table-wrapper"
         :style="tableWrapperStyles"
