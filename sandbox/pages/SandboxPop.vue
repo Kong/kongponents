@@ -200,6 +200,16 @@
           </KPop>
         </div>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="target">
+        <KPop
+          button-text="Button"
+          target="#teleport-target"
+        >
+          <template #content>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </template>
+        </KPop>
+      </SandboxSectionComponent>
 
       <!-- Slots -->
       <SandboxTitleComponent
