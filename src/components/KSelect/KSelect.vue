@@ -431,6 +431,7 @@ const createKPopAttributes = computed(() => {
   return {
     ...defaultKPopAttributes,
     ...props.kpopAttributes,
+    target: '', // unset target in case it was passed in
     popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes?.popoverClasses ?? ''}`,
     width: String(actualElementWidth.value),
     maxWidth: String(actualElementWidth.value),

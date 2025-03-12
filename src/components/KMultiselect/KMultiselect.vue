@@ -572,6 +572,7 @@ const createKPopAttributes = computed((): Record<string, any> => {
   return {
     ...defaultKPopAttributes,
     ...props.kpopAttributes,
+    target: '', // unset target in case it was passed in
     popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes?.popoverClasses ?? ''} ${props.dropdownFooterText || slots['dropdown-footer-text'] ? 'has-dropdown-footer' : ''}`,
     width: numericWidth.value + 'px',
     maxWidth: numericWidth.value + 'px',

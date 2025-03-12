@@ -162,6 +162,7 @@ const defaultKPopAttributes = {
 const boundKPopAttributes = {
   ...defaultKPopAttributes,
   ...props.kpopAttributes,
+  target: '', // unset target in case it was passed in
   width: props.width ? props.width : undefined,
   popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes?.popoverClasses || ''}`,
 }
