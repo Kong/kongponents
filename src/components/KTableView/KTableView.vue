@@ -249,7 +249,7 @@
                   'last-row': rowIndex === data.length - 1 && !expandedRows.includes(rowIndex),
                 }"
                 :role="!!rowLink(row).to ? 'link' : undefined"
-                :tabindex="isClickable || !!rowLink(row).to ? 0 : undefined"
+                :tabindex="isClickable && !rowLink(row).to ? 0 : undefined"
                 v-bind="rowAttrs(row)"
               >
                 <td
@@ -1240,7 +1240,7 @@ watch([() => props.data, dataSelectState], (newVals) => {
     const selectableRowsState = newDataSelectState.filter((rowState) => !rowState.disabled && newData.find((row) => getRowKey(row) === rowState.rowKey))
 
     // all are selected
-    if (selectableRowsState.filter((rowState) => rowState.selected).length === selectableRowsState.length) {
+    if (selectableRowsState.length && selectableRowsState.filter((rowState) => rowState.selected).length === selectableRowsState.length) {
       bulkActionsAll.value = true
       // all are unselected
     } else if (selectableRowsState.filter((rowState) => !rowState.selected).length === selectableRowsState.length) {
