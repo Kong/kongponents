@@ -302,6 +302,7 @@
                       class="actions-dropdown"
                       data-testid="actions-dropdown"
                       :kpop-attributes="{ placement: 'bottom-end' }"
+                      @toggle-dropdown="($event: boolean) => onRowActionsToggle(getGeneric(row), $event)"
                     >
                       <KButton
                         appearance="tertiary"
@@ -431,6 +432,7 @@ import type {
   TableViewProps,
   TableViewSelectState,
   RowExpandPayload,
+  RowActionsTogglePayload,
 } from '@/types'
 import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
@@ -492,6 +494,7 @@ const emit = defineEmits<{
   (e: 'get-previous-offset'): void
   (e: 'row-select', data: TableViewData): void
   (e: 'update:row-expanded', data: RowExpandPayload): void
+  (e: 'row-actions-toggle', data: RowActionsTogglePayload): void
 }>()
 
 const attrs = useAttrs()
@@ -906,6 +909,10 @@ const showResizeHandle = (column: TableViewHeader, previous: boolean = false): b
 
   const nextColumn = visibleHeaders.value[visibleHeaders.value.indexOf(column) + 1]
   return !isSpecialColumn(column.key) && !isSpecialColumn(nextColumn.key)
+}
+
+const onRowActionsToggle = (row: Record<string, any>, state: boolean): void => {
+  emit('row-actions-toggle', { row: getGeneric(row), open: state })
 }
 
 const showPagination = computed((): boolean => {
