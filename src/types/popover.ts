@@ -28,6 +28,6 @@ export interface PopoverAttributes {
   offset?: string
   width?: string
   /** Not supported in KDropdown, KSelect and KMultiselect */
-  target?: string
+  target?: string | null
 }
 

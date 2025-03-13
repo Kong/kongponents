@@ -168,8 +168,8 @@ const props = defineProps({
     default: KUI_SPACE_60,
   },
   target: {
-    type: String,
-    default: '',
+    type: [String, null],
+    default: null,
   },
 })
 
