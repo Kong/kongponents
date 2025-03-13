@@ -1558,6 +1558,17 @@ interface RowExpandPayload {
 }
 ```
 
+### row-actions-toggle
+
+Emitted when [actions dropdown](#actions) is opened and closed. Event payload is object of type `RowActionsTogglePayload`.
+
+```ts
+interface RowActionsTogglePayload {
+  row: Record<string, any>
+  open: boolean
+}
+```
+
 <script setup lang="ts">
 import { ref } from 'vue'
 import { AddIcon, SearchIcon, MoreIcon } from '@kong/icons'
