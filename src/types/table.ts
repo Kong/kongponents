@@ -292,3 +292,8 @@ export interface RowExpandPayload {
   row: Record<string, any>
   expanded: boolean
 }
+
+export interface RowActionsTogglePayload {
+  row: Record<string, any>
+  open: boolean
+}

@@ -1,3 +1,10 @@
+## [9.23.5](https://github.com/Kong/kongponents/compare/v9.23.4...v9.23.5) (2025-03-13)
+
+
+### Bug Fixes
+
+* **ktableview, ktabledata:** add row-actions-toggle event [KHCP-15470] ([#2647](https://github.com/Kong/kongponents/issues/2647)) ([30512f2](https://github.com/Kong/kongponents/commit/30512f2441d909120f760d6e56bcaaf1940f6193))
+
 ## [9.23.4](https://github.com/Kong/kongponents/compare/v9.23.3...v9.23.4) (2025-03-12)
 
 

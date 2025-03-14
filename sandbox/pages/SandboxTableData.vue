@@ -99,6 +99,7 @@
           :fetcher="fetcher"
           :headers="headers()"
           :row-link="getRowLinksRouter"
+          @row-actions-toggle="onRowActionsToggle"
         >
           <template #action-items>
             <SandboxTableViewActions />
@@ -433,7 +434,7 @@
 import { inject, ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import type { TableDataHeader, TableViewData, RowLink, RowBulkAction } from '@/types'
+import type { TableDataHeader, TableViewData, RowLink, RowBulkAction, RowActionsTogglePayload } from '@/types'
 import SandboxTableViewActions from './SandboxTableView/SandboxTableViewActions.vue'
 import { AddIcon } from '@kong/icons'
 
@@ -513,6 +514,10 @@ const getRowLinksRouter = (row: Record<string, any>): RowLink => ({
   to: { name: 'home' }, // pass a string to render the link as an anchor element instead of a router-link
   target: '_blank',
 })
+
+const onRowActionsToggle = ({ row, open }: RowActionsTogglePayload) => {
+  console.log(`Row actions for row ${row.id} are ${open ? 'open' : 'closed'}`)
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getRowLinksAnchor = (row: Record<string, any>): RowLink => ({
