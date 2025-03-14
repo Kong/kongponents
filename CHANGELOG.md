@@ -1,3 +1,24 @@
+## [9.23.5](https://github.com/Kong/kongponents/compare/v9.23.4...v9.23.5) (2025-03-13)
+
+
+### Bug Fixes
+
+* **ktableview, ktabledata:** add row-actions-toggle event [KHCP-15470] ([#2647](https://github.com/Kong/kongponents/issues/2647)) ([30512f2](https://github.com/Kong/kongponents/commit/30512f2441d909120f760d6e56bcaaf1940f6193))
+
+## [9.23.4](https://github.com/Kong/kongponents/compare/v9.23.3...v9.23.4) (2025-03-12)
+
+
+### Bug Fixes
+
+* **ktableview:** row links tabindex [KHCP-15202] ([#2643](https://github.com/Kong/kongponents/issues/2643)) ([2fe2746](https://github.com/Kong/kongponents/commit/2fe27469d1dd9e533de441c6e41e68a5f3702053))
+
+## [9.23.3](https://github.com/Kong/kongponents/compare/v9.23.2...v9.23.3) (2025-03-12)
+
+
+### Bug Fixes
+
+* **ktable:** missing styles, no container class ([#2645](https://github.com/Kong/kongponents/issues/2645)) ([b283ecf](https://github.com/Kong/kongponents/commit/b283ecf27b4271647629fde5ae49ad09ff2ef378))
+
 ## [9.23.2](https://github.com/Kong/kongponents/compare/v9.23.1...v9.23.2) (2025-03-11)
 
 

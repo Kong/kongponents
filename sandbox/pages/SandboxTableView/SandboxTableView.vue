@@ -91,6 +91,7 @@
           :headers="headers()"
           :pagination-attributes="{ totalCount: tableData.length }"
           :row-link="getRowLinksRouter"
+          @row-actions-toggle="onRowActionsToggle"
         >
           <template #action-items>
             <SandboxTableViewActions />
@@ -452,11 +453,11 @@
 import { inject, ref } from 'vue'
 import SandboxTitleComponent from '../../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../../components/SandboxSectionComponent.vue'
-import type { TableHeader, TableViewData, TableSortPayload, RowLink, PageChangeData, PageSizeChangeData, RowBulkAction } from '@/types'
+import type { TableViewHeader, TableViewData, TableSortPayload, RowLink, PageChangeData, PageSizeChangeData, RowBulkAction, RowActionsTogglePayload } from '@/types'
 import SandboxTableViewActions from './SandboxTableViewActions.vue'
 import { AddIcon } from '@kong/icons'
 
-const headers = (hidable: boolean = false, sortable: boolean = false, bulkActions: boolean = false): TableHeader[] => {
+const headers = (hidable: boolean = false, sortable: boolean = false, bulkActions: boolean = false): TableViewHeader[] => {
   return [
     { key: 'actions', label: 'Row actions' },
     { key: 'name', label: 'Full Name' },
@@ -573,6 +574,10 @@ const getRowLinksRouter = (row: Record<string, any>): RowLink => ({
   to: { name: 'home' }, // pass a string to render the link as an anchor element instead of a router-link
   target: '_blank',
 })
+
+const onRowActionsToggle = ({ row, open }: RowActionsTogglePayload) => {
+  console.log(`Row actions for row ${row.id} are ${open ? 'open' : 'closed'}`)
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getRowLinksAnchor = (row: Record<string, any>): RowLink => ({
