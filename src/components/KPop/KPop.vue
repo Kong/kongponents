@@ -20,7 +20,6 @@
     </div>
 
     <Teleport
-      defer
       :disabled="!target"
       :to="target ? target : `#${popoverWrapperId}`"
     >
