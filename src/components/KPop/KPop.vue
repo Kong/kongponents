@@ -18,9 +18,9 @@
       </slot>
     </div>
 
-    <Teleport
-      :disabled="!target"
-      :to="target ? target : undefined"
+    <KPopTeleportWrapper
+      :target="target"
+      :use-teleport="!!target"
     >
       <Transition name="kongponents-fade-transition">
         <div
@@ -83,7 +83,7 @@
           </div>
         </div>
       </Transition>
-    </Teleport>
+    </KPopTeleportWrapper>
   </component>
 </template>
 
@@ -97,6 +97,7 @@ import KButton from '@/components/KButton/KButton.vue'
 import useUtilities from '@/composables/useUtilities'
 import { CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
+import KPopTeleportWrapper from './KPopTeleportWrapper.vue'
 
 const props = defineProps({
   buttonText: {
@@ -166,8 +167,8 @@ const props = defineProps({
     default: KUI_SPACE_60,
   },
   target: {
-    type: [String, null],
-    default: null,
+    type: String,
+    default: undefined,
   },
 })
 
