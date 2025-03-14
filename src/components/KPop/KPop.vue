@@ -268,7 +268,7 @@ const { floatingStyles, placement: calculatedPlacement, update: updatePosition }
       flip(), // Changes the placement of the floating element to keep it in view.
     ],
   }),
-  strategy: 'fixed',
+  strategy: 'absolute',
   transform: false,
 })
 
