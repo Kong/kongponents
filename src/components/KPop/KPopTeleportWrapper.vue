@@ -16,8 +16,8 @@ defineProps({
     default: false,
   },
   target: {
-    type: String,
-    default: undefined,
+    type: [String, null],
+    default: null,
   },
 })
 </script>
