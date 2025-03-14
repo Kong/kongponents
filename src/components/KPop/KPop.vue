@@ -1,7 +1,6 @@
 <template>
   <component
     :is="tag"
-    :id="popoverWrapperId"
     ref="kPopoverElement"
     class="k-popover"
   >
@@ -21,7 +20,7 @@
 
     <Teleport
       :disabled="!target"
-      :to="target ? target : `#${popoverWrapperId}`"
+      :to="target ? target : undefined"
     >
       <Transition name="kongponents-fade-transition">
         <div
@@ -89,7 +88,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, computed, watch, useId, useAttrs } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed, watch, useId } from 'vue'
 import type { PropType } from 'vue'
 import { useFloating, autoUpdate, autoPlacement, flip, shift } from '@floating-ui/vue'
 import type { PopPlacements, PopTrigger } from '@/types'
@@ -174,13 +173,10 @@ const props = defineProps({
 
 const emit = defineEmits(['open', 'close', 'popover-click'])
 
-const attrs = useAttrs()
-
 const { getSizeFromString } = useUtilities()
 
 const popoverId = useId()
 const titleId = useId()
-const popoverWrapperId = attrs.id ? String(attrs.id) : useId()
 const kPopoverElement = ref<HTMLElement | null>(null)
 const triggerWrapperElement = ref<HTMLElement | null>(null)
 const popoverElement = ref<HTMLElement | null>(null)
