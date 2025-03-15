@@ -87,6 +87,10 @@ const props = defineProps({
     default: 0,
     validator: (val: number): boolean => val >= -1 && val <= 32767,
   },
+  beforeChange: {
+    type: Function as PropType<(tab: string) => boolean>,
+    default: () => true,
+  },
 })
 
 const emit = defineEmits<{
@@ -97,9 +101,11 @@ const emit = defineEmits<{
 const activeTab = ref<string>(props.modelValue ? props.modelValue : props.tabs[0]?.hash)
 
 const handleTabChange = (tab: string): void => {
-  activeTab.value = tab
-  emit('change', tab)
-  emit('update:modelValue', tab)
+  if (props.beforeChange(tab)) {
+    activeTab.value = tab
+    emit('change', tab)
+    emit('update:modelValue', tab)
+  }
 }
 
 const getTabSlotName = (tabHash: string): string => tabHash.replace('#', '')

@@ -126,6 +126,19 @@ describe('KTabs', () => {
     cy.get('.tab-item .tab-link').eq(1).should('not.have.attr', 'href')
   })
 
+  it('does not change the tab when beforeChange returns false', () => {
+    cy.mount(KTabs, {
+      props: {
+        tabs: TABS,
+        beforeChange: () => false,
+      },
+    })
+
+    cy.get('.tab-item').eq(1).click().then(() => {
+      cy.wrap(Cypress.vueWrapper.emitted()).should('not.have.property', 'change')
+    })
+  })
+
   describe('slots', () => {
     it('provides the #hash slot content', () => {
       const picturesSlot = 'I love pictures'
