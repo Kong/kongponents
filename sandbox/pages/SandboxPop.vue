@@ -200,6 +200,16 @@
           </KPop>
         </div>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="target">
+        <KPop
+          button-text="Button"
+          target="#teleport-target"
+        >
+          <template #content>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </template>
+        </KPop>
+      </SandboxSectionComponent>
 
       <!-- Slots -->
       <SandboxTitleComponent
@@ -314,9 +324,12 @@
       />
       <div>
         <KTooltip
-          :kpop-attributes="{ offset: KUI_SPACE_100 }"
+          :kpop-attributes="{
+            offset: KUI_SPACE_100,
+            target: '#teleport-target'
+          }"
           placement="right"
-          text="Tooltip offset by 40px."
+          text="Teleported tooltip offset by 40px."
         >
           <InfoIcon tabindex="0" />
         </KTooltip>

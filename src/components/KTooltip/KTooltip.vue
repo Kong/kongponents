@@ -102,8 +102,8 @@ const showTooltip = computed((): boolean => !!props.text || !!props.label || !!s
 const randomTooltipId = useId()
 </script>
 
-<style lang="scss" scoped>
-:deep(.k-tooltip.popover) {
+<style lang="scss">
+.k-tooltip.popover {
   .popover-container {
     background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
     border: none;
