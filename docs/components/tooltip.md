@@ -121,11 +121,37 @@ A string to be used as `id` attribute on underlying `role="tooltip"` element. Us
 <KInput id="full-name-field" />
 ```
 
+### kpopAttributes
+
+Use the `kpopAttributes` prop to configure the underlying [KPop's props](/components/popover).
+
+<KTooltip
+  :kpop-attributes="{ offset: '50px' }"
+  placement="right"
+  text="Tooltip offset by 50px."
+>
+  <InfoIcon />
+</KTooltip>
+
+```html
+<KTooltip
+  :kpop-attributes="{ offset: '50px' }"
+  placement="right"
+  text="Tooltip offset by 50px."
+>
+  <InfoIcon />
+</KTooltip>
+```
+
 ## Slots
 
 ### default
 
 The `default` slot takes in the element you want the popover to be triggered over.
+
+:::tip NOTE
+Make sure to set appropriate `tabindex` attribute on your tooltip trigger element in order to make popover accessible for assistive technology users.
+:::
 
 ```html
 <KTooltip text="A simple tooltip.">

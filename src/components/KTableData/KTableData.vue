@@ -38,6 +38,7 @@
     @get-previous-offset="getPreviousOffsetHandler"
     @page-change="pageChangeHandler"
     @page-size-change="pageSizeChangeHandler"
+    @row-actions-toggle="($event) => $emit('row-actions-toggle', $event)"
     @row-select="($event: Record<string, any>[]) => emit('row-select', $event)"
     @sort="sortHandler"
     @update:row-expanded="($event: RowExpandPayload) => emit('update:row-expanded', $event)"
@@ -175,6 +176,7 @@ import type {
   SwrvStateData,
   TableDataProps,
   RowExpandPayload,
+  RowActionsTogglePayload,
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
 import { getInitialPageSize, DEFAULT_PAGE_SIZE } from '@/utilities'
@@ -232,6 +234,7 @@ const emit = defineEmits<{
   (e: 'state', value: TableStatePayload): void
   (e: 'row-select', data: Record<string, any>[]): void
   (e: 'update:row-expanded', data: RowExpandPayload): void
+  (e: 'row-actions-toggle', data: RowActionsTogglePayload): void
 }>()
 
 const tableId = useId()
@@ -586,5 +589,11 @@ watch([filterQuery, pageSize], async (newData, oldData) => {
 
 onMounted(() => {
   initData()
+})
+
+defineExpose({
+  revalidate: () => {
+    _revalidate()
+  },
 })
 </script>

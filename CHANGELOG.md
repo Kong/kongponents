@@ -1,3 +1,108 @@
+## [9.23.5](https://github.com/Kong/kongponents/compare/v9.23.4...v9.23.5) (2025-03-13)
+
+
+### Bug Fixes
+
+* **ktableview, ktabledata:** add row-actions-toggle event [KHCP-15470] ([#2647](https://github.com/Kong/kongponents/issues/2647)) ([30512f2](https://github.com/Kong/kongponents/commit/30512f2441d909120f760d6e56bcaaf1940f6193))
+
+## [9.23.4](https://github.com/Kong/kongponents/compare/v9.23.3...v9.23.4) (2025-03-12)
+
+
+### Bug Fixes
+
+* **ktableview:** row links tabindex [KHCP-15202] ([#2643](https://github.com/Kong/kongponents/issues/2643)) ([2fe2746](https://github.com/Kong/kongponents/commit/2fe27469d1dd9e533de441c6e41e68a5f3702053))
+
+## [9.23.3](https://github.com/Kong/kongponents/compare/v9.23.2...v9.23.3) (2025-03-12)
+
+
+### Bug Fixes
+
+* **ktable:** missing styles, no container class ([#2645](https://github.com/Kong/kongponents/issues/2645)) ([b283ecf](https://github.com/Kong/kongponents/commit/b283ecf27b4271647629fde5ae49ad09ff2ef378))
+
+## [9.23.2](https://github.com/Kong/kongponents/compare/v9.23.1...v9.23.2) (2025-03-11)
+
+
+### Bug Fixes
+
+* **types:** popover attributes allow width ([#2641](https://github.com/Kong/kongponents/issues/2641)) ([52d9f6f](https://github.com/Kong/kongponents/commit/52d9f6f265297b901fc08eab77fa895a43771d48))
+
+## [9.23.1](https://github.com/Kong/kongponents/compare/v9.23.0...v9.23.1) (2025-03-11)
+
+
+### Bug Fixes
+
+* **klabel:** required indicator icon not aligned properly [KM-1034] ([#2640](https://github.com/Kong/kongponents/issues/2640)) ([41a43ef](https://github.com/Kong/kongponents/commit/41a43efaf59ebaf78beaac7b8b095c2014f69df0))
+
+# [9.23.0](https://github.com/Kong/kongponents/compare/v9.22.3...v9.23.0) (2025-03-11)
+
+
+### Features
+
+* **kpop, ktooltip:** add offset prop [KHCP-15283] ([#2634](https://github.com/Kong/kongponents/issues/2634)) ([56791ae](https://github.com/Kong/kongponents/commit/56791aec43c7e3eb2a5ffb9055d62e37f93c3a3c))
+
+## [9.22.3](https://github.com/Kong/kongponents/compare/v9.22.2...v9.22.3) (2025-03-07)
+
+
+### Bug Fixes
+
+* **ktableview:** horizontal scroll overlay indicators [KHCP-15221] ([#2629](https://github.com/Kong/kongponents/issues/2629)) ([5782168](https://github.com/Kong/kongponents/commit/5782168b1ce5f15283bec327fcf9cb1e9bbd6ddf))
+
+## [9.22.2](https://github.com/Kong/kongponents/compare/v9.22.1...v9.22.2) (2025-03-05)
+
+
+### Bug Fixes
+
+* **kmodal:** kmodal not scrollable when content slot used [KHCP-15360] ([#2635](https://github.com/Kong/kongponents/issues/2635)) ([2fb7dab](https://github.com/Kong/kongponents/commit/2fb7dabd2665250cb46212f55437bbe591a135f8))
+
+## [9.22.1](https://github.com/Kong/kongponents/compare/v9.22.0...v9.22.1) (2025-03-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.21.2 ([#2631](https://github.com/Kong/kongponents/issues/2631)) ([70bc2f8](https://github.com/Kong/kongponents/commit/70bc2f84c5fcb21c2e718df10ca5f797378c1f15))
+
+# [9.22.0](https://github.com/Kong/kongponents/compare/v9.21.6...v9.22.0) (2025-02-27)
+
+
+### Features
+
+* **ktabledata:** expose revalidate method ([#2620](https://github.com/Kong/kongponents/issues/2620)) ([978bfcf](https://github.com/Kong/kongponents/commit/978bfcf548a078eca2954cb39d46dc79d238c710))
+
+## [9.21.6](https://github.com/Kong/kongponents/compare/v9.21.5...v9.21.6) (2025-02-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency virtua to ^0.40.0 ([#2615](https://github.com/Kong/kongponents/issues/2615)) ([ac99b12](https://github.com/Kong/kongponents/commit/ac99b12e919e4208a33cf025350d2f6c53d75dd9))
+
+## [9.21.5](https://github.com/Kong/kongponents/compare/v9.21.4...v9.21.5) (2025-02-15)
+
+
+### Bug Fixes
+
+* **browser:** platform is undefined ([#2619](https://github.com/Kong/kongponents/issues/2619)) ([e561867](https://github.com/Kong/kongponents/commit/e5618677345a521affed9bae442aef9a61b23b5b))
+
+## [9.21.4](https://github.com/Kong/kongponents/compare/v9.21.3...v9.21.4) (2025-02-14)
+
+
+### Bug Fixes
+
+* **kbadge:** tabindex when has tooltip ([#2618](https://github.com/Kong/kongponents/issues/2618)) ([2d893b6](https://github.com/Kong/kongponents/commit/2d893b630d2cf8f6be6371a1159c664f02db7df5))
+
+## [9.21.3](https://github.com/Kong/kongponents/compare/v9.21.2...v9.21.3) (2025-02-14)
+
+
+### Bug Fixes
+
+* **ktreelist:** increase fallback tolerance ([#2617](https://github.com/Kong/kongponents/issues/2617)) ([fd69df0](https://github.com/Kong/kongponents/commit/fd69df01af811db02c33112d7681ae93b322603b))
+
+## [9.21.2](https://github.com/Kong/kongponents/compare/v9.21.1...v9.21.2) (2025-02-12)
+
+
+### Bug Fixes
+
+* **kinputswitch:** add tooltipattributes prop ([#2613](https://github.com/Kong/kongponents/issues/2613)) ([89c8ff9](https://github.com/Kong/kongponents/commit/89c8ff980112c5c319e2b01a764b0afc86628e59))
+
 ## [9.21.1](https://github.com/Kong/kongponents/compare/v9.21.0...v9.21.1) (2025-02-10)
 
 

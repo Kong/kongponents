@@ -169,6 +169,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     tag: 'button',
     onClick: handleClick,
     attrs: {
+      type: 'button',
       // don't add disabled class because we want the disabled attribute on the button
       class: dropdownItemTriggerClass,
       disabled: props.disabled,

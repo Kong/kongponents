@@ -43,12 +43,13 @@
           label="Disabled"
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="disabledTooltipText">
+      <SandboxSectionComponent title="disabledTooltipText & tooltipAttributes">
         <KInputSwitch
           v-model="vModel1"
           disabled
           disabled-tooltip-text="Disabled tooltip text"
           label="Disabled"
+          :tooltip-attributes="{ placement: 'bottom-start' }"
         />
       </SandboxSectionComponent>
 

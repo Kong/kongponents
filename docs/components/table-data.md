@@ -294,6 +294,12 @@ type TableState = 'loading' | 'error' | 'success' | 'empty'
 
 This event only fires when KTableData is in `success` state (see [`state` event](#state) for details).
 
+## Methods
+
+### revalidate
+
+Revalidates the cached data without triggering the loading state if data is already cached.
+
 <script setup lang="ts">
 import { AddIcon, SearchIcon, MoreIcon } from '@kong/icons'
 
