@@ -52,7 +52,7 @@ jobs:
           uses: ./.github/actions/setup-pnpm-with-dependencies/
 
         - name: Download Build Artifacts
-          uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+          uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
           with:
             name: kongponents-ci-build-output-artifact
 
