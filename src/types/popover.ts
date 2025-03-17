@@ -29,5 +29,6 @@ export interface PopoverAttributes {
   width?: string
   /** Not supported in KDropdown, KSelect and KMultiselect */
   target?: string | null
+  trigger?: PopTrigger
 }
 
