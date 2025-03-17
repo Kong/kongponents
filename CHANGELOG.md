@@ -1,3 +1,12 @@
+## [9.23.6](https://github.com/Kong/kongponents/compare/v9.23.5...v9.23.6) (2025-03-17)
+
+
+### Bug Fixes
+
+* **actions:** use kong changed files ([#2652](https://github.com/Kong/kongponents/issues/2652)) ([79cd9e2](https://github.com/Kong/kongponents/commit/79cd9e21602b2f755a7b18c7ffa117e853647168)), closes [#incident-456](https://github.com/Kong/kongponents/issues/incident-456)
+* **ktableview:** make header non-sticky in firefox ([#2649](https://github.com/Kong/kongponents/issues/2649)) ([4fd43ff](https://github.com/Kong/kongponents/commit/4fd43ff6653ae3d1c2a4dc13e6448fceb2488e52))
+* **security:** pin version ([#2651](https://github.com/Kong/kongponents/issues/2651)) ([908096d](https://github.com/Kong/kongponents/commit/908096ddde630ebb3085f955a3626867797872e0))
+
 ## [9.23.5](https://github.com/Kong/kongponents/compare/v9.23.4...v9.23.5) (2025-03-13)
 
 
