@@ -31,12 +31,12 @@
           class="popover"
           :class="popoverClassesObj"
           role="dialog"
-          :style="floatingStyles"
+          :style="popoverStyles"
           :x-placement="calculatedPlacement"
         >
           <div
             class="popover-container"
-            :style="popoverStyles"
+            :style="popoverContainerStyles"
           >
             <button
               v-if="!hideCloseIcon"
@@ -252,16 +252,6 @@ const clickHandler = (event: Event) => {
   }
 }
 
-const popoverStyles = computed(() => {
-  return {
-    width: getSizeFromString(props.width),
-    maxWidth: getSizeFromString(props.maxWidth),
-    maxHeight: getSizeFromString(props.maxHeight),
-  }
-})
-
-const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': props.hideCaret }])
-
 /**
  * Backwards compatibility for the placement prop
  * Converts the placement prop to the correct format for Floating UI
@@ -282,9 +272,48 @@ const { floatingStyles, placement: calculatedPlacement, update: updatePosition }
   transform: false,
 })
 
-const floatingUpdates = ref<() => void>()
-
 const popoverOffset = computed(() => getSizeFromString(props.offset))
+const marginStyles = computed(() => {
+  if (calculatedPlacement.value.includes('top')) {
+    return {
+      marginBottom: popoverOffset.value,
+    }
+  } else if (calculatedPlacement.value.includes('bottom')) {
+    return {
+      marginTop: popoverOffset.value,
+    }
+  } else if (calculatedPlacement.value.includes('right')) {
+    return {
+      marginLeft: popoverOffset.value,
+    }
+  } else if (calculatedPlacement.value.includes('left')) {
+    return {
+      marginRight: popoverOffset.value,
+    }
+  } else {
+    return {}
+  }
+})
+
+const popoverStyles = computed(() => {
+  return {
+    ...floatingStyles.value,
+    zIndex: props.zIndex,
+  }
+})
+
+const popoverContainerStyles = computed(() => {
+  return {
+    ...marginStyles.value,
+    width: getSizeFromString(props.width),
+    maxWidth: getSizeFromString(props.maxWidth),
+    maxHeight: getSizeFromString(props.maxHeight),
+  }
+})
+
+const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': props.hideCaret }])
+
+const floatingUpdates = ref<() => void>()
 
 defineExpose({
   hidePopover,
@@ -400,7 +429,8 @@ $kPopCaretOffset: 16px;
   // gets overwritten by the size middleware once the popover is positioned
   max-width: 100vw;
   width: max-content;
-  z-index: v-bind('zIndex');
+  // This won't work until https://github.com/vuejs/core/issues/7312 is fixed
+  // z-index: v-bind('zIndex');
 
   // need to wrap popover content in a container because we cannot set position: relative; as that will break the floating-ui positioning
   .popover-container {
@@ -484,11 +514,12 @@ $kPopCaretOffset: 16px;
   &[x-placement^="top"] .popover-container {
     @include kPopCaret;
 
+    // This won't work until https://github.com/vuejs/core/issues/7312 is fixed
     // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
     // stylelint-disable-next-line no-duplicate-selectors
-    & {
-      margin-bottom: v-bind('popoverOffset');
-    }
+    // & {
+    //   margin-bottom: v-bind('popoverOffset');
+    // }
 
     &:after, &:before {
       left: 50%;
@@ -508,11 +539,12 @@ $kPopCaretOffset: 16px;
   &[x-placement^="right"] .popover-container {
     @include kPopCaret;
 
+    // This won't work until https://github.com/vuejs/core/issues/7312 is fixed
     // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
     // stylelint-disable-next-line no-duplicate-selectors
-    & {
-      margin-left: v-bind('popoverOffset');
-    }
+    // & {
+    //   margin-left: v-bind('popoverOffset');
+    // }
 
     &:after, &:before {
       right: 100%;
@@ -533,11 +565,12 @@ $kPopCaretOffset: 16px;
   &[x-placement^="bottom"] .popover-container {
     @include kPopCaret;
 
+    // This won't work until https://github.com/vuejs/core/issues/7312 is fixed
     // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
     // stylelint-disable-next-line no-duplicate-selectors
-    & {
-      margin-top: v-bind('popoverOffset');
-    }
+    // & {
+    //   margin-top: v-bind('popoverOffset');
+    // }
 
     &:after, &:before {
       bottom: 100%;
@@ -557,11 +590,12 @@ $kPopCaretOffset: 16px;
   &[x-placement^="left"] .popover-container {
     @include kPopCaret;
 
+    // This won't work until https://github.com/vuejs/core/issues/7312 is fixed
     // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
     // stylelint-disable-next-line no-duplicate-selectors
-    & {
-      margin-right: v-bind('popoverOffset');
-    }
+    // & {
+    //   margin-right: v-bind('popoverOffset');
+    // }
 
     &:after, &:before {
       left: 100%;
