@@ -18,67 +18,72 @@
       </slot>
     </div>
 
-    <Transition name="kongponents-fade-transition">
-      <div
-        v-show="isVisible"
-        :id="popoverId"
-        ref="popoverElement"
-        :aria-labelledby="$slots.title || title ? titleId : undefined"
-        class="popover"
-        :class="popoverClassesObj"
-        role="dialog"
-        :style="floatingStyles"
-        :x-placement="calculatedPlacement"
-      >
+    <KPopTeleportWrapper
+      :target="target"
+      :use-teleport="!!target"
+    >
+      <Transition name="kongponents-fade-transition">
         <div
-          class="popover-container"
+          v-show="isVisible"
+          :id="popoverId"
+          ref="popoverElement"
+          :aria-labelledby="$slots.title || title ? titleId : undefined"
+          class="popover"
+          :class="popoverClassesObj"
+          role="dialog"
           :style="popoverStyles"
+          :x-placement="calculatedPlacement"
         >
-          <button
-            v-if="!hideCloseIcon"
-            ref="popoverCloseButton"
-            aria-label="Close popover"
-            class="popover-close-button"
-            :tabindex="isVisible ? 0 : -1"
-            type="button"
-            @click="hidePopover"
-          >
-            <CloseIcon
-              class="popover-close-icon"
-              decorative
-              :size="KUI_ICON_SIZE_30"
-            />
-          </button>
           <div
-            v-if="$slots.title || title"
-            class="popover-header"
+            class="popover-container"
+            :style="popoverContainerStyles"
           >
+            <button
+              v-if="!hideCloseIcon"
+              ref="popoverCloseButton"
+              aria-label="Close popover"
+              class="popover-close-button"
+              :tabindex="isVisible ? 0 : -1"
+              type="button"
+              @click="hidePopover"
+            >
+              <CloseIcon
+                class="popover-close-icon"
+                decorative
+                :size="KUI_ICON_SIZE_30"
+              />
+            </button>
             <div
               v-if="$slots.title || title"
-              :id="titleId"
-              class="popover-title"
-              :class="{ 'close-icon-spacing': !hideCloseIcon }"
+              class="popover-header"
             >
-              <slot name="title">
-                {{ title }}
-              </slot>
+              <div
+                v-if="$slots.title || title"
+                :id="titleId"
+                class="popover-title"
+                :class="{ 'close-icon-spacing': !hideCloseIcon }"
+              >
+                <slot name="title">
+                  {{ title }}
+                </slot>
+              </div>
+            </div>
+            <div
+              class="popover-content"
+              :class="{ 'close-icon-spacing': !hideCloseIcon && !($slots.title || title) }"
+            >
+              <slot name="content" />
+            </div>
+            <div
+              v-if="$slots.footer"
+              class="popover-footer"
+            >
+              <slot name="footer" />
             </div>
           </div>
-          <div
-            class="popover-content"
-            :class="{ 'close-icon-spacing': !hideCloseIcon && !($slots.title || title) }"
-          >
-            <slot name="content" />
-          </div>
-          <div
-            v-if="$slots.footer"
-            class="popover-footer"
-          >
-            <slot name="footer" />
-          </div>
         </div>
-      </div>
-    </Transition>
+      </Transition>
+    </KPopTeleportWrapper>
   </component>
 </template>
 
@@ -92,6 +97,7 @@ import KButton from '@/components/KButton/KButton.vue'
 import useUtilities from '@/composables/useUtilities'
 import { CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
+import KPopTeleportWrapper from './KPopTeleportWrapper.vue'
 
 const props = defineProps({
   buttonText: {
@@ -159,6 +165,10 @@ const props = defineProps({
   offset: {
     type: String,
     default: KUI_SPACE_60,
+  },
+  target: {
+    type: [String, null],
+    default: null,
   },
 })
 
@@ -242,16 +252,6 @@ const clickHandler = (event: Event) => {
   }
 }
 
-const popoverStyles = computed(() => {
-  return {
-    width: getSizeFromString(props.width),
-    maxWidth: getSizeFromString(props.maxWidth),
-    maxHeight: getSizeFromString(props.maxHeight),
-  }
-})
-
-const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': props.hideCaret }])
-
 /**
  * Backwards compatibility for the placement prop
  * Converts the placement prop to the correct format for Floating UI
@@ -272,9 +272,48 @@ const { floatingStyles, placement: calculatedPlacement, update: updatePosition }
   transform: false,
 })
 
-const floatingUpdates = ref<() => void>()
-
 const popoverOffset = computed(() => getSizeFromString(props.offset))
+const marginStyles = computed(() => {
+  if (calculatedPlacement.value.includes('top')) {
+    return {
+      marginBottom: popoverOffset.value,
+    }
+  } else if (calculatedPlacement.value.includes('bottom')) {
+    return {
+      marginTop: popoverOffset.value,
+    }
+  } else if (calculatedPlacement.value.includes('right')) {
+    return {
+      marginLeft: popoverOffset.value,
+    }
+  } else if (calculatedPlacement.value.includes('left')) {
+    return {
+      marginRight: popoverOffset.value,
+    }
+  } else {
+    return {}
+  }
+})
+
+const popoverStyles = computed(() => {
+  return {
+    ...floatingStyles.value,
+    zIndex: props.zIndex,
+  }
+})
+
+const popoverContainerStyles = computed(() => {
+  return {
+    ...marginStyles.value,
+    width: getSizeFromString(props.width),
+    maxWidth: getSizeFromString(props.maxWidth),
+    maxHeight: getSizeFromString(props.maxHeight),
+  }
+})
+
+const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': props.hideCaret }])
+
+const floatingUpdates = ref<() => void>()
 
 defineExpose({
   hidePopover,
@@ -382,224 +421,200 @@ $kPopCaretOffset: 16px;
     display: inline-flex;
     width: 100%;
   }
+}
 
-  .popover {
-    // need max-width: 100vw; and width: max-content; for Floating UI to work properly
-    // gets overwritten by the size middleware once the popover is positioned
-    max-width: 100vw;
-    width: max-content;
-    z-index: v-bind('zIndex');
+// need to have these styles not nested under .k-popover so that they still apply when the popover is teleported
+.popover {
+  // need max-width: 100vw; and width: max-content; for Floating UI to work properly
+  // gets overwritten by the size middleware once the popover is positioned
+  max-width: 100vw;
+  width: max-content;
 
-    // need to wrap popover content in a container because we cannot set position: relative; as that will break the floating-ui positioning
-    .popover-container {
-      background-color: var(--kui-color-background, $kui-color-background);
-      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-      border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-      box-shadow: var(--kui-shadow, $kui-shadow);
+  // need to wrap popover content in a container because we cannot set position: relative; as that will break the floating-ui positioning
+  .popover-container {
+    background-color: var(--kui-color-background, $kui-color-background);
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    box-shadow: var(--kui-shadow, $kui-shadow);
+    display: flex;
+    flex-direction: column;
+    font-family: var(--kui-font-family-text, $kui-font-family-text);
+    gap: var(--kui-space-40, $kui-space-40);
+    padding: var(--kui-space-60, $kui-space-60);
+    position: relative;
+    text-align: left;
+    white-space: normal;
+
+    .popover-close-button {
+      @include defaultButtonReset;
+
+      // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+      // stylelint-disable-next-line no-duplicate-selectors
+      & {
+        border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+        margin: var(--kui-space-60, $kui-space-60) var(--kui-space-60, $kui-space-60) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
+        outline: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+
+      &:hover, &:focus {
+        color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
+      }
+
+      &:focus-visible {
+        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+      }
+
+      .popover-close-icon {
+        pointer-events: none;
+      }
+    }
+
+    .popover-header {
+      align-items: baseline;
       display: flex;
-      flex-direction: column;
-      font-family: var(--kui-font-family-text, $kui-font-family-text);
-      gap: var(--kui-space-40, $kui-space-40);
-      padding: var(--kui-space-60, $kui-space-60);
-      position: relative;
-      text-align: left;
-      white-space: normal;
 
-      .popover-close-button {
-        @include defaultButtonReset;
-
-        // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
-        // stylelint-disable-next-line no-duplicate-selectors
-        & {
-          border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-          color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-          margin: var(--kui-space-60, $kui-space-60) var(--kui-space-60, $kui-space-60) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
-          outline: none;
-          position: absolute;
-          right: 0;
-          top: 0;
-        }
-
-        &:hover, &:focus {
-          color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
-        }
-
-        &:focus-visible {
-          box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
-        }
-
-        .popover-close-icon {
-          pointer-events: none;
-        }
-      }
-
-      .popover-header {
-        align-items: baseline;
-        display: flex;
-
-        .popover-title {
-          color: var(--kui-color-text, $kui-color-text);
-          font-size: var(--kui-font-size-40, $kui-font-size-40);
-          font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
-          line-height: var(--kui-line-height-30, $kui-line-height-30);
-
-          &.close-icon-spacing {
-            margin-right: var(--kui-space-60, $kui-space-60);
-          }
-        }
-      }
-
-      .popover-content {
-        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-        font-size: var(--kui-font-size-20, $kui-font-size-20);
-        font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-        line-height: var(--kui-line-height-20, $kui-line-height-20);
+      .popover-title {
+        color: var(--kui-color-text, $kui-color-text);
+        font-size: var(--kui-font-size-40, $kui-font-size-40);
+        font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+        line-height: var(--kui-line-height-30, $kui-line-height-30);
 
         &.close-icon-spacing {
           margin-right: var(--kui-space-60, $kui-space-60);
         }
       }
+    }
 
-      .popover-footer {
-        align-items: center;
-        display: flex;
-        gap: var(--kui-space-40, $kui-space-40);
+    .popover-content {
+      color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+      font-size: var(--kui-font-size-20, $kui-font-size-20);
+      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+      line-height: var(--kui-line-height-20, $kui-line-height-20);
+
+      &.close-icon-spacing {
+        margin-right: var(--kui-space-60, $kui-space-60);
       }
     }
 
-    // placement and caret styles
+    .popover-footer {
+      align-items: center;
+      display: flex;
+      gap: var(--kui-space-40, $kui-space-40);
+    }
+  }
 
-    &[x-placement^="top"] .popover-container {
-      @include kPopCaret;
+  // placement and caret styles
 
-      // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
-      // stylelint-disable-next-line no-duplicate-selectors
-      & {
-        margin-bottom: v-bind('popoverOffset');
-      }
+  &[x-placement^="top"] .popover-container {
+    @include kPopCaret;
 
-      &:after, &:before {
-        left: 50%;
-        top: 100%;
-      }
-
-      &:after {
-        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-        border-top-color: var(--kui-color-background, $kui-color-background);
-      }
-
-      &:before {
-        border-top-color: var(--kui-color-border, $kui-color-border);
-      }
+    &:after, &:before {
+      left: 50%;
+      top: 100%;
     }
 
-    &[x-placement^="right"] .popover-container {
-      @include kPopCaret;
-
-      // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
-      // stylelint-disable-next-line no-duplicate-selectors
-      & {
-        margin-left: v-bind('popoverOffset');
-      }
-
-      &:after, &:before {
-        right: 100%;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-
-      &:after {
-        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-        border-right-color: var(--kui-color-background, $kui-color-background);
-      }
-
-      &:before {
-        border-right-color: var(--kui-color-border, $kui-color-border);
-      }
+    &:after {
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      border-top-color: var(--kui-color-background, $kui-color-background);
     }
 
-    &[x-placement^="bottom"] .popover-container {
-      @include kPopCaret;
+    &:before {
+      border-top-color: var(--kui-color-border, $kui-color-border);
+    }
+  }
 
-      // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
-      // stylelint-disable-next-line no-duplicate-selectors
-      & {
-        margin-top: v-bind('popoverOffset');
-      }
+  &[x-placement^="right"] .popover-container {
+    @include kPopCaret;
 
-      &:after, &:before {
-        bottom: 100%;
-        left: 50%;
-      }
-
-      &:after {
-        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-        border-bottom-color: var(--kui-color-background, $kui-color-background);
-      }
-
-      &:before {
-        border-bottom-color: var(--kui-color-border, $kui-color-border);
-      }
+    &:after, &:before {
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
-    &[x-placement^="left"] .popover-container {
-      @include kPopCaret;
-
-      // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
-      // stylelint-disable-next-line no-duplicate-selectors
-      & {
-        margin-right: v-bind('popoverOffset');
-      }
-
-      &:after, &:before {
-        left: 100%;
-        top: 50%;
-        transform: translate(50%, -50%);
-      }
-
-      &:after {
-        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-        border-left-color: var(--kui-color-background, $kui-color-background);
-      }
-
-      &:before {
-        border-left-color: var(--kui-color-border, $kui-color-border);
-      }
+    &:after {
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      border-right-color: var(--kui-color-background, $kui-color-background);
     }
 
-    &[x-placement^="top-start"] .popover-container,
-    &[x-placement^="bottom-start"] .popover-container {
-      &:after, &:before {
-        left: $kPopCaretOffset;
-      }
+    &:before {
+      border-right-color: var(--kui-color-border, $kui-color-border);
+    }
+  }
+
+  &[x-placement^="bottom"] .popover-container {
+    @include kPopCaret;
+
+    &:after, &:before {
+      bottom: 100%;
+      left: 50%;
     }
 
-    &[x-placement^="right-start"] .popover-container,
-    &[x-placement^="left-start"] .popover-container {
-      &:after, &:before {
-        top: $kPopCaretOffset;
-      }
+    &:after {
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      border-bottom-color: var(--kui-color-background, $kui-color-background);
     }
 
-    &[x-placement^="top-end"] .popover-container,
-    &[x-placement^="bottom-end"] .popover-container {
-      &:after, &:before {
-        left: calc(100% - $kPopCaretOffset);
-      }
+    &:before {
+      border-bottom-color: var(--kui-color-border, $kui-color-border);
+    }
+  }
+
+  &[x-placement^="left"] .popover-container {
+    @include kPopCaret;
+
+    &:after, &:before {
+      left: 100%;
+      top: 50%;
+      transform: translate(50%, -50%);
     }
 
-    &[x-placement^="right-end"] .popover-container,
-    &[x-placement^="left-end"] .popover-container {
-      &:after, &:before {
-        top: calc(100% - $kPopCaretOffset);
-      }
+    &:after {
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      border-left-color: var(--kui-color-background, $kui-color-background);
     }
 
-    &.hide-caret .popover-container {
-      &:after,
-      &:before {
-        display: none;
-      }
+    &:before {
+      border-left-color: var(--kui-color-border, $kui-color-border);
+    }
+  }
+
+  &[x-placement^="top-start"] .popover-container,
+  &[x-placement^="bottom-start"] .popover-container {
+    &:after, &:before {
+      left: $kPopCaretOffset;
+    }
+  }
+
+  &[x-placement^="right-start"] .popover-container,
+  &[x-placement^="left-start"] .popover-container {
+    &:after, &:before {
+      top: $kPopCaretOffset;
+    }
+  }
+
+  &[x-placement^="top-end"] .popover-container,
+  &[x-placement^="bottom-end"] .popover-container {
+    &:after, &:before {
+      left: calc(100% - $kPopCaretOffset);
+    }
+  }
+
+  &[x-placement^="right-end"] .popover-container,
+  &[x-placement^="left-end"] .popover-container {
+    &:after, &:before {
+      top: calc(100% - $kPopCaretOffset);
+    }
+  }
+
+  &.hide-caret .popover-container {
+    &:after,
+    &:before {
+      display: none;
     }
   }
 }
