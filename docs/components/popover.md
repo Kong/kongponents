@@ -396,7 +396,7 @@ Prop for specifying popover offset (string). Default value is `16px`.
 
 ### target
 
-In certain scenarios, you may need to render the popover above other elements. To achieve this, use the `target` prop to specify a selector for the element where the popover will be teleported. When falsy value us passed, the teleport will be disabled, therefore popover won't be [teleported](https://vuejs.org/guide/built-ins/teleport). Defaults to `null`.
+In certain scenarios, you may want to attach the popover to other target elements. To achieve this, use the `target` prop to specify a selector for the element where the popover will be teleported. When falsy value us passed, the teleport will be disabled, therefore popover won't be [teleported](https://vuejs.org/guide/built-ins/teleport). Defaults to `null`.
 
 <KPop
   target="body"
