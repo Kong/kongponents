@@ -429,8 +429,6 @@ $kPopCaretOffset: 16px;
   // gets overwritten by the size middleware once the popover is positioned
   max-width: 100vw;
   width: max-content;
-  // This won't work until https://github.com/vuejs/core/issues/7312 is fixed
-  // z-index: v-bind('zIndex');
 
   // need to wrap popover content in a container because we cannot set position: relative; as that will break the floating-ui positioning
   .popover-container {
@@ -514,13 +512,6 @@ $kPopCaretOffset: 16px;
   &[x-placement^="top"] .popover-container {
     @include kPopCaret;
 
-    // This won't work until https://github.com/vuejs/core/issues/7312 is fixed
-    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
-    // stylelint-disable-next-line no-duplicate-selectors
-    // & {
-    //   margin-bottom: v-bind('popoverOffset');
-    // }
-
     &:after, &:before {
       left: 50%;
       top: 100%;
@@ -538,13 +529,6 @@ $kPopCaretOffset: 16px;
 
   &[x-placement^="right"] .popover-container {
     @include kPopCaret;
-
-    // This won't work until https://github.com/vuejs/core/issues/7312 is fixed
-    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
-    // stylelint-disable-next-line no-duplicate-selectors
-    // & {
-    //   margin-left: v-bind('popoverOffset');
-    // }
 
     &:after, &:before {
       right: 100%;
@@ -565,13 +549,6 @@ $kPopCaretOffset: 16px;
   &[x-placement^="bottom"] .popover-container {
     @include kPopCaret;
 
-    // This won't work until https://github.com/vuejs/core/issues/7312 is fixed
-    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
-    // stylelint-disable-next-line no-duplicate-selectors
-    // & {
-    //   margin-top: v-bind('popoverOffset');
-    // }
-
     &:after, &:before {
       bottom: 100%;
       left: 50%;
@@ -589,13 +566,6 @@ $kPopCaretOffset: 16px;
 
   &[x-placement^="left"] .popover-container {
     @include kPopCaret;
-
-    // This won't work until https://github.com/vuejs/core/issues/7312 is fixed
-    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
-    // stylelint-disable-next-line no-duplicate-selectors
-    // & {
-    //   margin-right: v-bind('popoverOffset');
-    // }
 
     &:after, &:before {
       left: 100%;
