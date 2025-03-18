@@ -1,3 +1,10 @@
+# [9.24.0](https://github.com/Kong/kongponents/compare/v9.23.6...v9.24.0) (2025-03-18)
+
+
+### Features
+
+* **kpop:** add target prop and conditional teleport [KHCP-15449] ([#2650](https://github.com/Kong/kongponents/issues/2650)) ([f9c47e9](https://github.com/Kong/kongponents/commit/f9c47e915546c286ec8ac3b5b55a4fcb2d182fea))
+
 ## [9.23.6](https://github.com/Kong/kongponents/compare/v9.23.5...v9.23.6) (2025-03-17)
 
 
