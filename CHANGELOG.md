@@ -1,3 +1,10 @@
+## [9.24.1](https://github.com/Kong/kongponents/compare/v9.24.0...v9.24.1) (2025-03-18)
+
+
+### Bug Fixes
+
+* **types:** allow data-testid in popover attributes ([#2654](https://github.com/Kong/kongponents/issues/2654)) ([f2d1237](https://github.com/Kong/kongponents/commit/f2d1237bf32195e43256a2bfe635c8b2fe0586e7))
+
 # [9.24.0](https://github.com/Kong/kongponents/compare/v9.23.6...v9.24.0) (2025-03-18)
 
 
