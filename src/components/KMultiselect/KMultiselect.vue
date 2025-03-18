@@ -352,7 +352,7 @@ const props = defineProps({
     default: '',
   },
   kpopAttributes: {
-    type: Object as PropType<PopoverAttributes>,
+    type: Object as PropType<Omit<PopoverAttributes, 'target' | 'trigger'>>,
     default: () => {},
   },
   dropdownMaxHeight: {
@@ -572,7 +572,6 @@ const createKPopAttributes = computed((): Record<string, any> => {
   return {
     ...defaultKPopAttributes,
     ...props.kpopAttributes,
-    target: null, // unset target in case it was passed in; we don't want to teleport the popover because it should always be the descendant of .k-multiselect
     popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes?.popoverClasses ?? ''} ${props.dropdownFooterText || slots['dropdown-footer-text'] ? 'has-dropdown-footer' : ''}`,
     width: numericWidth.value + 'px',
     maxWidth: numericWidth.value + 'px',

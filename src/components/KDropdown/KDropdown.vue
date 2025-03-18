@@ -112,7 +112,7 @@ const props = defineProps({
     default: '',
   },
   kpopAttributes: {
-    type: Object as PropType<PopoverAttributes>,
+    type: Object as PropType<Omit<PopoverAttributes, 'target' | 'trigger'>>,
     default: () => {},
   },
   items: {
@@ -162,7 +162,6 @@ const defaultKPopAttributes = {
 const boundKPopAttributes = {
   ...defaultKPopAttributes,
   ...props.kpopAttributes,
-  target: null, // unset target in case it was passed in; we don't want to teleport the popover because it should always be the descendant of .k-dropdown
   width: props.width ? props.width : undefined,
   popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes?.popoverClasses || ''}`,
 }
