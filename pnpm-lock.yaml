@@ -48,8 +48,8 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2(@popperjs/core@2.11.8)(vue@3.5.13(typescript@5.6.3))
       virtua:
-        specifier: ^0.40.0
-        version: 0.40.0(vue@3.5.13(typescript@5.6.3))
+        specifier: ^0.40.1
+        version: 0.40.3(vue@3.5.13(typescript@5.6.3))
       vue-draggable-next:
         specifier: ^2.2.1
         version: 2.2.1(sortablejs@1.15.6)(vue@3.5.13(typescript@5.6.3))
@@ -1242,8 +1242,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.34.9':
-    resolution: {integrity: sha512-DP0PulB23rUUC6uxNV4BVm6pqh77LASzeEggSnnNkBkXKxfpJiLe6UW/fsVfsFv2dWZ3r5EQVeYo2q/hg09SZg==}
+  '@rollup/wasm-node@4.36.0':
+    resolution: {integrity: sha512-qEzDrBzGlkWgtWiP8OJJegVdT+gHYEbHXtkI0vhlDLSzejAzMuhl1MfIQyU6U6XCZrijX9KTSi3UNBwB4en/eQ==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -5041,8 +5041,8 @@ packages:
   vfile@6.0.3:
     resolution: {integrity: sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==}
 
-  virtua@0.40.0:
-    resolution: {integrity: sha512-B/9Mk8wCWukcC5bLxCCt6DBytTOydnPRVQfqLAnC+ybsD47A6oarxFLOF2h3++CtR0bTShsGaHIgnIePQCQLtA==}
+  virtua@0.40.3:
+    resolution: {integrity: sha512-rfl6VohBFoT0U64fVdOGag2p0D+YZbki7HQ5bjFZObStWBaWjjataIHFDjl4KuSr3yHBMgGd/+Va7W4Z2Y0LRg==}
     peerDependencies:
       react: '>=16.14.0'
       react-dom: '>=16.14.0'
@@ -6412,7 +6412,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@rollup/wasm-node@4.34.9':
+  '@rollup/wasm-node@4.36.0':
     dependencies:
       '@types/estree': 1.0.6
     optionalDependencies:
@@ -10571,7 +10571,7 @@ snapshots:
       '@types/unist': 3.0.2
       vfile-message: 4.0.2
 
-  virtua@0.40.0(vue@3.5.13(typescript@5.6.3)):
+  virtua@0.40.3(vue@3.5.13(typescript@5.6.3)):
     optionalDependencies:
       vue: 3.5.13(typescript@5.6.3)
 
@@ -10630,7 +10630,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
-      rollup: '@rollup/wasm-node@4.34.9'
+      rollup: '@rollup/wasm-node@4.36.0'
     optionalDependencies:
       '@types/node': 20.17.19
       fsevents: 2.3.3
@@ -10641,7 +10641,7 @@ snapshots:
     dependencies:
       esbuild: 0.24.2
       postcss: 8.4.49
-      rollup: '@rollup/wasm-node@4.34.9'
+      rollup: '@rollup/wasm-node@4.36.0'
     optionalDependencies:
       '@types/node': 20.17.19
       fsevents: 2.3.3
