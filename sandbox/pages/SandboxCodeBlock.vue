@@ -167,6 +167,18 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent
         class="limited-width"
+        title="showLineNumbers"
+      >
+        <KCodeBlock
+          id="show-line-numbers-prop"
+          :code="code"
+          language="json"
+          searchable
+          :show-line-numbers="false"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        class="limited-width"
         title="theme"
       >
         <KCodeBlock

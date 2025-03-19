@@ -245,6 +245,19 @@ Controls whether to show a copy button which copies the original code (the value
 />
 ```
 
+### showLineNumbers
+
+Controls whether to show line numbers. Defaults to `true`.
+
+<ClientOnly>
+  <KCodeBlock
+    id="code-block-show-line-numbers"
+    :code="code"
+    language="json"
+    :show-line-numbers="false"
+  />
+</ClientOnly>
+
 ### showLineNumberLinks
 
 Controls whether to add links to the current line number. Defaults to `false`.
