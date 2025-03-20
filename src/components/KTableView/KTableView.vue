@@ -249,7 +249,7 @@
                   'last-row': rowIndex === data.length - 1 && !expandedRows.includes(rowIndex),
                 }"
                 :role="!!rowLink(row).to ? 'link' : undefined"
-                :tabindex="isClickable || !!rowLink(row).to ? 0 : undefined"
+                :tabindex="isClickable && !rowLink(row).to ? 0 : undefined"
                 v-bind="rowAttrs(row)"
               >
                 <td
@@ -302,6 +302,7 @@
                       class="actions-dropdown"
                       data-testid="actions-dropdown"
                       :kpop-attributes="{ placement: 'bottom-end' }"
+                      @toggle-dropdown="($event: boolean) => onRowActionsToggle(getGeneric(row), $event)"
                     >
                       <KButton
                         appearance="tertiary"
@@ -431,6 +432,7 @@ import type {
   TableViewProps,
   TableViewSelectState,
   RowExpandPayload,
+  RowActionsTogglePayload,
 } from '@/types'
 import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
@@ -492,6 +494,7 @@ const emit = defineEmits<{
   (e: 'get-previous-offset'): void
   (e: 'row-select', data: TableViewData): void
   (e: 'update:row-expanded', data: RowExpandPayload): void
+  (e: 'row-actions-toggle', data: RowActionsTogglePayload): void
 }>()
 
 const attrs = useAttrs()
@@ -908,6 +911,10 @@ const showResizeHandle = (column: TableViewHeader, previous: boolean = false): b
   return !isSpecialColumn(column.key) && !isSpecialColumn(nextColumn.key)
 }
 
+const onRowActionsToggle = (row: Record<string, any>, state: boolean): void => {
+  emit('row-actions-toggle', { row: getGeneric(row), open: state })
+}
+
 const showPagination = computed((): boolean => {
   if (props.hidePagination || props.nested) {
     return false
@@ -1240,7 +1247,7 @@ watch([() => props.data, dataSelectState], (newVals) => {
     const selectableRowsState = newDataSelectState.filter((rowState) => !rowState.disabled && newData.find((row) => getRowKey(row) === rowState.rowKey))
 
     // all are selected
-    if (selectableRowsState.filter((rowState) => rowState.selected).length === selectableRowsState.length) {
+    if (selectableRowsState.length && selectableRowsState.filter((rowState) => rowState.selected).length === selectableRowsState.length) {
       bulkActionsAll.value = true
       // all are unselected
     } else if (selectableRowsState.filter((rowState) => !rowState.selected).length === selectableRowsState.length) {

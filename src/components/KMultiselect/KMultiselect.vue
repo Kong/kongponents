@@ -352,7 +352,7 @@ const props = defineProps({
     default: '',
   },
   kpopAttributes: {
-    type: Object as PropType<PopoverAttributes>,
+    type: Object as PropType<Omit<PopoverAttributes, 'target' | 'trigger'>>,
     default: () => {},
   },
   dropdownMaxHeight: {

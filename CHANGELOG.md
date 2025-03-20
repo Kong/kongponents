@@ -1,3 +1,54 @@
+## [9.24.2](https://github.com/Kong/kongponents/compare/v9.24.1...v9.24.2) (2025-03-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency virtua to ^0.40.1 ([#2655](https://github.com/Kong/kongponents/issues/2655)) ([cd8881e](https://github.com/Kong/kongponents/commit/cd8881ef9d8c6e8c8d29f620988970fb33dfbd35))
+
+## [9.24.1](https://github.com/Kong/kongponents/compare/v9.24.0...v9.24.1) (2025-03-18)
+
+
+### Bug Fixes
+
+* **types:** allow data-testid in popover attributes ([#2654](https://github.com/Kong/kongponents/issues/2654)) ([f2d1237](https://github.com/Kong/kongponents/commit/f2d1237bf32195e43256a2bfe635c8b2fe0586e7))
+
+# [9.24.0](https://github.com/Kong/kongponents/compare/v9.23.6...v9.24.0) (2025-03-18)
+
+
+### Features
+
+* **kpop:** add target prop and conditional teleport [KHCP-15449] ([#2650](https://github.com/Kong/kongponents/issues/2650)) ([f9c47e9](https://github.com/Kong/kongponents/commit/f9c47e915546c286ec8ac3b5b55a4fcb2d182fea))
+
+## [9.23.6](https://github.com/Kong/kongponents/compare/v9.23.5...v9.23.6) (2025-03-17)
+
+
+### Bug Fixes
+
+* **actions:** use kong changed files ([#2652](https://github.com/Kong/kongponents/issues/2652)) ([79cd9e2](https://github.com/Kong/kongponents/commit/79cd9e21602b2f755a7b18c7ffa117e853647168)), closes [#incident-456](https://github.com/Kong/kongponents/issues/incident-456)
+* **ktableview:** make header non-sticky in firefox ([#2649](https://github.com/Kong/kongponents/issues/2649)) ([4fd43ff](https://github.com/Kong/kongponents/commit/4fd43ff6653ae3d1c2a4dc13e6448fceb2488e52))
+* **security:** pin version ([#2651](https://github.com/Kong/kongponents/issues/2651)) ([908096d](https://github.com/Kong/kongponents/commit/908096ddde630ebb3085f955a3626867797872e0))
+
+## [9.23.5](https://github.com/Kong/kongponents/compare/v9.23.4...v9.23.5) (2025-03-13)
+
+
+### Bug Fixes
+
+* **ktableview, ktabledata:** add row-actions-toggle event [KHCP-15470] ([#2647](https://github.com/Kong/kongponents/issues/2647)) ([30512f2](https://github.com/Kong/kongponents/commit/30512f2441d909120f760d6e56bcaaf1940f6193))
+
+## [9.23.4](https://github.com/Kong/kongponents/compare/v9.23.3...v9.23.4) (2025-03-12)
+
+
+### Bug Fixes
+
+* **ktableview:** row links tabindex [KHCP-15202] ([#2643](https://github.com/Kong/kongponents/issues/2643)) ([2fe2746](https://github.com/Kong/kongponents/commit/2fe27469d1dd9e533de441c6e41e68a5f3702053))
+
+## [9.23.3](https://github.com/Kong/kongponents/compare/v9.23.2...v9.23.3) (2025-03-12)
+
+
+### Bug Fixes
+
+* **ktable:** missing styles, no container class ([#2645](https://github.com/Kong/kongponents/issues/2645)) ([b283ecf](https://github.com/Kong/kongponents/commit/b283ecf27b4271647629fde5ae49ad09ff2ef378))
+
 ## [9.23.2](https://github.com/Kong/kongponents/compare/v9.23.1...v9.23.2) (2025-03-11)
 
 
