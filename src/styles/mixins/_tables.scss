@@ -7,6 +7,7 @@
   $tableThPaddingY: var(--kui-space-50, $kui-space-50);
   $tableCaretIconSize: var(--kui-icon-size-30, $kui-icon-size-30);
   $expandedRowMaxHeight: 250px;
+  $scrollOverlayWidth: 20px;
 
   /* Styles */
   background-color: var(--kui-color-background, $kui-color-background);
@@ -29,362 +30,419 @@
     }
   }
 
-  .table-wrapper {
-    overflow: auto;
-    width: 100%;
+  .table-container {
+    position: relative;
 
-    table {
-      border-collapse: collapse;
-      max-width: 100%;
+    .table-wrapper {
+      overflow: auto;
+      position: relative;
       width: 100%;
 
-      th,
-      td {
-        @include truncate;
+      table {
+        border-collapse: collapse;
+        max-width: 100%;
+        width: 100%;
 
-        padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
-        vertical-align: middle;
-        white-space: nowrap;
+        th,
+        td {
+          @include truncate;
 
-        &.sticky-column {
-          background-color: var(--kui-color-background, $kui-color-background);
-          left: 0;
-          position: sticky !important;
-          z-index: 1;
-        }
-      }
+          padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+          vertical-align: middle;
+          white-space: nowrap;
 
-      thead {
-        border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-        height: 44px;
-        position: sticky;
-        top: 0;
-
-        &.is-scrolled {
-          background-color: var(--kui-color-background, $kui-color-background);
-        }
-
-        tr {
-          position: relative;
-
-          &:after {
-            box-shadow: none;
-            content: "";
-            height: 100%;
+          &.sticky-column {
+            background-color: var(--kui-color-background, $kui-color-background);
             left: 0;
-            opacity: 0;
-            // Super-important to allow clicking on table rows in Safari.
-            // This allows clicks to pass through the "invisible" :after layer
-            pointer-events: none;
-            position: absolute;
-            transition: opacity $kongponentsTransitionDurTimingFunc;
-            width: 100%;
-            z-index: -1;
+            position: sticky !important;
+            z-index: 1;
+          }
+
+          &.has-row-scroll-overlay {
+            overflow: visible;
+            position: relative;
+          }
+        }
+
+        thead {
+          border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
+            var(--kui-color-border, $kui-color-border);
+          height: 44px;
+          position: sticky;
+          top: 0;
+          z-index: 2;
+
+          @-moz-document url-prefix() {
+            position: unset; // make header non-sticky in Firefox because otherwise tooltips are cut off by the table boundaries
           }
 
           &.is-scrolled {
-            &:after {
-              border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
-                var(--kui-color-border, $kui-color-border);
-              box-shadow: var(--kui-shadow, $kui-shadow);
-              opacity: 1;
-              transition: opacity $kongponentsTransitionDurTimingFunc;
-            }
+            background-color: var(--kui-color-background, $kui-color-background);
           }
 
-          th {
-            color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-            font-size: var(--kui-font-size-30, $kui-font-size-30);
-            font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-            line-height: var(--kui-line-height-30, $kui-line-height-30);
-            padding: $tableThPaddingY var(--kui-space-60, $kui-space-60);
-            text-align: left;
+          tr {
+            position: relative;
 
-            &.resizable {
-              // set min width so the column can't be collapsed to nothing - avoiding bad UX
-              min-width: 40px !important; // needs important because resizing will set min-width inline
-              position: relative;
+            &:after {
+              box-shadow: none;
+              content: "";
+              height: 100%;
+              left: 0;
+              opacity: 0;
+              // Super-important to allow clicking on table rows in Safari.
+              // This allows clicks to pass through the "invisible" :after layer
+              pointer-events: none;
+              position: absolute;
+              transition: opacity $kongponentsTransitionDurTimingFunc;
+              width: 100%;
+              z-index: -1;
+            }
 
-              // when sortable or has tooltip (or both), we need to increase the min-width to account for icons
-              &.sortable,
-              &.has-tooltip {
-                min-width: 80px !important; // needs important because resizing will set min-width inline
+            &.is-scrolled {
+              &:after {
+                border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
+                  var(--kui-color-border, $kui-color-border);
+                box-shadow: var(--kui-shadow, $kui-shadow);
+                opacity: 1;
+                transition: opacity $kongponentsTransitionDurTimingFunc;
               }
+            }
 
-              &.sortable.has-tooltip {
-                min-width: 100px !important; // needs important because resizing will set min-width inline
-              }
+            th {
+              color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+              font-size: var(--kui-font-size-30, $kui-font-size-30);
+              font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+              line-height: var(--kui-line-height-30, $kui-line-height-30);
+              padding: $tableThPaddingY var(--kui-space-60, $kui-space-60);
+              text-align: left;
 
-              .resize-handle {
-                // height property is set in component style block since it's bound to the calculated value
-                cursor: col-resize;
-                position: absolute;
-                right: 0;
-                top: 0;
-                width: 6px;
+              &.resizable {
+                // set min width so the column can't be collapsed to nothing - avoiding bad UX
+                min-width: 40px !important; // needs important because resizing will set min-width inline
+                position: relative;
 
-                &.previous {
-                  left: 0;
-                  right: unset;
+                // when sortable or has tooltip (or both), we need to increase the min-width to account for icons
+                &.sortable,
+                &.has-tooltip {
+                  min-width: 80px !important; // needs important because resizing will set min-width inline
+                }
+
+                &.sortable.has-tooltip {
+                  min-width: 100px !important; // needs important because resizing will set min-width inline
+                }
+
+                .resize-handle {
+                  // height property is set in component style block since it's bound to the calculated value
+                  cursor: col-resize;
+                  position: absolute;
+                  right: 0;
+                  top: 0;
+                  width: 6px;
+
+                  &.previous {
+                    left: 0;
+                    right: unset;
+                  }
                 }
               }
-            }
 
-            &.active-sort {
-              color: var(--kui-color-text, $kui-color-text);
-            }
-
-            .sr-only {
-              border-width: var(--kui-border-width-0, $kui-border-width-0);
-              clip: rect(0, 0, 0, 0);
-              height: 1px;
-              margin: -1px;
-              overflow: hidden;
-              padding: var(--kui-space-0, $kui-space-0);
-              position: absolute;
-              white-space: nowrap;
-              width: 1px;
-            }
-
-            &.sortable {
-              cursor: pointer;
-
-              &.asc .sort-icon {
-                transform: rotate(-180deg);
+              &.active-sort {
+                color: var(--kui-color-text, $kui-color-text);
               }
-            }
 
-            .table-headers-container {
-              align-items: center;
-              display: flex;
-              gap: var(--kui-space-40, $kui-space-40);
-
-              &.resized {
-                // when column is resized we need to set position: absolute; to avoid glitching resizing behavior
-                bottom: $tableThPaddingY;
+              .sr-only {
+                border-width: var(--kui-border-width-0, $kui-border-width-0);
+                clip: rect(0, 0, 0, 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: var(--kui-space-0, $kui-space-0);
                 position: absolute;
+                white-space: nowrap;
+                width: 1px;
               }
 
-              .table-header-label {
-                @include truncate;
+              &.sortable {
+                cursor: pointer;
+
+                &.asc .sort-icon {
+                  transform: rotate(-180deg);
+                }
               }
 
-              .header-tooltip-trigger {
-                cursor: help;
-              }
-
-              .sort-icon {
-                flex-shrink: 0;
-              }
-
-              .table-header-bulk-actions-container {
+              .table-headers-container {
+                align-items: center;
                 display: flex;
-              }
-            }
+                gap: var(--kui-space-40, $kui-space-40);
 
-            &.resize-hover {
-              // creates a 2px "border" on the right - can't use border property because it will "jump"
-              box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0
-                var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple) inset;
+                &.resized {
+                  // when column is resized we need to set position: absolute; to avoid glitching resizing behavior
+                  bottom: $tableThPaddingY;
+                  position: absolute;
+                }
+
+                .table-header-label {
+                  @include truncate;
+                }
+
+                .header-tooltip-trigger {
+                  cursor: help;
+                }
+
+                .sort-icon {
+                  flex-shrink: 0;
+                }
+
+                .table-header-bulk-actions-container {
+                  display: flex;
+                }
+              }
+
+              &.resize-hover {
+                // creates a 2px "border" on the right - can't use border property because it will "jump"
+                box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0
+                  var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple) inset;
+              }
             }
           }
         }
-      }
 
-      tbody {
-        tr {
-          height: 48px;
+        tbody {
+          tr {
+            height: 48px;
 
-          &:not(:last-child) {
-            border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
-              var(--kui-color-border, $kui-color-border);
-          }
-
-          td {
-            color: var(--kui-color-text, $kui-color-text);
-            font-size: var(--kui-font-size-30, $kui-font-size-30);
-            font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-            line-height: var(--kui-line-height-30, $kui-line-height-30);
-            white-space: nowrap;
-
-            &.resize-hover {
-              // creates a 2px "border" on the right - can't use the border because it will "jump"
-              box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0
-                var(--kui-color-border, $kui-color-border) inset;
+            &:not(:last-child) {
+              border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
+                var(--kui-color-border, $kui-color-border);
             }
 
-            .actions-dropdown {
-              .actions-dropdown-trigger {
-                color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+            td {
+              color: var(--kui-color-text, $kui-color-text);
+              font-size: var(--kui-font-size-30, $kui-font-size-30);
+              font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+              line-height: var(--kui-line-height-30, $kui-line-height-30);
+              white-space: nowrap;
 
-                &:hover:not(:disabled):not(:focus):not(:active) {
-                  background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-                  color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
-                }
-
-                &:focus-visible {
-                  background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-                  color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-                }
-
-                &:active {
-                  background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-                  color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
-                }
-
-                .more-icon {
-                  pointer-events: none;
-                }
-              }
-            }
-
-            &.row-link {
-              padding: var(--kui-space-0, $kui-space-0);
-
-              .cell-wrapper {
-                padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+              &.resize-hover {
+                // creates a 2px "border" on the right - can't use the border because it will "jump"
+                box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0
+                  var(--kui-color-border, $kui-color-border) inset;
               }
 
-              a.cell-wrapper {
-                color: var(--kui-color-text, $kui-color-text);
-                display: block;
-                text-decoration: none;
+              .actions-dropdown {
+                .actions-dropdown-trigger {
+                  color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+
+                  &:hover:not(:disabled):not(:focus):not(:active) {
+                    background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+                    color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+                  }
+
+                  &:focus-visible {
+                    background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+                    color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+                  }
+
+                  &:active {
+                    background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+                    color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
+                  }
+
+                  .more-icon {
+                    pointer-events: none;
+                  }
+                }
+              }
+
+              &.row-link {
+                padding: var(--kui-space-0, $kui-space-0);
+
+                .cell-wrapper {
+                  padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+                }
+
+                a.cell-wrapper {
+                  color: var(--kui-color-text, $kui-color-text);
+                  display: block;
+                  text-decoration: none;
+                }
+
+                .expandable-row-control-container {
+                  padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+                }
               }
 
               .expandable-row-control-container {
-                padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
-              }
-            }
+                display: flex;
 
-            .expandable-row-control-container {
-              display: flex;
+                .expandable-row-control {
+                  @include defaultButtonReset;
 
-              .expandable-row-control {
-                @include defaultButtonReset;
+                  color: var(--kui-color-text-neutral, $kui-color-text-neutral);
 
-                color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+                  &:hover,
+                  &:focus,
+                  &:focus-visible {
+                    color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+                  }
 
-                &:hover,
-                &:focus,
-                &:focus-visible {
-                  color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
-                }
+                  &:focus-visible {
+                    box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+                  }
 
-                &:focus-visible {
-                  box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
-                }
-
-                .expandable-row-control-icon {
-                  height: $tableCaretIconSize !important;
-                  transition: transform $kongponentsTransitionDurTimingFunc;
-                  width: $tableCaretIconSize !important;
-                }
-
-                &.expanded {
                   .expandable-row-control-icon {
-                    transform: rotate(90deg);
+                    height: $tableCaretIconSize !important;
+                    transition: transform $kongponentsTransitionDurTimingFunc;
+                    width: $tableCaretIconSize !important;
+                  }
+
+                  &.expanded {
+                    .expandable-row-control-icon {
+                      transform: rotate(90deg);
+                    }
                   }
                 }
               }
             }
-          }
 
-          &.last-row {
-            border-bottom: none;
-          }
+            &.last-row {
+              border-bottom: none;
+            }
 
-          &.expandable-content-row {
-            background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
-            height: auto;
+            &.expandable-content-row {
+              background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+              height: auto;
 
-            > td {
-              padding: var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0)
-                var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
-              white-space: normal;
-
-              &:has(.k-table-view) {
-                padding: var(--kui-space-0, $kui-space-0);
-              }
-
-              .expandable-content-wrapper {
-                display: flex;
-                flex-direction: column;
-                gap: var(--kui-space-40, $kui-space-40);
-                max-height: $expandedRowMaxHeight;
-                overflow-y: auto;
-                padding-right: var(--kui-space-60, $kui-space-60);
+              > td {
+                padding: var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0)
+                  var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+                white-space: normal;
 
                 &:has(.k-table-view) {
-                  max-height: none;
-                  padding-right: var(--kui-space-0, $kui-space-0);
+                  padding: var(--kui-space-0, $kui-space-0);
                 }
 
-                /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
-                :deep(.k-table-view) {
-                  background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+                .expandable-content-wrapper {
+                  display: flex;
+                  flex-direction: column;
+                  gap: var(--kui-space-40, $kui-space-40);
+                  max-height: $expandedRowMaxHeight;
+                  overflow-y: auto;
+                  padding-right: var(--kui-space-60, $kui-space-60);
 
-                  .table-wrapper {
-                    max-height: $expandedRowMaxHeight;
+                  &:has(.k-table-view) {
+                    max-height: none;
+                    padding-right: var(--kui-space-0, $kui-space-0);
                   }
 
-                  tr.is-scrolled {
+                  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+                  :deep(.k-table-view) {
                     background-color: var(
                       --kui-color-background-neutral-weakest,
                       $kui-color-background-neutral-weakest
                     );
-                  }
 
-                  th,
-                  td {
-                    &:first-child {
-                      // align first column of the nested table with the first column of the parent table
-                      padding-left: calc(var(--kui-space-60, $kui-space-60) * 3 + $tableCaretIconSize);
+                    .table-wrapper {
+                      max-height: $expandedRowMaxHeight;
+                    }
 
-                      &.row-link {
-                        .cell-wrapper {
-                          padding-left: var(--kui-space-0, $kui-space-0);
+                    tr.is-scrolled {
+                      background-color: var(
+                        --kui-color-background-neutral-weakest,
+                        $kui-color-background-neutral-weakest
+                      );
+                    }
+
+                    th,
+                    td {
+                      &:first-child {
+                        // align first column of the nested table with the first column of the parent table
+                        padding-left: calc(var(--kui-space-60, $kui-space-60) * 3 + $tableCaretIconSize);
+
+                        &.row-link {
+                          .cell-wrapper {
+                            padding-left: var(--kui-space-0, $kui-space-0);
+                          }
+                        }
+                      }
+
+                      &.hide-headers {
+                        &:last-child {
+                          // reduce padding-right to account for scrollbar
+                          padding-right: var(--kui-space-20, $kui-space-20);
                         }
                       }
                     }
 
-                    &.hide-headers {
-                      &:last-child {
-                        // reduce padding-right to account for scrollbar
-                        padding-right: var(--kui-space-20, $kui-space-20);
-                      }
+                    .k-empty-state {
+                      background-color: var(
+                        --kui-color-background-neutral-weakest,
+                        $kui-color-background-neutral-weakest
+                      );
                     }
-                  }
-
-                  .k-empty-state {
-                    background-color: var(
-                      --kui-color-background-neutral-weakest,
-                      $kui-color-background-neutral-weakest
-                    );
                   }
                 }
               }
             }
           }
         }
-      }
 
-      // Variants
-      &.has-hover {
-        tbody tr:not(.expandable-content-row):hover {
-          background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+        // Variants
+        &.has-hover {
+          tbody tr:not(.expandable-content-row):hover {
+            background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+          }
+        }
+
+        &.is-clickable {
+          tbody tr {
+            cursor: pointer;
+          }
         }
       }
 
-      &.is-clickable {
-        tbody tr {
-          cursor: pointer;
+      .bulk-actions-checkbox,
+      .table-header-bulk-actions-checkbox {
+        display: flex;
+
+        :deep(input) {
+          margin: $kui-space-0;
+        }
+
+        :deep(.checkbox-icon) {
+          left: calc(50% + 1.6px) !important; // because 1px is too little and 2px is too much
         }
       }
     }
+  }
 
-    .bulk-actions-checkbox,
-    .table-header-bulk-actions-checkbox {
-      display: flex;
+  .scroll-overlay {
+    bottom: 0;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    transition: opacity $kongponentsTransitionDurTimingFunc;
+    width: $scrollOverlayWidth;
+
+    &.left {
+      background: linear-gradient(to right, rgba(#000, 0.1), rgba(#000, 0));
+      left: 0;
+
+      &.row-overlay {
+        left: unset;
+        right: calc(-1 * $scrollOverlayWidth);
+      }
+    }
+
+    &.right {
+      background: linear-gradient(to left, rgba(#000, 0.1), rgba(#000, 0));
+      right: 0;
+    }
+
+    &.overlay-visible {
+      opacity: 1;
     }
   }
 

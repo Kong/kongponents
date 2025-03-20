@@ -90,7 +90,7 @@ $kLabelRequiredDotSize: 6px;
     &::before {
       background-color: var(--kui-color-background-danger, $kui-color-background-danger);
       border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
-      bottom: calc(50% - 2px); // place the dot in the middle of the text
+      bottom: calc(50% - $kLabelRequiredDotSize / 2); // place the dot in the middle of the text
       content: '';
       height: $kLabelRequiredDotSize;
       left: 0px;

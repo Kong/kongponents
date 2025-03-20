@@ -21,3 +21,15 @@ export const PopPlacementsArray = [
 ] as const
 
 export type PopPlacements = AnyElementOf<typeof PopPlacementsArray>
+
+export interface PopoverAttributes {
+  placement?: PopPlacements
+  popoverClasses?: string
+  offset?: string
+  width?: string
+  /** Not supported in KDropdown, KSelect and KMultiselect */
+  target?: string | null
+  trigger?: PopTrigger
+  'data-testid'?: string
+}
+

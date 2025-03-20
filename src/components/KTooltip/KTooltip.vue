@@ -1,16 +1,17 @@
 <template>
   <KPop
     v-if="showTooltip"
-    v-bind="$attrs"
     hide-caret
     hide-close-icon
     :max-width="maxWidth"
+    :offset="KUI_SPACE_20"
     :placement="placement"
     popover-classes="k-tooltip"
     :popover-timeout="100"
     trigger="hover"
     width="auto"
     :z-index="zIndex"
+    v-bind="{ ...$attrs, ...kpopAttributes }"
   >
     <slot />
 
@@ -38,8 +39,9 @@
 import { computed, useId, useSlots } from 'vue'
 import type { PropType } from 'vue'
 import KPop from '@/components/KPop/KPop.vue'
-import type { PopPlacements } from '@/types'
+import type { PopPlacements , PopoverAttributes } from '@/types'
 import { PopPlacementsArray } from '@/types'
+import { KUI_SPACE_20 } from '@kong/design-tokens'
 
 defineOptions({
   inheritAttrs: false,
@@ -72,7 +74,6 @@ const props = defineProps({
     type: String,
     default: 'auto',
   },
-
   /**
    * @deprecated in favor of text prop
    */
@@ -88,6 +89,10 @@ const props = defineProps({
     type: Number,
     default: 9999,
   },
+  kpopAttributes: {
+    type: Object as PropType<PopoverAttributes>,
+    default: () => {},
+  },
 })
 
 const slots = useSlots()
@@ -97,8 +102,8 @@ const showTooltip = computed((): boolean => !!props.text || !!props.label || !!s
 const randomTooltipId = useId()
 </script>
 
-<style lang="scss" scoped>
-:deep(.k-tooltip.popover) {
+<style lang="scss">
+.k-tooltip.popover {
   .popover-container {
     background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
     border: none;
@@ -133,22 +138,6 @@ const randomTooltipId = useId()
         }
       }
     }
-  }
-
-  &[x-placement^="top"] .popover-container {
-    margin-bottom: var(--kui-space-20, $kui-space-20);
-  }
-
-  &[x-placement^="right"] .popover-container {
-    margin-left: var(--kui-space-20, $kui-space-20);
-  }
-
-  &[x-placement^="bottom"] .popover-container {
-    margin-top: var(--kui-space-20, $kui-space-20);
-  }
-
-  &[x-placement^="left"] .popover-container {
-    margin-right: var(--kui-space-20, $kui-space-20);
   }
 }
 </style>

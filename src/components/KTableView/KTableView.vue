@@ -107,8 +107,12 @@
       </slot>
     </div>
 
-    <div v-else>
+    <div
+      v-else
+      class="table-container"
+    >
       <div
+        ref="table-wrapper"
         class="table-wrapper"
         :style="tableWrapperStyles"
         @scroll.passive="scrollHandler"
@@ -126,7 +130,7 @@
             :class="{ 'is-scrolled': isScrolledVertically }"
           >
             <tr
-              ref="headerRow"
+              ref="header-row"
               :class="{ 'is-scrolled': isScrolledVertically }"
             >
               <th
@@ -143,7 +147,7 @@
                 @mouseover="currentHoveredColumn = column.key"
               >
                 <div
-                  v-if="resizeColumns && !nested && index !== 0"
+                  v-if="resizeColumns && !nested && index !== 0 && showResizeHandle(column, true)"
                   class="resize-handle previous"
                   @click.stop
                   @mousedown="startResize($event, visibleHeaders[index - 1].key)"
@@ -216,12 +220,20 @@
                 </div>
 
                 <div
-                  v-if="resizeColumns && !nested && index !== visibleHeaders.length - 1"
+                  v-if="resizeColumns && !nested && index !== visibleHeaders.length - 1 && showResizeHandle(column)"
                   class="resize-handle"
                   @click.stop
                   @mousedown="startResize($event, column.key)"
                   @mouseleave="resizerHoveredColumn = ''"
                   @mouseover="resizerHoveredColumn = column.key"
+                />
+
+                <div
+                  v-if="isLastStickyColumn(column.key)"
+                  class="scroll-overlay row-overlay left"
+                  :class="{
+                    'overlay-visible': isScrolledHorizontally,
+                  }"
                 />
               </th>
             </tr>
@@ -233,17 +245,22 @@
               :key="rowKeyMap.get(row)"
             >
               <tr
-                :class="{ 'last-row': rowIndex === data.length - 1 && !expandedRows.includes(rowIndex) }"
+                :class="{
+                  'last-row': rowIndex === data.length - 1 && !expandedRows.includes(rowIndex),
+                }"
                 :role="!!rowLink(row).to ? 'link' : undefined"
-                :tabindex="isClickable || !!rowLink(row).to ? 0 : undefined"
+                :tabindex="isClickable && !rowLink(row).to ? 0 : undefined"
                 v-bind="rowAttrs(row)"
               >
                 <td
                   v-for="(header, index) in visibleHeaders"
                   :key="`${rowKeyMap.get(row)}-cell-${header.key}`"
                   :class="{
-                    'resize-hover': resizeColumns && !nested && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1,
+                    'resize-hover': resizeColumns && !nested && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1 && showResizeHandle(header),
                     'row-link': !!rowLink(row).to,
+                    'sticky-column': (header.key === TableViewHeaderKeys.BULK_ACTIONS || header.key === TableViewHeaderKeys.EXPANDABLE) && isScrolledHorizontally,
+                    'second-sticky-column': header.key === TableViewHeaderKeys.BULK_ACTIONS && hasExpandableRows,
+                    'has-row-scroll-overlay': isLastStickyColumn(header.key),
                   }"
                   :style="columnStyles[header.key]"
                   v-bind="cellAttrs({ headerKey: header.key, row, rowIndex, colIndex: index })"
@@ -285,6 +302,7 @@
                       class="actions-dropdown"
                       data-testid="actions-dropdown"
                       :kpop-attributes="{ placement: 'bottom-end' }"
+                      @toggle-dropdown="($event: boolean) => onRowActionsToggle(getGeneric(row), $event)"
                     >
                       <KButton
                         appearance="tertiary"
@@ -325,9 +343,20 @@
                       type="button"
                       @click="toggleRow(rowIndex, row)"
                     >
-                      <ChevronRightIcon class="expandable-row-control-icon" />
+                      <ChevronRightIcon
+                        class="expandable-row-control-icon"
+                        decorative
+                      />
                     </button>
                   </div>
+
+                  <div
+                    v-if="isLastStickyColumn(header.key)"
+                    class="scroll-overlay row-overlay left"
+                    :class="{
+                      'overlay-visible': isScrolledHorizontally,
+                    }"
+                  />
                 </td>
               </tr>
               <tr
@@ -353,6 +382,21 @@
         </table>
       </div>
 
+      <div
+        v-if="!hasBulkActions && !hasExpandableRows"
+        class="scroll-overlay table-overlay left"
+        :class="{
+          'overlay-visible': isScrolledHorizontally,
+        }"
+      />
+      <div
+        class="scroll-overlay table-overlay right"
+        :class="{
+          'overlay-visible': isScrollableRight,
+          'scrollbar-offset': isScrollableVertically,
+        }"
+      />
+
       <KPagination
         v-if="showPagination"
         class="table-pagination"
@@ -368,7 +412,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed, useAttrs, useSlots, nextTick, useId } from 'vue'
+import { ref, watch, computed, useAttrs, useSlots, nextTick, useId, useTemplateRef } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
@@ -388,6 +432,7 @@ import type {
   TableViewProps,
   TableViewSelectState,
   RowExpandPayload,
+  RowActionsTogglePayload,
 } from '@/types'
 import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
@@ -398,6 +443,8 @@ import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 import BulkActionsDropdown from './BulkActionsDropdown.vue'
 import { getInitialPageSize, getUniqueStringId } from '@/utilities'
+import { getScrollbarSize } from '@/utilities/browser'
+import { useResizeObserver } from '@vueuse/core'
 
 const props = withDefaults(defineProps<TableViewProps>(), {
   resizeColumns: false,
@@ -447,6 +494,7 @@ const emit = defineEmits<{
   (e: 'get-previous-offset'): void
   (e: 'row-select', data: TableViewData): void
   (e: 'update:row-expanded', data: RowExpandPayload): void
+  (e: 'row-actions-toggle', data: RowActionsTogglePayload): void
 }>()
 
 const attrs = useAttrs()
@@ -467,7 +515,8 @@ const getRowKey = (row: Record<string, any>): string => {
   return ''
 }
 
-const headerRow = ref<HTMLDivElement>()
+const tableWrapperRef = useTemplateRef('table-wrapper')
+const headerRowRef = useTemplateRef('header-row')
 // all headers
 const tableHeaders = ref<TableViewHeader[]>([])
 // currently visible headers
@@ -494,13 +543,17 @@ const hasColumnVisibilityMenu = computed((): boolean => {
 })
 const columnVisibilityDisabled = computed((): boolean => props.loading || !(props.data && props.data.length))
 // columns whose visibility can be toggled
-const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable && header.key !== TableViewHeaderKeys.EXPANDABLE && header.key !== TableViewHeaderKeys.BULK_ACTIONS))
+const visibilityColumns = computed((): TableViewHeader[] => tableHeaders.value.filter((header: TableViewHeader) => header.hidable && !isSpecialColumn(header.key)))
 // visibility preferences from the host app (initialized by app)
 const visibilityPreferences = computed((): Record<string, boolean> => hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
 // current column visibility state
 const columnVisibility = ref<Record<string, boolean>>(hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
+
+const tableWrapperHeight = ref<string>('100%')
+const isScrollableVertically = ref<boolean>(false)
 const isScrolledVertically = ref<boolean>(false)
 const isScrolledHorizontally = ref<boolean>(false)
+const isScrollableRight = ref<boolean>(false)
 const sortColumnKey = ref('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
 const isClickable = ref(false)
@@ -509,6 +562,7 @@ const isActionsDropdownHovered = ref<boolean>(false)
 const tableWrapperStyles = computed((): Record<string, string> => ({
   maxHeight: getSizeFromString(props.maxHeight),
 }))
+const scrollbarWidth = computed((): string => `${getScrollbarSize()}px`)
 
 const bulkActionsSelectedRows = ref<TableViewData>([])
 const hasBulkActions = computed((): boolean => !props.nested && !props.error && tableHeaders.value.some((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']) && !!props.data.every((row) => getRowKey(row)))
@@ -661,11 +715,12 @@ const expandableColumnWidth = (parseInt(KUI_SPACE_60) * 2) + parseInt(KUI_ICON_S
 /**
  * Default column widths for better UX
  * expandable column is always 48px (padding-left + chevron width + padding-right adds up to 48px)
- * bulkActions column is always 56px (padding-left + checkbox width + padding-right adds up to 56px)
+ * bulkActions column is also always 48px (padding-left + checkbox width + padding-right adds up to 48px)
  * actions column is always 54px (padding-left + button width + padding-right adds up to 54px)
  */
-const defaultColumnWidths = { expandable: expandableColumnWidth, bulkActions: 56, actions: 54 }
-const columnWidths = ref<Record<string, number>>(props.tablePreferences?.columnWidths || defaultColumnWidths)
+const DEFAULT_COLUMN_WIDTHS: Record<string, number> = { expandable: expandableColumnWidth, bulkActions: 48, actions: 54 }
+const DEFAULT_COLUMN_WIDTHS_PX: Record<string, string> = Object.keys(DEFAULT_COLUMN_WIDTHS).map((key) => ({ [key]: `${DEFAULT_COLUMN_WIDTHS[key]}px` })).reduce((acc, curr) => ({ ...acc, ...curr }), {})
+const columnWidths = ref<Record<string, number>>(props.tablePreferences?.columnWidths || DEFAULT_COLUMN_WIDTHS)
 const columnStyles = computed(() => {
   const styles: Record<string, any> = {}
   for (const colKey in columnWidths.value) {
@@ -686,7 +741,7 @@ const columnStyles = computed(() => {
 const getHeaderClasses = (column: TableViewHeader, index: number): Record<string, boolean> => {
   return {
     // display the resize handle on the right side of the column if props.resizeColumns is enabled, hovering current column, and not the last column
-    'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && !props.nested && index !== visibleHeaders.value.length - 1,
+    'resize-hover': resizeHoverColumn.value === column.key && props.resizeColumns && !props.nested && index !== visibleHeaders.value.length - 1 && showResizeHandle(column),
     resizable: props.resizeColumns && !props.nested,
     // display sort control if column is sortable, label is visible, and sorting is not disabled
     sortable: !column.hideLabel && !!column.sortable,
@@ -695,7 +750,9 @@ const getHeaderClasses = (column: TableViewHeader, index: number): Record<string
     [sortColumnOrder.value]: column.key === sortColumnKey.value && !column.hideLabel,
     'is-scrolled': isScrolledVertically.value,
     'has-tooltip': !!column.tooltip,
-    'sticky-column': column.key === TableViewHeaderKeys.BULK_ACTIONS && isScrolledHorizontally.value,
+    'sticky-column': (column.key === TableViewHeaderKeys.BULK_ACTIONS || column.key === TableViewHeaderKeys.EXPANDABLE) && isScrolledHorizontally.value,
+    'second-sticky-column': column.key === TableViewHeaderKeys.BULK_ACTIONS && hasExpandableRows.value,
+    'has-row-scroll-overlay': isLastStickyColumn(column.key),
   }
 }
 
@@ -748,7 +805,7 @@ const resizeHoverColumn = computed((): string => {
 
 // get the resizable header divs to be used for the resize observers
 // eslint-disable-next-line no-undef
-const headerElems = computed((): NodeListOf<Element> | undefined => headerRow.value?.querySelectorAll('th.resizable'))
+const headerElems = computed((): NodeListOf<Element> | undefined => headerRowRef.value?.querySelectorAll('th.resizable'))
 const headerHeight = computed((): string => {
   const elem = headerElems.value?.item(0)
   if (elem) {
@@ -817,6 +874,47 @@ const startResize = (evt: MouseEvent, colKey: string) => {
   }
 }
 
+// if table is scrollable horizontally, calculate which column is the last sticky column
+const isLastStickyColumn = (columnKey: string): boolean => {
+  if (!isScrolledHorizontally.value) {
+    return false
+  }
+
+  if (hasBulkActions.value) {
+    return columnKey === TableViewHeaderKeys.BULK_ACTIONS
+  }
+
+  if (hasExpandableRows.value) {
+    return columnKey === TableViewHeaderKeys.EXPANDABLE
+  }
+
+  return false
+}
+
+const isSpecialColumn = (columnKey: string): boolean =>
+  columnKey === TableViewHeaderKeys.EXPANDABLE ||
+  columnKey === TableViewHeaderKeys.BULK_ACTIONS ||
+  columnKey === TableViewHeaderKeys.ACTIONS
+
+// don't show the resize handle if the column is a special column
+const showResizeHandle = (column: TableViewHeader, previous: boolean = false): boolean => {
+  if (previous) {
+    if (visibleHeaders.value.indexOf(column) === visibleHeaders.value.length - 1) {
+      return false
+    }
+
+    const previousColumn = visibleHeaders.value[visibleHeaders.value.indexOf(column) - 1]
+    return !isSpecialColumn(previousColumn.key)
+  }
+
+  const nextColumn = visibleHeaders.value[visibleHeaders.value.indexOf(column) + 1]
+  return !isSpecialColumn(column.key) && !isSpecialColumn(nextColumn.key)
+}
+
+const onRowActionsToggle = (row: Record<string, any>, state: boolean): void => {
+  emit('row-actions-toggle', { row: getGeneric(row), open: state })
+}
+
 const showPagination = computed((): boolean => {
   if (props.hidePagination || props.nested) {
     return false
@@ -879,6 +977,7 @@ const sortClickHandler = (header: TableViewHeader): void => {
 const scrollHandler = (event: any): void => {
   if (event && event.target && (typeof event.target.scrollTop === 'number' || typeof event.target.scrollLeft === 'number')) {
     if (event.target.scrollTop > 1) {
+      isScrollableVertically.value = true
       isScrolledVertically.value = true
     } else if (event.target.scrollTop === 0) {
       isScrolledVertically.value = false
@@ -888,6 +987,13 @@ const scrollHandler = (event: any): void => {
       isScrolledHorizontally.value = true
     } else if (event.target.scrollLeft === 0) {
       isScrolledHorizontally.value = false
+    }
+
+    // determine if there's still room to scroll right
+    if (event.target.scrollWidth === event.target.scrollLeft + event.target.clientWidth) {
+      isScrollableRight.value = false
+    } else {
+      isScrollableRight.value = true
     }
   }
 }
@@ -1141,7 +1247,7 @@ watch([() => props.data, dataSelectState], (newVals) => {
     const selectableRowsState = newDataSelectState.filter((rowState) => !rowState.disabled && newData.find((row) => getRowKey(row) === rowState.rowKey))
 
     // all are selected
-    if (selectableRowsState.filter((rowState) => rowState.selected).length === selectableRowsState.length) {
+    if (selectableRowsState.length && selectableRowsState.filter((rowState) => rowState.selected).length === selectableRowsState.length) {
       bulkActionsAll.value = true
       // all are unselected
     } else if (selectableRowsState.filter((rowState) => !rowState.selected).length === selectableRowsState.length) {
@@ -1189,6 +1295,17 @@ watch(() => props.tablePreferences, (newVal) => {
     columnWidths.value = newVal.columnWidths
   }
 })
+
+useResizeObserver(tableWrapperRef, (entries) => {
+  const el = entries[0]?.target
+
+  if (el) {
+    // check if the table is scrollable horizontally
+    isScrollableRight.value = el.scrollWidth > el.clientWidth
+    tableWrapperHeight.value = el.clientHeight + 'px'
+    isScrollableVertically.value = el.scrollHeight > el.clientHeight
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -1196,12 +1313,27 @@ watch(() => props.tablePreferences, (newVal) => {
   @include table;
 
   table {
+    th,
+    td {
+      &.sticky-column.second-sticky-column {
+        left: v-bind('DEFAULT_COLUMN_WIDTHS_PX.expandable') !important;
+      }
+    }
+
     thead {
       tr {
         .resize-handle {
           height: v-bind('headerHeight');
         }
       }
+    }
+  }
+
+  .scroll-overlay.table-overlay {
+    height: v-bind('tableWrapperHeight');
+
+    &.right.scrollbar-offset {
+      right: v-bind('scrollbarWidth');
     }
   }
 }

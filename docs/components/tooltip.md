@@ -121,6 +121,28 @@ A string to be used as `id` attribute on underlying `role="tooltip"` element. Us
 <KInput id="full-name-field" />
 ```
 
+### kpopAttributes
+
+Use the `kpopAttributes` prop to configure the underlying [KPop's props](/components/popover).
+
+<KTooltip
+  :kpop-attributes="{ offset: '50px' }"
+  placement="right"
+  text="Tooltip offset by 50px."
+>
+  <InfoIcon />
+</KTooltip>
+
+```html
+<KTooltip
+  :kpop-attributes="{ offset: '50px' }"
+  placement="right"
+  text="Tooltip offset by 50px."
+>
+  <InfoIcon />
+</KTooltip>
+```
+
 ## Slots
 
 ### default
