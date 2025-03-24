@@ -27,5 +27,9 @@ export interface PopoverAttributes {
   popoverClasses?: string
   offset?: string
   width?: string
+  /** Not supported in KDropdown, KSelect and KMultiselect */
+  target?: string | null
+  trigger?: PopTrigger
+  'data-testid'?: string
 }
 

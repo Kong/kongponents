@@ -1,3 +1,47 @@
+# [9.25.0](https://github.com/Kong/kongponents/compare/v9.24.3...v9.25.0) (2025-03-24)
+
+
+### Features
+
+* **ktabs:** add before change prop ([#2644](https://github.com/Kong/kongponents/issues/2644)) ([becd5af](https://github.com/Kong/kongponents/commit/becd5afb2d4bc745fcda736af9d0afa97bb9dacf))
+
+## [9.24.3](https://github.com/Kong/kongponents/compare/v9.24.2...v9.24.3) (2025-03-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency virtua to ^0.40.3 ([#2660](https://github.com/Kong/kongponents/issues/2660)) ([92bbefa](https://github.com/Kong/kongponents/commit/92bbefa6ff2bf0d7d2310afa70d7305ce7e1cafb))
+
+## [9.24.2](https://github.com/Kong/kongponents/compare/v9.24.1...v9.24.2) (2025-03-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency virtua to ^0.40.1 ([#2655](https://github.com/Kong/kongponents/issues/2655)) ([cd8881e](https://github.com/Kong/kongponents/commit/cd8881ef9d8c6e8c8d29f620988970fb33dfbd35))
+
+## [9.24.1](https://github.com/Kong/kongponents/compare/v9.24.0...v9.24.1) (2025-03-18)
+
+
+### Bug Fixes
+
+* **types:** allow data-testid in popover attributes ([#2654](https://github.com/Kong/kongponents/issues/2654)) ([f2d1237](https://github.com/Kong/kongponents/commit/f2d1237bf32195e43256a2bfe635c8b2fe0586e7))
+
+# [9.24.0](https://github.com/Kong/kongponents/compare/v9.23.6...v9.24.0) (2025-03-18)
+
+
+### Features
+
+* **kpop:** add target prop and conditional teleport [KHCP-15449] ([#2650](https://github.com/Kong/kongponents/issues/2650)) ([f9c47e9](https://github.com/Kong/kongponents/commit/f9c47e915546c286ec8ac3b5b55a4fcb2d182fea))
+
+## [9.23.6](https://github.com/Kong/kongponents/compare/v9.23.5...v9.23.6) (2025-03-17)
+
+
+### Bug Fixes
+
+* **actions:** use kong changed files ([#2652](https://github.com/Kong/kongponents/issues/2652)) ([79cd9e2](https://github.com/Kong/kongponents/commit/79cd9e21602b2f755a7b18c7ffa117e853647168)), closes [#incident-456](https://github.com/Kong/kongponents/issues/incident-456)
+* **ktableview:** make header non-sticky in firefox ([#2649](https://github.com/Kong/kongponents/issues/2649)) ([4fd43ff](https://github.com/Kong/kongponents/commit/4fd43ff6653ae3d1c2a4dc13e6448fceb2488e52))
+* **security:** pin version ([#2651](https://github.com/Kong/kongponents/issues/2651)) ([908096d](https://github.com/Kong/kongponents/commit/908096ddde630ebb3085f955a3626867797872e0))
+
 ## [9.23.5](https://github.com/Kong/kongponents/compare/v9.23.4...v9.23.5) (2025-03-13)
 
 
