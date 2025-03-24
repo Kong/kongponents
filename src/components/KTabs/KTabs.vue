@@ -101,7 +101,8 @@ const emit = defineEmits<{
 const activeTab = ref<string>(props.modelValue ? props.modelValue : props.tabs[0]?.hash)
 
 const handleTabChange = (tab: string): void => {
-  if (props.beforeChange(tab)) {
+  // if beforeChange is not a function, skip the check
+  if (typeof props.beforeChange !== 'function' || props.beforeChange(tab)) {
     activeTab.value = tab
     emit('change', tab)
     emit('update:modelValue', tab)
