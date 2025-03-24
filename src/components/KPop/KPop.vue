@@ -327,6 +327,12 @@ onMounted(() => {
     // we don't set any other click event listeners on purpose to avoid conflict of event listeners
     useEventListener(document, 'click', clickHandler)
 
+    useEventListener(document, 'keydown', (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        hidePopover()
+      }
+    })
+
     if (popoverTrigger.value) {
       // determine the element to bind aria-controls attribute to
       // data-dropdown-trigger is used to determine the default (not slotted) KDropdown trigger
