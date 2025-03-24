@@ -1,3 +1,10 @@
+# [9.25.0](https://github.com/Kong/kongponents/compare/v9.24.3...v9.25.0) (2025-03-24)
+
+
+### Features
+
+* **ktabs:** add before change prop ([#2644](https://github.com/Kong/kongponents/issues/2644)) ([becd5af](https://github.com/Kong/kongponents/commit/becd5afb2d4bc745fcda736af9d0afa97bb9dacf))
+
 ## [9.24.3](https://github.com/Kong/kongponents/compare/v9.24.2...v9.24.3) (2025-03-24)
 
 
