@@ -94,7 +94,7 @@
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/compiler-core": "^3.5.13",
     "@vue/tsconfig": "^0.7.0",
-    "@vueuse/core": "^12.4.0",
+    "@vueuse/core": "^13.0.0",
     "autoprefixer": "^10.4.21",
     "axios": "^1.7.9",
     "boxen": "^8.0.1",
