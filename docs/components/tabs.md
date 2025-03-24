@@ -221,6 +221,80 @@ const tabChange = (hash: string): void => {
 </script>
 ```
 
+### beforeChange
+
+Prop that takes a function return value of which determines whether tab change should be skipped. Useful when some information needs to me brought to user's attention before they leave the content in the currently displayed tab.
+
+The function receives new tab value as an argument and returns a boolean value, `false` will prevent tab change. Defaults to `() => true`.
+
+<KTabs
+  :before-change="onBeforeTabChange"
+  :model-value="confirmedTab"
+  :tabs="tabs"
+>
+  <template #tab1>
+    Tab 1 content
+  </template>
+  <template #tab2>
+    Tab 2 content
+  </template>
+</KTabs>
+
+<KPrompt
+  message="Notice that the tab doesn't change until you've confirmed your action."
+  :visible="confirmPromptVisible"
+  @cancel="onCancel"
+  @proceed="onConfirm"
+/>
+
+```vue
+<template>
+  <KTabs
+    :before-change="onBeforeTabChange"
+    :model-value="activeTab"
+    :tabs="tabs"
+  >
+    <template #tab1>
+      Tab 1 content
+    </template>
+    <template #tab2>
+      Tab 2 content
+    </template>
+  </KTabs>
+
+  <KPrompt
+    message="Notice that the tab doesn't change until you've confirmed your action."
+    :visible="confirmPromptVisible"
+    @cancel="onCancel"
+    @proceed="onConfirm"
+  />
+</template>
+
+<script setup lang="ts">
+const activeTab = ref<string>('#tab1')
+const confirmPromptVisible = ref<boolean>(false)
+const targetTab = ref<string | null>(null)
+
+const onBeforeTabChange = async (tab: string) => {
+  confirmPromptVisible.value = true
+  targetTab.value = tab
+
+  return false
+}
+
+const onConfirm = () => {
+  confirmPromptVisible.value = false
+  activeTab.value = targetTab.value!
+  targetTab.value = null
+}
+
+const onCancel = () => {
+  confirmPromptVisible.value = false
+  targetTab.value = null
+}
+</script>
+```
+
 ## Slots
 
 ### anchor & panel
@@ -350,6 +424,25 @@ const panelsActiveHash = ref('#gateway')
 
 const panelsChange = (hash: string) => {
   panelsActiveHash.value = hash;
+}
+
+const confirmedTab = ref<string>('#tab1')
+const confirmPromptVisible = ref<boolean>(false)
+const targetTab = ref<string | null>(null)
+const onBeforeTabChange = async (tab: string) => {
+  confirmPromptVisible.value = true
+  targetTab.value = tab
+
+  return false
+}
+const onConfirm = () => {
+  confirmPromptVisible.value = false
+  confirmedTab.value = targetTab.value!
+  targetTab.value = null
+}
+const onCancel = () => {
+  confirmPromptVisible.value = false
+  targetTab.value = null
 }
 </script>
 
