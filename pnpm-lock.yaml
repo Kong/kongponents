@@ -48,7 +48,7 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2(@popperjs/core@2.11.8)(vue@3.5.13(typescript@5.6.3))
       virtua:
-        specifier: ^0.40.1
+        specifier: ^0.40.3
         version: 0.40.3(vue@3.5.13(typescript@5.6.3))
       vue-draggable-next:
         specifier: ^2.2.1
@@ -1250,8 +1250,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.36.0':
-    resolution: {integrity: sha512-qEzDrBzGlkWgtWiP8OJJegVdT+gHYEbHXtkI0vhlDLSzejAzMuhl1MfIQyU6U6XCZrijX9KTSi3UNBwB4en/eQ==}
+  '@rollup/wasm-node@4.37.0':
+    resolution: {integrity: sha512-Nzbex+bqQ2wffHfAX5nHUMhcAUwedzE02arkETjt/ybjD0ieWtXwRUgIipB7giMRqKLdopDmkSIWow0mxzWmLg==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -6442,7 +6442,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@rollup/wasm-node@4.36.0':
+  '@rollup/wasm-node@4.37.0':
     dependencies:
       '@types/estree': 1.0.6
     optionalDependencies:
@@ -10666,7 +10666,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
-      rollup: '@rollup/wasm-node@4.36.0'
+      rollup: '@rollup/wasm-node@4.37.0'
     optionalDependencies:
       '@types/node': 20.17.25
       fsevents: 2.3.3
@@ -10677,7 +10677,7 @@ snapshots:
     dependencies:
       esbuild: 0.24.2
       postcss: 8.4.49
-      rollup: '@rollup/wasm-node@4.36.0'
+      rollup: '@rollup/wasm-node@4.37.0'
     optionalDependencies:
       '@types/node': 20.17.25
       fsevents: 2.3.3
