@@ -275,7 +275,7 @@ const activeTab = ref<string>('#tab1')
 const confirmPromptVisible = ref<boolean>(false)
 const targetTab = ref<string | null>(null)
 
-const onBeforeTabChange = (tab: string) => {
+const onBeforeTabChange = async (tab: string) => {
   confirmPromptVisible.value = true
   targetTab.value = tab
 
@@ -429,7 +429,7 @@ const panelsChange = (hash: string) => {
 const confirmedTab = ref<string>('#tab1')
 const confirmPromptVisible = ref<boolean>(false)
 const targetTab = ref<string | null>(null)
-const onBeforeTabChange = (tab: string) => {
+const onBeforeTabChange = async (tab: string) => {
   confirmPromptVisible.value = true
   targetTab.value = tab
 

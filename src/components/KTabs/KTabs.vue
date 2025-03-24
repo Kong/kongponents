@@ -87,8 +87,9 @@ const props = defineProps({
     default: 0,
     validator: (val: number): boolean => val >= -1 && val <= 32767,
   },
+  // async function
   beforeChange: {
-    type: Function as PropType<(tab: string) => boolean>,
+    type: Function as PropType<(tab: string) => Promise<boolean>>,
     default: () => true,
   },
 })
@@ -100,9 +101,9 @@ const emit = defineEmits<{
 
 const activeTab = ref<string>(props.modelValue ? props.modelValue : props.tabs[0]?.hash)
 
-const handleTabChange = (tab: string): void => {
+const handleTabChange = async (tab: string): Promise<void> => {
   // if beforeChange is not a function, skip the check
-  if (typeof props.beforeChange !== 'function' || props.beforeChange(tab)) {
+  if (typeof props.beforeChange !== 'function' || await props.beforeChange(tab)) {
     activeTab.value = tab
     emit('change', tab)
     emit('update:modelValue', tab)
