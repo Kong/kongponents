@@ -990,7 +990,8 @@ const scrollHandler = (event: any): void => {
     }
 
     // determine if there's still room to scroll right
-    if (event.target.scrollWidth === event.target.scrollLeft + event.target.clientWidth) {
+    // allow for a 4px buffer
+    if (event.target.scrollWidth - (event.target.scrollLeft + event.target.clientWidth) <= 4) {
       isScrollableRight.value = false
     } else {
       isScrollableRight.value = true
