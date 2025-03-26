@@ -3,6 +3,7 @@
     :is="tag"
     ref="kPopoverElement"
     class="k-popover"
+    @keydown.esc="onEscapePress"
   >
     <div
       ref="triggerWrapperElement"
@@ -316,6 +317,11 @@ const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': 
 
 const floatingUpdates = ref<() => void>()
 
+const onEscapePress = (event: Event) => {
+  hidePopover()
+  event.stopPropagation()
+}
+
 defineExpose({
   hidePopover,
   showPopover,
@@ -326,12 +332,6 @@ onMounted(() => {
     // handle various click events to determine how to handle the click event in a generic clickHandler function
     // we don't set any other click event listeners on purpose to avoid conflict of event listeners
     useEventListener(document, 'click', clickHandler)
-
-    useEventListener(document, 'keydown', (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        hidePopover()
-      }
-    })
 
     if (popoverTrigger.value) {
       // determine the element to bind aria-controls attribute to
