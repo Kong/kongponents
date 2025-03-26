@@ -3,7 +3,7 @@
     :is="tag"
     ref="kPopoverElement"
     class="k-popover"
-    @keydown.esc="onEscapePress"
+    @keydown.esc.stop="hidePopover"
   >
     <div
       ref="triggerWrapperElement"
@@ -316,11 +316,6 @@ const popoverContainerStyles = computed(() => {
 const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': props.hideCaret }])
 
 const floatingUpdates = ref<() => void>()
-
-const onEscapePress = (event: Event) => {
-  hidePopover()
-  event.stopPropagation()
-}
 
 defineExpose({
   hidePopover,
