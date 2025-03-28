@@ -29,19 +29,19 @@ export type ButtonProps = {
   to?: RouterLinkProps['to'] | null
 
   /**
-   * Button type
+   * HTML button type attribute
    * @default 'button'
    */
   type?: HTMLButtonElement['type']
 
   /**
-   * Disables the button
+   * When true, disables the button
    * @default false
    */
   disabled?: boolean
 
   /**
-   * Icon only button
+   * When true, an icon-only button
    * @default false
    */
   icon?: boolean
