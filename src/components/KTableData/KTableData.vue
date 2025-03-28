@@ -19,7 +19,7 @@
     :hide-pagination="hidePagination || !showPagination"
     :hide-pagination-when-optional="false"
     :hide-toolbar="hideToolbar"
-    :loading="loading || fetcherIsLoading"
+    :loading="loading ?? fetcherIsLoading"
     :max-height="maxHeight"
     :nested="nested"
     :pagination-attributes="tablePaginationAttributes"
@@ -190,7 +190,7 @@ const props = withDefaults(defineProps<TableDataProps>(), {
   rowBulkActionEnabled: () => true,
   rowKey: '',
   cellAttrs: () => ({}),
-  loading: false,
+  loading: undefined,
   emptyStateTitle: 'No Data',
   emptyStateMessage: 'There is no data to display.',
   emptyStateActionMessage: '',
