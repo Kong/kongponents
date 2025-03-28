@@ -8,11 +8,42 @@ export type ButtonSize = 'large' | 'medium' | 'small'
 export type ButtonSizeRecord = Record<ButtonSize, ButtonSize>
 
 export type ButtonProps = {
+  /**
+   * Base styling of the button
+   * One of ['primary', 'secondary', 'tertiary', 'danger', 'none']
+   * @default 'primary'
+   */
   appearance?: ButtonAppearance
+
+  /**
+   * Size variations
+   * One of ['small', 'medium', 'large']
+   * @default 'medium'
+   */
   size?: ButtonSize
+
+  /**
+   * Route object or path. If object will render <router-link>, if string will render <a>
+   * @default null
+   */
   to?: RouterLinkProps['to'] | null
+
+  /**
+   * Button type
+   * @default 'button'
+   */
   type?: HTMLButtonElement['type']
+
+  /**
+   * Disables the button
+   * @default false
+   */
   disabled?: boolean
+
+  /**
+   * Icon only button
+   * @default false
+   */
   icon?: boolean
 }
 
