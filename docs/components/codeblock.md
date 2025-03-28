@@ -6,14 +6,12 @@ Searching highlights matching lines within the code while filtering shows only m
 
 Searching and filtering can happen by exact matches (the default) and by matching regular expressions. The search-related UI controls can also be interacted with [using keyboard shortcuts](#default-shortcuts).
 
-<ClientOnly>
-  <KCodeBlock
-    id="code-block-default"
-    :code="code"
-    language="json"
-    searchable
-  />
-</ClientOnly>
+<KCodeBlock
+  id="code-block-default"
+  :code="code"
+  language="json"
+  searchable
+/>
 
 ```html
 <KCodeBlock
@@ -50,17 +48,15 @@ Boolean to control whether the filter mode is initially active. Can be used toge
 
 Boolean to control whether the regular expression mode is initially active. Can be used together with the [`reg-exp-mode-change` event](#reg-exp-mode-change) to persist a code block’s regular expression mode setting. Defaults to `false`.
 
-<ClientOnly>
-  <KCodeBlock
-    id="code-block-initial-reg-exp-mode"
-    :code="code"
-    language="json"
-    query="(true|false)"
-    initial-filter-mode
-    initial-reg-exp-mode
-    searchable
-  />
-</ClientOnly>
+<KCodeBlock
+  id="code-block-initial-reg-exp-mode"
+  :code="code"
+  language="json"
+  query="(true|false)"
+  initial-filter-mode
+  initial-reg-exp-mode
+  searchable
+/>
 
 ```html
 <KCodeBlock
@@ -78,14 +74,12 @@ Boolean to control whether the regular expression mode is initially active. Can 
 
 Boolean to control whether to show or hide the search bar and related action buttons. Defaults to `false`.
 
-<ClientOnly>
-  <KCodeBlock
-    id="code-block-searchable"
-    :code="code"
-    language="json"
-    searchable
-  />
-</ClientOnly>
+<KCodeBlock
+  id="code-block-searchable"
+  :code="code"
+  language="json"
+  searchable
+/>
 
 ```html
 <KCodeBlock
@@ -105,14 +99,12 @@ An string or array specifying the line numbers to initially highlight in the cod
 
 If search is enabled, matching results will be highlighted in place of the provided line numbers, and all highlighted lines will be cleared once the search query is cleared.
 
-<ClientOnly>
-  <KCodeBlock
-    id="code-block-highlight"
-    :code="code"
-    language="json"
-    highlighted-line-numbers="2,4,6-12"
-  />
-</ClientOnly>
+<KCodeBlock
+  id="code-block-highlight"
+  :code="code"
+  language="json"
+  highlighted-line-numbers="2,4,6-12"
+/>
 
 ```html
 <KCodeBlock
@@ -129,19 +121,18 @@ Whether the code passed into the component should be displayed on a single line.
 
 ::: tip NOTE
 Please keep the following in mind when using `singleLine`:
+
 - Line numbers will not be displayed
 - Code will not be searchable
 - Multi-line code snippets will have `\n` stripped out to allow displaying the code on a single line. Code copied by clicking the copy button will contain any `\n` in the original code.
 :::
 
-<ClientOnly>
-  <KCodeBlock
-    id="code-block-single-line"
-    :code="cert"
-    single-line
-    language="plaintext"
-  />
-</ClientOnly>
+<KCodeBlock
+  id="code-block-single-line"
+  :code="cert"
+  single-line
+  language="plaintext"
+/>
 
 ```html
 <KCodeBlock
@@ -156,15 +147,13 @@ Please keep the following in mind when using `singleLine`:
 
 Allows controlling the processing state from outside the component. This allows a parent component to show the processing icon when it’s, for example, currently syntax highlighting the code.
 
-<ClientOnly>
-  <KCodeBlock
-    id="code-block-processing"
-    :code="code"
-    language="json"
-    searchable
-    processing
-  />
-</ClientOnly>
+<KCodeBlock
+  id="code-block-processing"
+  :code="code"
+  language="json"
+  searchable
+  processing
+/>
 
 ```html
 <KCodeBlock
@@ -179,14 +168,12 @@ Allows controlling the processing state from outside the component. This allows 
 
 The `max-height` of the code block. Default value is `none`.
 
-<ClientOnly>
-  <KCodeBlock
-    id="code-block-max-height"
-    :code="code"
-    language="json"
-    max-height="200"
-  />
-</ClientOnly>
+<KCodeBlock
+  id="code-block-max-height"
+  :code="code"
+  language="json"
+  max-height="200"
+/>
 
 ```html
 <KCodeBlock
@@ -201,16 +188,14 @@ The `max-height` of the code block. Default value is `none`.
 
 Used as the initial value of the search input. Can be used to initialize a code block with a query which was read from client storage.
 
-<ClientOnly>
-  <KCodeBlock
-    id="code-block-query"
-    :code="code"
-    language="json"
-    searchable
-    query="no"
-    max-height="200"
-  />
-</ClientOnly>
+<KCodeBlock
+  id="code-block-query"
+  :code="code"
+  language="json"
+  searchable
+  query="no"
+  max-height="200"
+/>
 
 ```html
 <KCodeBlock
@@ -227,14 +212,12 @@ Used as the initial value of the search input. Can be used to initialize a code 
 
 Controls whether to show a copy button which copies the original code (the value of `props.code`) to the clipboard. Defaults to `true`.
 
-<ClientOnly>
-  <KCodeBlock
-    id="code-block-show-copy-button"
-    :code="code"
-    language="json"
-    :show-copy-button="false"
-  />
-</ClientOnly>
+<KCodeBlock
+  id="code-block-show-copy-button"
+  :code="code"
+  language="json"
+  :show-copy-button="false"
+/>
 
 ```html
 <KCodeBlock
@@ -245,21 +228,39 @@ Controls whether to show a copy button which copies the original code (the value
 />
 ```
 
+### showLineNumbers
+
+Controls whether to show line numbers. Defaults to `true`.
+
+<KCodeBlock
+  id="code-block-show-line-numbers"
+  :code="code"
+  language="json"
+  :show-line-numbers="false"
+/>
+
+```html
+<KCodeBlock
+  id="code-block-show-line-numbers"
+  :code="code"
+  language="json"
+  :show-line-numbers="false"
+/>
+```
+
 ### showLineNumberLinks
 
 Controls whether to add links to the current line number. Defaults to `false`.
 
 You might need to turn this off for sites that already constantly use the fragment identifier in the URL like vue router’s hash-based navigation mode where all URL paths follow a first `/#/` segment.
 
-<ClientOnly>
-  <KCodeBlock
-    id="code-block-show-line-number-links"
-    :code="code"
-    language="json"
-    :show-line-number-links="true"
-    max-height="200px"
-  />
-</ClientOnly>
+<KCodeBlock
+  id="code-block-show-line-number-links"
+  :code="code"
+  language="json"
+  :show-line-number-links="true"
+  max-height="200px"
+/>
 
 ```html
 <KCodeBlock
@@ -277,15 +278,13 @@ Sets the display theme of the component. Accepted values are:
 - `light` (default)
 - `dark`
 
-<ClientOnly>
-  <KCodeBlock
-    id="code-block-dark-theme"
-    :code="code"
-    language="json"
-    theme="dark"
-    searchable
-  />
-</ClientOnly>
+<KCodeBlock
+  id="code-block-dark-theme"
+  :code="code"
+  language="json"
+  theme="dark"
+  searchable
+/>
 
 ```html
 <KCodeBlock
@@ -327,20 +326,18 @@ If the button action is copying some content to the clipboard, you can pass test
 
 Slot for button content.
 
-<ClientOnly>
-  <KCodeBlock
-    id="code-block-slots-secondary-actions"
-    :code="code"
-    language="json"
-  >
-    <template #secondary-actions>
-      <KCodeBlockIconButton copy-tooltip="Copy as k8s">
-        <CopyIcon />
-        as k8s
-      </KCodeBlockIconButton>
-    </template>
-  </KCodeBlock>
-</ClientOnly>
+<KCodeBlock
+  id="code-block-slots-secondary-actions"
+  :code="code"
+  language="json"
+>
+  <template #secondary-actions>
+    <KCodeBlockIconButton copy-tooltip="Copy as k8s">
+      <CopyIcon />
+      as k8s
+    </KCodeBlockIconButton>
+  </template>
+</KCodeBlock>
 
 ```html
 <KCodeBlock
@@ -362,6 +359,7 @@ Slot for button content.
 ### code-block-render
 
 Fired when the code block is rendered or re-rendered. This happens when:
+
 - the component’s `mounted` life cycle hook is fired
 - the filter mode is turned off
 - `props.code` changes
