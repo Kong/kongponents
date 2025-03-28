@@ -10,7 +10,7 @@ export type ButtonSizeRecord = Record<ButtonSize, ButtonSize>
 export type ButtonProps = {
   appearance?: ButtonAppearance
   size?: ButtonSize
-  to?: RouterLinkProps | null
+  to?: string | RouterLinkProps | null
   type?: HTMLButtonElement['type']
   disabled?: boolean
   icon?: boolean
