@@ -17,71 +17,33 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue'
-import { computed, onMounted, useAttrs, useSlots } from 'vue'
-import { ButtonAppearances, ButtonSizes } from '@/types'
-import type { ButtonAppearance, ButtonSize } from '@/types'
+import { computed, onMounted, useAttrs, useSlots, watch } from 'vue'
+import { ButtonAppearances } from '@/types'
+import type { ButtonAppearance, ButtonProps, ButtonSize } from '@/types'
 
-const props = defineProps({
-  /**
-  * Base styling of the button
-  * One of ['primary', 'secondary', 'tertiary', 'danger']
-  */
-  appearance: {
-    type: String as PropType<ButtonAppearance>,
-    default: 'primary',
-    validator: (value: ButtonAppearance): boolean => {
-      return Object.values(ButtonAppearances).indexOf(value) !== -1
-    },
-  },
-  /**
-  * Size variations
-  * One of ['small', 'medium', 'large' ]
-  */
-  size: {
-    type: String as PropType<ButtonSize>,
-    default: 'medium',
-    validator: (value: ButtonSize): boolean => {
-      return Object.values(ButtonSizes).indexOf(value) !== -1
-    },
-  },
-  /**
-  * Route object or path. If object will render <router-link>, if string will render <a>
-  */
-  to: {
-    type: [Object, String],
-    default: null,
-  },
-  type: {
-    type: String,
-    default: 'button',
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  icon: {
-    type: Boolean,
-    default: false,
-    validator: (value: string | boolean): boolean => {
-      if (typeof value === 'string') {
-        console.warn('KButton: `icon` prop usage has changed. Please refer to the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kbutton')
+const {
+  appearance = 'primary',
+  size = 'medium',
+  to = null,
+  type = 'button',
+  disabled,
+  icon,
+} = defineProps<ButtonProps>()
 
-        return false
-      }
-
-      return true
-    },
-  },
-})
+// Deprecation warning. Remove this in next major release.
+watch(() => icon, (value) => {
+  if (typeof value === 'string') {
+    console.warn('KButton: `icon` prop usage has changed. Please refer to the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kbutton')
+  }
+}, { immediate: true })
 
 const slots = useSlots()
 const attrs = useAttrs()
 
 const buttonType = computed((): string => {
-  if (props.to && typeof props.to === 'string') {
+  if (to && typeof to === 'string') {
     return 'a'
-  } else if (props.to) {
+  } else if (to) {
     return 'router-link'
   }
 
@@ -91,19 +53,19 @@ const buttonType = computed((): string => {
 const buttonAppearance = computed((): ButtonAppearance | [ButtonAppearance, string] => {
   // If the appearance is invalid, output both to keep backwards compatibility
   // in case some of the tests rely on the invalid appearance output
-  if (Object.values(ButtonAppearances).indexOf(props.appearance) === -1) {
-    return ['primary', props.appearance]
+  if (Object.values(ButtonAppearances).indexOf(appearance) === -1) {
+    return ['primary', appearance]
   }
 
-  return props.appearance
+  return appearance
 })
 
 const buttonSize = computed((): ButtonSize | null => {
-  if (props.appearance === 'none' && !props.icon) {
+  if (appearance === 'none' && !icon) {
     return null
   }
 
-  return props.size
+  return size
 })
 
 /**
@@ -115,20 +77,20 @@ const buttonSize = computed((): ButtonSize | null => {
 const strippedAttrs = computed((): typeof attrs => {
   const modifiedAttrs = Object.assign({}, attrs)
 
-  if (props.to) {
-    if (typeof props.to === 'string') {
-      modifiedAttrs.href = props.to
+  if (to) {
+    if (typeof to === 'string') {
+      modifiedAttrs.href = to
     } else {
       // `to` prop is nessessary for router-link to successfully render
-      modifiedAttrs.to = props.to
+      modifiedAttrs.to = to
     }
-    if (props.disabled) {
+    if (disabled) {
       // Set href to null so that user cannot bypass by right clicking it and opening in new tab
       modifiedAttrs.href = null
     }
   }
 
-  if (props.disabled !== undefined && props.disabled !== false) {
+  if (disabled !== undefined && disabled !== false) {
     return modifiedAttrs
   }
 
@@ -143,7 +105,7 @@ const stop = (event: Event) => {
 }
 
 const listeners = computed(() => {
-  if (!props.disabled || buttonType.value === 'button') {
+  if (!disabled || buttonType.value === 'button') {
     return {}
   }
 
