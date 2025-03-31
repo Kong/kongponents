@@ -37,51 +37,28 @@
       class="alert-dismiss-icon"
       :size="KUI_ICON_SIZE_40"
       tabindex="0"
-      @click="$emit('dismiss')"
+      @click="emit('dismiss')"
       @keydown.space.prevent
-      @keyup.enter="$emit('dismiss')"
-      @keyup.space="$emit('dismiss')"
+      @keyup.enter="emit('dismiss')"
+      @keyup.space="emit('dismiss')"
     />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { PropType } from 'vue'
-import type { AlertAppearance } from '@/types'
 import { AlertAppearances } from '@/types'
+import type { AlertProps } from '@/types'
 import { InfoIcon, CheckCircleIcon, WarningIcon, DangerIcon, CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 type AlertIcon = typeof InfoIcon // all icons are the same type so we can use any of them
 
-const props = defineProps({
-  title: {
-    type: String,
-    default: '',
-  },
-  message: {
-    type: String,
-    default: '',
-  },
-  appearance: {
-    type: String as PropType<AlertAppearance>,
-    default: 'info',
-    validator: (value: AlertAppearance): boolean => {
-      return Object.values(AlertAppearances).includes(value)
-    },
-  },
-  showIcon: {
-    type: Boolean,
-    default: false,
-  },
-  dismissible: {
-    type: Boolean,
-    default: false,
-  },
-})
+const props = defineProps<AlertProps>()
 
-defineEmits(['dismiss'])
+const emit = defineEmits<{
+  dismiss: []
+}>()
 
 const getAlertIcon = computed((): AlertIcon => {
   switch (props.appearance) {
