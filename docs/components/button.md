@@ -63,8 +63,10 @@ KButton comes in `small`, `medium`, and `large` sizes. Defaults to `medium`.
 
 KButton can render either a `<a>` or `<router-link>` by simply passing the `to` prop. If it receives an object it will render a router link. If it receives a string it will render an HTML anchor tag
 
-<KButton :to="{path: '/'}" appearance="tertiary">Router Link!</KButton>
-<KButton to="https://konghq.com/" appearance="tertiary">Anchor Link!</KButton>
+<div class="spacing-container">
+  <KButton :to="{path: '/'}" appearance="tertiary">Router Link!</KButton>
+  <KButton to="https://konghq.com/" appearance="tertiary">Anchor Link!</KButton>
+</div>
 
 ```html
 <KButton :to="{path: '/'}" appearance="tertiary">Router Link!</KButton>
@@ -85,16 +87,34 @@ Optional boolean flag that you can use when the only content you are passing to 
 </KButton>
 ```
 
-### Disabled HTML Attribute
+### HTML Attributes
 
-KButton also supports the disabled attribute with both Button and Anchor types.
+#### disabled
 
-<KButton appearance="danger" disabled>Disabled Danger</KButton>
-<KButton to="https://konghq.com/" appearance="tertiary" disabled>Disabled Native Anchor Link</KButton>
+KButton also supports the `disabled` attribute with both Button and Anchor types.
+
+<div class="spacing-container">
+  <KButton appearance="danger" disabled>Disabled Danger</KButton>
+  <KButton to="https://konghq.com/" appearance="tertiary" disabled>Disabled Native Anchor Link</KButton>
+</div>
 
 ```html
 <KButton appearance="danger" disabled>Disabled Danger</KButton>
 <KButton to="https://konghq.com/" appearance="tertiary" disabled>Disabled Native Anchor Link</KButton>
+```
+
+#### type
+
+KButton supports the `type` attribute, which can be set to `button`, `submit`, or `reset`. Unlike native buttons, KButton defaults to `button` type.
+
+<div class="spacing-container">
+  <KButton>Normal Button</KButton>
+  <KButton type="submit">Submit Button</KButton>
+</div>
+
+```html
+<KButton>Normal Button</KButton>
+<KButton type="submit">Submit Button</KButton>
 ```
 
 ## Slots
@@ -202,6 +222,6 @@ const onButtonEnter = () => {
   display: flex;
   gap: $kui-space-40;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: center;
 }
 </style>

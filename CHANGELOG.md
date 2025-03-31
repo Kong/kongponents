@@ -1,3 +1,24 @@
+## [9.26.1](https://github.com/Kong/kongponents/compare/v9.26.0...v9.26.1) (2025-03-31)
+
+
+### Bug Fixes
+
+* **deps:** update all [@kong](https://github.com/kong) scoped dependencies ([#2668](https://github.com/Kong/kongponents/issues/2668)) ([551c9a2](https://github.com/Kong/kongponents/commit/551c9a2839bacfc322b350a7b35f18cd942a9a81))
+
+# [9.26.0](https://github.com/Kong/kongponents/compare/v9.25.1...v9.26.0) (2025-03-31)
+
+
+### Features
+
+* **kcodeblock:** add show-line-numbers ([#2656](https://github.com/Kong/kongponents/issues/2656)) ([be0dfe3](https://github.com/Kong/kongponents/commit/be0dfe32fb08e32fc9f4247edfad00a143577b02))
+
+## [9.25.1](https://github.com/Kong/kongponents/compare/v9.25.0...v9.25.1) (2025-03-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.22.0 ([#2667](https://github.com/Kong/kongponents/issues/2667)) ([f46b22e](https://github.com/Kong/kongponents/commit/f46b22efa9cff9311035dadf2d8c435158dcb3c8))
+
 # [9.25.0](https://github.com/Kong/kongponents/compare/v9.24.3...v9.25.0) (2025-03-24)
 
 

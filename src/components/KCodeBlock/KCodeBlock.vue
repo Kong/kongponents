@@ -178,10 +178,13 @@
         v-if="isShowingFilteredCode || hasRenderedFilteredCode"
         v-show="isShowingFilteredCode"
         class="filtered-code-block"
+        :class="{
+          'show-line-numbers': showLineNumbers,
+        }"
         data-testid="filtered-code-block"
       >
         <Virtualizer
-          v-if="!singleLine"
+          v-if="showLineNumbers && !singleLine"
           v-slot="{ item: line }"
           v-bind="getVirtualizerProps(true)"
         >
@@ -202,12 +205,13 @@
         v-show="!isShowingFilteredCode"
         class="highlighted-code-block"
         :class="{
+          'show-line-numbers': showLineNumbers,
           'single-line': singleLine
         }"
         data-testid="highlighted-code-block"
       >
         <Virtualizer
-          v-if="!singleLine"
+          v-if="showLineNumbers && !singleLine"
           ref="codeBlockLineNumbers"
           v-slot="{ item: line }"
           v-bind="getVirtualizerProps(false)"
@@ -359,6 +363,15 @@ const props = defineProps({
    * Controls whether to show a copy button. It copies the original code (i.e. the value of `props.code`) to the clipboard. **Default: `true`**.
    */
   showCopyButton: {
+    type: Boolean,
+    required: false,
+    default: true,
+  },
+
+  /**
+   * Controls whether to show line numbers. **Default: `true`**.
+   */
+  showLineNumbers: {
     type: Boolean,
     required: false,
     default: true,
@@ -899,7 +912,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       overflow: visible;
       position: relative;
 
-      &:not(.single-line) {
+      &.show-line-numbers:not(.single-line) {
         display: flex;
         padding-left: calc(v-bind('maxLineNumberWidth') + var(--kui-space-60, $kui-space-60));
       }
