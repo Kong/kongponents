@@ -7,7 +7,7 @@ export type ButtonAppearanceRecord = Record<Replace<ButtonAppearance, '-', ''>, 
 export type ButtonSize = 'large' | 'medium' | 'small'
 export type ButtonSizeRecord = Record<ButtonSize, ButtonSize>
 
-export type ButtonProps = {
+export interface ButtonProps {
   /**
    * Base styling of the button
    * One of ['primary', 'secondary', 'tertiary', 'danger', 'none']
@@ -45,6 +45,19 @@ export type ButtonProps = {
    * @default false
    */
   icon?: boolean
+}
+
+export interface ButtonSlots {
+  /**
+   * Slot for rendering an icon before the text or without the text.
+   * @deprecated
+   */
+  icon?(): any
+
+  /**
+   * Slot for button text or other content such as an icon.
+   */
+  default(): any
 }
 
 export const ButtonAppearances: ButtonAppearanceRecord = {
