@@ -1,3 +1,10 @@
+# [9.26.0](https://github.com/Kong/kongponents/compare/v9.25.1...v9.26.0) (2025-03-31)
+
+
+### Features
+
+* **kcodeblock:** add show-line-numbers ([#2656](https://github.com/Kong/kongponents/issues/2656)) ([be0dfe3](https://github.com/Kong/kongponents/commit/be0dfe32fb08e32fc9f4247edfad00a143577b02))
+
 ## [9.25.1](https://github.com/Kong/kongponents/compare/v9.25.0...v9.25.1) (2025-03-27)
 
 
