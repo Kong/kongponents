@@ -15,8 +15,8 @@ importers:
         specifier: ^1.1.6
         version: 1.1.6(vue@3.5.13(typescript@5.6.3))
       '@kong/icons':
-        specifier: ^1.22.0
-        version: 1.22.0(vue@3.5.13(typescript@5.6.3))
+        specifier: ^1.22.1
+        version: 1.22.1(vue@3.5.13(typescript@5.6.3))
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
@@ -76,8 +76,8 @@ importers:
         specifier: ^2.1.67
         version: 2.1.67(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.9)(vue-router@4.4.5(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))
       '@kong/design-tokens':
-        specifier: ^1.17.3
-        version: 1.17.3
+        specifier: ^1.17.4
+        version: 1.17.4
       '@kong/eslint-config-kong-ui':
         specifier: ^1.2.6
         version: 1.2.6(eslint@9.22.0(jiti@1.21.6))(typescript@5.6.3)
@@ -1058,9 +1058,9 @@ packages:
       '@kong/kongponents': ^9.25.0
       vue: '>= 3.3.13 < 4'
 
-  '@kong/design-tokens@1.17.3':
-    resolution: {integrity: sha512-se5r7q4Oam6mTQNRAIpZIuY4MGzIBRutGMVmjBe26UpXuQb/KwzkTZjhwDbBmavfKgU+HXHJka51cuH9D67oFw==}
-    engines: {node: '>=20.18.2', pnpm: '>=9.15.2'}
+  '@kong/design-tokens@1.17.4':
+    resolution: {integrity: sha512-3BrKJvwlQ27jrVQIE+cJ9baTVz6cvxO5f7vw0UWOiXz/E23z5ZOGDpUMiyK7q3Jks9t3x8OsMx3BKPRu87TPnw==}
+    engines: {node: '>=20.18.3', pnpm: '>=9.14.4 || >=10.1.0'}
 
   '@kong/eslint-config-kong-ui@1.2.6':
     resolution: {integrity: sha512-4B9kpwWEqsZiYlR4l3n7FkncMSXdDGFxtAZNLSBsAqszcSvE48Ydsos+1F9OLDlDc1M255pWy3WLi53xwze+kg==}
@@ -1068,8 +1068,8 @@ packages:
     peerDependencies:
       eslint: '>= 9.18.0'
 
-  '@kong/icons@1.22.0':
-    resolution: {integrity: sha512-xszo3EtcCEwUYiOY2g0hSj6sDq7NKTzt/hjnVOfkk7Ukok4po3jvkPfXsLgJA5Od+UT9HlHHm5rOSU6xi/zMTQ==}
+  '@kong/icons@1.22.1':
+    resolution: {integrity: sha512-dMFV5enSSy1UwHmwzn5qQ0dn3aDbtiQzFKMQZTQToxPZyvNRRc/MANZLtxj8P+qxaB0T8hjz2L3k5pEvUivoRQ==}
     engines: {node: '>=18.17.0', pnpm: '>=9.14.4 || >=10.1.0'}
     peerDependencies:
       vue: '>= 3.3.4 < 4'
@@ -6304,11 +6304,11 @@ snapshots:
 
   '@kong-ui-public/sandbox-layout@2.1.67(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.9)(vue-router@4.4.5(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))':
     dependencies:
-      '@kong/icons': 1.22.0(vue@3.5.13(typescript@5.6.3))
+      '@kong/icons': 1.22.1(vue@3.5.13(typescript@5.6.3))
       '@kong/kongponents': 9.0.0-pr.2229.901d3f4d.0(axios@1.7.9)(vue-router@4.4.5(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))
       vue: 3.5.13(typescript@5.6.3)
 
-  '@kong/design-tokens@1.17.3': {}
+  '@kong/design-tokens@1.17.4': {}
 
   '@kong/eslint-config-kong-ui@1.2.6(eslint@9.22.0(jiti@1.21.6))(typescript@5.6.3)':
     dependencies:
@@ -6331,14 +6331,14 @@ snapshots:
       - supports-color
       - typescript
 
-  '@kong/icons@1.22.0(vue@3.5.13(typescript@5.6.3))':
+  '@kong/icons@1.22.1(vue@3.5.13(typescript@5.6.3))':
     dependencies:
       vue: 3.5.13(typescript@5.6.3)
 
   '@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.9)(vue-router@4.4.5(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))':
     dependencies:
       '@floating-ui/vue': 1.1.6(vue@3.5.13(typescript@5.6.3))
-      '@kong/icons': 1.22.0(vue@3.5.13(typescript@5.6.3))
+      '@kong/icons': 1.22.1(vue@3.5.13(typescript@5.6.3))
       '@popperjs/core': 2.11.8
       axios: 1.7.9
       date-fns: 2.30.0
