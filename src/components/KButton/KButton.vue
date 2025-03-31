@@ -2,7 +2,7 @@
   <component
     :is="buttonType"
     class="k-button"
-    :class="[buttonSize, buttonAppearance, { 'icon-button': icon === true || (!$slots.default && $slots.icon /* TODO: remove this once we remove icon slot */) }]"
+    :class="[buttonSize, buttonAppearance, { 'icon-button': icon === true || (!slots.default && slots.icon /* TODO: remove this once we remove icon slot */) }]"
     :disabled="disabled ? disabled : undefined"
     :tabindex="disabled && buttonType !== 'button' ? '-1' : undefined"
     :type="type"
@@ -17,9 +17,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, useAttrs, useSlots, watch } from 'vue'
+import { computed, onMounted, useAttrs, watch } from 'vue'
 import { ButtonAppearances } from '@/types'
-import type { ButtonAppearance, ButtonProps, ButtonSize } from '@/types'
+import type { ButtonAppearance, ButtonProps, ButtonSize, ButtonSlots } from '@/types'
 
 const {
   appearance = 'primary',
@@ -37,7 +37,7 @@ watch(() => icon, (value) => {
   }
 }, { immediate: true })
 
-const slots = useSlots()
+const slots = defineSlots<ButtonSlots>()
 const attrs = useAttrs()
 
 const buttonType = computed((): string => {
