@@ -248,6 +248,12 @@ describe('KCodeBlock', () => {
     cy.get('.matched-term').should('have.length', 2)
   })
 
+  it('can hide line numbers', () => {
+    renderComponent({ id: 'code-block', showLineNumbers: false })
+
+    cy.get('.line-number-rows').should('not.exist')
+  })
+
   it('shows line number links', () => {
     const id = 'code-block'
     renderComponent({ id, searchable: true, query: 'key', showLineNumberLinks: true })
