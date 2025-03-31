@@ -54,12 +54,18 @@ import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 type AlertIcon = typeof InfoIcon // all icons are the same type so we can use any of them
 
-const props = defineProps<AlertProps>()
+const {
+  title = '',
+  message = '',
+  appearance = AlertAppearances.info,
+  showIcon,
+  dismissible,
+} = defineProps<AlertProps>()
 const emit = defineEmits<AlertEmits>()
 defineSlots<AlertSlots>()
 
 const getAlertIcon = computed((): AlertIcon => {
-  switch (props.appearance) {
+  switch (appearance) {
     case AlertAppearances.info:
       return InfoIcon
     case AlertAppearances.success:
