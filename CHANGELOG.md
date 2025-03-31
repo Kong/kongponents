@@ -1,3 +1,10 @@
+## [9.26.1](https://github.com/Kong/kongponents/compare/v9.26.0...v9.26.1) (2025-03-31)
+
+
+### Bug Fixes
+
+* **deps:** update all [@kong](https://github.com/kong) scoped dependencies ([#2668](https://github.com/Kong/kongponents/issues/2668)) ([551c9a2](https://github.com/Kong/kongponents/commit/551c9a2839bacfc322b350a7b35f18cd942a9a81))
+
 # [9.26.0](https://github.com/Kong/kongponents/compare/v9.25.1...v9.26.0) (2025-03-31)
 
 
