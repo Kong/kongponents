@@ -117,7 +117,7 @@
     "sass": "^1.80.7",
     "semantic-release": "^24.2.3",
     "shiki": "^3.1.0",
-    "shx": "^0.3.4",
+    "shx": "^0.4.0",
     "stylelint": "^16.9.0",
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-recommended-scss": "^14.1.0",
