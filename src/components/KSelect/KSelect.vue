@@ -562,7 +562,7 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>): void => {
   }
 
   if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp') && isToggled.value) {
-    selectItemsRef.value?.setFocus()
+    selectItemsRef.value?.setFocus(evt.code === 'ArrowDown' ? 'down' : 'up')
   }
 }
 
@@ -732,7 +732,7 @@ onMounted(() => {
       if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
         event.preventDefault()
 
-        selectItemsRef.value?.setFocus()
+        selectItemsRef.value?.setFocus(event.code === 'ArrowDown' ? 'down' : 'up')
       }
     }
   })

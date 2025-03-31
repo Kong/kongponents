@@ -103,9 +103,13 @@ const getGroupItems = (group: string) => props.items?.filter(item => item.group 
 
 const itemsContainerRef = useTemplateRef('itemsContainer')
 
-const setItemFocus = (): void => {
+const setItemFocus = (direction: 'down' | 'up'): void => {
+  let startingItem: HTMLButtonElement | undefined
   const firstSelectableItem = itemsContainerRef.value?.querySelector<HTMLButtonElement>('.multiselect-item button:not(:disabled)')
-  firstSelectableItem?.focus()
+  const lastSelectableItem = itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>('.multiselect-item button:not(:disabled)')[itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>('.multiselect-item button:not(:disabled)')?.length - 1]
+
+  startingItem = direction === 'down' ? (firstSelectableItem || undefined) : (lastSelectableItem || undefined)
+  startingItem?.focus()
 }
 
 const onKeyPress = ({ target, key } : KeyboardEvent) => {
