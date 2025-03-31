@@ -52,12 +52,12 @@ export interface ButtonSlots {
    * Slot for rendering an icon before the text or without the text.
    * @deprecated
    */
-  icon?: () => any
+  icon?(): any
 
   /**
    * Slot for button text or other content such as an icon.
    */
-  default: () => any
+  default(): any
 }
 
 export const ButtonAppearances: ButtonAppearanceRecord = {
