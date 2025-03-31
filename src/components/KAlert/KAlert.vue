@@ -48,17 +48,15 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { AlertAppearances } from '@/types'
-import type { AlertProps } from '@/types'
+import type { AlertEmits, AlertProps , AlertSlots } from '@/types'
 import { InfoIcon, CheckCircleIcon, WarningIcon, DangerIcon, CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 type AlertIcon = typeof InfoIcon // all icons are the same type so we can use any of them
 
 const props = defineProps<AlertProps>()
-
-const emit = defineEmits<{
-  dismiss: []
-}>()
+const emit = defineEmits<AlertEmits>()
+defineSlots<AlertSlots>()
 
 const getAlertIcon = computed((): AlertIcon => {
   switch (props.appearance) {
