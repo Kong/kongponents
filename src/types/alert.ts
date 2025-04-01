@@ -10,30 +10,30 @@ export const AlertAppearances: AlertAppearanceRecord = {
 
 export interface AlertProps {
   /**
-   * The title of the alert
+   * The title of the alert.
    */
   title?: string
 
   /**
-   * The message of the alert
+   * The message of the alert.
    */
   message?: string
 
   /**
-   * Base styling of the alert
-   * One of ['info', 'success', 'danger', 'warning']
+   * Base styling of the alert.
+   * One of ['info', 'success', 'danger', 'warning'].
    * @default 'info'
    */
   appearance?: AlertAppearance
 
   /**
-   * When true, shows an icon
+   * When true, shows an icon.
    * @default false
    */
   showIcon?: boolean
 
   /**
-   * When true, shows a close button
+   * When true, shows a close button.
    * @default false
    */
   dismissible?: boolean
