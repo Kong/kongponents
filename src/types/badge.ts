@@ -25,3 +25,34 @@ export const BadgeAppearances: BadgeAppearanceRecord = {
   neutral: 'neutral',
   ...BadgeMethodAppearances,
 } as const
+
+export interface BadgeProps {
+  /**
+   * Base style of the badge.
+   * One of ['info', 'success', 'warning', 'danger', 'neutral', 'decorative', BadgeMethodAppearance]
+   * @default 'info'
+   */
+  appearance?: BadgeAppearance
+  /**
+   * Tooltip text that will be displayed on hover.
+   */
+  tooltip?: string
+  /**
+   * Whether tooltip should only be shown when the badge is truncated.
+   */
+  truncationTooltip?: boolean
+  /**
+   * Max width to apply truncation at
+   * Is superseded by CSS variable if both provided
+   */
+  maxWidth?: string
+  /**
+   * A boolean whether or not to show the icon before the badge text (or after).
+   */
+  iconBefore?: boolean
+}
+
+export type BadgeSlots = {
+  default?(): any
+  icon?(): any
+}

@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-badge"
-    :class="[appearance, { 'method': isMethodBadge }]"
+    :class="[appearance, { method: isMethodBadge }]"
   >
     <KTooltip :text="showTooltip ? tooltip : undefined">
       <div
@@ -24,75 +24,35 @@
   </div>
 </template>
 
-<script lang="ts">
-import type { PropType } from 'vue'
+<script setup lang="ts">
 import { ref, computed, nextTick, onMounted } from 'vue'
-import KButton from '@/components/KButton/KButton.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
-import type { BadgeAppearance } from '@/types'
-import { BadgeAppearances, BadgeMethodAppearances } from '@/types'
+import { BadgeMethodAppearances } from '@/types'
 import useUtilities from '@/composables/useUtilities'
+
+import type { BadgeProps, BadgeSlots } from '@/types'
+
+const {
+  appearance = 'info',
+  tooltip = '',
+  truncationTooltip = false,
+  maxWidth: propsMaxWidth = '200',
+  iconBefore = true,
+} = defineProps<BadgeProps>()
+
+defineSlots<BadgeSlots>()
 
 const { getSizeFromString } = useUtilities()
 
-// Must explicitly define components so KTooltip works in tests
-export default {
-  name: 'KBadge',
-  // eslint-disable-next-line vue/no-unused-components
-  components: { KButton, KTooltip },
-}
-</script>
-
-<script setup lang="ts">
-const props = defineProps({
-  appearance: {
-    type: String as PropType<BadgeAppearance>,
-    required: false,
-    default: 'info',
-    validator: (value: string): boolean => {
-      return Object.keys(BadgeAppearances).includes(value)
-    },
-  },
-  /**
-   * Tooltip text that will be displayed on hover.
-   */
-  tooltip: {
-    type: String,
-    default: '',
-  },
-  /**
-   * Whether tooltip should only be shown when the badge is truncated.
-   */
-  truncationTooltip: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Max width to apply truncation at
-   * Is superseded by CSS variable if both provided
-   */
-  maxWidth: {
-    type: String,
-    default: '200',
-  },
-  /**
-   * A boolean whether or not to show the icon before the badge text (or after).
-   */
-  iconBefore: {
-    type: Boolean,
-    default: true,
-  },
-})
-
 const isMethodBadge = computed(() => {
-  return Object.keys(BadgeMethodAppearances).includes(props.appearance)
+  return Object.keys(BadgeMethodAppearances).includes(appearance)
 })
 
 const badgeTextElement = ref<HTMLDivElement | null>()
 
 const isTruncated = ref<boolean>(false)
 
-const maxWidth = computed((): string => getSizeFromString(props.maxWidth))
+const maxWidth = computed((): string => getSizeFromString(propsMaxWidth))
 
 const setTruncation = async (): Promise<void> => {
   if (badgeTextElement.value) {
@@ -102,11 +62,11 @@ const setTruncation = async (): Promise<void> => {
 }
 
 const showTooltip = computed((): boolean => {
-  if (!props.tooltip) {
+  if (!tooltip) {
     return false
   }
 
-  if (props.truncationTooltip) {
+  if (truncationTooltip) {
     return isTruncated.value
   }
 
