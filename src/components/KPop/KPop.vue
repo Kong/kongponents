@@ -335,20 +335,19 @@ onMounted(() => {
       if (!ariaControlsElement.hasAttribute('aria-controls')) {
         ariaControlsElement.setAttribute('aria-controls', popoverId)
       }
-
-      if (props.trigger === 'hover') {
-        useEventListener(popoverTrigger.value, 'mouseenter', showPopover)
-        useEventListener(popoverTrigger.value, 'focus', showPopover)
-        useEventListener(popoverTrigger.value, 'mouseleave', hidePopover)
-        useEventListener(popoverTrigger.value, 'blur', hidePopover)
-      }
     }
 
-    if (popoverElement.value && props.trigger === 'hover') {
-      useEventListener(popoverElement.value, 'mouseenter', showPopover)
-      useEventListener(popoverElement.value, 'focusin', showPopover)
-      useEventListener(popoverElement.value, 'mouseleave', hidePopover)
-      useEventListener(popoverElement.value, 'focusout', hidePopover)
+    if (props.trigger === 'hover') {
+      [popoverElement.value, popoverTrigger.value].forEach((element) => {
+        if (!element) {
+          return
+        }
+
+        useEventListener(element, 'mouseenter', showPopover)
+        useEventListener(element, 'focusin', showPopover)
+        useEventListener(element, 'mouseleave', hidePopover)
+        useEventListener(element, 'focusout', hidePopover)
+      })
     }
   }
 })
