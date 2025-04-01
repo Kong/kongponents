@@ -43,41 +43,31 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue'
-import type { BreadcrumbItem } from '@/types'
+import type { BreadcrumbItem, BreadcrumbProps } from '@/types'
 import useUtilities from '@/composables/useUtilities'
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const { itemMaxWidth = '', items } = defineProps<BreadcrumbProps>()
 
 const { getSizeFromString } = useUtilities()
 
-defineProps({
-  items: {
-    type: Array as PropType<BreadcrumbItem[]>,
-    default: [] as BreadcrumbItem[],
-    required: true,
-    validator: (items: BreadcrumbItem[]): boolean => {
-      return items && items.length > 0
-    },
-  },
-  itemMaxWidth: {
-    type: String,
-    required: false,
-    default: '100px',
-  },
-})
-
 const getComponentAttrs = (item: BreadcrumbItem) => {
+  const title = item.title || item.text
   if (!item.to) {
     return {
       type: 'div',
       attrs: {
-        title: item.title || item.text,
+        title,
       },
     }
   } else if (typeof item.to === 'object') {
     return {
       type: 'router-link',
       attrs: {
-        title: item.title || item.text,
+        title,
         to: item.to,
       },
     }
@@ -86,19 +76,13 @@ const getComponentAttrs = (item: BreadcrumbItem) => {
       type: 'a',
       attrs: {
         href: item.to,
-        title: item.title || item.text,
+        title,
       },
     }
   }
 }
 
 const getBreadcrumbKey = (item: BreadcrumbItem, idx: number): string => item.key || `breadcrumb-${idx}`
-</script>
-
-<script lang="ts">
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <style lang="scss" scoped>

@@ -9,3 +9,8 @@ export interface BreadcrumbItem {
   key?: string
   maxWidth?: string
 }
+
+export interface BreadcrumbProps {
+  items: BreadcrumbItem[]
+  itemMaxWidth?: string
+}
