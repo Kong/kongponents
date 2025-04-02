@@ -3,6 +3,7 @@
     :is="tag"
     ref="kPopoverElement"
     class="k-popover"
+    @keydown.esc.stop="hidePopover"
   >
     <div
       ref="triggerWrapperElement"
@@ -98,6 +99,7 @@ import useUtilities from '@/composables/useUtilities'
 import { CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
 import KPopTeleportWrapper from './KPopTeleportWrapper.vue'
+import { useEventListener } from '@vueuse/core'
 
 const props = defineProps({
   buttonText: {
@@ -324,7 +326,7 @@ onMounted(() => {
   if (document) {
     // handle various click events to determine how to handle the click event in a generic clickHandler function
     // we don't set any other click event listeners on purpose to avoid conflict of event listeners
-    document?.addEventListener('click', clickHandler)
+    useEventListener(document, 'click', clickHandler)
 
     if (popoverTrigger.value) {
       // determine the element to bind aria-controls attribute to
@@ -333,43 +335,24 @@ onMounted(() => {
       if (!ariaControlsElement.hasAttribute('aria-controls')) {
         ariaControlsElement.setAttribute('aria-controls', popoverId)
       }
-
-      if (props.trigger === 'hover') {
-        popoverTrigger.value.addEventListener('mouseenter', showPopover)
-        popoverTrigger.value.addEventListener('focus', showPopover)
-        popoverTrigger.value.addEventListener('mouseleave', hidePopover)
-        popoverTrigger.value.addEventListener('blur', hidePopover)
-      }
     }
 
-    if (popoverElement.value && props.trigger === 'hover') {
-      popoverElement.value.addEventListener('mouseenter', showPopover)
-      popoverElement.value.addEventListener('focusin', showPopover)
-      popoverElement.value.addEventListener('mouseleave', hidePopover)
-      popoverElement.value.addEventListener('focusout', hidePopover)
+    if (props.trigger === 'hover') {
+      [popoverElement.value, popoverTrigger.value].forEach((element) => {
+        if (!element) {
+          return
+        }
+
+        useEventListener(element, 'mouseenter', showPopover)
+        useEventListener(element, 'focusin', showPopover)
+        useEventListener(element, 'mouseleave', hidePopover)
+        useEventListener(element, 'focusout', hidePopover)
+      })
     }
   }
 })
 
 onBeforeUnmount(() => {
-  if (document) {
-    document?.removeEventListener('click', clickHandler)
-
-    if (popoverTrigger.value && props.trigger === 'hover') {
-      popoverTrigger.value.removeEventListener('mouseenter', showPopover)
-      popoverTrigger.value.removeEventListener('focus', showPopover)
-      popoverTrigger.value.removeEventListener('mouseleave', hidePopover)
-      popoverTrigger.value.removeEventListener('blur', hidePopover)
-    }
-
-    if (popoverElement.value && props.trigger === 'hover') {
-      popoverElement.value.removeEventListener('mouseenter', showPopover)
-      popoverElement.value.removeEventListener('focusin', showPopover)
-      popoverElement.value.removeEventListener('mouseleave', hidePopover)
-      popoverElement.value.removeEventListener('focusout', hidePopover)
-    }
-  }
-
   cancelFloatingUpdates()
 })
 

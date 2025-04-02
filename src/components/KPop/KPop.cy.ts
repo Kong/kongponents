@@ -141,4 +141,20 @@ describe('KPop', () => {
     cy.get('.popover-close-button').click()
     cy.get('.popover').should('not.be.visible')
   })
+
+  it('closes popover on escape key press', () => {
+    cy.mount(KPop, {
+      props: {
+        title: 'Popover Title',
+      },
+      slots: {
+        default: () => h('div', { class: ['slottedEl'] }, 'Slotted element'),
+      },
+    })
+
+    cy.get('.slottedEl').click()
+    cy.get('.popover').should('be.visible')
+    cy.get('.popover').trigger('keydown', { key: 'Escape' })
+    cy.get('.popover').should('not.be.visible')
+  })
 })
