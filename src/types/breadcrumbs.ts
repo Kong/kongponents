@@ -12,13 +12,13 @@ export interface BreadcrumbItem {
 
 export interface BreadcrumbProps {
   /**
-   * Breadcrumb item list
+   * An array of breadcrumb items.
    * @type {BreadcrumbItem[]}
    */
   items: BreadcrumbItem[]
 
   /**
-   * The maximum width of each breadcrumb item
+   * Maximum width of each breadcrumb item for truncating to ellipsis.
    */
   itemMaxWidth?: string
 }
