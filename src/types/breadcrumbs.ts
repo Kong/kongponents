@@ -19,6 +19,7 @@ export interface BreadcrumbProps {
 
   /**
    * Maximum width of each breadcrumb item for truncating to ellipsis.
+   * @default '100px'
    */
   itemMaxWidth?: string
 }
