@@ -7,35 +7,38 @@ export enum EmptyStateIconVariants {
 
 export interface EmptyStateProps {
   /**
-   * The title of the empty state
+   * The title of the empty state.
+   * @default ''
    */
   title?: string
 
   /**
-   * The message of the empty state
+   * The message of the empty state.
+   * @default ''
    */
   message?: string
 
   /**
-   * When true, shows action button
+   * When true, shows action button.
    * @default true
    */
   actionButtonVisible?: boolean
 
   /**
-   * Text within action button
+   * Text within action button.
+   * @default ''
    */
   actionButtonText?: string
 
   /**
-   * When true, disable the action button
+   * When true, disable the action button.
    * @default false
    */
   actionButtonDisabled?: boolean
 
   /**
-   * Type of the icon in empty state
-   * One of ['default', 'error', 'search', 'kong']
+   * Type of the icon in empty state.
+   * One of ['default', 'error', 'search', 'kong'].
    * @default 'default'
    */
   iconVariant?: EmptyStateIconVariant

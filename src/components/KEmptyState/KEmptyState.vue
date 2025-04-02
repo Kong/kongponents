@@ -65,7 +65,7 @@ const {
   message = '',
   actionButtonText = '',
   actionButtonVisible = true,
-  actionButtonDisabled = false,
+  actionButtonDisabled,
   iconVariant = EmptyStateIconVariants.Default,
 } = defineProps<EmptyStateProps>()
 
