@@ -41,7 +41,7 @@
         <KButton
           :disabled="actionButtonDisabled"
           type="button"
-          @click="$emit('click-action')"
+          @click="emit('click-action')"
         >
           {{ actionButtonText }}
         </KButton>
@@ -51,46 +51,30 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, type PropType } from 'vue'
+import { computed } from 'vue'
 import { AnalyticsIcon, WarningIcon, SearchIcon, KongIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_COLOR_TEXT_WARNING, KUI_ICON_SIZE_60 } from '@kong/design-tokens'
 import KButton from '@/components/KButton/KButton.vue'
 import { EmptyStateIconVariants } from '@/types'
-import type { EmptyStateIconVariant } from '@/types'
+import type { EmptyStateProps, EmptyStateEmits, EmptyStateSlots } from '@/types'
 
 type EmptyStateIcon = typeof AnalyticsIcon // all icons are the same type so we can use any of them
 
-const props = defineProps({
-  title: {
-    type: String,
-    default: '',
-  },
-  message: {
-    type: String,
-    default: '',
-  },
-  actionButtonVisible: {
-    type: Boolean,
-    default: true,
-  },
-  actionButtonText: {
-    type: String,
-    default: '',
-  },
-  actionButtonDisabled: {
-    type: Boolean,
-    default: false,
-  },
-  iconVariant: {
-    type: String as PropType<EmptyStateIconVariant>,
-    default: EmptyStateIconVariants.Default,
-  },
-})
+const {
+  title = '',
+  message = '',
+  actionButtonText = '',
+  actionButtonVisible = true,
+  actionButtonDisabled = false,
+  iconVariant = EmptyStateIconVariants.Default,
+} = defineProps<EmptyStateProps>()
 
-defineEmits(['click-action'])
+const emit = defineEmits<EmptyStateEmits>()
+
+defineSlots<EmptyStateSlots>()
 
 const getEmptyStateIcon = computed((): EmptyStateIcon => {
-  switch (props.iconVariant) {
+  switch (iconVariant) {
     case EmptyStateIconVariants.Default:
       return AnalyticsIcon
     case EmptyStateIconVariants.Error:
@@ -105,7 +89,7 @@ const getEmptyStateIcon = computed((): EmptyStateIcon => {
 })
 
 const getIconColor = computed((): string => {
-  switch (props.iconVariant) {
+  switch (iconVariant) {
     case EmptyStateIconVariants.Error:
       return KUI_COLOR_TEXT_WARNING
     default:
