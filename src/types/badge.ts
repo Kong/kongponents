@@ -58,12 +58,12 @@ export interface BadgeProps {
 
 export type BadgeSlots = {
   /**
-   * Badge content slot.
+   * The badge content.
    */
   default?(): any
 
   /**
-   * Badge icon, where the content is rendered followed by the icon slot.
+   * Used to pass an icon or (other element) into the badge. Positioning (whether this slot content is rendered before or after the badge content) is configured with the `iconBefore` prop.
    */
   icon?(): any
 }
