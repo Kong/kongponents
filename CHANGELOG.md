@@ -1,3 +1,11 @@
+# [9.27.0](https://github.com/Kong/kongponents/compare/v9.26.2...v9.27.0) (2025-04-02)
+
+
+### Features
+
+* **kbadge:** typescript improvement for k-badge [KM-1101] ([#2675](https://github.com/Kong/kongponents/issues/2675)) ([423bf38](https://github.com/Kong/kongponents/commit/423bf388d69d9e4701d22fbfa6b645894001d38b))
+* **kbreadcrumb:** typescript improvement [KM-1102] ([#2677](https://github.com/Kong/kongponents/issues/2677)) ([f48fbc3](https://github.com/Kong/kongponents/commit/f48fbc3bd02ea9e62889281d43f375a3e199e089))
+
 ## [9.26.2](https://github.com/Kong/kongponents/compare/v9.26.1...v9.26.2) (2025-04-02)
 
 
