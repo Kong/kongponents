@@ -1,3 +1,10 @@
+## [9.26.2](https://github.com/Kong/kongponents/compare/v9.26.1...v9.26.2) (2025-04-02)
+
+
+### Bug Fixes
+
+* **kpop:** close on esc key press [KHCP-15519] ([#2662](https://github.com/Kong/kongponents/issues/2662)) ([7e5fc10](https://github.com/Kong/kongponents/commit/7e5fc107f2d591e27a61f0cb825d0bdd7a6ea323))
+
 ## [9.26.1](https://github.com/Kong/kongponents/compare/v9.26.0...v9.26.1) (2025-03-31)
 
 
