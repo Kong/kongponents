@@ -36,7 +36,7 @@ const {
   appearance = 'info',
   tooltip = '',
   truncationTooltip = false,
-  maxWidth: propsMaxWidth = '200',
+  maxWidth: maxWidthProp = '200',
   iconBefore = true,
 } = defineProps<BadgeProps>()
 
@@ -52,7 +52,7 @@ const badgeTextElement = ref<HTMLDivElement | null>()
 
 const isTruncated = ref<boolean>(false)
 
-const maxWidth = computed((): string => getSizeFromString(propsMaxWidth))
+const maxWidth = computed((): string => getSizeFromString(maxWidthProp))
 
 const setTruncation = async (): Promise<void> => {
   if (badgeTextElement.value) {
