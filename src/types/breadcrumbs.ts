@@ -11,6 +11,14 @@ export interface BreadcrumbItem {
 }
 
 export interface BreadcrumbProps {
+  /**
+   * Breadcrumb item list
+   * @type {BreadcrumbItem[]}
+   */
   items: BreadcrumbItem[]
+
+  /**
+   * The maximum width of each breadcrumb item
+   */
   itemMaxWidth?: string
 }

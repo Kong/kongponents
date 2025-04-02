@@ -50,7 +50,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const { itemMaxWidth = '', items } = defineProps<BreadcrumbProps>()
+const { itemMaxWidth = '100px', items } = defineProps<BreadcrumbProps>()
 
 const { getSizeFromString } = useUtilities()
 
