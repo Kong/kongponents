@@ -3,6 +3,7 @@ import type { HeaderTag } from './card'
 import type { ButtonProps } from './button'
 import type { EmptyStateIconVariant } from './empty-state'
 import type { SwrvStateData } from './swrv'
+import type { AxiosResponse } from 'axios'
 
 export interface CatalogPreferences {
   /** The number of items to display per page */
@@ -47,8 +48,7 @@ export interface CatalogFetcherParams {
   offset: string | null
 }
 
-export interface CatalogFetcherResponse<T extends BaseCatalogItem> {
-  data: T[]
+export interface CatalogFetcherResponse<T extends BaseCatalogItem> extends AxiosResponse<T[]> {
   total?: number
   pagination?: {
     offset?: string | null
