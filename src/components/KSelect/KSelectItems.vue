@@ -94,6 +94,9 @@ const emit = defineEmits<{
   (e: 'add-item'): void
 }>()
 
+const SELECTABLE_ITEM_SELECTOR = '.select-item button:not(:disabled)'
+const SELECTED_ITEM_SELECTOR = '.select-item[aria-selected="true"] button:not(:disabled)'
+
 const handleItemSelect = (item: SelectItem) => emit('selected', item)
 
 const nonGroupedItems = computed((): SelectItem[] => props.items?.filter(item => !item.group))
@@ -103,36 +106,31 @@ const getGroupItems = (group: string) => props.items?.filter(item => item.group 
 
 const itemsContainerRef = useTemplateRef('itemsContainer')
 
-const setItemFocus = (direction: 'down' | 'up'): void => {
-  let startingItem: HTMLButtonElement | undefined
-  const selectedItem = itemsContainerRef.value?.querySelector<HTMLButtonElement>('.select-item[aria-selected="true"] button:not(:disabled)')
-
-  if (selectedItem) {
-    const selectableItems = itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>('.select-item button:not(:disabled)')
-
-    if (selectableItems?.length) {
-      // find the current element index in the array
-      const selectedElementIndex = [...selectableItems].indexOf(selectedItem as HTMLButtonElement)
-      // move to the next or previous element
-      const nextElementIndex = direction === 'down' ? selectedElementIndex + 1 : selectedElementIndex - 1
-      const nextElement = selectableItems[nextElementIndex]
-
-      startingItem = nextElement
-    }
-  } else {
-    const firstSelectableItem = itemsContainerRef.value?.querySelector<HTMLButtonElement>('.select-item button:not(:disabled)')
-    const lastSelectableItem = itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>('.select-item button:not(:disabled)')[itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>('.select-item button:not(:disabled)')?.length - 1]
-
-    startingItem = direction === 'down' ? (firstSelectableItem || undefined) : (lastSelectableItem || undefined)
+const moveItemFocus = (direction: 'down' | 'up'): void => {
+  const container = itemsContainerRef.value
+  if (!container) {
+    return
   }
 
-  startingItem?.focus()
+  const items = container.querySelectorAll<HTMLButtonElement>(SELECTABLE_ITEM_SELECTOR)
+  if (!items?.length) {
+    return
+  }
+
+  const selectedItem = container.querySelector<HTMLButtonElement>(SELECTED_ITEM_SELECTOR)
+
+  if (selectedItem) {
+    const index = [...items].indexOf(selectedItem)
+    items[direction === 'down' ? index + 1 : index - 1]?.focus()
+  } else {
+    items[direction === 'down' ? 0 : items.length - 1]?.focus()
+  }
 }
 
 const onKeyPress = ({ target, key } : KeyboardEvent) => {
   if (key === 'ArrowDown' || key === 'ArrowUp') {
     // all selectable items
-    const selectableItems = itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>('.select-item button:not(:disabled)')
+    const selectableItems = itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>(SELECTABLE_ITEM_SELECTOR)
 
     if (selectableItems?.length) {
       // find the current element index in the array
@@ -146,7 +144,7 @@ const onKeyPress = ({ target, key } : KeyboardEvent) => {
   }
 }
 
-defineExpose({ setFocus: setItemFocus })
+defineExpose({ setFocus: moveItemFocus })
 </script>
 
 <style lang="scss" scoped>

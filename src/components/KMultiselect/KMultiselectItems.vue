@@ -94,6 +94,8 @@ const emit = defineEmits<{
   (e: 'add-item'): void
 }>()
 
+const SELECTABLE_ITEM_SELECTOR = '.multiselect-item button:not(:disabled)'
+
 const handleItemSelect = (item: MultiselectItem) => emit('selected', item)
 
 const nonGroupedItems = computed((): MultiselectItem[] => props.items?.filter(item => !item.group))
@@ -104,18 +106,20 @@ const getGroupItems = (group: string) => props.items?.filter(item => item.group 
 const itemsContainerRef = useTemplateRef('itemsContainer')
 
 const setItemFocus = (direction: 'down' | 'up'): void => {
-  let startingItem: HTMLButtonElement | undefined
-  const firstSelectableItem = itemsContainerRef.value?.querySelector<HTMLButtonElement>('.multiselect-item button:not(:disabled)')
-  const lastSelectableItem = itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>('.multiselect-item button:not(:disabled)')[itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>('.multiselect-item button:not(:disabled)')?.length - 1]
+  const container = itemsContainerRef.value
+  if (!container) {
+    return
+  }
 
-  startingItem = direction === 'down' ? (firstSelectableItem || undefined) : (lastSelectableItem || undefined)
-  startingItem?.focus()
+  const selectableItems = container.querySelectorAll<HTMLButtonElement>(SELECTABLE_ITEM_SELECTOR)
+
+  selectableItems[direction === 'down' ? 0 : selectableItems.length - 1]?.focus()
 }
 
 const onKeyPress = ({ target, key } : KeyboardEvent) => {
   if (key === 'ArrowDown' || key === 'ArrowUp') {
     // all selectable items
-    const selectableItems = itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>('.multiselect-item button:not(:disabled)')
+    const selectableItems = itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>(SELECTABLE_ITEM_SELECTOR)
 
     if (selectableItems?.length) {
       // find the current element index in the array
