@@ -28,25 +28,19 @@
   </KCard>
 </template>
 
-<script setup lang="ts">
-import type { PropType } from 'vue'
-import type { CatalogItem } from '@/types'
+<script setup lang="ts" generic="T extends BaseCatalogItem">
+import type { CatalogItemEmits, CatalogItemProps } from '@/types'
+import type { BaseCatalogItem } from '@/types'
 import KCard from '@/components/KCard/KCard.vue'
 
-defineProps({
-  item: {
-    type: Object as PropType<CatalogItem>,
-    default: () => ({}),
-  },
-  truncate: {
-    type: Boolean,
-    default: true,
-  },
-})
+const {
+  item,
+  truncate = true,
+} = defineProps<CatalogItemProps<T>>()
 
-const emit = defineEmits(['click'])
+const emit = defineEmits<CatalogItemEmits<T>>()
 
-const handleCardClick = (evt: Event, item: CatalogItem): void => {
+const handleCardClick = (evt: MouseEvent, item: T): void => {
   emit('click', {
     evt,
     item,
