@@ -561,8 +561,8 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>): void => {
     inputElem.click()
   }
 
-  if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp') && isToggled.value) {
-    selectItemsRef.value?.setFocus()
+  if ((evt.key === 'ArrowDown' || evt.key === 'ArrowUp') && isToggled.value) {
+    selectItemsRef.value?.setFocus(evt.key === 'ArrowDown' ? 'down' : 'up')
   }
 }
 
@@ -729,10 +729,10 @@ onMounted(() => {
   useEventListener(document, 'keydown', (event: any) => {
     // When enableFiltering is false, the KInput doesn't have focus so we need to handle arrow key events here
     if (!props.enableFiltering && document.activeElement?.tagName === 'BODY' && !inputFocused.value && isDropdownOpen.value) {
-      if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
         event.preventDefault()
 
-        selectItemsRef.value?.setFocus()
+        selectItemsRef.value?.setFocus(event.key === 'ArrowDown' ? 'down' : 'up')
       }
     }
   })

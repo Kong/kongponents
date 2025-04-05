@@ -897,8 +897,8 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
     isToggled.value = false
   }
 
-  if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp')) {
-    multiselectItemsRef.value?.setFocus()
+  if ((evt.key === 'ArrowDown' || evt.key === 'ArrowUp')) {
+    multiselectItemsRef.value?.setFocus(evt.key === 'ArrowDown' ? 'down' : 'up')
   }
 }
 
@@ -907,8 +907,8 @@ const onTriggerKeypress = () => {
 }
 
 const onDropdownInputKeyup = (event: any) => {
-  if ((event.code === 'ArrowDown' || event.code === 'ArrowUp')) {
-    multiselectItemsRef.value?.setFocus()
+  if ((event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
+    multiselectItemsRef.value?.setFocus(event.key === 'ArrowDown' ? 'down' : 'up')
   }
 }
 
