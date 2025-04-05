@@ -246,7 +246,7 @@ import {
   LINE_NUMBER_EXPRESSION_REGEX,
   normalizeHighlightedLines,
 } from '@/utilities/codeBlockHelpers'
-import type { CodeBlockEmits, CodeBlockEventData, CodeBlockProps, CodeBlockSlots, CommandKeywords } from '@/types'
+import type { CodeBlockProps, CodeBlockEmits, CodeBlockSlots, CodeBlockEventData, CommandKeywords } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import { CopyIcon, SearchIcon, ProgressIcon, CloseIcon, RegexIcon, FilterIcon, ArrowUpIcon, ArrowDownIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_NEUTRAL_STRONG, KUI_ICON_SIZE_30, KUI_LINE_HEIGHT_30 } from '@kong/design-tokens'
