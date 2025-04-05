@@ -231,7 +231,6 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue'
 import { computed, nextTick, normalizeClass, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
 import { Virtualizer } from 'virtua/vue'
 import { debounce } from 'lodash-es'
@@ -247,7 +246,7 @@ import {
   LINE_NUMBER_EXPRESSION_REGEX,
   normalizeHighlightedLines,
 } from '@/utilities/codeBlockHelpers'
-import type { CodeBlockEventData, CommandKeywords, Theme } from '@/types'
+import type { CodeBlockEmits, CodeBlockEventData, CodeBlockProps, CodeBlockSlots, CommandKeywords } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import { CopyIcon, SearchIcon, ProgressIcon, CloseIcon, RegexIcon, FilterIcon, ArrowUpIcon, ArrowDownIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_NEUTRAL_STRONG, KUI_ICON_SIZE_30, KUI_LINE_HEIGHT_30 } from '@kong/design-tokens'
@@ -264,198 +263,57 @@ const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Option' : 'Alt'
 // making the search feel more responsive.
 const debouncedHandleSearchInputValue = debounce(handleSearchInputValue, 150, { leading: true, trailing: true })
 
-const props = defineProps({
-  /**
-   * ID value used for form elements like the search input and its label.
-   */
-  id: {
-    type: String,
-    required: true,
-  },
+const {
+  id,
+  code,
+  language,
+  initialFilterMode,
+  initialRegExpMode,
+  searchable,
+  highlightedLineNumbers = [],
+  processing,
+  query: queryProp = '',
+  showCopyButton = true,
+  showLineNumbers = true,
+  showLineNumberLinks,
+  theme = 'light',
+  singleLine,
+  maxHeight = 'none',
+} = defineProps<CodeBlockProps>()
 
-  /**
-   * The code that will be rendered as a text node inside of a `<pre><code></code></pre>` fragment.
-   */
-  code: {
-    type: String,
-    required: true,
-  },
+// Custom validator for the `highlightedLineNumbers` prop
+watch(() => highlightedLineNumbers, (value: CodeBlockProps['highlightedLineNumbers']) => {
+  if (typeof value === 'string' && LINE_NUMBER_EXPRESSION_REGEX.test(value)) {
+    return
+  }
 
-  /**
-   * The syntax language of `props.code` (e.g. `'json'`).
-   */
-  language: {
-    type: String,
-    required: true,
-  },
-
-  /**
-   * Whether filter mode is initially active. **Default: `false`**.
-   */
-  initialFilterMode: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-
-  /**
-   * Whether regular expression mode is initially active. **Default: `false`**.
-   */
-  initialRegExpMode: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-
-  /**
-   * Shows an actions bar with a search input and related action buttons. **Default: `false`**.
-   */
-  searchable: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-
-  /**
-   * The line numbers for the lines to highlight by default. **Default: `[]`**.
-   */
-  highlightedLineNumbers: {
-    type: [String, Array] as PropType<string | (number | [number, number])[]>,
-    default: () => [],
-    validator: (value: string | (number | [number, number])[]): boolean => {
-      if (typeof value === 'string') {
-        return LINE_NUMBER_EXPRESSION_REGEX.test(value)
+  if (Array.isArray(value)) {
+    if (value.every((line) => {
+      if (Array.isArray(line)) {
+        return line.length === 2 && line.every((number) => typeof number === 'number')
       }
 
-      if (Array.isArray(value)) {
-        return value.every((line) => {
-          if (Array.isArray(line)) {
-            return line.length === 2 && line.every((number) => typeof number === 'number')
-          }
+      return typeof line === 'number'
+    })) {
+      return
+    }
+  }
 
-          return typeof line === 'number'
-        })
-      }
+  console.warn(
+    'KCodeBlock: `highlightedLineNumbers` prop should be either a properly formatted string (e.g. \'1,3-5,7\'), an array of numbers or tuples of numbers.',
+  )
+}, { immediate: true })
 
-      return false
-    },
-  },
+const emit = defineEmits<CodeBlockEmits>()
 
-  /**
-   * Allows controlling the processing state from outside the component. This allows a parent component to show the processing icon when it’s, for example, currently syntax highlighting the code. **Default: `false`**.
-   */
-  processing: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
+const slots = defineSlots<CodeBlockSlots>()
 
-  /**
-   * Used as the initial value of the search input. Can be used to initialize a code block with a query which was read from client storage. **Default: `''`**.
-   */
-  query: {
-    type: String,
-    required: false,
-    default: '',
-  },
-
-  /**
-   * Controls whether to show a copy button. It copies the original code (i.e. the value of `props.code`) to the clipboard. **Default: `true`**.
-   */
-  showCopyButton: {
-    type: Boolean,
-    required: false,
-    default: true,
-  },
-
-  /**
-   * Controls whether to show line numbers. **Default: `true`**.
-   */
-  showLineNumbers: {
-    type: Boolean,
-    required: false,
-    default: true,
-  },
-
-  /**
-   * Controls whether to add links to the current line number. **Default: `false`**.
-   */
-  showLineNumberLinks: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-
-  /**
-   * Controls the color scheme of the component. **Default: `light`**.
-   */
-  theme: {
-    type: String as PropType<Theme>,
-    required: false,
-    default: 'light',
-  },
-
-  /**
-   * Displays the code on a single line. **Default: `false`**.
-   */
-  singleLine: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-
-  /**
-   * The max-height of the code block. **Default: `none`**.
-   */
-  maxHeight: {
-    type: String,
-    required: false,
-    default: 'none',
-  },
-})
-
-const emit = defineEmits<{
-  /**
-   * Fired when the code block is rendered or re-rendered.
-   *
-   * This happens initially when mounting the component. It also happens when turning *off* filter mode (this renders a line-filtered sub set of the code and can’t be syntax highlighted after the fact). It also happens when the code changes (i.e. `props.code` is updated).
-   */
-  (event: 'code-block-render', data: CodeBlockEventData): void
-
-  /**
-   * Fired when the matching line numbers are updated in response to a search.
-   */
-  (event: 'matching-lines-change', data: CodeBlockEventData): void
-
-  /**
-   * Fired when the search query is updated.
-   */
-  (event: 'query-change', data: string): void
-
-  /**
-   * Fired when the filter mode is toggled.
-   */
-  (event: 'filter-mode-change', data: boolean): void
-
-  /**
-   * Fired when the regular expression mode is toggled.
-   */
-  (event: 'reg-exp-mode-change', data: boolean): void
-}>()
-
-const slots = defineSlots<{
-  /**
-   * Additional actions to be displayed in the code block.
-   */
-  'secondary-actions': void
-}>()
-
-const query = ref<string>(props.query)
+const query = ref<string>(queryProp)
 const isProcessingInternally = ref<boolean>(false)
-const isRegExpMode = ref<boolean>(props.initialRegExpMode)
-const isFilterMode = ref<boolean>(props.initialFilterMode)
+const isRegExpMode = ref<boolean>(initialRegExpMode)
+const isFilterMode = ref<boolean>(initialFilterMode)
 const regExpError = ref<Error | null>(null)
-const searchQuery = ref<string>(props.query)
+const searchQuery = ref<string>(queryProp)
 const numberOfMatches = ref<number>(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
@@ -472,43 +330,43 @@ const hasRenderedFilteredCode = ref<boolean>(false)
 
 // For checking if a line is highlighted in constant time.
 const matchingLineSet = computed(() => new Set(matchingLineNumbers.value))
-const totalLines = computed((): number[] => Array.from({ length: props.code?.split('\n').length }, (_, index) => index + 1))
+const totalLines = computed((): number[] => Array.from({ length: code?.split('\n').length }, (_, index) => index + 1))
 const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value.length - 1].toString().length + 'ch')
-const isProcessing = computed((): boolean => props.processing || isProcessingInternally.value)
+const isProcessing = computed((): boolean => processing || isProcessingInternally.value)
 const isShowingFilteredCode = computed((): boolean => isFilterMode.value && filteredCode.value !== '')
 
-const linePrefix = computed((): string => props.id.toLowerCase().replace(/\s+/g, '-'))
+const linePrefix = computed((): string => id.toLowerCase().replace(/\s+/g, '-'))
 function getLineId(line: number): string {
   return `${linePrefix.value}-L${line}`
 }
 
 // Cache the line offsets to avoid recalculating them on every search.
-const lineOffsets = computed(() => buildLineOffsets(props.code))
+const lineOffsets = computed(() => buildLineOffsets(code))
 
 const filteredCode = computed((): string => {
   if (searchQuery.value === '' || matchingLineNumbers.value.length === 0) {
     return ''
   }
 
-  const filtered = props.code?.split('\n')
+  const filtered = code?.split('\n')
     .filter((_, index) => matchingLineSet.value.has(index + 1))
     .join('\n')
 
   return highlightMatchingChars(filtered, searchQuery.value, isRegExpMode.value)
 })
-const showCodeBlockActions = computed((): boolean => !props.singleLine && props.searchable)
+const showCodeBlockActions = computed((): boolean => !singleLine && searchable)
 
 // The final code to be rendered in the code block, needs to be escaped so that
 // we can safely render it as `v-html`.
 const finalCode = computed(() =>
-  props.singleLine
-    ? escapeHTMLIfNeeded(props.code).replaceAll('\n', '')
-    : escapeHTMLIfNeeded(props.code),
+  singleLine
+    ? escapeHTMLIfNeeded(code).replaceAll('\n', '')
+    : escapeHTMLIfNeeded(code),
 )
 
-const maxHeightValue = computed(() => getSizeFromString(props.maxHeight))
+const maxHeightValue = computed(() => getSizeFromString(maxHeight))
 
-watch(() => props.code, async function() {
+watch(() => code, async function() {
   // Waits one Vue tick in which the code block is re-rendered. Only then does it make sense to emit the corresponding event. Otherwise, consuming components applying syntax highlighting would have to do this because if syntax highlighting is applied before re-rendering is done, re-rendering will effectively undo the syntax highlighting.
   await nextTick()
 
@@ -522,7 +380,7 @@ watch(() => isRegExpMode.value, function() {
   updateMatchingLineNumbers()
 })
 
-watch(() => props.highlightedLineNumbers, function() {
+watch(() => highlightedLineNumbers, function() {
   setDefaultMatchingLineNumbers()
 }, { immediate: true, deep: true })
 
@@ -609,7 +467,7 @@ onMounted(function() {
 
   emitCodeBlockRenderEvent()
 
-  if (!props.query && props.highlightedLineNumbers.length) {
+  if (!queryProp && highlightedLineNumbers.length) {
     setDefaultMatchingLineNumbers()
   } else {
     updateMatchingLineNumbers()
@@ -642,8 +500,8 @@ function getEventData(preElement: HTMLElement, codeElement: HTMLElement): CodeBl
   return {
     preElement,
     codeElement,
-    code: props.code,
-    language: props.language,
+    code,
+    language,
     query: query.value,
     matchingLineNumbers: matchingLineNumbers.value,
   }
@@ -669,7 +527,7 @@ function setDefaultMatchingLineNumbers(): void {
   isProcessingInternally.value = true
   regExpError.value = null
 
-  matchingLineNumbers.value = normalizeHighlightedLines(props.highlightedLineNumbers, totalLines.value.length)
+  matchingLineNumbers.value = normalizeHighlightedLines(highlightedLineNumbers, totalLines.value.length)
   numberOfMatches.value = matchingLineNumbers.value.length
 
   emitMatchingLinesChangeEvent()
@@ -686,7 +544,7 @@ function updateMatchingLineNumbers(): void {
   if (searchQuery.value.length > 0) {
     try {
       totalMatchingLineNumbers = getMatchingLineNumbers(
-        props.code.toLowerCase(),
+        code.toLowerCase(),
         searchQuery.value.toLowerCase(),
         isRegExpMode.value,
         lineOffsets.value,
@@ -771,7 +629,7 @@ function jumpToMatch(direction: number): void {
 async function copyCode(event: Event): Promise<void> {
   const button = (event.target as Element).closest('button') as HTMLButtonElement
 
-  const hasCopiedCodeSuccessfully = await copyTextToClipboard(props.code)
+  const hasCopiedCodeSuccessfully = await copyTextToClipboard(code)
 
   if (hasCopiedCodeSuccessfully) {
     button?.setAttribute('data-tooltip-text', 'Copied code!')
@@ -782,7 +640,7 @@ async function copyCode(event: Event): Promise<void> {
   }
 }
 
-const getIconColor = computed(() => props.theme === 'light' ? KUI_COLOR_TEXT_NEUTRAL_STRONG : KUI_COLOR_TEXT_INVERSE)
+const getIconColor = computed(() => theme === 'light' ? KUI_COLOR_TEXT_NEUTRAL_STRONG : KUI_COLOR_TEXT_INVERSE)
 
 type VirtualizerProps = InstanceType<typeof Virtualizer>['$props']
 
