@@ -1,3 +1,10 @@
+# [9.28.0](https://github.com/Kong/kongponents/compare/v9.27.0...v9.28.0) (2025-04-05)
+
+
+### Features
+
+* **kcard:** improve types ([#2676](https://github.com/Kong/kongponents/issues/2676)) ([6d8e3e4](https://github.com/Kong/kongponents/commit/6d8e3e41970af04442d10e9a41051fae357bcb37))
+
 # [9.27.0](https://github.com/Kong/kongponents/compare/v9.26.2...v9.27.0) (2025-04-02)
 
 
