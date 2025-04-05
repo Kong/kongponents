@@ -62,59 +62,36 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
-import { computed, useAttrs, useId, useSlots } from 'vue'
-import type { LabelAttributes } from '@/types'
+import { computed, useAttrs, useId } from 'vue'
+import type { CheckboxProps, CheckboxEmits, CheckboxSlots } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { CheckSmallIcon, IndeterminateSmallIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
-const props = defineProps({
-  modelValue: {
-    type: Boolean,
-    default: false,
-    required: true,
-  },
-  label: {
-    type: String,
-    default: '',
-  },
-  labelAttributes: {
-    type: Object as PropType<LabelAttributes>,
-    default: () => ({}),
-    validator: (value: LabelAttributes): boolean => {
-      if (value.help) {
-        console.warn('KCheckbox: `help` property of `labelAttributes` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#klabel')
-      }
-
-      return true
-    },
-  },
-  description: {
-    type: String,
-    default: '',
-  },
-  error: {
-    type: Boolean,
-    default: false,
-  },
+defineOptions({
+  inheritAttrs: false,
 })
 
-const emit = defineEmits<{
-  (e: 'change', value: boolean): void
-  (e: 'input', value: boolean): void
-  (e: 'update:modelValue', value: boolean): void
-}>()
+const {
+  modelValue,
+  label = '',
+  labelAttributes = {},
+  description = '',
+  error = false,
+} = defineProps<CheckboxProps>()
 
-const slots = useSlots()
+const emit = defineEmits<CheckboxEmits>()
+
+const slots = defineSlots<CheckboxSlots>()
+
 const attrs = useAttrs()
 
 const defaultId = useId()
 const inputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
-const hasLabel = computed((): boolean => !!(props.label || slots.default))
+const hasLabel = computed((): boolean => !!(label || slots.default))
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 
-const showDescription = computed((): boolean => hasLabel.value && (!!props.description || !!slots.description))
+const showDescription = computed((): boolean => hasLabel.value && (!!description || !!slots.description))
 const hasTooltip = computed((): boolean => !!slots.tooltip)
 
 const modifiedAttrs = computed(() => {
@@ -123,7 +100,7 @@ const modifiedAttrs = computed(() => {
   // delete classes because we bind them to the parent
   delete $attrs.class
 
-  $attrs.checked = props.modelValue
+  $attrs.checked = modelValue
 
   /**
    * Indeterminate state logic
@@ -132,7 +109,7 @@ const modifiedAttrs = computed(() => {
    * If modelValue is `true` then it's checked (`indeterminate` attribute omitted regardless of value).
    * If `indeterminate` attribute is passed (and is truthy) and modelValue is `false` then it's indeterminate (`checked` attribute omitted).
    */
-  if ($attrs.indeterminate !== undefined && String($attrs.indeterminate) !== 'false' && !props.modelValue) {
+  if ($attrs.indeterminate !== undefined && String($attrs.indeterminate) !== 'false' && !modelValue) {
     delete $attrs.checked
     $attrs.indeterminate = true
   } else {
@@ -146,7 +123,7 @@ const kCheckboxClasses = computed((): Record<string, boolean> => {
   return {
     disabled: isDisabled.value,
     'has-description': showDescription.value,
-    'input-error': props.error,
+    'input-error': error,
   }
 })
 
@@ -158,12 +135,6 @@ const handleChange = (event: Event): void => {
   emit('change', (event.target as HTMLInputElement).checked)
   emit('input', (event.target as HTMLInputElement).checked)
   emit('update:modelValue', (event.target as HTMLInputElement).checked)
-}
-</script>
-
-<script lang="ts">
-export default {
-  inheritAttrs: false,
 }
 </script>
 
