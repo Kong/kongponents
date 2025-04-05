@@ -1,3 +1,10 @@
+## [9.28.1](https://github.com/Kong/kongponents/compare/v9.28.0...v9.28.1) (2025-04-05)
+
+
+### Bug Fixes
+
+* **kselect, kmultiselect:** arrow navigation improvements [KHCP-15520] ([#2674](https://github.com/Kong/kongponents/issues/2674)) ([f6d64cb](https://github.com/Kong/kongponents/commit/f6d64cb1ee7368b65be4b89124cb65d9f2c49a42))
+
 # [9.28.0](https://github.com/Kong/kongponents/compare/v9.27.0...v9.28.0) (2025-04-05)
 
 
