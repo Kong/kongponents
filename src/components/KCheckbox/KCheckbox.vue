@@ -135,7 +135,7 @@ watch(() => labelAttributes, (newLabelAttributes) => {
   if (newLabelAttributes.help) {
     console.warn('KCheckbox: `help` property of `labelAttributes` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#klabel')
   }
-})
+}, { immediate: true })
 
 const handleChange = (event: Event): void => {
   emit('change', (event.target as HTMLInputElement).checked)
