@@ -62,6 +62,7 @@ import KClipboardProvider from '@/components/KClipboardProvider'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import type { CopyProps } from '@/types'
+import type { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 
 const {
   badgeLabel = '',
@@ -129,8 +130,8 @@ const updateTooltipText = (msg?: string): void => {
   }, 1800)
 }
 
-const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
-  if (!executeCopy(text)) {
+const copyIdToClipboard = async (executeCopy: typeof copyTextToClipboard) => {
+  if (!await executeCopy(text)) {
     updateTooltipText('Failed to copy')
 
     return
