@@ -39,17 +39,17 @@ export interface CheckboxEmits {
   /**
    * Fired on change, returns the checked status of the checkbox (boolean).
    */
-  change: [boolean]
+  change: [changed: boolean]
 
   /**
    * Fired on change, returns the checked status of the checkbox (boolean).
    */
-  input: [boolean]
+  input: [value: boolean]
 
   /**
    * Fired on change, returns the checked status of the checkbox (boolean).
    */
-  'update:modelValue': [boolean]
+  'update:modelValue': [modelValue: boolean]
 }
 
 export interface CheckboxSlots {
@@ -57,16 +57,16 @@ export interface CheckboxSlots {
    * Content passed in to the default slot will be shown as the label content.
    * The slot content takes precedence over the label prop.
    */
-  default?:() => any
+  default?(): any
 
   /**
    * Provides a slot for tooltip content displayed after the checkbox label.
    */
-  tooltip?:() => any
+  tooltip?(): any
 
   /**
    * Content passed in to the description slot will be shown as the description content.
    * The slot content takes precedence over the description prop.
    */
-  description?:() => any
+  description?(): any
 }

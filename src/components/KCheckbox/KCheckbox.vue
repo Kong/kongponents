@@ -62,7 +62,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, useAttrs, useId } from 'vue'
+import { computed, useAttrs, useId, watch } from 'vue'
 import type { CheckboxProps, CheckboxEmits, CheckboxSlots } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { CheckSmallIcon, IndeterminateSmallIcon } from '@kong/icons'
@@ -129,6 +129,12 @@ const kCheckboxClasses = computed((): Record<string, boolean> => {
 
 const isIndeterminate = computed((): boolean => {
   return modifiedAttrs.value.indeterminate !== undefined && String(modifiedAttrs.value.indeterminate) !== 'false'
+})
+
+watch(() => labelAttributes, (newLabelAttributes) => {
+  if (newLabelAttributes.help) {
+    console.warn('KCheckbox: `help` property of `labelAttributes` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#klabel')
+  }
 })
 
 const handleChange = (event: Event): void => {
