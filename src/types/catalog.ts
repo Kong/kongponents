@@ -13,7 +13,7 @@ export const CardSizeArray = ['large', 'medium', 'small'] as const
 
 export type CardSize = AnyElementOf<typeof CardSizeArray>
 
-export interface CatalogItem extends Record<string, unknown> {
+export interface CatalogItem extends Record<string, any> {
   id?: string | null
   title?: string | null
   description?: string | null
