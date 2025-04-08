@@ -181,10 +181,12 @@ export interface CatalogProps<T extends BaseCatalogItem> {
   /**
    * A prop to pass in a fetcher function to enable server-side pagination.
    */
-  fetcher: (params: CatalogFetcherParams) => Awaited<CatalogFetcherResponse<T> | undefined>
+  fetcher: (params: CatalogFetcherParams) =>
+    | Promise<CatalogFetcherResponse<T> | undefined>
+    | CatalogFetcherResponse<T> | undefined
 
   /**
-   * A prop to pass in a an object of intial params for the initial fetcher function call.
+   * A prop to pass in a an object of initial params for the initial fetcher function call.
    * @default null
    */
   initialFetcherParams?: CatalogFetcherParams | null
