@@ -13,12 +13,12 @@ export const CardSizeArray = ['large', 'medium', 'small'] as const
 
 export type CardSize = AnyElementOf<typeof CardSizeArray>
 
-export interface CatalogItem {
-  id?: string
-  title?: string
-  description?: string
+export interface CatalogItem extends Record<string, unknown> {
+  id?: string | null
+  title?: string | null
+  description?: string | null
   /** Optional parameter to be used as key in v-for, has to be unique for each item */
-  key?: string
+  key?: string | null
 }
 
 export type CatalogState = 'loading' | 'error' | 'success'
