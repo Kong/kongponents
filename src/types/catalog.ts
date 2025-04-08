@@ -13,19 +13,17 @@ export const CardSizeArray = ['large', 'medium', 'small'] as const
 
 export type CardSize = AnyElementOf<typeof CardSizeArray>
 
-export interface BaseCatalogItem {
+export interface CatalogItem {
   id?: string
-  title: string
-  description: string
+  title?: string
+  description?: string
   /** Optional parameter to be used as key in v-for, has to be unique for each item */
   key?: string
 }
 
-export type CatalogItem<T extends BaseCatalogItem = BaseCatalogItem & Record<string, any>> = T
-
 export type CatalogState = 'loading' | 'error' | 'success'
 
-export interface CatalogItemProps<T extends BaseCatalogItem> {
+export interface CatalogItemProps<T extends CatalogItem> {
   /**
    * Object instance of CatalogItem from which card content is built.
    */
@@ -38,7 +36,7 @@ export interface CatalogItemProps<T extends BaseCatalogItem> {
   truncate?: boolean
 }
 
-export interface CatalogItemEmits<T extends BaseCatalogItem> {
+export interface CatalogItemEmits<T extends CatalogItem> {
   /**
    * Fired when item is clicked. Event payload is item object.
    */
@@ -74,7 +72,7 @@ export interface CatalogFetcherParams {
   offset: string | null
 }
 
-export interface CatalogFetcherResponse<T extends BaseCatalogItem> {
+export interface CatalogFetcherResponse<T extends CatalogItem> {
   data: T[]
   total?: number
   pagination?: {
@@ -83,7 +81,7 @@ export interface CatalogFetcherResponse<T extends BaseCatalogItem> {
   }
 }
 
-export interface CatalogProps<T extends BaseCatalogItem> {
+export interface CatalogProps<T extends CatalogItem> {
   /**
    * HTML element you want title to be rendered as.
    * One of ['div', 'p', 'span', 'a', 'legend', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].
@@ -253,7 +251,7 @@ export interface CatalogProps<T extends BaseCatalogItem> {
   paginationOffset?: boolean
 }
 
-export interface CatalogEmits<T extends BaseCatalogItem> {
+export interface CatalogEmits<T extends CatalogItem> {
   /**
    * Emitted when a KCatalogItem is clicked, the payload is the clicked item's object.
    */
@@ -280,7 +278,7 @@ export interface CatalogEmits<T extends BaseCatalogItem> {
   state: [value: { state: CatalogState, hasData: boolean }]
 }
 
-export interface CatalogSlots<T extends BaseCatalogItem> {
+export interface CatalogSlots<T extends CatalogItem> {
   /**
    * The body of the card catalog, if you do not want to use KCatalogItem components for the children.
    */

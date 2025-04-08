@@ -87,7 +87,7 @@ The return value of the fetcher function should be an object with the following 
 ```ts
 // fetcher function return
 { 
-  total: number, // the total count of catalog items (if using pagination)
+  total?: number, // the total count of catalog items (if using pagination)
   data: CatalogItem[] // an array of catalog items
 }
 ```
@@ -95,8 +95,8 @@ The return value of the fetcher function should be an object with the following 
 ```ts
 interface CatalogItem {
   id?: string
-  title: string
-  description: string
+  title?: string
+  description?: string
   key?: string // optional parameter to be used as key in v-for, has to be unique for each item
 }
 ```

@@ -99,7 +99,7 @@
           :key="item.key ? item.key : `catalog-${catalogId}-item-${idx}`"
           class="catalog-item"
           :data-testid="item.id ? item.id : `catalog-item-${idx}`"
-          :item="(item as CatalogItem)"
+          :item="item"
           :truncate="truncateDescription"
           @click="emit('card-click', item)"
         >
@@ -152,13 +152,11 @@
   </div>
 </template>
 
-<script setup lang="ts" generic="T extends BaseCatalogItem">
+<script setup lang="ts" generic="T extends CatalogItem">
 import { ref, computed, onMounted, watch, useId } from 'vue'
 import type { Ref } from 'vue'
 import type {
-  CatalogItem,
   CatalogPreferences,
-  SwrvState,
   SwrvStateData,
   CatalogState,
   PageChangeData,
@@ -166,7 +164,7 @@ import type {
   CatalogProps,
   CatalogEmits,
   CatalogSlots,
-  BaseCatalogItem,
+  CatalogItem,
 } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
@@ -355,7 +353,7 @@ const { state, hasData, swrvState } = useSwrvState(fetcherData, fetcherError, fe
 const isCatalogLoading = ref<boolean>(true)
 const stateData = computed((): SwrvStateData => ({
   hasData: hasData.value,
-  state: state.value as SwrvState,
+  state: state.value,
 }))
 const catalogState = computed((): CatalogState => isCatalogLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
 

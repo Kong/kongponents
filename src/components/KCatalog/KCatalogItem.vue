@@ -28,8 +28,8 @@
   </KCard>
 </template>
 
-<script setup lang="ts" generic="T extends BaseCatalogItem">
-import type { CatalogItemProps, CatalogItemEmits, CatalogItemSlots, BaseCatalogItem } from '@/types'
+<script setup lang="ts" generic="T extends CatalogItem">
+import type { CatalogItemProps, CatalogItemEmits, CatalogItemSlots, CatalogItem } from '@/types'
 import KCard from '@/components/KCard/KCard.vue'
 
 const {
