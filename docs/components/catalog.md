@@ -476,6 +476,10 @@ The body content for the card.
 
 The footer content for the card.
 
+#### card-actions
+
+Action elements to be rendered to the right of the card title.
+
 <KCatalogItem>
   <template #card-title>
     Card Title
@@ -485,6 +489,22 @@ The footer content for the card.
   </template>
   <template #card-footer>
     <KBadge appearance="neutral">Card footer</KBadge>
+  </template>
+  <template #card-actions>
+      <KDropdown
+      :items="[
+        { label: 'Props', to: { path: '/components/catalog#props' } },
+        { label: 'Slots', to: { path: '/components/catalog#slots' } }
+      ]"
+    >
+      <KButton
+        appearance="tertiary"
+        icon
+        size="small"
+      >
+        <MoreIcon />
+      </KButton>
+    </KDropdown>
   </template>
 </KCatalogItem>
 
@@ -498,6 +518,22 @@ The footer content for the card.
   </template>
   <template #card-footer>
       <KBadge appearance="neutral">Card footer</KBadge>
+  </template>
+  <template #card-actions>
+    <KDropdown
+      :items="[
+        { label: 'Props', to: { path: '/components/catalog#props' } },
+        { label: 'Slots', to: { path: '/components/catalog#slots' } }
+      ]"
+    >
+      <KButton
+        appearance="tertiary"
+        icon
+        size="small"
+      >
+        <MoreIcon />
+      </KButton>
+    </KDropdown>
   </template>
 </KCatalogItem>
 ```

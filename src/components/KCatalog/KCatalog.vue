@@ -255,14 +255,16 @@ const catalogPreferences = computed((): CatalogPreferences => ({
 
 const isInitialFetch = ref(true)
 const fetchData = async () => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const res = await fetcher({
     query: searchInput || filterQuery.value,
     pageSize: pageSize.value,
     page: page.value,
     offset: offset.value,
   })
+
+  if (res == null) {
+    throw new Error('KCatalog: Fetcher did not return data correctly.')
+  }
 
   data.value = res.data
   total.value = paginationTotalItems || res.total || res.data?.length

@@ -2,7 +2,6 @@ import type { Ref } from 'vue'
 import { ref, computed, watchEffect } from 'vue'
 import type { IConfig } from 'swrv'
 import useSWRV from 'swrv'
-import type { AxiosResponse, AxiosError } from 'axios'
 import type { IKey, fetcherFn } from 'swrv/dist/types'
 import type { SwrvState } from '@/types'
 
@@ -17,9 +16,9 @@ const swrvState = {
 } as const satisfies Record<string, SwrvState>
 
 export default function useUtilities() {
-  const useRequest = <Data = unknown, Error = { message: string }>(
+  const useRequest = <Response = { data: unknown }, Error = { message: string }>(
     key: IKey,
-    fn?: fetcherFn<AxiosResponse<Data>>,
+    fn?: fetcherFn<Response>,
     config?: IConfig,
   ) => {
     const {
@@ -28,7 +27,7 @@ export default function useUtilities() {
       isValidating,
       isLoading,
       mutate: revalidate,
-    } = useSWRV<AxiosResponse<Data>, AxiosError<Error>>(key, fn, {
+    } = useSWRV<Response, Error>(key, fn, {
       revalidateDebounce: 500,
       dedupingInterval: 100,
       ...config,

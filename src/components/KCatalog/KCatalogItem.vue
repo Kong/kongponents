@@ -29,8 +29,7 @@
 </template>
 
 <script setup lang="ts" generic="T extends BaseCatalogItem">
-import type { CatalogItemEmits, CatalogItemProps } from '@/types'
-import type { BaseCatalogItem } from '@/types'
+import type { CatalogItemProps, CatalogItemEmits, CatalogItemSlots, BaseCatalogItem } from '@/types'
 import KCard from '@/components/KCard/KCard.vue'
 
 const {
@@ -39,6 +38,8 @@ const {
 } = defineProps<CatalogItemProps<T>>()
 
 const emit = defineEmits<CatalogItemEmits<T>>()
+
+defineSlots<CatalogItemSlots>()
 
 const handleCardClick = (evt: MouseEvent, item: T): void => {
   emit('click', {

@@ -3,7 +3,6 @@ import type { HeaderTag } from './card'
 import type { ButtonProps } from './button'
 import type { EmptyStateIconVariant } from './empty-state'
 import type { SwrvStateData } from './swrv'
-import type { AxiosResponse } from 'axios'
 
 export interface CatalogPreferences {
   /** The number of items to display per page */
@@ -26,19 +25,46 @@ export type CatalogItem<T extends BaseCatalogItem = BaseCatalogItem & Record<str
 
 export type CatalogState = 'loading' | 'error' | 'success'
 
-/**
- * @internal
- */
 export interface CatalogItemProps<T extends BaseCatalogItem> {
+  /**
+   * Object instance of CatalogItem from which card content is built.
+   */
   item: T
+
+  /**
+   * Whether or not to truncate the description text.
+   * @default true
+   */
   truncate?: boolean
 }
 
-/**
- * @internal
- */
 export interface CatalogItemEmits<T extends BaseCatalogItem> {
+  /**
+   * Fired when item is clicked. Event payload is item object.
+   */
   click: [args: { evt: MouseEvent, item: T }]
+}
+
+export interface CatalogItemSlots {
+  /**
+   * The title content for the card.
+   */
+  'card-title'?(): any
+
+  /**
+   * The body content for the card.
+   */
+  'card-body'?(): any
+
+  /**
+   * The footer content for the card.
+   */
+  'card-footer'?(): any
+
+  /**
+   * Action elements to be rendered to the right of the card title.
+   */
+  'card-actions'?(): any
 }
 
 export interface CatalogFetcherParams {
@@ -48,7 +74,8 @@ export interface CatalogFetcherParams {
   offset: string | null
 }
 
-export interface CatalogFetcherResponse<T extends BaseCatalogItem> extends AxiosResponse<T[]> {
+export interface CatalogFetcherResponse<T extends BaseCatalogItem> {
+  data: T[]
   total?: number
   pagination?: {
     offset?: string | null
@@ -154,7 +181,7 @@ export interface CatalogProps<T extends BaseCatalogItem> {
   /**
    * A prop to pass in a fetcher function to enable server-side pagination.
    */
-  fetcher: (params: CatalogFetcherParams) => Promise<CatalogFetcherResponse<T>>
+  fetcher: (params: CatalogFetcherParams) => Awaited<CatalogFetcherResponse<T> | undefined>
 
   /**
    * A prop to pass in a an object of intial params for the initial fetcher function call.
