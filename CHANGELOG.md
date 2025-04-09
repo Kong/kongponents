@@ -1,3 +1,10 @@
+## [9.28.2](https://github.com/Kong/kongponents/compare/v9.28.1...v9.28.2) (2025-04-09)
+
+
+### Bug Fixes
+
+* **kcollapse:** improve typings for kcollapse ([#2687](https://github.com/Kong/kongponents/issues/2687)) ([ca0af1a](https://github.com/Kong/kongponents/commit/ca0af1a38d93b8d558da3bd6eadfc31487d4d81f))
+
 ## [9.28.1](https://github.com/Kong/kongponents/compare/v9.28.0...v9.28.1) (2025-04-05)
 
 
