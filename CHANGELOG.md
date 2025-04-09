@@ -1,3 +1,10 @@
+## [9.28.4](https://github.com/Kong/kongponents/compare/v9.28.3...v9.28.4) (2025-04-09)
+
+
+### Bug Fixes
+
+* **ktableview:** add tooltip-target prop [KHCP-15528] ([#2688](https://github.com/Kong/kongponents/issues/2688)) ([37aeb90](https://github.com/Kong/kongponents/commit/37aeb90c9cfca4cb1bc3e687ac10f01d8d449fb7))
+
 ## [9.28.3](https://github.com/Kong/kongponents/compare/v9.28.2...v9.28.3) (2025-04-09)
 
 
