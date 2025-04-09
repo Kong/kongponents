@@ -66,10 +66,10 @@ export interface CatalogItemSlots {
 }
 
 export interface CatalogFetcherParams {
-  query?: string
-  page?: number
-  pageSize?: number
-  offset?: string | null
+  query: string
+  page: number
+  pageSize: number
+  offset: string | null
 }
 
 export interface CatalogFetcherResponse<T extends CatalogItem[] | readonly CatalogItem[]> {
