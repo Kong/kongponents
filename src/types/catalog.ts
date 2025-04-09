@@ -179,7 +179,7 @@ export interface CatalogProps<T extends CatalogItem | undefined> {
   /**
    * A prop to pass in a fetcher function to enable server-side pagination.
    */
-  fetcher: (params?: CatalogFetcherParams) =>
+  fetcher: (params: CatalogFetcherParams) =>
     | Promise<CatalogFetcherResponse<T> | undefined>
     | CatalogFetcherResponse<T> | undefined
 
