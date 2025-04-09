@@ -4,7 +4,7 @@
     :data-testid="item && item.title ? `${item.title.replace(/[^0-9a-z]/gi, '-')}-catalog-item` : 'catalog-item'"
     role="button"
     tabindex="0"
-    @click="($event: any) => handleCardClick($event, item)"
+    @click="handleCardClick"
   >
     <template #title>
       <slot name="card-title">
@@ -28,7 +28,7 @@
   </KCard>
 </template>
 
-<script setup lang="ts" generic="T extends CatalogItem">
+<script setup lang="ts" generic="T extends CatalogItem | undefined">
 import type { CatalogItemProps, CatalogItemEmits, CatalogItemSlots, CatalogItem } from '@/types'
 import KCard from '@/components/KCard/KCard.vue'
 
@@ -41,10 +41,10 @@ const emit = defineEmits<CatalogItemEmits<T>>()
 
 defineSlots<CatalogItemSlots>()
 
-const handleCardClick = (evt: MouseEvent, item: T): void => {
+const handleCardClick = (evt: MouseEvent): void => {
   emit('click', {
     evt,
-    item,
+    item: item as T extends CatalogItem ? T : undefined,
   })
 }
 </script>

@@ -23,11 +23,11 @@ export interface CatalogItem extends Record<string, any> {
 
 export type CatalogState = 'loading' | 'error' | 'success'
 
-export interface CatalogItemProps<T extends CatalogItem> {
+export interface CatalogItemProps<T extends CatalogItem | undefined> {
   /**
    * Object instance of CatalogItem from which card content is built.
    */
-  item: T
+  item?: T
 
   /**
    * Whether or not to truncate the description text.
@@ -36,11 +36,11 @@ export interface CatalogItemProps<T extends CatalogItem> {
   truncate?: boolean
 }
 
-export interface CatalogItemEmits<T extends CatalogItem> {
+export interface CatalogItemEmits<T extends CatalogItem | undefined> {
   /**
    * Fired when item is clicked. Event payload is item object.
    */
-  click: [args: { evt: MouseEvent, item: T }]
+  click: [args: { evt: MouseEvent, item: T extends CatalogItem ? T : undefined }]
 }
 
 export interface CatalogItemSlots {
@@ -66,13 +66,13 @@ export interface CatalogItemSlots {
 }
 
 export interface CatalogFetcherParams {
-  query: string
-  page: number
-  pageSize: number
-  offset: string | null
+  query?: string
+  page?: number
+  pageSize?: number
+  offset?: string | null
 }
 
-export interface CatalogFetcherResponse<T extends CatalogItem> {
+export interface CatalogFetcherResponse<T extends CatalogItem | undefined> {
   data: T[]
   total?: number
   pagination?: {
@@ -81,7 +81,7 @@ export interface CatalogFetcherResponse<T extends CatalogItem> {
   }
 }
 
-export interface CatalogProps<T extends CatalogItem> {
+export interface CatalogProps<T extends CatalogItem | undefined> {
   /**
    * HTML element you want title to be rendered as.
    * One of ['div', 'p', 'span', 'a', 'legend', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].
@@ -179,7 +179,7 @@ export interface CatalogProps<T extends CatalogItem> {
   /**
    * A prop to pass in a fetcher function to enable server-side pagination.
    */
-  fetcher: (params: CatalogFetcherParams) =>
+  fetcher: (params?: CatalogFetcherParams) =>
     | Promise<CatalogFetcherResponse<T> | undefined>
     | CatalogFetcherResponse<T> | undefined
 
@@ -251,7 +251,7 @@ export interface CatalogProps<T extends CatalogItem> {
   paginationOffset?: boolean
 }
 
-export interface CatalogEmits<T extends CatalogItem> {
+export interface CatalogEmits<T extends CatalogItem | undefined> {
   /**
    * Emitted when a KCatalogItem is clicked, the payload is the clicked item's object.
    */
@@ -278,7 +278,7 @@ export interface CatalogEmits<T extends CatalogItem> {
   state: [value: { state: CatalogState, hasData: boolean }]
 }
 
-export interface CatalogSlots<T extends CatalogItem> {
+export interface CatalogSlots<T extends CatalogItem | undefined> {
   /**
    * The body of the card catalog, if you do not want to use KCatalogItem components for the children.
    */
