@@ -152,9 +152,8 @@
   </div>
 </template>
 
-<script setup lang="ts" generic="T extends CatalogItem">
-import { ref, computed, onMounted, watch, useId } from 'vue'
-import type { Ref } from 'vue'
+<script setup lang="ts" generic="T extends CatalogItem[] | readonly CatalogItem[]">
+import { ref, computed, onMounted, watch, useId, type Ref } from 'vue'
 import type {
   CatalogPreferences,
   SwrvStateData,
@@ -220,8 +219,8 @@ const getInitialPageSize = (): number => {
   return DEFAULT_PAGE_SIZE
 }
 
-// Cannot use `const data = ref<T[]>([])` as the items will be inferred as `UnwrapRefSimple<T>` instead of `T[]`.
-const data: Ref<T[]> = ref([])
+// Cannot use `const data = ref<T[]>([])` as the items will be inferred incorrectly inside the template.
+const data = ref([] as unknown as T) as Ref<T>
 const total = ref<number>(0)
 const filterQuery = ref<string>('')
 const page = ref<number>(1)

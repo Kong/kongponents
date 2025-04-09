@@ -72,8 +72,8 @@ export interface CatalogFetcherParams {
   offset?: string | null
 }
 
-export interface CatalogFetcherResponse<T extends CatalogItem | undefined> {
-  data: T[]
+export interface CatalogFetcherResponse<T extends CatalogItem[] | readonly CatalogItem[]> {
+  data: T
   total?: number
   pagination?: {
     offset?: string | null
@@ -81,7 +81,7 @@ export interface CatalogFetcherResponse<T extends CatalogItem | undefined> {
   }
 }
 
-export interface CatalogProps<T extends CatalogItem | undefined> {
+export interface CatalogProps<T extends CatalogItem[] | readonly CatalogItem[]> {
   /**
    * HTML element you want title to be rendered as.
    * One of ['div', 'p', 'span', 'a', 'legend', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].
@@ -251,11 +251,11 @@ export interface CatalogProps<T extends CatalogItem | undefined> {
   paginationOffset?: boolean
 }
 
-export interface CatalogEmits<T extends CatalogItem | undefined> {
+export interface CatalogEmits<T extends CatalogItem[] | readonly CatalogItem[]> {
   /**
    * Emitted when a KCatalogItem is clicked, the payload is the clicked item's object.
    */
-  'card-click': [item: T]
+  'card-click': [item: T[number]]
 
   /**
    * Emitted when error state action button is clicked.
@@ -278,26 +278,26 @@ export interface CatalogEmits<T extends CatalogItem | undefined> {
   state: [value: { state: CatalogState, hasData: boolean }]
 }
 
-export interface CatalogSlots<T extends CatalogItem | undefined> {
+export interface CatalogSlots<T extends CatalogItem[] | readonly CatalogItem[]> {
   /**
    * The body of the card catalog, if you do not want to use KCatalogItem components for the children.
    */
-  body?(props: { data: T[] }): any
+  body?(props: { data: T }): any
 
   /**
    * Will slot the card title for each entry.
    */
-  'card-title'?(props: { item: T }): any
+  'card-title'?(props: { item: T[number] }): any
 
   /**
    * Slot the card actions for each entry.
    */
-  'card-actions'?(props: { item: T }): any
+  'card-actions'?(props: { item: T[number] }): any
 
   /**
    * Will slot the card body for each entry.
    */
-  'card-body'?(props: { item: T }): any
+  'card-body'?(props: { item: T[number] }): any
 
   /**
    * Will slot catalog controls rendered at the top of the .k-catalog element such as a search input or other UI elements.
