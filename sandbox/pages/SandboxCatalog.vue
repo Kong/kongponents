@@ -127,8 +127,6 @@
           </template>
         </KCatalog>
       </SandboxSectionComponent>
-
-      <KCatalogItem @click="$event => console.log($event)" />
     </div>
   </SandboxLayout>
 </template>
