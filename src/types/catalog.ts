@@ -187,7 +187,7 @@ export interface CatalogProps<T extends CatalogItem[] | readonly CatalogItem[]> 
    * A prop to pass in a an object of initial params for the initial fetcher function call.
    * @default null
    */
-  initialFetcherParams?: CatalogFetcherParams | null
+  initialFetcherParams?: Partial<CatalogFetcherParams> | null
 
   /**
    * A prop used to uniquely identify this catalog in the swrv cache.
