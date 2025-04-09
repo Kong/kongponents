@@ -1,3 +1,11 @@
+## [9.28.3](https://github.com/Kong/kongponents/compare/v9.28.2...v9.28.3) (2025-04-09)
+
+
+### Bug Fixes
+
+* **kcheckbox:** typescript improvement for kcheckbox ([#2683](https://github.com/Kong/kongponents/issues/2683)) ([1563613](https://github.com/Kong/kongponents/commit/1563613f362a7d49b521f9f6ad7180e812111579))
+* **kcodeblock:** improve typing for kcodeblock ([#2684](https://github.com/Kong/kongponents/issues/2684)) ([e2dd8f3](https://github.com/Kong/kongponents/commit/e2dd8f39ce6b932f587c62a230fdbd2415fc4c85))
+
 ## [9.28.2](https://github.com/Kong/kongponents/compare/v9.28.1...v9.28.2) (2025-04-09)
 
 
