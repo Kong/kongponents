@@ -136,7 +136,6 @@ import { inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { KongIcon } from '@kong/icons'
-import { KCatalogItem } from '@/components'
 
 const fetcher = async (): Promise<any> => {
   // Fake delay
