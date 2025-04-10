@@ -135,8 +135,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
-import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { computed, onMounted, reactive, ref, watch, type CSSProperties } from 'vue'
 import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 import { DatePicker } from 'v-calendar'
@@ -144,141 +143,36 @@ import KButton from '@/components/KButton/KButton.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.vue'
 import 'v-calendar/dist/style.css'
-import { ModeArray, ModeArrayCustom, ModeArrayRelative, ModeDateOnly, TimepickerMode, PopPlacementsArray } from '@/types'
-import type { DateTimePickerState, TimeFrameSection, TimePeriod, TimeRange, Mode, CSSProperties, DatePickerModel, ButtonAppearance, PopPlacements } from '@/types'
+import { ModeArrayCustom, ModeArrayRelative, ModeDateOnly, DateTimePickerMode } from '@/types'
+import type { DateTimePickerState, TimePeriod, TimeRange, DatePickerModel, ButtonAppearance, DateTimePickerEmits, DateTimePickerProps } from '@/types'
 import { CalIcon } from '@kong/icons'
 import useUtilities from '@/composables/useUtilities'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 const { getSizeFromString } = useUtilities()
 
-const props = defineProps({
-  clearButton: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  icon: {
-    type: Boolean,
-    required: false,
-    default: true,
-  },
-  modelValue: {
-    type: Object as PropType<TimeRange>,
-    required: false,
-    default: () => ({ start: null, end: null }),
-    validator: (value: TimeRange): boolean => {
-      return value instanceof Date || (value.start !== undefined && value.end !== undefined)
-    },
-  },
-  /**
-   * Upper bound for `v-calendar` dates, everything after this date will be disabled
-   */
-  maxDate: {
-    type: Date,
-    required: false,
-    default: null,
-  },
-  /**
-   * Lower bound for `v-calendar` dates, everything preceding this date will be disabled
-   */
-  minDate: {
-    type: Date,
-    required: false,
-    default: null,
-  },
-  /**
-   * Determines which `v-calendar` type to initialize.
-   * - { `date`, `time`, `dateTime` } are passed verbatim to `v-calendar`,
-   * - `relative` denotes a component instance made up solely of time frames
-   * - `relativeDate` relative time frames + date calendar
-   * - `relativeDateTime` relative time frames + datetime calendar
-   */
-  mode: {
-    type: String as PropType<Mode>,
-    required: true,
-    validator: (value: Mode): boolean => {
-      return Object.values(ModeArray).includes(value)
-    },
-  },
-  /**
-   * Help text displayed as the default mesage inside the input field.
-   * When "Clear" is clicked, the input will revert to displaying this.
-   */
-  placeholder: {
-    type: String,
-    required: false,
-    default: 'Select a time range',
-  },
-  /**
-   * Determines whether the `v-calendar` will allow a single date/time,
-   * or a range of dates/times.
-   */
-  range: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  /**
-   * A custom set of time frames to be displayed as selectable buttons.
-   * The `timeframeLength`, `start`, and `end` values are passed in as functions,
-   * allowing for on-the-fly date boundary creation.
-   */
-  timePeriods: {
-    type: Array as PropType<TimeFrameSection[]>,
-    required: false,
-    default: () => [],
-    validator: (sectionsArray: TimeFrameSection[]): boolean => {
-      return sectionsArray.every((item: TimeFrameSection) => {
-        return Array.isArray(item.values) && item.values.every((timeframe: TimePeriod) => {
-          // Check validity of each timeframe
-          return typeof timeframe.timeframeText === 'string' &&
-            timeframe.timeframeLength !== undefined &&
-            typeof timeframe.key === 'string' &&
-            timeframe.key !== undefined &&
-            typeof timeframe.display === 'string' &&
-            timeframe.display !== undefined &&
-            timeframe.start !== undefined &&
-            timeframe.end !== undefined
-        })
-      })
-    },
-  },
-  /**
-   * Sets the input field to a fixed width
-   */
-  width: {
-    type: String,
-    required: false,
-    default: '100%',
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Define which side the popover displays
-   */
-  popoverPlacement: {
-    type: String as PropType<PopPlacements>,
-    default: 'bottom-start',
-    validator: (value: PopPlacements):boolean => {
-      return PopPlacementsArray.includes(value)
-    },
-  },
-})
+const {
+  clearButton,
+  icon = true,
+  modelValue = { start: null, end: null },
+  maxDate = null,
+  minDate = null,
+  mode,
+  placeholder = 'Select a time range',
+  range = [],
+  timePeriods = [],
+  width = '100%',
+  disabled,
+  popoverPlacement = 'bottom-start',
+} = defineProps<DateTimePickerProps>()
 
-const emit = defineEmits<{
-  (e: 'change', value: TimeRange | null): void
-  (e: 'update:modelValue', value: TimeRange | null): void
-}>()
+const emit = defineEmits<DateTimePickerEmits>()
 
 const kPop = ref<InstanceType<typeof KPop> | null>(null)
 
 // https://vcalendar.io/datepicker.html#model-config
 const modelConfig = { type: 'number' }
 
-// TODO: Resolve type issues in a cleaner fashion
 const calendarSelectAttributes = {
   key: 'select-calendar',
   highlight: {
@@ -286,9 +180,8 @@ const calendarSelectAttributes = {
     base: { contentClass: 'vcal-day-base' },
     end: { contentClass: 'vcal-day-end' },
   },
-} as any
+}
 
-// TODO: Resolve type issues in a cleaner fashion
 const calendarDragAttributes = {
   key: 'select-drag',
   highlight: {
@@ -296,12 +189,12 @@ const calendarDragAttributes = {
     base: { contentClass: 'vcal-day-drag-base' },
     end: { contentClass: 'vcal-day-drag-end' },
   },
-} as any
+}
 
 // Booleans
-const hasCalendar = computed((): boolean => props.mode !== TimepickerMode.Relative)
-const isSingleDatepicker = computed((): boolean => ModeArrayCustom.includes(props.mode) && !props.range)
-const hasTimePeriods = computed((): boolean => props?.timePeriods?.length > 0)
+const hasCalendar = computed((): boolean => mode !== DateTimePickerMode.Relative)
+const isSingleDatepicker = computed((): boolean => ModeArrayCustom.includes(mode) && !range)
+const hasTimePeriods = computed((): boolean => timePeriods.length > 0)
 const showCalendar = computed((): boolean => state.tabName === 'custom' || !hasTimePeriods.value)
 const submitDisabled = ref<boolean>(true)
 
@@ -315,11 +208,11 @@ const defaultTimeRange: TimeRange = {
  * Dynamically choose the v-model
  * Single date is a Date, whereas a Date range is an object containing `start` and `end` dates
  */
-const calendarSingleDate = ref<Date | null>(props.modelValue?.start)
-const calendarRange = ref<TimeRange>(props.modelValue || defaultTimeRange)
+const calendarSingleDate = ref<Date | null>(modelValue.start)
+const calendarRange = ref<TimeRange>(modelValue || defaultTimeRange)
 const calendarVModel = isSingleDatepicker.value
-  ? calendarSingleDate as DatePickerModel
-  : calendarRange as DatePickerModel
+  ? calendarSingleDate
+  : calendarRange
 
 // `minute-increment` has been deprecated in favor of the time `rules` object
 // https://vcalendar.io/datepicker/time-rules.html
@@ -329,31 +222,31 @@ const vCalendarRules = ref({
 
 const widthStyle = computed((): CSSProperties => {
   return {
-    width: getSizeFromString(props.width),
+    width: getSizeFromString(width),
   }
 })
 
 const impliedMode = computed((): string => {
-  if (props.mode === TimepickerMode.RelativeDateTime) {
+  if (mode === DateTimePickerMode.RelativeDateTime) {
     return 'dateTime'
-  } else if (props.mode === TimepickerMode.RelativeDate) {
+  } else if (mode === DateTimePickerMode.RelativeDate) {
     return 'date'
   } else {
     // Modes that are safe to be passed verbatim to v-calendar
-    return props.mode
+    return mode
   }
 })
 
 const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone
 
 const state = reactive<DateTimePickerState>({
-  abbreviatedDisplay: props.placeholder,
+  abbreviatedDisplay: placeholder,
   fullRangeDisplay: '',
   popoverOpen: false,
   selectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
   previouslySelectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
-  selectedTimeframe: props.timePeriods[0]?.values[0],
-  previouslySelectedTimeframe: props.timePeriods[0]?.values[0],
+  selectedTimeframe: timePeriods[0]?.values[0],
+  previouslySelectedTimeframe: timePeriods[0]?.values[0],
   tabName: 'relative',
 })
 
@@ -431,12 +324,12 @@ const clearSelection = (): void => {
   calendarRange.value = defaultTimeRange
   calendarSingleDate.value = null
 
-  state.abbreviatedDisplay = props.placeholder
+  state.abbreviatedDisplay = placeholder
   state.fullRangeDisplay = ''
 
   // Set the relative timeframe to the smallest increment, eg: `15m`
   if (hasTimePeriods.value) {
-    state.selectedTimeframe = props.timePeriods[0]?.values[0]
+    state.selectedTimeframe = timePeriods[0]?.values[0]
   }
 
   state.selectedRange = state.previouslySelectedRange = defaultTimeRange
@@ -461,7 +354,7 @@ const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
   // Determines the human timestamp readout format string; subject to change
   if (!hasCalendar.value && hasTimePeriods.value) {
     fmtStr = 'PP hh:mm a'
-  } else if (ModeDateOnly.includes(props.mode)) {
+  } else if (ModeDateOnly.includes(mode)) {
     fmtStr = 'PP'
   }
 
@@ -548,12 +441,12 @@ watch(() => state.tabName, (newValue, oldValue) => {
  * then updates the input field to display the human-readable time frame.
  */
 onMounted(() => {
-  if (ModeArrayRelative.includes(props.mode) && props.modelValue?.timePeriodsKey) {
+  if (ModeArrayRelative.includes(mode) && modelValue.timePeriodsKey) {
     state.tabName = 'relative'
     submitDisabled.value = false
 
-    for (const section of props.timePeriods) {
-      const selectedTimeframe = section.values.find(e => e.key === props.modelValue.timePeriodsKey)
+    for (const section of timePeriods) {
+      const selectedTimeframe = section.values.find(e => e.key === modelValue.timePeriodsKey)
 
       if (selectedTimeframe) {
         changeRelativeTimeframe(selectedTimeframe)
@@ -563,9 +456,9 @@ onMounted(() => {
     }
   } else {
     state.tabName = 'custom'
-    changeCalendarRange(props.modelValue)
+    changeCalendarRange(modelValue)
 
-    if ((props.modelValue?.start && props.modelValue?.end) || (isSingleDatepicker.value && props.modelValue?.start)) {
+    if ((modelValue.start && modelValue.end) || (isSingleDatepicker.value && modelValue.start)) {
       updateDisplay()
     }
   }

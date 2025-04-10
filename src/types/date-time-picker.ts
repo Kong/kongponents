@@ -1,4 +1,4 @@
-import type { AnyElementOf } from '@/types/utils'
+import type { PopPlacements } from './popover'
 
 // v-calendar defines these types internally, but does not export them
 export interface SimpleDateParts {
@@ -50,11 +50,14 @@ export interface DateTimePickerState {
   tabName: string
 }
 
+/**
+ * @deprecated Use `import type { CSSProperties } from 'vue'` instead.
+ */
 export interface CSSProperties {
   [key: string]: string
 }
 
-export enum TimepickerMode {
+export enum DateTimePickerMode {
   Date = 'date',
   Time = 'time',
   Datetime = 'dateTime',
@@ -63,23 +66,125 @@ export enum TimepickerMode {
   RelativeDateTime = 'relativeDateTime',
 }
 
-export const ModeArray: string[] = Object.values(TimepickerMode)
+/**
+ * @deprecated Use `DateTimePickerMode` instead.
+ */
+export type TimepickerMode = DateTimePickerMode
+/**
+ * @deprecated Use `DateTimePickerMode` instead.
+ */
+export const TimepickerMode = DateTimePickerMode
 
-export const ModeArrayCustom: string[] = [
-  TimepickerMode.Date,
-  TimepickerMode.Time,
-  TimepickerMode.Datetime,
+export const ModeArray: DateTimePickerMode[] = Object.values(DateTimePickerMode)
+
+export const ModeArrayCustom: DateTimePickerMode[] = [
+  DateTimePickerMode.Date,
+  DateTimePickerMode.Time,
+  DateTimePickerMode.Datetime,
 ]
 
-export const ModeArrayRelative: string[] = [
-  TimepickerMode.Relative,
-  TimepickerMode.RelativeDate,
-  TimepickerMode.RelativeDateTime,
+export const ModeArrayRelative: DateTimePickerMode[] = [
+  DateTimePickerMode.Relative,
+  DateTimePickerMode.RelativeDate,
+  DateTimePickerMode.RelativeDateTime,
 ]
 
-export const ModeDateOnly: string[] = [
-  TimepickerMode.Date,
-  TimepickerMode.RelativeDate,
+export const ModeDateOnly: DateTimePickerMode[] = [
+  DateTimePickerMode.Date,
+  DateTimePickerMode.RelativeDate,
 ]
 
-export type Mode = AnyElementOf<typeof ModeArray>
+/**
+ * @deprecated Use `DateTimePickerMode` instead.
+ */
+export type Mode = DateTimePickerMode
+
+export interface DateTimePickerProps {
+  /**
+   * Whether to show the clear button.
+   * @default false
+   */
+  clearButton?: boolean
+
+  /**
+   * Whether to show the calendar icon displayed within the display field.
+   * @default true
+   */
+  icon?: boolean
+
+  /**
+   * A single date or time picker instance which can be seeded with a value as shown here,
+   * where currentValue's start key contains a valid `Date` object, `new Date()` or a `null` value.
+   * If `null`, the picker will display the placeholder message and allow the user to make a selection.
+   * @default { start: null, end: null }
+   */
+  modelValue?: TimeRange
+
+  /**
+   * Upper bound for `v-calendar` dates, everything after this date will be disabled.
+   * @default null
+   */
+  maxDate?: Date
+
+  /**
+   * Lower bound for `v-calendar` dates, everything preceding this date will be disabled.
+   * @default null
+   */
+  minDate?: Date
+
+  /**
+   * Determines which `v-calendar` type to initialize.
+   * One of ['date', 'time', 'datetime', 'relative', 'relativeDate', 'relativeDateTime'].
+   * - `date`, `time` and `dateTime` are passed verbatim to `v-calendar`,
+   * - `relative` denotes a component instance made up solely of time frames
+   * - `relativeDate` relative time frames + date calendar
+   * - `relativeDateTime` relative time frames + datetime calendar
+   */
+  mode: DateTimePickerMode
+
+  /**
+   * Help text displayed as the default mesage inside the input field.
+   * When "Clear" is clicked, the input will revert to displaying this.
+   * @default 'Select a time range'
+   */
+  placeholder?: string
+
+  /**
+   * Whether the `v-calendar` will allow a single date/time,
+   * or a range of dates/times.
+   * @default false
+   */
+  range?: boolean
+
+  /**
+   * A custom set of time frames to be displayed as selectable buttons.
+   * The `timeframeLength`, `start`, and `end` values are passed in as functions,
+   * allowing for on-the-fly date boundary creation.
+   * @default []
+   */
+  timePeriods?: TimeFrameSection[]
+
+  /**
+   * Sets the input field to a fixed width.
+   * @default '100%'
+   */
+  width?: string
+
+  /**
+   * Whether the input field is disabled.
+   * @default false
+   */
+  disabled?: boolean
+
+  /**
+   * Define which side the popover displays.
+   * One of ['auto', 'top', 'top-start', 'top-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end', 'bottom', 'bottom-start', 'bottom-end'].
+   * @default 'bottom-start'
+   */
+  popoverPlacement?: PopPlacements
+}
+
+export interface DateTimePickerEmits {
+  change: [value: TimeRange | null]
+  'update:modelValue': [value: TimeRange | null]
+}
