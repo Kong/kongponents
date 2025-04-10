@@ -143,8 +143,8 @@ import KButton from '@/components/KButton/KButton.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.vue'
 import 'v-calendar/dist/style.css'
-import { ModeArrayCustom, ModeArrayRelative, ModeDateOnly, DateTimePickerMode } from '@/types'
-import type { DateTimePickerState, TimePeriod, TimeRange, DatePickerModel, ButtonAppearance, DateTimePickerEmits, DateTimePickerProps } from '@/types'
+import { ModeArrayCustom, ModeArrayRelative, ModeDateOnly, DateTimePickerModes } from '@/types'
+import type { DateTimePickerState, TimePeriod, TimeRange, DatePickerModel, ButtonAppearance, DateTimePickerProps, DateTimePickerEmits } from '@/types'
 import { CalIcon } from '@kong/icons'
 import useUtilities from '@/composables/useUtilities'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
@@ -192,7 +192,7 @@ const calendarDragAttributes = {
 }
 
 // Booleans
-const hasCalendar = computed((): boolean => mode !== DateTimePickerMode.Relative)
+const hasCalendar = computed((): boolean => mode !== DateTimePickerModes.Relative)
 const isSingleDatepicker = computed((): boolean => ModeArrayCustom.includes(mode) && !range)
 const hasTimePeriods = computed((): boolean => timePeriods.length > 0)
 const showCalendar = computed((): boolean => state.tabName === 'custom' || !hasTimePeriods.value)
@@ -227,9 +227,9 @@ const widthStyle = computed((): CSSProperties => {
 })
 
 const impliedMode = computed((): string => {
-  if (mode === DateTimePickerMode.RelativeDateTime) {
+  if (mode === DateTimePickerModes.RelativeDateTime) {
     return 'dateTime'
-  } else if (mode === DateTimePickerMode.RelativeDate) {
+  } else if (mode === DateTimePickerModes.RelativeDate) {
     return 'date'
   } else {
     // Modes that are safe to be passed verbatim to v-calendar

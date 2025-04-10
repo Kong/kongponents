@@ -57,7 +57,7 @@ export interface CSSProperties {
   [key: string]: string
 }
 
-export enum DateTimePickerMode {
+export enum DateTimePickerModes {
   Date = 'date',
   Time = 'time',
   Datetime = 'dateTime',
@@ -69,30 +69,29 @@ export enum DateTimePickerMode {
 /**
  * @deprecated Use `DateTimePickerMode` instead.
  */
-export type TimepickerMode = DateTimePickerMode
-/**
- * @deprecated Use `DateTimePickerMode` instead.
- */
-export const TimepickerMode = DateTimePickerMode
+export type TimepickerMode = DateTimePickerModes
+export const TimepickerMode = DateTimePickerModes
 
-export const ModeArray: DateTimePickerMode[] = Object.values(DateTimePickerMode)
+export const ModeArray: DateTimePickerMode[] = Object.values(DateTimePickerModes)
 
 export const ModeArrayCustom: DateTimePickerMode[] = [
-  DateTimePickerMode.Date,
-  DateTimePickerMode.Time,
-  DateTimePickerMode.Datetime,
+  DateTimePickerModes.Date,
+  DateTimePickerModes.Time,
+  DateTimePickerModes.Datetime,
 ]
 
 export const ModeArrayRelative: DateTimePickerMode[] = [
-  DateTimePickerMode.Relative,
-  DateTimePickerMode.RelativeDate,
-  DateTimePickerMode.RelativeDateTime,
+  DateTimePickerModes.Relative,
+  DateTimePickerModes.RelativeDate,
+  DateTimePickerModes.RelativeDateTime,
 ]
 
 export const ModeDateOnly: DateTimePickerMode[] = [
-  DateTimePickerMode.Date,
-  DateTimePickerMode.RelativeDate,
+  DateTimePickerModes.Date,
+  DateTimePickerModes.RelativeDate,
 ]
+
+export type DateTimePickerMode = `${DateTimePickerModes}`
 
 /**
  * @deprecated Use `DateTimePickerMode` instead.
@@ -140,7 +139,7 @@ export interface DateTimePickerProps {
    * - `relativeDate` relative time frames + date calendar
    * - `relativeDateTime` relative time frames + datetime calendar
    */
-  mode: DateTimePickerMode
+  mode: `${DateTimePickerMode}`
 
   /**
    * Help text displayed as the default mesage inside the input field.
