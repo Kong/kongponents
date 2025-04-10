@@ -159,7 +159,7 @@ const {
   minDate = null,
   mode,
   placeholder = 'Select a time range',
-  range = [],
+  range,
   timePeriods = [],
   width = '100%',
   disabled,
