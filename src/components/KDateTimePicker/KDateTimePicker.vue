@@ -211,8 +211,8 @@ const defaultTimeRange: TimeRange = {
 const calendarSingleDate = ref<Date | null>(modelValue.start)
 const calendarRange = ref<TimeRange>(modelValue || defaultTimeRange)
 const calendarVModel = isSingleDatepicker.value
-  ? calendarSingleDate
-  : calendarRange
+  ? calendarSingleDate as DatePickerModel
+  : calendarRange as DatePickerModel
 
 // `minute-increment` has been deprecated in favor of the time `rules` object
 // https://vcalendar.io/datepicker/time-rules.html
