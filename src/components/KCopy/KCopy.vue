@@ -58,7 +58,7 @@
 import { computed, ref, watch, onMounted, onUnmounted, useId } from 'vue'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { CopyIcon } from '@kong/icons'
-import KClipboardProvider from '@/components/KClipboardProvider'
+import KClipboardProvider from '@/components/KClipboardProvider/KClipboardProvider.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import type { CopyProps } from '@/types'
