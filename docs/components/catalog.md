@@ -87,17 +87,17 @@ The return value of the fetcher function should be an object with the following 
 ```ts
 // fetcher function return
 { 
-  total: number, // the total count of catalog items (if using pagination)
+  total?: number, // the total count of catalog items (if using pagination)
   data: CatalogItem[] // an array of catalog items
 }
 ```
 
 ```ts
 interface CatalogItem {
-  id?: string
-  title: string
-  description: string
-  key?: string // optional parameter to be used as key in v-for, has to be unique for each item
+  id?: string | null
+  title?: string | null
+  description?: string | null
+  key?: string | null // optional parameter to be used as key in v-for, has to be unique for each item
 }
 ```
 
@@ -476,6 +476,10 @@ The body content for the card.
 
 The footer content for the card.
 
+#### card-actions
+
+Action elements to be rendered to the right of the card title.
+
 <KCatalogItem>
   <template #card-title>
     Card Title
@@ -485,6 +489,22 @@ The footer content for the card.
   </template>
   <template #card-footer>
     <KBadge appearance="neutral">Card footer</KBadge>
+  </template>
+  <template #card-actions>
+      <KDropdown
+      :items="[
+        { label: 'Props', to: { path: '/components/catalog#props' } },
+        { label: 'Slots', to: { path: '/components/catalog#slots' } }
+      ]"
+    >
+      <KButton
+        appearance="tertiary"
+        icon
+        size="small"
+      >
+        <MoreIcon />
+      </KButton>
+    </KDropdown>
   </template>
 </KCatalogItem>
 
@@ -498,6 +518,22 @@ The footer content for the card.
   </template>
   <template #card-footer>
       <KBadge appearance="neutral">Card footer</KBadge>
+  </template>
+  <template #card-actions>
+    <KDropdown
+      :items="[
+        { label: 'Props', to: { path: '/components/catalog#props' } },
+        { label: 'Slots', to: { path: '/components/catalog#slots' } }
+      ]"
+    >
+      <KButton
+        appearance="tertiary"
+        icon
+        size="small"
+      >
+        <MoreIcon />
+      </KButton>
+    </KDropdown>
   </template>
 </KCatalogItem>
 ```
