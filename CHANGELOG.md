@@ -1,3 +1,10 @@
+## [9.28.5](https://github.com/Kong/kongponents/compare/v9.28.4...v9.28.5) (2025-04-11)
+
+
+### Bug Fixes
+
+* **kcopy:** improve typings for kcopy ([#2691](https://github.com/Kong/kongponents/issues/2691)) ([3547630](https://github.com/Kong/kongponents/commit/354763063d8280cfab740c1196af8f8994ae3f52))
+
 ## [9.28.4](https://github.com/Kong/kongponents/compare/v9.28.3...v9.28.4) (2025-04-09)
 
 
