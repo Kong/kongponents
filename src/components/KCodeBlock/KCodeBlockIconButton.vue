@@ -18,61 +18,44 @@
   </KTooltip>
 </template>
 
-<script lang="ts">
-import { ref, type PropType, useAttrs } from 'vue'
-import type { Theme } from '@/types'
+<script setup lang="ts">
+import { ref, useAttrs } from 'vue'
+import type { CodeBlockIconButtonProps } from '@/types'
 import { watch } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 
-export default {
+defineOptions({
   inheritAttrs: false,
-}
-</script>
-
-<script setup lang="ts">
-const props = defineProps({
-  theme: {
-    type: String as PropType<Theme>,
-    default: 'light',
-  },
-  active: {
-    type: Boolean,
-    default: true,
-  },
-  /**
-   * Only pass tooltip text if it's the copy button
-   */
-  copyTooltip: {
-    type: String,
-    default: '',
-  },
 })
 
-const copyTooltipText = ref<string>(props.copyTooltip)
+const {
+  theme = 'light',
+  active = true,
+  copyTooltip = '',
+} = defineProps<CodeBlockIconButtonProps>()
+
+const copyTooltipText = ref<string>(copyTooltip)
 
 const attrs = useAttrs()
 
 const onClick = () => {
   // if copy text is passed means it's the copy button - therefore change tooltip text to 'Copied!' on click
-  if (props.copyTooltip) {
+  if (copyTooltip) {
     copyTooltipText.value = 'Copied!'
   }
 }
 
 watch(copyTooltipText, () => {
   // change tooltip back to original after 3 seconds
+  // FIXME: clearTimeout on unmount
   setTimeout(() => {
-    copyTooltipText.value = props.copyTooltip
+    copyTooltipText.value = copyTooltip
   }, 3000)
 })
 </script>
 
 <style lang="scss" scoped>
-.code-block-action-tooltip {
-  // display: inline-block;
-}
-
 // expand upon original tertiary button styles changing some colors and states
 .code-block-action-button {
   &:not(:disabled) {

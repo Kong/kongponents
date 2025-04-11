@@ -223,6 +223,10 @@ interface TablePropsShared {
    * A prop for hiding the toolbar
    */
   hideToolbar?: boolean
+  /**
+   * Target for tooltip teleports (column header tooltip, disabled bulk actions row tooltip)
+   */
+  tooltipTarget?: string | null
 }
 
 export interface TableViewProps extends TablePropsShared {

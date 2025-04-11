@@ -70,62 +70,35 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
-import { computed, ref, useId, useSlots, watch } from 'vue'
-import type { TriggerAlignment, HeaderTag } from '@/types'
-import { TriggerAlignmentArray, HeaderTags } from '@/types'
+import { computed, ref, useId, watch } from 'vue'
+import type { CollapseEmits, CollapseProps, CollapseSlots } from '@/types'
 import { ChevronRightIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
-const props = defineProps({
-  // Is the KCollapse collapsed? Defaults to true-->
-  modelValue: {
-    type: Boolean,
-    required: false,
-    default: true,
-  },
-  title: {
-    type: String,
-    required: false,
-    default: '',
-  },
-  titleTag: {
-    type: String as PropType<HeaderTag>,
-    default: 'div',
-    validator: (value: HeaderTag): boolean => HeaderTags.includes(value),
-  },
-  triggerLabel: {
-    type: String,
-    required: false,
-    default: '',
-  },
-  triggerAlignment: {
-    type: String as PropType<TriggerAlignment>,
-    required: false,
-    default: 'trailing',
-    validator: (value: TriggerAlignment): boolean => TriggerAlignmentArray.includes(value),
-  },
-})
+const {
+  modelValue = true,
+  title = '',
+  titleTag = 'div',
+  triggerLabel = '',
+  triggerAlignment = 'trailing',
+} = defineProps<CollapseProps>()
 
-const emit = defineEmits<{
-  (e: 'toggle', value: boolean): void
-  (e: 'update:modelValue', value: boolean): void
-}>()
+const emit = defineEmits<CollapseEmits>()
+const slots = defineSlots<CollapseSlots>()
 
 const contentId = useId()
 
 const isCollapsed = ref<boolean>(true)
 const modelValueChanged = ref<boolean>(false)
 
-const slots = useSlots()
 
-const trailingTrigger = computed((): boolean => props.triggerAlignment === 'trailing')
+const trailingTrigger = computed((): boolean => triggerAlignment === 'trailing')
 const hasVisibleContent = computed((): boolean => !!slots['visible-content'])
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const modelComputed = computed({
   get(): boolean {
-    return props.modelValue
+    return modelValue
   },
   set(newValue: boolean): void {
     toggleDisplay(newValue)
@@ -133,12 +106,12 @@ const modelComputed = computed({
 })
 
 // Use the modelValue only if the value hasn't been changed
-const collapsedState = computed((): boolean => modelValueChanged.value ? isCollapsed.value : props.modelValue)
+const collapsedState = computed((): boolean => modelValueChanged.value ? isCollapsed.value : modelValue)
 
 const toggleDisplay = (isToggled?: boolean): void => {
   if (!modelValueChanged.value) {
     // make sure we match modelValue first time in
-    isCollapsed.value = props.modelValue
+    isCollapsed.value = modelValue
   }
 
   isCollapsed.value = isToggled !== undefined ? isToggled : !isCollapsed.value

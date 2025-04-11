@@ -1,3 +1,32 @@
+## [9.28.5](https://github.com/Kong/kongponents/compare/v9.28.4...v9.28.5) (2025-04-11)
+
+
+### Bug Fixes
+
+* **kcopy:** improve typings for kcopy ([#2691](https://github.com/Kong/kongponents/issues/2691)) ([3547630](https://github.com/Kong/kongponents/commit/354763063d8280cfab740c1196af8f8994ae3f52))
+
+## [9.28.4](https://github.com/Kong/kongponents/compare/v9.28.3...v9.28.4) (2025-04-09)
+
+
+### Bug Fixes
+
+* **ktableview:** add tooltip-target prop [KHCP-15528] ([#2688](https://github.com/Kong/kongponents/issues/2688)) ([37aeb90](https://github.com/Kong/kongponents/commit/37aeb90c9cfca4cb1bc3e687ac10f01d8d449fb7))
+
+## [9.28.3](https://github.com/Kong/kongponents/compare/v9.28.2...v9.28.3) (2025-04-09)
+
+
+### Bug Fixes
+
+* **kcheckbox:** typescript improvement for kcheckbox ([#2683](https://github.com/Kong/kongponents/issues/2683)) ([1563613](https://github.com/Kong/kongponents/commit/1563613f362a7d49b521f9f6ad7180e812111579))
+* **kcodeblock:** improve typing for kcodeblock ([#2684](https://github.com/Kong/kongponents/issues/2684)) ([e2dd8f3](https://github.com/Kong/kongponents/commit/e2dd8f39ce6b932f587c62a230fdbd2415fc4c85))
+
+## [9.28.2](https://github.com/Kong/kongponents/compare/v9.28.1...v9.28.2) (2025-04-09)
+
+
+### Bug Fixes
+
+* **kcollapse:** improve typings for kcollapse ([#2687](https://github.com/Kong/kongponents/issues/2687)) ([ca0af1a](https://github.com/Kong/kongponents/commit/ca0af1a38d93b8d558da3bd6eadfc31487d4d81f))
+
 ## [9.28.1](https://github.com/Kong/kongponents/compare/v9.28.0...v9.28.1) (2025-04-05)
 
 
