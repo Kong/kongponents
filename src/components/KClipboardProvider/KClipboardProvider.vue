@@ -7,8 +7,5 @@ import { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 
 import type { ClipboardProviderSlots } from '@/types/clipboard-provider'
 
-defineOptions({
-  name: 'KClipboardProvider',
-})
 defineSlots<ClipboardProviderSlots>()
 </script>
