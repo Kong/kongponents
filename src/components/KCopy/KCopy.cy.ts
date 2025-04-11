@@ -154,6 +154,10 @@ describe('KCopy', () => {
     })
 
     it('renders `successTooltip` with `copyTooltip` prop set', () => {
+      cy.window().then((win) => {
+        cy.stub(win.navigator.clipboard, 'writeText').resolves()
+      })
+
       const tooltipText = 'Click to copy'
       const successText = 'Copied!'
 
@@ -169,7 +173,9 @@ describe('KCopy', () => {
       cy.get(container).find('.k-tooltip').should('exist')
       cy.get(container).find('.k-tooltip .popover-content').should('contain.text', tooltipText)
       cy.get('[data-testid="copy-to-clipboard"]').click()
-      cy.get(container).find('.k-tooltip .popover-content').should('contain.text', successText)
+      cy.window().then(() => {
+        cy.get(container).find('.k-tooltip .popover-content').should('contain.text', successText)
+      })
     })
   })
 })

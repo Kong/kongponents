@@ -59,9 +59,11 @@ import type { PropType } from 'vue'
 import { computed, ref, watch, onMounted, onUnmounted, useId } from 'vue'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { CopyIcon } from '@kong/icons'
-import KClipboardProvider from '@/components/KClipboardProvider'
+import KClipboardProvider from '@/components/KClipboardProvider/KClipboardProvider.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+
+import type { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 
 const props = defineProps({
   /**
@@ -192,8 +194,8 @@ const updateTooltipText = (msg?: string): void => {
   }, 1800)
 }
 
-const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
-  if (!executeCopy(props.text)) {
+const copyIdToClipboard = async (executeCopy: typeof copyTextToClipboard) => {
+  if (!await executeCopy(props.text)) {
     updateTooltipText('Failed to copy')
 
     return
