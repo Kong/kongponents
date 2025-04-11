@@ -2,7 +2,7 @@
 // NOTE: The 'create-kongponent' CLI automatically appends exports to the bottom of the list
 
 // Renderless
-export { default as KClipboardProvider } from './KClipboardProvider'
+export { default as KClipboardProvider } from './KClipboardProvider/KClipboardProvider.vue'
 export { default as KComponent } from './KComponent'
 export { default as KToggle } from './KToggle'
 
