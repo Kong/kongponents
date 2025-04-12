@@ -25,45 +25,28 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue'
-import { computed, useId, useSlots } from 'vue'
+import { watch, computed, useId } from 'vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
-import type { TooltipAttributes } from '@/types'
+import type { LabelProps, LabelSlots } from '@/types'
 import { InfoIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
 
-const props = defineProps({
-  info: {
-    type: String,
-    default: '',
-  },
-  required: {
-    type: Boolean,
-    default: false,
-  },
-  tooltipAttributes: {
-    type: Object as PropType<TooltipAttributes>,
-    default: () => ({}),
-  },
-  /**
-   * @deprecated in favor of `info` prop
-   */
-  help: {
-    type: String,
-    default: '',
-    validator: (value: string): boolean => {
-      if (value) {
-        console.warn('KLabel: `help` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#klabel')
-      }
+const {
+  info = '',
+  required,
+  tooltipAttributes = {},
+  help = '',
+} = defineProps<LabelProps>()
 
-      return true
-    },
-  },
-})
+watch(() => help, (value: string): void => {
+  if (value) {
+    console.warn('KLabel: `help` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#klabel')
+  }
+}, { immediate: true })
 
-const slots = useSlots()
+const slots = defineSlots<LabelSlots>()
 
-const hasTooltip = computed((): boolean => !!(props.help || props.info || slots.tooltip))
+const hasTooltip = computed((): boolean => !!(help || info || slots.tooltip))
 
 const tooltipId = useId()
 </script>
