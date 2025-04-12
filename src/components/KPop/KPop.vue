@@ -28,7 +28,7 @@
           v-show="isVisible"
           :id="popoverId"
           ref="popoverElement"
-          :aria-labelledby="$slots.title || title ? titleId : undefined"
+          :aria-labelledby="slots.title || title ? titleId : undefined"
           class="popover"
           :class="popoverClassesObj"
           role="dialog"
@@ -55,11 +55,11 @@
               />
             </button>
             <div
-              v-if="$slots.title || title"
+              v-if="slots.title || title"
               class="popover-header"
             >
               <div
-                v-if="$slots.title || title"
+                v-if="slots.title || title"
                 :id="titleId"
                 class="popover-title"
                 :class="{ 'close-icon-spacing': !hideCloseIcon }"
@@ -71,12 +71,12 @@
             </div>
             <div
               class="popover-content"
-              :class="{ 'close-icon-spacing': !hideCloseIcon && !($slots.title || title) }"
+              :class="{ 'close-icon-spacing': !hideCloseIcon && !(slots.title || title) }"
             >
               <slot name="content" />
             </div>
             <div
-              v-if="$slots.footer"
+              v-if="slots.footer"
               class="popover-footer"
             >
               <slot name="footer" />
@@ -90,10 +90,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, computed, watch, useId } from 'vue'
-import type { PropType } from 'vue'
 import { useFloating, autoUpdate, autoPlacement, flip, shift } from '@floating-ui/vue'
-import type { PopPlacements, PopTrigger } from '@/types'
-import { PopPlacementsArray, PopTriggerArray } from '@/types'
+import type { PopProps, PopEmits, PopSlots, PopPlacements } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
 import useUtilities from '@/composables/useUtilities'
 import { CloseIcon } from '@kong/icons'
@@ -101,80 +99,28 @@ import { KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
 import KPopTeleportWrapper from './KPopTeleportWrapper.vue'
 import { useEventListener } from '@vueuse/core'
 
-const props = defineProps({
-  buttonText: {
-    type: String,
-    default: '',
-  },
-  title: {
-    type: String,
-    default: '',
-  },
-  placement: {
-    type: String as PropType<PopPlacements>,
-    validator: (value: PopPlacements): boolean => PopPlacementsArray.includes(value),
-    default: 'auto',
-  },
-  trigger: {
-    type: String as PropType<PopTrigger>,
-    default: 'click',
-    validator: (value: PopTrigger): boolean => PopTriggerArray.includes(value),
-  },
-  popoverTimeout: {
-    type: Number,
-    default: 300,
-  },
-  hideCloseIcon: {
-    type: Boolean,
-    default: false,
-  },
-  hideCaret: {
-    type: Boolean,
-    default: false,
-  },
-  closeOnPopoverClick: {
-    type: Boolean,
-    default: false,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  width: {
-    type: String,
-    default: '200',
-  },
-  maxWidth: {
-    type: String,
-    default: 'auto',
-  },
-  maxHeight: {
-    type: String,
-    default: 'auto',
-  },
-  popoverClasses: {
-    type: String,
-    default: '',
-  },
-  tag: {
-    type: String,
-    default: 'div',
-  },
-  zIndex: {
-    type: Number,
-    default: 1000,
-  },
-  offset: {
-    type: String,
-    default: KUI_SPACE_60,
-  },
-  target: {
-    type: [String, null],
-    default: null,
-  },
-})
+const {
+  buttonText = '',
+  title = '',
+  placement = 'auto',
+  trigger = 'click',
+  popoverTimeout = 300,
+  hideCloseIcon,
+  hideCaret,
+  closeOnPopoverClick,
+  disabled,
+  width = '200px',
+  maxWidth = 'auto',
+  maxHeight = 'auto',
+  popoverClasses = '',
+  tag = 'div',
+  zIndex = 1000,
+  offset = KUI_SPACE_60,
+  target = null,
+} = defineProps<PopProps>()
 
-const emit = defineEmits(['open', 'close', 'popover-click'])
+const emit = defineEmits<PopEmits>()
+const slots = defineSlots<PopSlots>()
 
 const { getSizeFromString } = useUtilities()
 
@@ -214,7 +160,7 @@ const startFloatingUpdates = () => {
 }
 
 const showPopover = async () => {
-  if (!props.disabled) {
+  if (!disabled) {
     if (timer.value) {
       clearTimeout(timer.value)
     }
@@ -228,7 +174,7 @@ const hidePopover = () => {
   timer.value = setTimeout(() => {
     cancelFloatingUpdates()
     isVisible.value = false
-  }, props.trigger === 'hover' ? props.popoverTimeout : 0)
+  }, trigger === 'hover' ? popoverTimeout : 0)
 }
 
 const clickHandler = (event: Event) => {
@@ -242,7 +188,7 @@ const clickHandler = (event: Event) => {
     // emit popover-click event if clicked within the popover
     // also close the popover if closeOnPopoverClick is true
 
-    if (props.closeOnPopoverClick) {
+    if (closeOnPopoverClick) {
       hidePopover()
     }
 
@@ -259,7 +205,7 @@ const clickHandler = (event: Event) => {
  * Converts the placement prop to the correct format for Floating UI
  * E.g.: 'topStart' -> 'top-start'
  */
-const popoverPlacement = computed((): PopPlacements => props.placement.trim().replace(/ /g, '-').replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? '-' : '') + $.toLowerCase()).replace(/--+/g, '-').replace(/-+$/g, '') as PopPlacements)
+const popoverPlacement = computed((): PopPlacements => placement.trim().replace(/ /g, '-').replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? '-' : '') + $.toLowerCase()).replace(/--+/g, '-').replace(/-+$/g, '') as PopPlacements)
 
 const { floatingStyles, placement: calculatedPlacement, update: updatePosition } = useFloating(popoverTrigger, popoverElement, {
   ...(popoverPlacement.value === 'auto' && { middleware: [autoPlacement()] }), // when placement is auto just use autoPlacement middleware
@@ -274,7 +220,7 @@ const { floatingStyles, placement: calculatedPlacement, update: updatePosition }
   transform: false,
 })
 
-const popoverOffset = computed(() => getSizeFromString(props.offset))
+const popoverOffset = computed(() => getSizeFromString(offset))
 const marginStyles = computed(() => {
   if (calculatedPlacement.value.includes('top')) {
     return {
@@ -300,20 +246,20 @@ const marginStyles = computed(() => {
 const popoverStyles = computed(() => {
   return {
     ...floatingStyles.value,
-    zIndex: props.zIndex,
+    zIndex,
   }
 })
 
 const popoverContainerStyles = computed(() => {
   return {
     ...marginStyles.value,
-    width: getSizeFromString(props.width),
-    maxWidth: getSizeFromString(props.maxWidth),
-    maxHeight: getSizeFromString(props.maxHeight),
+    width: getSizeFromString(width),
+    maxWidth: getSizeFromString(maxWidth),
+    maxHeight: getSizeFromString(maxHeight),
   }
 })
 
-const popoverClassesObj = computed(() => [props.popoverClasses, { 'hide-caret': props.hideCaret }])
+const popoverClassesObj = computed(() => [popoverClasses, { 'hide-caret': hideCaret }])
 
 const floatingUpdates = ref<() => void>()
 
@@ -337,7 +283,7 @@ onMounted(() => {
       }
     }
 
-    if (props.trigger === 'hover') {
+    if (trigger === 'hover') {
       [popoverElement.value, popoverTrigger.value].forEach((element) => {
         if (!element) {
           return
