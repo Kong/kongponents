@@ -39,7 +39,7 @@
 import { computed, useId } from 'vue'
 import KPop from '@/components/KPop/KPop.vue'
 import { KUI_SPACE_20 } from '@kong/design-tokens'
-import type { TooltipProps, TooltipSlots } from '@/types/tooltip'
+import type { TooltipProps, TooltipSlots } from '@/types'
 
 defineOptions({
   inheritAttrs: false,
