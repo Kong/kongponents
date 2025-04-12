@@ -20,7 +20,17 @@ export const PopPlacementsArray = [
   'bottom-end',
 ] as const
 
-export type PopPlacements = AnyElementOf<typeof PopPlacementsArray>
+export type PopPlacement = AnyElementOf<typeof PopPlacementsArray>
+
+/**
+ * @deprecated Use `PopPlacements` instead.
+ */
+export type Placement = PopPlacement
+
+/**
+ * @deprecated Use `PopPlacements` instead.
+ */
+export type PopPlacements = PopPlacement
 
 /**
  * @internal

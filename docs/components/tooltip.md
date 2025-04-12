@@ -121,6 +121,10 @@ A string to be used as `id` attribute on underlying `role="tooltip"` element. Us
 <KInput id="full-name-field" />
 ```
 
+### zIndex
+
+Pass a number to use for the `z-index` property. Default value is `9999`.
+
 ### kpopAttributes
 
 Use the `kpopAttributes` prop to configure the underlying [KPop's props](/components/popover).
