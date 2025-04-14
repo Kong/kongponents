@@ -1,3 +1,13 @@
+## [9.28.6](https://github.com/Kong/kongponents/compare/v9.28.5...v9.28.6) (2025-04-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.23.1 ([#2694](https://github.com/Kong/kongponents/issues/2694)) ([b145562](https://github.com/Kong/kongponents/commit/b1455625861cf681fe082a7a03ae963e82ca856b))
+* **kclipboardprovider:** typescript improvements ([#2685](https://github.com/Kong/kongponents/issues/2685)) ([efb5861](https://github.com/Kong/kongponents/commit/efb5861aa1e4bfb59322224374374d45b0324f2f))
+* **kdatetimepicker:** improve typings for kdatetimepicker ([#2693](https://github.com/Kong/kongponents/issues/2693)) ([47134c6](https://github.com/Kong/kongponents/commit/47134c6b9ed7992995688bcad9d81ef7e0f95c04))
+* **kpop:** improve typings for kpop ([#2695](https://github.com/Kong/kongponents/issues/2695)) ([86da363](https://github.com/Kong/kongponents/commit/86da363ae5d9dccda0844f983f07a0e67dd924b8))
+
 ## [9.28.5](https://github.com/Kong/kongponents/compare/v9.28.4...v9.28.5) (2025-04-11)
 
 
