@@ -50,7 +50,7 @@ const tooltipText = ref<string>('')
 
 ### placement
 
-Where the tooltip should appear - by default it appears on top.
+Where the tooltip should appear - by default it appears at the bottom.
 
 Here are the different options:
 
