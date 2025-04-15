@@ -101,13 +101,13 @@ export interface PopProps {
 
   /**
    * Maximum width of the popover container.
-   * @default 'auto'
+   * @default 'none'
    */
   maxWidth?: string
 
   /**
    * Maximum height of the popover container.
-   * @default 'auto'
+   * @default 'none'
    */
   maxHeight?: string
 

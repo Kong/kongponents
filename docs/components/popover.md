@@ -327,7 +327,7 @@ Width of the popover container. Default value is `200px`.
 
 ### maxWidth
 
-Maximum width of the popover container. Default value is `auto`.
+Maximum width of the popover container. Default value is `none`.
 
 <KPop
   max-width="120px"
