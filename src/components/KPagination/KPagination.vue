@@ -150,12 +150,12 @@
 </template>
 
 <script setup lang="ts">
-import type { Ref, PropType } from 'vue'
+import type { Ref } from 'vue'
 import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import PaginationOffset from './PaginationOffset.vue'
-import type { PageSizeChangeData, PageChangeData, DropdownItem, PopoverAttributes } from '@/types'
+import type { DropdownItem, PopoverAttributes, PaginationProps, PaginationEmits } from '@/types'
 import { BackIcon, ForwardIcon, ChevronDownIcon } from '@kong/icons'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 
@@ -163,68 +163,28 @@ const kpopAttrs = {
   placement: 'top',
 } satisfies PopoverAttributes
 
-const props = defineProps({
-  items: {
-    type: Array,
-    default: () => [],
-  },
-  totalCount: {
-    type: Number,
-    default: 0,
-  },
-  pageSizes: {
-    type: Array as PropType<number[]>,
-    default: () => [15, 30, 50, 75, 100],
-    validator: (pageSizes: number[]): boolean => !!pageSizes.length && pageSizes.every(i => typeof i === 'number'),
-  },
-  initialPageSize: {
-    type: Number,
-    default: null,
-  },
-  neighbors: {
-    type: Number,
-    default: 1,
-  },
-  searchTriggered: {
-    type: Boolean,
-    default: false,
-  },
-  currentPage: {
-    type: Number,
-    default: null,
-  },
-  disablePageJump: {
-    type: Boolean,
-    default: false,
-  },
-  offset: {
-    type: Boolean,
-    default: false,
-  },
-  offsetPreviousButtonDisabled: {
-    type: Boolean,
-    default: false,
-  },
-  offsetNextButtonDisabled: {
-    type: Boolean,
-    default: false,
-  },
-})
+const {
+  items = [],
+  totalCount = 0,
+  pageSizes = [15, 30, 50, 75, 100],
+  initialPageSize = null,
+  neighbors = 1,
+  currentPage = null,
+  disablePageJump,
+  offset,
+  offsetPreviousButtonDisabled,
+  offsetNextButtonDisabled,
+} = defineProps<PaginationProps>()
 
-const emit = defineEmits<{
-  (e: 'pageChange', val: PageChangeData): void
-  (e: 'pageSizeChange', val: PageSizeChangeData): void
-  (e: 'getNextOffset'): void
-  (e: 'getPreviousOffset'): void
-}>()
+const emit = defineEmits<PaginationEmits>()
 
 const kPaginationElement = ref<HTMLElement | null>(null)
 const resizeObserver = ref<ResizeObserverHelper>()
 
-const currPage: Ref<number> = ref(props.currentPage ? props.currentPage : 1)
-const currentPageSize: Ref<number> = ref(props.initialPageSize ? props.initialPageSize : props.pageSizes[0])
-const pageCount = computed((): number => Math.ceil(props.totalCount / currentPageSize.value))
-const pageSizeOptions = props.pageSizes.map((size, i) => ({
+const currPage: Ref<number> = ref(currentPage ? currentPage : 1)
+const currentPageSize: Ref<number> = ref(initialPageSize ? initialPageSize : pageSizes[0])
+const pageCount = computed((): number => Math.ceil(totalCount / currentPageSize.value))
+const pageSizeOptions = pageSizes.map((size, i) => ({
   label: `${size}`,
   key: `size-${i}`,
   value: size,
@@ -235,7 +195,7 @@ const pageSizeText = computed((): string => `${currentPageSize.value} ${currentP
  * KPagination will try to display specified number of neighbors
  * However, if it will detect overflow, it will try to reduce the number of neighbors to a minimum of 1
  */
-const fittingNeighbors = ref<number>(props.neighbors)
+const fittingNeighbors = ref<number>(neighbors)
 /**
  * By default KPagination tries to display 3 items sequentially
  * However, if it will detect overflow, it will try to reduce the number of items to a minimum of 1
@@ -273,7 +233,7 @@ const fixOverflow = async (): Promise<void> => {
 }
 
 const getVisiblePages = (currPage: number, pageCount: number, firstDetached: boolean, lastDetached: boolean): number[] => {
-  if (props.disablePageJump) {
+  if (disablePageJump) {
     return []
   }
 
@@ -312,13 +272,13 @@ const forwardDisabled = ref<boolean>(currPage.value === pageCount.value)
 const startCount = computed((): number => (currPage.value - 1) * currentPageSize.value + 1)
 const endCount = computed((): number => {
   const calculatedEndCount = startCount.value - 1 + currentPageSize.value
-  return calculatedEndCount > props.totalCount
-    ? props.totalCount
+  return calculatedEndCount > totalCount
+    ? totalCount
     : calculatedEndCount
 })
 const pagesString = computed((): string => `${startCount.value} to ${endCount.value}`)
-const pageCountString = computed((): string => ` of ${props.totalCount}`)
-const currentlySelectedPage = computed((): number => props.currentPage ? props.currentPage : currPage.value)
+const pageCountString = computed((): string => ` of ${totalCount}`)
+const currentlySelectedPage = computed((): number => currentPage ? currentPage : currPage.value)
 
 // Selected page, first page, last page, 2 placeholders and 2 * neighbors
 const visiblePages = computed((): number => 5 + 2 * fittingNeighbors.value)
@@ -341,14 +301,14 @@ const pageBack = ():void => {
   updatePage()
 }
 
-const changePage = (page: number):void => {
+const changePage = (page: number): void => {
   currPage.value = page
   updatePage()
 }
 
 const updatePage = (): void => {
   const lastEntry = (currPage.value - 1) * currentPageSize.value + currentPageSize.value
-  forwardDisabled.value = lastEntry >= props.totalCount
+  forwardDisabled.value = lastEntry >= totalCount
   backDisabled.value = currPage.value === 1
   // The view will hold
   if (pageCount.value <= visiblePages.value) {
@@ -367,7 +327,7 @@ const updatePage = (): void => {
     pageCount: pageCount.value,
     firstItem: startCount.value,
     lastItem: endCount.value,
-    visibleItems: props.items.slice(startCount.value - 1, endCount.value),
+    visibleItems: items.slice(startCount.value - 1, endCount.value),
   })
 }
 
@@ -380,7 +340,7 @@ const updatePageSize = (item: DropdownItem): void => {
       pageCount: pageCount.value,
     })
 
-    if (props.currentPage !== 1) {
+    if (currentPage !== 1) {
       changePage(1)
     }
   }
@@ -394,8 +354,8 @@ const getPreviousOffset = (): void => {
   emit('getPreviousOffset')
 }
 
-watch(() => props.currentPage, (newVal, oldVal) => {
-  if (newVal !== oldVal) {
+watch(() => currentPage, (newVal, oldVal) => {
+  if (newVal !== oldVal && newVal) {
     changePage(newVal)
   }
 })
@@ -416,13 +376,13 @@ watch(pageCount, (newVal, oldVal) => {
 })
 
 watch(pagesVisible, () => {
-  if (!props.disablePageJump && !props.offset) {
+  if (!disablePageJump && !offset) {
     fixOverflow()
   }
 })
 
 onMounted(() => {
-  if (!props.disablePageJump && !props.offset) {
+  if (!disablePageJump && !offset) {
     resizeObserver.value = ResizeObserverHelper.create(fixOverflow)
 
     resizeObserver.value.observe(kPaginationElement.value as HTMLDivElement)
@@ -430,7 +390,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  if (!props.disablePageJump && !props.offset) {
+  if (!disablePageJump && !offset) {
     resizeObserver.value?.unobserve(kPaginationElement.value as HTMLDivElement)
   }
 })
