@@ -3,7 +3,7 @@ export interface PageChangeData {
   pageCount: number
   firstItem: number
   lastItem: number
-  visibleItems: any[]
+  visibleItems: string | number[]
 }
 
 export interface PageSizeChangeData {
@@ -13,10 +13,11 @@ export interface PageSizeChangeData {
 
 export interface PaginationProps {
   /**
-   * The array of items to be paginated.
+   * Optional array of items that can be provided for easy pagination.
+   * Slice of this array with visible items is returned as visibleItems inside the pageChange event.
    * @default []
    */
-  items?: any[]
+  items?: string | number[]
 
   /**
    * The total number of items.
@@ -50,21 +51,25 @@ export interface PaginationProps {
 
   /**
    * Disables the page jump functionality.
+   * @default false
    */
   disablePageJump?: boolean
 
   /**
    * Enables or disables offset mode(offset mode omits the concept of pages).
+   * @default false
    */
   offset?: boolean
 
   /**
    * Disables the "previous" button in offset mode.
+   * @default false
    */
   offsetPreviousButtonDisabled?: boolean
 
   /**
    * Disables the "next" button in offset mode.
+   * @default false
    */
   offsetNextButtonDisabled?: boolean
 }

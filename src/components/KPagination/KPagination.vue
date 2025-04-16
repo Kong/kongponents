@@ -150,7 +150,6 @@
 </template>
 
 <script setup lang="ts">
-import type { Ref } from 'vue'
 import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KButton from '@/components/KButton/KButton.vue'
@@ -181,8 +180,8 @@ const emit = defineEmits<PaginationEmits>()
 const kPaginationElement = ref<HTMLElement | null>(null)
 const resizeObserver = ref<ResizeObserverHelper>()
 
-const currPage: Ref<number> = ref(currentPage ? currentPage : 1)
-const currentPageSize: Ref<number> = ref(initialPageSize ? initialPageSize : pageSizes[0])
+const currPage = ref<number>(currentPage ? currentPage : 1)
+const currentPageSize = ref<number>(initialPageSize ? initialPageSize : pageSizes[0])
 const pageCount = computed((): number => Math.ceil(totalCount / currentPageSize.value))
 const pageSizeOptions = pageSizes.map((size, i) => ({
   label: `${size}`,
