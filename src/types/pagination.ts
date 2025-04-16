@@ -1,9 +1,9 @@
-export interface PageChangeData {
+export interface PageChangeData<T = any> {
   page: number
   pageCount: number
   firstItem: number
   lastItem: number
-  visibleItems: string | number[]
+  visibleItems: T[]
 }
 
 export interface PageSizeChangeData {
@@ -11,13 +11,13 @@ export interface PageSizeChangeData {
   pageCount: number
 }
 
-export interface PaginationProps {
+export interface PaginationProps<T> {
   /**
    * Optional array of items that can be provided for easy pagination.
    * Slice of this array with visible items is returned as visibleItems inside the pageChange event.
    * @default []
    */
-  items?: string | number[]
+  items?: T[]
 
   /**
    * The total number of items.
@@ -74,11 +74,11 @@ export interface PaginationProps {
   offsetNextButtonDisabled?: boolean
 }
 
-export interface PaginationEmits {
+export interface PaginationEmits<T> {
   /**
    * Emitted when the page changes, pass the current page information along with it.
    */
-  pageChange: [data: PageChangeData]
+  pageChange: [data: PageChangeData<T>]
   /**
    * Emitted when the page size changes, pass the current page size and page count.
    */

@@ -149,7 +149,7 @@
   </nav>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T">
 import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KButton from '@/components/KButton/KButton.vue'
@@ -173,9 +173,9 @@ const {
   offset,
   offsetPreviousButtonDisabled,
   offsetNextButtonDisabled,
-} = defineProps<PaginationProps>()
+} = defineProps<PaginationProps<T>>()
 
-const emit = defineEmits<PaginationEmits>()
+const emit = defineEmits<PaginationEmits<T>>()
 
 const kPaginationElement = ref<HTMLElement | null>(null)
 const resizeObserver = ref<ResizeObserverHelper>()
