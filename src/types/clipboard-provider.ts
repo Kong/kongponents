@@ -4,5 +4,5 @@ export interface ClipboardProviderSlots {
   /**
    * Slot for providing `copyToClipboard` method to the children.
    */
-  default?(props: { copyToClipboard: typeof copyTextToClipboard }): any
+  default?(props: { copyToClipboard: (arg: string | undefined) => ReturnType<typeof copyTextToClipboard> }): any
 }
