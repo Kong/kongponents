@@ -1,3 +1,10 @@
+## [9.29.1](https://github.com/Kong/kongponents/compare/v9.29.0...v9.29.1) (2025-04-16)
+
+
+### Bug Fixes
+
+* **kselect, kmultiselect:** disable autofill attributes [KHCP-15759] ([#2700](https://github.com/Kong/kongponents/issues/2700)) ([8ee029c](https://github.com/Kong/kongponents/commit/8ee029c4054f4e98bd932798514bc059c5c44489))
+
 # [9.29.0](https://github.com/Kong/kongponents/compare/v9.28.6...v9.29.0) (2025-04-16)
 
 
