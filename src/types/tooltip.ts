@@ -16,7 +16,7 @@ export interface TooltipProps {
 
   /**
    * Set the max-width of the ktooltip.
-   * @default 'auto'
+   * @default 'none'
    */
   maxWidth?: string
 
