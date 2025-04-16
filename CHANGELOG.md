@@ -1,3 +1,16 @@
+# [9.29.0](https://github.com/Kong/kongponents/compare/v9.28.6...v9.29.0) (2025-04-16)
+
+
+### Bug Fixes
+
+* **clipboardprovider:** update method signature to prevent downstream… ([#2701](https://github.com/Kong/kongponents/issues/2701)) ([b65b684](https://github.com/Kong/kongponents/commit/b65b684e9e03f39a5c52e8e0ec1e4523df39d652))
+* **kpop:** max-width should default to none instead of auto ([#2699](https://github.com/Kong/kongponents/issues/2699)) ([a422f2d](https://github.com/Kong/kongponents/commit/a422f2d85f4981cff762ab66d04602ae022af82d))
+
+
+### Features
+
+* **kcatalog:** improve typing for kcatalog ([#2682](https://github.com/Kong/kongponents/issues/2682)) ([c37ea82](https://github.com/Kong/kongponents/commit/c37ea82148bfa050b2971e57c948a5682cfb8b4f))
+
 ## [9.28.6](https://github.com/Kong/kongponents/compare/v9.28.5...v9.28.6) (2025-04-14)
 
 
