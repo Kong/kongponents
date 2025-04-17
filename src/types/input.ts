@@ -1,4 +1,4 @@
-import type { TooltipAttributes } from '@/types/label'
+import type { TooltipAttributes } from '@/types/tooltip'
 
 export interface LabelAttributes {
   info?: string
