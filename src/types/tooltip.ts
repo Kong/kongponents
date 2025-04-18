@@ -1,4 +1,4 @@
-import type { PopoverAttributes, PopPlacements } from './popover'
+import type { PopoverAttributes, PopPlacement } from './popover'
 
 export interface TooltipProps {
   /**
@@ -10,9 +10,9 @@ export interface TooltipProps {
   /**
    * Define which side the tooltip displays.
    * One of ['auto', 'top', 'top-start', 'top-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end', 'bottom', 'bottom-start', 'bottom-end'].
-   * @default 'top'
+   * @default 'bottom'
    */
-  placement?: PopPlacements
+  placement?: PopPlacement
 
   /**
    * Set the max-width of the ktooltip.
