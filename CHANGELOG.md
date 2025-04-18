@@ -1,3 +1,10 @@
+## [9.29.2](https://github.com/Kong/kongponents/compare/v9.29.1...v9.29.2) (2025-04-18)
+
+
+### Bug Fixes
+
+* **kpagination:** ts improvements ([#2698](https://github.com/Kong/kongponents/issues/2698)) ([63ed557](https://github.com/Kong/kongponents/commit/63ed557ac12a1d4b523470a3982513cdf463b0e4))
+
 ## [9.29.1](https://github.com/Kong/kongponents/compare/v9.29.0...v9.29.1) (2025-04-16)
 
 
