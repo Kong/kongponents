@@ -17,7 +17,7 @@
           :aria-controls="hidePanels ? undefined : `panel-${tab.hash}`"
           :aria-selected="hidePanels ? undefined : (activeTab === tab.hash ? 'true' : 'false')"
           class="tab-link"
-          :class="{ disabled: tab.disabled }"
+          :disabled="tab.disabled"
           role="tab"
           :tabindex="getAnchorTabindex(tab)"
           :to="tab.to"
