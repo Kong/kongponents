@@ -12,15 +12,15 @@
         :class="{ active: activeTab === tab.hash }"
         :data-testid="`${tab.hash.replace('#','')}-tab`"
       >
-        <component
-          :is="tabComponent(tab).tag"
+        <KButton
+          appearance="none"
           :aria-controls="hidePanels ? undefined : `panel-${tab.hash}`"
           :aria-selected="hidePanels ? undefined : (activeTab === tab.hash ? 'true' : 'false')"
           class="tab-link"
           :class="{ disabled: tab.disabled }"
           role="tab"
           :tabindex="getAnchorTabindex(tab)"
-          v-bind="tabComponent(tab).attributes"
+          :to="tab.to"
           @click="!tab.disabled ? handleTabChange(tab.hash) : undefined"
           @click.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
           @keydown.enter.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
@@ -29,7 +29,7 @@
           <slot :name="`${getTabSlotName(tab.hash)}-anchor`">
             <span>{{ tab.title }}</span>
           </slot>
-        </component>
+        </KButton>
       </li>
     </ul>
 
@@ -54,6 +54,7 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import { ref, watch } from 'vue'
+import KButton from '@/components/KButton/KButton.vue'
 import type { Tab } from '@/types'
 
 const props = defineProps({
@@ -118,18 +119,6 @@ const getAnchorTabindex = (tab: Tab): string => {
   }
 
   return typeof props.anchorTabindex === 'number' && props.anchorTabindex >= -1 && props.anchorTabindex <= 32767 ? String(props.anchorTabindex) : '0'
-}
-
-const tabComponent = (tab: Tab) => {
-  if (tab.to) {
-    if (typeof tab.to === 'string') {
-      return { tag: 'a', attributes: { href: tab.disabled ? undefined : tab.to } }
-    } else if (typeof tab.to === 'object') {
-      return { tag: 'router-link', attributes: { to: tab.disabled ? undefined : tab.to } }
-    }
-  }
-
-  return { tag: 'div', attributes: {} }
 }
 
 watch(() => props.modelValue, (newTabHash) => {
