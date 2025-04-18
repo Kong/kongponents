@@ -47,7 +47,7 @@ defineOptions({
 
 const {
   text = '',
-  placement = 'top',
+  placement = 'bottom',
   maxWidth = 'none',
   label = '',
   tooltipId = '',
