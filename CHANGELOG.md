@@ -1,3 +1,10 @@
+## [9.29.3](https://github.com/Kong/kongponents/compare/v9.29.2...v9.29.3) (2025-04-18)
+
+
+### Bug Fixes
+
+* **ktooltip:** improve typings for ktooltip ([#2703](https://github.com/Kong/kongponents/issues/2703)) ([0e332b9](https://github.com/Kong/kongponents/commit/0e332b9df403f6cad9742cf754ea6f690ab8ab6a))
+
 ## [9.29.2](https://github.com/Kong/kongponents/compare/v9.29.1...v9.29.2) (2025-04-18)
 
 
