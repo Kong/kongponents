@@ -20,7 +20,17 @@ export const PopPlacementsArray = [
   'bottom-end',
 ] as const
 
-export type PopPlacements = AnyElementOf<typeof PopPlacementsArray>
+export type PopPlacement = AnyElementOf<typeof PopPlacementsArray>
+
+/**
+ * @deprecated Use `PopPlacement` instead.
+ */
+export type Placement = PopPlacement
+
+/**
+ * @deprecated Use `PopPlacement` instead.
+ */
+export type PopPlacements = PopPlacement
 
 /**
  * @internal
@@ -54,7 +64,7 @@ export interface PopProps {
    * One of ['auto', 'top', 'top-start', 'top-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end', 'bottom', 'bottom-start', 'bottom-end'].
    * @default 'auto'
    */
-  placement?: PopPlacements
+  placement?: PopPlacement
 
   /**
    * Whether popover should be opened on trigger element click or mouseover.

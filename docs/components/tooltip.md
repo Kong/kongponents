@@ -85,7 +85,7 @@ Here are the different options:
 
 ### maxWidth
 
-You can set the maximum width of the tooltip container with the `maxWidth` property. `maxWidth` defaults to `auto`.
+You can set the maximum width of the tooltip container with the `maxWidth` property. `maxWidth` defaults to `none`.
 
 <KTooltip max-width="300" text="A very long tooltip that wraps to the next line. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.">
   <InfoIcon />
@@ -120,6 +120,10 @@ A string to be used as `id` attribute on underlying `role="tooltip"` element. Us
 </label>
 <KInput id="full-name-field" />
 ```
+
+### zIndex
+
+Pass a number to use for the `z-index` property. Default value is `9999`.
 
 ### kpopAttributes
 
