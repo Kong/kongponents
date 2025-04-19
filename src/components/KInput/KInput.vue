@@ -91,81 +91,39 @@
 
 <script setup lang="ts">
 import { computed, ref, watch, useSlots, useAttrs, onMounted, nextTick, useId } from 'vue'
-import type { PropType } from 'vue'
-import type { LabelAttributes, LimitExceededData } from '@/types'
+import type { InputProps, InputEmits, InputSlots } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { VisibilityIcon, VisibilityOffIcon } from '@kong/icons'
 
-const props = defineProps({
-  modelValue: {
-    type: [String, Number],
-    default: '',
-  },
-  label: {
-    type: String,
-    default: '',
-  },
-  labelAttributes: {
-    type: Object as PropType<LabelAttributes>,
-    default: () => ({}),
-    validator: (value: LabelAttributes): boolean => {
-      if (value.help) {
-        console.warn('KInput: `help` property of `labelAttributes` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#klabel')
-      }
+const {
+  modelValue = '',
+  label = '',
+  labelAttributes = {},
+  help = '',
+  error = false,
+  errorMessage = '',
+  characterLimit = null,
+  hasError = false,
+  type = 'text',
+  showPasswordMaskToggle = false,
+} = defineProps<InputProps>()
 
-      return true
-    },
-  },
-  help: {
-    type: String,
-    default: '',
-  },
-  error: {
-    type: Boolean,
-    default: false,
-  },
-  errorMessage: {
-    type: String,
-    default: '',
-  },
-  characterLimit: {
-    type: Number,
-    default: null,
-    // Ensure the characterLimit is greater than zero
-    validator: (limit: number): boolean => limit > 0,
-  },
-  /**
-   * @deprecated in favor of `error`
-   */
-  hasError: {
-    type: Boolean,
-    default: false,
-    validator: (value: boolean): boolean => {
-      if (value) {
-        console.warn('KInput: `hasError` prop is deprecated. Please use `error` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kinput')
-      }
+watch(() => hasError, (val) => {
+  if (val) {
+    console.warn('KInput: `hasError` prop is deprecated. Please use `error` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kinput')
+  }
+}, { immediate: true })
 
-      return true
-    },
-  },
-  type: {
-    type: String,
-    required: false,
-    default: 'text',
-  },
-  showPasswordMaskToggle: {
-    type: Boolean,
-    default: false,
-  },
+watch(() => labelAttributes.help, (help) => {
+  if (help) {
+    console.warn('KInput: `help` property of `labelAttributes` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#klabel')
+  }
 })
 
-const emit = defineEmits<{
-  (e: 'input', val: string): void
-  (e: 'update:modelValue', val: string): void
-  (e: 'char-limit-exceeded', val: LimitExceededData): void
-}>()
+const emit = defineEmits<InputEmits>()
+defineSlots<InputSlots>()
 
 const currValue = ref<string>('') // We need this so that we don't lose the updated value on hover/blur event with label
 const modelValueChanged = ref<boolean>(false) // Determine if the original value was modified by the user
@@ -179,13 +137,13 @@ const isRequired = computed((): boolean => attrs?.required !== undefined && Stri
 const defaultId = useId()
 const inputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
 const helpTextId = useId()
-const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
-const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
+const strippedLabel = computed((): string => stripRequiredLabel(label, isRequired.value))
+const hasLabelTooltip = computed((): boolean => !!(labelAttributes?.info || slots['label-tooltip']))
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
   get(): string | number {
-    return props.modelValue
+    return modelValue
   },
   set(newValue: string | number): void {
     // @ts-ignore: allow typing as Event
@@ -207,7 +165,7 @@ const modifiedAttrs = computed((): Record<string, any> => {
 
 const charLimitExceeded = computed((): boolean => {
   const currValLength = currValue.value?.toString().length || 0
-  const modelValLength = props.modelValue?.toString().length || 0
+  const modelValLength = modelValue?.toString().length || 0
 
   // default to length of currVal
   let length = currValLength
@@ -217,7 +175,7 @@ const charLimitExceeded = computed((): boolean => {
     length = modelValLength
   }
 
-  return !!props.characterLimit && length > props.characterLimit
+  return !!characterLimit && length > characterLimit
 })
 
 const charLimitExceededErrorMessage = computed((): string => {
@@ -226,8 +184,8 @@ const charLimitExceededErrorMessage = computed((): string => {
   }
 
   return modelValueChanged.value
-    ? `${currValue.value?.toString().length} / ${props.characterLimit}`
-    : `${props.modelValue?.toString().length} / ${props.characterLimit}`
+    ? `${currValue.value?.toString().length} / ${characterLimit}`
+    : `${modelValue?.toString().length} / ${characterLimit}`
 })
 
 const helpText = computed((): string => {
@@ -237,13 +195,13 @@ const helpText = computed((): string => {
   }
 
   // if error prop is true and there is an error message, return that
-  if ((props.error || props.hasError) && props.errorMessage) {
-    return props.errorMessage
+  if ((error || hasError) && errorMessage) {
+    return errorMessage
   }
 
   // otherwise return the help text
   // if error prop is true it danger styles will be applied
-  return props.help
+  return help
 })
 
 watch(charLimitExceeded, (newVal, oldVal) => {
@@ -251,7 +209,7 @@ watch(charLimitExceeded, (newVal, oldVal) => {
     emit('char-limit-exceeded', {
       value: currValue.value,
       length: currValue.value.length,
-      characterLimit: props.characterLimit,
+      characterLimit: characterLimit!,
       limitExceeded: newVal,
     })
 
@@ -284,10 +242,10 @@ const updateInputValue = (value: string): void => {
 
 const getValue = (): string | number => {
   // Use the modelValue only if it was initialized to something and the value hasn't been changed
-  return currValue.value || modelValueChanged.value ? currValue.value : props.modelValue
+  return currValue.value || modelValueChanged.value ? currValue.value : modelValue
 }
 
-watch(() => props.error, (newVal, oldVal) => {
+watch(() => error, (newVal, oldVal) => {
   if (newVal !== oldVal) {
     // bump the key to trigger the transition
     helpTextKey.value += 1
@@ -301,7 +259,7 @@ const afterSlotElementWidth = ref<string>(KUI_ICON_SIZE_40) // default to slot i
 
 const maskValue = ref<boolean>(false)
 const inputType = computed((): string => {
-  return props.type === 'password' && maskValue.value ? 'text' : props.type
+  return type === 'password' && maskValue.value ? 'text' : type
 })
 
 onMounted(async () => {
