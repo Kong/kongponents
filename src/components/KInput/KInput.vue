@@ -102,12 +102,12 @@ const {
   label = '',
   labelAttributes = {},
   help = '',
-  error = false,
+  error,
   errorMessage = '',
   characterLimit = null,
-  hasError = false,
+  hasError,
   type = 'text',
-  showPasswordMaskToggle = false,
+  showPasswordMaskToggle,
 } = defineProps<InputProps>()
 
 watch(() => hasError, (val) => {
