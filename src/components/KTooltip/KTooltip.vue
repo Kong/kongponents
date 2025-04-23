@@ -36,68 +36,28 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useId, useSlots } from 'vue'
-import type { PropType } from 'vue'
+import { computed, useId } from 'vue'
 import KPop from '@/components/KPop/KPop.vue'
-import type { PopPlacements , PopoverAttributes } from '@/types'
-import { PopPlacementsArray } from '@/types'
 import { KUI_SPACE_20 } from '@kong/design-tokens'
+import type { TooltipProps, TooltipSlots } from '@/types'
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps({
-  /**
-  * Text to show in tooltip
-  */
-  text: {
-    type: String,
-    required: false,
-    default: '',
-  },
+const {
+  text = '',
+  placement = 'bottom',
+  maxWidth = 'none',
+  label = '',
+  tooltipId = '',
+  zIndex = 9999,
+  kpopAttributes = {},
+} = defineProps<TooltipProps>()
 
-  /**
-  * Define which side the tooltip displays
-  */
-  placement: {
-    type: String as PropType<PopPlacements>,
-    default: 'bottom',
-    validator: (value: PopPlacements):boolean => {
-      return PopPlacementsArray.includes(value)
-    },
-  },
-  /**
-  * Set the max-width of the ktooltip
-  */
-  maxWidth: {
-    type: String,
-    default: 'auto',
-  },
-  /**
-   * @deprecated in favor of text prop
-   */
-  label: {
-    type: String,
-    default: '',
-  },
-  tooltipId: {
-    type: String,
-    default: '',
-  },
-  zIndex: {
-    type: Number,
-    default: 9999,
-  },
-  kpopAttributes: {
-    type: Object as PropType<PopoverAttributes>,
-    default: () => {},
-  },
-})
+const slots = defineSlots<TooltipSlots>()
 
-const slots = useSlots()
-
-const showTooltip = computed((): boolean => !!props.text || !!props.label || !!slots.content)
+const showTooltip = computed((): boolean => !!text || !!label || !!slots.content)
 
 const randomTooltipId = useId()
 </script>

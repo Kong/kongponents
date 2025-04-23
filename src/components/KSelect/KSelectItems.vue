@@ -94,6 +94,9 @@ const emit = defineEmits<{
   (e: 'add-item'): void
 }>()
 
+const SELECTABLE_ITEM_SELECTOR = '.select-item button:not(:disabled)'
+const SELECTED_ITEM_SELECTOR = '.select-item[aria-selected="true"] button:not(:disabled)'
+
 const handleItemSelect = (item: SelectItem) => emit('selected', item)
 
 const nonGroupedItems = computed((): SelectItem[] => props.items?.filter(item => !item.group))
@@ -103,15 +106,31 @@ const getGroupItems = (group: string) => props.items?.filter(item => item.group 
 
 const itemsContainerRef = useTemplateRef('itemsContainer')
 
-const setItemFocus = (): void => {
-  const firstSelectableItem = itemsContainerRef.value?.querySelector<HTMLButtonElement>('.select-item button:not(:disabled)')
-  firstSelectableItem?.focus()
+const moveItemFocus = (direction: 'down' | 'up'): void => {
+  const container = itemsContainerRef.value
+  if (!container) {
+    return
+  }
+
+  const items = container.querySelectorAll<HTMLButtonElement>(SELECTABLE_ITEM_SELECTOR)
+  if (!items?.length) {
+    return
+  }
+
+  const selectedItem = container.querySelector<HTMLButtonElement>(SELECTED_ITEM_SELECTOR)
+
+  if (selectedItem) {
+    const index = [...items].indexOf(selectedItem)
+    items[direction === 'down' ? index + 1 : index - 1]?.focus()
+  } else {
+    items[direction === 'down' ? 0 : items.length - 1]?.focus()
+  }
 }
 
 const onKeyPress = ({ target, key } : KeyboardEvent) => {
   if (key === 'ArrowDown' || key === 'ArrowUp') {
     // all selectable items
-    const selectableItems = itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>('.select-item button:not(:disabled)')
+    const selectableItems = itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>(SELECTABLE_ITEM_SELECTOR)
 
     if (selectableItems?.length) {
       // find the current element index in the array
@@ -125,7 +144,7 @@ const onKeyPress = ({ target, key } : KeyboardEvent) => {
   }
 }
 
-defineExpose({ setFocus: setItemFocus })
+defineExpose({ setFocus: moveItemFocus })
 </script>
 
 <style lang="scss" scoped>

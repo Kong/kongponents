@@ -6,7 +6,7 @@
     >
       <component
         :is="titleTag"
-        v-if="$slots.title || title"
+        v-if="slots.title || title"
         class="card-title"
       >
         <slot name="title">
@@ -14,20 +14,20 @@
         </slot>
       </component>
       <div
-        v-if="$slots.actions"
+        v-if="slots.actions"
         class="card-actions"
       >
         <slot name="actions" />
       </div>
     </div>
     <div
-      v-if="$slots.default"
+      v-if="slots.default"
       class="card-content"
     >
       <slot name="default" />
     </div>
     <div
-      v-if="$slots.footer"
+      v-if="slots.footer"
       class="card-footer"
     >
       <slot name="footer" />
@@ -36,26 +36,18 @@
 </template>
 
 <script setup lang="ts">
-import { useSlots, computed, type PropType } from 'vue'
-import { HeaderTags } from '@/types'
-import type { HeaderTag } from '@/types'
+import { computed } from 'vue'
+import type { CardProps, CardSlots } from '@/types'
 
-const props = defineProps({
-  title: {
-    type: String,
-    default: '',
-  },
-  titleTag: {
-    type: String as PropType<HeaderTag>,
-    default: 'div',
-    validator: (value: HeaderTag): boolean => HeaderTags.includes(value),
-  },
-})
+const {
+  title = '',
+  titleTag = 'div',
+} = defineProps<CardProps>()
 
-const slots = useSlots()
+const slots = defineSlots<CardSlots>()
 
 const showCardHeader = computed((): boolean => {
-  return !!(slots.title || props.title || slots.actions)
+  return !!(slots.title || title || slots.actions)
 })
 </script>
 

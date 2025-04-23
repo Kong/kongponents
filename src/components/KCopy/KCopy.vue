@@ -55,100 +55,38 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue'
 import { computed, ref, watch, onMounted, onUnmounted, useId } from 'vue'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { CopyIcon } from '@kong/icons'
-import KClipboardProvider from '@/components/KClipboardProvider'
+import KClipboardProvider from '@/components/KClipboardProvider/KClipboardProvider.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+import type { CopyProps } from '@/types'
+import type { copyTextToClipboard } from '@/utilities/copyTextToClipboard'
 
-const props = defineProps({
-  /**
-   * Text displayed before the copyable text when
-   * `badge` is true
-   */
-  badgeLabel: {
-    type: String,
-    default: '',
-  },
-  /**
-   * The copyable text
-   */
-  text: {
-    type: String,
-    required: true,
-  },
-  /**
-   * Tooltip text displayed on hover over the `text`
-   */
-  textTooltip: {
-    type: String,
-    default: '',
-  },
-  /**
-   * Tooltip text displayed on hover over copy button
-   */
-  copyTooltip: {
-    type: String,
-    default: '',
-  },
-  /**
-   * Formatting for copyable text (default, hidden, redacted, deleted)
-   */
-  format: {
-    type: String as PropType<'default' | 'hidden' | 'redacted' | 'deleted'>,
-    required: false,
-    default: 'default',
-    validator: (val: string) => ['default', 'hidden', 'redacted', 'deleted'].includes(val),
-  },
-  /**
-   * Whether or not to display as a badge
-   */
-  badge: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Whether or not to use monospace font
-   */
-  monospace: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Whether or not the text should be truncated
-   */
-  truncate: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Tooltip text displayed on successful copy
-   */
-  successTooltip: {
-    type: String,
-    default: 'Copied!',
-  },
-  /**
-   * Number of characters to truncate at
-   */
-  truncationLimit: {
-    type: [Number, String],
-    default: 8,
-  },
-})
+const {
+  badgeLabel = '',
+  text,
+  textTooltip = '',
+  copyTooltip = '',
+  format = 'default',
+  badge,
+  monospace,
+  truncate,
+  successTooltip = 'Copied!',
+  truncationLimit = 8,
+} = defineProps<CopyProps>()
 
 const copyButtonElementId = useId()
 
 const tooltipText = ref<string>('')
 const nonSuccessText = computed((): string => {
-  if (!props.badgeLabel || props.copyTooltip) {
-    return props.copyTooltip || 'Copy'
+  if (!badgeLabel || copyTooltip) {
+    return copyTooltip || 'Copy'
   }
 
   // strip trailing colon from label if one exists
-  return `Copy ${props.badgeLabel.replace(/:$/, '')}`
+  return `Copy ${badgeLabel.replace(/:$/, '')}`
 })
 
 watch(nonSuccessText, (value: string): void => {
@@ -158,42 +96,42 @@ watch(nonSuccessText, (value: string): void => {
 // Computed for dynamic classes
 const textTooltipClasses = computed((): string => {
   const tooltipWrapperClass = 'copy-tooltip-wrapper' // this selector is referenced in vars.scss - do not update without checking for usage in there first
-  return `${tooltipWrapperClass} ${(props.truncate && isTruncated.value) || props.badge ? 'truncate-content' : ''}`
+  return `${tooltipWrapperClass} ${(truncate && isTruncated.value) || badge ? 'truncate-content' : ''}`
 })
 
 const textFormat = computed(() => {
-  if (props.format === 'redacted') {
+  if (format === 'redacted') {
     return '*****'
-  } else if (props.format === 'deleted') {
-    return `*${String(props.text || '').substring(0, 5)}`
+  } else if (format === 'deleted') {
+    return `*${String(text || '').substring(0, 5)}`
   }
 
   // This regex will only remove the quotes if they are the first and last characters of the string (truncateLimitText)
-  return (props.truncate && props.truncationLimit && truncateLimitText.value) ? truncateLimitText.value.replace(/^"(.*)"$/, '$1') : props.text
+  return (truncate && truncationLimit && truncateLimitText.value) ? truncateLimitText.value.replace(/^"(.*)"$/, '$1') : text
 })
 
 const textTooltipLabel = computed((): string | undefined => {
-  if (props.textTooltip) {
-    return props.textTooltip
+  if (textTooltip) {
+    return textTooltip
   }
 
   // don't show text tooltip if text is redacted or not truncated
-  if (props.format === 'redacted' || !isTruncated.value) {
+  if (format === 'redacted' || !isTruncated.value) {
     return undefined
   }
 
-  return props.text
+  return text
 })
 
 const updateTooltipText = (msg?: string): void => {
-  tooltipText.value = msg || props.successTooltip
+  tooltipText.value = msg || successTooltip
   setTimeout(() => {
     tooltipText.value = nonSuccessText.value
   }, 1800)
 }
 
-const copyIdToClipboard = (executeCopy: (prop: string) => boolean) => {
-  if (!executeCopy(props.text)) {
+const copyIdToClipboard = async (executeCopy: typeof copyTextToClipboard) => {
+  if (!await executeCopy(text)) {
     updateTooltipText('Failed to copy')
 
     return
@@ -214,16 +152,16 @@ defineExpose({
 
 const copyTextElement = ref<HTMLDivElement>()
 const resizeObserver = ref<ResizeObserverHelper>()
-const truncateLimitText = computed((): string | null => props.truncate && typeof props.truncationLimit === 'number' ? `${String(props.text || '').substring(0, props.truncationLimit) + '...'}` : null)
+const truncateLimitText = computed((): string | null => truncate && typeof truncationLimit === 'number' ? `${String(text || '').substring(0, truncationLimit) + '...'}` : null)
 const isTruncated = ref<boolean>(false)
 const setTruncation = (): void => {
-  if (!props.truncate) {
+  if (!truncate) {
     return
   }
 
-  if (props.truncationLimit !== 'auto' && truncateLimitText.value) {
+  if (truncationLimit !== 'auto' && truncateLimitText.value) {
     isTruncated.value = true
-  } else if (props.truncationLimit === 'auto' && copyTextElement.value) {
+  } else if (truncationLimit === 'auto' && copyTextElement.value) {
     isTruncated.value = copyTextElement.value?.offsetWidth < copyTextElement.value?.scrollWidth
   }
 }

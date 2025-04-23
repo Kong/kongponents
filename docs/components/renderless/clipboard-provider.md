@@ -3,14 +3,12 @@
 KClipboardProvider provides clipboard functionality to components.
 
 <KCard>
-  <template #body>
     <KInput :model-value="dataToCopy" @input="newValue => dataToCopy = newValue" type="text" class="vertical-spacing" />
     <KClipboardProvider v-slot="{ copyToClipboard }">
       <KButton @click="() => { if (copyToClipboard(dataToCopy)) alert(`Copied: '${dataToCopy}'`) }">
         Copy to Clipboard
       </KButton>
     </KClipboardProvider>
-  </template>
 </KCard>
 
 ```html
@@ -42,7 +40,7 @@ const alert = (msg: string): void => {
 
 | Props             | Type     | Description                             |
 | :---------------- | :------- | :-------------------------------------- |
-| `copyToClipboard` | Function | Copy to clipboard; `@returns {Boolean}` |
+| `copyToClipboard` | Function | Copy to clipboard; `@returns {Promise<boolean>}` |
 
 <script setup lang="ts">
 import { ref } from 'vue'

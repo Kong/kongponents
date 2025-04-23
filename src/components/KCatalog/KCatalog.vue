@@ -46,7 +46,7 @@
             <KButton
               :data-testid="getTestIdString(errorStateActionMessage)"
               :to="errorStateActionRoute ? errorStateActionRoute : undefined"
-              @click="$emit('error-action-click')"
+              @click="emit('error-action-click')"
             >
               {{ errorStateActionMessage }}
             </KButton>
@@ -74,7 +74,7 @@
               :appearance="searchInput ? 'tertiary' : 'primary'"
               :data-testid="getTestIdString(emptyStateActionMessage)"
               :to="emptyStateActionRoute ? emptyStateActionRoute : undefined"
-              @click="$emit('empty-state-action-click')"
+              @click="emit('empty-state-action-click')"
             >
               <slot name="empty-state-action-icon" />
               {{ emptyStateActionMessage }}
@@ -99,9 +99,9 @@
           :key="item.key ? item.key : `catalog-${catalogId}-item-${idx}`"
           class="catalog-item"
           :data-testid="item.id ? item.id : `catalog-item-${idx}`"
-          :item="(item as CatalogItem)"
+          :item="item"
           :truncate="truncateDescription"
-          @click="$emit('card-click', item)"
+          @click="emit('card-click', item)"
         >
           <template #card-title>
             <slot
@@ -152,24 +152,18 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import type { PropType } from 'vue'
-import { ref, computed, onMounted, watch, useSlots, useId } from 'vue'
+<script setup lang="ts" generic="T extends CatalogItem[] | readonly CatalogItem[]">
+import { ref, computed, onMounted, watch, useId, type Ref } from 'vue'
 import type {
-  CatalogItem,
   CatalogPreferences,
-  SwrvState,
   SwrvStateData,
-  CardSize,
   CatalogState,
   PageChangeData,
   PageSizeChangeData,
-  EmptyStateIconVariant,
-  HeaderTag,
-} from '@/types'
-import {
-  CardSizeArray,
-  EmptyStateIconVariants,
+  CatalogProps,
+  CatalogEmits,
+  CatalogSlots,
+  CatalogItem,
 } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
@@ -181,200 +175,42 @@ import KCatalogItem from './KCatalogItem.vue'
 const { useRequest, useDebounce, useSwrvState } = useUtilities()
 const DEFAULT_PAGE_SIZE = 15
 
-const props = defineProps({
-  titleTag: {
-    type: String as PropType<HeaderTag>,
-    default: 'div',
-  },
-  /**
-   * A prop to pass in to display skeleton to indicate loading
-   */
-  loading: {
-    type: Boolean,
-    default: false,
-  },
-  cardSize: {
-    type: String as PropType<CardSize>,
-    default: 'medium',
-    validator: (value: CardSize): boolean => CardSizeArray.includes(value),
-  },
-  /**
-   * Card catalog title
-   */
-  title: {
-    type: String,
-    default: '',
-  },
-  /**
-   * Disable truncation of the KCard's 'description'
-   */
-  truncateDescription: {
-    type: Boolean,
-    default: true,
-  },
-  /**
-   * A prop to pass in a custom empty state title
-   */
-  emptyStateTitle: {
-    type: String,
-    default: 'No Data',
-  },
-  /**
-   * A prop to pass in a custom empty state message
-   */
-  emptyStateMessage: {
-    type: String,
-    default: 'There is no data to display.',
-  },
-  /**
-   * A prop to pass in a custom empty state action route
-   */
-  emptyStateActionRoute: {
-    type: [Object, String],
-    default: '',
-  },
-  /**
-   * A prop to pass in a custom empty state action message
-   */
-  emptyStateActionMessage: {
-    type: String,
-    default: '',
-  },
-  emptyStateIconVariant: {
-    type: String as PropType<EmptyStateIconVariant>,
-    default: EmptyStateIconVariants.Default,
-  },
-  /**
-   * A prop that enables the error state
-   */
-  error: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * A prop to pass in a custom error state title
-   */
-  errorStateTitle: {
-    type: String,
-    default: 'An error occurred',
-  },
-  /**
-   * A prop to pass in a custom error state message
-   */
-  errorStateMessage: {
-    type: String,
-    default: 'Data cannot be displayed due to an error.',
-  },
-  /**
-   * A prop to pass in a custom error state action route
-   */
-  errorStateActionRoute: {
-    type: [Object, String],
-    default: '',
-  },
-  /**
-   * A prop to pass in a custom error state action message
-   */
-  errorStateActionMessage: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a fetcher function to enable server-side pagination
-   */
-  fetcher: {
-    type: Function,
-    required: true,
-  },
-  /**
-   * A prop to pass in a an object of intial params for the initial fetcher function call
-   */
-  initialFetcherParams: {
-    type: Object,
-    default: null,
-  },
-  /**
-   * A prop used to uniquely identify this catalog in the swrv cache
-   */
-  cacheIdentifier: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to trigger a revalidate of the fetcher function. Modifying this value
-   * will trigger a manual refetch of the table data.
-   */
-  fetcherCacheKey: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a search string for server-side search
-   */
-  searchInput: {
-    type: String,
-    default: '',
-  },
-  /**
-   * A prop to pass in a the number of pagination neighbors used by the pagination component
-   */
-  paginationNeighbors: {
-    type: Number,
-    default: 1,
-  },
-  /**
-   * A prop to pass in an array of page sizes used by the pagination component
-   */
-  paginationPageSizes: {
-    type: Array as PropType<number[]>,
-    default: () => ([15, 30, 50, 75, 100]),
-    validator: (pageSizes: number[]): boolean => !!pageSizes.length && pageSizes.every(i => typeof i === 'number'),
-  },
-  /**
-   * A prop to pass the total number of items in the set for the pagination text
-   */
-  paginationTotalItems: {
-    type: Number,
-    default: null,
-  },
-  disablePaginationPageJump: {
-    type: Boolean,
-    default: false,
-  },
-  disablePagination: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * A prop to pass to hide pagination for total table records is less than or equal to pagesize
-   */
-  hidePaginationWhenOptional: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Boolean prop to enable offset-based pagination
-   */
-  paginationOffset: {
-    type: Boolean,
-    default: false,
-  },
-})
-
-const emit = defineEmits<{
-  (e: 'card-click', item: CatalogItem): void
-  (e: 'error-action-click'): void
-  (e: 'empty-state-action-click'): void
-  (e: 'update:catalog-preferences', preferences: CatalogPreferences): void
-  (e: 'state', value: { state: CatalogState, hasData: boolean }): void
-}>()
-
-const slots = useSlots()
+const {
+  titleTag = 'div',
+  loading,
+  cardSize = 'medium',
+  title = '',
+  truncateDescription = true,
+  emptyStateTitle = 'No Data',
+  emptyStateMessage = 'There is no data to display.',
+  emptyStateActionRoute = '',
+  emptyStateActionMessage = '',
+  emptyStateIconVariant = 'default',
+  error,
+  errorStateTitle = 'An error occurred',
+  errorStateMessage = 'Data cannot be displayed due to an error.',
+  errorStateActionRoute = '',
+  errorStateActionMessage = '',
+  fetcher,
+  initialFetcherParams = null,
+  cacheIdentifier = '',
+  fetcherCacheKey = '',
+  searchInput = '',
+  paginationNeighbors = 1,
+  paginationPageSizes = [15, 30, 50, 75, 100],
+  paginationTotalItems = null,
+  disablePaginationPageJump,
+  disablePagination,
+  hidePaginationWhenOptional,
+  paginationOffset,
+} = defineProps<CatalogProps<T>>()
+const emit = defineEmits<CatalogEmits<T>>()
+const slots = defineSlots<CatalogSlots<T>>()
 
 const catalogId = useId()
 
 const getInitialPageSize = (): number => {
-  const initialPageSize = props.paginationPageSizes?.[0]
+  const initialPageSize = paginationPageSizes?.[0]
 
   if (initialPageSize) {
     return initialPageSize
@@ -383,7 +219,8 @@ const getInitialPageSize = (): number => {
   return DEFAULT_PAGE_SIZE
 }
 
-const data = ref<CatalogItem[]>([])
+// Cannot use `const data = ref<T[]>([])` as the items will be inferred incorrectly inside the template.
+const data = ref([] as unknown as T) as Ref<T>
 const total = ref<number>(0)
 const filterQuery = ref<string>('')
 const page = ref<number>(1)
@@ -404,7 +241,7 @@ const defaultFetcherProps = {
 }
 
 // show loading if fetching, loading prop is `true` or if revalidating (swrv state)
-const showLoading = computed((): boolean => (isCatalogLoading.value || props.loading || isRevalidating.value) && !props.error)
+const showLoading = computed((): boolean => (isCatalogLoading.value || loading || isRevalidating.value) && !error)
 // show empty state if not loading and no data
 const showEmptyState = computed((): boolean => !showLoading.value && data.value && !data.value.length)
 
@@ -415,20 +252,21 @@ const catalogPreferences = computed((): CatalogPreferences => ({
 
 const isInitialFetch = ref(true)
 const fetchData = async () => {
-  const searchInput = props.searchInput
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const res = await props.fetcher({
+  const res = await fetcher({
     query: searchInput || filterQuery.value,
     pageSize: pageSize.value,
     page: page.value,
     offset: offset.value,
   })
 
-  data.value = res.data as CatalogItem[]
-  total.value = props.paginationTotalItems || res.total || res.data?.length
+  if (res == null) {
+    throw new Error('KCatalog: Fetcher did not return data correctly.')
+  }
 
-  if (props.paginationOffset) {
+  data.value = res.data
+  total.value = paginationTotalItems || res.total || res.data?.length
+
+  if (paginationOffset) {
     if (!res.pagination?.offset) {
       nextOffset.value = null
     } else {
@@ -439,7 +277,7 @@ const fetchData = async () => {
       }
     }
 
-    hasNextPage.value = (res.pagination && 'hasNextPage' in res.pagination) ? res.pagination.hasNextPage : true
+    hasNextPage.value = (res.pagination && 'hasNextPage' in res.pagination) ? !!res.pagination.hasNextPage : true
   }
 
   // if the data is empty and the page is greater than 1,
@@ -460,7 +298,7 @@ const initData = () => {
   // set up fetcher props
   const fetcherParams = {
     ...defaultFetcherProps,
-    ...props.initialFetcherParams,
+    ...initialFetcherParams,
   }
 
   // don't allow overriding default settings with `undefined` values
@@ -468,7 +306,7 @@ const initData = () => {
   pageSize.value = fetcherParams.pageSize ?? defaultFetcherProps.pageSize
   filterQuery.value = fetcherParams.query ?? defaultFetcherProps.query
 
-  if (props.paginationOffset) {
+  if (paginationOffset) {
     offset.value = fetcherParams.offset
     offsets.value.push(fetcherParams.offset)
   }
@@ -479,18 +317,18 @@ const initData = () => {
 
 // once `initData()` finishes, setting catalogFetcherCacheKey to non-falsey value triggers fetch of data
 const catalogFetcherCacheKey = computed((): string => {
-  if (!props.fetcher || !hasInitialized.value) {
+  if (!fetcher || !hasInitialized.value) {
     return ''
   }
 
   // Set the default identifier to a random string
   let identifierKey: string = catalogId
-  if (props.cacheIdentifier) {
-    identifierKey = props.cacheIdentifier
+  if (cacheIdentifier) {
+    identifierKey = cacheIdentifier
   }
 
-  if (props.fetcherCacheKey) {
-    identifierKey += `-${props.fetcherCacheKey}`
+  if (fetcherCacheKey) {
+    identifierKey += `-${fetcherCacheKey}`
   }
 
   return `k-catalog_${identifierKey}`
@@ -514,7 +352,7 @@ const { state, hasData, swrvState } = useSwrvState(fetcherData, fetcherError, fe
 const isCatalogLoading = ref<boolean>(true)
 const stateData = computed((): SwrvStateData => ({
   hasData: hasData.value,
-  state: state.value as SwrvState,
+  state: state.value,
 }))
 const catalogState = computed((): CatalogState => isCatalogLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
 
@@ -545,15 +383,15 @@ const getTestIdString = (message: string): string => {
 
 const showPagination = computed((): boolean => {
   // if fetcher is not defined or disablePagination is true, don't show pagination
-  if (!props.fetcher || props.disablePagination || !data.value || !data.value.length || props.error) {
+  if (!fetcher || disablePagination || !data.value || !data.value.length || error) {
     return false
   }
 
-  const minPageSize = props.paginationPageSizes?.[0] ?? DEFAULT_PAGE_SIZE
+  const minPageSize = paginationPageSizes?.[0] ?? DEFAULT_PAGE_SIZE
 
   // this logic is built around min page size so that pagination doesn't disappear when a higher value is selected and hidePaginationWhenOptional is true
-  if (props.hidePaginationWhenOptional && page.value === 1) {
-    if (!props.paginationOffset) {
+  if (hidePaginationWhenOptional && page.value === 1) {
+    if (!paginationOffset) {
       // if using cursor-based pagination, hide pagination when number of items is less than min page size
       return total.value > minPageSize
     } else {
@@ -594,7 +432,7 @@ watch([stateData, catalogState], (newData) => {
   })
 })
 
-watch(() => props.searchInput, (newValue: string) => {
+watch(() => searchInput, (newValue: string) => {
   if (page.value !== 1) {
     page.value = 1
   }

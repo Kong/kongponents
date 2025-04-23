@@ -4,7 +4,7 @@
     :data-testid="item && item.title ? `${item.title.replace(/[^0-9a-z]/gi, '-')}-catalog-item` : 'catalog-item'"
     role="button"
     tabindex="0"
-    @click="($event: any) => handleCardClick($event, item)"
+    @click="handleCardClick"
   >
     <template #title>
       <slot name="card-title">
@@ -28,28 +28,23 @@
   </KCard>
 </template>
 
-<script setup lang="ts">
-import type { PropType } from 'vue'
-import type { CatalogItem } from '@/types'
+<script setup lang="ts" generic="T extends CatalogItem | undefined">
+import type { CatalogItemProps, CatalogItemEmits, CatalogItemSlots, CatalogItem } from '@/types'
 import KCard from '@/components/KCard/KCard.vue'
 
-defineProps({
-  item: {
-    type: Object as PropType<CatalogItem>,
-    default: () => ({}),
-  },
-  truncate: {
-    type: Boolean,
-    default: true,
-  },
-})
+const {
+  item,
+  truncate = true,
+} = defineProps<CatalogItemProps<T>>()
 
-const emit = defineEmits(['click'])
+const emit = defineEmits<CatalogItemEmits<T>>()
 
-const handleCardClick = (evt: Event, item: CatalogItem): void => {
+defineSlots<CatalogItemSlots>()
+
+const handleCardClick = (evt: MouseEvent): void => {
   emit('click', {
     evt,
-    item,
+    item: item as T extends CatalogItem ? T : undefined,
   })
 }
 </script>

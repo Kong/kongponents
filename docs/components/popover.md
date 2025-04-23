@@ -92,6 +92,7 @@ Popover container title. Can also be [slotted](#title-1).
 Placement of the popover.
 
 Accepted values are:
+
 <ul>
   <li v-for="placement in PopPlacementsArray" :key="`${placement}-placement`">
     <code>{{ placement }}</code> 
@@ -128,6 +129,7 @@ Accepted values are:
 Whether popover should be opened on trigger element click or mouseover.
 
 Accepted values are:
+
 - `click` (default)
 - `hover`
 
@@ -304,7 +306,7 @@ Boolean to hide close button in popover content.
 Width of the popover container. Default value is `200px`.
 
 <KPop
-  width="500"
+  width="500px"
   button-text="Open popover"
 >
   <template #content>
@@ -314,7 +316,7 @@ Width of the popover container. Default value is `200px`.
 
 ```html
 <KPop
-  width="500"
+  width="500px"
   button-text="Open popover"
 >
   <template #content>
@@ -325,10 +327,10 @@ Width of the popover container. Default value is `200px`.
 
 ### maxWidth
 
-Maximum width of the popover container. Default value is `auto`.
+Maximum width of the popover container. Default value is `none`.
 
 <KPop
-  max-width="120"
+  max-width="120px"
   button-text="Open popover"
 >
   <template #content>
@@ -338,7 +340,7 @@ Maximum width of the popover container. Default value is `auto`.
 
 ```html
 <KPop
-  max-width="120"
+  max-width="120px"
   button-text="Open popover"
 >
   <template #content>

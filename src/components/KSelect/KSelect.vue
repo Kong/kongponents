@@ -44,6 +44,7 @@
             ref="inputElement"
             autocapitalize="off"
             autocomplete="off"
+            autocorrect="off"
             class="select-input"
             :class="{ 'filtering-disabled': !enableFiltering, 'hide-model-value': hasCustomSelectedItem && (!enableFiltering || !isToggled.value), 'input-has-focus': inputFocused || isToggled.value }"
             data-testid="select-input"
@@ -52,6 +53,7 @@
             :model-value="filterQuery"
             :placeholder="selectedItem && !enableFiltering ? selectedItem.label : placeholderText"
             :readonly="isReadonly"
+            spellcheck="false"
             v-bind="modifiedAttrs"
             @blur="onInputBlur"
             @click="onInputClick"
@@ -561,8 +563,8 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>): void => {
     inputElem.click()
   }
 
-  if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp') && isToggled.value) {
-    selectItemsRef.value?.setFocus()
+  if ((evt.key === 'ArrowDown' || evt.key === 'ArrowUp') && isToggled.value) {
+    selectItemsRef.value?.setFocus(evt.key === 'ArrowDown' ? 'down' : 'up')
   }
 }
 
@@ -729,10 +731,10 @@ onMounted(() => {
   useEventListener(document, 'keydown', (event: any) => {
     // When enableFiltering is false, the KInput doesn't have focus so we need to handle arrow key events here
     if (!props.enableFiltering && document.activeElement?.tagName === 'BODY' && !inputFocused.value && isDropdownOpen.value) {
-      if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
         event.preventDefault()
 
-        selectItemsRef.value?.setFocus()
+        selectItemsRef.value?.setFocus(event.key === 'ArrowDown' ? 'down' : 'up')
       }
     }
   })

@@ -72,10 +72,6 @@
           top: 0;
           z-index: 2;
 
-          @-moz-document url-prefix() {
-            position: unset; // make header non-sticky in Firefox because otherwise tooltips are cut off by the table boundaries
-          }
-
           &.is-scrolled {
             background-color: var(--kui-color-background, $kui-color-background);
           }

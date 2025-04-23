@@ -191,6 +191,7 @@
                   <KTooltip
                     v-if="column.tooltip || $slots[getColumnTooltipSlotName(column.key)]"
                     :data-testid="getColumnTooltipSlotName(column.key)"
+                    :kpop-attributes="{ target: tooltipTarget }"
                     max-width="300"
                     :tooltip-id="`${getColumnTooltipSlotName(column.key)}-${tableId}`"
                   >
@@ -284,6 +285,7 @@
 
                     <KTooltip
                       v-else-if="header.key === TableViewHeaderKeys.BULK_ACTIONS && getRowState(row)"
+                      :kpop-attributes="{ target: tooltipTarget }"
                       max-width="200"
                       placement="bottom-start"
                       :text="getRowBulkActionEnabled(row) ? undefined : getRowBulkActionTooltip(row)"
@@ -474,6 +476,7 @@ const props = withDefaults(defineProps<TableViewProps>(), {
   nested: false,
   hidePaginationWhenOptional: false,
   hideToolbar: false,
+  tooltipTarget: 'body',
   /**
    * KTableView props defaults
    */

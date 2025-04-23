@@ -10,14 +10,12 @@
 </template>
 
 <script setup lang="ts">
-defineProps({
-  useTeleport: {
-    type: Boolean,
-    default: false,
-  },
-  target: {
-    type: [String, null],
-    default: null,
-  },
-})
+import type { PopTeleportWrapperProps, PopTeleportWrapperSlots } from '@/types'
+
+const {
+  useTeleport,
+  target = null,
+} = defineProps<PopTeleportWrapperProps>()
+
+defineSlots<PopTeleportWrapperSlots>()
 </script>

@@ -46,6 +46,7 @@
               <KInput
                 autocapitalize="off"
                 autocomplete="off"
+                autocorrect="off"
                 class="multiselect-input"
                 :class="{ 'is-readonly': isReadonly }"
                 data-testid="multiselect-input"
@@ -53,6 +54,7 @@
                 :model-value="filterString"
                 :placeholder="triggerElementText"
                 :readonly="isReadonly ? true : undefined"
+                spellcheck="false"
                 type="text"
                 @blur="() => isFocused = false"
                 @click="(evt: any) => {
@@ -163,10 +165,12 @@
                   ref="multiselectDropdownInputElement"
                   autocapitalize="off"
                   autocomplete="off"
+                  autocorrect="off"
                   class="multiselect-dropdown-input"
                   data-testid="multiselect-dropdown-input"
                   :model-value="filterString"
                   :placeholder="searchPlaceholder || DEFAULT_SEARCH_PLACEHOLDER"
+                  spellcheck="false"
                   type="text"
                   @click.stop
                   @focus="triggerInitialFocus"
@@ -897,8 +901,8 @@ const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
     isToggled.value = false
   }
 
-  if ((evt.code === 'ArrowDown' || evt.code === 'ArrowUp')) {
-    multiselectItemsRef.value?.setFocus()
+  if ((evt.key === 'ArrowDown' || evt.key === 'ArrowUp')) {
+    multiselectItemsRef.value?.setFocus(evt.key === 'ArrowDown' ? 'down' : 'up')
   }
 }
 
@@ -907,8 +911,8 @@ const onTriggerKeypress = () => {
 }
 
 const onDropdownInputKeyup = (event: any) => {
-  if ((event.code === 'ArrowDown' || event.code === 'ArrowUp')) {
-    multiselectItemsRef.value?.setFocus()
+  if ((event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
+    multiselectItemsRef.value?.setFocus(event.key === 'ArrowDown' ? 'down' : 'up')
   }
 }
 

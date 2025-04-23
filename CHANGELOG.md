@@ -1,3 +1,105 @@
+## [9.29.3](https://github.com/Kong/kongponents/compare/v9.29.2...v9.29.3) (2025-04-18)
+
+
+### Bug Fixes
+
+* **ktooltip:** improve typings for ktooltip ([#2703](https://github.com/Kong/kongponents/issues/2703)) ([0e332b9](https://github.com/Kong/kongponents/commit/0e332b9df403f6cad9742cf754ea6f690ab8ab6a))
+
+## [9.29.2](https://github.com/Kong/kongponents/compare/v9.29.1...v9.29.2) (2025-04-18)
+
+
+### Bug Fixes
+
+* **kpagination:** ts improvements ([#2698](https://github.com/Kong/kongponents/issues/2698)) ([63ed557](https://github.com/Kong/kongponents/commit/63ed557ac12a1d4b523470a3982513cdf463b0e4))
+
+## [9.29.1](https://github.com/Kong/kongponents/compare/v9.29.0...v9.29.1) (2025-04-16)
+
+
+### Bug Fixes
+
+* **kselect, kmultiselect:** disable autofill attributes [KHCP-15759] ([#2700](https://github.com/Kong/kongponents/issues/2700)) ([8ee029c](https://github.com/Kong/kongponents/commit/8ee029c4054f4e98bd932798514bc059c5c44489))
+
+# [9.29.0](https://github.com/Kong/kongponents/compare/v9.28.6...v9.29.0) (2025-04-16)
+
+
+### Bug Fixes
+
+* **clipboardprovider:** update method signature to prevent downstream… ([#2701](https://github.com/Kong/kongponents/issues/2701)) ([b65b684](https://github.com/Kong/kongponents/commit/b65b684e9e03f39a5c52e8e0ec1e4523df39d652))
+* **kpop:** max-width should default to none instead of auto ([#2699](https://github.com/Kong/kongponents/issues/2699)) ([a422f2d](https://github.com/Kong/kongponents/commit/a422f2d85f4981cff762ab66d04602ae022af82d))
+
+
+### Features
+
+* **kcatalog:** improve typing for kcatalog ([#2682](https://github.com/Kong/kongponents/issues/2682)) ([c37ea82](https://github.com/Kong/kongponents/commit/c37ea82148bfa050b2971e57c948a5682cfb8b4f))
+
+## [9.28.6](https://github.com/Kong/kongponents/compare/v9.28.5...v9.28.6) (2025-04-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.23.1 ([#2694](https://github.com/Kong/kongponents/issues/2694)) ([b145562](https://github.com/Kong/kongponents/commit/b1455625861cf681fe082a7a03ae963e82ca856b))
+* **kclipboardprovider:** typescript improvements ([#2685](https://github.com/Kong/kongponents/issues/2685)) ([efb5861](https://github.com/Kong/kongponents/commit/efb5861aa1e4bfb59322224374374d45b0324f2f))
+* **kdatetimepicker:** improve typings for kdatetimepicker ([#2693](https://github.com/Kong/kongponents/issues/2693)) ([47134c6](https://github.com/Kong/kongponents/commit/47134c6b9ed7992995688bcad9d81ef7e0f95c04))
+* **kpop:** improve typings for kpop ([#2695](https://github.com/Kong/kongponents/issues/2695)) ([86da363](https://github.com/Kong/kongponents/commit/86da363ae5d9dccda0844f983f07a0e67dd924b8))
+
+## [9.28.5](https://github.com/Kong/kongponents/compare/v9.28.4...v9.28.5) (2025-04-11)
+
+
+### Bug Fixes
+
+* **kcopy:** improve typings for kcopy ([#2691](https://github.com/Kong/kongponents/issues/2691)) ([3547630](https://github.com/Kong/kongponents/commit/354763063d8280cfab740c1196af8f8994ae3f52))
+
+## [9.28.4](https://github.com/Kong/kongponents/compare/v9.28.3...v9.28.4) (2025-04-09)
+
+
+### Bug Fixes
+
+* **ktableview:** add tooltip-target prop [KHCP-15528] ([#2688](https://github.com/Kong/kongponents/issues/2688)) ([37aeb90](https://github.com/Kong/kongponents/commit/37aeb90c9cfca4cb1bc3e687ac10f01d8d449fb7))
+
+## [9.28.3](https://github.com/Kong/kongponents/compare/v9.28.2...v9.28.3) (2025-04-09)
+
+
+### Bug Fixes
+
+* **kcheckbox:** typescript improvement for kcheckbox ([#2683](https://github.com/Kong/kongponents/issues/2683)) ([1563613](https://github.com/Kong/kongponents/commit/1563613f362a7d49b521f9f6ad7180e812111579))
+* **kcodeblock:** improve typing for kcodeblock ([#2684](https://github.com/Kong/kongponents/issues/2684)) ([e2dd8f3](https://github.com/Kong/kongponents/commit/e2dd8f39ce6b932f587c62a230fdbd2415fc4c85))
+
+## [9.28.2](https://github.com/Kong/kongponents/compare/v9.28.1...v9.28.2) (2025-04-09)
+
+
+### Bug Fixes
+
+* **kcollapse:** improve typings for kcollapse ([#2687](https://github.com/Kong/kongponents/issues/2687)) ([ca0af1a](https://github.com/Kong/kongponents/commit/ca0af1a38d93b8d558da3bd6eadfc31487d4d81f))
+
+## [9.28.1](https://github.com/Kong/kongponents/compare/v9.28.0...v9.28.1) (2025-04-05)
+
+
+### Bug Fixes
+
+* **kselect, kmultiselect:** arrow navigation improvements [KHCP-15520] ([#2674](https://github.com/Kong/kongponents/issues/2674)) ([f6d64cb](https://github.com/Kong/kongponents/commit/f6d64cb1ee7368b65be4b89124cb65d9f2c49a42))
+
+# [9.28.0](https://github.com/Kong/kongponents/compare/v9.27.0...v9.28.0) (2025-04-05)
+
+
+### Features
+
+* **kcard:** improve types ([#2676](https://github.com/Kong/kongponents/issues/2676)) ([6d8e3e4](https://github.com/Kong/kongponents/commit/6d8e3e41970af04442d10e9a41051fae357bcb37))
+
+# [9.27.0](https://github.com/Kong/kongponents/compare/v9.26.2...v9.27.0) (2025-04-02)
+
+
+### Features
+
+* **kbadge:** typescript improvement for k-badge [KM-1101] ([#2675](https://github.com/Kong/kongponents/issues/2675)) ([423bf38](https://github.com/Kong/kongponents/commit/423bf388d69d9e4701d22fbfa6b645894001d38b))
+* **kbreadcrumb:** typescript improvement [KM-1102] ([#2677](https://github.com/Kong/kongponents/issues/2677)) ([f48fbc3](https://github.com/Kong/kongponents/commit/f48fbc3bd02ea9e62889281d43f375a3e199e089))
+
+## [9.26.2](https://github.com/Kong/kongponents/compare/v9.26.1...v9.26.2) (2025-04-02)
+
+
+### Bug Fixes
+
+* **kpop:** close on esc key press [KHCP-15519] ([#2662](https://github.com/Kong/kongponents/issues/2662)) ([7e5fc10](https://github.com/Kong/kongponents/commit/7e5fc107f2d591e27a61f0cb825d0bdd7a6ea323))
+
 ## [9.26.1](https://github.com/Kong/kongponents/compare/v9.26.0...v9.26.1) (2025-03-31)
 
 

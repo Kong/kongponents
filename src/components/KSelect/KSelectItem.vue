@@ -67,6 +67,7 @@ const handleClick = (e: MouseEvent): void => {
     background-color: var(--kui-color-background, $kui-color-background);
     border: none;
     display: flex;
+    outline-offset: -1px;
     padding: var(--kui-space-0, $kui-space-0);
     text-align: left;
     width: 100%;

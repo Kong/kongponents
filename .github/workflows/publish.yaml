@@ -52,12 +52,12 @@ jobs:
           uses: ./.github/actions/setup-pnpm-with-dependencies/
 
         - name: Download Build Artifacts
-          uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+          uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
           with:
             name: kongponents-ci-build-output-artifact
 
         - name: Semantic Release
-          uses: cycjimmy/semantic-release-action@b1b432f13acb7768e0c8efdec416d363a57546f2 # v4.1.1
+          uses: cycjimmy/semantic-release-action@0a51e81a6baff2acad3ee88f4121c589c73d0f0e # v4.2.0
           env:
             # Since branch protections are on (pushing commits) you need to use a bot PAT
             GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}

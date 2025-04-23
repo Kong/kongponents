@@ -802,6 +802,10 @@ A boolean to disable some of the table features like column visibility, column r
 
 Prop for hiding toolbar. Useful when elements provided in the toolbar are not actionable (for example, when toolbar contains filter controls, however the fetcher returns no results as there are no records to filter by).
 
+### tooltipTarget
+
+Teleport target element selector for tooltips rendered by KTableView (e.g. column header tooltip, disabled row bulk action checkbox tooltip). Defaults to `body`.
+
 ## States
 
 ### Empty

@@ -9,3 +9,17 @@ export interface BreadcrumbItem {
   key?: string
   maxWidth?: string
 }
+
+export interface BreadcrumbProps {
+  /**
+   * An array of breadcrumb items.
+   * @type {BreadcrumbItem[]}
+   */
+  items: BreadcrumbItem[]
+
+  /**
+   * Maximum width of each breadcrumb item for truncating to ellipsis.
+   * @default '100px'
+   */
+  itemMaxWidth?: string
+}
