@@ -1,3 +1,11 @@
+## [9.29.4](https://github.com/Kong/kongponents/compare/v9.29.3...v9.29.4) (2025-04-23)
+
+
+### Bug Fixes
+
+* **k-input:** typescript improvements for k-input ([#2706](https://github.com/Kong/kongponents/issues/2706)) ([25db63b](https://github.com/Kong/kongponents/commit/25db63be80bade4a6e8d9a2506b7f4c69e8f5c6d))
+* **klabel:** improve typings for klabel ([#2709](https://github.com/Kong/kongponents/issues/2709)) ([5cda13a](https://github.com/Kong/kongponents/commit/5cda13acf085f6eaecfc0f49935e607be591f45b))
+
 ## [9.29.3](https://github.com/Kong/kongponents/compare/v9.29.2...v9.29.3) (2025-04-18)
 
 
