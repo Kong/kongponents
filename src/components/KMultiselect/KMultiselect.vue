@@ -274,8 +274,8 @@
 </template>
 
 <script lang="ts">
-import type { Ref, PropType } from 'vue'
-import { ref, computed, watch, nextTick, onMounted, onUnmounted, useAttrs, useSlots, useId, useTemplateRef } from 'vue'
+import type { Ref } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onUnmounted, useAttrs, useId, useTemplateRef } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KBadge from '@/components/KBadge/KBadge.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -286,11 +286,12 @@ import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 import type {
   MultiselectItem,
-  MultiselectFilterFunctionParams,
-  DropdownFooterTextPosition,
   PopPlacements,
   BadgeAppearance,
-  PopoverAttributes } from '@/types'
+  MultiselectProps,
+  MultiselectEmits,
+  MultiselectSlots,
+} from '@/types'
 import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
@@ -320,158 +321,49 @@ defineOptions({
 })
 
 const attrs = useAttrs()
-const slots = useSlots()
+const slots = defineSlots<MultiselectSlots>()
 
 const { getSizeFromString, cloneDeep, stripRequiredLabel } = useUtilities()
 const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 36
 const DEFAULT_SEARCH_PLACEHOLDER = 'Filter...'
 
-const props = defineProps({
-  modelValue: {
-    type: Array as PropType<string[]>,
-    default: () => [],
-  },
-  label: {
-    type: String,
-    default: '',
-  },
-  help: {
-    type: String,
-    default: '',
-  },
-  error: {
-    type: Boolean,
-    default: false,
-  },
-  labelAttributes: {
-    type: Object,
-    default: () => ({}),
-  },
-  placeholder: {
-    type: String,
-    default: '',
-  },
-  searchPlaceholder: {
-    type: String,
-    default: '',
-  },
-  kpopAttributes: {
-    type: Object as PropType<Omit<PopoverAttributes, 'target' | 'trigger'>>,
-    default: () => {},
-  },
-  dropdownMaxHeight: {
-    type: String,
-    default: '300',
-  },
-  /**
-   * The width of the multiselect and popover's min-width
-   */
-  width: {
-    type: String,
-    default: '100%',
-  },
-  /**
-   * Number of rows of selections to show when focused
-   */
-  selectedRowCount: {
-    type: Number,
-    default: 1,
-  },
-  /**
-   * Determines whether to show total selected count (false), or
-   * row(s) of selections when collapsed
-   */
-  collapsedContext: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Items are JSON objects with required 'label' and 'value'
-   * {
-   *  label: 'Item 1',
-   *  value: 'item1'
-   * }
-   */
-  items: {
-    type: Array as PropType<MultiselectItem[]>,
-    default: () => [],
-    // Items must have a label & value
-    validator: (items: MultiselectItem[]) => !items.length || (items.every(i => i.label !== undefined && i.value !== undefined) && itemValuesAreUnique(items)),
-  },
-  /**
-   * Override default filter functionality of case-insensitive search on label
-   */
-  filterFunction: {
-    type: Function,
-    default: (params: MultiselectFilterFunctionParams) => params.items.filter((item: MultiselectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase())),
-  },
-  /**
-   * A flag for autosuggest mode
-   */
-  autosuggest: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Allow creating new items
-   */
-  enableItemCreation: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Loading state in autosuggest
-   */
-  loading: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Dropdown footer text
-   */
-  dropdownFooterText: {
-    type: String,
-    default: '',
-  },
-  /**
-   * Dropdown footer text position
-   * Accepted values: 'sticky' and 'static'
-   */
-  dropdownFooterTextPosition: {
-    type: String as PropType<DropdownFooterTextPosition>,
-    default: 'sticky',
-  },
-  /**
-   * Validator function for item creation.
-   */
-  itemCreationValidator: {
-    type: Function as PropType<(query: string) => boolean>,
-    default: () => true,
-  },
-})
+const {
+  modelValue = [],
+  label = '',
+  help = '',
+  error,
+  labelAttributes = {},
+  placeholder = '',
+  searchPlaceholder = '',
+  kpopAttributes = {},
+  dropdownMaxHeight = '300',
+  width = '100%',
+  selectedRowCount = 1,
+  collapsedContext,
+  items = [],
+  filterFunction = (params) => params.items.filter(item => item.label?.toLowerCase().includes(params.query?.toLowerCase())),
+  autosuggest,
+  enableItemCreation,
+  loading,
+  dropdownFooterText = '',
+  dropdownFooterTextPosition = 'sticky',
+  itemCreationValidator = () => true,
+} = defineProps<MultiselectProps>()
 
-const emit = defineEmits<{
-  (e: 'selected', item: MultiselectItem[]): void
-  (e: 'input', value: string[]): void
-  (e: 'change', item: MultiselectItem | null): void
-  (e: 'update:modelValue', value: string[]): void
-  (e: 'query-change', query: string): void
-  (e: 'item-added', value: MultiselectItem): void
-  (e: 'item-removed', value: MultiselectItem): void
-}>()
+const emit = defineEmits<MultiselectEmits>()
 
 const multiselectItemsRef = useTemplateRef('kMultiselectItems')
 
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
-const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
-const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
+const strippedLabel = computed((): string => stripRequiredLabel(label, isRequired.value))
+const hasLabelTooltip = computed((): boolean => !!(labelAttributes?.help || labelAttributes?.info || slots['label-tooltip']))
 
 const getBadgeAppearance = (item?: MultiselectItem): BadgeAppearance => {
   if (isDisabled.value || isReadonly.value || item?.disabled) {
     return 'neutral'
   }
 
-  if (props.error) {
+  if (error) {
     return 'danger'
   }
 
@@ -499,7 +391,7 @@ const multiselectSelectionsStagingElementRef = useTemplateRef('multiselectSelect
 
 // filter and selection
 const selectionsMaxHeight = computed((): number => {
-  return props.selectedRowCount * SELECTED_ITEMS_SINGLE_LINE_HEIGHT
+  return selectedRowCount * SELECTED_ITEMS_SINGLE_LINE_HEIGHT
 })
 const filterString = ref<string>('')
 // whether or not filter string matches an existing item's label
@@ -517,10 +409,10 @@ const uniqueFilterStr = computed((): boolean => {
 const popper = ref<InstanceType<typeof KPop> | null>(null)
 
 // A clone of `props.items`, normalized.  May contain additional custom items that have been created.
-const unfilteredItems: Ref<MultiselectItem[]> = ref([])
+const unfilteredItems = ref<MultiselectItem[]>([])
 
 // A sorted version of the above.
-const sortedItems: Ref<MultiselectItem[]> = ref([])
+const sortedItems = ref<MultiselectItem[]>([])
 
 // An array of items.  May contain items that are not present in `unfilteredItems` if an item was selected, then the `items` prop was changed.
 const selectedItems = ref<MultiselectItem[]>([])
@@ -541,16 +433,16 @@ const invisibleSelectedItems = ref<MultiselectItem[]>([])
 const hiddenItemsTooltip = computed((): string => invisibleSelectedItems.value.map(item => item.label).join(', '))
 
 // state
-const initialFocusTriggered: Ref<boolean> = ref(false)
-const isHovered = ref(false)
-const isFocused = ref(false)
+const initialFocusTriggered = ref<boolean>(false)
+const isHovered = ref<boolean>(false)
+const isFocused = ref<boolean>(false)
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 const isReadonly = computed((): boolean => attrs?.readonly !== undefined && String(attrs?.readonly) !== 'false')
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
   get(): string[] {
-    return props.modelValue
+    return modelValue
   },
   set(newValue: string[]): void {
     const items = unfilteredItems.value.filter((item: MultiselectItem) => newValue.includes(item.value))
@@ -575,8 +467,8 @@ const modifiedAttrs = computed(() => {
 const createKPopAttributes = computed((): Record<string, any> => {
   return {
     ...defaultKPopAttributes,
-    ...props.kpopAttributes,
-    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes?.popoverClasses ?? ''} ${props.dropdownFooterText || slots['dropdown-footer-text'] ? 'has-dropdown-footer' : ''}`,
+    ...kpopAttributes,
+    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${kpopAttributes?.popoverClasses ?? ''} ${dropdownFooterText || slots['dropdown-footer-text'] ? 'has-dropdown-footer' : ''}`,
     width: numericWidth.value + 'px',
     maxWidth: numericWidth.value + 'px',
     disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),
@@ -584,13 +476,13 @@ const createKPopAttributes = computed((): Record<string, any> => {
 })
 
 // Calculate the `.popover-content` max-height
-const popoverContentMaxHeight = computed((): string => getSizeFromString(props.dropdownMaxHeight))
+const popoverContentMaxHeight = computed((): string => getSizeFromString(dropdownMaxHeight))
 
 // TypeScript complains if I bind the original object
 const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
 const widthValue = computed(() => {
-  const w = props.width ? props.width : '300'
+  const w = width ? width : '300'
 
   return getSizeFromString(w)
 })
@@ -609,10 +501,10 @@ const numericWidthStyle = computed(() => {
 
 const triggerElementText = computed((): string => {
   if (selectedItems.value.length === 0) {
-    if (!props.collapsedContext && props.placeholder) {
-      return props.placeholder
-    } else if (props.collapsedContext && props.searchPlaceholder) {
-      return props.searchPlaceholder
+    if (!collapsedContext && placeholder) {
+      return placeholder
+    } else if (collapsedContext && searchPlaceholder) {
+      return searchPlaceholder
     }
   }
 
@@ -625,7 +517,7 @@ const triggerElementText = computed((): string => {
 
 const filteredItems = computed(() => {
   // For autosuggest, items don't need to be filtered internally
-  return props.autosuggest ? unfilteredItems.value : props.filterFunction({ items: unfilteredItems.value, query: filterString.value })
+  return autosuggest ? unfilteredItems.value : filterFunction({ items: unfilteredItems.value, query: filterString.value })
 })
 
 const handleFilterClick = (event: any) => {
@@ -668,7 +560,7 @@ const stageSelections = () => {
   setTimeout(() => {
     const elem = multiselectSelectionsStagingElementRef.value
 
-    if (props.collapsedContext) {
+    if (collapsedContext) {
       // if it's collapsed don't do calculations, because we don't display badges
       stagingKey.value++
       return
@@ -736,7 +628,7 @@ const handleMultipleItemsDeselect = (items: MultiselectItem[], restage = false) 
     }
 
     // if it's an added item, remove it from list when it is deselected
-    if (props.enableItemCreation && itemToDeselect.custom) {
+    if (enableItemCreation && itemToDeselect.custom) {
       unfilteredItems.value = unfilteredItems.value.filter(anItem => anItem.value !== itemToDeselect.value)
       emit('item-removed', itemToDeselect)
     }
@@ -753,7 +645,7 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
   let selectedItem = isNew ? item : unfilteredItems.value.filter(anItem => anItem.value === item.value)?.[0] || null
 
   // if it wasn't in unfilteredItems, check newly added items if enabled
-  if (props.enableItemCreation && selectedItem?.custom) {
+  if (enableItemCreation && selectedItem?.custom) {
     selectionIsAdded = true
   }
 
@@ -812,7 +704,7 @@ const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
 }
 
 const onInputEnter = (e: KeyboardEvent): void => {
-  if (props.enableItemCreation) {
+  if (enableItemCreation) {
     handleAddItem()
   }
 
@@ -821,7 +713,7 @@ const onInputEnter = (e: KeyboardEvent): void => {
 
 // add an item with `enter`
 const handleAddItem = (): void => {
-  if (!props.enableItemCreation || !filterString.value || !uniqueFilterStr.value || !props.itemCreationValidator(filterString.value)) {
+  if (!enableItemCreation || !filterString.value || !uniqueFilterStr.value || !itemCreationValidator(filterString.value)) {
     // do nothing if not enabled or no label or label already exists
     return
   }
@@ -845,7 +737,7 @@ const sortItems = () => {
   const unselectedItems = filteredItems.value.filter((item: MultiselectItem) => !item.selected)
   const allItems = [...selectedItems, ...unselectedItems]
   const ungroupedItems = allItems.filter(item => !item.group)
-  const groupedItems = allItems.filter(item => item.group).sort((a, b) => a.group.toLowerCase().localeCompare(b.group.toLowerCase()))
+  const groupedItems = allItems.filter(item => item.group).sort((a, b) => a.group!.toLowerCase().localeCompare(b.group!.toLowerCase()))
 
   sortedItems.value = [...ungroupedItems, ...groupedItems]
 }
@@ -929,13 +821,18 @@ const triggerInitialFocus = (): void => {
   }
 }
 
+// immediate check to see if we have items and if they are unique
+watch(() => items, (items) => {
+  return !items.length || (items.every(i => i.label !== undefined && i.value !== undefined) && itemValuesAreUnique(items))
+}, { immediate: true })
+
 // whenever staging key is changed, we're ready to actually draw the selections
 watch(stagingKey, () => {
   // set timeout required to push the calculation to the end of the update lifecycle event queue
   setTimeout(() => {
     const elem = multiselectSelectionsStagingElementRef.value
 
-    if (props.collapsedContext) {
+    if (collapsedContext) {
       // if collapsed, don't do all the calculations because we are not displaying badges
       visibleSelectedItems.value = cloneDeep(visibleSelectedItemsStaging.value)
       invisibleSelectedItems.value = []
@@ -1003,13 +900,13 @@ watch(value, (newVal, oldVal) => {
   }
 })
 
-watch(() => props.items, (newValue, oldValue) => {
+watch(() => items, (newValue, oldValue) => {
   // Only trigger the watcher if items actually change
   if (JSON.stringify(newValue) === JSON.stringify(oldValue)) {
     return
   }
 
-  unfilteredItems.value = cloneDeep(props.items)
+  unfilteredItems.value = cloneDeep(items)
   for (let i = 0; i < unfilteredItems.value.length; i++) {
     // Ensure each item has a `selected` property
     if (unfilteredItems.value[i].selected === undefined) {
@@ -1022,7 +919,7 @@ watch(() => props.items, (newValue, oldValue) => {
     }
 
     unfilteredItems.value[i].key = unfilteredItemKey
-    if (props.modelValue.includes(unfilteredItems.value[i].value) || unfilteredItems.value[i].selected) {
+    if (modelValue.includes(unfilteredItems.value[i].value) || unfilteredItems.value[i].selected) {
       const selectedItem = unfilteredItems.value[i]
       selectedItem.selected = true
       // if it isn't already in the selectedItems array, add it
