@@ -1,7 +1,8 @@
+import type { LabelAttributes } from './label'
 import { type PopoverAttributes } from './popover'
-export interface MultiselectItem {
+export interface MultiselectItem<T extends string = string> {
   label: string
-  value: string
+  value: T
   key?: string
   selected?: boolean
   disabled?: boolean
@@ -9,19 +10,19 @@ export interface MultiselectItem {
   group?: string
 }
 
-export interface MultiselectFilterFunctionParams {
-  items: MultiselectItem[]
+export interface MultiselectFilterFunctionParams<T extends string = string> {
+  items: MultiselectItem<T>[]
   query: string
 }
 
 export type DropdownFooterTextPosition = 'sticky' | 'static'
 
-export interface MultiselectProps {
+export interface MultiselectProps<T extends string = string> {
   /**
    * The current value of the multiselect (v-model).
    * @default []
    */
-  modelValue?: string[]
+  modelValue?: T[]
 
   /**
    * The label for the multiselect.
@@ -45,7 +46,7 @@ export interface MultiselectProps {
    * Additional attributes for the label element.
    * @default {}
    */
-  labelAttributes?: Record<string, any>
+  labelAttributes?: LabelAttributes
 
   /**
    * The placeholder text displayed when no value is selected.
@@ -67,7 +68,7 @@ export interface MultiselectProps {
 
   /**
    * The maximum height of the dropdown.
-   * @default '300'
+   * @default '300px'
    */
   dropdownMaxHeight?: string
 
@@ -85,7 +86,7 @@ export interface MultiselectProps {
 
   /**
    * Determines whether to show total selected count (false), or
-   * row(s) of selections when collapsed
+   * row(s) of selections when collapsed.
    * @default false
    */
   collapsedContext?: boolean
@@ -94,18 +95,18 @@ export interface MultiselectProps {
    * The items available for selection.
    * Items must have a label and value.
    * {
-   *  label: 'Item 1',
-   *  value: 'item1'
+   *   label: 'Item 1',
+   *   value: 'item1'
    * }
    * @default []
    */
-  items?: MultiselectItem[]
+  items?: MultiselectItem<T>[]
 
   /**
    * Override the default filter functionality of case-insensitive search on the label.
    * @default (params) => params.items.filter(item => item.label?.toLowerCase().includes(params.query?.toLowerCase()))
    */
-  filterFunction?: (params: MultiselectFilterFunctionParams) => MultiselectItem[]
+  filterFunction?: (params: MultiselectFilterFunctionParams<T>) => MultiselectItem<T>[]
 
   /**
    * A flag for enabling autosuggest mode.
@@ -145,17 +146,17 @@ export interface MultiselectProps {
   itemCreationValidator?: (query: string) => boolean
 }
 
-export interface MultiselectEmits {
-  'selected': [items: MultiselectItem[]]
+export interface MultiselectEmits<T extends string = string> {
+  'selected': [items: MultiselectItem<T>[]]
   'input': [values: string[]]
-  'change': [item: MultiselectItem | null]
-  'update:modelValue': [values: string[]]
+  'change': [item: MultiselectItem<T> | null]
+  'update:modelValue': [values: T[]]
   'query-change': [query: string]
   'item-added': [item: MultiselectItem]
-  'item-removed': [item: MultiselectItem]
+  'item-removed': [item: MultiselectItem<T>]
 }
 
-export interface MultiselectSlots {
+export interface MultiselectSlots<T extends string = string> {
   /**
    * Slot for customizing multiselect label's tooltip.
    */
@@ -164,7 +165,7 @@ export interface MultiselectSlots {
   /**
    * Slot to customize the look and feel of items.
    */
-  'item-template'?: (props: { item: MultiselectItem }) => any
+  'item-template'?: (props: { item: MultiselectItem<T> }) => any
 
   /**
    * Slot for empty state dropdown of the multiselect.

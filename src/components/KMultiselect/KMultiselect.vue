@@ -315,7 +315,7 @@ const itemValuesAreUnique = (items: MultiselectItem[]): boolean => {
 }
 </script>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends string">
 defineOptions({
   inheritAttrs: false,
 })
@@ -336,7 +336,7 @@ const {
   placeholder = '',
   searchPlaceholder = '',
   kpopAttributes = {},
-  dropdownMaxHeight = '300',
+  dropdownMaxHeight = '300px',
   width = '100%',
   selectedRowCount = 1,
   collapsedContext,
@@ -348,9 +348,17 @@ const {
   dropdownFooterText = '',
   dropdownFooterTextPosition = 'sticky',
   itemCreationValidator = () => true,
-} = defineProps<MultiselectProps>()
+} = defineProps<MultiselectProps<T>>()
 
-const emit = defineEmits<MultiselectEmits>()
+// immediate check to see if we have valid items and if their values are unique
+watch(() => items, (items) => {
+  const itemsValid = !items.length || (items.every(i => i.label !== undefined && i.value !== undefined) && itemValuesAreUnique(items))
+  if (!itemsValid) {
+    console.warn('KMultiselect: Items must have a label & value and value must be unique')
+  }
+}, { immediate: true })
+
+const emit = defineEmits<MultiselectEmits<T>>()
 
 const multiselectItemsRef = useTemplateRef('kMultiselectItems')
 
@@ -409,26 +417,26 @@ const uniqueFilterStr = computed((): boolean => {
 const popper = ref<InstanceType<typeof KPop> | null>(null)
 
 // A clone of `props.items`, normalized.  May contain additional custom items that have been created.
-const unfilteredItems = ref<MultiselectItem[]>([])
+const unfilteredItems = ref<MultiselectItem<T>[]>([]) as Ref<MultiselectItem<T>[]>
 
 // A sorted version of the above.
-const sortedItems = ref<MultiselectItem[]>([])
+const sortedItems = ref<MultiselectItem<T>[]>([]) as Ref<MultiselectItem<T>[]>
 
 // An array of items.  May contain items that are not present in `unfilteredItems` if an item was selected, then the `items` prop was changed.
-const selectedItems = ref<MultiselectItem[]>([])
+const selectedItems = ref<MultiselectItem<T>[]>([]) as Ref<MultiselectItem<T>[]>
 
 // The items visible in the main part of the component.
-const visibleSelectedItemsStaging = ref<MultiselectItem[]>([])
+const visibleSelectedItemsStaging = ref<MultiselectItem<T>[]>([]) as Ref<MultiselectItem<T>[]>
 
 // The items in the "overflow" part of the component.
-const invisibleSelectedItemsStaging = ref<MultiselectItem[]>([])
+const invisibleSelectedItemsStaging = ref<MultiselectItem<T>[]>([]) as Ref<MultiselectItem<T>[]>
 
 // A set of the values in the "overflow" part of the component.
 const invisibleSelectedItemsStagingSet = new Set<string>()
 
 // Used to store the results of the determination of which items are visible.
-const visibleSelectedItems = ref<MultiselectItem[]>([])
-const invisibleSelectedItems = ref<MultiselectItem[]>([])
+const visibleSelectedItems = ref<MultiselectItem<T>[]>([]) as Ref<MultiselectItem<T>[]>
+const invisibleSelectedItems = ref<MultiselectItem<T>[]>([])
 
 const hiddenItemsTooltip = computed((): string => invisibleSelectedItems.value.map(item => item.label).join(', '))
 
@@ -441,11 +449,11 @@ const isReadonly = computed((): boolean => attrs?.readonly !== undefined && Stri
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
-  get(): string[] {
+  get(): T[] {
     return modelValue
   },
-  set(newValue: string[]): void {
-    const items = unfilteredItems.value.filter((item: MultiselectItem) => newValue.includes(item.value))
+  set(newValue: T[]): void {
+    const items = unfilteredItems.value.filter(item => newValue.includes(item.value))
 
     if (items.length) {
       handleMultipleItemsSelect(items)
@@ -605,7 +613,7 @@ const handleMultipleItemsSelect = (items: MultiselectItem[]) => {
   stageSelections()
 }
 
-const handleMultipleItemsDeselect = (items: MultiselectItem[], restage = false) => {
+const handleMultipleItemsDeselect = (items: MultiselectItem<T>[], restage = false) => {
   const deselectedValues = new Set(items.map(anItem => anItem.value))
 
   selectedItems.value = selectedItems.value.filter(anItem => !deselectedValues.has(anItem.value))
@@ -640,7 +648,7 @@ const handleMultipleItemsDeselect = (items: MultiselectItem[], restage = false) 
 }
 
 // handle item select/deselect from dropdown
-const handleItemSelect = (item: MultiselectItem, isNew?: boolean) => {
+const handleItemSelect = (item: MultiselectItem<T>, isNew?: boolean) => {
   let selectionIsAdded = false // true if selected item is added, not from items passed in
   let selectedItem = isNew ? item : unfilteredItems.value.filter(anItem => anItem.value === item.value)?.[0] || null
 
@@ -726,15 +734,15 @@ const handleAddItem = (): void => {
   }
   emit('item-added', item)
 
-  handleItemSelect(item, true)
+  handleItemSelect(item as MultiselectItem<T>, true) // item could be a mixture of string and generic types
   filterString.value = ''
 }
 
 // Sort items. Non-grouped items are displayed first, then grouped items.
 // Within non-grouped and grouped items, selected items are displayed first.
 const sortItems = () => {
-  const selectedItems = filteredItems.value.filter((item: MultiselectItem) => item.selected)
-  const unselectedItems = filteredItems.value.filter((item: MultiselectItem) => !item.selected)
+  const selectedItems = filteredItems.value.filter((item) => item.selected)
+  const unselectedItems = filteredItems.value.filter((item) => !item.selected)
   const allItems = [...selectedItems, ...unselectedItems]
   const ungroupedItems = allItems.filter(item => !item.group)
   const groupedItems = allItems.filter(item => item.group).sort((a, b) => a.group!.toLowerCase().localeCompare(b.group!.toLowerCase()))
@@ -820,11 +828,6 @@ const triggerInitialFocus = (): void => {
     emit('query-change', '')
   }
 }
-
-// immediate check to see if we have items and if they are unique
-watch(() => items, (items) => {
-  return !items.length || (items.every(i => i.label !== undefined && i.value !== undefined) && itemValuesAreUnique(items))
-}, { immediate: true })
 
 // whenever staging key is changed, we're ready to actually draw the selections
 watch(stagingKey, () => {
