@@ -1,4 +1,4 @@
-import type { LabelAttributes } from './input'
+import type { LabelAttributes } from './label'
 
 export interface CheckboxProps {
   /**
