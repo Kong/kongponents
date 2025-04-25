@@ -175,7 +175,7 @@ export interface SelectProps<T extends string | number, U extends boolean> {
    * Allow creating new items.
    * @default false
    */
-  enableItemCreation?: U
+  enableItemCreation?: boolean & U
 
   /**
    * Validator function for item creation.
