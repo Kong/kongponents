@@ -196,8 +196,10 @@ export interface PopSlots {
 export type PopoverAttributes = Pick<PopProps,
   | 'placement'
   | 'popoverClasses'
+  | 'popoverTimeout'
   | 'offset'
   | 'width'
+  | 'hideCaret'
   /** Not supported in KDropdown, KSelect and KMultiselect */
   | 'target'
   | 'trigger'

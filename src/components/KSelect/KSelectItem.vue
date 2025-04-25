@@ -24,33 +24,24 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import type { SelectItem } from '@/types'
-import type { PropType } from 'vue'
+<script lang="ts" setup generic="T extends string | number">
+import type { SelectItemProps, SelectItemEmits, SelectItemSlots } from '@/types'
 
-const props = defineProps({
-  item: {
-    type: Object as PropType<SelectItem>,
-    default: null,
-    // Items must have a label and value
-    validator: (item: SelectItem): boolean => item.label !== undefined && item.value !== undefined,
-  },
-})
+const {
+  item,
+} = defineProps<SelectItemProps<T>>()
 
-const emit = defineEmits<{
-  (e: 'selected', value: SelectItem): void
-  (e: 'arrow-down'): void
-  (e: 'arrow-up'): void
-}>()
+const emit = defineEmits<SelectItemEmits<T>>()
+defineSlots<SelectItemSlots>()
 
 const handleClick = (e: MouseEvent): void => {
-  if (props.item.disabled) {
+  if (item.disabled) {
     // Clicking on a disabled item should not close the dropdown
     e.stopPropagation()
     return
   }
 
-  emit('selected', props.item)
+  emit('selected', item)
 }
 </script>
 

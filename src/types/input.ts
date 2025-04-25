@@ -1,12 +1,4 @@
-import type { TooltipAttributes } from '@/types/tooltip'
-
-export interface LabelAttributes {
-  info?: string
-  required?: boolean
-  tooltipAttributes?: TooltipAttributes
-  /** @deprecated in favor of `info` */
-  help?: string
-}
+import type { LabelAttributes } from './label'
 
 export interface InputProps {
   /**
