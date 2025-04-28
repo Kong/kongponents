@@ -16,24 +16,25 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
+import { ExternalLinkIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import { isValidUrl } from '@/utilities/urls'
-import { ExternalLinkIcon } from '@kong/icons'
+import { warnInvalidProp } from '@/utilities/warning'
+import type { ExternalLinkProps } from '@/types'
 
-const props = defineProps({
-  href: {
-    type: String,
-    required: true,
-    validator: (value: string): boolean => !!isValidUrl(value),
-  },
-  hideIcon: {
-    type: Boolean,
-    default: false,
-  },
-})
+const {
+  href,
+  hideIcon,
+} = defineProps<ExternalLinkProps>()
 
-const isHrefValid = computed((): boolean => !!isValidUrl(props.href))
+watch(() => href, (value: string) => {
+  if (!isValidUrl(value)) {
+    warnInvalidProp('href', `\`href\` should be a valid URL, but got "${value}".`)
+  }
+}, { immediate: true })
+
+const isHrefValid = computed((): boolean => !!isValidUrl(href))
 </script>
 
 <style lang="scss" scoped>
