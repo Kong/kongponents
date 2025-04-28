@@ -70,11 +70,10 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import type { PropType, Ref } from 'vue'
+<script lang="ts" setup generic="T extends string | number">
+import type { Ref } from 'vue'
 import { computed, onMounted, ref, watch } from 'vue'
-import type { ButtonAppearance, DropdownItem, PopPlacements, PopoverAttributes } from '@/types'
-import { ButtonAppearances } from '@/types'
+import type { DropdownItem, PopoverAttributes , DropdownProps, DropdownEmits } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import KPop from '@/components/KPop/KPop.vue'
@@ -82,103 +81,65 @@ import KToggle from '@/components/KToggle'
 import KDropdownItem from './KDropdownItem.vue'
 import { ChevronDownIcon } from '@kong/icons'
 
-const props = defineProps({
-  selectionMenu: {
-    type: Boolean,
-    default: false,
-  },
-  appearance: {
-    type: String as PropType<ButtonAppearance>,
-    default: 'primary',
-    validator: (value: ButtonAppearance) => {
-      // @ts-ignore: allow comparing string values
-      if (value === 'menu' || value === 'selectionMenu') {
-        console.warn('KDropdown: the usage for the `appearance` prop has changed. Please see the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kdropdownmenu')
-      }
+const {
+  selectionMenu,
+  appearance = 'primary',
+  triggerText = '',
+  showCaret,
+  width = '',
+  kpopAttributes = {},
+  items = [],
+  disabled,
+  disabledTooltip = '',
+  // Cannot set default value otherwise we cannot tell whether the prop is passed or not
+  label,
+} = defineProps<DropdownProps<T>>()
 
-      return Object.values(ButtonAppearances).includes(value)
-    },
-  },
-  triggerText: {
-    type: String,
-    default: '',
-  },
-  showCaret: {
-    type: Boolean,
-    default: false,
-  },
-  width: {
-    type: String,
-    default: '',
-  },
-  kpopAttributes: {
-    type: Object as PropType<Omit<PopoverAttributes, 'target' | 'trigger'>>,
-    default: () => {},
-  },
-  items: {
-    type: Array as PropType<Array<DropdownItem>>,
-    default: () => [],
-    validator: (items: DropdownItem[]) => !items.length || items.every(i => i.label !== undefined),
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  disabledTooltip: {
-    type: String,
-    default: '',
-  },
-  /**
-   * @deprecated in favor of the "triggerText" prop
-   */
-  label: {
-    type: String,
-    default: '',
-    validator: (value: string) => {
-      if (value) {
-        console.warn('KDropdown: `label` prop is deprecated. Please use `triggerText` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kdropdownmenu')
-      }
+watch(() => appearance, (value) => {
+  // @ts-ignore: allow comparing string values
+  if (value === 'menu' || value === 'selectionMenu') {
+    console.warn('KDropdown: the usage for the `appearance` prop has changed. Please see the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kdropdownmenu')
+  }
+}, { immediate: true })
 
-      return true
-    },
-  },
-})
+watch(() => label, (value) => {
+  if (value) {
+    console.warn('KDropdown: `label` prop is deprecated. Please use `triggerText` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kdropdownmenu')
+  }
+}, { immediate: true })
 
-const emit = defineEmits<{
-  (e: 'toggleDropdown', value: boolean): void
-  (e: 'change', value: DropdownItem): void
-}>()
+const emit = defineEmits<DropdownEmits<T>>()
 
-const tooltipComponent = computed(() => props.disabledTooltip ? KTooltip : 'div')
+const tooltipComponent = computed(() => disabledTooltip ? KTooltip : 'div')
 
 const kPop = ref<InstanceType<typeof KPop> | null>(null)
-const defaultKPopAttributes = {
+const defaultKPopAttributes: PopoverAttributes = {
   hideCaret: true,
   popoverClasses: 'dropdown-popover',
   popoverTimeout: 0,
-  placement: 'bottom-start' as PopPlacements,
+  placement: 'bottom-start',
 }
 
-const boundKPopAttributes = {
+const boundKPopAttributes: PopoverAttributes = {
   ...defaultKPopAttributes,
-  ...props.kpopAttributes,
-  width: props.width ? props.width : undefined,
-  popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes?.popoverClasses || ''}`,
+  ...kpopAttributes,
+  width: width ? width : undefined,
+  popoverClasses: `${defaultKPopAttributes.popoverClasses} ${kpopAttributes?.popoverClasses || ''}`,
 }
 
-const triggerButtonText = computed((): string => selectedItem.value?.label || props.triggerText || props.label)
+const triggerButtonText = computed((): string => selectedItem.value?.label || triggerText || label || '')
 
-const selectedItem = ref<DropdownItem>()
+const selectedItem = ref<DropdownItem<T>>()
 
-const handleSelection = (item: DropdownItem): void => {
-  if (!props.selectionMenu) {
+const handleSelection = (item: DropdownItem<T>): void => {
+  if (!selectionMenu) {
     return
   }
 
   selectedItem.value = item
 }
 
-const handleCloseDropdown = async (): Promise<void> => {
+const handleCloseDropdown = (): void => {
   kPop.value?.hidePopover()
 }
 
@@ -197,8 +158,8 @@ watch(selectedItem, (newVal, oldVal): void => {
 })
 
 onMounted(() => {
-  if (props.items) {
-    const selectionArr = props.items.filter(item => item.selected)
+  if (items) {
+    const selectionArr = items.filter(item => item.selected)
 
     if (selectionArr.length) {
       selectedItem.value = selectionArr[0]
