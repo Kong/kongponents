@@ -28,7 +28,7 @@
           >
             <KButton
               v-if="triggerButtonText"
-              :appearance="appearance as ButtonAppearance"
+              :appearance="appearance"
               class="dropdown-trigger-button"
               data-dropdown-trigger="true"
               data-testid="dropdown-trigger-button"
@@ -73,7 +73,7 @@
 <script lang="ts" setup generic="T extends string | number">
 import type { Ref } from 'vue'
 import { computed, onMounted, ref, watch } from 'vue'
-import type { DropdownItem, PopoverAttributes , DropdownProps, DropdownEmits, ButtonAppearance } from '@/types'
+import type { DropdownItem, PopoverAttributes , DropdownProps, DropdownEmits } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import KPop from '@/components/KPop/KPop.vue'
