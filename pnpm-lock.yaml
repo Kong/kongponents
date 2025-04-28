@@ -70,8 +70,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(@types/node@20.17.30)(typescript@5.6.3)
       '@evilmartians/lefthook':
-        specifier: ^1.11.6
-        version: 1.11.6
+        specifier: ^1.11.10
+        version: 1.11.12
       '@kong-ui-public/sandbox-layout':
         specifier: ^2.1.67
         version: 2.1.67(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.9)(vue-router@4.4.5(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))
@@ -196,13 +196,13 @@ importers:
         specifier: ^6.0.4
         version: 6.0.4(stylelint@16.9.0(typescript@5.6.3))
       tsc-alias:
-        specifier: ^1.8.13
+        specifier: ^1.8.15
         version: 1.8.15
       typescript:
         specifier: ^5.6.3
         version: 5.6.3
       vite:
-        specifier: ^6.0.14
+        specifier: ^6.0.15
         version: 6.2.5(@types/node@20.17.30)(jiti@1.21.6)(sass-embedded@1.79.5)(sass@1.80.7)(yaml@2.4.5)
       vite-plugin-vue-devtools:
         specifier: ^7.4.6
@@ -987,8 +987,9 @@ packages:
     resolution: {integrity: sha512-JubJ5B2pJ4k4yGxaNLdbjrnk9d/iDz6/q8wOilpIowd6PJPgaxCuHBnBszq7Ce2TyMrywm5r4PnKm6V3iiZF+g==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@evilmartians/lefthook@1.11.6':
-    resolution: {integrity: sha512-8KwNp1gkVeNuORjYT990AomxV9QTTangWvPcuNWz7okpdC9LdBw79We/218pLqddpUXmg/XCFOysc4vE6O+2fg==}
+  '@evilmartians/lefthook@1.11.12':
+    resolution: {integrity: sha512-IQW69dcjGy/Qpp9i3BsZkMhLFi1NpXsNpr9NQCslCfe4SSg5hAbdTOzk8Wzx8pewlkYZhlzcBfudGbSnGUK7hw==}
+    cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -6273,7 +6274,7 @@ snapshots:
       '@eslint/core': 0.12.0
       levn: 0.4.1
 
-  '@evilmartians/lefthook@1.11.6': {}
+  '@evilmartians/lefthook@1.11.12': {}
 
   '@floating-ui/core@1.6.2':
     dependencies:
