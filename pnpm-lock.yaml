@@ -117,9 +117,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.4.38)
-      axios:
-        specifier: ^1.7.9
-        version: 1.7.9
       boxen:
         specifier: ^8.0.1
         version: 8.0.1
@@ -994,7 +991,6 @@ packages:
 
   '@evilmartians/lefthook@1.11.6':
     resolution: {integrity: sha512-8KwNp1gkVeNuORjYT990AomxV9QTTangWvPcuNWz7okpdC9LdBw79We/218pLqddpUXmg/XCFOysc4vE6O+2fg==}
-    cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -1254,8 +1250,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.40.0':
-    resolution: {integrity: sha512-TrH9Uwkd+ZAZIaZAceS842hZFig6s7cWJTFmrj/VqMgCmqgkxFjpMqlk8s3cdrIrsCXRshxWlKeys8xpqqA6xg==}
+  '@rollup/wasm-node@4.40.1':
+    resolution: {integrity: sha512-3nXUKfAq1nD/vgQi7ncLNyn8jx1PAsN6njSS9baCpI9JHk92Y/JOWZib7HvLJ5BBZ4MC5NSeqkpUKnmceXyzXA==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -6536,7 +6532,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@rollup/wasm-node@4.40.0':
+  '@rollup/wasm-node@4.40.1':
     dependencies:
       '@types/estree': 1.0.7
     optionalDependencies:
@@ -10818,7 +10814,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.5.3
-      rollup: '@rollup/wasm-node@4.40.0'
+      rollup: '@rollup/wasm-node@4.40.1'
     optionalDependencies:
       '@types/node': 20.17.30
       fsevents: 2.3.3
@@ -10829,7 +10825,7 @@ snapshots:
     dependencies:
       esbuild: 0.25.2
       postcss: 8.5.3
-      rollup: '@rollup/wasm-node@4.40.0'
+      rollup: '@rollup/wasm-node@4.40.1'
     optionalDependencies:
       '@types/node': 20.17.30
       fsevents: 2.3.3
