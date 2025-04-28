@@ -1,3 +1,11 @@
+## [9.29.5](https://github.com/Kong/kongponents/compare/v9.29.4...v9.29.5) (2025-04-28)
+
+
+### Bug Fixes
+
+* **deps:** remove axios ([#2715](https://github.com/Kong/kongponents/issues/2715)) ([d3730d6](https://github.com/Kong/kongponents/commit/d3730d661f2e1ac1c2a8160d4e1c37134feacb17))
+* **deps:** update dependency @kong/icons to ^1.25.1 ([#2705](https://github.com/Kong/kongponents/issues/2705)) ([b4d036d](https://github.com/Kong/kongponents/commit/b4d036d4d2c88e778b36cacf3a2b057ec4412248))
+
 ## [9.29.4](https://github.com/Kong/kongponents/compare/v9.29.3...v9.29.4) (2025-04-23)
 
 
