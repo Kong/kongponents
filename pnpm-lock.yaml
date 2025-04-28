@@ -15,8 +15,8 @@ importers:
         specifier: ^1.1.6
         version: 1.1.6(vue@3.5.13(typescript@5.6.3))
       '@kong/icons':
-        specifier: ^1.23.1
-        version: 1.23.1(vue@3.5.13(typescript@5.6.3))
+        specifier: ^1.25.1
+        version: 1.25.1(vue@3.5.13(typescript@5.6.3))
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
@@ -1066,8 +1066,8 @@ packages:
     peerDependencies:
       eslint: '>= 9.23.0'
 
-  '@kong/icons@1.23.1':
-    resolution: {integrity: sha512-/geC+s9OZjZ06CNjgT4OAVi1la3XPghy42QKWwaIr35JUgKARV7GyoNEVbzlO3WWbikapdx3bQKB+dyPW2Ogdg==}
+  '@kong/icons@1.25.1':
+    resolution: {integrity: sha512-3VFRxe93YfkADVj0LQe3/JWcCyr4kW/AbOB0KMCek+JEpUbSvrQN1rSQOUoF9dxjMGpJyKNh1pr9Eh0XJhgfsg==}
     engines: {node: '>=18.17.0', pnpm: '>=9.14.4 || >=10.1.0'}
     peerDependencies:
       vue: '>= 3.3.4 < 4'
@@ -6338,7 +6338,7 @@ snapshots:
 
   '@kong-ui-public/sandbox-layout@2.1.67(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.9)(vue-router@4.4.5(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))':
     dependencies:
-      '@kong/icons': 1.23.1(vue@3.5.13(typescript@5.6.3))
+      '@kong/icons': 1.25.1(vue@3.5.13(typescript@5.6.3))
       '@kong/kongponents': 9.0.0-pr.2229.901d3f4d.0(axios@1.7.9)(vue-router@4.4.5(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))
       vue: 3.5.13(typescript@5.6.3)
 
@@ -6365,14 +6365,14 @@ snapshots:
       - supports-color
       - typescript
 
-  '@kong/icons@1.23.1(vue@3.5.13(typescript@5.6.3))':
+  '@kong/icons@1.25.1(vue@3.5.13(typescript@5.6.3))':
     dependencies:
       vue: 3.5.13(typescript@5.6.3)
 
   '@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.9)(vue-router@4.4.5(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))':
     dependencies:
       '@floating-ui/vue': 1.1.6(vue@3.5.13(typescript@5.6.3))
-      '@kong/icons': 1.23.1(vue@3.5.13(typescript@5.6.3))
+      '@kong/icons': 1.25.1(vue@3.5.13(typescript@5.6.3))
       '@popperjs/core': 2.11.8
       axios: 1.7.9
       date-fns: 2.30.0
