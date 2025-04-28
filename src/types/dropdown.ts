@@ -115,9 +115,10 @@ export interface DropdownProps<T extends string | number> {
 
   /**
    * Use this prop to customize the default trigger KButton's `appearance` prop.
+   * 'menu' and 'selectionMenu' are deprecated and will be removed in the next major release.
    * @default 'primary'
    */
-  appearance?: ButtonAppearance
+  appearance?: ButtonAppearance | 'menu' | 'selectionMenu'
 
 
   /**

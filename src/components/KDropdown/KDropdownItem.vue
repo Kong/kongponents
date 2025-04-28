@@ -24,7 +24,7 @@
   </li>
 </template>
 
-<script lang="ts" setup generic="T extends DropdownItem<string | number> | null">
+<script lang="ts" setup generic="T extends DropdownItem<string | number> | null = null">
 import { computed, useAttrs, watch } from 'vue'
 import type { DropdownItem, DropdownItemEmits, DropdownItemProps, DropdownItemRenderedRecord, DropdownItemRenderedType, DropdownItemType } from '@/types'
 
