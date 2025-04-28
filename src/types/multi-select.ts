@@ -17,12 +17,53 @@ export interface MultiselectFilterFunctionParams<T extends string = string> {
 
 export type DropdownFooterTextPosition = 'sticky' | 'static'
 
-export interface MultiselectProps<T extends string = string> {
+/**
+ * @internal
+ */
+export interface MultiselectItemProps<T extends string> {
+  item: MultiselectItem<T>
+}
+
+/**
+ * @internal
+ */
+export interface MultiselectItemEmits<T extends string = string> {
+  'selected': [item: MultiselectItem<T>]
+  'arrow-down': []
+  'arrow-up': []
+}
+
+/**
+ * @internal
+ */
+export interface MultiselectItemSlots {
+  content?: () => any
+}
+
+/**
+ * @internal
+ */
+export interface MultiselectItemsProps<T extends string> {
+  items?: MultiselectItem<T>[]
+  itemCreationEnabled?: boolean
+  filterString?: string
+  itemCreationValid?: boolean
+}
+
+/**
+ * @internal
+ */
+export interface MultiselectItemsEmits<T extends string = string> {
+  'selected': [item: MultiselectItem<T>]
+  'add-item': []
+}
+
+export interface MultiselectProps<T extends string, U extends boolean> {
   /**
    * The current value of the multiselect (v-model).
    * @default []
    */
-  modelValue?: T[]
+  modelValue?: U extends true ? (T | string)[] : T[]
 
   /**
    * The label for the multiselect.
@@ -100,13 +141,13 @@ export interface MultiselectProps<T extends string = string> {
    * }
    * @default []
    */
-  items?: MultiselectItem<T>[]
+  items?: U extends true ? MultiselectItem<T | string>[] : MultiselectItem<T>[]
 
   /**
    * Override the default filter functionality of case-insensitive search on the label.
    * @default (params) => params.items.filter(item => item.label?.toLowerCase().includes(params.query?.toLowerCase()))
    */
-  filterFunction?: (params: MultiselectFilterFunctionParams<T>) => MultiselectItem<T>[]
+  filterFunction?: (params: MultiselectFilterFunctionParams<(U extends true ? T | string : T)>) => MultiselectItem<(U extends true ? T | string : T)>[]
 
   /**
    * A flag for enabling autosuggest mode.
@@ -118,7 +159,7 @@ export interface MultiselectProps<T extends string = string> {
    * Allow creating new items.
    * @default false
    */
-  enableItemCreation?: boolean
+  enableItemCreation?: boolean & U
 
   /**
    * Loading state in autosuggest.

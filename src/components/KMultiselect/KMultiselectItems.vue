@@ -63,45 +63,27 @@
 </template>
 
 <script setup lang="ts" generic="T extends string">
-import type { PropType } from 'vue'
 import { computed, useTemplateRef } from 'vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
-import type { MultiselectItem } from '@/types'
+import type { MultiselectItem, MultiselectItemsEmits, MultiselectItemsProps } from '@/types'
 
-const props = defineProps({
-  items: {
-    type: Array as PropType<MultiselectItem<T>[]>,
-    default: () => [],
-    // Items must have a label & value
-    validator: (items: MultiselectItem<T>[]) => !items.length || (items.every(i => i.label !== undefined && i.value !== undefined)),
-  },
-  itemCreationEnabled: {
-    type: Boolean,
-    default: false,
-  },
-  filterString: {
-    type: String,
-    default: '',
-  },
-  itemCreationValid: {
-    type: Boolean,
-    default: true,
-  },
-})
+const {
+  items = [],
+  itemCreationEnabled = false,
+  filterString = '',
+  itemCreationValid = true,
+} = defineProps<MultiselectItemsProps<T>>()
 
-const emit = defineEmits<{
-  (e: 'selected', item: MultiselectItem<T>): void
-  (e: 'add-item'): void
-}>()
+const emit = defineEmits<MultiselectItemsEmits<T>>()
 
 const SELECTABLE_ITEM_SELECTOR = '.multiselect-item button:not(:disabled)'
 
 const handleItemSelect = (item: MultiselectItem<T>) => emit('selected', item)
 
-const nonGroupedItems = computed((): MultiselectItem<T>[] => props.items?.filter(item => !item.group))
-const groups = computed((): string[] => [...new Set((props.items?.filter(item => item.group))?.map(item => item.group!))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())))
+const nonGroupedItems = computed((): MultiselectItem<T>[] => items?.filter(item => !item.group))
+const groups = computed((): string[] => [...new Set((items?.filter(item => item.group))?.map(item => item.group!))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())))
 
-const getGroupItems = (group: string) => props.items?.filter(item => item.group === group)
+const getGroupItems = (group: string) => items?.filter(item => item.group === group)
 
 const itemsContainerRef = useTemplateRef('itemsContainer')
 

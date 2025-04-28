@@ -315,13 +315,16 @@ const itemValuesAreUnique = (items: MultiselectItem[]): boolean => {
 }
 </script>
 
-<script setup lang="ts" generic="T extends string">
+<script setup lang="ts" generic="T extends string, U extends boolean">
 defineOptions({
   inheritAttrs: false,
 })
 
+// type of selectItem
+type Value = U extends true ? T | string : T
+type Items = MultiselectItem<Value>[]
 const attrs = useAttrs()
-const slots = defineSlots<MultiselectSlots>()
+const slots = defineSlots<MultiselectSlots<Value>>()
 
 const { getSizeFromString, cloneDeep, stripRequiredLabel } = useUtilities()
 const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 36
@@ -348,7 +351,7 @@ const {
   dropdownFooterText = '',
   dropdownFooterTextPosition = 'sticky',
   itemCreationValidator = () => true,
-} = defineProps<MultiselectProps<T>>()
+} = defineProps<MultiselectProps<T, U>>()
 
 // immediate check to see if we have valid items and if their values are unique
 watch(() => items, (items) => {
@@ -358,7 +361,7 @@ watch(() => items, (items) => {
   }
 }, { immediate: true })
 
-const emit = defineEmits<MultiselectEmits<T>>()
+const emit = defineEmits<MultiselectEmits<Value>>()
 
 const multiselectItemsRef = useTemplateRef('kMultiselectItems')
 
@@ -417,26 +420,26 @@ const uniqueFilterStr = computed((): boolean => {
 const popper = ref<InstanceType<typeof KPop> | null>(null)
 
 // A clone of `props.items`, normalized.  May contain additional custom items that have been created.
-const unfilteredItems = ref<MultiselectItem<T>[]>([]) as Ref<MultiselectItem<T>[]>
+const unfilteredItems = ref<Items>([]) as Ref<Items>
 
 // A sorted version of the above.
-const sortedItems = ref<MultiselectItem<T>[]>([]) as Ref<MultiselectItem<T>[]>
+const sortedItems = ref<Items>([]) as Ref<Items>
 
 // An array of items.  May contain items that are not present in `unfilteredItems` if an item was selected, then the `items` prop was changed.
-const selectedItems = ref<MultiselectItem<T>[]>([]) as Ref<MultiselectItem<T>[]>
+const selectedItems = ref<Items>([]) as Ref<Items>
 
 // The items visible in the main part of the component.
-const visibleSelectedItemsStaging = ref<MultiselectItem<T>[]>([]) as Ref<MultiselectItem<T>[]>
+const visibleSelectedItemsStaging = ref<Items>([]) as Ref<Items>
 
 // The items in the "overflow" part of the component.
-const invisibleSelectedItemsStaging = ref<MultiselectItem<T>[]>([]) as Ref<MultiselectItem<T>[]>
+const invisibleSelectedItemsStaging = ref<Items>([]) as Ref<Items>
 
 // A set of the values in the "overflow" part of the component.
 const invisibleSelectedItemsStagingSet = new Set<string>()
 
 // Used to store the results of the determination of which items are visible.
-const visibleSelectedItems = ref<MultiselectItem<T>[]>([]) as Ref<MultiselectItem<T>[]>
-const invisibleSelectedItems = ref<MultiselectItem<T>[]>([])
+const visibleSelectedItems = ref<Items>([]) as Ref<Items>
+const invisibleSelectedItems = ref<Items>([])
 
 const hiddenItemsTooltip = computed((): string => invisibleSelectedItems.value.map(item => item.label).join(', '))
 
@@ -449,10 +452,10 @@ const isReadonly = computed((): boolean => attrs?.readonly !== undefined && Stri
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
-  get(): T[] {
-    return modelValue
+  get(): Value[] {
+    return modelValue as Value[]
   },
-  set(newValue: T[]): void {
+  set(newValue: Value[]): void {
     const items = unfilteredItems.value.filter(item => newValue.includes(item.value))
 
     if (items.length) {
@@ -613,7 +616,7 @@ const handleMultipleItemsSelect = (items: MultiselectItem[]) => {
   stageSelections()
 }
 
-const handleMultipleItemsDeselect = (items: MultiselectItem<T>[], restage = false) => {
+const handleMultipleItemsDeselect = (items: MultiselectItem<Value>[], restage = false) => {
   const deselectedValues = new Set(items.map(anItem => anItem.value))
 
   selectedItems.value = selectedItems.value.filter(anItem => !deselectedValues.has(anItem.value))
@@ -648,7 +651,7 @@ const handleMultipleItemsDeselect = (items: MultiselectItem<T>[], restage = fals
 }
 
 // handle item select/deselect from dropdown
-const handleItemSelect = (item: MultiselectItem<T>, isNew?: boolean) => {
+const handleItemSelect = (item: MultiselectItem<Value>, isNew?: boolean) => {
   let selectionIsAdded = false // true if selected item is added, not from items passed in
   let selectedItem = isNew ? item : unfilteredItems.value.filter(anItem => anItem.value === item.value)?.[0] || null
 
@@ -727,14 +730,14 @@ const handleAddItem = (): void => {
   }
 
   const pos = unfilteredItems.value.length + 1
-  const item: MultiselectItem = {
+  const item: MultiselectItem<string> = {
     label: sanitizeInput(filterString.value + ''),
     value: getUniqueStringId(),
     key: `${sanitizeInput(filterString.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
   }
   emit('item-added', item)
 
-  handleItemSelect(item as MultiselectItem<T>, true) // item could be a mixture of string and generic types
+  handleItemSelect(item as MultiselectItem<Value>, true) // item could be a mixture of string and generic types
   filterString.value = ''
 }
 
@@ -922,7 +925,7 @@ watch(() => items, (newValue, oldValue) => {
     }
 
     unfilteredItems.value[i].key = unfilteredItemKey
-    if (modelValue.includes(unfilteredItems.value[i].value) || unfilteredItems.value[i].selected) {
+    if ((modelValue as Value[]).includes(unfilteredItems.value[i].value) || unfilteredItems.value[i].selected) {
       const selectedItem = unfilteredItems.value[i]
       selectedItem.selected = true
       // if it isn't already in the selectedItems array, add it

@@ -25,30 +25,19 @@
 </template>
 
 <script setup lang="ts" generic="T extends string">
-import type { PropType } from 'vue'
-import type { MultiselectItem } from '@/types'
+import type { MultiselectItemProps, MultiselectItemEmits, MultiselectItemSlots } from '@/types'
 
-const props = defineProps({
-  item: {
-    type: Object as PropType<MultiselectItem<T>>,
-    default: null,
-    // Items must have a label and value
-    validator: (item: MultiselectItem): boolean => item.label !== undefined && item.value !== undefined,
-  },
-})
+const { item } = defineProps<MultiselectItemProps<T>>()
 
-const emit = defineEmits<{
-  (e: 'selected', value: MultiselectItem<T>): void
-  (e: 'arrow-down'): void
-  (e: 'arrow-up'): void
-}>()
+const emit = defineEmits<MultiselectItemEmits<T>>()
+defineSlots<MultiselectItemSlots>()
 
 const handleClick = (): void => {
-  if (props.item.disabled) {
+  if (item.disabled) {
     return
   }
 
-  emit('selected', props.item)
+  emit('selected', item)
 }
 </script>
 
