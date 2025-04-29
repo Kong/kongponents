@@ -48,51 +48,18 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
 import { computed, ref, useAttrs, useId } from 'vue'
-import type { TooltipAttributes } from '@/types'
+import type { InputSwitchProps } from '@/types'
 
-const props = defineProps({
-  /**
-  * Sets whether or not toggle is checked
-  */
-  modelValue: {
-    type: Boolean,
-    default: false,
-    required: true,
-  },
-  size: {
-    type: String as PropType<'small' | 'large'>,
-    default: 'small',
-    validator: (size: 'small' | 'large'): boolean => ['small', 'large'].includes(size),
-  },
-  /**
-  * Overrides default on/off label text
-  */
-  label: {
-    type: String,
-    default: '',
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  disabledTooltipText: {
-    type: String,
-    default: '',
-  },
-  tooltipAttributes: {
-    type: Object as PropType<TooltipAttributes>,
-    default: () => ({}),
-  },
-  /**
-   * Whether the label should be placed before the switch
-   */
-  labelBefore: {
-    type: Boolean,
-    default: false,
-  },
-})
+const {
+  modelValue,
+  size = 'small',
+  label = '',
+  disabled,
+  disabledTooltipText = '',
+  tooltipAttributes = {},
+  labelBefore,
+} = defineProps<InputSwitchProps>()
 
 const emit = defineEmits<{
   (e: 'change', val: boolean): void
@@ -108,13 +75,13 @@ const defaultId = useId()
 const inputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
 
 /**
-* Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.
-* Vue 3 no longer removes attribute if the value is boolean false. Instead, it's set as attr="false".
-* So for <KButton :disabled="false" to="SOME_URL">, the rendered <a> element will have `disabled="false"`,
-* which is greyed out and cannot be interacted with.
-*/
+ * Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.
+ * Vue 3 no longer removes attribute if the value is boolean false. Instead, it's set as attr="false".
+ * So for <KButton :disabled="false" to="SOME_URL">, the rendered <a> element will have `disabled="false"`,
+ * which is greyed out and cannot be interacted with.
+ */
 const strippedAttrs = computed((): typeof attrs => {
-  if (props.disabled !== undefined && props.disabled !== false) {
+  if (disabled !== undefined && disabled !== false) {
     return attrs
   }
 
@@ -127,7 +94,7 @@ const strippedAttrs = computed((): typeof attrs => {
 })
 
 const propagateInputEvent = (event: Event): void => {
-  if (props.disabled) {
+  if (disabled) {
     return
   }
 
@@ -137,7 +104,7 @@ const propagateInputEvent = (event: Event): void => {
 }
 
 const handleChange = (event: Event): void => {
-  if (props.modelValue !== (event.target as HTMLInputElement).checked) {
+  if (modelValue !== (event.target as HTMLInputElement).checked) {
     emit('update:modelValue', (event.target as HTMLInputElement).checked)
     emit('change', (event.target as HTMLInputElement).checked)
     emit('input', (event.target as HTMLInputElement).checked)
