@@ -73,64 +73,31 @@ defineOptions({
   inheritAttrs: false,
 })
 
-import type { PropType } from 'vue'
-import { computed, ref, useAttrs, useId, useSlots, watch } from 'vue'
+import { computed, ref, useAttrs, useId, watch } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import useUtilities from '@/composables/useUtilities'
+import type { FileUploadEmits, FileUploadProps, FileUploadSlots } from '@/types'
 
-const props = defineProps({
-  labelAttributes: {
-    type: Object,
-    default: () => ({}),
-  },
-  label: {
-    type: String,
-    default: '',
-  },
-  help: {
-    type: String,
-    default: undefined,
-  },
-  buttonText: {
-    type: String,
-    default: 'Select file',
-  },
-  placeholder: {
-    type: String,
-    default: 'No file selected',
-  },
-  accept: {
-    type: Array as PropType<string[]>,
-    required: true,
-  },
-  maxFileSize: {
-    type: Number,
-    default: null,
-  },
-  error: {
-    type: Boolean,
-    default: false,
-  },
-  errorMessage: {
-    type: String,
-    default: '',
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-})
+const {
+  labelAttributes = {},
+  label = '',
+  help,
+  buttonText = 'Select file',
+  placeholder = 'No file selected',
+  accept,
+  maxFileSize = null,
+  error,
+  errorMessage = '',
+  disabled,
+} = defineProps<FileUploadProps>()
+
+const emit = defineEmits<FileUploadEmits>()
+
+const slots = defineSlots<FileUploadSlots>()
 
 const attrs = useAttrs()
-const slots = useSlots()
-
-const emit = defineEmits<{
-  (e: 'file-added', val: File[]): void
-  (e: 'file-removed'): void
-  (e: 'error', val: File[]): void
-}>()
 
 const { stripRequiredLabel } = useUtilities()
 
@@ -147,8 +114,8 @@ const modifiedAttrs = computed(() => {
 
 const fileInputElement = ref<InstanceType<typeof KInput> | null>(null)
 const labelElement = ref<InstanceType<typeof KLabel> | null>(null)
-const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
-const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
+const hasLabelTooltip = computed((): boolean => !!(labelAttributes?.info || slots['label-tooltip']))
+const strippedLabel = computed((): string => stripRequiredLabel(label, isRequired.value))
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
 
 const hasFileSizeError = ref<boolean>(false)
@@ -171,8 +138,8 @@ const fileSizeErrorMessage = computed((): string => {
   return ''
 })
 const maximumFileSize = computed((): number => {
-  if (props.maxFileSize || props.maxFileSize === 0) {
-    return props.maxFileSize
+  if (maxFileSize || maxFileSize === 0) {
+    return maxFileSize
   }
 
   return 5250000

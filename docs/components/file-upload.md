@@ -114,7 +114,7 @@ This is the text that will be displayed on the button that triggers the click on
 
 ### maxFileSize
 
-Use this prop to customize the maximize size of file that can be uploaded. Default value for `image` upload is `1MB` and for `file` is `5.25MB`.
+Use this prop to customize the maximize size of file that can be uploaded. Default value is `5.25MB` if no valid value is provided.
 
 <ClientOnly>
   <KFileUpload :max-file-size="2" :accept="['.jpg', '.png']" />
