@@ -49,7 +49,7 @@
 
 <script lang="ts" setup>
 import { computed, ref, useAttrs, useId } from 'vue'
-import type { InputSwitchProps } from '@/types'
+import type { InputSwitchEmits, InputSwitchProps, InputSwitchSlots } from '@/types'
 
 const {
   modelValue,
@@ -61,11 +61,8 @@ const {
   labelBefore,
 } = defineProps<InputSwitchProps>()
 
-const emit = defineEmits<{
-  (e: 'change', val: boolean): void
-  (e: 'input', val: boolean): void
-  (e: 'update:modelValue', val: boolean): void
-}>()
+const emit = defineEmits<InputSwitchEmits>()
+defineSlots<InputSwitchSlots>()
 
 const attrs = useAttrs()
 
