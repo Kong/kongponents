@@ -1,3 +1,11 @@
+## [9.29.6](https://github.com/Kong/kongponents/compare/v9.29.5...v9.29.6) (2025-04-30)
+
+
+### Bug Fixes
+
+* **kexternallink:** ts improvements for kexternallink ([#2713](https://github.com/Kong/kongponents/issues/2713)) ([40c5eca](https://github.com/Kong/kongponents/commit/40c5eca7bd16bc20f8691837ed30a6eef318f1ea))
+* **kinputswitch:** ts improvements for kinputswitch ([#2719](https://github.com/Kong/kongponents/issues/2719)) ([27ad803](https://github.com/Kong/kongponents/commit/27ad803a0d25d4b8686025c599aa0994680455b0))
+
 ## [9.29.5](https://github.com/Kong/kongponents/compare/v9.29.4...v9.29.5) (2025-04-28)
 
 
