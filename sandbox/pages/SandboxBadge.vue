@@ -66,8 +66,11 @@
           Long truncating method badge
         </KBadge>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="tooltip">
-        <KBadge tooltip="I always tooltip">
+      <SandboxSectionComponent title="tooltip & tooltipAttributes">
+        <KBadge
+          tooltip="I always tooltip"
+          :tooltip-attributes="{ placement: 'bottom-end' }"
+        >
           Truncation unnecessary
         </KBadge>
       </SandboxSectionComponent>

@@ -1,3 +1,5 @@
+import type { TooltipAttributes } from './tooltip'
+
 export type BadgeMethodAppearance = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' | 'connect' | 'trace' | 'custom'
 export type BadgeAppearance = 'info' | 'success' | 'warning' | 'danger' | 'neutral' | 'decorative' | BadgeMethodAppearance
 export type BadgeMethodAppearanceRecord = Record<BadgeMethodAppearance, BadgeMethodAppearance>
@@ -54,6 +56,12 @@ export interface BadgeProps {
    * A boolean whether or not to show the icon before the badge text (or after).
    */
   iconBefore?: boolean
+
+  /**
+   * Use the `tooltipAttributes` prop to configure the KTooltip's props when using the `tooltip` prop.
+   * @default {}
+   */
+  tooltipAttributes?: TooltipAttributes
 }
 
 export type BadgeSlots = {

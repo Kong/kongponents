@@ -189,6 +189,10 @@ The [`icon` slot](#icon) content is displayed before the badge text by default. 
 </KBadge>
 ```
 
+### tooltipAttributes
+
+Use the `tooltipAttributes` prop to configure the KTooltip's [props](/components/tooltip) when using the `tooltip` prop.
+
 ## Slots
 
 ### default
