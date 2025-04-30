@@ -183,6 +183,10 @@ const isOpen = computed(() => {
 })
 
 watch(() => props.isVisible, async () => {
+  if (typeof document === 'undefined') {
+    return
+  }
+
   if (isOpen.value) {
     document.body.style.overflow = 'hidden'
 
