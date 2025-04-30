@@ -20,7 +20,7 @@ The text for the dropdown trigger button. The trigger content can also be [slott
 
 ### items
 
-An array of objects containing a required `label` property and other optional properties which will render a menu of [KDropdownItems](#KDropdownItem).
+An array of objects containing a required `label` property and other optional properties which will render a menu of [KDropdownItem](#kdropdownitem).
 
 <ClientOnly>
   <KDropdown trigger-text="Documentation" :items="deepClone(defaultItems)" />
@@ -71,7 +71,7 @@ Use this prop if you would like the trigger button to display a caret icon.
 
 ### width
 
-The width of the dropdown body (defaults to `auto`). Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
+The width of the dropdown body (defaults to `''`). Currently we support any valid CSS `width` value. Values without units (like `300`) will be converted to `px` values.
 
 <ClientOnly>
   <KDropdown trigger-text="Documentation" :items="deepClone(defaultItems)" width="700" />
@@ -244,6 +244,7 @@ The trigger element for opening/closing the menu.
 You can customize the appearance of dropdown items using this slot.
 
 Slot props:
+
 - `closeDropdown`
   - type: `Function`
   - Function that triggers dropdown close.
@@ -506,10 +507,6 @@ You can bind event handlers to `@click` event just like you would normally do wi
 #### change
 
 Fires when items are clicked when `selectionMenu` is `true`. Returns the selected menu item object or `null`.
-
-#### toggleDropdown
-
-Fires when the button to toggle the menu is clicked. Returns `true` if the menu is open, otherwise returns `false`.
 
 <script setup lang="ts">
 import { ref } from 'vue'

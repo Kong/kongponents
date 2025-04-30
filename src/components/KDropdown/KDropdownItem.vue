@@ -24,10 +24,9 @@
   </li>
 </template>
 
-<script lang="ts" setup>
-import type { DropdownItem, DropdownItemRenderedRecord, DropdownItemRenderedType, DropdownItemType } from '@/types'
-import type { PropType } from 'vue'
-import { computed, useAttrs } from 'vue'
+<script lang="ts" setup generic="T extends DropdownItem<string | number> | null = null">
+import { computed, useAttrs, watch } from 'vue'
+import type { DropdownItem, DropdownItemEmits, DropdownItemProps, DropdownItemRenderedRecord, DropdownItemRenderedType, DropdownItemType } from '@/types'
 
 defineOptions({
   inheritAttrs: false,
@@ -35,68 +34,30 @@ defineOptions({
 
 const attrs = useAttrs()
 
-const props = defineProps({
-  item: {
-    type: Object as PropType<DropdownItem>,
-    default: null,
-    // Items must have a label
-    validator: (item: DropdownItem) => item.label !== undefined,
-  },
-  /**
-   * Use this prop to add a divider above the item.
-   */
-  hasDivider: {
-    type: Boolean,
-    default: false,
-  },
-  danger: {
-    type: Boolean,
-    default: false,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  selected: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Internal use only - for tracking selection in conjunction with items prop.
-   */
-  selectionMenuChild: {
-    type: Boolean,
-    default: false,
-  },
-  onClick: {
-    type: Function,
-    default: undefined,
-  },
-  /**
-   * @deprecated in favor of `danger`
-   */
-  isDangerous: {
-    type: Boolean,
-    default: false,
-    validator: (value: boolean): boolean => {
-      if (value) {
-        console.warn('KDropdownItem: `isDangerous` prop is deprecated. Please use `danger` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kdropdownmenu')
-      }
+const {
+  // item should be T rather than T | null that Vue compiler infers here
+  item = null as T,
+  hasDivider,
+  danger,
+  disabled,
+  selected,
+  selectionMenuChild,
+  onClick,
+  isDangerous = undefined,
+} = defineProps<DropdownItemProps<T>>()
 
-      return true
-    },
-  },
+watch(() => isDangerous, (newVal) => {
+  if (typeof newVal !== 'undefined') {
+    console.warn('KDropdownItem: `isDangerous` prop is deprecated. Please use `danger` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kdropdownmenu')
+  }
 })
 
-const emit = defineEmits<{
-  (e: 'click', val: Event): void
-  (e: 'change', item: DropdownItem): void
-}>()
+const emit = defineEmits<DropdownItemEmits<T>>()
 
 const type = computed((): DropdownItemType => {
-  if (props.item?.to) {
+  if (item?.to) {
     return 'link'
-  } else if (typeof props.onClick !== 'undefined' || props.selectionMenuChild) {
+  } else if (typeof onClick !== 'undefined' || selectionMenuChild) {
     // checking attrs since we deleted click from listeners
     return 'button'
   }
@@ -104,15 +65,15 @@ const type = computed((): DropdownItemType => {
   return 'default'
 })
 
-const label = computed((): string => (props.item?.label) || '')
+const label = computed((): string => (item?.label) || '')
 
-const to = computed((): string | object | undefined => (props.item?.to) || undefined)
+const to = computed((): string | object | undefined => (item?.to) || undefined)
 
-const handleClick = (event: Event): void => {
+const handleClick = (event: MouseEvent): void => {
   emit('click', event)
 
-  if (props.selectionMenuChild) {
-    emit('change', props.item)
+  if (selectionMenuChild) {
+    emit('change', item)
   }
 }
 
@@ -150,7 +111,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     tag: 'a',
     attrs: {
       // add disabled class instead of disabled attribute because disabled is not a valid attribute for links
-      class: `${dropdownItemTriggerClass} ${props.disabled ? 'disabled' : ''}`,
+      class: `${dropdownItemTriggerClass} ${disabled ? 'disabled' : ''}`,
       href: to.value as string,
       ...strippedAttrs.value,
     },
@@ -160,7 +121,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     onClick: handleClick,
     attrs: {
       // add disabled class instead of disabled attribute because disabled is not a valid attribute for links
-      class: `${dropdownItemTriggerClass} ${props.disabled ? 'disabled' : ''}`,
+      class: `${dropdownItemTriggerClass} ${disabled ? 'disabled' : ''}`,
       to: to.value,
       ...strippedAttrs.value,
     },
@@ -172,7 +133,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
       type: 'button',
       // don't add disabled class because we want the disabled attribute on the button
       class: dropdownItemTriggerClass,
-      disabled: props.disabled,
+      disabled: disabled,
       ...strippedAttrs.value,
     },
   },
