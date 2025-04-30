@@ -53,6 +53,7 @@ runs:
       with:
         path: |
           ~/.cache/Cypress
+          **/.cache/Cypress
           **/node_modules
         key: pnpm-${{ steps.node-version.outputs.pnpm-version }}-${{ steps.node-version.outputs.node-version }}-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
 
