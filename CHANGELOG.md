@@ -1,3 +1,10 @@
+## [9.29.8](https://github.com/Kong/kongponents/compare/v9.29.7...v9.29.8) (2025-04-30)
+
+
+### Bug Fixes
+
+* **kdropdown:** ts improvements for kdropdown ([#2714](https://github.com/Kong/kongponents/issues/2714)) ([e9ee575](https://github.com/Kong/kongponents/commit/e9ee575621680c62c76cbc2a22757f4f29505c66))
+
 ## [9.29.7](https://github.com/Kong/kongponents/compare/v9.29.6...v9.29.7) (2025-04-30)
 
 
