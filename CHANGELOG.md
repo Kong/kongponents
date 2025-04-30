@@ -1,3 +1,10 @@
+## [9.29.7](https://github.com/Kong/kongponents/compare/v9.29.6...v9.29.7) (2025-04-30)
+
+
+### Bug Fixes
+
+* **ktabs:** use kbutton for ktabs ([#2707](https://github.com/Kong/kongponents/issues/2707)) ([fdd17e2](https://github.com/Kong/kongponents/commit/fdd17e25ff11678fff15ee7552c5f15556afdc8a))
+
 ## [9.29.6](https://github.com/Kong/kongponents/compare/v9.29.5...v9.29.6) (2025-04-30)
 
 
