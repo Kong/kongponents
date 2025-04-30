@@ -291,6 +291,7 @@ import type {
   MultiselectProps,
   MultiselectEmits,
   MultiselectSlots,
+  PopoverAttributes,
 } from '@/types'
 import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
@@ -420,25 +421,25 @@ const uniqueFilterStr = computed((): boolean => {
 const popper = ref<InstanceType<typeof KPop> | null>(null)
 
 // A clone of `props.items`, normalized.  May contain additional custom items that have been created.
-const unfilteredItems = ref<Items>([]) as Ref<Items>
+const unfilteredItems = ref([]) as Ref<Items>
 
 // A sorted version of the above.
-const sortedItems = ref<Items>([]) as Ref<Items>
+const sortedItems = ref([]) as Ref<Items>
 
 // An array of items.  May contain items that are not present in `unfilteredItems` if an item was selected, then the `items` prop was changed.
-const selectedItems = ref<Items>([]) as Ref<Items>
+const selectedItems = ref([]) as Ref<Items>
 
 // The items visible in the main part of the component.
-const visibleSelectedItemsStaging = ref<Items>([]) as Ref<Items>
+const visibleSelectedItemsStaging = ref([]) as Ref<Items>
 
 // The items in the "overflow" part of the component.
-const invisibleSelectedItemsStaging = ref<Items>([]) as Ref<Items>
+const invisibleSelectedItemsStaging = ref([]) as Ref<Items>
 
 // A set of the values in the "overflow" part of the component.
 const invisibleSelectedItemsStagingSet = new Set<string>()
 
 // Used to store the results of the determination of which items are visible.
-const visibleSelectedItems = ref<Items>([]) as Ref<Items>
+const visibleSelectedItems = ref([]) as Ref<Items>
 const invisibleSelectedItems = ref<Items>([])
 
 const hiddenItemsTooltip = computed((): string => invisibleSelectedItems.value.map(item => item.label).join(', '))
@@ -475,7 +476,7 @@ const modifiedAttrs = computed(() => {
   return $attrs
 })
 
-const createKPopAttributes = computed((): Record<string, any> => {
+const createKPopAttributes = computed((): PopoverAttributes => {
   return {
     ...defaultKPopAttributes,
     ...kpopAttributes,

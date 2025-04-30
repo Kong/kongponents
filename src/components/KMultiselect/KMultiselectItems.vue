@@ -69,7 +69,7 @@ import type { MultiselectItem, MultiselectItemsEmits, MultiselectItemsProps } fr
 
 const {
   items = [],
-  itemCreationEnabled = false,
+  itemCreationEnabled,
   filterString = '',
   itemCreationValid = true,
 } = defineProps<MultiselectItemsProps<T>>()

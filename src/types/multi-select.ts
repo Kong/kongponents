@@ -1,5 +1,5 @@
 import type { LabelAttributes } from './label'
-import { type PopoverAttributes } from './popover'
+import type { PopoverAttributes } from './popover'
 export interface MultiselectItem<T extends string = string> {
   label: string
   value: T
@@ -28,7 +28,7 @@ export interface MultiselectItemProps<T extends string> {
  * @internal
  */
 export interface MultiselectItemEmits<T extends string = string> {
-  'selected': [item: MultiselectItem<T>]
+  selected: [item: MultiselectItem<T>]
   'arrow-down': []
   'arrow-up': []
 }
@@ -54,7 +54,7 @@ export interface MultiselectItemsProps<T extends string> {
  * @internal
  */
 export interface MultiselectItemsEmits<T extends string = string> {
-  'selected': [item: MultiselectItem<T>]
+  selected: [item: MultiselectItem<T>]
   'add-item': []
 }
 
@@ -188,9 +188,9 @@ export interface MultiselectProps<T extends string, U extends boolean> {
 }
 
 export interface MultiselectEmits<T extends string = string> {
-  'selected': [items: MultiselectItem<T>[]]
-  'input': [values: string[]]
-  'change': [item: MultiselectItem<T> | null]
+  selected: [items: MultiselectItem<T>[]]
+  input: [values: string[]]
+  change: [item: MultiselectItem<T> | null]
   'update:modelValue': [values: T[]]
   'query-change': [query: string]
   'item-added': [item: MultiselectItem]
