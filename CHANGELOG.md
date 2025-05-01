@@ -1,3 +1,10 @@
+## [9.29.9](https://github.com/Kong/kongponents/compare/v9.29.8...v9.29.9) (2025-05-01)
+
+
+### Bug Fixes
+
+* link main page to correct url for theming and address SSR build issues ([#2724](https://github.com/Kong/kongponents/issues/2724)) ([e4720cd](https://github.com/Kong/kongponents/commit/e4720cd655c957d87d7167b7af97b532bafef741))
+
 ## [9.29.8](https://github.com/Kong/kongponents/compare/v9.29.7...v9.29.8) (2025-04-30)
 
 
