@@ -26,7 +26,7 @@ features:
     details: Kongponents have been rewritten utilizing Vue 3 and TypeScript. Enjoy better autocompletion in your editor and Devtools support!
   - title: Themeable
     details: Many Kongponents support "theming" via CSS variables, allowing for global customization or fine-tuned control within a scoped selector.
-    link: /guide/styles/theming
+    link: /guide/theming
     linkText: Read more
   - title: Contribute
     details: At Kong, we thrive with the open-source community. We're always looking for contributions; feel free to submit a pull request!

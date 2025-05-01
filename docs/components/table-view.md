@@ -1578,7 +1578,7 @@ import { ref } from 'vue'
 import { AddIcon, SearchIcon, MoreIcon } from '@kong/icons'
 import { ToastManager } from '@/index'
 
-const toaster = new ToastManager()
+const toaster = typeof document === 'undefined' ? null : new ToastManager()
 
 const basicHeaders = (actions: boolean = false, sortable: string | null = null, hidable: string | null = null, bulkActions: boolean = false): Array<TableViewHeader> => {
   const keys = {
