@@ -1,3 +1,10 @@
+## [9.29.10](https://github.com/Kong/kongponents/compare/v9.29.9...v9.29.10) (2025-05-01)
+
+
+### Bug Fixes
+
+* **kbadge:** add tooltip attributes prop [KHCP-15964] ([#2721](https://github.com/Kong/kongponents/issues/2721)) ([cef861d](https://github.com/Kong/kongponents/commit/cef861d508a3afb17ef19b403bfe58330f07eb39))
+
 ## [9.29.9](https://github.com/Kong/kongponents/compare/v9.29.8...v9.29.9) (2025-05-01)
 
 
