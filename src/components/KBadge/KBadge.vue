@@ -3,7 +3,10 @@
     class="k-badge"
     :class="[appearance, { method: isMethodBadge }]"
   >
-    <KTooltip :text="showTooltip ? tooltip : undefined">
+    <KTooltip
+      :text="showTooltip ? tooltip : undefined"
+      v-bind="tooltipAttributes"
+    >
       <div
         class="badge-content"
         :class="{ 'icon-after': !iconBefore }"
@@ -38,6 +41,7 @@ const {
   truncationTooltip = false,
   maxWidth: maxWidthProp = '200',
   iconBefore = true,
+  tooltipAttributes = {},
 } = defineProps<BadgeProps>()
 
 defineSlots<BadgeSlots>()
