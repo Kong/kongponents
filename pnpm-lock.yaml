@@ -73,8 +73,8 @@ importers:
         specifier: ^1.11.10
         version: 1.11.12
       '@kong-ui-public/sandbox-layout':
-        specifier: ^2.1.68
-        version: 2.1.68(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.9)(vue-router@4.4.5(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))
+        specifier: ^2.1.69
+        version: 2.1.69(vue@3.5.13(typescript@5.6.3))
       '@kong/design-tokens':
         specifier: ^1.17.4
         version: 1.17.4
@@ -1055,10 +1055,9 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@kong-ui-public/sandbox-layout@2.1.68':
-    resolution: {integrity: sha512-Hl6rZJTdKhdwKPxUqTq2NyAXGPUeZBwpP2romtZkXv9Y75xPQKnUX0eItcsdPyytTeHRhrPPXmHr10CJLCZgig==}
+  '@kong-ui-public/sandbox-layout@2.1.69':
+    resolution: {integrity: sha512-N1UKyvgwYCmRkCj1UY7meU42TGZHjuvtffOUEfh0Bd3+38OaQUM5TOkfkLj3tuJOcaK6qQDomag2CyytgL6CAQ==}
     peerDependencies:
-      '@kong/kongponents': ^9.29.3
       vue: '>= 3.3.13 < 4'
 
   '@kong/design-tokens@1.17.4':
@@ -1076,15 +1075,6 @@ packages:
     engines: {node: '>=18.17.0', pnpm: '>=9.14.4 || >=10.1.0'}
     peerDependencies:
       vue: '>= 3.3.4 < 4'
-
-  '@kong/kongponents@9.0.0-pr.2229.901d3f4d.0':
-    resolution: {integrity: sha512-dULXWZ35lB4ufEg0XV9UOtM4IoxBBcO80i7z7Gjdc3Kw6rsKDr3hlADAiucDwyF3FxBkhX1t3a3I08s0syJ1gQ==}
-    engines: {node: '>=v16.20.2'}
-    deprecated: Deprecated PR preview
-    peerDependencies:
-      axios: ^1.6.8
-      vue: '>= 3.3.4 < 4'
-      vue-router: ^4.3.2
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -5142,10 +5132,6 @@ packages:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
 
-  uuid@9.0.1:
-    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
-    hasBin: true
-
   v-calendar@3.1.2:
     resolution: {integrity: sha512-QDWrnp4PWCpzUblctgo4T558PrHgHzDtQnTeUNzKxfNf29FkCeFpwGd9bKjAqktaa2aJLcyRl45T5ln1ku34kg==}
     peerDependencies:
@@ -6343,10 +6329,9 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@kong-ui-public/sandbox-layout@2.1.68(@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.9)(vue-router@4.4.5(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))':
+  '@kong-ui-public/sandbox-layout@2.1.69(vue@3.5.13(typescript@5.6.3))':
     dependencies:
       '@kong/icons': 1.25.1(vue@3.5.13(typescript@5.6.3))
-      '@kong/kongponents': 9.0.0-pr.2229.901d3f4d.0(axios@1.7.9)(vue-router@4.4.5(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))
       vue: 3.5.13(typescript@5.6.3)
 
   '@kong/design-tokens@1.17.4': {}
@@ -6375,26 +6360,6 @@ snapshots:
   '@kong/icons@1.25.1(vue@3.5.13(typescript@5.6.3))':
     dependencies:
       vue: 3.5.13(typescript@5.6.3)
-
-  '@kong/kongponents@9.0.0-pr.2229.901d3f4d.0(axios@1.7.9)(vue-router@4.4.5(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))':
-    dependencies:
-      '@floating-ui/vue': 1.1.6(vue@3.5.13(typescript@5.6.3))
-      '@kong/icons': 1.25.1(vue@3.5.13(typescript@5.6.3))
-      '@popperjs/core': 2.11.8
-      axios: 1.7.9
-      date-fns: 2.30.0
-      date-fns-tz: 2.0.1(date-fns@2.30.0)
-      focus-trap: 7.6.4
-      focus-trap-vue: 4.0.3(focus-trap@7.6.4)(vue@3.5.13(typescript@5.6.3))
-      sortablejs: 1.15.6
-      swrv: 1.1.0(vue@3.5.13(typescript@5.6.3))
-      uuid: 9.0.1
-      v-calendar: 3.1.2(@popperjs/core@2.11.8)(vue@3.5.13(typescript@5.6.3))
-      vue: 3.5.13(typescript@5.6.3)
-      vue-draggable-next: 2.2.1(sortablejs@1.15.6)(vue@3.5.13(typescript@5.6.3))
-      vue-router: 4.4.5(vue@3.5.13(typescript@5.6.3))
-    transitivePeerDependencies:
-      - '@vue/composition-api'
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -7338,6 +7303,7 @@ snapshots:
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
+    optional: true
 
   balanced-match@1.0.2: {}
 
@@ -8499,7 +8465,8 @@ snapshots:
     dependencies:
       tabbable: 6.2.0
 
-  follow-redirects@1.15.6: {}
+  follow-redirects@1.15.6:
+    optional: true
 
   for-each@0.3.3:
     dependencies:
@@ -9808,7 +9775,8 @@ snapshots:
 
   proxy-from-env@1.0.0: {}
 
-  proxy-from-env@1.1.0: {}
+  proxy-from-env@1.1.0:
+    optional: true
 
   pump@3.0.0:
     dependencies:
@@ -10766,8 +10734,6 @@ snapshots:
   util-deprecate@1.0.2: {}
 
   uuid@8.3.2: {}
-
-  uuid@9.0.1: {}
 
   v-calendar@3.1.2(@popperjs/core@2.11.8)(vue@3.5.13(typescript@5.6.3)):
     dependencies:
