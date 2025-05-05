@@ -70,7 +70,7 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(@types/node@20.17.30)(typescript@5.6.3)
       '@evilmartians/lefthook':
-        specifier: ^1.11.10
+        specifier: ^1.11.11
         version: 1.11.12
       '@kong-ui-public/sandbox-layout':
         specifier: ^2.1.69
@@ -217,8 +217,8 @@ importers:
         specifier: ^4.4.5
         version: 4.4.5(vue@3.5.13(typescript@5.6.3))
       vue-tsc:
-        specifier: ^2.2.8
-        version: 2.2.8(typescript@5.6.3)
+        specifier: ^2.2.10
+        version: 2.2.10(typescript@5.6.3)
 
 packages:
 
@@ -1578,8 +1578,8 @@ packages:
   '@vue/devtools-shared@7.4.6':
     resolution: {integrity: sha512-rPeSBzElnHYMB05Cc056BQiJpgocQjY8XVulgni+O9a9Gr9tNXgPteSzFFD+fT/iWMxNuUgGKs9CuW5DZewfIg==}
 
-  '@vue/language-core@2.2.8':
-    resolution: {integrity: sha512-rrzB0wPGBvcwaSNRriVWdNAbHQWSf0NlGqgKHK5mEkXpefjUlVRP62u03KvwZpvKVjRnBIQ/Lwre+Mx9N6juUQ==}
+  '@vue/language-core@2.2.10':
+    resolution: {integrity: sha512-+yNoYx6XIKuAO8Mqh1vGytu8jkFEOH5C8iOv3i8Z/65A7x9iAOXA97Q+PqZ3nlm2lxf5rOJuIGI/wDtx/riNYw==}
     peerDependencies:
       typescript: '*'
     peerDependenciesMeta:
@@ -5319,8 +5319,8 @@ packages:
     peerDependencies:
       vue: ^3.2.0
 
-  vue-tsc@2.2.8:
-    resolution: {integrity: sha512-jBYKBNFADTN+L+MdesNX/TB3XuDSyaWynKMDgR+yCSln0GQ9Tfb7JS2lr46s2LiFUT1WsmfWsSvIElyxzOPqcQ==}
+  vue-tsc@2.2.10:
+    resolution: {integrity: sha512-jWZ1xSaNbabEV3whpIDMbjVSVawjAyW+x1n3JeGQo7S0uv2n9F/JMgWW90tGWNFRKya4YwKMZgCtr0vRAM7DeQ==}
     hasBin: true
     peerDependencies:
       typescript: '>=5.0.0'
@@ -7034,7 +7034,7 @@ snapshots:
     dependencies:
       rfdc: 1.4.1
 
-  '@vue/language-core@2.2.8(typescript@5.6.3)':
+  '@vue/language-core@2.2.10(typescript@5.6.3)':
     dependencies:
       '@volar/language-core': 2.4.11
       '@vue/compiler-dom': 3.5.13
@@ -10930,10 +10930,10 @@ snapshots:
     dependencies:
       vue: 3.5.13(typescript@5.6.3)
 
-  vue-tsc@2.2.8(typescript@5.6.3):
+  vue-tsc@2.2.10(typescript@5.6.3):
     dependencies:
       '@volar/typescript': 2.4.11
-      '@vue/language-core': 2.2.8(typescript@5.6.3)
+      '@vue/language-core': 2.2.10(typescript@5.6.3)
       typescript: 5.6.3
 
   vue@3.5.13(typescript@5.6.3):
