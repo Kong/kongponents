@@ -1,4 +1,4 @@
-import type { AnyElementOf, NonUndefined } from '@/types/utils'
+import type { AnyElementOf } from '@/types/utils'
 
 export const SkeletonTypeArray = [
   'table',
@@ -97,22 +97,27 @@ export interface SkeletonProps {
  * @internal
  */
 export type SkeletonCardProps = {
-  cardCount: SkeletonProps['cardCount']
-  maxWidth: SkeletonProps['cardMaxWidth']
+  cardCount: Exclude<SkeletonProps['cardCount'], undefined>
+  maxWidth: Exclude<SkeletonProps['cardMaxWidth'], undefined>
 }
 
 /**
  * @internal
  */
 export type SkeletonTableProps = {
-  rows: SkeletonProps['tableRows']
-  columns: SkeletonProps['tableColumns']
+  rows: Exclude<SkeletonProps['tableRows'], undefined>
+  columns: Exclude<SkeletonProps['tableColumns'], undefined>
 }
 
 /**
+ * List all props manually to make Vue compiler happy
  * @internal
  */
-export type SkeletonFullscreenProps = Pick<SkeletonProps, 'progress' | 'hideProgress' | 'zIndex'>
+export type SkeletonFullscreenProps = {
+  progress: Exclude<SkeletonProps['progress'], undefined>
+  hideProgress: Exclude<SkeletonProps['hideProgress'], undefined>
+  zIndex: Exclude<SkeletonProps['zIndex'], undefined>
+}
 
 export interface SkeletonSlots {
   /**
