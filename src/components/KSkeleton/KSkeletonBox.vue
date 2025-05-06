@@ -6,22 +6,9 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
-import type { SkeletonBoxHeight, SkeletonBoxWidth } from '@/types'
-import { SkeletonBoxHeightArray, SkeletonBoxWidthArray } from '@/types'
+import type { SkeletonBoxProps } from '@/types'
 
-defineProps({
-  width: {
-    type: String as PropType<SkeletonBoxWidth>,
-    default: '1',
-    validator: (val: SkeletonBoxWidth) => SkeletonBoxWidthArray.includes(val),
-  },
-  height: {
-    type: String as PropType<SkeletonBoxHeight>,
-    default: '1',
-    validator: (val: SkeletonBoxHeight) => SkeletonBoxHeightArray.includes(val),
-  },
-})
+defineProps<SkeletonBoxProps>()
 </script>
 
 <style lang="scss" scoped>

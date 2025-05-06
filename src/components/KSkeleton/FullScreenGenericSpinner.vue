@@ -24,29 +24,21 @@
 
 <script lang="ts" setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import type { SkeletonFullscreenProps } from '@/types'
 
-const props = defineProps({
-  progress: {
-    type: Number,
-    default: null,
-  },
-  hideProgress: {
-    type: Boolean,
-    default: false,
-  },
-  zIndex: {
-    type: Number,
-    default: 10500,
-  },
-})
+const {
+  progress,
+  hideProgress,
+  zIndex,
+} = defineProps<SkeletonFullscreenProps>()
 
 const timer = ref(0)
 const progressInternal = ref(0)
-const progression = computed((): number => props.progress !== null ? props.progress : progressInternal.value)
+const progression = computed((): number => progress !== null ? progress : progressInternal.value)
 
 onMounted(() => {
   // If progress is user determined, don't fire interval to simulate progress
-  if (props.progress) {
+  if (progress) {
     return
   }
   timer.value = setInterval(() => {

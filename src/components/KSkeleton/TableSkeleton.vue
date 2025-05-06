@@ -23,18 +23,12 @@
 
 <script lang="ts" setup>
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
-import type { SkeletonBoxWidth } from '@/types'
+import type { SkeletonBoxWidth, SkeletonTableProps } from '@/types'
 
-defineProps({
-  rows: {
-    type: Number,
-    default: 6,
-  },
-  columns: {
-    type: Number,
-    default: 4,
-  },
-})
+const {
+  rows,
+  columns,
+} = defineProps<SkeletonTableProps>()
 
 const calcWidth = (cell: number, row: number): SkeletonBoxWidth => {
   if (cell === 1 && row === 1) return '25'

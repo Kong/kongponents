@@ -22,7 +22,6 @@ import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 </script>
 
 <style lang="scss" scoped>
-
 .skeleton-form-wrapper {
   display: flex;
   flex-direction: column;

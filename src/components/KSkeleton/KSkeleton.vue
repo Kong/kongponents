@@ -58,7 +58,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
 import { onMounted, ref } from 'vue'
 import Skeleton from '@/components/KSkeleton/SkeletonBase.vue'
 import CardSkeleton from '@/components/KSkeleton/CardSkeleton.vue'
@@ -66,56 +65,25 @@ import TableSkeleton from '@/components/KSkeleton/TableSkeleton.vue'
 import FormSkeleton from '@/components/KSkeleton/FormSkeleton.vue'
 import FullScreenKongSkeleton from '@/components/KSkeleton/FullScreenKongSkeleton.vue'
 import FullScreenGenericSpinner from '@/components/KSkeleton/FullScreenGenericSpinner.vue'
-import type { SkeletonType } from '@/types'
-import { SkeletonTypeArray } from '@/types'
+import type { SkeletonProps, SkeletonSlots } from '@/types'
 import { ProgressIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
 
-const props = defineProps({
-  delayMilliseconds: {
-    type: Number,
-    required: false,
-    default: 0,
-  },
-  type: {
-    type: String as PropType<SkeletonType>,
-    default: '',
-    validator: (val: SkeletonType): boolean => SkeletonTypeArray.includes(val),
-  },
-  progress: {
-    type: Number,
-    required: false,
-    default: null,
-  },
-  hideProgress: {
-    type: Boolean,
-    default: false,
-  },
-  cardCount: {
-    type: Number,
-    default: 1,
-  },
-  cardMaxWidth: {
-    type: String,
-    default: '',
-  },
-  tableColumns: {
-    type: Number,
-    required: false,
-    default: 5,
-  },
-  tableRows: {
-    type: Number,
-    required: false,
-    default: 6,
-  },
-  zIndex: {
-    type: Number,
-    default: 10500,
-  },
-})
+const {
+  type = '',
+  delayMilliseconds = 0,
+  cardCount = 1,
+  cardMaxWidth = '',
+  tableColumns = 5,
+  tableRows = 6,
+  progress = null,
+  hideProgress,
+  zIndex = 10500,
+} = defineProps<SkeletonProps>()
 
-const isVisible = ref(props.delayMilliseconds === 0)
+defineSlots<SkeletonSlots>()
+
+const isVisible = ref(delayMilliseconds === 0)
 
 onMounted(() => {
   if (isVisible.value) {
@@ -123,7 +91,7 @@ onMounted(() => {
   }
   setTimeout(() => {
     isVisible.value = true
-  }, props.delayMilliseconds)
+  }, delayMilliseconds)
 })
 
 </script>
