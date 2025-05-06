@@ -1,3 +1,10 @@
+## [9.30.1](https://github.com/Kong/kongponents/compare/v9.30.0...v9.30.1) (2025-05-06)
+
+
+### Bug Fixes
+
+* **kselect:** ts improvements for kselect ([#2712](https://github.com/Kong/kongponents/issues/2712)) ([607371c](https://github.com/Kong/kongponents/commit/607371cc0364e9ac8328f51c9f6048aa3b13f998))
+
 # [9.30.0](https://github.com/Kong/kongponents/compare/v9.29.11...v9.30.0) (2025-05-06)
 
 
