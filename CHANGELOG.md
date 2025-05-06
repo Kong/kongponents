@@ -1,3 +1,10 @@
+# [9.30.0](https://github.com/Kong/kongponents/compare/v9.29.11...v9.30.0) (2025-05-06)
+
+
+### Features
+
+* ts improvement for kslideout ([#2718](https://github.com/Kong/kongponents/issues/2718)) ([9b29433](https://github.com/Kong/kongponents/commit/9b2943348ab0276283e2c90804e06bdc1ecf6d5b))
+
 ## [9.29.11](https://github.com/Kong/kongponents/compare/v9.29.10...v9.29.11) (2025-05-05)
 
 
