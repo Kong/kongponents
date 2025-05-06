@@ -38,7 +38,7 @@ export interface FileUploadProps {
 
   /**
    * The maximize size of file that can be uploaded.
-   * The default maximum size is 5.25MB if not specified.
+   * The default maximum size is 5MB if not specified.
    * @default null
    */
   maxFileSize?: number

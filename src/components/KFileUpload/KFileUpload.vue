@@ -123,12 +123,12 @@ const fileSizeErrorMessage = computed((): string => {
   if (hasFileSizeError.value) {
     let units = 'bytes'
     let maxFileSize = maximumFileSize.value
-    if (maximumFileSize.value >= 1000 && maximumFileSize.value < 1000000) {
-      maxFileSize = maximumFileSize.value / 1000
+    if (maximumFileSize.value >= 1024 && maximumFileSize.value < 1024 * 1024) {
+      maxFileSize = maximumFileSize.value / 1024
       units = 'KB'
     }
-    if (maximumFileSize.value >= 1000000) {
-      maxFileSize = maximumFileSize.value / 1000000
+    if (maximumFileSize.value >= 1024 * 1024) {
+      maxFileSize = maximumFileSize.value / (1024 * 1024)
       units = 'MB'
     }
 
@@ -142,7 +142,7 @@ const maximumFileSize = computed((): number => {
     return maxFileSize
   }
 
-  return 5250000
+  return 5 * 1024 * 1024
 })
 
 const hasUploadError = ref<boolean>(false)
@@ -156,11 +156,12 @@ const fileValue = ref<string>('')
 // Array to store the previously selected FileList when user clicks reopen the file uploader and clicks on Cancel
 const fileClone = ref<File[]>([])
 
-const onFileChange = (evt: any): void => {
-  fileInput.value = evt.target?.files
-  fileValue.value = String(fileInput?.value[0]?.name)
+const onFileChange = (evt: Event): void => {
+  const { files } = evt.target as HTMLInputElement
+  fileInput.value = files ? [...files] : []
+  fileValue.value = String(fileInput.value[0]?.name)
 
-  const fileSize = fileInput?.value[0]?.size
+  const fileSize = fileInput.value[0]?.size
 
   hasUploadError.value = Number(fileSize) > maximumFileSize.value
 
