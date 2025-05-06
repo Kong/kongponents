@@ -115,7 +115,7 @@ interface SelectItem {
 
 ### label
 
-Label associated with the input element.
+Label associated with the select element.
 
 <ClientOnly>
   <KSelect label="Label" :items="selectItems" />
