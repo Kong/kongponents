@@ -1,3 +1,13 @@
+## [9.30.2](https://github.com/Kong/kongponents/compare/v9.30.1...v9.30.2) (2025-05-06)
+
+
+### Bug Fixes
+
+* **kfileupload:** fix type import ([#2733](https://github.com/Kong/kongponents/issues/2733)) ([50047e8](https://github.com/Kong/kongponents/commit/50047e814787849be3118dd94879827e93ade796))
+* **kfileupload:** ts improvements for kfileupload ([#2717](https://github.com/Kong/kongponents/issues/2717)) ([df60350](https://github.com/Kong/kongponents/commit/df603508a52233656956acaa7766ba2c6c373bf5))
+* **kmodal:** ts improvements for kmodal ([#2720](https://github.com/Kong/kongponents/issues/2720)) ([4d05dce](https://github.com/Kong/kongponents/commit/4d05dce22433a2af0dcc90d6e7fc9e079781db93))
+* **kskeleton:** ts improvements for kskeleton ([#2730](https://github.com/Kong/kongponents/issues/2730)) ([38cd2f9](https://github.com/Kong/kongponents/commit/38cd2f9bce730245d63ebbf9e9e6be2c515b5345))
+
 ## [9.30.1](https://github.com/Kong/kongponents/compare/v9.30.0...v9.30.1) (2025-05-06)
 
 
