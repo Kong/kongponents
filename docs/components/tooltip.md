@@ -147,6 +147,20 @@ Use the `kpopAttributes` prop to configure the underlying [KPop's props](/compon
 </KTooltip>
 ```
 
+### disabled
+
+Pass `true` to disable the tooltip. Default value is `false`.
+
+<KTooltip disabled text="Disabled tooltip content.">
+  <KButton>Disabled tooltip button</KButton>
+</KTooltip>
+
+```html
+<KTooltip disabled text="Disabled tooltip content.">
+  <KButton>Disabled tooltip button</KButton>
+</KTooltip>
+```
+
 ## Slots
 
 ### default
