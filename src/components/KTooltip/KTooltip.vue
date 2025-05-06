@@ -53,11 +53,12 @@ const {
   tooltipId = '',
   zIndex = 9999,
   kpopAttributes = {},
+  disabled = false,
 } = defineProps<TooltipProps>()
 
 const slots = defineSlots<TooltipSlots>()
 
-const showTooltip = computed((): boolean => !!text || !!label || !!slots.content)
+const showTooltip = computed((): boolean => !disabled && (!!text || !!label || !!slots.content))
 
 const randomTooltipId = useId()
 </script>

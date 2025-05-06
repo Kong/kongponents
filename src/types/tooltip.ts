@@ -45,6 +45,12 @@ export interface TooltipProps {
    * @default {}
    */
   kpopAttributes?: PopoverAttributes
+
+  /**
+   * Whether the tooltip should be disabled.
+   * @default false
+   */
+  disabled?: boolean
 }
 
 export interface TooltipSlots {
