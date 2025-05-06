@@ -78,7 +78,7 @@ import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import useUtilities from '@/composables/useUtilities'
-import type { FileUploadEmits, FileUploadProps, FileUploadSlots } from '@/types'
+import type { FileUploadProps, FileUploadEmits, FileUploadSlots } from '@/types'
 
 const {
   labelAttributes = {},
