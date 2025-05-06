@@ -1,3 +1,10 @@
+# [9.31.0](https://github.com/Kong/kongponents/compare/v9.30.2...v9.31.0) (2025-05-06)
+
+
+### Features
+
+* **ktooltip:** add disabled prop [KHCP-14941] ([#2734](https://github.com/Kong/kongponents/issues/2734)) ([e1fc844](https://github.com/Kong/kongponents/commit/e1fc84472c990173689797cdb9bcd37066256a6a))
+
 ## [9.30.2](https://github.com/Kong/kongponents/compare/v9.30.1...v9.30.2) (2025-05-06)
 
 
