@@ -96,23 +96,23 @@ export interface SkeletonProps {
 /**
  * @internal
  */
-export type SkeletonCardProps = NonUndefined<{
+export type SkeletonCardProps = {
   cardCount: SkeletonProps['cardCount']
   maxWidth: SkeletonProps['cardMaxWidth']
-}>
+}
 
 /**
  * @internal
  */
-export type SkeletonTableProps = NonUndefined<{
+export type SkeletonTableProps = {
   rows: SkeletonProps['tableRows']
   columns: SkeletonProps['tableColumns']
-}>
+}
 
 /**
  * @internal
  */
-export type SkeletonFullscreenProps = NonUndefined<Pick<SkeletonProps, 'progress' | 'hideProgress' | 'zIndex'>>
+export type SkeletonFullscreenProps = Pick<SkeletonProps, 'progress' | 'hideProgress' | 'zIndex'>
 
 export interface SkeletonSlots {
   /**
