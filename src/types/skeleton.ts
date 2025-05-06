@@ -115,11 +115,33 @@ export type SkeletonTableProps = NonUndefined<{
 export type SkeletonFullscreenProps = NonUndefined<Pick<SkeletonProps, 'progress' | 'hideProgress' | 'zIndex'>>
 
 export interface SkeletonSlots {
+  /**
+   * The content for each skeleton row when `type` is `table`.
+   */
   default?(): any
 
+  /**
+   * The header of each skeleton card when `type` is `card`.
+   */
   'card-header'?(): any
 
+  /**
+   * The content of each skeleton card when `type` is `card`.
+   */
   'card-content'?(): any
 
+  /**
+   * The footer of each skeleton card when `type` is `card`.
+   */
   'card-footer'?(): any
 }
+
+/**
+ * @internal
+ */
+export type SkeletonCardSlots = Pick<SkeletonSlots, 'card-header' | 'card-content' | 'card-footer'>
+
+/**
+ * @internal
+ */
+export type SkeletonTableSlots = Pick<SkeletonSlots, 'default'>
