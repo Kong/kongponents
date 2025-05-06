@@ -53,7 +53,7 @@ const {
   tooltipId = '',
   zIndex = 9999,
   kpopAttributes = {},
-  disabled = false,
+  disabled,
 } = defineProps<TooltipProps>()
 
 const slots = defineSlots<TooltipSlots>()
