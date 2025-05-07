@@ -1,3 +1,10 @@
+## [9.31.1](https://github.com/Kong/kongponents/compare/v9.31.0...v9.31.1) (2025-05-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency virtua to ^0.40.4 ([#2737](https://github.com/Kong/kongponents/issues/2737)) ([af4c157](https://github.com/Kong/kongponents/commit/af4c157ffb468db6d474796903b93df6e75c55ce))
+
 # [9.31.0](https://github.com/Kong/kongponents/compare/v9.30.2...v9.31.0) (2025-05-06)
 
 
