@@ -8,7 +8,10 @@
 <script lang="ts" setup>
 import type { SkeletonBoxProps } from '@/types'
 
-defineProps<SkeletonBoxProps>()
+const {
+  width = '1',
+  height = '1',
+} = defineProps<SkeletonBoxProps>()
 </script>
 
 <style lang="scss" scoped>
