@@ -1,3 +1,10 @@
+## [9.31.2](https://github.com/Kong/kongponents/compare/v9.31.1...v9.31.2) (2025-05-07)
+
+
+### Bug Fixes
+
+* **kskeleton:** fix kskeletonbox default value ([#2738](https://github.com/Kong/kongponents/issues/2738)) ([e735a1e](https://github.com/Kong/kongponents/commit/e735a1e4e8939d47b848f775a1c449b43851300c))
+
 ## [9.31.1](https://github.com/Kong/kongponents/compare/v9.31.0...v9.31.1) (2025-05-07)
 
 
