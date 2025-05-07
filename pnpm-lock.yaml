@@ -48,8 +48,8 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2(@popperjs/core@2.11.8)(vue@3.5.13(typescript@5.6.3))
       virtua:
-        specifier: ^0.40.3
-        version: 0.40.3(vue@3.5.13(typescript@5.6.3))
+        specifier: ^0.40.4
+        version: 0.40.4(vue@3.5.13(typescript@5.6.3))
       vue-draggable-next:
         specifier: ^2.2.1
         version: 2.2.1(sortablejs@1.15.6)(vue@3.5.13(typescript@5.6.3))
@@ -5155,8 +5155,8 @@ packages:
   vfile@6.0.3:
     resolution: {integrity: sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==}
 
-  virtua@0.40.3:
-    resolution: {integrity: sha512-rfl6VohBFoT0U64fVdOGag2p0D+YZbki7HQ5bjFZObStWBaWjjataIHFDjl4KuSr3yHBMgGd/+Va7W4Z2Y0LRg==}
+  virtua@0.40.4:
+    resolution: {integrity: sha512-eV55eOm2b5Lzc9upivqIcAFPgfBrfcVrppW9T4vhTH+QAbaxfw5ypq25apkG83T5FuiFEoQYnefix1fQyx/GXQ==}
     peerDependencies:
       react: '>=16.14.0'
       react-dom: '>=16.14.0'
@@ -10771,7 +10771,7 @@ snapshots:
       '@types/unist': 3.0.2
       vfile-message: 4.0.2
 
-  virtua@0.40.3(vue@3.5.13(typescript@5.6.3)):
+  virtua@0.40.4(vue@3.5.13(typescript@5.6.3)):
     optionalDependencies:
       vue: 3.5.13(typescript@5.6.3)
 
