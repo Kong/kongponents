@@ -323,7 +323,8 @@ defineOptions({
 
 // type of selectItem
 type Value = U extends true ? T | string : T
-type Items = MultiselectItem<Value>[]
+type Item = MultiselectItem<Value>
+type Items = Item[]
 const attrs = useAttrs()
 const slots = defineSlots<MultiselectSlots<Value>>()
 
@@ -370,7 +371,7 @@ const isRequired = computed((): boolean => attrs.required !== undefined && Strin
 const strippedLabel = computed((): string => stripRequiredLabel(label, isRequired.value))
 const hasLabelTooltip = computed((): boolean => !!(labelAttributes?.help || labelAttributes?.info || slots['label-tooltip']))
 
-const getBadgeAppearance = (item?: MultiselectItem): BadgeAppearance => {
+const getBadgeAppearance = (item?: Item): BadgeAppearance => {
   if (isDisabled.value || isReadonly.value || item?.disabled) {
     return 'neutral'
   }
@@ -412,7 +413,7 @@ const uniqueFilterStr = computed((): boolean => {
     return false
   }
 
-  if (unfilteredItems.value.filter((item: MultiselectItem) => item.label === filterString.value).length) {
+  if (unfilteredItems.value.filter((item: Item) => item.label === filterString.value).length) {
     return false
   }
 
@@ -602,7 +603,7 @@ const stageSelections = () => {
 }
 
 // handles programmatic selections
-const handleMultipleItemsSelect = (items: MultiselectItem[]) => {
+const handleMultipleItemsSelect = (items: Items) => {
   items.forEach(itemToSelect => {
     const selectedItem = unfilteredItems.value.filter(anItem => anItem.value === itemToSelect.value)?.[0] || null
 
@@ -617,7 +618,7 @@ const handleMultipleItemsSelect = (items: MultiselectItem[]) => {
   stageSelections()
 }
 
-const handleMultipleItemsDeselect = (items: MultiselectItem<Value>[], restage = false) => {
+const handleMultipleItemsDeselect = (items: Items, restage = false) => {
   const deselectedValues = new Set(items.map(anItem => anItem.value))
 
   selectedItems.value = selectedItems.value.filter(anItem => !deselectedValues.has(anItem.value))
@@ -652,7 +653,7 @@ const handleMultipleItemsDeselect = (items: MultiselectItem<Value>[], restage = 
 }
 
 // handle item select/deselect from dropdown
-const handleItemSelect = (item: MultiselectItem<Value>, isNew?: boolean) => {
+const handleItemSelect = (item: Item, isNew?: boolean) => {
   let selectionIsAdded = false // true if selected item is added, not from items passed in
   let selectedItem = isNew ? item : unfilteredItems.value.filter(anItem => anItem.value === item.value)?.[0] || null
 
@@ -738,7 +739,7 @@ const handleAddItem = (): void => {
   }
   emit('item-added', item)
 
-  handleItemSelect(item as MultiselectItem<Value>, true) // item could be a mixture of string and generic types
+  handleItemSelect(item as Item, true) // item could be a mixture of string and generic types
   filterString.value = ''
 }
 
@@ -894,8 +895,8 @@ watch(value, (newVal, oldVal) => {
     const previouslySelectedItems = new Set<string>(oldVal)
     const currentlySelectedItems = new Set<string>(newVal)
 
-    const selectedAndPresentItems = unfilteredItems.value.filter((item: MultiselectItem) => currentlySelectedItems.has(item.value))
-    const deselectedItems = selectedItems.value.filter((item: MultiselectItem) => !currentlySelectedItems.has(item.value) && previouslySelectedItems.has(item.value))
+    const selectedAndPresentItems = unfilteredItems.value.filter((item: Item) => currentlySelectedItems.has(item.value))
+    const deselectedItems = selectedItems.value.filter((item: Item) => !currentlySelectedItems.has(item.value) && previouslySelectedItems.has(item.value))
 
     if (deselectedItems.length) {
       handleMultipleItemsDeselect(deselectedItems)

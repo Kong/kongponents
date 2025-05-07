@@ -40,10 +40,11 @@ export interface LabelSlots {
   tooltip?(): any
 }
 
-export interface LabelAttributes extends LabelProps {
-  /**
-   * Custom data-testid for label.
-   * @default ''
-   */
+export type LabelAttributes = Pick<LabelProps,
+  | 'info'
+  | 'required'
+  | 'tooltipAttributes'
+  | 'help'
+> & {
   'data-testid'?: string
 }
