@@ -45,14 +45,14 @@ export interface FileUploadProps {
 
   /**
    * Boolean to indicate whether the element is in an error state and should apply error styling.
-   * @defaults false
+   * @default false
    */
   error?: boolean
 
   /**
    * String to be displayed as an error message if `error` prop is `true`.
    * This prop will supersede the `help` prop if both have a value and `error` is `true`.
-   * @defaults false
+   * @default false
    */
   errorMessage?: string
 
