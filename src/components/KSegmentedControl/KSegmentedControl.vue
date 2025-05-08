@@ -4,7 +4,7 @@
       v-for="option in normalizedOptions"
       :key="`${option.value}-option`"
       class="segmented-control-button"
-      :class="[size, { selected: props.modelValue === option.value }]"
+      :class="[size, { selected: modelValue === option.value }]"
       :data-testid="`${option.value}-option`"
       :disabled="getDisabled(option)"
       type="button"
@@ -20,88 +20,77 @@
   </div>
 </template>
 
-<script lang="ts">
-import type { PropType } from 'vue'
-import { ref } from 'vue'
-import type { SegmentedControlOption } from '@/types/segmented-control'
+<script lang="ts" setup generic="T extends SegmentedControlOption<string | number | boolean>[] | string[]">
+import { computed, watch } from 'vue'
+import type { SegmentedControlSlots } from '@/types/segmented-control'
+import { type SegmentedControlEmits, type SegmentedControlOption, type SegmentedControlProps } from '@/types/segmented-control'
+import { warnInvalidProp } from '@/utilities/warning'
 
-const itemsHaveRequiredProps = (items: SegmentedControlOption[]): boolean => {
+type NormalizedOption = T extends string[] ? SegmentedControlOption<T[number]> : T[number]
+type Value = NormalizedOption['value']
+
+const itemsHaveRequiredProps = (items: NormalizedOption[]): boolean => {
   return items.every(i => i.value !== undefined)
 }
 
 // functions used in prop validators
-const getValues = (items: SegmentedControlOption[]) => {
+const getValues = (items: NormalizedOption[]) => {
   const vals: string[] = []
-  items.forEach((item: SegmentedControlOption) => vals.push(item.value + ''))
+  items.forEach((item: NormalizedOption) => vals.push(item.value + ''))
 
   return vals
 }
 
-const itemValuesAreUnique = (items: SegmentedControlOption[]): boolean => {
+const itemValuesAreUnique = (items: NormalizedOption[]): boolean => {
   const vals = getValues(items)
   const uniqueValues = new Set(vals)
 
   return vals.length === uniqueValues.size
 }
 
-const normalizeItems = (items: SegmentedControlOption[] | string[]): SegmentedControlOption[] => {
-  return items.map((item:SegmentedControlOption | string) => {
+const normalizeItems = (items: T): NormalizedOption[] => {
+  return items.map((item) => {
     return {
       label: typeof item === 'string' ? item : (item.label || (item.value + '')),
-      value: typeof item === 'string' ? item.toLocaleLowerCase().replace(' ', '-') : item.value,
+      value: (typeof item === 'string' ? item.toLocaleLowerCase().replace(' ', '-') : item.value),
       disabled: typeof item === 'string' ? false : item.disabled,
-    } as SegmentedControlOption
+    } as NormalizedOption
   })
 }
 
-const validateItems = (items: SegmentedControlOption[] | string[]): boolean => {
+const validateItems = (items: T): boolean => {
   const isStringArray = typeof items[0] === 'string'
   const nItems = normalizeItems(items)
   const isValid = itemValuesAreUnique(nItems)
 
-  return isStringArray ? isValid && itemsHaveRequiredProps(nItems as SegmentedControlOption[]) : isValid
+  return isStringArray ? isValid && itemsHaveRequiredProps(nItems) : isValid
 }
 
-export default {}
-</script>
+const {
+  modelValue,
+  options,
+  size = 'small',
+  disabled,
+} = defineProps<SegmentedControlProps<T>>()
 
-<script lang="ts" setup>
-const props = defineProps({
-  modelValue: {
-    type: [String, Number, Boolean],
-    required: true,
-  },
-  options: {
-    type: Array as PropType<SegmentedControlOption[] | string[]>,
-    required: true,
-    validator: (items: SegmentedControlOption[] | string[]) => !items.length || validateItems(items),
-  },
-  size: {
-    type: String,
-    default: 'small',
-    validator: (size: string) => ['small', 'large'].includes(size),
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-})
+watch(() => options, (newOptions) => {
+  if (!validateItems(newOptions)) {
+    warnInvalidProp('options', 'The options prop must be an array of unique strings or objects with a unique value property.')
+  }
+}, { immediate: true })
 
-const emit = defineEmits<{
-  (e: 'click', event: string): void
-  (e: 'update:modelValue', event: string): void
-}>()
+const emit = defineEmits<SegmentedControlEmits<Value>>()
 
-const normalizedOptions = ref(normalizeItems(props.options))
+defineSlots<SegmentedControlSlots<NormalizedOption>>()
 
-const getDisabled = (option: SegmentedControlOption): boolean => {
-  return !!option.disabled || props.disabled
+const normalizedOptions = computed(() => normalizeItems(options))
+
+const getDisabled = (option: NormalizedOption): boolean => {
+  return !!option.disabled || disabled
 }
 
-const handleClick = (option: SegmentedControlOption): void => {
-  // @ts-ignore: allow emitting a custom value
+const handleClick = (option: NormalizedOption): void => {
   emit('click', option.value)
-  // @ts-ignore: allow emitting a custom value
   emit('update:modelValue', option.value)
 }
 </script>
