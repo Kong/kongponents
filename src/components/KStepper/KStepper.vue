@@ -14,27 +14,13 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
 import KStep from '@/components/KStepper/KStep.vue'
-import type { StepItem } from '@/types'
+import type { StepperProps } from '@/types'
 
-defineProps({
-  /**
-   * Array of steps to display
-   */
-  steps: {
-    type: Array as PropType<StepItem[]>,
-    required: true,
-    validator: (items: StepItem[]) => !items.length || items.every(i => i.label !== undefined),
-  },
-  /**
-   * Maximum width of each step's label
-   */
-  maxLabelWidth: {
-    type: String,
-    default: '170',
-  },
-})
+const {
+  steps,
+  maxLabelWidth = '170px',
+} = defineProps<StepperProps>()
 </script>
 
 <style lang="scss" scoped>
