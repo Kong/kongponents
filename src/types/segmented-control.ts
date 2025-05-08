@@ -43,9 +43,9 @@ export interface SegmentedControlEmits<T extends string | number | boolean> {
   'update:modelValue': [value: T]
 }
 
-export interface SegmentedControlSlots<T extends SegmentedControlOption<string | number | boolean> | string> {
+export interface SegmentedControlSlots<T extends SegmentedControlOption<string | number | boolean>[] | string[]> {
   /**
    * Each option's content.
    */
-  'option-label'(props: { option: T extends string ? SegmentedControlOption<T> : T }): any
+  'option-label'(props: { option: T extends string[] ? SegmentedControlOption<T[number]> : T[number] }): any
 }

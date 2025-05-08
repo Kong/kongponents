@@ -80,7 +80,7 @@ watch(() => options, (newOptions) => {
 
 const emit = defineEmits<SegmentedControlEmits<Value>>()
 
-defineSlots<SegmentedControlSlots<NormalizedOption>>()
+defineSlots<SegmentedControlSlots<T>>()
 
 const normalizedOptions = computed(() => normalizeItems(options))
 
