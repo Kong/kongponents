@@ -22,8 +22,7 @@
 
 <script lang="ts" setup generic="T extends SegmentedControlOption<string | number | boolean>[] | string[]">
 import { computed, watch } from 'vue'
-import type { SegmentedControlSlots } from '@/types/segmented-control'
-import { type SegmentedControlEmits, type SegmentedControlOption, type SegmentedControlProps } from '@/types/segmented-control'
+import type { SegmentedControlOption, SegmentedControlProps, SegmentedControlEmits, SegmentedControlSlots } from '@/types'
 import { warnInvalidProp } from '@/utilities/warning'
 
 type NormalizedOption = T extends string[] ? SegmentedControlOption<T[number]> : T[number]
