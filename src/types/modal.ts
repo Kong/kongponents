@@ -150,3 +150,11 @@ export interface ModalSlots {
    */
   content?(): any
 }
+
+export type ModalAttributes = Pick<ModalProps,
+  | 'tabbableOptions'
+  | 'maxWidth'
+  | 'maxHeight'
+  | 'closeOnBackdropClick'
+  | 'inputAutofocus'
+>
