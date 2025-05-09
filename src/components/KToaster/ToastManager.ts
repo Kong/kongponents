@@ -34,7 +34,7 @@ export default class ToastManager {
     this.toaster = createVNode(KToaster, {
       toasterState: this.toasts.value,
       zIndex: options?.zIndex ? options.zIndex : defaultZIndex,
-      onClose: (key: any) => this.close(key),
+      onClose: (key: string) => this.close(key),
     })
 
     if (this.toastersContainer) {
@@ -42,7 +42,7 @@ export default class ToastManager {
     }
   }
 
-  setTimer(key: any, timeout: number): number {
+  setTimer(key: string, timeout: number): number {
     return setTimeout(() => this.close(key), timeout)
   }
 
@@ -67,7 +67,7 @@ export default class ToastManager {
     })
   }
 
-  close(key: any): void {
+  close(key: string): void {
     const i: number = this.toasts.value?.findIndex(n => key === n.key)
     clearTimeout(this.toasts.value[i]?.timer)
     this.toasts.value.splice(i, 1)

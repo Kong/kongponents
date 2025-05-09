@@ -50,28 +50,18 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
-import type { Toast, ToasterAppearance } from '@/types'
+import type { ToasterAppearance, ToasterProps, ToasterEmits } from '@/types'
 import { InfoIcon, CheckCircleIcon, WarningIcon, ClearIcon, KongIcon, CloseIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT, KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_ICON_SIZE_50 } from '@kong/design-tokens'
 
 type ToastIcon = typeof InfoIcon | typeof CheckCircleIcon | typeof WarningIcon | typeof ClearIcon | typeof KongIcon
 
-defineProps({
-  toasterState: {
-    type: Array as PropType<Toast[]>,
-    default: [] as Toast[],
-    required: true,
-  },
-  zIndex: {
-    type: Number,
-    default: 10000,
-  },
-})
+const {
+  toasterState = [],
+  zIndex = 10000,
+} = defineProps<ToasterProps>()
 
-defineEmits<{
-  (e: 'close', val: any): void
-}>()
+defineEmits<ToasterEmits>()
 
 const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
   switch (appearance) {
