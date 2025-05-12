@@ -1,3 +1,10 @@
+## [9.31.3](https://github.com/Kong/kongponents/compare/v9.31.2...v9.31.3) (2025-05-12)
+
+
+### Bug Fixes
+
+* **kstepper:** ts improvements for kstepper ([#2743](https://github.com/Kong/kongponents/issues/2743)) ([60d4904](https://github.com/Kong/kongponents/commit/60d4904db4320d1fdb855adb9c5b41ff94c53a4d))
+
 ## [9.31.2](https://github.com/Kong/kongponents/compare/v9.31.1...v9.31.2) (2025-05-07)
 
 
