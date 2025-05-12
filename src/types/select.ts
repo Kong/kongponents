@@ -191,7 +191,7 @@ export interface SelectProps<T extends string | number, U extends boolean> {
 
   /**
    * String to be displayed as help text.
-   * @defaults ''
+   * @default ''
    */
   help?: string
 }
