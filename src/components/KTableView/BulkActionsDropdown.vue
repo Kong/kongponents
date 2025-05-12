@@ -44,21 +44,14 @@ import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import { MoreIcon } from '@kong/icons'
+import type { BulkActionsDropdownProps, BulkActionsDropdownSlots } from '@/types'
 
-defineProps({
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  count: {
-    type: String,
-    default: '',
-  },
-  buttonLabel: {
-    type: String,
-    default: '',
-  },
-})
+const {
+  disabled,
+  count = '',
+  buttonLabel = '',
+} = defineProps<BulkActionsDropdownProps>()
+defineSlots<BulkActionsDropdownSlots>()
 </script>
 
 <style lang="scss" scoped>
