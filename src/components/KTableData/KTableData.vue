@@ -152,7 +152,7 @@
   </KTableView>
 </template>
 
-<script setup lang="ts" generic="const T extends TableDataHeader = TableDataHeader, U extends Record<string, unknown> = Record<string, any>">
+<script setup lang="ts" generic="const T extends TableDataHeader = TableDataHeader, U extends Record<string, any> = Record<string, any>">
 import type { Ref } from 'vue'
 import { ref, watch, computed, onMounted, useId } from 'vue'
 import KTableView from '@/components/KTableView/KTableView.vue'
