@@ -436,7 +436,7 @@ type TablePropsShared<
         ? HTMLElementEventMap[E]
         : Event
       : never,
-    data: unknown,
+    data: any,
     type: 'cell'
   ) => any
 }
@@ -448,7 +448,7 @@ interface TableEmitsShared<
   /**
    * Emitted whenever a cell is clicked.
    */
-  'cell-click': [payload: { data: unknown }]
+  'cell-click': [payload: { data: any }]
 
   /**
    * emitted whenever a row is clicked.
@@ -540,7 +540,7 @@ export type TableSlotsShared<T extends TableViewHeader, U extends Record<string,
   /**
    * Each individual cell's content.
    */
-  [K in T['key']]?: (props: { row: U, rowKey: number, rowValue: U[K] }) => any
+  [K in T['key']]?: (props: { row: U, rowKey: number, rowValue: unknown extends U[K] ? any : U[K] }) => any
 }
 
 export interface TableViewProps<
@@ -554,7 +554,7 @@ export interface TableViewProps<
   /**
    * A prop to pass in an array of headers for the table.
    */
-  headers: T[]
+  headers: readonly T[]
 }
 
 export interface TableViewEmits<
@@ -606,7 +606,7 @@ export interface TableDataProps<
   /**
    * A prop to pass in an array of headers for the table.
    */
-  headers: T[]
+  headers: readonly T[]
 
   /**
    * Whenever the cache key is changed the fetcher will automatically be called and attempt to fetch new table data.
