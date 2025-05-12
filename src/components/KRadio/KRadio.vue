@@ -5,6 +5,7 @@
       $attrs.class ? $attrs.class : '',
       kRadioClasses
     ]"
+    :data-testid="card ? attrs['data-testid'] : undefined"
   >
     <input
       :id="inputId"
@@ -202,6 +203,12 @@ const modifiedAttrs = computed((): Record<string, any> => {
 
   // delete classes because we bind them to the parent
   delete $attrs.class
+
+  if (props.card) {
+    // for card radio, we need to bind the data-testid to the wrapper
+    // so we need to delete it from the input
+    delete $attrs['data-testid']
+  }
 
   return $attrs
 })
