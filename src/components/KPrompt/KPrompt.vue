@@ -11,8 +11,8 @@
     :input-autofocus="modalAttributes.inputAutofocus === undefined ? true : modalAttributes.inputAutofocus"
     :title="title || 'Confirm your action'"
     :visible="visible"
-    @cancel="$emit('cancel')"
-    @proceed="$emit('proceed')"
+    @cancel="emit('cancel')"
+    @proceed="emit('proceed')"
   >
     <template
       v-if="slots.title"
