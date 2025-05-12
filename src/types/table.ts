@@ -50,7 +50,7 @@ export interface TablePreferences<T extends string = string> {
   columnVisibility?: Partial<Record<T | TableReservedColumnKey, boolean>>
 }
 
-export type TableViewData<T extends Record<string, unknown> = Record<string, any>> = T[]
+export type TableViewData<T extends Record<string, any> = Record<string, any>> = T[]
 
 /**
  * @deprecated in favor of TableDataHeader
@@ -133,7 +133,7 @@ export type TablePaginationAttributes = Pick<PaginationProps<any>,
 
 export type RowBulkAction = boolean | { enabled: boolean, disabledTooltip?: string }
 
-export interface SortHandlerFunctionParam<T extends string = string, U extends Record<string, unknown> = Record<string, any>> {
+export interface SortHandlerFunctionParam<T extends string = string, U extends Record<string, any> = Record<string, any>> {
   /** The key of the column to be sorted */
   key: T
   /** The key of the column previously sorted */
@@ -147,7 +147,7 @@ export interface SortHandlerFunctionParam<T extends string = string, U extends R
 /**
  * Parameter object for the cellAttrs prop function
  */
-export interface CellAttrsParam<T extends string = string, U extends Record<string, unknown> = Record<string, any>> {
+export interface CellAttrsParam<T extends string = string, U extends Record<string, any> = Record<string, any>> {
   headerKey: T
   row: U
   rowIndex: number
@@ -200,7 +200,7 @@ export interface TableDataFetcherParams<T extends string = string> {
   offset?: string | null
 }
 
-export interface TableDataFetcherResponse<T extends Record<string, unknown> = Record<string, any>> {
+export interface TableDataFetcherResponse<T extends Record<string, any> = Record<string, any>> {
   data: readonly T[]
   total?: number
   pagination?: {
@@ -209,7 +209,7 @@ export interface TableDataFetcherResponse<T extends Record<string, unknown> = Re
   }
 }
 
-export interface TableViewSelectState<T extends Record<string, unknown> = Record<string, any>> {
+export interface TableViewSelectState<T extends Record<string, any> = Record<string, any>> {
   rowKey: keyof T
   selected: boolean
   disabled: boolean
@@ -221,19 +221,19 @@ export enum TableViewHeaderKeys {
   BULK_ACTIONS = 'bulkActions',
 }
 
-export interface RowExpandPayload<T extends Record<string, unknown> = Record<string, any>> {
+export interface RowExpandPayload<T extends Record<string, any> = Record<string, any>> {
   row: T
   expanded: boolean
 }
 
-export interface RowActionsTogglePayload<T extends Record<string, unknown> = Record<string, any>> {
+export interface RowActionsTogglePayload<T extends Record<string, any> = Record<string, any>> {
   row: T
   open: boolean
 }
 
 type TablePropsShared<
   T extends string, // column keys
-  U extends Record<string, unknown>, // data row
+  U extends Record<string, any>, // data row
 > = {
   /**
    * Allow columns to be resized.
@@ -258,7 +258,7 @@ type TablePropsShared<
    * A function that conditionally specifies row attributes on each row.
    * @default () => ({})
    */
-  rowAttrs?: (row: U) => Record<string, unknown>
+  rowAttrs?: (row: U) => Record<string, any>
 
   /**
    * A function that conditionally turns a row into a link.
@@ -281,7 +281,7 @@ type TablePropsShared<
    * A function that conditionally specifies cell attributes.
    * @default () => ({})
    */
-  cellAttrs?: (param: CellAttrsParam<T | TableReservedColumnKey, U>) => Record<string, unknown>
+  cellAttrs?: (param: CellAttrsParam<T | TableReservedColumnKey, U>) => Record<string, any>
 
   /**
    * A prop that enables a loading skeleton.
@@ -443,7 +443,7 @@ type TablePropsShared<
 
 interface TableEmitsShared<
   T extends string, // column keys
-  U extends Record<string, unknown>,
+  U extends Record<string, any>,
 > {
   /**
    * Emitted whenever a cell is clicked.
@@ -491,7 +491,7 @@ interface TableEmitsShared<
   'row-actions-toggle': [payload: RowActionsTogglePayload<U>]
 }
 
-export type TableSlotsShared<T extends TableViewHeader, U extends Record<string, unknown>> = {
+export type TableSlotsShared<T extends TableViewHeader, U extends Record<string, any>> = {
   /**
    * Slot for passing custom bulk actions trigger element.
    */
@@ -545,7 +545,7 @@ export type TableSlotsShared<T extends TableViewHeader, U extends Record<string,
 
 export interface TableViewProps<
   T extends TableViewHeader = TableViewHeader, // column
-  U extends Record<string, unknown> = Record<string, any>, // data row
+  U extends Record<string, any> = Record<string, any>, // data row
 > extends TablePropsShared<T['key'], U> {
   /**
    * Data to be rendered in the table.
@@ -559,7 +559,7 @@ export interface TableViewProps<
 
 export interface TableViewEmits<
   T extends TableViewHeader, // column
-  U extends Record<string, unknown>, // data row
+  U extends Record<string, any>, // data row
 > extends TableEmitsShared<T['key'], U> {
   /**
    * Emitted when the page has been changed.
@@ -584,7 +584,7 @@ export interface TableViewEmits<
 
 export type TableViewSlots<
   T extends TableViewHeader,
-  U extends Record<string, unknown>,
+  U extends Record<string, any>,
 > = TableSlotsShared<T, U> & {
   /**
    * The toolbar is rendered directly above the table and is useful for providing table controls like search or filter fields.
@@ -594,7 +594,7 @@ export type TableViewSlots<
 
 export interface TableDataProps<
   T extends TableDataHeader = TableDataHeader,
-  U extends Record<string, unknown> = Record<string, any>,
+  U extends Record<string, any> = Record<string, any>,
 > extends TablePropsShared<T['key'], U> {
   /**
    * Function that handles data fetching and pagination.
@@ -651,7 +651,7 @@ export interface TableDataProps<
 
 export interface TableDataEmits<
   T extends TableViewHeader, // column
-  U extends Record<string, unknown>, // data row
+  U extends Record<string, any>, // data row
 > extends TableEmitsShared<T['key'], U> {
   /**
    * Emitted when the table state changes.
@@ -661,7 +661,7 @@ export interface TableDataEmits<
 
 export type TableDataSlots<
   T extends TableViewHeader,
-  U extends Record<string, unknown>,
+  U extends Record<string, any>,
 > = TableSlotsShared<T, U> & {
   /**
    * The toolbar is rendered directly above the table and is useful for providing table controls like search or filter fields.

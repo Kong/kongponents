@@ -413,7 +413,7 @@
   </div>
 </template>
 
-<script setup lang="ts" generic="const T extends TableViewHeader = TableViewHeader, U extends Record<string, unknown> = Record<string, any>">
+<script setup lang="ts" generic="const T extends TableViewHeader = TableViewHeader, U extends Record<string, any> = Record<string, any>">
 import { ref, watch, computed, nextTick, useId, useTemplateRef } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
