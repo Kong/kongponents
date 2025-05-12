@@ -917,7 +917,7 @@ const showPagination = computed((): boolean => {
 })
 
 // Ensure `headers` are reactive.
-watch(() => headers, (newVal: T[]) => {
+watch(() => headers, (newVal: readonly T[]) => {
   if (newVal && newVal.length) {
     /**
      * Reorder the headers to ensure bulk actions are first and actions are last
