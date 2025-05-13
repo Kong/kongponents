@@ -1,3 +1,11 @@
+## [9.31.5](https://github.com/Kong/kongponents/compare/v9.31.4...v9.31.5) (2025-05-13)
+
+
+### Bug Fixes
+
+* **kradio:** ts improvements for kradio ([#2739](https://github.com/Kong/kongponents/issues/2739)) ([09b4615](https://github.com/Kong/kongponents/commit/09b4615d41879f1c5b16b38db72713dda61d8cca))
+* **ksegmentedcontrol:** ts improvements for ksegmentedcontrol ([#2742](https://github.com/Kong/kongponents/issues/2742)) ([70a6a61](https://github.com/Kong/kongponents/commit/70a6a61ce3af3e4b4f081831f33aedc9a816a49e))
+
 ## [9.31.4](https://github.com/Kong/kongponents/compare/v9.31.3...v9.31.4) (2025-05-13)
 
 
