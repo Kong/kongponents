@@ -192,7 +192,7 @@
 
 <script setup lang="ts" generic="T extends string | number, U extends boolean = false">
 import type { Ref } from 'vue'
-import { ref, computed, watch, nextTick, useAttrs, onUnmounted, onMounted, useId, useTemplateRef } from 'vue'
+import { ref, computed, watch, nextTick, useAttrs, onMounted, useId, useTemplateRef, onBeforeUnmount } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -638,7 +638,7 @@ onMounted(() => {
   })
 })
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   if (selectWrapperRef.value) {
     resizeObserver.value?.unobserve(selectWrapperRef.value)
   }

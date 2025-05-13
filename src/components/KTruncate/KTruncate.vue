@@ -98,7 +98,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, nextTick, computed } from 'vue'
+import { onMounted, ref, nextTick, computed, onBeforeUnmount } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import { ChevronUpIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30, KUI_SPACE_40 } from '@kong/design-tokens'
@@ -241,7 +241,7 @@ onMounted(() => {
   updateToggleVisibility()
 })
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   resizeObserver.value?.unobserve(kTruncateContainer.value as HTMLDivElement)
 })
 </script>
