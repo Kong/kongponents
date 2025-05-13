@@ -101,11 +101,11 @@
               :class="{ 'clearable': clearable }"
             >
               <slot
-                :item="selectedItem"
+                :item="selectedItem!"
                 name="selected-item-template"
               >
                 <slot
-                  :item="selectedItem"
+                  :item="selectedItem!"
                   name="item-template"
                 />
               </slot>
@@ -143,7 +143,6 @@
               >
                 <template #content="{ item }">
                   <slot
-                    class="select-item-label select-item-desc"
                     :item="item"
                     name="item-template"
                   />
@@ -191,9 +190,9 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import type { Ref, PropType } from 'vue'
-import { ref, computed, watch, nextTick, useAttrs, useSlots, onUnmounted, onMounted, useId, useTemplateRef } from 'vue'
+<script setup lang="ts" generic="T extends string | number, U extends boolean = false">
+import type { Ref } from 'vue'
+import { ref, computed, watch, nextTick, useAttrs, onUnmounted, onMounted, useId, useTemplateRef } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -202,10 +201,11 @@ import KToggle from '@/components/KToggle'
 import KSelectItems from '@/components/KSelect/KSelectItems.vue'
 import KSelectItem from '@/components/KSelect/KSelectItem.vue'
 import type {
-  PopPlacements,
   SelectItem,
   SelectFilterFunctionParams,
-  SelectDropdownFooterTextPosition,
+  SelectProps,
+  SelectEmits,
+  SelectSlots,
   PopoverAttributes,
 } from '@/types'
 import { ChevronDownIcon, CloseIcon, ProgressIcon } from '@kong/icons'
@@ -214,144 +214,41 @@ import { sanitizeInput } from '@/utilities/sanitizeInput'
 import { useEventListener } from '@vueuse/core'
 import { getUniqueStringId } from '@/utilities'
 
+type Value = U extends true ? T | string : T
+type Item = SelectItem<Value>
+
 defineOptions({
   inheritAttrs: false,
 })
 
 const { getSizeFromString, stripRequiredLabel } = useUtilities()
 
-const props = defineProps({
-  modelValue: {
-    type: [String, Number],
-    default: '',
-  },
-  kpopAttributes: {
-    type: Object as PropType<Omit<PopoverAttributes, 'target' | 'trigger'>>,
-    default: () => {},
-  },
-  dropdownMaxHeight: {
-    type: String,
-    default: '300',
-  },
-  label: {
-    type: String,
-    default: '',
-  },
-  labelAttributes: {
-    type: Object,
-    default: () => ({}),
-  },
-  /**
-   * The width of the select and popover's min-width
-   */
-  width: {
-    type: String,
-    default: '100%',
-  },
-  placeholder: {
-    type: String,
-    default: '',
-  },
-  /**
-   * Items are JSON objects with required 'label' and 'value'
-   * {
-   *  label: 'Item 1',
-   *  value: 'item1'
-   * }
-   */
-  items: {
-    type: Array as PropType<SelectItem[]>,
-    required: false,
-    default: () => [],
-    // Items must have a label & value
-    validator: (items: SelectItem[]) => !items.length || items.every(i => i.label !== undefined && i.value !== undefined),
-  },
-  /**
-   * Control whether the input supports filtering.
-   */
-  enableFiltering: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Override default filter functionality of case-insensitive search on label
-   */
-  filterFunction: {
-    type: Function as PropType<(params: SelectFilterFunctionParams) => SelectItem[] | boolean>,
-    default: (params: SelectFilterFunctionParams) => params?.items?.filter((item: SelectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase())),
-  },
-  /**
-   * Loading state in autosuggest
-   */
-  loading: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * A flag for clearing selection
-   */
-  clearable: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Dropdown footer text
-   */
-  dropdownFooterText: {
-    type: String,
-    default: '',
-  },
-  /**
-   * Dropdown footer text position
-   * Accepted values: 'sticky' and 'static'
-   */
-  dropdownFooterTextPosition: {
-    type: String as PropType<SelectDropdownFooterTextPosition>,
-    default: 'sticky',
-  },
-  /**
-   * If true and item-template is passed, will display item-template content inside selected-slot-template
-   */
-  reuseItemTemplate: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Allow creating new items
-   */
-  enableItemCreation: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Validator function for item creation.
-   */
-  itemCreationValidator: {
-    type: Function as PropType<(query: string) => boolean>,
-    default: () => true,
-  },
-  error: {
-    type: Boolean,
-    default: false,
-  },
-  help: {
-    type: String,
-    default: '',
-  },
-})
+const {
+  modelValue = '',
+  kpopAttributes = {},
+  dropdownMaxHeight = '300px',
+  label = '',
+  labelAttributes = {},
+  width = '100%',
+  placeholder = '',
+  items = [],
+  enableFiltering,
+  filterFunction = (params: SelectFilterFunctionParams<Value>) => params.items?.filter((item: Item) => item.label?.toLowerCase().includes(params.query?.toLowerCase())),
+  loading,
+  clearable,
+  dropdownFooterText = '',
+  dropdownFooterTextPosition = 'sticky',
+  reuseItemTemplate,
+  enableItemCreation,
+  itemCreationValidator = () => true,
+  error,
+  help = '',
+} = defineProps<SelectProps<T, U>>()
 
-const emit = defineEmits<{
-  (e: 'selected', item: SelectItem): void
-  (e: 'input', value: string | number | null): void
-  (e: 'change', item: SelectItem | null): void
-  (e: 'update:modelValue', value: string | number | null): void
-  (e: 'query-change', query: string): void
-  (e: 'item-added', value: SelectItem): void
-  (e: 'item-removed', value: SelectItem): void
-}>()
+const emit = defineEmits<SelectEmits<Value>>()
 
 const attrs = useAttrs()
-const slots = useSlots()
+const slots = defineSlots<SelectSlots<Value>>()
 
 const defaultId = useId()
 const selectInputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
@@ -360,22 +257,22 @@ const isDropdownOpen = ref<boolean>(false)
 
 const resizeObserver = ref<ResizeObserverHelper>()
 
-const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
+const hasLabelTooltip = computed((): boolean => !!(labelAttributes?.info || slots['label-tooltip']))
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const isDisabled = computed((): boolean => attrs.disabled !== undefined && String(attrs.disabled) !== 'false')
 const isReadonly = computed((): boolean => attrs.readonly !== undefined && String(attrs.readonly) !== 'false')
 
-const defaultKPopAttributes = {
-  popoverClasses: `select-popover ${props.dropdownFooterText || slots['dropdown-footer-text'] ? `has-${props.dropdownFooterTextPosition}-dropdown-footer` : ''}`,
+const defaultKPopAttributes: PopoverAttributes = {
+  popoverClasses: `select-popover ${dropdownFooterText || slots['dropdown-footer-text'] ? `has-${dropdownFooterTextPosition}-dropdown-footer` : ''}`,
   popoverTimeout: 0,
-  placement: 'bottom-start' as PopPlacements,
+  placement: 'bottom-start',
   hideCaret: true,
 }
 
 const inputKey = ref<number>(0)
 const inputRef = useTemplateRef('inputElement')
 
-const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
+const strippedLabel = computed((): string => stripRequiredLabel(label, isRequired.value))
 
 // sometimes (e.g. when selecting an item) we don't want to emit the query change event
 const skipQueryChangeEmit = ref<boolean>(false)
@@ -395,8 +292,8 @@ const uniqueFilterQuery = computed((): boolean => {
 })
 
 const selectWrapperId = useId() // unique id for the KPop target
-const selectedItem = ref<SelectItem | null>(null)
-const selectItems = ref<SelectItem[]>([])
+const selectedItem = ref(null) as Ref<Item | null>
+const selectItems = ref([]) as Ref<Item[]>
 const inputFocused = ref<boolean>(false)
 
 const popperRef = useTemplateRef('popperElement')
@@ -404,11 +301,11 @@ const selectWrapperRef = useTemplateRef('selectWrapperElement') // div element t
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
-  get(): string | number {
-    return props.modelValue
+  get(): Value | '' | null {
+    return modelValue
   },
-  set(newValue: string | number): void {
-    const item = selectItems.value?.filter((item: SelectItem) => item.value === newValue)
+  set(newValue: Value | null): void {
+    const item = selectItems.value?.filter((item: Item) => item.value === newValue)
     if (item?.length) {
       handleItemSelect(item[0])
     } else if (!newValue) {
@@ -417,7 +314,7 @@ const value = computed({
   },
 })
 
-const elementWidth = computed((): string => getSizeFromString(props.width || '100%'))
+const elementWidth = computed((): string => getSizeFromString(width || '100%'))
 const actualElementWidth = ref<string>('') // the pixel value of the element width for KPop container
 
 const modifiedAttrs = computed(() => {
@@ -432,8 +329,8 @@ const modifiedAttrs = computed(() => {
 const createKPopAttributes = computed(() => {
   return {
     ...defaultKPopAttributes,
-    ...props.kpopAttributes,
-    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${props.kpopAttributes?.popoverClasses ?? ''}`,
+    ...kpopAttributes,
+    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${kpopAttributes?.popoverClasses ?? ''}`,
     width: String(actualElementWidth.value),
     maxWidth: String(actualElementWidth.value),
     disabled: isDisabled.value || isReadonly.value,
@@ -441,26 +338,27 @@ const createKPopAttributes = computed(() => {
 })
 
 // Calculate the `.popover-content` max-height
-const popoverContentMaxHeight = computed((): string => getSizeFromString(props.dropdownMaxHeight))
+const popoverContentMaxHeight = computed((): string => getSizeFromString(dropdownMaxHeight))
 
 // TypeScript complains if I bind the original object
 const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
-const placeholderText = computed((): string => props.placeholder || attrs.placeholder as string || 'Select...')
+const placeholderText = computed((): string => placeholder || attrs.placeholder as string || 'Select...')
 
-const isClearVisible = computed((): boolean => !isDisabled.value && (props.clearable && !!selectedItem.value))
+const isClearVisible = computed((): boolean => !isDisabled.value && (clearable && !!selectedItem.value))
 
 const hasCustomSelectedItem = computed((): boolean => !!(selectedItem.value &&
-  (slots['selected-item-template'] || (props.reuseItemTemplate && slots['item-template']))))
+  (slots['selected-item-template'] || (reuseItemTemplate && slots['item-template']))))
 
-const filteredItems = computed((): SelectItem[] => {
-  let allItems: SelectItem[] = []
+const filteredItems = computed((): Item[] => {
+  let allItems: Item[] = []
 
   // if filtering is not enabled or filter function returns true
-  if (!props.enableFiltering || props.filterFunction({ query: filterQuery.value, items: selectItems.value }) === true) {
+  if (!enableFiltering || !filterQuery.value) {
     allItems = selectItems.value
   } else {
-    allItems = props.filterFunction({ query: filterQuery.value, items: selectItems.value }) as SelectItem[]
+    const filtered = filterFunction({ query: filterQuery.value, items: selectItems.value })
+    allItems = filtered === true ? selectItems.value : filtered as Item[]
   }
 
   // Group items by group in alphabetical order, ungrouped items first
@@ -470,16 +368,16 @@ const filteredItems = computed((): SelectItem[] => {
   return [...ungroupedItems, ...groupedItems]
 })
 
-const onInputKeypress = (event: Event) => {
+const onInputKeypress = (event: KeyboardEvent) => {
   // If filters are not enabled, ignore any keypresses
-  if (!props.enableFiltering) {
+  if (!enableFiltering) {
     event.preventDefault()
     return false
   }
 }
 
 const onInputEnter = (e: KeyboardEvent): void => {
-  if (props.enableItemCreation) {
+  if (enableItemCreation) {
     handleAddItem()
   }
 
@@ -487,13 +385,13 @@ const onInputEnter = (e: KeyboardEvent): void => {
 }
 
 const handleAddItem = (): void => {
-  if (!props.enableItemCreation || !filterQuery.value || !uniqueFilterQuery.value || !props.itemCreationValidator(filterQuery.value)) {
+  if (!enableItemCreation || !filterQuery.value || !uniqueFilterQuery.value || !itemCreationValidator(filterQuery.value)) {
     // do nothing if not enabled or no label or label already exists
     return
   }
 
   const pos = (selectItems.value?.length || 0) + 1
-  const item: SelectItem = {
+  const item: SelectItem<string> = {
     label: sanitizeInput(filterQuery.value),
     value: getUniqueStringId(),
     key: `${sanitizeInput(filterQuery.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
@@ -502,11 +400,11 @@ const handleAddItem = (): void => {
 
   emit('item-added', item)
 
-  handleItemSelect(item, true)
+  handleItemSelect(item as Item, true)
   filterQuery.value = ''
 }
 
-const handleItemSelect = (item: SelectItem, isNew?: boolean) => {
+const handleItemSelect = (item: Item, isNew?: boolean) => {
   if (isNew) {
     // if it's a new item, we need to add it to the list
     selectItems.value?.push(item)
@@ -522,7 +420,7 @@ const handleItemSelect = (item: SelectItem, isNew?: boolean) => {
       anItem.selected = false
       if (anItem.custom) {
         selectItems.value?.splice(i, 1)
-        emit('item-removed', anItem)
+        emit('item-removed', anItem as SelectItem<string>)
       }
     } else {
       anItem.selected = false
@@ -538,7 +436,7 @@ const clearSelection = (): void => {
     anItem.selected = false
     if (anItem.custom) {
       selectItems.value?.splice(i, 1)
-      emit('item-removed', anItem)
+      emit('item-removed', anItem as SelectItem<string>)
     }
   })
   selectedItem.value = null
@@ -585,7 +483,7 @@ const onInputBlur = (): void => {
 const onInputClick = (): void => {
   // If filtering is not enabled, the internal KInput activates the keyboard on mobile when clicked even though it's not needed.
   // This will blur the input and prevent the keyboard from activating on mobile.
-  if (!props.enableFiltering) {
+  if (!enableFiltering) {
     inputRef.value?.$el?.querySelector('input')?.blur()
   }
 }
@@ -625,7 +523,7 @@ const onClose = (toggle: () => void, isToggled: boolean) => {
 const onOpen = (toggle: () => void) => {
   isDropdownOpen.value = true
 
-  if (props.enableFiltering) {
+  if (enableFiltering) {
     filterQuery.value = ''
   }
 
@@ -644,13 +542,13 @@ watch(value, (newVal, oldVal) => {
   }
 })
 
-watch(() => props.items, (newValue, oldValue) => {
+watch(() => items, (newValue, oldValue) => {
   // Only trigger the watcher if items actually change
   if (JSON.stringify(newValue) === JSON.stringify(oldValue)) {
     return
   }
 
-  selectItems.value = JSON.parse(JSON.stringify(props.items))
+  selectItems.value = JSON.parse(JSON.stringify(items))
 
   // drop selected item value to find the selected item in the new list
   // unless items is empty
@@ -671,7 +569,7 @@ watch(() => props.items, (newValue, oldValue) => {
     }
 
     selectItems.value[i].key = selectItemKey
-    if (selectItems.value[i].value === props.modelValue || selectItems.value[i].selected) {
+    if (selectItems.value[i].value === modelValue || selectItems.value[i].selected) {
       selectItems.value[i].selected = true
       selectedItem.value = selectItems.value[i]
 
@@ -730,7 +628,7 @@ onMounted(() => {
 
   useEventListener(document, 'keydown', (event: any) => {
     // When enableFiltering is false, the KInput doesn't have focus so we need to handle arrow key events here
-    if (!props.enableFiltering && document.activeElement?.tagName === 'BODY' && !inputFocused.value && isDropdownOpen.value) {
+    if (!enableFiltering && document.activeElement?.tagName === 'BODY' && !inputFocused.value && isDropdownOpen.value) {
       if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
         event.preventDefault()
 

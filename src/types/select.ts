@@ -1,6 +1,9 @@
-export interface SelectItem extends Record<string, any> {
+import type { LabelAttributes } from './label'
+import type { PopoverAttributes } from './popover'
+
+export interface SelectItem<T extends string | number = string | number> extends Record<string, any> {
   label: string
-  value: string | number
+  value: T
   /** Optional parameter that will be appended with `-selected` when selected */
   key?: string
   selected?: boolean
@@ -8,13 +11,262 @@ export interface SelectItem extends Record<string, any> {
   group?: string
 }
 
-export interface SelectFilterFunctionParams {
-  query: string
-  items: SelectItem[]
-}
-
-export interface SelectItemWithGroup extends SelectItem {
+export interface SelectItemWithGroup<T extends string | number = string | number> extends SelectItem<T> {
   group: string
 }
 
+/**
+ * @internal
+ */
+export interface SelectItemProps<T extends string | number> {
+  item: SelectItem<T>
+}
+
+/**
+ * @internal
+ */
+export interface SelectItemEmits<T extends string | number> {
+  selected: [value: SelectItem<T>]
+  'arrow-down': []
+  'arrow-up': []
+}
+
+/**
+ * @internal
+ */
+export interface SelectItemSlots {
+  content(): any
+}
+
+/**
+ * @internal
+ */
+export interface SelectItemsProps<T extends string | number> {
+  items?: SelectItem<T>[]
+  itemCreationEnabled?: boolean
+  filterString?: string
+  itemCreationValid?: boolean
+}
+
+/**
+ * @internal
+ */
+export interface SelectItemsEmits<T extends string | number> {
+  selected: [item: SelectItem<T>]
+  'add-item': []
+}
+
+/**
+ * @internal
+ */
+export interface SelectItemsSlots<T extends string | number> {
+  content(props: { item: SelectItem<T> }): any
+}
+
+export interface SelectFilterFunctionParams<T extends string | number> {
+  query: string
+  items: SelectItem<T>[]
+}
+
 export type SelectDropdownFooterTextPosition = 'sticky' | 'static'
+
+export interface SelectProps<T extends string | number, U extends boolean> {
+  /**
+   * To set the value of the select without using `v-model`.
+   * @default ''
+   */
+  modelValue?: (U extends true ? T | string : T) | '' | null
+
+  /**
+   * Attributes to be passed to underlying KPopover component.
+   * See KPopover's props for more info.
+   * @default {}
+   */
+  kpopAttributes?: Omit<PopoverAttributes, 'target' | 'trigger'>
+
+  /**
+   * Maximum height for dropdown container.
+   * @default '300px'
+   */
+  dropdownMaxHeight?: string
+
+  /**
+   * Label associated with the select element.
+   * @default ''
+   */
+  label?: string
+
+  /**
+   * Label attributes to be passed to underlying KLabel component.
+   * @default {}
+   */
+  labelAttributes?: LabelAttributes
+
+  /**
+   * The width of the select and popover's min-width.
+   * @default '100%'
+   */
+  width?: string
+
+  /**
+   * Placeholder to be displayed when no item is selected.
+   * @default ''
+   */
+  placeholder?: string
+
+  /**
+   * Items are JSON objects with required 'label' and 'value'.
+   * {
+   *   label: 'Item 1',
+   *   value: 'item1'
+   * }
+   * @default []
+   */
+  items?: U extends true ? SelectItem<T | string>[] : SelectItem<T>[]
+
+  /**
+   * Control whether the select supports filtering.
+   * @default false
+   */
+  enableFiltering?: boolean
+
+  /**
+   * Override default filter functionality of case-insensitive search on label.
+   * @default (params: SelectFilterFunctionParams) => params?.items?.filter((item: SelectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase()))
+   */
+  filterFunction?: (params: SelectFilterFunctionParams<U extends true ? T | string : T>) =>
+    | U extends true
+      ? SelectItem<T | string>[]
+      : SelectItem<T>[]
+    | true
+
+  /**
+   * Loading state in autosuggest.
+   * @default false
+   */
+  loading?: boolean
+
+  /**
+   * A flag for clearing selection.
+   * @default false
+   */
+  clearable?: boolean
+
+  /**
+   * Dropdown footer text.
+   * @default ''
+   */
+  dropdownFooterText?: string
+
+  /**
+   * Dropdown footer text position.
+   * Accepted values: 'sticky' and 'static'.
+   * @default 'sticky'
+   */
+  dropdownFooterTextPosition?: SelectDropdownFooterTextPosition
+
+  /**
+   * If true and item-template is passed, will display item-template content inside selected-slot-template.
+   * @default false
+   */
+  reuseItemTemplate?: boolean
+
+  /**
+   * Allow creating new items.
+   * @default false
+   */
+  enableItemCreation?: boolean & U
+
+  /**
+   * Validator function for item creation.
+   * @default () => true
+   */
+  itemCreationValidator?: (query: string) => boolean
+
+  /**
+   * Boolean to indicate whether the element is in an error state and should apply error styling.
+   * @default false
+   */
+  error?: boolean
+
+  /**
+   * String to be displayed as help text.
+   * @default ''
+   */
+  help?: string
+}
+
+export interface SelectEmits<T extends string | number> {
+  /**
+   * Emitted when a new item is selected.
+   */
+  selected: [item: SelectItem<T>]
+
+  /**
+   * Emitted when selected item is changed or cleared.
+   */
+  input: [value: T | null]
+
+  /**
+   * Emitted when selected item is changed or cleared.
+   */
+  change: [item: SelectItem<T> | null]
+
+  /**
+   * Emitted when selected item is changed or cleared.
+   */
+  'update:modelValue': [value: T | null]
+
+  /**
+   * Emitted when the query in the input field changes.
+   */
+  'query-change': [query: string]
+
+  /**
+   * Emitted when a new item is created when `enableItemCreation` is true.
+   */
+  'item-added': [value: SelectItem<string>]
+
+  /**
+   * Emitted when an item is removed when `enableItemCreation` is true.
+   */
+  'item-removed': [value: SelectItem<string>]
+}
+
+export interface SelectSlots<T extends string | number> {
+  /**
+   * Use this slot to pass custom content to the items.
+   */
+  'item-template'?(props: { item: SelectItem<T> }): any
+
+  /**
+   * Use this slot to provide custom content to the selected item.
+   */
+  'selected-item-template'?(props: { item: SelectItem<T> }): any
+
+  /**
+   * A slot alternative for the `dropdownFooterText` prop.
+   */
+  'dropdown-footer-text'?(): any
+
+  /**
+   * Content to be displayed when `loading` prop is true.
+   * Note that this slot only applies when `enableFiltering` is true.
+   */
+  loading?(): any
+
+  /**
+   * Slot to display custom content when items is empty or no items match filter query.
+   */
+  empty?(): any
+
+  /**
+   * Use this slot to pass any custom content to label tooltip.
+   */
+  'label-tooltip'?(): any
+
+  /**
+   * Use this slot for inserting icons before the input field.
+   */
+  before?(): any
+}

@@ -248,7 +248,7 @@ import { ref } from 'vue'
 import type { ComponentInternalInstance } from 'vue'
 import { ToastManager } from '@/index'
 
-const toaster = new ToastManager()
+const toaster = typeof document === 'undefined' ? null : new ToastManager()
 
 const toasts = ref([])
 const timeLeft = ref(4)

@@ -40,35 +40,23 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
 import { computed } from 'vue'
 import useUtilities from '@/composables/useUtilities'
-import type { StepperState } from '@/types'
-import { StepperStateArray } from '@/types'
+import type { StepProps } from '@/types'
 import { CheckIcon, ProgressIcon, CloseIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_PRIMARY, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 const { getSizeFromString } = useUtilities()
 
-const props = defineProps({
-  label: {
-    type: String,
-    required: true,
-  },
-  state: {
-    type: String as PropType<StepperState>,
-    default: 'default',
-    validator: (value: StepperState) => StepperStateArray.includes(value),
-  },
-  maxLabelWidth: {
-    type: String,
-    default: '170',
-  },
-})
+const {
+  label,
+  state = 'default',
+  maxLabelWidth,
+} = defineProps<StepProps>()
 
 const labelStyle = computed(() => {
   return {
-    maxWidth: getSizeFromString(props.maxLabelWidth),
+    maxWidth: getSizeFromString(maxLabelWidth),
   }
 })
 </script>

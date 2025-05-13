@@ -61,48 +61,31 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends string | number">
 import { computed, useTemplateRef } from 'vue'
-import type { PropType } from 'vue'
-import type { SelectItem } from '@/types'
+import type { SelectItem, SelectItemsEmits, SelectItemsProps, SelectItemsSlots } from '@/types'
 import KSelectItem from '@/components/KSelect/KSelectItem.vue'
 
-const props = defineProps({
-  items: {
-    type: Array as PropType<SelectItem[]>,
-    required: false,
-    default: () => [],
-    // Items must have a label & value
-    validator: (items: SelectItem[]) => !items.length || items.every(i => i.label !== undefined && i.value !== undefined),
-  },
-  itemCreationEnabled: {
-    type: Boolean,
-    default: false,
-  },
-  filterString: {
-    type: String,
-    default: '',
-  },
-  itemCreationValid: {
-    type: Boolean,
-    default: true,
-  },
-})
+const {
+  items = [],
+  itemCreationEnabled,
+  filterString = '',
+  itemCreationValid = true,
+} = defineProps<SelectItemsProps<T>>()
 
-const emit = defineEmits<{
-  (e: 'selected', item: SelectItem): void
-  (e: 'add-item'): void
-}>()
+
+const emit = defineEmits<SelectItemsEmits<T>>()
+defineSlots<SelectItemsSlots<T>>()
 
 const SELECTABLE_ITEM_SELECTOR = '.select-item button:not(:disabled)'
 const SELECTED_ITEM_SELECTOR = '.select-item[aria-selected="true"] button:not(:disabled)'
 
-const handleItemSelect = (item: SelectItem) => emit('selected', item)
+const handleItemSelect = (item: SelectItem<T>) => emit('selected', item)
 
-const nonGroupedItems = computed((): SelectItem[] => props.items?.filter(item => !item.group))
-const groups = computed((): string[] => [...new Set((props.items?.filter(item => item.group))?.map(item => item.group!))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())))
+const nonGroupedItems = computed((): SelectItem<T>[] => items?.filter(item => !item.group))
+const groups = computed((): string[] => [...new Set((items?.filter(item => item.group))?.map(item => item.group!))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())))
 
-const getGroupItems = (group: string) => props.items?.filter(item => item.group === group)
+const getGroupItems = (group: string) => items?.filter(item => item.group === group)
 
 const itemsContainerRef = useTemplateRef('itemsContainer')
 

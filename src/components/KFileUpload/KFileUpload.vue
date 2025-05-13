@@ -73,64 +73,31 @@ defineOptions({
   inheritAttrs: false,
 })
 
-import type { PropType } from 'vue'
-import { computed, ref, useAttrs, useId, useSlots, watch } from 'vue'
+import { computed, ref, useAttrs, useId, watch } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import useUtilities from '@/composables/useUtilities'
+import type { FileUploadProps, FileUploadEmits, FileUploadSlots } from '@/types'
 
-const props = defineProps({
-  labelAttributes: {
-    type: Object,
-    default: () => ({}),
-  },
-  label: {
-    type: String,
-    default: '',
-  },
-  help: {
-    type: String,
-    default: undefined,
-  },
-  buttonText: {
-    type: String,
-    default: 'Select file',
-  },
-  placeholder: {
-    type: String,
-    default: 'No file selected',
-  },
-  accept: {
-    type: Array as PropType<string[]>,
-    required: true,
-  },
-  maxFileSize: {
-    type: Number,
-    default: null,
-  },
-  error: {
-    type: Boolean,
-    default: false,
-  },
-  errorMessage: {
-    type: String,
-    default: '',
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-})
+const {
+  labelAttributes = {},
+  label = '',
+  help,
+  buttonText = 'Select file',
+  placeholder = 'No file selected',
+  accept,
+  maxFileSize = null,
+  error,
+  errorMessage = '',
+  disabled,
+} = defineProps<FileUploadProps>()
+
+const emit = defineEmits<FileUploadEmits>()
+
+const slots = defineSlots<FileUploadSlots>()
 
 const attrs = useAttrs()
-const slots = useSlots()
-
-const emit = defineEmits<{
-  (e: 'file-added', val: File[]): void
-  (e: 'file-removed'): void
-  (e: 'error', val: File[]): void
-}>()
 
 const { stripRequiredLabel } = useUtilities()
 
@@ -147,8 +114,8 @@ const modifiedAttrs = computed(() => {
 
 const fileInputElement = ref<InstanceType<typeof KInput> | null>(null)
 const labelElement = ref<InstanceType<typeof KLabel> | null>(null)
-const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.info || slots['label-tooltip']))
-const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
+const hasLabelTooltip = computed((): boolean => !!(labelAttributes?.info || slots['label-tooltip']))
+const strippedLabel = computed((): string => stripRequiredLabel(label, isRequired.value))
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
 
 const hasFileSizeError = ref<boolean>(false)
@@ -156,12 +123,12 @@ const fileSizeErrorMessage = computed((): string => {
   if (hasFileSizeError.value) {
     let units = 'bytes'
     let maxFileSize = maximumFileSize.value
-    if (maximumFileSize.value >= 1000 && maximumFileSize.value < 1000000) {
-      maxFileSize = maximumFileSize.value / 1000
+    if (maximumFileSize.value >= 1024 && maximumFileSize.value < 1024 * 1024) {
+      maxFileSize = maximumFileSize.value / 1024
       units = 'KB'
     }
-    if (maximumFileSize.value >= 1000000) {
-      maxFileSize = maximumFileSize.value / 1000000
+    if (maximumFileSize.value >= 1024 * 1024) {
+      maxFileSize = maximumFileSize.value / (1024 * 1024)
       units = 'MB'
     }
 
@@ -171,11 +138,11 @@ const fileSizeErrorMessage = computed((): string => {
   return ''
 })
 const maximumFileSize = computed((): number => {
-  if (props.maxFileSize || props.maxFileSize === 0) {
-    return props.maxFileSize
+  if (maxFileSize || maxFileSize === 0) {
+    return maxFileSize
   }
 
-  return 5250000
+  return 5 * 1024 * 1024
 })
 
 const hasUploadError = ref<boolean>(false)
@@ -189,11 +156,12 @@ const fileValue = ref<string>('')
 // Array to store the previously selected FileList when user clicks reopen the file uploader and clicks on Cancel
 const fileClone = ref<File[]>([])
 
-const onFileChange = (evt: any): void => {
-  fileInput.value = evt.target?.files
-  fileValue.value = String(fileInput?.value[0]?.name)
+const onFileChange = (evt: Event): void => {
+  const { files } = evt.target as HTMLInputElement
+  fileInput.value = files ? [...files] : []
+  fileValue.value = String(fileInput.value[0]?.name)
 
-  const fileSize = fileInput?.value[0]?.size
+  const fileSize = fileInput.value[0]?.size
 
   hasUploadError.value = Number(fileSize) > maximumFileSize.value
 

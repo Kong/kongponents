@@ -12,7 +12,7 @@
       ref="modalWrapperElement"
       class="modal-backdrop"
       :class="{ 'modal-full-screen': fullScreen && !$slots.content }"
-      @click="(evt: any) => close(false, evt)"
+      @click="(evt) => close(false, evt)"
     >
       <FocusTrap
         ref="focusTrapElement"
@@ -91,12 +91,11 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
-import { computed, nextTick, onBeforeUnmount, ref, useAttrs, watch, useSlots } from 'vue'
+import { computed, nextTick, onBeforeUnmount, ref, useAttrs, watch } from 'vue'
 import { FocusTrap } from 'focus-trap-vue'
 import { useTextSelection } from '@vueuse/core'
 import KButton from '@/components/KButton/KButton.vue'
-import type { ButtonAppearance } from '@/types'
+import type { ModalProps, ModalEmits, ModalSlots } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import { CloseIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
@@ -107,99 +106,39 @@ defineOptions({
 
 const { getSizeFromString } = useUtilities()
 
-const props = defineProps({
-  visible: {
-    type: Boolean,
-    default: false,
-  },
-  title: {
-    type: String,
-    default: '',
-  },
-  actionButtonText: {
-    type: String,
-    default: 'Submit',
-  },
-  actionButtonAppearance: {
-    type: String as PropType<ButtonAppearance>,
-    default: 'primary',
-  },
-  actionButtonDisabled: {
-    type: Boolean,
-    default: false,
-  },
-  hideCancelButton: {
-    type: Boolean,
-    default: false,
-  },
-  cancelButtonText: {
-    type: String,
-    default: 'Cancel',
-  },
-  cancelButtonAppearance: {
-    type: String as PropType<ButtonAppearance>,
-    default: 'tertiary',
-  },
-  cancelButtonDisabled: {
-    type: Boolean,
-    default: false,
-  },
-  tabbableOptions: {
-    type: Object,
-    default: () => ({}),
-  },
-  maxWidth: {
-    type: String,
-    required: false,
-    default: '500px',
-  },
-  maxHeight: {
-    type: String,
-    required: false,
-    default: 'calc(100vh - 200px)',
-  },
-  closeOnBackdropClick: {
-    type: Boolean,
-    default: false,
-  },
-  /** Close the modal when the user presses the `Escape` key */
-  closeOnEscape: {
-    type: Boolean,
-    default: true,
-  },
-  hideCloseIcon: {
-    type: Boolean,
-    default: false,
-  },
-  fullScreen: {
-    type: Boolean,
-    default: false,
-  },
-  inputAutofocus: {
-    type: Boolean,
-    default: false,
-  },
-  zIndex: {
-    type: Number,
-    default: 1100,
-  },
-})
+const {
+  visible,
+  title = '',
+  actionButtonText = 'Submit',
+  actionButtonAppearance = 'primary',
+  actionButtonDisabled,
+  hideCancelButton,
+  cancelButtonText = 'Cancel',
+  cancelButtonAppearance = 'tertiary',
+  cancelButtonDisabled,
+  tabbableOptions = {},
+  maxWidth = '500px',
+  maxHeight = 'calc(100vh - 200px)',
+  closeOnBackdropClick,
+  closeOnEscape = true,
+  hideCloseIcon,
+  fullScreen,
+  inputAutofocus,
+  zIndex = 1100,
+} = defineProps<ModalProps>()
 
-const emit = defineEmits<{
-  (e: 'cancel'): void
-  (e: 'proceed'): void
-}>()
+const emit = defineEmits<ModalEmits>()
+const slots = defineSlots<ModalSlots>()
 
 const attrs = useAttrs()
-const slots = useSlots()
 
 const textSelection = useTextSelection()
 
 const focusTrapElement = ref<InstanceType<typeof FocusTrap> | null>(null)
 const modalWrapperElement = ref<HTMLElement | null>(null)
 
-const maxWidthValue = computed((): string => props.fullScreen && !slots.content ? '95%' : getSizeFromString(props.maxWidth))
-const maxHeightValue = computed((): string => props.fullScreen && !slots.content ? '95vh' : getSizeFromString(props.maxHeight))
+const maxWidthValue = computed((): string => fullScreen && !slots.content ? '95%' : getSizeFromString(maxWidth))
+const maxHeightValue = computed((): string => fullScreen && !slots.content ? '95vh' : getSizeFromString(maxHeight))
 
 const sanitizedAttrs = computed(() => {
   const attributes = Object.assign({}, attrs)
@@ -210,19 +149,19 @@ const sanitizedAttrs = computed(() => {
 })
 
 const showHeader = computed((): boolean => {
-  return !!props.title || !!slots.title || !props.hideCloseIcon
+  return !!title || !!slots.title || !hideCloseIcon
 })
 
-const handleKeydown = (event: any): void => {
+const handleKeydown = (event: KeyboardEvent): void => {
   // close on escape key press
-  if (props.visible && props.closeOnEscape && event.key === 'Escape') {
+  if (visible && closeOnEscape && event.key === 'Escape') {
     close(true)
   }
 }
 
-const close = (force = false, event?: any): void => {
+const close = (force = false, event?: MouseEvent): void => {
   // Close if force === true or if the user clicks on .modal-backdrop
-  if (force || (event?.target?.classList?.contains('modal-backdrop') && props.closeOnBackdropClick && !textSelection.text.value)) {
+  if (force || ((event?.target as Element)?.classList?.contains('modal-backdrop') && closeOnBackdropClick && !textSelection.text.value)) {
     emit('cancel')
   }
 }
@@ -260,10 +199,10 @@ const toggleEventListeners = (isActive: boolean): void => {
 }
 
 const setInputAutofocus = (): void => {
-  const allInputs = focusTrapElement.value?.$el?.querySelector('.modal-content')?.querySelectorAll('input')
+  const allInputs = (focusTrapElement.value?.$el as Element)?.querySelector('.modal-content')?.querySelectorAll<HTMLInputElement>('input')
   if (allInputs?.length) {
     // loop through all inputs and focus on the first one that is not disabled or read-only
-    Array.from(allInputs).every((input: any) => {
+    Array.from(allInputs).every((input: HTMLInputElement) => {
       if (!input.disabled && !input.readOnly) {
         input.focus() // set focus
 
@@ -275,10 +214,10 @@ const setInputAutofocus = (): void => {
   }
 }
 
-watch(() => props.visible, async (visible: boolean): Promise<void> => {
+watch(() => visible, async (visible: boolean): Promise<void> => {
   if (visible) {
     await toggleFocusTrap(true)
-    if (props.inputAutofocus) {
+    if (inputAutofocus) {
       setInputAutofocus()
     }
     toggleBodyScroll(false)
@@ -290,7 +229,7 @@ watch(() => props.visible, async (visible: boolean): Promise<void> => {
   }
 }, { immediate: true })
 
-watch(() => props.inputAutofocus, async (inputAutofocus: boolean): Promise<void> => {
+watch(() => inputAutofocus, async (inputAutofocus: boolean): Promise<void> => {
   if (inputAutofocus) {
     await nextTick() // wait for the modal content to be rendered
     setInputAutofocus()

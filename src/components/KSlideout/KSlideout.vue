@@ -49,83 +49,45 @@
 import { computed, useTemplateRef, onUnmounted, watch } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import { onClickOutside } from '@vueuse/core'
-import type { MaybeElementRef, MaybeElement } from '@vueuse/core'
 import { CloseIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
+import type { KSlideoutEmits, KSlideoutProps, KSlideoutSlots } from '@/types/slideout'
 
-const props = defineProps({
-  visible: {
-    type: Boolean,
-    default: false,
-  },
-  // controls close button alignment
-  closeButtonAlignment: {
-    type: String,
-    default: 'start',
-    validator: (value: string): boolean => {
-      return ['start', 'end'].includes(value)
-    },
-  },
-  // enable/disable overlay to be able to interact with the background content while the slideout is expanded
-  hasOverlay: {
-    type: Boolean,
-    default: true,
-  },
-  // allows a host app to define the offset from the top of the page
-  offsetTop: {
-    type: [Number, String],
-    default: 0,
-  },
-  closeOnBlur: {
-    type: Boolean,
-    default: true,
-  },
-  closeOnEscape: {
-    type: Boolean,
-    default: true,
-  },
-  title: {
-    type: String,
-    default: '',
-  },
-  /**
-   * The max-width of the slideout. **Default: `500px`**.
-   */
-  maxWidth: {
-    type: String,
-    required: false,
-    default: '500px',
-  },
-  zIndex: {
-    type: Number,
-    default: 9999,
-  },
-})
+const {
+  visible,
+  hasOverlay = true,
+  offsetTop = 0,
+  closeOnBlur = true,
+  closeOnEscape = true,
+  title = '',
+  maxWidth = '500px',
+  zIndex = 9999,
+} = defineProps<KSlideoutProps>()
 
-const emit = defineEmits<{
-  (e: 'close'): void
-}>()
+const emit = defineEmits<KSlideoutEmits>()
+
+defineSlots<KSlideoutSlots>()
 
 const { getSizeFromString } = useUtilities()
 const slideoutContainerElement = useTemplateRef('slideoutContainerElement')
 
 const offsetTopValue = computed((): string => {
-  if (typeof props.offsetTop === 'number') {
-    return getSizeFromString(String(props.offsetTop))
+  if (typeof offsetTop === 'number') {
+    return getSizeFromString(String(offsetTop))
   }
 
-  return props.offsetTop
+  return offsetTop
 })
 
-onClickOutside(slideoutContainerElement as unknown as MaybeElementRef<MaybeElement>, (event) => {
-  if (event.isTrusted && props.closeOnBlur) {
+onClickOutside(slideoutContainerElement, (event) => {
+  if (event.isTrusted && closeOnBlur) {
     emit('close')
   }
 })
 
-const handleClose = (e: any, forceClose = false): void => {
+const handleClose = (e: KeyboardEvent, forceClose = false): void => {
   // close on escape key if the closeOnEscape prop is true
-  if ((props.visible && e.keyCode === 27 && props.closeOnEscape) || forceClose) {
+  if ((visible && e.keyCode === 27 && closeOnEscape) || forceClose) {
     emit('close')
   }
 }
@@ -140,7 +102,7 @@ const toggleEventListeners = (isActive: boolean): void => {
   }
 }
 
-watch(() => props.visible, async (visible: boolean): Promise<void> => {
+watch(() => visible, async (visible: boolean): Promise<void> => {
   if (visible) {
     toggleEventListeners(true)
   } else {
@@ -164,7 +126,7 @@ onUnmounted(() => {
     flex-grow: 1;
     gap: var(--kui-space-50, $kui-space-50);
     height: calc(100vh - v-bind('offsetTopValue'));
-    max-width: v-bind('props.maxWidth');
+    max-width: v-bind('maxWidth');
     overflow-y: auto;
     padding: var(--kui-space-70, $kui-space-70) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0) var(--kui-space-70, $kui-space-70);
     position: fixed;

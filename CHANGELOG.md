@@ -1,3 +1,91 @@
+## [9.31.5](https://github.com/Kong/kongponents/compare/v9.31.4...v9.31.5) (2025-05-13)
+
+
+### Bug Fixes
+
+* **kradio:** ts improvements for kradio ([#2739](https://github.com/Kong/kongponents/issues/2739)) ([09b4615](https://github.com/Kong/kongponents/commit/09b4615d41879f1c5b16b38db72713dda61d8cca))
+* **ksegmentedcontrol:** ts improvements for ksegmentedcontrol ([#2742](https://github.com/Kong/kongponents/issues/2742)) ([70a6a61](https://github.com/Kong/kongponents/commit/70a6a61ce3af3e4b4f081831f33aedc9a816a49e))
+
+## [9.31.4](https://github.com/Kong/kongponents/compare/v9.31.3...v9.31.4) (2025-05-13)
+
+
+### Bug Fixes
+
+* **kprompt:** ts improvements for kprompt ([#2735](https://github.com/Kong/kongponents/issues/2735)) ([57c0f8c](https://github.com/Kong/kongponents/commit/57c0f8c494fc1ab5e68702fdb100d309f65f361a))
+
+## [9.31.3](https://github.com/Kong/kongponents/compare/v9.31.2...v9.31.3) (2025-05-12)
+
+
+### Bug Fixes
+
+* **kstepper:** ts improvements for kstepper ([#2743](https://github.com/Kong/kongponents/issues/2743)) ([60d4904](https://github.com/Kong/kongponents/commit/60d4904db4320d1fdb855adb9c5b41ff94c53a4d))
+
+## [9.31.2](https://github.com/Kong/kongponents/compare/v9.31.1...v9.31.2) (2025-05-07)
+
+
+### Bug Fixes
+
+* **kskeleton:** fix kskeletonbox default value ([#2738](https://github.com/Kong/kongponents/issues/2738)) ([e735a1e](https://github.com/Kong/kongponents/commit/e735a1e4e8939d47b848f775a1c449b43851300c))
+
+## [9.31.1](https://github.com/Kong/kongponents/compare/v9.31.0...v9.31.1) (2025-05-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency virtua to ^0.40.4 ([#2737](https://github.com/Kong/kongponents/issues/2737)) ([af4c157](https://github.com/Kong/kongponents/commit/af4c157ffb468db6d474796903b93df6e75c55ce))
+
+# [9.31.0](https://github.com/Kong/kongponents/compare/v9.30.2...v9.31.0) (2025-05-06)
+
+
+### Features
+
+* **ktooltip:** add disabled prop [KHCP-14941] ([#2734](https://github.com/Kong/kongponents/issues/2734)) ([e1fc844](https://github.com/Kong/kongponents/commit/e1fc84472c990173689797cdb9bcd37066256a6a))
+
+## [9.30.2](https://github.com/Kong/kongponents/compare/v9.30.1...v9.30.2) (2025-05-06)
+
+
+### Bug Fixes
+
+* **kfileupload:** fix type import ([#2733](https://github.com/Kong/kongponents/issues/2733)) ([50047e8](https://github.com/Kong/kongponents/commit/50047e814787849be3118dd94879827e93ade796))
+* **kfileupload:** ts improvements for kfileupload ([#2717](https://github.com/Kong/kongponents/issues/2717)) ([df60350](https://github.com/Kong/kongponents/commit/df603508a52233656956acaa7766ba2c6c373bf5))
+* **kmodal:** ts improvements for kmodal ([#2720](https://github.com/Kong/kongponents/issues/2720)) ([4d05dce](https://github.com/Kong/kongponents/commit/4d05dce22433a2af0dcc90d6e7fc9e079781db93))
+* **kskeleton:** ts improvements for kskeleton ([#2730](https://github.com/Kong/kongponents/issues/2730)) ([38cd2f9](https://github.com/Kong/kongponents/commit/38cd2f9bce730245d63ebbf9e9e6be2c515b5345))
+
+## [9.30.1](https://github.com/Kong/kongponents/compare/v9.30.0...v9.30.1) (2025-05-06)
+
+
+### Bug Fixes
+
+* **kselect:** ts improvements for kselect ([#2712](https://github.com/Kong/kongponents/issues/2712)) ([607371c](https://github.com/Kong/kongponents/commit/607371cc0364e9ac8328f51c9f6048aa3b13f998))
+
+# [9.30.0](https://github.com/Kong/kongponents/compare/v9.29.11...v9.30.0) (2025-05-06)
+
+
+### Features
+
+* ts improvement for kslideout ([#2718](https://github.com/Kong/kongponents/issues/2718)) ([9b29433](https://github.com/Kong/kongponents/commit/9b2943348ab0276283e2c90804e06bdc1ecf6d5b))
+
+## [9.29.11](https://github.com/Kong/kongponents/compare/v9.29.10...v9.29.11) (2025-05-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.26.0 ([#2726](https://github.com/Kong/kongponents/issues/2726)) ([478cd96](https://github.com/Kong/kongponents/commit/478cd96013eabe47dfccbf792f2d6362e8858ca1))
+
+## [9.29.10](https://github.com/Kong/kongponents/compare/v9.29.9...v9.29.10) (2025-05-01)
+
+
+### Bug Fixes
+
+* **kbadge:** add tooltip attributes prop [KHCP-15964] ([#2721](https://github.com/Kong/kongponents/issues/2721)) ([cef861d](https://github.com/Kong/kongponents/commit/cef861d508a3afb17ef19b403bfe58330f07eb39))
+
+## [9.29.9](https://github.com/Kong/kongponents/compare/v9.29.8...v9.29.9) (2025-05-01)
+
+
+### Bug Fixes
+
+* link main page to correct url for theming and address SSR build issues ([#2724](https://github.com/Kong/kongponents/issues/2724)) ([e4720cd](https://github.com/Kong/kongponents/commit/e4720cd655c957d87d7167b7af97b532bafef741))
+
 ## [9.29.8](https://github.com/Kong/kongponents/compare/v9.29.7...v9.29.8) (2025-04-30)
 
 

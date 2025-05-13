@@ -385,6 +385,10 @@ watch(() => highlightedLineNumbers, function() {
 }, { immediate: true, deep: true })
 
 watch(() => isShowingFilteredCode.value, function(value) {
+  if (typeof document === 'undefined') {
+    return
+  }
+
   // Moves the focus to the code block so that code block-scoped shortcuts still work. That’s necessary because toggling filter mode changes which pre element is rendered. In doing so, the currently focused element is removed from the DOM and in response, the browser moves the focus to document.body.
   if (document?.activeElement?.tagName === 'PRE') {
     codeBlock.value?.focus({ preventScroll: true })
@@ -488,6 +492,10 @@ function emitCodeBlockRenderEvent(): void {
 }
 
 function emitMatchingLinesChangeEvent(): void {
+  if (typeof HTMLElement === 'undefined') {
+    return
+  }
+
   const preElement = codeBlock.value?.querySelector('.highlighted-code-block')
   const codeElement = preElement?.querySelector('code')
 

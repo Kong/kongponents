@@ -1,56 +1,48 @@
-import type { TooltipAttributes } from '@/types/tooltip'
-
-export interface LabelAttributes {
-  info?: string
-  required?: boolean
-  tooltipAttributes?: TooltipAttributes
-  /** @deprecated in favor of `info` */
-  help?: string
-}
+import type { LabelAttributes } from './label'
 
 export interface InputProps {
   /**
    * To set the value of the input element without using `v-model`.
-   * @defaults ''
+   * @default ''
    */
   modelValue?: string | number
 
   /**
    * String to be used as the input label.
-   * @defaults ''
+   * @default ''
    */
   label?: string
 
   /**
    * KCheckbox has an instance of KLabel for supporting tooltip text.
    * Use the labelAttributes prop to configure the KLabel's props.
-   * @defaults {}
+   * @default {}
    */
   labelAttributes?: LabelAttributes
 
   /**
    * String to be displayed as help text.
-   * @defaults ''
+   * @default ''
    */
   help?: string
 
   /**
    * Boolean to indicate whether the element is in an error state and should apply error styling.
-   * @defaults false
+   * @default false
    */
   error?: boolean
 
   /**
    * String to be displayed as an error message if `error` prop is `true`.
    * This prop will supersede the `help` prop if both have a value and `error` is `true`.
-   * @defaults false
+   * @default false
    */
   errorMessage?: string
 
   /**
    * Use this prop to specify a character limit for the input.
    * See the @char-limit-exceeded event for more details.
-   * @defaults null
+   * @default null
    */
   characterLimit?: number
 
@@ -61,7 +53,7 @@ export interface InputProps {
 
   /**
    * HTML Input Element `type` attribute.
-   * @defaults 'text'
+   * @default 'text'
    */
   type?: string
 
@@ -69,7 +61,7 @@ export interface InputProps {
    * When passing type="password", setting showPasswordMaskToggle to true
    * will render an eye icon to the right of input clicking on which
    * allows toggling masking the input value on and off.
-   * @defaults false
+   * @default false
    */
   showPasswordMaskToggle?: boolean
 }

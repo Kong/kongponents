@@ -1129,6 +1129,10 @@ const getNestedTableHeaders = computed((): TableViewHeader[] => visibleHeaders.v
  */
 const actualColumnWidths = ref<Record<string, number>>({})
 const setActualColumnWidths = (): void => {
+  if (typeof document === 'undefined') {
+    return
+  }
+
   const table = document?.querySelector(`[data-tableid="${tableId}"]`)
   const headers = table?.querySelectorAll('th')
   const widths: Record<string, number> = {}
