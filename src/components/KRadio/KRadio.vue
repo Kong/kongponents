@@ -5,7 +5,6 @@
       $attrs.class ? $attrs.class : '',
       kRadioClasses
     ]"
-    :data-testid="card ? attrs['data-testid'] : undefined"
   >
     <input
       :id="inputId"
@@ -54,6 +53,7 @@
       v-else-if="label || $slots.default"
       class="radio-card-wrapper radio-label-wrapper"
       :class="{ 'has-label': label, 'has-description': showCardDescription, 'show-radio': cardRadioVisible }"
+      :data-testid="cardLabelTestId"
       :for="inputId"
       :tabindex="isDisabled || isChecked ? -1 : 0"
       @keydown.space.prevent
@@ -204,12 +204,6 @@ const modifiedAttrs = computed((): Record<string, any> => {
   // delete classes because we bind them to the parent
   delete $attrs.class
 
-  if (props.card) {
-    // for card radio, we need to bind the data-testid to the wrapper
-    // so we need to delete it from the input
-    delete $attrs['data-testid']
-  }
-
   return $attrs
 })
 
@@ -224,6 +218,10 @@ const kRadioClasses = computed((): Record<string, boolean> => {
     // Add vertical class for `vertical` or an invalid prop value
     'card-vertical': props.card && props.cardOrientation !== 'horizontal',
   }
+})
+
+const cardLabelTestId = computed(() => {
+  return props.card && attrs['data-testid'] ? `${attrs['data-testid']}-label` : undefined
 })
 </script>
 
