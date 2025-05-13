@@ -1,3 +1,10 @@
+## [9.31.4](https://github.com/Kong/kongponents/compare/v9.31.3...v9.31.4) (2025-05-13)
+
+
+### Bug Fixes
+
+* **kprompt:** ts improvements for kprompt ([#2735](https://github.com/Kong/kongponents/issues/2735)) ([57c0f8c](https://github.com/Kong/kongponents/commit/57c0f8c494fc1ab5e68702fdb100d309f65f361a))
+
 ## [9.31.3](https://github.com/Kong/kongponents/compare/v9.31.2...v9.31.3) (2025-05-12)
 
 
