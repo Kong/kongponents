@@ -53,6 +53,7 @@
       v-else-if="label || $slots.default"
       class="radio-card-wrapper radio-label-wrapper"
       :class="{ 'has-label': label, 'has-description': showCardDescription, 'show-radio': cardRadioVisible }"
+      :data-testid="cardLabelTestId"
       :for="inputId"
       :tabindex="isDisabled || isChecked ? -1 : 0"
       @keydown.space.prevent
@@ -164,6 +165,10 @@ const kRadioClasses = computed((): Record<string, boolean> => {
     // Add vertical class for `vertical` or an invalid prop value
     'card-vertical': card && cardOrientation !== 'horizontal',
   }
+})
+
+const cardLabelTestId = computed(() => {
+  return props.card && attrs['data-testid'] ? `${attrs['data-testid']}-label` : undefined
 })
 </script>
 
