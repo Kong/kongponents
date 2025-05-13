@@ -246,7 +246,7 @@ type TablePropsShared<
    * Column visibility/width.
    * @default {}
    */
-  tablePreferences?: TablePreferences<T>
+  tablePreferences?: NoInfer<TablePreferences<T>>
 
   /**
    * Enables hover highlighting to table rows.
@@ -258,30 +258,30 @@ type TablePropsShared<
    * A function that conditionally specifies row attributes on each row.
    * @default () => ({})
    */
-  rowAttrs?: (row: U) => Record<string, any>
+  rowAttrs?: NoInfer<(row: U) => Record<string, any>>
 
   /**
    * A function that conditionally turns a row into a link.
    * @default () => ({})
    */
-  rowLink?: (row: U) => RowLink
+  rowLink?: NoInfer<(row: U) => RowLink>
 
   /**
    * A function that conditionally specifies whether bulk actions are disabled for a row and the tooltip to display.
    * @default () => true
    */
-  rowBulkActionEnabled?: (row: U) => RowBulkAction
+  rowBulkActionEnabled?: NoInfer<(row: U) => RowBulkAction>
 
   /**
    * Provide the name of the data property key to utilize as a unique identifier, or a function that receives the `row` object as a parameter that generates a unique identifier string for each row.
    */
-  rowKey?: keyof U | ((row: U) => string)
+  rowKey?: NoInfer<keyof U | ((row: U) => string)>
 
   /**
    * A function that conditionally specifies cell attributes.
    * @default () => ({})
    */
-  cellAttrs?: (param: CellAttrsParam<T | TableReservedColumnKey, U>) => Record<string, any>
+  cellAttrs?: NoInfer<(param: CellAttrsParam<T | TableReservedColumnKey, U>) => Record<string, any>>
 
   /**
    * A prop that enables a loading skeleton.
@@ -376,13 +376,13 @@ type TablePropsShared<
    * Enable expandable rows.
    * @default () => false
    */
-  rowExpandable?: (row: U) => boolean
+  rowExpandable?: NoInfer<(row: U) => boolean>
 
   /**
    * A function that conditionally specifies whether a row is expanded or not.
    * @default () => false
    */
-  rowExpanded?: (row: U) => boolean
+  rowExpanded?: NoInfer<(row: U) => boolean>
 
   /**
    * Hide the table header.
@@ -423,7 +423,7 @@ type TablePropsShared<
         ? HTMLElementEventMap[E]
         : Event
       : never,
-    data: U,
+    data: NoInfer<U>,
     type: 'row'
   ) => any
 } & {
@@ -630,7 +630,7 @@ export interface TableDataProps<
    * The fetcher params to be applied to initial fetcher call.
    * @default {}
    */
-  initialFetcherParams?: TableDataFetcherParams<T['key'], O>
+  initialFetcherParams?: NoInfer<TableDataFetcherParams<T['key'], O>>
 
   /**
    * Whether to enable client-side sorting if using a fetcher that returns unpaginated data.
@@ -641,7 +641,7 @@ export interface TableDataProps<
   /**
    * A custom sort handler function to handle sorting table data for specific columns.
    */
-  sortHandlerFunction?: (param: SortHandlerFunctionParam<T['key'], U>) => U[]
+  sortHandlerFunction?: NoInfer<(param: SortHandlerFunctionParam<T['key'], U>) => U[]>
 
   /**
    * Whether the table sorting is enabled.
