@@ -152,7 +152,7 @@
   </KTableView>
 </template>
 
-<script setup lang="ts" generic="const T extends TableDataHeader = TableDataHeader, U extends Record<string, any> = Record<string, any>">
+<script setup lang="ts" generic="const T extends TableDataHeader = TableDataHeader, U extends Record<string, any> = Record<string, any>, O extends string | number = string | number">
 import type { Ref } from 'vue'
 import { ref, watch, computed, onMounted, useId } from 'vue'
 import KTableView from '@/components/KTableView/KTableView.vue'
@@ -226,7 +226,7 @@ const {
   sortHandlerFunction,
   tooltipTarget,
   ...restProps
-} = defineProps<TableDataProps<T, U>>()
+} = defineProps<TableDataProps<T, U, O>>()
 
 const emit = defineEmits<TableDataEmits<T, U>>()
 
@@ -252,8 +252,8 @@ const pageSize = ref<number>(getInitialPageSize(tablePreferences, paginationAttr
 const filterQuery = ref<string>(searchInput ?? '')
 const sortColumnKey = ref('') as Ref<ColumnKey>
 const sortColumnOrder = ref<SortColumnOrder>('desc')
-const offset = ref<string | null>(null)
-const offsets = ref<(string | null)[]>([])
+const offset = ref(null) as Ref<O | null>
+const offsets = ref([]) as Ref<(O | null)[]>
 const hasNextPage = ref<boolean>(true)
 const hasInitialized = ref<boolean>(false)
 
@@ -371,8 +371,8 @@ const initData = () => {
   hasInitialized.value = true
 }
 
-const previousOffset = computed((): string | null => offsets.value[page.value - 1])
-const nextOffset = ref<string | null>(null)
+const previousOffset = computed(() => offsets.value[page.value - 1])
+const nextOffset = ref(null) as Ref<O | null>
 
 // once initData() finishes, setting tableFetcherCacheKey to non-falsey value triggers fetch of data
 const tableFetcherCacheKey = computed((): string => {
