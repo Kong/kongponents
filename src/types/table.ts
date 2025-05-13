@@ -173,7 +173,7 @@ type SupportedEvents =
   | 'keyup'
   | 'keypress'
 
-export interface TableDataFetcherParams<T extends string = string> {
+export interface TableDataFetcherParams<T extends string = string, O extends string | number = string | number> {
   /**
    * The number of items to display per page.
    */
@@ -197,14 +197,14 @@ export interface TableDataFetcherParams<T extends string = string> {
   /**
    * The value of the offset for offset-based pagination. Offset must be included in the fetcher params for offset-based pagination to work properly.
    */
-  offset?: string | null
+  offset?: O | null
 }
 
-export interface TableDataFetcherResponse<T extends Record<string, any> = Record<string, any>> {
+export interface TableDataFetcherResponse<T extends Record<string, any> = Record<string, any>, O extends string | number = string | number> {
   data: readonly T[]
   total?: number
   pagination?: {
-    offset?: string | null
+    offset?: O | null
     hasNextPage?: boolean
   }
 }
@@ -595,13 +595,14 @@ export type TableViewSlots<
 export interface TableDataProps<
   T extends TableDataHeader = TableDataHeader,
   U extends Record<string, any> = Record<string, any>,
+  O extends string | number = string | number, // offset type
 > extends TablePropsShared<T['key'], U> {
   /**
    * Function that handles data fetching and pagination.
    */
-  fetcher: (params: TableDataFetcherParams<T['key']>) =>
-    | Promise<TableDataFetcherResponse<U> | undefined>
-    | TableDataFetcherResponse<U> | undefined
+  fetcher: (params: TableDataFetcherParams<T['key'], O>) =>
+    | Promise<TableDataFetcherResponse<U, O> | undefined>
+    | TableDataFetcherResponse<U, O> | undefined
 
   /**
    * A prop to pass in an array of headers for the table.
@@ -629,7 +630,7 @@ export interface TableDataProps<
    * The fetcher params to be applied to initial fetcher call.
    * @default {}
    */
-  initialFetcherParams?: TableDataFetcherParams<T['key']>
+  initialFetcherParams?: TableDataFetcherParams<T['key'], O>
 
   /**
    * Whether to enable client-side sorting if using a fetcher that returns unpaginated data.
