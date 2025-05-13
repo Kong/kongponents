@@ -123,7 +123,7 @@ jobs:
       - name: Run Cypress component tests
         uses: cypress-io/github-action@6d4f8f59600b4259fe501be43a99bfc6c05c5927 # v6.8.0
         with:
-          install: false
+          install: true
           command: pnpm test
 
       - name: Upload Cypress screenshots (on failure)
