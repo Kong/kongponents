@@ -168,7 +168,7 @@ const kRadioClasses = computed((): Record<string, boolean> => {
 })
 
 const cardLabelTestId = computed(() => {
-  return props.card && attrs['data-testid'] ? `${attrs['data-testid']}-label` : undefined
+  return card && attrs['data-testid'] ? `${attrs['data-testid']}-label` : undefined
 })
 </script>
 
