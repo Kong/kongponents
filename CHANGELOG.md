@@ -1,3 +1,11 @@
+## [9.31.6](https://github.com/Kong/kongponents/compare/v9.31.5...v9.31.6) (2025-05-13)
+
+
+### Bug Fixes
+
+* **k-radio:** apply data-testid to wrapper for card radio [KHCP-16147] ([#2747](https://github.com/Kong/kongponents/issues/2747)) ([7b1c2f8](https://github.com/Kong/kongponents/commit/7b1c2f8fa9b563018d0fd091610c3b112f990e4d))
+* **k-radio:** lint error ([#2749](https://github.com/Kong/kongponents/issues/2749)) ([6a1a1f5](https://github.com/Kong/kongponents/commit/6a1a1f5fde39d58e5dfcf9cc34aed3fb607ef688))
+
 ## [9.31.5](https://github.com/Kong/kongponents/compare/v9.31.4...v9.31.5) (2025-05-13)
 
 
