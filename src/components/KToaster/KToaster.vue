@@ -38,7 +38,7 @@
         class="toaster-close-icon"
         data-testid="toaster-close-icon"
         type="button"
-        @click.stop="$emit('close', toaster.key)"
+        @click.stop="emit('close', toaster.key)"
       >
         <CloseIcon
           :color="`var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
@@ -61,7 +61,7 @@ const {
   zIndex = 10000,
 } = defineProps<ToasterProps>()
 
-defineEmits<ToasterEmits>()
+const emit = defineEmits<ToasterEmits>()
 
 const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
   switch (appearance) {
