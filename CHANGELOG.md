@@ -1,3 +1,10 @@
+## [9.31.7](https://github.com/Kong/kongponents/compare/v9.31.6...v9.31.7) (2025-05-14)
+
+
+### Bug Fixes
+
+* resize-observer not cleaned up ([#2748](https://github.com/Kong/kongponents/issues/2748)) ([74d886b](https://github.com/Kong/kongponents/commit/74d886b1a39dfec35bcfea82019fdccad2529510))
+
 ## [9.31.6](https://github.com/Kong/kongponents/compare/v9.31.5...v9.31.6) (2025-05-13)
 
 
