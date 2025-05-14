@@ -1,3 +1,10 @@
+## [9.31.8](https://github.com/Kong/kongponents/compare/v9.31.7...v9.31.8) (2025-05-14)
+
+
+### Bug Fixes
+
+* **kcodeblock:** docs search height jump [KHCP-14696] ([#2754](https://github.com/Kong/kongponents/issues/2754)) ([d419180](https://github.com/Kong/kongponents/commit/d4191802b7566b1a1f445ef1c5cf451dc7ee4e5c))
+
 ## [9.31.7](https://github.com/Kong/kongponents/compare/v9.31.6...v9.31.7) (2025-05-14)
 
 
