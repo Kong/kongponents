@@ -414,6 +414,10 @@ const {
   { revalidateOnFocus: false, revalidateDebounce: 0 },
 )
 
+watch(fetcherData, (newFetcherData) => {
+  console.log('fetcherData', newFetcherData)
+})
+
 const { state, hasData } = useSwrvState(fetcherData, fetcherError, fetcherIsValidating)
 const stateData = computed((): SwrvStateData => ({
   hasData: hasData.value,
