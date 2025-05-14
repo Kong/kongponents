@@ -335,7 +335,6 @@ const fetcherParams = computed(() => ({
 const isInitialFetch = ref<boolean>(true)
 const fetchData = async () => {
   const res = await props.fetcher(fetcherParams.value)
-  console.log(res)
 
   isInitialFetch.value = false
 
@@ -529,6 +528,8 @@ watch(fetcherResponse, (res: Record<string, any>) => {
   if (!res?.data) {
     return
   }
+
+  console.log(res)
 
   tableData.value = res.data as Record<string, any>[]
   total.value = props.paginationAttributes?.totalCount || res.total || res.data?.length || 0
