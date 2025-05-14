@@ -275,7 +275,7 @@
 
 <script lang="ts">
 import type { Ref, PropType } from 'vue'
-import { ref, computed, watch, nextTick, onMounted, onUnmounted, useAttrs, useSlots, useId, useTemplateRef } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, useAttrs, useSlots, useId, useTemplateRef, onBeforeUnmount } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KBadge from '@/components/KBadge/KBadge.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -1068,7 +1068,7 @@ onMounted(() => {
   resizeObserver.value.observe(multiselectElementRef.value as HTMLDivElement)
 })
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   if (resizeObserver.value && multiselectElementRef.value) {
     resizeObserver.value.unobserve(multiselectElementRef.value)
   }
