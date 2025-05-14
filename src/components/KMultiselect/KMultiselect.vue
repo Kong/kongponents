@@ -324,7 +324,6 @@ defineOptions({
 // type of selectItem
 type Value = U extends true ? T | string : T
 type Item = MultiselectItem<Value>
-type Items = Item[]
 const attrs = useAttrs()
 const slots = defineSlots<MultiselectSlots<Value>>()
 
@@ -422,26 +421,26 @@ const uniqueFilterStr = computed((): boolean => {
 const popper = ref<InstanceType<typeof KPop> | null>(null)
 
 // A clone of `props.items`, normalized.  May contain additional custom items that have been created.
-const unfilteredItems = ref([]) as Ref<Items>
+const unfilteredItems = ref([]) as Ref<Item[]>
 
 // A sorted version of the above.
-const sortedItems = ref([]) as Ref<Items>
+const sortedItems = ref([]) as Ref<Item[]>
 
 // An array of items.  May contain items that are not present in `unfilteredItems` if an item was selected, then the `items` prop was changed.
-const selectedItems = ref([]) as Ref<Items>
+const selectedItems = ref([]) as Ref<Item[]>
 
 // The items visible in the main part of the component.
-const visibleSelectedItemsStaging = ref([]) as Ref<Items>
+const visibleSelectedItemsStaging = ref([]) as Ref<Item[]>
 
 // The items in the "overflow" part of the component.
-const invisibleSelectedItemsStaging = ref([]) as Ref<Items>
+const invisibleSelectedItemsStaging = ref([]) as Ref<Item[]>
 
 // A set of the values in the "overflow" part of the component.
 const invisibleSelectedItemsStagingSet = new Set<string>()
 
 // Used to store the results of the determination of which items are visible.
-const visibleSelectedItems = ref([]) as Ref<Items>
-const invisibleSelectedItems = ref<Items>([])
+const visibleSelectedItems = ref([]) as Ref<Item[]>
+const invisibleSelectedItems = ref<Item[]>([])
 
 const hiddenItemsTooltip = computed((): string => invisibleSelectedItems.value.map(item => item.label).join(', '))
 
@@ -603,7 +602,7 @@ const stageSelections = () => {
 }
 
 // handles programmatic selections
-const handleMultipleItemsSelect = (items: Items) => {
+const handleMultipleItemsSelect = (items: Item[]) => {
   items.forEach(itemToSelect => {
     const selectedItem = unfilteredItems.value.filter(anItem => anItem.value === itemToSelect.value)?.[0] || null
 
@@ -618,7 +617,7 @@ const handleMultipleItemsSelect = (items: Items) => {
   stageSelections()
 }
 
-const handleMultipleItemsDeselect = (items: Items, restage = false) => {
+const handleMultipleItemsDeselect = (items: Item[], restage = false) => {
   const deselectedValues = new Set(items.map(anItem => anItem.value))
 
   selectedItems.value = selectedItems.value.filter(anItem => !deselectedValues.has(anItem.value))
