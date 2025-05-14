@@ -335,6 +335,7 @@ const fetcherParams = computed(() => ({
 const isInitialFetch = ref<boolean>(true)
 const fetchData = async () => {
   const res = await props.fetcher(fetcherParams.value)
+  console.log(res)
 
   isInitialFetch.value = false
 

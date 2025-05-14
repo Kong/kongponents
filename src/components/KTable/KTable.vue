@@ -830,8 +830,6 @@ const fetchData = async () => {
   data.value = res.data as Record<string, any>[]
   total.value = props.paginationTotalItems || res.total || res.data?.length
 
-  console.log(res)
-
   if (props.paginationOffset) {
     if (!res.pagination?.offset) {
       nextOffset.value = null
