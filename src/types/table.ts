@@ -37,20 +37,20 @@ export type TableColumnKey<T extends TableViewHeader | TableDataHeader> = T['key
 export type TableColumnVisibility<T extends TableViewHeader | TableDataHeader> = NonNullable<TablePreferences<TableColumnKey<T>>['columnVisibility']>
 export type TableColumnWidths<T extends TableViewHeader | TableDataHeader> = NonNullable<TablePreferences<TableColumnKey<T>>['columnWidths']>
 
-export interface TablePreferences<T extends string = string> {
+export interface TablePreferences<Key extends string = string> {
   /** The number of items to display per page */
   pageSize?: number
   /** The column to sort by's `key` defined in the table headers */
-  sortColumnKey?: T | ''
+  sortColumnKey?: Key | ''
   /** The order by which to sort the column, one of `asc` or `desc` */
   sortColumnOrder?: SortColumnOrder
   /** The customized column widths, if resizing is allowed */
-  columnWidths?: Partial<Record<T | TableReservedColumnKey, number>>
+  columnWidths?: Partial<Record<Key | TableReservedColumnKey, number>>
   /** Column visibility, if visibility is toggleable */
-  columnVisibility?: Partial<Record<T | TableReservedColumnKey, boolean>>
+  columnVisibility?: Partial<Record<Key | TableReservedColumnKey, boolean>>
 }
 
-export type TableViewData<T extends Record<string, any> = Record<string, any>> = T[]
+export type TableViewData<Row extends Record<string, any> = Record<string, any>> = Row[]
 
 /**
  * @deprecated in favor of TableDataHeader
@@ -72,9 +72,9 @@ export interface TableHeader {
   useSortHandlerFunction?: boolean
 }
 
-export interface TableViewHeader<T extends string = string> {
+export interface TableViewHeader<Key extends string = string> {
   /** Must be unique for each column */
-  key: T
+  key: Key
   /** Visible column header text */
   label?: string
   /** This property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it */
@@ -87,7 +87,7 @@ export interface TableViewHeader<T extends string = string> {
   hideLabel?: boolean
 }
 
-export interface TableDataHeader<T extends string = string> extends TableViewHeader<T> {
+export interface TableDataHeader<Key extends string = string> extends TableViewHeader<Key> {
   /** Whether KTable should use function passed through sortHandlerFunction prop to apply sorting logic to this column */
   useSortHandlerFunction?: boolean
 }
@@ -98,14 +98,14 @@ export interface TableDataHeader<T extends string = string> extends TableViewHea
  * This helps TypeScript infer the slot name in the template section so that
  * the slot props can be resolved.
  */
-export type TableColumnSlotName<T extends string = string> = `column-${T}`
-export type TableColumnTooltipSlotName<T extends string = string> = `tooltip-${T}`
+export type TableColumnSlotName<Key extends string = string> = `column-${Key}`
+export type TableColumnTooltipSlotName<Key extends string = string> = `tooltip-${Key}`
 
 export type TableState = 'loading' | 'error' | 'success' | 'empty'
 
-export interface TableSortPayload<T extends string = string> {
-  prevKey: T | ''
-  sortColumnKey: T | ''
+export interface TableSortPayload<Key extends string = string> {
+  prevKey: Key | ''
+  sortColumnKey: Key | ''
   sortColumnOrder: SortColumnOrder
 }
 export interface TableStatePayload {
@@ -133,23 +133,23 @@ export type TablePaginationAttributes = Pick<PaginationProps<any>,
 
 export type RowBulkAction = boolean | { enabled: boolean, disabledTooltip?: string }
 
-export interface SortHandlerFunctionParam<T extends string = string, U extends Record<string, any> = Record<string, any>> {
+export interface SortHandlerFunctionParam<Key extends string = string, Row extends Record<string, any> = Record<string, any>> {
   /** The key of the column to be sorted */
-  key: T
+  key: Key
   /** The key of the column previously sorted */
-  prevKey: T
+  prevKey: Key
   /** The order in which to sort the column (asc or desc) */
   sortColumnOrder: SortColumnOrder
   /** The data returned from the fetcher function response */
-  data: U[]
+  data: Row[]
 }
 
 /**
  * Parameter object for the cellAttrs prop function
  */
-export interface CellAttrsParam<T extends string = string, U extends Record<string, any> = Record<string, any>> {
-  headerKey: T
-  row: U
+export interface CellAttrsParam<Key extends string = string, Row extends Record<string, any> = Record<string, any>> {
+  headerKey: Key
+  row: Row
   rowIndex: number
   colIndex: number
 }
@@ -173,7 +173,7 @@ type SupportedEvents =
   | 'keyup'
   | 'keypress'
 
-export interface TableDataFetcherParams<T extends string = string, O extends string | number = string | number> {
+export interface TableDataFetcherParams<Key extends string = string, Offset extends string | number = string | number> {
   /**
    * The number of items to display per page.
    */
@@ -189,7 +189,7 @@ export interface TableDataFetcherParams<T extends string = string, O extends str
   /**
    * Sortable column key (defined in the headers prop).
    */
-  sortColumnKey?: T
+  sortColumnKey?: Key
   /**
    * Sorting order.
    */
@@ -197,20 +197,20 @@ export interface TableDataFetcherParams<T extends string = string, O extends str
   /**
    * The value of the offset for offset-based pagination. Offset must be included in the fetcher params for offset-based pagination to work properly.
    */
-  offset?: O | null
+  offset?: Offset | null
 }
 
-export interface TableDataFetcherResponse<T extends Record<string, any> = Record<string, any>, O extends string | number = string | number> {
-  data: readonly T[]
+export interface TableDataFetcherResponse<Key extends Record<string, any> = Record<string, any>, Offset extends string | number = string | number> {
+  data: readonly Key[]
   total?: number
   pagination?: {
-    offset?: O | null
+    offset?: Offset | null
     hasNextPage?: boolean
   }
 }
 
-export interface TableViewSelectState<T extends Record<string, any> = Record<string, any>> {
-  rowKey: keyof T
+export interface TableViewSelectState<Row extends Record<string, any> = Record<string, any>> {
+  rowKey: keyof Row
   selected: boolean
   disabled: boolean
 }
@@ -221,19 +221,19 @@ export enum TableViewHeaderKeys {
   BULK_ACTIONS = 'bulkActions',
 }
 
-export interface RowExpandPayload<T extends Record<string, any> = Record<string, any>> {
-  row: T
+export interface RowExpandPayload<Row extends Record<string, any> = Record<string, any>> {
+  row: Row
   expanded: boolean
 }
 
-export interface RowActionsTogglePayload<T extends Record<string, any> = Record<string, any>> {
-  row: T
+export interface RowActionsTogglePayload<Row extends Record<string, any> = Record<string, any>> {
+  row: Row
   open: boolean
 }
 
 type TablePropsShared<
-  T extends string, // column keys
-  U extends Record<string, any>, // data row
+  K extends string, // column keys
+  D extends readonly Record<string, any>[], // data row
 > = {
   /**
    * Allow columns to be resized.
@@ -246,7 +246,7 @@ type TablePropsShared<
    * Column visibility/width.
    * @default {}
    */
-  tablePreferences?: NoInfer<TablePreferences<T>>
+  tablePreferences?: NoInfer<TablePreferences<K>>
 
   /**
    * Enables hover highlighting to table rows.
@@ -258,30 +258,30 @@ type TablePropsShared<
    * A function that conditionally specifies row attributes on each row.
    * @default () => ({})
    */
-  rowAttrs?: NoInfer<(row: U) => Record<string, any>>
+  rowAttrs?: NoInfer<(row: D[number]) => Record<string, any>>
 
   /**
    * A function that conditionally turns a row into a link.
    * @default () => ({})
    */
-  rowLink?: NoInfer<(row: U) => RowLink>
+  rowLink?: NoInfer<(row: D[number]) => RowLink>
 
   /**
    * A function that conditionally specifies whether bulk actions are disabled for a row and the tooltip to display.
    * @default () => true
    */
-  rowBulkActionEnabled?: NoInfer<(row: U) => RowBulkAction>
+  rowBulkActionEnabled?: NoInfer<(row: D[number]) => RowBulkAction>
 
   /**
    * Provide the name of the data property key to utilize as a unique identifier, or a function that receives the `row` object as a parameter that generates a unique identifier string for each row.
    */
-  rowKey?: NoInfer<keyof U | ((row: U) => string)>
+  rowKey?: NoInfer<keyof D[number] | ((row: D[number]) => string)>
 
   /**
    * A function that conditionally specifies cell attributes.
    * @default () => ({})
    */
-  cellAttrs?: NoInfer<(param: CellAttrsParam<T | TableReservedColumnKey, U>) => Record<string, any>>
+  cellAttrs?: NoInfer<(param: CellAttrsParam<K | TableReservedColumnKey, D[number]>) => Record<string, any>>
 
   /**
    * A prop that enables a loading skeleton.
@@ -376,13 +376,13 @@ type TablePropsShared<
    * Enable expandable rows.
    * @default () => false
    */
-  rowExpandable?: NoInfer<(row: U) => boolean>
+  rowExpandable?: NoInfer<(row: D[number]) => boolean>
 
   /**
    * A function that conditionally specifies whether a row is expanded or not.
    * @default () => false
    */
-  rowExpanded?: NoInfer<(row: U) => boolean>
+  rowExpanded?: NoInfer<(row: D[number]) => boolean>
 
   /**
    * Hide the table header.
@@ -423,7 +423,7 @@ type TablePropsShared<
         ? HTMLElementEventMap[E]
         : Event
       : never,
-    data: NoInfer<U>,
+    data: NoInfer<D[number]>,
     type: 'row'
   ) => any
 } & {
@@ -442,8 +442,8 @@ type TablePropsShared<
 }
 
 interface TableEmitsShared<
-  T extends string, // column keys
-  U extends Record<string, any>,
+  K extends string, // column keys
+  D extends readonly Record<string, any>[],
 > {
   /**
    * Emitted whenever a cell is clicked.
@@ -453,7 +453,7 @@ interface TableEmitsShared<
   /**
    * emitted whenever a row is clicked.
    */
-  'row-click': [payload: { data: U }]
+  'row-click': [payload: { data: D[number] }]
 
   /**
    * Emitted when error state action button is clicked.
@@ -468,49 +468,49 @@ interface TableEmitsShared<
   /**
    * Emitted when the user performs sorting, resizes columns or toggles column visibility.
    */
-  'update:table-preferences': [preferences: TablePreferences<T>]
+  'update:table-preferences': [preferences: TablePreferences<K>]
 
   /**
    * Emitted when user clicks on a sortable column heading.
    */
-  sort: [payload: TableSortPayload<T>]
+  sort: [payload: TableSortPayload<K>]
 
   /**
    * Emitted when user interacts with checkboxes in bulk actions column.
    */
-  'row-select': [data: U[]]
+  'row-select': [data: D[number][]]
 
   /**
    * Emitted when row is expanded or collapsed (when `rowExpandable` prop is true).
    */
-  'update:row-expanded': [payload: RowExpandPayload<U>]
+  'update:row-expanded': [payload: RowExpandPayload<D[number]>]
 
   /**
    * Emitted when actions dropdown is opened and closed.
    */
-  'row-actions-toggle': [payload: RowActionsTogglePayload<U>]
+  'row-actions-toggle': [payload: RowActionsTogglePayload<D[number]>]
 }
 
-export type TableSlotsShared<T extends TableViewHeader, U extends Record<string, any>> = {
+type TableSlotsShared<H extends TableViewHeader, D extends readonly Record<string, any>[]> = {
   /**
    * Slot for passing custom bulk actions trigger element.
    */
-  'bulk-actions'?(props: { selectedRows: U[] }): any
+  'bulk-actions'?(props: { selectedRows: D[number][] }): any
 
   /**
    * Slot for passing bulk action dropdown items.
    */
-  'bulk-action-items'?(props: { selectedRows: U[] }): any
+  'bulk-action-items'?(props: { selectedRows: D[number][] }): any
 
   /**
    * Slot for passing action dropdown items.
    */
-  'action-items'?(props: { row: U }): any
+  'action-items'?(props: { row: D[number] }): any
 
   /**
    * Slot for passing custom content that will be revealed once user expands one of the table rows when `rowExpandable` prop is true.
    */
-  'row-expanded'?(props: { row: U, columnWidths: TableColumnWidths<T>, nestedHeaders: T[] }): any
+  'row-expanded'?(props: { row: D[number], columnWidths: TableColumnWidths<H>, nestedHeaders: H[] }): any
 
   /**
    * Slot content to be displayed when empty.
@@ -530,37 +530,38 @@ export type TableSlotsShared<T extends TableViewHeader, U extends Record<string,
   /**
    * Each column header's content.
    */
-  [K in TableColumnSlotName<T['key']>]?: (props: { column: TableViewHeader<T['key']> }) => any
+  [K in TableColumnSlotName<H['key']>]?: (props: { column: TableViewHeader<H['key']> }) => any
 } & {
   /**
    * Each column header's tooltip content.
    */
-  [K in TableColumnTooltipSlotName<T['key']>]?: (props: { column: TableViewHeader<T['key']> }) => any
+  [K in TableColumnTooltipSlotName<H['key']>]?: (props: { column: TableViewHeader<H['key']> }) => any
 } & {
   /**
    * Each individual cell's content.
    */
-  [K in T['key']]?: (props: { row: U, rowKey: number, rowValue: unknown extends U[K] ? any : U[K] }) => any
+  [K in H['key']]?: (props: { row: D[number], rowKey: number, rowValue: unknown extends D[number][K] ? any : D[number][K] }) => any
 }
 
 export interface TableViewProps<
-  T extends TableViewHeader = TableViewHeader, // column
-  U extends Record<string, any> = Record<string, any>, // data row
-> extends TablePropsShared<T['key'], U> {
+  H extends TableViewHeader = TableViewHeader, // column
+  D extends readonly Record<string, any>[] = readonly Record<string, any>[], // data row
+> extends TablePropsShared<H['key'], D> {
   /**
    * Data to be rendered in the table.
    */
-  data: readonly U[]
+  data: D
+
   /**
    * A prop to pass in an array of headers for the table.
    */
-  headers: readonly T[]
+  headers: readonly H[]
 }
 
 export interface TableViewEmits<
-  T extends TableViewHeader, // column
-  U extends Record<string, any>, // data row
-> extends TableEmitsShared<T['key'], U> {
+  H extends TableViewHeader, // column
+  D extends readonly Record<string, any>[], // data row
+> extends TableEmitsShared<H['key'], D> {
   /**
    * Emitted when the page has been changed.
    */
@@ -583,9 +584,9 @@ export interface TableViewEmits<
 }
 
 export type TableViewSlots<
-  T extends TableViewHeader,
-  U extends Record<string, any>,
-> = TableSlotsShared<T, U> & {
+  H extends TableViewHeader,
+  D extends readonly Record<string, any>[],
+> = TableSlotsShared<H, D> & {
   /**
    * The toolbar is rendered directly above the table and is useful for providing table controls like search or filter fields.
    */
@@ -593,21 +594,21 @@ export type TableViewSlots<
 }
 
 export interface TableDataProps<
-  T extends TableDataHeader = TableDataHeader,
-  U extends Record<string, any> = Record<string, any>,
+  H extends TableDataHeader = TableDataHeader,
+  D extends readonly Record<string, any>[] = readonly Record<string, any>[],
   O extends string | number = string | number, // offset type
-> extends TablePropsShared<T['key'], U> {
+> extends TablePropsShared<H['key'], D> {
   /**
    * Function that handles data fetching and pagination.
    */
-  fetcher: (params: TableDataFetcherParams<T['key'], O>) =>
-    | Promise<TableDataFetcherResponse<U, O> | undefined>
-    | TableDataFetcherResponse<U, O> | undefined
+  fetcher: (params: TableDataFetcherParams<H['key'], O>) =>
+    | Promise<TableDataFetcherResponse<D, O> | undefined>
+    | TableDataFetcherResponse<D, O> | undefined
 
   /**
    * A prop to pass in an array of headers for the table.
    */
-  headers: readonly T[]
+  headers: readonly H[]
 
   /**
    * Whenever the cache key is changed the fetcher will automatically be called and attempt to fetch new table data.
@@ -630,7 +631,7 @@ export interface TableDataProps<
    * The fetcher params to be applied to initial fetcher call.
    * @default {}
    */
-  initialFetcherParams?: NoInfer<TableDataFetcherParams<T['key'], O>>
+  initialFetcherParams?: NoInfer<TableDataFetcherParams<H['key'], O>>
 
   /**
    * Whether to enable client-side sorting if using a fetcher that returns unpaginated data.
@@ -641,7 +642,7 @@ export interface TableDataProps<
   /**
    * A custom sort handler function to handle sorting table data for specific columns.
    */
-  sortHandlerFunction?: NoInfer<(param: SortHandlerFunctionParam<T['key'], U>) => U[]>
+  sortHandlerFunction?: NoInfer<(param: SortHandlerFunctionParam<H['key'], D[number]>) => D>
 
   /**
    * Whether the table sorting is enabled.
@@ -651,9 +652,9 @@ export interface TableDataProps<
 }
 
 export interface TableDataEmits<
-  T extends TableViewHeader, // column
-  U extends Record<string, any>, // data row
-> extends TableEmitsShared<T['key'], U> {
+  H extends TableViewHeader, // column
+  D extends readonly Record<string, any>[], // data row
+> extends TableEmitsShared<H['key'], D> {
   /**
    * Emitted when the table state changes.
    */
@@ -661,9 +662,9 @@ export interface TableDataEmits<
 }
 
 export type TableDataSlots<
-  T extends TableViewHeader,
-  U extends Record<string, any>,
-> = TableSlotsShared<T, U> & {
+  H extends TableViewHeader,
+  D extends readonly Record<string, any>[],
+> = TableSlotsShared<H, D> & {
   /**
    * The toolbar is rendered directly above the table and is useful for providing table controls like search or filter fields.
    */

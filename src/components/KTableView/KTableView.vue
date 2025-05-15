@@ -413,7 +413,7 @@
   </div>
 </template>
 
-<script setup lang="ts" generic="const T extends TableViewHeader = TableViewHeader, U extends Record<string, any> = Record<string, any>">
+<script setup lang="ts" generic="const H extends TableViewHeader = TableViewHeader, D extends readonly Record<string, any>[] = readonly Record<string, any>[]">
 import { ref, watch, computed, nextTick, useId, useTemplateRef } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
@@ -452,9 +452,10 @@ import { useResizeObserver } from '@vueuse/core'
 import type { CSSProperties, Ref } from 'vue'
 import { mapValues } from 'lodash-es'
 
-type ColumnKey = TableColumnKey<T>
-type ColumnVisibility = TableColumnVisibility<T>
-type ColumnWidths = TableColumnWidths<T>
+type ColumnKey = TableColumnKey<H>
+type ColumnVisibility = TableColumnVisibility<H>
+type ColumnWidths = TableColumnWidths<H>
+type Row = D[number]
 
 const {
   resizeColumns,
@@ -490,16 +491,16 @@ const {
   data = [],
   headers = [],
   ...restProps
-} = defineProps<TableViewProps<T, U>>()
+} = defineProps<TableViewProps<H, D>>()
 
-const emit = defineEmits<TableViewEmits<T, U>>()
+const emit = defineEmits<TableViewEmits<H, D>>()
 
-const slots = defineSlots<TableViewSlots<T, U>>()
+const slots = defineSlots<TableViewSlots<H, D>>()
 
 const tableId = useId()
 const { getSizeFromString } = useUtilities()
 
-const getRowKey = (row: U): string => {
+const getRowKey = (row: Row): string => {
   if (typeof rowKey === 'function' && typeof rowKey(row) === 'string') {
     return rowKey(row)
   }
@@ -560,9 +561,9 @@ const tableWrapperStyles = computed((): CSSProperties => ({
 }))
 const scrollbarWidth = computed((): string => `${getScrollbarSize()}px`)
 
-const bulkActionsSelectedRows = ref([]) as Ref<U[]>
+const bulkActionsSelectedRows = ref([]) as Ref<Row[]>
 const hasBulkActions = computed((): boolean => !nested && !error && tableHeaders.value.some((header) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']) && !!data.every((row) => getRowKey(row)))
-const dataSelectState = ref([]) as Ref<TableViewSelectState<U>[]>
+const dataSelectState = ref([]) as Ref<TableViewSelectState<Row>[]>
 const showBulkActionsToolbar = computed((): boolean => {
   if (nested || !hasBulkActions.value || error) {
     return false
@@ -590,7 +591,7 @@ const bulkActionsSelectedRowsCount = computed((): string => {
   return String(selectedRowsCount)
 })
 
-const rowKeyMap = ref<WeakMap<U, string>>(new WeakMap())
+const rowKeyMap = ref<WeakMap<Row, string>>(new WeakMap())
 /**
  * Utilize a helper function to generate the column slot name.
  * This helps TypeScript infer the slot name in the template section so that the slot props can be resolved.
@@ -639,7 +640,7 @@ const pluckListeners = (prefix: 'onRow:' | 'onCell:', listenerProps: Record<stri
 }
 
 const tdlisteners = computed((): any => {
-  return (entity: unknown, rowData: U) => {
+  return (entity: unknown, rowData: Row) => {
     const rowListeners = pluckListeners('onRow:', restProps)(rowData, 'row')
     const cellListeners = pluckListeners('onCell:', restProps)(entity, 'cell')
     const ignoredElements = ['a', 'button', 'label', 'input', 'select', 'span[role="checkbox"]']
@@ -900,7 +901,7 @@ const showResizeHandle = (column: TableViewHeader<ColumnKey>, previous: boolean 
   return !isSpecialColumn(column.key) && !isSpecialColumn(nextColumn.key)
 }
 
-const onRowActionsToggle = (row: U, state: boolean): void => {
+const onRowActionsToggle = (row: Row, state: boolean): void => {
   emit('row-actions-toggle', { row, open: state })
 }
 
@@ -917,13 +918,13 @@ const showPagination = computed((): boolean => {
 })
 
 // Ensure `headers` are reactive.
-watch(() => headers, (newVal: readonly T[]) => {
+watch(() => headers, (newVal: readonly H[]) => {
   if (newVal && newVal.length) {
     /**
      * Reorder the headers to ensure bulk actions are first and actions are last
      */
 
-    const headers: T[] = newVal.filter((header) => header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS)
+    const headers: H[] = newVal.filter((header) => header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS)
 
     const bulkActionsHeader = newVal.find((header) => header.key === TableViewHeaderKeys.BULK_ACTIONS)
     const actionsHeader = newVal.find((header) => header.key === TableViewHeaderKeys.ACTIONS)
@@ -988,11 +989,11 @@ const scrollHandler = (event: Event): void => {
   }
 }
 
-const getRowState = (row: U): TableViewSelectState<U> | undefined => {
+const getRowState = (row: Row): TableViewSelectState<Row> | undefined => {
   return dataSelectState.value.find((rowState) => rowState.rowKey === getRowKey(row))
 }
 
-const getRowBulkActionEnabled = (row: U): boolean => {
+const getRowBulkActionEnabled = (row: Row): boolean => {
   if (typeof rowBulkActionEnabled !== 'function') {
     return false
   }
@@ -1006,7 +1007,7 @@ const getRowBulkActionEnabled = (row: U): boolean => {
   return rowBulkActionEnabledValue.enabled
 }
 
-const getRowBulkActionTooltip = (row: U): string => {
+const getRowBulkActionTooltip = (row: Row): string => {
   if (typeof rowBulkActionEnabled !== 'function') {
     return ''
   }
@@ -1021,7 +1022,7 @@ const getRowBulkActionTooltip = (row: U): string => {
 }
 
 // determine the component to use for the row link
-const getRowLinkComponent = (row: U, columnKey: ColumnKey): string => {
+const getRowLinkComponent = (row: Row, columnKey: ColumnKey): string => {
   const { to } = rowLink(row)
 
   if (!to || columnKey === TableViewHeaderKeys.BULK_ACTIONS || columnKey === TableViewHeaderKeys.ACTIONS) {
@@ -1032,7 +1033,7 @@ const getRowLinkComponent = (row: U, columnKey: ColumnKey): string => {
 }
 
 // returns attributes for the wrapper element in each row link
-const getRowLinkAttrs = (row: U, columnKey: ColumnKey): Record<string, unknown> => {
+const getRowLinkAttrs = (row: Row, columnKey: ColumnKey): Record<string, unknown> => {
   // if the column is the actions column, return an empty object
   if (columnKey === TableViewHeaderKeys.BULK_ACTIONS || columnKey === TableViewHeaderKeys.ACTIONS) {
     return {}
@@ -1074,7 +1075,7 @@ const emitTablePreferences = (): void => {
   emit('update:table-preferences', computedTablePreferences.value)
 }
 
-const hasExpandableRows = computed((): boolean => !nested && data.some((row: U) => rowExpandable(row)))
+const hasExpandableRows = computed((): boolean => !nested && data.some((row: Row) => rowExpandable(row)))
 const expandableRowHeader = { key: TableViewHeaderKeys.EXPANDABLE, label: 'Expandable rows controls', hideLabel: true }
 /**
  * Get the expanded rows from the prop
@@ -1094,7 +1095,7 @@ const expandedRows = ref<number[]>(getExpandedRows())
 /**
  * Toggle visibility of expendable row content
  */
-const toggleRow = async (rowIndex: number, row: U): Promise<void> => {
+const toggleRow = async (rowIndex: number, row: Row): Promise<void> => {
   setActualColumnWidths()
   await nextTick()
 
@@ -1254,7 +1255,7 @@ watch([() => data, dataSelectState], (newVals) => {
     /** update bulkActionsSelectedRows */
 
     // find all selected rows from the new state
-    const newSelectedRows: U[] = newData.filter((row) => {
+    const newSelectedRows: Row[] = newData.filter((row) => {
       const rowState = newDataSelectState.find((rowState) => rowState.rowKey === getRowKey(row))
 
       if (rowState && rowState.selected) {
@@ -1265,7 +1266,7 @@ watch([() => data, dataSelectState], (newVals) => {
     })
 
     // find all selected rows from the old state
-    const oldSelectedRows: U[] = []
+    const oldSelectedRows: Row[] = []
     bulkActionsSelectedRows.value.forEach((selectedRow) => {
       const row = newData.find((dataRow) => getRowKey(selectedRow) === getRowKey(dataRow))
 
