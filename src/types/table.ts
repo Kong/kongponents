@@ -602,8 +602,8 @@ export interface TableDataProps<
    * Function that handles data fetching and pagination.
    */
   fetcher: (params: TableDataFetcherParams<H['key'], O>) =>
-    | Promise<TableDataFetcherResponse<D, O> | undefined>
-    | TableDataFetcherResponse<D, O> | undefined
+    | Promise<TableDataFetcherResponse<D[number], O> | undefined>
+    | TableDataFetcherResponse<D[number], O> | undefined
 
   /**
    * A prop to pass in an array of headers for the table.
