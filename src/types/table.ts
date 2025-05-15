@@ -200,8 +200,8 @@ export interface TableDataFetcherParams<Key extends string = string, Offset exte
   offset?: Offset | null
 }
 
-export interface TableDataFetcherResponse<Key extends Record<string, any> = Record<string, any>, Offset extends string | number = string | number> {
-  data: readonly Key[]
+export interface TableDataFetcherResponse<Data extends readonly Record<string, any>[] = readonly Record<string, any>[], Offset extends string | number = string | number> {
+  data: Data
   total?: number
   pagination?: {
     offset?: Offset | null
@@ -602,8 +602,8 @@ export interface TableDataProps<
    * Function that handles data fetching and pagination.
    */
   fetcher: (params: TableDataFetcherParams<H['key'], O>) =>
-    | Promise<TableDataFetcherResponse<D[number], O> | undefined>
-    | TableDataFetcherResponse<D[number], O> | undefined
+    | Promise<TableDataFetcherResponse<D, O> | undefined>
+    | TableDataFetcherResponse<D, O> | undefined
 
   /**
    * A prop to pass in an array of headers for the table.
