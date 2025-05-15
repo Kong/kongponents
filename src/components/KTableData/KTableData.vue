@@ -235,6 +235,10 @@ const emit = defineEmits<{
   (e: 'row-select', data: Record<string, any>[]): void
   (e: 'update:row-expanded', data: RowExpandPayload): void
   (e: 'row-actions-toggle', data: RowActionsTogglePayload): void
+  (e: 'page-change', val: PageChangeData): void
+  (e: 'page-size-change', val: PageSizeChangeData): void
+  (e: 'get-next-offset'): void
+  (e: 'get-previous-offset'): void
 }>()
 
 const tableId = useId()
@@ -457,15 +461,17 @@ const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortO
   }
 }
 
-const pageChangeHandler = ({ page: newPage }: PageChangeData) => {
-  page.value = newPage
+const pageChangeHandler = (data: PageChangeData) => {
+  page.value = data.page
+  emit('page-change', data)
 }
 
-const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData) => {
+const pageSizeChangeHandler = (data: PageSizeChangeData) => {
   offsets.value = [null]
   offset.value = null
-  pageSize.value = newPageSize
+  pageSize.value = data.pageSize
   page.value = 1
+  emit('page-size-change', data)
 }
 
 const tablePreferencesUpdateHandler = ({ columnWidths: newColumnWidth, columnVisibility: newColumnVisibility }: TablePreferences) => {
@@ -495,11 +501,13 @@ const emitTablePreferences = (): void => {
 const getNextOffsetHandler = (): void => {
   page.value++
   offset.value = nextOffset.value
+  emit('get-next-offset')
 }
 
 const getPreviousOffsetHandler = (): void => {
   page.value--
   offset.value = previousOffset.value
+  emit('get-previous-offset')
 }
 
 const showPagination = computed((): boolean => {
