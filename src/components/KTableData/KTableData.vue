@@ -152,7 +152,7 @@
   </KTableView>
 </template>
 
-<script setup lang="ts" generic="const T extends TableDataHeader = TableDataHeader, U extends Record<string, any> = Record<string, any>, O extends string | number = string | number">
+<script setup lang="ts" generic="const H extends TableDataHeader = TableDataHeader, D extends readonly Record<string, any>[] = readonly Record<string, any>[], O extends string | number = string | number">
 import type { Ref } from 'vue'
 import { ref, watch, computed, onMounted, useId } from 'vue'
 import KTableView from '@/components/KTableView/KTableView.vue'
@@ -181,9 +181,9 @@ import type {
 import { EmptyStateIconVariants } from '@/types'
 import { getInitialPageSize, DEFAULT_PAGE_SIZE } from '@/utilities'
 
-type ColumnKey = TableColumnKey<T>
-type ColumnVisibility = TableColumnVisibility<T>
-type ColumnWidths = TableColumnWidths<T>
+type ColumnKey = TableColumnKey<H>
+type ColumnVisibility = TableColumnVisibility<H>
+type ColumnWidths = TableColumnWidths<H>
 
 const {
   resizeColumns,
@@ -226,17 +226,17 @@ const {
   sortHandlerFunction,
   tooltipTarget,
   ...restProps
-} = defineProps<TableDataProps<T, U, O>>()
+} = defineProps<TableDataProps<H, D, O>>()
 
-const emit = defineEmits<TableDataEmits<T, U>>()
+const emit = defineEmits<TableDataEmits<H, D>>()
 
-const slots = defineSlots<TableDataSlots<T, U>>()
+const slots = defineSlots<TableDataSlots<H, D>>()
 
 const { useDebounce, useRequest, useSwrvState, clientSideSorter: defaultClientSideSorter } = useUtilities()
 
 const tableId = useId()
 
-const tableData = ref([]) as Ref<U[]>
+const tableData = ref([]) as Ref<D[number][]>
 const tableHeaders = computed(() => sortable ? headers : headers.map((header) => ({ ...header, sortable: false })))
 const getEmptyStateButtonAppearance = computed((): ButtonAppearance => {
   if (emptyStateButtonAppearance) {
@@ -479,7 +479,7 @@ const tablePreferencesUpdateHandler = ({ columnWidths: newColumnWidth, columnVis
 
 const tableViewColumnWidths = ref<ColumnWidths | undefined>({})
 const tableViewColumnVisibility = ref<ColumnVisibility | undefined>({})
-const tableDataPreferences = computed((): TablePreferences<T['key']> => ({
+const tableDataPreferences = computed((): TablePreferences<H['key']> => ({
   pageSize: pageSize.value,
   sortColumnKey: sortColumnKey.value,
   sortColumnOrder: sortColumnOrder.value,
