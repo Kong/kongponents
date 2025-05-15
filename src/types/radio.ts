@@ -87,7 +87,7 @@ export interface RadioSlots {
   /**
    * The label content.
    */
-  default(): any
+  default?(): any
 
   /**
    * The description content.

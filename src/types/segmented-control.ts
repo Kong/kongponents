@@ -47,5 +47,5 @@ export interface SegmentedControlSlots<T extends SegmentedControlOption<string |
   /**
    * Each option's content.
    */
-  'option-label'(props: { option: T extends string[] ? SegmentedControlOption<T[number]> : T[number] }): any
+  'option-label'?(props: { option: T extends string[] ? SegmentedControlOption<T[number]> : T[number] }): any
 }
