@@ -274,12 +274,12 @@ const defaultFetcherProps = {
 }
 
 const tablePaginationAttributes = computed((): TablePaginationAttributes => ({
-  ...props.paginationAttributes,
   totalCount: total.value,
   initialPageSize: pageSize.value,
   currentPage: page.value,
-  // offsetPreviousButtonDisabled: !previousOffset.value,
-  // offsetNextButtonDisabled: !nextOffset.value || !hasNextPage.value,
+  offsetPreviousButtonDisabled: !previousOffset.value,
+  offsetNextButtonDisabled: !nextOffset.value || !hasNextPage.value,
+  ...props.paginationAttributes,
 }))
 
 function isTableColumnSlotName(slot: string): slot is TableColumnSlotName {
