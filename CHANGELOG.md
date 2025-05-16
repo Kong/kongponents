@@ -1,3 +1,10 @@
+# [9.32.0](https://github.com/Kong/kongponents/compare/v9.31.10...v9.32.0) (2025-05-16)
+
+
+### Features
+
+* **ktoaster:** precise typings for ktoaster ([#2744](https://github.com/Kong/kongponents/issues/2744)) ([7715f17](https://github.com/Kong/kongponents/commit/7715f173320daeaa13793d68ddaf1805afe3cb19))
+
 ## [9.31.10](https://github.com/Kong/kongponents/compare/v9.31.9...v9.31.10) (2025-05-16)
 
 
