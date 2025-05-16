@@ -96,7 +96,7 @@ export interface DropdownItemEmits<T extends DropdownItem<string | number> | nul
    * Triggers when the item is clicked when `selectionMenuChild` is true.
    * Returns the selected menu item object or `null`.
    */
-  change: [item: T]
+  change: NoInfer<[item: T]>
 }
 
 export interface DropdownItemSlots {
@@ -178,7 +178,7 @@ export interface DropdownEmits<T extends string | number> {
   /**
    * Triggers when an item is selected.
    */
-  change: [item: DropdownItem<T>]
+  change: NoInfer<[item: DropdownItem<T>]>
 }
 
 export interface DropdownSlots {

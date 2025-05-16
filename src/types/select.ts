@@ -75,7 +75,7 @@ export interface SelectProps<T extends string | number, U extends boolean> {
    * To set the value of the select without using `v-model`.
    * @default ''
    */
-  modelValue?: (U extends true ? T | string : T) | '' | null
+  modelValue?: NoInfer<(U extends true ? T | string : T) | '' | null>
 
   /**
    * Attributes to be passed to underlying KPopover component.
@@ -134,11 +134,13 @@ export interface SelectProps<T extends string | number, U extends boolean> {
    * Override default filter functionality of case-insensitive search on label.
    * @default (params: SelectFilterFunctionParams) => params?.items?.filter((item: SelectItem) => item.label?.toLowerCase().includes(params.query?.toLowerCase()))
    */
-  filterFunction?: (params: SelectFilterFunctionParams<U extends true ? T | string : T>) =>
-    | U extends true
-      ? SelectItem<T | string>[]
-      : SelectItem<T>[]
-    | true
+  filterFunction?: NoInfer<
+    (params: SelectFilterFunctionParams<U extends true ? T | string : T>) =>
+      | (U extends true
+        ? SelectItem<T | string>[]
+        : SelectItem<T>[])
+      | true
+  >
 
   /**
    * Loading state in autosuggest.
@@ -200,22 +202,22 @@ export interface SelectEmits<T extends string | number> {
   /**
    * Emitted when a new item is selected.
    */
-  selected: [item: SelectItem<T>]
+  selected: NoInfer<[item: SelectItem<T>]>
 
   /**
    * Emitted when selected item is changed or cleared.
    */
-  input: [value: T | null]
+  input: NoInfer<[value: T | null]>
 
   /**
    * Emitted when selected item is changed or cleared.
    */
-  change: [item: SelectItem<T> | null]
+  change: NoInfer<[item: SelectItem<T> | null]>
 
   /**
    * Emitted when selected item is changed or cleared.
    */
-  'update:modelValue': [value: T | null]
+  'update:modelValue': NoInfer<[value: T | null]>
 
   /**
    * Emitted when the query in the input field changes.
@@ -237,12 +239,12 @@ export interface SelectSlots<T extends string | number> {
   /**
    * Use this slot to pass custom content to the items.
    */
-  'item-template'?(props: { item: SelectItem<T> }): any
+  'item-template'?: NoInfer<(props: { item: SelectItem<T> }) => any>
 
   /**
    * Use this slot to provide custom content to the selected item.
    */
-  'selected-item-template'?(props: { item: SelectItem<T> }): any
+  'selected-item-template'?: NoInfer<(props: { item: SelectItem<T> }) => any>
 
   /**
    * A slot alternative for the `dropdownFooterText` prop.
