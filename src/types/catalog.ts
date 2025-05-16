@@ -255,7 +255,7 @@ export interface CatalogEmits<T extends readonly CatalogItem[]> {
   /**
    * Emitted when a KCatalogItem is clicked, the payload is the clicked item's object.
    */
-  'card-click': [item: NoInfer<T[number]>]
+  'card-click': NoInfer<[item: T[number]]>
 
   /**
    * Emitted when error state action button is clicked.
@@ -282,22 +282,22 @@ export interface CatalogSlots<T extends readonly CatalogItem[]> {
   /**
    * The body of the card catalog, if you do not want to use KCatalogItem components for the children.
    */
-  body?(props: { data: NoInfer<T> }): any
+  body?: NoInfer<(props: { data: T }) => any>
 
   /**
    * Will slot the card title for each entry.
    */
-  'card-title'?(props: { item: NoInfer<T[number]> }): any
+  'card-title'?: NoInfer<(props: { item: T[number] }) => any>
 
   /**
    * Slot the card actions for each entry.
    */
-  'card-actions'?(props: { item: NoInfer<T[number]> }): any
+  'card-actions'?: NoInfer<(props: { item: T[number] }) => any>
 
   /**
    * Will slot the card body for each entry.
    */
-  'card-body'?(props: { item: NoInfer<T[number]> }): any
+  'card-body'?: NoInfer<(props: { item: T[number] }) => any>
 
   /**
    * Will slot catalog controls rendered at the top of the .k-catalog element such as a search input or other UI elements.

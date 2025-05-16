@@ -78,7 +78,7 @@ export interface PaginationEmits<T> {
   /**
    * Emitted when the page changes, pass the current page information along with it.
    */
-  pageChange: [data: PageChangeData<NoInfer<T>>]
+  pageChange: NoInfer<[data: PageChangeData<T>]>
   /**
    * Emitted when the page size changes, pass the current page size and page count.
    */
