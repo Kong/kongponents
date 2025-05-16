@@ -1,3 +1,10 @@
+## [9.31.9](https://github.com/Kong/kongponents/compare/v9.31.8...v9.31.9) (2025-05-16)
+
+
+### Bug Fixes
+
+* **types:** mark all slots as optional ([#2756](https://github.com/Kong/kongponents/issues/2756)) ([1b47485](https://github.com/Kong/kongponents/commit/1b474852b453467a5b09215466fceb6d3f7fe6fd))
+
 ## [9.31.8](https://github.com/Kong/kongponents/compare/v9.31.7...v9.31.8) (2025-05-14)
 
 
