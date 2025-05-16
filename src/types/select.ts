@@ -136,9 +136,9 @@ export interface SelectProps<T extends string | number, U extends boolean> {
    */
   filterFunction?: NoInfer<
     (params: SelectFilterFunctionParams<U extends true ? T | string : T>) =>
-      | U extends true
+      | (U extends true
         ? SelectItem<T | string>[]
-        : SelectItem<T>[]
+        : SelectItem<T>[])
       | true
   >
 
