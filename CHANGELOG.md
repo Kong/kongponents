@@ -1,3 +1,10 @@
+## [9.31.10](https://github.com/Kong/kongponents/compare/v9.31.9...v9.31.10) (2025-05-16)
+
+
+### Bug Fixes
+
+* **ktabledata:** prioritize bound pagination attributes ([#2761](https://github.com/Kong/kongponents/issues/2761)) ([197f3cb](https://github.com/Kong/kongponents/commit/197f3cbbba46a82189c1a2c747b2e2139eb5b30f))
+
 ## [9.31.9](https://github.com/Kong/kongponents/compare/v9.31.8...v9.31.9) (2025-05-16)
 
 
