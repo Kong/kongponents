@@ -10,7 +10,7 @@ export interface SegmentedControlProps<T extends SegmentedControlOption<string |
   /**
    * The value of the currently selected option.
    */
-  modelValue?: T extends string[] ? T[number] : T extends SegmentedControlOption<string | number | boolean>[] ? T[number]['value'] : never
+  modelValue?: NoInfer<T extends string[] ? T[number] : T extends SegmentedControlOption<string | number | boolean>[] ? T[number]['value'] : never>
 
   /**
    * An array of options for each button.

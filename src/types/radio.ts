@@ -35,7 +35,7 @@ export interface RadioProps<T extends RadioModelValue | null> {
   /**
    * The value of the KRadio option that will be emitted by the `change` and `update:modelValue` events.
    */
-  selectedValue: Exclude<T, null>
+  selectedValue: Exclude<NoInfer<T>, null>
 
   /**
    * Boolean to indicate whether the element is in an error state and should apply error styling.
@@ -75,12 +75,12 @@ export interface RadioEmits<T extends RadioModelValue> {
   /**
    * Emitted when the radio is selected.
    */
-  change: [value: T]
+  change: [value: NoInfer<T>]
 
   /**
    * Emitted when the radio is selected.
    */
-  'update:modelValue': [value: T]
+  'update:modelValue': [value: NoInfer<T>]
 }
 
 export interface RadioSlots {
