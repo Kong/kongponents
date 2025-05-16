@@ -882,7 +882,7 @@ type TableState = 'loading' | 'error' | 'success' | 'empty'
 
 ### empty-state-action-click
 
-Emitted when empty state action button is clocked.
+Emitted when empty state action button is clicked.
 
 ### error-action-click
 
