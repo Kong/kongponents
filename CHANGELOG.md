@@ -1,3 +1,10 @@
+## [9.32.1](https://github.com/Kong/kongponents/compare/v9.32.0...v9.32.1) (2025-05-19)
+
+
+### Bug Fixes
+
+* **types:** use NoInfer to specify source of truth for generic types ([#2760](https://github.com/Kong/kongponents/issues/2760)) ([4b2fe1b](https://github.com/Kong/kongponents/commit/4b2fe1b738cbd3b95a123af680cce1d18ab29241))
+
 # [9.32.0](https://github.com/Kong/kongponents/compare/v9.31.10...v9.32.0) (2025-05-16)
 
 
