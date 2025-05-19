@@ -64,9 +64,9 @@ export interface FileUploadProps {
 }
 
 export interface FileUploadEmits {
-  'file-added': [value: File[]]
+  'file-added': [value: FileList]
   'file-removed': []
-  error: [value: File[]]
+  error: [value: FileList]
 }
 
 export interface FileUploadSlots {
