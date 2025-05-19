@@ -38,8 +38,8 @@
         :error="hasError"
         :error-message="errorMessage || fileSizeErrorMessage"
         :help="help"
-        :max-file-size="maximumFileSize"
         :placeholder="placeholder"
+        title=""
         type="file"
         @change="onFileChange"
       >

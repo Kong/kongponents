@@ -64,8 +64,19 @@ export interface FileUploadProps {
 }
 
 export interface FileUploadEmits {
+  /**
+   * Emitted when a file is added.
+   */
   'file-added': [value: FileList]
+
+  /**
+   * Emitted when a file is removed.
+   */
   'file-removed': []
+
+  /**
+   * Emitted when the selected file size is greater than `maxFileSize` prop.
+   */
   error: [value: FileList]
 }
 
