@@ -173,7 +173,7 @@ type SupportedEvents =
   | 'keyup'
   | 'keypress'
 
-export interface TableDataFetcherParams<Key extends string = string, Offset extends string | number = string | number> {
+export interface TableDataFetcherParams<Key extends string = string, Offset extends string | number = string> {
   /**
    * The number of items to display per page.
    */
@@ -200,7 +200,7 @@ export interface TableDataFetcherParams<Key extends string = string, Offset exte
   offset?: Offset | null
 }
 
-export interface TableDataFetcherResponse<Data extends readonly Record<string, any>[] = readonly Record<string, any>[], Offset extends string | number = string | number> {
+export interface TableDataFetcherResponse<Data extends readonly Record<string, any>[] = readonly Record<string, any>[], Offset extends string | number = string> {
   data: Data
   total?: number
   pagination?: {
@@ -596,7 +596,7 @@ export type TableViewSlots<
 export interface TableDataProps<
   H extends TableDataHeader = TableDataHeader,
   D extends readonly Record<string, any>[] = readonly Record<string, any>[],
-  O extends string | number = string | number, // offset type
+  O extends string | number = string, // offset type
 > extends TablePropsShared<H['key'], D> {
   /**
    * Function that handles data fetching and pagination.
