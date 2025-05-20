@@ -1,3 +1,10 @@
+## [9.32.2](https://github.com/Kong/kongponents/compare/v9.32.1...v9.32.2) (2025-05-20)
+
+
+### Bug Fixes
+
+* **ktoaster:** loosen Toast type ([#2765](https://github.com/Kong/kongponents/issues/2765)) ([ec5ef69](https://github.com/Kong/kongponents/commit/ec5ef69a450d3fb1c355edb7e0e117ceee4b11db))
+
 ## [9.32.1](https://github.com/Kong/kongponents/compare/v9.32.0...v9.32.1) (2025-05-19)
 
 
