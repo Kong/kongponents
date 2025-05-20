@@ -2,7 +2,7 @@ export type ToasterAppearance = 'info' | 'success' | 'danger' | 'warning' | 'sys
 
 export interface Toast {
   /** Unique identifier of toaster */
-  key: string
+  key?: string
   /** Title of toaster */
   title?: string
   /** Text to display in toaster */
@@ -30,7 +30,7 @@ export interface ToasterProps {
    * The toaster state.
    * @default []
    */
-  toasterState: Toast[]
+  toasterState: (Toast & { key: string }) []
 
   /**
    * The z-index of the toaster.
