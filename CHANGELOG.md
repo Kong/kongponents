@@ -1,3 +1,75 @@
+## [9.32.1](https://github.com/Kong/kongponents/compare/v9.32.0...v9.32.1) (2025-05-19)
+
+
+### Bug Fixes
+
+* **types:** use NoInfer to specify source of truth for generic types ([#2760](https://github.com/Kong/kongponents/issues/2760)) ([4b2fe1b](https://github.com/Kong/kongponents/commit/4b2fe1b738cbd3b95a123af680cce1d18ab29241))
+
+# [9.32.0](https://github.com/Kong/kongponents/compare/v9.31.10...v9.32.0) (2025-05-16)
+
+
+### Features
+
+* **ktoaster:** precise typings for ktoaster ([#2744](https://github.com/Kong/kongponents/issues/2744)) ([7715f17](https://github.com/Kong/kongponents/commit/7715f173320daeaa13793d68ddaf1805afe3cb19))
+
+## [9.31.10](https://github.com/Kong/kongponents/compare/v9.31.9...v9.31.10) (2025-05-16)
+
+
+### Bug Fixes
+
+* **ktabledata:** prioritize bound pagination attributes ([#2761](https://github.com/Kong/kongponents/issues/2761)) ([197f3cb](https://github.com/Kong/kongponents/commit/197f3cbbba46a82189c1a2c747b2e2139eb5b30f))
+
+## [9.31.9](https://github.com/Kong/kongponents/compare/v9.31.8...v9.31.9) (2025-05-16)
+
+
+### Bug Fixes
+
+* **types:** mark all slots as optional ([#2756](https://github.com/Kong/kongponents/issues/2756)) ([1b47485](https://github.com/Kong/kongponents/commit/1b474852b453467a5b09215466fceb6d3f7fe6fd))
+
+## [9.31.8](https://github.com/Kong/kongponents/compare/v9.31.7...v9.31.8) (2025-05-14)
+
+
+### Bug Fixes
+
+* **kcodeblock:** docs search height jump [KHCP-14696] ([#2754](https://github.com/Kong/kongponents/issues/2754)) ([d419180](https://github.com/Kong/kongponents/commit/d4191802b7566b1a1f445ef1c5cf451dc7ee4e5c))
+
+## [9.31.7](https://github.com/Kong/kongponents/compare/v9.31.6...v9.31.7) (2025-05-14)
+
+
+### Bug Fixes
+
+* resize-observer not cleaned up ([#2748](https://github.com/Kong/kongponents/issues/2748)) ([74d886b](https://github.com/Kong/kongponents/commit/74d886b1a39dfec35bcfea82019fdccad2529510))
+
+## [9.31.6](https://github.com/Kong/kongponents/compare/v9.31.5...v9.31.6) (2025-05-13)
+
+
+### Bug Fixes
+
+* **k-radio:** apply data-testid to wrapper for card radio [KHCP-16147] ([#2747](https://github.com/Kong/kongponents/issues/2747)) ([7b1c2f8](https://github.com/Kong/kongponents/commit/7b1c2f8fa9b563018d0fd091610c3b112f990e4d))
+* **k-radio:** lint error ([#2749](https://github.com/Kong/kongponents/issues/2749)) ([6a1a1f5](https://github.com/Kong/kongponents/commit/6a1a1f5fde39d58e5dfcf9cc34aed3fb607ef688))
+
+## [9.31.5](https://github.com/Kong/kongponents/compare/v9.31.4...v9.31.5) (2025-05-13)
+
+
+### Bug Fixes
+
+* **kradio:** ts improvements for kradio ([#2739](https://github.com/Kong/kongponents/issues/2739)) ([09b4615](https://github.com/Kong/kongponents/commit/09b4615d41879f1c5b16b38db72713dda61d8cca))
+* **ksegmentedcontrol:** ts improvements for ksegmentedcontrol ([#2742](https://github.com/Kong/kongponents/issues/2742)) ([70a6a61](https://github.com/Kong/kongponents/commit/70a6a61ce3af3e4b4f081831f33aedc9a816a49e))
+
+## [9.31.4](https://github.com/Kong/kongponents/compare/v9.31.3...v9.31.4) (2025-05-13)
+
+
+### Bug Fixes
+
+* **kprompt:** ts improvements for kprompt ([#2735](https://github.com/Kong/kongponents/issues/2735)) ([57c0f8c](https://github.com/Kong/kongponents/commit/57c0f8c494fc1ab5e68702fdb100d309f65f361a))
+
+## [9.31.3](https://github.com/Kong/kongponents/compare/v9.31.2...v9.31.3) (2025-05-12)
+
+
+### Bug Fixes
+
+* **kstepper:** ts improvements for kstepper ([#2743](https://github.com/Kong/kongponents/issues/2743)) ([60d4904](https://github.com/Kong/kongponents/commit/60d4904db4320d1fdb855adb9c5b41ff94c53a4d))
+
 ## [9.31.2](https://github.com/Kong/kongponents/compare/v9.31.1...v9.31.2) (2025-05-07)
 
 

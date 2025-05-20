@@ -59,10 +59,10 @@ export interface KSlideoutSlots {
   /**
    * Slot for custom content inside the slideout.
    */
-  default: []
+  default?: []
 
   /**
    * Slot for custom title content.
    */
-  title: []
+  title?: []
 }

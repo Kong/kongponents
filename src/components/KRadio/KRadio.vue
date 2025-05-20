@@ -53,6 +53,7 @@
       v-else-if="label || $slots.default"
       class="radio-card-wrapper radio-label-wrapper"
       :class="{ 'has-label': label, 'has-description': showCardDescription, 'show-radio': cardRadioVisible }"
+      :data-testid="cardLabelTestId"
       :for="inputId"
       :tabindex="isDisabled || isChecked ? -1 : 0"
       @keydown.space.prevent
@@ -88,10 +89,8 @@
 </template>
 
 <script lang="ts">
-import type { PropType } from 'vue'
-import { computed, useAttrs, useId, useSlots } from 'vue'
-import type { RadioTypes, LabelAttributes } from '@/types'
-import { RadioTypesArray } from '@/types'
+import { computed, useAttrs, useId, watch } from 'vue'
+import type { RadioTypes, LabelAttributes, RadioProps, RadioModelValue, RadioEmits, RadioSlots } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
 
 export default {
@@ -99,102 +98,51 @@ export default {
 }
 </script>
 
-<script setup lang="ts">
-const props = defineProps({
-  /**
-   * Sets whether or not radio is selected
-   */
-  modelValue: {
-    type: [String, Number, Boolean, Object, null] as PropType<string | number | boolean | object | null>,
-    required: true,
-  },
-  /**
-   * Overrides default label text
-   */
-  label: {
-    type: String,
-    default: '',
-  },
-  labelAttributes: {
-    type: Object as PropType<LabelAttributes>,
-    default: () => ({}),
-    validator: (value: LabelAttributes): boolean => {
-      if (value.help) {
-        console.warn('KRadio: `help` property of `labelAttributes` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#klabel')
-      }
+<script setup lang="ts" generic="T extends RadioModelValue | null = RadioModelValue | null">
+const {
+  modelValue,
+  label = '',
+  labelAttributes = {},
+  description = '',
+  selectedValue,
+  error,
+  card,
+  cardRadioVisible = true,
+  cardOrientation = 'vertical',
+  type = '',
+} = defineProps<RadioProps<T>>()
 
-      return true
-    },
-  },
-  /**
-   * Overrides default description text
-   */
-  description: {
-    type: String,
-    default: '',
-  },
-  /**
-   * The value emitted from the radio on change if selected
-   */
-  selectedValue: {
-    type: [String, Number, Boolean, Object],
-    required: true,
-  },
-  error: {
-    type: Boolean,
-    default: false,
-  },
-  card: {
-    type: Boolean,
-    default: false,
-  },
-  cardRadioVisible: {
-    type: Boolean,
-    default: true,
-  },
-  cardOrientation: {
-    type: String as PropType<'horizontal' | 'vertical'>,
-    default: 'vertical',
-    validator: (value: 'horizontal' | 'vertical'): boolean => ['horizontal', 'vertical'].includes(value),
-  },
-  /**
-   * @deprecated in favor of `card`
-   */
-  type: {
-    type: String as PropType<RadioTypes>,
-    default: '',
-    validator: (value: RadioTypes): boolean => {
-      if (value) {
-        console.warn('KRadio: `type` prop is deprecated. Please use `card` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kradio')
-      }
+watch(() => labelAttributes, (newValue: LabelAttributes): void => {
+  if (newValue.help) {
+    console.warn('KRadio: `help` property of `labelAttributes` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#klabel')
+  }
+}, { deep: true, immediate: true })
 
-      return RadioTypesArray.includes(value)
-    },
-  },
-})
+watch(() => type, (newValue: RadioTypes): void => {
+  if (newValue) {
+    console.warn('KRadio: `type` prop is deprecated. Please use `card` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kradio')
+  }
+}, { immediate: true })
 
-const slots = useSlots()
+const emit = defineEmits<RadioEmits<Exclude<T, null>>>()
+
+const slots = defineSlots<RadioSlots>()
 const attrs = useAttrs()
 
 const defaultId = useId()
 const inputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
-const hasLabel = computed((): boolean => !!(props.label || slots.default))
+const hasLabel = computed((): boolean => !!(label || slots.default))
 // for regular radio we only show description if there is a label or default slot
-const showDescription = computed((): boolean => hasLabel.value && (!!props.description || !!slots.description))
+const showDescription = computed((): boolean => hasLabel.value && (!!description || !!slots.description))
 // for card radio we only show description if there is a label
-const showCardDescription = computed((): boolean => !!props.label && (!!props.description || !!slots.description))
+const showCardDescription = computed((): boolean => !!label && (!!description || !!slots.description))
 const hasTooltip = computed((): boolean => !!slots.tooltip)
-const isChecked = computed((): boolean => props.selectedValue === props.modelValue)
-
-const emit = defineEmits<{
-  (e: 'change', value: string | boolean | number | object | null): void
-  (e: 'update:modelValue', value: string | boolean | number | object | null): void
-}>()
+const isChecked = computed((): boolean => selectedValue === modelValue)
 
 const handleClick = (): void => {
-  emit('change', props.selectedValue)
-  emit('update:modelValue', props.selectedValue)
+  emit('change', selectedValue)
+  emit('update:modelValue', selectedValue)
 }
 
 const modifiedAttrs = computed((): Record<string, any> => {
@@ -209,14 +157,18 @@ const modifiedAttrs = computed((): Record<string, any> => {
 const kRadioClasses = computed((): Record<string, boolean> => {
   return {
     disabled: isDisabled.value,
-    'radio-card': props.card || props.type === 'card',
-    'input-error': props.error,
+    'radio-card': card || type === 'card',
+    'input-error': error,
     checked: isChecked.value,
     'has-description': showDescription.value,
-    'card-horizontal': props.card && props.cardOrientation === 'horizontal',
+    'card-horizontal': card && cardOrientation === 'horizontal',
     // Add vertical class for `vertical` or an invalid prop value
-    'card-vertical': props.card && props.cardOrientation !== 'horizontal',
+    'card-vertical': card && cardOrientation !== 'horizontal',
   }
+})
+
+const cardLabelTestId = computed(() => {
+  return card && attrs['data-testid'] ? `${attrs['data-testid']}-label` : undefined
 })
 </script>
 

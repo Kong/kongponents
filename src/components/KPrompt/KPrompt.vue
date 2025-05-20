@@ -11,18 +11,18 @@
     :input-autofocus="modalAttributes.inputAutofocus === undefined ? true : modalAttributes.inputAutofocus"
     :title="title || 'Confirm your action'"
     :visible="visible"
-    @cancel="$emit('cancel')"
-    @proceed="$emit('proceed')"
+    @cancel="emit('cancel')"
+    @proceed="emit('proceed')"
   >
     <template
-      v-if="$slots.title"
+      v-if="slots.title"
       #title
     >
       <slot name="title" />
     </template>
     <template #default>
       <div
-        v-if="$slots.default || message"
+        v-if="slots.default || message"
         class="prompt-content"
       >
         <slot name="default">
@@ -56,77 +56,35 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
 import { computed, ref, useAttrs, watch } from 'vue'
 import KModal from '@/components/KModal/KModal.vue'
 import KInput from '@/components/KInput/KInput.vue'
-import type { ButtonAppearance, ModalAttributes } from '@/types'
+import type { PromptProps, PromptEmits, PromptSlots } from '@/types'
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps({
-  visible: {
-    type: Boolean,
-    default: false,
-  },
-  title: {
-    type: String,
-    default: '',
-  },
-  message: {
-    type: String,
-    default: '',
-  },
-  actionButtonText: {
-    type: String,
-    default: 'Confirm',
-  },
-  actionButtonAppearance: {
-    type: String as PropType<ButtonAppearance>,
-    default: 'primary',
-  },
-  actionButtonDisabled: {
-    type: Boolean,
-    default: false,
-  },
-  cancelButtonText: {
-    type: String,
-    default: 'Cancel',
-  },
-  cancelButtonAppearance: {
-    type: String as PropType<ButtonAppearance>,
-    default: 'tertiary',
-  },
-  cancelButtonDisabled: {
-    type: Boolean,
-    default: false,
-  },
-  confirmationText: {
-    type: String,
-    default: '',
-  },
-  confirmationPrompt: {
-    type: String,
-    default: 'Type {confirmationText} to confirm your action.',
-  },
-  modalAttributes: {
-    type: Object as PropType<ModalAttributes>,
-    default: () => ({}),
-  },
-  errorMessage: {
-    type: String,
-    default: 'You must enter the text as indicated above to confirm.',
-  },
-})
+const {
+  visible,
+  title = '',
+  message = '',
+  actionButtonText = 'Confirm',
+  actionButtonAppearance = 'primary',
+  actionButtonDisabled,
+  cancelButtonText = 'Cancel',
+  cancelButtonAppearance = 'tertiary',
+  cancelButtonDisabled,
+  confirmationText = '',
+  confirmationPrompt = 'Type {confirmationText} to confirm your action.',
+  modalAttributes = {},
+  errorMessage = 'You must enter the text as indicated above to confirm.',
+} = defineProps<PromptProps>()
+
+const emit = defineEmits<PromptEmits>()
+const slots = defineSlots<PromptSlots>()
 
 const attrs = useAttrs()
-
-const emit = defineEmits<{
-  (e: 'cancel'): void
-  (e: 'proceed'): void
-}>()
 
 const sanitizedAttrs = computed(() => {
   const attributes = Object.assign({}, attrs) as Record<string, any>
@@ -149,15 +107,15 @@ const confirmationInput = ref<string>('')
 const displayErrorState = ref<boolean>(false)
 
 const actionButtonDisabledValue = computed(() => {
-  if (props.actionButtonDisabled) {
+  if (actionButtonDisabled) {
     return true
   }
 
-  return props.confirmationText ? props.confirmationText !== confirmationInput.value : false
+  return confirmationText ? confirmationText !== confirmationInput.value : false
 })
 
 const confirmationPromptText = computed((): string[] => {
-  return props.confirmationPrompt.split('{confirmationText}')
+  return confirmationPrompt.split('{confirmationText}')
 })
 
 const onEnter = () => {
@@ -168,7 +126,7 @@ const onEnter = () => {
   }
 }
 
-watch(() => props.visible, (visible: boolean) => {
+watch(() => visible, (visible: boolean) => {
   if (!visible) {
     confirmationInput.value = ''
     displayErrorState.value = false
@@ -176,7 +134,7 @@ watch(() => props.visible, (visible: boolean) => {
 })
 
 watch(confirmationInput, (value: string) => {
-  if (value && value === props.confirmationText) {
+  if (value && value === confirmationText) {
     displayErrorState.value = false
   }
 })

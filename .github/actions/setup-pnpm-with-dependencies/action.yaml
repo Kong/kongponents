@@ -2,8 +2,8 @@ name: Setup PNPM with Dependencies
 description: Reusable composition of setup-node, cache, and pnpm install actions
 inputs:
   nodejs-version:
-    description: 'Version of NodeJS to use (ex: 18.19.1)'
-    default: '18.19.1'
+    description: 'Version of NodeJS to use (ex: 22.14.0)'
+    default: '22.14.0'
   force-install:
     description: When 'true', pnpm install will be executed regardless of a cache hit
     required: false
@@ -30,14 +30,14 @@ runs:
         fi
         voltaPnpmVersion=$(cat package.json|jq -r ".volta.pnpm")
         if [[ $voltaPnpmVersion == null ]]; then
-          voltaPnpmVersion="9.3.0"
+          voltaPnpmVersion="10.10.0"
         fi
 
         echo "node-version=${voltaNodeVersion}">> $GITHUB_OUTPUT
         echo "pnpm-version=${voltaPnpmVersion}">> $GITHUB_OUTPUT
 
     - name: Setup Node
-      uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
+      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
       with:
         node-version: ${{ steps.node-version.outputs.node-version }}
 
