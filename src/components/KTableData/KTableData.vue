@@ -98,7 +98,7 @@
     </template>
 
     <template
-      v-for="slot in getHeaderSlots"
+      v-for="slot in headerSlots"
       :key="slot"
       #[slot]="slotProps"
     >
@@ -109,7 +109,7 @@
     </template>
 
     <template
-      v-for="slot in getHeaderTooltipSlots"
+      v-for="slot in headerTooltipSlots"
       :key="slot"
       #[slot]="slotProps"
     >
@@ -120,7 +120,7 @@
     </template>
 
     <template
-      v-for="slot in getCellSlots"
+      v-for="slot in cellSlots"
       :key="slot"
       #[slot]="slotProps"
     >
@@ -152,7 +152,7 @@
   </KTableView>
 </template>
 
-<script setup lang="ts" generic="const H extends TableDataHeader = TableDataHeader, D extends readonly Record<string, any>[] = readonly Record<string, any>[], O extends string | number = string | number">
+<script setup lang="ts" generic="const Header extends TableDataHeader = TableDataHeader, Data extends readonly Record<string, any>[] = readonly Record<string, any>[], Offset extends string | number = string | number">
 import type { Ref } from 'vue'
 import { ref, watch, computed, onMounted, useId } from 'vue'
 import KTableView from '@/components/KTableView/KTableView.vue'
@@ -181,9 +181,9 @@ import type {
 import { EmptyStateIconVariants } from '@/types'
 import { getInitialPageSize, DEFAULT_PAGE_SIZE } from '@/utilities'
 
-type ColumnKey = TableColumnKey<H>
-type ColumnVisibility = TableColumnVisibility<H>
-type ColumnWidths = TableColumnWidths<H>
+type ColumnKey = TableColumnKey<Header>
+type ColumnVisibility = TableColumnVisibility<Header>
+type ColumnWidths = TableColumnWidths<Header>
 
 const {
   resizeColumns,
@@ -226,17 +226,17 @@ const {
   sortHandlerFunction,
   tooltipTarget,
   ...restProps
-} = defineProps<TableDataProps<H, D, O>>()
+} = defineProps<TableDataProps<Header, Data, Offset>>()
 
-const emit = defineEmits<TableDataEmits<H, D>>()
+const emit = defineEmits<TableDataEmits<Header, Data>>()
 
-const slots = defineSlots<TableDataSlots<H, D>>()
+const slots = defineSlots<TableDataSlots<Header, Data>>()
 
 const { useDebounce, useRequest, useSwrvState, clientSideSorter: defaultClientSideSorter } = useUtilities()
 
 const tableId = useId()
 
-const tableData = ref([]) as Ref<D[number][]>
+const tableData = ref([]) as Ref<Data[number][]>
 const tableHeaders = computed(() => sortable ? headers : headers.map((header) => ({ ...header, sortable: false })))
 const getEmptyStateButtonAppearance = computed((): ButtonAppearance => {
   if (emptyStateButtonAppearance) {
@@ -252,8 +252,8 @@ const pageSize = ref<number>(getInitialPageSize(tablePreferences, paginationAttr
 const filterQuery = ref<string>(searchInput ?? '')
 const sortColumnKey = ref('') as Ref<ColumnKey>
 const sortColumnOrder = ref<SortColumnOrder>('desc')
-const offset = ref(null) as Ref<O | null>
-const offsets = ref([]) as Ref<(O | null)[]>
+const offset = ref(null) as Ref<Offset | null>
+const offsets = ref([]) as Ref<(Offset | null)[]>
 const hasNextPage = ref<boolean>(true)
 const hasInitialized = ref<boolean>(false)
 
@@ -275,19 +275,19 @@ const tablePaginationAttributes = computed((): TablePaginationAttributes => ({
   ...paginationAttributes,
 }))
 
-function isTableColumnSlotName(slot: string): slot is TableColumnSlotName<ColumnKey> {
+const isTableColumnSlotName = (slot: string): slot is TableColumnSlotName<ColumnKey> => {
   return slot.startsWith('column-')
 }
 
-function isTableColumnTooltipSlotName(slot: string): slot is TableColumnTooltipSlotName<ColumnKey> {
+const isTableColumnTooltipSlotName = (slot: string): slot is TableColumnTooltipSlotName<ColumnKey> => {
   return slot.startsWith('tooltip-')
 }
 
-function isTableColumnKey(slot: string): slot is ColumnKey {
+const isTableColumnKey = (slot: string): slot is ColumnKey => {
   return tableHeaders.value.some((header) => header.key === slot)
 }
 
-const getHeaderSlots = computed(() => {
+const headerSlots = computed((): TableColumnSlotName<ColumnKey>[] => {
   if (!slots) {
     return []
   }
@@ -295,7 +295,7 @@ const getHeaderSlots = computed(() => {
   return Object.keys(slots).filter(isTableColumnSlotName)
 })
 
-const getHeaderTooltipSlots = computed(() => {
+const headerTooltipSlots = computed((): TableColumnTooltipSlotName<ColumnKey>[] => {
   if (!slots) {
     return []
   }
@@ -303,7 +303,7 @@ const getHeaderTooltipSlots = computed(() => {
   return Object.keys(slots).filter(isTableColumnTooltipSlotName)
 })
 
-const getCellSlots = computed(() => {
+const cellSlots = computed((): ColumnKey[] => {
   if (!slots) {
     return []
   }
@@ -371,8 +371,8 @@ const initData = () => {
   hasInitialized.value = true
 }
 
-const previousOffset = computed(() => offsets.value[page.value - 1])
-const nextOffset = ref(null) as Ref<O | null>
+const previousOffset = computed((): Offset | null => offsets.value[page.value - 1])
+const nextOffset = ref(null) as Ref<Offset | null>
 
 // once initData() finishes, setting tableFetcherCacheKey to non-falsey value triggers fetch of data
 const tableFetcherCacheKey = computed((): string => {
@@ -479,7 +479,7 @@ const tablePreferencesUpdateHandler = ({ columnWidths: newColumnWidth, columnVis
 
 const tableViewColumnWidths = ref<ColumnWidths | undefined>({})
 const tableViewColumnVisibility = ref<ColumnVisibility | undefined>({})
-const tableDataPreferences = computed((): TablePreferences<H['key']> => ({
+const tableDataPreferences = computed((): TablePreferences<Header['key']> => ({
   pageSize: pageSize.value,
   sortColumnKey: sortColumnKey.value,
   sortColumnOrder: sortColumnOrder.value,

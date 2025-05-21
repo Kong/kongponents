@@ -232,8 +232,8 @@ export interface RowActionsTogglePayload<Row extends Record<string, any> = Recor
 }
 
 type TablePropsShared<
-  K extends string, // column keys
-  D extends readonly Record<string, any>[], // data row
+  Key extends string, // column keys
+  Data extends readonly Record<string, any>[], // data row
 > = {
   /**
    * Allow columns to be resized.
@@ -246,7 +246,7 @@ type TablePropsShared<
    * Column visibility/width.
    * @default {}
    */
-  tablePreferences?: NoInfer<TablePreferences<K>>
+  tablePreferences?: NoInfer<TablePreferences<Key>>
 
   /**
    * Enables hover highlighting to table rows.
@@ -258,30 +258,30 @@ type TablePropsShared<
    * A function that conditionally specifies row attributes on each row.
    * @default () => ({})
    */
-  rowAttrs?: NoInfer<(row: D[number]) => Record<string, any>>
+  rowAttrs?: NoInfer<(row: Data[number]) => Record<string, any>>
 
   /**
    * A function that conditionally turns a row into a link.
    * @default () => ({})
    */
-  rowLink?: NoInfer<(row: D[number]) => RowLink>
+  rowLink?: NoInfer<(row: Data[number]) => RowLink>
 
   /**
    * A function that conditionally specifies whether bulk actions are disabled for a row and the tooltip to display.
    * @default () => true
    */
-  rowBulkActionEnabled?: NoInfer<(row: D[number]) => RowBulkAction>
+  rowBulkActionEnabled?: NoInfer<(row: Data[number]) => RowBulkAction>
 
   /**
    * Provide the name of the data property key to utilize as a unique identifier, or a function that receives the `row` object as a parameter that generates a unique identifier string for each row.
    */
-  rowKey?: NoInfer<keyof D[number] | ((row: D[number]) => string)>
+  rowKey?: NoInfer<keyof Data[number] | ((row: Data[number]) => string)>
 
   /**
    * A function that conditionally specifies cell attributes.
    * @default () => ({})
    */
-  cellAttrs?: NoInfer<(param: CellAttrsParam<K | TableReservedColumnKey, D[number]>) => Record<string, any>>
+  cellAttrs?: NoInfer<(param: CellAttrsParam<Key | TableReservedColumnKey, Data[number]>) => Record<string, any>>
 
   /**
    * A prop that enables a loading skeleton.
@@ -376,13 +376,13 @@ type TablePropsShared<
    * Enable expandable rows.
    * @default () => false
    */
-  rowExpandable?: NoInfer<(row: D[number]) => boolean>
+  rowExpandable?: NoInfer<(row: Data[number]) => boolean>
 
   /**
    * A function that conditionally specifies whether a row is expanded or not.
    * @default () => false
    */
-  rowExpanded?: NoInfer<(row: D[number]) => boolean>
+  rowExpanded?: NoInfer<(row: Data[number]) => boolean>
 
   /**
    * Hide the table header.
@@ -423,7 +423,7 @@ type TablePropsShared<
         ? HTMLElementEventMap[E]
         : Event
       : never,
-    data: NoInfer<D[number]>,
+    data: NoInfer<Data[number]>,
     type: 'row'
   ) => any
 } & {
@@ -442,8 +442,8 @@ type TablePropsShared<
 }
 
 interface TableEmitsShared<
-  K extends string, // column keys
-  D extends readonly Record<string, any>[],
+  Key extends string, // column keys
+  Data extends readonly Record<string, any>[],
 > {
   /**
    * Emitted whenever a cell is clicked.
@@ -453,7 +453,7 @@ interface TableEmitsShared<
   /**
    * emitted whenever a row is clicked.
    */
-  'row-click': [payload: { data: D[number] }]
+  'row-click': [payload: { data: Data[number] }]
 
   /**
    * Emitted when error state action button is clicked.
@@ -468,49 +468,49 @@ interface TableEmitsShared<
   /**
    * Emitted when the user performs sorting, resizes columns or toggles column visibility.
    */
-  'update:table-preferences': [preferences: TablePreferences<K>]
+  'update:table-preferences': [preferences: TablePreferences<Key>]
 
   /**
    * Emitted when user clicks on a sortable column heading.
    */
-  sort: [payload: TableSortPayload<K>]
+  sort: [payload: TableSortPayload<Key>]
 
   /**
    * Emitted when user interacts with checkboxes in bulk actions column.
    */
-  'row-select': [data: D[number][]]
+  'row-select': [data: Data[number][]]
 
   /**
    * Emitted when row is expanded or collapsed (when `rowExpandable` prop is true).
    */
-  'update:row-expanded': [payload: RowExpandPayload<D[number]>]
+  'update:row-expanded': [payload: RowExpandPayload<Data[number]>]
 
   /**
    * Emitted when actions dropdown is opened and closed.
    */
-  'row-actions-toggle': [payload: RowActionsTogglePayload<D[number]>]
+  'row-actions-toggle': [payload: RowActionsTogglePayload<Data[number]>]
 }
 
-type TableSlotsShared<H extends TableViewHeader, D extends readonly Record<string, any>[]> = {
+type TableSlotsShared<Header extends TableViewHeader, Data extends readonly Record<string, any>[]> = {
   /**
    * Slot for passing custom bulk actions trigger element.
    */
-  'bulk-actions'?(props: { selectedRows: D[number][] }): any
+  'bulk-actions'?(props: { selectedRows: Data[number][] }): any
 
   /**
    * Slot for passing bulk action dropdown items.
    */
-  'bulk-action-items'?(props: { selectedRows: D[number][] }): any
+  'bulk-action-items'?(props: { selectedRows: Data[number][] }): any
 
   /**
    * Slot for passing action dropdown items.
    */
-  'action-items'?(props: { row: D[number] }): any
+  'action-items'?(props: { row: Data[number] }): any
 
   /**
    * Slot for passing custom content that will be revealed once user expands one of the table rows when `rowExpandable` prop is true.
    */
-  'row-expanded'?(props: { row: D[number], columnWidths: TableColumnWidths<H>, nestedHeaders: H[] }): any
+  'row-expanded'?(props: { row: Data[number], columnWidths: TableColumnWidths<Header>, nestedHeaders: Header[] }): any
 
   /**
    * Slot content to be displayed when empty.
@@ -526,42 +526,52 @@ type TableSlotsShared<H extends TableViewHeader, D extends readonly Record<strin
    * Slot content to be displayed when in error state.
    */
   'error-state'?(): any
+
+  'column-actions'?(): (props: { column: TableViewHeader<'actions'> }) => any
+
+  'column-expandable'?(): (props: { column: TableViewHeader<'expandable'> }) => any
+
+  'tooltip-actions'?(): (props: { column: TableViewHeader<'actions'> }) => any
+
+  'tooltip-expandable'?(): (props: { column: TableViewHeader<'expandable'> }) => any
+
+  'tooltip-bulkActions'?(): (props: { column: TableViewHeader<'bulkActions'> }) => any
 } & {
   /**
    * Each column header's content.
    */
-  [K in TableColumnSlotName<H['key']>]?: (props: { column: TableViewHeader<H['key']> }) => any
+  [K in TableColumnSlotName<Header['key']>]?: (props: { column: TableViewHeader<Header['key']> }) => any
 } & {
   /**
    * Each column header's tooltip content.
    */
-  [K in TableColumnTooltipSlotName<H['key']>]?: (props: { column: TableViewHeader<H['key']> }) => any
+  [K in TableColumnTooltipSlotName<Header['key']>]?: (props: { column: TableViewHeader<Header['key']> }) => any
 } & {
   /**
    * Each individual cell's content.
    */
-  [K in H['key']]?: (props: { row: D[number], rowKey: number, rowValue: unknown extends D[number][K] ? any : D[number][K] }) => any
+  [K in Header['key']]?: (props: { row: Data[number], rowKey: number, rowValue: unknown extends Data[number][K] ? any : Data[number][K] }) => any
 }
 
 export interface TableViewProps<
-  H extends TableViewHeader = TableViewHeader, // column
-  D extends readonly Record<string, any>[] = readonly Record<string, any>[], // data row
-> extends TablePropsShared<H['key'], D> {
+  Header extends TableViewHeader = TableViewHeader, // column
+  Data extends readonly Record<string, any>[] = readonly Record<string, any>[], // data row
+> extends TablePropsShared<Header['key'], Data> {
   /**
    * Data to be rendered in the table.
    */
-  data: D
+  data: Data
 
   /**
    * A prop to pass in an array of headers for the table.
    */
-  headers: readonly H[]
+  headers: readonly Header[]
 }
 
 export interface TableViewEmits<
-  H extends TableViewHeader, // column
-  D extends readonly Record<string, any>[], // data row
-> extends TableEmitsShared<H['key'], D> {
+  Header extends TableViewHeader, // column
+  Data extends readonly Record<string, any>[], // data row
+> extends TableEmitsShared<Header['key'], Data> {
   /**
    * Emitted when the page has been changed.
    */
@@ -584,9 +594,9 @@ export interface TableViewEmits<
 }
 
 export type TableViewSlots<
-  H extends TableViewHeader,
-  D extends readonly Record<string, any>[],
-> = TableSlotsShared<H, D> & {
+  Header extends TableViewHeader,
+  Data extends readonly Record<string, any>[],
+> = TableSlotsShared<Header, Data> & {
   /**
    * The toolbar is rendered directly above the table and is useful for providing table controls like search or filter fields.
    */
@@ -594,21 +604,21 @@ export type TableViewSlots<
 }
 
 export interface TableDataProps<
-  H extends TableDataHeader = TableDataHeader,
-  D extends readonly Record<string, any>[] = readonly Record<string, any>[],
-  O extends string | number = string, // offset type
-> extends TablePropsShared<H['key'], D> {
+  Header extends TableDataHeader = TableDataHeader,
+  Data extends readonly Record<string, any>[] = readonly Record<string, any>[],
+  Offset extends string | number = string, // offset type
+> extends TablePropsShared<Header['key'], Data> {
   /**
    * Function that handles data fetching and pagination.
    */
-  fetcher: (params: TableDataFetcherParams<H['key'], O>) =>
-    | Promise<TableDataFetcherResponse<D, O> | undefined>
-    | TableDataFetcherResponse<D, O> | undefined
+  fetcher: (params: TableDataFetcherParams<Header['key'], Offset>) =>
+    | Promise<TableDataFetcherResponse<Data, Offset> | undefined>
+    | TableDataFetcherResponse<Data, Offset> | undefined
 
   /**
    * A prop to pass in an array of headers for the table.
    */
-  headers: readonly H[]
+  headers: readonly Header[]
 
   /**
    * Whenever the cache key is changed the fetcher will automatically be called and attempt to fetch new table data.
@@ -631,7 +641,7 @@ export interface TableDataProps<
    * The fetcher params to be applied to initial fetcher call.
    * @default {}
    */
-  initialFetcherParams?: NoInfer<TableDataFetcherParams<H['key'], O>>
+  initialFetcherParams?: NoInfer<TableDataFetcherParams<Header['key'], Offset>>
 
   /**
    * Whether to enable client-side sorting if using a fetcher that returns unpaginated data.
@@ -642,7 +652,7 @@ export interface TableDataProps<
   /**
    * A custom sort handler function to handle sorting table data for specific columns.
    */
-  sortHandlerFunction?: NoInfer<(param: SortHandlerFunctionParam<H['key'], D[number]>) => D>
+  sortHandlerFunction?: NoInfer<(param: SortHandlerFunctionParam<Header['key'], Data[number]>) => Data[number]>
 
   /**
    * Whether the table sorting is enabled.
@@ -652,9 +662,9 @@ export interface TableDataProps<
 }
 
 export interface TableDataEmits<
-  H extends TableViewHeader, // column
-  D extends readonly Record<string, any>[], // data row
-> extends TableEmitsShared<H['key'], D> {
+  Header extends TableViewHeader, // column
+  Data extends readonly Record<string, any>[], // data row
+> extends TableEmitsShared<Header['key'], Data> {
   /**
    * Emitted when the table state changes.
    */
@@ -662,9 +672,9 @@ export interface TableDataEmits<
 }
 
 export type TableDataSlots<
-  H extends TableViewHeader,
-  D extends readonly Record<string, any>[],
-> = TableSlotsShared<H, D> & {
+  Header extends TableViewHeader,
+  Data extends readonly Record<string, any>[],
+> = TableSlotsShared<Header, Data> & {
   /**
    * The toolbar is rendered directly above the table and is useful for providing table controls like search or filter fields.
    */

@@ -413,7 +413,7 @@
   </div>
 </template>
 
-<script setup lang="ts" generic="const H extends TableViewHeader = TableViewHeader, D extends readonly Record<string, any>[] = readonly Record<string, any>[]">
+<script setup lang="ts" generic="const Header extends TableViewHeader = TableViewHeader, Data extends readonly Record<string, any>[] = readonly Record<string, any>[]">
 import { ref, watch, computed, nextTick, useId, useTemplateRef } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
@@ -426,7 +426,6 @@ import type {
   TableColumnSlotName,
   TableColumnTooltipSlotName,
   SortColumnOrder,
-  TableSortPayload,
   RowLink,
   PageSizeChangeData,
   TableViewProps,
@@ -452,10 +451,10 @@ import { useResizeObserver } from '@vueuse/core'
 import type { CSSProperties, Ref } from 'vue'
 import { mapValues } from 'lodash-es'
 
-type ColumnKey = TableColumnKey<H>
-type ColumnVisibility = TableColumnVisibility<H>
-type ColumnWidths = TableColumnWidths<H>
-type Row = D[number]
+type ColumnKey = TableColumnKey<Header>
+type ColumnVisibility = TableColumnVisibility<Header>
+type ColumnWidths = TableColumnWidths<Header>
+type Row = Data[number]
 
 const {
   resizeColumns,
@@ -491,11 +490,11 @@ const {
   data = [],
   headers = [],
   ...restProps
-} = defineProps<TableViewProps<H, D>>()
+} = defineProps<TableViewProps<Header, Data>>()
 
-const emit = defineEmits<TableViewEmits<H, D>>()
+const emit = defineEmits<TableViewEmits<Header, Data>>()
 
-const slots = defineSlots<TableViewSlots<H, D>>()
+const slots = defineSlots<TableViewSlots<Header, Data>>()
 
 const tableId = useId()
 const { getSizeFromString } = useUtilities()
@@ -620,11 +619,11 @@ const getColumnTooltipSlotName = (columnKey: ColumnKey): TableColumnTooltipSlotN
 */
 const pluckListeners = (prefix: 'onRow:' | 'onCell:', listenerProps: Record<string, unknown>): any => {
   return (entity: unknown, type: 'row' | 'cell') => {
-    const onRE = /^on[^a-z]/
+    const onPattern = /^on[^a-z]/
     const listeners = {} as any
 
     for (const property in listenerProps) {
-      if (onRE.test(property) && !!listenerProps[property]) {
+      if (onPattern.test(property) && !!listenerProps[property]) {
         listeners[property] = listenerProps[property]
       }
     }
@@ -748,7 +747,7 @@ const getHeaderClasses = (column: TableViewHeader<ColumnKey>, index: number): Re
 
 const onHeaderClick = (column: TableViewHeader<ColumnKey>) => {
   if (column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS) {
-    let newSortColumnOrder = 'asc'
+    let newSortColumnOrder: SortColumnOrder = 'asc'
     if (column.key === sortColumnKey.value && sortColumnOrder.value === 'asc') {
       newSortColumnOrder = 'desc'
     }
@@ -756,7 +755,7 @@ const onHeaderClick = (column: TableViewHeader<ColumnKey>) => {
       prevKey: sortColumnKey.value,
       sortColumnKey: column.key,
       sortColumnOrder: newSortColumnOrder,
-    } as TableSortPayload<ColumnKey>)
+    })
     sortClickHandler(column)
   }
 }
@@ -918,13 +917,13 @@ const showPagination = computed((): boolean => {
 })
 
 // Ensure `headers` are reactive.
-watch(() => headers, (newVal: readonly H[]) => {
+watch(() => headers, (newVal: readonly Header[]) => {
   if (newVal && newVal.length) {
     /**
      * Reorder the headers to ensure bulk actions are first and actions are last
      */
 
-    const headers: H[] = newVal.filter((header) => header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS)
+    const headers: Header[] = newVal.filter((header) => header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS)
 
     const bulkActionsHeader = newVal.find((header) => header.key === TableViewHeaderKeys.BULK_ACTIONS)
     const actionsHeader = newVal.find((header) => header.key === TableViewHeaderKeys.ACTIONS)
