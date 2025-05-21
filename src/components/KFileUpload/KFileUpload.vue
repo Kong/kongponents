@@ -6,7 +6,6 @@
     <KLabel
       v-if="label"
       v-bind="labelAttributes"
-      ref="labelElement"
       :for="fileInputId"
       :required="isRequired"
     >
@@ -24,23 +23,23 @@
       <span
         :key="fileInputKey"
         class="file-upload-input-text"
-        :class="{ 'placeholder': !fileValue, 'has-icon': $slots.icon, 'disabled': disabled }"
+        :class="{ 'placeholder': !fileName, 'has-icon': $slots.icon, 'disabled': disabled }"
       >
-        {{ fileValue ? fileValue : placeholder }}
+        {{ fileName ? fileName : placeholder }}
       </span>
 
       <KInput
         :id="fileInputId"
         :key="fileInputKey"
-        ref="fileInputElement"
+        ref="input"
         :accept="accept"
         class="upload-input"
         :disabled="disabled"
-        :error="hasUploadError || error"
+        :error="hasError"
         :error-message="errorMessage || fileSizeErrorMessage"
         :help="help"
-        :max-file-size="maximumFileSize"
         :placeholder="placeholder"
+        title=""
         type="file"
         @change="onFileChange"
       >
@@ -60,7 +59,7 @@
             size="small"
             @click="onButtonClick"
           >
-            {{ fileValue ? 'Clear' : buttonText }}
+            {{ fileName ? 'Clear' : buttonText }}
           </KButton>
         </template>
       </KInput>
@@ -73,7 +72,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-import { computed, ref, useAttrs, useId, watch } from 'vue'
+import { computed, ref, useAttrs, useId, useTemplateRef, watch } from 'vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KButton from '@/components/KButton/KButton.vue'
@@ -112,8 +111,7 @@ const modifiedAttrs = computed(() => {
   return $attrs
 })
 
-const fileInputElement = ref<InstanceType<typeof KInput> | null>(null)
-const labelElement = ref<InstanceType<typeof KLabel> | null>(null)
+const fileInput = useTemplateRef('input')
 const hasLabelTooltip = computed((): boolean => !!(labelAttributes?.info || slots['label-tooltip']))
 const strippedLabel = computed((): string => stripRequiredLabel(label, isRequired.value))
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
@@ -145,64 +143,49 @@ const maximumFileSize = computed((): number => {
   return 5 * 1024 * 1024
 })
 
-const hasUploadError = ref<boolean>(false)
+const hasError = computed(() => hasFileSizeError.value || error)
 
-// This holds the FileList
-const fileInput = ref<File[]>([])
 // To clear the input value after reset
 const fileInputKey = ref<number>(0)
 // File fakepath
-const fileValue = ref<string>('')
-// Array to store the previously selected FileList when user clicks reopen the file uploader and clicks on Cancel
-const fileClone = ref<File[]>([])
+const fileName = ref<string>('')
+// A copy of previously selected FileList to restore when user clicks reopen the file uploader and clicks on Cancel
+const previousFiles = ref<FileList | null>(null)
 
 const onFileChange = (evt: Event): void => {
-  const { files } = evt.target as HTMLInputElement
-  fileInput.value = files ? [...files] : []
-  fileValue.value = String(fileInput.value[0]?.name)
+  // https://html.spec.whatwg.org/multipage/input.html#concept-input-apply
+  // `.files` always exists for `<input type="file">` elements
+  const files = (evt.target as HTMLInputElement).files!
 
-  const fileSize = fileInput.value[0]?.size
+  const fileSize = files[0]?.size
 
-  hasUploadError.value = Number(fileSize) > maximumFileSize.value
-
-  if (hasUploadError.value) {
+  if (Number(fileSize) > maximumFileSize.value) {
     fileInputKey.value++
-
-    if (Number(fileSize) > maximumFileSize.value) {
-      hasFileSizeError.value = true
-    }
-
-    emit('error', fileInput.value)
+    hasFileSizeError.value = true
+    emit('error', files)
   }
 
-  const inputElem = fileInputElement.value?.$el?.querySelector('input') as HTMLInputElement
+  const inputElem = fileInput.value?.$el?.querySelector('input') as HTMLInputElement
 
-  if (fileSize) {
-    // @ts-ignore: allow pusing the file input value to the array
-    fileClone.value.push(fileInput.value)
-  } else if (inputElem) {
-    // @ts-ignore: allow pusing the file input value to the array
-    inputElem.files = fileClone.value[fileClone.value.length - 1]
-    // @ts-ignore: allow the type mismatch here
-    fileInput.value = inputElem.files
-
-    if (inputElem.files) {
-      fileValue.value = String(inputElem.files[inputElem.files.length - 1]?.name)
-    }
+  if (files.length) {
+    previousFiles.value = files
+    fileName.value = files[0].name || ''
+    emit('file-added', files)
+  } else {
+    inputElem.files = previousFiles.value
+    fileName.value = previousFiles.value?.[0]?.name || ''
   }
-
-  emit('file-added', fileInput.value)
 }
 
 // When KButton for Select file is clicked
 const onButtonClick = (): void => {
-  if (fileValue.value) {
+  if (fileName.value) {
     resetInput()
 
     return
   }
 
-  const inputEl = fileInputElement.value?.$el?.querySelector('input') as HTMLInputElement
+  const inputEl = fileInput.value?.$el?.querySelector('input') as HTMLInputElement
 
   if (inputEl) {
     // Simulate button click to trigger input click
@@ -212,11 +195,9 @@ const onButtonClick = (): void => {
 
 // When Cancel button is clicked
 const resetInput = (): void => {
-  fileInput.value = []
-  fileValue.value = ''
-  fileClone.value = []
+  previousFiles.value = null
+  fileName.value = ''
   fileInputKey.value++
-  hasUploadError.value = false
   hasFileSizeError.value = false
 
   emit('file-removed')

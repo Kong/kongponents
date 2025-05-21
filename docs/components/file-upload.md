@@ -174,7 +174,7 @@ The events below will fire whenever:
 - `file-removed`: a file is removed
 - `error`: the uploaded file size is greater than `maxFileSize` prop
 
-All of the above 3 events will emit a `JavaScript Array` of type `FileList`. This FileList object provides the `File object` that has following `read-only` properties:
+The `file-added` and `error` events emit a `FileList` object. This `FileList` contains `File` objects with the following **read-only** properties:
 
 - `lastModified` (returns the last modified time of the file, in millisecond since the UNIX epoch)
 - `lastModifiedDate` (returns the last modified Date of the file referenced by the File object)
