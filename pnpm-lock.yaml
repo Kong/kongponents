@@ -97,7 +97,7 @@ importers:
         specifier: ^4.17.12
         version: 4.17.12
       '@types/node':
-        specifier: ^22.15.3
+        specifier: ^22.15.17
         version: 22.15.18
       '@types/sortablejs':
         specifier: ^1.15.8
@@ -196,8 +196,8 @@ importers:
         specifier: ^7.0.0
         version: 7.0.0(stylelint@16.9.0(typescript@5.6.3))
       tsc-alias:
-        specifier: ^1.8.15
-        version: 1.8.15
+        specifier: ^1.8.16
+        version: 1.8.16
       typescript:
         specifier: ^5.6.3
         version: 5.6.3
@@ -4953,8 +4953,8 @@ packages:
     peerDependencies:
       typescript: '>=4.8.4'
 
-  tsc-alias@1.8.15:
-    resolution: {integrity: sha512-yKLVx8ddUurRwhVcS6JFF2ZjksOX2ZWDRIdgt+PQhJBDegIdAdilptiHsuAbx9UFxa16GFrxeKQ2kTcGvR6fkQ==}
+  tsc-alias@1.8.16:
+    resolution: {integrity: sha512-QjCyu55NFyRSBAl6+MTFwplpFcnm2Pq01rR/uxfqJoLMm6X3O14KEGtaSDZpJYaE1bJBGDjD0eSuiIWPe2T58g==}
     engines: {node: '>=16.20.2'}
     hasBin: true
 
@@ -10501,7 +10501,7 @@ snapshots:
     dependencies:
       typescript: 5.6.3
 
-  tsc-alias@1.8.15:
+  tsc-alias@1.8.16:
     dependencies:
       chokidar: 3.6.0
       commander: 9.5.0
