@@ -1,3 +1,10 @@
+## [9.32.3](https://github.com/Kong/kongponents/compare/v9.32.2...v9.32.3) (2025-05-21)
+
+
+### Bug Fixes
+
+* **kfileupload:** fix filelist conversion, simplify code ([#2764](https://github.com/Kong/kongponents/issues/2764)) ([7e9b74e](https://github.com/Kong/kongponents/commit/7e9b74e6a69a951b1621ac13bc8da833873715c2))
+
 ## [9.32.2](https://github.com/Kong/kongponents/compare/v9.32.1...v9.32.2) (2025-05-20)
 
 
