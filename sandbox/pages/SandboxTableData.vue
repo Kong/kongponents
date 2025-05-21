@@ -426,39 +426,6 @@
           </template>
         </KTableData>
       </SandboxSectionComponent>
-
-
-      <KTableData
-        :fetcher="() => ({
-          data: [
-            { id: 1, name: 'John Doe', username: 'johndoe', email: 'john.doe@example.com' },
-            { id: 2, name: 'Jane Smith', username: 'janesmith', email: 'jane.smith@example.com' },
-            { id: 3, name: 'Alice Johnson', username: 'alicejohnson', email: 'alice.johnson@example.com' },
-            { id: 4, name: 'Bob Brown', username: 'bobbrown', email: 'bob.brown@example.com' },
-          ],
-          total: 4,
-        })"
-        :headers="[
-          { key: 'id', label: 'ID' },
-          { key: 'name', label: 'Name' },
-          { key: 'username', label: 'Username' },
-          { key: 'email', label: 'Email' },
-        ]"
-        @cell:click="e => {}"
-        @cell:keydown="e => {}"
-      >
-        <template #tooltip-email="{ column }">
-          {{ column.label }}
-        </template>
-
-        <template #age="{ rowValue }">
-          {{ rowValue }}
-        </template>
-
-        <template #id="{ rowValue }">
-          {{ rowValue.toUpperCase() }}
-        </template>
-      </KTableData>
     </div>
   </SandboxLayout>
 </template>
