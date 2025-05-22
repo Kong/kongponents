@@ -72,7 +72,7 @@ export interface CatalogFetcherParams {
   offset: string | null
 }
 
-export interface CatalogFetcherResponse<T extends readonly CatalogItem[]> {
+export interface CatalogFetcherResponse<T extends readonly CatalogItem[] = readonly CatalogItem[]> {
   data: T
   total?: number
   pagination?: {
@@ -81,7 +81,7 @@ export interface CatalogFetcherResponse<T extends readonly CatalogItem[]> {
   }
 }
 
-export interface CatalogProps<T extends readonly CatalogItem[]> {
+export interface CatalogProps<T extends readonly CatalogItem[] = readonly CatalogItem[]> {
   /**
    * HTML element you want title to be rendered as.
    * One of ['div', 'p', 'span', 'a', 'legend', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].

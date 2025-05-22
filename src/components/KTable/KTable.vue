@@ -544,9 +544,9 @@ const hasColumnVisibilityMenu = computed((): boolean => {
 // columns whose visibility can be toggled
 const visibilityColumns = computed((): TableHeader[] => tableHeaders.value.filter((header: TableHeader) => header.hidable))
 // visibility preferences from the host app (initialized by app)
-const visibilityPreferences = computed((): Record<string, boolean> => hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
+const visibilityPreferences = computed((): Partial<Record<string, boolean>> => hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
 // current column visibility state
-const columnVisibility = ref<Record<string, boolean>>(hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility || {} : {})
+const columnVisibility = ref<Record<string, boolean>>(hasColumnVisibilityMenu.value ? props.tablePreferences.columnVisibility as Record<string, boolean> || {} : {})
 const total = ref(0)
 const isScrolled = ref(false)
 const page = ref(1)
@@ -680,7 +680,7 @@ const tdlisteners = computed((): any => {
   }
 })
 
-const columnWidths = ref<Record<string, number>>(props.resizeColumns ? props.tablePreferences.columnWidths || {} : {})
+const columnWidths = ref<Record<string, number>>(props.resizeColumns ? props.tablePreferences.columnWidths as Record<string, number> || {} : {})
 const columnStyles = computed(() => {
   const styles: Record<string, any> = {}
   for (const colKey in columnWidths.value) {
@@ -1133,7 +1133,7 @@ watch([query, page, pageSize], async (newData, oldData) => {
 // because hasColumnVisibilityMenu also accounts for error/loading/empty state, we need to watch it
 watch(hasColumnVisibilityMenu, (newVal) => {
   if (newVal) {
-    columnVisibility.value = props.tablePreferences.columnVisibility || {}
+    columnVisibility.value = props.tablePreferences.columnVisibility as Record<string, boolean> || {}
   }
 }, { immediate: true })
 
