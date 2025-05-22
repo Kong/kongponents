@@ -29,11 +29,11 @@
     :row-expandable="rowExpandable"
     :row-expanded="rowExpanded"
     :row-hover="rowHover"
-    :row-key="rowKeyProp"
+    :row-key="rowKey"
     :row-link="rowLink"
     :table-preferences="tablePreferences"
     :tooltip-target="tooltipTarget"
-    v-bind="restProps"
+    v-bind="listenerProps"
     @empty-state-action-click="emit('empty-state-action-click')"
     @error-action-click="emit('error-action-click')"
     @get-next-offset="getNextOffsetHandler"
@@ -180,6 +180,7 @@ import type {
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
 import { getInitialPageSize, DEFAULT_PAGE_SIZE } from '@/utilities'
+import { pickBy } from 'lodash-es'
 
 type ColumnKey = TableColumnKey<Header>
 type ColumnVisibility = TableColumnVisibility<Header>
@@ -192,7 +193,7 @@ const {
   rowAttrs = () => ({}),
   rowLink = () => ({} as RowLink),
   rowBulkActionEnabled = () => true,
-  rowKey: rowKeyProp,
+  rowKey,
   cellAttrs = () => ({}),
   loading,
   emptyStateTitle = 'No Data',
@@ -228,6 +229,13 @@ const {
   ...restProps
 } = defineProps<TableDataProps<Header, Data, Offset>>()
 
+// extract `@cell:<event>` and `@row:<event>` handlers
+const listenerProps = computed(() => {
+  const onPattern = /^on[^a-z]/
+
+  return pickBy(restProps, (_: any, name: string) => onPattern.test(name))
+})
+
 const emit = defineEmits<TableDataEmits<Header, Data>>()
 
 const slots = defineSlots<TableDataSlots<Header, Data>>()
@@ -236,6 +244,8 @@ const { useDebounce, useRequest, useSwrvState, clientSideSorter: defaultClientSi
 
 const tableId = useId()
 
+// Cannot use `ref<Data[number][]>([])` as the items will be inferred incorrectly inside the template.
+// Same applies to other refs that have a generic type.
 const tableData = ref([]) as Ref<Data[number][]>
 const tableHeaders = computed(() => sortable ? headers : headers.map((header) => ({ ...header, sortable: false })))
 const getEmptyStateButtonAppearance = computed((): ButtonAppearance => {
@@ -275,14 +285,17 @@ const tablePaginationAttributes = computed((): TablePaginationAttributes => ({
   ...paginationAttributes,
 }))
 
+// Whether a string is a valid slot name for a table column header
 const isTableColumnSlotName = (slot: string): slot is TableColumnSlotName<ColumnKey> => {
   return slot.startsWith('column-')
 }
 
+// Whether a string is a valid slot name for a table column tooltip
 const isTableColumnTooltipSlotName = (slot: string): slot is TableColumnTooltipSlotName<ColumnKey> => {
   return slot.startsWith('tooltip-')
 }
 
+// Whether a string is a valid slot name for table cells in a column
 const isTableColumnKey = (slot: string): slot is ColumnKey => {
   return tableHeaders.value.some((header) => header.key === slot)
 }
