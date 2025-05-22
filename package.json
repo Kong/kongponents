@@ -43,7 +43,7 @@
     "docs:dev": "vitepress dev docs",
     "docs:serve": "vitepress serve docs",
     "docs:preview": "vitepress preview docs --port 8080",
-    "typecheck": "vue-tsc -p './tsconfig.build.json' --noEmit",
+    "typecheck": "vue-tsc --noEmit",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "stylelint": "stylelint './src/**/*.{css,scss,sass,vue}'",
