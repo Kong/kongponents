@@ -1,3 +1,10 @@
+## [9.32.5](https://github.com/Kong/kongponents/compare/v9.32.4...v9.32.5) (2025-05-26)
+
+
+### Bug Fixes
+
+* **ktable:** ts improvements for ktable* ([#2746](https://github.com/Kong/kongponents/issues/2746)) ([e0a8fb0](https://github.com/Kong/kongponents/commit/e0a8fb0006bb58ad4e5f9d4c6d6be16c9bd1929d))
+
 ## [9.32.4](https://github.com/Kong/kongponents/compare/v9.32.3...v9.32.4) (2025-05-21)
 
 
