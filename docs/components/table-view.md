@@ -1537,7 +1537,7 @@ Refer to [`data` prop usage](#data) for example.
 
 ### empty-state-action-click
 
-Emitted when empty state action button is clocked.
+Emitted when empty state action button is clicked.
 
 ### error-action-click
 
