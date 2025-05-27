@@ -1,3 +1,10 @@
+## [9.32.6](https://github.com/Kong/kongponents/compare/v9.32.5...v9.32.6) (2025-05-27)
+
+
+### Bug Fixes
+
+* **ktabledata:** fix sorthandler type and respect its return value ([#2772](https://github.com/Kong/kongponents/issues/2772)) ([c54368c](https://github.com/Kong/kongponents/commit/c54368cbb50ffeb70fd607d0525975547bd711a3))
+
 ## [9.32.5](https://github.com/Kong/kongponents/compare/v9.32.4...v9.32.5) (2025-05-26)
 
 
