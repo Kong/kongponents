@@ -457,12 +457,18 @@ const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortO
 
   if (clientSort) {
     if (useSortHandlerFunction && sortHandlerFunction) {
-      sortHandlerFunction({
+      const sorted = sortHandlerFunction({
         key: columnKey,
         prevKey,
         sortColumnOrder: sortColumnOrder.value,
         data: tableData.value,
       })
+
+      // As `sortHandlerFunction` was marked as returning an array but we didn't use the return value
+      // before, we can keep the old behavior when nothing is returned but use the returned value if it exists.
+      if (sorted) {
+        tableData.value = [...sorted]
+      }
     } else {
       defaultClientSideSorter(columnKey, prevKey, sortColumnOrder.value, tableData.value)
     }
