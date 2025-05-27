@@ -652,7 +652,7 @@ export interface TableDataProps<
   /**
    * A custom sort handler function to handle sorting table data for specific columns.
    */
-  sortHandlerFunction?: NoInfer<(param: SortHandlerFunctionParam<Header['key'], Data[number]>) => Data[number]>
+  sortHandlerFunction?: NoInfer<(param: SortHandlerFunctionParam<Header['key'], Data[number]>) => Data>
 
   /**
    * Whether the table sorting is enabled.
