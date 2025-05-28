@@ -29,7 +29,6 @@
         :min="min"
         :step="step"
         type="range"
-        :value="value"
       >
 
       <datalist :id="`${inputId}-markers`">
