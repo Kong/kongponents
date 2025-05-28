@@ -21,7 +21,7 @@
 
       <input
         :id="`${inputId}-input`"
-        v-model.number="value"
+        v-model.number="inputValue"
         data-testid="slider-input"
         :disabled="disabled"
         :list="`${inputId}-markers`"
@@ -29,7 +29,7 @@
         :min="min"
         :step="step"
         type="range"
-        @input="emit('change', value)"
+        @input="emit('change', inputValue)"
       >
 
       <datalist :id="`${inputId}-markers`">
@@ -78,9 +78,9 @@ const emit = defineEmits<SliderEmits>()
 
 const inputId = useId()
 
-const lowerRangeTrackStyles = computed(() => ({ width: getValuePercent(value.value!) }))
+const lowerRangeTrackStyles = computed(() => ({ width: getValuePercent(inputValue.value!) }))
 
-const value = defineModel({ type: Number, default: 5 })
+const inputValue = defineModel({ type: Number, default: 5 })
 
 const isMarkWithinRange = (value: number): boolean => {
   return value >= min && value <= max
