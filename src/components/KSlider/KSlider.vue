@@ -29,6 +29,7 @@
         :min="min"
         :step="step"
         type="range"
+        @input="emit('change', value)"
       >
 
       <datalist :id="`${inputId}-markers`">
@@ -58,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useId, watch } from 'vue'
+import { computed, useId } from 'vue'
 import type { SliderProps, SliderEmits } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
 
@@ -120,10 +121,6 @@ const rangeMarks = computed((): { label: string, value: number }[] => {
 })
 
 const getValuePercent = (value: number): string => `${((value - min) / (max - min)) * 100}%`
-
-watch(value, (newValue) => {
-  emit('change', newValue)
-})
 </script>
 
 <style scoped lang="scss">
