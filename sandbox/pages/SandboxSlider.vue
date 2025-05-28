@@ -18,28 +18,28 @@
       <SandboxSectionComponent title="min, max, step & showMarks">
         <KSlider
           v-model="vModel2"
-          :min="40"
           :max="100"
-          :step="5"
+          :min="40"
           show-marks
+          :step="5"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="marks">
         <KSlider
           v-model="vModel3"
           label="API requests (monthly in million)"
-          :min="1"
-          :max="10"
           :marks="simpleMarks"
+          :max="10"
+          :min="1"
         />
         <KSlider
-          label="How likely are you to recommend Kong to a friend or colleague?"
           v-model="userRating"
+          label="How likely are you to recommend Kong to a friend or colleague?"
           :marks="ratingMarks"
         />
       </SandboxSectionComponent>
 
-       <!-- Events -->
+      <!-- Events -->
       <SandboxTitleComponent
         is-subtitle
         title="Events"
