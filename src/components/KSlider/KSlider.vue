@@ -1,8 +1,11 @@
 <template>
-  <div class="k-slider">
+  <div
+    class="k-slider"
+    data-testid="k-slider"
+  >
     <KLabel
-      v-bind="labelAttributes"
       v-if="label"
+      v-bind="labelAttributes"
       :for="`${inputId}-input`"
     >
       {{ label }}
@@ -19,12 +22,14 @@
       <input
         :id="`${inputId}-input`"
         v-model.number="value"
+        data-testid="slider-input"
         :disabled="disabled"
         :list="`${inputId}-markers`"
         :max="max"
         :min="min"
         :step="step"
         type="range"
+        :value="value"
       >
 
       <datalist :id="`${inputId}-markers`">
@@ -54,8 +59,9 @@
 </template>
 
 <script setup lang="ts">
-import type { SliderProps, SliderEmits } from '@/types'
 import { computed, useId, watch } from 'vue'
+import type { SliderProps, SliderEmits } from '@/types'
+import KLabel from '@/components/KLabel/KLabel.vue'
 
 const {
   label = '',
