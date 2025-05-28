@@ -46,3 +46,17 @@ export interface SliderProps {
    */
   disabled?: boolean
 }
+
+export interface SliderEmits {
+  /**
+   * Fired on change, returns the new value of the slider.
+   */
+  change: [value: number]
+
+  /**
+   * Fired on change, returns the new value of the slider.
+   */
+  'update:modelValue': [modelValue: number]
+}
+
+
