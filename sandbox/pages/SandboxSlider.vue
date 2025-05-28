@@ -38,6 +38,13 @@
           :marks="ratingMarks"
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="labelAttributes">
+        <KSlider
+          v-model="vModel4"
+          label="Slider with a label and tooltip"
+          :label-attributes="{ info: 'This is a tooltip.' }"
+        />
+      </SandboxSectionComponent>
 
       <!-- Events -->
       <SandboxTitleComponent
@@ -46,7 +53,7 @@
       />
       <SandboxSectionComponent title="@change">
         <KSlider
-          v-model="vModel4"
+          v-model="vModel5"
           @change="onChange"
         />
       </SandboxSectionComponent>
@@ -63,6 +70,7 @@ const vModel1 = ref<number>(2)
 const vModel2 = ref<number>(65)
 const vModel3 = ref<number>(10)
 const vModel4 = ref<number>(4)
+const vModel5 = ref<number>(4)
 
 const simpleMarks = [1, 3, 5, 7, 10]
 

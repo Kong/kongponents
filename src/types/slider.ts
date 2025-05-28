@@ -1,3 +1,5 @@
+import type { LabelAttributes } from './label'
+
 export type SliderMark = number | {
   value: number
   label: string
@@ -45,6 +47,13 @@ export interface SliderProps {
    * @default false
    */
   disabled?: boolean
+
+  /**
+   * KSlider has an instance of KLabel for supporting tooltip text.
+   * Use the labelAttributes prop to configure the KLabel's props.
+   * @default {}
+   */
+  labelAttributes?: LabelAttributes
 }
 
 export interface SliderEmits {

@@ -1,6 +1,7 @@
 <template>
   <div class="k-slider">
     <KLabel
+      v-bind="labelAttributes"
       v-if="label"
       :for="`${inputId}-input`"
     >
@@ -45,7 +46,7 @@
           :key="`mark-${mark.value}`"
           :style="{ left: getValuePercent(mark.value!) }"
         >
-          {{ mark.label }}
+          {{ mark.label || mark.value }}
         </span>
       </div>
     </div>
@@ -64,6 +65,7 @@ const {
   showMarks = false,
   marks = [],
   disabled = false,
+  labelAttributes = {},
 } = defineProps<SliderProps>()
 
 const emit = defineEmits<SliderEmits>()
