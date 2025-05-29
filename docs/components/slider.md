@@ -16,6 +16,10 @@ KSlider is a draggable horizontal input for selecting a numeric value within a r
 />
 ```
 
+:::tip NOTE
+Since KSlider doesn't always convey the exact selected value, it's best suited for use cases where precision isn't critical—such as adjusting volume or rating satisfaction. For scenarios requiring precise input, use [KInput type="number"](/components/input#attribute-binding) instead.
+:::
+
 ## Props
 
 ### v-model
@@ -186,6 +190,10 @@ Boolean to control whether or not the input should be disabled.
 Use the `labelAttributes` prop to configure the KLabel's [props](/components/label) when using the `label` prop.
 
 ## Events
+
+### update:modelValue
+
+Fired on change, returns the new value of the slider.
 
 ### change
 
