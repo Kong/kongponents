@@ -66,15 +66,15 @@ String to be used as label. Default value is empty string (`''`).
 
 ### min
 
-Minimum value of the range. Default value is `0`.
+Minimum value of the range (number). Default value is `0`.
 
 ### max
 
-Minimum value of the range. Default value is `10`.
+Minimum value of the range (number). Default value is `10`.
 
 ### step
 
-Step value. Default value is `1`.
+Step value (number). Default value is `1`.
 
 <KSlider
   v-model="vModel4"
@@ -119,6 +119,10 @@ Defaults to `false`.
 ### marks
 
 The `marks` prop is useful for displaying custom labels or marks at specific values. It accepts an array of numbers or an array of objects with `label` and `value` properties: `{ label: string, value: number }`.
+
+:::tip NOTE
+If `showMarks` prop is `true`, the values provided through this prop take precedence over default marks generate by KSlider.
+:::
 
 <KSlider
   :marks="[1, 3, 5, 7, 10]"
