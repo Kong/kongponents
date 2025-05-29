@@ -4,14 +4,14 @@ KSlider is a draggable horizontal input for selecting a numeric value within a r
 
 <KSlider
   v-model="vModel1"
-  label="How many nodes do you want to run in this cluster?"
+  label="Select a random number in the range from 1 to 10"
   :min="1"
 />
 
 ```html
 <KSlider
   v-model="nodesCount"
-  label="How many nodes do you want to run in this cluster?"
+  label="Select a random number in the range from 1 to 10"
   :min="1"
 />
 ```
@@ -28,7 +28,7 @@ KSlider works with `v-model` for two-way data binding.
 
 <KSlider
   v-model="vModel2"
-  label="How many nodes do you want to run in this cluster?"
+  label="Select a random number in the range from 1 to 10"
   :min="1"
 />
 
@@ -36,7 +36,7 @@ KSlider works with `v-model` for two-way data binding.
 <template>
   <KSlider
     v-model="nodesCount"
-    label="How many nodes do you want to run in this cluster?"
+    label="Select a random number in the range from 1 to 10"
     :min="1"
   />
 </template>
@@ -127,7 +127,7 @@ If `showMarks` prop is `true`, the values provided through this prop take preced
 <KSlider
   :marks="[1, 3, 5, 7, 10]"
   v-model="vModel6"
-  label="API requests (monthly in millions)"
+  label="Approximate number of API requests (monthly in millions)"
   :max="10"
   :min="1"
 />
@@ -136,7 +136,7 @@ If `showMarks` prop is `true`, the values provided through this prop take preced
 <KSlider
   :marks="[1, 3, 5, 7, 10]"
   v-model="vModel6"
-  label="API requests (monthly in millions)"
+  label="Approximate number of API requests (monthly in millions)"
   :max="10"
   :min="1"
 />

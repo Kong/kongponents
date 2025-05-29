@@ -27,7 +27,7 @@
       <SandboxSectionComponent title="marks">
         <KSlider
           v-model="vModel3"
-          label="API requests (monthly in million)"
+          label="Approximate number of API requests (monthly in million)"
           :marks="simpleMarks"
           :max="10"
           :min="1"
