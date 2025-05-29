@@ -65,7 +65,7 @@ import KLabel from '@/components/KLabel/KLabel.vue'
 
 interface SliderMarkObject {
   label: string
-  value: number 
+  value: number
 }
 
 const {
