@@ -19,6 +19,29 @@
         :style="lowerRangeTrackStyles"
       />
 
+      <KPop
+        :disabled="disabled || !showValue"
+        ref="thumbPopover"
+        aria-hidden="true"
+        trigger="hover"
+        hide-close-icon
+        placement="top"
+        width="auto"
+        :popover-timeout="500"
+      >
+        <span
+          class="thumb"
+          :class="{ 'is-disabled': disabled }"
+          :style="thumbStyles"
+        />
+
+        <template #content>
+          <span class="input-value">
+            {{ inputValue }}
+          </span>
+        </template>
+      </KPop>
+
       <input
         :id="`${inputId}-input`"
         v-model.number="inputValue"
@@ -29,7 +52,11 @@
         :min="min"
         :step="step"
         type="range"
-        @input="emit('change', inputValue)"
+        @blur="onBlur"
+        @focus="onFocus"
+        @input="onInput"
+        @mouseup="onBlur"
+        @touchend="onBlur"
       >
 
       <datalist :id="`${inputId}-markers`">
@@ -59,7 +86,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useId } from 'vue'
+import { computed, useId, useTemplateRef } from 'vue'
 import type { SliderProps, SliderEmits } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
 
@@ -75,6 +102,7 @@ const {
   step = 1,
   showMarks = false,
   marks = [],
+  showValue = true,
   disabled = false,
   labelAttributes = {},
 } = defineProps<SliderProps>()
@@ -84,6 +112,24 @@ const emit = defineEmits<SliderEmits>()
 const inputId = useId()
 
 const lowerRangeTrackStyles = computed(() => ({ width: getValuePercent(inputValue.value!) }))
+const thumbStyles = computed(() => ({
+  left: getValuePercent(inputValue.value!),
+  transform: `translateX(-${getValuePercent(inputValue.value!)})`,
+}))
+
+const onInput = () => {
+  emit('change', inputValue.value)
+  onFocus()
+}
+
+const thumbPopoverRef = useTemplateRef('thumbPopover')
+
+const onFocus = () => {
+  thumbPopoverRef.value?.showPopover()
+}
+const onBlur = () => {
+  thumbPopoverRef.value?.hidePopover()
+}
 
 const inputValue = defineModel({ type: Number, default: 5 })
 
@@ -133,6 +179,7 @@ const getValuePercent = (value: number): string => `${((value - min) / (max - mi
 
 @mixin sliderRangeTrack {
   background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+  border: none;
   border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
   cursor: pointer;
   height: 4px;
@@ -149,7 +196,14 @@ const getValuePercent = (value: number): string => `${((value - min) / (max - mi
   margin-top: calc(var(--kui-space-30, $kui-space-30) * -1);
   position: relative; // Ensure that the thumb is above the lower track
   width: var(--kui-icon-size-30, $kui-icon-size-30);
-  z-index: 1;
+}
+
+@mixin markContent {
+  color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+  font-family: var(--kui-font-family-text, $kui-font-family-text);
+  font-size: var(--kui-font-size-30, $kui-font-size-30);
+  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+  line-height: var(--kui-line-height-20, $kui-line-height-20);
 }
 
 /* Component styles */
@@ -263,12 +317,9 @@ const getValuePercent = (value: number): string => `${((value - min) / (max - mi
     width: 100%;
 
     span {
+      @include markContent;
+
       bottom: 0;
-      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-      font-family: var(--kui-font-family-text, $kui-font-family-text);
-      font-size: var(--kui-font-size-30, $kui-font-size-30);
-      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-      line-height: var(--kui-line-height-20, $kui-line-height-20);
       padding: $kui-space-0;
       position: absolute;
       white-space: nowrap;
@@ -300,11 +351,21 @@ const getValuePercent = (value: number): string => `${((value - min) / (max - mi
       }
     }
 
-    // hide the lower range track in Firefox because it doesn't allow setting z-index on a thumb so the track is always on top of the thumb
-    @-moz-document url-prefix() {
-      .lower-range-track {
-        display: none;
+    .thumb {
+      @include sliderThumb;
+
+      margin-top: 9px; // Align with the track
+      pointer-events: none;
+      position: absolute;
+      z-index: 1; // Ensure the thumb is above the input
+
+      &.is-disabled {
+        background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
       }
+    }
+
+    .input-value {
+      @include markContent;
     }
   }
 }

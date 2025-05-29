@@ -146,6 +146,7 @@ If `showMarks` prop is `true`, the values provided through this prop take preced
   v-model="vModel7"
   label="How likely are you to recommend Kongponents to a friend or colleague?"
   :marks="ratingMarks"
+  :show-value="false"
 />
 
 ```html
@@ -166,6 +167,7 @@ If `showMarks` prop is `true`, the values provided through this prop take preced
   ]"
   v-model="userRating"
   label="How likely are you to recommend Kongponents to a friend or colleague?"
+  :show-value="false"
 />
 ```
 
@@ -173,13 +175,32 @@ If `showMarks` prop is `true`, the values provided through this prop take preced
 KSlider does not handle collisions between neighboring marks content. Make sure to allocate enough horizontal room to display your custom text.
 :::
 
+### showValue
+
+Boolean that controls whether KSlider should display a popover showing the input value on interaction. Defaults to `true`.
+
+<KSlider
+  :show-value="false"
+  v-model="vModel8"
+  label="Volume"
+/>
+
+
+```html
+<KSlider
+  :show-value="false"
+  v-model="vModel8"
+  label="Volume"
+/>
+```
+
 ### disabled
 
 Boolean to control whether or not the input should be disabled.
 
 <KSlider
   disabled
-  v-model="vModel8"
+  v-model="vModel9"
 />
 
 ```html
@@ -213,7 +234,8 @@ const vModel4 = ref<number>(65)
 const vModel5 = ref<number>(30)
 const vModel6 = ref<number>(6)
 const vModel7 = ref<number>(7)
-const vModel8 = ref<number>(2)
+const vModel8 = ref<number>(0)
+const vModel9 = ref<number>(2)
 
 const ratingMarks = [
   {

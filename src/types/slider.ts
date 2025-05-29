@@ -43,6 +43,12 @@ export interface SliderProps {
   marks?: SliderMark[]
 
   /**
+   * Whether or not to show the value in a popover above the thumb.
+   * @default true
+   */
+  showValue?: boolean
+
+  /**
    * Whether the slider is disabled.
    * @default false
    */

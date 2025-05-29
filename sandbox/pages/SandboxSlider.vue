@@ -24,7 +24,7 @@
           :step="5"
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="marks">
+      <SandboxSectionComponent title="marks & showValue">
         <KSlider
           v-model="vModel3"
           label="Approximate number of API requests (monthly in million)"
@@ -36,6 +36,7 @@
           v-model="userRating"
           label="How likely are you to recommend Kong to a friend or colleague?"
           :marks="ratingMarks"
+          :show-value="false"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="labelAttributes">
