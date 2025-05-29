@@ -17,7 +17,7 @@ KSlider is a draggable horizontal input for selecting a numeric value within a r
 ```
 
 :::tip NOTE
-Since KSlider doesn't always convey the exact selected value, it's best suited for use cases where precision isn't critical and the ranges are generally small — such as adjusting volume or rating satisfaction. For scenarios requiring precise input, use [KInput type="number"](/components/input#attribute-binding) instead.
+KSlider is best used in scenarios such as specifying volume or rating satisfaction, where the ranges are generally small and not all ticks/marks may be labelled. For scenarios requiring precise input in a large range, use [KInput type="number"](/components/input#attribute-binding) instead.
 :::
 
 ## Props

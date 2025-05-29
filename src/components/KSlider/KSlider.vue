@@ -21,7 +21,7 @@
 
       <input
         :id="`${inputId}-input`"
-        v-model.number="inputValue"
+        v-model.number.lazy="inputValue"
         data-testid="slider-input"
         :disabled="disabled"
         :list="`${inputId}-markers`"
