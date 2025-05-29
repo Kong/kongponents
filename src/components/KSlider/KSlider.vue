@@ -20,14 +20,14 @@
       />
 
       <KPop
-        :disabled="disabled || !showValue"
         ref="thumbPopover"
         aria-hidden="true"
-        trigger="hover"
+        :disabled="disabled || !showValue"
         hide-close-icon
         placement="top"
-        width="auto"
         :popover-timeout="500"
+        trigger="hover"
+        width="auto"
       >
         <span
           class="thumb"
