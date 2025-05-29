@@ -49,7 +49,7 @@
         <span
           v-for="mark in rangeMarks"
           :key="`mark-${mark.value}`"
-          :style="{ left: getValuePercent(mark.value!) }"
+          :style="{ left: getValuePercent(mark.value) }"
         >
           {{ mark.label || mark.value }}
         </span>
@@ -62,6 +62,11 @@
 import { computed, useId } from 'vue'
 import type { SliderProps, SliderEmits } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
+
+interface SliderMarkObject {
+  label: string
+  value: number 
+}
 
 const {
   label = '',
@@ -86,10 +91,10 @@ const isMarkWithinRange = (value: number): boolean => {
   return value >= min && value <= max
 }
 
-const rangeMarks = computed((): { label: string, value: number }[] => {
+const rangeMarks = computed((): SliderMarkObject[] => {
   if (marks.length) {
     if (typeof marks[0] === 'object') {
-      return (marks as { label: string, value: number }[])
+      return (marks as SliderMarkObject[])
         .filter(mark => isMarkWithinRange(mark.value))
     }
 
