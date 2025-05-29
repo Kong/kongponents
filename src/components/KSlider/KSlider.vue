@@ -89,6 +89,7 @@
 import { computed, useId, useTemplateRef } from 'vue'
 import type { SliderProps, SliderEmits } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
+import KPop from '@/components/KPop/KPop.vue'
 
 interface SliderMarkObject {
   label: string
@@ -188,7 +189,7 @@ const getValuePercent = (value: number): string => `${((value - min) / (max - mi
 
 @mixin sliderThumb {
   -webkit-appearance: none;
-  background-color: var(--kui-color-background-primary, $kui-color-background-primary);
+  background-color: var(--kui-color-background-transparent, $kui-color-background-transparent); // make the default thumb transparent so it doesn't interfere with the custom thumb
   border: none;
   border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
   cursor: pointer;
@@ -283,7 +284,7 @@ const getValuePercent = (value: number): string => `${((value - min) / (max - mi
     &::-ms-track {
       @include sliderRangeTrack;
 
-      background-color: transparent;
+      background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
       color: transparent;
     }
 
@@ -354,6 +355,7 @@ const getValuePercent = (value: number): string => `${((value - min) / (max - mi
     .thumb {
       @include sliderThumb;
 
+      background-color: var(--kui-color-background-primary, $kui-color-background-primary);
       margin-top: 9px; // Align with the track
       pointer-events: none;
       position: absolute;
