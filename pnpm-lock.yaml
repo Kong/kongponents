@@ -48,7 +48,7 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2(@popperjs/core@2.11.8)(vue@3.5.15(typescript@5.6.3))
       virtua:
-        specifier: ^0.41.0
+        specifier: ^0.41.2
         version: 0.41.2(vue@3.5.15(typescript@5.6.3))
       vue-draggable-next:
         specifier: ^2.2.1
@@ -149,7 +149,7 @@ importers:
         version: 1.1.0
       node-emoji:
         specifier: ^2.1.3
-        version: 2.1.3
+        version: 2.2.0
       picocolors:
         specifier: ^1.1.1
         version: 1.1.1
@@ -3745,10 +3745,6 @@ packages:
 
   node-addon-api@7.1.1:
     resolution: {integrity: sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==}
-
-  node-emoji@2.1.3:
-    resolution: {integrity: sha512-E2WEOVsgs7O16zsURJ/eH8BqhF029wGpEOnv7Urwdo2wmQanOACwJQh0devF9D9RhoZru0+9JXIS0dBXIAz+lA==}
-    engines: {node: '>=18'}
 
   node-emoji@2.2.0:
     resolution: {integrity: sha512-Z3lTE9pLaJF47NyMhd4ww1yFTAP8YhYI8SleJiHzM46Fgpm5cnNzSl9XfzFNqbaz+VlJrIj3fXQ4DeN1Rjm6cw==}
@@ -9392,13 +9388,6 @@ snapshots:
 
   node-addon-api@7.1.1:
     optional: true
-
-  node-emoji@2.1.3:
-    dependencies:
-      '@sindresorhus/is': 4.6.0
-      char-regex: 1.0.2
-      emojilib: 2.4.0
-      skin-tone: 2.0.0
 
   node-emoji@2.2.0:
     dependencies:
