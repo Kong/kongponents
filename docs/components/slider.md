@@ -182,7 +182,6 @@ Boolean that controls whether KSlider should display a popover showing the input
 <KSlider
   :show-value="false"
   v-model="vModel8"
-  label="Volume"
 />
 
 
@@ -190,7 +189,6 @@ Boolean that controls whether KSlider should display a popover showing the input
 <KSlider
   :show-value="false"
   v-model="vModel8"
-  label="Volume"
 />
 ```
 
