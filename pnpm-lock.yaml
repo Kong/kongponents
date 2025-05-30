@@ -73,8 +73,8 @@ importers:
         specifier: ^1.11.13
         version: 1.11.13
       '@kong-ui-public/sandbox-layout':
-        specifier: ^2.1.73
-        version: 2.1.73(vue@3.5.15(typescript@5.6.3))
+        specifier: ^2.1.74
+        version: 2.1.74(vue@3.5.15(typescript@5.6.3))
       '@kong/design-tokens':
         specifier: ^1.17.4
         version: 1.17.4
@@ -1054,8 +1054,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@kong-ui-public/sandbox-layout@2.1.73':
-    resolution: {integrity: sha512-lu04k97lcMozqbqMGK6lzuLAOwmpz08hRC5CgM1ODi9vVVkxmnH5JQIjhmx9J7ToypC44H5zLYgUMGms/lKI1w==}
+  '@kong-ui-public/sandbox-layout@2.1.74':
+    resolution: {integrity: sha512-bAoEGANmDRVMficmNEZU2NOpyoVdyEBuWZtnh97dwV+lKiQziCBiLVL7udmLszDBdM5cVPI7T5EJxj0hAaGjgw==}
     peerDependencies:
       vue: '>= 3.3.13 < 4'
 
@@ -6325,7 +6325,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@kong-ui-public/sandbox-layout@2.1.73(vue@3.5.15(typescript@5.6.3))':
+  '@kong-ui-public/sandbox-layout@2.1.74(vue@3.5.15(typescript@5.6.3))':
     dependencies:
       '@kong/icons': 1.29.0(vue@3.5.15(typescript@5.6.3))
       vue: 3.5.15(typescript@5.6.3)
