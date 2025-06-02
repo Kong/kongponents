@@ -1,3 +1,10 @@
+# [9.33.0](https://github.com/Kong/kongponents/compare/v9.32.7...v9.33.0) (2025-06-02)
+
+
+### Features
+
+* add kslider component [KHCP-16430] ([#2773](https://github.com/Kong/kongponents/issues/2773)) ([dbcc283](https://github.com/Kong/kongponents/commit/dbcc2833c53af4d6717d4a96057f74f4fef4a997))
+
 ## [9.32.7](https://github.com/Kong/kongponents/compare/v9.32.6...v9.32.7) (2025-05-30)
 
 
