@@ -6,11 +6,11 @@
     >
       <li
         v-for="tab in tabs"
-        :id="`${tab.hash.replace('#','')}-tab`"
+        :id="`${tab.hash.replace('#', '')}-tab`"
         :key="tab.hash"
         class="tab-item"
         :class="{ active: activeTab === tab.hash }"
-        :data-testid="`${tab.hash.replace('#','')}-tab`"
+        :data-testid="`${tab.hash.replace('#', '')}-tab`"
       >
         <KButton
           appearance="none"
@@ -52,80 +52,46 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import type { PropType } from 'vue'
+<script lang="ts" setup generic="const Hash extends string = string">
 import { ref, watch } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
-import type { Tab } from '@/types'
+import type { StripHash, Tab, TabsEmits, TabsProps, TabsSlots } from '@/types'
 
-const props = defineProps({
-  /**
-   * Array of Tab objects [{ hash: '#tab1', title: 'tab1'}, {hash: '#tab2', title: 'tab2' }]
-   */
-  tabs: {
-    type: Array as PropType<Tab[]>,
-    required: true,
-  },
-  /**
-   * A set tab hash to use as default
-   */
-  modelValue: {
-    type: String,
-    default: '',
-    validator: (val: string): boolean => val === '' || (val.includes('#') && !val.includes(' ')),
-  },
-  /**
-   * Render the tab's corresponding panel container
-   */
-  hidePanels: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * @deprecated
-   */
-  anchorTabindex: {
-    type: Number,
-    default: 0,
-    validator: (val: number): boolean => val >= -1 && val <= 32767,
-  },
-  // async function
-  beforeChange: {
-    type: Function as PropType<(tab: string) => Promise<boolean>>,
-    default: () => true,
-  },
-})
+const {
+  tabs,
+  modelValue = '',
+  hidePanels,
+  anchorTabindex = 0,
+  beforeChange = () => true,
+} = defineProps<TabsProps<Hash>>()
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', val: string): void
-  (e: 'change', val: string): void
-}>()
+const emit = defineEmits<TabsEmits<Hash>>()
 
-const activeTab = ref<string>(props.modelValue ? props.modelValue : props.tabs[0]?.hash)
+defineSlots<TabsSlots<Hash>>()
 
-const handleTabChange = async (tab: string): Promise<void> => {
+const activeTab = ref<Hash | ''>(modelValue ? modelValue : tabs[0]?.hash)
+
+const handleTabChange = async (tab: Hash): Promise<void> => {
   // if beforeChange is not a function, skip the check
-  if (typeof props.beforeChange !== 'function' || await props.beforeChange(tab)) {
+  if (typeof beforeChange !== 'function' || await beforeChange(tab)) {
     activeTab.value = tab
     emit('change', tab)
     emit('update:modelValue', tab)
   }
 }
 
-const getTabSlotName = (tabHash: string): string => tabHash.replace('#', '')
+const getTabSlotName = (tabHash: Hash): StripHash<Hash> => tabHash.replace('#', '') as StripHash<Hash>
 
 const getAnchorTabindex = (tab: Tab): string => {
   if (tab.disabled) {
     return '-1'
   }
 
-  return typeof props.anchorTabindex === 'number' && props.anchorTabindex >= -1 && props.anchorTabindex <= 32767 ? String(props.anchorTabindex) : '0'
+  return typeof anchorTabindex === 'number' && anchorTabindex >= -1 && anchorTabindex <= 32767 ? String(anchorTabindex) : '0'
 }
 
-watch(() => props.modelValue, (newTabHash) => {
+watch(() => modelValue, (newTabHash) => {
   activeTab.value = newTabHash
-  emit('change', newTabHash)
-  emit('update:modelValue', newTabHash)
 })
 </script>
 
