@@ -33,6 +33,7 @@
 
       <input
         :id="inputId"
+        ref="inputRef"
         :aria-describedby="helpText ? helpTextId : undefined"
         :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
         class="input"
@@ -90,7 +91,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, useSlots, useAttrs, onMounted, nextTick, useId } from 'vue'
+import { computed, ref, watch, useSlots, useAttrs, onMounted, nextTick, useId, useTemplateRef } from 'vue'
 import type { InputProps, InputEmits, InputSlots } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
@@ -139,6 +140,7 @@ const inputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
 const helpTextId = useId()
 const strippedLabel = computed((): string => stripRequiredLabel(label, isRequired.value))
 const hasLabelTooltip = computed((): boolean => !!(labelAttributes?.info || slots['label-tooltip']))
+const input$ = useTemplateRef('inputRef')
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
@@ -244,6 +246,19 @@ const getValue = (): string | number => {
   // Use the modelValue only if it was initialized to something and the value hasn't been changed
   return currValue.value || modelValueChanged.value ? currValue.value : modelValue
 }
+
+const focus = () => {
+  input$.value?.focus?.()
+}
+
+const blur = () => {
+  input$.value?.blur?.()
+}
+
+defineExpose({
+  focus,
+  blur,
+})
 
 watch(() => error, (newVal, oldVal) => {
   if (newVal !== oldVal) {

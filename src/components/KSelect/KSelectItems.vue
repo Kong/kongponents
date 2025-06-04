@@ -1,5 +1,7 @@
 <template>
-  <div ref="itemsContainer">
+  <div
+    ref="itemsContainer"
+  >
     <KSelectItem
       v-for="item in nonGroupedItems"
       :key="item.key"
@@ -89,7 +91,7 @@ const getGroupItems = (group: string) => items?.filter(item => item.group === gr
 
 const itemsContainerRef = useTemplateRef('itemsContainer')
 
-const moveItemFocus = (direction: 'down' | 'up'): void => {
+const moveItemFocus = (direction: 'down' | 'up' | 'current'): void => {
   const container = itemsContainerRef.value
   if (!container) {
     return
@@ -102,6 +104,11 @@ const moveItemFocus = (direction: 'down' | 'up'): void => {
 
   const selectedItem = container.querySelector<HTMLButtonElement>(SELECTED_ITEM_SELECTOR)
 
+  if (selectedItem && direction === 'current') {
+    selectedItem.focus()
+    return
+  }
+
   if (selectedItem) {
     const index = [...items].indexOf(selectedItem)
     items[direction === 'down' ? index + 1 : index - 1]?.focus()
@@ -110,7 +117,13 @@ const moveItemFocus = (direction: 'down' | 'up'): void => {
   }
 }
 
-const onKeyPress = ({ target, key } : KeyboardEvent) => {
+const onKeyPress = (e : KeyboardEvent) => {
+  const { target, key } = e
+  if (key === 'Enter') {
+    e.stopPropagation()
+    e.stopImmediatePropagation()
+  }
+
   if (key === 'ArrowDown' || key === 'ArrowUp') {
     // all selectable items
     const selectableItems = itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>(SELECTABLE_ITEM_SELECTOR)
