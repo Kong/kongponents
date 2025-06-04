@@ -140,7 +140,7 @@ const inputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
 const helpTextId = useId()
 const strippedLabel = computed((): string => stripRequiredLabel(label, isRequired.value))
 const hasLabelTooltip = computed((): boolean => !!(labelAttributes?.info || slots['label-tooltip']))
-const input$ = useTemplateRef('inputRef')
+const inputRef = useTemplateRef('inputRef')
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
@@ -248,11 +248,11 @@ const getValue = (): string | number => {
 }
 
 const focus = () => {
-  input$.value?.focus?.()
+  inputRef.value?.focus?.()
 }
 
 const blur = () => {
-  input$.value?.blur?.()
+  inputRef.value?.blur?.()
 }
 
 defineExpose({

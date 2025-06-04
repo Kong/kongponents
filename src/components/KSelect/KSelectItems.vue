@@ -117,13 +117,7 @@ const moveItemFocus = (direction: 'down' | 'up' | 'current'): void => {
   }
 }
 
-const onKeyPress = (e : KeyboardEvent) => {
-  const { target, key } = e
-  if (key === 'Enter') {
-    e.stopPropagation()
-    e.stopImmediatePropagation()
-  }
-
+const onKeyPress = ({ target, key } : KeyboardEvent) => {
   if (key === 'ArrowDown' || key === 'ArrowUp') {
     // all selectable items
     const selectableItems = itemsContainerRef.value?.querySelectorAll<HTMLButtonElement>(SELECTABLE_ITEM_SELECTOR)
