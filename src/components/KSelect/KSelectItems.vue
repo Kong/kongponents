@@ -1,5 +1,7 @@
 <template>
-  <div ref="itemsContainer">
+  <div
+    ref="itemsContainer"
+  >
     <KSelectItem
       v-for="item in nonGroupedItems"
       :key="item.key"
@@ -89,7 +91,7 @@ const getGroupItems = (group: string) => items?.filter(item => item.group === gr
 
 const itemsContainerRef = useTemplateRef('itemsContainer')
 
-const moveItemFocus = (direction: 'down' | 'up'): void => {
+const moveItemFocus = (direction: 'down' | 'up' | 'current'): void => {
   const container = itemsContainerRef.value
   if (!container) {
     return
@@ -101,6 +103,11 @@ const moveItemFocus = (direction: 'down' | 'up'): void => {
   }
 
   const selectedItem = container.querySelector<HTMLButtonElement>(SELECTED_ITEM_SELECTOR)
+
+  if (selectedItem && direction === 'current') {
+    selectedItem.focus()
+    return
+  }
 
   if (selectedItem) {
     const index = [...items].indexOf(selectedItem)
