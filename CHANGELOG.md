@@ -1,3 +1,11 @@
+## [9.33.1](https://github.com/Kong/kongponents/compare/v9.33.0...v9.33.1) (2025-06-05)
+
+
+### Bug Fixes
+
+* **ktabs:** ts improvements for ktabs ([#2781](https://github.com/Kong/kongponents/issues/2781)) ([48cd9e6](https://github.com/Kong/kongponents/commit/48cd9e64475ee135033a54908fac671dc4691994))
+* **multiselect:** ts improvements for multiselect ([#2711](https://github.com/Kong/kongponents/issues/2711)) ([96635b7](https://github.com/Kong/kongponents/commit/96635b79e17c90965eb507e060d75e05b3365e6e))
+
 # [9.33.0](https://github.com/Kong/kongponents/compare/v9.32.7...v9.33.0) (2025-06-02)
 
 
