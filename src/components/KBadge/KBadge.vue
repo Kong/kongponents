@@ -31,7 +31,7 @@
 import { ref, computed, nextTick, onMounted } from 'vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { BadgeMethodAppearances } from '@/types'
-import useUtilities from '@/composables/useUtilities'
+import { normalizeSize } from '@/utilities/css'
 
 import type { BadgeProps, BadgeSlots } from '@/types'
 
@@ -39,14 +39,12 @@ const {
   appearance = 'info',
   tooltip = '',
   truncationTooltip = false,
-  maxWidth: maxWidthProp = '200',
+  maxWidth: maxWidthProp = '200px',
   iconBefore = true,
   tooltipAttributes = {},
 } = defineProps<BadgeProps>()
 
 defineSlots<BadgeSlots>()
-
-const { getSizeFromString } = useUtilities()
 
 const isMethodBadge = computed(() => {
   return Object.keys(BadgeMethodAppearances).includes(appearance)
@@ -56,7 +54,7 @@ const badgeTextElement = ref<HTMLDivElement | null>()
 
 const isTruncated = ref<boolean>(false)
 
-const maxWidth = computed((): string => getSizeFromString(maxWidthProp))
+const maxWidth = computed((): string => normalizeSize(maxWidthProp))
 
 const setTruncation = async (): Promise<void> => {
   if (badgeTextElement.value) {

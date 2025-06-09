@@ -146,10 +146,8 @@ import 'v-calendar/dist/style.css'
 import { ModeArrayCustom, ModeArrayRelative, ModeDateOnly, DateTimePickerModes } from '@/types'
 import type { DateTimePickerState, TimePeriod, TimeRange, DatePickerModel, ButtonAppearance, DateTimePickerProps, DateTimePickerEmits } from '@/types'
 import { CalIcon } from '@kong/icons'
-import useUtilities from '@/composables/useUtilities'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
-
-const { getSizeFromString } = useUtilities()
+import { normalizeSize } from '@/utilities/css'
 
 const {
   clearButton,
@@ -222,7 +220,7 @@ const vCalendarRules = ref({
 
 const widthStyle = computed((): CSSProperties => {
   return {
-    width: getSizeFromString(width),
+    width: normalizeSize(width),
   }
 })
 

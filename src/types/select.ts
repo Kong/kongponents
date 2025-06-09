@@ -88,7 +88,7 @@ export interface SelectProps<T extends string | number, U extends boolean> {
    * Maximum height for dropdown container.
    * @default '300px'
    */
-  dropdownMaxHeight?: string
+  dropdownMaxHeight?: number | string
 
   /**
    * Label associated with the select element.
@@ -106,7 +106,7 @@ export interface SelectProps<T extends string | number, U extends boolean> {
    * The width of the select and popover's min-width.
    * @default '100%'
    */
-  width?: string
+  width?: number | string
 
   /**
    * Placeholder to be displayed when no item is selected.

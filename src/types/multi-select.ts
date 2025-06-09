@@ -111,13 +111,13 @@ export interface MultiselectProps<T extends string, U extends boolean> {
    * The maximum height of the dropdown.
    * @default '300px'
    */
-  dropdownMaxHeight?: string
+  dropdownMaxHeight?: number | string
 
   /**
    * The width of the multiselect and popover's min-width.
    * @default '100%'
    */
-  width?: string
+  width?: number | string
 
   /**
    * Number of rows of selections to show when focused.

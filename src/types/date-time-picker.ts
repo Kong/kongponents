@@ -1,4 +1,4 @@
-import type { PopPlacements } from './popover'
+import type { PopPlacement } from './popover'
 
 // v-calendar defines these types internally, but does not export them
 export interface SimpleDateParts {
@@ -167,7 +167,7 @@ export interface DateTimePickerProps {
    * Sets the input field to a fixed width.
    * @default '100%'
    */
-  width?: string
+  width?: number | string
 
   /**
    * Whether the input field is disabled.
@@ -180,7 +180,7 @@ export interface DateTimePickerProps {
    * One of ['auto', 'top', 'top-start', 'top-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end', 'bottom', 'bottom-start', 'bottom-end'].
    * @default 'bottom-start'
    */
-  popoverPlacement?: PopPlacements
+  popoverPlacement?: PopPlacement
 }
 
 export interface DateTimePickerEmits {

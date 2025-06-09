@@ -217,16 +217,6 @@ export default function useUtilities() {
   }
 
   /**
-   * Convert a given string to a height with units. If pure number, append `px`.
-   * @param sizeStr A string that can be used for the height of an element.
-   * @returns A string to be used for the height of an element.
-   */
-  const getSizeFromString = (sizeStr: string): string => {
-    const numeric = Number(sizeStr)
-    return !Number.isNaN(numeric) ? `${numeric}px` : sizeStr
-  }
-
-  /**
    * Create a deep clone of an object
    * @param val Object to be cloned
    * @returns Cloned object
@@ -264,7 +254,6 @@ export default function useUtilities() {
     useDebounce,
     clientSideSorter,
     useSwrvState,
-    getSizeFromString,
     cloneDeep,
     stripRequiredLabel,
   }

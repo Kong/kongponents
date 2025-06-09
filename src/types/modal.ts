@@ -67,13 +67,13 @@ export interface ModalProps {
    * Max width of the modal.
    * @default '500px'
    */
-  maxWidth?: string
+  maxWidth?: number | string
 
   /**
    * Max height of the modal.
    * @default 'calc(100vh - 200px)'
    */
-  maxHeight?: string
+  maxHeight?: number | string
 
   /**
    * Whether clicking on backdrop should close the modal.

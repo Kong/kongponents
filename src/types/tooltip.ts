@@ -18,7 +18,7 @@ export interface TooltipProps {
    * Set the max-width of the ktooltip.
    * @default 'none'
    */
-  maxWidth?: string
+  maxWidth?: number | string
 
   /**
    * Text to show in tooltip.

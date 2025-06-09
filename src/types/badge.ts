@@ -38,22 +38,26 @@ export interface BadgeProps {
 
   /**
    * Tooltip text that will be displayed on hover.
+   * @default false
    */
   tooltip?: string
 
   /**
    * Whether tooltip should only be shown when the badge is truncated.
+   * @default true
    */
   truncationTooltip?: boolean
 
   /**
    * Max width to apply truncation at
    * Is superseded by CSS variable if both provided.
+   * @default '200px'
    */
-  maxWidth?: string
+  maxWidth?: number | string
 
   /**
    * A boolean whether or not to show the icon before the badge text (or after).
+   * @default true
    */
   iconBefore?: boolean
 

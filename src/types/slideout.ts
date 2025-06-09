@@ -39,7 +39,7 @@ export interface KSlideoutProps {
    * The maximum width of the slideout.
    * @default '500px'
    */
-  maxWidth?: string
+  maxWidth?: number | string
 
   /**
    * The z-index of the slideout.

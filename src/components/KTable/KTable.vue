@@ -279,8 +279,9 @@ import type {
 import { EmptyStateIconVariants } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './../KTableView/ColumnVisibilityMenu.vue'
+import { normalizeSize } from '@/utilities/css'
 
-const { useDebounce, useRequest, useSwrvState, clientSideSorter: defaultClientSideSorter, getSizeFromString } = useUtilities()
+const { useDebounce, useRequest, useSwrvState, clientSideSorter: defaultClientSideSorter } = useUtilities()
 
 const props = defineProps({
   /**
@@ -561,7 +562,7 @@ const isClickable = ref(false)
 const hasInitialized = ref(false)
 const hasToolbarSlot = computed((): boolean => !!slots.toolbar || hasColumnVisibilityMenu.value)
 const tableWrapperStyles = computed((): Record<string, string> => ({
-  maxHeight: getSizeFromString(props.maxHeight),
+  maxHeight: normalizeSize(props.maxHeight),
 }))
 
 /**

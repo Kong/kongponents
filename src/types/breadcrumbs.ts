@@ -7,7 +7,7 @@ export interface BreadcrumbItem {
   title?: string
   /** Identifier, must be unique for each breadcrumb item */
   key?: string
-  maxWidth?: string
+  maxWidth?: number | string
 }
 
 export interface BreadcrumbProps {
@@ -21,5 +21,5 @@ export interface BreadcrumbProps {
    * Maximum width of each breadcrumb item for truncating to ellipsis.
    * @default '100px'
    */
-  itemMaxWidth?: string
+  itemMaxWidth?: number | string
 }

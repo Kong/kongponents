@@ -38,10 +38,8 @@
 import { computed } from 'vue'
 import KSkeletonBox from '@/components/KSkeleton/KSkeletonBox.vue'
 import { KUI_SPACE_50 } from '@kong/design-tokens'
-import useUtilities from '@/composables/useUtilities'
 import type { SkeletonCardProps, SkeletonCardSlots } from '@/types'
-
-const { getSizeFromString } = useUtilities()
+import { normalizeSize } from '@/utilities/css'
 
 const {
   cardCount,
@@ -52,7 +50,7 @@ defineSlots<SkeletonCardSlots>()
 
 const cardMaxWidth = computed((): string => {
   if (maxWidth) {
-    return getSizeFromString(maxWidth)
+    return normalizeSize(maxWidth)
   }
 
   if (cardCount === 1) {

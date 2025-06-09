@@ -23,7 +23,7 @@
         <span
           v-if="item.text"
           class="breadcrumbs-text"
-          :style="{ maxWidth: item.maxWidth? getSizeFromString(item.maxWidth) : getSizeFromString(itemMaxWidth) }"
+          :style="{ maxWidth: normalizeSize(item.maxWidth ?? itemMaxWidth) }"
         >
           {{ item.text }}
         </span>
@@ -44,15 +44,13 @@
 
 <script setup lang="ts">
 import type { BreadcrumbItem, BreadcrumbProps } from '@/types'
-import useUtilities from '@/composables/useUtilities'
+import { normalizeSize } from '@/utilities/css'
 
 defineOptions({
   inheritAttrs: false,
 })
 
 const { itemMaxWidth = '100px', items } = defineProps<BreadcrumbProps>()
-
-const { getSizeFromString } = useUtilities()
 
 const getComponentAttrs = (item: BreadcrumbItem) => {
   const title = item.title || item.text

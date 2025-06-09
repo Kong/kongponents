@@ -99,12 +99,10 @@
 
 <script setup lang="ts">
 import { onMounted, ref, nextTick, computed, onBeforeUnmount } from 'vue'
-import useUtilities from '@/composables/useUtilities'
 import { ChevronUpIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30, KUI_SPACE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
-
-const { getSizeFromString } = useUtilities()
+import { normalizeSize } from '@/utilities/css'
 
 const props = defineProps({
   rows: {
@@ -230,7 +228,7 @@ const handleToggleClick = async (): Promise<void> => {
 
 const widthStyle = computed((): Record<string, string> => {
   return {
-    width: getSizeFromString(props.width),
+    width: normalizeSize(props.width),
   }
 })
 

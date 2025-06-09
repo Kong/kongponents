@@ -123,7 +123,7 @@ const defaultKPopAttributes: PopoverAttributes = {
 const boundKPopAttributes: PopoverAttributes = {
   ...defaultKPopAttributes,
   ...kpopAttributes,
-  width: width ? width : undefined,
+  width: width || undefined,
   popoverClasses: `${defaultKPopAttributes.popoverClasses} ${kpopAttributes?.popoverClasses || ''}`,
 }
 

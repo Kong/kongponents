@@ -299,6 +299,7 @@ import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
 import { useEventListener } from '@vueuse/core'
 import { getUniqueStringId } from '@/utilities'
+import { normalizeSize } from '@/utilities/css'
 
 // functions used in prop validators
 const getValues = (items: MultiselectItem[]) => {
@@ -327,7 +328,7 @@ type Item = MultiselectItem<Value>
 const attrs = useAttrs()
 const slots = defineSlots<MultiselectSlots<Value>>()
 
-const { getSizeFromString, cloneDeep, stripRequiredLabel } = useUtilities()
+const { cloneDeep, stripRequiredLabel } = useUtilities()
 const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 36
 const DEFAULT_SEARCH_PLACEHOLDER = 'Filter...'
 
@@ -488,7 +489,7 @@ const createKPopAttributes = computed((): PopoverAttributes => {
 })
 
 // Calculate the `.popover-content` max-height
-const popoverContentMaxHeight = computed((): string => getSizeFromString(dropdownMaxHeight))
+const popoverContentMaxHeight = computed((): string => normalizeSize(dropdownMaxHeight))
 
 // TypeScript complains if I bind the original object
 const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
@@ -496,7 +497,7 @@ const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 const widthValue = computed(() => {
   const w = width ? width : '300'
 
-  return getSizeFromString(w)
+  return normalizeSize(w)
 })
 
 const widthStyle = computed(() => {
