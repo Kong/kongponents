@@ -474,6 +474,10 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
 /* Component styles */
 
 .k-datetime-picker {
+  @media (min-width: $kui-breakpoint-phablet) {
+    flex-shrink: 0;
+  }
+
   // For aesthetic purposes when relative time frames are present
   &.set-min-width {
     .popover {
