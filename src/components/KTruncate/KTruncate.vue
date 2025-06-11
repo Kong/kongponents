@@ -98,7 +98,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, nextTick, computed, onBeforeUnmount } from 'vue'
+import { onMounted, ref, nextTick, computed, onBeforeUnmount, watch } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import { ChevronUpIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30, KUI_SPACE_40 } from '@kong/design-tokens'
@@ -113,6 +113,16 @@ const {
   expanded: defaultExpanded = false,
   truncateText,
 } = defineProps<TruncateProps>()
+
+watch(
+  () => rows,
+  (val) => {
+    if (val < 0) {
+      console.warn('KTruncate: "rows" prop cannot be less than 0.')
+    }
+  },
+  { immediate: true },
+)
 
 defineSlots<TruncateSlots>()
 
