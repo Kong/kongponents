@@ -45,4 +45,6 @@ export type LabelAttributes = Pick<LabelProps,
   | 'required'
   | 'tooltipAttributes'
   | 'help'
->
+> & {
+  'data-testid'?: string
+}

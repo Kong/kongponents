@@ -32,6 +32,8 @@
     :row-key="rowKey"
     :row-link="rowLink"
     :table-preferences="tablePreferences"
+    :tooltip-target="tooltipTarget"
+    v-bind="listenerProps"
     @empty-state-action-click="emit('empty-state-action-click')"
     @error-action-click="emit('error-action-click')"
     @get-next-offset="getNextOffsetHandler"
@@ -39,13 +41,13 @@
     @page-change="pageChangeHandler"
     @page-size-change="pageSizeChangeHandler"
     @row-actions-toggle="($event) => $emit('row-actions-toggle', $event)"
-    @row-select="($event: Record<string, any>[]) => emit('row-select', $event)"
+    @row-select="($event) => emit('row-select', $event)"
     @sort="sortHandler"
-    @update:row-expanded="($event: RowExpandPayload) => emit('update:row-expanded', $event)"
+    @update:row-expanded="($event) => emit('update:row-expanded', $event)"
     @update:table-preferences="tablePreferencesUpdateHandler"
   >
     <template
-      v-if="$slots.toolbar && !hideToolbar"
+      v-if="slots.toolbar && !hideToolbar"
       #toolbar
     >
       <slot
@@ -55,108 +57,104 @@
     </template>
 
     <template
-      v-if="$slots['bulk-actions']"
-      #bulk-actions="{ selectedRows }"
+      v-if="slots['bulk-actions']"
+      #bulk-actions="slotProps"
     >
       <slot
         name="bulk-actions"
-        :selected-rows="selectedRows"
+        v-bind="slotProps"
       />
     </template>
 
     <template
-      v-if="$slots['bulk-action-items']"
-      #bulk-action-items="{ selectedRows }"
+      v-if="slots['bulk-action-items']"
+      #bulk-action-items="slotProps "
     >
       <slot
         name="bulk-action-items"
-        :selected-rows="selectedRows"
+        v-bind="slotProps"
       />
     </template>
 
     <template
-      v-if="$slots['error-state']"
+      v-if="slots['error-state']"
       #error-state
     >
       <slot name="error-state" />
     </template>
 
     <template
-      v-if="$slots['empty-state']"
+      v-if="slots['empty-state']"
       #empty-state
     >
       <slot name="empty-state" />
     </template>
 
     <template
-      v-if="$slots['empty-state-action-icon']"
+      v-if="slots['empty-state-action-icon']"
       #empty-state-action-icon
     >
       <slot name="empty-state-action-icon" />
     </template>
 
     <template
-      v-for="slot in getHeaderSlots"
+      v-for="slot in headerSlots"
       :key="slot"
-      #[slot]="{ column }"
+      #[slot]="slotProps"
     >
       <slot
-        :column="column"
         :name="slot"
+        v-bind="slotProps"
       />
     </template>
 
     <template
-      v-for="slot in getHeaderTooltipSlots"
+      v-for="slot in headerTooltipSlots"
       :key="slot"
-      #[slot]="{ column }"
+      #[slot]="slotProps"
     >
       <slot
-        :column="column"
         :name="slot"
+        v-bind="slotProps"
       />
     </template>
 
     <template
-      v-for="slot in getCellSlots"
+      v-for="slot in cellSlots"
       :key="slot"
-      #[slot]="{ row, rowKey, rowValue }"
+      #[slot]="slotProps"
     >
       <slot
         :name="slot"
-        :row="row"
-        :row-key="rowKey"
-        :row-value="rowValue"
+        v-bind="slotProps"
       />
     </template>
 
     <template
-      v-if="$slots['action-items']"
-      #action-items="{ row }"
+      v-if="slots['action-items']"
+      #action-items="slotProps"
     >
       <slot
         name="action-items"
-        :row="row"
+        v-bind="slotProps"
       />
     </template>
 
     <template
-      v-if="$slots['row-expanded']"
-      #row-expanded="{ columnWidths, nestedHeaders, row }"
+      v-if="slots['row-expanded']"
+      #row-expanded="slotProps"
     >
       <slot
-        :column-widths="columnWidths"
         name="row-expanded"
-        :nested-headers="nestedHeaders"
-        :row="row"
+        v-bind="slotProps"
       />
     </template>
   </KTableView>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="const Header extends TableDataHeader = TableDataHeader, Data extends readonly Record<string, any>[] = readonly Record<string, any>[], Offset extends string | number = string | number">
 import type { Ref } from 'vue'
-import { ref, watch, computed, onMounted, useSlots, useId } from 'vue'
+import { ref, watch, computed, onMounted, useId } from 'vue'
 import KTableView from '@/components/KTableView/KTableView.vue'
 import useUtilities from '@/composables/useUtilities'
 import type {
@@ -172,91 +170,100 @@ import type {
   PageChangeData,
   PageSizeChangeData,
   TableState,
-  TableStatePayload,
   SwrvStateData,
   TableDataProps,
-  RowExpandPayload,
-  RowActionsTogglePayload,
+  TableColumnKey,
+  TableColumnVisibility,
+  TableColumnWidths,
+  TableDataEmits,
+  TableDataSlots,
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
 import { getInitialPageSize, DEFAULT_PAGE_SIZE } from '@/utilities'
+import { pickBy } from 'lodash-es'
 
-const props = withDefaults(defineProps<TableDataProps>(), {
-  resizeColumns: false,
-  tablePreferences: () => ({}),
-  rowHover: true,
-  rowAttrs: () => ({}),
-  rowLink: () => ({} as RowLink),
-  rowBulkActionEnabled: () => true,
-  rowKey: '',
-  cellAttrs: () => ({}),
-  loading: false,
-  emptyStateTitle: 'No Data',
-  emptyStateMessage: 'There is no data to display.',
-  emptyStateActionMessage: '',
-  emptyStateIconVariant: EmptyStateIconVariants.Default,
-  error: false,
-  errorStateTitle: 'An error occurred',
-  errorStateMessage: 'Data cannot be displayed due to an error.',
-  errorStateActionMessage: '',
-  maxHeight: 'none',
-  hidePagination: false,
-  paginationAttributes: () => ({}),
-  rowExpandable: () => false,
-  rowExpanded: () => false,
-  hideHeaders: false,
-  nested: false,
-  hidePaginationWhenOptional: false,
-  hideToolbar: false,
-  /**
-   * KTableData props defaults
-   */
-  headers: () => ([]),
-  fetcherCacheKey: '',
-  cacheIdentifier: '',
-  searchInput: '',
-  initialFetcherParams: () => ({}),
-  clientSort: false,
-  sortable: true,
+type ColumnKey = TableColumnKey<Header>
+type ColumnVisibility = TableColumnVisibility<Header>
+type ColumnWidths = TableColumnWidths<Header>
+
+const {
+  resizeColumns,
+  tablePreferences = {},
+  rowHover = true,
+  rowAttrs = () => ({}),
+  rowLink = () => ({} as RowLink),
+  rowBulkActionEnabled = () => true,
+  rowKey,
+  cellAttrs = () => ({}),
+  loading,
+  emptyStateTitle = 'No Data',
+  emptyStateMessage = 'There is no data to display.',
+  emptyStateActionMessage = '',
+  emptyStateIconVariant = EmptyStateIconVariants.Default,
+  emptyStateButtonAppearance,
+  emptyStateActionRoute,
+  error,
+  errorStateTitle = 'An error occurred',
+  errorStateMessage = 'Data cannot be displayed due to an error.',
+  errorStateActionMessage = '',
+  errorStateActionRoute,
+  maxHeight = 'none',
+  hidePagination,
+  paginationAttributes = {},
+  rowExpandable = () => false,
+  rowExpanded = () => false,
+  hideHeaders,
+  nested,
+  hidePaginationWhenOptional,
+  hideToolbar,
+  headers = [],
+  fetcherCacheKey = '',
+  cacheIdentifier = '',
+  searchInput = '',
+  initialFetcherParams = {},
+  clientSort,
+  sortable = true,
+  fetcher,
+  sortHandlerFunction,
+  tooltipTarget,
+  ...restProps
+} = defineProps<TableDataProps<Header, Data, Offset>>()
+
+// extract `@cell:<event>` and `@row:<event>` handlers
+const listenerProps = computed(() => {
+  const onPattern = /^on[^a-z]/
+
+  return pickBy(restProps, (_: any, name: string) => onPattern.test(name))
 })
 
-const slots = useSlots()
+const emit = defineEmits<TableDataEmits<Header, Data>>()
+
+const slots = defineSlots<TableDataSlots<Header, Data>>()
 
 const { useDebounce, useRequest, useSwrvState, clientSideSorter: defaultClientSideSorter } = useUtilities()
 
-const emit = defineEmits<{
-  (e: 'cell-click', value: { data: Record<string, any> }): void
-  (e: 'row-click', value: { data: Record<string, any> }): void
-  (e: 'error-action-click'): void
-  (e: 'empty-state-action-click'): void
-  (e: 'update:table-preferences', preferences: TablePreferences): void
-  (e: 'sort', value: TableSortPayload): void
-  (e: 'state', value: TableStatePayload): void
-  (e: 'row-select', data: Record<string, any>[]): void
-  (e: 'update:row-expanded', data: RowExpandPayload): void
-  (e: 'row-actions-toggle', data: RowActionsTogglePayload): void
-}>()
-
 const tableId = useId()
 
-const tableData = ref<Record<string, any>[]>([])
-const tableHeaders = computed((): TableDataHeader[] => props.sortable ? props.headers : props.headers.map((header) => ({ ...header, sortable: false })))
+// Cannot use `ref<Data[number][]>([])` as the items will be inferred incorrectly inside the template.
+// Same applies to other refs that have a generic type.
+const tableData = ref([]) as Ref<Data[number][]>
+const tableHeaders = computed(() => sortable ? headers : headers.map((header) => ({ ...header, sortable: false })))
 const getEmptyStateButtonAppearance = computed((): ButtonAppearance => {
-  if (props.emptyStateButtonAppearance) {
-    return props.emptyStateButtonAppearance
+  if (emptyStateButtonAppearance) {
+    return emptyStateButtonAppearance
   }
 
-  return props.searchInput ? 'tertiary' : 'primary'
+  return searchInput ? 'tertiary' : 'primary'
 })
 
 const total = ref<number>(0)
 const page = ref<number>(1)
-const pageSize = ref<number>(getInitialPageSize(props.tablePreferences, props.paginationAttributes))
-const filterQuery = ref<string>(props.searchInput ?? '')
-const sortColumnKey = ref<string>('')
+const pageSize = ref<number>(getInitialPageSize(tablePreferences, paginationAttributes))
+const filterQuery = ref<string>(searchInput ?? '')
+const sortColumnKey = ref('') as Ref<ColumnKey>
 const sortColumnOrder = ref<SortColumnOrder>('desc')
-const offset: Ref<string | null> = ref(null)
-const offsets: Ref<Array<any>> = ref([])
+const offset = ref(null) as Ref<Offset | null>
+const offsets = ref([]) as Ref<(Offset | null)[]>
 const hasNextPage = ref<boolean>(true)
 const hasInitialized = ref<boolean>(false)
 
@@ -270,23 +277,30 @@ const defaultFetcherProps = {
 }
 
 const tablePaginationAttributes = computed((): TablePaginationAttributes => ({
-  ...props.paginationAttributes,
   totalCount: total.value,
   initialPageSize: pageSize.value,
   currentPage: page.value,
   offsetPreviousButtonDisabled: !previousOffset.value,
   offsetNextButtonDisabled: !nextOffset.value || !hasNextPage.value,
+  ...paginationAttributes,
 }))
 
-function isTableColumnSlotName(slot: string): slot is TableColumnSlotName {
+// Whether a string is a valid slot name for a table column header
+const isTableColumnSlotName = (slot: string): slot is TableColumnSlotName<ColumnKey> => {
   return slot.startsWith('column-')
 }
 
-function isTableColumnTooltipSlotName(slot: string): slot is TableColumnTooltipSlotName {
+// Whether a string is a valid slot name for a table column tooltip
+const isTableColumnTooltipSlotName = (slot: string): slot is TableColumnTooltipSlotName<ColumnKey> => {
   return slot.startsWith('tooltip-')
 }
 
-const getHeaderSlots = computed((): TableColumnSlotName[] => {
+// Whether a string is a valid slot name for table cells in a column
+const isTableColumnKey = (slot: string): slot is ColumnKey => {
+  return tableHeaders.value.some((header) => header.key === slot)
+}
+
+const headerSlots = computed((): TableColumnSlotName<ColumnKey>[] => {
   if (!slots) {
     return []
   }
@@ -294,7 +308,7 @@ const getHeaderSlots = computed((): TableColumnSlotName[] => {
   return Object.keys(slots).filter(isTableColumnSlotName)
 })
 
-const getHeaderTooltipSlots = computed((): TableColumnTooltipSlotName[] => {
+const headerTooltipSlots = computed((): TableColumnTooltipSlotName<ColumnKey>[] => {
   if (!slots) {
     return []
   }
@@ -302,12 +316,12 @@ const getHeaderTooltipSlots = computed((): TableColumnTooltipSlotName[] => {
   return Object.keys(slots).filter(isTableColumnTooltipSlotName)
 })
 
-const getCellSlots = computed((): string[] => {
+const cellSlots = computed((): ColumnKey[] => {
   if (!slots) {
     return []
   }
 
-  return Object.keys(slots).filter((slot) => tableHeaders.value.some((header) => header.key === slot))
+  return Object.keys(slots).filter(isTableColumnKey)
 })
 
 const sortParams = computed(() => ({
@@ -323,7 +337,7 @@ const cacheKeyParams = computed(() => ({
   page: page.value,
   query: filterQuery.value,
   offset: offset.value,
-  ...props.clientSort ? {} : sortParams.value,
+  ...clientSort ? {} : sortParams.value,
 }))
 
 // We still need all params for the fetcher
@@ -334,7 +348,7 @@ const fetcherParams = computed(() => ({
 
 const isInitialFetch = ref<boolean>(true)
 const fetchData = async () => {
-  const res = await props.fetcher(fetcherParams.value)
+  const res = await fetcher(fetcherParams.value)
 
   isInitialFetch.value = false
 
@@ -347,7 +361,7 @@ const fetchData = async () => {
 const initData = () => {
   const fetcherParams = {
     ...defaultFetcherProps,
-    ...props.initialFetcherParams,
+    ...initialFetcherParams,
   }
 
   // don't allow overriding default settings with undefined values
@@ -355,13 +369,13 @@ const initData = () => {
   pageSize.value = fetcherParams.pageSize ?? defaultFetcherProps.pageSize
   filterQuery.value = fetcherParams.query ?? defaultFetcherProps.query
   sortColumnKey.value = fetcherParams.sortColumnKey ?? defaultFetcherProps.sortColumnKey
-  sortColumnOrder.value = fetcherParams.sortColumnOrder as SortColumnOrder ?? defaultFetcherProps.sortColumnOrder as SortColumnOrder
+  sortColumnOrder.value = fetcherParams.sortColumnOrder ?? defaultFetcherProps.sortColumnOrder
 
-  if (props.clientSort && sortColumnKey.value && sortColumnOrder.value) {
+  if (clientSort && sortColumnKey.value && sortColumnOrder.value) {
     defaultClientSideSorter(sortColumnKey.value, '', sortColumnOrder.value, tableData.value)
   }
 
-  if (props.paginationAttributes?.offset) {
+  if (paginationAttributes?.offset) {
     offset.value = fetcherParams.offset
     offsets.value.push(fetcherParams.offset)
   }
@@ -370,25 +384,25 @@ const initData = () => {
   hasInitialized.value = true
 }
 
-const previousOffset = computed((): string | null => offsets.value[page.value - 1])
-const nextOffset = ref<string | null>(null)
+const previousOffset = computed((): Offset | null => offsets.value[page.value - 1])
+const nextOffset = ref(null) as Ref<Offset | null>
 
 // once initData() finishes, setting tableFetcherCacheKey to non-falsey value triggers fetch of data
 const tableFetcherCacheKey = computed((): string => {
-  if (!props.fetcher || !hasInitialized.value) {
+  if (!fetcher || !hasInitialized.value) {
     return ''
   }
 
   // Set the default identifier to a random string
   let identifierKey: string = tableId
-  if (props.cacheIdentifier) {
-    identifierKey = props.cacheIdentifier
+  if (cacheIdentifier) {
+    identifierKey = cacheIdentifier
   }
 
   identifierKey += `-${JSON.stringify(cacheKeyParams.value)}`
 
-  if (props.fetcherCacheKey) {
-    identifierKey += `-${props.fetcherCacheKey}`
+  if (fetcherCacheKey) {
+    identifierKey += `-${fetcherCacheKey}`
   }
 
   return `k-table_${identifierKey}`
@@ -422,8 +436,8 @@ const stateData = computed((): SwrvStateData => ({
 const tableState = computed((): TableState => fetcherIsLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
 const { debouncedFn: debouncedRevalidate } = useDebounce(_revalidate, 500)
 
-const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortOrder }: TableSortPayload): void => {
-  const header: TableDataHeader = tableHeaders.value.find((header) => header.key === columnKey)!
+const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortOrder }: TableSortPayload<ColumnKey>): void => {
+  const header: TableDataHeader<ColumnKey> = tableHeaders.value.find((header) => header.key === columnKey)!
   const { useSortHandlerFunction } = header
 
   emit('sort', {
@@ -441,18 +455,24 @@ const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortO
   sortColumnKey.value = columnKey
   sortColumnOrder.value = sortOrder as SortColumnOrder
 
-  if (props.clientSort) {
-    if (useSortHandlerFunction && props.sortHandlerFunction) {
-      props.sortHandlerFunction({
+  if (clientSort) {
+    if (useSortHandlerFunction && sortHandlerFunction) {
+      const sorted = sortHandlerFunction({
         key: columnKey,
         prevKey,
         sortColumnOrder: sortColumnOrder.value,
         data: tableData.value,
       })
+
+      // As `sortHandlerFunction` was marked as returning an array but we didn't use the return value
+      // before, we can keep the old behavior when nothing is returned but use the returned value if it exists.
+      if (sorted) {
+        tableData.value = [...sorted]
+      }
     } else {
       defaultClientSideSorter(columnKey, prevKey, sortColumnOrder.value, tableData.value)
     }
-  } else if (!props.paginationAttributes?.offset) {
+  } else if (!paginationAttributes?.offset) {
     debouncedRevalidate()
   }
 }
@@ -468,7 +488,7 @@ const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData) =>
   page.value = 1
 }
 
-const tablePreferencesUpdateHandler = ({ columnWidths: newColumnWidth, columnVisibility: newColumnVisibility }: TablePreferences) => {
+const tablePreferencesUpdateHandler = ({ columnWidths: newColumnWidth, columnVisibility: newColumnVisibility }: TablePreferences<ColumnKey>) => {
   tableViewColumnWidths.value = newColumnWidth
   tableViewColumnVisibility.value = newColumnVisibility
 
@@ -476,9 +496,9 @@ const tablePreferencesUpdateHandler = ({ columnWidths: newColumnWidth, columnVis
   emitTablePreferences()
 }
 
-const tableViewColumnWidths = ref<Record<string, number> | undefined>({})
-const tableViewColumnVisibility = ref<Record<string, boolean> | undefined>({})
-const tableDataPreferences = computed((): TablePreferences => ({
+const tableViewColumnWidths = ref<ColumnWidths | undefined>({})
+const tableViewColumnVisibility = ref<ColumnVisibility | undefined>({})
+const tableDataPreferences = computed((): TablePreferences<Header['key']> => ({
   pageSize: pageSize.value,
   sortColumnKey: sortColumnKey.value,
   sortColumnOrder: sortColumnOrder.value,
@@ -504,15 +524,15 @@ const getPreviousOffsetHandler = (): void => {
 
 const showPagination = computed((): boolean => {
   // if fetcher is not defined or hidePagination is true, don't show pagination
-  if (!props.fetcher || props.hidePagination) {
+  if (!fetcher || hidePagination) {
     return false
   }
 
-  const minPageSize = props.paginationAttributes?.pageSizes?.[0] ?? DEFAULT_PAGE_SIZE
+  const minPageSize = paginationAttributes?.pageSizes?.[0] ?? DEFAULT_PAGE_SIZE
 
   // this logic is built around min page size so that pagination doesn't disappear when a higher value is selected and hidePaginationWhenOptional is true
-  if (props.hidePaginationWhenOptional && page.value === 1) {
-    if (!props.paginationAttributes?.offset) {
+  if (hidePaginationWhenOptional && page.value === 1) {
+    if (!paginationAttributes?.offset) {
       // if using cursor-based pagination, hide pagination when number of items is less than min page size
       return total.value > minPageSize
     } else {
@@ -524,16 +544,16 @@ const showPagination = computed((): boolean => {
   return true
 })
 
-watch(fetcherResponse, (res: Record<string, any>) => {
+watch(fetcherResponse, (res) => {
   if (!res?.data) {
     return
   }
 
-  tableData.value = res.data as Record<string, any>[]
-  total.value = props.paginationAttributes?.totalCount || res.total || res.data?.length || 0
+  tableData.value = [...res.data]
+  total.value = paginationAttributes?.totalCount || res.total || res.data?.length || 0
 
   // if using offset-based pagination, set the next offset
-  if (props.paginationAttributes?.offset) {
+  if (paginationAttributes?.offset) {
     if (!res.pagination?.offset) {
       nextOffset.value = null
     } else {
@@ -545,7 +565,7 @@ watch(fetcherResponse, (res: Record<string, any>) => {
     }
 
     // look for hasNextPage in the response, otherwise default to true
-    hasNextPage.value = (res.pagination && 'hasNextPage' in res.pagination) ? res.pagination.hasNextPage : true
+    hasNextPage.value = (res.pagination && 'hasNextPage' in res.pagination) ? res.pagination.hasNextPage || false : true
   }
 
   // if the data is empty and the page is greater than 1,
@@ -568,7 +588,7 @@ watch([stateData, tableState], (newState) => {
 })
 
 // handles debounce of search query
-watch(() => props.searchInput, (newSearchInput: string) => {
+watch(() => searchInput, (newSearchInput: string) => {
   if (newSearchInput === '') {
     search(newSearchInput)
   } else {

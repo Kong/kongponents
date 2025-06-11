@@ -50,6 +50,7 @@ declare module 'vue' {
     KCopy: typeof components.KCopy
     KTableView: typeof components.KTableView
     KTableData: typeof components.KTableData
+    KSlider: typeof components.KSlider
     // {%%NEW_KONGPONENT%%} (do not remove comment)
   }
 }

@@ -150,7 +150,7 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, watch, onMounted, nextTick, onBeforeUnmount } from 'vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import PaginationOffset from './PaginationOffset.vue'
@@ -388,7 +388,7 @@ onMounted(() => {
   }
 })
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   if (!disablePageJump && !offset) {
     resizeObserver.value?.unobserve(kPaginationElement.value as HTMLDivElement)
   }

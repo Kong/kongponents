@@ -58,7 +58,7 @@ export interface ButtonSlots {
   /**
    * Slot for button text or other content such as an icon.
    */
-  default(): any
+  default?(): any
 }
 
 export const ButtonAppearances: ButtonAppearanceRecord = {

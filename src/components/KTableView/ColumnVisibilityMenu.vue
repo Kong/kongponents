@@ -102,8 +102,7 @@
 
 <script setup lang="ts">
 import { ref, watch, onBeforeMount, onMounted, nextTick, computed } from 'vue'
-import type { PropType } from 'vue'
-import type { TableDataHeader } from '@/types'
+import type { ColumnVisibilityMenuEmits, ColumnVisibilityMenuProps } from '@/types'
 import { debounce } from '@/utilities/debounce'
 import { SearchIcon, CloseIcon, TableColumnsIcon } from '@kong/icons'
 import KButton from '@/components/KButton/KButton.vue'
@@ -114,28 +113,14 @@ import KInput from '@/components/KInput/KInput.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 
-const emit = defineEmits<{
-  (e: 'update', columnVisibility: Record<string, boolean>): void
-}>()
+const {
+  columns,
+  tableId,
+  visibilityPreferences,
+  disabled,
+} = defineProps<ColumnVisibilityMenuProps>()
 
-const props = defineProps({
-  columns: {
-    type: Array as PropType<TableDataHeader[]>,
-    required: true,
-  },
-  tableId: {
-    type: String,
-    required: true,
-  },
-  visibilityPreferences: {
-    type: Object as PropType<Record<string, boolean>>,
-    default: () => ({}),
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-})
+const emit = defineEmits<ColumnVisibilityMenuEmits>()
 
 const isDropdownOpen = ref<boolean>(false)
 const visibilityMap = ref<Record<string, boolean>>({})
@@ -144,8 +129,8 @@ const menuItemsRef = ref<HTMLDivElement>()
 const searchColumnInMenu = ref('')
 
 const initVisibilityMap = (): void => {
-  visibilityMap.value = props.columns.reduce((acc, col: TableDataHeader) => {
-    acc[col.key] = props.visibilityPreferences[col.key] === undefined ? true : props.visibilityPreferences[col.key]
+  visibilityMap.value = columns.reduce((acc, col) => {
+    acc[col.key] = visibilityPreferences[col.key] === undefined ? true : visibilityPreferences[col.key]
 
     return acc
   }, {} as Record<string, boolean>)
@@ -159,12 +144,12 @@ const handleSearch = debounce((search: any) => {
   }
 }, 500)
 
-const filteredItems = computed((): TableDataHeader[] => {
+const filteredItems = computed(() => {
   if (!searchColumnInMenu.value) {
-    return props.columns
+    return columns
   }
 
-  return props.columns.filter(item => {
+  return columns.filter(item => {
     return (item.label ? item.label : item.key).toLowerCase().includes(searchColumnInMenu.value.toLowerCase())
   })
 })
@@ -216,7 +201,7 @@ const setOverflowClass = (el: HTMLDivElement) => {
   el.classList.toggle('is-bottom-overflowing', !isScrolledToBottom)
 }
 
-watch(() => props.visibilityPreferences, () => {
+watch(() => visibilityPreferences, () => {
   initVisibilityMap()
 }, { immediate: true })
 

@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, onMounted, onUnmounted, useId } from 'vue'
+import { computed, ref, watch, onMounted, useId, onBeforeUnmount } from 'vue'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { CopyIcon } from '@kong/icons'
 import KClipboardProvider from '@/components/KClipboardProvider/KClipboardProvider.vue'
@@ -172,7 +172,7 @@ onMounted(() => {
   resizeObserver.value.observe(copyTextElement.value as HTMLDivElement)
 })
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   if (resizeObserver.value) {
     resizeObserver.value.unobserve(copyTextElement.value as HTMLDivElement)
   }

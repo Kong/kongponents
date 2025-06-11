@@ -1,3 +1,103 @@
+## [9.33.1](https://github.com/Kong/kongponents/compare/v9.33.0...v9.33.1) (2025-06-05)
+
+
+### Bug Fixes
+
+* **ktabs:** ts improvements for ktabs ([#2781](https://github.com/Kong/kongponents/issues/2781)) ([48cd9e6](https://github.com/Kong/kongponents/commit/48cd9e64475ee135033a54908fac671dc4691994))
+* **multiselect:** ts improvements for multiselect ([#2711](https://github.com/Kong/kongponents/issues/2711)) ([96635b7](https://github.com/Kong/kongponents/commit/96635b79e17c90965eb507e060d75e05b3365e6e))
+
+# [9.33.0](https://github.com/Kong/kongponents/compare/v9.32.7...v9.33.0) (2025-06-02)
+
+
+### Features
+
+* add kslider component [KHCP-16430] ([#2773](https://github.com/Kong/kongponents/issues/2773)) ([dbcc283](https://github.com/Kong/kongponents/commit/dbcc2833c53af4d6717d4a96057f74f4fef4a997))
+
+## [9.32.7](https://github.com/Kong/kongponents/compare/v9.32.6...v9.32.7) (2025-05-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency virtua to ^0.41.2 ([#2778](https://github.com/Kong/kongponents/issues/2778)) ([637404b](https://github.com/Kong/kongponents/commit/637404b17d5a412a6de49317fdd8f5194f99e8c6))
+
+## [9.32.6](https://github.com/Kong/kongponents/compare/v9.32.5...v9.32.6) (2025-05-27)
+
+
+### Bug Fixes
+
+* **ktabledata:** fix sorthandler type and respect its return value ([#2772](https://github.com/Kong/kongponents/issues/2772)) ([c54368c](https://github.com/Kong/kongponents/commit/c54368cbb50ffeb70fd607d0525975547bd711a3))
+
+## [9.32.5](https://github.com/Kong/kongponents/compare/v9.32.4...v9.32.5) (2025-05-26)
+
+
+### Bug Fixes
+
+* **ktable:** ts improvements for ktable* ([#2746](https://github.com/Kong/kongponents/issues/2746)) ([e0a8fb0](https://github.com/Kong/kongponents/commit/e0a8fb0006bb58ad4e5f9d4c6d6be16c9bd1929d))
+
+## [9.32.4](https://github.com/Kong/kongponents/compare/v9.32.3...v9.32.4) (2025-05-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.29.0 ([#2759](https://github.com/Kong/kongponents/issues/2759)) ([1575dc5](https://github.com/Kong/kongponents/commit/1575dc52e049f2f5c07f094460a29de3d5cddc88))
+* **deps:** update dependency virtua to ^0.41.0 ([#2763](https://github.com/Kong/kongponents/issues/2763)) ([0cc18c9](https://github.com/Kong/kongponents/commit/0cc18c986f1a1371077a34cb5dbd265e09edc58c))
+
+## [9.32.3](https://github.com/Kong/kongponents/compare/v9.32.2...v9.32.3) (2025-05-21)
+
+
+### Bug Fixes
+
+* **kfileupload:** fix filelist conversion, simplify code ([#2764](https://github.com/Kong/kongponents/issues/2764)) ([7e9b74e](https://github.com/Kong/kongponents/commit/7e9b74e6a69a951b1621ac13bc8da833873715c2))
+
+## [9.32.2](https://github.com/Kong/kongponents/compare/v9.32.1...v9.32.2) (2025-05-20)
+
+
+### Bug Fixes
+
+* **ktoaster:** loosen Toast type ([#2765](https://github.com/Kong/kongponents/issues/2765)) ([ec5ef69](https://github.com/Kong/kongponents/commit/ec5ef69a450d3fb1c355edb7e0e117ceee4b11db))
+
+## [9.32.1](https://github.com/Kong/kongponents/compare/v9.32.0...v9.32.1) (2025-05-19)
+
+
+### Bug Fixes
+
+* **types:** use NoInfer to specify source of truth for generic types ([#2760](https://github.com/Kong/kongponents/issues/2760)) ([4b2fe1b](https://github.com/Kong/kongponents/commit/4b2fe1b738cbd3b95a123af680cce1d18ab29241))
+
+# [9.32.0](https://github.com/Kong/kongponents/compare/v9.31.10...v9.32.0) (2025-05-16)
+
+
+### Features
+
+* **ktoaster:** precise typings for ktoaster ([#2744](https://github.com/Kong/kongponents/issues/2744)) ([7715f17](https://github.com/Kong/kongponents/commit/7715f173320daeaa13793d68ddaf1805afe3cb19))
+
+## [9.31.10](https://github.com/Kong/kongponents/compare/v9.31.9...v9.31.10) (2025-05-16)
+
+
+### Bug Fixes
+
+* **ktabledata:** prioritize bound pagination attributes ([#2761](https://github.com/Kong/kongponents/issues/2761)) ([197f3cb](https://github.com/Kong/kongponents/commit/197f3cbbba46a82189c1a2c747b2e2139eb5b30f))
+
+## [9.31.9](https://github.com/Kong/kongponents/compare/v9.31.8...v9.31.9) (2025-05-16)
+
+
+### Bug Fixes
+
+* **types:** mark all slots as optional ([#2756](https://github.com/Kong/kongponents/issues/2756)) ([1b47485](https://github.com/Kong/kongponents/commit/1b474852b453467a5b09215466fceb6d3f7fe6fd))
+
+## [9.31.8](https://github.com/Kong/kongponents/compare/v9.31.7...v9.31.8) (2025-05-14)
+
+
+### Bug Fixes
+
+* **kcodeblock:** docs search height jump [KHCP-14696] ([#2754](https://github.com/Kong/kongponents/issues/2754)) ([d419180](https://github.com/Kong/kongponents/commit/d4191802b7566b1a1f445ef1c5cf451dc7ee4e5c))
+
+## [9.31.7](https://github.com/Kong/kongponents/compare/v9.31.6...v9.31.7) (2025-05-14)
+
+
+### Bug Fixes
+
+* resize-observer not cleaned up ([#2748](https://github.com/Kong/kongponents/issues/2748)) ([74d886b](https://github.com/Kong/kongponents/commit/74d886b1a39dfec35bcfea82019fdccad2529510))
+
 ## [9.31.6](https://github.com/Kong/kongponents/compare/v9.31.5...v9.31.6) (2025-05-13)
 
 

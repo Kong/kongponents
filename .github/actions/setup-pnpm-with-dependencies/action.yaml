@@ -2,8 +2,8 @@ name: Setup PNPM with Dependencies
 description: Reusable composition of setup-node, cache, and pnpm install actions
 inputs:
   nodejs-version:
-    description: 'Version of NodeJS to use (ex: 18.19.1)'
-    default: '18.19.1'
+    description: 'Version of NodeJS to use (ex: 22.14.0)'
+    default: '22.14.0'
   force-install:
     description: When 'true', pnpm install will be executed regardless of a cache hit
     required: false
@@ -30,7 +30,7 @@ runs:
         fi
         voltaPnpmVersion=$(cat package.json|jq -r ".volta.pnpm")
         if [[ $voltaPnpmVersion == null ]]; then
-          voltaPnpmVersion="9.3.0"
+          voltaPnpmVersion="10.10.0"
         fi
 
         echo "node-version=${voltaNodeVersion}">> $GITHUB_OUTPUT
@@ -49,7 +49,7 @@ runs:
 
     - name: Dependency Cache
       id: dependency-cache
-      uses: actions/cache@0c907a75c2c80ebcb7f088228285e798b750cf8f # v4.2.1
+      uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
       with:
         path: |
           ~/.cache/Cypress

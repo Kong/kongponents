@@ -10,7 +10,7 @@ export interface SegmentedControlProps<T extends SegmentedControlOption<string |
   /**
    * The value of the currently selected option.
    */
-  modelValue?: T extends string[] ? T[number] : T extends SegmentedControlOption<string | number | boolean>[] ? T[number]['value'] : never
+  modelValue?: NoInfer<T extends string[] ? T[number] : T extends SegmentedControlOption<string | number | boolean>[] ? T[number]['value'] : never>
 
   /**
    * An array of options for each button.
@@ -47,5 +47,5 @@ export interface SegmentedControlSlots<T extends SegmentedControlOption<string |
   /**
    * Each option's content.
    */
-  'option-label'(props: { option: T extends string[] ? SegmentedControlOption<T[number]> : T[number] }): any
+  'option-label'?(props: { option: T extends string[] ? SegmentedControlOption<T[number]> : T[number] }): any
 }
