@@ -39,7 +39,7 @@ const {
   appearance = 'info',
   tooltip = '',
   truncationTooltip = false,
-  maxWidth: maxWidthProp = '200px',
+  maxWidth = '200px',
   iconBefore = true,
   tooltipAttributes = {},
 } = defineProps<BadgeProps>()
@@ -54,7 +54,7 @@ const badgeTextElement = ref<HTMLDivElement | null>()
 
 const isTruncated = ref<boolean>(false)
 
-const maxWidth = computed((): string => normalizeSize(maxWidthProp))
+const _maxWidth = computed((): string => normalizeSize(maxWidth))
 
 const setTruncation = async (): Promise<void> => {
   if (badgeTextElement.value) {
@@ -112,7 +112,7 @@ $kBadgeMethodWidth: 85px;
   .badge-content-wrapper {
     @include truncate;
 
-    max-width: v-bind('maxWidth');
+    max-width: v-bind('_maxWidth');
   }
 
   :deep(#{$kongponentsKongIconSelector}) {
