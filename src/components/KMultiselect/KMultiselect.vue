@@ -732,9 +732,9 @@ const handleAddItem = (): void => {
 
   const pos = unfilteredItems.value.length + 1
   const item: MultiselectItem<string> = {
-    label: String(filterString.value || '').trim(),
+    label: filterString.value.trim(),
     value: getUniqueStringId(),
-    key: `${sanitizeInput(String(filterString.value || '').trim()).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
+    key: `${sanitizeInput(filterString.value.trim()).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
   }
   emit('item-added', item)
 
