@@ -1,3 +1,10 @@
+## [9.33.3](https://github.com/Kong/kongponents/compare/v9.33.2...v9.33.3) (2025-06-11)
+
+
+### Bug Fixes
+
+* **ktextarea:** ts improvements for ktextarea ([#2783](https://github.com/Kong/kongponents/issues/2783)) ([e83e9fb](https://github.com/Kong/kongponents/commit/e83e9fb12eaf965d8a93955ad6701d1798f822b3))
+
 ## [9.33.2](https://github.com/Kong/kongponents/compare/v9.33.1...v9.33.2) (2025-06-11)
 
 
