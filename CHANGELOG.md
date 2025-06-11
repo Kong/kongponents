@@ -1,3 +1,10 @@
+## [9.33.2](https://github.com/Kong/kongponents/compare/v9.33.1...v9.33.2) (2025-06-11)
+
+
+### Bug Fixes
+
+* **kmultiselect:** do not encode display text ([#2786](https://github.com/Kong/kongponents/issues/2786)) ([10ae2db](https://github.com/Kong/kongponents/commit/10ae2db4b4cafc817c2e71b7578d4d5bfaaa7fa5))
+
 ## [9.33.1](https://github.com/Kong/kongponents/compare/v9.33.0...v9.33.1) (2025-06-05)
 
 
