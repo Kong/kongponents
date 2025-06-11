@@ -828,9 +828,10 @@ const handleAddItem = (): void => {
 
   const pos = unfilteredItems.value.length + 1
   const item: MultiselectItem = {
-    label: sanitizeInput(filterString.value + ''),
+    // label: sanitizeInput(filterString.value + ''),
+    label: filterString.value.trim(),
     value: getUniqueStringId(),
-    key: `${sanitizeInput(filterString.value).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
+    key: `${sanitizeInput(filterString.value.trim()).replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${pos}`,
   }
   emit('item-added', item)
 
@@ -891,8 +892,8 @@ const clearSelection = (): void => {
 }
 
 const onQueryChange = (query: string) => {
-  filterString.value = query
-  emit('query-change', query)
+  filterString.value = query.trim()
+  emit('query-change', query.trim())
 }
 
 const triggerFocus = (evt: any, isToggled: Ref<boolean>):void => {
