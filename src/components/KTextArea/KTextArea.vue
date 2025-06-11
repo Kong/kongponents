@@ -70,104 +70,54 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, watch, useAttrs, useSlots, useId } from 'vue'
-import useUtilities from '@/composables/useUtilities'
-import KLabel from '@/components/KLabel/KLabel.vue'
-import type { TextAreaLimitExceed } from '@/types'
 import { cssSupports, getScrollbarSize, IS_MAYBE_FIREFOX } from '@/utilities/browser'
 
 const DEFAULT_CHARACTER_LIMIT = 2048
 // Firefox has the double click feature built in, so we don't need to calculate the size
 const RESIZE_HANDLE_SIZE = IS_MAYBE_FIREFOX ? 0 : getScrollbarSize()
 const SUPPORT_FIELD_SIZING_CONTENT = cssSupports('field-sizing', 'content')
-
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <script lang="ts" setup>
-const props = defineProps({
-  modelValue: {
-    type: String,
-    default: '',
-  },
-  label: {
-    type: String,
-    default: '',
-  },
-  overlayLabel: {
-    type: Boolean,
-    default: false,
-  },
-  labelAttributes: {
-    type: Object,
-    default: () => ({}),
-  },
-  characterLimit: {
-    type: [Boolean, Number],
-    default: DEFAULT_CHARACTER_LIMIT,
-    // Ensure the characterLimit is greater than zero
-    validator: (limit: number | boolean): boolean => typeof limit === 'number' ? limit > 0 : true,
-  },
-  rows: {
-    type: Number,
-    default: 5,
-  },
-  error: {
-    type: Boolean,
-    default: false,
-  },
-  resizable: {
-    type: Boolean,
-    default: false,
-  },
-  autosize: {
-    type: Boolean,
-    default: false,
-  },
-  help: {
-    type: String,
-    default: '',
-  },
-  /**
-   * @deprecated in favor of `resizable` prop
-   */
-  isResizable: {
-    type: Boolean,
-    default: false,
-    validator: (value: boolean): boolean => {
-      if (value) {
-        console.warn('KTextArea: the `isResizable` prop is deprecated in favor of the `resizable` prop. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#ktextarea')
-      }
+import { ref, computed, watch, useAttrs, useId } from 'vue'
+import useUtilities from '@/composables/useUtilities'
+import KLabel from '@/components/KLabel/KLabel.vue'
+import type { TextAreaProps, TextAreaEmits, TextAreaSlots } from '@/types'
 
-      return true
-    },
-  },
-  /**
-   * @deprecated in favor of `error` prop
-   */
-  hasError: {
-    type: Boolean,
-    default: false,
-    validator: (value: boolean): boolean => {
-      if (value) {
-        console.warn('KTextArea: the `hasError` prop is deprecated in favor of the `error` prop. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#ktextarea')
-      }
-
-      return true
-    },
-  },
+defineOptions({
+  inheritAttrs: false,
 })
 
-const emit = defineEmits<{
-  (e: 'input', val: string): void
-  (e: 'update:modelValue', val: string): void
-  (e: 'char-limit-exceeded', data: TextAreaLimitExceed): void
-}>()
+const {
+  modelValue = '',
+  label = '',
+  labelAttributes = {},
+  characterLimit = DEFAULT_CHARACTER_LIMIT,
+  rows = 5,
+  error,
+  resizable,
+  autosize,
+  help = '',
+  isResizable,
+  hasError,
+} = defineProps<TextAreaProps>()
+
+watch(() => isResizable, (val) => {
+  if (val) {
+    console.warn('KTextArea: `isResizable` prop is deprecated in favor of `resizable` prop. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#ktextarea')
+  }
+}, { immediate: true })
+
+watch(() => hasError, (val) => {
+  if (val) {
+    console.warn('KTextArea: `hasError` prop is deprecated. Please use `error` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#ktextarea')
+  }
+}, { immediate: true })
+
+const emit = defineEmits<TextAreaEmits>()
 
 const attrs = useAttrs()
-const slots = useSlots()
+const slots = defineSlots<TextAreaSlots>()
 
 const { stripRequiredLabel } = useUtilities()
 
@@ -175,18 +125,18 @@ const isRequired = computed((): boolean => attrs?.required !== undefined && Stri
 
 const currValue = ref('') // We need this so that we don't lose the updated value on hover/blur event with label
 
-const strippedLabel = computed((): string => stripRequiredLabel(props.label, isRequired.value))
+const strippedLabel = computed((): string => stripRequiredLabel(label, isRequired.value))
 
-const hasLabelTooltip = computed((): boolean => !!(props.labelAttributes?.help || props.labelAttributes?.info || slots['label-tooltip']))
+const hasLabelTooltip = computed((): boolean => !!(labelAttributes?.help || labelAttributes?.info || slots['label-tooltip']))
 
-const ariaInvalid = computed((): boolean | undefined => props.error || props.hasError || charLimitExceeded.value ? true : undefined)
+const ariaInvalid = computed((): boolean | undefined => error || hasError || charLimitExceeded.value ? true : undefined)
 
 const helpTextKey = ref<number>(0)
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
   get(): string | number {
-    return props.modelValue
+    return modelValue
   },
   set(newValue: string | number): void {
     inputHandler({ target: { value: newValue } })
@@ -206,17 +156,17 @@ const modifiedAttrs = computed((): Record<string, any> => {
 })
 
 const charLimitExceeded = computed((): boolean => {
-  if (typeof props.characterLimit === 'boolean') {
+  if (typeof characterLimit === 'boolean') {
     // only disable if characterLimit is a boolean and false
     // otherwise fallback to default character limit of 2048
-    if (!props.characterLimit) {
+    if (!characterLimit) {
       return false
     } else {
       return currValue.value.length > DEFAULT_CHARACTER_LIMIT
     }
   }
 
-  return currValue.value.length > props.characterLimit
+  return currValue.value.length > characterLimit
 })
 
 const inputHandler = (e: any): void => {
@@ -229,16 +179,16 @@ const inputHandler = (e: any): void => {
 }
 
 const helpText = computed((): string => {
-  const characterLimit = typeof props.characterLimit === 'number' ? props.characterLimit : DEFAULT_CHARACTER_LIMIT
+  const limit = typeof characterLimit === 'number' ? characterLimit : DEFAULT_CHARACTER_LIMIT
 
   // if character limit exceeded, return that error message
   if (charLimitExceeded.value) {
-    return `${currValue.value?.toString().length} / ${characterLimit}`
+    return `${currValue.value?.toString().length} / ${limit}`
   }
 
   // otherwise return the help text
   // if error prop is true it danger styles will be applied
-  return props.help
+  return help
 })
 
 watch(charLimitExceeded, (newVal, oldVal) => {
@@ -246,7 +196,7 @@ watch(charLimitExceeded, (newVal, oldVal) => {
     emit('char-limit-exceeded', {
       value: currValue.value,
       length: currValue.value.length,
-      characterLimit: Number(props.characterLimit),
+      characterLimit: Number(characterLimit),
       limitExceeded: newVal,
     })
 
@@ -262,7 +212,7 @@ watch(value, (newVal, oldVal) => {
 })
 
 const getValue = (): string => {
-  return currValue.value ? currValue.value : props.modelValue
+  return currValue.value ? currValue.value : modelValue
 }
 
 // Double click to restore sizing for browsers except Firefox
