@@ -111,7 +111,7 @@ const { getSizeFromString } = useUtilities()
 const {
   rows = 1,
   width = '100%',
-  expanded: expandedProp,
+  expanded,
   truncateText,
 } = defineProps<TruncateProps>()
 
@@ -127,7 +127,7 @@ watch(
 
 defineSlots<TruncateSlots>()
 
-const expanded = ref<boolean>(expandedProp)
+const _expanded = ref<boolean>(expanded)
 
 const showToggle = ref<boolean>(false)
 
@@ -223,7 +223,7 @@ const countExcessElements = (): void => {
 }
 
 const handleToggleClick = async (): Promise<void> => {
-  expanded.value = !expanded.value
+  _expanded.value = !_expanded.value
   // await for component to collapse/expand
   await nextTick()
   updateToggleVisibility()
