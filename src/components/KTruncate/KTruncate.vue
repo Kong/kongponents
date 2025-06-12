@@ -103,6 +103,7 @@ import useUtilities from '@/composables/useUtilities'
 import { ChevronUpIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30, KUI_SPACE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
+import { warnInvalidProp } from '@/utilities/warning'
 import type { TruncateProps, TruncateSlots } from '@/types'
 
 const { getSizeFromString } = useUtilities()
@@ -110,7 +111,7 @@ const { getSizeFromString } = useUtilities()
 const {
   rows = 1,
   width = '100%',
-  expanded: defaultExpanded = false,
+  expanded: expandedProp,
   truncateText,
 } = defineProps<TruncateProps>()
 
@@ -118,7 +119,7 @@ watch(
   () => rows,
   (val) => {
     if (val < 0) {
-      console.warn('KTruncate: "rows" prop cannot be less than 0.')
+      warnInvalidProp('rows', `\`rows\` prop cannot be less than 0, but got "${val}".`)
     }
   },
   { immediate: true },
@@ -126,7 +127,7 @@ watch(
 
 defineSlots<TruncateSlots>()
 
-const expanded = ref<boolean>(defaultExpanded)
+const expanded = ref<boolean>(expandedProp)
 
 const showToggle = ref<boolean>(false)
 

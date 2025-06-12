@@ -33,14 +33,14 @@ export interface TruncateSlots {
 
   /**
    * Slot for customizing the expand trigger.
-   * @param expand - Function to expand the content.
-   * @param truncatedCount -  Number of elements that overflow(only available when not truncateText).
+   * @param props.expand Function to expand the content.
+   * @param props.truncatedCount  Number of elements that overflow(only available when not truncateText).
    */
   'expand-trigger'?: (props: { expand: () => Promise<void>, truncatedCount?: number }) => any
 
   /**
    * Slot for customizing the collapse trigger.
-   * @param collapse - Function to collapse the content.
+   * @param props.collapse Function to collapse the content.
    */
   'collapse-trigger'?: (props: { collapse: () => Promise<void> }) => any
 }
