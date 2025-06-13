@@ -358,7 +358,7 @@ type TablePropsShared<
    * Limit the table height by passing a number, in pixels.
    * @default 'none'
    */
-  maxHeight?: string
+  maxHeight?: number | string
 
   /**
    * Whether to hide pagination element.

@@ -661,7 +661,7 @@ The passed function receives an object with these parameters as an argument:
 
 ### maxHeight
 
-Limit the table height by passing a number, in pixels. If the table height exceeds the specified number, it will be scrollable. Table header is a `position: sticky;` element and will always be visible.
+Limit the table height by passing a number or string. If the table height exceeds the specified number, it will be scrollable. Table header is a `position: sticky;` element and will always be visible.
 
 <KTableView
   max-height="300"

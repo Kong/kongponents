@@ -107,19 +107,19 @@ export interface PopProps {
    * Width of the popover container.
    * @default '200px'
    */
-  width?: string
+  width?: number | string
 
   /**
    * Maximum width of the popover container.
    * @default 'none'
    */
-  maxWidth?: string
+  maxWidth?: number | string
 
   /**
    * Maximum height of the popover container.
    * @default 'none'
    */
-  maxHeight?: string
+  maxHeight?: number | string
 
   /**
    * List of class names you want to assign to `.k-popover` element.

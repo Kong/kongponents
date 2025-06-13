@@ -42,7 +42,7 @@ const steps = ref<StepItem[]>([
 
 ### maxLabelWidth
 
-The width of step labels (default is `170px`). We support numbers (will be converted to `px`), `auto`, and percentages (e.g. `25%`) for values.
+The width of step labels (default is `170px`). We support any valid CSS length (e.g. `25%`) value.
 
 <KStepper :steps="longSteps" max-label-width="120" />
 

@@ -91,13 +91,13 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, computed, watch, useId } from 'vue'
 import { useFloating, autoUpdate, autoPlacement, flip, shift } from '@floating-ui/vue'
-import type { PopProps, PopEmits, PopSlots, PopPlacements } from '@/types'
+import type { PopProps, PopEmits, PopSlots, PopPlacement } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
-import useUtilities from '@/composables/useUtilities'
 import { CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
 import KPopTeleportWrapper from './KPopTeleportWrapper.vue'
 import { useEventListener } from '@vueuse/core'
+import { normalizeSize } from '@/utilities/css'
 
 const {
   buttonText = '',
@@ -121,8 +121,6 @@ const {
 
 const emit = defineEmits<PopEmits>()
 const slots = defineSlots<PopSlots>()
-
-const { getSizeFromString } = useUtilities()
 
 const popoverId = useId()
 const titleId = useId()
@@ -205,7 +203,7 @@ const clickHandler = (event: Event) => {
  * Converts the placement prop to the correct format for Floating UI
  * E.g.: 'topStart' -> 'top-start'
  */
-const popoverPlacement = computed((): PopPlacements => placement.trim().replace(/ /g, '-').replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? '-' : '') + $.toLowerCase()).replace(/--+/g, '-').replace(/-+$/g, '') as PopPlacements)
+const popoverPlacement = computed((): PopPlacement => placement.trim().replace(/ /g, '-').replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? '-' : '') + $.toLowerCase()).replace(/--+/g, '-').replace(/-+$/g, '') as PopPlacement)
 
 const { floatingStyles, placement: calculatedPlacement, update: updatePosition } = useFloating(popoverTrigger, popoverElement, {
   ...(popoverPlacement.value === 'auto' && { middleware: [autoPlacement()] }), // when placement is auto just use autoPlacement middleware
@@ -220,7 +218,7 @@ const { floatingStyles, placement: calculatedPlacement, update: updatePosition }
   transform: false,
 })
 
-const popoverOffset = computed(() => getSizeFromString(offset))
+const popoverOffset = computed(() => normalizeSize(offset))
 const marginStyles = computed(() => {
   if (calculatedPlacement.value.includes('top')) {
     return {
@@ -253,9 +251,9 @@ const popoverStyles = computed(() => {
 const popoverContainerStyles = computed(() => {
   return {
     ...marginStyles.value,
-    width: getSizeFromString(width),
-    maxWidth: getSizeFromString(maxWidth),
-    maxHeight: getSizeFromString(maxHeight),
+    width: normalizeSize(width),
+    maxWidth: normalizeSize(maxWidth),
+    maxHeight: normalizeSize(maxHeight),
   }
 })
 

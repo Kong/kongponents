@@ -213,6 +213,7 @@ import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
 import { useEventListener } from '@vueuse/core'
 import { getUniqueStringId } from '@/utilities'
+import { normalizeSize } from '@/utilities/css'
 
 type Value = U extends true ? T | string : T
 type Item = SelectItem<Value>
@@ -221,7 +222,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const { getSizeFromString, stripRequiredLabel } = useUtilities()
+const { stripRequiredLabel } = useUtilities()
 
 const {
   modelValue = '',
@@ -314,7 +315,7 @@ const value = computed({
   },
 })
 
-const elementWidth = computed((): string => getSizeFromString(width || '100%'))
+const elementWidth = computed((): string => normalizeSize(width || '100%'))
 const actualElementWidth = ref<string>('') // the pixel value of the element width for KPop container
 
 const modifiedAttrs = computed(() => {
@@ -338,7 +339,7 @@ const createKPopAttributes = computed(() => {
 })
 
 // Calculate the `.popover-content` max-height
-const popoverContentMaxHeight = computed((): string => getSizeFromString(dropdownMaxHeight))
+const popoverContentMaxHeight = computed((): string => normalizeSize(dropdownMaxHeight))
 
 // TypeScript complains if I bind the original object
 const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))

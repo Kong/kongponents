@@ -283,8 +283,7 @@ Use the `labelAttributes` prop to configure the KLabel's [props](/components/lab
 
 ### width
 
-You can pass a `width` string for the dropdown. By default the `width` is `100%`. This is the width of the input, dropdown, and selected item.
-Currently we support numbers (will be converted to `px`), `auto`, and percentages for width.
+You can pass a `width` number or string for the dropdown. By default the `width` is `100%`. This is the width of the input, dropdown, and selected item. Currently we support any valid CSS length value.
 
 ::: tip NOTE
 Because we are controlling the widths of multiple elements, we recommend using this prop to control the width instead of explicitly adding classes or styles to the `KMultiselect` component.
@@ -328,7 +327,7 @@ By default KMultiselect displays selected items as badges. However, you can set 
 
 ### dropdownMaxHeight
 
-You can pass a `dropdownMaxHeight` string for the dropdown. By default, the `dropdownMaxHeight` is `300px`. This is the maximum height of the `KMultiselect` dropdown when open. You can pass a number (will be converted to `px`), `auto`, percentages, or `vh` units.
+You can pass a `dropdownMaxHeight` number or string for the dropdown. By default, the `dropdownMaxHeight` is `300px`. This is the maximum height of the `KMultiselect` dropdown when open. You can pass any valid CSS length value.
 
 <ClientOnly>
   <KMultiselect :items="deepClone(defaultItemsLongList)" dropdown-max-height="150" />

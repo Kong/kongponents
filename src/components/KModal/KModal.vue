@@ -96,15 +96,13 @@ import { FocusTrap } from 'focus-trap-vue'
 import { useTextSelection } from '@vueuse/core'
 import KButton from '@/components/KButton/KButton.vue'
 import type { ModalProps, ModalEmits, ModalSlots } from '@/types'
-import useUtilities from '@/composables/useUtilities'
 import { CloseIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
+import { normalizeSize } from '@/utilities/css'
 
 defineOptions({
   inheritAttrs: false,
 })
-
-const { getSizeFromString } = useUtilities()
 
 const {
   visible,
@@ -137,8 +135,8 @@ const textSelection = useTextSelection()
 const focusTrapElement = ref<InstanceType<typeof FocusTrap> | null>(null)
 const modalWrapperElement = ref<HTMLElement | null>(null)
 
-const maxWidthValue = computed((): string => fullScreen && !slots.content ? '95%' : getSizeFromString(maxWidth))
-const maxHeightValue = computed((): string => fullScreen && !slots.content ? '95vh' : getSizeFromString(maxHeight))
+const maxWidthValue = computed((): string => fullScreen && !slots.content ? '95%' : normalizeSize(maxWidth))
+const maxHeightValue = computed((): string => fullScreen && !slots.content ? '95vh' : normalizeSize(maxHeight))
 
 const sanitizedAttrs = computed(() => {
   const attributes = Object.assign({}, attrs)

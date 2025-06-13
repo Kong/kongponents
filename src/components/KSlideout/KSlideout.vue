@@ -47,11 +47,11 @@
 
 <script lang="ts" setup>
 import { computed, useTemplateRef, onUnmounted, watch } from 'vue'
-import useUtilities from '@/composables/useUtilities'
 import { onClickOutside } from '@vueuse/core'
 import { CloseIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
 import type { KSlideoutEmits, KSlideoutProps, KSlideoutSlots } from '@/types/slideout'
+import { normalizeSize } from '@/utilities/css'
 
 const {
   visible,
@@ -68,16 +68,9 @@ const emit = defineEmits<KSlideoutEmits>()
 
 defineSlots<KSlideoutSlots>()
 
-const { getSizeFromString } = useUtilities()
 const slideoutContainerElement = useTemplateRef('slideoutContainerElement')
 
-const offsetTopValue = computed((): string => {
-  if (typeof offsetTop === 'number') {
-    return getSizeFromString(String(offsetTop))
-  }
-
-  return offsetTop
-})
+const offsetTopValue = computed((): string => normalizeSize(offsetTop))
 
 onClickOutside(slideoutContainerElement, (event) => {
   if (event.isTrusted && closeOnBlur) {

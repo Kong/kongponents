@@ -136,7 +136,7 @@ export interface DropdownProps<T extends string | number> {
    * The width of the dropdown body (defaults to `''`).
    * @default ''
    */
-  width?: string
+  width?: number | string
 
   /**
    * Use the `kpopAttributes` prop to configure the KPop props dropdown.
