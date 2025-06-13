@@ -2,7 +2,7 @@
   <div
     ref="kTruncateWrapper"
     class="k-truncate"
-    :class="[expanded ? 'expanded' : '', `truncate-${truncateText ? 'text' : 'content'}`]"
+    :class="[_expanded ? 'expanded' : '', `truncate-${truncateText ? 'text' : 'content'}`]"
     :style="widthStyle"
   >
     <!-- Order switched for ease when using keyboard navigation -->
@@ -11,7 +11,7 @@
       class="truncate-expand-controls"
     >
       <div
-        v-if="!expanded"
+        v-if="!_expanded"
         data-testid="expand-trigger-wrapper"
       >
         <slot
@@ -36,7 +36,7 @@
     >
       <slot name="default" />
       <div
-        v-if="!truncateText && expanded"
+        v-if="!truncateText && _expanded"
         data-testid="collapse-trigger-wrapper"
       >
         <slot
@@ -58,12 +58,12 @@
       </div>
     </div>
     <div
-      v-if="truncateText && (showToggle || expanded)"
+      v-if="truncateText && (showToggle || _expanded)"
       ref="textToggleControls"
       class="truncate-collapse-controls"
     >
       <div
-        v-if="!expanded"
+        v-if="!_expanded"
         data-testid="expand-trigger-wrapper"
       >
         <slot
@@ -79,7 +79,7 @@
           </KButton>
         </slot>
       </div>
-      <div v-if="expanded">
+      <div v-if="_expanded">
         <slot
           :collapse="handleToggleClick"
           name="collapse-trigger"
