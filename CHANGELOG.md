@@ -1,3 +1,15 @@
+# [9.34.0](https://github.com/Kong/kongponents/compare/v9.33.3...v9.34.0) (2025-06-13)
+
+
+### Bug Fixes
+
+* **kcodeblock:** fix navigation among query matches ([#2791](https://github.com/Kong/kongponents/issues/2791)) ([88e6de2](https://github.com/Kong/kongponents/commit/88e6de290d0a1498d229bd9bfb5d522854db43df))
+
+
+### Features
+
+* add number support for css lengths ([#2784](https://github.com/Kong/kongponents/issues/2784)) ([99eb43b](https://github.com/Kong/kongponents/commit/99eb43b2d08ada3113d4319fcb94fa91541b0807))
+
 ## [9.33.3](https://github.com/Kong/kongponents/compare/v9.33.2...v9.33.3) (2025-06-11)
 
 
