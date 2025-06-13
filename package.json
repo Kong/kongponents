@@ -111,7 +111,7 @@
     "postcss-custom-properties": "^14.0.4",
     "postcss-html": "^1.7.0",
     "rimraf": "^6.0.1",
-    "rollup-plugin-visualizer": "^5.12.0",
+    "rollup-plugin-visualizer": "^6.0.1",
     "sass": "^1.80.7",
     "semantic-release": "^24.2.5",
     "shiki": "^3.1.0",
