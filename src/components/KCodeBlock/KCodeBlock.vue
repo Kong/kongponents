@@ -620,7 +620,7 @@ function jumpToMatch(direction: number): void {
     return
   }
 
-  const line = codeBlock.value.querySelector<HTMLElement>(`#${getLineId(lineNumber)}`)
+  const line = codeBlock.value.querySelector<HTMLElement>(`.highlighted-code-block #${getLineId(lineNumber)}`)
   if (line) {
     if ('scrollIntoViewIfNeeded' in line && typeof line.scrollIntoViewIfNeeded === 'function') {
       line.scrollIntoViewIfNeeded(true)
@@ -821,6 +821,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
 
             &::before {
               background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+              box-sizing: border-box;
               content: '\A0';
               left: 0;
               pointer-events: none;
