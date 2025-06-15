@@ -28,7 +28,7 @@
         hide-close-icon
         @close="() => onClose(toggle, isToggled.value)"
         @open="() => onOpen(toggle)"
-        @popover-click="() => onPopoverClick(toggle)"
+        @popover-click="toggle"
       >
         <div
           :id="selectWrapperId"
@@ -58,9 +58,9 @@
             @blur="onInputBlur"
             @click="onInputClick"
             @focus="onInputFocus"
+            @keydown="(evt: KeyboardEvent) => triggerFocus(evt, isToggled)"
             @keydown.enter="onInputEnter"
             @keypress="onInputKeypress"
-            @keyup="(evt: any) => triggerFocus(evt, isToggled)"
             @keyup.enter.stop
             @update:model-value="onQueryChange"
           >
@@ -449,20 +449,32 @@ const clearSelection = (): void => {
 }
 
 const selectItemsRef = useTemplateRef('kSelectItems')
+const NAVIGATION_KEYS = ['ArrowDown', 'ArrowUp']
+const OPEN_KEYS = [' ', 'Enter', ...NAVIGATION_KEYS]
 
-const triggerFocus = (evt: any, isToggled: Ref<boolean>): void => {
+const triggerFocus = (evt: KeyboardEvent, isToggled: Ref<boolean>): void => {
   // Ignore `esc` key
-  if (evt.keyCode === 27) {
+  if (evt.key === 'Escape' && isToggled.value) {
     isToggled.value = false
+    popperRef.value?.hidePopover?.()
     return
   }
 
-  const inputElem = selectWrapperRef.value?.children[0] as HTMLInputElement
-  if (!isToggled.value && inputElem) { // simulate click to trigger dropdown open
-    inputElem.click()
+  // per https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/
+  if (!isToggled.value && OPEN_KEYS.includes(evt.key)) { // simulate click to trigger dropdown open
+    if (NAVIGATION_KEYS.includes(evt.key)) {
+      evt.preventDefault()
+    }
+    // TODO: when it is opened by 'Home', 'End', 'ArrowUp', 'ArrowDown' keys, it should handle
+    // setting focus to different item
+    popperRef.value?.showPopover?.()
+    nextTick(() => selectItemsRef.value?.setFocus('current'))
   }
 
-  if ((evt.key === 'ArrowDown' || evt.key === 'ArrowUp') && isToggled.value) {
+  // TODO: we need to remove this part since the popover should trap the focus
+  // when it got opened, the focus should not be set on the input element.
+  if (NAVIGATION_KEYS.includes(evt.key) && isToggled.value) {
+    evt.preventDefault()
     selectItemsRef.value?.setFocus(evt.key === 'ArrowDown' ? 'down' : 'up')
   }
 }
@@ -502,10 +514,6 @@ const onSelectWrapperClick = (event: Event): void => {
   }
 }
 
-const onPopoverClick = (toggle: () => void) => {
-  toggle()
-}
-
 const onClose = (toggle: () => void, isToggled: boolean) => {
   isDropdownOpen.value = false
 
@@ -519,6 +527,10 @@ const onClose = (toggle: () => void, isToggled: boolean) => {
   if (isToggled) {
     toggle()
   }
+
+  nextTick(() => {
+    inputRef.value?.focus?.()
+  })
 }
 
 const onOpen = (toggle: () => void) => {
