@@ -98,7 +98,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, nextTick, computed, onBeforeUnmount, watch  } from 'vue'
+import { onMounted, ref, nextTick, computed, onBeforeUnmount, watch } from 'vue'
 import { ChevronUpIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30, KUI_SPACE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
