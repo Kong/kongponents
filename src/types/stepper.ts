@@ -15,7 +15,7 @@ export interface StepItem {
 export interface StepProps {
   label: string
   state?: StepperState
-  maxLabelWidth: string
+  maxLabelWidth: number | string
 }
 
 export interface StepperProps {
@@ -28,5 +28,5 @@ export interface StepperProps {
    * Maximum width of each step's label.
    * @default '170px'
    */
-  maxLabelWidth?: string
+  maxLabelWidth?: number | string
 }

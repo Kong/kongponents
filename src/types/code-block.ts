@@ -95,7 +95,7 @@ export interface CodeBlockProps {
 
   /**
    * Controls the color scheme of the component.
-   * @default light
+   * @default 'light'
    */
   theme?: Theme
 
@@ -107,9 +107,9 @@ export interface CodeBlockProps {
 
   /**
    * The max-height of the code block.
-   * @default none
+   * @default 'none'
    */
-  maxHeight?: string
+  maxHeight?: number | string
 }
 
 export interface CodeBlockEmits {

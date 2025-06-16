@@ -98,15 +98,13 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, nextTick, computed, onBeforeUnmount, watch } from 'vue'
-import useUtilities from '@/composables/useUtilities'
+import { onMounted, ref, nextTick, computed, onBeforeUnmount, watch  } from 'vue'
 import { ChevronUpIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30, KUI_SPACE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
+import { normalizeSize } from '@/utilities/css'
 import { warnInvalidProp } from '@/utilities/warning'
 import type { TruncateProps, TruncateSlots } from '@/types'
-
-const { getSizeFromString } = useUtilities()
 
 const {
   rows = 1,
@@ -231,7 +229,7 @@ const handleToggleClick = async (): Promise<void> => {
 
 const widthStyle = computed((): Record<string, string> => {
   return {
-    width: getSizeFromString(width),
+    width: normalizeSize(width),
   }
 })
 

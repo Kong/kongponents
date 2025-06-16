@@ -247,13 +247,11 @@ import {
   normalizeHighlightedLines,
 } from '@/utilities/codeBlockHelpers'
 import type { CodeBlockProps, CodeBlockEmits, CodeBlockSlots, CodeBlockEventData, CommandKeywords } from '@/types'
-import useUtilities from '@/composables/useUtilities'
 import { CopyIcon, SearchIcon, ProgressIcon, CloseIcon, RegexIcon, FilterIcon, ArrowUpIcon, ArrowDownIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_NEUTRAL_STRONG, KUI_ICON_SIZE_30, KUI_LINE_HEIGHT_30 } from '@kong/design-tokens'
 import KCodeBlockIconButton from './KCodeBlockIconButton.vue'
 import { IS_MAYBE_MAC } from '@/utilities/browser'
-
-const { getSizeFromString } = useUtilities()
+import { normalizeSize } from '@/utilities/css'
 
 const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Option' : 'Alt'
 
@@ -364,7 +362,7 @@ const finalCode = computed(() =>
     : escapeHTMLIfNeeded(code),
 )
 
-const maxHeightValue = computed(() => getSizeFromString(maxHeight))
+const maxHeightValue = computed(() => normalizeSize(maxHeight))
 
 watch(() => code, async function() {
   // Waits one Vue tick in which the code block is re-rendered. Only then does it make sense to emit the corresponding event. Otherwise, consuming components applying syntax highlighting would have to do this because if syntax highlighting is applied before re-rendering is done, re-rendering will effectively undo the syntax highlighting.
@@ -620,7 +618,7 @@ function jumpToMatch(direction: number): void {
     return
   }
 
-  const line = codeBlock.value.querySelector<HTMLElement>(`#${getLineId(lineNumber)}`)
+  const line = codeBlock.value.querySelector<HTMLElement>(`.highlighted-code-block #${getLineId(lineNumber)}`)
   if (line) {
     if ('scrollIntoViewIfNeeded' in line && typeof line.scrollIntoViewIfNeeded === 'function') {
       line.scrollIntoViewIfNeeded(true)
@@ -821,6 +819,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
 
             &::before {
               background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+              box-sizing: border-box;
               content: '\A0';
               left: 0;
               pointer-events: none;

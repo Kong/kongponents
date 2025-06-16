@@ -440,7 +440,6 @@ import type {
 import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
-import useUtilities from '@/composables/useUtilities'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
@@ -450,6 +449,7 @@ import { getScrollbarSize } from '@/utilities/browser'
 import { useResizeObserver } from '@vueuse/core'
 import type { CSSProperties, Ref } from 'vue'
 import { mapValues } from 'lodash-es'
+import { normalizeSize } from '@/utilities/css'
 
 type ColumnKey = TableColumnKey<Header>
 type ColumnVisibility = TableColumnVisibility<Header>
@@ -497,7 +497,6 @@ const emit = defineEmits<TableViewEmits<Header, Data>>()
 const slots = defineSlots<TableViewSlots<Header, Data>>()
 
 const tableId = useId()
-const { getSizeFromString } = useUtilities()
 
 const getRowKey = (row: Row): string => {
   if (typeof rowKey === 'function' && typeof rowKey(row) === 'string') {
@@ -556,7 +555,7 @@ const isClickable = ref(false)
 const hasToolbarSlot = computed((): boolean => !hideToolbar && !nested && (!!slots.toolbar || hasColumnVisibilityMenu.value || showBulkActionsToolbar.value))
 const isActionsDropdownHovered = ref<boolean>(false)
 const tableWrapperStyles = computed((): CSSProperties => ({
-  maxHeight: getSizeFromString(maxHeight),
+  maxHeight: normalizeSize(maxHeight),
 }))
 const scrollbarWidth = computed((): string => `${getScrollbarSize()}px`)
 

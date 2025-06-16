@@ -1,3 +1,36 @@
+## [9.34.1](https://github.com/Kong/kongponents/compare/v9.34.0...v9.34.1) (2025-06-13)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies with stable version ([#2787](https://github.com/Kong/kongponents/issues/2787)) ([ae87e32](https://github.com/Kong/kongponents/commit/ae87e32854b96cfd4291567b7b58a1778842614f))
+
+# [9.34.0](https://github.com/Kong/kongponents/compare/v9.33.3...v9.34.0) (2025-06-13)
+
+
+### Bug Fixes
+
+* **kcodeblock:** fix navigation among query matches ([#2791](https://github.com/Kong/kongponents/issues/2791)) ([88e6de2](https://github.com/Kong/kongponents/commit/88e6de290d0a1498d229bd9bfb5d522854db43df))
+
+
+### Features
+
+* add number support for css lengths ([#2784](https://github.com/Kong/kongponents/issues/2784)) ([99eb43b](https://github.com/Kong/kongponents/commit/99eb43b2d08ada3113d4319fcb94fa91541b0807))
+
+## [9.33.3](https://github.com/Kong/kongponents/compare/v9.33.2...v9.33.3) (2025-06-11)
+
+
+### Bug Fixes
+
+* **ktextarea:** ts improvements for ktextarea ([#2783](https://github.com/Kong/kongponents/issues/2783)) ([e83e9fb](https://github.com/Kong/kongponents/commit/e83e9fb12eaf965d8a93955ad6701d1798f822b3))
+
+## [9.33.2](https://github.com/Kong/kongponents/compare/v9.33.1...v9.33.2) (2025-06-11)
+
+
+### Bug Fixes
+
+* **kmultiselect:** do not encode display text ([#2786](https://github.com/Kong/kongponents/issues/2786)) ([10ae2db](https://github.com/Kong/kongponents/commit/10ae2db4b4cafc817c2e71b7578d4d5bfaaa7fa5))
+
 ## [9.33.1](https://github.com/Kong/kongponents/compare/v9.33.0...v9.33.1) (2025-06-05)
 
 

@@ -96,7 +96,7 @@ When `true`, the component will not truncate the content and the collapse trigge
 
 ### width
 
-Width of container element that wraps content passed through the `default` slot. Works just like `width` property in CSS. Default value is `100%`.
+Width of container element that wraps content passed through the `default` slot. Accepts a string (interpreted as a CSS width value) or a number (automatically appended with `px`). Default value is `100%`.
 
 <KCard>
   <KTruncate truncate-text :rows="2" width="50%">

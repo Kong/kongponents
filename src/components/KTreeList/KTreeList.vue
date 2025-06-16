@@ -41,11 +41,11 @@
 <script lang="ts">
 import type { PropType } from 'vue'
 import { computed, ref, watch, onMounted } from 'vue'
-import useUtilities from '@/composables/useUtilities'
 import KTreeDraggable from '@/components/KTreeList/KTreeDraggable.vue'
 import { getMaximumDepth } from './KTreeDraggable.vue'
 import { itemsHaveRequiredProps } from './KTreeItem.vue'
 import type { TreeListItem, TreeListChangeEvent, TreeListChildChangeEvent } from '@/types'
+import { normalizeSize } from '@/utilities/css'
 
 const getIds = (items: TreeListItem[], ids: string[]): string[] => {
   items.forEach((item: TreeListItem) => {
@@ -148,11 +148,9 @@ const value = computed({
   },
 })
 
-const { getSizeFromString } = useUtilities()
-
 const widthStyle = computed((): Record<string, any> => {
   return {
-    maxWidth: getSizeFromString(props.width),
+    maxWidth: normalizeSize(props.width),
   }
 })
 

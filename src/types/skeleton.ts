@@ -60,7 +60,7 @@ export interface SkeletonProps {
    * Width of the skeleton card in relative units.
    * @default ''
    */
-  cardMaxWidth?: string
+  cardMaxWidth?: number | string
 
   /**
    * Number of the skeleton table rows.

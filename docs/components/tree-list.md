@@ -207,7 +207,7 @@ Try moving any item under the Settings item in the example below and compare it 
 
 ### width
 
-You can pass a `width` string for the entire tree. By default it will take the full width.
+You can pass a `width` number or string for the entire tree. By default it will take the full width.
 
 <KTreeList width="50%" :items="widthItems" />
 

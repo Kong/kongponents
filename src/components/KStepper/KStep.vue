@@ -41,12 +41,10 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import useUtilities from '@/composables/useUtilities'
 import type { StepProps } from '@/types'
 import { CheckIcon, ProgressIcon, CloseIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_INVERSE, KUI_COLOR_TEXT_PRIMARY, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
-
-const { getSizeFromString } = useUtilities()
+import { normalizeSize } from '@/utilities/css'
 
 const {
   label,
@@ -56,7 +54,7 @@ const {
 
 const labelStyle = computed(() => {
   return {
-    maxWidth: getSizeFromString(maxLabelWidth),
+    maxWidth: normalizeSize(maxLabelWidth),
   }
 })
 </script>
