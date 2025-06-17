@@ -347,15 +347,24 @@ KInput allows you to listen to DOM events:
 KInput exposes HTML input element through `input` property for ease of performing manipulations.
 
 <div class="input-container">
-  <KInput class="horizontal-spacing" ref="focusableKInput" />
-  <KButton size="large" @click="setFocus">Set focus</KButton>
+  <KInput 
+    ref="focusableKInput"
+    placeholder="Focusable input"
+    class="horizontal-spacing"
+  />
+  <KButton
+    size="large"
+    @click="setFocus"
+  >
+    Set focus
+  </KButton>
 </div>
 
 ```vue
 <template>
   <KInput 
-    class="horizontal-spacing"
     ref="kInput"
+    placeholder="Focusable input"
   />
   <KButton
     size="large"
