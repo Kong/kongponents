@@ -344,7 +344,7 @@ KInput allows you to listen to DOM events:
 
 ### input
 
-KInput exposes HTML input element through `input` property for ease of performing manipulations.
+KInput exposes its internal HTML `input` element `ref` via an exposed `input` property to allow access to the underlying element.
 
 <div class="input-container">
   <KInput 
@@ -363,7 +363,7 @@ KInput exposes HTML input element through `input` property for ease of performin
 ```vue
 <template>
   <KInput 
-    ref="kInput"
+    ref="myInput"
     placeholder="Focusable input"
   />
   <KButton
@@ -375,9 +375,9 @@ KInput exposes HTML input element through `input` property for ease of performin
 </template>
 
 <script setup lang="ts">
-const kInputRef = useTemplateRef('kInput')
+const myInputRef = useTemplateRef('myInput')
 const setFocus = () => {
-  kInputRef.value?.input?.focus()
+  myInputRef.value?.input?.focus()
 }
 </script>
 ```
