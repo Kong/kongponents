@@ -33,11 +33,12 @@
 
       <input
         :id="inputId"
+        v-bind="modifiedAttrs"
+        ref="inputElement"
         :aria-describedby="helpText ? helpTextId : undefined"
         :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
         class="input"
         :type="inputType"
-        v-bind="modifiedAttrs"
         :value="getValue()"
         @input="handleInput"
       >
@@ -90,12 +91,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, useSlots, useAttrs, onMounted, nextTick, useId } from 'vue'
+import { computed, ref, watch, useSlots, useAttrs, onMounted, nextTick, useId, useTemplateRef } from 'vue'
 import type { InputProps, InputEmits, InputSlots } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { VisibilityIcon, VisibilityOffIcon } from '@kong/icons'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const {
   modelValue = '',
@@ -124,6 +129,8 @@ watch(() => labelAttributes.help, (help) => {
 
 const emit = defineEmits<InputEmits>()
 defineSlots<InputSlots>()
+
+const inputElementRef = useTemplateRef('inputElement')
 
 const currValue = ref<string>('') // We need this so that we don't lose the updated value on hover/blur event with label
 const modelValueChanged = ref<boolean>(false) // Determine if the original value was modified by the user
@@ -273,12 +280,10 @@ onMounted(async () => {
     afterSlotElementWidth.value = afterSlotElement.value.offsetWidth + 'px'
   }
 })
-</script>
 
-<script lang="ts">
-export default {
-  inheritAttrs: false,
-}
+defineExpose({
+  input: inputElementRef,
+})
 </script>
 
 <style lang="scss" scoped>
