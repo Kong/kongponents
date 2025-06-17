@@ -196,6 +196,17 @@
           </KButton>
         </div>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="Setting focus on input element">
+        <div class="input-and-button">
+          <KInput ref="focusableKInput" />
+          <KButton
+            size="large"
+            @click="setFocus"
+          >
+            Focus
+          </KButton>
+        </div>
+      </SandboxSectionComponent>
 
       <!-- Legacy -->
       <SandboxTitleComponent
@@ -218,10 +229,15 @@
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { SearchIcon, KongIcon, CopyIcon } from '@kong/icons'
-import { inject } from 'vue'
+import { inject, useTemplateRef } from 'vue'
 
 const onSlotContentClick = (slotName: string) => {
   alert(`You clicked on ${slotName} slot content`)
+}
+
+const focusableKInputRef = useTemplateRef('focusableKInput')
+const setFocus = () => {
+  focusableKInputRef.value?.input?.focus()
 }
 </script>
 

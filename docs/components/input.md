@@ -340,9 +340,51 @@ KInput allows you to listen to DOM events:
 </KComponent>
 ```
 
+## Expose
+
+### input
+
+KInput exposes its internal HTML `input` element `ref` via an exposed `input` property to allow access to the underlying element.
+
+<div class="input-container">
+  <KInput 
+    ref="focusableKInput"
+    placeholder="Focusable input"
+    class="horizontal-spacing"
+  />
+  <KButton
+    size="large"
+    @click="setFocus"
+  >
+    Set focus
+  </KButton>
+</div>
+
+```vue
+<template>
+  <KInput 
+    ref="myInput"
+    placeholder="Focusable input"
+  />
+  <KButton
+    size="large"
+    @click="setFocus"
+  >
+    Set focus
+  </KButton>
+</template>
+
 <script setup lang="ts">
+const myInputRef = useTemplateRef('myInput')
+const setFocus = () => {
+  myInputRef.value?.input?.focus()
+}
+</script>
+```
+
+<script setup lang="ts">
+import { ref, useTemplateRef } from 'vue'
 import { SearchIcon, CopyIcon } from '@kong/icons'
-import { ref } from 'vue'
 
 const vModelInput = ref<string>('test')
 const eventsInput = ref<string>('foo bar')
@@ -353,6 +395,11 @@ const clearMyInput = (): void => {
 
 const alert = (msg: string): void => {
   window.alert(msg)
+}
+
+const focusableKInputRef = useTemplateRef('focusableKInput')
+const setFocus = () => {
+  focusableKInputRef.value?.input?.focus()
 }
 </script>
 
