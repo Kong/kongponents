@@ -1,3 +1,10 @@
+## [9.34.2](https://github.com/Kong/kongponents/compare/v9.34.1...v9.34.2) (2025-06-17)
+
+
+### Bug Fixes
+
+* **kinput:** expose input element [KHCP-16490] ([#2794](https://github.com/Kong/kongponents/issues/2794)) ([092eed9](https://github.com/Kong/kongponents/commit/092eed9374d7883a04a8e95d2e3812fe3d07bbd4))
+
 ## [9.34.1](https://github.com/Kong/kongponents/compare/v9.34.0...v9.34.1) (2025-06-13)
 
 
