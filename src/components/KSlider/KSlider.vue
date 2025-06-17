@@ -216,13 +216,14 @@ watch(() => step, (newStep) => {
 
 watch(inputValue, (newValue) => {
   // Ensure inputValue is within the range of min and max
-  if (max > min && (!isValueWithinRange(newValue))) {
+  if (max > min && !isValueWithinRange(newValue)) {
     console.warn(`KSelect: value ${newValue} is out of range [${rangeValues.value.join(', ')}]. Setting to min value ${min}.`)
     inputValue.value = min
   }
 }, { immediate: true })
 
 watch(() => marks, (newMarks) => {
+  // Ensure all marks are within the range of allowed values
   if (newMarks.length) {
     let invalidMarks = []
     if (typeof newMarks[0] === 'object') {
