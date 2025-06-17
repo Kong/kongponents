@@ -33,12 +33,12 @@
 
       <input
         :id="inputId"
-        v-bind="modifiedAttrs"
         ref="inputElement"
         :aria-describedby="helpText ? helpTextId : undefined"
         :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
         class="input"
         :type="inputType"
+        v-bind="modifiedAttrs"
         :value="getValue()"
         @input="handleInput"
       >
