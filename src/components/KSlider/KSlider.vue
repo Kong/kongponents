@@ -137,31 +137,50 @@ const inputValue = defineModel({
   type: Number,
 })
 
-const isValueWithinRange = (value: number): boolean => {
-  return value >= min && value <= max
-}
+const rangeValues = computed((): number[] => {
+  if (max <= min || step <= 0) {
+    return []
+  }
+
+  const values = []
+  for (let v = min; v <= max; v += step) {
+    values.push(v)
+  }
+
+  return values
+})
+const isValueWithinRange = (value: number): boolean => value >= min && value <= max && rangeValues.value.includes(value)
+
 
 const rangeMarks = computed((): SliderMarkObject[] => {
   if (marks.length) {
     if (typeof marks[0] === 'object') {
       return (marks as SliderMarkObject[])
         .filter(mark => isValueWithinRange(mark.value))
-    }
+    } else {
+      const sanitizedMarks = (marks as number[])
+        .filter(mark => isValueWithinRange(mark))
+        .map((mark) => ({
+          label: String(mark),
+          value: mark,
+        }))
 
-    return (marks as number[])
-      .filter(mark => isValueWithinRange(mark))
-      .map((mark) => ({
-        label: String(mark),
-        value: mark,
-      }))
+      // make sure min and max are included in the marks when marks are numbers
+      if (sanitizedMarks[0]?.value !== min) {
+        sanitizedMarks.unshift({ label: String(min), value: min })
+      }
+      if (sanitizedMarks.at(-1)?.value !== max) {
+        sanitizedMarks.push({ label: String(max), value: max })
+      }
+
+      return sanitizedMarks
+    }
   }
 
   if (showMarks) {
-    const stepCount = Math.floor((max - min) / step)
-
-    return Array.from({ length: stepCount + 1 }, (_, i) => ({
-      label: String(min + i * step),
-      value: min + i * step,
+    return rangeValues.value.map(value => ({
+      label: String(value),
+      value,
     }))
   }
 
@@ -178,7 +197,7 @@ const rangeMarks = computed((): SliderMarkObject[] => {
 const getValuePercent = (value: number): string => `${((value - min) / (max - min)) * 100}%`
 
 /**
- * Validation logic for min, max, step and modelValue
+ * Validation logic for min, max, step, modelValue and marks
  */
 
 watch(() => max, (newMax) => {
@@ -197,9 +216,25 @@ watch(() => step, (newStep) => {
 
 watch(inputValue, (newValue) => {
   // Ensure inputValue is within the range of min and max
-  if (max > min && !isValueWithinRange(newValue)) {
-    console.warn(`KSelect: value ${newValue} is out of range [${min}, ${max}]. Setting to min value ${min}.`)
+  if (max > min && (!isValueWithinRange(newValue))) {
+    console.warn(`KSelect: value ${newValue} is out of range [${rangeValues.value.join(', ')}]. Setting to min value ${min}.`)
     inputValue.value = min
+  }
+}, { immediate: true })
+
+watch(() => marks, (newMarks) => {
+  if (newMarks.length) {
+    let invalidMarks = []
+    if (typeof newMarks[0] === 'object') {
+      invalidMarks = (newMarks as SliderMarkObject[])
+        .filter(mark => !isValueWithinRange(mark.value))
+    } else {
+      invalidMarks = (newMarks as number[])
+        .filter(mark => !isValueWithinRange(mark))
+    }
+    if (invalidMarks.length) {
+      console.warn(`KSlider: marks [${invalidMarks.join(', ')}] are out of range [${rangeValues.value.join(', ')}].`)
+    }
   }
 }, { immediate: true })
 </script>
