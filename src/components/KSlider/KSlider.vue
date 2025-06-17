@@ -86,7 +86,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useId, useTemplateRef } from 'vue'
+import { computed, useId, useTemplateRef, watch } from 'vue'
 import type { SliderProps, SliderEmits } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KPop from '@/components/KPop/KPop.vue'
@@ -132,9 +132,12 @@ const onBlur = () => {
   thumbPopoverRef.value?.hidePopover()
 }
 
-const inputValue = defineModel({ type: Number, default: 5 })
+const inputValue = defineModel({
+  required: true,
+  type: Number,
+})
 
-const isMarkWithinRange = (value: number): boolean => {
+const isValueWithinRange = (value: number): boolean => {
   return value >= min && value <= max
 }
 
@@ -142,11 +145,11 @@ const rangeMarks = computed((): SliderMarkObject[] => {
   if (marks.length) {
     if (typeof marks[0] === 'object') {
       return (marks as SliderMarkObject[])
-        .filter(mark => isMarkWithinRange(mark.value))
+        .filter(mark => isValueWithinRange(mark.value))
     }
 
     return (marks as number[])
-      .filter(mark => isMarkWithinRange(mark))
+      .filter(mark => isValueWithinRange(mark))
       .map((mark) => ({
         label: String(mark),
         value: mark,
@@ -173,6 +176,32 @@ const rangeMarks = computed((): SliderMarkObject[] => {
 })
 
 const getValuePercent = (value: number): string => `${((value - min) / (max - min)) * 100}%`
+
+/**
+ * Validation logic for min, max, step and modelValue
+ */
+
+watch(() => max, (newMax) => {
+  // Ensure max is greater than min
+  if (newMax <= min) {
+    console.warn(`KSlider: max value ${newMax} must be greater than min value ${min}.`)
+  }
+}, { immediate: true })
+
+watch(() => step, (newStep) => {
+  // Ensure step is a positive number and not zero and remainder from division of (max - min) by step is zero
+  if (max > min && (newStep <= 0 || (max - min) % newStep !== 0)) {
+    console.warn(`KSlider: step value ${newStep} is invalid.`)
+  }
+}, { immediate: true })
+
+watch(inputValue, (newValue) => {
+  // Ensure inputValue is within the range of min and max
+  if (max > min && !isValueWithinRange(newValue)) {
+    console.warn(`KSelect: value ${newValue} is out of range [${min}, ${max}]. Setting to min value ${min}.`)
+    inputValue.value = min
+  }
+}, { immediate: true })
 </script>
 
 <style scoped lang="scss">
