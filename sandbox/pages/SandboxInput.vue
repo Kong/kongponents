@@ -237,7 +237,7 @@ const onSlotContentClick = (slotName: string) => {
 
 const focusableKInputRef = useTemplateRef('focusableKInput')
 const setFocus = () => {
-  (focusableKInputRef.value?.input as HTMLInputElement).focus()
+  focusableKInputRef.value?.input?.focus()
 }
 </script>
 

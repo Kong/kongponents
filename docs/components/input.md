@@ -377,7 +377,7 @@ KInput exposes HTML input element through `input` property for ease of performin
 <script setup lang="ts">
 const kInputRef = useTemplateRef('kInput')
 const setFocus = () => {
-  (kInputRef.value?.input as HTMLInputElement).focus()
+  kInputRef.value?.input?.focus()
 }
 </script>
 ```
@@ -399,7 +399,7 @@ const alert = (msg: string): void => {
 
 const focusableKInputRef = useTemplateRef('focusableKInput')
 const setFocus = () => {
-  (focusableKInputRef.value?.input as HTMLInputElement).focus()
+  focusableKInputRef.value?.input?.focus()
 }
 </script>
 
