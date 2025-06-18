@@ -2,7 +2,7 @@
   <div
     ref="kTruncateWrapper"
     class="k-truncate"
-    :class="[expanded ? 'expanded' : '', `truncate-${truncateText ? 'text' : 'content'}`]"
+    :class="[_expanded ? 'expanded' : '', `truncate-${truncateText ? 'text' : 'content'}`]"
     :style="widthStyle"
   >
     <!-- Order switched for ease when using keyboard navigation -->
@@ -11,7 +11,7 @@
       class="truncate-expand-controls"
     >
       <div
-        v-if="!expanded"
+        v-if="!_expanded"
         data-testid="expand-trigger-wrapper"
       >
         <slot
@@ -36,7 +36,7 @@
     >
       <slot name="default" />
       <div
-        v-if="!truncateText && expanded"
+        v-if="!truncateText && _expanded"
         data-testid="collapse-trigger-wrapper"
       >
         <slot
@@ -58,12 +58,12 @@
       </div>
     </div>
     <div
-      v-if="truncateText && (showToggle || expanded)"
+      v-if="truncateText && (showToggle || _expanded)"
       ref="textToggleControls"
       class="truncate-collapse-controls"
     >
       <div
-        v-if="!expanded"
+        v-if="!_expanded"
         data-testid="expand-trigger-wrapper"
       >
         <slot
@@ -79,7 +79,7 @@
           </KButton>
         </slot>
       </div>
-      <div v-if="expanded">
+      <div v-if="_expanded">
         <slot
           :collapse="handleToggleClick"
           name="collapse-trigger"
@@ -98,33 +98,34 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, nextTick, computed, onBeforeUnmount } from 'vue'
+import { onMounted, ref, nextTick, computed, onBeforeUnmount, watch } from 'vue'
 import { ChevronUpIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30, KUI_SPACE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { normalizeSize } from '@/utilities/css'
+import { warnInvalidProp } from '@/utilities/warning'
+import type { TruncateProps, TruncateSlots } from '@/types'
 
-const props = defineProps({
-  rows: {
-    type: Number,
-    default: 1,
-    validator: (value: number): boolean => value > 0,
-  },
-  truncateText: {
-    type: Boolean,
-    default: false,
-  },
-  expanded: {
-    type: Boolean,
-    default: false,
-  },
-  width: {
-    type: String,
-    default: '100%',
-  },
-})
+const {
+  rows = 1,
+  width = '100%',
+  expanded,
+  truncateText,
+} = defineProps<TruncateProps>()
 
-const expanded = ref<boolean>(props.expanded)
+watch(
+  () => rows,
+  (val) => {
+    if (val < 0) {
+      warnInvalidProp('rows', `\`rows\` prop cannot be less than 0, but got "${val}".`)
+    }
+  },
+  { immediate: true },
+)
+
+defineSlots<TruncateSlots>()
+
+const _expanded = ref<boolean>(expanded)
 
 const showToggle = ref<boolean>(false)
 
@@ -149,7 +150,7 @@ const truncatedCount = ref<number>(0)
  * For example if rows is 2 and all elements are equal height if 22px, wrapper height will be set to 54px (2 * 22 + gap).
  */
 const setWrapperHeight = async (): Promise<void> => {
-  if (props.truncateText) {
+  if (truncateText) {
     return
   }
 
@@ -161,7 +162,7 @@ const setWrapperHeight = async (): Promise<void> => {
       // find height of tallest child
       tallestChildHeight = children[i].offsetHeight > tallestChildHeight ? children[i].offsetHeight : tallestChildHeight
     }
-    const targetWrapperHeight = (props.rows === 1 ? 0 : (props.rows - 1) * gapNumber) + (tallestChildHeight * props.rows) + 6 // account for padding
+    const targetWrapperHeight = (rows === 1 ? 0 : (rows - 1) * gapNumber) + (tallestChildHeight * rows) + 6 // account for padding
     wrapperHeight.value = kTruncateContainer.value.offsetHeight > targetWrapperHeight ? `${targetWrapperHeight}px` : 'auto'
 
     await nextTick()
@@ -177,7 +178,7 @@ const setWrapperHeight = async (): Promise<void> => {
 const updateToggleVisibility = (): void => {
   if (kTruncateContainer.value && kTruncateWrapper.value) {
     // in case with text content, need to compare scrollHeight value
-    const containerHeightProperty = props.truncateText ? kTruncateContainer.value.scrollHeight : kTruncateContainer.value.offsetHeight
+    const containerHeightProperty = truncateText ? kTruncateContainer.value.scrollHeight : kTruncateContainer.value.offsetHeight
     const textToggleControlsHeight = textToggleControls.value ? textToggleControls.value.offsetHeight : 0
     /**
      * In case with text content, toggle controls element is rendered below content, so adds up to wrapper height.
@@ -190,7 +191,7 @@ const updateToggleVisibility = (): void => {
 
 // Counts elements that are wrapped to the hidden rows and therefore are not visible.
 const countExcessElements = (): void => {
-  if (props.truncateText) {
+  if (truncateText) {
     return
   }
 
@@ -220,7 +221,7 @@ const countExcessElements = (): void => {
 }
 
 const handleToggleClick = async (): Promise<void> => {
-  expanded.value = !expanded.value
+  _expanded.value = !_expanded.value
   // await for component to collapse/expand
   await nextTick()
   updateToggleVisibility()
@@ -228,7 +229,7 @@ const handleToggleClick = async (): Promise<void> => {
 
 const widthStyle = computed((): Record<string, string> => {
   return {
-    width: normalizeSize(props.width),
+    width: normalizeSize(width),
   }
 })
 
@@ -347,7 +348,7 @@ onBeforeUnmount(() => {
     .truncate-container {
       -webkit-box-orient: vertical;
       display: -webkit-box;
-      -webkit-line-clamp: v-bind('props.rows');
+      -webkit-line-clamp: v-bind('rows');
       overflow: hidden;
     }
 
