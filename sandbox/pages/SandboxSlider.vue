@@ -120,8 +120,8 @@
             >
               <KSlider
                 v-model="vModel9"
-                :step="2"
                 :marks="[1, 3, 5, 6, 7, 10]"
+                :step="2"
               />
             </SandboxSectionComponent>
           </template>
@@ -132,8 +132,8 @@
             >
               <KSlider
                 v-model="vModel10"
+                :marks="[{ label: 'Negative 1', value: -1 }, { label: 'Two', value: 2 }, { label: 'Five', value: 5 }, { label: 'Ten', value: 10 }, { label: 'Twelve', value: 12 }]"
                 :step="5"
-                :marks="[{ label: 'Negative 1', value: -1 }, { label: 'Two', value: 2 },  { label: 'Five', value: 5 }, { label: 'Ten', value: 10 }, { label: 'Twelve', value: 12 }]"
               />
             </SandboxSectionComponent>
           </template>
