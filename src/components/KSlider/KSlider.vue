@@ -59,12 +59,15 @@
         @touchend="onBlur"
       >
 
-      <datalist :id="`${inputId}-markers`" data-testid="slider-datalist-marks">
+      <datalist
+        :id="`${inputId}-markers`"
+        data-testid="slider-datalist-marks"
+      >
         <option
           v-for="mark in rangeMarks"
           :key="`datalist-mark-${mark.value}`"
-          :label="mark.label"
           :data-testid="`datalist-mark-${mark.value}`"
+          :label="mark.label"
           :style="{ left: getValuePercent(mark.value!) }"
           :value="mark.value"
         />
