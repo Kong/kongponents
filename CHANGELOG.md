@@ -1,3 +1,10 @@
+# [9.35.0](https://github.com/Kong/kongponents/compare/v9.34.2...v9.35.0) (2025-06-18)
+
+
+### Features
+
+* ts improvements for ktruncate ([#2782](https://github.com/Kong/kongponents/issues/2782)) ([8fea1b6](https://github.com/Kong/kongponents/commit/8fea1b6bac4492c37b14f84136a0e1bddc0f0940))
+
 ## [9.34.2](https://github.com/Kong/kongponents/compare/v9.34.1...v9.34.2) (2025-06-17)
 
 
