@@ -226,15 +226,11 @@ watch(() => marks, (newMarks) => {
   // Ensure all marks are within the range of allowed values
   if (newMarks.length) {
     let invalidMarks = []
-    if (typeof newMarks[0] === 'object') {
-      invalidMarks = (newMarks as SliderMarkObject[])
-        .filter(mark => !isValueWithinRange(mark.value))
-    } else {
-      invalidMarks = (newMarks as number[])
-        .filter(mark => !isValueWithinRange(mark))
-    }
+    invalidMarks = newMarks
+      .filter(mark => !isValueWithinRange(typeof marks[0] === 'object' ? (mark as SliderMarkObject).value : mark as number))
+
     if (invalidMarks.length) {
-      console.warn(`KSlider: marks [${invalidMarks.join(', ')}] are out of range [${rangeValues.value.join(', ')}].`)
+      console.warn(`KSlider: marks [${invalidMarks.map(mark => typeof invalidMarks[0] === 'object' ? (mark as SliderMarkObject).value : mark as number).join(', ')}] are out of range [${rangeValues.value.join(', ')}].`)
     }
   }
 }, { immediate: true })
