@@ -114,4 +114,38 @@ describe('KSlider', () => {
       cy.get('@slider').should('have.value', '5')
     })
   })
+
+  it('only renders valid marks', () => {
+    const invalidMarks = [2, 4]
+    const validMarks = [0, 5, 10]
+    const allMarks = [...invalidMarks, ...validMarks]
+
+    mount(KSlider, {
+      props: {
+        step: 5,
+        marks: allMarks,
+      },
+    })
+
+    cy.getTestId('slider-datalist-marks').should('exist')
+    cy.getTestId('slider-marks').should('exist')
+    validMarks.forEach(mark => {
+      cy.getTestId(`datalist-mark-${mark}`).should('exist')
+      cy.getTestId(`mark-${mark}`).should('be.visible')
+    })
+    invalidMarks.forEach(mark => {
+      cy.getTestId(`datalist-mark-${mark}`).should('not.exist')
+      cy.getTestId(`mark-${mark}`).should('not.exist')
+    })
+  })
+
+  it('sets modelValue to min when invalid value provided', () => {
+    mount(KSlider, {
+      props: {
+        modelValue: 100, // Invalid value
+      },
+    })
+
+    cy.get('input[type="range"]').should('have.value', '0') // Should reset to min value
+  })
 })
