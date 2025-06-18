@@ -59,10 +59,14 @@
         @touchend="onBlur"
       >
 
-      <datalist :id="`${inputId}-markers`">
+      <datalist
+        :id="`${inputId}-markers`"
+        data-testid="slider-datalist-marks"
+      >
         <option
           v-for="mark in rangeMarks"
           :key="`datalist-mark-${mark.value}`"
+          :data-testid="`datalist-mark-${mark.value}`"
           :label="mark.label"
           :style="{ left: getValuePercent(mark.value!) }"
           :value="mark.value"
@@ -72,10 +76,12 @@
       <div
         aria-hidden="true"
         class="slider-marks"
+        data-testid="slider-marks"
       >
         <span
           v-for="mark in rangeMarks"
           :key="`mark-${mark.value}`"
+          :data-testid="`mark-${mark.value}`"
           :style="{ left: getValuePercent(mark.value) }"
         >
           {{ mark.label || mark.value }}
@@ -86,7 +92,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useId, useTemplateRef } from 'vue'
+import { computed, useId, useTemplateRef, watch } from 'vue'
 import type { SliderProps, SliderEmits } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KPop from '@/components/KPop/KPop.vue'
@@ -132,33 +138,55 @@ const onBlur = () => {
   thumbPopoverRef.value?.hidePopover()
 }
 
-const inputValue = defineModel({ type: Number, default: 5 })
+const inputValue = defineModel({
+  required: true,
+  type: Number,
+})
 
-const isMarkWithinRange = (value: number): boolean => {
-  return value >= min && value <= max
-}
+const rangeValues = computed((): number[] => {
+  if (max <= min || step <= 0) {
+    return []
+  }
+
+  const values = []
+  for (let v = min; v <= max; v += step) {
+    values.push(v)
+  }
+
+  return values
+})
+const isValueWithinRange = (value: number): boolean => value >= min && value <= max && rangeValues.value.includes(value)
+
 
 const rangeMarks = computed((): SliderMarkObject[] => {
   if (marks.length) {
     if (typeof marks[0] === 'object') {
       return (marks as SliderMarkObject[])
-        .filter(mark => isMarkWithinRange(mark.value))
-    }
+        .filter(mark => isValueWithinRange(mark.value))
+    } else {
+      const sanitizedMarks = (marks as number[])
+        .filter(mark => isValueWithinRange(mark))
+        .map((mark) => ({
+          label: String(mark),
+          value: mark,
+        }))
 
-    return (marks as number[])
-      .filter(mark => isMarkWithinRange(mark))
-      .map((mark) => ({
-        label: String(mark),
-        value: mark,
-      }))
+      // make sure min and max are included in the marks when marks are numbers
+      if (sanitizedMarks[0]?.value !== min) {
+        sanitizedMarks.unshift({ label: String(min), value: min })
+      }
+      if (sanitizedMarks.at(-1)?.value !== max) {
+        sanitizedMarks.push({ label: String(max), value: max })
+      }
+
+      return sanitizedMarks
+    }
   }
 
   if (showMarks) {
-    const stepCount = Math.floor((max - min) / step)
-
-    return Array.from({ length: stepCount + 1 }, (_, i) => ({
-      label: String(min + i * step),
-      value: min + i * step,
+    return rangeValues.value.map(value => ({
+      label: String(value),
+      value,
     }))
   }
 
@@ -173,6 +201,45 @@ const rangeMarks = computed((): SliderMarkObject[] => {
 })
 
 const getValuePercent = (value: number): string => `${((value - min) / (max - min)) * 100}%`
+
+/**
+ * Validation logic for min, max, step, modelValue and marks
+ */
+
+watch(() => max, (newMax) => {
+  // Ensure max is greater than min
+  if (newMax <= min) {
+    console.warn(`KSlider: max value ${newMax} must be greater than min value ${min}.`)
+  }
+}, { immediate: true })
+
+watch(() => step, (newStep) => {
+  // Ensure step is a positive number and not zero and remainder from division of (max - min) by step is zero
+  if (max > min && (newStep <= 0 || (max - min) % newStep !== 0)) {
+    console.warn(`KSlider: step value ${newStep} is invalid.`)
+  }
+}, { immediate: true })
+
+watch(inputValue, (newValue) => {
+  // Ensure inputValue is within the range of min and max
+  if (max > min && !isValueWithinRange(newValue)) {
+    console.warn(`KSelect: value ${newValue} is out of range [${rangeValues.value.join(', ')}]. Setting to min value ${min}.`)
+    inputValue.value = min
+  }
+}, { immediate: true })
+
+watch(() => marks, (newMarks) => {
+  // Ensure all marks are within the range of allowed values
+  if (newMarks.length) {
+    let invalidMarks = []
+    invalidMarks = newMarks
+      .filter(mark => !isValueWithinRange(typeof marks[0] === 'object' ? (mark as SliderMarkObject).value : mark as number))
+
+    if (invalidMarks.length) {
+      console.warn(`KSlider: marks [${invalidMarks.map(mark => typeof invalidMarks[0] === 'object' ? (mark as SliderMarkObject).value : mark as number).join(', ')}] are out of range [${rangeValues.value.join(', ')}].`)
+    }
+  }
+}, { immediate: true })
 </script>
 
 <style scoped lang="scss">
