@@ -1,3 +1,10 @@
+## [9.35.1](https://github.com/Kong/kongponents/compare/v9.35.0...v9.35.1) (2025-06-18)
+
+
+### Bug Fixes
+
+* **kslider:** validation logic [KHCP-16572] ([#2795](https://github.com/Kong/kongponents/issues/2795)) ([9605e60](https://github.com/Kong/kongponents/commit/9605e601719118f42313e684dc6d5b125faf4ccf))
+
 # [9.35.0](https://github.com/Kong/kongponents/compare/v9.34.2...v9.35.0) (2025-06-18)
 
 
