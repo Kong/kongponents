@@ -518,6 +518,8 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
 
       &.readonly {
         @include inputReadOnly;
+
+        cursor: default;
       }
 
       .datetime-picker-display {
