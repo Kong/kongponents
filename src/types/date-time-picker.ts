@@ -176,6 +176,12 @@ export interface DateTimePickerProps {
   disabled?: boolean
 
   /**
+   * Whether the input field is readonly.
+   * @default false
+   */
+  readonly?: boolean
+
+  /**
    * Define which side the popover displays.
    * One of ['auto', 'top', 'top-start', 'top-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end', 'bottom', 'bottom-start', 'bottom-end'].
    * @default 'bottom-start'

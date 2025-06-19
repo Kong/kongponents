@@ -116,6 +116,13 @@
           mode="dateTime"
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="readonly">
+        <KDateTimePicker
+          mode="dateTime"
+          readonly
+          :model-value="{ start: new Date(), end: null }"
+        />
+      </SandboxSectionComponent>
 
       <!-- Usage -->
       <SandboxTitleComponent

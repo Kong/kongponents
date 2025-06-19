@@ -7,7 +7,7 @@
   >
     <KPop
       ref="kPop"
-      :disabled="disabled"
+      :disabled="disabled || readonly"
       hide-caret
       hide-close-icon
       :placement="popoverPlacement"
@@ -21,7 +21,7 @@
       >
         <div
           class="datetime-picker-trigger"
-          :class="{ 'disabled': disabled }"
+          :class="{ 'disabled': disabled, 'readonly': readonly }"
           data-testid="datetime-picker-trigger"
           role="button"
           :style="widthStyle"
@@ -161,6 +161,7 @@ const {
   timePeriods = [],
   width = '100%',
   disabled,
+  readonly,
   popoverPlacement = 'bottom-start',
 } = defineProps<DateTimePickerProps>()
 
@@ -513,6 +514,10 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
         .datetime-picker-display {
           color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
         }
+      }
+
+      &.readonly {
+        @include inputReadOnly;
       }
 
       .datetime-picker-display {
