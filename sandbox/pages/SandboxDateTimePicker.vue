@@ -119,8 +119,8 @@
       <SandboxSectionComponent title="readonly">
         <KDateTimePicker
           mode="dateTime"
-          readonly
           :model-value="{ start: new Date(), end: null }"
+          readonly
         />
       </SandboxSectionComponent>
 
