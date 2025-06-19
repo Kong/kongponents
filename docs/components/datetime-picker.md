@@ -120,6 +120,10 @@ Width of the trigger element. Defaults to `100%`.
 
 Boolean to disable the input component. Defaults to `false`.
 
+### readonly
+
+Whether KDateTimePicker is read-only. Defaults to `false`.
+
 ### popoverPlacement
 
 Prop to define the positioning of the popover in relation to the trigger element (see [KPopover placement prop](/components/popover#placement) for details). Default value is `bottom-start`.
