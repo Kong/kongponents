@@ -176,7 +176,7 @@ export interface DateTimePickerProps {
   disabled?: boolean
 
   /**
-   * Whether the input field is readonly.
+   * Whether the input field is read-only.
    * @default false
    */
   readonly?: boolean
