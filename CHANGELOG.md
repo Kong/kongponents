@@ -1,3 +1,17 @@
+## [9.35.2](https://github.com/Kong/kongponents/compare/v9.35.1...v9.35.2) (2025-06-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.31.0 ([#2789](https://github.com/Kong/kongponents/issues/2789)) ([7b04361](https://github.com/Kong/kongponents/commit/7b043619c4dba46fbdbb9a28df0169079279855e))
+* **deps:** update dependency virtua to ^0.41.3 ([#2792](https://github.com/Kong/kongponents/issues/2792)) ([cddaf4f](https://github.com/Kong/kongponents/commit/cddaf4fa8b683b842d0aed1fd3ab1ace748810e3))
+* **kdatetimepicker:** add readonly prop [KHCP-16750] ([#2798](https://github.com/Kong/kongponents/issues/2798)) ([82d1cc4](https://github.com/Kong/kongponents/commit/82d1cc46d48c10b6101c7ad89aea7de97b515fa7))
+
+
+### Reverts
+
+* sandbox layout update ([#2803](https://github.com/Kong/kongponents/issues/2803)) ([45fba83](https://github.com/Kong/kongponents/commit/45fba83825df1e308c77b6500b089e5f96df6d69))
+
 ## [9.35.1](https://github.com/Kong/kongponents/compare/v9.35.0...v9.35.1) (2025-06-18)
 
 
