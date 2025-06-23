@@ -97,7 +97,7 @@ importers:
         specifier: ^4.17.12
         version: 4.17.12
       '@types/node':
-        specifier: ^22.15.30
+        specifier: ^22.15.31
         version: 22.15.32
       '@types/sortablejs':
         specifier: ^1.15.8
@@ -166,7 +166,7 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1
       rollup-plugin-visualizer:
-        specifier: ^6.0.1
+        specifier: ^6.0.3
         version: 6.0.3
       sass:
         specifier: ^1.80.7
@@ -997,6 +997,7 @@ packages:
 
   '@evilmartians/lefthook@1.11.13':
     resolution: {integrity: sha512-CcR9u7lb3uCKD+295S2GfhROI6q9npTsJ/E07XupZZFO8sdYHm3Uo3x8t+lzKmI/7rCFA2t0MWRggjNrxpjXFg==}
+    cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
 
