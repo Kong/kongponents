@@ -1,2 +1,5 @@
 onlyBuiltDependencies:
+  - '@evilmartians/lefthook'
   - cypress
+  - esbuild
+  - vue-demi
