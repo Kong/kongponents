@@ -997,7 +997,6 @@ packages:
 
   '@evilmartians/lefthook@1.11.13':
     resolution: {integrity: sha512-CcR9u7lb3uCKD+295S2GfhROI6q9npTsJ/E07XupZZFO8sdYHm3Uo3x8t+lzKmI/7rCFA2t0MWRggjNrxpjXFg==}
-    cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -1073,12 +1072,6 @@ packages:
     engines: {node: '>=18.0.0 || >=20.13.1'}
     peerDependencies:
       eslint: '>= 9.23.0'
-
-  '@kong/icons@1.31.0':
-    resolution: {integrity: sha512-tphJTLicE+H1e64IUbHqXcGTj5AHKEvrroVc2WfFEbHketrVARsMZ0aBcgQa0Xuh5MSBK2/wabyt88mTXUYrAw==}
-    engines: {node: '>=18.17.0', pnpm: '>=9.14.4 || >=10.1.0'}
-    peerDependencies:
-      vue: '>= 3.3.4 < 4'
 
   '@kong/icons@1.31.0':
     resolution: {integrity: sha512-tphJTLicE+H1e64IUbHqXcGTj5AHKEvrroVc2WfFEbHketrVARsMZ0aBcgQa0Xuh5MSBK2/wabyt88mTXUYrAw==}
@@ -1253,8 +1246,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.43.0':
-    resolution: {integrity: sha512-8oXXm1Fnu+CkZDwGu6gPc3Hz46pNBydHoixTSo/kPNkpFePIKySPuTI9feqI94Ka/vlHpa8VhvFRUwkRC30TMw==}
+  '@rollup/wasm-node@4.44.0':
+    resolution: {integrity: sha512-9PvS/NpzOdVXhPY/qTxcgYyvE0OfiHZFYplMtba0E+vrqm90qq0983VOJEg7exz7By0cBfl0IYaYJfohs9pVQg==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -1379,6 +1372,9 @@ packages:
 
   '@types/estree@1.0.7':
     resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
+
+  '@types/estree@1.0.8':
+    resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
 
   '@types/hast@3.0.4':
     resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
@@ -5967,7 +5963,7 @@ snapshots:
   '@commitlint/types@19.0.3':
     dependencies:
       '@types/conventional-commits-parser': 5.0.0
-      chalk: 5.4.1
+      chalk: 5.3.0
     optional: true
 
   '@commitlint/types@19.5.0':
@@ -6386,10 +6382,6 @@ snapshots:
     dependencies:
       vue: 3.5.16(typescript@5.6.3)
 
-  '@kong/icons@1.31.0(vue@3.5.16(typescript@5.6.3))':
-    dependencies:
-      vue: 3.5.16(typescript@5.6.3)
-
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -6542,9 +6534,9 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@rollup/wasm-node@4.43.0':
+  '@rollup/wasm-node@4.44.0':
     dependencies:
-      '@types/estree': 1.0.7
+      '@types/estree': 1.0.8
     optionalDependencies:
       fsevents: 2.3.3
 
@@ -6753,6 +6745,8 @@ snapshots:
       '@types/node': 22.15.32
 
   '@types/estree@1.0.7': {}
+
+  '@types/estree@1.0.8': {}
 
   '@types/hast@3.0.4':
     dependencies:
@@ -10870,7 +10864,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.5.3
-      rollup: '@rollup/wasm-node@4.43.0'
+      rollup: '@rollup/wasm-node@4.44.0'
     optionalDependencies:
       '@types/node': 22.15.32
       fsevents: 2.3.3
@@ -10881,7 +10875,7 @@ snapshots:
     dependencies:
       esbuild: 0.25.2
       postcss: 8.5.3
-      rollup: '@rollup/wasm-node@4.43.0'
+      rollup: '@rollup/wasm-node@4.44.0'
     optionalDependencies:
       '@types/node': 22.15.32
       fsevents: 2.3.3
