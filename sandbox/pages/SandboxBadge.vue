@@ -91,9 +91,11 @@
         </div>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="maxWidth">
-        <KBadge max-width="auto">
-          Very long text that should be truncated but isn't thanks to max-width="auto"
-        </KBadge>
+        <div class="resizable-container">
+          <KBadge max-width="100%">
+            Very long text that should be truncated but isn't thanks to max-width="100%" (try resizing the container)
+          </KBadge>
+        </div>
       </SandboxSectionComponent>
 
       <!-- Slots -->
@@ -468,6 +470,13 @@ const handleIconClick = (): void => {
     display: flex;
     flex-wrap: wrap;
     gap: $kui-space-50;
+  }
+
+  .resizable-container {
+    max-width: 900px;
+    overflow-x: auto;
+    padding-bottom: $kui-space-60;
+    resize: horizontal;
   }
 }
 </style>

@@ -91,6 +91,8 @@ $kBadgeMethodWidth: 85px;
   // apply info appearance by default (in case of invalid appearance)
   @include badgeAppearance;
 
+  max-width: 100%;
+
   // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
   // stylelint-disable-next-line no-duplicate-selectors
   & {
@@ -104,6 +106,8 @@ $kBadgeMethodWidth: 85px;
   .badge-content {
     @include badgeContent;
 
+    max-width: v-bind('_maxWidth');
+
     &.icon-after {
       flex-direction: row-reverse;
     }
@@ -111,8 +115,6 @@ $kBadgeMethodWidth: 85px;
 
   .badge-content-wrapper {
     @include truncate;
-
-    max-width: v-bind('_maxWidth');
   }
 
   :deep(#{$kongponentsKongIconSelector}) {
