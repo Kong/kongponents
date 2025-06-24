@@ -1,3 +1,10 @@
+## [9.35.3](https://github.com/Kong/kongponents/compare/v9.35.2...v9.35.3) (2025-06-24)
+
+
+### Bug Fixes
+
+* **lint:** update and run eslint config ([f4ef384](https://github.com/Kong/kongponents/commit/f4ef38430137cf52505c17a9c2ba5d6b6b0b9041))
+
 ## [9.35.2](https://github.com/Kong/kongponents/compare/v9.35.1...v9.35.2) (2025-06-23)
 
 
