@@ -183,9 +183,9 @@
         title="readonly"
       >
         <KSelect
-          readonly
           :items="selectItems"
           label="Readonly"
+          readonly
         />
       </SandboxSectionComponent>
 
