@@ -692,7 +692,7 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     }
 
     &.input-has-focus {
-      :deep(input) {
+      :deep(input:not([readonly]):not([disabled])) {
         @include inputFocus;
       }
     }

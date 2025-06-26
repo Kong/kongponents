@@ -145,13 +145,13 @@ A `boolean` to conditionally display the [`tooltip`](#tooltip) only when the bad
 
 A `number` or `string`, to limit the badge width and truncate the text. Works just like `max-width` property in CSS. Default value is `200px`. Text content that is wider than the provided value will be truncated.
 
-<KBadge max-width="auto" appearance="warning">
-  Very long text that should be truncated but isn't thanks to max-width="auto"
+<KBadge max-width="100%" appearance="warning">
+  Very long text that should be truncated but isn't thanks to max-width="100%"
 </KBadge>
 
 ```html
-<KBadge max-width="auto" appearance="warning">
-  Very long text that should be truncated but isn't thanks to max-width="auto"
+<KBadge max-width="100%" appearance="warning">
+  Very long text that should be truncated but isn't thanks to max-width="100%"
 </KBadge>
 ```
 

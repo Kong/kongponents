@@ -73,7 +73,7 @@ describe('KBadge', () => {
       },
     })
 
-    cy.get('.badge-content-wrapper').should('have.css', 'max-width').and('eq', maxWidth)
+    cy.get('.badge-content').should('have.css', 'max-width').and('eq', maxWidth)
   })
 
   it('renders the icon slot', () => {

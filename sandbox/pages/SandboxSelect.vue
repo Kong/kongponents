@@ -179,6 +179,15 @@
           label="Disabled"
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent
+        title="readonly"
+      >
+        <KSelect
+          :items="selectItems"
+          label="Readonly"
+          readonly
+        />
+      </SandboxSectionComponent>
 
       <!-- Slots -->
       <SandboxTitleComponent
