@@ -230,7 +230,7 @@ const getChildrenVisibility = (id: string): boolean => {
   return props.collapsible ? !!childrenVisibilityMap.value.get(id) : true
 }
 
-const treeItems = useTemplateRef<typeof KTreeItem[] | null>('tree-items')
+const treeItems = useTemplateRef<Array<typeof KTreeItem> | null>('tree-items')
 
 const collapseAll = (): void => {
   internalList.value.forEach(item => {

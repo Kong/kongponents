@@ -513,9 +513,9 @@ const getRowKey = (row: Row): string => {
 const tableWrapperRef = useTemplateRef('table-wrapper')
 const headerRowRef = useTemplateRef('header-row')
 // all headers
-const tableHeaders = ref([]) as Ref<TableViewHeader<ColumnKey>[]>
+const tableHeaders = ref([]) as Ref<Array<TableViewHeader<ColumnKey>>>
 // currently visible headers
-const visibleHeaders = ref([]) as Ref<TableViewHeader<ColumnKey>[]>
+const visibleHeaders = ref([]) as Ref<Array<TableViewHeader<ColumnKey>>>
 // highest priority - column currently being resized (mouse may be completely outside the column)
 const resizingColumn = ref('') as Ref<ColumnKey | ''>
 // column the user is currently hovering over the resize handle for (may be hovered on the adjacent column to what we want to resize)
@@ -561,7 +561,7 @@ const scrollbarWidth = computed((): string => `${getScrollbarSize()}px`)
 
 const bulkActionsSelectedRows = ref([]) as Ref<Row[]>
 const hasBulkActions = computed((): boolean => !nested && !error && tableHeaders.value.some((header) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']) && !!data.every((row) => getRowKey(row)))
-const dataSelectState = ref([]) as Ref<TableViewSelectState<Row>[]>
+const dataSelectState = ref([]) as Ref<Array<TableViewSelectState<Row>>>
 const showBulkActionsToolbar = computed((): boolean => {
   if (nested || !hasBulkActions.value || error) {
     return false
@@ -1153,7 +1153,7 @@ const setActualColumnWidths = (): void => {
 watch([columnVisibility, tableHeaders, hasExpandableRows], (newVals) => {
   const [newVisibility, newHeaders, newExpandableRows] = newVals
 
-  let newVisibleHeaders: TableViewHeader<ColumnKey>[] = newHeaders.filter((header) => {
+  let newVisibleHeaders: Array<TableViewHeader<ColumnKey>> = newHeaders.filter((header) => {
     if (header.key === TableViewHeaderKeys.BULK_ACTIONS) {
       return hasBulkActions.value
     }

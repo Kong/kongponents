@@ -82,7 +82,7 @@ const SELECTED_ITEM_SELECTOR = '.select-item[aria-selected="true"] button:not(:d
 
 const handleItemSelect = (item: SelectItem<T>) => emit('selected', item)
 
-const nonGroupedItems = computed((): SelectItem<T>[] => items?.filter(item => !item.group))
+const nonGroupedItems = computed((): Array<SelectItem<T>> => items?.filter(item => !item.group))
 const groups = computed((): string[] => [...new Set((items?.filter(item => item.group))?.map(item => item.group!))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())))
 
 const getGroupItems = (group: string) => items?.filter(item => item.group === group)

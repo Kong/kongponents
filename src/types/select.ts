@@ -42,7 +42,7 @@ export interface SelectItemSlots {
  * @internal
  */
 export interface SelectItemsProps<T extends string | number> {
-  items?: SelectItem<T>[]
+  items?: Array<SelectItem<T>>
   itemCreationEnabled?: boolean
   filterString?: string
   itemCreationValid?: boolean
@@ -65,7 +65,7 @@ export interface SelectItemsSlots<T extends string | number> {
 
 export interface SelectFilterFunctionParams<T extends string | number> {
   query: string
-  items: SelectItem<T>[]
+  items: Array<SelectItem<T>>
 }
 
 export type SelectDropdownFooterTextPosition = 'sticky' | 'static'
@@ -122,7 +122,7 @@ export interface SelectProps<T extends string | number, U extends boolean> {
    * }
    * @default []
    */
-  items?: U extends true ? SelectItem<T | string>[] : SelectItem<T>[]
+  items?: U extends true ? Array<SelectItem<T | string>> : Array<SelectItem<T>>
 
   /**
    * Control whether the select supports filtering.
@@ -137,8 +137,8 @@ export interface SelectProps<T extends string | number, U extends boolean> {
   filterFunction?: NoInfer<
     (params: SelectFilterFunctionParams<U extends true ? T | string : T>) =>
       | (U extends true
-        ? SelectItem<T | string>[]
-        : SelectItem<T>[])
+        ? Array<SelectItem<T | string>>
+        : Array<SelectItem<T>>)
       | true
   >
 

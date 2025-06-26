@@ -11,7 +11,7 @@ export interface MultiselectItem<T extends string = string> {
 }
 
 export interface MultiselectFilterFunctionParams<T extends string = string> {
-  items: MultiselectItem<T>[]
+  items: Array<MultiselectItem<T>>
   query: string
 }
 
@@ -44,7 +44,7 @@ export interface MultiselectItemSlots {
  * @internal
  */
 export interface MultiselectItemsProps<T extends string> {
-  items?: MultiselectItem<T>[]
+  items?: Array<MultiselectItem<T>>
   itemCreationEnabled?: boolean
   filterString?: string
   itemCreationValid?: boolean
@@ -63,7 +63,7 @@ export interface MultiselectProps<T extends string, U extends boolean> {
    * The current value of the multiselect (v-model).
    * @default []
    */
-  modelValue?: U extends true ? (T | string)[] : T[]
+  modelValue?: U extends true ? Array<T | string> : T[]
 
   /**
    * The label for the multiselect.
@@ -141,13 +141,13 @@ export interface MultiselectProps<T extends string, U extends boolean> {
    * }
    * @default []
    */
-  items?: U extends true ? MultiselectItem<T | string>[] : MultiselectItem<T>[]
+  items?: U extends true ? Array<MultiselectItem<T | string>> : Array<MultiselectItem<T>>
 
   /**
    * Override the default filter functionality of case-insensitive search on the label.
    * @default (params) => params.items.filter(item => item.label?.toLowerCase().includes(params.query?.toLowerCase()))
    */
-  filterFunction?: (params: MultiselectFilterFunctionParams<(U extends true ? T | string : T)>) => MultiselectItem<(U extends true ? T | string : T)>[]
+  filterFunction?: (params: MultiselectFilterFunctionParams<(U extends true ? T | string : T)>) => Array<MultiselectItem<(U extends true ? T | string : T)>>
 
   /**
    * A flag for enabling autosuggest mode.
@@ -188,7 +188,7 @@ export interface MultiselectProps<T extends string, U extends boolean> {
 }
 
 export interface MultiselectEmits<T extends string = string> {
-  selected: [items: MultiselectItem<T>[]]
+  selected: [items: Array<MultiselectItem<T>>]
   input: [values: string[]]
   change: [item: MultiselectItem<T> | null]
   'update:modelValue': [values: T[]]

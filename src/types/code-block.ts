@@ -61,7 +61,7 @@ export interface CodeBlockProps {
    * The line numbers for the lines to highlight by default.
    * @default []
    */
-  highlightedLineNumbers?: string | (number | [number, number])[]
+  highlightedLineNumbers?: string | Array<number | [number, number]>
 
   /**
    * Allows controlling the processing state from outside the component. This allows a parent component to show the processing icon when it’s, for example, currently syntax highlighting the code.

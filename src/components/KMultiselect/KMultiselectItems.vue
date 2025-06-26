@@ -80,7 +80,7 @@ const SELECTABLE_ITEM_SELECTOR = '.multiselect-item button:not(:disabled)'
 
 const handleItemSelect = (item: MultiselectItem<T>) => emit('selected', item)
 
-const nonGroupedItems = computed((): MultiselectItem<T>[] => items?.filter(item => !item.group))
+const nonGroupedItems = computed((): Array<MultiselectItem<T>> => items?.filter(item => !item.group))
 const groups = computed((): string[] => [...new Set((items?.filter(item => item.group))?.map(item => item.group!))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())))
 
 const getGroupItems = (group: string) => items?.filter(item => item.group === group)

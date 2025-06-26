@@ -148,7 +148,7 @@ export interface DropdownProps<T extends string | number> {
    * An array of objects containing a required `label` property and other optional properties which will render a menu of KDropdownItems.
    * @default []
    */
-  items?: DropdownItem<T>[]
+  items?: Array<DropdownItem<T>>
 
   /**
    * Whether the dropdown is disabled.

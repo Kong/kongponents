@@ -96,7 +96,7 @@ export default function useUtilities() {
    * @param {Array} items - the list of items to sort
    * @return {Object} an object containing the previousKey and sortOrder
    */
-  const clientSideSorter = (key: string, previousKey: string, sortOrder: string, items: Record<string, any>[]) => {
+  const clientSideSorter = (key: string, previousKey: string, sortOrder: string, items: Array<Record<string, any>>) => {
     let comparator = null
 
     const numberComparator = (a: number, b: number | string) => {

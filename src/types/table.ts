@@ -21,7 +21,7 @@ export interface BulkActionsDropdownSlots {
  * @internal
  */
 export interface ColumnVisibilityMenuProps {
-  columns: Record<string, any>[]
+  columns: Array<Record<string, any>>
   tableId: string
   visibilityPreferences: Partial<Record<string, boolean>>
   disabled?: boolean
@@ -200,7 +200,7 @@ export interface TableDataFetcherParams<Key extends string = string, Offset exte
   offset?: Offset | null
 }
 
-export interface TableDataFetcherResponse<Data extends readonly Record<string, any>[] = readonly Record<string, any>[], Offset extends string | number = string> {
+export interface TableDataFetcherResponse<Data extends ReadonlyArray<Record<string, any>> = ReadonlyArray<Record<string, any>>, Offset extends string | number = string> {
   data: Data
   total?: number
   pagination?: {
@@ -233,7 +233,7 @@ export interface RowActionsTogglePayload<Row extends Record<string, any> = Recor
 
 type TablePropsShared<
   Key extends string, // column keys
-  Data extends readonly Record<string, any>[], // data row
+  Data extends ReadonlyArray<Record<string, any>>, // data row
 > = {
   /**
    * Allow columns to be resized.
@@ -443,7 +443,7 @@ type TablePropsShared<
 
 interface TableEmitsShared<
   Key extends string, // column keys
-  Data extends readonly Record<string, any>[],
+  Data extends ReadonlyArray<Record<string, any>>,
 > {
   /**
    * Emitted whenever a cell is clicked.
@@ -478,7 +478,7 @@ interface TableEmitsShared<
   /**
    * Emitted when user interacts with checkboxes in bulk actions column.
    */
-  'row-select': [data: Data[number][]]
+  'row-select': [data: Array<Data[number]>]
 
   /**
    * Emitted when row is expanded or collapsed (when `rowExpandable` prop is true).
@@ -491,16 +491,16 @@ interface TableEmitsShared<
   'row-actions-toggle': [payload: RowActionsTogglePayload<Data[number]>]
 }
 
-type TableSlotsShared<Header extends TableViewHeader, Data extends readonly Record<string, any>[]> = {
+type TableSlotsShared<Header extends TableViewHeader, Data extends ReadonlyArray<Record<string, any>>> = {
   /**
    * Slot for passing custom bulk actions trigger element.
    */
-  'bulk-actions'?(props: { selectedRows: Data[number][] }): any
+  'bulk-actions'?(props: { selectedRows: Array<Data[number]> }): any
 
   /**
    * Slot for passing bulk action dropdown items.
    */
-  'bulk-action-items'?(props: { selectedRows: Data[number][] }): any
+  'bulk-action-items'?(props: { selectedRows: Array<Data[number]> }): any
 
   /**
    * Slot for passing action dropdown items.
@@ -555,7 +555,7 @@ type TableSlotsShared<Header extends TableViewHeader, Data extends readonly Reco
 
 export interface TableViewProps<
   Header extends TableViewHeader = TableViewHeader, // column
-  Data extends readonly Record<string, any>[] = readonly Record<string, any>[], // data row
+  Data extends ReadonlyArray<Record<string, any>> = ReadonlyArray<Record<string, any>>, // data row
 > extends TablePropsShared<Header['key'], Data> {
   /**
    * Data to be rendered in the table.
@@ -570,7 +570,7 @@ export interface TableViewProps<
 
 export interface TableViewEmits<
   Header extends TableViewHeader, // column
-  Data extends readonly Record<string, any>[], // data row
+  Data extends ReadonlyArray<Record<string, any>>, // data row
 > extends TableEmitsShared<Header['key'], Data> {
   /**
    * Emitted when the page has been changed.
@@ -595,7 +595,7 @@ export interface TableViewEmits<
 
 export type TableViewSlots<
   Header extends TableViewHeader,
-  Data extends readonly Record<string, any>[],
+  Data extends ReadonlyArray<Record<string, any>>,
 > = TableSlotsShared<Header, Data> & {
   /**
    * The toolbar is rendered directly above the table and is useful for providing table controls like search or filter fields.
@@ -605,7 +605,7 @@ export type TableViewSlots<
 
 export interface TableDataProps<
   Header extends TableDataHeader = TableDataHeader,
-  Data extends readonly Record<string, any>[] = readonly Record<string, any>[],
+  Data extends ReadonlyArray<Record<string, any>> = ReadonlyArray<Record<string, any>>,
   Offset extends string | number = string, // offset type
 > extends TablePropsShared<Header['key'], Data> {
   /**
@@ -663,7 +663,7 @@ export interface TableDataProps<
 
 export interface TableDataEmits<
   Header extends TableViewHeader, // column
-  Data extends readonly Record<string, any>[], // data row
+  Data extends ReadonlyArray<Record<string, any>>, // data row
 > extends TableEmitsShared<Header['key'], Data> {
   /**
    * Emitted when the table state changes.
@@ -673,7 +673,7 @@ export interface TableDataEmits<
 
 export type TableDataSlots<
   Header extends TableViewHeader,
-  Data extends readonly Record<string, any>[],
+  Data extends ReadonlyArray<Record<string, any>>,
 > = TableSlotsShared<Header, Data> & {
   /**
    * The toolbar is rendered directly above the table and is useful for providing table controls like search or filter fields.
