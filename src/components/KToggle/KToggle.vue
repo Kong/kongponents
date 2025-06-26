@@ -1,7 +1,7 @@
 <template>
   <slot
     v-if="$slots.default"
-    :is-toggled="isToggled"
+    :is-toggled="isToggledWrapper[0]"
     :toggle="toggle"
   />
 </template>
@@ -15,6 +15,9 @@ const { toggled } = defineProps<ToggleProps>()
 const emit = defineEmits<ToggleEmits>()
 
 const isToggled = ref(toggled)
+// We need to wrap `isToggled` in an array to ensure it's not unref'd when passed to the slot
+// in the template. It's cheaper than using a computed property.
+const isToggledWrapper = [isToggled]
 
 const toggle = (): void => {
   isToggled.value = !isToggled.value

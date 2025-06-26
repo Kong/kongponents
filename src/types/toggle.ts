@@ -1,3 +1,5 @@
+import type { Ref } from 'vue'
+
 export interface ToggleProps {
   /**
    * Whether the toggle is toggled on or off by default.
@@ -17,5 +19,5 @@ export interface ToggleSlots {
   /**
    * Content to toggle.
    */
-  default?(props: { isToggled: boolean, toggle: () => void }): any
+  default?(props: { isToggled: Ref<boolean>, toggle: () => void }): any
 }
