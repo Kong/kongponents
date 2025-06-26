@@ -6,11 +6,11 @@ export interface SegmentedControlOption<T extends string | number | boolean = st
   disabled?: boolean
 }
 
-export interface SegmentedControlProps<T extends SegmentedControlOption<string | number | boolean>[] | string[]> {
+export interface SegmentedControlProps<T extends Array<SegmentedControlOption<string | number | boolean>> | string[]> {
   /**
    * The value of the currently selected option.
    */
-  modelValue?: NoInfer<T extends string[] ? T[number] : T extends SegmentedControlOption<string | number | boolean>[] ? T[number]['value'] : never>
+  modelValue?: NoInfer<T extends string[] ? T[number] : T extends Array<SegmentedControlOption<string | number | boolean>> ? T[number]['value'] : never>
 
   /**
    * An array of options for each button.
@@ -43,7 +43,7 @@ export interface SegmentedControlEmits<T extends string | number | boolean> {
   'update:modelValue': [value: T]
 }
 
-export interface SegmentedControlSlots<T extends SegmentedControlOption<string | number | boolean>[] | string[]> {
+export interface SegmentedControlSlots<T extends Array<SegmentedControlOption<string | number | boolean>> | string[]> {
   /**
    * Each option's content.
    */

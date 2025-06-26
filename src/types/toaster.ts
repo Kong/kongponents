@@ -30,7 +30,7 @@ export interface ToasterProps {
    * The toaster state.
    * @default []
    */
-  toasterState: (Toast & { key: string }) []
+  toasterState: Array<Toast & { key: string }>
 
   /**
    * The z-index of the toaster.

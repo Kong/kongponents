@@ -246,7 +246,7 @@ const tableId = useId()
 
 // Cannot use `ref<Data[number][]>([])` as the items will be inferred incorrectly inside the template.
 // Same applies to other refs that have a generic type.
-const tableData = ref([]) as Ref<Data[number][]>
+const tableData = ref([]) as Ref<Array<Data[number]>>
 const tableHeaders = computed(() => sortable ? headers : headers.map((header) => ({ ...header, sortable: false })))
 const getEmptyStateButtonAppearance = computed((): ButtonAppearance => {
   if (emptyStateButtonAppearance) {
@@ -263,7 +263,7 @@ const filterQuery = ref<string>(searchInput ?? '')
 const sortColumnKey = ref('') as Ref<ColumnKey>
 const sortColumnOrder = ref<SortColumnOrder>('desc')
 const offset = ref(null) as Ref<Offset | null>
-const offsets = ref([]) as Ref<(Offset | null)[]>
+const offsets = ref([]) as Ref<Array<Offset | null>>
 const hasNextPage = ref<boolean>(true)
 const hasInitialized = ref<boolean>(false)
 
@@ -300,7 +300,7 @@ const isTableColumnKey = (slot: string): slot is ColumnKey => {
   return tableHeaders.value.some((header) => header.key === slot)
 }
 
-const headerSlots = computed((): TableColumnSlotName<ColumnKey>[] => {
+const headerSlots = computed((): Array<TableColumnSlotName<ColumnKey>> => {
   if (!slots) {
     return []
   }
@@ -308,7 +308,7 @@ const headerSlots = computed((): TableColumnSlotName<ColumnKey>[] => {
   return Object.keys(slots).filter(isTableColumnSlotName)
 })
 
-const headerTooltipSlots = computed((): TableColumnTooltipSlotName<ColumnKey>[] => {
+const headerTooltipSlots = computed((): Array<TableColumnTooltipSlotName<ColumnKey>> => {
   if (!slots) {
     return []
   }

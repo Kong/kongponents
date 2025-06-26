@@ -15,7 +15,7 @@ export interface TabsProps<H extends string = string> {
   /**
    * Array of tab objects.
    */
-  tabs: readonly Tab<H>[]
+  tabs: ReadonlyArray<Tab<H>>
 
   /**
    * The hash of the currently active tab.

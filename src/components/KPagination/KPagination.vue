@@ -283,7 +283,7 @@ const currentlySelectedPage = computed((): number => currentPage ? currentPage :
 const visiblePages = computed((): number => 5 + 2 * fittingNeighbors.value)
 const firstDetached = ref<boolean>(currentlySelectedPage.value >= fittingNeighbors.value + (sequentialItemsVisible.value + 1) && pageCount.value > visiblePages.value)
 const lastDetached = ref<boolean>(pageCount.value > (sequentialItemsVisible.value + 2) + (2 * fittingNeighbors.value))
-const pagesVisible = ref<Array<number>>(getVisiblePages(
+const pagesVisible = ref<number[]>(getVisiblePages(
   currentlySelectedPage.value,
   pageCount.value,
   firstDetached.value,

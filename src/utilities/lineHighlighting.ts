@@ -16,7 +16,7 @@ function expressionToLines(expression: string, maxLines: number): number[] {
 }
 
 // [1, 2, [4, 6]] -> [1, 2, 4, 5, 6]
-function rangesToLines(ranges: (number | [number, number])[], maxLines: number): number[] {
+function rangesToLines(ranges: Array<number | [number, number]>, maxLines: number): number[] {
   const lines = ranges.flatMap((range) => {
     if (typeof range === 'number') {
       return range < 1 || range > maxLines ? [] : range
@@ -36,7 +36,7 @@ function rangesToLines(ranges: (number | [number, number])[], maxLines: number):
   return Array.from(new Set(lines))
 }
 
-export function normalizeHighlightedLines(lines: string | (number | [number, number])[], maxLines: number): number[] {
+export function normalizeHighlightedLines(lines: string | Array<number | [number, number]>, maxLines: number): number[] {
   return typeof lines === 'string'
     ? expressionToLines(lines, maxLines)
     : rangesToLines(lines, maxLines)

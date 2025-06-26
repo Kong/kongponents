@@ -524,7 +524,7 @@ const defaultFetcherProps = {
   sortColumnOrder: 'desc',
   offset: null,
 }
-const data = ref<Record<string, any>[]>([])
+const data = ref<Array<Record<string, any>>>([])
 const headerRow = ref<HTMLDivElement>()
 // all headers
 const tableHeaders = ref<TableHeader[]>([])
@@ -556,7 +556,7 @@ const filterQuery = ref('')
 const sortColumnKey = ref('')
 const sortColumnOrder = ref<SortColumnOrder>('desc')
 const offset: Ref<string | null> = ref(null)
-const offsets: Ref<Array<any>> = ref([])
+const offsets: Ref<any[]> = ref([])
 const hasNextPage = ref(true)
 const isClickable = ref(false)
 const hasInitialized = ref(false)
@@ -828,7 +828,7 @@ const fetchData = async () => {
     offset: offset.value,
   })
 
-  data.value = res.data as Record<string, any>[]
+  data.value = res.data as Array<Record<string, any>>
   total.value = props.paginationTotalItems || res.total || res.data?.length
 
   if (props.paginationOffset) {
