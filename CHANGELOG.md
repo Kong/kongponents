@@ -1,3 +1,10 @@
+## [9.35.4](https://github.com/Kong/kongponents/compare/v9.35.3...v9.35.4) (2025-06-26)
+
+
+### Bug Fixes
+
+* **kbadge:** fix max-width 100% [KHCP-16685] ([#2804](https://github.com/Kong/kongponents/issues/2804)) ([af6c524](https://github.com/Kong/kongponents/commit/af6c5244ed8936e14c172227fe32aba57cf492b7))
+
 ## [9.35.3](https://github.com/Kong/kongponents/compare/v9.35.2...v9.35.3) (2025-06-24)
 
 
