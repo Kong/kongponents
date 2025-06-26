@@ -1,9 +1,13 @@
 <template>
-  <slot v-if="$slots.default" :is-toggled="isToggled" :toggle="toggle" />
+  <slot
+    v-if="$slots.default"
+    :is-toggled="isToggled"
+    :toggle="toggle"
+  />
 </template>
 
 <script setup lang="ts">
-import type { ToggleEmits, ToggleProps, ToggleSlots } from '@/types';
+import type { ToggleEmits, ToggleProps, ToggleSlots } from '@/types'
 import { ref } from 'vue'
 
 const { toggled } = defineProps<ToggleProps>()
