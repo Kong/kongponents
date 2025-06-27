@@ -79,8 +79,8 @@ importers:
         specifier: ^1.17.4
         version: 1.17.4
       '@kong/eslint-config-kong-ui':
-        specifier: 1.4.1-pr.40.b703c24.0
-        version: 1.4.1-pr.40.b703c24.0(eslint@9.29.0(jiti@1.21.6))(typescript@5.6.3)
+        specifier: 1.4.1
+        version: 1.4.1(eslint@9.29.0(jiti@1.21.6))(typescript@5.6.3)
       '@semantic-release/changelog':
         specifier: ^6.0.3
         version: 6.0.3(semantic-release@24.2.5(typescript@5.6.3))
@@ -1060,8 +1060,8 @@ packages:
     resolution: {integrity: sha512-3BrKJvwlQ27jrVQIE+cJ9baTVz6cvxO5f7vw0UWOiXz/E23z5ZOGDpUMiyK7q3Jks9t3x8OsMx3BKPRu87TPnw==}
     engines: {node: '>=20.18.3', pnpm: '>=9.14.4 || >=10.1.0'}
 
-  '@kong/eslint-config-kong-ui@1.4.1-pr.40.b703c24.0':
-    resolution: {integrity: sha512-ajy39XScklRqLs4s80TStnt3ThbEQy/qbAf2/rLETwgNqGZdbHzh84PLPmSJ20m2dXN9FDoTmgNnWPPsa/xPOA==}
+  '@kong/eslint-config-kong-ui@1.4.1':
+    resolution: {integrity: sha512-9TJVmfd4mI95KTvZLTCAbyuTPwoiZ1rP4vLzM9FBnQ7fwABbNqxaAWo2p+EoCgKOE194DwyaCfEIrc6CryNp/g==}
     engines: {node: '>=18.0.0 || >=20.13.1'}
     peerDependencies:
       eslint: '>= 9.23.0'
@@ -6449,7 +6449,7 @@ snapshots:
 
   '@kong/design-tokens@1.17.4': {}
 
-  '@kong/eslint-config-kong-ui@1.4.1-pr.40.b703c24.0(eslint@9.29.0(jiti@1.21.6))(typescript@5.6.3)':
+  '@kong/eslint-config-kong-ui@1.4.1(eslint@9.29.0(jiti@1.21.6))(typescript@5.6.3)':
     dependencies:
       '@eslint/js': 9.29.0
       '@stylistic/eslint-plugin': 5.0.0(eslint@9.29.0(jiti@1.21.6))
