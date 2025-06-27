@@ -212,12 +212,20 @@
                     </template>
                   </KTooltip>
 
-                  <ArrowDownIcon
-                    v-if="!column.hideLabel && column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS"
-                    class="sort-icon"
-                    :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
-                    :size="KUI_ICON_SIZE_30"
-                  />
+                  <template v-if="!column.hideLabel && column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS">
+                    <ArrowDownIcon
+                      v-if="column.key === sortColumnKey"
+                      class="sort-icon"
+                      :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
+                      :size="KUI_ICON_SIZE_30"
+                    />
+                    <CodeIcon
+                      v-else
+                      class="sort-possible-icon"
+                      :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
+                      :size="KUI_ICON_SIZE_30"
+                    />
+                  </template>
                 </div>
 
                 <div
@@ -419,7 +427,7 @@ import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
-import { InfoIcon, ArrowDownIcon, MoreIcon, ChevronRightIcon } from '@kong/icons'
+import { InfoIcon, ArrowDownIcon, CodeIcon, MoreIcon, ChevronRightIcon } from '@kong/icons'
 import type {
   TablePreferences,
   TableViewHeader,
@@ -933,6 +941,13 @@ watch(() => headers, (newVal: readonly Header[]) => {
 
     if (actionsHeader) {
       headers.push(actionsHeader)
+    }
+
+    const firstInitialSort = newVal.find(({ initialSort }) => initialSort)
+    if (!sortColumnKey.value && firstInitialSort) {
+      sortColumnKey.value = firstInitialSort.key
+      // @ts-ignore - initialSort can't be undefined here because we filtered for it already
+      sortColumnOrder.value = firstInitialSort.initialSort
     }
 
     tableHeaders.value = headers
