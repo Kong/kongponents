@@ -1,4 +1,4 @@
-import KToggle from '@/components/KToggle'
+import KToggle from '@/components/KToggle/KToggle.vue'
 import { h } from 'vue'
 
 describe('KToggle', () => {

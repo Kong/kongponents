@@ -197,7 +197,7 @@ import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import KPop from '@/components/KPop/KPop.vue'
-import KToggle from '@/components/KToggle'
+import KToggle from '@/components/KToggle/KToggle.vue'
 import KSelectItems from '@/components/KSelect/KSelectItems.vue'
 import KSelectItem from '@/components/KSelect/KSelectItem.vue'
 import type {
