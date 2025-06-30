@@ -1,3 +1,10 @@
+## [9.35.5](https://github.com/Kong/kongponents/compare/v9.35.4...v9.35.5) (2025-06-30)
+
+
+### Bug Fixes
+
+* bump eslint config kong ([#2811](https://github.com/Kong/kongponents/issues/2811)) ([9e03396](https://github.com/Kong/kongponents/commit/9e03396ef51c6926daac33df3bb332091f87ab25))
+
 ## [9.35.4](https://github.com/Kong/kongponents/compare/v9.35.3...v9.35.4) (2025-06-26)
 
 
