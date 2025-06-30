@@ -19,7 +19,7 @@
       :key="element.id"
       class="tree-item-container"
       :class="{
-        'has-no-children': hasNoChildren(element)
+        'has-no-children': hasNoChildren(element),
       }"
     >
       <KTreeItem
@@ -58,7 +58,7 @@
         :id="`tree-list-draggable-${element.id}`"
         :key="`tree-item-${element.id}-children-${key}`"
         :class="{
-          'collapsible': collapsible
+          'collapsible': collapsible,
         }"
         :collapsible="collapsible"
         :disable-drag="disableDrag"

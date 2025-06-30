@@ -48,7 +48,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { AlertAppearances } from '@/types'
-import type { AlertEmits, AlertProps , AlertSlots } from '@/types'
+import type { AlertEmits, AlertProps, AlertSlots } from '@/types'
 import { InfoIcon, CheckCircleIcon, WarningIcon, DangerIcon, CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 

@@ -16,7 +16,7 @@
           :items="[
             { label: 'Home', to: { name: 'home' } },
             { label: 'KAlert', to: { name: 'alert' } },
-            { label: 'Stay', to: { name: 'dropdown' } }
+            { label: 'Stay', to: { name: 'dropdown' } },
           ]"
           trigger-text="Documentation"
         />
@@ -40,7 +40,7 @@
             :items="[
               { label: 'Home', to: { name: 'home' } },
               { label: 'KAlert', to: { name: 'alert' } },
-              { label: 'Stay', to: { name: 'dropdown' } }
+              { label: 'Stay', to: { name: 'dropdown' } },
             ]"
             trigger-text="Primary"
           />
@@ -49,7 +49,7 @@
             :items="[
               { label: 'Home', to: { name: 'home' } },
               { label: 'KAlert', to: { name: 'alert' } },
-              { label: 'Stay', to: { name: 'dropdown' } }
+              { label: 'Stay', to: { name: 'dropdown' } },
             ]"
             trigger-text="Secondary"
           />
@@ -58,7 +58,7 @@
             :items="[
               { label: 'Home', to: { name: 'home' } },
               { label: 'KAlert', to: { name: 'alert' } },
-              { label: 'Stay', to: { name: 'dropdown' } }
+              { label: 'Stay', to: { name: 'dropdown' } },
             ]"
             trigger-text="Tertiary"
           />
@@ -67,7 +67,7 @@
             :items="[
               { label: 'Home', to: { name: 'home' } },
               { label: 'KAlert', to: { name: 'alert' } },
-              { label: 'Stay', to: { name: 'dropdown' } }
+              { label: 'Stay', to: { name: 'dropdown' } },
             ]"
             trigger-text="Danger"
           />
@@ -81,7 +81,7 @@
             :items="[
               { label: 'Home', to: { name: 'home' } },
               { label: 'KAlert', to: { name: 'alert' } },
-              { label: 'Stay', to: { name: 'dropdown' } }
+              { label: 'Stay', to: { name: 'dropdown' } },
             ]"
             show-caret
             trigger-text="Show caret"
@@ -112,7 +112,7 @@
           :items="[
             { label: 'Home', to: { name: 'home' } },
             { label: 'KAlert', to: { name: 'alert' } },
-            { label: 'Stay', to: { name: 'dropdown' } }
+            { label: 'Stay', to: { name: 'dropdown' } },
           ]"
           trigger-text="Disabled"
         />
@@ -126,7 +126,7 @@
           :items="[
             { label: 'Home', to: { name: 'home' } },
             { label: 'KAlert', to: { name: 'alert' } },
-            { label: 'Stay', to: { name: 'dropdown' } }
+            { label: 'Stay', to: { name: 'dropdown' } },
           ]"
           trigger-text="Disabled with a tooltip"
         />
@@ -144,7 +144,7 @@
           :items="[
             { label: 'Home', to: { name: 'home' } },
             { label: 'KAlert', to: { name: 'alert' } },
-            { label: 'Stay', to: { name: 'dropdown' } }
+            { label: 'Stay', to: { name: 'dropdown' } },
           ]"
         >
           <KButton>
@@ -274,7 +274,7 @@
           :items="[
             { label: 'Home', to: { name: 'home' } },
             { label: 'KAlert', to: { name: 'alert' } },
-            { label: 'Stay', to: { name: 'dropdown' } }
+            { label: 'Stay', to: { name: 'dropdown' } },
           ]"
           label="Deprecated props"
         />

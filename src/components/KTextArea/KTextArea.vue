@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-textarea"
-    :class="[$attrs.class, { 'input-error' : error || hasError || charLimitExceeded}]"
+    :class="[$attrs.class, { 'input-error': error || hasError || charLimitExceeded }]"
   >
     <KLabel
       v-if="label"
@@ -33,7 +33,7 @@
       class="input-textarea-wrapper"
       :class="{
         autosize,
-        legacy: autosize && !SUPPORT_FIELD_SIZING_CONTENT
+        legacy: autosize && !SUPPORT_FIELD_SIZING_CONTENT,
       }"
       data-allow-mismatch="class"
       :data-value="SUPPORT_FIELD_SIZING_CONTENT ? null : currValue"

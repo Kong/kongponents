@@ -64,7 +64,7 @@
             { label: 'dateTime', value: 'dateTime' },
             { label: 'relative', value: 'relative' },
             { label: 'relativeDate', value: 'relativeDate' },
-            { label: 'relativeDateTime', value: 'relativeDateTime' }
+            { label: 'relativeDateTime', value: 'relativeDateTime' },
           ] }"
         >
           <KDateTimePicker
@@ -79,8 +79,8 @@
                   { key: 'barfoo1', display: 'Week', timeframeText: 'Week', start: () => new Date(), end: () => new Date(), timeframeLength: () => 'undefined' },
                   { key: 'barfoo2', display: 'Month', timeframeText: 'Month', start: () => new Date(), end: () => new Date(), timeframeLength: () => 'undefined' },
                   { key: 'barfoo3', display: 'Quarter', timeframeText: 'Quarter', start: () => new Date(), end: () => new Date(), timeframeLength: () => 'undefined' },
-                  { key: 'barfoo4', display: 'Year', timeframeText: 'Year', start: () => new Date(), end: () => new Date(), timeframeLength: () => 'undefined' }
-                ]
+                  { key: 'barfoo4', display: 'Year', timeframeText: 'Year', start: () => new Date(), end: () => new Date(), timeframeLength: () => 'undefined' },
+                ],
               },
               {
                 section: 'Absolute',
@@ -88,9 +88,9 @@
                   { key: 'foobar0', display: 'Jan 01 2024 - Jan 15 2024', timeframeText: 'Jan 01 2024 - Jan 15 2024', start: () => new Date(), end: () => new Date(), timeframeLength: () => '15days' },
                   { key: 'foobar1', display: 'Feb 01 2024 - Feb 15 2024', timeframeText: 'Feb 01 2024 - Feb 15 2024', start: () => new Date(), end: () => new Date(), timeframeLength: () => '15days' },
                   { key: 'foobar2', display: 'Mar 01 2024 - Mar 15 2024', timeframeText: 'Mar 01 2024 - Mar 15 2024', start: () => new Date(), end: () => new Date(), timeframeLength: () => '15days' },
-                  { key: 'foobar3', display: 'Apr 01 2024 - Apr 15 2024', timeframeText: 'Apr 01 2024 - Apr 15 2024', start: () => new Date(), end: () => new Date(), timeframeLength: () => '15days' }
-                ]
-              }
+                  { key: 'foobar3', display: 'Apr 01 2024 - Apr 15 2024', timeframeText: 'Apr 01 2024 - Apr 15 2024', start: () => new Date(), end: () => new Date(), timeframeLength: () => '15days' },
+                ],
+              },
             ] : []"
           />
 

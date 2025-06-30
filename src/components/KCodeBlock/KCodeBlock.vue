@@ -206,7 +206,7 @@
         class="highlighted-code-block"
         :class="{
           'show-line-numbers': showLineNumbers,
-          'single-line': singleLine
+          'single-line': singleLine,
         }"
         data-testid="highlighted-code-block"
       >

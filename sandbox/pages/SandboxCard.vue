@@ -39,7 +39,7 @@
                 :items="[
                   { label: 'Home', to: { name: 'home' } },
                   { label: 'KDropdown', to: { name: 'dropdown' } },
-                  { label: 'Stay', to: { name: 'card' } }
+                  { label: 'Stay', to: { name: 'card' } },
                 ]"
               >
                 <KButton
@@ -70,7 +70,7 @@
                 :items="[
                   { label: 'Home', to: { name: 'home' } },
                   { label: 'KDropdown', to: { name: 'dropdown' } },
-                  { label: 'Stay', to: { name: 'card' } }
+                  { label: 'Stay', to: { name: 'card' } },
                 ]"
               >
                 <KButton

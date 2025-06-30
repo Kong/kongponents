@@ -73,7 +73,7 @@
 <script lang="ts" setup generic="T extends string | number">
 import type { Ref } from 'vue'
 import { computed, onMounted, ref, watch } from 'vue'
-import type { DropdownItem, PopoverAttributes , DropdownProps, DropdownEmits } from '@/types'
+import type { DropdownItem, PopoverAttributes, DropdownProps, DropdownEmits } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import KPop from '@/components/KPop/KPop.vue'

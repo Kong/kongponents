@@ -1,7 +1,7 @@
 <template>
   <div
     class="skeleton-box"
-    :class="{[`width-${width}`]: true, [`height-${height}`]: true }"
+    :class="{ [`width-${width}`]: true, [`height-${height}`]: true }"
   />
 </template>
 

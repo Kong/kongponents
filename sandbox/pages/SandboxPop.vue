@@ -326,7 +326,7 @@
         <KTooltip
           :kpop-attributes="{
             offset: KUI_SPACE_100,
-            target: '#teleport-target'
+            target: '#teleport-target',
           }"
           placement="right"
           text="Teleported tooltip offset by 40px."
