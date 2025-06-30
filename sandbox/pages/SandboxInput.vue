@@ -26,7 +26,7 @@
         title="help"
       >
         <div class="toggle-container">
-          <KToggle v-slot="{isToggled, toggle}">
+          <KToggle v-slot="{ isToggled, toggle }">
             <KInput
               class="full-width-input"
               :error="isToggled.value"
@@ -52,7 +52,7 @@
         title="errorMessage"
       >
         <div class="toggle-container">
-          <KToggle v-slot="{isToggled, toggle}">
+          <KToggle v-slot="{ isToggled, toggle }">
             <KInput
               class="full-width-input"
               :error="isToggled.value"
@@ -74,7 +74,7 @@
         title="characterLimit"
       >
         <div class="toggle-container">
-          <KToggle v-slot="{isToggled, toggle}">
+          <KToggle v-slot="{ isToggled, toggle }">
             <KInput
               :character-limit="67"
               class="full-width-input"

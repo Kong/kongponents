@@ -76,7 +76,7 @@
             { title: 'Scenario 4', hash: '#scenario4' },
             { title: 'Scenario 5', hash: '#scenario5' },
             { title: 'Scenario 6', hash: '#scenario6' },
-            { title: 'Scenario 7', hash: '#scenario7' }
+            { title: 'Scenario 7', hash: '#scenario7' },
           ]"
         >
           <template #scenario1>

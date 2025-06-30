@@ -11,7 +11,7 @@
       class="tree-item-expanded-button"
       :class="{
         'collapsed': !isExpanded,
-        'expanded': isExpanded
+        'expanded': isExpanded,
       }"
       data-testid="tree-item-expanded-button"
       role="button"
@@ -22,7 +22,7 @@
         class="tree-item-expanded-icon"
         :class="{
           'collapsed': !isExpanded,
-          'expanded': isExpanded
+          'expanded': isExpanded,
         }"
         data-testid="tree-item-expanded-icon"
         decorative
@@ -38,7 +38,7 @@
         'selected': item.selected,
         'expanded': collapsible && isExpanded,
         'collapsed': collapsible && !isExpanded,
-        'no-children': collapsible && !hasChildren
+        'no-children': collapsible && !hasChildren,
       }"
       :data-testid="`tree-item-${item.id}`"
       data-tree-item-trigger="true"

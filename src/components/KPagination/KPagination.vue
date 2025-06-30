@@ -56,10 +56,10 @@
         >
           <button
             :aria-current="page == currentlySelectedPage && 'page' || undefined"
-            :aria-label="`Go to page ${ page }`"
+            :aria-label="`Go to page ${page}`"
             class="pagination-button"
             :class="{ active: page == currentlySelectedPage }"
-            :data-testid="`page-${ page }-button`"
+            :data-testid="`page-${page}-button`"
             type="button"
             @click="changePage(page)"
           >

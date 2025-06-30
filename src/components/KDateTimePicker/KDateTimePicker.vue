@@ -52,7 +52,7 @@
           data-testid="datetime-picker-toggle"
           :options="[
             { label: 'Relative', value: 'relative' },
-            { label: 'Custom', value: 'custom' }
+            { label: 'Custom', value: 'custom' },
           ]"
           @click="(selected: string) => state.tabName = selected"
         />

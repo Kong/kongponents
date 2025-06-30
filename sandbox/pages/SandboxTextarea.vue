@@ -26,7 +26,7 @@
         title="help"
       >
         <div class="toggle-container">
-          <KToggle v-slot="{isToggled, toggle}">
+          <KToggle v-slot="{ isToggled, toggle }">
             <KTextArea
               class="full-width-input"
               :error="isToggled.value"

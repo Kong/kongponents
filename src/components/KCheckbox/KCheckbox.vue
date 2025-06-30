@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-checkbox"
-    :class="[$attrs.class, kCheckboxClasses ]"
+    :class="[$attrs.class, kCheckboxClasses]"
   >
     <div
       class="checkbox-input-wrapper"

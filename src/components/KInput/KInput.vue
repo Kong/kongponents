@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-input"
-    :class="[$attrs.class, { 'input-error' : charLimitExceeded || error || hasError }]"
+    :class="[$attrs.class, { 'input-error': charLimitExceeded || error || hasError }]"
   >
     <KLabel
       v-if="label"

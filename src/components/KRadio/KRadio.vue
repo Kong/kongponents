@@ -3,7 +3,7 @@
     class="k-radio"
     :class="[
       $attrs.class ? $attrs.class : '',
-      kRadioClasses
+      kRadioClasses,
     ]"
   >
     <input

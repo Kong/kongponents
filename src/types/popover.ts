@@ -175,17 +175,17 @@ export interface PopSlots {
   /**
    * Slot for passing custom popover trigger element.
    */
-  default?:() => any
+  default?: () => any
 
   /**
    * Slot for passing popover content.
    */
-  content?:() => any
+  content?: () => any
 
   /**
    * Slot for passing custom popover title.
    */
-  title?:() => any
+  title?: () => any
 
   /**
    * Slot for passing footer content that goes directly underneath main popover content.

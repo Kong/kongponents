@@ -98,7 +98,7 @@
           class="table"
           :class="{
             'has-hover': rowHover,
-            'is-clickable': isClickable
+            'is-clickable': isClickable,
           }"
           :data-tableid="tableId"
         >
@@ -120,7 +120,7 @@
                     $emit('sort', {
                       prevKey: sortColumnKey,
                       sortColumnKey: column.key,
-                      sortColumnOrder: sortColumnOrder === 'asc' ? 'desc' : 'asc' // display opposite because sortColumnOrder outdated
+                      sortColumnOrder: sortColumnOrder === 'asc' ? 'desc' : 'asc', // display opposite because sortColumnOrder outdated
                     })
                     sortClickHandler(column)
                   }

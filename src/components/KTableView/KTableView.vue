@@ -121,7 +121,7 @@
           class="table"
           :class="{
             'has-hover': rowHover && !isActionsDropdownHovered,
-            'is-clickable': isClickable
+            'is-clickable': isClickable,
           }"
           :data-tableid="tableId"
         >

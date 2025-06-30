@@ -26,7 +26,7 @@
         title="help"
       >
         <div class="toggle-container">
-          <KToggle v-slot="{isToggled, toggle}">
+          <KToggle v-slot="{ isToggled, toggle }">
             <KFileUpload
               :accept="['image/*']"
               class="full-width-input"
@@ -53,7 +53,7 @@
         title="errorMessage"
       >
         <div class="toggle-container">
-          <KToggle v-slot="{isToggled, toggle}">
+          <KToggle v-slot="{ isToggled, toggle }">
             <KFileUpload
               :accept="['image/*']"
               class="full-width-input"

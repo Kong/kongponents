@@ -38,7 +38,7 @@
         <KCodeBlock
           id="highlighted-codeblock"
           :code="code"
-          :highlighted-line-numbers="[2,4,6]"
+          :highlighted-line-numbers="[2, 4, 6]"
           language="json"
         />
       </SandboxSectionComponent>
@@ -49,7 +49,7 @@
         <KCodeBlock
           id="highlighted-and-searchable"
           :code="code"
-          :highlighted-line-numbers="[2,4,6]"
+          :highlighted-line-numbers="[2, 4, 6]"
           language="json"
           searchable
         />
@@ -235,8 +235,8 @@ import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 
 const { createHighlighter, highlighter } = useShiki()
 
-const origLines = [2,3,4]
-const newLines = [6,7,8]
+const origLines = [2, 3, 4]
+const newLines = [6, 7, 8]
 const highlightedLines = ref<number[]>(origLines)
 
 // checkbox causes updates to `code` computed as well as `highlightedLines`
