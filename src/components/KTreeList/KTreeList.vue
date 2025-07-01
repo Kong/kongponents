@@ -99,9 +99,30 @@ watch(() => items, (newValue) => {
   }
 }, { immediate: true })
 
-const emit = defineEmits<TreeListEmits>()
+watch(() => maxDepth, (newValue) => {
+  if (newValue > 5) {
+    warnInvalidProp('maxDepth', 'Maximum depth must be less than or equal to 5.')
+  }
+}, { immediate: true })
+
+watch([() => modelValue, () => items], ([newModelValue, newItems]) => {
+  if (newModelValue && newItems) {
+    warnInvalidProp('modelValue / items', 'You should not provide both v-model (or props.modelValue) and props.items')
+  }
+}, { immediate: true })
 
 const internalList = ref<TreeListItem[]>([])
+
+watch([internalList, () => maxDepth], ([newList, newMaxDepth]) => {
+  if (!itemsWithinMaximumDepth(newList, newMaxDepth)) {
+    warnInvalidProp(modelValue ? 'modelValue' : 'items', 'Provided list depth exceeds `maxDepth`')
+  }
+}, {
+  immediate: true,
+  deep: true,
+})
+
+const emit = defineEmits<TreeListEmits>()
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
@@ -181,18 +202,10 @@ const expandAll = (): void => {
 defineExpose({ collapseAll, expandAll })
 
 onMounted(() => {
-  if (modelValue && items) {
-    warnInvalidProp('modelValue / items', 'You should not provide both v-model (or props.modelValue) and props.items')
-  }
-
   if (modelValue) {
     internalList.value = modelValue
   } else if (items) {
     internalList.value = items
-  }
-
-  if (!itemsWithinMaximumDepth(internalList.value, maxDepth)) {
-    warnInvalidProp('maxDepth', 'Provided list depth exceeds `maxDepth`')
   }
 
   internalList.value.forEach((item: TreeListItem) => {
