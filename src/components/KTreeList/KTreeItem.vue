@@ -67,64 +67,31 @@
   </div>
 </template>
 
-<script lang="ts">
-import type { PropType } from 'vue'
-import { computed, useSlots } from 'vue'
-import type { TreeListItem } from '@/types'
-
-export const itemsHaveRequiredProps = (items: TreeListItem[]): boolean => {
-  return items.every(i => i.name !== undefined && i.id !== undefined && (!i.children?.length || itemsHaveRequiredProps(i.children)))
-}
-</script>
-
 <script lang="ts" setup>
+import { computed, ref, watch } from 'vue'
+import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import { ServiceDocumentIcon, ChevronRightIcon } from '@kong/icons'
+import type { TreeListItemEmits, TreeListItemProps, TreeListItemSlots } from '@/types'
+
 /**
  * button.tree-item has draggable="false" attribute to prevent native drag events in order to let vue-draggable-next handle dragging
  */
-import { ref, watch } from 'vue'
-import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
-import { ServiceDocumentIcon, ChevronRightIcon } from '@kong/icons'
 
-const props = defineProps({
-  item: {
-    type: Object as PropType<TreeListItem>,
-    required: true,
-    validator: (item: TreeListItem) => itemsHaveRequiredProps([item]),
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  hideIcons: {
-    type: Boolean,
-    default: false,
-  },
-  collapsible: {
-    type: Boolean,
-    default: false,
-  },
-  initialCollapse: {
-    type: Boolean,
-    default: false,
-  },
-  hasChildren: {
-    type: Boolean,
-    default: false,
-  },
-  controlsId: {
-    type: String,
-    required: true,
-  },
-})
+const {
+  item,
+  disabled,
+  hideIcons,
+  collapsible,
+  initialCollapse,
+  hasChildren,
+  controlsId,
+} = defineProps<TreeListItemProps>()
 
-const emit = defineEmits<{
-  (event: 'selected', item: TreeListItem): void
-  (event: 'expanded', val: boolean): void
-}>()
+const emit = defineEmits<TreeListItemEmits>()
 
-const slots = useSlots()
+const slots = defineSlots<TreeListItemSlots>()
 
-const hasIcon = computed((): boolean => !props.hideIcons || !!slots['item-icon'])
+const hasIcon = computed((): boolean => !hideIcons || !!slots['item-icon'])
 
 const handleClick = (event: any) => {
   if (event.target) {
@@ -136,7 +103,7 @@ const handleClick = (event: any) => {
     }
   }
 
-  emit('selected', props.item)
+  emit('selected', item)
 }
 
 const isExpanded = ref<boolean>(true)
@@ -145,7 +112,7 @@ const setExpandedValue = (expanded: boolean): void => {
   isExpanded.value = expanded
 }
 
-watch(() => props.initialCollapse, (val, oldVal) => {
+watch(() => initialCollapse, (val, oldVal) => {
   if (val !== oldVal) {
     isExpanded.value = !val
   }
@@ -159,7 +126,7 @@ const toggleItem = (): void => {
   emit('expanded', isExpanded.value)
 }
 
-defineExpose({ setExpandedValue, id: props.item?.id })
+defineExpose({ setExpandedValue, id: item.id })
 </script>
 
 <style lang="scss" scoped>

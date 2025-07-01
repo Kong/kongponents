@@ -38,14 +38,13 @@
   </div>
 </template>
 
-<script lang="ts">
-import type { PropType } from 'vue'
-import { computed, ref, watch, onMounted } from 'vue'
+<script setup lang="ts">
+import { computed, ref, watch, onMounted, useTemplateRef } from 'vue'
 import KTreeDraggable from '@/components/KTreeList/KTreeDraggable.vue'
 import { getMaximumDepth } from './KTreeDraggable.vue'
-import { itemsHaveRequiredProps } from './KTreeItem.vue'
-import type { TreeListItem, TreeListChangeEvent, TreeListChildChangeEvent } from '@/types'
 import { normalizeSize } from '@/utilities/css'
+import { warnInvalidProp } from '@/utilities/warning'
+import type { TreeListEmits, TreeListProps, TreeListItem, TreeListChangeEvent, TreeListChildChangeEvent } from '@/types'
 
 const getIds = (items: TreeListItem[], ids: string[]): string[] => {
   items.forEach((item: TreeListItem) => {
@@ -75,73 +74,39 @@ const itemsWithinMaximumDepth = (items: TreeListItem[], maxDepth: number): boole
   return isValid
 }
 
-const treeListIsValid = (items: TreeListItem[]): boolean => {
-  return itemsHaveRequiredProps(items) && itemIdsAreUnique(items)
-}
-</script>
+const {
+  modelValue = null,
+  items = null,
+  disableDrag,
+  ignoreDragSelectors = '',
+  maxDepth = 3,
+  width = '',
+  hideIcons,
+  group = 'k-tree-list',
+  collapsible,
+  initialCollapseAll,
+} = defineProps<TreeListProps>()
 
-<script setup lang="ts">
-import { useTemplateRef } from 'vue'
+watch(() => modelValue, (newValue) => {
+  if (newValue && !itemIdsAreUnique(newValue)) {
+    warnInvalidProp('modelValue', 'Item `id` must be unique.')
+  }
+}, { immediate: true })
 
-const props = defineProps({
-  modelValue: {
-    type: Array as PropType<TreeListItem[]>,
-    default: null,
-    validator: (items: TreeListItem[]) => !items.length || treeListIsValid(items),
-  },
-  items: {
-    type: Array as PropType<TreeListItem[]>,
-    default: null,
-    validator: (items: TreeListItem[]) => !items.length || treeListIsValid(items),
-  },
-  disableDrag: {
-    type: Boolean,
-    default: false,
-  },
-  /** A `string` or `function` that returns a `string` of selectors that should not result in dragging tree list items. */
-  ignoreDragSelectors: {
-    type: [String, Function] as PropType<string | (() => string)>,
-    default: () => '',
-  },
-  maxDepth: {
-    type: Number,
-    default: 3,
-    validator: (value: number) => value <= 5,
-  },
-  width: {
-    type: String,
-    default: '',
-  },
-  hideIcons: {
-    type: Boolean,
-    default: false,
-  },
-  group: {
-    type: String,
-    default: 'k-tree-list',
-  },
-  collapsible: {
-    type: Boolean,
-    default: false,
-  },
-  initialCollapseAll: {
-    type: Boolean,
-    default: false,
-  },
-})
+watch(() => items, (newValue) => {
+  if (newValue && !itemIdsAreUnique(newValue)) {
+    warnInvalidProp('items', 'Item `id` must be unique.')
+  }
+}, { immediate: true })
 
-const emit = defineEmits<{
-  (event: 'change', data: TreeListChangeEvent): void
-  (event: 'child-change', data: TreeListChildChangeEvent): void
-  (event: 'selected', item: TreeListItem): void
-}>()
+const emit = defineEmits<TreeListEmits>()
 
 const internalList = ref<TreeListItem[]>([])
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const value = computed({
-  get(): TreeListItem[] {
-    return props.modelValue
+  get(): TreeListItem[] | null {
+    return modelValue
   },
   set(newValue: TreeListItem[]): void {
     internalList.value = newValue
@@ -150,7 +115,7 @@ const value = computed({
 
 const widthStyle = computed((): Record<string, any> => {
   return {
-    maxWidth: normalizeSize(props.width),
+    maxWidth: normalizeSize(width),
   }
 })
 
@@ -182,7 +147,7 @@ const handleChildChangeEvent = (data: TreeListChildChangeEvent): void => {
 // watch for programmatic changes to modelValue
 watch(value, (newVal, oldVal) => {
   if (JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
-    internalList.value = newVal
+    internalList.value = newVal || []
     internalList.value.forEach((item: TreeListItem) => {
       if (!item.children) {
         item.children = []
@@ -191,10 +156,10 @@ watch(value, (newVal, oldVal) => {
   }
 })
 
-watch(() => props.items, (newValue, oldValue) => {
+watch(() => items, (newValue, oldValue) => {
   // Only trigger the watcher if items actually change
   if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
-    internalList.value = newValue
+    internalList.value = newValue || []
     internalList.value.forEach((item: TreeListItem) => {
       if (!item.children) {
         item.children = []
@@ -216,18 +181,18 @@ const expandAll = (): void => {
 defineExpose({ collapseAll, expandAll })
 
 onMounted(() => {
-  if (props.modelValue && props.items) {
-    console.warn('KTreeList: You should not provide both v-model (or props.modelValue) and props.items')
+  if (modelValue && items) {
+    warnInvalidProp('modelValue / items', 'You should not provide both v-model (or props.modelValue) and props.items')
   }
 
-  if (props.modelValue) {
-    internalList.value = props.modelValue
-  } else if (props.items) {
-    internalList.value = props.items
+  if (modelValue) {
+    internalList.value = modelValue
+  } else if (items) {
+    internalList.value = items
   }
 
-  if (!itemsWithinMaximumDepth(internalList.value, props.maxDepth)) {
-    console.warn('KTreeList: Provided list depth exceeds `maxDepth`')
+  if (!itemsWithinMaximumDepth(internalList.value, maxDepth)) {
+    warnInvalidProp('maxDepth', 'Provided list depth exceeds `maxDepth`')
   }
 
   internalList.value.forEach((item: TreeListItem) => {
