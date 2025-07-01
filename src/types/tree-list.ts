@@ -54,8 +54,8 @@ export interface TreeListItemEmits {
  * @internal
  */
 export interface TreeListItemSlots {
-  'item-icon'?: () => any
-  'item-label'?: () => any
+  'item-icon'?(): any
+  'item-label'?(): any
 }
 
 /**
@@ -87,8 +87,8 @@ export interface TreeDraggableEmits {
  * @internal
  */
 export interface TreeDraggableSlots {
-  'item-icon'?: (item: TreeListItem) => any
-  'item-label'?: (item: TreeListItem) => any
+  'item-icon'?(item: TreeListItem): any
+  'item-label'?(item: TreeListItem): any
 }
 
 export interface TreeListProps {
@@ -181,5 +181,5 @@ export interface TreeListSlots {
   /**
    * Slot for the main content of an item (defaults to the `name` of the item).
    */
-  'item-label'?: (item: TreeListItem) => any
+  'item-label'?(item: TreeListItem): any
 }
