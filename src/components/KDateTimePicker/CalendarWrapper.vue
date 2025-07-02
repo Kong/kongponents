@@ -15,17 +15,19 @@
       transparent
     />
     <div
-      v-if="['time', 'dateTime'].includes(kDatePickerMode)"
+      v-if="showTime"
       class="time-input"
     >
       <input
         v-model="startTimeValue"
+        class="time-input-start"
         :step="2"
         type="time"
       >
       <input
         v-if="isRange"
         v-model="endTimeValue"
+        class="time-input-end"
         :step="2"
         type="time"
       >
@@ -33,7 +35,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { DatePicker } from 'v-calendar'
 import type { DatePickerModel, DatePickerRangeObject, DateTimePickerMode } from '@/types'
 import { format } from 'date-fns'
@@ -47,17 +49,22 @@ const props = defineProps<{
 const calendarVModel = defineModel<DatePickerModel>({ required: true })
 const startTimeValue = ref<string>(format(new Date(), 'HH:mm:ss'))
 const endTimeValue = ref<string>(format(new Date(), 'HH:mm:ss'))
+
+const showTime = computed(() => {
+  return ['time', 'dateTime'].includes(props.kDatePickerMode)
+})
+
 onMounted(() => {
-  if (calendarVModel.value) {
+  if (calendarVModel.value && showTime.value) {
     if (props.isRange && (calendarVModel.value as DatePickerRangeObject).start && (calendarVModel.value as DatePickerRangeObject).end) {
       const dateRange = calendarVModel.value as DatePickerRangeObject
       startTimeValue.value = format(dateRange.start as Date, 'HH:mm')
       endTimeValue.value = format(dateRange.end as Date, 'HH:mm')
-    } else {
+    } else if (calendarVModel.value instanceof Date) {
       startTimeValue.value = format(calendarVModel.value as Date, 'HH:mm')
+    } else {
+      startTimeValue.value = format(new Date(), 'HH:mm')
     }
-  } else {
-    startTimeValue.value = format(new Date(), 'HH:mm')
   }
 })
 
