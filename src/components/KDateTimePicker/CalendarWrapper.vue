@@ -16,21 +16,44 @@
     />
     <div
       v-if="showTime"
-      class="time-input"
+      class="time-wrapper"
     >
-      <input
-        v-model="startTimeValue"
-        class="time-input-start"
-        :step="2"
-        type="time"
+      <div
+        class="time-input"
       >
-      <input
-        v-if="isRange"
-        v-model="endTimeValue"
-        class="time-input-end"
-        :step="2"
-        type="time"
-      >
+        <div class="time-input-label">
+          <span
+            v-if="isRange && calendarVModel && 'start' in calendarVModel && calendarVModel.start instanceof Date"
+          >
+            {{ format(calendarVModel.start, 'EEE MMM d yyyy') }}
+          </span>
+          <span
+            v-else-if="calendarVModel && calendarVModel instanceof Date"
+          >
+            {{ format(calendarVModel, 'EEE MMM d yyyy') }}
+          </span>
+        </div>
+        <input
+          v-model="startTimeValue"
+          class="time-input-start"
+          :step="60"
+          type="time"
+        >
+        <div class="time-input-label">
+          <span
+            v-if="isRange && calendarVModel && 'end' in calendarVModel && calendarVModel.end instanceof Date"
+          >
+            {{ format(calendarVModel.end, 'EEE MMM d yyyy') }}
+          </span>
+        </div>
+        <input
+          v-if="isRange"
+          v-model="endTimeValue"
+          class="time-input-end"
+          :step="60"
+          type="time"
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -143,13 +166,18 @@ watch(() => calendarVModel.value, () => {
 
 <style scoped lang="scss">
 .calendar-wrapper {
-  .time-input {
-    display: flex;
-    flex-direction: column;
-    gap: var(--kui-space-30, $kui-space-30);
-    padding-left: var(--kui-space-60, $kui-space-60);
-    padding-right: var(--kui-space-60, $kui-space-60);
-    width: 160px;
+  .time-wrapper {
+    background: var(--kui-color-background, $kui-color-background-neutral-weakest);
+
+    .time-input {
+      border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
+      display: flex;
+      flex-direction: column;
+      gap: var(--kui-space-30, $kui-space-30);
+      padding-left: var(--kui-space-60, $kui-space-60);
+      padding-right: var(--kui-space-60, $kui-space-60);
+      width: 150px;
+    }
   }
 }
 </style>
