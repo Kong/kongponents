@@ -35,7 +35,7 @@
 <script lang="ts" setup>
 import { onMounted, ref, watch } from 'vue'
 import { DatePicker } from 'v-calendar'
-import type { DatePickerRangeObject, DateTimePickerMode } from '@/types'
+import type { DatePickerModel, DatePickerRangeObject, DateTimePickerMode } from '@/types'
 import { format } from 'date-fns'
 
 const props = defineProps<{
@@ -44,7 +44,7 @@ const props = defineProps<{
   maxDate?: Date
   minDate?: Date
 }>()
-const calendarVModel = defineModel<DatePickerRangeObject | Date>({ required: true })
+const calendarVModel = defineModel<DatePickerModel>({ required: true })
 const startTimeValue = ref<string>(format(new Date(), 'HH:mm:ss'))
 const endTimeValue = ref<string>(format(new Date(), 'HH:mm:ss'))
 onMounted(() => {

@@ -65,7 +65,7 @@
         </p>
         <CalendarWrapper
           v-if="hasCalendar && showCalendar"
-          v-model="(calendarVModel as DatePickerRangeObject | Date)"
+          v-model="calendarVModel"
           :is-range="!isSingleDatepicker"
           :k-date-picker-mode="mode"
           :max-date="maxDate"
@@ -135,7 +135,7 @@ import KPop from '@/components/KPop/KPop.vue'
 import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.vue'
 import 'v-calendar/dist/style.css'
 import { ModeArrayCustom, ModeArrayRelative, ModeDateOnly, DateTimePickerModes } from '@/types'
-import type { DateTimePickerState, TimePeriod, TimeRange, DatePickerModel, ButtonAppearance, DateTimePickerProps, DateTimePickerEmits, DatePickerRangeObject } from '@/types'
+import type { DateTimePickerState, TimePeriod, TimeRange, DatePickerModel, ButtonAppearance, DateTimePickerProps, DateTimePickerEmits } from '@/types'
 import { CalIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { normalizeSize } from '@/utilities/css'
