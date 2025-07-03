@@ -77,7 +77,7 @@ import type { DropdownItem, PopoverAttributes, DropdownProps, DropdownEmits } fr
 import KButton from '@/components/KButton/KButton.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import KPop from '@/components/KPop/KPop.vue'
-import KToggle from '@/components/KToggle'
+import KToggle from '@/components/KToggle/KToggle.vue'
 import KDropdownItem from './KDropdownItem.vue'
 import { ChevronDownIcon } from '@kong/icons'
 

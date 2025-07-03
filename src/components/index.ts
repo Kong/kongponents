@@ -4,7 +4,7 @@
 // Renderless
 export { default as KClipboardProvider } from './KClipboardProvider/KClipboardProvider.vue'
 export { default as KComponent } from './KComponent'
-export { default as KToggle } from './KToggle'
+export { default as KToggle } from './KToggle/KToggle.vue'
 
 // Regular Kongponents (ensure you import from '*.vue` unless the component is "special" with an index.ts file, etc.)
 export { default as KAlert } from './KAlert/KAlert.vue'
