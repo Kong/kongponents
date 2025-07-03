@@ -180,9 +180,24 @@ const showRange = (rangeType: 'start' | 'end') => {
       width: fit-content;
 
       input[type="time"] {
-        background: var(--kui-color-background, $kui-color-background-neutral-weakest);
-        border: none;
-        font-family: var(--kui-font-family-text, $kui-font-family-text);
+        @include inputDefaults;
+
+        &:hover {
+          @include inputHover;
+        }
+
+        &:focus {
+          @include inputFocus;
+        }
+
+        &:disabled {
+          @include inputDisabled;
+        }
+
+        &::-webkit-calendar-picker-indicator {
+          -webkit-appearance: none;
+          display: none;
+        }
       }
     }
   }
