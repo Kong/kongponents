@@ -22,14 +22,11 @@
         class="time-input"
       >
         <div class="time-input-label">
-          <span
-            v-if="isRange && calendarVModel && 'start' in calendarVModel && calendarVModel.start instanceof Date"
-          >
+          <span v-if="showRange('start')">
+            <!-- @vue-ignore: typeguard in showRange -->
             {{ format(calendarVModel.start, 'EEE MMM d yyyy') }}
           </span>
-          <span
-            v-else-if="calendarVModel && calendarVModel instanceof Date"
-          >
+          <span v-else-if="(calendarVModel && calendarVModel instanceof Date)">
             {{ format(calendarVModel, 'EEE MMM d yyyy') }}
           </span>
         </div>
@@ -40,9 +37,8 @@
           type="time"
         >
         <div class="time-input-label">
-          <span
-            v-if="isRange && calendarVModel && 'end' in calendarVModel && calendarVModel.end instanceof Date"
-          >
+          <span v-if="showRange('end')">
+            <!-- @vue-ignore: typeguard in showRange -->
             {{ format(calendarVModel.end, 'EEE MMM d yyyy') }}
           </span>
         </div>
@@ -57,6 +53,7 @@
     </div>
   </div>
 </template>
+
 <script lang="ts" setup>
 import { computed, onMounted, ref, watch } from 'vue'
 import { DatePicker } from 'v-calendar'
@@ -162,6 +159,11 @@ watch(() => calendarVModel.value, () => {
   }
 })
 
+const showRange = (rangeType: 'start' | 'end') => {
+  const value = calendarVModel.value as { start: Date, end: Date }
+  return props.isRange && value && rangeType in value && value[rangeType] instanceof Date
+}
+
 </script>
 
 <style scoped lang="scss">
@@ -174,9 +176,14 @@ watch(() => calendarVModel.value, () => {
       display: flex;
       flex-direction: column;
       gap: var(--kui-space-30, $kui-space-30);
-      padding-left: var(--kui-space-60, $kui-space-60);
-      padding-right: var(--kui-space-60, $kui-space-60);
-      width: 150px;
+      padding: var(--kui-space-30, $kui-space-30) var(--kui-space-60, $kui-space-60);
+      width: fit-content;
+
+      input[type="time"] {
+        background: var(--kui-color-background, $kui-color-background-neutral-weakest);
+        border: none;
+        font-family: var(--kui-font-family-text, $kui-font-family-text);
+      }
     }
   }
 }
