@@ -10,8 +10,7 @@ export interface SimpleDateParts {
   seconds: number
   milliseconds: number
 }
-export type DateSource = Date | string | number
-export type DatePickerDate = DateSource | Partial<SimpleDateParts> | null
+export type DatePickerDate = Date | Partial<SimpleDateParts> | null
 export type DatePickerRangeObject = {
   start: Exclude<DatePickerDate, null>
   end: Exclude<DatePickerDate, null>
