@@ -1,3 +1,10 @@
+## [9.35.6](https://github.com/Kong/kongponents/compare/v9.35.5...v9.35.6) (2025-07-03)
+
+
+### Bug Fixes
+
+* **ktoggle:** ts improvements for ktoggle ([#2805](https://github.com/Kong/kongponents/issues/2805)) ([3a33060](https://github.com/Kong/kongponents/commit/3a3306032da1d486d34e9dc3e991f596f2c826a8))
+
 ## [9.35.5](https://github.com/Kong/kongponents/compare/v9.35.4...v9.35.5) (2025-06-30)
 
 
