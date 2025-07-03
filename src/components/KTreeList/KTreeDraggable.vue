@@ -94,12 +94,6 @@
 </template>
 
 <script lang="ts">
-import type { PropType } from 'vue'
-import { computed, ref, watch, onMounted } from 'vue'
-import { VueDraggableNext } from 'vue-draggable-next'
-import type { TreeListItem, TreeListChangeEvent, TreeListChildChangeEvent } from '@/types'
-import KTreeItem from '@/components/KTreeList/KTreeItem.vue'
-
 /**
  * Recursive check to get the maximum depth of an object.
  * Documented here: https://stackoverflow.com/a/48505969
@@ -110,61 +104,25 @@ export const getMaximumDepth = ({ children = [] }): number => {
 </script>
 
 <script setup lang="ts">
-import { nextTick, useTemplateRef } from 'vue'
+import { computed, ref, watch, onMounted, nextTick, useTemplateRef } from 'vue'
+import { VueDraggableNext } from 'vue-draggable-next'
+import KTreeItem from '@/components/KTreeList/KTreeItem.vue'
+import type { TreeDraggableProps, TreeDraggableEmits, TreeListItem } from '@/types'
 
-const props = defineProps({
-  items: {
-    type: Array as PropType<TreeListItem[]>,
-    required: true,
-    validator: (items: TreeListItem[]) => !items.length || items.every(i => i.name !== undefined && i.id !== undefined),
-  },
-  disableDrag: {
-    type: Boolean,
-    default: false,
-  },
-  filter: {
-    type: [String, Function] as PropType<string | (() => string)>,
-    default: () => '',
-  },
-  maxDepth: {
-    type: Number,
-    default: 3,
-  },
-  /**
-   * These are internal props used to track info
-   * of nested children.
-   */
-  level: {
-    type: Number,
-    default: 0,
-  },
-  parentId: {
-    type: String,
-    default: '',
-  },
-  hideIcons: {
-    type: Boolean,
-    default: false,
-  },
-  group: {
-    type: String,
-    default: 'k-tree-list',
-  },
-  collapsible: {
-    type: Boolean,
-    default: false,
-  },
-  initialCollapseAll: {
-    type: Boolean,
-    default: false,
-  },
-})
+const {
+  items,
+  disableDrag,
+  filter,
+  maxDepth,
+  level = 0,
+  parentId,
+  hideIcons,
+  group,
+  collapsible,
+  initialCollapseAll,
+} = defineProps<TreeDraggableProps>()
 
-const emit = defineEmits<{
-  (event: 'change', data: TreeListChangeEvent): void
-  (event: 'child-change', data: TreeListChildChangeEvent): void
-  (event: 'selected', item: TreeListItem): void
-}>()
+const emit = defineEmits<TreeDraggableEmits>()
 
 const key = ref(0)
 const internalList = ref<TreeListItem[]>([])
@@ -183,7 +141,7 @@ const draggableAttrs = {
 const dragging = ref<boolean>(false)
 
 const computedDragFilter = computed((): string => {
-  const selectorList: string = typeof props.filter === 'function' ? props.filter() : props.filter
+  const selectorList: string = typeof filter === 'function' ? filter() : filter
   // Always append the internal `.tree-item-expanded-button` selector and separate selectors with a comma
   return ['.tree-item-expanded-button', ...(selectorList.split(',').map(s => s.trim()).filter(Boolean))].join(', ')
 })
@@ -193,14 +151,14 @@ const hasNoChildren = (item: TreeListItem): boolean => {
 }
 
 const getElementChildren = (item: TreeListItem): TreeListItem[] => {
-  return item.children as TreeListItem[]
+  return item.children || []
 }
 
 // item - VueDraggable object
 const handleChangeEvent = (item: any): void => {
-  if (props.parentId) {
+  if (parentId) {
     emit('child-change', {
-      parentId: props.parentId,
+      parentId,
       children: internalList.value,
       target: item?.added || item?.removed || item?.moved,
     })
@@ -227,7 +185,7 @@ const handleExpandedEvent = (visibility: boolean, id: string): void => {
 }
 
 const getChildrenVisibility = (id: string): boolean => {
-  return props.collapsible ? !!childrenVisibilityMap.value.get(id) : true
+  return collapsible ? !!childrenVisibilityMap.value.get(id) : true
 }
 
 const treeItems = useTemplateRef<Array<typeof KTreeItem> | null>('tree-items')
@@ -253,7 +211,7 @@ const expandAll = (): void => {
 }
 
 const maxLevelReached = computed((): boolean => {
-  return props.level > (props.maxDepth - 1)
+  return level > (maxDepth - 1)
 })
 
 const checkMove = (target: any): boolean => {
@@ -267,7 +225,7 @@ const checkMove = (target: any): boolean => {
   }
 
   const sumLevel = levelOfDropLocation + deepestLevel
-  if (sumLevel > (props.maxDepth - 1)) {
+  if (sumLevel > (maxDepth - 1)) {
     // disallow movement
     return false
   }
@@ -313,7 +271,7 @@ const setDragCursor = (value: boolean): void => {
   }
 }
 
-watch(() => props.items, (newValue, oldValue) => {
+watch(() => items, (newValue, oldValue) => {
   // Only trigger the watcher if items actually change
   if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
     internalList.value = newValue
@@ -327,12 +285,12 @@ watch(() => props.items, (newValue, oldValue) => {
 
 const triggerCollapse = (): void => {
   internalList.value.forEach(item => {
-    childrenVisibilityMap.value.set(item.id, !props.initialCollapseAll)
+    childrenVisibilityMap.value.set(item.id, !initialCollapseAll)
   })
 }
 
 onMounted(async () => {
-  internalList.value = props.items
+  internalList.value = items
 
   internalList.value.forEach((item: TreeListItem) => {
     if (!item.children) {
@@ -342,7 +300,7 @@ onMounted(async () => {
 
   // Handles correct initial collapsed/expanded state
   await nextTick()
-  if (props.collapsible) {
+  if (collapsible) {
     triggerCollapse()
   }
 })
