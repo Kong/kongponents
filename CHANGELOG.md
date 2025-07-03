@@ -1,3 +1,10 @@
+## [9.35.7](https://github.com/Kong/kongponents/compare/v9.35.6...v9.35.7) (2025-07-03)
+
+
+### Bug Fixes
+
+* **ktreelist:** ts improvements for ktreelist ([#2812](https://github.com/Kong/kongponents/issues/2812)) ([bd3db22](https://github.com/Kong/kongponents/commit/bd3db225da29187a85c2a1bea3bc2561249cc6b9))
+
 ## [9.35.6](https://github.com/Kong/kongponents/compare/v9.35.5...v9.35.6) (2025-07-03)
 
 
