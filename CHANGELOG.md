@@ -1,3 +1,10 @@
+## [9.35.8](https://github.com/Kong/kongponents/compare/v9.35.7...v9.35.8) (2025-07-07)
+
+
+### Bug Fixes
+
+* **kdropdownitem:** apply disabled styles to div [KHCP-16667] ([#2818](https://github.com/Kong/kongponents/issues/2818)) ([d7c97ad](https://github.com/Kong/kongponents/commit/d7c97ad9ae9086918606f83dd90577cda86358cb))
+
 ## [9.35.7](https://github.com/Kong/kongponents/compare/v9.35.6...v9.35.7) (2025-07-03)
 
 
