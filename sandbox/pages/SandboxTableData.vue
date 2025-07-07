@@ -32,6 +32,7 @@
             client-sort
             :fetcher="fetcher"
             :headers="headers(false, true)"
+            :initial-fetcher-params="{ sortColumnKey: 'username', sortColumnOrder: 'asc' }"
             max-height="300"
             :row-hover="data.tableRowHover"
             :sort-handler-function="sortHandlerFunction"
@@ -445,7 +446,7 @@ const headers = (hidable: boolean = false, sortable: boolean = false, bulkAction
     {
       key: 'username',
       label: 'Username',
-      tooltip: 'Columns with a tooltip.',
+      tooltip: sortable ? undefined : 'Column with a tooltip.',
       sortable,
       ...(sortable && { useSortHandlerFunction: true }),
     },
