@@ -140,7 +140,8 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
   div: {
     tag: 'div',
     attrs: {
-      class: dropdownItemTriggerClass,
+      // add disabled class instead of disabled attribute because disabled is not a valid attribute for div
+      class: `${dropdownItemTriggerClass} ${disabled ? 'disabled' : ''}`,
       ...strippedAttrs.value,
     },
   },

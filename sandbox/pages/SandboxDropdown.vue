@@ -205,6 +205,14 @@
               Disabled external link
             </KDropdownItem>
             <KDropdownItem
+              data-testid="disabled-plain-item"
+              disabled
+              :item="{ label: 'Plain item' }"
+            >
+              <ExternalLinkIcon />
+              Disabled plain item
+            </KDropdownItem>
+            <KDropdownItem
               danger
               data-testid="button"
               has-divider
