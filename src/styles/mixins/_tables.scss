@@ -143,7 +143,11 @@
               }
 
               &.active-sort {
-                color: var(--kui-color-text, $kui-color-text);
+                color: var(--kui-color-text-primary, $kui-color-text-primary);
+
+                .sort-icon {
+                  color: var(--kui-color-text-primary, $kui-color-text-primary) !important;
+                }
               }
 
               .sr-only {
