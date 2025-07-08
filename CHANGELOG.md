@@ -1,3 +1,10 @@
+## [9.35.10](https://github.com/Kong/kongponents/compare/v9.35.9...v9.35.10) (2025-07-08)
+
+
+### Bug Fixes
+
+* use standard time input for time rather than whatever v-calendar uses ([#2814](https://github.com/Kong/kongponents/issues/2814)) ([518a82f](https://github.com/Kong/kongponents/commit/518a82fb4b4c05f76029c507e5257aeb1be1fa92))
+
 ## [9.35.9](https://github.com/Kong/kongponents/compare/v9.35.8...v9.35.9) (2025-07-08)
 
 
