@@ -12,7 +12,7 @@
       <SandboxSectionComponent title="rowHover & maxHeight & clientSort & sortHandlerFunction & sortable">
         <KComponent
           v-slot="{ data }"
-          :data="{ tableKey: 0, tableRowHover: false, tableSortable: true }"
+          :data="{ tableKey: 0, tableRowHover: false, tableSortable: true, initialSorting: true }"
         >
           <div class="horizontal-container">
             <KInputSwitch
@@ -25,6 +25,11 @@
               label="Sortable"
               @change="data.tableKey++"
             />
+            <KInputSwitch
+              v-model="data.initialSorting"
+              label="Initial sorting"
+              @change="data.tableKey++"
+            />
           </div>
 
           <KTableData
@@ -32,7 +37,7 @@
             client-sort
             :fetcher="fetcher"
             :headers="headers(false, true)"
-            :initial-fetcher-params="{ sortColumnKey: 'username', sortColumnOrder: 'asc' }"
+            :initial-fetcher-params="data.initialSorting ? { sortColumnKey: 'username', sortColumnOrder: 'asc' } : undefined"
             max-height="300"
             :row-hover="data.tableRowHover"
             :sort-handler-function="sortHandlerFunction"
