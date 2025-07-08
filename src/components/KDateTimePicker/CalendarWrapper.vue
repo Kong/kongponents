@@ -33,6 +33,7 @@
         <input
           v-model="startTimeValue"
           class="time-input-start"
+          data-testid="time-input-start"
           :step="60"
           type="time"
         >
@@ -46,6 +47,7 @@
           v-if="isRange"
           v-model="endTimeValue"
           class="time-input-end"
+          data-testid="time-input-end"
           :step="60"
           type="time"
         >
