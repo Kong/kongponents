@@ -481,6 +481,22 @@ describe('KTableView', () => {
         })
       })
     })
+
+    it('should respect initial sort order from table preferences', () => {
+      cy.mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+          tablePreferences: {
+            sortColumnKey: 'name',
+            sortColumnOrder: 'asc',
+          },
+        },
+      })
+
+      cy.getTestId('table-header-name').should('have.class', 'active-sort')
+      cy.getTestId('table-header-name').should('have.attr', 'aria-sort', 'ascending')
+    })
   })
 
   describe('pagination', () => {

@@ -534,6 +534,25 @@ describe('KTableData', () => {
         .should('have.callCount', 1) // ensure fetcher is NOT called again on client-side sort
 
     })
+
+    it.only('should respect initial sort order from initial fetcher params', () => {
+      cy.mount(KTableData, {
+        props: {
+          headers: options.headers,
+          clientSort: true,
+          fetcher: () => {
+            return { data: options.data }
+          },
+          initialFetcherParams: {
+            sortColumnKey: 'name',
+            sortColumnOrder: 'asc',
+          },
+        },
+      })
+
+      cy.getTestId('table-header-name').should('have.class', 'active-sort')
+      cy.getTestId('table-header-name').should('have.attr', 'aria-sort', 'ascending')
+    })
   })
 
   describe('pagination', () => {
