@@ -73,7 +73,7 @@ const startTimeValue = ref<string>(format(new Date(), 'HH:mm:ss'))
 const endTimeValue = ref<string>(format(new Date(), 'HH:mm:ss'))
 
 const showTime = computed(() => {
-  return ['time', 'dateTime'].includes(props.kDatePickerMode)
+  return ['time', 'dateTime', 'relativeDateTime'].includes(props.kDatePickerMode)
 })
 
 onMounted(() => {
