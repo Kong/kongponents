@@ -12,7 +12,7 @@
       <SandboxSectionComponent title="rowHover & maxHeight & clientSort & sortHandlerFunction & sortable">
         <KComponent
           v-slot="{ data }"
-          :data="{ tableKey: 0, tableRowHover: false, tableSortable: true }"
+          :data="{ tableKey: 0, tableRowHover: false, tableSortable: true, usernameSortable: true, initialSort: true }"
         >
           <div class="horizontal-container">
             <KInputSwitch
@@ -22,7 +22,19 @@
             />
             <KInputSwitch
               v-model="data.tableSortable"
-              label="Sortable"
+              label="Table sortable"
+              @change="data.tableKey++"
+            />
+            <KInputSwitch
+              v-model="data.usernameSortable"
+              :disabled="!data.tableSortable"
+              label="Username sortable"
+              @change="data.tableKey++"
+            />
+            <KInputSwitch
+              v-model="data.initialSort"
+              :disabled="!data.tableSortable || !data.usernameSortable"
+              label="Username has initial sort"
               @change="data.tableKey++"
             />
           </div>
@@ -31,7 +43,10 @@
             :key="data.tableKey"
             client-sort
             :fetcher="fetcher"
-            :headers="headers(false, true)"
+            :headers="headers(false, data.usernameSortable, false, data.initialSort)"
+            :initial-fetcher-params="data.tableSortable && data.usernameSortable && data.initialSort
+              ? { sortColumnKey: 'username', sortColumnOrder: 'asc' }
+              : {}"
             max-height="300"
             :row-hover="data.tableRowHover"
             :sort-handler-function="sortHandlerFunction"
@@ -49,7 +64,7 @@
       >
         <KComponent
           v-slot="{ data }"
-          :data="{ tableKey: 0, tableLoadingState: false, tableErrorState: false }"
+          :data="{ tableKey: 0, tableLoadingState: false, tableErrorState: false, tableEmptyState: false }"
         >
           <div class="horizontal-container">
             <KInputSwitch
@@ -438,33 +453,49 @@ import type { TableDataHeader, TableViewData, RowLink, RowBulkAction, RowActions
 import SandboxTableViewActions from './SandboxTableView/SandboxTableViewActions.vue'
 import { AddIcon } from '@kong/icons'
 
-const headers = (hidable: boolean = false, sortable: boolean = false, bulkActions: boolean = false): TableDataHeader[] => {
+const headers = (
+  hidable: boolean = false,
+  sortable: boolean = false,
+  bulkActions: boolean = false,
+  hasInitialSort: boolean = false,
+): TableDataHeader[] => {
   return [
     { key: 'actions', label: 'Row actions' },
-    { key: 'name', label: 'Full Name' },
+    {
+      key: 'name',
+      label: 'Full Name',
+      sortable: true,
+      useSortHandlerFunction: true,
+    },
     {
       key: 'username',
       label: 'Username',
       tooltip: 'Columns with a tooltip.',
       sortable,
       ...(sortable && { useSortHandlerFunction: true }),
+      ...(hasInitialSort && { initialSort: 'asc' }),
     },
     { key: 'email', label: 'Email', hidable },
     ...(bulkActions ? [{ key: 'bulkActions', label: 'Bulk actions' }] : []),
   ]
 }
 
-const fetcher = async (): Promise<any> => {
+const fetcher = async ({ sortColumnKey, sortColumnOrder }): Promise<any> => {
   // Fake delay
   await new Promise((resolve) => setTimeout(resolve, 2000))
 
   const response = await fetch('https://jsonplaceholder.typicode.com/users')
   const responseData = await response.json()
 
-  return {
-    data: responseData,
-    total: responseData.length,
-  }
+  return sortColumnKey
+    ? {
+      data: sortHandlerFunction({ key: sortColumnKey, sortColumnOrder, data: responseData }),
+      total: responseData.length,
+    }
+    : {
+      data: responseData,
+      total: responseData.length,
+    }
 }
 
 const emptyFetcher = async (): Promise<any> => {
@@ -478,29 +509,11 @@ const emptyFetcher = async (): Promise<any> => {
 }
 
 const sortHandlerFunction = ({ key, sortColumnOrder, data }: any) => {
-  return data.sort((a: any, b: any) => {
-    if (key === 'username') {
-      if (sortColumnOrder === 'asc') {
-        if (a.username > b.username) {
-          return 1
-        } else if (a.username < b.username) {
-          return -1
-        }
+  const ascending = sortColumnOrder === 'asc'
 
-        return 0
-      } else {
-        if (a.username > b.username) {
-          return -1
-        } else if (a.username < b.username) {
-          return 1
-        }
-
-        return 0
-      }
-    }
-
-    return data
-  })
+  return data.sort((a: any, b: any) => ascending
+    ? (a[key] ?? '').localeCompare(b[key] ?? '')
+    : (b[key] ?? '').localeCompare(a[key] ?? ''))
 }
 
 const onRowClick = (row: any) => {

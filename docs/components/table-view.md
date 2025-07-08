@@ -34,6 +34,8 @@ interface TableViewHeader {
   label: string
   /** this property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it */
   sortable?: boolean
+  /** When provided, determines the intial arrow direction on the column header, if more than one header has this value only the first is applied */
+  initialSort?: 'asc' | 'desc'
   /** allow toggling column visibility */
   hidable?: boolean
   /** when provided, an info icon will be rendered next to the column label, upon hovering on which the tooltip will be revealed */
