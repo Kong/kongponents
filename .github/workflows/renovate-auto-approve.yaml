@@ -16,6 +16,10 @@ jobs:
     # Do not auto-approve branches `alpha` or `beta`
     if: github.actor == 'renovate[bot]' && !contains(github.head_ref || github.ref_name, 'alpha') && !contains(github.head_ref || github.ref_name, 'beta')
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@c6295a65d1254861815972266d5933fd6e532bdf # v2.11.1
+        with:
+          egress-policy: audit
       - name: Approve a PR
         run: gh pr review --approve "$PR_URL"
         env:
