@@ -532,10 +532,9 @@ describe('KTableData', () => {
 
       cy.get('@fetcher')
         .should('have.callCount', 1) // ensure fetcher is NOT called again on client-side sort
-
     })
 
-    it.only('should respect initial sort order from initial fetcher params', () => {
+    it('should respect initial sort order from initial fetcher params', () => {
       cy.mount(KTableData, {
         props: {
           headers: options.headers,
