@@ -1,3 +1,10 @@
+## [9.35.11](https://github.com/Kong/kongponents/compare/v9.35.10...v9.35.11) (2025-07-08)
+
+
+### Bug Fixes
+
+* forgot relativeDateTime supposed to show time inputs ([#2820](https://github.com/Kong/kongponents/issues/2820)) ([306db79](https://github.com/Kong/kongponents/commit/306db79a60011cf83a6686af983340f6ea57c187))
+
 ## [9.35.10](https://github.com/Kong/kongponents/compare/v9.35.9...v9.35.10) (2025-07-08)
 
 
