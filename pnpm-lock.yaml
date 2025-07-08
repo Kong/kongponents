@@ -48,7 +48,7 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2(@popperjs/core@2.11.8)(vue@3.5.17(typescript@5.6.3))
       virtua:
-        specifier: ^0.41.3
+        specifier: ^0.41.5
         version: 0.41.5(vue@3.5.17(typescript@5.6.3))
       vue-draggable-next:
         specifier: ^2.2.1
