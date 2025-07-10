@@ -5,8 +5,8 @@
   >
     <KLabel
       v-if="label"
-      v-bind="labelAttributes"
       data-testid="select-label"
+      v-bind="labelAttributes"
       :for="selectInputId"
       :required="isRequired"
     >
