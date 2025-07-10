@@ -1066,7 +1066,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
 
       :deep(.badge-content-wrapper) {
         display: inline-flex;
-        gap: var(--kui-space-20, $kui-space-20);
+        gap: var(--kui-space-30, $kui-space-30);
       }
     }
 
