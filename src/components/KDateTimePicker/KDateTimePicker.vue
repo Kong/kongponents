@@ -63,21 +63,13 @@
         >
           {{ state.fullRangeDisplay }}
         </p>
-        <DatePicker
+        <CalendarWrapper
           v-if="hasCalendar && showCalendar"
           v-model="calendarVModel"
-          borderless
-          color="blue"
-          :drag-attribute="calendarDragAttributes"
-          expanded
           :is-range="!isSingleDatepicker"
+          :k-date-picker-mode="mode"
           :max-date="maxDate"
           :min-date="minDate"
-          :mode="impliedMode"
-          :model-config="modelConfig"
-          :rules="vCalendarRules"
-          :select-attribute="calendarSelectAttributes"
-          transparent
         />
         <div
           v-else-if="hasTimePeriods && !isSingleDatepicker"
@@ -138,7 +130,6 @@
 import { computed, onMounted, reactive, ref, watch, type CSSProperties } from 'vue'
 import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
-import { DatePicker } from 'v-calendar'
 import KButton from '@/components/KButton/KButton.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.vue'
@@ -148,13 +139,14 @@ import type { DateTimePickerState, TimePeriod, TimeRange, DatePickerModel, Butto
 import { CalIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { normalizeSize } from '@/utilities/css'
+import CalendarWrapper from './CalendarWrapper.vue'
 
 const {
   clearButton,
   icon = true,
   modelValue = { start: null, end: null },
-  maxDate = null,
-  minDate = null,
+  maxDate = undefined,
+  minDate = undefined,
   mode,
   placeholder = 'Select a time range',
   range,
@@ -169,26 +161,6 @@ const emit = defineEmits<DateTimePickerEmits>()
 
 const kPop = ref<InstanceType<typeof KPop> | null>(null)
 
-// https://vcalendar.io/datepicker.html#model-config
-const modelConfig = { type: 'number' }
-
-const calendarSelectAttributes = {
-  key: 'select-calendar',
-  highlight: {
-    start: { contentClass: 'vcal-day-start' },
-    base: { contentClass: 'vcal-day-base' },
-    end: { contentClass: 'vcal-day-end' },
-  },
-}
-
-const calendarDragAttributes = {
-  key: 'select-drag',
-  highlight: {
-    start: { contentClass: 'vcal-day-drag-start' },
-    base: { contentClass: 'vcal-day-drag-base' },
-    end: { contentClass: 'vcal-day-drag-end' },
-  },
-}
 
 // Booleans
 const hasCalendar = computed((): boolean => mode !== DateTimePickerModes.Relative)
@@ -213,26 +185,10 @@ const calendarVModel = isSingleDatepicker.value
   ? calendarSingleDate as DatePickerModel
   : calendarRange as DatePickerModel
 
-// `minute-increment` has been deprecated in favor of the time `rules` object
-// https://vcalendar.io/datepicker/time-rules.html
-const vCalendarRules = ref({
-  minutes: [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55],
-})
 
 const widthStyle = computed((): CSSProperties => {
   return {
     width: normalizeSize(width),
-  }
-})
-
-const impliedMode = computed((): string => {
-  if (mode === DateTimePickerModes.RelativeDateTime) {
-    return 'dateTime'
-  } else if (mode === DateTimePickerModes.RelativeDate) {
-    return 'date'
-  } else {
-    // Modes that are safe to be passed verbatim to v-calendar
-    return mode
   }
 })
 

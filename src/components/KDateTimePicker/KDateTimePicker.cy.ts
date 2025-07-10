@@ -131,7 +131,7 @@ describe('KDateTimePicker', () => {
     cy.getTestId(timepickerInput).click()
     cy.get('.vc-pane-container').should('exist')
     cy.getTestId(submitButton).should('exist')
-    cy.get('.vc-pane-container').find('.vc-time-picker').should('not.exist')
+    cy.get('.time-input').should('not.exist')
   })
 
   it('renders a single date and time picker', () => {
@@ -147,7 +147,7 @@ describe('KDateTimePicker', () => {
     cy.getTestId(timepickerInput).should('exist')
     cy.getTestId(timepickerInput).click()
     cy.get('.vc-pane-container').should('exist')
-    cy.get('.vc-pane-container').find('.vc-time-picker').should('exist')
+    cy.get('.time-input').should('exist')
     cy.getTestId(timepickerDisplay).should('contain.text', todayDateTimeString)
   })
 
@@ -167,7 +167,7 @@ describe('KDateTimePicker', () => {
 
     cy.get('.k-datetime-picker').getTestId(timepickerInput).should('exist')
     cy.get('.k-datetime-picker').getTestId(timepickerInput).click()
-    cy.get('.k-datetime-picker').get('.vc-pane-container .vc-time-picker').should('exist')
+    cy.get('.time-input').should('exist')
   })
 
   it('displays a valid date when "Submit" is clicked', () => {
@@ -286,7 +286,7 @@ describe('KDateTimePicker', () => {
     cy.getTestId(segmentedToggle).find('button[data-testid="custom-option"]').eq(0).click()
     // On the calendar side, we should see the month view, but not the time picker
     cy.get('.k-datetime-picker .vc-pane-container .vc-weeks').should('exist')
-    cy.get('.k-datetime-picker .vc-pane-container .vc-time-picker').should('not.exist')
+    cy.get('.time-input').should('not.exist')
   })
 
   it('renders date only calendar and displays time range in `PP` format', () => {
@@ -330,7 +330,7 @@ describe('KDateTimePicker', () => {
     cy.getTestId(segmentedToggle).find('button[data-testid="custom-option"]').eq(0).click()
 
     cy.get('.k-datetime-picker .vc-pane-container .vc-weeks').should('exist')
-    cy.get('.k-datetime-picker .vc-pane-container .vc-time-picker').should('not.exist')
+    cy.get('.time-input').should('not.exist')
 
     cy.getTestId(timepickerDisplay).should('contain.text', placeholderText)
 
