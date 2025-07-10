@@ -439,7 +439,7 @@ describe('KTableData', () => {
       cy.getTestId('table-pagination').should('be.visible')
       cy.getTestId('table-pagination').find('.kui-icon.chevron-down-icon').click({ force: true })
       cy.get('.table').find('tr').should('have.length', 6)
-      cy.get('.table').find('.sort-icon').last().click()
+      cy.get('.table').find('.sort-icon').last().click({ force: true })
       cy.get('.table').find('td:nth-child(4)').first().should('has.text', 'Just now')
     })
 

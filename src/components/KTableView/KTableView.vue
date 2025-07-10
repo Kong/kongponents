@@ -213,7 +213,7 @@
                   </KTooltip>
 
                   <SwapSortIcon
-                    v-if="!column.hideLabel && column.sortable && !sortColumnKey && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS"
+                    v-if="!column.hideLabel && column.sortable && sortColumnKey !== column.key && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS"
                     class="sort-icon"
                     :color="`var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
                     decorative
