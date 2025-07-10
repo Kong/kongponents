@@ -243,6 +243,20 @@
           </template>
         </KMultiselect>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="itemBadgeIcon">
+        <KMultiselect :items="multiselectItems">
+          <template #item-badge-icon="{ item }">
+            <DisabledIcon
+              v-if="item.disabled"
+              decorative
+            />
+            <KongIcon
+              v-else
+              decorative
+            />
+          </template>
+        </KMultiselect>
+      </SandboxSectionComponent>
 
       <!-- Examples -->
       <SandboxTitleComponent
@@ -293,7 +307,7 @@ import { computed, ref, inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import type { MultiselectItem } from '@/types'
-import { KongIcon } from '@kong/icons'
+import { KongIcon, DisabledIcon } from '@kong/icons'
 
 const multiselectItems: MultiselectItem[] = [
   {

@@ -92,7 +92,13 @@
                 truncation-tooltip
                 @click.stop
               >
-                {{ item.label }}
+                <slot
+                  :item="item"
+                  name="item-badge-icon"
+                />
+                <span class="multiselect-selection-badge-label">
+                  {{ item.label }}
+                </span>
                 <template
                   v-if="item.selected && !item.disabled && !isDisabled && !isReadonly"
                   #icon
@@ -253,7 +259,13 @@
           class="multiselect-selection-badge"
           :icon-before="false"
         >
-          {{ item.label }}
+          <slot
+            :item="item"
+            name="item-badge-icon"
+          />
+          <span class="multiselect-selection-badge-label">
+            {{ item.label }}
+          </span>
           <template
             v-if="item.selected && !item.disabled && !isDisabled && !isReadonly"
             #icon
@@ -1045,7 +1057,19 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
       position: relative;
     }
 
-    .multiselect-selection-badge,
+    .multiselect-selection-badge {
+      cursor: auto;
+
+      .multiselect-selection-badge-label {
+        @include truncate;
+      }
+
+      :deep(.badge-content-wrapper) {
+        display: inline-flex;
+        gap: var(--kui-space-20, $kui-space-20);
+      }
+    }
+
     .hidden-selection-count {
       cursor: auto;
     }

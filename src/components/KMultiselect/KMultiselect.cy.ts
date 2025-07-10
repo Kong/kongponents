@@ -307,6 +307,40 @@ describe('KMultiselect', () => {
     cy.getTestId(`multiselect-item-${itemValue}`).should('contain.text', itemSlotContent)
   })
 
+  it('allows slotting the icon through item-badge-icon slot', () => {
+    const itemIcon = 'slotted-badge-icon'
+    const labels = ['Label 1', 'Label 2', 'Label 3']
+    const vals = ['label1', 'label2', 'label3']
+
+    cy.mount(KMultiselect, {
+      props: {
+        items: [{
+          label: labels[0],
+          value: vals[0],
+          selected: true,
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }, {
+          label: labels[2],
+          value: vals[2],
+        }],
+      },
+      slots: {
+        'item-badge-icon': `<span data-testid="${itemIcon}">${itemIcon}</span>`,
+      },
+    })
+
+    cy.getTestId('selection-badges-container').should('contain.text', labels[0])
+    cy.getTestId('selection-badges-container').findTestId(itemIcon).should('be.visible').should('have.length', 1)
+
+    cy.getTestId('multiselect-trigger').click()
+    cy.getTestId(`multiselect-item-${vals[1]}`).click()
+    cy.getTestId('multiselect-trigger').click()
+
+    cy.getTestId('selection-badges-container').findTestId(itemIcon).should('have.length', 2)
+  })
+
   it('works in autosuggest mode', () => {
     const onQueryChange = cy.spy().as('onQueryChange')
     cy.mount(KMultiselect, {

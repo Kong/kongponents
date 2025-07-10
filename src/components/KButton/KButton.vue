@@ -135,6 +135,8 @@ export default {
 /* Component styles */
 
 .k-button {
+  outline: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-primary, $kui-color-border-primary);
+
   // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
   // stylelint-disable-next-line no-duplicate-selectors
   & {

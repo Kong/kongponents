@@ -730,6 +730,28 @@ You can use the `item-template` slot to customize the look and feel of your item
 </KMultiselect>
 ```
 
+### item-badge-icon
+
+Slot for passing a custom icon to be displayed in front of item label in selected item badge.
+
+<ClientOnly>
+  <KMultiselect :items="deepClone(defaultItems)">
+    <template #item-badge-icon="{ item }">
+      <DisabledIcon v-if="item.disabled" />
+      <KongIcon v-else />
+    </template>
+  </KMultiselect>
+</ClientOnly>
+
+```html
+<KMultiselect :items="myItems">
+  <template #item-badge-icon="{ item }">
+    <DisabledIcon v-if="item.disabled" />
+    <KongIcon v-else />
+  </template>
+</KMultiselect>
+```
+
 ### empty
 
 You can use the `empty` slot to customize the look of the dropdown list when there is no options. See [autosuggest](#autosuggest) for an example of this slot.
@@ -855,7 +877,7 @@ const handleSelection = (selectedItems) => {
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { KongIcon } from '@kong/icons'
+import { KongIcon, DisabledIcon } from '@kong/icons'
 
 function getItems(count) {
   let myItems = []
@@ -887,7 +909,7 @@ const allItems = new Array(10).fill().map((_, i) => ({
 }));
 
 export default defineComponent({
-  components: { KongIcon },
+  components: { KongIcon, DisabledIcon },
   data() {
     return {
       myItems: getItems(5),
