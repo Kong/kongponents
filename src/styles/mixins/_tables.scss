@@ -144,10 +144,6 @@
 
               &.active-sort {
                 color: var(--kui-color-text-primary, $kui-color-text-primary);
-
-                .sort-icon {
-                  color: var(--kui-color-text-primary, $kui-color-text-primary) !important;
-                }
               }
 
               .sr-only {
@@ -165,7 +161,7 @@
               &.sortable {
                 cursor: pointer;
 
-                &.asc .sort-icon {
+                &.asc .active-sort-icon {
                   transform: rotate(-180deg);
                 }
               }
@@ -189,7 +185,8 @@
                   cursor: help;
                 }
 
-                .sort-icon {
+                .sort-icon,
+                .active-sort-icon {
                   flex-shrink: 0;
                 }
 
