@@ -212,21 +212,23 @@
                     </template>
                   </KTooltip>
 
-                  <SwapSortIcon
-                    v-if="!column.hideLabel && column.sortable && sortColumnKey !== column.key && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS"
-                    class="sort-icon"
-                    :color="`var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
-                    decorative
-                    :size="KUI_ICON_SIZE_30"
-                  />
+                  <template v-if="!column.hideLabel && column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS">
+                    <ArrowDownIcon
+                      v-if="sortColumnKey === column.key"
+                      class="active-sort-icon"
+                      :color="`var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})`"
+                      decorative
+                      :size="KUI_ICON_SIZE_30"
+                    />
 
-                  <ArrowDownIcon
-                    v-if="!column.hideLabel && column.sortable && column.key === sortColumnKey"
-                    class="active-sort-icon"
-                    :color="`var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})`"
-                    decorative
-                    :size="KUI_ICON_SIZE_30"
-                  />
+                    <SwapSortIcon
+                      v-else
+                      class="sort-icon"
+                      :color="`var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
+                      decorative
+                      :size="KUI_ICON_SIZE_30"
+                    />
+                  </template>
                 </div>
 
                 <div
