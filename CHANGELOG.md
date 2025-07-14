@@ -1,3 +1,10 @@
+# [9.36.0](https://github.com/Kong/kongponents/compare/v9.35.11...v9.36.0) (2025-07-14)
+
+
+### Features
+
+* **kmultiselect:** add item-badge-icon slot [KHCP-17046] ([#2822](https://github.com/Kong/kongponents/issues/2822)) ([4644af1](https://github.com/Kong/kongponents/commit/4644af191f505a4cdf3d7fa4cf57705146b75014))
+
 ## [9.35.11](https://github.com/Kong/kongponents/compare/v9.35.10...v9.35.11) (2025-07-08)
 
 
