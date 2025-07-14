@@ -212,7 +212,7 @@
                     </template>
                   </KTooltip>
 
-                  <template v-if="!column.hideLabel && column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS">
+                  <template v-if="isColumnSortable(column)">
                     <ArrowDownIcon
                       v-if="sortColumnKey === column.key"
                       class="active-sort-icon"
@@ -225,8 +225,8 @@
                       v-else
                       class="sort-icon"
                       :color="`var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
-                      decorative
                       :size="KUI_ICON_SIZE_30"
+                      :title="`Sort by ${column.label}`"
                     />
                   </template>
                 </div>
@@ -949,6 +949,8 @@ watch(() => headers, (newVal: readonly Header[]) => {
     tableHeaders.value = headers
   }
 }, { deep: true, immediate: true })
+
+const isColumnSortable = (column: TableViewHeader<ColumnKey>): boolean => !column.hideLabel && !!column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS
 
 const sortClickHandler = (header: TableViewHeader<ColumnKey>): void => {
   const { key } = header

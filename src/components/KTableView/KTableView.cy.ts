@@ -436,7 +436,7 @@ describe('KTableView', () => {
   })
 
   describe('sorting', () => {
-    it('should have sortable class when passed', () => {
+    it('should render sortable columns correctly', () => {
       cy.mount(KTableView, {
         props: {
           headers: options.headers,
@@ -445,9 +445,9 @@ describe('KTableView', () => {
       })
 
       cy.get('th').each(($el, index) => {
-        if (index <= 1) {
-          cy.wrap($el).should('have.class', 'sortable')
-        }
+        cy.wrap($el).should(`${options.headers[index].sortable ? '' : 'not.'}have.class`, 'sortable')
+        cy.wrap($el).find('.sort-icon').should(`${options.headers[index].sortable ? '' : 'not.'}exist`)
+        cy.wrap($el).find('.active-sort-icon').should('not.exist')
       })
     })
 
