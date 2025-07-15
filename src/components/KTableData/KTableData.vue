@@ -31,7 +31,7 @@
     :row-hover="rowHover"
     :row-key="rowKey"
     :row-link="rowLink"
-    :table-preferences="tablePreferences"
+    :table-preferences="tableDataPreferences"
     :tooltip-target="tooltipTarget"
     v-bind="listenerProps"
     @empty-state-action-click="emit('empty-state-action-click')"
@@ -260,8 +260,9 @@ const total = ref<number>(0)
 const page = ref<number>(1)
 const pageSize = ref<number>(getInitialPageSize(tablePreferences, paginationAttributes))
 const filterQuery = ref<string>(searchInput ?? '')
-const sortColumnKey = ref('') as Ref<ColumnKey>
-const sortColumnOrder = ref<SortColumnOrder>('desc')
+const sortColumnKey = ref(tablePreferences.sortColumnKey || initialFetcherParams.sortColumnKey || '') as Ref<ColumnKey>
+const sortColumnOrder = ref<SortColumnOrder>(tablePreferences.sortColumnOrder || initialFetcherParams.sortColumnOrder || 'desc')
+const initialSortHandled = ref<boolean>(!sortColumnKey.value) // if sortColumnKey is set, that means we need to handle initial sort
 const offset = ref(null) as Ref<Offset | null>
 const offsets = ref([]) as Ref<Array<Offset | null>>
 const hasNextPage = ref<boolean>(true)
@@ -437,6 +438,8 @@ const tableState = computed((): TableState => fetcherIsLoading.value ? 'loading'
 const { debouncedFn: debouncedRevalidate } = useDebounce(_revalidate, 500)
 
 const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortOrder }: TableSortPayload<ColumnKey>): void => {
+  initialSortHandled.value = true
+
   const header: TableDataHeader<ColumnKey> = tableHeaders.value.find((header) => header.key === columnKey)!
   const { useSortHandlerFunction } = header
 
@@ -504,6 +507,7 @@ const tableDataPreferences = computed((): TablePreferences<Header['key']> => ({
   sortColumnOrder: sortColumnOrder.value,
   ...(tableViewColumnWidths.value ? { columnWidths: tableViewColumnWidths.value } : {}),
   ...(tableViewColumnVisibility.value ? { columnVisibility: tableViewColumnVisibility.value } : {}),
+  ...tablePreferences,
 }))
 
 const emitTablePreferences = (): void => {
@@ -575,6 +579,11 @@ watch(fetcherResponse, (res) => {
     page.value = 1
     offsets.value = [null]
     offset.value = null
+  }
+
+  // call sortHandler if the initial sort is not handled yet
+  if (sortable && !initialSortHandled.value) {
+    sortHandler({ sortColumnKey: sortColumnKey.value, prevKey: '', sortColumnOrder: sortColumnOrder.value })
   }
 }, { deep: true, immediate: true })
 

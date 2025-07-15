@@ -143,7 +143,7 @@
               }
 
               &.active-sort {
-                color: var(--kui-color-text, $kui-color-text);
+                color: var(--kui-color-text-primary, $kui-color-text-primary);
               }
 
               .sr-only {
@@ -161,7 +161,7 @@
               &.sortable {
                 cursor: pointer;
 
-                &.asc .sort-icon {
+                &.asc .active-sort-icon {
                   transform: rotate(-180deg);
                 }
               }
@@ -185,7 +185,8 @@
                   cursor: help;
                 }
 
-                .sort-icon {
+                .sort-icon,
+                .active-sort-icon {
                   flex-shrink: 0;
                 }
 
@@ -242,10 +243,6 @@
                   &:active {
                     background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
                     color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
-                  }
-
-                  .more-icon {
-                    pointer-events: none;
                   }
                 }
               }

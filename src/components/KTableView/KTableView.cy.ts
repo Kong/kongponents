@@ -436,7 +436,7 @@ describe('KTableView', () => {
   })
 
   describe('sorting', () => {
-    it('should have sortable class when passed', () => {
+    it('should render sortable columns correctly', () => {
       cy.mount(KTableView, {
         props: {
           headers: options.headers,
@@ -445,9 +445,9 @@ describe('KTableView', () => {
       })
 
       cy.get('th').each(($el, index) => {
-        if (index <= 1) {
-          cy.wrap($el).should('have.class', 'sortable')
-        }
+        cy.wrap($el).should(`${options.headers[index].sortable ? '' : 'not.'}have.class`, 'sortable')
+        cy.wrap($el).find('.sort-icon').should(`${options.headers[index].sortable ? '' : 'not.'}exist`)
+        cy.wrap($el).find('.active-sort-icon').should('not.exist')
       })
     })
 
@@ -480,6 +480,22 @@ describe('KTableView', () => {
           cy.wrap(Cypress.vueWrapper.emitted('sort')?.[1]?.[0]).should('have.property', 'sortColumnOrder', 'asc')
         })
       })
+    })
+
+    it('should respect initial sort order from table preferences', () => {
+      cy.mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+          tablePreferences: {
+            sortColumnKey: 'name',
+            sortColumnOrder: 'asc',
+          },
+        },
+      })
+
+      cy.getTestId('table-header-name').should('have.class', 'active-sort')
+      cy.getTestId('table-header-name').should('have.attr', 'aria-sort', 'ascending')
     })
   })
 

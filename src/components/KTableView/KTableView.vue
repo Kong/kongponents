@@ -212,12 +212,23 @@
                     </template>
                   </KTooltip>
 
-                  <ArrowDownIcon
-                    v-if="!column.hideLabel && column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS"
-                    class="sort-icon"
-                    :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
-                    :size="KUI_ICON_SIZE_30"
-                  />
+                  <template v-if="isColumnSortable(column)">
+                    <ArrowDownIcon
+                      v-if="sortColumnKey === column.key"
+                      class="active-sort-icon"
+                      :color="`var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})`"
+                      decorative
+                      :size="KUI_ICON_SIZE_30"
+                    />
+
+                    <SwapSortIcon
+                      v-else
+                      class="sort-icon"
+                      :color="`var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
+                      :size="KUI_ICON_SIZE_30"
+                      :title="`Sort by ${column.label}`"
+                    />
+                  </template>
                 </div>
 
                 <div
@@ -419,7 +430,7 @@ import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
-import { InfoIcon, ArrowDownIcon, MoreIcon, ChevronRightIcon } from '@kong/icons'
+import { InfoIcon, SwapSortIcon, ArrowDownIcon, MoreIcon, ChevronRightIcon } from '@kong/icons'
 import type {
   TablePreferences,
   TableViewHeader,
@@ -438,7 +449,7 @@ import type {
   TableColumnKey,
 } from '@/types'
 import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
-import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_COLOR_TEXT_PRIMARY, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
@@ -549,8 +560,8 @@ const isScrollableVertically = ref<boolean>(false)
 const isScrolledVertically = ref<boolean>(false)
 const isScrolledHorizontally = ref<boolean>(false)
 const isScrollableRight = ref<boolean>(false)
-const sortColumnKey = ref('') as Ref<ColumnKey | ''>
-const sortColumnOrder = ref<SortColumnOrder>('desc')
+const sortColumnKey = ref(tablePreferences.sortColumnKey || '') as Ref<ColumnKey | ''>
+const sortColumnOrder = ref<SortColumnOrder>(tablePreferences.sortColumnOrder || 'desc')
 const isClickable = ref(false)
 const hasToolbarSlot = computed((): boolean => !hideToolbar && !nested && (!!slots.toolbar || hasColumnVisibilityMenu.value || showBulkActionsToolbar.value))
 const isActionsDropdownHovered = ref<boolean>(false)
@@ -938,6 +949,8 @@ watch(() => headers, (newVal: readonly Header[]) => {
     tableHeaders.value = headers
   }
 }, { deep: true, immediate: true })
+
+const isColumnSortable = (column: TableViewHeader<ColumnKey>): boolean => !column.hideLabel && !!column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS
 
 const sortClickHandler = (header: TableViewHeader<ColumnKey>): void => {
   const { key } = header

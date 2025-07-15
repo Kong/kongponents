@@ -439,7 +439,7 @@ describe('KTableData', () => {
       cy.getTestId('table-pagination').should('be.visible')
       cy.getTestId('table-pagination').find('.kui-icon.chevron-down-icon').click({ force: true })
       cy.get('.table').find('tr').should('have.length', 6)
-      cy.get('.table').find('.sort-icon').last().click()
+      cy.get('.table').find('.sort-icon').last().click({ force: true })
       cy.get('.table').find('td:nth-child(4)').first().should('has.text', 'Just now')
     })
 
@@ -475,7 +475,7 @@ describe('KTableData', () => {
   })
 
   describe('sorting', () => {
-    it('should have sortable class when passed', () => {
+    it('should render sortable columns correctly', () => {
       cy.mount(KTableData, {
         props: {
           headers: options.headers,
@@ -486,9 +486,9 @@ describe('KTableData', () => {
       })
 
       cy.get('th').each(($el, index) => {
-        if (index === 0) {
-          cy.wrap($el).should('have.class', 'sortable')
-        }
+        cy.wrap($el).should(`${options.headers[index].sortable ? '' : 'not.'}have.class`, 'sortable')
+        cy.wrap($el).find('.sort-icon').should(`${options.headers[index].sortable ? '' : 'not.'}exist`)
+        cy.wrap($el).find('.active-sort-icon').should('not.exist')
       })
     })
 
@@ -532,7 +532,25 @@ describe('KTableData', () => {
 
       cy.get('@fetcher')
         .should('have.callCount', 1) // ensure fetcher is NOT called again on client-side sort
+    })
 
+    it('should respect initial sort order from initial fetcher params', () => {
+      cy.mount(KTableData, {
+        props: {
+          headers: options.headers,
+          clientSort: true,
+          fetcher: () => {
+            return { data: options.data }
+          },
+          initialFetcherParams: {
+            sortColumnKey: 'name',
+            sortColumnOrder: 'asc',
+          },
+        },
+      })
+
+      cy.getTestId('table-header-name').should('have.class', 'active-sort')
+      cy.getTestId('table-header-name').should('have.attr', 'aria-sort', 'ascending')
     })
   })
 
