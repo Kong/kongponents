@@ -217,4 +217,9 @@ export interface MultiselectSlots<T extends string = string> {
    * Slot for dropdown footer in multiselect.
    */
   'dropdown-footer-text'?: () => any
+
+  /**
+   * Slot for icon in the selected item badge.
+   */
+  'item-badge-icon'?: (props: { item: MultiselectItem<T> }) => any
 }

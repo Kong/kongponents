@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.35.11",
+  "version": "9.36.0",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@floating-ui/vue": "^1.1.6",
-    "@kong/icons": "^1.33.0",
+    "@kong/icons": "^1.33.1",
     "@popperjs/core": "^2.11.8",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.1",
@@ -81,7 +81,7 @@
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@evilmartians/lefthook": "^1.11.14",
     "@kong-ui-public/sandbox-layout": "^2.1.75",
-    "@kong/design-tokens": "^1.17.4",
+    "@kong/design-tokens": "^1.17.5",
     "@kong/eslint-config-kong-ui": "1.5.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
@@ -102,7 +102,7 @@
     "cypress": "^13.15.2",
     "cypress-fail-fast": "^7.1.1",
     "cz-conventional-changelog": "3.3.0",
-    "eslint": "^9.29.0",
+    "eslint": "^9.30.1",
     "inquirer": "^9.3.6",
     "nanospinner": "^1.1.0",
     "node-emoji": "^2.2.0",
