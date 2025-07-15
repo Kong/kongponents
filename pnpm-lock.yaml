@@ -76,8 +76,8 @@ importers:
         specifier: ^2.1.75
         version: 2.1.75(vue@3.5.17(typescript@5.6.3))
       '@kong/design-tokens':
-        specifier: ^1.17.4
-        version: 1.17.4
+        specifier: ^1.17.5
+        version: 1.17.5
       '@kong/eslint-config-kong-ui':
         specifier: 1.5.1
         version: 1.5.1(eslint@9.29.0(jiti@1.21.6))(typescript@5.6.3)
@@ -1050,9 +1050,9 @@ packages:
     peerDependencies:
       vue: '>= 3.3.13 < 4'
 
-  '@kong/design-tokens@1.17.4':
-    resolution: {integrity: sha512-3BrKJvwlQ27jrVQIE+cJ9baTVz6cvxO5f7vw0UWOiXz/E23z5ZOGDpUMiyK7q3Jks9t3x8OsMx3BKPRu87TPnw==}
-    engines: {node: '>=20.18.3', pnpm: '>=9.14.4 || >=10.1.0'}
+  '@kong/design-tokens@1.17.5':
+    resolution: {integrity: sha512-RYm7cNgDComDm3RYfSTTmHJm9seSi1Pv6DG+D/8WKBN+QarCcVifB7G9hFojTC+/4EDZzWLu2DtIyn3W3wu+vw==}
+    engines: {node: '>=20.19.2', pnpm: '>=9.14.4 || >=10.1.0'}
 
   '@kong/eslint-config-kong-ui@1.5.1':
     resolution: {integrity: sha512-x9kGPrOsxJVCvVYoL8iX5KC6Xa7SqaDiKYkwBDr24bUeWXQ3ZSUvNNt1qupWUoRywekBl8UCEeIO/pjrhIYTmA==}
@@ -1237,8 +1237,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.44.2':
-    resolution: {integrity: sha512-bKl9rKDle9BbO/Tb5RFU4PDYtRcxNdllUL2cC6vixXkxV0U5XOIoi11KUNVoKyB2RLRSk3BHouMfw9fJdMsJkg==}
+  '@rollup/wasm-node@4.45.0':
+    resolution: {integrity: sha512-Z97ImkKNMUgY5xwLZpmg3tWmWpDrmE3uiA9BklG8/BB5Al4UcSTucc9rr2SBAdVa10WCw4zoIKSnW2uuB2Tf4A==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -6424,7 +6424,7 @@ snapshots:
       '@kong/icons': 1.31.0(vue@3.5.17(typescript@5.6.3))
       vue: 3.5.17(typescript@5.6.3)
 
-  '@kong/design-tokens@1.17.4': {}
+  '@kong/design-tokens@1.17.5': {}
 
   '@kong/eslint-config-kong-ui@1.5.1(eslint@9.29.0(jiti@1.21.6))(typescript@5.6.3)':
     dependencies:
@@ -6603,7 +6603,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@rollup/wasm-node@4.44.2':
+  '@rollup/wasm-node@4.45.0':
     dependencies:
       '@types/estree': 1.0.8
     optionalDependencies:
@@ -11045,7 +11045,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.5.6
-      rollup: '@rollup/wasm-node@4.44.2'
+      rollup: '@rollup/wasm-node@4.45.0'
     optionalDependencies:
       '@types/node': 22.16.0
       fsevents: 2.3.3
@@ -11056,7 +11056,7 @@ snapshots:
     dependencies:
       esbuild: 0.25.2
       postcss: 8.5.3
-      rollup: '@rollup/wasm-node@4.44.2'
+      rollup: '@rollup/wasm-node@4.45.0'
     optionalDependencies:
       '@types/node': 22.16.0
       fsevents: 2.3.3
