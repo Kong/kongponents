@@ -1,3 +1,12 @@
+## [9.36.1](https://github.com/Kong/kongponents/compare/v9.36.0...v9.36.1) (2025-07-15)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies with stable version ([#2824](https://github.com/Kong/kongponents/issues/2824)) ([89e416d](https://github.com/Kong/kongponents/commit/89e416d1445669850c2e12fad49175f790f9b8c6))
+* **deps:** update dependency @kong/icons to ^1.33.1 ([#2826](https://github.com/Kong/kongponents/issues/2826)) ([cf19b35](https://github.com/Kong/kongponents/commit/cf19b35286d4e6e8c2993440d6ce9b2eff2658b3))
+* **kselect:** expose data-testid through label-attributes [KHCP-17097] ([#2821](https://github.com/Kong/kongponents/issues/2821)) ([05b5049](https://github.com/Kong/kongponents/commit/05b5049fbe67ba58ca1b2727bb62e4dec5e37877))
+
 # [9.36.0](https://github.com/Kong/kongponents/compare/v9.35.11...v9.36.0) (2025-07-14)
 
 
