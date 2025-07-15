@@ -1,3 +1,10 @@
+## [9.36.2](https://github.com/Kong/kongponents/compare/v9.36.1...v9.36.2) (2025-07-15)
+
+
+### Bug Fixes
+
+* **ktableview, ktabledata:** reflect initial sorting state [KHCP-17101] ([#2819](https://github.com/Kong/kongponents/issues/2819)) ([e1dec0e](https://github.com/Kong/kongponents/commit/e1dec0e1746a71f3c495f6a3603668d345cd1cf2))
+
 ## [9.36.1](https://github.com/Kong/kongponents/compare/v9.36.0...v9.36.1) (2025-07-15)
 
 
