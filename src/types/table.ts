@@ -79,6 +79,8 @@ export interface TableViewHeader<Key extends string = string> {
   label?: string
   /** This property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it */
   sortable?: boolean
+  /** When provided, determines the intial arrow direction on the column */
+  initialSort?: SortColumnOrder
   /** Allow toggling column visibility */
   hidable?: boolean
   /** When provided, an info icon will be rendered next to the column label, upon hovering on which the tooltip will be revealed */

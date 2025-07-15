@@ -161,6 +161,15 @@
               &.sortable {
                 cursor: pointer;
 
+                .sort-possible-icon {
+                  transform: rotate(90deg);
+                }
+
+                .sort-icon {
+                  transform: rotate(0deg);
+                  transition: transform $kongponentsTransitionDurTimingFunc;
+                }
+
                 &.asc .sort-icon {
                   transform: rotate(-180deg);
                 }
