@@ -502,12 +502,11 @@ const tablePreferencesUpdateHandler = ({ columnWidths: newColumnWidth, columnVis
 const tableViewColumnWidths = ref<ColumnWidths | undefined>({})
 const tableViewColumnVisibility = ref<ColumnVisibility | undefined>({})
 const tableDataPreferences = computed((): TablePreferences<Header['key']> => ({
+  pageSize: pageSize.value,
   sortColumnKey: sortColumnKey.value,
   sortColumnOrder: sortColumnOrder.value,
   ...(tableViewColumnWidths.value ? { columnWidths: tableViewColumnWidths.value } : {}),
   ...(tableViewColumnVisibility.value ? { columnVisibility: tableViewColumnVisibility.value } : {}),
-  ...tablePreferences,
-  pageSize: pageSize.value,
 }))
 
 const emitTablePreferences = (): void => {
