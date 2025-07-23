@@ -21,7 +21,10 @@
       <div
         class="time-input"
       >
-        <div class="time-input-label">
+        <label
+          class="time-input-label"
+          :for="`time-input-start-${componentId}`"
+        >
           <span v-if="showRange('start')">
             <!-- @vue-ignore: typeguard in showRange -->
             {{ format(calendarVModel.start, 'EEE MMM d yyyy') }}
@@ -29,8 +32,9 @@
           <span v-else-if="(calendarVModel && calendarVModel instanceof Date)">
             {{ format(calendarVModel, 'EEE MMM d yyyy') }}
           </span>
-        </div>
+        </label>
         <input
+          :id="`time-input-start-${componentId}`"
           v-model="startTimeValue"
           class="time-input-start"
           :class="{ 'input-error': hasError }"
@@ -38,14 +42,18 @@
           :step="60"
           type="time"
         >
-        <div class="time-input-label">
+        <label
+          class="time-input-label"
+          :for="`time-input-end-${componentId}`"
+        >
           <span v-if="showRange('end')">
             <!-- @vue-ignore: typeguard in showRange -->
             {{ format(calendarVModel.end, 'EEE MMM d yyyy') }}
           </span>
-        </div>
+        </label>
         <input
           v-if="isRange"
+          :id="`time-input-end-${componentId}`"
           v-model="endTimeValue"
           class="time-input-end"
           :class="{ 'input-error': hasError }"
@@ -90,6 +98,7 @@ const calendarVModel = defineModel<DatePickerModel>({ required: true })
 const hasError = defineModel<boolean>('error', { default: false })
 const startTimeValue = ref<string>(format(new Date(), 'HH:mm:ss'))
 const endTimeValue = ref<string>(format(new Date(), 'HH:mm:ss'))
+const componentId = ref<string>(crypto.randomUUID())
 
 const showTime = computed(() => {
   return ['time', 'dateTime', 'relativeDateTime'].includes(props.kDatePickerMode)

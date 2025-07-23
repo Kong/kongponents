@@ -192,7 +192,7 @@ export interface DateTimePickerProps {
    * If not provided, the default message is 'Start time cannot exceed end time.'
    * @default undefined
    */
-  errorMessage?: string
+  invalidTimeErrorMessage?: string
 }
 
 export interface DateTimePickerEmits {
