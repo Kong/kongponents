@@ -247,6 +247,13 @@
                     'overlay-visible': isScrolledHorizontally,
                   }"
                 />
+                <div
+                  v-if="column.key === TableViewHeaderKeys.ACTIONS"
+                  class="scroll-overlay row-overlay right"
+                  :class="{
+                    'overlay-visible': isScrollableRight,
+                  }"
+                />
               </th>
             </tr>
           </thead>
@@ -273,6 +280,7 @@
                     'sticky-column': (header.key === TableViewHeaderKeys.BULK_ACTIONS || header.key === TableViewHeaderKeys.EXPANDABLE) && isScrolledHorizontally,
                     'second-sticky-column': header.key === TableViewHeaderKeys.BULK_ACTIONS && hasExpandableRows,
                     'has-row-scroll-overlay': isLastStickyColumn(header.key),
+                    'actions-column': header.key === TableViewHeaderKeys.ACTIONS,
                   }"
                   :style="columnStyles[header.key]"
                   v-bind="cellAttrs({ headerKey: header.key, row, rowIndex, colIndex: index })"
@@ -370,6 +378,13 @@
                       'overlay-visible': isScrolledHorizontally,
                     }"
                   />
+                  <div
+                    v-if="header.key === TableViewHeaderKeys.ACTIONS"
+                    class="scroll-overlay row-overlay right"
+                    :class="{
+                      'overlay-visible': isScrollableRight,
+                    }"
+                  />
                 </td>
               </tr>
               <tr
@@ -403,6 +418,7 @@
         }"
       />
       <div
+        v-if="!hasRowActions"
         class="scroll-overlay table-overlay right"
         :class="{
           'overlay-visible': isScrollableRight,
@@ -533,6 +549,7 @@ const resizingColumn = ref('') as Ref<ColumnKey | ''>
 const resizerHoveredColumn = ref('') as Ref<ColumnKey | ''>
 // lowest priority - currently hovered resizable column (mouse is somewhere in the <th>)
 const currentHoveredColumn = ref('') as Ref<ColumnKey | ''>
+const hasRowActions = computed((): boolean => (tableHeaders.value.some((header) => header.key === TableViewHeaderKeys.ACTIONS)))
 const hasHidableColumns = computed((): boolean => tableHeaders.value.filter((header) => header.hidable).length > 0)
 const hasColumnVisibilityMenu = computed((): boolean => {
   if (nested || !hasHidableColumns.value || error) {
@@ -752,6 +769,7 @@ const getHeaderClasses = (column: TableViewHeader<ColumnKey>, index: number): Re
     'sticky-column': (column.key === TableViewHeaderKeys.BULK_ACTIONS || column.key === TableViewHeaderKeys.EXPANDABLE) && isScrolledHorizontally.value,
     'second-sticky-column': column.key === TableViewHeaderKeys.BULK_ACTIONS && hasExpandableRows.value,
     'has-row-scroll-overlay': isLastStickyColumn(column.key),
+    'actions-column': column.key === TableViewHeaderKeys.ACTIONS,
   }
 }
 

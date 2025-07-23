@@ -58,6 +58,14 @@
             z-index: 1;
           }
 
+          &.actions-column {
+            background-color: var(--kui-color-background, $kui-color-background);
+            overflow: visible;
+            position: sticky !important;
+            right: 0;
+            z-index: 1;
+          }
+
           &.has-row-scroll-overlay {
             overflow: visible;
             position: relative;
@@ -95,10 +103,11 @@
             }
 
             &.is-scrolled {
-              &:after {
+              &::after {
                 border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
                   var(--kui-color-border, $kui-color-border);
-                box-shadow: var(--kui-shadow, $kui-shadow);
+                // box-shadow: var(--kui-shadow, $kui-shadow);
+                height: calc(100% - 1px); // removes the tiny gap between the bottom border and the :after layer
                 opacity: 1;
                 transition: opacity $kongponentsTransitionDurTimingFunc;
               }
@@ -384,6 +393,11 @@
         &.has-hover {
           tbody tr:not(.expandable-content-row):hover {
             background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+
+            .sticky-column,
+            .actions-column {
+              background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+            }
           }
         }
 
@@ -432,6 +446,11 @@
     &.right {
       background: linear-gradient(to left, rgba(#000, 0.1), rgba(#000, 0));
       right: 0;
+
+      &.row-overlay {
+        left: calc(-1 * $scrollOverlayWidth);
+        right: unset;
+      }
     }
 
     &.overlay-visible {
