@@ -507,7 +507,6 @@ const tableDataPreferences = computed((): TablePreferences<Header['key']> => ({
   sortColumnOrder: sortColumnOrder.value,
   ...(tableViewColumnWidths.value ? { columnWidths: tableViewColumnWidths.value } : {}),
   ...(tableViewColumnVisibility.value ? { columnVisibility: tableViewColumnVisibility.value } : {}),
-  ...tablePreferences,
 }))
 
 const emitTablePreferences = (): void => {
