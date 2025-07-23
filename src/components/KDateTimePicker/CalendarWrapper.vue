@@ -78,7 +78,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, useId, watch } from 'vue'
 import { DatePicker } from 'v-calendar'
 import type { DatePickerModel, DatePickerRangeObject, DateTimePickerMode } from '@/types'
 import { format } from 'date-fns'
@@ -98,7 +98,7 @@ const calendarVModel = defineModel<DatePickerModel>({ required: true })
 const hasError = defineModel<boolean>('error', { default: false })
 const startTimeValue = ref<string>(format(new Date(), 'HH:mm:ss'))
 const endTimeValue = ref<string>(format(new Date(), 'HH:mm:ss'))
-const componentId = ref<string>(crypto.randomUUID())
+const componentId = useId()
 
 const showTime = computed(() => {
   return ['time', 'dateTime', 'relativeDateTime'].includes(props.kDatePickerMode)
