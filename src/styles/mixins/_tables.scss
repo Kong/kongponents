@@ -106,7 +106,6 @@
               &::after {
                 border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
                   var(--kui-color-border, $kui-color-border);
-                // box-shadow: var(--kui-shadow, $kui-shadow);
                 height: calc(100% - 1px); // removes the tiny gap between the bottom border and the :after layer
                 opacity: 1;
                 transition: opacity $kongponentsTransitionDurTimingFunc;
