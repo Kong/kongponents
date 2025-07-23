@@ -186,6 +186,13 @@ export interface DateTimePickerProps {
    * @default 'bottom-start'
    */
   popoverPlacement?: PopPlacement
+
+  /**
+   * String to be displayed as an error message.
+   * If not provided, the default message is 'Start time cannot exceed end time.'
+   * @default undefined
+   */
+  invalidTimeErrorMessage?: string
 }
 
 export interface DateTimePickerEmits {
