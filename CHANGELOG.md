@@ -1,3 +1,10 @@
+## [9.36.4](https://github.com/Kong/kongponents/compare/v9.36.3...v9.36.4) (2025-07-23)
+
+
+### Bug Fixes
+
+* **kdatetimepicker:** add validation for start and end time ([#2832](https://github.com/Kong/kongponents/issues/2832)) ([e75c9be](https://github.com/Kong/kongponents/commit/e75c9be14e566ec6b3f68248a85f938876219e4d))
+
 ## [9.36.3](https://github.com/Kong/kongponents/compare/v9.36.2...v9.36.3) (2025-07-23)
 
 
