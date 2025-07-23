@@ -1,3 +1,10 @@
+## [9.36.3](https://github.com/Kong/kongponents/compare/v9.36.2...v9.36.3) (2025-07-23)
+
+
+### Bug Fixes
+
+* **ktabledata:** incorrect page size on table preferences update ([#2831](https://github.com/Kong/kongponents/issues/2831)) ([54244d5](https://github.com/Kong/kongponents/commit/54244d5b275e28da65f39bf36ac0c332ae3c13ea))
+
 ## [9.36.2](https://github.com/Kong/kongponents/compare/v9.36.1...v9.36.2) (2025-07-15)
 
 
