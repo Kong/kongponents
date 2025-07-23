@@ -66,6 +66,7 @@
         <CalendarWrapper
           v-if="hasCalendar && showCalendar"
           v-model="calendarVModel"
+          v-model:error="hasCalendarError"
           :is-range="!isSingleDatepicker"
           :k-date-picker-mode="mode"
           :max-date="maxDate"
@@ -115,7 +116,7 @@
             appearance="tertiary"
             class="action-button"
             data-testid="datetime-picker-submit"
-            :disabled="submitDisabled"
+            :disabled="submitDisabled || hasCalendarError"
             @click="submitTimeFrame()"
           >
             Apply
@@ -168,6 +169,7 @@ const isSingleDatepicker = computed((): boolean => ModeArrayCustom.includes(mode
 const hasTimePeriods = computed((): boolean => timePeriods.length > 0)
 const showCalendar = computed((): boolean => state.tabName === 'custom' || !hasTimePeriods.value)
 const submitDisabled = ref<boolean>(true)
+const hasCalendarError = ref<boolean>(false)
 
 const defaultTimeRange: TimeRange = {
   start: null,
