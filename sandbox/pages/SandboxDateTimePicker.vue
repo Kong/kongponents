@@ -104,7 +104,9 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="width">
         <KDateTimePicker
+          error-message="There was an error."
           mode="dateTime"
+          :model-value="{ start: new Date(), end: new Date() }"
           placeholder="Select a date and time"
           range
           width="300"

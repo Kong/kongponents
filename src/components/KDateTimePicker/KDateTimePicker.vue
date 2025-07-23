@@ -67,6 +67,7 @@
           v-if="hasCalendar && showCalendar"
           v-model="calendarVModel"
           v-model:error="hasCalendarError"
+          :error-message="errorMessage"
           :is-range="!isSingleDatepicker"
           :k-date-picker-mode="mode"
           :max-date="maxDate"
@@ -156,6 +157,7 @@ const {
   disabled,
   readonly,
   popoverPlacement = 'bottom-start',
+  errorMessage = undefined,
 } = defineProps<DateTimePickerProps>()
 
 const emit = defineEmits<DateTimePickerEmits>()

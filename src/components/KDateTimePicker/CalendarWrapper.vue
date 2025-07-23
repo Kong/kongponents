@@ -58,12 +58,12 @@
         mode="out-in"
         name="kongponents-fade-transition"
       >
-        <p
-          v-if="helpText"
+        <div
+          v-if="hasError && errorMessage"
           class="help-text"
         >
-          {{ helpText }}
-        </p>
+          {{ errorMessage }}
+        </div>
       </Transition>
     </div>
   </div>
@@ -75,12 +75,17 @@ import { DatePicker } from 'v-calendar'
 import type { DatePickerModel, DatePickerRangeObject, DateTimePickerMode } from '@/types'
 import { format } from 'date-fns'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   isRange: boolean
   kDatePickerMode: DateTimePickerMode
   maxDate?: Date
   minDate?: Date
-}>()
+  errorMessage?: string
+}>(), {
+  maxDate: undefined,
+  minDate: undefined,
+  errorMessage: 'Start time cannot exceed end time.',
+})
 const calendarVModel = defineModel<DatePickerModel>({ required: true })
 const hasError = defineModel<boolean>('error', { default: false })
 const startTimeValue = ref<string>(format(new Date(), 'HH:mm:ss'))
@@ -88,13 +93,6 @@ const endTimeValue = ref<string>(format(new Date(), 'HH:mm:ss'))
 
 const showTime = computed(() => {
   return ['time', 'dateTime', 'relativeDateTime'].includes(props.kDatePickerMode)
-})
-
-const helpText = computed(() => {
-  if (hasError.value) {
-    return 'Start time cannot exceed end time.'
-  }
-  return ''
 })
 
 const isInvalidRange = (start: Date, end: Date): boolean => {
@@ -187,7 +185,7 @@ watch(() => calendarVModel.value, () => {
 
     calendarVModel.value.setHours(startTime.getHours(), startTime.getMinutes(), startTime.getSeconds(), 0)
   }
-})
+}, { immediate: true })
 
 const showRange = (rangeType: 'start' | 'end') => {
   const value = calendarVModel.value as { start: Date, end: Date }
