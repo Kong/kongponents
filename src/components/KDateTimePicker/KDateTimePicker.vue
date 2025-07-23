@@ -157,7 +157,7 @@ const {
   disabled,
   readonly,
   popoverPlacement = 'bottom-start',
-  invalidTimeErrorMessage = undefined,
+  invalidTimeErrorMessage = 'Start time cannot exceed end time.',
 } = defineProps<DateTimePickerProps>()
 
 const emit = defineEmits<DateTimePickerEmits>()

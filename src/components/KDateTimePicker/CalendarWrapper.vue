@@ -92,7 +92,7 @@ const props = withDefaults(defineProps<{
 }>(), {
   maxDate: undefined,
   minDate: undefined,
-  errorMessage: 'Start time cannot exceed end time.',
+  errorMessage: undefined,
 })
 const calendarVModel = defineModel<DatePickerModel>({ required: true })
 const hasError = defineModel<boolean>('error', { default: false })
