@@ -1041,8 +1041,11 @@ const scrollHandler = (event: Event): void => {
 
   // close any open row actions dropdowns when scrolling
   // this is necessary to prevent dropdown from overflowing the table
-  actionsDropdownRef.value?.forEach((dropdown) => {
-    dropdown?.closeDropdown()
+  // @ts-ignore - actionsDropdownRef is a Ref to an array of KDropdown components
+  actionsDropdownRef.value?.forEach((dropdown: any) => {
+    if (dropdown && dropdown.closeDropdown) {
+      dropdown.closeDropdown()
+    }
   })
 }
 
