@@ -1,3 +1,10 @@
+## [9.36.5](https://github.com/Kong/kongponents/compare/v9.36.4...v9.36.5) (2025-07-24)
+
+
+### Bug Fixes
+
+* **kradio:** card tooltip slot [KHCP-17236] ([#2834](https://github.com/Kong/kongponents/issues/2834)) ([6e81573](https://github.com/Kong/kongponents/commit/6e8157316e71fcc756717b3566c6bb0209508073))
+
 ## [9.36.4](https://github.com/Kong/kongponents/compare/v9.36.3...v9.36.4) (2025-07-23)
 
 
