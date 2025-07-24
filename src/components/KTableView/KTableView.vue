@@ -486,6 +486,7 @@ import { useResizeObserver } from '@vueuse/core'
 import type { CSSProperties, Ref } from 'vue'
 import { mapValues } from 'lodash-es'
 import { normalizeSize } from '@/utilities/css'
+import KComponent from '@/components/KComponent'
 
 type ColumnKey = TableColumnKey<Header>
 type ColumnVisibility = TableColumnVisibility<Header>
