@@ -74,6 +74,20 @@
           class="radio-label"
         >
           {{ label }}
+
+          <KTooltip
+            v-if="slots.tooltip"
+            class="label-tooltip"
+          >
+            <InfoIcon
+              class="tooltip-trigger-icon"
+              :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
+              tabindex="0"
+            />
+            <template #content>
+              <slot name="tooltip" />
+            </template>
+          </KTooltip>
         </span>
         <span
           v-if="showCardDescription"
@@ -92,6 +106,8 @@
 import { computed, useAttrs, useId, watch } from 'vue'
 import type { RadioTypes, LabelAttributes, RadioProps, RadioModelValue, RadioEmits, RadioSlots } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
+import { InfoIcon } from '@kong/icons'
+import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
 
 export default {
   inheritAttrs: false,
@@ -349,7 +365,16 @@ $kRadioDotSize: 6px;
         .radio-label {
           @include labelDefaults;
 
+          align-items: center;
+          display: flex;
+          gap: var(--kui-space-40, $kui-space-40);
           transition: color $kongponentsTransitionDurTimingFunc;
+
+          .tooltip-trigger-icon {
+            cursor: help;
+            height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+            width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+          }
         }
       }
     }
@@ -376,6 +401,10 @@ $kRadioDotSize: 6px;
             height: auto;
             margin-bottom: var(--kui-space-40, $kui-space-40);
           }
+        }
+
+        .radio-label {
+          justify-content: center;
         }
       }
 

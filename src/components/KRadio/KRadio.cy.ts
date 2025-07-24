@@ -59,7 +59,7 @@ describe('KRadio', () => {
     cy.get('.radio-card').should('contain.text', slotText)
   })
 
-  it('renders input element when card prop is true', () => {
+  it('renders input element and no tooltip by default when card prop is true', () => {
     cy.mount(KRadio, {
       props: {
         modelValue: false,
@@ -70,6 +70,7 @@ describe('KRadio', () => {
     })
 
     cy.get('input').should('be.visible')
+    cy.get('.label-tooltip').should('not.exist')
   })
 
   it('renders input element hidden when cardRadioVisible prop is false', () => {
@@ -143,5 +144,24 @@ describe('KRadio', () => {
     cy.get('label').click().then(() => {
       cy.get('input').should('not.be.checked')
     })
+  })
+
+  it('renders tooltip next to the label when passed through slot and card prop is true', () => {
+    cy.mount(KRadio, {
+      props: {
+        modelValue: false,
+        selectedValue: true,
+        label: 'Some label',
+        card: true,
+      },
+      attrs: {
+        disabled: true,
+      },
+      slots: {
+        tooltip: () => 'Hello',
+      },
+    })
+
+    cy.get('.label-tooltip').should('be.visible')
   })
 })
