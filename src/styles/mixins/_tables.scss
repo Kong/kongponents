@@ -106,7 +106,10 @@
               &::after {
                 border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
                   var(--kui-color-border, $kui-color-border);
-                height: calc(100% - 1px); // removes the tiny gap between the bottom border and the :after layer
+                /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+                height: calc(
+                  100% - var(--kui-border-width-10, $kui-border-width-10)
+                ); // removes the tiny gap between the bottom border and the :after layer
                 opacity: 1;
                 transition: opacity $kongponentsTransitionDurTimingFunc;
               }
