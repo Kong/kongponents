@@ -1,3 +1,10 @@
+## [9.36.6](https://github.com/Kong/kongponents/compare/v9.36.5...v9.36.6) (2025-07-25)
+
+
+### Bug Fixes
+
+* **ktabledata:** initial sorting table header undefined ([#2835](https://github.com/Kong/kongponents/issues/2835)) ([2d9d230](https://github.com/Kong/kongponents/commit/2d9d230fe01bc5a50f0c34c36d81ae83ed141b3e))
+
 ## [9.36.5](https://github.com/Kong/kongponents/compare/v9.36.4...v9.36.5) (2025-07-24)
 
 
