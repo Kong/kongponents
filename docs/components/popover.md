@@ -582,6 +582,16 @@ Fires when the popover is closed.
 
 Fires when the popover content is clicked.
 
+## Expose
+
+### showPopover
+
+Call this method for opening the popover programmatically.
+
+### hidePopover
+
+Call this method for closing the popover programmatically.
+
 <script setup lang="ts">
 import { PopPlacementsArray } from '@/types'
 import { CheckIcon, CloseIcon } from '@kong/icons'

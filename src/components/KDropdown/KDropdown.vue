@@ -72,7 +72,7 @@
 
 <script lang="ts" setup generic="T extends string | number">
 import type { Ref } from 'vue'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, useTemplateRef, watch } from 'vue'
 import type { DropdownItem, PopoverAttributes, DropdownProps, DropdownEmits } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
@@ -112,7 +112,7 @@ const emit = defineEmits<DropdownEmits<T>>()
 
 const tooltipComponent = computed(() => disabledTooltip ? KTooltip : 'div')
 
-const kPop = ref<InstanceType<typeof KPop> | null>(null)
+const kPopRef = useTemplateRef('kPop')
 const defaultKPopAttributes: PopoverAttributes = {
   hideCaret: true,
   popoverClasses: 'dropdown-popover',
@@ -140,7 +140,7 @@ const handleSelection = (item: DropdownItem<T>): void => {
 }
 
 const handleCloseDropdown = (): void => {
-  kPop.value?.hidePopover()
+  kPopRef.value?.hidePopover()
 }
 
 const handleTriggerToggle = (isToggled: Ref<boolean>, toggle: () => void, isOpen: boolean): void => {
@@ -165,6 +165,13 @@ onMounted(() => {
       selectedItem.value = selectionArr[0]
     }
   }
+})
+
+defineExpose({
+  openDropdown: (): void => {
+    kPopRef.value?.showPopover()
+  },
+  closeDropdown: handleCloseDropdown,
 })
 </script>
 
