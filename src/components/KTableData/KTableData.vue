@@ -440,7 +440,7 @@ const { debouncedFn: debouncedRevalidate } = useDebounce(_revalidate, 500)
 const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortOrder }: TableSortPayload<ColumnKey>): void => {
   initialSortHandled.value = true
 
-  const header: TableDataHeader<ColumnKey> = tableHeaders.value.find((header) => header.key === columnKey)!
+  const header: TableDataHeader<ColumnKey> = tableHeaders.value.find((header) => header.key === columnKey) || {} as TableDataHeader<ColumnKey>
   const { useSortHandlerFunction } = header
 
   emit('sort', {
