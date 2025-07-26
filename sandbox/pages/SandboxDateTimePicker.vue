@@ -104,13 +104,19 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent title="width">
         <KDateTimePicker
+          v-model="datePickerRange"
           invalid-time-error-message="There was an error."
           mode="dateTime"
-          :model-value="{ start: new Date(), end: new Date() }"
           placeholder="Select a date and time"
           range
           width="300"
         />
+        <br>
+        <KButton
+          @click="datePickerRange = { start: new Date(), end: new Date() }"
+        >
+          Reset Date Range
+        </KButton>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="disabled">
         <KDateTimePicker
@@ -153,12 +159,18 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 
 const maxDate = new Date()
 maxDate.setMonth(new Date().getMonth() + 3)
+
+const datePickerRange = ref({
+  start: new Date(),
+  end: new Date(),
+})
+
 </script>
 
 <style lang="scss" scoped>

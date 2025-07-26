@@ -27,7 +27,7 @@
           :style="widthStyle"
           :tabindex="disabled ? -1 : 0"
         >
-          <span
+          <div
             class="datetime-picker-display"
             :class="{ 'has-icon': icon, 'disabled': disabled }"
             data-testid="datetime-picker-display"
@@ -129,7 +129,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, reactive, ref, watch, type CSSProperties } from 'vue'
+import { computed, reactive, ref, watch, type CSSProperties } from 'vue'
 import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 import KButton from '@/components/KButton/KButton.vue'
@@ -399,7 +399,7 @@ watch(() => state.tabName, (newValue, oldValue) => {
  * Selects either "Relative" or "Custom" tab, saves the incoming default value to internal state,
  * then updates the input field to display the human-readable time frame.
  */
-onMounted(() => {
+watch(() => modelValue, () => {
   if (ModeArrayRelative.includes(mode) && modelValue.timePeriodsKey) {
     state.tabName = 'relative'
     submitDisabled.value = false
@@ -421,7 +421,7 @@ onMounted(() => {
       updateDisplay()
     }
   }
-})
+}, { immediate: true })
 </script>
 
 <style lang="scss" scoped>
