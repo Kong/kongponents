@@ -194,7 +194,7 @@ watch(() => calendarVModel.value, () => {
 
     calendarVModel.value.setHours(startTime.getHours(), startTime.getMinutes(), startTime.getSeconds(), 0)
   }
-}, { immediate: true })
+}, { immediate: true, deep: true })
 
 const showRange = (rangeType: 'start' | 'end') => {
   const value = calendarVModel.value as { start: Date, end: Date }
