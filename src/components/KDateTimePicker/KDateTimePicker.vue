@@ -65,6 +65,7 @@
         </p>
         <CalendarWrapper
           v-if="hasCalendar && showCalendar"
+          :key="calendarRemountKey"
           v-model="calendarVModel"
           v-model:error="hasCalendarError"
           :error-message="invalidTimeErrorMessage"
@@ -172,6 +173,7 @@ const hasTimePeriods = computed((): boolean => timePeriods.length > 0)
 const showCalendar = computed((): boolean => state.tabName === 'custom' || !hasTimePeriods.value)
 const submitDisabled = ref<boolean>(true)
 const hasCalendarError = ref<boolean>(false)
+const calendarRemountKey = ref<number>(0)
 
 const defaultTimeRange: TimeRange = {
   start: null,
@@ -421,6 +423,7 @@ watch(() => modelValue, () => {
       updateDisplay()
     }
   }
+  calendarRemountKey.value++
 }, { immediate: true })
 </script>
 
