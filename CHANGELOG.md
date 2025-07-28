@@ -1,3 +1,10 @@
+## [9.36.7](https://github.com/Kong/kongponents/compare/v9.36.6...v9.36.7) (2025-07-28)
+
+
+### Bug Fixes
+
+* **kdatetimepicker:** Update internal state on modelValue changed ([#2836](https://github.com/Kong/kongponents/issues/2836)) ([2cbcbe7](https://github.com/Kong/kongponents/commit/2cbcbe7ff90850eebde1842d884a5c5234ac5ce8))
+
 ## [9.36.6](https://github.com/Kong/kongponents/compare/v9.36.5...v9.36.6) (2025-07-25)
 
 
