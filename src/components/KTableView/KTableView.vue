@@ -147,7 +147,7 @@
                 @mouseover="currentHoveredColumn = column.key"
               >
                 <div
-                  v-if="resizeColumns && !nested && index !== 0 && showResizeHandle(column, true)"
+                  v-if="index !== 0 && showResizeHandle(column, true)"
                   class="resize-handle previous"
                   @click.stop
                   @mousedown="startResize($event, visibleHeaders[index - 1].key)"
@@ -232,7 +232,7 @@
                 </div>
 
                 <div
-                  v-if="resizeColumns && !nested && index !== visibleHeaders.length - 1 && showResizeHandle(column)"
+                  v-if="index !== visibleHeaders.length - 1 && showResizeHandle(column)"
                   class="resize-handle"
                   @click.stop
                   @mousedown="startResize($event, column.key)"
@@ -281,10 +281,10 @@
                 >
                   <td
                     :class="{
-                      'resize-hover': resizeColumns && !nested && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1 && showResizeHandle(header),
+                      'resize-hover': resizeHoverColumn === header.key && index !== visibleHeaders.length - 1 && showResizeHandle(header),
                       'row-link': !!rowLink(row).to,
-                      'sticky-column': (header.key === TableViewHeaderKeys.BULK_ACTIONS || header.key === TableViewHeaderKeys.EXPANDABLE) && isScrolledHorizontally,
-                      'second-sticky-column': header.key === TableViewHeaderKeys.BULK_ACTIONS && hasExpandableRows,
+                      'sticky-column': isStickyColumn(header.key),
+                      'second-sticky-column': isSecondStickyColumn(header.key),
                       'has-row-scroll-overlay': isLastStickyColumn(header.key),
                       'actions-column': header.key === TableViewHeaderKeys.ACTIONS,
                     }"
@@ -774,7 +774,7 @@ const columnStyles = computed(() => {
 const getHeaderClasses = (column: TableViewHeader<ColumnKey>, index: number): Record<string, boolean> => {
   return {
     // display the resize handle on the right side of the column if resizeColumns is enabled, hovering current column, and not the last column
-    'resize-hover': resizeHoverColumn.value === column.key && resizeColumns && !nested && index !== visibleHeaders.value.length - 1 && showResizeHandle(column),
+    'resize-hover': resizeHoverColumn.value === column.key && index !== visibleHeaders.value.length - 1 && showResizeHandle(column),
     resizable: resizeColumns && !nested,
     // display sort control if column is sortable, label is visible, and sorting is not disabled
     sortable: !column.hideLabel && !!column.sortable,
@@ -783,8 +783,8 @@ const getHeaderClasses = (column: TableViewHeader<ColumnKey>, index: number): Re
     [sortColumnOrder.value]: column.key === sortColumnKey.value && !column.hideLabel,
     'is-scrolled': isScrolledVertically.value,
     'has-tooltip': !!column.tooltip,
-    'sticky-column': (column.key === TableViewHeaderKeys.BULK_ACTIONS || column.key === TableViewHeaderKeys.EXPANDABLE) && isScrolledHorizontally.value,
-    'second-sticky-column': column.key === TableViewHeaderKeys.BULK_ACTIONS && hasExpandableRows.value,
+    'sticky-column': isStickyColumn(column.key),
+    'second-sticky-column': isSecondStickyColumn(column.key),
     'has-row-scroll-overlay': isLastStickyColumn(column.key),
     'actions-column': column.key === TableViewHeaderKeys.ACTIONS,
   }
@@ -908,6 +908,14 @@ const startResize = (evt: MouseEvent, colKey: ColumnKey) => {
   }
 }
 
+const isStickyColumn = (columnKey: ColumnKey): boolean => {
+  if (isScrolledHorizontally.value) {
+    return columnKey === TableViewHeaderKeys.BULK_ACTIONS || columnKey === TableViewHeaderKeys.EXPANDABLE
+  }
+
+  return false
+}
+const isSecondStickyColumn = (columnKey: ColumnKey): boolean => columnKey === TableViewHeaderKeys.BULK_ACTIONS && hasExpandableRows.value
 // if table is scrollable horizontally, calculate which column is the last sticky column
 const isLastStickyColumn = (columnKey: ColumnKey): boolean => {
   if (!isScrolledHorizontally.value) {
@@ -932,6 +940,10 @@ const isSpecialColumn = (columnKey: ColumnKey): boolean =>
 
 // don't show the resize handle if the column is a special column
 const showResizeHandle = (column: TableViewHeader<ColumnKey>, previous: boolean = false): boolean => {
+  if (!resizeColumns || nested) {
+    return false
+  }
+
   if (previous) {
     if (visibleHeaders.value.indexOf(column) === visibleHeaders.value.length - 1) {
       return false
