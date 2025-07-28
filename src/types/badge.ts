@@ -4,6 +4,7 @@ export type BadgeMethodAppearance = 'get' | 'post' | 'put' | 'delete' | 'patch' 
 export type BadgeAppearance = 'info' | 'success' | 'warning' | 'danger' | 'neutral' | 'decorative' | BadgeMethodAppearance
 export type BadgeMethodAppearanceRecord = Record<BadgeMethodAppearance, BadgeMethodAppearance>
 export type BadgeAppearanceRecord = Record<BadgeAppearance, BadgeAppearance>
+export type BadgeSize = 'medium' | 'small'
 
 export const BadgeMethodAppearances: BadgeMethodAppearanceRecord = {
   get: 'get',
@@ -35,6 +36,13 @@ export interface BadgeProps {
    * @default 'info'
    */
   appearance?: BadgeAppearance
+
+  /**
+   * Size variations.
+   * One of ['small', 'medium'].
+   * @default 'medium'
+   */
+  size?: BadgeSize
 
   /**
    * Tooltip text that will be displayed on hover.

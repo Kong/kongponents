@@ -66,6 +66,31 @@
           Long truncating method badge
         </KBadge>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="size">
+        <div class="horizontal-spacing">
+          <KBadge size="medium">
+            Medium
+          </KBadge>
+          <KBadge size="small">
+            Small
+          </KBadge>
+          <KBadge appearance="decorative">
+            <template #icon>
+              <CodeblockIcon />
+            </template>
+            jq
+          </KBadge>
+          <KBadge
+            appearance="decorative"
+            size="small"
+          >
+            <template #icon>
+              <CodeblockIcon />
+            </template>
+            jq
+          </KBadge>
+        </div>
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="tooltip & tooltipAttributes">
         <KBadge
           tooltip="I always tooltip"
@@ -455,7 +480,7 @@
 import { inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { KongIcon, WarningOutlineIcon, CloseIcon } from '@kong/icons'
+import { KongIcon, WarningOutlineIcon, CloseIcon, CodeblockIcon } from '@kong/icons'
 import KExternalLink from '@/components/KExternalLink/KExternalLink.vue'
 
 const handleIconClick = (): void => {
