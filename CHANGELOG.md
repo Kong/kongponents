@@ -1,3 +1,24 @@
+## [9.36.6](https://github.com/Kong/kongponents/compare/v9.36.5...v9.36.6) (2025-07-25)
+
+
+### Bug Fixes
+
+* **ktabledata:** initial sorting table header undefined ([#2835](https://github.com/Kong/kongponents/issues/2835)) ([2d9d230](https://github.com/Kong/kongponents/commit/2d9d230fe01bc5a50f0c34c36d81ae83ed141b3e))
+
+## [9.36.5](https://github.com/Kong/kongponents/compare/v9.36.4...v9.36.5) (2025-07-24)
+
+
+### Bug Fixes
+
+* **kradio:** card tooltip slot [KHCP-17236] ([#2834](https://github.com/Kong/kongponents/issues/2834)) ([6e81573](https://github.com/Kong/kongponents/commit/6e8157316e71fcc756717b3566c6bb0209508073))
+
+## [9.36.4](https://github.com/Kong/kongponents/compare/v9.36.3...v9.36.4) (2025-07-23)
+
+
+### Bug Fixes
+
+* **kdatetimepicker:** add validation for start and end time ([#2832](https://github.com/Kong/kongponents/issues/2832)) ([e75c9be](https://github.com/Kong/kongponents/commit/e75c9be14e566ec6b3f68248a85f938876219e4d))
+
 ## [9.36.3](https://github.com/Kong/kongponents/compare/v9.36.2...v9.36.3) (2025-07-23)
 
 

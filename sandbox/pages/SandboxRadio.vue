@@ -292,6 +292,16 @@
             Lorem ipsum <b>dolor</b> sit amet.
           </template>
         </KRadio>
+        <KRadio
+          v-model="modelValue0"
+          card
+          label="Label"
+          selected-value="foobar11"
+        >
+          <template #tooltip>
+            Lorem ipsum <b>dolor</b> sit amet.
+          </template>
+        </KRadio>
       </SandboxSectionComponent>
     </div>
   </SandboxLayout>

@@ -128,6 +128,11 @@ Whether KDateTimePicker is read-only. Defaults to `false`.
 
 Prop to define the positioning of the popover in relation to the trigger element (see [KPopover placement prop](/components/popover#placement) for details). Default value is `bottom-start`.
 
+### invalidTimeErrorMessage
+
+String to be displayed as an error message for the time inputs.
+Defaults to 'Start time cannot exceed end time.'
+
 ## Examples
 
 ### Single date

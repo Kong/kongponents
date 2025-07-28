@@ -21,7 +21,10 @@
       <div
         class="time-input"
       >
-        <div class="time-input-label">
+        <label
+          class="time-input-label"
+          :for="`time-input-start-${componentId}`"
+        >
           <span v-if="showRange('start')">
             <!-- @vue-ignore: typeguard in showRange -->
             {{ format(calendarVModel.start, 'EEE MMM d yyyy') }}
@@ -29,52 +32,81 @@
           <span v-else-if="(calendarVModel && calendarVModel instanceof Date)">
             {{ format(calendarVModel, 'EEE MMM d yyyy') }}
           </span>
-        </div>
+        </label>
         <input
+          :id="`time-input-start-${componentId}`"
           v-model="startTimeValue"
           class="time-input-start"
+          :class="{ 'input-error': hasError }"
           data-testid="time-input-start"
           :step="60"
           type="time"
         >
-        <div class="time-input-label">
+        <label
+          class="time-input-label"
+          :for="`time-input-end-${componentId}`"
+        >
           <span v-if="showRange('end')">
             <!-- @vue-ignore: typeguard in showRange -->
             {{ format(calendarVModel.end, 'EEE MMM d yyyy') }}
           </span>
-        </div>
+        </label>
         <input
           v-if="isRange"
+          :id="`time-input-end-${componentId}`"
           v-model="endTimeValue"
           class="time-input-end"
+          :class="{ 'input-error': hasError }"
           data-testid="time-input-end"
           :step="60"
           type="time"
         >
       </div>
+      <Transition
+        mode="out-in"
+        name="kongponents-fade-transition"
+      >
+        <div
+          v-if="hasError && errorMessage"
+          class="help-text"
+        >
+          {{ errorMessage }}
+        </div>
+      </Transition>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, useId, watch } from 'vue'
 import { DatePicker } from 'v-calendar'
 import type { DatePickerModel, DatePickerRangeObject, DateTimePickerMode } from '@/types'
 import { format } from 'date-fns'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   isRange: boolean
   kDatePickerMode: DateTimePickerMode
   maxDate?: Date
   minDate?: Date
-}>()
+  errorMessage?: string
+}>(), {
+  maxDate: undefined,
+  minDate: undefined,
+  errorMessage: undefined,
+})
 const calendarVModel = defineModel<DatePickerModel>({ required: true })
+const hasError = defineModel<boolean>('error', { default: false })
 const startTimeValue = ref<string>(format(new Date(), 'HH:mm:ss'))
 const endTimeValue = ref<string>(format(new Date(), 'HH:mm:ss'))
+const componentId = useId()
 
 const showTime = computed(() => {
   return ['time', 'dateTime', 'relativeDateTime'].includes(props.kDatePickerMode)
 })
+
+const isInvalidRange = (start: Date, end: Date): boolean => {
+  return start > end
+}
 
 onMounted(() => {
   if (calendarVModel.value && showTime.value) {
@@ -109,13 +141,14 @@ const calendarSelectAttributes = {
 }
 
 watch(() => startTimeValue.value, (newTime) => {
-  if (calendarVModel.value && props.isRange && 'start' in calendarVModel.value && calendarVModel.value.start instanceof Date) {
+  if (calendarVModel.value && props.isRange && 'start' in calendarVModel.value && calendarVModel.value.start instanceof Date && 'end' in calendarVModel.value && calendarVModel.value.end instanceof Date) {
 
     const startTime = new Date()
     const timeParts = newTime.split(':')
     startTime.setHours(parseInt(timeParts[0], 10), parseInt(timeParts[1], 10), 0, 0)
 
     calendarVModel.value.start.setHours(startTime.getHours(), startTime.getMinutes(), startTime.getSeconds(), 0)
+    hasError.value = isInvalidRange(calendarVModel.value.start, calendarVModel.value.end)
   } else if (calendarVModel.value instanceof Date) {
     const startTime = new Date()
     const timeParts = newTime.split(':')
@@ -126,13 +159,14 @@ watch(() => startTimeValue.value, (newTime) => {
 })
 
 watch(() => endTimeValue.value, (newTime) => {
-  if (calendarVModel.value && props.isRange && 'end' in calendarVModel.value && calendarVModel.value.end instanceof Date) {
+  if (calendarVModel.value && props.isRange && 'end' in calendarVModel.value && calendarVModel.value.end instanceof Date && 'start' in calendarVModel.value && calendarVModel.value.start instanceof Date) {
 
     const endTime = new Date()
     const timeParts = newTime.split(':')
     endTime.setHours(parseInt(timeParts[0], 10), parseInt(timeParts[1], 10), 0, 0)
 
     calendarVModel.value.end.setHours(endTime.getHours(), endTime.getMinutes(), endTime.getSeconds(), 0)
+    hasError.value = isInvalidRange(calendarVModel.value.start, calendarVModel.value.end)
   }
 })
 
@@ -146,12 +180,13 @@ watch(() => calendarVModel.value, () => {
     const startTime = new Date()
     const endTime = new Date()
     const startTimeParts = startTimeValue.value.split(':')
-    const endTimeParts = startTimeValue.value.split(':')
+    const endTimeParts = endTimeValue.value.split(':')
     startTime.setHours(parseInt(startTimeParts[0], 10), parseInt(startTimeParts[1], 10), 0, 0)
     endTime.setHours(parseInt(endTimeParts[0], 10), parseInt(endTimeParts[1], 10), 0, 0)
 
     calendarVModel.value.start.setHours(startTime.getHours(), startTime.getMinutes(), startTime.getSeconds(), 0)
     calendarVModel.value.end.setHours(endTime.getHours(), endTime.getMinutes(), endTime.getSeconds(), 0)
+    hasError.value = isInvalidRange(calendarVModel.value.start, calendarVModel.value.end)
   } else if (calendarVModel.value instanceof Date) {
     const startTime = new Date()
     const timeParts = startTimeValue.value.split(':')
@@ -159,7 +194,7 @@ watch(() => calendarVModel.value, () => {
 
     calendarVModel.value.setHours(startTime.getHours(), startTime.getMinutes(), startTime.getSeconds(), 0)
   }
-})
+}, { immediate: true })
 
 const showRange = (rangeType: 'start' | 'end') => {
   const value = calendarVModel.value as { start: Date, end: Date }
@@ -200,7 +235,24 @@ const showRange = (rangeType: 'start' | 'end') => {
           -webkit-appearance: none;
           display: none;
         }
+
+        // error styles
+        &.input-error {
+          @include inputError;
+
+          &:hover {
+            @include inputErrorHover;
+          }
+
+          &:focus {
+            @include inputErrorFocus;
+          }
+        }
       }
+    }
+
+    .help-text {
+      color: var(--kui-color-text-danger, $kui-color-text-danger);
     }
   }
 }
