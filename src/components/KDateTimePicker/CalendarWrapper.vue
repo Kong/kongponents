@@ -142,30 +142,25 @@ const calendarSelectAttributes = {
 
 watch(() => startTimeValue.value, (newTime) => {
   if (calendarVModel.value && props.isRange && 'start' in calendarVModel.value && calendarVModel.value.start instanceof Date && 'end' in calendarVModel.value && calendarVModel.value.end instanceof Date) {
-
     const startTime = new Date()
     const timeParts = newTime.split(':')
     startTime.setHours(parseInt(timeParts[0], 10), parseInt(timeParts[1], 10), 0, 0)
-
-    calendarVModel.value.start.setHours(startTime.getHours(), startTime.getMinutes(), startTime.getSeconds(), 0)
+    calendarVModel.value.start.setHours(startTime.getHours(), startTime.getMinutes(), 0, 0)
     hasError.value = isInvalidRange(calendarVModel.value.start, calendarVModel.value.end)
   } else if (calendarVModel.value instanceof Date) {
     const startTime = new Date()
     const timeParts = newTime.split(':')
     startTime.setHours(parseInt(timeParts[0], 10), parseInt(timeParts[1], 10), 0, 0)
-
     calendarVModel.value.setHours(startTime.getHours(), startTime.getMinutes(), startTime.getSeconds(), 0)
   }
 })
 
 watch(() => endTimeValue.value, (newTime) => {
   if (calendarVModel.value && props.isRange && 'end' in calendarVModel.value && calendarVModel.value.end instanceof Date && 'start' in calendarVModel.value && calendarVModel.value.start instanceof Date) {
-
     const endTime = new Date()
     const timeParts = newTime.split(':')
     endTime.setHours(parseInt(timeParts[0], 10), parseInt(timeParts[1], 10), 0, 0)
-
-    calendarVModel.value.end.setHours(endTime.getHours(), endTime.getMinutes(), endTime.getSeconds(), 0)
+    calendarVModel.value.end.setHours(endTime.getHours(), endTime.getMinutes(), 0, 0)
     hasError.value = isInvalidRange(calendarVModel.value.start, calendarVModel.value.end)
   }
 })
@@ -176,25 +171,13 @@ watch(() => calendarVModel.value, () => {
   calendarVModel.value.start instanceof Date &&
   'end' in calendarVModel.value &&
   calendarVModel.value.end instanceof Date) {
-
-    const startTime = new Date()
-    const endTime = new Date()
-    const startTimeParts = startTimeValue.value.split(':')
-    const endTimeParts = endTimeValue.value.split(':')
-    startTime.setHours(parseInt(startTimeParts[0], 10), parseInt(startTimeParts[1], 10), 0, 0)
-    endTime.setHours(parseInt(endTimeParts[0], 10), parseInt(endTimeParts[1], 10), 0, 0)
-
-    calendarVModel.value.start.setHours(startTime.getHours(), startTime.getMinutes(), startTime.getSeconds(), 0)
-    calendarVModel.value.end.setHours(endTime.getHours(), endTime.getMinutes(), endTime.getSeconds(), 0)
+    startTimeValue.value = format(calendarVModel.value.start, 'HH:mm')
+    endTimeValue.value = format(calendarVModel.value.end, 'HH:mm')
     hasError.value = isInvalidRange(calendarVModel.value.start, calendarVModel.value.end)
   } else if (calendarVModel.value instanceof Date) {
-    const startTime = new Date()
-    const timeParts = startTimeValue.value.split(':')
-    startTime.setHours(parseInt(timeParts[0], 10), parseInt(timeParts[1], 10), 0, 0)
-
-    calendarVModel.value.setHours(startTime.getHours(), startTime.getMinutes(), startTime.getSeconds(), 0)
+    startTimeValue.value = format(calendarVModel.value, 'HH:mm')
   }
-}, { immediate: true })
+}, { immediate: true, deep: true })
 
 const showRange = (rangeType: 'start' | 'end') => {
   const value = calendarVModel.value as { start: Date, end: Date }
