@@ -5,6 +5,7 @@ export type BadgeAppearance = 'info' | 'success' | 'warning' | 'danger' | 'neutr
 export type BadgeMethodAppearanceRecord = Record<BadgeMethodAppearance, BadgeMethodAppearance>
 export type BadgeAppearanceRecord = Record<BadgeAppearance, BadgeAppearance>
 export type BadgeSize = 'medium' | 'small'
+export type BadgeSizeRecord = Record<BadgeSize, BadgeSize>
 
 export const BadgeMethodAppearances: BadgeMethodAppearanceRecord = {
   get: 'get',
@@ -27,6 +28,11 @@ export const BadgeAppearances: BadgeAppearanceRecord = {
   decorative: 'decorative',
   neutral: 'neutral',
   ...BadgeMethodAppearances,
+} as const
+
+export const BadgeSizes: BadgeSizeRecord = {
+  medium: 'medium',
+  small: 'small',
 } as const
 
 export interface BadgeProps {
