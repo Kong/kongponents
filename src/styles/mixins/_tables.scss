@@ -110,7 +110,7 @@
                 /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
                 height: calc(
                   100% - var(--kui-border-width-10, $kui-border-width-10)
-                ); // removes the tiny gap between the bottom border and the :after layer
+                ); // removes the tiny gap between the bottom border and the ::after layer
                 opacity: 1;
                 transition: opacity $kongponentsTransitionDurTimingFunc;
               }
@@ -437,7 +437,7 @@
     width: $scrollOverlayWidth;
 
     &.left {
-      background: linear-gradient(to right, rgba(#000, 0.1), rgba(#000, 0));
+      background: linear-gradient(to right, rgba(#000, 0.08), rgba(#000, 0));
       left: 0;
 
       &.row-overlay {
@@ -447,7 +447,7 @@
     }
 
     &.right {
-      background: linear-gradient(to left, rgba(#000, 0.1), rgba(#000, 0));
+      background: linear-gradient(to left, rgba(#000, 0.08), rgba(#000, 0));
       right: 0;
 
       &.row-overlay {

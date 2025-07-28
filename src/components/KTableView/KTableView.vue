@@ -242,6 +242,7 @@
 
                 <div
                   v-if="isLastStickyColumn(column.key)"
+                  aria-hidden="true"
                   class="scroll-overlay row-overlay left"
                   :class="{
                     'overlay-visible': isScrolledHorizontally,
@@ -249,6 +250,7 @@
                 />
                 <div
                   v-if="column.key === TableViewHeaderKeys.ACTIONS"
+                  aria-hidden="true"
                   class="scroll-overlay row-overlay right"
                   :class="{
                     'overlay-visible': isScrollableRight,
@@ -381,6 +383,7 @@
 
                     <div
                       v-if="isLastStickyColumn(header.key)"
+                      aria-hidden="true"
                       class="scroll-overlay row-overlay left"
                       :class="{
                         'overlay-visible': isScrolledHorizontally,
@@ -388,6 +391,7 @@
                     />
                     <div
                       v-if="header.key === TableViewHeaderKeys.ACTIONS"
+                      aria-hidden="true"
                       class="scroll-overlay row-overlay right"
                       :class="{
                         'overlay-visible': isScrollableRight,
@@ -421,6 +425,7 @@
 
       <div
         v-if="!hasBulkActions && !hasExpandableRows"
+        aria-hidden="true"
         class="scroll-overlay table-overlay left"
         :class="{
           'overlay-visible': isScrolledHorizontally,
@@ -428,6 +433,7 @@
       />
       <div
         v-if="!hasRowActions"
+        aria-hidden="true"
         class="scroll-overlay table-overlay right"
         :class="{
           'overlay-visible': isScrollableRight,
