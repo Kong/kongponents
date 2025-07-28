@@ -106,6 +106,7 @@
               &::after {
                 border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
                   var(--kui-color-border, $kui-color-border);
+                box-shadow: var(--kui-shadow, $kui-shadow);
                 /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
                 height: calc(
                   100% - var(--kui-border-width-10, $kui-border-width-10)
