@@ -1,6 +1,7 @@
 import { format } from 'date-fns'
 import { TimePeriods, TimeframeKeys } from '@mocks/KDateTimePickerMockData'
 import KDateTimePicker from '@/components/KDateTimePicker/KDateTimePicker.vue'
+import { ref } from 'vue'
 
 const exampleTimeFrames = [
   {
@@ -341,5 +342,36 @@ describe('KDateTimePicker', () => {
     cy.getTestId(segmentedToggle).find('button[data-testid="relative-option"]').eq(0).click()
     cy.getTestId('select-timeframe-86400000').click()
     cy.getTestId(timepickerDisplay).should('contain.text', 'Last 24 hours')
+  })
+
+  it('reacts to changes in the modelValue', () => {
+    const modelValue = ref({
+      start: new Date('2025-01-01T00:00:00'),
+      end: new Date('2025-01-01T00:00:00'),
+      timePeriodsKey: '',
+    })
+
+    const newDate = {
+      start: new Date('2025-01-01T01:00:00'),
+      end: new Date('2025-01-01T01:00:00'),
+      timePeriodsKey: '',
+    }
+
+    cy.mount(KDateTimePicker, {
+      props: {
+        mode: 'dateTime',
+        modelValue: modelValue,
+        range: true,
+      },
+    })
+
+    cy.getTestId(timepickerInput).click()
+    cy.getTestId('time-input-start').should('have.value', '00:00').then(() => {
+
+      modelValue.value = newDate
+
+      cy.getTestId(timepickerInput).click()
+      cy.getTestId('time-input-start').should('have.value', '01:00')
+    })
   })
 })

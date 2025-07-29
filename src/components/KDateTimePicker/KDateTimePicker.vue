@@ -27,7 +27,7 @@
           :style="widthStyle"
           :tabindex="disabled ? -1 : 0"
         >
-          <span
+          <div
             class="datetime-picker-display"
             :class="{ 'has-icon': icon, 'disabled': disabled }"
             data-testid="datetime-picker-display"
@@ -65,6 +65,7 @@
         </p>
         <CalendarWrapper
           v-if="hasCalendar && showCalendar"
+          :key="calendarRemountKey"
           v-model="calendarVModel"
           v-model:error="hasCalendarError"
           :error-message="invalidTimeErrorMessage"
@@ -129,7 +130,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, reactive, ref, watch, type CSSProperties } from 'vue'
+import { computed, reactive, ref, watch, type CSSProperties } from 'vue'
 import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 import KButton from '@/components/KButton/KButton.vue'
@@ -172,6 +173,7 @@ const hasTimePeriods = computed((): boolean => timePeriods.length > 0)
 const showCalendar = computed((): boolean => state.tabName === 'custom' || !hasTimePeriods.value)
 const submitDisabled = ref<boolean>(true)
 const hasCalendarError = ref<boolean>(false)
+const calendarRemountKey = ref<number>(0)
 
 const defaultTimeRange: TimeRange = {
   start: null,
@@ -399,7 +401,7 @@ watch(() => state.tabName, (newValue, oldValue) => {
  * Selects either "Relative" or "Custom" tab, saves the incoming default value to internal state,
  * then updates the input field to display the human-readable time frame.
  */
-onMounted(() => {
+watch(() => modelValue, () => {
   if (ModeArrayRelative.includes(mode) && modelValue.timePeriodsKey) {
     state.tabName = 'relative'
     submitDisabled.value = false
@@ -421,7 +423,8 @@ onMounted(() => {
       updateDisplay()
     }
   }
-})
+  calendarRemountKey.value++
+}, { immediate: true })
 </script>
 
 <style lang="scss" scoped>
