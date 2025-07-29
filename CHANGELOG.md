@@ -1,3 +1,10 @@
+## [9.36.9](https://github.com/Kong/kongponents/compare/v9.36.8...v9.36.9) (2025-07-29)
+
+
+### Bug Fixes
+
+* **ktabledata:** fetcher firing twice when initial sorting provided ([#2838](https://github.com/Kong/kongponents/issues/2838)) ([f22726b](https://github.com/Kong/kongponents/commit/f22726bfe920bfd52bcc048c208b905111d65fc1))
+
 ## [9.36.8](https://github.com/Kong/kongponents/compare/v9.36.7...v9.36.8) (2025-07-29)
 
 
