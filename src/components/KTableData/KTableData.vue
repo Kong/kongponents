@@ -262,7 +262,7 @@ const pageSize = ref<number>(getInitialPageSize(tablePreferences, paginationAttr
 const filterQuery = ref<string>(searchInput ?? '')
 const sortColumnKey = ref(tablePreferences.sortColumnKey || initialFetcherParams.sortColumnKey || '') as Ref<ColumnKey>
 const sortColumnOrder = ref<SortColumnOrder>(tablePreferences.sortColumnOrder || initialFetcherParams.sortColumnOrder || 'desc')
-const initialSortHandled = ref<boolean>(!sortColumnKey.value) // if sortColumnKey is set, that means we need to handle initial sort
+const initialSortHandled = ref<boolean>(!(sortColumnKey.value && clientSort)) // For clientSort tables, if sortColumnKey is set, that means we need to handle initial sort
 const offset = ref(null) as Ref<Offset | null>
 const offsets = ref([]) as Ref<Array<Offset | null>>
 const hasNextPage = ref<boolean>(true)
@@ -580,8 +580,8 @@ watch(fetcherResponse, (res) => {
     offset.value = null
   }
 
-  // For clientSort tables, call sortHandler if the initial sort is not handled yet
-  if (sortable && clientSort && !initialSortHandled.value) {
+  // Call sortHandler if the initial sort has not been handled yet
+  if (sortable && !initialSortHandled.value) {
     sortHandler({ sortColumnKey: sortColumnKey.value, prevKey: '', sortColumnOrder: sortColumnOrder.value })
   }
 }, { deep: true, immediate: true })
