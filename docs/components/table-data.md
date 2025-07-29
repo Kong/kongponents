@@ -196,7 +196,7 @@ For ease of configuration, all properties in the `initialFetcherParams` object h
   page: 1,
   query: '',
   sortColumnKey: '',
-  sortColumnOrder: '',
+  sortColumnOrder: 'desc',
   offset: null
 }
 ```
