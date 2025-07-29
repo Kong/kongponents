@@ -204,6 +204,27 @@ describe('KDropdown', () => {
     cy.get('a[data-testid="external-link"]').should('be.visible')
     cy.get('a[data-testid="disabled-external-link"]').should('be.visible')
   })
+
+  it('opens and closes dropdown pragmatically', () => {
+    cy.mount(KDropdown, {
+      props: {
+        triggerText: 'Click me',
+        items: defaultMenuItems,
+        ref: 'dropdownRef',
+      },
+    }).its('component.$.exposed')
+      .as('exposed')
+
+    cy.getTestId('dropdown-list').should('not.be.visible')
+
+    // open dropdown pragmatically
+    cy.get('@exposed').invoke('openDropdown')
+    cy.getTestId('dropdown-list').should('be.visible')
+
+    // close dropdown pragmatically
+    cy.get('@exposed').invoke('closeDropdown')
+    cy.getTestId('dropdown-list').should('not.be.visible')
+  })
 })
 
 describe('KDropdownItem', () => {
