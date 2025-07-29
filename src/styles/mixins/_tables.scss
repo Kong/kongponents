@@ -8,6 +8,7 @@
   $tableCaretIconSize: var(--kui-icon-size-30, $kui-icon-size-30);
   $expandedRowMaxHeight: 250px;
   $scrollOverlayWidth: 20px;
+  $scrollOverlayGradientColor: rgba(#000, 0.08), rgba(#000, 0);
 
   /* Styles */
   background-color: var(--kui-color-background, $kui-color-background);
@@ -437,21 +438,21 @@
     width: $scrollOverlayWidth;
 
     &.left {
-      background: linear-gradient(to right, rgba(#000, 0.08), rgba(#000, 0));
+      background: linear-gradient(to right, $scrollOverlayGradientColor);
       left: 0;
 
       &.row-overlay {
         left: unset;
-        right: calc(-1 * $scrollOverlayWidth);
+        right: -#{$scrollOverlayWidth};
       }
     }
 
     &.right {
-      background: linear-gradient(to left, rgba(#000, 0.08), rgba(#000, 0));
+      background: linear-gradient(to left, $scrollOverlayGradientColor);
       right: 0;
 
       &.row-overlay {
-        left: calc(-1 * $scrollOverlayWidth);
+        left: -#{$scrollOverlayWidth};
         right: unset;
       }
     }
