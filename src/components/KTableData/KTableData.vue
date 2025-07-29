@@ -580,8 +580,8 @@ watch(fetcherResponse, (res) => {
     offset.value = null
   }
 
-  // call sortHandler if the initial sort is not handled yet
-  if (sortable && !initialSortHandled.value) {
+  // For clientSort tables, call sortHandler if the initial sort is not handled yet
+  if (sortable && clientSort && !initialSortHandled.value) {
     sortHandler({ sortColumnKey: sortColumnKey.value, prevKey: '', sortColumnOrder: sortColumnOrder.value })
   }
 }, { deep: true, immediate: true })
