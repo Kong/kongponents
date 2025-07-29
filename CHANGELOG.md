@@ -1,3 +1,10 @@
+## [9.36.8](https://github.com/Kong/kongponents/compare/v9.36.7...v9.36.8) (2025-07-29)
+
+
+### Bug Fixes
+
+* **ktableview:** make row actions column sticky [KHCP-17263] ([#2833](https://github.com/Kong/kongponents/issues/2833)) ([a9667b8](https://github.com/Kong/kongponents/commit/a9667b884ebf30402a8697845db338fd13f05057))
+
 ## [9.36.7](https://github.com/Kong/kongponents/compare/v9.36.6...v9.36.7) (2025-07-28)
 
 
