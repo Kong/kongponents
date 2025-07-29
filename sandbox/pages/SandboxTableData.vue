@@ -3,48 +3,7 @@
     :links="inject('app-links', [])"
     title="KTableData"
   >
-    <SandboxSectionComponent title="rowHover & maxHeight & clientSort & sortHandlerFunction & sortable">
-      <KComponent
-        v-slot="{ data }"
-        :data="{ tableKey: 0, tableRowHover: false, tableSortable: true, initialSorting: true }"
-      >
-        <div class="horizontal-container">
-          <KInputSwitch
-            v-model="data.tableRowHover"
-            label="Has hover"
-            @change="data.tableKey++"
-          />
-          <KInputSwitch
-            v-model="data.tableSortable"
-            label="Sortable"
-            @change="data.tableKey++"
-          />
-          <KInputSwitch
-            v-model="data.initialSorting"
-            label="Initial sorting"
-            @change="data.tableKey++"
-          />
-        </div>
-
-        <KTableData
-          :key="data.tableKey"
-          :fetcher="fetcher"
-          :headers="headers(false, true)"
-          :initial-fetcher-params="data.initialSorting ? { sortColumnKey: 'username', sortColumnOrder: 'asc' } : undefined"
-          max-height="300"
-          :row-hover="data.tableRowHover"
-          :sortable="data.tableSortable"
-        >
-          <template #action-items>
-            <SandboxTableViewActions />
-          </template>
-        </KTableData>
-      </KComponent>
-    </SandboxSectionComponent>
-    <div
-      v-if="false"
-      class="k-table-data-sandbox"
-    >
+    <div class="k-table-data-sandbox">
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
@@ -494,15 +453,14 @@ const headers = (hidable: boolean = false, sortable: boolean = false, bulkAction
       label: 'Username',
       tooltip: sortable ? undefined : 'Column with a tooltip.',
       sortable,
-      // ...(sortable && { useSortHandlerFunction: true }),
+      ...(sortable && { useSortHandlerFunction: true }),
     },
     { key: 'email', label: 'Email', hidable },
     ...(bulkActions ? [{ key: 'bulkActions', label: 'Bulk actions' }] : []),
   ]
 }
 
-const fetcher = async (fetcherParams: any): Promise<any> => {
-  console.log(fetcherParams)
+const fetcher = async (): Promise<any> => {
   // Fake delay
   await new Promise((resolve) => setTimeout(resolve, 2000))
 
