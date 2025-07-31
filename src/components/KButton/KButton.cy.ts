@@ -1,7 +1,8 @@
 import KButton from '@/components/KButton/KButton.vue'
 import { ButtonAppearances, ButtonSizes } from '@/types'
+import type { ButtonAppearance, ButtonSize } from '@/types'
 
-const rendersCorrectAppearance = (variant: string) => {
+const rendersCorrectAppearance = (variant: ButtonAppearance) => {
   it(`renders KButton with the ${variant} appearance`, () => {
     cy.mount(KButton, {
       props: {
@@ -16,14 +17,14 @@ const rendersCorrectAppearance = (variant: string) => {
   })
 }
 
-const rendersCorrectSize = (size: string) => {
+const rendersCorrectSize = (size: ButtonSize) => {
   it(`sets ${size} class when size passed`, () => {
     cy.mount(KButton, {
       props: {
         size,
       },
       slots: {
-        default: () => size.charAt(0).toUpperCase() + size.substr(1).toLowerCase(),
+        default: () => size.charAt(0).toUpperCase() + size.substring(1).toLowerCase(),
       },
     })
 
