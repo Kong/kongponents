@@ -112,4 +112,80 @@ describe('KEmptyState', () => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'click-action')
     })
   })
+
+  it('renders content passed through image slot instead of the default icon', () => {
+    const imageSlotContent = 'image slot content'
+    const imageTestId = 'slotted-image'
+
+    cy.mount(KEmptyState, {
+      slots: {
+        image: h('div', { 'data-testid': imageTestId }, imageSlotContent),
+      },
+    })
+
+    cy.get('.empty-state-icon').should('not.exist')
+    cy.get('.empty-state-image').findTestId(imageTestId).should('be.visible')
+    cy.get('.empty-state-image').findTestId(imageTestId).should('contain.text', imageSlotContent)
+  })
+
+  it('renders content passed through supporting-text slot', () => {
+    const supportingTextContent = 'Supporting Text'
+    const testId = 'slotted-supporting-text'
+
+    cy.mount(KEmptyState, {
+      slots: {
+        'supporting-text': h('span', { 'data-testid': testId }, supportingTextContent),
+      },
+    })
+
+    cy.get('.empty-state-supporting-text').findTestId(testId).should('be.visible').should('contain', supportingTextContent)
+  })
+
+  it('renders cards for each feature when features prop is provided', () => {
+    const features = [
+      { title: 'Feature 1', description: 'Description 1' },
+      { title: 'Feature 2', description: 'Description 2' },
+    ]
+
+    cy.mount(KEmptyState, {
+      props: {
+        features,
+      },
+    })
+
+    cy.get('.empty-state-feature-card').should('have.length', features.length)
+  })
+
+  it('renders content passed through feature-icon slot correctly', () => {
+    const featureIconContent = 'Feature Icon Content'
+    const feature0IconTestId = 'feature-0-icon-slot'
+    const feature1IconTestId = 'feature-1-icon-slot'
+
+    cy.mount(KEmptyState, {
+      props: {
+        features: [{ title: 'Feature', description: 'Description' }],
+      },
+      slots: {
+        'feature-0-icon': h('div', { 'data-testid': feature0IconTestId }, featureIconContent),
+        'feature-1-icon': h('div', { 'data-testid': feature1IconTestId }, featureIconContent),
+      },
+    })
+
+    cy.get('.empty-state-feature-card').findTestId(feature0IconTestId).should('be.visible')
+    cy.get('.empty-state-feature-card').findTestId(feature0IconTestId).should('contain.text', featureIconContent)
+    cy.get('.empty-state-feature-card').findTestId(feature1IconTestId).should('not.exist')
+  })
+
+  it('renders content passed through bottom slot correctly', () => {
+    const bottomContent = 'Bottom Content'
+    const testId = 'slotted-bottom'
+
+    cy.mount(KEmptyState, {
+      slots: {
+        bottom: h('div', { 'data-testid': testId }, bottomContent),
+      },
+    })
+
+    cy.get('.empty-state-bottom-container').findTestId(testId).should('be.visible').should('contain', bottomContent)
+  })
 })

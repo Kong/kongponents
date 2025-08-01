@@ -70,7 +70,7 @@
         v-for="(feature, idx) in features"
         :key="feature"
       >
-        <KCard class="empty-state-card">
+        <KCard class="empty-state-feature-card">
           <template #title>
             <div
               v-if="$slots[`feature-${idx}-icon`]"
@@ -107,6 +107,7 @@ import { KUI_COLOR_TEXT_DECORATIVE_AQUA, KUI_COLOR_TEXT_NEUTRAL, KUI_COLOR_TEXT_
 import KButton from '@/components/KButton/KButton.vue'
 import { EmptyStateIconVariants } from '@/types'
 import type { EmptyStateProps, EmptyStateEmits, EmptyStateSlots } from '@/types'
+import KCard from '@/components/KCard/KCard.vue'
 
 type EmptyStateIcon = typeof AnalyticsIcon // all icons are the same type so we can use any of them
 
@@ -239,7 +240,7 @@ const getIconColor = computed((): string => {
       grid-template-columns: 1fr 1fr;
     }
 
-    .empty-state-card {
+    .empty-state-feature-card {
       background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
       gap: var(--kui-space-30, $kui-space-30);
 
@@ -255,6 +256,8 @@ const getIconColor = computed((): string => {
       }
 
       :deep(.card-title) {
+        @include truncate(2);
+
         font-size: var(--kui-font-size-30, $kui-font-size-30);
         font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
         line-height: var(--kui-line-height-30, $kui-line-height-30);
