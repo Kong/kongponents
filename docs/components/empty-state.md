@@ -174,6 +174,63 @@ Accepted values:
 />
 ```
 
+### iconBackground
+
+When set to `true`, the icon is rendered in a rectangular container with a decorative background. Default value is `false`.
+
+<KEmptyState
+  icon-background
+  icon-variant="kong"
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State Decorative Icon"
+/>
+
+```html
+<KEmptyState
+  icon-background
+  icon-variant="kong"
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State Decorative Icon"
+/>
+```
+
+### features
+
+If provided, will display card for each feature below the action button, along with an icon slot, a title and a short description. You can also use [`feature-icon` slot](#featrue-icon) to display an icon in each feature card.
+
+<KEmptyState
+  :features="features"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State With Features"
+/>
+
+```html
+<KEmptyState
+  :features="[
+    {
+      title: 'Feature 1',
+      description: 'Description for feature 1.',
+    },
+    {
+      title: 'Feature with a very long title that exceeds the usual length',
+      description: 'Lorem ipsum dolor sit amet...',
+    },
+    {
+      title: 'Feature 3',
+      description: 'Description for feature 3.',
+    },
+    {
+      title: 'Feature 4',
+      description: 'Description for feature 4.',
+    },
+  ]"
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State With Features"
+/>
+```
+
 ## Slots
 
 ### default
@@ -223,6 +280,30 @@ Slot for passing title text.
 </KEmptyState>
 ```
 
+### supportingText
+
+Slot for a secondary message or additional information (e.g. pricing).
+
+<KEmptyState
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State With Supporting Text"
+>
+  <template #supporting-text>
+    <b>Pricing:</b> starting at $30 per user per month.
+  </template>
+</KEmptyState>
+
+```html
+<KEmptyState
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State With Supporting Text"
+>
+  <template #supporting-text>
+    <b>Pricing:</b> starting at $30 per user per month.
+  </template>
+</KEmptyState>
+```
+
 ### icon
 
 Slot for providing custom icon.
@@ -248,6 +329,34 @@ Slot for providing custom icon.
   </template>
 </KEmptyState>
 ```
+
+### image
+
+Instead of an icon, you can provide a custom image through the `image` slot.
+
+<KEmptyState
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State With Image"
+>
+  <template #image>
+    <img src="https://picsum.photos/640/300">
+  </template>
+</KEmptyState>
+
+```html
+<KEmptyState
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State With Image"
+>
+  <template #image>
+    <img src="https://picsum.photos/640/300">
+  </template>
+</KEmptyState>
+```
+
+:::tip NOTE
+Please note that content passed through `image` slot takes presedence over KEmptyState icon, which means values passed through `iconVariant` and `iconBackground` props and content passed through `icon` slot will be ignored.
+:::
 
 ### action
 
@@ -281,8 +390,99 @@ Slot for providing your custom action button.
 </KEmptyState>
 ```
 
-## Events
+### featrue-icon
 
+For each feature provided through the [`features` prop](#features), you can pass a custom icon through the `featrue-n-icon` slot where `n` is the index of the feature.
+
+<KEmptyState
+  :features="features"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State With Features"
+>
+  <template #feature-0-icon>
+    <WavingHandIcon />
+  </template>
+  <template #feature-1-icon>
+    <SparklesIcon />
+  </template>
+  <template #feature-2-icon>
+    <RocketIcon />
+  </template>
+  <template #feature-3-icon>
+    <DesignIcon />
+  </template>
+</KEmptyState>
+
+```html
+<KEmptyState
+  :features="features"
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State With Features"
+>
+  <template #feature-0-icon>
+    <WavingHandIcon />
+  </template>
+  <template #feature-1-icon>
+    <SparklesIcon />
+  </template>
+  <template #feature-2-icon>
+    <RocketIcon />
+  </template>
+  <template #feature-3-icon>
+    <DesignIcon />
+  </template>
+</KEmptyState>
+```
+
+### bottom
+
+Content to be displayed at the bottom of the empty state component, separated by a divider line.
+
+<KEmptyState
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State With Bottom Content"
+>
+  <template #bottom>
+    <div class="bottom-content-title-container">
+      <span>
+        Get started with the CLI
+      </span>
+      <KExternalLink href="https://kongponents.konghq.com/">
+        Read the docs
+      </KExternalLink>
+    </div>
+    <KCodeBlock
+      id="bottom-content-code-block"
+      code="{example code here}"
+      language="plaintext"
+      single-line
+      theme="dark"
+    />
+  </template>
+</KEmptyState>
+
+```html
+<KEmptyState
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State With Bottom Content"
+>
+  <template #bottom>
+    <div>
+      <span>
+        Get started with the CLI
+      </span>
+      <KExternalLink ...>
+        Read the docs
+      </KExternalLink>
+    </div>
+    <KCodeBlock
+      ...
+    />
+  </template>
+</KEmptyState>
+```
+
+## Events
 
 ### click-action
 
@@ -313,9 +513,44 @@ const onActionClick = (): void => {
 ```
 
 <script setup lang="ts">
-import { KongIcon, AddCircleIcon } from '@kong/icons'
+import { KongIcon, AddCircleIcon, WavingHandIcon, SparklesIcon, RocketIcon, DesignIcon } from '@kong/icons'
+import type { EmptyStateFeature } from '@/types'
 
 const onActionClick = (): void => {
   alert('Action button clicked!')
 }
+
+const features: EmptyStateFeature[] = [
+  {
+    title: 'Feature 1',
+    description: 'Description for feature 1.',
+  },
+  {
+    title: 'Feature with a very long title that exceeds the usual length',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  },
+  {
+    title: 'Feature 3',
+    description: 'Description for feature 3.',
+  },
+  {
+    title: 'Feature 4',
+    description: 'Description for feature 4.',
+  },
+]
 </script>
+
+<style lang="scss" scoped>
+.bottom-content-title-container {
+  display: flex;
+  justify-content: space-between;
+
+  > span {
+    color: $kui-color-text;
+    font-size: $kui-font-size-50;
+    font-weight: $kui-font-weight-semibold;
+    line-height: $kui-line-height-50;
+    margin: $kui-space-0;
+  }
+}
+</style>
