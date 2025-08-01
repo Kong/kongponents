@@ -102,7 +102,7 @@ export interface EmptyStateSlots {
   /**
    * Slot for custom icon of the empty state feature card.
    */
-  [key: `feature-${number}-icon`]: () => any
+  [key: `feature-${number}-icon`]?: () => any
 
   /**
    * Content to be displayed at the bottom of the empty state component, separated by a divider line.
