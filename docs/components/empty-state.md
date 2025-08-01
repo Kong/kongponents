@@ -210,20 +210,20 @@ If provided, will display card for each feature below the action button, along w
 <KEmptyState
   :features="[
     {
-      title: 'Feature 1',
-      description: 'Description for feature 1.',
+      title: 'Feature 0',
+      description: 'Description for feature 0.',
     },
     {
       title: 'Feature with a very long title that exceeds the usual length',
       description: 'Lorem ipsum dolor sit amet...',
     },
     {
-      title: 'Feature 3',
-      description: 'Description for feature 3.',
+      title: 'Feature 2',
+      description: 'Description for feature 2.',
     },
     {
-      title: 'Feature 4',
-      description: 'Description for feature 4.',
+      title: 'Feature 3',
+      description: 'Description for feature 3.',
     },
   ]"
   message="Lorem ipsum dolor sit amet..."
@@ -522,20 +522,20 @@ const onActionClick = (): void => {
 
 const features: EmptyStateFeature[] = [
   {
-    title: 'Feature 1',
-    description: 'Description for feature 1.',
+    title: 'Feature 0',
+    description: 'Description for feature 0.',
   },
   {
     title: 'Feature with a very long title that exceeds the usual length',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
   },
   {
-    title: 'Feature 3',
-    description: 'Description for feature 3.',
+    title: 'Feature 2',
+    description: 'Description for feature 2.',
   },
   {
-    title: 'Feature 4',
-    description: 'Description for feature 4.',
+    title: 'Feature 3',
+    description: 'Description for feature 3.',
   },
 ]
 </script>
