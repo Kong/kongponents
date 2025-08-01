@@ -4,14 +4,23 @@
     :class="[iconVariant]"
   >
     <div class="empty-state-content">
-      <div class="empty-state-icon">
-        <slot name="icon">
-          <component
-            :is="getEmptyStateIcon"
-            :color="getIconColor"
-            decorative
-            :size="KUI_ICON_SIZE_60"
-          />
+      <div
+        :aria-hidden="$slots.image ? undefined : 'true'"
+        :class="{
+          'empty-state-icon': !$slots.image,
+          'has-background': !slots.image && iconBackground,
+          'empty-state-image': $slots.image,
+        }"
+      >
+        <slot name="image">
+          <slot name="icon">
+            <component
+              :is="getEmptyStateIcon"
+              :color="getIconColor"
+              decorative
+              :size="KUI_ICON_SIZE_60"
+            />
+          </slot>
         </slot>
       </div>
       <div
@@ -32,20 +41,61 @@
           </p>
         </slot>
       </div>
+      <div
+        v-if="$slots['supporting-text']"
+        class="empty-state-supporting-text"
+      >
+        <slot name="supporting-text" />
+      </div>
+      <div
+        v-if="(actionButtonVisible && actionButtonText) || $slots.action"
+        class="empty-state-action"
+      >
+        <slot name="action">
+          <KButton
+            :disabled="actionButtonDisabled"
+            type="button"
+            @click="emit('click-action')"
+          >
+            {{ actionButtonText }}
+          </KButton>
+        </slot>
+      </div>
     </div>
     <div
-      v-if="(actionButtonVisible && actionButtonText) || $slots.action"
-      class="empty-state-action"
+      v-if="features.length"
+      class="empty-state-features-container"
     >
-      <slot name="action">
-        <KButton
-          :disabled="actionButtonDisabled"
-          type="button"
-          @click="emit('click-action')"
-        >
-          {{ actionButtonText }}
-        </KButton>
-      </slot>
+      <template
+        v-for="(feature, idx) in features"
+        :key="feature"
+      >
+        <KCard class="empty-state-card">
+          <template #title>
+            <div
+              v-if="$slots[`feature-${idx}-icon`]"
+              aria-hidden="true"
+              class="feature-icon"
+            >
+              <slot :name="`feature-${idx}-icon`" />
+            </div>
+
+            <div class="card-header">
+              {{ feature.title }}
+            </div>
+          </template>
+
+          <div :title="feature.description">
+            {{ feature.description }}
+          </div>
+        </KCard>
+      </template>
+    </div>
+    <div
+      v-if="$slots.bottom"
+      class="empty-state-bottom-container"
+    >
+      <slot name="bottom" />
     </div>
   </div>
 </template>
@@ -53,7 +103,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { AnalyticsIcon, WarningIcon, SearchIcon, KongIcon } from '@kong/icons'
-import { KUI_COLOR_TEXT_NEUTRAL, KUI_COLOR_TEXT_WARNING, KUI_ICON_SIZE_60 } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_DECORATIVE_AQUA, KUI_COLOR_TEXT_NEUTRAL, KUI_COLOR_TEXT_WARNING, KUI_ICON_SIZE_60 } from '@kong/design-tokens'
 import KButton from '@/components/KButton/KButton.vue'
 import { EmptyStateIconVariants } from '@/types'
 import type { EmptyStateProps, EmptyStateEmits, EmptyStateSlots } from '@/types'
@@ -67,11 +117,13 @@ const {
   actionButtonVisible = true,
   actionButtonDisabled,
   iconVariant = EmptyStateIconVariants.Default,
+  iconBackground = false,
+  features = [],
 } = defineProps<EmptyStateProps>()
 
 const emit = defineEmits<EmptyStateEmits>()
 
-defineSlots<EmptyStateSlots>()
+const slots = defineSlots<EmptyStateSlots>()
 
 const getEmptyStateIcon = computed((): EmptyStateIcon => {
   switch (iconVariant) {
@@ -89,6 +141,10 @@ const getEmptyStateIcon = computed((): EmptyStateIcon => {
 })
 
 const getIconColor = computed((): string => {
+  if (iconBackground) {
+    return KUI_COLOR_TEXT_DECORATIVE_AQUA
+  }
+
   switch (iconVariant) {
     case EmptyStateIconVariants.Error:
       return KUI_COLOR_TEXT_WARNING
@@ -106,15 +162,15 @@ const getIconColor = computed((): string => {
   display: flex;
   flex-direction: column;
   font-family: var(--kui-font-family-text, $kui-font-family-text);
-  gap: var(--kui-space-70, $kui-space-70);
-  padding: var(--kui-space-90, $kui-space-90) var(--kui-space-90, $kui-space-90);
+  gap: var(--kui-space-90, $kui-space-90);
+  padding: var(--kui-space-110, $kui-space-110);
   width: 100%;
 
   .empty-state-content {
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: var(--kui-space-50, $kui-space-50);
+    gap: var(--kui-space-70, $kui-space-70);
     text-align: center;
     width: 100%;
 
@@ -125,6 +181,23 @@ const getIconColor = computed((): string => {
         height: var(--kui-icon-size-60, $kui-icon-size-60) !important;
         width: var(--kui-icon-size-60, $kui-icon-size-60) !important;
       }
+
+      &.has-background {
+        background-color: #ECFCFF; // TODO: kui-color-background-decorative-aqua-weakest
+        border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+        color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
+        padding: var(--kui-space-40, $kui-space-40);
+
+        :deep(#{$kongponentsKongIconSelector}) {
+          height: var(--kui-icon-size-50, $kui-icon-size-50) !important;
+          width: var(--kui-icon-size-50, $kui-icon-size-50) !important;
+        }
+      }
+    }
+
+    .empty-state-image {
+      max-width: 640px;
+      overflow: hidden;
     }
 
     .empty-state-title {
@@ -135,7 +208,8 @@ const getIconColor = computed((): string => {
       max-width: 570px; // limit width so the text stays readable if title is too long
     }
 
-    .empty-state-message {
+    .empty-state-message,
+    .empty-state-supporting-text {
       color: var(--kui-color-text-neutral, $kui-color-text-neutral);
       font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
@@ -146,12 +220,66 @@ const getIconColor = computed((): string => {
         margin: var(--kui-space-0, $kui-space-0);
       }
     }
+
+    .empty-state-action {
+      align-items: center;
+      display: flex;
+      gap: var(--kui-space-40, $kui-space-40);
+    }
   }
 
-  .empty-state-action {
-    align-items: center;
+  .empty-state-features-container {
+    display: grid;
+    gap: var(--kui-space-70, $kui-space-70);
+    grid-template-columns: 1fr;
+    justify-content: space-around;
+    max-width: 650px;
+
+    @media (min-width: $kui-breakpoint-phablet) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .empty-state-card {
+      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+      gap: var(--kui-space-30, $kui-space-30);
+
+      .feature-icon {
+        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+        display: flex;
+        margin-bottom: var(--kui-space-50, $kui-space-50);
+
+        :deep(#{$kongponentsKongIconSelector}) {
+          height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+          width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+        }
+      }
+
+      :deep(.card-title) {
+        font-size: var(--kui-font-size-30, $kui-font-size-30);
+        font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+        line-height: var(--kui-line-height-30, $kui-line-height-30);
+      }
+
+      :deep(.card-content) {
+        @include truncate(3);
+
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      }
+    }
+  }
+
+  .empty-state-bottom-container {
+    border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
     display: flex;
-    gap: var(--kui-space-40, $kui-space-40);
+    flex-direction: column;
+    font-size: var(--kui-font-size-30, $kui-font-size-30);
+    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+    gap: $kui-space-40;
+    line-height: var(--kui-line-height-30, $kui-line-height-30);
+    max-width: 640px; // limit width so the message stays readable if title is too long
+    padding-top: $kui-space-90;
+    width: 100%;
   }
 }
 </style>
