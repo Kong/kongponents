@@ -76,8 +76,8 @@ importers:
         specifier: ^2.1.75
         version: 2.1.75(vue@3.5.17(typescript@5.6.3))
       '@kong/design-tokens':
-        specifier: ^1.17.5
-        version: 1.17.5
+        specifier: 1.17.6
+        version: 1.17.6
       '@kong/eslint-config-kong-ui':
         specifier: 1.5.1
         version: 1.5.1(eslint@9.31.0(jiti@1.21.6))(typescript@5.6.3)
@@ -987,7 +987,6 @@ packages:
 
   '@evilmartians/lefthook@1.12.2':
     resolution: {integrity: sha512-PQ7ZE08JiRNWydJpDeVijg8GjoTFiXQTy5/mVXf5U7epNZWYUEfnwjfXFa+HvsegodQcTenl05twrRxB/vOR8Q==}
-    cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -1054,9 +1053,9 @@ packages:
     peerDependencies:
       vue: '>= 3.3.13 < 4'
 
-  '@kong/design-tokens@1.17.5':
-    resolution: {integrity: sha512-RYm7cNgDComDm3RYfSTTmHJm9seSi1Pv6DG+D/8WKBN+QarCcVifB7G9hFojTC+/4EDZzWLu2DtIyn3W3wu+vw==}
-    engines: {node: '>=20.19.2', pnpm: '>=9.14.4 || >=10.1.0'}
+  '@kong/design-tokens@1.17.6':
+    resolution: {integrity: sha512-vpnC3WzPlM2llxTTkEuNDyqmSVcRUU+3UvV31rnXLWChkagfnSqnNcWmd2+TkG4FopDYObUjvGUkUKcZoywSRQ==}
+    engines: {node: '>=20.19.4', pnpm: '>=9.14.4 || >=10.1.0'}
 
   '@kong/eslint-config-kong-ui@1.5.1':
     resolution: {integrity: sha512-x9kGPrOsxJVCvVYoL8iX5KC6Xa7SqaDiKYkwBDr24bUeWXQ3ZSUvNNt1qupWUoRywekBl8UCEeIO/pjrhIYTmA==}
@@ -6421,7 +6420,7 @@ snapshots:
       '@kong/icons': 1.33.1(vue@3.5.17(typescript@5.6.3))
       vue: 3.5.17(typescript@5.6.3)
 
-  '@kong/design-tokens@1.17.5': {}
+  '@kong/design-tokens@1.17.6': {}
 
   '@kong/eslint-config-kong-ui@1.5.1(eslint@9.31.0(jiti@1.21.6))(typescript@5.6.3)':
     dependencies:

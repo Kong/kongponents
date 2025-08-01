@@ -184,7 +184,7 @@ const getIconColor = computed((): string => {
       }
 
       &.has-background {
-        background-color: #ECFCFF; // TODO: kui-color-background-decorative-aqua-weakest
+        background-color: var(--kui-color-background-decorative-aqua-weakest, $kui-color-background-decorative-aqua-weakest);
         border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
         color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
         padding: var(--kui-space-40, $kui-space-40);
