@@ -198,7 +198,7 @@ When set to `true`, the icon is rendered in a rectangular container with a decor
 
 ### features
 
-If provided, will display card for each feature below the action button, along with an icon slot, a title and a short description. You can also use [`feature-icon` slot](#featrue-icon) to display an icon in each feature card.
+If provided, will display card for each feature below the action button, along with an icon slot, a title and a short description. You can also use [`feature-icon` slot](#feature-icon) to display an icon in each feature card.
 
 <KEmptyState
   :features="features"
@@ -390,9 +390,9 @@ Slot for providing your custom action button.
 </KEmptyState>
 ```
 
-### featrue-icon
+### feature-icon
 
-For each feature provided through the [`features` prop](#features), you can pass a custom icon through the `featrue-n-icon` slot where `n` is the index of the feature.
+For each feature provided through the [`features` prop](#features), you can pass a custom icon through the `feature-n-icon` slot where `n` is the index of the feature.
 
 <KEmptyState
   :features="features"
