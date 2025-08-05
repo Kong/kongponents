@@ -6,11 +6,7 @@
     <div class="empty-state-content">
       <div
         :aria-hidden="$slots.image ? undefined : 'true'"
-        :class="{
-          'empty-state-icon': !$slots.image,
-          'has-background': !slots.image && iconBackground,
-          'empty-state-image': $slots.image,
-        }"
+        :class="iconContainerClass"
       >
         <slot name="image">
           <slot name="icon">
@@ -42,12 +38,6 @@
         </slot>
       </div>
       <div
-        v-if="$slots['supporting-text']"
-        class="empty-state-supporting-text"
-      >
-        <slot name="supporting-text" />
-      </div>
-      <div
         v-if="(actionButtonVisible && actionButtonText) || $slots.action"
         class="empty-state-action"
       >
@@ -67,17 +57,17 @@
       class="empty-state-features-container"
     >
       <template
-        v-for="(feature, idx) in features"
+        v-for="feature in features"
         :key="feature"
       >
         <KCard class="empty-state-feature-card">
           <template #title>
             <div
-              v-if="$slots[`feature-${idx}-icon`]"
+              v-if="feature.key && $slots[`feature-${feature.key}-icon`]"
               aria-hidden="true"
               class="feature-icon"
             >
-              <slot :name="`feature-${idx}-icon`" />
+              <slot :name="`feature-${feature.key}-icon`" />
             </div>
 
             <div class="card-header">
@@ -92,10 +82,10 @@
       </template>
     </div>
     <div
-      v-if="$slots.bottom"
-      class="empty-state-bottom-container"
+      v-if="$slots.footer"
+      class="empty-state-footer-container"
     >
-      <slot name="bottom" />
+      <slot name="footer" />
     </div>
   </div>
 </template>
@@ -153,9 +143,28 @@ const getIconColor = computed((): string => {
       return KUI_COLOR_TEXT_NEUTRAL
   }
 })
+
+const iconContainerClass = computed((): string => {
+  if (slots.image) {
+    return 'empty-state-image'
+  }
+
+  const defaultIconClass = 'empty-state-icon'
+  if (iconBackground) {
+    return `${defaultIconClass} has-background`
+  }
+
+  return defaultIconClass
+})
 </script>
 
 <style lang="scss" scoped>
+/* Component variables */
+
+$kEmptyStateMaxWidth: 640px;
+
+/* Component styles */
+
 .k-empty-state {
   align-items: center;
   background-color: var(--kui-color-background, $kui-color-background);
@@ -164,8 +173,12 @@ const getIconColor = computed((): string => {
   flex-direction: column;
   font-family: var(--kui-font-family-text, $kui-font-family-text);
   gap: var(--kui-space-90, $kui-space-90);
-  padding: var(--kui-space-110, $kui-space-110);
+  padding: var(--kui-space-90, $kui-space-90);
   width: 100%;
+
+  @media (min-width: $kui-breakpoint-phablet) {
+    padding: var(--kui-space-110, $kui-space-110);
+  }
 
   .empty-state-content {
     align-items: center;
@@ -197,8 +210,9 @@ const getIconColor = computed((): string => {
     }
 
     .empty-state-image {
-      max-width: 640px;
+      max-width: $kEmptyStateMaxWidth;
       overflow: hidden;
+      width: 100%;
     }
 
     .empty-state-title {
@@ -209,13 +223,15 @@ const getIconColor = computed((): string => {
       max-width: 570px; // limit width so the text stays readable if title is too long
     }
 
-    .empty-state-message,
-    .empty-state-supporting-text {
+    .empty-state-message {
       color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      display: flex;
+      flex-direction: column;
       font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+      gap: var(--kui-space-70, $kui-space-70);
       line-height: var(--kui-line-height-30, $kui-line-height-30);
-      max-width: 640px; // limit width so the message stays readable if title is too long
+      max-width: $kEmptyStateMaxWidth; // limit width so the message stays readable if title is too long
 
       p {
         margin: var(--kui-space-0, $kui-space-0);
@@ -234,7 +250,7 @@ const getIconColor = computed((): string => {
     gap: var(--kui-space-70, $kui-space-70);
     grid-template-columns: 1fr;
     justify-content: space-around;
-    max-width: 650px;
+    max-width: $kEmptyStateMaxWidth;
 
     @media (min-width: $kui-breakpoint-phablet) {
       grid-template-columns: 1fr 1fr;
@@ -271,7 +287,7 @@ const getIconColor = computed((): string => {
     }
   }
 
-  .empty-state-bottom-container {
+  .empty-state-footer-container {
     border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
     display: flex;
@@ -280,7 +296,7 @@ const getIconColor = computed((): string => {
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
     gap: $kui-space-40;
     line-height: var(--kui-line-height-30, $kui-line-height-30);
-    max-width: 640px; // limit width so the message stays readable if title is too long
+    max-width: $kEmptyStateMaxWidth; // limit width so the message stays readable if title is too long
     padding-top: $kui-space-90;
     width: 100%;
   }

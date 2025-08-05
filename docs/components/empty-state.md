@@ -198,7 +198,15 @@ When set to `true`, the icon is rendered in a rectangular container with a decor
 
 ### features
 
-If provided, will display card for each feature below the action button, along with an icon slot, a title and a short description. You can also use [`feature-icon` slot](#feature-icon) to display an icon in each feature card.
+If provided, will display card for each feature below the action button, along with an icon slot, a title and a short description. You can also use [`feature-icon` slot](#feature-icon) to display an icon in each feature card. Expects an array of objects of type `EmptyStateFeature`:
+
+```ts
+interface EmptyStateFeature {
+  key?: string
+  title: string
+  description: string
+}
+```
 
 <KEmptyState
   :features="features"
@@ -210,19 +218,23 @@ If provided, will display card for each feature below the action button, along w
 <KEmptyState
   :features="[
     {
-      title: 'Feature 0',
+      key: 'wave',
+      title: 'Feature 1',
       description: 'Description for feature 0.',
     },
     {
+      key: 'sparkles',
       title: 'Feature with a very long title that exceeds the usual length',
       description: 'Lorem ipsum dolor sit amet...',
     },
     {
-      title: 'Feature 2',
+      key: 'rocket',
+      title: 'Feature 3',
       description: 'Description for feature 2.',
     },
     {
-      title: 'Feature 3',
+      key: 'design',
+      title: 'Feature 4',
       description: 'Description for feature 3.',
     },
   ]"
@@ -276,30 +288,6 @@ Slot for passing title text.
 >
   <template #title>
     <h1>Empty State Slotted Title</h1>
-  </template>
-</KEmptyState>
-```
-
-### supportingText
-
-Slot for a secondary message or additional information (e.g. pricing).
-
-<KEmptyState
-  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
-  title="Empty State With Supporting Text"
->
-  <template #supporting-text>
-    <b>Pricing:</b> starting at $30 per user per month.
-  </template>
-</KEmptyState>
-
-```html
-<KEmptyState
-  message="Lorem ipsum dolor sit amet..."
-  title="Empty State With Supporting Text"
->
-  <template #supporting-text>
-    <b>Pricing:</b> starting at $30 per user per month.
   </template>
 </KEmptyState>
 ```
@@ -392,23 +380,23 @@ Slot for providing your custom action button.
 
 ### feature-icon
 
-For each feature provided through the [`features` prop](#features), you can pass a custom icon through the `feature-n-icon` slot where `n` is the index of the feature.
+For each feature provided through the [`features` prop](#features), you can pass a custom icon through the `feature-key-icon` slot where `key` is the value of the `key` property in the corrsponding feature object.
 
 <KEmptyState
   :features="features"
   message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
   title="Empty State With Features"
 >
-  <template #feature-0-icon>
+  <template #feature-wave-icon>
     <WavingHandIcon />
   </template>
-  <template #feature-1-icon>
+  <template #feature-sparkles-icon>
     <SparklesIcon />
   </template>
-  <template #feature-2-icon>
+  <template #feature-rocket-icon>
     <RocketIcon />
   </template>
-  <template #feature-3-icon>
+  <template #feature-design-icon>
     <DesignIcon />
   </template>
 </KEmptyState>
@@ -419,31 +407,31 @@ For each feature provided through the [`features` prop](#features), you can pass
   message="Lorem ipsum dolor sit amet..."
   title="Empty State With Features"
 >
-  <template #feature-0-icon>
+  <template #feature-wave-icon>
     <WavingHandIcon />
   </template>
-  <template #feature-1-icon>
+  <template #feature-sparkles-icon>
     <SparklesIcon />
   </template>
-  <template #feature-2-icon>
+  <template #feature-rocket-icon>
     <RocketIcon />
   </template>
-  <template #feature-3-icon>
+  <template #feature-design-icon>
     <DesignIcon />
   </template>
 </KEmptyState>
 ```
 
-### bottom
+### footer
 
 Content to be displayed at the bottom of the empty state component, separated by a divider line.
 
 <KEmptyState
   message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
-  title="Empty State With Bottom Content"
+  title="Empty State With Footer Content"
 >
-  <template #bottom>
-    <div class="bottom-content-title-container">
+  <template #footer>
+    <div class="footer-content-title-container">
       <span>
         Get started with the CLI
       </span>
@@ -452,7 +440,7 @@ Content to be displayed at the bottom of the empty state component, separated by
       </KExternalLink>
     </div>
     <KCodeBlock
-      id="bottom-content-code-block"
+      id="footer-content-code-block"
       code="{example code here}"
       language="plaintext"
       single-line
@@ -464,9 +452,9 @@ Content to be displayed at the bottom of the empty state component, separated by
 ```html
 <KEmptyState
   message="Lorem ipsum dolor sit amet..."
-  title="Empty State With Bottom Content"
+  title="Empty State With Footer Content"
 >
-  <template #bottom>
+  <template #footer>
     <div>
       <span>
         Get started with the CLI
@@ -522,26 +510,30 @@ const onActionClick = (): void => {
 
 const features: EmptyStateFeature[] = [
   {
-    title: 'Feature 0',
+    key: 'wave',
+    title: 'Feature 1',
     description: 'Description for feature 0.',
   },
   {
+    key: 'sparkles',
     title: 'Feature with a very long title that exceeds the usual length',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
   },
   {
-    title: 'Feature 2',
+    key: 'rocket',
+    title: 'Feature 3',
     description: 'Description for feature 2.',
   },
   {
-    title: 'Feature 3',
+    key: 'design',
+    title: 'Feature 4',
     description: 'Description for feature 3.',
   },
 ]
 </script>
 
 <style lang="scss" scoped>
-.bottom-content-title-container {
+.footer-content-title-container {
   display: flex;
   justify-content: space-between;
 

@@ -6,6 +6,7 @@ export enum EmptyStateIconVariants {
 }
 
 export interface EmptyStateFeature {
+  key?: string
   title: string
   description: string
 }
@@ -95,19 +96,14 @@ export interface EmptyStateSlots {
   image?(): any
 
   /**
-   * Slot for a secondary message or additional information (e.g. pricing).
-   */
-  'supporting-text'?(): any
-
-  /**
    * Slot for custom icon of the empty state feature card.
    */
-  [key: `feature-${number}-icon`]: () => any | undefined
+  [key: `feature-${string}-icon`]: () => any | undefined
 
   /**
    * Content to be displayed at the bottom of the empty state component, separated by a divider line.
    */
-  bottom?(): any
+  footer?(): any
 }
 
 export type EmptyStateIconVariant = `${EmptyStateIconVariants}`

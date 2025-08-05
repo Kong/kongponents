@@ -128,19 +128,6 @@ describe('KEmptyState', () => {
     cy.get('.empty-state-image').findTestId(imageTestId).should('contain.text', imageSlotContent)
   })
 
-  it('renders content passed through supporting-text slot', () => {
-    const supportingTextContent = 'Supporting Text'
-    const testId = 'slotted-supporting-text'
-
-    cy.mount(KEmptyState, {
-      slots: {
-        'supporting-text': h('span', { 'data-testid': testId }, supportingTextContent),
-      },
-    })
-
-    cy.get('.empty-state-supporting-text').findTestId(testId).should('be.visible').should('contain', supportingTextContent)
-  })
-
   it('renders cards for each feature when features prop is provided', () => {
     const features = [
       { title: 'Feature 1', description: 'Description 1' },
@@ -159,33 +146,31 @@ describe('KEmptyState', () => {
   it('renders content passed through feature-icon slot correctly', () => {
     const featureIconContent = 'Feature Icon Content'
     const feature0IconTestId = 'feature-0-icon-slot'
-    const feature1IconTestId = 'feature-1-icon-slot'
+    const feature0Key = 'foobar'
 
     cy.mount(KEmptyState, {
       props: {
-        features: [{ title: 'Feature', description: 'Description' }],
+        features: [{ key: feature0Key, title: 'Feature', description: 'Description' }],
       },
       slots: {
-        'feature-0-icon': h('div', { 'data-testid': feature0IconTestId }, featureIconContent),
-        'feature-1-icon': h('div', { 'data-testid': feature1IconTestId }, featureIconContent),
+        [`feature-${feature0Key}-icon`]: h('div', { 'data-testid': feature0IconTestId }, featureIconContent),
       },
     })
 
     cy.get('.empty-state-feature-card').findTestId(feature0IconTestId).should('be.visible')
     cy.get('.empty-state-feature-card').findTestId(feature0IconTestId).should('contain.text', featureIconContent)
-    cy.get('.empty-state-feature-card').findTestId(feature1IconTestId).should('not.exist')
   })
 
-  it('renders content passed through bottom slot correctly', () => {
-    const bottomContent = 'Bottom Content'
-    const testId = 'slotted-bottom'
+  it('renders content passed through footer slot correctly', () => {
+    const footerContent = 'Footer Content'
+    const testId = 'slotted-footer'
 
     cy.mount(KEmptyState, {
       slots: {
-        bottom: h('div', { 'data-testid': testId }, bottomContent),
+        footer: h('div', { 'data-testid': testId }, footerContent),
       },
     })
 
-    cy.get('.empty-state-bottom-container').findTestId(testId).should('be.visible').should('contain', bottomContent)
+    cy.get('.empty-state-footer-container').findTestId(testId).should('be.visible').should('contain', footerContent)
   })
 })

@@ -158,57 +158,58 @@
           </template>
         </KEmptyState>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="supportingText & featureIcon">
-        <KEmptyState
-          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
-          title="Empty State With Supporting Text"
-        >
-          <template #supporting-text>
-            Empty state supporting text can be used to provide additional context or information, such as pricing or usage instructions.
-          </template>
-        </KEmptyState>
+      <SandboxSectionComponent title="featureIcon">
         <KEmptyState
           action-button-text="Action"
           :features="features"
-          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
-          title="Empty State With Supporting Text"
+          title="Empty State With Features & Icons"
         >
-          <template #supporting-text>
-            Pricing: your first portal is free, then $300 per portal per month.
+          <template #default>
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh.
+            </div>
+            <div>
+              Pricing: your first portal is free, then $300 per portal per month.
+            </div>
           </template>
-          <template #feature-0-icon>
+
+          <template #feature-wave-icon>
             <WavingHandIcon />
           </template>
-          <template #feature-1-icon>
+          <template #feature-sparkles-icon>
             <SparklesIcon />
           </template>
-          <template #feature-2-icon>
+          <template #feature-rocket-icon>
             <RocketIcon />
           </template>
-          <template #feature-3-icon>
-            <SecurityIcon />
+          <template #feature-design-icon>
+            <DesignIcon />
           </template>
         </KEmptyState>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="bottom">
+      <SandboxSectionComponent title="footer">
         <KEmptyState
           message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
-          title="Empty State With Bottom Content"
+          title="Empty State With Footer Content"
         >
-          <template #bottom>
+          <template #footer>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </template>
         </KEmptyState>
         <KEmptyState
           :features="features"
-          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
-          title="Empty State With Bottom Content"
+          title="Empty State With Footer Content"
         >
           <template #image>
             <img src="https://picsum.photos/640/300">
           </template>
-          <template #supporting-text>
-            Pricing: your first portal is free, then $300 per portal per month.
+          <template #default>
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh.
+            </div>
+            <div>
+              Pricing: your first portal is free, then $300 per portal per month.
+            </div>
           </template>
           <template #action>
             <KButton appearance="secondary">
@@ -218,20 +219,20 @@
               Primary action
             </KButton>
           </template>
-          <template #feature-0-icon>
+          <template #feature-wave-icon>
             <WavingHandIcon />
           </template>
-          <template #feature-1-icon>
+          <template #feature-sparkles-icon>
             <SparklesIcon />
           </template>
-          <template #feature-2-icon>
+          <template #feature-rocket-icon>
             <RocketIcon />
           </template>
-          <template #feature-3-icon>
-            <SecurityIcon />
+          <template #feature-design-icon>
+            <DesignIcon />
           </template>
-          <template #bottom>
-            <div class="bottom-content-title-container">
+          <template #footer>
+            <div class="footer-content-title-container">
               <h2>
                 Get started with the CLI
               </h2>
@@ -240,7 +241,7 @@
               </KExternalLink>
             </div>
             <KCodeBlock
-              id="bottom-content-code-block"
+              id="footer-content-code-block"
               code="{example code here}"
               language="plaintext"
               single-line
@@ -257,25 +258,29 @@
 import { inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { KongIcon, AddCircleIcon, DesignIcon, WavingHandIcon, SparklesIcon, RocketIcon, SecurityIcon } from '@kong/icons'
+import { KongIcon, AddCircleIcon, DesignIcon, WavingHandIcon, SparklesIcon, RocketIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_PRIMARY, KUI_ICON_SIZE_80 } from '@kong/design-tokens'
 import type { EmptyStateFeature } from '@/types'
 
 const features: EmptyStateFeature[] = [
   {
-    title: 'Feature 0',
+    key: 'wave',
+    title: 'Feature 1',
     description: 'Description for feature 0.',
   },
   {
+    key: 'sparkles',
     title: 'Feature with a very long title that exceeds the usual length',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
   },
   {
-    title: 'Feature 2',
+    key: 'rocket',
+    title: 'Feature 3',
     description: 'Description for feature 2.',
   },
   {
-    title: 'Feature 3',
+    key: 'design',
+    title: 'Feature 4',
     description: 'Description for feature 3.',
   },
 ]
@@ -283,7 +288,7 @@ const features: EmptyStateFeature[] = [
 
 <style lang="scss" scoped>
 .kemptystate-sandbox {
-  .bottom-content-title-container {
+  .footer-content-title-container {
     display: flex;
     justify-content: space-between;
 
