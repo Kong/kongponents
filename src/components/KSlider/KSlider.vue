@@ -143,14 +143,27 @@ const inputValue = defineModel({
   type: Number,
 })
 
+// This helps resolve the precision issues with floating point numbers
+const multiplier = computed(() => {
+  const decimalPlaces = Math.max(
+    (String(step).split('.')[1] || '').length,
+    (String(min).split('.')[1] || '').length,
+    (String(max).split('.')[1] || '').length,
+  )
+  return Math.pow(10, decimalPlaces)
+})
+
 const rangeValues = computed((): number[] => {
   if (max <= min || step <= 0) {
     return []
   }
 
   const values = []
-  for (let v = min; v <= max; v += step) {
-    values.push(v)
+  const multipliedMin = min * multiplier.value
+  const multipliedMax = max * multiplier.value
+  const multipliedStep = step * multiplier.value
+  for (let v = multipliedMin; v <= multipliedMax; v += multipliedStep) {
+    values.push(v / multiplier.value)
   }
 
   return values
@@ -215,7 +228,7 @@ watch(() => max, (newMax) => {
 
 watch(() => step, (newStep) => {
   // Ensure step is a positive number and not zero and remainder from division of (max - min) by step is zero
-  if (max > min && (newStep <= 0 || (max - min) % newStep !== 0)) {
+  if (max > min && (newStep <= 0 || ((max * multiplier.value - min * multiplier.value)) % (newStep * multiplier.value) !== 0)) {
     console.warn(`KSlider: step value ${newStep} is invalid.`)
   }
 }, { immediate: true })
@@ -223,7 +236,7 @@ watch(() => step, (newStep) => {
 watch(inputValue, (newValue) => {
   // Ensure inputValue is within the range of min and max
   if (max > min && !isValueWithinRange(newValue)) {
-    console.warn(`KSelect: value ${newValue} is out of range [${rangeValues.value.join(', ')}]. Setting to min value ${min}.`)
+    console.warn(`KSlider: value ${newValue} is out of range [${rangeValues.value.join(', ')}]. Setting to min value ${min}.`)
     inputValue.value = min
   }
 }, { immediate: true })
