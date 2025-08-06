@@ -173,16 +173,16 @@
             </div>
           </template>
 
-          <template #feature-wave-icon>
+          <template #feature-icon-wave>
             <WavingHandIcon />
           </template>
-          <template #feature-sparkles-icon>
+          <template #feature-icon-sparkles>
             <SparklesIcon />
           </template>
-          <template #feature-rocket-icon>
+          <template #feature-icon-rocket>
             <RocketIcon />
           </template>
-          <template #feature-design-icon>
+          <template #feature-icon-design>
             <DesignIcon />
           </template>
         </KEmptyState>
@@ -219,16 +219,16 @@
               Primary action
             </KButton>
           </template>
-          <template #feature-wave-icon>
+          <template #feature-icon-wave>
             <WavingHandIcon />
           </template>
-          <template #feature-sparkles-icon>
+          <template #feature-icon-sparkles>
             <SparklesIcon />
           </template>
-          <template #feature-rocket-icon>
+          <template #feature-icon-rocket>
             <RocketIcon />
           </template>
-          <template #feature-design-icon>
+          <template #feature-icon-design>
             <DesignIcon />
           </template>
           <template #footer>

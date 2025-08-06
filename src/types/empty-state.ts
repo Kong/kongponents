@@ -6,6 +6,7 @@ export enum EmptyStateIconVariants {
 }
 
 export interface EmptyStateFeature {
+  /** Used in feature icon slot name, needs to be unique for each feature */
   key?: string
   title: string
   description: string
@@ -98,7 +99,7 @@ export interface EmptyStateSlots {
   /**
    * Slot for custom icon of the empty state feature card.
    */
-  [key: `feature-${string}-icon`]: () => any | undefined
+  [key: `feature-icon-${string}`]: () => any | undefined
 
   /**
    * Content to be displayed at the bottom of the empty state component, separated by a divider line.

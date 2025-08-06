@@ -202,6 +202,7 @@ If provided, will display card for each feature below the action button, along w
 
 ```ts
 interface EmptyStateFeature {
+  /** Used in feature icon slot name, needs to be unique for each feature */
   key?: string
   title: string
   description: string
@@ -380,23 +381,23 @@ Slot for providing your custom action button.
 
 ### feature-icon
 
-For each feature provided through the [`features` prop](#features), you can pass a custom icon through the `feature-key-icon` slot where `key` is the value of the `key` property in the corrsponding feature object.
+For each feature provided through the [`features` prop](#features), you can pass a custom icon through the `feature-icon-key` slot where `key` is the value of the `key` property in the corrsponding feature object.
 
 <KEmptyState
   :features="features"
   message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
   title="Empty State With Features"
 >
-  <template #feature-wave-icon>
+  <template #feature-icon-wave>
     <WavingHandIcon />
   </template>
-  <template #feature-sparkles-icon>
+  <template #feature-icon-sparkles>
     <SparklesIcon />
   </template>
-  <template #feature-rocket-icon>
+  <template #feature-icon-rocket>
     <RocketIcon />
   </template>
-  <template #feature-design-icon>
+  <template #feature-icon-design>
     <DesignIcon />
   </template>
 </KEmptyState>
@@ -407,16 +408,16 @@ For each feature provided through the [`features` prop](#features), you can pass
   message="Lorem ipsum dolor sit amet..."
   title="Empty State With Features"
 >
-  <template #feature-wave-icon>
+  <template #feature-icon-wave>
     <WavingHandIcon />
   </template>
-  <template #feature-sparkles-icon>
+  <template #feature-icon-sparkles>
     <SparklesIcon />
   </template>
-  <template #feature-rocket-icon>
+  <template #feature-icon-rocket>
     <RocketIcon />
   </template>
-  <template #feature-design-icon>
+  <template #feature-icon-design>
     <DesignIcon />
   </template>
 </KEmptyState>

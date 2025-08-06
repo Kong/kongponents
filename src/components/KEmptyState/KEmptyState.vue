@@ -57,17 +57,17 @@
       class="empty-state-features-container"
     >
       <template
-        v-for="feature in features"
-        :key="feature"
+        v-for="(feature, idx) in features"
+        :key="`feature-${componentId}-${feature.key || idx}`"
       >
         <KCard class="empty-state-feature-card">
           <template #title>
             <div
-              v-if="feature.key && $slots[`feature-${feature.key}-icon`]"
+              v-if="feature.key && $slots[`feature-icon-${feature.key}`]"
               aria-hidden="true"
               class="feature-icon"
             >
-              <slot :name="`feature-${feature.key}-icon`" />
+              <slot :name="`feature-icon-${feature.key}`" />
             </div>
 
             <div class="card-header">
@@ -91,7 +91,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, useId } from 'vue'
 import { AnalyticsIcon, WarningIcon, SearchIcon, KongIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_DECORATIVE_AQUA, KUI_COLOR_TEXT_NEUTRAL, KUI_COLOR_TEXT_WARNING, KUI_ICON_SIZE_60 } from '@kong/design-tokens'
 import KButton from '@/components/KButton/KButton.vue'
@@ -115,6 +115,8 @@ const {
 const emit = defineEmits<EmptyStateEmits>()
 
 const slots = defineSlots<EmptyStateSlots>()
+
+const componentId = useId()
 
 const getEmptyStateIcon = computed((): EmptyStateIcon => {
   switch (iconVariant) {
