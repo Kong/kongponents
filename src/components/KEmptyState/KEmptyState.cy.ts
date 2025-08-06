@@ -153,7 +153,7 @@ describe('KEmptyState', () => {
         features: [{ key: feature0Key, title: 'Feature', description: 'Description' }],
       },
       slots: {
-        [`feature-${feature0Key}-icon`]: h('div', { 'data-testid': feature0IconTestId }, featureIconContent),
+        [`feature-icon-${feature0Key}`]: h('div', { 'data-testid': feature0IconTestId }, featureIconContent),
       },
     })
 
