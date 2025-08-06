@@ -1,3 +1,10 @@
+## [9.36.12](https://github.com/Kong/kongponents/compare/v9.36.11...v9.36.12) (2025-08-06)
+
+
+### Bug Fixes
+
+* **kselect:** hide caret in readonly [KHCP-17489] ([#2851](https://github.com/Kong/kongponents/issues/2851)) ([501e61e](https://github.com/Kong/kongponents/commit/501e61e96bd2382bf92f350326959f12468c90a8))
+
 ## [9.36.11](https://github.com/Kong/kongponents/compare/v9.36.10...v9.36.11) (2025-08-06)
 
 
