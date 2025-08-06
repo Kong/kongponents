@@ -13,7 +13,7 @@
       :placement="popoverPlacement"
       width="auto"
       @close="onClosePopover"
-      @open="state.popoverOpen = true"
+      @open="onOpenPopover"
     >
       <div
         class="datetime-picker-trigger-wrapper"
@@ -432,6 +432,13 @@ const onClosePopover = (): void => {
   state.popoverOpen = false
   if (calendarWrapperRef.value) {
     calendarWrapperRef.value.resetTime()
+  }
+}
+
+const onOpenPopover = (): void => {
+  state.popoverOpen = true
+  if (calendarWrapperRef.value) {
+    calendarWrapperRef.value.initTimeInputs()
   }
 }
 </script>

@@ -367,8 +367,11 @@ describe('KDateTimePicker', () => {
 
     cy.getTestId(timepickerInput).click()
     cy.getTestId('time-input-start').should('have.value', '00:00').then(() => {
-      modelValue.value = newDate
-      cy.getTestId('time-input-start').should('have.value', '01:00')
+      cy.getTestId(timepickerInput).click().then(() => {
+        modelValue.value = newDate
+        cy.getTestId(timepickerInput).click()
+        cy.getTestId('time-input-start').should('have.value', '01:00')
+      })
     })
   })
 

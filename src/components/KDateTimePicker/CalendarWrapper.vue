@@ -112,7 +112,7 @@ const isInvalidRange = (start: Date, end: Date): boolean => {
   return start > end
 }
 
-onMounted(() => {
+const initTimeInputs = () => {
   if (calendarVModel.value && showTime.value) {
     if (props.isRange && (calendarVModel.value as DatePickerRangeObject).start && (calendarVModel.value as DatePickerRangeObject).end) {
       const dateRange = calendarVModel.value as DatePickerRangeObject
@@ -123,11 +123,14 @@ onMounted(() => {
     } else {
       startTimeValue.value = format(new Date(), 'HH:mm')
     }
-
-    // Keep track of original time values in case time picker is cancelled
-    originalTimeValues.value.start = startTimeValue.value
-    originalTimeValues.value.end = endTimeValue.value
   }
+}
+
+onMounted(() => {
+  initTimeInputs()
+  // Keep track of original time values in case time picker is cancelled
+  originalTimeValues.value.start = startTimeValue.value
+  originalTimeValues.value.end = endTimeValue.value
 })
 
 const modelConfig = { type: 'number' }
@@ -199,6 +202,7 @@ const resetTime = () => {
 
 defineExpose({
   resetTime,
+  initTimeInputs,
 })
 
 </script>
