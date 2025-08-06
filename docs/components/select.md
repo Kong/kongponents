@@ -313,15 +313,15 @@ const selectItems: SelectItem[] = [{
   env: 'prod',
 }]
 
-const envFilter = (params: SelectFilterFunctionParams) => 
-  params?.items?.filter((item: SelectItem) => 
+const envFilter = (params: SelectFilterFunctionParams) =>
+  params?.items?.filter((item: SelectItem) =>
   item.label?.toLowerCase().includes(params.query?.toLowerCase())
     || item.env?.includes(params.query?.toLowerCase()))
 </script>
 ```
 
 :::tip TIP
-Should you need to disable the default filter function while still allowing filtering (for example when you want to handle filtering asynchronously by querying an API), you can provide a function that always returns boolean `true` to this prop, like so: 
+Should you need to disable the default filter function while still allowing filtering (for example when you want to handle filtering asynchronously by querying an API), you can provide a function that always returns boolean `true` to this prop, like so:
 
 ```html
 <KSelect
@@ -447,7 +447,7 @@ const onQueryChange = (query: string): void => {
 
 ### loading
 
-Pass `true` to display loader instead of items in the dropdown. KSelect's `item` prop is reactive to changes by design, so that should you need to perform async item fetching/filtering you can execute that logic within the host app and pass items back to KSelect. 
+Pass `true` to display loader instead of items in the dropdown. KSelect's `item` prop is reactive to changes by design, so that should you need to perform async item fetching/filtering you can execute that logic within the host app and pass items back to KSelect.
 
 The example below utilizes the [`@query-change` event](#query-change) to simulate async item fetching behind the scenes.
 
@@ -562,6 +562,26 @@ Use this attribute to disable interaction with the element.
 <KSelect
   label="Disabled"
   disabled
+  :items="selectItems"
+/>
+```
+
+#### readonly
+
+Use the `readonly` attribute to indicate the element is not editable.
+
+<ClientOnly>
+  <KSelect
+    label="Readonly"
+    readonly
+    :items="selectItems"
+  />
+</ClientOnly>
+
+```html
+<KSelect
+  label="Readonly"
+  readonly
   :items="selectItems"
 />
 ```
