@@ -1,3 +1,10 @@
+## [9.37.1](https://github.com/Kong/kongponents/compare/v9.37.0...v9.37.1) (2025-08-06)
+
+
+### Bug Fixes
+
+* **kselect:** adjust width when readonly ([#2852](https://github.com/Kong/kongponents/issues/2852)) ([e1a20f6](https://github.com/Kong/kongponents/commit/e1a20f642442704e4f33261ff2e73790a7164778))
+
 # [9.37.0](https://github.com/Kong/kongponents/compare/v9.36.13...v9.37.0) (2025-08-06)
 
 
