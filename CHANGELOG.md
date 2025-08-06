@@ -1,3 +1,10 @@
+## [9.36.13](https://github.com/Kong/kongponents/compare/v9.36.12...v9.36.13) (2025-08-06)
+
+
+### Bug Fixes
+
+* reset time picker values if date picker is "cancelled" ([#2850](https://github.com/Kong/kongponents/issues/2850)) ([fa7f455](https://github.com/Kong/kongponents/commit/fa7f455e8960190f090c8c564139fa93e6a721f6))
+
 ## [9.36.12](https://github.com/Kong/kongponents/compare/v9.36.11...v9.36.12) (2025-08-06)
 
 
