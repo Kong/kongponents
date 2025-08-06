@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.36.9",
+  "version": "9.36.11",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -116,10 +116,10 @@
     "semantic-release": "^24.2.7",
     "shiki": "^3.1.0",
     "shx": "^0.4.0",
-    "stylelint": "^16.9.0",
+    "stylelint": "^16.22.0",
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-recommended-scss": "^14.1.0",
-    "stylelint-config-recommended-vue": "^1.5.0",
+    "stylelint-config-recommended-vue": "^1.6.1",
     "stylelint-order": "^7.0.0",
     "tsc-alias": "^1.8.16",
     "typescript": "^5.6.3",

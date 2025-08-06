@@ -1,3 +1,17 @@
+## [9.36.11](https://github.com/Kong/kongponents/compare/v9.36.10...v9.36.11) (2025-08-06)
+
+
+### Bug Fixes
+
+* **kslider:** floating point rounding error ([#2848](https://github.com/Kong/kongponents/issues/2848)) ([c13e3d3](https://github.com/Kong/kongponents/commit/c13e3d300e79e46a35d8654a5885b9bf832aeee7))
+
+## [9.36.10](https://github.com/Kong/kongponents/compare/v9.36.9...v9.36.10) (2025-08-05)
+
+
+### Bug Fixes
+
+* **deps:** update all [@kong](https://github.com/kong) scoped dependencies ([#2845](https://github.com/Kong/kongponents/issues/2845)) ([59f07d7](https://github.com/Kong/kongponents/commit/59f07d78207c3f70fdcd583f22eabfa682e4ad86))
+
 ## [9.36.9](https://github.com/Kong/kongponents/compare/v9.36.8...v9.36.9) (2025-07-29)
 
 
