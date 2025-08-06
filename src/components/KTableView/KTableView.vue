@@ -127,7 +127,10 @@
         >
           <thead
             v-if="!hideHeaders"
-            :class="{ 'is-scrolled': isScrolledVertically }"
+            :class="{
+              'is-scrolled': isScrolledVertically,
+              'overlay': isSomeRowActionsDropdownOpen,
+            }"
           >
             <tr
               ref="header-row"
@@ -957,6 +960,11 @@ const showResizeHandle = (column: TableViewHeader<ColumnKey>, previous: boolean 
   return !isSpecialColumn(column.key) && !isSpecialColumn(nextColumn.key)
 }
 
+/**
+ * When any row actions dropdown is open, we need to bump the z-index on the table headers
+ * so that the headers appear above the cell with the open dropdown which has a z-index of 2.
+ */
+const isSomeRowActionsDropdownOpen = ref<boolean>(false)
 const onRowActionsToggle = (row: Row, state: boolean, cellHelperData: any): void => {
   emit('row-actions-toggle', { row, open: state })
 
@@ -968,6 +976,7 @@ const onRowActionsToggle = (row: Row, state: boolean, cellHelperData: any): void
    */
   const rowActionsZIndexResetTimeout = state ? 0 : 100
   setTimeout(() => {
+    isSomeRowActionsDropdownOpen.value = state
     cellHelperData.isRowActionsDropdownOpen = state
   }, rowActionsZIndexResetTimeout)
 }

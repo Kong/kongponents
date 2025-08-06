@@ -79,10 +79,14 @@
           height: 44px;
           position: sticky;
           top: 0;
-          z-index: 3;
+          z-index: 2;
 
           &.is-scrolled {
             background-color: var(--kui-color-background, $kui-color-background);
+          }
+
+          &.overlay {
+            z-index: 3; // bump the z-index so that the headers appear above the cell with the open dropdown
           }
 
           tr {
