@@ -1,3 +1,10 @@
+# [9.37.0](https://github.com/Kong/kongponents/compare/v9.36.13...v9.37.0) (2025-08-06)
+
+
+### Features
+
+* **kbadge:** add small size ([#2837](https://github.com/Kong/kongponents/issues/2837)) ([23ed035](https://github.com/Kong/kongponents/commit/23ed035340f09be8fdb700b4c030b06626ddf2d3))
+
 ## [9.36.13](https://github.com/Kong/kongponents/compare/v9.36.12...v9.36.13) (2025-08-06)
 
 
