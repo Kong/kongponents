@@ -12,8 +12,8 @@
       hide-close-icon
       :placement="popoverPlacement"
       width="auto"
-      @close="state.popoverOpen = false"
-      @open="state.popoverOpen = true"
+      @close="onClosePopover"
+      @open="onOpenPopover"
     >
       <div
         class="datetime-picker-trigger-wrapper"
@@ -66,6 +66,7 @@
         <CalendarWrapper
           v-if="hasCalendar && showCalendar"
           :key="calendarRemountKey"
+          ref="calendarWrapperRef"
           v-model="calendarVModel"
           v-model:error="hasCalendarError"
           :error-message="invalidTimeErrorMessage"
@@ -130,7 +131,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, reactive, ref, watch, type CSSProperties } from 'vue'
+import { computed, reactive, ref, useTemplateRef, watch, type CSSProperties } from 'vue'
 import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 import KButton from '@/components/KButton/KButton.vue'
@@ -191,6 +192,7 @@ const calendarVModel = isSingleDatepicker.value
   ? calendarSingleDate as DatePickerModel
   : calendarRange as DatePickerModel
 
+const calendarWrapperRef = useTemplateRef('calendarWrapperRef')
 
 const widthStyle = computed((): CSSProperties => {
   return {
@@ -425,6 +427,20 @@ watch(() => modelValue, () => {
   }
   calendarRemountKey.value++
 }, { immediate: true })
+
+const onClosePopover = (): void => {
+  state.popoverOpen = false
+  if (calendarWrapperRef.value) {
+    calendarWrapperRef.value.resetTime()
+  }
+}
+
+const onOpenPopover = (): void => {
+  state.popoverOpen = true
+  if (calendarWrapperRef.value) {
+    calendarWrapperRef.value.initTimeInputs()
+  }
+}
 </script>
 
 <style lang="scss" scoped>
