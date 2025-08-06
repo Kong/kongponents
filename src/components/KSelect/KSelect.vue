@@ -82,6 +82,7 @@
                 <CloseIcon decorative />
               </button>
               <ChevronDownIcon
+                v-if="!isReadonly"
                 class="chevron-down-icon"
                 :class="{ 'disabled': isDisabled }"
                 decorative
