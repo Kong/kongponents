@@ -1,3 +1,10 @@
+## [9.37.2](https://github.com/Kong/kongponents/compare/v9.37.1...v9.37.2) (2025-08-07)
+
+
+### Bug Fixes
+
+* **ktableview:** fix header z-index issue ([#2849](https://github.com/Kong/kongponents/issues/2849)) ([1bc2e1b](https://github.com/Kong/kongponents/commit/1bc2e1ba6acc65e2dfc941dd01ebd72959e93e3d))
+
 ## [9.37.1](https://github.com/Kong/kongponents/compare/v9.37.0...v9.37.1) (2025-08-06)
 
 
