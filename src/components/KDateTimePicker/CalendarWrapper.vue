@@ -98,6 +98,10 @@ const calendarVModel = defineModel<DatePickerModel>({ required: true })
 const hasError = defineModel<boolean>('error', { default: false })
 const startTimeValue = ref<string>(format(new Date(), 'HH:mm:ss'))
 const endTimeValue = ref<string>(format(new Date(), 'HH:mm:ss'))
+const originalTimeValues = ref<{ start: string, end: string }>({
+  start: format(new Date(), 'HH:mm:ss'),
+  end: format(new Date(), 'HH:mm:ss'),
+})
 const componentId = useId()
 
 const showTime = computed(() => {
@@ -108,7 +112,7 @@ const isInvalidRange = (start: Date, end: Date): boolean => {
   return start > end
 }
 
-onMounted(() => {
+const initTimeInputs = () => {
   if (calendarVModel.value && showTime.value) {
     if (props.isRange && (calendarVModel.value as DatePickerRangeObject).start && (calendarVModel.value as DatePickerRangeObject).end) {
       const dateRange = calendarVModel.value as DatePickerRangeObject
@@ -120,6 +124,13 @@ onMounted(() => {
       startTimeValue.value = format(new Date(), 'HH:mm')
     }
   }
+}
+
+onMounted(() => {
+  initTimeInputs()
+  // Keep track of original time values in case time picker is cancelled
+  originalTimeValues.value.start = startTimeValue.value
+  originalTimeValues.value.end = endTimeValue.value
 })
 
 const modelConfig = { type: 'number' }
@@ -183,6 +194,16 @@ const showRange = (rangeType: 'start' | 'end') => {
   const value = calendarVModel.value as { start: Date, end: Date }
   return props.isRange && value && rangeType in value && value[rangeType] instanceof Date
 }
+
+const resetTime = () => {
+  startTimeValue.value = originalTimeValues.value.start
+  endTimeValue.value = originalTimeValues.value.end
+}
+
+defineExpose({
+  resetTime,
+  initTimeInputs,
+})
 
 </script>
 

@@ -1,3 +1,38 @@
+## [9.37.2](https://github.com/Kong/kongponents/compare/v9.37.1...v9.37.2) (2025-08-07)
+
+
+### Bug Fixes
+
+* **ktableview:** fix header z-index issue ([#2849](https://github.com/Kong/kongponents/issues/2849)) ([1bc2e1b](https://github.com/Kong/kongponents/commit/1bc2e1ba6acc65e2dfc941dd01ebd72959e93e3d))
+
+## [9.37.1](https://github.com/Kong/kongponents/compare/v9.37.0...v9.37.1) (2025-08-06)
+
+
+### Bug Fixes
+
+* **kselect:** adjust width when readonly ([#2852](https://github.com/Kong/kongponents/issues/2852)) ([e1a20f6](https://github.com/Kong/kongponents/commit/e1a20f642442704e4f33261ff2e73790a7164778))
+
+# [9.37.0](https://github.com/Kong/kongponents/compare/v9.36.13...v9.37.0) (2025-08-06)
+
+
+### Features
+
+* **kbadge:** add small size ([#2837](https://github.com/Kong/kongponents/issues/2837)) ([23ed035](https://github.com/Kong/kongponents/commit/23ed035340f09be8fdb700b4c030b06626ddf2d3))
+
+## [9.36.13](https://github.com/Kong/kongponents/compare/v9.36.12...v9.36.13) (2025-08-06)
+
+
+### Bug Fixes
+
+* reset time picker values if date picker is "cancelled" ([#2850](https://github.com/Kong/kongponents/issues/2850)) ([fa7f455](https://github.com/Kong/kongponents/commit/fa7f455e8960190f090c8c564139fa93e6a721f6))
+
+## [9.36.12](https://github.com/Kong/kongponents/compare/v9.36.11...v9.36.12) (2025-08-06)
+
+
+### Bug Fixes
+
+* **kselect:** hide caret in readonly [KHCP-17489] ([#2851](https://github.com/Kong/kongponents/issues/2851)) ([501e61e](https://github.com/Kong/kongponents/commit/501e61e96bd2382bf92f350326959f12468c90a8))
+
 ## [9.36.11](https://github.com/Kong/kongponents/compare/v9.36.10...v9.36.11) (2025-08-06)
 
 

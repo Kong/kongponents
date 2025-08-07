@@ -367,11 +367,44 @@ describe('KDateTimePicker', () => {
 
     cy.getTestId(timepickerInput).click()
     cy.getTestId('time-input-start').should('have.value', '00:00').then(() => {
-
-      modelValue.value = newDate
-
-      cy.getTestId(timepickerInput).click()
-      cy.getTestId('time-input-start').should('have.value', '01:00')
+      cy.getTestId(timepickerInput).click().then(() => {
+        modelValue.value = newDate
+        cy.getTestId(timepickerInput).click()
+        cy.getTestId('time-input-start').should('have.value', '01:00')
+      })
     })
+  })
+
+  it('resets time to original values when popover is closed without applying changes', () => {
+    const modelValue = ref({
+      start: new Date('2025-01-01T00:00:00'),
+      end: new Date('2025-01-01T00:00:00'),
+      timePeriodsKey: '',
+    })
+
+    cy.mount(KDateTimePicker, {
+      props: {
+        mode: 'dateTime',
+        modelValue: modelValue,
+        range: true,
+      },
+    })
+
+    // Open the picker, change the time values, then close the popover without applying
+    cy.getTestId(timepickerInput).click()
+    cy.getTestId('time-input-start').should('have.value', '00:00')
+    cy.getTestId('time-input-end').should('have.value', '00:00')
+
+    cy.getTestId('time-input-end').type('01:00', { force: true })
+
+    cy.getTestId('time-input-end').should('have.value', '01:00')
+
+    // Close the popover without applying
+    cy.getTestId(timepickerInput).click()
+
+    // Reopen the popover, and check that time values are reset to original
+    cy.getTestId(timepickerInput).click()
+    cy.getTestId('time-input-start').should('have.value', '00:00')
+    cy.getTestId('time-input-end').should('have.value', '00:00')
   })
 })

@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-badge"
-    :class="[appearance, { method: isMethodBadge }]"
+    :class="[appearance, size, { method: isMethodBadge }]"
   >
     <KTooltip
       :text="showTooltip ? tooltip : undefined"
@@ -37,6 +37,7 @@ import type { BadgeProps, BadgeSlots } from '@/types'
 
 const {
   appearance = 'info',
+  size = 'medium',
   tooltip = '',
   truncationTooltip = false,
   maxWidth = '200px',
@@ -132,6 +133,15 @@ $kBadgeMethodWidth: 85px;
     &[disabled] {
       color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
       pointer-events: none;
+    }
+  }
+
+  &.small {
+    padding: var(--kui-space-10, $kui-space-10);
+
+    :deep(#{$kongponentsKongIconSelector}) {
+      height: var(--kui-icon-size-20, $kui-icon-size-20) !important;
+      width: var(--kui-icon-size-20, $kui-icon-size-20) !important;
     }
   }
 

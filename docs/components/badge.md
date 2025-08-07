@@ -105,6 +105,20 @@ Passing one of the methods appearances will apply `text-transform: uppercase` an
 <KBadge appearance="trace">Trace</KBadge>
 ```
 
+### size
+
+KBadge comes in `small` and `medium` sizes. Defaults to `medium`.
+
+<div class="spacing-container">
+  <KBadge size="medium">Medium</KBadge>
+  <KBadge size="small">Small</KBadge>
+</div>
+
+```html
+<KBadge size="medium">Medium</KBadge>
+<KBadge size="small">Small</KBadge>
+```
+
 ### tooltip
 
 Provide a `string` of tooltip text that will be shown on badge hover.

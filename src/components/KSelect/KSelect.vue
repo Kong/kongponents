@@ -82,6 +82,7 @@
                 <CloseIcon decorative />
               </button>
               <ChevronDownIcon
+                v-if="!isReadonly"
                 class="chevron-down-icon"
                 :class="{ 'disabled': isDisabled }"
                 decorative
@@ -98,7 +99,7 @@
             <div
               v-if="hasCustomSelectedItem && (!enableFiltering || !isToggled.value)"
               class="custom-selected-item-wrapper"
-              :class="{ 'clearable': clearable }"
+              :class="{ 'clearable': clearable, 'readonly': isReadonly }"
             >
               <slot
                 :item="selectedItem!"
@@ -717,6 +718,11 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     pointer-events: none;
     position: absolute;
     white-space: nowrap;
+
+    &.readonly {
+      // accommodate for **no** caret
+      max-width: calc(v-bind('actualElementWidth') - $kSelectInputPaddingX - ($kSelectInputSlotSpacing * 2));
+    }
 
     :deep(#{$kongponentsKongIconSelector}) {
       // make sure the icon doesn't shrink when text is too long

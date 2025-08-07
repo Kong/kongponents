@@ -21,7 +21,8 @@ describe('KSelect', () => {
       },
     })
 
-    cy.getTestId('select-input').trigger('click')
+    cy.get('.chevron-down-icon').should('be.visible')
+    cy.getTestId('select-input').should('be.visible').trigger('click')
 
     cy.get('.select-popover').should('be.visible')
     cy.getTestId(`select-item-${vals[0]}`).should('contain.text', labels[0])
@@ -633,5 +634,19 @@ describe('KSelect', () => {
       .then(() => {
         cy.get('@onSubmit').should('not.have.been.called')
       })
+  })
+
+  it('handles readonly state correctly', () => {
+    cy.mount(KSelect, {
+      props: {
+        items: [{ label: 'Label 1', value: 'val1' }],
+        readonly: true,
+      },
+    })
+
+    cy.get('.select-input input').should('have.attr', 'readonly')
+    cy.get('.chevron-down-icon').should('not.exist')
+    cy.getTestId('select-input').trigger('click')
+    cy.get('.select-popover').should('not.be.visible')
   })
 })
