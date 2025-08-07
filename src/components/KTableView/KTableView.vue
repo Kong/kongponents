@@ -129,7 +129,7 @@
             v-if="!hideHeaders"
             :class="{
               'is-scrolled': isScrolledVertically,
-              'overlay': isSomeRowActionsDropdownOpen,
+              'overlay': isScrolledVertically && isSomeRowActionsDropdownOpen,
             }"
           >
             <tr
