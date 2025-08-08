@@ -174,6 +174,76 @@ Accepted values:
 />
 ```
 
+### iconBackground
+
+When set to `true`, the icon is rendered in a rectangular container with a decorative background. Default value is `false`.
+
+<KEmptyState
+  icon-background
+  icon-variant="kong"
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State Decorative Icon"
+/>
+
+```html
+<KEmptyState
+  icon-background
+  icon-variant="kong"
+  action-button-text="Action"
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State Decorative Icon"
+/>
+```
+
+### features
+
+If provided, will display card for each feature below the action button, along with an icon slot, a title and a short description. You can also use [`feature-icon` slot](#feature-icon) to display an icon in each feature card. Expects an array of objects of type `EmptyStateFeature`:
+
+```ts
+interface EmptyStateFeature {
+  /** Used in feature icon slot name, needs to be unique for each feature */
+  key?: string
+  title: string
+  description: string
+}
+```
+
+<KEmptyState
+  :features="features"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State With Features"
+/>
+
+```html
+<KEmptyState
+  :features="[
+    {
+      key: 'wave',
+      title: 'Feature 1',
+      description: 'Description for feature 0.',
+    },
+    {
+      key: 'sparkles',
+      title: 'Feature with a very long title that exceeds the usual length',
+      description: 'Lorem ipsum dolor sit amet...',
+    },
+    {
+      key: 'rocket',
+      title: 'Feature 3',
+      description: 'Description for feature 2.',
+    },
+    {
+      key: 'design',
+      title: 'Feature 4',
+      description: 'Description for feature 3.',
+    },
+  ]"
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State With Features"
+/>
+```
+
 ## Slots
 
 ### default
@@ -249,6 +319,34 @@ Slot for providing custom icon.
 </KEmptyState>
 ```
 
+### image
+
+Instead of an icon, you can provide a custom image through the `image` slot.
+
+<KEmptyState
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State With Image"
+>
+  <template #image>
+    <img src="https://picsum.photos/640/300">
+  </template>
+</KEmptyState>
+
+```html
+<KEmptyState
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State With Image"
+>
+  <template #image>
+    <img src="https://picsum.photos/640/300">
+  </template>
+</KEmptyState>
+```
+
+:::tip NOTE
+Please note that content passed through `image` slot takes presedence over KEmptyState icon, which means values passed through `iconVariant` and `iconBackground` props and content passed through `icon` slot will be ignored.
+:::
+
 ### action
 
 Slot for providing your custom action button.
@@ -281,8 +379,99 @@ Slot for providing your custom action button.
 </KEmptyState>
 ```
 
-## Events
+### feature-icon
 
+For each feature provided through the [`features` prop](#features), you can pass a custom icon through the `feature-icon-key` slot where `key` is the value of the `key` property in the corrsponding feature object.
+
+<KEmptyState
+  :features="features"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State With Features"
+>
+  <template #feature-icon-wave>
+    <WavingHandIcon />
+  </template>
+  <template #feature-icon-sparkles>
+    <SparklesIcon />
+  </template>
+  <template #feature-icon-rocket>
+    <RocketIcon />
+  </template>
+  <template #feature-icon-design>
+    <DesignIcon />
+  </template>
+</KEmptyState>
+
+```html
+<KEmptyState
+  :features="features"
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State With Features"
+>
+  <template #feature-icon-wave>
+    <WavingHandIcon />
+  </template>
+  <template #feature-icon-sparkles>
+    <SparklesIcon />
+  </template>
+  <template #feature-icon-rocket>
+    <RocketIcon />
+  </template>
+  <template #feature-icon-design>
+    <DesignIcon />
+  </template>
+</KEmptyState>
+```
+
+### footer
+
+Content to be displayed at the bottom of the empty state component, separated by a divider line.
+
+<KEmptyState
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State With Footer Content"
+>
+  <template #footer>
+    <div class="footer-content-title-container">
+      <span>
+        Get started with the CLI
+      </span>
+      <KExternalLink href="https://kongponents.konghq.com/">
+        Read the docs
+      </KExternalLink>
+    </div>
+    <KCodeBlock
+      id="footer-content-code-block"
+      code="{example code here}"
+      language="plaintext"
+      single-line
+      theme="dark"
+    />
+  </template>
+</KEmptyState>
+
+```html
+<KEmptyState
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State With Footer Content"
+>
+  <template #footer>
+    <div>
+      <span>
+        Get started with the CLI
+      </span>
+      <KExternalLink ...>
+        Read the docs
+      </KExternalLink>
+    </div>
+    <KCodeBlock
+      ...
+    />
+  </template>
+</KEmptyState>
+```
+
+## Events
 
 ### click-action
 
@@ -313,9 +502,48 @@ const onActionClick = (): void => {
 ```
 
 <script setup lang="ts">
-import { KongIcon, AddCircleIcon } from '@kong/icons'
+import { KongIcon, AddCircleIcon, WavingHandIcon, SparklesIcon, RocketIcon, DesignIcon } from '@kong/icons'
+import type { EmptyStateFeature } from '@/types'
 
 const onActionClick = (): void => {
   alert('Action button clicked!')
 }
+
+const features: EmptyStateFeature[] = [
+  {
+    key: 'wave',
+    title: 'Feature 1',
+    description: 'Description for feature 0.',
+  },
+  {
+    key: 'sparkles',
+    title: 'Feature with a very long title that exceeds the usual length',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  },
+  {
+    key: 'rocket',
+    title: 'Feature 3',
+    description: 'Description for feature 2.',
+  },
+  {
+    key: 'design',
+    title: 'Feature 4',
+    description: 'Description for feature 3.',
+  },
+]
 </script>
+
+<style lang="scss" scoped>
+.footer-content-title-container {
+  display: flex;
+  justify-content: space-between;
+
+  > span {
+    color: $kui-color-text;
+    font-size: $kui-font-size-50;
+    font-weight: $kui-font-weight-semibold;
+    line-height: $kui-line-height-50;
+    margin: $kui-space-0;
+  }
+}
+</style>

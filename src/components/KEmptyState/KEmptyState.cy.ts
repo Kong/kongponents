@@ -112,4 +112,65 @@ describe('KEmptyState', () => {
       cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'click-action')
     })
   })
+
+  it('renders content passed through image slot instead of the default icon', () => {
+    const imageSlotContent = 'image slot content'
+    const imageTestId = 'slotted-image'
+
+    cy.mount(KEmptyState, {
+      slots: {
+        image: h('div', { 'data-testid': imageTestId }, imageSlotContent),
+      },
+    })
+
+    cy.get('.empty-state-icon').should('not.exist')
+    cy.get('.empty-state-image').findTestId(imageTestId).should('be.visible')
+    cy.get('.empty-state-image').findTestId(imageTestId).should('contain.text', imageSlotContent)
+  })
+
+  it('renders cards for each feature when features prop is provided', () => {
+    const features = [
+      { title: 'Feature 1', description: 'Description 1' },
+      { title: 'Feature 2', description: 'Description 2' },
+    ]
+
+    cy.mount(KEmptyState, {
+      props: {
+        features,
+      },
+    })
+
+    cy.get('.empty-state-feature-card').should('have.length', features.length)
+  })
+
+  it('renders content passed through feature-icon slot correctly', () => {
+    const featureIconContent = 'Feature Icon Content'
+    const feature0IconTestId = 'feature-0-icon-slot'
+    const feature0Key = 'foobar'
+
+    cy.mount(KEmptyState, {
+      props: {
+        features: [{ key: feature0Key, title: 'Feature', description: 'Description' }],
+      },
+      slots: {
+        [`feature-icon-${feature0Key}`]: h('div', { 'data-testid': feature0IconTestId }, featureIconContent),
+      },
+    })
+
+    cy.get('.empty-state-feature-card').findTestId(feature0IconTestId).should('be.visible')
+    cy.get('.empty-state-feature-card').findTestId(feature0IconTestId).should('contain.text', featureIconContent)
+  })
+
+  it('renders content passed through footer slot correctly', () => {
+    const footerContent = 'Footer Content'
+    const testId = 'slotted-footer'
+
+    cy.mount(KEmptyState, {
+      slots: {
+        footer: h('div', { 'data-testid': testId }, footerContent),
+      },
+    })
+
+    cy.get('.empty-state-footer-container').findTestId(testId).should('be.visible').should('contain', footerContent)
+  })
 })
