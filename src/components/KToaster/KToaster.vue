@@ -114,7 +114,7 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
 
     .toaster-icon-container {
       align-items: center;
-      background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak); // info appearance as default in case of invalid appearance
+      background-color: var(--kui-color-background-info-weak, $kui-color-background-info-weak); // info appearance as default in case of invalid appearance
       border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
       display: flex;
       height: 32px;
@@ -166,7 +166,7 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
 
     &.info {
       .toaster-icon-container {
-        background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
+        background-color: var(--kui-color-background-info-weak, $kui-color-background-info-weak);
       }
     }
 
