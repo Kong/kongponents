@@ -84,10 +84,10 @@ const getAlertIcon = computed((): AlertIcon => {
 /* Component mixins */
 
 @mixin kAlertAppearance(
-  $backgroundColor: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest),
-  $textColor: var(--kui-color-text-primary, $kui-color-text-primary),
-  $hoverColor: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong),
-  $codeBackgroundColor: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker)) {
+  $backgroundColor: var(--kui-color-background-info-weakest, $kui-color-background-info-weakest),
+  $textColor: var(--kui-color-text-info, $kui-color-text-info),
+  $hoverColor: var(--kui-color-text-info-strong, $kui-color-text-info-strong),
+  $codeBackgroundColor: var(--kui-color-background-info-weaker, $kui-color-background-info-weaker)) {
   background-color: $backgroundColor;
   color: $textColor;
 

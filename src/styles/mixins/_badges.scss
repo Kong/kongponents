@@ -22,9 +22,9 @@
 
 // uses info badge appearance colors as default
 @mixin badgeAppearance(
-  $bgColor: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest),
-  $textColor: var(--kui-color-text-primary, $kui-color-text-primary),
-  $hoverColor: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong)
+  $bgColor: var(--kui-color-background-info-weakest, $kui-color-background-info-weakest),
+  $textColor: var(--kui-color-text-info, $kui-color-text-info),
+  $hoverColor: var(--kui-color-text-info-strong, $kui-color-text-info-strong)
 ) {
   background-color: $bgColor;
   color: $textColor;
