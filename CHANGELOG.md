@@ -1,3 +1,10 @@
+## [9.38.1](https://github.com/Kong/kongponents/compare/v9.38.0...v9.38.1) (2025-08-11)
+
+
+### Bug Fixes
+
+* **kalert, kbadge, ktoaster:** info appearance tokens [KHCP-17541] ([#2858](https://github.com/Kong/kongponents/issues/2858)) ([cff31e7](https://github.com/Kong/kongponents/commit/cff31e78c2901ca66c67b203301ae61a7047d4e2))
+
 # [9.38.0](https://github.com/Kong/kongponents/compare/v9.37.2...v9.38.0) (2025-08-11)
 
 
