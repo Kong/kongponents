@@ -1,3 +1,15 @@
+# [9.38.0](https://github.com/Kong/kongponents/compare/v9.37.2...v9.38.0) (2025-08-11)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies with stable version ([#2853](https://github.com/Kong/kongponents/issues/2853)) ([41f8f7d](https://github.com/Kong/kongponents/commit/41f8f7d476e10b0a7a7e067d6e8bb2c70cc3e2a4))
+
+
+### Features
+
+* **kemptystate:** add new props and slots [KHCP-17264] ([#2844](https://github.com/Kong/kongponents/issues/2844)) ([19795c9](https://github.com/Kong/kongponents/commit/19795c963bd76a298df8b5fe02e055b887094a92))
+
 ## [9.37.2](https://github.com/Kong/kongponents/compare/v9.37.1...v9.37.2) (2025-08-07)
 
 
