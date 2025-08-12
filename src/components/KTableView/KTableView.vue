@@ -752,7 +752,10 @@ const expandableColumnWidth = (parseInt(KUI_SPACE_60) * 2) + parseInt(KUI_ICON_S
  */
 const DEFAULT_COLUMN_WIDTHS: Record<TableReservedColumnKey, number> = { expandable: expandableColumnWidth, bulkActions: 48, actions: 54 }
 const DEFAULT_COLUMN_WIDTHS_PX: Record<TableReservedColumnKey, string> = mapValues(DEFAULT_COLUMN_WIDTHS, (width) => `${width}px`)
-const columnWidths = ref(tablePreferences?.columnWidths || DEFAULT_COLUMN_WIDTHS) as Ref<ColumnWidths>
+const columnWidths = ref({
+  ...tablePreferences.columnWidths || {},
+  ...DEFAULT_COLUMN_WIDTHS, // override special columns with default widths
+}) as Ref<ColumnWidths>
 const columnStyles = computed(() => {
   const styles: Partial<Record<ColumnKey, CSSProperties>> = {}
   for (const colKey in columnWidths.value) {
