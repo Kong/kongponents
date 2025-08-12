@@ -550,6 +550,64 @@ describe('KTableView', () => {
     })
   })
 
+  describe('table preferences', () => {
+    it('does not apply column width and visibility preferences when not set', () => {
+      cy.mount(KTableView, {
+        props: {
+          data: options.data,
+          headers: options.headers.filter(header => header.key !== 'actions'),
+        },
+      })
+
+      options.headers.filter(header => header.key !== 'actions').forEach((header) => {
+        cy.getTestId(`table-header-${header.key}`).should('not.have.attr', 'style')
+        cy.getTestId(`table-header-${header.key}`).should('be.visible')
+      })
+    })
+
+    it('applies column width and visibility preferences when set', () => {
+      cy.mount(KTableView, {
+        props: {
+          data: options.data,
+          headers: options.headers.filter(header => header.key !== 'actions').map(header => {
+            if (options.headers[1].key === header.key) {
+              return { ...header, hidable: true }
+            }
+            return header
+          }),
+          tablePreferences: {
+            columnWidths: options.headers.reduce((acc: Record<string, number>, header) => {
+              acc[header.key] = 100
+              return acc
+            }, {} as Record<string, number>),
+            columnVisibility: {
+              [options.headers[1].key]: false, // hide ID column
+            },
+          },
+        },
+      })
+
+      options.headers.filter(header => header.key !== 'actions').forEach((header) => {
+        cy.getTestId(`table-header-${header.key}`).should(options.headers[1].key === header.key ? 'not.exist' : 'have.css', 'width', '100px')
+        if (options.headers[1].key !== header.key) {
+          cy.getTestId(`table-header-${header.key}`).should('be.visible')
+        }
+      })
+    })
+
+    it.skip('does not apply page size, sort column key and order preferences when not passed', () => {
+      // TODO: KHCP-17564 expand table preferences test coverage
+    })
+
+    it.skip('applies page size, sort column key and order preferences when passed', () => {
+      // TODO: KHCP-17564 expand table preferences test coverage
+    })
+
+    it.skip('emits update:table-preferences event when table preferences are updated', () => {
+      // TODO: KHCP-17564 expand table preferences test coverage
+    })
+  })
+
   describe('expandable rows and nested tables', () => {
     it('displays expand trigger for each row when function passed via rowExpandable prop returns true', () => {
       cy.mount(KTableView, {

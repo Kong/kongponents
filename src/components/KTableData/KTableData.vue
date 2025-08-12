@@ -492,15 +492,22 @@ const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData) =>
 }
 
 const tablePreferencesUpdateHandler = ({ columnWidths: newColumnWidth, columnVisibility: newColumnVisibility }: TablePreferences<ColumnKey>) => {
-  tableViewColumnWidths.value = newColumnWidth
-  tableViewColumnVisibility.value = newColumnVisibility
+  // Update the column width and visibility overriding but keeping the existing properties (in case the new objects are empty)
+  tableViewColumnWidths.value = {
+    ...tableViewColumnWidths.value,
+    ...newColumnWidth,
+  }
+  tableViewColumnVisibility.value = {
+    ...tableViewColumnVisibility.value,
+    ...newColumnVisibility,
+  }
 
   // Emit an event whenever one of the tablePreferences are updated
   emitTablePreferences()
 }
 
-const tableViewColumnWidths = ref<ColumnWidths | undefined>({})
-const tableViewColumnVisibility = ref<ColumnVisibility | undefined>({})
+const tableViewColumnWidths = ref<ColumnWidths | undefined>(tablePreferences.columnWidths || {})
+const tableViewColumnVisibility = ref<ColumnVisibility | undefined>(tablePreferences.columnVisibility || {})
 const tableDataPreferences = computed((): TablePreferences<Header['key']> => ({
   pageSize: pageSize.value,
   sortColumnKey: sortColumnKey.value,
