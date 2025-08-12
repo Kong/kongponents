@@ -594,6 +594,18 @@ describe('KTableView', () => {
         }
       })
     })
+
+    it.skip('does not apply page size, sort column key and order preferences when not passed', () => {
+      // TODO: KHCP-17564 expand table preferences test coverage
+    })
+
+    it.skip('applies page size, sort column key and order preferences when passed', () => {
+      // TODO: KHCP-17564 expand table preferences test coverage
+    })
+
+    it.skip('emits update:table-preferences event when table preferences are updated', () => {
+      // TODO: KHCP-17564 expand table preferences test coverage
+    })
   })
 
   describe('expandable rows and nested tables', () => {
