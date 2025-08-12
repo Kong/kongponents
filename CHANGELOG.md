@@ -1,3 +1,10 @@
+## [9.38.2](https://github.com/Kong/kongponents/compare/v9.38.1...v9.38.2) (2025-08-12)
+
+
+### Bug Fixes
+
+* **ktabledata:** presist table preferences ([#2859](https://github.com/Kong/kongponents/issues/2859)) ([d2d0bbd](https://github.com/Kong/kongponents/commit/d2d0bbda06ce6a56b81e701fe2faf867b856fc20))
+
 ## [9.38.1](https://github.com/Kong/kongponents/compare/v9.38.0...v9.38.1) (2025-08-11)
 
 
