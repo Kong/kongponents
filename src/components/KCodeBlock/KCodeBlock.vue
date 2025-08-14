@@ -316,9 +316,9 @@ const numberOfMatches = ref<number>(0)
 const matchingLineNumbers = ref<number[]>([])
 const currentLineIndex = ref<null | number>(null)
 
-const codeBlock = useTemplateRef('codeBlock')
-const codeBlockContent = useTemplateRef('codeBlockContent')
-const codeBlockLineNumbers = useTemplateRef('codeBlockLineNumbers')
+const codeBlockRef = useTemplateRef('codeBlock')
+const codeBlockContentRef = useTemplateRef('codeBlockContent')
+const codeBlockLineNumbersRef = useTemplateRef('codeBlockLineNumbers')
 
 // If either original code or filtered code is ever rendered, keep them in the DOM
 // to avoid re-rendering them when switching between filtered and original code.
@@ -389,15 +389,15 @@ watch(() => isShowingFilteredCode.value, function(value) {
 
   // Moves the focus to the code block so that code block-scoped shortcuts still work. That’s necessary because toggling filter mode changes which pre element is rendered. In doing so, the currently focused element is removed from the DOM and in response, the browser moves the focus to document.body.
   if (document?.activeElement?.tagName === 'PRE') {
-    codeBlock.value?.focus({ preventScroll: true })
+    codeBlockRef.value?.focus({ preventScroll: true })
   }
 
   // Records that the filtered code has been rendered at least once.
   hasRenderedFilteredCode.value = hasRenderedFilteredCode.value || value
   hasRenderedCode.value = hasRenderedCode.value || !value
 
-  if (codeBlockContent.value) {
-    codeBlockContent.value.scrollTop = 0
+  if (codeBlockContentRef.value) {
+    codeBlockContentRef.value.scrollTop = 0
   }
 }, { immediate: true })
 
@@ -422,7 +422,7 @@ const commands: Record<CommandKeywords, Command> = {
   toggleFilterMode: {
     trigger: toggleFilterMode,
     isAllowedContext(event: Event) {
-      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
+      return codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value)
     },
     shouldPreventDefaultAction: true,
   },
@@ -430,7 +430,7 @@ const commands: Record<CommandKeywords, Command> = {
   toggleRegExpMode: {
     trigger: toggleRegExpMode,
     isAllowedContext(event: Event) {
-      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
+      return codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value)
     },
     shouldPreventDefaultAction: true,
   },
@@ -438,7 +438,7 @@ const commands: Record<CommandKeywords, Command> = {
   jumpToNextMatch: {
     trigger: jumpToNextMatch,
     isAllowedContext(event: Event) {
-      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
+      return codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value)
     },
     isDisabled: () => matchingLineNumbers.value.length === 0 || isFilterMode.value,
     shouldPreventDefaultAction: true,
@@ -447,7 +447,7 @@ const commands: Record<CommandKeywords, Command> = {
   jumpToPreviousMatch: {
     trigger: jumpToPreviousMatch,
     isAllowedContext(event: Event) {
-      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
+      return codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value)
     },
     isDisabled: () => matchingLineNumbers.value.length === 0 || isFilterMode.value,
     shouldPreventDefaultAction: true,
@@ -456,7 +456,7 @@ const commands: Record<CommandKeywords, Command> = {
   copyCode: {
     trigger: copyCode,
     isAllowedContext(event: Event) {
-      return codeBlock.value !== null && event.composedPath().includes(codeBlock.value)
+      return codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value)
     },
     shouldPreventDefaultAction: true,
   },
@@ -481,7 +481,7 @@ onBeforeUnmount(function() {
 })
 
 function emitCodeBlockRenderEvent(): void {
-  const preElement = codeBlock.value?.querySelector('.highlighted-code-block')
+  const preElement = codeBlockRef.value?.querySelector('.highlighted-code-block')
   const codeElement = preElement?.querySelector('code')
 
   if (preElement instanceof HTMLElement && codeElement instanceof HTMLElement) {
@@ -494,7 +494,7 @@ function emitMatchingLinesChangeEvent(): void {
     return
   }
 
-  const preElement = codeBlock.value?.querySelector('.highlighted-code-block')
+  const preElement = codeBlockRef.value?.querySelector('.highlighted-code-block')
   const codeElement = preElement?.querySelector('code')
 
   if (preElement instanceof HTMLElement && codeElement instanceof HTMLElement) {
@@ -603,7 +603,7 @@ function jumpToPreviousMatch(): void {
 }
 
 function jumpToMatch(direction: number): void {
-  if (matchingLineNumbers.value.length === 0 || !(codeBlock.value instanceof HTMLElement)) {
+  if (matchingLineNumbers.value.length === 0 || !(codeBlockRef.value instanceof HTMLElement)) {
     return
   }
 
@@ -618,7 +618,7 @@ function jumpToMatch(direction: number): void {
     return
   }
 
-  const line = codeBlock.value.querySelector<HTMLElement>(`.highlighted-code-block #${getLineId(lineNumber)}`)
+  const line = codeBlockRef.value.querySelector<HTMLElement>(`.highlighted-code-block #${getLineId(lineNumber)}`)
   if (line) {
     if ('scrollIntoViewIfNeeded' in line && typeof line.scrollIntoViewIfNeeded === 'function') {
       line.scrollIntoViewIfNeeded(true)
@@ -626,8 +626,8 @@ function jumpToMatch(direction: number): void {
       line.scrollIntoView({ block: 'nearest' })
     }
   } else {
-    if (codeBlockLineNumbers.value) {
-      codeBlockLineNumbers.value.scrollToIndex(lineNumber - 1, { align: 'center' })
+    if (codeBlockLineNumbersRef.value) {
+      codeBlockLineNumbersRef.value.scrollToIndex(lineNumber - 1, { align: 'center' })
     }
   }
 }
@@ -677,7 +677,7 @@ function getVirtualizerProps(filtered: boolean): VirtualizerProps {
     itemSize: parseInt(KUI_LINE_HEIGHT_30, 10),
 
     // the scrollable container isn't the parentElement so we need to manually provide it
-    scrollRef: codeBlockContent.value ?? undefined,
+    scrollRef: codeBlockContentRef.value ?? undefined,
 
     // to override the default `position: relative; width: 100%`.
     style: {

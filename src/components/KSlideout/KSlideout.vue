@@ -68,11 +68,11 @@ const emit = defineEmits<KSlideoutEmits>()
 
 defineSlots<KSlideoutSlots>()
 
-const slideoutContainerElement = useTemplateRef('slideoutContainerElement')
+const slideoutContainerElementRef = useTemplateRef('slideoutContainerElement')
 
 const offsetTopValue = computed((): string => normalizeSize(offsetTop))
 
-onClickOutside(slideoutContainerElement, (event) => {
+onClickOutside(slideoutContainerElementRef, (event) => {
   if (event.isTrusted && closeOnBlur) {
     emit('close')
   }
