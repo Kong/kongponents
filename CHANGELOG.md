@@ -1,3 +1,10 @@
+## [9.38.4](https://github.com/Kong/kongponents/compare/v9.38.3...v9.38.4) (2025-08-19)
+
+
+### Bug Fixes
+
+* rename const names for usetemplateref [MA-4148] ([#2864](https://github.com/Kong/kongponents/issues/2864)) ([4b5b81f](https://github.com/Kong/kongponents/commit/4b5b81f8b9f2d6a42020afbe14013c60345320c9))
+
 ## [9.38.3](https://github.com/Kong/kongponents/compare/v9.38.2...v9.38.3) (2025-08-14)
 
 
