@@ -1,3 +1,10 @@
+## [9.38.5](https://github.com/Kong/kongponents/compare/v9.38.4...v9.38.5) (2025-08-19)
+
+
+### Bug Fixes
+
+* better error handling for time inputs ([#2869](https://github.com/Kong/kongponents/issues/2869)) ([b87ee4e](https://github.com/Kong/kongponents/commit/b87ee4ee871d26e8a34cd3d9f20571fb893c9303))
+
 ## [9.38.4](https://github.com/Kong/kongponents/compare/v9.38.3...v9.38.4) (2025-08-19)
 
 
