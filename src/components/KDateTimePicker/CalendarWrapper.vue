@@ -27,10 +27,10 @@
         >
           <span v-if="showRange('start')">
             <!-- @vue-ignore: typeguard in showRange -->
-            {{ format(calendarVModel.start, 'EEE MMM d yyyy') }}
+            {{ formatDateDisplay(calendarVModel.start) }}
           </span>
           <span v-else-if="(calendarVModel && calendarVModel instanceof Date)">
-            {{ format(calendarVModel, 'EEE MMM d yyyy') }}
+            {{ formatDateDisplay(calendarVModel) }}
           </span>
         </label>
         <input
@@ -152,6 +152,9 @@ const calendarSelectAttributes = {
 }
 
 watch(() => startTimeValue.value, (newTime) => {
+  if (!newTime) {
+    return
+  }
   if (calendarVModel.value && props.isRange && 'start' in calendarVModel.value && calendarVModel.value.start instanceof Date && 'end' in calendarVModel.value && calendarVModel.value.end instanceof Date) {
     const startTime = new Date()
     const timeParts = newTime.split(':')
@@ -167,6 +170,9 @@ watch(() => startTimeValue.value, (newTime) => {
 })
 
 watch(() => endTimeValue.value, (newTime) => {
+  if (!newTime) {
+    return
+  }
   if (calendarVModel.value && props.isRange && 'end' in calendarVModel.value && calendarVModel.value.end instanceof Date && 'start' in calendarVModel.value && calendarVModel.value.start instanceof Date) {
     const endTime = new Date()
     const timeParts = newTime.split(':')
@@ -198,6 +204,14 @@ const showRange = (rangeType: 'start' | 'end') => {
 const resetTime = () => {
   startTimeValue.value = originalTimeValues.value.start
   endTimeValue.value = originalTimeValues.value.end
+}
+
+const formatDateDisplay = (date: Date) => {
+  try {
+    return format(date, 'EEE MMM d yyyy')
+  } catch (error) {
+    console.warn('Error formatting date:', error)
+  }
 }
 
 defineExpose({

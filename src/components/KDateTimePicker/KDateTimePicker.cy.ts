@@ -407,4 +407,30 @@ describe('KDateTimePicker', () => {
     cy.getTestId('time-input-start').should('have.value', '00:00')
     cy.getTestId('time-input-end').should('have.value', '00:00')
   })
+
+  it('gracefully handles clearing time inputs', () => {
+    const modelValue = ref({
+      start: new Date('2025-01-01T00:00:00'),
+      end: new Date('2025-01-01T00:00:00'),
+      timePeriodsKey: '',
+    })
+
+    cy.mount(KDateTimePicker, {
+      props: {
+        mode: 'dateTime',
+        modelValue: modelValue,
+        range: true,
+      },
+    })
+
+    cy.getTestId(timepickerInput).click()
+    cy.getTestId('time-input-start').should('have.value', '00:00')
+    cy.getTestId('time-input-end').should('have.value', '00:00')
+
+    cy.getTestId('time-input-start').clear({ force: true })
+    cy.getTestId('time-input-end').clear({ force: true })
+
+    cy.getTestId('time-input-start').should('have.value', '')
+    cy.getTestId('time-input-end').should('have.value', '')
+  })
 })
