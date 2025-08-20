@@ -358,7 +358,7 @@ Slot for providing your custom action button.
 >
   <template #action>
     <KButton>
-      <AddCircleIcon />
+      <AddCircleIcon decorative />
       Create New
     </KButton>
   </template>
@@ -372,9 +372,35 @@ Slot for providing your custom action button.
 >
   <template #action>
     <KButton>
-      <AddCircleIcon />
+      <AddCircleIcon decorative />
       Create New
     </KButton>
+  </template>
+</KEmptyState>
+```
+
+### action-button-icon
+
+Slot for custom action button icon.
+
+<KEmptyState
+  action-button-text="Create New"
+  message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+  title="Empty State Slotted Action Button Icon"
+>
+  <template #action-button-icon>
+    <AddIcon decorative />
+  </template>
+</KEmptyState>
+
+```html
+<KEmptyState
+  action-button-text="Create New"
+  message="Lorem ipsum dolor sit amet..."
+  title="Empty State Slotted Action Button Icon"
+>
+  <template #action-button-icon>
+    <AddIcon decorative />
   </template>
 </KEmptyState>
 ```
@@ -502,7 +528,7 @@ const onActionClick = (): void => {
 ```
 
 <script setup lang="ts">
-import { KongIcon, AddCircleIcon, WavingHandIcon, SparklesIcon, RocketIcon, DesignIcon } from '@kong/icons'
+import { KongIcon, AddCircleIcon, WavingHandIcon, SparklesIcon, RocketIcon, DesignIcon, AddIcon } from '@kong/icons'
 import type { EmptyStateFeature } from '@/types'
 
 const onActionClick = (): void => {

@@ -47,6 +47,8 @@
             type="button"
             @click="emit('click-action')"
           >
+            <slot name="action-button-icon" />
+
             {{ actionButtonText }}
           </KButton>
         </slot>

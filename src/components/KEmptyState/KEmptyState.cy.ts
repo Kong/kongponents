@@ -49,6 +49,21 @@ describe('KEmptyState', () => {
     cy.get('.empty-state-action').should('be.visible').should('contain', actionButtonText)
   })
 
+  it('renders action button icon when slotted', () => {
+    const testId = 'action-button-slotted-icon'
+
+    cy.mount(KEmptyState, {
+      props: {
+        actionButtonText: 'Action',
+      },
+      slots: {
+        'action-button-icon': h('span', { 'data-testid': testId }, 'Action Icon'),
+      },
+    })
+
+    cy.get('.empty-state-action').findTestId(testId).should('be.visible')
+  })
+
   it('does not render action button when hidden', () => {
     cy.mount(KEmptyState, {
       props: {
