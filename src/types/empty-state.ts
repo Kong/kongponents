@@ -92,6 +92,11 @@ export interface EmptyStateSlots {
   action?(): any
 
   /**
+   * Slot for custom action button icon.
+   */
+  'action-button-icon'?(): any
+
+  /**
    * Slot for custom image to be displayed at the top of the empty state instead of the icon.
    */
   image?(): any

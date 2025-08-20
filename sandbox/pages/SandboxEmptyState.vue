@@ -148,6 +148,17 @@
           </template>
         </KEmptyState>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="action-button-icon">
+        <KEmptyState
+          action-button-text="Create New"
+          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+          title="Empty State Slotted Action Button Icon"
+        >
+          <template #action-button-icon>
+            <AddIcon decorative />
+          </template>
+        </KEmptyState>
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="image">
         <KEmptyState
           message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
@@ -258,7 +269,7 @@
 import { inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { KongIcon, AddCircleIcon, DesignIcon, WavingHandIcon, SparklesIcon, RocketIcon } from '@kong/icons'
+import { KongIcon, AddCircleIcon, DesignIcon, WavingHandIcon, SparklesIcon, RocketIcon, AddIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_PRIMARY, KUI_ICON_SIZE_80 } from '@kong/design-tokens'
 import type { EmptyStateFeature } from '@/types'
 
