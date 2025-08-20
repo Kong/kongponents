@@ -1,3 +1,10 @@
+## [9.38.6](https://github.com/Kong/kongponents/compare/v9.38.5...v9.38.6) (2025-08-20)
+
+
+### Bug Fixes
+
+* **kemptystate:** add action-button-icon slot ([#2870](https://github.com/Kong/kongponents/issues/2870)) ([035397b](https://github.com/Kong/kongponents/commit/035397ba8475d55280af4a5d72fdd9c578006175))
+
 ## [9.38.5](https://github.com/Kong/kongponents/compare/v9.38.4...v9.38.5) (2025-08-19)
 
 
