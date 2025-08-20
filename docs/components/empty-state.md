@@ -528,7 +528,7 @@ const onActionClick = (): void => {
 ```
 
 <script setup lang="ts">
-import { KongIcon, AddCircleIcon, WavingHandIcon, SparklesIcon, RocketIcon, DesignIcon } from '@kong/icons'
+import { KongIcon, AddCircleIcon, WavingHandIcon, SparklesIcon, RocketIcon, DesignIcon, AddIcon } from '@kong/icons'
 import type { EmptyStateFeature } from '@/types'
 
 const onActionClick = (): void => {
