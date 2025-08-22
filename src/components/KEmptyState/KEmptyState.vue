@@ -166,6 +166,7 @@ const iconContainerClass = computed((): string => {
 /* Component variables */
 
 $kEmptyStateMaxWidth: 640px;
+$kEmptyStateFeaturesContainerGap: var(--kui-space-70, $kui-space-70);
 
 /* Component styles */
 
@@ -250,19 +251,25 @@ $kEmptyStateMaxWidth: 640px;
   }
 
   .empty-state-features-container {
-    display: grid;
-    gap: var(--kui-space-70, $kui-space-70);
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: $kEmptyStateFeaturesContainerGap;
     justify-content: space-around;
     max-width: $kEmptyStateMaxWidth;
 
     @media (min-width: $kui-breakpoint-phablet) {
-      grid-template-columns: 1fr 1fr;
+      flex-wrap: wrap;
     }
 
     .empty-state-feature-card {
       background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
       gap: var(--kui-space-30, $kui-space-30);
+      width: 100%;
+
+      @media (min-width: $kui-breakpoint-phablet) {
+        // half of the parent container minus the gap divided by 2
+        width: calc(50% - ($kEmptyStateFeaturesContainerGap / 2));
+      }
 
       .feature-icon {
         color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
