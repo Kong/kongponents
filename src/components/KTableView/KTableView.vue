@@ -445,6 +445,7 @@
         v-if="showPagination"
         class="table-pagination"
         data-testid="table-pagination"
+        :initial-page-size="paginationPageSize"
         v-bind="paginationAttributes"
         @get-next-offset="emit('get-next-offset')"
         @get-previous-offset="emit('get-previous-offset')"
