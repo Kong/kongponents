@@ -1,3 +1,10 @@
+## [9.38.7](https://github.com/Kong/kongponents/compare/v9.38.6...v9.38.7) (2025-08-22)
+
+
+### Bug Fixes
+
+* **kemptystate:** features container layout ([#2873](https://github.com/Kong/kongponents/issues/2873)) ([6421ade](https://github.com/Kong/kongponents/commit/6421adeac8d97b417e190ee0b234d0ba80d088e3))
+
 ## [9.38.6](https://github.com/Kong/kongponents/compare/v9.38.5...v9.38.6) (2025-08-20)
 
 
