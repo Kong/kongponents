@@ -1,6 +1,7 @@
 import { h } from 'vue'
 import KTableView from '@/components/KTableView/KTableView.vue'
 import type { TableViewHeader, RowBulkAction } from '@/types'
+import { DEFAULT_PAGE_SIZE } from '@/utilities/tableHelpers'
 
 const largeDataSet = [
   {
@@ -595,16 +596,73 @@ describe('KTableView', () => {
       })
     })
 
-    it.skip('does not apply page size, sort column key and order preferences when not passed', () => {
-      // TODO: KHCP-17564 expand table preferences test coverage
+    it('does not apply page size, sort column key and order preferences when not passed', () => {
+      const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+
+      cy.mount(KTableView, {
+        props: {
+          data: options.data,
+          headers: options.headers,
+        },
+      })
+
+      // default page size is applied
+      cy.getTestId('table-pagination').findTestId('page-size-dropdown-trigger').should('contain.text', DEFAULT_PAGE_SIZE.toString())
+      // no initial sort is applied
+      cy.get('thead th[aria-sort]').should('not.exist')
+      // after sorting, ascending order is applied by default
+      cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
+        cy.getTestId(`table-header-${sortableColumnKey}`).should('have.attr', 'aria-sort', 'ascending')
+      })
     })
 
-    it.skip('applies page size, sort column key and order preferences when passed', () => {
-      // TODO: KHCP-17564 expand table preferences test coverage
+    it('applies page size, sort column key and order preferences when passed', () => {
+      const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+      const pageSize = 30
+
+      cy.mount(KTableView, {
+        props: {
+          data: options.data,
+          headers: options.headers,
+          tablePreferences: {
+            pageSize: pageSize,
+            sortColumnKey: sortableColumnKey,
+            sortColumnOrder: 'desc',
+          },
+        },
+      })
+
+      // page size preference is applied
+      cy.getTestId('table-pagination').findTestId('page-size-dropdown-trigger').should('contain.text', pageSize.toString())
+      // initial sort column is applied correctly
+      cy.getTestId(`table-header-${sortableColumnKey}`).should('have.attr', 'aria-sort', 'descending')
     })
 
-    it.skip('emits update:table-preferences event when table preferences are updated', () => {
-      // TODO: KHCP-17564 expand table preferences test coverage
+    it('emits update:table-preferences event when table preferences are updated', () => {
+      const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+      const newPageSize = 30
+
+      cy.mount(KTableView, {
+        props: {
+          data: options.data,
+          headers: options.headers,
+        },
+      })
+
+      // One-off, apply margin-top: 50px to the table to avoid overlapping with the dropdown menu
+      cy.get('.k-table-view').invoke('attr', 'style', 'margin-top: 50px')
+
+      // change page size
+      cy.getTestId('table-pagination').findTestId('page-size-dropdown-trigger').click()
+      cy.getTestId('dropdown-list').find('button').contains(newPageSize).click().then(() => {
+        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'update:table-preferences')
+        cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[1]?.[0]).should('have.property', 'pageSize', newPageSize)
+        // change sort column
+        cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
+          cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[2]?.[0]).should('have.property', 'sortColumnKey', sortableColumnKey)
+          cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[2]?.[0]).should('have.property', 'sortColumnOrder', 'asc')
+        })
+      })
     })
   })
 

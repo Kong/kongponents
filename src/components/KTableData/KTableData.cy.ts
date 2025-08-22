@@ -2,6 +2,7 @@ import { h } from 'vue'
 import KTableData from '@/components/KTableData/KTableData.vue'
 import { offsetPaginationHeaders, offsetPaginationFetcher } from '../../../mocks/KTableMockData'
 import type { TableDataHeader } from '@/types'
+import { DEFAULT_PAGE_SIZE } from '@/utilities/tableHelpers'
 
 interface FetchParams {
   pageSize: number
@@ -872,16 +873,96 @@ describe('KTableData', () => {
       })
     })
 
-    it.skip('does not apply page size, sort column key and order preferences when not passed', () => {
-      // TODO: KHCP-17564 expand table preferences test coverage
+    it('does not apply page size, sort column key and order preferences when not passed', () => {
+      const fns = {
+        fetcher: () => {
+          return { data: options.data }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      cy.mount(KTableData, {
+        props: {
+          headers: options.headers,
+          fetcher: fns.fetcher,
+        },
+      })
+
+      // calls fetcher with default page size, sort column key and order
+      cy.get('@fetcher')
+        .should('have.callCount', 1)
+        .its('lastCall')
+        .should('have.been.calledWith', {
+          pageSize: DEFAULT_PAGE_SIZE,
+          page: 1,
+          offset: null,
+          query: '',
+          sortColumnKey: '',
+          sortColumnOrder: 'desc',
+        })
     })
 
-    it.skip('applies page size, sort column key and order preferences when passed', () => {
-      // TODO: KHCP-17564 expand table preferences test coverage
+    it('applies page size, sort column key and order preferences when passed', () => {
+      const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+      const pageSize = 30
+
+      const fns = {
+        fetcher: () => {
+          return { data: options.data }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      cy.mount(KTableData, {
+        props: {
+          headers: options.headers,
+          fetcher: fns.fetcher,
+          tablePreferences: {
+            pageSize: pageSize,
+            sortColumnKey: sortableColumnKey,
+            sortColumnOrder: 'asc',
+          },
+        },
+      })
+
+      // calls fetcher with default page size, sort column key and order
+      cy.get('@fetcher')
+        .should('have.callCount', 1)
+        .its('lastCall')
+        .should('have.been.calledWith', {
+          pageSize: pageSize,
+          page: 1,
+          offset: null,
+          query: '',
+          sortColumnKey: sortableColumnKey,
+          sortColumnOrder: 'asc',
+        })
     })
 
-    it.skip('emits update:table-preferences event when table preferences are updated', () => {
-      // TODO: KHCP-17564 expand table preferences test coverage
+    it('emits update:table-preferences event when table preferences are updated', () => {
+      const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+      const newPageSize = 30
+
+      cy.mount(KTableData, {
+        props: {
+          headers: options.headers,
+          fetcher: () => {
+            return { data: options.data }
+          },
+        },
+      })
+
+      // change page size
+      cy.getTestId('table-pagination').findTestId('page-size-dropdown-trigger').click()
+      cy.getTestId('dropdown-list').find('button').contains(newPageSize).click().then(() => {
+        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'update:table-preferences')
+        cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[0]?.[0]).should('have.property', 'pageSize', newPageSize)
+        // change sort column
+        cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
+          cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[1]?.[0]).should('have.property', 'sortColumnKey', sortableColumnKey)
+          cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[1]?.[0]).should('have.property', 'sortColumnOrder', 'asc')
+        })
+      })
     })
   })
 
