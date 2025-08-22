@@ -252,12 +252,14 @@ $kEmptyStateFeaturesContainerGap: var(--kui-space-70, $kui-space-70);
 
   .empty-state-features-container {
     display: flex;
+    flex-direction: column;
     flex-wrap: nowrap;
     gap: $kEmptyStateFeaturesContainerGap;
     justify-content: space-around;
     max-width: $kEmptyStateMaxWidth;
 
     @media (min-width: $kui-breakpoint-phablet) {
+      flex-direction: row;
       flex-wrap: wrap;
     }
 
