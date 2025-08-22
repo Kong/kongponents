@@ -1,3 +1,10 @@
+## [9.38.8](https://github.com/Kong/kongponents/compare/v9.38.7...v9.38.8) (2025-08-22)
+
+
+### Bug Fixes
+
+* **ktableview:** table preferences test coverage [KHCP-17564] ([#2874](https://github.com/Kong/kongponents/issues/2874)) ([67f889c](https://github.com/Kong/kongponents/commit/67f889cefd5b84c16dfe1e55741079a6fc539b60))
+
 ## [9.38.7](https://github.com/Kong/kongponents/compare/v9.38.6...v9.38.7) (2025-08-22)
 
 
