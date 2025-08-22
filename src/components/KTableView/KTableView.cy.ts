@@ -596,7 +596,7 @@ describe('KTableView', () => {
       })
     })
 
-    it('does not apply page size, sort column key and order preferences when not passed', () => {
+    it('correctly handles when page size, sort column key and order preferences are not passed', () => {
       const sortableColumnKey = options.headers.find(header => header.sortable)?.key
 
       cy.mount(KTableView, {

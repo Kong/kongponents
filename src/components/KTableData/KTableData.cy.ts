@@ -873,7 +873,7 @@ describe('KTableData', () => {
       })
     })
 
-    it('does not apply page size, sort column key and order preferences when not passed', () => {
+    it('correctly handles when page size, sort column key and order preferences are not passed', () => {
       const fns = {
         fetcher: () => {
           return { data: options.data }
