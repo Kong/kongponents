@@ -165,7 +165,12 @@
           "changelogFile": "CHANGELOG.md"
         }
       ],
-      "@semantic-release/npm",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false
+        }
+      ],
       [
         "@semantic-release/git",
         {
@@ -184,7 +189,7 @@
   },
   "packageManager": "pnpm@10.10.0",
   "volta": {
-    "node": "22.14.0",
+    "node": "24.6.0",
     "pnpm": "10.10.0"
   },
   "config": {
