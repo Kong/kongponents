@@ -139,13 +139,14 @@
           </template>
         </KTableView>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="rowExpandable & rowExpanded">
+      <SandboxSectionComponent title="rowExpandable & rowExpanded & tooltipTarget">
         <KTableView
           :data="tableData"
           :headers="headers()"
           :pagination-attributes="{ totalCount: tableData.length }"
           :row-expandable="getRowExpandable"
           :row-expanded="getRowExpanded"
+          tooltip-target="#teleport-target"
         >
           <template #action-items>
             <SandboxTableViewActions />
