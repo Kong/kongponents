@@ -102,7 +102,7 @@
     "cypress": "^13.17.0",
     "cypress-fail-fast": "^7.1.1",
     "cz-conventional-changelog": "3.3.0",
-    "eslint": "^9.32.0",
+    "eslint": "^9.33.0",
     "inquirer": "^9.3.6",
     "nanospinner": "^1.2.2",
     "node-emoji": "^2.2.0",
