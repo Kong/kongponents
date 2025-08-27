@@ -61,6 +61,12 @@ export interface FileUploadProps {
    * @default false
    */
   disabled?: boolean
+
+  /**
+   * Whether to allow drag and drop functionality.
+   * @default true
+   */
+  allowDragAndDrop?: boolean
 }
 
 export interface FileUploadEmits {

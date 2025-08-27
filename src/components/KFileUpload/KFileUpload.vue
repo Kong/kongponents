@@ -2,6 +2,10 @@
   <div
     class="k-file-upload"
     v-bind="modifiedAttrs"
+    :role="isDragAndDropAllowed ? 'region' : undefined"
+    @dragleave.prevent="isDragging = false"
+    @dragover.prevent="isDragging = true"
+    @drop.prevent="onDrop"
   >
     <KLabel
       v-if="label"
@@ -34,9 +38,10 @@
         ref="input"
         :accept="accept"
         class="upload-input"
+        :class="{ 'dragging': isDragging && isDragAndDropAllowed }"
         :disabled="disabled"
         :error="hasError"
-        :error-message="errorMessage || fileSizeErrorMessage"
+        :error-message="errorMessage || invalidFileTypeErrorMessage || fileSizeErrorMessage"
         :help="help"
         :placeholder="placeholder"
         title=""
@@ -90,6 +95,7 @@ const {
   error,
   errorMessage = '',
   disabled,
+  allowDragAndDrop = true,
 } = defineProps<FileUploadProps>()
 
 const emit = defineEmits<FileUploadEmits>()
@@ -143,7 +149,7 @@ const maximumFileSize = computed((): number => {
   return 5 * 1024 * 1024
 })
 
-const hasError = computed(() => hasFileSizeError.value || error)
+const hasError = computed(() => invalidFileTypeError.value || hasFileSizeError.value || error)
 
 // To clear the input value after reset
 const fileInputKey = ref<number>(0)
@@ -153,6 +159,8 @@ const fileName = ref<string>('')
 const previousFiles = ref<FileList | null>(null)
 
 const onFileChange = (evt: Event): void => {
+  invalidFileTypeError.value = false // file picker only allows selecting accepted files
+
   // https://html.spec.whatwg.org/multipage/input.html#concept-input-apply
   // `.files` always exists for `<input type="file">` elements
   const files = (evt.target as HTMLInputElement).files!
@@ -201,6 +209,62 @@ const resetInput = (): void => {
   hasFileSizeError.value = false
 
   emit('file-removed')
+}
+
+const isDragAndDropAllowed = computed((): boolean => allowDragAndDrop && !disabled)
+const isDragging = ref<boolean>(false)
+
+const invalidFileTypeError = ref<boolean>(false)
+const isAcceptedFile = (file: File): boolean => {
+  return accept.some(acceptedType => {
+    if (acceptedType.startsWith('.')) {
+      // Match file extension
+      return file.name.toLowerCase().endsWith(acceptedType.toLowerCase())
+    } else if (acceptedType.endsWith('/*')) {
+      // Match base MIME type, e.g., image/* -> image/jpeg
+      const baseType = acceptedType.slice(0, -2)
+      return file.type.startsWith(baseType)
+    } else {
+      // Match exact MIME type
+      return file.type === acceptedType
+    }
+  })
+}
+const invalidFileTypeErrorMessage = computed((): string => {
+  if (invalidFileTypeError.value) {
+    return `Unsupported file type. Please upload one of the following: ${accept.join(', ')}`
+  }
+
+  return ''
+})
+
+const onDrop = (evt: DragEvent): void => {
+  if (isDragAndDropAllowed.value) {
+    fileInput.value?.input?.focus()
+    isDragging.value = false
+    const files = evt.dataTransfer?.files
+
+    if (files && files.length) {
+      const fileSize = files[0]?.size
+
+      if (Number(fileSize) > maximumFileSize.value) {
+        fileInputKey.value++
+        hasFileSizeError.value = true
+        emit('error', files)
+        return
+      }
+
+      // TODO: validate file against accept
+      if (isAcceptedFile(files[0])) {
+        invalidFileTypeError.value = false
+        previousFiles.value = files
+        fileName.value = files[0].name || ''
+        emit('file-added', files)
+      } else {
+        invalidFileTypeError.value = true
+      }
+    }
+  }
 }
 
 watch(() => attrs.id, () => {
@@ -269,6 +333,12 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
 
       &.disabled {
         color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
+      }
+    }
+
+    .upload-input.dragging {
+      :deep(input) {
+        @include inputHover;
       }
     }
   }

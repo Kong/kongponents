@@ -363,7 +363,7 @@ $kTreeListIdentCollapsible: 6px;
         margin-left: 19px;
       }
 
-      & .tree-item-container {
+      &.tree-item-container {
         padding-left: $kTreeListIdentCollapsible;
 
         &:before {
@@ -387,12 +387,22 @@ $kTreeListIdentCollapsible: 6px;
           &:after {
             width: 40px;
           }
+
+          + .tree-item-container.has-no-children {
+            margin-left: $kui-space-0;
+          }
         }
 
         &:first-of-type {
           &:before {
             top: -3px;
           }
+        }
+      }
+
+      &:not(:has(> .tree-item-container:not(.has-no-children))) {
+        > .tree-item-container.has-no-children .file-list-item-link {
+          padding-left: $kui-space-0 !important;
         }
       }
     }

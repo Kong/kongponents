@@ -84,6 +84,14 @@
           :max-file-size="4002000"
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="allowDragAndDrop">
+        <KFileUpload
+          :accept="['image/*']"
+          :allow-drag-and-drop="false"
+          help="Drag and drop is not allowed"
+          label="Label"
+        />
+      </SandboxSectionComponent>
 
       <!-- Attributes -->
       <SandboxTitleComponent
