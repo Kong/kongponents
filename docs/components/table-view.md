@@ -806,6 +806,14 @@ Prop for hiding toolbar. Useful when elements provided in the toolbar are not ac
 
 Teleport target element selector for tooltips rendered by KTableView (e.g. column header tooltip, disabled row bulk action checkbox tooltip). Defaults to `body`.
 
+```html
+<KTableView
+  tooltip-target="#teleport-target"
+  :data="tableData"
+  :headers="headers"
+/>
+```
+
 ## States
 
 ### Empty
