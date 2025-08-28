@@ -344,6 +344,7 @@ const onDrop = (evt: DragEvent): void => {
         emit('file-added', files)
       } else {
         invalidFileTypeError.value = true
+        emit('error', files)
       }
     }
   }
