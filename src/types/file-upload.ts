@@ -1,5 +1,7 @@
 import type { LabelAttributes } from './label'
 
+export type FileUploadAppearance = 'input' | 'dropzone'
+
 export interface FileUploadProps {
   /**
    * Use the `labelAttributes` prop to configure the KLabel's props if using the `label` prop.
@@ -67,6 +69,12 @@ export interface FileUploadProps {
    * @default true
    */
   allowDragAndDrop?: boolean
+
+  /**
+   * The appearance of the file upload component.
+   * @default 'input'
+   */
+  appearance?: FileUploadAppearance
 }
 
 export interface FileUploadEmits {
