@@ -84,6 +84,46 @@
           :max-file-size="4002000"
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="allowDragAndDrop">
+        <KFileUpload
+          :accept="['image/*']"
+          :allow-drag-and-drop="false"
+          help="Drag and drop is not allowed"
+          label="Label"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="appearance">
+        <KFileUpload
+          :accept="['image/*']"
+          appearance="dropzone"
+        />
+        <KFileUpload
+          :accept="['image/*']"
+          appearance="dropzone"
+          button-text="Choose file"
+          help="Drag and drop files here or click to upload."
+          label="Label"
+          placeholder="This is a dropzone input with a placeholder"
+        >
+          <template #icon>
+            <ImageIcon />
+          </template>
+        </KFileUpload>
+        <KFileUpload
+          :accept="['image/*']"
+          appearance="dropzone"
+          error
+          error-message="This is an error message."
+          label="Label"
+        />
+        <KFileUpload
+          :accept="['image/*']"
+          appearance="dropzone"
+          disabled
+          help="Drag and drop files here or click to upload."
+          label="Label"
+        />
+      </SandboxSectionComponent>
 
       <!-- Attributes -->
       <SandboxTitleComponent
