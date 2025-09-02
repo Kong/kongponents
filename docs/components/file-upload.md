@@ -1,6 +1,6 @@
 # File Upload
 
-KFileUpload provides a wrapper around an `input` element with `type=file` for file upload.
+KFileUpload provides a wrapper around an `input` element with `type="file"` for file upload.
 
 <ClientOnly>
   <KFileUpload label="File upload" :label-attributes="{ info: `Accepted file types: ${acceptedFileType.join(', ')}` }" help="File size must be less than 1MB." :accept="acceptedFileType" />
@@ -15,6 +15,37 @@ KFileUpload provides a wrapper around an `input` element with `type=file` for fi
 ```
 
 ## Props
+
+### appearance
+
+KFileUpload comes in two variations: `input` and `dropzone`. Default value is `input`. Both appearances support drag-and-drop file upload functionality which is the default for `dropzone` appearance and configurable for `input` appearance through [`allowDragAndDrop` prop](#allowdraganddrop).
+
+<ClientOnly>
+  <div class="vertical-spacing-container">
+    <KFileUpload
+      label="Input file upload"
+      :accept="acceptedFileType"
+    />
+    <KFileUpload
+      appearance="dropzone"
+      label="Dropzone file upload"
+      :accept="acceptedFileType"
+    />
+  </div>
+</ClientOnly>
+
+```html
+<KFileUpload
+  label="Input file upload"
+  :accept="acceptedFileType"
+/>
+
+<KFileUpload
+  appearance="dropzone"
+  label="Dropzone file upload"
+  :accept="acceptedFileType"
+/>
+```
 
 ### accept
 
@@ -60,11 +91,34 @@ Use the `labelAttributes` prop to configure the KLabel's [props](/components/lab
 Use the `help` prop to display text under the input.
 
 <ClientOnly>
-  <KFileUpload label="Upload file" help="File size must be less than 1MB." :accept="acceptedFileType" />
+  <div class="vertical-spacing-container">
+    <KFileUpload
+      label="Upload file"
+      help="File size must be less than 1MB."
+      :accept="acceptedFileType"
+    />
+    <KFileUpload
+      appearance="dropzone"
+      label="Upload file"
+      help="File size must be less than 1MB."
+      :accept="acceptedFileType"
+    />
+  </div>
 </ClientOnly>
 
 ```html
-<KFileUpload label="Upload File" help="File size must be less than 1MB." :accept="acceptedFileType" />
+<KFileUpload
+  help="File size must be less than 1MB."
+  label="Upload File"
+  :accept="acceptedFileType"
+/>
+
+<KFileUpload
+  help="File size must be less than 1MB."
+  appearance="dropzone"
+  label="Upload file"
+  :accept="acceptedFileType"
+/>
 ```
 
 ### error
@@ -76,14 +130,36 @@ Boolean value to indicate whether the element has an error and should apply erro
 String to be displayed as error message if `hasError` prop is `true`.
 
 <ClientOnly>
-  <KFileUpload label="Upload file" error error-message="File size must be less than 1MB." :accept="acceptedFileType" />
+  <div class="vertical-spacing-container">
+    <KFileUpload
+      error-message="File size must be less than 1MB."
+      error
+      label="Upload file"
+      :accept="acceptedFileType"
+    />
+    <KFileUpload
+      error-message="File size must be less than 1MB."
+      error
+      appearance="dropzone"
+      label="Upload file"
+      :accept="acceptedFileType"
+    />
+  </div>
 </ClientOnly>
 
 ```html
 <KFileUpload
-  label="Upload file"
-  error
   error-message="File size must be less than 1MB."
+  error
+  label="Upload file"
+  :accept="acceptedFileType"
+/>
+
+<KFileUpload
+  error-message="File size must be less than 1MB."
+  error
+  appearance="dropzone"
+  label="Upload file"
   :accept="acceptedFileType"
 />
 ```
@@ -93,11 +169,30 @@ String to be displayed as error message if `hasError` prop is `true`.
 Use the `placeholder` prop to display placeholder text.
 
 <ClientOnly>
-  <KFileUpload placeholder="Select file on your computer" :accept="acceptedFileType" />
+  <div class="vertical-spacing-container">
+    <KFileUpload
+      placeholder="Select file on your computer"
+      :accept="acceptedFileType"
+    />
+    <KFileUpload
+      placeholder="Select file on your computer"
+      appearance="dropzone"
+      :accept="acceptedFileType"
+    />
+  </div>
 </ClientOnly>
 
 ```html
-<KFileUpload placeholder="Select file on your computer" :accept="acceptedFileType" />
+<KFileUpload
+  placeholder="Select file on your computer"
+  :accept="acceptedFileType"
+/>
+
+<KFileUpload
+  placeholder="Select file on your computer"
+  appearance="dropzone"
+  :accept="acceptedFileType"
+/>
 ```
 
 ### buttonText
@@ -105,11 +200,30 @@ Use the `placeholder` prop to display placeholder text.
 This is the text that will be displayed on the button that triggers the click on KInput.
 
 <ClientOnly>
-  <KFileUpload button-text="Choose file" :accept="acceptedFileType" />
+  <div class="vertical-spacing-container">
+    <KFileUpload
+      button-text="Choose file"
+      :accept="acceptedFileType"
+    />
+    <KFileUpload
+      button-text="Choose file"
+      appearance="dropzone"
+      :accept="acceptedFileType"
+    />
+  </div>
 </ClientOnly>
 
 ```html
-<KFileUpload button-text="Choose file" :accept="acceptedFileType" />
+<KFileUpload
+  button-text="Choose file"
+  :accept="acceptedFileType"
+/>
+
+<KFileUpload
+  button-text="Choose file"
+  appearance="dropzone"
+  :accept="acceptedFileType"
+/>
 ```
 
 ### maxFileSize
@@ -128,6 +242,10 @@ Use this prop to customize the maximize size of file that can be uploaded. Defau
 By default KFileUpload will display the error state with a generic error message when selected file exceeds specified maximum file size. You can use [`errorMessage` prop](#errormessage) in conjunction with the [`error` event](#events) to display a custom error message.
 :::
 
+### allowDragAndDrop
+
+Boolean to control whether to allow drag and drop functionality when `appearance="input"`. Defaults to `true`.
+
 ## Slots
 
 ### icon
@@ -135,15 +253,42 @@ By default KFileUpload will display the error state with a generic error message
 Slot for an icon in front of the input field.
 
 <ClientOnly>
-  <KFileUpload label="Upload image" :accept="['.jpg', '.png']">
-    <template #icon>
-      <ImageIcon />
-    </template>
-  </KFileUpload>
+  <div class="vertical-spacing-container">
+    <KFileUpload
+      label="Upload image"
+      :accept="['.jpg', '.png']"
+    >
+      <template #icon>
+        <ImageIcon />
+      </template>
+    </KFileUpload>
+    <KFileUpload
+      appearance="dropzone"
+      label="Upload image"
+      :accept="['.jpg', '.png']"
+    >
+      <template #icon>
+        <ImageIcon />
+      </template>
+    </KFileUpload>
+  </div>
 </ClientOnly>
 
 ```html
-<KFileUpload label="Upload image" :accept="['.jpg', '.png']">
+<KFileUpload
+  label="Upload image"
+  :accept="['.jpg', '.png']"
+>
+  <template #icon>
+    <ImageIcon />
+  </template>
+</KFileUpload>
+
+<KFileUpload
+  appearance="dropzone"
+  label="Upload image"
+  :accept="['.jpg', '.png']"
+>
   <template #icon>
     <ImageIcon />
   </template>
@@ -235,5 +380,11 @@ const printData = (i) => {
   overflow: hidden;
   background-color: $kui-color-background-neutral-weaker;
   padding-top: $kui-space-50;
+}
+
+.vertical-spacing-container {
+  display: flex;
+  flex-direction: column;
+  gap: $kui-space-50;
 }
 </style>
