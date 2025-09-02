@@ -491,6 +491,12 @@ interface TableEmitsShared<
   'row-actions-toggle': [payload: RowActionsTogglePayload<Data[number]>]
 }
 
+type TableCellSlotProps<Header extends TableViewHeader, Data extends ReadonlyArray<Record<string, any>>> = {
+  row: Data[number]
+  rowKey: number
+  rowValue: unknown extends Data[number][Header['key']] ? any : Data[number][Header['key']]
+}
+
 type TableSlotsShared<Header extends TableViewHeader, Data extends ReadonlyArray<Record<string, any>>> = {
   /**
    * Slot for passing custom bulk actions trigger element.
@@ -550,7 +556,7 @@ type TableSlotsShared<Header extends TableViewHeader, Data extends ReadonlyArray
   /**
    * Each individual cell's content.
    */
-  [K in Header['key']]?: (props: { row: Data[number], rowKey: number, rowValue: unknown extends Data[number][K] ? any : Data[number][K] }) => any
+  [K in Header['key']]?: (props: TableCellSlotProps<TableViewHeader, Data>) => any
 }
 
 export interface TableViewProps<

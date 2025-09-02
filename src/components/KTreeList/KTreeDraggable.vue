@@ -73,16 +73,18 @@
         @child-change="handleChildChangeEvent"
         @selected="handleSelectionEvent"
       >
+        <!-- @vue-skip (TypeScript does not understand that item is passed in the slot props) -->
         <template
           v-if="$slots['item-icon']"
-          #item-icon="{ item }: any"
+          #item-icon="{ item }: { item: TreeListItem }"
         >
           <slot
             :item="item"
             name="item-icon"
           />
         </template>
-        <template #item-label="{ item }: any">
+        <!-- @vue-ignore (TypeScript does not understand that item is passed in the slot props) -->
+        <template #item-label="{ item }: { item: TreeListItem }">
           <slot
             :item="item"
             name="item-label"
