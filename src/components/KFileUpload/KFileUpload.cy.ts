@@ -233,7 +233,7 @@ describe('KFileUpload', () => {
       })
     })
 
-    it('should not allow drag and drop when input is disabled', () => {
+    it('should not allow drag and drop when dropzone is disabled', () => {
       cy.mount(KFileUpload, {
         props: {
           appearance: 'dropzone',
@@ -258,6 +258,20 @@ describe('KFileUpload', () => {
       cy.get('.k-file-upload').selectFile('cypress/fixtures/file-upload/file-upload-document.md', { action: 'drag-drop' }).then(() => {
         cy.wrap(Cypress.vueWrapper.emitted()).should('not.have.property', 'file-added')
         cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'error')
+      })
+    })
+
+    it('ignores allowDragAndDrop prop when appearance is dropzone', () => {
+      cy.mount(KFileUpload, {
+        props: {
+          appearance: 'dropzone',
+          allowDragAndDrop: false,
+          accept: ['.md'],
+        },
+      })
+
+      cy.get('.k-file-upload').selectFile('cypress/fixtures/file-upload/file-upload-document.md', { action: 'drag-drop' }).then(() => {
+        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'file-added')
       })
     })
   })
