@@ -15,8 +15,8 @@ importers:
         specifier: ^1.1.8
         version: 1.1.8(vue@3.5.18(typescript@5.9.2))
       '@kong/icons':
-        specifier: ^1.33.2
-        version: 1.33.2(vue@3.5.18(typescript@5.9.2))
+        specifier: ^1.35.0
+        version: 1.35.0(vue@3.5.18(typescript@5.9.2))
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
@@ -1049,8 +1049,8 @@ packages:
     peerDependencies:
       eslint: '>= 9.23.0'
 
-  '@kong/icons@1.33.2':
-    resolution: {integrity: sha512-t9cPc2ba3aLHZRnFUj4HJ8GrLbkEJbb2ijDwcVh8VxR3Hl1z9wHJB1XLTfv5wt//hG9TBUxiCjJITbrgnl3jEA==}
+  '@kong/icons@1.35.0':
+    resolution: {integrity: sha512-9xI+dvc8Z3VZMwMjlk/XPsV94tgd5yuTGPblwiExU/qnONf2OxqfLD8xrcBmPAZ8Bu6YUfvmavJe//2N+Uzhxw==}
     engines: {node: '>=18.17.0', pnpm: '>=9.14.4 || >=10.1.0'}
     peerDependencies:
       vue: '>= 3.3.4 < 4'
@@ -6335,7 +6335,7 @@ snapshots:
 
   '@kong-ui-public/sandbox-layout@2.2.3(vue@3.5.18(typescript@5.9.2))':
     dependencies:
-      '@kong/icons': 1.33.2(vue@3.5.18(typescript@5.9.2))
+      '@kong/icons': 1.35.0(vue@3.5.18(typescript@5.9.2))
       vue: 3.5.18(typescript@5.9.2)
 
   '@kong/design-tokens@1.18.0': {}
@@ -6359,7 +6359,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@kong/icons@1.33.2(vue@3.5.18(typescript@5.9.2))':
+  '@kong/icons@1.35.0(vue@3.5.18(typescript@5.9.2))':
     dependencies:
       vue: 3.5.18(typescript@5.9.2)
 
