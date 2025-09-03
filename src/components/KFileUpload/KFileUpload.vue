@@ -229,6 +229,8 @@ const fileName = ref<string>('')
 // A copy of previously selected FileList to restore when user clicks reopen the file uploader and clicks on Cancel
 const previousFiles = ref<FileList | null>(null)
 
+const dropzoneRef = useTemplateRef('dropzone')
+
 const onFileChange = (evt: Event): void => {
   invalidFileTypeError.value = false // file picker only allows selecting accepted files
 
@@ -346,8 +348,6 @@ const onDrop = (evt: DragEvent): void => {
     }
   }
 }
-
-const dropzoneRef = useTemplateRef('dropzone')
 
 const isAppearanceDropzone = computed((): boolean => appearance === 'dropzone')
 
