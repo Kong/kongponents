@@ -1,3 +1,10 @@
+## [9.38.12](https://github.com/Kong/kongponents/compare/v9.38.11...v9.38.12) (2025-09-03)
+
+
+### Bug Fixes
+
+* kpop offset [KHCP-17692] ([#2886](https://github.com/Kong/kongponents/issues/2886)) ([d13083f](https://github.com/Kong/kongponents/commit/d13083f6de56d14b2f751149cd513485d9d5b880))
+
 ## [9.38.11](https://github.com/Kong/kongponents/compare/v9.38.10...v9.38.11) (2025-09-03)
 
 
