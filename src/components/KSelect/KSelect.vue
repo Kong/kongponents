@@ -26,6 +26,7 @@
         v-bind="boundKPopAttributes"
         close-on-popover-click
         hide-close-icon
+        :offset="KUI_SPACE_40"
         @close="() => onClose(toggle, isToggled.value)"
         @open="() => onOpen(toggle)"
         @popover-click="() => onPopoverClick(toggle)"
@@ -215,6 +216,7 @@ import { sanitizeInput } from '@/utilities/sanitizeInput'
 import { useEventListener } from '@vueuse/core'
 import { getUniqueStringId } from '@/utilities'
 import { normalizeSize } from '@/utilities/css'
+import { KUI_SPACE_40 } from '@kong/design-tokens'
 
 type Value = U extends true ? T | string : T
 type Item = SelectItem<Value>
