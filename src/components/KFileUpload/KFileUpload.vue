@@ -464,14 +464,9 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
         border-style: solid;
       }
 
-      &:focus:not(.disabled) {
-        border-color: var(--kui-color-border-primary, $kui-color-border-primary);
-        border-style: solid;
-        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
-      }
-
+      &:focus:not(.disabled),
       &:focus-visible {
-        border-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
+        border-color: var(--kui-color-border-primary, $kui-color-border-primary);
         border-style: solid;
         box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
       }
