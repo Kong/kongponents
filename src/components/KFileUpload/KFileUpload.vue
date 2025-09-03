@@ -2,7 +2,7 @@
   <div
     class="k-file-upload"
     v-bind="modifiedAttrs"
-    :role="isDragAndDropAllowed ? 'region' : undefined"
+    :role="disabled ? undefined : 'region'"
     @dragleave.prevent="isDragging = false"
     @dragover.prevent="isDragging = true"
     @drop.prevent="onDrop"
@@ -43,7 +43,7 @@
         ref="input"
         :accept="accept"
         class="upload-input"
-        :class="{ dragging: isDragging && isDragAndDropAllowed }"
+        :class="{ dragging: isDragging && !disabled }"
         :disabled="disabled"
         :error="hasError"
         :error-message="errorMessage || invalidFileTypeErrorMessage || fileSizeErrorMessage"
@@ -284,7 +284,6 @@ const resetInput = (): void => {
   emit('file-removed')
 }
 
-const isDragAndDropAllowed = computed((): boolean => isAppearanceDropzone.value && !disabled)
 const isDragging = ref<boolean>(false)
 
 const invalidFileTypeError = ref<boolean>(false)
@@ -316,7 +315,7 @@ const invalidFileTypeErrorMessage = computed((): string => {
 })
 
 const onDrop = (evt: DragEvent): void => {
-  if (isDragAndDropAllowed.value) {
+  if (!disabled) {
     if (isAppearanceDropzone.value) {
       dropzoneRef.value?.focus()
     } else {
