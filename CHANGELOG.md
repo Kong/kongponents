@@ -1,3 +1,10 @@
+## [9.38.11](https://github.com/Kong/kongponents/compare/v9.38.10...v9.38.11) (2025-09-03)
+
+
+### Bug Fixes
+
+* **kpop:** use capture event handlers ([#2883](https://github.com/Kong/kongponents/issues/2883)) ([1745599](https://github.com/Kong/kongponents/commit/174559975ef784e38897eda47f5c255cf91ba599))
+
 ## [9.38.10](https://github.com/Kong/kongponents/compare/v9.38.9...v9.38.10) (2025-09-02)
 
 
