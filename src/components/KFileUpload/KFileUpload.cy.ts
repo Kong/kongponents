@@ -247,5 +247,22 @@ describe('KFileUpload', () => {
         cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'error')
       })
     })
+
+    it('displays content passed through dropzone-footer slot', () => {
+      const slotContent = 'This is some footer content'
+      const slotTestId = 'slotted-dropzone-footer'
+
+      cy.mount(KFileUpload, {
+        props: {
+          appearance: 'dropzone',
+          accept: ['.md'],
+        },
+        slots: {
+          'dropzone-footer': `<div data-testid="${slotTestId}">${slotContent}</div>`,
+        },
+      })
+
+      cy.getTestId(slotTestId).should('contain.text', slotContent)
+    })
   })
 })

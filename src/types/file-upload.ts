@@ -98,4 +98,9 @@ export interface FileUploadSlots {
    * Use this slot if you want to utilize HTML in the input label's tooltip.
    */
   'label-tooltip'?(): any
+
+  /**
+   * Slot for additional content at the bottom of the the dropzone area. Only available when `appearance` prop is set to `dropzone`.
+   */
+  'dropzone-footer'?(): any
 }

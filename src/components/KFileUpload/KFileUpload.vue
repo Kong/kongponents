@@ -91,6 +91,7 @@
           dragging: isDragging && !disabled,
           disabled: disabled,
           error: hasError,
+          'has-file': !!fileName,
         }"
         data-testid="file-upload-dropzone"
         role="button"
@@ -123,6 +124,7 @@
         >
           {{ fileName ? 'Clear' : buttonText }}
         </KButton>
+        <slot name="dropzone-footer" />
       </div>
       <p
         v-if="hasError || help"
@@ -432,7 +434,7 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
 
       align-items: center;
       background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
-      border: var(--kui-border-width-10, $kui-border-width-10) dashed var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
+      border: var(--kui-border-width-10, $kui-border-width-10) dashed var(--kui-color-border, $kui-color-border);
       border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
       color: var(--kui-color-text-neutral, $kui-color-text-neutral);
       cursor: pointer;
@@ -458,7 +460,16 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
         border-style: solid;
       }
 
-      &:focus:not(.disabled),
+      &.has-file {
+        border-style: solid;
+      }
+
+      &:focus:not(.disabled) {
+        border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+        border-style: solid;
+        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+      }
+
       &:focus-visible {
         border-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
         border-style: solid;

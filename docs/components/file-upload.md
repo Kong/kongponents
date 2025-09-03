@@ -307,6 +307,38 @@ Use this slot if you want to utilize HTML in the input label's tooltip.
 </KFileUpload>
 ```
 
+### dropzone-footer
+
+Slot for additional content at the bottom of the the dropzone area. Only available when `appearance` prop is set to `dropzone`.
+
+<KFileUpload
+  appearance="dropzone"
+  label="Upload your markdown document"
+  :accept="acceptedFileType"
+>
+  <template #dropzone-footer>
+    <KAlert>
+      We will validate your markdown.
+      <KExternalLink href="https://kongponents.konghq.com/">Learn more</KExternalLink>
+    </KAlert>
+  </template>
+</KFileUpload>
+
+```html
+<KFileUpload
+  appearance="dropzone"
+  label="Upload your markdown document"
+  :accept="acceptedFileType"
+>
+  <template #dropzone-footer>
+    <KAlert>
+      We will validate your markdown.
+      <KExternalLink href="https://kongponents.konghq.com/">Learn more</KExternalLink>
+    </KAlert>
+  </template>
+</KFileUpload>
+```
+
 ## Events
 
 The events below will fire whenever:
