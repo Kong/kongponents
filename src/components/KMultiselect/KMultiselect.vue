@@ -25,6 +25,7 @@
         <KPop
           ref="popper"
           hide-close-icon
+          :offset="KUI_SPACE_40"
           v-bind="boundKPopAttributes"
           @close="() => handleToggle(false, isToggled, toggle)"
           @open="() => handleToggle(true, isToggled, toggle)"
@@ -306,7 +307,7 @@ import type {
   PopoverAttributes,
 } from '@/types'
 import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
-import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import { KUI_ICON_SIZE_40, KUI_SPACE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
 import { useEventListener } from '@vueuse/core'

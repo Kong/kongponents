@@ -10,6 +10,7 @@
       :disabled="disabled || readonly"
       hide-caret
       hide-close-icon
+      :offset="KUI_SPACE_40"
       :placement="popoverPlacement"
       width="auto"
       @close="onClosePopover"
@@ -141,7 +142,7 @@ import 'v-calendar/dist/style.css'
 import { ModeArrayCustom, ModeArrayRelative, ModeDateOnly, DateTimePickerModes } from '@/types'
 import type { DateTimePickerState, TimePeriod, TimeRange, DatePickerModel, ButtonAppearance, DateTimePickerProps, DateTimePickerEmits } from '@/types'
 import { CalIcon } from '@kong/icons'
-import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_40, KUI_SPACE_40 } from '@kong/design-tokens'
 import { normalizeSize } from '@/utilities/css'
 import CalendarWrapper from './CalendarWrapper.vue'
 

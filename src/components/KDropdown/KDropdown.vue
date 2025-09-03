@@ -10,6 +10,7 @@
         close-on-popover-click
         data-testid="dropdown-popover"
         hide-close-icon
+        :offset="KUI_SPACE_20"
         @close="() => handleTriggerToggle(isToggled, toggle, false)"
         @open="() => handleTriggerToggle(isToggled, toggle, true)"
         @popover-click="() => handleTriggerToggle(isToggled, toggle, false)"
@@ -80,6 +81,7 @@ import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle/KToggle.vue'
 import KDropdownItem from './KDropdownItem.vue'
 import { ChevronDownIcon } from '@kong/icons'
+import { KUI_SPACE_20 } from '@kong/design-tokens'
 
 const {
   selectionMenu,
@@ -188,7 +190,6 @@ defineExpose({
   :deep(.popover.dropdown-popover > .popover-container) {
     border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-    margin-top: var(--kui-space-30, $kui-space-30);
     padding: var(--kui-space-0, $kui-space-0);
 
     ul {
