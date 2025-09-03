@@ -159,7 +159,6 @@ const {
   error,
   errorMessage = '',
   disabled,
-  allowDragAndDrop = true,
   appearance = 'input',
 } = defineProps<FileUploadProps>()
 
@@ -283,12 +282,12 @@ const resetInput = (): void => {
   emit('file-removed')
 }
 
-const isDragAndDropAllowed = computed((): boolean => (isAppearanceDropzone.value || allowDragAndDrop) && !disabled)
+const isDragAndDropAllowed = computed((): boolean => isAppearanceDropzone.value && !disabled)
 const isDragging = ref<boolean>(false)
 
 const invalidFileTypeError = ref<boolean>(false)
 const isAcceptedFile = (file: File): boolean => {
-  if (!accept || !Array.isArray(accept) || accept.length === 0) {
+  if (!accept || !Array.isArray(accept) || !accept.length) {
     // If accept is not defined or empty, accept all files by default
     return true
   }

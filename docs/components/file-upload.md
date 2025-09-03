@@ -18,7 +18,7 @@ KFileUpload provides a wrapper around an `input` element with `type="file"` for 
 
 ### appearance
 
-KFileUpload comes in two variations: `input` and `dropzone`. Default value is `input`. Both appearances support drag-and-drop file upload functionality which is the default for `dropzone` appearance and configurable for `input` appearance through [`allowDragAndDrop` prop](#allowdraganddrop).
+KFileUpload comes in two variations: `input` and `dropzone`. Default value is `input`. Both appearances support drag-and-drop file upload functionality.
 
 <ClientOnly>
   <div class="vertical-spacing-container">
@@ -241,10 +241,6 @@ Use this prop to customize the maximize size of file that can be uploaded. Defau
 :::tip NOTE
 By default KFileUpload will display the error state with a generic error message when selected file exceeds specified maximum file size. You can use [`errorMessage` prop](#errormessage) in conjunction with the [`error` event](#events) to display a custom error message.
 :::
-
-### allowDragAndDrop
-
-Boolean to control whether to allow drag and drop functionality when `appearance="input"`. Defaults to `true`.
 
 ## Slots
 

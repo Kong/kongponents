@@ -65,12 +65,6 @@ export interface FileUploadProps {
   disabled?: boolean
 
   /**
-   * Whether to allow drag and drop functionality.
-   * @default true
-   */
-  allowDragAndDrop?: boolean
-
-  /**
    * The appearance of the file upload component.
    * @default 'input'
    */
