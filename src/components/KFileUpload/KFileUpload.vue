@@ -94,7 +94,7 @@
         }"
         data-testid="file-upload-dropzone"
         role="button"
-        :tabindex="!disabled ? 0 : -1"
+        :tabindex="disabled ? -1 : 0"
         @click="onButtonClick"
       >
         <div
@@ -129,12 +129,7 @@
         class="help-text"
         :class="{ 'error': hasError }"
       >
-        <template v-if="hasError">
-          {{ errorMessage || invalidFileTypeErrorMessage || fileSizeErrorMessage || help }}
-        </template>
-        <template v-else>
-          {{ help }}
-        </template>
+        {{ hasError ? errorMessage || invalidFileTypeErrorMessage || fileSizeErrorMessage || help : help }}
       </p>
     </div>
   </div>
@@ -293,6 +288,10 @@ const isDragging = ref<boolean>(false)
 
 const invalidFileTypeError = ref<boolean>(false)
 const isAcceptedFile = (file: File): boolean => {
+  if (!accept || !Array.isArray(accept) || accept.length === 0) {
+    // If accept is not defined or empty, accept all files by default
+    return true
+  }
   return accept.some(acceptedType => {
     if (acceptedType.startsWith('.')) {
       // Match file extension
@@ -336,7 +335,7 @@ const onDrop = (evt: DragEvent): void => {
         return
       }
 
-      // TODO: validate file against accept
+      
       if (isAcceptedFile(files[0])) {
         invalidFileTypeError.value = false
         previousFiles.value = files
