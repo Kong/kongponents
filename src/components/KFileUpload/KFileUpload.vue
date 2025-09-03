@@ -32,7 +32,7 @@
         v-if="!isAppearanceDropzone"
         :key="fileInputKey"
         class="file-upload-input-text"
-        :class="{ 'placeholder': !fileName, 'has-icon': $slots.icon, 'disabled': disabled }"
+        :class="{ placeholder: !fileName, 'has-icon': $slots.icon, disabled: disabled }"
       >
         {{ fileName ? fileName : placeholder || defaultPlaceholder }}
       </span>
@@ -43,7 +43,7 @@
         ref="input"
         :accept="accept"
         class="upload-input"
-        :class="{ 'dragging': isDragging && isDragAndDropAllowed }"
+        :class="{ dragging: isDragging && isDragAndDropAllowed }"
         :disabled="disabled"
         :error="hasError"
         :error-message="errorMessage || invalidFileTypeErrorMessage || fileSizeErrorMessage"
@@ -88,9 +88,9 @@
         :aria-labelledby="label ? `file-upload-dropzone-label-${fileInputId}` : undefined"
         class="dropzone"
         :class="{
-          'dragging': isDragging && !disabled,
-          'disabled': disabled,
-          'error': hasError,
+          dragging: isDragging && !disabled,
+          disabled: disabled,
+          error: hasError,
         }"
         data-testid="file-upload-dropzone"
         role="button"
@@ -127,7 +127,7 @@
       <p
         v-if="hasError || help"
         class="help-text"
-        :class="{ 'error': hasError }"
+        :class="{ error: hasError }"
       >
         {{ hasError ? errorMessage || invalidFileTypeErrorMessage || fileSizeErrorMessage || help : help }}
       </p>
@@ -335,7 +335,6 @@ const onDrop = (evt: DragEvent): void => {
         return
       }
 
-      
       if (isAcceptedFile(files[0])) {
         invalidFileTypeError.value = false
         previousFiles.value = files
