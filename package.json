@@ -128,7 +128,7 @@
     "vitepress": "^1.6.4",
     "vue": "^3.5.18",
     "vue-router": "^4.5.1",
-    "vue-tsc": "^2.2.12"
+    "vue-tsc": "^3.0.6"
   },
   "resolutions": {
     "rollup": "npm:@rollup/wasm-node"
