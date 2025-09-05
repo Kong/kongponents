@@ -1,3 +1,10 @@
+## [9.38.13](https://github.com/Kong/kongponents/compare/v9.38.12...v9.38.13) (2025-09-05)
+
+
+### Bug Fixes
+
+* **kmodal:** kmodal max-height on shorter viewports ([#2891](https://github.com/Kong/kongponents/issues/2891)) ([9f57b5e](https://github.com/Kong/kongponents/commit/9f57b5e3e73a0f084674f765daf78a82a70a6883))
+
 ## [9.38.12](https://github.com/Kong/kongponents/compare/v9.38.11...v9.38.12) (2025-09-03)
 
 
