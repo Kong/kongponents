@@ -345,7 +345,7 @@ onBeforeUnmount(async () => {
       font-size: var(--kui-font-size-30, $kui-font-size-30);
       font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
       line-height: var(--kui-line-height-30, $kui-line-height-30);
-      max-height: v-bind('maxHeightValue');
+      max-height: min(v-bind('maxHeightValue'), calc(100vh - 200px));
       overflow-y: auto;
       padding: var(--kui-space-80, $kui-space-80);
 
