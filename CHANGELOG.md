@@ -1,3 +1,10 @@
+# [9.39.0](https://github.com/Kong/kongponents/compare/v9.38.13...v9.39.0) (2025-09-05)
+
+
+### Features
+
+* **kfileupload:** allow drag & drop, dropzone appearance [KHCP-17516] ([#2881](https://github.com/Kong/kongponents/issues/2881)) ([0a08bca](https://github.com/Kong/kongponents/commit/0a08bca44952fd3118b61a318b3db97529d5d149))
+
 ## [9.38.13](https://github.com/Kong/kongponents/compare/v9.38.12...v9.38.13) (2025-09-05)
 
 
