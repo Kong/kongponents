@@ -54,7 +54,7 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "@floating-ui/vue": "^1.1.8",
+    "@floating-ui/vue": "^1.1.9",
     "@kong/icons": "^1.35.0",
     "@popperjs/core": "^2.11.8",
     "date-fns": "^2.30.0",
@@ -88,10 +88,10 @@
     "@stylistic/stylelint-plugin": "^4.0.0",
     "@types/inquirer": "^9.0.7",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^22.17.1",
+    "@types/node": "^22.17.2",
     "@types/sortablejs": "^1.15.8",
     "@vitejs/plugin-vue": "^5.2.4",
-    "@vue/compiler-core": "^3.5.18",
+    "@vue/compiler-core": "^3.5.19",
     "@vue/tsconfig": "^0.7.0",
     "@vueuse/core": "^13.6.0",
     "autoprefixer": "^10.4.21",
