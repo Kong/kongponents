@@ -142,7 +142,7 @@ export interface DropdownProps<T extends string | number> {
    * Use the `kpopAttributes` prop to configure the KPop props dropdown.
    * @default {}
    */
-  kpopAttributes?: Omit<PopoverAttributes, 'target' | 'trigger'>
+  kpopAttributes?: Omit<PopoverAttributes, 'trigger'>
 
   /**
    * An array of objects containing a required `label` property and other optional properties which will render a menu of KDropdownItems.
