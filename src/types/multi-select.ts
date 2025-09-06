@@ -105,7 +105,7 @@ export interface MultiselectProps<T extends string, U extends boolean> {
    * Attributes for the popover component.
    * @default {}
    */
-  kpopAttributes?: Omit<PopoverAttributes, 'target' | 'trigger'>
+  kpopAttributes?: Omit<PopoverAttributes, 'trigger'>
 
   /**
    * The maximum height of the dropdown.

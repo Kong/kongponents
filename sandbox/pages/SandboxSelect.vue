@@ -55,6 +55,15 @@
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent
+        title="kpopAttributes"
+      >
+        <KSelect
+          :items="selectItems"
+          :kpop-attributes="{ target: 'body' }"
+          label="Label"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
         title="clearable"
       >
         <KSelect

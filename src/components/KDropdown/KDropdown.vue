@@ -117,7 +117,7 @@ const tooltipComponent = computed(() => disabledTooltip ? KTooltip : 'div')
 const kPopRef = useTemplateRef('kPop')
 const defaultKPopAttributes: PopoverAttributes = {
   hideCaret: true,
-  popoverClasses: 'dropdown-popover',
+  popoverClasses: 'k-dropdown-popover dropdown-popover',
   popoverTimeout: 0,
   placement: 'bottom-start',
 }
@@ -186,16 +186,21 @@ defineExpose({
   .dropdown-trigger {
     width: 100%;
   }
+}
+</style>
 
-  :deep(.popover.dropdown-popover > .popover-container) {
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-    padding: var(--kui-space-0, $kui-space-0);
+<style lang="scss">
+// We use a global style here because the popover may be teleported outside the component.
+// The selector might look unusual, but it’s intentional: keeping the same specificity
+// as before supporting teleportation ensures backward compatibility and avoids style conflicts.
+.k-dropdown-popover.dropdown-popover.popover > .popover-container {
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+  border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+  padding: var(--kui-space-0, $kui-space-0);
 
-    ul {
-      margin: 0;
-      padding: var(--kui-space-20, $kui-space-20) 0;
-    }
+  .dropdown-list {
+    margin: 0;
+    padding: var(--kui-space-20, $kui-space-20) 0;
   }
 }
 </style>

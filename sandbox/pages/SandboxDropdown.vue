@@ -131,7 +131,19 @@
           trigger-text="Disabled with a tooltip"
         />
       </SandboxSectionComponent>
-
+      <SandboxSectionComponent
+        title="kpopAttributes"
+      >
+        <KDropdown
+          :items="[
+            { label: 'Home', to: { name: 'home' } },
+            { label: 'KAlert', to: { name: 'alert' } },
+            { label: 'Stay', to: { name: 'dropdown' } },
+          ]"
+          :kpop-attributes="{ target: 'body' }"
+          trigger-text="KPop attributes"
+        />
+      </SandboxSectionComponent>
       <!-- Slots -->
       <SandboxTitleComponent
         is-subtitle

@@ -267,7 +267,7 @@ const isDisabled = computed((): boolean => attrs.disabled !== undefined && Strin
 const isReadonly = computed((): boolean => attrs.readonly !== undefined && String(attrs.readonly) !== 'false')
 
 const defaultKPopAttributes: PopoverAttributes = {
-  popoverClasses: `select-popover ${dropdownFooterText || slots['dropdown-footer-text'] ? `has-${dropdownFooterTextPosition}-dropdown-footer` : ''}`,
+  popoverClasses: `k-select-popover select-popover ${dropdownFooterText || slots['dropdown-footer-text'] ? `has-${dropdownFooterTextPosition}-dropdown-footer` : ''}`,
   popoverTimeout: 0,
   placement: 'bottom-start',
   hideCaret: true,
@@ -739,23 +739,6 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     }
   }
 
-  .select-popover {
-    .select-items-container {
-      max-height: v-bind('popoverContentMaxHeight');
-      overflow-y: auto;
-    }
-  }
-
-  :deep(.select-popover.popover .popover-container) {
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
-
-    &.has-sticky-dropdown-footer, &.has-static-dropdown-footer {
-      padding-bottom: var(--kui-space-0, $kui-space-0);
-    }
-  }
-
   .select-loading,
   .select-empty {
     @include selectItemDefaults;
@@ -800,6 +783,25 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
 
   .clear-selection-button {
     @include defaultButtonReset;
+  }
+}
+</style>
+
+<style lang="scss">
+.k-select-popover.select-popover {
+  .select-items-container {
+    max-height: v-bind('popoverContentMaxHeight');
+    overflow-y: auto;
+  }
+
+  &.popover .popover-container {
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
+
+    &.has-sticky-dropdown-footer, &.has-static-dropdown-footer {
+      padding-bottom: var(--kui-space-0, $kui-space-0);
+    }
   }
 }
 </style>

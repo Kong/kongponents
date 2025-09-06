@@ -32,6 +32,15 @@
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent
+        title="kpopAttributes"
+      >
+        <KMultiselect
+          :items="multiselectItems"
+          :kpop-attributes="{ target: 'body' }"
+          label="Label"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
         title="selectedRowCount"
       >
         <KMultiselect

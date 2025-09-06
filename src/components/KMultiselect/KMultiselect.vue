@@ -400,7 +400,7 @@ const defaultKPopAttributes = {
   hideCaret: true,
   placement: 'bottom-start' as PopPlacements,
   popoverTimeout: 0,
-  popoverClasses: 'multiselect-popover',
+  popoverClasses: 'k-multiselect-popover multiselect-popover',
 }
 
 // keys and ids
@@ -1002,13 +1002,6 @@ $kMultiselectChevronIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
 $kMultiselectSelectionsPaddingRight: calc($kMultiselectInputPaddingX + $kMultiselectChevronIconSize + var(--kui-space-40, $kui-space-40));
 $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20); // corresponds to mixin
 
-/* Component mixins */
-
-@mixin kMultiselectPopoverMaxHeight {
-  max-height: v-bind('popoverContentMaxHeight');
-  overflow-y: auto;
-}
-
 /* Component styles */
 
 .k-multiselect {
@@ -1156,44 +1149,6 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     }
   }
 
-  :deep(.multiselect-popover .popover-container) {
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
-
-    &.has-dropdown-footer {
-      padding-bottom: var(--kui-space-0, $kui-space-0);
-    }
-
-    .popover-content {
-      @include kMultiselectPopoverMaxHeight;
-
-      // when dropdown footer text position is sticky
-      &:has(.dropdown-footer.dropdown-footer-sticky) {
-        max-height: none;
-
-        .multiselect-list {
-          @include kMultiselectPopoverMaxHeight;
-        }
-      }
-
-      // Firefox workaround
-      // since :has() selector isn't supported in Firefox be default
-      .multiselect-list ~ .dropdown-footer-sticky {
-        bottom: 0;
-        position: sticky;
-      }
-    }
-  }
-
-  .multiselect-input-wrapper {
-    background-color: var(--kui-color-background, $kui-color-background);
-    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    padding: var(--kui-space-40, $kui-space-40);
-    position: sticky;
-    top: 0;
-  }
-
   .multiselect-empty {
     @include selectItemDefaults;
   }
@@ -1245,6 +1200,58 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
 
   .badge-dismiss-button {
     @include defaultButtonReset;
+  }
+}
+</style>
+
+<style lang="scss">
+/* Component mixins */
+
+@mixin kMultiselectPopoverMaxHeight {
+  max-height: v-bind('popoverContentMaxHeight');
+  overflow-y: auto;
+}
+
+// We use a global style here because the popover may be teleported outside the component.
+// The selector might look unusual, but it’s intentional: keeping the same specificity
+// as before supporting teleportation ensures backward compatibility and avoids style conflicts.
+.k-multiselect-popover {
+  .multiselect-input-wrapper {
+    background-color: var(--kui-color-background, $kui-color-background);
+    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    padding: var(--kui-space-40, $kui-space-40);
+    position: sticky;
+    top: 0;
+  }
+
+  &.multiselect-popover .popover-container {
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
+
+    &.has-dropdown-footer {
+      padding-bottom: var(--kui-space-0, $kui-space-0);
+    }
+
+    .popover-content {
+      @include kMultiselectPopoverMaxHeight;
+
+      // when dropdown footer text position is sticky
+      &:has(.dropdown-footer.dropdown-footer-sticky) {
+        max-height: none;
+
+        .multiselect-list {
+          @include kMultiselectPopoverMaxHeight;
+        }
+      }
+
+      // Firefox workaround
+      // since :has() selector isn't supported in Firefox be default
+      .multiselect-list ~ .dropdown-footer-sticky {
+        bottom: 0;
+        position: sticky;
+      }
+    }
   }
 }
 </style>

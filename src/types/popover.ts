@@ -202,9 +202,8 @@ export type PopoverAttributes = Pick<PopProps,
   | 'hideCaret'
   | 'maxWidth'
   | 'disabled'
-  /** Not supported in KDropdown, KSelect and KMultiselect */
   | 'target'
-  | 'trigger'
+  | 'trigger' // Not supported in KDropdown, KSelect and KMultiselect
 > & {
   'data-testid'?: string
 }
