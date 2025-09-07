@@ -652,6 +652,11 @@ Search input placeholder (when [`collapsedContext` prop](#collapsedcontext) is `
 />
 ```
 
+### kpopAttributes
+
+Attributes to be passed to underlying KPopover component. See [KPopover's props](/components/popover#props) for more info.
+
+
 ## Attribute Binding
 
 You can pass any input attribute and it will get properly bound to the element.

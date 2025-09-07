@@ -82,7 +82,7 @@ export interface SelectProps<T extends string | number, U extends boolean> {
    * See KPopover's props for more info.
    * @default {}
    */
-  kpopAttributes?: Omit<PopoverAttributes, 'target' | 'trigger'>
+  kpopAttributes?: Omit<PopoverAttributes, 'trigger'>
 
   /**
    * Maximum height for dropdown container.
