@@ -1,3 +1,10 @@
+# [9.40.0](https://github.com/Kong/kongponents/compare/v9.39.0...v9.40.0) (2025-09-07)
+
+
+### Features
+
+* support specifying target for dropdown/select/multiselect popovers ([#2892](https://github.com/Kong/kongponents/issues/2892)) ([7fbaeec](https://github.com/Kong/kongponents/commit/7fbaeecf0eb40a257c61e515a0e520a2ddbfa16f))
+
 # [9.39.0](https://github.com/Kong/kongponents/compare/v9.38.13...v9.39.0) (2025-09-05)
 
 
