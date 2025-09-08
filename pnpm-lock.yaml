@@ -73,8 +73,8 @@ importers:
         specifier: ^1.12.3
         version: 1.12.3
       '@kong-ui-public/sandbox-layout':
-        specifier: ^2.2.3
-        version: 2.2.3(vue@3.5.18(typescript@5.9.2))
+        specifier: ^2.2.5
+        version: 2.2.5(vue@3.5.18(typescript@5.9.2))
       '@kong/design-tokens':
         specifier: ^1.18.0
         version: 1.18.0
@@ -1039,8 +1039,8 @@ packages:
   '@keyv/serialize@1.1.0':
     resolution: {integrity: sha512-RlDgexML7Z63Q8BSaqhXdCYNBy/JQnqYIwxofUrNLGCblOMHp+xux2Q8nLMLlPpgHQPoU0Do8Z6btCpRBEqZ8g==}
 
-  '@kong-ui-public/sandbox-layout@2.2.3':
-    resolution: {integrity: sha512-LtWJuWz2Huoq+7csHdbQ5fNyPKPjdZke9udgw05fjTniJoOFCUOKdJAqlUqZ8ygEaP3MwUZ2efWtLLxRfgK60Q==}
+  '@kong-ui-public/sandbox-layout@2.2.5':
+    resolution: {integrity: sha512-sIA2K4d/h8iae93VK0ouqSfDYu+VcXmuGuYlTvwGHqD52QbI+QzU9BYfY1GOsM9C9x973QGWBDKnb3SF9YuWRA==}
     peerDependencies:
       vue: '>= 3.3.13 < 4'
 
@@ -1056,6 +1056,12 @@ packages:
 
   '@kong/icons@1.35.0':
     resolution: {integrity: sha512-9xI+dvc8Z3VZMwMjlk/XPsV94tgd5yuTGPblwiExU/qnONf2OxqfLD8xrcBmPAZ8Bu6YUfvmavJe//2N+Uzhxw==}
+    engines: {node: '>=18.17.0', pnpm: '>=9.14.4 || >=10.1.0'}
+    peerDependencies:
+      vue: '>= 3.3.4 < 4'
+
+  '@kong/icons@1.36.0':
+    resolution: {integrity: sha512-ygY/f5WLQf4soHqBMRIJ9Yxqbuorjxdi2JlA4livQFTiX6f6/g7lKhIY29rUAyO/M58qFIk61YLZLuvww460Fw==}
     engines: {node: '>=18.17.0', pnpm: '>=9.14.4 || >=10.1.0'}
     peerDependencies:
       vue: '>= 3.3.4 < 4'
@@ -6361,9 +6367,9 @@ snapshots:
 
   '@keyv/serialize@1.1.0': {}
 
-  '@kong-ui-public/sandbox-layout@2.2.3(vue@3.5.18(typescript@5.9.2))':
+  '@kong-ui-public/sandbox-layout@2.2.5(vue@3.5.18(typescript@5.9.2))':
     dependencies:
-      '@kong/icons': 1.35.0(vue@3.5.18(typescript@5.9.2))
+      '@kong/icons': 1.36.0(vue@3.5.18(typescript@5.9.2))
       vue: 3.5.18(typescript@5.9.2)
 
   '@kong/design-tokens@1.18.0': {}
@@ -6388,6 +6394,10 @@ snapshots:
       - typescript
 
   '@kong/icons@1.35.0(vue@3.5.18(typescript@5.9.2))':
+    dependencies:
+      vue: 3.5.18(typescript@5.9.2)
+
+  '@kong/icons@1.36.0(vue@3.5.18(typescript@5.9.2))':
     dependencies:
       vue: 3.5.18(typescript@5.9.2)
 
