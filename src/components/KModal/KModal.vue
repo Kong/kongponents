@@ -238,6 +238,7 @@ watch(() => inputAutofocus, async (inputAutofocus: boolean): Promise<void> => {
 onBeforeUnmount(async () => {
   await toggleFocusTrap(false)
   toggleEventListeners(false)
+  document?.body?.classList?.remove('k-modal-overflow-hidden')
 })
 </script>
 
