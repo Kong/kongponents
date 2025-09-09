@@ -99,4 +99,9 @@ export interface TextAreaSlots {
    * Slot for tooltip content if textarea has a label and label has tooltip.
    */
   'label-tooltip'?: () => any
+
+  /**
+   * Slot for customizing the help text.
+   */
+  help?(): any
 }
