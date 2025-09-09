@@ -132,6 +132,7 @@ const attrs = useAttrs()
 
 const textSelection = useTextSelection()
 
+// Make sure the class name is unique to avoid conflicts if there are multiple modals on the same page
 const KMODAL_BODY_OVERFLOW_HIDDEN_CLASS = `k-modal-${useId()}-overflow-hidden`
 
 const focusTrapElement = ref<InstanceType<typeof FocusTrap> | null>(null)
