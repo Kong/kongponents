@@ -344,4 +344,18 @@ describe('KModal', () => {
 
     cy.get('.k-modal input[data-testid="slotted-input"]').should('have.focus')
   })
+
+  it('locks body scroll when modal is open and unlocks when closed', () => {
+    cy.mount(KModal, {
+      props: {
+        visible: true,
+      },
+    }).then((component) => {
+      cy.get('body').should('have.css', 'overflow', 'hidden').then(() => {
+        component.wrapper.setProps({ visible: false })
+
+        cy.get('body').should('have.css', 'overflow', 'visible')
+      })
+    })
+  })
 })
