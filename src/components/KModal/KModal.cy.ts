@@ -358,4 +358,18 @@ describe('KModal', () => {
       })
     })
   })
+
+  it('unlocks body scroll when modal is unmounted', () => {
+    cy.mount(KModal, {
+      props: {
+        visible: true,
+      },
+    }).then(() => {
+      cy.get('body').should('have.css', 'overflow', 'hidden').then(() => {
+        Cypress.vueWrapper.unmount()
+
+        cy.get('body').should('have.css', 'overflow', 'visible')
+      })
+    })
+  })
 })
