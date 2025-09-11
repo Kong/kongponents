@@ -274,31 +274,29 @@ defineExpose({
 })
 
 onMounted(() => {
-  if (document) {
-    // Use capture phase so users can stop propagation outside the popup trigger without breaking toggle behavior
-    useEventListener(window, 'click', outsideClickHandler, { capture: true })
+  // Use capture phase so users can stop propagation outside the popup trigger without breaking toggle behavior
+  useEventListener(window, 'mousedown', outsideClickHandler, { capture: true })
 
-    if (popoverTrigger.value) {
-      // determine the element to bind aria-controls attribute to
-      // data-dropdown-trigger is used to determine the default (not slotted) KDropdown trigger
-      const ariaControlsElement = popoverTrigger.value.querySelector('button[data-dropdown-trigger="true"]') || popoverTrigger.value
-      if (!ariaControlsElement.hasAttribute('aria-controls')) {
-        ariaControlsElement.setAttribute('aria-controls', popoverId)
+  if (popoverTrigger.value) {
+    // determine the element to bind aria-controls attribute to
+    // data-dropdown-trigger is used to determine the default (not slotted) KDropdown trigger
+    const ariaControlsElement = popoverTrigger.value.querySelector('button[data-dropdown-trigger="true"]') || popoverTrigger.value
+    if (!ariaControlsElement.hasAttribute('aria-controls')) {
+      ariaControlsElement.setAttribute('aria-controls', popoverId)
+    }
+  }
+
+  if (trigger === 'hover') {
+    [popoverElement.value, popoverTrigger.value].forEach((element) => {
+      if (!element) {
+        return
       }
-    }
 
-    if (trigger === 'hover') {
-      [popoverElement.value, popoverTrigger.value].forEach((element) => {
-        if (!element) {
-          return
-        }
-
-        useEventListener(element, 'mouseenter', showPopover)
-        useEventListener(element, 'focusin', showPopover)
-        useEventListener(element, 'mouseleave', hidePopover)
-        useEventListener(element, 'focusout', hidePopover)
-      })
-    }
+      useEventListener(element, 'mouseenter', showPopover)
+      useEventListener(element, 'focusin', showPopover)
+      useEventListener(element, 'mouseleave', hidePopover)
+      useEventListener(element, 'focusout', hidePopover)
+    })
   }
 })
 

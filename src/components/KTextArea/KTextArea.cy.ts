@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import KTextArea from '@/components/KTextArea/KTextArea.vue'
 
 // Helper function to get the number of rendered rows in a textarea
@@ -46,6 +47,30 @@ describe('KTextArea', () => {
 
     cy.get('.k-label').should('contain.text', labelText)
     cy.get('.k-label .tooltip-trigger-icon').should('be.visible')
+  })
+
+  it('renders help when value is passed', () => {
+    const helpText = 'I am helpful'
+
+    cy.mount(KTextArea, {
+      props: {
+        help: helpText,
+      },
+    })
+
+    cy.get('.k-textarea .help-text').should('contain.text', helpText)
+  })
+
+  it('renders help with `help` slot applied', () => {
+    const helpText = 'This is help text'
+
+    cy.mount(KTextArea, {
+      slots: {
+        help: () => h('div', {}, helpText),
+      },
+    })
+
+    cy.get('.k-textarea .help-text').should('contain.text', helpText)
   })
 
   it('handles `required` attribute correctly', () => {

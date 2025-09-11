@@ -88,14 +88,21 @@ export interface InputSlots {
    * Inserting icons before the input field.
    */
   before?(): any
+
   /**
    * Inserting icons after the input field.
    */
   after?(): any
+
   /**
    * Slot for customizing the input label's tooltip.
    */
   'label-tooltip'?(): any
+
+  /**
+   * Slot for customizing the help text.
+   */
+  help?(): any
 }
 
 export interface LimitExceededData {

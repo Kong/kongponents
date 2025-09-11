@@ -1,5 +1,5 @@
-import KInput from '@/components/KInput/KInput.vue'
 import { h } from 'vue'
+import KInput from '@/components/KInput/KInput.vue'
 
 describe('KInput', () => {
   it('renders text when value is passed', () => {
@@ -102,6 +102,50 @@ describe('KInput', () => {
     })
 
     cy.get('.k-input .help-text').should('contain.text', helpText)
+  })
+
+  it('renders error message when `error` and `errorMessage` are passed', () => {
+    const helpText = 'I am helpful'
+    const errorMessage = 'This is an error message'
+
+    cy.mount(KInput, {
+      props: {
+        help: helpText,
+        error: true,
+        errorMessage,
+      },
+    })
+
+    cy.get('.k-input .help-text').should('contain.text', errorMessage).and('not.contain.text', helpText)
+  })
+
+  it('renders help with `help` slot applied', () => {
+    const helpText = 'This is help text'
+
+    cy.mount(KInput, {
+      slots: {
+        help: () => h('div', {}, helpText),
+      },
+    })
+
+    cy.get('.k-input .help-text').should('contain.text', helpText)
+  })
+
+  it('renders the error message with `error` and `error-message` props and `help` slot applied', () => {
+    const helpText = 'This is help text'
+    const errorMessage = 'This is an error message'
+
+    cy.mount(KInput, {
+      props: {
+        error: true,
+        errorMessage,
+      },
+      slots: {
+        help: () => h('div', {}, helpText),
+      },
+    })
+
+    cy.get('.k-input .help-text').should('contain.text', errorMessage)
   })
 
   it('shows character count when characterLimit prop is set and exceeded', () => {
