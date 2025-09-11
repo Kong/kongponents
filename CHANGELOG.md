@@ -1,3 +1,16 @@
+# [9.41.0](https://github.com/Kong/kongponents/compare/v9.40.1...v9.41.0) (2025-09-11)
+
+
+### Bug Fixes
+
+* fix default generic type for enable-item-creation ([#2899](https://github.com/Kong/kongponents/issues/2899)) ([74ec1f6](https://github.com/Kong/kongponents/commit/74ec1f64f7db4a61e22734acc19979440c8d3ac9))
+
+
+### Features
+
+* **kinput, ktextarea:** add `help` slot ([#2895](https://github.com/Kong/kongponents/issues/2895)) ([943f461](https://github.com/Kong/kongponents/commit/943f46158b13fdeda536ad7e2db76d54da2bb44c))
+* **kpop:** dismiss popover upon mousedown outside instead of click ([#2898](https://github.com/Kong/kongponents/issues/2898)) ([d23185b](https://github.com/Kong/kongponents/commit/d23185be2d16178cd6143a0a9e0c2bd7b126986d))
+
 ## [9.40.1](https://github.com/Kong/kongponents/compare/v9.40.0...v9.40.1) (2025-09-08)
 
 
