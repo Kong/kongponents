@@ -286,7 +286,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts" generic="T extends string, U extends boolean = false">
 import type { Ref } from 'vue'
 import { ref, computed, watch, nextTick, onMounted, useAttrs, useId, useTemplateRef, onBeforeUnmount } from 'vue'
 import useUtilities from '@/composables/useUtilities'
@@ -328,9 +328,7 @@ const itemValuesAreUnique = (items: MultiselectItem[]): boolean => {
 
   return vals.length === uniqueValues.size
 }
-</script>
 
-<script setup lang="ts" generic="T extends string, U extends boolean">
 defineOptions({
   inheritAttrs: false,
 })

@@ -70,7 +70,7 @@ export interface SelectFilterFunctionParams<T extends string | number> {
 
 export type SelectDropdownFooterTextPosition = 'sticky' | 'static'
 
-export interface SelectProps<T extends string | number, U extends boolean> {
+export interface SelectProps<T extends string | number, U extends boolean = false> {
   /**
    * To set the value of the select without using `v-model`.
    * @default ''

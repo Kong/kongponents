@@ -58,7 +58,7 @@ export interface MultiselectItemsEmits<T extends string = string> {
   'add-item': []
 }
 
-export interface MultiselectProps<T extends string, U extends boolean> {
+export interface MultiselectProps<T extends string, U extends boolean = false> {
   /**
    * The current value of the multiselect (v-model).
    * @default []
