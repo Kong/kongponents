@@ -126,7 +126,7 @@
     "vite": "^6.3.5",
     "vite-plugin-vue-devtools": "^7.7.7",
     "vitepress": "^1.6.4",
-    "vue": "^3.5.18",
+    "vue": "^3.5.20",
     "vue-router": "^4.5.1",
     "vue-tsc": "^2.2.12"
   },
