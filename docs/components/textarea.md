@@ -164,6 +164,24 @@ If you want to utilize HTML in the textarea label's tooltip, use the slot.
 </KTextArea>
 ```
 
+### help
+
+Content passed in to the `help` slot will be shown as the help content. The slot content takes precedence over the `help` prop.
+
+<KTextArea label="Some label" help="This will be replaced with a slot">
+  <template #help>
+    Anything goes here
+  </template>
+</KTextArea>
+
+```html
+<KTextArea label="Some label" help="This will be replaced with a slot">
+  <template #help>
+    Anything goes here
+  </template>
+</KTextArea>
+```
+
 ## Events
 
 KTextArea has a couple of event bindings.
