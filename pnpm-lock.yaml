@@ -73,8 +73,8 @@ importers:
         specifier: ^1.12.3
         version: 1.12.3
       '@kong-ui-public/sandbox-layout':
-        specifier: ^2.2.5
-        version: 2.2.5(vue@3.5.18(typescript@5.9.2))
+        specifier: ^2.2.6
+        version: 2.3.0(vue@3.5.18(typescript@5.9.2))
       '@kong/design-tokens':
         specifier: ^1.18.0
         version: 1.18.0
@@ -1039,8 +1039,8 @@ packages:
   '@keyv/serialize@1.1.0':
     resolution: {integrity: sha512-RlDgexML7Z63Q8BSaqhXdCYNBy/JQnqYIwxofUrNLGCblOMHp+xux2Q8nLMLlPpgHQPoU0Do8Z6btCpRBEqZ8g==}
 
-  '@kong-ui-public/sandbox-layout@2.2.5':
-    resolution: {integrity: sha512-sIA2K4d/h8iae93VK0ouqSfDYu+VcXmuGuYlTvwGHqD52QbI+QzU9BYfY1GOsM9C9x973QGWBDKnb3SF9YuWRA==}
+  '@kong-ui-public/sandbox-layout@2.3.0':
+    resolution: {integrity: sha512-z8mtvtj/wXZwvL8EH1GYSl71tiivMqkQXDPb2oUYG0MuA//M9BenAOspi/QsZc6Hdj5EdxcKWXqUk4teYZkZXQ==}
     peerDependencies:
       vue: '>= 3.3.13 < 4'
 
@@ -1237,8 +1237,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.50.0':
-    resolution: {integrity: sha512-mCzoNeR8ynLTHJ5VQ9J/GzSKPJjEC4/nCmGw2y3NSCZoc4sbSVdNe5x4S7+bda6QIEUrk6lR1FE7FEDo+p/u1Q==}
+  '@rollup/wasm-node@4.50.1':
+    resolution: {integrity: sha512-3oCUcKNdkemnqy6r12UdAtfYMWywGxVHSCQvtDYeEtnOcOQC/SihSXkO6+rByH2ZhbgfeTbqLiw1NDGfJDptyg==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -6367,7 +6367,7 @@ snapshots:
 
   '@keyv/serialize@1.1.0': {}
 
-  '@kong-ui-public/sandbox-layout@2.2.5(vue@3.5.18(typescript@5.9.2))':
+  '@kong-ui-public/sandbox-layout@2.3.0(vue@3.5.18(typescript@5.9.2))':
     dependencies:
       '@kong/icons': 1.36.0(vue@3.5.18(typescript@5.9.2))
       vue: 3.5.18(typescript@5.9.2)
@@ -6555,7 +6555,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 4.0.3
 
-  '@rollup/wasm-node@4.50.0':
+  '@rollup/wasm-node@4.50.1':
     dependencies:
       '@types/estree': 1.0.8
     optionalDependencies:
@@ -10924,7 +10924,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.5.6
-      rollup: '@rollup/wasm-node@4.50.0'
+      rollup: '@rollup/wasm-node@4.50.1'
     optionalDependencies:
       '@types/node': 22.17.2
       fsevents: 2.3.3
@@ -10937,7 +10937,7 @@ snapshots:
       fdir: 6.5.0(picomatch@4.0.3)
       picomatch: 4.0.3
       postcss: 8.5.6
-      rollup: '@rollup/wasm-node@4.50.0'
+      rollup: '@rollup/wasm-node@4.50.1'
       tinyglobby: 0.2.14
     optionalDependencies:
       '@types/node': 22.17.2
