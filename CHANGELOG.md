@@ -1,3 +1,10 @@
+## [9.41.1](https://github.com/Kong/kongponents/compare/v9.41.0...v9.41.1) (2025-09-12)
+
+
+### Bug Fixes
+
+* **kmodal:** remove body overflow class on unmount ([#2894](https://github.com/Kong/kongponents/issues/2894)) ([8b184b8](https://github.com/Kong/kongponents/commit/8b184b89b9b2d03048f0613f96bf0b4c53a24c40))
+
 # [9.41.0](https://github.com/Kong/kongponents/compare/v9.40.1...v9.41.0) (2025-09-11)
 
 
