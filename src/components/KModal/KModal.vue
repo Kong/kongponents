@@ -93,7 +93,7 @@
 <script lang="ts" setup>
 import { computed, nextTick, onBeforeUnmount, ref, useAttrs, watch } from 'vue'
 import { FocusTrap } from 'focus-trap-vue'
-import { useTextSelection } from '@vueuse/core'
+import { useTextSelection, useScrollLock } from '@vueuse/core'
 import KButton from '@/components/KButton/KButton.vue'
 import type { ModalProps, ModalEmits, ModalSlots } from '@/types'
 import { CloseIcon } from '@kong/icons'
@@ -131,6 +131,8 @@ const slots = defineSlots<ModalSlots>()
 const attrs = useAttrs()
 
 const textSelection = useTextSelection()
+
+const isBodyScrollLocked = useScrollLock(document?.body, false)
 
 const focusTrapElement = ref<InstanceType<typeof FocusTrap> | null>(null)
 const modalWrapperElement = ref<HTMLElement | null>(null)
@@ -176,16 +178,6 @@ const toggleFocusTrap = async (isActive: boolean): Promise<void> => {
   }
 }
 
-const toggleBodyScroll = (isScrollable: boolean): void => {
-  if (typeof document !== 'undefined') {
-    if (isScrollable) {
-      document?.body?.classList?.remove('k-modal-overflow-hidden')
-    } else {
-      document?.body?.classList?.add('k-modal-overflow-hidden')
-    }
-  }
-}
-
 const toggleEventListeners = (isActive: boolean): void => {
   if (typeof document !== 'undefined') {
     if (isActive) {
@@ -218,11 +210,11 @@ watch(() => visible, async (visible: boolean): Promise<void> => {
     if (inputAutofocus) {
       setInputAutofocus()
     }
-    toggleBodyScroll(false)
+    isBodyScrollLocked.value = true
     toggleEventListeners(true)
   } else {
     await toggleFocusTrap(false)
-    toggleBodyScroll(true)
+    isBodyScrollLocked.value = false
     toggleEventListeners(false)
   }
 }, { immediate: true })
@@ -234,7 +226,7 @@ watch(() => inputAutofocus, async (inputAutofocus: boolean): Promise<void> => {
   }
 })
 
-// need to use onBeforeUnmount instead of onUnmounted to ensure that focus trap is deactivated BEFORE the component is unmounted
+// Need to use onBeforeUnmount instead of onUnmounted to ensure that focus trap is deactivated BEFORE the component is unmounted
 onBeforeUnmount(async () => {
   await toggleFocusTrap(false)
   toggleEventListeners(false)
@@ -371,12 +363,5 @@ onBeforeUnmount(async () => {
       }
     }
   }
-}
-</style>
-
-<style lang="scss">
-// keep unscoped to target body element
-body.k-modal-overflow-hidden {
-  overflow: hidden;
 }
 </style>
