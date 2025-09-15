@@ -18,49 +18,51 @@
       v-if="showTime"
       class="time-wrapper"
     >
-      <div
-        class="time-input"
-      >
-        <label
-          class="time-input-label"
-          :for="`time-input-start-${componentId}`"
-        >
-          <span v-if="showRange('start')">
-            <!-- @vue-ignore: typeguard in showRange -->
-            {{ formatDateDisplay(calendarVModel.start) }}
-          </span>
-          <span v-else-if="(calendarVModel && calendarVModel instanceof Date)">
-            {{ formatDateDisplay(calendarVModel) }}
-          </span>
-        </label>
-        <input
-          :id="`time-input-start-${componentId}`"
-          v-model="startTimeValue"
-          class="time-input-start"
-          :class="{ 'input-error': hasError }"
-          data-testid="time-input-start"
-          :step="60"
-          type="time"
-        >
-        <label
-          class="time-input-label"
-          :for="`time-input-end-${componentId}`"
-        >
-          <span v-if="showRange('end')">
-            <!-- @vue-ignore: typeguard in showRange -->
-            {{ format(calendarVModel.end, 'EEE MMM d yyyy') }}
-          </span>
-        </label>
-        <input
-          v-if="isRange"
-          :id="`time-input-end-${componentId}`"
-          v-model="endTimeValue"
-          class="time-input-end"
-          :class="{ 'input-error': hasError }"
-          data-testid="time-input-end"
-          :step="60"
-          type="time"
-        >
+      <div class="time-input">
+        <div class="time-input-item">
+          <label
+            class="time-input-label"
+            :for="`time-input-start-${componentId}`"
+          >
+            <span v-if="showRange('start')">
+              <!-- @vue-ignore: typeguard in showRange -->
+              {{ formatDateDisplay(calendarVModel.start) }}
+            </span>
+            <span v-else-if="(calendarVModel && calendarVModel instanceof Date)">
+              {{ formatDateDisplay(calendarVModel) }}
+            </span>
+          </label>
+          <input
+            :id="`time-input-start-${componentId}`"
+            v-model="startTimeValue"
+            class="time-input-start"
+            :class="{ 'input-error': hasError }"
+            data-testid="time-input-start"
+            :step="60"
+            type="time"
+          >
+        </div>
+        <div class="time-input-item">
+          <label
+            class="time-input-label"
+            :for="`time-input-end-${componentId}`"
+          >
+            <span v-if="showRange('end')">
+              <!-- @vue-ignore: typeguard in showRange -->
+              {{ format(calendarVModel.end, 'EEE MMM d yyyy') }}
+            </span>
+          </label>
+          <input
+            v-if="isRange"
+            :id="`time-input-end-${componentId}`"
+            v-model="endTimeValue"
+            class="time-input-end"
+            :class="{ 'input-error': hasError }"
+            data-testid="time-input-end"
+            :step="60"
+            type="time"
+          >
+        </div>
       </div>
       <Transition
         mode="out-in"
@@ -229,10 +231,16 @@ defineExpose({
     .time-input {
       border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
       display: flex;
-      flex-direction: column;
-      gap: var(--kui-space-30, $kui-space-30);
+      flex-direction: row;
+      justify-content: space-between;
       padding: var(--kui-space-30, $kui-space-30) var(--kui-space-60, $kui-space-60);
-      width: fit-content;
+
+      .time-input-item {
+        display: flex;
+        flex-direction: column;
+        gap: var(--kui-space-30, $kui-space-30);
+        width: min-content;
+      }
 
       input[type="time"] {
         @include inputDefaults;
