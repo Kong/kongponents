@@ -356,6 +356,7 @@ $kPopCaretOffset: 16px;
 
 // need to have these styles not nested under .k-popover so that they still apply when the popover is teleported
 .popover {
+  cursor: auto;
   // need max-width: 100vw; and width: max-content; for Floating UI to work properly
   // gets overwritten by the size middleware once the popover is positioned
   max-width: 100vw;

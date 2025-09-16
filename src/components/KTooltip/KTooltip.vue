@@ -65,6 +65,8 @@ const randomTooltipId = useId()
 
 <style lang="scss">
 .k-tooltip.popover {
+  cursor: default;
+
   .popover-container {
     background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
     border: none;
