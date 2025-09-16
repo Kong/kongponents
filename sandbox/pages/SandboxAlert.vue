@@ -76,6 +76,21 @@
             <code>someCodeHere: true</code>
           </div>
         </KAlert>
+        <KAlert
+          appearance="decorative"
+          title="Decorative"
+        >
+          <div class="appearance-content">
+            This is decorative alert.
+            <a
+              href="https://kongponents.konghq.com/components/alert.html"
+              target="_blank"
+            >
+              Link
+            </a>
+            <code>someCodeHere: true</code>
+          </div>
+        </KAlert>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="showIcon">
         <KAlert
@@ -129,6 +144,13 @@
           message="This is danger alert with icon."
           show-icon
           title="Danger"
+        />
+        <KAlert
+          appearance="decorative"
+          dismissible
+          message="This is decorative alert with icon."
+          show-icon
+          title="Decorative"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent title="dismissible">

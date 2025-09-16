@@ -38,6 +38,7 @@ Depending on the nature of the message you want to display to the user, KAlert c
 - `success`
 - `warning`
 - `danger`
+- `decorative`
 
 <div class="vertical-container">
   <KAlert
@@ -55,6 +56,10 @@ Depending on the nature of the message you want to display to the user, KAlert c
   <KAlert
     appearance="danger"
     message="This is danger alert."
+  />
+  <KAlert
+    appearance="decorative"
+    message="This is decorative alert."
   />
 </div>
 
@@ -75,11 +80,15 @@ Depending on the nature of the message you want to display to the user, KAlert c
   appearance="danger"
   message="This is danger alert."
 />
+<KAlert
+  appearance="decorative"
+  message="This is decorative alert."
+/>
 ```
 
 ### title
 
-A prop to provide the alert title. 
+A prop to provide the alert title.
 
 <KAlert
   title="Important update on how we handle third-party cookies"
@@ -124,6 +133,11 @@ If you provide your custom icon through [`icon` slot](#icon), it will be shown r
     appearance="danger"
     message="This is danger alert with icon."
   />
+  <KAlert
+    show-icon
+    appearance="decorative"
+    message="This is decorative alert with icon."
+  />
 </div>
 
 ```html
@@ -146,6 +160,11 @@ If you provide your custom icon through [`icon` slot](#icon), it will be shown r
   show-icon
   appearance="danger"
   message="This is danger alert with icon."
+/>
+<KAlert
+  show-icon
+  appearance="decorative"
+  message="This is decorative alert with icon."
 />
 ```
 

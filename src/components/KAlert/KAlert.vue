@@ -49,7 +49,7 @@
 import { computed } from 'vue'
 import { AlertAppearances } from '@/types'
 import type { AlertEmits, AlertProps, AlertSlots } from '@/types'
-import { InfoIcon, CheckCircleIcon, WarningIcon, DangerIcon, CloseIcon } from '@kong/icons'
+import { InfoIcon, CheckCircleIcon, WarningIcon, DangerIcon, CloseIcon, RocketIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 
 type AlertIcon = typeof InfoIcon // all icons are the same type so we can use any of them
@@ -74,6 +74,8 @@ const getAlertIcon = computed((): AlertIcon => {
       return WarningIcon
     case AlertAppearances.danger:
       return DangerIcon
+    case AlertAppearances.decorative:
+      return RocketIcon
     default:
       return InfoIcon // info as default in case of invalid appearance
   }
@@ -209,7 +211,7 @@ const getAlertIcon = computed((): AlertIcon => {
       var(--kui-color-background-warning-weakest, $kui-color-background-warning-weakest),
       var(--kui-color-text-warning, $kui-color-text-warning),
       var(--kui-color-text-warning-strong, $kui-color-text-warning-strong),
-      #FFF296); // we don't have a kui-color-background-warning-weaker token so use hardcoded value
+      var(--kui-color-background-warning-weaker, $kui-color-background-warning-weaker));
   }
 
   &.danger {
@@ -218,6 +220,14 @@ const getAlertIcon = computed((): AlertIcon => {
       var(--kui-color-text-danger, $kui-color-text-danger),
       var(--kui-color-text-danger-strong, $kui-color-text-danger-strong),
       var(--kui-color-background-danger-weaker, $kui-color-background-danger-weaker));
+  }
+
+  &.decorative {
+    @include kAlertAppearance(
+      var(--kui-color-background-decorative-purple-weakest, $kui-color-background-decorative-purple-weakest),
+      var(--kui-color-text-decorative-purple, $kui-color-text-decorative-purple),
+      var(--kui-color-text-decorative-purple-strong, $kui-color-text-decorative-purple-strong),
+      var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker));
   }
 }
 </style>
