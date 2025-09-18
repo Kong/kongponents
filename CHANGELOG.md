@@ -1,3 +1,10 @@
+# [9.42.0](https://github.com/Kong/kongponents/compare/v9.41.1...v9.42.0) (2025-09-18)
+
+
+### Features
+
+* **kalert:** add decorative appearance [KHCP-17977] ([#2905](https://github.com/Kong/kongponents/issues/2905)) ([16eff36](https://github.com/Kong/kongponents/commit/16eff366aaf23cd9cb72ffbe6cb39449b26c10b3))
+
 ## [9.41.1](https://github.com/Kong/kongponents/compare/v9.41.0...v9.41.1) (2025-09-12)
 
 
