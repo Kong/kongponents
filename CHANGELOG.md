@@ -1,3 +1,10 @@
+## [9.42.1](https://github.com/Kong/kongponents/compare/v9.42.0...v9.42.1) (2025-09-18)
+
+
+### Bug Fixes
+
+* **klabel:** tooltip in label should prevent default behavior ([#2904](https://github.com/Kong/kongponents/issues/2904)) ([db4fc9e](https://github.com/Kong/kongponents/commit/db4fc9e37109801bd0a3c65cb2aec3c88684e7a7))
+
 # [9.42.0](https://github.com/Kong/kongponents/compare/v9.41.1...v9.42.0) (2025-09-18)
 
 
