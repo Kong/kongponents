@@ -227,7 +227,7 @@ const getAlertIcon = computed((): AlertIcon => {
       var(--kui-color-background-decorative-purple-weakest, $kui-color-background-decorative-purple-weakest),
       var(--kui-color-text-decorative-purple, $kui-color-text-decorative-purple),
       var(--kui-color-text-decorative-purple-strong, $kui-color-text-decorative-purple-strong),
-      var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker));
+      #CFC8FF); // we don't have a kui-color-background-decorative-purple-weaker (purple.20) token so use hardcoded value
   }
 }
 </style>
