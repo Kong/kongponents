@@ -73,8 +73,8 @@ importers:
         specifier: ^1.12.3
         version: 1.12.3
       '@kong-ui-public/sandbox-layout':
-        specifier: ^2.3.3
-        version: 2.3.3(vue@3.5.21(typescript@5.9.2))
+        specifier: ^2.3.4
+        version: 2.3.4(vue@3.5.21(typescript@5.9.2))
       '@kong/design-tokens':
         specifier: ^1.18.0
         version: 1.18.0
@@ -1037,8 +1037,8 @@ packages:
   '@keyv/serialize@1.1.0':
     resolution: {integrity: sha512-RlDgexML7Z63Q8BSaqhXdCYNBy/JQnqYIwxofUrNLGCblOMHp+xux2Q8nLMLlPpgHQPoU0Do8Z6btCpRBEqZ8g==}
 
-  '@kong-ui-public/sandbox-layout@2.3.3':
-    resolution: {integrity: sha512-up5i/TEBGjKKII8bQJSEl7tsI2IsYbT550c/gXrOXM3hK1LgnbvfKsxreiy9P8noF3oL5vg2wzbmjptU18xjGw==}
+  '@kong-ui-public/sandbox-layout@2.3.4':
+    resolution: {integrity: sha512-OYyCMz1qNRfZ3BdSej8Djbg3gSGE0rKM4mOmEMSai/TJpC34VmZkKjLV0Z4AHSA9+AjED51ZW9unX3WWc7SNFQ==}
     peerDependencies:
       vue: '>= 3.3.13 < 4'
 
@@ -1058,8 +1058,8 @@ packages:
     peerDependencies:
       vue: '>= 3.3.4 < 4'
 
-  '@kong/icons@1.37.0':
-    resolution: {integrity: sha512-uby+Djmg2lstnx/R3bzysth11g2pNb6kBNK85WY4pJFPuKTdYV2QIHbKR4uY3UU+yXwI2U227qJEzJyyhZ6Fwg==}
+  '@kong/icons@1.38.0':
+    resolution: {integrity: sha512-pney4rgNJOUqp9L4KUHUmLtWLvzMtYN2R4dCiuv7x2LBEVxn1NvvqQsFtBEHQZ28og2mJNS1Fc7wobbW6o2bcg==}
     engines: {node: '>=18.17.0', pnpm: '>=9.14.4 || >=10.1.0'}
     peerDependencies:
       vue: '>= 3.3.4 < 4'
@@ -6367,9 +6367,9 @@ snapshots:
 
   '@keyv/serialize@1.1.0': {}
 
-  '@kong-ui-public/sandbox-layout@2.3.3(vue@3.5.21(typescript@5.9.2))':
+  '@kong-ui-public/sandbox-layout@2.3.4(vue@3.5.21(typescript@5.9.2))':
     dependencies:
-      '@kong/icons': 1.37.0(vue@3.5.21(typescript@5.9.2))
+      '@kong/icons': 1.38.0(vue@3.5.21(typescript@5.9.2))
       vue: 3.5.21(typescript@5.9.2)
 
   '@kong/design-tokens@1.18.0': {}
@@ -6397,7 +6397,7 @@ snapshots:
     dependencies:
       vue: 3.5.21(typescript@5.9.2)
 
-  '@kong/icons@1.37.0(vue@3.5.21(typescript@5.9.2))':
+  '@kong/icons@1.38.0(vue@3.5.21(typescript@5.9.2))':
     dependencies:
       vue: 3.5.21(typescript@5.9.2)
 
