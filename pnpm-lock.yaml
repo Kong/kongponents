@@ -70,8 +70,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(@types/node@22.17.2)(typescript@5.9.2)
       '@evilmartians/lefthook':
-        specifier: ^1.12.3
-        version: 1.12.3
+        specifier: ^1.12.4
+        version: 1.13.1
       '@kong-ui-public/sandbox-layout':
         specifier: ^2.3.4
         version: 2.3.4(vue@3.5.21(typescript@5.9.2))
@@ -202,7 +202,7 @@ importers:
         specifier: ^5.9.2
         version: 5.9.2
       vite:
-        specifier: ^6.3.5
+        specifier: ^6.3.6
         version: 6.3.6(@types/node@22.17.2)(jiti@2.5.1)(sass-embedded@1.79.5)(sass@1.90.0)(yaml@2.4.5)
       vite-plugin-vue-devtools:
         specifier: ^7.7.7
@@ -966,8 +966,8 @@ packages:
     resolution: {integrity: sha512-Z5kJ+wU3oA7MMIqVR9tyZRtjYPr4OC004Q4Rw7pgOKUOKkJfZ3O24nz3WYfGRpMDNmcOi3TwQOmgm7B7Tpii0w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@evilmartians/lefthook@1.12.3':
-    resolution: {integrity: sha512-MtXIt8h+EVTv5tCGLzh9UwbA/LRv6esdPJOHlxr8NDKHbFnbo8PvU5uVQcm3PAQTd4DZN3HoyokqrwGwntoq6w==}
+  '@evilmartians/lefthook@1.13.1':
+    resolution: {integrity: sha512-LbR4F0zoGAVP4lC1lwVOzoGw8KvIbFRxcVAt7a8RF0PxHY7/coapkh3cVap6JC1QagY3vAZ8vTAs1CvZIQlpNQ==}
     cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
@@ -1235,8 +1235,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.50.2':
-    resolution: {integrity: sha512-2+Q114BRnYdBL8NNxtcYczJ/5LmTk+nXr2xnKeKnoa6HmuI32xzCae5pXDybHF1u6GP9UxhLjWbkWPEM5K1JcA==}
+  '@rollup/wasm-node@4.52.0':
+    resolution: {integrity: sha512-ELDfd164EwuLyPLhMBMP/zUfLi5RXmCbRGQpkGqfSTNATi0WLgPo96+c1W9YGEefgR+OH1okNKV+clWhgVrwIA==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -6285,7 +6285,7 @@ snapshots:
       '@eslint/core': 0.15.2
       levn: 0.4.1
 
-  '@evilmartians/lefthook@1.12.3': {}
+  '@evilmartians/lefthook@1.13.1': {}
 
   '@floating-ui/core@1.7.3':
     dependencies:
@@ -6543,7 +6543,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 4.0.3
 
-  '@rollup/wasm-node@4.50.2':
+  '@rollup/wasm-node@4.52.0':
     dependencies:
       '@types/estree': 1.0.8
     optionalDependencies:
@@ -10904,7 +10904,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.5.6
-      rollup: '@rollup/wasm-node@4.50.2'
+      rollup: '@rollup/wasm-node@4.52.0'
     optionalDependencies:
       '@types/node': 22.17.2
       fsevents: 2.3.3
@@ -10917,7 +10917,7 @@ snapshots:
       fdir: 6.5.0(picomatch@4.0.3)
       picomatch: 4.0.3
       postcss: 8.5.6
-      rollup: '@rollup/wasm-node@4.50.2'
+      rollup: '@rollup/wasm-node@4.52.0'
       tinyglobby: 0.2.15
     optionalDependencies:
       '@types/node': 22.17.2
