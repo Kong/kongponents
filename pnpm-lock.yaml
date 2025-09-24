@@ -15,8 +15,8 @@ importers:
         specifier: ^1.1.9
         version: 1.1.9(vue@3.5.21(typescript@5.9.2))
       '@kong/icons':
-        specifier: ^1.35.0
-        version: 1.35.0(vue@3.5.21(typescript@5.9.2))
+        specifier: ^1.38.0
+        version: 1.38.0(vue@3.5.21(typescript@5.9.2))
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
@@ -1052,12 +1052,6 @@ packages:
     peerDependencies:
       eslint: '>= 9.23.0'
 
-  '@kong/icons@1.35.0':
-    resolution: {integrity: sha512-9xI+dvc8Z3VZMwMjlk/XPsV94tgd5yuTGPblwiExU/qnONf2OxqfLD8xrcBmPAZ8Bu6YUfvmavJe//2N+Uzhxw==}
-    engines: {node: '>=18.17.0', pnpm: '>=9.14.4 || >=10.1.0'}
-    peerDependencies:
-      vue: '>= 3.3.4 < 4'
-
   '@kong/icons@1.38.0':
     resolution: {integrity: sha512-pney4rgNJOUqp9L4KUHUmLtWLvzMtYN2R4dCiuv7x2LBEVxn1NvvqQsFtBEHQZ28og2mJNS1Fc7wobbW6o2bcg==}
     engines: {node: '>=18.17.0', pnpm: '>=9.14.4 || >=10.1.0'}
@@ -1235,8 +1229,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.52.0':
-    resolution: {integrity: sha512-ELDfd164EwuLyPLhMBMP/zUfLi5RXmCbRGQpkGqfSTNATi0WLgPo96+c1W9YGEefgR+OH1okNKV+clWhgVrwIA==}
+  '@rollup/wasm-node@4.52.2':
+    resolution: {integrity: sha512-+nELykmplN96rbPuwgz14peiUanysRIEHiQOeMMoRxG9hF8HWKtNQtV2tJ9x8VsGo0rQG0FXZlsZlt82TbqPbw==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -6381,10 +6375,6 @@ snapshots:
       - supports-color
       - typescript
 
-  '@kong/icons@1.35.0(vue@3.5.21(typescript@5.9.2))':
-    dependencies:
-      vue: 3.5.21(typescript@5.9.2)
-
   '@kong/icons@1.38.0(vue@3.5.21(typescript@5.9.2))':
     dependencies:
       vue: 3.5.21(typescript@5.9.2)
@@ -6543,7 +6533,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 4.0.3
 
-  '@rollup/wasm-node@4.52.0':
+  '@rollup/wasm-node@4.52.2':
     dependencies:
       '@types/estree': 1.0.8
     optionalDependencies:
@@ -10904,7 +10894,7 @@ snapshots:
     dependencies:
       esbuild: 0.21.5
       postcss: 8.5.6
-      rollup: '@rollup/wasm-node@4.52.0'
+      rollup: '@rollup/wasm-node@4.52.2'
     optionalDependencies:
       '@types/node': 22.18.6
       fsevents: 2.3.3
@@ -10917,7 +10907,7 @@ snapshots:
       fdir: 6.5.0(picomatch@4.0.3)
       picomatch: 4.0.3
       postcss: 8.5.6
-      rollup: '@rollup/wasm-node@4.52.0'
+      rollup: '@rollup/wasm-node@4.52.2'
       tinyglobby: 0.2.15
     optionalDependencies:
       '@types/node': 22.18.6
