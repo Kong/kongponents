@@ -14,7 +14,7 @@ jobs:
     timeout-minutes: ${{ fromJSON(vars.GHA_DEFAULT_TIMEOUT) }}
     runs-on: ubuntu-latest
     # Do not auto-approve branches `alpha` or `beta`
-    if: github.actor == 'renovate[bot]' && !contains(github.head_ref || github.ref_name, 'alpha') && !contains(github.head_ref || github.ref_name, 'beta')
+    if: (github.actor == 'renovate[bot]' || github.actor == 'mend[bot]') && !contains(github.head_ref || github.ref_name, 'alpha') && !contains(github.head_ref || github.ref_name, 'beta')
     steps:
       - name: Approve a PR
         run: gh pr review --approve "$PR_URL"

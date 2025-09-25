@@ -67,7 +67,7 @@ jobs:
       - name: Publish Package Preview
         id: package-preview
         # Do not run for `alpha` or `beta` branches
-        if: github.event_name == 'pull_request' && (github.actor != 'renovate[bot]' || contains(github.event.pull_request.labels.*.name, 'create preview package'))
+        if: github.event_name == 'pull_request' && (github.actor != 'renovate[bot]' || github.actor != 'mend[bot]' || contains(github.event.pull_request.labels.*.name, 'create preview package'))
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN_PUBLIC_PUBLISH }}
         run: |
