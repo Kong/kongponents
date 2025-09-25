@@ -328,7 +328,7 @@ The sandbox mode in Kongponents provides developers with a controlled environmen
 By using the sandbox mode, you can have confidence that components maintain their visual consistency, regardless of the context in which they are used.
 
 ```sh
-pnpm dev:sandbox
+pnpm sandbox:dev
 ```
 
 ## Committing Changes
