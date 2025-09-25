@@ -91,9 +91,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, onBeforeUnmount, ref, useAttrs, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, onUnmounted, ref, useAttrs, useId, watch } from 'vue'
 import { FocusTrap } from 'focus-trap-vue'
-import { useTextSelection, useScrollLock } from '@vueuse/core'
+import { useTextSelection } from '@vueuse/core'
 import KButton from '@/components/KButton/KButton.vue'
 import type { ModalProps, ModalEmits, ModalSlots } from '@/types'
 import { CloseIcon } from '@kong/icons'
@@ -132,7 +132,8 @@ const attrs = useAttrs()
 
 const textSelection = useTextSelection()
 
-const isBodyScrollLocked = useScrollLock(document?.body, false)
+// Make sure the class name is unique to avoid conflicts if there are multiple modals on the same page
+const KMODAL_BODY_OVERFLOW_HIDDEN_CLASS = `k-modal-${useId()}-overflow-hidden`
 
 const focusTrapElement = ref<InstanceType<typeof FocusTrap> | null>(null)
 const modalWrapperElement = ref<HTMLElement | null>(null)
@@ -210,13 +211,13 @@ watch(() => visible, async (visible: boolean): Promise<void> => {
     if (inputAutofocus) {
       setInputAutofocus()
     }
-    isBodyScrollLocked.value = true
     toggleEventListeners(true)
   } else {
     await toggleFocusTrap(false)
-    isBodyScrollLocked.value = false
     toggleEventListeners(false)
   }
+
+  document?.body?.classList?.toggle(KMODAL_BODY_OVERFLOW_HIDDEN_CLASS, visible)
 }, { immediate: true })
 
 watch(() => inputAutofocus, async (inputAutofocus: boolean): Promise<void> => {
@@ -226,10 +227,25 @@ watch(() => inputAutofocus, async (inputAutofocus: boolean): Promise<void> => {
   }
 })
 
+// Create and append the style element that will be used to toggle body overflow hidden
+const kModalBodyOverflowStyleEl = ref<HTMLStyleElement | null>(null)
+onMounted(() => {
+  if (typeof document !== 'undefined') {
+    kModalBodyOverflowStyleEl.value = document.createElement('style')
+    kModalBodyOverflowStyleEl.value.textContent = `body.${KMODAL_BODY_OVERFLOW_HIDDEN_CLASS} { overflow: hidden; }`
+    document.head.appendChild(kModalBodyOverflowStyleEl.value)
+  }
+})
+
 // Need to use onBeforeUnmount instead of onUnmounted to ensure that focus trap is deactivated BEFORE the component is unmounted
 onBeforeUnmount(async () => {
   await toggleFocusTrap(false)
   toggleEventListeners(false)
+})
+
+// Clean up the style element that was used to toggle body overflow hidden
+onUnmounted(() => {
+  kModalBodyOverflowStyleEl.value?.remove()
 })
 </script>
 
