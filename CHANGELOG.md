@@ -1,3 +1,10 @@
+## [9.42.2](https://github.com/Kong/kongponents/compare/v9.42.1...v9.42.2) (2025-09-25)
+
+
+### Bug Fixes
+
+* **kmodal:** screen lock ssr issue [KHCP-18120] ([#2916](https://github.com/Kong/kongponents/issues/2916)) ([c34b8c3](https://github.com/Kong/kongponents/commit/c34b8c323faebdf2c7913aeda67db104f71559fc))
+
 ## [9.42.1](https://github.com/Kong/kongponents/compare/v9.42.0...v9.42.1) (2025-09-18)
 
 
