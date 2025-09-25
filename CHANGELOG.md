@@ -1,3 +1,10 @@
+## [9.42.3](https://github.com/Kong/kongponents/compare/v9.42.2...v9.42.3) (2025-09-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.38.0 ([#2914](https://github.com/Kong/kongponents/issues/2914)) ([0724f89](https://github.com/Kong/kongponents/commit/0724f89a510e3cd72df1e83ceab83abd0dccb48b))
+
 ## [9.42.2](https://github.com/Kong/kongponents/compare/v9.42.1...v9.42.2) (2025-09-25)
 
 
