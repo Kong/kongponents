@@ -503,7 +503,7 @@ function highlight({ preElement, codeElement, language, code }) {
 
 ### Shiki
 
-Below is an integration example for [Shiki](https://shiki.matsu.io/guide/), a beautiful and powerful syntax highlighter.
+Below is an integration example for [Shiki](http://shiki.style/), a beautiful and powerful syntax highlighter.
 
 ```html
 <template>
