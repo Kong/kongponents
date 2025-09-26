@@ -421,13 +421,11 @@ This component has a few shortcuts for interacting with its search and filter fe
 
 ## Syntax highlighting
 
-The `KCodeBlock` component does not have syntax highlighting built in; however, your project can provide its own implementation.
+The `KCodeBlock` component does not have syntax highlighting built in; however, your project can provide its own implementation, making use of the [`code-block-render` event](#code-block-render) to apply syntax highlighting.
 
 ### PrismJS
 
 Below is an integration example for the popular syntax highlighting library [PrismJS](https://prismjs.com/).
-
-It makes use of the [`code-block-render` event](#code-block-render) to apply syntax highlighting.
 
 ```html
 <template>
@@ -438,7 +436,6 @@ It makes use of the [`code-block-render` event](#code-block-render) to apply syn
     :processing="processing"
     searchable
     @code-block-render="highlight"
-    @matching-lines-change="highlightLines"
   />
 </template>
 
@@ -500,6 +497,59 @@ function highlight({ preElement, codeElement, language, code }) {
   Prism.highlightElement(codeElement)
 
   processing.value = false
+}
+</script>
+```
+
+### Shiki
+
+Below is an integration example for [Shiki](https://shiki.matsu.io/guide/), a beautiful and powerful syntax highlighter.
+
+```html
+<template>
+  <KCodeBlock
+    id="code-block"
+    :code="code"
+    language="json"
+    theme="dark"
+    @code-block-render="highlight"
+  />
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { KCodeBlock } from '@kong/kongponents/KCodeBlock.vue'
+import { codeToHtml } from 'shiki'
+
+const code = `{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "jsx": "preserve"
+  },
+  "include": [
+    "./src",
+    "./types"
+  ]
+}`
+
+async function highlight({ codeElement, language, code }) {
+  codeElement.innerHTML = await codeToHtml(code, {
+    lang: language,
+    theme: 'vitesse-dark'
+    // `inline` allows to generate <span> and <br> elements without wrapper.
+    // Foreground and background colors are not applied for easier embedding. 
+    structure: 'inline'
+  })
 }
 </script>
 ```
