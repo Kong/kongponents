@@ -516,6 +516,14 @@ const tableDataPreferences = computed((): TablePreferences<Header['key']> => ({
   ...(tableViewColumnVisibility.value ? { columnVisibility: tableViewColumnVisibility.value } : {}),
 }))
 
+watch(() => tablePreferences, (newVal) => {
+  pageSize.value = newVal?.pageSize ? newVal.pageSize : pageSize.value
+  sortColumnKey.value = newVal?.sortColumnKey ? newVal.sortColumnKey : sortColumnKey.value
+  sortColumnOrder.value = newVal?.sortColumnOrder ? newVal.sortColumnOrder : sortColumnOrder.value
+  tableViewColumnWidths.value = newVal?.columnWidths ? newVal.columnWidths : tableViewColumnWidths.value
+  tableViewColumnVisibility.value = newVal?.columnVisibility ? newVal.columnVisibility : tableViewColumnVisibility.value
+})
+
 const emitTablePreferences = (): void => {
   if (tableState.value === 'success') {
     emit('update:table-preferences', tableDataPreferences.value)
