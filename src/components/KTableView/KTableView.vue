@@ -1370,7 +1370,7 @@ watch(bulkActionsSelectedRows, (newVal) => {
 watch(() => tablePreferences, (newVal) => {
   columnWidths.value = newVal?.columnWidths ? newVal.columnWidths : columnWidths.value
   columnVisibility.value = newVal?.columnVisibility ? newVal.columnVisibility : columnVisibility.value
-}, { deep: true })
+})
 
 useResizeObserver(tableWrapperRef, (entries) => {
   const el = entries[0]?.target
