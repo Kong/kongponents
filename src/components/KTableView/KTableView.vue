@@ -1368,9 +1368,8 @@ watch(bulkActionsSelectedRows, (newVal) => {
 })
 
 watch(() => tablePreferences, (newVal) => {
-  if (newVal?.columnWidths) {
-    columnWidths.value = newVal.columnWidths
-  }
+  columnWidths.value = newVal?.columnWidths ? newVal.columnWidths : columnWidths.value
+  columnVisibility.value = newVal?.columnVisibility ? newVal.columnVisibility : columnVisibility.value
 })
 
 useResizeObserver(tableWrapperRef, (entries) => {
