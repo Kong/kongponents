@@ -10,6 +10,7 @@
       v-bind="tooltipAttributes"
       class="label-tooltip"
       :tooltip-id="tooltipId"
+      @click.prevent
     >
       <InfoIcon
         :aria-describedby="tooltipId"

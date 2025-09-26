@@ -1,4 +1,4 @@
-export type AlertAppearance = 'info' | 'success' | 'danger' | 'warning'
+export type AlertAppearance = 'info' | 'success' | 'danger' | 'warning' | 'decorative'
 export type AlertAppearanceRecord = Record<AlertAppearance, AlertAppearance>
 
 export const AlertAppearances: AlertAppearanceRecord = {
@@ -6,6 +6,7 @@ export const AlertAppearances: AlertAppearanceRecord = {
   success: 'success',
   danger: 'danger',
   warning: 'warning',
+  decorative: 'decorative',
 }
 
 export interface AlertProps {

@@ -177,7 +177,13 @@
           </template>
         </KInput>
       </SandboxSectionComponent>
-
+      <SandboxSectionComponent title="help">
+        <KInput label="Label">
+          <template #help>
+            See <a href="#/input/">the docs</a> for more info.
+          </template>
+        </KInput>
+      </SandboxSectionComponent>
       <!-- Examples -->
       <SandboxTitleComponent
         is-subtitle

@@ -2,6 +2,7 @@ import { h } from 'vue'
 import KTableData from '@/components/KTableData/KTableData.vue'
 import { offsetPaginationHeaders, offsetPaginationFetcher } from '../../../mocks/KTableMockData'
 import type { TableDataHeader } from '@/types'
+import { DEFAULT_PAGE_SIZE } from '@/utilities/tableHelpers'
 
 interface FetchParams {
   pageSize: number
@@ -439,7 +440,7 @@ describe('KTableData', () => {
       cy.getTestId('table-pagination').should('be.visible')
       cy.getTestId('table-pagination').find('.kui-icon.chevron-down-icon').click({ force: true })
       cy.get('.table').find('tr').should('have.length', 6)
-      cy.get('.table').find('.sort-icon').last().click()
+      cy.get('.table').find('.sort-icon').last().click({ force: true })
       cy.get('.table').find('td:nth-child(4)').first().should('has.text', 'Just now')
     })
 
@@ -475,7 +476,7 @@ describe('KTableData', () => {
   })
 
   describe('sorting', () => {
-    it('should have sortable class when passed', () => {
+    it('should render sortable columns correctly', () => {
       cy.mount(KTableData, {
         props: {
           headers: options.headers,
@@ -486,9 +487,9 @@ describe('KTableData', () => {
       })
 
       cy.get('th').each(($el, index) => {
-        if (index === 0) {
-          cy.wrap($el).should('have.class', 'sortable')
-        }
+        cy.wrap($el).should(`${options.headers[index].sortable ? '' : 'not.'}have.class`, 'sortable')
+        cy.wrap($el).find('.sort-icon').should(`${options.headers[index].sortable ? '' : 'not.'}exist`)
+        cy.wrap($el).find('.active-sort-icon').should('not.exist')
       })
     })
 
@@ -532,7 +533,25 @@ describe('KTableData', () => {
 
       cy.get('@fetcher')
         .should('have.callCount', 1) // ensure fetcher is NOT called again on client-side sort
+    })
 
+    it('should respect initial sort order from initial fetcher params', () => {
+      cy.mount(KTableData, {
+        props: {
+          headers: options.headers,
+          clientSort: true,
+          fetcher: () => {
+            return { data: options.data }
+          },
+          initialFetcherParams: {
+            sortColumnKey: 'name',
+            sortColumnOrder: 'asc',
+          },
+        },
+      })
+
+      cy.getTestId('table-header-name').should('have.class', 'active-sort')
+      cy.getTestId('table-header-name').should('have.attr', 'aria-sort', 'ascending')
     })
   })
 
@@ -802,6 +821,148 @@ describe('KTableData', () => {
         .should('have.callCount', 4)
         .its('lastCall')
         .should('have.been.calledWith', { pageSize: 10, page: 2, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+    })
+  })
+
+  describe('table preferences', () => {
+    it('does not apply column width and visibility preferences when not set', () => {
+      cy.mount(KTableData, {
+        props: {
+          fetcher: () => {
+            return { data: options.data }
+          },
+          headers: options.headers,
+        },
+      })
+
+      options.headers.forEach((header) => {
+        cy.getTestId(`table-header-${header.key}`).should('not.have.attr', 'style')
+        cy.getTestId(`table-header-${header.key}`).should('be.visible')
+      })
+    })
+
+    it('applies column width and visibility preferences when set', () => {
+      cy.mount(KTableData, {
+        props: {
+          fetcher: () => {
+            return { data: options.data }
+          },
+          headers: options.headers.map(header => {
+            if (options.headers[1].key === header.key) {
+              return { ...header, hidable: true }
+            }
+            return header
+          }),
+          tablePreferences: {
+            columnWidths: options.headers.reduce((acc: Record<string, number>, header) => {
+              acc[header.key] = 100
+              return acc
+            }, {} as Record<string, number>),
+            columnVisibility: {
+              [options.headers[1].key]: false, // hide ID column
+            },
+          },
+        },
+      })
+
+      options.headers.forEach((header) => {
+        cy.getTestId(`table-header-${header.key}`).should(options.headers[1].key === header.key ? 'not.exist' : 'have.css', 'width', '100px')
+        if (options.headers[1].key !== header.key) {
+          cy.getTestId(`table-header-${header.key}`).should('be.visible')
+        }
+      })
+    })
+
+    it('correctly handles when page size, sort column key and order preferences are not passed', () => {
+      const fns = {
+        fetcher: () => {
+          return { data: options.data }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      cy.mount(KTableData, {
+        props: {
+          headers: options.headers,
+          fetcher: fns.fetcher,
+        },
+      })
+
+      // calls fetcher with default page size, sort column key and order
+      cy.get('@fetcher')
+        .should('have.callCount', 1)
+        .its('lastCall')
+        .should('have.been.calledWith', {
+          pageSize: DEFAULT_PAGE_SIZE,
+          page: 1,
+          offset: null,
+          query: '',
+          sortColumnKey: '',
+          sortColumnOrder: 'desc',
+        })
+    })
+
+    it('applies page size, sort column key and order preferences when passed', () => {
+      const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+      const pageSize = 30
+
+      const fns = {
+        fetcher: () => {
+          return { data: options.data }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      cy.mount(KTableData, {
+        props: {
+          headers: options.headers,
+          fetcher: fns.fetcher,
+          tablePreferences: {
+            pageSize: pageSize,
+            sortColumnKey: sortableColumnKey,
+            sortColumnOrder: 'asc',
+          },
+        },
+      })
+
+      // calls fetcher with default page size, sort column key and order
+      cy.get('@fetcher')
+        .should('have.callCount', 1)
+        .its('lastCall')
+        .should('have.been.calledWith', {
+          pageSize: pageSize,
+          page: 1,
+          offset: null,
+          query: '',
+          sortColumnKey: sortableColumnKey,
+          sortColumnOrder: 'asc',
+        })
+    })
+
+    it('emits update:table-preferences event when table preferences are updated', () => {
+      const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+      const newPageSize = 30
+
+      cy.mount(KTableData, {
+        props: {
+          headers: options.headers,
+          fetcher: () => {
+            return { data: options.data }
+          },
+        },
+      })
+
+      // change page size
+      cy.getTestId('table-pagination').findTestId('page-size-dropdown-trigger').click()
+      cy.getTestId('dropdown-list').find('button').contains(newPageSize).click().then(() => {
+        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'update:table-preferences')
+        cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[0]?.[0]).should('have.property', 'pageSize', newPageSize)
+        // change sort column
+        cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
+          cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[1]?.[0]).should('have.property', 'sortColumnKey', sortableColumnKey)
+          cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[1]?.[0]).should('have.property', 'sortColumnOrder', 'asc')
+        })
+      })
     })
   })
 

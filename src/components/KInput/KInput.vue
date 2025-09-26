@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-input"
-    :class="[$attrs.class, { 'input-error': charLimitExceeded || error || hasError }]"
+    :class="[attrs.class, { 'input-error': charLimitExceeded || error || hasError }]"
   >
     <KLabel
       v-if="label"
@@ -21,10 +21,10 @@
 
     <div
       class="input-element-wrapper"
-      :class="{ 'has-before-content': $slots.before, 'has-after-content': $slots.after || (type === 'password' && showPasswordMaskToggle) }"
+      :class="{ 'has-before-content': slots.before, 'has-after-content': slots.after || (type === 'password' && showPasswordMaskToggle) }"
     >
       <div
-        v-if="$slots.before"
+        v-if="slots.before"
         ref="beforeSlotElement"
         class="before-content-wrapper"
       >
@@ -34,7 +34,7 @@
       <input
         :id="inputId"
         ref="inputElement"
-        :aria-describedby="helpText ? helpTextId : undefined"
+        :aria-describedby="helpText || slots.help ? helpTextId : undefined"
         :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
         class="input"
         :type="inputType"
@@ -44,7 +44,7 @@
       >
 
       <div
-        v-if="$slots.after || (type === 'password' && showPasswordMaskToggle)"
+        v-if="slots.after || (type === 'password' && showPasswordMaskToggle)"
         ref="afterSlotElement"
         class="after-content-wrapper"
       >
@@ -79,19 +79,27 @@
       name="kongponents-fade-transition"
     >
       <p
-        v-if="helpText"
+        v-if="helpText || slots.help"
         :id="helpTextId"
         :key="String(helpTextKey)"
         class="help-text"
       >
-        {{ helpText }}
+        <slot
+          v-if="showHelp"
+          name="help"
+        >
+          {{ helpText }}
+        </slot>
+        <template v-else>
+          {{ helpText }}
+        </template>
       </p>
     </Transition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, useSlots, useAttrs, onMounted, nextTick, useId, useTemplateRef } from 'vue'
+import { computed, ref, watch, useAttrs, onMounted, nextTick, useId, useTemplateRef } from 'vue'
 import type { InputProps, InputEmits, InputSlots } from '@/types'
 import useUtilities from '@/composables/useUtilities'
 import KLabel from '@/components/KLabel/KLabel.vue'
@@ -128,7 +136,7 @@ watch(() => labelAttributes.help, (help) => {
 })
 
 const emit = defineEmits<InputEmits>()
-defineSlots<InputSlots>()
+const slots = defineSlots<InputSlots>()
 
 const inputElementRef = useTemplateRef('inputElement')
 
@@ -137,7 +145,6 @@ const modelValueChanged = ref<boolean>(false) // Determine if the original value
 const helpTextKey = ref<number>(0)
 
 const { stripRequiredLabel } = useUtilities()
-const slots = useSlots()
 const attrs = useAttrs()
 
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
@@ -194,6 +201,9 @@ const charLimitExceededErrorMessage = computed((): string => {
     ? `${currValue.value?.toString().length} / ${characterLimit}`
     : `${modelValue?.toString().length} / ${characterLimit}`
 })
+
+// Whether `help` slot or `help` prop should be shown
+const showHelp = computed((): boolean => !charLimitExceeded.value && !error && !hasError && !!(help || slots.help))
 
 const helpText = computed((): string => {
   // if character limit exceeded, return that error message

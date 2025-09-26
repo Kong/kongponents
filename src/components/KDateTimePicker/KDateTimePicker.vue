@@ -10,10 +10,11 @@
       :disabled="disabled || readonly"
       hide-caret
       hide-close-icon
+      :offset="KUI_SPACE_40"
       :placement="popoverPlacement"
       width="auto"
-      @close="state.popoverOpen = false"
-      @open="state.popoverOpen = true"
+      @close="onClosePopover"
+      @open="onOpenPopover"
     >
       <div
         class="datetime-picker-trigger-wrapper"
@@ -27,7 +28,7 @@
           :style="widthStyle"
           :tabindex="disabled ? -1 : 0"
         >
-          <span
+          <div
             class="datetime-picker-display"
             :class="{ 'has-icon': icon, 'disabled': disabled }"
             data-testid="datetime-picker-display"
@@ -65,7 +66,11 @@
         </p>
         <CalendarWrapper
           v-if="hasCalendar && showCalendar"
+          :key="calendarRemountKey"
+          ref="calendarWrapperRef"
           v-model="calendarVModel"
+          v-model:error="hasCalendarError"
+          :error-message="invalidTimeErrorMessage"
           :is-range="!isSingleDatepicker"
           :k-date-picker-mode="mode"
           :max-date="maxDate"
@@ -115,7 +120,7 @@
             appearance="tertiary"
             class="action-button"
             data-testid="datetime-picker-submit"
-            :disabled="submitDisabled"
+            :disabled="submitDisabled || hasCalendarError"
             @click="submitTimeFrame()"
           >
             Apply
@@ -127,7 +132,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, reactive, ref, watch, type CSSProperties } from 'vue'
+import { computed, reactive, ref, useTemplateRef, watch, type CSSProperties } from 'vue'
 import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 import KButton from '@/components/KButton/KButton.vue'
@@ -137,7 +142,7 @@ import 'v-calendar/dist/style.css'
 import { ModeArrayCustom, ModeArrayRelative, ModeDateOnly, DateTimePickerModes } from '@/types'
 import type { DateTimePickerState, TimePeriod, TimeRange, DatePickerModel, ButtonAppearance, DateTimePickerProps, DateTimePickerEmits } from '@/types'
 import { CalIcon } from '@kong/icons'
-import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_40, KUI_SPACE_40 } from '@kong/design-tokens'
 import { normalizeSize } from '@/utilities/css'
 import CalendarWrapper from './CalendarWrapper.vue'
 
@@ -155,6 +160,7 @@ const {
   disabled,
   readonly,
   popoverPlacement = 'bottom-start',
+  invalidTimeErrorMessage = 'Start time cannot exceed end time.',
 } = defineProps<DateTimePickerProps>()
 
 const emit = defineEmits<DateTimePickerEmits>()
@@ -168,6 +174,8 @@ const isSingleDatepicker = computed((): boolean => ModeArrayCustom.includes(mode
 const hasTimePeriods = computed((): boolean => timePeriods.length > 0)
 const showCalendar = computed((): boolean => state.tabName === 'custom' || !hasTimePeriods.value)
 const submitDisabled = ref<boolean>(true)
+const hasCalendarError = ref<boolean>(false)
+const calendarRemountKey = ref<number>(0)
 
 const defaultTimeRange: TimeRange = {
   start: null,
@@ -185,6 +193,7 @@ const calendarVModel = isSingleDatepicker.value
   ? calendarSingleDate as DatePickerModel
   : calendarRange as DatePickerModel
 
+const calendarWrapperRef = useTemplateRef('calendarWrapperRef')
 
 const widthStyle = computed((): CSSProperties => {
   return {
@@ -395,7 +404,7 @@ watch(() => state.tabName, (newValue, oldValue) => {
  * Selects either "Relative" or "Custom" tab, saves the incoming default value to internal state,
  * then updates the input field to display the human-readable time frame.
  */
-onMounted(() => {
+watch(() => modelValue, () => {
   if (ModeArrayRelative.includes(mode) && modelValue.timePeriodsKey) {
     state.tabName = 'relative'
     submitDisabled.value = false
@@ -417,7 +426,22 @@ onMounted(() => {
       updateDisplay()
     }
   }
-})
+  calendarRemountKey.value++
+}, { immediate: true })
+
+const onClosePopover = (): void => {
+  state.popoverOpen = false
+  if (calendarWrapperRef.value) {
+    calendarWrapperRef.value.resetTime()
+  }
+}
+
+const onOpenPopover = (): void => {
+  state.popoverOpen = true
+  if (calendarWrapperRef.value) {
+    calendarWrapperRef.value.initTimeInputs()
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -8,6 +8,7 @@
   $tableCaretIconSize: var(--kui-icon-size-30, $kui-icon-size-30);
   $expandedRowMaxHeight: 250px;
   $scrollOverlayWidth: 20px;
+  $scrollOverlayGradientColor: rgba(#000, 0.08), rgba(#000, 0);
 
   /* Styles */
   background-color: var(--kui-color-background, $kui-color-background);
@@ -58,6 +59,14 @@
             z-index: 1;
           }
 
+          &.actions-column {
+            background-color: var(--kui-color-background, $kui-color-background);
+            overflow: visible;
+            position: sticky !important;
+            right: 0;
+            z-index: 1;
+          }
+
           &.has-row-scroll-overlay {
             overflow: visible;
             position: relative;
@@ -95,10 +104,14 @@
             }
 
             &.is-scrolled {
-              &:after {
+              &::after {
                 border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
                   var(--kui-color-border, $kui-color-border);
                 box-shadow: var(--kui-shadow, $kui-shadow);
+                /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+                height: calc(
+                  100% - var(--kui-border-width-10, $kui-border-width-10)
+                ); // removes the tiny gap between the bottom border and the ::after layer
                 opacity: 1;
                 transition: opacity $kongponentsTransitionDurTimingFunc;
               }
@@ -143,7 +156,7 @@
               }
 
               &.active-sort {
-                color: var(--kui-color-text, $kui-color-text);
+                color: var(--kui-color-text-primary, $kui-color-text-primary);
               }
 
               .sr-only {
@@ -161,7 +174,7 @@
               &.sortable {
                 cursor: pointer;
 
-                &.asc .sort-icon {
+                &.asc .active-sort-icon {
                   transform: rotate(-180deg);
                 }
               }
@@ -185,7 +198,8 @@
                   cursor: help;
                 }
 
-                .sort-icon {
+                .sort-icon,
+                .active-sort-icon {
                   flex-shrink: 0;
                 }
 
@@ -242,10 +256,6 @@
                   &:active {
                     background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
                     color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
-                  }
-
-                  .more-icon {
-                    pointer-events: none;
                   }
                 }
               }
@@ -387,6 +397,11 @@
         &.has-hover {
           tbody tr:not(.expandable-content-row):hover {
             background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+
+            .sticky-column,
+            .actions-column {
+              background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+            }
           }
         }
 
@@ -423,18 +438,23 @@
     width: $scrollOverlayWidth;
 
     &.left {
-      background: linear-gradient(to right, rgba(#000, 0.1), rgba(#000, 0));
+      background: linear-gradient(to right, $scrollOverlayGradientColor);
       left: 0;
 
       &.row-overlay {
         left: unset;
-        right: calc(-1 * $scrollOverlayWidth);
+        right: -#{$scrollOverlayWidth};
       }
     }
 
     &.right {
-      background: linear-gradient(to left, rgba(#000, 0.1), rgba(#000, 0));
+      background: linear-gradient(to left, $scrollOverlayGradientColor);
       right: 0;
+
+      &.row-overlay {
+        left: -#{$scrollOverlayWidth};
+        right: unset;
+      }
     }
 
     &.overlay-visible {

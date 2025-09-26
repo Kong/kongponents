@@ -84,4 +84,29 @@ describe('KCheckbox', () => {
     cy.get('.k-checkbox').find('[data-testid="indeterminate-icon"]').should('be.visible')
     cy.get('.k-checkbox').find('[data-testid="check-icon"]').should('not.exist')
   })
+
+  it('renders KLabel tooltip when `labelAttributes.info` is passed', () => {
+    const tooltipText = 'This is a tooltip'
+
+    cy.mount(KCheckbox, {
+      props: {
+        modelValue: false,
+        label: 'Label with tooltip',
+        labelAttributes: {
+          info: tooltipText,
+        },
+      },
+    })
+
+    cy.get('.k-label .label-tooltip').trigger('mouseenter')
+    cy.get('.k-tooltip').should('be.visible').and('have.text', tooltipText)
+
+    // Clicking the tooltip content should not toggle the checkbox
+    cy.get('.k-label .popover').click()
+    cy.get('input').should('not.be.checked')
+
+    // Clicking the tooltip icon content should not toggle the checkbox
+    cy.get('.k-label .label-tooltip').click()
+    cy.get('input').should('not.be.checked')
+  })
 })

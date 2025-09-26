@@ -652,6 +652,11 @@ Search input placeholder (when [`collapsedContext` prop](#collapsedcontext) is `
 />
 ```
 
+### kpopAttributes
+
+Attributes to be passed to underlying KPopover component. See [KPopover's props](/components/popover#props) for more info.
+
+
 ## Attribute Binding
 
 You can pass any input attribute and it will get properly bound to the element.
@@ -726,6 +731,28 @@ You can use the `item-template` slot to customize the look and feel of your item
         <span class="custom-item-description">{{ item?.label }} description.</span>
       </div>
     </div>
+  </template>
+</KMultiselect>
+```
+
+### item-badge-icon
+
+Slot for passing a custom icon to be displayed in front of item label in selected item badge.
+
+<ClientOnly>
+  <KMultiselect :items="deepClone(defaultItems)">
+    <template #item-badge-icon="{ item }">
+      <DisabledIcon v-if="item.disabled" />
+      <KongIcon v-else />
+    </template>
+  </KMultiselect>
+</ClientOnly>
+
+```html
+<KMultiselect :items="myItems">
+  <template #item-badge-icon="{ item }">
+    <DisabledIcon v-if="item.disabled" />
+    <KongIcon v-else />
   </template>
 </KMultiselect>
 ```
@@ -855,7 +882,7 @@ const handleSelection = (selectedItems) => {
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { KongIcon } from '@kong/icons'
+import { KongIcon, DisabledIcon } from '@kong/icons'
 
 function getItems(count) {
   let myItems = []
@@ -887,7 +914,7 @@ const allItems = new Array(10).fill().map((_, i) => ({
 }));
 
 export default defineComponent({
-  components: { KongIcon },
+  components: { KongIcon, DisabledIcon },
   data() {
     return {
       myItems: getItems(5),

@@ -12,22 +12,29 @@
       <SandboxSectionComponent title="rowHover & maxHeight">
         <KComponent
           v-slot="{ data }"
-          :data="{ tableRowHover: false }"
+          :data="{ tableKey: 0, tableRowHover: false, initialSorting: true }"
         >
           <div class="horizontal-container">
             <KInputSwitch
               v-model="data.tableRowHover"
               label="Has hover"
             />
+            <KInputSwitch
+              v-model="data.initialSorting"
+              label="Initial sorting"
+              @change="($event) => onSortableTableInitialSortingChange($event, data)"
+            />
           </div>
 
           <div class="resizable-table">
             <KTableView
+              :key="data.tableKey"
               :data="data.tableEmptyState ? [] : sortedData"
               :headers="headers(false, true)"
               max-height="300"
               :pagination-attributes="{ totalCount: sortedData.length }"
               :row-hover="data.tableRowHover"
+              :table-preferences="data.initialSorting ? sortableTableDefaultSort : undefined"
               @sort="sortData"
             >
               <template #action-items>
@@ -132,13 +139,14 @@
           </template>
         </KTableView>
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="rowExpandable & rowExpanded">
+      <SandboxSectionComponent title="rowExpandable & rowExpanded & tooltipTarget">
         <KTableView
           :data="tableData"
           :headers="headers()"
           :pagination-attributes="{ totalCount: tableData.length }"
           :row-expandable="getRowExpandable"
           :row-expanded="getRowExpanded"
+          tooltip-target="#teleport-target"
         >
           <template #action-items>
             <SandboxTableViewActions />
@@ -450,10 +458,10 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { inject, onBeforeMount, ref } from 'vue'
 import SandboxTitleComponent from '../../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../../components/SandboxSectionComponent.vue'
-import type { TableViewHeader, TableViewData, TableSortPayload, RowLink, PageChangeData, PageSizeChangeData, RowBulkAction, RowActionsTogglePayload } from '@/types'
+import type { TableViewHeader, TableViewData, TableSortPayload, RowLink, PageChangeData, PageSizeChangeData, RowBulkAction, RowActionsTogglePayload, TablePreferences } from '@/types'
 import SandboxTableViewActions from './SandboxTableViewActions.vue'
 import { AddIcon } from '@kong/icons'
 
@@ -461,7 +469,7 @@ const headers = (hidable: boolean = false, sortable: boolean = false, bulkAction
   return [
     { key: 'actions', label: 'Row actions' },
     { key: 'name', label: 'Full Name' },
-    { key: 'username', label: 'Username', tooltip: 'Columns with a tooltip.', sortable },
+    { key: 'username', label: 'Username', tooltip: sortable ? undefined : 'Column with a tooltip.', sortable },
     { key: 'email', label: 'Email', hidable },
     ...(bulkActions ? [{ key: 'bulkActions', label: 'Bulk actions' }] : []),
   ]
@@ -534,6 +542,16 @@ const sortedData = ref<TableViewData>(tableData)
 
 const onRowClick = (row: any) => {
   alert(`Row clicked:' ${JSON.stringify(row)}`)
+}
+
+const sortableTableDefaultSort: TablePreferences = { sortColumnKey: 'username', sortColumnOrder: 'asc' }
+const onSortableTableInitialSortingChange = (value: boolean, wrapperData: any) => {
+  if (value) {
+    sortData({ prevKey: '', ...sortableTableDefaultSort } as TableSortPayload)
+  } else {
+    sortedData.value = tableData
+  }
+  wrapperData.tableKey++
 }
 
 const sortData = (sortData: TableSortPayload): void => {
@@ -653,6 +671,11 @@ const getRowOneTwoLink = (row: Record<string, any>): RowLink => {
 
   return {}
 }
+
+onBeforeMount(() => {
+  // This is just to ensure that the sortable table is sorted by default
+  sortData({ prevKey: '', ...sortableTableDefaultSort } as TableSortPayload)
+})
 </script>
 
 <style lang="scss" scoped>

@@ -341,7 +341,7 @@
           </div>
 
           <KModal
-            max-height="200px"
+            max-height="500px"
             title="KModal"
             :visible="data.modalVisible"
             @cancel="data.modalVisible = false"
@@ -352,7 +352,7 @@
             </p>
           </KModal>
           <KPrompt
-            :modal-attributes="{ maxHeight: '200px' }"
+            :modal-attributes="{ maxHeight: '500px' }"
             title="KPrompt"
             :visible="data.promptVisible"
             @cancel="data.promptVisible = false"

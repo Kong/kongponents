@@ -287,6 +287,24 @@ If you want to utilize HTML in the input label's tooltip, use the slot.
 </KInput>
 ```
 
+### help
+
+Content passed in to the `help` slot will be shown as the help content. The slot content takes precedence over the `help` prop.
+
+<KInput label="Some label" help="This will be replaced with a slot">
+  <template #help>
+    Anything goes here
+  </template>
+</KInput>
+
+```html
+<KInput label="Some label" help="This will be replaced with a slot">
+  <template #help>
+    Anything goes here
+  </template>
+</KInput>
+```
+
 ## Events
 
 ### input and update:modelValue

@@ -59,11 +59,19 @@
       name="kongponents-fade-transition"
     >
       <p
-        v-if="helpText"
+        v-if="helpText || slots.help"
         :key="String(helpTextKey)"
         class="help-text"
       >
-        {{ helpText }}
+        <slot
+          v-if="showHelp"
+          name="help"
+        >
+          {{ helpText }}
+        </slot>
+        <template v-else>
+          {{ helpText }}
+        </template>
       </p>
     </Transition>
   </div>
@@ -177,6 +185,8 @@ const inputHandler = (e: any): void => {
   emit('update:modelValue', val)
   currValue.value = val
 }
+
+const showHelp = computed((): boolean => !charLimitExceeded.value && !!(help || slots.help))
 
 const helpText = computed((): string => {
   const limit = typeof characterLimit === 'number' ? characterLimit : DEFAULT_CHARACTER_LIMIT

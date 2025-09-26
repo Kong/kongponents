@@ -1,13 +1,13 @@
 <template>
   <component
     :is="tag"
-    ref="kPopoverElement"
     class="k-popover"
     @keydown.esc.stop="hidePopover"
   >
     <div
       ref="triggerWrapperElement"
       class="popover-trigger-wrapper"
+      @click="triggerClickHandler"
     >
       <slot>
         <KButton
@@ -34,6 +34,7 @@
           role="dialog"
           :style="popoverStyles"
           :x-placement="calculatedPlacement"
+          @click="popoverClickHandler"
         >
           <div
             class="popover-container"
@@ -124,7 +125,6 @@ const slots = defineSlots<PopSlots>()
 
 const popoverId = useId()
 const titleId = useId()
-const kPopoverElement = ref<HTMLElement | null>(null)
 const triggerWrapperElement = ref<HTMLElement | null>(null)
 const popoverElement = ref<HTMLElement | null>(null)
 const isVisible = ref<boolean>(false)
@@ -140,6 +140,8 @@ const togglePopover = () => {
     hidePopover()
   }
 }
+
+const floatingUpdates = ref<() => void>()
 
 const cancelFloatingUpdates = () => {
   if (floatingUpdates.value) {
@@ -175,27 +177,34 @@ const hidePopover = () => {
   }, trigger === 'hover' ? popoverTimeout : 0)
 }
 
-const clickHandler = (event: Event) => {
-  const target = event.target as HTMLElement
+const triggerClickHandler = () => {
+  togglePopover()
+}
 
-  if (popoverTrigger.value?.contains(target) && !popoverElement.value?.contains(target)) {
-    // toggle popover if clicked within the trigger
+const popoverClickHandler = () => {
+  emit('popover-click')
 
-    togglePopover()
-  } else if (popoverElement.value?.contains(target) && !triggerWrapperElement.value?.contains(target)) {
-    // emit popover-click event if clicked within the popover
-    // also close the popover if closeOnPopoverClick is true
-
-    if (closeOnPopoverClick) {
-      hidePopover()
-    }
-
-    emit('popover-click')
-  } else if (isVisible.value && !kPopoverElement.value?.contains(target)) {
-    // close popover if clicked outside of the popover
-
+  if (closeOnPopoverClick) {
     hidePopover()
   }
+}
+
+const outsideClickHandler = (event: MouseEvent) => {
+  if (!isVisible.value) {
+    return
+  }
+
+  const targetEl = event.target as HTMLElement
+
+  const inTrigger = triggerWrapperElement.value?.contains(targetEl)
+  const inPopover = popoverElement.value?.contains(targetEl)
+
+  if (inTrigger || inPopover) {
+    return
+  }
+
+  // close popover if clicked outside of the popover
+  hidePopover()
 }
 
 /**
@@ -259,40 +268,35 @@ const popoverContainerStyles = computed(() => {
 
 const popoverClassesObj = computed(() => [popoverClasses, { 'hide-caret': hideCaret }])
 
-const floatingUpdates = ref<() => void>()
-
 defineExpose({
   hidePopover,
   showPopover,
 })
 
 onMounted(() => {
-  if (document) {
-    // handle various click events to determine how to handle the click event in a generic clickHandler function
-    // we don't set any other click event listeners on purpose to avoid conflict of event listeners
-    useEventListener(document, 'click', clickHandler)
+  // Use capture phase so users can stop propagation outside the popup trigger without breaking toggle behavior
+  useEventListener(window, 'mousedown', outsideClickHandler, { capture: true })
 
-    if (popoverTrigger.value) {
-      // determine the element to bind aria-controls attribute to
-      // data-dropdown-trigger is used to determine the default (not slotted) KDropdown trigger
-      const ariaControlsElement = popoverTrigger.value.querySelector('button[data-dropdown-trigger="true"]') || popoverTrigger.value
-      if (!ariaControlsElement.hasAttribute('aria-controls')) {
-        ariaControlsElement.setAttribute('aria-controls', popoverId)
+  if (popoverTrigger.value) {
+    // determine the element to bind aria-controls attribute to
+    // data-dropdown-trigger is used to determine the default (not slotted) KDropdown trigger
+    const ariaControlsElement = popoverTrigger.value.querySelector('button[data-dropdown-trigger="true"]') || popoverTrigger.value
+    if (!ariaControlsElement.hasAttribute('aria-controls')) {
+      ariaControlsElement.setAttribute('aria-controls', popoverId)
+    }
+  }
+
+  if (trigger === 'hover') {
+    [popoverElement.value, popoverTrigger.value].forEach((element) => {
+      if (!element) {
+        return
       }
-    }
 
-    if (trigger === 'hover') {
-      [popoverElement.value, popoverTrigger.value].forEach((element) => {
-        if (!element) {
-          return
-        }
-
-        useEventListener(element, 'mouseenter', showPopover)
-        useEventListener(element, 'focusin', showPopover)
-        useEventListener(element, 'mouseleave', hidePopover)
-        useEventListener(element, 'focusout', hidePopover)
-      })
-    }
+      useEventListener(element, 'mouseenter', showPopover)
+      useEventListener(element, 'focusin', showPopover)
+      useEventListener(element, 'mouseleave', hidePopover)
+      useEventListener(element, 'focusout', hidePopover)
+    })
   }
 })
 
@@ -352,6 +356,7 @@ $kPopCaretOffset: 16px;
 
 // need to have these styles not nested under .k-popover so that they still apply when the popover is teleported
 .popover {
+  cursor: auto;
   // need max-width: 100vw; and width: max-content; for Floating UI to work properly
   // gets overwritten by the size middleware once the popover is positioned
   max-width: 100vw;

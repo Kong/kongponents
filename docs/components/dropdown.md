@@ -508,6 +508,16 @@ You can bind event handlers to `@click` event just like you would normally do wi
 
 Fires when items are clicked when `selectionMenu` is `true`. Returns the selected menu item object or `null`.
 
+## Expose
+
+### openDropdown
+
+Call this method for opening the dropdown programmatically.
+
+### closeDropdown
+
+Call this method for closing the dropdown programmatically.
+
 <script setup lang="ts">
 import { ref } from 'vue'
 import { CogIcon, ExternalLinkIcon, BookIcon, InfoIcon } from '@kong/icons'

@@ -357,6 +357,26 @@ Provides a slot for tooltip content displayed after the radio label.
 </KRadio>
 ```
 
+<KRadio
+  card
+  label="My tooltip"
+  v-model="tooltipSlotRadio"
+  :selected-value="false"
+>
+  <template #tooltip>Roses are <code>#FF0000</code>, violets are <code>#0000FF</code></template>
+</KRadio>
+
+```html
+<KRadio
+  card
+  label="My tooltip"
+  v-model="checked"
+  :selected-value="false"
+>
+  <template #tooltip>Roses are <code>#FF0000</code>, violets are <code>#0000FF</code></template>
+</KRadio>
+```
+
 ## Events
 
 KRadio emits two events with same payload.

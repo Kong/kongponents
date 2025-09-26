@@ -83,6 +83,20 @@
           title="Kong Icon Variant"
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="iconBackground">
+        <KEmptyState
+          icon-background
+          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+          title="Icon Background"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="features">
+        <KEmptyState
+          :features="features"
+          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+          title="Empty State With Features"
+        />
+      </SandboxSectionComponent>
 
       <!-- Slots -->
       <SandboxTitleComponent
@@ -110,6 +124,15 @@
             />
           </template>
         </KEmptyState>
+        <KEmptyState
+          icon-background
+          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+          title="Icon Background"
+        >
+          <template #icon>
+            <DesignIcon />
+          </template>
+        </KEmptyState>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="action">
         <KEmptyState
@@ -125,6 +148,119 @@
           </template>
         </KEmptyState>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="action-button-icon">
+        <KEmptyState
+          action-button-text="Create New"
+          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+          title="Empty State Slotted Action Button Icon"
+        >
+          <template #action-button-icon>
+            <AddIcon decorative />
+          </template>
+        </KEmptyState>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="image">
+        <KEmptyState
+          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+          title="Empty State With Image"
+        >
+          <template #image>
+            <img src="https://picsum.photos/640/300">
+          </template>
+        </KEmptyState>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="featureIcon">
+        <KEmptyState
+          action-button-text="Action"
+          :features="features"
+          title="Empty State With Features & Icons"
+        >
+          <template #default>
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh.
+            </div>
+            <div>
+              Pricing: your first portal is free, then $300 per portal per month.
+            </div>
+          </template>
+
+          <template #feature-icon-wave>
+            <WavingHandIcon />
+          </template>
+          <template #feature-icon-sparkles>
+            <SparklesIcon />
+          </template>
+          <template #feature-icon-rocket>
+            <RocketIcon />
+          </template>
+          <template #feature-icon-design>
+            <DesignIcon />
+          </template>
+        </KEmptyState>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent title="footer">
+        <KEmptyState
+          message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh."
+          title="Empty State With Footer Content"
+        >
+          <template #footer>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </template>
+        </KEmptyState>
+        <KEmptyState
+          :features="features"
+          title="Empty State With Footer Content"
+        >
+          <template #image>
+            <img src="https://picsum.photos/640/300">
+          </template>
+          <template #default>
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh.
+            </div>
+            <div>
+              Pricing: your first portal is free, then $300 per portal per month.
+            </div>
+          </template>
+          <template #action>
+            <KButton appearance="secondary">
+              Secondary action
+            </KButton>
+            <KButton>
+              Primary action
+            </KButton>
+          </template>
+          <template #feature-icon-wave>
+            <WavingHandIcon />
+          </template>
+          <template #feature-icon-sparkles>
+            <SparklesIcon />
+          </template>
+          <template #feature-icon-rocket>
+            <RocketIcon />
+          </template>
+          <template #feature-icon-design>
+            <DesignIcon />
+          </template>
+          <template #footer>
+            <div class="footer-content-title-container">
+              <h2>
+                Get started with the CLI
+              </h2>
+              <KExternalLink href="https://kongponents.konghq.com/">
+                Read the docs
+              </KExternalLink>
+            </div>
+            <KCodeBlock
+              id="footer-content-code-block"
+              code="{example code here}"
+              language="plaintext"
+              single-line
+              theme="dark"
+            />
+          </template>
+        </KEmptyState>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
@@ -133,6 +269,47 @@
 import { inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { KongIcon, AddCircleIcon } from '@kong/icons'
+import { KongIcon, AddCircleIcon, DesignIcon, WavingHandIcon, SparklesIcon, RocketIcon, AddIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_PRIMARY, KUI_ICON_SIZE_80 } from '@kong/design-tokens'
+import type { EmptyStateFeature } from '@/types'
+
+const features: EmptyStateFeature[] = [
+  {
+    key: 'wave',
+    title: 'Feature 1',
+    description: 'Description for feature 0.',
+  },
+  {
+    key: 'sparkles',
+    title: 'Feature with a very long title that exceeds the usual length',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  },
+  {
+    key: 'rocket',
+    title: 'Feature 3',
+    description: 'Description for feature 2.',
+  },
+  {
+    key: 'design',
+    title: 'Feature 4',
+    description: 'Description for feature 3.',
+  },
+]
 </script>
+
+<style lang="scss" scoped>
+.kemptystate-sandbox {
+  .footer-content-title-container {
+    display: flex;
+    justify-content: space-between;
+
+    h2 {
+      color: $kui-color-text;
+      font-size: $kui-font-size-50;
+      font-weight: $kui-font-weight-semibold;
+      line-height: $kui-line-height-50;
+      margin: $kui-space-0;
+    }
+  }
+}
+</style>

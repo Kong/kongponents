@@ -110,6 +110,13 @@
           </template>
         </KTextArea>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="help">
+        <KTextArea label="Label">
+          <template #help>
+            See <a href="#/input/">the docs</a> for more info.
+          </template>
+        </KTextArea>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>

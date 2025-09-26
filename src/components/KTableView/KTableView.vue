@@ -147,7 +147,7 @@
                 @mouseover="currentHoveredColumn = column.key"
               >
                 <div
-                  v-if="resizeColumns && !nested && index !== 0 && showResizeHandle(column, true)"
+                  v-if="index !== 0 && showResizeHandle(column, true)"
                   class="resize-handle previous"
                   @click.stop
                   @mousedown="startResize($event, visibleHeaders[index - 1].key)"
@@ -212,16 +212,27 @@
                     </template>
                   </KTooltip>
 
-                  <ArrowDownIcon
-                    v-if="!column.hideLabel && column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS"
-                    class="sort-icon"
-                    :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
-                    :size="KUI_ICON_SIZE_30"
-                  />
+                  <template v-if="isColumnSortable(column)">
+                    <ArrowDownIcon
+                      v-if="sortColumnKey === column.key"
+                      class="active-sort-icon"
+                      :color="`var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})`"
+                      decorative
+                      :size="KUI_ICON_SIZE_30"
+                    />
+
+                    <SwapSortIcon
+                      v-else
+                      class="sort-icon"
+                      :color="`var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
+                      :size="KUI_ICON_SIZE_30"
+                      :title="`Sort by ${column.label}`"
+                    />
+                  </template>
                 </div>
 
                 <div
-                  v-if="resizeColumns && !nested && index !== visibleHeaders.length - 1 && showResizeHandle(column)"
+                  v-if="index !== visibleHeaders.length - 1 && showResizeHandle(column)"
                   class="resize-handle"
                   @click.stop
                   @mousedown="startResize($event, column.key)"
@@ -231,9 +242,18 @@
 
                 <div
                   v-if="isLastStickyColumn(column.key)"
+                  aria-hidden="true"
                   class="scroll-overlay row-overlay left"
                   :class="{
                     'overlay-visible': isScrolledHorizontally,
+                  }"
+                />
+                <div
+                  v-if="column.key === TableViewHeaderKeys.ACTIONS"
+                  aria-hidden="true"
+                  class="scroll-overlay row-overlay right"
+                  :class="{
+                    'overlay-visible': isScrollableRight,
                   }"
                 />
               </th>
@@ -253,113 +273,132 @@
                 :tabindex="isClickable && !rowLink(row).to ? 0 : undefined"
                 v-bind="rowAttrs(row)"
               >
-                <td
+                <KComponent
                   v-for="(header, index) in visibleHeaders"
                   :key="`${rowKeyMap.get(row)}-cell-${header.key}`"
-                  :class="{
-                    'resize-hover': resizeColumns && !nested && resizeHoverColumn === header.key && index !== visibleHeaders.length - 1 && showResizeHandle(header),
-                    'row-link': !!rowLink(row).to,
-                    'sticky-column': (header.key === TableViewHeaderKeys.BULK_ACTIONS || header.key === TableViewHeaderKeys.EXPANDABLE) && isScrolledHorizontally,
-                    'second-sticky-column': header.key === TableViewHeaderKeys.BULK_ACTIONS && hasExpandableRows,
-                    'has-row-scroll-overlay': isLastStickyColumn(header.key),
-                  }"
-                  :style="columnStyles[header.key]"
-                  v-bind="cellAttrs({ headerKey: header.key, row, rowIndex, colIndex: index })"
-                  v-on="tdlisteners(row[header.key], row)"
+                  v-slot="{ data: cellHelperData }"
+                  :data="{ isRowActionsDropdownOpen: false }"
                 >
-                  <component
-                    :is="getRowLinkComponent(row, header.key)"
-                    v-if="header.key !== TableViewHeaderKeys.EXPANDABLE"
-                    class="cell-wrapper"
-                    v-bind="getRowLinkAttrs(row, header.key)"
+                  <td
+                    :class="{
+                      'resize-hover': resizeHoverColumn === header.key && index !== visibleHeaders.length - 1 && showResizeHandle(header),
+                      'row-link': !!rowLink(row).to,
+                      'sticky-column': isStickyColumn(header.key),
+                      'second-sticky-column': isSecondStickyColumn(header.key),
+                      'has-row-scroll-overlay': isLastStickyColumn(header.key),
+                      'actions-column': header.key === TableViewHeaderKeys.ACTIONS,
+                    }"
+                    :style="{
+                      ...columnStyles[header.key],
+                      ...(cellHelperData.isRowActionsDropdownOpen ? { zIndex: 2 } : {}),
+                    }"
+                    v-bind="cellAttrs({ headerKey: header.key, row, rowIndex, colIndex: index })"
+                    v-on="tdlisteners(row[header.key], row)"
                   >
-                    <slot
-                      v-if="header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS"
-                      :name="header.key"
-                      :row="row"
-                      :row-key="rowIndex"
-                      :row-value="row[header.key]"
+                    <component
+                      :is="getRowLinkComponent(row, header.key)"
+                      v-if="header.key !== TableViewHeaderKeys.EXPANDABLE"
+                      class="cell-wrapper"
+                      v-bind="getRowLinkAttrs(row, header.key)"
                     >
-                      {{ row[header.key] }}
-                    </slot>
-
-                    <KTooltip
-                      v-else-if="header.key === TableViewHeaderKeys.BULK_ACTIONS && getRowState(row)"
-                      :kpop-attributes="{ target: tooltipTarget }"
-                      max-width="200"
-                      placement="bottom-start"
-                      :text="getRowBulkActionEnabled(row) ? undefined : getRowBulkActionTooltip(row)"
-                    >
-                      <KCheckbox
-                        v-model="getRowState(row)!.selected"
-                        aria-label="Toggle row selection"
-                        class="bulk-actions-checkbox"
-                        data-testid="bulk-actions-checkbox"
-                        :disabled="!getRowBulkActionEnabled(row)"
-                      />
-                    </KTooltip>
-
-                    <KDropdown
-                      v-else-if="header.key === TableViewHeaderKeys.ACTIONS"
-                      class="actions-dropdown"
-                      data-testid="actions-dropdown"
-                      :kpop-attributes="{ placement: 'bottom-end' }"
-                      @toggle-dropdown="($event: boolean) => onRowActionsToggle(row, $event)"
-                    >
-                      <KButton
-                        appearance="tertiary"
-                        :aria-label="header.label"
-                        class="actions-dropdown-trigger"
-                        data-testid="row-actions-dropdown-trigger"
-                        icon
-                        size="small"
-                        @mouseleave="isActionsDropdownHovered = false"
-                        @mouseover="isActionsDropdownHovered = true"
+                      <slot
+                        v-if="header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS"
+                        :name="header.key"
+                        :row="row"
+                        :row-key="rowIndex"
+                        :row-value="row[header.key]"
                       >
-                        <MoreIcon
-                          class="more-icon"
+                        {{ row[header.key] }}
+                      </slot>
+
+                      <KTooltip
+                        v-else-if="header.key === TableViewHeaderKeys.BULK_ACTIONS && getRowState(row)"
+                        :kpop-attributes="{ target: tooltipTarget }"
+                        max-width="200"
+                        placement="bottom-start"
+                        :text="getRowBulkActionEnabled(row) ? undefined : getRowBulkActionTooltip(row)"
+                      >
+                        <KCheckbox
+                          v-model="getRowState(row)!.selected"
+                          aria-label="Toggle row selection"
+                          class="bulk-actions-checkbox"
+                          data-testid="bulk-actions-checkbox"
+                          :disabled="!getRowBulkActionEnabled(row)"
+                        />
+                      </KTooltip>
+
+                      <KDropdown
+                        v-else-if="header.key === TableViewHeaderKeys.ACTIONS"
+                        ref="actionsDropdown"
+                        class="actions-dropdown"
+                        data-testid="actions-dropdown"
+                        :kpop-attributes="{ placement: 'bottom-end' }"
+                        @toggle-dropdown="($event: boolean) => onRowActionsToggle(row, $event, cellHelperData)"
+                      >
+                        <KButton
+                          appearance="tertiary"
+                          :aria-label="header.label"
+                          class="actions-dropdown-trigger"
+                          data-testid="row-actions-dropdown-trigger"
+                          icon
+                          size="small"
+                          @mouseleave="isActionsDropdownHovered = false"
+                          @mouseover="isActionsDropdownHovered = true"
+                        >
+                          <MoreIcon
+                            class="more-icon"
+                            decorative
+                          />
+                        </KButton>
+
+                        <template #items>
+                          <slot
+                            name="action-items"
+                            :row="row"
+                          />
+                        </template>
+                      </KDropdown>
+                    </component>
+
+                    <div
+                      v-else-if="rowExpandable(row)"
+                      class="expandable-row-control-container"
+                    >
+                      <button
+                        :aria-controls="`table-${tableId}-row-${rowIndex}-expandable-content`"
+                        :aria-expanded="expandedRows.includes(rowIndex)"
+                        aria-label="Toggle row expandable content"
+                        class="expandable-row-control"
+                        :class="{ 'expanded': expandedRows.includes(rowIndex) }"
+                        data-testid="expandable-row-control"
+                        type="button"
+                        @click="toggleRow(rowIndex, row)"
+                      >
+                        <ChevronRightIcon
+                          class="expandable-row-control-icon"
                           decorative
                         />
-                      </KButton>
+                      </button>
+                    </div>
 
-                      <template #items>
-                        <slot
-                          name="action-items"
-                          :row="row"
-                        />
-                      </template>
-                    </KDropdown>
-                  </component>
-
-                  <div
-                    v-else-if="rowExpandable(row)"
-                    class="expandable-row-control-container"
-                  >
-                    <button
-                      :aria-controls="`table-${tableId}-row-${rowIndex}-expandable-content`"
-                      :aria-expanded="expandedRows.includes(rowIndex)"
-                      aria-label="Toggle row expandable content"
-                      class="expandable-row-control"
-                      :class="{ 'expanded': expandedRows.includes(rowIndex) }"
-                      data-testid="expandable-row-control"
-                      type="button"
-                      @click="toggleRow(rowIndex, row)"
-                    >
-                      <ChevronRightIcon
-                        class="expandable-row-control-icon"
-                        decorative
-                      />
-                    </button>
-                  </div>
-
-                  <div
-                    v-if="isLastStickyColumn(header.key)"
-                    class="scroll-overlay row-overlay left"
-                    :class="{
-                      'overlay-visible': isScrolledHorizontally,
-                    }"
-                  />
-                </td>
+                    <div
+                      v-if="isLastStickyColumn(header.key)"
+                      aria-hidden="true"
+                      class="scroll-overlay row-overlay left"
+                      :class="{
+                        'overlay-visible': isScrolledHorizontally,
+                      }"
+                    />
+                    <div
+                      v-if="header.key === TableViewHeaderKeys.ACTIONS"
+                      aria-hidden="true"
+                      class="scroll-overlay row-overlay right"
+                      :class="{
+                        'overlay-visible': isScrollableRight,
+                      }"
+                    />
+                  </td>
+                </KComponent>
               </tr>
               <tr
                 v-if="hasExpandableRows && rowExpandable(row)"
@@ -386,12 +425,15 @@
 
       <div
         v-if="!hasBulkActions && !hasExpandableRows"
+        aria-hidden="true"
         class="scroll-overlay table-overlay left"
         :class="{
           'overlay-visible': isScrolledHorizontally,
         }"
       />
       <div
+        v-if="!hasRowActions"
+        aria-hidden="true"
         class="scroll-overlay table-overlay right"
         :class="{
           'overlay-visible': isScrollableRight,
@@ -403,6 +445,7 @@
         v-if="showPagination"
         class="table-pagination"
         data-testid="table-pagination"
+        :initial-page-size="paginationPageSize"
         v-bind="paginationAttributes"
         @get-next-offset="emit('get-next-offset')"
         @get-previous-offset="emit('get-previous-offset')"
@@ -419,7 +462,7 @@ import KButton from '@/components/KButton/KButton.vue'
 import KEmptyState from '@/components/KEmptyState/KEmptyState.vue'
 import KSkeleton from '@/components/KSkeleton/KSkeleton.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
-import { InfoIcon, ArrowDownIcon, MoreIcon, ChevronRightIcon } from '@kong/icons'
+import { InfoIcon, SwapSortIcon, ArrowDownIcon, MoreIcon, ChevronRightIcon } from '@kong/icons'
 import type {
   TablePreferences,
   TableViewHeader,
@@ -438,7 +481,7 @@ import type {
   TableColumnKey,
 } from '@/types'
 import { EmptyStateIconVariants, TableViewHeaderKeys } from '@/types'
-import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
+import { KUI_COLOR_TEXT_NEUTRAL, KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_COLOR_TEXT_PRIMARY, KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './ColumnVisibilityMenu.vue'
 import KPagination from '@/components/KPagination/KPagination.vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
@@ -450,6 +493,7 @@ import { useResizeObserver } from '@vueuse/core'
 import type { CSSProperties, Ref } from 'vue'
 import { mapValues } from 'lodash-es'
 import { normalizeSize } from '@/utilities/css'
+import KComponent from '@/components/KComponent'
 
 type ColumnKey = TableColumnKey<Header>
 type ColumnVisibility = TableColumnVisibility<Header>
@@ -522,6 +566,7 @@ const resizingColumn = ref('') as Ref<ColumnKey | ''>
 const resizerHoveredColumn = ref('') as Ref<ColumnKey | ''>
 // lowest priority - currently hovered resizable column (mouse is somewhere in the <th>)
 const currentHoveredColumn = ref('') as Ref<ColumnKey | ''>
+const hasRowActions = computed((): boolean => (tableHeaders.value.some((header) => header.key === TableViewHeaderKeys.ACTIONS)))
 const hasHidableColumns = computed((): boolean => tableHeaders.value.filter((header) => header.hidable).length > 0)
 const hasColumnVisibilityMenu = computed((): boolean => {
   if (nested || !hasHidableColumns.value || error) {
@@ -549,10 +594,11 @@ const isScrollableVertically = ref<boolean>(false)
 const isScrolledVertically = ref<boolean>(false)
 const isScrolledHorizontally = ref<boolean>(false)
 const isScrollableRight = ref<boolean>(false)
-const sortColumnKey = ref('') as Ref<ColumnKey | ''>
-const sortColumnOrder = ref<SortColumnOrder>('desc')
+const sortColumnKey = ref(tablePreferences.sortColumnKey || '') as Ref<ColumnKey | ''>
+const sortColumnOrder = ref<SortColumnOrder>(tablePreferences.sortColumnOrder || 'desc')
 const isClickable = ref(false)
 const hasToolbarSlot = computed((): boolean => !hideToolbar && !nested && (!!slots.toolbar || hasColumnVisibilityMenu.value || showBulkActionsToolbar.value))
+const actionsDropdownRef = useTemplateRef('actionsDropdown')
 const isActionsDropdownHovered = ref<boolean>(false)
 const tableWrapperStyles = computed((): CSSProperties => ({
   maxHeight: normalizeSize(maxHeight),
@@ -707,7 +753,10 @@ const expandableColumnWidth = (parseInt(KUI_SPACE_60) * 2) + parseInt(KUI_ICON_S
  */
 const DEFAULT_COLUMN_WIDTHS: Record<TableReservedColumnKey, number> = { expandable: expandableColumnWidth, bulkActions: 48, actions: 54 }
 const DEFAULT_COLUMN_WIDTHS_PX: Record<TableReservedColumnKey, string> = mapValues(DEFAULT_COLUMN_WIDTHS, (width) => `${width}px`)
-const columnWidths = ref(tablePreferences?.columnWidths || DEFAULT_COLUMN_WIDTHS) as Ref<ColumnWidths>
+const columnWidths = ref({
+  ...tablePreferences.columnWidths || {},
+  ...DEFAULT_COLUMN_WIDTHS, // override special columns with default widths
+}) as Ref<ColumnWidths>
 const columnStyles = computed(() => {
   const styles: Partial<Record<ColumnKey, CSSProperties>> = {}
   for (const colKey in columnWidths.value) {
@@ -729,7 +778,7 @@ const columnStyles = computed(() => {
 const getHeaderClasses = (column: TableViewHeader<ColumnKey>, index: number): Record<string, boolean> => {
   return {
     // display the resize handle on the right side of the column if resizeColumns is enabled, hovering current column, and not the last column
-    'resize-hover': resizeHoverColumn.value === column.key && resizeColumns && !nested && index !== visibleHeaders.value.length - 1 && showResizeHandle(column),
+    'resize-hover': resizeHoverColumn.value === column.key && index !== visibleHeaders.value.length - 1 && showResizeHandle(column),
     resizable: resizeColumns && !nested,
     // display sort control if column is sortable, label is visible, and sorting is not disabled
     sortable: !column.hideLabel && !!column.sortable,
@@ -738,9 +787,10 @@ const getHeaderClasses = (column: TableViewHeader<ColumnKey>, index: number): Re
     [sortColumnOrder.value]: column.key === sortColumnKey.value && !column.hideLabel,
     'is-scrolled': isScrolledVertically.value,
     'has-tooltip': !!column.tooltip,
-    'sticky-column': (column.key === TableViewHeaderKeys.BULK_ACTIONS || column.key === TableViewHeaderKeys.EXPANDABLE) && isScrolledHorizontally.value,
-    'second-sticky-column': column.key === TableViewHeaderKeys.BULK_ACTIONS && hasExpandableRows.value,
+    'sticky-column': isStickyColumn(column.key),
+    'second-sticky-column': isSecondStickyColumn(column.key),
     'has-row-scroll-overlay': isLastStickyColumn(column.key),
+    'actions-column': column.key === TableViewHeaderKeys.ACTIONS,
   }
 }
 
@@ -862,6 +912,14 @@ const startResize = (evt: MouseEvent, colKey: ColumnKey) => {
   }
 }
 
+const isStickyColumn = (columnKey: ColumnKey): boolean => {
+  if (isScrolledHorizontally.value) {
+    return columnKey === TableViewHeaderKeys.BULK_ACTIONS || columnKey === TableViewHeaderKeys.EXPANDABLE
+  }
+
+  return false
+}
+const isSecondStickyColumn = (columnKey: ColumnKey): boolean => columnKey === TableViewHeaderKeys.BULK_ACTIONS && hasExpandableRows.value
 // if table is scrollable horizontally, calculate which column is the last sticky column
 const isLastStickyColumn = (columnKey: ColumnKey): boolean => {
   if (!isScrolledHorizontally.value) {
@@ -886,6 +944,10 @@ const isSpecialColumn = (columnKey: ColumnKey): boolean =>
 
 // don't show the resize handle if the column is a special column
 const showResizeHandle = (column: TableViewHeader<ColumnKey>, previous: boolean = false): boolean => {
+  if (!resizeColumns || nested) {
+    return false
+  }
+
   if (previous) {
     if (visibleHeaders.value.indexOf(column) === visibleHeaders.value.length - 1) {
       return false
@@ -899,8 +961,19 @@ const showResizeHandle = (column: TableViewHeader<ColumnKey>, previous: boolean 
   return !isSpecialColumn(column.key) && !isSpecialColumn(nextColumn.key)
 }
 
-const onRowActionsToggle = (row: Row, state: boolean): void => {
+const onRowActionsToggle = (row: Row, state: boolean, cellHelperData: any): void => {
   emit('row-actions-toggle', { row, open: state })
+
+  /**
+   * Track the row actions dropdown state to set higher z-index on the cell with open dropdown
+   * so that it appears above the other cells.
+   * When closing the dropdown, we want to reset the z-index after a short timeout
+   * so that the dropdown closes before the z-index is reset and doesn't cause flickering.
+   */
+  const rowActionsZIndexResetTimeout = state ? 0 : 100
+  setTimeout(() => {
+    cellHelperData.isRowActionsDropdownOpen = state
+  }, rowActionsZIndexResetTimeout)
 }
 
 const showPagination = computed((): boolean => {
@@ -938,6 +1011,8 @@ watch(() => headers, (newVal: readonly Header[]) => {
     tableHeaders.value = headers
   }
 }, { deep: true, immediate: true })
+
+const isColumnSortable = (column: TableViewHeader<ColumnKey>): boolean => !column.hideLabel && !!column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS
 
 const sortClickHandler = (header: TableViewHeader<ColumnKey>): void => {
   const { key } = header
@@ -985,6 +1060,15 @@ const scrollHandler = (event: Event): void => {
       isScrollableRight.value = true
     }
   }
+
+  // close any open row actions dropdowns when scrolling
+  // this is necessary to prevent dropdown from overflowing the table
+  // @ts-ignore - actionsDropdownRef is a Ref to an array of KDropdown components
+  actionsDropdownRef.value?.forEach((dropdown: any) => {
+    if (dropdown && dropdown.closeDropdown) {
+      dropdown.closeDropdown()
+    }
+  })
 }
 
 const getRowState = (row: Row): TableViewSelectState<Row> | undefined => {

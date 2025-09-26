@@ -25,6 +25,7 @@
         <KPop
           ref="popper"
           hide-close-icon
+          :offset="KUI_SPACE_40"
           v-bind="boundKPopAttributes"
           @close="() => handleToggle(false, isToggled, toggle)"
           @open="() => handleToggle(true, isToggled, toggle)"
@@ -92,7 +93,13 @@
                 truncation-tooltip
                 @click.stop
               >
-                {{ item.label }}
+                <slot
+                  :item="item"
+                  name="item-badge-icon"
+                />
+                <span class="multiselect-selection-badge-label">
+                  {{ item.label }}
+                </span>
                 <template
                   v-if="item.selected && !item.disabled && !isDisabled && !isReadonly"
                   #icon
@@ -253,7 +260,13 @@
           class="multiselect-selection-badge"
           :icon-before="false"
         >
-          {{ item.label }}
+          <slot
+            :item="item"
+            name="item-badge-icon"
+          />
+          <span class="multiselect-selection-badge-label">
+            {{ item.label }}
+          </span>
           <template
             v-if="item.selected && !item.disabled && !isDisabled && !isReadonly"
             #icon
@@ -273,7 +286,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts" generic="T extends string, U extends boolean = false">
 import type { Ref } from 'vue'
 import { ref, computed, watch, nextTick, onMounted, useAttrs, useId, useTemplateRef, onBeforeUnmount } from 'vue'
 import useUtilities from '@/composables/useUtilities'
@@ -294,7 +307,7 @@ import type {
   PopoverAttributes,
 } from '@/types'
 import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
-import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
+import { KUI_ICON_SIZE_40, KUI_SPACE_40 } from '@kong/design-tokens'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
 import { useEventListener } from '@vueuse/core'
@@ -315,9 +328,7 @@ const itemValuesAreUnique = (items: MultiselectItem[]): boolean => {
 
   return vals.length === uniqueValues.size
 }
-</script>
 
-<script setup lang="ts" generic="T extends string, U extends boolean">
 defineOptions({
   inheritAttrs: false,
 })
@@ -387,7 +398,7 @@ const defaultKPopAttributes = {
   hideCaret: true,
   placement: 'bottom-start' as PopPlacements,
   popoverTimeout: 0,
-  popoverClasses: 'multiselect-popover',
+  popoverClasses: 'k-multiselect-popover multiselect-popover',
 }
 
 // keys and ids
@@ -989,13 +1000,6 @@ $kMultiselectChevronIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
 $kMultiselectSelectionsPaddingRight: calc($kMultiselectInputPaddingX + $kMultiselectChevronIconSize + var(--kui-space-40, $kui-space-40));
 $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20); // corresponds to mixin
 
-/* Component mixins */
-
-@mixin kMultiselectPopoverMaxHeight {
-  max-height: v-bind('popoverContentMaxHeight');
-  overflow-y: auto;
-}
-
 /* Component styles */
 
 .k-multiselect {
@@ -1045,7 +1049,19 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
       position: relative;
     }
 
-    .multiselect-selection-badge,
+    .multiselect-selection-badge {
+      cursor: auto;
+
+      .multiselect-selection-badge-label {
+        @include truncate;
+      }
+
+      :deep(.badge-content-wrapper) {
+        display: inline-flex;
+        gap: var(--kui-space-30, $kui-space-30);
+      }
+    }
+
     .hidden-selection-count {
       cursor: auto;
     }
@@ -1131,44 +1147,6 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     }
   }
 
-  :deep(.multiselect-popover .popover-container) {
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
-
-    &.has-dropdown-footer {
-      padding-bottom: var(--kui-space-0, $kui-space-0);
-    }
-
-    .popover-content {
-      @include kMultiselectPopoverMaxHeight;
-
-      // when dropdown footer text position is sticky
-      &:has(.dropdown-footer.dropdown-footer-sticky) {
-        max-height: none;
-
-        .multiselect-list {
-          @include kMultiselectPopoverMaxHeight;
-        }
-      }
-
-      // Firefox workaround
-      // since :has() selector isn't supported in Firefox be default
-      .multiselect-list ~ .dropdown-footer-sticky {
-        bottom: 0;
-        position: sticky;
-      }
-    }
-  }
-
-  .multiselect-input-wrapper {
-    background-color: var(--kui-color-background, $kui-color-background);
-    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    padding: var(--kui-space-40, $kui-space-40);
-    position: sticky;
-    top: 0;
-  }
-
   .multiselect-empty {
     @include selectItemDefaults;
   }
@@ -1220,6 +1198,58 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
 
   .badge-dismiss-button {
     @include defaultButtonReset;
+  }
+}
+</style>
+
+<style lang="scss">
+/* Component mixins */
+
+@mixin kMultiselectPopoverMaxHeight {
+  max-height: v-bind('popoverContentMaxHeight');
+  overflow-y: auto;
+}
+
+// We use a global style here because the popover may be teleported outside the component.
+// The selector might look unusual, but it’s intentional: keeping the same specificity
+// as before supporting teleportation ensures backward compatibility and avoids style conflicts.
+.k-multiselect-popover {
+  .multiselect-input-wrapper {
+    background-color: var(--kui-color-background, $kui-color-background);
+    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    padding: var(--kui-space-40, $kui-space-40);
+    position: sticky;
+    top: 0;
+  }
+
+  &.multiselect-popover .popover-container {
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
+
+    &.has-dropdown-footer {
+      padding-bottom: var(--kui-space-0, $kui-space-0);
+    }
+
+    .popover-content {
+      @include kMultiselectPopoverMaxHeight;
+
+      // when dropdown footer text position is sticky
+      &:has(.dropdown-footer.dropdown-footer-sticky) {
+        max-height: none;
+
+        .multiselect-list {
+          @include kMultiselectPopoverMaxHeight;
+        }
+      }
+
+      // Firefox workaround
+      // since :has() selector isn't supported in Firefox be default
+      .multiselect-list ~ .dropdown-footer-sticky {
+        bottom: 0;
+        position: sticky;
+      }
+    }
   }
 }
 </style>

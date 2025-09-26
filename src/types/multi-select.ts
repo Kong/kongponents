@@ -58,7 +58,7 @@ export interface MultiselectItemsEmits<T extends string = string> {
   'add-item': []
 }
 
-export interface MultiselectProps<T extends string, U extends boolean> {
+export interface MultiselectProps<T extends string, U extends boolean = false> {
   /**
    * The current value of the multiselect (v-model).
    * @default []
@@ -105,7 +105,7 @@ export interface MultiselectProps<T extends string, U extends boolean> {
    * Attributes for the popover component.
    * @default {}
    */
-  kpopAttributes?: Omit<PopoverAttributes, 'target' | 'trigger'>
+  kpopAttributes?: Omit<PopoverAttributes, 'trigger'>
 
   /**
    * The maximum height of the dropdown.
@@ -217,4 +217,9 @@ export interface MultiselectSlots<T extends string = string> {
    * Slot for dropdown footer in multiselect.
    */
   'dropdown-footer-text'?: () => any
+
+  /**
+   * Slot for icon in the selected item badge.
+   */
+  'item-badge-icon'?: (props: { item: MultiselectItem<T> }) => any
 }

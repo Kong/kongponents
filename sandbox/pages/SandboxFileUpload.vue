@@ -84,6 +84,38 @@
           :max-file-size="4002000"
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="appearance">
+        <KFileUpload
+          :accept="['image/*']"
+          appearance="dropzone"
+        />
+        <KFileUpload
+          :accept="['image/*']"
+          appearance="dropzone"
+          button-text="Choose file"
+          help="Drag and drop files here or click to upload."
+          label="Label"
+          placeholder="This is a dropzone input with a placeholder"
+        >
+          <template #icon>
+            <ImageIcon />
+          </template>
+        </KFileUpload>
+        <KFileUpload
+          :accept="['image/*']"
+          appearance="dropzone"
+          error
+          error-message="This is an error message."
+          label="Label"
+        />
+        <KFileUpload
+          :accept="['image/*']"
+          appearance="dropzone"
+          disabled
+          help="Drag and drop files here or click to upload."
+          label="Label"
+        />
+      </SandboxSectionComponent>
 
       <!-- Attributes -->
       <SandboxTitleComponent
@@ -124,6 +156,20 @@
           </template>
         </KFileUpload>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="dropzone-footer">
+        <KFileUpload
+          :accept="['image/*']"
+          appearance="dropzone"
+          class="dropzone-footer-example"
+          label="Label"
+        >
+          <template #dropzone-footer>
+            <KAlert class="dropzone-alert">
+              Alert message at the bottom of the dropzone.
+            </KAlert>
+          </template>
+        </KFileUpload>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
@@ -146,6 +192,21 @@ import { ImageIcon } from '@kong/icons'
 
   .full-width-input {
     width: 100%;
+  }
+}
+
+.dropzone-footer-example {
+  .dropzone-alert {
+    border-top: $kui-border-width-10 solid $kui-color-border;
+    border-top-left-radius: $kui-border-radius-0;
+    border-top-right-radius: $kui-border-radius-0;
+    width: 100%;
+  }
+
+  :deep(.dropzone) {
+    padding-bottom: $kui-space-0 !important;
+    padding-left: $kui-space-0 !important;
+    padding-right: $kui-space-0 !important;
   }
 }
 </style>

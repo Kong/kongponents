@@ -10,6 +10,7 @@
         close-on-popover-click
         data-testid="dropdown-popover"
         hide-close-icon
+        :offset="KUI_SPACE_20"
         @close="() => handleTriggerToggle(isToggled, toggle, false)"
         @open="() => handleTriggerToggle(isToggled, toggle, true)"
         @popover-click="() => handleTriggerToggle(isToggled, toggle, false)"
@@ -72,7 +73,7 @@
 
 <script lang="ts" setup generic="T extends string | number">
 import type { Ref } from 'vue'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, useTemplateRef, watch } from 'vue'
 import type { DropdownItem, PopoverAttributes, DropdownProps, DropdownEmits } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
@@ -80,6 +81,7 @@ import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle/KToggle.vue'
 import KDropdownItem from './KDropdownItem.vue'
 import { ChevronDownIcon } from '@kong/icons'
+import { KUI_SPACE_20 } from '@kong/design-tokens'
 
 const {
   selectionMenu,
@@ -112,10 +114,10 @@ const emit = defineEmits<DropdownEmits<T>>()
 
 const tooltipComponent = computed(() => disabledTooltip ? KTooltip : 'div')
 
-const kPop = ref<InstanceType<typeof KPop> | null>(null)
+const kPopRef = useTemplateRef('kPop')
 const defaultKPopAttributes: PopoverAttributes = {
   hideCaret: true,
-  popoverClasses: 'dropdown-popover',
+  popoverClasses: 'k-dropdown-popover dropdown-popover',
   popoverTimeout: 0,
   placement: 'bottom-start',
 }
@@ -140,7 +142,7 @@ const handleSelection = (item: DropdownItem<T>): void => {
 }
 
 const handleCloseDropdown = (): void => {
-  kPop.value?.hidePopover()
+  kPopRef.value?.hidePopover()
 }
 
 const handleTriggerToggle = (isToggled: Ref<boolean>, toggle: () => void, isOpen: boolean): void => {
@@ -166,6 +168,13 @@ onMounted(() => {
     }
   }
 })
+
+defineExpose({
+  openDropdown: (): void => {
+    kPopRef.value?.showPopover()
+  },
+  closeDropdown: handleCloseDropdown,
+})
 </script>
 
 <style lang="scss" scoped>
@@ -177,17 +186,21 @@ onMounted(() => {
   .dropdown-trigger {
     width: 100%;
   }
+}
+</style>
 
-  :deep(.popover.dropdown-popover > .popover-container) {
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-    margin-top: var(--kui-space-30, $kui-space-30);
-    padding: var(--kui-space-0, $kui-space-0);
+<style lang="scss">
+// We use a global style here because the popover may be teleported outside the component.
+// The selector might look unusual, but it’s intentional: keeping the same specificity
+// as before supporting teleportation ensures backward compatibility and avoids style conflicts.
+.k-dropdown-popover.dropdown-popover.popover > .popover-container {
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+  border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+  padding: var(--kui-space-0, $kui-space-0);
 
-    ul {
-      margin: 0;
-      padding: var(--kui-space-20, $kui-space-20) 0;
-    }
+  .dropdown-list {
+    margin: 0;
+    padding: var(--kui-space-20, $kui-space-20) 0;
   }
 }
 </style>

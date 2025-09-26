@@ -31,7 +31,7 @@
     :row-hover="rowHover"
     :row-key="rowKey"
     :row-link="rowLink"
-    :table-preferences="tablePreferences"
+    :table-preferences="tableDataPreferences"
     :tooltip-target="tooltipTarget"
     v-bind="listenerProps"
     @empty-state-action-click="emit('empty-state-action-click')"
@@ -260,8 +260,9 @@ const total = ref<number>(0)
 const page = ref<number>(1)
 const pageSize = ref<number>(getInitialPageSize(tablePreferences, paginationAttributes))
 const filterQuery = ref<string>(searchInput ?? '')
-const sortColumnKey = ref('') as Ref<ColumnKey>
-const sortColumnOrder = ref<SortColumnOrder>('desc')
+const sortColumnKey = ref(tablePreferences.sortColumnKey || initialFetcherParams.sortColumnKey || '') as Ref<ColumnKey>
+const sortColumnOrder = ref<SortColumnOrder>(tablePreferences.sortColumnOrder || initialFetcherParams.sortColumnOrder || 'desc')
+const initialSortHandled = ref<boolean>(!(sortColumnKey.value && clientSort)) // For clientSort tables, if sortColumnKey is set, that means we need to handle initial sort
 const offset = ref(null) as Ref<Offset | null>
 const offsets = ref([]) as Ref<Array<Offset | null>>
 const hasNextPage = ref<boolean>(true)
@@ -437,7 +438,9 @@ const tableState = computed((): TableState => fetcherIsLoading.value ? 'loading'
 const { debouncedFn: debouncedRevalidate } = useDebounce(_revalidate, 500)
 
 const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortOrder }: TableSortPayload<ColumnKey>): void => {
-  const header: TableDataHeader<ColumnKey> = tableHeaders.value.find((header) => header.key === columnKey)!
+  initialSortHandled.value = true
+
+  const header: TableDataHeader<ColumnKey> = tableHeaders.value.find((header) => header.key === columnKey) || {} as TableDataHeader<ColumnKey>
   const { useSortHandlerFunction } = header
 
   emit('sort', {
@@ -489,15 +492,22 @@ const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData) =>
 }
 
 const tablePreferencesUpdateHandler = ({ columnWidths: newColumnWidth, columnVisibility: newColumnVisibility }: TablePreferences<ColumnKey>) => {
-  tableViewColumnWidths.value = newColumnWidth
-  tableViewColumnVisibility.value = newColumnVisibility
+  // Update the column width and visibility overriding but keeping the existing properties (in case the new objects are empty)
+  tableViewColumnWidths.value = {
+    ...tableViewColumnWidths.value,
+    ...newColumnWidth,
+  }
+  tableViewColumnVisibility.value = {
+    ...tableViewColumnVisibility.value,
+    ...newColumnVisibility,
+  }
 
   // Emit an event whenever one of the tablePreferences are updated
   emitTablePreferences()
 }
 
-const tableViewColumnWidths = ref<ColumnWidths | undefined>({})
-const tableViewColumnVisibility = ref<ColumnVisibility | undefined>({})
+const tableViewColumnWidths = ref<ColumnWidths | undefined>(tablePreferences.columnWidths || {})
+const tableViewColumnVisibility = ref<ColumnVisibility | undefined>(tablePreferences.columnVisibility || {})
 const tableDataPreferences = computed((): TablePreferences<Header['key']> => ({
   pageSize: pageSize.value,
   sortColumnKey: sortColumnKey.value,
@@ -575,6 +585,11 @@ watch(fetcherResponse, (res) => {
     page.value = 1
     offsets.value = [null]
     offset.value = null
+  }
+
+  // Call sortHandler if the initial sort has not been handled yet
+  if (sortable && !initialSortHandled.value) {
+    sortHandler({ sortColumnKey: sortColumnKey.value, prevKey: '', sortColumnOrder: sortColumnOrder.value })
   }
 }, { deep: true, immediate: true })
 

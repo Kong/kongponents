@@ -1,5 +1,7 @@
 import type { LabelAttributes } from './label'
 
+export type FileUploadAppearance = 'input' | 'dropzone'
+
 export interface FileUploadProps {
   /**
    * Use the `labelAttributes` prop to configure the KLabel's props if using the `label` prop.
@@ -61,6 +63,12 @@ export interface FileUploadProps {
    * @default false
    */
   disabled?: boolean
+
+  /**
+   * The appearance of the file upload component.
+   * @default 'input'
+   */
+  appearance?: FileUploadAppearance
 }
 
 export interface FileUploadEmits {
@@ -90,4 +98,9 @@ export interface FileUploadSlots {
    * Use this slot if you want to utilize HTML in the input label's tooltip.
    */
   'label-tooltip'?(): any
+
+  /**
+   * Slot for additional content at the bottom of the the dropzone area. Only available when `appearance` prop is set to `dropzone`.
+   */
+  'dropzone-footer'?(): any
 }

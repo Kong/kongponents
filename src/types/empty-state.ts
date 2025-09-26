@@ -5,6 +5,13 @@ export enum EmptyStateIconVariants {
   Kong = 'kong',
 }
 
+export interface EmptyStateFeature {
+  /** Used in feature icon slot name, needs to be unique for each feature */
+  key?: string
+  title: string
+  description: string
+}
+
 export interface EmptyStateProps {
   /**
    * The title of the empty state.
@@ -42,6 +49,18 @@ export interface EmptyStateProps {
    * @default 'default'
    */
   iconVariant?: EmptyStateIconVariant
+
+  /**
+   * Whether the icon should be rendered in a rectangular container.
+   * @default false
+   */
+  iconBackground?: boolean
+
+  /**
+   * If provided, will display card for each feature, along with an icon slot, a title, and a short description.
+   * @default []
+   */
+  features?: EmptyStateFeature[]
 }
 
 export interface EmptyStateEmits {
@@ -71,6 +90,26 @@ export interface EmptyStateSlots {
    * Slot for custom action area of the empty state.
    */
   action?(): any
+
+  /**
+   * Slot for custom action button icon.
+   */
+  'action-button-icon'?(): any
+
+  /**
+   * Slot for custom image to be displayed at the top of the empty state instead of the icon.
+   */
+  image?(): any
+
+  /**
+   * Slot for custom icon of the empty state feature card.
+   */
+  [key: `feature-icon-${string}`]: () => any | undefined
+
+  /**
+   * Content to be displayed at the bottom of the empty state component, separated by a divider line.
+   */
+  footer?(): any
 }
 
 export type EmptyStateIconVariant = `${EmptyStateIconVariants}`

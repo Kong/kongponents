@@ -5,8 +5,8 @@
   >
     <KLabel
       v-if="label"
-      v-bind="labelAttributes"
       data-testid="select-label"
+      v-bind="labelAttributes"
       :for="selectInputId"
       :required="isRequired"
     >
@@ -26,6 +26,7 @@
         v-bind="boundKPopAttributes"
         close-on-popover-click
         hide-close-icon
+        :offset="KUI_SPACE_40"
         @close="() => onClose(toggle, isToggled.value)"
         @open="() => onOpen(toggle)"
         @popover-click="() => onPopoverClick(toggle)"
@@ -82,6 +83,7 @@
                 <CloseIcon decorative />
               </button>
               <ChevronDownIcon
+                v-if="!isReadonly"
                 class="chevron-down-icon"
                 :class="{ 'disabled': isDisabled }"
                 decorative
@@ -98,7 +100,7 @@
             <div
               v-if="hasCustomSelectedItem && (!enableFiltering || !isToggled.value)"
               class="custom-selected-item-wrapper"
-              :class="{ 'clearable': clearable }"
+              :class="{ 'clearable': clearable, 'readonly': isReadonly }"
             >
               <slot
                 :item="selectedItem!"
@@ -214,6 +216,7 @@ import { sanitizeInput } from '@/utilities/sanitizeInput'
 import { useEventListener } from '@vueuse/core'
 import { getUniqueStringId } from '@/utilities'
 import { normalizeSize } from '@/utilities/css'
+import { KUI_SPACE_40 } from '@kong/design-tokens'
 
 type Value = U extends true ? T | string : T
 type Item = SelectItem<Value>
@@ -264,7 +267,7 @@ const isDisabled = computed((): boolean => attrs.disabled !== undefined && Strin
 const isReadonly = computed((): boolean => attrs.readonly !== undefined && String(attrs.readonly) !== 'false')
 
 const defaultKPopAttributes: PopoverAttributes = {
-  popoverClasses: `select-popover ${dropdownFooterText || slots['dropdown-footer-text'] ? `has-${dropdownFooterTextPosition}-dropdown-footer` : ''}`,
+  popoverClasses: `k-select-popover select-popover ${dropdownFooterText || slots['dropdown-footer-text'] ? `has-${dropdownFooterTextPosition}-dropdown-footer` : ''}`,
   popoverTimeout: 0,
   placement: 'bottom-start',
   hideCaret: true,
@@ -718,6 +721,11 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     position: absolute;
     white-space: nowrap;
 
+    &.readonly {
+      // accommodate for **no** caret
+      max-width: calc(v-bind('actualElementWidth') - $kSelectInputPaddingX - ($kSelectInputSlotSpacing * 2));
+    }
+
     :deep(#{$kongponentsKongIconSelector}) {
       // make sure the icon doesn't shrink when text is too long
       flex-shrink: 0;
@@ -728,23 +736,6 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     &.clearable {
       // accommodate for the clear icon and caret
       max-width: calc(v-bind('actualElementWidth') - ($kSelectInputPaddingX * 2) - ($kSelectInputIconSize * 2) - $kSelectInputSlotSpacing);
-    }
-  }
-
-  .select-popover {
-    .select-items-container {
-      max-height: v-bind('popoverContentMaxHeight');
-      overflow-y: auto;
-    }
-  }
-
-  :deep(.select-popover.popover .popover-container) {
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
-
-    &.has-sticky-dropdown-footer, &.has-static-dropdown-footer {
-      padding-bottom: var(--kui-space-0, $kui-space-0);
     }
   }
 
@@ -792,6 +783,25 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
 
   .clear-selection-button {
     @include defaultButtonReset;
+  }
+}
+</style>
+
+<style lang="scss">
+.k-select-popover.select-popover {
+  .select-items-container {
+    max-height: v-bind('popoverContentMaxHeight');
+    overflow-y: auto;
+  }
+
+  &.popover .popover-container {
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
+
+    &.has-sticky-dropdown-footer, &.has-static-dropdown-footer {
+      padding-bottom: var(--kui-space-0, $kui-space-0);
+    }
   }
 }
 </style>

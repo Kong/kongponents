@@ -70,7 +70,7 @@ export interface SelectFilterFunctionParams<T extends string | number> {
 
 export type SelectDropdownFooterTextPosition = 'sticky' | 'static'
 
-export interface SelectProps<T extends string | number, U extends boolean> {
+export interface SelectProps<T extends string | number, U extends boolean = false> {
   /**
    * To set the value of the select without using `v-model`.
    * @default ''
@@ -82,7 +82,7 @@ export interface SelectProps<T extends string | number, U extends boolean> {
    * See KPopover's props for more info.
    * @default {}
    */
-  kpopAttributes?: Omit<PopoverAttributes, 'target' | 'trigger'>
+  kpopAttributes?: Omit<PopoverAttributes, 'trigger'>
 
   /**
    * Maximum height for dropdown container.

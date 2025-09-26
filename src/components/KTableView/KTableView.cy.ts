@@ -1,6 +1,7 @@
 import { h } from 'vue'
 import KTableView from '@/components/KTableView/KTableView.vue'
 import type { TableViewHeader, RowBulkAction } from '@/types'
+import { DEFAULT_PAGE_SIZE } from '@/utilities/tableHelpers'
 
 const largeDataSet = [
   {
@@ -436,7 +437,7 @@ describe('KTableView', () => {
   })
 
   describe('sorting', () => {
-    it('should have sortable class when passed', () => {
+    it('should render sortable columns correctly', () => {
       cy.mount(KTableView, {
         props: {
           headers: options.headers,
@@ -445,9 +446,9 @@ describe('KTableView', () => {
       })
 
       cy.get('th').each(($el, index) => {
-        if (index <= 1) {
-          cy.wrap($el).should('have.class', 'sortable')
-        }
+        cy.wrap($el).should(`${options.headers[index].sortable ? '' : 'not.'}have.class`, 'sortable')
+        cy.wrap($el).find('.sort-icon').should(`${options.headers[index].sortable ? '' : 'not.'}exist`)
+        cy.wrap($el).find('.active-sort-icon').should('not.exist')
       })
     })
 
@@ -480,6 +481,22 @@ describe('KTableView', () => {
           cy.wrap(Cypress.vueWrapper.emitted('sort')?.[1]?.[0]).should('have.property', 'sortColumnOrder', 'asc')
         })
       })
+    })
+
+    it('should respect initial sort order from table preferences', () => {
+      cy.mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+          tablePreferences: {
+            sortColumnKey: 'name',
+            sortColumnOrder: 'asc',
+          },
+        },
+      })
+
+      cy.getTestId('table-header-name').should('have.class', 'active-sort')
+      cy.getTestId('table-header-name').should('have.attr', 'aria-sort', 'ascending')
     })
   })
 
@@ -531,6 +548,121 @@ describe('KTableView', () => {
       })
 
       cy.getTestId('visible-items').eq(0).should('contain.text', '16 to 30  of 100')
+    })
+  })
+
+  describe('table preferences', () => {
+    it('does not apply column width and visibility preferences when not set', () => {
+      cy.mount(KTableView, {
+        props: {
+          data: options.data,
+          headers: options.headers.filter(header => header.key !== 'actions'),
+        },
+      })
+
+      options.headers.filter(header => header.key !== 'actions').forEach((header) => {
+        cy.getTestId(`table-header-${header.key}`).should('not.have.attr', 'style')
+        cy.getTestId(`table-header-${header.key}`).should('be.visible')
+      })
+    })
+
+    it('applies column width and visibility preferences when set', () => {
+      cy.mount(KTableView, {
+        props: {
+          data: options.data,
+          headers: options.headers.filter(header => header.key !== 'actions').map(header => {
+            if (options.headers[1].key === header.key) {
+              return { ...header, hidable: true }
+            }
+            return header
+          }),
+          tablePreferences: {
+            columnWidths: options.headers.reduce((acc: Record<string, number>, header) => {
+              acc[header.key] = 100
+              return acc
+            }, {} as Record<string, number>),
+            columnVisibility: {
+              [options.headers[1].key]: false, // hide ID column
+            },
+          },
+        },
+      })
+
+      options.headers.filter(header => header.key !== 'actions').forEach((header) => {
+        cy.getTestId(`table-header-${header.key}`).should(options.headers[1].key === header.key ? 'not.exist' : 'have.css', 'width', '100px')
+        if (options.headers[1].key !== header.key) {
+          cy.getTestId(`table-header-${header.key}`).should('be.visible')
+        }
+      })
+    })
+
+    it('correctly handles when page size, sort column key and order preferences are not passed', () => {
+      const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+
+      cy.mount(KTableView, {
+        props: {
+          data: options.data,
+          headers: options.headers,
+        },
+      })
+
+      // default page size is applied
+      cy.getTestId('table-pagination').findTestId('page-size-dropdown-trigger').should('contain.text', DEFAULT_PAGE_SIZE.toString())
+      // no initial sort is applied
+      cy.get('thead th[aria-sort]').should('not.exist')
+      // after sorting, ascending order is applied by default
+      cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
+        cy.getTestId(`table-header-${sortableColumnKey}`).should('have.attr', 'aria-sort', 'ascending')
+      })
+    })
+
+    it('applies page size, sort column key and order preferences when passed', () => {
+      const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+      const pageSize = 30
+
+      cy.mount(KTableView, {
+        props: {
+          data: options.data,
+          headers: options.headers,
+          tablePreferences: {
+            pageSize: pageSize,
+            sortColumnKey: sortableColumnKey,
+            sortColumnOrder: 'desc',
+          },
+        },
+      })
+
+      // page size preference is applied
+      cy.getTestId('table-pagination').findTestId('page-size-dropdown-trigger').should('contain.text', pageSize.toString())
+      // initial sort column is applied correctly
+      cy.getTestId(`table-header-${sortableColumnKey}`).should('have.attr', 'aria-sort', 'descending')
+    })
+
+    it('emits update:table-preferences event when table preferences are updated', () => {
+      const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+      const newPageSize = 30
+
+      cy.mount(KTableView, {
+        props: {
+          data: options.data,
+          headers: options.headers,
+        },
+      })
+
+      // One-off, apply margin-top: 50px to the table to avoid overlapping with the dropdown menu
+      cy.get('.k-table-view').invoke('attr', 'style', 'margin-top: 50px')
+
+      // change page size
+      cy.getTestId('table-pagination').findTestId('page-size-dropdown-trigger').click()
+      cy.getTestId('dropdown-list').find('button').contains(newPageSize).click().then(() => {
+        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'update:table-preferences')
+        cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[1]?.[0]).should('have.property', 'pageSize', newPageSize)
+        // change sort column
+        cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
+          cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[2]?.[0]).should('have.property', 'sortColumnKey', sortableColumnKey)
+          cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[2]?.[0]).should('have.property', 'sortColumnOrder', 'asc')
+        })
+      })
     })
   })
 

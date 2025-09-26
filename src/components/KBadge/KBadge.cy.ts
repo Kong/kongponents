@@ -1,6 +1,6 @@
 import KBadge from '@/components/KBadge/KBadge.vue'
-import type { BadgeAppearance } from '@/types'
-import { BadgeAppearances } from '@/types'
+import type { BadgeAppearance, BadgeSize } from '@/types'
+import { BadgeAppearances, BadgeSizes } from '@/types'
 
 const rendersCorrectAppearance = (variant: BadgeAppearance) => {
   it(`renders KBadge with the ${variant} appearance`, () => {
@@ -17,9 +17,27 @@ const rendersCorrectAppearance = (variant: BadgeAppearance) => {
   })
 }
 
+const rendersCorrectSize = (size: BadgeSize) => {
+  it(`sets ${size} class when size passed`, () => {
+    cy.mount(KBadge, {
+      props: {
+        size,
+      },
+      slots: {
+        default: () => size.charAt(0).toUpperCase() + size.substring(1).toLowerCase(),
+      },
+    })
+
+    cy.get('.k-badge').should('have.class', size)
+  })
+}
+
 describe('KBadge', () => {
   // Loop through BadgeAppearances
   Object.keys(BadgeAppearances).map(a => rendersCorrectAppearance(a as BadgeAppearance))
+
+  // Loop through BadgeSizes
+  Object.values(BadgeSizes).map(s => rendersCorrectSize(s))
 
   it('defaults to info `appearance`', () => {
     cy.mount(KBadge, {
