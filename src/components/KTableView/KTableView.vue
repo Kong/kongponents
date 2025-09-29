@@ -443,6 +443,7 @@
 
       <KPagination
         v-if="showPagination"
+        :key="`table-${tableId}-pagination-${paginationKey}`"
         class="table-pagination"
         data-testid="table-pagination"
         :initial-page-size="paginationPageSize"
@@ -1135,6 +1136,7 @@ const getRowLinkAttrs = (row: Row, columnKey: ColumnKey): Record<string, unknown
 }
 
 
+const paginationKey = ref<number>(0)
 const paginationPageSize = ref<number>(getInitialPageSize(tablePreferences, paginationAttributes))
 const onPaginationPageSizeChange = (data: PageSizeChangeData): void => {
   paginationPageSize.value = data.pageSize
@@ -1368,6 +1370,12 @@ watch(bulkActionsSelectedRows, (newVal) => {
 })
 
 watch(() => tablePreferences, (newVal) => {
+  if (newVal?.pageSize) {
+    paginationPageSize.value = newVal.pageSize
+    paginationKey.value ++ // Force re-render of pagination component when pageSize changes from the host app
+  }
+  sortColumnKey.value = newVal?.sortColumnKey ? newVal.sortColumnKey : sortColumnKey.value
+  sortColumnOrder.value = newVal?.sortColumnOrder ? newVal.sortColumnOrder : sortColumnOrder.value
   columnWidths.value = newVal?.columnWidths ? newVal.columnWidths : columnWidths.value
   columnVisibility.value = newVal?.columnVisibility ? newVal.columnVisibility : columnVisibility.value
 })
