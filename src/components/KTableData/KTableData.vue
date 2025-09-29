@@ -373,7 +373,24 @@ const initData = () => {
   sortColumnOrder.value = fetcherParams.sortColumnOrder ?? defaultFetcherProps.sortColumnOrder
 
   if (clientSort && sortColumnKey.value && sortColumnOrder.value) {
-    defaultClientSideSorter(sortColumnKey.value, '', sortColumnOrder.value, tableData.value)
+    const header: TableDataHeader<ColumnKey> = tableHeaders.value.find((header) => header.key === sortColumnKey.value) || {} as TableDataHeader<ColumnKey>
+    const { useSortHandlerFunction } = header
+
+    // If a custom sort function is provided, use it. Otherwise, use the default client-side sorter.
+    if (useSortHandlerFunction && sortHandlerFunction) {
+      const sorted = sortHandlerFunction({
+        key: sortColumnKey.value,
+        prevKey: '',
+        sortColumnOrder: sortColumnOrder.value,
+        data: tableData.value,
+      })
+
+      if (sorted) {
+        tableData.value = [...sorted]
+      }
+    } else {
+      defaultClientSideSorter(sortColumnKey.value, '', sortColumnOrder.value, tableData.value)
+    }
   }
 
   if (paginationAttributes?.offset) {
@@ -437,17 +454,19 @@ const stateData = computed((): SwrvStateData => ({
 const tableState = computed((): TableState => fetcherIsLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
 const { debouncedFn: debouncedRevalidate } = useDebounce(_revalidate, 500)
 
-const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortOrder }: TableSortPayload<ColumnKey>): void => {
+const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortOrder }: TableSortPayload<ColumnKey>, emitSortEvent: boolean = true): void => {
   initialSortHandled.value = true
 
   const header: TableDataHeader<ColumnKey> = tableHeaders.value.find((header) => header.key === columnKey) || {} as TableDataHeader<ColumnKey>
   const { useSortHandlerFunction } = header
 
-  emit('sort', {
-    prevKey,
-    sortColumnKey: columnKey,
-    sortColumnOrder: sortOrder,
-  })
+  if (emitSortEvent) {
+    emit('sort', {
+      prevKey,
+      sortColumnKey: columnKey,
+      sortColumnOrder: sortOrder,
+    })
+  }
 
   page.value = 1
 
@@ -515,6 +534,20 @@ const tableDataPreferences = computed((): TablePreferences<Header['key']> => ({
   ...(tableViewColumnWidths.value ? { columnWidths: tableViewColumnWidths.value } : {}),
   ...(tableViewColumnVisibility.value ? { columnVisibility: tableViewColumnVisibility.value } : {}),
 }))
+
+watch(() => tablePreferences, (newVal) => {
+  pageSize.value = newVal?.pageSize ? newVal.pageSize : pageSize.value
+  tableViewColumnWidths.value = newVal?.columnWidths ? newVal.columnWidths : tableViewColumnWidths.value
+  tableViewColumnVisibility.value = newVal?.columnVisibility ? newVal.columnVisibility : tableViewColumnVisibility.value
+  // Handle sorting if the sort preferences have changed
+  if ((newVal?.sortColumnKey || newVal?.sortColumnOrder) && (sortColumnKey.value !== newVal.sortColumnKey || sortColumnOrder.value !== newVal.sortColumnOrder)) {
+    sortHandler({
+      sortColumnKey: newVal.sortColumnKey!,
+      prevKey: sortColumnKey.value,
+      sortColumnOrder: newVal.sortColumnOrder!,
+    }, false) // don't emit sort event when updating from prop change
+  }
+})
 
 const emitTablePreferences = (): void => {
   if (tableState.value === 'success') {
@@ -589,7 +622,7 @@ watch(fetcherResponse, (res) => {
 
   // Call sortHandler if the initial sort has not been handled yet
   if (sortable && !initialSortHandled.value) {
-    sortHandler({ sortColumnKey: sortColumnKey.value, prevKey: '', sortColumnOrder: sortColumnOrder.value })
+    sortHandler({ sortColumnKey: sortColumnKey.value, prevKey: '', sortColumnOrder: sortColumnOrder.value }, false) // don't emit sort event when handling initial sort
   }
 }, { deep: true, immediate: true })
 

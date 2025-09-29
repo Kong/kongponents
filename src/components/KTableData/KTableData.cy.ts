@@ -1,7 +1,7 @@
 import { h } from 'vue'
 import KTableData from '@/components/KTableData/KTableData.vue'
 import { offsetPaginationHeaders, offsetPaginationFetcher } from '../../../mocks/KTableMockData'
-import type { TableDataHeader } from '@/types'
+import type { TableDataHeader, SortHandlerFunctionParam } from '@/types'
 import { DEFAULT_PAGE_SIZE } from '@/utilities/tableHelpers'
 
 interface FetchParams {
@@ -100,6 +100,15 @@ const options = {
       enabled: 'true',
     },
   ],
+}
+
+const DEFAULT_FETCHER_PARAMS = {
+  pageSize: 15,
+  page: 1,
+  offset: null,
+  query: '',
+  sortColumnKey: '',
+  sortColumnOrder: 'desc',
 }
 
 describe('KTableData', () => {
@@ -962,6 +971,145 @@ describe('KTableData', () => {
           cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[1]?.[0]).should('have.property', 'sortColumnKey', sortableColumnKey)
           cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[1]?.[0]).should('have.property', 'sortColumnOrder', 'asc')
         })
+      })
+    })
+
+    it('clientSort = true: applies new table preferences when prop is updated', () => {
+      const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+      const pageSize = 30
+      options.headers[1].hidable = true
+      const hidableColumnKey = options.headers[1].key
+
+      const fns = {
+        fetcher: () => {
+          return { data: options.data }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      cy.mount(KTableData, {
+        props: {
+          headers: options.headers,
+          fetcher: fns.fetcher,
+        },
+      }).then((component) => {
+        // initial state
+        // calls fetcher with default page size, sort column key and order
+        cy.get('@fetcher')
+          .should('have.callCount', 1)
+          .its('lastCall')
+          .should('have.been.calledWith', DEFAULT_FETCHER_PARAMS)
+
+        cy.getTestId('table-pagination').findTestId('page-size-dropdown-trigger').should('contain.text', DEFAULT_PAGE_SIZE.toString())
+        options.headers.forEach((header) => {
+          cy.getTestId(`table-header-${header.key}`).should('be.visible')
+        })
+        cy.get('thead th[aria-sort]').should('not.exist').then((() => {
+          // update table preferences prop
+          component.wrapper.setProps({
+            tablePreferences: {
+              pageSize: pageSize,
+              sortColumnKey: sortableColumnKey,
+              sortColumnOrder: 'asc',
+              columnVisibility: {
+                [hidableColumnKey]: false, // hide ID column
+              },
+            },
+          }).then(() => {
+            // updated state
+            // calls fetcher with new page size, sort column key and order
+            cy.get('@fetcher')
+              .should('have.callCount', 2)
+              .its('lastCall')
+              .should('have.been.calledWith', {
+                ...DEFAULT_FETCHER_PARAMS,
+                pageSize: pageSize,
+                sortColumnKey: sortableColumnKey,
+                sortColumnOrder: 'asc',
+              })
+
+            cy.getTestId('table-pagination').findTestId('page-size-dropdown-trigger').should('contain.text', pageSize.toString())
+            cy.getTestId(`table-header-${sortableColumnKey}`).should('have.attr', 'aria-sort', 'ascending')
+            options.headers.forEach((header) => {
+              if (header.key === hidableColumnKey) {
+                cy.getTestId(`table-header-${header.key}`).should('not.exist')
+              } else {
+                cy.getTestId(`table-header-${header.key}`).should('be.visible')
+              }
+            })
+          })
+        }))
+      })
+    })
+
+    it('clientSort = true: applies new table preferences when prop is updated', () => {
+      const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+      options.headers.find(header => header.key === sortableColumnKey)!.useSortHandlerFunction = true
+      const pageSize = 30
+      options.headers[1].hidable = true
+      const hidableColumnKey = options.headers[1].key
+
+      const shf = {
+        sortHandlerFunction: ({ data }: SortHandlerFunctionParam) => {
+          return data
+        },
+      }
+      cy.spy(shf, 'sortHandlerFunction').as('sortHandlerFunction')
+
+      cy.mount(KTableData, {
+        props: {
+          headers: options.headers,
+          fetcher: () => {
+            return { data: options.data }
+          },
+          clientSort: true,
+          sortHandlerFunction: shf.sortHandlerFunction,
+        },
+      }).then((component) => {
+        // initial state
+        // does not call sortHandlerFunction on load
+        cy.get('@sortHandlerFunction')
+          .should('have.callCount', 0)
+
+        cy.getTestId('table-pagination').findTestId('page-size-dropdown-trigger').should('contain.text', DEFAULT_PAGE_SIZE.toString())
+        options.headers.forEach((header) => {
+          cy.getTestId(`table-header-${header.key}`).should('be.visible')
+        })
+        cy.get('thead th[aria-sort]').should('not.exist').then((() => {
+          // update table preferences prop
+          component.wrapper.setProps({
+            tablePreferences: {
+              pageSize: pageSize,
+              sortColumnKey: sortableColumnKey,
+              sortColumnOrder: 'asc',
+              columnVisibility: {
+                [hidableColumnKey]: false, // hide ID column
+              },
+            },
+          }).then(() => {
+            // updated state
+            // calls fetcher with new page size, sort column key and order
+            cy.get('@sortHandlerFunction')
+              .should('have.callCount', 1)
+              .its('lastCall')
+              .should('have.been.calledWith', {
+                key: sortableColumnKey,
+                prevKey: '',
+                sortColumnOrder: 'asc',
+                data: options.data,
+              })
+
+            cy.getTestId('table-pagination').findTestId('page-size-dropdown-trigger').should('contain.text', pageSize.toString())
+            cy.getTestId(`table-header-${sortableColumnKey}`).should('have.attr', 'aria-sort', 'ascending')
+            options.headers.forEach((header) => {
+              if (header.key === hidableColumnKey) {
+                cy.getTestId(`table-header-${header.key}`).should('not.exist')
+              } else {
+                cy.getTestId(`table-header-${header.key}`).should('be.visible')
+              }
+            })
+          })
+        }))
       })
     })
   })

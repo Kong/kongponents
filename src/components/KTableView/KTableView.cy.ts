@@ -664,6 +664,50 @@ describe('KTableView', () => {
         })
       })
     })
+
+    it('applies new table preferences when prop is updated', () => {
+      const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+      const pageSize = 30
+      options.headers[1].hidable = true
+      const hidableColumnKey = options.headers[1].key
+
+      cy.mount(KTableView, {
+        props: {
+          data: options.data,
+          headers: options.headers,
+        },
+      }).then((component) => {
+        // initial state
+        cy.getTestId('table-pagination').findTestId('page-size-dropdown-trigger').should('contain.text', DEFAULT_PAGE_SIZE.toString())
+        options.headers.forEach((header) => {
+          cy.getTestId(`table-header-${header.key}`).should('be.visible')
+        })
+        cy.get('thead th[aria-sort]').should('not.exist').then((() => {
+          // update table preferences prop
+          component.wrapper.setProps({
+            tablePreferences: {
+              pageSize: pageSize,
+              sortColumnKey: sortableColumnKey,
+              sortColumnOrder: 'asc',
+              columnVisibility: {
+                [hidableColumnKey]: false, // hide ID column
+              },
+            },
+          }).then(() => {
+          // updated state
+            cy.getTestId('table-pagination').findTestId('page-size-dropdown-trigger').should('contain.text', pageSize.toString())
+            cy.getTestId(`table-header-${sortableColumnKey}`).should('have.attr', 'aria-sort', 'ascending')
+            options.headers.forEach((header) => {
+              if (header.key === hidableColumnKey) {
+                cy.getTestId(`table-header-${header.key}`).should('not.exist')
+              } else {
+                cy.getTestId(`table-header-${header.key}`).should('be.visible')
+              }
+            })
+          })
+        }))
+      })
+    })
   })
 
   describe('expandable rows and nested tables', () => {
