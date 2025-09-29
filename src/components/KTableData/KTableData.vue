@@ -454,17 +454,19 @@ const stateData = computed((): SwrvStateData => ({
 const tableState = computed((): TableState => fetcherIsLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
 const { debouncedFn: debouncedRevalidate } = useDebounce(_revalidate, 500)
 
-const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortOrder }: TableSortPayload<ColumnKey>): void => {
+const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortOrder }: TableSortPayload<ColumnKey>, emitSortEvent: boolean = true): void => {
   initialSortHandled.value = true
 
   const header: TableDataHeader<ColumnKey> = tableHeaders.value.find((header) => header.key === columnKey) || {} as TableDataHeader<ColumnKey>
   const { useSortHandlerFunction } = header
 
-  emit('sort', {
-    prevKey,
-    sortColumnKey: columnKey,
-    sortColumnOrder: sortOrder,
-  })
+  if (emitSortEvent) {
+    emit('sort', {
+      prevKey,
+      sortColumnKey: columnKey,
+      sortColumnOrder: sortOrder,
+    })
+  }
 
   page.value = 1
 
@@ -543,7 +545,7 @@ watch(() => tablePreferences, (newVal) => {
       sortColumnKey: newVal.sortColumnKey!,
       prevKey: sortColumnKey.value,
       sortColumnOrder: newVal.sortColumnOrder!,
-    })
+    }, false) // don't emit sort event when updating from prop change
   }
 })
 
@@ -620,7 +622,7 @@ watch(fetcherResponse, (res) => {
 
   // Call sortHandler if the initial sort has not been handled yet
   if (sortable && !initialSortHandled.value) {
-    sortHandler({ sortColumnKey: sortColumnKey.value, prevKey: '', sortColumnOrder: sortColumnOrder.value })
+    sortHandler({ sortColumnKey: sortColumnKey.value, prevKey: '', sortColumnOrder: sortColumnOrder.value }, false) // don't emit sort event when handling initial sort
   }
 }, { deep: true, immediate: true })
 
