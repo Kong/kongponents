@@ -373,7 +373,24 @@ const initData = () => {
   sortColumnOrder.value = fetcherParams.sortColumnOrder ?? defaultFetcherProps.sortColumnOrder
 
   if (clientSort && sortColumnKey.value && sortColumnOrder.value) {
-    defaultClientSideSorter(sortColumnKey.value, '', sortColumnOrder.value, tableData.value)
+    const header: TableDataHeader<ColumnKey> = tableHeaders.value.find((header) => header.key === sortColumnKey.value) || {} as TableDataHeader<ColumnKey>
+    const { useSortHandlerFunction } = header
+
+    // If a custom sort function is provided, use it. Otherwise, use the default client-side sorter.
+    if (useSortHandlerFunction && sortHandlerFunction) {
+      const sorted = sortHandlerFunction({
+        key: sortColumnKey.value,
+        prevKey: '',
+        sortColumnOrder: sortColumnOrder.value,
+        data: tableData.value,
+      })
+
+      if (sorted) {
+        tableData.value = [...sorted]
+      }
+    } else {
+      defaultClientSideSorter(sortColumnKey.value, '', sortColumnOrder.value, tableData.value)
+    }
   }
 
   if (paginationAttributes?.offset) {
@@ -518,10 +535,16 @@ const tableDataPreferences = computed((): TablePreferences<Header['key']> => ({
 
 watch(() => tablePreferences, (newVal) => {
   pageSize.value = newVal?.pageSize ? newVal.pageSize : pageSize.value
-  sortColumnKey.value = newVal?.sortColumnKey ? newVal.sortColumnKey : sortColumnKey.value
-  sortColumnOrder.value = newVal?.sortColumnOrder ? newVal.sortColumnOrder : sortColumnOrder.value
   tableViewColumnWidths.value = newVal?.columnWidths ? newVal.columnWidths : tableViewColumnWidths.value
   tableViewColumnVisibility.value = newVal?.columnVisibility ? newVal.columnVisibility : tableViewColumnVisibility.value
+  // Handle sorting if the sort preferences have changed
+  if ((newVal?.sortColumnKey || newVal?.sortColumnOrder) && (sortColumnKey.value !== newVal.sortColumnKey || sortColumnOrder.value !== newVal.sortColumnOrder)) {
+    sortHandler({
+      sortColumnKey: newVal.sortColumnKey!,
+      prevKey: sortColumnKey.value,
+      sortColumnOrder: newVal.sortColumnOrder!,
+    })
+  }
 })
 
 const emitTablePreferences = (): void => {

@@ -665,7 +665,7 @@ describe('KTableView', () => {
       })
     })
 
-    it('applies update table preferences when prop is updated', () => {
+    it('applies new table preferences when prop is updated', () => {
       const sortableColumnKey = options.headers.find(header => header.sortable)?.key
       const pageSize = 30
       options.headers[1].hidable = true
