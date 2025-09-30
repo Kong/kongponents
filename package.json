@@ -98,7 +98,7 @@
     "boxen": "^8.0.1",
     "commitizen": "^4.3.1",
     "copyfiles": "^2.4.1",
-    "cross-env": "^10.0.0",
+    "cross-env": "^10.1.0",
     "cypress": "^13.17.0",
     "cypress-fail-fast": "^7.1.1",
     "cz-conventional-changelog": "3.3.0",
@@ -114,7 +114,7 @@
     "rollup-plugin-visualizer": "^6.0.3",
     "sass": "^1.92.1",
     "semantic-release": "^24.2.7",
-    "shiki": "^3.12.2",
+    "shiki": "^3.13.0",
     "shx": "^0.4.0",
     "stylelint": "^16.23.1",
     "stylelint-config-html": "^1.1.0",
@@ -187,10 +187,10 @@
     "node": ">=v16.20.2 || >=18.12.1 || >=20.14.0 || >=22.14.0",
     "pnpm": ">=9.11.0 || >=10.10.0"
   },
-  "packageManager": "pnpm@10.15.1",
+  "packageManager": "pnpm@10.17.1",
   "volta": {
-    "node": "24.8.0",
-    "pnpm": "10.15.1"
+    "node": "24.9.0",
+    "pnpm": "10.17.1"
   },
   "config": {
     "commitizen": {
