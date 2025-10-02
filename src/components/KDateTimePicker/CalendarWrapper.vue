@@ -6,6 +6,7 @@
       color="blue"
       :drag-attribute="calendarDragAttributes"
       expanded
+      :initial-page="initialPage"
       :is-range="isRange"
       :max-date="maxDate"
       :min-date="minDate"
@@ -104,6 +105,17 @@ const originalTimeValues = ref<{ start: string, end: string }>({
 })
 const componentId = useId()
 
+const initialPage = computed(() => {
+  if (props.isRange && calendarVModel.value && 'start' in calendarVModel.value && calendarVModel.value.start instanceof Date) {
+    return { year: calendarVModel.value.start.getFullYear(), month: calendarVModel.value.start.getMonth() + 1 }
+  } else if (calendarVModel.value instanceof Date) {
+    return { year: calendarVModel.value.getFullYear(), month: calendarVModel.value.getMonth() + 1 }
+  } else if (props.maxDate) {
+    return { year: props.maxDate.getFullYear(), month: props.maxDate.getMonth() + 1 }
+  } else {
+    return { year: new Date().getFullYear(), month: new Date().getMonth() + 1 }
+  }
+})
 const showTime = computed(() => {
   return ['time', 'dateTime', 'relativeDateTime'].includes(props.kDatePickerMode)
 })
