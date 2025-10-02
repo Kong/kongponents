@@ -2,6 +2,7 @@ import { format } from 'date-fns'
 import { TimePeriods, TimeframeKeys } from '@mocks/KDateTimePickerMockData'
 import KDateTimePicker from '@/components/KDateTimePicker/KDateTimePicker.vue'
 import { ref } from 'vue'
+import type { TimeRange } from '@/types'
 
 const exampleTimeFrames = [
   {
@@ -41,7 +42,6 @@ const maxDate = today
 const singleDate = {
   start: today,
   end: null,
-  timePeriodsKey: '',
 }
 const defaultTimeRange = {
   start: twoDaysAgo,
@@ -243,7 +243,7 @@ describe('KDateTimePicker', () => {
     cy.get('.timeframe-buttons').should('exist')
 
     // Click on "6 hours", check whether selected class is applied
-    cy.getTestId('select-timeframe-21600000').click()
+    cy.getTestId('select-timeframe-6h').click()
     cy.get('.popover-content').find('.timeframe-button.primary').should('contain.text', '6 hours')
   })
 
@@ -340,21 +340,19 @@ describe('KDateTimePicker', () => {
 
     // If a timeframe is selected, "Apply" should be re-enabled
     cy.getTestId(segmentedToggle).find('button[data-testid="relative-option"]').eq(0).click()
-    cy.getTestId('select-timeframe-86400000').click()
+    cy.getTestId('select-timeframe-24h').click()
     cy.getTestId(timepickerDisplay).should('contain.text', 'Last 24 hours')
   })
 
   it('reacts to changes in the modelValue', () => {
-    const modelValue = ref({
+    const modelValue = ref<TimeRange>({
       start: new Date('2025-01-01T00:00:00'),
       end: new Date('2025-01-01T00:00:00'),
-      timePeriodsKey: '',
     })
 
     const newDate = {
       start: new Date('2025-01-01T01:00:00'),
       end: new Date('2025-01-01T01:00:00'),
-      timePeriodsKey: '',
     }
 
     cy.mount(KDateTimePicker, {
@@ -379,7 +377,6 @@ describe('KDateTimePicker', () => {
     const modelValue = ref({
       start: new Date('2025-01-01T00:00:00'),
       end: new Date('2025-01-01T00:00:00'),
-      timePeriodsKey: '',
     })
 
     cy.mount(KDateTimePicker, {
@@ -412,7 +409,6 @@ describe('KDateTimePicker', () => {
     const modelValue = ref({
       start: new Date('2025-01-01T00:00:00'),
       end: new Date('2025-01-01T00:00:00'),
-      timePeriodsKey: '',
     })
 
     cy.mount(KDateTimePicker, {
