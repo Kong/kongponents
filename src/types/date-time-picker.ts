@@ -17,10 +17,11 @@ export type DatePickerRangeObject = {
 }
 export type DatePickerModel = DatePickerDate | DatePickerRangeObject
 
-export interface TimeRange {
-  start: Date | null
-  end: Date | null
+
+export type TimeRange = {
   timePeriodsKey?: string
+  start?: Date | null
+  end?: Date | null
 }
 
 export interface TimePeriod {
@@ -28,9 +29,6 @@ export interface TimePeriod {
   key: string
   display: string
   timeframeText: string
-  timeframeLength: () => string
-  start: () => Date
-  end: () => Date
 }
 
 export interface TimeFrameSection {
