@@ -185,7 +185,7 @@ const calendarVModel = isSingleDatepicker.value
   ? calendarSingleDate as DatePickerModel
   : calendarRange as DatePickerModel
 
-const calendarWrapperRef = useTemplateRef('calendarWrapperRef')
+const calendarWrapper = useTemplateRef('calendarWrapperRef')
 
 const widthStyle = computed((): CSSProperties => {
   return {
@@ -415,15 +415,15 @@ watch(() => modelValue, () => {
 
 const onClosePopover = (): void => {
   state.popoverOpen = false
-  if (calendarWrapperRef.value) {
-    calendarWrapperRef.value.resetTime()
+  if (calendarWrapper.value) {
+    calendarWrapper.value.resetTime()
   }
 }
 
 const onOpenPopover = (): void => {
   state.popoverOpen = true
-  if (calendarWrapperRef.value) {
-    calendarWrapperRef.value.initTimeInputs()
+  if (calendarWrapper.value) {
+    calendarWrapper.value.initTimeInputs()
   }
 }
 </script>

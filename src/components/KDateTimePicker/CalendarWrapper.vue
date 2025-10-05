@@ -1,19 +1,14 @@
 <template>
   <div class="calendar-wrapper">
     <DatePicker
+      v-if="isRange"
+      v-bind="pickerProps"
+      v-model.range="calendarVModel"
+    />
+    <DatePicker
+      v-else
+      v-bind="pickerProps"
       v-model="calendarVModel"
-      borderless
-      color="blue"
-      :drag-attribute="calendarDragAttributes"
-      expanded
-      :initial-page="initialPage"
-      :is-range="isRange"
-      :max-date="maxDate"
-      :min-date="minDate"
-      mode="date"
-      :model-config="modelConfig"
-      :select-attribute="calendarSelectAttributes"
-      transparent
     />
     <div
       v-if="showTime"
@@ -116,6 +111,21 @@ const initialPage = computed(() => {
     return { year: new Date().getFullYear(), month: new Date().getMonth() + 1 }
   }
 })
+
+const pickerProps = computed(() => ({
+  borderless: true,
+  color: 'blue',
+  dragAttribute: calendarDragAttributes,
+  expanded: true,
+  initialPage: initialPage.value,
+  maxDate: props.maxDate,
+  minDate: props.minDate,
+  mode: 'date' as const,
+  modelConfig,
+  selectAttribute: calendarSelectAttributes,
+  transparent: true,
+}))
+
 const showTime = computed(() => {
   return ['time', 'dateTime', 'relativeDateTime'].includes(props.kDatePickerMode)
 })
