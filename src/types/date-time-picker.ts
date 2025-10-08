@@ -29,6 +29,9 @@ export interface TimePeriod {
   key: string
   display: string
   timeframeText: string
+  timeframeLength?: () => string
+  start?: () => Date
+  end?: () => Date
 }
 
 export interface TimeFrameSection {
