@@ -332,7 +332,7 @@
                         ref="actionsDropdown"
                         class="actions-dropdown"
                         data-testid="actions-dropdown"
-                        :kpop-attributes="{ placement: 'bottom-end' }"
+                        :kpop-attributes="{ placement: 'bottom-end', target: 'body' }"
                         @toggle-dropdown="($event: boolean) => onRowActionsToggle(row, $event, cellHelperData)"
                       >
                         <KButton
