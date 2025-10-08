@@ -187,10 +187,10 @@
     "node": ">=v16.20.2 || >=18.12.1 || >=20.14.0 || >=22.14.0",
     "pnpm": ">=9.11.0 || >=10.10.0"
   },
-  "packageManager": "pnpm@10.17.1",
+  "packageManager": "pnpm@10.18.1",
   "volta": {
     "node": "24.9.0",
-    "pnpm": "10.17.1"
+    "pnpm": "10.18.1"
   },
   "config": {
     "commitizen": {
