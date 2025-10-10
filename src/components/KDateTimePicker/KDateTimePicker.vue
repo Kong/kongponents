@@ -57,6 +57,13 @@
           ]"
           @click="(selected: string) => state.tabName = selected"
         />
+        <!-- Time range readout -->
+        <p
+          v-if="!showCalendar && state.fullRangeDisplay"
+          class="range-display"
+        >
+          {{ state.fullRangeDisplay }}
+        </p>
         <CalendarWrapper
           v-if="hasCalendar && showCalendar"
           :key="calendarRemountKey"
@@ -252,11 +259,19 @@ const changeCalendarRange = (vCalValue: TimeRange | null): void => {
 const changeRelativeTimeframe = (timeframe: TimePeriod, autoSubmit: boolean = false): void => {
   state.selectedTimeframe = state.previouslySelectedTimeframe = timeframe
 
+
   // Set value to be emitted when relative time frame clicked
   state.selectedRange = {
     timePeriodsKey: state.selectedTimeframe.key,
   }
 
+  if (state.selectedTimeframe.start && state.selectedTimeframe.end) {
+    const start = new Date(state.selectedTimeframe.start())
+    const end = new Date(state.selectedTimeframe.end())
+    state.fullRangeDisplay = formatDisplayDate({ start, end }, false)
+    state.selectedRange.start = start
+    state.selectedRange.end = end
+  }
   submitDisabled.value = false
 
   if (autoSubmit) {
