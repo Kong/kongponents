@@ -88,7 +88,7 @@
     "@stylistic/stylelint-plugin": "^4.0.0",
     "@types/inquirer": "^9.0.7",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^22.18.8",
+    "@types/node": "^22.18.10",
     "@types/sortablejs": "^1.15.8",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vue/compiler-core": "^3.5.22",
@@ -187,10 +187,10 @@
     "node": ">=v16.20.2 || >=18.12.1 || >=20.14.0 || >=22.14.0",
     "pnpm": ">=9.11.0 || >=10.10.0"
   },
-  "packageManager": "pnpm@10.18.1",
+  "packageManager": "pnpm@10.18.2",
   "volta": {
     "node": "24.9.0",
-    "pnpm": "10.18.1"
+    "pnpm": "10.18.2"
   },
   "config": {
     "commitizen": {
