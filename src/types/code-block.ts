@@ -115,7 +115,7 @@ export interface CodeBlockProps {
    * Whether the code block is editable.
    * @default false
    */
-  contenteditable?: boolean
+  editable?: boolean
 }
 
 export interface CodeBlockEmits {
@@ -146,7 +146,7 @@ export interface CodeBlockEmits {
   'reg-exp-mode-change': [on: boolean]
 
   /**
-   * Fired when the code is changed in contenteditable mode and the element looses focus.
+   * Fired when the code is changed in editable mode and the element loses focus.
    */
   'update:code': [newCode: string]
 }

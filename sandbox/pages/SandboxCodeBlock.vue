@@ -202,7 +202,7 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent
         class="limited-width"
-        title="contenteditable"
+        title="editable"
       >
         <KComponent
           v-slot="{ data }"
@@ -214,9 +214,9 @@
           />
 
           <KCodeBlock
-            id="contenteditable-prop"
+            id="editable-prop"
             :code="editableCode"
-            :contenteditable="data.isEditable"
+            :editable="data.isEditable"
             language="json"
             @update:code="editableCode = $event"
           />

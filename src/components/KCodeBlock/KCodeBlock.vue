@@ -196,7 +196,7 @@
         </Virtualizer>
         <!-- eslint-disable vue/no-v-html -->
         <code
-          :contenteditable="contenteditable ? 'true' : undefined"
+          :contenteditable="editable ? 'true' : undefined"
           @blur="emitNewCode"
           @keydown.enter.prevent="onEnter"
           v-html="filteredCode"
@@ -231,7 +231,7 @@
         </Virtualizer>
         <!-- eslint-disable vue/no-v-html -->
         <code
-          :contenteditable="contenteditable ? 'true' : undefined"
+          :contenteditable="editable ? 'true' : undefined"
           @blur="emitNewCode"
           @keydown.enter.prevent="onEnter"
           v-html="finalCode"
@@ -289,7 +289,7 @@ const {
   theme = 'light',
   singleLine,
   maxHeight = 'none',
-  contenteditable,
+  editable,
 } = defineProps<CodeBlockProps>()
 
 // Custom validator for the `highlightedLineNumbers` prop
@@ -701,7 +701,7 @@ function getVirtualizerProps(filtered: boolean): VirtualizerProps {
 }
 
 const onEnter = (): void => {
-  if (contenteditable ) {
+  if (editable ) {
     const selection = window.getSelection()
     if (selection && selection.rangeCount) {
       const range = selection.getRangeAt(0)
@@ -724,7 +724,7 @@ const onEnter = (): void => {
 }
 
 const emitNewCode = (): void => {
-  if (contenteditable) {
+  if (editable) {
     const newCode = codeBlockRef.value?.querySelector('code')?.innerText ?? ''
     emit('update:code', newCode)
   }
