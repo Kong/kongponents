@@ -71,7 +71,7 @@
   },
   "peerDependencies": {
     "vue": ">= 3.5.0 < 4",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.6.0"
   },
   "devDependencies": {
     "@babel/types": "^7.28.4",
@@ -127,7 +127,7 @@
     "vite-plugin-vue-devtools": "^7.7.7",
     "vitepress": "^1.6.4",
     "vue": "^3.5.22",
-    "vue-router": "^4.5.1",
+    "vue-router": "^4.6.0",
     "vue-tsc": "^2.2.12"
   },
   "resolutions": {
@@ -189,7 +189,7 @@
   },
   "packageManager": "pnpm@10.18.2",
   "volta": {
-    "node": "24.9.0",
+    "node": "24.10.0",
     "pnpm": "10.18.2"
   },
   "config": {
