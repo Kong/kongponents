@@ -200,6 +200,28 @@
           theme="dark"
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent
+        class="limited-width"
+        title="contenteditable"
+      >
+        <KComponent
+          v-slot="{ data }"
+          :data="{ isEditable: true }"
+        >
+          <KInputSwitch
+            v-model="data.isEditable"
+            label="Editable"
+          />
+
+          <KCodeBlock
+            id="contenteditable-prop"
+            :code="editableCode"
+            :contenteditable="data.isEditable"
+            language="json"
+            @update:code="editableCode = $event"
+          />
+        </KComponent>
+      </SandboxSectionComponent>
 
       <!-- Slots -->
       <SandboxTitleComponent
@@ -271,6 +293,7 @@ const code = computed((): string => `{
     "./particularly-long-value-that-will-inadvertently-cause-scrolling-for-narrower-containers"
   ]
 }`)
+const editableCode = ref<string>(code.value)
 
 const singleLineCode = `-----BEGIN CERTIFICATE-----
 MIIDlDCCAn6gAwIBAgIBATALBgkqhkiG9w0BAQ0wNDEyMAkGA1UEBhMCVVMwJQYD

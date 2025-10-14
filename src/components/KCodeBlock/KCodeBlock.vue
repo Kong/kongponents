@@ -194,8 +194,14 @@
             :href="showLineNumberLinks ? `#${getLineId(line)}` : undefined"
           >{{ line }}</a>
         </Virtualizer>
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <code v-html="filteredCode" />
+        <!-- eslint-disable vue/no-v-html -->
+        <code
+          :contenteditable="contenteditable ? 'true' : undefined"
+          @blur="emitNewCode"
+          @keydown.enter.prevent="onEnter"
+          v-html="filteredCode"
+        />
+        <!-- eslint-enable -->
       </component>
 
       <!-- eslint-disable-next-line vue/require-component-is -->
@@ -223,8 +229,14 @@
             :href="showLineNumberLinks ? `#${getLineId(line)}` : undefined"
           >{{ line }}</a>
         </Virtualizer>
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <code v-html="finalCode" />
+        <!-- eslint-disable vue/no-v-html -->
+        <code
+          :contenteditable="contenteditable ? 'true' : undefined"
+          @blur="emitNewCode"
+          @keydown.enter.prevent="onEnter"
+          v-html="finalCode"
+        />
+        <!-- eslint-enable -->
       </component>
     </div>
   </div>
@@ -277,6 +289,7 @@ const {
   theme = 'light',
   singleLine,
   maxHeight = 'none',
+  contenteditable,
 } = defineProps<CodeBlockProps>()
 
 // Custom validator for the `highlightedLineNumbers` prop
@@ -346,7 +359,7 @@ const filteredCode = computed((): string => {
     return ''
   }
 
-  const filtered = code?.split('\n')
+  const filtered = code.split('\n')
     .filter((_, index) => matchingLineSet.value.has(index + 1))
     .join('\n')
 
@@ -370,7 +383,6 @@ watch(() => code, async function() {
 
   // Changing the code causes the code block to be re-rendered.
   emitCodeBlockRenderEvent()
-  updateMatchingLineNumbers()
 })
 
 watch(() => isRegExpMode.value, function() {
@@ -506,7 +518,7 @@ function getEventData(preElement: HTMLElement, codeElement: HTMLElement): CodeBl
   return {
     preElement,
     codeElement,
-    code,
+    code: code,
     language,
     query: query.value,
     matchingLineNumbers: matchingLineNumbers.value,
@@ -686,6 +698,36 @@ function getVirtualizerProps(filtered: boolean): VirtualizerProps {
     },
   }
 }
+
+const onEnter = (): void => {
+  if (contenteditable ) {
+    const selection = window.getSelection()
+    if (selection && selection.rangeCount) {
+      const range = selection.getRangeAt(0)
+
+      // replace any selection with a literal newline
+      range.deleteContents()
+      const node = document.createTextNode('\n')
+      range.insertNode(node)
+
+      // place caret after the newline
+      range.setStartAfter(node)
+      range.collapse(true)
+      selection.removeAllRanges()
+      selection.addRange(range)
+
+      // notify Vue that content changed
+      codeBlockRef.value?.querySelector('code')?.dispatchEvent(new InputEvent('input', { bubbles: true }))
+    }
+  }
+}
+
+const emitNewCode = (): void => {
+  if (contenteditable) {
+    const newCode = codeBlockRef.value?.querySelector('code')?.innerText ?? ''
+    emit('update:code', newCode)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -843,6 +885,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
         color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
         display: block;
         min-width: 0;
+        outline: none;
         overflow-x: auto;
         z-index: 1;
       }

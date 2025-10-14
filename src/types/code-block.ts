@@ -110,6 +110,12 @@ export interface CodeBlockProps {
    * @default 'none'
    */
   maxHeight?: number | string
+
+  /**
+   * Whether the code block is editable.
+   * @default false
+   */
+  contenteditable?: boolean
 }
 
 export interface CodeBlockEmits {
@@ -138,6 +144,11 @@ export interface CodeBlockEmits {
    * Fired when the regular expression mode is toggled.
    */
   'reg-exp-mode-change': [on: boolean]
+
+  /**
+   * Fired when the code is changed in contenteditable mode and the element looses focus.
+   */
+  'update:code': [newCode: string]
 }
 
 export interface CodeBlockSlots {
