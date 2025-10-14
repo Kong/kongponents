@@ -359,7 +359,7 @@ const filteredCode = computed((): string => {
     return ''
   }
 
-  const filtered = code.split('\n')
+  const filtered = code?.split('\n')
     .filter((_, index) => matchingLineSet.value.has(index + 1))
     .join('\n')
 
@@ -383,6 +383,7 @@ watch(() => code, async function() {
 
   // Changing the code causes the code block to be re-rendered.
   emitCodeBlockRenderEvent()
+  updateMatchingLineNumbers()
 })
 
 watch(() => isRegExpMode.value, function() {
@@ -518,7 +519,7 @@ function getEventData(preElement: HTMLElement, codeElement: HTMLElement): CodeBl
   return {
     preElement,
     codeElement,
-    code: code,
+    code,
     language,
     query: query.value,
     matchingLineNumbers: matchingLineNumbers.value,
