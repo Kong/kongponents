@@ -296,6 +296,28 @@ Sets the display theme of the component. Accepted values are:
 />
 ```
 
+### editable
+
+Boolean to allow KCodeBlock content to be editable. Default value is `false`.
+
+<KCodeBlock
+  editable
+  id="code-block-editable"
+  :code="editableCode"
+  language="json"
+  @update:code="editableCode = $event"
+/>
+
+```html
+<KCodeBlock
+  editable
+  id="code-block-editable"
+  :code="code"
+  language="json"
+  @update:code="code = $event"
+/>
+```
+
 ## Slots
 
 ### secondary-actions
@@ -406,6 +428,10 @@ Fired when the component’s internal query state is updated. This happens when 
 ### reg-exp-mode-change
 
 Fired when the toggles the regular expression mode.
+
+### update:code
+
+Fired when the code is changed in editable mode and the element loses focus. See [`editable` prop](#editable) for example.
 
 ## Default shortcuts
 
@@ -555,6 +581,7 @@ async function highlight({ codeElement, language, code }) {
 ```
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { CopyIcon } from '@kong/icons'
 
 const code = `{
@@ -578,6 +605,8 @@ const code = `{
     "./particularly-long-value-that-will-inadvertently-cause-scrolling-for-narrower-containers"
   ]
 }`
+
+const editableCode = ref<string>(code)
 
 const cert = `-----BEGIN CERTIFICATE-----
 MIIDlDCCAn6gAwIBAgIBATALBgkqhkiG9w0BAQ0wNDEyMAkGA1UEBhMCVVMwJQYD
