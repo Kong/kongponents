@@ -217,7 +217,9 @@ watch(() => visible, async (visible: boolean): Promise<void> => {
     toggleEventListeners(false)
   }
 
-  document?.body?.classList?.toggle(KMODAL_BODY_OVERFLOW_HIDDEN_CLASS, visible)
+  if (typeof document !== 'undefined') {
+    document?.body?.classList?.toggle(KMODAL_BODY_OVERFLOW_HIDDEN_CLASS, visible)
+  }
 }, { immediate: true })
 
 watch(() => inputAutofocus, async (inputAutofocus: boolean): Promise<void> => {
