@@ -271,6 +271,8 @@ const changeRelativeTimeframe = (timeframe: TimePeriod, autoSubmit: boolean = fa
     state.fullRangeDisplay = formatDisplayDate({ start, end }, false)
     state.selectedRange.start = start
     state.selectedRange.end = end
+  } else {
+    state.fullRangeDisplay = ''
   }
   submitDisabled.value = false
 
