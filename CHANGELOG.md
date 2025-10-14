@@ -1,3 +1,10 @@
+## [9.42.6](https://github.com/Kong/kongponents/compare/v9.42.5...v9.42.6) (2025-10-14)
+
+
+### Bug Fixes
+
+* minor fix ([#2937](https://github.com/Kong/kongponents/issues/2937)) ([bf746ca](https://github.com/Kong/kongponents/commit/bf746ca791954f77c9958fd7f8094d5e05c84c94))
+
 ## [9.42.5](https://github.com/Kong/kongponents/compare/v9.42.4...v9.42.5) (2025-10-08)
 
 
