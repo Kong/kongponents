@@ -1,6 +1,6 @@
 {
   "extends": [
-    "github>Kong/public-shared-renovate:kong-frontend-config"
+    "Kong/public-shared-renovate//scoped/frontend/base"
   ],
   "baseBranches": [
     "main"
