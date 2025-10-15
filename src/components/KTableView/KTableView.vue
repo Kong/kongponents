@@ -332,7 +332,7 @@
                         ref="actionsDropdown"
                         class="actions-dropdown"
                         data-testid="actions-dropdown"
-                        :kpop-attributes="{ placement: 'bottom-end', target: 'body', popoverAttributes: { 'data-testid': rowAttrs(row)['data-testid'] ? `${rowAttrs(row)['data-testid']}-actions-dropdown-popover` : 'actions-dropdown-popover' } }"
+                        :kpop-attributes="{ placement: 'bottom-end', target: 'body', popoverAttributes: { 'data-testid': rowAttrs(row)['data-testid'] ? `${rowAttrs(row)['data-testid']}-actions-dropdown-popover` : `row-${rowIndex}-actions-dropdown-popover` } }"
                         @toggle-dropdown="($event: boolean) => onRowActionsToggle(row, $event, cellHelperData)"
                       >
                         <KButton
