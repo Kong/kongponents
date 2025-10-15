@@ -1,3 +1,25 @@
+## [9.42.8](https://github.com/Kong/kongponents/compare/v9.42.7...v9.42.8) (2025-10-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency virtua to ^0.45.3 ([#2940](https://github.com/Kong/kongponents/issues/2940)) ([62743fa](https://github.com/Kong/kongponents/commit/62743faa22d00d472eb40dfd265287288c6117de))
+
+## [9.42.7](https://github.com/Kong/kongponents/compare/v9.42.6...v9.42.7) (2025-10-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.39.0 ([#2934](https://github.com/Kong/kongponents/issues/2934)) ([b1a2e30](https://github.com/Kong/kongponents/commit/b1a2e30a069f8eb13b79904a6f1eaee0d22fecbe))
+* **deps:** update dependency virtua to ^0.45.2 ([#2935](https://github.com/Kong/kongponents/issues/2935)) ([f0b5e74](https://github.com/Kong/kongponents/commit/f0b5e74a1490227f17037da2352f1ab58a6fc64d))
+
+## [9.42.6](https://github.com/Kong/kongponents/compare/v9.42.5...v9.42.6) (2025-10-14)
+
+
+### Bug Fixes
+
+* minor fix ([#2937](https://github.com/Kong/kongponents/issues/2937)) ([bf746ca](https://github.com/Kong/kongponents/commit/bf746ca791954f77c9958fd7f8094d5e05c84c94))
+
 ## [9.42.5](https://github.com/Kong/kongponents/compare/v9.42.4...v9.42.5) (2025-10-08)
 
 

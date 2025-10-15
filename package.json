@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.42.5",
+  "version": "9.42.8",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@floating-ui/vue": "^1.1.9",
-    "@kong/icons": "^1.38.0",
+    "@kong/icons": "^1.39.0",
     "@popperjs/core": "^2.11.8",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.1",
@@ -66,12 +66,12 @@
     "sortablejs": "^1.15.6",
     "swrv": "^1.1.0",
     "v-calendar": "^3.1.2",
-    "virtua": "^0.41.5",
+    "virtua": "^0.45.3",
     "vue-draggable-next": "^2.3.0"
   },
   "peerDependencies": {
     "vue": ">= 3.5.0 < 4",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.6.0"
   },
   "devDependencies": {
     "@babel/types": "^7.28.4",
@@ -88,7 +88,7 @@
     "@stylistic/stylelint-plugin": "^4.0.0",
     "@types/inquirer": "^9.0.7",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^22.18.8",
+    "@types/node": "^22.18.10",
     "@types/sortablejs": "^1.15.8",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vue/compiler-core": "^3.5.22",
@@ -127,7 +127,7 @@
     "vite-plugin-vue-devtools": "^7.7.7",
     "vitepress": "^1.6.4",
     "vue": "^3.5.22",
-    "vue-router": "^4.5.1",
+    "vue-router": "^4.6.0",
     "vue-tsc": "^2.2.12"
   },
   "resolutions": {
@@ -187,10 +187,10 @@
     "node": ">=v16.20.2 || >=18.12.1 || >=20.14.0 || >=22.14.0",
     "pnpm": ">=9.11.0 || >=10.10.0"
   },
-  "packageManager": "pnpm@10.18.1",
+  "packageManager": "pnpm@10.18.2",
   "volta": {
-    "node": "24.9.0",
-    "pnpm": "10.18.1"
+    "node": "24.10.0",
+    "pnpm": "10.18.2"
   },
   "config": {
     "commitizen": {
