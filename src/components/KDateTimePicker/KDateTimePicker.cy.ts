@@ -460,6 +460,22 @@ describe('KDateTimePicker', () => {
     cy.get('.vc-title > span').should('have.text', format(maxDate, 'MMMM yyyy'))
   })
 
+  it('anchors calendar initial page to maxDate month if maxDate is earlier than current month and modelValue is null', () => {
+    const modelValue = ref<TimeRange>({ start: null, end: null })
+    const maxDate = new Date('2022-08-15T00:00:00')
+
+    cy.mount(KDateTimePicker, {
+      props: {
+        modelValue: modelValue,
+        mode: 'date',
+        maxDate,
+      },
+    })
+
+    cy.getTestId('datetime-picker-trigger').click()
+    cy.get('.vc-title > span').should('have.text', format(maxDate, 'MMMM yyyy'))
+  })
+
   it('anchors calendar initial page to modelValue start', () => {
     const modelValue = ref({
       start: new Date('2024-03-15T00:00:00'),

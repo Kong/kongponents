@@ -77,7 +77,7 @@
 import { computed, onMounted, ref, useId, watch } from 'vue'
 import { DatePicker } from 'v-calendar'
 import type { DatePickerModel, DatePickerRangeObject, DateTimePickerMode } from '@/types'
-import { format } from 'date-fns'
+import { format, isBefore, startOfToday } from 'date-fns'
 
 const props = withDefaults(defineProps<{
   isRange: boolean
@@ -105,7 +105,7 @@ const initialPage = computed(() => {
     return { year: calendarVModel.value.start.getFullYear(), month: calendarVModel.value.start.getMonth() + 1 }
   } else if (calendarVModel.value instanceof Date) {
     return { year: calendarVModel.value.getFullYear(), month: calendarVModel.value.getMonth() + 1 }
-  } else if (props.maxDate) {
+  } else if (props.maxDate && isBefore(props.maxDate, startOfToday())) {
     return { year: props.maxDate.getFullYear(), month: props.maxDate.getMonth() + 1 }
   } else {
     return { year: new Date().getFullYear(), month: new Date().getMonth() + 1 }
