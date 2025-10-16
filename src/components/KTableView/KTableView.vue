@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="k-table-view"
     class="k-table-view"
     :class="{ 'hide-headers': hideHeaders }"
   >
@@ -332,7 +333,7 @@
                         ref="actionsDropdown"
                         class="actions-dropdown"
                         data-testid="actions-dropdown"
-                        :kpop-attributes="{ placement: 'bottom-end', target: 'body', popoverAttributes: { 'data-testid': rowAttrs(row)['data-testid'] ? `${rowAttrs(row)['data-testid']}-actions-dropdown-popover` : `row-${rowIndex}-actions-dropdown-popover` } }"
+                        :kpop-attributes="{ placement: 'bottom-end', target: 'body', popoverAttributes: { 'data-testid': rowAttrs(row)['data-testid'] ? `${rowAttrs(row)['data-testid']}-actions-dropdown-popover` : `row-${rowIndex}-actions-dropdown-popover`, floatingAttributes: { overflowBoundary: kTableViewRef } } }"
                         @toggle-dropdown="($event: boolean) => onRowActionsToggle(row, $event, cellHelperData)"
                       >
                         <KButton
@@ -555,6 +556,7 @@ const getRowKey = (row: Row): string => {
   return ''
 }
 
+const kTableViewRef = useTemplateRef('k-table-view')
 const tableWrapperRef = useTemplateRef('table-wrapper')
 const headerRowRef = useTemplateRef('header-row')
 // all headers

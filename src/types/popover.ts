@@ -158,6 +158,10 @@ export interface PopProps {
    * @default null
    */
   target?: string | null
+
+  floatingAttributes?: {
+    overflowBoundary?: HTMLElement
+  }
 }
 
 export interface PopEmits {
@@ -211,6 +215,7 @@ export type PopoverAttributes = Pick<PopProps,
   | 'disabled'
   | 'target'
   | 'trigger' // Not supported in KDropdown, KSelect and KMultiselect
+  | 'floatingAttributes'
 > & {
   'data-testid'?: string
 }

@@ -92,7 +92,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, computed, watch, useId } from 'vue'
-import { useFloating, autoUpdate, autoPlacement, flip, shift } from '@floating-ui/vue'
+import { useFloating, autoUpdate, autoPlacement, flip, shift, detectOverflow } from '@floating-ui/vue'
 import type { PopProps, PopEmits, PopSlots, PopPlacement } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
 import { CloseIcon } from '@kong/icons'
@@ -120,6 +120,7 @@ const {
   zIndex = 1000,
   offset = KUI_SPACE_60,
   target = null,
+  floatingAttributes = {},
 } = defineProps<PopProps>()
 
 const emit = defineEmits<PopEmits>()
@@ -223,6 +224,15 @@ const { floatingStyles, placement: calculatedPlacement, update: updatePosition }
     middleware: [
       shift(), // Shifts the floating element to keep it in view.
       flip(), // Changes the placement of the floating element to keep it in view.
+      {
+        name: 'detectOverflow',
+        fn: async (state) => {
+          await detectOverflow(state, {
+            ...(floatingAttributes.overflowBoundary && { boundary: floatingAttributes.overflowBoundary }),
+          })
+          return {}
+        },
+      },
     ],
   }),
   strategy: 'fixed',
