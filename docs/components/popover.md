@@ -370,7 +370,7 @@ List of class names you want to assign to `.popover` element.
 
 ### popoverElementAttributes
 
-List of class names you want to assign to `.popover` element.
+Attributes to be applied to `.popover` element.
 
 ```html
 <KPop
