@@ -26,7 +26,7 @@
       <Transition name="kongponents-fade-transition">
         <div
           v-show="isVisible"
-          v-bind="popoverAttributes"
+          v-bind="popoverElementAttributes"
           :id="popoverId"
           ref="popoverElement"
           :aria-labelledby="slots.title || title ? titleId : undefined"
@@ -115,7 +115,7 @@ const {
   maxWidth = 'none',
   maxHeight = 'none',
   popoverClasses = '',
-  popoverAttributes = {},
+  popoverElementAttributes = {},
   tag = 'div',
   zIndex = 1000,
   offset = KUI_SPACE_60,

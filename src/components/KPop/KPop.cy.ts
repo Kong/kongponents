@@ -157,4 +157,18 @@ describe('KPop', () => {
     cy.get('.popover').trigger('keydown', { key: 'Escape' })
     cy.get('.popover').should('not.be.visible')
   })
+
+  it('applies custom attributes and classes to popover element', () => {
+    const testId = 'custom-popover-attr'
+    const customClass = 'custom-popover-class'
+
+    cy.mount(KPop, {
+      props: {
+        popoverClasses: customClass,
+        popoverElementAttributes: { 'data-testid': testId },
+      },
+    })
+
+    cy.get(`.popover.${customClass}[data-testid="${testId}"]`).should('exist')
+  })
 })

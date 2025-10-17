@@ -368,13 +368,13 @@ List of class names you want to assign to `.popover` element.
 </KPop>
 ```
 
-### popoverAttributes
+### popoverElementAttributes
 
 List of class names you want to assign to `.popover` element.
 
 ```html
 <KPop
-  :popover-attributes="{
+  :popover-element-attributes="{
     'data-testid': 'foobar'
   }"
   button-text="Open popover"
