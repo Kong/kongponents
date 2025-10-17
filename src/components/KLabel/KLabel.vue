@@ -1,5 +1,6 @@
 <template>
   <label
+    ref="label"
     class="k-label"
     :class="{ 'required': required }"
   >
@@ -10,7 +11,7 @@
       v-bind="tooltipAttributes"
       class="label-tooltip"
       :tooltip-id="tooltipId"
-      @click.prevent
+      @click="handleClick"
     >
       <InfoIcon
         :aria-describedby="tooltipId"
@@ -26,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch, computed, useId } from 'vue'
+import { watch, computed, useId, useTemplateRef } from 'vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { LabelProps, LabelSlots } from '@/types'
 import { InfoIcon } from '@kong/icons'
@@ -50,6 +51,38 @@ const slots = defineSlots<LabelSlots>()
 const hasTooltip = computed((): boolean => !!(help || info || slots.tooltip))
 
 const tooltipId = useId()
+
+const labelEl = useTemplateRef('label')
+
+function closestInteractiveElement(element: Element): HTMLElement | null {
+  const interactiveSelectors = [
+    'a[href]',
+    'audio[controls]',
+    'button',
+    'details',
+    'embed',
+    'iframe',
+    'img[usemap]',
+    'input:not([type="hidden"])',
+    'label',
+    'select',
+    'textarea',
+    'video[controls]',
+  ]
+  return element.closest<HTMLElement>(interactiveSelectors.join(', '))
+}
+
+function handleClick(event: MouseEvent): void {
+  // Prevent default when the target element is not inside an interactive content
+  // Otherwise links inside the tooltip would not work.
+  // See https://html.spec.whatwg.org/multipage/dom.html#interactive-content-2
+  const target = event.target as Element
+  const interactiveElement = closestInteractiveElement(target)
+  if (interactiveElement && interactiveElement !== labelEl.value) {
+    return
+  }
+  event.preventDefault()
+}
 </script>
 
 <style lang="scss" scoped>
