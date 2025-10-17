@@ -332,7 +332,7 @@
                         ref="actionsDropdown"
                         class="actions-dropdown"
                         data-testid="actions-dropdown"
-                        :kpop-attributes="{ placement: 'bottom-end' }"
+                        :kpop-attributes="{ placement: 'bottom-end', target: 'body', popoverElementAttributes: getActionsDropdownPopoverAttributes(row, rowIndex) }"
                         @toggle-dropdown="($event: boolean) => onRowActionsToggle(row, $event, cellHelperData)"
                       >
                         <KButton
@@ -1075,6 +1075,10 @@ const scrollHandler = (event: Event): void => {
 const getRowState = (row: Row): TableViewSelectState<Row> | undefined => {
   return dataSelectState.value.find((rowState) => rowState.rowKey === getRowKey(row))
 }
+
+const getActionsDropdownPopoverAttributes = (row: Row, index: number): Record<string, unknown> => ({
+  'data-testid': rowAttrs(row)['data-testid'] ? `${rowAttrs(row)['data-testid']}-actions-dropdown-popover` : `row-${index}-actions-dropdown-popover`,
+})
 
 const getRowBulkActionEnabled = (row: Row): boolean => {
   if (typeof rowBulkActionEnabled !== 'function') {

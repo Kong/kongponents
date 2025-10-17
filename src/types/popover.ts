@@ -128,6 +128,12 @@ export interface PopProps {
   popoverClasses?: string
 
   /**
+   * Attributes to be applied to the popover container element.
+   * @default {}
+   */
+  popoverElementAttributes?: Record<string, unknown>
+
+  /**
    * The tag name of the popover wrapper element.
    * @default 'div'
    */
@@ -196,6 +202,7 @@ export interface PopSlots {
 export type PopoverAttributes = Pick<PopProps,
   | 'placement'
   | 'popoverClasses'
+  | 'popoverElementAttributes'
   | 'popoverTimeout'
   | 'offset'
   | 'width'
