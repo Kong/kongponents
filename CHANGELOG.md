@@ -1,3 +1,10 @@
+## [9.42.9](https://github.com/Kong/kongponents/compare/v9.42.8...v9.42.9) (2025-10-17)
+
+
+### Bug Fixes
+
+* **kdatetimepicker:** start and end optional for relative time ranges ([#2925](https://github.com/Kong/kongponents/issues/2925)) ([ca273ab](https://github.com/Kong/kongponents/commit/ca273abeab6f5137f31a19ec2ec526f900015c09))
+
 ## [9.42.8](https://github.com/Kong/kongponents/compare/v9.42.7...v9.42.8) (2025-10-15)
 
 
