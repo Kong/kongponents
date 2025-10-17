@@ -355,11 +355,28 @@ KPop wrapper element type. Default value is `div`.
 
 ### popoverClasses
 
-List of class names you want to assign to `.k-popover` element.
+List of class names you want to assign to `.popover` element.
 
 ```html
 <KPop
   popover-classes="foo bar"
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
+  </template>
+</KPop>
+```
+
+### popoverAttributes
+
+List of class names you want to assign to `.popover` element.
+
+```html
+<KPop
+  :popover-attributes="{
+    'data-testid': 'foobar'
+  }"
   button-text="Open popover"
 >
   <template #content>
