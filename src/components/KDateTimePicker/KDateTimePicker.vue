@@ -59,7 +59,7 @@
         />
         <!-- Time range readout -->
         <p
-          v-if="!showCalendar"
+          v-if="!showCalendar && state.fullRangeDisplay"
           class="range-display"
         >
           {{ state.fullRangeDisplay }}
@@ -94,7 +94,7 @@
                 :key="`time-${itemIdx}`"
                 :appearance="getTimeframeButtonAppearance(timeFrame)"
                 class="timeframe-button"
-                :data-testid="`select-timeframe-${timeFrame.timeframeLength()}`"
+                :data-testid="`select-timeframe-${timeFrame.key}`"
                 @click="changeRelativeTimeframe(timeFrame, true)"
               >
                 {{ ucWord(timeFrame.timeframeText) }}
@@ -180,20 +180,19 @@ const calendarRemountKey = ref<number>(0)
 const defaultTimeRange: TimeRange = {
   start: null,
   end: null,
-  timePeriodsKey: '',
 }
 
 /**
  * Dynamically choose the v-model
  * Single date is a Date, whereas a Date range is an object containing `start` and `end` dates
  */
-const calendarSingleDate = ref<Date | null>(modelValue.start)
+const calendarSingleDate = ref<Date | null>(modelValue.start || null)
 const calendarRange = ref<TimeRange>(modelValue || defaultTimeRange)
 const calendarVModel = isSingleDatepicker.value
   ? calendarSingleDate as DatePickerModel
   : calendarRange as DatePickerModel
 
-const calendarWrapperRef = useTemplateRef('calendarWrapperRef')
+const calendarWrapper = useTemplateRef('calendarWrapperRef')
 
 const widthStyle = computed((): CSSProperties => {
   return {
@@ -207,8 +206,8 @@ const state = reactive<DateTimePickerState>({
   abbreviatedDisplay: placeholder,
   fullRangeDisplay: '',
   popoverOpen: false,
-  selectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
-  previouslySelectedRange: { start: new Date(), end: new Date(), timePeriodsKey: '' },
+  selectedRange: { start: new Date(), end: new Date() },
+  previouslySelectedRange: { start: new Date(), end: new Date() },
   selectedTimeframe: timePeriods[0]?.values[0],
   previouslySelectedTimeframe: timePeriods[0]?.values[0],
   tabName: 'relative',
@@ -249,7 +248,6 @@ const changeCalendarRange = (vCalValue: TimeRange | null): void => {
   state.selectedRange = state.previouslySelectedRange = {
     start,
     end,
-    timePeriodsKey: '',
   }
 }
 
@@ -261,18 +259,21 @@ const changeCalendarRange = (vCalValue: TimeRange | null): void => {
 const changeRelativeTimeframe = (timeframe: TimePeriod, autoSubmit: boolean = false): void => {
   state.selectedTimeframe = state.previouslySelectedTimeframe = timeframe
 
-  // Format the start/end values as human readable date
-  const start: Date = state.selectedTimeframe.start()
-  const end: Date = state.selectedTimeframe.end()
 
   // Set value to be emitted when relative time frame clicked
   state.selectedRange = {
-    start: new Date(start),
-    end: new Date(end),
     timePeriodsKey: state.selectedTimeframe.key,
   }
 
-  state.fullRangeDisplay = formatDisplayDate(state.selectedRange, false)
+  if (state.selectedTimeframe.start && state.selectedTimeframe.end) {
+    const start = new Date(state.selectedTimeframe.start())
+    const end = new Date(state.selectedTimeframe.end())
+    state.fullRangeDisplay = formatDisplayDate({ start, end }, false)
+    state.selectedRange.start = start
+    state.selectedRange.end = end
+  } else {
+    state.fullRangeDisplay = ''
+  }
   submitDisabled.value = false
 
   if (autoSubmit) {
@@ -340,7 +341,7 @@ const submitTimeFrame = async (): Promise<void> => {
   if (!isSingleDatepicker.value) {
     emit('change', state.selectedRange)
     emit('update:modelValue', state.selectedRange)
-  } else {
+  } else if (state.selectedRange.start) {
     emit('change', { start: state.selectedRange.start, end: null })
     emit('update:modelValue', { start: state.selectedRange.start, end: null })
   }
@@ -376,7 +377,7 @@ const getTimeframeButtonAppearance = (timeframe: TimePeriod): ButtonAppearance =
  */
 watch(calendarSingleDate, (newValue, oldValue) => {
   if (newValue !== undefined && newValue !== oldValue) {
-    changeCalendarRange({ start: newValue, end: null, timePeriodsKey: '' } as TimeRange)
+    changeCalendarRange({ start: newValue, end: null } as TimeRange)
   }
 }, { immediate: true })
 
@@ -431,15 +432,15 @@ watch(() => modelValue, () => {
 
 const onClosePopover = (): void => {
   state.popoverOpen = false
-  if (calendarWrapperRef.value) {
-    calendarWrapperRef.value.resetTime()
+  if (calendarWrapper.value) {
+    calendarWrapper.value.resetTime()
   }
 }
 
 const onOpenPopover = (): void => {
   state.popoverOpen = true
-  if (calendarWrapperRef.value) {
-    calendarWrapperRef.value.initTimeInputs()
+  if (calendarWrapper.value) {
+    calendarWrapper.value.initTimeInputs()
   }
 }
 </script>

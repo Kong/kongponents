@@ -1,18 +1,14 @@
 <template>
   <div class="calendar-wrapper">
     <DatePicker
+      v-if="isRange"
+      v-bind="pickerProps"
+      v-model.range="calendarVModel"
+    />
+    <DatePicker
+      v-else
+      v-bind="pickerProps"
       v-model="calendarVModel"
-      borderless
-      color="blue"
-      :drag-attribute="calendarDragAttributes"
-      expanded
-      :is-range="isRange"
-      :max-date="maxDate"
-      :min-date="minDate"
-      mode="date"
-      :model-config="modelConfig"
-      :select-attribute="calendarSelectAttributes"
-      transparent
     />
     <div
       v-if="showTime"
@@ -81,7 +77,7 @@
 import { computed, onMounted, ref, useId, watch } from 'vue'
 import { DatePicker } from 'v-calendar'
 import type { DatePickerModel, DatePickerRangeObject, DateTimePickerMode } from '@/types'
-import { format } from 'date-fns'
+import { format, isBefore, startOfToday } from 'date-fns'
 
 const props = withDefaults(defineProps<{
   isRange: boolean
@@ -103,6 +99,32 @@ const originalTimeValues = ref<{ start: string, end: string }>({
   end: format(new Date(), 'HH:mm:ss'),
 })
 const componentId = useId()
+
+const initialPage = computed(() => {
+  if (props.isRange && calendarVModel.value && 'start' in calendarVModel.value && calendarVModel.value.start instanceof Date) {
+    return { year: calendarVModel.value.start.getFullYear(), month: calendarVModel.value.start.getMonth() + 1 }
+  } else if (calendarVModel.value instanceof Date) {
+    return { year: calendarVModel.value.getFullYear(), month: calendarVModel.value.getMonth() + 1 }
+  } else if (props.maxDate && isBefore(props.maxDate, startOfToday())) {
+    return { year: props.maxDate.getFullYear(), month: props.maxDate.getMonth() + 1 }
+  } else {
+    return { year: new Date().getFullYear(), month: new Date().getMonth() + 1 }
+  }
+})
+
+const pickerProps = computed(() => ({
+  borderless: true,
+  color: 'blue',
+  dragAttribute: calendarDragAttributes,
+  expanded: true,
+  initialPage: initialPage.value,
+  maxDate: props.maxDate,
+  minDate: props.minDate,
+  mode: 'date' as const,
+  modelConfig,
+  selectAttribute: calendarSelectAttributes,
+  transparent: true,
+}))
 
 const showTime = computed(() => {
   return ['time', 'dateTime', 'relativeDateTime'].includes(props.kDatePickerMode)
