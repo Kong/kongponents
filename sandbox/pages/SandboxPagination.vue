@@ -23,6 +23,9 @@
           :total-count="currentPageItems.length"
           @page-change="handleCurrentPage"
         />
+        <KButton @click="randomizedUpdateCurrentPageItems(200, 400)">
+          Set Random Total Count
+        </KButton>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="pageSizes">
         <KPagination
@@ -87,19 +90,23 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref, computed } from 'vue'
+import { inject, ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import type { PageChangeData, PageSizeChangeData } from '@/types'
+import { KButton } from '@/components'
 
 const handlePageSizeChange = (obj: PageSizeChangeData) => {
   console.log(obj)
 }
 
 const currentPage = ref<number>(7)
-const currentPageItems = computed(() => Array.from({ length: 200 }, (_, index) => index + 1))
+const currentPageItems = ref(Array.from({ length: 200 }, (_, index) => index + 1))
 const handleCurrentPage = ({ page }: PageChangeData) => {
   currentPage.value = page
+}
+const randomizedUpdateCurrentPageItems = (min: number, max: number) => {
+  currentPageItems.value = Array.from({ length: Math.random() * (max - min) + min })
 }
 
 
