@@ -1,3 +1,10 @@
+## [9.42.10](https://github.com/Kong/kongponents/compare/v9.42.9...v9.42.10) (2025-10-17)
+
+
+### Bug Fixes
+
+* **ktableview:** table actions dropdown teleport [KHCP-18164] ([#2929](https://github.com/Kong/kongponents/issues/2929)) ([c6a3f41](https://github.com/Kong/kongponents/commit/c6a3f41206e7d323ad4ce81d643f649c1d7895a7))
+
 ## [9.42.9](https://github.com/Kong/kongponents/compare/v9.42.8...v9.42.9) (2025-10-17)
 
 
