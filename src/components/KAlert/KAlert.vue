@@ -131,6 +131,7 @@ const getAlertIcon = computed((): AlertIcon => {
   // stylelint-disable-next-line no-duplicate-selectors
   & {
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    box-sizing: border-box;
     display: flex;
     gap: var(--kui-space-30, $kui-space-30);
     padding: var(--kui-space-50, $kui-space-50);
