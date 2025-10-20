@@ -183,6 +183,8 @@ watch(modelComputed, (newVal, oldVal) => {
         }
 
         .collapse-trigger-icon {
+          transition: transform $kongponentsTransitionDurTimingFunc;
+
           &.collapse-expanded {
             transform: rotate(90deg);
           }
