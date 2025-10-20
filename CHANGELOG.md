@@ -1,3 +1,10 @@
+## [9.42.11](https://github.com/Kong/kongponents/compare/v9.42.10...v9.42.11) (2025-10-20)
+
+
+### Bug Fixes
+
+* **kcollapse:** chevron animation [KHCP-17829] ([#2949](https://github.com/Kong/kongponents/issues/2949)) ([e1ed4d8](https://github.com/Kong/kongponents/commit/e1ed4d8eb638dab020a2a345e6fb92fb7bc8e371))
+
 ## [9.42.10](https://github.com/Kong/kongponents/compare/v9.42.9...v9.42.10) (2025-10-17)
 
 
