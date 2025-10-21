@@ -4,11 +4,6 @@ import { components } from '@kong/kongponents'
 
 export interface ModuleOptions {
   /**
-   * Prefix to use for registered components
-   * @default 'K'
-   */
-  prefix?: string
-  /**
    * List of components to exclude from automatic registration
    * @default []
    */
@@ -17,34 +12,33 @@ export interface ModuleOptions {
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: '@kong/kongponents/nuxt',
+    name: '@kong/kongponents',
     configKey: 'kongponents',
   },
   defaults: {
-    prefix: 'K',
     exclude: [],
   },
   setup(options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
-    const logger = useLogger()
+    const logger = useLogger('kongponents')
 
     // Register the module's plugin (can be used for global styles, etc.)
     addPlugin(resolve('./runtime/plugin'))
 
-    // Define a blacklist of components that should never be auto-registered.
+    // Define a list of components that should never be auto-registered.
     // Includes user-specified exclusions merged with a fixed internal list.
-    const blacklist = ['ToastManager', 'KTable', ...(options.exclude || [])]
+    const excludeList = ['ToastManager', 'KTable', ...(options.exclude || [])]
 
     Object.entries(components).forEach(([name]) => {
-      if (!name || blacklist.includes(name)) return
-
-      const componentName = `${options.prefix}${name.startsWith('K') ? name.slice(1) : name}`
+      if (!name || excludeList.includes(name)) return
 
       addComponent({
-        name: componentName,
+        name,
         export: name,
         filePath: '@kong/kongponents',
+        // !IMPORTANT: Components must be registered globally
         global: true,
+        // all means both client and server
         mode: 'all',
       })
     })
