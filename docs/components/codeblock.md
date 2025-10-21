@@ -235,7 +235,8 @@ Controls whether to show a copy button which copies the original code (the value
 The action buttons behave as follows:
 - On larger screens (breakpoint >= 1280px), they are **hidden by default** and appear only when the user hovers over the code block.
 - On smaller screens (e.g., mobile devices), they are **always visible**.
-This property controls whether the action buttons should be shown at all times, regardless of hover state or screen size. Defaults to `false`. When enabled, the action buttons remain **permanently** visible.
+
+By setting `show-copy-button` to `'always'`, the copy button will be **always visible**, regardless of screen size or hover state.
 
 
 <KCodeBlock
