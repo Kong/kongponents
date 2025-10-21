@@ -1,5 +1,4 @@
-import { defineNuxtModule, createResolver, addPlugin } from '@nuxt/kit'
-
+import { addPlugin, defineNuxtModule, createResolver, addComponent } from '@nuxt/kit'
 
 export interface ModuleOptions {
   prefix?: string
@@ -9,15 +8,21 @@ export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@kong/kongponents/nuxt',
     configKey: 'kongponents',
-    compatibility: {
-      nuxt: '^3.0.0',
-    },
   },
   defaults: {
     prefix: 'k',
   },
-  async setup(options: ModuleOptions) {
-    // TODO: find a way to register the components
+  async setup() {
+    const { resolve } = createResolver(import.meta.url)
 
+    addPlugin(resolve('./plugin'))
+
+    addComponent({
+      name: 'KAlert',
+      export: 'KAlert',
+      filePath: '@kong/kongponents',
+      global: true,
+      mode: 'all',
+    })
   },
 })
