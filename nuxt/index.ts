@@ -14,7 +14,7 @@ export default defineNuxtModule<ModuleOptions>({
   defaults: {
     prefix: 'k',
   },
-  setup(options) {
+  setup(options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
 
     addPlugin(resolve('./plugin'))
@@ -29,6 +29,19 @@ export default defineNuxtModule<ModuleOptions>({
         filePath: '@kong/kongponents',
         global: true,
         mode: 'all',
+      })
+    })
+
+    // Nuxt Devtools
+    nuxt.hook('devtools:customTabs', (tabs) => {
+      tabs.push({
+        name: 'kongponents',
+        title: 'Kongponents',
+        icon: 'https://kongponents.konghq.com/img/kong-logomark.png',
+        view: {
+          type: 'iframe',
+          src: 'https://kongponents.konghq.com',
+        },
       })
     })
   },
