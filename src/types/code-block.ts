@@ -79,13 +79,7 @@ export interface CodeBlockProps {
    * Controls whether to show a copy button. It copies the original code (i.e. the value of `props.code`) to the clipboard.
    * @default true
    */
-  showCopyButton?: boolean
-
-  /**
-   * Controls whether to show the action button(s) no matter whether the user has hovered the code block or not.
-   * @default false
-   */
-  alwaysShowActionButtons?: boolean
+  showCopyButton?: boolean | 'always'
 
   /**
    * Controls whether to show line numbers.

@@ -212,6 +212,8 @@ Used as the initial value of the search input. Can be used to initialize a code 
 
 Controls whether to show a copy button which copies the original code (the value of `props.code`) to the clipboard. Defaults to `true`.
 
+#### Boolean mode
+
 <KCodeBlock
   id="code-block-show-copy-button"
   :code="code"
@@ -228,21 +230,19 @@ Controls whether to show a copy button which copies the original code (the value
 />
 ```
 
-### alwaysShowActionButtons
+#### Always mode
 
-Action buttons section has following trait:
-
-- Action buttons **will be hidden on larger display** by default and only shown when the user hovers the code block.
-- Action buttons **will be always shown** on smaller displays (mobile devices).
-
-Controls whether to show the action button(s) no matter whether the user has hovered the code block or not. Defaults to `false`. By turning this on, the action buttons will **always** be visible regardless of hover state and the screen size.
+The action buttons behave as follows:
+- On larger screens (breakpoint >= 1280px), they are **hidden by default** and appear only when the user hovers over the code block.
+- On smaller screens (e.g., mobile devices), they are **always visible**.
+This property controls whether the action buttons should be shown at all times, regardless of hover state or screen size. Defaults to `false`. When enabled, the action buttons remain **permanently** visible.
 
 
 <KCodeBlock
   id="code-block-show-copy-button"
   :code="code"
   language="json"
-  always-show-action-buttons
+  show-copy-button="always"
 />
 
 ```html
@@ -250,7 +250,7 @@ Controls whether to show the action button(s) no matter whether the user has hov
   id="code-block-show-copy-button"
   :code="code"
   language="json"
-  always-show-action-buttons
+  show-copy-button="always"
 />
 ```
 

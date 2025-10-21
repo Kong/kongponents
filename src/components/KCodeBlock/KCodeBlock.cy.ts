@@ -71,7 +71,7 @@ describe('KCodeBlock', () => {
     renderComponent({ id: 'code-block' })
     cy.get('[data-testid="code-block-copy-button-code-block"]').should('not.be.visible')
 
-    renderComponent({ id: 'code-block', alwaysShowActionButtons: true })
+    renderComponent({ id: 'code-block', showCopyButton: 'always' })
     cy.get('[data-testid="code-block-copy-button-code-block"]').should('be.visible')
   })
 

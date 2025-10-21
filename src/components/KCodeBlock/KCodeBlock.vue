@@ -149,7 +149,7 @@
       <div
         v-if="showCopyButton || slots['secondary-actions']"
         class="secondary-actions-wrapper"
-        :class="{ 'always-show': alwaysShowActionButtons }"
+        :class="{ 'always-show': showCopyButton === 'always' }"
       >
         <div class="code-block-secondary-actions">
           <KCodeBlockIconButton
@@ -273,7 +273,6 @@ const {
   processing,
   query: queryProp = '',
   showCopyButton = true,
-  alwaysShowActionButtons = false,
   showLineNumbers = true,
   showLineNumberLinks,
   theme = 'light',
@@ -764,6 +763,8 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       z-index: 2;
 
       &.always-show {
+        // Copy button will be hidden on larger screen with breakpoint greater than 1280px
+        // To override that behavior we need to fix the opacity to 1.
         opacity: 1 !important;
       }
 
