@@ -23,6 +23,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     Object.entries(components).forEach(([name, component]) => {
       if (blacklist.includes(name)) return
+      console.log('Registering component:', `${options.prefix}${name.replace('K', '')}`, name)
       addComponent({
         name: `${options.prefix}${name.replace('K', '')}`,
         export: component.name,
