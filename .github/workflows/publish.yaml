@@ -80,6 +80,9 @@ jobs:
           with:
             name: kongponents-ci-build-output-artifact
 
+        - name: Build Nuxt package
+          run: pnpm build:nuxt
+
         - name: Publish Package Preview
           id: package-preview
           # Do not run for `alpha` or `beta` branches
