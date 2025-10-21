@@ -19,10 +19,10 @@ export default defineNuxtModule<ModuleOptions>({
 
     addPlugin(resolve('./plugin'))
 
-    for (const component of Object.values(components)) {
-      // @ts-ignore - __name exists
-      const name = component.__name || component.name || ''
-      if (!name) continue
+    const blacklist = ['ToastManager']
+
+    Object.entries(components).forEach(([name, component]) => {
+      if (blacklist.includes(name)) return
       addComponent({
         name: `${options.prefix}${name.replace('K', '')}`,
         export: component.name,
@@ -30,6 +30,6 @@ export default defineNuxtModule<ModuleOptions>({
         global: true,
         mode: 'all',
       })
-    }
+    })
   },
 })
