@@ -43,7 +43,7 @@ export default class ToastManager {
   }
 
   setTimer(key: string, timeout: number): number {
-    return setTimeout(() => this.close(key), timeout)
+    return window.setTimeout(() => this.close(key), timeout)
   }
 
   public open(args: Record<string, any> | string): void {

@@ -22,6 +22,10 @@
       "import": "./dist/kongponents.es.js",
       "require": "./dist/kongponents.umd.js"
     },
+    "./nuxt": {
+      "import": "./dist/nuxt/index.js",
+      "types": "./dist/types/nuxt/index.d.ts"
+    },
     "./dist/style.css": "./dist/kongponents.css",
     "./package.json": "./package.json",
     "./dist/*": "./dist/*"
@@ -30,8 +34,9 @@
     "build:cli": "rimraf ./bin && tsc --project ./cli/tsconfig.json && chmod u+x ./bin/index.js",
     "build:docs": "vitepress build docs",
     "build:kongponents": "pnpm typecheck && vite build && vue-tsc -p './tsconfig.build.json' --emitDeclarationOnly && tsc-alias -p './tsconfig.build.json'",
+    "build:nuxt": "tsc -p ./tsconfig.build.nuxt.json --outDir dist/nuxt",
     "build:visualize": "cross-env-shell BUILD_VISUALIZER=true vite build -m production",
-    "build": "pnpm build:cli && pnpm stylelint && pnpm lint && pnpm build:kongponents && pnpm build:docs",
+    "build": "pnpm build:cli && pnpm stylelint && pnpm lint && pnpm build:kongponents && pnpm build:nuxt && pnpm build:docs",
     "build:ci": "pnpm build:kongponents && pnpm build:docs",
     "commit": "cz",
     "create-kongponent": "node ./bin/index.js",
@@ -83,6 +88,7 @@
     "@kong-ui-public/sandbox-layout": "^2.3.4",
     "@kong/design-tokens": "^1.18.0",
     "@kong/eslint-config-kong-ui": "1.5.1",
+    "@nuxt/kit": "^4.1.3",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@stylistic/stylelint-plugin": "^4.0.0",
@@ -106,6 +112,7 @@
     "inquirer": "^9.3.6",
     "nanospinner": "^1.2.2",
     "node-emoji": "^2.2.0",
+    "nuxt": "^4.1.3",
     "picocolors": "^1.1.1",
     "postcss-cli": "^11.0.1",
     "postcss-custom-properties": "^14.0.6",
