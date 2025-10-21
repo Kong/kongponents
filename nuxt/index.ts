@@ -12,7 +12,7 @@ export default defineNuxtModule<ModuleOptions>({
     configKey: 'kongponents',
   },
   defaults: {
-    prefix: 'k',
+    prefix: 'K',
   },
   setup(options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
@@ -22,11 +22,11 @@ export default defineNuxtModule<ModuleOptions>({
     const blacklist = ['ToastManager', 'KTable']
 
     Object.entries(components).forEach(([name]) => {
-      if (blacklist.includes(name) || name === undefined) return
+      if (name === undefined || blacklist.includes(name)) return
       console.log('Registering component:', `${options.prefix}${name.replace('K', '')}`, name)
       addComponent({
         name: `${options.prefix}${name.replace('K', '')}`,
-        export: name,
+        export: name || 'default',
         filePath: '@kong/kongponents',
         global: true,
         mode: 'all',
