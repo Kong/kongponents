@@ -19,7 +19,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     addPlugin(resolve('./plugin'))
 
-    const blacklist = ['ToastManager']
+    const blacklist = ['ToastManager', 'KTable']
 
     Object.entries(components).forEach(([name, component]) => {
       if (blacklist.includes(name)) return
