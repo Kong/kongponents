@@ -31,27 +31,26 @@ app.mount('#app')
 
 ### Using in Nuxt
 
-The majority of components are SSR-compatible so there is no extra configuration needed for using Kongponents in Nuxt or a server-side rendered project.
+Kongponents now provides a first-class Nuxt module for seamless integration and automatic component registration.
 
-```ts
-// plugins/kongponents.ts
+Most components are SSR-compatible so there is no extra configuration needed beyond adding the module.
 
-// Import the Kongponents Vue plugin
-import Kongponents from '@kong/kongponents'
-// Import Kongponents styles
-import '@kong/kongponents/dist/style.css'
-// In some NodeJS environments, the `crypto` module is not available by default, so import it and make it available on the server
-import crypto from 'node:crypto'
+```ts [nuxt.config.ts]
+// nuxt.config.ts
+export default defineNuxtConfig({
+  modules: ['@kong/kongponents/nuxt'],
 
-export default defineNuxtPlugin({
-  name: 'kongponents',
-  setup(nuxtApp) {
-    // Inject the crypto module into the global scope if it is not already available
-    if (import.meta.server && typeof globalThis?.crypto === 'undefined') {
-      globalThis.crypto = globalThis.crypto || crypto
-    }
-    // Initialize the Kongponents Vue plugin
-    nuxtApp.vueApp.use(Kongponents)
+  kongponents: {
+    /**
+     * Optional prefix for component names
+     * Default: 'K'
+     */
+    prefix: 'K',
+
+    /**
+     * Optional list of components to exclude from auto-registration
+     */
+    exclude: [],
   },
 })
 ```
