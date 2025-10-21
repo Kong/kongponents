@@ -20,8 +20,11 @@ export default defineNuxtModule<ModuleOptions>({
     addPlugin(resolve('./plugin'))
 
     for (const component of Object.values(components)) {
+      // @ts-ignore - __name exists
+      const name = component.__name || component.name || ''
+      if (!name) continue
       addComponent({
-        name: `${options.prefix}${component.name?.replace('K', '')}`,
+        name: `${options.prefix}${name.replace('K', '')}`,
         export: component.name,
         filePath: '@kong/kongponents',
         global: true,
