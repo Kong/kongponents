@@ -34,6 +34,7 @@ export default defineNuxtModule<ModuleOptions>({
     })
 
     // Nuxt Devtools
+    // @ts-ignore - nuxt types are missing devtools hook
     nuxt.hook('devtools:customTabs', (tabs) => {
       tabs.push({
         name: 'kongponents',
