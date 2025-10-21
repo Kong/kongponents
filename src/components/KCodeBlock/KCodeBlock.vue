@@ -149,6 +149,7 @@
       <div
         v-if="showCopyButton || slots['secondary-actions']"
         class="secondary-actions-wrapper"
+        :class="{ 'always-show': alwaysShowActionButtons }"
       >
         <div class="code-block-secondary-actions">
           <KCodeBlockIconButton
@@ -272,6 +273,7 @@ const {
   processing,
   query: queryProp = '',
   showCopyButton = true,
+  alwaysShowActionButtons = false,
   showLineNumbers = true,
   showLineNumberLinks,
   theme = 'light',
@@ -760,6 +762,10 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       right: 0px;
       top: 0px;
       z-index: 2;
+
+      &.always-show {
+        opacity: 1 !important;
+      }
 
       .code-block-secondary-actions {
         display: flex;

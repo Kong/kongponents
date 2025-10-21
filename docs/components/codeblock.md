@@ -228,6 +228,32 @@ Controls whether to show a copy button which copies the original code (the value
 />
 ```
 
+### alwaysShowActionButtons
+
+Action buttons section has following trait:
+
+- Action buttons **will be hidden on larger display** by default and only shown when the user hovers the code block.
+- Action buttons **will be always shown** on smaller displays (mobile devices).
+
+Controls whether to show the action button(s) no matter whether the user has hovered the code block or not. Defaults to `false`. By turning this on, the action buttons will **always** be visible regardless of hover state and the screen size.
+
+
+<KCodeBlock
+  id="code-block-show-copy-button"
+  :code="code"
+  language="json"
+  always-show-action-buttons
+/>
+
+```html
+<KCodeBlock
+  id="code-block-show-copy-button"
+  :code="code"
+  language="json"
+  always-show-action-buttons
+/>
+```
+
 ### showLineNumbers
 
 Controls whether to show line numbers. Defaults to `true`.

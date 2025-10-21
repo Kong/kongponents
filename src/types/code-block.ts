@@ -82,6 +82,12 @@ export interface CodeBlockProps {
   showCopyButton?: boolean
 
   /**
+   * Controls whether to show the action button(s) no matter whether the user has hovered the code block or not.
+   * @default false
+   */
+  alwaysShowActionButtons?: boolean
+
+  /**
    * Controls whether to show line numbers.
    * @default true
    */
