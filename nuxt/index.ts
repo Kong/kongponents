@@ -1,5 +1,7 @@
 import { addPlugin, defineNuxtModule, createResolver, addComponent } from '@nuxt/kit'
 
+import { components } from '@kong/kongponents'
+
 export interface ModuleOptions {
   prefix?: string
 }
@@ -12,17 +14,19 @@ export default defineNuxtModule<ModuleOptions>({
   defaults: {
     prefix: 'k',
   },
-  async setup() {
+  setup(options) {
     const { resolve } = createResolver(import.meta.url)
 
     addPlugin(resolve('./plugin'))
 
-    addComponent({
-      name: 'KAlert',
-      export: 'KAlert',
-      filePath: '@kong/kongponents',
-      global: true,
-      mode: 'all',
-    })
+    for (const component of Object.values(components)) {
+      addComponent({
+        name: `${options.prefix}${component.name?.replace('K', '')}`,
+        export: component.name,
+        filePath: '@kong/kongponents',
+        global: true,
+        mode: 'all',
+      })
+    }
   },
 })
