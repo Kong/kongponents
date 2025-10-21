@@ -21,12 +21,12 @@ export default defineNuxtModule<ModuleOptions>({
 
     const blacklist = ['ToastManager', 'KTable']
 
-    Object.entries(components).forEach(([name, component]) => {
-      if (blacklist.includes(name)) return
+    Object.entries(components).forEach(([name]) => {
+      if (blacklist.includes(name) || name === undefined) return
       console.log('Registering component:', `${options.prefix}${name.replace('K', '')}`, name)
       addComponent({
         name: `${options.prefix}${name.replace('K', '')}`,
-        export: component.name,
+        export: name,
         filePath: '@kong/kongponents',
         global: true,
         mode: 'all',
