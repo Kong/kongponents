@@ -3,7 +3,7 @@ import { addPlugin, defineNuxtModule, createResolver, addComponent, useLogger, a
 import { components } from '@kong/kongponents'
 
 type ComponentKeys = keyof typeof components
-type ExcludedComponentKeys = Exclude<ComponentKeys, 'ToastManager' | 'KTable'>
+type ExcludedComponentKeys = Exclude<ComponentKeys, 'ToastManager' | 'KTable' | 'KModalFullscreen' | 'KDropdownMenu'>
 
 
 export interface ModuleOptions {
@@ -19,10 +19,15 @@ export interface ModuleOptions {
      */
     exclude?: ExcludedComponentKeys[]
   }
+  /**
+   * Whether to register composables globally
+   * @default true
+   */
+  composables?: boolean
 }
 
-// Components that are deprecated or not meant for auto-registration
-const DEPRECATED_COMPONENTS = ['ToastManager', 'KTable']
+// Components that should always be excluded from auto-registration
+const ALWAYS_EXCLUDE_COMPONENTS = ['ToastManager', 'KTable', 'KModalFullscreen', 'KDropdownMenu'] as const
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
@@ -34,6 +39,7 @@ export default defineNuxtModule<ModuleOptions>({
       include: [],
       exclude: [],
     },
+    composables: true,
   },
   setup(options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
@@ -43,15 +49,17 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.css.push('@kong/kongponents/dist/style.css')
 
     // Register the module's plugin (can be used for global styles, etc.)
-    // addPlugin(resolve('./runtime/plugins/kongponents'))
+    addPlugin(resolve('./runtime/plugins/kongponents'))
 
-    // Register composables
-    addImportsDir(resolve('./runtime/composables'))
+    if (options.composables) {
+      // Register composables
+      addImportsDir(resolve('./runtime/composables'))
+    }
 
     // Define a list of components that should be auto-registered.
     const includeList = options.components?.include || []
     // Define a list of components that should never be auto-registered.
-    const excludeList = [...DEPRECATED_COMPONENTS, ...(options.components?.exclude || [])]
+    const excludeList = [...ALWAYS_EXCLUDE_COMPONENTS, ...(options.components?.exclude || [])]
 
     const allComponentNames = Object.keys(components)
 

@@ -29,9 +29,40 @@ app.use(Kongponents)
 app.mount('#app')
 ```
 
-### Using in Nuxt
+### Using the Vue Plugin in Nuxt
 
-Kongponents now provides a first-class Nuxt module for seamless integration and automatic component registration.
+The majority of components are SSR-compatible so there is no extra configuration needed for using Kongponents in Nuxt or a server-side rendered project.
+
+::: tip NOTE
+We recommend using the official [Nuxt Module](#nuxt-module) for the best integration experience with Nuxt projects.
+:::
+
+```ts
+// plugins/kongponents.ts
+
+// Import the Kongponents Vue plugin
+import Kongponents from '@kong/kongponents'
+// Import Kongponents styles
+import '@kong/kongponents/dist/style.css'
+// In some NodeJS environments, the `crypto` module is not available by default, so import it and make it available on the server
+import crypto from 'node:crypto'
+
+export default defineNuxtPlugin({
+  name: 'kongponents',
+  setup(nuxtApp) {
+    // Inject the crypto module into the global scope if it is not already available
+    if (import.meta.server && typeof globalThis?.crypto === 'undefined') {
+      globalThis.crypto = globalThis.crypto || crypto
+    }
+    // Initialize the Kongponents Vue plugin
+    nuxtApp.vueApp.use(Kongponents)
+  },
+})
+```
+
+## Nuxt Module
+
+Kongponents provides a first-class [Nuxt module](https://nuxt.com/docs/4.x/guide/concepts/modules) for seamless integration and automatic component registration.
 
 Most components are SSR-compatible so there is no extra configuration needed beyond adding the module.
 
@@ -41,16 +72,21 @@ export default defineNuxtConfig({
   modules: ['@kong/kongponents/nuxt'],
 
   kongponents: {
+    components: {
+      /**
+       * Optional list of components to include in auto-registration. If unset or empty, all components will be included.
+       */
+      include: [],
+      /**
+       * Optional list of components to exclude from auto-registration
+       */
+      exclude: [],
+    },
     /**
-     * Optional prefix for component names
-     * Default: 'K'
+     * Whether to register composables globally
+     * you can use composables like `useToast`
      */
-    prefix: 'K',
-
-    /**
-     * Optional list of components to exclude from auto-registration
-     */
-    exclude: [],
+    composables: true,
   },
 })
 ```
