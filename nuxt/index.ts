@@ -1,4 +1,4 @@
-import { addPlugin, defineNuxtModule, createResolver, addComponent, useLogger, addImportsDir } from '@nuxt/kit'
+import { defineNuxtModule, createResolver, addComponent, useLogger, addImportsDir } from '@nuxt/kit'
 
 import { components } from '@kong/kongponents'
 
@@ -47,9 +47,6 @@ export default defineNuxtModule<ModuleOptions>({
 
     // Register the styles
     nuxt.options.css.push('@kong/kongponents/dist/style.css')
-
-    // Register the module's plugin (can be used for global styles, etc.)
-    addPlugin(resolve('./runtime/plugins/kongponents'))
 
     if (options.composables) {
       // Register composables

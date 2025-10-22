@@ -1,3 +1,5 @@
+// TODO: testing some stuff...
+
 // @ts-ignore - import path exists
 import { defineNuxtPlugin } from '#app'
 
@@ -6,7 +8,6 @@ import crypto from 'node:crypto'
 
 export default defineNuxtPlugin({
   name: 'kongponents',
-  enforce: 'post',
   setup() {
     // Inject the crypto module into the global scope if it is not already available
     if (import.meta.server && typeof globalThis?.crypto === 'undefined') {
