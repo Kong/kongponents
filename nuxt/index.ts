@@ -1,14 +1,28 @@
-import { addPlugin, defineNuxtModule, createResolver, addComponent, useLogger } from '@nuxt/kit'
+import { addPlugin, defineNuxtModule, createResolver, addComponent, useLogger, addImportsDir } from '@nuxt/kit'
 
 import { components } from '@kong/kongponents'
 
+type ComponentKeys = keyof typeof components
+type ExcludedComponentKeys = Exclude<ComponentKeys, 'ToastManager' | 'KTable'>
+
+
 export interface ModuleOptions {
-  /**
-   * List of components to exclude from automatic registration
-   * @default []
-   */
-  exclude?: Array<Exclude<keyof typeof components, 'ToastManager' | 'KTable'>>
+  components?: {
+    /**
+     * List of components to include in auto-registration. If unset or empty, all components will be included.
+     * @default []
+     */
+    include?: ComponentKeys[]
+    /**
+     * List of components to exclude from automatic registration
+     * @default []
+     */
+    exclude?: ExcludedComponentKeys[]
+  }
 }
+
+// Components that are deprecated or not meant for auto-registration
+const DEPRECATED_COMPONENTS = ['ToastManager', 'KTable']
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
@@ -16,29 +30,51 @@ export default defineNuxtModule<ModuleOptions>({
     configKey: 'kongponents',
   },
   defaults: {
-    exclude: [],
+    components: {
+      include: [],
+      exclude: [],
+    },
   },
   setup(options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
     const logger = useLogger('kongponents')
 
+    // Register the styles
+    nuxt.options.css.push('@kong/kongponents/dist/style.css')
+
     // Register the module's plugin (can be used for global styles, etc.)
-    addPlugin(resolve('./runtime/plugin'))
+    addPlugin(resolve('./runtime/plugins/kongponents'))
 
+    // Register composables
+    addImportsDir(resolve('./runtime/composables'))
+
+    // Define a list of components that should be auto-registered.
+    const includeList = options.components?.include || []
     // Define a list of components that should never be auto-registered.
-    // Includes user-specified exclusions merged with a fixed internal list.
-    const excludeList = ['ToastManager', 'KTable', ...(options.exclude || [])]
+    const excludeList = [...DEPRECATED_COMPONENTS, ...(options.components?.exclude || [])]
 
-    Object.entries(components).forEach(([name]) => {
-      if (!name || excludeList.includes(name)) return
+    const allComponentNames = Object.keys(components)
 
+    const filteredComponents = allComponentNames.filter((name) => {
+      // If include list is set, only register those
+      if (includeList.length > 0 && !includeList.includes(name as ComponentKeys)) return false
+      // Skip excluded or deprecated components
+      if (excludeList.includes(name)) return false
+      return true
+    })
+
+    if (filteredComponents.length === 0) {
+      logger.warn('⚠️ No Kongponents components were registered. Check your include/exclude config.')
+    }
+
+    filteredComponents.forEach((name) => {
       addComponent({
         name,
         export: name,
         filePath: '@kong/kongponents',
         // !IMPORTANT: Components must be registered globally
         global: true,
-        // all means both client and server
+        // 'all' means both client and server
         mode: 'all',
       })
     })
