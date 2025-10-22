@@ -43,7 +43,7 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.css.push('@kong/kongponents/dist/style.css')
 
     // Register the module's plugin (can be used for global styles, etc.)
-    addPlugin(resolve('./runtime/plugins/kongponents'))
+    // addPlugin(resolve('./runtime/plugins/kongponents'))
 
     // Register composables
     addImportsDir(resolve('./runtime/composables'))
