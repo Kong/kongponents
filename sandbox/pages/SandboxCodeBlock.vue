@@ -143,18 +143,6 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent
         class="limited-width"
-        title="alwaysShowActionButtons"
-      >
-        <KCodeBlock
-          id="always-show-action-buttons-prop"
-          always-show-action-buttons
-          :code="code"
-          language="json"
-          searchable
-        />
-      </SandboxSectionComponent>
-      <SandboxSectionComponent
-        class="limited-width"
         title="showCopyButton"
       >
         <KCodeBlock
@@ -163,6 +151,14 @@
           language="json"
           searchable
           :show-copy-button="false"
+        />
+        <p>Always show action buttons:</p>
+        <KCodeBlock
+          id="always-show-copy-button"
+          :code="code"
+          language="json"
+          searchable
+          show-copy-button="always"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent

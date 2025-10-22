@@ -210,48 +210,44 @@ Used as the initial value of the search input. Can be used to initialize a code 
 
 ### showCopyButton
 
-Controls whether to show a copy button which copies the original code (the value of `props.code`) to the clipboard. Defaults to `true`.
+Controls whether to show the copy button (along with any other secondary action buttons passed through [`secondary actions` slot](#secondary-actions)) which copies the original code (the value of [`code` prop](#code)) to the clipboard. Defaults to `true`.
 
-#### Boolean mode
+The secondary action buttons behave as follows:
 
-<KCodeBlock
-  id="code-block-show-copy-button"
-  :code="code"
-  language="json"
-  :show-copy-button="false"
-/>
-
-```html
-<KCodeBlock
-  id="code-block-show-copy-button"
-  :code="code"
-  language="json"
-  :show-copy-button="false"
-/>
-```
-
-#### Always mode
-
-The action buttons behave as follows:
 - On larger screens (breakpoint >= 1280px), they are **hidden by default** and appear only when the user hovers over the code block.
 - On smaller screens (e.g., mobile devices), they are **always visible**.
 
-By setting `show-copy-button` to `'always'`, the copy button will be **always visible**, regardless of screen size or hover state.
-
-
 <KCodeBlock
+  :show-copy-button="false"
   id="code-block-show-copy-button"
   :code="code"
   language="json"
-  show-copy-button="always"
 />
 
 ```html
 <KCodeBlock
+  :show-copy-button="false"
   id="code-block-show-copy-button"
   :code="code"
   language="json"
+/>
+```
+
+Passing `'always'` will render secondary action buttons **always visible**, regardless of screen size or hover state.
+
+<KCodeBlock
   show-copy-button="always"
+  id="code-block-show-copy-button"
+  :code="code"
+  language="json"
+/>
+
+```html
+<KCodeBlock
+  show-copy-button="always"
+  id="code-block-show-copy-button"
+  :code="code"
+  language="json"
 />
 ```
 
