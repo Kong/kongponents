@@ -27,7 +27,7 @@ export interface ModuleOptions {
 }
 
 // Components that should always be excluded from auto-registration
-const ALWAYS_EXCLUDE_COMPONENTS = ['ToastManager', 'KTable', 'KModalFullscreen', 'KDropdownMenu'] as const
+const ALWAYS_EXCLUDE_COMPONENTS = ['ToastManager', 'KTable', 'KModalFullscreen', 'KDropdownMenu']
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
