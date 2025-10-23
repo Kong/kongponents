@@ -1,3 +1,10 @@
+## [9.43.1](https://github.com/Kong/kongponents/compare/v9.43.0...v9.43.1) (2025-10-23)
+
+
+### Bug Fixes
+
+* **kmodal:** full screen modal content height [KHCP-18359] ([#2955](https://github.com/Kong/kongponents/issues/2955)) ([9f8169c](https://github.com/Kong/kongponents/commit/9f8169c5bff1987a6d519657131645d4395f6119))
+
 # [9.43.0](https://github.com/Kong/kongponents/compare/v9.42.11...v9.43.0) (2025-10-23)
 
 
