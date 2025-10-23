@@ -88,7 +88,9 @@ describe('KLabel', () => {
             id: 'label-input',
             type: 'checkbox',
           }),
-          'Full Name',
+          h('span', {
+            id: 'label-text',
+          }, 'Full Name'),
         ],
         tooltip: () => h('a', {
           id: 'link',
@@ -106,7 +108,7 @@ describe('KLabel', () => {
     cy.location('hash').should('eq', '#docs-link')
     cy.get('#label-input').should('not.be.checked')
 
-    cy.get('.k-label').click()
-    cy.get('#label-input').should('be.checked')
+    cy.get('#label-text').click()
+    cy.get('input[type="checkbox"]').should('be.checked')
   })
 })

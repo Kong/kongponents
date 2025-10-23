@@ -54,31 +54,45 @@ const tooltipId = useId()
 
 const labelEl = useTemplateRef('label')
 
-function closestInteractiveElement(element: Element): HTMLElement | null {
-  const interactiveSelectors = [
-    'a[href]',
-    'audio[controls]',
-    'button',
-    'details',
-    'embed',
-    'iframe',
-    'img[usemap]',
-    'input:not([type="hidden"])',
-    'label',
-    'select',
-    'textarea',
-    'video[controls]',
-  ]
-  return element.closest<HTMLElement>(interactiveSelectors.join(', '))
+/**
+ * Elements that SHOULD NOT cause an ancestor <label> to activate when clicked.
+ * Based on the HTML "interactive content" list that the <label> rule references,
+ * plus elements that have their own activation behavior.
+ */
+const LABEL_NON_ACTIVATING_SELECTOR = [
+  /* interactive content */
+  'a[href]',
+  'audio[controls]',
+  'button',
+  'details',
+  'embed',
+  'iframe',
+  'img[usemap]',
+  'input:not([type="hidden"])',
+  'label',
+  'select',
+  'textarea',
+  'video[controls]',
+  /* elements having their own activation behavior */
+  // 'a[href]' - already included in interactive content
+  'area[href]',
+  // 'summary', - already covered as child of details
+].join(', ')
+
+/**
+ * Return the nearest ancestor (including self) inside a <label> for which
+ * the label MUST NOT activate according to the spec. If the nearest match is
+ * the label itself, ignore it.
+ */
+function findNonActivatingAncestor(element: Element): Element | null {
+  return element.closest<HTMLElement>(LABEL_NON_ACTIVATING_SELECTOR)
 }
 
 function handleClick(event: MouseEvent): void {
-  // Prevent default when the target element is not inside an interactive content
-  // Otherwise links inside the tooltip would not work.
-  // See https://html.spec.whatwg.org/multipage/dom.html#interactive-content-2
+  // Prevent default unless the click is within non-activating elements.
   const target = event.target as Element
-  const interactiveElement = closestInteractiveElement(target)
-  if (interactiveElement && interactiveElement !== labelEl.value) {
+  const nonActivating = findNonActivatingAncestor(target)
+  if (nonActivating && nonActivating !== labelEl.value) {
     return
   }
   event.preventDefault()
