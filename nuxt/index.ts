@@ -1,5 +1,4 @@
 import { defineNuxtModule, createResolver, addComponent, useLogger, addImportsDir } from '@nuxt/kit'
-
 import { components } from '@kong/kongponents'
 
 type ComponentKeys = keyof typeof components
@@ -58,9 +57,7 @@ export default defineNuxtModule<ModuleOptions>({
     // Define a list of components that should never be auto-registered.
     const excludeList = [...ALWAYS_EXCLUDE_COMPONENTS, ...(options.components?.exclude || [])]
 
-    const allComponentNames = Object.keys(components)
-
-    const filteredComponents = allComponentNames.filter((name) => {
+    const filteredComponents = Object.keys(components).filter((name) => {
       // If include list is set, only register those
       if (includeList.length > 0 && !includeList.includes(name as ComponentKeys)) return false
       // Skip excluded or deprecated components
@@ -77,8 +74,8 @@ export default defineNuxtModule<ModuleOptions>({
         name,
         export: name,
         filePath: '@kong/kongponents',
-        // !IMPORTANT: Components must be registered globally
-        global: true,
+        // we don't need global registration here
+        global: false,
         // 'all' means both client and server
         mode: 'all',
       })
