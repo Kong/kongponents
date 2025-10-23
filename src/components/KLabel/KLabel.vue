@@ -1,5 +1,6 @@
 <template>
   <label
+    ref="label"
     class="k-label"
     :class="{ 'required': required }"
   >
@@ -10,7 +11,7 @@
       v-bind="tooltipAttributes"
       class="label-tooltip"
       :tooltip-id="tooltipId"
-      @click.prevent
+      @click="handleClick"
     >
       <InfoIcon
         :aria-describedby="tooltipId"
@@ -26,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch, computed, useId } from 'vue'
+import { watch, computed, useId, useTemplateRef } from 'vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { LabelProps, LabelSlots } from '@/types'
 import { InfoIcon } from '@kong/icons'
@@ -50,6 +51,52 @@ const slots = defineSlots<LabelSlots>()
 const hasTooltip = computed((): boolean => !!(help || info || slots.tooltip))
 
 const tooltipId = useId()
+
+const labelEl = useTemplateRef('label')
+
+/**
+ * Elements that SHOULD NOT cause an ancestor <label> to activate when clicked.
+ * Based on the HTML "interactive content" list that the <label> rule references,
+ * plus elements that have their own activation behavior.
+ */
+const LABEL_NON_ACTIVATING_SELECTOR = [
+  /* interactive content */
+  'a[href]',
+  'audio[controls]',
+  'button',
+  'details',
+  'embed',
+  'iframe',
+  'img[usemap]',
+  'input:not([type="hidden"])',
+  'label',
+  'select',
+  'textarea',
+  'video[controls]',
+  /* elements having their own activation behavior */
+  // 'a[href]' - already included in interactive content
+  'area[href]',
+  // 'summary', - already covered as child of details
+].join(', ')
+
+/**
+ * Return the nearest ancestor (including self) inside a <label> for which
+ * the label MUST NOT activate according to the spec. If the nearest match is
+ * the label itself, ignore it.
+ */
+function findNonActivatingAncestor(element: Element): Element | null {
+  return element.closest<HTMLElement>(LABEL_NON_ACTIVATING_SELECTOR)
+}
+
+function handleClick(event: MouseEvent): void {
+  // Prevent default unless the click is within non-activating elements.
+  const target = event.target as Element
+  const nonActivating = findNonActivatingAncestor(target)
+  if (nonActivating && nonActivating !== labelEl.value) {
+    return
+  }
+  event.preventDefault()
+}
 </script>
 
 <style lang="scss" scoped>
