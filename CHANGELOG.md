@@ -1,3 +1,10 @@
+# [9.43.0](https://github.com/Kong/kongponents/compare/v9.42.11...v9.43.0) (2025-10-23)
+
+
+### Features
+
+* **klabel:** improve prevent default logic to allow tooltip links ([#2947](https://github.com/Kong/kongponents/issues/2947)) ([2f2ec42](https://github.com/Kong/kongponents/commit/2f2ec42ca767261ec53c892c1367dedb432fef65))
+
 ## [9.42.11](https://github.com/Kong/kongponents/compare/v9.42.10...v9.42.11) (2025-10-20)
 
 
