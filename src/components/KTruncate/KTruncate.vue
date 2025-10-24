@@ -163,10 +163,12 @@ const setWrapperHeight = async (): Promise<void> => {
       tallestChildHeight = children[i].offsetHeight > tallestChildHeight ? children[i].offsetHeight : tallestChildHeight
     }
     const targetWrapperHeight = (rows === 1 ? 0 : (rows - 1) * gapNumber) + (tallestChildHeight * rows) + 6 // account for padding
-    wrapperHeight.value = kTruncateContainer.value.offsetHeight > targetWrapperHeight ? `${targetWrapperHeight}px` : 'auto'
-
-    await nextTick()
-    updateToggleVisibility()
+    const _wraggerHeight = kTruncateContainer.value.offsetHeight > targetWrapperHeight ? `${targetWrapperHeight}px` : 'auto'
+    // Separate read and write layout attributes to avoid forced reflow
+    window.requestAnimationFrame(() => {
+      wrapperHeight.value = _wraggerHeight
+      window.requestAnimationFrame(updateToggleVisibility)
+    })
   }
 }
 
@@ -237,7 +239,10 @@ onMounted(() => {
   resizeObserver.value = ResizeObserverHelper.create(setWrapperHeight)
 
   resizeObserver.value.observe(kTruncateContainer.value as HTMLDivElement)
-  updateToggleVisibility()
+
+  // `resizeObserver.observe` will trigger callback even if size doesn't change,
+  // so updateToggleVisibility will be called in the observer callback if truncateText is false
+  if (truncateText) updateToggleVisibility()
 })
 
 onBeforeUnmount(() => {
