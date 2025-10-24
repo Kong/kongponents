@@ -62,7 +62,7 @@ Kongponents styles are no longer designed to be utilized standalone, separately 
 * `isBordered` prop has been removed
 * `shape` prop has been removed (now KBadge only comes in one what used to be `rectangular` shape)
 * `borderColor` prop has been removed
-* `backgroundColor` prop has beed removed
+* `backgroundColor` prop has been removed
 * `color` prop has been removed
 * `dismissable` prop has been removed. You can now pass a clickable close icon (remember to add `role="button"` and `tabindex="0"` attributes) through the `icon` slot and handle KBadge showing/hiding from your host app
 * `hoverColor` prop has been removed
