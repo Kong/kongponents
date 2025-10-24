@@ -152,6 +152,14 @@
           searchable
           :show-copy-button="false"
         />
+        <p>Always show action buttons:</p>
+        <KCodeBlock
+          id="always-show-copy-button"
+          :code="code"
+          language="json"
+          searchable
+          show-copy-button="always"
+        />
       </SandboxSectionComponent>
       <SandboxSectionComponent
         class="limited-width"

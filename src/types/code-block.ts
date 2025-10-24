@@ -79,7 +79,7 @@ export interface CodeBlockProps {
    * Controls whether to show a copy button. It copies the original code (i.e. the value of `props.code`) to the clipboard.
    * @default true
    */
-  showCopyButton?: boolean
+  showCopyButton?: boolean | 'always'
 
   /**
    * Controls whether to show line numbers.
