@@ -1,4 +1,4 @@
-import { defineNuxtModule, createResolver, addComponent, useLogger, addImportsDir } from '@nuxt/kit'
+import { defineNuxtModule, createResolver, addComponent, useLogger, addImportsDir, addTypeTemplate } from '@nuxt/kit'
 import { components } from '@kong/kongponents'
 
 type ComponentKeys = keyof typeof components
@@ -51,6 +51,16 @@ export default defineNuxtModule<ModuleOptions>({
     if (options.composables) {
       // Register composables
       addImportsDir(resolve('./runtime/composables'))
+      // we need explicitly provide and register type declarations for module-injected composables
+      addTypeTemplate({
+        filename: 'types/use-toast.d.ts',
+        getContents: () => `
+      import type { Toast } from '@kong/kongponents'
+      declare module '#imports' {
+        export function useToast(): { showToast(notification: Partial<Toast>): Promise<void> }
+      }
+    `,
+      })
     }
 
     // Define a list of components that should be auto-registered.
