@@ -10,7 +10,7 @@ const defaultToastConfig: Toast = {
   timeoutMilliseconds: 3000,
 }
 
-export default function useToast() {
+export function useToast() {
   // Initialize the toast manager; stub out the `open` and `destroy` methods on the server
   const toast = import.meta.client ? new ToastManager() : { open: () => {}, destroy: () => {} }
 
