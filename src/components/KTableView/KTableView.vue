@@ -118,6 +118,7 @@
         @scroll.passive="scrollHandler"
       >
         <table
+          ref="table"
           class="table"
           :class="{
             'has-hover': rowHover && !isActionsDropdownHovered,
@@ -556,6 +557,7 @@ const getRowKey = (row: Row): string => {
 }
 
 const tableWrapperRef = useTemplateRef('table-wrapper')
+const tableRef = useTemplateRef('table')
 const headerRowRef = useTemplateRef('header-row')
 // all headers
 const tableHeaders = ref([]) as Ref<Array<TableViewHeader<ColumnKey>>>
@@ -1384,8 +1386,8 @@ watch(() => tablePreferences, (newVal) => {
   columnVisibility.value = newVal?.columnVisibility ? newVal.columnVisibility : columnVisibility.value
 })
 
-useResizeObserver(tableWrapperRef, (entries) => {
-  const el = entries[0]?.target
+useResizeObserver([tableWrapperRef, tableRef], () => {
+  const el = tableWrapperRef.value
 
   if (el) {
     // check if the table is scrollable horizontally
