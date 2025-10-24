@@ -1,3 +1,10 @@
+## [9.43.2](https://github.com/Kong/kongponents/compare/v9.43.1...v9.43.2) (2025-10-24)
+
+
+### Bug Fixes
+
+* **ktableview:** overlay should be hidden when no room to scroll right ([#2952](https://github.com/Kong/kongponents/issues/2952)) ([b29072e](https://github.com/Kong/kongponents/commit/b29072e961c197373e00ca6e7b99438712a8f0ec))
+
 ## [9.43.1](https://github.com/Kong/kongponents/compare/v9.43.0...v9.43.1) (2025-10-23)
 
 
