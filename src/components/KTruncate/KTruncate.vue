@@ -149,7 +149,7 @@ const truncatedCount = ref<number>(0)
  * When rows prop > 1: wrapper hight will be rows count multiplied by height of the tallest child plus gap.
  * For example if rows is 2 and all elements are equal height if 22px, wrapper height will be set to 54px (2 * 22 + gap).
  */
-const setWrapperHeight = async (): Promise<void> => {
+const setWrapperHeight = () => {
   if (truncateText) {
     return
   }
