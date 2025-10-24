@@ -1,10 +1,22 @@
 # Usage
 
-There are two ways to use Kongponents in your project: [globally register all Kongponents via a Vue plugin](#vue-plugin), or [register individual Kongponents](#individual-components) as needed.
+You can use Kongponents in your project in three ways, depending on your setup and needs:
 
-**Regardless of which method you choose** you will also need to import the Kongponents CSS into your project ([Vite](https://vitejs.dev/guide/build.html#library-mode) does not currently support CSS in JS when building in library mode).
+1. [Vue Plugin](#vue-plugin)
+2. [Nuxt Module](#nuxt-module)
+3. [Import components as needed](#using-the-vue-plugin-in-nuxt)
 
-The easiest place to import the package styles is inside your Vue entry file (e.g. `main.ts`).
+For standard Vue projects, you'll need to manually import the Kongponents CSS, since [Vite's library mode](https://vitejs.dev/guide/build.html#library-mode) doesn't currently support CSS in JS when building in library mode.
+
+The easiest place to import the package styles is inside your Vue entry file (e.g. `main.ts`):
+
+```ts
+import '@kong/kongponents/dist/style.css'
+```
+
+::: tip NOTE
+If you're using Nuxt, the module automatically handles component registration and style imports, so no extra setup is required.
+:::
 
 ## Vue Plugin
 
