@@ -108,7 +108,7 @@ export default defineNuxtConfig({
 
 If you enable composables in the module options, you can access utilities like useToast directly in your Nuxt app.
 
-#### UseToast
+#### useToast
 
 `useToast` provides a simple way to trigger toast notifications from any component.
 
@@ -125,14 +125,41 @@ showToast({
 
 You can also pass additional options to customize the toast:
 
-| Option               | Type                                | Description                                    |
-|----------------------|-------------------------------------|------------------------------------------------|
-| `key`                | `string`                            | Unique identifier for the toast                |
-| `title`              | `string`                            | Title text displayed above the message         |
-| `message`            | `string`                            | The main content of the toast                  |
-| `appearance`         | `'info' \| 'success' \| 'warning' \| 'error'` | The visual style of the toast        |
-| `timeoutMilliseconds`| `number`                            | Duration before the toast automatically closes |
-| `timer`              | `number`                            | Optional delay before the toast appears        |
+```ts
+interface Toast {
+  /**
+    * Unique identifier of toaster
+    * @default 'kongponents-toast'
+    */
+  key?: string
+  /**
+    * Title to display in toaster
+    * @default undefined
+    */
+  title?: string
+  /**
+    * Text to display in toaster
+    * @default 'Success'
+    */
+  message?: string
+  /** 
+   * Visual appearance of toaster
+   @default 'success'
+   */
+  appearance?: 'info' | 'success' | 'danger' | 'warning' | 'system'
+  /**
+    * Duration in milliseconds before toaster auto-dismisses
+    * @default 3000
+    */
+  timeoutMilliseconds?: number
+  /**
+    * ID of the timeout that automatically closes the toast after the specified duration.
+    * Used internally to clear the timeout when the toast is manually closed.
+    * @default undefined
+    */
+  timer?: number
+}
+```
 
 
 ## Individual components
