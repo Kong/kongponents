@@ -62,9 +62,9 @@ export default defineNuxtPlugin({
 
 ## Nuxt Module
 
-Kongponents provides a first-class [Nuxt module](https://nuxt.com/docs/4.x/guide/concepts/modules) for seamless integration and automatic component registration.
+Kongponents provides a first-class [Nuxt module](https://nuxt.com/docs/4.x/guide/concepts/modules) for seamless integration and automatic component registration. This is the most convenient and maintainable way to use Kongponents in your Nuxt app.
 
-Most components are SSR-compatible so there is no extra configuration needed beyond adding the module.
+Most components are SSR-compatible, so no extra configuration is needed! Just add the module to your Nuxt configuration, and all components will be auto-imported and ready to use.
 
 ```ts [nuxt.config.ts]
 // nuxt.config.ts
@@ -74,22 +74,53 @@ export default defineNuxtConfig({
   kongponents: {
     components: {
       /**
-       * Optional list of components to include in auto-registration. If unset or empty, all components will be included.
+       * Optional list of component names to include in auto-registration.
+       * If unset or empty, all components will be included.
        */
       include: [],
       /**
-       * Optional list of components to exclude from auto-registration
+       * Optional list of component names to exclude from auto-registration
        */
       exclude: [],
     },
     /**
-     * Whether to register composables globally
-     * you can use composables like `useToast`
+     * Whether to register provided composables.
+     * For example, you can access the included `useToast` composable.
      */
     composables: true,
   },
 })
 ```
+
+### composables
+
+If you enable composables in the module options, you can access utilities like useToast directly in your Nuxt app.
+
+#### UseToast
+
+`useToast` provides a simple way to trigger toast notifications from any component.
+
+```ts
+<script setup lang="ts">
+const { showToast } = useToast()
+
+showToast({
+  message: 'Item added successfully!',
+  appearance: 'success',
+})
+</script>
+```
+
+You can also pass additional options to customize the toast:
+
+| Option               | Type                                | Description                                    |
+|----------------------|-------------------------------------|------------------------------------------------|
+| `key`                | `string`                            | Unique identifier for the toast                |
+| `title`              | `string`                            | Title text displayed above the message         |
+| `message`            | `string`                            | The main content of the toast                  |
+| `appearance`         | `'info' \| 'success' \| 'warning' \| 'error'` | The visual style of the toast        |
+| `timeoutMilliseconds`| `number`                            | Duration before the toast automatically closes |
+| `timer`              | `number`                            | Optional delay before the toast appears        |
 
 
 ## Individual components

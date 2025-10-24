@@ -8,18 +8,19 @@ type ExcludedComponentKeys = Exclude<ComponentKeys, 'ToastManager' | 'KTable' | 
 export interface ModuleOptions {
   components?: {
     /**
-     * List of components to include in auto-registration. If unset or empty, all components will be included.
+     * List of component names to include in auto-registration. If unset or empty, all components will be included.
      * @default []
      */
     include?: ComponentKeys[]
     /**
-     * List of components to exclude from automatic registration
+     * List of component names to exclude from automatic registration
      * @default []
      */
     exclude?: ExcludedComponentKeys[]
   }
   /**
-   * Whether to register composables globally
+   * Whether to register provided composables.
+   * For example, you can access the included `useToast` composable.
    * @default true
    */
   composables?: boolean
@@ -57,13 +58,16 @@ export default defineNuxtModule<ModuleOptions>({
     // Define a list of components that should never be auto-registered.
     const excludeList = [...ALWAYS_EXCLUDE_COMPONENTS, ...(options.components?.exclude || [])]
 
-    const filteredComponents = Object.keys(components).filter((name) => {
-      // If include list is set, only register those
-      if (includeList.length > 0 && !includeList.includes(name as ComponentKeys)) return false
-      // Skip excluded or deprecated components
-      if (excludeList.includes(name)) return false
-      return true
-    })
+    const filteredComponents = Object.keys(components).filter(
+      (name) =>
+        // Only include components that start with 'K' (e.g., KButton)
+        name.startsWith('K')
+      // If an include list is provided, only keep those in the list
+      && (includeList.length === 0 || includeList.includes(name as ComponentKeys))
+      // Exclude any components explicitly listed in the exclude list
+      && !excludeList.includes(name),
+    )
+
 
     if (filteredComponents.length === 0) {
       logger.warn('⚠️ No Kongponents components were registered. Check your include/exclude config.')
