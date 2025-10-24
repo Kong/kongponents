@@ -7,7 +7,7 @@
     "importHelpers": true,
     "sourceMap": false,
     "noEmit": false,
-    "baseUrl": ".",
+    "allowImportingTsExtensions": false,
     "lib": [
       "esnext",
       "dom",
@@ -23,7 +23,7 @@
     ],
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ]
     },
   },

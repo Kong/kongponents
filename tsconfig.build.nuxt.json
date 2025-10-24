@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "nuxt",
+    "outDir": "dist/nuxt",
+    "emitDeclarationOnly": false,
+    "declarationDir": "dist/types/nuxt",
+  },
+  "include": [
+    "nuxt/**/*"
+  ],
+}

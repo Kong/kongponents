@@ -1,10 +1,22 @@
 # Usage
 
-There are two ways to use Kongponents in your project: [globally register all Kongponents via a Vue plugin](#vue-plugin), or [register individual Kongponents](#individual-components) as needed.
+You can use Kongponents in your project in three ways, depending on your setup and needs:
 
-**Regardless of which method you choose** you will also need to import the Kongponents CSS into your project ([Vite](https://vitejs.dev/guide/build.html#library-mode) does not currently support CSS in JS when building in library mode).
+- [Vue Plugin](#vue-plugin)
+- [Import components as needed](#using-the-vue-plugin-in-nuxt)
+- [Nuxt Module](#nuxt-module)
 
-The easiest place to import the package styles is inside your Vue entry file (e.g. `main.ts`).
+For standard Vue projects, you'll need to manually import the Kongponents CSS, since [Vite's library mode](https://vitejs.dev/guide/build.html#library-mode) doesn't currently support CSS in JS when building in library mode.
+
+The easiest place to import the package styles is inside your Vue entry file (e.g. `main.ts`):
+
+```ts
+import '@kong/kongponents/dist/style.css'
+```
+
+::: tip NOTE
+If you're using Nuxt, the module automatically handles component registration and style imports, so no extra setup is required.
+:::
 
 ## Vue Plugin
 
@@ -29,9 +41,13 @@ app.use(Kongponents)
 app.mount('#app')
 ```
 
-### Using in Nuxt
+### Using the Vue Plugin in Nuxt
 
 The majority of components are SSR-compatible so there is no extra configuration needed for using Kongponents in Nuxt or a server-side rendered project.
+
+::: tip NOTE
+We recommend using the official [Nuxt Module](#nuxt-module) for the best integration experience with Nuxt projects.
+:::
 
 ```ts
 // plugins/kongponents.ts
@@ -54,6 +70,95 @@ export default defineNuxtPlugin({
     nuxtApp.vueApp.use(Kongponents)
   },
 })
+```
+
+## Nuxt Module
+
+Kongponents provides a first-class [Nuxt module](https://nuxt.com/docs/4.x/guide/concepts/modules) for seamless integration and automatic component registration. This is the most convenient and maintainable way to use Kongponents in your Nuxt app.
+
+Most components are SSR-compatible, so no extra configuration is needed! Just add the module to your Nuxt configuration, and all components will be auto-imported and ready to use.
+
+```ts [nuxt.config.ts]
+// nuxt.config.ts
+export default defineNuxtConfig({
+  modules: ['@kong/kongponents/nuxt'],
+
+  kongponents: {
+    components: {
+      /**
+       * Optional list of component names to include in auto-registration.
+       * If unset or empty, all components will be included.
+       */
+      include: [],
+      /**
+       * Optional list of component names to exclude from auto-registration
+       */
+      exclude: [],
+    },
+    /**
+     * Whether to register provided composables.
+     * For example, you can access the included `useToast` composable.
+     */
+    composables: true,
+  },
+})
+```
+
+### composables
+
+If you enable composables in the module options, you can access utilities like useToast directly in your Nuxt app.
+
+#### useToast
+
+`useToast` provides a simple way to trigger toast notifications from any component.
+
+```ts
+<script setup lang="ts">
+const { showToast } = useToast()
+
+showToast({
+  message: 'Item added successfully!',
+  appearance: 'success',
+})
+</script>
+```
+
+You can also pass additional options to customize the toast:
+
+```ts
+interface Toast {
+  /**
+    * Unique identifier of toaster
+    * @default 'kongponents-toast'
+    */
+  key?: string
+  /**
+    * Title to display in toaster
+    * @default undefined
+    */
+  title?: string
+  /**
+    * Text to display in toaster
+    * @default 'Success'
+    */
+  message?: string
+  /** 
+   * Visual appearance of toaster
+   @default 'success'
+   */
+  appearance?: 'info' | 'success' | 'danger' | 'warning' | 'system'
+  /**
+    * Duration in milliseconds before toaster auto-dismisses
+    * @default 3000
+    */
+  timeoutMilliseconds?: number
+  /**
+    * ID of the timeout that automatically closes the toast after the specified duration.
+    * Used internally to clear the timeout when the toast is manually closed.
+    * @default undefined
+    */
+  timer?: number
+}
 ```
 
 
