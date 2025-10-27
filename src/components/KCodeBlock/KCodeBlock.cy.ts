@@ -65,7 +65,7 @@ describe('KCodeBlock', () => {
     cy.get('[data-testid="code-block-copy-button-code-block"]').should('not.exist')
   })
 
-  it('always show the copy button without needing to hover when props.alwaysShowActionButtons is true', () => {
+  it('always show the copy button without needing to hover when props.showCopyButton is "always"', () => {
     cy.viewport(1281, 800)
 
     renderComponent({ id: 'code-block' })
