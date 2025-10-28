@@ -1,3 +1,15 @@
+# [9.44.0](https://github.com/Kong/kongponents/compare/v9.43.2...v9.44.0) (2025-10-28)
+
+
+### Bug Fixes
+
+* **deps:** bump @kong/design-tokens ([#2961](https://github.com/Kong/kongponents/issues/2961)) ([3e2d48c](https://github.com/Kong/kongponents/commit/3e2d48cb5cb8f4602c915e8c12bd13e1375e6ffc))
+
+
+### Features
+
+* **k-code-block:** add new api for always showing the action buttons ([#2950](https://github.com/Kong/kongponents/issues/2950)) ([fe872d7](https://github.com/Kong/kongponents/commit/fe872d7dfe9525e67c1248f0e187d7fbb55e9ef5)), closes [#2951](https://github.com/Kong/kongponents/issues/2951) [#2946](https://github.com/Kong/kongponents/issues/2946) [#2947](https://github.com/Kong/kongponents/issues/2947) [#2947](https://github.com/Kong/kongponents/issues/2947) [#2955](https://github.com/Kong/kongponents/issues/2955) [#2955](https://github.com/Kong/kongponents/issues/2955) [#2952](https://github.com/Kong/kongponents/issues/2952) [#2952](https://github.com/Kong/kongponents/issues/2952) [#2958](https://github.com/Kong/kongponents/issues/2958)
+
 ## [9.43.2](https://github.com/Kong/kongponents/compare/v9.43.1...v9.43.2) (2025-10-24)
 
 
