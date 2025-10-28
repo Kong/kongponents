@@ -595,6 +595,7 @@ const isScrollableVertically = ref<boolean>(false)
 const isScrolledVertically = ref<boolean>(false)
 const isScrolledHorizontally = ref<boolean>(false)
 const isScrollableRight = ref<boolean>(false)
+const previousSortKeys = ref<ColumnKey[]>([])
 const sortColumnKey = ref(tablePreferences.sortColumnKey || '') as Ref<ColumnKey | ''>
 const sortColumnOrder = ref<SortColumnOrder>(tablePreferences.sortColumnOrder || 'desc')
 const isClickable = ref(false)
@@ -797,16 +798,28 @@ const getHeaderClasses = (column: TableViewHeader<ColumnKey>, index: number): Re
 
 const onHeaderClick = (column: TableViewHeader<ColumnKey>) => {
   if (column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS) {
-    let newSortColumnOrder: SortColumnOrder = 'asc'
+    let newSortColumnOrder: SortColumnOrder | '' = 'asc'
+    let newSortColumnKey: ColumnKey | '' = column.key
     if (column.key === sortColumnKey.value && sortColumnOrder.value === 'asc') {
       newSortColumnOrder = 'desc'
     }
+    previousSortKeys.value.unshift(column.key as TableReservedColumnKey)
+    if (previousSortKeys.value.length === 3) {
+      if (previousSortKeys.value[0] === previousSortKeys.value[1] && previousSortKeys.value[1] === previousSortKeys.value[2]) {
+        // user has clicked the same column 3 times in a row, reset sort
+        newSortColumnOrder = ''
+        newSortColumnKey = ''
+        previousSortKeys.value = []
+      } else {
+        previousSortKeys.value.pop()
+      }
+    }
     emit('sort', {
       prevKey: sortColumnKey.value,
-      sortColumnKey: column.key,
+      sortColumnKey: newSortColumnKey,
       sortColumnOrder: newSortColumnOrder,
     })
-    sortClickHandler(column)
+    sortClickHandler(newSortColumnKey)
   }
 }
 
@@ -1015,23 +1028,24 @@ watch(() => headers, (newVal: readonly Header[]) => {
 
 const isColumnSortable = (column: TableViewHeader<ColumnKey>): boolean => !column.hideLabel && !!column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS
 
-const sortClickHandler = (header: TableViewHeader<ColumnKey>): void => {
-  const { key } = header
-
-  if (sortColumnKey.value) {
-    if (key === sortColumnKey.value) {
+const sortClickHandler = (columnKey: ColumnKey | ''): void => {
+  if (sortColumnKey.value && columnKey) {
+    if (columnKey === sortColumnKey.value) {
       if (sortColumnOrder.value === 'asc') {
         sortColumnOrder.value = 'desc'
       } else {
         sortColumnOrder.value = 'asc'
       }
     } else {
-      sortColumnKey.value = key
+      sortColumnKey.value = columnKey
       sortColumnOrder.value = 'asc'
     }
-  } else {
-    sortColumnKey.value = key
+  } else if (columnKey) {
+    sortColumnKey.value = columnKey
     sortColumnOrder.value = 'asc'
+  } else {
+    sortColumnKey.value = ''
+    sortColumnOrder.value = 'desc'
   }
 
   // Emit an event whenever one of the tablePreferences are updated
