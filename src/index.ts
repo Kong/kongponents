@@ -2,7 +2,7 @@ import type { App } from 'vue'
 import * as components from './components' // Import all components
 import './styles/styles.scss' // Import all styles
 
-// Export Vue plugin
+// Export Vue plugin by default
 export default {
   install: (app: App): void => {
     for (const key in components) {
