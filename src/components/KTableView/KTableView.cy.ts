@@ -499,7 +499,9 @@ describe('KTableView', () => {
       cy.getTestId('table-header-name').should('have.attr', 'aria-sort', 'ascending')
     })
 
-    it.only('sorting a column three times resets the sort', () => {
+    it('sorting a column three times resets the sort', () => {
+      const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+
       cy.mount(KTableView, {
         props: {
           headers: options.headers,
@@ -507,13 +509,21 @@ describe('KTableView', () => {
         },
       })
 
-      cy.get('th').eq(0).should('not.have.class', 'active-sort')
-      cy.get('th').eq(0).click().then(() => {
-        cy.get('th').eq(0).should('have.class', 'active-sort')
-        cy.get('th').eq(0).click().then(() => {
-          cy.get('th').eq(0).should('have.class', 'active-sort')
-          cy.get('th').eq(0).click().then(() => {
-            cy.get('th').eq(0).should('not.have.class', 'active-sort')
+      cy.getTestId(`table-header-${sortableColumnKey}`).should('not.have.class', 'active-sort')
+      cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
+        cy.getTestId(`table-header-${sortableColumnKey}`).should('have.class', 'active-sort')
+        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 1)
+        cy.wrap(Cypress.vueWrapper.emitted('sort')?.[0]?.[0]).should('deep.equal', { prevKey: '', sortColumnKey: sortableColumnKey, sortColumnOrder: 'asc' })
+
+        cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
+          cy.getTestId(`table-header-${sortableColumnKey}`).should('have.class', 'active-sort')
+          cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 2)
+          cy.wrap(Cypress.vueWrapper.emitted('sort')?.[1]?.[0]).should('deep.equal', { prevKey: sortableColumnKey, sortColumnKey: sortableColumnKey, sortColumnOrder: 'desc' })
+
+          cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
+            cy.getTestId(`table-header-${sortableColumnKey}`).should('not.have.class', 'active-sort')
+            cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 3)
+            cy.wrap(Cypress.vueWrapper.emitted('sort')?.[2]?.[0]).should('deep.equal', { prevKey: sortableColumnKey, sortColumnKey: '', sortColumnOrder: '' })
           })
         })
       })
