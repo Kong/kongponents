@@ -1,3 +1,10 @@
+# [9.45.0](https://github.com/Kong/kongponents/compare/v9.44.0...v9.45.0) (2025-10-29)
+
+
+### Features
+
+* add official nuxt integration module for kongponents [KHCP-18358] ([#2953](https://github.com/Kong/kongponents/issues/2953)) ([912fb58](https://github.com/Kong/kongponents/commit/912fb58843a1346ed30e7b10a29e0e1c6d1eab16))
+
 # [9.44.0](https://github.com/Kong/kongponents/compare/v9.43.2...v9.44.0) (2025-10-28)
 
 
