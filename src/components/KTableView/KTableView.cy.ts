@@ -498,6 +498,26 @@ describe('KTableView', () => {
       cy.getTestId('table-header-name').should('have.class', 'active-sort')
       cy.getTestId('table-header-name').should('have.attr', 'aria-sort', 'ascending')
     })
+
+    it.only('sorting a column three times resets the sort', () => {
+      cy.mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+        },
+      })
+
+      cy.get('th').eq(0).should('not.have.class', 'active-sort')
+      cy.get('th').eq(0).click().then(() => {
+        cy.get('th').eq(0).should('have.class', 'active-sort')
+        cy.get('th').eq(0).click().then(() => {
+          cy.get('th').eq(0).should('have.class', 'active-sort')
+          cy.get('th').eq(0).click().then(() => {
+            cy.get('th').eq(0).should('not.have.class', 'active-sort')
+          })
+        })
+      })
+    })
   })
 
   describe('pagination', () => {
