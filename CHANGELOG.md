@@ -1,3 +1,11 @@
+## [9.45.1](https://github.com/Kong/kongponents/compare/v9.45.0...v9.45.1) (2025-10-29)
+
+
+### Bug Fixes
+
+* ci publish pipeline ([#2963](https://github.com/Kong/kongponents/issues/2963)) ([99c4e32](https://github.com/Kong/kongponents/commit/99c4e327da4122de347584b937bab511c7721f8e))
+* trigger release ([0ecfb18](https://github.com/Kong/kongponents/commit/0ecfb183df7ad9c79f0e85adb294d27b882c5986))
+
 # [9.45.0](https://github.com/Kong/kongponents/compare/v9.44.0...v9.45.0) (2025-10-29)
 
 
