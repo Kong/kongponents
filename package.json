@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.42.11",
+  "version": "9.44.0",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -76,7 +76,7 @@
   },
   "peerDependencies": {
     "vue": ">= 3.5.0 < 4",
-    "vue-router": "^4.6.0"
+    "vue-router": "^4.6.3"
   },
   "devDependencies": {
     "@babel/types": "^7.28.4",
@@ -85,8 +85,8 @@
     "@cypress/vite-dev-server": "^6.0.3",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@evilmartians/lefthook": "^1.13.6",
-    "@kong-ui-public/sandbox-layout": "^2.3.4",
-    "@kong/design-tokens": "^1.18.0",
+    "@kong-ui-public/sandbox-layout": "^2.3.6",
+    "@kong/design-tokens": "^1.18.1",
     "@kong/eslint-config-kong-ui": "1.5.1",
     "@nuxt/kit": "^4.1.3",
     "@semantic-release/changelog": "^6.0.3",
@@ -94,7 +94,7 @@
     "@stylistic/stylelint-plugin": "^4.0.0",
     "@types/inquirer": "^9.0.7",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^22.18.10",
+    "@types/node": "^22.18.11",
     "@types/sortablejs": "^1.15.8",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vue/compiler-core": "^3.5.22",
@@ -118,7 +118,7 @@
     "postcss-custom-properties": "^14.0.6",
     "postcss-html": "^1.8.0",
     "rimraf": "^6.0.1",
-    "rollup-plugin-visualizer": "^6.0.4",
+    "rollup-plugin-visualizer": "^6.0.5",
     "sass": "^1.93.2",
     "semantic-release": "^24.2.9",
     "shiki": "^3.13.0",
@@ -130,11 +130,11 @@
     "stylelint-order": "^7.0.0",
     "tsc-alias": "^1.8.16",
     "typescript": "^5.9.3",
-    "vite": "^6.3.6",
+    "vite": "^6.3.7",
     "vite-plugin-vue-devtools": "^7.7.7",
     "vitepress": "^1.6.4",
     "vue": "^3.5.22",
-    "vue-router": "^4.6.0",
+    "vue-router": "^4.6.3",
     "vue-tsc": "^2.2.12"
   },
   "resolutions": {
@@ -194,10 +194,10 @@
     "node": ">=v16.20.2 || >=18.12.1 || >=20.14.0 || >=22.14.0",
     "pnpm": ">=9.11.0 || >=10.10.0"
   },
-  "packageManager": "pnpm@10.18.2",
+  "packageManager": "pnpm@10.18.3",
   "volta": {
     "node": "24.10.0",
-    "pnpm": "10.18.2"
+    "pnpm": "10.18.3"
   },
   "config": {
     "commitizen": {

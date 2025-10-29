@@ -79,4 +79,36 @@ describe('KLabel', () => {
 
     cy.get('.k-label').invoke('attr', 'for').should('eq', id)
   })
+
+  it('does not toggle the associated control when clicking the tooltip trigger', () => {
+    cy.mount(KLabel, {
+      slots: {
+        default: () => [
+          h('input', {
+            id: 'label-input',
+            type: 'checkbox',
+          }),
+          h('span', {
+            id: 'label-text',
+          }, 'Full Name'),
+        ],
+        tooltip: () => h('a', {
+          id: 'link',
+          href: '#docs-link',
+        }, 'Learn more'),
+      },
+    })
+
+    cy.get('.tooltip-trigger-icon').click()
+    cy.get('#label-input').should('not.be.checked')
+
+    cy.location('hash').should('eq', '')
+    cy.get('.tooltip-trigger-icon').trigger('mouseenter')
+    cy.get('#link').should('be.visible').click()
+    cy.location('hash').should('eq', '#docs-link')
+    cy.get('#label-input').should('not.be.checked')
+
+    cy.get('#label-text').click()
+    cy.get('input[type="checkbox"]').should('be.checked')
+  })
 })

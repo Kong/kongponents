@@ -1,5 +1,5 @@
 # Reference:
-# https://github.com/evilmartians/lefthook/blob/master/docs/full_guide.md
+# https://lefthook.dev/configuration/
 
 pre-push:
   parallel: true
@@ -8,12 +8,14 @@ pre-push:
       skip:
         - merge
         - rebase
-      run: pnpm stylelint
+      glob: '*.{css,scss,sass,vue}'
+      run: pnpm exec stylelint -- {push_files}
     eslint:
       skip:
         - merge
         - rebase
-      run: pnpm lint
+      glob: '*.{js,mjs,cjs,jsx,ts,tsx,mts,cts,vue}'
+      run: pnpm exec eslint -- {push_files}
 
 commit-msg:
   parallel: true

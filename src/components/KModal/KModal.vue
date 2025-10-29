@@ -283,6 +283,7 @@ onUnmounted(() => {
 
         .modal-content {
           flex: 1;
+          max-height: none;
         }
       }
     }

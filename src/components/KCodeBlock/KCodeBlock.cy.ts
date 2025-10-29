@@ -65,6 +65,16 @@ describe('KCodeBlock', () => {
     cy.get('[data-testid="code-block-copy-button-code-block"]').should('not.exist')
   })
 
+  it('always show the copy button without needing to hover when props.showCopyButton is "always"', () => {
+    cy.viewport(1281, 800)
+
+    renderComponent({ id: 'code-block' })
+    cy.get('[data-testid="code-block-copy-button-code-block"]').should('not.be.visible')
+
+    renderComponent({ id: 'code-block', showCopyButton: 'always' })
+    cy.get('[data-testid="code-block-copy-button-code-block"]').should('be.visible')
+  })
+
   it('can be searched to highlight matching lines', () => {
     const id = 'code-block'
     renderComponent({

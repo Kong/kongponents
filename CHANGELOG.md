@@ -1,3 +1,36 @@
+# [9.44.0](https://github.com/Kong/kongponents/compare/v9.43.2...v9.44.0) (2025-10-28)
+
+
+### Bug Fixes
+
+* **deps:** bump @kong/design-tokens ([#2961](https://github.com/Kong/kongponents/issues/2961)) ([3e2d48c](https://github.com/Kong/kongponents/commit/3e2d48cb5cb8f4602c915e8c12bd13e1375e6ffc))
+
+
+### Features
+
+* **k-code-block:** add new api for always showing the action buttons ([#2950](https://github.com/Kong/kongponents/issues/2950)) ([fe872d7](https://github.com/Kong/kongponents/commit/fe872d7dfe9525e67c1248f0e187d7fbb55e9ef5)), closes [#2951](https://github.com/Kong/kongponents/issues/2951) [#2946](https://github.com/Kong/kongponents/issues/2946) [#2947](https://github.com/Kong/kongponents/issues/2947) [#2947](https://github.com/Kong/kongponents/issues/2947) [#2955](https://github.com/Kong/kongponents/issues/2955) [#2955](https://github.com/Kong/kongponents/issues/2955) [#2952](https://github.com/Kong/kongponents/issues/2952) [#2952](https://github.com/Kong/kongponents/issues/2952) [#2958](https://github.com/Kong/kongponents/issues/2958)
+
+## [9.43.2](https://github.com/Kong/kongponents/compare/v9.43.1...v9.43.2) (2025-10-24)
+
+
+### Bug Fixes
+
+* **ktableview:** overlay should be hidden when no room to scroll right ([#2952](https://github.com/Kong/kongponents/issues/2952)) ([b29072e](https://github.com/Kong/kongponents/commit/b29072e961c197373e00ca6e7b99438712a8f0ec))
+
+## [9.43.1](https://github.com/Kong/kongponents/compare/v9.43.0...v9.43.1) (2025-10-23)
+
+
+### Bug Fixes
+
+* **kmodal:** full screen modal content height [KHCP-18359] ([#2955](https://github.com/Kong/kongponents/issues/2955)) ([9f8169c](https://github.com/Kong/kongponents/commit/9f8169c5bff1987a6d519657131645d4395f6119))
+
+# [9.43.0](https://github.com/Kong/kongponents/compare/v9.42.11...v9.43.0) (2025-10-23)
+
+
+### Features
+
+* **klabel:** improve prevent default logic to allow tooltip links ([#2947](https://github.com/Kong/kongponents/issues/2947)) ([2f2ec42](https://github.com/Kong/kongponents/commit/2f2ec42ca767261ec53c892c1367dedb432fef65))
+
 ## [9.42.11](https://github.com/Kong/kongponents/compare/v9.42.10...v9.42.11) (2025-10-20)
 
 
