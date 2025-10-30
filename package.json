@@ -130,7 +130,7 @@
     "stylelint-order": "^7.0.0",
     "tsc-alias": "^1.8.16",
     "typescript": "^5.9.3",
-    "vite": "^6.3.7",
+    "vite": "^6.4.0",
     "vite-plugin-vue-devtools": "^7.7.7",
     "vitepress": "^1.6.4",
     "vue": "^3.5.22",
