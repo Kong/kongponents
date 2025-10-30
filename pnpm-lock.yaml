@@ -208,7 +208,7 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
       vite:
-        specifier: ^6.3.7
+        specifier: ^6.4.0
         version: 6.4.1(@types/node@22.18.13)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
       vite-plugin-vue-devtools:
         specifier: ^7.7.7
