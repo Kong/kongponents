@@ -85,7 +85,7 @@
     "@cypress/vite-dev-server": "^6.0.3",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@evilmartians/lefthook": "^1.13.6",
-    "@kong-ui-public/sandbox-layout": "^2.3.6",
+    "@kong-ui-public/sandbox-layout": "^2.3.8",
     "@kong/design-tokens": "^1.18.1",
     "@kong/eslint-config-kong-ui": "1.5.1",
     "@nuxt/kit": "^4.1.3",
