@@ -523,7 +523,7 @@ describe('KTableView', () => {
           cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
             cy.getTestId(`table-header-${sortableColumnKey}`).should('not.have.class', 'active-sort')
             cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 3)
-            cy.wrap(Cypress.vueWrapper.emitted('sort')?.[2]?.[0]).should('deep.equal', { prevKey: sortableColumnKey, sortColumnKey: '', sortColumnOrder: '' })
+            cy.wrap(Cypress.vueWrapper.emitted('sort')?.[2]?.[0]).should('deep.equal', { prevKey: sortableColumnKey, sortColumnKey: '', sortColumnOrder: 'desc' })
           })
         })
       })

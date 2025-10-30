@@ -597,7 +597,8 @@ const isScrolledHorizontally = ref<boolean>(false)
 const isScrollableRight = ref<boolean>(false)
 const previousSortKeys = ref<ColumnKey[]>([])
 const sortColumnKey = ref(tablePreferences.sortColumnKey || '') as Ref<ColumnKey | ''>
-const sortColumnOrder = ref<SortColumnOrder>(tablePreferences.sortColumnOrder || 'desc')
+const DEFAULT_SORT_ORDER: SortColumnOrder = 'desc'
+const sortColumnOrder = ref<SortColumnOrder>(tablePreferences.sortColumnOrder || DEFAULT_SORT_ORDER)
 const isClickable = ref(false)
 const hasToolbarSlot = computed((): boolean => !hideToolbar && !nested && (!!slots.toolbar || hasColumnVisibilityMenu.value || showBulkActionsToolbar.value))
 const actionsDropdownRef = useTemplateRef('actionsDropdown')
@@ -798,7 +799,7 @@ const getHeaderClasses = (column: TableViewHeader<ColumnKey>, index: number): Re
 
 const onHeaderClick = (column: TableViewHeader<ColumnKey>) => {
   if (column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS) {
-    let newSortColumnOrder: SortColumnOrder | '' = 'asc'
+    let newSortColumnOrder: SortColumnOrder = 'asc'
     let newSortColumnKey: ColumnKey | '' = column.key
     if (column.key === sortColumnKey.value && sortColumnOrder.value === 'asc') {
       newSortColumnOrder = 'desc'
@@ -807,7 +808,7 @@ const onHeaderClick = (column: TableViewHeader<ColumnKey>) => {
     if (previousSortKeys.value.length === 3) {
       if (previousSortKeys.value[0] === previousSortKeys.value[1] && previousSortKeys.value[1] === previousSortKeys.value[2]) {
         // user has clicked the same column 3 times in a row, reset sort
-        newSortColumnOrder = ''
+        newSortColumnOrder = DEFAULT_SORT_ORDER
         newSortColumnKey = ''
         previousSortKeys.value = []
       } else {
@@ -1045,7 +1046,7 @@ const sortClickHandler = (columnKey: ColumnKey | ''): void => {
     sortColumnOrder.value = 'asc'
   } else {
     sortColumnKey.value = ''
-    sortColumnOrder.value = 'desc'
+    sortColumnOrder.value = DEFAULT_SORT_ORDER
   }
 
   // Emit an event whenever one of the tablePreferences are updated

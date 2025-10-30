@@ -106,7 +106,7 @@ export type TableState = 'loading' | 'error' | 'success' | 'empty'
 export interface TableSortPayload<Key extends string = string> {
   prevKey: Key | ''
   sortColumnKey: Key | ''
-  sortColumnOrder: SortColumnOrder | ''
+  sortColumnOrder: SortColumnOrder
 }
 export interface TableStatePayload {
   state: TableState
