@@ -8,7 +8,7 @@
     "url": "https://github.com/Kong/kongponents.git"
   },
   "homepage": "https://kongponents.konghq.com/",
-  "main": "./dist/kongponents.umd.js",
+  "main": "./dist/kongponents.cjs",
   "module": "./dist/kongponents.es.js",
   "files": [
     "dist",
@@ -20,7 +20,7 @@
     ".": {
       "types": "./dist/types/index.d.ts",
       "import": "./dist/kongponents.es.js",
-      "require": "./dist/kongponents.umd.js"
+      "require": "./dist/kongponents.cjs"
     },
     "./nuxt": {
       "import": "./dist/nuxt/index.js",

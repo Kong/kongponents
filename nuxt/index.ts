@@ -102,6 +102,6 @@ export default defineNuxtModule<ModuleOptions>({
       })
     })
 
-    logger.success('🚀 Kongponents module has been registered.')
+    logger.success('Kongponents module has been registered 🚀')
   },
 })

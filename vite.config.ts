@@ -50,7 +50,14 @@ export default defineConfig({
       : {
         entry: path.resolve(__dirname, 'src/index.ts'),
         name: 'Kongponents',
-        fileName: (format) => `kongponents.${format}.js`,
+        fileName: (format) => {
+          if (format === 'cjs') {
+            return 'kongponents.cjs'
+          } else {
+            return `kongponents.${format}.js`
+          }
+        },
+        formats: ['es', 'cjs'],
       },
     minify: true,
     sourcemap: !!process.env.BUILD_VISUALIZER,
@@ -64,6 +71,9 @@ export default defineConfig({
             'vue-router': 'VueRouter',
           },
         exports: 'named',
+        preserveModules: true,
+        preserveModulesRoot: 'src',
+        inlineDynamicImports: false,
       },
       plugins: [
         // visualizer must remain last in the list of plugins
