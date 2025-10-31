@@ -75,6 +75,7 @@ export default defineConfig({
         preserveModulesRoot: 'src',
         inlineDynamicImports: false,
       },
+      preserveEntrySignatures: 'strict',
       plugins: [
         // visualizer must remain last in the list of plugins
         buildVisualizerPlugin,
