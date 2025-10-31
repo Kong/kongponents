@@ -34,7 +34,7 @@
     "build:cli": "rimraf ./bin && tsc --project ./cli/tsconfig.json && chmod u+x ./bin/index.js",
     "build:docs": "vitepress build docs",
     "build:kongponents:umd": "BUILD_UMD=true vite build",
-    "build:kongponents": "pnpm typecheck && vite build && vue-tsc -p './tsconfig.build.json' --emitDeclarationOnly && tsc-alias -p './tsconfig.build.json' && build:kongponents:umd && pnpm build:nuxt",
+    "build:kongponents": "pnpm typecheck && vite build && vue-tsc -p './tsconfig.build.json' --emitDeclarationOnly && tsc-alias -p './tsconfig.build.json' && pnpm build:kongponents:umd && pnpm build:nuxt",
     "build:nuxt": "tsc -p ./tsconfig.build.nuxt.json --outDir dist/nuxt",
     "build:visualize": "cross-env-shell BUILD_VISUALIZER=true vite build -m production",
     "build": "pnpm build:cli && pnpm stylelint && pnpm lint && pnpm build:kongponents && pnpm build:docs",
