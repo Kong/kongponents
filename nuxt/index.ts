@@ -78,7 +78,7 @@ export default defineNuxtModule<ModuleOptions>({
         name,
         export: name,
         filePath: '@kong/kongponents',
-        //!IMPORTANT: we must register components as global
+        //!IMPORTANT: we must register components as global because the nuxt app might be using packages that rely on kongponents being global (e.g., @nuxt/content, @kong-ui-public/analytics-chart, ...)
         global: true,
         // 'all' means both client and server
         mode: 'all',
