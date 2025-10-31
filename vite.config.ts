@@ -17,6 +17,10 @@ const buildVisualizerPlugin = process.env.BUILD_VISUALIZER
 // !Important: always externalize `shiki/onig.wasm`
 const externalSandboxDependencies: string[] = ['shiki/onig.wasm']
 
+// we need to have a separate build for UMD to avoid issues with dynamic imports and preserveModules
+const isUMDBuild = process.env.BUILD_UMD === 'true'
+const buildFormats: Array<'es' | 'cjs' | 'umd'> = isUMDBuild ? ['umd'] : ['es', 'cjs']
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -45,6 +49,7 @@ export default defineConfig({
   },
   base: process.env.USE_SANDBOX && !process.env.USE_NETLIFY ? '/kongponents/' : '/',
   build: {
+    emptyOutDir: isUMDBuild ? false : true,
     lib: process.env.USE_SANDBOX
       ? undefined
       : {
@@ -57,7 +62,7 @@ export default defineConfig({
             return `kongponents.${format}.js`
           }
         },
-        formats: ['es', 'cjs'],
+        formats: buildFormats,
       },
     minify: true,
     sourcemap: !!process.env.BUILD_VISUALIZER,
@@ -71,9 +76,9 @@ export default defineConfig({
             'vue-router': 'VueRouter',
           },
         exports: 'named',
-        preserveModules: true,
-        preserveModulesRoot: 'src',
-        inlineDynamicImports: false,
+        preserveModules: isUMDBuild ? false : true,
+        preserveModulesRoot: isUMDBuild ? undefined : 'src',
+        inlineDynamicImports: isUMDBuild ? true : false,
       },
       preserveEntrySignatures: 'strict',
       plugins: [
