@@ -800,13 +800,14 @@ const onHeaderClick = (column: TableViewHeader<ColumnKey>) => {
   if (column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS) {
     let newSortColumnOrder: SortColumnOrder = 'asc'
     let newSortColumnKey: ColumnKey | '' = column.key
-    if (column.key === sortColumnKey.value && sortColumnOrder.value === 'asc') {
+    if (newSortColumnKey === sortColumnKey.value && sortColumnOrder.value === 'asc') {
       newSortColumnOrder = 'desc'
     }
     // Reset sorting column when clicking on same column while in descending order
     // this mimics a three-state toggle: 'asc' -> 'desc' -> 'none'
     if (newSortColumnKey === sortColumnKey.value && sortColumnOrder.value === 'desc') {
       newSortColumnKey = ''
+      newSortColumnOrder = DEFAULT_SORT_ORDER
     }
 
     emit('sort', {

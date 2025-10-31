@@ -554,13 +554,19 @@ describe('KTableData', () => {
           },
           initialFetcherParams: {
             sortColumnKey: 'name',
-            sortColumnOrder: 'asc',
+            sortColumnOrder: 'desc',
           },
         },
       })
 
       cy.getTestId('table-header-name').should('have.class', 'active-sort')
-      cy.getTestId('table-header-name').should('have.attr', 'aria-sort', 'ascending')
+      cy.getTestId('table-header-name').should('have.attr', 'aria-sort', 'descending')
+
+      // When already sorted in descending order, clicking should reset the sorting state
+      cy.getTestId('table-header-name').click().then(() => {
+        cy.getTestId('table-header-name').should('not.have.class', 'active-sort')
+        cy.getTestId('table-header-name').should('not.have.attr', 'aria-sort')
+      })
     })
 
     it('sorting a column three times resets the sort', () => {

@@ -544,7 +544,7 @@ const onRowClick = (row: any) => {
   alert(`Row clicked:' ${JSON.stringify(row)}`)
 }
 
-const sortableTableDefaultSort: TablePreferences = { sortColumnKey: 'username', sortColumnOrder: 'asc' }
+const sortableTableDefaultSort: TablePreferences = { sortColumnKey: 'username', sortColumnOrder: 'desc' }
 const onSortableTableInitialSortingChange = (value: boolean, wrapperData: any) => {
   if (value) {
     sortData({ prevKey: '', ...sortableTableDefaultSort } as TableSortPayload)
