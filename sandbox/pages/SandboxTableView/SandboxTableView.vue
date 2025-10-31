@@ -468,7 +468,7 @@ import { AddIcon } from '@kong/icons'
 const headers = (hidable: boolean = false, sortable: boolean = false, bulkActions: boolean = false): TableViewHeader[] => {
   return [
     { key: 'actions', label: 'Row actions' },
-    { key: 'name', label: 'Full Name' },
+    { key: 'name', label: 'Full Name', sortable: true },
     { key: 'username', label: 'Username', tooltip: sortable ? undefined : 'Column with a tooltip.', sortable },
     { key: 'email', label: 'Email', hidable },
     ...(bulkActions ? [{ key: 'bulkActions', label: 'Bulk actions' }] : []),

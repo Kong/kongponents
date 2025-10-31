@@ -31,10 +31,19 @@
         </KComponent>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="disableDrag">
-        <KTreeList
-          disable-drag
-          :items="items4"
-        />
+        <KComponent
+          v-slot="{ data }"
+          :data="{ allowDragging: false }"
+        >
+          <KInputSwitch
+            v-model="data.allowDragging"
+            label="Allow dragging"
+          />
+          <KTreeList
+            :disable-drag="!data.allowDragging"
+            :items="items4"
+          />
+        </KComponent>
       </SandboxSectionComponent>
       <SandboxSectionComponent title="ignoreDragSelectors">
         <KTreeList

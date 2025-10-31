@@ -595,7 +595,6 @@ const isScrollableVertically = ref<boolean>(false)
 const isScrolledVertically = ref<boolean>(false)
 const isScrolledHorizontally = ref<boolean>(false)
 const isScrollableRight = ref<boolean>(false)
-const previousSortKeys = ref<ColumnKey[]>([])
 const sortColumnKey = ref(tablePreferences.sortColumnKey || '') as Ref<ColumnKey | ''>
 const DEFAULT_SORT_ORDER: SortColumnOrder = 'desc'
 const sortColumnOrder = ref<SortColumnOrder>(tablePreferences.sortColumnOrder || DEFAULT_SORT_ORDER)
@@ -804,17 +803,12 @@ const onHeaderClick = (column: TableViewHeader<ColumnKey>) => {
     if (column.key === sortColumnKey.value && sortColumnOrder.value === 'asc') {
       newSortColumnOrder = 'desc'
     }
-    previousSortKeys.value.unshift(column.key as TableReservedColumnKey)
-    if (previousSortKeys.value.length === 3) {
-      if (previousSortKeys.value[0] === previousSortKeys.value[1] && previousSortKeys.value[1] === previousSortKeys.value[2]) {
-        // user has clicked the same column 3 times in a row, reset sort
-        newSortColumnOrder = DEFAULT_SORT_ORDER
-        newSortColumnKey = ''
-        previousSortKeys.value = []
-      } else {
-        previousSortKeys.value.pop()
-      }
+    // Reset sorting column when clicking on same column while in descending order
+    // this mimics a three-state toggle: 'asc' -> 'desc' -> 'none'
+    if (newSortColumnKey === sortColumnKey.value && sortColumnOrder.value === 'desc') {
+      newSortColumnKey = ''
     }
+
     emit('sort', {
       prevKey: sortColumnKey.value,
       sortColumnKey: newSortColumnKey,
@@ -1030,6 +1024,7 @@ watch(() => headers, (newVal: readonly Header[]) => {
 const isColumnSortable = (column: TableViewHeader<ColumnKey>): boolean => !column.hideLabel && !!column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS
 
 const sortClickHandler = (columnKey: ColumnKey | ''): void => {
+  // If clicking on the currently sorted column, toggle the sort order
   if (sortColumnKey.value && columnKey) {
     if (columnKey === sortColumnKey.value) {
       if (sortColumnOrder.value === 'asc') {
@@ -1041,9 +1036,11 @@ const sortClickHandler = (columnKey: ColumnKey | ''): void => {
       sortColumnKey.value = columnKey
       sortColumnOrder.value = 'asc'
     }
+  // Otherwise if not currently sorted, set to ascending order
   } else if (columnKey) {
     sortColumnKey.value = columnKey
     sortColumnOrder.value = 'asc'
+  // If resetting sort (no columnKey), reset sort state to defaults
   } else {
     sortColumnKey.value = ''
     sortColumnOrder.value = DEFAULT_SORT_ORDER
