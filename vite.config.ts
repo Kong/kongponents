@@ -80,6 +80,7 @@ export default defineConfig({
         preserveModulesRoot: isUMDBuild ? undefined : 'src',
         inlineDynamicImports: isUMDBuild ? true : false,
       },
+      // this option is needed because of preserveModules usage for preview build to work
       preserveEntrySignatures: 'strict',
       plugins: [
         // visualizer must remain last in the list of plugins
