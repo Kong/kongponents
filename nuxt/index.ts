@@ -78,8 +78,8 @@ export default defineNuxtModule<ModuleOptions>({
         name,
         export: name,
         filePath: '@kong/kongponents',
-        // we don't need global registration here
-        global: false,
+        //!IMPORTANT: we must register components as global
+        global: true,
         // 'all' means both client and server
         mode: 'all',
       })
