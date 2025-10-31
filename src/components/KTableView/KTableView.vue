@@ -596,8 +596,8 @@ const isScrolledVertically = ref<boolean>(false)
 const isScrolledHorizontally = ref<boolean>(false)
 const isScrollableRight = ref<boolean>(false)
 const sortColumnKey = ref(tablePreferences.sortColumnKey || '') as Ref<ColumnKey | ''>
-const DEFAULT_SORT_ORDER: SortColumnOrder = 'desc'
-const sortColumnOrder = ref<SortColumnOrder>(tablePreferences.sortColumnOrder || DEFAULT_SORT_ORDER)
+const DEFAULT_INITIAL_SORT_ORDER: SortColumnOrder = 'desc'
+const sortColumnOrder = ref<SortColumnOrder>(tablePreferences.sortColumnOrder || DEFAULT_INITIAL_SORT_ORDER)
 const isClickable = ref(false)
 const hasToolbarSlot = computed((): boolean => !hideToolbar && !nested && (!!slots.toolbar || hasColumnVisibilityMenu.value || showBulkActionsToolbar.value))
 const actionsDropdownRef = useTemplateRef('actionsDropdown')
@@ -807,7 +807,7 @@ const onHeaderClick = (column: TableViewHeader<ColumnKey>) => {
     // this mimics a three-state toggle: 'asc' -> 'desc' -> 'none'
     if (newSortColumnKey === sortColumnKey.value && sortColumnOrder.value === 'desc') {
       newSortColumnKey = ''
-      newSortColumnOrder = DEFAULT_SORT_ORDER
+      newSortColumnOrder = DEFAULT_INITIAL_SORT_ORDER
     }
 
     emit('sort', {
@@ -1044,7 +1044,7 @@ const sortClickHandler = (columnKey: ColumnKey | ''): void => {
   // If resetting sort (no columnKey), reset sort state to defaults
   } else {
     sortColumnKey.value = ''
-    sortColumnOrder.value = DEFAULT_SORT_ORDER
+    sortColumnOrder.value = DEFAULT_INITIAL_SORT_ORDER
   }
 
   // Emit an event whenever one of the tablePreferences are updated
