@@ -149,7 +149,7 @@ const truncatedCount = ref<number>(0)
  * When rows prop > 1: wrapper hight will be rows count multiplied by height of the tallest child plus gap.
  * For example if rows is 2 and all elements are equal height if 22px, wrapper height will be set to 54px (2 * 22 + gap).
  */
-const setWrapperHeight = async (): Promise<void> => {
+const setWrapperHeight = () => {
   if (truncateText) {
     return
   }
@@ -163,10 +163,12 @@ const setWrapperHeight = async (): Promise<void> => {
       tallestChildHeight = children[i].offsetHeight > tallestChildHeight ? children[i].offsetHeight : tallestChildHeight
     }
     const targetWrapperHeight = (rows === 1 ? 0 : (rows - 1) * gapNumber) + (tallestChildHeight * rows) + 6 // account for padding
-    wrapperHeight.value = kTruncateContainer.value.offsetHeight > targetWrapperHeight ? `${targetWrapperHeight}px` : 'auto'
-
-    await nextTick()
-    updateToggleVisibility()
+    const _wraggerHeight = kTruncateContainer.value.offsetHeight > targetWrapperHeight ? `${targetWrapperHeight}px` : 'auto'
+    // Separate read and write layout attributes to avoid forced reflow
+    window.requestAnimationFrame(() => {
+      wrapperHeight.value = _wraggerHeight
+      window.requestAnimationFrame(updateToggleVisibility)
+    })
   }
 }
 
@@ -237,7 +239,12 @@ onMounted(() => {
   resizeObserver.value = ResizeObserverHelper.create(setWrapperHeight)
 
   resizeObserver.value.observe(kTruncateContainer.value as HTMLDivElement)
-  updateToggleVisibility()
+
+  // `resizeObserver.observe` will trigger callback even if size doesn't change,
+  // so updateToggleVisibility will be called in the observer callback if truncateText is false
+  if (truncateText) {
+    updateToggleVisibility()
+  }
 })
 
 onBeforeUnmount(() => {
