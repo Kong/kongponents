@@ -242,7 +242,9 @@ onMounted(() => {
 
   // `resizeObserver.observe` will trigger callback even if size doesn't change,
   // so updateToggleVisibility will be called in the observer callback if truncateText is false
-  if (truncateText) updateToggleVisibility()
+  if (truncateText) {
+    updateToggleVisibility()
+  }
 })
 
 onBeforeUnmount(() => {
