@@ -1,3 +1,10 @@
+## [9.45.2](https://github.com/Kong/kongponents/compare/v9.45.1...v9.45.2) (2025-11-01)
+
+
+### Bug Fixes
+
+* **ktableview:** update overlay visibility when the table is resized ([#2956](https://github.com/Kong/kongponents/issues/2956)) ([b4970c9](https://github.com/Kong/kongponents/commit/b4970c9a1e6968f1846718ca031caf61fb8408ef))
+
 ## [9.45.1](https://github.com/Kong/kongponents/compare/v9.45.0...v9.45.1) (2025-10-29)
 
 
