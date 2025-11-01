@@ -78,8 +78,8 @@ export default defineNuxtModule<ModuleOptions>({
         name,
         export: name,
         filePath: '@kong/kongponents',
-        // we don't need global registration here
-        global: false,
+        //!IMPORTANT: we must register components as global because the Nuxt app might be using packages that rely on Kongponents being globally available
+        global: true,
         // 'all' means both client and server
         mode: 'all',
       })
@@ -102,6 +102,6 @@ export default defineNuxtModule<ModuleOptions>({
       })
     })
 
-    logger.success('🚀 Kongponents module has been registered.')
+    logger.success('Kongponents module has been registered 🚀')
   },
 })
