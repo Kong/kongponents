@@ -544,7 +544,7 @@ const onRowClick = (row: any) => {
   alert(`Row clicked:' ${JSON.stringify(row)}`)
 }
 
-const sortableTableDefaultSort: TablePreferences = { sortColumnKey: 'username', sortColumnOrder: 'asc' }
+const sortableTableDefaultSort: TablePreferences = { sortColumnKey: 'username', sortColumnOrder: 'desc' }
 const onSortableTableInitialSortingChange = (value: boolean, wrapperData: any) => {
   if (value) {
     sortData({ prevKey: '', ...sortableTableDefaultSort } as TableSortPayload)
@@ -556,7 +556,7 @@ const onSortableTableInitialSortingChange = (value: boolean, wrapperData: any) =
 
 const sortData = (sortData: TableSortPayload): void => {
   const data = [...tableData]
-  const { sortColumnKey, sortColumnOrder } = sortData || { sortColumnKey: 'username', sortColumnOrder: 'asc' }
+  const { sortColumnKey, sortColumnOrder } = sortData
 
   data.sort((a: Record<string, any>, b: Record<string, any>) => {
     if (sortColumnKey === 'username') {
