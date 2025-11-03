@@ -1,3 +1,10 @@
+# [9.46.0](https://github.com/Kong/kongponents/compare/v9.45.3...v9.46.0) (2025-11-03)
+
+
+### Features
+
+* **packaging:** update build config to preserve modules for chunked output [KHCP-18457] ([#2966](https://github.com/Kong/kongponents/issues/2966)) ([a616139](https://github.com/Kong/kongponents/commit/a616139274d0a13e75593d90b7df870deb1be81d))
+
 ## [9.45.3](https://github.com/Kong/kongponents/compare/v9.45.2...v9.45.3) (2025-11-03)
 
 
