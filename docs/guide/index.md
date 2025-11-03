@@ -118,8 +118,8 @@ You must import the CSS from the `@kong/kongponents` package along with Vue.
 
 ```html
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script src="https://unpkg.com/@kong/kongponents@8/dist/kongponents.umd.js"></script>
-<link href="https://unpkg.com/@kong/kongponents@8/dist/style.css" rel="stylesheet" />
+<script src="https://unpkg.com/@kong/kongponents@9/dist/kongponents.umd.js"></script>
+<link href="https://unpkg.com/@kong/kongponents@9/dist/style.css" rel="stylesheet" />
 
 <div id="app">
   <k-button appearance="primary" v-on:click="count += 1" icon="plus">Add</k-button>
