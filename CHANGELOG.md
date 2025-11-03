@@ -1,3 +1,10 @@
+## [9.45.3](https://github.com/Kong/kongponents/compare/v9.45.2...v9.45.3) (2025-11-03)
+
+
+### Bug Fixes
+
+* **ktruncate:** optimize performance by avoiding forced reflow ([#2957](https://github.com/Kong/kongponents/issues/2957)) ([b504e71](https://github.com/Kong/kongponents/commit/b504e718a4473b7626ddd48be312c0f3921ba330))
+
 ## [9.45.2](https://github.com/Kong/kongponents/compare/v9.45.1...v9.45.2) (2025-11-01)
 
 
