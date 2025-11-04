@@ -79,7 +79,7 @@ const largeDataSet = [
 const options = {
   headers: [
     { label: 'Name', key: 'name', sortable: true, hideLabel: false },
-    { label: 'ID', key: 'id', sortable: false, hideLabel: false },
+    { label: 'ID', key: 'id', sortable: true, hideLabel: false },
     { label: 'Enabled', key: 'enabled', sortable: false, hideLabel: false },
     { label: '', key: 'link', sortable: false, hideLabel: true },
   ] as TableDataHeader[],
@@ -569,7 +569,7 @@ describe('KTableData', () => {
       })
     })
 
-    it('sorting a column three times resets the sort', () => {
+    it('sorting a column 3 times resets the sort', () => {
       const sortableColumnKey = options.headers.find(header => header.sortable)?.key
 
       cy.mount(KTableData, {
@@ -596,6 +596,36 @@ describe('KTableData', () => {
             cy.getTestId(`table-header-${sortableColumnKey}`).should('not.have.class', 'active-sort')
             cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 3)
             cy.wrap(Cypress.vueWrapper.emitted('sort')?.[2]?.[0]).should('deep.equal', { prevKey: sortableColumnKey, sortColumnKey: '', sortColumnOrder: 'desc' })
+          })
+        })
+      })
+    })
+
+    it('follows correct sorting order when switching sort columns', () => {
+      const firstSortableColumnKey = options.headers.filter(header => header.sortable)[0].key
+      const secondSortableColumnKey = options.headers.filter(header => header.sortable)[1].key
+
+      cy.mount(KTableData, {
+        props: {
+          headers: options.headers,
+          fetcher: () => {
+            return { data: options.data }
+          },
+        },
+      })
+
+      cy.getTestId(`table-header-${firstSortableColumnKey}`).click().then(() => {
+        cy.getTestId(`table-header-${firstSortableColumnKey}`).should('have.class', 'active-sort')
+        cy.getTestId(`table-header-${firstSortableColumnKey}`).should('have.attr', 'aria-sort', 'ascending')
+
+        cy.getTestId(`table-header-${firstSortableColumnKey}`).click().then(() => {
+          cy.getTestId(`table-header-${firstSortableColumnKey}`).should('have.attr', 'aria-sort', 'descending')
+
+          cy.getTestId(`table-header-${secondSortableColumnKey}`).click().then(() => {
+            cy.getTestId(`table-header-${secondSortableColumnKey}`).should('have.class', 'active-sort')
+            cy.getTestId(`table-header-${secondSortableColumnKey}`).should('have.attr', 'aria-sort', 'ascending')
+            cy.getTestId(`table-header-${firstSortableColumnKey}`).should('not.have.class', 'active-sort')
+            cy.getTestId(`table-header-${firstSortableColumnKey}`).should('not.have.attr', 'aria-sort')
           })
         })
       })
