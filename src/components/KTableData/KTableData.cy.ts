@@ -601,7 +601,7 @@ describe('KTableData', () => {
       })
     })
 
-    it('follows correct sorting order when switching sort columns', () => {
+    it('follows correct sorting state order when switching sort columns', () => {
       const firstSortableColumnKey = options.headers.filter(header => header.sortable)[0].key
       const secondSortableColumnKey = options.headers.filter(header => header.sortable)[1].key
 
