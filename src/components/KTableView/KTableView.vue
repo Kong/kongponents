@@ -815,7 +815,7 @@ const onHeaderClick = (column: TableViewHeader<ColumnKey>) => {
       sortColumnKey: newSortColumnKey,
       sortColumnOrder: newSortColumnOrder,
     })
-    sortClickHandler(newSortColumnKey)
+    sortClickHandler(newSortColumnKey) // TODO: refactor this, sortClickHandler logic can be handled here
   }
 }
 
@@ -1024,6 +1024,7 @@ watch(() => headers, (newVal: readonly Header[]) => {
 
 const isColumnSortable = (column: TableViewHeader<ColumnKey>): boolean => !column.hideLabel && !!column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS
 
+// TODO: refactor this, sortClickHandler logic can be handled directly in onHeaderClick
 const sortClickHandler = (columnKey: ColumnKey | ''): void => {
   // If clicking on the currently sorted column, toggle the sort order
   if (sortColumnKey.value && columnKey) {
