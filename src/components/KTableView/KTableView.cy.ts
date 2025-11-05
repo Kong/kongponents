@@ -490,13 +490,77 @@ describe('KTableView', () => {
           data: options.data,
           tablePreferences: {
             sortColumnKey: 'name',
-            sortColumnOrder: 'asc',
+            sortColumnOrder: 'desc',
           },
         },
       })
 
       cy.getTestId('table-header-name').should('have.class', 'active-sort')
-      cy.getTestId('table-header-name').should('have.attr', 'aria-sort', 'ascending')
+      cy.getTestId('table-header-name').should('have.attr', 'aria-sort', 'descending')
+
+      // When already sorted in descending order, clicking should reset the sorting state
+      cy.getTestId('table-header-name').click().then(() => {
+        cy.getTestId('table-header-name').should('not.have.class', 'active-sort')
+        cy.getTestId('table-header-name').should('not.have.attr', 'aria-sort')
+      })
+    })
+
+    it('sorting a column 3 times resets the sort', () => {
+      const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+
+      cy.mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+        },
+      })
+
+      cy.getTestId(`table-header-${sortableColumnKey}`).should('not.have.class', 'active-sort')
+      cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
+        cy.getTestId(`table-header-${sortableColumnKey}`).should('have.class', 'active-sort')
+        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 1)
+        cy.wrap(Cypress.vueWrapper.emitted('sort')?.[0]?.[0]).should('deep.equal', { prevKey: '', sortColumnKey: sortableColumnKey, sortColumnOrder: 'asc' })
+
+        cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
+          cy.getTestId(`table-header-${sortableColumnKey}`).should('have.class', 'active-sort')
+          cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 2)
+          cy.wrap(Cypress.vueWrapper.emitted('sort')?.[1]?.[0]).should('deep.equal', { prevKey: sortableColumnKey, sortColumnKey: sortableColumnKey, sortColumnOrder: 'desc' })
+
+          cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
+            cy.getTestId(`table-header-${sortableColumnKey}`).should('not.have.class', 'active-sort')
+            cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 3)
+            cy.wrap(Cypress.vueWrapper.emitted('sort')?.[2]?.[0]).should('deep.equal', { prevKey: sortableColumnKey, sortColumnKey: '', sortColumnOrder: 'desc' })
+          })
+        })
+      })
+    })
+
+    it('follows correct sorting state order when switching sort columns', () => {
+      const firstSortableColumnKey = options.headers.filter(header => header.sortable)[0].key
+      const secondSortableColumnKey = options.headers.filter(header => header.sortable)[1].key
+
+      cy.mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+        },
+      })
+
+      cy.getTestId(`table-header-${firstSortableColumnKey}`).click().then(() => {
+        cy.getTestId(`table-header-${firstSortableColumnKey}`).should('have.class', 'active-sort')
+        cy.getTestId(`table-header-${firstSortableColumnKey}`).should('have.attr', 'aria-sort', 'ascending')
+
+        cy.getTestId(`table-header-${firstSortableColumnKey}`).click().then(() => {
+          cy.getTestId(`table-header-${firstSortableColumnKey}`).should('have.attr', 'aria-sort', 'descending')
+
+          cy.getTestId(`table-header-${secondSortableColumnKey}`).click().then(() => {
+            cy.getTestId(`table-header-${secondSortableColumnKey}`).should('have.class', 'active-sort')
+            cy.getTestId(`table-header-${secondSortableColumnKey}`).should('have.attr', 'aria-sort', 'ascending')
+            cy.getTestId(`table-header-${firstSortableColumnKey}`).should('not.have.class', 'active-sort')
+            cy.getTestId(`table-header-${firstSortableColumnKey}`).should('not.have.attr', 'aria-sort')
+          })
+        })
+      })
     })
   })
 

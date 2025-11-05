@@ -333,6 +333,12 @@ const sortData = (sortData: TableSortPayload): void => {
 
 :::tip NOTE
 Notice that in the example above the _Username_ column is `sortable` and the _Email_ column is `hidable`.
+
+Sorting cycles through three states: ascending, descending, and unset.
+
+1. The first click on a sortable column header sorts the table data in ascending order.
+2. The second click reverses the order (descending).
+3. The third click removes sorting from that column.
 :::
 
 ### loading
