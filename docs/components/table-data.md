@@ -153,6 +153,12 @@ const sortHandlerFunction = ({ key, sortColumnOrder, data }) => {
 
 :::tip NOTE
 Notice in the example above the _Username_ column is `sortable`. In this example sorting is handled client-side; however, should you want to handle sorting differently (e.g. make a call to the back-end to apply server-side logic), you can bind your logic to the [`sort` event](#sort) and perform re-fetching of data as needed.
+
+Sorting cycles through three states: ascending, descending, and unset.
+
+1. The first click on a sortable column header sorts the table data in ascending order.
+2. The second click reverses the order (descending).
+3. The third click removes sorting from that column.
 :::
 
 ### initialFetcherParams
