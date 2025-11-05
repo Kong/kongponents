@@ -85,7 +85,7 @@
     "@commitlint/config-conventional": "^19.8.1",
     "@cypress/vite-dev-server": "^7.0.0",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
-    "@evilmartians/lefthook": "^1.13.6",
+    "@evilmartians/lefthook": "^2.0.0",
     "@kong-ui-public/sandbox-layout": "^2.3.8",
     "@kong/design-tokens": "^1.18.1",
     "@kong/eslint-config-kong-ui": "1.5.1",

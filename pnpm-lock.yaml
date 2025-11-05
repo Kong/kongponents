@@ -70,8 +70,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(@types/node@22.18.13)(typescript@5.9.3)
       '@evilmartians/lefthook':
-        specifier: ^1.13.6
-        version: 1.13.6
+        specifier: ^2.0.0
+        version: 2.0.2
       '@kong-ui-public/sandbox-layout':
         specifier: ^2.3.8
         version: 2.3.8(vue@3.5.22(typescript@5.9.3))
@@ -1019,8 +1019,8 @@ packages:
     resolution: {integrity: sha512-sB5uyeq+dwCWyPi31B2gQlVlo+j5brPlWx4yZBrEaRo/nhdDE8Xke1gsGgtiBdaBTxuTkceLVuVt/pclrasb0A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@evilmartians/lefthook@1.13.6':
-    resolution: {integrity: sha512-79vplrUBWL4Fkt59YkEBdSpqBVhNrY8t5+jEp+wX5QbsmbQLcSULqwS7FmbNRyECa2LWMrUWpe6ENIfNwB4jiw==}
+  '@evilmartians/lefthook@2.0.2':
+    resolution: {integrity: sha512-yrHcA05TEawqOjCqWmmqC7sEUfV3NWTOX/ZuVlRTW1F26fICtDxzekzFynRtkxVoFFs6+0aPXnizEJlfVdSajA==}
     cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
@@ -8224,7 +8224,7 @@ snapshots:
       '@eslint/core': 0.16.0
       levn: 0.4.1
 
-  '@evilmartians/lefthook@1.13.6': {}
+  '@evilmartians/lefthook@2.0.2': {}
 
   '@floating-ui/core@1.7.3':
     dependencies:
