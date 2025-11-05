@@ -1,3 +1,10 @@
+## [9.46.1](https://github.com/Kong/kongponents/compare/v9.46.0...v9.46.1) (2025-11-05)
+
+
+### Bug Fixes
+
+* **ktableview:** 3 state sort interface [KHCP-18152] ([#2962](https://github.com/Kong/kongponents/issues/2962)) ([0eebeb0](https://github.com/Kong/kongponents/commit/0eebeb0d04085ceb57ecad0575f05f414b40d92c))
+
 # [9.46.0](https://github.com/Kong/kongponents/compare/v9.45.3...v9.46.0) (2025-11-03)
 
 
