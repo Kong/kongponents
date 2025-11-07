@@ -154,6 +154,23 @@
           </div>
         </div>
       </SandboxSectionComponent>
+      <SandboxSectionComponent>
+        <KSelect
+          v-model="timeGranularity"
+          :items="timeGranularityOptions"
+          label="Time Granularity:"
+          width="200"
+        />
+        <KDateTimePicker
+          v-model="datePickerRangeGranularity"
+          :invalid-time-error-message="`There was an error.`"
+          mode="dateTime"
+          placeholder="Select a date and time"
+          range
+          :time-granularity="timeGranularity"
+        />
+        <div>Emitted value: <pre class="json">{{ datePickerRangeGranularity }}</pre></div>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
@@ -169,6 +186,16 @@ maxDate.setMonth(new Date().getMonth() + 3)
 const datePickerRange = ref({
   start: new Date(),
   end: new Date(),
+})
+
+const timeGranularity = ref<'minutely' | 'secondly'>('minutely')
+const timeGranularityOptions = [
+  { label: 'Minutely', value: 'minutely' },
+  { label: 'Secondly', value: 'secondly' },
+]
+const datePickerRangeGranularity = ref({
+  start: new Date('2025-09-29T18:54:51.277Z'),
+  end: new Date('2025-09-29T18:54:55.811Z'),
 })
 
 </script>

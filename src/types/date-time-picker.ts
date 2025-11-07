@@ -194,7 +194,15 @@ export interface DateTimePickerProps {
    * @default undefined
    */
   invalidTimeErrorMessage?: string
+
+  /**
+   * Time granularity for time inputs
+   * @default 'minutely'
+   */
+  timeGranularity?: TimeGranularity
 }
+
+export type TimeGranularity = 'minutely' | 'secondly'
 
 export interface DateTimePickerEmits {
   change: [value: TimeRange | null]

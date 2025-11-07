@@ -75,6 +75,7 @@
           :k-date-picker-mode="mode"
           :max-date="maxDate"
           :min-date="minDate"
+          :time-granularity="timeGranularity"
         />
         <div
           v-else-if="hasTimePeriods && !isSingleDatepicker"
@@ -132,7 +133,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, reactive, ref, useTemplateRef, watch, type CSSProperties } from 'vue'
+import { computed, nextTick, reactive, ref, useTemplateRef, watch, type CSSProperties } from 'vue'
 import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 import KButton from '@/components/KButton/KButton.vue'
@@ -161,6 +162,7 @@ const {
   readonly,
   popoverPlacement = 'bottom-start',
   invalidTimeErrorMessage = 'Start time cannot exceed end time.',
+  timeGranularity = 'minutely',
 } = defineProps<DateTimePickerProps>()
 
 const emit = defineEmits<DateTimePickerEmits>()
@@ -268,7 +270,7 @@ const changeRelativeTimeframe = (timeframe: TimePeriod, autoSubmit: boolean = fa
   if (state.selectedTimeframe.start && state.selectedTimeframe.end) {
     const start = new Date(state.selectedTimeframe.start())
     const end = new Date(state.selectedTimeframe.end())
-    state.fullRangeDisplay = formatDisplayDate({ start, end }, false)
+    state.fullRangeDisplay = formatDisplayDate({ start, end })
     state.selectedRange.start = start
     state.selectedRange.end = end
   } else {
@@ -310,9 +312,9 @@ const clearSelection = (): void => {
  * the current mode of the instance (Custom vs Relative)
  * @param {*} range A set of `start` and `end` Unix timestamps∂
  */
-const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
+const formatDisplayDate = (range: TimeRange): string => {
   const { start, end } = range
-  let fmtStr = 'PP hh:mm a'
+  let fmtStr = timeGranularity === 'secondly' ? 'PP hh:mm:ss a' : 'PP hh:mm a'
 
   const tzAbbrev = formatInTimeZone((start as Date), localTz, '(z)')
 
@@ -325,9 +327,7 @@ const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
 
   // Display a formatted time range
   if (!isSingleDatepicker.value) {
-    return htmlFormat
-      ? `<div>${format(start as Date, fmtStr)} -&nbsp;</div><div>${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}</div>`
-      : `${format(start as Date, fmtStr)} - ${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}`
+    return `${format(start as Date, fmtStr)} - ${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}`
   } else {
     return `${format(start as Date, fmtStr)} ${tzAbbrev}`
   }
@@ -358,7 +358,7 @@ const submitTimeFrame = async (): Promise<void> => {
  */
 const updateDisplay = (): void => {
   if (showCalendar.value && !!state.selectedRange?.start) {
-    state.abbreviatedDisplay = formatDisplayDate(state.selectedRange, true)
+    state.abbreviatedDisplay = formatDisplayDate(state.selectedRange)
   } else if (hasTimePeriods.value && !showCalendar.value) {
     state.abbreviatedDisplay = state.selectedTimeframe.display
   }
@@ -429,6 +429,10 @@ watch(() => modelValue, () => {
   }
   calendarRemountKey.value++
 }, { immediate: true })
+
+watch(() => timeGranularity, () => {
+  updateDisplay()
+})
 
 const onClosePopover = (): void => {
   state.popoverOpen = false
