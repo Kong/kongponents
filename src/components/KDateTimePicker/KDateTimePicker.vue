@@ -133,7 +133,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, reactive, ref, useTemplateRef, watch, type CSSProperties } from 'vue'
+import { computed, reactive, ref, useTemplateRef, watch, type CSSProperties } from 'vue'
 import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 import KButton from '@/components/KButton/KButton.vue'
