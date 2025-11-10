@@ -270,7 +270,7 @@ const changeRelativeTimeframe = (timeframe: TimePeriod, autoSubmit: boolean = fa
   if (state.selectedTimeframe.start && state.selectedTimeframe.end) {
     const start = new Date(state.selectedTimeframe.start())
     const end = new Date(state.selectedTimeframe.end())
-    state.fullRangeDisplay = formatDisplayDate({ start, end })
+    state.fullRangeDisplay = formatDisplayDate({ start, end }, false)
     state.selectedRange.start = start
     state.selectedRange.end = end
   } else {
@@ -312,7 +312,7 @@ const clearSelection = (): void => {
  * the current mode of the instance (Custom vs Relative)
  * @param {*} range A set of `start` and `end` Unix timestamps∂
  */
-const formatDisplayDate = (range: TimeRange): string => {
+const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
   const { start, end } = range
   let fmtStr = timeGranularity === 'secondly' ? 'PP hh:mm:ss a' : 'PP hh:mm a'
 
@@ -327,7 +327,9 @@ const formatDisplayDate = (range: TimeRange): string => {
 
   // Display a formatted time range
   if (!isSingleDatepicker.value) {
-    return `${format(start as Date, fmtStr)} - ${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}`
+    return htmlFormat
+      ? `<div>${format(start as Date, fmtStr)} -&nbsp;</div><div>${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}</div>`
+      : `${format(start as Date, fmtStr)} - ${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}`
   } else {
     return `${format(start as Date, fmtStr)} ${tzAbbrev}`
   }
@@ -358,7 +360,7 @@ const submitTimeFrame = async (): Promise<void> => {
  */
 const updateDisplay = (): void => {
   if (showCalendar.value && !!state.selectedRange?.start) {
-    state.abbreviatedDisplay = formatDisplayDate(state.selectedRange)
+    state.abbreviatedDisplay = formatDisplayDate(state.selectedRange, true)
   } else if (hasTimePeriods.value && !showCalendar.value) {
     state.abbreviatedDisplay = state.selectedTimeframe.display
   }

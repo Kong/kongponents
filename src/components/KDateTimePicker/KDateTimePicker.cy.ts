@@ -510,7 +510,9 @@ describe('KDateTimePicker', () => {
         timeGranularity: 'minutely',
       },
     }).then(() => {
-      cy.getTestId(timepickerDisplay).should('include.text', range)
+      cy.getTestId(timepickerDisplay).invoke('text').then((text) => {
+        expect(text.replace(/\s+/g, ' ').trim()).to.include(range)
+      })
       cy.getTestId('datetime-picker-trigger').click()
       cy.getTestId('time-input-start').should('have.value', format(today, 'HH:mm:00'))
       cy.getTestId('time-input-end').should('have.value', format(today, 'HH:mm:00'))
@@ -533,7 +535,9 @@ describe('KDateTimePicker', () => {
         timeGranularity: 'secondly',
       },
     }).then(() => {
-      cy.getTestId(timepickerDisplay).should('include.text', range)
+      cy.getTestId(timepickerDisplay).invoke('text').then((text) => {
+        expect(text.replace(/\s+/g, ' ').trim()).to.include(range)
+      })
       cy.getTestId('datetime-picker-trigger').click()
       cy.getTestId('time-input-start').should('have.value', format(today, 'HH:mm:ss'))
       cy.getTestId('time-input-end').should('have.value', format(today, 'HH:mm:ss'))
