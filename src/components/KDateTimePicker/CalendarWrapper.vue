@@ -95,24 +95,21 @@ const {
   timeGranularity?: TimeGranularity
 }>()
 
-const timeInputFormat = computed(() => {
-  switch (timeGranularity) {
-    case 'minutely':
-      return 'HH:mm:00'
-    case 'secondly':
-      return 'HH:mm:ss'
-    default:
-      return 'HH:mm:00'
+const formatTimeForInput = (date: Date, granularity: TimeGranularity): string => {
+  if (granularity === 'secondly') {
+    return format(date, 'HH:mm:ss')
+  } else {
+    return format(date, 'HH:mm')
   }
-})
+}
 
 const calendarVModel = defineModel<DatePickerModel>({ required: true })
 const hasError = defineModel<boolean>('error', { default: false })
-const startTimeValue = ref<string>(format(new Date(), timeInputFormat.value))
-const endTimeValue = ref<string>(format(new Date(), timeInputFormat.value))
+const startTimeValue = ref<string>(formatTimeForInput(new Date(), timeGranularity))
+const endTimeValue = ref<string>(formatTimeForInput(new Date(), timeGranularity))
 const originalTimeValues = ref<{ start: string, end: string }>({
-  start: format(new Date(), timeInputFormat.value),
-  end: format(new Date(), timeInputFormat.value),
+  start: formatTimeForInput(new Date(), timeGranularity),
+  end: formatTimeForInput(new Date(), timeGranularity),
 })
 const componentId = useId()
 
@@ -165,12 +162,12 @@ const initTimeInputs = () => {
   if (calendarVModel.value && showTime.value) {
     if (isRange && (calendarVModel.value as DatePickerRangeObject).start && (calendarVModel.value as DatePickerRangeObject).end) {
       const dateRange = calendarVModel.value as DatePickerRangeObject
-      startTimeValue.value = format(dateRange.start as Date, timeInputFormat.value)
-      endTimeValue.value = format(dateRange.end as Date, timeInputFormat.value)
+      startTimeValue.value = formatTimeForInput(dateRange.start as Date, timeGranularity)
+      endTimeValue.value = formatTimeForInput(dateRange.end as Date, timeGranularity)
     } else if (calendarVModel.value instanceof Date) {
-      startTimeValue.value = format(calendarVModel.value as Date, timeInputFormat.value)
+      startTimeValue.value = formatTimeForInput(calendarVModel.value as Date, timeGranularity)
     } else {
-      startTimeValue.value = format(new Date(), timeInputFormat.value)
+      startTimeValue.value = formatTimeForInput(new Date(), timeGranularity)
     }
   }
 }
@@ -179,7 +176,7 @@ const getTimeParts = (timeString: string) => {
   const timeParts = timeString.split(':')
   const hours = parseInt(timeParts[0], 10)
   const minutes = parseInt(timeParts[1], 10)
-  const seconds = timeGranularity === 'secondly' ? parseInt(timeParts[2], 10) : 0
+  const seconds = timeGranularity === 'secondly' && timeParts[2] ? parseInt(timeParts[2], 10) : 0
   return { hours, minutes, seconds }
 }
 
@@ -245,13 +242,26 @@ watch(() => calendarVModel.value, () => {
   calendarVModel.value.start instanceof Date &&
   'end' in calendarVModel.value &&
   calendarVModel.value.end instanceof Date) {
-    startTimeValue.value = format(calendarVModel.value.start, timeInputFormat.value)
-    endTimeValue.value = format(calendarVModel.value.end, timeInputFormat.value)
+    startTimeValue.value = formatTimeForInput(calendarVModel.value.start, timeGranularity)
+    endTimeValue.value = formatTimeForInput(calendarVModel.value.end, timeGranularity)
     hasError.value = isInvalidRange(calendarVModel.value.start, calendarVModel.value.end)
   } else if (calendarVModel.value instanceof Date) {
-    startTimeValue.value = format(calendarVModel.value, timeInputFormat.value)
+    startTimeValue.value = formatTimeForInput(calendarVModel.value, timeGranularity)
   }
 }, { immediate: true, deep: true })
+
+// Keep track of original time values if time granularity changes
+watch(() => timeGranularity, () => {
+  if (calendarVModel.value && isRange && 'start' in calendarVModel.value && calendarVModel.value.start instanceof Date) {
+    originalTimeValues.value.start = formatTimeForInput(calendarVModel.value.start, timeGranularity)
+  } else if (calendarVModel.value instanceof Date) {
+    originalTimeValues.value.start = formatTimeForInput(calendarVModel.value, timeGranularity)
+  }
+
+  if (calendarVModel.value && isRange && 'end' in calendarVModel.value && calendarVModel.value.end instanceof Date) {
+    originalTimeValues.value.end = formatTimeForInput(calendarVModel.value.end, timeGranularity)
+  }
+})
 
 const showRange = (rangeType: 'start' | 'end') => {
   const value = calendarVModel.value as { start: Date, end: Date }

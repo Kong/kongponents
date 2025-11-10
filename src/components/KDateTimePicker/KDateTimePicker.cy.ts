@@ -364,11 +364,11 @@ describe('KDateTimePicker', () => {
     })
 
     cy.getTestId(timepickerInput).click()
-    cy.getTestId('time-input-start').should('have.value', '00:00:00').then(() => {
+    cy.getTestId('time-input-start').should('have.value', '00:00').then(() => {
       cy.getTestId(timepickerInput).click().then(() => {
         modelValue.value = newDate
         cy.getTestId(timepickerInput).click()
-        cy.getTestId('time-input-start').should('have.value', '01:00:00')
+        cy.getTestId('time-input-start').should('have.value', '01:00')
       })
     })
   })
@@ -389,8 +389,8 @@ describe('KDateTimePicker', () => {
 
     // Open the picker, change the time values, then close the popover without applying
     cy.getTestId(timepickerInput).click()
-    cy.getTestId('time-input-start').should('have.value', '00:00:00')
-    cy.getTestId('time-input-end').should('have.value', '00:00:00')
+    cy.getTestId('time-input-start').should('have.value', '00:00')
+    cy.getTestId('time-input-end').should('have.value', '00:00')
 
     cy.getTestId('time-input-end').type('01:00', { force: true })
 
@@ -401,8 +401,8 @@ describe('KDateTimePicker', () => {
 
     // Reopen the popover, and check that time values are reset to original
     cy.getTestId(timepickerInput).click()
-    cy.getTestId('time-input-start').should('have.value', '00:00:00')
-    cy.getTestId('time-input-end').should('have.value', '00:00:00')
+    cy.getTestId('time-input-start').should('have.value', '00:00')
+    cy.getTestId('time-input-end').should('have.value', '00:00')
   })
 
   it('gracefully handles clearing time inputs', () => {
@@ -420,8 +420,8 @@ describe('KDateTimePicker', () => {
     })
 
     cy.getTestId(timepickerInput).click()
-    cy.getTestId('time-input-start').should('have.value', '00:00:00')
-    cy.getTestId('time-input-end').should('have.value', '00:00:00')
+    cy.getTestId('time-input-start').should('have.value', '00:00')
+    cy.getTestId('time-input-end').should('have.value', '00:00')
 
     cy.getTestId('time-input-start').clear({ force: true })
     cy.getTestId('time-input-end').clear({ force: true })
@@ -514,8 +514,8 @@ describe('KDateTimePicker', () => {
         expect(text.replace(/\s+/g, ' ').trim()).to.include(range)
       })
       cy.getTestId('datetime-picker-trigger').click()
-      cy.getTestId('time-input-start').should('have.value', format(today, 'HH:mm:00'))
-      cy.getTestId('time-input-end').should('have.value', format(today, 'HH:mm:00'))
+      cy.getTestId('time-input-start').should('have.value', format(today, 'HH:mm'))
+      cy.getTestId('time-input-end').should('have.value', format(today, 'HH:mm'))
     })
   })
 
