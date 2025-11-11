@@ -37,7 +37,7 @@ export default class ToastManager {
   }
 
   private setupToastersContainer(): void {
-    const toastersContainerEl = document.querySelector(`#${toasterContainerId}`)
+    const toastersContainerEl = document?.querySelector(`#${toasterContainerId}`)
     if (this.toastersContainer && this.toaster && toastersContainerEl) {
       return
     }
