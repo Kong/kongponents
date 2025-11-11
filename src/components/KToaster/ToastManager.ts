@@ -56,7 +56,7 @@ export default class ToastManager {
       onClose: (key: string) => this.close(key),
     })
 
-    if (this.toastersContainer && !toastersContainerEl) {
+    if (this.toastersContainer) {
       render(this.toaster, this.toastersContainer)
     }
   }
