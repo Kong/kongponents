@@ -37,7 +37,7 @@ export default class ToastManager {
   }
 
   private setupToasterContainer(): void {
-    if (document?.querySelector(`#${toasterContainerId}`)) {
+    if (this.toastersContainer && this.toaster) {
       return
     }
 
@@ -51,7 +51,8 @@ export default class ToastManager {
       onClose: (key: string) => this.close(key),
     })
 
-    if (this.toastersContainer) {
+    const toastersContainerEl = document.querySelector(`#${toasterContainerId}`)
+    if (this.toastersContainer && !toastersContainerEl) {
       render(this.toaster, this.toastersContainer)
     }
   }
