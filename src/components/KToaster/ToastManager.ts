@@ -33,17 +33,22 @@ export default class ToastManager {
       this.zIndex = options.zIndex
     }
 
-    this.setupToasterContainer()
+    this.setupToastersContainer()
   }
 
-  private setupToasterContainer(): void {
-    if (this.toastersContainer && this.toaster) {
+  private setupToastersContainer(): void {
+    const toastersContainerEl = document.querySelector(`#${toasterContainerId}`)
+    if (this.toastersContainer && this.toaster && toastersContainerEl) {
       return
     }
 
-    this.toastersContainer = document.createElement('div')
-    this.toastersContainer.id = toasterContainerId
-    document.body.appendChild(this.toastersContainer)
+    if (toastersContainerEl) {
+      this.toastersContainer = toastersContainerEl as HTMLElement
+    } else {
+      this.toastersContainer = document.createElement('div')
+      this.toastersContainer.id = toasterContainerId
+      document.body.appendChild(this.toastersContainer)
+    }
 
     this.toaster = createVNode(KToaster, {
       toasterState: this.toasts.value,
@@ -51,7 +56,6 @@ export default class ToastManager {
       onClose: (key: string) => this.close(key),
     })
 
-    const toastersContainerEl = document.querySelector(`#${toasterContainerId}`)
     if (this.toastersContainer && !toastersContainerEl) {
       render(this.toaster, this.toastersContainer)
     }
@@ -62,7 +66,7 @@ export default class ToastManager {
   }
 
   public open(args: Record<string, any> | string): void {
-    this.setupToasterContainer()
+    this.setupToastersContainer()
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
