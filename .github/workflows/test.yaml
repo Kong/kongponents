@@ -55,11 +55,6 @@ jobs:
           install: false
           command: pnpm test:component
 
-      - name: Run Vitest unit tests
-        with:
-          install: false
-          command: pnpm test:unit
-
       - name: Upload Cypress screenshots (on failure)
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: failure()
@@ -73,3 +68,7 @@ jobs:
         with:
           name: cypress-videos
           path: cypress/videos
+
+      - name: Run Vitest unit tests
+        with:
+          command: pnpm test:unit
