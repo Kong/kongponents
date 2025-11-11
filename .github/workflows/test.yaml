@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    name: Run Component Tests
+    name: Run Component & Unit Tests
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -53,7 +53,12 @@ jobs:
         uses: cypress-io/github-action@b8ba51a856ba5f4c15cf39007636d4ab04f23e3c # v6.10.2
         with:
           install: false
-          command: pnpm test
+          command: pnpm test:component
+
+      - name: Run Vitest unit tests
+        with:
+          install: false
+          command: pnpm test:unit
 
       - name: Upload Cypress screenshots (on failure)
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2

@@ -54,9 +54,9 @@
     "lint:fix": "eslint --fix",
     "stylelint": "stylelint './src/**/*.{css,scss,sass,vue}'",
     "stylelint:fix": "stylelint './src/**/*.{css,scss,sass,vue}' --fix",
-    "test": "cypress run --component -b chrome && vitest run",
-    "test:open": "cypress open --component -b chrome",
-    "test:spec": "cypress run --component -b chrome --spec",
+    "test:component": "cypress run --component -b chrome",
+    "test:component:open": "cypress open --component -b chrome",
+    "test:component:spec": "cypress run --component -b chrome --spec",
     "test:unit": "vitest run",
     "test:unit:open": "vitest --ui",
     "semantic-release": "semantic-release"
