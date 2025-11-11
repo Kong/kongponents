@@ -5,7 +5,6 @@ const toastersContainerId = 'kongponents-toaster-container'
 
 describe('ToastManager', () => {
   it('should create a toasters container when initialized', () => {
-
     const toastManager = new ToastManager()
     const containers = document.querySelectorAll(`#${toastersContainerId}`)
     expect(containers.length).toBe(1)
