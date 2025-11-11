@@ -19,11 +19,25 @@ export default class ToastManager {
   private toaster: VNode | null = null
   public toasts: Ref<Toast[]> = ref<Toast[]>([])
 
+  private zIndex: number = defaultZIndex
+
   constructor(options?: ToasterOptions) {
     // For SSR, prevents failing on the build)
     if (typeof document === 'undefined') {
       console.warn('ToastManager should only be initialized in the browser environment. Docs: https://kongponents.konghq.com/components/toaster.html')
 
+      return
+    }
+
+    if (options?.zIndex) {
+      this.zIndex = options.zIndex
+    }
+
+    this.setupToasterContainer()
+  }
+
+  private setupToasterContainer(): void {
+    if (document?.querySelector(`#${toasterContainerId}`)) {
       return
     }
 
@@ -33,7 +47,7 @@ export default class ToastManager {
 
     this.toaster = createVNode(KToaster, {
       toasterState: this.toasts.value,
-      zIndex: options?.zIndex ? options.zIndex : defaultZIndex,
+      zIndex: this.zIndex,
       onClose: (key: string) => this.close(key),
     })
 
@@ -47,6 +61,8 @@ export default class ToastManager {
   }
 
   public open(args: Record<string, any> | string): void {
+    this.setupToasterContainer()
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const { key, timeoutMilliseconds, appearance, message, title } = args
@@ -82,6 +98,8 @@ export default class ToastManager {
     if (this.toastersContainer) {
       render(null, this.toastersContainer)
       this.toastersContainer.remove()
+      this.toastersContainer = null
+      this.toaster = null
     }
   }
 }
