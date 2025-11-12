@@ -133,6 +133,12 @@ Prop to define the positioning of the popover in relation to the trigger element
 String to be displayed as an error message for the time inputs.
 Defaults to 'Start time cannot exceed end time.'
 
+### timeGranularity
+
+Indicates the granularity of the time inputs when mode dateTime.
+
+`minutely` or `secondly` defaults to `minutely`
+
 ## Examples
 
 ### Single date
@@ -419,6 +425,40 @@ This utilizes the same time frames as the previous example; however, in this cas
 />
 ```
 
+### Time granularity
+
+<ClientOnly>
+  <br/>
+  <KSelect
+    v-model="timeGranularity"
+    :items="timeGranularityOptions"
+    width="200"
+  />
+  <br/>
+  <KDateTimePicker
+    v-model="dateRangeNow"
+    clear-button
+    placeholder="Please select a date and time"
+    mode="dateTime"
+    :time-granularity="timeGranularity"
+    :range="true"
+  />
+  <br/>
+  <div>Emitted value: <pre class="json">{{ dateRangeNow }}</pre></div>
+</ClientOnly>
+
+```html
+<KDateTimePicker
+  v-model="currentValue"
+  @change="newVal => emitVal = newVal"
+  clear-button
+  placeholder="Please select a date and time"
+  mode="dateTime"
+  :range="true"
+  time-granularity="secondly"
+/>
+```
+
 ## Events
 
 ### change and update:modelValue
@@ -504,6 +544,11 @@ const dateRangeWeek = ref<TimeRange>({
   end: today,
 })
 
+const dateRangeNow = ref<TimeRange>({
+  start: new Date(),
+  end: new Date()
+})
+
 const dateRangeWeekRelative = ref<TimeRange>({
   start: aWeekAgo,
   end: today,
@@ -518,4 +563,10 @@ const oneHourRelativeOnly = ref<TimeRange>({
 
 const maxDate = ref(today)
 const minDate = ref(aYearAgo)
+
+const timeGranularity = ref<'minutely' | 'secondly'>('minutely')
+const timeGranularityOptions = [
+  { label: 'Minutely', value: 'minutely' },
+  { label: 'Secondly', value: 'secondly' },
+]
 </script>

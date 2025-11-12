@@ -493,4 +493,54 @@ describe('KDateTimePicker', () => {
     cy.getTestId('datetime-picker-trigger').click()
     cy.get('.vc-title > span').should('have.text', format(modelValue.value.start, 'MMMM yyyy'))
   })
+
+  it('time granularity: minutely', () => {
+    const today = new Date()
+    const todayDateTimeStringMinutely = format(new Date(today), 'PP hh:mm a')
+    const range = `${todayDateTimeStringMinutely} - ${todayDateTimeStringMinutely}`
+    const modelValue = ref({
+      start: today,
+      end: today,
+    })
+    cy.mount(KDateTimePicker, {
+      props: {
+        modelValue: modelValue.value,
+        mode: 'dateTime',
+        range: true,
+        timeGranularity: 'minutely',
+      },
+    }).then(() => {
+      cy.getTestId(timepickerDisplay).invoke('text').then((text) => {
+        expect(text.replace(/\s+/g, ' ').trim()).to.include(range)
+      })
+      cy.getTestId('datetime-picker-trigger').click()
+      cy.getTestId('time-input-start').should('have.value', format(today, 'HH:mm'))
+      cy.getTestId('time-input-end').should('have.value', format(today, 'HH:mm'))
+    })
+  })
+
+  it('time granularity: secondly', () => {
+    const today = new Date()
+    const todayDateTimeStringSecondly = format(today, 'PP hh:mm:ss a')
+    const range = `${todayDateTimeStringSecondly} - ${todayDateTimeStringSecondly}`
+    const modelValue = ref({
+      start: today,
+      end: today,
+    })
+    cy.mount(KDateTimePicker, {
+      props: {
+        modelValue: modelValue.value,
+        mode: 'dateTime',
+        range: true,
+        timeGranularity: 'secondly',
+      },
+    }).then(() => {
+      cy.getTestId(timepickerDisplay).invoke('text').then((text) => {
+        expect(text.replace(/\s+/g, ' ').trim()).to.include(range)
+      })
+      cy.getTestId('datetime-picker-trigger').click()
+      cy.getTestId('time-input-start').should('have.value', format(today, 'HH:mm:ss'))
+      cy.getTestId('time-input-end').should('have.value', format(today, 'HH:mm:ss'))
+    })
+  })
 })
