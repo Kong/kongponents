@@ -178,7 +178,7 @@ const getAlertIcon = computed((): AlertIcon => {
 
     .alert-title,
     .alert-message p {
-      word-break: break-word;
+      word-break: break-all;
     }
   }
 

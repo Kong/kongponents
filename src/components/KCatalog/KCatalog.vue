@@ -496,7 +496,7 @@ onMounted(() => {
 
   .catalog-page {
     display: grid;
-    grid-gap: var(--kui-space-70, $kui-space-70);
+    gap: var(--kui-space-70, $kui-space-70);
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 
     &.card-small {
