@@ -76,7 +76,7 @@ export default defineConfig({
             'vue-router': 'VueRouter',
           },
         exports: 'named',
-        preserveModules: isUMDBuild ? false : true,
+        preserveModules: process.env.USE_SANDBOX ? false : !isUMDBuild,
         preserveModulesRoot: isUMDBuild ? undefined : 'src',
         inlineDynamicImports: isUMDBuild ? true : false,
       },
