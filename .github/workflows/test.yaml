@@ -1,6 +1,4 @@
 name: Tests
-permissions:
-  contents: read
 
 on:
   # Allow calling manually from GitHub
@@ -51,11 +49,11 @@ jobs:
             ./README.md
             ./LICENSE
 
-      - name: Run Cypress component tests
+      - name: Run Cypress tests
         uses: cypress-io/github-action@b8ba51a856ba5f4c15cf39007636d4ab04f23e3c # v6.10.2
         with:
           install: false
-          command: pnpm test:component
+          command: pnpm test
 
       - name: Upload Cypress screenshots (on failure)
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -70,7 +68,3 @@ jobs:
         with:
           name: cypress-videos
           path: cypress/videos
-
-      - name: Run Vitest unit tests
-        with:
-          command: pnpm test:unit

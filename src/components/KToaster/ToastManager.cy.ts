@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest'
 import ToastManager from './ToastManager'
 
 const toastersContainerId = 'kongponents-toaster-container'
@@ -7,7 +6,7 @@ describe('ToastManager', () => {
   it('should create a toasters container when initialized', () => {
     const toastManager = new ToastManager()
     const containers = document.querySelectorAll(`#${toastersContainerId}`)
-    expect(containers.length).toBe(1)
+    expect(containers.length).equal(1)
 
     // Clean up
     toastManager.destroy()
@@ -20,7 +19,7 @@ describe('ToastManager', () => {
 
     const toastManager = new ToastManager()
     const containers = document.querySelectorAll(`#${toastersContainerId}`)
-    expect(containers.length).toBe(1)
+    expect(containers.length).equal(1)
 
     // Clean up
     toastManager.destroy()
@@ -30,13 +29,13 @@ describe('ToastManager', () => {
     const toastManager = new ToastManager()
 
     const existingContainer = document.querySelectorAll(`#${toastersContainerId}`)
-    expect(existingContainer.length).toBe(1)
+    expect(existingContainer.length).equal(1)
     document.querySelector(`#${toastersContainerId}`)?.remove()
 
     toastManager.open('Test Toast')
 
     const containers = document.querySelectorAll(`#${toastersContainerId}`)
-    expect(containers.length).toBe(1)
+    expect(containers.length).equal(1)
 
     // Clean up
     toastManager.destroy()
