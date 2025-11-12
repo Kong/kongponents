@@ -6,7 +6,7 @@
   base = "/"
   command = "pnpm docs:build"
   publish = "/docs/.vitepress/dist"
-  environment = { NODE_VERSION = "20.14.0" }
+  environment = { NODE_VERSION = "24.11.0" }
 
 # ##############################
 # 'v7' branch
