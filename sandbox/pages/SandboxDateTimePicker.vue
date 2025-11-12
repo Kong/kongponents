@@ -163,7 +163,7 @@
         />
         <KDateTimePicker
           v-model="datePickerRangeGranularity"
-          :invalid-time-error-message="`There was an error.`"
+          invalid-time-error-message="There was an error."
           mode="dateTime"
           placeholder="Select a date and time"
           range
