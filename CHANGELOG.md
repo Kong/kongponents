@@ -1,3 +1,10 @@
+## [9.46.3](https://github.com/Kong/kongponents/compare/v9.46.2...v9.46.3) (2025-11-12)
+
+
+### Bug Fixes
+
+* **kdatetimepicker:** support seconds granularity in time inputs ([#2976](https://github.com/Kong/kongponents/issues/2976)) ([b6d16b5](https://github.com/Kong/kongponents/commit/b6d16b5603ee514e335e9cd607a41b7ad0bfaa11))
+
 ## [9.46.2](https://github.com/Kong/kongponents/compare/v9.46.1...v9.46.2) (2025-11-11)
 
 
