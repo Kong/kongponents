@@ -362,7 +362,8 @@ const updateDisplay = (): void => {
   if (showCalendar.value && !!state.selectedRange?.start) {
     state.abbreviatedDisplay = formatDisplayDate(state.selectedRange, true)
   } else if (hasTimePeriods.value && !showCalendar.value) {
-    state.abbreviatedDisplay = state.selectedTimeframe.display
+    const tzAbbrev = formatInTimeZone(new Date(), localTz, '(z)')
+    state.abbreviatedDisplay = `${state.selectedTimeframe.display} ${tzAbbrev}`
   }
 }
 
