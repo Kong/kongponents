@@ -1,3 +1,10 @@
+## [9.46.4](https://github.com/Kong/kongponents/compare/v9.46.3...v9.46.4) (2025-11-13)
+
+
+### Bug Fixes
+
+* **vite:** disable preserveModules for sandbox ([#2982](https://github.com/Kong/kongponents/issues/2982)) ([8b4c1c4](https://github.com/Kong/kongponents/commit/8b4c1c44ba85838140171d3dd6e44db024db6acc))
+
 ## [9.46.3](https://github.com/Kong/kongponents/compare/v9.46.2...v9.46.3) (2025-11-12)
 
 
