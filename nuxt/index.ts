@@ -48,8 +48,8 @@ export default defineNuxtModule<ModuleOptions>({
     // Register the styles
     nuxt.options.css.push('@kong/kongponents/dist/style.css')
 
+    // Register composables
     if (options.composables) {
-      // Register composables
       addImportsDir(resolve('./runtime/composables'))
     }
 
