@@ -43,6 +43,7 @@ jobs:
         with:
           files: |
             src/**
+            nuxt/**
 
       - name: Check if docs (`docs` directory) files have changed
         uses: Kong/changed-files@1f31e0a3b1acd04d48dff8801048bb314c8a9e0d
