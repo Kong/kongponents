@@ -1,3 +1,10 @@
+## [9.46.5](https://github.com/Kong/kongponents/compare/v9.46.4...v9.46.5) (2025-11-13)
+
+
+### Bug Fixes
+
+* display timezone for relative time ranges ([#2983](https://github.com/Kong/kongponents/issues/2983)) ([9530bee](https://github.com/Kong/kongponents/commit/9530beec6e02638b19710d55a3d69dd4568764cd))
+
 ## [9.46.4](https://github.com/Kong/kongponents/compare/v9.46.3...v9.46.4) (2025-11-13)
 
 
