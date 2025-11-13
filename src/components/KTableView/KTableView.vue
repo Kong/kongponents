@@ -556,11 +556,31 @@ const getRowKey = (row: Row): string => {
   return ''
 }
 
+/**
+ * Reorder the headers to ensure bulk actions are first and actions are last
+ */
+const reorderHeaders = (headers: readonly Header[]) => {
+  const result: Header[] = headers.filter((header) => header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS)
+
+  const bulkActionsHeader = headers.find((header) => header.key === TableViewHeaderKeys.BULK_ACTIONS)
+  const actionsHeader = headers.find((header) => header.key === TableViewHeaderKeys.ACTIONS)
+
+  if (bulkActionsHeader) {
+    result.unshift(bulkActionsHeader)
+  }
+
+  if (actionsHeader) {
+    result.push(actionsHeader)
+  }
+
+  return result
+}
+
 const tableWrapperRef = useTemplateRef('table-wrapper')
 const tableRef = useTemplateRef('table')
 const headerRowRef = useTemplateRef('header-row')
 // all headers
-const tableHeaders = ref([]) as Ref<Array<TableViewHeader<ColumnKey>>>
+const tableHeaders = ref(reorderHeaders(headers)) as Ref<Array<TableViewHeader<ColumnKey>>>
 // currently visible headers
 const visibleHeaders = ref([]) as Ref<Array<TableViewHeader<ColumnKey>>>
 // highest priority - column currently being resized (mouse may be completely outside the column)
@@ -1002,26 +1022,7 @@ const showPagination = computed((): boolean => {
 
 // Ensure `headers` are reactive.
 watch(() => headers, (newVal: readonly Header[]) => {
-  if (newVal && newVal.length) {
-    /**
-     * Reorder the headers to ensure bulk actions are first and actions are last
-     */
-
-    const headers: Header[] = newVal.filter((header) => header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS)
-
-    const bulkActionsHeader = newVal.find((header) => header.key === TableViewHeaderKeys.BULK_ACTIONS)
-    const actionsHeader = newVal.find((header) => header.key === TableViewHeaderKeys.ACTIONS)
-
-    if (bulkActionsHeader) {
-      headers.unshift(bulkActionsHeader)
-    }
-
-    if (actionsHeader) {
-      headers.push(actionsHeader)
-    }
-
-    tableHeaders.value = headers
-  }
+  tableHeaders.value = reorderHeaders(newVal)
 }, { deep: true, immediate: true })
 
 const isColumnSortable = (column: TableViewHeader<ColumnKey>): boolean => !column.hideLabel && !!column.sortable && column.key !== TableViewHeaderKeys.BULK_ACTIONS && column.key !== TableViewHeaderKeys.ACTIONS
