@@ -543,4 +543,30 @@ describe('KDateTimePicker', () => {
       cy.getTestId('time-input-end').should('have.value', format(today, 'HH:mm:ss'))
     })
   })
+
+  it('shows timezone for relative time', () => {
+    const modelValue = ref({
+      start: new Date('2025-01-01T00:00:00'),
+      end: new Date('2025-01-01T00:00:00'),
+      timePeriodsKey: TimeframeKeys.ONE_HOUR,
+    })
+
+    // Set mock timezone to UTC for consistent testing
+    const OriginalDateTimeFormat = Intl.DateTimeFormat
+    Intl.DateTimeFormat = function(locale?: string | string[], options?: Intl.DateTimeFormatOptions) {
+      return new OriginalDateTimeFormat(locale, { ...options, timeZone: 'UTC' })
+    } as Intl.DateTimeFormatConstructor
+
+    cy.mount(KDateTimePicker, {
+      props: {
+        mode: 'relative',
+        modelValue: modelValue.value,
+        range: true,
+        showTimezone: true,
+        timePeriods: exampleTimeFrames,
+      },
+    })
+
+    cy.getTestId(timepickerDisplay).should('contain.text', 'Last hour (UTC)')
+  })
 })
