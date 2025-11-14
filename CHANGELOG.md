@@ -1,3 +1,31 @@
+## [9.46.6](https://github.com/Kong/kongponents/compare/v9.46.5...v9.46.6) (2025-11-14)
+
+
+### Bug Fixes
+
+* **kselect:** clear button clicks should not toggle dropdown ([#2985](https://github.com/Kong/kongponents/issues/2985)) ([e84369f](https://github.com/Kong/kongponents/commit/e84369f5615286a7a697fdf53ec99ec98bfd73d1))
+
+## [9.46.5](https://github.com/Kong/kongponents/compare/v9.46.4...v9.46.5) (2025-11-13)
+
+
+### Bug Fixes
+
+* display timezone for relative time ranges ([#2983](https://github.com/Kong/kongponents/issues/2983)) ([9530bee](https://github.com/Kong/kongponents/commit/9530beec6e02638b19710d55a3d69dd4568764cd))
+
+## [9.46.4](https://github.com/Kong/kongponents/compare/v9.46.3...v9.46.4) (2025-11-13)
+
+
+### Bug Fixes
+
+* **vite:** disable preserveModules for sandbox ([#2982](https://github.com/Kong/kongponents/issues/2982)) ([8b4c1c4](https://github.com/Kong/kongponents/commit/8b4c1c44ba85838140171d3dd6e44db024db6acc))
+
+## [9.46.3](https://github.com/Kong/kongponents/compare/v9.46.2...v9.46.3) (2025-11-12)
+
+
+### Bug Fixes
+
+* **kdatetimepicker:** support seconds granularity in time inputs ([#2976](https://github.com/Kong/kongponents/issues/2976)) ([b6d16b5](https://github.com/Kong/kongponents/commit/b6d16b5603ee514e335e9cd607a41b7ad0bfaa11))
+
 ## [9.46.2](https://github.com/Kong/kongponents/compare/v9.46.1...v9.46.2) (2025-11-11)
 
 

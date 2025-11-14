@@ -75,6 +75,7 @@
           :k-date-picker-mode="mode"
           :max-date="maxDate"
           :min-date="minDate"
+          :time-granularity="timeGranularity"
         />
         <div
           v-else-if="hasTimePeriods && !isSingleDatepicker"
@@ -161,6 +162,7 @@ const {
   readonly,
   popoverPlacement = 'bottom-start',
   invalidTimeErrorMessage = 'Start time cannot exceed end time.',
+  timeGranularity = 'minutely',
 } = defineProps<DateTimePickerProps>()
 
 const emit = defineEmits<DateTimePickerEmits>()
@@ -312,7 +314,7 @@ const clearSelection = (): void => {
  */
 const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
   const { start, end } = range
-  let fmtStr = 'PP hh:mm a'
+  let fmtStr = timeGranularity === 'secondly' ? 'PP hh:mm:ss a' : 'PP hh:mm a'
 
   const tzAbbrev = formatInTimeZone((start as Date), localTz, '(z)')
 
@@ -360,7 +362,8 @@ const updateDisplay = (): void => {
   if (showCalendar.value && !!state.selectedRange?.start) {
     state.abbreviatedDisplay = formatDisplayDate(state.selectedRange, true)
   } else if (hasTimePeriods.value && !showCalendar.value) {
-    state.abbreviatedDisplay = state.selectedTimeframe.display
+    const tzAbbrev = formatInTimeZone(new Date(), localTz, '(z)')
+    state.abbreviatedDisplay = `${state.selectedTimeframe.display} ${tzAbbrev}`
   }
 }
 
@@ -429,6 +432,10 @@ watch(() => modelValue, () => {
   }
   calendarRemountKey.value++
 }, { immediate: true })
+
+watch(() => timeGranularity, () => {
+  updateDisplay()
+})
 
 const onClosePopover = (): void => {
   state.popoverOpen = false
