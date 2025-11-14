@@ -1,3 +1,10 @@
+## [9.46.6](https://github.com/Kong/kongponents/compare/v9.46.5...v9.46.6) (2025-11-14)
+
+
+### Bug Fixes
+
+* **kselect:** clear button clicks should not toggle dropdown ([#2985](https://github.com/Kong/kongponents/issues/2985)) ([e84369f](https://github.com/Kong/kongponents/commit/e84369f5615286a7a697fdf53ec99ec98bfd73d1))
+
 ## [9.46.5](https://github.com/Kong/kongponents/compare/v9.46.4...v9.46.5) (2025-11-13)
 
 
