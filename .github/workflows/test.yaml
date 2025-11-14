@@ -49,7 +49,7 @@ jobs:
             ./README.md
             ./LICENSE
 
-      - name: Run Cypress tests
+      - name: Run Cypress component tests
         uses: cypress-io/github-action@b8ba51a856ba5f4c15cf39007636d4ab04f23e3c # v6.10.2
         with:
           install: false

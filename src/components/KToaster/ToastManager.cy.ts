@@ -17,8 +17,10 @@ describe('ToastManager', () => {
     existingContainer.id = toastersContainerId
     document.body.appendChild(existingContainer)
 
-    const toastManager = new ToastManager()
     const containers = document.querySelectorAll(`#${toastersContainerId}`)
+    expect(containers.length).equal(1)
+
+    const toastManager = new ToastManager()
     expect(containers.length).equal(1)
 
     // Clean up
@@ -30,7 +32,7 @@ describe('ToastManager', () => {
 
     const existingContainer = document.querySelectorAll(`#${toastersContainerId}`)
     expect(existingContainer.length).equal(1)
-    document.querySelector(`#${toastersContainerId}`)?.remove()
+    document.getElementById(toastersContainerId)?.remove()
 
     toastManager.open('Test Toast')
 
