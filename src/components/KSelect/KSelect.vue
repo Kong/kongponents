@@ -78,7 +78,7 @@
                 class="clear-selection-button"
                 data-testid="clear-selection-icon"
                 type="button"
-                @click="clearSelection"
+                @click.stop="clearSelection"
               >
                 <CloseIcon decorative />
               </button>

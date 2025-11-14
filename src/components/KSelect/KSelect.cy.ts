@@ -295,6 +295,35 @@ describe('KSelect', () => {
     cy.get('input').should('have.value', '')
   })
 
+  it('does not toggle dropdown when clear button clicked', () => {
+    cy.mount(KSelect, {
+      props: {
+        items: [{
+          label: 'Label 1',
+          value: 'label1',
+          selected: true,
+        }, {
+          label: 'Label 2',
+          value: 'label2',
+        }],
+        clearable: true,
+      },
+    })
+
+    cy.get('input').should('have.value', 'Label 1')
+    cy.getTestId('select-input').trigger('click')
+    cy.get('.select-popover').should('be.visible')
+    cy.getTestId('clear-selection-icon').trigger('click')
+    cy.get('.select-popover').should('be.visible')
+    cy.get('input').should('have.value', '')
+    cy.getTestId('select-item-label2').trigger('click')
+    cy.get('.select-popover').should('not.be.visible')
+    cy.get('input').should('have.value', 'Label 2')
+    cy.getTestId('clear-selection-icon').trigger('click')
+    cy.get('.select-popover').should('not.be.visible')
+    cy.get('input').should('have.value', '')
+  })
+
   it('renders dropdown footer text when prop is passed', () => {
     const labels = ['Label 1', 'Label 2', 'Label 3']
     const vals = ['val1', 'val2', 'val3']
