@@ -19,6 +19,8 @@ export default class ToastManager {
   private toaster: VNode | null = null
   public toasts: Ref<Toast[]> = ref<Toast[]>([])
 
+  private zIndex: number = defaultZIndex
+
   constructor(options?: ToasterOptions) {
     // For SSR, prevents failing on the build)
     if (typeof document === 'undefined') {
@@ -27,13 +29,30 @@ export default class ToastManager {
       return
     }
 
-    this.toastersContainer = document.createElement('div')
-    this.toastersContainer.id = toasterContainerId
-    document.body.appendChild(this.toastersContainer)
+    if (options?.zIndex) {
+      this.zIndex = options.zIndex
+    }
+
+    this.setupToastersContainer()
+  }
+
+  private setupToastersContainer(): void {
+    const toastersContainerEl = document?.getElementById(toasterContainerId)
+    if (this.toastersContainer && this.toaster && toastersContainerEl) {
+      return
+    }
+
+    if (toastersContainerEl) {
+      this.toastersContainer = toastersContainerEl as HTMLElement
+    } else {
+      this.toastersContainer = document.createElement('div')
+      this.toastersContainer.id = toasterContainerId
+      document.body.appendChild(this.toastersContainer)
+    }
 
     this.toaster = createVNode(KToaster, {
       toasterState: this.toasts.value,
-      zIndex: options?.zIndex ? options.zIndex : defaultZIndex,
+      zIndex: this.zIndex,
       onClose: (key: string) => this.close(key),
     })
 
@@ -47,6 +66,8 @@ export default class ToastManager {
   }
 
   public open(args: Record<string, any> | string): void {
+    this.setupToastersContainer()
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const { key, timeoutMilliseconds, appearance, message, title } = args
@@ -82,6 +103,8 @@ export default class ToastManager {
     if (this.toastersContainer) {
       render(null, this.toastersContainer)
       this.toastersContainer.remove()
+      this.toastersContainer = null
+      this.toaster = null
     }
   }
 }
