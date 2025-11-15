@@ -702,6 +702,38 @@ describe('KTableView', () => {
       cy.getTestId(`table-header-${sortableColumnKey}`).should('have.attr', 'aria-sort', 'descending')
     })
 
+    it('emits update:table-preferences event immediately after initialization with parameters matching tablePreferences', () => {
+      const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+      const pageSize = 30
+      // make ID column hidable
+      options.headers[1].hidable = true
+      const hidableColumnKey = options.headers[1].key
+      const columnVisibility = {
+        [hidableColumnKey]: false,
+      }
+
+      cy.mount(KTableView, {
+        props: {
+          data: options.data,
+          headers: options.headers,
+          tablePreferences: {
+            pageSize: pageSize,
+            sortColumnKey: sortableColumnKey,
+            sortColumnOrder: 'desc',
+            columnVisibility: columnVisibility,
+          },
+        },
+      }).then(() => {
+        // should emit update:table-preferences immediately after initialization
+        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'update:table-preferences')
+        cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[0]?.[0]).should('have.property', 'pageSize', pageSize)
+        cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[0]?.[0]).should('have.property', 'sortColumnKey', sortableColumnKey)
+        cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[0]?.[0]).should('have.property', 'sortColumnOrder', 'desc')
+        cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[0]?.[0]).should('have.property', 'columnVisibility')
+        cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[0]?.[0]).should('have.nested.property', `columnVisibility.${hidableColumnKey}`, false)
+      })
+    })
+
     it('emits update:table-preferences event when table preferences are updated', () => {
       const sortableColumnKey = options.headers.find(header => header.sortable)?.key
       const newPageSize = 30
