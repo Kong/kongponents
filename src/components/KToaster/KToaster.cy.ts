@@ -72,5 +72,17 @@ describe('KToaster', () => {
 
       cy.get('.k-toaster').should('have.css', 'z-index', '9999')
     })
+
+
+    it('shows close button even if content is long', () => {
+      const longTitle = 'title'.repeat(20)
+      const longMessage = 'message'.repeat(20)
+      cy.mount(KToaster, {
+        props: {
+          toasterState: [{ title: longTitle, message: longMessage }],
+        },
+      })
+      cy.get('.toaster .toaster-close-icon').should('be.visible')
+    })
   })
 })
