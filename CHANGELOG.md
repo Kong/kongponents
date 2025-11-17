@@ -1,3 +1,10 @@
+## [9.46.8](https://github.com/Kong/kongponents/compare/v9.46.7...v9.46.8) (2025-11-17)
+
+
+### Bug Fixes
+
+* **ktableview:** update table preferences parameters ([#2984](https://github.com/Kong/kongponents/issues/2984)) ([f8e391a](https://github.com/Kong/kongponents/commit/f8e391a4ad64021e3e818da042682740841ce39d))
+
 ## [9.46.7](https://github.com/Kong/kongponents/compare/v9.46.6...v9.46.7) (2025-11-14)
 
 
