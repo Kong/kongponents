@@ -95,7 +95,7 @@
     "@stylistic/stylelint-plugin": "^4.0.0",
     "@types/inquirer": "^9.0.7",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^22.19.1",
+    "@types/node": "^24.10.1",
     "@types/sortablejs": "^1.15.9",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vue/compiler-core": "^3.5.22",
