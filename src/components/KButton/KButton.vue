@@ -4,8 +4,9 @@
     class="k-button"
     :class="[buttonSize, buttonAppearance, { 'icon-button': icon === true || (!slots.default && slots.icon /* TODO: remove this once we remove icon slot */) }]"
     :disabled="disabled ? disabled : undefined"
+    :role="buttonType !== 'button' ? 'button' : undefined"
     :tabindex="disabled && buttonType !== 'button' ? '-1' : undefined"
-    :type="type"
+    :type="buttonType === 'button' ? type : undefined"
     v-bind="strippedAttrs"
     v-on="listeners"
   >
@@ -40,7 +41,7 @@ watch(() => icon, (value) => {
 const slots = defineSlots<ButtonSlots>()
 const attrs = useAttrs()
 
-const buttonType = computed((): string => {
+const buttonType = computed(() => {
   if (to && typeof to === 'string') {
     return 'a'
   } else if (to) {
