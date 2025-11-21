@@ -1,3 +1,24 @@
+## [9.46.11](https://github.com/Kong/kongponents/compare/v9.46.10...v9.46.11) (2025-11-21)
+
+
+### Bug Fixes
+
+* remove harde runner ([#2997](https://github.com/Kong/kongponents/issues/2997)) ([5a5232a](https://github.com/Kong/kongponents/commit/5a5232a64c9792b542c103589acdb3eee3aa59a2))
+
+## [9.46.10](https://github.com/Kong/kongponents/compare/v9.46.9...v9.46.10) (2025-11-21)
+
+
+### Bug Fixes
+
+* trigger release ([#2996](https://github.com/Kong/kongponents/issues/2996)) ([a5d8f75](https://github.com/Kong/kongponents/commit/a5d8f751f5b10f54b19a61d16fbeb03dc5bf0098))
+
+## [9.46.9](https://github.com/Kong/kongponents/compare/v9.46.8...v9.46.9) (2025-11-21)
+
+
+### Bug Fixes
+
+* **kbutton:** type property invalid for anchor ([#2994](https://github.com/Kong/kongponents/issues/2994)) ([785853b](https://github.com/Kong/kongponents/commit/785853b7df9ae194da6f8c73d00222203b59c289))
+
 ## [9.46.8](https://github.com/Kong/kongponents/compare/v9.46.7...v9.46.8) (2025-11-17)
 
 
