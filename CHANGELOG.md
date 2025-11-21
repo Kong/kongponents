@@ -1,3 +1,10 @@
+## [9.46.11](https://github.com/Kong/kongponents/compare/v9.46.10...v9.46.11) (2025-11-21)
+
+
+### Bug Fixes
+
+* remove harde runner ([#2997](https://github.com/Kong/kongponents/issues/2997)) ([5a5232a](https://github.com/Kong/kongponents/commit/5a5232a64c9792b542c103589acdb3eee3aa59a2))
+
 ## [9.46.10](https://github.com/Kong/kongponents/compare/v9.46.9...v9.46.10) (2025-11-21)
 
 
