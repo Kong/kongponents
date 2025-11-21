@@ -25,7 +25,8 @@ permissions:
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  # Never cancel in progress jobs to ensure code is released
+  cancel-in-progress: false
 
 jobs:
   get-changed-files:
