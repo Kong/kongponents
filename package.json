@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.46.9",
+  "version": "9.46.12",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -61,7 +61,7 @@
   },
   "dependencies": {
     "@floating-ui/vue": "^1.1.9",
-    "@kong/icons": "^1.39.0",
+    "@kong/icons": "^1.39.1",
     "@popperjs/core": "^2.11.8",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.1",
@@ -88,7 +88,7 @@
     "@evilmartians/lefthook": "^2.0.4",
     "@kong-ui-public/sandbox-layout": "^2.3.8",
     "@kong/design-tokens": "^1.18.1",
-    "@kong/eslint-config-kong-ui": "1.5.1",
+    "@kong/eslint-config-kong-ui": "1.5.6",
     "@nuxt/kit": "^4.2.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",

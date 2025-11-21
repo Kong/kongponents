@@ -1,3 +1,24 @@
+## [9.46.12](https://github.com/Kong/kongponents/compare/v9.46.11...v9.46.12) (2025-11-21)
+
+
+### Bug Fixes
+
+* **deps:** update non-major [@kong](https://github.com/kong) dependencies with stable versions (patch) ([#2931](https://github.com/Kong/kongponents/issues/2931)) ([27754f5](https://github.com/Kong/kongponents/commit/27754f56a227e272cfee0a2643ab1161342abdf6))
+
+## [9.46.11](https://github.com/Kong/kongponents/compare/v9.46.10...v9.46.11) (2025-11-21)
+
+
+### Bug Fixes
+
+* remove harde runner ([#2997](https://github.com/Kong/kongponents/issues/2997)) ([5a5232a](https://github.com/Kong/kongponents/commit/5a5232a64c9792b542c103589acdb3eee3aa59a2))
+
+## [9.46.10](https://github.com/Kong/kongponents/compare/v9.46.9...v9.46.10) (2025-11-21)
+
+
+### Bug Fixes
+
+* trigger release ([#2996](https://github.com/Kong/kongponents/issues/2996)) ([a5d8f75](https://github.com/Kong/kongponents/commit/a5d8f751f5b10f54b19a61d16fbeb03dc5bf0098))
+
 ## [9.46.9](https://github.com/Kong/kongponents/compare/v9.46.8...v9.46.9) (2025-11-21)
 
 
