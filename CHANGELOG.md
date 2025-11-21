@@ -1,3 +1,10 @@
+## [9.46.10](https://github.com/Kong/kongponents/compare/v9.46.9...v9.46.10) (2025-11-21)
+
+
+### Bug Fixes
+
+* trigger release ([#2996](https://github.com/Kong/kongponents/issues/2996)) ([a5d8f75](https://github.com/Kong/kongponents/commit/a5d8f751f5b10f54b19a61d16fbeb03dc5bf0098))
+
 ## [9.46.9](https://github.com/Kong/kongponents/compare/v9.46.8...v9.46.9) (2025-11-21)
 
 
