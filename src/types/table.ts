@@ -424,7 +424,7 @@ type TablePropsShared<
         : Event
       : never,
     data: NoInfer<Data[number]>,
-    type: 'row'
+    type: 'row',
   ) => any
 } & {
   /**
@@ -437,7 +437,7 @@ type TablePropsShared<
         : Event
       : never,
     data: any,
-    type: 'cell'
+    type: 'cell',
   ) => any
 }
 
