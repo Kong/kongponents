@@ -28,11 +28,6 @@ jobs:
       package-json-pnpm-lock-files-changed: ${{ steps.package-json-pnpm-lock-files-changed.outputs.any_modified }}
 
     steps:
-      - name: Harden Runner
-        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
-        if: ${{ vars.HARDEN_RUNNER == 'true' }}
-        with:
-          egress-policy: audit
       - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
         with:
           fetch-depth: 2
