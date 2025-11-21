@@ -1,6 +1,8 @@
 import type { App } from 'vue'
-import * as components from './components' // Import all components
-import './styles/styles.scss' // Import all styles
+// Import all components
+import * as components from './components'
+// Import all styles
+import './styles/styles.scss'
 
 // Export Vue plugin by default
 export default {
