@@ -1,3 +1,10 @@
+## [9.46.9](https://github.com/Kong/kongponents/compare/v9.46.8...v9.46.9) (2025-11-21)
+
+
+### Bug Fixes
+
+* **kbutton:** type property invalid for anchor ([#2994](https://github.com/Kong/kongponents/issues/2994)) ([785853b](https://github.com/Kong/kongponents/commit/785853b7df9ae194da6f8c73d00222203b59c289))
+
 ## [9.46.8](https://github.com/Kong/kongponents/compare/v9.46.7...v9.46.8) (2025-11-17)
 
 
