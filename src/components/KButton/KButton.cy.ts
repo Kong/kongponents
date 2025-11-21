@@ -111,4 +111,48 @@ describe('KButton', () => {
       },
     )).to.not.throw()
   })
+
+  it('adds `type` property when rendering a native button element', () => {
+    cy.mount(KButton, {
+      props: {
+        appearance: 'secondary',
+      },
+      slots: {
+        default: () => "I'm a native link",
+      },
+    })
+
+    cy.get('button').invoke('attr', 'type').should('eq', 'button')
+    cy.get('button').invoke('attr', 'role').should('eq', undefined)
+  })
+
+  it('adds `type` property as defined on component when rendering a native button element', () => {
+    cy.mount(KButton, {
+      props: {
+        appearance: 'secondary',
+        type: 'submit',
+      },
+      slots: {
+        default: () => "I'm a native link",
+      },
+    })
+
+    cy.get('button').invoke('attr', 'type').should('eq', 'submit')
+  })
+
+  it('adds `role` property and does not render `type` property when rendering an anchor tag', () => {
+    cy.mount(KButton, {
+      props: {
+        to: 'https://google.com',
+        appearance: 'secondary',
+        type: 'submit',
+      },
+      slots: {
+        default: () => "I'm a native link",
+      },
+    })
+
+    cy.get('a').invoke('attr', 'type').should('eq', undefined)
+    cy.get('a').invoke('attr', 'role').should('eq', 'button')
+  })
 })
