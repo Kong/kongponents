@@ -18,6 +18,7 @@ jobs:
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+        if: ${{ vars.HARDEN_RUNNER == 'true' }}
         with:
           egress-policy: audit
       - name: Approve a PR
