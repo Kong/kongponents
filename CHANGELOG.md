@@ -1,3 +1,10 @@
+## [9.46.12](https://github.com/Kong/kongponents/compare/v9.46.11...v9.46.12) (2025-11-21)
+
+
+### Bug Fixes
+
+* **deps:** update non-major [@kong](https://github.com/kong) dependencies with stable versions (patch) ([#2931](https://github.com/Kong/kongponents/issues/2931)) ([27754f5](https://github.com/Kong/kongponents/commit/27754f56a227e272cfee0a2643ab1161342abdf6))
+
 ## [9.46.11](https://github.com/Kong/kongponents/compare/v9.46.10...v9.46.11) (2025-11-21)
 
 
