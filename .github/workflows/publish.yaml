@@ -136,17 +136,10 @@ jobs:
         - name: Semantic Release
           if: github.event_name == 'push'
           id: semantic_release
-          uses: cycjimmy/semantic-release-action@9cc899c47e6841430bbaedb43de1560a568dfd16 # v5.0.0
+          uses: cycjimmy/semantic-release-action@b12c8f6015dc215fe37bc154d4ad456dd3833c90 # v6.0.0
           env:
             # Since branch protections are on (pushing commits) you need to use a bot PAT
             GITHUB_TOKEN: ${{ secrets.KONGPONENTS_BOT_PAT }}
-
-        # as of now cycjimmy/semantic-release-action is not publishing  to npmjs as
-        # trusted publishing is not yet supported, so we want to do a publish as separate step
-        - name: Publish to npm
-          if: github.event_name == 'push'
-          run: |
-            npm publish
 
   no-tests-required:
     name: No Component Tests needed
