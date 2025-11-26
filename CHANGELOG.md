@@ -1,3 +1,10 @@
+## [9.46.13](https://github.com/Kong/kongponents/compare/v9.46.12...v9.46.13) (2025-11-25)
+
+
+### Bug Fixes
+
+* back to publishing using semantic-release [KHCP-17673] ([#3000](https://github.com/Kong/kongponents/issues/3000)) ([6e2a7b3](https://github.com/Kong/kongponents/commit/6e2a7b34807ae8dae6621e6cf4cde62985f63ebe))
+
 ## [9.46.12](https://github.com/Kong/kongponents/compare/v9.46.11...v9.46.12) (2025-11-21)
 
 
