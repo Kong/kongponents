@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.46.13",
+  "version": "9.47.0",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -205,7 +205,7 @@
       "jiraAppend": "]"
     }
   },
-  "pnpm" : {
+  "pnpm": {
     "overrides": {
       "axios@>=1.0.0 <1.12.0": ">=1.12.0",
       "cross-spawn@>=7.0.0 <7.0.5": ">=7.0.5",

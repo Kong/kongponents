@@ -1,3 +1,10 @@
+# [9.47.0](https://github.com/Kong/kongponents/compare/v9.46.13...v9.47.0) (2025-11-26)
+
+
+### Features
+
+* adopt PR audit [KHCP-18541] ([#2993](https://github.com/Kong/kongponents/issues/2993)) ([1aa67d8](https://github.com/Kong/kongponents/commit/1aa67d8b5558a728032c7409a59679365e4587d0))
+
 ## [9.46.13](https://github.com/Kong/kongponents/compare/v9.46.12...v9.46.13) (2025-11-25)
 
 
