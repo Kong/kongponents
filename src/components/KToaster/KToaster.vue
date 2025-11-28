@@ -127,6 +127,8 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
       flex: 1;
       flex-direction: column;
       gap: var(--kui-space-30, $kui-space-30);
+      min-width: 0;
+      overflow-wrap: break-word;
 
       .toaster-title {
         font-family: var(--kui-font-family-text, $kui-font-family-text);
