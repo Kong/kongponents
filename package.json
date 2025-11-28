@@ -5,7 +5,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kong/kongponents.git"
+    "url": "git+https://github.com/Kong/kongponents.git"
   },
   "homepage": "https://kongponents.konghq.com/",
   "main": "./dist/kongponents.cjs",
