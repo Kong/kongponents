@@ -3,6 +3,7 @@ export interface CodeBlockEventData {
   codeElement: HTMLElement
   code: string
   language: string
+  theme: Theme
   query: string
   matchingLineNumbers: number[]
 }
