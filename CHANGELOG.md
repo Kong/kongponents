@@ -1,3 +1,11 @@
+## [9.47.1](https://github.com/Kong/kongponents/compare/v9.47.0...v9.47.1) (2025-11-28)
+
+
+### Bug Fixes
+
+* no pr-audit for renovate bot prs ([#3003](https://github.com/Kong/kongponents/issues/3003)) ([b549d7a](https://github.com/Kong/kongponents/commit/b549d7a490ade84f5621c3b4f6ad3f7f1438ac05))
+* trigger pr-audit on PR labeling ([#3006](https://github.com/Kong/kongponents/issues/3006)) ([6872268](https://github.com/Kong/kongponents/commit/6872268f7825bf38bbc4b1e9b6c781a0b829a518))
+
 # [9.47.0](https://github.com/Kong/kongponents/compare/v9.46.13...v9.47.0) (2025-11-26)
 
 
