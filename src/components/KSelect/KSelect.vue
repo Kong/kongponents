@@ -661,6 +661,8 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
 /* Component styles */
 
 .k-select {
+  display: flex;
+  flex-direction: column;
   width: v-bind('elementWidth');
 
   .select-wrapper {

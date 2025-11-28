@@ -1003,6 +1003,8 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
 /* Component styles */
 
 .k-multiselect {
+  display: flex;
+  flex-direction: column;
   position: relative; // so staging area is positioned around this node
   width: fit-content; // necessary for correct placement of popup
 
