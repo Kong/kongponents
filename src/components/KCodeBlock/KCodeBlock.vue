@@ -508,6 +508,7 @@ function getEventData(preElement: HTMLElement, codeElement: HTMLElement): CodeBl
     preElement,
     codeElement,
     code,
+    theme,
     language,
     query: query.value,
     matchingLineNumbers: matchingLineNumbers.value,

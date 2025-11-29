@@ -68,7 +68,6 @@
         <br>
         <KLabel>Showing: {{ highlightedToggle ? 'Code chunk 1 [2-4]' : 'Code chunk 2 [6-8]' }}</KLabel>
         <KCodeBlock
-          v-if="highlighter"
           id="syntax-highlighted-codeblock"
           :code="`${code}\n`.repeat(100)"
           :highlighted-line-numbers="highlightedLines"
@@ -78,9 +77,6 @@
           theme="dark"
           @code-block-render="highlight"
         />
-        <div v-else>
-          Loading syntax highlighter...
-        </div>
       </SandboxSectionComponent>
       <SandboxSectionComponent
         class="limited-width"
@@ -235,13 +231,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, inject, onBeforeMount, watch, nextTick } from 'vue'
+import { computed, ref, inject, watch, nextTick } from 'vue'
 import type { CodeBlockEventData } from '@/types'
-import useShiki from '../composables/useShiki'
+import { codeToHtml } from '../utils/shiki'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-
-const { createHighlighter, highlighter } = useShiki()
 
 const origLines = [2, 3, 4]
 const newLines = [6, 7, 8]
@@ -252,10 +246,8 @@ const highlightedLines = ref<number[]>(origLines)
 const highlightedToggle = ref(true)
 const codeModified = ref(false)
 
-const highlight = async ({ codeElement, language, code }: CodeBlockEventData) => {
-  if (highlighter.value) {
-    codeElement.innerHTML = highlighter.value.codeToHtml(code, { lang: language, theme: 'material-theme-palenight' })
-  }
+const highlight = async ({ codeElement, language, code, theme }: CodeBlockEventData) => {
+  codeElement.innerHTML = await codeToHtml(code, { lang: language, theme: theme === 'dark' ? 'material-theme-palenight' : 'catppuccin-latte', structure: 'inline' })
 }
 
 const code = computed((): string => `{
@@ -313,22 +305,10 @@ watch(code, async () => {
     })
   }
 })
-
-onBeforeMount(async () => {
-  await createHighlighter()
-})
 </script>
 
 <style lang="scss" scoped>
 .limited-width {
   max-width: 90%;
-}
-
-.syntax-highlighting {
-  :deep(.k-code-block.theme-dark code>pre) {
-    // prevent overriding highlighted line background color
-    background-color: unset !important;
-    margin: 0;
-  }
 }
 </style>
