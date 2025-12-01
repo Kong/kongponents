@@ -55,7 +55,7 @@
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        class="limited-width syntax-highlighting"
+        class="limited-width"
         title="programmatic highlightedLineNumbers & syntax highlighting"
       >
         <KCheckbox
