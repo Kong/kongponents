@@ -4,7 +4,7 @@ import {
 } from 'shiki/core'
 import { createJavaScriptRegexEngine } from 'shiki/engine-javascript.mjs'
 
-
+// Create a bundled highlighter with lazy-loaded languages and themes
 const createHighlighter = createdBundledHighlighter({
   langs: {
     json: () => import('shiki/langs/json.mjs'),
@@ -16,6 +16,7 @@ const createHighlighter = createdBundledHighlighter({
   engine: () => createJavaScriptRegexEngine(),
 })
 
+// Export singleton shorthand for converting code to HTML
 const { codeToHtml } = createSingletonShorthands(createHighlighter)
 
 export { codeToHtml }
