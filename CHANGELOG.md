@@ -1,3 +1,10 @@
+## [9.47.2](https://github.com/Kong/kongponents/compare/v9.47.1...v9.47.2) (2025-12-01)
+
+
+### Bug Fixes
+
+* **ktoaster:** avoid overflow when message or title is too long ([#2990](https://github.com/Kong/kongponents/issues/2990)) ([1c16114](https://github.com/Kong/kongponents/commit/1c161146f60c189cf52a64caf22a19caa14068f5))
+
 ## [9.47.1](https://github.com/Kong/kongponents/compare/v9.47.0...v9.47.1) (2025-11-28)
 
 
