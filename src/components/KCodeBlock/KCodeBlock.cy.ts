@@ -311,4 +311,33 @@ describe('KCodeBlock', () => {
         expect(expectedMatchedTerms.includes(matchedTerm.textContent as string))
       })
   })
+
+  it('emits code-block-render event on mount with correct event data', () => {
+    const onCodeBlockRender = cy.spy().as('codeBlockRenderSpy')
+
+    const props = {
+      id: 'code-block',
+      language: 'json',
+      code,
+      theme: 'dark',
+      onCodeBlockRender,
+    }
+
+    cy.mount(KCodeBlock, { props })
+
+    cy.get('@codeBlockRenderSpy')
+      .should('have.been.calledOnce')
+      .its('firstCall.args.0')
+      .should((eventData: any) => {
+        expect(eventData).to.include({
+          code: props.code,
+          language: props.language,
+          theme: props.theme,
+          query: '',
+        })
+        expect(eventData).to.have.property('preElement').that.is.instanceOf(HTMLElement)
+        expect(eventData).to.have.property('codeElement').that.is.instanceOf(HTMLElement)
+        expect(eventData.matchingLineNumbers).to.be.an('array')
+      })
+  })
 })
