@@ -1,3 +1,10 @@
+## [9.47.4](https://github.com/Kong/kongponents/compare/v9.47.3...v9.47.4) (2025-12-02)
+
+
+### Bug Fixes
+
+* **kalert:** link appearance add border ([#3011](https://github.com/Kong/kongponents/issues/3011)) ([e108777](https://github.com/Kong/kongponents/commit/e108777dfeeca48db94536e3d2328aafd8c01f98))
+
 ## [9.47.3](https://github.com/Kong/kongponents/compare/v9.47.2...v9.47.3) (2025-12-02)
 
 
