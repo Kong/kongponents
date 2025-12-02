@@ -1,3 +1,10 @@
+## [9.47.3](https://github.com/Kong/kongponents/compare/v9.47.2...v9.47.3) (2025-12-02)
+
+
+### Bug Fixes
+
+* **kselect, kmultiselect:** apply flex layout ([#2992](https://github.com/Kong/kongponents/issues/2992)) ([c59de82](https://github.com/Kong/kongponents/commit/c59de828ee9520b170db9a7febb5a1e4a6073faf))
+
 ## [9.47.2](https://github.com/Kong/kongponents/compare/v9.47.1...v9.47.2) (2025-12-01)
 
 
