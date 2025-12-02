@@ -105,10 +105,14 @@ const getAlertIcon = computed((): AlertIcon => {
       :slotted(a),
       :deep(a) {
         &:not([type='button']) {
+          border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid $textColor;
           color: $textColor;
+          text-decoration: none;
 
           &:hover {
+            border-bottom-color: $textColor;
             color: $hoverColor;
+            text-decoration: none;
           }
         }
       }
