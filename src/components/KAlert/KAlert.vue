@@ -110,7 +110,7 @@ const getAlertIcon = computed((): AlertIcon => {
           text-decoration: none;
 
           &:hover {
-            border-bottom-color: $textColor;
+            border-bottom-color: $hoverColor;
             color: $hoverColor;
             text-decoration: none;
           }
