@@ -395,6 +395,7 @@ interface CodeBlockEventData {
   codeElement: HTMLElement
   code: string
   language: string
+  theme: 'light' | 'dark'
   query: string
   matchingLineNumbers: number[]
 }
@@ -565,10 +566,10 @@ const code = `{
   ]
 }`
 
-async function highlight({ codeElement, language, code }) {
+async function highlight({ codeElement, language, theme, code }) {
   codeElement.innerHTML = await codeToHtml(code, {
     lang: language,
-    theme: 'vitesse-dark'
+    theme: theme === 'dark' ? 'vitesse-dark' : 'vitesse-light',
     // `inline` allows to generate <span> and <br> elements without wrapper.
     // Foreground and background colors are not applied for easier embedding. 
     structure: 'inline'
