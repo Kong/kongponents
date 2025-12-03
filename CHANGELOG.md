@@ -1,3 +1,10 @@
+# [9.48.0](https://github.com/Kong/kongponents/compare/v9.47.4...v9.48.0) (2025-12-03)
+
+
+### Features
+
+* **kcodeblock:** add theme in CodeBlockEventData ([#3005](https://github.com/Kong/kongponents/issues/3005)) ([4cb1cc4](https://github.com/Kong/kongponents/commit/4cb1cc41a590a5922f869488b532ad4408310c9c))
+
 ## [9.47.4](https://github.com/Kong/kongponents/compare/v9.47.3...v9.47.4) (2025-12-02)
 
 
