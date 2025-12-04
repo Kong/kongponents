@@ -1,3 +1,10 @@
+## [9.48.1](https://github.com/Kong/kongponents/compare/v9.48.0...v9.48.1) (2025-12-04)
+
+
+### Bug Fixes
+
+* **ktoaster:** revert prevent creating duplicate containers [KHCP-18535] ([#3015](https://github.com/Kong/kongponents/issues/3015)) ([6d54c42](https://github.com/Kong/kongponents/commit/6d54c42ec20aeb13ab79989ec79cd2e0895906fc))
+
 # [9.48.0](https://github.com/Kong/kongponents/compare/v9.47.4...v9.48.0) (2025-12-03)
 
 
