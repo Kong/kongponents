@@ -1,3 +1,10 @@
+## [9.48.3](https://github.com/Kong/kongponents/compare/v9.48.2...v9.48.3) (2025-12-08)
+
+
+### Bug Fixes
+
+* **kalert:** link style ([#3018](https://github.com/Kong/kongponents/issues/3018)) ([f0799a0](https://github.com/Kong/kongponents/commit/f0799a0f08538a25be4990ba26548b829b91c69d))
+
 ## [9.48.2](https://github.com/Kong/kongponents/compare/v9.48.1...v9.48.2) (2025-12-08)
 
 
