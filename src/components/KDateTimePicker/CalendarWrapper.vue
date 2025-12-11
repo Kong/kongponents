@@ -143,6 +143,7 @@ const pickerProps = computed(() => ({
   modelConfig,
   selectAttribute: calendarSelectAttributes,
   transparent: true,
+  trimWeeks: true,
 }))
 
 const showTime = computed(() => {
@@ -297,29 +298,21 @@ defineExpose({
 <style scoped lang="scss">
 .calendar-wrapper {
   .time-wrapper {
-    background: var(--kui-color-background, $kui-color-background-neutral-weakest);
-    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+    margin-top: var(--kui-space-30, $kui-space-30);
 
     .time-inputs-container {
       display: flex;
       flex-direction: row;
       gap: var(--kui-space-30, $kui-space-30);
-      padding: var(--kui-space-30, $kui-space-30) var(--kui-space-60, $kui-space-60);
+      margin: 0 var(--kui-space-60, $kui-space-60);
     }
 
     .time-input-column {
+      align-items: center;
       display: flex;
       flex: 1;
       flex-direction: column;
       gap: var(--kui-space-20, $kui-space-20);
-
-      input[type="time"] {
-        width: 100%;
-      }
-    }
-
-    .time-input-label {
-      padding-left: var(--kui-space-10, $kui-space-10);
     }
 
     .time-input-separator {
@@ -365,6 +358,7 @@ defineExpose({
 
     .help-text {
       color: var(--kui-color-text-danger, $kui-color-text-danger);
+      margin-left: var(--kui-space-50, $kui-space-50);
     }
   }
 }
