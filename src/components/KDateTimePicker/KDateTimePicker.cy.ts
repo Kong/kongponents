@@ -148,7 +148,7 @@ describe('KDateTimePicker', () => {
     cy.getTestId(timepickerInput).should('exist')
     cy.getTestId(timepickerInput).click()
     cy.get('.vc-pane-container').should('exist')
-    cy.get('.time-input').should('exist')
+    cy.getTestId('time-input-start').should('exist')
     cy.getTestId(timepickerDisplay).should('contain.text', todayDateTimeString)
   })
 
@@ -168,7 +168,8 @@ describe('KDateTimePicker', () => {
 
     cy.get('.k-datetime-picker').getTestId(timepickerInput).should('exist')
     cy.get('.k-datetime-picker').getTestId(timepickerInput).click()
-    cy.get('.time-input').should('exist')
+    cy.getTestId('time-input-start').should('exist')
+    cy.getTestId('time-input-end').should('exist')
   })
 
   it('displays a valid date when "Submit" is clicked', () => {
