@@ -77,8 +77,8 @@ importers:
         specifier: ^2.0.7
         version: 2.0.8
       '@kong-ui-public/sandbox-layout':
-        specifier: ^2.3.8
-        version: 2.3.8(vue@3.5.25(typescript@5.9.3))
+        specifier: ^2.3.11
+        version: 2.3.11(vue@3.5.25(typescript@5.9.3))
       '@kong/design-tokens':
         specifier: ^1.18.2
         version: 1.18.2
@@ -1237,8 +1237,8 @@ packages:
   '@keyv/serialize@1.1.1':
     resolution: {integrity: sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==}
 
-  '@kong-ui-public/sandbox-layout@2.3.8':
-    resolution: {integrity: sha512-6EaETVNwkpfiP88pYIPuHkCYLQFP8VEnrfKGDjxXrcz6gGL+fDguSpkR3KP0gNGO5CmtgHSnUYo0HmZX0g7r9w==}
+  '@kong-ui-public/sandbox-layout@2.3.11':
+    resolution: {integrity: sha512-zpBMJxkGjrxGV5N1PAQ8Uck9WAlYvziIYZkRC7DdXHhhI/uqV3DIV1jVPW5x7lOKyNTDXMpHtvrB6Lh1J09syA==}
     peerDependencies:
       vue: '>= 3.3.13 < 4'
 
@@ -8344,7 +8344,7 @@ snapshots:
 
   '@keyv/serialize@1.1.1': {}
 
-  '@kong-ui-public/sandbox-layout@2.3.8(vue@3.5.25(typescript@5.9.3))':
+  '@kong-ui-public/sandbox-layout@2.3.11(vue@3.5.25(typescript@5.9.3))':
     dependencies:
       '@kong/icons': 1.41.0(vue@3.5.25(typescript@5.9.3))
       vue: 3.5.25(typescript@5.9.3)
