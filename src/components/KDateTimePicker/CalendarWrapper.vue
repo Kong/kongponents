@@ -14,49 +14,55 @@
       v-if="showTime"
       class="time-wrapper"
     >
-      <div
-        class="time-input"
-      >
-        <label
-          class="time-input-label"
-          :for="`time-input-start-${componentId}`"
-        >
-          <span v-if="showRange('start')">
-            <!-- @vue-ignore: typeguard in showRange -->
-            {{ formatDateDisplay(calendarVModel.start) }}
-          </span>
-          <span v-else-if="(calendarVModel && calendarVModel instanceof Date)">
-            {{ formatDateDisplay(calendarVModel) }}
-          </span>
-        </label>
-        <input
-          :id="`time-input-start-${componentId}`"
-          v-model="startTimeValue"
-          class="time-input-start"
-          :class="{ 'input-error': hasError }"
-          data-testid="time-input-start"
-          :step="timeStep"
-          type="time"
-        >
-        <label
-          class="time-input-label"
-          :for="`time-input-end-${componentId}`"
-        >
-          <span v-if="showRange('end')">
-            <!-- @vue-ignore: typeguard in showRange -->
-            {{ format(calendarVModel.end, 'EEE MMM d yyyy') }}
-          </span>
-        </label>
-        <input
-          v-if="isRange"
-          :id="`time-input-end-${componentId}`"
-          v-model="endTimeValue"
-          class="time-input-end"
-          :class="{ 'input-error': hasError }"
-          data-testid="time-input-end"
-          :step="timeStep"
-          type="time"
-        >
+      <div class="time-inputs-container">
+        <div class="time-input-column">
+          <label
+            class="time-input-label"
+            :for="`time-input-start-${componentId}`"
+          >
+            <span v-if="showRange('start')">
+              <!-- @vue-ignore: typeguard in showRange -->
+              {{ formatDateDisplay(calendarVModel.start) }}
+            </span>
+            <span v-else-if="(calendarVModel && calendarVModel instanceof Date)">
+              {{ formatDateDisplay(calendarVModel) }}
+            </span>
+          </label>
+          <input
+            :id="`time-input-start-${componentId}`"
+            v-model="startTimeValue"
+            class="time-input-start"
+            :class="{ 'input-error': hasError }"
+            data-testid="time-input-start"
+            :step="timeStep"
+            type="time"
+          >
+        </div>
+        <template v-if="isRange">
+          <div class="time-input-separator">
+            -
+          </div>
+          <div class="time-input-column">
+            <label
+              class="time-input-label"
+              :for="`time-input-end-${componentId}`"
+            >
+              <span v-if="showRange('end')">
+                <!-- @vue-ignore: typeguard in showRange -->
+                {{ format(calendarVModel.end, 'EEE MMM d yyyy') }}
+              </span>
+            </label>
+            <input
+              :id="`time-input-end-${componentId}`"
+              v-model="endTimeValue"
+              class="time-input-end"
+              :class="{ 'input-error': hasError }"
+              data-testid="time-input-end"
+              :step="timeStep"
+              type="time"
+            >
+          </div>
+        </template>
       </div>
       <Transition
         mode="out-in"
@@ -292,46 +298,67 @@ defineExpose({
 .calendar-wrapper {
   .time-wrapper {
     background: var(--kui-color-background, $kui-color-background-neutral-weakest);
+    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
 
-    .time-input {
-      border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
+    .time-inputs-container {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       gap: var(--kui-space-30, $kui-space-30);
       padding: var(--kui-space-30, $kui-space-30) var(--kui-space-60, $kui-space-60);
-      width: fit-content;
+    }
+
+    .time-input-column {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: var(--kui-space-20, $kui-space-20);
 
       input[type="time"] {
-        @include inputDefaults;
+        width: 100%;
+      }
+    }
+
+    .time-input-label {
+      padding-left: var(--kui-space-10, $kui-space-10);
+    }
+
+    .time-input-separator {
+      align-self: flex-end;
+      flex-shrink: 0;
+      line-height: var(--kui-line-height-40, $kui-line-height-40);
+      padding: var(--kui-space-40, $kui-space-40) 0;
+    }
+
+    input[type="time"] {
+      @include inputDefaults;
+
+      &:hover {
+        @include inputHover;
+      }
+
+      &:focus {
+        @include inputFocus;
+      }
+
+      &:disabled {
+        @include inputDisabled;
+      }
+
+      &::-webkit-calendar-picker-indicator {
+        -webkit-appearance: none;
+        display: none;
+      }
+
+      // error styles
+      &.input-error {
+        @include inputError;
 
         &:hover {
-          @include inputHover;
+          @include inputErrorHover;
         }
 
         &:focus {
-          @include inputFocus;
-        }
-
-        &:disabled {
-          @include inputDisabled;
-        }
-
-        &::-webkit-calendar-picker-indicator {
-          -webkit-appearance: none;
-          display: none;
-        }
-
-        // error styles
-        &.input-error {
-          @include inputError;
-
-          &:hover {
-            @include inputErrorHover;
-          }
-
-          &:focus {
-            @include inputErrorFocus;
-          }
+          @include inputErrorFocus;
         }
       }
     }
