@@ -1,3 +1,10 @@
+## [9.48.4](https://github.com/Kong/kongponents/compare/v9.48.3...v9.48.4) (2025-12-12)
+
+
+### Bug Fixes
+
+* **kdatetimepicker:** time inputs on same line ([#3023](https://github.com/Kong/kongponents/issues/3023)) ([1c671e9](https://github.com/Kong/kongponents/commit/1c671e9b58270dd4ef5cb4f985af4a8ff25d8c65))
+
 ## [9.48.3](https://github.com/Kong/kongponents/compare/v9.48.2...v9.48.3) (2025-12-08)
 
 
