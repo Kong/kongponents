@@ -605,7 +605,6 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
 
     .popover-footer {
       margin: var(--kui-space-0, $kui-space-0);
-      margin-top: var(--kui-space-40, $kui-space-40);
 
       .datetime-picker-footer-container {
         display: flex;
