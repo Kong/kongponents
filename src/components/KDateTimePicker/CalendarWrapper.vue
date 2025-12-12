@@ -316,6 +316,10 @@ defineExpose({
       flex: 1;
       flex-direction: column;
       gap: var(--kui-space-20, $kui-space-20);
+
+      .time-input-label {
+        margin-bottom: 0;
+      }
     }
 
     .time-input-separator {
