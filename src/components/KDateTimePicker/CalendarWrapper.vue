@@ -304,6 +304,7 @@ defineExpose({
       display: flex;
       flex-direction: row;
       gap: var(--kui-space-30, $kui-space-30);
+      line-height: var(--kui-line-height-20, $kui-line-height-20);
       margin: 0 var(--kui-space-60, $kui-space-60);
     }
 
