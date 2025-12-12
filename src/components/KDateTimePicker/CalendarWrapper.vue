@@ -298,14 +298,16 @@ defineExpose({
 <style scoped lang="scss">
 .calendar-wrapper {
   .time-wrapper {
+    background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
     margin-top: var(--kui-space-30, $kui-space-30);
 
     .time-inputs-container {
       display: flex;
       flex-direction: row;
-      gap: var(--kui-space-30, $kui-space-30);
+      gap: var(--kui-space-20, $kui-space-20);
       line-height: var(--kui-line-height-20, $kui-line-height-20);
-      margin: 0 var(--kui-space-60, $kui-space-60);
+      padding: var(--kui-space-40, $kui-space-40);
     }
 
     .time-input-column {
