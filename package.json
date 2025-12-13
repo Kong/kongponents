@@ -83,7 +83,7 @@
     "@babel/types": "^7.28.5",
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
-    "@cypress/vite-dev-server": "^7.0.0",
+    "@cypress/vite-dev-server": "^7.0.1",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@evilmartians/lefthook": "^2.0.7",
     "@kong-ui-public/sandbox-layout": "^2.3.11",
