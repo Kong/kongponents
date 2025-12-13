@@ -68,8 +68,8 @@ importers:
         specifier: ^20.2.0
         version: 20.2.0
       '@cypress/vite-dev-server':
-        specifier: ^7.0.0
-        version: 7.0.0(cypress@13.17.0)
+        specifier: ^7.0.1
+        version: 7.0.1(cypress@13.17.0)
       '@digitalroute/cz-conventional-changelog-for-jira':
         specifier: ^8.0.1
         version: 8.0.1(@types/node@24.10.1)(typescript@5.9.3)
@@ -604,8 +604,8 @@ packages:
     resolution: {integrity: sha512-fi0eVdCOtKu5Ed6+E8mYxUF6ZTFJDZvHogCBelM0xVXmrDEkyM22gRArQzq1YcHPm1V47Vf/iAD+WgVdUlJCGg==}
     engines: {node: '>= 6'}
 
-  '@cypress/vite-dev-server@7.0.0':
-    resolution: {integrity: sha512-yEuWg12HYSD+i7ZYta9VshjF94fahPTYVJMKk059tiqSHLlK68WHBZ/LwdA6SEriaPWBB2vdZstJa1z4M8Hmmw==}
+  '@cypress/vite-dev-server@7.0.1':
+    resolution: {integrity: sha512-J5x06TsvZ63wwtl46lV0fkMLr2K+VyubE6xtcFy5siPtIppVyhYeZ14TcXO76h9kApg0ecx//IHJp6a2wuHkSg==}
     peerDependencies:
       cypress: '>=15.0.0'
 
@@ -7898,13 +7898,13 @@ snapshots:
       tunnel-agent: 0.6.0
       uuid: 8.3.2
 
-  '@cypress/vite-dev-server@7.0.0(cypress@13.17.0)':
+  '@cypress/vite-dev-server@7.0.1(cypress@13.17.0)':
     dependencies:
       cypress: 13.17.0
       debug: 4.4.3(supports-color@8.1.1)
       find-up: 6.3.0
       node-html-parser: 5.3.3
-      semver: 7.7.2
+      semver: 7.7.3
     transitivePeerDependencies:
       - supports-color
 
