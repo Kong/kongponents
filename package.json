@@ -122,7 +122,7 @@
     "rollup-plugin-visualizer": "^6.0.5",
     "sass": "^1.94.3",
     "semantic-release": "^24.2.9",
-    "shiki": "^3.19.0",
+    "shiki": "^3.20.0",
     "shx": "^0.4.0",
     "stylelint": "^16.25.0",
     "stylelint-config-html": "^1.1.0",
@@ -190,10 +190,10 @@
     "node": ">=v16.20.2 || >=18.12.1 || >=20.14.0 || >=22.14.0",
     "pnpm": ">=9.11.0 || >=10.10.0"
   },
-  "packageManager": "pnpm@10.24.0",
+  "packageManager": "pnpm@10.25.0",
   "volta": {
     "node": "24.11.1",
-    "pnpm": "10.24.0"
+    "pnpm": "10.25.0"
   },
   "config": {
     "commitizen": {
