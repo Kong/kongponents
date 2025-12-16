@@ -1,3 +1,10 @@
+## [9.48.5](https://github.com/Kong/kongponents/compare/v9.48.4...v9.48.5) (2025-12-16)
+
+
+### Bug Fixes
+
+* **kcodeblock:** ssr types check ([#3027](https://github.com/Kong/kongponents/issues/3027)) ([3a72b7a](https://github.com/Kong/kongponents/commit/3a72b7a618af73d805d5fa8a4afe81922385cde5))
+
 ## [9.48.4](https://github.com/Kong/kongponents/compare/v9.48.3...v9.48.4) (2025-12-12)
 
 
