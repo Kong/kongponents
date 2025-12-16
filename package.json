@@ -124,7 +124,7 @@
     "semantic-release": "^24.2.9",
     "shiki": "^3.20.0",
     "shx": "^0.4.0",
-    "stylelint": "^16.25.0",
+    "stylelint": "^16.26.1",
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-recommended-scss": "^14.1.0",
     "stylelint-config-recommended-vue": "^1.6.1",
