@@ -482,6 +482,10 @@ onBeforeUnmount(function() {
 })
 
 function emitCodeBlockRenderEvent(): void {
+  if (typeof HTMLElement === 'undefined') {
+    return
+  }
+
   const preElement = codeBlockRef.value?.querySelector('.highlighted-code-block')
   const codeElement = preElement?.querySelector('code')
 
@@ -605,7 +609,7 @@ function jumpToPreviousMatch(): void {
 }
 
 function jumpToMatch(direction: number): void {
-  if (matchingLineNumbers.value.length === 0 || !(codeBlockRef.value instanceof HTMLElement)) {
+  if (matchingLineNumbers.value.length === 0 || typeof HTMLElement === 'undefined' || !(codeBlockRef.value instanceof HTMLElement)) {
     return
   }
 
