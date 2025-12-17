@@ -1,3 +1,10 @@
+## [9.48.6](https://github.com/Kong/kongponents/compare/v9.48.5...v9.48.6) (2025-12-17)
+
+
+### Bug Fixes
+
+* **ktextarea:** fix mixin inclusion to prevent invalid css ([#3026](https://github.com/Kong/kongponents/issues/3026)) ([5a4aaf6](https://github.com/Kong/kongponents/commit/5a4aaf6d6a7eda4000aac0ecb10f388013522a3a))
+
 ## [9.48.5](https://github.com/Kong/kongponents/compare/v9.48.4...v9.48.5) (2025-12-16)
 
 
