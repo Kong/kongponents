@@ -65,7 +65,7 @@
     "@popperjs/core": "^2.11.8",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.1",
-    "focus-trap": "^7.6.6",
+    "focus-trap": "^7.7.0",
     "focus-trap-vue": "^4.1.0",
     "lodash-es": "^4.17.21",
     "nanoid": "^5.1.6",
@@ -120,7 +120,7 @@
     "postcss-html": "^1.8.0",
     "rimraf": "^6.1.2",
     "rollup-plugin-visualizer": "^6.0.5",
-    "sass": "^1.94.3",
+    "sass": "^1.97.1",
     "semantic-release": "^24.2.9",
     "shiki": "^3.20.0",
     "shx": "^0.4.0",
@@ -190,10 +190,10 @@
     "node": ">=v16.20.2 || >=18.12.1 || >=20.14.0 || >=22.14.0",
     "pnpm": ">=9.11.0 || >=10.10.0"
   },
-  "packageManager": "pnpm@10.25.0",
+  "packageManager": "pnpm@10.26.1",
   "volta": {
-    "node": "24.11.1",
-    "pnpm": "10.25.0"
+    "node": "24.12.0",
+    "pnpm": "10.26.1"
   },
   "config": {
     "commitizen": {
