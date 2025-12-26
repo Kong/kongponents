@@ -1,3 +1,10 @@
+## [9.48.8](https://github.com/Kong/kongponents/compare/v9.48.7...v9.48.8) (2025-12-26)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies with stable versions ([#3028](https://github.com/Kong/kongponents/issues/3028)) ([6af0b03](https://github.com/Kong/kongponents/commit/6af0b0344d31e4f48a5c873a9902a578f2ac883c))
+
 ## [9.48.7](https://github.com/Kong/kongponents/compare/v9.48.6...v9.48.7) (2025-12-24)
 
 
