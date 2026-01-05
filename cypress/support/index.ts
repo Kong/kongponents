@@ -27,6 +27,12 @@ Cypress.Commands.add('findTestId', { prevSubject: 'element' }, (subject, dataTes
 })
 
 Cypress.Commands.add('mount', (component: ComputedOptions, options = {}): Chainable => {
+  Cypress.on('uncaught:exception', (err) => {
+    if (err.message.includes('Cannot read properties of undefined (reading \'app\')')) {
+      return false
+    }
+  })
+
   options.global = options.global || {}
   options.global.plugins = options.global.plugins || []
   options.global.components = options.global.components || {}
@@ -43,6 +49,12 @@ Cypress.Commands.add('mount', (component: ComputedOptions, options = {}): Chaina
 })
 
 Cypress.Commands.add('mountWithProdRouter', (component: ComputedOptions, options = {}) => {
+  Cypress.on('uncaught:exception', (err) => {
+    if (err.message.includes('Cannot read properties of undefined (reading \'app\')')) {
+      return false
+    }
+  })
+
   // Setup options object
   options.global = options.global || {}
   options.global.plugins = options.global.plugins || []

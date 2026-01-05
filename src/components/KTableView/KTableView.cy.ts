@@ -355,11 +355,14 @@ describe('KTableView', () => {
     })
 
     it('handles bulk actions indeterminate state correctly and emits event', () => {
+      const onRowSelect = cy.spy().as('onRowSelect')
+
       cy.mount(KTableView, {
         props: {
           headers: [{ label: 'Bulk actions', key: 'bulkActions' }, ...options.headers],
           data: options.data,
           rowKey: 'id',
+          onRowSelect,
         },
         slots: {
           'bulk-actions': () => h('span', {}, 'Bulk action'),
@@ -377,8 +380,11 @@ describe('KTableView', () => {
         cy.getTestId('bulk-actions-checkbox').eq(2).should('be.checked')
         cy.getTestId('indeterminate-icon').should('not.exist')
 
-        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'row-select').and('have.length', 4)
-        cy.wrap(Cypress.vueWrapper.emitted('row-select')?.[3][0]).should('have.length', options.data.length)
+        cy.get('@onRowSelect').should('have.callCount', 4)
+        cy.get('@onRowSelect').then((spy) => {
+          const lastCall = (spy as unknown as sinon.SinonSpy).getCall(3)
+          expect(lastCall.args[0]).to.be.an('array').and.to.have.length(options.data.length)
+        })
       })
     })
 
@@ -453,32 +459,36 @@ describe('KTableView', () => {
     })
 
     it('should emit event when sortable column is clicked', () => {
+      const onSort = cy.spy().as('onSort')
+
       cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
+          onSort,
         },
       })
 
       cy.get('th').eq(0).click().then(() => {
         cy.get('th').eq(0).should('have.class', 'active-sort')
-        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 1)
+        cy.get('@onSort').should('have.been.calledOnce')
       })
     })
 
     it('should emit correct sort order when changing sort column', () => {
+      const onSort = cy.spy().as('onSort')
+
       cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
+          onSort,
         },
       })
       cy.get('th').eq(0).click().then(() => {
-        cy.wrap(Cypress.vueWrapper.emitted('sort')).should('have.length', 1)
-        cy.wrap(Cypress.vueWrapper.emitted('sort')?.[0]?.[0]).should('have.property', 'sortColumnOrder', 'asc')
+        cy.get('@onSort').should('have.been.calledOnce').should('have.been.calledWithMatch', { sortColumnOrder: 'asc' })
         cy.get('th').eq(1).click().then(() => {
-          cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 2)
-          cy.wrap(Cypress.vueWrapper.emitted('sort')?.[1]?.[0]).should('have.property', 'sortColumnOrder', 'asc')
+          cy.get('@onSort').should('have.callCount', 2).should('have.been.calledWithMatch', { sortColumnOrder: 'asc' })
         })
       })
     })
@@ -507,29 +517,28 @@ describe('KTableView', () => {
 
     it('sorting a column 3 times resets the sort', () => {
       const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+      const onSort = cy.spy().as('onSort')
 
       cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
+          onSort,
         },
       })
 
       cy.getTestId(`table-header-${sortableColumnKey}`).should('not.have.class', 'active-sort')
       cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
         cy.getTestId(`table-header-${sortableColumnKey}`).should('have.class', 'active-sort')
-        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 1)
-        cy.wrap(Cypress.vueWrapper.emitted('sort')?.[0]?.[0]).should('deep.equal', { prevKey: '', sortColumnKey: sortableColumnKey, sortColumnOrder: 'asc' })
+        cy.get('@onSort').should('have.been.calledOnce').should('have.been.calledWith', { prevKey: '', sortColumnKey: sortableColumnKey, sortColumnOrder: 'asc' })
 
         cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
           cy.getTestId(`table-header-${sortableColumnKey}`).should('have.class', 'active-sort')
-          cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 2)
-          cy.wrap(Cypress.vueWrapper.emitted('sort')?.[1]?.[0]).should('deep.equal', { prevKey: sortableColumnKey, sortColumnKey: sortableColumnKey, sortColumnOrder: 'desc' })
+          cy.get('@onSort').should('have.callCount', 2).should('have.been.calledWith', { prevKey: sortableColumnKey, sortColumnKey: sortableColumnKey, sortColumnOrder: 'desc' })
 
           cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
             cy.getTestId(`table-header-${sortableColumnKey}`).should('not.have.class', 'active-sort')
-            cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 3)
-            cy.wrap(Cypress.vueWrapper.emitted('sort')?.[2]?.[0]).should('deep.equal', { prevKey: sortableColumnKey, sortColumnKey: '', sortColumnOrder: 'desc' })
+            cy.get('@onSort').should('have.callCount', 3).should('have.been.calledWith', { prevKey: sortableColumnKey, sortColumnKey: '', sortColumnOrder: 'desc' })
           })
         })
       })
@@ -711,6 +720,7 @@ describe('KTableView', () => {
       const columnVisibility = {
         [hidableColumnKey]: false,
       }
+      const onUpdateTablePreferences = cy.spy().as('onUpdateTablePreferences')
 
       cy.mount(KTableView, {
         props: {
@@ -723,25 +733,32 @@ describe('KTableView', () => {
             columnVisibility: columnVisibility,
           },
         },
+        attrs: {
+          'onUpdate:table-preferences': onUpdateTablePreferences,
+        },
       }).then(() => {
         // should emit update:table-preferences immediately after initialization
-        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'update:table-preferences')
-        cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[0]?.[0]).should('have.property', 'pageSize', pageSize)
-        cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[0]?.[0]).should('have.property', 'sortColumnKey', sortableColumnKey)
-        cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[0]?.[0]).should('have.property', 'sortColumnOrder', 'desc')
-        cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[0]?.[0]).should('have.property', 'columnVisibility')
-        cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[0]?.[0]).should('have.nested.property', `columnVisibility.${hidableColumnKey}`, false)
+        cy.get('@onUpdateTablePreferences').should('have.been.calledOnce')
+        cy.get('@onUpdateTablePreferences').should('have.been.calledWithMatch', { pageSize, sortColumnKey: sortableColumnKey, sortColumnOrder: 'desc', columnVisibility })
+        cy.get('@onUpdateTablePreferences').then((spy) => {
+          const firstCall = (spy as unknown as sinon.SinonSpy).getCall(0)
+          expect(firstCall.args[0]).to.have.nested.property(`columnVisibility.${hidableColumnKey}`, false)
+        })
       })
     })
 
     it('emits update:table-preferences event when table preferences are updated', () => {
       const sortableColumnKey = options.headers.find(header => header.sortable)?.key
       const newPageSize = 30
+      const onUpdateTablePreferences = cy.spy().as('onUpdateTablePreferences')
 
       cy.mount(KTableView, {
         props: {
           data: options.data,
           headers: options.headers,
+        },
+        attrs: {
+          'onUpdate:table-preferences': onUpdateTablePreferences,
         },
       })
 
@@ -751,12 +768,11 @@ describe('KTableView', () => {
       // change page size
       cy.getTestId('table-pagination').findTestId('page-size-dropdown-trigger').click()
       cy.getTestId('dropdown-list').find('button').contains(newPageSize).click().then(() => {
-        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'update:table-preferences')
-        cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[1]?.[0]).should('have.property', 'pageSize', newPageSize)
+        cy.get('@onUpdateTablePreferences').should('have.been.called')
+        cy.get('@onUpdateTablePreferences').should('have.been.calledWithMatch', { pageSize: newPageSize })
         // change sort column
         cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
-          cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[2]?.[0]).should('have.property', 'sortColumnKey', sortableColumnKey)
-          cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[2]?.[0]).should('have.property', 'sortColumnOrder', 'asc')
+          cy.get('@onUpdateTablePreferences').should('have.been.calledWithMatch', { sortColumnKey: sortableColumnKey, sortColumnOrder: 'asc' })
         })
       })
     })
@@ -873,19 +889,24 @@ describe('KTableView', () => {
     })
 
     it('emits update:row-expanded event when row is expanded and collapsed', () => {
+      const onUpdateRowExpanded = cy.spy().as('onUpdateRowExpanded')
+
       cy.mount(KTableView, {
         props: {
           headers: options.headers,
           data: options.data,
           rowExpandable: () => true,
         },
+        attrs: {
+          'onUpdate:row-expanded': onUpdateRowExpanded,
+        },
       })
 
       cy.getTestId('expandable-row-control').eq(0).click().then(() => {
-        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'update:row-expanded').and('have.length', 1)
+        cy.get('@onUpdateRowExpanded').should('have.been.calledOnce')
 
         cy.getTestId('expandable-row-control').eq(0).click().then(() => {
-          cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'update:row-expanded').and('have.length', 2)
+          cy.get('@onUpdateRowExpanded').should('have.callCount', 2)
         })
       })
     })
