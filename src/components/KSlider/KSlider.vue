@@ -83,6 +83,7 @@
           :key="`mark-${mark.value}`"
           :data-testid="`mark-${mark.value}`"
           :style="{ left: getValuePercent(mark.value) }"
+          @click="onMarkClick(mark.value)"
         >
           {{ mark.label || mark.value }}
         </span>
@@ -125,6 +126,12 @@ const thumbStyles = computed(() => ({
 }))
 
 const onInput = () => {
+  emit('change', inputValue.value)
+  onFocus()
+}
+
+const onMarkClick = (markValue: number) => {
+  inputValue.value = markValue
   emit('change', inputValue.value)
   onFocus()
 }
