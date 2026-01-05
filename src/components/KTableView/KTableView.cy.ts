@@ -382,7 +382,8 @@ describe('KTableView', () => {
 
         cy.get('@onRowSelect').should('have.callCount', 4)
         cy.get('@onRowSelect').then((spy) => {
-          const lastCall = (spy as unknown as sinon.SinonSpy).getCall(3)
+          // @ts-ignore - spy is a Sinon spy
+          const lastCall = spy.getCall(3)
           expect(lastCall.args[0]).to.be.an('array').and.to.have.length(options.data.length)
         })
       })
@@ -741,7 +742,8 @@ describe('KTableView', () => {
         cy.get('@onUpdateTablePreferences').should('have.been.calledOnce')
         cy.get('@onUpdateTablePreferences').should('have.been.calledWithMatch', { pageSize, sortColumnKey: sortableColumnKey, sortColumnOrder: 'desc', columnVisibility })
         cy.get('@onUpdateTablePreferences').then((spy) => {
-          const firstCall = (spy as unknown as sinon.SinonSpy).getCall(0)
+          // @ts-ignore - spy is a Sinon spy
+          const firstCall = spy.getCall(0)
           expect(firstCall.args[0]).to.have.nested.property(`columnVisibility.${hidableColumnKey}`, false)
         })
       })
