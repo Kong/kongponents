@@ -31,11 +31,11 @@ importers:
         specifier: ^2.0.1
         version: 2.0.1(date-fns@2.30.0)
       focus-trap:
-        specifier: ^7.7.0
-        version: 7.7.0
+        specifier: ^7.7.1
+        version: 7.7.1
       focus-trap-vue:
         specifier: ^4.1.0
-        version: 4.1.0(focus-trap@7.7.0)(vue@3.5.26(typescript@5.9.3))
+        version: 4.1.0(focus-trap@7.7.1)(vue@3.5.26(typescript@5.9.3))
       lodash-es:
         specifier: ^4.17.22
         version: 4.17.22
@@ -74,8 +74,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(@types/node@24.10.4)(typescript@5.9.3)
       '@evilmartians/lefthook':
-        specifier: ^2.0.12
-        version: 2.0.12
+        specifier: ^2.0.13
+        version: 2.0.13
       '@kong-ui-public/sandbox-layout':
         specifier: ^2.3.17
         version: 2.3.17(vue@3.5.26(typescript@5.9.3))
@@ -1350,8 +1350,8 @@ packages:
     resolution: {integrity: sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@evilmartians/lefthook@2.0.12':
-    resolution: {integrity: sha512-SSsBw9f1ow0rz3tKhQYcalIO2V+VOcZGTFg7CkYAUVTW4q87KORfpjehJZ3bpSYxLaDV8Xkv0gaXbi9pr5Br/w==}
+  '@evilmartians/lefthook@2.0.13':
+    resolution: {integrity: sha512-Kpsd8NNQw4PrxP41OqwvM0oAP8y70Fslir7uU9fUBdl6JcGGpKlFNlFj87/5OJO95VHxKm8rFvg5mbkv4cCTFw==}
     cpu: [x64, arm64, ia32]
     os: [darwin, linux, win32]
     hasBin: true
@@ -4039,8 +4039,8 @@ packages:
       focus-trap: ^7.0.0
       vue: ^3.0.0
 
-  focus-trap@7.7.0:
-    resolution: {integrity: sha512-DJJDHpEgoSbP8ZE1MNeU2IzCpfFyFdNZZRilqmfH2XiQsPK6PtD8AfJqWzEBudUQB2yHwZc5iq54rjTaGQ+ljw==}
+  focus-trap@7.7.1:
+    resolution: {integrity: sha512-Pkp8m55GjxBLnhBoT6OXdMvfRr4TjMAKLvFM566zlIryq5plbhaTmLAJWTGR0EkRwLjEte1lCOG9MxF1ipJrOg==}
 
   for-each@0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -6781,8 +6781,8 @@ packages:
     os: [darwin, linux, win32, freebsd, openbsd, netbsd, sunos, android]
     hasBin: true
 
-  tabbable@6.3.0:
-    resolution: {integrity: sha512-EIHvdY5bPLuWForiR/AN2Bxngzpuwn1is4asboytXtpTgsArc+WmSJKVLlhdh71u7jFcryDqB2A8lQvj78MkyQ==}
+  tabbable@6.4.0:
+    resolution: {integrity: sha512-05PUHKSNE8ou2dwIxTngl4EzcnsCDZGJ/iCLtDflR/SHB/ny14rXc+qU5P4mG9JkusiV7EivzY9Mhm55AzAvCg==}
 
   table@6.9.0:
     resolution: {integrity: sha512-9kY+CygyYM6j02t5YFHbNz2FN5QmYGv9zAjVp4lCDjlCw7amdckXlEt/bjMhUIfj4ThGRE4gCUH5+yGnNuPo5A==}
@@ -8760,7 +8760,7 @@ snapshots:
       '@eslint/core': 0.17.0
       levn: 0.4.1
 
-  '@evilmartians/lefthook@2.0.12': {}
+  '@evilmartians/lefthook@2.0.13': {}
 
   '@floating-ui/core@1.7.3':
     dependencies:
@@ -10303,13 +10303,13 @@ snapshots:
       '@vueuse/shared': 14.1.0(vue@3.5.26(typescript@5.9.3))
       vue: 3.5.26(typescript@5.9.3)
 
-  '@vueuse/integrations@12.8.2(focus-trap@7.7.0)(fuse.js@7.1.0)(sortablejs@1.15.6)(typescript@5.9.3)':
+  '@vueuse/integrations@12.8.2(focus-trap@7.7.1)(fuse.js@7.1.0)(sortablejs@1.15.6)(typescript@5.9.3)':
     dependencies:
       '@vueuse/core': 12.8.2(typescript@5.9.3)
       '@vueuse/shared': 12.8.2(typescript@5.9.3)
       vue: 3.5.26(typescript@5.9.3)
     optionalDependencies:
-      focus-trap: 7.7.0
+      focus-trap: 7.7.1
       fuse.js: 7.1.0
       sortablejs: 1.15.6
     transitivePeerDependencies:
@@ -12026,14 +12026,14 @@ snapshots:
 
   flatted@3.3.3: {}
 
-  focus-trap-vue@4.1.0(focus-trap@7.7.0)(vue@3.5.26(typescript@5.9.3)):
+  focus-trap-vue@4.1.0(focus-trap@7.7.1)(vue@3.5.26(typescript@5.9.3)):
     dependencies:
-      focus-trap: 7.7.0
+      focus-trap: 7.7.1
       vue: 3.5.26(typescript@5.9.3)
 
-  focus-trap@7.7.0:
+  focus-trap@7.7.1:
     dependencies:
-      tabbable: 6.3.0
+      tabbable: 6.4.0
 
   for-each@0.3.3:
     dependencies:
@@ -14965,7 +14965,7 @@ snapshots:
 
   systeminformation@5.29.1: {}
 
-  tabbable@6.3.0: {}
+  tabbable@6.4.0: {}
 
   table@6.9.0:
     dependencies:
@@ -15623,8 +15623,8 @@ snapshots:
       '@vue/devtools-api': 7.7.7
       '@vue/shared': 3.5.22
       '@vueuse/core': 12.8.2(typescript@5.9.3)
-      '@vueuse/integrations': 12.8.2(focus-trap@7.7.0)(fuse.js@7.1.0)(sortablejs@1.15.6)(typescript@5.9.3)
-      focus-trap: 7.7.0
+      '@vueuse/integrations': 12.8.2(focus-trap@7.7.1)(fuse.js@7.1.0)(sortablejs@1.15.6)(typescript@5.9.3)
+      focus-trap: 7.7.1
       mark.js: 8.11.1
       minisearch: 7.1.2
       shiki: 2.5.0
