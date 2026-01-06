@@ -1,3 +1,10 @@
+# [9.49.0](https://github.com/Kong/kongponents/compare/v9.48.9...v9.49.0) (2026-01-06)
+
+
+### Features
+
+* **kslider:** make step labels clickable [KHCP-19044] ([#3038](https://github.com/Kong/kongponents/issues/3038)) ([a603868](https://github.com/Kong/kongponents/commit/a603868f4f2e72d6580b6743b7fad8e532f70272))
+
 ## [9.48.9](https://github.com/Kong/kongponents/compare/v9.48.8...v9.48.9) (2026-01-06)
 
 
