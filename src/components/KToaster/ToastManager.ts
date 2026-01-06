@@ -4,6 +4,7 @@ import type { Toast, ToasterAppearance, ToasterOptions } from '@/types'
 import { ToasterAppearances } from '@/types'
 import KToaster from '@/components/KToaster/KToaster.vue'
 import { getUniqueStringId } from '@/utilities'
+import SharedPool from './SharedPool'
 
 const toasterContainerId = 'kongponents-toaster-container'
 
@@ -14,8 +15,27 @@ const toasterDefaults = {
 
 const defaultZIndex = 10000
 
+const pool = new SharedPool<string, HTMLDivElement>((state, id, item) => {
+  switch (state) {
+    case 'creating': {
+      const el = document.createElement('div')
+      el.id = `${id}-${Date.now()}`
+      document.body.appendChild(el)
+      return el
+    }
+    case 'acquiring':
+      return item
+    case 'releasing':
+      return item
+    case 'destroying':
+      item.remove()
+      return item
+  }
+})
+
 export default class ToastManager {
   private toastersContainer: HTMLElement | null = null
+  private sym = Symbol(toasterContainerId)
   private toaster: VNode | null = null
   public toasts: Ref<Toast[]> = ref<Toast[]>([])
 
@@ -26,17 +46,16 @@ export default class ToastManager {
 
       return
     }
+    const container = pool.acquire(toasterContainerId, this.sym)
 
     this.toastersContainer = document.createElement('div')
-    this.toastersContainer.id = toasterContainerId
-    document.body.appendChild(this.toastersContainer)
+    container.appendChild(this.toastersContainer)
 
     this.toaster = createVNode(KToaster, {
       toasterState: this.toasts.value,
       zIndex: options?.zIndex ? options.zIndex : defaultZIndex,
       onClose: (key: string) => this.close(key),
     })
-
     if (this.toastersContainer) {
       render(this.toaster, this.toastersContainer)
     }
@@ -83,5 +102,6 @@ export default class ToastManager {
       render(null, this.toastersContainer)
       this.toastersContainer.remove()
     }
+    pool.release(toasterContainerId, this.sym)
   }
 }

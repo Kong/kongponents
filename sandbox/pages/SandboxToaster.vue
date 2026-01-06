@@ -62,6 +62,11 @@
           KToaster
         </KButton>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="destroy manager">
+        <KButton @click="() => toaster.destroy()">
+          Destroy
+        </KButton>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
