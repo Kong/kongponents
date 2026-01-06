@@ -65,7 +65,7 @@
     "@popperjs/core": "^2.11.8",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.1",
-    "focus-trap": "^7.7.0",
+    "focus-trap": "^7.7.1",
     "focus-trap-vue": "^4.1.0",
     "lodash-es": "^4.17.22",
     "nanoid": "^5.1.6",
@@ -85,7 +85,7 @@
     "@commitlint/config-conventional": "^20.2.0",
     "@cypress/vite-dev-server": "^7.0.1",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
-    "@evilmartians/lefthook": "^2.0.12",
+    "@evilmartians/lefthook": "^2.0.13",
     "@kong-ui-public/sandbox-layout": "^2.3.17",
     "@kong/design-tokens": "^1.18.2",
     "@kong/eslint-config-kong-ui": "1.6.0",
@@ -190,10 +190,10 @@
     "node": ">=v16.20.2 || >=18.12.1 || >=20.14.0 || >=22.14.0",
     "pnpm": ">=9.11.0 || >=10.10.0"
   },
-  "packageManager": "pnpm@10.26.1",
+  "packageManager": "pnpm@10.26.2",
   "volta": {
     "node": "24.12.0",
-    "pnpm": "10.26.1"
+    "pnpm": "10.26.2"
   },
   "config": {
     "commitizen": {
