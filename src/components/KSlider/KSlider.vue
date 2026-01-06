@@ -82,7 +82,7 @@
           v-for="mark in rangeMarks"
           :key="`mark-${mark.value}`"
           :data-testid="`mark-${mark.value}`"
-          :style="{ left: getValuePercent(mark.value) }"
+          :style="{ left: getValuePercent(mark.value), cursor: 'pointer' }"
           @click="onMarkClick(mark.value)"
         >
           {{ mark.label || mark.value }}
