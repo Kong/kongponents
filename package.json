@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.48.8",
+  "version": "9.48.9",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -54,9 +54,9 @@
     "lint:fix": "eslint --fix",
     "stylelint": "stylelint './src/**/*.{css,scss,sass,vue}'",
     "stylelint:fix": "stylelint './src/**/*.{css,scss,sass,vue}' --fix",
-    "test": "cypress run --component -b chrome",
-    "test:open": "cypress open --component -b chrome",
-    "test:spec": "cypress run --component -b chrome --spec",
+    "test": "cross-env DISABLE_VUE_DEVTOOLS=true cypress run --component -b chrome",
+    "test:open": "cross-env DISABLE_VUE_DEVTOOLS=true cypress open --component -b chrome",
+    "test:spec": "cross-env DISABLE_VUE_DEVTOOLS=true cypress run --component -b chrome --spec",
     "semantic-release": "semantic-release"
   },
   "dependencies": {
@@ -65,7 +65,7 @@
     "@popperjs/core": "^2.11.8",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.1",
-    "focus-trap": "^7.7.0",
+    "focus-trap": "^7.7.1",
     "focus-trap-vue": "^4.1.0",
     "lodash-es": "^4.17.22",
     "nanoid": "^5.1.6",
@@ -85,7 +85,7 @@
     "@commitlint/config-conventional": "^20.2.0",
     "@cypress/vite-dev-server": "^7.0.1",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
-    "@evilmartians/lefthook": "^2.0.12",
+    "@evilmartians/lefthook": "^2.0.13",
     "@kong-ui-public/sandbox-layout": "^2.3.17",
     "@kong/design-tokens": "^1.18.2",
     "@kong/eslint-config-kong-ui": "1.6.0",
@@ -106,7 +106,7 @@
     "commitizen": "^4.3.1",
     "copyfiles": "^2.4.1",
     "cross-env": "^10.1.0",
-    "cypress": "^13.17.0",
+    "cypress": "^15.8.1",
     "cypress-fail-fast": "^7.1.1",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^9.39.2",
@@ -128,7 +128,7 @@
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-recommended-scss": "^14.1.0",
     "stylelint-config-recommended-vue": "^1.6.1",
-    "stylelint-order": "^7.0.0",
+    "stylelint-order": "^7.0.1",
     "tsc-alias": "^1.8.16",
     "typescript": "^5.9.3",
     "vite": "^6.4.1",
@@ -190,10 +190,10 @@
     "node": ">=v16.20.2 || >=18.12.1 || >=20.14.0 || >=22.14.0",
     "pnpm": ">=9.11.0 || >=10.10.0"
   },
-  "packageManager": "pnpm@10.26.1",
+  "packageManager": "pnpm@10.26.2",
   "volta": {
     "node": "24.12.0",
-    "pnpm": "10.26.1"
+    "pnpm": "10.26.2"
   },
   "config": {
     "commitizen": {

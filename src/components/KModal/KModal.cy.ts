@@ -248,60 +248,71 @@ describe('KModal', () => {
   })
 
   it('emits proceed event when action button is clicked', () => {
+    const onProceed = cy.spy().as('onProceed')
+
     cy.mount(KModal, {
       props: {
         visible: true,
+        onProceed,
       },
     })
 
-    cy.getTestId('modal-action-button').click().then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'proceed').and('have.length', 1)
-    })
+    cy.getTestId('modal-action-button').click()
+    cy.get('@onProceed').should('have.been.calledOnce')
   })
 
   it('emits cancel event when cancel button is clicked', () => {
+    const onCancel = cy.spy().as('onCancel')
+
     cy.mount(KModal, {
       props: {
         visible: true,
+        onCancel,
       },
     })
 
-    cy.getTestId('modal-cancel-button').click().then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'cancel').and('have.length', 1)
-    })
+    cy.getTestId('modal-cancel-button').click()
+    cy.get('@onCancel').should('have.been.calledOnce')
   })
 
   it('does not close modal on backdrop click when closeOnBackdropClick is false', () => {
+    const onCancel = cy.spy().as('onCancel')
+
     cy.mount(KModal, {
       props: {
         visible: true,
         closeOnBackdropClick: false,
+        onCancel,
       },
     })
 
-    cy.get('.k-modal .modal-backdrop').click('topRight').then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('not.have.property', 'cancel')
-    })
+    cy.get('.k-modal .modal-backdrop').click('topRight')
+    cy.get('@onCancel').should('not.have.been.called')
   })
 
   it('emits cancel event when backdrop is clicked and closeOnBackdropClick is true', () => {
+    const onCancel = cy.spy().as('onCancel')
+
     cy.mount(KModal, {
       props: {
         visible: true,
         closeOnBackdropClick: true,
+        onCancel,
       },
     })
 
-    cy.get('.k-modal .modal-backdrop').click('topRight').then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'cancel').and('have.length', 1)
-    })
+    cy.get('.k-modal .modal-backdrop').click('topRight')
+    cy.get('@onCancel').should('have.been.calledOnce')
   })
 
   it('does not emit cancel event when backdrop is clicked while text selected and closeOnBackdropClick is true', () => {
+    const onCancel = cy.spy().as('onCancel')
+
     cy.mount(KModal, {
       props: {
         visible: true,
         closeOnBackdropClick: true,
+        onCancel,
       },
       slots: {
         default: '<p data-testid="modal-text">Select this text to test</p>',
@@ -318,17 +329,14 @@ describe('KModal', () => {
       selection?.addRange(range)
     })
 
-
     // check if text is selected
     cy.document().then((doc) => {
       const selectedText = doc.getSelection()?.toString()
       expect(selectedText).to.equal('Select this text to test')
     })
 
-
-    cy.get('.k-modal .modal-backdrop').click('topRight').then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('not.have.property', 'cancel')
-    })
+    cy.get('.k-modal .modal-backdrop').click('topRight')
+    cy.get('@onCancel').should('not.have.been.called')
   })
 
   it('sets focus on first input field when inputAutofocus is true', () => {
