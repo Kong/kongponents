@@ -72,7 +72,7 @@
           >
             <!-- KLabel must be separate to maintain click handling on the label within the dropdown item -->
             <KCheckbox
-              v-model="visibilityMap[col.key]"
+              v-model="visibilityMap[col.key]!"
               :aria-labelledby="`${tableId}-${col.key}-visibility-checkbox-label`"
               :data-testid="`column-visibility-checkbox-${col.key}`"
             />

@@ -330,7 +330,7 @@ const hasRenderedFilteredCode = ref<boolean>(false)
 // For checking if a line is highlighted in constant time.
 const matchingLineSet = computed(() => new Set(matchingLineNumbers.value))
 const totalLines = computed((): number[] => Array.from({ length: code?.split('\n').length }, (_, index) => index + 1))
-const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value.length - 1].toString().length + 'ch')
+const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value.length - 1]?.toString().length + 'ch')
 const isProcessing = computed((): boolean => processing || isProcessingInternally.value)
 const isShowingFilteredCode = computed((): boolean => isFilterMode.value && filteredCode.value !== '')
 

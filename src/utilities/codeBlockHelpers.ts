@@ -32,7 +32,7 @@ function findLineForOffset(lineOffsets: number[], offset: number): number {
   while (low < high) {
     // Calculate the mid-point
     const mid = Math.floor((low + high + 1) / 2)
-    if (lineOffsets[mid] <= offset) {
+    if (lineOffsets[mid] && lineOffsets[mid] <= offset) {
       // narrow the search to the upper half
       low = mid
     } else {
@@ -68,7 +68,7 @@ function getAllMatchingLineNumbersByExactMatch(code: string, query: string, line
     const nextLineOffset = lineNumber < lineOffsets.length ? lineOffsets[lineNumber] : code.length
 
     // Move to the next character after the match
-    startPos = nextLineOffset
+    startPos = nextLineOffset ?? 0
   }
 
   return allMatchedLineNumbers
@@ -204,7 +204,7 @@ function expressionToLines(expression: string, maxLines: number): number[] {
     const [start, end] = part.split('-').map(Number)
     // If there's no end, it's a single line, otherwise it's a range
     return end == null ? start : [start, end] as [number, number]
-  })
+  }).filter(range => range !== undefined)
 
   return rangesToLines(ranges, maxLines)
 }

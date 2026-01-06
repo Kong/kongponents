@@ -181,8 +181,8 @@ const initTimeInputs = () => {
 
 const getTimeParts = (timeString: string) => {
   const timeParts = timeString.split(':')
-  const hours = parseInt(timeParts[0], 10)
-  const minutes = parseInt(timeParts[1], 10)
+  const hours = parseInt(timeParts[0] ?? '0', 10)
+  const minutes = parseInt(timeParts[1] ?? '0', 10)
   const seconds = timeGranularity === 'secondly' && timeParts[2] ? parseInt(timeParts[2], 10) : 0
   return { hours, minutes, seconds }
 }
