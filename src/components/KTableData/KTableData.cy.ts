@@ -571,6 +571,7 @@ describe('KTableData', () => {
 
     it('sorting a column 3 times resets the sort', () => {
       const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+      const onSort = cy.spy().as('onSort')
 
       cy.mount(KTableData, {
         props: {
@@ -578,24 +579,22 @@ describe('KTableData', () => {
           fetcher: () => {
             return { data: options.data }
           },
+          onSort,
         },
       })
 
       cy.getTestId(`table-header-${sortableColumnKey}`).should('not.have.class', 'active-sort')
       cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
         cy.getTestId(`table-header-${sortableColumnKey}`).should('have.class', 'active-sort')
-        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 1)
-        cy.wrap(Cypress.vueWrapper.emitted('sort')?.[0]?.[0]).should('deep.equal', { prevKey: '', sortColumnKey: sortableColumnKey, sortColumnOrder: 'asc' })
+        cy.get('@onSort').should('have.been.calledOnce').should('have.been.calledWith', { prevKey: '', sortColumnKey: sortableColumnKey, sortColumnOrder: 'asc' })
 
         cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
           cy.getTestId(`table-header-${sortableColumnKey}`).should('have.class', 'active-sort')
-          cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 2)
-          cy.wrap(Cypress.vueWrapper.emitted('sort')?.[1]?.[0]).should('deep.equal', { prevKey: sortableColumnKey, sortColumnKey: sortableColumnKey, sortColumnOrder: 'desc' })
+          cy.get('@onSort').should('have.callCount', 2).should('have.been.calledWith', { prevKey: sortableColumnKey, sortColumnKey: sortableColumnKey, sortColumnOrder: 'desc' })
 
           cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
             cy.getTestId(`table-header-${sortableColumnKey}`).should('not.have.class', 'active-sort')
-            cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'sort').and('have.length', 3)
-            cy.wrap(Cypress.vueWrapper.emitted('sort')?.[2]?.[0]).should('deep.equal', { prevKey: sortableColumnKey, sortColumnKey: '', sortColumnOrder: 'desc' })
+            cy.get('@onSort').should('have.callCount', 3).should('have.been.calledWith', { prevKey: sortableColumnKey, sortColumnKey: '', sortColumnOrder: 'desc' })
           })
         })
       })
@@ -1019,6 +1018,7 @@ describe('KTableData', () => {
     it('emits update:table-preferences event when table preferences are updated', () => {
       const sortableColumnKey = options.headers.find(header => header.sortable)?.key
       const newPageSize = 30
+      const onUpdateTablePreferences = cy.spy().as('onUpdateTablePreferences')
 
       cy.mount(KTableData, {
         props: {
@@ -1027,17 +1027,20 @@ describe('KTableData', () => {
             return { data: options.data }
           },
         },
+        attrs: {
+          'onUpdate:table-preferences': onUpdateTablePreferences,
+        },
       })
 
       // change page size
       cy.getTestId('table-pagination').findTestId('page-size-dropdown-trigger').click()
       cy.getTestId('dropdown-list').find('button').contains(newPageSize).click().then(() => {
-        cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'update:table-preferences')
-        cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[0]?.[0]).should('have.property', 'pageSize', newPageSize)
+        cy.get('@onUpdateTablePreferences').should('have.been.calledOnce')
+        cy.get('@onUpdateTablePreferences').should('have.been.calledWithMatch', { pageSize: newPageSize })
         // change sort column
         cy.getTestId(`table-header-${sortableColumnKey}`).click().then(() => {
-          cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[1]?.[0]).should('have.property', 'sortColumnKey', sortableColumnKey)
-          cy.wrap(Cypress.vueWrapper.emitted('update:table-preferences')?.[1]?.[0]).should('have.property', 'sortColumnOrder', 'asc')
+          cy.get('@onUpdateTablePreferences').should('have.callCount', 2)
+          cy.get('@onUpdateTablePreferences').should('have.been.calledWithMatch', { sortColumnKey: sortableColumnKey, sortColumnOrder: 'asc' })
         })
       })
     })

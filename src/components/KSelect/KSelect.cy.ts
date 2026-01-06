@@ -244,29 +244,30 @@ describe('KSelect', () => {
 
   it('handles query change correctly', () => {
     const itemLabel = 'Label 1'
-    let emitCount = 0
+    const onQueryChange = cy.spy().as('onQueryChange')
 
     cy.mount(KSelect, {
       props: {
         enableFiltering: true,
         loading: false,
         items: [{ label: itemLabel, value: 'label1' }],
+        onQueryChange,
       },
     })
 
     cy.get('input').type(itemLabel).then(() => {
-      emitCount += itemLabel.length // 1 emit for each character typed
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'query-change')
-      cy.wrap(Cypress.vueWrapper.emitted()['query-change']).should('have.length', emitCount)
+      // 1 emit for each character typed
+      cy.get('@onQueryChange').should('have.callCount', itemLabel.length)
       cy.getTestId('select-item-label1').trigger('click')
       // selecting an item should not emit query change
-      cy.wrap(Cypress.vueWrapper.emitted()['query-change']).should('have.length', emitCount)
+      cy.get('@onQueryChange').should('have.callCount', itemLabel.length)
       cy.getTestId('select-input').trigger('click').then(() => {
-        emitCount += 1 // 1 for resetting query when opening dropdown
+        // 1 for resetting query when opening dropdown
+        cy.get('@onQueryChange').should('have.callCount', itemLabel.length + 1)
         // simulate pasting a value
         cy.get('input').invoke('val', itemLabel).trigger('input').then(() => {
-          emitCount += 1 // 1 for pasting the value
-          cy.wrap(Cypress.vueWrapper.emitted()['query-change']).should('have.length', emitCount)
+          // 1 for pasting the value
+          cy.get('@onQueryChange').should('have.callCount', itemLabel.length + 2)
         })
       })
     })
@@ -577,6 +578,9 @@ describe('KSelect', () => {
   it('emits selected, input, change events when item selected', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['val1', 'val2']
+    const onSelected = cy.spy().as('onSelected')
+    const onInput = cy.spy().as('onInput')
+    const onChange = cy.spy().as('onChange')
 
     cy.mount(KSelect, {
       props: {
@@ -588,27 +592,25 @@ describe('KSelect', () => {
           label: labels[1],
           value: vals[1],
         }],
+        onSelected,
+        onInput,
+        onChange,
       },
     })
 
     cy.get('.select-input input').click()
     cy.getTestId(`select-item-${vals[0]}`).click().then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'selected')
-      cy.wrap(Cypress.vueWrapper.emitted().selected).should('have.length', 1)
-
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'input')
-      cy.wrap(Cypress.vueWrapper.emitted().input).should('have.length', 1)
-      // @ts-ignore: object type is unknown
-      cy.wrap(Cypress.vueWrapper.emitted().input[0][0]).should('be.equal', vals[0])
-
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'change')
-      cy.wrap(Cypress.vueWrapper.emitted().change).should('have.length', 1)
+      cy.get('@onSelected').should('have.been.calledOnce')
+      cy.get('@onInput').should('have.been.calledOnce').should('have.been.calledWith', vals[0])
+      cy.get('@onChange').should('have.been.calledOnce')
     })
   })
 
   it('emits input, change events correctly when item is cleared', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['val1', 'val2']
+    const onInput = cy.spy().as('onInput')
+    const onChange = cy.spy().as('onChange')
 
     cy.mount(KSelect, {
       props: {
@@ -622,19 +624,14 @@ describe('KSelect', () => {
           value: vals[1],
         }],
         clearable: true,
+        onInput,
+        onChange,
       },
     })
 
     cy.getTestId('clear-selection-icon').trigger('click').then(() => {
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'input')
-      cy.wrap(Cypress.vueWrapper.emitted().input).should('have.length', 1)
-      // @ts-ignore: object type is unknown
-      cy.wrap(Cypress.vueWrapper.emitted().input[0][0]).should('be.equal', null)
-
-      cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'change')
-      cy.wrap(Cypress.vueWrapper.emitted().change).should('have.length', 1)
-      // @ts-ignore: object type is unknown
-      cy.wrap(Cypress.vueWrapper.emitted().change[0][0]).should('be.equal', null)
+      cy.get('@onInput').should('have.been.calledOnce').should('have.been.calledWith', null)
+      cy.get('@onChange').should('have.been.calledOnce').should('have.been.calledWith', null)
     })
   })
 

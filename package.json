@@ -54,9 +54,9 @@
     "lint:fix": "eslint --fix",
     "stylelint": "stylelint './src/**/*.{css,scss,sass,vue}'",
     "stylelint:fix": "stylelint './src/**/*.{css,scss,sass,vue}' --fix",
-    "test": "cypress run --component -b chrome",
-    "test:open": "cypress open --component -b chrome",
-    "test:spec": "cypress run --component -b chrome --spec",
+    "test": "cross-env DISABLE_VUE_DEVTOOLS=true cypress run --component -b chrome",
+    "test:open": "cross-env DISABLE_VUE_DEVTOOLS=true cypress open --component -b chrome",
+    "test:spec": "cross-env DISABLE_VUE_DEVTOOLS=true cypress run --component -b chrome --spec",
     "semantic-release": "semantic-release"
   },
   "dependencies": {
@@ -106,7 +106,7 @@
     "commitizen": "^4.3.1",
     "copyfiles": "^2.4.1",
     "cross-env": "^10.1.0",
-    "cypress": "^13.17.0",
+    "cypress": "^15.8.1",
     "cypress-fail-fast": "^7.1.1",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^9.39.2",
