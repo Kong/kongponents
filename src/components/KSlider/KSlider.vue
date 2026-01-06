@@ -82,7 +82,8 @@
           v-for="mark in rangeMarks"
           :key="`mark-${mark.value}`"
           :data-testid="`mark-${mark.value}`"
-          :style="{ left: getValuePercent(mark.value), cursor: 'pointer' }"
+          role="button"
+          :style="{ left: getValuePercent(mark.value) }"
           @click="onMarkClick(mark.value)"
         >
           {{ mark.label || mark.value }}
@@ -408,6 +409,7 @@ watch(() => marks, (newMarks) => {
       @include markContent;
 
       bottom: 0;
+      cursor: pointer;
       padding: $kui-space-0;
       position: absolute;
       white-space: nowrap;
