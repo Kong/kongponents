@@ -157,7 +157,7 @@ import PaginationOffset from './PaginationOffset.vue'
 import type { DropdownItem, PopoverAttributes, PaginationProps, PaginationEmits } from '@/types'
 import { BackIcon, ForwardIcon, ChevronDownIcon } from '@kong/icons'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
-import { DEFAULT_PAGE_SIZE } from '@/utilities'
+import { DEFAULT_PAGE_SIZE } from '@/utilities/tableHelpers'
 
 const kpopAttrs = {
   placement: 'top',
