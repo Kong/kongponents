@@ -69,7 +69,7 @@ const emit = defineEmits<TabsEmits<Hash>>()
 
 defineSlots<TabsSlots<Hash>>()
 
-const activeTab = ref<Hash | ''>(modelValue ? modelValue : tabs[0]?.hash)
+const activeTab = ref<Hash | ''>(modelValue ? modelValue : tabs[0]?.hash ?? '')
 
 const handleTabChange = async (tab: Hash): Promise<void> => {
   // if beforeChange is not a function, skip the check

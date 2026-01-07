@@ -75,14 +75,14 @@
       >
         <template
           v-if="$slots['item-icon']"
-          #item-icon="{ item }: any"
+          #item-icon="{ item }"
         >
           <slot
             :item="item"
             name="item-icon"
           />
         </template>
-        <template #item-label="{ item }: any">
+        <template #item-label="{ item }">
           <slot
             :item="item"
             name="item-label"
@@ -107,7 +107,7 @@ export const getMaximumDepth = ({ children = [] }): number => {
 import { computed, ref, watch, onMounted, nextTick, useTemplateRef } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import KTreeItem from '@/components/KTreeList/KTreeItem.vue'
-import type { TreeDraggableProps, TreeDraggableEmits, TreeListItem } from '@/types'
+import type { TreeDraggableProps, TreeDraggableEmits, TreeListItem, TreeListSlots } from '@/types'
 
 const {
   items,
@@ -123,6 +123,8 @@ const {
 } = defineProps<TreeDraggableProps>()
 
 const emit = defineEmits<TreeDraggableEmits>()
+
+defineSlots<TreeListSlots>()
 
 const key = ref(0)
 const internalList = ref<TreeListItem[]>([])
@@ -147,7 +149,7 @@ const computedDragFilter = computed((): string => {
 })
 
 const hasNoChildren = (item: TreeListItem): boolean => {
-  return !internalList.value.filter(anItem => anItem.id === item.id)?.[0].children?.length
+  return !internalList.value.filter(anItem => anItem.id === item.id)?.[0]?.children?.length
 }
 
 const getElementChildren = (item: TreeListItem): TreeListItem[] => {

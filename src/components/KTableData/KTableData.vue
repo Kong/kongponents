@@ -126,7 +126,7 @@
     >
       <slot
         :name="slot"
-        v-bind="slotProps"
+        v-bind="(slotProps as any)"
       />
     </template>
 
@@ -402,7 +402,7 @@ const initData = () => {
   hasInitialized.value = true
 }
 
-const previousOffset = computed((): Offset | null => offsets.value[page.value - 1])
+const previousOffset = computed((): Offset | null => offsets.value[page.value - 1] || null)
 const nextOffset = ref(null) as Ref<Offset | null>
 
 // once initData() finishes, setting tableFetcherCacheKey to non-falsey value triggers fetch of data

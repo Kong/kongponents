@@ -160,7 +160,7 @@ const setWrapperHeight = () => {
     let tallestChildHeight = 0
     for (let i = 0; i < children.length; i++) {
       // find height of tallest child
-      tallestChildHeight = children[i].offsetHeight > tallestChildHeight ? children[i].offsetHeight : tallestChildHeight
+      tallestChildHeight = children[i]!.offsetHeight > tallestChildHeight ? children[i]!.offsetHeight : tallestChildHeight
     }
     const targetWrapperHeight = (rows === 1 ? 0 : (rows - 1) * gapNumber) + (tallestChildHeight * rows) + 6 // account for padding
     const _wraggerHeight = kTruncateContainer.value.offsetHeight > targetWrapperHeight ? `${targetWrapperHeight}px` : 'auto'
@@ -206,16 +206,16 @@ const countExcessElements = (): void => {
        * (offset from the nearest relatively positioned parent, which is .truncate-container)
        * is greater than the wrapper element height - means it's not visible
        */
-      if (children[i].offsetTop > kTruncateWrapper.value.offsetHeight) {
+      if (children[i]!.offsetTop > kTruncateWrapper.value.offsetHeight) {
         truncatedCount.value += 1
-        if (children[i].getAttribute('tabindex')) {
+        if (children[i]!.getAttribute('tabindex')) {
           // set tabindex to -1 in truncated children
-          children[i].tabIndex = -1
+          children[i]!.tabIndex = -1
         }
       } else {
-        if (children[i].getAttribute('tabindex')) {
+        if (children[i]!.getAttribute('tabindex')) {
           // reset tabindex
-          children[i].tabIndex = 0
+          children[i]!.tabIndex = 0
         }
       }
     }

@@ -210,8 +210,8 @@ const state = reactive<DateTimePickerState>({
   popoverOpen: false,
   selectedRange: { start: new Date(), end: new Date() },
   previouslySelectedRange: { start: new Date(), end: new Date() },
-  selectedTimeframe: timePeriods[0]?.values[0],
-  previouslySelectedTimeframe: timePeriods[0]?.values[0],
+  selectedTimeframe: timePeriods[0]?.values[0] || null,
+  previouslySelectedTimeframe: timePeriods[0]?.values[0] || null,
   tabName: 'relative',
 })
 
@@ -258,9 +258,10 @@ const changeCalendarRange = (vCalValue: TimeRange | null): void => {
  * when a relative time frame button is clicked
  * @param {*} timeframe
  */
-const changeRelativeTimeframe = (timeframe: TimePeriod, autoSubmit: boolean = false): void => {
-  state.selectedTimeframe = state.previouslySelectedTimeframe = timeframe
+const changeRelativeTimeframe = (timeframe: TimePeriod | null, autoSubmit: boolean = false): void => {
+  if (!timeframe) return
 
+  state.selectedTimeframe = state.previouslySelectedTimeframe = timeframe
 
   // Set value to be emitted when relative time frame clicked
   state.selectedRange = {
@@ -296,7 +297,7 @@ const clearSelection = (): void => {
 
   // Set the relative timeframe to the smallest increment, eg: `15m`
   if (hasTimePeriods.value) {
-    state.selectedTimeframe = timePeriods[0]?.values[0]
+    state.selectedTimeframe = timePeriods[0]?.values[0] || null
   }
 
   state.selectedRange = state.previouslySelectedRange = defaultTimeRange
@@ -363,7 +364,7 @@ const updateDisplay = (): void => {
     state.abbreviatedDisplay = formatDisplayDate(state.selectedRange, true)
   } else if (hasTimePeriods.value && !showCalendar.value) {
     const tzAbbrev = formatInTimeZone(new Date(), localTz, '(z)')
-    state.abbreviatedDisplay = `${state.selectedTimeframe.display} ${tzAbbrev}`
+    state.abbreviatedDisplay = `${state.selectedTimeframe?.display} ${tzAbbrev}`
   }
 }
 
@@ -372,7 +373,7 @@ const ucWord = (val: string): string => {
 }
 
 const getTimeframeButtonAppearance = (timeframe: TimePeriod): ButtonAppearance => {
-  return state.selectedTimeframe.key === timeframe.key ? 'primary' : 'secondary'
+  return state.selectedTimeframe?.key === timeframe.key ? 'primary' : 'secondary'
 }
 
 /**

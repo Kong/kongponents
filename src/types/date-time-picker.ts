@@ -45,8 +45,8 @@ export interface DateTimePickerState {
   popoverOpen: boolean
   selectedRange: TimeRange
   previouslySelectedRange: TimeRange
-  selectedTimeframe: TimePeriod
-  previouslySelectedTimeframe: TimePeriod
+  selectedTimeframe: TimePeriod | null
+  previouslySelectedTimeframe: TimePeriod | null
   tabName: string
 }
 

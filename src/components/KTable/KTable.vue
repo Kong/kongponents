@@ -132,9 +132,9 @@
                   v-if="resizeColumns && index !== 0"
                   class="resize-handle previous"
                   @click.stop
-                  @mousedown="startResize($event, visibleHeaders[index - 1].key)"
+                  @mousedown="startResize($event, visibleHeaders[index - 1]!.key)"
                   @mouseleave="resizerHoveredColumn = ''"
-                  @mouseover="resizerHoveredColumn = visibleHeaders[index - 1].key"
+                  @mouseover="resizerHoveredColumn = visibleHeaders[index - 1]!.key"
                 />
 
                 <div
@@ -280,6 +280,7 @@ import { EmptyStateIconVariants } from '@/types'
 import { KUI_COLOR_TEXT_NEUTRAL, KUI_ICON_SIZE_30 } from '@kong/design-tokens'
 import ColumnVisibilityMenu from './../KTableView/ColumnVisibilityMenu.vue'
 import { normalizeSize } from '@/utilities/css'
+import { DEFAULT_PAGE_SIZE } from '@/utilities/tableHelpers'
 
 const { useDebounce, useRequest, useSwrvState, clientSideSorter: defaultClientSideSorter } = useUtilities()
 
@@ -614,7 +615,7 @@ const pluckListeners = (prefix: any, attrs: any): any => {
     return Object.keys(listeners).reduce((acc: any, curr) => {
       if (curr.indexOf(prefix) === 0) {
         const parts = curr.split(prefix)
-        acc[parts[1]] = (e: any) => listeners[curr](e, entity, type)
+        acc[parts[1]!] = (e: any) => listeners[curr](e, entity, type)
       }
       return acc
     }, {})
@@ -1041,8 +1042,8 @@ const getPrevOffsetHandler = (): void => {
 //  - hide if neither previous/next offset exists and current data set count is < min pagesize
 const shouldShowPagination = computed((): boolean => {
   return !!(props.fetcher && !props.disablePagination &&
-        !(!props.paginationOffset && props.hidePaginationWhenOptional && total.value <= props.paginationPageSizes[0]) &&
-        !(props.paginationOffset && props.hidePaginationWhenOptional && !previousOffset.value && !nextOffset.value && data.value.length < props.paginationPageSizes[0]))
+        !(!props.paginationOffset && props.hidePaginationWhenOptional && total.value <= (props.paginationPageSizes[0] ?? DEFAULT_PAGE_SIZE)) &&
+        !(props.paginationOffset && props.hidePaginationWhenOptional && !previousOffset.value && !nextOffset.value && data.value.length < (props.paginationPageSizes[0] ?? DEFAULT_PAGE_SIZE)))
 })
 
 const getTestIdString = (message: string): string => {

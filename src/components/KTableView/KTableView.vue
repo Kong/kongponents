@@ -151,9 +151,9 @@
                   v-if="index !== 0 && showResizeHandle(column, true)"
                   class="resize-handle previous"
                   @click.stop
-                  @mousedown="startResize($event, visibleHeaders[index - 1].key)"
+                  @mousedown="startResize($event, visibleHeaders[index - 1]!.key)"
                   @mouseleave="resizerHoveredColumn = ''"
-                  @mouseover="resizerHoveredColumn = visibleHeaders[index - 1].key"
+                  @mouseover="resizerHoveredColumn = visibleHeaders[index - 1]!.key"
                 />
 
                 <div
@@ -700,7 +700,7 @@ const pluckListeners = (prefix: 'onRow:' | 'onCell:', listenerProps: Record<stri
     return Object.keys(listeners).reduce((acc: any, curr) => {
       if (curr.indexOf(prefix) === 0) {
         const parts = curr.split(prefix)
-        acc[parts[1]] = (e: any) => listeners[curr](e, entity, type)
+        acc[parts[1]!] = (e: any) => listeners[curr](e, entity, type)
       }
       return acc
     }, {})
@@ -740,7 +740,7 @@ const tdlisteners = computed((): any => {
 
         // check parent of target is not an ignored elem
         for (let i = 0; i < ignoredElements.length; i++) {
-          if (target.closest(ignoredElements[i]) !== null) {
+          if (target.closest(ignoredElements[i]!) !== null) {
             isIgnored = true
             break
           }
@@ -985,11 +985,11 @@ const showResizeHandle = (column: TableViewHeader<ColumnKey>, previous: boolean 
       return false
     }
 
-    const previousColumn = visibleHeaders.value[visibleHeaders.value.indexOf(column) - 1]
+    const previousColumn = visibleHeaders.value[visibleHeaders.value.indexOf(column) - 1]!
     return !isSpecialColumn(previousColumn.key)
   }
 
-  const nextColumn = visibleHeaders.value[visibleHeaders.value.indexOf(column) + 1]
+  const nextColumn = visibleHeaders.value[visibleHeaders.value.indexOf(column) + 1]!
   return !isSpecialColumn(column.key) && !isSpecialColumn(nextColumn.key)
 }
 
