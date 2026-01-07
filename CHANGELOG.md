@@ -1,3 +1,10 @@
+## [9.49.1](https://github.com/Kong/kongponents/compare/v9.49.0...v9.49.1) (2026-01-07)
+
+
+### Bug Fixes
+
+* **deps:** bump @vue/tsconfig and vue-tsc ([#3042](https://github.com/Kong/kongponents/issues/3042)) ([1edfda3](https://github.com/Kong/kongponents/commit/1edfda3d6c97dc839ec23385cdf07566b7560810))
+
 # [9.49.0](https://github.com/Kong/kongponents/compare/v9.48.9...v9.49.0) (2026-01-06)
 
 
