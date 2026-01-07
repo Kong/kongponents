@@ -4,6 +4,7 @@ import type { Toast, ToasterAppearance, ToasterOptions } from '@/types'
 import { ToasterAppearances } from '@/types'
 import KToaster from '@/components/KToaster/KToaster.vue'
 import { getUniqueStringId } from '@/utilities'
+import SharedPool from './SharedPool'
 
 const toasterContainerId = 'kongponents-toaster-container'
 
@@ -12,24 +13,12 @@ const toasterDefaults = {
   appearance: ToasterAppearances.info,
 }
 
-const defaultZIndex = 10000
-
-export default class ToastManager {
+class InternalToastManager {
   private toastersContainer: HTMLElement | null = null
   private toaster: VNode | null = null
   public toasts: Ref<Toast[]> = ref<Toast[]>([])
 
-  private zIndex: number = defaultZIndex
-
-  constructor(options?: ToasterOptions) {
-    if (options?.zIndex) {
-      this.zIndex = options.zIndex
-    }
-
-    this.setupToastersContainer()
-  }
-
-  private setupToastersContainer(): void {
+  constructor() {
     // For SSR, prevents failing on the build)
     if (typeof document === 'undefined') {
       console.warn('ToastManager should only be initialized in the browser environment. Docs: https://kongponents.konghq.com/components/toaster.html')
@@ -37,18 +26,12 @@ export default class ToastManager {
       return
     }
 
-    const toastersContainerEl = document.getElementById(toasterContainerId)
-    if (toastersContainerEl) {
-      this.toastersContainer = toastersContainerEl as HTMLElement
-    } else {
-      this.toastersContainer = document.createElement('div')
-      this.toastersContainer.id = toasterContainerId
-      document.body.appendChild(this.toastersContainer)
-    }
+    this.toastersContainer = document.createElement('div')
+    this.toastersContainer.id = toasterContainerId
+    document.body.appendChild(this.toastersContainer)
 
     this.toaster = createVNode(KToaster, {
       toasterState: this.toasts.value,
-      zIndex: this.zIndex,
       onClose: (key: string) => this.close(key),
     })
 
@@ -62,15 +45,13 @@ export default class ToastManager {
   }
 
   public open(args: Record<string, any> | string): void {
-    this.setupToastersContainer()
-
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const { key, timeoutMilliseconds, appearance, message, title } = args
 
     const toastKey: string = key ? String(key) : getUniqueStringId()
     const toastAppearance: ToasterAppearance = (appearance && Object.keys(ToasterAppearances).indexOf(appearance) !== -1) ? appearance : toasterDefaults.appearance
-    const timer: number = this.setTimer(toastKey, timeoutMilliseconds || toasterDefaults.timeoutMilliseconds)
+    const timer: number = this.setTimer(key, timeoutMilliseconds || toasterDefaults.timeoutMilliseconds)
     const toasterMessage = typeof args === 'string' ? args : message
 
     // Add toaster to state
@@ -95,18 +76,62 @@ export default class ToastManager {
     this.toasts.value = []
   }
 
-  /**
-   * Destroys the ToastManager instance and removes the toasters container element from the DOM
-   * @param removeToastersContainer - Whether to remove the toasters container element from the DOM (defaults to false)
-   */
-  public destroy(removeToastersContainer: boolean = false) {
-    const toastersContainerEl = document?.getElementById(toasterContainerId)
-    if (removeToastersContainer && toastersContainerEl) {
-      render(null, toastersContainerEl)
-      toastersContainerEl.remove()
+  public destroy() {
+    if (this.toastersContainer) {
+      render(null, this.toastersContainer)
+      this.toastersContainer.remove()
     }
+  }
+}
+const pool = new SharedPool<string, InternalToastManager>((state, id, item) => {
+  switch (state) {
+    case 'creating':
+      return new InternalToastManager()
+    case 'acquiring':
+      return item
+    case 'releasing':
+      return item
+    case 'destroying':
+      item.destroy()
+      return item
+  }
+})
 
-    this.toastersContainer = null
-    this.toaster = null
+export default class ToastManager {
+  protected sym = Symbol(toasterContainerId)
+  // public usage
+  constructor()
+  /**
+   * @deprecated If you are using options to set zIndex, this never worked as
+   * expected and doing this is now deprecated. You can remove `options` as an
+   * argument.
+   */
+  constructor(options?: ToasterOptions)
+
+  // internal usage
+  constructor(options: ToasterOptions | undefined, manager: InternalToastManager)
+  constructor(
+    options?: ToasterOptions,
+    protected manager: InternalToastManager = pool.acquire(toasterContainerId, this.sym),
+  ) {}
+
+  setTimer(...args: Parameters<InternalToastManager['setTimer']>): number {
+    return this.manager.setTimer(...args)
+  }
+
+  open(...args: Parameters<InternalToastManager['open']>): void {
+    return this.manager.open(...args)
+  }
+
+  close(...args: Parameters<InternalToastManager['close']>): void {
+    return this.manager.close(...args)
+  }
+
+  closeAll(...args: Parameters<InternalToastManager['closeAll']>): void {
+    return this.manager.closeAll(...args)
+  }
+
+  destroy() {
+    return pool.release(toasterContainerId, this.sym)
   }
 }
