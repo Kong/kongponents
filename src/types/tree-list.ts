@@ -1,4 +1,4 @@
-export interface TreeListItem {
+export interface TreeListItem extends Record<string, any> {
   name: string
   id: string
   selected?: boolean
