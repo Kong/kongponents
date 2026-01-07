@@ -1,3 +1,10 @@
+## [9.49.2](https://github.com/Kong/kongponents/compare/v9.49.1...v9.49.2) (2026-01-07)
+
+
+### Bug Fixes
+
+* **ktreelist:** loosen tree list item interface ([#3046](https://github.com/Kong/kongponents/issues/3046)) ([fbb5a04](https://github.com/Kong/kongponents/commit/fbb5a041c86fce6d0490c6bf3ff8651f736f7af5))
+
 ## [9.49.1](https://github.com/Kong/kongponents/compare/v9.49.0...v9.49.1) (2026-01-07)
 
 
