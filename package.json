@@ -81,8 +81,8 @@
   },
   "devDependencies": {
     "@babel/types": "^7.28.5",
-    "@commitlint/cli": "^20.2.0",
-    "@commitlint/config-conventional": "^20.2.0",
+    "@commitlint/cli": "^20.3.0",
+    "@commitlint/config-conventional": "^20.3.0",
     "@cypress/vite-dev-server": "^7.0.1",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@evilmartians/lefthook": "^2.0.13",
@@ -190,10 +190,10 @@
     "node": ">=v16.20.2 || >=18.12.1 || >=20.14.0 || >=22.14.0",
     "pnpm": ">=9.11.0 || >=10.10.0"
   },
-  "packageManager": "pnpm@10.26.2",
+  "packageManager": "pnpm@10.27.0",
   "volta": {
     "node": "24.12.0",
-    "pnpm": "10.26.2"
+    "pnpm": "10.27.0"
   },
   "config": {
     "commitizen": {
