@@ -99,7 +99,7 @@
     "@types/sortablejs": "^1.15.9",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vue/compiler-core": "^3.5.26",
-    "@vue/tsconfig": "^0.7.0",
+    "@vue/tsconfig": "^0.8.1",
     "@vueuse/core": "^14.1.0",
     "autoprefixer": "^10.4.23",
     "boxen": "^8.0.1",
