@@ -48,6 +48,21 @@ describe('KSlider', () => {
     })
   })
 
+  it('clicking on a mark updates the slider value correctly for different marks', () => {
+    mount(KSlider, {
+      props: {
+        showMarks: true,
+      },
+    })
+
+    cy.get('.slider-marks span').eq(3).click()
+    cy.get('input[type="range"]').should('have.value', '3')
+    cy.get('.slider-marks span').eq(5).click()
+    cy.get('input[type="range"]').should('have.value', '5')
+    cy.get('.slider-marks span').eq(10).click()
+    cy.get('input[type="range"]').should('have.value', '10')
+  })
+
   it('renders marks correctly when marks prop is array of numbers', () => {
     const marksNumbers = [0, 2, 4, 6, 8, 10]
     mount(KSlider, {

@@ -30,7 +30,7 @@
   }
 }
 
-@mixin inputDefaults {
+@mixin inputDefaults($with-placeholder: true) {
   @include inputBoxShadow;
 
   & {
@@ -43,15 +43,19 @@
     // Variables that reference the same value. If this value changes, all of those need to be updated too.
     padding: var(--kui-space-40, $kui-space-40) var(--kui-space-50, $kui-space-50); // $kInputPaddingX, $kTextAreaPaddingY, $kSelectInputPaddingX, $kSelectInputPaddingY, $kMultiselectInputPaddingY, $kMultiselectInputPaddingX, $kFileUploadInputPaddingX, $kFileUploadInputPaddingY, $kDateTimePickerInputPaddingX, $kDateTimePickerInputPaddingY
     width: 100%;
+
+    @content;
   }
 
-  &::placeholder {
-    @include inputText;
+  @if $with-placeholder {
+    &::placeholder {
+      @include inputText;
 
-    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
-    // stylelint-disable-next-line no-duplicate-selectors
-    & {
-      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+      // stylelint-disable-next-line no-duplicate-selectors
+      & {
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      }
     }
   }
 }

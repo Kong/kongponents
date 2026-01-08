@@ -1,7 +1,7 @@
 <template>
   <slot
     v-if="$slots.default"
-    :is-toggled="isToggledWrapper[0]"
+    :is-toggled="isToggledWrapper[0]!"
     :toggle="toggle"
   />
 </template>

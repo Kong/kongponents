@@ -157,6 +157,7 @@ import PaginationOffset from './PaginationOffset.vue'
 import type { DropdownItem, PopoverAttributes, PaginationProps, PaginationEmits } from '@/types'
 import { BackIcon, ForwardIcon, ChevronDownIcon } from '@kong/icons'
 import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
+import { DEFAULT_PAGE_SIZE } from '@/utilities/tableHelpers'
 
 const kpopAttrs = {
   placement: 'top',
@@ -181,7 +182,7 @@ const kPaginationElement = ref<HTMLElement | null>(null)
 const resizeObserver = ref<ResizeObserverHelper>()
 
 const currPage = ref<number>(currentPage ? currentPage : 1)
-const currentPageSize = ref<number>(initialPageSize ? initialPageSize : pageSizes[0])
+const currentPageSize = ref<number>(initialPageSize ? initialPageSize : pageSizes[0] ?? DEFAULT_PAGE_SIZE)
 const pageCount = computed((): number => Math.ceil(totalCount / currentPageSize.value))
 const pageSizeOptions = pageSizes.map((size, i) => ({
   label: `${size}`,

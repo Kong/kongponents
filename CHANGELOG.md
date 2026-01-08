@@ -1,3 +1,80 @@
+## [9.49.2](https://github.com/Kong/kongponents/compare/v9.49.1...v9.49.2) (2026-01-07)
+
+
+### Bug Fixes
+
+* **ktreelist:** loosen tree list item interface ([#3046](https://github.com/Kong/kongponents/issues/3046)) ([fbb5a04](https://github.com/Kong/kongponents/commit/fbb5a041c86fce6d0490c6bf3ff8651f736f7af5))
+
+## [9.49.1](https://github.com/Kong/kongponents/compare/v9.49.0...v9.49.1) (2026-01-07)
+
+
+### Bug Fixes
+
+* **deps:** bump @vue/tsconfig and vue-tsc ([#3042](https://github.com/Kong/kongponents/issues/3042)) ([1edfda3](https://github.com/Kong/kongponents/commit/1edfda3d6c97dc839ec23385cdf07566b7560810))
+
+# [9.49.0](https://github.com/Kong/kongponents/compare/v9.48.9...v9.49.0) (2026-01-06)
+
+
+### Features
+
+* **kslider:** make step labels clickable [KHCP-19044] ([#3038](https://github.com/Kong/kongponents/issues/3038)) ([a603868](https://github.com/Kong/kongponents/commit/a603868f4f2e72d6580b6743b7fad8e532f70272))
+
+## [9.48.9](https://github.com/Kong/kongponents/compare/v9.48.8...v9.48.9) (2026-01-06)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies with stable versions ([#3035](https://github.com/Kong/kongponents/issues/3035)) ([418fe4b](https://github.com/Kong/kongponents/commit/418fe4b934cfdc0bce4a3e9e481311d03e1254e7))
+
+## [9.48.8](https://github.com/Kong/kongponents/compare/v9.48.7...v9.48.8) (2025-12-26)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies with stable versions ([#3028](https://github.com/Kong/kongponents/issues/3028)) ([6af0b03](https://github.com/Kong/kongponents/commit/6af0b0344d31e4f48a5c873a9902a578f2ac883c))
+
+## [9.48.7](https://github.com/Kong/kongponents/compare/v9.48.6...v9.48.7) (2025-12-24)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies with stable versions ([#3033](https://github.com/Kong/kongponents/issues/3033)) ([631c403](https://github.com/Kong/kongponents/commit/631c40329f4e7a95fa869a9e430156e5edea2d3f))
+
+## [9.48.6](https://github.com/Kong/kongponents/compare/v9.48.5...v9.48.6) (2025-12-17)
+
+
+### Bug Fixes
+
+* **ktextarea:** fix mixin inclusion to prevent invalid css ([#3026](https://github.com/Kong/kongponents/issues/3026)) ([5a4aaf6](https://github.com/Kong/kongponents/commit/5a4aaf6d6a7eda4000aac0ecb10f388013522a3a))
+
+## [9.48.5](https://github.com/Kong/kongponents/compare/v9.48.4...v9.48.5) (2025-12-16)
+
+
+### Bug Fixes
+
+* **kcodeblock:** ssr types check ([#3027](https://github.com/Kong/kongponents/issues/3027)) ([3a72b7a](https://github.com/Kong/kongponents/commit/3a72b7a618af73d805d5fa8a4afe81922385cde5))
+
+## [9.48.4](https://github.com/Kong/kongponents/compare/v9.48.3...v9.48.4) (2025-12-12)
+
+
+### Bug Fixes
+
+* **kdatetimepicker:** time inputs on same line ([#3023](https://github.com/Kong/kongponents/issues/3023)) ([1c671e9](https://github.com/Kong/kongponents/commit/1c671e9b58270dd4ef5cb4f985af4a8ff25d8c65))
+
+## [9.48.3](https://github.com/Kong/kongponents/compare/v9.48.2...v9.48.3) (2025-12-08)
+
+
+### Bug Fixes
+
+* **kalert:** link style ([#3018](https://github.com/Kong/kongponents/issues/3018)) ([f0799a0](https://github.com/Kong/kongponents/commit/f0799a0f08538a25be4990ba26548b829b91c69d))
+
+## [9.48.2](https://github.com/Kong/kongponents/compare/v9.48.1...v9.48.2) (2025-12-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.41.0 ([#3010](https://github.com/Kong/kongponents/issues/3010)) ([d45871e](https://github.com/Kong/kongponents/commit/d45871e5c1088ba091c4f9fea549e416c8628db3))
+
 ## [9.48.1](https://github.com/Kong/kongponents/compare/v9.48.0...v9.48.1) (2025-12-04)
 
 

@@ -330,7 +330,7 @@ const hasRenderedFilteredCode = ref<boolean>(false)
 // For checking if a line is highlighted in constant time.
 const matchingLineSet = computed(() => new Set(matchingLineNumbers.value))
 const totalLines = computed((): number[] => Array.from({ length: code?.split('\n').length }, (_, index) => index + 1))
-const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value.length - 1].toString().length + 'ch')
+const maxLineNumberWidth = computed((): string => totalLines.value[totalLines.value.length - 1]?.toString().length + 'ch')
 const isProcessing = computed((): boolean => processing || isProcessingInternally.value)
 const isShowingFilteredCode = computed((): boolean => isFilterMode.value && filteredCode.value !== '')
 
@@ -482,6 +482,11 @@ onBeforeUnmount(function() {
 })
 
 function emitCodeBlockRenderEvent(): void {
+  // Guard for SSR environment (HTMLElement is undefined in SSR)
+  if (typeof HTMLElement === 'undefined') {
+    return
+  }
+
   const preElement = codeBlockRef.value?.querySelector('.highlighted-code-block')
   const codeElement = preElement?.querySelector('code')
 
@@ -491,6 +496,7 @@ function emitCodeBlockRenderEvent(): void {
 }
 
 function emitMatchingLinesChangeEvent(): void {
+  // Guard for SSR environment (HTMLElement is undefined in SSR)
   if (typeof HTMLElement === 'undefined') {
     return
   }
@@ -605,7 +611,8 @@ function jumpToPreviousMatch(): void {
 }
 
 function jumpToMatch(direction: number): void {
-  if (matchingLineNumbers.value.length === 0 || !(codeBlockRef.value instanceof HTMLElement)) {
+  // Guard for SSR environment or no matches or code block not rendered yet
+  if (typeof HTMLElement === 'undefined' || matchingLineNumbers.value.length === 0 || !(codeBlockRef.value instanceof HTMLElement)) {
     return
   }
 

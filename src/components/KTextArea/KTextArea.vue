@@ -306,10 +306,8 @@ $kTextAreaPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin,
     }
   }
 
-  .input-textarea-wrapper.legacy::after,
-  .input-textarea {
-    @include inputDefaults;
-
+  .input-textarea,
+  .input-textarea-wrapper.legacy::after {
     // required by the grid fallback
     /* stylelint-disable-next-line no-duplicate-selectors */
     & {
@@ -317,12 +315,18 @@ $kTextAreaPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin,
     }
   }
 
+  .input-textarea-wrapper.legacy::after {
+    @include inputDefaults(false);
+  }
+
   .input-textarea {
-    // A fallback max-height. Referenced GitHub’s implementation for the current value.
-    // It’s highly unlikely that we would need an input box taller than the viewport—this isn’t a document editor.
-    max-height: calc(100vh - 200px);
-    min-height: calc(($kTextAreaLineHeight * 2) + ($kTextAreaPaddingY * 2)); // 2 lines + padding
-    resize: none;
+    @include inputDefaults {
+      // A fallback max-height. Referenced GitHub’s implementation for the current value.
+      // It’s highly unlikely that we would need an input box taller than the viewport—this isn’t a document editor.
+      max-height: calc(100vh - 200px);
+      min-height: calc(($kTextAreaLineHeight * 2) + ($kTextAreaPaddingY * 2)); // 2 lines + padding
+      resize: none;
+    }
 
     &.resizable {
       resize: vertical;

@@ -311,7 +311,7 @@ const value = computed({
   set(newValue: Value | null): void {
     const item = selectItems.value?.filter((item: Item) => item.value === newValue)
     if (item?.length) {
-      handleItemSelect(item[0])
+      handleItemSelect(item[0]!)
     } else if (!newValue) {
       clearSelection()
     }
@@ -539,7 +539,7 @@ watch(value, (newVal, oldVal) => {
     const item = selectItems.value?.filter((item: SelectItem) => item.value === newVal)
 
     if (item?.length) {
-      handleItemSelect(item[0])
+      handleItemSelect(item[0]!)
     } else if (!newVal) {
       clearSelection()
     }
@@ -562,20 +562,20 @@ watch(() => items, (newValue, oldValue) => {
 
   for (let i = 0; i < selectItems.value?.length; i++) {
     // Ensure each item has a selected property
-    if (selectItems.value[i].selected === undefined) {
-      selectItems.value[i].selected = false
+    if (selectItems.value[i]!.selected === undefined) {
+      selectItems.value[i]!.selected = false
     }
 
     // ensure each item has a unique key property
-    let selectItemKey = `${selectItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}`
+    let selectItemKey = `${selectItems.value[i]!.label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}`
     if (selectItemKey.includes('undefined')) {
       selectItemKey = `select-item-label-${i}`
     }
 
-    selectItems.value[i].key = selectItemKey
-    if (selectItems.value[i].value === modelValue || selectItems.value[i].selected) {
-      selectItems.value[i].selected = true
-      selectedItem.value = selectItems.value[i]
+    selectItems.value[i]!.key = selectItemKey
+    if (selectItems.value[i]!.value === modelValue || selectItems.value[i]!.selected) {
+      selectItems.value[i]!.selected = true
+      selectedItem.value = selectItems.value[i]!
 
       if (!inputFocused.value) {
         skipQueryChangeEmit.value = true
@@ -583,8 +583,8 @@ watch(() => items, (newValue, oldValue) => {
       }
     }
 
-    if (selectedItem.value?.value === selectItems.value[i].value) {
-      selectItems.value[i].selected = true
+    if (selectedItem.value?.value === selectItems.value[i]!.value) {
+      selectItems.value[i]!.selected = true
     }
   }
 

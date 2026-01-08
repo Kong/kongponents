@@ -618,6 +618,10 @@ const handleMultipleItemsSelect = (items: Item[]) => {
   items.forEach(itemToSelect => {
     const selectedItem = unfilteredItems.value.filter(anItem => anItem.value === itemToSelect.value)?.[0] || null
 
+    if (!selectedItem) {
+      return
+    }
+
     selectedItem.selected = true
     // if it isn't already in selectedItems, add it
     if (!selectedItems.value.filter(anItem => anItem.value === selectedItem.value).length) {
@@ -928,18 +932,18 @@ watch(() => items, (newValue, oldValue) => {
   unfilteredItems.value = cloneDeep(items)
   for (let i = 0; i < unfilteredItems.value.length; i++) {
     // Ensure each item has a `selected` property
-    if (unfilteredItems.value[i].selected === undefined) {
-      unfilteredItems.value[i].selected = false
+    if (unfilteredItems.value[i]!.selected === undefined) {
+      unfilteredItems.value[i]!.selected = false
     }
 
-    let unfilteredItemKey = `${unfilteredItems.value[i].label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}`
+    let unfilteredItemKey = `${unfilteredItems.value[i]!.label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}`
     if (unfilteredItemKey.includes('undefined')) {
       unfilteredItemKey = `multiselect-item-label-${i}`
     }
 
-    unfilteredItems.value[i].key = unfilteredItemKey
-    if ((modelValue as Value[]).includes(unfilteredItems.value[i].value) || unfilteredItems.value[i].selected) {
-      const selectedItem = unfilteredItems.value[i]
+    unfilteredItems.value[i]!.key = unfilteredItemKey
+    if ((modelValue as Value[]).includes(unfilteredItems.value[i]!.value) || unfilteredItems.value[i]!.selected) {
+      const selectedItem = unfilteredItems.value[i]!
       selectedItem.selected = true
       // if it isn't already in the selectedItems array, add it
       if (!selectedItems.value.filter(anItem => anItem.value === selectedItem.value).length) {

@@ -25,7 +25,7 @@ const buildFormats: Array<'es' | 'cjs' | 'umd'> = isUMDBuild ? ['umd'] : ['es', 
 export default defineConfig({
   plugins: [
     vue(),
-    VueDevTools(),
+    ...(process.env.DISABLE_VUE_DEVTOOLS === 'true' ? [] : [VueDevTools()]), // Cypress 14+ introduces an issue with VueDevTools when running tests so we need to disable it in the test environment only
   ],
   resolve: {
     alias: {

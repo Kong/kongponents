@@ -10,7 +10,7 @@ function expressionToLines(expression: string, maxLines: number): number[] {
     const [start, end] = part.split('-').map(Number)
     // If there's no end, it's a single line, otherwise it's a range
     return end == null ? start : [start, end] as [number, number]
-  })
+  }).filter(range => range !== undefined)
 
   return rangesToLines(ranges, maxLines)
 }

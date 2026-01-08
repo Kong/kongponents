@@ -252,7 +252,7 @@ const onFileChange = (evt: Event): void => {
 
   if (files.length) {
     previousFiles.value = files
-    fileName.value = files[0].name || ''
+    fileName.value = files[0]?.name || ''
     emit('file-added', files)
   } else {
     inputElem.files = previousFiles.value
@@ -289,7 +289,11 @@ const resetInput = (): void => {
 const isDragging = ref<boolean>(false)
 
 const invalidFileTypeError = ref<boolean>(false)
-const isAcceptedFile = (file: File): boolean => {
+const isAcceptedFile = (file: File | undefined): boolean => {
+  if (!file) {
+    return false
+  }
+
   if (!accept || !Array.isArray(accept) || !accept.length) {
     // If accept is not defined or empty, accept all files by default
     return true
@@ -340,7 +344,7 @@ const onDrop = (evt: DragEvent): void => {
       if (isAcceptedFile(files[0])) {
         invalidFileTypeError.value = false
         previousFiles.value = files
-        fileName.value = files[0].name || ''
+        fileName.value = files[0]?.name || ''
         emit('file-added', files)
       } else {
         invalidFileTypeError.value = true

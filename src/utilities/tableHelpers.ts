@@ -14,7 +14,7 @@ export const getInitialPageSize = (tablePreferences: TablePreferences, paginatio
   } else if (paginationAttributes.initialPageSize) {
     return paginationAttributes.initialPageSize
   } else if (paginationAttributes.pageSizes && Array.isArray(paginationAttributes.pageSizes) && paginationAttributes.pageSizes.length) {
-    return paginationAttributes.pageSizes[0]
+    return paginationAttributes.pageSizes[0]!
   }
 
   return DEFAULT_PAGE_SIZE

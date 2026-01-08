@@ -1,4 +1,4 @@
-export interface TreeListItem {
+export interface TreeListItem extends Record<string, any> {
   name: string
   id: string
   selected?: boolean
@@ -176,10 +176,10 @@ export interface TreeListSlots {
   /**
    * Slot for content displayed to the left of the item name in place of the default icon.
    */
-  'item-icon'?(item: TreeListItem): any
+  'item-icon'?(props: { item: TreeListItem }): any
 
   /**
    * Slot for the main content of an item (defaults to the `name` of the item).
    */
-  'item-label'?(item: TreeListItem): any
+  'item-label'?(props: { item: TreeListItem }): any
 }
