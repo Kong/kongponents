@@ -5,7 +5,7 @@
     tag="div"
   >
     <div
-      v-for="toaster in toasterState"
+      v-for="toaster in toasterStateData"
       :key="toaster.key"
       class="toaster"
       :class="`${toaster.appearance}`"
@@ -50,6 +50,7 @@
 </template>
 
 <script lang="ts" setup>
+import { computed, unref } from 'vue'
 import type { ToasterAppearance, ToasterProps, ToasterEmits } from '@/types'
 import { InfoIcon, CheckCircleIcon, WarningIcon, ClearIcon, KongIcon, CloseIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT, KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_ICON_SIZE_50 } from '@kong/design-tokens'
@@ -57,11 +58,14 @@ import { KUI_COLOR_TEXT, KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_ICON_SIZE_50 } from '@
 type ToastIcon = typeof InfoIcon | typeof CheckCircleIcon | typeof WarningIcon | typeof ClearIcon | typeof KongIcon
 
 const {
-  toasterState = [],
+  toasterState,
   zIndex = 10000,
 } = defineProps<ToasterProps>()
 
 const emit = defineEmits<ToasterEmits>()
+
+// Unwrap the ref for template use
+const toasterStateData = computed(() => unref(toasterState))
 
 const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
   switch (appearance) {

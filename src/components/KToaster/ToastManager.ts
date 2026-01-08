@@ -51,7 +51,7 @@ export default class ToastManager {
     }
 
     this.toaster = createVNode(KToaster, {
-      toasterState: this.toasts.value,
+      toasterState: this.toasts,
       zIndex: this.zIndex,
       onClose: (key: string) => this.close(key),
     })
@@ -74,7 +74,7 @@ export default class ToastManager {
 
     const toastKey: string = key ? String(key) : getUniqueStringId()
     const toastAppearance: ToasterAppearance = (appearance && Object.keys(ToasterAppearances).indexOf(appearance) !== -1) ? appearance : toasterDefaults.appearance
-    const timer: number = this.setTimer(key, timeoutMilliseconds || toasterDefaults.timeoutMilliseconds)
+    const timer: number = this.setTimer(toastKey, timeoutMilliseconds || toasterDefaults.timeoutMilliseconds)
     const toasterMessage = typeof args === 'string' ? args : message
 
     // Add toaster to state

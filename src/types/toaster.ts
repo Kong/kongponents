@@ -1,3 +1,5 @@
+import type { Ref } from 'vue'
+
 export type ToasterAppearance = 'info' | 'success' | 'danger' | 'warning' | 'system'
 
 export interface Toast {
@@ -30,7 +32,7 @@ export interface ToasterProps {
    * The toaster state.
    * @default []
    */
-  toasterState: Array<Toast & { key: string }>
+  toasterState: Ref<Array<Toast & { key: string }>>
 
   /**
    * The z-index of the toaster.
