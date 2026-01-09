@@ -95,6 +95,10 @@ export default class ToastManager {
     this.toasts.value = []
   }
 
+  /**
+   * Destroys the ToastManager instance and removes the toasters container element from the DOM
+   * @param removeToastersContainer - Whether to remove the toasters container element from the DOM (defaults to false)
+   */
   public destroy(removeToastersContainer: boolean = false) {
     if (this.toastersContainer && removeToastersContainer) {
       render(null, this.toastersContainer)
