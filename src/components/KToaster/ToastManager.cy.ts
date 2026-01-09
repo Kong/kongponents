@@ -9,7 +9,7 @@ describe('ToastManager', () => {
     expect(containers.length).equal(1)
 
     // Clean up
-    toastManager.destroy()
+    toastManager.destroy(true)
   })
 
   it('should not create a duplicate toasters container if one already exists', () => {
