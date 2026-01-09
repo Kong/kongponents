@@ -53,6 +53,7 @@
 import type { ToasterAppearance, ToasterProps, ToasterEmits } from '@/types'
 import { InfoIcon, CheckCircleIcon, WarningIcon, ClearIcon, KongIcon, CloseIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT, KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_ICON_SIZE_50 } from '@kong/design-tokens'
+import { watch } from 'vue'
 
 type ToastIcon = typeof InfoIcon | typeof CheckCircleIcon | typeof WarningIcon | typeof ClearIcon | typeof KongIcon
 
@@ -79,6 +80,10 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
       return InfoIcon // info as default in case of invalid appearance
   }
 }
+
+watch(toasterState, (newVal) => {
+  console.log('toasterState changed', newVal)
+}, { deep: true })
 </script>
 
 <style lang="scss" scoped>
