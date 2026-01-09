@@ -89,11 +89,24 @@ Use this prop to apply error styling to the component.
 
 ```html
 <KRadio
+  error
   v-model="radio"
   label="Input error"
-  error
   description="Some description text"
   :selected-value="true"
+/>
+```
+
+<KRadio card v-model="errorPropRadio" label="Input error" error description="Some description text" :selected-value="false" />
+
+```html
+<KRadio
+  error
+  card
+  v-model="radio"
+  label="Input error"
+  description="Some description text"
+  :selected-value="false"
 />
 ```
 
