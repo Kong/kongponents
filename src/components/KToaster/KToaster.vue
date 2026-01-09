@@ -81,7 +81,7 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
   }
 }
 
-watch(toasterState, (newVal) => {
+watch(() => toasterState, (newVal) => {
   console.log('toasterState changed', newVal)
 }, { deep: true })
 </script>
