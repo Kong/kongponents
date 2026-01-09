@@ -38,16 +38,9 @@ export default class ToastManager {
 
   private setupToastersContainer(): void {
     const toastersContainerEl = document?.getElementById(toasterContainerId)
-    // if (this.toastersContainer && this.toaster && toastersContainerEl) {
-    //   console.log('1. toastersContainer already exists')
-    //   return
-    // }
-
     if (toastersContainerEl) {
-      console.log('2. toastersContainerEl already exists')
       this.toastersContainer = toastersContainerEl as HTMLElement
     } else {
-      console.log('3. toastersContainerEl does not exist')
       this.toastersContainer = document.createElement('div')
       this.toastersContainer.id = toasterContainerId
       document.body.appendChild(this.toastersContainer)
@@ -102,12 +95,13 @@ export default class ToastManager {
     this.toasts.value = []
   }
 
-  public destroy() {
-    if (this.toastersContainer) {
+  public destroy(removeToastersContainer: boolean = false) {
+    if (this.toastersContainer && removeToastersContainer) {
       render(null, this.toastersContainer)
       this.toastersContainer.remove()
-      this.toastersContainer = null
-      this.toaster = null
     }
+
+    this.toastersContainer = null
+    this.toaster = null
   }
 }
