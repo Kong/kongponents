@@ -51,7 +51,7 @@ export default class ToastManager {
     }
 
     this.toaster = createVNode(KToaster, {
-      toasterState: this.toasts,
+      toasterState: this.toasts.value,
       zIndex: this.zIndex,
       onClose: (key: string) => this.close(key),
     })
