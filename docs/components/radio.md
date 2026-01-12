@@ -190,26 +190,28 @@ Used alongside the [`card` prop](/components/radio#card) to set the orientation 
 
 Accepted values are `vertical` (shown above) or `horizontal`. Defaults to `vertical`.
 
-<KRadio
-  v-model="horizontalCard"
-  card
-  card-orientation="horizontal"
-  description="Choose this option if you want your APIs to only be accessible from within your private network."
-  label="Private"
-  selected-value="private"
->
-  <KBadge appearance="success">
-    Recommended
-  </KBadge>
-</KRadio>
-<KRadio
-  v-model="horizontalCard"
-  card
-  card-orientation="horizontal"
-  description="Choose this option if you want your APIs to be publicly accessible by anyone on the internet."
-  label="Public"
-  selected-value="public"
-/>
+<div class="vertical-spacing">
+  <KRadio
+    v-model="horizontalCard"
+    card
+    card-orientation="horizontal"
+    description="Choose this option if you want your APIs to only be accessible from within your private network."
+    label="Private"
+    selected-value="private"
+  >
+    <KBadge appearance="success">
+      Recommended
+    </KBadge>
+  </KRadio>
+  <KRadio
+    v-model="horizontalCard"
+    card
+    card-orientation="horizontal"
+    description="Choose this option if you want your APIs to be publicly accessible by anyone on the internet."
+    label="Public"
+    selected-value="public"
+  />
+</div>
 
 ```html
 <KRadio

@@ -100,9 +100,10 @@ export default class ToastManager {
    * @param removeToastersContainer - Whether to remove the toasters container element from the DOM (defaults to false)
    */
   public destroy(removeToastersContainer: boolean = false) {
-    if (this.toastersContainer && removeToastersContainer) {
-      render(null, this.toastersContainer)
-      this.toastersContainer.remove()
+    const toastersContainerEl = document?.getElementById(toasterContainerId)
+    if (removeToastersContainer && toastersContainerEl) {
+      render(null, toastersContainerEl)
+      toastersContainerEl.remove()
     }
 
     this.toastersContainer = null
