@@ -1,3 +1,10 @@
+## [9.49.4](https://github.com/Kong/kongponents/compare/v9.49.3...v9.49.4) (2026-01-13)
+
+
+### Bug Fixes
+
+* **multiselect:** tweak input name attribute value [KHCP-19041] ([#3056](https://github.com/Kong/kongponents/issues/3056)) ([36e31dc](https://github.com/Kong/kongponents/commit/36e31dc24d11eff0612fbe3714419da13397489c))
+
 ## [9.49.3](https://github.com/Kong/kongponents/compare/v9.49.2...v9.49.3) (2026-01-13)
 
 
