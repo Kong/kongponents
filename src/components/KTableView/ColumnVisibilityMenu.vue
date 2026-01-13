@@ -32,7 +32,7 @@
           autocorrect="off"
           class="search-input"
           data-testid="search-input"
-          :name="inputId"
+          name="column-search"
           placeholder="Search columns"
           spellcheck="false"
           type="search"
@@ -105,7 +105,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onBeforeMount, onMounted, nextTick, computed, useId } from 'vue'
+import { ref, watch, onBeforeMount, onMounted, nextTick, computed } from 'vue'
 import type { ColumnVisibilityMenuEmits, ColumnVisibilityMenuProps } from '@/types'
 import { debounce } from '@/utilities/debounce'
 import { SearchIcon, CloseIcon, TableColumnsIcon } from '@kong/icons'
@@ -125,8 +125,6 @@ const {
 } = defineProps<ColumnVisibilityMenuProps>()
 
 const emit = defineEmits<ColumnVisibilityMenuEmits>()
-
-const inputId = useId()
 
 const isDropdownOpen = ref<boolean>(false)
 const visibilityMap = ref<Record<string, boolean>>({})

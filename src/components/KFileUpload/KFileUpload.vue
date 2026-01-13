@@ -175,7 +175,7 @@ const { stripRequiredLabel } = useUtilities()
 
 const defaultId = useId()
 const fileInputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
-const fileInputName = computed((): string => attrs.name ? String(attrs.name) : defaultId)
+const fileInputName = computed((): string => attrs.name ? String(attrs.name) : 'file')
 
 const modifiedAttrs = computed(() => {
   const $attrs = { ...attrs }

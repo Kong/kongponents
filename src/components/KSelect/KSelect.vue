@@ -52,7 +52,7 @@
             :disabled="isDisabled"
             :error="error"
             :model-value="filterQuery"
-            :name="defaultId"
+            name="select"
             :placeholder="selectedItem && !enableFiltering ? selectedItem.label : placeholderText"
             :readonly="isReadonly"
             spellcheck="false"
