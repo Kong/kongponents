@@ -1,3 +1,10 @@
+## [9.49.3](https://github.com/Kong/kongponents/compare/v9.49.2...v9.49.3) (2026-01-13)
+
+
+### Bug Fixes
+
+* add name attribute to inputs [KHCP-19041] ([#3055](https://github.com/Kong/kongponents/issues/3055)) ([159ab7b](https://github.com/Kong/kongponents/commit/159ab7b32f3d5f143de8916b3d1e2565e0b0d2c5))
+
 ## [9.49.2](https://github.com/Kong/kongponents/compare/v9.49.1...v9.49.2) (2026-01-07)
 
 
