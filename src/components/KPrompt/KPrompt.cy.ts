@@ -196,7 +196,7 @@ describe('KPrompt', () => {
 
     cy.get('.prompt-confirmation-text').should('be.visible').contains('Confirmation "Confirmation Text" Prompt')
     cy.getTestId('confirmation-input').should('be.visible')
-    cy.getTestId('confirmation-input').should('have.attr', 'name')
+    cy.getTestId('confirmation-input').should('have.attr', 'name', 'prompt-confirmation-text')
   })
 
   it('action button behaves correctly when confirmationText is passed', () => {

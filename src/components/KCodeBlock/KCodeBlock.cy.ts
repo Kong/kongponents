@@ -85,7 +85,7 @@ describe('KCodeBlock', () => {
     // Searches in normal mode.
     const expectedLineNumbers = [2, 3, 4]
 
-    cy.getTestId('code-block-search-input').should('have.attr', 'name')
+    cy.getTestId('code-block-search-input').should('have.attr', 'name', 'code-search')
     cy.getTestId('code-block-search-input').type('key').then(() => {
       // Guard: Ensures processing of the search is done
       cy.getTestId('code-block-processing-icon').should('be.visible')
