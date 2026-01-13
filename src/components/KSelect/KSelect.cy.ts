@@ -5,6 +5,7 @@ describe('KSelect', () => {
   it('renders props when passed', () => {
     const labels = ['Label 1', 'Label 2', 'Label 3']
     const vals = ['val1', 'val2', 'val3']
+    const name = 'select-input'
 
     cy.mount(KSelect, {
       props: {
@@ -18,10 +19,12 @@ describe('KSelect', () => {
           label: labels[2],
           value: vals[2],
         }],
+        name,
       },
     })
 
     cy.get('.chevron-down-icon').should('be.visible')
+    cy.getTestId('select-input').should('have.attr', 'name', name)
     cy.getTestId('select-input').should('be.visible').trigger('click')
 
     cy.get('.select-popover').should('be.visible')

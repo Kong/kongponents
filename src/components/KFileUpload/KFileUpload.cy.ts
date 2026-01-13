@@ -31,12 +31,15 @@ describe('KFileUpload', () => {
     })
 
     it('should emit correct event when a file is selected, removed', () => {
+      const name = 'file-upload-input'
       cy.mount(KFileUpload, {
         props: {
           accept: ['.md'],
+          name,
         },
       })
 
+      cy.get('input[type=file]').should('have.attr', 'name', name)
       cy.get('input[type=file]').selectFile('cypress/fixtures/file-upload/file-upload-document.md').then(() => {
         cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'file-added')
         cy.wrap(Cypress.vueWrapper.emitted()).should('have.property', 'input')
