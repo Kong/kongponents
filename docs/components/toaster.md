@@ -55,6 +55,10 @@ const showToast = (name: string) => {
 
 :::warning NOTE
 Don't forget to clean up the toaster instance by calling `toaster.destroy()` in `onBeforeUnmount`.
+
+The `destroy()` function accepts a single optional argument, `removeToastersContainer` (boolean, default: `false`). This argument determines whether the toaster instance should remove the toasters container element from the DOM.
+
+When using multiple toaster instances within an application, it is **not** recommended to remove the container element. Doing so can lead to a race condition — for example, one instance may remove the container at the same moment another instance is attempting to dispatch a notification. Because a toaster instance will not create a new container if one already exists, the container should only be removed during `destroy()` if the application uses a single toaster instance or if the application is fully exiting.
 :::
 
 Optionally, you can provide options object upon initialization. It takes one parameter:
