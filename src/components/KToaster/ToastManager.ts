@@ -22,13 +22,6 @@ export default class ToastManager {
   private zIndex: number = defaultZIndex
 
   constructor(options?: ToasterOptions) {
-    // For SSR, prevents failing on the build)
-    if (typeof document === 'undefined') {
-      console.warn('ToastManager should only be initialized in the browser environment. Docs: https://kongponents.konghq.com/components/toaster.html')
-
-      return
-    }
-
     if (options?.zIndex) {
       this.zIndex = options.zIndex
     }
@@ -37,7 +30,14 @@ export default class ToastManager {
   }
 
   private setupToastersContainer(): void {
-    const toastersContainerEl = document?.getElementById(toasterContainerId)
+    // For SSR, prevents failing on the build)
+    if (typeof document === 'undefined') {
+      console.warn('ToastManager should only be initialized in the browser environment. Docs: https://kongponents.konghq.com/components/toaster.html')
+
+      return
+    }
+
+    const toastersContainerEl = document.getElementById(toasterContainerId)
     if (toastersContainerEl) {
       this.toastersContainer = toastersContainerEl as HTMLElement
     } else {
