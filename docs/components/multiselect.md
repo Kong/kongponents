@@ -102,6 +102,51 @@ You may also specify:
 />
 ```
 
+### groupComparator
+
+A function to customize the order of groups. By default, groups are sorted alphabetically. Provide a custom comparator function to control the ordering.
+
+The function receives two group names as strings and should return a number (similar to `Array.prototype.sort` comparator):
+- Return a negative number if the first group should come before the second
+- Return a positive number if the first group should come after the second
+- Return 0 if the order doesn't matter
+
+<ClientOnly>
+  <KMultiselect 
+    :items="[{
+      label: 'Service B2',
+      value: 'b2',
+      group: 'Series 2',
+    }, {
+      label: 'Service A1',
+      value: 'a1',
+      group: 'Series 1',
+    }, {
+      label: 'Service B1',
+      value: 'b1',
+      group: 'Series 1',
+    }, {
+      label: 'Service A2',
+      value: 'a2',
+      group: 'Series 2',
+    }]"
+    :group-comparator="(a, b) => {
+      const order = ['Series 2', 'Series 1']
+      return order.indexOf(a) - order.indexOf(b)
+    }"
+  />
+</ClientOnly>
+
+```html
+<KMultiselect 
+  :items="items"
+  :group-comparator="(a, b) => {
+    const order = ['Series 2', 'Series 1']
+    return order.indexOf(a) - order.indexOf(b)
+  }"
+/>
+```
+
 ### help
 
 Pass a `string` of help text to be displayed below the multiselect element.

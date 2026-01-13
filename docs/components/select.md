@@ -113,6 +113,51 @@ interface SelectItem {
 }]" />
 ```
 
+### groupComparator
+
+A function to customize the order of groups. By default, groups are sorted alphabetically. Provide a custom comparator function to control the ordering.
+
+The function receives two group names as strings and should return a number (similar to `Array.prototype.sort` comparator):
+- Return a negative number if the first group should come before the second
+- Return a positive number if the first group should come after the second
+- Return 0 if the order doesn't matter
+
+<ClientOnly>
+  <KSelect 
+    :items="[{
+      label: 'Salmon',
+      value: 'salmon',
+      group: 'Fish',
+    }, {
+      label: 'Duck',
+      value: 'duck',
+      group: 'Birds',
+    }, {
+      label: 'Trout',
+      value: 'trout',
+      group: 'Fish',
+    }, {
+      label: 'Oriole',
+      value: 'oriole',
+      group: 'Birds',
+    }]"
+    :group-comparator="(a, b) => {
+      const order = ['Fish', 'Birds']
+      return order.indexOf(a) - order.indexOf(b)
+    }"
+  />
+</ClientOnly>
+
+```html
+<KSelect 
+  :items="items"
+  :group-comparator="(a, b) => {
+    const order = ['Fish', 'Birds']
+    return order.indexOf(a) - order.indexOf(b)
+  }"
+/>
+```
+
 ### label
 
 Label associated with the select element.
