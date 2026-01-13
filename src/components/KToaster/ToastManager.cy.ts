@@ -15,6 +15,21 @@ describe('ToastManager', () => {
     expect(containers.length).equal(0)
   })
 
+  it('should not remove the toasters container if destroy is called with removeToastersContainer set to false', () => {
+    let containers: NodeListOf<Element>
+
+    const toastManager = new ToastManager()
+    containers = document.querySelectorAll(`#${toastersContainerId}`)
+    expect(containers.length).equal(1)
+
+    toastManager.destroy(false)
+    containers = document.querySelectorAll(`#${toastersContainerId}`)
+    expect(containers.length).equal(1)
+
+    // Clean up
+    toastManager.destroy(true)
+  })
+
   it('should not create a duplicate toasters container if one already exists', () => {
     const existingContainer = document.createElement('div')
     existingContainer.id = toastersContainerId
@@ -27,7 +42,7 @@ describe('ToastManager', () => {
     expect(containers.length).equal(1)
 
     // Clean up
-    toastManager.destroy()
+    toastManager.destroy(true)
   })
 
   it('should create a toasters container if one does not exist when open is called', () => {
@@ -43,6 +58,6 @@ describe('ToastManager', () => {
     expect(containers.length).equal(1)
 
     // Clean up
-    toastManager.destroy()
+    toastManager.destroy(true)
   })
 })
