@@ -20,6 +20,7 @@
         data-testid="code-block-search-input"
         :error="regExpError !== null"
         :error-message="regExpError !== null ? regExpError.message : undefined"
+        :name="inputId"
         placeholder="Search..."
         @input="handleSearch"
       >
@@ -232,7 +233,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, normalizeClass, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
+import { computed, nextTick, normalizeClass, onBeforeUnmount, onMounted, ref, useId, useTemplateRef, watch } from 'vue'
 import { Virtualizer } from 'virtua/vue'
 import { debounce } from 'lodash-es'
 import KInput from '@/components/KInput/KInput.vue'
@@ -279,6 +280,8 @@ const {
   singleLine,
   maxHeight = 'none',
 } = defineProps<CodeBlockProps>()
+
+const inputId = useId()
 
 // Custom validator for the `highlightedLineNumbers` prop
 watch(() => highlightedLineNumbers, (value: CodeBlockProps['highlightedLineNumbers']) => {

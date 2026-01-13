@@ -48,6 +48,7 @@
           data-testid="confirmation-input"
           :error="displayErrorState"
           :error-message="errorMessage"
+          :name="inputId"
           @keydown.enter.prevent="onEnter"
         />
       </div>
@@ -56,7 +57,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, useAttrs, watch } from 'vue'
+import { computed, ref, useAttrs, useId, watch } from 'vue'
 import KModal from '@/components/KModal/KModal.vue'
 import KInput from '@/components/KInput/KInput.vue'
 import type { PromptProps, PromptEmits, PromptSlots } from '@/types'
@@ -85,6 +86,8 @@ const emit = defineEmits<PromptEmits>()
 const slots = defineSlots<PromptSlots>()
 
 const attrs = useAttrs()
+
+const inputId = useId()
 
 const sanitizedAttrs = computed(() => {
   const attributes = Object.assign({}, attrs) as Record<string, any>
