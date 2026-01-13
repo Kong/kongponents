@@ -52,6 +52,7 @@
             :disabled="isDisabled"
             :error="error"
             :model-value="filterQuery"
+            name="select-options-search"
             :placeholder="selectedItem && !enableFiltering ? selectedItem.label : placeholderText"
             :readonly="isReadonly"
             spellcheck="false"

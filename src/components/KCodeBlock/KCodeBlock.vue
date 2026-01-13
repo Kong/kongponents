@@ -20,6 +20,7 @@
         data-testid="code-block-search-input"
         :error="regExpError !== null"
         :error-message="regExpError !== null ? regExpError.message : undefined"
+        name="code-search"
         placeholder="Search..."
         @input="handleSearch"
       >

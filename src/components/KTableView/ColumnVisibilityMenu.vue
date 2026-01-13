@@ -27,10 +27,14 @@
         <KInput
           v-if="searchColumnInMenu || filteredItems.length > 5"
           v-model.trim="searchColumnInMenu"
+          autocapitalize="off"
           autocomplete="off"
+          autocorrect="off"
           class="search-input"
           data-testid="search-input"
+          name="column-search"
           placeholder="Search columns"
+          spellcheck="false"
           type="search"
           @click.stop
           @input="handleSearch"

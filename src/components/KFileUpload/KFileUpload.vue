@@ -49,6 +49,7 @@
         :error-message="errorMessage || invalidFileTypeErrorMessage || fileSizeErrorMessage"
         :help="help"
         :hidden="isAppearanceDropzone"
+        :name="fileInputName"
         :placeholder="placeholder || defaultPlaceholder"
         title=""
         type="file"
@@ -174,11 +175,13 @@ const { stripRequiredLabel } = useUtilities()
 
 const defaultId = useId()
 const fileInputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
+const fileInputName = computed((): string => attrs.name ? String(attrs.name) : 'uploaded-file')
 
 const modifiedAttrs = computed(() => {
   const $attrs = { ...attrs }
 
   delete $attrs.id // delete id because we bind id to the input element
+  delete $attrs.name // delete name because we bind name to the input element
 
   return $attrs
 })

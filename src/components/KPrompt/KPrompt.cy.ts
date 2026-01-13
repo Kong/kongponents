@@ -196,6 +196,7 @@ describe('KPrompt', () => {
 
     cy.get('.prompt-confirmation-text').should('be.visible').contains('Confirmation "Confirmation Text" Prompt')
     cy.getTestId('confirmation-input').should('be.visible')
+    cy.getTestId('confirmation-input').should('have.attr', 'name')
   })
 
   it('action button behaves correctly when confirmationText is passed', () => {
@@ -212,7 +213,7 @@ describe('KPrompt', () => {
     cy.getTestId('modal-action-button').should('be.disabled')
 
     cy.getTestId('confirmation-input').type(confirmationText).then(() => {
-      cy.getTestId('modal-action-button').should('not.be.disabled')
+      cy.getTestId('modal-action-button').should('be.enabled')
     })
   })
 })
