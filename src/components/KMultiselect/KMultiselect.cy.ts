@@ -606,6 +606,35 @@ describe('KMultiselect', () => {
     cy.get('.multiselect-item').eq(4).should('contain.text', items[4].label)
   })
 
+  it('renders groups in custom order when groupComparator is provided', () => {
+    const group1Title = 'Series 2'
+    const group2Title = 'Series 1'
+    const items = [
+      { label: 'Service A1', value: 'a1', group: group2Title },
+      { label: 'Service A2', value: 'a2', group: group1Title },
+      { label: 'Service B1', value: 'b1', group: group2Title },
+      { label: 'Service B2', value: 'b2', group: group1Title },
+    ]
+
+    // Custom comparator to reverse alphabetical order (Series 2 should come before Series 1)
+    const customComparator = (a: string, b: string) => {
+      const order = ['Series 2', 'Series 1']
+      return order.indexOf(a) - order.indexOf(b)
+    }
+
+    cy.mount(KMultiselect, {
+      props: {
+        items,
+        groupComparator: customComparator,
+      },
+    })
+
+    cy.getTestId('multiselect-trigger').trigger('click')
+    // Series 2 group should appear first (instead of Series 1 alphabetically)
+    cy.get('.multiselect-group-title').eq(0).should('contain.text', group1Title)
+    cy.get('.multiselect-group-title').eq(1).should('contain.text', group2Title)
+  })
+
   it('should able to handle tons of items with no obvious lag', () => {
     const items = Array.from(new Array(500)).map((_, i) => ({
       label: `Item ${i}`,
