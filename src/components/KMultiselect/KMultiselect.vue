@@ -192,6 +192,7 @@
               <KMultiselectItems
                 ref="kMultiselectItems"
                 :filter-string="filterString"
+                :group-comparator="groupComparator"
                 :item-creation-enabled="enableItemCreation && uniqueFilterStr"
                 :item-creation-valid="itemCreationValidator(filterString)"
                 :items="sortedItems"
@@ -366,6 +367,7 @@ const {
   dropdownFooterText = '',
   dropdownFooterTextPosition = 'sticky',
   itemCreationValidator = () => true,
+  groupComparator = (a: string, b: string) => a.toLowerCase().localeCompare(b.toLowerCase()),
 } = defineProps<MultiselectProps<T, U>>()
 
 // immediate check to see if we have valid items and if their values are unique
@@ -767,7 +769,12 @@ const sortItems = () => {
   const unselectedItems = filteredItems.value.filter((item) => !item.selected)
   const allItems = [...selectedItems, ...unselectedItems]
   const ungroupedItems = allItems.filter(item => !item.group)
-  const groupedItems = allItems.filter(item => item.group).sort((a, b) => a.group!.toLowerCase().localeCompare(b.group!.toLowerCase()))
+  const groupedItems = allItems.filter(item => item.group).sort((a, b) => {
+    if (groupComparator && typeof groupComparator === 'function') {
+      return groupComparator(a.group!, b.group!)
+    }
+    return a.group!.toLowerCase().localeCompare(b.group!.toLowerCase())
+  })
 
   sortedItems.value = [...ungroupedItems, ...groupedItems]
 }

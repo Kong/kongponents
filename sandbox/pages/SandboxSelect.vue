@@ -171,6 +171,17 @@
         </KSelect>
       </SandboxSectionComponent>
       <SandboxSectionComponent
+        title="groupComparator"
+      >
+        <p>Default (alphabetical): Birds, Fish</p>
+        <KSelect :items="selectItems" />
+        <p>Custom order: Fish, Birds</p>
+        <KSelect
+          :group-comparator="customGroupComparator"
+          :items="selectItems"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
         title="required"
       >
         <KSelect
@@ -456,6 +467,12 @@ const itemCreationValidator = (value: string) => value.length >= 3
 
 const onItemCreationQueryChange = (query: string): void => {
   showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
+}
+
+const customGroupComparator = (a: string, b: string): number => {
+  // Custom order: Fish should come before Birds
+  const order = ['Fish', 'Birds']
+  return order.indexOf(a) - order.indexOf(b)
 }
 
 onMounted(() => {

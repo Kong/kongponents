@@ -144,6 +144,17 @@
         </KMultiselect>
       </SandboxSectionComponent>
       <SandboxSectionComponent
+        title="groupComparator"
+      >
+        <p>Default (alphabetical): Series 1, Series 2</p>
+        <KMultiselect :items="multiselectItems" />
+        <p>Custom order: Series 2, Series 1</p>
+        <KMultiselect
+          :group-comparator="customGroupComparator"
+          :items="multiselectItems"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
         title="required"
       >
         <KMultiselect
@@ -393,6 +404,12 @@ const itemCreationValidator = (value: string) => value.length >= 3
 
 const onItemCreationQueryChange = (query: string): void => {
   showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
+}
+
+const customGroupComparator = (a: string, b: string): number => {
+  // Custom order: Series 2 should come before Series 1
+  const order = ['Series 2', 'Series 1']
+  return order.indexOf(a) - order.indexOf(b)
 }
 </script>
 

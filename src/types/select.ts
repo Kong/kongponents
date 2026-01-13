@@ -46,6 +46,7 @@ export interface SelectItemsProps<T extends string | number> {
   itemCreationEnabled?: boolean
   filterString?: string
   itemCreationValid?: boolean
+  groupComparator?: (a: string, b: string) => number
 }
 
 /**
@@ -196,6 +197,12 @@ export interface SelectProps<T extends string | number, U extends boolean = fals
    * @default ''
    */
   help?: string
+
+  /**
+   * Function to customize the order of groups.
+   * @default (a, b) => a.toLowerCase().localeCompare(b.toLowerCase())
+   */
+  groupComparator?: (a: string, b: string) => number
 }
 
 export interface SelectEmits<T extends string | number> {

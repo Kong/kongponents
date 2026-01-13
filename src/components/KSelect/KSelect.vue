@@ -138,6 +138,7 @@
               <KSelectItems
                 ref="kSelectItems"
                 :filter-string="filterQuery"
+                :group-comparator="groupComparator"
                 :item-creation-enabled="enableItemCreation && uniqueFilterQuery"
                 :item-creation-valid="itemCreationValidator(filterQuery)"
                 :items="filteredItems"
@@ -248,6 +249,7 @@ const {
   itemCreationValidator = () => true,
   error,
   help = '',
+  groupComparator = (a: string, b: string) => a.toLowerCase().localeCompare(b.toLowerCase()),
 } = defineProps<SelectProps<T, U>>()
 
 const emit = defineEmits<SelectEmits<Value>>()

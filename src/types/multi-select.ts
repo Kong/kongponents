@@ -48,6 +48,7 @@ export interface MultiselectItemsProps<T extends string> {
   itemCreationEnabled?: boolean
   filterString?: string
   itemCreationValid?: boolean
+  groupComparator?: (a: string, b: string) => number
 }
 
 /**
@@ -185,6 +186,12 @@ export interface MultiselectProps<T extends string, U extends boolean = false> {
    * @default () => true
    */
   itemCreationValidator?: (query: string) => boolean
+
+  /**
+   * Function to customize the order of groups.
+   * @default (a, b) => a.toLowerCase().localeCompare(b.toLowerCase())
+   */
+  groupComparator?: (a: string, b: string) => number
 }
 
 export interface MultiselectEmits<T extends string = string> {

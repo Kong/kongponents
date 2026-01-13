@@ -72,6 +72,7 @@ const {
   itemCreationEnabled,
   filterString = '',
   itemCreationValid = true,
+  groupComparator,
 } = defineProps<MultiselectItemsProps<T>>()
 
 const emit = defineEmits<MultiselectItemsEmits<T>>()
@@ -81,7 +82,15 @@ const SELECTABLE_ITEM_SELECTOR = '.multiselect-item button:not(:disabled)'
 const handleItemSelect = (item: MultiselectItem<T>) => emit('selected', item)
 
 const nonGroupedItems = computed((): Array<MultiselectItem<T>> => items?.filter(item => !item.group))
-const groups = computed((): string[] => [...new Set((items?.filter(item => item.group))?.map(item => item.group!))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())))
+const groups = computed((): string[] => {
+  const uniqueGroups = [...new Set((items?.filter(item => item.group))?.map(item => item.group!))]
+
+  if (groupComparator && typeof groupComparator === 'function') {
+    return uniqueGroups.sort(groupComparator)
+  }
+
+  return uniqueGroups.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
+})
 
 const getGroupItems = (group: string) => items?.filter(item => item.group === group)
 
