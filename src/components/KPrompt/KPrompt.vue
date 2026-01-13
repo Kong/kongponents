@@ -48,7 +48,7 @@
           data-testid="confirmation-input"
           :error="displayErrorState"
           :error-message="errorMessage"
-          name="confirmation"
+          name="prompt-confirmation-text"
           @keydown.enter.prevent="onEnter"
         />
       </div>
