@@ -4,44 +4,49 @@
     aria-live="polite"
     class="multiselect-items-container"
   >
-    <KMultiselectItem
-      v-for="item, idx in nonGroupedItems"
-      :key="`${item.key ? item.key : idx}-item`"
-      :item="item"
-      @keydown="onKeyPress"
-      @selected="handleItemSelect"
+    <template
+      v-for="entry in items"
+      :key="isGroup(entry) ? `${entry.key || entry.label}-group` : entry.key"
     >
-      <template #content>
-        <slot
-          :item="item"
-          name="content"
-        />
-      </template>
-    </KMultiselectItem>
-
-    <div
-      v-for="group in groups"
-      :key="`${group}-group`"
-      class="multiselect-group"
-    >
-      <span class="multiselect-group-title">
-        {{ group }}
-      </span>
+      <!-- Regular item -->
       <KMultiselectItem
-        v-for="(item, idx) in getGroupItems(group)"
-        :key="`${item.key ? item.key : group + '-' + idx + '-item'}`"
-        :item="item"
+        v-if="!isGroup(entry)"
+        :item="entry"
         @keydown="onKeyPress"
         @selected="handleItemSelect"
       >
         <template #content>
           <slot
-            :item="item"
+            :item="entry"
             name="content"
           />
         </template>
       </KMultiselectItem>
-    </div>
+
+      <!-- Group -->
+      <div
+        v-else
+        class="multiselect-group"
+      >
+        <span class="multiselect-group-title">
+          {{ entry.label }}
+        </span>
+        <KMultiselectItem
+          v-for="item in entry.items"
+          :key="item.key"
+          :item="item"
+          @keydown="onKeyPress"
+          @selected="handleItemSelect"
+        >
+          <template #content>
+            <slot
+              :item="item"
+              name="content"
+            />
+          </template>
+        </KMultiselectItem>
+      </div>
+    </template>
 
     <KMultiselectItem
       v-if="itemCreationEnabled"
@@ -63,7 +68,7 @@
 </template>
 
 <script setup lang="ts" generic="T extends string">
-import { computed, useTemplateRef } from 'vue'
+import { useTemplateRef } from 'vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 import type { MultiselectItem, MultiselectItemsEmits, MultiselectItemsProps } from '@/types'
 
@@ -72,27 +77,30 @@ const {
   itemCreationEnabled,
   filterString = '',
   itemCreationValid = true,
-  groupComparator,
 } = defineProps<MultiselectItemsProps<T>>()
 
 const emit = defineEmits<MultiselectItemsEmits<T>>()
 
+/**
+ * RENDERING LOGIC
+ *
+ * KMultiselectItems now just renders what it receives from KMultiselect.
+ * All normalization happens in KMultiselect.vue.
+ */
+
+interface GroupEntry<T extends string> {
+  label: string
+  items: Array<MultiselectItem<T>>
+}
+
+// Helper to check if entry is a group (has 'items' property)
+const isGroup = (entry: any): entry is GroupEntry<T> => {
+  return entry && typeof entry === 'object' && 'items' in entry && Array.isArray(entry.items)
+}
+
 const SELECTABLE_ITEM_SELECTOR = '.multiselect-item button:not(:disabled)'
 
 const handleItemSelect = (item: MultiselectItem<T>) => emit('selected', item)
-
-const nonGroupedItems = computed((): Array<MultiselectItem<T>> => items?.filter(item => !item.group))
-const groups = computed((): string[] => {
-  const uniqueGroups = [...new Set((items?.filter(item => item.group))?.map(item => item.group!))]
-
-  if (groupComparator && typeof groupComparator === 'function') {
-    return uniqueGroups.sort(groupComparator)
-  }
-
-  return uniqueGroups.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
-})
-
-const getGroupItems = (group: string) => items?.filter(item => item.group === group)
 
 const itemsContainerRef = useTemplateRef('itemsContainer')
 

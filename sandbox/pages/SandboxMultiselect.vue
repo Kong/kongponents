@@ -144,15 +144,12 @@
         </KMultiselect>
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        title="groupComparator"
+        title="Custom Group Order (MultiselectGroup)"
       >
-        <p>Default (alphabetical): Series 1, Series 2</p>
+        <p>Old approach with group property (alphabetical): Series 1, Series 2</p>
         <KMultiselect :items="multiselectItems" />
-        <p>Custom order: Series 2, Series 1</p>
-        <KMultiselect
-          :group-comparator="customGroupComparator"
-          :items="multiselectItems"
-        />
+        <p>New approach with MultiselectGroup (custom order): Series 2, Series 1</p>
+        <KMultiselect :items="multiselectItemsWithCustomOrder" />
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="required"
@@ -406,11 +403,44 @@ const onItemCreationQueryChange = (query: string): void => {
   showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
 }
 
-const customGroupComparator = (a: string, b: string): number => {
-  // Custom order: Series 2 should come before Series 1
-  const order = ['Series 2', 'Series 1']
-  return order.indexOf(a) - order.indexOf(b)
-}
+// Example using MultiselectGroup for custom order
+const multiselectItemsWithCustomOrder = [
+  {
+    label: 'Service C',
+    value: 'c',
+    selected: true,
+  },
+  {
+    label: 'Service D',
+    value: 'd',
+  },
+  {
+    label: 'Series 2',
+    items: [
+      {
+        label: 'Service A2',
+        value: 'a2',
+      },
+      {
+        label: 'Service B2',
+        value: 'b2',
+      },
+    ],
+  },
+  {
+    label: 'Series 1',
+    items: [
+      {
+        label: 'Service A1',
+        value: 'a1',
+      },
+      {
+        label: 'Service B1',
+        value: 'b1',
+      },
+    ],
+  },
+]
 </script>
 
 <style lang="scss" scoped>

@@ -10,6 +10,16 @@ export interface MultiselectItem<T extends string = string> {
   group?: string
 }
 
+export interface MultiselectGroup<T extends string = string> extends Record<string, any> {
+  label: string
+  key?: string
+  items: Array<MultiselectItem<T>>
+}
+
+export type MultiselectEntry<T extends string = string> =
+  | MultiselectItem<T>
+  | MultiselectGroup<T>
+
 export interface MultiselectFilterFunctionParams<T extends string = string> {
   items: Array<MultiselectItem<T>>
   query: string
@@ -44,11 +54,10 @@ export interface MultiselectItemSlots {
  * @internal
  */
 export interface MultiselectItemsProps<T extends string> {
-  items?: Array<MultiselectItem<T>>
+  items?: Array<MultiselectEntry<T>>
   itemCreationEnabled?: boolean
   filterString?: string
   itemCreationValid?: boolean
-  groupComparator?: (a: string, b: string) => number
 }
 
 /**
@@ -142,7 +151,7 @@ export interface MultiselectProps<T extends string, U extends boolean = false> {
    * }
    * @default []
    */
-  items?: U extends true ? Array<MultiselectItem<T | string>> : Array<MultiselectItem<T>>
+  items?: U extends true ? Array<MultiselectEntry<T | string>> : Array<MultiselectEntry<T>>
 
   /**
    * Override the default filter functionality of case-insensitive search on the label.
@@ -186,12 +195,6 @@ export interface MultiselectProps<T extends string, U extends boolean = false> {
    * @default () => true
    */
   itemCreationValidator?: (query: string) => boolean
-
-  /**
-   * Function to customize the order of groups.
-   * @default (a, b) => a.toLowerCase().localeCompare(b.toLowerCase())
-   */
-  groupComparator?: (a: string, b: string) => number
 }
 
 export interface MultiselectEmits<T extends string = string> {

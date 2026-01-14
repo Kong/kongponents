@@ -192,7 +192,6 @@
               <KMultiselectItems
                 ref="kMultiselectItems"
                 :filter-string="filterString"
-                :group-comparator="groupComparator"
                 :item-creation-enabled="enableItemCreation && uniqueFilterStr"
                 :item-creation-valid="itemCreationValidator(filterString)"
                 :items="sortedItems"
@@ -302,6 +301,8 @@ import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 import type {
   MultiselectItem,
+  MultiselectGroup,
+  MultiselectEntry,
   PopPlacements,
   BadgeAppearance,
   MultiselectProps,
@@ -318,18 +319,50 @@ import { getUniqueStringId } from '@/utilities'
 import { normalizeSize } from '@/utilities/css'
 
 // functions used in prop validators
-const getValues = (items: MultiselectItem[]) => {
-  const vals:string[] = []
-  items.forEach((item: MultiselectItem) => vals.push(item.value))
+const getValues = (entries: Array<MultiselectEntry<any>>) => {
+  const vals: string[] = []
 
+  const processEntry = (entry: MultiselectEntry<any>) => {
+    if ('value' in entry) {
+      // MultiselectItem
+      vals.push(entry.value)
+    } else if ('items' in entry && Array.isArray(entry.items)) {
+      // MultiselectGroup
+      entry.items.forEach(item => vals.push(item.value))
+    }
+  }
+
+  entries.forEach(processEntry)
   return vals
 }
 
-const itemValuesAreUnique = (items: MultiselectItem[]): boolean => {
-  const vals = getValues(items)
+const itemValuesAreUnique = (entries: Array<MultiselectEntry<any>>): boolean => {
+  const vals = getValues(entries)
   const uniqueValues = new Set(vals)
 
   return vals.length === uniqueValues.size
+}
+
+const validateItems = (entries: Array<MultiselectEntry<any>>): boolean => {
+  for (const entry of entries) {
+    if ('value' in entry) {
+      // MultiselectItem
+      if (entry.label === undefined || entry.value === undefined) {
+        return false
+      }
+    } else if ('items' in entry && Array.isArray(entry.items)) {
+      // MultiselectGroup
+      if (entry.label === undefined) {
+        return false
+      }
+      for (const item of entry.items) {
+        if (item.label === undefined || item.value === undefined) {
+          return false
+        }
+      }
+    }
+  }
+  return true
 }
 
 defineOptions({
@@ -367,12 +400,11 @@ const {
   dropdownFooterText = '',
   dropdownFooterTextPosition = 'sticky',
   itemCreationValidator = () => true,
-  groupComparator = (a: string, b: string) => a.toLowerCase().localeCompare(b.toLowerCase()),
 } = defineProps<MultiselectProps<T, U>>()
 
 // immediate check to see if we have valid items and if their values are unique
 watch(() => items, (items) => {
-  const itemsValid = !items.length || (items.every(i => i.label !== undefined && i.value !== undefined) && itemValuesAreUnique(items))
+  const itemsValid = !items.length || (validateItems(items) && itemValuesAreUnique(items))
   if (!itemsValid) {
     console.warn('KMultiselect: Items must have a label & value and value must be unique')
   }
@@ -439,8 +471,26 @@ const popper = ref<InstanceType<typeof KPop> | null>(null)
 // A clone of `props.items`, normalized.  May contain additional custom items that have been created.
 const unfilteredItems = ref([]) as Ref<Item[]>
 
+/**
+ * INTERNAL STATE MANAGEMENT
+ *
+ * Similar to KSelect:
+ * - unfilteredItems: Flattened array of all MultiselectItems (used for filtering, selection, etc.)
+ * - normalizedItems: Normalized structure ready for rendering (processed MultiselectGroup objects)
+ * - sortedItems: Sorted version of normalizedItems with selected items first
+ */
+interface NormalizedGroup {
+  label: string
+  key?: string
+  items: Item[]
+}
+
+type NormalizedEntry = Item | NormalizedGroup
+
+const normalizedItems = ref([]) as Ref<NormalizedEntry[]>
+
 // A sorted version of the above.
-const sortedItems = ref([]) as Ref<Item[]>
+const sortedItems = ref([]) as Ref<NormalizedEntry[]>
 
 // An array of items.  May contain items that are not present in `unfilteredItems` if an item was selected, then the `items` prop was changed.
 const selectedItems = ref([]) as Ref<Item[]>
@@ -546,6 +596,51 @@ const triggerElementText = computed((): string => {
 const filteredItems = computed(() => {
   // For autosuggest, items don't need to be filtered internally
   return autosuggest ? unfilteredItems.value : filterFunction({ items: unfilteredItems.value, query: filterString.value })
+})
+
+/**
+ * FILTERING LOGIC FOR NORMALIZED ITEMS
+ *
+ * Filters normalizedItems and reconstructs the structure:
+ * 1. Filter the flat list (unfilteredItems)
+ * 2. Rebuild from normalizedItems keeping only filtered items
+ */
+const filteredNormalizedItems = computed((): NormalizedEntry[] => {
+  // No filtering for autosuggest or empty query: return all normalized items
+  if (autosuggest || !filterString.value) {
+    return normalizedItems.value
+  }
+
+  // STEP 1: Get filtered flat items
+  const filteredFlatItems = filteredItems.value
+
+  // STEP 2: Create a Set of filtered item values for quick lookup
+  const filteredValues = new Set(filteredFlatItems.map(item => item.value))
+
+  // STEP 3: Rebuild from normalizedItems with only filtered items
+  const result: NormalizedEntry[] = []
+
+  for (const entry of normalizedItems.value) {
+    if (isNormalizedGroup(entry)) {
+      // Group: Include only items that passed the filter
+      const groupFilteredItems = entry.items.filter(item => filteredValues.has(item.value))
+
+      if (groupFilteredItems.length > 0) {
+        result.push({
+          label: entry.label,
+          key: entry.key,
+          items: groupFilteredItems,
+        })
+      }
+    } else {
+      // Regular item: Include if it passed the filter
+      if (filteredValues.has(entry.value)) {
+        result.push(entry)
+      }
+    }
+  }
+
+  return result
 })
 
 const handleFilterClick = (event: any) => {
@@ -662,6 +757,13 @@ const handleMultipleItemsDeselect = (items: Item[], restage = false) => {
     // if it's an added item, remove it from list when it is deselected
     if (enableItemCreation && itemToDeselect.custom) {
       unfilteredItems.value = unfilteredItems.value.filter(anItem => anItem.value !== itemToDeselect.value)
+      // Also remove from normalized items
+      normalizedItems.value = normalizedItems.value.filter(entry => {
+        if (isNormalizedGroup(entry)) {
+          return true // Keep groups
+        }
+        return entry.value !== itemToDeselect.value
+      })
       emit('item-removed', itemToDeselect)
     }
   })
@@ -714,6 +816,13 @@ const handleItemSelect = (item: Item, isNew?: boolean) => {
     // if it's an added item, remove it from list when it is deselected
     if (selectionIsAdded) {
       unfilteredItems.value = unfilteredItems.value.filter(anItem => anItem.value !== item.value)
+      // Also remove from normalized items
+      normalizedItems.value = normalizedItems.value.filter(entry => {
+        if (isNormalizedGroup(entry)) {
+          return true // Keep groups
+        }
+        return entry.value !== item.value
+      })
       emit('item-removed', item)
     }
   } else { // newly selected item
@@ -724,6 +833,10 @@ const handleItemSelect = (item: Item, isNew?: boolean) => {
     if (isNew) {
       selectedItem.custom = true
       unfilteredItems.value.push(selectedItem)
+
+      // Add to normalized items as an ungrouped item at the beginning
+      // (ungrouped items always come first)
+      normalizedItems.value.unshift(selectedItem)
     }
   }
 
@@ -762,21 +875,55 @@ const handleAddItem = (): void => {
   filterString.value = ''
 }
 
-// Sort items. Non-grouped items are displayed first, then grouped items.
-// Within non-grouped and grouped items, selected items are displayed first.
-const sortItems = () => {
-  const selectedItems = filteredItems.value.filter((item) => item.selected)
-  const unselectedItems = filteredItems.value.filter((item) => !item.selected)
-  const allItems = [...selectedItems, ...unselectedItems]
-  const ungroupedItems = allItems.filter(item => !item.group)
-  const groupedItems = allItems.filter(item => item.group).sort((a, b) => {
-    if (groupComparator && typeof groupComparator === 'function') {
-      return groupComparator(a.group!, b.group!)
-    }
-    return a.group!.toLowerCase().localeCompare(b.group!.toLowerCase())
-  })
+// Helper to check if entry is MultiselectGroup (has 'items' property)
+const isMultiselectGroup = (entry: any): entry is MultiselectGroup<Value> => {
+  return entry && typeof entry === 'object' && 'items' in entry && Array.isArray(entry.items)
+}
 
-  sortedItems.value = [...ungroupedItems, ...groupedItems]
+// Helper to check if normalized entry is a group
+const isNormalizedGroup = (entry: any): entry is NormalizedGroup => {
+  return entry && typeof entry === 'object' && 'items' in entry && Array.isArray(entry.items)
+}
+
+/**
+ * Sort items for display.
+ * - Selected items come first (within both ungrouped and grouped items)
+ * - Ungrouped items come before groups
+ * - Groups maintain their order from filteredNormalizedItems
+ */
+const sortItems = () => {
+  const result: NormalizedEntry[] = []
+
+  // Separate ungrouped items and groups from filtered normalized items
+  const ungroupedItems: Item[] = []
+  const groups: NormalizedGroup[] = []
+
+  for (const entry of filteredNormalizedItems.value) {
+    if (isNormalizedGroup(entry)) {
+      groups.push(entry)
+    } else {
+      ungroupedItems.push(entry)
+    }
+  }
+
+  // Sort ungrouped items: selected first, then unselected
+  const selectedUngrouped = ungroupedItems.filter(item => item.selected)
+  const unselectedUngrouped = ungroupedItems.filter(item => !item.selected)
+  result.push(...selectedUngrouped, ...unselectedUngrouped)
+
+  // Process groups: sort items within each group (selected first)
+  for (const group of groups) {
+    const selectedGroupItems = group.items.filter(item => item.selected)
+    const unselectedGroupItems = group.items.filter(item => !item.selected)
+
+    result.push({
+      label: group.label,
+      key: group.key,
+      items: [...selectedGroupItems, ...unselectedGroupItems],
+    })
+  }
+
+  sortedItems.value = result
 }
 
 const clearSelection = (): void => {
@@ -801,6 +948,18 @@ const clearSelection = (): void => {
 
     return true
   })
+
+  // Also clear custom entries from normalized items
+  normalizedItems.value = normalizedItems.value.filter(entry => {
+    if (isNormalizedGroup(entry)) {
+      return true // Keep groups
+    }
+    if (entry.custom && !entry.disabled) {
+      return false
+    }
+    return true
+  })
+
   selectedItems.value = selectedItems.value.filter(anItem => anItem.disabled)
   visibleSelectedItemsStaging.value = visibleSelectedItemsStaging.value.filter(anItem => anItem.disabled)
   invisibleSelectedItemsStaging.value = invisibleSelectedItemsStaging.value.filter(anItem => {
@@ -903,8 +1062,8 @@ watch(key, async () => {
   }
 })
 
-// If filtered items change, re-sort them
-watch(filteredItems, () => {
+// If filtered normalized items change, re-sort them
+watch(filteredNormalizedItems, () => {
   sortItems()
 })
 
@@ -938,7 +1097,74 @@ watch(() => items, (newValue, oldValue) => {
     return
   }
 
-  unfilteredItems.value = cloneDeep(items)
+  /**
+   * NORMALIZATION AND PROCESSING
+   *
+   * Similar to KSelect:
+   * 1. Normalize items into consistent structure (detect MultiselectGroup vs old-style)
+   * 2. Flatten for internal operations
+   * 3. Process items (add keys, selected state, etc.)
+   */
+
+  const itemsCopy: Array<MultiselectEntry<Value>> = cloneDeep(items)
+
+  // Detect if using new MultiselectGroup approach
+  const hasMultiselectGroups = itemsCopy.some(entry => isMultiselectGroup(entry))
+
+  const flattenedItems: Item[] = []
+  const normalized: NormalizedEntry[] = []
+
+  if (hasMultiselectGroups) {
+    // NEW APPROACH: Use MultiselectGroup structure, ignore 'group' property on items
+    for (const entry of itemsCopy) {
+      if (isMultiselectGroup(entry)) {
+        // Process group items but don't add to flat list yet
+        flattenedItems.push(...entry.items)
+      } else {
+        // Regular ungrouped item
+        flattenedItems.push(entry)
+      }
+    }
+  } else {
+    // OLD APPROACH: Use 'group' property with alphabetical sorting
+    const groupMap = new Map<string, Item[]>()
+
+    for (const entry of itemsCopy) {
+      if (!isMultiselectGroup(entry)) {
+        if (entry.group) {
+          // Grouped item
+          if (!groupMap.has(entry.group)) {
+            groupMap.set(entry.group, [])
+          }
+          groupMap.get(entry.group)!.push(entry)
+        }
+        flattenedItems.push(entry)
+      }
+    }
+
+    // Sort groups alphabetically (old approach default)
+    const sortedGroupNames = Array.from(groupMap.keys()).sort((a, b) =>
+      a.toLowerCase().localeCompare(b.toLowerCase()),
+    )
+
+    // Build normalized structure: ungrouped items first, then groups
+    const ungroupedItems = flattenedItems.filter(item => !item.group)
+
+    // Add ungrouped items to normalized
+    normalized.push(...ungroupedItems)
+
+    // Add sorted groups to normalized
+    for (const groupName of sortedGroupNames) {
+      normalized.push({
+        label: groupName,
+        items: groupMap.get(groupName)!,
+      })
+    }
+  }
+
+  // Process all flattened items (add keys, selected state, etc.)
+  unfilteredItems.value = flattenedItems
+
   for (let i = 0; i < unfilteredItems.value.length; i++) {
     // Ensure each item has a `selected` property
     if (unfilteredItems.value[i]!.selected === undefined) {
@@ -964,6 +1190,38 @@ watch(() => items, (newValue, oldValue) => {
       }
     }
   }
+
+  // Build normalized structure for NEW approach after processing
+  if (hasMultiselectGroups) {
+    const ungroupedProcessedItems: Item[] = []
+    const groupsToAdd: NormalizedGroup[] = []
+
+    for (const entry of itemsCopy) {
+      if (isMultiselectGroup(entry)) {
+        // Map to processed items
+        const processedGroupItems = entry.items
+          .map(item => unfilteredItems.value.find(ui => ui.value === item.value))
+          .filter((item): item is Item => item !== undefined)
+
+        groupsToAdd.push({
+          label: entry.label,
+          key: entry.key,
+          items: processedGroupItems,
+        })
+      } else {
+        // Ungrouped item - find processed version
+        const processedItem = unfilteredItems.value.find(ui => ui.value === entry.value)
+        if (processedItem) {
+          ungroupedProcessedItems.push(processedItem)
+        }
+      }
+    }
+
+    // Add ungrouped items first, then groups (maintain group order from array)
+    normalized.push(...ungroupedProcessedItems, ...groupsToAdd)
+  }
+
+  normalizedItems.value = normalized
 
   stageSelections()
 
