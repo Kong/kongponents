@@ -65,6 +65,24 @@ You may also specify:
 - a certain item is `disabled`
 - certain items are grouped under a `group`
 
+```ts
+interface MultiselectItem {
+  label: string
+  value: string
+  selected?: boolean
+  disabled?: boolean
+  group?: string
+}
+
+interface MultiselectGroup {
+  label: string
+  key?: string
+  items: MultiselectItem[]
+}
+
+type MultiselectEntry = MultiselectItem | MultiselectGroup
+```
+
 <ClientOnly>
   <KMultiselect :items="deepClone(defaultItemsWithDisabledAndGroups)" />
 </ClientOnly>
@@ -102,50 +120,85 @@ You may also specify:
 />
 ```
 
-### groupComparator
+#### Group ordering
 
-A function to customize the order of groups. By default, groups are sorted alphabetically. Provide a custom comparator function to control the ordering.
+You can control the order of groups in two ways:
 
-The function receives two group names as strings and should return a number (similar to `Array.prototype.sort` comparator):
-- Return a negative number if the first group should come before the second
-- Return a positive number if the first group should come after the second
-- Return 0 if the order doesn't matter
+##### Using MultiselectGroup interface (recommended)
+
+For custom group ordering, use the `MultiselectGroup` interface. Groups will appear in the order they are defined in the array:
 
 <ClientOnly>
   <KMultiselect 
     :items="[{
-      label: 'Service B2',
-      value: 'b2',
-      group: 'Series 2',
+      label: 'Fish',
+      items: [
+        { label: 'Salmon', value: 'salmon' },
+        { label: 'Trout', value: 'trout' },
+      ],
     }, {
-      label: 'Service A1',
-      value: 'a1',
-      group: 'Series 1',
-    }, {
-      label: 'Service B1',
-      value: 'b1',
-      group: 'Series 1',
-    }, {
-      label: 'Service A2',
-      value: 'a2',
-      group: 'Series 2',
+      label: 'Birds',
+      items: [
+        { label: 'Duck', value: 'duck' },
+        { label: 'Oriole', value: 'oriole' },
+      ],
     }]"
-    :group-comparator="(a, b) => {
-      const order = ['Series 2', 'Series 1']
-      return order.indexOf(a) - order.indexOf(b)
-    }"
   />
 </ClientOnly>
 
 ```html
 <KMultiselect 
-  :items="items"
-  :group-comparator="(a, b) => {
-    const order = ['Series 2', 'Series 1']
-    return order.indexOf(a) - order.indexOf(b)
-  }"
+  :items="[{
+    label: 'Fish',
+    items: [
+      { label: 'Salmon', value: 'salmon' },
+      { label: 'Trout', value: 'trout' },
+    ],
+  }, {
+    label: 'Birds',
+    items: [
+      { label: 'Duck', value: 'duck' },
+      { label: 'Oriole', value: 'oriole' },
+    ],
+  }]"
 />
 ```
+
+##### Using group property (alphabetical order)
+
+For backwards compatibility, you can still use the `group` property on items. Groups will be sorted alphabetically:
+
+<ClientOnly>
+  <KMultiselect 
+    :items="[{
+      label: 'Salmon',
+      value: 'salmon',
+      group: 'Fish',
+    }, {
+      label: 'Duck',
+      value: 'duck',
+      group: 'Birds',
+    }]"
+  />
+</ClientOnly>
+
+```html
+<KMultiselect 
+  :items="[{
+    label: 'Salmon',
+    value: 'salmon',
+    group: 'Fish',
+  }, {
+    label: 'Duck',
+    value: 'duck',
+    group: 'Birds',
+  }]"
+/>
+```
+
+:::tip NOTE
+You can mix `MultiselectGroup` entries with ungrouped `MultiselectItem` entries. Ungrouped items will always appear first, followed by groups in the order they are defined.
+:::
 
 ### help
 
