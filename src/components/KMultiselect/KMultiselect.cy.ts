@@ -597,42 +597,80 @@ describe('KMultiselect', () => {
     })
 
     cy.getTestId('multiselect-trigger').trigger('click')
-    cy.get('.multiselect-item').eq(0).should('contain.text', items[0].label)
+    cy.get('.multiselect-item').eq(0).should('contain.text', items[0]!.label)
     cy.get('.multiselect-group-title').eq(0).should('contain.text', group1Title)
     cy.get('.multiselect-group-title').eq(1).should('contain.text', group2Title)
-    cy.get('.multiselect-item').eq(1).should('contain.text', items[1].label)
-    cy.get('.multiselect-item').eq(2).should('contain.text', items[3].label)
-    cy.get('.multiselect-item').eq(3).should('contain.text', items[2].label)
-    cy.get('.multiselect-item').eq(4).should('contain.text', items[4].label)
+    cy.get('.multiselect-item').eq(1).should('contain.text', items[1]!.label)
+    cy.get('.multiselect-item').eq(2).should('contain.text', items[3]!.label)
+    cy.get('.multiselect-item').eq(3).should('contain.text', items[2]!.label)
+    cy.get('.multiselect-item').eq(4).should('contain.text', items[4]!.label)
   })
 
-  it('renders groups in custom order when groupComparator is provided', () => {
-    const group1Title = 'Series 2'
-    const group2Title = 'Series 1'
+  it('renders groups in custom order using MultiselectGroup interface', () => {
     const items = [
-      { label: 'Service A1', value: 'a1', group: group2Title },
-      { label: 'Service A2', value: 'a2', group: group1Title },
-      { label: 'Service B1', value: 'b1', group: group2Title },
-      { label: 'Service B2', value: 'b2', group: group1Title },
+      {
+        label: 'Fish',
+        items: [
+          { label: 'Salmon', value: 'salmon' },
+          { label: 'Trout', value: 'trout' },
+        ],
+      },
+      { label: 'Ungrouped Item', value: 'ungrouped' },
+      {
+        label: 'Birds',
+        items: [
+          { label: 'Duck', value: 'duck' },
+          { label: 'Oriole', value: 'oriole' },
+        ],
+      },
     ]
-
-    // Custom comparator to reverse alphabetical order (Series 2 should come before Series 1)
-    const customComparator = (a: string, b: string) => {
-      const order = ['Series 2', 'Series 1']
-      return order.indexOf(a) - order.indexOf(b)
-    }
 
     cy.mount(KMultiselect, {
       props: {
         items,
-        groupComparator: customComparator,
       },
     })
 
     cy.getTestId('multiselect-trigger').trigger('click')
-    // Series 2 group should appear first (instead of Series 1 alphabetically)
-    cy.get('.multiselect-group-title').eq(0).should('contain.text', group1Title)
-    cy.get('.multiselect-group-title').eq(1).should('contain.text', group2Title)
+    // Ungrouped items should appear first
+    cy.get('.multiselect-item').eq(0).should('contain.text', 'Ungrouped Item')
+    // Groups should appear in array order: Fish, then Birds
+    cy.get('.multiselect-group-title').eq(0).should('contain.text', 'Fish')
+    cy.get('.multiselect-group-title').eq(1).should('contain.text', 'Birds')
+    // Items should be in their group order
+    cy.get('.multiselect-item').eq(1).should('contain.text', 'Salmon')
+    cy.get('.multiselect-item').eq(2).should('contain.text', 'Trout')
+    cy.get('.multiselect-item').eq(3).should('contain.text', 'Duck')
+    cy.get('.multiselect-item').eq(4).should('contain.text', 'Oriole')
+  })
+
+  it('handles mixed MultiselectGroup and MultiselectItem entries', () => {
+    const items = [
+      { label: 'First Item', value: 'first' },
+      {
+        label: 'Grouped Items',
+        items: [
+          { label: 'Grouped 1', value: 'g1' },
+          { label: 'Grouped 2', value: 'g2' },
+        ],
+      },
+      { label: 'Second Item', value: 'second' },
+    ]
+
+    cy.mount(KMultiselect, {
+      props: {
+        items,
+      },
+    })
+
+    cy.getTestId('multiselect-trigger').trigger('click')
+    // Ungrouped items should appear first
+    cy.get('.multiselect-item').eq(0).should('contain.text', 'First Item')
+    cy.get('.multiselect-item').eq(1).should('contain.text', 'Second Item')
+    // Then the group
+    cy.get('.multiselect-group-title').eq(0).should('contain.text', 'Grouped Items')
+    cy.get('.multiselect-item').eq(2).should('contain.text', 'Grouped 1')
+    cy.get('.multiselect-item').eq(3).should('contain.text', 'Grouped 2')
   })
 
   it('should able to handle tons of items with no obvious lag', () => {
