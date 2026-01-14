@@ -49,6 +49,14 @@ interface SelectItem {
   disabled?: boolean
   group?: string
 }
+
+interface SelectGroup {
+  label: string
+  key?: string
+  items: SelectItem[]
+}
+
+type SelectEntry = SelectItem | SelectGroup
 ```
 
 <ClientOnly>
@@ -113,14 +121,53 @@ interface SelectItem {
 }]" />
 ```
 
-### groupComparator
+#### Group ordering
 
-A function to customize the order of groups. By default, groups are sorted alphabetically. Provide a custom comparator function to control the ordering.
+You can control the order of groups in two ways:
 
-The function receives two group names as strings and should return a number (similar to `Array.prototype.sort` comparator):
-- Return a negative number if the first group should come before the second
-- Return a positive number if the first group should come after the second
-- Return 0 if the order doesn't matter
+##### Using SelectGroup interface (recommended)
+
+For custom group ordering, use the `SelectGroup` interface. Groups will appear in the order they are defined in the array:
+
+<ClientOnly>
+  <KSelect 
+    :items="[{
+      label: 'Fish',
+      items: [
+        { label: 'Salmon', value: 'salmon' },
+        { label: 'Trout', value: 'trout' },
+      ],
+    }, {
+      label: 'Birds',
+      items: [
+        { label: 'Duck', value: 'duck' },
+        { label: 'Oriole', value: 'oriole' },
+      ],
+    }]"
+  />
+</ClientOnly>
+
+```html
+<KSelect 
+  :items="[{
+    label: 'Fish',
+    items: [
+      { label: 'Salmon', value: 'salmon' },
+      { label: 'Trout', value: 'trout' },
+    ],
+  }, {
+    label: 'Birds',
+    items: [
+      { label: 'Duck', value: 'duck' },
+      { label: 'Oriole', value: 'oriole' },
+    ],
+  }]"
+/>
+```
+
+#### Using group property (alphabetical order)
+
+For backwards compatibility, you can still use the `group` property on items. Groups will be sorted alphabetically:
 
 <ClientOnly>
   <KSelect 
@@ -132,31 +179,27 @@ The function receives two group names as strings and should return a number (sim
       label: 'Duck',
       value: 'duck',
       group: 'Birds',
-    }, {
-      label: 'Trout',
-      value: 'trout',
-      group: 'Fish',
-    }, {
-      label: 'Oriole',
-      value: 'oriole',
-      group: 'Birds',
     }]"
-    :group-comparator="(a, b) => {
-      const order = ['Fish', 'Birds']
-      return order.indexOf(a) - order.indexOf(b)
-    }"
   />
 </ClientOnly>
 
 ```html
 <KSelect 
-  :items="items"
-  :group-comparator="(a, b) => {
-    const order = ['Fish', 'Birds']
-    return order.indexOf(a) - order.indexOf(b)
-  }"
+  :items="[{
+    label: 'Salmon',
+    value: 'salmon',
+    group: 'Fish',
+  }, {
+    label: 'Duck',
+    value: 'duck',
+    group: 'Birds',
+  }]"
 />
 ```
+
+:::tip NOTE
+You can mix `SelectGroup` entries with ungrouped `SelectItem` entries. Ungrouped items will always appear first, followed by groups in the order they are defined.
+:::
 
 ### label
 
