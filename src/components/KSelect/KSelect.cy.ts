@@ -410,35 +410,6 @@ describe('KSelect', () => {
     cy.get('.select-item').eq(4).should('contain.text', items[4].label)
   })
 
-  it('renders groups in custom order when groupComparator is provided', () => {
-    const group1Title = 'Fish'
-    const group2Title = 'Birds'
-    const items = [
-      { label: 'Salmon', value: 'salmon', group: group1Title },
-      { label: 'Duck', value: 'duck', group: group2Title },
-      { label: 'Trout', value: 'trout', group: group1Title },
-      { label: 'Oriole', value: 'oriole', group: group2Title },
-    ]
-
-    // Custom comparator to reverse alphabetical order (Fish should come before Birds)
-    const customComparator = (a: string, b: string) => {
-      const order = ['Fish', 'Birds']
-      return order.indexOf(a) - order.indexOf(b)
-    }
-
-    cy.mount(KSelect, {
-      props: {
-        items,
-        groupComparator: customComparator,
-      },
-    })
-
-    cy.getTestId('select-input').trigger('click')
-    // Fish group should appear first (instead of Birds alphabetically)
-    cy.get('.select-group-title').eq(0).should('contain.text', group1Title)
-    cy.get('.select-group-title').eq(1).should('contain.text', group2Title)
-  })
-
   it('allows slotting selected item content', () => {
     const selectedItemContent = 'I am slotted!'
     const itemLabel = 'Label 1'

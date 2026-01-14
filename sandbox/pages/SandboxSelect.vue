@@ -171,15 +171,12 @@
         </KSelect>
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        title="groupComparator"
+        title="Custom Group Order (SelectGroup)"
       >
-        <p>Default (alphabetical): Birds, Fish</p>
+        <p>Old approach with group property (alphabetical): Birds, Fish</p>
         <KSelect :items="selectItems" />
-        <p>Custom order: Fish, Birds</p>
-        <KSelect
-          :group-comparator="customGroupComparator"
-          :items="selectItems"
-        />
+        <p>New approach with SelectGroup (custom order): Fish, Birds</p>
+        <KSelect :items="selectItemsWithCustomOrder" />
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="required"
@@ -469,11 +466,49 @@ const onItemCreationQueryChange = (query: string): void => {
   showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
 }
 
-const customGroupComparator = (a: string, b: string): number => {
-  // Custom order: Fish should come before Birds
-  const order = ['Fish', 'Birds']
-  return order.indexOf(a) - order.indexOf(b)
-}
+// Example using SelectGroup for custom order
+const selectItemsWithCustomOrder = [
+  {
+    label: 'Cats',
+    value: 'cats',
+    selected: true,
+  },
+  {
+    label: 'Dogs',
+    value: 'dogs',
+  },
+  {
+    label: 'Bunnies',
+    value: 'bunnies',
+    disabled: true,
+  },
+  {
+    label: 'Fish',
+    items: [
+      {
+        label: 'Salmon',
+        value: 'salmon',
+      },
+      {
+        label: 'Trout',
+        value: 'trout',
+      },
+    ],
+  },
+  {
+    label: 'Birds',
+    items: [
+      {
+        label: 'Duck',
+        value: 'duck',
+      },
+      {
+        label: 'Oriole',
+        value: 'oriole',
+      },
+    ],
+  },
+]
 
 onMounted(() => {
   setAsyncItems()
