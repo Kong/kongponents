@@ -2,7 +2,7 @@
   <div ref="itemsContainer">
     <template
       v-for="entry in items"
-      :key="isGroup(entry) ? `${entry.label}-group` : entry.key"
+      :key="isGroup(entry) ? `${entry.key || entry.label}-group` : entry.key"
     >
       <!-- Regular item -->
       <KSelectItem

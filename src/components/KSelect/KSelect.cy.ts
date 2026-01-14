@@ -383,7 +383,7 @@ describe('KSelect', () => {
     cy.get('.dropdown-footer').should('be.visible').should('contain.text', dropdownFooterText)
   })
 
-  it('renders group titles and groups items in correct order', () => {
+  it('renders group titles and groups items in correct order (backwards compatible)', () => {
     const group1Title = 'Group 1'
     const group2Title = 'Group 2'
     const items = [
@@ -401,13 +401,80 @@ describe('KSelect', () => {
     })
 
     cy.getTestId('select-input').trigger('click')
-    cy.get('.select-item').eq(0).should('contain.text', items[0].label)
+    cy.get('.select-item').eq(0).should('contain.text', items[0]!.label)
     cy.get('.select-group-title').eq(0).should('contain.text', group1Title)
     cy.get('.select-group-title').eq(1).should('contain.text', group2Title)
-    cy.get('.select-item').eq(1).should('contain.text', items[1].label)
-    cy.get('.select-item').eq(2).should('contain.text', items[3].label)
-    cy.get('.select-item').eq(3).should('contain.text', items[2].label)
-    cy.get('.select-item').eq(4).should('contain.text', items[4].label)
+    cy.get('.select-item').eq(1).should('contain.text', items[1]!.label)
+    cy.get('.select-item').eq(2).should('contain.text', items[3]!.label)
+    cy.get('.select-item').eq(3).should('contain.text', items[2]!.label)
+    cy.get('.select-item').eq(4).should('contain.text', items[4]!.label)
+  })
+
+  it('renders groups in custom order using SelectGroup interface', () => {
+    const items = [
+      {
+        label: 'Fish',
+        items: [
+          { label: 'Salmon', value: 'salmon' },
+          { label: 'Trout', value: 'trout' },
+        ],
+      },
+      { label: 'Ungrouped Item', value: 'ungrouped' },
+      {
+        label: 'Birds',
+        items: [
+          { label: 'Duck', value: 'duck' },
+          { label: 'Oriole', value: 'oriole' },
+        ],
+      },
+    ]
+
+    cy.mount(KSelect, {
+      props: {
+        items,
+      },
+    })
+
+    cy.getTestId('select-input').trigger('click')
+    // Ungrouped item should appear first
+    cy.get('.select-item').eq(0).should('contain.text', 'Ungrouped Item')
+    // Groups should appear in array order: Fish, then Birds
+    cy.get('.select-group-title').eq(0).should('contain.text', 'Fish')
+    cy.get('.select-group-title').eq(1).should('contain.text', 'Birds')
+    // Items should be in their group order
+    cy.get('.select-item').eq(1).should('contain.text', 'Salmon')
+    cy.get('.select-item').eq(2).should('contain.text', 'Trout')
+    cy.get('.select-item').eq(3).should('contain.text', 'Duck')
+    cy.get('.select-item').eq(4).should('contain.text', 'Oriole')
+  })
+
+  it('handles mixed SelectGroup and SelectItem entries', () => {
+    const items = [
+      { label: 'First Item', value: 'first' },
+      {
+        label: 'Grouped Items',
+        items: [
+          { label: 'Grouped 1', value: 'g1' },
+          { label: 'Grouped 2', value: 'g2' },
+        ],
+      },
+      { label: 'Second Item', value: 'second' },
+    ]
+
+    cy.mount(KSelect, {
+      props: {
+        items,
+      },
+    })
+
+    cy.getTestId('select-input').trigger('click')
+    // Ungrouped items should appear first
+    cy.get('.select-item').eq(0).should('contain.text', 'First Item')
+    cy.get('.select-item').eq(1).should('contain.text', 'Second Item')
+    // Then the group
+    cy.get('.select-group-title').eq(0).should('contain.text', 'Grouped Items')
+    cy.get('.select-item').eq(2).should('contain.text', 'Grouped 1')
+    cy.get('.select-item').eq(3).should('contain.text', 'Grouped 2')
   })
 
   it('allows slotting selected item content', () => {

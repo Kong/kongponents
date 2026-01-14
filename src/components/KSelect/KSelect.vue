@@ -724,6 +724,9 @@ watch(() => items, (newValue, oldValue) => {
 
   // Build normalized structure for NEW approach after processing
   if (hasSelectGroups) {
+    const ungroupedProcessedItems: Item[] = []
+    const groupsToAdd: NormalizedGroup[] = []
+
     for (const entry of itemsCopy) {
       if (isSelectGroup(entry)) {
         // Map to processed items
@@ -731,7 +734,7 @@ watch(() => items, (newValue, oldValue) => {
           .map(item => selectItems.value.find(si => si.value === item.value))
           .filter((item): item is Item => item !== undefined)
 
-        normalized.push({
+        groupsToAdd.push({
           label: entry.label,
           key: entry.key,
           items: processedGroupItems,
@@ -740,10 +743,13 @@ watch(() => items, (newValue, oldValue) => {
         // Ungrouped item - find processed version
         const processedItem = selectItems.value.find(si => si.value === entry.value)
         if (processedItem) {
-          normalized.push(processedItem)
+          ungroupedProcessedItems.push(processedItem)
         }
       }
     }
+
+    // Add ungrouped items first, then groups (maintain group order from array)
+    normalized.push(...ungroupedProcessedItems, ...groupsToAdd)
   }
 
   normalizedItems.value = normalized
