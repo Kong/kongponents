@@ -94,8 +94,12 @@ interface GroupEntry<T extends string> {
 }
 
 // Helper to check if entry is a group (has 'items' property)
-const isGroup = (entry: any): entry is GroupEntry<T> => {
-  return entry && typeof entry === 'object' && 'items' in entry && Array.isArray(entry.items)
+const isGroup = (entry: unknown): entry is GroupEntry<T> => {
+  if (!entry || typeof entry !== 'object') {
+    return false
+  }
+
+  return 'items' in entry && Array.isArray((entry as { items?: unknown }).items)
 }
 
 const SELECTABLE_ITEM_SELECTOR = '.multiselect-item button:not(:disabled)'

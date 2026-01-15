@@ -379,13 +379,13 @@ const hasCustomSelectedItem = computed((): boolean => !!(selectedItem.value &&
   (slots['selected-item-template'] || (reuseItemTemplate && slots['item-template']))))
 
 // Helper to check if entry is SelectGroup (has 'items' property)
-const isSelectGroup = (entry: any): entry is SelectGroup<Value> => {
-  return entry && typeof entry === 'object' && 'items' in entry && Array.isArray(entry.items)
+const isSelectGroup = (entry: unknown): entry is SelectGroup<Value> => {
+  return entry && typeof entry === 'object' && 'items' in entry && Array.isArray((entry as { items?: unknown }).items)
 }
 
 // Helper to check if normalized entry is a group
-const isNormalizedGroup = (entry: any): entry is NormalizedGroup => {
-  return entry && typeof entry === 'object' && 'items' in entry && Array.isArray(entry.items)
+const isNormalizedGroup = (entry: unknown): entry is NormalizedGroup => {
+  return entry && typeof entry === 'object' && 'items' in entry && Array.isArray((entry as { items?: unknown }).items)
 }
 
 /**

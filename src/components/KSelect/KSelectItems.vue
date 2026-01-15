@@ -95,8 +95,8 @@ interface GroupEntry<T extends string | number> {
 }
 
 // Helper to check if entry is a group (has 'items' property)
-const isGroup = (entry: any): entry is GroupEntry<T> => {
-  return entry && typeof entry === 'object' && 'items' in entry && Array.isArray(entry.items)
+const isGroup = (entry: unknown): entry is GroupEntry<T> => {
+  return typeof entry === 'object' && entry !== null && 'items' in entry && Array.isArray((entry as { items: unknown }).items)
 }
 
 const handleItemSelect = (item: SelectItem<T>) => emit('selected', item)
