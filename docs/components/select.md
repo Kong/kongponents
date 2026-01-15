@@ -165,7 +165,7 @@ For custom group ordering, use the `SelectGroup` interface. Groups will appear i
 />
 ```
 
-#### Using group property (alphabetical order)
+##### Using group property (alphabetical order)
 
 For backwards compatibility, you can still use the `group` property on items. Groups will be sorted alphabetically:
 

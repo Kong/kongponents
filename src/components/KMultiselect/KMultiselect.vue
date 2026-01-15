@@ -876,13 +876,23 @@ const handleAddItem = (): void => {
 }
 
 // Helper to check if entry is MultiselectGroup (has 'items' property)
-const isMultiselectGroup = (entry: any): entry is MultiselectGroup<Value> => {
-  return entry && typeof entry === 'object' && 'items' in entry && Array.isArray(entry.items)
+const isMultiselectGroup = (entry: unknown): entry is MultiselectGroup<Value> => {
+  if (!entry || typeof entry !== 'object') {
+    return false
+  }
+
+  const candidate = entry as { items?: unknown }
+  return Array.isArray(candidate.items)
 }
 
 // Helper to check if normalized entry is a group
-const isNormalizedGroup = (entry: any): entry is NormalizedGroup => {
-  return entry && typeof entry === 'object' && 'items' in entry && Array.isArray(entry.items)
+const isNormalizedGroup = (entry: unknown): entry is NormalizedGroup => {
+  if (!entry || typeof entry !== 'object') {
+    return false
+  }
+
+  const candidate = entry as { items?: unknown }
+  return Array.isArray(candidate.items)
 }
 
 /**
