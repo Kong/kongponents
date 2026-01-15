@@ -106,7 +106,7 @@
     "commitizen": "^4.3.1",
     "copyfiles": "^2.4.1",
     "cross-env": "^10.1.0",
-    "cypress": "^15.8.1",
+    "cypress": "^15.8.2",
     "cypress-fail-fast": "^7.1.1",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^9.39.2",
