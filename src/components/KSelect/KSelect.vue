@@ -380,12 +380,22 @@ const hasCustomSelectedItem = computed((): boolean => !!(selectedItem.value &&
 
 // Helper to check if entry is SelectGroup (has 'items' property)
 const isSelectGroup = (entry: unknown): entry is SelectGroup<Value> => {
-  return entry && typeof entry === 'object' && 'items' in entry && Array.isArray((entry as { items?: unknown }).items)
+  if (!entry || typeof entry !== 'object') {
+    return false
+  }
+
+  const candidate = entry as { items?: unknown }
+  return Array.isArray(candidate.items)
 }
 
 // Helper to check if normalized entry is a group
 const isNormalizedGroup = (entry: unknown): entry is NormalizedGroup => {
-  return entry && typeof entry === 'object' && 'items' in entry && Array.isArray((entry as { items?: unknown }).items)
+  if (!entry || typeof entry !== 'object') {
+    return false
+  }
+
+  const candidate = entry as { items?: unknown }
+  return Array.isArray(candidate.items)
 }
 
 /**
