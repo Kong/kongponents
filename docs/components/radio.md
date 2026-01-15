@@ -114,7 +114,7 @@ Use this prop to apply error styling to the component.
 
 Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/api/composition-api-setup.html#setup-context).
 
-<div style="display: flex; flex-direction: column; gap: 16px;">
+<div class="vertical-spacing">
   <KRadio
     checked
     description="Disabled radio card"
@@ -136,7 +136,7 @@ Any valid attribute will be added to the input. You can read more about `$attrs`
 </div>
 
 ```html
-<div style="display: flex; flex-direction: column; gap: 16px;">
+<div>
   <KRadio
     checked
     description="Disabled radio card"
