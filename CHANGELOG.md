@@ -1,3 +1,10 @@
+## [9.49.7](https://github.com/Kong/kongponents/compare/v9.49.6...v9.49.7) (2026-01-16)
+
+
+### Bug Fixes
+
+* **deps:** pnpm audit dependencies ([#3061](https://github.com/Kong/kongponents/issues/3061)) ([9a3300f](https://github.com/Kong/kongponents/commit/9a3300f214e4b87f112b67cc814e344fee358156))
+
 ## [9.49.6](https://github.com/Kong/kongponents/compare/v9.49.5...v9.49.6) (2026-01-15)
 
 
