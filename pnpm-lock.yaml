@@ -18,7 +18,6 @@ overrides:
   '@octokit/request@>=9.0.0-beta.1 <9.2.1': '>=9.2.1'
   '@octokit/plugin-paginate-rest@>=9.3.0-beta.1 <11.4.1': '>=11.4.1'
   '@babel/runtime@<7.26.10': '>=7.26.10'
-  brace-expansion@>=1.0.0 <=1.1.11: '>=1.1.12'
   brace-expansion@>=2.0.0 <=2.0.1: '>=2.0.2'
   tar@=7.5.1: '>=7.5.2'
   tmp@<=0.2.3: '>=0.2.4'
@@ -2663,6 +2662,9 @@ packages:
       react-native-b4a:
         optional: true
 
+  balanced-match@1.0.2:
+    resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+
   balanced-match@2.0.0:
     resolution: {integrity: sha512-1ugUSr8BHXRnK23KfuYS+gVMC3LB8QGH9W1iGtDPsNWoQbgtXSExkBu2aDR4epiGWZOjZsj6lDl/N/AqqTC3UA==}
 
@@ -2727,6 +2729,9 @@ packages:
   boxen@8.0.1:
     resolution: {integrity: sha512-F3PH5k5juxom4xktynS7MoFY+NUWH5LC4CnH11YB8NPew+HLpmBLCybSAEyb2F+4pRXhuhWqFesoQd6DAyc2hw==}
     engines: {node: '>=18'}
+
+  brace-expansion@1.1.12:
+    resolution: {integrity: sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==}
 
   brace-expansion@4.0.1:
     resolution: {integrity: sha512-YClrbvTCXGe70pU2JiEiPLYXO9gQkyxYeKpJIQHVS/gOs6EWMQP2RYBwjFLNT322Ji8TOC3IMPfsYCedNpzKfA==}
@@ -3020,6 +3025,9 @@ packages:
   compress-commons@6.0.2:
     resolution: {integrity: sha512-6FqVXeETqWPoGcfzrXb37E50NP0LXT8kAMu5ooZayhWWdgEY4lBEEcbQNXtkuKQsGduxiIcI4gOTsxTmuq/bSg==}
     engines: {node: '>= 14'}
+
+  concat-map@0.0.1:
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
   confbox@0.1.8:
     resolution: {integrity: sha512-RMtmw0iFkeR4YV+fUOSucriAQNb9g8zFR52MWCtl+cCZOFRNL6zeB395vPzFhEjjn4fMxXudmELnl/KF/WrK6w==}
@@ -10313,6 +10321,8 @@ snapshots:
 
   b4a@1.7.3: {}
 
+  balanced-match@1.0.2: {}
+
   balanced-match@2.0.0: {}
 
   balanced-match@3.0.1: {}
@@ -10374,6 +10384,11 @@ snapshots:
       type-fest: 4.24.0
       widest-line: 5.0.0
       wrap-ansi: 9.0.0
+
+  brace-expansion@1.1.12:
+    dependencies:
+      balanced-match: 1.0.2
+      concat-map: 0.0.1
 
   brace-expansion@4.0.1:
     dependencies:
@@ -10685,6 +10700,8 @@ snapshots:
       is-stream: 2.0.1
       normalize-path: 3.0.0
       readable-stream: 4.7.0
+
+  concat-map@0.0.1: {}
 
   confbox@0.1.8: {}
 
@@ -12866,7 +12883,7 @@ snapshots:
 
   minimatch@3.1.2:
     dependencies:
-      brace-expansion: 4.0.1
+      brace-expansion: 1.1.12
 
   minimatch@5.1.6:
     dependencies:
