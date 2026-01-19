@@ -5,8 +5,8 @@
     class="multiselect-items-container"
   >
     <template
-      v-for="entry in items"
-      :key="isGroup(entry) ? `${entry.key || entry.label}-group` : entry.key"
+      v-for="(entry, idx) in items"
+      :key="isGroup(entry) ? `${entry.key || entry.label}-group` : (entry.key || entry.value || idx)"
     >
       <!-- Regular item -->
       <KMultiselectItem
@@ -94,12 +94,8 @@ interface GroupEntry<T extends string> {
 }
 
 // Helper to check if entry is a group (has 'items' property)
-const isGroup = (entry: unknown): entry is GroupEntry<T> => {
-  if (!entry || typeof entry !== 'object') {
-    return false
-  }
-
-  return 'items' in entry && Array.isArray((entry as { items?: unknown }).items)
+const isGroup = (entry: MultiselectItem<T> | GroupEntry<T>): entry is GroupEntry<T> => {
+  return 'items' in entry && Array.isArray(entry.items)
 }
 
 const SELECTABLE_ITEM_SELECTOR = '.multiselect-item button:not(:disabled)'

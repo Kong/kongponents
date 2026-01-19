@@ -8,6 +8,7 @@ export interface SelectItem<T extends string | number = string | number> extends
   key?: string
   selected?: boolean
   disabled?: boolean
+  /** @deprecated Use `SelectGroup` instead. */
   group?: string
 }
 

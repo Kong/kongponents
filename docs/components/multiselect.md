@@ -71,7 +71,7 @@ interface MultiselectItem {
   value: string
   selected?: boolean
   disabled?: boolean
-  group?: string
+  group?: string // Deprecated, use `MultiselectGroup` instead
 }
 
 interface MultiselectGroup {
@@ -119,86 +119,6 @@ type MultiselectEntry = MultiselectItem | MultiselectGroup
   }, ...]"
 />
 ```
-
-#### Group ordering
-
-You can control the order of groups in two ways:
-
-##### Using MultiselectGroup interface (recommended)
-
-For custom group ordering, use the `MultiselectGroup` interface. Groups will appear in the order they are defined in the array:
-
-<ClientOnly>
-  <KMultiselect 
-    :items="[{
-      label: 'Fish',
-      items: [
-        { label: 'Salmon', value: 'salmon' },
-        { label: 'Trout', value: 'trout' },
-      ],
-    }, {
-      label: 'Birds',
-      items: [
-        { label: 'Duck', value: 'duck' },
-        { label: 'Oriole', value: 'oriole' },
-      ],
-    }]"
-  />
-</ClientOnly>
-
-```html
-<KMultiselect 
-  :items="[{
-    label: 'Fish',
-    items: [
-      { label: 'Salmon', value: 'salmon' },
-      { label: 'Trout', value: 'trout' },
-    ],
-  }, {
-    label: 'Birds',
-    items: [
-      { label: 'Duck', value: 'duck' },
-      { label: 'Oriole', value: 'oriole' },
-    ],
-  }]"
-/>
-```
-
-##### Using group property (alphabetical order)
-
-For backwards compatibility, you can still use the `group` property on items. Groups will be sorted alphabetically:
-
-<ClientOnly>
-  <KMultiselect 
-    :items="[{
-      label: 'Salmon',
-      value: 'salmon',
-      group: 'Fish',
-    }, {
-      label: 'Duck',
-      value: 'duck',
-      group: 'Birds',
-    }]"
-  />
-</ClientOnly>
-
-```html
-<KMultiselect 
-  :items="[{
-    label: 'Salmon',
-    value: 'salmon',
-    group: 'Fish',
-  }, {
-    label: 'Duck',
-    value: 'duck',
-    group: 'Birds',
-  }]"
-/>
-```
-
-:::tip NOTE
-You can mix `MultiselectGroup` entries with ungrouped `MultiselectItem` entries. Ungrouped items will always appear first, followed by groups in the order they are defined.
-:::
 
 ### help
 
@@ -1050,6 +970,30 @@ export default defineComponent({
         value: 'long'
       }],
       defaultItemsWithDisabledAndGroups: [{
+        label: 'Birds',
+        items: [
+          {
+            label: 'Duck',
+            value: 'duck',
+          },
+          {
+            label: 'Oriole',
+            value: 'oriole',
+          },
+        ],
+      }, {
+        label: 'Fish',
+        items: [
+          {
+            label: 'Salmon',
+            value: 'salmon',
+          },
+          {
+            label: 'Trout',
+            value: 'trout',
+          },
+        ],
+      }, {
         label: 'Cats',
         value: 'cats',
         selected: true
@@ -1062,8 +1006,7 @@ export default defineComponent({
         label: 'Bunnies',
         value: 'bunnies',
         selected: true
-      },
-      {
+      }, {
         label: 'Lions',
         value: 'lions',
         disabled: true,
@@ -1077,22 +1020,6 @@ export default defineComponent({
       }, {
         label: 'An extremely lengthy truncated item',
         value: 'long'
-      }, {
-        label: 'Duck',
-        value: 'duck',
-        group: 'Birds'
-      },{
-        label: 'Salmon',
-        value: 'salmon',
-        group: 'Fish'
-      }, {
-        label: 'Oriole',
-        value: 'oriole',
-        group: 'Birds'
-      }, {
-        label: 'Trout',
-        value: 'trout',
-        group: 'Fish'
       }],
       defaultItemsCollapse: [{
         label: 'Cats',

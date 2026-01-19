@@ -13,6 +13,8 @@
         title="items"
       >
         <KMultiselect :items="multiselectItems" />
+        <p>Old approach with group property (alphabetical): Series 1, Series 2</p>
+        <KMultiselect :items="multiselectItemsWithGroupProperty" />
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="label"
@@ -142,14 +144,6 @@
             <span class="item-creation-validation-error-message">New item should be at least 3 characters long.</span>
           </template>
         </KMultiselect>
-      </SandboxSectionComponent>
-      <SandboxSectionComponent
-        title="Custom Group Order (MultiselectGroup)"
-      >
-        <p>Old approach with group property (alphabetical): Series 1, Series 2</p>
-        <KMultiselect :items="multiselectItems" />
-        <p>New approach with MultiselectGroup (custom order): Series 2, Series 1</p>
-        <KMultiselect :items="multiselectItemsWithCustomOrder" />
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="required"
@@ -323,14 +317,35 @@
 import { computed, ref, inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import type { MultiselectItem } from '@/types'
+import type { MultiselectEntry, MultiselectItem } from '@/types'
 import { KongIcon, DisabledIcon } from '@kong/icons'
 
-const multiselectItems: MultiselectItem[] = [
+const multiselectItems: MultiselectEntry[] = [
   {
-    label: 'Service B2',
-    value: 'b2',
-    group: 'Series 2',
+    label: 'Series 2',
+    items: [
+      {
+        label: 'Service A2',
+        value: 'a2',
+      },
+      {
+        label: 'Service B2',
+        value: 'b2',
+      },
+    ],
+  },
+  {
+    label: 'Series 1',
+    items: [
+      {
+        label: 'Service B1',
+        value: 'b1',
+      },
+      {
+        label: 'Service A1',
+        value: 'a1',
+      },
+    ],
   },
   {
     label: 'Service A (long truncated with ellipsis item)',
@@ -346,22 +361,6 @@ const multiselectItems: MultiselectItem[] = [
     value: 'f',
     disabled: true,
     selected: true,
-  },
-  {
-    label: 'Service A1',
-    value: 'a1',
-    group: 'Series 1',
-  },
-  {
-    label: 'Service B1',
-    value: 'b1',
-    group: 'Series 1',
-    selected: true,
-  },
-  {
-    label: 'Service A2',
-    value: 'a2',
-    group: 'Series 2',
   },
 ]
 
@@ -403,42 +402,43 @@ const onItemCreationQueryChange = (query: string): void => {
   showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
 }
 
-// Example using MultiselectGroup for custom order
-const multiselectItemsWithCustomOrder = [
+// Example using old group property approach
+const multiselectItemsWithGroupProperty: MultiselectItem[] = [
   {
-    label: 'Service C',
-    value: 'c',
+    label: 'Service B2',
+    value: 'b2',
+    group: 'Series 2',
+  },
+  {
+    label: 'Service A (long truncated with ellipsis item)',
+    value: 'a',
     selected: true,
   },
   {
-    label: 'Service D',
-    value: 'd',
+    label: 'Service B',
+    value: 'b',
   },
   {
-    label: 'Series 2',
-    items: [
-      {
-        label: 'Service A2',
-        value: 'a2',
-      },
-      {
-        label: 'Service B2',
-        value: 'b2',
-      },
-    ],
+    label: 'Service F',
+    value: 'f',
+    disabled: true,
+    selected: true,
   },
   {
-    label: 'Series 1',
-    items: [
-      {
-        label: 'Service A1',
-        value: 'a1',
-      },
-      {
-        label: 'Service B1',
-        value: 'b1',
-      },
-    ],
+    label: 'Service A1',
+    value: 'a1',
+    group: 'Series 1',
+  },
+  {
+    label: 'Service B1',
+    value: 'b1',
+    group: 'Series 1',
+    selected: true,
+  },
+  {
+    label: 'Service A2',
+    value: 'a2',
+    group: 'Series 2',
   },
 ]
 </script>

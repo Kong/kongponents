@@ -36,6 +36,8 @@
         title="items"
       >
         <KSelect :items="selectItems" />
+        <p>Old approach with group property (alphabetical): Birds, Fish</p>
+        <KSelect :items="selectItemsWithGroupProperty" />
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="label"
@@ -169,14 +171,6 @@
             <span class="item-creation-validation-error-message">New item should be at least 3 characters long.</span>
           </template>
         </KSelect>
-      </SandboxSectionComponent>
-      <SandboxSectionComponent
-        title="Custom Group Order (SelectGroup)"
-      >
-        <p>Old approach with group property (alphabetical): Birds, Fish</p>
-        <KSelect :items="selectItems" />
-        <p>New approach with SelectGroup (custom order): Fish, Birds</p>
-        <KSelect :items="selectItemsWithCustomOrder" />
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="required"
@@ -344,13 +338,34 @@ import { inject, onMounted, ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { KongIcon } from '@kong/icons'
-import type { SelectItem } from '@/types'
+import type { SelectEntry, SelectItem } from '@/types'
 
-const selectItems: SelectItem[] = [
+const selectItems: SelectEntry[] = [
   {
-    label: 'Salmon',
-    value: 'salmon',
-    group: 'Fish',
+    label: 'Fish',
+    items: [
+      {
+        label: 'Salmon',
+        value: 'salmon',
+      },
+      {
+        label: 'Trout',
+        value: 'trout',
+      },
+    ],
+  },
+  {
+    label: 'Birds',
+    items: [
+      {
+        label: 'Duck',
+        value: 'duck',
+      },
+      {
+        label: 'Oriole',
+        value: 'oriole',
+      },
+    ],
   },
   {
     label: 'Cats',
@@ -365,21 +380,6 @@ const selectItems: SelectItem[] = [
     label: 'Bunnies',
     value: 'bunnies',
     disabled: true,
-  },
-  {
-    label: 'Duck',
-    value: 'duck',
-    group: 'Birds',
-  },
-  {
-    label: 'Trout',
-    value: 'trout',
-    group: 'Fish',
-  },
-  {
-    label: 'Oriole',
-    value: 'oriole',
-    group: 'Birds',
   },
 ]
 
@@ -401,33 +401,48 @@ const onQueryChange = (query: string): void => {
   console.log('@query-change', '\n', query)
 }
 
-const selectItemsInitial = ref<SelectItem[]>([{
-  label: 'Cats',
-  value: 'cats',
-}, {
-  label: 'Dogs',
-  value: 'dogs',
-}, {
-  label: 'Bunnies',
-  value: 'bunnies',
-  disabled: true,
-}, {
-  label: 'Duck',
-  value: 'duck',
-  group: 'Birds',
-}, {
-  label: 'Oriole',
-  value: 'oriole',
-  group: 'Birds',
-}, {
-  label: 'Trout',
-  value: 'trout',
-  group: 'Fish',
-}, {
-  label: 'Salmon',
-  value: 'salmon',
-  group: 'Fish',
-}])
+const selectItemsInitial = ref<SelectEntry[]>([
+  {
+    label: 'Fish',
+    items: [
+      {
+        label: 'Salmon',
+        value: 'salmon',
+      },
+      {
+        label: 'Trout',
+        value: 'trout',
+      },
+    ],
+  },
+  {
+    label: 'Birds',
+    items: [
+      {
+        label: 'Duck',
+        value: 'duck',
+      },
+      {
+        label: 'Oriole',
+        value: 'oriole',
+      },
+    ],
+  },
+  {
+    label: 'Cats',
+    value: 'cats',
+    selected: true,
+  },
+  {
+    label: 'Dogs',
+    value: 'dogs',
+  },
+  {
+    label: 'Bunnies',
+    value: 'bunnies',
+    disabled: true,
+  },
+])
 const asyncItemsQuery = ref<string>('')
 const asyncItemsLoading = ref<boolean>(false)
 const asyncItemsModel = ref<string>('')
@@ -466,8 +481,13 @@ const onItemCreationQueryChange = (query: string): void => {
   showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
 }
 
-// Example using SelectGroup for custom order
-const selectItemsWithCustomOrder = [
+// Example using old group property approach
+const selectItemsWithGroupProperty: SelectItem[] = [
+  {
+    label: 'Salmon',
+    value: 'salmon',
+    group: 'Fish',
+  },
   {
     label: 'Cats',
     value: 'cats',
@@ -483,30 +503,19 @@ const selectItemsWithCustomOrder = [
     disabled: true,
   },
   {
-    label: 'Fish',
-    items: [
-      {
-        label: 'Salmon',
-        value: 'salmon',
-      },
-      {
-        label: 'Trout',
-        value: 'trout',
-      },
-    ],
+    label: 'Duck',
+    value: 'duck',
+    group: 'Birds',
   },
   {
-    label: 'Birds',
-    items: [
-      {
-        label: 'Duck',
-        value: 'duck',
-      },
-      {
-        label: 'Oriole',
-        value: 'oriole',
-      },
-    ],
+    label: 'Trout',
+    value: 'trout',
+    group: 'Fish',
+  },
+  {
+    label: 'Oriole',
+    value: 'oriole',
+    group: 'Birds',
   },
 ]
 

@@ -378,24 +378,10 @@ const isClearVisible = computed((): boolean => !isDisabled.value && (clearable &
 const hasCustomSelectedItem = computed((): boolean => !!(selectedItem.value &&
   (slots['selected-item-template'] || (reuseItemTemplate && slots['item-template']))))
 
-// Helper to check if entry is SelectGroup (has 'items' property)
-const isSelectGroup = (entry: unknown): entry is SelectGroup<Value> => {
-  if (!entry || typeof entry !== 'object') {
-    return false
-  }
-
-  const candidate = entry as { items?: unknown }
-  return Array.isArray(candidate.items)
-}
-
-// Helper to check if normalized entry is a group
-const isNormalizedGroup = (entry: unknown): entry is NormalizedGroup => {
-  if (!entry || typeof entry !== 'object') {
-    return false
-  }
-
-  const candidate = entry as { items?: unknown }
-  return Array.isArray(candidate.items)
+// Helper to check if entry is a group (has 'items' property)
+// Works for both SelectGroup and NormalizedGroup since they share the same structure
+const isGroup = (entry: SelectEntry<Value> | NormalizedEntry): entry is SelectGroup<Value> | NormalizedGroup => {
+  return 'items' in entry && Array.isArray(entry.items)
 }
 
 /**
@@ -408,24 +394,20 @@ const isNormalizedGroup = (entry: unknown): entry is NormalizedGroup => {
  * This ensures filtering works correctly while preserving group structure and order.
  */
 const filteredItems = computed((): NormalizedEntry[] => {
-  // No filtering: return all normalized items as-is
   if (!enableFiltering || !filterQuery.value) {
     return normalizedItems.value
   }
 
-  // STEP 1: Apply filtering to flat items
   const filtered = filterFunction({ query: filterQuery.value, items: selectItems.value })
   const filteredFlatItems = filtered === true ? selectItems.value : filtered as Item[]
 
-  // STEP 2: Create a Set of filtered item values for quick lookup
   const filteredValues = new Set(filteredFlatItems.map(item => item.value))
 
-  // STEP 3: Rebuild from normalizedItems with only filtered items
   const result: NormalizedEntry[] = []
 
   for (const entry of normalizedItems.value) {
-    if (isNormalizedGroup(entry)) {
-      // Group: Include only items that passed the filter
+    if (isGroup(entry)) {
+      // Group: include only items that passed the filter
       const groupFilteredItems = entry.items.filter(item => filteredValues.has(item.value))
 
       if (groupFilteredItems.length > 0) {
@@ -436,7 +418,7 @@ const filteredItems = computed((): NormalizedEntry[] => {
         })
       }
     } else {
-      // Regular item: Include if it passed the filter
+      // Regular item
       if (filteredValues.has(entry.value)) {
         result.push(entry)
       }
@@ -642,7 +624,7 @@ watch(() => items, (newValue, oldValue) => {
   const itemsCopy: Array<SelectEntry<Value>> = JSON.parse(JSON.stringify(items))
 
   // Detect if using new SelectGroup approach
-  const hasSelectGroups = itemsCopy.some(entry => isSelectGroup(entry))
+  const hasSelectGroups = itemsCopy.some(entry => isGroup(entry))
 
   const flattenedItems: Item[] = []
   const normalized: NormalizedEntry[] = []
@@ -650,7 +632,7 @@ watch(() => items, (newValue, oldValue) => {
   if (hasSelectGroups) {
     // NEW APPROACH: Use SelectGroup structure, ignore 'group' property on items
     for (const entry of itemsCopy) {
-      if (isSelectGroup(entry)) {
+      if (isGroup(entry)) {
         // Process group items but don't add to flat list yet
         flattenedItems.push(...entry.items)
       } else {
@@ -663,7 +645,7 @@ watch(() => items, (newValue, oldValue) => {
     const groupMap = new Map<string, Item[]>()
 
     for (const entry of itemsCopy) {
-      if (!isSelectGroup(entry)) {
+      if (!isGroup(entry)) {
         if (entry.group) {
           // Grouped item
           if (!groupMap.has(entry.group)) {
@@ -738,7 +720,7 @@ watch(() => items, (newValue, oldValue) => {
     const groupsToAdd: NormalizedGroup[] = []
 
     for (const entry of itemsCopy) {
-      if (isSelectGroup(entry)) {
+      if (isGroup(entry)) {
         // Map to processed items
         const processedGroupItems = entry.items
           .map(item => selectItems.value.find(si => si.value === item.value))

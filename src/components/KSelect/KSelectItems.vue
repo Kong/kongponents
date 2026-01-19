@@ -1,8 +1,8 @@
 <template>
   <div ref="itemsContainer">
     <template
-      v-for="entry in items"
-      :key="isGroup(entry) ? `${entry.key || entry.label}-group` : entry.key"
+      v-for="(entry, idx) in items"
+      :key="isGroup(entry) ? `${entry.key || entry.label}-group` : (entry.key || entry.value || idx)"
     >
       <!-- Regular item -->
       <KSelectItem
@@ -95,8 +95,8 @@ interface GroupEntry<T extends string | number> {
 }
 
 // Helper to check if entry is a group (has 'items' property)
-const isGroup = (entry: unknown): entry is GroupEntry<T> => {
-  return typeof entry === 'object' && entry !== null && 'items' in entry && Array.isArray((entry as { items: unknown }).items)
+const isGroup = (entry: SelectItem<T> | GroupEntry<T>): entry is GroupEntry<T> => {
+  return 'items' in entry && Array.isArray(entry.items)
 }
 
 const handleItemSelect = (item: SelectItem<T>) => emit('selected', item)

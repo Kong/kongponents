@@ -47,7 +47,7 @@ interface SelectItem {
   key?: string
   selected?: boolean
   disabled?: boolean
-  group?: string
+  group?: string // Deprecated, use `SelectGroup` instead
 }
 
 interface SelectGroup {
@@ -61,6 +61,30 @@ type SelectEntry = SelectItem | SelectGroup
 
 <ClientOnly>
   <KSelect :items="[{
+    label: 'Series 1',
+    items: [
+      {
+        label: 'Service A1',
+        value: 'a1',
+      },
+      {
+        label: 'Service B1',
+        value: 'b1',
+      },
+    ],
+  }, {
+    label: 'Series 2',
+    items: [
+      {
+        label: 'Service A2',
+        value: 'a2',
+      },
+      {
+        label: 'Service B2',
+        value: 'b2',
+      },
+    ],
+  }, {
     label: 'Service A',
     value: 'a',
     selected: true,
@@ -71,135 +95,47 @@ type SelectEntry = SelectItem | SelectGroup
     label: 'Service F',
     value: 'f',
     disabled: true,
-  }, {
-    label: 'Service A1',
-    value: 'a1',
-    group: 'Series 1',
-  }, {
-    label: 'Service B1',
-    value: 'b1',
-    group: 'Series 1',
-  }, {
-    label: 'Service A2',
-    value: 'a2',
-    group: 'Series 2',
-  }, {
-    label: 'Service B2',
-    value: 'b2',
-    group: 'Series 2',
   }]" />
 </ClientOnly>
 
 ```html
 <KSelect :items="[{
-  label: 'Service A',
-  value: 'a',
-  selected: true,
-}, {
-  label: 'Service B',
-  value: 'b',
-}, {
-  label: 'Service F',
-  value: 'f',
-  disabled: true,
-}, {
-  label: 'Service A1',
-  value: 'a1',
-  group: 'Series 1',
-}, {
-  label: 'Service B1',
-  value: 'b1',
-  group: 'Series 1',
-}, {
-  label: 'Service A2',
-  value: 'a2',
-  group: 'Series 2',
-}, {
-  label: 'Service B2',
-  value: 'b2',
-  group: 'Series 2',
-}]" />
-```
-
-#### Group ordering
-
-You can control the order of groups in two ways:
-
-##### Using SelectGroup interface (recommended)
-
-For custom group ordering, use the `SelectGroup` interface. Groups will appear in the order they are defined in the array:
-
-<ClientOnly>
-  <KSelect 
-    :items="[{
-      label: 'Fish',
-      items: [
-        { label: 'Salmon', value: 'salmon' },
-        { label: 'Trout', value: 'trout' },
-      ],
-    }, {
-      label: 'Birds',
-      items: [
-        { label: 'Duck', value: 'duck' },
-        { label: 'Oriole', value: 'oriole' },
-      ],
-    }]"
-  />
-</ClientOnly>
-
-```html
-<KSelect 
-  :items="[{
-    label: 'Fish',
+    label: 'Series 1',
     items: [
-      { label: 'Salmon', value: 'salmon' },
-      { label: 'Trout', value: 'trout' },
+      {
+        label: 'Service A1',
+        value: 'a1',
+      },
+      {
+        label: 'Service B1',
+        value: 'b1',
+      },
     ],
   }, {
-    label: 'Birds',
+    label: 'Series 2',
     items: [
-      { label: 'Duck', value: 'duck' },
-      { label: 'Oriole', value: 'oriole' },
+      {
+        label: 'Service A2',
+        value: 'a2',
+      },
+      {
+        label: 'Service B2',
+        value: 'b2',
+      },
     ],
-  }]"
-/>
-```
-
-##### Using group property (alphabetical order)
-
-For backwards compatibility, you can still use the `group` property on items. Groups will be sorted alphabetically:
-
-<ClientOnly>
-  <KSelect 
-    :items="[{
-      label: 'Salmon',
-      value: 'salmon',
-      group: 'Fish',
-    }, {
-      label: 'Duck',
-      value: 'duck',
-      group: 'Birds',
-    }]"
-  />
-</ClientOnly>
-
-```html
-<KSelect 
-  :items="[{
-    label: 'Salmon',
-    value: 'salmon',
-    group: 'Fish',
   }, {
-    label: 'Duck',
-    value: 'duck',
-    group: 'Birds',
-  }]"
-/>
+    label: 'Service A',
+    value: 'a',
+    selected: true,
+  }, {
+    label: 'Service B',
+    value: 'b',
+  }, {
+    label: 'Service F',
+    value: 'f',
+    disabled: true,
+  }]" />
 ```
-
-:::tip NOTE
-You can mix `SelectGroup` entries with ungrouped `SelectItem` entries. Ungrouped items will always appear first, followed by groups in the order they are defined.
-:::
 
 ### label
 

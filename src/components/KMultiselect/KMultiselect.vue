@@ -606,23 +606,19 @@ const filteredItems = computed(() => {
  * 2. Rebuild from normalizedItems keeping only filtered items
  */
 const filteredNormalizedItems = computed((): NormalizedEntry[] => {
-  // No filtering for autosuggest or empty query: return all normalized items
   if (autosuggest || !filterString.value) {
     return normalizedItems.value
   }
 
-  // STEP 1: Get filtered flat items
   const filteredFlatItems = filteredItems.value
 
-  // STEP 2: Create a Set of filtered item values for quick lookup
   const filteredValues = new Set(filteredFlatItems.map(item => item.value))
 
-  // STEP 3: Rebuild from normalizedItems with only filtered items
   const result: NormalizedEntry[] = []
 
   for (const entry of normalizedItems.value) {
-    if (isNormalizedGroup(entry)) {
-      // Group: Include only items that passed the filter
+    if (isGroup(entry)) {
+      // Group: include only items that passed the filter
       const groupFilteredItems = entry.items.filter(item => filteredValues.has(item.value))
 
       if (groupFilteredItems.length > 0) {
@@ -633,7 +629,7 @@ const filteredNormalizedItems = computed((): NormalizedEntry[] => {
         })
       }
     } else {
-      // Regular item: Include if it passed the filter
+      // Regular item
       if (filteredValues.has(entry.value)) {
         result.push(entry)
       }
@@ -759,7 +755,7 @@ const handleMultipleItemsDeselect = (items: Item[], restage = false) => {
       unfilteredItems.value = unfilteredItems.value.filter(anItem => anItem.value !== itemToDeselect.value)
       // Also remove from normalized items
       normalizedItems.value = normalizedItems.value.filter(entry => {
-        if (isNormalizedGroup(entry)) {
+        if (isGroup(entry)) {
           return true // Keep groups
         }
         return entry.value !== itemToDeselect.value
@@ -818,7 +814,7 @@ const handleItemSelect = (item: Item, isNew?: boolean) => {
       unfilteredItems.value = unfilteredItems.value.filter(anItem => anItem.value !== item.value)
       // Also remove from normalized items
       normalizedItems.value = normalizedItems.value.filter(entry => {
-        if (isNormalizedGroup(entry)) {
+        if (isGroup(entry)) {
           return true // Keep groups
         }
         return entry.value !== item.value
@@ -875,24 +871,10 @@ const handleAddItem = (): void => {
   filterString.value = ''
 }
 
-// Helper to check if entry is MultiselectGroup (has 'items' property)
-const isMultiselectGroup = (entry: unknown): entry is MultiselectGroup<Value> => {
-  if (!entry || typeof entry !== 'object') {
-    return false
-  }
-
-  const candidate = entry as { items?: unknown }
-  return Array.isArray(candidate.items)
-}
-
-// Helper to check if normalized entry is a group
-const isNormalizedGroup = (entry: unknown): entry is NormalizedGroup => {
-  if (!entry || typeof entry !== 'object') {
-    return false
-  }
-
-  const candidate = entry as { items?: unknown }
-  return Array.isArray(candidate.items)
+// Helper to check if entry is a group (has 'items' property)
+// Works for both MultiselectGroup and NormalizedGroup since they share the same structure
+const isGroup = (entry: MultiselectEntry<Value> | NormalizedEntry): entry is MultiselectGroup<Value> | NormalizedGroup => {
+  return 'items' in entry && Array.isArray(entry.items)
 }
 
 /**
@@ -909,7 +891,7 @@ const sortItems = () => {
   const groups: NormalizedGroup[] = []
 
   for (const entry of filteredNormalizedItems.value) {
-    if (isNormalizedGroup(entry)) {
+    if (isGroup(entry)) {
       groups.push(entry)
     } else {
       ungroupedItems.push(entry)
@@ -961,7 +943,7 @@ const clearSelection = (): void => {
 
   // Also clear custom entries from normalized items
   normalizedItems.value = normalizedItems.value.filter(entry => {
-    if (isNormalizedGroup(entry)) {
+    if (isGroup(entry)) {
       return true // Keep groups
     }
     if (entry.custom && !entry.disabled) {
@@ -1119,7 +1101,7 @@ watch(() => items, (newValue, oldValue) => {
   const itemsCopy: Array<MultiselectEntry<Value>> = cloneDeep(items)
 
   // Detect if using new MultiselectGroup approach
-  const hasMultiselectGroups = itemsCopy.some(entry => isMultiselectGroup(entry))
+  const hasMultiselectGroups = itemsCopy.some(entry => isGroup(entry))
 
   const flattenedItems: Item[] = []
   const normalized: NormalizedEntry[] = []
@@ -1127,7 +1109,7 @@ watch(() => items, (newValue, oldValue) => {
   if (hasMultiselectGroups) {
     // NEW APPROACH: Use MultiselectGroup structure, ignore 'group' property on items
     for (const entry of itemsCopy) {
-      if (isMultiselectGroup(entry)) {
+      if (isGroup(entry)) {
         // Process group items but don't add to flat list yet
         flattenedItems.push(...entry.items)
       } else {
@@ -1140,7 +1122,7 @@ watch(() => items, (newValue, oldValue) => {
     const groupMap = new Map<string, Item[]>()
 
     for (const entry of itemsCopy) {
-      if (!isMultiselectGroup(entry)) {
+      if (!isGroup(entry)) {
         if (entry.group) {
           // Grouped item
           if (!groupMap.has(entry.group)) {
@@ -1207,7 +1189,7 @@ watch(() => items, (newValue, oldValue) => {
     const groupsToAdd: NormalizedGroup[] = []
 
     for (const entry of itemsCopy) {
-      if (isMultiselectGroup(entry)) {
+      if (isGroup(entry)) {
         // Map to processed items
         const processedGroupItems = entry.items
           .map(item => unfilteredItems.value.find(ui => ui.value === item.value))

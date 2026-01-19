@@ -7,6 +7,7 @@ export interface MultiselectItem<T extends string = string> {
   selected?: boolean
   disabled?: boolean
   custom?: boolean
+  /** @deprecated Use `SelectGroup` instead. */
   group?: string
 }
 
