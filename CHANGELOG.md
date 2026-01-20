@@ -1,3 +1,10 @@
+## [9.49.8](https://github.com/Kong/kongponents/compare/v9.49.7...v9.49.8) (2026-01-20)
+
+
+### Bug Fixes
+
+* import nested kongponents in components ([#3067](https://github.com/Kong/kongponents/issues/3067)) ([030ac46](https://github.com/Kong/kongponents/commit/030ac4668585dd17259c58b49dd5e9f6b5b9d2f4))
+
 ## [9.49.7](https://github.com/Kong/kongponents/compare/v9.49.6...v9.49.7) (2026-01-16)
 
 
