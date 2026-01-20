@@ -19,7 +19,17 @@ export default class ToastManager {
   private toaster: VNode | null = null
   public toasts: Ref<Toast[]> = ref<Toast[]>([])
 
+  private zIndex: number = defaultZIndex
+
   constructor(options?: ToasterOptions) {
+    if (options?.zIndex) {
+      this.zIndex = options.zIndex
+    }
+
+    this.setupToastersContainer()
+  }
+
+  private setupToastersContainer(): void {
     // For SSR, prevents failing on the build)
     if (typeof document === 'undefined') {
       console.warn('ToastManager should only be initialized in the browser environment. Docs: https://kongponents.konghq.com/components/toaster.html')
@@ -27,13 +37,18 @@ export default class ToastManager {
       return
     }
 
-    this.toastersContainer = document.createElement('div')
-    this.toastersContainer.id = toasterContainerId
-    document.body.appendChild(this.toastersContainer)
+    const toastersContainerEl = document.getElementById(toasterContainerId)
+    if (toastersContainerEl) {
+      this.toastersContainer = toastersContainerEl as HTMLElement
+    } else {
+      this.toastersContainer = document.createElement('div')
+      this.toastersContainer.id = toasterContainerId
+      document.body.appendChild(this.toastersContainer)
+    }
 
     this.toaster = createVNode(KToaster, {
       toasterState: this.toasts.value,
-      zIndex: options?.zIndex ? options.zIndex : defaultZIndex,
+      zIndex: this.zIndex,
       onClose: (key: string) => this.close(key),
     })
 
@@ -47,13 +62,15 @@ export default class ToastManager {
   }
 
   public open(args: Record<string, any> | string): void {
+    this.setupToastersContainer()
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const { key, timeoutMilliseconds, appearance, message, title } = args
 
     const toastKey: string = key ? String(key) : getUniqueStringId()
     const toastAppearance: ToasterAppearance = (appearance && Object.keys(ToasterAppearances).indexOf(appearance) !== -1) ? appearance : toasterDefaults.appearance
-    const timer: number = this.setTimer(key, timeoutMilliseconds || toasterDefaults.timeoutMilliseconds)
+    const timer: number = this.setTimer(toastKey, timeoutMilliseconds || toasterDefaults.timeoutMilliseconds)
     const toasterMessage = typeof args === 'string' ? args : message
 
     // Add toaster to state
@@ -78,10 +95,18 @@ export default class ToastManager {
     this.toasts.value = []
   }
 
-  public destroy() {
-    if (this.toastersContainer) {
-      render(null, this.toastersContainer)
-      this.toastersContainer.remove()
+  /**
+   * Destroys the ToastManager instance and removes the toasters container element from the DOM
+   * @param removeToastersContainer - Whether to remove the toasters container element from the DOM (defaults to false)
+   */
+  public destroy(removeToastersContainer: boolean = false) {
+    const toastersContainerEl = document?.getElementById(toasterContainerId)
+    if (removeToastersContainer && toastersContainerEl) {
+      render(null, toastersContainerEl)
+      toastersContainerEl.remove()
     }
+
+    this.toastersContainer = null
+    this.toaster = null
   }
 }
