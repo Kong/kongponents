@@ -20,7 +20,7 @@
             class="time-input-label"
             :for="`time-input-start-${componentId}`"
           >
-            <span v-if="showRange('start')">
+            <span v-if="showRange()">
               <!-- @vue-ignore: typeguard in showRange -->
               {{ formatDateDisplay(calendarVModel.start) }}
             </span>
@@ -47,7 +47,7 @@
               class="time-input-label"
               :for="`time-input-end-${componentId}`"
             >
-              <span v-if="showRange('end')">
+              <span v-if="showRange()">
                 <!-- @vue-ignore: typeguard in showRange -->
                 {{ format(calendarVModel.end, 'EEE MMM d yyyy') }}
               </span>
@@ -80,10 +80,11 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref, useId, watch } from 'vue'
-import { DatePicker } from 'v-calendar'
 import type { DatePickerModel, DatePickerRangeObject, DateTimePickerMode, TimeGranularity } from '@/types'
-import { format, isBefore, startOfToday } from 'date-fns'
+
+import { computed, nextTick, onMounted, ref, useId, watch } from 'vue'
+import { DatePicker } from 'v-calendar'
+import { format, isBefore, isSameDay, startOfToday } from 'date-fns'
 
 const {
   isRange,
@@ -92,6 +93,7 @@ const {
   minDate = undefined,
   errorMessage = undefined,
   timeGranularity = 'minutely',
+  sameDayFullRange = false,
 } = defineProps<{
   isRange: boolean
   kDatePickerMode: DateTimePickerMode
@@ -99,6 +101,7 @@ const {
   minDate?: Date
   errorMessage?: string
   timeGranularity?: TimeGranularity
+  sameDayFullRange?: boolean
 }>()
 
 const formatTimeForInput = (date: Date, granularity: TimeGranularity): string => {
@@ -113,6 +116,7 @@ const calendarVModel = defineModel<DatePickerModel>({ required: true })
 const hasError = defineModel<boolean>('error', { default: false })
 const startTimeValue = ref<string>(formatTimeForInput(new Date(), timeGranularity))
 const endTimeValue = ref<string>(formatTimeForInput(new Date(), timeGranularity))
+const isApplyingFullDayRange = ref(false)
 const originalTimeValues = ref<{ start: string, end: string }>({
   start: formatTimeForInput(new Date(), timeGranularity),
   end: formatTimeForInput(new Date(), timeGranularity),
@@ -120,7 +124,7 @@ const originalTimeValues = ref<{ start: string, end: string }>({
 const componentId = useId()
 
 const initialPage = computed(() => {
-  if (isRange && calendarVModel.value && 'start' in calendarVModel.value && calendarVModel.value.start instanceof Date) {
+  if (isRange && isValidDateRange(calendarVModel.value)) {
     return { year: calendarVModel.value.start.getFullYear(), month: calendarVModel.value.start.getMonth() + 1 }
   } else if (calendarVModel.value instanceof Date) {
     return { year: calendarVModel.value.getFullYear(), month: calendarVModel.value.getMonth() + 1 }
@@ -165,17 +169,64 @@ const isInvalidRange = (start: Date, end: Date): boolean => {
   return start > end
 }
 
+const isValidDateRange = (
+  value: DatePickerModel,
+): value is DatePickerRangeObject & { start: Date, end: Date } => {
+  if (!value || typeof value !== 'object') {
+    return false
+  }
+
+  if (!('start' in value) || !('end' in value)) {
+    return false
+  }
+
+  return value.start instanceof Date && value.end instanceof Date
+}
+
+/**
+ * Automatically adjust times to create a full-day range (00:00:00 - 23:59:59)
+ * @returns true if full-day range was applied, false otherwise
+ */
+const applyFullDayRangeIfSameDay = async (): Promise<boolean> => {
+  if (!sameDayFullRange || !isRange) {
+    return false
+  }
+
+  if (!isValidDateRange(calendarVModel.value)) {
+    return false
+  }
+
+  if (!isSameDay(calendarVModel.value.start, calendarVModel.value.end)) {
+    return false
+  }
+
+  // Prevents time watchers from overwriting the calendarVModel
+  isApplyingFullDayRange.value = true
+
+  startTimeValue.value = '00:00'
+  endTimeValue.value = '23:59'
+
+  calendarVModel.value.start.setHours(0, 0, 0, 0)
+  calendarVModel.value.end.setHours(23, 59, 59, 999)
+
+  await nextTick()
+  isApplyingFullDayRange.value = false
+
+  return true
+}
+
 const initTimeInputs = () => {
-  if (calendarVModel.value && showTime.value) {
-    if (isRange && (calendarVModel.value as DatePickerRangeObject).start && (calendarVModel.value as DatePickerRangeObject).end) {
-      const dateRange = calendarVModel.value as DatePickerRangeObject
-      startTimeValue.value = formatTimeForInput(dateRange.start as Date, timeGranularity)
-      endTimeValue.value = formatTimeForInput(dateRange.end as Date, timeGranularity)
-    } else if (calendarVModel.value instanceof Date) {
-      startTimeValue.value = formatTimeForInput(calendarVModel.value as Date, timeGranularity)
-    } else {
-      startTimeValue.value = formatTimeForInput(new Date(), timeGranularity)
-    }
+  if (!showTime.value) {
+    return
+  }
+
+  if (isRange && isValidDateRange(calendarVModel.value)) {
+    startTimeValue.value = formatTimeForInput(calendarVModel.value.start, timeGranularity)
+    endTimeValue.value = formatTimeForInput(calendarVModel.value.end, timeGranularity)
+  } else if (calendarVModel.value instanceof Date) {
+    startTimeValue.value = formatTimeForInput(calendarVModel.value, timeGranularity)
+  } else {
+    startTimeValue.value = formatTimeForInput(new Date(), timeGranularity)
   }
 }
 
@@ -213,44 +264,40 @@ const calendarSelectAttributes = {
 }
 
 watch(() => startTimeValue.value, (newTime) => {
-  if (!newTime) {
+  if (!newTime || isApplyingFullDayRange.value) {
     return
   }
-  if (calendarVModel.value && isRange && 'start' in calendarVModel.value && calendarVModel.value.start instanceof Date && 'end' in calendarVModel.value && calendarVModel.value.end instanceof Date) {
-    const startTime = new Date()
-    const { hours, minutes, seconds } = getTimeParts(newTime)
-    startTime.setHours(hours, minutes, seconds, 0)
-    calendarVModel.value.start.setHours(startTime.getHours(), startTime.getMinutes(), startTime.getSeconds(), 0)
+
+  const { hours, minutes, seconds } = getTimeParts(newTime)
+
+  if (isRange && isValidDateRange(calendarVModel.value)) {
+    calendarVModel.value.start.setHours(hours, minutes, seconds, 0)
     hasError.value = isInvalidRange(calendarVModel.value.start, calendarVModel.value.end)
   } else if (calendarVModel.value instanceof Date) {
-    const startTime = new Date()
-    const { hours, minutes, seconds } = getTimeParts(newTime)
-    startTime.setHours(hours, minutes, seconds, 0)
-    calendarVModel.value.setHours(startTime.getHours(), startTime.getMinutes(), startTime.getSeconds(), 0)
+    calendarVModel.value.setHours(hours, minutes, seconds, 0)
   }
 })
 
 watch(() => endTimeValue.value, (newTime) => {
-  if (!newTime) {
+  if (!newTime || isApplyingFullDayRange.value) {
     return
   }
-  if (calendarVModel.value && isRange && 'end' in calendarVModel.value && calendarVModel.value.end instanceof Date && 'start' in calendarVModel.value && calendarVModel.value.start instanceof Date) {
-    const endTime = new Date()
-    const { hours, minutes, seconds } = getTimeParts(newTime)
-    endTime.setHours(hours, minutes, seconds, 0)
-    calendarVModel.value.end.setHours(endTime.getHours(), endTime.getMinutes(), endTime.getSeconds(), 0)
+
+  const { hours, minutes, seconds } = getTimeParts(newTime)
+
+  if (isRange && isValidDateRange(calendarVModel.value)) {
+    calendarVModel.value.end.setHours(hours, minutes, seconds, 0)
     hasError.value = isInvalidRange(calendarVModel.value.start, calendarVModel.value.end)
   }
 })
 
 watch(() => calendarVModel.value, () => {
-  if (calendarVModel.value && isRange &&
-  'start' in calendarVModel.value &&
-  calendarVModel.value.start instanceof Date &&
-  'end' in calendarVModel.value &&
-  calendarVModel.value.end instanceof Date) {
-    startTimeValue.value = formatTimeForInput(calendarVModel.value.start, timeGranularity)
-    endTimeValue.value = formatTimeForInput(calendarVModel.value.end, timeGranularity)
+  if (isRange && isValidDateRange(calendarVModel.value)) {
+    if (!applyFullDayRangeIfSameDay()) {
+      startTimeValue.value = formatTimeForInput(calendarVModel.value.start, timeGranularity)
+      endTimeValue.value = formatTimeForInput(calendarVModel.value.end, timeGranularity)
+    }
+
     hasError.value = isInvalidRange(calendarVModel.value.start, calendarVModel.value.end)
   } else if (calendarVModel.value instanceof Date) {
     startTimeValue.value = formatTimeForInput(calendarVModel.value, timeGranularity)
@@ -259,20 +306,16 @@ watch(() => calendarVModel.value, () => {
 
 // Keep track of original time values if time granularity changes
 watch(() => timeGranularity, () => {
-  if (calendarVModel.value && isRange && 'start' in calendarVModel.value && calendarVModel.value.start instanceof Date) {
+  if (isRange && isValidDateRange(calendarVModel.value)) {
     originalTimeValues.value.start = formatTimeForInput(calendarVModel.value.start, timeGranularity)
+    originalTimeValues.value.end = formatTimeForInput(calendarVModel.value.end, timeGranularity)
   } else if (calendarVModel.value instanceof Date) {
     originalTimeValues.value.start = formatTimeForInput(calendarVModel.value, timeGranularity)
   }
-
-  if (calendarVModel.value && isRange && 'end' in calendarVModel.value && calendarVModel.value.end instanceof Date) {
-    originalTimeValues.value.end = formatTimeForInput(calendarVModel.value.end, timeGranularity)
-  }
 })
 
-const showRange = (rangeType: 'start' | 'end') => {
-  const value = calendarVModel.value as { start: Date, end: Date }
-  return isRange && value && rangeType in value && value[rangeType] instanceof Date
+const showRange = () => {
+  return isRange && isValidDateRange(calendarVModel.value)
 }
 
 const resetTime = () => {
