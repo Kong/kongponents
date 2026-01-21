@@ -75,6 +75,7 @@
           :k-date-picker-mode="mode"
           :max-date="maxDate"
           :min-date="minDate"
+          :same-day-full-range="sameDayFullRange"
           :time-granularity="timeGranularity"
         />
         <div
@@ -163,6 +164,7 @@ const {
   popoverPlacement = 'bottom-start',
   invalidTimeErrorMessage = 'Start time cannot exceed end time.',
   timeGranularity = 'minutely',
+  sameDayFullRange = false,
 } = defineProps<DateTimePickerProps>()
 
 const emit = defineEmits<DateTimePickerEmits>()
