@@ -206,6 +206,14 @@ export interface DateTimePickerProps {
    * @default false
    */
   sameDayFullRange?: boolean
+
+  /**
+   * Custom validation function for date range
+   * @param start - Start date of the range
+   * @param end - End date of the range
+   * @returns boolean - true if range is invalid
+   */
+  customRangeValidation?: (start: Date, end: Date) => boolean
 }
 
 export type TimeGranularity = 'minutely' | 'secondly'
