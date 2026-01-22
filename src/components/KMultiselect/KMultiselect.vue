@@ -297,6 +297,7 @@ import KInput from '@/components/KInput/KInput.vue'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KToggle from '@/components/KToggle/KToggle.vue'
+import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import KMultiselectItems from '@/components/KMultiselect/KMultiselectItems.vue'
 import KMultiselectItem from '@/components/KMultiselect/KMultiselectItem.vue'
 import type {

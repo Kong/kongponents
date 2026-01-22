@@ -105,6 +105,7 @@ import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { normalizeSize } from '@/utilities/css'
 import { warnInvalidProp } from '@/utilities/warning'
 import type { TruncateProps, TruncateSlots } from '@/types'
+import KButton from '@/components/KButton/KButton.vue'
 
 const {
   rows = 1,
