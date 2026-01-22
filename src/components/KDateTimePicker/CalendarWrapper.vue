@@ -94,6 +94,7 @@ const {
   errorMessage = undefined,
   timeGranularity = 'minutely',
   sameDayFullRange = false,
+  customRangeValidation = undefined,
 } = defineProps<{
   isRange: boolean
   kDatePickerMode: DateTimePickerMode
@@ -102,6 +103,7 @@ const {
   errorMessage?: string
   timeGranularity?: TimeGranularity
   sameDayFullRange?: boolean
+  customRangeValidation?: (start: Date, end: Date) => boolean
 }>()
 
 const formatTimeForInput = (date: Date, granularity: TimeGranularity): string => {
@@ -166,7 +168,15 @@ const timeStep = computed(() => {
 })
 
 const isInvalidRange = (start: Date, end: Date): boolean => {
-  return start > end
+  if (start > end) {
+    return true
+  }
+
+  if (customRangeValidation) {
+    return customRangeValidation(start, end)
+  }
+
+  return false
 }
 
 const isValidDateRange = (
