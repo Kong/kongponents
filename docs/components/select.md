@@ -38,7 +38,7 @@ Selected service: {{ selectValue || 'none' }}
 
 ### items
 
-Prop for providing select item options. Supports grouping items under one group name through providing optional `group` property.
+Prop for providing select item options.
 
 ```ts
 interface SelectItem {
@@ -106,7 +106,7 @@ type SelectEntry = SelectItem | SelectGroup
   }]" />
 </ClientOnly>
 
-```html
+```vue
 <template>
   <KSelect :items="selectItems" />
 </template>
@@ -129,7 +129,7 @@ const selectItems: SelectEntry[] = [
       { label: 'Service A2', value: 'a2' },
       { label: 'Service B2', value: 'b2' },
     ] },
-  /**Ungrouped items */
+  /** Ungrouped items */
   { label: 'Service A', value: 'a', selected: true },
   { label: 'Service B', value: 'b' },
   { label: 'Service F', value: 'f', disabled: true },

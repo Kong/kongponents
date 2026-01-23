@@ -1,18 +1,25 @@
 import type { LabelAttributes } from './label'
 import type { PopoverAttributes } from './popover'
 export interface MultiselectItem<T extends string = string> {
+  /** Label for the item to be displayed in the multiselect dropdown. */
   label: string
   value: T
+  /** Optional parameter that will be used as the key for the item in the multiselect dropdown. */
   key?: string
   selected?: boolean
   disabled?: boolean
   custom?: boolean
-  /** @deprecated Use `SelectGroup` instead. */
+  /**
+   * @deprecated The `group` property on individual items is deprecated.
+   * Instead, use the `SelectGroup` interface to structure grouped items.
+   */
   group?: string
 }
 
 export interface MultiselectGroup<T extends string = string> extends Record<string, any> {
+  /** Label for the group to be displayed in the multiselect dropdown. */
   label: string
+  /** Optional parameter that will be appended with `-group` when grouped. */
   key?: string
   items: Array<MultiselectItem<T>>
 }

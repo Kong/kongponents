@@ -5,7 +5,7 @@ export interface SelectItem<T extends string | number = string | number> extends
   /** Label for the item to be displayed in the select dropdown. */
   label: string
   value: T
-  /** Optional parameter that will be appended with `-selected` when selected */
+  /** Optional parameter that will be appended with `-selected` when selected. */
   key?: string
   selected?: boolean
   disabled?: boolean
@@ -23,7 +23,7 @@ export interface SelectItemWithGroup<T extends string | number = string | number
 export interface SelectGroup<T extends string | number = string | number> extends Record<string, any> {
   /** Label for the group to be displayed in the select dropdown. */
   label: string
-  /** Optional parameter that will be appended with `-group` when grouped */
+  /** Optional parameter that will be appended with `-group` when grouped. */
   key?: string
   items: Array<SelectItem<T>>
 }
