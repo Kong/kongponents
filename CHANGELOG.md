@@ -1,3 +1,10 @@
+# [9.50.0](https://github.com/Kong/kongponents/compare/v9.49.9...v9.50.0) (2026-01-23)
+
+
+### Features
+
+* **kselect, kmultiselect:** item grouping interface [KHCP-19008] ([#3057](https://github.com/Kong/kongponents/issues/3057)) ([4079b9b](https://github.com/Kong/kongponents/commit/4079b9bf44400906bb7abb819ae148ea23e62430))
+
 ## [9.49.9](https://github.com/Kong/kongponents/compare/v9.49.8...v9.49.9) (2026-01-23)
 
 
