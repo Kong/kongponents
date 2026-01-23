@@ -309,6 +309,7 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
 .k-input {
   display: flex;
   flex-direction: column;
+  font-variant-ligatures: no-contextual;
   width: 100%;
 
   // error styles
