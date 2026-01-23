@@ -1,3 +1,10 @@
+## [9.49.9](https://github.com/Kong/kongponents/compare/v9.49.8...v9.49.9) (2026-01-23)
+
+
+### Bug Fixes
+
+* **kinput, kbadge, kcopy:** disable contextual lingatures [KHCP-19107] ([#3075](https://github.com/Kong/kongponents/issues/3075)) ([4f10c2a](https://github.com/Kong/kongponents/commit/4f10c2a6cbbda4e24e8bd09fad84df365efe948c))
+
 ## [9.49.8](https://github.com/Kong/kongponents/compare/v9.49.7...v9.49.8) (2026-01-20)
 
 
