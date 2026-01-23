@@ -2,18 +2,35 @@ import type { LabelAttributes } from './label'
 import type { PopoverAttributes } from './popover'
 
 export interface SelectItem<T extends string | number = string | number> extends Record<string, any> {
+  /** Label for the item to be displayed in the select dropdown. */
   label: string
   value: T
-  /** Optional parameter that will be appended with `-selected` when selected */
+  /** Optional parameter that will be appended with `-selected` when selected. */
   key?: string
   selected?: boolean
   disabled?: boolean
+  /**
+   * @deprecated The `group` property on individual items is deprecated.
+   * Instead, use the `SelectGroup` interface to structure grouped items.
+   */
   group?: string
 }
 
 export interface SelectItemWithGroup<T extends string | number = string | number> extends SelectItem<T> {
   group: string
 }
+
+export interface SelectGroup<T extends string | number = string | number> extends Record<string, any> {
+  /** Label for the group to be displayed in the select dropdown. */
+  label: string
+  /** Optional parameter that will be appended with `-group` when grouped. */
+  key?: string
+  items: Array<SelectItem<T>>
+}
+
+export type SelectEntry<T extends string | number = string | number> =
+  | SelectItem<T>
+  | SelectGroup<T>
 
 /**
  * @internal
@@ -42,7 +59,7 @@ export interface SelectItemSlots {
  * @internal
  */
 export interface SelectItemsProps<T extends string | number> {
-  items?: Array<SelectItem<T>>
+  items?: Array<SelectEntry<T>>
   itemCreationEnabled?: boolean
   filterString?: string
   itemCreationValid?: boolean
@@ -116,13 +133,14 @@ export interface SelectProps<T extends string | number, U extends boolean = fals
 
   /**
    * Items are JSON objects with required 'label' and 'value'.
+   * Can be SelectItem or SelectGroup for custom group ordering.
    * {
    *   label: 'Item 1',
    *   value: 'item1'
    * }
    * @default []
    */
-  items?: U extends true ? Array<SelectItem<T | string>> : Array<SelectItem<T>>
+  items?: U extends true ? Array<SelectEntry<T | string>> : Array<SelectEntry<T>>
 
   /**
    * Control whether the select supports filtering.

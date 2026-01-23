@@ -205,6 +205,8 @@ import KSelectItems from '@/components/KSelect/KSelectItems.vue'
 import KSelectItem from '@/components/KSelect/KSelectItem.vue'
 import type {
   SelectItem,
+  SelectEntry,
+  SelectGroup,
   SelectFilterFunctionParams,
   SelectProps,
   SelectEmits,
@@ -298,7 +300,28 @@ const uniqueFilterQuery = computed((): boolean => {
 
 const selectWrapperId = useId() // unique id for the KPop target
 const selectedItem = ref(null) as Ref<Item | null>
+
+/**
+ * INTERNAL STATE MANAGEMENT
+ *
+ * selectItems: Flattened array of all SelectItems (used for filtering, selection, etc.)
+ * normalizedItems: Normalized structure ready for rendering (processed SelectGroup objects)
+ *
+ * Why we need both:
+ * - selectItems: For operations like filtering, finding selected items, etc. (works with flat list)
+ * - normalizedItems: Structured list with processed groups, ready for rendering
+ */
 const selectItems = ref([]) as Ref<Item[]>
+
+interface NormalizedGroup {
+  label: string
+  key?: string
+  items: Item[]
+}
+
+type NormalizedEntry = Item | NormalizedGroup
+
+const normalizedItems = ref([]) as Ref<NormalizedEntry[]>
 const inputFocused = ref<boolean>(false)
 
 const popperRef = useTemplateRef('popperElement')
@@ -355,22 +378,54 @@ const isClearVisible = computed((): boolean => !isDisabled.value && (clearable &
 const hasCustomSelectedItem = computed((): boolean => !!(selectedItem.value &&
   (slots['selected-item-template'] || (reuseItemTemplate && slots['item-template']))))
 
-const filteredItems = computed((): Item[] => {
-  let allItems: Item[] = []
+// Helper to check if entry is a group (has 'items' property)
+// Works for both SelectGroup and NormalizedGroup since they share the same structure
+const isGroup = (entry: SelectEntry<Value> | NormalizedEntry): entry is SelectGroup<Value> | NormalizedGroup => {
+  return 'items' in entry && Array.isArray(entry.items)
+}
 
-  // if filtering is not enabled or filter function returns true
+/**
+ * FILTERING LOGIC
+ *
+ * Filters items and reconstructs the normalized structure:
+ * 1. Filter the flat list (selectItems)
+ * 2. Rebuild from normalizedItems keeping only filtered items
+ *
+ * This ensures filtering works correctly while preserving group structure and order.
+ */
+const filteredItems = computed((): NormalizedEntry[] => {
   if (!enableFiltering || !filterQuery.value) {
-    allItems = selectItems.value
-  } else {
-    const filtered = filterFunction({ query: filterQuery.value, items: selectItems.value })
-    allItems = filtered === true ? selectItems.value : filtered as Item[]
+    return normalizedItems.value
   }
 
-  // Group items by group in alphabetical order, ungrouped items first
-  const ungroupedItems = allItems.filter(item => !item.group)
-  const groupedItems = allItems.filter(item => item.group).sort((a, b) => a.group!.toLowerCase().localeCompare(b.group!.toLowerCase()))
+  const filtered = filterFunction({ query: filterQuery.value, items: selectItems.value })
+  const filteredFlatItems = filtered === true ? selectItems.value : filtered as Item[]
 
-  return [...ungroupedItems, ...groupedItems]
+  const filteredValues = new Set(filteredFlatItems.map(item => item.value))
+
+  const result: NormalizedEntry[] = []
+
+  for (const entry of normalizedItems.value) {
+    if (isGroup(entry)) {
+      // Group: include only items that passed the filter
+      const groupFilteredItems = entry.items.filter(item => filteredValues.has(item.value))
+
+      if (groupFilteredItems.length > 0) {
+        result.push({
+          label: entry.label,
+          key: entry.key,
+          items: groupFilteredItems,
+        })
+      }
+    } else {
+      // Regular item
+      if (filteredValues.has(entry.value)) {
+        result.push(entry)
+      }
+    }
+  }
+
+  return result
 })
 
 const onInputKeypress = (event: KeyboardEvent) => {
@@ -411,8 +466,12 @@ const handleAddItem = (): void => {
 
 const handleItemSelect = (item: Item, isNew?: boolean) => {
   if (isNew) {
-    // if it's a new item, we need to add it to the list
+    // if it's a new item, we need to add it to both the flat list and normalized structure
     selectItems.value?.push(item)
+
+    // Add to normalized items as an ungrouped item at the beginning
+    // (ungrouped items always come first)
+    normalizedItems.value.unshift(item)
   }
 
   selectItems.value?.forEach((anItem, i) => {
@@ -553,7 +612,73 @@ watch(() => items, (newValue, oldValue) => {
     return
   }
 
-  selectItems.value = JSON.parse(JSON.stringify(items))
+  /**
+   * NORMALIZATION AND PROCESSING
+   *
+   * When items change:
+   * 1. Normalize items into consistent structure (detect SelectGroup vs old-style)
+   * 2. Flatten for internal operations
+   * 3. Process items (add keys, selected state, etc.)
+   */
+
+  const itemsCopy: Array<SelectEntry<Value>> = JSON.parse(JSON.stringify(items))
+
+  // Detect if using new SelectGroup approach
+  const hasSelectGroups = itemsCopy.some(entry => isGroup(entry))
+
+  const flattenedItems: Item[] = []
+  const normalized: NormalizedEntry[] = []
+
+  if (hasSelectGroups) {
+    // NEW APPROACH: Use SelectGroup structure, ignore 'group' property on items
+    for (const entry of itemsCopy) {
+      if (isGroup(entry)) {
+        // Process group items but don't add to flat list yet
+        flattenedItems.push(...entry.items)
+      } else {
+        // Regular ungrouped item
+        flattenedItems.push(entry)
+      }
+    }
+  } else {
+    // OLD APPROACH: Use 'group' property with alphabetical sorting
+    const groupMap = new Map<string, Item[]>()
+
+    for (const entry of itemsCopy) {
+      if (!isGroup(entry)) {
+        if (entry.group) {
+          // Grouped item
+          if (!groupMap.has(entry.group)) {
+            groupMap.set(entry.group, [])
+          }
+          groupMap.get(entry.group)!.push(entry)
+        }
+        flattenedItems.push(entry)
+      }
+    }
+
+    // Sort groups alphabetically (old approach default)
+    const sortedGroupNames = Array.from(groupMap.keys()).sort((a, b) =>
+      a.toLowerCase().localeCompare(b.toLowerCase()),
+    )
+
+    // Build normalized structure: ungrouped items first, then groups
+    const ungroupedItems = flattenedItems.filter(item => !item.group)
+
+    // Add ungrouped items to normalized
+    normalized.push(...ungroupedItems)
+
+    // Add sorted groups to normalized
+    for (const groupName of sortedGroupNames) {
+      normalized.push({
+        label: groupName,
+        items: groupMap.get(groupName)!,
+      })
+    }
+  }
+
+  // Process all flattened items (add keys, selected state, etc.)
+  selectItems.value = flattenedItems
 
   // drop selected item value to find the selected item in the new list
   // unless items is empty
@@ -588,6 +713,38 @@ watch(() => items, (newValue, oldValue) => {
       selectItems.value[i]!.selected = true
     }
   }
+
+  // Build normalized structure for NEW approach after processing
+  if (hasSelectGroups) {
+    const ungroupedProcessedItems: Item[] = []
+    const groupsToAdd: NormalizedGroup[] = []
+
+    for (const entry of itemsCopy) {
+      if (isGroup(entry)) {
+        // Map to processed items
+        const processedGroupItems = entry.items
+          .map(item => selectItems.value.find(si => si.value === item.value))
+          .filter((item): item is Item => item !== undefined)
+
+        groupsToAdd.push({
+          label: entry.label,
+          key: entry.key,
+          items: processedGroupItems,
+        })
+      } else {
+        // Ungrouped item - find processed version
+        const processedItem = selectItems.value.find(si => si.value === entry.value)
+        if (processedItem) {
+          ungroupedProcessedItems.push(processedItem)
+        }
+      }
+    }
+
+    // Add ungrouped items first, then groups (maintain group order from array)
+    normalized.push(...ungroupedProcessedItems, ...groupsToAdd)
+  }
+
+  normalizedItems.value = normalized
 
   // Trigger an update to the popper element to cause the popover to redraw
   // This prevents the popover from displaying "detached" from the KSelect

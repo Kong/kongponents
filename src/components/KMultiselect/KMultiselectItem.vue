@@ -1,6 +1,6 @@
 <template>
   <div
-    :key="item.key"
+    :key="item.key || item.value"
     :aria-selected="item.selected"
     class="multiselect-item"
     :data-testid="`multiselect-item-${item.value}`"

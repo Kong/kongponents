@@ -58,48 +58,98 @@ const clearIt = () => {
 
 ### items
 
-An array of items containing a `label` and `value`.
+Prop for providing multiselect item options.
 
-You may also specify:
-- a certain item is `selected` by default
-- a certain item is `disabled`
-- certain items are grouped under a `group`
+```ts
+interface MultiselectItem {
+  /** Label for the item to be displayed in the multiselect dropdown. */
+  label: string
+  value: string
+  /** Optional parameter that will be used as the key for the item in the multiselect dropdown. */
+  key?: string
+  selected?: boolean
+  disabled?: boolean
+  /**
+   * @deprecated The `group` property on individual items is deprecated.
+   * Instead, use the `SelectGroup` interface to structure grouped items.
+   */
+  group?: string
+}
+
+interface MultiselectGroup {
+  /** Label for the group to be displayed in the multiselect dropdown. */
+  label: string
+  /** Optional parameter that will be appended with `-group` when grouped. */
+  key?: string
+  items: MultiselectItem[]
+}
+
+type MultiselectEntry = MultiselectItem | MultiselectGroup
+```
 
 <ClientOnly>
   <KMultiselect :items="deepClone(defaultItemsWithDisabledAndGroups)" />
 </ClientOnly>
 
-```html
-<KMultiselect :items="[{
+```vue
+<template>
+  <KMultiselect :items="multiselectItems" />
+</template>
+
+<script setup lang="ts">
+import type { MultiselectEntry } from '@kong/kongponents'
+
+const items: MultiselectEntry[] = [
+  /** Group 1 */
+  {
+    label: 'Birds', // Group 1 label
+    items: [ // Group 1 items
+      { label: 'Duck', value: 'duck' },
+      { label: 'Oriole', value: 'oriole' },
+    ] },
+  /** Group 2 */
+  {
+    label: 'Fish', // Group 2 label
+    items: [ // Group 2 items
+      { label: 'Salmon', value: 'salmon' },
+      { label: 'Trout', value: 'trout' },
+    ] },
+  /** Ungrouped items */
+  {
     label: 'Cats',
     value: 'cats',
-    selected: true
-  }, {
+    selected: true,
+  },
+  {
     label: 'Dogs',
     value: 'dogs',
     selected: true,
     disabled: true,
-  }, {
+  },
+  {
     label: 'Bunnies',
     value: 'bunnies',
-    selected: true
+    selected: true,
   },
   {
     label: 'Lions',
     value: 'lions',
     disabled: true,
-  }, {
+  },
+  {
     label: 'Tigers',
     value: 'tigers',
-    disabled: true
-  }, {
+    disabled: true,
+  },
+  {
     label: 'Bears',
-    value: 'bears'
-  }, {
+    value: 'bears',
+  },
+  {
     label: 'An extremely lengthy truncated item',
-    value: 'long'
-  }, ...]"
-/>
+    value: 'long',
+  }]
+</script>
 ```
 
 ### help
@@ -952,6 +1002,30 @@ export default defineComponent({
         value: 'long'
       }],
       defaultItemsWithDisabledAndGroups: [{
+        label: 'Birds',
+        items: [
+          {
+            label: 'Duck',
+            value: 'duck',
+          },
+          {
+            label: 'Oriole',
+            value: 'oriole',
+          },
+        ],
+      }, {
+        label: 'Fish',
+        items: [
+          {
+            label: 'Salmon',
+            value: 'salmon',
+          },
+          {
+            label: 'Trout',
+            value: 'trout',
+          },
+        ],
+      }, {
         label: 'Cats',
         value: 'cats',
         selected: true
@@ -964,8 +1038,7 @@ export default defineComponent({
         label: 'Bunnies',
         value: 'bunnies',
         selected: true
-      },
-      {
+      }, {
         label: 'Lions',
         value: 'lions',
         disabled: true,
@@ -979,22 +1052,6 @@ export default defineComponent({
       }, {
         label: 'An extremely lengthy truncated item',
         value: 'long'
-      }, {
-        label: 'Duck',
-        value: 'duck',
-        group: 'Birds'
-      },{
-        label: 'Salmon',
-        value: 'salmon',
-        group: 'Fish'
-      }, {
-        label: 'Oriole',
-        value: 'oriole',
-        group: 'Birds'
-      }, {
-        label: 'Trout',
-        value: 'trout',
-        group: 'Fish'
       }],
       defaultItemsCollapse: [{
         label: 'Cats',

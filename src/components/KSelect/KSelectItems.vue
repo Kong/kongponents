@@ -1,46 +1,49 @@
 <template>
   <div ref="itemsContainer">
-    <KSelectItem
-      v-for="item in nonGroupedItems"
-      :key="item.key"
-      :item="item"
-      @keydown="onKeyPress"
-      @selected="handleItemSelect"
+    <template
+      v-for="(entry, idx) in items"
+      :key="isGroup(entry) ? `${entry.key || entry.label}-group` : (entry.key || entry.value || idx)"
     >
-      <template #content>
-        <slot
-          :item="item"
-          name="content"
-        />
-      </template>
-    </KSelectItem>
-
-    <div
-      v-for="group in groups"
-      :key="`${group}-group`"
-      class="select-group"
-      data-propagate-clicks="false"
-    >
-      <span
-        class="select-group-title"
-      >
-        {{ group }}
-      </span>
+      <!-- Regular item -->
       <KSelectItem
-        v-for="item in getGroupItems(group)"
-        :key="item.key"
-        :item="item"
+        v-if="!isGroup(entry)"
+        :item="entry"
         @keydown="onKeyPress"
         @selected="handleItemSelect"
       >
         <template #content>
           <slot
-            :item="item"
+            :item="entry"
             name="content"
           />
         </template>
       </KSelectItem>
-    </div>
+
+      <!-- Group -->
+      <div
+        v-else
+        class="select-group"
+        data-propagate-clicks="false"
+      >
+        <span class="select-group-title">
+          {{ entry.label }}
+        </span>
+        <KSelectItem
+          v-for="item in entry.items"
+          :key="item.key"
+          :item="item"
+          @keydown="onKeyPress"
+          @selected="handleItemSelect"
+        >
+          <template #content>
+            <slot
+              :item="item"
+              name="content"
+            />
+          </template>
+        </KSelectItem>
+      </div>
+    </template>
 
     <KSelectItem
       v-if="itemCreationEnabled"
@@ -62,7 +65,7 @@
 </template>
 
 <script setup lang="ts" generic="T extends string | number">
-import { computed, useTemplateRef } from 'vue'
+import { useTemplateRef } from 'vue'
 import type { SelectItem, SelectItemsEmits, SelectItemsProps, SelectItemsSlots } from '@/types'
 import KSelectItem from '@/components/KSelect/KSelectItem.vue'
 
@@ -73,19 +76,30 @@ const {
   itemCreationValid = true,
 } = defineProps<SelectItemsProps<T>>()
 
-
 const emit = defineEmits<SelectItemsEmits<T>>()
 defineSlots<SelectItemsSlots<T>>()
+
+/**
+ * RENDERING LOGIC
+ *
+ * KSelectItems now just renders what it receives from KSelect.
+ * All normalization happens in KSelect.vue.
+ */
 
 const SELECTABLE_ITEM_SELECTOR = '.select-item button:not(:disabled)'
 const SELECTED_ITEM_SELECTOR = '.select-item[aria-selected="true"] button:not(:disabled)'
 
+interface GroupEntry<T extends string | number> {
+  label: string
+  items: Array<SelectItem<T>>
+}
+
+// Helper to check if entry is a group (has 'items' property)
+const isGroup = (entry: SelectItem<T> | GroupEntry<T>): entry is GroupEntry<T> => {
+  return 'items' in entry && Array.isArray(entry.items)
+}
+
 const handleItemSelect = (item: SelectItem<T>) => emit('selected', item)
-
-const nonGroupedItems = computed((): Array<SelectItem<T>> => items?.filter(item => !item.group))
-const groups = computed((): string[] => [...new Set((items?.filter(item => item.group))?.map(item => item.group!))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())))
-
-const getGroupItems = (group: string) => items?.filter(item => item.group === group)
 
 const itemsContainerRef = useTemplateRef('itemsContainer')
 

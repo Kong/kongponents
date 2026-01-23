@@ -38,21 +38,61 @@ Selected service: {{ selectValue || 'none' }}
 
 ### items
 
-Prop for providing select item options. Supports grouping items under one group name through providing optional `group` property.
+Prop for providing select item options.
 
 ```ts
 interface SelectItem {
+  /** Label for the item to be displayed in the select dropdown. */
   label: string
   value: string | number
+  /** Optional parameter that will be appended with `-selected` when selected */
   key?: string
   selected?: boolean
   disabled?: boolean
+  /**
+   * @deprecated The `group` property on individual items is deprecated.
+   * Instead, use the `SelectGroup` interface to structure grouped items.
+   */
   group?: string
 }
+
+interface SelectGroup {
+  /** Label for the group to be displayed in the select dropdown. */
+  label: string
+  /** Optional parameter that will be appended with `-group` when grouped */
+  key?: string
+  items: SelectItem[]
+}
+
+type SelectEntry = SelectItem | SelectGroup
 ```
 
 <ClientOnly>
   <KSelect :items="[{
+    label: 'Series 1',
+    items: [
+      {
+        label: 'Service A1',
+        value: 'a1',
+      },
+      {
+        label: 'Service B1',
+        value: 'b1',
+      },
+    ],
+  }, {
+    label: 'Series 2',
+    items: [
+      {
+        label: 'Service A2',
+        value: 'a2',
+      },
+      {
+        label: 'Service B2',
+        value: 'b2',
+      },
+    ],
+  }, {
     label: 'Service A',
     value: 'a',
     selected: true,
@@ -63,54 +103,38 @@ interface SelectItem {
     label: 'Service F',
     value: 'f',
     disabled: true,
-  }, {
-    label: 'Service A1',
-    value: 'a1',
-    group: 'Series 1',
-  }, {
-    label: 'Service B1',
-    value: 'b1',
-    group: 'Series 1',
-  }, {
-    label: 'Service A2',
-    value: 'a2',
-    group: 'Series 2',
-  }, {
-    label: 'Service B2',
-    value: 'b2',
-    group: 'Series 2',
   }]" />
 </ClientOnly>
 
-```html
-<KSelect :items="[{
-  label: 'Service A',
-  value: 'a',
-  selected: true,
-}, {
-  label: 'Service B',
-  value: 'b',
-}, {
-  label: 'Service F',
-  value: 'f',
-  disabled: true,
-}, {
-  label: 'Service A1',
-  value: 'a1',
-  group: 'Series 1',
-}, {
-  label: 'Service B1',
-  value: 'b1',
-  group: 'Series 1',
-}, {
-  label: 'Service A2',
-  value: 'a2',
-  group: 'Series 2',
-}, {
-  label: 'Service B2',
-  value: 'b2',
-  group: 'Series 2',
-}]" />
+```vue
+<template>
+  <KSelect :items="selectItems" />
+</template>
+
+<script setup lang="ts">
+import type { SelectEntry } from '@kong/kongponents'
+
+const selectItems: SelectEntry[] = [
+  /** Group 1 */
+  {
+    label: 'Series 1', // Group 1 label
+    items: [ // Group 1 items
+      { label: 'Service A1', value: 'a1' },
+      { label: 'Service B1', value: 'b1' },
+    ] },
+  /** Group 2 */
+  {
+    label: 'Series 2', // Group 2 label
+    items: [ // Group 2 items
+      { label: 'Service A2', value: 'a2' },
+      { label: 'Service B2', value: 'b2' },
+    ] },
+  /** Ungrouped items */
+  { label: 'Service A', value: 'a', selected: true },
+  { label: 'Service B', value: 'b' },
+  { label: 'Service F', value: 'f', disabled: true },
+]
+</script>
 ```
 
 ### label
