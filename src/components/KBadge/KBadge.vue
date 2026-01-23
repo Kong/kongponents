@@ -92,6 +92,7 @@ $kBadgeMethodWidth: 85px;
   // apply info appearance by default (in case of invalid appearance)
   @include badgeAppearance;
 
+  font-variant-ligatures: no-contextual;
   max-width: 100%;
 
   // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls

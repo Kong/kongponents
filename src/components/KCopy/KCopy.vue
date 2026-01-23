@@ -185,6 +185,7 @@ onBeforeUnmount(() => {
 .k-copy {
   align-items: center;
   display: flex;
+  font-variant-ligatures: no-contextual;
   max-width: 100%; /** necessary for truncation */
 
   .copy-element {
