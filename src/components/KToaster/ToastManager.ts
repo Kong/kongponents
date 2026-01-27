@@ -46,14 +46,16 @@ export default class ToastManager {
       document.body.appendChild(this.toastersContainer)
     }
 
-    this.toaster = createVNode(KToaster, {
-      toasterState: this.toasts.value,
-      zIndex: this.zIndex,
-      onClose: (key: string) => this.close(key),
-    })
+    if (!this.toaster) {
+      this.toaster = createVNode(KToaster, {
+        toasterState: this.toasts.value,
+        zIndex: this.zIndex,
+        onClose: (key: string) => this.close(key),
+      })
 
-    if (this.toastersContainer) {
-      render(this.toaster, this.toastersContainer)
+      if (this.toastersContainer) {
+        render(this.toaster, this.toastersContainer)
+      }
     }
   }
 
