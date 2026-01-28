@@ -1,4 +1,4 @@
-import { createVNode, render, ref } from 'vue'
+import { createVNode, render, ref, useId } from 'vue'
 import type { Ref, VNode } from 'vue'
 import type { Toast, ToasterAppearance, ToasterOptions } from '@/types'
 import { ToasterAppearances } from '@/types'
@@ -19,17 +19,7 @@ export default class ToastManager {
   private toaster: VNode | null = null
   public toasts: Ref<Toast[]> = ref<Toast[]>([])
 
-  private zIndex: number = defaultZIndex
-
   constructor(options?: ToasterOptions) {
-    if (options?.zIndex) {
-      this.zIndex = options.zIndex
-    }
-
-    this.setupToastersContainer()
-  }
-
-  private setupToastersContainer(): void {
     // For SSR, prevents failing on the build)
     if (typeof document === 'undefined') {
       console.warn('ToastManager should only be initialized in the browser environment. Docs: https://kongponents.konghq.com/components/toaster.html')
@@ -37,25 +27,18 @@ export default class ToastManager {
       return
     }
 
-    const toastersContainerEl = document.getElementById(toasterContainerId)
-    if (toastersContainerEl) {
-      this.toastersContainer = toastersContainerEl as HTMLElement
-    } else {
-      this.toastersContainer = document.createElement('div')
-      this.toastersContainer.id = toasterContainerId
-      document.body.appendChild(this.toastersContainer)
-    }
+    this.toastersContainer = document.createElement('div')
+    this.toastersContainer.id = `${toasterContainerId}-${getUniqueStringId()}`
+    document.body.appendChild(this.toastersContainer)
 
-    if (!this.toaster) {
-      this.toaster = createVNode(KToaster, {
-        toasterState: this.toasts.value,
-        zIndex: this.zIndex,
-        onClose: (key: string) => this.close(key),
-      })
+    this.toaster = createVNode(KToaster, {
+      toasterState: this.toasts.value,
+      zIndex: options?.zIndex ? options.zIndex : defaultZIndex,
+      onClose: (key: string) => this.close(key),
+    })
 
-      if (this.toastersContainer) {
-        render(this.toaster, this.toastersContainer)
-      }
+    if (this.toastersContainer) {
+      render(this.toaster, this.toastersContainer)
     }
   }
 
@@ -64,8 +47,6 @@ export default class ToastManager {
   }
 
   public open(args: Record<string, any> | string): void {
-    this.setupToastersContainer()
-
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const { key, timeoutMilliseconds, appearance, message, title } = args
@@ -97,18 +78,10 @@ export default class ToastManager {
     this.toasts.value = []
   }
 
-  /**
-   * Destroys the ToastManager instance and removes the toasters container element from the DOM
-   * @param removeToastersContainer - Whether to remove the toasters container element from the DOM (defaults to false)
-   */
-  public destroy(removeToastersContainer: boolean = false) {
-    const toastersContainerEl = document?.getElementById(toasterContainerId)
-    if (removeToastersContainer && toastersContainerEl) {
-      render(null, toastersContainerEl)
-      toastersContainerEl.remove()
+  public destroy() {
+    if (this.toastersContainer) {
+      render(null, this.toastersContainer)
+      this.toastersContainer.remove()
     }
-
-    this.toastersContainer = null
-    this.toaster = null
   }
 }
