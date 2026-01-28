@@ -1,4 +1,4 @@
-import { createVNode, render, ref, useId } from 'vue'
+import { createVNode, render, ref } from 'vue'
 import type { Ref, VNode } from 'vue'
 import type { Toast, ToasterAppearance, ToasterOptions } from '@/types'
 import { ToasterAppearances } from '@/types'
