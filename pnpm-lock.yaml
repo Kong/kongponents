@@ -28,8 +28,8 @@ overrides:
   devalue@>=5.3.0 <=5.6.1: '>=5.6.2'
   tar@<=7.5.2: '>=7.5.3'
   lodash@>=4.0.0 <=4.17.22: '>=4.17.23'
-  seroval@<=1.4.0: '>=1.4.2'
-  seroval@<1.4.1: '>=1.4.2'
+  seroval@<=1.4.0: '>=1.5.0'
+  seroval@<1.4.1: '>=1.5.0'
 
 importers:
 
@@ -6241,8 +6241,8 @@ packages:
   serialize-javascript@6.0.2:
     resolution: {integrity: sha512-Saa1xPByTTq2gdeFZYLLo+RFE35NHZkAbqZeWNd3BpzppeVisAqpDjcp8dyf6uIvEqJRd46jemmyA4iFIeVk8g==}
 
-  seroval@1.4.2:
-    resolution: {integrity: sha512-N3HEHRCZYn3cQbsC4B5ldj9j+tHdf4JZoYPlcI4rRYu0Xy4qN8MQf1Z08EibzB0WpgRG5BGK08FTrmM66eSzKQ==}
+  seroval@1.5.0:
+    resolution: {integrity: sha512-OE4cvmJ1uSPrKorFIH9/w/Qwuvi/IMcGbv5RKgcJ/zjA/IohDLU6SVaxFN9FwajbP7nsX0dQqMDes1whk3y+yw==}
     engines: {node: '>=10'}
 
   serve-placeholder@2.0.2:
@@ -8956,7 +8956,7 @@ snapshots:
       pkg-types: 2.3.0
       postcss: 8.5.6
       rollup-plugin-visualizer: 6.0.5(@rollup/wasm-node@4.57.0)
-      seroval: 1.4.2
+      seroval: 1.5.0
       std-env: 3.10.0
       ufo: 1.6.1
       unenv: 2.0.0-rc.24
@@ -14230,7 +14230,7 @@ snapshots:
     dependencies:
       randombytes: 2.1.0
 
-  seroval@1.4.2: {}
+  seroval@1.5.0: {}
 
   serve-placeholder@2.0.2:
     dependencies:
