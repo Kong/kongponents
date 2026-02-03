@@ -1,63 +1,98 @@
 import ToastManager from './ToastManager'
 
 const toastersContainerId = 'kongponents-toaster-container'
+const containerInstanceCountAttribute = 'data-instance-count'
+const toasterWrapperPrefix = 'kongponents-toaster-wrapper'
 
 describe('ToastManager', () => {
-  it('should create a toasters container when initialized and remove it when destroy is called with removeToastersContainer set to true', () => {
-    let containers: NodeListOf<Element>
-
-    const toastManager = new ToastManager()
-    containers = document.querySelectorAll(`#${toastersContainerId}`)
-    expect(containers.length).equal(1)
-
-    toastManager.destroy(true)
-    containers = document.querySelectorAll(`#${toastersContainerId}`)
-    expect(containers.length).equal(0)
+  afterEach(() => {
+    // Cleanup: remove any lingering containers/wrappers after each test
+    const container = document.getElementById(toastersContainerId)
+    if (container) {
+      container.remove()
+    }
   })
 
-  it('should not remove the toasters container if destroy is called with removeToastersContainer set to false', () => {
-    let containers: NodeListOf<Element>
-
+  it('should create a toasters container when initialized and remove it when destroy is called', () => {
     const toastManager = new ToastManager()
-    containers = document.querySelectorAll(`#${toastersContainerId}`)
-    expect(containers.length).equal(1)
 
-    toastManager.destroy(false)
-    containers = document.querySelectorAll(`#${toastersContainerId}`)
-    expect(containers.length).equal(1)
+    // Verify shared container exists
+    const container = document.getElementById(toastersContainerId)
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(container).to.exist
+    expect(container!.getAttribute(containerInstanceCountAttribute)).to.equal('1')
 
-    // Clean up
-    toastManager.destroy(true)
+    // Verify instance wrapper exists
+    const wrappers = document.querySelectorAll(`[id^="${toasterWrapperPrefix}-"]`)
+    expect(wrappers.length).to.equal(1)
+
+    // Destroy instance
+    toastManager.destroy()
+
+    // Verify container is removed (since it was the only instance)
+    const containerAfterDestroy = document.getElementById(toastersContainerId)
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(containerAfterDestroy).to.not.exist
+  })
+
+  it('should not remove the toasters container if destroy is called and instance count is > 1', () => {
+    const toastManager1 = new ToastManager()
+    const toastManager2 = new ToastManager()
+
+    // Verify shared container exists with count = 2
+    let container = document.getElementById(toastersContainerId)
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(container).to.not.be.null
+    expect(container!.getAttribute(containerInstanceCountAttribute)).to.equal('2')
+
+    // Verify both instance wrappers exist
+    let wrappers = document.querySelectorAll(`[id^="${toasterWrapperPrefix}-"]`)
+    expect(wrappers.length).to.equal(2)
+
+    // Destroy first instance
+    toastManager1.destroy()
+
+    // Verify container still exists with count = 1
+    container = document.getElementById(toastersContainerId)
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(container).to.not.be.null
+    expect(container!.getAttribute(containerInstanceCountAttribute)).to.equal('1')
+
+    // Verify only one wrapper remains
+    wrappers = document.querySelectorAll(`[id^="${toasterWrapperPrefix}-"]`)
+    expect(wrappers.length).to.equal(1)
+
+    // Destroy second instance
+    toastManager2.destroy()
+
+    // Verify container is now removed
+    const containerAfterDestroy = document.getElementById(toastersContainerId)
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(containerAfterDestroy).to.be.null
   })
 
   it('should not create a duplicate toasters container if one already exists', () => {
-    const existingContainer = document.createElement('div')
-    existingContainer.id = toastersContainerId
-    document.body.appendChild(existingContainer)
+    const toastManager1 = new ToastManager()
+    const toastManager2 = new ToastManager()
+    const toastManager3 = new ToastManager()
 
+    // Verify only ONE shared container exists
     const containers = document.querySelectorAll(`#${toastersContainerId}`)
-    expect(containers.length).equal(1)
+    expect(containers.length).to.equal(1)
 
-    const toastManager = new ToastManager()
-    expect(containers.length).equal(1)
+    // Verify container has correct reference count
+    const container = document.getElementById(toastersContainerId)
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(container).to.not.be.null
+    expect(container!.getAttribute(containerInstanceCountAttribute)).to.equal('3')
 
-    // Clean up
-    toastManager.destroy(true)
-  })
+    // Verify three separate instance wrappers exist
+    const wrappers = document.querySelectorAll(`[id^="${toasterWrapperPrefix}-"]`)
+    expect(wrappers.length).to.equal(3)
 
-  it('should create a toasters container if one does not exist when open is called', () => {
-    const toastManager = new ToastManager()
-
-    const existingContainer = document.querySelectorAll(`#${toastersContainerId}`)
-    expect(existingContainer.length).equal(1)
-    document.getElementById(toastersContainerId)?.remove()
-
-    toastManager.open('Test Toast')
-
-    const containers = document.querySelectorAll(`#${toastersContainerId}`)
-    expect(containers.length).equal(1)
-
-    // Clean up
-    toastManager.destroy(true)
+    // Cleanup
+    toastManager1.destroy()
+    toastManager2.destroy()
+    toastManager3.destroy()
   })
 })

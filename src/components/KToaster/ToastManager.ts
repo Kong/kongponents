@@ -6,6 +6,8 @@ import KToaster from '@/components/KToaster/KToaster.vue'
 import { getUniqueStringId } from '@/utilities'
 
 const toasterContainerId = 'kongponents-toaster-container'
+const containerInstanceCountAttribute = 'data-instance-count'
+const toasterWrapperPrefix = 'kongponents-toaster-wrapper'
 
 const toasterDefaults = {
   timeoutMilliseconds: 5000,
@@ -14,22 +16,55 @@ const toasterDefaults = {
 
 const defaultZIndex = 10000
 
-export default class ToastManager {
-  private toastersContainer: HTMLElement | null = null
-  private toaster: VNode | null = null
-  public toasts: Ref<Toast[]> = ref<Toast[]>([])
+/**
+ * Get or create the shared toaster container element.
+ * Increments the reference count for tracking active instances.
+ */
+function getOrCreateSharedContainer(): HTMLElement {
+  let container = document.getElementById(toasterContainerId)
 
-  private zIndex: number = defaultZIndex
-
-  constructor(options?: ToasterOptions) {
-    if (options?.zIndex) {
-      this.zIndex = options.zIndex
-    }
-
-    this.setupToastersContainer()
+  if (!container) {
+    container = document.createElement('div')
+    container.id = toasterContainerId
+    container.setAttribute(containerInstanceCountAttribute, '0')
+    document.body.appendChild(container)
   }
 
-  private setupToastersContainer(): void {
+  // Increment reference count
+  const count = parseInt(container.getAttribute(containerInstanceCountAttribute) || '0', 10)
+  container.setAttribute(containerInstanceCountAttribute, String(count + 1))
+
+  return container
+}
+
+/**
+ * Release the shared toaster container.
+ * Decrements the reference count and removes the container when count reaches 0.
+ */
+function releaseSharedContainer(): void {
+  const container = document.getElementById(toasterContainerId)
+  if (!container) {
+    return
+  }
+
+  const count = parseInt(container.getAttribute(containerInstanceCountAttribute) || '0', 10)
+  const newCount = Math.max(0, count - 1)
+
+  if (newCount === 0) {
+    container.remove()
+  } else {
+    container.setAttribute(containerInstanceCountAttribute, String(newCount))
+  }
+}
+
+export default class ToastManager {
+  private sharedContainer: HTMLElement | null = null
+  private instanceWrapper: HTMLElement | null = null
+  private toaster: VNode | null = null
+  public toasts: Ref<Toast[]> = ref<Toast[]>([])
+  private instanceId: string = getUniqueStringId()
+
+  constructor(options?: ToasterOptions) {
     // For SSR, prevents failing on the build)
     if (typeof document === 'undefined') {
       console.warn('ToastManager should only be initialized in the browser environment. Docs: https://kongponents.konghq.com/components/toaster.html')
@@ -37,23 +72,24 @@ export default class ToastManager {
       return
     }
 
-    const toastersContainerEl = document.getElementById(toasterContainerId)
-    if (toastersContainerEl) {
-      this.toastersContainer = toastersContainerEl as HTMLElement
-    } else {
-      this.toastersContainer = document.createElement('div')
-      this.toastersContainer.id = toasterContainerId
-      document.body.appendChild(this.toastersContainer)
-    }
+    // Get or create the shared container
+    this.sharedContainer = getOrCreateSharedContainer()
 
+    // Create this instance's wrapper div
+    this.instanceWrapper = document.createElement('div')
+    this.instanceWrapper.id = `${toasterWrapperPrefix}-${this.instanceId}`
+    this.sharedContainer.appendChild(this.instanceWrapper)
+
+    // Create the KToaster VNode
     this.toaster = createVNode(KToaster, {
       toasterState: this.toasts.value,
-      zIndex: this.zIndex,
+      zIndex: options?.zIndex ? options.zIndex : defaultZIndex,
       onClose: (key: string) => this.close(key),
     })
 
-    if (this.toastersContainer) {
-      render(this.toaster, this.toastersContainer)
+    // Render into the instance wrapper
+    if (this.instanceWrapper) {
+      render(this.toaster, this.instanceWrapper)
     }
   }
 
@@ -62,8 +98,6 @@ export default class ToastManager {
   }
 
   public open(args: Record<string, any> | string): void {
-    this.setupToastersContainer()
-
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const { key, timeoutMilliseconds, appearance, message, title } = args
@@ -95,18 +129,18 @@ export default class ToastManager {
     this.toasts.value = []
   }
 
-  /**
-   * Destroys the ToastManager instance and removes the toasters container element from the DOM
-   * @param removeToastersContainer - Whether to remove the toasters container element from the DOM (defaults to false)
-   */
-  public destroy(removeToastersContainer: boolean = false) {
-    const toastersContainerEl = document?.getElementById(toasterContainerId)
-    if (removeToastersContainer && toastersContainerEl) {
-      render(null, toastersContainerEl)
-      toastersContainerEl.remove()
+  public destroy() {
+    if (this.instanceWrapper && this.sharedContainer) {
+      // Unmount Vue component
+      render(null, this.instanceWrapper)
+      // Remove wrapper from shared container
+      this.instanceWrapper.remove()
+      // Decrement reference count and cleanup if needed
+      releaseSharedContainer()
     }
 
-    this.toastersContainer = null
+    this.instanceWrapper = null
+    this.sharedContainer = null
     this.toaster = null
   }
 }

@@ -81,23 +81,46 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
 }
 </script>
 
-<style lang="scss" scoped>
-.k-toaster {
+<style lang="scss">
+// Global styles for shared container and instance wrappers
+#kongponents-toaster-container {
   bottom: 16px;
   display: flex;
   flex-direction: column;
   gap: var(--kui-space-50, $kui-space-50);
+  pointer-events: none;
   position: fixed;
   right: 50%;
   transform: translateX(50%);
   width: 90%;
-  z-index: v-bind('zIndex');
 
   @media (min-width: $kui-breakpoint-mobile) {
     right: 16px;
     transform: none;
     width: 400px;
   }
+}
+
+// Wrapper styles for instance separation
+[id^="kongponents-toaster-wrapper-"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--kui-space-50, $kui-space-50);
+  pointer-events: auto;
+
+  // Hide wrapper if it contains no toasts
+  &:not(:has(.toaster)) {
+    display: none;
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+.k-toaster {
+  display: flex;
+  flex-direction: column;
+  gap: var(--kui-space-50, $kui-space-50);
+  z-index: v-bind('zIndex');
 
   .toaster {
     align-items: flex-start;
