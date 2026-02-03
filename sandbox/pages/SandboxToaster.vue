@@ -62,6 +62,17 @@
           KToaster
         </KButton>
       </SandboxSectionComponent>
+
+      <!-- Usage -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Usage"
+      />
+      <SandboxSectionComponent title="Multiple toaster instances">
+        <KButton @click="multipleToastersHandler">
+          Create new toaster instance and dispatch a toast
+        </KButton>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
@@ -73,6 +84,7 @@ import { inject } from 'vue'
 import type { Toast } from '@/types'
 import { InfoIcon, CheckCircleIcon, WarningIcon, ClearIcon, KongIcon } from '@kong/icons'
 import useSandboxToaster from '../composables/useSandboxToaster'
+import { ToastManager } from '@/index'
 
 const { toaster } = useSandboxToaster()
 
@@ -146,6 +158,11 @@ const openToaster = (argument: string) => {
   }
 
   toaster.open(options)
+}
+
+const multipleToastersHandler = () => {
+  const newToaster = new ToastManager()
+  newToaster.open('This is a new toaster instance')
 }
 </script>
 

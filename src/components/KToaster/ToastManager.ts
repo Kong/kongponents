@@ -6,6 +6,7 @@ import KToaster from '@/components/KToaster/KToaster.vue'
 import { getUniqueStringId } from '@/utilities'
 
 const toasterContainerId = 'kongponents-toaster-container'
+const toasterWrapperPrefix = 'kongponents-toaster-wrapper'
 
 const toasterDefaults = {
   timeoutMilliseconds: 5000,
@@ -14,10 +15,53 @@ const toasterDefaults = {
 
 const defaultZIndex = 10000
 
+/**
+ * Get or create the shared toaster container element.
+ * Increments the reference count for tracking active instances.
+ */
+function getOrCreateSharedContainer(): HTMLElement {
+  let container = document.getElementById(toasterContainerId)
+
+  if (!container) {
+    container = document.createElement('div')
+    container.id = toasterContainerId
+    container.setAttribute('data-instance-count', '0')
+    document.body.appendChild(container)
+  }
+
+  // Increment reference count
+  const count = parseInt(container.getAttribute('data-instance-count') || '0', 10)
+  container.setAttribute('data-instance-count', String(count + 1))
+
+  return container
+}
+
+/**
+ * Release the shared toaster container.
+ * Decrements the reference count and removes the container when count reaches 0.
+ */
+function releaseSharedContainer(): void {
+  const container = document.getElementById(toasterContainerId)
+  if (!container) {
+    return
+  }
+
+  const count = parseInt(container.getAttribute('data-instance-count') || '0', 10)
+  const newCount = Math.max(0, count - 1)
+
+  if (newCount === 0) {
+    container.remove()
+  } else {
+    container.setAttribute('data-instance-count', String(newCount))
+  }
+}
+
 export default class ToastManager {
-  private toastersContainer: HTMLElement | null = null
+  private sharedContainer: HTMLElement | null = null
+  private instanceWrapper: HTMLElement | null = null
   private toaster: VNode | null = null
   public toasts: Ref<Toast[]> = ref<Toast[]>([])
+  private instanceId: string = getUniqueStringId()
 
   constructor(options?: ToasterOptions) {
     // For SSR, prevents failing on the build)
@@ -27,18 +71,24 @@ export default class ToastManager {
       return
     }
 
-    this.toastersContainer = document.createElement('div')
-    this.toastersContainer.id = `${toasterContainerId}-${getUniqueStringId()}`
-    document.body.appendChild(this.toastersContainer)
+    // Get or create the shared container
+    this.sharedContainer = getOrCreateSharedContainer()
 
+    // Create this instance's wrapper div
+    this.instanceWrapper = document.createElement('div')
+    this.instanceWrapper.id = `${toasterWrapperPrefix}-${this.instanceId}`
+    this.sharedContainer.appendChild(this.instanceWrapper)
+
+    // Create the KToaster VNode
     this.toaster = createVNode(KToaster, {
       toasterState: this.toasts.value,
       zIndex: options?.zIndex ? options.zIndex : defaultZIndex,
       onClose: (key: string) => this.close(key),
     })
 
-    if (this.toastersContainer) {
-      render(this.toaster, this.toastersContainer)
+    // Render into the instance wrapper
+    if (this.instanceWrapper) {
+      render(this.toaster, this.instanceWrapper)
     }
   }
 
@@ -79,9 +129,17 @@ export default class ToastManager {
   }
 
   public destroy() {
-    if (this.toastersContainer) {
-      render(null, this.toastersContainer)
-      this.toastersContainer.remove()
+    if (this.instanceWrapper && this.sharedContainer) {
+      // Unmount Vue component
+      render(null, this.instanceWrapper)
+      // Remove wrapper from shared container
+      this.instanceWrapper.remove()
+      // Decrement reference count and cleanup if needed
+      releaseSharedContainer()
     }
+
+    this.instanceWrapper = null
+    this.sharedContainer = null
+    this.toaster = null
   }
 }
