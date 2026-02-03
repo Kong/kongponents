@@ -1,3 +1,10 @@
+## [9.50.2](https://github.com/Kong/kongponents/compare/v9.50.1...v9.50.2) (2026-02-03)
+
+
+### Bug Fixes
+
+* **ktoaster:** create unique toaster container element [KHCP-19222] ([#3076](https://github.com/Kong/kongponents/issues/3076)) ([6cfeb88](https://github.com/Kong/kongponents/commit/6cfeb88f3265aef4f9a15f52a09fd24dd55c9946))
+
 ## [9.50.1](https://github.com/Kong/kongponents/compare/v9.50.0...v9.50.1) (2026-01-28)
 
 
