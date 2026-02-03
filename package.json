@@ -231,7 +231,8 @@
       "tar@<=7.5.2": ">=7.5.3",
       "lodash@>=4.0.0 <=4.17.22": ">=4.17.23",
       "seroval@<=1.4.0": ">=1.4.2",
-      "seroval@<1.4.1": ">=1.4.2"
+      "seroval@<1.4.1": ">=1.4.2",
+      "tar@<7.5.7": ">=7.5.7"
     },
     "onlyBuiltDependencies": [
       "@evilmartians/lefthook",
