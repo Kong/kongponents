@@ -188,12 +188,12 @@
   },
   "engines": {
     "node": ">=v16.20.2 || >=18.12.1 || >=20.14.0 || >=22.14.0",
-    "pnpm": ">=9.11.0 || >=10.10.0"
+    "pnpm": ">=10.28.2"
   },
-  "packageManager": "pnpm@10.28.0",
+  "packageManager": "pnpm@10.28.2",
   "volta": {
     "node": "24.12.0",
-    "pnpm": "10.28.0"
+    "pnpm": "10.28.2"
   },
   "config": {
     "commitizen": {
@@ -231,7 +231,8 @@
       "tar@<=7.5.2": ">=7.5.3",
       "lodash@>=4.0.0 <=4.17.22": ">=4.17.23",
       "seroval@<=1.4.0": ">=1.4.2",
-      "seroval@<1.4.1": ">=1.4.2"
+      "seroval@<1.4.1": ">=1.4.2",
+      "tar@<7.5.7": ">=7.5.7"
     },
     "onlyBuiltDependencies": [
       "@evilmartians/lefthook",
