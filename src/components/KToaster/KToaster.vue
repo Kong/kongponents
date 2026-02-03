@@ -93,7 +93,6 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
   right: 50%;
   transform: translateX(50%);
   width: 90%;
-  z-index: v-bind('zIndex');
 
   @media (min-width: $kui-breakpoint-mobile) {
     right: 16px;
@@ -121,6 +120,7 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
   display: flex;
   flex-direction: column;
   gap: var(--kui-space-50, $kui-space-50);
+  z-index: v-bind('zIndex');
 
   .toaster {
     align-items: flex-start;
