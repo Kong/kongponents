@@ -6,6 +6,7 @@ import KToaster from '@/components/KToaster/KToaster.vue'
 import { getUniqueStringId } from '@/utilities'
 
 const toasterContainerId = 'kongponents-toaster-container'
+const containerInstanceCountAttribute = 'data-instance-count'
 const toasterWrapperPrefix = 'kongponents-toaster-wrapper'
 
 const toasterDefaults = {
@@ -25,13 +26,13 @@ function getOrCreateSharedContainer(): HTMLElement {
   if (!container) {
     container = document.createElement('div')
     container.id = toasterContainerId
-    container.setAttribute('data-instance-count', '0')
+    container.setAttribute(containerInstanceCountAttribute, '0')
     document.body.appendChild(container)
   }
 
   // Increment reference count
-  const count = parseInt(container.getAttribute('data-instance-count') || '0', 10)
-  container.setAttribute('data-instance-count', String(count + 1))
+  const count = parseInt(container.getAttribute(containerInstanceCountAttribute) || '0', 10)
+  container.setAttribute(containerInstanceCountAttribute, String(count + 1))
 
   return container
 }
@@ -46,13 +47,13 @@ function releaseSharedContainer(): void {
     return
   }
 
-  const count = parseInt(container.getAttribute('data-instance-count') || '0', 10)
+  const count = parseInt(container.getAttribute(containerInstanceCountAttribute) || '0', 10)
   const newCount = Math.max(0, count - 1)
 
   if (newCount === 0) {
     container.remove()
   } else {
-    container.setAttribute('data-instance-count', String(newCount))
+    container.setAttribute(containerInstanceCountAttribute, String(newCount))
   }
 }
 

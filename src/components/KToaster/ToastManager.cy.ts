@@ -1,6 +1,7 @@
 import ToastManager from './ToastManager'
 
 const toastersContainerId = 'kongponents-toaster-container'
+const containerInstanceCountAttribute = 'data-instance-count'
 const toasterWrapperPrefix = 'kongponents-toaster-wrapper'
 
 describe('ToastManager', () => {
@@ -19,7 +20,7 @@ describe('ToastManager', () => {
     const container = document.getElementById(toastersContainerId)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(container).to.exist
-    expect(container!.getAttribute('data-instance-count')).to.equal('1')
+    expect(container!.getAttribute(containerInstanceCountAttribute)).to.equal('1')
 
     // Verify instance wrapper exists
     const wrappers = document.querySelectorAll(`[id^="${toasterWrapperPrefix}-"]`)
@@ -42,7 +43,7 @@ describe('ToastManager', () => {
     let container = document.getElementById(toastersContainerId)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(container).to.not.be.null
-    expect(container!.getAttribute('data-instance-count')).to.equal('2')
+    expect(container!.getAttribute(containerInstanceCountAttribute)).to.equal('2')
 
     // Verify both instance wrappers exist
     let wrappers = document.querySelectorAll(`[id^="${toasterWrapperPrefix}-"]`)
@@ -55,7 +56,7 @@ describe('ToastManager', () => {
     container = document.getElementById(toastersContainerId)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(container).to.not.be.null
-    expect(container!.getAttribute('data-instance-count')).to.equal('1')
+    expect(container!.getAttribute(containerInstanceCountAttribute)).to.equal('1')
 
     // Verify only one wrapper remains
     wrappers = document.querySelectorAll(`[id^="${toasterWrapperPrefix}-"]`)
@@ -83,7 +84,7 @@ describe('ToastManager', () => {
     const container = document.getElementById(toastersContainerId)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(container).to.not.be.null
-    expect(container!.getAttribute('data-instance-count')).to.equal('3')
+    expect(container!.getAttribute(containerInstanceCountAttribute)).to.equal('3')
 
     // Verify three separate instance wrappers exist
     const wrappers = document.querySelectorAll(`[id^="${toasterWrapperPrefix}-"]`)
