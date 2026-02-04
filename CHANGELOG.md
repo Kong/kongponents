@@ -1,3 +1,10 @@
+## [9.50.4](https://github.com/Kong/kongponents/compare/v9.50.3...v9.50.4) (2026-02-04)
+
+
+### Bug Fixes
+
+* **radio:** disabled checked radio card style not match figma ([#3058](https://github.com/Kong/kongponents/issues/3058)) ([35c117b](https://github.com/Kong/kongponents/commit/35c117b140ea49799fcb2c51de7e2e5ba99135cd))
+
 ## [9.50.3](https://github.com/Kong/kongponents/compare/v9.50.2...v9.50.3) (2026-02-04)
 
 
