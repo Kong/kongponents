@@ -539,7 +539,6 @@ $kRadioDotSize: 6px;
 
       &.checked {
         .radio-card-wrapper {
-          background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
           box-shadow: var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-0, $kui-border-width-0) var(--kui-border-width-20, $kui-border-width-20) var(--kui-color-border-disabled, $kui-color-border-disabled) inset;
         }
       }

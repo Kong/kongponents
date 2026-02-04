@@ -114,16 +114,48 @@ Use this prop to apply error styling to the component.
 
 Any valid attribute will be added to the input. You can read more about `$attrs` [here](https://vuejs.org/api/composition-api-setup.html#setup-context).
 
-<KRadio v-model="disabledAttributeRadio" :selected-value="true" disabled>Disabled radio</KRadio>
+<div class="vertical-spacing">
+  <KRadio
+    checked
+    description="Disabled radio card"
+    card
+    label="Disabled"
+    :selected-value="false"
+    disabled
+  >
+    <NetworkIcon />
+  </KRadio>
+  <KRadio
+    style=""
+    v-model="checked"
+    :selected-value="true"
+    disabled
+  >
+    Disabled radio
+  </KRadio>
+</div>
 
 ```html
-<KRadio
-  v-model="checked"
-  :selected-value="true"
-  disabled
->
-  Disabled radio
-</KRadio>
+<div>
+  <KRadio
+    checked
+    description="Disabled radio card"
+    card
+    label="Disabled"
+    :selected-value="false"
+    disabled
+  >
+    <NetworkIcon />
+  </KRadio>
+  <KRadio
+    style=""
+    v-model="checked"
+    :selected-value="true"
+    disabled
+  >
+    Disabled radio
+  </KRadio>
+</div>
 ```
 
 ### card
@@ -406,7 +438,7 @@ Fired on change, returns radio [selectedValue](#selectedvalue).
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { WorldIcon, WorldPrivateIcon } from '@kong/icons'
+import { WorldIcon, WorldPrivateIcon, NetworkIcon } from '@kong/icons'
 
 const objA = { name: ('a') }
 const objB = { name: ('b') }
