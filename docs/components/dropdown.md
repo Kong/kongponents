@@ -328,7 +328,7 @@ Fires when dropdown is opened/closed. Returns state of the dropdown (boolean).
 
 ### change
 
-Fires when item is selected. Returns the selected menu item object.
+Fires when items are clicked if the [`selectionMenu` prop](#selectionmenu) is `true`. Returns the selected menu item object.
 
 ## KDropdownItem
 
