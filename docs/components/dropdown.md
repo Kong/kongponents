@@ -327,6 +327,7 @@ We also recommend setting the icon style `color` property to a value of `current
 Fires when dropdown is opened/closed. Returns state of the dropdown (boolean).
 
 ### change
+
 Fires when items are clicked if the [`selectionMenu` prop](#selectionmenu) is `true`. Returns the selected menu item object.
 
 ## KDropdownItem
