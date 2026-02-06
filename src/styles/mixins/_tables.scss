@@ -344,20 +344,14 @@
 
                   /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
                   :deep(.k-table-view) {
-                    background-color: var(
-                      --kui-color-background-neutral-weakest,
-                      $kui-color-background-neutral-weakest
-                    );
+                    background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
 
                     .table-wrapper {
                       max-height: $expandedRowMaxHeight;
                     }
 
                     tr.is-scrolled {
-                      background-color: var(
-                        --kui-color-background-neutral-weakest,
-                        $kui-color-background-neutral-weakest
-                      );
+                      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
                     }
 
                     th,
@@ -382,10 +376,7 @@
                     }
 
                     .k-empty-state {
-                      background-color: var(
-                        --kui-color-background-neutral-weakest,
-                        $kui-color-background-neutral-weakest
-                      );
+                      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
                     }
                   }
                 }
@@ -418,7 +409,7 @@
         display: flex;
 
         :deep(input) {
-          margin: $kui-space-0;
+          margin: var(--kui-space-0, $kui-space-0);
         }
 
         :deep(.checkbox-icon) {

@@ -410,7 +410,7 @@ watch(() => marks, (newMarks) => {
 
       bottom: 0;
       cursor: pointer;
-      padding: $kui-space-0;
+      padding: var(--kui-space-0, $kui-space-0);
       position: absolute;
       white-space: nowrap;
 
