@@ -80,9 +80,9 @@
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
-    "@babel/types": "^7.28.6",
-    "@commitlint/cli": "^20.3.1",
-    "@commitlint/config-conventional": "^20.3.1",
+    "@babel/types": "^7.29.0",
+    "@commitlint/cli": "^20.4.1",
+    "@commitlint/config-conventional": "^20.4.1",
     "@cypress/vite-dev-server": "^7.2.0",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@evilmartians/lefthook": "^2.0.16",
@@ -100,7 +100,7 @@
     "@vitejs/plugin-vue": "^5.2.4",
     "@vue/compiler-core": "^3.5.27",
     "@vue/tsconfig": "^0.8.1",
-    "@vueuse/core": "^14.1.0",
+    "@vueuse/core": "^14.2.0",
     "autoprefixer": "^10.4.24",
     "boxen": "^8.0.1",
     "commitizen": "^4.3.1",
@@ -122,7 +122,7 @@
     "rollup-plugin-visualizer": "^6.0.5",
     "sass": "^1.97.3",
     "semantic-release": "^24.2.9",
-    "shiki": "^3.21.0",
+    "shiki": "^3.22.0",
     "shx": "^0.4.0",
     "stylelint": "^16.26.1",
     "stylelint-config-html": "^1.1.0",
@@ -192,7 +192,7 @@
   },
   "packageManager": "pnpm@10.28.2",
   "volta": {
-    "node": "24.12.0",
+    "node": "24.13.0",
     "pnpm": "10.28.2"
   },
   "config": {
@@ -228,8 +228,8 @@
       "h3@<=1.15.4": ">=1.15.5",
       "devalue@>=5.3.0 <=5.6.1": ">=5.6.2",
       "lodash@>=4.0.0 <=4.17.22": ">=4.17.23",
-      "seroval@<=1.4.0": ">=1.4.2",
-      "seroval@<1.4.1": ">=1.4.2",
+      "seroval@<=1.4.0": ">=1.5.0",
+      "seroval@<1.4.1": ">=1.5.0",
       "tar@<7.5.7": ">=7.5.7",
       "@isaacs/brace-expansion@<=5.0.0": ">=5.0.1"
     },
