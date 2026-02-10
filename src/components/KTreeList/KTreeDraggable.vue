@@ -391,7 +391,7 @@ $kTreeListIdentCollapsible: 6px;
           }
 
           + .tree-item-container.has-no-children {
-            margin-left: $kui-space-0;
+            margin-left: var(--kui-space-0, $kui-space-0);
           }
         }
 
@@ -404,7 +404,7 @@ $kTreeListIdentCollapsible: 6px;
 
       &:not(:has(> .tree-item-container:not(.has-no-children))) {
         > .tree-item-container.has-no-children .file-list-item-link {
-          padding-left: $kui-space-0 !important;
+          padding-left: var(--kui-space-0, $kui-space-0) !important;
         }
       }
     }
