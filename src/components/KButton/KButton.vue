@@ -18,8 +18,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, useAttrs, watch } from 'vue'
+import { computed, onMounted, useAttrs } from 'vue'
 import { ButtonAppearances } from '@/types'
+import { useDeprecated } from '@/composables/useDeprecated'
 import type { ButtonAppearance, ButtonProps, ButtonSize, ButtonSlots } from '@/types'
 
 const {
@@ -32,11 +33,10 @@ const {
 } = defineProps<ButtonProps>()
 
 // Deprecation warning. Remove this in next major release.
-watch(() => icon, (value) => {
-  if (typeof value === 'string') {
-    console.warn('KButton: `icon` prop usage has changed. Please refer to the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kbutton')
-  }
-}, { immediate: true })
+useDeprecated(() => typeof icon === 'string', {
+  notice: '`icon` prop usage has changed',
+  fragment: 'kbutton',
+})
 
 const slots = defineSlots<ButtonSlots>()
 const attrs = useAttrs()
@@ -120,9 +120,10 @@ const listeners = computed(() => {
 })
 
 onMounted(() => {
-  if (slots.icon) {
-    console.warn('KButton: `icon` slot is deprecated. Please slot an icon into the `default` slot instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kbutton')
-  }
+  useDeprecated(() => !!slots.icon, {
+    notice: '`icon` slot is deprecated. Please slot an icon into the `default` slot instead',
+    fragment: 'kbutton',
+  })
 })
 </script>
 
