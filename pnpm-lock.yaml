@@ -103,8 +103,8 @@ importers:
         specifier: ^1.18.2
         version: 1.18.2
       '@kong/eslint-config-kong-ui':
-        specifier: 1.6.0
-        version: 1.6.0(@typescript-eslint/parser@8.47.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+        specifier: 1.6.1
+        version: 1.6.1(@typescript-eslint/parser@8.47.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       '@nuxt/kit':
         specifier: ^4.2.2
         version: 4.2.2(magicast@0.5.1)
@@ -1332,8 +1332,8 @@ packages:
     resolution: {integrity: sha512-xYdj2b72Dtos8BIOqiLRJF2IYsB1bBx3OEjeGa7WnOTd9FK/0ZeaclwrL5N4fBFV9w+Vf4oJnXyYCBZ1gW1fOg==}
     engines: {node: '>=20.19.5', pnpm: '>=9.14.4 || >=10.1.0'}
 
-  '@kong/eslint-config-kong-ui@1.6.0':
-    resolution: {integrity: sha512-ZeFQLpoS3z/Wd1GPaDEt/1kTMeyc7SukWCoo088i6/zPKKzmOc89CG5IVTCQJa1+zGG7GDCOdb68fBFcLfnHnA==}
+  '@kong/eslint-config-kong-ui@1.6.1':
+    resolution: {integrity: sha512-rjhdvOt/J6fMH05o0Wlc/gO2aUuUL5nDZj50sbKXK4kYGGdYuUV7VMvfWWcs2glLypZeE74CeWRHh83vflFuOw==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       eslint: '>= 9.37.0'
@@ -8617,7 +8617,7 @@ snapshots:
 
   '@kong/design-tokens@1.18.2': {}
 
-  '@kong/eslint-config-kong-ui@1.6.0(@typescript-eslint/parser@8.47.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)':
+  '@kong/eslint-config-kong-ui@1.6.1(@typescript-eslint/parser@8.47.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)':
     dependencies:
       '@eslint/js': 9.39.2
       '@stylistic/eslint-plugin': 5.6.1(eslint@9.39.2(jiti@2.6.1))
