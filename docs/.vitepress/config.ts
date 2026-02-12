@@ -69,6 +69,7 @@ export default defineConfig({
             { text: 'Empty State', link: '/components/empty-state' },
             { text: 'External Link', link: '/components/external-link' },
             { text: 'File Upload', link: '/components/file-upload' },
+            { text: 'Filter Group', link: '/components/filter-group' },
             { text: 'Input', link: '/components/input' },
             { text: 'Input Switch', link: '/components/input-switch' },
             { text: 'Label', link: '/components/label' },
