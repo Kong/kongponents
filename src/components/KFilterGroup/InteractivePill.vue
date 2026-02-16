@@ -185,7 +185,8 @@ const onClear = () => {
 </script>
 
 <style lang="scss" scoped>
-$kui-shadow-focus-narrow: 0 0 0 2px rgba(var(--kui-color-background-primary, $kui-color-background-primary), 0.2);
+// TODO replace with the real $kui-shadow-focus-narrow when it's available
+$kui-shadow-focus-narrow: 0 0 0 2px rgba($kui-color-background-primary, 0.2);
 
 .interactive-pill {
   align-items: stretch;

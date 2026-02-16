@@ -10,7 +10,7 @@
       v-for="key in visibleFilterKeys"
       :key="`filter-pill-${key}`"
       :data-testid="`filter-group-pill-${key}`"
-      :filter="filters[key]"
+      :filter="filters[key]!"
       :init-open="key === activeFilterKey"
       :selection="selection[key]"
       @apply="(selected) => onFilterApply(key, selected)"
@@ -53,7 +53,7 @@ const emit = defineEmits<FilterGroupEmits>()
 const visibleFilterKeys = computed<string[]>(() => {
   // all filters that are pinned appear in the order originally provided
   const pinnedFilterKeys = Object.keys(filters)
-    .filter((key) => filters[key].pinned)
+    .filter((key) => filters[key]!.pinned)
 
   // all applied filters that aren't pinned show up in the order they were added
   // however, if they don't have a selection, (e.g. the host app mutated the
