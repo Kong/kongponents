@@ -185,8 +185,15 @@ const onClear = () => {
 </script>
 
 <style lang="scss" scoped>
-// TODO replace with the real $kui-shadow-focus-narrow when it's available
-$kui-shadow-focus-narrow: 0 0 0 2px rgba($kui-color-background-primary, 0.2);
+@use "sass:color";
+// `var()` can't be used inside `rgba()` unless you pull out the individual colors.
+$shadowFocusNarrow: 0 0 0 2px rgba(
+  var(--kui-color-background-primary,
+  #{color.channel($kui-color-background-primary, "red", $space: rgb)},
+  #{color.channel($kui-color-background-primary, "green", $space: rgb)},
+  #{color.channel($kui-color-background-primary, "blue", $space: rgb)},
+),
+0.2);
 
 .interactive-pill {
   align-items: stretch;
@@ -258,7 +265,7 @@ $kui-shadow-focus-narrow: 0 0 0 2px rgba($kui-color-background-primary, 0.2);
   &.clear-focused .pill-icon .clear-focus-highlight {
     // more specific styles for clear focus when clearFocus true
     border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-    box-shadow: var(--kui-shadow-focus-narrow, $kui-shadow-focus-narrow);
+    box-shadow: $shadowFocusNarrow;
   }
 
   &.unfocused.no-content:hover {

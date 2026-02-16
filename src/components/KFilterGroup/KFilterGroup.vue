@@ -47,9 +47,17 @@ const {
 const selection = defineModel<FilterGroupSelection>({ required: true })
 
 const activeFilterKey = ref<string | undefined>()
+
+/**
+ * the filters that have a selection. This is used to preserve the order in which
+ * the user added/removed their selection.
+ */
 const unpinnedSelectionKeys = ref<string[]>([])
 const emit = defineEmits<FilterGroupEmits>()
 
+/**
+ * the filters that should appear as a pill
+ */
 const visibleFilterKeys = computed<string[]>(() => {
   // all filters that are pinned appear in the order originally provided
   const pinnedFilterKeys = Object.keys(filters)
@@ -74,6 +82,9 @@ const visibleFilterKeys = computed<string[]>(() => {
   ]
 })
 
+/**
+ * The filters that should appear in the `FilterSelector`
+ */
 const hiddenFilterKeys = computed<string[]>(() => Object.keys(filters)
   .filter((key) => !visibleFilterKeys.value.includes(key)))
 
@@ -104,6 +115,10 @@ const onFilterClose = (filterKey: string) => {
   emit('close', filterKey)
 }
 
+/**
+ * When the filter is cleared, removes that filter's selection from the
+ * `selection`, removes it from `activeFilterKey`, and emits a clear event.
+ */
 const onFilterClear = (filterKey: string) => {
   selection.value[filterKey] = undefined
   if (activeFilterKey.value === filterKey) {
@@ -113,6 +128,10 @@ const onFilterClear = (filterKey: string) => {
   emit('clear', filterKey, selection.value)
 }
 
+/**
+ * When the filter is applied, adds that filter's selection to the `selection`,
+ * removes it from `activeFilterKey`, and emits an apply event.
+ */
 const onFilterApply = (filterKey: string, filterSelection?: FilterSelection) => {
   if (filterSelection !== undefined) {
     selection.value[filterKey] = filterSelection
