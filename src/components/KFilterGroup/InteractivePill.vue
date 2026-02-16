@@ -185,33 +185,33 @@ const onClear = () => {
 </script>
 
 <style lang="scss" scoped>
-$kui-shadow-focus-narrow: 0 0 0 2px rgba($kui-color-background-primary, 0.2);
+$kui-shadow-focus-narrow: 0 0 0 2px rgba(var(--kui-color-background-primary, $kui-color-background-primary), 0.2);
 
 .interactive-pill {
   align-items: stretch;
-  border: $kui-border-width-10 solid $kui-color-background-transparent;
-  border-radius: $kui-border-radius-20;
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
+  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
   box-shadow: 0 0 0 0 transparent;
   cursor: pointer;
   display: inline-flex;
-  font-size: $kui-font-size-20;
+  font-size: var(--kui-font-size-20, $kui-font-size-20);
   max-width: 240px;
   overflow: hidden;
   transition: box-shadow $kongponentsTransitionDurTimingFunc;
   white-space: nowrap;
 
   .label {
-    line-height: $kui-line-height-20;
+    line-height: var(--kui-line-height-20, $kui-line-height-20);
     overflow: hidden;
-    padding: $kui-space-20 $kui-space-20 $kui-space-20 $kui-space-40;
+    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-20, $kui-space-20) var(--kui-space-20, $kui-space-20) var(--kui-space-40, $kui-space-40);
     text-overflow: ellipsis;
 
     .base-label {
-      font-weight: $kui-font-weight-semibold;
+      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
     }
 
     .content-label {
-      font-weight: $kui-font-weight-bold;
+      font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
     }
   }
 
@@ -219,8 +219,8 @@ $kui-shadow-focus-narrow: 0 0 0 2px rgba($kui-color-background-primary, 0.2);
     align-items: center;
     display: flex;
     flex-shrink: 0;
-    padding-left: $kui-space-20;
-    padding-right: $kui-space-20;
+    padding-left: var(--kui-space-20, $kui-space-20);
+    padding-right: var(--kui-space-20, $kui-space-20);
   }
 
   .label,
@@ -229,15 +229,15 @@ $kui-shadow-focus-narrow: 0 0 0 2px rgba($kui-color-background-primary, 0.2);
   }
 
   &.no-content {
-    background-color: $kui-color-background-neutral-weakest;
-    border: $kui-border-width-10 dashed $kui-color-border;
-    color: $kui-color-text-neutral-stronger;
+    background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+    border: var(--kui-border-width-10, $kui-border-width-10) dashed var(--kui-color-border, $kui-color-border);
+    color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
   }
 
   &.has-content {
-    background-color: $kui-color-background-primary-weakest;
-    border: $kui-border-width-10 solid $kui-color-border-primary;
-    color: $kui-color-text-primary;
+    background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-primary, $kui-color-border-primary);
+    color: var(--kui-color-text-primary, $kui-color-text-primary);
   }
 
   &:focus,
@@ -249,28 +249,28 @@ $kui-shadow-focus-narrow: 0 0 0 2px rgba($kui-color-background-primary, 0.2);
 
   &.focused {
     // more specific styles for pill focus when pillFocus true
-    border: $kui-border-width-10 solid $kui-color-border-primary;
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-primary, $kui-color-border-primary);
     box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
     outline: none;
   }
 
   &.clear-focused .pill-icon .clear-focus-highlight {
     // more specific styles for clear focus when clearFocus true
-    border-radius: $kui-border-radius-20;
+    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
     box-shadow: var(--kui-shadow-focus-narrow, $kui-shadow-focus-narrow);
   }
 
   &.unfocused.no-content:hover {
-    background-color: $kui-color-background-primary-weakest;
-    border: 1px solid $kui-color-border-primary;
+    background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+    border: 1px solid var(--kui-color-border-primary, $kui-color-border-primary);
   }
 
   &.unfocused.has-content {
     .label:hover,
     .label:hover + .clear-icon,
     .clear-icon:hover {
-      background-color: $kui-color-background-primary-weaker;
-      color: $kui-color-text-primary-stronger;
+      background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
+      color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
     }
   }
 

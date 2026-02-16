@@ -155,12 +155,12 @@ watch(selection, (newSelection) => {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: $kui-space-40;
+  gap: var(--kui-space-40, $kui-space-40);
 
   .label {
-    color: $kui-color-text-neutral;
-    font-size: $kui-font-size-20;
-    font-weight: $kui-font-weight-semibold;
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
   }
 }
 </style>
