@@ -14,14 +14,15 @@
       :init-open="key === activeFilterKey"
       :selection="selection[key]"
       @apply="(selected) => onFilterApply(key, selected)"
-      @clear="() => onFilterClear(key)"
-      @close="() => onFilterClose(key)"
-      @open="() => onFilterOpen(key)"
+      @clear="onFilterClear(key)"
+      @close="onFilterClose(key)"
+      @open="onFilterOpen(key)"
     />
     <FilterSelector
       v-if="hiddenFilterKeys.length > 0"
       :filters="hiddenFilters"
-      @select-filter="onSelectFilter"
+      :label="selectorLabel"
+      @select="onSelectFilter"
     />
   </div>
 </template>
@@ -37,8 +38,12 @@ import type {
   FilterGroupSelection,
   FilterSelection,
 } from '@/types'
+import { KUI_ANIMATION_DURATION_20 } from '@kong/design-tokens'
 
-const { filters } = defineProps<FilterGroupProps>()
+const {
+  filters,
+  selectorLabel = undefined,
+} = defineProps<FilterGroupProps>()
 const selection = defineModel<FilterGroupSelection>({ required: true })
 
 const activeFilterKey = ref<string | undefined>()
@@ -78,12 +83,13 @@ const hiddenFilters = computed<FilterGroupFilters>(() => hiddenFilterKeys.value
     [key]: filters[key],
   }), {}))
 
+const animationDuration = Number.parseFloat(KUI_ANIMATION_DURATION_20) * 1000
 const onSelectFilter = (filterKey: string) => {
+  // we want to give the select dropdown time to finish animating its close
+  // before we insert a new filter with a competing popover already open.
   setTimeout(() => {
-    // we want to give the select dropdown time to finish animating its close
-    // before we insert a new filter with a competing popover already open.
     activeFilterKey.value = filterKey
-  }, 200)
+  }, animationDuration)
 }
 
 const onFilterOpen = (filterKey: string) => {
@@ -119,12 +125,12 @@ const onFilterApply = (filterKey: string, filterSelection?: FilterSelection) => 
   emit('apply', filterKey, selection.value)
 }
 
-watch(selection, () => {
+watch(selection, (newSelection) => {
   // in order to preserve filter add order, we have to watch the selection. As
   // it changes we add/remove keys from the `unpinnedSelectionKeys` list. This
   // allows us to respond to both our mutation of the selection and any host app
   // mutation of the selection.
-  Object.entries(selection.value)
+  Object.entries(newSelection)
     .forEach(([key, value]) => {
       const addedIndex = unpinnedSelectionKeys.value.indexOf(key)
       const pinned = filters[key]?.pinned

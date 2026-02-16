@@ -1,7 +1,7 @@
 <template>
   <KPop
     ref="filterPopper"
-    :placement="filter.placement ?? 'bottom'"
+    :placement="filter.placement ?? 'bottom-start'"
     @close="handlePopClose"
   >
     <template #default>
@@ -11,7 +11,7 @@
         :delimiter="delimiter"
         :label="filter.label"
         :pill-focus="isOpen"
-        v-bind="$attrs"
+        v-bind="attrs"
         @clear="onClear"
         @click.prevent.stop
         @trigger="onTrigger"
@@ -33,26 +33,22 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref, useAttrs, useTemplateRef } from 'vue'
-import type { Filter, FilterSelection } from '@/types'
+import type { FilterPillProps, FilterSelection } from '@/types'
 import KPop from '@/components/KPop/KPop.vue'
 import InteractivePill from './InteractivePill.vue'
 
-// we want to manually specify where the attrs get inherited to
+// we don't want the attrs to get applied to the KPop wrapper
 defineOptions({ inheritAttrs: false })
-const $attrs = useAttrs()
+const attrs = useAttrs()
 
 const {
   filter,
   initOpen = false,
   selection = undefined,
-} = defineProps<{
-  filter: Filter
-  initOpen?: boolean
-  selection?: FilterSelection
-}>()
+} = defineProps<FilterPillProps>()
 
-const isOpen = ref(false)
-const filterPopper = useTemplateRef('filterPopper')
+const isOpen = ref<boolean>(false)
+const filterPopperRef = useTemplateRef('filterPopper')
 
 const delimiter = computed<string | undefined>(() => {
   switch (selection?.operator) {
@@ -62,8 +58,6 @@ const delimiter = computed<string | undefined>(() => {
       return ' ≠ '
     case 'contains':
       return ' in '
-    case 'exists':
-      return ': '
     case 'lt':
       return ' < '
     case 'lte':
@@ -72,22 +66,23 @@ const delimiter = computed<string | undefined>(() => {
       return ' > '
     case 'gte':
       return ' ≥ '
+    case 'exists':
     default:
-      return undefined
+      return ': '
   }
 })
 
 const openFilter = () => {
-  if (filterPopper.value) {
-    filterPopper.value.showPopover()
+  if (filterPopperRef.value) {
+    filterPopperRef.value.showPopover()
     isOpen.value = true
   }
   emit('open')
 }
 
 const closeFilter = () => {
-  if (filterPopper.value) {
-    filterPopper.value.hidePopover()
+  if (filterPopperRef.value) {
+    filterPopperRef.value.hidePopover()
     isOpen.value = false
   }
   emit('close')

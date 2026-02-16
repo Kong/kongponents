@@ -1,19 +1,19 @@
 <template>
   <KDropdown
-    ref="filterSelectorRef"
+    ref="filterSelector"
     :items="items"
     @toggle-dropdown="onToggle"
   >
     <template #default>
       <InteractivePill
         data-testid="filter-selector"
-        label="Add filter"
+        :label="label"
         :pill-focus="pillFocus"
         @click.prevent.stop
         @trigger="onTrigger"
       >
-        <template #openIcon>
-          <AddIcon />
+        <template #open-icon>
+          <AddIcon decorative />
         </template>
       </InteractivePill>
     </template>
@@ -27,13 +27,17 @@ import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import InteractivePill from './InteractivePill.vue'
 import { AddIcon } from '@kong/icons'
 
-const filterSelectorRef = useTemplateRef('filterSelectorRef')
-const isOpen = ref(false)
+const filterSelectorRef = useTemplateRef('filterSelector')
+const isOpen = ref<boolean>(false)
 
-const pillFocus = ref(false)
+const pillFocus = ref<boolean>(false)
 
-const { filters } = defineProps<{
+const {
+  filters,
+  label = 'Add filter',
+} = defineProps<{
   filters: FilterGroupFilters
+  label?: string
 }>()
 
 const items = computed<DropdownItem[]>(() => Object.entries(filters)
@@ -44,11 +48,11 @@ const items = computed<DropdownItem[]>(() => Object.entries(filters)
   })))
 
 const emit = defineEmits<{
-  (e: 'selectFilter', filterKey: string): void
+  (e: 'select', filterKey: string): void
 }>()
 
 const onItemClick = (key: string) => {
-  emit('selectFilter', key)
+  emit('select', key)
 }
 
 const onToggle = (open: boolean) => {
