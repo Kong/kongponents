@@ -29,6 +29,7 @@ const sandboxAppLinks: SandboxNavigationItem[] = ([
   { name: 'KDropdown', to: { name: 'dropdown' } },
   { name: 'KEmptyState', to: { name: 'emptystate' } },
   { name: 'KFileUpload', to: { name: 'fileupload' } },
+  { name: 'KFilterGroup', to: { name: 'filtergroup' } },
   { name: 'KInput', to: { name: 'input' } },
   { name: 'KInputSwitch', to: { name: 'inputswitch' } },
   { name: 'KLabel', to: { name: 'label' } },
