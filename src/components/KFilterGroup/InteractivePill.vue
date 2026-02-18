@@ -1,85 +1,93 @@
 <template>
-  <div
-    class="interactive-pill"
-    :class="pillState"
-    data-testid="interactive-pill"
-  >
+  <div>
     <KTooltip
+      max-width="350"
       :text="tooltipContent"
     >
-      <button
-        ref="trigger"
-        class="interactive-pill-trigger"
-        data-testId="interactive-pill-trigger"
-        type="button"
-        @blur="onPillBlur"
-        @click="onPillTrigger"
-        @focus="onPillFocus"
+      <div
+        class="interactive-pill"
+        :class="pillState"
+        data-testid="interactive-pill"
+        v-bind="attrs"
       >
-        <div
-          ref="labelRef"
-          class="label"
+        <button
+          ref="trigger"
+          class="interactive-pill-trigger"
+          data-testId="interactive-pill-trigger"
+          type="button"
+          @blur="onPillBlur"
+          @click="onPillTrigger"
+          @focus="onPillFocus"
         >
-          <span
-            class="base-label"
-            data-testid="interactive-pill-base-label"
+          <div
+            ref="labelRef"
+            class="label"
           >
-            {{ fullLabel }}
-          </span>
+            <span
+              class="base-label"
+              data-testid="interactive-pill-base-label"
+            >
+              {{ fullLabel }}
+            </span>
 
-          <span
-            class="content-label"
-            data-testid="interactive-pill-content-label"
+            <span
+              class="content-label"
+              data-testid="interactive-pill-content-label"
+            >
+              {{ contentLabel }}
+            </span>
+          </div>
+
+          <div
+            v-if="!hasContent"
+            class="pill-icon open-icon"
+            data-testid="interactive-pill-open-icon"
           >
-            {{ contentLabel }}
-          </span>
-        </div>
+            <slot name="open-icon">
+              <ChevronDownIcon
+                decorative
+                :size="KUI_ICON_SIZE_30"
+              />
+            </slot>
+          </div>
+        </button>
 
-        <div
-          v-if="!hasContent"
-          class="pill-icon open-icon"
-          data-testid="interactive-pill-open-icon"
+        <button
+          v-if="hasContent"
+          ref="clear"
+          class="pill-icon clear-icon"
+          data-testid="interactive-pill-clear-icon"
+          type="button"
+          @blur="onClearBlur"
+          @click="onClear"
+          @focus="onClearFocus"
         >
-          <slot name="open-icon">
-            <ChevronDownIcon
-              decorative
-              :size="KUI_ICON_SIZE_30"
-            />
-          </slot>
-        </div>
-      </button>
-
-      <button
-        v-if="hasContent"
-        ref="clear"
-        class="pill-icon clear-icon"
-        data-testid="interactive-pill-clear-icon"
-        type="button"
-        @blur="onClearBlur"
-        @click="onClear"
-        @focus="onClearFocus"
-      >
-        <div
-          class="clear-focus-highlight"
-          data-testid="interactive-pill-clear-focus"
-        >
-          <slot name="clear-icon">
-            <CloseIcon
-              decorative
-              :size="KUI_ICON_SIZE_30"
-            />
-          </slot>
-        </div>
-      </button>
+          <div
+            class="clear-focus-highlight"
+            data-testid="interactive-pill-clear-focus"
+          >
+            <slot name="clear-icon">
+              <CloseIcon
+                decorative
+                :size="KUI_ICON_SIZE_30"
+              />
+            </slot>
+          </div>
+        </button>
+      </div>
     </KTooltip>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, ref, useTemplateRef, watch } from 'vue'
+import { computed, nextTick, ref, useAttrs, useTemplateRef, watch } from 'vue'
 import { ChevronDownIcon, CloseIcon } from '@kong/icons'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
+
+// we want to manually specify where the attrs get inherited to
+defineOptions({ inheritAttrs: false })
+const attrs = useAttrs()
 
 const {
   label,
@@ -210,12 +218,16 @@ $shadowFocusNarrow: 0 0 0 2px rgba(
 
   button {
     @include defaultButtonReset;
+    overflow: hidden;
   }
 
   .label {
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
+    overflow: hidden;
     padding: var(--kui-space-20, $kui-space-20) var(--kui-space-20, $kui-space-20) var(--kui-space-20, $kui-space-20) var(--kui-space-40, $kui-space-40);
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     .base-label {
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
