@@ -4,6 +4,7 @@ describe('KFilterGroup - InteractivePill', () => {
   const PILL_ID = 'interactive-pill'
   const BASE_LABEL_ID = 'interactive-pill-base-label'
   const CONTENT_LABEL_ID = 'interactive-pill-content-label'
+  const TRIGGER_ID = 'interactive-pill-trigger'
   const CLEAR_ICON_ID = 'interactive-pill-clear-icon'
   const CLEAR_FOCUS_ID = 'interactive-pill-clear-focus'
   const OPEN_ICON_ID = 'interactive-pill-open-icon'
@@ -70,7 +71,8 @@ describe('KFilterGroup - InteractivePill', () => {
     cy.getTestId(PILL_ID)
       .should('not.have.css', 'box-shadow', PILL_FOCUS_BOX_SHADOW)
       .should('have.class', 'unfocused')
-      .focus()
+    cy.getTestId(TRIGGER_ID).focus()
+    cy.getTestId(PILL_ID)
       .should('have.css', 'box-shadow', PILL_FOCUS_BOX_SHADOW)
       .should('have.class', 'focused')
   })
@@ -94,23 +96,14 @@ describe('KFilterGroup - InteractivePill', () => {
     cy.getTestId(CLEAR_FOCUS_ID).should('have.css', 'box-shadow', CLEAR_FOCUS_BOX_SHADOW)
   })
 
-  it('does not render clear focus if the pill is focused', () => {
+  it('renders clear focus even if the pill is focused', () => {
     render({ label: 'test', contentLabel: 'foo', pillFocus: true, clearFocus: true })
     cy.getTestId(PILL_ID)
-      .should('have.class', 'clear-unfocused')
+      .should('have.class', 'clear-focused')
       .should('have.class', 'focused')
       .should('have.css', 'box-shadow', PILL_FOCUS_BOX_SHADOW)
     cy.getTestId(CLEAR_FOCUS_ID)
-      .should('not.have.css', 'box-shadow', CLEAR_FOCUS_BOX_SHADOW)
-
-    cy.getTestId(CLEAR_ICON_ID).focus()
-
-    cy.getTestId(PILL_ID)
-      .should('have.class', 'clear-unfocused')
-      .should('have.class', 'focused')
-      .should('have.css', 'box-shadow', PILL_FOCUS_BOX_SHADOW)
-    cy.getTestId(CLEAR_FOCUS_ID)
-      .should('not.have.css', 'box-shadow', CLEAR_FOCUS_BOX_SHADOW)
+      .should('have.css', 'box-shadow', CLEAR_FOCUS_BOX_SHADOW)
   })
 
   it('fires trigger when clicked', () => {
@@ -129,12 +122,7 @@ describe('KFilterGroup - InteractivePill', () => {
     cy.get('@clear').should('have.callCount', 0)
     cy.get('@trigger').should('have.callCount', 0)
 
-    cy.getTestId(PILL_ID).trigger('keydown', {
-      key: 'Enter',
-      code: 'Enter',
-      which: 13,
-      keyCode: 13,
-    })
+    cy.getTestId(TRIGGER_ID).focus().type('{enter}')
 
     cy.get('@clear').should('have.callCount', 0)
     cy.get('@trigger').should('have.callCount', 1)
@@ -145,7 +133,7 @@ describe('KFilterGroup - InteractivePill', () => {
     cy.get('@clear').should('have.callCount', 0)
     cy.get('@trigger').should('have.callCount', 0)
 
-    cy.getTestId(CLEAR_ICON_ID).click()
+    cy.getTestId(CLEAR_ICON_ID).focus().type('{enter}')
 
     cy.get('@clear').should('have.callCount', 1)
     cy.get('@trigger').should('have.callCount', 0)
@@ -156,12 +144,7 @@ describe('KFilterGroup - InteractivePill', () => {
     cy.get('@clear').should('have.callCount', 0)
     cy.get('@trigger').should('have.callCount', 0)
 
-    cy.getTestId(CLEAR_ICON_ID).trigger('keydown', {
-      key: 'Enter',
-      code: 'Enter',
-      which: 13,
-      keyCode: 13,
-    })
+    cy.getTestId(CLEAR_ICON_ID).focus().type('{enter}')
 
     cy.get('@clear').should('have.callCount', 1)
     cy.get('@trigger').should('have.callCount', 0)

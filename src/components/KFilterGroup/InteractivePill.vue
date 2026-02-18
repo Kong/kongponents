@@ -1,19 +1,20 @@
 <template>
-  <div>
+  <div
+    class="interactive-pill"
+    :class="pillState"
+    data-testid="interactive-pill"
+  >
     <KTooltip
       :text="tooltipContent"
     >
-      <div
-        ref="pillRef"
-        class="interactive-pill"
-        :class="pillState"
-        data-testid="interactive-pill"
-        tabindex="0"
-        v-bind="attrs"
+      <button
+        ref="trigger"
+        class="interactive-pill-trigger"
+        data-testId="interactive-pill-trigger"
+        type="button"
         @blur="onPillBlur"
         @click="onPillTrigger"
         @focus="onPillFocus"
-        @keydown.enter="onPillTrigger"
       >
         <div
           ref="labelRef"
@@ -35,30 +36,7 @@
         </div>
 
         <div
-          v-if="hasContent"
-          ref="clearRef"
-          class="pill-icon clear-icon"
-          data-testid="interactive-pill-clear-icon"
-          tabindex="0"
-          @blur="onClearBlur"
-          @click.prevent.stop="onClear"
-          @focus="onClearFocus"
-          @keydown.enter.prevent.stop="onClear"
-        >
-          <div
-            class="clear-focus-highlight"
-            data-testid="interactive-pill-clear-focus"
-          >
-            <slot name="clear-icon">
-              <CloseIcon
-                decorative
-                :size="KUI_ICON_SIZE_30"
-              />
-            </slot>
-          </div>
-        </div>
-        <div
-          v-else
+          v-if="!hasContent"
           class="pill-icon open-icon"
           data-testid="interactive-pill-open-icon"
         >
@@ -69,20 +47,39 @@
             />
           </slot>
         </div>
-      </div>
+      </button>
+
+      <button
+        v-if="hasContent"
+        ref="clear"
+        class="pill-icon clear-icon"
+        data-testid="interactive-pill-clear-icon"
+        type="button"
+        @blur="onClearBlur"
+        @click="onClear"
+        @focus="onClearFocus"
+      >
+        <div
+          class="clear-focus-highlight"
+          data-testid="interactive-pill-clear-focus"
+        >
+          <slot name="clear-icon">
+            <CloseIcon
+              decorative
+              :size="KUI_ICON_SIZE_30"
+            />
+          </slot>
+        </div>
+      </button>
     </KTooltip>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, ref, useAttrs, useTemplateRef, watch } from 'vue'
+import { computed, nextTick, ref, useTemplateRef, watch } from 'vue'
 import { ChevronDownIcon, CloseIcon } from '@kong/icons'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { KUI_ICON_SIZE_30 } from '@kong/design-tokens'
-
-// we want to manually specify where the attrs get inherited to
-defineOptions({ inheritAttrs: false })
-const attrs = useAttrs()
 
 const {
   label,
@@ -103,8 +100,8 @@ const {
 const hasContent = computed<boolean>(() => !!contentLabel)
 const browserClearFocus = ref(false)
 const browserPillFocus = ref(false)
-const pillRef = useTemplateRef('pillRef')
-const clearRef = useTemplateRef('clearRef')
+const triggerRef = useTemplateRef('trigger')
+const clearRef = useTemplateRef('clear')
 
 const emit = defineEmits<{
   (e: 'trigger'): void
@@ -146,9 +143,8 @@ const pillState = computed<string>(() => {
     ? 'focused'
     : 'unfocused'
 
-  const clearFocusClass = (clearFocus || browserClearFocus.value)
-    && !pillFocus && !browserPillFocus.value
-    ? 'clear-focused' // only clear-focused if the pill itself isn't focused
+  const clearFocusClass = clearFocus || browserClearFocus.value
+    ? 'clear-focused'
     : 'clear-unfocused'
   return `${contentClass} ${pillFocusClass} ${clearFocusClass}`
 })
@@ -172,7 +168,7 @@ const onClearBlur = () => {
 const onPillTrigger = () => {
   emit('trigger')
   if (browserPillFocus.value) {
-    pillRef.value?.blur()
+    triggerRef.value?.blur()
   }
 }
 
@@ -200,19 +196,26 @@ $shadowFocusNarrow: 0 0 0 2px rgba(
   border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
   border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
   box-shadow: 0 0 0 0 transparent;
-  cursor: pointer;
   display: inline-flex;
-  font-size: var(--kui-font-size-20, $kui-font-size-20);
   max-width: 240px;
   overflow: hidden;
   transition: box-shadow $kongponentsTransitionDurTimingFunc;
   white-space: nowrap;
 
+  .interactive-pill-trigger {
+    cursor: pointer;
+    display: flex;
+    transition: all $kongponentsTransitionDurTimingFunc;
+  }
+
+  button {
+    @include defaultButtonReset;
+  }
+
   .label {
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
-    overflow: hidden;
     padding: var(--kui-space-20, $kui-space-20) var(--kui-space-20, $kui-space-20) var(--kui-space-20, $kui-space-20) var(--kui-space-40, $kui-space-40);
-    text-overflow: ellipsis;
 
     .base-label {
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
@@ -229,10 +232,6 @@ $shadowFocusNarrow: 0 0 0 2px rgba(
     flex-shrink: 0;
     padding-left: var(--kui-space-20, $kui-space-20);
     padding-right: var(--kui-space-20, $kui-space-20);
-  }
-
-  .label,
-  .pill-icon {
     transition: all $kongponentsTransitionDurTimingFunc;
   }
 
@@ -249,7 +248,7 @@ $shadowFocusNarrow: 0 0 0 2px rgba(
   }
 
   &:focus,
-  .clear-icon:focus {
+  button:focus {
     // no default browser styles for focus state
     box-shadow: none;
     outline: none;
@@ -270,12 +269,12 @@ $shadowFocusNarrow: 0 0 0 2px rgba(
 
   &.unfocused.no-content:hover {
     background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-    border: 1px solid var(--kui-color-border-primary, $kui-color-border-primary);
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border-primary, $kui-color-border-primary);
   }
 
   &.unfocused.has-content {
-    .label:hover,
-    .label:hover + .clear-icon,
+    .interactive-pill-trigger:hover,
+    .interactive-pill-trigger:hover + .clear-icon,
     .clear-icon:hover {
       background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
       color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
