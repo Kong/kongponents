@@ -17,7 +17,7 @@ export type FilterOperator = 'eq' | 'neq' | 'contains' | 'exists' | 'lt' | 'lte'
 
 export interface Filter {
   /**
-   * The filter's label, displays in the filter selection dropdown and in the pill
+   * Displays in the filter selection dropdown and in the pill
    */
   label: string
 
@@ -29,7 +29,7 @@ export interface Filter {
 
   /**
    * The list of options the user can choose from in the filter. If unset, the
-   * filter renders an input box instead
+   * filter renders a text input instead
    * @default undefined
    */
   options?: SelectEntry[]
@@ -48,7 +48,7 @@ export interface Filter {
   pinned?: boolean
 
   /**
-   * The placement this filter's KPop should use
+   * The placement this filter's popover should use
    * @default 'bottom-start'
    */
   placement?: PopPlacement
@@ -63,7 +63,7 @@ export interface FilterSelection {
   /**
    * The value input by the user
    */
-  value: string | string[] | number | number[] | boolean | boolean[]
+  value: string | string[] | number | number[]
 
   /**
    * The user facing display string for this selection. Displays in the pill and
@@ -92,7 +92,7 @@ export interface FilterPillProps {
   filter: Filter
 
   /**
-   * Whether to initialize the pill with its KPop open
+   * Whether to initialize the pill with its popover open
    * @default false
    */
   initOpen?: boolean
@@ -121,7 +121,7 @@ export interface FilterGroupProps {
 
 export interface FilterGroupEmits {
   /**
-   * When a user triggers "apply" in a filter's KPop, this is fired. Provides
+   * When a user triggers "apply" in a filter's popover, this is fired. Provides
    * the key of the filter that was triggered and the KFilterGroup's new
    * selection object.
    */
@@ -135,13 +135,13 @@ export interface FilterGroupEmits {
   clear: [clearedFilterKey: string, selection: FilterGroupSelection]
 
   /**
-   * When a user triggers a filter's KPop to open, this is fired. Provides the
+   * When a user triggers a filter's popover to open, this is fired. Provides the
    * key of the filter that was triggered.
    */
   open: [openedFilterKey: string]
 
   /**
-   * When a user triggers a filter's KPop to close, this is fired. Provides the
+   * When a user triggers a filter's popover to close, this is fired. Provides the
    * key of the filter that was triggered.
    */
   close: [closedFilterKey: string]

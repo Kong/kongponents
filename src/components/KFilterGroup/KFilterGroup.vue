@@ -46,6 +46,11 @@ const {
 } = defineProps<FilterGroupProps>()
 const selection = defineModel<FilterGroupSelection>({ required: true })
 
+/**
+ * tracks any filter that's currently open. filters are only rendered as pills
+ * if they have a selection, are pinned, or are active (e.g. just added but not
+ * yet applied)
+ */
 const activeFilterKey = ref<string | undefined>()
 
 /**
@@ -151,10 +156,11 @@ watch(selection, (newSelection) => {
   // mutation of the selection.
   Object.entries(newSelection)
     .forEach(([key, value]) => {
-      const addedIndex = unpinnedSelectionKeys.value.indexOf(key)
+      // if the key is pinned we can short circuit as pinned filters are always displayed
       const pinned = filters[key]?.pinned
       if (pinned) return
 
+      const addedIndex = unpinnedSelectionKeys.value.indexOf(key)
       if (addedIndex !== -1 && value === undefined) {
         // remove undefined selections if it's already in the list
         unpinnedSelectionKeys.value = [
