@@ -1,4 +1,5 @@
 import type { SelectEntry } from './select'
+import type { MultiselectEntry } from './multi-select'
 import type { PopPlacement } from './popover'
 
 /**
@@ -22,23 +23,27 @@ export interface Filter {
   label: string
 
   /**
-   * The list of FilterOperators supported by this filter
-   * @default ['eq']
+   * The list of FilterOperators supported by this filter. Must have at least one
+   * FilterOperator.
+   * @default ['contains', 'eq']
    */
   operators?: FilterOperator[]
 
   /**
-   * The list of options the user can choose from in the filter. If unset, the
-   * filter renders a text input instead
+   * The list of options the user can choose one item from in the filter. If
+   * both `selectOptions` and `multiselectOptions` are unset, the filter renders
+   * a text input instead
    * @default undefined
    */
-  options?: SelectEntry[]
+  selectOptions?: SelectEntry[]
 
   /**
-   * Whether a user can select more than one `option` or not.
-   * @default false
+   * The list of options the user can choose multiple item from in the filter.
+   * If both `selectOptions` and `multiselectOptions` are unset, the filter
+   * renders an input box instead
+   * @default undefined
    */
-  multiple?: boolean
+  multiselectOptions?: MultiselectEntry[]
 
   /**
    * If true the filter's pill is always rendered, regardless of whether it has
@@ -102,6 +107,12 @@ export interface FilterPillProps {
    * @default undefined
    */
   selection?: FilterSelection
+
+  /**
+   * Whether the filter's content slot was overridden by the host app
+   * @default false
+   */
+  isCustom?: boolean
 }
 
 export interface FilterGroupProps {

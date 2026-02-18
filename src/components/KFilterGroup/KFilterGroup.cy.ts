@@ -1,12 +1,15 @@
-import { ref, type Ref } from 'vue'
-import { mount } from 'cypress/vue'
 import KFilterGroup from '@/components/KFilterGroup/KFilterGroup.vue'
 import type { Filter, FilterGroupFilters, FilterGroupSelection, FilterSelection } from '@/types'
 
 describe('KFilterGroup', () => {
   const FILTER_LABEL_ID = 'filter-group-label'
   const FILTER_SELECTOR_ID = 'filter-selector'
+  const CANCEL_ID = 'filter-pill-cancel'
+  const APPLY_ID = 'filter-pill-apply'
+  const INPUT_ID = 'filter-pill-input'
+  const CLEAR_ID = 'interactive-pill-clear-icon'
   const getFilterSelector = (key: string) => `.interactive-pill[data-testid="filter-group-pill-${key}"]`
+  const getPopoverSelector = (key: string) => `[data-testid="filter-group-pill-${key}-popover"]`
 
   const SIMPLE_FILTER_SELECTION: FilterSelection = {
     operator: 'eq',
@@ -38,6 +41,13 @@ describe('KFilterGroup', () => {
         onClear,
       },
     }).as('filterGroup')
+  }
+
+  const addAndApplyInputFilter = (key: string) => {
+    cy.getTestId(FILTER_SELECTOR_ID).click()
+    cy.get(`[data-testid="dropdown-item-trigger"][value="${key}"]`).click()
+    cy.get(getPopoverSelector(key)).findTestId(INPUT_ID).type('foo')
+    cy.get(getPopoverSelector(key)).findTestId(APPLY_ID).click()
   }
 
   it('renders', () => {
@@ -80,22 +90,105 @@ describe('KFilterGroup', () => {
     cy.get(getFilterSelector('basic')).should('exist').should('be.visible')
   })
 
-  // TODO this works, but needs the apply functionality to really be reasonable test
   it('adds a filter when clicked', () => {
     render({ filters: { basic: BASIC_FILTER, pinned: PINNED_FILTER } })
     cy.get(getFilterSelector('basic')).should('not.exist')
     cy.getTestId(FILTER_SELECTOR_ID).click()
     cy.get('[data-testid="dropdown-item-trigger"][value="basic"]').click()
+    cy.get(getPopoverSelector('basic')).findTestId(INPUT_ID).type('foo')
+    cy.get(getPopoverSelector('basic')).findTestId(APPLY_ID).click()
     cy.get(getFilterSelector('basic')).should('exist').should('be.visible')
   })
 
-  //TODO to be added when apply/content functionality is built out
-  it.skip('renders added filters in the order in which they were added', () => {})
-  it.skip('closes other open filters when a new one is opened', () => {})
-  it.skip('removes non-pinned filters if no value is selected', () => {})
-  it.skip('opens a filter automatically once it is selected', () => {})
-  it.skip('emits @open', () => {})
-  it.skip('emits @close', () => {})
-  it.skip('emits @apply', () => {})
-  it.skip('emits @clear', () => {})
+  it('removes non-pinned filters if no value is selected', () => {
+    render({ filters: { basic: BASIC_FILTER, pinned: PINNED_FILTER } })
+    cy.get(getFilterSelector('basic')).should('not.exist')
+    cy.getTestId(FILTER_SELECTOR_ID).click()
+    cy.get('[data-testid="dropdown-item-trigger"][value="basic"]').click()
+    cy.get(getPopoverSelector('basic')).findTestId(CANCEL_ID).click()
+    cy.get(getFilterSelector('basic')).should('not.exist')
+  })
+
+  it('hides the filter selector when all filters are visible', () => {
+    render({ filters: { pinned: PINNED_FILTER } })
+    cy.getTestId(FILTER_SELECTOR_ID).should('not.exist')
+  })
+
+  it('hides the filter selector when all filters are visible because the user added them', () => {
+    render({ filters: { basic: BASIC_FILTER, pinned: PINNED_FILTER } })
+    cy.getTestId(FILTER_SELECTOR_ID).should('exist')
+    addAndApplyInputFilter('basic')
+    cy.getTestId(FILTER_SELECTOR_ID).should('not.exist')
+  })
+
+  it('renders added filters in the order in which they were added', () => {
+    render({
+      filters: {
+        basic_a: BASIC_FILTER,
+        basic_z: BASIC_FILTER,
+        basic_b: BASIC_FILTER,
+      },
+    })
+    addAndApplyInputFilter('basic_z')
+    addAndApplyInputFilter('basic_b')
+    addAndApplyInputFilter('basic_a')
+
+    const pillSelect = '.interactive-pill[data-testid*="filter-group-pill-"]'
+
+    cy.get(pillSelect).should('have.length', 3).then(($els) => {
+      expect($els.eq(0)).to.have.attr('data-testid', 'filter-group-pill-basic_z')
+      expect($els.eq(1)).to.have.attr('data-testid', 'filter-group-pill-basic_b')
+      expect($els.eq(2)).to.have.attr('data-testid', 'filter-group-pill-basic_a')
+    })
+  })
+
+  it('emits @open', () => {
+    cy.get('@open').should('have.callCount', 0)
+    cy.get('@close').should('have.callCount', 0)
+
+    render({ filters: { basic: BASIC_FILTER, pinned: PINNED_FILTER } })
+    cy.get(getFilterSelector('pinned')).click()
+
+    cy.get('@open').should('have.callCount', 1)
+    cy.get('@close').should('have.callCount', 0)
+  })
+
+  it('emits @close', () => {
+    cy.get('@open').should('have.callCount', 0)
+    cy.get('@close').should('have.callCount', 0)
+
+    render({ filters: { basic: BASIC_FILTER, pinned: PINNED_FILTER } })
+    cy.get(getFilterSelector('pinned')).click()
+
+    cy.get('@open').should('have.callCount', 1)
+    cy.get('@close').should('have.callCount', 0)
+
+    cy.get(getFilterSelector('pinned')).click()
+
+    cy.get('@open').should('have.callCount', 1)
+    cy.get('@close').should('have.callCount', 1)
+  })
+
+  it('emits @apply', () => {
+    cy.get('@apply').should('have.callCount', 0)
+    render({ filters: { basic: BASIC_FILTER, pinned: PINNED_FILTER } })
+    addAndApplyInputFilter('basic')
+    cy.get('@apply').should('have.callCount', 1)
+  })
+
+  it('emits @clear', () => {
+    cy.get('@apply').should('have.callCount', 0)
+    cy.get('@clear').should('have.callCount', 0)
+
+    render({ filters: { basic: BASIC_FILTER } })
+    addAndApplyInputFilter('basic')
+
+    cy.get('@apply').should('have.callCount', 1)
+    cy.get('@clear').should('have.callCount', 0)
+
+    cy.getTestId(CLEAR_ID).click()
+
+    cy.get('@apply').should('have.callCount', 1)
+    cy.get('@clear').should('have.callCount', 1)
+  })
 })

@@ -6,6 +6,11 @@ describe('KFilterGroup - FilterPill', () => {
   const CONTENT_ID = 'filter-pill-content'
   const CLEAR_ICON_ID = 'interactive-pill-clear-icon'
   const OPEN_ICON_ID = 'interactive-pill-open-icon'
+  const APPLY_ID = 'filter-pill-apply'
+  const CANCEL_ID = 'filter-pill-cancel'
+  const INPUT_ID = 'filter-pill-input'
+  const SELECT_ID = 'filter-pill-select'
+  const MULTISELECT_ID = 'filter-pill-multiselect'
 
   const render = ({
     filter,
@@ -124,7 +129,73 @@ describe('KFilterGroup - FilterPill', () => {
     cy.get('@clear').should('have.callCount', 1)
   })
 
-  // TODO update these tests when the content is built
-  it.skip('emits apply when apply button is clicked', () => {})
-  it.skip('emits close when cancel button is clicked', () => {})
+  describe('popover content interactions', () => {
+    it('emits @close when cancel button is clicked', () => {
+      cy.get('@close').should('have.callCount', 0)
+      render({ filter: { label: 'Foo' } })
+      cy.getTestId(PILL_ID).click()
+      cy.getTestId(CANCEL_ID).click()
+      cy.get('@close').should('have.callCount', 1)
+    })
+
+    it('emits @apply when apply button is clicked', () => {
+      cy.get('@apply').should('have.callCount', 0)
+      render({ filter: { label: 'Foo' } })
+      cy.getTestId(PILL_ID).click()
+      cy.getTestId(APPLY_ID).should('have.attr', 'disabled')
+      cy.getTestId(APPLY_ID).click()
+      cy.get('@apply').should('have.callCount', 0)
+    })
+
+    it('text input: focuses the input if the filter is an input type', () => {
+      render({ filter: { label: 'Foo' } })
+      cy.getTestId(INPUT_ID).should('exist').should('not.be.visible').should('not.have.focus')
+      cy.getTestId(PILL_ID).click()
+      cy.getTestId(INPUT_ID).should('exist').should('be.visible').should('have.focus')
+    })
+
+    it('select input: emits apply with the selected content', () => {
+      cy.get('@apply').should('have.callCount', 0)
+      render({ filter: { label: 'Foo', selectOptions: [{
+        label: 'Bar',
+        value: 'bar',
+      }, {
+        label: 'Baz',
+        value: 'baz',
+      }] } })
+      cy.getTestId(PILL_ID).click()
+      cy.getTestId(SELECT_ID).click()
+      cy.getTestId('select-item-baz').click()
+      cy.getTestId(APPLY_ID).click()
+      cy.get('@apply').should('have.callCount', 1)
+      cy.get('@apply').should('have.been.calledWith', {
+        operator: 'eq',
+        text: 'Baz',
+        value: 'baz',
+      })
+    })
+
+    it('multi select input: emits apply with multiple selected content', () => {
+      cy.get('@apply').should('have.callCount', 0)
+      render({ filter: { label: 'Foo', multiselectOptions: [{
+        label: 'Bar',
+        value: 'bar',
+      }, {
+        label: 'Baz',
+        value: 'baz',
+      }] } })
+      cy.getTestId(PILL_ID).click()
+      cy.getTestId(MULTISELECT_ID).click()
+      cy.getTestId('multiselect-item-baz').click()
+      cy.getTestId('multiselect-item-bar').click()
+      cy.getTestId(MULTISELECT_ID).type('{esc}')
+      cy.getTestId(APPLY_ID).click()
+      cy.get('@apply').should('have.callCount', 1)
+      cy.get('@apply').should('have.been.calledWith', {
+        operator: 'eq',
+        text: 'Baz, Bar',
+        value: ['baz', 'bar'],
+      })
+    })
+  })
 })
