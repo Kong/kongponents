@@ -12,12 +12,17 @@
       :data-testid="`filter-group-pill-${key}`"
       :filter="filters[key]!"
       :init-open="key === activeFilterKey"
+      :is-custom="!!slots[`${key}-content`]"
       :selection="selection[key]"
       @apply="(selected) => onFilterApply(key, selected)"
       @clear="onFilterClear(key)"
       @close="onFilterClose(key)"
       @open="onFilterOpen(key)"
-    />
+    >
+      <template #content>
+        <slot :name="`${key}-content`" />
+      </template>
+    </FilterPill>
     <FilterSelector
       v-if="hiddenFilterKeys.length > 0"
       :filters="hiddenFilters"
@@ -28,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref, useSlots, watch } from 'vue'
 import FilterSelector from './FilterSelector.vue'
 import FilterPill from './FilterPill.vue'
 import type {
@@ -39,6 +44,8 @@ import type {
   FilterSelection,
 } from '@/types'
 import { KUI_ANIMATION_DURATION_20 } from '@kong/design-tokens'
+
+const slots = useSlots()
 
 const {
   filters,
