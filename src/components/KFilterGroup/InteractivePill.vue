@@ -105,7 +105,7 @@ const {
   tooltipText?: string
 }>()
 
-const hasContent = computed<boolean>(() => !!contentLabel)
+const hasContent = computed((): boolean => !!contentLabel)
 const browserClearFocus = ref(false)
 const browserPillFocus = ref(false)
 const triggerRef = useTemplateRef('trigger')
@@ -116,7 +116,7 @@ const emit = defineEmits<{
   (e: 'clear'): void
 }>()
 
-const fullLabel = computed<string>(() => {
+const fullLabel = computed((): string => {
   return hasContent.value ? `${label}${delimiter}` : label
 })
 
@@ -129,7 +129,7 @@ watch(() => [fullLabel.value, contentLabel], async () => {
     : false
 }, { immediate: true })
 
-const tooltipContent = computed<string>(() => {
+const tooltipContent = computed((): string => {
   if (pillFocus || clearFocus) {
     // while focused, a tooltip is distracting from the content the focused
     // state is supposed to be displaying/manipulating.
@@ -145,7 +145,7 @@ const tooltipContent = computed<string>(() => {
     : '' // no tooltip needed if there's no content
 })
 
-const pillState = computed<string>(() => {
+const pillState = computed((): string => {
   const contentClass = hasContent.value ? 'has-content' : 'no-content'
   const pillFocusClass = pillFocus || browserPillFocus.value
     ? 'focused'

@@ -8,8 +8,8 @@ describe('KFilterGroup', () => {
   const APPLY_ID = 'filter-pill-apply'
   const INPUT_ID = 'filter-pill-input'
   const CLEAR_ID = 'interactive-pill-clear-icon'
-  const getFilterSelector = (key: string) => `.interactive-pill[data-testid="filter-group-pill-${key}"]`
-  const getPopoverSelector = (key: string) => `[data-testid="filter-group-pill-${key}-popover"]`
+  const getFilterSelector = (key: string) => `[data-testid="filter-group-pill-${key}"] .interactive-pill`
+  const getPopoverSelector = (key: string) => `[data-testid="filter-group-pill-${key}"] .popover`
 
   const SIMPLE_FILTER_SELECTION: FilterSelection = {
     operator: 'eq',
@@ -72,7 +72,7 @@ describe('KFilterGroup', () => {
         pinned_b: PINNED_FILTER,
       },
     })
-    const pillSelect = '.interactive-pill[data-testid*="filter-group-pill-"]'
+    const pillSelect = '[data-testid*="filter-group-pill-"]'
     cy.get(pillSelect).should('have.length', 3).then(($els) => {
       expect($els.eq(0)).to.have.attr('data-testid', 'filter-group-pill-pinned_a')
       expect($els.eq(1)).to.have.attr('data-testid', 'filter-group-pill-pinned_z')
@@ -133,7 +133,7 @@ describe('KFilterGroup', () => {
     addAndApplyInputFilter('basic_b')
     addAndApplyInputFilter('basic_a')
 
-    const pillSelect = '.interactive-pill[data-testid*="filter-group-pill-"]'
+    const pillSelect = '[data-testid*="filter-group-pill-"]'
 
     cy.get(pillSelect).should('have.length', 3).then(($els) => {
       expect($els.eq(0)).to.have.attr('data-testid', 'filter-group-pill-basic_z')

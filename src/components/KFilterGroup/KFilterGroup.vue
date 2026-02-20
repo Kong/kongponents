@@ -6,23 +6,26 @@
     >
       Filters
     </div>
-    <FilterPill
+    <div
       v-for="key in visibleFilterKeys"
       :key="`filter-pill-${key}`"
       :data-testid="`filter-group-pill-${key}`"
-      :filter="filters[key]!"
-      :init-open="key === activeFilterKey"
-      :is-custom="!!slots[`${key}-content`]"
-      :selection="selection[key]"
-      @apply="(selected) => onFilterApply(key, selected)"
-      @clear="onFilterClear(key)"
-      @close="onFilterClose(key)"
-      @open="onFilterOpen(key)"
     >
-      <template #content>
-        <slot :name="`${key}-content`" />
-      </template>
-    </FilterPill>
+      <FilterPill
+        :custom="!!slots[`${key}-content`]"
+        :filter="filters[key]!"
+        :init-open="key === activeFilterKey"
+        :selection="selection[key]"
+        @apply="(selected) => onFilterApply(key, selected)"
+        @clear="onFilterClear(key)"
+        @close="onFilterClose(key)"
+        @open="onFilterOpen(key)"
+      >
+        <template #default>
+          <slot :name="getFilterSlotName(key)" />
+        </template>
+      </FilterPill>
+    </div>
     <FilterSelector
       v-if="hiddenFilterKeys.length > 0"
       :filters="hiddenFilters"
@@ -41,11 +44,24 @@ import type {
   FilterGroupEmits,
   FilterGroupFilters,
   FilterGroupSelection,
+  FilterGroupSlots,
   FilterSelection,
+  FilterSlotName,
 } from '@/types'
 import { KUI_ANIMATION_DURATION_20 } from '@kong/design-tokens'
 
 const slots = useSlots()
+
+/**
+ * Utilize a helper function to generate the column slot name.
+ * This helps TypeScript infer the slot name in the template section so that the slot props can be resolved.
+ * @param {string} filterKey The filter's key
+ */
+const getFilterSlotName = (filterKey: string): FilterSlotName => {
+  return `filter-${filterKey}`
+}
+
+defineSlots<FilterGroupSlots>()
 
 const {
   filters,
@@ -70,7 +86,7 @@ const emit = defineEmits<FilterGroupEmits>()
 /**
  * the filters that should appear as a pill
  */
-const visibleFilterKeys = computed<string[]>(() => {
+const visibleFilterKeys = computed((): string[] => {
   // all filters that are pinned appear in the order originally provided
   const pinnedFilterKeys = Object.keys(filters)
     .filter((key) => filters[key]!.pinned)
@@ -97,10 +113,10 @@ const visibleFilterKeys = computed<string[]>(() => {
 /**
  * The filters that should appear in the `FilterSelector`
  */
-const hiddenFilterKeys = computed<string[]>(() => Object.keys(filters)
+const hiddenFilterKeys = computed((): string[] => Object.keys(filters)
   .filter((key) => !visibleFilterKeys.value.includes(key)))
 
-const hiddenFilters = computed<FilterGroupFilters>(() => hiddenFilterKeys.value
+const hiddenFilters = computed((): FilterGroupFilters => hiddenFilterKeys.value
   .reduce((acc, key) => ({
     ...acc,
     [key]: filters[key],

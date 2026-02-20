@@ -67,11 +67,12 @@ const filters = ref<FilterGroupFilters>({
     label: 'Select & custom operators',
     pinned: true,
     operators: ['eq', 'neq', 'exists', 'contains'],
-    selectOptions: [{ value: 'a', label: 'Ayy' }, { value: 'b', label: 'Bee' }],
+    options: [{ value: 'a', label: 'Ayy' }, { value: 'b', label: 'Bee' }],
   },
   multiselect: {
     label: 'Multiselect',
-    multiselectOptions: [{ value: 'a', label: 'Ayy' }, { value: 'b', label: 'Bee' }, { value: 'c', label: 'See' }],
+    options: [{ value: 'a', label: 'Ayy' }, { value: 'b', label: 'Bee' }, { value: 'c', label: 'See' }],
+    multiple: true,
   },
   longlabel: {
     label: 'Really long label. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra orci in erat pharetra eleifend. Praesent euismod ultrices auctor.',

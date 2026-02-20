@@ -156,7 +156,7 @@ describe('KFilterGroup - FilterPill', () => {
 
     it('select input: emits apply with the selected content', () => {
       cy.get('@apply').should('have.callCount', 0)
-      render({ filter: { label: 'Foo', selectOptions: [{
+      render({ filter: { label: 'Foo', multiple: false, options: [{
         label: 'Bar',
         value: 'bar',
       }, {
@@ -177,7 +177,7 @@ describe('KFilterGroup - FilterPill', () => {
 
     it('multi select input: emits apply with multiple selected content', () => {
       cy.get('@apply').should('have.callCount', 0)
-      render({ filter: { label: 'Foo', multiselectOptions: [{
+      render({ filter: { label: 'Foo', multiple: true, options: [{
         label: 'Bar',
         value: 'bar',
       }, {

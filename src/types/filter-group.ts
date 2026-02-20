@@ -1,5 +1,3 @@
-import type { SelectEntry } from './select'
-import type { MultiselectEntry } from './multi-select'
 import type { PopPlacement } from './popover'
 
 /**
@@ -16,6 +14,13 @@ import type { PopPlacement } from './popover'
  */
 export type FilterOperator = 'eq' | 'neq' | 'contains' | 'exists' | 'lt' | 'lte' | 'gt' | 'gte'
 
+export interface FilterOption {
+  /** Label for the item to be displayed in the (multi)select dropdown. */
+  label: string
+  /** value for the item to be displayed in the (multi)select dropdown. */
+  value: string
+}
+
 export interface Filter {
   /**
    * Displays in the filter selection dropdown and in the pill
@@ -25,25 +30,22 @@ export interface Filter {
   /**
    * The list of FilterOperators supported by this filter. Must have at least one
    * FilterOperator.
-   * @default ['contains', 'eq']
+   * @default ['eq']
    */
   operators?: FilterOperator[]
 
   /**
-   * The list of options the user can choose one item from in the filter. If
-   * both `selectOptions` and `multiselectOptions` are unset, the filter renders
-   * a text input instead
+   * The list of options the user can choose from in the filter. If unset, the
+   * filter renders a text input instead
    * @default undefined
    */
-  selectOptions?: SelectEntry[]
+  options?: FilterOption[]
 
   /**
-   * The list of options the user can choose multiple item from in the filter.
-   * If both `selectOptions` and `multiselectOptions` are unset, the filter
-   * renders an input box instead
-   * @default undefined
+   * Whether a user can select more than one `option` or not.
+   * @default false
    */
-  multiselectOptions?: MultiselectEntry[]
+  multiple?: boolean
 
   /**
    * If true the filter's pill is always rendered, regardless of whether it has
@@ -68,7 +70,7 @@ export interface FilterSelection {
   /**
    * The value input by the user
    */
-  value: string | string[] | number | number[]
+  value: string | string[]
 
   /**
    * The user facing display string for this selection. Displays in the pill and
@@ -112,7 +114,17 @@ export interface FilterPillProps {
    * Whether the filter's content slot was overridden by the host app
    * @default false
    */
-  isCustom?: boolean
+  custom?: boolean
+}
+
+/**
+ * @internal
+ */
+export type FilterPillSlots = {
+  /**
+   * the filter's popover content.
+   */
+  default?(): any
 }
 
 export interface FilterGroupProps {
@@ -156,4 +168,18 @@ export interface FilterGroupEmits {
    * key of the filter that was triggered.
    */
   close: [closedFilterKey: string]
+}
+
+/**
+ * Provide a type interface for KFilterGroup `filter-*` slot names.
+ *
+ * This helps TypeScript infer the slot name in the template section so that
+ * the slot props can be resolved.
+ */
+export type FilterSlotName<Key extends string = string> = `filter-${Key}`
+export type FilterGroupSlots = {
+  /**
+   * Each filter's popover content.
+   */
+  [K in FilterSlotName]?: () => any
 }
