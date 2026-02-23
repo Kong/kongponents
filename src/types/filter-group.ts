@@ -59,6 +59,12 @@ export interface Filter {
    * @default 'bottom-start'
    */
   placement?: PopPlacement
+
+  /**
+   * Max width of the filter's popover.
+   * @default '400px'
+   */
+  maxWidth?: number | string
 }
 
 export interface FilterSelection {

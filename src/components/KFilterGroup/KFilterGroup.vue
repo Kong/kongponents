@@ -12,7 +12,7 @@
       :data-testid="`filter-group-pill-${key}`"
     >
       <FilterPill
-        :custom="!!slots[`${key}-content`]"
+        :custom="!!slots[`filter-${key}`]"
         :filter="filters[key]!"
         :init-open="key === activeFilterKey"
         :selection="selection[key]"

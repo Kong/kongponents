@@ -1,7 +1,7 @@
 <template>
   <KPop
     ref="filterPopper"
-    :max-width="filterType === 'custom' ? 'none' : '400px'"
+    :max-width="filter.maxWidth ?? '400px'"
     :offset="KUI_SPACE_30"
     :placement="filter.placement ?? 'bottom-start'"
     width="auto"
@@ -31,7 +31,7 @@
         data-testid="filter-pill-content"
       >
         <slot name="default">
-          <div class="internal-layout">
+          <div class="default-layout">
             <div
               v-if="operators.length > 1"
               class="operator"
@@ -42,6 +42,7 @@
                 label="Operator"
               />
             </div>
+
             <div class="value">
               <KSelect
                 v-if="filterType === 'select'"
@@ -150,7 +151,7 @@ const userInput = ref<string>()
 /**
  * Tracks the selection made by the user in the select filter (if this is a select filter)
  */
-const userSelect = ref<string>()
+const userSelect = ref<string | undefined>()
 
 /**
  * Tracks the selection made by the user in the multiselect filter (if this is a multiselect filter)
@@ -311,9 +312,17 @@ const focusUser = () => {
  * displayed.
  */
 const resetUserSelection = () => {
+  // reset to selection if it exists, if not use first operator in the filter
+  // definition, otherwise fallback to undefined
   userOperator.value = selection?.operator ?? operators.value?.[0]
-  userInput.value = typeof selection?.value === 'string' ? selection.value : undefined
+
+  // reset to selection if selection has a string, otherwise empty string
+  userInput.value = typeof selection?.value === 'string' ? selection.value : ''
+
+  // reset to selection if selection exists in the filter options, otherwise undefined
   userSelect.value = filter.options?.find(({ value }) => value === selection?.value)?.value
+
+  // reset to selection if selection exists in the filter options, otherwise []
   userMultiselect.value = filter.options?.filter(({ value }) => {
     if (Array.isArray(selection?.value)) {
       return (selection.value).includes(`${value}`)
@@ -424,7 +433,7 @@ const onTrigger = () => {
   margin: $kui-space-40 0;
   min-width: 366px; // 400px - padding
 
-  .internal-layout {
+  .default-layout {
     align-items: center;
     display: flex;
     gap: var(--kui-space-40, $kui-space-40);

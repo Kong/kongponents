@@ -15,10 +15,10 @@
       @clear="onClear"
       @open="onOpen"
     >
-      <template #custom-content>
-        <KInput
+      <template #filter-custom>
+        <KInputSwitch
           v-model="foo"
-          label="This is in the #custom-content slot"
+          label="This is in the #filter-custom slot"
           placeholder="Super duper custom"
         />
       </template>
@@ -31,14 +31,14 @@ import { inject, ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import type { FilterGroupFilters, FilterGroupSelection } from '@/types'
 
-const foo = ref<string>('')
+const foo = ref<boolean>(true)
 
 const onApply = (key: string) => {
   if (key === 'custom') {
     selection.value.custom = {
       operator: 'eq',
-      value: foo.value,
-      text: foo.value,
+      value: foo.value ? 'true' : 'false',
+      text: foo.value ? 'True' : 'False',
     }
   }
 }
@@ -51,7 +51,7 @@ const onClear = (key: string) => {
 
 const onOpen = (key: string) => {
   if (key === 'custom') {
-    foo.value = selection.value.custom?.value?.toString() ?? ''
+    foo.value = selection.value.custom?.value === 'true'
   }
 }
 
