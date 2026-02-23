@@ -61,12 +61,13 @@ const filters = ref<FilterGroupFilters>({
   },
   pinnedInput: {
     label: 'Pinned input filter',
+    operators: ['eq', 'contains'],
     pinned: true,
   },
   anotherPinned: {
     label: 'Select & custom operators',
     pinned: true,
-    operators: ['eq', 'neq', 'exists', 'contains'],
+    operators: ['eq', 'neq', 'contains', 'exists', 'lt', 'lte', 'gt', 'gte'],
     options: [{ value: 'a', label: 'Ayy' }, { value: 'b', label: 'Bee' }],
   },
   multiselect: {

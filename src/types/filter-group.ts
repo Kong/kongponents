@@ -7,10 +7,10 @@ import type { PopPlacement } from './popover'
  * neq - not equal
  * contains - interpretation depends on the filter's implementation
  * exists - interpretation depends on the filter's implementation
- * lt - less than
- * lte - less than or equal to
- * gt - greater than
- * gte - greater than or equal to
+ * lt - <, less than
+ * lte - ≤, less than or equal to
+ * gt - >, greater than
+ * gte - ≥, greater than or equal to
  */
 export type FilterOperator = 'eq' | 'neq' | 'contains' | 'exists' | 'lt' | 'lte' | 'gt' | 'gte'
 

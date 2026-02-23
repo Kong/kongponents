@@ -11,6 +11,7 @@ describe('KFilterGroup - FilterPill', () => {
   const INPUT_ID = 'filter-pill-input'
   const SELECT_ID = 'filter-pill-select'
   const MULTISELECT_ID = 'filter-pill-multiselect'
+  const getPopoverSelector = (key: string) => `[data-testid="filter-group-pill-${key}"] .popover`
 
   const render = ({
     filter,
@@ -60,7 +61,7 @@ describe('KFilterGroup - FilterPill', () => {
   it('renders the selection text with the correct operator text', () => {
     render({ filter: { label: 'Foo' } })
     const ops = ['eq', 'neq', 'contains', 'exists', 'lt', 'lte', 'gt', 'gte']
-    const expected = [' = ', ' ≠ ', ' in ', ': ', ' < ', ' ≤ ', ' > ', ' ≥ ']
+    const expected = [' = ', ' ≠ ', ': ', ': ', ' < ', ' ≤ ', ' > ', ' ≥ ']
 
     ops.forEach((op, index) => {
       cy.get('@filterPill')
@@ -142,9 +143,10 @@ describe('KFilterGroup - FilterPill', () => {
       cy.get('@apply').should('have.callCount', 0)
       render({ filter: { label: 'Foo' } })
       cy.getTestId(PILL_ID).click()
-      cy.getTestId(APPLY_ID).should('have.attr', 'disabled')
+      cy.getTestId(APPLY_ID).should('have.attr', 'disabled', 'disabled')
+      cy.getTestId(INPUT_ID).type('foo')
       cy.getTestId(APPLY_ID).click()
-      cy.get('@apply').should('have.callCount', 0)
+      cy.get('@apply').should('have.callCount', 1)
     })
 
     it('text input: focuses the input if the filter is an input type', () => {

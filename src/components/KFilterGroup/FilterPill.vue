@@ -262,7 +262,8 @@ const delimiter = computed((): string | undefined => {
     case 'neq':
       return ' ≠ '
     case 'contains':
-      return ' in '
+      // 'contains' means 'exists in this selection' for (multi)select
+      return filterType.value === 'input' ? ': ' : ' in '
     case 'lt':
       return ' < '
     case 'lte':
@@ -283,13 +284,14 @@ const delimiter = computed((): string | undefined => {
 const operatorSelectItems = computed((): SelectItem[] => {
   const filterOperatorLabels = {
     eq: 'Equals',
-    neq: 'Not equal to',
-    contains: 'Contains',
+    neq: 'Not equals',
+    // 'contains' means 'exists in this selection' for (multi)select
+    contains: filterType.value === 'input' ? 'Contains' : 'In',
     exists: 'Exists',
-    lt: 'Less than',
-    lte: 'Less than or equal to',
-    gt: 'Greater than',
-    gte: 'Greater than or equal to',
+    lt: '<',
+    lte: '≤',
+    gt: '>',
+    gte: '≥',
   }
 
   return operators.value.map((operator) => ({
@@ -316,8 +318,8 @@ const resetUserSelection = () => {
   // definition, otherwise fallback to undefined
   userOperator.value = selection?.operator ?? operators.value?.[0]
 
-  // reset to selection if selection has a string, otherwise empty string
-  userInput.value = typeof selection?.value === 'string' ? selection.value : ''
+  // reset to selection if selection has a string, otherwise undefined
+  userInput.value = typeof selection?.value === 'string' ? selection.value : undefined
 
   // reset to selection if selection exists in the filter options, otherwise undefined
   userSelect.value = filter.options?.find(({ value }) => value === selection?.value)?.value
@@ -441,7 +443,7 @@ const onTrigger = () => {
 
     .operator {
       flex-shrink: 0;
-      width: 30%;
+      width: 33%;
     }
 
     .value {
