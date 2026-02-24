@@ -2,8 +2,6 @@
 
 **KFilterGroup** should be described here in the first paragraph.
 
-<KFilterGroup />
-
 ```html
 <template>
   <KFilterGroup />
@@ -21,8 +19,6 @@
 Description of `examplePropName`
 
 Actual component using examplePropName
-
-<KFilterGroup :examplePropName="true" />
 
 ```html
 <KFilterGroup examplePropName="variation1" />
