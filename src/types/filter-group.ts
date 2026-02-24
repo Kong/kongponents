@@ -1,4 +1,3 @@
-import type { SelectEntry } from './select'
 import type { PopPlacement } from './popover'
 
 /**
@@ -8,12 +7,19 @@ import type { PopPlacement } from './popover'
  * neq - not equal
  * contains - interpretation depends on the filter's implementation
  * exists - interpretation depends on the filter's implementation
- * lt - less than
- * lte - less than or equal to
- * gt - greater than
- * gte - greater than or equal to
+ * lt - <, less than
+ * lte - ≤, less than or equal to
+ * gt - >, greater than
+ * gte - ≥, greater than or equal to
  */
 export type FilterOperator = 'eq' | 'neq' | 'contains' | 'exists' | 'lt' | 'lte' | 'gt' | 'gte'
+
+export interface FilterOption {
+  /** Label for the item to be displayed in the (multi)select dropdown. */
+  label: string
+  /** value for the item to be displayed in the (multi)select dropdown. */
+  value: string
+}
 
 export interface Filter {
   /**
@@ -22,7 +28,8 @@ export interface Filter {
   label: string
 
   /**
-   * The list of FilterOperators supported by this filter
+   * The list of FilterOperators supported by this filter. Must have at least one
+   * FilterOperator.
    * @default ['eq']
    */
   operators?: FilterOperator[]
@@ -32,7 +39,7 @@ export interface Filter {
    * filter renders a text input instead
    * @default undefined
    */
-  options?: SelectEntry[]
+  options?: FilterOption[]
 
   /**
    * Whether a user can select more than one `option` or not.
@@ -52,6 +59,12 @@ export interface Filter {
    * @default 'bottom-start'
    */
   placement?: PopPlacement
+
+  /**
+   * Max width of the filter's popover.
+   * @default '400px'
+   */
+  maxWidth?: number | string
 }
 
 export interface FilterSelection {
@@ -63,7 +76,7 @@ export interface FilterSelection {
   /**
    * The value input by the user
    */
-  value: string | string[] | number | number[]
+  value: string | string[]
 
   /**
    * The user facing display string for this selection. Displays in the pill and
@@ -102,6 +115,22 @@ export interface FilterPillProps {
    * @default undefined
    */
   selection?: FilterSelection
+
+  /**
+   * Whether the filter's content slot was overridden by the host app
+   * @default false
+   */
+  custom?: boolean
+}
+
+/**
+ * @internal
+ */
+export type FilterPillSlots = {
+  /**
+   * the filter's popover content.
+   */
+  default?(): any
 }
 
 export interface FilterGroupProps {
@@ -145,4 +174,18 @@ export interface FilterGroupEmits {
    * key of the filter that was triggered.
    */
   close: [closedFilterKey: string]
+}
+
+/**
+ * Provide a type interface for KFilterGroup `filter-*` slot names.
+ *
+ * This helps TypeScript infer the slot name in the template section so that
+ * the slot props can be resolved.
+ */
+export type FilterSlotName<Key extends string = string> = `filter-${Key}`
+export type FilterGroupSlots = {
+  /**
+   * Each filter's popover content.
+   */
+  [K in FilterSlotName]?: () => any
 }

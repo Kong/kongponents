@@ -40,7 +40,7 @@ const {
   label?: string
 }>()
 
-const items = computed<DropdownItem[]>(() => Object.entries(filters)
+const items = computed((): DropdownItem[] => Object.entries(filters)
   .map(([key, filter]) => ({
     label: filter.label,
     value: key,
