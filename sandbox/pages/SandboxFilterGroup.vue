@@ -11,39 +11,76 @@
     <KFilterGroup
       v-model="selection"
       :filters="filters"
-    />
+      @apply="onApply"
+      @clear="onClear"
+      @open="onOpen"
+    >
+      <template #filter-custom>
+        <KInputSwitch
+          v-model="foo"
+          label="This is in the #filter-custom slot"
+          placeholder="Super duper custom"
+        />
+      </template>
+    </KFilterGroup>
   </SandboxLayout>
 </template>
 
 <script setup lang="ts">
 import { inject, ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
-import type { FilterGroupSelection } from '@/types'
+import type { FilterGroupFilters, FilterGroupSelection } from '@/types'
 
-const filters = ref({
-  status: {
-    label: 'Status',
+const foo = ref<boolean>(true)
+
+const onApply = (key: string) => {
+  if (key === 'custom') {
+    selection.value.custom = {
+      operator: 'eq',
+      value: foo.value ? 'true' : 'false',
+      text: foo.value ? 'True' : 'False',
+    }
+  }
+}
+
+const onClear = (key: string) => {
+  if (key === 'custom') {
+    delete selection.value.custom
+  }
+}
+
+const onOpen = (key: string) => {
+  if (key === 'custom') {
+    foo.value = selection.value.custom?.value === 'true'
+  }
+}
+
+const filters = ref<FilterGroupFilters>({
+  custom: {
+    label: 'Custom slotted filter',
   },
-  controlPlane: {
-    label: 'Control plane',
+  pinnedInput: {
+    label: 'Pinned input filter',
+    operators: ['eq', 'contains'],
     pinned: true,
   },
-  bar: {
-    label: 'Bar',
+  anotherPinned: {
+    label: 'Select & custom operators',
     pinned: true,
+    operators: ['eq', 'neq', 'contains', 'exists', 'lt', 'lte', 'gt', 'gte'],
+    options: [{ value: 'a', label: 'Ayy' }, { value: 'b', label: 'Bee' }],
   },
-  foo: {
-    label: 'Foo',
-  },
-  loremipsum: {
-    label: 'Lorem ipsum',
+  multiselect: {
+    label: 'Multiselect',
+    options: [{ value: 'a', label: 'Ayy' }, { value: 'b', label: 'Bee' }, { value: 'c', label: 'See' }],
+    multiple: true,
   },
   longlabel: {
-    label: 'Really long label that will cause issues everywhere maybe.',
+    label: 'Really long label. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra orci in erat pharetra eleifend. Praesent euismod ultrices auctor.',
   },
 })
 
-const selection = ref<FilterGroupSelection>({ controlPlane: { operator: 'eq', value: 'ay', text: 'Ayy' } })
+const selection = ref<FilterGroupSelection>({ pinnedInput: { operator: 'eq', value: 'Default value', text: 'Default value' } })
 </script>
 
 <style scoped lang="scss">

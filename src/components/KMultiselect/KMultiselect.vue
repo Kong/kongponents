@@ -1283,6 +1283,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
 
   .expanded-selection-empty {
     @include inputText;
+    @include truncate;
 
     // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
     // stylelint-disable-next-line no-duplicate-selectors
