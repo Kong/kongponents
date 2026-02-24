@@ -288,10 +288,10 @@ const operatorSelectItems = computed((): SelectItem[] => {
     // 'contains' means 'exists in this selection' for (multi)select
     contains: filterType.value === 'input' ? 'Contains' : 'In',
     exists: 'Exists',
-    lt: '<',
-    lte: '≤',
-    gt: '>',
-    gte: '≥',
+    lt: 'Less than',
+    lte: 'Less than or equal to',
+    gt: 'Greater than',
+    gte: 'Greater than or equal to',
   }
 
   return operators.value.map((operator) => ({
