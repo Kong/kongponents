@@ -13,7 +13,7 @@
         <button
           ref="trigger"
           class="interactive-pill-trigger"
-          data-testId="interactive-pill-trigger"
+          data-testid="interactive-pill-trigger"
           type="button"
           @blur="onPillBlur"
           @click="onPillTrigger"
