@@ -1,6 +1,6 @@
 # Filter Group
 
-KFilterGroup is a component that displays provided filters and allows a user to set the values of those filters.
+KFilterGroup is a component that provides an interface for displaying and applying filter values.
 
 <ClientOnly>
   <KFilterGroup
@@ -10,10 +10,10 @@ KFilterGroup is a component that displays provided filters and allows a user to 
 </ClientOnly>
 
 ```html
-  <KFilterGroup
-    v-model="selection"
-    :filters="filters"
-  />
+<KFilterGroup
+  v-model="selection"
+  :filters="filters"
+/>
 ```
 
 ## Props
@@ -60,7 +60,6 @@ type FilterGroupSelection = Record<string, FilterSelection | undefined>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import type {
   FilterGroupFilters,
   FilterGroupSelection,
@@ -82,11 +81,12 @@ const selection = ref<FilterGroupSelection>({
 const resetModelSelection = () => {
   selection.value.name = defaultNameSelection,
 }
+</script>
 ```
 
 ### filters
 
-The `filters` prop is of type `FilterGroupFilters`.
+Prop for passing list of available filters. Accepts object of type `FilterGroupFilters`.
 
 ```ts
 /*** All filters the KFilterGroup can render */
@@ -126,11 +126,11 @@ export interface FilterOption {
 }
 ```
 
-There are four kinds of filters that can be rendered
+KFilterGroup supports four filter types, determined by the filter configuration:
 
 #### Select filter
 
-A select filter renders if `options` is set and `multiple` is falsey
+A select filter is rendered when `options` is provided and `multiple` is `false` or `undefined`.
 
 <ClientOnly>
   <KFilterGroup
@@ -140,25 +140,25 @@ A select filter renders if `options` is set and `multiple` is falsey
 </ClientOnly>
 
 ```html
-  <KFilterGroup
-    v-model="selection"
-    :filters="{
-      status: {
-        label: 'Status',
-        options: [
-          { value: 'todo', label: 'Todo' },
-          { value: 'inprogress', label: 'In Progress' },
-          { value: 'done', label: 'Done' },
-        ],
-        pinned: true,
-      },
-    }"
-  />
+<KFilterGroup
+  v-model="selection"
+  :filters="{
+    status: {
+      label: 'Status',
+      options: [
+        { value: 'todo', label: 'Todo' },
+        { value: 'inprogress', label: 'In Progress' },
+        { value: 'done', label: 'Done' },
+      ],
+      pinned: true,
+    },
+  }"
+/>
 ```
 
 #### Multiselect filter
 
-A multiselect filter renders if `multiple` is true and `options` is set.
+A multiselect filter is rendered when `multiple` is true and `options` is provided.
 
 <ClientOnly>
   <KFilterGroup
@@ -168,27 +168,27 @@ A multiselect filter renders if `multiple` is true and `options` is set.
 </ClientOnly>
 
 ```html
-  <KFilterGroup
-    v-model="selection"
-    :filters="{
-      tag: {
-        label: 'Tag',
-        multiple: true,
-        options: [
-          { value: 'foo', label: 'Foo' },
-          { value: 'bar', label: 'Bar' },
-          { value: 'baz', label: 'Baz' },
-          { value: 'bat', label: 'Bat' },
-        ],
-        pinned: true,
-      },
-    }"
-  />
+<KFilterGroup
+  v-model="selection"
+  :filters="{
+    tag: {
+      label: 'Tag',
+      multiple: true,
+      options: [
+        { value: 'foo', label: 'Foo' },
+        { value: 'bar', label: 'Bar' },
+        { value: 'baz', label: 'Baz' },
+        { value: 'bat', label: 'Bat' },
+      ],
+      pinned: true,
+    },
+  }"
+/>
 ```
 
 #### Text filter
 
-A text filter renders if `options` is unset:
+A text filter is rendered when `options` is not provided.
 
 <ClientOnly>
   <KFilterGroup
@@ -198,20 +198,20 @@ A text filter renders if `options` is unset:
 </ClientOnly>
 
 ```html
-  <KFilterGroup
-    v-model="selection"
-    :filters="{
-      Name: {
-        label: 'Name',
-        pinned: true,
-      },
-    }"
-  />
+<KFilterGroup
+  v-model="selection"
+  :filters="{
+    Name: {
+      label: 'Name',
+      pinned: true,
+    },
+  }"
+/>
 ```
 
 #### Custom filter
 
-Custom filters render if there is content in the [filter-\*](#filter-content) slot.
+A custom filter is rendered when content is provided in the [filter-\*](#filter-content) slot.
 
 <ClientOnly>
   <KFilterGroup
@@ -234,19 +234,19 @@ Custom filters render if there is content in the [filter-\*](#filter-content) sl
 </ClientOnly>
 
 ```html
-  <KFilterGroup
-    v-model="selection"
-    :filters="{
-      created: {
-        label: 'Created',
-        pinned: true,
-      },
-    }"
-  >
-    <template #filter-created>
-      <MyCustomContent />
-    </template>
-  </KFilterGroup>
+<KFilterGroup
+  v-model="selection"
+  :filters="{
+    created: {
+      label: 'Created',
+      pinned: true,
+    },
+  }"
+>
+  <template #filter-created>
+    <MyCustomContent />
+  </template>
+</KFilterGroup>
 ```
 
 ### selectorLabel
@@ -262,11 +262,11 @@ Sets the text content in the filter selector.
 </ClientOnly>
 
 ```html
-  <KFilterGroup
-    v-model="selection"
-    :filters="filters"
-    selector-label="Custom filter selector"
-  />
+<KFilterGroup
+  v-model="selection"
+  :filters="filters"
+  selector-label="Custom filter selector"
+/>
 ```
 
 
@@ -274,24 +274,23 @@ Sets the text content in the filter selector.
 
 ### Filter Content
 
-You can slot your custom content into each filter. Use the corresponding filter key from the [`filters` prop](#filters) to target the appropriate `filter-*` slot. When you do this, the KFilterGroup is no longer able to determine what the user's selection is for that filter therefore you must manage the `selection.*` for that filter.
+Custom content can be slotted into each filter. The corresponding filter key from the [`filters` prop](#filters) should be used to target the appropriate `filter-*` slot. When custom content is provided, KFilterGroup is no longer able to determine the user's selection for that filter, therefore the `selection.*` for that filter must be managed by the host app.
 
 <ClientOnly>
   <KFilterGroup
-    v-model="customNameSelection"
-    :filters="customNameFilters"
+    v-model="customNodesSelection"
+    :filters="customNodesFilters"
     @apply="onCustomApply"
     @clear="onCustomClear"
     @open="onCustomOpen"
   >
-    <template #filter-customName>
-      <div style="width: 300px; transform: rotate(5deg); padding: 10px 5px;">
-        <KInput
-          v-model="customName"
-          label="Value"
-          placeholder="Your name, but rotated 5 degrees"
-        />
-      </div>
+    <template #filter-customNodes>
+      <KSlider
+        v-model="customNodes"
+        label="Value"
+        show-marks
+        :show-value="false"
+      />
     </template>
   </KFilterGroup>
 </ClientOnly>
@@ -305,14 +304,13 @@ You can slot your custom content into each filter. Use the corresponding filter 
     @clear="onClear"
     @open="onOpen"
   >
-    <template #filter-customName>
-      <div style="width: 300px; transform: rotate(5deg); padding: 10px 5px;">
-        <KInput
-          v-model="customName"
-          label="Value"
-          placeholder="Your name, but rotated 5 degrees"
-        />
-      </div>
+    <template #filter-customNodes>
+      <KSlider
+        v-model="customNodes"
+        label="Value"
+        show-marks
+        :show-value="false"
+      />
     </template>
   </KFilterGroup>
 </template>
@@ -324,38 +322,35 @@ import type { FilterGroupFilters, FilterGroupSelection, FilterSelection } from '
 const selection = ref<FilterGroupSelection>({})
 
 const filters: FilterGroupFilters = {
-  customName: {
-    label: 'Custom name',
+  customNodes: {
+    label: 'Minimum nodes',
     operators: ['eq'],
     pinned: true,
   },
 }
 
-const customName = ref<string>('')
-
-const customInput = ref<string>('')
+const customNodes = ref<number>(0)
 
 const onApply = (key: string) => {
-  if (key === 'customName') {
-    selection.value.customName = customName.value === ''
-      ? undefined
-      : {
-        operator: 'eq',
-        value: customName.value,
-        text: customName.value,
-      }
+  if (key === 'customNodes') {
+    selection.value.customNodes = {
+      operator: 'eq',
+      value: customNodes.value.toString(),
+      text: customNodes.value.toString(),
+    }
   }
 }
 
 const onClear = (key: string) => {
-  if (key === 'customName') {
-    delete selection.value.customName
+  if (key === 'customNodes') {
+    delete selection.value.customNodes
   }
 }
 
 const onOpen = (key: string) => {
-  if (key === 'customName' && selection.value.customName === undefined) {
-    customName.value = ''
+  if (key === 'customNodes') {
+    const currentValue = Number.parseInt(customNodesSelection.value?.customNodes?.value)
+    customNodes.value = Number.isNaN(currentValue) ? 0 : currentValue
   }
 }
 </script>
@@ -365,32 +360,33 @@ const onOpen = (key: string) => {
 
 ### apply
 
-Emitted when the apply button is clicked. `@apply` returns the applied filter's key and the value of the entire KFilterGroup's selection ([described in v-model](#v-model)).
+Emitted when the apply button is clicked. Event payload is the applied filter's key and the value of the entire KFilterGroup's selection ([described in v-model](#v-model)).
 
 ### clear
 
-Emitted when the `X` icon is clicked. `@clear` returns the cleared filter's key and the value of the entire KFilterGroup's selection ([described in v-model](#v-model)).
+Emitted when the `X` icon is clicked in the filter pill. Event payload is the cleared filter's key and the value of the entire KFilterGroup's selection ([described in v-model](#v-model)).
 
 ### close
 
-Emitted when the filter's popover content is closed for any reason (including `@apply`). Returns the closed filter's key.
+Emitted when the filter's popover content is closed (including when selection is applied). Event payload is the closed filter's key.
 
 ### open
 
-Emitted when the filter's popover content is opened for any reason. Returns the opened filter's key.
+Emitted when the filter's popover content is opened. Event payload is the opened filter's key.
 
-<script lang="ts">
+<script setup lang="ts">
+import { ref } from 'vue'
 import { TimePeriods, TimeframeKeys } from '@mocks/KDateTimePickerMockData'
 import type { Filter, FilterGroupFilters, FilterGroupSelection, FilterSelection } from '@/types'
 import { defineComponent } from 'vue'
 
-const customFilter: Filter = {
-  label: 'Created',
+const deepClone = (obj) => {
+  return JSON.parse(JSON.stringify(obj))
 }
 
-const inputFilter: Filter = {
-  label: 'Name',
-}
+const customFilter: Filter = { label: 'Created' }
+
+const inputFilter: Filter = { label: 'Name' }
 
 const selectFilter: Filter = {
   label: 'Status',
@@ -418,131 +414,118 @@ const defaultNameSelection: FilterSelection = {
   value: 'My name',
 }
 
-export default defineComponent({
-  data() {
-    return {
-      basicSelection: {},
-      basicFilters: {
-        name: { ...this.deepClone(inputFilter), pinned: true },
-        status: this.deepClone(selectFilter),
-        tag: this.deepClone(multiselectFilter),
-      },
+const basicSelection = ref<FilterGroupSelection>({})
+const basicFilters: FilterGroupFilters = {
+  name: { ...deepClone(inputFilter), pinned: true },
+  status: deepClone(selectFilter),
+  tag: deepClone(multiselectFilter),
+}
 
-      modelSelection: { name: defaultNameSelection },
-      modelFilters: {
-        name: { ...this.deepClone(inputFilter), pinned: true },
-        status: this.deepClone(selectFilter),
-        tag: this.deepClone(multiselectFilter),
-      },
+const modelSelection = ref<FilterGroupSelection>({ name: defaultNameSelection })
+const modelFilters: FilterGroupFilters = {
+  name: { ...deepClone(inputFilter), pinned: true },
+  status: deepClone(selectFilter),
+  tag: deepClone(multiselectFilter),
+}
 
-      selectSelection: {},
-      selectFilters: {
-        status: { ...this.deepClone(selectFilter), pinned: true },
-      },
+const selectSelection = ref<FilterGroupSelection>({})
+const selectFilters: FilterGroupFilters = {
+  status: { ...deepClone(selectFilter), pinned: true },
+}
 
-      multiselectSelection: {},
-      multiselectFilters: {
-        status: { ...this.deepClone(multiselectFilter), pinned: true },
-      },
+const multiselectSelection = ref<FilterGroupSelection>({})
+const multiselectFilters: FilterGroupFilters = {
+  status: { ...deepClone(multiselectFilter), pinned: true },
+}
 
-      textSelection: {},
-      textFilters: {
-        status: { ...this.deepClone(inputFilter), pinned: true },
-      },
+const textSelection = ref<FilterGroupSelection>({})
+const textFilters: FilterGroupFilters = {
+  status: { ...deepClone(inputFilter), pinned: true },
+}
 
-      customSelection: {},
-      customFilters: {
-        custom: { ...this.deepClone(customFilter), pinned: true },
-      },
-      timeKey: 0,
-      customTime: {
-        start: null,
-        end: null,
-      },
-      customTimePeriods: [
-        {
-          section: 'Last',
-          values: [
-            TimePeriods.get(TimeframeKeys.FIFTEEN_MIN),
-            TimePeriods.get(TimeframeKeys.ONE_HOUR),
-            TimePeriods.get(TimeframeKeys.SIX_HOUR),
-            TimePeriods.get(TimeframeKeys.TWELVE_HOUR),
-            TimePeriods.get(TimeframeKeys.ONE_DAY),
-            TimePeriods.get(TimeframeKeys.SEVEN_DAY),
-            TimePeriods.get(TimeframeKeys.THIRTY_DAY),
-          ],
-        },
-        {
-          section: 'Current',
-          values: [
-            TimePeriods.get(TimeframeKeys.CURRENT_WEEK),
-            TimePeriods.get(TimeframeKeys.CURRENT_MONTH),
-          ],
-        },
-        {
-          section: 'Previous',
-          values: [
-            TimePeriods.get(TimeframeKeys.PREVIOUS_WEEK),
-            TimePeriods.get(TimeframeKeys.PREVIOUS_MONTH),
-          ],
-        },
-      ],
+const customSelection = ref<FilterGroupSelection>({})
+const customFilters: FilterGroupFilters = {
+  custom: { ...deepClone(customFilter), pinned: true },
+}
+const timeKey = ref(0)
+const customTime = ref({ start: null, end: null })
+const customTimePeriods = [
+  {
+    section: 'Last',
+    values: [
+      TimePeriods.get(TimeframeKeys.FIFTEEN_MIN),
+      TimePeriods.get(TimeframeKeys.ONE_HOUR),
+      TimePeriods.get(TimeframeKeys.SIX_HOUR),
+      TimePeriods.get(TimeframeKeys.TWELVE_HOUR),
+      TimePeriods.get(TimeframeKeys.ONE_DAY),
+      TimePeriods.get(TimeframeKeys.SEVEN_DAY),
+      TimePeriods.get(TimeframeKeys.THIRTY_DAY),
+    ],
+  },
+  {
+    section: 'Current',
+    values: [
+      TimePeriods.get(TimeframeKeys.CURRENT_WEEK),
+      TimePeriods.get(TimeframeKeys.CURRENT_MONTH),
+    ],
+  },
+  {
+    section: 'Previous',
+    values: [
+      TimePeriods.get(TimeframeKeys.PREVIOUS_WEEK),
+      TimePeriods.get(TimeframeKeys.PREVIOUS_MONTH),
+    ],
+  },
+]
 
-      selectorLabelSelection: {},
-      selectorLabelFilters: {
-        name: this.deepClone(inputFilter),
-        status: this.deepClone(selectFilter),
-        tag: this.deepClone(multiselectFilter),
-      },
+const selectorLabelSelection = ref<FilterGroupSelection>({})
+const selectorLabelFilters: FilterGroupFilters = {
+  name: deepClone(inputFilter),
+  status: deepClone(selectFilter),
+  tag: deepClone(multiselectFilter),
+}
 
-      customNameSelection: {},
-      customNameFilters: {
-        customName: { operators: ['eq'], label: 'Custom name', pinned: true },
-      },
-      customName: '',
+const customNodesSelection = ref<FilterGroupSelection>({})
+const customNodesFilters: FilterGroupFilters = {
+  customNodes: { operators: ['eq'], label: 'Minimum nodes', pinned: true },
+}
+const customNodes = ref(0)
+
+const resetModelSelection = () => {
+  modelSelection.value = { name: defaultNameSelection }
+}
+
+const onCustomApply = (key: string) => {
+  if (key === 'custom') {
+    customSelection.value.custom = {
+      operator: 'exists',
+      value: customTime.value?.timePeriodsKey,
+      text: TimePeriods.get(customTime.value?.timePeriodsKey)?.display,
     }
-  },
-  methods: {
-    deepClone(obj) {
-      return JSON.parse(JSON.stringify(obj))
-    },
-    resetModelSelection() {
-      this.modelSelection = { name: defaultNameSelection }
-    },
-    onCustomApply(key: string) {
-      if (key === 'custom') {
-        this.customSelection.custom = {
-          operator: 'exists',
-          value: this.customTime.timePeriodsKey,
-          text: TimePeriods.get(this.customTime?.timePeriodsKey)?.display,
-        }
-      } else if (key === 'customName') {
-        if (this.customName === '') {
-          this.customNameSelection.customName = undefined
-        } else {
-          this.customNameSelection.customName = {
-            operator: 'eq',
-            value: this.customName,
-            text: this.customName,
-          }
-        }
-      }
-    },
-    onCustomClear(key: string) {
-      if (key === 'custom') {
-        delete this.customSelection.custom
-      } else if (key === 'customName') {
-        delete this.customNameSelection.customName
-      }
-    },
-    onCustomOpen(key: string) {
-      if (key === 'custom' && this.customSelection.custom === undefined) {
-        this.customTime = { start: null, end: null }
-        this.timeKey++
-      } else if (key === 'customName' && this.customNameSelection.customName === undefined) {
-        this.customName = ''
-      }
-    },
-  },
-})
+  } else if (key === 'customNodes') {
+    customNodesSelection.value.customNodes = {
+      operator: 'eq',
+      value: customNodes.value.toString(),
+      text: customNodes.value.toString(),
+    }
+  }
+}
+
+const onCustomClear = (key: string) => {
+  if (key === 'custom') {
+    delete customSelection.value.custom
+  } else if (key === 'customNodes') {
+    delete customNodesSelection.value.customNodes
+  }
+}
+
+const onCustomOpen = (key: string) => {
+  if (key === 'custom' && customSelection.value.custom === undefined) {
+    customTime.value = { start: null, end: null }
+    timeKey.value += 1
+  } else if (key === 'customNodes') {
+    const currentValue = Number.parseInt(customNodesSelection.value?.customNodes?.value)
+    customNodes.value = Number.isNaN(currentValue) ? 0 : currentValue
+  }
+}
 </script>
