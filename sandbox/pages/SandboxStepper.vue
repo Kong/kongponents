@@ -12,9 +12,17 @@
       <SandboxSectionComponent title="steps">
         <KStepper :steps="steps" />
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="showStepNumbers">
+        <div class="resizable-container">
+          <KStepper
+            show-step-numbers
+            :steps="steps"
+          />
+        </div>
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="maxLabelWidth">
         <KStepper
-          max-label-width="150"
+          max-label-width="15ch"
           :steps="longLabelSteps"
         />
       </SandboxSectionComponent>
@@ -42,3 +50,14 @@ const longLabelSteps: StepItem[] = [
   { label: 'Default. Lorem ipsum dolor sit amet.', state: 'default' },
 ]
 </script>
+
+<style scoped lang="scss">
+.kstepper-sandbox {
+  .resizable-container {
+    max-width: 1280px;
+    overflow-x: auto;
+    padding-bottom: $kui-space-60;
+    resize: horizontal;
+  }
+}
+</style>
