@@ -30,11 +30,11 @@ An array of step objects. Each step object should have a required `label` proper
 
 <script setup lang="ts">
 const steps = ref<StepItem[]>([
-  { label: 'Completed step', state: 'completed' },
-  { label: 'Active step', state: 'active' },
-  { label: 'Pending step', state: 'pending' },
-  { label: 'Erroneous step', state: 'error' },
-  { label: 'Default step' }
+  { label: 'Completed', state: 'completed' },
+  { label: 'Active', state: 'active' },
+  { label: 'Pending', state: 'pending' },
+  { label: 'Erroneous', state: 'error' },
+  { label: 'Default' }
 ])
 </script>
 ```
@@ -70,18 +70,16 @@ const defaultItems = ref<StepItem[]>([
 ])
 
 const stepTypes = ref<StepItem[]>([
-  { label: 'Completed step', state: 'completed' },
-  { label: 'Active step', state: 'active' },
-  { label: 'Pending step', state: 'pending' },
-  { label: 'Erroneous step', state: 'error' },
-  { label: 'Default step' }
+  { label: 'Completed', state: 'completed' },
+  { label: 'Active', state: 'active' },
+  { label: 'Pending', state: 'pending' },
+  { label: 'Erroneous', state: 'error' },
+  { label: 'Default' }
 ])
 
 const longSteps = ref<StepItem[]>([
-  { label: 'Step  a long long long long time ago', state: 'completed' },
-  { label: 'in a galaxy far far away', state: 'completed' },
-  { label: 'Kongponents were battling in space and', state: 'pending' },
-  { label: 'fighting robots and space monsters with lots of explosions' }
+  { label: 'A step with a long title', },
+  { label: 'A step with even longer title', },
 ])
 
 const numberedSteps: StepItem[] = [

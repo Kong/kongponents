@@ -65,4 +65,8 @@ pre.json {
   pre {
     tab-size: 2 !important;
   }
+
+  .VPDoc.has-aside .content-container {
+    max-width: 768px; // Need to ensure the KStepper is rendered nicely on larger screens (the label in the steps is hidden below 768px)
+  }
 }
