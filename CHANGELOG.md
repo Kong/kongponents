@@ -1,3 +1,10 @@
+# [9.51.0](https://github.com/Kong/kongponents/compare/v9.50.7...v9.51.0) (2026-02-26)
+
+
+### Features
+
+* **kstepper:** step numbers, styles update [KHCP-19677] ([#3106](https://github.com/Kong/kongponents/issues/3106)) ([c7cc424](https://github.com/Kong/kongponents/commit/c7cc42412a93a9ced263fe8240a15a8cd6009935))
+
 ## [9.50.7](https://github.com/Kong/kongponents/compare/v9.50.6...v9.50.7) (2026-02-26)
 
 
