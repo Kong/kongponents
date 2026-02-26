@@ -693,7 +693,8 @@ watch(() => items, (newValue, oldValue) => {
     }
 
     // ensure each item has a unique key property
-    let selectItemKey = `${selectItems.value[i]!.label?.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}`
+    let labelStr = selectItems.value[i]!.label != null ? String(selectItems.value[i]!.label) : ''
+    let selectItemKey = `${labelStr.replace(/ /gi, '-')?.replace(/[^a-z0-9-_]/gi, '')}-${i}`
     if (selectItemKey.includes('undefined')) {
       selectItemKey = `select-item-label-${i}`
     }

@@ -1,3 +1,11 @@
+## [9.50.7](https://github.com/Kong/kongponents/compare/v9.50.6...v9.50.7) (2026-02-26)
+
+
+### Bug Fixes
+
+* **kselect:** selectItemKey string replace ([#3109](https://github.com/Kong/kongponents/issues/3109)) ([979c67d](https://github.com/Kong/kongponents/commit/979c67d20969558bb65472d7f6486f0bf9009088))
+* pnpm audit issues ([#3110](https://github.com/Kong/kongponents/issues/3110)) ([6a98259](https://github.com/Kong/kongponents/commit/6a98259bf8f8431128dfa8ea8a20a951990704db))
+
 ## [9.50.6](https://github.com/Kong/kongponents/compare/v9.50.5...v9.50.6) (2026-02-25)
 
 
