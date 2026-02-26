@@ -58,4 +58,31 @@ describe('KStepper', () => {
       cy.getTestId(`step-${types[i]}`).contains(types[i], { matchCase: false })
     }
   })
+
+  it('renders steps with step number', () => {
+    cy.mount(KStepper, {
+      props: {
+        steps: stepTypes.map((step) => ({ ...step, state: 'default' })),
+      },
+    })
+
+    cy.get('.k-stepper').should('be.visible')
+    cy.get('.step-number').should('have.length', stepTypes.length)
+    cy.get('.step-number').each((stepNumber, index) => {
+      cy.wrap(stepNumber).should('be.visible')
+      cy.wrap(stepNumber).should('contain.text', String(index + 1))
+    })
+  })
+
+  it('renders steps without step numbers when hideStepNumbers is true', () => {
+    cy.mount(KStepper, {
+      props: {
+        steps: stepTypes.map((step) => ({ ...step, state: 'default' })),
+        hideStepNumbers: true,
+      },
+    })
+
+    cy.get('.k-stepper').should('be.visible')
+    cy.get('.step-number').should('not.exist')
+  })
 })

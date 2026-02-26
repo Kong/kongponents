@@ -21,8 +21,7 @@ An array of step objects. Each step object should have a required `label` proper
   </li>
 </ul>
 
-<KStepper :steps="stepTypes"
-/>
+<KStepper :steps="stepTypes" />
 
 ```vue
 <template>
@@ -31,11 +30,11 @@ An array of step objects. Each step object should have a required `label` proper
 
 <script setup lang="ts">
 const steps = ref<StepItem[]>([
-  { label: 'Completed step', state: 'completed' },
-  { label: 'Active step', state: 'active' },
-  { label: 'Pending step', state: 'pending' },
-  { label: 'Erroneous step', state: 'error' },
-  { label: 'Default step' }
+  { label: 'Completed', state: 'completed' },
+  { label: 'Active', state: 'active' },
+  { label: 'Pending', state: 'pending' },
+  { label: 'Erroneous', state: 'error' },
+  { label: 'Default' }
 ])
 </script>
 ```
@@ -44,10 +43,20 @@ const steps = ref<StepItem[]>([
 
 The width of step labels (default is `170px`). We support any valid CSS length (e.g. `25%`) value.
 
-<KStepper :steps="longSteps" max-label-width="120" />
+<KStepper :steps="longSteps" max-label-width="20ch" />
 
 ```html
-<KStepper max-label-width="120" :steps="steps" />
+<KStepper max-label-width="20ch" :steps="steps" />
+```
+
+### hideStepNumbers
+
+Whether to show the step numbers. Default is `false`.
+
+<KStepper :steps="numberedSteps" hide-step-numbers />
+
+```html
+<KStepper hide-step-numbers :steps="steps" />
 ```
 
 <script setup lang="ts">
@@ -55,24 +64,29 @@ import { ref } from 'vue'
 import { StepperStateArray } from '@/types'
 
 const defaultItems = ref<StepItem[]>([
-  { label: 'Personal Information', state: 'completed' },
-  { label: 'Billing Details', state: 'active' },
-  { label: 'Shipping Information' }
+  { label: 'Personal information', state: 'completed' },
+  { label: 'Billing details', state: 'active' },
+  { label: 'Shipping information' }
 ])
 
 const stepTypes = ref<StepItem[]>([
-  { label: 'Completed step', state: 'completed' },
-  { label: 'Active step', state: 'active' },
-  { label: 'Pending step', state: 'pending' },
-  { label: 'Erroneous step', state: 'error' },
-  { label: 'Default step' }
+  { label: 'Completed', state: 'completed' },
+  { label: 'Active', state: 'active' },
+  { label: 'Pending', state: 'pending' },
+  { label: 'Erroneous', state: 'error' },
+  { label: 'Default' }
 ])
 
 const longSteps = ref<StepItem[]>([
-  { label: 'Step  a long long long long time ago', state: 'completed' },
-  { label: 'in a galaxy far far away', state: 'completed' },
-  { label: 'Kongponents were battling in space and', state: 'pending' },
-  { label: 'fighting robots and space monsters with lots of explosions' }
+  { label: 'A step with a long title', },
+  { label: 'A step with even longer title', },
 ])
+
+const numberedSteps: StepItem[] = [
+  { label: 'Personal information', state: 'completed' },
+  { label: 'Billing details', state: 'active' },
+  { label: 'Shipping information' },
+  { label: 'Review' }
+]
 </script>
 
