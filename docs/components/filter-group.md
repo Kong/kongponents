@@ -251,7 +251,7 @@ A custom filter is rendered when content is provided in the [filter-\*](#filter-
 
 ### selectorLabel
 
-Sets the text content in the filter selector.
+Sets the text content in the filter selector. Defaults to `'Add filter'`.
 
 <ClientOnly>
   <KFilterGroup
@@ -269,15 +269,15 @@ Sets the text content in the filter selector.
 />
 ```
 
-### hideFiltersLabel
+### groupLabel
 
-Hides the "Filters" label.
+The label to display at the beginning of the group. If set to an empty string nothing will be displayed. Defaults to `'Filters'`.
 
 <ClientOnly>
   <KFilterGroup
     v-model="hideFiltersLabelSelection"
     :filters="hideFiltersLabelFilters"
-    hide-filters-label
+    group-label=""
   />
 </ClientOnly>
 
@@ -285,7 +285,7 @@ Hides the "Filters" label.
 <KFilterGroup
   v-model="selection"
   :filters="filters"
-  hide-filters-label
+  group-label=""
 />
 ```
 

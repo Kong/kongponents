@@ -84,17 +84,17 @@
     </SandboxSectionComponent>
 
     <SandboxSectionComponent
-      description="Hides the 'Filters' label."
-      title="hideFiltersLabel"
+      description="Changes the 'Filters' text."
+      title="groupLabel"
     >
       <KFilterGroup
         v-model="selection"
         :filters="filters"
-        :hide-filters-label="hideFiltersLabel"
+        :group-label="groupLabel"
       />
-      <KInputSwitch
-        v-model="hideFiltersLabel"
-        :label="hideFiltersLabel ? 'hide' : 'show'"
+      <KInput
+        v-model="groupLabel"
+        placeholder="Group label"
       />
     </SandboxSectionComponent>
 
@@ -181,7 +181,7 @@ import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import type { FilterGroupFilters, FilterGroupSelection } from '@/types'
 
-const hideFiltersLabel = ref<boolean>(true)
+const groupLabel = ref<string>('')
 const selectorLabel = ref<string>('Custom label')
 
 const filters: FilterGroupFilters = {
