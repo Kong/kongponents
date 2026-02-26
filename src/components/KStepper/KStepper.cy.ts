@@ -59,11 +59,10 @@ describe('KStepper', () => {
     }
   })
 
-  it('renders steps with step numbers when hideStepNumbers is true', () => {
+  it('renders steps with step number', () => {
     cy.mount(KStepper, {
       props: {
         steps: stepTypes.map((step) => ({ ...step, state: 'default' })),
-        hideStepNumbers: true,
       },
     })
 
@@ -73,5 +72,17 @@ describe('KStepper', () => {
       cy.wrap(stepNumber).should('be.visible')
       cy.wrap(stepNumber).should('contain.text', String(index + 1))
     })
+  })
+
+  it('renders steps without step numbers when hideStepNumbers is true', () => {
+    cy.mount(KStepper, {
+      props: {
+        steps: stepTypes.map((step) => ({ ...step, state: 'default' })),
+        hideStepNumbers: true,
+      },
+    })
+
+    cy.get('.k-stepper').should('be.visible')
+    cy.get('.step-number').should('not.exist')
   })
 })
