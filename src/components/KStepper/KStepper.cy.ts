@@ -59,11 +59,11 @@ describe('KStepper', () => {
     }
   })
 
-  it('renders steps with step numbers when showStepNumbers is true', () => {
+  it('renders steps with step numbers when hideStepNumbers is true', () => {
     cy.mount(KStepper, {
       props: {
         steps: stepTypes.map((step) => ({ ...step, state: 'default' })),
-        showStepNumbers: true,
+        hideStepNumbers: true,
       },
     })
 

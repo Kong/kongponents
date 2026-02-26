@@ -38,6 +38,7 @@
       <span
         class="step-label"
         :style="labelStyle"
+        :title="label"
       >
         {{ label }}
       </span>

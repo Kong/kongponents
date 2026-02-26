@@ -35,5 +35,5 @@ export interface StepperProps {
    * Whether to show the step numbers.
    * @default false
    */
-  showStepNumbers?: boolean
+  hideStepNumbers?: boolean
 }

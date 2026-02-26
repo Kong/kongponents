@@ -49,14 +49,14 @@ The width of step labels (default is `170px`). We support any valid CSS length (
 <KStepper max-label-width="20ch" :steps="steps" />
 ```
 
-### showStepNumbers
+### hideStepNumbers
 
 Whether to show the step numbers. Default is `false`.
 
-<KStepper :steps="numberedSteps" show-step-numbers />
+<KStepper :steps="numberedSteps" hide-step-numbers />
 
 ```html
-<KStepper show-step-numbers :steps="steps" />
+<KStepper hide-step-numbers :steps="steps" />
 ```
 
 <script setup lang="ts">

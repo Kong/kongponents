@@ -12,10 +12,10 @@
       <SandboxSectionComponent title="steps">
         <KStepper :steps="steps" />
       </SandboxSectionComponent>
-      <SandboxSectionComponent title="showStepNumbers">
+      <SandboxSectionComponent title="hideStepNumbers">
         <div class="resizable-container">
           <KStepper
-            show-step-numbers
+            hide-step-numbers
             :steps="steps"
           />
         </div>

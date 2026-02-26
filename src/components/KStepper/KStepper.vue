@@ -9,7 +9,7 @@
       :label="step.label"
       :max-label-width="maxLabelWidth"
       :state="step.state"
-      :step-number="showStepNumbers ? index + 1 : undefined"
+      :step-number="hideStepNumbers ? undefined : index + 1"
     />
   </ol>
 </template>
@@ -21,7 +21,7 @@ import type { StepperProps } from '@/types'
 const {
   steps,
   maxLabelWidth = '170px',
-  showStepNumbers = false,
+  hideStepNumbers = false,
 } = defineProps<StepperProps>()
 </script>
 
