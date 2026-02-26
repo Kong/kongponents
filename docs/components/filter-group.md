@@ -269,6 +269,26 @@ Sets the text content in the filter selector.
 />
 ```
 
+### hideFiltersLabel
+
+Hides the "Filters" label.
+
+<ClientOnly>
+  <KFilterGroup
+    v-model="hideFiltersLabelSelection"
+    :filters="hideFiltersLabelFilters"
+    hide-filters-label
+  />
+</ClientOnly>
+
+```html
+<KFilterGroup
+  v-model="selection"
+  :filters="filters"
+  hide-filters-label
+/>
+```
+
 
 ## Slots
 
@@ -480,6 +500,13 @@ const customTimePeriods = [
 
 const selectorLabelSelection = ref<FilterGroupSelection>({})
 const selectorLabelFilters: FilterGroupFilters = {
+  name: deepClone(inputFilter),
+  status: deepClone(selectFilter),
+  tag: deepClone(multiselectFilter),
+}
+
+const hideFiltersLabelSelection = ref<FilterGroupSelection>({})
+const hideFiltersLabelFilters: FilterGroupFilters = {
   name: deepClone(inputFilter),
   status: deepClone(selectFilter),
   tag: deepClone(multiselectFilter),

@@ -142,6 +142,12 @@ export interface FilterGroupProps {
   filters: FilterGroupFilters
 
   /**
+   * Whether to hide the "Filters" label or not
+   * @default false
+   */
+  hideFiltersLabel?: boolean
+
+  /**
    * The label to display on the FilterSelector
    * @default 'Add filter'
    */

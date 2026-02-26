@@ -1,6 +1,7 @@
 <template>
   <div class="k-filter-group">
     <div
+      v-if="!hideFiltersLabel"
       class="label"
       data-testid="filter-group-label"
     >
@@ -29,7 +30,7 @@
     <FilterSelector
       v-if="hiddenFilterKeys.length > 0"
       :filters="hiddenFilters"
-      :label="selectorLabel"
+      :label="selectorLabel ? selectorLabel : 'Add filter'"
       @select="onSelectFilter"
     />
   </div>
@@ -65,6 +66,7 @@ defineSlots<FilterGroupSlots>()
 
 const {
   filters,
+  hideFiltersLabel = false,
   selectorLabel = undefined,
 } = defineProps<FilterGroupProps>()
 const selection = defineModel<FilterGroupSelection>({ required: true })

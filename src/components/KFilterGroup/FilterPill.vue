@@ -39,7 +39,11 @@
               <KSelect
                 v-model="userOperator"
                 :items="operatorSelectItems"
+                :kpop-attributes="{
+                  popoverClasses: 'force-operator-width',
+                }"
                 label="Operator"
+                :title="userOperatorLabel"
               />
             </div>
 
@@ -212,6 +216,19 @@ const operators = computed((): FilterOperator[] => {
 })
 
 /**
+ * We manually select the size of the operator dropdown based on the presence of
+ * our longest strings. "Less than or equal to" and "Greater than or equal to"
+ * both fit within 205px. Everything else fits within 120px.
+ */
+const operatorDropdownWidth = computed((): string => {
+  if (operators.value.some((operator) => operator === 'lte' || operator === 'gte')) {
+    return '205px'
+  }
+
+  return '120px'
+})
+
+/**
  * The potentially ephemeral selection the user is making. If the user clicks
  * 'Apply' (and it's not a custom filter) this will get emitted in the apply
  * event. If the user clicks 'Cancel' or closes the popover, nothing will use
@@ -261,9 +278,6 @@ const delimiter = computed((): string | undefined => {
       return ' = '
     case 'neq':
       return ' ≠ '
-    case 'contains':
-      // 'contains' means 'exists in this selection' for (multi)select
-      return filterType.value === 'input' ? ': ' : ' in '
     case 'lt':
       return ' < '
     case 'lte':
@@ -272,6 +286,7 @@ const delimiter = computed((): string | undefined => {
       return ' > '
     case 'gte':
       return ' ≥ '
+    case 'contains':
     case 'exists':
     default:
       return ': '
@@ -285,8 +300,7 @@ const operatorSelectItems = computed((): SelectItem[] => {
   const filterOperatorLabels = {
     eq: 'Equals',
     neq: 'Not equals',
-    // 'contains' means 'exists in this selection' for (multi)select
-    contains: filterType.value === 'input' ? 'Contains' : 'In',
+    contains: 'Contains',
     exists: 'Exists',
     lt: 'Less than',
     lte: 'Less than or equal to',
@@ -298,6 +312,14 @@ const operatorSelectItems = computed((): SelectItem[] => {
     label: filterOperatorLabels[operator],
     value: operator,
   }))
+})
+
+/**
+ * The label for the operator currently chosen by the user. Used in the title
+ * attribute of the operator dropdown.
+ */
+const userOperatorLabel = computed((): string => {
+  return operatorSelectItems.value.find(({ value }) => value === userOperator.value)?.label ?? ''
 })
 
 /**
@@ -431,24 +453,50 @@ const onTrigger = () => {
   width: 100%;
 }
 
+:deep(.force-operator-width) {
+  /**
+   * We want to force the operator dropdown to match the width of the content in
+   * its items. We can't override the popover's width with `kpopAttributes` because
+   * of how KSelect forces those property values to be something else. These few
+   * styles fix this, at the cost of needing to `:deep`.
+   */
+  width: v-bind(operatorDropdownWidth);
+
+  .popover-container {
+    max-width: none !important;
+    width: auto !important;
+  }
+}
+
 .filter-content {
   margin: $kui-space-40 0;
   min-width: 366px; // 400px - padding
 
   .default-layout {
-    align-items: center;
+    align-items: flex-start;
     display: flex;
+    flex-direction: column;
     gap: var(--kui-space-40, $kui-space-40);
     width: 100%;
 
+    @media (min-width: $kui-breakpoint-mobile) {
+      align-items: center;
+      flex-direction: row;
+    }
+
     .operator {
       flex-shrink: 0;
-      width: 33%;
+      width: 100%;
+
+      @media (min-width: $kui-breakpoint-mobile) {
+        width: 35%;
+      }
     }
 
     .value {
       flex-grow: 1;
       min-width: 0; // this prevents the multiselect from choosing its own adventure
+      width: 100%;
     }
   }
 }
