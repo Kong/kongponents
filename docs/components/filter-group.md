@@ -251,7 +251,7 @@ A custom filter is rendered when content is provided in the [filter-\*](#filter-
 
 ### selectorLabel
 
-Sets the text content in the filter selector.
+Sets the text content in the filter selector. Defaults to `'Add filter'`.
 
 <ClientOnly>
   <KFilterGroup
@@ -266,6 +266,26 @@ Sets the text content in the filter selector.
   v-model="selection"
   :filters="filters"
   selector-label="Custom filter selector"
+/>
+```
+
+### groupLabel
+
+The label to display at the beginning of the group. If set to an empty string nothing will be displayed. Defaults to `'Filters'`.
+
+<ClientOnly>
+  <KFilterGroup
+    v-model="hideFiltersLabelSelection"
+    :filters="hideFiltersLabelFilters"
+    group-label=""
+  />
+</ClientOnly>
+
+```html
+<KFilterGroup
+  v-model="selection"
+  :filters="filters"
+  group-label=""
 />
 ```
 
@@ -480,6 +500,13 @@ const customTimePeriods = [
 
 const selectorLabelSelection = ref<FilterGroupSelection>({})
 const selectorLabelFilters: FilterGroupFilters = {
+  name: deepClone(inputFilter),
+  status: deepClone(selectFilter),
+  tag: deepClone(multiselectFilter),
+}
+
+const hideFiltersLabelSelection = ref<FilterGroupSelection>({})
+const hideFiltersLabelFilters: FilterGroupFilters = {
   name: deepClone(inputFilter),
   status: deepClone(selectFilter),
   tag: deepClone(multiselectFilter),

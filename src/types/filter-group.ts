@@ -142,6 +142,12 @@ export interface FilterGroupProps {
   filters: FilterGroupFilters
 
   /**
+   * The label used for the FilterGroup. An empty string displays nothing.
+   * @default 'Filters'
+   */
+  groupLabel?: string
+
+  /**
    * The label to display on the FilterSelector
    * @default 'Add filter'
    */
