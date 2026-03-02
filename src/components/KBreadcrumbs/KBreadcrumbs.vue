@@ -104,7 +104,7 @@ const getBreadcrumbKey = (item: BreadcrumbItem, idx: number): string => item.key
       display: flex;
       gap: var(--kui-space-20, $kui-space-20);
       text-decoration: none;
-      transition: color $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
+      transition: box-shadow $kongponentsTransitionDurTimingFunc;
       user-select: none;
 
       :deep(#{$kongponentsKongIconSelector}) {
@@ -117,6 +117,7 @@ const getBreadcrumbKey = (item: BreadcrumbItem, idx: number): string => item.key
 
         color: var(--kui-color-text-neutral, $kui-color-text-neutral);
         font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+        transition: color $kongponentsTransitionDurTimingFunc;
       }
 
       &.link {
