@@ -42,9 +42,9 @@ const breadcrumbItems: BreadcrumbItem[] = [{
 },
 {
   key: 'button',
-  to: { path: '/components/button.html' },
-  title: 'Go to KButton',
-  text: 'KButton'
+  to: { path: '/components/alert.html' },
+  title: 'Components',
+  text: 'Components'
 },
 {
   key: 'not-here',
@@ -54,8 +54,8 @@ const breadcrumbItems: BreadcrumbItem[] = [{
 {
   key: 'here',
   to: { path: '/components/breadcrumb.html' },
-  title: 'You are here',
-  text: 'You are here'
+  title: 'Breadcrumb',
+  text: 'Breadcrumb'
 }]
 </script>
 ```
@@ -177,9 +177,9 @@ const internalBreadcrumbItems: BreadcrumbItem[] = [
   },
   {
     key: 'button',
-    to: { path: '/components/button.html' },
-    title: 'Go to KButton',
-    text: 'KButton'
+    to: { path: '/components/alert.html' },
+    title: 'Components',
+    text: 'Components'
   },
   {
     key: 'not-here',
@@ -189,8 +189,8 @@ const internalBreadcrumbItems: BreadcrumbItem[] = [
   {
     key: 'here',
     to: { path: '/components/breadcrumbs.html' },
-    title: 'You are here',
-    text: 'You are here'
+    title: 'Breadcrumb',
+    text: 'Breadcrumb'
   }
 ]
 
