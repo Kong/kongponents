@@ -36,7 +36,7 @@ describe('KBreadcrumbs', () => {
 
     cy.get('.k-breadcrumbs').find('li').its('length').should('eq', 2)
     cy.get('.k-breadcrumbs').find('.breadcrumbs-item').should('not.have.class', '.link')
-    cy.get('.k-breadcrumbs').find('.breadcrumbs-divider').its('length').should('eq', 1)
+    cy.get('.k-breadcrumbs').find('.breadcrumbs-divider').its('length').should('eq', 2)
   })
 
   it('renders custom divider when using slot', () => {
@@ -62,7 +62,7 @@ describe('KBreadcrumbs', () => {
     })
 
     cy.get('.k-breadcrumbs').find('li').its('length').should('eq', 2)
-    cy.get('.k-breadcrumbs .breadcrumbs-divider').its('length').should('eq', 1)
+    cy.get('.k-breadcrumbs .breadcrumbs-divider').its('length').should('eq', 2)
     cy.get('.k-breadcrumbs .breadcrumbs-divider').should('contain.text', customDivider)
   })
 
