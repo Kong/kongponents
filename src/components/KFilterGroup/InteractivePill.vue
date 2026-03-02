@@ -1,6 +1,7 @@
 <template>
   <div>
     <KTooltip
+      class="interactive-pill-tooltip"
       max-width="350"
       :text="tooltipContent"
     >
@@ -198,6 +199,11 @@ $shadowFocusNarrow: 0 0 0 2px rgba(
   #{color.channel($kui-color-background-primary, "blue", $space: rgb)},
 ),
 0.2);
+
+.interactive-pill-tooltip :deep(.popover-container) {
+  /* KTooltip doesn't automatically break-word. This prevents long words from breaking out of the tooltip */
+  word-wrap: break-word;
+}
 
 .interactive-pill {
   align-items: stretch;
