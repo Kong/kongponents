@@ -196,7 +196,7 @@ defineExpose({ setExpandedValue, id: item.id })
 
   &-expanded-button {
     cursor: pointer;
-    padding: $kui-space-30;
+    padding: var(--kui-space-30, $kui-space-30);
     // makes the button click easier on draggable wrapper
     z-index: 10;
 
