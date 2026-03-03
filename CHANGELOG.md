@@ -1,3 +1,10 @@
+## [9.51.2](https://github.com/Kong/kongponents/compare/v9.51.1...v9.51.2) (2026-03-03)
+
+
+### Bug Fixes
+
+* **kbreadcrumb:** update component styles [KHCP-19741] ([#3118](https://github.com/Kong/kongponents/issues/3118)) ([e89e3d5](https://github.com/Kong/kongponents/commit/e89e3d5101db4041b2b45d9bbf8993554ca90379))
+
 ## [9.51.1](https://github.com/Kong/kongponents/compare/v9.51.0...v9.51.1) (2026-03-03)
 
 
