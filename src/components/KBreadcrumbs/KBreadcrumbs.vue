@@ -12,7 +12,7 @@
         :is="getComponentAttrs(item).type"
         v-bind="getComponentAttrs(item).attrs"
         class="breadcrumbs-item"
-        :class="{ 'link': !!item.to, 'active': idx === items.length - 1 }"
+        :class="{ 'link': !!item.to }"
       >
         <span
           v-if="$slots[`icon-${getBreadcrumbKey(item, idx)}`]"
@@ -29,10 +29,7 @@
         </span>
       </component>
 
-      <span
-        v-if="idx < items.length - 1"
-        class="breadcrumbs-divider"
-      >
+      <span class="breadcrumbs-divider">
         <slot name="divider">
           <!-- forward slash -->
           &#47;
@@ -106,9 +103,8 @@ const getBreadcrumbKey = (item: BreadcrumbItem, idx: number): string => item.key
       color: var(--kui-color-text-neutral, $kui-color-text-neutral);
       display: flex;
       gap: var(--kui-space-20, $kui-space-20);
-      padding: var(--kui-space-10, $kui-space-10) var(--kui-space-20, $kui-space-20);
       text-decoration: none;
-      transition: color $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
+      transition: box-shadow $kongponentsTransitionDurTimingFunc;
       user-select: none;
 
       :deep(#{$kongponentsKongIconSelector}) {
@@ -121,6 +117,7 @@ const getBreadcrumbKey = (item: BreadcrumbItem, idx: number): string => item.key
 
         color: var(--kui-color-text-neutral, $kui-color-text-neutral);
         font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+        transition: color $kongponentsTransitionDurTimingFunc;
       }
 
       &.link {
@@ -128,18 +125,17 @@ const getBreadcrumbKey = (item: BreadcrumbItem, idx: number): string => item.key
         outline: none;
 
         &:hover {
-          background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+          .breadcrumbs-text {
+            color: var(--kui-color-text, $kui-color-text);
+          }
         }
 
         &:focus-visible {
-          background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
           box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
-        }
-      }
 
-      &.active {
-        .breadcrumbs-text {
-          color: var(--kui-color-text, $kui-color-text);
+          .breadcrumbs-text {
+            color: var(--kui-color-text, $kui-color-text);
+          }
         }
       }
     }
