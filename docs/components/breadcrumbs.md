@@ -12,7 +12,7 @@ KBreadcrumbs component is a navigational aid that displays the user's location w
 
 ### items
 
-An array of breadcrumb items. Items that are not links, displayed at the end, will not be followed by a divider.
+An array of breadcrumb items.
 
 <KBreadcrumbs :items="internalBreadcrumbItems" />
 
