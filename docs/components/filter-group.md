@@ -20,25 +20,16 @@ KFilterGroup is a component that provides an interface for displaying and applyi
 
 ### v-model
 
-KFilterGroup uses `v-model` for data binding which tracks the filter selection state in a `FilterGroupSelection`.
+KFilterGroup uses `v-model` for data binding which tracks the filter selection state in a `FilterGroupSelection`. Each key in the selection state maps to a key in the [filters](#filters) prop.
 
 ```ts
-/*** The filter's operator: eq - equal, neq - not equal, contains - interpretation depends on the filter's implementation, exists - interpretation depends on the filter's implementation, lt - less than, lte - less than or equal to, gt - greater than, gte - greater than or equal to */
-type FilterOperator = 'eq' | 'neq' | 'contains' | 'exists' | 'lt' | 'lte' | 'gt' | 'gte'
+type FilterGroupSelection = Record<string, FilterSelection | undefined>
 
 interface FilterSelection {
-  /*** The operator this selection should be evaluated with */
-  operator: FilterOperator
-
-  /*** The value input by the user */
-  value: string | string[] | number | number[]
-
-  /*** The user facing display string for this selection. Displays in the pill and is truncated with an ellipsis when too long. */
-  text: string
+  operator: FilterOperator // 'eq' | 'neq' | 'contains' | 'exists' | 'lt' | 'lte' | 'gt' | 'gte'
+  value: string | string[] // the user's selection
+  text: string // the display string for that selection
 }
-
-/*** The selection for an entire KFilterGroup */
-type FilterGroupSelection = Record<string, FilterSelection | undefined>
 ```
 
 <ClientOnly>
@@ -47,7 +38,20 @@ type FilterGroupSelection = Record<string, FilterSelection | undefined>
     :filters="modelFilters"
   />
   <br>
-  <KButton @click="resetModelSelection">Reset</KButton>
+  <div style="display: flex; gap: 8px;">
+    <KButton
+      :disabled="modelSelection?.status?.value === 'inprogress'"
+      @click="filterInProgress"
+    >
+      Add "In Progress" filter
+    </KButton>
+    <KButton
+      :disabled="modelSelection?.name?.value === 'My name' && Object.keys(modelSelection).length === 1"
+      @click="resetModelSelection"
+    >
+      Reset
+    </KButton>
+  </div>
 </ClientOnly>
 
 ```html
@@ -56,7 +60,18 @@ type FilterGroupSelection = Record<string, FilterSelection | undefined>
     v-model="selection"
     :filters="filters"
   />
-  <KButton @click="resetModelSelection">Reset</KButton>
+  <KButton
+    :disabled="modelSelection?.status?.value === 'inprogress'"
+    @click="filterInProgress"
+  >
+    Add "In Progress" filter
+  </KButton>
+  <KButton
+    :disabled="selection?.name?.value === 'My name' && Object.keys(selection).length === 1"
+    @click="resetModelSelection"
+  >
+    Reset
+  </KButton>
 </template>
 
 <script setup lang="ts">
@@ -81,173 +96,76 @@ const selection = ref<FilterGroupSelection>({
 const resetModelSelection = () => {
   selection.value.name = defaultNameSelection,
 }
+
+const filterInProgress = () => {
+  selection.value = {
+    ...selection.value,
+    status: {
+      operator: 'eq',
+      value: 'inprogress',
+      text: 'In Progress',
+    }
+  }
+}
+
 </script>
 ```
 
 ### filters
 
-Prop for passing list of available filters. Accepts object of type `FilterGroupFilters`.
+Prop for passing list of available filters. Accepts object of type `FilterGroupFilters`. See [filter examples](#filter-examples) for each possible filter that can be used. Each filter must provide a [label](#filter.label), all other properties are optional. Each key in the filters prop maps to a key in the [v-model](#v-model) object.
 
 ```ts
-/*** All filters the KFilterGroup can render */
 export type FilterGroupFilters = Record<string, Filter>
-
-interface Filter {
-  /*** Displays in the filter selection dropdown and in the pill */
+export interface Filter {
   label: string
-
-  /*** The list of FilterOperators supported by this filter. Must have at least one FilterOperator. @default ['eq'] */
   operators?: FilterOperator[]
-
-  /*** The list of options the user can choose from in the filter. If unset, the filter renders a text input instead @default undefined */
   options?: FilterOption[]
-
-  /*** Whether a user can select more than one `option` or not. @default false */
   multiple?: boolean
-
-  /*** If true the filter's pill is always rendered, regardless of whether it has an active selection. @default false */
   pinned?: boolean
-
-  /*** The placement this filter's popover should use @default 'bottom-start' */
   placement?: PopPlacement
-
-  /*** Max width of the filter's popover. @default '400px' */
   maxWidth?: number | string
 }
-
-/*** The filter's operator: eq - equal, neq - not equal, contains - interpretation depends on the filter's implementation, exists - interpretation depends on the filter's implementation, lt - less than, lte - less than or equal to, gt - greater than, gte - greater than or equal to */
-type FilterOperator = 'eq' | 'neq' | 'contains' | 'exists' | 'lt' | 'lte' | 'gt' | 'gte'
-
-export interface FilterOption {
-  /** Label for the item to be displayed in the (multi)select dropdown. */
-  label: string
-  /** value for the item to be displayed in the (multi)select dropdown. */
-  value: string
-}
 ```
 
-KFilterGroup supports four filter types, determined by the filter configuration:
+### filter.label
 
-#### Select filter
+Displayed in the filter selection dropdown, the filter pill, and the popover with the filter's content.
 
-A select filter is rendered when `options` is provided and `multiple` is `false` or `undefined`.
+### filter.operators
 
-<ClientOnly>
-  <KFilterGroup
-    v-model="selectSelection"
-    :filters="selectFilters"
-  />
-</ClientOnly>
+One or more of `eq`, `neq`, `contains`, `exists`, `lt`, `lte`, `gt`, `gte`. Renders an operator selection for the end user when more than one is provided. See [operator usage](#operator-usage).
 
-```html
-<KFilterGroup
-  v-model="selection"
-  :filters="{
-    status: {
-      label: 'Status',
-      options: [
-        { value: 'todo', label: 'Todo' },
-        { value: 'inprogress', label: 'In Progress' },
-        { value: 'done', label: 'Done' },
-      ],
-      pinned: true,
-    },
-  }"
-/>
-```
+| Operator | Displayed in dropdown    | Displayed in pill |
+|----------|--------------------------|-------------------|
+| eq       | Equals                   | [label] = [value] |
+| neq      | Not equals               | [label] ≠ [value] |
+| contains | Contains                 | [label]: [value]  |
+| exists   | Exists                   | [label]: [value]  |
+| lt       | Less than                | [label] < [value] |
+| lte      | Less than or equal to    | [label] ≤ [value] |
+| gt       | Greater than             | [label] > [value] |
+| gte      | Greater than or equal to | [label] ≥ [value] |
 
-#### Multiselect filter
+### filter.options
 
-A multiselect filter is rendered when `multiple` is true and `options` is provided.
+An array of `{ label: …, value: … }` items. Used in [select filters](#select-filter) and [multiselect filters](#multiselect-filter).
 
-<ClientOnly>
-  <KFilterGroup
-    v-model="multiselectSelection"
-    :filters="multiselectFilters"
-  />
-</ClientOnly>
+### filter.multiple
 
-```html
-<KFilterGroup
-  v-model="selection"
-  :filters="{
-    tag: {
-      label: 'Tag',
-      multiple: true,
-      options: [
-        { value: 'foo', label: 'Foo' },
-        { value: 'bar', label: 'Bar' },
-        { value: 'baz', label: 'Baz' },
-        { value: 'bat', label: 'Bat' },
-      ],
-      pinned: true,
-    },
-  }"
-/>
-```
+Whether or not the [options](#filters.options) will be rendered as a [select filter](#select-filter) or a [multiselect filter](#multiselect-filter)
 
-#### Text filter
+### filter.pinned
 
-A text filter is rendered when `options` is not provided.
+If `true` the filter will always be rendered as a pill regardless of whether it has a value or not. If `false`, will only be rendered as a pill when it has a current value.
 
-<ClientOnly>
-  <KFilterGroup
-    v-model="textSelection"
-    :filters="textFilters"
-  />
-</ClientOnly>
+### filter.placement
 
-```html
-<KFilterGroup
-  v-model="selection"
-  :filters="{
-    Name: {
-      label: 'Name',
-      pinned: true,
-    },
-  }"
-/>
-```
+Where the filter's popover will be placed, defaults to `bottom-start`. See [popover placement](../components/popover#placement)
 
-#### Custom filter
+### filter.maxWidth
 
-A custom filter is rendered when content is provided in the [filter-\*](#filter-content) slot.
-
-<ClientOnly>
-  <KFilterGroup
-    v-model="customSelection"
-    :filters="customFilters"
-    @apply="onCustomApply"
-    @clear="onCustomClear"
-    @open="onCustomOpen"
-  >
-    <template #filter-custom>
-        <KLabel>Value</KLabel>
-        <KDateTimePicker
-          v-model="customTime"
-          :key="timeKey"
-          mode="relative"
-          :time-periods="customTimePeriods"
-        />
-    </template>
-  </KFilterGroup>
-</ClientOnly>
-
-```html
-<KFilterGroup
-  v-model="selection"
-  :filters="{
-    created: {
-      label: 'Created',
-      pinned: true,
-    },
-  }"
->
-  <template #filter-created>
-    <MyCustomContent />
-  </template>
-</KFilterGroup>
-```
+The max width of the filter's popover, defaults to `400px`. See [popover maxWidth](../components/popover#maxwidth)
 
 ### selectorLabel
 
@@ -394,6 +312,159 @@ Emitted when the filter's popover content is closed (including when selection is
 
 Emitted when the filter's popover content is opened. Event payload is the opened filter's key.
 
+## Filter Examples
+
+KFilterGroup supports four filter types, determined by the filter configuration:
+
+### Select Filter
+
+A select filter is rendered when `options` is provided and `multiple` is `false` or `undefined`.
+
+<ClientOnly>
+  <KFilterGroup
+    v-model="selectSelection"
+    :filters="selectFilters"
+  />
+</ClientOnly>
+
+```html
+<KFilterGroup
+  v-model="selection"
+  :filters="{
+    status: {
+      label: 'Status',
+      options: [
+        { value: 'todo', label: 'Todo' },
+        { value: 'inprogress', label: 'In Progress' },
+        { value: 'done', label: 'Done' },
+      ],
+      pinned: true,
+    },
+  }"
+/>
+```
+
+### Multiselect Filter
+
+A multiselect filter is rendered when `multiple` is true and `options` is provided.
+
+<ClientOnly>
+  <KFilterGroup
+    v-model="multiselectSelection"
+    :filters="multiselectFilters"
+  />
+</ClientOnly>
+
+```html
+<KFilterGroup
+  v-model="selection"
+  :filters="{
+    tag: {
+      label: 'Tag',
+      multiple: true,
+      options: [
+        { value: 'foo', label: 'Foo' },
+        { value: 'bar', label: 'Bar' },
+        { value: 'baz', label: 'Baz' },
+        { value: 'bat', label: 'Bat' },
+      ],
+      pinned: true,
+    },
+  }"
+/>
+```
+
+### Text Filter
+
+A text filter is rendered when `options` is not provided.
+
+<ClientOnly>
+  <KFilterGroup
+    v-model="textSelection"
+    :filters="textFilters"
+  />
+</ClientOnly>
+
+```html
+<KFilterGroup
+  v-model="selection"
+  :filters="{
+    Name: {
+      label: 'Name',
+      pinned: true,
+    },
+  }"
+/>
+```
+
+### Custom Filter
+
+A custom filter is rendered when content is provided in the [filter-\*](#filter-content) slot.
+
+<ClientOnly>
+  <KFilterGroup
+    v-model="customSelection"
+    :filters="customFilters"
+    @apply="onCustomApply"
+    @clear="onCustomClear"
+    @open="onCustomOpen"
+  >
+    <template #filter-custom>
+        <KLabel>Value</KLabel>
+        <KDateTimePicker
+          v-model="customTime"
+          :key="timeKey"
+          mode="relative"
+          :time-periods="customTimePeriods"
+        />
+    </template>
+  </KFilterGroup>
+</ClientOnly>
+
+```html
+<KFilterGroup
+  v-model="selection"
+  :filters="{
+    created: {
+      label: 'Created',
+      pinned: true,
+    },
+  }"
+>
+  <template #filter-created>
+    <MyCustomContent />
+  </template>
+</KFilterGroup>
+```
+
+### Operator Usage
+
+For any filter other than a [Custom Filter](#custom-filter), when more than one operator is set for a filter, an operator selection is rendered in the popover.
+
+<ClientOnly>
+  <KFilterGroup
+    v-model="operatorSelection"
+    :filters="operatorFilters"
+  />
+</ClientOnly>
+
+```html
+<KFilterGroup
+  v-model="selection"
+  :filters="{
+    created: {
+      label: 'Created',
+      operators: ['eq', 'neq', 'contains', 'exists', 'lt', 'lte', 'gt', 'gte'],
+      pinned: true,
+    },
+  }"
+>
+  <template #filter-created>
+    <MyCustomContent />
+  </template>
+</KFilterGroup>
+```
+
 <script setup lang="ts">
 import { ref } from 'vue'
 import { TimePeriods, TimeframeKeys } from '@mocks/KDateTimePickerMockData'
@@ -463,6 +534,15 @@ const textFilters: FilterGroupFilters = {
   status: { ...deepClone(inputFilter), pinned: true },
 }
 
+const operatorSelection = ref<FilterGroupSelection>({})
+const operatorFilters: FilterGroupFilters = {
+  status: {
+    ...deepClone(inputFilter),
+    operators: ['eq', 'neq', 'contains', 'exists', 'lt', 'lte', 'gt', 'gte'],
+    pinned: true
+  },
+}
+
 const customSelection = ref<FilterGroupSelection>({})
 const customFilters: FilterGroupFilters = {
   custom: { ...deepClone(customFilter), pinned: true },
@@ -520,6 +600,17 @@ const customNodes = ref(0)
 
 const resetModelSelection = () => {
   modelSelection.value = { name: defaultNameSelection }
+}
+
+const filterInProgress = () => {
+  modelSelection.value = {
+    ...modelSelection.value,
+    status: {
+      operator: 'eq',
+      value: 'inprogress',
+      text: 'In Progress',
+    }
+  }
 }
 
 const onCustomApply = (key: string) => {
