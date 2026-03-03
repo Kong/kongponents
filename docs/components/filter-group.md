@@ -136,16 +136,16 @@ Displayed in the filter selection dropdown, the filter pill, and the popover wit
 
 One or more of `eq`, `neq`, `contains`, `exists`, `lt`, `lte`, `gt`, `gte`. Renders an operator selection for the end user when more than one is provided. See [operator usage](#operator-usage).
 
-| Operator | Displayed in dropdown    | Displayed in pill |
-|----------|--------------------------|-------------------|
-| eq       | Equals                   | [label] = [value] |
-| neq      | Not equals               | [label] ≠ [value] |
-| contains | Contains                 | [label]: [value]  |
-| exists   | Exists                   | [label]: [value]  |
-| lt       | Less than                | [label] < [value] |
-| lte      | Less than or equal to    | [label] ≤ [value] |
-| gt       | Greater than             | [label] > [value] |
-| gte      | Greater than or equal to | [label] ≥ [value] |
+| Operator   | Displayed in dropdown    | Displayed in pill |
+|------------|--------------------------|-------------------|
+| `eq`       | Equals                   | [label] = [value] |
+| `neq`      | Not equals               | [label] ≠ [value] |
+| `contains` | Contains                 | [label]: [value]  |
+| `exists`   | Exists                   | [label]: [value]  |
+| `lt`       | Less than                | [label] < [value] |
+| `lte`      | Less than or equal to    | [label] ≤ [value] |
+| `gt`       | Greater than             | [label] > [value] |
+| `gte`      | Greater than or equal to | [label] ≥ [value] |
 
 ### filter.options
 
@@ -153,11 +153,11 @@ An array of `{ label: …, value: … }` items. Used in [select filters](#select
 
 ### filter.multiple
 
-Whether or not the [options](#filters.options) will be rendered as a [select filter](#select-filter) or a [multiselect filter](#multiselect-filter)
+If [options](#filters.options) are set, this determines whether or not those options will be rendered as a [select filter](#select-filter) or a [multiselect filter](#multiselect-filter)
 
 ### filter.pinned
 
-If `true` the filter will always be rendered as a pill regardless of whether it has a value or not. If `false`, will only be rendered as a pill when it has a current value.
+If `true` the filter will always be rendered as a pill regardless of whether it has a value or not and will never appear in the "Add filter" dropdown as it's always visible. If `false`, will only be rendered as a pill when it has a current value.
 
 ### filter.placement
 
@@ -361,6 +361,7 @@ A multiselect filter is rendered when `multiple` is true and `options` is provid
   :filters="{
     tag: {
       label: 'Tag',
+      operators: ['contains'],
       multiple: true,
       options: [
         { value: 'foo', label: 'Foo' },
@@ -491,6 +492,7 @@ const selectFilter: Filter = {
 const multiselectFilter: Filter = {
   label: 'Tag',
   multiple: true,
+  operators: ['contains'],
   options: [
     { value: 'foo', label: 'Foo' },
     { value: 'bar', label: 'Bar' },
