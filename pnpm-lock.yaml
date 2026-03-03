@@ -22,7 +22,7 @@ overrides:
   tmp@<=0.2.3: '>=0.2.5'
   js-yaml@>=4.0.0 <4.1.1: '>=4.1.1'
   diff@<8.0.3: '>=8.0.3'
-  devalue@>=5.1.0 <5.6.2: '>=5.6.2'
+  devalue@>=5.1.0 <5.6.2: '>=5.6.3'
   h3@<=1.15.4: '>=1.15.5'
   devalue@>=5.3.0 <=5.6.1: '>=5.6.2'
   lodash@>=4.0.0 <=4.17.22: '>=4.17.23'
@@ -34,10 +34,10 @@ overrides:
   devalue@<=5.6.2: '>=5.6.3'
   systeminformation@<=5.30.7: '>=5.31.0'
   systeminformation@<5.30.8: '>=5.30.8'
-  minimatch@<3.1.3: '>=3.1.3'
-  minimatch@>=5.0.0 <5.1.7: '>=5.1.7'
-  minimatch@>=9.0.0 <9.0.6: '>=9.0.6'
-  minimatch@>=10.0.0 <10.2.1: '>=10.2.1'
+  minimatch@<3.1.3: '>=10.2.3'
+  minimatch@>=5.0.0 <5.1.7: '>=10.2.3'
+  minimatch@>=9.0.0 <9.0.6: '>=9.0.9'
+  minimatch@>=10.0.0 <10.2.1: '>=10.2.3'
 
 importers:
 
@@ -4184,6 +4184,7 @@ packages:
   git-raw-commits@4.0.0:
     resolution: {integrity: sha512-ICsMM1Wk8xSGMowkOmPrzo2Fgmfo4bMHLNX6ytHjajRJUqvHOw/TFapQ+QG75c3X/tTDDhOSRPGC52dDbNM8FQ==}
     engines: {node: '>=16'}
+    deprecated: This package is no longer maintained. For the JavaScript API, please use @conventional-changelog/git-client instead.
     hasBin: true
 
   glob-parent@5.1.2:
@@ -5078,6 +5079,10 @@ packages:
 
   minimatch@10.2.2:
     resolution: {integrity: sha512-+G4CpNBxa5MprY+04MbgOw1v7So6n5JY166pFi9KfYwT78fxScCeSNQSNzp6dpPSW2rONOps6Ocam1wFhCgoVw==}
+    engines: {node: 18 || 20 || >=22}
+
+  minimatch@10.2.4:
+    resolution: {integrity: sha512-oRjTw/97aTBN0RHbYCdtF1MQfvusSIBQM0IZEgzl6426+8jSC0nF1a/GmnVLpfB9yyr6g6FTqWqiZVbxrtaCIg==}
     engines: {node: 18 || 20 || >=22}
 
   minimist@1.2.7:
@@ -7054,6 +7059,7 @@ packages:
 
   unplugin-vue-router@0.19.2:
     resolution: {integrity: sha512-u5dgLBarxE5cyDK/hzJGfpCTLIAyiTXGlo85COuD4Nssj6G7NxS+i9mhCWz/1p/ud1eMwdcUbTXehQe41jYZUA==}
+    deprecated: 'Merged into vuejs/router. Migrate: https://router.vuejs.org/guide/migration/v4-to-v5.html'
     peerDependencies:
       '@vue/compiler-sfc': ^3.5.17
       vue-router: ^4.6.0
@@ -8688,7 +8694,7 @@ snapshots:
     dependencies:
       '@eslint/object-schema': 2.1.7
       debug: 4.4.3(supports-color@8.1.1)
-      minimatch: 10.2.2
+      minimatch: 10.2.4
     transitivePeerDependencies:
       - supports-color
 
@@ -8709,7 +8715,7 @@ snapshots:
       ignore: 5.3.2
       import-fresh: 3.3.0
       js-yaml: 4.1.1
-      minimatch: 10.2.2
+      minimatch: 10.2.4
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
@@ -10888,7 +10894,7 @@ snapshots:
   copyfiles@2.4.1:
     dependencies:
       glob: 7.2.3
-      minimatch: 10.2.2
+      minimatch: 10.2.4
       mkdirp: 1.0.4
       noms: 0.0.0
       through2: 2.0.5
@@ -11643,7 +11649,7 @@ snapshots:
       is-glob: 4.0.3
       json-stable-stringify-without-jsonify: 1.0.1
       lodash.merge: 4.6.2
-      minimatch: 10.2.2
+      minimatch: 10.2.4
       natural-compare: 1.4.0
       optionator: 0.9.4
     optionalDependencies:
@@ -12078,7 +12084,7 @@ snapshots:
 
   glob@13.0.1:
     dependencies:
-      minimatch: 10.2.2
+      minimatch: 10.2.4
       minipass: 7.1.2
       path-scurry: 2.0.1
 
@@ -12093,7 +12099,7 @@ snapshots:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 10.2.2
+      minimatch: 10.2.4
       once: 1.4.0
       path-is-absolute: 1.0.1
 
@@ -12959,6 +12965,10 @@ snapshots:
   mimic-fn@4.0.0: {}
 
   minimatch@10.2.2:
+    dependencies:
+      brace-expansion: 5.0.3
+
+  minimatch@10.2.4:
     dependencies:
       brace-expansion: 5.0.3
 
@@ -14054,7 +14064,7 @@ snapshots:
 
   readdir-glob@1.1.3:
     dependencies:
-      minimatch: 10.2.2
+      minimatch: 10.2.4
 
   readdirp@3.6.0:
     dependencies:
