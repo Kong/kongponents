@@ -1,3 +1,10 @@
+# [9.52.0](https://github.com/Kong/kongponents/compare/v9.51.2...v9.52.0) (2026-03-03)
+
+
+### Features
+
+* new kongponent KFilterGroup [KHCP-19257] ([#3094](https://github.com/Kong/kongponents/issues/3094)) ([2f7e81b](https://github.com/Kong/kongponents/commit/2f7e81b930246621178e98b43a4ed6c86bc9c86b)), closes [#3092](https://github.com/Kong/kongponents/issues/3092) [#3095](https://github.com/Kong/kongponents/issues/3095) [#3098](https://github.com/Kong/kongponents/issues/3098) [#3112](https://github.com/Kong/kongponents/issues/3112)
+
 ## [9.51.2](https://github.com/Kong/kongponents/compare/v9.51.1...v9.51.2) (2026-03-03)
 
 
