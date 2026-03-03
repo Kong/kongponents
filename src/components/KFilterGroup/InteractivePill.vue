@@ -130,6 +130,15 @@ watch(() => [fullLabel.value, contentLabel], async () => {
     : false
 }, { immediate: true })
 
+watch(() => pillFocus, (pillFocused) => {
+  if (pillFocused) {
+    // to make sure the browser focus is in the right place, when focus is manually
+    // applied via the pillFocus prop, we need to explicitly set browser focus.
+    // Otherwise tab order is incorrect
+    triggerRef.value?.focus()
+  }
+})
+
 const tooltipContent = computed((): string => {
   if (pillFocus || clearFocus) {
     // while focused, a tooltip is distracting from the content the focused
