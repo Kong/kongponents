@@ -344,14 +344,14 @@
 
                   /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
                   :deep(.k-table-view) {
-                    background-color: var(--kui-color-background-neutral-weakest, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
+                    background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
 
                     .table-wrapper {
                       max-height: $expandedRowMaxHeight;
                     }
 
                     tr.is-scrolled {
-                      background-color: var(--kui-color-background-neutral-weakest, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
+                      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
                     }
 
                     th,
@@ -376,7 +376,7 @@
                     }
 
                     .k-empty-state {
-                      background-color: var(--kui-color-background-neutral-weakest, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
+                      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
                     }
                   }
                 }
