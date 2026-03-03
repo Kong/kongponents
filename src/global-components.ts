@@ -51,6 +51,7 @@ declare module 'vue' {
     KTableView: typeof components.KTableView
     KTableData: typeof components.KTableData
     KSlider: typeof components.KSlider
+    KFilterGroup: typeof components.KFilterGroup
     // {%%NEW_KONGPONENT%%} (do not remove comment)
   }
 }
