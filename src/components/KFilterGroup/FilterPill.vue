@@ -469,7 +469,7 @@ const onTrigger = () => {
 }
 
 .filter-content {
-  margin: $kui-space-40 0;
+  margin: var(--kui-space-40, $kui-space-40) var(--kui-space-0, $kui-space-0);
   min-width: 366px; // 400px - padding
 
   .default-layout {
