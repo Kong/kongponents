@@ -93,6 +93,12 @@ const componentRoutes: RouteRecordRaw[] = [
     component: () => import('../pages/SandboxFileUpload.vue'),
   },
   {
+    path: '/filtergroup',
+    name: 'filtergroup',
+    meta: { title: 'Filter Group Sandbox' },
+    component: () => import('../pages/SandboxFilterGroup.vue'),
+  },
+  {
     path: '/input',
     name: 'input',
     meta: { title: 'Input Sandbox' },
