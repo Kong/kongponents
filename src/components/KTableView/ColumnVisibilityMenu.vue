@@ -264,7 +264,7 @@ onBeforeMount(() => {
   }
 
   :deep(.k-input).search-input {
-    padding: $kui-space-10 $kui-space-30 $kui-space-30 $kui-space-30;
+    padding: var(--kui-space-10, $kui-space-10) var(--kui-space-30, $kui-space-30) var(--kui-space-30, $kui-space-30) var(--kui-space-30, $kui-space-30);
 
     ::-webkit-search-cancel-button {
       /* hide the default "X" button */

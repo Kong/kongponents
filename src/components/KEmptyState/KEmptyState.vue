@@ -307,10 +307,10 @@ $kEmptyStateFeaturesContainerGap: var(--kui-space-70, $kui-space-70);
     flex-direction: column;
     font-size: var(--kui-font-size-30, $kui-font-size-30);
     font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-    gap: $kui-space-40;
+    gap: var(--kui-space-40, $kui-space-40);
     line-height: var(--kui-line-height-30, $kui-line-height-30);
     max-width: $kEmptyStateMaxWidth; // limit width so the message stays readable if title is too long
-    padding-top: $kui-space-90;
+    padding-top: var(--kui-space-90, $kui-space-90);
     width: 100%;
   }
 }
