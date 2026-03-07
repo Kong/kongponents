@@ -1,3 +1,10 @@
+## [9.52.1](https://github.com/Kong/kongponents/compare/v9.52.0...v9.52.1) (2026-03-07)
+
+
+### Bug Fixes
+
+* apply token-var-usage stylelint rule ([#3117](https://github.com/Kong/kongponents/issues/3117)) ([96f3214](https://github.com/Kong/kongponents/commit/96f3214ff3bf030b78412d7841e0c603a282c7be))
+
 # [9.52.0](https://github.com/Kong/kongponents/compare/v9.51.2...v9.52.0) (2026-03-03)
 
 
