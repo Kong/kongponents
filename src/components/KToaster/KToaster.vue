@@ -58,7 +58,6 @@ type ToastIcon = typeof InfoIcon | typeof CheckCircleIcon | typeof WarningIcon |
 
 const {
   toasterState = [],
-  zIndex = 10000,
 } = defineProps<ToasterProps>()
 
 const emit = defineEmits<ToasterEmits>()
@@ -120,7 +119,6 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
   display: flex;
   flex-direction: column;
   gap: var(--kui-space-50, $kui-space-50);
-  z-index: v-bind('zIndex');
 
   .toaster {
     align-items: flex-start;

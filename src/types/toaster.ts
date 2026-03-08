@@ -33,8 +33,7 @@ export interface ToasterProps {
   toasterState: Array<Toast & { key: string }>
 
   /**
-   * The z-index of the toaster.
-   * @default 10000
+   * @deprecated zIndex provided through ToasterOptions is set on the shared container on initialization. This prop is no longer used.
    */
   zIndex?: number
 }
