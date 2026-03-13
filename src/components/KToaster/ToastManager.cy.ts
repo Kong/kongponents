@@ -95,4 +95,23 @@ describe('ToastManager', () => {
     toastManager2.destroy()
     toastManager3.destroy()
   })
+
+  it('creates toasters container with correct default z-index', () => {
+    const toastManager = new ToastManager()
+    const container = document.getElementById(toastersContainerId)
+    expect(container).to.have.css('z-index', '10000')
+
+    // Cleanup
+    toastManager.destroy()
+  })
+
+  it('creates toasters container with correct z-index when provided', () => {
+    const zIndex = 9999
+    const toastManager = new ToastManager({ zIndex })
+    const container = document.getElementById(toastersContainerId)
+    expect(container).to.have.css('z-index', String(zIndex))
+
+    // Cleanup
+    toastManager.destroy()
+  })
 })

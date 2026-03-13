@@ -1,5 +1,7 @@
 import KToaster from '@/components/KToaster/KToaster.vue'
 
+const toastersContainerId = 'kongponents-toaster-container'
+
 describe('KToaster', () => {
   it('renders toaster', () => {
     const toasts = []
@@ -49,29 +51,6 @@ describe('KToaster', () => {
     cy.get('.toaster .toaster-message').should('not.exist')
     cy.get('.toaster .toaster-close-icon').should('be.visible')
   })
-
-  it('renders toast with correct default z-index', () => {
-
-    cy.mount(KToaster, {
-      props: {
-        toasterState: [{ title: 'I have a toast' }],
-      },
-    })
-
-    cy.get('.k-toaster').should('have.css', 'z-index', '10000')
-  })
-
-  it('renders toast with custom z-index', () => {
-    cy.mount(KToaster, {
-      props: {
-        toasterState: [{ title: 'I have a toast' }],
-        zIndex: 9999,
-      },
-    })
-
-    cy.get('.k-toaster').should('have.css', 'z-index', '9999')
-  })
-
 
   it('shows close button even if content is long', () => {
     const longTitle = 'title'.repeat(20)
