@@ -1,3 +1,10 @@
+## [9.52.3](https://github.com/Kong/kongponents/compare/v9.52.2...v9.52.3) (2026-03-13)
+
+
+### Bug Fixes
+
+* pnpm audit fix ([#3138](https://github.com/Kong/kongponents/issues/3138)) ([6a70750](https://github.com/Kong/kongponents/commit/6a707501d84b83be906a5be269e5b49033865c57))
+
 ## [9.52.2](https://github.com/Kong/kongponents/compare/v9.52.1...v9.52.2) (2026-03-09)
 
 
