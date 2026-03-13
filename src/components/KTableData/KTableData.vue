@@ -36,13 +36,13 @@
     v-bind="listenerProps"
     @empty-state-action-click="emit('empty-state-action-click')"
     @error-action-click="emit('error-action-click')"
-    @get-next-offset="getNextOffsetHandler"
-    @get-previous-offset="getPreviousOffsetHandler"
+    @get-next-offset="toNextPageOffset"
+    @get-previous-offset="toPreviousPageOffset"
     @page-change="pageChangeHandler"
     @page-size-change="pageSizeChangeHandler"
     @row-actions-toggle="($event) => $emit('row-actions-toggle', $event)"
     @row-select="($event) => emit('row-select', $event)"
-    @sort="sortHandler"
+    @sort="onSort"
     @update:row-expanded="($event) => emit('update:row-expanded', $event)"
     @update:table-preferences="tablePreferencesUpdateHandler"
   >
@@ -153,38 +153,29 @@
 </template>
 
 <script setup lang="ts" generic="const Header extends TableDataHeader = TableDataHeader, Data extends readonly Record<string, any>[] = readonly Record<string, any>[], Offset extends string | number = string | number">
-import type { Ref } from 'vue'
-import { ref, watch, computed, onMounted, useId } from 'vue'
+import { watch, computed, onMounted, toRef, reactive } from 'vue'
 import KTableView from '@/components/KTableView/KTableView.vue'
 import useUtilities from '@/composables/useUtilities'
+import { useTableData } from './useTableFetcher'
 import type {
   TablePreferences,
   TableDataHeader,
   TableColumnSlotName,
   TableColumnTooltipSlotName,
-  SortColumnOrder,
-  TableSortPayload,
   ButtonAppearance,
   RowLink,
-  TablePaginationAttributes,
   PageChangeData,
   PageSizeChangeData,
-  TableState,
-  SwrvStateData,
+  TableSortPayload,
   TableDataProps,
   TableColumnKey,
-  TableColumnVisibility,
-  TableColumnWidths,
   TableDataEmits,
   TableDataSlots,
 } from '@/types'
 import { EmptyStateIconVariants } from '@/types'
-import { getInitialPageSize, DEFAULT_PAGE_SIZE } from '@/utilities'
 import { pickBy } from 'lodash-es'
 
 type ColumnKey = TableColumnKey<Header>
-type ColumnVisibility = TableColumnVisibility<Header>
-type ColumnWidths = TableColumnWidths<Header>
 
 const {
   resizeColumns,
@@ -240,14 +231,10 @@ const emit = defineEmits<TableDataEmits<Header, Data>>()
 
 const slots = defineSlots<TableDataSlots<Header, Data>>()
 
-const { useDebounce, useRequest, useSwrvState, clientSideSorter: defaultClientSideSorter } = useUtilities()
-
-const tableId = useId()
+const { useDebounce } = useUtilities()
 
 // Cannot use `ref<Data[number][]>([])` as the items will be inferred incorrectly inside the template.
 // Same applies to other refs that have a generic type.
-const tableData = ref([]) as Ref<Array<Data[number]>>
-const tableHeaders = computed(() => sortable ? headers : headers.map((header) => ({ ...header, sortable: false })))
 const getEmptyStateButtonAppearance = computed((): ButtonAppearance => {
   if (emptyStateButtonAppearance) {
     return emptyStateButtonAppearance
@@ -256,35 +243,62 @@ const getEmptyStateButtonAppearance = computed((): ButtonAppearance => {
   return searchInput ? 'tertiary' : 'primary'
 })
 
-const total = ref<number>(0)
-const page = ref<number>(1)
-const pageSize = ref<number>(getInitialPageSize(tablePreferences, paginationAttributes))
-const filterQuery = ref<string>(searchInput ?? '')
-const sortColumnKey = ref(tablePreferences.sortColumnKey || initialFetcherParams.sortColumnKey || '') as Ref<ColumnKey>
-const sortColumnOrder = ref<SortColumnOrder>(tablePreferences.sortColumnOrder || initialFetcherParams.sortColumnOrder || 'desc')
-const initialSortHandled = ref<boolean>(!(sortColumnKey.value && clientSort)) // For clientSort tables, if sortColumnKey is set, that means we need to handle initial sort
-const offset = ref(null) as Ref<Offset | null>
-const offsets = ref([]) as Ref<Array<Offset | null>>
-const hasNextPage = ref<boolean>(true)
-const hasInitialized = ref<boolean>(false)
-
-const defaultFetcherProps = {
-  pageSize: pageSize.value,
-  page: page.value,
-  query: filterQuery.value,
-  sortColumnKey: sortColumnKey.value,
-  sortColumnOrder: sortColumnOrder.value,
-  offset: offset.value,
+const emitTablePreferences = (tableDataPreferences: TablePreferences): void => {
+  if (tableState.value === 'success') {
+    emit('update:table-preferences', tableDataPreferences)
+  }
 }
 
-const tablePaginationAttributes = computed((): TablePaginationAttributes => ({
-  totalCount: total.value,
-  initialPageSize: pageSize.value,
-  currentPage: page.value,
-  offsetPreviousButtonDisabled: !previousOffset.value,
-  offsetNextButtonDisabled: !nextOffset.value || !hasNextPage.value,
-  ...paginationAttributes,
-}))
+const {
+  tableHeaders,
+  // data props
+  filterQuery,
+  response: fetcherResponse,
+  revalidate: fetchRevalidate,
+  isLoading: fetcherIsLoading,
+  tableState,
+  stateData,
+  tableData,
+  initData,
+
+  // sort props
+  sortColumnKey,
+  sortColumnOrder,
+  initialSortHandled,
+  sortHandler,
+  // pagination props
+  page,
+  pageSize,
+  offsets,
+  offset,
+  showPagination,
+  tablePaginationAttributes,
+  toPreviousPageOffset,
+  toNextPageOffset,
+
+  // preferences props
+  tableViewColumnVisibility,
+  tableViewColumnWidths,
+  tableDataPreferences,
+  tablePreferencesUpdateHandler,
+} = useTableData(
+  reactive({
+    sortable: () => sortable,
+    headers: () => headers,
+    fetcher: () => fetcher,
+    fetcherCacheKey: () => fetcherCacheKey,
+    cacheIdentifier: () => cacheIdentifier,
+    initialFetcherParams: () => initialFetcherParams,
+    clientSort: () => clientSort,
+    sortHandlerFunction: () => sortHandlerFunction,
+    hidePaginationWhenOptional: () => hidePaginationWhenOptional,
+    hidePagination: () => hidePagination,
+    tablePreferences: () => tablePreferences,
+    paginationAttributes: () => paginationAttributes,
+    searchInput: () => searchInput,
+  }), {
+    emitTablePreferences,
+  })
 
 // Whether a string is a valid slot name for a table column header
 const isTableColumnSlotName = (slot: string): slot is TableColumnSlotName<ColumnKey> => {
@@ -325,267 +339,35 @@ const cellSlots = computed((): ColumnKey[] => {
   return Object.keys(slots).filter(isTableColumnKey)
 })
 
-const sortParams = computed(() => ({
-  sortColumnKey: sortColumnKey.value,
-  sortColumnOrder: sortColumnOrder.value,
-}))
-
-// Params that are used in the cache key for the fetcher.
-// For client-side sorting, we don't need to include the sort params in the cache key otherwise the cache key will change on every sort,
-// which will cause the table to re-fetch data on every sort even though we don't need to fetch new data.
-const cacheKeyParams = computed(() => ({
-  pageSize: pageSize.value,
-  page: page.value,
-  query: filterQuery.value,
-  offset: offset.value,
-  ...clientSort ? {} : sortParams.value,
-}))
-
-// We still need all params for the fetcher
-const fetcherParams = computed(() => ({
-  ...cacheKeyParams.value,
-  ...sortParams.value,
-}))
-
-const isInitialFetch = ref<boolean>(true)
-const fetchData = async () => {
-  const res = await fetcher(fetcherParams.value)
-
-  isInitialFetch.value = false
-
-  return res
-}
-
-/**
- * Initialize the table with the initial data
- */
-const initData = () => {
-  const fetcherParams = {
-    ...defaultFetcherProps,
-    ...initialFetcherParams,
-  }
-
-  // don't allow overriding default settings with undefined values
-  page.value = fetcherParams.page ?? defaultFetcherProps.page
-  pageSize.value = fetcherParams.pageSize ?? defaultFetcherProps.pageSize
-  filterQuery.value = fetcherParams.query ?? defaultFetcherProps.query
-  sortColumnKey.value = fetcherParams.sortColumnKey ?? defaultFetcherProps.sortColumnKey
-  sortColumnOrder.value = fetcherParams.sortColumnOrder ?? defaultFetcherProps.sortColumnOrder
-
-  if (clientSort && sortColumnKey.value && sortColumnOrder.value) {
-    const header: TableDataHeader<ColumnKey> = tableHeaders.value.find((header) => header.key === sortColumnKey.value) || {} as TableDataHeader<ColumnKey>
-    const { useSortHandlerFunction } = header
-
-    // If a custom sort function is provided, use it. Otherwise, use the default client-side sorter.
-    if (useSortHandlerFunction && sortHandlerFunction) {
-      const sorted = sortHandlerFunction({
-        key: sortColumnKey.value,
-        prevKey: '',
-        sortColumnOrder: sortColumnOrder.value,
-        data: tableData.value,
-      })
-
-      if (sorted) {
-        tableData.value = [...sorted]
-      }
-    } else {
-      defaultClientSideSorter(sortColumnKey.value, '', sortColumnOrder.value, tableData.value)
-    }
-  }
-
-  if (paginationAttributes?.offset) {
-    offset.value = fetcherParams.offset
-    offsets.value.push(fetcherParams.offset)
-  }
-
-  // trigger setting of tableFetcherCacheKey
-  hasInitialized.value = true
-}
-
-const previousOffset = computed((): Offset | null => offsets.value[page.value - 1] || null)
-const nextOffset = ref(null) as Ref<Offset | null>
-
-// once initData() finishes, setting tableFetcherCacheKey to non-falsey value triggers fetch of data
-const tableFetcherCacheKey = computed((): string => {
-  if (!fetcher || !hasInitialized.value) {
-    return ''
-  }
-
-  // Set the default identifier to a random string
-  let identifierKey: string = tableId
-  if (cacheIdentifier) {
-    identifierKey = cacheIdentifier
-  }
-
-  identifierKey += `-${JSON.stringify(cacheKeyParams.value)}`
-
-  if (fetcherCacheKey) {
-    identifierKey += `-${fetcherCacheKey}`
-  }
-
-  return `k-table_${identifierKey}`
-})
-
 const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => {
   filterQuery.value = q
 }, 350)
+
 const search = generateDebouncedSearch(0) // generate a debounced function with zero delay (immediate)
 
-// ALL fetching is done through this useRequest / _revalidate
-// don't fire until tableFetcherCacheKey is set
-const {
-  data: fetcherData,
-  response: fetcherResponse,
-  error: fetcherError,
-  revalidate: _revalidate,
-  isValidating: fetcherIsValidating,
-  isLoading: fetcherIsLoading,
-} = useRequest(
-  () => tableFetcherCacheKey.value,
-  () => fetchData(),
-  { revalidateOnFocus: false, revalidateDebounce: 0 },
-)
-
-const { state, hasData } = useSwrvState(fetcherData, fetcherError, fetcherIsValidating)
-const stateData = computed((): SwrvStateData => ({
-  hasData: hasData.value,
-  state: state.value,
-}))
-const tableState = computed((): TableState => fetcherIsLoading.value ? 'loading' : fetcherError.value ? 'error' : 'success')
-const { debouncedFn: debouncedRevalidate } = useDebounce(_revalidate, 500)
-
-const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortOrder }: TableSortPayload<ColumnKey>, emitSortEvent: boolean = true): void => {
-  initialSortHandled.value = true
-
-  const header: TableDataHeader<ColumnKey> = tableHeaders.value.find((header) => header.key === columnKey) || {} as TableDataHeader<ColumnKey>
-  const { useSortHandlerFunction } = header
-
-  if (emitSortEvent) {
-    emit('sort', {
-      prevKey,
-      sortColumnKey: columnKey,
-      sortColumnOrder: sortOrder,
-    })
-  }
-
-  page.value = 1
-
-  if (!sortColumnKey.value || columnKey !== sortColumnKey.value) {
-    offsets.value = [null]
-  }
-
-  sortColumnKey.value = columnKey
-  sortColumnOrder.value = sortOrder as SortColumnOrder
-
-  if (clientSort) {
-    if (useSortHandlerFunction && sortHandlerFunction) {
-      const sorted = sortHandlerFunction({
-        key: columnKey,
-        prevKey,
-        sortColumnOrder: sortColumnOrder.value,
-        data: tableData.value,
-      })
-
-      // As `sortHandlerFunction` was marked as returning an array but we didn't use the return value
-      // before, we can keep the old behavior when nothing is returned but use the returned value if it exists.
-      if (sorted) {
-        tableData.value = [...sorted]
-      }
-    } else {
-      defaultClientSideSorter(columnKey, prevKey, sortColumnOrder.value, tableData.value)
-    }
-  } else if (!paginationAttributes?.offset) {
-    debouncedRevalidate()
-  }
+const sortEvtEmitter = (params: TableSortPayload<ColumnKey>) => {
+  emit('sort', params)
 }
+
+const onSort = (sortPayload: TableSortPayload<ColumnKey>, shouldEmit: boolean = true) => {
+  sortHandler(sortPayload, shouldEmit ? sortEvtEmitter : undefined)
+}
+
 
 const pageChangeHandler = ({ page: newPage }: PageChangeData) => {
   page.value = newPage
 }
 
-const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData) => {
+const resetPagination = () => {
   offsets.value = [null]
   offset.value = null
-  pageSize.value = newPageSize
   page.value = 1
 }
 
-const tablePreferencesUpdateHandler = ({ columnWidths: newColumnWidth, columnVisibility: newColumnVisibility }: TablePreferences<ColumnKey>) => {
-  // Update the column width and visibility overriding but keeping the existing properties (in case the new objects are empty)
-  tableViewColumnWidths.value = {
-    ...tableViewColumnWidths.value,
-    ...newColumnWidth,
-  }
-  tableViewColumnVisibility.value = {
-    ...tableViewColumnVisibility.value,
-    ...newColumnVisibility,
-  }
-
-  // Emit an event whenever one of the tablePreferences are updated
-  emitTablePreferences()
+const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData) => {
+  resetPagination()
+  pageSize.value = newPageSize
 }
-
-const tableViewColumnWidths = ref<ColumnWidths | undefined>(tablePreferences.columnWidths || {})
-const tableViewColumnVisibility = ref<ColumnVisibility | undefined>(tablePreferences.columnVisibility || {})
-const tableDataPreferences = computed((): TablePreferences<Header['key']> => ({
-  pageSize: pageSize.value,
-  sortColumnKey: sortColumnKey.value,
-  sortColumnOrder: sortColumnOrder.value,
-  ...(tableViewColumnWidths.value ? { columnWidths: tableViewColumnWidths.value } : {}),
-  ...(tableViewColumnVisibility.value ? { columnVisibility: tableViewColumnVisibility.value } : {}),
-}))
-
-watch(() => tablePreferences, (newVal) => {
-  pageSize.value = newVal?.pageSize ? newVal.pageSize : pageSize.value
-  tableViewColumnWidths.value = newVal?.columnWidths ? newVal.columnWidths : tableViewColumnWidths.value
-  tableViewColumnVisibility.value = newVal?.columnVisibility ? newVal.columnVisibility : tableViewColumnVisibility.value
-  // Handle sorting if the sort preferences have changed
-  if ((newVal?.sortColumnKey || newVal?.sortColumnOrder) && (sortColumnKey.value !== newVal.sortColumnKey || sortColumnOrder.value !== newVal.sortColumnOrder)) {
-    sortHandler({
-      sortColumnKey: newVal.sortColumnKey!,
-      prevKey: sortColumnKey.value,
-      sortColumnOrder: newVal.sortColumnOrder!,
-    }, false) // don't emit sort event when updating from prop change
-  }
-})
-
-const emitTablePreferences = (): void => {
-  if (tableState.value === 'success') {
-    emit('update:table-preferences', tableDataPreferences.value)
-  }
-}
-
-const getNextOffsetHandler = (): void => {
-  page.value++
-  offset.value = nextOffset.value
-}
-
-const getPreviousOffsetHandler = (): void => {
-  page.value--
-  offset.value = previousOffset.value
-}
-
-const showPagination = computed((): boolean => {
-  // if fetcher is not defined or hidePagination is true, don't show pagination
-  if (!fetcher || hidePagination) {
-    return false
-  }
-
-  const minPageSize = paginationAttributes?.pageSizes?.[0] ?? DEFAULT_PAGE_SIZE
-
-  // this logic is built around min page size so that pagination doesn't disappear when a higher value is selected and hidePaginationWhenOptional is true
-  if (hidePaginationWhenOptional && page.value === 1) {
-    if (!paginationAttributes?.offset) {
-      // if using cursor-based pagination, hide pagination when number of items is less than min page size
-      return total.value > minPageSize
-    } else {
-      // if using offset-based pagination, hide pagination when neither previous nor next offset is available and total items is less than min page size
-      return !!previousOffset.value || !!nextOffset.value || tableData.value.length >= minPageSize
-    }
-  }
-
-  return true
-})
 
 watch(fetcherResponse, (res) => {
   if (!res?.data) {
@@ -593,38 +375,33 @@ watch(fetcherResponse, (res) => {
   }
 
   tableData.value = [...res.data]
-  total.value = paginationAttributes?.totalCount || res.total || res.data?.length || 0
-
-  // if using offset-based pagination, set the next offset
-  if (paginationAttributes?.offset) {
-    if (!res.pagination?.offset) {
-      nextOffset.value = null
-    } else {
-      nextOffset.value = res.pagination.offset
-
-      if (!offsets.value[page.value]) {
-        offsets.value.push(res.pagination.offset)
-      }
-    }
-
-    // look for hasNextPage in the response, otherwise default to true
-    hasNextPage.value = (res.pagination && 'hasNextPage' in res.pagination) ? res.pagination.hasNextPage || false : true
-  }
 
   // if the data is empty and the page is greater than 1,
   // e.g. user deletes the last item on the last page,
   // reset the page to 1
   if (tableData.value.length === 0 && page.value > 1) {
-    page.value = 1
-    offsets.value = [null]
-    offset.value = null
+    resetPagination()
   }
 
   // Call sortHandler if the initial sort has not been handled yet
   if (sortable && !initialSortHandled.value) {
-    sortHandler({ sortColumnKey: sortColumnKey.value, prevKey: '', sortColumnOrder: sortColumnOrder.value }, false) // don't emit sort event when handling initial sort
+    onSort({ sortColumnKey: sortColumnKey.value, prevKey: '', sortColumnOrder: sortColumnOrder.value }, false) // don't emit sort event when handling initial sort
   }
 }, { deep: true, immediate: true })
+
+watch(() => tablePreferences, (newVal) => {
+  pageSize.value = newVal?.pageSize ? newVal.pageSize : pageSize.value
+  tableViewColumnWidths.value = newVal?.columnWidths ? newVal.columnWidths : tableViewColumnWidths.value
+  tableViewColumnVisibility.value = newVal?.columnVisibility ? newVal.columnVisibility : tableViewColumnVisibility.value
+  // Handle sorting if the sort preferences have changed
+  if ((newVal?.sortColumnKey || newVal?.sortColumnOrder) && (sortColumnKey.value !== newVal.sortColumnKey || sortColumnOrder.value !== newVal.sortColumnOrder)) {
+    onSort({
+      sortColumnKey: newVal.sortColumnKey!,
+      prevKey: sortColumnKey.value,
+      sortColumnOrder: newVal.sortColumnOrder!,
+    }, false) // don't emit sort event when updating from prop change
+  }
+})
 
 watch([stateData, tableState], (newState) => {
   const [newStateData, newTableState] = newState
@@ -644,24 +421,21 @@ watch(() => searchInput, (newSearchInput: string) => {
   }
 }, { immediate: true })
 
-watch([filterQuery, pageSize], async (newData, oldData) => {
-  const [oldQuery] = oldData
-  const [newQuery] = newData
-
+// Originally watching [filterQuery, pageSize], but page size plays no role in the
+// callback logic so removing this but keeping the comment here for context.
+// also removing the `async` since no corresponding `await` keyword is present.
+// removing `deep` since we are only watching a string value(primitive).
+watch(filterQuery, (oldQuery, newQuery) => {
   if (newQuery !== oldQuery && page.value !== 1) {
-    page.value = 1
-    offsets.value = [null]
-    offset.value = null
+    resetPagination()
   }
-}, { deep: true, immediate: true })
+}, { immediate: true })
 
 onMounted(() => {
   initData()
 })
 
 defineExpose({
-  revalidate: () => {
-    _revalidate()
-  },
+  revalidate: fetchRevalidate,
 })
 </script>
