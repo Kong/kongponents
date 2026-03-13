@@ -1,3 +1,10 @@
+## [9.52.4](https://github.com/Kong/kongponents/compare/v9.52.3...v9.52.4) (2026-03-13)
+
+
+### Bug Fixes
+
+* **kdropdown:** dropdown item icon color ([#3137](https://github.com/Kong/kongponents/issues/3137)) ([29c7957](https://github.com/Kong/kongponents/commit/29c7957767f9f0f92c090639b9fae79a4ded358b))
+
 ## [9.52.3](https://github.com/Kong/kongponents/compare/v9.52.2...v9.52.3) (2026-03-13)
 
 
