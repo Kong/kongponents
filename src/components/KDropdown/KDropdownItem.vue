@@ -270,30 +270,36 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
 // all rules must be very specific to avoid conflicts with other components
 
 .k-dropdown-item {
-  .dropdown-item-trigger {
-    .dropdown-item-trigger-label {
+  &:not(.disabled):not(.danger) {
+    .dropdown-item-trigger .dropdown-item-trigger-label {
       #{$kongponentsKongIconSelector} {
-        height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
-        width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
+      }
+    }
+  }
+
+  .dropdown-item-trigger .dropdown-item-trigger-label {
+    #{$kongponentsKongIconSelector} {
+      height: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+      width: var(--kui-icon-size-40, $kui-icon-size-40) !important;
+    }
+
+    [role="button"] {
+      &:not([disabled]) {
+        cursor: pointer;
+
+        &:focus, &:active {
+          outline: none;
+        }
+
+        &:hover, &:focus {
+          color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger) !important;
+        }
       }
 
-      [role="button"] {
-        &:not([disabled]) {
-          cursor: pointer;
-
-          &:focus, &:active {
-            outline: none;
-          }
-
-          &:hover, &:focus {
-            color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger) !important;
-          }
-        }
-
-        &[disabled] {
-          color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
-          pointer-events: none;
-        }
+      &[disabled] {
+        color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
+        pointer-events: none;
       }
     }
   }
