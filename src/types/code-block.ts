@@ -5,13 +5,13 @@ export interface CodeBlockRenderData {
   code: string
   language: string
   theme: Theme
-  query: string
-  matchingLineNumbers: number[]
 }
 
 export interface CodeBlockEventData extends CodeBlockRenderData {
   preElement: HTMLElement
   codeElement: HTMLElement
+  query: string
+  matchingLineNumbers: number[]
 }
 
 export type CommandKeywords = 'toggleFilterMode' | 'toggleRegExpMode' | 'jumpToNextMatch' | 'jumpToPreviousMatch' | 'copyCode'

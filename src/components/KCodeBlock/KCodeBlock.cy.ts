@@ -324,8 +324,6 @@ describe('KCodeBlock', () => {
         expect(args.code).to.equal(code)
         expect(args.language).to.equal('json')
         expect(args.theme).to.equal('light')
-        expect(args.query).to.be.a('string')
-        expect(args.matchingLineNumbers).to.be.an('array')
       })
     })
 

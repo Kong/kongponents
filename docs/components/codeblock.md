@@ -175,8 +175,6 @@ interface CodeBlockRenderData {
   code: string
   language: string
   theme: 'light' | 'dark'
-  query: string
-  matchingLineNumbers: number[]
 }
 ```
 

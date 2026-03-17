@@ -397,8 +397,6 @@ async function applyCodeRenderer(): Promise<void> {
       code,
       language,
       theme,
-      query: searchQuery.value,
-      matchingLineNumbers: matchingLineNumbers.value,
     })
     if (callId === rendererCallId) {
       customRenderedCode.value = result
