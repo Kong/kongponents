@@ -70,12 +70,12 @@
         <KCodeBlock
           id="syntax-highlighted-codeblock"
           :code="`${code}\n`.repeat(100)"
+          :code-renderer="highlight"
           :highlighted-line-numbers="highlightedLines"
           language="json"
           max-height="500"
           searchable
           theme="dark"
-          @code-block-render="highlight"
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent
@@ -232,7 +232,7 @@
 
 <script setup lang="ts">
 import { computed, ref, inject, watch, nextTick } from 'vue'
-import type { CodeBlockEventData } from '@/types'
+import type { CodeBlockRenderData } from '@/types'
 import { codeToHtml } from '../utils/shiki'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
@@ -246,8 +246,8 @@ const highlightedLines = ref<number[]>(origLines)
 const highlightedToggle = ref(true)
 const codeModified = ref(false)
 
-const highlight = async ({ codeElement, language, code, theme }: CodeBlockEventData) => {
-  codeElement.innerHTML = await codeToHtml(code, { lang: language, theme: theme === 'dark' ? 'material-theme-palenight' : 'catppuccin-latte', structure: 'inline' })
+const highlight = async ({ language, code, theme }: CodeBlockRenderData) => {
+  return await codeToHtml(code, { lang: language, theme: theme === 'dark' ? 'material-theme-palenight' : 'catppuccin-latte', structure: 'inline' })
 }
 
 const code = computed((): string => `{

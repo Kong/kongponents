@@ -1,6 +1,7 @@
-export interface CodeBlockEventData {
-  preElement: HTMLElement
-  codeElement: HTMLElement
+export type Theme = 'light' | 'dark'
+
+/** Data passed to the `codeRenderer` prop function. */
+export interface CodeBlockRenderData {
   code: string
   language: string
   theme: Theme
@@ -8,7 +9,10 @@ export interface CodeBlockEventData {
   matchingLineNumbers: number[]
 }
 
-export type Theme = 'light' | 'dark'
+export interface CodeBlockEventData extends CodeBlockRenderData {
+  preElement: HTMLElement
+  codeElement: HTMLElement
+}
 
 export type CommandKeywords = 'toggleFilterMode' | 'toggleRegExpMode' | 'jumpToNextMatch' | 'jumpToPreviousMatch' | 'copyCode'
 
@@ -111,6 +115,11 @@ export interface CodeBlockProps {
    * @default 'none'
    */
   maxHeight?: number | string
+
+  /**
+   * An async function that receives the code context and returns the HTML string to render.
+   */
+  codeRenderer?: (data: CodeBlockRenderData) => Promise<string> | string
 }
 
 export interface CodeBlockEmits {

@@ -42,11 +42,11 @@ The syntax language of `props.code` (e.g. `'json'`). This prop is also required.
 
 ### initialFilterMode
 
-Boolean to control whether the filter mode is initially active. Can be used together with the [`filter-mode-change` event](#filter-mode-change) to persist a code block’s filter mode setting. Defaults to `false`.
+Boolean to control whether the filter mode is initially active. Can be used together with the [`filter-mode-change` event](#filter-mode-change) to persist a code block's filter mode setting. Defaults to `false`.
 
 ### initialRegExpMode
 
-Boolean to control whether the regular expression mode is initially active. Can be used together with the [`reg-exp-mode-change` event](#reg-exp-mode-change) to persist a code block’s regular expression mode setting. Defaults to `false`.
+Boolean to control whether the regular expression mode is initially active. Can be used together with the [`reg-exp-mode-change` event](#reg-exp-mode-change) to persist a code block's regular expression mode setting. Defaults to `false`.
 
 <KCodeBlock
   id="code-block-initial-reg-exp-mode"
@@ -145,7 +145,7 @@ Please keep the following in mind when using `singleLine`:
 
 ### processing
 
-Allows controlling the processing state from outside the component. This allows a parent component to show the processing icon when it’s, for example, currently syntax highlighting the code.
+Allows controlling the processing state from outside the component. This allows a parent component to show the processing icon when it's, for example, currently syntax highlighting the code.
 
 <KCodeBlock
   id="code-block-processing"
@@ -163,6 +163,24 @@ Allows controlling the processing state from outside the component. This allows 
   processing
 />
 ```
+
+### codeRenderer
+
+An async (or sync) function that receives the code context and returns an HTML string to render. When provided, the component awaits the result before displaying the code content.
+
+The function receives a `CodeBlockRenderData` object and must return a `string` or `Promise<string>`.
+
+```ts
+interface CodeBlockRenderData {
+  code: string
+  language: string
+  theme: 'light' | 'dark'
+  query: string
+  matchingLineNumbers: number[]
+}
+```
+
+See [Syntax highlighting](#syntax-highlighting) for integration examples.
 
 ### maxHeight
 
@@ -275,7 +293,7 @@ Controls whether to show line numbers. Defaults to `true`.
 
 Controls whether to add links to the current line number. Defaults to `false`.
 
-You might need to turn this off for sites that already constantly use the fragment identifier in the URL like vue router’s hash-based navigation mode where all URL paths follow a first `/#/` segment.
+You might need to turn this off for sites that already constantly use the fragment identifier in the URL like vue router's hash-based navigation mode where all URL paths follow a first `/#/` segment.
 
 <KCodeBlock
   id="code-block-show-line-number-links"
@@ -383,9 +401,9 @@ Slot for button content.
 
 Fired when the code block is rendered or re-rendered. This happens when:
 
-- the component’s `mounted` life cycle hook is fired
-- the filter mode is turned off
+- the component's `mounted` lifecycle hook is fired
 - `props.code` changes
+- `props.language` or `props.theme` changes, when `codeRenderer` is provided
 
 Event payload is object instance of type `CodeBlockEventData`.
 
@@ -401,19 +419,9 @@ interface CodeBlockEventData {
 }
 ```
 
-This event can be used as the trigger for applying syntax highlighting (e.g. via Prism’s `highlightElement` function, see [Syntax highlighting](#syntax-highlighting) for an integration example).
-
-```javascript
-function highlight({ preElement, codeElement, language, code }) {
-  if (!preElement.classList.contains(`language-${language}`)) {
-    preElement.classList.add(`language-${language}`)
-  }
-
-  codeElement.innerHTML = code
-
-  Prism.highlightElement(codeElement)
-}
-```
+::: tip
+For syntax highlighting, consider using the [`codeRenderer` prop](#coderenderer) instead. It lets the component await the highlighted HTML before first render, preventing any flash of unstyled code.
+:::
 
 ### filter-mode-change
 
@@ -425,7 +433,7 @@ Fired when the lines matching a query change. Event payload is object instance o
 
 ### query-change
 
-Fired when the component’s internal query state is updated. This happens when the user finished typing (with a delay of a few hundred milliseconds to avoid repeatedly triggering computations while the user is still typing).
+Fired when the component's internal query state is updated. This happens when the user finished typing (with a delay of a few hundred milliseconds to avoid repeatedly triggering computations while the user is still typing).
 
 ### reg-exp-mode-change
 
@@ -433,7 +441,7 @@ Fired when the toggles the regular expression mode.
 
 ## Default shortcuts
 
-This component has a few shortcuts for interacting with its search and filter features. All of them are scoped to the code block. When invoking them while focus is placed outside of a code block, their associated actions won’t trigger.
+This component has a few shortcuts for interacting with its search and filter features. All of them are scoped to the code block. When invoking them while focus is placed outside of a code block, their associated actions won't trigger.
 
 | Shortcut                                      | Description             |
 | :-------------------------------------------- | :---------------------- |
@@ -445,7 +453,7 @@ This component has a few shortcuts for interacting with its search and filter fe
 
 ## Syntax highlighting
 
-The `KCodeBlock` component does not have syntax highlighting built in; however, your project can provide its own implementation, making use of the [`code-block-render` event](#code-block-render) to apply syntax highlighting.
+`KCodeBlock` does not have syntax highlighting built in; however, your project can provide its own implementation using the [`codeRenderer` prop](#coderenderer).
 
 ### PrismJS
 
@@ -457,18 +465,15 @@ Below is an integration example for the popular syntax highlighting library [Pri
     id="code-block"
     :code="code"
     language="json"
-    :processing="processing"
     searchable
-    @code-block-render="highlight"
+    :code-renderer="highlight"
   />
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import { KCodeBlock } from '@kong/kongponents/KCodeBlock.vue'
 import Prism from 'prismjs'
 import 'prismjs/components/prism-json.min.js'
-
 import 'prismjs/themes/prism.min.css'
 
 Prism.manual = true
@@ -494,33 +499,15 @@ const code = `{
   ]
 }`
 
-const processing = ref(false)
-
-/**
- * Applies PrismJS syntax highlighting.
- *
- * **Note**: Use higher-level functions like `Prism.highlightElement` for highlighting.
- * Lower-level functions like `Prism.highlight` don’t run any of the hooks
- * that are used to make plugins work.
- */
-function highlight({ preElement, codeElement, language, code }) {
-  processing.value = true
-
+// Note: Prism.highlight() does not run plugin hooks. If you rely on Prism plugins,
+// use the @code-block-render event with Prism.highlightElement() instead.
+function highlight({ code, language }) {
   if (!Prism.languages[language]) {
-    console.warn(`Prism: the language “${language}” isn’t enabled.`)
+    console.warn(`Prism: the language "${language}" isn't enabled.`)
+    return code
   }
 
-  if (!preElement.classList.contains(`language-${language}`)) {
-    // Adds the language-* class which tells Prism which language to highlight for.
-    preElement.classList.add(`language-${language}`)
-  }
-
-  // Ensures Prism operates on the raw code and not on an already highlighted DOM fragment.
-  codeElement.innerHTML = code
-
-  Prism.highlightElement(codeElement)
-
-  processing.value = false
+  return Prism.highlight(code, Prism.languages[language], language)
 }
 </script>
 ```
@@ -536,12 +523,11 @@ Below is an integration example for [Shiki](http://shiki.style/), a beautiful an
     :code="code"
     language="json"
     theme="dark"
-    @code-block-render="highlight"
+    :code-renderer="highlight"
   />
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import { KCodeBlock } from '@kong/kongponents/KCodeBlock.vue'
 import { codeToHtml } from 'shiki'
 
@@ -566,13 +552,13 @@ const code = `{
   ]
 }`
 
-async function highlight({ codeElement, language, theme, code }) {
-  codeElement.innerHTML = await codeToHtml(code, {
+async function highlight({ code, language, theme }) {
+  return codeToHtml(code, {
     lang: language,
     theme: theme === 'dark' ? 'vitesse-dark' : 'vitesse-light',
-    // `inline` allows to generate <span> and <br> elements without wrapper.
-    // Foreground and background colors are not applied for easier embedding. 
-    structure: 'inline'
+    // `inline` generates <span> elements without a wrapper element.
+    // Foreground and background colors are not applied for easier embedding.
+    structure: 'inline',
   })
 }
 </script>

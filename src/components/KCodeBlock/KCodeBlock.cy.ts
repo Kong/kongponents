@@ -313,6 +313,94 @@ describe('KCodeBlock', () => {
       })
   })
 
+  describe('codeRenderer prop', () => {
+    it('calls codeRenderer on mount with correct data', () => {
+      const codeRenderer = cy.stub().resolves('<span>highlighted</span>')
+
+      renderComponent({ id: 'code-block', codeRenderer })
+
+      cy.wrap(codeRenderer).should('have.been.calledOnce').then(() => {
+        const args = codeRenderer.firstCall.args[0]
+        expect(args.code).to.equal(code)
+        expect(args.language).to.equal('json')
+        expect(args.theme).to.equal('light')
+        expect(args.query).to.be.a('string')
+        expect(args.matchingLineNumbers).to.be.an('array')
+      })
+    })
+
+    it('renders the HTML returned by codeRenderer', () => {
+      const renderedHtml = '<span class="token string">"string value"</span>'
+      const codeRenderer = cy.stub().resolves(renderedHtml)
+
+      renderComponent({ id: 'code-block', codeRenderer })
+
+      cy.get('.highlighted-code-block code').should('contain.html', renderedHtml)
+    })
+
+    it('hides the code element while codeRenderer is pending, shows it after resolving', () => {
+      let resolveRenderer!: (html: string) => void
+      const codeRenderer = () => new Promise<string>(resolve => {
+        resolveRenderer = resolve
+      })
+
+      renderComponent({ id: 'code-block', codeRenderer })
+
+      cy.get('.highlighted-code-block code').should('have.class', 'render-pending')
+      cy.then(() => resolveRenderer('<span>done</span>'))
+      cy.get('.highlighted-code-block code').should('not.have.class', 'render-pending')
+    })
+
+    it('re-calls codeRenderer when code prop changes', () => {
+      const codeRenderer = cy.stub().resolves('<span>highlighted</span>')
+
+      renderComponent({ id: 'code-block', codeRenderer }).then(({ wrapper }) => {
+        cy.wrap(codeRenderer).should('have.been.calledOnce').then(() => {
+          wrapper.setProps({ code: '{"new": "value"}' })
+          cy.wrap(codeRenderer).should('have.been.calledTwice')
+        })
+      })
+    })
+
+    it('re-calls codeRenderer when language prop changes', () => {
+      const codeRenderer = cy.stub().resolves('<span>highlighted</span>')
+
+      renderComponent({ id: 'code-block', codeRenderer }).then(({ wrapper }) => {
+        cy.wrap(codeRenderer).should('have.been.calledOnce').then(() => {
+          wrapper.setProps({ language: 'javascript' })
+          cy.wrap(codeRenderer).should('have.been.calledTwice')
+        })
+      })
+    })
+
+    it('re-calls codeRenderer when theme prop changes', () => {
+      const codeRenderer = cy.stub().resolves('<span>highlighted</span>')
+
+      renderComponent({ id: 'code-block', codeRenderer }).then(({ wrapper }) => {
+        cy.wrap(codeRenderer).should('have.been.calledOnce').then(() => {
+          wrapper.setProps({ theme: 'dark' })
+          cy.wrap(codeRenderer).should('have.been.calledTwice')
+        })
+      })
+    })
+
+    it('emits code-block-render event only after codeRenderer resolves', () => {
+      let resolveRenderer!: (html: string) => void
+      const codeRenderer = () => new Promise<string>(resolve => {
+        resolveRenderer = resolve
+      })
+      const onCodeBlockRender = cy.spy().as('renderSpy')
+
+      cy.mount(KCodeBlock, {
+        props: { id: 'code-block', code, language: 'json', codeRenderer, onCodeBlockRender },
+      })
+
+      cy.get('@renderSpy').should('not.have.been.called')
+      cy.then(() => resolveRenderer('<span>done</span>'))
+      cy.get('@renderSpy').should('have.been.calledOnce')
+    })
+  })
+
   it('emits code-block-render event on mount with correct event data', () => {
     const onCodeBlockRender = cy.spy().as('codeBlockRenderSpy')
 

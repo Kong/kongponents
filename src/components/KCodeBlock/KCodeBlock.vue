@@ -225,8 +225,12 @@
             :href="showLineNumberLinks ? `#${getLineId(line)}` : undefined"
           >{{ line }}</a>
         </Virtualizer>
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <code v-html="finalCode" />
+        <!-- eslint-disable vue/no-v-html -->
+        <code
+          :class="{ 'render-pending': isRenderPending }"
+          v-html="activeCode"
+        />
+        <!-- eslint-enable vue/no-v-html -->
       </component>
     </div>
   </div>
@@ -279,6 +283,7 @@ const {
   theme = 'light',
   singleLine,
   maxHeight = 'none',
+  codeRenderer,
 } = defineProps<CodeBlockProps>()
 
 // Custom validator for the `highlightedLineNumbers` prop
@@ -358,7 +363,7 @@ const showCodeBlockActions = computed((): boolean => !singleLine && searchable)
 
 // The final code to be rendered in the code block, needs to be escaped so that
 // we can safely render it as `v-html`.
-const finalCode = computed(() =>
+const escapedCode = computed(() =>
   singleLine
     ? escapeHTMLIfNeeded(code).replaceAll('\n', '')
     : escapeHTMLIfNeeded(code),
@@ -366,13 +371,65 @@ const finalCode = computed(() =>
 
 const maxHeightValue = computed(() => normalizeSize(maxHeight))
 
+// Holds the HTML returned by props.codeRenderer.
+// null means "not yet rendered" (only relevant when codeRenderer prop is provided).
+const customRenderedCode = ref<string | null>(null)
+
+// True while codeRenderer is provided but the result hasn't arrived yet.
+const isRenderPending = computed(() => !!codeRenderer && customRenderedCode.value === null)
+
+// What actually goes into v-html on the <code> element.
+const activeCode = computed(() => customRenderedCode.value ?? escapedCode.value)
+
+// Incremented on every applyCodeRenderer() call; used to discard stale results when
+// multiple renders are in-flight (e.g. rapid code/language/theme changes).
+let rendererCallId = 0
+
+async function applyCodeRenderer(): Promise<void> {
+  if (!codeRenderer) return
+  // Do not reset to null here — on updates, keep the previous rendered HTML visible
+  // until the new result arrives to avoid a flash of hidden content.
+  // On first call, customRenderedCode is already null (initialized that way), so
+  // isRenderPending starts true and the code stays hidden until the first result.
+  const callId = ++rendererCallId
+  const result = await codeRenderer({
+    code,
+    language,
+    theme,
+    query: query.value,
+    matchingLineNumbers: matchingLineNumbers.value,
+  })
+  if (callId === rendererCallId) {
+    customRenderedCode.value = result
+  }
+}
+
 watch(() => code, async function() {
   // Waits one Vue tick in which the code block is re-rendered. Only then does it make sense to emit the corresponding event. Otherwise, consuming components applying syntax highlighting would have to do this because if syntax highlighting is applied before re-rendering is done, re-rendering will effectively undo the syntax highlighting.
   await nextTick()
 
-  // Changing the code causes the code block to be re-rendered.
+  if (codeRenderer) {
+    await applyCodeRenderer()
+    // Changing the code causes the code block to be re-rendered.
+    emitCodeBlockRenderEvent()
+    // After the async render, only recalculate search matches if there is an active query.
+    // Without a query, highlighted lines are already managed by the highlightedLineNumbers watcher,
+    // and calling updateMatchingLineNumbers() here would race against setDefaultMatchingLineNumbers()
+    // and clear any highlighted lines that were set during the await.
+    if (searchQuery.value) {
+      updateMatchingLineNumbers()
+    }
+  } else {
+    // Changing the code causes the code block to be re-rendered.
+    emitCodeBlockRenderEvent()
+    updateMatchingLineNumbers()
+  }
+})
+
+watch([() => language, () => theme], async function() {
+  if (!codeRenderer) return
+  await applyCodeRenderer()
   emitCodeBlockRenderEvent()
-  updateMatchingLineNumbers()
 })
 
 watch(() => isRegExpMode.value, function() {
@@ -381,6 +438,8 @@ watch(() => isRegExpMode.value, function() {
 })
 
 watch(() => highlightedLineNumbers, function() {
+  // When a search is active, the matching lines are determined by the search query
+  if (searchQuery.value) return
   setDefaultMatchingLineNumbers()
 }, { immediate: true, deep: true })
 
@@ -466,8 +525,12 @@ const commands: Record<CommandKeywords, Command> = {
 
 const shortcutManager = new ShortcutManager(keyMap, commands)
 
-onMounted(function() {
+onMounted(async function() {
   shortcutManager.registerListener()
+
+  if (codeRenderer) {
+    await applyCodeRenderer()
+  }
 
   emitCodeBlockRenderEvent()
 
@@ -861,6 +924,10 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
         min-width: 0;
         overflow-x: auto;
         z-index: 1;
+
+        &.render-pending {
+          visibility: hidden;
+        }
       }
 
       &.single-line {
