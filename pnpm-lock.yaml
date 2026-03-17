@@ -100,7 +100,7 @@ importers:
         version: 20.4.3
       '@cypress/vite-dev-server':
         specifier: ^7.2.0
-        version: 7.2.0(cypress@15.10.0)
+        version: 7.2.0(cypress@15.12.0)
       '@digitalroute/cz-conventional-changelog-for-jira':
         specifier: ^8.0.1
         version: 8.0.1(@types/node@24.12.0)(typescript@5.9.3)
@@ -168,11 +168,11 @@ importers:
         specifier: ^10.1.0
         version: 10.1.0
       cypress:
-        specifier: ^15.10.0
-        version: 15.10.0
+        specifier: ^15.12.0
+        version: 15.12.0
       cypress-fail-fast:
         specifier: ^7.1.1
-        version: 7.1.1(cypress@15.10.0)
+        version: 7.1.1(cypress@15.12.0)
       cz-conventional-changelog:
         specifier: 3.3.0
         version: 3.3.0(@types/node@24.12.0)(typescript@5.9.3)
@@ -3319,8 +3319,8 @@ packages:
     peerDependencies:
       cypress: '>=8.0.0'
 
-  cypress@15.10.0:
-    resolution: {integrity: sha512-OtUh7OMrfEjKoXydlAD1CfG2BvKxIqgWGY4/RMjrqQ3BKGBo5JFKoYNH+Tpcj4xKxWH4XK0Xri+9y8WkxhYbqQ==}
+  cypress@15.12.0:
+    resolution: {integrity: sha512-B2BRcudLfA4NZZP5QpA45J70bu1heCH59V1yKRLHAtiC49r7RV03X5ifUh7Nfbk8QNg93RAsc6oAmodm/+j0pA==}
     engines: {node: ^20.1.0 || ^22.0.0 || >=24.0.0}
     hasBin: true
 
@@ -6819,8 +6819,8 @@ packages:
     engines: {node: '>=16.20.2'}
     hasBin: true
 
-  tslib@2.6.3:
-    resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
+  tslib@1.14.1:
+    resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
 
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
@@ -8367,9 +8367,9 @@ snapshots:
       tunnel-agent: 0.6.0
       uuid: 8.3.2
 
-  '@cypress/vite-dev-server@7.2.0(cypress@15.10.0)':
+  '@cypress/vite-dev-server@7.2.0(cypress@15.12.0)':
     dependencies:
-      cypress: 15.10.0
+      cypress: 15.12.0
       debug: 4.4.3(supports-color@8.1.1)
       find-up: 6.3.0
       node-html-parser: 5.3.3
@@ -11143,12 +11143,12 @@ snapshots:
 
   csstype@3.2.3: {}
 
-  cypress-fail-fast@7.1.1(cypress@15.10.0):
+  cypress-fail-fast@7.1.1(cypress@15.12.0):
     dependencies:
       chalk: 4.1.2
-      cypress: 15.10.0
+      cypress: 15.12.0
 
-  cypress@15.10.0:
+  cypress@15.12.0:
     dependencies:
       '@cypress/request': 3.0.10
       '@cypress/xvfb': 1.2.4(supports-color@8.1.1)
@@ -11190,6 +11190,7 @@ snapshots:
       systeminformation: 5.31.3
       tmp: 0.2.5
       tree-kill: 1.2.2
+      tslib: 1.14.1
       untildify: 4.0.0
       yauzl: 2.10.0
 
@@ -14074,7 +14075,7 @@ snapshots:
     dependencies:
       find-up-simple: 1.0.0
       read-pkg: 9.0.1
-      type-fest: 4.24.0
+      type-fest: 4.41.0
 
   read-package-up@12.0.0:
     dependencies:
@@ -14095,7 +14096,7 @@ snapshots:
       '@types/normalize-package-data': 2.4.4
       normalize-package-data: 6.0.1
       parse-json: 8.3.0
-      type-fest: 4.24.0
+      type-fest: 4.41.0
       unicorn-magic: 0.1.0
 
   readable-stream@1.0.34:
@@ -14238,7 +14239,7 @@ snapshots:
 
   rxjs@7.8.1:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   rxjs@7.8.2:
     dependencies:
@@ -15034,7 +15035,7 @@ snapshots:
       normalize-path: 3.0.0
       plimit-lit: 1.6.1
 
-  tslib@2.6.3: {}
+  tslib@1.14.1: {}
 
   tslib@2.8.1: {}
 
