@@ -379,7 +379,7 @@ const customRenderedCode = ref<string | null>(null)
 const isRenderPending = computed(() => !!codeRenderer && customRenderedCode.value === null)
 
 // What actually goes into v-html on the <code> element.
-const activeCode = computed(() => customRenderedCode.value ?? escapedCode.value)
+const activeCode = computed(() => (codeRenderer && customRenderedCode.value !== null) ? customRenderedCode.value : escapedCode.value)
 
 // Incremented on every applyCodeRenderer() call; used to discard stale results when
 // multiple renders are in-flight (e.g. rapid code/language/theme changes).
@@ -392,15 +392,23 @@ async function applyCodeRenderer(): Promise<void> {
   // On first call, customRenderedCode is already null (initialized that way), so
   // isRenderPending starts true and the code stays hidden until the first result.
   const callId = ++rendererCallId
-  const result = await codeRenderer({
-    code,
-    language,
-    theme,
-    query: query.value,
-    matchingLineNumbers: matchingLineNumbers.value,
-  })
-  if (callId === rendererCallId) {
-    customRenderedCode.value = result
+  try {
+    const result = await codeRenderer({
+      code,
+      language,
+      theme,
+      query: searchQuery.value,
+      matchingLineNumbers: matchingLineNumbers.value,
+    })
+    if (callId === rendererCallId) {
+      customRenderedCode.value = result
+    }
+  } catch (error) {
+    console.error('KCodeBlock: codeRenderer threw an error:', error)
+    if (callId === rendererCallId) {
+      // Fall back to escaped code so the block remains usable
+      customRenderedCode.value = escapedCode.value
+    }
   }
 }
 
@@ -412,12 +420,13 @@ watch(() => code, async function() {
     await applyCodeRenderer()
     // Changing the code causes the code block to be re-rendered.
     emitCodeBlockRenderEvent()
-    // After the async render, only recalculate search matches if there is an active query.
-    // Without a query, highlighted lines are already managed by the highlightedLineNumbers watcher,
-    // and calling updateMatchingLineNumbers() here would race against setDefaultMatchingLineNumbers()
-    // and clear any highlighted lines that were set during the await.
+    // By the time applyCodeRenderer() resolves, any sibling prop changes (e.g. highlightedLineNumbers
+    // updated in the same tick as code) have already settled. Re-run the appropriate match calculation
+    // so highlighted lines are re-normalized against the new totalLines length.
     if (searchQuery.value) {
       updateMatchingLineNumbers()
+    } else {
+      setDefaultMatchingLineNumbers()
     }
   } else {
     // Changing the code causes the code block to be re-rendered.
