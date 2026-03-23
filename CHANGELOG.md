@@ -1,3 +1,10 @@
+## [9.52.6](https://github.com/Kong/kongponents/compare/v9.52.5...v9.52.6) (2026-03-23)
+
+
+### Bug Fixes
+
+* **kstepper:** active, error, pending state label on small [KHCP-19918] ([#3143](https://github.com/Kong/kongponents/issues/3143)) ([e25a462](https://github.com/Kong/kongponents/commit/e25a462749deeb131ad12911238104efffc8373d))
+
 ## [9.52.5](https://github.com/Kong/kongponents/compare/v9.52.4...v9.52.5) (2026-03-17)
 
 
