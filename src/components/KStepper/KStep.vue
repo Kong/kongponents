@@ -161,12 +161,6 @@ $kStepDividerSpacing: var(--kui-space-60, $kui-space-60);
       .step-label {
         color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
       }
-
-      @container k-stepper (min-width: 400px) {
-        .step-label {
-          display: block;
-        }
-      }
     }
 
     &.default {
@@ -178,6 +172,18 @@ $kStepDividerSpacing: var(--kui-space-60, $kui-space-60);
     &.error {
       .step-circle {
         background-color: var(--kui-color-background-danger, $kui-color-background-danger);
+      }
+    }
+
+    // Display the label on large enough screens
+    // since the active step could potentially be in error or pending state, assume the label should be displayed for all of them
+    &.active,
+    &.error,
+    &.pending {
+      @container k-stepper (min-width: 400px) {
+        .step-label {
+          display: block;
+        }
       }
     }
   }
