@@ -49,6 +49,10 @@ The width of step labels (default is `170px`). We support any valid CSS length (
 <KStepper max-label-width="20ch" :steps="steps" />
 ```
 
+:::tip NOTE
+In containers < 768px wide only the active step label will be shown to preserve horizontal space. In containers < 400px wide, all step labels will be hidden and only icons will be displayed.
+::::
+
 ### hideStepNumbers
 
 Whether to show the step numbers. Default is `false`.
@@ -89,4 +93,3 @@ const numberedSteps: StepItem[] = [
   { label: 'Review' }
 ]
 </script>
-
