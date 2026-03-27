@@ -109,6 +109,7 @@ $kBadgeMethodWidth: 85px;
     @include badgeContent;
 
     max-width: v-bind('_maxWidth');
+    outline: none;
 
     &.icon-after {
       flex-direction: row-reverse;
