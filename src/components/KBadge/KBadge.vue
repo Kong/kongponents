@@ -126,6 +126,7 @@ $kBadgeMethodWidth: 85px;
   }
 
   :deep([role="button"]) {
+    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
     outline: none;
 
     &:not([disabled]) {
