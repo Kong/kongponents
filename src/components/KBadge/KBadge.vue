@@ -126,8 +126,14 @@ $kBadgeMethodWidth: 85px;
   }
 
   :deep([role="button"]) {
+    outline: none;
+
     &:not([disabled]) {
       cursor: pointer;
+    }
+
+    &:focus-visible {
+      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
     }
 
     // adopts info appearance hover styles by default (in case of invalid appearance)
