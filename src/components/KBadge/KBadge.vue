@@ -109,6 +109,7 @@ $kBadgeMethodWidth: 85px;
     @include badgeContent;
 
     max-width: v-bind('_maxWidth');
+    outline: none;
 
     &.icon-after {
       flex-direction: row-reverse;
@@ -125,8 +126,15 @@ $kBadgeMethodWidth: 85px;
   }
 
   :deep([role="button"]) {
+    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+    outline: none;
+
     &:not([disabled]) {
       cursor: pointer;
+    }
+
+    &:focus-visible {
+      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
     }
 
     // adopts info appearance hover styles by default (in case of invalid appearance)
