@@ -1,3 +1,10 @@
+## [9.52.7](https://github.com/Kong/kongponents/compare/v9.52.6...v9.52.7) (2026-03-30)
+
+
+### Bug Fixes
+
+* **kbadge:** remove tooltip outline ([#3149](https://github.com/Kong/kongponents/issues/3149)) ([bc5e6f0](https://github.com/Kong/kongponents/commit/bc5e6f0fc9337c1e297ce9747a86d5d7e48a0634))
+
 ## [9.52.6](https://github.com/Kong/kongponents/compare/v9.52.5...v9.52.6) (2026-03-23)
 
 
