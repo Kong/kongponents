@@ -1,3 +1,11 @@
+## [9.52.8](https://github.com/Kong/kongponents/compare/v9.52.7...v9.52.8) (2026-03-31)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies with stable versions ([#3146](https://github.com/Kong/kongponents/issues/3146)) ([54b8fe5](https://github.com/Kong/kongponents/commit/54b8fe527d218008bbcc0bc90d23eab355fd5e7a))
+* **pnpm:** enforce vulnerability protections ([#3151](https://github.com/Kong/kongponents/issues/3151)) ([d670cd1](https://github.com/Kong/kongponents/commit/d670cd1631f273650d9bf8c0ae798b125b6168ae))
+
 ## [9.52.7](https://github.com/Kong/kongponents/compare/v9.52.6...v9.52.7) (2026-03-30)
 
 
