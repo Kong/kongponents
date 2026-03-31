@@ -1,3 +1,10 @@
+## [9.52.9](https://github.com/Kong/kongponents/compare/v9.52.8...v9.52.9) (2026-03-31)
+
+
+### Bug Fixes
+
+* **kdropdown:** kcheckbox icon color in kdropdown ([#3152](https://github.com/Kong/kongponents/issues/3152)) ([cf73785](https://github.com/Kong/kongponents/commit/cf737853f895924f37a36a09d49e0403561981ed))
+
 ## [9.52.8](https://github.com/Kong/kongponents/compare/v9.52.7...v9.52.8) (2026-03-31)
 
 
