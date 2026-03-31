@@ -6,7 +6,7 @@ settings:
 
 overrides:
   rollup: npm:@rollup/wasm-node
-  axios@>=1.0.0 <1.12.0: '>=1.13.6'
+  axios@>=1.0.0 <1.12.0: '>=1.14.0'
   cross-spawn@>=7.0.0 <7.0.5: '>=7.0.6'
   glob@>=10.2.0 <10.5.0: '>=13.0.6'
   node-forge@<1.3.2: '>=1.3.3'
@@ -17,7 +17,7 @@ overrides:
   esbuild@<=0.24.2: '>=0.27.3'
   '@octokit/request@>=9.0.0-beta.1 <9.2.1': '>=9.2.4'
   '@octokit/plugin-paginate-rest@>=9.3.0-beta.1 <11.4.1': '>=11.6.0'
-  '@babel/runtime@<7.26.10': '>=7.28.6'
+  '@babel/runtime@<7.26.10': '>=7.29.2'
   brace-expansion@>=2.0.0 <=2.0.1: '>=2.0.2'
   tmp@<=0.2.3: '>=0.2.5'
   js-yaml@>=4.0.0 <4.1.1: '>=4.1.1'
@@ -89,8 +89,8 @@ importers:
         specifier: ^1.15.7
         version: 1.15.7
       swrv:
-        specifier: ^1.1.0
-        version: 1.1.0(vue@3.5.29(typescript@5.9.3))
+        specifier: ^1.2.0
+        version: 1.2.0(vue@3.5.29(typescript@5.9.3))
       v-calendar:
         specifier: ^3.1.2
         version: 3.1.2(@popperjs/core@2.11.8)(vue@3.5.29(typescript@5.9.3))
@@ -105,11 +105,11 @@ importers:
         specifier: ^7.29.0
         version: 7.29.0
       '@commitlint/cli':
-        specifier: ^20.4.3
-        version: 20.4.3(@types/node@24.12.0)(typescript@5.9.3)
+        specifier: ^20.5.0
+        version: 20.5.0(@types/node@24.12.0)(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.3.0)(typescript@5.9.3)
       '@commitlint/config-conventional':
-        specifier: ^20.4.3
-        version: 20.4.3
+        specifier: ^20.5.0
+        version: 20.5.0
       '@cypress/vite-dev-server':
         specifier: ^7.2.0
         version: 7.2.0(cypress@15.12.0)
@@ -202,7 +202,7 @@ importers:
         version: 2.2.0
       nuxt:
         specifier: ^4.4.2
-        version: 4.4.2(@babel/core@7.29.0)(@babel/plugin-proposal-decorators@7.28.0(@babel/core@7.29.0))(@babel/plugin-syntax-jsx@7.27.1(@babel/core@7.29.0))(@parcel/watcher@2.5.1)(@rollup/wasm-node@4.60.0)(@types/node@24.12.0)(@vue/compiler-sfc@3.5.30)(cac@6.7.14)(db0@0.3.4)(eslint@9.39.3(jiti@2.6.1))(ioredis@5.9.3)(magicast@0.5.1)(meow@13.2.0)(optionator@0.9.4)(rollup-plugin-visualizer@6.0.11(@rollup/wasm-node@4.60.0))(sass-embedded@1.79.5)(sass@1.98.0)(stylelint@16.26.1(typescript@5.9.3))(terser@5.44.0)(typescript@5.9.3)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue-tsc@3.2.5(typescript@5.9.3))(yaml@2.8.3)
+        version: 4.4.2(@babel/core@7.29.0)(@babel/plugin-proposal-decorators@7.28.0(@babel/core@7.29.0))(@babel/plugin-syntax-jsx@7.27.1(@babel/core@7.29.0))(@parcel/watcher@2.5.1)(@rollup/wasm-node@4.60.1)(@types/node@24.12.0)(@vue/compiler-sfc@3.5.30)(cac@6.7.14)(db0@0.3.4)(eslint@9.39.3(jiti@2.6.1))(ioredis@5.9.3)(magicast@0.5.1)(meow@13.2.0)(optionator@0.9.4)(rollup-plugin-visualizer@6.0.11(@rollup/wasm-node@4.60.1))(sass-embedded@1.79.5)(sass@1.98.0)(stylelint@16.26.1(typescript@5.9.3))(terser@5.44.0)(typescript@5.9.3)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue-tsc@3.2.5(typescript@5.9.3))(yaml@2.8.3)
       picocolors:
         specifier: ^1.1.1
         version: 1.1.1
@@ -220,7 +220,7 @@ importers:
         version: 6.1.3
       rollup-plugin-visualizer:
         specifier: ^6.0.11
-        version: 6.0.11(@rollup/wasm-node@4.60.0)
+        version: 6.0.11(@rollup/wasm-node@4.60.1)
       sass:
         specifier: ^1.98.0
         version: 1.98.0
@@ -259,7 +259,7 @@ importers:
         version: 6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3)
       vite-plugin-vue-devtools:
         specifier: ^7.7.9
-        version: 7.7.9(@nuxt/kit@4.3.1(magicast@0.5.1))(@rollup/wasm-node@4.60.0)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue@3.5.29(typescript@5.9.3))
+        version: 7.7.9(@nuxt/kit@4.3.1(magicast@0.5.1))(@rollup/wasm-node@4.60.1)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue@3.5.29(typescript@5.9.3))
       vitepress:
         specifier: ^1.6.4
         version: 1.6.4(@algolia/client-search@5.35.0)(@types/node@24.12.0)(fuse.js@7.1.0)(postcss@8.5.8)(sass-embedded@1.79.5)(sass@1.98.0)(search-insights@2.14.0)(sortablejs@1.15.7)(terser@5.44.0)(typescript@5.9.3)
@@ -560,8 +560,8 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
-  '@babel/runtime@7.28.6':
-    resolution: {integrity: sha512-05WQkdpL9COIMz4LjTxGpPNCdlpyimKppYNoJ5Di5EUObifl8t4tuLuUBBZEpoLYOmfvIWrsp9fCl0HoPRVTdA==}
+  '@babel/runtime@7.29.2':
+    resolution: {integrity: sha512-JiDShH45zKHWyGe4ZNVRrCjBz8Nh9TMmZG1kh4QTK8hCBTWBi8Da+i7s1fJw7/lYpM4ccepSNfqzZ/QvABBi5g==}
     engines: {node: '>=6.9.0'}
 
   '@babel/template@7.27.2':
@@ -626,25 +626,25 @@ packages:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
 
-  '@commitlint/cli@20.4.3':
-    resolution: {integrity: sha512-Z37EMoDT7+Upg500vlr/vZrgRsb6Xc5JAA3Tv7BYbobnN/ZpqUeZnSLggBg2+1O+NptRDtyujr2DD1CPV2qwhA==}
+  '@commitlint/cli@20.5.0':
+    resolution: {integrity: sha512-yNkyN/tuKTJS3wdVfsZ2tXDM4G4Gi7z+jW54Cki8N8tZqwKBltbIvUUrSbT4hz1bhW/h0CdR+5sCSpXD+wMKaQ==}
     engines: {node: '>=v18'}
     hasBin: true
 
-  '@commitlint/config-conventional@20.4.3':
-    resolution: {integrity: sha512-9RtLySbYQAs8yEqWEqhSZo9nYhbm57jx7qHXtgRmv/nmeQIjjMcwf6Dl+y5UZcGWgWx435TAYBURONaJIuCjWg==}
+  '@commitlint/config-conventional@20.5.0':
+    resolution: {integrity: sha512-t3Ni88rFw1XMa4nZHgOKJ8fIAT9M2j5TnKyTqJzsxea7FUetlNdYFus9dz+MhIRZmc16P0PPyEfh6X2d/qw8SA==}
     engines: {node: '>=v18'}
 
   '@commitlint/config-validator@19.0.3':
     resolution: {integrity: sha512-2D3r4PKjoo59zBc2auodrSCaUnCSALCx54yveOFwwP/i2kfEAQrygwOleFWswLqK0UL/F9r07MFi5ev2ohyM4Q==}
     engines: {node: '>=v18'}
 
-  '@commitlint/config-validator@20.4.3':
-    resolution: {integrity: sha512-jCZpZFkcSL3ZEdL5zgUzFRdytv3xPo8iukTe9VA+QGus/BGhpp1xXSVu2B006GLLb2gYUAEGEqv64kTlpZNgmA==}
+  '@commitlint/config-validator@20.5.0':
+    resolution: {integrity: sha512-T/Uh6iJUzyx7j35GmHWdIiGRQB+ouZDk0pwAaYq4SXgB54KZhFdJ0vYmxiW6AMYICTIWuyMxDBl1jK74oFp/Gw==}
     engines: {node: '>=v18'}
 
-  '@commitlint/ensure@20.4.3':
-    resolution: {integrity: sha512-WcXGKBNn0wBKpX8VlXgxqedyrLxedIlLBCMvdamLnJFEbUGJ9JZmBVx4vhLV3ZyA8uONGOb+CzW0Y9HDbQ+ONQ==}
+  '@commitlint/ensure@20.5.0':
+    resolution: {integrity: sha512-IpHqAUesBeW1EDDdjzJeaOxU9tnogLAyXLRBn03SHlj1SGENn2JGZqSWGkFvBJkJzfXAuCNtsoYzax+ZPS+puw==}
     engines: {node: '>=v18'}
 
   '@commitlint/execute-rule@19.0.0':
@@ -655,48 +655,48 @@ packages:
     resolution: {integrity: sha512-xyCoOShoPuPL44gVa+5EdZsBVao/pNzpQhkzq3RdtlFdKZtjWcLlUFQHSWBuhk5utKYykeJPSz2i8ABHQA+ZZw==}
     engines: {node: '>=v18'}
 
-  '@commitlint/format@20.4.3':
-    resolution: {integrity: sha512-UDJVErjLbNghop6j111rsHJYGw6MjCKAi95K0GT2yf4eeiDHy3JDRLWYWEjIaFgO+r+dQSkuqgJ1CdMTtrvHsA==}
+  '@commitlint/format@20.5.0':
+    resolution: {integrity: sha512-TI9EwFU/qZWSK7a5qyXMpKPPv3qta7FO4tKW+Wt2al7sgMbLWTsAcDpX1cU8k16TRdsiiet9aOw0zpvRXNJu7Q==}
     engines: {node: '>=v18'}
 
-  '@commitlint/is-ignored@20.4.3':
-    resolution: {integrity: sha512-W5VQKZ7fdJ1X3Tko+h87YZaqRMGN1KvQKXyCM8xFdxzMIf1KCZgN4uLz3osLB1zsFcVS4ZswHY64LI26/9ACag==}
+  '@commitlint/is-ignored@20.5.0':
+    resolution: {integrity: sha512-JWLarAsurHJhPozbuAH6GbP4p/hdOCoqS9zJMfqwswne+/GPs5V0+rrsfOkP68Y8PSLphwtFXV0EzJ+GTXTTGg==}
     engines: {node: '>=v18'}
 
-  '@commitlint/lint@20.4.3':
-    resolution: {integrity: sha512-CYOXL23e+nRKij81+d0+dymtIi7Owl9QzvblJYbEfInON/4MaETNSLFDI74LDu+YJ0ML5HZyw9Vhp9QpckwQ0A==}
+  '@commitlint/lint@20.5.0':
+    resolution: {integrity: sha512-jiM3hNUdu04jFBf1VgPdjtIPvbuVfDTBAc6L98AWcoLjF5sYqkulBHBzlVWll4rMF1T5zeQFB6r//a+s+BBKlA==}
     engines: {node: '>=v18'}
 
   '@commitlint/load@19.2.0':
     resolution: {integrity: sha512-XvxxLJTKqZojCxaBQ7u92qQLFMMZc4+p9qrIq/9kJDy8DOrEa7P1yx7Tjdc2u2JxIalqT4KOGraVgCE7eCYJyQ==}
     engines: {node: '>=v18'}
 
-  '@commitlint/load@20.4.3':
-    resolution: {integrity: sha512-3cdJOUVP+VcgHa7bhJoWS+Z8mBNXB5aLWMBu7Q7uX8PSeWDzdbrBlR33J1MGGf7r1PZDp+mPPiFktk031PgdRw==}
+  '@commitlint/load@20.5.0':
+    resolution: {integrity: sha512-sLhhYTL/KxeOTZjjabKDhwidGZan84XKK1+XFkwDYL/4883kIajcz/dZFAhBJmZPtL8+nBx6bnkzA95YxPeDPw==}
     engines: {node: '>=v18'}
 
   '@commitlint/message@20.4.3':
     resolution: {integrity: sha512-6akwCYrzcrFcTYz9GyUaWlhisY4lmQ3KvrnabmhoeAV8nRH4dXJAh4+EUQ3uArtxxKQkvxJS78hNX2EU3USgxQ==}
     engines: {node: '>=v18'}
 
-  '@commitlint/parse@20.4.3':
-    resolution: {integrity: sha512-hzC3JCo3zs3VkQ833KnGVuWjWIzR72BWZWjQM7tY/7dfKreKAm7fEsy71tIFCRtxf2RtMP2d3RLF1U9yhFSccA==}
+  '@commitlint/parse@20.5.0':
+    resolution: {integrity: sha512-SeKWHBMk7YOTnnEWUhx+d1a9vHsjjuo6Uo1xRfPNfeY4bdYFasCH1dDpAv13Lyn+dDPOels+jP6D2GRZqzc5fA==}
     engines: {node: '>=v18'}
 
-  '@commitlint/read@20.4.3':
-    resolution: {integrity: sha512-j42OWv3L31WfnP8WquVjHZRt03w50Y/gEE8FAyih7GQTrIv2+pZ6VZ6pWLD/ml/3PO+RV2SPtRtTp/MvlTb8rQ==}
+  '@commitlint/read@20.5.0':
+    resolution: {integrity: sha512-JDEIJ2+GnWpK8QqwfmW7O42h0aycJEWNqcdkJnyzLD11nf9dW2dWLTVEa8Wtlo4IZFGLPATjR5neA5QlOvIH1w==}
     engines: {node: '>=v18'}
 
   '@commitlint/resolve-extends@19.1.0':
     resolution: {integrity: sha512-z2riI+8G3CET5CPgXJPlzftH+RiWYLMYv4C9tSLdLXdr6pBNimSKukYP9MS27ejmscqCTVA4almdLh0ODD2KYg==}
     engines: {node: '>=v18'}
 
-  '@commitlint/resolve-extends@20.4.3':
-    resolution: {integrity: sha512-QucxcOy+00FhS9s4Uy0OyS5HeUV+hbC6OLqkTSIm6fwMdKva+OEavaCDuLtgd9akZZlsUo//XzSmPP3sLKBPog==}
+  '@commitlint/resolve-extends@20.5.0':
+    resolution: {integrity: sha512-3SHPWUW2v0tyspCTcfSsYml0gses92l6TlogwzvM2cbxDgmhSRc+fldDjvGkCXJrjSM87BBaWYTPWwwyASZRrg==}
     engines: {node: '>=v18'}
 
-  '@commitlint/rules@20.4.3':
-    resolution: {integrity: sha512-Yuosd7Grn5qiT7FovngXLyRXTMUbj9PYiSkvUgWK1B5a7+ZvrbWDS7epeUapYNYatCy/KTpPFPbgLUdE+MUrBg==}
+  '@commitlint/rules@20.5.0':
+    resolution: {integrity: sha512-5NdQXQEdnDPT5pK8O39ZA7HohzPRHEsDGU23cyVCNPQy4WegAbAwrQk3nIu7p2sl3dutPk8RZd91yKTrMTnRkQ==}
     engines: {node: '>=v18'}
 
   '@commitlint/to-lines@20.0.0':
@@ -711,9 +711,21 @@ packages:
     resolution: {integrity: sha512-/yCrWGCoA1SVKOks25EGadP9Pnj0oAIHGpl2wH2M2Y46dPM2ueb8wyCVOD7O3WCTkaJ0IkKvzhl1JY7+uCT2Dw==}
     engines: {node: '>=v18'}
 
-  '@commitlint/types@20.4.3':
-    resolution: {integrity: sha512-51OWa1Gi6ODOasPmfJPq6js4pZoomima4XLZZCrkldaH2V5Nb3bVhNXPeT6XV0gubbainSpTw4zi68NqAeCNCg==}
+  '@commitlint/types@20.5.0':
+    resolution: {integrity: sha512-ZJoS8oSq2CAZEpc/YI9SulLrdiIyXeHb/OGqGrkUP6Q7YV+0ouNAa7GjqRdXeQPncHQIDz/jbCTlHScvYvO/gA==}
     engines: {node: '>=v18'}
+
+  '@conventional-changelog/git-client@2.6.0':
+    resolution: {integrity: sha512-T+uPDciKf0/ioNNDpMGc8FDsehJClZP0yR3Q5MN6wE/Y/1QZ7F+80OgznnTCOlMEG4AV0LvH2UJi3C/nBnaBUg==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      conventional-commits-filter: ^5.0.0
+      conventional-commits-parser: ^6.3.0
+    peerDependenciesMeta:
+      conventional-commits-filter:
+        optional: true
+      conventional-commits-parser:
+        optional: true
 
   '@csstools/cascade-layer-name-parser@2.0.5':
     resolution: {integrity: sha512-p1ko5eHgV+MgXFVa4STPKpvPxr6ReS8oS2jzTukjR74i5zJNyWO1ZM1m8YKBXnzDKWfBN1ztLYlHxbVemDD88A==}
@@ -2046,8 +2058,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/wasm-node@4.60.0':
-    resolution: {integrity: sha512-b4MyEi8S6dvHy0ZAwxO/zQPxpagdv+VZQDlTDaQJloif+axEHbjaJ+dkjN+uTs4mj8qT3nOidkGtDdNvVj7rrg==}
+  '@rollup/wasm-node@4.60.1':
+    resolution: {integrity: sha512-FAfGj5Ferzyna11iUwGdkYus/Y9d/H75PEpsseP5DZOsEsyPvP/Q7mJiSXhUYSEmyfHPaZyC8EsJCjqzDbtcfg==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -2139,6 +2151,10 @@ packages:
 
   '@shikijs/vscode-textmate@10.0.2':
     resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
+
+  '@simple-libs/child-process-utils@1.0.2':
+    resolution: {integrity: sha512-/4R8QKnd/8agJynkNdJmNw2MBxuFTRcNFnE5Sg/G+jkSsV8/UBgULMzhizWWW42p8L5H7flImV2ATi79Ove2Tw==}
+    engines: {node: '>=18'}
 
   '@simple-libs/stream-utils@1.2.0':
     resolution: {integrity: sha512-KxXvfapcixpz6rVEB6HPjOUZT22yN6v0vI0urQSk1L8MlEWPDFCZkhw2xmkyoTGYeFw7tWTZd7e3lVzRZRN/EA==}
@@ -2528,7 +2544,7 @@ packages:
     resolution: {integrity: sha512-fbGYivgK5uBTRt7p5F3zy6VrETlV9RtZjBqd1/HxGdjdckBgBM4ugP8LHpjolqTj14TXTxSK1ZfgPbHYyGuH7g==}
     peerDependencies:
       async-validator: ^4
-      axios: '>=1.13.6'
+      axios: '>=1.14.0'
       change-case: ^5
       drauu: ^0.4
       focus-trap: ^7
@@ -3340,10 +3356,6 @@ packages:
     resolution: {integrity: sha512-U466fIzU5U22eES5lTNiNbZ+d8dfcHcssH4o7QsdWaCcRs/feIPCxKYSWkYBNs5mny7MvEfwpTLWjvbm94hecw==}
     engines: {node: '>= 10'}
 
-  dargs@8.1.0:
-    resolution: {integrity: sha512-wAV9QHOsNbwnWdNW2FYvE1P56wtgSbM+3SZcdGiWQILwVjACCXDCI3Ai8QlCjMDB8YK5zySiXZYBiwGmNY3lnw==}
-    engines: {node: '>=12'}
-
   dashdash@1.14.1:
     resolution: {integrity: sha512-jRFi8UDGo6j+odZiEpjazZaWqEal3w/basFjQHQEwVtZJGDpxbH1MeYluwCS8Xq5wmLJooDlMgvVarmWfGM44g==}
     engines: {node: '>=0.10'}
@@ -4146,10 +4158,9 @@ packages:
   git-log-parser@1.2.0:
     resolution: {integrity: sha512-rnCVNfkTL8tdNryFuaY0fYiBWEBcgF748O6ZI61rslBvr2o7U65c2/6npCRqH40vuAhtgtDiqLTJjBVdrejCzA==}
 
-  git-raw-commits@4.0.0:
-    resolution: {integrity: sha512-ICsMM1Wk8xSGMowkOmPrzo2Fgmfo4bMHLNX6ytHjajRJUqvHOw/TFapQ+QG75c3X/tTDDhOSRPGC52dDbNM8FQ==}
-    engines: {node: '>=16'}
-    deprecated: This package is no longer maintained. For the JavaScript API, please use @conventional-changelog/git-client instead.
+  git-raw-commits@5.0.1:
+    resolution: {integrity: sha512-Y+csSm2GD/PCSh6Isd/WiMjNAydu0VBiG9J7EdQsNA5P9uXvLayqjmTsNlK5Gs9IhblFZqOU0yid5Il5JPoLiQ==}
+    engines: {node: '>=18'}
     hasBin: true
 
   glob-parent@5.1.2:
@@ -4966,10 +4977,6 @@ packages:
 
   mdn-data@2.12.2:
     resolution: {integrity: sha512-IEn+pegP1aManZuckezWCO+XZQDplx1366JoVhTpMpBB1sPey/SbveZQUosKiKiGYjg1wH4pMlNgXbCiYgihQA==}
-
-  meow@12.1.1:
-    resolution: {integrity: sha512-BhXM0Au22RwUneMPwSCnyhTOizdWoIEPU9sp0Aqa1PnDMR5Wv2FGXYDjuzJEIX+Eo2Rb8xuYe5jrnm5QowQFkw==}
-    engines: {node: '>=16.10'}
 
   meow@13.2.0:
     resolution: {integrity: sha512-pxQJQzB6djGPXh08dacEloMFopsOqGVRKFPYvPOt9XDZ1HasbgDZA74CJGreSU4G3Ak7EFJGoiH2auq+yXISgA==}
@@ -6462,10 +6469,6 @@ packages:
   split2@1.0.0:
     resolution: {integrity: sha512-NKywug4u4pX/AZBB1FCPzZ6/7O+Xhz1qMVbzTvvKvikjO99oPN87SkK08mEY9P63/5lWjK+wgOOgApnTg5r6qg==}
 
-  split2@4.2.0:
-    resolution: {integrity: sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg==}
-    engines: {node: '>= 10.x'}
-
   srvx@0.11.13:
     resolution: {integrity: sha512-oknN6qduuMPafxKtHucUeG32Q963pjriA5g3/Bl05cwEsUe5VVbIU4qR9LrALHbipSCyBe+VmfDGGydqazDRkw==}
     engines: {node: '>=20.16.0'}
@@ -6672,8 +6675,8 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
-  swrv@1.1.0:
-    resolution: {integrity: sha512-pjllRDr2s0iTwiE5Isvip51dZGR7GjLH1gCSVyE8bQnbAx6xackXsFdojau+1O5u98yHF5V73HQGOFxKUXO9gQ==}
+  swrv@1.2.0:
+    resolution: {integrity: sha512-lH/g4UcNyj+7lzK4eRGT4C68Q4EhQ6JtM9otPRIASfhhzfLWtbZPHcMuhuba7S9YVYuxkMUGImwMyGpfbkH07A==}
     peerDependencies:
       vue: '>=3.2.26 < 4'
 
@@ -8069,7 +8072,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/runtime@7.28.6': {}
+  '@babel/runtime@7.29.2': {}
 
   '@babel/template@7.27.2':
     dependencies:
@@ -8158,22 +8161,24 @@ snapshots:
   '@colors/colors@1.5.0':
     optional: true
 
-  '@commitlint/cli@20.4.3(@types/node@24.12.0)(typescript@5.9.3)':
+  '@commitlint/cli@20.5.0(@types/node@24.12.0)(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.3.0)(typescript@5.9.3)':
     dependencies:
-      '@commitlint/format': 20.4.3
-      '@commitlint/lint': 20.4.3
-      '@commitlint/load': 20.4.3(@types/node@24.12.0)(typescript@5.9.3)
-      '@commitlint/read': 20.4.3
-      '@commitlint/types': 20.4.3
+      '@commitlint/format': 20.5.0
+      '@commitlint/lint': 20.5.0
+      '@commitlint/load': 20.5.0(@types/node@24.12.0)(typescript@5.9.3)
+      '@commitlint/read': 20.5.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.3.0)
+      '@commitlint/types': 20.5.0
       tinyexec: 1.0.2
       yargs: 17.7.2
     transitivePeerDependencies:
       - '@types/node'
+      - conventional-commits-filter
+      - conventional-commits-parser
       - typescript
 
-  '@commitlint/config-conventional@20.4.3':
+  '@commitlint/config-conventional@20.5.0':
     dependencies:
-      '@commitlint/types': 20.4.3
+      '@commitlint/types': 20.5.0
       conventional-changelog-conventionalcommits: 9.3.0
 
   '@commitlint/config-validator@19.0.3':
@@ -8182,14 +8187,14 @@ snapshots:
       ajv: 8.18.0
     optional: true
 
-  '@commitlint/config-validator@20.4.3':
+  '@commitlint/config-validator@20.5.0':
     dependencies:
-      '@commitlint/types': 20.4.3
+      '@commitlint/types': 20.5.0
       ajv: 8.18.0
 
-  '@commitlint/ensure@20.4.3':
+  '@commitlint/ensure@20.5.0':
     dependencies:
-      '@commitlint/types': 20.4.3
+      '@commitlint/types': 20.5.0
       lodash.camelcase: 4.3.0
       lodash.kebabcase: 4.1.1
       lodash.snakecase: 4.1.1
@@ -8201,22 +8206,22 @@ snapshots:
 
   '@commitlint/execute-rule@20.0.0': {}
 
-  '@commitlint/format@20.4.3':
+  '@commitlint/format@20.5.0':
     dependencies:
-      '@commitlint/types': 20.4.3
+      '@commitlint/types': 20.5.0
       picocolors: 1.1.1
 
-  '@commitlint/is-ignored@20.4.3':
+  '@commitlint/is-ignored@20.5.0':
     dependencies:
-      '@commitlint/types': 20.4.3
+      '@commitlint/types': 20.5.0
       semver: 7.7.4
 
-  '@commitlint/lint@20.4.3':
+  '@commitlint/lint@20.5.0':
     dependencies:
-      '@commitlint/is-ignored': 20.4.3
-      '@commitlint/parse': 20.4.3
-      '@commitlint/rules': 20.4.3
-      '@commitlint/types': 20.4.3
+      '@commitlint/is-ignored': 20.5.0
+      '@commitlint/parse': 20.5.0
+      '@commitlint/rules': 20.5.0
+      '@commitlint/types': 20.5.0
 
   '@commitlint/load@19.2.0(@types/node@24.12.0)(typescript@5.9.3)':
     dependencies:
@@ -8235,12 +8240,12 @@ snapshots:
       - typescript
     optional: true
 
-  '@commitlint/load@20.4.3(@types/node@24.12.0)(typescript@5.9.3)':
+  '@commitlint/load@20.5.0(@types/node@24.12.0)(typescript@5.9.3)':
     dependencies:
-      '@commitlint/config-validator': 20.4.3
+      '@commitlint/config-validator': 20.5.0
       '@commitlint/execute-rule': 20.0.0
-      '@commitlint/resolve-extends': 20.4.3
-      '@commitlint/types': 20.4.3
+      '@commitlint/resolve-extends': 20.5.0
+      '@commitlint/types': 20.5.0
       cosmiconfig: 9.0.1(typescript@5.9.3)
       cosmiconfig-typescript-loader: 6.1.0(@types/node@24.12.0)(cosmiconfig@9.0.1(typescript@5.9.3))(typescript@5.9.3)
       is-plain-obj: 4.1.0
@@ -8252,19 +8257,22 @@ snapshots:
 
   '@commitlint/message@20.4.3': {}
 
-  '@commitlint/parse@20.4.3':
+  '@commitlint/parse@20.5.0':
     dependencies:
-      '@commitlint/types': 20.4.3
+      '@commitlint/types': 20.5.0
       conventional-changelog-angular: 8.3.0
       conventional-commits-parser: 6.3.0
 
-  '@commitlint/read@20.4.3':
+  '@commitlint/read@20.5.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.3.0)':
     dependencies:
       '@commitlint/top-level': 20.4.3
-      '@commitlint/types': 20.4.3
-      git-raw-commits: 4.0.0
+      '@commitlint/types': 20.5.0
+      git-raw-commits: 5.0.1(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.3.0)
       minimist: 1.2.8
       tinyexec: 1.0.2
+    transitivePeerDependencies:
+      - conventional-commits-filter
+      - conventional-commits-parser
 
   '@commitlint/resolve-extends@19.1.0':
     dependencies:
@@ -8276,21 +8284,21 @@ snapshots:
       resolve-from: 5.0.0
     optional: true
 
-  '@commitlint/resolve-extends@20.4.3':
+  '@commitlint/resolve-extends@20.5.0':
     dependencies:
-      '@commitlint/config-validator': 20.4.3
-      '@commitlint/types': 20.4.3
+      '@commitlint/config-validator': 20.5.0
+      '@commitlint/types': 20.5.0
       global-directory: 4.0.1
       import-meta-resolve: 4.1.0
       lodash.mergewith: 4.6.2
       resolve-from: 5.0.0
 
-  '@commitlint/rules@20.4.3':
+  '@commitlint/rules@20.5.0':
     dependencies:
-      '@commitlint/ensure': 20.4.3
+      '@commitlint/ensure': 20.5.0
       '@commitlint/message': 20.4.3
       '@commitlint/to-lines': 20.0.0
-      '@commitlint/types': 20.4.3
+      '@commitlint/types': 20.5.0
 
   '@commitlint/to-lines@20.0.0': {}
 
@@ -8304,10 +8312,19 @@ snapshots:
       chalk: 5.5.0
     optional: true
 
-  '@commitlint/types@20.4.3':
+  '@commitlint/types@20.5.0':
     dependencies:
       conventional-commits-parser: 6.3.0
       picocolors: 1.1.1
+
+  '@conventional-changelog/git-client@2.6.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.3.0)':
+    dependencies:
+      '@simple-libs/child-process-utils': 1.0.2
+      '@simple-libs/stream-utils': 1.2.0
+      semver: 7.7.4
+    optionalDependencies:
+      conventional-commits-filter: 5.0.0
+      conventional-commits-parser: 6.3.0
 
   '@csstools/cascade-layer-name-parser@2.0.5(@csstools/css-parser-algorithms@3.0.5(@csstools/css-tokenizer@3.0.4))(@csstools/css-tokenizer@3.0.4)':
     dependencies:
@@ -8994,7 +9011,7 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
-  '@nuxt/nitro-server@4.4.2(@babel/core@7.29.0)(@babel/plugin-proposal-decorators@7.28.0(@babel/core@7.29.0))(db0@0.3.4)(ioredis@5.9.3)(magicast@0.5.1)(nuxt@4.4.2(@babel/core@7.29.0)(@babel/plugin-proposal-decorators@7.28.0(@babel/core@7.29.0))(@babel/plugin-syntax-jsx@7.27.1(@babel/core@7.29.0))(@parcel/watcher@2.5.1)(@rollup/wasm-node@4.60.0)(@types/node@24.12.0)(@vue/compiler-sfc@3.5.30)(cac@6.7.14)(db0@0.3.4)(eslint@9.39.3(jiti@2.6.1))(ioredis@5.9.3)(magicast@0.5.1)(meow@13.2.0)(optionator@0.9.4)(rollup-plugin-visualizer@6.0.11(@rollup/wasm-node@4.60.0))(sass-embedded@1.79.5)(sass@1.98.0)(stylelint@16.26.1(typescript@5.9.3))(terser@5.44.0)(typescript@5.9.3)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue-tsc@3.2.5(typescript@5.9.3))(yaml@2.8.3))(typescript@5.9.3)':
+  '@nuxt/nitro-server@4.4.2(@babel/core@7.29.0)(@babel/plugin-proposal-decorators@7.28.0(@babel/core@7.29.0))(db0@0.3.4)(ioredis@5.9.3)(magicast@0.5.1)(nuxt@4.4.2(@babel/core@7.29.0)(@babel/plugin-proposal-decorators@7.28.0(@babel/core@7.29.0))(@babel/plugin-syntax-jsx@7.27.1(@babel/core@7.29.0))(@parcel/watcher@2.5.1)(@rollup/wasm-node@4.60.1)(@types/node@24.12.0)(@vue/compiler-sfc@3.5.30)(cac@6.7.14)(db0@0.3.4)(eslint@9.39.3(jiti@2.6.1))(ioredis@5.9.3)(magicast@0.5.1)(meow@13.2.0)(optionator@0.9.4)(rollup-plugin-visualizer@6.0.11(@rollup/wasm-node@4.60.1))(sass-embedded@1.79.5)(sass@1.98.0)(stylelint@16.26.1(typescript@5.9.3))(terser@5.44.0)(typescript@5.9.3)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue-tsc@3.2.5(typescript@5.9.3))(yaml@2.8.3))(typescript@5.9.3)':
     dependencies:
       '@babel/plugin-syntax-typescript': 7.28.6(@babel/core@7.29.0)
       '@nuxt/devalue': 2.0.2
@@ -9013,7 +9030,7 @@ snapshots:
       klona: 2.0.6
       mocked-exports: 0.1.1
       nitropack: 2.13.1
-      nuxt: 4.4.2(@babel/core@7.29.0)(@babel/plugin-proposal-decorators@7.28.0(@babel/core@7.29.0))(@babel/plugin-syntax-jsx@7.27.1(@babel/core@7.29.0))(@parcel/watcher@2.5.1)(@rollup/wasm-node@4.60.0)(@types/node@24.12.0)(@vue/compiler-sfc@3.5.30)(cac@6.7.14)(db0@0.3.4)(eslint@9.39.3(jiti@2.6.1))(ioredis@5.9.3)(magicast@0.5.1)(meow@13.2.0)(optionator@0.9.4)(rollup-plugin-visualizer@6.0.11(@rollup/wasm-node@4.60.0))(sass-embedded@1.79.5)(sass@1.98.0)(stylelint@16.26.1(typescript@5.9.3))(terser@5.44.0)(typescript@5.9.3)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue-tsc@3.2.5(typescript@5.9.3))(yaml@2.8.3)
+      nuxt: 4.4.2(@babel/core@7.29.0)(@babel/plugin-proposal-decorators@7.28.0(@babel/core@7.29.0))(@babel/plugin-syntax-jsx@7.27.1(@babel/core@7.29.0))(@parcel/watcher@2.5.1)(@rollup/wasm-node@4.60.1)(@types/node@24.12.0)(@vue/compiler-sfc@3.5.30)(cac@6.7.14)(db0@0.3.4)(eslint@9.39.3(jiti@2.6.1))(ioredis@5.9.3)(magicast@0.5.1)(meow@13.2.0)(optionator@0.9.4)(rollup-plugin-visualizer@6.0.11(@rollup/wasm-node@4.60.1))(sass-embedded@1.79.5)(sass@1.98.0)(stylelint@16.26.1(typescript@5.9.3))(terser@5.44.0)(typescript@5.9.3)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue-tsc@3.2.5(typescript@5.9.3))(yaml@2.8.3)
       nypm: 0.6.5
       ohash: 2.0.11
       pathe: 2.0.3
@@ -9081,10 +9098,10 @@ snapshots:
       rc9: 3.0.0
       std-env: 3.10.0
 
-  '@nuxt/vite-builder@4.4.2(8154b616fa98c44d28c2416e6c61cfd8)':
+  '@nuxt/vite-builder@4.4.2(fb0d0f3acdfab6bf9e9fcc1bc65e8d40)':
     dependencies:
       '@nuxt/kit': 4.4.2(magicast@0.5.1)
-      '@rollup/plugin-replace': 6.0.3(@rollup/wasm-node@4.60.0)
+      '@rollup/plugin-replace': 6.0.3(@rollup/wasm-node@4.60.1)
       '@vitejs/plugin-vue': 6.0.4(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue@3.5.30(typescript@5.9.3))
       '@vitejs/plugin-vue-jsx': 5.1.4(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue@3.5.30(typescript@5.9.3))
       autoprefixer: 10.4.27(postcss@8.5.8)
@@ -9099,7 +9116,7 @@ snapshots:
       magic-string: 0.30.21
       mlly: 1.8.1
       mocked-exports: 0.1.1
-      nuxt: 4.4.2(@babel/core@7.29.0)(@babel/plugin-proposal-decorators@7.28.0(@babel/core@7.29.0))(@babel/plugin-syntax-jsx@7.27.1(@babel/core@7.29.0))(@parcel/watcher@2.5.1)(@rollup/wasm-node@4.60.0)(@types/node@24.12.0)(@vue/compiler-sfc@3.5.30)(cac@6.7.14)(db0@0.3.4)(eslint@9.39.3(jiti@2.6.1))(ioredis@5.9.3)(magicast@0.5.1)(meow@13.2.0)(optionator@0.9.4)(rollup-plugin-visualizer@6.0.11(@rollup/wasm-node@4.60.0))(sass-embedded@1.79.5)(sass@1.98.0)(stylelint@16.26.1(typescript@5.9.3))(terser@5.44.0)(typescript@5.9.3)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue-tsc@3.2.5(typescript@5.9.3))(yaml@2.8.3)
+      nuxt: 4.4.2(@babel/core@7.29.0)(@babel/plugin-proposal-decorators@7.28.0(@babel/core@7.29.0))(@babel/plugin-syntax-jsx@7.27.1(@babel/core@7.29.0))(@parcel/watcher@2.5.1)(@rollup/wasm-node@4.60.1)(@types/node@24.12.0)(@vue/compiler-sfc@3.5.30)(cac@6.7.14)(db0@0.3.4)(eslint@9.39.3(jiti@2.6.1))(ioredis@5.9.3)(magicast@0.5.1)(meow@13.2.0)(optionator@0.9.4)(rollup-plugin-visualizer@6.0.11(@rollup/wasm-node@4.60.1))(sass-embedded@1.79.5)(sass@1.98.0)(stylelint@16.26.1(typescript@5.9.3))(terser@5.44.0)(typescript@5.9.3)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue-tsc@3.2.5(typescript@5.9.3))(yaml@2.8.3)
       nypm: 0.6.5
       pathe: 2.0.3
       pkg-types: 2.3.0
@@ -9116,7 +9133,7 @@ snapshots:
     optionalDependencies:
       '@babel/plugin-proposal-decorators': 7.28.0(@babel/core@7.29.0)
       '@babel/plugin-syntax-jsx': 7.27.1(@babel/core@7.29.0)
-      rollup-plugin-visualizer: 6.0.11(@rollup/wasm-node@4.60.0)
+      rollup-plugin-visualizer: 6.0.11(@rollup/wasm-node@4.60.1)
     transitivePeerDependencies:
       - '@biomejs/biome'
       - '@types/node'
@@ -9498,13 +9515,13 @@ snapshots:
 
   '@rolldown/pluginutils@1.0.0-rc.5': {}
 
-  '@rollup/plugin-alias@6.0.0(@rollup/wasm-node@4.60.0)':
+  '@rollup/plugin-alias@6.0.0(@rollup/wasm-node@4.60.1)':
     optionalDependencies:
-      rollup: '@rollup/wasm-node@4.60.0'
+      rollup: '@rollup/wasm-node@4.60.1'
 
-  '@rollup/plugin-commonjs@29.0.0(@rollup/wasm-node@4.60.0)':
+  '@rollup/plugin-commonjs@29.0.0(@rollup/wasm-node@4.60.1)':
     dependencies:
-      '@rollup/pluginutils': 5.2.0(@rollup/wasm-node@4.60.0)
+      '@rollup/pluginutils': 5.2.0(@rollup/wasm-node@4.60.1)
       commondir: 1.0.1
       estree-walker: 2.0.2
       fdir: 6.5.0(picomatch@4.0.4)
@@ -9512,56 +9529,56 @@ snapshots:
       magic-string: 0.30.21
       picomatch: 4.0.4
     optionalDependencies:
-      rollup: '@rollup/wasm-node@4.60.0'
+      rollup: '@rollup/wasm-node@4.60.1'
 
-  '@rollup/plugin-inject@5.0.5(@rollup/wasm-node@4.60.0)':
+  '@rollup/plugin-inject@5.0.5(@rollup/wasm-node@4.60.1)':
     dependencies:
-      '@rollup/pluginutils': 5.2.0(@rollup/wasm-node@4.60.0)
+      '@rollup/pluginutils': 5.2.0(@rollup/wasm-node@4.60.1)
       estree-walker: 2.0.2
       magic-string: 0.30.21
     optionalDependencies:
-      rollup: '@rollup/wasm-node@4.60.0'
+      rollup: '@rollup/wasm-node@4.60.1'
 
-  '@rollup/plugin-json@6.1.0(@rollup/wasm-node@4.60.0)':
+  '@rollup/plugin-json@6.1.0(@rollup/wasm-node@4.60.1)':
     dependencies:
-      '@rollup/pluginutils': 5.2.0(@rollup/wasm-node@4.60.0)
+      '@rollup/pluginutils': 5.2.0(@rollup/wasm-node@4.60.1)
     optionalDependencies:
-      rollup: '@rollup/wasm-node@4.60.0'
+      rollup: '@rollup/wasm-node@4.60.1'
 
-  '@rollup/plugin-node-resolve@16.0.3(@rollup/wasm-node@4.60.0)':
+  '@rollup/plugin-node-resolve@16.0.3(@rollup/wasm-node@4.60.1)':
     dependencies:
-      '@rollup/pluginutils': 5.2.0(@rollup/wasm-node@4.60.0)
+      '@rollup/pluginutils': 5.2.0(@rollup/wasm-node@4.60.1)
       '@types/resolve': 1.20.2
       deepmerge: 4.3.1
       is-module: 1.0.0
       resolve: 1.22.8
     optionalDependencies:
-      rollup: '@rollup/wasm-node@4.60.0'
+      rollup: '@rollup/wasm-node@4.60.1'
 
-  '@rollup/plugin-replace@6.0.3(@rollup/wasm-node@4.60.0)':
+  '@rollup/plugin-replace@6.0.3(@rollup/wasm-node@4.60.1)':
     dependencies:
-      '@rollup/pluginutils': 5.2.0(@rollup/wasm-node@4.60.0)
+      '@rollup/pluginutils': 5.2.0(@rollup/wasm-node@4.60.1)
       magic-string: 0.30.21
     optionalDependencies:
-      rollup: '@rollup/wasm-node@4.60.0'
+      rollup: '@rollup/wasm-node@4.60.1'
 
-  '@rollup/plugin-terser@0.4.4(@rollup/wasm-node@4.60.0)':
+  '@rollup/plugin-terser@0.4.4(@rollup/wasm-node@4.60.1)':
     dependencies:
       serialize-javascript: 7.0.5
       smob: 1.5.0
       terser: 5.44.0
     optionalDependencies:
-      rollup: '@rollup/wasm-node@4.60.0'
+      rollup: '@rollup/wasm-node@4.60.1'
 
-  '@rollup/pluginutils@5.2.0(@rollup/wasm-node@4.60.0)':
+  '@rollup/pluginutils@5.2.0(@rollup/wasm-node@4.60.1)':
     dependencies:
       '@types/estree': 1.0.8
       estree-walker: 2.0.2
       picomatch: 4.0.4
     optionalDependencies:
-      rollup: '@rollup/wasm-node@4.60.0'
+      rollup: '@rollup/wasm-node@4.60.1'
 
-  '@rollup/wasm-node@4.60.0':
+  '@rollup/wasm-node@4.60.1':
     dependencies:
       '@types/estree': 1.0.8
     optionalDependencies:
@@ -9737,6 +9754,10 @@ snapshots:
       '@types/hast': 3.0.4
 
   '@shikijs/vscode-textmate@10.0.2': {}
+
+  '@simple-libs/child-process-utils@1.0.2':
+    dependencies:
+      '@simple-libs/stream-utils': 1.2.0
 
   '@simple-libs/stream-utils@1.2.0': {}
 
@@ -9947,10 +9968,10 @@ snapshots:
       unhead: 2.1.12
       vue: 3.5.30(typescript@5.9.3)
 
-  '@vercel/nft@1.3.1(@rollup/wasm-node@4.60.0)':
+  '@vercel/nft@1.3.1(@rollup/wasm-node@4.60.1)':
     dependencies:
       '@mapbox/node-pre-gyp': 2.0.0
-      '@rollup/pluginutils': 5.2.0(@rollup/wasm-node@4.60.0)
+      '@rollup/pluginutils': 5.2.0(@rollup/wasm-node@4.60.1)
       acorn: 8.15.0
       acorn-import-attributes: 1.9.5(acorn@8.15.0)
       async-sema: 3.1.1
@@ -11208,8 +11229,6 @@ snapshots:
       - '@types/node'
       - typescript
 
-  dargs@8.1.0: {}
-
   dashdash@1.14.1:
     dependencies:
       assert-plus: 1.0.0
@@ -11238,7 +11257,7 @@ snapshots:
 
   date-fns@2.30.0:
     dependencies:
-      '@babel/runtime': 7.28.6
+      '@babel/runtime': 7.29.2
 
   dayjs@1.11.11: {}
 
@@ -12130,11 +12149,13 @@ snapshots:
       through2: 2.0.5
       traverse: 0.6.9
 
-  git-raw-commits@4.0.0:
+  git-raw-commits@5.0.1(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.3.0):
     dependencies:
-      dargs: 8.1.0
-      meow: 12.1.1
-      split2: 4.2.0
+      '@conventional-changelog/git-client': 2.6.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.3.0)
+      meow: 13.2.0
+    transitivePeerDependencies:
+      - conventional-commits-filter
+      - conventional-commits-parser
 
   glob-parent@5.1.2:
     dependencies:
@@ -12972,8 +12993,6 @@ snapshots:
 
   mdn-data@2.12.2: {}
 
-  meow@12.1.1: {}
-
   meow@13.2.0: {}
 
   merge-stream@2.0.0: {}
@@ -13099,14 +13118,14 @@ snapshots:
   nitropack@2.13.1:
     dependencies:
       '@cloudflare/kv-asset-handler': 0.4.2
-      '@rollup/plugin-alias': 6.0.0(@rollup/wasm-node@4.60.0)
-      '@rollup/plugin-commonjs': 29.0.0(@rollup/wasm-node@4.60.0)
-      '@rollup/plugin-inject': 5.0.5(@rollup/wasm-node@4.60.0)
-      '@rollup/plugin-json': 6.1.0(@rollup/wasm-node@4.60.0)
-      '@rollup/plugin-node-resolve': 16.0.3(@rollup/wasm-node@4.60.0)
-      '@rollup/plugin-replace': 6.0.3(@rollup/wasm-node@4.60.0)
-      '@rollup/plugin-terser': 0.4.4(@rollup/wasm-node@4.60.0)
-      '@vercel/nft': 1.3.1(@rollup/wasm-node@4.60.0)
+      '@rollup/plugin-alias': 6.0.0(@rollup/wasm-node@4.60.1)
+      '@rollup/plugin-commonjs': 29.0.0(@rollup/wasm-node@4.60.1)
+      '@rollup/plugin-inject': 5.0.5(@rollup/wasm-node@4.60.1)
+      '@rollup/plugin-json': 6.1.0(@rollup/wasm-node@4.60.1)
+      '@rollup/plugin-node-resolve': 16.0.3(@rollup/wasm-node@4.60.1)
+      '@rollup/plugin-replace': 6.0.3(@rollup/wasm-node@4.60.1)
+      '@rollup/plugin-terser': 0.4.4(@rollup/wasm-node@4.60.1)
+      '@vercel/nft': 1.3.1(@rollup/wasm-node@4.60.1)
       archiver: 7.0.1
       c12: 3.3.3(magicast@0.5.1)
       chokidar: 5.0.0
@@ -13148,8 +13167,8 @@ snapshots:
       pkg-types: 2.3.0
       pretty-bytes: 7.1.0
       radix3: 1.1.2
-      rollup: '@rollup/wasm-node@4.60.0'
-      rollup-plugin-visualizer: 6.0.11(@rollup/wasm-node@4.60.0)
+      rollup: '@rollup/wasm-node@4.60.1'
+      rollup-plugin-visualizer: 6.0.11(@rollup/wasm-node@4.60.1)
       scule: 1.3.0
       semver: 7.7.4
       serve-placeholder: 2.0.2
@@ -13275,16 +13294,16 @@ snapshots:
     dependencies:
       boolbase: 1.0.0
 
-  nuxt@4.4.2(@babel/core@7.29.0)(@babel/plugin-proposal-decorators@7.28.0(@babel/core@7.29.0))(@babel/plugin-syntax-jsx@7.27.1(@babel/core@7.29.0))(@parcel/watcher@2.5.1)(@rollup/wasm-node@4.60.0)(@types/node@24.12.0)(@vue/compiler-sfc@3.5.30)(cac@6.7.14)(db0@0.3.4)(eslint@9.39.3(jiti@2.6.1))(ioredis@5.9.3)(magicast@0.5.1)(meow@13.2.0)(optionator@0.9.4)(rollup-plugin-visualizer@6.0.11(@rollup/wasm-node@4.60.0))(sass-embedded@1.79.5)(sass@1.98.0)(stylelint@16.26.1(typescript@5.9.3))(terser@5.44.0)(typescript@5.9.3)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue-tsc@3.2.5(typescript@5.9.3))(yaml@2.8.3):
+  nuxt@4.4.2(@babel/core@7.29.0)(@babel/plugin-proposal-decorators@7.28.0(@babel/core@7.29.0))(@babel/plugin-syntax-jsx@7.27.1(@babel/core@7.29.0))(@parcel/watcher@2.5.1)(@rollup/wasm-node@4.60.1)(@types/node@24.12.0)(@vue/compiler-sfc@3.5.30)(cac@6.7.14)(db0@0.3.4)(eslint@9.39.3(jiti@2.6.1))(ioredis@5.9.3)(magicast@0.5.1)(meow@13.2.0)(optionator@0.9.4)(rollup-plugin-visualizer@6.0.11(@rollup/wasm-node@4.60.1))(sass-embedded@1.79.5)(sass@1.98.0)(stylelint@16.26.1(typescript@5.9.3))(terser@5.44.0)(typescript@5.9.3)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue-tsc@3.2.5(typescript@5.9.3))(yaml@2.8.3):
     dependencies:
       '@dxup/nuxt': 0.4.0(magicast@0.5.1)(typescript@5.9.3)
       '@nuxt/cli': 3.34.0(@nuxt/schema@4.4.2)(cac@6.7.14)(magicast@0.5.1)
       '@nuxt/devtools': 3.2.3(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue@3.5.30(typescript@5.9.3))
       '@nuxt/kit': 4.4.2(magicast@0.5.1)
-      '@nuxt/nitro-server': 4.4.2(@babel/core@7.29.0)(@babel/plugin-proposal-decorators@7.28.0(@babel/core@7.29.0))(db0@0.3.4)(ioredis@5.9.3)(magicast@0.5.1)(nuxt@4.4.2(@babel/core@7.29.0)(@babel/plugin-proposal-decorators@7.28.0(@babel/core@7.29.0))(@babel/plugin-syntax-jsx@7.27.1(@babel/core@7.29.0))(@parcel/watcher@2.5.1)(@rollup/wasm-node@4.60.0)(@types/node@24.12.0)(@vue/compiler-sfc@3.5.30)(cac@6.7.14)(db0@0.3.4)(eslint@9.39.3(jiti@2.6.1))(ioredis@5.9.3)(magicast@0.5.1)(meow@13.2.0)(optionator@0.9.4)(rollup-plugin-visualizer@6.0.11(@rollup/wasm-node@4.60.0))(sass-embedded@1.79.5)(sass@1.98.0)(stylelint@16.26.1(typescript@5.9.3))(terser@5.44.0)(typescript@5.9.3)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue-tsc@3.2.5(typescript@5.9.3))(yaml@2.8.3))(typescript@5.9.3)
+      '@nuxt/nitro-server': 4.4.2(@babel/core@7.29.0)(@babel/plugin-proposal-decorators@7.28.0(@babel/core@7.29.0))(db0@0.3.4)(ioredis@5.9.3)(magicast@0.5.1)(nuxt@4.4.2(@babel/core@7.29.0)(@babel/plugin-proposal-decorators@7.28.0(@babel/core@7.29.0))(@babel/plugin-syntax-jsx@7.27.1(@babel/core@7.29.0))(@parcel/watcher@2.5.1)(@rollup/wasm-node@4.60.1)(@types/node@24.12.0)(@vue/compiler-sfc@3.5.30)(cac@6.7.14)(db0@0.3.4)(eslint@9.39.3(jiti@2.6.1))(ioredis@5.9.3)(magicast@0.5.1)(meow@13.2.0)(optionator@0.9.4)(rollup-plugin-visualizer@6.0.11(@rollup/wasm-node@4.60.1))(sass-embedded@1.79.5)(sass@1.98.0)(stylelint@16.26.1(typescript@5.9.3))(terser@5.44.0)(typescript@5.9.3)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue-tsc@3.2.5(typescript@5.9.3))(yaml@2.8.3))(typescript@5.9.3)
       '@nuxt/schema': 4.4.2
       '@nuxt/telemetry': 2.7.0(@nuxt/kit@4.4.2(magicast@0.5.1))
-      '@nuxt/vite-builder': 4.4.2(8154b616fa98c44d28c2416e6c61cfd8)
+      '@nuxt/vite-builder': 4.4.2(fb0d0f3acdfab6bf9e9fcc1bc65e8d40)
       '@unhead/vue': 2.1.12(vue@3.5.30(typescript@5.9.3))
       '@vue/shared': 3.5.30
       c12: 3.3.3(magicast@0.5.1)
@@ -14204,14 +14223,14 @@ snapshots:
       glob: 13.0.6
       package-json-from-dist: 1.0.1
 
-  rollup-plugin-visualizer@6.0.11(@rollup/wasm-node@4.60.0):
+  rollup-plugin-visualizer@6.0.11(@rollup/wasm-node@4.60.1):
     dependencies:
       open: 8.4.2
       picomatch: 4.0.4
       source-map: 0.7.6
       yargs: 17.7.2
     optionalDependencies:
-      rollup: '@rollup/wasm-node@4.60.0'
+      rollup: '@rollup/wasm-node@4.60.1'
 
   rou3@0.8.1: {}
 
@@ -14616,8 +14635,6 @@ snapshots:
     dependencies:
       through2: 2.0.5
 
-  split2@4.2.0: {}
-
   srvx@0.11.13: {}
 
   sshpk@1.18.0:
@@ -14868,7 +14885,7 @@ snapshots:
       picocolors: 1.1.1
       sax: 1.5.0
 
-  swrv@1.1.0(vue@3.5.29(typescript@5.9.3)):
+  swrv@1.2.0(vue@3.5.29(typescript@5.9.3)):
     dependencies:
       vue: 3.5.29(typescript@5.9.3)
 
@@ -15389,10 +15406,10 @@ snapshots:
       typescript: 5.9.3
       vue-tsc: 3.2.5(typescript@5.9.3)
 
-  vite-plugin-inspect@0.8.9(@nuxt/kit@4.3.1(magicast@0.5.1))(@rollup/wasm-node@4.60.0)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3)):
+  vite-plugin-inspect@0.8.9(@nuxt/kit@4.3.1(magicast@0.5.1))(@rollup/wasm-node@4.60.1)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3)):
     dependencies:
       '@antfu/utils': 0.7.10
-      '@rollup/pluginutils': 5.2.0(@rollup/wasm-node@4.60.0)
+      '@rollup/pluginutils': 5.2.0(@rollup/wasm-node@4.60.1)
       debug: 4.4.3(supports-color@8.1.1)
       error-stack-parser-es: 0.1.5
       fs-extra: 11.3.1
@@ -15424,7 +15441,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vite-plugin-vue-devtools@7.7.9(@nuxt/kit@4.3.1(magicast@0.5.1))(@rollup/wasm-node@4.60.0)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue@3.5.29(typescript@5.9.3)):
+  vite-plugin-vue-devtools@7.7.9(@nuxt/kit@4.3.1(magicast@0.5.1))(@rollup/wasm-node@4.60.1)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue@3.5.29(typescript@5.9.3)):
     dependencies:
       '@vue/devtools-core': 7.7.9(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))(vue@3.5.29(typescript@5.9.3))
       '@vue/devtools-kit': 7.7.9
@@ -15432,7 +15449,7 @@ snapshots:
       execa: 9.6.0
       sirv: 3.0.2
       vite: 6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3)
-      vite-plugin-inspect: 0.8.9(@nuxt/kit@4.3.1(magicast@0.5.1))(@rollup/wasm-node@4.60.0)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))
+      vite-plugin-inspect: 0.8.9(@nuxt/kit@4.3.1(magicast@0.5.1))(@rollup/wasm-node@4.60.1)(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))
       vite-plugin-vue-inspector: 5.3.2(vite@6.4.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.79.5)(sass@1.98.0)(terser@5.44.0)(yaml@2.8.3))
     transitivePeerDependencies:
       - '@nuxt/kit'
@@ -15469,7 +15486,7 @@ snapshots:
     dependencies:
       esbuild: 0.27.3
       postcss: 8.5.6
-      rollup: '@rollup/wasm-node@4.60.0'
+      rollup: '@rollup/wasm-node@4.60.1'
     optionalDependencies:
       '@types/node': 24.12.0
       fsevents: 2.3.3
@@ -15483,7 +15500,7 @@ snapshots:
       fdir: 6.5.0(picomatch@4.0.4)
       picomatch: 4.0.4
       postcss: 8.5.6
-      rollup: '@rollup/wasm-node@4.60.0'
+      rollup: '@rollup/wasm-node@4.60.1'
       tinyglobby: 0.2.15
     optionalDependencies:
       '@types/node': 24.12.0
@@ -15500,7 +15517,7 @@ snapshots:
       fdir: 6.5.0(picomatch@4.0.4)
       picomatch: 4.0.4
       postcss: 8.5.8
-      rollup: '@rollup/wasm-node@4.60.0'
+      rollup: '@rollup/wasm-node@4.60.1'
       tinyglobby: 0.2.15
     optionalDependencies:
       '@types/node': 24.12.0
