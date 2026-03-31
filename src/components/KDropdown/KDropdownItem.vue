@@ -272,7 +272,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
 .k-dropdown-item {
   &:not(.disabled):not(.danger) {
     .dropdown-item-trigger .dropdown-item-trigger-label {
-      #{$kongponentsKongIconSelector} {
+      #{$kongponentsKongIconSelector}:not(#{$kongponentsKCheckboxIconSelector}) {
         color: var(--kui-color-text-neutral, $kui-color-text-neutral) !important;
       }
     }
