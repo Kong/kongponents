@@ -9,5 +9,7 @@ minimumReleaseAgeExclude:
   - '@kong/*'
   - '@kong-ui/*'
   - '@kong-ui-public/*'
+  # Renovate security update: brace-expansion@>=2.0.0 <=2.0.1@2.0.3
+  - brace-expansion@>=2.0.0 <=2.0.1@2.0.3
 # When set to no-downgrade, pnpm will fail if a package's trust level has decreased compared to previous releases
 trustPolicy: no-downgrade
