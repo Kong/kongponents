@@ -4,7 +4,7 @@ onlyBuiltDependencies:
   - esbuild
   - vue-demi
 # Require a package to be published at least 12 days (17280 minutes) before it can be installed
-minimumReleaseAge: 17280
+# minimumReleaseAge: 17280
 minimumReleaseAgeExclude:
   - '@kong/*'
   - '@kong-ui/*'
