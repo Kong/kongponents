@@ -9,5 +9,7 @@ minimumReleaseAgeExclude:
   - '@kong/*'
   - '@kong-ui/*'
   - '@kong-ui-public/*'
+  # Renovate security update: axios@>=1.0.0 <1.12.0@1.15.0
+  - axios@>=1.0.0 <1.12.0@1.15.0
 # When set to no-downgrade, pnpm will fail if a package's trust level has decreased compared to previous releases
 trustPolicy: no-downgrade
