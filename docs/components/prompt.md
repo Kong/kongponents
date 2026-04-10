@@ -330,6 +330,7 @@ interface ModalAttributes {
   maxHeight?: string
   closeOnBackdropClick?: boolean
   inputAutofocus?: boolean
+  zIndex?: number
 }
 ```
 
