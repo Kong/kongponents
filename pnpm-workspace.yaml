@@ -9,5 +9,7 @@ minimumReleaseAgeExclude:
   - '@kong/*'
   - '@kong-ui/*'
   - '@kong-ui-public/*'
+  # Renovate security update: lodash@>=4.0.0 <=4.17.22@4.18.1
+  - lodash@>=4.0.0 <=4.17.22@4.18.1
 # When set to no-downgrade, pnpm will fail if a package's trust level has decreased compared to previous releases
 trustPolicy: no-downgrade
