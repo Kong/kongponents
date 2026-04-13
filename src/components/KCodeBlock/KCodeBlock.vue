@@ -681,7 +681,7 @@ function getVirtualizerProps(filtered: boolean): VirtualizerProps {
     }),
 
     // adjust bufferSize to avoid blank items when scrolling fast, minimum 8 lines of buffer, `200` is library default
-    bufferSize: Math.max(parseInt(KUI_LINE_HEIGHT_30, 10) * 8, 200),
+    bufferSize: Math.max(200, parseInt(KUI_LINE_HEIGHT_30, 10) * 8),
 
     // provide a fixed item height so that Virtualizer can skip estimation
     itemSize: parseInt(KUI_LINE_HEIGHT_30, 10),
