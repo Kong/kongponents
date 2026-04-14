@@ -1,3 +1,10 @@
+## [9.52.10](https://github.com/Kong/kongponents/compare/v9.52.9...v9.52.10) (2026-04-14)
+
+
+### Bug Fixes
+
+* **kmodal:** allow z-index in modal attributes ([#3157](https://github.com/Kong/kongponents/issues/3157)) ([8065e1e](https://github.com/Kong/kongponents/commit/8065e1ea8ba2c1fcdb4e6b4d01eee2510e0f0db6))
+
 ## [9.52.9](https://github.com/Kong/kongponents/compare/v9.52.8...v9.52.9) (2026-03-31)
 
 
