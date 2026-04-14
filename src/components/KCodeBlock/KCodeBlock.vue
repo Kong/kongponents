@@ -191,9 +191,9 @@
           v-bind="getVirtualizerProps(true)"
         >
           <a
-            :id="getLineId(line)"
+            :id="getLineId(line as number)"
             class="line-anchor"
-            :href="showLineNumberLinks ? `#${getLineId(line)}` : undefined"
+            :href="showLineNumberLinks ? `#${getLineId(line as number)}` : undefined"
           >{{ line }}</a>
         </Virtualizer>
         <!-- eslint-disable-next-line vue/no-v-html -->
@@ -219,10 +219,10 @@
           v-bind="getVirtualizerProps(false)"
         >
           <a
-            :id="getLineId(line)"
+            :id="getLineId(line as number)"
             class="line-anchor"
             :class="{ 'hide-links': !showLineNumberLinks }"
-            :href="showLineNumberLinks ? `#${getLineId(line)}` : undefined"
+            :href="showLineNumberLinks ? `#${getLineId(line as number)}` : undefined"
           >{{ line }}</a>
         </Virtualizer>
         <!-- eslint-disable-next-line vue/no-v-html -->
@@ -675,13 +675,13 @@ function getVirtualizerProps(filtered: boolean): VirtualizerProps {
     itemProps: ({ item: line }) => ({
       class: normalizeClass({
         line: true,
-        'line-is-match': filtered ? false : matchingLineSet.value.has(line),
+        'line-is-match': filtered ? false : matchingLineSet.value.has(line as number),
         'line-is-highlighted-match': filtered ? false : currentLineIndex.value !== null && line === matchingLineNumbers.value[currentLineIndex.value],
       }),
     }),
 
-    // slightly increase the number of items to render to avoid blank items when scrolling fast
-    overscan: 8,
+    // adjust bufferSize to avoid blank items when scrolling fast, minimum 8 lines of buffer, `200` is library default
+    bufferSize: Math.max(parseInt(KUI_LINE_HEIGHT_30, 10) * 8, 200),
 
     // provide a fixed item height so that Virtualizer can skip estimation
     itemSize: parseInt(KUI_LINE_HEIGHT_30, 10),
