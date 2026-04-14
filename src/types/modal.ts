@@ -157,4 +157,5 @@ export type ModalAttributes = Pick<ModalProps,
   | 'maxHeight'
   | 'closeOnBackdropClick'
   | 'inputAutofocus'
+  | 'zIndex'
 >
