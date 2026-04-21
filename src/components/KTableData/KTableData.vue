@@ -425,7 +425,7 @@ watch(() => searchInput, (newSearchInput: string) => {
 // callback logic so removing this but keeping the comment here for context.
 // also removing the `async` since no corresponding `await` keyword is present.
 // removing `deep` since we are only watching a string value(primitive).
-watch(filterQuery, (oldQuery, newQuery) => {
+watch(filterQuery, (newQuery, oldQuery) => {
   if (newQuery !== oldQuery && page.value !== 1) {
     resetPagination()
   }
