@@ -1,4 +1,4 @@
-import { computed, ref, useId, toValue } from 'vue'
+import { computed, ref, useId, toValue, watch } from 'vue'
 import { getInitialPageSize, DEFAULT_PAGE_SIZE } from '@/utilities'
 import useUtilities from '@/composables/useUtilities'
 
@@ -212,6 +212,14 @@ export const useTablePagination = <Header extends TableDataHeader, Data extends 
     offset.value = previousOffset.value
   }
 
+  watch(response, (newResponse) => {
+    const { offset = null } = newResponse?.pagination || {}
+
+    if (!offsets.value[page.value - 1]) {
+      offsets.value.push(offset)
+    }
+  })
+
   return {
     total,
     page,
@@ -336,7 +344,7 @@ export const useTableData = <Header extends TableDataHeader, Data extends TableD
   const tableId = useId()
 
   const filterQuery = ref(toValue(searchInput) ?? '')
-  const isInitialFetch = ref(false)
+  const isInitialFetch = ref(true)
   // Cannot use `ref<Data[number][]>([])` as the items will be inferred incorrectly inside the template.
   const tableData = ref<Array<Data[number]>>([]) as Ref<Array<Data[number]>>
 
