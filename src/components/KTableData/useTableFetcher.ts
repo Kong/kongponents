@@ -213,9 +213,12 @@ export const useTablePagination = <Header extends TableDataHeader, Data extends 
   }
 
   watch(response, (newResponse) => {
+    const paginationAttrs = toValue(props.paginationAttributes)
+    if (!paginationAttrs?.offset) return
+
     const { offset = null } = newResponse?.pagination || {}
 
-    if (!offsets.value[page.value - 1]) {
+    if (!offsets.value[page.value]) {
       offsets.value.push(offset)
     }
   })
