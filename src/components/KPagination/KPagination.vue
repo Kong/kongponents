@@ -369,7 +369,7 @@ watch(pageCount, (newVal, oldVal) => {
     pagesVisible.value = getVisiblePages(
       currentlySelectedPage.value,
       newVal,
-      false,
+      firstDetached.value,
       lastDetached.value,
     )
   }
