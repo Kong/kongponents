@@ -4,8 +4,6 @@
     title="KToaster"
   >
     <div class="ktoaster-sandbox">
-      <div class="toast-overlay" />
-
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
@@ -154,7 +152,7 @@ const openToaster = (argument: string) => {
         title: 'Timeout',
         message: 'This is toaster with timeout (10s)',
         appearance: 'info',
-        timeoutMilliseconds: 1000000,
+        timeoutMilliseconds: 10000,
       }
       break
   }
@@ -170,23 +168,10 @@ const multipleToastersHandler = () => {
 
 <style lang="scss" scoped>
 .ktoaster-sandbox {
-  height: 100%;
-  position: relative;
-
   .horizontal-container {
     display: flex;
     flex-wrap: wrap;
     gap: $kui-space-50;
-  }
-
-  .toast-overlay {
-    background-color: red;
-    bottom: 16px;
-    height: 100px;
-    position: absolute;
-    right: 16px;
-    width: 200px;
-    z-index: 2;
   }
 }
 </style>
