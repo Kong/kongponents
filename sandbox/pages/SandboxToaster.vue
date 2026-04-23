@@ -171,7 +171,7 @@ const multipleToastersHandler = () => {
   .horizontal-container {
     display: flex;
     flex-wrap: wrap;
-    gap: $kui-space-50;
+    gap: var(--kui-space-50, $kui-space-50);
   }
 }
 </style>
