@@ -3,3 +3,11 @@ onlyBuiltDependencies:
   - cypress
   - esbuild
   - vue-demi
+# Require a package to be published at least 12 days (17280 minutes) before it can be installed
+# minimumReleaseAge: 17280
+minimumReleaseAgeExclude:
+  - '@kong/*'
+  - '@kong-ui/*'
+  - '@kong-ui-public/*'
+# When set to no-downgrade, pnpm will fail if a package's trust level has decreased compared to previous releases
+trustPolicy: no-downgrade

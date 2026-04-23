@@ -4,11 +4,12 @@
     class="k-stepper"
   >
     <KStep
-      v-for="(step) in steps"
+      v-for="(step, index) in steps"
       :key="`step-${step.label.replace(/ /gi, '-')}`"
       :label="step.label"
       :max-label-width="maxLabelWidth"
       :state="step.state"
+      :step-number="hideStepNumbers ? undefined : index + 1"
     />
   </ol>
 </template>
@@ -20,13 +21,17 @@ import type { StepperProps } from '@/types'
 const {
   steps,
   maxLabelWidth = '170px',
+  hideStepNumbers = false,
 } = defineProps<StepperProps>()
 </script>
 
 <style lang="scss" scoped>
 .k-stepper {
+  container-name: k-stepper;
+  container-type: inline-size;
   display: flex;
   list-style: none;
+  margin: var(--kui-space-0, $kui-space-0);
   max-width: 100%;
   overflow-x: auto;
   padding-inline-start: 0px;

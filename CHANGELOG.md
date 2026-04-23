@@ -1,3 +1,117 @@
+## [9.52.10](https://github.com/Kong/kongponents/compare/v9.52.9...v9.52.10) (2026-04-14)
+
+
+### Bug Fixes
+
+* **kmodal:** allow z-index in modal attributes ([#3157](https://github.com/Kong/kongponents/issues/3157)) ([8065e1e](https://github.com/Kong/kongponents/commit/8065e1ea8ba2c1fcdb4e6b4d01eee2510e0f0db6))
+
+## [9.52.9](https://github.com/Kong/kongponents/compare/v9.52.8...v9.52.9) (2026-03-31)
+
+
+### Bug Fixes
+
+* **kdropdown:** kcheckbox icon color in kdropdown ([#3152](https://github.com/Kong/kongponents/issues/3152)) ([cf73785](https://github.com/Kong/kongponents/commit/cf737853f895924f37a36a09d49e0403561981ed))
+
+## [9.52.8](https://github.com/Kong/kongponents/compare/v9.52.7...v9.52.8) (2026-03-31)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies with stable versions ([#3146](https://github.com/Kong/kongponents/issues/3146)) ([54b8fe5](https://github.com/Kong/kongponents/commit/54b8fe527d218008bbcc0bc90d23eab355fd5e7a))
+* **pnpm:** enforce vulnerability protections ([#3151](https://github.com/Kong/kongponents/issues/3151)) ([d670cd1](https://github.com/Kong/kongponents/commit/d670cd1631f273650d9bf8c0ae798b125b6168ae))
+
+## [9.52.7](https://github.com/Kong/kongponents/compare/v9.52.6...v9.52.7) (2026-03-30)
+
+
+### Bug Fixes
+
+* **kbadge:** remove tooltip outline ([#3149](https://github.com/Kong/kongponents/issues/3149)) ([bc5e6f0](https://github.com/Kong/kongponents/commit/bc5e6f0fc9337c1e297ce9747a86d5d7e48a0634))
+
+## [9.52.6](https://github.com/Kong/kongponents/compare/v9.52.5...v9.52.6) (2026-03-23)
+
+
+### Bug Fixes
+
+* **kstepper:** active, error, pending state label on small [KHCP-19918] ([#3143](https://github.com/Kong/kongponents/issues/3143)) ([e25a462](https://github.com/Kong/kongponents/commit/e25a462749deeb131ad12911238104efffc8373d))
+
+## [9.52.5](https://github.com/Kong/kongponents/compare/v9.52.4...v9.52.5) (2026-03-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.45.0 ([#3126](https://github.com/Kong/kongponents/issues/3126)) ([99e95b4](https://github.com/Kong/kongponents/commit/99e95b4afb91eb5fe518171f9f8bdd3894bbaaa2))
+
+## [9.52.4](https://github.com/Kong/kongponents/compare/v9.52.3...v9.52.4) (2026-03-13)
+
+
+### Bug Fixes
+
+* **kdropdown:** dropdown item icon color ([#3137](https://github.com/Kong/kongponents/issues/3137)) ([29c7957](https://github.com/Kong/kongponents/commit/29c7957767f9f0f92c090639b9fae79a4ded358b))
+
+## [9.52.3](https://github.com/Kong/kongponents/compare/v9.52.2...v9.52.3) (2026-03-13)
+
+
+### Bug Fixes
+
+* pnpm audit fix ([#3138](https://github.com/Kong/kongponents/issues/3138)) ([6a70750](https://github.com/Kong/kongponents/commit/6a707501d84b83be906a5be269e5b49033865c57))
+
+## [9.52.2](https://github.com/Kong/kongponents/compare/v9.52.1...v9.52.2) (2026-03-09)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies with stable versions ([#3122](https://github.com/Kong/kongponents/issues/3122)) ([d8c594e](https://github.com/Kong/kongponents/commit/d8c594e37a4271bd834e8005031dd01be8fa533c))
+
+## [9.52.1](https://github.com/Kong/kongponents/compare/v9.52.0...v9.52.1) (2026-03-07)
+
+
+### Bug Fixes
+
+* apply token-var-usage stylelint rule ([#3117](https://github.com/Kong/kongponents/issues/3117)) ([96f3214](https://github.com/Kong/kongponents/commit/96f3214ff3bf030b78412d7841e0c603a282c7be))
+
+# [9.52.0](https://github.com/Kong/kongponents/compare/v9.51.2...v9.52.0) (2026-03-03)
+
+
+### Features
+
+* new kongponent KFilterGroup [KHCP-19257] ([#3094](https://github.com/Kong/kongponents/issues/3094)) ([2f7e81b](https://github.com/Kong/kongponents/commit/2f7e81b930246621178e98b43a4ed6c86bc9c86b)), closes [#3092](https://github.com/Kong/kongponents/issues/3092) [#3095](https://github.com/Kong/kongponents/issues/3095) [#3098](https://github.com/Kong/kongponents/issues/3098) [#3112](https://github.com/Kong/kongponents/issues/3112)
+
+## [9.51.2](https://github.com/Kong/kongponents/compare/v9.51.1...v9.51.2) (2026-03-03)
+
+
+### Bug Fixes
+
+* **kbreadcrumb:** update component styles [KHCP-19741] ([#3118](https://github.com/Kong/kongponents/issues/3118)) ([e89e3d5](https://github.com/Kong/kongponents/commit/e89e3d5101db4041b2b45d9bbf8993554ca90379))
+
+## [9.51.1](https://github.com/Kong/kongponents/compare/v9.51.0...v9.51.1) (2026-03-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kong/icons to ^1.43.0 ([#3101](https://github.com/Kong/kongponents/issues/3101)) ([51230b9](https://github.com/Kong/kongponents/commit/51230b9245d3851577848098716274a6ec96c117))
+
+# [9.51.0](https://github.com/Kong/kongponents/compare/v9.50.7...v9.51.0) (2026-02-26)
+
+
+### Features
+
+* **kstepper:** step numbers, styles update [KHCP-19677] ([#3106](https://github.com/Kong/kongponents/issues/3106)) ([c7cc424](https://github.com/Kong/kongponents/commit/c7cc42412a93a9ced263fe8240a15a8cd6009935))
+
+## [9.50.7](https://github.com/Kong/kongponents/compare/v9.50.6...v9.50.7) (2026-02-26)
+
+
+### Bug Fixes
+
+* **kselect:** selectItemKey string replace ([#3109](https://github.com/Kong/kongponents/issues/3109)) ([979c67d](https://github.com/Kong/kongponents/commit/979c67d20969558bb65472d7f6486f0bf9009088))
+* pnpm audit issues ([#3110](https://github.com/Kong/kongponents/issues/3110)) ([6a98259](https://github.com/Kong/kongponents/commit/6a98259bf8f8431128dfa8ea8a20a951990704db))
+
+## [9.50.6](https://github.com/Kong/kongponents/compare/v9.50.5...v9.50.6) (2026-02-25)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies with stable versions ([#3089](https://github.com/Kong/kongponents/issues/3089)) ([c960c73](https://github.com/Kong/kongponents/commit/c960c7357b5b297827a1fa5d4b61c394faf9af6e))
+
 ## [9.50.5](https://github.com/Kong/kongponents/compare/v9.50.4...v9.50.5) (2026-02-09)
 
 

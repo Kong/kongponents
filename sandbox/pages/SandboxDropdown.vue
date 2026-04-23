@@ -224,6 +224,28 @@
               <ExternalLinkIcon />
               Disabled plain item
             </KDropdownItem>
+            <KComponent
+              v-slot="{ data }"
+              :data="{ modelValue: true }"
+            >
+              <KDropdownItem
+                has-divider
+                :item="{ label: 'Item with checkbox' }"
+              >
+                <KCheckbox v-model="data.modelValue" />
+                Item with checkbox
+              </KDropdownItem>
+              <KDropdownItem
+                disabled
+                :item="{ label: 'Disabled with checkbox' }"
+              >
+                <KCheckbox
+                  v-model="data.modelValue"
+                  disabled
+                />
+                Disabled item with checkbox
+              </KDropdownItem>
+            </KComponent>
             <KDropdownItem
               danger
               data-testid="button"
@@ -403,11 +425,11 @@ const slottedContentPositioningSnippet = `
     align-items: flex-end;
     display: flex;
     flex-wrap: wrap;
-    gap: $kui-space-50;
+    gap: var(--kui-space-50, $kui-space-50);
   }
 
   .dropdown-item-content-end {
-    margin-left: $kui-space-auto;
+    margin-left: var(--kui-space-auto, $kui-space-auto);
   }
 
   pre {

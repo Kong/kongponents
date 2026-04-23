@@ -16,6 +16,7 @@ export interface StepProps {
   label: string
   state?: StepperState
   maxLabelWidth: number | string
+  stepNumber?: number
 }
 
 export interface StepperProps {
@@ -29,4 +30,10 @@ export interface StepperProps {
    * @default '170px'
    */
   maxLabelWidth?: number | string
+
+  /**
+   * Whether to show the step numbers.
+   * @default false
+   */
+  hideStepNumbers?: boolean
 }
