@@ -1,3 +1,10 @@
+## [9.52.11](https://github.com/Kong/kongponents/compare/v9.52.10...v9.52.11) (2026-04-23)
+
+
+### Bug Fixes
+
+* **ktoaster:** deprecate zindex prop, set z-index on toaster container ([#3093](https://github.com/Kong/kongponents/issues/3093)) ([f22ef98](https://github.com/Kong/kongponents/commit/f22ef98ec48c1fe596e627860d7a9d7f27c822fd))
+
 ## [9.52.10](https://github.com/Kong/kongponents/compare/v9.52.9...v9.52.10) (2026-04-14)
 
 
