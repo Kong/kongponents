@@ -12,16 +12,15 @@
         :class="{ active: activeTab === tab.hash }"
         :data-testid="`${tab.hash.replace('#', '')}-tab`"
       >
-        <KButton
-          appearance="none"
+        <component
+          :is="tabComponent(tab).tag"
           :aria-controls="hidePanels ? undefined : `panel-${tab.hash}`"
           :aria-selected="hidePanels ? undefined : (activeTab === tab.hash ? 'true' : 'false')"
           class="tab-link"
           :class="{ disabled: tab.disabled }"
-          :disabled="tab.disabled"
           role="tab"
           :tabindex="getAnchorTabindex(tab)"
-          :to="tab.to"
+          v-bind="tabComponent(tab).attributes"
           @click="!tab.disabled ? handleTabChange(tab.hash) : undefined"
           @click.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
           @keydown.enter.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
@@ -30,7 +29,7 @@
           <slot :name="`${getTabSlotName(tab.hash)}-anchor`">
             <span>{{ tab.title }}</span>
           </slot>
-        </KButton>
+        </component>
       </li>
     </ul>
 
@@ -54,7 +53,6 @@
 
 <script lang="ts" setup generic="const Hash extends string = string">
 import { ref, watch } from 'vue'
-import KButton from '@/components/KButton/KButton.vue'
 import type { StripHash, Tab, TabsEmits, TabsProps, TabsSlots } from '@/types'
 
 const {
@@ -88,6 +86,18 @@ const getAnchorTabindex = (tab: Tab): string => {
   }
 
   return typeof anchorTabindex === 'number' && anchorTabindex >= -1 && anchorTabindex <= 32767 ? String(anchorTabindex) : '0'
+}
+
+const tabComponent = (tab: Tab) => {
+  if (tab.to) {
+    if (typeof tab.to === 'string') {
+      return { tag: 'a', attributes: { href: tab.disabled ? undefined : tab.to } }
+    } else if (typeof tab.to === 'object') {
+      return { tag: 'router-link', attributes: { to: tab.disabled ? undefined : tab.to } }
+    }
+  }
+
+  return { tag: 'div', attributes: {} }
 }
 
 watch(() => modelValue, (newTabHash) => {
