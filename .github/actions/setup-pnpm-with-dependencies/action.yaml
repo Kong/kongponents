@@ -23,10 +23,12 @@ runs:
     - name: get Node version
       id: node-version
       shell: bash
+      env:
+        NODEJS_VERSION: ${{ inputs.nodejs-version }}
       run: |
         voltaNodeVersion=$(cat package.json|jq -r ".volta.node")
         if [[ $voltaNodeVersion == null ]]; then
-          voltaNodeVersion="${{ inputs.nodejs-version }}"
+          voltaNodeVersion="$NODEJS_VERSION"
         fi
         voltaPnpmVersion=$(cat package.json|jq -r ".volta.pnpm")
         if [[ $voltaPnpmVersion == null ]]; then
