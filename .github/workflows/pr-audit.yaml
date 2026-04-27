@@ -42,6 +42,6 @@ jobs:
 
       - name: PR Audit
         if: github.actor != 'renovate[bot]'
-        uses: Kong/public-shared-actions/pr-previews/audit@main
+        uses: Kong/public-shared-actions/pr-previews/audit@8d98bc15a5143332a36f206e6699296e6cc2adac
         with:
           renovate-pr-author: renovate[bot]
