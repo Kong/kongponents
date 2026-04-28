@@ -76,8 +76,8 @@
     "vue-draggable-next": "^2.3.0"
   },
   "peerDependencies": {
-    "vue": ">4 || >5",
-    "vue-router": "^5.0.4"
+    "vue": ">= 3.5.0 < 4",
+    "vue-router": ">4 || >5"
   },
   "devDependencies": {
     "@babel/types": "^7.29.0",
