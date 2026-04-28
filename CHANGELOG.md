@@ -1,3 +1,25 @@
+## [9.52.12](https://github.com/Kong/kongponents/compare/v9.52.11...v9.52.12) (2026-04-28)
+
+
+### Bug Fixes
+
+* **deps:** correct peer dependencies ([#3175](https://github.com/Kong/kongponents/issues/3175)) ([937ff01](https://github.com/Kong/kongponents/commit/937ff016a2222b6d5ff9fa07fa0fe7de21ffafaf))
+* **security:** autofix Template Injection in GitHub Workflows Action ([#3172](https://github.com/Kong/kongponents/issues/3172)) ([7b1ff95](https://github.com/Kong/kongponents/commit/7b1ff958b085f3390219111ac98ed2a5f6c9a74e))
+
+## [9.52.11](https://github.com/Kong/kongponents/compare/v9.52.10...v9.52.11) (2026-04-23)
+
+
+### Bug Fixes
+
+* **ktoaster:** deprecate zindex prop, set z-index on toaster container ([#3093](https://github.com/Kong/kongponents/issues/3093)) ([f22ef98](https://github.com/Kong/kongponents/commit/f22ef98ec48c1fe596e627860d7a9d7f27c822fd))
+
+## [9.52.10](https://github.com/Kong/kongponents/compare/v9.52.9...v9.52.10) (2026-04-14)
+
+
+### Bug Fixes
+
+* **kmodal:** allow z-index in modal attributes ([#3157](https://github.com/Kong/kongponents/issues/3157)) ([8065e1e](https://github.com/Kong/kongponents/commit/8065e1ea8ba2c1fcdb4e6b4d01eee2510e0f0db6))
+
 ## [9.52.9](https://github.com/Kong/kongponents/compare/v9.52.8...v9.52.9) (2026-03-31)
 
 

@@ -20,13 +20,14 @@ const defaultZIndex = 10000
  * Get or create the shared toaster container element.
  * Increments the reference count for tracking active instances.
  */
-function getOrCreateSharedContainer(): HTMLElement {
+function getOrCreateSharedContainer({ zIndex = defaultZIndex }: { zIndex: number }): HTMLElement {
   let container = document.getElementById(toasterContainerId)
 
   if (!container) {
     container = document.createElement('div')
     container.id = toasterContainerId
     container.setAttribute(containerInstanceCountAttribute, '0')
+    container.style.zIndex = String(zIndex)
     document.body.appendChild(container)
   }
 
@@ -73,7 +74,8 @@ export default class ToastManager {
     }
 
     // Get or create the shared container
-    this.sharedContainer = getOrCreateSharedContainer()
+    const zIndex = options?.zIndex ?? defaultZIndex
+    this.sharedContainer = getOrCreateSharedContainer({ zIndex })
 
     // Create this instance's wrapper div
     this.instanceWrapper = document.createElement('div')
@@ -83,7 +85,6 @@ export default class ToastManager {
     // Create the KToaster VNode
     this.toaster = createVNode(KToaster, {
       toasterState: this.toasts.value,
-      zIndex: options?.zIndex ? options.zIndex : defaultZIndex,
       onClose: (key: string) => this.close(key),
     })
 
