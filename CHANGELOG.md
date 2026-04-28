@@ -1,3 +1,11 @@
+## [9.52.12](https://github.com/Kong/kongponents/compare/v9.52.11...v9.52.12) (2026-04-28)
+
+
+### Bug Fixes
+
+* **deps:** correct peer dependencies ([#3175](https://github.com/Kong/kongponents/issues/3175)) ([937ff01](https://github.com/Kong/kongponents/commit/937ff016a2222b6d5ff9fa07fa0fe7de21ffafaf))
+* **security:** autofix Template Injection in GitHub Workflows Action ([#3172](https://github.com/Kong/kongponents/issues/3172)) ([7b1ff95](https://github.com/Kong/kongponents/commit/7b1ff958b085f3390219111ac98ed2a5f6c9a74e))
+
 ## [9.52.11](https://github.com/Kong/kongponents/compare/v9.52.10...v9.52.11) (2026-04-23)
 
 
