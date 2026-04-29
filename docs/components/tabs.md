@@ -24,6 +24,34 @@ KTabs are horizontal controls that allow users to switch between multiple views 
 
 ## Props
 
+### appearance
+
+Control the visual style of the tabs. Can be either `default` or `minimal`. Defaults to `default`.
+
+The `default` appearance features a bordered layout with background color on hover and an underline indicator for the active tab.
+
+The `minimal` appearance provides a cleaner, more streamlined look without borders or background colors, using only font weight and color changes to indicate the active state.
+
+<KTabs :tabs="tabs" appearance="minimal">
+  <template #tab1>
+    <p>Tab 1 content</p>
+  </template>
+  <template #tab2>
+    <p>Tab 2 content</p>
+  </template>
+</KTabs>
+
+```html
+<KTabs :tabs="tabs" appearance="minimal">
+  <template #tab1>
+    <p>Tab 1 content</p>
+  </template>
+  <template #tab2>
+    <p>Tab 2 content</p>
+  </template>
+</KTabs>
+```
+
 ### tabs
 
 Required prop, which is an array of tab objects with the following interface:

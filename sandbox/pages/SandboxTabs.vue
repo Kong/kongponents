@@ -9,6 +9,18 @@
         is-subtitle
         title="Props"
       />
+      <SandboxSectionComponent title="appearance">
+        <p>Minimal</p>
+        <KTabs
+          appearance="minimal"
+          :tabs="items"
+        />
+        <p>Default</p>
+        <KTabs
+          appearance="default"
+          :tabs="items"
+        />
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="tabs">
         <KTabs
           :tabs="items"
