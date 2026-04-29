@@ -110,7 +110,6 @@ watch(() => modelValue, (newTabHash) => {
     display: flex;
     gap: var(--kui-space-40, $kui-space-40);
     list-style: none;
-    margin-bottom: var(--kui-space-70, $kui-space-70);
     margin-top: var(--kui-space-0, $kui-space-0);
     padding: var(--kui-space-0, $kui-space-0);
     padding-top: var(--kui-space-20, $kui-space-20);
@@ -221,6 +220,7 @@ watch(() => modelValue, (newTabHash) => {
   &.minimal {
     ul {
       gap: var(--kui-space-70, $kui-space-70);
+      margin-bottom: var(--kui-space-30, $kui-space-30);
 
       .tab-item {
         .tab-link {
