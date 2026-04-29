@@ -2,6 +2,8 @@ import type { RouterLinkProps } from 'vue-router'
 
 export type StripHash<S extends string> = S extends `#${infer Rest}` ? Rest : S
 
+export type TabsAppearance = 'default' | 'minimal'
+
 export interface Tab<H extends string = string> {
   /** Has to be unique, corresponds to the panel slot name */
   hash: H
@@ -12,6 +14,13 @@ export interface Tab<H extends string = string> {
 }
 
 export interface TabsProps<H extends string = string> {
+  /**
+   * Appearance of the tabs.
+   * One of ['default', 'minimal'].
+   * @default 'default'
+   */
+  appearance?: TabsAppearance
+
   /**
    * Array of tab objects.
    */
