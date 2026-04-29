@@ -1,3 +1,10 @@
+## [9.52.13](https://github.com/Kong/kongponents/compare/v9.52.12...v9.52.13) (2026-04-29)
+
+
+### Bug Fixes
+
+* **deps:** vue-router semver range ([#3177](https://github.com/Kong/kongponents/issues/3177)) ([85e6885](https://github.com/Kong/kongponents/commit/85e6885f9246124599dd154842d3474bd62d2f8c))
+
 ## [9.52.12](https://github.com/Kong/kongponents/compare/v9.52.11...v9.52.12) (2026-04-28)
 
 
