@@ -432,6 +432,21 @@
           </template>
         </KTableData>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="Inline headers with synchronous fetcher">
+        <KTableData
+          :fetcher="someFetcher"
+          :headers="[
+            { label: 'Name', key: 'name', sortable: true, hideLabel: false },
+            { label: 'ID', key: 'id', sortable: true, hideLabel: false },
+            { label: 'Enabled', key: 'enabled', sortable: false, hideLabel: false },
+            { label: '', key: 'link', sortable: false, hideLabel: true },
+          ]"
+        >
+          <template #action-items>
+            <SandboxTableViewActions />
+          </template>
+        </KTableData>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
@@ -470,6 +485,27 @@ const fetcher = async (): Promise<any> => {
   return {
     data: responseData,
     total: responseData.length,
+  }
+}
+const someFetcher = () => {
+  return {
+    data: [
+      {
+        name: 'Basic Auth',
+        id: '517526354743085',
+        enabled: 'true',
+      },
+      {
+        name: 'Website Desktop',
+        id: '328027447731198',
+        enabled: 'false',
+      },
+      {
+        name: 'Android App',
+        id: '405383051040955',
+        enabled: 'true',
+      },
+    ],
   }
 }
 
@@ -578,7 +614,7 @@ const getRowOneTwoLink = (row: Record<string, any>): RowLink => {
   .horizontal-container {
     display: flex;
     flex-wrap: wrap;
-    gap: $kui-space-50;
+    gap: var(--kui-space-50, $kui-space-50);
   }
 
   .username-link {
