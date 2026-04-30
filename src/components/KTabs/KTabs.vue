@@ -133,7 +133,7 @@ watch(() => modelValue, (newTabHash) => {
         }
 
         &.disabled {
-          color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+          color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
           cursor: not-allowed;
         }
 
@@ -226,9 +226,9 @@ watch(() => modelValue, (newTabHash) => {
         .tab-link {
           color: var(--kui-color-text-neutral, $kui-color-text-neutral);
           font-size: var(--kui-font-size-20, $kui-font-size-20);
-          font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+          font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
           line-height: var(--kui-line-height-30, $kui-line-height-30);
-          transition: color 0.2s ease-in, border-color 0.2s ease-in, font-weight 0.2s ease-in;
+          transition: color $kongponentsTransitionDurTimingFunc, font-weight $kongponentsTransitionDurTimingFunc;
 
           &:hover:not(.disabled) {
             color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
@@ -237,10 +237,10 @@ watch(() => modelValue, (newTabHash) => {
 
         &.active {
           .tab-link {
-            font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+            font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
 
             a, :deep(a) {
-              font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+              font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
             }
           }
         }
