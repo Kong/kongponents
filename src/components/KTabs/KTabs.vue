@@ -226,22 +226,12 @@ watch(() => modelValue, (newTabHash) => {
         .tab-link {
           color: var(--kui-color-text-neutral, $kui-color-text-neutral);
           font-size: var(--kui-font-size-20, $kui-font-size-20);
-          font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+          font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
           line-height: var(--kui-line-height-30, $kui-line-height-30);
           transition: color $kongponentsTransitionDurTimingFunc, font-weight $kongponentsTransitionDurTimingFunc;
 
           &:hover:not(.disabled) {
             color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-          }
-        }
-
-        &.active {
-          .tab-link {
-            font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
-
-            a, :deep(a) {
-              font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
-            }
           }
         }
       }
