@@ -13,6 +13,16 @@ const appearances: TabsAppearance[] = ['default', 'minimal']
 describe('KTabs', () => {
   appearances.forEach((appearance) => {
     describe(`${appearance} appearance`, () => {
+      it('sets correct appearance class', () => {
+        cy.mount(KTabs, {
+          props: {
+            tabs: TABS,
+            appearance,
+          },
+        })
+        cy.get('.k-tabs').should('have.class', appearance)
+      })
+
       it('first tab is set if hash not found', () => {
         cy.mount(KTabs, {
           props: {
