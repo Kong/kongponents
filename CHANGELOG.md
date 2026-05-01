@@ -1,3 +1,10 @@
+# [9.53.0](https://github.com/Kong/kongponents/compare/v9.52.13...v9.53.0) (2026-05-01)
+
+
+### Features
+
+* **ktabls:** add ktabs minimal appearance [KHCP-20483] ([#3178](https://github.com/Kong/kongponents/issues/3178)) ([c5d064d](https://github.com/Kong/kongponents/commit/c5d064dc6586b629f0f58a4889f3c03b068ab9d0))
+
 ## [9.52.13](https://github.com/Kong/kongponents/compare/v9.52.12...v9.52.13) (2026-04-29)
 
 
