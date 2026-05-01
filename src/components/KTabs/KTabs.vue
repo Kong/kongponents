@@ -112,7 +112,6 @@ watch(() => modelValue, (newTabHash) => {
     list-style: none;
     margin-top: var(--kui-space-0, $kui-space-0);
     padding: var(--kui-space-0, $kui-space-0);
-    padding-top: var(--kui-space-20, $kui-space-20);
 
     .tab-item {
       position: relative;
@@ -166,6 +165,7 @@ watch(() => modelValue, (newTabHash) => {
       overflow-x: auto;
       overflow-y: hidden;
       padding: var(--kui-space-0, $kui-space-0) var(--kui-space-70, $kui-space-70);
+      padding-top: var(--kui-space-20, $kui-space-20);
 
       .tab-item {
         border-bottom-color: var(--kui-color-border-transparent, $kui-color-border-transparent);
