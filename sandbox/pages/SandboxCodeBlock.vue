@@ -159,6 +159,19 @@
       </SandboxSectionComponent>
       <SandboxSectionComponent
         class="limited-width"
+        title="copyCode"
+      >
+        <p>The displayed code shows redacted values, but clicking the copy button copies the unredacted version to the clipboard.</p>
+        <KCodeBlock
+          id="copy-code-prop"
+          :code="redactedCode"
+          :copy-code="unredactedCode"
+          language="json"
+          show-copy-button="always"
+        />
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        class="limited-width"
         title="showLineNumberLinks"
       >
         <KCodeBlock
@@ -271,6 +284,18 @@ const code = computed((): string => `{
     "./particularly-long-value-that-will-inadvertently-cause-scrolling-for-narrower-containers"
   ]
 }`)
+
+const redactedCode = `{
+  "apiKey": "**********",
+  "endpoint": "https://api.example.com",
+  "region": "us-east-1"
+}`
+
+const unredactedCode = `{
+  "apiKey": "sk_live_42_super_secret_value",
+  "endpoint": "https://api.example.com",
+  "region": "us-east-1"
+}`
 
 const singleLineCode = `-----BEGIN CERTIFICATE-----
 MIIDlDCCAn6gAwIBAgIBATALBgkqhkiG9w0BAQ0wNDEyMAkGA1UEBhMCVVMwJQYD

@@ -36,6 +36,30 @@ The code that will be rendered as a text node inside of a `<pre><code></code></p
 
 No additional formatting of the code takes places. It will be used as-is.
 
+### copyCode
+
+The text to copy to the clipboard when the user clicks the copy button (or triggers the [`Alt+C` shortcut](#default-shortcuts)). When omitted, the value of [`code` prop](#code) is copied instead.
+
+This is useful when the displayed code differs from what should actually be copied – for example, when redacted values are shown to the user but the original (unredacted) values should end up on the clipboard.
+
+<KCodeBlock
+  id="code-block-copy-code"
+  :code="redactedCode"
+  :copy-code="unredactedCode"
+  language="json"
+  show-copy-button="always"
+/>
+
+```html
+<KCodeBlock
+  id="code-block-copy-code"
+  :code="redactedCode"
+  :copy-code="unredactedCode"
+  language="json"
+  show-copy-button="always"
+/>
+```
+
 ### language
 
 The syntax language of `props.code` (e.g. `'json'`). This prop is also required.
@@ -210,7 +234,7 @@ Used as the initial value of the search input. Can be used to initialize a code 
 
 ### showCopyButton
 
-Controls whether to show the copy button (along with any other secondary action buttons passed through [`secondary actions` slot](#secondary-actions)) which copies the original code (the value of [`code` prop](#code)) to the clipboard. Defaults to `true`.
+Controls whether to show the copy button (along with any other secondary action buttons passed through [`secondary actions` slot](#secondary-actions)) which copies code to the clipboard. By default, the value of [`code` prop](#code) is copied; pass [`copyCode` prop](#copycode) to override what is actually placed on the clipboard. Defaults to `true`.
 
 The secondary action buttons behave as follows:
 
@@ -601,6 +625,18 @@ const code = `{
     "./types",
     "./particularly-long-value-that-will-inadvertently-cause-scrolling-for-narrower-containers"
   ]
+}`
+
+const redactedCode = `{
+  "apiKey": "**********",
+  "endpoint": "https://api.example.com",
+  "region": "us-east-1"
+}`
+
+const unredactedCode = `{
+  "apiKey": "sk_live_42_super_secret_value",
+  "endpoint": "https://api.example.com",
+  "region": "us-east-1"
 }`
 
 const cert = `-----BEGIN CERTIFICATE-----
