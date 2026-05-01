@@ -162,6 +162,7 @@ watch(() => modelValue, (newTabHash) => {
   &.default {
     ul {
       border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+      margin-bottom: var(--kui-space-70, $kui-space-70);
       overflow-x: auto;
       overflow-y: hidden;
       padding: var(--kui-space-0, $kui-space-0) var(--kui-space-70, $kui-space-70);
@@ -235,6 +236,10 @@ watch(() => modelValue, (newTabHash) => {
           &:hover:not(.disabled) {
             color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
           }
+        }
+
+        &.active .tab-link:hover:not(.disabled) {
+          color: var(--kui-color-text, $kui-color-text);
         }
       }
     }
