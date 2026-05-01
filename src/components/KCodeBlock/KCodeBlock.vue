@@ -160,7 +160,7 @@
             :copy-tooltip="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
             :data-testid="`code-block-copy-button-${id}`"
             :theme="theme"
-            @click="copyCode"
+            @click="handleCopyCode"
           >
             <CopyIcon decorative />
           </KCodeBlockIconButton>
@@ -266,6 +266,7 @@ const debouncedHandleSearchInputValue = debounce(handleSearchInputValue, 150, { 
 const {
   id,
   code,
+  copyCode,
   language,
   initialFilterMode,
   initialRegExpMode,
@@ -456,7 +457,7 @@ const commands: Record<CommandKeywords, Command> = {
   },
 
   copyCode: {
-    trigger: copyCode,
+    trigger: handleCopyCode,
     isAllowedContext(event: Event) {
       return codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value)
     },
@@ -642,10 +643,10 @@ function jumpToMatch(direction: number): void {
   }
 }
 
-async function copyCode(event: Event): Promise<void> {
+async function handleCopyCode(event: Event): Promise<void> {
   const button = (event.target as Element).closest('button') as HTMLButtonElement
 
-  const hasCopiedCodeSuccessfully = await copyTextToClipboard(code)
+  const hasCopiedCodeSuccessfully = await copyTextToClipboard(copyCode ?? code)
 
   if (hasCopiedCodeSuccessfully) {
     button?.setAttribute('data-tooltip-text', 'Copied code!')

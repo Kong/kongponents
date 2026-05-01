@@ -36,6 +36,13 @@ export interface CodeBlockProps {
   code: string
 
   /**
+   * The text to copy to the clipboard when the user clicks the copy button (or triggers the copy shortcut). Useful when the displayed `code` differs from what should actually be copied – for example, when redacted values are shown but the original values should be copied.
+   *
+   * If not provided, the value of `props.code` is used.
+   */
+  copyCode?: string
+
+  /**
    * The syntax language of `props.code` (e.g. `'json'`).
    */
   language: string
@@ -77,7 +84,7 @@ export interface CodeBlockProps {
   query?: string
 
   /**
-   * Controls whether to show a copy button. It copies the original code (i.e. the value of `props.code`) to the clipboard.
+   * Controls whether to show a copy button. It copies `props.copyCode` to the clipboard, falling back to `props.code` when `props.copyCode` is not provided.
    * @default true
    */
   showCopyButton?: boolean | 'always'

@@ -75,6 +75,44 @@ describe('KCodeBlock', () => {
     cy.getTestId('code-block-copy-button-code-block').should('be.visible')
   })
 
+  it('copies the value of props.code to the clipboard when props.copyCode is not provided', () => {
+    cy.window().then((win) => {
+      cy.stub(win.navigator.clipboard, 'writeText').as('writeText').resolves()
+    })
+
+    renderComponent({ id: 'code-block', showCopyButton: 'always' })
+
+    cy.getTestId('code-block-copy-button-code-block').click()
+    cy.get('@writeText').should('have.been.calledOnceWith', code)
+  })
+
+  it('copies the value of props.copyCode to the clipboard when provided, instead of props.code', () => {
+    const copyCode = '{ "redacted": "actual-secret-value" }'
+
+    cy.window().then((win) => {
+      cy.stub(win.navigator.clipboard, 'writeText').as('writeText').resolves()
+    })
+
+    renderComponent({ id: 'code-block', copyCode, showCopyButton: 'always' })
+
+    cy.getTestId('code-block-copy-button-code-block').click()
+    cy.get('@writeText').should('have.been.calledOnceWith', copyCode)
+    cy.get('@writeText').should('not.have.been.calledWith', code)
+  })
+
+  it('copies the value of props.copyCode when triggered via the Alt+C shortcut', () => {
+    const copyCode = 'real-value-to-be-copied'
+
+    cy.window().then((win) => {
+      cy.stub(win.navigator.clipboard, 'writeText').as('writeText').resolves()
+    })
+
+    renderComponent({ id: 'code-block', copyCode })
+
+    cy.get('.k-code-block').trigger('keydown', { code: 'KeyC', altKey: true })
+    cy.get('@writeText').should('have.been.calledOnceWith', copyCode)
+  })
+
   it('can be searched to highlight matching lines', () => {
     const id = 'code-block'
     renderComponent({
