@@ -1,3 +1,10 @@
+## [9.53.1](https://github.com/Kong/kongponents/compare/v9.53.0...v9.53.1) (2026-05-01)
+
+
+### Bug Fixes
+
+* **kcodeblock:** add copy code prop [KHCP-20471] ([#3180](https://github.com/Kong/kongponents/issues/3180)) ([f86f5ad](https://github.com/Kong/kongponents/commit/f86f5ad3c3c1d6a46b2c91fb0a446786d4a8b2ed))
+
 # [9.53.0](https://github.com/Kong/kongponents/compare/v9.52.13...v9.53.0) (2026-05-01)
 
 
