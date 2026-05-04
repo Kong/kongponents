@@ -1,3 +1,10 @@
+## [9.53.2](https://github.com/Kong/kongponents/compare/v9.53.1...v9.53.2) (2026-05-01)
+
+
+### Bug Fixes
+
+* **ktabs:** minor style fixes ([#3181](https://github.com/Kong/kongponents/issues/3181)) ([3dd209d](https://github.com/Kong/kongponents/commit/3dd209d1e13cdc01b8619525cd9eecb44c8d6d7b))
+
 ## [9.53.1](https://github.com/Kong/kongponents/compare/v9.53.0...v9.53.1) (2026-05-01)
 
 
