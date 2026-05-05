@@ -1,3 +1,10 @@
+## [9.53.3](https://github.com/Kong/kongponents/compare/v9.53.2...v9.53.3) (2026-05-05)
+
+
+### Bug Fixes
+
+* **ktabs:** minimal appearance spacing ([#3184](https://github.com/Kong/kongponents/issues/3184)) ([56c0cd4](https://github.com/Kong/kongponents/commit/56c0cd4ee87f7fab87b43d4f9a4cb703bdd9461a))
+
 ## [9.53.2](https://github.com/Kong/kongponents/compare/v9.53.1...v9.53.2) (2026-05-01)
 
 
