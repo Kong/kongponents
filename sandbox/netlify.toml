@@ -2,5 +2,4 @@
 
 # Ignore so that the build is always processed for the sandbox
 [build]
-  environment = { NODE_VERSION = "24.14.0" }
   ignore = "exit 1"
