@@ -75,4 +75,22 @@ describe('KPagination', () => {
     cy.get('[data-testid="dropdown-item-trigger"][value="4"]').click({ multiple: true, force: true })
     cy.getTestId('page-size-dropdown-trigger').contains('4 items per page')
   })
+
+  it('does not render the detached last-page button when mounted on the last page', () => {
+    // Reproduces a bug where mounting at the last page rendered "1 ... 7 8 ... 8"
+    // (the last page number appeared both inside pagesVisible and as the detached last-page button)
+    cy.mount(KPagination, {
+      props: {
+        totalCount: 116,
+        pageSizes: [15, 30, 50],
+        initialPageSize: 15,
+        currentPage: 8,
+        testMode: true,
+      },
+    })
+
+    cy.getTestId('last-button').should('not.exist')
+    cy.get('[data-testid="page-8-button"]').should('have.length', 1)
+    cy.get('.pagination-button.active').should('contain.text', '8')
+  })
 })
