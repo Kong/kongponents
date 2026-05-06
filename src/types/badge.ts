@@ -1,8 +1,10 @@
 import type { TooltipAttributes } from './tooltip'
 
 export type BadgeMethodAppearance = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' | 'connect' | 'trace' | 'custom'
-export type BadgeAppearance = 'info' | 'success' | 'warning' | 'danger' | 'neutral' | 'decorative' | BadgeMethodAppearance
+export type BadgeStatusAppearance = 'status-1xx' | 'status-2xx' | 'status-3xx' | 'status-4xx' | 'status-5xx'
+export type BadgeAppearance = 'info' | 'success' | 'warning' | 'danger' | 'neutral' | 'decorative' | BadgeMethodAppearance | BadgeStatusAppearance
 export type BadgeMethodAppearanceRecord = Record<BadgeMethodAppearance, BadgeMethodAppearance>
+export type BadgeStatusAppearanceRecord = Record<BadgeStatusAppearance, BadgeStatusAppearance>
 export type BadgeAppearanceRecord = Record<BadgeAppearance, BadgeAppearance>
 export type BadgeSize = 'medium' | 'small'
 export type BadgeSizeRecord = Record<BadgeSize, BadgeSize>
@@ -20,6 +22,14 @@ export const BadgeMethodAppearances: BadgeMethodAppearanceRecord = {
   custom: 'custom',
 } as const
 
+export const BadgeStatusAppearances: BadgeStatusAppearanceRecord = {
+  'status-1xx': 'status-1xx',
+  'status-2xx': 'status-2xx',
+  'status-3xx': 'status-3xx',
+  'status-4xx': 'status-4xx',
+  'status-5xx': 'status-5xx',
+} as const
+
 export const BadgeAppearances: BadgeAppearanceRecord = {
   info: 'info',
   success: 'success',
@@ -28,6 +38,7 @@ export const BadgeAppearances: BadgeAppearanceRecord = {
   decorative: 'decorative',
   neutral: 'neutral',
   ...BadgeMethodAppearances,
+  ...BadgeStatusAppearances,
 } as const
 
 export const BadgeSizes: BadgeSizeRecord = {
@@ -38,7 +49,7 @@ export const BadgeSizes: BadgeSizeRecord = {
 export interface BadgeProps {
   /**
    * Base style of the badge.
-   * One of ['info', 'success', 'warning', 'danger', 'neutral', 'decorative', BadgeMethodAppearance].
+   * One of ['info', 'success', 'warning', 'danger', 'neutral', 'decorative', BadgeMethodAppearance, BadgeStatusAppearance].
    * @default 'info'
    */
   appearance?: BadgeAppearance
