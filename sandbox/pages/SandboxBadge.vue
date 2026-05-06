@@ -63,19 +63,19 @@
           </KBadge>
         </div>
         <div class="horizontal-spacing">
-          <KBadge appearance="status-1XX">
+          <KBadge appearance="status-1xx">
             1XX
           </KBadge>
-          <KBadge appearance="status-2XX">
+          <KBadge appearance="status-2xx">
             2XX
           </KBadge>
-          <KBadge appearance="status-3XX">
+          <KBadge appearance="status-3xx">
             3XX
           </KBadge>
-          <KBadge appearance="status-4XX">
+          <KBadge appearance="status-4xx">
             4XX
           </KBadge>
-          <KBadge appearance="status-5XX">
+          <KBadge appearance="status-5xx">
             5XX
           </KBadge>
         </div>

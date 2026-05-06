@@ -190,23 +190,23 @@ $kBadgeMethodWidth: 85px;
   }
 
   // status codes
-  &.status-1XX {
+  &.status-1xx {
     @include badgeAppearance(var(--kui-status-color-background-100, $kui-status-color-background-100), var(--kui-status-color-text-100, $kui-status-color-text-100), var(--kui-status-color-text-100, $kui-status-color-100s));
   }
 
-  &.status-2XX {
+  &.status-2xx {
     @include badgeAppearance(var(--kui-status-color-background-200, $kui-status-color-background-200), var(--kui-status-color-text-200, $kui-status-color-text-200), var(--kui-status-color-text-200, $kui-status-color-200s));
   }
 
-  &.status-3XX {
+  &.status-3xx {
     @include badgeAppearance(var(--kui-status-color-background-300, $kui-status-color-background-300), var(--kui-status-color-text-300, $kui-status-color-text-300), var(--kui-status-color-text-300, $kui-status-color-300s));
   }
 
-  &.status-4XX {
+  &.status-4xx {
     @include badgeAppearance(var(--kui-status-color-background-400, $kui-status-color-background-400), var(--kui-status-color-text-400, $kui-status-color-text-400), var(--kui-status-color-text-400, $kui-status-color-400s));
   }
 
-  &.status-5XX {
+  &.status-5xx {
     @include badgeAppearance(var(--kui-status-color-background-500, $kui-status-color-background-500), var(--kui-status-color-text-500, $kui-status-color-text-500), var(--kui-status-color-text-500, $kui-status-color-500s));
   }
 
