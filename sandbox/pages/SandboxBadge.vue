@@ -62,6 +62,23 @@
             Trace
           </KBadge>
         </div>
+        <div class="horizontal-spacing">
+          <KBadge appearance="status-1xx">
+            1XX
+          </KBadge>
+          <KBadge appearance="status-2XX">
+            2XX
+          </KBadge>
+          <KBadge appearance="status-3XX">
+            3XX
+          </KBadge>
+          <KBadge appearance="status-4XX">
+            4XX
+          </KBadge>
+          <KBadge appearance="status-5XX">
+            5XX
+          </KBadge>
+        </div>
         <KBadge appearance="connect">
           Long truncating method badge
         </KBadge>
@@ -494,13 +511,13 @@ const handleIconClick = (): void => {
     align-items: flex-end;
     display: flex;
     flex-wrap: wrap;
-    gap: $kui-space-50;
+    gap: var(--kui-space-50, $kui-space-50);
   }
 
   .resizable-container {
     max-width: 900px;
     overflow-x: auto;
-    padding-bottom: $kui-space-60;
+    padding-bottom: var(--kui-space-60, $kui-space-60);
     resize: horizontal;
   }
 }

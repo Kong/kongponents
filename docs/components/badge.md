@@ -14,18 +14,18 @@ KBadge is a visual text label that presents small amount of information.
 
 KBadge component takes one of the following appearance values:
 
-| Standard     | Methods   |
-| ------------ | --------- |
-| `info` (default)       | `connect` |
-| `success`    | `custom`  |
-| `warning`    | `delete`  |
-| `danger`     | `get`     |
-| `decorative` | `head`    |
-| `neutral`    | `options` |
-|              | `patch`   |
-|              | `post`    |
-|              | `put`     |
-|              | `trace`   |
+| Standard         | Methods   | Status Codes |
+| ---------------- | --------- | ------------ |
+| `info` (default) | `connect` | `status-1xx` |
+| `success`        | `custom`  | `status-2XX` |
+| `warning`        | `delete`  | `status-3XX` |
+| `danger`         | `get`     | `status-4XX` |
+| `decorative`     | `head`    | `status-5XX` |
+| `neutral`        | `options` |              |
+|                  | `patch`   |              |
+|                  | `post`    |              |
+|                  | `put`     |              |
+|                  | `trace`   |              |
 
 :::tip TIP
 Passing one of the methods appearances will apply `text-transform: uppercase` and set the `min-width` on the badge container. You may pass `custom` to apply method badge styling should you need a badge for your custom method.
@@ -84,6 +84,23 @@ Passing one of the methods appearances will apply `text-transform: uppercase` an
       Trace
     </KBadge>
   </div>
+  <div class="horizontal-spacing-container">
+    <KBadge appearance="status-1xx">
+      1XX
+    </KBadge>
+    <KBadge appearance="status-2XX">
+      2XX
+    </KBadge>
+    <KBadge appearance="status-3XX">
+      3XX
+    </KBadge>
+    <KBadge appearance="status-4XX">
+      4XX
+    </KBadge>
+    <KBadge appearance="status-5XX">
+      5XX
+    </KBadge>
+  </div>
 </div>
 
 ```html
@@ -103,6 +120,11 @@ Passing one of the methods appearances will apply `text-transform: uppercase` an
 <KBadge appearance="post">Post</KBadge>
 <KBadge appearance="put">Put</KBadge>
 <KBadge appearance="trace">Trace</KBadge>
+<KBadge appearance="status-1xx">1XX</KBadge>
+<KBadge appearance="status-2XX">2XX</KBadge>
+<KBadge appearance="status-3XX">3XX</KBadge>
+<KBadge appearance="status-4XX">4XX</KBadge>
+<KBadge appearance="status-5XX">5XX</KBadge>
 ```
 
 ### size
