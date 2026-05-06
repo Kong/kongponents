@@ -1,3 +1,10 @@
+# [9.54.0](https://github.com/Kong/kongponents/compare/v9.53.3...v9.54.0) (2026-05-06)
+
+
+### Features
+
+* **k-badge:** add status code variant [KHCP-20495] ([#3188](https://github.com/Kong/kongponents/issues/3188)) ([6659892](https://github.com/Kong/kongponents/commit/6659892eb70b06d2895d1fc16ecf94ea1c3fa715))
+
 ## [9.53.3](https://github.com/Kong/kongponents/compare/v9.53.2...v9.53.3) (2026-05-05)
 
 
