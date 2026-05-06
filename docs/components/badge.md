@@ -16,7 +16,7 @@ KBadge component takes one of the following appearance values:
 
 | Standard         | Methods   | Status Codes |
 | ---------------- | --------- | ------------ |
-| `info` (default) | `connect` | `status-1xx` |
+| `info` (default) | `connect` | `status-1XX` |
 | `success`        | `custom`  | `status-2XX` |
 | `warning`        | `delete`  | `status-3XX` |
 | `danger`         | `get`     | `status-4XX` |
@@ -85,7 +85,7 @@ Passing one of the methods appearances will apply `text-transform: uppercase` an
     </KBadge>
   </div>
   <div class="horizontal-spacing-container">
-    <KBadge appearance="status-1xx">
+    <KBadge appearance="status-1XX">
       1XX
     </KBadge>
     <KBadge appearance="status-2XX">
@@ -120,7 +120,7 @@ Passing one of the methods appearances will apply `text-transform: uppercase` an
 <KBadge appearance="post">Post</KBadge>
 <KBadge appearance="put">Put</KBadge>
 <KBadge appearance="trace">Trace</KBadge>
-<KBadge appearance="status-1xx">1XX</KBadge>
+<KBadge appearance="status-1XX">1XX</KBadge>
 <KBadge appearance="status-2XX">2XX</KBadge>
 <KBadge appearance="status-3XX">3XX</KBadge>
 <KBadge appearance="status-4XX">4XX</KBadge>

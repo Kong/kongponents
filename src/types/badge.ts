@@ -1,7 +1,7 @@
 import type { TooltipAttributes } from './tooltip'
 
 export type BadgeMethodAppearance = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' | 'connect' | 'trace' | 'custom'
-export type BadgeStatusAppearance = 'status-1xx' | 'status-2XX' | 'status-3XX' | 'status-4XX' | 'status-5XX'
+export type BadgeStatusAppearance = 'status-1XX' | 'status-2XX' | 'status-3XX' | 'status-4XX' | 'status-5XX'
 export type BadgeAppearance = 'info' | 'success' | 'warning' | 'danger' | 'neutral' | 'decorative' | BadgeMethodAppearance | BadgeStatusAppearance
 export type BadgeMethodAppearanceRecord = Record<BadgeMethodAppearance, BadgeMethodAppearance>
 export type BadgeStatusAppearanceRecord = Record<BadgeStatusAppearance, BadgeStatusAppearance>
@@ -23,7 +23,7 @@ export const BadgeMethodAppearances: BadgeMethodAppearanceRecord = {
 } as const
 
 export const BadgeStatusAppearances: BadgeStatusAppearanceRecord = {
-  'status-1xx': 'status-1xx',
+  'status-1XX': 'status-1XX',
   'status-2XX': 'status-2XX',
   'status-3XX': 'status-3XX',
   'status-4XX': 'status-4XX',

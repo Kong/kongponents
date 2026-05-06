@@ -63,7 +63,7 @@
           </KBadge>
         </div>
         <div class="horizontal-spacing">
-          <KBadge appearance="status-1xx">
+          <KBadge appearance="status-1XX">
             1XX
           </KBadge>
           <KBadge appearance="status-2XX">

@@ -190,7 +190,7 @@ $kBadgeMethodWidth: 85px;
   }
 
   // status codes
-  &.status-1xx {
+  &.status-1XX {
     @include badgeAppearance(var(--kui-status-color-background-100, $kui-status-color-background-100), var(--kui-status-color-text-100, $kui-status-color-text-100), var(--kui-status-color-text-100, $kui-status-color-100s));
   }
 
