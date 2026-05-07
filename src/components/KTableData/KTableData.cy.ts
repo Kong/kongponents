@@ -482,6 +482,32 @@ describe('KTableData', () => {
         })
       })
     })
+
+    it('refetches when fetcherCacheKey prop changes', () => {
+      const fns = {
+        fetcher: () => {
+          return { data: options.data, total: options.data.length }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      cy.mount(KTableData, {
+        props: {
+          headers: options.headers,
+          fetcher: fns.fetcher,
+          fetcherCacheKey: 'v1',
+        },
+      }).then((component) => {
+        cy.get('@fetcher').should('have.callCount', 1).then(() => {
+          component.wrapper.setProps({ fetcherCacheKey: 'v2' }).then(() => {
+            // changing fetcherCacheKey is the documented escape hatch for forcing a
+            // refetch (e.g. after an out-of-band create/delete) — swrv treats the new
+            // composite key as a different cache entry and re-invokes the fetcher.
+            cy.get('@fetcher').should('have.callCount', 2)
+          })
+        })
+      })
+    })
   })
 
   describe('sorting', () => {
@@ -898,6 +924,286 @@ describe('KTableData', () => {
         .its('lastCall')
         .should('have.been.calledWith', { pageSize: 10, page: 2, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
     })
+
+    it('offset pagination: correctly navigates forward and backward across 4 pages', () => {
+      const data: Array<{ name: string }> = []
+      for (let i = 0; i < 12; i++) {
+        data.push({ name: 'row' + i })
+      }
+      const fns = {
+        fetcher: (params: FetchParams) => {
+          const { pageSize, offset } = params
+          const start = offset ? Number(offset) : 0
+          const end = Math.min(start + pageSize, data.length)
+          return {
+            data: data.slice(start, end),
+            pagination: {
+              offset: end < data.length ? `${end}` : null,
+              hasNextPage: end < data.length,
+            },
+          }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      cy.mount(KTableData, {
+        props: {
+          fetcher: fns.fetcher,
+          initialFetcherParams: { pageSize: 3 },
+          headers: options.headers,
+          paginationAttributes: {
+            pageSizes: [3],
+            offset: true,
+          },
+        },
+      })
+
+      // page 1: rows 0-2
+      cy.get('.table tbody').find('tr').should('have.length', 3)
+      cy.get('.table tbody').should('contain.text', 'row0')
+      cy.get('@fetcher').should('have.callCount', 1)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 3, page: 1, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+
+      // page 2: rows 3-5
+      cy.getTestId('next-button').click()
+      cy.get('.table tbody').find('tr').should('have.length', 3)
+      cy.get('.table tbody').should('contain.text', 'row3')
+      cy.get('@fetcher').should('have.callCount', 2)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 3, page: 2, offset: '3', query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+
+      // page 3: rows 6-8
+      cy.getTestId('next-button').click()
+      cy.get('.table tbody').find('tr').should('have.length', 3)
+      cy.get('.table tbody').should('contain.text', 'row6')
+      cy.get('@fetcher').should('have.callCount', 3)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 3, page: 3, offset: '6', query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+
+      // page 4: rows 9-11
+      cy.getTestId('next-button').click()
+      cy.get('.table tbody').find('tr').should('have.length', 3)
+      cy.get('.table tbody').should('contain.text', 'row9')
+      cy.get('@fetcher').should('have.callCount', 4)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 3, page: 4, offset: '9', query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+
+      // back to page 3: should use offset '6'
+      cy.getTestId('previous-button').click()
+      cy.get('.table tbody').find('tr').should('have.length', 3)
+      cy.get('.table tbody').should('contain.text', 'row6')
+      cy.get('@fetcher').should('have.callCount', 5)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 3, page: 3, offset: '6', query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+
+      // back to page 2: should use offset '3'
+      cy.getTestId('previous-button').click()
+      cy.get('.table tbody').find('tr').should('have.length', 3)
+      cy.get('.table tbody').should('contain.text', 'row3')
+      cy.get('@fetcher').should('have.callCount', 6)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 3, page: 2, offset: '3', query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+
+      // back to page 1: should use offset null
+      cy.getTestId('previous-button').click()
+      cy.get('.table tbody').find('tr').should('have.length', 3)
+      cy.get('.table tbody').should('contain.text', 'row0')
+      cy.get('@fetcher').should('have.callCount', 7)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 3, page: 1, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+    })
+
+    it('offset pagination: forward-backward-forward does not duplicate offsets', () => {
+      const data: Array<{ name: string }> = []
+      for (let i = 0; i < 9; i++) {
+        data.push({ name: 'row' + i })
+      }
+      const fns = {
+        fetcher: (params: FetchParams) => {
+          const { pageSize, offset } = params
+          const start = offset ? Number(offset) : 0
+          const end = Math.min(start + pageSize, data.length)
+          return {
+            data: data.slice(start, end),
+            pagination: {
+              offset: end < data.length ? `${end}` : null,
+              hasNextPage: end < data.length,
+            },
+          }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      cy.mount(KTableData, {
+        props: {
+          fetcher: fns.fetcher,
+          initialFetcherParams: { pageSize: 3 },
+          headers: options.headers,
+          paginationAttributes: {
+            pageSizes: [3],
+            offset: true,
+          },
+        },
+      })
+
+      // page 1 → 2 → 3
+      cy.get('.table tbody').should('contain.text', 'row0')
+      cy.getTestId('next-button').click()
+      cy.get('.table tbody').should('contain.text', 'row3')
+      cy.getTestId('next-button').click()
+      cy.get('.table tbody').should('contain.text', 'row6')
+      cy.get('@fetcher').should('have.callCount', 3)
+
+      // back to page 2
+      cy.getTestId('previous-button').click()
+      cy.get('.table tbody').should('contain.text', 'row3')
+      cy.get('@fetcher').should('have.callCount', 4)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 3, page: 2, offset: '3', query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+
+      // forward to page 3 again: should still use offset '6', not a stale or duplicated value
+      cy.getTestId('next-button').click()
+      cy.get('.table tbody').should('contain.text', 'row6')
+      cy.get('@fetcher').should('have.callCount', 5)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 3, page: 3, offset: '6', query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+    })
+
+    it('offset pagination: disables next button on last page', () => {
+      const data: Array<{ name: string }> = []
+      for (let i = 0; i < 6; i++) {
+        data.push({ name: 'row' + i })
+      }
+      const fetcher = (params: FetchParams) => {
+        const { pageSize, offset } = params
+        const start = offset ? Number(offset) : 0
+        const end = Math.min(start + pageSize, data.length)
+        return {
+          data: data.slice(start, end),
+          pagination: {
+            offset: end < data.length ? `${end}` : null,
+            hasNextPage: end < data.length,
+          },
+        }
+      }
+
+      cy.mount(KTableData, {
+        props: {
+          fetcher,
+          initialFetcherParams: { pageSize: 3 },
+          headers: options.headers,
+          paginationAttributes: {
+            pageSizes: [3],
+            offset: true,
+          },
+        },
+      })
+
+      // page 1: next should be enabled
+      cy.get('.table tbody').should('contain.text', 'row0')
+      cy.getTestId('next-button').should('not.be.disabled')
+
+      // page 2 (last page): next should be disabled
+      cy.getTestId('next-button').click()
+      cy.get('.table tbody').should('contain.text', 'row3')
+      cy.getTestId('next-button').should('be.disabled')
+
+      // previous should still work
+      cy.getTestId('previous-button').should('not.be.disabled')
+      cy.getTestId('previous-button').click()
+      cy.get('.table tbody').should('contain.text', 'row0')
+    })
+
+    it('offset pagination: resets pagination state on page size change', () => {
+      const data: Array<{ name: string }> = []
+      for (let i = 0; i < 12; i++) {
+        data.push({ name: 'row' + i })
+      }
+      const fns = {
+        fetcher: (params: FetchParams) => {
+          const { pageSize, offset } = params
+          const start = offset ? Number(offset) : 0
+          const end = Math.min(start + pageSize, data.length)
+          return {
+            data: data.slice(start, end),
+            pagination: {
+              offset: end < data.length ? `${end}` : null,
+              hasNextPage: end < data.length,
+            },
+          }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      cy.mount(KTableData, {
+        props: {
+          fetcher: fns.fetcher,
+          initialFetcherParams: { pageSize: 3 },
+          headers: options.headers,
+          paginationAttributes: {
+            pageSizes: [3, 6],
+            offset: true,
+          },
+        },
+      })
+
+      // navigate to page 2
+      cy.get('.table tbody').should('contain.text', 'row0')
+      cy.getTestId('next-button').click()
+      cy.get('.table tbody').should('contain.text', 'row3')
+      cy.get('@fetcher').should('have.callCount', 2)
+
+      // change page size: should reset to page 1 with offset null
+      cy.getTestId('page-size-dropdown-trigger').click()
+      cy.get('[data-testid="dropdown-item-trigger"][value="6"]').click({ multiple: true, force: true })
+      cy.get('.table tbody').should('contain.text', 'row0')
+      cy.get('@fetcher').should('have.callCount', 3)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 6, page: 1, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+    })
+
+    it('resets to page 1 when data becomes empty after navigating past page 1', () => {
+      // Simulates "user deleted the last row on the last page" — the response watcher
+      // in useTableData should detect empty data on page > 1 and call resetPagination().
+      let returnEmpty = false
+      const fns = {
+        fetcher: () => returnEmpty
+          ? { data: [], total: 0 }
+          : { data: largeDataSet, total: largeDataSet.length },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      cy.mount(KTableData, {
+        props: {
+          fetcher: fns.fetcher,
+          headers: options.headers,
+          paginationAttributes: { pageSizes: [3, 6] },
+          initialFetcherParams: { pageSize: 3 },
+          fetcherCacheKey: 'v1',
+        },
+      })
+
+      cy.get('@fetcher').should('have.callCount', 1)
+        .its('lastCall').should('have.been.calledWith', { ...DEFAULT_FETCHER_PARAMS, pageSize: 3 })
+
+      // navigate to page 2
+      cy.getTestId('next-button').click()
+      cy.get('@fetcher').should('have.callCount', 2)
+        .its('lastCall').should('have.been.calledWith', { ...DEFAULT_FETCHER_PARAMS, pageSize: 3, page: 2 })
+
+      // Simulate the delete by switching the fetcher to return empty, then bumping
+      // fetcherCacheKey to force a refetch on the same page.
+      cy.then(() => {
+        returnEmpty = true
+      })
+      cy.then(() => cy.wrap(Cypress.vueWrapper.setProps({ fetcherCacheKey: 'v2' })))
+
+      // After the empty response arrives, resetPagination() flips page back to 1, which
+      // triggers another fetch with page: 1. We assert the final fetcher call shape.
+      cy.get('@fetcher', { timeout: 2000 }).should('have.callCount', 4)
+        .its('lastCall').should('have.been.calledWith', { ...DEFAULT_FETCHER_PARAMS, pageSize: 3, page: 1 })
+    })
   })
 
   describe('table preferences', () => {
@@ -1045,7 +1351,7 @@ describe('KTableData', () => {
       })
     })
 
-    it('clientSort = true: applies new table preferences when prop is updated', () => {
+    it('applies new table preferences when prop is updated and triggers refetch (server-sort)', () => {
       const sortableColumnKey = options.headers.find(header => header.sortable)?.key
       const pageSize = 30
       options.headers[1].hidable = true
@@ -1183,6 +1489,59 @@ describe('KTableData', () => {
         }))
       })
     })
+
+    it('clientSort = true with default sorter: tablePreferences sort prop change re-sorts data without refetching', () => {
+      const fns = {
+        fetcher: () => {
+          return { data: options.data }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      // Use a local headers copy to avoid leaking the `hidable` mutation made by the
+      // earlier tests in this describe block into this one.
+      const localHeaders = options.headers.map((header) => ({ ...header }))
+
+      cy.mount(KTableData, {
+        props: {
+          headers: localHeaders,
+          clientSort: true,
+          fetcher: fns.fetcher,
+        },
+      }).then((component) => {
+        cy.get('@fetcher').should('have.callCount', 1)
+
+        // initial fetcher order: Basic Auth, Website Desktop, Android App
+        cy.get('tbody tr').eq(0).find('td').first().should('contain.text', 'Basic Auth')
+        cy.get('tbody tr').eq(1).find('td').first().should('contain.text', 'Website Desktop')
+        cy.get('tbody tr').eq(2).find('td').first().should('contain.text', 'Android App')
+
+        component.wrapper.setProps({
+          tablePreferences: {
+            sortColumnKey: 'name',
+            sortColumnOrder: 'desc',
+          },
+        }).then(() => {
+          // client-sort must NOT trigger a refetch — the cache key omits sort params for
+          // client-sort tables, and a regression here would flicker the table on every
+          // header click.
+          cy.get('@fetcher').should('have.callCount', 1)
+
+          // Data is reordered by the default client-side sorter (no sortHandlerFunction
+          // was provided). Note: useUtilities().clientSideSorter sorts ascending whenever
+          // `key !== previousKey`, so even though the prop asks for `'desc'` the first
+          // tablePreferences-driven sort always lands ascending. The point of this
+          // assertion is to prove the default-sorter branch ran and reordered the rows
+          // off their fetcher order, distinguishing this code path from L1286 (server-sort,
+          // no client sorter) and L1354 (client-sort with custom sortHandlerFunction).
+          cy.get('tbody tr').eq(0).find('td').first().should('contain.text', 'Android App')
+          cy.get('tbody tr').eq(1).find('td').first().should('contain.text', 'Basic Auth')
+          cy.get('tbody tr').eq(2).find('td').first().should('contain.text', 'Website Desktop')
+
+          cy.getTestId('table-header-name').should('have.attr', 'aria-sort', 'descending')
+        })
+      })
+    })
   })
 
   describe('misc', () => {
@@ -1226,6 +1585,43 @@ describe('KTableData', () => {
       cy.get('@fetcher', { timeout: 350 })
         .should('have.callCount', 3) // fetcher's 3rd call
         .should('returned', { data: [{ query: '' }] })
+    })
+
+    it('search query change resets pagination to page 1', () => {
+      // The composable watches filterQuery (driven by searchInput) and calls
+      // resetPagination() whenever the query changes while the user is past page 1.
+      // This guards against showing an empty page-N for a fresh query.
+      const fns = {
+        fetcher: () => {
+          return { data: largeDataSet, total: largeDataSet.length }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      cy.mount(KTableData, {
+        props: {
+          fetcher: fns.fetcher,
+          headers: options.headers,
+          paginationAttributes: { pageSizes: [3, 6] },
+          initialFetcherParams: { pageSize: 3 },
+          searchInput: '',
+        },
+      })
+
+      cy.get('@fetcher').should('have.callCount', 1)
+
+      // navigate to page 2
+      cy.getTestId('next-button').click()
+      cy.get('@fetcher').should('have.callCount', 2)
+        .its('lastCall').should('have.been.calledWith', { ...DEFAULT_FETCHER_PARAMS, pageSize: 3, page: 2 })
+
+      cy.then(() => cy.wrap(Cypress.vueWrapper.setProps({ searchInput: 'kw' })))
+
+      // After the 350ms search debounce, the cache key recomputes with the new query;
+      // the filterQuery watcher resets page to 1 first, so the next fetcher call must
+      // carry page: 1 (not page: 2 — that was the bd2b2a77c regression shape).
+      cy.get('@fetcher', { timeout: 1000 }).should('have.callCount', 3)
+        .its('lastCall').should('have.been.calledWith', { ...DEFAULT_FETCHER_PARAMS, pageSize: 3, page: 1, query: 'kw' })
     })
   })
 })
