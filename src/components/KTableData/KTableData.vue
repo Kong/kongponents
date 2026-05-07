@@ -153,9 +153,8 @@
 </template>
 
 <script setup lang="ts" generic="const Header extends TableDataHeader = TableDataHeader, Data extends readonly Record<string, any>[] = readonly Record<string, any>[], Offset extends string | number = string | number">
-import { watch, computed, onMounted, reactive } from 'vue'
+import { watch, computed, reactive } from 'vue'
 import KTableView from '@/components/KTableView/KTableView.vue'
-import useUtilities from '@/composables/useUtilities'
 import { useTableData } from './useTableFetcher'
 import type {
   TablePreferences,
@@ -164,8 +163,6 @@ import type {
   TableColumnTooltipSlotName,
   ButtonAppearance,
   RowLink,
-  PageChangeData,
-  PageSizeChangeData,
   TableSortPayload,
   TableDataProps,
   TableColumnKey,
@@ -231,10 +228,6 @@ const emit = defineEmits<TableDataEmits<Header, Data>>()
 
 const slots = defineSlots<TableDataSlots<Header, Data>>()
 
-const { useDebounce } = useUtilities()
-
-// Cannot use `ref<Data[number][]>([])` as the items will be inferred incorrectly inside the template.
-// Same applies to other refs that have a generic type.
 const getEmptyStateButtonAppearance = computed((): ButtonAppearance => {
   if (emptyStateButtonAppearance) {
     return emptyStateButtonAppearance
@@ -252,33 +245,23 @@ const emitTablePreferences = (tableDataPreferences: TablePreferences): void => {
 const {
   tableHeaders,
   // data props
-  filterQuery,
-  response: fetcherResponse,
   revalidate: fetchRevalidate,
   isLoading: fetcherIsLoading,
   tableState,
   stateData,
   tableData,
-  initData,
 
   // sort props
-  sortColumnKey,
-  sortColumnOrder,
-  initialSortHandled,
   sortHandler,
   // pagination props
-  page,
-  pageSize,
-  offsets,
-  offset,
   showPagination,
   tablePaginationAttributes,
   toPreviousPageOffset,
   toNextPageOffset,
+  pageChangeHandler,
+  pageSizeChangeHandler,
 
   // preferences props
-  tableViewColumnVisibility,
-  tableViewColumnWidths,
   tableDataPreferences,
   tablePreferencesUpdateHandler,
 } = useTableData(
@@ -339,69 +322,17 @@ const cellSlots = computed((): ColumnKey[] => {
   return Object.keys(slots).filter(isTableColumnKey)
 })
 
-const { debouncedFn: debouncedSearch, generateDebouncedFn: generateDebouncedSearch } = useDebounce((q: string) => {
-  filterQuery.value = q
-}, 350)
-
-const search = generateDebouncedSearch(0) // generate a debounced function with zero delay (immediate)
-
 const sortEvtEmitter = (params: TableSortPayload<ColumnKey>) => {
   emit('sort', params)
 }
 
+// Bridges the component-level `shouldEmit` flag onto the composable's `sortEvtEmitter`
+// callback shape. The composable doesn't know about `emit`; it just calls whatever emitter
+// you hand it. We pass the emitter for user-driven sorts and skip it for synthetic sorts
+// (initial sort, preference sync) to avoid round-tripping back to the parent.
 const onSort = (sortPayload: TableSortPayload<ColumnKey>, shouldEmit: boolean = true) => {
   sortHandler(sortPayload, shouldEmit ? sortEvtEmitter : undefined)
 }
-
-
-const pageChangeHandler = ({ page: newPage }: PageChangeData) => {
-  page.value = newPage
-}
-
-const resetPagination = () => {
-  offsets.value = [null]
-  offset.value = null
-  page.value = 1
-}
-
-const pageSizeChangeHandler = ({ pageSize: newPageSize }: PageSizeChangeData) => {
-  resetPagination()
-  pageSize.value = newPageSize
-}
-
-watch(fetcherResponse, (res) => {
-  if (!res?.data) {
-    return
-  }
-
-  tableData.value = [...res.data]
-
-  // if the data is empty and the page is greater than 1,
-  // e.g. user deletes the last item on the last page,
-  // reset the page to 1
-  if (tableData.value.length === 0 && page.value > 1) {
-    resetPagination()
-  }
-
-  // Call sortHandler if the initial sort has not been handled yet
-  if (sortable && !initialSortHandled.value) {
-    onSort({ sortColumnKey: sortColumnKey.value, prevKey: '', sortColumnOrder: sortColumnOrder.value }, false) // don't emit sort event when handling initial sort
-  }
-}, { deep: true, immediate: true })
-
-watch(() => tablePreferences, (newVal) => {
-  pageSize.value = newVal?.pageSize ? newVal.pageSize : pageSize.value
-  tableViewColumnWidths.value = newVal?.columnWidths ? newVal.columnWidths : tableViewColumnWidths.value
-  tableViewColumnVisibility.value = newVal?.columnVisibility ? newVal.columnVisibility : tableViewColumnVisibility.value
-  // Handle sorting if the sort preferences have changed
-  if ((newVal?.sortColumnKey || newVal?.sortColumnOrder) && (sortColumnKey.value !== newVal.sortColumnKey || sortColumnOrder.value !== newVal.sortColumnOrder)) {
-    onSort({
-      sortColumnKey: newVal.sortColumnKey!,
-      prevKey: sortColumnKey.value,
-      sortColumnOrder: newVal.sortColumnOrder!,
-    }, false) // don't emit sort event when updating from prop change
-  }
-})
 
 watch([stateData, tableState], (newState) => {
   const [newStateData, newTableState] = newState
@@ -410,29 +341,6 @@ watch([stateData, tableState], (newState) => {
     state: newTableState,
     hasData: newStateData.hasData,
   })
-})
-
-// handles debounce of search query
-watch(() => searchInput, (newSearchInput: string) => {
-  if (newSearchInput === '') {
-    search(newSearchInput)
-  } else {
-    debouncedSearch(newSearchInput)
-  }
-}, { immediate: true })
-
-// Originally watching [filterQuery, pageSize], but page size plays no role in the
-// callback logic so removing this but keeping the comment here for context.
-// also removing the `async` since no corresponding `await` keyword is present.
-// removing `deep` since we are only watching a string value(primitive).
-watch(filterQuery, (newQuery, oldQuery) => {
-  if (newQuery !== oldQuery && page.value !== 1) {
-    resetPagination()
-  }
-}, { immediate: true })
-
-onMounted(() => {
-  initData()
 })
 
 defineExpose({
