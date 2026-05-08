@@ -326,13 +326,13 @@ export default {
   /* Sizes */
 
   &.large {
-    font-size: var(--kui-font-size-40, $kui-font-size-40);
+    font-size: var(--kui-button-font-size-large, var(--kui-font-size-40, $kui-font-size-40));
     gap: var(--kui-space-40, $kui-space-40);
-    line-height: var(--kui-line-height-40, $kui-line-height-40);
-    padding: var(--kui-space-30, $kui-space-30) var(--kui-space-50, $kui-space-50);
+    line-height: var(--kui-button-line-height-large, var(--kui-line-height-40, $kui-line-height-40));
+    padding: var(--kui-button-padding-large-y, var(--kui-space-30, $kui-space-30)) var(--kui-button-padding-large-x, var(--kui-space-50, $kui-space-50));
 
     &.icon-button {
-      padding: var(--kui-space-30, $kui-space-30);
+      padding: var(--kui-button-padding-large-y, var(--kui-space-30, $kui-space-30));
     }
 
     // enforce icon size exported by @kong/icons because it's defined by the design system
@@ -347,15 +347,15 @@ export default {
   }
 
   &.small {
-    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-    border-width: var(--kui-border-width-10, $kui-border-width-10);
-    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    border-radius: var(--kui-button-border-radius, var(--kui-border-radius-20, $kui-border-radius-20));
+    border-width: var(--kui-button-border-width, var(--kui-border-width-10, $kui-border-width-10));
+    font-size: var(--kui-button-font-size-small, var(--kui-font-size-20, $kui-font-size-20));
     gap: var(--kui-space-20, $kui-space-20);
-    line-height: var(--kui-line-height-20, $kui-line-height-20);
-    padding: var(--kui-space-10, $kui-space-10) var(--kui-space-30, $kui-space-30);
+    line-height: var(--kui-button-line-height-medium, var(--kui-line-height-20, $kui-line-height-20));
+    padding: var(--kui-button-padding-small-y, var(--kui-space-10, $kui-space-10)) var(--kui-button-padding-small-x, var(--kui-space-30, $kui-space-30));
 
     &.icon-button {
-      padding: var(--kui-space-10, $kui-space-10);
+      padding: var(--kui-button-padding-small-y, var(--kui-space-10, $kui-space-10));
     }
 
     // enforce icon size exported by @kong/icons because it's defined by the design system
