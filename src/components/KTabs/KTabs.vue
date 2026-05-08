@@ -93,11 +93,11 @@ const getAnchorTabindex = (tab: Tab): string => {
 }
 
 const tabComponent = (tab: Tab) => {
-  if (tab.to) {
+  if (tab.to && !tab.disabled) {
     if (typeof tab.to === 'string') {
-      return { tag: 'a', attributes: { href: tab.disabled ? undefined : tab.to } }
+      return { tag: 'a', attributes: { href: tab.to } }
     } else if (typeof tab.to === 'object') {
-      return { tag: 'router-link', attributes: { to: tab.disabled ? undefined : tab.to } }
+      return { tag: 'router-link', attributes: { to: tab.to } }
     }
   }
 
