@@ -1163,6 +1163,57 @@ describe('KTableData', () => {
         .should('have.been.calledWith', { pageSize: 6, page: 1, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
     })
 
+    it('offset pagination: numeric 0 cursor is preserved across navigation', () => {
+      // Regression: `Offset` permits `string | number`. Truthy checks (`|| null`,
+      // `!res?.pagination?.offset`) misread `0` as absent and broke forward/back
+      // navigation. The composable must use nullish checks instead.
+      const data: Array<{ name: string }> = []
+      for (let i = 0; i < 9; i++) {
+        data.push({ name: 'row' + i })
+      }
+      const fns = {
+        fetcher: (params: FetchParams) => {
+          const { pageSize, offset } = params
+          const start = offset == null ? 0 : Number(offset)
+          const end = Math.min(start + pageSize, data.length)
+          return {
+            data: data.slice(start, end),
+            pagination: {
+              // Return numeric `0` for the first-page cursor (the regression case).
+              offset: end < data.length ? end : 0,
+              hasNextPage: end < data.length,
+            },
+          }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      cy.mount(KTableData, {
+        props: {
+          fetcher: fns.fetcher,
+          initialFetcherParams: { pageSize: 3 },
+          headers: options.headers,
+          paginationAttributes: {
+            pageSizes: [3],
+            offset: true,
+          },
+        },
+      })
+
+      // page 1 → 2 — must succeed even though page 1's response carries `offset: 0`.
+      cy.get('.table tbody').should('contain.text', 'row0')
+      cy.getTestId('next-button').click()
+      cy.get('.table tbody').should('contain.text', 'row3')
+      cy.get('@fetcher').should('have.callCount', 2)
+
+      // back to page 1 — must use the seeded `null` offset, and the row data must reload.
+      cy.getTestId('previous-button').click()
+      cy.get('.table tbody').should('contain.text', 'row0')
+      cy.get('@fetcher').should('have.callCount', 3)
+        .its('lastCall')
+        .should('have.been.calledWith', { pageSize: 3, page: 1, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+    })
+
     it('resets to page 1 when data becomes empty after navigating past page 1', () => {
       // Simulates "user deleted the last row on the last page" — the response watcher
       // in useTableData should detect empty data on page > 1 and call resetPagination().
@@ -1540,6 +1591,57 @@ describe('KTableData', () => {
 
           cy.getTestId('table-header-name').should('have.attr', 'aria-sort', 'descending')
         })
+      })
+    })
+
+    it('partial tablePreferences sort update preserves the unmentioned slot', () => {
+      // Regression: the watcher used non-null assertions on both `sortColumnKey` and
+      // `sortColumnOrder`. A parent setting only `{ sortColumnOrder: 'desc' }` would
+      // leak `undefined` into `sortHandler` and the resulting fetcher call. Each
+      // missing slot must fall back to the current local value.
+      const sortableColumnKey = options.headers.find(header => header.sortable)?.key
+      const fns = {
+        fetcher: () => {
+          return { data: options.data }
+        },
+      }
+      cy.spy(fns, 'fetcher').as('fetcher')
+
+      cy.mount(KTableData, {
+        props: {
+          headers: options.headers,
+          fetcher: fns.fetcher,
+          initialFetcherParams: {
+            sortColumnKey: sortableColumnKey,
+            sortColumnOrder: 'asc',
+          },
+        },
+      }).then((component) => {
+        cy.get('@fetcher')
+          .should('have.callCount', 1)
+          .its('lastCall')
+          .should('have.been.calledWith', {
+            ...DEFAULT_FETCHER_PARAMS,
+            sortColumnKey: sortableColumnKey,
+            sortColumnOrder: 'asc',
+          })
+          .then(() => {
+            // Parent updates only the order. The key must come from existing local state.
+            component.wrapper.setProps({
+              tablePreferences: {
+                sortColumnOrder: 'desc',
+              },
+            }).then(() => {
+              cy.get('@fetcher')
+                .should('have.callCount', 2)
+                .its('lastCall')
+                .should('have.been.calledWith', {
+                  ...DEFAULT_FETCHER_PARAMS,
+                  sortColumnKey: sortableColumnKey,
+                  sortColumnOrder: 'desc',
+                })
+            })
+          })
       })
     })
   })

@@ -189,16 +189,17 @@ export const useTablePagination = <Header extends TableDataHeader, Data extends 
     return (res?.pagination && 'hasNextPage' in res.pagination) ? res.pagination.hasNextPage || false : true
   })
 
-  const previousOffset = computed((): Offset | null => offsets.value[page.value - 1] || null)
+  const previousOffset = computed((): Offset | null => offsets.value[page.value - 1] ?? null)
   const nextOffset = computed(() => {
     const res = response.value
     const paginationAttrs = toValue(props.paginationAttributes)
 
     if (paginationAttrs?.offset) {
-      if (!res?.pagination?.offset) {
+      // Nullish (not falsy) — `Offset` permits `number`, so `0` is a valid cursor.
+      if (res?.pagination?.offset == null) {
         return null
       } else {
-        return res?.pagination.offset
+        return res.pagination.offset
       }
     }
 
@@ -609,7 +610,11 @@ export const useTableData = <Header extends TableDataHeader, Data extends TableD
   }
 
   /**
-   * One-shot initialization, called by the consumer in `onMounted`. Executes in this order:
+   * One-shot initialization. Run automatically by `useTableData`'s own `onMounted`
+   * (see below) — consumers do *not* need to call this in their own `onMounted` and
+   * doing so would double-init. It's still exposed on the return value so callers
+   * that pre-seed `tableData` from a non-fetcher source can re-trigger init manually.
+   * Executes in this order:
    *
    *   1. Merge `defaultFetcherProps` with `initialFetcherParams`. The `??` fallbacks below
    *      treat `undefined` in the merged params as "use default" — a caller passing
@@ -660,8 +665,9 @@ export const useTableData = <Header extends TableDataHeader, Data extends TableD
     }
 
     if (toValue(paginationAttributes)?.offset) {
-      offset.value = fetcherParams.offset
-      offsets.value.push(fetcherParams.offset)
+      const resolvedOffset = fetcherParams.offset ?? defaultFetcherProps.offset
+      offset.value = resolvedOffset
+      offsets.value.push(resolvedOffset)
     }
 
     // trigger setting of tableFetcherCacheKey
@@ -726,12 +732,18 @@ export const useTableData = <Header extends TableDataHeader, Data extends TableD
     pageSize.value = newVal?.pageSize ? newVal.pageSize : pageSize.value
     tableViewColumnWidths.value = newVal?.columnWidths ? newVal.columnWidths : tableViewColumnWidths.value
     tableViewColumnVisibility.value = newVal?.columnVisibility ? newVal.columnVisibility : tableViewColumnVisibility.value
-    if ((newVal?.sortColumnKey || newVal?.sortColumnOrder) && (sortColumnKey.value !== newVal.sortColumnKey || sortColumnOrder.value !== newVal.sortColumnOrder)) {
-      sortHandler({
-        sortColumnKey: newVal.sortColumnKey!,
-        prevKey: sortColumnKey.value,
-        sortColumnOrder: newVal.sortColumnOrder!,
-      })
+    if (newVal?.sortColumnKey || newVal?.sortColumnOrder) {
+      // Fall back to current local state for whichever slot the parent didn't set —
+      // a partial update like `{ sortColumnOrder: 'desc' }` must not blank out the key.
+      const nextKey = newVal.sortColumnKey ?? sortColumnKey.value
+      const nextOrder = newVal.sortColumnOrder ?? sortColumnOrder.value
+      if (sortColumnKey.value !== nextKey || sortColumnOrder.value !== nextOrder) {
+        sortHandler({
+          sortColumnKey: nextKey,
+          prevKey: sortColumnKey.value,
+          sortColumnOrder: nextOrder,
+        })
+      }
     }
   })
 
