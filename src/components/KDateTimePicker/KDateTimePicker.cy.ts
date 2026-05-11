@@ -570,4 +570,159 @@ describe('KDateTimePicker', () => {
 
     cy.getTestId(timepickerDisplay).should('contain.text', 'Last hour (UTC)')
   })
+
+  describe('sameDayFullRange', () => {
+    it('applies full-day range when same day selected with sameDayFullRange enabled', () => {
+      const calendarTargetDateString = format(new Date(), 'yyyy-MM-dd')
+      const calendarSelector = `.id-${calendarTargetDateString}`
+
+      cy.mount(KDateTimePicker, {
+        props: {
+          mode: 'dateTime',
+          modelValue: { start: null, end: null, timePeriodsKey: '' },
+          range: true,
+          sameDayFullRange: true,
+        },
+      })
+
+      cy.getTestId(timepickerInput).click()
+
+      // Select the same day twice for start and end
+      cy.get(calendarSelector).click()
+      cy.get(calendarSelector).click()
+
+      cy.getTestId('time-input-start').should('have.value', '00:00')
+      cy.getTestId('time-input-end').should('have.value', '23:59')
+      cy.getTestId(submitButton).should('not.be.disabled')
+    })
+
+    it('does not apply full-day range when sameDayFullRange is false (default)', () => {
+      const calendarTargetDateString = format(new Date(), 'yyyy-MM-dd')
+      const calendarSelector = `.id-${calendarTargetDateString}`
+
+      cy.mount(KDateTimePicker, {
+        props: {
+          mode: 'dateTime',
+          modelValue: { start: null, end: null, timePeriodsKey: '' },
+          range: true,
+          sameDayFullRange: false,
+        },
+      })
+
+      cy.getTestId(timepickerInput).click()
+      cy.get(calendarSelector).click()
+      cy.get(calendarSelector).click()
+
+      // both should show current time
+      cy.getTestId('time-input-start').invoke('val').then((startVal) => {
+        cy.getTestId('time-input-end').invoke('val').then((endVal) => {
+          expect(startVal).to.equal(endVal)
+        })
+      })
+    })
+
+    it('does not apply full-day range for different days even with sameDayFullRange enabled', () => {
+      const today = new Date()
+      const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000)
+      const todayDateString = format(today, 'yyyy-MM-dd')
+      const yesterdayDateString = format(yesterday, 'yyyy-MM-dd')
+
+      cy.mount(KDateTimePicker, {
+        props: {
+          mode: 'dateTime',
+          modelValue: { start: null, end: null, timePeriodsKey: '' },
+          range: true,
+          sameDayFullRange: true,
+        },
+      })
+
+      cy.getTestId(timepickerInput).click()
+      cy.get(`.id-${yesterdayDateString}`).click()
+      cy.get(`.id-${todayDateString}`).click()
+
+      cy.getTestId('time-input-start').should('not.have.value', '00:00')
+      cy.getTestId('time-input-end').should('not.have.value', '23:59')
+      cy.getTestId(submitButton).should('not.be.disabled')
+    })
+  })
+
+  describe('customRangeValidation', () => {
+    it('disables Apply button when customRangeValidation returns true', () => {
+      const calendarTargetDateString = format(new Date(), 'yyyy-MM-dd')
+      const calendarSelector = `.id-${calendarTargetDateString}`
+
+      const customValidation = (start: Date, end: Date) => start.getTime() === end.getTime()
+
+      cy.mount(KDateTimePicker, {
+        props: {
+          mode: 'dateTime',
+          modelValue: { start: null, end: null, timePeriodsKey: '' },
+          range: true,
+          sameDayFullRange: true,
+          customRangeValidation: customValidation,
+        },
+      })
+
+      cy.getTestId(timepickerInput).click()
+
+      // Select the same day twice
+      cy.get(calendarSelector).click()
+      cy.get(calendarSelector).click()
+
+      // 00:00 !== 23:59
+      cy.getTestId(submitButton).should('not.be.disabled')
+
+      // Manually set end time to equal start time 00:00
+      cy.getTestId('time-input-end').clear()
+      cy.getTestId('time-input-end').type('00:00')
+
+      cy.getTestId(submitButton).should('be.disabled')
+    })
+
+    it('does not affect validation when customRangeValidation is not provided', () => {
+      const calendarTargetDateString = format(new Date(), 'yyyy-MM-dd')
+      const calendarSelector = `.id-${calendarTargetDateString}`
+
+      cy.mount(KDateTimePicker, {
+        props: {
+          mode: 'dateTime',
+          modelValue: { start: null, end: null, timePeriodsKey: '' },
+          range: true,
+        },
+      })
+
+      cy.getTestId(timepickerInput).click()
+      cy.get(calendarSelector).click()
+      cy.get(calendarSelector).click()
+
+      cy.getTestId(submitButton).should('not.be.disabled')
+    })
+
+    it('combines with built-in validation (start > end still invalid)', () => {
+      const customValidation = () => false
+
+      cy.mount(KDateTimePicker, {
+        props: {
+          mode: 'dateTime',
+          modelValue: { start: null, end: null, timePeriodsKey: '' },
+          range: true,
+          customRangeValidation: customValidation,
+        },
+      })
+
+      cy.getTestId(timepickerInput).click()
+
+      const calendarTargetDateString = format(new Date(), 'yyyy-MM-dd')
+      const calendarSelector = `.id-${calendarTargetDateString}`
+      cy.get(calendarSelector).click()
+      cy.get(calendarSelector).click()
+
+      cy.getTestId('time-input-start').clear()
+      cy.getTestId('time-input-start').type('23:00')
+      cy.getTestId('time-input-end').clear()
+      cy.getTestId('time-input-end').type('01:00')
+
+      cy.getTestId(submitButton).should('be.disabled')
+    })
+  })
 })
