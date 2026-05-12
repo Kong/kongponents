@@ -186,19 +186,19 @@ export default {
     &:hover:not(:disabled):not([disabled]):not(:focus):not(:active) {
       background-color: var(--kui-button-color-background-primary-hover, var(--kui-color-background-primary-strong, $kui-color-background-primary-strong));
       border-color: var(--kui-button-color-border-primary-hover, var(--kui-color-border-transparent, $kui-color-border-transparent));
-      color: var(--kui-button-color-text-hover, var(--kui-color-text-inverse, $kui-color-text-inverse));
+      color: var(--kui-button-color-text-primary-hover, var(--kui-color-text-inverse, $kui-color-text-inverse));
     }
 
     &:focus-visible {
       background-color: var(--kui-button-color-background-primary-hover, var(--kui-color-background-primary-stronger, $kui-color-background-primary-stronger));
       border-color: var(--kui-button-color-border-primary-hover, var(--kui-color-border-transparent, $kui-color-border-transparent));
-      color: var(--kui-button-color-text-hover, var(--kui-color-text-inverse, $kui-color-text-inverse));
+      color: var(--kui-button-color-text-primary-hover, var(--kui-color-text-inverse, $kui-color-text-inverse));
     }
 
     &:active {
       background-color: var(--kui-button-color-background-primary-active, var(--kui-color-background-primary-strongest, $kui-color-background-primary-strongest));
       border-color: var(--kui-button-color-border-primary-active, var(--kui-color-border-transparent, $kui-color-border-transparent));
-      color: var(--kui-button-color-text-active, var(--kui-color-text-inverse, $kui-color-text-inverse));
+      color: var(--kui-button-color-text-primary-active, var(--kui-color-text-inverse, $kui-color-text-inverse));
     }
 
     &:disabled, &[disabled] {
