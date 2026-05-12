@@ -1,3 +1,10 @@
+## [9.54.2](https://github.com/Kong/kongponents/compare/v9.54.1...v9.54.2) (2026-05-12)
+
+
+### Bug Fixes
+
+* **ktableview:** actions dropdown popover attributes prop [KHCP-20535] ([#3191](https://github.com/Kong/kongponents/issues/3191)) ([3528e90](https://github.com/Kong/kongponents/commit/3528e906da27e71dda7c99ef9204009a601285f4))
+
 ## [9.54.1](https://github.com/Kong/kongponents/compare/v9.54.0...v9.54.1) (2026-05-11)
 
 
