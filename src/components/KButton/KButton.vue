@@ -149,8 +149,8 @@ export default {
     border-radius: var(--kui-button-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
     cursor: pointer;
     display: inline-flex;
-    font-family: var(--kui-font-family-text, $kui-font-family-text);
-    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+    font-family: var(--kui-button-font-family, var(--kui-font-family-text, $kui-font-family-text));
+    font-weight: var(--kui-button-font-weight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
     justify-content: center;
     // Remove tap color highlight on mobile Safari
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
