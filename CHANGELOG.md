@@ -1,3 +1,10 @@
+# [9.55.0](https://github.com/Kong/kongponents/compare/v9.54.3...v9.55.0) (2026-05-14)
+
+
+### Features
+
+* **kbutton:** button component tokens ([#3190](https://github.com/Kong/kongponents/issues/3190)) ([fb4c780](https://github.com/Kong/kongponents/commit/fb4c780527f5e31e6d311136680c24b9e45bb25a))
+
 ## [9.54.3](https://github.com/Kong/kongponents/compare/v9.54.2...v9.54.3) (2026-05-14)
 
 
