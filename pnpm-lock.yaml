@@ -139,8 +139,8 @@ importers:
         specifier: ^2.3.26
         version: 2.3.26(vue@3.5.29(typescript@5.9.3))
       '@kong/design-tokens':
-        specifier: 1.20.0
-        version: 1.20.0
+        specifier: 1.21.1-pr.646.43d6223.0
+        version: 1.21.1-pr.646.43d6223.0
       '@kong/eslint-config-kong-ui':
         specifier: 1.6.1
         version: 1.6.1(@typescript-eslint/parser@8.47.0(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3)
@@ -557,8 +557,8 @@ packages:
       commander:
         optional: true
 
-  '@bufbuild/protobuf@2.11.0':
-    resolution: {integrity: sha512-sBXGT13cpmPR5BMgHE6UEEfEaShh5Ror6rfN3yEK5si7QVrtZg8LEPQb0VVhiLRUslD2yLnXtnRzG035J/mZXQ==}
+  '@bufbuild/protobuf@2.12.0':
+    resolution: {integrity: sha512-B/XlCaFIP8LOwzo+bz5uFzATYokcwCKQcghqnlfwSmM5eX/qTkvDBnDPs+gXtX/RyjxJ4DRikECcPJbyALA8FA==}
 
   '@cacheable/memory@2.0.6':
     resolution: {integrity: sha512-7e8SScMocHxcAb8YhtkbMhGG+EKLRIficb1F5sjvhSYsWTZGxvg4KIDp8kgxnV2PUJ3ddPe6J9QESjKvBWRDkg==}
@@ -1254,8 +1254,8 @@ packages:
     peerDependencies:
       vue: '>= 3.3.13 < 4'
 
-  '@kong/design-tokens@1.20.0':
-    resolution: {integrity: sha512-6j7A/+gxz8pY4xqUTPtqXhi5zGvEowQ1FikWR0nni13QbiOvHsNaJbXGHTG4x2+VOQt3amDs6jGpppHP9Pv95Q==}
+  '@kong/design-tokens@1.21.1-pr.646.43d6223.0':
+    resolution: {integrity: sha512-d+/growaM9RmHr8XwOCUrpQSyB7knebuTYkpf/F9AFTzzWTnX/jZTGSfp0sy09iUdG61c9StM9aoBLuyVQbBZA==}
     engines: {node: '>=20.19.5', pnpm: '>=10.28.2'}
 
   '@kong/eslint-config-kong-ui@1.6.1':
@@ -8334,7 +8334,7 @@ snapshots:
       cac: 6.7.14
       citty: 0.2.1
 
-  '@bufbuild/protobuf@2.11.0':
+  '@bufbuild/protobuf@2.12.0':
     optional: true
 
   '@cacheable/memory@2.0.6':
@@ -8988,7 +8988,7 @@ snapshots:
       '@kong/icons': 1.45.0(vue@3.5.29(typescript@5.9.3))
       vue: 3.5.29(typescript@5.9.3)
 
-  '@kong/design-tokens@1.20.0': {}
+  '@kong/design-tokens@1.21.1-pr.646.43d6223.0': {}
 
   '@kong/eslint-config-kong-ui@1.6.1(@typescript-eslint/parser@8.47.0(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3)':
     dependencies:
@@ -14776,7 +14776,7 @@ snapshots:
 
   sass-embedded@1.79.5:
     dependencies:
-      '@bufbuild/protobuf': 2.11.0
+      '@bufbuild/protobuf': 2.12.0
       buffer-builder: 0.2.0
       colorjs.io: 0.5.2
       immutable: 4.3.8
