@@ -70,11 +70,13 @@
           ref="calendarWrapperRef"
           v-model="calendarVModel"
           v-model:error="hasCalendarError"
+          :custom-range-validation="customRangeValidation"
           :error-message="invalidTimeErrorMessage"
           :is-range="!isSingleDatepicker"
           :k-date-picker-mode="mode"
           :max-date="maxDate"
           :min-date="minDate"
+          :same-day-full-range="sameDayFullRange"
           :time-granularity="timeGranularity"
         />
         <div
@@ -163,6 +165,8 @@ const {
   popoverPlacement = 'bottom-start',
   invalidTimeErrorMessage = 'Start time cannot exceed end time.',
   timeGranularity = 'minutely',
+  sameDayFullRange = false,
+  customRangeValidation,
 } = defineProps<DateTimePickerProps>()
 
 const emit = defineEmits<DateTimePickerEmits>()

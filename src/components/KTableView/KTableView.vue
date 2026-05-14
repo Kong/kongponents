@@ -333,7 +333,7 @@
                         ref="actionsDropdown"
                         class="actions-dropdown"
                         data-testid="actions-dropdown"
-                        :kpop-attributes="{ placement: 'bottom-end', target: 'body', popoverElementAttributes: getActionsDropdownPopoverAttributes(row, rowIndex) }"
+                        :kpop-attributes="{ ...actionsDropdownPopoverAttributes, placement: 'bottom-end', target: 'body', popoverElementAttributes: getActionsDropdownPopoverAttributes(row, rowIndex) }"
                         @toggle-dropdown="($event: boolean) => onRowActionsToggle(row, $event, cellHelperData)"
                       >
                         <KButton
@@ -535,6 +535,7 @@ const {
   tooltipTarget = 'body',
   data = [],
   headers = [],
+  actionsDropdownPopoverAttributes = {},
   ...restProps
 } = defineProps<TableViewProps<Header, Data>>()
 
