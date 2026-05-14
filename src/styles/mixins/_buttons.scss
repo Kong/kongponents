@@ -4,13 +4,14 @@
 /* Buttons mixins */
 
 @mixin kButtonMediumSize {
-  font-size: var(--kui-font-size-30, $kui-font-size-30);
+  font-size: var(--kui-button-font-size-medium, var(--kui-font-size-30, $kui-font-size-30));
   gap: var(--kui-space-30, $kui-space-30);
-  line-height: var(--kui-line-height-30, $kui-line-height-30);
-  padding: var(--kui-space-20, $kui-space-20) var(--kui-space-40, $kui-space-40);
+  line-height: var(--kui-button-line-height-medium, var(--kui-line-height-30, $kui-line-height-30));
+  padding: var(--kui-button-padding-medium-y, var(--kui-space-20, $kui-space-20))
+    var(--kui-button-padding-medium-x, var(--kui-space-40, $kui-space-40));
 
   &.icon-button {
-    padding: var(--kui-space-20, $kui-space-20);
+    padding: var(--kui-button-padding-medium-y, var(--kui-space-20, $kui-space-20));
   }
 
   // enforce icon size exported by @kong/icons because it's defined by the design system
