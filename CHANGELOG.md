@@ -1,3 +1,11 @@
+## [9.54.3](https://github.com/Kong/kongponents/compare/v9.54.2...v9.54.3) (2026-05-14)
+
+
+### Bug Fixes
+
+* bumping actions versions to prevent Node20 warning [KHCP-20416] ([#3173](https://github.com/Kong/kongponents/issues/3173)) ([5f66d62](https://github.com/Kong/kongponents/commit/5f66d628e50de86394019d06ca4c15c2586392a9))
+* **deps:** pnpm audit fixes ([#3199](https://github.com/Kong/kongponents/issues/3199)) ([e64de65](https://github.com/Kong/kongponents/commit/e64de65c88734c1ec215dd79f45657136b095c16))
+
 ## [9.54.2](https://github.com/Kong/kongponents/compare/v9.54.1...v9.54.2) (2026-05-12)
 
 
