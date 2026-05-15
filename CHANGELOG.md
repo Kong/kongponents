@@ -1,3 +1,15 @@
+## [9.55.1](https://github.com/Kong/kongponents/compare/v9.55.0...v9.55.1) (2026-05-15)
+
+
+### Bug Fixes
+
+* trigger release ([b0a2ab7](https://github.com/Kong/kongponents/commit/b0a2ab78e6b1230623a2290009bbfce44e096b3a))
+
+
+### Reverts
+
+* **kbutton:** button component tokens ([#3206](https://github.com/Kong/kongponents/issues/3206)) ([8554519](https://github.com/Kong/kongponents/commit/85545197d1fb762f1044884c0df38445884cb344)), closes [#3190](https://github.com/Kong/kongponents/issues/3190)
+
 # [9.55.0](https://github.com/Kong/kongponents/compare/v9.54.3...v9.55.0) (2026-05-14)
 
 
