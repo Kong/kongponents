@@ -190,33 +190,19 @@ In order to prevent component styles from leaking out into the consuming applica
 
 2. All component styles must be wrapped in a unique wrapper class so that styles do not leak out into the consuming application.
 
-The class name should follow the syntax `.k-{component-name}-*`
+  TODO: update class naming guidelines
 
-This is a good practice even if you go with option one outlined above.
+    The class name should follow the syntax `.k-{component-name}-*`
 
-```html
-<style lang="scss">
-.k-button {
-  /* All other styles must go inside the wrapper */
-}
-</style>
-```
+   This is a good practice even if you go with option one outlined above.
 
-#### Design tokens
-
-All values in component styles **must** come from tokens defined in the [`@kong/design-tokens`](https://github.com/Kong/design-tokens) package. Do not use hardcoded values or invent custom token names.
-
-Components should reference tokens using the three-level fallback pattern: component token → global CSS custom property → SCSS variable.
-
-```sass
-background-color: var(--kui-button-color-background-primary, var(--kui-color-background-primary, $kui-color-background-primary));
-```
-
-**Component tokens** (namespaced like `--kui-{component}-*`) are a targeted customization surface for consumers. They let downstream applications override a single component's styles without affecting the global design system.
-
-::: warning IMPORTANT
-Component tokens must be **defined and exported from the `@kong/design-tokens` repository first** before they can be used in any component file. Do not reference a component token that does not yet exist in `@kong/design-tokens`.
-:::
+    ```html
+    <style lang="scss">
+    .k-button {
+      /* All other styles must go inside the wrapper */
+    }
+    </style>
+    ```
 
 #### Relative units
 
