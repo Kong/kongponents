@@ -1,3 +1,10 @@
+## [9.55.2](https://github.com/Kong/kongponents/compare/v9.55.1...v9.55.2) (2026-05-21)
+
+
+### Bug Fixes
+
+* cleanup overrides in package.json ([#3211](https://github.com/Kong/kongponents/issues/3211)) ([77f4336](https://github.com/Kong/kongponents/commit/77f4336bae0a434521fd0d5b6457696be72f679e))
+
 ## [9.55.1](https://github.com/Kong/kongponents/compare/v9.55.0...v9.55.1) (2026-05-15)
 
 
