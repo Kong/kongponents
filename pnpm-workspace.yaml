@@ -10,4 +10,4 @@ minimumReleaseAgeExclude:
   - '@kong-ui/*'
   - '@kong-ui-public/*'
 # When set to no-downgrade, pnpm will fail if a package's trust level has decreased compared to previous releases
-#trustPolicy: no-downgrade
+trustPolicy: no-downgrade
