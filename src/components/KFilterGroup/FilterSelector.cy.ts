@@ -6,14 +6,17 @@ describe('KFilterGroup - FilterSelector', () => {
 
   const render = ({
     filters,
+    slots = {},
   }: {
     filters: FilterGroupFilters
+    slots?: any
   }) => {
     cy.mount(FilterSelector as any, {
       props: {
         filters,
         onSelect: cy.spy().as('select'),
       },
+      slots,
     })
   }
 
@@ -54,5 +57,20 @@ describe('KFilterGroup - FilterSelector', () => {
     cy.getTestId(SELECTOR_ID).should('have.class', 'focused')
     cy.getTestId(SELECTOR_ID).click()
     cy.getTestId(SELECTOR_ID).should('have.class', 'unfocused')
+  })
+
+  it('exposes a slot for each filter item', () => {
+    render({
+      filters: {
+        a: { label: 'Ayy' },
+      },
+      slots: {
+        'filter-item-a': '<div>hello</div>',
+      },
+    })
+    cy.getTestId(SELECTOR_ID).click()
+    cy.getTestId('dropdown-item-trigger')
+      .should('have.length', 1)
+      .should('have.text', 'hello')
   })
 })

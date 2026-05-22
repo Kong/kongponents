@@ -294,6 +294,46 @@ const onOpen = (key: string) => {
 </script>
 ```
 
+### Filter Item
+
+You can customize the appearance of dropdown items in the filter selection dropdown. The corresponding filter key from the [`filters` prop](#filters) should be used to target the appropriate `filter-item-*` slot.
+
+<ClientOnly>
+  <KFilterGroup
+    v-model="customItemsSelection"
+    :filters="customItemsFilters"
+  >
+    <template #filter-item-status>
+      Status
+      <InfoIcon style="margin-left: auto" />
+    </template>
+    <template #filter-item-tag>
+      Tag
+      <KBadge>example</KBadge>
+      <ExternalLinkIcon style="margin-left: auto" />
+    </template>
+  </KFilterGroup>
+</ClientOnly>
+
+```html
+<template>
+  <KFilterGroup
+    v-model="selection"
+    :filters="filters"
+  >
+    <template #filter-item-status>
+      Status
+      <InfoIcon style="margin-left: auto" />
+    </template>
+    <template #filter-item-tag>
+      Tag
+      <KBadge>example</KBadge>
+      <ExternalLinkIcon style="margin-left: auto" />
+    </template>
+  </KFilterGroup>
+</template>
+```
+
 ## Events
 
 ### apply
@@ -468,6 +508,7 @@ For any filter other than a [Custom Filter](#custom-filter), when more than one 
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { InfoIcon, ExternalLinkIcon } from '@kong/icons'
 import { TimePeriods, TimeframeKeys } from '@mocks/KDateTimePickerMockData'
 import type { Filter, FilterGroupFilters, FilterGroupSelection, FilterSelection } from '@/types'
 import { defineComponent } from 'vue'
@@ -599,6 +640,12 @@ const customNodesFilters: FilterGroupFilters = {
   customNodes: { operators: ['eq'], label: 'Minimum nodes', pinned: true },
 }
 const customNodes = ref(0)
+
+const customItemsSelection = ref<FilterGroupSelection>({})
+const customItemsFilters: FilterGroupFilters = {
+  status: deepClone(selectFilter),
+  tag: deepClone(multiselectFilter),
+}
 
 const resetModelSelection = () => {
   modelSelection.value = { name: defaultNameSelection }

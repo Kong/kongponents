@@ -189,9 +189,26 @@ export interface FilterGroupEmits {
  * the slot props can be resolved.
  */
 export type FilterSlotName<Key extends string = string> = `filter-${Key}`
+/**
+ * Provide a type interface for KFilterGroup `filter-item-*` slot names.
+ *
+ * This helps TypeScript infer the slot name in the template section so that
+ * the slot props can be resolved.
+ */
+export type FilterItemSlotName<Key extends string = string> = `filter-item-${Key}`
 export type FilterGroupSlots = {
+  /**
+   * The "Filters" label
+   */
+  'group-label'?: () => any
+} & {
   /**
    * Each filter's popover content.
    */
   [K in FilterSlotName]?: () => any
+} & {
+  /**
+   * Each filter's dropdown item content.
+   */
+  [K in FilterItemSlotName]?: () => any
 }
