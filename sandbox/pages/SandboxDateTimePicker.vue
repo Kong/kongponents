@@ -55,6 +55,26 @@
           range
         />
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="sameDayFullRange">
+        <KComponent
+          v-slot="{ data }"
+          :data="{ sameDayFullRange: true, value: { start: null, end: null } }"
+        >
+          <KDateTimePicker
+            v-model="data.value"
+            mode="dateTime"
+            range
+            :same-day-full-range="data.sameDayFullRange"
+          />
+
+          <KInputSwitch
+            v-model="data.sameDayFullRange"
+            label="Enable same day full range"
+          />
+
+          <div>Emitted value: <pre class="json">{{ data.value }}</pre></div>
+        </KComponent>
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="mode">
         <KComponent
           v-slot="{ data }"

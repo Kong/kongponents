@@ -200,6 +200,20 @@ export interface DateTimePickerProps {
    * @default 'minutely'
    */
   timeGranularity?: TimeGranularity
+
+  /**
+   * Automatically adjust times to create a full-day range (00:00 - 23:59:59)
+   * @default false
+   */
+  sameDayFullRange?: boolean
+
+  /**
+   * Custom validation function for date range
+   * @param start - Start date of the range
+   * @param end - End date of the range
+   * @returns boolean - true if range is invalid
+   */
+  customRangeValidation?: (start: Date, end: Date) => boolean
 }
 
 export type TimeGranularity = 'minutely' | 'secondly'

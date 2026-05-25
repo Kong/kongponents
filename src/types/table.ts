@@ -1,5 +1,13 @@
 import type { RouterLinkProps } from 'vue-router'
-import type { ButtonAppearance, EmptyStateIconVariant, PageChangeData, PageSizeChangeData, PaginationProps, SwrvStateData } from '@/types'
+import type {
+  ButtonAppearance,
+  EmptyStateIconVariant,
+  PageChangeData,
+  PageSizeChangeData,
+  PaginationProps,
+  SwrvStateData,
+  PopoverAttributes,
+} from '@/types'
 
 /**
  * @internal
@@ -413,6 +421,12 @@ type TablePropsShared<
    * @default 'body'
    */
   tooltipTarget?: string | null
+
+  /**
+   * Attributes to be applied to the actions dropdown popover.
+   * @default {}
+   */
+  actionsDropdownPopoverAttributes?: PopoverAttributes
 } & {
   /**
    * Emitted when the user clicks on a table row.

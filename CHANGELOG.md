@@ -1,3 +1,56 @@
+## [9.55.2](https://github.com/Kong/kongponents/compare/v9.55.1...v9.55.2) (2026-05-21)
+
+
+### Bug Fixes
+
+* cleanup overrides in package.json ([#3211](https://github.com/Kong/kongponents/issues/3211)) ([77f4336](https://github.com/Kong/kongponents/commit/77f4336bae0a434521fd0d5b6457696be72f679e))
+
+## [9.55.1](https://github.com/Kong/kongponents/compare/v9.55.0...v9.55.1) (2026-05-15)
+
+
+### Bug Fixes
+
+* trigger release ([b0a2ab7](https://github.com/Kong/kongponents/commit/b0a2ab78e6b1230623a2290009bbfce44e096b3a))
+
+
+### Reverts
+
+* **kbutton:** button component tokens ([#3206](https://github.com/Kong/kongponents/issues/3206)) ([8554519](https://github.com/Kong/kongponents/commit/85545197d1fb762f1044884c0df38445884cb344)), closes [#3190](https://github.com/Kong/kongponents/issues/3190)
+
+# [9.55.0](https://github.com/Kong/kongponents/compare/v9.54.3...v9.55.0) (2026-05-14)
+
+
+### Features
+
+* **kbutton:** button component tokens ([#3190](https://github.com/Kong/kongponents/issues/3190)) ([fb4c780](https://github.com/Kong/kongponents/commit/fb4c780527f5e31e6d311136680c24b9e45bb25a))
+
+## [9.54.3](https://github.com/Kong/kongponents/compare/v9.54.2...v9.54.3) (2026-05-14)
+
+
+### Bug Fixes
+
+* bumping actions versions to prevent Node20 warning [KHCP-20416] ([#3173](https://github.com/Kong/kongponents/issues/3173)) ([5f66d62](https://github.com/Kong/kongponents/commit/5f66d628e50de86394019d06ca4c15c2586392a9))
+* **deps:** pnpm audit fixes ([#3199](https://github.com/Kong/kongponents/issues/3199)) ([e64de65](https://github.com/Kong/kongponents/commit/e64de65c88734c1ec215dd79f45657136b095c16))
+
+## [9.54.2](https://github.com/Kong/kongponents/compare/v9.54.1...v9.54.2) (2026-05-12)
+
+
+### Bug Fixes
+
+* **ktableview:** actions dropdown popover attributes prop [KHCP-20535] ([#3191](https://github.com/Kong/kongponents/issues/3191)) ([3528e90](https://github.com/Kong/kongponents/commit/3528e906da27e71dda7c99ef9204009a601285f4))
+
+## [9.54.1](https://github.com/Kong/kongponents/compare/v9.54.0...v9.54.1) (2026-05-11)
+
+
+### Bug Fixes
+
+* add sameDayFullRange prop to allow valid time range for same day queries [MA-4646] ([#3070](https://github.com/Kong/kongponents/issues/3070)) ([e463e7f](https://github.com/Kong/kongponents/commit/e463e7f942397c3fe49d294ca72f5979649d172c))
+
+
+### Reverts
+
+* **deps:** package bumps from [#3162](https://github.com/Kong/kongponents/issues/3162) ([#3186](https://github.com/Kong/kongponents/issues/3186)) ([2f62c92](https://github.com/Kong/kongponents/commit/2f62c929700b6d0fe7f3af93c18b87b6f3dc736e))
+
 # [9.54.0](https://github.com/Kong/kongponents/compare/v9.53.3...v9.54.0) (2026-05-06)
 
 

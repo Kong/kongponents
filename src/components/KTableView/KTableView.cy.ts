@@ -316,6 +316,22 @@ describe('KTableView', () => {
       cy.get('th').eq(options.headers.indexOf(options.headers.find((header => header.key === 'actions'))!)).find('.table-header-label').should('have.class', 'sr-only')
     })
 
+    it('applies actionsDropdownPopoverAttributes to the actions dropdown popover', () => {
+      cy.mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+          actionsDropdownPopoverAttributes: { zIndex: 9999 },
+        },
+        slots: {
+          'action-items': () => h('span', {}, 'Action item'),
+        },
+      })
+
+      cy.getTestId('actions-dropdown').eq(0).find('[data-testid="row-actions-dropdown-trigger"]').click()
+      cy.get('.k-popover .popover').should('have.attr', 'style').and('include', 'z-index: 9999')
+    })
+
     it('bulk actions in not enabled when rowKey prop is not provided', () => {
       cy.mount(KTableView, {
         props: {
