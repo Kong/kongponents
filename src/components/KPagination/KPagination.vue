@@ -282,8 +282,11 @@ const currentlySelectedPage = computed((): number => currentPage ? currentPage :
 
 // Selected page, first page, last page, 2 placeholders and 2 * neighbors
 const visiblePages = computed((): number => 5 + 2 * fittingNeighbors.value)
-const firstDetached = ref<boolean>(currentlySelectedPage.value >= fittingNeighbors.value + (sequentialItemsVisible.value + 1) && pageCount.value > visiblePages.value)
-const lastDetached = ref<boolean>(pageCount.value > (sequentialItemsVisible.value + 2) + (2 * fittingNeighbors.value))
+// All pages fit on screen → neither side is detached
+const firstDetached = computed((): boolean => pageCount.value > visiblePages.value
+  && currentlySelectedPage.value >= fittingNeighbors.value + (sequentialItemsVisible.value + 1))
+const lastDetached = computed((): boolean => pageCount.value > visiblePages.value
+  && currentlySelectedPage.value <= pageCount.value - fittingNeighbors.value - sequentialItemsVisible.value)
 const pagesVisible = ref<number[]>(getVisiblePages(
   currentlySelectedPage.value,
   pageCount.value,
@@ -310,15 +313,6 @@ const updatePage = (): void => {
   const lastEntry = (currPage.value - 1) * currentPageSize.value + currentPageSize.value
   forwardDisabled.value = lastEntry >= totalCount
   backDisabled.value = currPage.value === 1
-  // The view will hold
-  if (pageCount.value <= visiblePages.value) {
-    // All pages will fit in screen
-    firstDetached.value = false
-    lastDetached.value = false
-  } else {
-    firstDetached.value = currPage.value >= fittingNeighbors.value + (sequentialItemsVisible.value + 1)
-    lastDetached.value = currPage.value <= pageCount.value - fittingNeighbors.value - sequentialItemsVisible.value
-  }
 
   pagesVisible.value = getVisiblePages(currPage.value, pageCount.value, firstDetached.value, lastDetached.value)
 
@@ -364,12 +358,11 @@ watch(() => currentPage, (newVal, oldVal) => {
 watch(pageCount, (newVal, oldVal) => {
   if (newVal !== oldVal) {
     forwardDisabled.value = currPage.value === newVal
-    lastDetached.value = newVal > (sequentialItemsVisible.value + 2) + (2 * fittingNeighbors.value)
 
     pagesVisible.value = getVisiblePages(
       currentlySelectedPage.value,
       newVal,
-      false,
+      firstDetached.value,
       lastDetached.value,
     )
   }
