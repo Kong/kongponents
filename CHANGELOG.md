@@ -1,3 +1,10 @@
+## [9.55.3](https://github.com/Kong/kongponents/compare/v9.55.2...v9.55.3) (2026-05-25)
+
+
+### Bug Fixes
+
+* **kpagination:** duplicate last-page button when mounted on last page ([#3187](https://github.com/Kong/kongponents/issues/3187)) ([c140fd9](https://github.com/Kong/kongponents/commit/c140fd9cdcfe901814b4b32d771d373889e6269c))
+
 ## [9.55.2](https://github.com/Kong/kongponents/compare/v9.55.1...v9.55.2) (2026-05-21)
 
 
