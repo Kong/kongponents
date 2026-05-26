@@ -104,7 +104,7 @@ const onTrigger = async () => {
 
 <style lang="scss" scoped>
 .items-wrapper {
-  max-height: 50vh;
+  max-height: min(500px, 90vh); // usually 500px but use 90vh on screens smaller than that
   overflow: auto;
   overflow-wrap: break-word;
   word-break: break-word;
