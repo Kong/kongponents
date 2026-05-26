@@ -179,26 +179,26 @@ export default {
   /* Appearances */
 
   &.primary {
-    background-color: var(--kui-button-color-background-primary, var(--kui-color-background-primary, $kui-color-background-primary));
-    border: var(--kui-button-border-width, var(--kui-border-width-20, $kui-border-width-20)) solid var(--kui-button-color-border-primary, var(--kui-color-border-transparent, $kui-color-border-transparent));
-    color: var(--kui-button-color-text-primary, var(--kui-color-text-inverse, $kui-color-text-inverse));
+    background-color: var(--kui-button-color-background-primary, var(--kui-color-background-brand, $kui-color-background-brand));
+    border: var(--kui-button-border-width, var(--kui-border-width-20, $kui-border-width-20)) solid var(--kui-button-color-border-brand, var(--kui-color-border-transparent, $kui-color-border-transparent));
+    color: var(--kui-button-color-text-primary, var(--kui-color-text-brand, $kui-color-text-brand));
 
     &:hover:not(:disabled):not([disabled]):not(:focus):not(:active) {
-      background-color: var(--kui-button-color-background-primary-hover, var(--kui-color-background-primary-strong, $kui-color-background-primary-strong));
+      background-color: var(--kui-button-color-background-primary-hover, var(--kui-color-background-brand-strong, $kui-color-background-brand-strong));
       border-color: var(--kui-button-color-border-primary-hover, var(--kui-color-border-transparent, $kui-color-border-transparent));
-      color: var(--kui-button-color-text-primary-hover, var(--kui-color-text-inverse, $kui-color-text-inverse));
+      color: var(--kui-button-color-text-primary-hover, var(--kui-color-text-brand, $kui-color-text-brand));
     }
 
     &:focus-visible {
-      background-color: var(--kui-button-color-background-primary-hover, var(--kui-color-background-primary-stronger, $kui-color-background-primary-stronger));
+      background-color: var(--kui-button-color-background-primary-hover, var(--kui-color-background-brand-stronger, $kui-color-background-brand-stronger));
       border-color: var(--kui-button-color-border-primary-hover, var(--kui-color-border-transparent, $kui-color-border-transparent));
-      color: var(--kui-button-color-text-primary-hover, var(--kui-color-text-inverse, $kui-color-text-inverse));
+      color: var(--kui-button-color-text-primary-hover, var(--kui-color-text-brand, $kui-color-text-brand));
     }
 
     &:active {
-      background-color: var(--kui-button-color-background-primary-active, var(--kui-color-background-primary-strongest, $kui-color-background-primary-strongest));
+      background-color: var(--kui-button-color-background-primary-active, var(--kui-color-background-brand-strongest, $kui-color-background-brand-strongest));
       border-color: var(--kui-button-color-border-primary-active, var(--kui-color-border-transparent, $kui-color-border-transparent));
-      color: var(--kui-button-color-text-primary-active, var(--kui-color-text-inverse, $kui-color-text-inverse));
+      color: var(--kui-button-color-text-primary-active, var(--kui-color-text-brand, $kui-color-text-brand));
     }
 
     &:disabled, &[disabled] {
