@@ -1,3 +1,10 @@
+# [9.56.0](https://github.com/Kong/kongponents/compare/v9.55.3...v9.56.0) (2026-05-27)
+
+
+### Features
+
+* add slots for filter items [ma-5062] ([#3214](https://github.com/Kong/kongponents/issues/3214)) ([d30685c](https://github.com/Kong/kongponents/commit/d30685c5cddab09bb017b013553c05fca461afcd))
+
 ## [9.55.3](https://github.com/Kong/kongponents/compare/v9.55.2...v9.55.3) (2026-05-25)
 
 
