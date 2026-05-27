@@ -32,7 +32,15 @@
       :filters="hiddenFilters"
       :label="selectorLabel ? selectorLabel : 'Add filter'"
       @select="onSelectFilter"
-    />
+    >
+      <template
+        v-for="key in hiddenFilterKeys"
+        :key="key"
+        #[getFilterItemSlotName(key)]
+      >
+        <slot :name="getFilterItemSlotName(key)" />
+      </template>
+    </FilterSelector>
   </div>
 </template>
 
@@ -46,6 +54,7 @@ import type {
   FilterGroupFilters,
   FilterGroupSelection,
   FilterGroupSlots,
+  FilterItemSlotName,
   FilterSelection,
   FilterSlotName,
 } from '@/types'
@@ -60,6 +69,15 @@ const slots = useSlots()
  */
 const getFilterSlotName = (filterKey: string): FilterSlotName => {
   return `filter-${filterKey}`
+}
+
+/**
+ * Utilize a helper function to generate the column slot name.
+ * This helps TypeScript infer the slot name in the template section so that the slot props can be resolved.
+ * @param {string} filterKey The filter's key
+ */
+const getFilterItemSlotName = (filterKey: string): FilterItemSlotName => {
+  return `filter-item-${filterKey}`
 }
 
 defineSlots<FilterGroupSlots>()

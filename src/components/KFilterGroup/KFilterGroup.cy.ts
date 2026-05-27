@@ -21,10 +21,14 @@ describe('KFilterGroup', () => {
 
   const render = ({
     filters,
+    groupLabel = undefined,
     selection = {},
+    slots = {},
   }: {
     filters: FilterGroupFilters
+    groupLabel?: string
     selection?: FilterGroupSelection
+    slots?: any
   }) => {
     const onApply = cy.spy().as('apply')
     const onClose = cy.spy().as('close')
@@ -34,12 +38,14 @@ describe('KFilterGroup', () => {
     cy.mount(KFilterGroup as any, {
       props: {
         filters,
+        groupLabel,
         modelValue: selection,
         onApply,
         onClose,
         onOpen,
         onClear,
       },
+      slots,
     }).as('filterGroup')
   }
 
@@ -140,6 +146,19 @@ describe('KFilterGroup', () => {
       expect($els.eq(1)).to.have.attr('data-testid', 'filter-group-pill-basic_b')
       expect($els.eq(2)).to.have.attr('data-testid', 'filter-group-pill-basic_a')
     })
+  })
+
+  it('exposes slots for filter items', () => {
+    render({
+      filters: {
+        basic_a: BASIC_FILTER,
+      },
+      slots: {
+        'filter-item-basic_a': '<div class="slot-test">hello</div>',
+      },
+    })
+    cy.getTestId(FILTER_SELECTOR_ID).click()
+    cy.get('[data-testid="dropdown-item-trigger"] .slot-test').should('exist')
   })
 
   it('emits @open', () => {
