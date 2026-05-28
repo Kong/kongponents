@@ -1,3 +1,10 @@
+## [9.56.1](https://github.com/Kong/kongponents/compare/v9.56.0...v9.56.1) (2026-05-28)
+
+
+### Bug Fixes
+
+* **project:** pnpm audit blockage ([#3221](https://github.com/Kong/kongponents/issues/3221)) ([49bd0c1](https://github.com/Kong/kongponents/commit/49bd0c1271cdf57147bf3d595bf46a4645721373))
+
 # [9.56.0](https://github.com/Kong/kongponents/compare/v9.55.3...v9.56.0) (2026-05-27)
 
 
