@@ -119,8 +119,8 @@
         >
           <template #icon>
             <KongIcon
-              :color="KUI_COLOR_TEXT_PRIMARY"
-              :size="KUI_ICON_SIZE_80"
+              :color="`var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})`"
+              :size="`var(--kui-icon-size-80, ${KUI_ICON_SIZE_80})`"
             />
           </template>
         </KEmptyState>

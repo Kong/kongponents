@@ -2,7 +2,7 @@
   <KPop
     ref="filterPopper"
     :max-width="filter.maxWidth ?? '400px'"
-    :offset="KUI_SPACE_30"
+    :offset="`var(--kui-space-30, ${KUI_SPACE_30})`"
     :placement="filter.placement ?? 'bottom-start'"
     width="auto"
     @close="onPopClose"

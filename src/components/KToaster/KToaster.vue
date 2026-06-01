@@ -42,7 +42,7 @@
       >
         <CloseIcon
           :color="`var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
-          :size="KUI_ICON_SIZE_50"
+          :size="`var(--kui-icon-size-50, ${KUI_ICON_SIZE_50})`"
         />
       </button>
     </div>

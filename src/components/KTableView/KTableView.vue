@@ -199,7 +199,7 @@
                     <InfoIcon
                       class="header-tooltip-trigger"
                       :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
-                      :size="KUI_ICON_SIZE_30"
+                      :size="`var(--kui-icon-size-30, ${KUI_ICON_SIZE_30})`"
                       tabindex="0"
                     />
 
@@ -219,14 +219,14 @@
                       class="active-sort-icon"
                       :color="`var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})`"
                       decorative
-                      :size="KUI_ICON_SIZE_30"
+                      :size="`var(--kui-icon-size-30, ${KUI_ICON_SIZE_30})`"
                     />
 
                     <SwapSortIcon
                       v-else
                       class="sort-icon"
                       :color="`var(--kui-color-text-neutral-weak, ${KUI_COLOR_TEXT_NEUTRAL_WEAK})`"
-                      :size="KUI_ICON_SIZE_30"
+                      :size="`var(--kui-icon-size-30, ${KUI_ICON_SIZE_30})`"
                       :title="`Sort by ${column.label}`"
                     />
                   </template>

@@ -10,7 +10,7 @@
       :disabled="disabled || readonly"
       hide-caret
       hide-close-icon
-      :offset="KUI_SPACE_40"
+      :offset="`var(--kui-space-40, ${KUI_SPACE_40})`"
       :placement="popoverPlacement"
       width="auto"
       @close="onClosePopover"
@@ -40,7 +40,7 @@
           class="calendar-icon"
           :color="`var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`"
           decorative
-          :size="KUI_ICON_SIZE_40"
+          :size="`var(--kui-icon-size-40, ${KUI_ICON_SIZE_40})`"
         />
       </div>
 

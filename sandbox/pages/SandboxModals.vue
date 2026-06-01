@@ -387,7 +387,7 @@
             @proceed="data.modalVisible = false"
           >
             <template #title>
-              <KongIcon :color="KUI_COLOR_TEXT_DECORATIVE_AQUA" />
+              <KongIcon :color="`var(--kui-color-text-decorative-aqua, ${KUI_COLOR_TEXT_DECORATIVE_AQUA})`" />
               Full screen KModal
             </template>
           </KModal>

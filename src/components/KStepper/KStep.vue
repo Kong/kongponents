@@ -12,19 +12,19 @@
         <CheckIcon
           v-if="state === 'completed'"
           :color="`var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE})`"
-          :size="KUI_ICON_SIZE_40"
+          :size="`var(--kui-icon-size-40, ${KUI_ICON_SIZE_40})`"
           title="Completed"
         />
         <ProgressIcon
           v-else-if="state === 'pending'"
           :color="`var(--kui-color-text-primary, ${KUI_COLOR_TEXT_PRIMARY})`"
-          :size="KUI_ICON_SIZE_40"
+          :size="`var(--kui-icon-size-40, ${KUI_ICON_SIZE_40})`"
           title="Pending"
         />
         <CloseIcon
           v-else-if="state === 'error'"
           :color="`var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE})`"
-          :size="KUI_ICON_SIZE_40"
+          :size="`var(--kui-icon-size-40, ${KUI_ICON_SIZE_40})`"
           title="Error"
         />
         <span

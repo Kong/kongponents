@@ -101,7 +101,7 @@
           <template #item-icon="{ item }">
             <InboxIcon
               v-if="item.id.includes('folder')"
-              :color="item.selected ? KUI_COLOR_TEXT_DECORATIVE_PURPLE : KUI_COLOR_TEXT_DECORATIVE_PURPLE_STRONG"
+              :color="item.selected ? `var(--kui-color-text-decorative-purple, ${KUI_COLOR_TEXT_DECORATIVE_PURPLE})` : `var(--kui-color-text-decorative-purple-strong, ${KUI_COLOR_TEXT_DECORATIVE_PURPLE_STRONG})`"
             />
           </template>
         </KTreeList>

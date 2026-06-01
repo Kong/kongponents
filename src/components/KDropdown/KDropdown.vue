@@ -10,7 +10,7 @@
         close-on-popover-click
         data-testid="dropdown-popover"
         hide-close-icon
-        :offset="KUI_SPACE_20"
+        :offset="`var(--kui-space-20, ${KUI_SPACE_20})`"
         @close="() => handleTriggerToggle(isToggled, toggle, false)"
         @open="() => handleTriggerToggle(isToggled, toggle, true)"
         @popover-click="() => handleTriggerToggle(isToggled, toggle, false)"
