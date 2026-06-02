@@ -137,7 +137,7 @@
         <div class="horizontal-container">
           <KPop
             button-text="auto"
-            :offset="KUI_SPACE_100"
+            :offset="`var(--kui-space-100, ${KUI_SPACE_100})`"
             placement="auto"
           >
             <template #content>
@@ -146,7 +146,7 @@
           </KPop>
           <KPop
             button-text="top"
-            :offset="KUI_SPACE_100"
+            :offset="`var(--kui-space-100, ${KUI_SPACE_100})`"
             placement="top"
           >
             <template #content>
@@ -155,7 +155,7 @@
           </KPop>
           <KPop
             button-text="bottom"
-            :offset="KUI_SPACE_100"
+            :offset="`var(--kui-space-100, ${KUI_SPACE_100})`"
             placement="bottom"
           >
             <template #content>
@@ -164,7 +164,7 @@
           </KPop>
           <KPop
             button-text="left"
-            :offset="KUI_SPACE_100"
+            :offset="`var(--kui-space-100, ${KUI_SPACE_100})`"
             placement="left"
           >
             <template #content>
@@ -173,7 +173,7 @@
           </KPop>
           <KPop
             button-text="right"
-            :offset="KUI_SPACE_100"
+            :offset="`var(--kui-space-100, ${KUI_SPACE_100})`"
             placement="right"
           >
             <template #content>
@@ -182,7 +182,7 @@
           </KPop>
           <KPop
             button-text="top-start"
-            :offset="KUI_SPACE_140"
+            :offset="`var(--kui-space-140, ${KUI_SPACE_140})`"
             placement="top-start"
           >
             <template #content>
@@ -191,7 +191,7 @@
           </KPop>
           <KPop
             button-text="bottom-end"
-            :offset="KUI_SPACE_140"
+            :offset="`var(--kui-space-140, ${KUI_SPACE_140})`"
             placement="bottom-end"
           >
             <template #content>
@@ -325,7 +325,7 @@
       <div>
         <KTooltip
           :kpop-attributes="{
-            offset: KUI_SPACE_100,
+            offset: `var(--kui-space-100, ${KUI_SPACE_100})`,
             target: '#teleport-target',
           }"
           placement="right"

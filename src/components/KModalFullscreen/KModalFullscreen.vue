@@ -47,7 +47,7 @@
           <div class="k-modal-fullscreen-title">
             <span class="header-icon">
               <slot name="header-icon">
-                <KongIcon :color="KUI_COLOR_TEXT_DECORATIVE_AQUA" />
+                <KongIcon :color="`var(--kui-color-text-decorative-aqua, ${KUI_COLOR_TEXT_DECORATIVE_AQUA})`" />
               </slot>
             </span>
             <span class="header-content">

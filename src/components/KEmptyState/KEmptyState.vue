@@ -14,7 +14,7 @@
               :is="getEmptyStateIcon"
               :color="getIconColor"
               decorative
-              :size="KUI_ICON_SIZE_60"
+              :size="`var(--kui-icon-size-60, ${KUI_ICON_SIZE_60})`"
             />
           </slot>
         </slot>

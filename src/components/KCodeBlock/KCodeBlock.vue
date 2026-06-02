@@ -60,7 +60,7 @@
               class="code-block-processing-icon"
               :color="getIconColor"
               data-testid="code-block-processing-icon"
-              :size="KUI_ICON_SIZE_30"
+              :size="`var(--kui-icon-size-30, ${KUI_ICON_SIZE_30})`"
               title="Loading"
             />
           </Transition>

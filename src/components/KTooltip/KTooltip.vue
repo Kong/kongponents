@@ -4,7 +4,7 @@
     hide-caret
     hide-close-icon
     :max-width="maxWidth"
-    :offset="KUI_SPACE_20"
+    :offset="`var(--kui-space-20, ${KUI_SPACE_20})`"
     :placement="placement"
     popover-classes="k-tooltip"
     :popover-timeout="100"

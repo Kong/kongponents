@@ -26,7 +26,7 @@
         v-bind="boundKPopAttributes"
         close-on-popover-click
         hide-close-icon
-        :offset="KUI_SPACE_40"
+        :offset="`var(--kui-space-40, ${KUI_SPACE_40})`"
         @close="() => onClose(toggle, isToggled.value)"
         @open="() => onOpen(toggle)"
         @popover-click="() => onPopoverClick(toggle)"

@@ -25,7 +25,7 @@
         <KPop
           ref="popper"
           hide-close-icon
-          :offset="KUI_SPACE_40"
+          :offset="`var(--kui-space-40, ${KUI_SPACE_40})`"
           v-bind="boundKPopAttributes"
           @close="() => handleToggle(false, isToggled, toggle)"
           @open="() => handleToggle(true, isToggled, toggle)"
@@ -141,19 +141,19 @@
                 type="button"
                 @click="clearSelection"
               >
-                <CloseIcon :size="KUI_ICON_SIZE_40" />
+                <CloseIcon :size="`var(--kui-icon-size-40, ${KUI_ICON_SIZE_40})`" />
               </button>
               <ProgressIcon
                 v-else-if="loading"
                 class="multiselect-loading-icon"
-                :size="KUI_ICON_SIZE_40"
+                :size="`var(--kui-icon-size-40, ${KUI_ICON_SIZE_40})`"
                 title="Loading"
               />
               <ChevronDownIcon
                 v-else
                 class="multiselect-chevron-icon"
                 decorative
-                :size="KUI_ICON_SIZE_40"
+                :size="`var(--kui-icon-size-40, ${KUI_ICON_SIZE_40})`"
               />
             </div>
           </div>
