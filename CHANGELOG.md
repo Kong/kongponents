@@ -1,3 +1,10 @@
+## [9.56.2](https://github.com/Kong/kongponents/compare/v9.56.1...v9.56.2) (2026-06-02)
+
+
+### Bug Fixes
+
+* **tokens:** enforce token css var usage ([#3223](https://github.com/Kong/kongponents/issues/3223)) ([616f1cd](https://github.com/Kong/kongponents/commit/616f1cd702b23a7430359e251516aa555ae93c26))
+
 ## [9.56.1](https://github.com/Kong/kongponents/compare/v9.56.0...v9.56.1) (2026-05-28)
 
 
