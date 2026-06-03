@@ -91,6 +91,17 @@
           </template>
         </KPop>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="popoverDelay">
+        <KPop
+          button-text="Button"
+          :popover-delay="2000"
+          trigger="hover"
+        >
+          <template #content>
+            Popover content.
+          </template>
+        </KPop>
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="disabled">
         <KPop
           button-text="Button"

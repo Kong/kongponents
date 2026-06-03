@@ -107,6 +107,7 @@ const {
   placement = 'auto',
   trigger = 'click',
   popoverTimeout = 300,
+  popoverDelay = 0,
   hideCloseIcon,
   hideCaret,
   closeOnPopoverClick,
@@ -134,6 +135,7 @@ const isVisible = ref<boolean>(false)
 const popoverTrigger = computed((): HTMLElement | null => triggerWrapperElement.value && triggerWrapperElement.value?.children[0] ? triggerWrapperElement.value?.children[0] as HTMLElement : null)
 
 const timer = ref<number | null>(null)
+const showTimer = ref<number | null>(null)
 
 const togglePopover = () => {
   if (!isVisible.value) {
@@ -165,14 +167,30 @@ const showPopover = async () => {
   if (!disabled) {
     if (timer.value) {
       clearTimeout(timer.value)
+      timer.value = null
     }
 
-    startFloatingUpdates()
-    isVisible.value = true
+    const reveal = () => {
+      startFloatingUpdates()
+      isVisible.value = true
+    }
+
+    if (trigger === 'hover' && popoverDelay > 0) {
+      if (showTimer.value) {
+        clearTimeout(showTimer.value)
+      }
+      showTimer.value = setTimeout(reveal, popoverDelay)
+    } else {
+      reveal()
+    }
   }
 }
 
 const hidePopover = () => {
+  if (showTimer.value) {
+    clearTimeout(showTimer.value)
+    showTimer.value = null
+  }
   timer.value = setTimeout(() => {
     cancelFloatingUpdates()
     isVisible.value = false
@@ -303,6 +321,12 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  if (showTimer.value) {
+    clearTimeout(showTimer.value)
+  }
+  if (timer.value) {
+    clearTimeout(timer.value)
+  }
   cancelFloatingUpdates()
 })
 

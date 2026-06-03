@@ -100,6 +100,42 @@ describe('KPop', () => {
     cy.get('.popover').should('be.visible')
   })
 
+  it('delays showing popover on hover when popoverDelay is set', () => {
+    cy.mount(KPop, {
+      props: {
+        title: 'Popover Title',
+        trigger: 'hover',
+        popoverDelay: 500,
+      },
+      slots: {
+        default: () => h('div', { class: ['slottedEl'] }, 'Slotted element'),
+      },
+    })
+
+    cy.get('.popover').should('not.be.visible')
+    cy.get('.slottedEl').trigger('mouseenter')
+    cy.get('.popover').should('not.be.visible')
+    cy.get('.popover', { timeout: 1000 }).should('be.visible')
+  })
+
+  it('cancels pending show when mouseleave occurs during popoverDelay', () => {
+    cy.mount(KPop, {
+      props: {
+        title: 'Popover Title',
+        trigger: 'hover',
+        popoverDelay: 500,
+      },
+      slots: {
+        default: () => h('div', { class: ['slottedEl'] }, 'Slotted element'),
+      },
+    })
+
+    cy.get('.slottedEl').trigger('mouseenter')
+    cy.get('.slottedEl').trigger('mouseleave')
+    cy.wait(800)
+    cy.get('.popover').should('not.be.visible')
+  })
+
   it('renders with correct default zIndex', () => {
     cy.mount(KPop)
 
