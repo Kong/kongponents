@@ -208,8 +208,8 @@
   "pnpm": {
     "auditConfig": {
       "ignoreGhsas": [
-        "GHSA-p9ff-h696-f583",
-        "GHSA-v2wj-q39q-566r"
+        "GHSA-pjwm-pj3p-43mv",
+        "GHSA-35jp-ww65-95wh"
       ]
     },
     "overrides": {
