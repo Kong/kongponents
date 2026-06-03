@@ -132,6 +132,7 @@ describe('KPop', () => {
 
     cy.get('.slottedEl').trigger('mouseenter')
     cy.get('.slottedEl').trigger('mouseleave')
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(800)
     cy.get('.popover').should('not.be.visible')
   })
