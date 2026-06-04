@@ -1,3 +1,10 @@
+# [9.57.0](https://github.com/Kong/kongponents/compare/v9.56.2...v9.57.0) (2026-06-04)
+
+
+### Features
+
+* **kpop:** implement popover delay prop ([#3224](https://github.com/Kong/kongponents/issues/3224)) ([1e78f6f](https://github.com/Kong/kongponents/commit/1e78f6f8d392b334bea29f0f83ef7b652bb89e69))
+
 ## [9.56.2](https://github.com/Kong/kongponents/compare/v9.56.1...v9.56.2) (2026-06-02)
 
 
