@@ -179,6 +179,32 @@ When [`trigger` prop](#trigger) is `hover`, you can provide a timeout for popove
 </KPop>
 ```
 
+### popoverDelay
+
+When [`trigger` prop](#trigger) is `hover`, you can provide a delay before the popover opens. Default value is 0 milliseconds (open immediately). If the user moves off the trigger before the delay elapses, the popover does not open.
+
+<KPop
+  :popover-delay="2000"
+  trigger="hover"
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
+  </template>
+</KPop>
+
+```html
+<KPop
+  :popover-delay="2000"
+  trigger="hover"
+  button-text="Open popover"
+>
+  <template #content>
+    Popover content.
+  </template>
+</KPop>
+```
+
 ### disabled
 
 Boolean to control whether popover should be disabled. Defaults to `false`.

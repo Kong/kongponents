@@ -80,6 +80,12 @@ export interface PopProps {
   popoverTimeout?: number
 
   /**
+   * The delay in milliseconds before the popover opens when trigger prop is hover.
+   * @default 0
+   */
+  popoverDelay?: number
+
+  /**
    * Whether to hide close button in popover content.
    * @default false
    */
@@ -204,6 +210,7 @@ export type PopoverAttributes = Pick<PopProps,
   | 'popoverClasses'
   | 'popoverElementAttributes'
   | 'popoverTimeout'
+  | 'popoverDelay'
   | 'offset'
   | 'width'
   | 'hideCaret'

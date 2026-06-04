@@ -91,6 +91,17 @@
           </template>
         </KPop>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="popoverDelay">
+        <KPop
+          button-text="Button"
+          :popover-delay="2000"
+          trigger="hover"
+        >
+          <template #content>
+            Popover content.
+          </template>
+        </KPop>
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="disabled">
         <KPop
           button-text="Button"
@@ -377,6 +388,6 @@ const onEvent = (message: string): void => {
 .horizontal-container {
   display: flex;
   flex-wrap: wrap;
-  gap: $kui-space-50;
+  gap: var(--kui-space-50, $kui-space-50);
 }
 </style>
