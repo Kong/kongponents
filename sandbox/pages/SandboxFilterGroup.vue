@@ -104,6 +104,17 @@
     </SandboxSectionComponent>
 
     <SandboxSectionComponent
+      description="Give the user a way to filter remaining filter selections"
+      title="itemFiltering"
+    >
+      <KFilterGroup
+        v-model="selection"
+        :filters="filters"
+        :item-filtering="true"
+      />
+    </SandboxSectionComponent>
+
+    <SandboxSectionComponent
       description="Disabled entirely"
       title="disabled"
     >
