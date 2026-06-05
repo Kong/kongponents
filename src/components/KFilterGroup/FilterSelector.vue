@@ -68,6 +68,9 @@ const {
 }>()
 
 const items = computed((): Array<{ label: string, value: string, onClick: () => void }> => Object.entries(filters)
+  .filter(([, filter]) => {
+    return !filter.readonly // readonly filters don't appear in the FilterSelector
+  })
   .map(([key, filter]) => ({
     label: filter.label,
     value: key,

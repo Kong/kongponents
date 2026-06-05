@@ -15,7 +15,7 @@
           ref="trigger"
           class="interactive-pill-trigger"
           data-testid="interactive-pill-trigger"
-          :disabled="disabled"
+          :disabled="disabled || readonly"
           type="button"
           @blur="onPillBlur"
           @click="onPillTrigger"
@@ -41,7 +41,7 @@
           </div>
 
           <div
-            v-if="!hasContent"
+            v-if="!hasContent && !readonly"
             class="pill-icon open-icon"
             data-testid="interactive-pill-open-icon"
           >
@@ -55,7 +55,7 @@
         </button>
 
         <button
-          v-if="hasContent"
+          v-if="hasContent && !readonly"
           ref="clear"
           class="pill-icon clear-icon"
           data-testid="interactive-pill-clear-icon"
@@ -99,6 +99,7 @@ const {
   delimiter = ': ',
   disabled = false,
   pillFocus = false,
+  readonly = false,
   tooltipText = undefined,
 } = defineProps<{
   label: string
@@ -107,6 +108,7 @@ const {
   disabled?: boolean
   delimiter?: string
   pillFocus?: boolean
+  readonly?: boolean
   tooltipText?: string
 }>()
 
@@ -171,7 +173,9 @@ const pillState = computed((): string => {
 
   const disabledClass = disabled ? 'disabled' : 'enabled'
 
-  return `${contentClass} ${pillFocusClass} ${clearFocusClass} ${disabledClass}`
+  const readonlyClass = readonly ? 'readonly' : 'writeable'
+
+  return `${contentClass} ${pillFocusClass} ${clearFocusClass} ${disabledClass} ${readonlyClass}`
 })
 
 const onPillFocus = () => {
@@ -330,6 +334,23 @@ $shadowFocusNarrow: 0 0 0 2px rgba(
     &.unfocused.no-content:hover {
       background-color: inherit;
       border: var(--kui-border-width-10, $kui-border-width-10) dashed var(--kui-color-border, $kui-color-border);
+    }
+
+    &.unfocused.has-content {
+      .interactive-pill-trigger:hover,
+      .interactive-pill-trigger:hover + .clear-icon,
+      .clear-icon:hover {
+        background-color: inherit;
+        color: inherit;
+      }
+    }
+  }
+
+  &.readonly {
+    padding-right: var(--kui-space-20, $kui-space-20);
+
+    .interactive-pill-trigger {
+      cursor: not-allowed;
     }
 
     &.unfocused.has-content {

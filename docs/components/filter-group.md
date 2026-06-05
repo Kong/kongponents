@@ -163,6 +163,10 @@ If `true` the filter will always be rendered as a pill regardless of whether it 
 
 Where the filter's popover will be placed, defaults to `bottom-start`. See [popover placement](../components/popover#placement)
 
+### filter.readonly
+
+If `true` the filter will only be rendered as a pill if it has a value and will never appear in the "Add filter" dropdown as the user can't change it. See [example](#readonly-filter)
+
 ### filter.maxWidth
 
 The max width of the filter's popover, defaults to `400px`. See [popover maxWidth](../components/popover#maxwidth)
@@ -498,6 +502,53 @@ A custom filter is rendered when content is provided in the [filter-\*](#filter-
 </KFilterGroup>
 ```
 
+### Readonly Filter
+
+A readonly filter is rendered as a pill only when it has a value.
+
+<ClientOnly>
+  <KFilterGroup
+    v-model="readonlySelection"
+    :filters="readonlyFilters"
+  />
+</ClientOnly>
+
+```html
+<template>
+  <KFilterGroup
+    v-model="selection"
+    :filters="{
+      environment: {
+        label: 'Environment',
+        operators: ['eq'],
+        readonly: true,
+      },
+      notVisibleWhenNotSet: {
+        label: 'Not visible when has no value',
+        readonly: true,
+      },
+      name: {
+        label: 'Name',
+      },
+    }"
+  />
+</template>
+
+<script setup lang="ts">
+  import { ref } from 'vue'
+
+  const selection = ref({
+    environment: {
+      operator: 'eq',
+      value: 'prod',
+      text: 'Prod',
+    }
+  })
+</script>
+```
+
+
+
 ### Operator Usage
 
 For any filter other than a [Custom Filter](#custom-filter), when more than one operator is set for a filter, an operator selection is rendered in the popover.
@@ -603,6 +654,29 @@ const operatorFilters: FilterGroupFilters = {
     ...deepClone(inputFilter),
     operators: ['eq', 'neq', 'contains', 'exists', 'lt', 'lte', 'gt', 'gte'],
     pinned: true
+  },
+}
+
+const readonlySelection = ref<FilterGroupSelection>({
+  environment: {
+    operator: 'eq',
+    value: 'prod',
+    text: 'Prod',
+  },
+})
+
+const readonlyFilters: FilterGroupFilters = {
+  environment: {
+    label: 'Environment',
+    operators: ['eq'],
+    readonly: true,
+  },
+  notVisibleWhenNotSet: {
+    label: 'Not visible when has no value',
+    readonly: true,
+  },
+  name: {
+    label: 'Name',
   },
 }
 

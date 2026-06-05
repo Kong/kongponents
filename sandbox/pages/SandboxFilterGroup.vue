@@ -29,10 +29,11 @@
     pinned: true,
   },
   defaultMultiSelect: {
-    label: 'Default multiselect',
+    label: 'Readonly, pinned, multi',
     multiple: true,
     options: [{ value: 'a', label: 'Ayy' }, { value: 'b', label: 'Bee' }, { value: 'c', label: 'See' }],
     pinned: true,
+    readonly: true,
   },
   inputOperators: {
     label: 'Input with operators',
@@ -49,6 +50,10 @@
     operators: ['eq', 'neq', 'contains', 'exists', 'lt', 'lte', 'gt', 'gte'],
     options: [{ value: 'a', label: 'Ayy' }, { value: 'b', label: 'Bee' }, { value: 'c', label: 'See' }],
   },
+  readonlyWithoutValue: {
+    label: 'Readonly without a value does not appear in the list',
+    readonly: true,
+  }
 })`"
         language="javascript"
       />
@@ -227,10 +232,11 @@ const filters: FilterGroupFilters = {
     pinned: true,
   },
   defaultMultiSelect: {
-    label: 'Default multiselect',
+    label: 'Readonly, pinned, multi',
     multiple: true,
     options: [{ value: 'a', label: 'Ayy' }, { value: 'b', label: 'Bee' }, { value: 'c', label: 'See' }],
     pinned: true,
+    readonly: true,
   },
   inputOperators: {
     label: 'Input with operators',
@@ -247,6 +253,10 @@ const filters: FilterGroupFilters = {
     operators: ['eq', 'neq', 'contains', 'exists', 'lt', 'lte', 'gt', 'gte'],
     options: [{ value: 'a', label: 'Ayy' }, { value: 'b', label: 'Bee' }, { value: 'c', label: 'See' }],
   },
+  readonlyWithoutValue: {
+    label: 'Readonly without a value does not appear in the list',
+    readonly: true,
+  },
 }
 
 const selection = ref<FilterGroupSelection>({
@@ -254,6 +264,11 @@ const selection = ref<FilterGroupSelection>({
     operator: 'eq',
     value: 'Pinned default value',
     text: 'Pinned default value',
+  },
+  defaultMultiSelect: {
+    operator: 'eq',
+    value: ['a', 'b'],
+    text: 'Ayy, Bee',
   },
 })
 

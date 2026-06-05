@@ -15,6 +15,7 @@
         :disabled="disabled"
         :label="filter.label"
         :pill-focus="isOpen"
+        :readonly="filter.readonly"
         v-bind="attrs"
         @clear="onClear"
         @click.prevent.stop
