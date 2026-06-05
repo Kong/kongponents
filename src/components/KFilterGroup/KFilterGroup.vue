@@ -3,6 +3,7 @@
     <div
       v-if="groupLabel"
       class="label"
+      :class="{ disabled }"
       data-testid="filter-group-label"
     >
       {{ groupLabel }}
@@ -14,6 +15,7 @@
     >
       <FilterPill
         :custom="!!slots[`filter-${key}`]"
+        :disabled="disabled"
         :filter="filters[key]!"
         :init-open="key === activeFilterKey"
         :selection="selection[key]"
@@ -29,6 +31,7 @@
     </div>
     <FilterSelector
       v-if="hiddenFilterKeys.length > 0"
+      :disabled="disabled"
       :filters="hiddenFilters"
       :label="selectorLabel ? selectorLabel : 'Add filter'"
       @select="onSelectFilter"
@@ -83,6 +86,7 @@ const getFilterItemSlotName = (filterKey: string): FilterItemSlotName => {
 defineSlots<FilterGroupSlots>()
 
 const {
+  disabled = false,
   filters,
   groupLabel = 'Filters',
   selectorLabel = undefined,
@@ -233,6 +237,11 @@ watch(selection, (newSelection) => {
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+
+    &.disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
   }
 }
 </style>

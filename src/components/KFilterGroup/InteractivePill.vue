@@ -15,6 +15,7 @@
           ref="trigger"
           class="interactive-pill-trigger"
           data-testid="interactive-pill-trigger"
+          :disabled="disabled"
           type="button"
           @blur="onPillBlur"
           @click="onPillTrigger"
@@ -58,6 +59,7 @@
           ref="clear"
           class="pill-icon clear-icon"
           data-testid="interactive-pill-clear-icon"
+          :disabled="disabled"
           type="button"
           @blur="onClearBlur"
           @click="onClear"
@@ -95,12 +97,14 @@ const {
   clearFocus = false,
   contentLabel = undefined,
   delimiter = ': ',
+  disabled = false,
   pillFocus = false,
   tooltipText = undefined,
 } = defineProps<{
   label: string
   clearFocus?: boolean
   contentLabel?: string
+  disabled?: boolean
   delimiter?: string
   pillFocus?: boolean
   tooltipText?: string
@@ -164,7 +168,10 @@ const pillState = computed((): string => {
   const clearFocusClass = clearFocus || browserClearFocus.value
     ? 'clear-focused'
     : 'clear-unfocused'
-  return `${contentClass} ${pillFocusClass} ${clearFocusClass}`
+
+  const disabledClass = disabled ? 'disabled' : 'enabled'
+
+  return `${contentClass} ${pillFocusClass} ${clearFocusClass} ${disabledClass}`
 })
 
 const onPillFocus = () => {
@@ -311,6 +318,28 @@ $shadowFocusNarrow: 0 0 0 2px rgba(
   :deep(#{$kongponentsKongIconSelector}) {
     height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
     width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+
+    .interactive-pill-trigger {
+      cursor: not-allowed;
+    }
+
+    &.unfocused.no-content:hover {
+      background-color: inherit;
+      border: var(--kui-border-width-10, $kui-border-width-10) dashed var(--kui-color-border, $kui-color-border);
+    }
+
+    &.unfocused.has-content {
+      .interactive-pill-trigger:hover,
+      .interactive-pill-trigger:hover + .clear-icon,
+      .clear-icon:hover {
+        background-color: inherit;
+        color: inherit;
+      }
+    }
   }
 }
 </style>

@@ -17,6 +17,7 @@ describe('KFilterGroup - InteractivePill', () => {
     clearFocus,
     contentLabel,
     delimiter,
+    disabled,
     pillFocus,
     tooltipText,
   }: {
@@ -24,6 +25,7 @@ describe('KFilterGroup - InteractivePill', () => {
     clearFocus?: boolean
     contentLabel?: string
     delimiter?: string
+    disabled?: boolean
     pillFocus?: boolean
     tooltipText?: string
   }) => {
@@ -33,6 +35,7 @@ describe('KFilterGroup - InteractivePill', () => {
         ...(clearFocus !== undefined && { clearFocus }),
         ...(contentLabel !== undefined && { contentLabel }),
         ...(delimiter !== undefined && { delimiter }),
+        ...(disabled !== undefined && { disabled }),
         ...(pillFocus !== undefined && { pillFocus }),
         ...(tooltipText !== undefined && { tooltipText }),
         onTrigger: cy.spy().as('trigger'),
@@ -115,6 +118,17 @@ describe('KFilterGroup - InteractivePill', () => {
 
     cy.get('@clear').should('have.callCount', 0)
     cy.get('@trigger').should('have.callCount', 1)
+  })
+
+  it('while disabled does not fire trigger when clicked', () => {
+    render({ label: 'test', disabled: true })
+    cy.get('@clear').should('have.callCount', 0)
+    cy.get('@trigger').should('have.callCount', 0)
+
+    cy.getTestId(PILL_ID).click()
+
+    cy.get('@clear').should('have.callCount', 0)
+    cy.get('@trigger').should('have.callCount', 0)
   })
 
   it('fires trigger when enter is pressed on the pill', () => {

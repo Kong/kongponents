@@ -12,6 +12,7 @@
         :content-label="selection?.text"
         data-testid="filter-pill"
         :delimiter="delimiter"
+        :disabled="disabled"
         :label="filter.label"
         :pill-focus="isOpen"
         v-bind="attrs"
@@ -119,6 +120,7 @@ defineOptions({ inheritAttrs: false })
 const attrs = useAttrs()
 
 const {
+  disabled = false,
   filter,
   initOpen = false,
   selection = undefined,
@@ -438,7 +440,8 @@ const onClear = () => {
 const onTrigger = () => {
   if (isOpen.value) {
     closeFilter()
-  } else {
+  } else if (!disabled) {
+    // we only open if the pill isn't currently disabled
     openFilter()
   }
 }

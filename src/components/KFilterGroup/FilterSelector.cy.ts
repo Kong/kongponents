@@ -5,14 +5,17 @@ describe('KFilterGroup - FilterSelector', () => {
   const SELECTOR_ID = 'filter-selector'
 
   const render = ({
+    disabled = false,
     filters,
     slots = {},
   }: {
+    disabled?: boolean
     filters: FilterGroupFilters
     slots?: any
   }) => {
     cy.mount(FilterSelector as any, {
       props: {
+        disabled,
         filters,
         onSelect: cy.spy().as('select'),
       },
@@ -34,6 +37,26 @@ describe('KFilterGroup - FilterSelector', () => {
       .each((el, index) => {
         expect(el).to.have.text(expectedText[index]!)
       })
+  })
+
+  it('while enabled, displays item triggers when clicked', () => {
+    render({
+      disabled: false,
+      filters: { a: { label: 'a' } },
+    })
+
+    cy.getTestId(SELECTOR_ID).should('exist').click()
+    cy.getTestId('dropdown-item-trigger').should('be.visible')
+  })
+
+  it('while disabled, displays nothing when clicked', () => {
+    render({
+      disabled: true,
+      filters: { a: { label: 'a' } },
+    })
+
+    cy.getTestId(SELECTOR_ID).should('exist').click()
+    cy.getTestId('dropdown-item-trigger').should('not.be.visible')
   })
 
   it('emits @select with filter key on item click', () => {

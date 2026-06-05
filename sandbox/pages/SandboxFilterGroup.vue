@@ -98,6 +98,17 @@
       />
     </SandboxSectionComponent>
 
+    <SandboxSectionComponent
+      description="Disabled entirely"
+      title="disabled"
+    >
+      <KFilterGroup
+        v-model="selection"
+        disabled
+        :filters="filters"
+      />
+    </SandboxSectionComponent>
+
     <SandboxTitleComponent
       is-subtitle
       title="Slots"
@@ -120,6 +131,26 @@
             label="This is in the #filter-custom slot"
             placeholder="Super duper custom"
           />
+        </template>
+      </KFilterGroup>
+    </SandboxSectionComponent>
+
+    <SandboxSectionComponent
+      description="Slot custom content into a filter item."
+      title="filter-item-*"
+    >
+      <KFilterGroup
+        v-model="customItemSelection"
+        :filters="customItemFilters"
+      >
+        <template #filter-item-customItem>
+          <KongIcon />
+          Custom filter-item
+        </template>
+        <template #filter-item-customItem2>
+          <div style="border: 1px dashed #000; padding: 2px;">
+            Also customized
+          </div>
         </template>
       </KFilterGroup>
     </SandboxSectionComponent>
@@ -180,6 +211,7 @@ import { inject, ref } from 'vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import type { FilterGroupFilters, FilterGroupSelection } from '@/types'
+import { KongIcon } from '@kong/icons'
 
 const groupLabel = ref<string>('')
 const selectorLabel = ref<string>('Custom label')
@@ -233,6 +265,16 @@ const customFilters: FilterGroupFilters = {
 const customSelection = ref<FilterGroupSelection>({})
 const customValue = ref<boolean>(true)
 
+const customItemFilters: FilterGroupFilters = {
+  customItem: {
+    label: 'Custom filter item',
+  },
+  customItem2: {
+    label: 'Also custom',
+  },
+}
+const customItemSelection = ref<FilterGroupSelection>({})
+
 const onApply = (key: string, applySelection: FilterGroupSelection) => {
   if (key === 'custom') {
     customSelection.value.custom = {
@@ -272,6 +314,6 @@ const onClose = (key: string) => {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  padding-bottom: $kui-space-80;
+  padding-bottom: var(--kui-space-80, $kui-space-80);
 }
 </style>

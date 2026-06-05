@@ -7,6 +7,7 @@
     <template #default>
       <InteractivePill
         data-testid="filter-selector"
+        :disabled="disabled"
         :label="label"
         :pill-focus="pillFocus"
         @click.prevent.stop
@@ -57,9 +58,11 @@ const isOpen = ref<boolean>(false)
 const pillFocus = ref<boolean>(false)
 
 const {
+  disabled = false,
   filters,
   label = 'Add filter',
 } = defineProps<{
+  disabled?: boolean
   filters: FilterGroupFilters
   label?: string
 }>()

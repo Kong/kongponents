@@ -207,6 +207,26 @@ The label to display at the beginning of the group. If set to an empty string no
 />
 ```
 
+### disabled
+
+Styles the filter group to appear disabled and disables interaction except for filter value tooltips.
+
+<ClientOnly>
+  <KFilterGroup
+    v-model="disabledSelection"
+    :filters="disabledFilters"
+    disabled
+  />
+</ClientOnly>
+
+```html
+<KFilterGroup
+  v-model="selection"
+  :filters="filters"
+  disabled
+/>
+```
+
 
 ## Slots
 
@@ -634,6 +654,20 @@ const hideFiltersLabelFilters: FilterGroupFilters = {
   status: deepClone(selectFilter),
   tag: deepClone(multiselectFilter),
 }
+
+const disabledSelection = ref<FilterGroupSelection>({
+  name: {
+    operator: 'eq',
+    value: 'my name',
+    text: 'My Name Is Very Long So Even Though It Got Truncated The Tooltip Is Still Available While Disabled Is True',
+  },
+})
+const disabledFilters: FilterGroupFilters = {
+  name: { ...deepClone(inputFilter), pinned: true },
+  status: { ...deepClone(selectFilter), pinned: true },
+  tag: deepClone(multiselectFilter),
+}
+
 
 const customNodesSelection = ref<FilterGroupSelection>({})
 const customNodesFilters: FilterGroupFilters = {

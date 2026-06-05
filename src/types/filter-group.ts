@@ -121,6 +121,12 @@ export interface FilterPillProps {
    * @default false
    */
   custom?: boolean
+
+  /**
+   * Styles the pill to appear disabled and prevents interaction
+   * @default false
+   */
+  disabled?: boolean
 }
 
 /**
@@ -152,6 +158,12 @@ export interface FilterGroupProps {
    * @default 'Add filter'
    */
   selectorLabel?: string
+
+  /**
+   * Disables all filters and interaction when true.
+   * @default false
+   */
+  disabled?: boolean
 }
 
 export interface FilterGroupEmits {
