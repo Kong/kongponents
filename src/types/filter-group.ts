@@ -65,6 +65,14 @@ export interface Filter {
    * @default '400px'
    */
   maxWidth?: number | string
+
+  /**
+   * When true, will only be visible to the user when a value for this filter
+   * exists. Additionally, they won't be able to open the filter content while
+   * true.
+   * @default false
+   */
+  readonly?: boolean
 }
 
 export interface FilterSelection {

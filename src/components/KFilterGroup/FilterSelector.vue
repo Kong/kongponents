@@ -95,6 +95,7 @@ const items = computed((): Array<{ label: string, value: string, onClick: () => 
       || filter.label.toLocaleLowerCase().includes(lowerSearch.value)
 
     return matchesSearch // if the lowercase label includes the search string
+      && !filter.readonly // readonly filters don't appear in the FilterSelector
   })
   .map(([key, filter]) => ({
     label: filter.label,

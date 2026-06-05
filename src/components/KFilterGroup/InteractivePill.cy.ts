@@ -18,6 +18,7 @@ describe('KFilterGroup - InteractivePill', () => {
     contentLabel,
     delimiter,
     pillFocus,
+    readonly,
     tooltipText,
   }: {
     label: string
@@ -25,6 +26,7 @@ describe('KFilterGroup - InteractivePill', () => {
     contentLabel?: string
     delimiter?: string
     pillFocus?: boolean
+    readonly?: boolean
     tooltipText?: string
   }) => {
     cy.mount(InteractivePill as any, {
@@ -34,6 +36,7 @@ describe('KFilterGroup - InteractivePill', () => {
         ...(contentLabel !== undefined && { contentLabel }),
         ...(delimiter !== undefined && { delimiter }),
         ...(pillFocus !== undefined && { pillFocus }),
+        ...(readonly !== undefined && { readonly }),
         ...(tooltipText !== undefined && { tooltipText }),
         onTrigger: cy.spy().as('trigger'),
         onClear: cy.spy().as('clear'),
@@ -115,6 +118,29 @@ describe('KFilterGroup - InteractivePill', () => {
 
     cy.get('@clear').should('have.callCount', 0)
     cy.get('@trigger').should('have.callCount', 1)
+  })
+
+  it('while readonly does not fire trigger when clicked', () => {
+    render({ label: 'test', readonly: true })
+    cy.get('@clear').should('have.callCount', 0)
+    cy.get('@trigger').should('have.callCount', 0)
+
+    cy.getTestId(PILL_ID).click()
+
+    cy.get('@clear').should('have.callCount', 0)
+    cy.get('@trigger').should('have.callCount', 0)
+  })
+
+  it('when readonly without content, the control icons do not appear', () => {
+    render({ label: 'test', contentLabel: undefined, readonly: true })
+    cy.getTestId(CLEAR_ICON_ID).should('not.exist')
+    cy.getTestId(OPEN_ICON_ID).should('not.exist')
+  })
+
+  it('when readonly with content, the control icons do not appear', () => {
+    render({ label: 'test', contentLabel: 'foo', readonly: true })
+    cy.getTestId(CLEAR_ICON_ID).should('not.exist')
+    cy.getTestId(OPEN_ICON_ID).should('not.exist')
   })
 
   it('fires trigger when enter is pressed on the pill', () => {
