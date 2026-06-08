@@ -41,6 +41,23 @@ describe('KFilterGroup - FilterSelector', () => {
       })
   })
 
+  it('readonly filters do not render in the dropdown', () => {
+    const expectedText = ['Ayy', 'Zee', 'Jay']
+    render({ filters: {
+      a: { label: expectedText[0]! },
+      z: { label: expectedText[1]! },
+      j: { label: expectedText[2]!, readonly: true },
+    } })
+
+    cy.getTestId(SELECTOR_ID).should('exist').click()
+    cy.getTestId('dropdown-item-trigger')
+      .should('have.length', 2)
+      .each((el, index) => {
+        // we set readonly on the last item just to make this loop easier
+        expect(el).to.have.text(expectedText[index]!)
+      })
+  })
+
   it('emits @select with filter key on item click', () => {
     render({ filters: {
       a: { label: 'Ayy' },
