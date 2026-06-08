@@ -207,6 +207,25 @@ The label to display at the beginning of the group. If set to an empty string no
 />
 ```
 
+### itemFiltering
+
+If `true`, gives the user an input which allows them to search through existing selectable filters by their labels. Defaults to `false`
+
+<ClientOnly>
+  <KFilterGroup
+    v-model="itemFilteringSelection"
+    :filters="itemFilteringFilters"
+    item-filtering
+  />
+</ClientOnly>
+
+```html
+<KFilterGroup
+  v-model="selection"
+  :filters="filters"
+  item-filtering
+/>
+```
 
 ## Slots
 
@@ -630,6 +649,13 @@ const selectorLabelFilters: FilterGroupFilters = {
 
 const hideFiltersLabelSelection = ref<FilterGroupSelection>({})
 const hideFiltersLabelFilters: FilterGroupFilters = {
+  name: deepClone(inputFilter),
+  status: deepClone(selectFilter),
+  tag: deepClone(multiselectFilter),
+}
+
+const itemFilteringSelection = ref<FilterGroupSelection>({})
+const itemFilteringFilters: FilterGroupFilters = {
   name: deepClone(inputFilter),
   status: deepClone(selectFilter),
   tag: deepClone(multiselectFilter),
