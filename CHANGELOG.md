@@ -1,3 +1,10 @@
+# [9.59.0](https://github.com/Kong/kongponents/compare/v9.58.0...v9.59.0) (2026-06-08)
+
+
+### Features
+
+* add a readonly prop to filters ([#3229](https://github.com/Kong/kongponents/issues/3229)) ([32ae70b](https://github.com/Kong/kongponents/commit/32ae70b858c2a79e2cf756652529a984c31f7d94))
+
 # [9.58.0](https://github.com/Kong/kongponents/compare/v9.57.0...v9.58.0) (2026-06-08)
 
 
