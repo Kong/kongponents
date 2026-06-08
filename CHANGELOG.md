@@ -1,3 +1,10 @@
+# [9.58.0](https://github.com/Kong/kongponents/compare/v9.57.0...v9.58.0) (2026-06-08)
+
+
+### Features
+
+* enable filter select item searching ([#3228](https://github.com/Kong/kongponents/issues/3228)) ([76e878f](https://github.com/Kong/kongponents/commit/76e878fbb19ca419ed317c52d14d7c19cf753621))
+
 # [9.57.0](https://github.com/Kong/kongponents/compare/v9.56.2...v9.57.0) (2026-06-04)
 
 
