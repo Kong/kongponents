@@ -98,6 +98,17 @@
       />
     </SandboxSectionComponent>
 
+    <SandboxSectionComponent
+      description="Give the user a way to filter remaining filter selections"
+      title="itemFiltering"
+    >
+      <KFilterGroup
+        v-model="selection"
+        :filters="filters"
+        :item-filtering="true"
+      />
+    </SandboxSectionComponent>
+
     <SandboxTitleComponent
       is-subtitle
       title="Slots"
@@ -272,6 +283,6 @@ const onClose = (key: string) => {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  padding-bottom: $kui-space-80;
+  padding-bottom: var(--kui-space-80, $kui-space-80);
 }
 </style>

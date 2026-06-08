@@ -30,6 +30,7 @@
     <FilterSelector
       v-if="hiddenFilterKeys.length > 0"
       :filters="hiddenFilters"
+      :item-filtering="itemFiltering"
       :label="selectorLabel ? selectorLabel : 'Add filter'"
       @select="onSelectFilter"
     >
@@ -83,6 +84,7 @@ const getFilterItemSlotName = (filterKey: string): FilterItemSlotName => {
 defineSlots<FilterGroupSlots>()
 
 const {
+  itemFiltering = false,
   filters,
   groupLabel = 'Filters',
   selectorLabel = undefined,

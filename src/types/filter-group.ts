@@ -152,6 +152,13 @@ export interface FilterGroupProps {
    * @default 'Add filter'
    */
   selectorLabel?: string
+
+  /**
+   * Whether or not do display an input that allows the user to search through
+   * the selectable filters based on their labels.
+   * @default false
+   */
+  itemFiltering?: boolean
 }
 
 export interface FilterGroupEmits {
