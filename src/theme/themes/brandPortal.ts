@@ -29,19 +29,19 @@ export const brandPortalTheme = defineKongponentsTheme({
   '--kui-color-background-overlay': 'rgba(0, 0, 0, 0.78)',
 
   // ── Text — warm cream hierarchy ───────────────────────────────────────────
-  '--kui-color-text': '#ede8dc',             // 16.1:1 ✓
-  '--kui-color-text-neutral': '#8c7e68',     // 5.0:1  ✓
+  '--kui-color-text': '#ede8dc', // 16.1:1 ✓
+  '--kui-color-text-neutral': '#8c7e68', // 5.0:1  ✓
   '--kui-color-text-neutral-strong': '#b0a088',
   '--kui-color-text-neutral-stronger': '#c8b89a',
   '--kui-color-text-neutral-strongest': '#ddd0bc',
   '--kui-color-text-neutral-weak': '#6a5e4c',
   '--kui-color-text-neutral-weaker': '#4e4535',
   '--kui-color-text-neutral-weakest': '#3c3528',
-  '--kui-color-text-inverse': '#13110e',     // dark text ON amber buttons ✓
+  '--kui-color-text-inverse': '#13110e', // dark text ON amber buttons ✓
   '--kui-color-text-disabled': '#4e4535',
 
   // ── Borders — warm visible separator ─────────────────────────────────────
-  '--kui-color-border': '#7a6e58',           // 4.0:1 ✓ WCAG 1.4.11
+  '--kui-color-border': '#7a6e58', // 4.0:1 ✓ WCAG 1.4.11
   '--kui-color-border-neutral': '#7a6e58',
   '--kui-color-border-neutral-strong': '#9a8e78',
   '--kui-color-border-neutral-stronger': '#b8a888',
@@ -53,17 +53,17 @@ export const brandPortalTheme = defineKongponentsTheme({
 
   // ── Amber primary scale — solid-bg values use dark text (#13110e) ─────────
   // All ≥ 4.5:1 with the dark text overlay set in --kui-color-text-inverse.
-  '--kui-color-background-primary': '#f59e0b',          // 9.2:1 dark ✓
-  '--kui-color-background-primary-strong': '#e08a00',   // hover — deeper amber
+  '--kui-color-background-primary': '#f59e0b', // 9.2:1 dark ✓
+  '--kui-color-background-primary-strong': '#e08a00', // hover — deeper amber
   '--kui-color-background-primary-stronger': '#c67900', // active
   '--kui-color-background-primary-strongest': '#a86500',
-  '--kui-color-background-primary-weak': '#fbbf24',     // lighter amber
+  '--kui-color-background-primary-weak': '#fbbf24', // lighter amber
   '--kui-color-background-primary-weaker': '#fcd34d',
-  '--kui-color-background-primary-weakest': '#211a06',  // ghost hover tint (dark)
+  '--kui-color-background-primary-weakest': '#211a06', // ghost hover tint (dark)
 
   // Text primaries — lighter = more visible on dark bg
-  '--kui-color-text-primary': '#fbbf24',               // 11.9:1 ✓
-  '--kui-color-text-primary-strong': '#f59e0b',         // 9.2:1  ✓
+  '--kui-color-text-primary': '#fbbf24', // 11.9:1 ✓
+  '--kui-color-text-primary-strong': '#f59e0b', // 9.2:1  ✓
   '--kui-color-text-primary-stronger': '#e08a00',
   '--kui-color-text-primary-strongest': '#c67900',
   '--kui-color-text-primary-weak': '#fcd34d',
@@ -133,7 +133,7 @@ export const brandPortalTheme = defineKongponentsTheme({
   '--kui-font-family-text': "'Syne', 'Trebuchet MS', system-ui, sans-serif",
   '--kui-font-family-heading': "'Syne', 'Trebuchet MS', system-ui, sans-serif",
   '--kui-font-family-code': "'JetBrains Mono', 'Fira Code', 'Courier New', monospace",
-  '--kui-font-weight-regular': '500',   // every weight steps up one — heavier baseline
+  '--kui-font-weight-regular': '500', // every weight steps up one — heavier baseline
   '--kui-font-weight-medium': '600',
   '--kui-font-weight-semibold': '700',
   '--kui-font-weight-bold': '800',

@@ -156,7 +156,9 @@ const scopedTheme = computed(() => activeTheme.value === 'Brand A' ? brandPortal
 const selectTheme = (option: ThemeOption): void => {
   activeTheme.value = option.label
   setTheme(option.theme)
-  typeof localStorage !== 'undefined' && localStorage.setItem(STORAGE_KEY, option.label)
+  if (typeof localStorage !== 'undefined') {
+    localStorage.setItem(STORAGE_KEY, option.label)
+  }
 }
 
 const notify = (): void => {

@@ -30,19 +30,19 @@ export const brandPortalBTheme = defineKongponentsTheme({
   '--kui-color-background-overlay': 'rgba(0, 0, 0, 0.85)',
 
   // ── Luminous lavender-white text ──────────────────────────────────────────
-  '--kui-color-text': '#f0edfb',               // 16.8:1 ✓ WCAG AAA
-  '--kui-color-text-neutral': '#8b7ca8',       //  5.2:1 ✓ WCAG AA
+  '--kui-color-text': '#f0edfb', // 16.8:1 ✓ WCAG AAA
+  '--kui-color-text-neutral': '#8b7ca8', //  5.2:1 ✓ WCAG AA
   '--kui-color-text-neutral-strong': '#a896c4',
   '--kui-color-text-neutral-stronger': '#c4b5d8',
   '--kui-color-text-neutral-strongest': '#ddd4ed',
   '--kui-color-text-neutral-weak': '#6b5e86',
   '--kui-color-text-neutral-weaker': '#4e4265',
   '--kui-color-text-neutral-weakest': '#362e48',
-  '--kui-color-text-inverse': '#ffffff',        // white text ON violet buttons ✓
+  '--kui-color-text-inverse': '#ffffff', // white text ON violet buttons ✓
   '--kui-color-text-disabled': '#4e4265',
 
   // ── Amethyst borders ──────────────────────────────────────────────────────
-  '--kui-color-border': '#6e5a8a',              //  3.2:1 ✓ WCAG 1.4.11
+  '--kui-color-border': '#6e5a8a', //  3.2:1 ✓ WCAG 1.4.11
   '--kui-color-border-neutral': '#6e5a8a',
   '--kui-color-border-neutral-strong': '#7e6a9a',
   '--kui-color-border-neutral-stronger': '#9480b0',
@@ -53,16 +53,16 @@ export const brandPortalBTheme = defineKongponentsTheme({
   '--kui-color-border-disabled': '#231b33',
 
   // ── Electric violet primary scale ─────────────────────────────────────────
-  '--kui-color-background-primary': '#7c3aed',            //  5.2:1 white ✓ WCAG AA
-  '--kui-color-background-primary-strong': '#6d28d9',     // hover — deeper
-  '--kui-color-background-primary-stronger': '#5b21b6',   // active
+  '--kui-color-background-primary': '#7c3aed', //  5.2:1 white ✓ WCAG AA
+  '--kui-color-background-primary-strong': '#6d28d9', // hover — deeper
+  '--kui-color-background-primary-stronger': '#5b21b6', // active
   '--kui-color-background-primary-strongest': '#4c1d95',
   '--kui-color-background-primary-weak': '#8b5cf6',
   '--kui-color-background-primary-weaker': '#a78bfa',
-  '--kui-color-background-primary-weakest': '#1e1230',    // ghost hover tint (dark)
+  '--kui-color-background-primary-weakest': '#1e1230', // ghost hover tint (dark)
 
   // Text primaries — luminous on dark bg
-  '--kui-color-text-primary': '#a78bfa',                 //  7.6:1 ✓ WCAG AAA
+  '--kui-color-text-primary': '#a78bfa', //  7.6:1 ✓ WCAG AAA
   '--kui-color-text-primary-strong': '#8b5cf6',
   '--kui-color-text-primary-stronger': '#7c3aed',
   '--kui-color-text-primary-strongest': '#6d28d9',

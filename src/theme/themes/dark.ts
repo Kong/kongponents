@@ -27,11 +27,11 @@ export const darkTheme = defineKongponentsTheme({
 
   // ── Text ─────────────────────────────────────────────────────────────────
   // Contrast ratios are against --kui-color-background (#16161d, L≈0.007).
-  '--kui-color-text': '#f2f3f5',           // 16.2:1 ✓
-  '--kui-color-text-neutral': '#a7adba',   // 8.0:1  ✓
+  '--kui-color-text': '#f2f3f5', // 16.2:1 ✓
+  '--kui-color-text-neutral': '#a7adba', // 8.0:1  ✓
   '--kui-color-text-neutral-strong': '#c8ccd6', // 12.1:1 ✓
   // --kui-color-text-inverse absent → SCSS fallback #ffffff (white on buttons)
-  '--kui-color-text-disabled': '#5c6172',  // intentionally dimmed; disabled state exempt per WCAG 1.4.3
+  '--kui-color-text-disabled': '#5c6172', // intentionally dimmed; disabled state exempt per WCAG 1.4.3
 
   // ── Borders ───────────────────────────────────────────────────────────────
   // #6b6b80 gives 3.6:1 against the dark page bg — meets WCAG 1.4.11 (3:1)
@@ -49,18 +49,18 @@ export const darkTheme = defineKongponentsTheme({
   // ── Primary — text (on dark page background) ──────────────────────────────
   // The light-mode blue (#0044f4) is only 2.7:1 on this dark bg — too low for
   // text. These lighter values share the same hue and all meet WCAG AA.
-  '--kui-color-text-primary': '#5f9aff',           // 6.8:1  ✓ links, secondary button text
-  '--kui-color-text-primary-strong': '#7aadff',    // 8.6:1  ✓
-  '--kui-color-text-primary-stronger': '#99c0ff',  // 10.6:1 ✓
+  '--kui-color-text-primary': '#5f9aff', // 6.8:1  ✓ links, secondary button text
+  '--kui-color-text-primary-strong': '#7aadff', // 8.6:1  ✓
+  '--kui-color-text-primary-stronger': '#99c0ff', // 10.6:1 ✓
   '--kui-color-text-primary-strongest': '#bee2ff', // 13.2:1 ✓
-  '--kui-color-text-primary-weak': '#4080f0',      // 5.0:1  ✓ de-emphasised uses
-  '--kui-color-text-primary-weaker': '#2860d0',    // 3.4:1  decorative
-  '--kui-color-text-primary-weakest': '#1a44a8',   // 2.1:1  very subtle tints
+  '--kui-color-text-primary-weak': '#4080f0', // 5.0:1  ✓ de-emphasised uses
+  '--kui-color-text-primary-weaker': '#2860d0', // 3.4:1  decorative
+  '--kui-color-text-primary-weakest': '#1a44a8', // 2.1:1  very subtle tints
 
   // ── Primary — borders (non-text UI elements, 3:1 threshold per WCAG 1.4.11) ─
   // #0044f4 is only 2.7:1 on the dark bg; use lighter blues here.
-  '--kui-color-border-primary': '#5f9aff',          // 6.8:1 ✓
-  '--kui-color-border-primary-strong': '#4d7cff',   // 5.5:1 ✓
+  '--kui-color-border-primary': '#5f9aff', // 6.8:1 ✓
+  '--kui-color-border-primary-strong': '#4d7cff', // 5.5:1 ✓
   '--kui-color-border-primary-stronger': '#3d6dee', // 4.0:1 ✓
   '--kui-color-border-primary-strongest': '#2d5acc',
   '--kui-color-border-primary-weak': '#7aadff',
