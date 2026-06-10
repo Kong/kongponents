@@ -57,16 +57,6 @@ export const darkTheme = defineKongponentsTheme({
   '--kui-color-text-primary-weaker': '#2860d0', // 3.4:1  decorative
   '--kui-color-text-primary-weakest': '#1a44a8', // 2.1:1  very subtle tints
 
-  // ── Primary — borders (non-text UI elements, 3:1 threshold per WCAG 1.4.11) ─
-  // #0044f4 is only 2.7:1 on the dark bg; use lighter blues here.
-  '--kui-color-border-primary': '#5f9aff', // 6.8:1 ✓
-  '--kui-color-border-primary-strong': '#4d7cff', // 5.5:1 ✓
-  '--kui-color-border-primary-stronger': '#3d6dee', // 4.0:1 ✓
-  '--kui-color-border-primary-strongest': '#2d5acc',
-  '--kui-color-border-primary-weak': '#7aadff',
-  '--kui-color-border-primary-weaker': '#99c0ff',
-  '--kui-color-border-primary-weakest': '#1a2540',
-
   // ── Navigation ───────────────────────────────────────────────────────────
   '--kui-navigation-color-background': '#16161d',
   '--kui-navigation-color-background-selected': '#1f1f29',
@@ -84,8 +74,5 @@ export const darkTheme = defineKongponentsTheme({
   // ── Shadows ───────────────────────────────────────────────────────────────
   '--kui-shadow-focus': '0px 0px 0px 4px rgba(0, 68, 244, 0.55)',
   '--kui-shadow-border': '0px 0px 0px 1px #6b6b80 inset',
-  '--kui-shadow-border-primary': '0px 0px 0px 1px #5f9aff inset',
-  '--kui-shadow-border-primary-strongest': '0px 0px 0px 1px #2d5acc inset',
-  '--kui-shadow-border-primary-weak': '0px 0px 0px 1px #7aadff inset',
   '--kui-shadow-border-disabled': '0px 0px 0px 1px #2a2a33 inset',
 })
