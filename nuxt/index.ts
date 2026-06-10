@@ -1,5 +1,6 @@
 import { defineNuxtModule, createResolver, addComponent, useLogger, addImportsDir } from '@nuxt/kit'
-import { components } from '@kong/kongponents'
+import { components, themeToCssVars } from '@kong/kongponents'
+import type { KongponentsTheme } from '@kong/kongponents'
 
 type ComponentKeys = keyof typeof components
 type ExcludedComponentKeys = Exclude<ComponentKeys, 'ToastManager' | 'KTable' | 'KModalFullscreen' | 'KDropdownMenu'>
@@ -24,6 +25,16 @@ export interface ModuleOptions {
    * @default true
    */
   composables?: boolean
+  /**
+   * An optional app-level theme. When provided, the theme's `--kui-*` overrides
+   * are inlined into the document `<head>` (scoped to `:root`) so they are
+   * present during SSR — avoiding a flash of unthemed content — and cascade to
+   * every Kongponent, including teleported content, as well as any host-app or
+   * downstream component consuming `--kui-*` tokens. At runtime, `useTheme()`
+   * can still switch the theme.
+   * @default undefined
+   */
+  theme?: KongponentsTheme
 }
 
 // Components that should always be excluded from auto-registration
@@ -47,6 +58,17 @@ export default defineNuxtModule<ModuleOptions>({
 
     // Register the styles
     nuxt.options.css.push('@kong/kongponents/dist/style.css')
+
+    // Inline an optional app-level theme into <head> so it is present during SSR
+    // (no flash of unthemed content) and cascades to every component from :root.
+    if (options.theme && Object.keys(options.theme).length > 0) {
+      nuxt.options.app.head.style = nuxt.options.app.head.style || []
+      nuxt.options.app.head.style.push({
+        innerHTML: themeToCssVars(options.theme, ':root'),
+        // Ensure the theme overrides are output after the design-token defaults.
+        tagPriority: 'low',
+      })
+    }
 
     // Register composables
     if (options.composables) {

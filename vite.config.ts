@@ -1,8 +1,45 @@
-import { defineConfig } from 'vite'
+import { defineConfig, type Plugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import path, { join } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
+
+/**
+ * Wraps the library's emitted CSS in a single `@layer kongponents` cascade layer.
+ *
+ * Because unlayered styles always win over layered styles, this lets downstream
+ * consumers override any Kongponents style with normal (unlayered) CSS without
+ * specificity battles or `!important`. The wrap runs once on the fully assembled
+ * CSS asset, preserves the leading `@charset` (which must remain the first rule),
+ * and is idempotent so the separate UMD build pass cannot double-wrap.
+ */
+const wrapCssInCascadeLayer = (): Plugin => ({
+  name: 'kongponents:wrap-css-cascade-layer',
+  apply: 'build',
+  enforce: 'post',
+  generateBundle(_options, bundle) {
+    for (const file of Object.values(bundle)) {
+      if (file.type !== 'asset' || !file.fileName.endsWith('.css') || typeof file.source !== 'string') {
+        continue
+      }
+
+      let css = file.source
+      // Already wrapped (e.g. a reprocessed asset) — skip to stay idempotent.
+      if (/@layer\s+kongponents\b/.test(css)) {
+        continue
+      }
+
+      // `@charset` must remain the very first thing in the file, before `@layer`.
+      const charsetMatch = css.match(/^@charset[^;]+;/)
+      const charset = charsetMatch ? charsetMatch[0] : ''
+      if (charset) {
+        css = css.slice(charset.length)
+      }
+
+      file.source = `${charset}@layer kongponents{${css}}`
+    }
+  },
+})
 
 // Include the rollup-plugin-visualizer if the BUILD_VISUALIZER env var is set to "true"
 const buildVisualizerPlugin = process.env.BUILD_VISUALIZER
@@ -26,6 +63,8 @@ export default defineConfig({
   plugins: [
     vue(),
     ...(process.env.DISABLE_VUE_DEVTOOLS === 'true' ? [] : [VueDevTools()]), // Cypress 14+ introduces an issue with VueDevTools when running tests so we need to disable it in the test environment only
+    // Wrap the library's CSS in `@layer kongponents` (skip for the sandbox build).
+    ...(process.env.USE_SANDBOX ? [] : [wrapCssInCascadeLayer()]),
   ],
   resolve: {
     alias: {
