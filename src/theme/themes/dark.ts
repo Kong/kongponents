@@ -30,6 +30,11 @@ export const darkTheme = defineKongponentsTheme({
   '--kui-color-text': '#f2f3f5', // 16.2:1 ✓
   '--kui-color-text-neutral': '#a7adba', // 8.0:1  ✓
   '--kui-color-text-neutral-strong': '#c8ccd6', // 12.1:1 ✓
+  '--kui-color-text-neutral-stronger': '#dde0e6', // 13.5:1 ✓
+  '--kui-color-text-neutral-strongest': '#f2f3f5', // 16.2:1 ✓ KCodeBlock code text
+  '--kui-color-text-neutral-weak': '#878da0', // 5.5:1  ✓ de-emphasised
+  '--kui-color-text-neutral-weaker': '#6b7185', // 3.6:1    subtle
+  '--kui-color-text-neutral-weakest': '#52576a', // 2.3:1    decorative only
   // --kui-color-text-inverse absent → SCSS fallback #ffffff (white on buttons)
   '--kui-color-text-disabled': '#5c6172', // intentionally dimmed; disabled state exempt per WCAG 1.4.3
 
