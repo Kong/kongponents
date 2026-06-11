@@ -238,7 +238,3 @@ Kongponents' component CSS is emitted inside a single [CSS cascade layer](https:
 ::: warning Migrating from before cascade layers
 If you previously used `!important` to beat a Kongponents `!important` rule, note that layer precedence is inverted for `!important` declarations: a library `!important` rule inside `@layer kongponents` now beats your unlayered `!important`. Drop the `!important` (your normal rule already wins), or place your overrides in a layer ordered after `kongponents`.
 :::
-
-## Component tokens (future)
-
-Today, themes operate on the shared `--kui-*` semantic tokens, so overriding e.g. `--kui-color-background-primary` affects every component that uses it. A future release may introduce optional **component-level tokens** under the reserved `--kui-<component>-*` namespace (e.g. `--kui-button-background`) for per-component theming, falling back to the semantic tokens so current behavior is preserved. This namespace is reserved now; do not rely on it yet.
