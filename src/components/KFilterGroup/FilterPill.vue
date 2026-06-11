@@ -274,6 +274,10 @@ const userSelection = computed((): FilterSelection | undefined => {
  * The delimiter to display in the pill's label. Determined based on the `selection.operator`
  */
 const delimiter = computed((): string | undefined => {
+  if (selection?.operatorDelimiter !== undefined) {
+    return selection.operatorDelimiter
+  }
+
   switch (selection?.operator) {
     case 'eq':
       return ' = '
