@@ -112,6 +112,32 @@ describe('KThemeProvider — subtree mode (default)', () => {
     expect((injected as { theme: { value: unknown } }).theme.value).toEqual(theme)
     unmount()
   })
+
+  it('setTheme on the injected controller updates the wrapper inline styles', async () => {
+    const { nextTick } = await import('vue')
+    let injected: ReturnType<typeof inject> | undefined
+
+    // eslint-disable-next-line vue/one-component-per-file
+    const Child = defineComponent({
+      setup() {
+        injected = inject(KONGPONENTS_THEME_INJECTION_KEY)
+        return () => h('span')
+      },
+    })
+
+    const theme: KongponentsTheme = { '--kui-color-text-primary': '#6f28ff' }
+    const { el, unmount } = mount(h(KThemeProvider, { theme }, { default: () => h(Child) }))
+    const wrapper = el.querySelector<HTMLElement>('.k-theme-provider')!
+
+    expect(wrapper.style.getPropertyValue('--kui-color-text-primary')).toBe('#6f28ff')
+
+    const ctrl = injected as { setTheme: (t: KongponentsTheme | undefined) => void }
+    ctrl.setTheme({ '--kui-color-text-primary': '#ff0000' })
+    await nextTick()
+
+    expect(wrapper.style.getPropertyValue('--kui-color-text-primary')).toBe('#ff0000')
+    unmount()
+  })
 })
 
 // ---------------------------------------------------------------------------
@@ -145,10 +171,11 @@ describe('KThemeProvider — global mode', () => {
 // ---------------------------------------------------------------------------
 
 describe('KThemeProvider — theme prop reactivity', () => {
-  it('updates inline styles when the theme prop changes', async () => {
+  it('updates inline styles when the theme prop changes (subtree mode)', async () => {
     const { ref, nextTick } = await import('vue')
     const themeRef = ref<KongponentsTheme>({ '--kui-color-text-primary': '#0044f4' })
 
+    // eslint-disable-next-line vue/one-component-per-file
     const Parent = defineComponent({
       setup() {
         return () => h(KThemeProvider, { theme: themeRef.value })
@@ -162,6 +189,27 @@ describe('KThemeProvider — theme prop reactivity', () => {
     themeRef.value = { '--kui-color-text-primary': '#6f28ff' }
     await nextTick()
     expect(wrapper.style.getPropertyValue('--kui-color-text-primary')).toBe('#6f28ff')
+
+    unmount()
+  })
+
+  it('updates document.documentElement when the theme prop changes (global mode)', async () => {
+    const { ref, nextTick } = await import('vue')
+    const themeRef = ref<KongponentsTheme>({ '--kui-color-text-primary': '#0044f4' })
+
+    // eslint-disable-next-line vue/one-component-per-file
+    const Parent = defineComponent({
+      setup() {
+        return () => h(KThemeProvider, { theme: themeRef.value, global: true })
+      },
+    })
+
+    const { unmount } = mount(h(Parent))
+    expect(document.documentElement.style.getPropertyValue('--kui-color-text-primary')).toBe('#0044f4')
+
+    themeRef.value = { '--kui-color-text-primary': '#6f28ff' }
+    await nextTick()
+    expect(document.documentElement.style.getPropertyValue('--kui-color-text-primary')).toBe('#6f28ff')
 
     unmount()
   })

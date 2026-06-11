@@ -78,6 +78,19 @@ describe('applyTheme — theme switching (stale-token removal)', () => {
     applyTheme(theme, el)
     expect(el.style.getPropertyValue('--kui-color-text-primary')).toBe('#0044f4')
   })
+
+  it('A → B → A round-trip: tokens from B are removed after switching back to A', () => {
+    const el = makeEl()
+    applyTheme({ '--kui-color-text-primary': '#aaa', '--kui-border-radius-30': '4px' }, el)
+    applyTheme({ '--kui-color-background': '#fff' }, el)
+    applyTheme({ '--kui-color-text-primary': '#aaa', '--kui-border-radius-30': '4px' }, el)
+
+    // B's token must be gone — the WeakMap was replaced, not accumulated.
+    expect(el.style.getPropertyValue('--kui-color-background')).toBe('')
+    // A's tokens are back.
+    expect(el.style.getPropertyValue('--kui-color-text-primary')).toBe('#aaa')
+    expect(el.style.getPropertyValue('--kui-border-radius-30')).toBe('4px')
+  })
 })
 
 describe('applyTheme — first call on a fresh element', () => {

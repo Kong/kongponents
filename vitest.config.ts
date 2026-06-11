@@ -17,5 +17,6 @@ export default defineConfig({
     include: ['src/**/*.spec.ts'],
     clearMocks: true,
     restoreMocks: true,
+    reporters: ['tree', ...[process.env.GITHUB_ACTIONS ? 'github-actions' : ''].filter(Boolean)],
   },
 })

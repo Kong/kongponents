@@ -73,8 +73,19 @@ describe('createThemeController', () => {
     const apply2 = vi.fn()
     const c1 = createThemeController(apply1)
     const c2 = createThemeController(apply2)
+
+    // Distinct reactive refs — not the same reference.
+    expect(c1.theme).not.toBe(c2.theme)
+
+    apply1.mockClear()
+    apply2.mockClear()
+
     c1.setTheme({ '--kui-color-text-primary': '#aaa' })
+
+    expect(c1.theme.value).toStrictEqual({ '--kui-color-text-primary': '#aaa' })
+    expect(apply1).toHaveBeenCalledOnce()
     expect(c2.theme.value).toBeUndefined()
+    expect(apply2).not.toHaveBeenCalled()
   })
 })
 
@@ -124,11 +135,14 @@ describe('useTheme — browser fallback (no provider)', () => {
     expect(r1.theme).toBe(r2.theme)
   })
 
-  it('setTheme updates the shared theme ref', () => {
+  it('setTheme updates the shared theme ref and writes tokens to document.documentElement', () => {
     const controller = withSetup(() => useTheme())
     const theme: KongponentsTheme = { '--kui-color-text-primary': '#0044f4' }
     controller.setTheme(theme)
     expect(controller.theme.value).toStrictEqual(theme)
+    // The fallback controller wires applyTheme to document.documentElement.
+    expect(document.documentElement.style.getPropertyValue('--kui-color-text-primary')).toBe('#0044f4')
+    document.documentElement.style.removeProperty('--kui-color-text-primary')
   })
 })
 
@@ -166,6 +180,8 @@ describe('useTheme — with a provided controller', () => {
     const theme: KongponentsTheme = { '--kui-color-text-primary': '#abc' }
     result.setTheme(theme)
     expect(providedSetTheme).toHaveBeenCalledWith(theme)
+    // The fallback path writes to document.documentElement; confirm it was not triggered.
+    expect(document.documentElement.style.getPropertyValue('--kui-color-text-primary')).toBe('')
   })
 })
 
