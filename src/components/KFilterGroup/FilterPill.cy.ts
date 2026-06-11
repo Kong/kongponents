@@ -73,6 +73,21 @@ describe('KFilterGroup - FilterPill', () => {
     })
   })
 
+  it('renders the selection text with the operatorDelimiter if set', () => {
+    render({ filter: { label: 'Foo' } })
+    const ops = ['eq', 'neq', 'contains', 'exists', 'lt', 'lte', 'gt', 'gte']
+    const operatorDelimiter = ' !!! '
+
+    ops.forEach((op) => {
+      cy.get('@filterPill')
+        .its('wrapper')
+        .invoke('setProps', {
+          selection: { operator: op, value: 'a', text: 'Ayy', operatorDelimiter },
+        })
+      cy.getTestId(PILL_ID).should('have.text', `Foo${operatorDelimiter}Ayy`)
+    })
+  })
+
   it('renders clear icon when selection is defined', () => {
     render({
       filter: { label: 'Foo' },

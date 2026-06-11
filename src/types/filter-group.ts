@@ -82,6 +82,11 @@ export interface FilterSelection {
   operator: FilterOperator
 
   /**
+   * Override what delimiter is displayed for the selected operator. Useful for custom filters.
+   */
+  operatorDelimiter?: string
+
+  /**
    * The value input by the user
    */
   value: string | string[]
