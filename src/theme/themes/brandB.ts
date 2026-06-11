@@ -1,7 +1,7 @@
 import { defineKongponentsTheme } from '@/theme/defineKongponentsTheme'
 
 /**
- * "Nocturne" brand portal theme — Brand B.
+ * "Nocturne" brand theme — Brand B.
  *
  * A premium dark aesthetic built on deep violet-black surfaces and electric
  * amethyst primaries. Ultra-rounded pill geometry (8–40 px radii), Unbounded
@@ -16,7 +16,7 @@ import { defineKongponentsTheme } from '@/theme/defineKongponentsTheme'
  *  - White text on primary bg #7c3aed   →  5.2:1  ✓ WCAG AA  (solid buttons)
  *  - Border #6e5a8a on bg               →  3.2:1  ✓ WCAG 1.4.11
  */
-export const brandPortalBTheme = defineKongponentsTheme({
+export const brandBTheme = defineKongponentsTheme({
   // ── Deep violet-black surfaces ────────────────────────────────────────────
   '--kui-color-background': '#0d0916',
   '--kui-color-background-neutral-weakest': '#140e1f',

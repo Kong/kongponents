@@ -113,8 +113,8 @@ import {
   useTheme,
   lightTheme,
   darkTheme,
-  brandPortalTheme,
-  brandPortalBTheme,
+  brandATheme,
+  brandBTheme,
   type KongponentsTheme,
 } from '../../src'
 import useSandboxToaster from '../composables/useSandboxToaster'
@@ -132,26 +132,22 @@ const themeOptions: ThemeOption[] = [
   { label: 'Default', theme: undefined },
   { label: 'Light', theme: lightTheme },
   { label: 'Dark', theme: darkTheme },
-  { label: 'Brand A', theme: brandPortalTheme },
-  { label: 'Brand B', theme: brandPortalBTheme },
+  { label: 'Brand A', theme: brandATheme },
+  { label: 'Brand B', theme: brandBTheme },
 ]
 
 const { setTheme } = useTheme()
 const { toaster } = useSandboxToaster()
 
-// Restore persisted theme synchronously before first render to avoid a flash.
+// Restore the active label from storage for button highlighting — the theme
+// itself is already applied by sandbox/index.ts before the app mounted.
 const savedLabel = typeof localStorage !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null
-const restoredOption = savedLabel ? themeOptions.find(o => o.label === savedLabel) : undefined
 
-const activeTheme = ref<string>(restoredOption?.label ?? 'Default')
+const activeTheme = ref<string>(savedLabel ?? 'Default')
 const modalVisible = ref<boolean>(false)
 
-if (restoredOption) {
-  setTheme(restoredOption.theme)
-}
-
 // Always contrast the app theme so the scoped region is visually distinct.
-const scopedTheme = computed(() => activeTheme.value === 'Brand A' ? brandPortalBTheme : brandPortalTheme)
+const scopedTheme = computed(() => activeTheme.value === 'Brand A' ? brandBTheme : brandATheme)
 
 const selectTheme = (option: ThemeOption): void => {
   activeTheme.value = option.label

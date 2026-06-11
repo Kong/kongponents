@@ -1,7 +1,7 @@
 import { defineKongponentsTheme } from '@/theme/defineKongponentsTheme'
 
 /**
- * "Obsidian Amber" brand portal theme.
+ * "Obsidian Amber" brand theme — Brand A.
  *
  * A premium dark tooling aesthetic: warm near-black surfaces, electric amber
  * primaries with dark text overlay (contrast ratio 9.2:1 on the amber surface),
@@ -15,7 +15,7 @@ import { defineKongponentsTheme } from '@/theme/defineKongponentsTheme'
  *  - Dark text #13110e on amber #f59e0b →  9.2:1  ✓ WCAG AAA (solid buttons)
  *  - Border #7a6e58 on bg             →  4.0:1  ✓ WCAG 1.4.11
  */
-export const brandPortalTheme = defineKongponentsTheme({
+export const brandATheme = defineKongponentsTheme({
   // ── Page surfaces — warm near-black ──────────────────────────────────────
   '--kui-color-background': '#13110e',
   '--kui-color-background-neutral-weakest': '#1e1b16',
@@ -25,6 +25,7 @@ export const brandPortalTheme = defineKongponentsTheme({
   '--kui-color-background-neutral-strong': '#4e4535',
   '--kui-color-background-neutral-stronger': '#625848',
   '--kui-color-background-neutral-strongest': '#7a6e58',
+  '--kui-color-background-inverse': '#fef3c7', // light amber — tooltips: dark text on light surface ✓
   '--kui-color-background-disabled': '#1e1b16',
   '--kui-color-background-overlay': 'rgba(0, 0, 0, 0.78)',
 

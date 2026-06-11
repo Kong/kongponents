@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import '../src/styles/styles.scss'
 import Kongponents from '../src'
+import { applyTheme, lightTheme, darkTheme, brandATheme, brandBTheme } from '../src/theme'
+import type { KongponentsTheme } from '../src/types/theme'
 // Sandbox layout
 import { SandboxLayout } from '@kong-ui-public/sandbox-layout'
 import type { SandboxNavigationItem } from '@kong-ui-public/sandbox-layout'
@@ -60,5 +62,18 @@ app.use(router)
 
 // Globally register components so they do not have to be imported
 app.use(Kongponents)
+
+// Restore the persisted theme before mounting to avoid a flash on any page.
+const SANDBOX_THEME_OPTIONS: Record<string, KongponentsTheme | undefined> = {
+  Default: undefined,
+  Light: lightTheme,
+  Dark: darkTheme,
+  'Brand A': brandATheme,
+  'Brand B': brandBTheme,
+}
+const savedThemeLabel = localStorage.getItem('kong-sandbox-theme')
+if (savedThemeLabel && savedThemeLabel in SANDBOX_THEME_OPTIONS) {
+  applyTheme(SANDBOX_THEME_OPTIONS[savedThemeLabel])
+}
 
 app.mount('#app')
