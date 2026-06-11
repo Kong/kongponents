@@ -14,7 +14,7 @@ A theme is a typed object mapping `--kui-*` tokens to values. Use `defineKongpon
 ```ts
 import { defineKongponentsTheme } from '@kong/kongponents'
 
-export const portalTheme = defineKongponentsTheme({
+export const myTheme = defineKongponentsTheme({
   '--kui-color-text-primary': '#6f28ff',
   '--kui-color-background-primary': '#6f28ff',
   '--kui-border-radius-30': '999px',
@@ -22,9 +22,45 @@ export const portalTheme = defineKongponentsTheme({
 })
 ```
 
-Only the tokens you include are overridden; everything else falls back to the default `@kong/design-tokens` values. Kongponents also ships example `lightTheme`, `darkTheme`, and `brandPortalTheme` objects you can import and adapt.
+Only the tokens you include are overridden; everything else falls back to the default `@kong/design-tokens` values.
+
+If you only need the `KongponentsTheme` type (e.g. to type a variable or prop), import it directly:
+
+```ts
+import type { KongponentsTheme } from '@kong/kongponents'
+
+const activeTheme = ref<KongponentsTheme | undefined>(undefined)
+```
 
 See the [list of available tokens](https://github.com/Kong/design-tokens/blob/main/TOKENS.md) for everything you can theme.
+
+### Bundled themes
+
+Kongponents ships four ready-to-use themes you can import and use directly:
+
+```ts
+import {
+  lightTheme,    // Warm light palette — slightly softer than the design-token defaults
+  darkTheme,     // Inverted neutral surfaces and text for dark mode
+  brandATheme,   // "Obsidian Amber" — warm near-blacks, electric amber primaries, sharp geometry
+  brandBTheme,   // "Nocturne" — deep violet-black surfaces, electric amethyst, pill geometry
+} from '@kong/kongponents'
+```
+
+### Extending a bundled theme
+
+Spread a bundled theme and override what you need:
+
+```ts
+import { defineKongponentsTheme, darkTheme } from '@kong/kongponents'
+
+export const myDarkTheme = defineKongponentsTheme({
+  ...darkTheme,
+  '--kui-color-text-primary': '#a78bfa', // replace the primary blue with violet
+  '--kui-color-background-primary': '#7c3aed',
+  '--kui-shadow-focus': '0 0 0 3px rgba(124, 58, 237, 0.5)',
+})
+```
 
 ## App-level theming
 
@@ -36,16 +72,16 @@ Pass a `theme` when installing Kongponents. It is applied to the document root (
 import { createApp } from 'vue'
 import Kongponents from '@kong/kongponents'
 import '@kong/kongponents/dist/style.css'
-import { portalTheme } from './theme'
+import { myTheme } from './theme'
 
 const app = createApp(App)
-app.use(Kongponents, { theme: portalTheme })
+app.use(Kongponents, { theme: myTheme })
 app.mount('#app')
 ```
 
 ### Switching themes at runtime
 
-Use the `useTheme` composable to change the theme later — for brand switching or light/dark:
+Use the `useTheme` composable to change the theme later — for brand switching or light/dark toggling:
 
 ```vue
 <script setup lang="ts">
@@ -55,11 +91,31 @@ const { theme, setTheme } = useTheme()
 
 const enableDarkMode = () => setTheme(darkTheme)
 const enableLightMode = () => setTheme(lightTheme)
+// Pass undefined to remove all previously-applied overrides and revert to
+// the @kong/design-tokens defaults.
 const resetToDefaults = () => setTheme(undefined)
 </script>
 ```
 
-`setTheme` writes the new tokens to `:root` and removes any tokens the previous theme set that the new one doesn't — so switching themes is clean.
+`setTheme` writes the new tokens to `:root` and removes any tokens the previous theme set that the new one doesn't — so switching themes is always clean with no leftover tokens.
+
+### Imperatively (outside a component)
+
+`applyTheme` is the lower-level primitive used by `useTheme` internally. Call it directly when you need to apply a theme outside a Vue component — for example, before mounting the app to avoid a flash of unthemed content:
+
+```ts
+import { createApp } from 'vue'
+import { applyTheme, darkTheme } from '@kong/kongponents'
+import App from './App.vue'
+
+// Apply before mount so the first render is already themed.
+applyTheme(darkTheme)
+
+const app = createApp(App)
+app.mount('#app')
+```
+
+`applyTheme` accepts an optional second argument to write to a specific element instead of `document.documentElement`.
 
 ### Declaratively at the app root
 
@@ -79,11 +135,37 @@ Without `global`, `<KThemeProvider>` scopes its theme to its own subtree by sett
 
 ```vue
 <template>
-  <KThemeProvider :theme="brandPortalTheme">
-    <!-- Only the components in here use brandPortalTheme -->
-    <KButton appearance="primary">Branded</KButton>
+  <!-- The rest of the page keeps the app theme -->
+  <KButton appearance="primary">Default brand</KButton>
+
+  <KThemeProvider :theme="brandATheme">
+    <!-- Only the components in here use brandATheme -->
+    <KButton appearance="primary">Brand A</KButton>
+    <KBadge appearance="success">Scoped</KBadge>
+    <KInput placeholder="Scoped input" />
   </KThemeProvider>
 </template>
+
+<script setup lang="ts">
+import { brandATheme } from '@kong/kongponents'
+</script>
+```
+
+### The `name` prop
+
+Pass `name` to set a `data-kui-theme` attribute on the wrapper, making it easy to target from static CSS:
+
+```vue
+<KThemeProvider :theme="myTheme" name="portal">
+  <!-- wrapper renders as: <div class="k-theme-provider" data-kui-theme="portal"> -->
+</KThemeProvider>
+```
+
+```css
+/* Target only the themed subtree from your own stylesheets */
+[data-kui-theme="portal"] .my-custom-component {
+  border-color: var(--kui-color-border-primary);
+}
 ```
 
 ::: warning Teleported content and subtree themes
@@ -98,7 +180,8 @@ Because a theme is just `--kui-*` overrides, you can skip the JavaScript API ent
 <style>
 /* App-wide */
 :root {
-  --kui-color-text-primary: green;
+  --kui-color-text-primary: #6f28ff;
+  --kui-color-background-primary: #6f28ff;
 }
 
 /* Scoped to a container and its children */
@@ -108,14 +191,23 @@ Because a theme is just `--kui-*` overrides, you can skip the JavaScript API ent
 </style>
 ```
 
-You can generate this CSS from a theme object with `themeToCssVars`:
+### Generating CSS from a theme object
+
+Use `themeToCssVars` to convert a theme object into a CSS rule string — useful for writing static theme files or injecting a `<style>` block server-side:
 
 ```ts
-import { themeToCssVars, brandPortalTheme } from '@kong/kongponents'
+import { themeToCssVars, brandATheme } from '@kong/kongponents'
 
-themeToCssVars(brandPortalTheme, '[data-kui-theme="portal"]')
-// => '[data-kui-theme="portal"] {\n  --kui-color-background-primary: #6f28ff;\n  ...\n}'
+// Default selector is ':root'
+console.log(themeToCssVars(brandATheme))
+// => ':root {\n  --kui-color-background: #13110e;\n  --kui-color-text: #ede8dc;\n  ...\n}'
+
+// Custom selector for scoped targeting
+console.log(themeToCssVars(brandATheme, '[data-kui-theme="brand-a"]'))
+// => '[data-kui-theme="brand-a"] {\n  --kui-color-background: #13110e;\n  ...\n}'
 ```
+
+You can write the output to a `.css` file, inject it into a `<style>` tag, or inline it into a `<head>` block during SSR.
 
 ## Nuxt
 
