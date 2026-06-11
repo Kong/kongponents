@@ -61,7 +61,7 @@ const hasDescription = computed((): boolean => !!(props.description || slots.des
 
       &::before {
         bottom: 2px;
-        color: $kui-color-text-primary;
+        color: var(--kui-color-text-primary, $kui-color-text-primary);
         content: '#';
         font-size: $kui-font-size-30;
         left: -12px;
@@ -71,7 +71,7 @@ const hasDescription = computed((): boolean => !!(props.description || slots.des
   }
 
   .description {
-    color: $kui-color-text;
+    color: var(--kui-color-text, $kui-color-text);
     font-size: $kui-font-size-40;
     line-height: $kui-line-height-40;
     margin: $kui-space-0;
