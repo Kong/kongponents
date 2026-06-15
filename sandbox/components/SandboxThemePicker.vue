@@ -7,24 +7,36 @@
       width="200"
     >
       <button class="fab-trigger">
-        <span class="fab-swatch" :style="{ background: swatchColor }" />
+        <span
+          class="fab-swatch"
+          :style="{ background: swatchColor }"
+        />
         <span class="fab-label">{{ activeThemeLabel }}</span>
         <span class="fab-chevron">▲</span>
       </button>
       <template #content>
-        <ul class="theme-list" role="listbox">
+        <ul
+          class="theme-list"
+          role="listbox"
+        >
           <li
             v-for="label in themeLabels"
             :key="label"
+            :aria-selected="label === activeThemeLabel"
             class="theme-option"
             :class="{ 'theme-option--active': label === activeThemeLabel }"
             role="option"
-            :aria-selected="label === activeThemeLabel"
             @click="selectTheme(label)"
           >
-            <span class="theme-option-swatch" :style="{ background: swatchFor(label) }" />
+            <span
+              class="theme-option-swatch"
+              :style="{ background: swatchFor(label) }"
+            />
             <span class="theme-option-label">{{ label }}</span>
-            <span v-if="label === activeThemeLabel" class="theme-option-check">✓</span>
+            <span
+              v-if="label === activeThemeLabel"
+              class="theme-option-check"
+            >✓</span>
           </li>
         </ul>
       </template>
