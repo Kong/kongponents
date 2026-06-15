@@ -1,56 +1,45 @@
 import type { KongponentsTheme } from '@/types/theme'
-import { themeToStyleRecord } from '@/theme/themeToCssVars'
+import { themeToCssVars } from '@/theme/themeToCssVars'
+
+const STYLE_ELEMENT_ID = 'kongponents-theme'
 
 /**
- * Tracks the token names a previous `applyTheme` call set on a given element,
- * so a subsequent call can remove tokens that the new theme no longer defines
- * (e.g. when switching from a brand theme back to a lighter subset).
- */
-const appliedTokensByTarget = new WeakMap<HTMLElement, Set<string>>()
-
-/**
- * Apply a theme by writing its `--kui-*` custom properties to a target element.
+ * Apply a theme by injecting a `<style>` element containing `:root {}` custom
+ * property overrides into `<head>`.
  *
- * Writing to the document root (the default) is the "define once, apply
- * everywhere" mechanism: because custom properties inherit, every Kongponent —
- * including teleported content such as modals, toasts, and popovers rendered to
- * `<body>` — as well as any host-app or downstream component that consumes
- * `--kui-*` tokens, resolves to the themed values.
+ * Injecting a stylesheet (rather than writing inline styles to `<html>`) means
+ * the theme sits at the same cascade tier as `@kong/design-tokens` — specificity
+ * `0,0,1,0` for `:root`, with source order as the tiebreaker. The injected
+ * `<style>` is appended last, so it wins over the design-tokens base CSS while
+ * still allowing consumers to override individual tokens at the same tier if
+ * they need to.
  *
- * Tokens set by a previous call on the same target that are absent from the new
- * theme are removed. Passing `undefined` clears all previously applied tokens.
+ * Because custom properties inherit, every Kongponent — including teleported
+ * content such as modals, toasts, and popovers rendered to `<body>` — as well as
+ * any host-app or downstream component that consumes `--kui-*` tokens, resolves
+ * to the themed values.
  *
- * This is a no-op in non-browser (SSR) environments where no target is available.
+ * Calling again replaces the previous `<style>` element entirely, so stale tokens
+ * from a previous theme are automatically removed. Passing `undefined` removes the
+ * element, restoring the design-token defaults.
+ *
+ * This is a no-op in non-browser (SSR) environments.
  *
  * @param theme - The theme to apply, or `undefined` to clear previously applied tokens.
- * @param target - The element to write the custom properties to.
- * @default target document.documentElement (the `:root` element)
  */
-export const applyTheme = (
-  theme: KongponentsTheme | undefined,
-  target?: HTMLElement,
-): void => {
-  const element = target ?? (typeof document !== 'undefined' ? document.documentElement : undefined)
-
-  if (!element) {
+export const applyTheme = (theme: KongponentsTheme | undefined): void => {
+  if (typeof document === 'undefined') {
     return
   }
 
-  const style = theme ? themeToStyleRecord(theme) : {}
-  const nextTokens = new Set(Object.keys(style))
+  document.getElementById(STYLE_ELEMENT_ID)?.remove()
 
-  const previousTokens = appliedTokensByTarget.get(element)
-  if (previousTokens) {
-    for (const token of previousTokens) {
-      if (!nextTokens.has(token)) {
-        element.style.removeProperty(token)
-      }
-    }
+  if (!theme) {
+    return
   }
 
-  for (const [token, value] of Object.entries(style)) {
-    element.style.setProperty(token, value)
-  }
-
-  appliedTokensByTarget.set(element, nextTokens)
+  const style = document.createElement('style')
+  style.id = STYLE_ELEMENT_ID
+  style.textContent = themeToCssVars(theme)
+  document.head.appendChild(style)
 }

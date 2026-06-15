@@ -1,109 +1,95 @@
 import { describe, it, expect, afterEach } from 'vitest'
 import { applyTheme } from './applyTheme'
 
-/**
- * Each test uses a fresh <div> to sidestep the module-level WeakMap state;
- * tests that use document.documentElement clean up in afterEach.
- */
+const STYLE_ID = 'kongponents-theme'
 
-const makeEl = (): HTMLDivElement => document.createElement('div')
+const getStyleEl = (): HTMLStyleElement | null =>
+  document.getElementById(STYLE_ID) as HTMLStyleElement | null
 
 afterEach(() => {
-  // Remove any tokens that tests may have written to the real document root.
-  const root = document.documentElement
-  for (const token of Array.from(root.style)) {
-    if (token.startsWith('--kui-')) {
-      root.style.removeProperty(token)
-    }
-  }
+  getStyleEl()?.remove()
 })
 
 describe('applyTheme — basic application', () => {
-  it('sets CSS custom properties on the provided element', () => {
-    const el = makeEl()
-    applyTheme({ '--kui-color-text-primary': '#0044f4', '--kui-border-radius-30': '999px' }, el)
-    expect(el.style.getPropertyValue('--kui-color-text-primary')).toBe('#0044f4')
-    expect(el.style.getPropertyValue('--kui-border-radius-30')).toBe('999px')
+  it('injects a <style> element into <head>', () => {
+    applyTheme({ '--kui-color-text-primary': '#0044f4' })
+    expect(getStyleEl()).not.toBeNull()
+    expect(getStyleEl()?.tagName).toBe('STYLE')
   })
 
-  it('defaults to document.documentElement when no target is provided', () => {
-    applyTheme({ '--kui-color-text-primary': '#0044f4' })
-    expect(document.documentElement.style.getPropertyValue('--kui-color-text-primary')).toBe('#0044f4')
+  it('generates a :root {} block containing the theme tokens', () => {
+    applyTheme({ '--kui-color-text-primary': '#0044f4', '--kui-border-radius-30': '999px' })
+    const css = getStyleEl()!.textContent!
+    expect(css).toContain(':root')
+    expect(css).toContain('--kui-color-text-primary: #0044f4')
+    expect(css).toContain('--kui-border-radius-30: 999px')
   })
 
   it('applies multiple tokens in a single call', () => {
-    const el = makeEl()
     const theme = {
       '--kui-color-text-primary': '#ff0000',
       '--kui-color-background': '#ffffff',
       '--kui-border-radius-30': '8px',
     }
-    applyTheme(theme, el)
+    applyTheme(theme)
+    const css = getStyleEl()!.textContent!
     for (const [token, value] of Object.entries(theme)) {
-      expect(el.style.getPropertyValue(token)).toBe(value)
+      expect(css).toContain(`${token}: ${value}`)
     }
   })
 })
 
-describe('applyTheme — theme switching (stale-token removal)', () => {
-  it('removes tokens from the previous theme that are absent from the new theme', () => {
-    const el = makeEl()
-    applyTheme({ '--kui-color-text-primary': '#0044f4', '--kui-border-radius-30': '999px' }, el)
-    // Switch to a theme that only has one of the previous tokens.
-    applyTheme({ '--kui-color-text-primary': '#6f28ff' }, el)
-    expect(el.style.getPropertyValue('--kui-color-text-primary')).toBe('#6f28ff')
-    // The token absent from the new theme must be removed.
-    expect(el.style.getPropertyValue('--kui-border-radius-30')).toBe('')
+describe('applyTheme — theme switching', () => {
+  it('replaces the previous <style> element on re-apply', () => {
+    applyTheme({ '--kui-color-text-primary': '#0044f4', '--kui-border-radius-30': '999px' })
+    applyTheme({ '--kui-color-text-primary': '#6f28ff' })
+    const styles = document.querySelectorAll(`#${STYLE_ID}`)
+    expect(styles).toHaveLength(1)
+    const css = (styles[0] as HTMLStyleElement).textContent!
+    expect(css).toContain('--kui-color-text-primary: #6f28ff')
+    // Stale token from first theme must be gone.
+    expect(css).not.toContain('--kui-border-radius-30')
   })
 
   it('updates values for tokens present in both old and new theme', () => {
-    const el = makeEl()
-    applyTheme({ '--kui-color-text-primary': '#0044f4' }, el)
-    applyTheme({ '--kui-color-text-primary': '#6f28ff' }, el)
-    expect(el.style.getPropertyValue('--kui-color-text-primary')).toBe('#6f28ff')
+    applyTheme({ '--kui-color-text-primary': '#0044f4' })
+    applyTheme({ '--kui-color-text-primary': '#6f28ff' })
+    expect(getStyleEl()!.textContent).toContain('--kui-color-text-primary: #6f28ff')
   })
 
-  it('removes all previously applied tokens when called with undefined', () => {
-    const el = makeEl()
-    applyTheme({ '--kui-color-text-primary': '#0044f4', '--kui-color-background': '#fff' }, el)
-    applyTheme(undefined, el)
-    expect(el.style.getPropertyValue('--kui-color-text-primary')).toBe('')
-    expect(el.style.getPropertyValue('--kui-color-background')).toBe('')
+  it('removes the <style> element when called with undefined', () => {
+    applyTheme({ '--kui-color-text-primary': '#0044f4' })
+    applyTheme(undefined)
+    expect(getStyleEl()).toBeNull()
   })
 
-  it('is idempotent — re-applying the same theme produces the same result', () => {
-    const el = makeEl()
+  it('is idempotent — re-applying the same theme produces one <style> element', () => {
     const theme = { '--kui-color-text-primary': '#0044f4' }
-    applyTheme(theme, el)
-    applyTheme(theme, el)
-    expect(el.style.getPropertyValue('--kui-color-text-primary')).toBe('#0044f4')
+    applyTheme(theme)
+    applyTheme(theme)
+    expect(document.querySelectorAll(`#${STYLE_ID}`)).toHaveLength(1)
+    expect(getStyleEl()!.textContent).toContain('--kui-color-text-primary: #0044f4')
   })
 
-  it('A → B → A round-trip: tokens from B are removed after switching back to A', () => {
-    const el = makeEl()
-    applyTheme({ '--kui-color-text-primary': '#aaa', '--kui-border-radius-30': '4px' }, el)
-    applyTheme({ '--kui-color-background': '#fff' }, el)
-    applyTheme({ '--kui-color-text-primary': '#aaa', '--kui-border-radius-30': '4px' }, el)
-
-    // B's token must be gone — the WeakMap was replaced, not accumulated.
-    expect(el.style.getPropertyValue('--kui-color-background')).toBe('')
-    // A's tokens are back.
-    expect(el.style.getPropertyValue('--kui-color-text-primary')).toBe('#aaa')
-    expect(el.style.getPropertyValue('--kui-border-radius-30')).toBe('4px')
+  it('A → B → A round-trip: only A tokens present after switching back', () => {
+    applyTheme({ '--kui-color-text-primary': '#aaa', '--kui-border-radius-30': '4px' })
+    applyTheme({ '--kui-color-background': '#fff' })
+    applyTheme({ '--kui-color-text-primary': '#aaa', '--kui-border-radius-30': '4px' })
+    const css = getStyleEl()!.textContent!
+    expect(css).not.toContain('--kui-color-background')
+    expect(css).toContain('--kui-color-text-primary: #aaa')
+    expect(css).toContain('--kui-border-radius-30: 4px')
   })
 })
 
-describe('applyTheme — first call on a fresh element', () => {
-  it('does not error when the element has no prior theme (WeakMap miss)', () => {
-    const el = makeEl()
-    expect(() => applyTheme({ '--kui-color-text-primary': '#0044f4' }, el)).not.toThrow()
-    expect(el.style.getPropertyValue('--kui-color-text-primary')).toBe('#0044f4')
+describe('applyTheme — first call / no prior theme', () => {
+  it('does not throw on first call', () => {
+    expect(() => applyTheme({ '--kui-color-text-primary': '#0044f4' })).not.toThrow()
   })
 
-  it('calling with undefined on a never-touched element is a no-op', () => {
-    const el = makeEl()
-    expect(() => applyTheme(undefined, el)).not.toThrow()
-    expect(el.style.length).toBe(0)
+  it('calling with undefined when no theme is applied is a no-op', () => {
+    expect(() => applyTheme(undefined)).not.toThrow()
+    expect(getStyleEl()).toBeNull()
   })
 })
 

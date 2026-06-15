@@ -1,4 +1,5 @@
 export * from './contract'
+export * from './component-tokens'
 export * from './defineKongponentsTheme'
 export * from './themeToCssVars'
 export * from './applyTheme'

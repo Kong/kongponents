@@ -21,7 +21,7 @@
             v-for="option in themeOptions"
             :key="option.label"
             :appearance="activeTheme === option.label ? 'primary' : 'secondary'"
-            @click="selectTheme(option)"
+            @click="selectTheme(option.label)"
           >
             {{ option.label }}
           </KButton>
@@ -101,6 +101,58 @@
           </div>
         </KThemeProvider>
       </SandboxSectionComponent>
+
+      <SandboxTitleComponent
+        is-subtitle
+        title="Component-level branding"
+      />
+      <p>
+        Each region below applies a <code>KThemeProvider</code> that sets a single
+        <strong>component token</strong> — for example <code>--kui-button-border-radius-*: 999px</code> —
+        leaving all other components to inherit their geometry from whichever app-level theme is active.
+        Switch the app theme above to see how the active brand's colors and typography apply everywhere
+        while the targeted component stays pill-shaped regardless.
+      </p>
+      <SandboxSectionComponent title="Component-level token demo">
+        <div class="brand-compare-row">
+          <div class="brand-panel">
+            <p class="brand-panel-label">
+              Pill buttons — inputs follow the active theme
+            </p>
+            <KThemeProvider :theme="pillButtonsDemo">
+              <div class="scoped-surface">
+                <div class="demo-row">
+                  <KButton appearance="primary">
+                    Primary
+                  </KButton>
+                  <KButton appearance="secondary">
+                    Secondary
+                  </KButton>
+                  <KInput placeholder="Input (semantic)" />
+                </div>
+              </div>
+            </KThemeProvider>
+          </div>
+          <div class="brand-panel">
+            <p class="brand-panel-label">
+              Pill inputs — buttons follow the active theme
+            </p>
+            <KThemeProvider :theme="pillInputsDemo">
+              <div class="scoped-surface">
+                <div class="demo-row">
+                  <KButton appearance="primary">
+                    Primary
+                  </KButton>
+                  <KButton appearance="secondary">
+                    Secondary
+                  </KButton>
+                  <KInput placeholder="Pill input" />
+                </div>
+              </div>
+            </KThemeProvider>
+          </div>
+        </div>
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
@@ -109,17 +161,10 @@
 import { computed, inject, ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import {
-  useTheme,
-  lightTheme,
-  darkTheme,
-  brandATheme,
-  brandBTheme,
-  type KongponentsTheme,
-} from '../../src'
+import type { KongponentsTheme } from '../../src'
 import useSandboxToaster from '../composables/useSandboxToaster'
-
-const STORAGE_KEY = 'kong-sandbox-theme'
+import { useSandboxTheme } from '../composables/useSandboxTheme'
+import { SANDBOX_THEME_OPTIONS } from '../utils/sandboxThemes'
 
 interface ThemeOption {
   /** Label shown on the switcher button. */
@@ -128,34 +173,44 @@ interface ThemeOption {
   theme: KongponentsTheme | undefined
 }
 
-const themeOptions: ThemeOption[] = [
-  { label: 'Default', theme: undefined },
-  { label: 'Light', theme: lightTheme },
-  { label: 'Dark', theme: darkTheme },
-  { label: 'Brand A', theme: brandATheme },
-  { label: 'Brand B', theme: brandBTheme },
-]
+const themeOptions: ThemeOption[] = Object.entries(SANDBOX_THEME_OPTIONS).map(([label, theme]) => ({ label, theme }))
 
-const { setTheme } = useTheme()
+const { activeThemeLabel: activeTheme, selectTheme } = useSandboxTheme()
 const { toaster } = useSandboxToaster()
 
-// Restore the active label from storage for button highlighting — the theme
-// itself is already applied by sandbox/index.ts before the app mounted.
-const savedLabel = typeof localStorage !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null
-
-const activeTheme = ref<string>(savedLabel ?? 'Default')
 const modalVisible = ref<boolean>(false)
 
-// Always contrast the app theme so the scoped region is visually distinct.
-const scopedTheme = computed(() => activeTheme.value === 'Brand A' ? brandBTheme : brandATheme)
-
-const selectTheme = (option: ThemeOption): void => {
-  activeTheme.value = option.label
-  setTheme(option.theme)
-  if (typeof localStorage !== 'undefined') {
-    localStorage.setItem(STORAGE_KEY, option.label)
-  }
+/**
+ * Component-token demo themes for the always-visible comparison panel.
+ * These are independent of the brand themes — they set per-component geometry
+ * tokens only, leaving everything else (colors, fonts, spacing) to inherit from
+ * whichever app-level theme is active on :root.
+ *
+ * Because the brand themes use semantic tokens (--kui-border-radius-*, etc.) and
+ * these demo themes use component tokens (--kui-button-border-radius-*,
+ * --kui-input-border-radius), both coexist without interference: component tokens
+ * win over semantic tokens via the var() fallback chain.
+ */
+const pillButtonsDemo: KongponentsTheme = {
+  '--kui-button-border-radius-small': '999px',
+  '--kui-button-border-radius-medium': '999px',
+  '--kui-button-border-radius-large': '999px',
 }
+
+const pillInputsDemo: KongponentsTheme = {
+  '--kui-input-border-radius': '999px',
+}
+
+// Pick a non-active, non-Default theme to display in the scoped region so it always
+// contrasts the active app theme. Derived entirely from SANDBOX_THEME_OPTIONS so adding
+// or removing themes requires no changes here.
+const scopedTheme = computed<KongponentsTheme>(() => {
+  const candidates = Object.entries(SANDBOX_THEME_OPTIONS)
+    .filter(([label, theme]) => theme !== undefined && label !== activeTheme.value)
+  // Prefer a theme that isn't adjacent in the list (skip index 0 if active is also near top).
+  const entry = candidates.find(([label]) => label !== 'Light') ?? candidates[0]
+  return entry?.[1] ?? {}
+})
 
 const notify = (): void => {
   toaster.open({ message: 'This toast is themed too 🎨', appearance: 'success' })
@@ -191,6 +246,24 @@ const notify = (): void => {
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     padding: var(--kui-space-50, $kui-space-50);
     max-width: 480px;
+  }
+
+  .brand-compare-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--kui-space-60, $kui-space-60);
+  }
+
+  .brand-panel {
+    flex: 1;
+    min-width: 260px;
+  }
+
+  .brand-panel-label {
+    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    margin-bottom: var(--kui-space-40, $kui-space-40);
+    margin-top: 0;
   }
 }
 </style>

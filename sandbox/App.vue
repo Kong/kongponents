@@ -1,6 +1,11 @@
 <template>
   <router-view />
+  <SandboxThemePicker />
 </template>
+
+<script setup lang="ts">
+import SandboxThemePicker from './components/SandboxThemePicker.vue'
+</script>
 
 <style lang="scss">
 body,

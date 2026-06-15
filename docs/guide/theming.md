@@ -7,6 +7,59 @@ There are two scopes at which a theme can be applied:
 - **App-level** — define your theme **once** and it applies everywhere: all Kongponents, any teleported content (modals, toasts, popovers), and any of your own or downstream components that consume `--kui-*` tokens. This is the recommended path for product apps (e.g. a developer portal branded per customer).
 - **Subtree** — scope a theme to one region of the page with `<KThemeProvider>`, leaving the rest untouched.
 
+## Token tiers
+
+There are two classes of `--kui-*` tokens. Both are customized the same way — set a token to change it, leave it unset to keep the default.
+
+### Semantic / scale tokens
+
+Tokens named after a **scale** (`--kui-color-*`, `--kui-space-*`, `--kui-border-radius-*`, `--kui-shadow-*`, …) or a **cross-cutting domain** (`--kui-method-*`, `--kui-status-*`, `--kui-navigation-*`, `--kui-icon-*`) are **valued tokens** from `@kong/design-tokens`. They have default values; override them to retheme everywhere that token is consumed.
+
+```ts
+// Override --kui-border-radius-30 → every component that falls back to it rounds uniformly.
+defineKongponentsTheme({ '--kui-border-radius-30': '999px' })
+```
+
+::: tip Domain tokens are semantic, not component tokens
+`--kui-method-*`, `--kui-status-*`, `--kui-navigation-*`, and `--kui-icon-*` are **domain/semantic tokens** — they represent cross-cutting concepts (HTTP methods, status codes, etc.) consumed by multiple components. They are **not** component tokens. They have default values, they are unchanged, and they are overridden exactly like any other semantic token.
+:::
+
+### Component tokens
+
+Tokens named after an **actual Kongponents component** (`--kui-button-*`, `--kui-card-*`, `--kui-input-*`, `--kui-badge-*`, …) are **value-less** — they are never declared in CSS anywhere. They exist only as override slots. When unset (the default), they fall through to the semantic default via the component's `var()` fallback chain, so default rendering is byte-identical to before component tokens existed.
+
+Set a component token **only when you want that component to diverge from its semantic default**:
+
+```ts
+defineKongponentsTheme({
+  // Round buttons while inputs stay square — impossible with semantic tokens alone.
+  '--kui-button-border-radius-small': '999px',
+  '--kui-button-border-radius-medium': '999px',
+  '--kui-button-border-radius-large': '999px',
+  // --kui-input-border-radius is left unset → falls through to --kui-border-radius-30
+})
+```
+
+::: warning Never set a component token to re-state the current default
+Setting `--kui-button-border-radius-medium: 6px` when 6px is already what `--kui-border-radius-30` resolves to looks harmless but **shadows** any semantic-level `--kui-border-radius-30` override you or a downstream consumer applies — they'd change the global radius and buttons would silently not follow. Only set a component token when the theme intends genuine divergence.
+:::
+
+**Naming grammar:** `--kui-<component>-<category>-<property>[-<variant>][-<state|scale>]`
+
+- Category before property for colors: `--kui-button-color-background-primary` (not `background-color`)
+- Variant before state: `--kui-button-color-background-primary-hover` (not `hover-primary`)
+- Sub-elements slot right after the component: `--kui-card-title-color-text`
+- Every variant gets its own token even when two currently share the same default value — `--kui-button-border-radius-large` and `--kui-button-border-radius-medium` are separate tokens even though both default to the same semantic value today, because a theme may want to diverge them independently.
+
+**Hover and focus-visible share the `-hover` token.** KButton color tokens expose a single `-hover` state that drives both the `:hover` and `:focus-visible` pseudo-states. Setting `--kui-button-color-background-primary-hover` reskins both states with one token. When the token is unset, `:hover` and `:focus-visible` fall through to *different* semantic values (strong vs stronger) so the default keyboard-focus appearance remains visually distinct — only when a theme explicitly fills the token does the distinction collapse. The focus ring itself is always separate: `--kui-button-shadow-focus` controls the `box-shadow` outline and is never collapsed.
+
+**The fallback chain for every tokenized declaration:**
+
+```scss
+border-radius: var(--kui-button-border-radius-medium, var(--kui-border-radius-30, $kui-border-radius-30));
+//                 └ component token (value-less)      └ semantic override      └ SCSS literal
+```
+
 ## Authoring a theme
 
 A theme is a typed object mapping `--kui-*` tokens to values. Use `defineKongponentsTheme` for autocomplete and compile-time validation of token names:
@@ -15,10 +68,13 @@ A theme is a typed object mapping `--kui-*` tokens to values. Use `defineKongpon
 import { defineKongponentsTheme } from '@kong/kongponents'
 
 export const myTheme = defineKongponentsTheme({
+  // Semantic override — reskins all components that consume this token.
   '--kui-color-text-primary': '#6f28ff',
   '--kui-color-background-primary': '#6f28ff',
-  '--kui-border-radius-30': '999px',
-  '--kui-space-40': '10px',
+  // Component token — round buttons only; inputs stay square.
+  '--kui-button-border-radius-medium': '999px',
+  '--kui-button-border-radius-large': '999px',
+  '--kui-button-border-radius-small': '999px',
 })
 ```
 
@@ -32,7 +88,22 @@ import type { KongponentsTheme } from '@kong/kongponents'
 const activeTheme = ref<KongponentsTheme | undefined>(undefined)
 ```
 
-See the [list of available tokens](https://github.com/Kong/design-tokens/blob/main/TOKENS.md) for everything you can theme.
+See the [list of available tokens](https://github.com/Kong/design-tokens/blob/main/TOKENS.md) for the full semantic token set. Component tokens are in the `KongponentsTheme` type and available via autocomplete in `defineKongponentsTheme`.
+
+### Focus ring and atomic shadow overrides
+
+Input components (`KInput`, `KTextArea`, `KSelect`, …) render borders and focus rings as `box-shadow` values rather than `border` properties. Each shadow is wrapped atomically in its own component token — override the whole shadow string, not a fragment:
+
+```ts
+defineKongponentsTheme({
+  // Override the entire inset border shadow in the focused state.
+  '--kui-input-shadow-border-focus': '0 0 0 2px #6f28ff inset',
+  // Override the outer focus ring glow (shared by focus and error-focus states).
+  '--kui-input-shadow-focus': '0 0 0 4px rgba(111, 40, 255, 0.25)',
+})
+```
+
+Because each token wraps one complete shadow value, "change only the focus ring color" means overriding the shadow string for each state you want to change. This is intentional — fragmenting an atomic value (changing just the color of a multi-part shadow) is error-prone and breaks if the rest of the shadow string changes in a future release.
 
 ### Bundled themes
 
