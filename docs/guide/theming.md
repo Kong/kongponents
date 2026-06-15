@@ -186,7 +186,7 @@ const app = createApp(App)
 app.mount('#app')
 ```
 
-`applyTheme` accepts an optional second argument to write to a specific element instead of `document.documentElement`.
+`applyTheme` injects a `<style id="kongponents-theme">` element into `<head>` containing a `:root {}` block. Calling it again replaces the previous element — stale tokens from the previous theme are automatically removed. Pass `undefined` to clear all applied tokens.
 
 ### Declaratively at the app root
 
@@ -198,6 +198,99 @@ app.mount('#app')
     <RouterView />
   </KThemeProvider>
 </template>
+```
+
+## Dynamic theme switching
+
+Two approaches exist for dynamic theme switching. Choose based on whether theme values are known at build time:
+
+### Option A — Data-attribute theming (Phase 2, recommended for fixed theme sets)
+
+When themes are pre-built and ship as CSS files, load all available theme files once and toggle a single `data-kui-theme` attribute on the root element. The browser resolves the active `[data-kui-theme]` rule automatically — no JavaScript token iteration at switch time.
+
+```html
+<!-- Load all themes once; only the one matching data-kui-theme is active -->
+<link rel="stylesheet" href="@kong/design-tokens/dist/themes/konnect-light.css">
+<link rel="stylesheet" href="@kong/design-tokens/dist/themes/konnect-dark.css">
+```
+
+```ts
+// Switch the active theme
+document.documentElement.setAttribute('data-kui-theme', 'konnect-light')
+document.documentElement.setAttribute('data-kui-theme', 'konnect-dark')
+
+// Remove to fall back to @kong/design-tokens defaults
+document.documentElement.removeAttribute('data-kui-theme')
+```
+
+The pre-built CSS files use `[data-kui-theme="name"]` selectors (not `:root`), so multiple theme files can coexist in the document without conflict. This approach becomes available in Phase 2 when `@kong/design-tokens` ships theme CSS files.
+
+### Option B — JS objects + `applyTheme` (for runtime-composed themes)
+
+Use `applyTheme` or `useTheme` when theme values are assembled at runtime — for example, per-tenant colors fetched from an API that are not known at build time.
+
+```ts
+import { applyTheme } from '@kong/kongponents'
+
+const tenantTheme = await fetchTenantTheme(tenantId)
+applyTheme(tenantTheme)
+```
+
+`applyTheme` injects a `<style>` element into `<head>` containing a `:root {}` rule.
+
+::: warning Do not use Option A and Option B as the active theme simultaneously
+`applyTheme` writes to `:root {}` (specificity `0,0,1,0`). A loaded `[data-kui-theme]` CSS file has specificity `0,1,0,0`. **The CSS file wins** — if the same token appears in both an active `[data-kui-theme]` rule and `applyTheme`'s `:root {}` block, the CSS file value is used and `applyTheme`'s value is silently ignored.
+
+Using `:root {}` as a *fallback* (when no attribute is set) while `[data-kui-theme]` CSS handles the active theme is valid — see *Default theme and `:root` fallback* above.
+
+For per-tenant customization on top of a named theme, wrap the app in `<KThemeProvider :theme="tenantOverrides">` instead of calling `applyTheme`. Its inline custom properties win over both approaches.
+:::
+
+### Default theme and `:root` fallback
+
+The simplest pattern is to always keep `data-kui-theme` set on `<html>` from the first render — your "default" is just the initial attribute value, never an unset state:
+
+```html
+<!-- Set server-side in the HTML template so it's present before JS runs (prevents FOUC) -->
+<html data-kui-theme="konnect-light">
+```
+
+If the attribute is ever absent, `[data-kui-theme]` rules stop matching and any `:root {}` declarations — including `@kong/design-tokens` defaults — apply as the fallback. You can use this intentionally: load a default theme as a `:root {}` CSS block and named alternates with `[data-kui-theme]` selectors. `[data-kui-theme]` specificity (`0,1,0,0`) beats `:root` (`0,0,1,0`) when the attribute is present; removing the attribute restores the `:root` default.
+
+```css
+/* Default theme — active when no data-kui-theme attribute is set */
+:root {
+  --kui-color-text-primary: #1155cb;
+}
+
+/* Named alternate — only active when the attribute matches */
+[data-kui-theme="konnect-dark"] {
+  --kui-color-text-primary: #ccff00;
+}
+```
+
+In practice, keeping the attribute always set (including server-side) is simpler than managing an unset fallback state.
+
+### `prefers-color-scheme`
+
+Handle OS-level color scheme preference in the host application using `matchMedia`. The host decides which themes map to light vs dark — Kongponents does not prescribe this mapping:
+
+```ts
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)')
+
+// Apply on initial load
+document.documentElement.setAttribute(
+  'data-kui-theme',
+  prefersDark.matches ? 'konnect-dark' : 'konnect-light',
+)
+
+// React to OS-level changes
+prefersDark.addEventListener('change', (e) => {
+  document.documentElement.setAttribute(
+    'data-kui-theme',
+    e.matches ? 'konnect-dark' : 'konnect-light',
+  )
+})
 ```
 
 ## Subtree theming
@@ -224,7 +317,7 @@ import { brandATheme } from '@kong/kongponents'
 
 ### The `name` prop
 
-Pass `name` to set a `data-kui-theme` attribute on the wrapper, making it easy to target from static CSS:
+Pass `name` to set a `data-kui-theme` attribute on the wrapper element:
 
 ```vue
 <KThemeProvider :theme="myTheme" name="portal">
@@ -233,11 +326,22 @@ Pass `name` to set a `data-kui-theme` attribute on the wrapper, making it easy t
 ```
 
 ```css
-/* Target only the themed subtree from your own stylesheets */
+/* Target the themed subtree from your own stylesheets */
 [data-kui-theme="portal"] .my-custom-component {
   border-color: var(--kui-color-border-primary);
 }
 ```
+
+In Phase 2, when you have loaded the corresponding pre-built CSS file for a named theme, the `name` prop alone (without a `:theme` prop) activates the full named theme for the subtree — the CSS file's `[data-kui-theme="name"]` rule applies to the wrapper and inherits down:
+
+```vue
+<!-- Phase 2: CSS file loaded, name prop alone activates the theme for this subtree -->
+<KThemeProvider name="konnect-light">
+  <KButton appearance="primary">Konnect Light theme</KButton>
+</KThemeProvider>
+```
+
+Pass both `name` and `:theme` to apply a named CSS theme as the base and then layer runtime overrides on top via inline custom properties.
 
 ::: warning Teleported content and subtree themes
 Components that teleport their content to `<body>` — `KModal`, `KToaster`, `KPop`, `KDropdown`, `KSlideout` — render **outside** a subtree provider's wrapper, so they will **not** pick up a subtree theme. If you need teleported content themed, apply the theme app-level (which targets `:root`), or render the teleported content into a target inside the themed subtree where supported.
