@@ -176,11 +176,7 @@ export default {
     cursor: not-allowed;
   }
 
-  /* Appearances — border shorthand split into longhands:
-   * - border-style: solid (set on base above)
-   * - border-width: size-specific (set on base for medium/large; overridden in .small below)
-   * - border-color: set per appearance here
-   */
+  /* Appearances */
 
   &.primary {
     background-color: var(--kui-button-color-background-primary, var(--kui-color-background-primary, $kui-color-background-primary));
