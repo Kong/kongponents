@@ -129,14 +129,15 @@ describe('useTheme — browser fallback (no provider)', () => {
     expect(r1.theme).toBe(r2.theme)
   })
 
-  it('setTheme updates the shared theme ref and writes tokens to document.documentElement', () => {
+  it('setTheme updates the shared theme ref and writes tokens into the kongponents-theme <style> element', () => {
     const controller = withSetup(() => useTheme())
     const theme: KongponentsTheme = { '--kui-color-text-primary': '#0044f4' }
     controller.setTheme(theme)
     expect(controller.theme.value).toStrictEqual(theme)
-    // The fallback controller wires applyTheme to document.documentElement.
-    expect(document.documentElement.style.getPropertyValue('--kui-color-text-primary')).toBe('#0044f4')
-    document.documentElement.style.removeProperty('--kui-color-text-primary')
+    const styleEl = document.getElementById('kongponents-theme') as HTMLStyleElement | null
+    expect(styleEl).not.toBeNull()
+    expect(styleEl!.textContent).toContain('--kui-color-text-primary: #0044f4')
+    styleEl!.remove()
   })
 })
 

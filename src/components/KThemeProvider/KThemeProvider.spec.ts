@@ -139,11 +139,13 @@ describe('KThemeProvider — subtree mode (default)', () => {
 // Global mode
 
 describe('KThemeProvider — global mode', () => {
-  it('writes theme tokens to document.documentElement (not the wrapper)', () => {
+  it('writes theme tokens into a <style> element on <head> (not inline styles on documentElement)', () => {
     const theme: KongponentsTheme = { '--kui-color-text-primary': '#0044f4' }
     const { el, unmount } = mount(h(KThemeProvider, { theme, global: true }))
 
-    expect(document.documentElement.style.getPropertyValue('--kui-color-text-primary')).toBe('#0044f4')
+    const styleEl = document.getElementById('kongponents-theme') as HTMLStyleElement | null
+    expect(styleEl).not.toBeNull()
+    expect(styleEl!.textContent).toContain('--kui-color-text-primary: #0044f4')
 
     const wrapper = el.querySelector<HTMLElement>('.k-theme-provider')!
     expect(wrapper.style.getPropertyValue('--kui-color-text-primary')).toBe('')
@@ -185,7 +187,7 @@ describe('KThemeProvider — theme prop reactivity', () => {
     unmount()
   })
 
-  it('updates document.documentElement when the theme prop changes (global mode)', async () => {
+  it('updates the <style> element when the theme prop changes (global mode)', async () => {
     const { ref, nextTick } = await import('vue')
     const themeRef = ref<KongponentsTheme>({ '--kui-color-text-primary': '#0044f4' })
 
@@ -197,11 +199,11 @@ describe('KThemeProvider — theme prop reactivity', () => {
     })
 
     const { unmount } = mount(h(Parent))
-    expect(document.documentElement.style.getPropertyValue('--kui-color-text-primary')).toBe('#0044f4')
+    expect((document.getElementById('kongponents-theme') as HTMLStyleElement).textContent).toContain('--kui-color-text-primary: #0044f4')
 
     themeRef.value = { '--kui-color-text-primary': '#6f28ff' }
     await nextTick()
-    expect(document.documentElement.style.getPropertyValue('--kui-color-text-primary')).toBe('#6f28ff')
+    expect((document.getElementById('kongponents-theme') as HTMLStyleElement).textContent).toContain('--kui-color-text-primary: #6f28ff')
 
     unmount()
   })
