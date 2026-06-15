@@ -4,9 +4,7 @@ import { createApp } from 'vue'
 import { KONGPONENTS_THEME_INJECTION_KEY, createThemeController, useTheme } from './useTheme'
 import type { KongponentsTheme, UseThemeReturn } from '@/types/theme'
 
-// ---------------------------------------------------------------------------
 // createThemeController
-// ---------------------------------------------------------------------------
 
 describe('createThemeController', () => {
   it('calls apply immediately with the initial theme on creation', () => {
@@ -89,9 +87,7 @@ describe('createThemeController', () => {
   })
 })
 
-// ---------------------------------------------------------------------------
 // useTheme — helpers
-// ---------------------------------------------------------------------------
 
 /**
  * Runs `fn` inside a minimal Vue app's setup() so `inject` works correctly.
@@ -112,9 +108,7 @@ function withSetup<T>(fn: () => T, provide?: (app: ReturnType<typeof createApp>)
   return result!
 }
 
-// ---------------------------------------------------------------------------
 // useTheme — browser fallback
-// ---------------------------------------------------------------------------
 
 describe('useTheme — browser fallback (no provider)', () => {
   // The module-level `fallbackController` singleton persists across tests.
@@ -146,9 +140,7 @@ describe('useTheme — browser fallback (no provider)', () => {
   })
 })
 
-// ---------------------------------------------------------------------------
 // useTheme — injected provider
-// ---------------------------------------------------------------------------
 
 describe('useTheme — with a provided controller', () => {
   it('returns the injected controller when one is provided', () => {
@@ -185,9 +177,7 @@ describe('useTheme — with a provided controller', () => {
   })
 })
 
-// ---------------------------------------------------------------------------
 // useTheme — SSR (no window)
-// ---------------------------------------------------------------------------
 
 describe('useTheme — SSR path (window undefined)', () => {
   beforeEach(() => {

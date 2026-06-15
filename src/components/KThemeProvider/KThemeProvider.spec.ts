@@ -4,9 +4,7 @@ import KThemeProvider from './KThemeProvider.vue'
 import { KONGPONENTS_THEME_INJECTION_KEY } from '@/composables/useTheme'
 import type { KongponentsTheme } from '@/types/theme'
 
-// ---------------------------------------------------------------------------
 // Helpers
-// ---------------------------------------------------------------------------
 
 /** Mount a component tree and return the mounted host element. */
 function mount(
@@ -35,9 +33,7 @@ afterEach(() => {
   }
 })
 
-// ---------------------------------------------------------------------------
 // Subtree (non-global) mode
-// ---------------------------------------------------------------------------
 
 describe('KThemeProvider — subtree mode (default)', () => {
   it('renders a div wrapper with class k-theme-provider', () => {
@@ -140,9 +136,7 @@ describe('KThemeProvider — subtree mode (default)', () => {
   })
 })
 
-// ---------------------------------------------------------------------------
 // Global mode
-// ---------------------------------------------------------------------------
 
 describe('KThemeProvider — global mode', () => {
   it('writes theme tokens to document.documentElement (not the wrapper)', () => {
@@ -166,9 +160,7 @@ describe('KThemeProvider — global mode', () => {
   })
 })
 
-// ---------------------------------------------------------------------------
 // Theme prop reactivity
-// ---------------------------------------------------------------------------
 
 describe('KThemeProvider — theme prop reactivity', () => {
   it('updates inline styles when the theme prop changes (subtree mode)', async () => {
