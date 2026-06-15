@@ -201,15 +201,36 @@ const pillInputsDemo: KongponentsTheme = {
   '--kui-input-border-radius': '999px',
 }
 
-// Pick a non-active, non-Default theme to display in the scoped region so it always
-// contrasts the active app theme. Derived entirely from SANDBOX_THEME_OPTIONS so adding
-// or removing themes requires no changes here.
+// Returns true when a theme has a dark background color.
+// Default (no --kui-color-background override) is treated as light.
+function isThemeDark(theme: KongponentsTheme | undefined): boolean {
+  const bg = theme?.['--kui-color-background']
+  if (!bg || !bg.startsWith('#') || bg.length < 7) return false
+  const r = parseInt(bg.slice(1, 3), 16)
+  const g = parseInt(bg.slice(3, 5), 16)
+  const b = parseInt(bg.slice(5, 7), 16)
+  return (r * 0.299 + g * 0.587 + b * 0.114) < 128
+}
+
+// Pick a full brand theme for the scoped region so component tokens are
+// explicitly set (not inherited from :root). Prefer one with a contrasting
+// background tone; fall back to any non-active brand, then a semantic theme.
 const scopedTheme = computed<KongponentsTheme>(() => {
-  const candidates = Object.entries(SANDBOX_THEME_OPTIONS)
+  const activeIsDark = isThemeDark(SANDBOX_THEME_OPTIONS[activeTheme.value])
+
+  const brandCandidates = (['Brand A', 'Brand B'] as const)
+    .filter(label => label !== activeTheme.value)
+    .map(label => SANDBOX_THEME_OPTIONS[label])
+    .filter((t): t is KongponentsTheme => t !== undefined)
+
+  const contrastBrand = brandCandidates.find(t => isThemeDark(t) !== activeIsDark)
+  if (contrastBrand) return contrastBrand
+  if (brandCandidates[0]) return brandCandidates[0]
+
+  const semanticCandidates = (Object.entries(SANDBOX_THEME_OPTIONS) as [string, KongponentsTheme][])
     .filter(([label, theme]) => theme !== undefined && label !== activeTheme.value)
-  // Prefer a theme that isn't adjacent in the list (skip index 0 if active is also near top).
-  const entry = candidates.find(([label]) => label !== 'Light') ?? candidates[0]
-  return entry?.[1] ?? {}
+    .map(([, theme]) => theme)
+  return semanticCandidates.find(t => isThemeDark(t) !== activeIsDark) ?? semanticCandidates[0] ?? {}
 })
 
 const notify = (): void => {
