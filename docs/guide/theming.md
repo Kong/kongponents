@@ -204,14 +204,14 @@ app.mount('#app')
 
 Two approaches exist for dynamic theme switching. Choose based on whether theme values are known at build time:
 
-### Option A — Data-attribute theming (Phase 2, recommended for fixed theme sets)
+### Option A — Data-attribute theming (recommended for fixed theme sets)
 
-When themes are pre-built and ship as CSS files, load all available theme files once and toggle a single `data-kui-theme` attribute on the root element. The browser resolves the active `[data-kui-theme]` rule automatically — no JavaScript token iteration at switch time.
+Load a theme CSS file from `@kong/design-tokens` and toggle a single `data-kui-theme` attribute on the root element. The browser resolves the active `[data-kui-theme]` rule automatically — no JavaScript token iteration at switch time.
 
-```html
-<!-- Load all themes once; only the one matching data-kui-theme is active -->
-<link rel="stylesheet" href="@kong/design-tokens/dist/themes/konnect-light.css">
-<link rel="stylesheet" href="@kong/design-tokens/dist/themes/konnect-dark.css">
+```ts
+// Import via your bundler (Vite, webpack, etc.)
+import '@kong/design-tokens/dist/themes/konnect-light.css'
+import '@kong/design-tokens/dist/themes/konnect-dark.css'
 ```
 
 ```ts
@@ -223,7 +223,9 @@ document.documentElement.setAttribute('data-kui-theme', 'konnect-dark')
 document.documentElement.removeAttribute('data-kui-theme')
 ```
 
-The pre-built CSS files use `[data-kui-theme="name"]` selectors (not `:root`), so multiple theme files can coexist in the document without conflict. This approach becomes available in Phase 2 when `@kong/design-tokens` ships theme CSS files.
+Available themes: `konnect-light`, `konnect-dark`, `brand-a`, `brand-b`.
+
+The pre-built CSS files use `@layer kui.theme { [data-kui-theme="name"] { ... } }` — the layer ensures that customer `:root {}` overrides (unlayered) beat the theme automatically, with no `!important` or special selectors needed. Multiple theme files can coexist in the document without conflict; only the element whose `data-kui-theme` attribute matches activates that theme.
 
 ### Option B — JS objects + `applyTheme` (for runtime-composed themes)
 

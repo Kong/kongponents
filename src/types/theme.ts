@@ -1,5 +1,7 @@
 import type { Ref, VNode } from 'vue'
-import type { KongponentsThemeToken } from '@/theme/contract'
+import type { KUI_THEMEABLE_TOKENS } from '@kong/design-tokens/themeable-tokens'
+
+type KongponentsThemeToken = (typeof KUI_THEMEABLE_TOKENS)[number]
 
 /**
  * A Kongponents theme.

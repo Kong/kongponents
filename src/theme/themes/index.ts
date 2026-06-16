@@ -1,6 +1,0 @@
-export * from './light'
-export * from './dark'
-export * from './brandA'
-export * from './brandB'
-export * from './konnectLight'
-export * from './konnectDark'
