@@ -227,7 +227,7 @@ const scopedTheme = computed<KongponentsTheme>(() => {
   if (contrastBrand) return contrastBrand
   if (brandCandidates[0]) return brandCandidates[0]
 
-  const semanticCandidates = (Object.entries(SANDBOX_THEME_OPTIONS) as [string, KongponentsTheme][])
+  const semanticCandidates = (Object.entries(SANDBOX_THEME_OPTIONS) as Array<[string, KongponentsTheme]>)
     .filter(([label, theme]) => theme !== undefined && label !== activeTheme.value)
     .map(([, theme]) => theme)
   return semanticCandidates.find(t => isThemeDark(t) !== activeIsDark) ?? semanticCandidates[0] ?? {}
