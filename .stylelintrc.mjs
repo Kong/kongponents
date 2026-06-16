@@ -6,7 +6,7 @@ export default {
   ],
   plugins: [
     'stylelint-order',
-    '@kong/design-tokens/stylelint-plugin',
+    '@kong/stylelint-plugin-design-tokens',
     '@stylistic/stylelint-plugin',
   ],
   rules: {

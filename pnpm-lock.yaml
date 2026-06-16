@@ -89,6 +89,9 @@ importers:
       '@kong/eslint-config-kong-ui':
         specifier: 1.6.1
         version: 1.6.1(@typescript-eslint/parser@8.59.4(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3)
+      '@kong/stylelint-plugin-design-tokens':
+        specifier: ^0.0.1
+        version: 0.0.1(stylelint@16.26.1(typescript@5.9.3))
       '@nuxt/kit':
         specifier: ^4.4.2
         version: 4.4.6(magicast@0.5.3)
@@ -1433,6 +1436,12 @@ packages:
     engines: {node: '>=18.17.0', pnpm: '>=10.28.2'}
     peerDependencies:
       vue: '>= 3.3.4 < 4'
+
+  '@kong/stylelint-plugin-design-tokens@0.0.1':
+    resolution: {integrity: sha512-Q6898XsQOCNMh08cuEIgCFN5s1Vxm5WDQ2F7ZRF4IvjuPXvTVzJ/eS9BiHzMbsIJgV25AgDjdEc8l6gm2zHAfw==}
+    engines: {node: '>=20.19.5', pnpm: '>=10.28.2'}
+    peerDependencies:
+      stylelint: '>=14.0.0'
 
   '@kwsites/file-exists@1.1.1':
     resolution: {integrity: sha512-m9/5YGR18lIwxSFDwfE3oA7bWuq9kdau6ugN4H2rJeyhFQZcG9AgSHkQtSD15a8WvTgfz9aikZMrKPHvbpqFiw==}
@@ -8666,6 +8675,10 @@ snapshots:
   '@kong/icons@1.55.1(vue@3.5.29(typescript@5.9.3))':
     dependencies:
       vue: 3.5.29(typescript@5.9.3)
+
+  '@kong/stylelint-plugin-design-tokens@0.0.1(stylelint@16.26.1(typescript@5.9.3))':
+    dependencies:
+      stylelint: 16.26.1(typescript@5.9.3)
 
   '@kwsites/file-exists@1.1.1':
     dependencies:
