@@ -63,7 +63,7 @@ describe('KThemeProvider', () => {
 
     // ...they are written to the document root instead.
     cy.document().then((doc) => {
-      const value = doc.documentElement.style.getPropertyValue('--kui-color-text-primary').trim()
+      const value = getComputedStyle(doc.documentElement).getPropertyValue('--kui-color-text-primary').trim()
       expect(value).to.eq('rgb(111, 40, 255)')
     })
   })
