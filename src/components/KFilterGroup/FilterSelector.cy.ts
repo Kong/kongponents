@@ -102,6 +102,29 @@ describe('KFilterGroup - FilterSelector', () => {
     cy.getTestId(FILTERING_ID).should('be.visible').and('be.focused')
   })
 
+  it('has a search bar when itemFiltering is true, and resets it on open', () => {
+    render({
+      filters: { a: { label: 'Ayy' } },
+      itemFiltering: true,
+    })
+    cy.getTestId(SELECTOR_ID).click()
+
+    // initial state should be visible, focused, '' value
+    cy.getTestId(FILTERING_ID).should('be.visible').and('be.focused').and('have.value', '')
+
+    // after typing should have value 'hello'
+    cy.getTestId(FILTERING_ID).type('hello')
+    cy.getTestId(FILTERING_ID).should('have.value', 'hello')
+
+    // close and re-open the selector
+    cy.get('body').type('{esc}')
+    cy.getTestId(FILTERING_ID).should('not.be.visible')
+    cy.getTestId(SELECTOR_ID).click()
+
+    // should be reset to initial state
+    cy.getTestId(FILTERING_ID).should('be.visible').and('be.focused').and('have.value', '')
+  })
+
   it('filters items when you type in the itemFiltering input', () => {
     render({
       filters: {

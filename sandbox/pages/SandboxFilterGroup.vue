@@ -74,6 +74,22 @@
     </SandboxSectionComponent>
 
     <SandboxSectionComponent
+      description="Setting an 'operatorDelimiter' on a selection overrides the delimiter that's shown in the pill. Below we override the delimiter to be ' %%% ' in every case."
+      title="v-model - with an operatorDelimiter"
+    >
+      <KFilterGroup
+        v-model="operatorOverrideSelection"
+        :filters="operatorOverrideFilters"
+        @apply="onApply"
+      />
+      <KCodeBlock
+        id="filter-code"
+        :code="JSON.stringify(operatorOverrideSelection, null, 2)"
+        language="javascript"
+      />
+    </SandboxSectionComponent>
+
+    <SandboxSectionComponent
       description="Changes the 'Add filter' button text."
       title="selectorLabel"
     >
@@ -251,6 +267,14 @@ const selection = ref<FilterGroupSelection>({
   },
 })
 
+const operatorOverrideFilters: FilterGroupFilters = {
+  operatorOverride: {
+    label: 'Using an operatorDelimiter',
+    operators: ['eq', 'neq', 'contains', 'exists', 'lt', 'lte', 'gt', 'gte'],
+  },
+}
+const operatorOverrideSelection = ref<FilterGroupSelection>({})
+
 const customFilters: FilterGroupFilters = {
   custom: {
     label: 'Custom slotted filter',
@@ -265,6 +289,16 @@ const onApply = (key: string, applySelection: FilterGroupSelection) => {
       operator: 'eq',
       value: customValue.value ? 'true' : 'false',
       text: customValue.value ? 'True' : 'False',
+    }
+  } else if (key === 'operatorOverride') {
+    if (applySelection[key]) {
+      operatorOverrideSelection.value = {
+        ...applySelection,
+        [key]: {
+          ...applySelection[key],
+          operatorDelimiter: ' %%% ',
+        },
+      }
     }
   } else {
     alert(`@apply filter '${key}' with selection\n${JSON.stringify(applySelection, null, 2)}`)
