@@ -242,10 +242,10 @@ const notify = (): void => {
 .ktheming-sandbox {
   .theme-switcher,
   .demo-row {
+    align-items: center;
     display: flex;
     flex-wrap: wrap;
     gap: var(--kui-space-40, $kui-space-40);
-    align-items: center;
   }
 
   .demo-card {
@@ -261,12 +261,12 @@ const notify = (): void => {
   }
 
   .native-box {
-    border: 1px solid var(--kui-color-border, $kui-color-border);
-    color: var(--kui-color-text, $kui-color-text);
     background-color: var(--kui-color-background, $kui-color-background);
+    border: 1px solid var(--kui-color-border, $kui-color-border);
     border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-    padding: var(--kui-space-50, $kui-space-50);
+    color: var(--kui-color-text, $kui-color-text);
     max-width: 480px;
+    padding: var(--kui-space-50, $kui-space-50);
   }
 
   .brand-compare-row {
