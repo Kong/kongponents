@@ -1490,8 +1490,8 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
   }
 
   &.multiselect-popover .popover-container {
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-select-color-border, var(--kui-color-border, $kui-color-border));
+    border-radius: var(--kui-select-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
     padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
 
     &.has-dropdown-footer {
