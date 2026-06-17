@@ -1,20 +1,8 @@
-import { konnectLight, konnectDark, brandA, brandB } from '@kong/design-tokens/themes'
+import { konnectDay, konnectNight, brandA, brandB } from '@kong/design-tokens/themes'
 import { defineKongponentsTheme } from '../../src/theme/defineKongponentsTheme'
 import type { KongponentsTheme } from '../../src/types/theme'
 
 export const SANDBOX_THEME_STORAGE_KEY = 'kong-sandbox-theme'
-
-/** Restates the default light-mode surface tokens so the sandbox can toggle back from dark. */
-const lightTheme = defineKongponentsTheme({
-  '--kui-color-background': '#ffffff',
-  '--kui-color-background-neutral-weakest': '#f9fafb',
-  '--kui-color-background-disabled': '#e0e4ea',
-  '--kui-color-text': '#000933',
-  '--kui-color-text-neutral': '#6c7489',
-  '--kui-color-text-inverse': '#ffffff',
-  '--kui-color-text-disabled': '#afb7c5',
-  '--kui-color-border': '#e0e4ea',
-})
 
 /** Inverts the neutral surface and text tokens to a dark palette. */
 const darkTheme = defineKongponentsTheme({
@@ -63,10 +51,9 @@ const darkTheme = defineKongponentsTheme({
 
 export const SANDBOX_THEME_OPTIONS: Record<string, KongponentsTheme | undefined> = {
   Default: undefined,
-  Light: lightTheme,
   Dark: darkTheme,
   'Brand A': defineKongponentsTheme(brandA),
   'Brand B': defineKongponentsTheme(brandB),
-  'Konnect Light': defineKongponentsTheme(konnectLight),
-  'Konnect Dark': defineKongponentsTheme(konnectDark),
+  'Konnect Day': defineKongponentsTheme(konnectDay),
+  'Konnect Night': defineKongponentsTheme(konnectNight),
 }
