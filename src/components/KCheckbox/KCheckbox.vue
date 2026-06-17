@@ -178,14 +178,21 @@ const handleChange = (event: Event): void => {
     @include radioCheckboxDefaults;
 
     // Since the mixin is used in both KRadio and KCheckbox it doesn't have rules for some component-specific properties so we need to set them here
-    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+    background-color: var(--kui-checkbox-color-background, var(--kui-color-background, $kui-color-background));
+    border-radius: var(--kui-checkbox-border-radius, var(--kui-border-radius-20, $kui-border-radius-20));
+    box-shadow: var(--kui-checkbox-shadow-border, var(--kui-shadow-border, $kui-shadow-border));
 
     &:hover {
       @include radioCheckboxHover;
+
+      box-shadow: var(--kui-checkbox-shadow-border-hover, var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak));
     }
 
     &:focus-visible {
       @include radioCheckboxFocus;
+
+      box-shadow: var(--kui-checkbox-shadow-border-hover, var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak)),
+        var(--kui-checkbox-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
     }
 
     &:active:not(:disabled) {
@@ -195,8 +202,13 @@ const handleChange = (event: Event): void => {
     &:checked, &:indeterminate {
       @include radioCheckboxChecked;
 
+      background-color: var(--kui-checkbox-color-background-checked, var(--kui-color-background-primary, $kui-color-background-primary));
+      box-shadow: var(--kui-checkbox-shadow-border-checked, var(--kui-shadow-border-primary, $kui-shadow-border-primary));
+
       &:focus-visible {
         @include radioCheckboxCheckedFocus;
+
+        box-shadow: var(--kui-checkbox-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
       }
 
       &:active {
@@ -240,7 +252,18 @@ const handleChange = (event: Event): void => {
   /* Check and indeterminate icon styles */
   .checkbox-input:checked + .checkbox-icon,
   .checkbox-input:indeterminate + .checkbox-icon {
-    @include kCheckboxIcon;
+    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+    // stylelint-disable-next-line no-duplicate-selectors
+    & {
+      @include kCheckboxIcon;
+    }
+
+    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+    // stylelint-disable-next-line no-duplicate-selectors
+    & {
+      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      color: var(--kui-checkbox-color-icon, var(--kui-color-text-inverse, $kui-color-text-inverse)) !important;
+    }
   }
 
   &.disabled {
