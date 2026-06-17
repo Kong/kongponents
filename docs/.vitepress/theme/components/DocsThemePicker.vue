@@ -63,6 +63,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import { applyTheme } from '../../../../src/theme/applyTheme'
 import { useDocsTheme } from '../composables/useDocsTheme'
 import { DOCS_THEME_OPTIONS } from '../utils/docsThemes'
 
@@ -92,7 +93,13 @@ function onClickOutside(e: MouseEvent): void {
   }
 }
 
-onMounted(() => document.addEventListener('click', onClickOutside))
+onMounted(() => {
+  // The Kongponents plugin calls applyTheme(undefined) during enhanceApp (before
+  // components mount), wiping any module-level injection. Reapply here so the
+  // persisted theme is always active after hydration.
+  applyTheme(DOCS_THEME_OPTIONS[activeThemeLabel.value])
+  document.addEventListener('click', onClickOutside)
+})
 onUnmounted(() => document.removeEventListener('click', onClickOutside))
 </script>
 

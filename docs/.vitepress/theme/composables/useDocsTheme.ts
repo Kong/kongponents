@@ -10,11 +10,6 @@ function readSaved(): string {
 
 const activeThemeLabel = ref<string>(readSaved())
 
-// Apply saved theme on module load (client-only; applyTheme is a no-op in SSR)
-if (typeof window !== 'undefined') {
-  applyTheme(DOCS_THEME_OPTIONS[activeThemeLabel.value])
-}
-
 export function useDocsTheme() {
   function selectTheme(label: string): void {
     if (!(label in DOCS_THEME_OPTIONS)) return
