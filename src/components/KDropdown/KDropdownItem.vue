@@ -166,7 +166,7 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     flex-direction: column;
 
     &::before {
-      border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+      border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-dropdown-item-color-border-divider, var(--kui-color-border, $kui-color-border));
       content: '';
       margin: var(--kui-space-20, $kui-space-20) 0;
       width: 100%;
@@ -175,16 +175,16 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
 
   &.danger {
     .dropdown-item-trigger {
-      color: var(--kui-color-text-danger, $kui-color-text-danger);
+      color: var(--kui-dropdown-item-color-text-danger, var(--kui-color-text-danger, $kui-color-text-danger));
 
       &:hover:not(:disabled):not(.disabled):not(:focus):not(:active) {
-        background-color: var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest);
-        color: var(--kui-color-text-danger, $kui-color-text-danger);
+        background-color: var(--kui-dropdown-item-color-background-danger-hover, var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest));
+        color: var(--kui-dropdown-item-color-text-danger, var(--kui-color-text-danger, $kui-color-text-danger));
       }
 
       &:focus:not(:disabled):not(.disabled), &:active:not(:disabled):not(.disabled) {
-        background-color: var(--kui-color-background-danger-weaker, $kui-color-background-danger-weaker);
-        color: var(--kui-color-text-danger, $kui-color-text-danger);
+        background-color: var(--kui-dropdown-item-color-background-danger-active, var(--kui-color-background-danger-weaker, $kui-color-background-danger-weaker));
+        color: var(--kui-dropdown-item-color-text-danger, var(--kui-color-text-danger, $kui-color-text-danger));
       }
     }
   }
@@ -196,34 +196,34 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
 
   &.dropdown-selected-option {
     .dropdown-item-trigger {
-      background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-      color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+      background-color: var(--kui-dropdown-item-color-background-selected, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
+      color: var(--kui-dropdown-item-color-text-selected, var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger));
 
       &:hover:not(:disabled):not(.disabled):not(:focus):not(:active),
       &:focus:not(:disabled):not(.disabled),
       &:active:not(:disabled):not(.disabled) {
-        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+        background-color: var(--kui-dropdown-item-color-background-selected, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
       }
 
       &:disabled, &[disabled], &.disabled {
-        background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+        background-color: var(--kui-dropdown-item-color-background-selected-disabled, var(--kui-color-background-disabled, $kui-color-background-disabled));
       }
     }
   }
 
   .dropdown-item-trigger {
-    background-color: var(--kui-color-background, $kui-color-background);
+    background-color: var(--kui-dropdown-item-color-background, var(--kui-color-background, $kui-color-background));
     border: 0;
-    color: var(--kui-color-text, $kui-color-text);
+    color: var(--kui-dropdown-item-color-text, var(--kui-color-text, $kui-color-text));
     cursor: pointer;
     display: flex;
     flex: 1;
-    font-family: var(--kui-font-family-text, $kui-font-family-text);
-    font-size: var(--kui-font-size-30, $kui-font-size-30);
-    font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
-    line-height: var(--kui-line-height-40, $kui-line-height-40);
+    font-family: var(--kui-dropdown-item-font-family, var(--kui-font-family-text, $kui-font-family-text));
+    font-size: var(--kui-dropdown-item-font-size, var(--kui-font-size-30, $kui-font-size-30));
+    font-weight: var(--kui-dropdown-item-font-weight, var(--kui-font-weight-medium, $kui-font-weight-medium));
+    line-height: var(--kui-dropdown-item-line-height, var(--kui-line-height-40, $kui-line-height-40));
     max-width: 100%;
-    padding: var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+    padding: var(--kui-dropdown-item-padding-y, var(--kui-space-50, $kui-space-50)) var(--kui-dropdown-item-padding-x, var(--kui-space-60, $kui-space-60));
     text-align: left;
     text-decoration: none;
     transition: background-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc;
@@ -233,20 +233,20 @@ const availableComponents = computed((): DropdownItemRenderedRecord => ({
     }
 
     &:focus-visible {
-      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+      box-shadow: var(--kui-dropdown-item-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
       z-index: 1; // need this to prevent box shadow being cut off by the next/previous sibling
     }
 
     &:hover:not(:disabled):not(.disabled):not(:focus):not(:active) {
-      background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+      background-color: var(--kui-dropdown-item-color-background-hover, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
     }
 
     &:focus:not(:disabled):not(.disabled), &:active:not(:disabled):not(.disabled) {
-      background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+      background-color: var(--kui-dropdown-item-color-background-active, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak));
     }
 
     &:disabled, &[disabled], &.disabled {
-      color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+      color: var(--kui-dropdown-item-color-text-disabled, var(--kui-color-text-disabled, $kui-color-text-disabled));
       cursor: not-allowed;
     }
 

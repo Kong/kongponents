@@ -194,8 +194,8 @@ defineExpose({
 // The selector might look unusual, but it’s intentional: keeping the same specificity
 // as before supporting teleportation ensures backward compatibility and avoids style conflicts.
 .k-dropdown-popover.dropdown-popover.popover > .popover-container {
-  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-  border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-dropdown-color-border, var(--kui-color-border, $kui-color-border));
+  border-radius: var(--kui-dropdown-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
   padding: var(--kui-space-0, $kui-space-0);
 
   .dropdown-list {
