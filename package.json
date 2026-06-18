@@ -90,7 +90,7 @@
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@evilmartians/lefthook": "^2.1.2",
     "@kong-ui-public/sandbox-layout": "^2.3.26",
-    "@kong/design-tokens": "1.23.1-pr.666.f84e1f1.0",
+    "@kong/design-tokens": "1.23.1-pr.666.57fda8a.0",
     "@kong/eslint-config-kong-ui": "1.6.1",
     "@kong/eslint-plugin-design-tokens": "^0.0.1",
     "@kong/stylelint-plugin-design-tokens": "^0.0.1",
