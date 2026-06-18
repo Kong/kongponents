@@ -390,15 +390,15 @@ $kPopCaretOffset: 16px;
 
   // need to wrap popover content in a container because we cannot set position: relative; as that will break the floating-ui positioning
   .popover-container {
-    background-color: var(--kui-color-background, $kui-color-background);
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-    box-shadow: var(--kui-shadow, $kui-shadow);
+    background-color: var(--kui-pop-color-background, var(--kui-color-background, $kui-color-background));
+    border: var(--kui-pop-border-width, var(--kui-border-width-10, $kui-border-width-10)) solid var(--kui-pop-color-border, var(--kui-color-border, $kui-color-border));
+    border-radius: var(--kui-pop-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
+    box-shadow: var(--kui-pop-shadow, var(--kui-shadow, $kui-shadow));
     display: flex;
     flex-direction: column;
-    font-family: var(--kui-font-family-text, $kui-font-family-text);
+    font-family: var(--kui-pop-font-family, var(--kui-font-family-text, $kui-font-family-text));
     gap: var(--kui-space-40, $kui-space-40);
-    padding: var(--kui-space-60, $kui-space-60);
+    padding: var(--kui-pop-padding, var(--kui-space-60, $kui-space-60));
     position: relative;
     text-align: left;
     white-space: normal;
@@ -409,8 +409,8 @@ $kPopCaretOffset: 16px;
       // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
       // stylelint-disable-next-line no-duplicate-selectors
       & {
-        border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+        border-radius: var(--kui-pop-close-border-radius, var(--kui-border-radius-20, $kui-border-radius-20));
+        color: var(--kui-pop-close-color-text, var(--kui-color-text-neutral, $kui-color-text-neutral));
         margin: var(--kui-space-60, $kui-space-60) var(--kui-space-60, $kui-space-60) var(--kui-space-0, $kui-space-0) var(--kui-space-0, $kui-space-0);
         outline: none;
         position: absolute;
@@ -419,11 +419,11 @@ $kPopCaretOffset: 16px;
       }
 
       &:hover, &:focus {
-        color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
+        color: var(--kui-pop-close-color-text-hover, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong)) !important;
       }
 
       &:focus-visible {
-        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+        box-shadow: var(--kui-pop-close-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
       }
 
       .popover-close-icon {
@@ -436,10 +436,10 @@ $kPopCaretOffset: 16px;
       display: flex;
 
       .popover-title {
-        color: var(--kui-color-text, $kui-color-text);
-        font-size: var(--kui-font-size-40, $kui-font-size-40);
-        font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
-        line-height: var(--kui-line-height-30, $kui-line-height-30);
+        color: var(--kui-pop-title-color-text, var(--kui-color-text, $kui-color-text));
+        font-size: var(--kui-pop-title-font-size, var(--kui-font-size-40, $kui-font-size-40));
+        font-weight: var(--kui-pop-title-font-weight, var(--kui-font-weight-bold, $kui-font-weight-bold));
+        line-height: var(--kui-pop-title-line-height, var(--kui-line-height-30, $kui-line-height-30));
 
         &.close-icon-spacing {
           margin-right: var(--kui-space-60, $kui-space-60);
@@ -448,10 +448,10 @@ $kPopCaretOffset: 16px;
     }
 
     .popover-content {
-      color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-      font-size: var(--kui-font-size-20, $kui-font-size-20);
-      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-      line-height: var(--kui-line-height-20, $kui-line-height-20);
+      color: var(--kui-pop-color-text, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+      font-size: var(--kui-pop-font-size, var(--kui-font-size-20, $kui-font-size-20));
+      font-weight: var(--kui-pop-font-weight, var(--kui-font-weight-regular, $kui-font-weight-regular));
+      line-height: var(--kui-pop-line-height, var(--kui-line-height-20, $kui-line-height-20));
 
       &.close-icon-spacing {
         margin-right: var(--kui-space-60, $kui-space-60);
@@ -477,11 +477,11 @@ $kPopCaretOffset: 16px;
 
     &:after {
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      border-top-color: var(--kui-color-background, $kui-color-background);
+      border-top-color: var(--kui-pop-color-background, var(--kui-color-background, $kui-color-background));
     }
 
     &:before {
-      border-top-color: var(--kui-color-border, $kui-color-border);
+      border-top-color: var(--kui-pop-color-border, var(--kui-color-border, $kui-color-border));
     }
   }
 
@@ -496,11 +496,11 @@ $kPopCaretOffset: 16px;
 
     &:after {
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      border-right-color: var(--kui-color-background, $kui-color-background);
+      border-right-color: var(--kui-pop-color-background, var(--kui-color-background, $kui-color-background));
     }
 
     &:before {
-      border-right-color: var(--kui-color-border, $kui-color-border);
+      border-right-color: var(--kui-pop-color-border, var(--kui-color-border, $kui-color-border));
     }
   }
 
@@ -514,11 +514,11 @@ $kPopCaretOffset: 16px;
 
     &:after {
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      border-bottom-color: var(--kui-color-background, $kui-color-background);
+      border-bottom-color: var(--kui-pop-color-background, var(--kui-color-background, $kui-color-background));
     }
 
     &:before {
-      border-bottom-color: var(--kui-color-border, $kui-color-border);
+      border-bottom-color: var(--kui-pop-color-border, var(--kui-color-border, $kui-color-border));
     }
   }
 
@@ -533,11 +533,11 @@ $kPopCaretOffset: 16px;
 
     &:after {
       /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      border-left-color: var(--kui-color-background, $kui-color-background);
+      border-left-color: var(--kui-pop-color-background, var(--kui-color-background, $kui-color-background));
     }
 
     &:before {
-      border-left-color: var(--kui-color-border, $kui-color-border);
+      border-left-color: var(--kui-pop-color-border, var(--kui-color-border, $kui-color-border));
     }
   }
 
