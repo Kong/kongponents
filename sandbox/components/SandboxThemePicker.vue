@@ -63,7 +63,8 @@ function swatchFor(label: string): string {
     return '#1155cb'
   }
   const t = theme as Record<string, string>
-  return t['--kui-color-background-primary']
+  return t['--kui-button-color-background-primary']
+    ?? t['--kui-color-background-primary']
     ?? t['--kui-color-text-primary']
     ?? t['--kui-color-background']
     ?? '#1155cb'
