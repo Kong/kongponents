@@ -413,7 +413,7 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
       }
 
       &.placeholder {
-        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+        color: var(--kui-file-upload-color-text-placeholder, var(--kui-color-text-neutral, $kui-color-text-neutral));
       }
 
       &.has-icon {
@@ -424,7 +424,7 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
       }
 
       &.disabled {
-        color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
+        color: var(--kui-file-upload-color-text-disabled, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
       }
     }
 
@@ -440,10 +440,12 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
       @include bodyText;
 
       align-items: center;
-      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
-      border: var(--kui-border-width-10, $kui-border-width-10) dashed var(--kui-color-border, $kui-color-border);
-      border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      background-color: var(--kui-file-upload-dropzone-color-background, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
+      border-color: var(--kui-file-upload-dropzone-color-border, var(--kui-color-border, $kui-color-border));
+      border-radius: var(--kui-file-upload-dropzone-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
+      border-style: dashed;
+      border-width: var(--kui-file-upload-dropzone-border-width, var(--kui-border-width-10, $kui-border-width-10));
+      color: var(--kui-file-upload-dropzone-color-text, var(--kui-color-text-neutral, $kui-color-text-neutral));
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -463,7 +465,7 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
 
       &:hover,
       &.dragging {
-        border-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
+        border-color: var(--kui-file-upload-dropzone-color-border-hover, var(--kui-color-border-primary-weak, $kui-color-border-primary-weak));
         border-style: solid;
       }
 
@@ -473,19 +475,19 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
 
       &:focus:not(.disabled),
       &:focus-visible {
-        border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+        border-color: var(--kui-file-upload-dropzone-color-border-hover, var(--kui-color-border-primary-weak, $kui-color-border-primary-weak));
         border-style: solid;
-        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+        box-shadow: var(--kui-file-upload-dropzone-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
       }
 
       &.error {
-        border-color: var(--kui-color-border-danger, $kui-color-border-danger) !important;
+        border-color: var(--kui-file-upload-dropzone-color-border-error, var(--kui-color-border-danger, $kui-color-border-danger)) !important;
         border-style: solid;
       }
 
       &.disabled {
-        background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
-        border-color: var(--kui-color-border-disabled, $kui-color-border-disabled);
+        background-color: var(--kui-file-upload-dropzone-color-background-disabled, var(--kui-color-background-disabled, $kui-color-background-disabled));
+        border-color: var(--kui-file-upload-dropzone-color-border-disabled, var(--kui-color-border-disabled, $kui-color-border-disabled));
         border-style: solid;
         cursor: not-allowed;
       }
@@ -498,7 +500,7 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
       margin-top: var(--kui-space-40, $kui-space-40);
 
       &.error {
-        color: var(--kui-color-text-danger, $kui-color-text-danger);
+        color: var(--kui-file-upload-help-text-color-text-error, var(--kui-color-text-danger, $kui-color-text-danger));
       }
     }
   }

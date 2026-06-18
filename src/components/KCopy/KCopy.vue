@@ -215,15 +215,15 @@ onBeforeUnmount(() => {
   .copy-container {
     align-items: center;
     display: flex;
-    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    font-size: var(--kui-copy-font-size, var(--kui-font-size-20, $kui-font-size-20));
     gap: var(--kui-space-30, $kui-space-30);
-    line-height: var(--kui-line-height-20, $kui-line-height-20);
+    line-height: var(--kui-copy-line-height, var(--kui-line-height-20, $kui-line-height-20));
     white-space: nowrap;
   }
 
   .monospace {
-    font-family: var(--kui-font-family-code, $kui-font-family-code);
-    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+    font-family: var(--kui-copy-font-family-code, var(--kui-font-family-code, $kui-font-family-code));
+    font-weight: var(--kui-copy-font-weight-code, var(--kui-font-weight-regular, $kui-font-weight-regular));
   }
 
   .text-icon-wrapper {
@@ -235,15 +235,15 @@ onBeforeUnmount(() => {
       &:hover,
       &:focus {
         // only applies to non-badge as for badge the mixin takes care hover styles
-        color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
+        color: var(--kui-copy-icon-color-text-hover, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong)) !important;
       }
     }
   }
 
   .copy-badge-text {
-    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-    font-size: var(--kui-font-size-20, $kui-font-size-20);
-    line-height: var(--kui-line-height-20, $kui-line-height-20);
+    color: var(--kui-copy-color-text, var(--kui-color-text-neutral, $kui-color-text-neutral));
+    font-size: var(--kui-copy-font-size, var(--kui-font-size-20, $kui-font-size-20));
+    line-height: var(--kui-copy-line-height, var(--kui-line-height-20, $kui-line-height-20));
     margin-right: var(--kui-space-20, $kui-space-20);
   }
 
