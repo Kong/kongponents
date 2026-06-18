@@ -16,8 +16,8 @@ export default {
       ['all'],
       { 'unspecified': 'bottomAlphabetical' },
     ],
-    '@kong/design-tokens/use-proper-token': true,
-    '@kong/design-tokens/token-var-usage': true,
+    '@kong/stylelint-plugin-design-tokens/use-proper-token': true,
+    '@kong/stylelint-plugin-design-tokens/token-var-usage': true,
     '@stylistic/indentation': [2, { baseIndentLevel: 0 }],
     // Only allow @kong/design-tokens or `--kong-ui-*` CSS custom properties
     'custom-property-pattern': [
