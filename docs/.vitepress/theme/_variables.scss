@@ -5,14 +5,34 @@
 @use "@kong/design-tokens/tokens/scss/variables" as *;
 
 :root {
-  --vp-button-brand-bg: #{$kui-color-background-primary};
-  --vp-button-brand-hover-bg: #{$kui-color-background-primary-strong};
+  // Brand — bridge button tokens so CTA buttons on the home page follow the active theme.
+  // --vp-c-brand-1/-2 (links, active nav) intentionally keep VitePress's indigo default;
+  // primary text tokens (e.g. lime for Konnect Day) are designed for dark-surface contexts
+  // and have poor legibility as link text on the docs' white background.
+  --vp-c-brand-3: var(--kui-color-background-primary, #{$kui-color-background-primary});
+  --vp-c-brand-soft: var(--kui-color-background-primary-weakest, #{$kui-color-background-primary-weakest});
+  --vp-button-brand-bg: var(--kui-color-background-primary, #{$kui-color-background-primary});
+  --vp-button-brand-hover-bg: var(--kui-color-background-primary-strong, #{$kui-color-background-primary-strong});
 
   // Homepage site name color
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: linear-gradient(120deg, #169fcc, #42d782);
 
+  // Surface, text, and font — bridge Kongponents tokens so theme switcher affects the docs UI.
+  // SCSS fallbacks ensure Classic (no active theme) still has correct values, since
+  // --kui-* CSS custom properties are not loaded at runtime without an active theme.
+  --vp-c-bg: var(--kui-color-background, #{$kui-color-background});
+  --vp-c-bg-elv: var(--kui-color-background, #{$kui-color-background});
+  --vp-c-bg-soft: var(--kui-color-background-neutral-weakest, #{$kui-color-background-neutral-weakest});
+  --vp-c-bg-alt: var(--kui-color-background-neutral-weakest, #{$kui-color-background-neutral-weakest});
+  --vp-c-text-1: var(--kui-color-text, #{$kui-color-text});
+  --vp-c-text-2: var(--kui-color-text-neutral-strong, #{$kui-color-text-neutral-strong});
+  --vp-c-text-3: var(--kui-color-text-neutral, #{$kui-color-text-neutral});
+  --vp-font-family-base: var(--kui-font-family-text, #{$kui-font-family-text});
+  --vp-font-family-mono: var(--kui-font-family-code, #{$kui-font-family-code});
+
   // Code block
+  /* stylelint-disable @kong/design-tokens/token-var-usage */
   --vp-code-block-bg: #{$kui-color-background-neutral-strongest};
   --vp-code-line-number-color: #{$kui-color-text-neutral};
   --vp-code-block-divider-color: #{$kui-color-background-neutral-stronger};
