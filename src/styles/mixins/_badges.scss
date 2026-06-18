@@ -29,7 +29,7 @@
   $bgColor: var(
     --kui-badge-color-background-info,
     var(--kui-color-background-info-weakest, $kui-color-background-info-weakest)
-    ),
+  ),
   $textColor: var(--kui-badge-color-text-info, var(--kui-color-text-info, $kui-color-text-info)),
   $hoverColor: var(--kui-badge-color-text-info-hover, var(--kui-color-text-info-strong, $kui-color-text-info-strong))
 ) {

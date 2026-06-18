@@ -65,11 +65,19 @@ onUnmounted(() => {
 
   .spinner-loader {
     animation: spinnerAnimation 1.4s infinite linear;
-    border-bottom: 8px solid var(--kui-color-border, $kui-color-border);
-    border-left: 8px solid var(--kui-color-border-primary, $kui-color-border-primary);
-    border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
-    border-right: 8px solid var(--kui-color-border, $kui-color-border);
-    border-top: 8px solid var(--kui-color-border, $kui-color-border);
+    border-bottom-color: var(--kui-skeleton-spinner-color-border, var(--kui-color-border, $kui-color-border));
+    border-bottom-style: solid;
+    border-bottom-width: 8px;
+    border-left-color: var(--kui-skeleton-spinner-color-border-active, var(--kui-color-border-primary, $kui-color-border-primary));
+    border-left-style: solid;
+    border-left-width: 8px;
+    border-radius: var(--kui-skeleton-spinner-border-radius, var(--kui-border-radius-circle, $kui-border-radius-circle));
+    border-right-color: var(--kui-skeleton-spinner-color-border, var(--kui-color-border, $kui-color-border));
+    border-right-style: solid;
+    border-right-width: 8px;
+    border-top-color: var(--kui-skeleton-spinner-color-border, var(--kui-color-border, $kui-color-border));
+    border-top-style: solid;
+    border-top-width: 8px;
     font-size: var(--kui-font-size-10, $kui-font-size-10);
     height: 130px;
     margin: var(--kui-space-120, $kui-space-120) var(--kui-space-auto, $kui-space-auto);
