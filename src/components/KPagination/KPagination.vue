@@ -525,6 +525,7 @@ onBeforeUnmount(() => {
 
         &:focus-visible {
           box-shadow: var(--kui-pagination-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
+          outline: none;
         }
 
         &.placeholder {

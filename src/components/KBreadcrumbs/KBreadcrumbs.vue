@@ -84,7 +84,7 @@ const getBreadcrumbKey = (item: BreadcrumbItem, idx: number): string => item.key
 .k-breadcrumbs {
   align-items: center;
   display: flex;
-  font-family: var(--kui-font-family-text, $kui-font-family-text);
+  font-family: var(--kui-breadcrumbs-font-family, var(--kui-font-family-text, $kui-font-family-text));
   gap: var(--kui-space-20, $kui-space-20);
   list-style: none;
   margin: var(--kui-space-0, $kui-space-0);
@@ -93,14 +93,14 @@ const getBreadcrumbKey = (item: BreadcrumbItem, idx: number): string => item.key
   .breadcrumbs-item-container {
     align-items: center;
     display: flex;
-    font-size: var(--kui-font-size-30, $kui-font-size-30);
+    font-size: var(--kui-breadcrumbs-font-size, var(--kui-font-size-30, $kui-font-size-30));
     gap: var(--kui-space-20, $kui-space-20);
-    line-height: var(--kui-line-height-30, $kui-line-height-30);
+    line-height: var(--kui-breadcrumbs-line-height, var(--kui-line-height-30, $kui-line-height-30));
 
     .breadcrumbs-item {
       align-items: center;
       border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      color: var(--kui-breadcrumbs-color-text, var(--kui-color-text-neutral, $kui-color-text-neutral));
       display: flex;
       gap: var(--kui-space-20, $kui-space-20);
       text-decoration: none;
@@ -115,8 +115,8 @@ const getBreadcrumbKey = (item: BreadcrumbItem, idx: number): string => item.key
       .breadcrumbs-text {
         @include truncate;
 
-        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-        font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+        color: var(--kui-breadcrumbs-color-text, var(--kui-color-text-neutral, $kui-color-text-neutral));
+        font-weight: var(--kui-breadcrumbs-font-weight, var(--kui-font-weight-medium, $kui-font-weight-medium));
         transition: color $kongponentsTransitionDurTimingFunc;
       }
 
@@ -126,23 +126,23 @@ const getBreadcrumbKey = (item: BreadcrumbItem, idx: number): string => item.key
 
         &:hover {
           .breadcrumbs-text {
-            color: var(--kui-color-text, $kui-color-text);
+            color: var(--kui-breadcrumbs-color-text-hover, var(--kui-color-text, $kui-color-text));
           }
         }
 
         &:focus-visible {
-          box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+          box-shadow: var(--kui-breadcrumbs-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
 
           .breadcrumbs-text {
-            color: var(--kui-color-text, $kui-color-text);
+            color: var(--kui-breadcrumbs-color-text-hover, var(--kui-color-text, $kui-color-text));
           }
         }
       }
     }
 
     .breadcrumbs-divider {
-      color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
-      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+      color: var(--kui-breadcrumbs-divider-color-text, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak));
+      font-weight: var(--kui-breadcrumbs-divider-font-weight, var(--kui-font-weight-regular, $kui-font-weight-regular));
       user-select: none;
     }
   }
