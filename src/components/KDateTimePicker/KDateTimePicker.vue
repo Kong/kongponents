@@ -529,7 +529,7 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
 
         &.has-icon {
           // icon size + icon spacing
-          /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+          /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
           margin-left: calc(var(--kui-icon-size-40, $kui-icon-size-40) + var(--kui-space-40, $kui-space-40));
         }
       }

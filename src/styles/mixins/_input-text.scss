@@ -40,7 +40,8 @@
   // stylelint-disable-next-line no-duplicate-selectors
   & {
     // Variables that reference the same value. If this value changes, all of those need to be updated too.
-    padding: var(--kui-input-padding-y, var(--kui-space-40, $kui-space-40)) var(--kui-input-padding-x, var(--kui-space-50, $kui-space-50)); // $kInputPaddingX, $kTextAreaPaddingY, $kSelectInputPaddingX, $kSelectInputPaddingY, $kMultiselectInputPaddingY, $kMultiselectInputPaddingX, $kFileUploadInputPaddingX, $kFileUploadInputPaddingY, $kDateTimePickerInputPaddingX, $kDateTimePickerInputPaddingY
+    padding: var(--kui-input-padding-y, var(--kui-space-40, $kui-space-40))
+      var(--kui-input-padding-x, var(--kui-space-50, $kui-space-50)); // $kInputPaddingX, $kTextAreaPaddingY, $kSelectInputPaddingX, $kSelectInputPaddingY, $kMultiselectInputPaddingY, $kMultiselectInputPaddingX, $kFileUploadInputPaddingX, $kFileUploadInputPaddingY, $kDateTimePickerInputPaddingX, $kDateTimePickerInputPaddingY
     width: 100%;
 
     @content;
@@ -60,24 +61,37 @@
 }
 
 @mixin inputHover {
-  box-shadow: var(--kui-input-shadow-border-hover, var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak));
+  box-shadow: var(
+    --kui-input-shadow-border-hover,
+    var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak)
+  );
 }
 
 @mixin inputFocus {
-  // Two shadows: the border (inset ring) + the outer focus glow. Each wrapped atomically —
-  // override --kui-input-shadow-border-focus for the border, --kui-input-shadow-focus for the ring.
-  box-shadow: var(--kui-input-shadow-border-focus, var(--kui-shadow-border-primary, $kui-shadow-border-primary)), var(--kui-input-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
+  // Two shadows: the (coordinated hover/focus) border + the outer focus glow. Each wrapped atomically —
+  // the border reuses --kui-input-shadow-border-hover (hover & focus coordinate), --kui-input-shadow-focus is the ring.
+  box-shadow: var(--kui-input-shadow-border-hover, var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak)),
+    var(--kui-input-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
 }
 
 @mixin inputDisabled {
-  background-color: var(--kui-input-color-background-disabled, var(--kui-color-background-disabled, $kui-color-background-disabled)) !important;
-  box-shadow: var(--kui-input-shadow-border-disabled, var(--kui-shadow-border-disabled, $kui-shadow-border-disabled)) !important;
+  background-color: var(
+    --kui-input-color-background-disabled,
+    var(--kui-color-background-disabled, $kui-color-background-disabled)
+  ) !important;
+  box-shadow: var(
+    --kui-input-shadow-border-disabled,
+    var(--kui-shadow-border-disabled, $kui-shadow-border-disabled)
+  ) !important;
   color: var(--kui-input-color-text-disabled, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
   cursor: not-allowed;
 }
 
 @mixin inputReadOnly {
-  background-color: var(--kui-input-color-background-readonly, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
+  background-color: var(
+    --kui-input-color-background-readonly,
+    var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest)
+  );
   // Readonly reuses the default border shadow component token (same as default state)
   box-shadow: var(--kui-input-shadow-border, var(--kui-shadow-border, $kui-shadow-border));
   color: var(--kui-input-color-text-readonly, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong));
@@ -90,10 +104,17 @@
 }
 
 @mixin inputErrorHover {
-  box-shadow: var(--kui-input-shadow-border-error-hover, var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong));
+  box-shadow: var(
+    --kui-input-shadow-border-error-hover,
+    var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong)
+  );
 }
 
 @mixin inputErrorFocus {
-  // Two shadows: the error border + the outer focus glow (reuses --kui-input-shadow-focus).
-  box-shadow: var(--kui-input-shadow-border-error-focus, var(--kui-shadow-border-danger, $kui-shadow-border-danger)), var(--kui-input-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
+  // Two shadows: the (coordinated hover/focus) error border + the outer focus glow (reuses --kui-input-shadow-focus).
+  box-shadow: var(
+    --kui-input-shadow-border-error-hover,
+    var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong)
+  ),
+    var(--kui-input-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
 }

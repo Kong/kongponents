@@ -27,7 +27,7 @@ describe('KUI_THEMEABLE_TOKENS (from @kong/design-tokens)', () => {
   it('contains component tokens for pilot components', () => {
     expect(KUI_THEMEABLE_TOKENS).toContain('--kui-button-border-radius-medium')
     expect(KUI_THEMEABLE_TOKENS).toContain('--kui-card-padding')
-    expect(KUI_THEMEABLE_TOKENS).toContain('--kui-input-shadow-border-focus')
+    expect(KUI_THEMEABLE_TOKENS).toContain('--kui-input-shadow-border-hover')
     expect(KUI_THEMEABLE_TOKENS).toContain('--kui-badge-border-radius')
   })
 

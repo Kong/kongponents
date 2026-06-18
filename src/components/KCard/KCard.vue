@@ -58,14 +58,14 @@ const showCardHeader = computed((): boolean => {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+  /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
   gap: var(--kui-card-gap, var(--kui-space-70, $kui-space-70));
   width: 100%;
 
   .card-header {
     align-items: flex-start;
     display: inline-flex;
-    /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+    /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
     gap: var(--kui-card-header-gap, var(--kui-space-50, $kui-space-50));
     justify-content: space-between;
 
@@ -83,7 +83,7 @@ const showCardHeader = computed((): boolean => {
     .card-actions {
       display: flex;
       flex-shrink: 0;
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
       gap: var(--kui-card-actions-gap, var(--kui-space-30, $kui-space-30));
       margin-left: var(--kui-space-auto, $kui-space-auto);
     }
@@ -102,7 +102,7 @@ const showCardHeader = computed((): boolean => {
     @include bodyText;
 
     display: flex;
-    /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+    /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
     gap: var(--kui-card-footer-gap, var(--kui-space-30, $kui-space-30));
     width: 100%;
   }

@@ -129,13 +129,13 @@ $kInputSwitchLargeCircleSize: 10px;
 /* Component mixins */
 
 @mixin kInputSwitchSmallSize {
-  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+  border-radius: var(--kui-input-switch-border-radius-small, var(--kui-border-radius-20, $kui-border-radius-20));
   height: $kInputSwitchSmallHeight;
   width: $kInputSwitchSmallWidth;
 }
 
 @mixin kInputSwitchLargeSize {
-  border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+  border-radius: var(--kui-input-switch-border-radius-large, var(--kui-border-radius-30, $kui-border-radius-30));
   height: $kInputSwitchLargeHeight;
   width: $kInputSwitchLargeWidth;
 }
@@ -184,7 +184,7 @@ $kInputSwitchLargeCircleSize: 10px;
   .switch-control {
     @include kInputSwitchSmallSize;
 
-    background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+    background-color: var(--kui-input-switch-color-background, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
     cursor: pointer;
     outline: none;
     padding: $kInputSwitchPadding;
@@ -192,21 +192,21 @@ $kInputSwitchLargeCircleSize: 10px;
     transition: background-color $kongponentsTransitionDurTimingFunc;
 
     &:hover:not(.disabled) {
-      background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+      background-color: var(--kui-input-switch-color-background-hover, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak));
 
       &::after {
-        border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-neutral-weaker, $kui-color-border-neutral-weaker);
+        border: var(--kui-input-switch-thumb-border-width, var(--kui-border-width-20, $kui-border-width-20)) solid var(--kui-input-switch-thumb-color-border-hover, var(--kui-color-border-neutral-weaker, $kui-color-border-neutral-weaker));
       }
     }
 
     &:focus-visible {
-      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+      box-shadow: var(--kui-input-switch-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
     }
 
     &::before {
-      background-color: var(--kui-color-background, $kui-color-background);
-      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-      box-shadow: var(--kui-shadow-border, $kui-shadow-border);
+      background-color: var(--kui-input-switch-thumb-color-background, var(--kui-color-background, $kui-color-background));
+      border-radius: var(--kui-input-switch-border-radius-small, var(--kui-border-radius-20, $kui-border-radius-20));
+      box-shadow: var(--kui-input-switch-thumb-shadow-border, var(--kui-shadow-border, $kui-shadow-border));
       content: '';
       display: block;
       height: calc(100% - ($kInputSwitchPadding * 2));
@@ -222,8 +222,8 @@ $kInputSwitchLargeCircleSize: 10px;
     &:after {
       @include kInputSwitchSmallSizeCircle;
 
-      border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak);
-      border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
+      border: var(--kui-input-switch-thumb-border-width, var(--kui-border-width-20, $kui-border-width-20)) solid var(--kui-input-switch-thumb-color-border, var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak));
+      border-radius: var(--kui-input-switch-thumb-border-radius, var(--kui-border-radius-circle, $kui-border-radius-circle));
       box-sizing: border-box;
       content: '';
       display: block;
@@ -234,8 +234,8 @@ $kInputSwitchLargeCircleSize: 10px;
     }
 
     &-enabled-bar {
-      background-color: var(--kui-color-background, $kui-color-background);
-      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+      background-color: var(--kui-input-switch-thumb-color-background, var(--kui-color-background, $kui-color-background));
+      border-radius: var(--kui-input-switch-border-radius-small, var(--kui-border-radius-20, $kui-border-radius-20));
       display: block;
       height: 35%;
       left: 25%;
@@ -246,29 +246,29 @@ $kInputSwitchLargeCircleSize: 10px;
     }
 
     &.checked {
-      background-color: var(--kui-color-background-primary, $kui-color-background-primary);
+      background-color: var(--kui-input-switch-color-background-selected, var(--kui-color-background-primary, $kui-color-background-primary));
 
       &:hover:not(.disabled) {
-        background-color: var(--kui-color-background-primary-strong, $kui-color-background-primary-strong);
+        background-color: var(--kui-input-switch-color-background-selected-hover, var(--kui-color-background-primary-strong, $kui-color-background-primary-strong));
       }
 
       &::before {
-        box-shadow: 0px 0px 0px var(--kui-border-width-10, $kui-border-width-10) var(--kui-color-border-primary-strong, $kui-color-border-primary-strong) inset;
+        box-shadow: var(--kui-input-switch-thumb-shadow-border-selected, 0px 0px 0px var(--kui-border-width-10, $kui-border-width-10) var(--kui-color-border-primary-strong, $kui-color-border-primary-strong) inset);
         transform: translateY(-50%) translateX(calc($kInputSwitchSmallWidth / 2));
       }
     }
 
     &.disabled {
-      background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+      background-color: var(--kui-input-switch-color-background-disabled, var(--kui-color-background-disabled, $kui-color-background-disabled));
       cursor: not-allowed;
 
       &::before {
-        background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
-        box-shadow: 0px 0px 0px var(--kui-border-width-10, $kui-border-width-10) var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak) inset;
+        background-color: var(--kui-input-switch-color-background-disabled, var(--kui-color-background-disabled, $kui-color-background-disabled));
+        box-shadow: var(--kui-input-switch-thumb-shadow-border-disabled, 0px 0px 0px var(--kui-border-width-10, $kui-border-width-10) var(--kui-color-border-neutral-weak, $kui-color-border-neutral-weak) inset);
       }
 
       .switch-control-enabled-bar {
-        background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+        background-color: var(--kui-input-switch-thumb-color-background-disabled, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak));
       }
     }
   }
@@ -288,7 +288,7 @@ $kInputSwitchLargeCircleSize: 10px;
       @include kInputSwitchLargeSize;
 
       &::before {
-        border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+        border-radius: var(--kui-input-switch-border-radius-large, var(--kui-border-radius-30, $kui-border-radius-30));
       }
 
       &::after {

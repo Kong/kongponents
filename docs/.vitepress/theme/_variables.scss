@@ -32,7 +32,7 @@
   --vp-font-family-mono: var(--kui-font-family-code, #{$kui-font-family-code});
 
   // Code block
-  /* stylelint-disable @kong/design-tokens/token-var-usage */
+  /* stylelint-disable @kong/stylelint-plugin-design-tokens/token-var-usage */
   --vp-code-block-bg: #{$kui-color-background-neutral-strongest};
   --vp-code-line-number-color: #{$kui-color-text-neutral};
   --vp-code-block-divider-color: #{$kui-color-background-neutral-stronger};

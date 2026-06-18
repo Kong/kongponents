@@ -194,9 +194,9 @@ watch(() => modelValue, (newTabHash) => {
           &:focus-visible {
             @include kTabsFocus;
 
-            background-color: var(--kui-tabs-color-background-focus, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
+            background-color: var(--kui-tabs-color-background-hover, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
             border-radius: var(--kui-tabs-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
-            color: var(--kui-tabs-color-text-focus, var(--kui-color-text, $kui-color-text));
+            color: var(--kui-tabs-color-text-hover, var(--kui-color-text, $kui-color-text));
           }
 
           :slotted(a),
@@ -206,9 +206,9 @@ watch(() => modelValue, (newTabHash) => {
             &:focus-visible {
               @include kTabsFocus;
 
-              background-color: var(--kui-tabs-color-background-focus, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
+              background-color: var(--kui-tabs-color-background-hover, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
               border-radius: var(--kui-tabs-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
-              color: var(--kui-tabs-color-text-focus, var(--kui-color-text, $kui-color-text));
+              color: var(--kui-tabs-color-text-hover, var(--kui-color-text, $kui-color-text));
             }
           }
         }

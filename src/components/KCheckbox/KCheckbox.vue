@@ -261,7 +261,7 @@ const handleChange = (event: Event): void => {
     // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
     // stylelint-disable-next-line no-duplicate-selectors
     & {
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+      /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
       color: var(--kui-checkbox-color-icon, var(--kui-color-text-inverse, $kui-color-text-inverse)) !important;
     }
   }
