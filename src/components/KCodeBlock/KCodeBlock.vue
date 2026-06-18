@@ -709,13 +709,15 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
 
 .k-code-block {
   // light theme (treated as default)
-  background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
-  border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
+  background-color: var(--kui-code-block-color-background, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
+  border-radius: var(--kui-code-block-border-radius, var(--kui-border-radius-40, $kui-border-radius-40));
 
   .code-block-actions {
-    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    border-bottom-color: var(--kui-code-block-actions-color-border, var(--kui-color-border, $kui-color-border));
+    border-bottom-style: solid;
+    border-bottom-width: var(--kui-code-block-actions-border-width, var(--kui-border-width-10, $kui-border-width-10));
     justify-content: space-between;
-    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-40, $kui-space-40);
+    padding: var(--kui-code-block-actions-padding, var(--kui-space-20, $kui-space-20) var(--kui-space-40, $kui-space-40));
 
     .code-block-search-input {
       :deep(input) {
@@ -820,7 +822,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
           padding-left: var(--kui-space-40, $kui-space-40);
 
           .line-anchor {
-            color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+            color: var(--kui-code-block-line-number-color-text, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong));
             text-align: right;
             width: v-bind('maxLineNumberWidth');
 
@@ -857,7 +859,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       code {
         @include codeTypography;
 
-        color: var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest);
+        color: var(--kui-code-block-color-text, var(--kui-color-text-neutral-strongest, $kui-color-text-neutral-strongest));
         display: block;
         min-width: 0;
         overflow-x: auto;
@@ -875,12 +877,12 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
   }
 
   &.theme-dark {
-    background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
+    background-color: var(--kui-code-block-color-background-dark, var(--kui-color-background-inverse, $kui-color-background-inverse));
     // This improves scrollbar styles in dark mode
     color-scheme: dark;
 
     .code-block-actions {
-      border-bottom-color: var(--kui-color-border-inverse, $kui-color-border-inverse);
+      border-bottom-color: var(--kui-code-block-actions-color-border-dark, var(--kui-color-border-inverse, $kui-color-border-inverse));
 
       .code-block-search-input {
         :deep(input) {
@@ -914,7 +916,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
         .line-number-rows {
           :deep(.line) {
             .line-anchor {
-              color: var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak);
+              color: var(--kui-code-block-line-number-color-text-dark, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak));
             }
 
             &.line-is-match {
@@ -932,7 +934,7 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
         }
 
         code {
-          color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker);
+          color: var(--kui-code-block-color-text-dark, var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker));
         }
       }
     }
