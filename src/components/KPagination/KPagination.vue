@@ -393,7 +393,7 @@ onBeforeUnmount(() => {
 .k-pagination {
   align-items: center;
   display: flex;
-  font-family: var(--kui-font-family-text, $kui-font-family-text);
+  font-family: var(--kui-pagination-font-family, var(--kui-font-family-text, $kui-font-family-text));
   justify-content: space-between;
   margin-top: var(--kui-space-20, $kui-space-20);
   padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
@@ -500,29 +500,31 @@ onBeforeUnmount(() => {
       }
 
       &:not(.arrow) {
-        background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-        border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-        border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-        color: var(--kui-color-text-primary, $kui-color-text-primary);
+        background-color: var(--kui-pagination-color-background, var(--kui-color-background-transparent, $kui-color-background-transparent));
+        border-color: var(--kui-pagination-color-border, var(--kui-color-border, $kui-color-border));
+        border-radius: var(--kui-pagination-border-radius, var(--kui-border-radius-20, $kui-border-radius-20));
+        border-style: solid;
+        border-width: var(--kui-pagination-border-width, var(--kui-border-width-10, $kui-border-width-10));
+        color: var(--kui-pagination-color-text, var(--kui-color-text-primary, $kui-color-text-primary));
         cursor: pointer;
         font-size: var(--kui-font-size-20, $kui-font-size-20);
-        font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+        font-weight: var(--kui-pagination-font-weight, var(--kui-font-weight-regular, $kui-font-weight-regular));
         line-height: var(--kui-line-height-20, $kui-line-height-20);
         transition: background-color $kongponentsTransitionDurTimingFunc border-color $kongponentsTransitionDurTimingFunc;
 
         @media (min-width: $kui-breakpoint-mobile) {
           font-size: var(--kui-font-size-30, $kui-font-size-30);
           line-height: var(--kui-line-height-30, $kui-line-height-30);
-          padding: var(--kui-space-30, $kui-space-30);
+          padding: var(--kui-pagination-padding, var(--kui-space-30, $kui-space-30));
         }
 
         &:hover:not(.placeholder),
         &:focus:not(.placeholder) {
-          border-color: var(--kui-color-border-primary, $kui-color-border-primary) !important;
+          border-color: var(--kui-pagination-color-border-hover, var(--kui-color-border-primary, $kui-color-border-primary)) !important;
         }
 
         &:focus-visible {
-          box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+          box-shadow: var(--kui-pagination-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
         }
 
         &.placeholder {
@@ -533,8 +535,8 @@ onBeforeUnmount(() => {
         }
 
         &.active {
-          background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-          border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+          background-color: var(--kui-pagination-color-background-selected, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
+          border-color: var(--kui-pagination-color-border-selected, var(--kui-color-border-primary, $kui-color-border-primary));
         }
       }
 
