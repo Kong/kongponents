@@ -1,6 +1,9 @@
 import type { KongponentsTheme } from '@/types/theme'
 import { KUI_THEMEABLE_TOKENS } from '@kong/design-tokens/themeable-tokens'
 
+// `;`/`{`/`}` inject rules or declarations; `\` initiates CSS unicode escapes that encode any dangerous char (e.g. `\7D` = `}`); `</style` closes the HTML <style> element.
+const UNSAFE_CSS_RE = /[;{}\\]|<\/style/i
+
 /**
  * A map of `--kui-*` custom property names to CSS values, suitable for binding
  * to an element's `style` (e.g. via Vue's `:style`) or for writing with
@@ -63,9 +66,31 @@ export const themeToStyleRecord = (theme: KongponentsTheme): ThemeStyleRecord =>
  * ```
  */
 export const themeToCssVars = (theme: KongponentsTheme, selector: string = ':root'): string => {
+  let safeSelector = selector
+  if (UNSAFE_CSS_RE.test(selector)) {
+    console.warn(
+      `[Kongponents] themeToCssVars: unsafe selector "${selector}" — falling back to ":root"`,
+    )
+    safeSelector = ':root'
+  }
+
   const declarations = Object.entries(themeToStyleRecord(theme))
-    .map(([token, value]) => `  ${token}: ${value};`)
+    .flatMap(([token, value]) => {
+      if (UNSAFE_CSS_RE.test(token)) {
+        console.warn(
+          `[Kongponents] themeToCssVars: unsafe token key "${token}" — skipping`,
+        )
+        return []
+      }
+      if (UNSAFE_CSS_RE.test(value)) {
+        console.warn(
+          `[Kongponents] themeToCssVars: unsafe value for token "${token}" — skipping`,
+        )
+        return []
+      }
+      return [`  ${token}: ${value};`]
+    })
     .join('\n')
 
-  return `${selector} {\n${declarations}\n}`
+  return `${safeSelector} {\n${declarations}\n}`
 }
