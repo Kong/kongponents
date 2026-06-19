@@ -50,10 +50,10 @@ const darkTheme = defineKongponentsTheme({
 })
 
 export const SANDBOX_THEME_OPTIONS: Record<string, KongponentsTheme | undefined> = {
-  Default: undefined,
-  Dark: darkTheme,
-  'Brand A': defineKongponentsTheme(brandA),
-  'Brand B': defineKongponentsTheme(brandB),
+  Classic: undefined,
   'Konnect Day': defineKongponentsTheme(konnectDay),
   'Konnect Night': defineKongponentsTheme(konnectNight),
+  'Brand A': defineKongponentsTheme(brandA),
+  'Brand B': defineKongponentsTheme(brandB),
+  Dark: darkTheme,
 }
