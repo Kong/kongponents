@@ -68,9 +68,10 @@
 }
 
 @mixin inputFocus {
-  // Two shadows: the (coordinated hover/focus) border + the outer focus glow. Each wrapped atomically —
-  // the border reuses --kui-input-shadow-border-hover (hover & focus coordinate), --kui-input-shadow-focus is the ring.
-  box-shadow: var(--kui-input-shadow-border-hover, var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak)),
+  // The border reuses the --kui-input-shadow-border-hover token so hover + focus coordinate when themed,
+  // but keeps focus's OWN `shadow-border-primary` semantic fallback so the default (unthemed) render stays
+  // byte-identical (hover = primary-weak, focus = primary). --kui-input-shadow-focus is the outer ring.
+  box-shadow: var(--kui-input-shadow-border-hover, var(--kui-shadow-border-primary, $kui-shadow-border-primary)),
     var(--kui-input-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
 }
 
@@ -111,10 +112,11 @@
 }
 
 @mixin inputErrorFocus {
-  // Two shadows: the (coordinated hover/focus) error border + the outer focus glow (reuses --kui-input-shadow-focus).
+  // Reuses the --kui-input-shadow-border-error-hover token (coordinates with error-hover when themed) but keeps
+  // error-focus's OWN `shadow-border-danger` fallback for a byte-identical default; --kui-input-shadow-focus is the ring.
   box-shadow: var(
     --kui-input-shadow-border-error-hover,
-    var(--kui-shadow-border-danger-strong, $kui-shadow-border-danger-strong)
+    var(--kui-shadow-border-danger, $kui-shadow-border-danger)
   ),
     var(--kui-input-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
 }

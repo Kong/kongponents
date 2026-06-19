@@ -204,7 +204,7 @@ $kEmptyStateFeaturesContainerGap: var(--kui-space-70, $kui-space-70);
       &.has-background {
         background-color: var(--kui-empty-state-icon-color-background, var(--kui-color-background-decorative-aqua-weakest, $kui-color-background-decorative-aqua-weakest));
         border-radius: var(--kui-empty-state-icon-border-radius, var(--kui-border-radius-20, $kui-border-radius-20));
-        color: var(--kui-empty-state-icon-background-color-text, var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua));
+        color: var(--kui-empty-state-icon-color-text-background, var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua));
         padding: var(--kui-empty-state-icon-padding, var(--kui-space-40, $kui-space-40));
 
         :deep(#{$kongponentsKongIconSelector}) {

@@ -317,7 +317,8 @@ onBeforeUnmount(() => {
 
     &:focus,
     &:focus-within {
-      background-color: var(--kui-truncate-collapse-trigger-color-background-hover, var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker));
+      // Coordinates with :hover via the shared -hover token
+      background-color: var(--kui-truncate-collapse-trigger-color-background-hover, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak));
 
       :deep(#{$kongponentsKongIconSelector}) {
         color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger) !important;

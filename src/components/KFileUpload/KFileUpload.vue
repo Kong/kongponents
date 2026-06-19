@@ -475,7 +475,8 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
 
       &:focus:not(.disabled),
       &:focus-visible {
-        border-color: var(--kui-file-upload-dropzone-color-border-hover, var(--kui-color-border-primary-weak, $kui-color-border-primary-weak));
+        // Coordinates with :hover via the shared -hover token
+        border-color: var(--kui-file-upload-dropzone-color-border-hover, var(--kui-color-border-primary, $kui-color-border-primary));
         border-style: solid;
         box-shadow: var(--kui-file-upload-dropzone-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
       }

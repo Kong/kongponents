@@ -159,8 +159,9 @@ $kSegmentedControlSmallHeight: 32px;
     }
 
     &:focus:not([disabled]) {
-      border-color: var(--kui-segmented-control-color-border-hover, var(--kui-color-border-primary-strong, $kui-color-border-primary-strong));
-      color: var(--kui-segmented-control-color-text-hover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
+      // Coordinates with :hover/:focus-visible via the shared -hover token
+      border-color: var(--kui-segmented-control-color-border-hover, var(--kui-color-border-primary-stronger, $kui-color-border-primary-stronger));
+      color: var(--kui-segmented-control-color-text-hover, var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger));
       z-index: 3;
     }
 
