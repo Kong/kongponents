@@ -50,7 +50,7 @@ jobs:
             ./LICENSE
 
       - name: Run Cypress component tests
-        uses: cypress-io/github-action@783cb3f07983868532cabaedaa1e6c00ff4786a8 # v7.1.9
+        uses: cypress-io/github-action@948d67d3074f1bbb6379c8bdbb04e95d2f8e593f # v7.4.0
         with:
           install: false
           command: pnpm test
