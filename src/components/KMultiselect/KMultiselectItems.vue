@@ -141,11 +141,11 @@ defineExpose({ setFocus: setItemFocus })
 }
 
 .multiselect-group-title {
-  color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+  color: var(--kui-multiselect-group-color-text, var(--kui-color-text-neutral, $kui-color-text-neutral));
   display: block;
-  font-family: var(--kui-font-family-text, $kui-font-family-text);
+  font-family: var(--kui-multiselect-group-font-family, var(--kui-font-family-text, $kui-font-family-text));
   font-size: var(--kui-font-size-20, $kui-font-size-20);
-  font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
+  font-weight: var(--kui-multiselect-group-font-weight, var(--kui-font-weight-medium, $kui-font-weight-medium));
   line-height: var(--kui-line-height-20, $kui-line-height-20);
   padding: var(--kui-space-50, $kui-space-50);
   pointer-events: none;

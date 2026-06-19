@@ -500,7 +500,7 @@ $kFileUploadInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to
       margin-top: var(--kui-space-40, $kui-space-40);
 
       &.error {
-        color: var(--kui-file-upload-help-text-color-text-error, var(--kui-color-text-danger, $kui-color-text-danger));
+        color: var(--kui-color-text-danger, $kui-color-text-danger);
       }
     }
   }

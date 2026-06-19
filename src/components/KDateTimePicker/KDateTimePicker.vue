@@ -549,8 +549,10 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
   }
 
   :deep(.popover .popover-container) {
-    border: var(--kui-border-width-10, kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    border-color: var(--kui-pop-color-border, var(--kui-color-border, $kui-color-border));
     border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
+    border-style: solid;
+    border-width: var(--kui-border-width-10, $kui-border-width-10);
     max-height: 90vh;
     max-width: 350px;
     min-width: 290px;
@@ -630,8 +632,8 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
 @mixin vCalendarCssVarsOverrides {
   // stylelint-disable custom-property-pattern
 
-  --vc-white: var(--kui-color-text-inverse, #{$kui-color-text-inverse});
-  --vc-focus-ring: var(--kui-shadow-focus, #{$kui-shadow-focus});
+  --vc-white: var(--kui-date-time-picker-day-color-text-selected, var(--kui-color-text-inverse, #{$kui-color-text-inverse}));
+  --vc-focus-ring: var(--kui-date-time-picker-shadow-focus, var(--kui-shadow-focus, #{$kui-shadow-focus}));
 
   --vc-header-arrow-color: var(--kui-color-text-neutral, #{$kui-color-text-neutral});
   --vc-header-title-color: var(--kui-color-text, #{$kui-color-text});
@@ -646,8 +648,8 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
   --vc-font-bold: var(--kui-font-weight-semibold, #{$kui-font-weight-semibold});
 
   .vc-blue {
-    --vc-accent-200: var(--kui-color-background-primary-weakest, #{$kui-color-background-primary-weakest});
-    --vc-accent-600: var(--kui-color-background-primary, #{$kui-color-background-primary});
+    --vc-accent-200: var(--kui-date-time-picker-day-color-background-in-range, var(--kui-color-background-primary-weakest, #{$kui-color-background-primary-weakest}));
+    --vc-accent-600: var(--kui-date-time-picker-day-color-background-selected, var(--kui-color-background-primary, #{$kui-color-background-primary}));
     --vc-accent-900: var(--kui-color-text, #{$kui-color-text});
   }
 }
@@ -698,17 +700,17 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
 
     // day
     .vc-day {
-      color: var(--kui-color-text, $kui-color-text);
+      color: var(--kui-date-time-picker-day-color-text, var(--kui-color-text, $kui-color-text));
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
 
       // today
       &.is-today {
         .vc-day-content {
-          background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+          background-color: var(--kui-date-time-picker-day-color-background-today, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
 
           &.vcal-day-base,
           &.vcal-day-drag-base {
-            background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+            background-color: var(--kui-date-time-picker-day-color-background-in-range, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
           }
 
           &.vcal-day-start,
@@ -716,14 +718,14 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
           &.vcal-day-end,
           &.vcal-drag-day-end,
           &.vc-highlight-content-solid {
-            background-color: var(--kui-color-background-primary, $kui-color-background-primary);
+            background-color: var(--kui-date-time-picker-day-color-background-selected, var(--kui-color-background-primary, $kui-color-background-primary));
           }
         }
       }
 
       .vc-day-content {
         &:hover:not(.vc-disabled) {
-          background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+          background-color: var(--kui-date-time-picker-day-color-background-hover, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
         }
 
         &.vcal-day-base {
@@ -739,12 +741,12 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
         &.vcal-drag-day-end,
         &.vc-highlight-content-solid {
           &:hover {
-            background-color: var(--kui-color-background-primary-strong, $kui-color-background-primary-strong) !important;
+            background-color: var(--kui-date-time-picker-day-color-background-selected-hover, var(--kui-color-background-primary-strong, $kui-color-background-primary-strong)) !important;
           }
         }
 
         &.vc-disabled {
-          color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+          color: var(--kui-date-time-picker-day-color-text-disabled, var(--kui-color-text-disabled, $kui-color-text-disabled));
           opacity: 1;
           pointer-events: none;
         }
@@ -774,7 +776,9 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
 
           select {
             background-color: var(--kui-color-background, $kui-color-background);
-            border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+            border-color: var(--kui-color-border, $kui-color-border);
+            border-style: solid;
+            border-width: var(--kui-border-width-10, $kui-border-width-10);
           }
         }
       }
@@ -812,7 +816,9 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
     // stylelint-disable-next-line no-duplicate-selectors
     & {
       background-color: var(--kui-color-background, $kui-color-background);
-      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+      border-color: var(--kui-color-border, $kui-color-border);
+      border-style: solid;
+      border-width: var(--kui-border-width-10, $kui-border-width-10);
       box-shadow: var(--kui-shadow, $kui-shadow);
       width: 100%;
     }
